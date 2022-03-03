@@ -1,4 +1,4 @@
-Feature: Sign Up with Attributes
+Feature: Custom Slots 
 
   Amazon Congito User Pools allow for standard OAuth attributes to be required:
   > https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html
@@ -6,6 +6,18 @@ Feature: Sign Up with Attributes
 
   Background:
     Given I'm running the example "ui/components/authenticator/custom-slots"
+
+@angular @react @vue  
+  Scenario: Has custom Confirm Sign Up Footer and Header slot text
+    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"
+    When I click the "Create Account" tab
+    When I type a new "email"
+    When I type a custom password from label "Password:"
+    When I type a custom confirm password from label "Confirm Password:"
+    And I click the "Create Account" button
+    Then I see "Enter Information:"
+    Then I see "Footer Information"
+
 
 @angular @react @vue
   Scenario: Has Confirm Reset Password Verify User Footer and Header slot text
@@ -69,13 +81,3 @@ Feature: Sign Up with Attributes
     Then I see "Sign in to your account"
 
 
-@angular @react @vue  
-  Scenario: Has custom Confirm Sign Up Footer and Header slot text
-    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"
-    When I click the "Create Account" tab
-    When I type a new "email"
-    And I type my password
-    And I confirm my password
-    And I click the "Create Account" button
-    Then I see "Enter Information:"
-    Then I see "Footer Information"

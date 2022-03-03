@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import kebabCase from 'lodash/kebabCase';
 import userEvent from '@testing-library/user-event';
 
@@ -7,6 +7,7 @@ import { AUTO_GENERATED_ID_PREFIX } from '../../shared/utils';
 import { ComponentClassNames } from '../../shared';
 import { ComponentPropsToStylePropsMap } from '../../types';
 import { SwitchField } from '../SwitchField';
+import { Button } from '../../Button';
 
 describe('Switch Field', () => {
   const label = 'My switch label';
@@ -157,7 +158,7 @@ describe('Switch Field', () => {
       let input = await screen.findByLabelText(label);
       expect(input).toBeChecked();
 
-      updateControlledValue(false);
+      act(() => updateControlledValue(false));
       input = await screen.findByLabelText(label);
       expect(input).not.toBeChecked();
     });
@@ -183,13 +184,29 @@ describe('Switch Field', () => {
     });
 
     it('should fire the onChange function with a checkbox change event', async () => {
-      const onChange = jest.fn();
-      const { container } = render(
-        <SwitchField label={label} onChange={onChange} />
-      );
-      const labelField = container.getElementsByTagName('label')[0];
-      userEvent.click(labelField);
-      expect(onChange).toHaveBeenCalled();
+      const originalLog = console.log;
+      console.log = jest.fn();
+
+      const SwitchFieldControlledExample = () => {
+        const [isChecked, setIsChecked] = React.useState(true);
+        console.log(`isChecked set to ${isChecked}`);
+
+        return (
+          <>
+            <SwitchField label="This is a switch" isChecked={isChecked} />
+            <Button onClick={() => setIsChecked(!isChecked)}>Switch On</Button>
+          </>
+        );
+      };
+
+      const { container } = render(<SwitchFieldControlledExample />);
+      const button = container.getElementsByTagName('button')[0];
+
+      expect(console.log).toHaveBeenCalledWith('isChecked set to true');
+      userEvent.click(button);
+      expect(console.log).toHaveBeenCalledWith('isChecked set to false');
+
+      console.log = originalLog;
     });
 
     it('should set the id on the input element', async () => {

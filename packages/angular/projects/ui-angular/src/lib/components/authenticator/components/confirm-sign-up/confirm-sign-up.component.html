@@ -1,4 +1,4 @@
-<div data-amplify-container>
+<ng-container>
   <form data-amplify-form (submit)="onSubmit($event)" (input)="onInput($event)">
     <fieldset
       class="amplify-flex"
@@ -17,6 +17,10 @@
       <amplify-form-field
         name="confirmation_code"
         autocomplete="one-time-code"
+        [labelHidden]="grabField('confirmation_code', 'labelHidden', true)"
+        [placeholder]="grabField('confirmation_code', 'placeholder', null)"
+        [required]="grabField('confirmation_code', 'required', true)"
+        [label]="grabField('confirmation_code', 'label', null)"
       ></amplify-form-field>
 
       <button amplify-button variation="primary" fullWidth="true" type="submit">
@@ -39,4 +43,4 @@
       [context]="context"
     ></amplify-slot>
   </form>
-</div>
+</ng-container>

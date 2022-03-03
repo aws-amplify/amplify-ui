@@ -8,13 +8,24 @@ import {
   ValidationError,
   translate,
   getFormDataFromEvent,
+  formField,
 } from '@aws-amplify/ui';
+import { propsCreator } from '../composables/useUtils';
 
 import { useAuth, useAuthenticator } from '../composables/useAuth';
 import PasswordControl from './password-control.vue';
 import { createSharedComposable } from '@vueuse/core';
 
 const { state, send } = useAuth();
+
+const {
+  value: { context },
+} = state;
+
+const formOverrides = context?.config?.formFields
+  ?.confirmResetPassword as formField;
+const confOR = formOverrides?.['confirmation_code'];
+
 const useAuthShared = createSharedComposable(useAuthenticator);
 const props = useAuthShared();
 
@@ -40,6 +51,9 @@ const confirmResetPasswordText = computed(() => translate('Submit'));
 const codeText = computed(() => translate('Code'));
 const newPasswordLabel = computed(() => translate('New password'));
 const confirmPasswordLabel = computed(() => translate('Confirm Password'));
+
+const label = confOR?.label ?? confirmationCodeText;
+const labelHidden = confOR?.labelHidden;
 
 // Methods
 const onConfirmResetPasswordSubmit = (e: Event): void => {
@@ -99,63 +113,54 @@ function onBlur(e: Event) {
               style="flex-direction: column"
             >
               <base-label
-                class="amplify-visually-hidden amplify-label"
+                class="amplify-label"
+                :class="{ 'amplify-visually-hidden': labelHidden ?? true }"
                 for="amplify-field-d653"
               >
-                {{ confirmationCodeText }}
+                {{ label }}
               </base-label>
               <base-wrapper class="amplify-flex">
                 <base-input
+                  :placeholder="confOR?.placeholder ?? codeText"
+                  :required="confOR?.required ?? true"
                   class="amplify-input amplify-field-group__control"
                   id="amplify-field-d653"
                   aria-invalid="false"
                   autocomplete="one-time-code"
-                  :placeholder="codeText"
                   name="confirmation_code"
-                  required
                   type="number"
                 ></base-input>
               </base-wrapper>
             </base-wrapper>
-            <base-wrapper
-              class="
-                amplify-flex
-                amplify-field
-                amplify-textfield
-                amplify-passwordfield
-                password-field
+
+            <password-control
+              v-bind="
+                propsCreator('password', newPasswordLabel, formOverrides, true)
               "
-              style="flex-direction: column"
-            >
-              <password-control
-                name="password"
-                :label="newPasswordLabel"
-                autocomplete="current-password"
-                :ariainvalid="
+              name="password"
+              autocomplete="current-password"
+              :ariainvalid="
                   !!(actorContext.validationError as ValidationError)['confirm_password']
                 "
-                @blur="onBlur"
-              />
-            </base-wrapper>
-            <base-wrapper
-              class="
-                amplify-flex
-                amplify-field
-                amplify-textfield
-                amplify-passwordfield
+              @blur="onBlur"
+            />
+
+            <password-control
+              v-bind="
+                propsCreator(
+                  'confirm_password',
+                  confirmPasswordLabel,
+                  formOverrides,
+                  true
+                )
               "
-              style="flex-direction: column"
-            >
-              <password-control
-                name="confirm_password"
-                :label="confirmPasswordLabel"
-                autocomplete="new-password"
-                :ariainvalid="
+              name="confirm_password"
+              autocomplete="new-password"
+              :ariainvalid="
                   !!(actorContext.validationError as ValidationError)['confirm_password']
                 "
-                @blur="onBlur"
-              />
-            </base-wrapper>
+              @blur="onBlur"
+            />
           </base-wrapper>
           <base-footer class="amplify-flex" style="flex-direction: column">
             <base-box

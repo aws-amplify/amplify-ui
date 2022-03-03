@@ -1,0 +1,23 @@
+```tsx{3-10, 17}
+
+const formFields = {
+  signIn: {
+    username: {
+      dialCode: '+227'
+    },
+  },
+  signUp: {
+    phone_number: {
+      dialCode: '+227'
+    },
+  },
+}
+
+export default function App() {
+  return (
+    <Authenticator formFields={formFields}>
+      {({ signOut }) => <button onClick={signOut}>Sign out</button>}
+    </Authenticator>
+  );
+}
+```

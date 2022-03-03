@@ -1,0 +1,21 @@
+```tsx{3-10, 17}
+
+const formFields = {
+  signIn: {
+    username: {
+      labelHidden: false,
+      placeholder: 'Enter Your Email Here',
+      isRequired: true,
+      label: 'Email:'
+    },
+  },
+}
+
+export default function App() {
+  return (
+    <Authenticator formFields={formFields}>
+      {({ signOut }) => <button onClick={signOut}>Sign out</button>}
+    </Authenticator>
+  );
+}
+```

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { Checkbox } from '../Checkbox';
@@ -153,7 +153,7 @@ describe('Checkbox test suite', () => {
       expect(button).not.toHaveAttribute('data-disabled');
       expect(button).toHaveAttribute('data-focus', 'false');
       expect(button).toHaveClass(ComponentClassNames.CheckboxButton);
-      updateCheckedFunction(true);
+      act(() => updateCheckedFunction(true));
       button = await screen.findByTestId(
         `${basicProps.testId}-${ComponentClassNames.CheckboxButton}`
       );
