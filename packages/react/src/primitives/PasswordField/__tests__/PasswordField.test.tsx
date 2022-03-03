@@ -4,6 +4,8 @@ import userEvent from '@testing-library/user-event';
 
 import { PasswordField } from '../PasswordField';
 import { ComponentClassNames, SharedText } from '../../shared';
+import { LABEL_HIDDEN_DEPRECATED } from '../../../helpers/messages';
+const originalWarn = console.warn;
 
 const ariaLabelText = SharedText.ShowPasswordButton.ariaLabel;
 
@@ -133,6 +135,39 @@ describe('PasswordField component', () => {
       expect(button.getAttribute('aria-label')).toBe(
         ariaLabelText.showPassword
       );
+    });
+  });
+
+  describe('Label', () => {
+    beforeAll(() => {
+      console.warn = jest.fn();
+    });
+    afterAll(() => {
+      console.warn = originalWarn;
+    });
+
+    it('should render expected field classname', async () => {
+      render(<PasswordField label="Password" />);
+      const label = (await screen.findByText('Password')) as HTMLLabelElement;
+      expect(label).toHaveClass(ComponentClassNames.Label);
+    });
+
+    it('should show deprecation message when labelHidden is true', async () => {
+      render(<PasswordField label="Password" labelHidden />);
+      expect(console.warn).toHaveBeenLastCalledWith(LABEL_HIDDEN_DEPRECATED);
+    });
+
+    it('should have `amplify-visually-hidden` class when labelHidden is true', async () => {
+      render(<PasswordField label="Password" labelHidden />);
+      const label = await screen.findByText('Password');
+      expect(label).toHaveClass('amplify-visually-hidden');
+      expect(console.warn).toHaveBeenLastCalledWith(LABEL_HIDDEN_DEPRECATED);
+    });
+
+    it('should have `amplify-visually-hidden` class when isLabelHidden is true', async () => {
+      render(<PasswordField label="Password" isLabelHidden />);
+      const label = await screen.findByText('Password');
+      expect(label).toHaveClass('amplify-visually-hidden');
     });
   });
 });
