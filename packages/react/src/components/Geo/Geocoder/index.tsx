@@ -3,6 +3,8 @@ import { createAmplifyGeocoder } from 'maplibre-gl-js-amplify';
 import { useEffect } from 'react';
 import { useControl, useMap } from 'react-map-gl';
 
+import type { GeocoderProps } from './geocoder.d';
+
 const GEOCODER_OPTIONS = {
   maplibregl,
   marker: { color: '#4668F2' },
@@ -13,7 +15,11 @@ const GEOCODER_OPTIONS = {
 
 const GEOCODER_CONTAINER = 'geocoder-container';
 
-export const Geocoder = ({ position = 'top-right', style = {}, ...props }) => {
+export const Geocoder = ({
+  position = 'top-right',
+  style = {},
+  ...props
+}: GeocoderProps) => {
   const { current: map } = useMap();
 
   if (map) {
@@ -22,7 +28,8 @@ export const Geocoder = ({ position = 'top-right', style = {}, ...props }) => {
         createAmplifyGeocoder({
           ...GEOCODER_OPTIONS,
           ...props,
-        }) as any
+        }) as any,
+      { position }
     );
   } else {
     useEffect(() => {

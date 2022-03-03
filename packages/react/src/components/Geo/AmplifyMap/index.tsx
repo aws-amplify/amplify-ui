@@ -3,12 +3,17 @@ import { useInterpret, useSelector } from '@xstate/react';
 import { identity } from 'lodash';
 import maplibregl from 'maplibre-gl';
 import { AmplifyMapLibreRequest } from 'maplibre-gl-js-amplify';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ReactMapGL from 'react-map-gl';
+import type { MapProps } from 'react-map-gl';
 
 import { View } from '../../../primitives';
 
-export const AmplifyMap = ({ children, style, ...rest }: any) => {
+export const AmplifyMap = ({
+  children,
+  style,
+  ...rest
+}: Omit<MapProps, 'mapboxAccessToken' | 'mapLib' | 'transformRequest'>) => {
   const mapRef = useRef<any>();
   const [transformRequest, setTransformRequest] = useState<any>();
   const service = useInterpret(geoMachine);
@@ -16,7 +21,6 @@ export const AmplifyMap = ({ children, style, ...rest }: any) => {
 
   const styleProps = {
     height: '100vh',
-    position: 'relative',
     width: '100%',
     ...style,
   };
