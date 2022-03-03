@@ -4,7 +4,7 @@
 name: Tests
 
 concurrency:
-  group: ${{ github.event.pull_request.id || github.ref }}
+  group: e2e-${{ github.event.pull_request.id || github.ref }}
   cancel-in-progress: true
 
 on:
