@@ -3,11 +3,30 @@ name: Run and Test Builds
 on:
   pull_request:
     branches: [main, actions]
-
 jobs:
   build:
     runs-on: ubuntu-latest
     environment: ci
+    steps: 
+      - name: Checkout Amplify UI
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+      - name: Setup Node.js LTS
+        uses: actions/setup-node@v2
+        with:
+          node-version: lts/*
+          cache: 'yarn'
+      - name: Ignore monorepo postcss.config.js
+        run: mv postcss.config.js _postcss.config.js
+      - name: Add Amplify CLI
+        run: yarn global add @aws-amplify/cli
+      - name: Pull down AWS environments
+        run: yarn pull
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        working-directory: ./canary
     strategy:
       fail-fast: false
       matrix:
@@ -21,29 +40,10 @@ jobs:
           - vue/vite
           - vue/vuecli
     steps:
-      - name: Checkout Amplify UI
-        uses: actions/checkout@v2
-        with:
-          persist-credentials: false
-      - name: Setup Node.js LTS
-        uses: actions/setup-node@v2
-        with:
-          node-version: lts/*
-          cache: 'yarn'
-      - name: Ignore monorepo postcss.config.js
-        run: mv postcss.config.js _postcss.config.js
-      - name: Install packages
+     - name: Install packages
         run: yarn install --no-lockfile
         working-directory: ./canary/apps/${{ matrix.path }}
-      - name: Add Amplify CLI
-        run: yarn global add @aws-amplify/cli
-      - name: Pull down AWS environments
-        run: yarn pull
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        working-directory: ./canary
-      - name: Build example app
+     - name: Build example app
         run: yarn build
         working-directory: ./canary/apps/${{ matrix.path }}
       - name: Install cypress
