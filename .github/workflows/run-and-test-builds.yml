@@ -2,7 +2,7 @@ name: Run and Test Builds
 
 on:
   schedule:
-    - cron: '*/20 * * * *' # Run every  minutes
+    - cron: '*/15 * * * *' # Run every  minutes
 
 jobs:
   build:
