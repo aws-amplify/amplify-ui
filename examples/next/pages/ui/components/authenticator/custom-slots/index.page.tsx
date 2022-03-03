@@ -234,7 +234,7 @@ const formFields = {
   setupTOTP: {
     QR: {
       totpIssuer: 'test issuer',
-      totpUsername: 'amlify_qr_test_user',
+      totpUsername: 'amplify_qr_test_user',
     },
     confirmation_code: {
       labelHidden: false,
