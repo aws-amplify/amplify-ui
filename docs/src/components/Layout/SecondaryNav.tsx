@@ -13,6 +13,7 @@ import {
   navigationComponents,
   utilityComponents,
 } from '../../data/links';
+import LinkButton from './LinkButton';
 
 const NavLinks = ({
   items,
@@ -34,20 +35,16 @@ const NavLink = ({ href, children, onClick, platforms = [] }) => {
   const { pathname, query } = useRouter();
   const isCurrent = pathname === href;
   const { platform = 'react' } = query;
+  const classNames = `docs-secondary-nav-link ${isCurrent ? 'current' : ''}`;
 
   if (platforms.length && !platforms.includes(platform)) {
     return null;
   }
   return (
-    <Link href={{ pathname: href, query }}>
-      <div>
-        <a
-          onClick={onClick}
-          className={`docs-secondary-nav-link ${isCurrent ? 'current' : ''}`}
-        >
-          {children}
-        </a>
-      </div>
+    <Link href={{ pathname: href, query }} passHref>
+      <LinkButton href={href} onClick={onClick} classNames={classNames}>
+        {children}
+      </LinkButton>
     </Link>
   );
 };

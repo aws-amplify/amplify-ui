@@ -4,7 +4,6 @@ import { isDesignToken } from '@aws-amplify/ui';
 import {
   BaseStyleProps,
   ComponentPropsToStylePropsMap,
-  ComponentPropsToStylePropsMapKeys,
   GridItemStyleProps,
   GridSpanType,
   ResponsiveObject,
@@ -16,7 +15,7 @@ import { useBreakpoint } from './responsive/useBreakpoint';
 import { Breakpoint, Breakpoints } from '../types/responsive';
 
 import { useTheme } from '../../hooks';
-import { isNullOrEmptyString } from './utils';
+import { isEmptyString, isNullOrEmptyString } from './utils';
 import { FlexContainerStyleProps } from '../types/flex';
 
 /**
@@ -45,7 +44,7 @@ export const useTransformStyleProps = (props: ViewProps): ViewProps => {
   };
 };
 
-export const usePropStyles = (props: ViewProps, style: React.CSSProperties) => {
+export const useStyles = (props: ViewProps, style: React.CSSProperties) => {
   const {
     breakpoints: { values: breakpoints, defaultBreakpoint },
   } = useTheme();
@@ -126,37 +125,25 @@ export const convertStylePropsToStyleObj: ConvertStylePropsToStyleObj = ({
   breakpoint,
   breakpoints,
 }) => {
-  ComponentPropsToStylePropsMapKeys.filter(
-    (stylePropKey) => !isNullOrEmptyString(props[stylePropKey])
-  ).forEach((stylePropKey: any) => {
-    let value = props[stylePropKey];
-    // if styleProp is a DesignToken use its toString()
-    if (isDesignToken(value)) {
-      value = value.toString();
-    } else {
-      value = getValueAtCurrentBreakpoint(value, breakpoint, breakpoints);
-    }
-    const reactStyleProp = ComponentPropsToStylePropsMap[stylePropKey];
-    style = { ...style, [reactStyleProp]: value };
-  });
-  return style;
-};
-
-/**
- * Filter out known style props to prevent errors adding invalid HTML attributes
- * @param props
- * @returns non styled props
- */
-export const useNonStyleProps = (props: ViewProps) => {
-  return React.useMemo(() => {
-    const nonStyleProps = {};
-    Object.keys(props).forEach((propKey) => {
+  const nonStyleProps = {};
+  Object.keys(props)
+    .filter((propKey) => props[propKey] != null)
+    .forEach((propKey) => {
       if (!(propKey in ComponentPropsToStylePropsMap)) {
         nonStyleProps[propKey] = props[propKey];
+      } else if (!isEmptyString(props[propKey])) {
+        let value = props[propKey];
+        // if styleProp is a DesignToken use its toString()
+        if (isDesignToken(value)) {
+          value = value.toString();
+        } else {
+          value = getValueAtCurrentBreakpoint(value, breakpoint, breakpoints);
+        }
+        const reactStyleProp = ComponentPropsToStylePropsMap[propKey];
+        style = { ...style, [reactStyleProp]: value };
       }
     });
-    return nonStyleProps;
-  }, [props]);
+  return { propStyles: style, nonStyleProps };
 };
 
 /**
