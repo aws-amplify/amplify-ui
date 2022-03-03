@@ -1,4 +1,4 @@
-// https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html
+/** Array of auth fields that we supply defaults with */
 export const signUpFieldsWithDefault = [
   'birthdate',
   'email',
@@ -13,8 +13,10 @@ export const signUpFieldsWithDefault = [
   'website',
 ] as const;
 
+/** Auth fields that we supply defaults with */
 export type SignUpFieldsWithDefaults = typeof signUpFieldsWithDefault[number];
 
+/** Array of auth fields that we do not supply defaults with */
 export const signUpFieldsWithoutDefault = [
   'address',
   'gender',
@@ -24,40 +26,48 @@ export const signUpFieldsWithoutDefault = [
   'zoneinfo',
 ] as const;
 
+/** Auth fields that we do not supply defaults with */
 export type SignUpFieldsWithoutDefaults =
   typeof signUpFieldsWithoutDefault[number];
 
+/** All known auth fields */
 export type SignUpAttribute =
   | SignUpFieldsWithDefaults
   | SignUpFieldsWithoutDefaults;
 
+/** Fields that are common in all routes */
 export type CommonFields = 'username' | 'password' | 'confirm_password';
 
+/** Array of known login mechanisms */
 export const LoginMechanismArray = [
   'username',
   'email',
   'phone_number',
 ] as const;
 
+/** Login mechanisms that can be used to sign in */
 export type LoginMechanism = typeof LoginMechanismArray[number];
 
+/** List of social provider Authenticator supports */
 export type SocialProvider = 'amazon' | 'apple' | 'facebook' | 'google';
 
-// Auth fields that we provide default fields with
+/** Input fields that we provide default fields with */
 export type AuthFieldsWithDefaults =
   | LoginMechanism
   | SignUpFieldsWithDefaults
   | 'confirmation_code'
   | 'password';
 
-export interface InputAttributes {
+/** Maps default attributes values for an input */
+export interface InputAttributeDefaults {
   label: string;
   type: string;
   placeholder: string;
   autocomplete?: string;
 }
 
+/** Maps default attribute values for each Auth Field */
 export type AuthInputAttributes = Record<
   AuthFieldsWithDefaults,
-  InputAttributes
+  InputAttributeDefaults
 >;
