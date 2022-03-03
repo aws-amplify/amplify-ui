@@ -274,8 +274,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-divider-border-color: var(--amplify-colors-border-primary);
         --amplify-components-divider-border-width: var(--amplify-border-widths-medium);
         --amplify-components-divider-label-color: var(--amplify-colors-font-tertiary);
-        --amplify-components-divider-label-padding-inline: var(--amplify-space-xs);
-        --amplify-components-divider-label-padding-block: 0;
+        --amplify-components-divider-label-padding-inline: var(--amplify-space-medium);
         --amplify-components-divider-label-font-size: var(--amplify-font-sizes-small);
         --amplify-components-divider-label-background-color: var(--amplify-colors-background-primary);
         --amplify-components-divider-small-border-width: var(--amplify-border-widths-small);
