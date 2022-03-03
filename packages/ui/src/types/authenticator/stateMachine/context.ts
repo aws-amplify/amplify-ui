@@ -5,20 +5,6 @@ import { CodeDeliveryDetails } from 'amazon-cognito-identity-js';
 import { LoginMechanism, SignUpAttribute, SocialProvider } from '../attributes';
 import { defaultServices } from '../../../machines/authenticator/defaultServices';
 
-interface BaseFormContext {
-  authAttributes?: Record<string, any>;
-  challengeName?: string;
-  requiredAttributes?: Array<string>;
-  formValues?: AuthFormData;
-  touched?: AuthFormData;
-  intent?: string;
-  remoteError?: string;
-  user?: CognitoUserAmplify;
-  validationError?: ValidationError;
-  codeDeliveryDetails?: CodeDeliveryDetails;
-  country_code?: string;
-}
-
 export interface ActorDoneData {
   authAttributes?: AuthFormData;
   intent?: string;
@@ -43,6 +29,19 @@ export interface AuthContext {
   actorDoneData?: Omit<ActorDoneData, 'user'>; // data returned from actors when they finish and reach their final state
 }
 
+interface BaseFormContext {
+  authAttributes?: Record<string, any>;
+  challengeName?: string;
+  requiredAttributes?: Array<string>;
+  formValues?: AuthFormData;
+  touched?: AuthFormData;
+  intent?: string;
+  remoteError?: string;
+  user?: CognitoUserAmplify;
+  validationError?: ValidationError;
+  codeDeliveryDetails?: CodeDeliveryDetails;
+  country_code?: string;
+}
 export interface SignInContext extends BaseFormContext {
   loginMechanisms: Required<AuthContext>['config']['loginMechanisms'];
   socialProviders: Required<AuthContext>['config']['socialProviders'];
