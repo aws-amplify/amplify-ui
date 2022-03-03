@@ -21,7 +21,7 @@ const propsToCode = (props: StepperFieldPropControlsProps) => {
     (props.size ? `\n  size="${props.size}"` : '') +
     `
   label="${props.label}"` +
-    (props.labelHidden ? `\n  labelHidden=${props.labelHidden}` : '') +
+    (props.isLabelHidden ? `\n  labelHidden=${props.isLabelHidden}` : '') +
     `
 />`
   );
@@ -49,7 +49,7 @@ export const StepperFieldDemo = () => {
         size={stepperFieldProps.size}
         variation={stepperFieldProps.variation}
         step={stepperFieldProps.step}
-        labelHidden={stepperFieldProps.labelHidden}
+        isLabelHidden={stepperFieldProps.isLabelHidden}
       />
     </Demo>
   );

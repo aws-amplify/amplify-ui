@@ -32,7 +32,7 @@ export const TextAreaFieldDemo = () => {
     isReadOnly: false,
     isRequired: false,
     label: 'Last name',
-    labelHidden: false,
+    isLabelHidden: false,
     name: 'last_name',
     placeholder: 'Baggins',
     rows: 3,
@@ -65,7 +65,7 @@ export const TextAreaFieldDemo = () => {
     isDisabled,
     isReadOnly,
     isRequired,
-    labelHidden,
+    isLabelHidden,
     placeholder,
     size,
     rows,
@@ -113,7 +113,7 @@ export const TextAreaFieldDemo = () => {
       : '') +
     `
   label="${label}"
-  labelHidden={${labelHidden}} ` +
+  isLabelHidden={${isLabelHidden}} ` +
     (maxLength
       ? `
   maxLength="${maxLength}"`
@@ -184,7 +184,7 @@ export const TextAreaFieldDemo = () => {
           justifyContent as FlexContainerStyleProps['justifyContent']
         }
         label={label as TextAreaFieldProps['label']}
-        labelHidden={labelHidden as unknown as boolean}
+        isLabelHidden={isLabelHidden as unknown as boolean}
         maxLength={maxLength as TextAreaFieldProps['maxLength']}
         name={name as TextAreaFieldProps['name']}
         placeholder={placeholder as TextAreaFieldProps['placeholder']}

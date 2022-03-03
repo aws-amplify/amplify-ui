@@ -21,25 +21,25 @@ export const useSearchFieldProps: UseSearchFieldFieldProps = (
   const [variation, setVariation] = React.useState<
     SearchFieldProps['variation']
   >(initialValues.variation);
-  const [labelHidden, setLabelHidden] = React.useState<
-    SearchFieldProps['labelHidden']
-  >(initialValues.labelHidden);
+  const [isLabelHidden, setIsLabelHidden] = React.useState<
+    SearchFieldProps['isLabelHidden']
+  >(initialValues.isLabelHidden);
   const [isDisabled, setIsDisabled] = React.useState<
     SearchFieldProps['isDisabled']
   >(initialValues.isDisabled);
 
   return {
-    label,
-    setLabel,
-    placeholder,
-    setPlaceholder,
-    size,
-    setSize,
-    variation,
-    setVariation,
-    labelHidden,
-    setLabelHidden,
     isDisabled,
+    isLabelHidden,
+    label,
+    placeholder,
     setIsDisabled,
+    setIsLabelHidden,
+    setLabel,
+    setPlaceholder,
+    setSize,
+    setVariation,
+    size,
+    variation,
   };
 };

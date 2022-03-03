@@ -27,7 +27,7 @@ export const SliderFieldDemo = () => {
           orientation={sliderFieldProps.orientation}
           isDisabled={sliderFieldProps.isDisabled}
           isValueHidden={sliderFieldProps.isValueHidden}
-          labelHidden={sliderFieldProps.labelHidden}
+          isLabelHidden={sliderFieldProps.isLabelHidden}
           emptyTrackColor={sliderFieldProps.emptyTrackColor}
           filledTrackColor={sliderFieldProps.filledTrackColor}
           thumbColor={sliderFieldProps.thumbColor}

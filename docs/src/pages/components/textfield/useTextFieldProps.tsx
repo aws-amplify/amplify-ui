@@ -78,10 +78,10 @@ export const useTextFieldProps: UseTextFieldProps = (initialValues) => {
       'text',
     ],
     [
-      ...React.useState<TextFieldDocsProps['labelHidden']>(
-        initialValues.labelHidden
+      ...React.useState<TextFieldDocsProps['isLabelHidden']>(
+        initialValues.isLabelHidden
       ),
-      'labelHidden',
+      'isLabelHidden',
       'checkbox',
     ],
     [

@@ -17,8 +17,8 @@ export interface SliderFieldPropControlsProps extends SliderFieldProps {
     value: React.SetStateAction<SliderFieldProps['isValueHidden']>
   ) => void;
   setLabel: (value: React.SetStateAction<SliderFieldProps['label']>) => void;
-  setLabelHidden: (
-    value: React.SetStateAction<SliderFieldProps['labelHidden']>
+  setIsLabelHidden: (
+    value: React.SetStateAction<SliderFieldProps['isLabelHidden']>
   ) => void;
   setMax: (value: React.SetStateAction<SliderFieldProps['max']>) => void;
   setMin: (value: React.SetStateAction<SliderFieldProps['min']>) => void;
@@ -38,6 +38,7 @@ export interface SliderFieldPropControlsProps extends SliderFieldProps {
   setThumbColor: (
     value: React.SetStateAction<SliderFieldProps['thumbColor']>
   ) => void;
+  setSize: (value: React.SetStateAction<SliderFieldProps['size']>) => void;
 }
 
 export const SliderFieldPropControls: React.FC<SliderFieldPropControlsProps> =
@@ -45,7 +46,7 @@ export const SliderFieldPropControls: React.FC<SliderFieldPropControlsProps> =
     isDisabled,
     isValueHidden,
     label,
-    labelHidden,
+    isLabelHidden,
     max,
     min,
     orientation,
@@ -60,7 +61,7 @@ export const SliderFieldPropControls: React.FC<SliderFieldPropControlsProps> =
     setIsDisabled,
     setIsValueHidden,
     setLabel,
-    setLabelHidden,
+    setIsLabelHidden,
     setMax,
     setMin,
     setOrientation,
@@ -174,9 +175,9 @@ export const SliderFieldPropControls: React.FC<SliderFieldPropControlsProps> =
         <CheckboxField
           name="label-hidden"
           value="yes"
-          checked={labelHidden}
-          onChange={(event) => setLabelHidden(event.target.checked)}
-          label="labelHidden"
+          checked={isLabelHidden}
+          onChange={(event) => setIsLabelHidden(event.target.checked)}
+          label="isLabelHidden"
         />
       </DemoBox>
     );

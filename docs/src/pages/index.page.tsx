@@ -172,7 +172,7 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
               </Button>
               <TextField
                 label=""
-                labelHidden={true}
+                isLabelHidden={true}
                 isReadOnly={true}
                 className="install-code"
                 outerEndComponent={

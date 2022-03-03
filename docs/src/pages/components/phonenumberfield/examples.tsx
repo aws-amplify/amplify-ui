@@ -29,7 +29,7 @@ export const AccessibilityExample = () => (
   <Flex direction="column">
     <PhoneNumberField
       label="Phone Number"
-      labelHidden={true}
+      isLabelHidden={true}
       defaultCountryCode="+1"
       placeholder="Phone Number"
     />
@@ -55,7 +55,7 @@ export const SizeExample = () => (
         defaultCountryCode="+1"
         label="Small"
         size="small"
-        labelHidden={true}
+        isLabelHidden={true}
       />
       <Button size="small">Small</Button>
     </Flex>
@@ -63,7 +63,7 @@ export const SizeExample = () => (
       <PhoneNumberField
         defaultCountryCode="+1"
         label="Default"
-        labelHidden={true}
+        isLabelHidden={true}
       />
       <Button>Default</Button>
     </Flex>
@@ -72,7 +72,7 @@ export const SizeExample = () => (
         defaultCountryCode="+1"
         label="Large"
         size="large"
-        labelHidden={true}
+        isLabelHidden={true}
       />
       <Button size="large">Large</Button>
     </Flex>

@@ -122,7 +122,7 @@ Text that appears in the form control when it has no value set.
 
 ### Descriptive text
 
-The `descriptiveText` prop will only be visible when `label` is not hidden (i.e., `labelHidden={false}`). You can use it to provide some additional description of the field.
+The `descriptiveText` prop will only be visible when `label` is not hidden (i.e., `isLabelHidden={false}`). You can use it to provide some additional description of the field.
 
 <Example>
   <SelectFieldDescriptiveTextExample />
@@ -215,7 +215,7 @@ import './styles.css';
 
 <SelectField
   label="Fruit"
-  labelHidden={true}
+  isLabelHidden={true}
   className="my-custom-selectfield"
   placeholder="Please select a fruit"
 >
@@ -228,7 +228,7 @@ import './styles.css';
 <Example>
   <SelectField
     label="Fruit"
-    labelHidden={true}
+    isLabelHidden={true}
     className="my-custom-selectfield"
     placeholder="Please select a fruit"
   >
@@ -258,7 +258,7 @@ _Using style props:_
 ```jsx
 <SelectField
   label="Fruit"
-  labelHidden={true}
+  isLabelHidden={true}
   placeholder="Please select a fruit"
   style={{backgroundColor: 'plum'}}
 >
@@ -269,7 +269,7 @@ _Using style props:_
 /* OR */
 <SelectField
   label="Fruit"
-  labelHidden={true}
+  isLabelHidden={true}
   placeholder="Please select a fruit"
   backgroundColor="plum"
 >
@@ -283,7 +283,7 @@ _Using style props:_
   <Flex direction="column">
     <SelectField
       label="Fruit"
-      labelHidden={true}
+      isLabelHidden={true}
       placeholder="Please select a fruit"
       style={{ backgroundColor: 'plum' }}
     >
@@ -293,7 +293,7 @@ _Using style props:_
     </SelectField>
     <SelectField
       label="Fruit"
-      labelHidden={true}
+      isLabelHidden={true}
       placeholder="Please select a fruit"
       backgroundColor="plum"
     >

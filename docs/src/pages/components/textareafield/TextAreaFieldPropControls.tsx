@@ -33,8 +33,8 @@ export interface TextAreaFieldControlsProps extends TextAreaFieldProps {
     value: React.SetStateAction<TextAreaFieldProps['isRequired']>
   ) => void;
   setLabel: (value: React.SetStateAction<TextAreaFieldProps['label']>) => void;
-  setLabelHidden: (
-    value: React.SetStateAction<TextAreaFieldProps['labelHidden']>
+  setIsLabelHidden: (
+    value: React.SetStateAction<TextAreaFieldProps['isLabelHidden']>
   ) => void;
   setMaxLength: (
     value: React.SetStateAction<TextAreaFieldProps['maxLength']>
@@ -65,7 +65,7 @@ export const TextAreaFieldPropControls: TextAreaFieldControlsInterface = ({
   isReadOnly,
   isRequired,
   label,
-  labelHidden,
+  isLabelHidden,
   maxLength,
   name,
   placeholder,
@@ -79,7 +79,7 @@ export const TextAreaFieldPropControls: TextAreaFieldControlsInterface = ({
   setIsReadOnly,
   setIsRequired,
   setLabel,
-  setLabelHidden,
+  setIsLabelHidden,
   setMaxLength,
   setName,
   setPlaceholder,
@@ -195,12 +195,12 @@ export const TextAreaFieldPropControls: TextAreaFieldControlsInterface = ({
           label="hasError"
         />
         <SwitchField
-          checked={labelHidden}
-          name="labelHidden"
+          checked={isLabelHidden}
+          name="isLabelHidden"
           onChange={() => {
-            setLabelHidden(!labelHidden);
+            setIsLabelHidden(!isLabelHidden);
           }}
-          label="labelHidden"
+          label="isLabelHidden"
         />
         <SwitchField
           checked={isDisabled}

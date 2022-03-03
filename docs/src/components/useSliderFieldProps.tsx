@@ -14,8 +14,8 @@ export const useSliderFieldProps: UseSliderFieldProps = (initialValues) => {
     initialValues.isValueHidden
   );
   const [label, setLabel] = React.useState(initialValues.label);
-  const [labelHidden, setLabelHidden] = React.useState(
-    initialValues.labelHidden
+  const [isLabelHidden, setIsLabelHidden] = React.useState(
+    initialValues.isLabelHidden
   );
   const [max, setMax] = React.useState(initialValues.max);
   const [min, setMin] = React.useState(initialValues.min);
@@ -37,7 +37,7 @@ export const useSliderFieldProps: UseSliderFieldProps = (initialValues) => {
     isDisabled,
     isValueHidden,
     label,
-    labelHidden,
+    isLabelHidden,
     max,
     min,
     step,
@@ -52,7 +52,7 @@ export const useSliderFieldProps: UseSliderFieldProps = (initialValues) => {
     setIsDisabled,
     setIsValueHidden,
     setLabel,
-    setLabelHidden,
+    setIsLabelHidden,
     setMax,
     setMin,
     setOrientation,

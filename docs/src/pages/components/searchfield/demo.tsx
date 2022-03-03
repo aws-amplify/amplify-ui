@@ -19,7 +19,7 @@ const propsToCode = (searchFieldProps) => {
       ? `\n  variation=${JSON.stringify(searchFieldProps.variation)}`
       : '') +
     (!searchFieldProps.labelHidden
-      ? `\n  labelHidden={${JSON.stringify(searchFieldProps.labelHidden)}}`
+      ? `\n  isLabelHidden={${JSON.stringify(searchFieldProps.labelHidden)}}`
       : '') +
     (searchFieldProps.isDisabled
       ? `\n  isDisabled={${JSON.stringify(searchFieldProps.isDisabled)}}`
@@ -31,8 +31,8 @@ const propsToCode = (searchFieldProps) => {
 export const SearchFieldDemo = () => {
   const searchFieldProps = useSearchFieldProps({
     isDisabled: false,
+    isLabelHidden: true,
     label: 'Search',
-    labelHidden: true,
     placeholder: 'Search here...',
     size: null,
     variation: null,
@@ -53,7 +53,7 @@ export const SearchFieldDemo = () => {
         placeholder={searchFieldProps.placeholder}
         size={searchFieldProps.size}
         variation={searchFieldProps.variation}
-        labelHidden={searchFieldProps.labelHidden}
+        isLabelHidden={searchFieldProps.isLabelHidden}
         isDisabled={searchFieldProps.isDisabled}
         onSubmit={onSubmit}
       />

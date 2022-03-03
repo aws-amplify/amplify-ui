@@ -97,7 +97,7 @@ be set to `username` (see [Password Form Styles that Chromium Understands](https
 <Flex direction="column">
   <PhoneNumberField
     label="Phone Number"
-    labelHidden={true}
+    isLabelHidden={true}
     defaultCountryCode="+1"
     placeholder="Phone Number"
   />
@@ -114,17 +114,17 @@ be set to `username` (see [Password Form Styles that Chromium Understands](https
 
 ```jsx
 <Flex>
-  <PhoneNumberField defaultCountryCode="+1" label="Small" size="small" labelHidden={true} />
+  <PhoneNumberField defaultCountryCode="+1" label="Small" size="small" isLabelHidden={true} />
   <Button size="small">Small</Button>
 </Flex>
 
 <Flex>
-  <PhoneNumberField defaultCountryCode="+1" label="Default" labelHidden={true} />
+  <PhoneNumberField defaultCountryCode="+1" label="Default" isLabelHidden={true} />
   <Button>Default</Button>
 </Flex>
 
 <Flex>
-  <PhoneNumberField defaultCountryCode="+1" label="Large" size="large" labelHidden={true} />
+  <PhoneNumberField defaultCountryCode="+1" label="Large" size="large" isLabelHidden={true} />
   <Button size="large">Large</Button>
 </Flex>
 ```

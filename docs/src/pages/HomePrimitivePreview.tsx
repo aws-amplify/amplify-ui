@@ -115,7 +115,7 @@ export const HomePrimitivePreview = () => {
         alignItems="flex-start"
         padding={`0 0 0 ${tokens.space.large}`}
       >
-        <SearchField placeholder="Search" label="Search" labelHidden={true} />
+        <SearchField placeholder="Search" label="Search" isLabelHidden={true} />
         <SwitchField label="Accept" />
         <SliderField
           label="Slider"

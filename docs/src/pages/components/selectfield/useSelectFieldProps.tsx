@@ -23,9 +23,9 @@ export const useSelectFieldProps: UseSelectFieldProps = (initialValues) => {
   const [label, setLabel] = React.useState<SelectFieldProps['label']>(
     initialValues.label
   );
-  const [labelHidden, setLabelHidden] = React.useState<
-    SelectFieldProps['labelHidden']
-  >(initialValues.labelHidden);
+  const [isLabelHidden, setIsLabelHidden] = React.useState<
+    SelectFieldProps['isLabelHidden']
+  >(initialValues.isLabelHidden);
   const [size, setSize] = React.useState<SelectFieldProps['size']>(
     initialValues.size
   );
@@ -38,7 +38,7 @@ export const useSelectFieldProps: UseSelectFieldProps = (initialValues) => {
     errorMessage,
     hasError,
     label,
-    labelHidden,
+    isLabelHidden,
     size,
     variation,
     isDisabled,
@@ -47,7 +47,7 @@ export const useSelectFieldProps: UseSelectFieldProps = (initialValues) => {
     setHasError,
     setIsDisabled,
     setLabel,
-    setLabelHidden,
+    setIsLabelHidden,
     setSize,
     setVariation,
   };

@@ -22,8 +22,8 @@ export interface SelectFieldPropControlsProps extends SelectFieldProps {
     value: React.SetStateAction<SelectFieldProps['isDisabled']>
   ) => void;
   setLabel: (value: React.SetStateAction<SelectFieldProps['label']>) => void;
-  setLabelHidden: (
-    value: React.SetStateAction<SelectFieldProps['labelHidden']>
+  setIsLabelHidden: (
+    value: React.SetStateAction<SelectFieldProps['isLabelHidden']>
   ) => void;
   setSize: (value: React.SetStateAction<SelectFieldProps['size']>) => void;
   setVariation: (
@@ -41,7 +41,7 @@ export const SelectFieldPropControls: SelectFieldPropControlsInterface = ({
   hasError,
   isDisabled,
   label,
-  labelHidden,
+  isLabelHidden,
   size,
   variation,
   setDescriptiveText,
@@ -49,7 +49,7 @@ export const SelectFieldPropControls: SelectFieldPropControlsInterface = ({
   setHasError,
   setIsDisabled,
   setLabel,
-  setLabelHidden,
+  setIsLabelHidden,
   setSize,
   setVariation,
 }) => {
@@ -115,15 +115,15 @@ export const SelectFieldPropControls: SelectFieldPropControlsInterface = ({
       />
 
       <CheckboxField
-        name="labelHidden"
+        name="isLabelHidden"
         value="yes"
-        checked={labelHidden}
+        checked={isLabelHidden}
         onChange={(event) => {
-          setLabelHidden(
-            Boolean(event.target.checked) as SelectFieldProps['labelHidden']
+          setIsLabelHidden(
+            Boolean(event.target.checked) as SelectFieldProps['isLabelHidden']
           );
         }}
-        label="labelHidden"
+        label="isLabelHidden"
       />
 
       <CheckboxField

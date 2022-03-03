@@ -10,8 +10,8 @@ export interface UseStepperFieldProps {
 
 export const useStepperFieldProps: UseStepperFieldProps = (initialValues) => {
   const [label, setLabel] = React.useState(initialValues.label);
-  const [labelHidden, setLabelHidden] = React.useState(
-    initialValues.labelHidden
+  const [isLabelHidden, setIsLabelHidden] = React.useState(
+    initialValues.isLabelHidden
   );
   const [max, setMax] = React.useState(initialValues.max);
   const [min, setMin] = React.useState(initialValues.min);
@@ -21,8 +21,8 @@ export const useStepperFieldProps: UseStepperFieldProps = (initialValues) => {
   return {
     label,
     setLabel,
-    labelHidden,
-    setLabelHidden,
+    isLabelHidden,
+    setIsLabelHidden,
     max,
     setMax,
     min,

@@ -70,7 +70,7 @@ export const RadioGroupFieldPropControls: RadioGroupFieldPropControlsInterface =
         <FieldLabeler id="direction">
           <SelectField
             label="direction"
-            labelHidden
+            isLabelHidden
             name="direction"
             onChange={(event) =>
               setDirection(
@@ -85,7 +85,7 @@ export const RadioGroupFieldPropControls: RadioGroupFieldPropControlsInterface =
         <FieldLabeler id="size">
           <SelectField
             label="size"
-            labelHidden
+            isLabelHidden
             name="size"
             placeholder="default"
             onChange={(event) =>

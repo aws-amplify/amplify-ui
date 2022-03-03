@@ -38,9 +38,9 @@ export const useTextAreaFieldProps = (initialValues: TextAreaFieldProps) => {
     TextAreaFieldProps['isRequired']
   >(initialValues.isRequired);
 
-  const [labelHidden, setLabelHidden] = React.useState<
-    TextAreaFieldProps['labelHidden']
-  >(initialValues.labelHidden);
+  const [isLabelHidden, setIsLabelHidden] = React.useState<
+    TextAreaFieldProps['isLabelHidden']
+  >(initialValues.isLabelHidden);
 
   const [placeholder, setPlaceholder] = React.useState<
     TextAreaFieldProps['placeholder']
@@ -80,7 +80,7 @@ export const useTextAreaFieldProps = (initialValues: TextAreaFieldProps) => {
     isReadOnly,
     isRequired,
     label,
-    labelHidden,
+    isLabelHidden,
     maxLength,
     name,
     placeholder,
@@ -94,7 +94,7 @@ export const useTextAreaFieldProps = (initialValues: TextAreaFieldProps) => {
     setIsReadOnly,
     setIsRequired,
     setLabel,
-    setLabelHidden,
+    setIsLabelHidden,
     setMaxLength,
     setName,
     setPlaceholder,

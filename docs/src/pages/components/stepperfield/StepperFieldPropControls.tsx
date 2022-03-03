@@ -13,8 +13,8 @@ export interface StepperFieldPropControlsProps extends StepperFieldProps {
     value: React.SetStateAction<StepperFieldProps['variation']>
   ) => void;
   setLabel: (value: React.SetStateAction<StepperFieldProps['label']>) => void;
-  setLabelHidden: (
-    value: React.SetStateAction<StepperFieldProps['labelHidden']>
+  setIsLabelHidden: (
+    value: React.SetStateAction<StepperFieldProps['isLabelHidden']>
   ) => void;
   setMax: (value: React.SetStateAction<StepperFieldProps['max']>) => void;
   setMin: (value: React.SetStateAction<StepperFieldProps['min']>) => void;
@@ -26,8 +26,8 @@ export const StepperFieldPropControls: React.FC<StepperFieldPropControlsProps> =
   ({
     label,
     setLabel,
-    labelHidden,
-    setLabelHidden,
+    isLabelHidden,
+    setIsLabelHidden,
     max,
     setMax,
     min,
@@ -95,9 +95,9 @@ export const StepperFieldPropControls: React.FC<StepperFieldPropControlsProps> =
       <CheckboxField
         name="label-hidden"
         value="yes"
-        checked={labelHidden}
-        onChange={(event) => setLabelHidden(event.target.checked)}
-        label="labelHidden"
+        checked={isLabelHidden}
+        onChange={(event) => setIsLabelHidden(event.target.checked)}
+        label="isLabelHidden"
       />
     </Flex>
   );

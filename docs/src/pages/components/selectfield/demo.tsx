@@ -27,7 +27,7 @@ const propsToCode = (selectFieldProps) => {
       ? `\n  errorMessage=${JSON.stringify(selectFieldProps.errorMessage)}`
       : '') +
     (selectFieldProps.labelHidden
-      ? `\n  labelHidden={${JSON.stringify(selectFieldProps.labelHidden)}}`
+      ? `\n  isLabelHidden={${JSON.stringify(selectFieldProps.labelHidden)}}`
       : '') +
     (selectFieldProps.isDisabled
       ? `\n  isDisabled={${JSON.stringify(selectFieldProps.isDisabled)}}`
@@ -41,7 +41,7 @@ export const SelectFieldDemo = () => {
     descriptiveText: "What's your favorite fruit?",
     hasError: false,
     label: 'Fruit',
-    labelHidden: false,
+    isLabelHidden: false,
   });
 
   return (
@@ -56,7 +56,7 @@ export const SelectFieldDemo = () => {
         hasError={selectFieldProps.hasError}
         isDisabled={selectFieldProps.isDisabled}
         label={selectFieldProps.label}
-        labelHidden={selectFieldProps.labelHidden}
+        isLabelHidden={selectFieldProps.isLabelHidden}
         placeholder="Please select a fruit"
         size={selectFieldProps.size}
         variation={selectFieldProps.variation}

@@ -32,7 +32,7 @@ export const PhoneNumberFieldDemo = () => {
     isReadOnly: false,
     isRequired: false,
     label: 'Phone Number',
-    labelHidden: false,
+    isLabelHidden: false,
     name: 'phone_number',
     placeholder: 'Phone Number',
     size: '',
@@ -68,7 +68,7 @@ export const PhoneNumberFieldDemo = () => {
     [isReadOnly],
     [isRequired],
     [label],
-    [labelHidden],
+    [isLabelHidden],
     [name],
     [placeholder],
     [size],
@@ -86,26 +86,28 @@ export const PhoneNumberFieldDemo = () => {
           defaultCountryCode="+1"
           alignContent={alignContent as FlexContainerStyleProps['alignContent']}
           alignItems={alignItems as FlexContainerStyleProps['alignItems']}
-          autoComplete={autoComplete as TextFieldProps['autoComplete']}
-          descriptiveText={descriptiveText as TextFieldProps['descriptiveText']}
-          defaultValue={defaultValue as TextFieldProps['defaultValue']}
+          autoComplete={autoComplete as TextFieldProps<false>['autoComplete']}
+          descriptiveText={
+            descriptiveText as TextFieldProps<false>['descriptiveText']
+          }
+          defaultValue={defaultValue as TextFieldProps<false>['defaultValue']}
           direction={direction as FlexContainerStyleProps['direction']}
-          errorMessage={errorMessage as TextFieldProps['errorMessage']}
+          errorMessage={errorMessage as TextFieldProps<false>['errorMessage']}
           gap={gap as FlexContainerStyleProps['gap']}
           hasError={hasError as unknown as boolean}
-          inputMode={inputMode as TextFieldProps['inputMode']}
+          inputMode={inputMode as TextFieldProps<false>['inputMode']}
           isDisabled={isDisabled as unknown as boolean}
           isReadOnly={isReadOnly as unknown as boolean}
           isRequired={isRequired as unknown as boolean}
           justifyContent={
             justifyContent as FlexContainerStyleProps['justifyContent']
           }
-          label={label as TextFieldProps['label']}
-          labelHidden={labelHidden as unknown as boolean}
-          name={name as TextFieldProps['name']}
-          placeholder={placeholder as TextFieldProps['placeholder']}
-          size={size as TextFieldProps['size']}
-          variation={variation as TextFieldProps['variation']}
+          label={label as TextFieldProps<false>['label']}
+          isLabelHidden={isLabelHidden as unknown as boolean}
+          name={name as TextFieldProps<false>['name']}
+          placeholder={placeholder as TextFieldProps<false>['placeholder']}
+          size={size as TextFieldProps<false>['size']}
+          variation={variation as TextFieldProps<false>['variation']}
           wrap={wrap as FlexContainerStyleProps['wrap']}
         />
       </Example>

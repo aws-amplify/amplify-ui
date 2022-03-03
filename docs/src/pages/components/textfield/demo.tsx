@@ -32,7 +32,7 @@ export const TextFieldDemo = () => {
     isReadOnly: false,
     isRequired: false,
     label: 'Last name',
-    labelHidden: false,
+    isLabelHidden: false,
     name: 'last_name',
     placeholder: 'Baggins',
     size: '',
@@ -67,7 +67,7 @@ export const TextFieldDemo = () => {
     [isReadOnly],
     [isRequired],
     [label],
-    [labelHidden],
+    [isLabelHidden],
     [name],
     [placeholder],
     [size],
@@ -115,7 +115,7 @@ export const TextFieldDemo = () => {
       : '') +
     `
   label="${label}"
-  labelHidden={${labelHidden}}
+  isLabelHidden={${isLabelHidden}}
   name="${name}"
   placeholder="${placeholder}"` +
     (size
@@ -180,7 +180,7 @@ export const TextFieldDemo = () => {
           justifyContent as FlexContainerStyleProps['justifyContent']
         }
         label={label as TextFieldProps<false>['label']}
-        labelHidden={labelHidden as unknown as boolean}
+        isLabelHidden={isLabelHidden as unknown as boolean}
         name={name as TextFieldProps<false>['name']}
         placeholder={placeholder as TextFieldProps<false>['placeholder']}
         size={size as TextFieldProps<false>['size']}

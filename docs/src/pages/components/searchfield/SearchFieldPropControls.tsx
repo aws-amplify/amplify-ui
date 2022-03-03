@@ -16,8 +16,8 @@ export interface SearchFieldPropControlsProps extends SearchFieldProps {
   setVariation: (
     value: React.SetStateAction<SearchFieldProps['variation']>
   ) => void;
-  setLabelHidden: (
-    value: React.SetStateAction<SearchFieldProps['labelHidden']>
+  setIsLabelHidden: (
+    value: React.SetStateAction<SearchFieldProps['isLabelHidden']>
   ) => void;
   setIsDisabled: (
     value: React.SetStateAction<SearchFieldProps['isDisabled']>
@@ -37,8 +37,8 @@ export const SearchFieldPropControls: SearchFieldPropControlsInterface = ({
   setSize,
   variation,
   setVariation,
-  labelHidden,
-  setLabelHidden,
+  isLabelHidden,
+  setIsLabelHidden,
   isDisabled,
   setIsDisabled,
 }) => {
@@ -89,13 +89,13 @@ export const SearchFieldPropControls: SearchFieldPropControlsInterface = ({
       </SelectField>
 
       <CheckboxField
-        label="labelHidden"
-        name="labelHidden"
-        value="labelHidden"
-        checked={labelHidden}
+        label="isLabelHidden"
+        name="isLabelHidden"
+        value="isLabelHidden"
+        checked={isLabelHidden}
         onChange={(event) => {
-          setLabelHidden(
-            Boolean(event.target.checked) as SearchFieldProps['labelHidden']
+          setIsLabelHidden(
+            Boolean(event.target.checked) as SearchFieldProps['isLabelHidden']
           );
         }}
       />
