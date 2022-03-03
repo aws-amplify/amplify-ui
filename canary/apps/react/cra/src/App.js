@@ -18,7 +18,7 @@ function App() {
       <Card>
         <Heading>Amplify Sample App</Heading>
         <Button variation="primary">Click me!</Button>
-        <button onClick={signOut}>Sign out</button>
+        <Button onClick={signOut}>Sign out</Button>
       </Card>
     </AmplifyProvider>
   );
