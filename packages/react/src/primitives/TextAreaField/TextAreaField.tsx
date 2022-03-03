@@ -9,7 +9,7 @@ import { Primitive } from '../types';
 import { splitPrimitiveProps } from '../shared/styleUtils';
 import { TextArea } from '../TextArea';
 import { TextAreaFieldProps } from '../types/textAreaField';
-import { useStableId } from '../shared/utils';
+import { useStableId } from '../utils/useStableId';
 
 export const DEFAULT_ROW_COUNT = 3;
 
