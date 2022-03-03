@@ -4,7 +4,11 @@ import userEvent from '@testing-library/user-event';
 
 import { Pagination } from '../Pagination';
 import { ComponentClassNames } from '../../shared';
-import { PaginationItem } from '../PaginationItem';
+import {
+  PaginationItem,
+  PAGINATION_CURRENT_TEST_ID,
+  PAGINATION_ELLIPSIS_TEST_ID,
+} from '../PaginationItem';
 
 describe('Pagination component test suite', () => {
   const id = 'my-pagination';
@@ -219,7 +223,7 @@ describe('Pagination component test suite', () => {
           onPrevious={() => {}}
         />
       );
-      const currentPage = await screen.findByTestId('current');
+      const currentPage = await screen.findByTestId(PAGINATION_CURRENT_TEST_ID);
       expect(currentPage).toHaveTextContent('1');
     });
   });
@@ -281,7 +285,7 @@ describe('Pagination component test suite', () => {
     });
     it('should render ellipsis item with provided porps', async () => {
       render(<PaginationItem type="ellipsis" ariaLabel="ellipsis" />);
-      const ellipsis = await screen.findByTestId('ellipsis');
+      const ellipsis = await screen.findByTestId(PAGINATION_ELLIPSIS_TEST_ID);
       expect(ellipsis.nodeName).toBe('SPAN');
       expect(ellipsis).toHaveClass(ComponentClassNames.PaginationItemEllipsis);
       expect(ellipsis.innerHTML).toBe('\u2026');
