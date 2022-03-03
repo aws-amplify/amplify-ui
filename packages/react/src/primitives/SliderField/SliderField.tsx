@@ -74,6 +74,7 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
   );
 
   const isVertical = orientation === 'vertical';
+  size = size || 'default';
 
   return (
     <Flex
@@ -108,7 +109,12 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
         outerEndComponent={outerEndComponent}
       >
         <Root
-          className={classNames(ComponentClassNames.SliderFieldRoot, className)}
+          className={classNames(
+            ComponentClassNames.SliderFieldRoot,
+            `${ComponentClassNames.SliderFieldRoot}--orientation-${orientation}`,
+            `${ComponentClassNames.SliderFieldRoot}--orientation-${orientation}--size-${size}`,
+            className
+          )}
           data-testid={SLIDER_ROOT_TEST_ID}
           disabled={isDisabled}
           defaultValue={defaultValues}
@@ -119,7 +125,11 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
           {...rest}
         >
           <Track
-            className={ComponentClassNames.SliderFieldTrack}
+            className={classNames(
+              ComponentClassNames.SliderFieldTrack,
+              `${ComponentClassNames.SliderFieldTrack}--orientation-${orientation}`,
+              `${ComponentClassNames.SliderFieldTrack}--orientation-${orientation}--size-${size}`
+            )}
             data-testid={SLIDER_TRACK_TEST_ID}
             style={{
               backgroundColor: emptyTrackColor,
@@ -127,7 +137,10 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
             }}
           >
             <Range
-              className={ComponentClassNames.SliderFieldRange}
+              className={classNames(
+                ComponentClassNames.SliderFieldRange,
+                `${ComponentClassNames.SliderFieldRange}--orientation-${orientation}`
+              )}
               data-testid={SLIDER_RANGE_TEST_ID}
               style={{ backgroundColor: filledTrackColor }}
             />
@@ -136,7 +149,10 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
             aria-describedby={descriptionId}
             aria-labelledby={labelId}
             aria-valuetext={ariaValuetext}
-            className={ComponentClassNames.SliderFieldThumb}
+            className={classNames(
+              ComponentClassNames.SliderFieldThumb,
+              `${ComponentClassNames.SliderFieldThumb}--size-${size}`
+            )}
             style={{ backgroundColor: thumbColor }}
           />
         </Root>

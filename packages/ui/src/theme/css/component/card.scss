@@ -1,15 +1,12 @@
 .amplify-card {
-  display: inline-block;
-  padding: var(--amplify-components-card-padding);
-}
-
-.amplify-card--variation-default {
   background-color: var(--amplify-components-card-background-color);
   border-radius: var(--amplify-components-card-border-radius);
   border-width: var(--amplify-components-card-border-width);
   border-style: var(--amplify-components-card-border-style);
   border-color: var(--amplify-components-card-border-color);
   box-shadow: var(--amplify-components-card-box-shadow);
+  display: inline-block;
+  padding: var(--amplify-components-card-padding);
 }
 
 .amplify-card--variation-outlined {

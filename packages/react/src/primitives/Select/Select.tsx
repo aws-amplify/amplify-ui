@@ -31,6 +31,7 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
   // value === undefined is to make sure that component is used in uncontrolled way so that setting defaultValue is valid
   const shouldSetDefaultPlaceholderValue =
     value === undefined && defaultValue === undefined && placeholder;
+  size = size || 'default';
   return (
     <View className={ComponentClassNames.SelectWrapper}>
       <View

@@ -76,11 +76,11 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
     <Flex
       className={classNames(
         ComponentClassNames.Field,
-        `${ComponentClassNames.Field}--size-${size}`,
+        `${ComponentClassNames.Field}--size-${size || 'default'}`,
         ComponentClassNames.StepperField,
         className
       )}
-      data-size={size}
+      data-size={size || 'default'}
       data-variation={variation}
       testId={testId}
       {...flexContainerStyleProps}

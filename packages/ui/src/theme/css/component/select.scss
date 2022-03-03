@@ -17,6 +17,7 @@
 .amplify-select {
   @extend %amplify-field-control;
   // default styles
+  min-width: var(--amplify-components-select-min-width);
   padding-inline-end: var(--amplify-components-select-padding-inline-end);
   white-space: var(--amplify-components-select-white-space);
 
@@ -28,10 +29,6 @@
       );
     }
   }
-}
-
-.amplify-select--size-default {
-  min-width: var(--amplify-components-select-min-width);
 }
 
 .amplify-select--size-small {

@@ -8,14 +8,20 @@
   align-items: center;
   border-radius: var(--amplify-components-button-border-radius);
   box-sizing: border-box;
+  font-size: var(--amplify-components-button-font-size);
   font-weight: var(--amplify-components-button-font-weight);
   transition: all var(--amplify-components-button-transition-duration);
   border-style: var(--amplify-components-button-border-style);
   border-color: var(--amplify-components-button-border-color);
   border-radius: var(--amplify-components-button-border-radius);
+  border-width: var(--amplify-components-button-border-width);
   color: var(--amplify-components-button-color);
   line-height: var(--amplify-components-button-line-height);
   user-select: none;
+  padding-block-start: var(--amplify-components-button-padding-block-start);
+  padding-block-end: var(--amplify-components-button-padding-block-end);
+  padding-inline-start: var(--amplify-components-button-padding-inline-start);
+  padding-inline-end: var(--amplify-components-button-padding-inline-end);
   // all:unset removes this, so we have to add it back.
   cursor: pointer;
 
@@ -55,38 +61,6 @@
 
   &[data-fullwidth='true'] {
     width: 100%;
-  }
-}
-
-.amplify-button--variation-default {
-  border-width: var(--amplify-components-button-border-width);
-
-  &:hover {
-    background-color: var(--amplify-components-button-hover-background-color);
-    border-color: var(--amplify-components-button-hover-border-color);
-    color: var(--amplify-components-button-hover-color);
-  }
-
-  &:focus {
-    background-color: var(--amplify-components-button-hover-background-color);
-    border-color: var(--amplify-components-button-focus-border-color);
-    color: var(--amplify-components-button-focus-color);
-    box-shadow: var(--amplify-components-button-focus-box-shadow);
-  }
-
-  &:active {
-    background-color: var(--amplify-components-button-active-background-color);
-    border-color: var(--amplify-components-button-active-border-color);
-    color: var(--amplify-components-button-active-color);
-  }
-
-  &[disabled] {
-    background-color: var(
-      --amplify-components-button-disabled-background-color
-    );
-    border-color: var(--amplify-components-button-disabled-border-color);
-    color: var(--amplify-components-button-disabled-color);
-    cursor: not-allowed;
   }
 }
 
@@ -219,14 +193,6 @@
     color: var(--amplify-components-button-link-loading-color);
     text-decoration: none;
   }
-}
-
-.amplify-button--size-default {
-  font-size: var(--amplify-components-button-font-size);
-  padding-block-start: var(--amplify-components-button-padding-block-start);
-  padding-block-end: var(--amplify-components-button-padding-block-end);
-  padding-inline-start: var(--amplify-components-button-padding-inline-start);
-  padding-inline-end: var(--amplify-components-button-padding-inline-end);
 }
 
 .amplify-button--size-small {

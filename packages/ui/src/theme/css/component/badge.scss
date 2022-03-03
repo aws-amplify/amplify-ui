@@ -1,14 +1,14 @@
 .amplify-badge {
-  border-radius: var(--amplify-components-badge-border-radius);
-  display: inline-flex;
-  font-weight: var(--amplify-components-badge-font-weight);
-  text-align: var(--amplify-components-badge-text-align);
-  line-height: var(--amplify-components-badge-line-height);
-}
-
-.amplify-badge--variation-default {
-  color: var(--amplify-components-badge-color);
   background-color: var(--amplify-components-badge-background-color);
+  border-radius: var(--amplify-components-badge-border-radius);
+  color: var(--amplify-components-badge-color);
+  display: inline-flex;
+  font-size: var(--amplify-components-badge-font-size);
+  font-weight: var(--amplify-components-badge-font-weight);
+  line-height: var(--amplify-components-badge-line-height);
+  padding: var(--amplify-components-badge-padding-vertical)
+    var(--amplify-components-badge-padding-horizontal);
+  text-align: var(--amplify-components-badge-text-align);
 }
 
 .amplify-badge--variation-info {
@@ -29,12 +29,6 @@
 .amplify-badge--variation-success {
   color: var(--amplify-components-badge-success-color);
   background-color: var(--amplify-components-badge-success-background-color);
-}
-
-.amplify-badge--size-default {
-  font-size: var(--amplify-components-badge-font-size);
-  padding: var(--amplify-components-badge-padding-vertical)
-    var(--amplify-components-badge-padding-horizontal);
 }
 
 .amplify-badge--size-small {

@@ -1,5 +1,6 @@
 .amplify-alert {
   align-items: var(--amplify-components-alert-align-items);
+  background-color: var(--amplify-components-alert-background-color);
   justify-content: var(--amplify-components-alert-justify-content);
   padding-block: var(--amplify-components-alert-padding-block);
   padding-inline: var(--amplify-components-alert-padding-inline);
@@ -23,10 +24,6 @@
 .amplify-alert--variation-success {
   color: var(--amplify-components-alert-success-color);
   background-color: var(--amplify-components-alert-success-background-color);
-}
-
-.amplify-alert--variation-default {
-  background-color: var(--amplify-components-alert-background-color);
 }
 
 .amplify-alert__icon {

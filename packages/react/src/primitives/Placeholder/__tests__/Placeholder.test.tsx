@@ -13,7 +13,7 @@ describe('Placeholder: ', () => {
     expect(
       placeholder.classList.contains(ComponentClassNames.Placeholder)
     ).toBe(true);
-    expect(placeholder.dataset['size']).toBeUndefined();
+    expect(placeholder.dataset['size']).toBe('default');
   });
 
   it('should forward ref to DOM element', async () => {
@@ -59,7 +59,7 @@ describe('Placeholder: ', () => {
     const placeholder3 = await screen.findByTestId('placeholder3');
 
     expect(placeholder1.dataset['size']).toBe('small');
-    expect(placeholder2.dataset['size']).toBeUndefined();
+    expect(placeholder2.dataset['size']).toBe('default');
     expect(placeholder3.dataset['size']).toBe('large');
   });
 

@@ -95,7 +95,7 @@ const TextFieldPrimitive = <Multiline extends boolean>(
         ComponentClassNames.TextField,
         className
       )}
-      data-size={size}
+      data-size={size || 'default'}
       testId={testId}
       {...flexContainerStyleProps}
     >
