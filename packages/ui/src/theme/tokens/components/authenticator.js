@@ -8,8 +8,6 @@ module.exports = {
     left: { value: '{space.zero}' },
   },
   container: {
-    widthDesktop: { value: '70%' },
-    widthHandheld: { value: '{space.relative.full.value}' },
     widthMax: { value: '30rem' },
   },
   router: {

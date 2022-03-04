@@ -2,6 +2,7 @@
 [data-amplify-authenticator] {
   display: grid;
   max-width: var(--amplify-components-authenticator-max-width);
+  margin: auto;
 
   &[data-variation='modal'] {
     display: grid;
@@ -20,11 +21,9 @@
 
   & [data-amplify-container] {
     place-self: center;
-    width: var(--amplify-components-authenticator-container-width-handheld);
     @media (min-width: 30rem) {
-      // @media min-width 30rem (--amplify-components-authenticator-container-width-max)
-      width: var(--amplify-components-authenticator-container-width-desktop);
-      max-width: var(--amplify-components-authenticator-container-width-max);
+      // @media min-width 30rem is (--amplify-components-authenticator-container-width-max)
+      width: var(--amplify-components-authenticator-container-width-max);
     }
   }
 

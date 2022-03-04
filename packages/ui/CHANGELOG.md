@@ -1,5 +1,33 @@
 # @aws-amplify/ui
 
+## 3.2.0
+
+### Minor Changes
+
+- [#1394](https://github.com/aws-amplify/amplify-ui/pull/1394) [`3d5acaa4c`](https://github.com/aws-amplify/amplify-ui/commit/3d5acaa4cce5ea8daf49caab71d92dc3c91d9021) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Adding `label` prop to Divider component.
+
+  ```jsx
+  import { Flex, Text, Divider } from '@aws-amplify/ui-react';
+
+  export const LabelExample = () => (
+    <Flex direction="column">
+      <Text>Before</Text>
+      <Divider label="OR" />
+      <Text>After</Text>
+    </Flex>
+  );
+  ```
+
+### Patch Changes
+
+- [#1439](https://github.com/aws-amplify/amplify-ui/pull/1439) [`5f1753785`](https://github.com/aws-amplify/amplify-ui/commit/5f175378571e56c1f59bfa39060337148f428ce2) Thanks [@artidata](https://github.com/artidata)! - Added Indonesian translation.
+
+* [#1466](https://github.com/aws-amplify/amplify-ui/pull/1466) [`4c1a5cfbe`](https://github.com/aws-amplify/amplify-ui/commit/4c1a5cfbe6e984a790261d122ee4df368b249688) Thanks [@0618](https://github.com/0618)! - centralize authenticator on example
+
+- [#1407](https://github.com/aws-amplify/amplify-ui/pull/1407) [`731587a58`](https://github.com/aws-amplify/amplify-ui/commit/731587a58e8ef89e9f0193d7118377093a6024b8) Thanks [@0618](https://github.com/0618)! - fix authenticator SetupTOTP, refactor authenticator styles
+
+* [#1447](https://github.com/aws-amplify/amplify-ui/pull/1447) [`3343e187b`](https://github.com/aws-amplify/amplify-ui/commit/3343e187b6dc9eab2c2a9c2d408bac8afb063f74) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Fixing nested AmplifyProviders and theming. This fixes issues seen on the docs site if you have nested AmplifyProviders causing weird issues. The provider now cleans itself up properly and only injects CSS if necessary.
+
 ## 3.1.0
 
 ### Minor Changes

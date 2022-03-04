@@ -1,5 +1,16 @@
 # @aws-amplify/ui-angular
 
+## 2.2.1
+
+### Patch Changes
+
+- [#1459](https://github.com/aws-amplify/amplify-ui/pull/1459) [`8461fb199`](https://github.com/aws-amplify/amplify-ui/commit/8461fb199a9f373f35e6225ac8a58d60ef0bf1fa) Thanks [@wlee221](https://github.com/wlee221)! - Remove unneeded parent divs on Authenticator screens
+
+* [#1457](https://github.com/aws-amplify/amplify-ui/pull/1457) [`17f66a09c`](https://github.com/aws-amplify/amplify-ui/commit/17f66a09cdfc786b91815cfe2f08b605574e678a) Thanks [@wlee221](https://github.com/wlee221)! - Reflect totp svg changes to Vue and Angular Authenticator.
+
+* Updated dependencies [[`5f1753785`](https://github.com/aws-amplify/amplify-ui/commit/5f175378571e56c1f59bfa39060337148f428ce2), [`4c1a5cfbe`](https://github.com/aws-amplify/amplify-ui/commit/4c1a5cfbe6e984a790261d122ee4df368b249688), [`3d5acaa4c`](https://github.com/aws-amplify/amplify-ui/commit/3d5acaa4cce5ea8daf49caab71d92dc3c91d9021), [`731587a58`](https://github.com/aws-amplify/amplify-ui/commit/731587a58e8ef89e9f0193d7118377093a6024b8), [`3343e187b`](https://github.com/aws-amplify/amplify-ui/commit/3343e187b6dc9eab2c2a9c2d408bac8afb063f74)]:
+  - @aws-amplify/ui@3.2.0
+
 ## 2.2.0
 
 ### Minor Changes
