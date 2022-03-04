@@ -4,7 +4,11 @@ import userEvent from '@testing-library/user-event';
 
 import { Pagination } from '../Pagination';
 import { ComponentClassNames } from '../../shared';
-import { PaginationItem } from '../PaginationItem';
+import {
+  PaginationItem,
+  PAGINATION_CURRENT_TEST_ID,
+  PAGINATION_ELLIPSIS_TEST_ID,
+} from '../PaginationItem';
 
 describe('Pagination component test suite', () => {
   const id = 'my-pagination';
@@ -207,6 +211,21 @@ describe('Pagination component test suite', () => {
       expect(pagination).toHaveTextContent('6');
       expect(pagination).toHaveTextContent('7');
     });
+
+    it('should default the current page to 1 if one is not provided', async () => {
+      render(
+        <Pagination
+          id={id}
+          totalPages={10}
+          siblingCount={2}
+          onChange={() => {}}
+          onNext={() => {}}
+          onPrevious={() => {}}
+        />
+      );
+      const currentPage = await screen.findByTestId(PAGINATION_CURRENT_TEST_ID);
+      expect(currentPage).toHaveTextContent('1');
+    });
   });
 
   describe('Test PaginationItem', () => {
@@ -266,7 +285,7 @@ describe('Pagination component test suite', () => {
     });
     it('should render ellipsis item with provided porps', async () => {
       render(<PaginationItem type="ellipsis" ariaLabel="ellipsis" />);
-      const ellipsis = await screen.findByTestId('ellipsis');
+      const ellipsis = await screen.findByTestId(PAGINATION_ELLIPSIS_TEST_ID);
       expect(ellipsis.nodeName).toBe('SPAN');
       expect(ellipsis).toHaveClass(ComponentClassNames.PaginationItemEllipsis);
       expect(ellipsis.innerHTML).toBe('\u2026');

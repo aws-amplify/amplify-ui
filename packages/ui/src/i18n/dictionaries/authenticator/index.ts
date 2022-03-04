@@ -11,6 +11,7 @@ export { plDict } from './pl';
 export { ptDict } from './pt';
 export { zhDict } from './zh';
 export { svDict } from './sv';
+export { idDict } from './id';
 
 // default text phrases
 export { defaultTexts } from './defaultTexts';

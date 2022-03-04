@@ -1,0 +1,104 @@
+name: Run and Test Builds
+
+on:
+  schedule:
+    - cron: '*/15 * * * *' # Run every  minutes
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: ci
+    strategy:
+      fail-fast: false
+      matrix:
+        # Paths for each example app we want to test build on
+        path:
+          - angular/angularcli
+          - react/cra
+          - react/cra-ts
+          - react/next
+          - react/vite
+          - vue/vite
+          - vue/vuecli
+    steps:
+      - name: Checkout Amplify UI
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+      - name: Setup Node.js LTS
+        uses: actions/setup-node@v2
+        with:
+          node-version: lts/*
+          cache: 'yarn'
+      - name: Ignore monorepo postcss.config.js
+        run: mv postcss.config.js _postcss.config.js
+      - name: Install packages
+        run: yarn install --no-lockfile
+        working-directory: ./canary/apps/${{ matrix.path }}
+      - name: Add Amplify CLI
+        run: yarn global add @aws-amplify/cli
+      - name: Get CLI versions
+        id: cli-version
+        run: echo "::set-output name=version::$(amplify --version)"
+      - name: Create or restore environments cache
+        id: environments-cache
+        uses: actions/cache@v2
+        with:
+          path: canary/environments/**/aws-exports.js
+          key: ${{ runner.os }}-canary-environments-${{ steps.cli-version.outputs.version }}-${{ hashFiles('canary/environments/**/amplify/**') }}
+      - name: Pull down AWS environments
+        if: steps.environments-cache.outputs.cache-hit != 'true'
+        run: yarn pull
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        working-directory: ./canary
+      - name: Build example app
+        run: yarn build
+        working-directory: ./canary/apps/${{ matrix.path }}
+      - name: Install cypress
+        run: yarn install
+        working-directory: ./canary/e2e
+      - name: Start ${{ matrix.example }} example
+        run: yarn start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000
+        working-directory: ./canary/apps/${{ matrix.path }}
+      - name: Run E2E tests against ${{ matrix.example }} example
+        run: yarn test
+        working-directory: ./canary
+        env:
+          # Env values for testing flows
+          DOMAIN: ${{ secrets.DOMAIN }}
+          PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+          USERNAME: ${{ secrets.USERNAME }}
+          NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
+          VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+
+  trigger-failure-alarm:
+    # Triggers an alarm if any of builds failed.
+    runs-on: ubuntu-latest
+    environment: ci
+    needs: build
+    if: ${{ failure() }}
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      - run: aws cloudwatch put-metric-data --metric-name RunTimeTestsFailure --namespace GithubCanaryApps --value 1
+
+  trigger-sucess-alarm:
+    # Triggers an alarm if all the builds succeed
+    runs-on: ubuntu-latest
+    environment: ci
+    needs: build
+    if: ${{ success() }}
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      - run: aws cloudwatch put-metric-data --metric-name RunTimeTestsFailure --namespace GithubCanaryApps --value 0

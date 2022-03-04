@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "name": "auth-with-email-environment",
+  "version": "0.0.1",
+  "scripts": {
+    "pull": "amplify pull --appId d39wm44u5j8yn5 --envName staging"
+  }
+}
