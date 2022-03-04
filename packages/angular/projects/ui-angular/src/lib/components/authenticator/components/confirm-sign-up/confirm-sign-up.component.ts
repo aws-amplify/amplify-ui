@@ -1,7 +1,7 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 import {
-  formField,
+  FormField,
   getActorState,
   getFormDataFromEvent,
   translate,
@@ -28,7 +28,7 @@ export class ConfirmSignUpComponent implements OnInit {
     'Your code is on the way. To log in, enter the code we sent you. It may take a minute to arrive.'
   );
   public minutesMessage = translate('It may take a minute to arrive.');
-  public formOverrides: formField;
+  public formOverrides: FormField;
 
   constructor(public authenticator: AuthenticatorService) {}
 
