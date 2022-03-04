@@ -174,7 +174,7 @@ const onBackToSignInClicked = (): void => {
                       aria-invalid="false"
                       name="confirmation_code"
                       autocomplete="one-time-code"
-                      type="text"
+                      type="number"
                     ></base-input>
                   </base-wrapper>
                 </base-wrapper>

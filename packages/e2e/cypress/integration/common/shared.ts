@@ -249,7 +249,7 @@ Then(
 
 When('I type a valid confirmation code', () => {
   // This should be intercepted & mocked
-  cy.findByLabelText('Confirmation Code').type('validcode');
+  cy.findInputField('Confirmation Code').type('123456');
 });
 
 When('I type a custom password from label {string}', (custom) => {
@@ -262,11 +262,11 @@ When('I type a custom confirm password from label {string}', (custom) => {
 
 When('I type a valid SMS confirmation code', () => {
   // This should be intercepted & mocked
-  cy.findByLabelText('Code *').type('validcode');
+  cy.findInputField('Code *').type('123456');
 });
 
 When('I type an invalid confirmation code', () => {
-  cy.findByLabelText('Confirmation Code').type('invalidcode');
+  cy.findInputField('Confirmation Code').type('0000');
 });
 
 When('I see {string} as the {string} input', (custom, order) => {

@@ -19,7 +19,7 @@ export const authInputAttributes: AuthInputAttributes = {
   confirmation_code: {
     label: 'Confirmation Code',
     placeholder: 'Code',
-    type: 'text',
+    type: 'number',
     autocomplete: 'one-time-code',
   },
   email: {
