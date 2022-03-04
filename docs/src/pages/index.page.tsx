@@ -25,6 +25,8 @@ import { HomePrimitivePreview } from './HomePrimitivePreview';
 import { Copy } from '@/components/Copy';
 import { Footer } from '@/components/Layout/Footer';
 
+import type { SandpackThemeProp } from '@codesandbox/sandpack-react';
+
 const code = `import { AmplifyProvider, Button, Card, Text, Heading, Flex, Badge, Image, StepperField, useTheme } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
@@ -100,7 +102,7 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
   const router = useRouter();
   const { tokens } = useTheme();
   const framework = (router.query.platform as string) ?? 'react';
-  const sandPackTheme = {
+  const sandPackTheme: SandpackThemeProp = {
     palette: {
       activeText: `${tokens.colors.font.interactive}`,
       defaultText: `${tokens.colors.font.secondary}`,
@@ -133,7 +135,6 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
       monoFont:
         '"Fira Mono", "DejaVu Sans Mono", Menlo, Consolas, "Liberation Mono", Monaco, "Lucida Console", monospace',
       fontSize: '16px',
-      lineHeight: '1.5',
     },
   };
   const installScripts = {
