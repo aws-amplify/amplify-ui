@@ -1,12 +1,17 @@
-import { Component, HostBinding, Input } from '@angular/core';
-import { getFormDataFromEvent, translate } from '@aws-amplify/ui';
+import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import {
+  formField,
+  getActorState,
+  getFormDataFromEvent,
+  translate,
+} from '@aws-amplify/ui';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 
 @Component({
   selector: 'amplify-confirm-verify-user',
   templateUrl: './amplify-confirm-verify-user.component.html',
 })
-export class ConfirmVerifyUserComponent {
+export class ConfirmVerifyUserComponent implements OnInit {
   @HostBinding('attr.data-amplify-authenticator-confirmverifyuser')
   dataAttr = '';
   @Input() public headerText = translate(
@@ -16,8 +21,23 @@ export class ConfirmVerifyUserComponent {
   // translated texts
   public skipText = translate('Skip');
   public submitText = translate('Submit');
+  public formOverrides: formField;
 
   constructor(public authenticator: AuthenticatorService) {}
+
+  ngOnInit(): void {
+    this.setFormFields();
+  }
+
+  public setFormFields() {
+    const _state = this.authenticator.authState;
+    this.formOverrides =
+      getActorState(_state).context?.formFields?.confirmVerifyUser;
+  }
+
+  public grabField(name: string, field: string, defaultV) {
+    return this.formOverrides?.[name]?.[field] ?? defaultV;
+  }
 
   public get context() {
     return this.authenticator.slotContext;

@@ -112,6 +112,11 @@ export const ComponentClassObject = {
     components: ['Divider'],
     description: 'Top level element that wraps the Divider primitive',
   },
+  DividerLabel: {
+    className: 'amplify-divider--label',
+    components: ['Divider'],
+    description: 'Class applied to the label of the Divider component',
+  },
   Expander: {
     className: 'amplify-expander',
     components: ['Expander'],
@@ -298,6 +303,11 @@ export const ComponentClassObject = {
     className: 'amplify-searchfield',
     components: ['SearchField'],
     description: 'Top level element that wraps the SearchField primitive',
+  },
+  SearchFieldClear: {
+    className: 'amplify-searchfield__clear',
+    components: ['SearchField'],
+    description: 'Class applied to the search field clear button',
   },
   SearchFieldSearch: {
     className: 'amplify-searchfield__search',

@@ -31,6 +31,7 @@ export function Authenticator({
   socialProviders,
   variation,
   hideSignUp,
+  formFields,
 }: AuthenticatorProps) {
   const components = { ...defaultComponents, ...customComponents };
   const machineProps = {
@@ -39,6 +40,7 @@ export function Authenticator({
     services,
     signUpAttributes,
     socialProviders,
+    formFields,
   };
 
   // Helper component that sends init event to the parent provider

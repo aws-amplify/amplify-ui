@@ -1,170 +1,57 @@
 /* Center by default */
 [data-amplify-authenticator] {
   display: grid;
-}
+  max-width: var(--amplify-components-authenticator-max-width);
 
-[data-amplify-authenticator][data-variation='modal'] {
-  display: grid;
-  width: 100vw;
-  height: 100vh;
-  height: -webkit-fill-available;
-  background-color: var(--amplify-colors-background-secondary, #e1e5e9);
+  &[data-variation='modal'] {
+    display: grid;
+    width: var(--amplify-components-authenticator-modal-width);
+    height: var(--amplify-components-authenticator-modal-height);
+    background-color: var(
+      --amplify-components-authenticator-modal-background-color
+    );
+    position: fixed;
+    top: var(--amplify-components-authenticator-modal-top);
+    left: var(--amplify-components-authenticator-modal-left);
 
-  /* Override browser default `body { margin: 8px }` */
-  position: fixed;
-  top: 0;
-  left: 0;
-
-  /* Having a z-index at least "wins" by default */
-  z-index: 1;
-
-  /* top-align at the top 20% of the screen */
-  box-sizing: border-box; // don't add padding to total height
-  padding-top: 20vh;
-  align-content: flex-start; // top align
-
-  @media (max-width: 30rem) {
-    overflow: auto; // only overflow on mobile. On web, router-content overflows.
-    padding-top: 0; // use the full height on mobile
-  }
-}
-
-[data-amplify-authenticator][data-variation='modal']
-  [data-amplify-router-content] {
-  max-height: 60vh;
-  overflow-y: auto;
-
-  /* Scroll shadows, adapted from https://codepen.io/chriscoyier/pen/YzXBYvL */
-  background: linear-gradient(white 30%, rgba(255, 255, 255, 0)) center top,
-    linear-gradient(rgba(255, 255, 255, 0), white 70%) center bottom,
-    radial-gradient(
-        farthest-side at 50% 0,
-        rgba(0, 0, 0, 0.15),
-        rgba(0, 0, 0, 0)
-      )
-      center top,
-    radial-gradient(
-        farthest-side at 50% 100%,
-        rgba(0, 0, 0, 0.15),
-        rgba(0, 0, 0, 0)
-      )
-      center bottom;
-
-  background-repeat: no-repeat;
-  background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
-  background-attachment: local, local, scroll, scroll;
-
-  @media (max-width: 30rem) {
-    max-height: unset; // on mobile, let content take the whole height
-  }
-}
-
-/* Texture for modal */
-[data-amplify-authenticator][data-variation='modal']::before {
-  // Fill modal space, but don't scroll
-  position: absolute;
-  width: 100%;
-  height: 100%;
-
-  content: '';
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' id='texture' data-v-1d260e0e=''%3E%3Cfilter id='noise' data-v-1d260e0e=''%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch' data-v-1d260e0e=''%3E%3C/feTurbulence%3E%3CfeColorMatrix type='saturate' values='0' data-v-1d260e0e=''%3E%3C/feColorMatrix%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' data-v-1d260e0e=''%3E%3C/rect%3E%3C/svg%3E");
-  opacity: 0.35;
-  filter: 'contrast(120%) brightness(120%)';
-}
-
-[data-amplify-authenticator] [data-amplify-container] {
-  /* Fix z-index of texture being over the Authenticator */
-  position: relative;
-  place-self: center;
-  width: 30rem;
-  @media (max-width: 30rem) {
-    width: 100%;
-  }
-}
-
-// footers inside each screen should have some margin below it
-[data-amplify-authenticator] [data-amplify-router] [data-amplify-footer] {
-  padding-bottom: var(--amplify-space-medium);
-  text-align: center;
-}
-
-[data-amplify-authenticator] [data-amplify-router] {
-  background-color: var(--amplify-colors-background-primary);
-  box-shadow: var(--amplify-shadows-medium);
-}
-
-[data-amplify-authenticator] [data-amplify-form] {
-  padding: var(--amplify-space-xl);
-}
-
-[data-amplify-authenticator] [data-state='inactive'][role='tab'] {
-  background-color: var(--amplify-colors-background-secondary);
-}
-
-/* Remove double-border between the password field & reveal button */
-[data-amplify-authenticator]
-  .amplify-passwordfield
-  .amplify-button:not(:focus) {
-  border-left: none;
-}
-
-[data-amplify-authenticator]
-  .amplify-phonenumberfield
-  .amplify-countrycodeselect {
-  height: 100%;
-}
-
-[data-amplify-authenticator]
-  .amplify-phonenumberfield
-  .amplify-select__wrapper {
-  height: 100%;
-}
-
-/* Remove double-border between the phone field & country select  */
-[data-amplify-authenticator] .amplify-phonenumberfield select:not(:focus) {
-  border-right: none;
-}
-
-[data-amplify-authenticator] [data-or-container] {
-  position: relative;
-  color: gray;
-  align-items: center;
-  justify-content: center;
-  padding: 1.5rem 0px;
-
-  [data-or-line] {
-    position: absolute;
-    background: var(--amplify-colors-white);
+    /* Having a z-index at least "wins" by default */
     z-index: 1;
-    padding: 0px 1.5rem;
   }
-}
-[data-amplify-copy] {
-  display: flex;
-  font-size: 0.688rem;
-  gap: 1rem;
-  justify-content: center;
-  align-items: center;
 
-  @media (max-width: 30rem) {
-    word-break: break-all;
+  & [data-amplify-container] {
+    place-self: center;
+    width: var(--amplify-components-authenticator-container-width-handheld);
+    @media (min-width: 30rem) {
+      // @media min-width 30rem (--amplify-components-authenticator-container-width-max)
+      width: var(--amplify-components-authenticator-container-width-desktop);
+      max-width: var(--amplify-components-authenticator-container-width-max);
+    }
   }
-}
 
-[data-amplify-copy-svg] {
-  cursor: pointer;
-  position: relative;
-
-  &:hover [data-amplify-copy-tooltip] {
-    visibility: visible;
-    font-size: 0.55rem;
+  & [data-amplify-router] {
+    background-color: var(
+      --amplify-components-authenticator-router-background-color
+    );
+    box-shadow: var(--amplify-components-authenticator-router-box-shadow);
+    border-color: var(--amplify-components-authenticator-router-border-color);
+    border-width: var(--amplify-components-authenticator-router-border-width);
+    border-style: var(--amplify-components-authenticator-router-border-style);
   }
-}
 
-[data-amplify-copy-tooltip] {
-  visibility: hidden;
-  position: absolute;
-  top: -1rem;
-  left: -0.1rem;
-  color: var(--amplify-colors-teal-100);
+  & [data-amplify-footer] {
+    padding-bottom: var(
+      --amplify-components-authenticator-footer-padding-bottom
+    );
+    text-align: center;
+  }
+
+  & [data-amplify-form] {
+    padding: var(--amplify-components-authenticator-form-padding);
+  }
+
+  & [data-state='inactive'] {
+    background-color: var(
+      --amplify-components-authenticator-state-inactive-background-color
+    );
+  }
 }

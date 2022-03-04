@@ -9,6 +9,7 @@ const propsToCode = (props) => {
     `<Flex direction=${JSON.stringify(props.direction)}>
   <Text>Before</Text>
   <Divider` +
+    (props.label ? `\n    label=${JSON.stringify(props.label)}` : '') +
     (props.size ? `\n    size=${JSON.stringify(props.size)}` : '') +
     `
     orientation=${JSON.stringify(props.orientation)} />
@@ -34,6 +35,7 @@ export const DividerDemo = () => {
         <Divider
           size={dividerProps.size}
           orientation={dividerProps.orientation}
+          label={dividerProps.label}
         />
         <Text>After</Text>
       </Flex>

@@ -20,6 +20,12 @@ const inputAttributes: ComputedRef<AuthInputAttributes> = computed(
   () => authInputAttributes
 );
 
+const {
+  value: { context },
+} = state;
+
+const formOverrides = context?.config?.formFields?.forceNewPassword;
+
 let requiredAttributes = actorState.value.context.requiredAttributes;
 
 requiredAttributes = requiredAttributes?.filter((fieldName) => {
@@ -37,12 +43,18 @@ requiredAttributes = requiredAttributes?.filter((fieldName) => {
   <template v-for="(field, idx) in requiredAttributes" :key="idx">
     <alias-control
       :label="
-        translate<string>((inputAttributes[field as LoginMechanism])?.label)
+        // prettier-ignore
+        translate<string>(formOverrides?.[field]?.label ?? (inputAttributes[field as LoginMechanism]).label)
       "
+      :label-hidden="formOverrides?.[field]?.labelHidden"
+      :required="formOverrides?.[field]?.required"
       :name="field"
       :placeholder="
-        translate<string>( inputAttributes[field as LoginMechanism]?.label)
+        // prettier-ignore
+        translate<string>( formOverrides?.[field]?.placeholder  ?? inputAttributes[field as LoginMechanism].label)
       "
+      :dialCode="formOverrides?.[field]?.dialCode"
+      :dialCodeList="formOverrides?.[field]?.dialCodeList"
     />
   </template>
 </template>

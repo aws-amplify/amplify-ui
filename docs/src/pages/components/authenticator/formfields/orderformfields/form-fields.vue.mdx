@@ -1,0 +1,34 @@
+```html{3}
+<script setup>
+const formFields = {
+    signUp: {
+      email: {
+        order:1
+      },
+      family_name: {
+        order: 2
+      },
+      preferred_username: {
+        order: 4
+      },
+      birthdate: {
+        order: 3
+      },
+      password: {
+        order: 5
+      },
+      confirm_password: {
+        order: 6
+      }
+    },
+}
+</script>
+<template>
+  <authenticator :form-fields="formFields">
+    <template v-slot="{ user, signOut }">
+      <h1>Hello {{ user.username }}!</h1>
+      <button @click="signOut">Sign Out</button>
+    </template>
+  </authenticator>
+</template>
+```

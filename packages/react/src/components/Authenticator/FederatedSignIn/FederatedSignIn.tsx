@@ -1,7 +1,7 @@
 import { FederatedIdentityProviders, translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
-import { Divider, Flex, View } from '../../..';
+import { Divider, Flex } from '../../..';
 import { FederatedSignInButton } from './FederatedSignInButtons';
 
 export function FederatedSignIn() {
@@ -65,10 +65,7 @@ export function FederatedSignIn() {
         }
       })}
 
-      <Flex data-or-container="">
-        <View data-or-line>or</View>
-        <Divider size="small" />
-      </Flex>
+      <Divider size="small" label="or" />
     </Flex>
   );
 }
