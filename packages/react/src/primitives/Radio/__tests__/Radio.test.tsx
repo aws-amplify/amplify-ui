@@ -101,7 +101,7 @@ describe('RadioField test suite', () => {
     );
   });
 
-  it('should inherit labelPosition from RadioGroupField', async () => {
+  it('should not inherit labelPosition from RadioGroupField', async () => {
     render(
       <RadioGroupField
         label="label"
