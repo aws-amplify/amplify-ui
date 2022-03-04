@@ -61,6 +61,7 @@ export function SignIn() {
             className="amplify-flex"
             disabled={isPending}
           >
+            <legend>Sign in</legend>
             <UserNameAlias
               labelHidden={userOverrides?.labelHidden}
               placeholder={userOverrides?.placeholder}

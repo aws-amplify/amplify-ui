@@ -12,7 +12,7 @@ import { IconMenu } from '../Icon';
 import { MenuButton } from './MenuButton';
 import { MenuProps, Primitive } from '../types';
 
-export const MENU_TRIGGER_TEST_ID = 'amplify-menu-trigger-test-id-test';
+export const MENU_TRIGGER_TEST_ID = 'amplify-menu-trigger-test-id';
 export const MENU_ITEMS_GROUP_TEST_ID = 'amplify-menu-items-group-test-id';
 
 const MenuPrimitive: Primitive<MenuProps, 'div'> = (
