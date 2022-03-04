@@ -170,16 +170,8 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
                 Get started
                 <IconChevronRight />
               </Button>
-              <TextField
-                label=""
-                labelHidden={true}
-                isReadOnly={true}
-                className="install-code"
-                outerEndComponent={
-                  <Copy variation="link" text={frameworkInstallScript} />
-                }
-                value={frameworkInstallScript}
-              />
+              <code className="install-code">{frameworkInstallScript}</code>
+              <Copy size="" variation="link" text={frameworkInstallScript} />
             </Flex>
           </Card>
           <Flex
