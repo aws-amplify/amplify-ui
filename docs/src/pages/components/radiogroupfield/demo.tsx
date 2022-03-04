@@ -13,8 +13,8 @@ const propsToCode = ({
   label,
   labelPosition,
   size,
-  name,
   direction,
+  name,
   isDisabled,
 }: RadioGroupFieldProps) => {
   return (

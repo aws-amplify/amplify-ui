@@ -17,7 +17,6 @@ export interface RadioGroupFieldPropControlsProps extends RadioGroupFieldProps {
   setLabel: (
     value: React.SetStateAction<RadioGroupFieldProps['label']>
   ) => void;
-  setName: (value: React.SetStateAction<RadioGroupFieldProps['name']>) => void;
   setSize: (value: React.SetStateAction<RadioGroupFieldProps['size']>) => void;
   setLabelPosition: (
     value: React.SetStateAction<RadioGroupFieldProps['labelPosition']>
@@ -34,8 +33,6 @@ export const RadioGroupFieldPropControls: RadioGroupFieldPropControlsInterface =
     setIsDisabled,
     label,
     setLabel,
-    name,
-    setName,
     setSize,
     labelPosition,
     isDisabled,
@@ -53,29 +50,23 @@ export const RadioGroupFieldPropControls: RadioGroupFieldPropControlsInterface =
           }}
         />
 
-        <TextField
-          id="name"
-          name="name"
-          label="name"
-          value={name}
-          onChange={(event) => {
-            setName(event.target.value as RadioGroupFieldProps['name']);
-          }}
-        />
-
-        <SwitchField
-          id="isDiabled"
-          label="isDisabled"
-          name="isDisabled"
-          isChecked={isDisabled}
-          onChange={(event) => {
-            setIsDisabled(
-              Boolean(
-                event.target.checked
-              ) as RadioGroupFieldProps['isDisabled']
-            );
-          }}
-        />
+        <SelectField
+          id="labelPosition"
+          name="labelPosition"
+          label="labelPosition"
+          placeholder="default"
+          value={labelPosition}
+          onChange={(e) =>
+            setLabelPosition(
+              e.target.value as RadioGroupFieldProps['labelPosition']
+            )
+          }
+        >
+          <option value="start">start</option>
+          <option value="end">end</option>
+          <option value="top">top</option>
+          <option value="bottom">bottom</option>
+        </SelectField>
 
         <SelectField
           label="direction"
@@ -102,23 +93,19 @@ export const RadioGroupFieldPropControls: RadioGroupFieldPropControlsInterface =
           <option value="large">large</option>
         </SelectField>
 
-        <SelectField
-          id="labelPosition"
-          name="labelPosition"
-          label="labelPosition"
-          placeholder="default"
-          value={labelPosition}
-          onChange={(e) =>
-            setLabelPosition(
-              e.target.value as RadioGroupFieldProps['labelPosition']
-            )
-          }
-        >
-          <option value="start">start</option>
-          <option value="end">end</option>
-          <option value="top">top</option>
-          <option value="bottom">bottom</option>
-        </SelectField>
+        <SwitchField
+          id="isDiabled"
+          label="isDisabled"
+          name="isDisabled"
+          isChecked={isDisabled}
+          onChange={(event) => {
+            setIsDisabled(
+              Boolean(
+                event.target.checked
+              ) as RadioGroupFieldProps['isDisabled']
+            );
+          }}
+        />
       </Flex>
     );
   };
