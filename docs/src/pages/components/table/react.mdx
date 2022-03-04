@@ -18,6 +18,7 @@ import {
 } from './examples';
 import { Example, ExampleCode } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
+import { ComponentClassTable } from '@/components/ComponentClassTable';
 
 The `Table` primitive provides users with a styled and customizable table element.
 
@@ -115,16 +116,7 @@ respectively. This is similar to how the HTML native `th` and `td` elements are 
 
 ### Target classes
 
-| Class                    | Description                                                                                   |
-| ------------------------ | --------------------------------------------------------------------------------------------- |
-| `amplify-table`          | Top level `<table>` element that wraps all table elements                                     |
-| `amplify-table__body`    | Class applied to `TableBody` component                                                        |
-| `amplify-table__caption` | Class applied to the content provided as the `caption` prop                                   |
-| `amplify-table__foot`    | Class applied to `TableFoot` component                                                        |
-| `amplify-table__head`    | Class applied to `TableHead` component                                                        |
-| `amplify-table__row`     | Class applied to `TableRow` component                                                         |
-| `amplify-table__td`      | Class applied to `TableCell` component rendered as a `<td>` element (`<TableCell as="td" />`) |
-| `amplify-table__th`      | Class applied to `TableCell` comopnent rendered as a `<th>` element (`<TableCell as="th" />`) |
+<ComponentClassTable componentName="Table" />
 
 ### Global Styling
 

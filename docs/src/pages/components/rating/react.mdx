@@ -16,6 +16,7 @@ import {
 } from './examples';
 import { RatingDemo } from './demo';
 import { Example, ExampleCode } from '@/components/Example';
+import { ComponentClassTable } from '@/components/ComponentClassTable';
 
 ## Demo
 
@@ -145,14 +146,7 @@ A custom empty icon can be used in the Rating component using the `emptyIcon` pr
 
 ### Target classes
 
-| Class                           | Description                                                                                             |
-| ------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| `amplify-rating`                | Top level `<Flex>` component that wraps all rating elements                                             |
-| `amplify-rating-icon-container` | Class applied to the `<span>` that wraps each rating icon                                               |
-| `amplify-rating-label`          | Class applied to the `<label>` that wraps each rating icon                                              |
-| `amplify-rating-icon`           | Class applied alongside both the filled and empty icon classes in a mixed(partially filled) rating icon |
-| `amplify-rating-icon-filled`    | Class applied to the `<span>` that wraps a filled rating icon                                           |
-| `amplify-rating-icon-empty`     | Class applied to the `<span>` that wraps an empty rating icon                                           |
+<ComponentClassTable componentName="Rating" />
 
 ### Global styling
 
