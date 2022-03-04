@@ -19,13 +19,13 @@ export const RatingMixedIcon: React.FC<RatingMixedIconProps> = ({
 }) => {
   const widthPercentage = `${(value % 1) * 100}%`;
   return (
-    <View as="span" className={classNames(`amplify-rating-icon-container`)}>
-      <View as="label" className={classNames(`amplify-rating-label`)}>
+    <View as="span" className="amplify-rating-icon-container">
+      <View as="span" className="amplify-rating-icon-place">
         <View
           as="span"
           className={classNames(
-            `amplify-rating-icon`,
-            `amplify-rating-icon-empty`
+            'amplify-rating-icon',
+            'amplify-rating-icon-empty'
           )}
           color={emptyColor}
         >
@@ -33,15 +33,15 @@ export const RatingMixedIcon: React.FC<RatingMixedIconProps> = ({
         </View>
       </View>
       <View
-        as="label"
-        className={classNames(`amplify-rating-label`)}
+        as="span"
+        className="amplify-rating-icon-place"
         width={widthPercentage}
       >
         <View
           as="span"
           className={classNames(
-            `amplify-rating-icon`,
-            `amplify-rating-icon-filled`
+            'amplify-rating-icon',
+            'amplify-rating-icon-filled'
           )}
           color={fillColor}
         >
