@@ -11,7 +11,8 @@ export type UseStableId = (id?: string) => string;
 // and fallback to noop for React 17 and below
 // Note: We `toString()` to prevent bundlers from trying to `import { useId } from 'react';`
 // since it doesn't exist in React 17 and below (prevents https://github.com/aws-amplify/amplify-ui/issues/1154)
-const useReactId = (React as any)['useId'.toString()] || (() => undefined);
+const useReactId: () => string | (() => undefined) =
+  (React as any)['useId'.toString()] || (() => undefined);
 let count = 0;
 
 /**
@@ -27,7 +28,8 @@ export const useStableId: UseStableId = (id) => {
 
   // React versions older than 18 will have client-side ids only
   useLayoutEffect(() => {
-    if (!id) setStableId((reactId) => reactId ?? String(count++));
+    if (!id)
+      setStableId((reactId: string | undefined) => reactId ?? String(count++));
   }, [id]);
   return id || (stableId ? `${AUTO_GENERATED_ID_PREFIX}-${stableId}` : '');
 };
