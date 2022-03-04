@@ -46,6 +46,8 @@ const TextFieldPrimitive = <Multiline extends boolean>(
 
   const fieldId = useStableId(id);
   const descriptionId = useStableId();
+  const labelId = useStableId();
+  const ariaDescribedBy = labelHidden ? labelId : descriptionId;
 
   const { flexContainerStyleProps, baseStyleProps, rest } =
     splitPrimitiveProps(_rest);
@@ -61,7 +63,7 @@ const TextFieldPrimitive = <Multiline extends boolean>(
     const { rows } = props;
     control = (
       <TextArea
-        aria-describedby={descriptionId}
+        aria-describedby={ariaDescribedBy}
         hasError={hasError}
         id={fieldId}
         ref={isTextAreaRef(props, ref) ? ref : undefined}
@@ -75,7 +77,7 @@ const TextFieldPrimitive = <Multiline extends boolean>(
     const { type = 'text' } = props;
     control = (
       <Input
-        aria-describedby={descriptionId}
+        aria-describedby={ariaDescribedBy}
         hasError={hasError}
         id={fieldId}
         ref={isInputRef(props, ref) ? ref : undefined}
@@ -98,7 +100,7 @@ const TextFieldPrimitive = <Multiline extends boolean>(
       testId={testId}
       {...flexContainerStyleProps}
     >
-      <Label htmlFor={fieldId} visuallyHidden={labelHidden}>
+      <Label htmlFor={fieldId} visuallyHidden={labelHidden} id={labelId}>
         {label}
       </Label>
       <FieldDescription
