@@ -1,8 +1,6 @@
 Feature: Reset Password
 
-  Amplify's SignIn component uses AWS Cognito's authentication
-  service to provide a sign in experience to your application's
-  users.
+  End users can reset their password through "Forgot your password?" link.
 
   Background:
     Given I'm running the example "ui/components/authenticator/reset-password"
