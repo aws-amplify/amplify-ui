@@ -168,7 +168,7 @@ export const inputComponents = [
   {
     href: '/components/radiogroupfield',
     label: 'Radio Group Field',
-    body: ``,
+    body: `A RadioGroupField allows users to select a single option from a list of mutually exclusive options.`,
     platforms: ['react'],
   },
   {
