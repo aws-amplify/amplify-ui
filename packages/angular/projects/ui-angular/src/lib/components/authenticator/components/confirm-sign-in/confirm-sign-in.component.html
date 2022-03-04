@@ -1,45 +1,43 @@
-<div data-amplify-container>
-  <form data-amplify-form (submit)="onSubmit($event)" (input)="onInput($event)">
-    <fieldset
-      class="amplify-flex"
-      style="flex-direction: column"
-      data-amplify-fieldset
-      [disabled]="authenticator.isPending"
-    >
-      <amplify-slot name="confirm-sign-in-header" [context]="context">
-        <h3 class="amplify-heading">{{ headerText }}</h3>
-      </amplify-slot>
-      <amplify-form-field
-        name="confirmation_code"
-        label="Code *"
-        type="text"
-        autocomplete="one-time-code"
-        [labelHidden]="grabField('confirmation_code', 'labelHidden', true)"
-        [placeholder]="grabField('confirmation_code', 'placeholder', null)"
-        [required]="grabField('confirmation_code', 'required', true)"
-        [label]="grabField('confirmation_code', 'label', 'Code *')"
-      ></amplify-form-field>
+<form data-amplify-form (submit)="onSubmit($event)" (input)="onInput($event)">
+  <fieldset
+    class="amplify-flex"
+    style="flex-direction: column"
+    data-amplify-fieldset
+    [disabled]="authenticator.isPending"
+  >
+    <amplify-slot name="confirm-sign-in-header" [context]="context">
+      <h3 class="amplify-heading">{{ headerText }}</h3>
+    </amplify-slot>
+    <amplify-form-field
+      name="confirmation_code"
+      label="Code *"
+      type="text"
+      autocomplete="one-time-code"
+      [labelHidden]="grabField('confirmation_code', 'labelHidden', true)"
+      [placeholder]="grabField('confirmation_code', 'placeholder', null)"
+      [required]="grabField('confirmation_code', 'required', true)"
+      [label]="grabField('confirmation_code', 'label', 'Code *')"
+    ></amplify-form-field>
 
-      <button amplify-button variation="primary" fullWidth="true" type="submit">
-        {{ confirmText }}
-      </button>
-      <button
-        amplify-button
-        size="small"
-        variation="link"
-        fontWeight="normal"
-        fullWidth="true"
-        (click)="authenticator.toSignIn()"
-      >
-        {{ backToSignInText }}
-      </button>
-      <amplify-error *ngIf="authenticator.error">
-        {{ authenticator.error }}
-      </amplify-error>
-    </fieldset>
-    <amplify-slot
-      name="confirm-sign-in-footer"
-      [context]="context"
-    ></amplify-slot>
-  </form>
-</div>
+    <button amplify-button variation="primary" fullWidth="true" type="submit">
+      {{ confirmText }}
+    </button>
+    <button
+      amplify-button
+      size="small"
+      variation="link"
+      fontWeight="normal"
+      fullWidth="true"
+      (click)="authenticator.toSignIn()"
+    >
+      {{ backToSignInText }}
+    </button>
+    <amplify-error *ngIf="authenticator.error">
+      {{ authenticator.error }}
+    </amplify-error>
+  </fieldset>
+  <amplify-slot
+    name="confirm-sign-in-footer"
+    [context]="context"
+  ></amplify-slot>
+</form>

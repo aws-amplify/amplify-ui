@@ -28,8 +28,6 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-authenticator-modal-background-color: var(--amplify-colors-overlay-50);
         --amplify-components-authenticator-modal-top: var(--amplify-space-zero);
         --amplify-components-authenticator-modal-left: var(--amplify-space-zero);
-        --amplify-components-authenticator-container-width-desktop: 70%;
-        --amplify-components-authenticator-container-width-handheld: var(--amplify-space-relative-full);
         --amplify-components-authenticator-container-width-max: 30rem;
         --amplify-components-authenticator-router-border-width: var(--amplify-border-widths-small);
         --amplify-components-authenticator-router-border-style: solid;
@@ -223,6 +221,10 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-divider-border-style: solid;
         --amplify-components-divider-border-color: var(--amplify-colors-border-primary);
         --amplify-components-divider-border-width: var(--amplify-border-widths-medium);
+        --amplify-components-divider-label-color: var(--amplify-colors-font-tertiary);
+        --amplify-components-divider-label-padding-inline: var(--amplify-space-medium);
+        --amplify-components-divider-label-font-size: var(--amplify-font-sizes-small);
+        --amplify-components-divider-label-background-color: var(--amplify-colors-background-primary);
         --amplify-components-divider-small-border-width: var(--amplify-border-widths-small);
         --amplify-components-divider-large-border-width: var(--amplify-border-widths-large);
         --amplify-components-divider-opacity: var(--amplify-opacities-60);
