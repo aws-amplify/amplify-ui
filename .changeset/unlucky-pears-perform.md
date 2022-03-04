@@ -2,4 +2,4 @@
 "@aws-amplify/ui": patch
 ---
 
-Cleaned up `@aws-amplify` util directory. No actual code changes.
+Cleaned up `@aws-amplify/ui` util directory. No actual code changes.
