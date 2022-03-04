@@ -3,7 +3,7 @@ import { computed, ComputedRef, useAttrs } from 'vue';
 import { createSharedComposable } from '@vueuse/core';
 
 import {
-  formField,
+  FormField,
   getActorState,
   getFormDataFromEvent,
   hasTranslation,
@@ -52,7 +52,7 @@ const {
   value: { context },
 } = state;
 
-const formOverrides = context?.config?.formFields?.signIn as formField;
+const formOverrides = context?.config?.formFields?.signIn as FormField;
 const userOverrides = formOverrides?.['username'];
 
 let loginMechanisms = context.config?.loginMechanisms as LoginMechanism[];

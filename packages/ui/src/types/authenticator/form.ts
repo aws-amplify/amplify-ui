@@ -6,7 +6,7 @@ export type AuthFormData = Record<string, string>;
 /**
  * List of routes that support custom formFields
  */
-export type formFieldComponents =
+export type FormFieldComponents =
   | 'signIn'
   | 'signUp'
   | 'forceNewPassword'
@@ -21,20 +21,20 @@ export type formFieldComponents =
  * Used to customize form field attributes for each authenticator screen.
  */
 export type FormFields = {
-  [key in formFieldComponents]?: formField;
+  [key in FormFieldComponents]?: FormField;
 };
 
 /**
  * Override option for each screen. Maps each input to override options.
  */
-export interface formField {
-  [key: string]: formFieldTypes;
+export interface FormField {
+  [key: string]: FormFieldOptions;
 }
 
 /**
  * Override options for each field
  */
-export interface formFieldTypes {
+export interface FormFieldOptions {
   /** Will hide the label above the input if set to true */
   labelHidden?: boolean;
   /** Label text */

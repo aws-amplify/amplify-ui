@@ -5,7 +5,7 @@
 import {
   AuthInputAttributes,
   CommonFields,
-  formField,
+  FormField,
   SignUpAttribute,
 } from '../../types';
 
@@ -101,7 +101,7 @@ export const getFormDataFromEvent = (event: Event) => {
 };
 
 export const setFormOrder = (
-  formOverrides: formField,
+  formOverrides: FormField,
   fieldNames: Array<SignUpAttribute | CommonFields>
 ): Array<string | number> => {
   type keyValues = string | number;

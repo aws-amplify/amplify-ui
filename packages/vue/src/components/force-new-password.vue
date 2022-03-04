@@ -8,7 +8,7 @@ import {
   ValidationError,
   translate,
   getFormDataFromEvent,
-  formField,
+  FormField,
 } from '@aws-amplify/ui';
 import { propsCreator } from '../composables/useUtils';
 
@@ -28,7 +28,7 @@ const {
 } = state;
 
 const formOverrides = context?.config?.formFields
-  ?.forceNewPassword as formField;
+  ?.forceNewPassword as FormField;
 
 const useAuthShared = createSharedComposable(useAuthenticator);
 const props = useAuthShared();
