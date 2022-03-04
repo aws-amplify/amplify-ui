@@ -170,8 +170,17 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
                 Get started
                 <IconChevronRight />
               </Button>
-              <code className="install-code">{frameworkInstallScript}</code>
-              <Copy size="" variation="link" text={frameworkInstallScript} />
+              <code className="install-code__container">
+                <p className="install-code__content">
+                  {frameworkInstallScript}
+                </p>
+                <Copy
+                  className="install-code__button"
+                  size=""
+                  variation="link"
+                  text={frameworkInstallScript}
+                />
+              </code>
             </Flex>
           </Card>
           <Flex
