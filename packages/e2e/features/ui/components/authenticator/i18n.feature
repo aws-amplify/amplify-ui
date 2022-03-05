@@ -21,6 +21,6 @@ Feature: Internationalization (I18n)
     And the "Sign in" button is in "ja" and I click it
     Then I see "Error with your user"
 
-@angular @react @vue
+  @angular @react @vue
   Scenario: Authenticator reflects updated vocabularies for `I18n.setLanguage('ja')`
     Then I see "Sign In Custom"

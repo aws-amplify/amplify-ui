@@ -1,43 +1,9 @@
 import * as React from 'react';
 import debounce from 'lodash/debounce';
-import {
-  Alert,
-  Heading,
-  Button,
-  Text,
-  IconFeedback,
-  useTheme,
-} from '@aws-amplify/ui-react';
+import { Heading, Text, useTheme } from '@aws-amplify/ui-react';
 import { Sidebar } from './SecondaryNav';
 import { TableOfContents } from '../TableOfContents';
 import { Footer } from './Footer';
-
-const PrimitiveAlert = () => {
-  const { tokens } = useTheme();
-  return (
-    <Alert
-      variation="info"
-      heading="Developer preview"
-      margin={`${tokens.space.small} 0 0 0`}
-    >
-      <Text color="inherit">
-        Amplify UI primitive components like this one are in developer preview
-        and only available in React for now.
-      </Text>
-      <Button
-        as="a"
-        size="small"
-        gap={tokens.space.xs}
-        margin={`${tokens.space.xs} 0 0 0`}
-        isExternal
-        href="https://github.com/aws-amplify/amplify-ui/discussions/198"
-      >
-        <IconFeedback />
-        Add feedback here
-      </Button>
-    </Alert>
-  );
-};
 
 export default function Page({
   children,
@@ -46,12 +12,7 @@ export default function Page({
   children: any;
   frontmatter?: any;
 }) {
-  const {
-    title,
-    description,
-    hideToc = false,
-    isPrimitive = false,
-  } = frontmatter;
+  const { title, description, hideToc = false } = frontmatter;
   const { tokens } = useTheme();
   const [headings, setHeadings] = React.useState([]);
 
@@ -94,7 +55,6 @@ export default function Page({
             >
               {description}
             </Text>
-            {isPrimitive ? <PrimitiveAlert /> : null}
           </section>
 
           {children}

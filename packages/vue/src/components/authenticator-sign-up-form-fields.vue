@@ -6,7 +6,7 @@ import {
   AuthInputAttributes,
   authInputAttributes,
   SignUpAttribute,
-  formField,
+  FormField,
   setFormOrder,
   CommonFields,
 } from '@aws-amplify/ui';
@@ -25,7 +25,7 @@ const {
   value: { context },
 } = state;
 
-const formOverrides = context?.config?.formFields?.signUp as formField;
+const formOverrides = context?.config?.formFields?.signUp as FormField;
 
 const useAuthShared = createSharedComposable(useAuthenticator);
 const { validationErrors } = toRefs(useAuthShared());
