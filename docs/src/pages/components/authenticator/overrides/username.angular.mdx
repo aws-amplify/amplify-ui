@@ -1,11 +1,50 @@
 _app.component.html_
 
-```html{1} file=../../../../../../examples/angular/src/pages/ui/components/authenticator/sign-up-with-email/sign-up-with-email.component.html
+```html{1}
+<amplify-authenticator
+  [services]="services"
+  initialState="signUp"
+>
+  <ng-template
+    amplifySlot="authenticated"
+    let-user="user"
+    let-signOut="signOut"
+  >
+    <h2>Welcome, {{ user.username }}!</h2>
+    <button (click)="signOut()">Sign Out</button>
+  </ng-template>
+</amplify-authenticator>
 
 ```
 
 _app.component.ts_
 
-```html file=../../../../../../examples/angular/src/pages/ui/components/authenticator/sign-up-with-email/sign-up-with-email.component.ts
+```js{14}
+import { Component, OnInit } from '@angular/core';
+import { Amplify, Auth } from 'aws-amplify';
+import awsExports from './aws-exports';
+
+@Component({
+  selector: 'sign-up-with-email',
+  templateUrl: 'sign-up-with-email.component.html',
+})
+export class SignUpWithEmailComponent implements OnInit {
+  constructor() {
+    Amplify.configure(awsExports);
+  }
+
+  services = {
+    async handleSignUp(formData: Record<string, any>) {
+      let { username, password, attributes } = formData;
+      // custom username
+      username = username.toLowerCase();
+      attributes.email = attributes.email.toLowerCase();
+      return Auth.signUp({
+        username,
+        password,
+        attributes,
+      });
+    },
+  };
 
 ```

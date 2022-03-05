@@ -9,6 +9,17 @@ export enum AuthChallengeNames {
   MFA_SETUP = 'MFA_SETUP',
 }
 
+/** Contact destinations that we can send user confirmation code to */
+export type ContactMethod = 'Email' | 'Phone Number';
+
+/** Federated IDPs that Authenticator supports */
+export enum FederatedIdentityProviders {
+  Apple = 'SignInWithApple',
+  Amazon = 'LoginWithAmazon',
+  Facebook = 'Facebook',
+  Google = 'Google',
+}
+
 /** Known cognito user attributes */
 export interface CognitoAttributes {
   email: string;
