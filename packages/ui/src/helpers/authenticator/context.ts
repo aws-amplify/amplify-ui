@@ -3,8 +3,19 @@
  */
 import includes from 'lodash/includes';
 
-import { LoginMechanism, LoginMechanismArray, AuthContext } from '../../types';
-import { authInputAttributes } from './form';
+import {
+  LoginMechanism,
+  LoginMechanismArray,
+  AuthContext,
+  AuthMachineState,
+} from '../../types';
+import { authInputAttributes } from './constants';
+
+export const getPrimaryAlias = (state: AuthMachineState) => {
+  const loginMechanisms = state?.context.config?.loginMechanisms;
+  const [primaryAlias] = loginMechanisms ?? ['username'];
+  return primaryAlias;
+};
 
 /**
  * Given xstate context from AuthMachine, this returns the input label, type,

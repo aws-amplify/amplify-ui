@@ -1,16 +1,22 @@
-import { translate, hasTranslation, getActorState } from '@aws-amplify/ui';
+import {
+  translate,
+  hasTranslation,
+  getActorState,
+  getSignInFormFields,
+} from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
-import { Button, Flex, PasswordField, View } from '../../..';
+import { Button, Flex, View } from '../../..';
 import { FederatedSignIn } from '../FederatedSignIn';
-import { RemoteErrorMessage, UserNameAlias } from '../shared';
+import { RemoteErrorMessage } from '../shared';
 import {
   getFormDataFromEvent,
   isInputElement,
   isInputOrSelectElement,
 } from '../../../helpers/utils';
 import { useCustomComponents } from '../hooks/useCustomComponents';
-import { propsCreator } from '../../../helpers/utils';
+import { AttributeField } from '../shared/AttributeField';
+import { BaseFormFields } from '../shared/BaseFormFields';
 
 export function SignIn() {
   const { isPending, submitForm, updateForm, _state } = useAuthenticator();
@@ -19,6 +25,8 @@ export function SignIn() {
       SignIn: { Header = SignIn.Header, Footer = SignIn.Footer },
     },
   } = useCustomComponents();
+
+  const defaultFormFields = getSignInFormFields(_state);
 
   const formOverrides = getActorState(_state).context?.formFields?.signIn;
   const userOverrides = formOverrides?.['username'];
@@ -61,22 +69,7 @@ export function SignIn() {
             className="amplify-flex"
             disabled={isPending}
           >
-            <UserNameAlias
-              labelHidden={userOverrides?.labelHidden}
-              placeholder={userOverrides?.placeholder}
-              required={userOverrides?.required}
-              label={userOverrides?.label}
-              dialCode={userOverrides?.dialCode}
-              dialCodeList={userOverrides?.dialCodeList}
-              data-amplify-usernamealias
-            />
-            <PasswordField
-              data-amplify-password
-              className="password-field"
-              {...propsCreator('password', 'Password', formOverrides, true)}
-              name="password"
-              autoComplete="current-password"
-            />
+            <BaseFormFields formFields={defaultFormFields} />
           </fieldset>
 
           <RemoteErrorMessage />

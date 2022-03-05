@@ -57,4 +57,8 @@ export interface FormFieldOptions {
   dialCodeList?: Array<string>;
   /** Integer that denotes where this field should be positioned in. */
   order?: number;
+  /** Desired HTML input type */
+  type?: string;
+  /** Desired autocomplete HTML attribute */
+  autocomplete?: string;
 }
