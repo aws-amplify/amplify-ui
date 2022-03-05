@@ -1,6 +1,6 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import {
-  formField,
+  FormField,
   getActorState,
   getFormDataFromEvent,
   translate,
@@ -21,7 +21,7 @@ export class ConfirmVerifyUserComponent implements OnInit {
   // translated texts
   public skipText = translate('Skip');
   public submitText = translate('Submit');
-  public formOverrides: formField;
+  public formOverrides: FormField;
 
   constructor(public authenticator: AuthenticatorService) {}
 
