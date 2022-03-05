@@ -39,6 +39,7 @@ export function AttributeField({
       />
     );
   } else {
+    console.log(formFieldOptions);
     return (
       <TextField
         name={name}

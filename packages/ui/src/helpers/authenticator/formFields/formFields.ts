@@ -11,22 +11,25 @@ import {
 } from '..';
 import {
   ActorContextWithForms,
-  AuthFieldsWithDefaults,
   AuthMachineState,
   FormField,
+  FormFieldComponents,
   FormFieldOptions,
 } from '../../../types';
 import { getActorContext } from '../actor';
 
-export const applyTranslation = (
-  formFieldOptions: FormFieldOptions
-): FormFieldOptions => {
-  const { label, placeholder } = formFieldOptions;
-  return {
-    ...formFieldOptions,
-    label: label ? translate<string>(label) : undefined,
-    placeholder: placeholder ? translate<string>(placeholder) : undefined,
-  };
+export const applyTranslation = (formFields: FormField): FormField => {
+  const newFormFields = { ...formFields };
+  for (const [name, options] of Object.entries(formFields)) {
+    const { label, placeholder } = options;
+
+    newFormFields[name] = {
+      ...options,
+      label: label ? translate<string>(label) : undefined,
+      placeholder: placeholder ? translate<string>(placeholder) : undefined,
+    };
+  }
+  return newFormFields;
 };
 
 export const getFormFieldOptions = (
@@ -41,21 +44,16 @@ export const getFormFieldOptions = (
     options = { ...options, dialCode: country_code };
   }
 
-  return applyTranslation(options);
-};
-
-export const getPrimaryAliasFieldOptions = (
-  state: AuthMachineState
-): FormFieldOptions => {
-  const primaryAlias = getPrimaryAlias(state);
-
-  return getFormFieldOptions(state, primaryAlias);
+  return options;
 };
 
 export const getSignInFormFields = (state: AuthMachineState): FormField => {
   const alias = getPrimaryAlias(state);
   return {
-    username: { ...getFormFieldOptions(state, alias), order: 1 },
+    username: {
+      ...getFormFieldOptions(state, alias),
+      order: 1,
+    },
     password: { ...getFormFieldOptions(state, 'password'), order: 2 },
   };
 };
@@ -85,4 +83,18 @@ export const getSignUpFormFields = (state: AuthMachineState): FormField => {
     }
   }
   return formField;
+};
+
+const formFieldsGetters = {
+  signIn: getSignInFormFields,
+  signUp: getSignUpFormFields,
+};
+
+export const getDefaultFormFields = (
+  component: FormFieldComponents,
+  state: AuthMachineState
+): FormField => {
+  const getFormField = formFieldsGetters[component];
+  const formFields: FormField = getFormField(state);
+  return applyTranslation(formFields);
 };

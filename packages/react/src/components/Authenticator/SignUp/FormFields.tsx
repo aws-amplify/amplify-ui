@@ -7,6 +7,7 @@ import {
   CommonFields,
   setFormOrder,
   getSignUpFormFields,
+  getDefaultFormFields,
 } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
@@ -24,7 +25,7 @@ export function FormFields() {
   ) as SignUpContext;
   const { loginMechanisms, signUpAttributes } = _state.context.config;
 
-  const defaultFormFields = getSignUpFormFields(_state);
+  const defaultFormFields = getDefaultFormFields('signUp', _state);
 
   const [order, setOrder] = React.useState([]);
 

@@ -2,7 +2,7 @@ import {
   translate,
   hasTranslation,
   getActorState,
-  getSignInFormFields,
+  getDefaultFormFields,
 } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
@@ -15,7 +15,6 @@ import {
   isInputOrSelectElement,
 } from '../../../helpers/utils';
 import { useCustomComponents } from '../hooks/useCustomComponents';
-import { AttributeField } from '../shared/AttributeField';
 import { BaseFormFields } from '../shared/BaseFormFields';
 
 export function SignIn() {
@@ -26,7 +25,7 @@ export function SignIn() {
     },
   } = useCustomComponents();
 
-  const defaultFormFields = getSignInFormFields(_state);
+  const defaultFormFields = getDefaultFormFields('signIn', _state);
 
   const formOverrides = getActorState(_state).context?.formFields?.signIn;
   const userOverrides = formOverrides?.['username'];

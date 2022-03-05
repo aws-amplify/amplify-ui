@@ -2,7 +2,7 @@
  * This file contains helpers related to forms and input attributes.
  */
 
-import { countryDialCodes } from '@/i18n';
+import { countryDialCodes } from '../../i18n';
 import { AuthInputAttributes, FormFieldOptions } from '../../types';
 
 export const authInputAttributes: AuthInputAttributes = {
