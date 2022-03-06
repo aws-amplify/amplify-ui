@@ -62,6 +62,7 @@ export function SignUp() {
         method="post"
         onChange={handleChange}
         onSubmit={handleSubmit}
+        onBlur={handleBlur}
       >
         <FederatedSignIn />
 
