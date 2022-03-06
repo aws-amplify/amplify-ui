@@ -1,13 +1,14 @@
-import { FormField } from '@aws-amplify/ui';
+import { SortedFormFields } from '@aws-amplify/ui';
 import { AttributeField } from './AttributeField';
 
 export interface BaseFormFieldsProps {
-  formFields: FormField;
+  formFields: SortedFormFields;
 }
 export function BaseFormFields({ formFields }: BaseFormFieldsProps) {
+  console.log(formFields);
   return (
     <>
-      {Object.entries(formFields).flatMap(([name, options]) => (
+      {formFields.flatMap(([name, options]) => (
         <AttributeField name={name} key={name} formFieldOptions={options} />
       ))}
     </>

@@ -3,6 +3,8 @@ import {
   hasTranslation,
   getActorState,
   getDefaultFormFields,
+  applyDefaults,
+  sortFormfields,
 } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
@@ -16,6 +18,7 @@ import {
 } from '../../../helpers/utils';
 import { useCustomComponents } from '../hooks/useCustomComponents';
 import { BaseFormFields } from '../shared/BaseFormFields';
+import { FormFields } from '../SignUp/FormFields';
 
 export function SignIn() {
   const { isPending, submitForm, updateForm, _state } = useAuthenticator();
@@ -26,9 +29,11 @@ export function SignIn() {
   } = useCustomComponents();
 
   const defaultFormFields = getDefaultFormFields('signIn', _state);
+  const customFormFields =
+    getActorState(_state).context?.formFields?.signIn || {};
 
-  const formOverrides = getActorState(_state).context?.formFields?.signIn;
-  const userOverrides = formOverrides?.['username'];
+  const formFields = applyDefaults(defaultFormFields, customFormFields);
+  const sortedFormFields = sortFormfields(formFields);
 
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
     if (isInputOrSelectElement(event.target)) {
@@ -68,7 +73,7 @@ export function SignIn() {
             className="amplify-flex"
             disabled={isPending}
           >
-            <BaseFormFields formFields={defaultFormFields} />
+            <BaseFormFields formFields={sortedFormFields} />
           </fieldset>
 
           <RemoteErrorMessage />

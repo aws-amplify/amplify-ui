@@ -8,6 +8,8 @@ import {
   setFormOrder,
   getSignUpFormFields,
   getDefaultFormFields,
+  applyDefaults,
+  sortFormfields,
 } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
@@ -19,45 +21,22 @@ import { AttributeField } from '../shared/AttributeField';
 import { BaseFormFields } from '../shared/BaseFormFields';
 
 export function FormFields() {
-  const { _state, updateForm, updateBlur } = useAuthenticator();
-  const { country_code, validationError } = getActorContext(
-    _state
-  ) as SignUpContext;
-  const { loginMechanisms, signUpAttributes } = _state.context.config;
+  const { _state } = useAuthenticator();
 
   const defaultFormFields = getDefaultFormFields('signUp', _state);
 
-  const [order, setOrder] = React.useState([]);
+  const customFormFields =
+    getActorState(_state).context?.formFields?.signUp || {};
 
-  const fieldNames = Array.from(
-    new Set([...loginMechanisms, ...signUpAttributes])
-  );
-
-  const formOverrides = getActorState(_state).context?.formFields?.signUp;
-
+  const formFields = applyDefaults(defaultFormFields, customFormFields);
   // Only 1 is supported, so `['email', 'phone_number']` will only show `email`
-  const loginMechanism = fieldNames.shift() as LoginMechanism | CommonFields;
 
-  const userOverrides = formOverrides?.[loginMechanism];
-  const common = [
-    loginMechanism,
-    'password',
-    'confirm_password',
-  ] as CommonFields[];
-
-  React.useEffect(() => {
-    const fieldNamesCombined = [...common, ...fieldNames];
-    setOrder(setFormOrder(formOverrides, fieldNamesCombined));
-  }, []);
-
-  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
-    const { name } = event.target;
-    updateBlur({ name });
-  };
+  const sortedFormFields = sortFormfields(formFields);
+  console.log(sortedFormFields);
 
   return (
     <>
-      <BaseFormFields formFields={defaultFormFields} />
+      <BaseFormFields formFields={sortedFormFields} />
     </>
   );
 }

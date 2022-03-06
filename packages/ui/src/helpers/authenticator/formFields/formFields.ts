@@ -17,6 +17,7 @@ import {
   FormFieldOptions,
 } from '../../../types';
 import { getActorContext } from '../actor';
+import merge from 'lodash/merge';
 
 export const applyTranslation = (formFields: FormField): FormField => {
   const newFormFields = { ...formFields };
@@ -97,4 +98,20 @@ export const getDefaultFormFields = (
   const getFormField = formFieldsGetters[component];
   const formFields: FormField = getFormField(state);
   return applyTranslation(formFields);
+};
+
+export const applyDefaults = (
+  defaultFormFields: FormField,
+  customFormFields: FormField
+) => {
+  // TODO: does this modify source/target objects
+  return merge(defaultFormFields, customFormFields) as FormField;
+};
+
+export type SortedFormFields = Array<[string, FormFieldOptions]>;
+
+export const sortFormfields = (formFields: FormField): SortedFormFields => {
+  return Object.entries(formFields)
+    .sort((a, b) => a[1].order - b[1].order)
+    .filter((formFieldEntry) => formFieldEntry[1] !== undefined);
 };
