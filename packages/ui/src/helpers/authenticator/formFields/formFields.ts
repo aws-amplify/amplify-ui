@@ -17,8 +17,7 @@ import {
   FormFieldOptions,
 } from '../../../types';
 import { getActorContext } from '../actor';
-import merge from 'lodash/merge';
-import { Actor, ActorContext } from 'xstate';
+import cloneDeep from 'lodash/cloneDeep';
 
 export const applyTranslation = (formFields: FormField): FormField => {
   const newFormFields = { ...formFields };
@@ -111,8 +110,11 @@ export const applyDefaults = (
   defaultFormFields: FormField,
   customFormFields: FormField
 ) => {
-  // TODO: does this modify source/target objects
-  return merge(defaultFormFields, customFormFields) as FormField;
+  let formFields = cloneDeep(defaultFormFields);
+  Object.keys(customFormFields).forEach((field) => {
+    formFields[field] = { ...formFields[field], ...customFormFields[field] };
+  });
+  return formFields;
 };
 
 export type SortedFormFields = Array<[string, FormFieldOptions]>;
