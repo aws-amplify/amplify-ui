@@ -4,6 +4,7 @@ import {
   PhoneNumberField,
   TextField,
 } from '../../../primitives';
+import { useAuthenticator } from '../hooks/useAuthenticator';
 
 export interface AttributeFieldProps {
   name: string;
@@ -13,8 +14,16 @@ export function AttributeField({
   name,
   formFieldOptions,
 }: AttributeFieldProps) {
+  const { validationErrors, updateBlur, hasValidationErrors } =
+    useAuthenticator();
   const { type } = formFieldOptions;
 
+  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+    const { name } = event.target;
+    updateBlur({ name });
+  };
+
+  if (validationErrors[name]) console.log(validationErrors[name]);
   if (type === 'tel') {
     return (
       <PhoneNumberField
@@ -26,6 +35,9 @@ export function AttributeField({
         autoComplete={formFieldOptions.autocomplete}
         isRequired={formFieldOptions.isRequired}
         labelHidden={formFieldOptions.labelHidden}
+        errorMessage={validationErrors[name]}
+        hasError={!!validationErrors[name]}
+        onBlur={handleBlur}
       />
     );
   } else if (type === 'password') {
@@ -36,6 +48,9 @@ export function AttributeField({
         placeholder={formFieldOptions.placeholder}
         isRequired={formFieldOptions.isRequired}
         labelHidden={formFieldOptions.labelHidden}
+        errorMessage={validationErrors[name]}
+        hasError={!!validationErrors[name]}
+        onBlur={handleBlur}
       />
     );
   } else {
@@ -47,6 +62,9 @@ export function AttributeField({
         autoComplete={formFieldOptions.autocomplete}
         isRequired={formFieldOptions.isRequired}
         labelHidden={formFieldOptions.labelHidden}
+        errorMessage={validationErrors[name]}
+        hasError={!!validationErrors[name]}
+        onBlur={handleBlur}
       />
     );
   }

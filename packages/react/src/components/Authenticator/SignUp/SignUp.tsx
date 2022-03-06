@@ -13,7 +13,7 @@ import {
 import { useCustomComponents } from '../hooks/useCustomComponents';
 
 export function SignUp() {
-  const { hasValidationErrors, isPending, submitForm, updateForm, _state } =
+  const { hasValidationErrors, isPending, submitForm, updateForm, updateBlur } =
     useAuthenticator();
 
   const {
@@ -36,9 +36,15 @@ export function SignUp() {
       ) {
         value = undefined;
       }
+      console.log(event.target);
 
       updateForm({ name, value });
     }
+  };
+
+  const handleBlur = (event: React.FocusEvent<HTMLFormElement>) => {
+    const { name } = event.target;
+    updateBlur({ name });
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
