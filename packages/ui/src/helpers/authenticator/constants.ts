@@ -117,7 +117,7 @@ export const defaultFormFieldOptions = {
     labelHidden: true,
     placeholder: 'Confirm Password',
     type: 'password',
-    autocomplete: 'password',
+    autocomplete: 'new-password',
   },
   email: {
     label: 'Email',
@@ -166,7 +166,7 @@ export const defaultFormFieldOptions = {
     labelHidden: true,
     placeholder: 'Password',
     type: 'password',
-    autocomplete: 'password',
+    autocomplete: 'new-password',
   },
   phone_number: {
     label: 'Phone Number',
