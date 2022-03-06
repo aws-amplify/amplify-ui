@@ -121,6 +121,10 @@ export type SortedFormFields = Array<[string, FormFieldOptions]>;
 
 export const sortFormfields = (formFields: FormField): SortedFormFields => {
   return Object.entries(formFields)
-    .sort((a, b) => a[1].order - b[1].order)
+    .sort((a, b) => {
+      const orderA = a[1].order || Number.MAX_VALUE;
+      const orderB = b[1].order || Number.MAX_VALUE;
+      return orderA - orderB;
+    })
     .filter((formFieldEntry) => formFieldEntry[1] !== undefined);
 };
