@@ -40,6 +40,7 @@ export function AttributeField({
       <PasswordField
         name={name}
         label={formFieldOptions.label}
+        autoComplete={formFieldOptions.autocomplete}
         placeholder={formFieldOptions.placeholder}
         isRequired={formFieldOptions.isRequired}
         labelHidden={formFieldOptions.labelHidden}
