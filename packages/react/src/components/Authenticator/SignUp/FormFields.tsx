@@ -29,10 +29,7 @@ export function FormFields() {
     getActorState(_state).context?.formFields?.signUp || {};
 
   const formFields = applyDefaults(defaultFormFields, customFormFields);
-  // Only 1 is supported, so `['email', 'phone_number']` will only show `email`
-
   const sortedFormFields = sortFormfields(formFields);
-  console.log(sortedFormFields);
 
   return (
     <>
