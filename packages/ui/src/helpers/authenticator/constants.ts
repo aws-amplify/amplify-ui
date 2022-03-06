@@ -16,7 +16,7 @@ export const authInputAttributes: AuthInputAttributes = {
     label: 'Confirm Password',
     placeholder: 'Confirm Password',
     type: 'password',
-    autocomplete: 'password',
+    autocomplete: 'new-password',
   },
   confirmation_code: {
     label: 'Confirmation Code',
@@ -64,7 +64,7 @@ export const authInputAttributes: AuthInputAttributes = {
     label: 'Password',
     placeholder: 'Password',
     type: 'password',
-    autocomplete: 'password',
+    autocomplete: 'new-password',
   },
   phone_number: {
     label: 'Phone Number',

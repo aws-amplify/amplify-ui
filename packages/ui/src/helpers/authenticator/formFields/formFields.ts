@@ -18,6 +18,7 @@ import {
 } from '../../../types';
 import { getActorContext } from '../actor';
 import merge from 'lodash/merge';
+import { Actor, ActorContext } from 'xstate';
 
 export const applyTranslation = (formFields: FormField): FormField => {
   const newFormFields = { ...formFields };
@@ -50,12 +51,18 @@ export const getFormFieldOptions = (
 
 export const getSignInFormFields = (state: AuthMachineState): FormField => {
   const alias = getPrimaryAlias(state);
+
   return {
     username: {
       ...getFormFieldOptions(state, alias),
+      autocomplete: 'username',
       order: 1,
     },
-    password: { ...getFormFieldOptions(state, 'password'), order: 2 },
+    password: {
+      ...getFormFieldOptions(state, 'password'),
+      autocomplete: 'current-password',
+      order: 2,
+    },
   };
 };
 
