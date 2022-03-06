@@ -65,6 +65,7 @@ export function AttributeField({
         errorMessage={validationErrors[name]}
         hasError={!!validationErrors[name]}
         onBlur={handleBlur}
+        type={type}
       />
     );
   }
