@@ -1,4 +1,5 @@
 import { FormFieldOptions } from '@aws-amplify/ui';
+import { isInputElement, isInputOrSelectElement } from '../../../helpers';
 import {
   PasswordField,
   PhoneNumberField,
@@ -14,14 +15,8 @@ export function AttributeField({
   name,
   formFieldOptions,
 }: AttributeFieldProps) {
-  const { validationErrors, updateBlur, hasValidationErrors } =
-    useAuthenticator();
+  const { validationErrors } = useAuthenticator();
   const { type } = formFieldOptions;
-
-  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
-    const { name } = event.target;
-    updateBlur({ name });
-  };
 
   if (validationErrors[name]) console.log(validationErrors[name]);
   if (type === 'tel') {
@@ -31,13 +26,13 @@ export function AttributeField({
         label={formFieldOptions.label}
         placeholder={formFieldOptions.placeholder}
         defaultCountryCode={formFieldOptions.dialCode}
+        countryCodeName="country_code"
         dialCodeList={formFieldOptions.dialCodeList}
         autoComplete={formFieldOptions.autocomplete}
         isRequired={formFieldOptions.isRequired}
         labelHidden={formFieldOptions.labelHidden}
         errorMessage={validationErrors[name]}
         hasError={!!validationErrors[name]}
-        onBlur={handleBlur}
       />
     );
   } else if (type === 'password') {
@@ -50,7 +45,6 @@ export function AttributeField({
         labelHidden={formFieldOptions.labelHidden}
         errorMessage={validationErrors[name]}
         hasError={!!validationErrors[name]}
-        onBlur={handleBlur}
       />
     );
   } else {
@@ -64,7 +58,6 @@ export function AttributeField({
         labelHidden={formFieldOptions.labelHidden}
         errorMessage={validationErrors[name]}
         hasError={!!validationErrors[name]}
-        onBlur={handleBlur}
         type={type}
       />
     );
