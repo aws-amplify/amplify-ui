@@ -104,6 +104,7 @@ export const defaultFormFieldOptions = {
     placeholder: 'Birthdate',
     type: 'date',
     autocomplete: 'bday',
+    isRequired: true,
   },
   confirmation_code: {
     label: 'Confirmation Code',
@@ -111,6 +112,7 @@ export const defaultFormFieldOptions = {
     placeholder: 'Code',
     type: 'number',
     autocomplete: 'one-time-code',
+    isRequired: true,
   },
   confirm_password: {
     label: 'Confirm Password',
@@ -118,6 +120,7 @@ export const defaultFormFieldOptions = {
     placeholder: 'Confirm Password',
     type: 'password',
     autocomplete: 'new-password',
+    isRequired: true,
   },
   email: {
     label: 'Email',
@@ -125,6 +128,7 @@ export const defaultFormFieldOptions = {
     placeholder: 'Email',
     type: 'email',
     autocomplete: 'username',
+    isRequired: true,
   },
   family_name: {
     label: 'Family Name',
@@ -132,6 +136,7 @@ export const defaultFormFieldOptions = {
     placeholder: 'Family Name',
     type: 'text',
     autocomplete: 'family-name',
+    isRequired: true,
   },
   given_name: {
     label: 'Given Name',
@@ -139,6 +144,7 @@ export const defaultFormFieldOptions = {
     placeholder: 'Given Name',
     type: 'text',
     autocomplete: 'given-name',
+    isRequired: true,
   },
   middle_name: {
     label: 'Middle Name',
@@ -146,6 +152,7 @@ export const defaultFormFieldOptions = {
     placeholder: 'Middle Name',
     type: 'text',
     autocomplete: 'additional-name',
+    isRequired: true,
   },
   name: {
     label: 'Name',
@@ -153,6 +160,7 @@ export const defaultFormFieldOptions = {
     placeholder: 'Name',
     type: 'text',
     autocomplete: 'name',
+    isRequired: true,
   },
   nickname: {
     label: 'Nickname',
@@ -160,6 +168,7 @@ export const defaultFormFieldOptions = {
     placeholder: 'Nickname',
     type: 'text',
     autocomplete: 'tel',
+    isRequired: true,
   },
   password: {
     label: 'Password',
@@ -167,6 +176,7 @@ export const defaultFormFieldOptions = {
     placeholder: 'Password',
     type: 'password',
     autocomplete: 'new-password',
+    isRequired: true,
   },
   phone_number: {
     label: 'Phone Number',
@@ -176,12 +186,14 @@ export const defaultFormFieldOptions = {
     autocomplete: 'tel',
     dialCode: '+1',
     dialCodeList: countryDialCodes,
+    isRequired: true,
   },
   preferred_username: {
     label: 'Preferred Username',
     labelHidden: true,
     placeholder: 'Preferred Username',
     type: 'text',
+    isRequired: true,
   },
   profile: {
     label: 'Profile',
@@ -189,6 +201,7 @@ export const defaultFormFieldOptions = {
     placeholder: 'Profile',
     type: 'url',
     autocomplete: 'url',
+    isRequired: true,
   },
   website: {
     label: 'Website',
@@ -196,6 +209,7 @@ export const defaultFormFieldOptions = {
     placeholder: 'Website',
     type: 'url',
     autocomplete: 'url',
+    isRequired: true,
   },
   username: {
     label: 'Username',
@@ -203,5 +217,6 @@ export const defaultFormFieldOptions = {
     placeholder: 'Username',
     type: 'text',
     autocomplete: 'username',
+    isRequired: true,
   },
 } as const;

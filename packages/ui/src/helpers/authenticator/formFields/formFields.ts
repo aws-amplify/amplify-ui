@@ -67,6 +67,7 @@ export const getSignInFormFields = (state: AuthMachineState): FormField => {
 
 export const getSignUpFormFields = (state: AuthMachineState): FormField => {
   const { loginMechanisms, signUpAttributes } = state.context.config;
+  const primaryAlias = getPrimaryAlias(state);
 
   const fieldNames = Array.from(
     new Set([
@@ -81,7 +82,12 @@ export const getSignUpFormFields = (state: AuthMachineState): FormField => {
 
   for (const fieldName of fieldNames) {
     if (isAuthFieldWithDefaults(fieldName)) {
-      formField[fieldName] = getFormFieldOptions(state, fieldName);
+      let fieldAttrs = getFormFieldOptions(state, fieldName);
+
+      if (fieldName === primaryAlias) {
+        fieldAttrs = { ...fieldAttrs, autocomplete: 'username' };
+      }
+      formField[fieldName] = fieldAttrs;
     } else {
       // There's a `custom:*` attribute or one we don't already have an implementation for
       console.debug(
