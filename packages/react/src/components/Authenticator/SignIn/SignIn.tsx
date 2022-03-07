@@ -24,7 +24,6 @@ export function SignIn() {
   } = useCustomComponents();
 
   const formFields = React.useMemo(() => getFormFields('signIn', _state), []);
-  const sortedFormFields = sortFormfields(formFields);
 
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
     if (isInputOrSelectElement(event.target)) {
@@ -64,7 +63,7 @@ export function SignIn() {
             className="amplify-flex"
             disabled={isPending}
           >
-            <BaseFormFields formFields={sortedFormFields} />
+            <BaseFormFields formFields={formFields} />
           </fieldset>
 
           <RemoteErrorMessage />

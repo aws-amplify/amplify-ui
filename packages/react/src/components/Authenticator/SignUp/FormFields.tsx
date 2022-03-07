@@ -10,11 +10,10 @@ export function FormFields() {
   const { _state } = useAuthenticator();
 
   const formFields = React.useMemo(() => getFormFields('signUp', _state), []);
-  const sortedFormFields = sortFormfields(formFields);
 
   return (
     <>
-      <BaseFormFields formFields={sortedFormFields} />
+      <BaseFormFields formFields={formFields} />
     </>
   );
 }
