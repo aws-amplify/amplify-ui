@@ -45,7 +45,10 @@ const getAliasDefaultFormField = (state: AuthMachineState): FormField => {
 
 const getSignInFormFields = (state: AuthMachineState): FormFields => ({
   username: { ...getAliasDefaultFormField(state) },
-  password: { ...getDefaultFormField(state, 'password') },
+  password: {
+    ...getDefaultFormField(state, 'password'),
+    autocomplete: 'current-password',
+  },
 });
 
 const getSignUpFormFields = (state: AuthMachineState): FormFields => {
