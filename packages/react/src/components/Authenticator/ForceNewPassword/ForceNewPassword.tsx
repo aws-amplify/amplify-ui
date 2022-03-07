@@ -40,7 +40,7 @@ export const ForceNewPassword = (): JSX.Element => {
     submitForm(getFormDataFromEvent(event));
   };
 
-  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+  const handleBlur = (event: React.FocusEvent<HTMLFormElement>) => {
     const { name } = event.target;
     updateBlur({ name });
   };
