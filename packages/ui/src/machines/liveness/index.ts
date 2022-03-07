@@ -12,7 +12,7 @@ import {
 import {
   ChallengeType,
   LivenessActionDocument,
-} from '../../types/liveness-service-types';
+} from '../../types/liveness/liveness-service-types';
 import {
   BlazeFaceFaceDetection,
   drawLivenessOvalInCanvas,
