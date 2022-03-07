@@ -28,8 +28,9 @@ export const useStableId: UseStableId = (id) => {
 
   // React versions older than 18 will have client-side ids only
   useLayoutEffect(() => {
-    if (!id)
+    if (!id) {
       setStableId((reactId: string | undefined) => reactId ?? String(count++));
+    }
   }, [id]);
   return id || (stableId ? `${AUTO_GENERATED_ID_PREFIX}-${stableId}` : '');
 };
