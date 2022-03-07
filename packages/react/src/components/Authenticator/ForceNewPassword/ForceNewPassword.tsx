@@ -77,41 +77,12 @@ export const ForceNewPassword = (): JSX.Element => {
       >
         <Heading level={3}>{translate('Change Password')}</Heading>
 
-        <Flex direction="column">
-          <PasswordField
-            data-amplify-password
-            {...propsCreator('password', 'Password', formOverrides, true)}
-            name="password"
-            hasError={!!validationError['confirm_password']}
-            onBlur={handleBlur}
-          />
-          <PasswordField
-            data-amplify-confirmpassword
-            {...propsCreator(
-              'confirm_password',
-              'Confirm Password',
-              formOverrides,
-              true
-            )}
-            name="confirm_password"
-            hasError={!!validationError['confirm_password']}
-            onBlur={handleBlur}
-          />
-
-          {!!validationError['confirm_password'] && (
-            <Text role="alert" variation="error">
-              {translate(validationError['confirm_password'])}
-            </Text>
-          )}
-        </Flex>
-
+        <FormFields></FormFields>
         {error && (
           <Text className="forceNewPasswordErrorText" variation="error">
             {error}
           </Text>
         )}
-
-        <FormFields></FormFields>
         <Button
           isDisabled={isPending}
           type="submit"
