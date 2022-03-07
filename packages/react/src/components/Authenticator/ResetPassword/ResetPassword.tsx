@@ -1,21 +1,15 @@
 import * as React from 'react';
 
-import {
-  getActorState,
-  getAliasInfoFromContext,
-  getFormFields,
-  translate,
-} from '@aws-amplify/ui';
+import { getFormFields, translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
-import { Flex, Heading, TextField } from '../../..';
+import { Flex, Heading } from '../../..';
 import { RemoteErrorMessage, TwoButtonSubmitFooter } from '../shared';
 import { useCustomComponents } from '../hooks/useCustomComponents';
 import {
   isInputOrSelectElement,
   isInputElement,
   getFormDataFromEvent,
-  propsCreator,
 } from '../../../helpers/utils';
 import { BaseFormFields } from '../shared/BaseFormFields';
 

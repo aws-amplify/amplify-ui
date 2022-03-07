@@ -6,12 +6,11 @@ import {
 } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
-import { Button, Flex, Heading, PasswordField, Text } from '../../..';
+import { Button, Heading, Text } from '../../..';
 import {
   isInputOrSelectElement,
   isInputElement,
   getFormDataFromEvent,
-  propsCreator,
 } from '../../../helpers/utils';
 import { useCustomComponents } from '../hooks/useCustomComponents';
 import { FormFields } from './FormFields';
