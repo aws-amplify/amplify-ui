@@ -1,9 +1,4 @@
-import {
-  getActorContext,
-  getActorState,
-  SignInContext,
-  translate,
-} from '@aws-amplify/ui';
+import { translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
 import { Button, Heading, Text } from '../../..';
@@ -16,15 +11,8 @@ import { useCustomComponents } from '../hooks/useCustomComponents';
 import { FormFields } from './FormFields';
 
 export const ForceNewPassword = (): JSX.Element => {
-  const {
-    _state,
-    error,
-    isPending,
-    toSignIn,
-    submitForm,
-    updateForm,
-    updateBlur,
-  } = useAuthenticator();
+  const { error, isPending, toSignIn, submitForm, updateForm, updateBlur } =
+    useAuthenticator();
 
   const {
     components: {
@@ -32,10 +20,6 @@ export const ForceNewPassword = (): JSX.Element => {
     },
   } = useCustomComponents();
 
-  const formOverrides =
-    getActorState(_state).context?.formFields?.forceNewPassword;
-
-  const { validationError } = getActorContext(_state) as SignInContext;
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
     if (isInputOrSelectElement(event.target)) {
       let { name, type, value } = event.target;
@@ -68,6 +52,7 @@ export const ForceNewPassword = (): JSX.Element => {
       method="post"
       onChange={handleChange}
       onSubmit={handleSubmit}
+      onBlur={handleBlur}
     >
       <fieldset
         style={{ display: 'flex', flexDirection: 'column' }}
