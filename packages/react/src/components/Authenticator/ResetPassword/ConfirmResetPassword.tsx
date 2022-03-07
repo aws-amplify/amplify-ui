@@ -1,15 +1,9 @@
 import * as React from 'react';
 
-import {
-  getActorContext,
-  getActorState,
-  getFormFields,
-  ResetPasswordContext,
-  translate,
-} from '@aws-amplify/ui';
+import { getFormFields, translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
-import { Flex, Heading, PasswordField, Text } from '../../..';
+import { Flex, Heading } from '../../..';
 import { RemoteErrorMessage, TwoButtonSubmitFooter } from '../shared';
 import { useCustomComponents } from '../hooks/useCustomComponents';
 import {

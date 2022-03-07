@@ -1,12 +1,3 @@
-import {
-  applyDefaults,
-  AuthMachineState,
-  FormFieldComponents,
-  FormFields,
-  getActorState,
-  getDefaultFormFields,
-  translate,
-} from '@aws-amplify/ui';
 export const isDevelopment = () => process.env.NODE_ENV !== 'production';
 
 export const isInputOrSelectElement = (

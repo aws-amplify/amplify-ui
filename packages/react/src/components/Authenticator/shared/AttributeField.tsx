@@ -1,5 +1,4 @@
 import { FormField } from '@aws-amplify/ui';
-import { isInputElement, isInputOrSelectElement } from '../../../helpers';
 import {
   PasswordField,
   PhoneNumberField,
