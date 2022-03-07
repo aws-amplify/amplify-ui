@@ -6,14 +6,11 @@ import {
 } from '../../../primitives';
 import { useAuthenticator } from '../hooks/useAuthenticator';
 
-export interface AttributeFieldProps {
+export interface FormFieldProps {
   name: string;
   formFieldOptions: FormField;
 }
-export function AttributeField({
-  name,
-  formFieldOptions,
-}: AttributeFieldProps) {
+export function FormField({ name, formFieldOptions }: FormFieldProps) {
   const { validationErrors } = useAuthenticator();
   const { type } = formFieldOptions;
 
