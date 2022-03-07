@@ -14,6 +14,8 @@ import {
   FormFields,
   FormField,
   FormFieldComponents,
+  SignInState,
+  SignInContext,
 } from '../../../types';
 import { getActorContext, getActorState } from '../actor';
 import { applyDefaults, applyTranslation } from './util';
@@ -41,16 +43,12 @@ const getAliasDefaultFormField = (state: AuthMachineState): FormField => {
   };
 };
 
-export const getSignInFormFields = (state: AuthMachineState): FormFields => {
-  const alias = getPrimaryAlias(state);
+const getSignInFormFields = (state: AuthMachineState): FormFields => ({
+  username: { ...getAliasDefaultFormField(state) },
+  password: { ...getDefaultFormField(state, 'password') },
+});
 
-  return {
-    username: { ...getAliasDefaultFormField(state) },
-    password: { ...getDefaultFormField(state, 'password') },
-  };
-};
-
-export const getSignUpFormFields = (state: AuthMachineState): FormFields => {
+const getSignUpFormFields = (state: AuthMachineState): FormFields => {
   const { loginMechanisms, signUpAttributes } = state.context.config;
   const primaryAlias = getPrimaryAlias(state);
 
@@ -76,16 +74,75 @@ export const getSignUpFormFields = (state: AuthMachineState): FormFields => {
     } else {
       // There's a `custom:*` attribute or one we don't already have an implementation for
       console.debug(
-        `Authenticator does not have a default implementation for ${fieldName}. Customize Authenticator.SignUp.FormFields to add your own.`
+        `Authenticator does not have a default implementation for ${fieldName}. Customize SignUp FormFields to add your own.`
       );
     }
   }
   return formField;
 };
 
-export const formFieldsGetters = {
+const getConfirmSignUpFormFields = (state: AuthMachineState): FormFields => ({
+  confirmation_code: {
+    ...getDefaultFormField(state, 'confirmation_code'),
+    placeholder: 'Enter your code',
+  },
+});
+
+// Reusable form fields that only has confirmation_code field.
+const getConfirmationCodeFormFields = (
+  state: AuthMachineState
+): FormFields => ({
+  confirmation_code: {
+    ...getDefaultFormField(state, 'confirmation_code'),
+    label: 'Code *',
+    placeholder: 'Code',
+  },
+});
+
+const getResetPasswordFormFields = (state: AuthMachineState): FormFields => ({
+  username: {
+    ...getAliasDefaultFormField(state),
+    label: 'Enter your username',
+    placeholder: 'Enter your username',
+  },
+});
+
+const getForceNewPasswordFormFields = (state: AuthMachineState): FormFields => {
+  const actorState = getActorState(state) as SignInState;
+  const { requiredAttributes } = actorState.context as SignInContext;
+
+  const fieldNames = Array.from(
+    new Set(['password', 'confirm_password', ...requiredAttributes] as const)
+  );
+
+  const formField: FormFields = {};
+
+  for (const fieldName of fieldNames) {
+    if (isAuthFieldWithDefaults(fieldName)) {
+      formField[fieldName] = { ...getDefaultFormField(state, fieldName) };
+    } else {
+      // There's a `custom:*` attribute or one we don't already have an implementation for
+      console.debug(
+        `Authenticator does not have a default implementation for ${fieldName}. Customize ForceNewPassword FormFields to add your own.`
+      );
+    }
+  }
+  return formField;
+};
+
+export const formFieldsGetters: Record<
+  FormFieldComponents,
+  (state: AuthMachineState) => FormFields
+> = {
   signIn: getSignInFormFields,
   signUp: getSignUpFormFields,
+  confirmSignUp: getConfirmSignUpFormFields,
+  confirmSignIn: getConfirmationCodeFormFields,
+  forceNewPassword: getForceNewPasswordFormFields,
+  resetPassword: getResetPasswordFormFields,
+  confirmResetPassword: getConfirmationCodeFormFields,
+  confirmVerifyUser: getConfirmationCodeFormFields,
+  setupTOTP: getConfirmationCodeFormFields,
 };
 
 export const getDefaultFormFields = (
