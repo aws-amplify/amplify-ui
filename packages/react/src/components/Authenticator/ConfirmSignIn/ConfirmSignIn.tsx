@@ -1,6 +1,9 @@
+import * as React from 'react';
+
 import {
   AuthChallengeNames,
   getActorState,
+  getFormFields,
   SignInContext,
   SignInState,
   translate,
@@ -8,21 +11,17 @@ import {
 
 import { useAuthenticator } from '..';
 import { Flex, Heading } from '../../..';
-import { ConfirmationCodeInput, ConfirmSignInFooter } from '../shared';
+import { ConfirmSignInFooter, RemoteErrorMessage } from '../shared';
 import { useCustomComponents } from '../hooks/useCustomComponents';
 import {
   isInputOrSelectElement,
   isInputElement,
   getFormDataFromEvent,
-  confPropsCreator,
 } from '../../../helpers/utils';
+import { BaseFormFields } from '../shared/BaseFormFields';
 
 export const ConfirmSignIn = (): JSX.Element => {
-  const { error, submitForm, updateForm, isPending, _state } =
-    useAuthenticator();
-
-  const formOverrides =
-    getActorState(_state).context?.formFields?.confirmSignIn;
+  const { submitForm, updateForm, isPending, _state } = useAuthenticator();
 
   const {
     components: {
@@ -48,6 +47,11 @@ export const ConfirmSignIn = (): JSX.Element => {
     }
   };
 
+  const formFields = React.useMemo(
+    () => getFormFields('confirmSignIn', _state),
+    []
+  );
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     submitForm(getFormDataFromEvent(event));
@@ -69,15 +73,8 @@ export const ConfirmSignIn = (): JSX.Element => {
         <Header />
 
         <Flex direction="column">
-          <ConfirmationCodeInput
-            {...confPropsCreator(
-              'confirmation_code',
-              'Code',
-              'Code *',
-              formOverrides
-            )}
-            errorText={translate(error)}
-          />
+          <BaseFormFields formFields={formFields} />
+          <RemoteErrorMessage />
         </Flex>
 
         <ConfirmSignInFooter />

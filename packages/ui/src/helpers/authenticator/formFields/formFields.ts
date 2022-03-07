@@ -99,6 +99,22 @@ const getConfirmationCodeFormFields = (
   },
 });
 
+const getConfirmResetPasswordFormFields = (
+  state: AuthMachineState
+): FormFields => ({
+  ...getConfirmationCodeFormFields(state),
+  password: {
+    ...getDefaultFormField(state, 'password'),
+    label: 'New Password',
+    placeholder: 'New Password',
+  },
+  confirm_password: {
+    ...getDefaultFormField(state, 'confirm_password'),
+    label: 'Confirm Password',
+    placeholder: 'Confirm Password',
+  },
+});
+
 const getResetPasswordFormFields = (state: AuthMachineState): FormFields => ({
   username: {
     ...getAliasDefaultFormField(state),
@@ -140,7 +156,7 @@ export const formFieldsGetters: Record<
   confirmSignIn: getConfirmationCodeFormFields,
   forceNewPassword: getForceNewPasswordFormFields,
   resetPassword: getResetPasswordFormFields,
-  confirmResetPassword: getConfirmationCodeFormFields,
+  confirmResetPassword: getConfirmResetPasswordFormFields,
   confirmVerifyUser: getConfirmationCodeFormFields,
   setupTOTP: getConfirmationCodeFormFields,
 };

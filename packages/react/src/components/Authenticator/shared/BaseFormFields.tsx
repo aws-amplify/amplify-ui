@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { FormFields, sortFormfields } from '@aws-amplify/ui';
 import { AttributeField } from './AttributeField';

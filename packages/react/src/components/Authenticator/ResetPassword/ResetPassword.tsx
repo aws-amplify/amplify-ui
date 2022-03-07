@@ -1,6 +1,9 @@
+import * as React from 'react';
+
 import {
   getActorState,
   getAliasInfoFromContext,
+  getFormFields,
   translate,
 } from '@aws-amplify/ui';
 
@@ -14,6 +17,7 @@ import {
   getFormDataFromEvent,
   propsCreator,
 } from '../../../helpers/utils';
+import { BaseFormFields } from '../shared/BaseFormFields';
 
 export const ResetPassword = (): JSX.Element => {
   const {
@@ -26,11 +30,10 @@ export const ResetPassword = (): JSX.Element => {
   } = useCustomComponents();
   const { isPending, submitForm, updateForm, _state } = useAuthenticator();
 
-  const formOverrides =
-    getActorState(_state).context?.formFields?.resetPassword;
-
-  const { label } = getAliasInfoFromContext(_state.context);
-  const labelText = `Enter your ${label.toLowerCase()}`;
+  const formFields = React.useMemo(
+    () => getFormFields('resetPassword', _state),
+    []
+  );
 
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
     if (isInputOrSelectElement(event.target)) {
@@ -68,12 +71,7 @@ export const ResetPassword = (): JSX.Element => {
         <Header />
 
         <Flex direction="column">
-          <TextField
-            {...propsCreator('username', labelText, formOverrides, true)}
-            autoComplete="username"
-            name="username"
-            type="username"
-          />
+          <BaseFormFields formFields={formFields} />
         </Flex>
 
         <RemoteErrorMessage />

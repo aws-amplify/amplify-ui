@@ -1,4 +1,6 @@
-import { getActorState, translate } from '@aws-amplify/ui';
+import * as React from 'react';
+
+import { getFormFields, translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '../..';
 import { Button, Flex, Heading, Text } from '../../..';
@@ -6,15 +8,11 @@ import {
   isInputOrSelectElement,
   isInputElement,
   getFormDataFromEvent,
-  confPropsCreator,
 } from '../../../helpers/utils';
 import { useCustomComponents } from '../hooks/useCustomComponents';
 
-import {
-  ConfirmationCodeInput,
-  ConfirmationCodeInputProps,
-  RemoteErrorMessage,
-} from '../shared';
+import { RemoteErrorMessage } from '../shared';
+import { BaseFormFields } from '../shared/BaseFormFields';
 
 export function ConfirmSignUp() {
   const {
@@ -34,9 +32,6 @@ export function ConfirmSignUp() {
     },
   } = useCustomComponents();
 
-  const formOverrides =
-    getActorState(_state).context?.formFields?.confirmSignUp;
-
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
     if (isInputOrSelectElement(event.target)) {
       let { name, type, value } = event.target;
@@ -51,6 +46,11 @@ export function ConfirmSignUp() {
       updateForm({ name, value });
     }
   };
+
+  const formFields = React.useMemo(
+    () => getFormFields('confirmSignUp', _state),
+    []
+  );
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -68,11 +68,6 @@ export function ConfirmSignUp() {
   );
 
   const minutesMessage = translate('It may take a minute to arrive.');
-
-  const confirmationCodeInputProps: ConfirmationCodeInputProps = {
-    label: translate('Confirmation Code'),
-    placeholder: translate('Enter your code'),
-  };
 
   const subtitleText =
     DeliveryMedium === 'EMAIL'
@@ -99,14 +94,8 @@ export function ConfirmSignUp() {
 
         <Flex direction="column">
           <Text style={{ marginBottom: '1rem' }}>{subtitleText}</Text>
-          <ConfirmationCodeInput
-            {...confPropsCreator(
-              'confirmation_code',
-              confirmationCodeInputProps.placeholder,
-              confirmationCodeInputProps.label,
-              formOverrides
-            )}
-          />
+
+          <BaseFormFields formFields={formFields} />
 
           <RemoteErrorMessage />
 
