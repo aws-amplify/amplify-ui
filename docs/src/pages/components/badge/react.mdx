@@ -1,7 +1,8 @@
 import { Badge, View } from '@aws-amplify/ui-react';
-import { BadgeDemo } from './demo';
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentClassTable } from '@/components/ComponentClassTable';
+import { ComponentThemeTokens } from '@/components/ComponentThemeTokens';
+import { BadgeDemo } from './demo';
 import {
   DefaultBadgeExample,
   BadgeVariationExample,
@@ -176,3 +177,13 @@ _Using style props:_
 
   </ExampleCode>
 </Example>
+
+### Default theme
+
+<ComponentThemeTokens name="badge" path="packages/ui/src/theme/tokens/components/badge.js">
+
+```js file=../../../../../packages/ui/src/theme/tokens/components/badge.js
+
+```
+
+</ComponentThemeTokens>

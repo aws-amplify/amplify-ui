@@ -1,9 +1,20 @@
 import * as React from 'react';
 import debounce from 'lodash/debounce';
-import { Heading, Text, useTheme } from '@aws-amplify/ui-react';
+import { SiW3C, SiGithub } from 'react-icons/si';
+import {
+  Alert,
+  Heading,
+  Button,
+  Link,
+  Icon,
+  Text,
+  IconFeedback,
+  useTheme,
+} from '@aws-amplify/ui-react';
 import { Sidebar } from './SecondaryNav';
 import { TableOfContents } from '../TableOfContents';
 import { Footer } from './Footer';
+import { RepoWithPath } from '@/data/urls';
 
 export default function Page({
   children,
@@ -12,7 +23,14 @@ export default function Page({
   children: any;
   frontmatter?: any;
 }) {
-  const { title, description, hideToc = false } = frontmatter;
+  const {
+    title,
+    description,
+    hideToc = false,
+    ariaPattern,
+    themeSource,
+    reactSource,
+  } = frontmatter;
   const { tokens } = useTheme();
   const [headings, setHeadings] = React.useState([]);
 
@@ -55,6 +73,39 @@ export default function Page({
             >
               {description}
             </Text>
+            {ariaPattern ? (
+              <Button as={Link} size="small" href={ariaPattern} isExternal>
+                <Icon
+                  ariaLabel=""
+                  as={SiW3C}
+                  fontSize={tokens.fontSizes.large}
+                  marginInlineEnd={tokens.space.xs}
+                />
+                ARIA pattern
+              </Button>
+            ) : null}
+            {themeSource ? (
+              <Link href={`${RepoWithPath}${themeSource}`} isExternal>
+                <Icon
+                  ariaLabel=""
+                  as={SiGithub}
+                  fontSize={tokens.fontSizes.large}
+                  marginInlineEnd={tokens.space.xs}
+                />
+                Theme source
+              </Link>
+            ) : null}
+            {reactSource ? (
+              <Link href={`${RepoWithPath}${reactSource}`} isExternal>
+                <Icon
+                  ariaLabel=""
+                  as={SiGithub}
+                  fontSize={tokens.fontSizes.large}
+                  marginInlineEnd={tokens.space.xs}
+                />
+                React source
+              </Link>
+            ) : null}
           </section>
 
           {children}

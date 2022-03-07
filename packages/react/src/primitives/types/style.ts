@@ -42,6 +42,9 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   backgroundColor?: ResponsiveStyle<StyleToken<Property.BackgroundColor>>;
   backgroundImage?: ResponsiveStyle<StyleToken<Property.BackgroundImage>>;
   border?: ResponsiveStyle<StyleToken<Property.Border>>;
+  borderWidth?: ResponsiveStyle<StyleToken<Property.BorderWidth>>;
+  borderColor?: ResponsiveStyle<StyleToken<Property.BorderColor>>;
+  borderStyle?: ResponsiveStyle<StyleToken<Property.BorderStyle>>;
   borderRadius?: ResponsiveStyle<StyleToken<Property.BorderRadius>>;
   bottom?: ResponsiveStyle<StyleToken<Property.Bottom>>;
   boxShadow?: ResponsiveStyle<StyleToken<Property.BoxShadow>>;
@@ -151,6 +154,9 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   backgroundImage: 'backgroundImage',
   basis: 'flexBasis',
   border: 'border',
+  borderWidth: 'borderWidth',
+  borderColor: 'borderColor',
+  borderStyle: 'borderStyle',
   borderRadius: 'borderRadius',
   bottom: 'bottom',
   boxShadow: 'boxShadow',
@@ -178,8 +184,8 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   marginBlockEnd: 'marginBlockEnd',
   marginBlockStart: 'marginBlockStart',
   marginBottom: 'marginBlockEnd',
-  marginInlineEnd: 'marginBlockEnd',
-  marginInlineStart: 'marginBlockStart',
+  marginInlineEnd: 'marginInlineEnd',
+  marginInlineStart: 'marginInlineStart',
   marginLeft: 'marginInlineStart',
   marginRight: 'marginInlineEnd',
   marginTop: 'marginBlockStart',
@@ -196,8 +202,8 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   paddingBlockEnd: 'paddingBlockEnd',
   paddingBlockStart: 'paddingBlockStart',
   paddingBottom: 'paddingBlockEnd',
-  paddingInlineEnd: 'paddingBlockEnd',
-  paddingInlineStart: 'paddingBlockStart',
+  paddingInlineEnd: 'paddingInlineEnd',
+  paddingInlineStart: 'paddingInlineStart',
   paddingLeft: 'paddingInlineStart',
   paddingRight: 'paddingInlineEnd',
   paddingTop: 'paddingBlockStart',

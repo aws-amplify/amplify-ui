@@ -9,6 +9,7 @@ import {
   Button,
   useTheme,
 } from '@aws-amplify/ui-react';
+import { isNull } from 'lodash';
 
 interface DemoProps {
   children: React.ReactNode;
@@ -48,7 +49,11 @@ export const Demo = ({
             <TabItem title="Props">
               <View padding={`${tokens.space.medium} 0`}>{propControls}</View>
             </TabItem>
-            {themeControls ?? <TabItem title="Theme">{themeControls}</TabItem>}
+            {themeControls ? (
+              <TabItem title="Theme">{themeControls}</TabItem>
+            ) : (
+              isNull
+            )}
           </Tabs>
         </Flex>
         <View

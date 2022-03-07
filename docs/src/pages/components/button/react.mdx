@@ -3,6 +3,8 @@ import { Example, ExampleCode } from '@/components/Example';
 import { ComponentClassTable } from '@/components/ComponentClassTable';
 
 import { ButtonDemo } from './demo';
+import { Example, ExampleCode } from '@/components/Example';
+import { ComponentThemeTokens } from '@/components/ComponentThemeTokens';
 import { IconButtonExample, ButtonThemeExample } from './examples';
 
 ## Demo
@@ -252,7 +254,17 @@ import '@aws-amplify/ui-react/styles.css';
 
 ### Theme
 
-You can customize the appearance of all Buttons in your application with a [Theme](/theming).
+<ComponentThemeTokens name="button" path="packages/ui/src/theme/tokens/components/button.js">
+
+```js file=../../../../../packages/ui/src/theme/tokens/components/button.js
+
+```
+
+</ComponentThemeTokens>
+
+### Global
+
+You can customize the appearance of all Buttons in your application with a [Theme](/theming) or CSS variables.
 
 <Example>
   <ButtonThemeExample />
@@ -302,7 +314,7 @@ To replace the Button styling, unset it:
 
 </ExampleCode>
 
-### Local styling
+### Local
 
 To override styling on a specific Button, you can use (in order of increasing specificity): a class selector, data attributes, or style props.
 
@@ -393,9 +405,3 @@ _Using style props:_
 
 </ExampleCode>
 </Example>
-
-### Default theme
-
-```js file=../../../../../packages/ui/src/theme/tokens/components/badge.js
-
-```
