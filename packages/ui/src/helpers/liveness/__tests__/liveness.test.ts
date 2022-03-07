@@ -3,11 +3,11 @@ import {
   getRandomLivenessOvalDetails,
   getFaceMatchStateInLivenessOval,
 } from '../liveness';
-import { Face, FaceMatchState, LivenessOvalDetails } from '../../types';
+import { Face, FaceMatchState, LivenessOvalDetails } from '../../../types';
 import {
   ChallengeType,
   ClientActionDocument,
-} from '../../types/liveness-service-types';
+} from '../../../types/liveness/liveness-service-types';
 
 describe('Liveness Helper', () => {
   describe('getRandomScalingAttributes', () => {

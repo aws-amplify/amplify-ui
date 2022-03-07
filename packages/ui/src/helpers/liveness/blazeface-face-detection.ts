@@ -7,7 +7,7 @@ import '@tensorflow/tfjs-backend-webgl';
 import '@tensorflow/tfjs-backend-cpu';
 
 import { isWebAssemblySupported, isWebGLSupported } from './support';
-import { FaceDetection, Face } from '../types';
+import { FaceDetection, Face } from '../../types';
 
 type BlazeFaceModelBackend = 'wasm' | 'webgl' | 'cpu';
 

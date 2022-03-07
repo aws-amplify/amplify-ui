@@ -7,7 +7,7 @@ import {
   LivenessOvalDetails,
   IlluminationState,
 } from './liveness';
-import { VideoRecorder } from '../helpers';
+import { VideoRecorder } from '../../helpers';
 import { Face, FaceDetection } from './faceDetection';
 
 export interface LivenessContext {

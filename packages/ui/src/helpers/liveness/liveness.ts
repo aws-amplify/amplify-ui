@@ -5,9 +5,9 @@ import {
   FaceMatchState,
   BoundingBox,
   LivenessErrorState,
-} from '../types';
-import { ClientActionDocument } from '../types/liveness-service-types';
-import { translate } from '../i18n';
+} from '../../types';
+import { ClientActionDocument } from '../../types/liveness/liveness-service-types';
+import { translate } from '../../i18n';
 
 /**
  * Returns the random number between min and max
