@@ -1,11 +1,6 @@
-import {
-  translate,
-  hasTranslation,
-  getActorState,
-  getDefaultFormFields,
-  applyDefaults,
-  sortFormfields,
-} from '@aws-amplify/ui';
+import React from 'react';
+
+import { translate, hasTranslation, sortFormfields } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
 import { Button, Flex, View } from '../../..';
@@ -13,12 +8,12 @@ import { FederatedSignIn } from '../FederatedSignIn';
 import { RemoteErrorMessage } from '../shared';
 import {
   getFormDataFromEvent,
+  getFormFields,
   isInputElement,
   isInputOrSelectElement,
 } from '../../../helpers/utils';
 import { useCustomComponents } from '../hooks/useCustomComponents';
 import { BaseFormFields } from '../shared/BaseFormFields';
-import { FormFields } from '../SignUp/FormFields';
 
 export function SignIn() {
   const { isPending, submitForm, updateForm, _state } = useAuthenticator();
@@ -28,11 +23,7 @@ export function SignIn() {
     },
   } = useCustomComponents();
 
-  const defaultFormFields = getDefaultFormFields('signIn', _state);
-  const customFormFields =
-    getActorState(_state).context?.formFields?.signIn || {};
-
-  const formFields = applyDefaults(defaultFormFields, customFormFields);
+  const formFields = React.useMemo(() => getFormFields('signIn', _state), []);
   const sortedFormFields = sortFormfields(formFields);
 
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {

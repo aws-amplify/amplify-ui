@@ -1,22 +1,15 @@
-import {
-  getActorState,
-  getDefaultFormFields,
-  applyDefaults,
-  sortFormfields,
-} from '@aws-amplify/ui';
+import React from 'react';
 
-import { useAuthenticator } from '..';
+import { sortFormfields } from '@aws-amplify/ui';
+
+import { useAuthenticator } from '../hooks/useAuthenticator';
 import { BaseFormFields } from '../shared/BaseFormFields';
+import { getFormFields } from '../../../helpers';
 
 export function FormFields() {
   const { _state } = useAuthenticator();
 
-  const defaultFormFields = getDefaultFormFields('signUp', _state);
-
-  const customFormFields =
-    getActorState(_state).context?.formFields?.signUp || {};
-
-  const formFields = applyDefaults(defaultFormFields, customFormFields);
+  const formFields = React.useMemo(() => getFormFields('signUp', _state), []);
   const sortedFormFields = sortFormfields(formFields);
 
   return (

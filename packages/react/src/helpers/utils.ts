@@ -1,4 +1,12 @@
-import { FormFields, translate } from '@aws-amplify/ui';
+import {
+  applyDefaults,
+  AuthMachineState,
+  FormFieldComponents,
+  FormFields,
+  getActorState,
+  getDefaultFormFields,
+  translate,
+} from '@aws-amplify/ui';
 export const isDevelopment = () => process.env.NODE_ENV !== 'production';
 
 export const isInputOrSelectElement = (
@@ -113,4 +121,15 @@ export const phonePropsCreator = (
     defaultCountryCode: fo?.dialCode ?? country_code,
     dialCodeList: fo?.dialCodeList,
   };
+};
+
+export const getFormFields = (
+  route: FormFieldComponents,
+  state: AuthMachineState
+) => {
+  const defaultFormFields = getDefaultFormFields(route, state);
+  const customFormFields =
+    getActorState(state).context?.formFields?.[route] || {};
+  const formFields = applyDefaults(defaultFormFields, customFormFields);
+  return formFields;
 };
