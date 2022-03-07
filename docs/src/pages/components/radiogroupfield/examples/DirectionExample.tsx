@@ -1,5 +1,7 @@
 import { Radio, RadioGroupField } from '@aws-amplify/ui-react';
 
+const options = ['html', 'css', 'javascript'];
+
 export const DirectionExample = () => (
   <>
     <RadioGroupField
@@ -8,9 +10,11 @@ export const DirectionExample = () => (
       defaultValue="html"
       labelHidden
     >
-      <Radio value="html">html</Radio>
-      <Radio value="css">css</Radio>
-      <Radio value="javascript">javascript</Radio>
+      {options.map((option) => (
+        <Radio key={option} value={option}>
+          {option}
+        </Radio>
+      ))}
     </RadioGroupField>
     <RadioGroupField
       label="Language"
@@ -19,9 +23,11 @@ export const DirectionExample = () => (
       direction="row"
       labelHidden
     >
-      <Radio value="html">html</Radio>
-      <Radio value="css">css</Radio>
-      <Radio value="javascript">javascript</Radio>
+      {options.map((option) => (
+        <Radio key={option} value={option}>
+          {option}
+        </Radio>
+      ))}
     </RadioGroupField>
   </>
 );

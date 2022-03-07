@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { Radio, RadioGroupField } from '@aws-amplify/ui-react';
 
+const options = ['html', 'css', 'javascript'];
+
 export const ControlledExample = () => {
   const [value, setValue] = React.useState('html');
   return (
@@ -11,9 +13,11 @@ export const ControlledExample = () => {
       onChange={(e) => setValue(e.target.value)}
       labelHidden
     >
-      <Radio value="html">html</Radio>
-      <Radio value="css">css</Radio>
-      <Radio value="javascript">javascript</Radio>
+      {options.map((option) => (
+        <Radio key={option} value={option}>
+          {option}
+        </Radio>
+      ))}
     </RadioGroupField>
   );
 };
