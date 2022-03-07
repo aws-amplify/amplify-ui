@@ -25,6 +25,7 @@ const RadioGroupFieldPrimitive: Primitive<RadioGroupFieldProps, typeof Flex> = (
     isReadOnly,
     label,
     labelHidden = false,
+    labelPosition,
     onChange,
     name,
     size,
@@ -48,6 +49,7 @@ const RadioGroupFieldPrimitive: Primitive<RadioGroupFieldProps, typeof Flex> = (
       onChange,
       size,
       name,
+      labelPosition,
     }),
     [
       defaultValue,
@@ -59,6 +61,7 @@ const RadioGroupFieldPrimitive: Primitive<RadioGroupFieldProps, typeof Flex> = (
       size,
       name,
       value,
+      labelPosition,
     ]
   );
 
