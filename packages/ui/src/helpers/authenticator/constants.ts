@@ -100,7 +100,7 @@ export const authInputAttributes: AuthInputAttributes = {
 export const defaultFormFieldOptions = {
   birthdate: {
     label: 'Birthdate',
-    labelHidden: true,
+    labelHidden: false,
     placeholder: 'Birthdate',
     type: 'date',
     autocomplete: 'bday',
@@ -108,7 +108,7 @@ export const defaultFormFieldOptions = {
   },
   confirmation_code: {
     label: 'Confirmation Code',
-    labelHidden: true,
+    labelHidden: false,
     placeholder: 'Code',
     type: 'number',
     autocomplete: 'one-time-code',
@@ -116,7 +116,7 @@ export const defaultFormFieldOptions = {
   },
   confirm_password: {
     label: 'Confirm Password',
-    labelHidden: true,
+    labelHidden: false,
     placeholder: 'Confirm Password',
     type: 'password',
     autocomplete: 'new-password',
@@ -124,7 +124,7 @@ export const defaultFormFieldOptions = {
   },
   email: {
     label: 'Email',
-    labelHidden: true,
+    labelHidden: false,
     placeholder: 'Email',
     type: 'email',
     autocomplete: 'username',
@@ -132,7 +132,7 @@ export const defaultFormFieldOptions = {
   },
   family_name: {
     label: 'Family Name',
-    labelHidden: true,
+    labelHidden: false,
     placeholder: 'Family Name',
     type: 'text',
     autocomplete: 'family-name',
@@ -140,7 +140,7 @@ export const defaultFormFieldOptions = {
   },
   given_name: {
     label: 'Given Name',
-    labelHidden: true,
+    labelHidden: false,
     placeholder: 'Given Name',
     type: 'text',
     autocomplete: 'given-name',
@@ -148,7 +148,7 @@ export const defaultFormFieldOptions = {
   },
   middle_name: {
     label: 'Middle Name',
-    labelHidden: true,
+    labelHidden: false,
     placeholder: 'Middle Name',
     type: 'text',
     autocomplete: 'additional-name',
@@ -156,7 +156,7 @@ export const defaultFormFieldOptions = {
   },
   name: {
     label: 'Name',
-    labelHidden: true,
+    labelHidden: false,
     placeholder: 'Name',
     type: 'text',
     autocomplete: 'name',
@@ -164,7 +164,7 @@ export const defaultFormFieldOptions = {
   },
   nickname: {
     label: 'Nickname',
-    labelHidden: true,
+    labelHidden: false,
     placeholder: 'Nickname',
     type: 'text',
     autocomplete: 'tel',
@@ -172,7 +172,7 @@ export const defaultFormFieldOptions = {
   },
   password: {
     label: 'Password',
-    labelHidden: true,
+    labelHidden: false,
     placeholder: 'Password',
     type: 'password',
     autocomplete: 'new-password',
@@ -180,7 +180,7 @@ export const defaultFormFieldOptions = {
   },
   phone_number: {
     label: 'Phone Number',
-    labelHidden: true,
+    labelHidden: false,
     placeholder: 'Phone',
     type: 'tel',
     autocomplete: 'tel',
@@ -190,14 +190,14 @@ export const defaultFormFieldOptions = {
   },
   preferred_username: {
     label: 'Preferred Username',
-    labelHidden: true,
+    labelHidden: false,
     placeholder: 'Preferred Username',
     type: 'text',
     isRequired: true,
   },
   profile: {
     label: 'Profile',
-    labelHidden: true,
+    labelHidden: false,
     placeholder: 'Profile',
     type: 'url',
     autocomplete: 'url',
@@ -205,7 +205,7 @@ export const defaultFormFieldOptions = {
   },
   website: {
     label: 'Website',
-    labelHidden: true,
+    labelHidden: false,
     placeholder: 'Website',
     type: 'url',
     autocomplete: 'url',
@@ -213,7 +213,7 @@ export const defaultFormFieldOptions = {
   },
   username: {
     label: 'Username',
-    labelHidden: true,
+    labelHidden: false,
     placeholder: 'Username',
     type: 'text',
     autocomplete: 'username',
