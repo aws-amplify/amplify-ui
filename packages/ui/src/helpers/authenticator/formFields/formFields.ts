@@ -102,6 +102,17 @@ const getConfirmationCodeFormFields = (
   },
 });
 
+const getResetPasswordFormFields = (state: AuthMachineState): FormFields => {
+  const primaryAlias = getPrimaryAlias(state);
+  return {
+    username: {
+      ...getAliasDefaultFormField(state),
+      label: `Enter your ${primaryAlias.toLowerCase()}`,
+      placeholder: `Enter your ${primaryAlias.toLowerCase()}`,
+    },
+  };
+};
+
 const getConfirmResetPasswordFormFields = (
   state: AuthMachineState
 ): FormFields => ({
@@ -115,14 +126,6 @@ const getConfirmResetPasswordFormFields = (
     ...getDefaultFormField(state, 'confirm_password'),
     label: 'Confirm Password',
     placeholder: 'Confirm Password',
-  },
-});
-
-const getResetPasswordFormFields = (state: AuthMachineState): FormFields => ({
-  username: {
-    ...getAliasDefaultFormField(state),
-    label: 'Enter your username',
-    placeholder: 'Enter your username',
   },
 });
 
