@@ -20,21 +20,21 @@ export type FormFieldComponents =
 /**
  * Used to customize form field attributes for each authenticator screen.
  */
-export type FormFields = {
-  [key in FormFieldComponents]?: FormField;
+export type AuthFormFields = {
+  [key in FormFieldComponents]?: FormFields;
 };
 
 /**
  * Override option for each screen. Maps each input to override options.
  */
-export interface FormField {
-  [key: string]: FormFieldOptions;
+export interface FormFields {
+  [key: string]: FormField;
 }
 
 /**
  * Override options for each field
  */
-export interface FormFieldOptions {
+export interface FormField {
   /** Will hide the label above the input if set to true */
   labelHidden?: boolean;
   /** Label text */

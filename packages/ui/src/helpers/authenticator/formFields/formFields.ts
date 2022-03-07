@@ -12,14 +12,14 @@ import {
 import {
   ActorContextWithForms,
   AuthMachineState,
-  FormField,
+  FormFields,
   FormFieldComponents,
-  FormFieldOptions,
+  FormField,
 } from '../../../types';
 import { getActorContext } from '../actor';
 import cloneDeep from 'lodash/cloneDeep';
 
-export const applyTranslation = (formFields: FormField): FormField => {
+export const applyTranslation = (formFields: FormFields): FormFields => {
   const newFormFields = { ...formFields };
   for (const [name, options] of Object.entries(formFields)) {
     const { label, placeholder } = options;
@@ -33,12 +33,12 @@ export const applyTranslation = (formFields: FormField): FormField => {
   return newFormFields;
 };
 
-export const getFormFieldOptions = (
+export const getDefaultFormField = (
   state: AuthMachineState,
   attr: keyof typeof defaultFormFieldOptions
 ) => {
   const { country_code } = getActorContext(state) as ActorContextWithForms;
-  let options: FormFieldOptions = defaultFormFieldOptions[attr];
+  let options: FormField = defaultFormFieldOptions[attr];
   const { type } = options;
 
   if (type === 'tel') {
@@ -48,24 +48,24 @@ export const getFormFieldOptions = (
   return options;
 };
 
-export const getSignInFormFields = (state: AuthMachineState): FormField => {
+export const getSignInFormFields = (state: AuthMachineState): FormFields => {
   const alias = getPrimaryAlias(state);
 
   return {
     username: {
-      ...getFormFieldOptions(state, alias),
+      ...getDefaultFormField(state, alias),
       autocomplete: 'username',
       order: 1,
     },
     password: {
-      ...getFormFieldOptions(state, 'password'),
+      ...getDefaultFormField(state, 'password'),
       autocomplete: 'current-password',
       order: 2,
     },
   };
 };
 
-export const getSignUpFormFields = (state: AuthMachineState): FormField => {
+export const getSignUpFormFields = (state: AuthMachineState): FormFields => {
   const { loginMechanisms, signUpAttributes } = state.context.config;
   const primaryAlias = getPrimaryAlias(state);
 
@@ -78,11 +78,11 @@ export const getSignUpFormFields = (state: AuthMachineState): FormField => {
     ] as const)
   );
 
-  const formField: FormField = {};
+  const formField: FormFields = {};
 
   for (const fieldName of fieldNames) {
     if (isAuthFieldWithDefaults(fieldName)) {
-      let fieldAttrs = getFormFieldOptions(state, fieldName);
+      let fieldAttrs = getDefaultFormField(state, fieldName);
 
       if (fieldName === primaryAlias) {
         fieldAttrs = { ...fieldAttrs, autocomplete: 'username' };
@@ -106,15 +106,15 @@ const formFieldsGetters = {
 export const getDefaultFormFields = (
   component: FormFieldComponents,
   state: AuthMachineState
-): FormField => {
+): FormFields => {
   const getFormField = formFieldsGetters[component];
-  const formFields: FormField = getFormField(state);
+  const formFields: FormFields = getFormField(state);
   return applyTranslation(formFields);
 };
 
 export const applyDefaults = (
-  defaultFormFields: FormField,
-  customFormFields: FormField
+  defaultFormFields: FormFields,
+  customFormFields: FormFields
 ) => {
   let formFields = cloneDeep(defaultFormFields);
   Object.keys(customFormFields).forEach((field) => {
@@ -123,9 +123,9 @@ export const applyDefaults = (
   return formFields;
 };
 
-export type SortedFormFields = Array<[string, FormFieldOptions]>;
+export type SortedFormFields = Array<[string, FormField]>;
 
-export const sortFormfields = (formFields: FormField): SortedFormFields => {
+export const sortFormfields = (formFields: FormFields): SortedFormFields => {
   return Object.entries(formFields)
     .sort((a, b) => {
       const orderA = a[1].order || Number.MAX_VALUE;

@@ -2,7 +2,7 @@ import { Component, HostBinding, OnInit } from '@angular/core';
 import QRCode from 'qrcode';
 import { Auth, Logger } from 'aws-amplify';
 import {
-  FormField,
+  FormFields,
   getActorContext,
   getActorState,
   getFormDataFromEvent,
@@ -27,7 +27,7 @@ export class SetupTotpComponent implements OnInit {
   // translated texts
   public backToSignInText = translate('Back to Sign In');
   public confirmText = translate('Confirm');
-  public formOverrides: FormField;
+  public formOverrides: FormFields;
 
   constructor(public authenticator: AuthenticatorService) {}
 

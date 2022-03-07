@@ -10,8 +10,8 @@ import {
   hasTranslation,
   getFormDataFromEvent,
   getActorState,
-  FormFieldOptions,
   FormField,
+  FormFields,
 } from '@aws-amplify/ui';
 
 @Component({
@@ -28,9 +28,9 @@ export class SignInComponent implements OnInit {
     ? translate('Forgot your password?')
     : translate('Forgot your password? ');
   public signInButtonText = translate('Sign in');
-  public userOverrides: FormFieldOptions;
-  public passwordOR: FormFieldOptions;
-  public formOverrides: FormField;
+  public userOverrides: FormField;
+  public passwordOR: FormField;
+  public formOverrides: FormFields;
 
   constructor(public authenticator: AuthenticatorService) {}
 

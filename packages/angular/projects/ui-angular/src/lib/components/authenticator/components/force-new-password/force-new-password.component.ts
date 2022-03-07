@@ -1,7 +1,7 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 import {
-  FormField,
+  FormFields,
   getActorState,
   getFormDataFromEvent,
   translate,
@@ -19,7 +19,7 @@ export class ForceNewPasswordComponent implements OnInit {
   // translated texts
   public changePasswordText = translate('Change Password');
   public backToSignInText = translate('Back to Sign In');
-  public formOverrides: FormField;
+  public formOverrides: FormFields;
 
   constructor(public authenticator: AuthenticatorService) {}
   ngOnInit(): void {

@@ -3,7 +3,7 @@
  */
 
 import { countryDialCodes } from '../../i18n';
-import { AuthInputAttributes, FormFieldOptions } from '../../types';
+import { AuthInputAttributes, FormField } from '../../types';
 
 export const authInputAttributes: AuthInputAttributes = {
   birthdate: {

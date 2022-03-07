@@ -1,4 +1,4 @@
-import { FormFieldOptions } from '@aws-amplify/ui';
+import { FormField } from '@aws-amplify/ui';
 import { isInputElement, isInputOrSelectElement } from '../../../helpers';
 import {
   PasswordField,
@@ -9,7 +9,7 @@ import { useAuthenticator } from '../hooks/useAuthenticator';
 
 export interface AttributeFieldProps {
   name: string;
-  formFieldOptions: FormFieldOptions;
+  formFieldOptions: FormField;
 }
 export function AttributeField({
   name,
