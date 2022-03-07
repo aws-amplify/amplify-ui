@@ -1,41 +1,109 @@
+/**
+ * This file contains helpers that generate default form fields, given the
+ * current Authenticator / Zero Config configuration.
+ */
+
 import {
+  defaultFormFieldOptions,
+  getPrimaryAlias,
+  isAuthFieldWithDefaults,
+} from '..';
+import {
+  ActorContextWithForms,
   AuthMachineState,
   FormFields,
-  FormFieldComponents,
   FormField,
+  FormFieldComponents,
 } from '../../../types';
-import cloneDeep from 'lodash/cloneDeep';
-import { formFieldsGetters } from './defaults';
-import { applyTranslation } from './util';
+import { getActorContext, getActorState } from '../actor';
+import { applyDefaults, applyTranslation } from './util';
+
+const getDefaultFormField = (
+  state: AuthMachineState,
+  attr: keyof typeof defaultFormFieldOptions
+) => {
+  const { country_code } = getActorContext(state) as ActorContextWithForms;
+  let options: FormField = defaultFormFieldOptions[attr];
+  const { type } = options;
+
+  if (type === 'tel') {
+    options = { ...options, dialCode: country_code };
+  }
+
+  return options;
+};
+
+const getAliasDefaultFormField = (state: AuthMachineState): FormField => {
+  const primaryAlias = getPrimaryAlias(state);
+  return {
+    ...getDefaultFormField(state, primaryAlias),
+    autocomplete: 'username',
+  };
+};
+
+export const getSignInFormFields = (state: AuthMachineState): FormFields => {
+  const alias = getPrimaryAlias(state);
+
+  return {
+    username: { ...getAliasDefaultFormField(state) },
+    password: { ...getDefaultFormField(state, 'password') },
+  };
+};
+
+export const getSignUpFormFields = (state: AuthMachineState): FormFields => {
+  const { loginMechanisms, signUpAttributes } = state.context.config;
+  const primaryAlias = getPrimaryAlias(state);
+
+  const fieldNames = Array.from(
+    new Set([
+      ...loginMechanisms,
+      ...signUpAttributes,
+      'password',
+      'confirm_password',
+    ] as const)
+  );
+
+  const formField: FormFields = {};
+
+  for (const fieldName of fieldNames) {
+    if (isAuthFieldWithDefaults(fieldName)) {
+      const fieldAttrs =
+        fieldName === primaryAlias
+          ? getAliasDefaultFormField(state)
+          : getDefaultFormField(state, fieldName);
+
+      formField[fieldName] = { ...fieldAttrs };
+    } else {
+      // There's a `custom:*` attribute or one we don't already have an implementation for
+      console.debug(
+        `Authenticator does not have a default implementation for ${fieldName}. Customize Authenticator.SignUp.FormFields to add your own.`
+      );
+    }
+  }
+  return formField;
+};
+
+export const formFieldsGetters = {
+  signIn: getSignInFormFields,
+  signUp: getSignUpFormFields,
+};
 
 export const getDefaultFormFields = (
   component: FormFieldComponents,
   state: AuthMachineState
 ): FormFields => {
-  const getFormField = formFieldsGetters[component];
-  const formFields: FormFields = getFormField(state);
+  const getFormFields = formFieldsGetters[component];
+  const formFields: FormFields = getFormFields(state);
   return applyTranslation(formFields);
 };
 
-export const applyDefaults = (
-  defaultFormFields: FormFields,
-  customFormFields: FormFields
-) => {
-  let formFields = cloneDeep(defaultFormFields);
-  Object.keys(customFormFields).forEach((field) => {
-    formFields[field] = { ...formFields[field], ...customFormFields[field] };
-  });
+export const getFormFields = (
+  component: FormFieldComponents,
+  state: AuthMachineState
+): FormFields => {
+  const defaultFormFields = getDefaultFormFields(component, state);
+  const customFormFields =
+    getActorState(state).context?.formFields?.[component] || {};
+  const formFields = applyDefaults(defaultFormFields, customFormFields);
   return formFields;
-};
-
-export type SortedFormFields = Array<[string, FormField]>;
-
-export const sortFormfields = (formFields: FormFields): SortedFormFields => {
-  return Object.entries(formFields)
-    .sort((a, b) => {
-      const orderA = a[1].order || Number.MAX_VALUE;
-      const orderB = b[1].order || Number.MAX_VALUE;
-      return orderA - orderB;
-    })
-    .filter((formFieldEntry) => formFieldEntry[1] !== undefined);
 };

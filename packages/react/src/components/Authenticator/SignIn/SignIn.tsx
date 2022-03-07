@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { translate, hasTranslation, sortFormfields } from '@aws-amplify/ui';
+import { translate, hasTranslation, getFormFields } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
 import { Button, Flex, View } from '../../..';
@@ -8,7 +8,6 @@ import { FederatedSignIn } from '../FederatedSignIn';
 import { RemoteErrorMessage } from '../shared';
 import {
   getFormDataFromEvent,
-  getFormFields,
   isInputElement,
   isInputOrSelectElement,
 } from '../../../helpers/utils';

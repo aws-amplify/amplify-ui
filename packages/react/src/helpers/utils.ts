@@ -122,14 +122,3 @@ export const phonePropsCreator = (
     dialCodeList: fo?.dialCodeList,
   };
 };
-
-export const getFormFields = (
-  route: FormFieldComponents,
-  state: AuthMachineState
-) => {
-  const defaultFormFields = getDefaultFormFields(route, state);
-  const customFormFields =
-    getActorState(state).context?.formFields?.[route] || {};
-  const formFields = applyDefaults(defaultFormFields, customFormFields);
-  return formFields;
-};

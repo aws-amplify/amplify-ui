@@ -1,10 +1,9 @@
 import React from 'react';
 
-import { sortFormfields } from '@aws-amplify/ui';
+import { getFormFields } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '../hooks/useAuthenticator';
 import { BaseFormFields } from '../shared/BaseFormFields';
-import { getFormFields } from '../../../helpers';
 
 export function FormFields() {
   const { _state } = useAuthenticator();

@@ -62,3 +62,6 @@ export interface FormField {
   /** Desired autocomplete HTML attribute */
   autocomplete?: string;
 }
+
+/** FormFields sorted into an array of [fieldName, formField] */
+export type SortedFormFields = Array<[string, FormField]>;
