@@ -49,3 +49,9 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish to next tag
         run: yarn publish:next
+      - name: Merge main into docs-release branch
+        if: steps.changesets.outputs.published == 'true'
+        run: |
+          git checkout docs-release
+          git merge main
+          git push
