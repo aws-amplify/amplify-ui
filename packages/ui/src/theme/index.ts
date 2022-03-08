@@ -10,3 +10,5 @@ export const defaultTheme = createTheme(
   },
   baseTheme
 );
+
+export { baseTheme };

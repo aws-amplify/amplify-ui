@@ -7,3 +7,17 @@
 .docs-component-card:hover {
   transform: scale(1.05);
 }
+
+.docs-component-links {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.docs-component-link {
+  margin-inline-end: var(--amplify-space-medium);
+  margin-block-start: var(--amplify-space-medium);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

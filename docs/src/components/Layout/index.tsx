@@ -1,14 +1,12 @@
 import * as React from 'react';
 import debounce from 'lodash/debounce';
-import { SiW3C, SiGithub } from 'react-icons/si';
+import { SiW3C, SiGithub, SiReact } from 'react-icons/si';
 import {
-  Alert,
   Heading,
-  Button,
   Link,
   Icon,
   Text,
-  IconFeedback,
+  View,
   useTheme,
 } from '@aws-amplify/ui-react';
 import { Sidebar } from './SecondaryNav';
@@ -73,39 +71,50 @@ export default function Page({
             >
               {description}
             </Text>
-            {ariaPattern ? (
-              <Button as={Link} size="small" href={ariaPattern} isExternal>
-                <Icon
-                  ariaLabel=""
-                  as={SiW3C}
-                  fontSize={tokens.fontSizes.large}
-                  marginInlineEnd={tokens.space.xs}
-                />
-                ARIA pattern
-              </Button>
-            ) : null}
-            {themeSource ? (
-              <Link href={`${RepoWithPath}${themeSource}`} isExternal>
-                <Icon
-                  ariaLabel=""
-                  as={SiGithub}
-                  fontSize={tokens.fontSizes.large}
-                  marginInlineEnd={tokens.space.xs}
-                />
-                Theme source
-              </Link>
-            ) : null}
-            {reactSource ? (
-              <Link href={`${RepoWithPath}${reactSource}`} isExternal>
-                <Icon
-                  ariaLabel=""
-                  as={SiGithub}
-                  fontSize={tokens.fontSizes.large}
-                  marginInlineEnd={tokens.space.xs}
-                />
-                React source
-              </Link>
-            ) : null}
+            <View className="docs-component-links">
+              {ariaPattern ? (
+                <Link
+                  className="docs-component-link"
+                  href={ariaPattern}
+                  isExternal
+                >
+                  <Icon
+                    ariaLabel=""
+                    as={SiW3C}
+                    marginInlineEnd={tokens.space.xs}
+                  />
+                  ARIA pattern
+                </Link>
+              ) : null}
+              {themeSource ? (
+                <Link
+                  className="docs-component-link"
+                  href={`${RepoWithPath}${themeSource}`}
+                  isExternal
+                >
+                  <Icon
+                    ariaLabel=""
+                    as={SiGithub}
+                    marginInlineEnd={tokens.space.xs}
+                  />
+                  Theme source
+                </Link>
+              ) : null}
+              {reactSource ? (
+                <Link
+                  className="docs-component-link"
+                  href={`${RepoWithPath}${reactSource}`}
+                  isExternal
+                >
+                  <Icon
+                    ariaLabel=""
+                    as={SiReact}
+                    marginInlineEnd={tokens.space.xs}
+                  />
+                  React source
+                </Link>
+              ) : null}
+            </View>
           </section>
 
           {children}

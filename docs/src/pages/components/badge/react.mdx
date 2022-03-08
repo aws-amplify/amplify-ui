@@ -8,6 +8,7 @@ import {
   BadgeVariationExample,
   BadgeSizeExample,
   BadgeStyleProps,
+  ThemeExample,
 } from './examples';
 
 ## Demo
@@ -73,6 +74,28 @@ Use the `size` prop to change the Badge size. Available options are `small`, `la
 ### Target classes
 
 <ComponentClassTable componentName="Badge" />
+
+### Theme
+
+<Example>
+  <ThemeExample />
+  
+  <ExampleCode>
+
+```tsx file=./examples/ThemeExample.tsx
+
+```
+
+  </ExampleCode>
+</Example>
+
+<ComponentThemeTokens name="badge" path="packages/ui/src/theme/tokens/components/badge.js">
+
+```js file=../../../../../packages/ui/src/theme/tokens/components/badge.js
+
+```
+
+</ComponentThemeTokens>
 
 ### Global styling
 
@@ -177,13 +200,3 @@ _Using style props:_
 
   </ExampleCode>
 </Example>
-
-### Default theme
-
-<ComponentThemeTokens name="badge" path="packages/ui/src/theme/tokens/components/badge.js">
-
-```js file=../../../../../packages/ui/src/theme/tokens/components/badge.js
-
-```
-
-</ComponentThemeTokens>
