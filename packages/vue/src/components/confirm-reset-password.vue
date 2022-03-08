@@ -5,7 +5,6 @@ import {
   getActorState,
   ResetPasswordContext,
   ResetPasswordState,
-  ValidationError,
   translate,
   getFormDataFromEvent,
   FormField,
@@ -140,7 +139,7 @@ function onBlur(e: Event) {
               name="password"
               autocomplete="current-password"
               :ariainvalid="
-                  !!(actorContext.validationError as ValidationError)['confirm_password']
+                  !!(actorContext.validationError as Record<string,string>)['confirm_password']
                 "
               @blur="onBlur"
             />
@@ -157,7 +156,7 @@ function onBlur(e: Event) {
               name="confirm_password"
               autocomplete="new-password"
               :ariainvalid="
-                  !!(actorContext.validationError as ValidationError)['confirm_password']
+                  !!(actorContext.validationError as Record<string,string>)['confirm_password']
                 "
               @blur="onBlur"
             />
@@ -168,9 +167,9 @@ function onBlur(e: Event) {
               data-variation="error"
               role="alert"
               class="amplify-text"
-              v-if="!!(actorContext.validationError as ValidationError)['confirm_password']"
+              v-if="!!(actorContext.validationError as Record<string,string>)['confirm_password']"
             >
-              {{ translate(actorContext.validationError?.confirm_password as string) }}
+              {{ translate((actorContext.validationError as Record<string,string>)?.confirm_password as string) }}
             </base-box>
             <base-alert v-if="actorState?.context?.remoteError">
               {{ translate(actorState?.context?.remoteError) }}
