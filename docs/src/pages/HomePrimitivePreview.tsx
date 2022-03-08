@@ -71,7 +71,7 @@ export const HomePrimitivePreview = () => {
           </ToggleButton>
         </ToggleButtonGroup>
         <Button variation="primary">Get started</Button>
-        <Menu>
+        <Menu ariaLabel="homepage demo dropdown menu">
           <MenuItem onClick={() => alert('Download')}>Download</MenuItem>
           <MenuItem onClick={() => alert('Create a Copy')}>
             Create a Copy

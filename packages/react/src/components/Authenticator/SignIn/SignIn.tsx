@@ -1,7 +1,7 @@
 import { translate, hasTranslation, getActorState } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
-import { Button, Flex, PasswordField, View } from '../../..';
+import { Button, Flex, PasswordField, View, VisuallyHidden } from '../../..';
 import { FederatedSignIn } from '../FederatedSignIn';
 import { RemoteErrorMessage, UserNameAlias } from '../shared';
 import {
@@ -61,7 +61,9 @@ export function SignIn() {
             className="amplify-flex"
             disabled={isPending}
           >
-            <legend className="amplify-visually-hidden">Sign in</legend>
+            <VisuallyHidden>
+              <legend>Sign in</legend>
+            </VisuallyHidden>
             <UserNameAlias
               labelHidden={userOverrides?.labelHidden}
               placeholder={userOverrides?.placeholder}
