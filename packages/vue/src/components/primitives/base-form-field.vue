@@ -2,7 +2,7 @@
 import { toRefs } from 'vue';
 import { createSharedComposable } from '@vueuse/core';
 
-import { FormField, FormFields, translate } from '@aws-amplify/ui';
+import { FormField, translate } from '@aws-amplify/ui';
 import { useAuthenticator } from '../../composables/useAuth';
 import PasswordControl from '../password-control.vue';
 import AliasControl from '../alias-control.vue';
@@ -49,6 +49,7 @@ const isPasswordField = type === 'password';
     :autocomplete="formField.autocomplete"
     :dial-code="formField.dialCode"
     :dial-code-list="formField.dialCodeList"
+    :type="formField.type"
   ></alias-control>
 
   <!-- Validation error, if any -->
