@@ -30,6 +30,7 @@ export class SignUpFormFieldsComponent implements OnInit {
 
   public userOverrides: FormFieldOptions;
   public formOverrides: FormField;
+  public translate = translate;
 
   constructor(private authenticator: AuthenticatorService) {}
 
