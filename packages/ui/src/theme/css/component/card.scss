@@ -5,9 +5,8 @@
   border-style: var(--amplify-components-card-border-style);
   border-color: var(--amplify-components-card-border-color);
   box-shadow: var(--amplify-components-card-box-shadow);
-  display: inline-block;
+  display: block;
   padding: var(--amplify-components-card-padding);
-  width: 100%;
 
   &[data-variation='outlined'] {
     background-color: var(--amplify-components-card-outlined-background-color);

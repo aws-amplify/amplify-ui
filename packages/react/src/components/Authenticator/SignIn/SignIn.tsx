@@ -61,7 +61,7 @@ export function SignIn() {
             className="amplify-flex"
             disabled={isPending}
           >
-            <legend>Sign in</legend>
+            <legend className="amplify-visually-hidden">Sign in</legend>
             <UserNameAlias
               labelHidden={userOverrides?.labelHidden}
               placeholder={userOverrides?.placeholder}
@@ -101,7 +101,6 @@ export function SignIn() {
 
 SignIn.Header = (): JSX.Element => null;
 SignIn.Footer = () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const { toResetPassword } = useAuthenticator();
 
   // Support backwards compatibility for legacy key with trailing space

@@ -49,9 +49,4 @@ export interface ButtonProps extends ViewProps, FlexContainerStyleProps {
    * Changes the visual weight of the button.
    */
   variation?: ButtonVariations;
-
-  /**
-   * Changes href of the button.
-   */
-  href?: string;
 }

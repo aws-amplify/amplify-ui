@@ -57,16 +57,16 @@ export const HomePrimitivePreview = () => {
           isExclusive
           onChange={(value: string) => setExclusiveValue(value)}
         >
-          <ToggleButton value="align-left" aria-label="align-left">
+          <ToggleButton value="align-left" ariaLabel="align-left">
             <IconFormatAlignLeft />
           </ToggleButton>
-          <ToggleButton value="align-center" aria-label="align-center">
+          <ToggleButton value="align-center" ariaLabel="align-center">
             <IconFormatAlignCenter />
           </ToggleButton>
-          <ToggleButton value="align-right" aria-label="align-right">
+          <ToggleButton value="align-right" ariaLabel="align-right">
             <IconFormatAlignRight />
           </ToggleButton>
-          <ToggleButton value="align-justify" aria-label="align-justify">
+          <ToggleButton value="align-justify" ariaLabel="align-justify">
             <IconFormatAlignJustify />
           </ToggleButton>
         </ToggleButtonGroup>
