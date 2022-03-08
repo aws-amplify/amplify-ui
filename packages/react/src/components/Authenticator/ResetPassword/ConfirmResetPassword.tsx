@@ -51,7 +51,7 @@ export const ConfirmResetPassword = (): JSX.Element => {
     submitForm(getFormDataFromEvent(event));
   };
 
-  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+  const handleBlur = (event: React.FocusEvent<HTMLFormElement>) => {
     const { name } = event.target;
     updateBlur({ name });
   };
@@ -63,6 +63,7 @@ export const ConfirmResetPassword = (): JSX.Element => {
       method="post"
       onSubmit={handleSubmit}
       onChange={handleChange}
+      onBlur={handleBlur}
     >
       <fieldset
         style={{ display: 'flex', flexDirection: 'column' }}

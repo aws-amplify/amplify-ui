@@ -26,7 +26,6 @@ const resetPasswordText = computed(() => translate('Send Code'));
 let formFields: FormFields = {};
 
 onBeforeMount(() => {
-  console.log(state);
   formFields = getFormFields('resetPassword', state);
 });
 

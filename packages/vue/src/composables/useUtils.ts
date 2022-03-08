@@ -1,8 +1,4 @@
-import {
-  AuthEventData,
-  LoginMechanism,
-  LoginMechanismArray,
-} from '@aws-amplify/ui';
+import { AuthEventData } from '@aws-amplify/ui';
 
 export const facade = {
   error: '',
