@@ -61,17 +61,3 @@ export const authFieldsWithDefaults = [
 
 /** Input fields that we provide default fields with */
 export type AuthFieldsWithDefaults = typeof authFieldsWithDefaults[number];
-
-/** Maps default attributes values for an input */
-export interface InputAttributeDefaults {
-  label: string;
-  type: string;
-  placeholder: string;
-  autocomplete?: string;
-}
-
-/** Maps default attribute values for each Auth Field */
-export type AuthInputAttributes = Record<
-  AuthFieldsWithDefaults,
-  InputAttributeDefaults
->;

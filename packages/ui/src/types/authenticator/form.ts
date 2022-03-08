@@ -1,3 +1,5 @@
+import { AuthFieldsWithDefaults } from './attributes';
+
 /**
  * Map of each input name to its value
  */
@@ -65,3 +67,6 @@ export interface FormField {
 
 /** FormFields sorted into an array of [fieldName, formField] */
 export type SortedFormFields = Array<[string, FormField]>;
+
+/** Default formField values for each supported auth field */
+export type DefaultFormFieldOptions = Record<AuthFieldsWithDefaults, FormField>;

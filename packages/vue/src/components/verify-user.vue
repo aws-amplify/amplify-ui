@@ -5,7 +5,7 @@ import { createSharedComposable } from '@vueuse/core';
 import {
   getActorState,
   SignInState,
-  authInputAttributes,
+  defaultFormFieldOptions,
   LoginMechanism,
   translate,
   getFormDataFromEvent,
@@ -122,7 +122,7 @@ const onSkipClicked = (): void => {
                   aria-hidden="true"
                 ></base-text>
                 <base-text class="amplify-text amplify-radio__label">
-                  {{ authInputAttributes[key as LoginMechanism].label }}
+                  {{ defaultFormFieldOptions[key as LoginMechanism].label }}
                 </base-text>
               </base-label>
             </base-wrapper>
