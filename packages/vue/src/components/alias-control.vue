@@ -19,6 +19,7 @@ interface PropsInterface {
   required?: boolean;
   dialCode?: string;
   dialCodeList?: Array<string>;
+  type?: string;
 }
 
 const {
@@ -37,6 +38,7 @@ const {
   autocomplete: '',
   labelHidden: false,
   required: true,
+  type: 'text',
 });
 const random = Math.floor(Math.random() * 999999);
 const randomPhone = Math.floor(Math.random() * 999999);

@@ -1,25 +1,27 @@
 import type { App } from 'vue';
 
 import {
+  AmplifyButton,
+  AmplifyCheckBox,
+  AmplifyTextField,
+  Authenticator,
+  AuthenticatorForceNewPasswordFormFields,
+  AuthenticatorSignUpFormFields,
+  BaseFormField,
+  BaseFormFields,
+  ConfirmResetPassword,
+  ConfirmSignIn,
+  ConfirmSignUp,
+  ConfirmVerifyUser,
+  FederatedSignIn,
+  ForceNewPassword,
+  PasswordControl,
+  RenderInfo,
+  ResetPassword,
   SignIn,
   SignUp,
-  FederatedSignIn,
-  Authenticator,
-  RenderInfo,
-  PasswordControl,
   UserNameAlias,
-  ForceNewPassword,
-  ResetPassword,
-  ConfirmResetPassword,
-  ConfirmSignUp,
-  ConfirmSignIn,
-  ConfirmVerifyUser,
   VerifyUser,
-  AuthenticatorSignUpFormFields,
-  AuthenticatorForceNewPasswordFormFields,
-  AmplifyTextField,
-  AmplifyCheckBox,
-  AmplifyButton,
 } from './components/index';
 
 import { useAuthenticator } from './composables/useAuth';
@@ -45,6 +47,8 @@ export default {
     app.component('AmplifyTextField', AmplifyTextField);
     app.component('AmplifyCheckBox', AmplifyCheckBox);
     app.component('AmplifyButton', AmplifyButton);
+    app.component('BaseFormField', BaseFormField);
+    app.component('BaseFormFields', BaseFormFields);
     app.component(
       'AuthenticatorSignUpFormFields',
       AuthenticatorSignUpFormFields
