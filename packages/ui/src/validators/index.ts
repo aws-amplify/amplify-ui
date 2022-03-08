@@ -1,4 +1,4 @@
-import { AuthFormData, Validator } from '../types';
+import { AuthFormData, PasswordSettings, Validator } from '../types';
 import isEmpty from 'lodash/isEmpty';
 import merge from 'lodash/merge';
 
@@ -6,10 +6,13 @@ import merge from 'lodash/merge';
 export const runValidators = async (
   formData: AuthFormData,
   touchData: AuthFormData,
+  passwordSettings: PasswordSettings,
   validators: Validator[]
 ) => {
   const errors = await Promise.all(
-    validators.map((validator) => validator(formData, touchData))
+    validators.map((validator) =>
+      validator(formData, touchData, passwordSettings)
+    )
   );
   const mergedError = merge({}, ...errors);
 

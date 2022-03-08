@@ -1,10 +1,15 @@
+import { PasswordSettings } from '.';
 import { AuthFormData } from './form';
 import { AuthChallengeNames } from './user';
 
 /**
  * Maps each input to its validation error, if any
  */
-export type ValidationError = Record<string, string>;
+export type ValidationError = Record<string, string> | ComplexityError;
+
+export interface ComplexityError {
+  password_complexity: Array<string>;
+}
 
 /**
  * Return type of validator. This is `null` if there are no error, and `ValidationError` otherwise.
@@ -17,7 +22,8 @@ export type SignInResult = string; // null if there are no error, `ValidationErr
  */
 export type Validator = (
   formData: AuthFormData,
-  touchData?: AuthFormData
+  touchData?: AuthFormData,
+  passwordSettings?: PasswordSettings
 ) => ValidatorResult | Promise<ValidatorResult>;
 
 export type SignInTypes = (
