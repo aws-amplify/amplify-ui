@@ -19,9 +19,7 @@ export class FormFieldComponent {
   public defaultCountryCodeValue: string;
   public countryDialCodesValue = countryDialCodes;
 
-  constructor(private authenticator: AuthenticatorService) {
-    console.log(this.name, this.formField);
-  }
+  constructor(private authenticator: AuthenticatorService) {}
 
   get error(): string {
     const formContext: ActorContextWithForms = getActorContext(

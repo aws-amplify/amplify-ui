@@ -36,8 +36,6 @@ export function SignUp() {
       ) {
         value = undefined;
       }
-      console.log(event.target);
-
       updateForm({ name, value });
     }
   };
