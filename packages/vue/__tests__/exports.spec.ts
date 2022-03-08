@@ -22,7 +22,6 @@ describe('@aws-amplify/ui-vue', () => {
           "ResetPassword",
           "SignIn",
           "SignUp",
-          "UserNameAlias",
           "VerifyUser",
           "default",
           "translations",
