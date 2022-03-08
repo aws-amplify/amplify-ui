@@ -46,7 +46,6 @@ const TextFieldPrimitive = <Multiline extends boolean>(
 
   const fieldId = useStableId(id);
   const descriptionId = useStableId();
-  const labelId = useStableId();
 
   const { flexContainerStyleProps, baseStyleProps, rest } =
     splitPrimitiveProps(_rest);
@@ -99,7 +98,7 @@ const TextFieldPrimitive = <Multiline extends boolean>(
       testId={testId}
       {...flexContainerStyleProps}
     >
-      <Label htmlFor={fieldId} visuallyHidden={labelHidden} id={labelId}>
+      <Label htmlFor={fieldId} visuallyHidden={labelHidden}>
         {label}
       </Label>
       <FieldDescription

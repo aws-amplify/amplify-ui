@@ -13,7 +13,7 @@ const LabelPrimitive: Primitive<LabelProps, 'label'> = (
     <View
       as="label"
       className={classNames(ComponentClassNames.Label, className, {
-        [ComponentClassNames.VisuallyHidden]: visuallyHidden,
+        'amplify-visually-hidden': visuallyHidden,
       })}
       ref={ref}
       {...rest}

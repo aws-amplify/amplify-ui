@@ -50,7 +50,6 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
   const fieldId = useStableId(id);
   const labelId = useStableId();
   const descriptionId = useStableId();
-  const ariaDescribedBy = labelHidden ? labelId : descriptionId;
 
   const { flexContainerStyleProps, rest } = splitPrimitiveProps(_rest);
 
@@ -134,7 +133,7 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
             />
           </Track>
           <Thumb
-            aria-describedby={ariaDescribedBy}
+            aria-describedby={descriptionId}
             aria-labelledby={labelId}
             aria-valuetext={ariaValuetext}
             className={ComponentClassNames.SliderFieldThumb}
