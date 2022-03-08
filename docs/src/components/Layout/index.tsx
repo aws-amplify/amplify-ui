@@ -1,6 +1,6 @@
 import * as React from 'react';
 import debounce from 'lodash/debounce';
-import { SiW3C, SiGithub, SiReact } from 'react-icons/si';
+import { SiW3C, SiReact } from 'react-icons/si';
 import {
   Heading,
   Link,
