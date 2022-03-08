@@ -1,4 +1,5 @@
 import * as React from 'react';
+import classNames from 'classnames';
 
 import { FieldDescriptionProps } from '../types';
 import { Text } from '../Text';
@@ -8,12 +9,15 @@ export const FieldDescription: React.FC<FieldDescriptionProps> = ({
   descriptiveText,
   labelHidden,
   ...rest
-}) => {
-  return !labelHidden && descriptiveText ? (
-    <Text className={ComponentClassNames.FieldDescription} {...rest}>
-      {descriptiveText}
-    </Text>
-  ) : null;
-};
+}) => (
+  <Text
+    className={classNames(ComponentClassNames.FieldDescription, {
+      'amplify-visually-hidden': labelHidden,
+    })}
+    {...rest}
+  >
+    {descriptiveText}
+  </Text>
+);
 
 FieldDescription.displayName = 'FieldDescription';
