@@ -113,6 +113,7 @@ export const Header = ({ platform, colorMode, setColorMode }) => {
         <Button
           className="docs-header-menu-button"
           onClick={() => setExpanded(!expanded)}
+          ariaLabel="Docs header menu button"
         >
           {expanded ? <IconClose /> : <IconMenu />}
         </Button>
