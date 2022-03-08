@@ -12,7 +12,7 @@ export const FieldDescription: React.FC<FieldDescriptionProps> = ({
 }) => (
   <Text
     className={classNames(ComponentClassNames.FieldDescription, {
-      'amplify-visually-hidden': labelHidden,
+      [ComponentClassNames.VisuallyHidden]: labelHidden,
     })}
     {...rest}
   >
