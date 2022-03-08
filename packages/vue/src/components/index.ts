@@ -6,7 +6,6 @@ export { default as AuthenticatorSignUpFormFields } from './authenticator-sign-u
 export { default as AuthenticatorForceNewPasswordFormFields } from './authenticator-force-new-password-form-fields.vue';
 export { default as RenderInfo } from './primitives/render-info.vue';
 export { default as PasswordControl } from './password-control.vue';
-export { default as UserNameAlias } from './user-name-alias.vue';
 export { default as ForceNewPassword } from './force-new-password.vue';
 export { default as ResetPassword } from './reset-password.vue';
 export { default as ConfirmResetPassword } from './confirm-reset-password.vue';

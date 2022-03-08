@@ -20,7 +20,6 @@ import {
   ResetPassword,
   SignIn,
   SignUp,
-  UserNameAlias,
   VerifyUser,
 } from './components/index';
 
@@ -36,7 +35,6 @@ export default {
     app.component('Authenticator', Authenticator);
     app.component('RenderInfo', RenderInfo);
     app.component('PasswordControl', PasswordControl);
-    app.component('UserNameAlias', UserNameAlias);
     app.component('ForceNewPassword', ForceNewPassword);
     app.component('ResetPassword', ResetPassword);
     app.component('ConfirmResetPassword', ConfirmResetPassword);
@@ -68,7 +66,6 @@ export {
   AuthenticatorSignUpFormFields,
   AuthenticatorForceNewPasswordFormFields,
   RenderInfo,
-  UserNameAlias,
   ForceNewPassword,
   PasswordControl,
   ResetPassword,
