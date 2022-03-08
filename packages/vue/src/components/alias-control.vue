@@ -59,7 +59,7 @@ const randomPhone = Math.floor(Math.random() * 999999);
             amplify-countrycodeselect
           "
           style="flex-direction: column"
-          v-if="name === 'phone_number'"
+          v-if="type === 'tel'"
         >
           <base-label
             :for="'amplify-field-' + randomPhone"
