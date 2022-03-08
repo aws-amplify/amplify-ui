@@ -9,7 +9,7 @@ import { Primitive } from '../types';
 import { splitPrimitiveProps } from '../shared/styleUtils';
 import { TextArea } from '../TextArea';
 import { TextAreaFieldProps } from '../types/textAreaField';
-import { useStableId } from '../shared/utils';
+import { useStableId } from '../utils/useStableId';
 
 export const DEFAULT_ROW_COUNT = 3;
 
@@ -22,12 +22,14 @@ const TextAreaFieldPrimitive: Primitive<TextAreaFieldProps, 'textarea'> = (
     descriptiveText,
     errorMessage,
     hasError = false,
+    height,
     id,
     label,
     labelHidden = false,
     rows,
     size,
     testId,
+    width,
     ..._rest
   } = props;
 
@@ -45,7 +47,9 @@ const TextAreaFieldPrimitive: Primitive<TextAreaFieldProps, 'textarea'> = (
         className
       )}
       data-size={size}
+      height={height}
       testId={testId}
+      width={width}
       {...flexContainerStyleProps}
     >
       <Label htmlFor={fieldId} visuallyHidden={labelHidden}>

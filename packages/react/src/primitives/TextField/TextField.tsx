@@ -16,7 +16,7 @@ import {
   isTextAreaRef,
 } from './utils';
 import { TextArea } from '../TextArea';
-import { useStableId } from '../shared/utils';
+import { useStableId } from '../utils/useStableId';
 import { useDeprecationWarning } from '../../hooks/useDeprecationWarning';
 
 export const DEFAULT_ROW_COUNT = 3;
@@ -30,6 +30,7 @@ const TextFieldPrimitive = <Multiline extends boolean>(
     descriptiveText,
     errorMessage,
     hasError = false,
+    height, // @TODO: remove custom destructuring for 3.0 release
     id,
     label,
     labelHidden = false,
@@ -41,6 +42,7 @@ const TextFieldPrimitive = <Multiline extends boolean>(
     type, // remove from rest to prevent passing as DOM attribute to textarea
     size,
     testId,
+    width, // @TODO: remove custom destructuring for 3.0 release
     ..._rest
   } = props;
 
@@ -95,7 +97,9 @@ const TextFieldPrimitive = <Multiline extends boolean>(
         className
       )}
       data-size={size}
+      height={height}
       testId={testId}
+      width={width}
       {...flexContainerStyleProps}
     >
       <Label htmlFor={fieldId} visuallyHidden={labelHidden}>

@@ -6,12 +6,13 @@ import { ComponentClassNames } from '../shared/constants';
 import { FieldDescription, FieldErrorMessage } from '../Field';
 import { FieldGroup } from '../FieldGroup';
 import { Flex } from '../Flex';
-import { isFunction, useStableId } from '../shared/utils';
+import { isFunction } from '../shared/utils';
 import { Label } from '../Label';
 import { Primitive } from '../types/view';
 import { SliderFieldProps } from '../types/sliderField';
 import { splitPrimitiveProps } from '../shared/styleUtils';
 import { View } from '../View';
+import { useStableId } from '../utils/useStableId';
 
 export const SLIDER_LABEL_TEST_ID = 'slider-label';
 export const SLIDER_ROOT_TEST_ID = 'slider-root';
