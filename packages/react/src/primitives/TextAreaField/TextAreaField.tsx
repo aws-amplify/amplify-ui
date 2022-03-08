@@ -22,12 +22,14 @@ const TextAreaFieldPrimitive: Primitive<TextAreaFieldProps, 'textarea'> = (
     descriptiveText,
     errorMessage,
     hasError = false,
+    height,
     id,
     label,
     labelHidden = false,
     rows,
     size,
     testId,
+    width,
     ..._rest
   } = props;
 
@@ -45,7 +47,9 @@ const TextAreaFieldPrimitive: Primitive<TextAreaFieldProps, 'textarea'> = (
         className
       )}
       data-size={size}
+      height={height}
       testId={testId}
+      width={width}
       {...flexContainerStyleProps}
     >
       <Label htmlFor={fieldId} visuallyHidden={labelHidden}>
