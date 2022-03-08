@@ -12,7 +12,7 @@ import {
 import { Sidebar } from './SecondaryNav';
 import { TableOfContents } from '../TableOfContents';
 import { Footer } from './Footer';
-import { RepoWithPath } from '@/data/urls';
+import { GITHUB_REPO_FILE } from '@/data/links';
 import { DesignTokenIcon } from '@/components/DesignTokenIcon';
 
 export default function Page({
@@ -90,7 +90,7 @@ export default function Page({
               {themeSource ? (
                 <Link
                   className="docs-component-link"
-                  href={`${RepoWithPath}${themeSource}`}
+                  href={`${GITHUB_REPO_FILE}${themeSource}`}
                   isExternal
                 >
                   <DesignTokenIcon
@@ -103,7 +103,7 @@ export default function Page({
               {reactSource ? (
                 <Link
                   className="docs-component-link"
-                  href={`${RepoWithPath}${reactSource}`}
+                  href={`${GITHUB_REPO_FILE}${reactSource}`}
                   isExternal
                 >
                   <Icon
