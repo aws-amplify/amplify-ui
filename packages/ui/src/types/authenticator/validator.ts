@@ -14,7 +14,11 @@ export interface ValidationComplexityError {
 /**
  * Return type of validator. This is `null` if there are no error, and `ValidationError` otherwise.
  */
-export type ValidatorResult = void | null | ValidationError; // null if there are no error, `ValidationError` otherwise
+export type ValidatorResult =
+  | void
+  | null
+  | ValidationError
+  | ValidationComplexityError; // null if there are no error, `ValidationError` otherwise
 export type SignInResult = string; // null if there are no error, `ValidationError` otherwise
 
 /**
