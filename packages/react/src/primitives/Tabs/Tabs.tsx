@@ -93,7 +93,7 @@ const TabsPrimitive: Primitive<TabsProps, typeof Flex> = (
   );
 };
 
-const TabItemPrimitive: Primitive<TabItemProps, 'div'> = (
+const TabItemPrimitive: Primitive<TabItemProps, 'button'> = (
   { className, title, ...rest },
   ref
 ) => (

@@ -2,6 +2,7 @@
   align-items: var(--amplify-components-radio-align-items);
   justify-content: var(--amplify-components-radio-justify-content);
   gap: inherit;
+  flex-direction: row-reverse;
 }
 
 .amplify-radio[data-disabled='true'] {
