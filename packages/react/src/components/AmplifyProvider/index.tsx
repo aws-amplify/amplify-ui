@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { IdProvider } from '@radix-ui/react-id';
 
 import { createTheme, Theme } from '@aws-amplify/ui';
 
@@ -59,30 +58,28 @@ export function AmplifyProvider({
         theme: webTheme,
       }}
     >
-      <IdProvider>
-        {/*
+      {/*
           The data attributes on here as well as the root element allow for nested
           themes to work because CSS variables are inherited, ones closer in the 
           ancestor tree will override further ones. So the CSS variables added to this
           DOM node through the same selector will take precedence.
         */}
-        <div data-amplify-theme={name} data-amplify-color-mode={colorMode}>
-          {children}
-        </div>
-        {/*
+      <div data-amplify-theme={name} data-amplify-color-mode={colorMode}>
+        {children}
+      </div>
+      {/*
           Only inject theme CSS variables if given a theme.
           The CSS file users import already has the default theme variables in it.
           This will allow users to use the provider and theme with CSS variables
           without having to worry about specificity issues because this stylesheet
           will likely come after a user's defined CSS.
         */}
-        {typeof theme === 'undefined' ? null : (
-          <style
-            id={`amplify-theme-${name}`}
-            dangerouslySetInnerHTML={{ __html: cssText }}
-          />
-        )}
-      </IdProvider>
+      {typeof theme === 'undefined' ? null : (
+        <style
+          id={`amplify-theme-${name}`}
+          dangerouslySetInnerHTML={{ __html: cssText }}
+        />
+      )}
     </AmplifyContext.Provider>
   );
 }

@@ -2,6 +2,8 @@ import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 
 import { Radio } from '../Radio';
+import { RadioGroupField } from '../../RadioGroupField';
+import { View } from '../../View';
 import { ComponentClassNames } from '../../shared';
 
 describe('RadioField test suite', () => {
@@ -52,5 +54,70 @@ describe('RadioField test suite', () => {
 
     const radioLabel = await screen.findByText('test');
     expect(radioLabel).toHaveAttribute('data-disabled', 'true');
+  });
+
+  it('should have no default labelPosition', async () => {
+    render(
+      <View testId="test">
+        <Radio value="test">test</Radio>
+      </View>
+    );
+    const view = await screen.findByTestId('test');
+    expect(view.querySelector('label')).not.toHaveAttribute(
+      'data-label-position'
+    );
+  });
+
+  it('should work with labelPosition', async () => {
+    render(
+      <View testId="test">
+        <Radio value="test" labelPosition="end">
+          test
+        </Radio>
+      </View>
+    );
+    const radioField = await screen.findByTestId('test');
+    expect(radioField.querySelector('label')).toHaveAttribute(
+      'data-label-position',
+      'end'
+    );
+  });
+
+  it('should inherit labelPosition from RadioGroupField', async () => {
+    render(
+      <RadioGroupField
+        label="label"
+        name="label"
+        labelPosition="end"
+        testId="test"
+      >
+        <Radio value="test">test</Radio>
+      </RadioGroupField>
+    );
+    const radioField = await screen.findByTestId('test');
+    expect(radioField.querySelector('.amplify-radio')).toHaveAttribute(
+      'data-label-position',
+      'end'
+    );
+  });
+
+  it('should not inherit labelPosition from RadioGroupField', async () => {
+    render(
+      <RadioGroupField
+        label="label"
+        name="label"
+        labelPosition="end"
+        testId="test"
+      >
+        <Radio value="test" labelPosition="start">
+          test
+        </Radio>
+      </RadioGroupField>
+    );
+    const radioField = await screen.findByTestId('test');
+    expect(radioField.querySelector('.amplify-radio')).toHaveAttribute(
+      'data-label-position',
+      'start'
+    );
   });
 });

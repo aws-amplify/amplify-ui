@@ -6,7 +6,7 @@ import { Flex } from '../Flex';
 import { Input } from '../Input';
 import { Label } from '../Label';
 import { Primitive, SwitchFieldProps } from '../types';
-import { useStableId } from '../shared/utils';
+import { useStableId } from '../utils/useStableId';
 import { useSwitch } from './useSwitch';
 import { View } from '../View';
 import { VisuallyHidden } from '../VisuallyHidden';
