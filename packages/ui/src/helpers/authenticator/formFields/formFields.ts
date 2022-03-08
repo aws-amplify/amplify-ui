@@ -20,12 +20,13 @@ import {
 import { getActorContext, getActorState } from '../actor';
 import { applyDefaults, applyTranslation } from './util';
 
+/** Helper function that gets the default formField for given field name */
 const getDefaultFormField = (
   state: AuthMachineState,
-  attr: keyof typeof defaultFormFieldOptions
+  fieldName: keyof typeof defaultFormFieldOptions
 ) => {
   const { country_code } = getActorContext(state) as ActorContextWithForms;
-  let options: FormField = defaultFormFieldOptions[attr];
+  let options: FormField = defaultFormFieldOptions[fieldName];
   const { type } = options;
 
   if (type === 'tel') {
@@ -35,6 +36,7 @@ const getDefaultFormField = (
   return options;
 };
 
+/** Helper function that returns default form field for configured primary alias */
 const getAliasDefaultFormField = (state: AuthMachineState): FormField => {
   const primaryAlias = getPrimaryAlias(state);
   return {
@@ -42,6 +44,17 @@ const getAliasDefaultFormField = (state: AuthMachineState): FormField => {
     autocomplete: 'username',
   };
 };
+
+/** Reusable confirmation code form fields. */
+const getConfirmationCodeFormFields = (
+  state: AuthMachineState
+): FormFields => ({
+  confirmation_code: {
+    ...getDefaultFormField(state, 'confirmation_code'),
+    label: 'Code *',
+    placeholder: 'Code',
+  },
+});
 
 const getSignInFormFields = (state: AuthMachineState): FormFields => ({
   username: { ...getAliasDefaultFormField(state) },
@@ -88,17 +101,6 @@ const getConfirmSignUpFormFields = (state: AuthMachineState): FormFields => ({
   confirmation_code: {
     ...getDefaultFormField(state, 'confirmation_code'),
     placeholder: 'Enter your code',
-  },
-});
-
-// Reusable form fields that only has confirmation_code field.
-const getConfirmationCodeFormFields = (
-  state: AuthMachineState
-): FormFields => ({
-  confirmation_code: {
-    ...getDefaultFormField(state, 'confirmation_code'),
-    label: 'Code *',
-    placeholder: 'Code',
   },
 });
 
@@ -171,8 +173,8 @@ export const getDefaultFormFields = (
   component: FormFieldComponents,
   state: AuthMachineState
 ): FormFields => {
-  const getFormFields = formFieldsGetters[component];
-  const formFields: FormFields = getFormFields(state);
+  const formFieldGetter = formFieldsGetters[component];
+  const formFields: FormFields = formFieldGetter(state);
   return applyTranslation(formFields);
 };
 
