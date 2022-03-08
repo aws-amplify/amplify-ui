@@ -14,7 +14,6 @@ export function FormField({ name, formFieldOptions }: FormFieldProps) {
   const { validationErrors } = useAuthenticator();
   const { type } = formFieldOptions;
 
-  if (validationErrors[name]) console.log(validationErrors[name]);
   if (type === 'tel') {
     return (
       <PhoneNumberField

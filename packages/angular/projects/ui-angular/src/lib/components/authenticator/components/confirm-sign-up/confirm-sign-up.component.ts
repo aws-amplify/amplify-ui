@@ -4,6 +4,7 @@ import {
   FormFields,
   getActorState,
   getFormDataFromEvent,
+  getFormFields,
   translate,
 } from '@aws-amplify/ui';
 @Component({
@@ -28,7 +29,8 @@ export class ConfirmSignUpComponent implements OnInit {
     'Your code is on the way. To log in, enter the code we sent you. It may take a minute to arrive.'
   );
   public minutesMessage = translate('It may take a minute to arrive.');
-  public formOverrides: FormFields;
+
+  public formFields: FormFields;
 
   constructor(public authenticator: AuthenticatorService) {}
 
@@ -38,12 +40,7 @@ export class ConfirmSignUpComponent implements OnInit {
 
   public setFormFields() {
     const _state = this.authenticator.authState;
-    this.formOverrides =
-      getActorState(_state).context?.formFields?.confirmSignUp;
-  }
-
-  public grabField(name: string, field: string, defaultV) {
-    return this.formOverrides?.[name]?.[field] ?? defaultV;
+    this.formFields = getFormFields('confirmSignUp', _state);
   }
 
   public get context() {

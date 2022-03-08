@@ -8,24 +8,9 @@
     data-amplify-fieldset
     [disabled]="authenticator.isPending"
   >
-    <amplify-user-name-alias
-      [labelHidden]="labelHidden('username')"
-      [placeholder]="userOverrides?.placeholder"
-      [required]="required('username')"
-      [label]="userOverrides?.label"
-      [dialCode]="userOverrides?.dialCode"
-      [dialCodeList]="userOverrides?.dialCodeList"
-    ></amplify-user-name-alias>
-    <amplify-form-field
-      [labelHidden]="labelHidden('password')"
-      [placeholder]="passwordOR?.placeholder"
-      [required]="required('password')"
-      [label]="passwordOR?.label"
-      data-amplify-password
-      name="password"
-      type="password"
-      autocomplete="current-password"
-    ></amplify-form-field>
+    <amplify-base-form-fields
+      [formFields]="formFields"
+    ></amplify-base-form-fields>
     <button amplify-button variation="primary" fullWidth="true" type="submit">
       {{ signInButtonText }}
     </button>

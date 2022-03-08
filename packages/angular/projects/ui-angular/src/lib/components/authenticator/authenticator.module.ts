@@ -21,8 +21,8 @@ import { SetupTotpComponent } from './components/setup-totp/setup-totp.component
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { SignUpFormFieldsComponent } from './components/sign-up/sign-up-form-fields/sign-up-form-fields.component';
-import { UserNameAliasComponent } from './components/user-name-alias/user-name-alias.component';
 import { VerifyUserComponent } from './components/verify-user/verify-user.component';
+import { BaseFormFieldsComponent } from './components/base-form-fields/base-form-fields.component';
 
 import { ButtonComponent } from '../../primitives/button/button.component';
 import { CheckboxComponent } from '../../primitives/checkbox/checkbox.component';
@@ -42,6 +42,7 @@ import { AmplifySlotDirective } from '../../utilities/amplify-slot/amplify-slot.
     AmplifySlotComponent,
     AmplifySlotDirective,
     AuthenticatorComponent,
+    BaseFormFieldsComponent,
     ButtonComponent,
     CheckboxComponent,
     ConfirmResetPasswordComponent,
@@ -65,7 +66,6 @@ import { AmplifySlotDirective } from '../../utilities/amplify-slot/amplify-slot.
     TabItemComponent,
     TabsComponent,
     TextFieldComponent,
-    UserNameAliasComponent,
     VerifyUserComponent,
   ],
   imports: [CommonModule],

@@ -4,8 +4,8 @@ import {
   AuthChallengeNames,
   FormFields,
   getActorContext,
-  getActorState,
   getFormDataFromEvent,
+  getFormFields,
   SignInContext,
 } from '@aws-amplify/ui';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
@@ -24,7 +24,7 @@ export class ConfirmSignInComponent implements OnInit {
   public headerText: string;
   public confirmText = translate('Confirm');
   public backToSignInText = translate('Back to Sign In');
-  public formOverrides: FormFields;
+  public formFields: FormFields;
 
   constructor(public authenticator: AuthenticatorService) {}
 
@@ -35,12 +35,7 @@ export class ConfirmSignInComponent implements OnInit {
 
   public setFormFields() {
     const _state = this.authenticator.authState;
-    this.formOverrides =
-      getActorState(_state).context?.formFields?.confirmSignIn;
-  }
-
-  public grabField(name: string, field: string, defaultV) {
-    return this.formOverrides?.[name]?.[field] ?? defaultV;
+    this.formFields = getFormFields('confirmSignIn', _state);
   }
 
   public get context() {
