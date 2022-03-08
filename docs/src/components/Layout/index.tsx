@@ -13,6 +13,7 @@ import { Sidebar } from './SecondaryNav';
 import { TableOfContents } from '../TableOfContents';
 import { Footer } from './Footer';
 import { RepoWithPath } from '@/data/urls';
+import { DesignTokenIcon } from '@/components/DesignTokenIcon';
 
 export default function Page({
   children,
@@ -92,9 +93,8 @@ export default function Page({
                   href={`${RepoWithPath}${themeSource}`}
                   isExternal
                 >
-                  <Icon
+                  <DesignTokenIcon
                     ariaLabel=""
-                    as={SiGithub}
                     marginInlineEnd={tokens.space.xs}
                   />
                   Theme source
