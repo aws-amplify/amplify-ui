@@ -20,6 +20,22 @@ export type AuthenticatorProps = AuthenticatorMachineOptions &
   RouterProps &
   ComponentsProviderProps;
 
+// Helper component that sends init event to the parent provider
+function InitMachine({ children, ...machineProps }) {
+  const { _send, route } = useAuthenticator();
+  React.useEffect(() => {
+    if (route === 'idle') {
+      _send({
+        type: 'INIT',
+        data: machineProps,
+      });
+    }
+    // Disabling exhaustive hooks rule here because we only want to run a single time
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  return <>{children}</>;
+}
+
 export function Authenticator({
   children,
   className,
@@ -42,20 +58,6 @@ export function Authenticator({
     socialProviders,
     formFields,
   };
-
-  // Helper component that sends init event to the parent provider
-  function InitMachine({ children, ...machineProps }) {
-    const { _send, route } = useAuthenticator();
-    React.useEffect(() => {
-      if (route === 'idle') {
-        _send({
-          type: 'INIT',
-          data: machineProps,
-        });
-      }
-    }, []);
-    return <>{children}</>;
-  }
 
   return (
     <Provider>
