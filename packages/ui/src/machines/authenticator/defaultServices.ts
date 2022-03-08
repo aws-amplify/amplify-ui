@@ -115,7 +115,6 @@ export const defaultServices = {
               `Password must contain a special character`
             );
           break;
-
         default:
           break;
       }
