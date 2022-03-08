@@ -5,9 +5,9 @@ import { AuthChallengeNames } from './user';
 /**
  * Maps each input to its validation error, if any
  */
-export type ValidationError = Record<string, string> | ComplexityError;
+export type ValidationError = Record<string, string>;
 
-export interface ComplexityError {
+export interface ValidationComplexityError {
   password_complexity: Array<string>;
 }
 

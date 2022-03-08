@@ -4,6 +4,7 @@ import {
   AuthChallengeNames,
   PasswordSettings,
   SignInResult,
+  ValidationComplexityError,
   ValidatorResult,
 } from '../../types';
 
@@ -69,7 +70,7 @@ export const defaultServices = {
     formData,
     touchData,
     passwordSettings: PasswordSettings
-  ): Promise<ValidatorResult> {
+  ): Promise<ValidationComplexityError> {
     const { password } = formData;
 
     const { password: touched_password } = touchData;
