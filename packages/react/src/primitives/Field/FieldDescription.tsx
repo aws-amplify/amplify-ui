@@ -1,5 +1,4 @@
 import * as React from 'react';
-import classNames from 'classnames';
 
 import { FieldDescriptionProps } from '../types';
 import { Text } from '../Text';
