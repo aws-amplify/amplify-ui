@@ -20,6 +20,5 @@ export class BaseFormFieldsComponent implements OnInit {
 
   ngOnInit(): void {
     this.sortedFormFields = sortFormfields(this.formFields);
-    console.log(this.sortedFormFields);
   }
 }
