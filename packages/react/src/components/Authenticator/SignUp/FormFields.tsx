@@ -87,15 +87,15 @@ export function FormFields() {
                 />
                 {validationError['password_complexity'] && (
                   <View data-amplify-sign-up-errors>
-                    {(
-                      validationError['password_complexity'] as Array<string>
-                    )?.map((error, idx) => {
-                      return (
-                        <Text key={idx} role="alert" variation="error">
-                          {translate(error)}
-                        </Text>
-                      );
-                    })}
+                    {(validationError['password_complexity'] as any)?.map(
+                      (error, idx) => {
+                        return (
+                          <Text key={idx} role="alert" variation="error">
+                            {translate(error)}
+                          </Text>
+                        );
+                      }
+                    )}
                   </View>
                 )}
               </React.Fragment>
