@@ -14,6 +14,7 @@ import {
   getActorContext,
   translate,
   ValidationError,
+  ValidationComplexityError,
 } from '@aws-amplify/ui';
 
 @Component({
@@ -65,12 +66,12 @@ export class SignUpFormFieldsComponent implements OnInit {
     this.setFormFields();
   }
 
-  get errors(): Array<string> {
+  get errors() {
     const formContext: ActorContextWithForms = getActorContext(
       this.authenticator.authState
     );
     const { validationError } = formContext;
-    return validationError['password_complexity'] as Array<string>;
+    return validationError['password_complexity'];
   }
 
   public setFormFields() {
