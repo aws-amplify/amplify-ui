@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { getFormFields, translate } from '@aws-amplify/ui';
+import { getSortedFormFields, translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
 import { Flex, Heading } from '../../..';
@@ -25,7 +25,7 @@ export const ResetPassword = (): JSX.Element => {
   const { isPending, submitForm, updateForm, _state } = useAuthenticator();
 
   const formFields = React.useMemo(
-    () => getFormFields('resetPassword', _state),
+    () => getSortedFormFields('resetPassword', _state),
     []
   );
 

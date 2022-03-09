@@ -3,7 +3,7 @@ import * as React from 'react';
 import {
   AuthChallengeNames,
   getActorState,
-  getFormFields,
+  getSortedFormFields,
   SignInContext,
   SignInState,
   translate,
@@ -48,7 +48,7 @@ export const ConfirmSignIn = (): JSX.Element => {
   };
 
   const formFields = React.useMemo(
-    () => getFormFields('confirmSignIn', _state),
+    () => getSortedFormFields('confirmSignIn', _state),
     []
   );
 

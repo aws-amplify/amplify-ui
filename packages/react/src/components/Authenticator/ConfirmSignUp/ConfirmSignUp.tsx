@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { getFormFields, translate } from '@aws-amplify/ui';
+import { getSortedFormFields, translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '../..';
 import { Button, Flex, Heading, Text } from '../../..';
@@ -48,7 +48,7 @@ export function ConfirmSignUp() {
   };
 
   const formFields = React.useMemo(
-    () => getFormFields('confirmSignUp', _state),
+    () => getSortedFormFields('confirmSignUp', _state),
     []
   );
 

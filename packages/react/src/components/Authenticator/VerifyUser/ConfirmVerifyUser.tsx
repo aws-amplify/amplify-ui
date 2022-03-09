@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { getFormFields, translate } from '@aws-amplify/ui';
+import { getSortedFormFields, translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
 import { Flex, Heading } from '../../..';
@@ -26,7 +26,7 @@ export const ConfirmVerifyUser = (): JSX.Element => {
   const { submitForm, updateForm, isPending, _state } = useAuthenticator();
 
   const formFields = React.useMemo(
-    () => getFormFields('confirmVerifyUser', _state),
+    () => getSortedFormFields('confirmVerifyUser', _state),
     []
   );
 

@@ -4,7 +4,7 @@ import * as React from 'react';
 import { Auth, Logger } from 'aws-amplify';
 import {
   getActorState,
-  getFormFields,
+  getSortedFormFields,
   SignInState,
   translate,
 } from '@aws-amplify/ui';
@@ -69,7 +69,7 @@ export const SetupTOTP = (): JSX.Element => {
   }, [user]);
 
   const formFields = React.useMemo(
-    () => getFormFields('setupTOTP', _state),
+    () => getSortedFormFields('setupTOTP', _state),
     []
   );
 

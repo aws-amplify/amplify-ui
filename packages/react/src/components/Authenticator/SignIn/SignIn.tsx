@@ -1,6 +1,10 @@
 import * as React from 'react';
 
-import { translate, hasTranslation, getFormFields } from '@aws-amplify/ui';
+import {
+  translate,
+  hasTranslation,
+  getSortedFormFields,
+} from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
 import { Button, Flex, View } from '../../..';
@@ -22,7 +26,10 @@ export function SignIn() {
     },
   } = useCustomComponents();
 
-  const formFields = React.useMemo(() => getFormFields('signIn', _state), []);
+  const formFields = React.useMemo(
+    () => getSortedFormFields('signIn', _state),
+    []
+  );
 
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
     if (isInputOrSelectElement(event.target)) {
