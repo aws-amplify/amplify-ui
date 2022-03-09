@@ -63,7 +63,7 @@ export interface FormFieldOptions {
   /** Desired HTML input type */
   type?: string;
   /** Desired autocomplete HTML attribute */
-  autocomplete?: string;
+  autocomplete?: string | boolean;
 }
 
 /** Default formField values for each supported auth field */
