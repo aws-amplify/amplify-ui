@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import {
   AuthChallengeNames,
-  FormFields,
+  SortedFormFields,
   getActorState,
   getFormDataFromEvent,
-  getFormFields,
+  getSortedFormFields,
   SignInState,
   translate,
 } from '@aws-amplify/ui';
@@ -38,10 +38,10 @@ const confirmSignInHeading = `Confirm ${mfaType} Code`;
 const backSignInText = computed(() => translate('Back to Sign In'));
 const confirmText = computed(() => translate('Confirm'));
 
-let formFields: FormFields = {};
+let formFields: SortedFormFields = [];
 
 onBeforeMount(() => {
-  formFields = getFormFields('confirmSignIn', state.value);
+  formFields = getSortedFormFields('confirmSignIn', state.value);
 });
 
 // Methods

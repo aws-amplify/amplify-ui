@@ -1,26 +1,21 @@
 <script setup lang="ts">
-import { toRefs, onBeforeMount } from 'vue';
-import { FormFields, SortedFormFields, sortFormFields } from '@aws-amplify/ui';
+import { toRefs } from 'vue';
+import { SortedFormFields } from '@aws-amplify/ui';
 
 import BaseFormField from './base-form-field.vue';
 
 interface BaseFormFields {
-  formFields: FormFields;
+  formFields: SortedFormFields;
 }
 const props = withDefaults(defineProps<BaseFormFields>(), {
-  formFields: () => ({}),
+  formFields: () => [],
 });
 
 const { formFields } = toRefs(props);
-let sortedFormFields: SortedFormFields;
-
-onBeforeMount(() => {
-  sortedFormFields = sortFormFields(formFields.value);
-});
 </script>
 <template>
   <base-form-field
-    v-for="[name, formField] in sortedFormFields"
+    v-for="[name, formField] in formFields"
     :name="name"
     :key="name"
     :formField="formField"

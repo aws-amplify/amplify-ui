@@ -16,8 +16,8 @@ import {
   ValidationError,
   translate,
   getFormDataFromEvent,
-  FormFields,
-  getFormFields,
+  SortedFormFields,
+  getSortedFormFields,
 } from '@aws-amplify/ui';
 
 import { useAuth, useAuthenticator } from '../composables/useAuth';
@@ -65,10 +65,10 @@ const onLostYourCodeClicked = (): void => {
   });
 };
 
-let formFields: FormFields = {};
+let formFields: SortedFormFields = [];
 
 onBeforeMount(() => {
-  formFields = getFormFields('confirmResetPassword', state.value);
+  formFields = getSortedFormFields('confirmResetPassword', state.value);
 });
 
 const onInput = (e: Event) => {

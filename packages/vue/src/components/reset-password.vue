@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed, useAttrs, toRefs, onBeforeMount } from 'vue';
 import {
-  FormFields,
+  SortedFormFields,
   getFormDataFromEvent,
-  getFormFields,
+  getSortedFormFields,
   translate,
 } from '@aws-amplify/ui';
 import BaseFormFields from './primitives/base-form-fields.vue';
@@ -23,10 +23,10 @@ const backSignInText = computed(() => translate('Back to Sign In'));
 const resetPasswordHeading = computed(() => translate('Reset your password'));
 const resetPasswordText = computed(() => translate('Send Code'));
 
-let formFields: FormFields = {};
+let formFields: SortedFormFields = [];
 
 onBeforeMount(() => {
-  formFields = getFormFields('resetPassword', state);
+  formFields = getSortedFormFields('resetPassword', state);
 });
 
 // Methods

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed, useAttrs, toRefs, onBeforeMount } from 'vue';
 import {
-  FormFields,
+  SortedFormFields,
   getFormDataFromEvent,
-  getFormFields,
+  getSortedFormFields,
   translate,
 } from '@aws-amplify/ui';
 
@@ -48,10 +48,10 @@ const subtitleText = computed(() => {
     : translate(`${defaultMessage}`);
 });
 
-let formFields: FormFields = {};
+let formFields: SortedFormFields = [];
 
 onBeforeMount(() => {
-  formFields = getFormFields('confirmSignUp', state.value);
+  formFields = getSortedFormFields('confirmSignUp', state.value);
 });
 
 // Methods

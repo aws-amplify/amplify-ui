@@ -3,10 +3,10 @@ import { computed, ComputedRef, useAttrs, onBeforeMount } from 'vue';
 import { createSharedComposable } from '@vueuse/core';
 
 import {
-  FormFields,
+  SortedFormFields,
   getActorState,
   getFormDataFromEvent,
-  getFormFields,
+  getSortedFormFields,
   SignInState,
   translate,
 } from '@aws-amplify/ui';
@@ -33,10 +33,10 @@ const verifyHeading = computed(() =>
 const skipText = computed(() => translate('Skip'));
 const submitText = computed(() => translate('Submit'));
 
-let formFields: FormFields;
+let formFields: SortedFormFields = [];
 
 onBeforeMount(() => {
-  formFields = getFormFields('confirmVerifyUser', state.value);
+  formFields = getSortedFormFields('confirmVerifyUser', state.value);
 });
 
 // Methods
