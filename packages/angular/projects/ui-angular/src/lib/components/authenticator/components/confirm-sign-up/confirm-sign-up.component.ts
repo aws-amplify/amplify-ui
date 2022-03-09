@@ -1,9 +1,9 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 import {
-  FormFields,
+  SortedFormFields,
   getFormDataFromEvent,
-  getFormFields,
+  getSortedFormFields,
   translate,
 } from '@aws-amplify/ui';
 @Component({
@@ -29,7 +29,7 @@ export class ConfirmSignUpComponent implements OnInit {
   );
   public minutesMessage = translate('It may take a minute to arrive.');
 
-  public formFields: FormFields;
+  public formFields: SortedFormFields;
 
   constructor(public authenticator: AuthenticatorService) {}
 
@@ -39,7 +39,7 @@ export class ConfirmSignUpComponent implements OnInit {
 
   public setFormFields() {
     const _state = this.authenticator.authState;
-    this.formFields = getFormFields('confirmSignUp', _state);
+    this.formFields = getSortedFormFields('confirmSignUp', _state);
   }
 
   public get context() {

@@ -9,8 +9,8 @@ import {
   translate,
   hasTranslation,
   getFormDataFromEvent,
-  FormFields,
-  getFormFields,
+  SortedFormFields,
+  getSortedFormFields,
 } from '@aws-amplify/ui';
 
 @Component({
@@ -27,7 +27,7 @@ export class SignInComponent implements OnInit {
     ? translate('Forgot your password?')
     : translate('Forgot your password? ');
   public signInButtonText = translate('Sign in');
-  public formFields: FormFields;
+  public formFields: SortedFormFields;
 
   constructor(public authenticator: AuthenticatorService) {}
 
@@ -37,7 +37,7 @@ export class SignInComponent implements OnInit {
 
   public setFormFields() {
     const _state = this.authenticator.authState;
-    this.formFields = getFormFields('signIn', _state);
+    this.formFields = getSortedFormFields('signIn', _state);
   }
 
   public get context() {

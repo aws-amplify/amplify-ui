@@ -1,8 +1,8 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import {
-  FormFields,
+  SortedFormFields,
   getFormDataFromEvent,
-  getFormFields,
+  getSortedFormFields,
   translate,
 } from '@aws-amplify/ui';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
@@ -21,7 +21,7 @@ export class ConfirmVerifyUserComponent implements OnInit {
   // translated texts
   public skipText = translate('Skip');
   public submitText = translate('Submit');
-  public formFields: FormFields;
+  public formFields: SortedFormFields;
 
   constructor(public authenticator: AuthenticatorService) {}
 
@@ -31,7 +31,7 @@ export class ConfirmVerifyUserComponent implements OnInit {
 
   public setFormFields() {
     const _state = this.authenticator.authState;
-    this.formFields = getFormFields('confirmVerifyUser', _state);
+    this.formFields = getSortedFormFields('confirmVerifyUser', _state);
   }
 
   public get context() {

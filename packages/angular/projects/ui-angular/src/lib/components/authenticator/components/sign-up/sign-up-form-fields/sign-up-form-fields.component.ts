@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticatorService } from '../../../../../services/authenticator.service';
-import { FormFields, getFormFields } from '@aws-amplify/ui';
+import { SortedFormFields, getSortedFormFields } from '@aws-amplify/ui';
 
 @Component({
   selector: 'amplify-sign-up-form-fields',
   templateUrl: './sign-up-form-fields.component.html',
 })
 export class SignUpFormFieldsComponent implements OnInit {
-  public formFields: FormFields;
+  public formFields: SortedFormFields;
 
   constructor(private authenticator: AuthenticatorService) {}
 
@@ -17,6 +17,6 @@ export class SignUpFormFieldsComponent implements OnInit {
 
   public setFormFields() {
     const _state = this.authenticator.authState;
-    this.formFields = getFormFields('signUp', _state);
+    this.formFields = getSortedFormFields('signUp', _state);
   }
 }

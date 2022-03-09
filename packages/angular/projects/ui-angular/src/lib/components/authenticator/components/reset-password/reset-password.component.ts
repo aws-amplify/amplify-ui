@@ -1,9 +1,9 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 import {
-  FormFields,
+  SortedFormFields,
   getFormDataFromEvent,
-  getFormFields,
+  getSortedFormFields,
   translate,
 } from '@aws-amplify/ui';
 
@@ -18,7 +18,7 @@ export class ResetPasswordComponent implements OnInit {
   // translated texts
   public sendCodeText = translate('Send Code');
   public backToSignInText = translate('Back to Sign In');
-  public formFields: FormFields;
+  public formFields: SortedFormFields;
 
   constructor(public authenticator: AuthenticatorService) {}
 
@@ -28,7 +28,7 @@ export class ResetPasswordComponent implements OnInit {
 
   public setFormFields() {
     const _state = this.authenticator.authState;
-    this.formFields = getFormFields('resetPassword', _state);
+    this.formFields = getSortedFormFields('resetPassword', _state);
   }
 
   public get context() {

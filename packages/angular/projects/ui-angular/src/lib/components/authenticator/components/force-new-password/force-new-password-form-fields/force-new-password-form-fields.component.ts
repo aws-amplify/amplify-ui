@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticatorService } from '../../../../../services/authenticator.service';
-import { FormFields, getFormFields } from '@aws-amplify/ui';
+import { SortedFormFields, getSortedFormFields } from '@aws-amplify/ui';
 
 @Component({
   selector: 'amplify-force-new-password-form-fields',
   templateUrl: './force-new-password-form-fields.component.html',
 })
 export class ForceNewPasswordFormFieldsComponent implements OnInit {
-  public formFields: FormFields;
+  public formFields: SortedFormFields;
 
   constructor(private authenticator: AuthenticatorService) {}
 
@@ -17,6 +17,6 @@ export class ForceNewPasswordFormFieldsComponent implements OnInit {
 
   public setFormFields() {
     const _state = this.authenticator.authState;
-    this.formFields = getFormFields('forceNewPassword', _state);
+    this.formFields = getSortedFormFields('forceNewPassword', _state);
   }
 }
