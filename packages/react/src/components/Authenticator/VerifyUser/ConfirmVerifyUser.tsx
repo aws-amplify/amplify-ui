@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { getSortedFormFields, translate } from '@aws-amplify/ui';
+import { translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
 import { Flex, Heading } from '../../..';
@@ -24,11 +24,6 @@ export const ConfirmVerifyUser = (): JSX.Element => {
   } = useCustomComponents();
 
   const { submitForm, updateForm, isPending, _state } = useAuthenticator();
-
-  const sortedFormFields = React.useMemo(
-    () => getSortedFormFields('confirmVerifyUser', _state),
-    []
-  );
 
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
     if (isInputOrSelectElement(event.target)) {
@@ -66,7 +61,7 @@ export const ConfirmVerifyUser = (): JSX.Element => {
         <Header />
 
         <Flex direction="column">
-          <BaseFormFields formFields={sortedFormFields} />
+          <BaseFormFields route="confirmVerifyUser" />
         </Flex>
 
         <RemoteErrorMessage />

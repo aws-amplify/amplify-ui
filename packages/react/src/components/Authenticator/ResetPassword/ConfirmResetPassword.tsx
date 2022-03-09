@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { getSortedFormFields, translate } from '@aws-amplify/ui';
+import { translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
 import { Flex, Heading } from '../../..';
@@ -25,11 +25,6 @@ export const ConfirmResetPassword = (): JSX.Element => {
 
   const { _state, submitForm, updateForm, updateBlur, isPending } =
     useAuthenticator();
-
-  const sortedFormFields = React.useMemo(
-    () => getSortedFormFields('confirmResetPassword', _state),
-    []
-  );
 
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
     if (isInputOrSelectElement(event.target)) {
@@ -73,7 +68,7 @@ export const ConfirmResetPassword = (): JSX.Element => {
         <Header />
 
         <Flex direction="column">
-          <BaseFormFields formFields={sortedFormFields} />
+          <BaseFormFields route="confirmResetPassword" />
         </Flex>
 
         <RemoteErrorMessage />

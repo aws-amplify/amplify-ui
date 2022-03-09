@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { getSortedFormFields, translate } from '@aws-amplify/ui';
+import { translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '../..';
 import { Button, Flex, Heading, Text } from '../../..';
@@ -20,7 +20,6 @@ export function ConfirmSignUp() {
     resendCode,
     submitForm,
     updateForm,
-    _state,
     codeDeliveryDetails: { DeliveryMedium, Destination } = {},
   } = useAuthenticator();
   const {
@@ -46,11 +45,6 @@ export function ConfirmSignUp() {
       updateForm({ name, value });
     }
   };
-
-  const sortedFormFields = React.useMemo(
-    () => getSortedFormFields('confirmSignUp', _state),
-    []
-  );
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -95,7 +89,7 @@ export function ConfirmSignUp() {
         <Flex direction="column">
           <Text style={{ marginBottom: '1rem' }}>{subtitleText}</Text>
 
-          <BaseFormFields formFields={sortedFormFields} />
+          <BaseFormFields route="confirmSignUp" />
 
           <RemoteErrorMessage />
 

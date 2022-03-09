@@ -3,16 +3,15 @@ import * as React from 'react';
 import {
   AuthChallengeNames,
   getActorState,
-  getSortedFormFields,
   SignInContext,
   SignInState,
   translate,
 } from '@aws-amplify/ui';
 
-import { useAuthenticator } from '..';
 import { Flex, Heading } from '../../..';
 import { ConfirmSignInFooter, RemoteErrorMessage } from '../shared';
 import { useCustomComponents } from '../hooks/useCustomComponents';
+import { useAuthenticator } from '../hooks/useAuthenticator';
 import {
   isInputOrSelectElement,
   isInputElement,
@@ -21,7 +20,7 @@ import {
 import { BaseFormFields } from '../shared/BaseFormFields';
 
 export const ConfirmSignIn = (): JSX.Element => {
-  const { submitForm, updateForm, isPending, _state } = useAuthenticator();
+  const { submitForm, updateForm, isPending } = useAuthenticator();
 
   const {
     components: {
@@ -47,11 +46,6 @@ export const ConfirmSignIn = (): JSX.Element => {
     }
   };
 
-  const sortedFormFields = React.useMemo(
-    () => getSortedFormFields('confirmSignIn', _state),
-    []
-  );
-
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     submitForm(getFormDataFromEvent(event));
@@ -73,7 +67,7 @@ export const ConfirmSignIn = (): JSX.Element => {
         <Header />
 
         <Flex direction="column">
-          <BaseFormFields formFields={sortedFormFields} />
+          <BaseFormFields route="confirmSignIn" />
           <RemoteErrorMessage />
         </Flex>
 

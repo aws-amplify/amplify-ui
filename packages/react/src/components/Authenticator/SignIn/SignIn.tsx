@@ -1,10 +1,6 @@
 import * as React from 'react';
 
-import {
-  translate,
-  hasTranslation,
-  getSortedFormFields,
-} from '@aws-amplify/ui';
+import { translate, hasTranslation } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
 import { Button, Flex, View } from '../../..';
@@ -25,11 +21,6 @@ export function SignIn() {
       SignIn: { Header = SignIn.Header, Footer = SignIn.Footer },
     },
   } = useCustomComponents();
-
-  const sortedFormFields = React.useMemo(
-    () => getSortedFormFields('signIn', _state),
-    []
-  );
 
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
     if (isInputOrSelectElement(event.target)) {
@@ -69,7 +60,7 @@ export function SignIn() {
             className="amplify-flex"
             disabled={isPending}
           >
-            <BaseFormFields formFields={sortedFormFields} />
+            <BaseFormFields route="signIn" />
           </fieldset>
 
           <RemoteErrorMessage />

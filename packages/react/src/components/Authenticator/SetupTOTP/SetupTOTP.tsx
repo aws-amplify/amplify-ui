@@ -2,14 +2,9 @@ import QRCode from 'qrcode';
 import * as React from 'react';
 
 import { Auth, Logger } from 'aws-amplify';
-import {
-  getActorState,
-  getSortedFormFields,
-  SignInState,
-  translate,
-} from '@aws-amplify/ui';
+import { getActorState, SignInState, translate } from '@aws-amplify/ui';
 
-import { useAuthenticator } from '..';
+import { useAuthenticator } from '../hooks/useAuthenticator';
 import { Flex, Heading } from '../../..';
 import {
   isInputOrSelectElement,
@@ -67,11 +62,6 @@ export const SetupTOTP = (): JSX.Element => {
 
     generateQRCode(user);
   }, [user]);
-
-  const sortedFormFields = React.useMemo(
-    () => getSortedFormFields('setupTOTP', _state),
-    []
-  );
 
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
     if (isInputOrSelectElement(event.target)) {
@@ -140,7 +130,7 @@ export const SetupTOTP = (): JSX.Element => {
               </svg>
             </Flex>
           </Flex>
-          <BaseFormFields formFields={sortedFormFields} />
+          <BaseFormFields route="setupTOTP" />
           <RemoteErrorMessage />
         </Flex>
 
