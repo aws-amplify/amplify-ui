@@ -61,7 +61,7 @@ export const ForceNewPassword = (): JSX.Element => {
       >
         <Heading level={3}>{translate('Change Password')}</Heading>
 
-        <FormFields></FormFields>
+        <FormFields />
         {error && (
           <Text className="forceNewPasswordErrorText" variation="error">
             {error}
