@@ -211,7 +211,7 @@ export function createAuthenticatorMachine() {
                 s.toLowerCase()
               ) ?? [];
 
-            let cliPasswordSettings =
+            const cliPasswordSettings =
               event.data.aws_cognito_password_protection_settings || {};
 
             // By default, Cognito assumes `username`, so there isn't a different username attribute like `email`.

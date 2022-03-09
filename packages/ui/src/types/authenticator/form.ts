@@ -59,12 +59,12 @@ export interface FormFieldOptions {
   order?: number;
 }
 
-export type PasswordPolicyCharacters =
+export type PasswordPolicyRules =
   | 'REQUIRES_LOWERCASE'
   | 'REQUIRES_NUMBERS'
   | 'REQUIRES_SYMBOLS'
   | 'REQUIRES_UPPERCASE';
 export interface PasswordSettings {
   passwordPolicyMinLength: number;
-  passwordPolicyCharacters: Array<PasswordPolicyCharacters>;
+  passwordPolicyCharacters: Array<PasswordPolicyRules>;
 }

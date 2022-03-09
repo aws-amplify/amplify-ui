@@ -4,7 +4,6 @@ import {
   AuthChallengeNames,
   PasswordSettings,
   SignInResult,
-  ValidationComplexityError,
   ValidatorResult,
 } from '../../types';
 
@@ -70,7 +69,7 @@ export const defaultServices = {
     formData,
     touchData,
     passwordSettings: PasswordSettings
-  ): Promise<ValidationComplexityError> {
+  ): Promise<ValidatorResult> {
     const { password } = formData;
 
     const { password: touched_password } = touchData;
@@ -97,23 +96,23 @@ export const defaultServices = {
         case 'REQUIRES_LOWERCASE':
           if (!/[a-z]/.test(password))
             password_complexity.push(
-              `Password must contain a lower case letter`
+              'Password must contain a lower case letter'
             );
           break;
         case 'REQUIRES_UPPERCASE':
           if (!/[A-Z]/.test(password))
             password_complexity.push(
-              `Password must contain an upper case letter`
+              'Password must contain an upper case letter'
             );
           break;
         case 'REQUIRES_NUMBERS':
           if (!/[0-9]/.test(password))
-            password_complexity.push(`Password must contain a number`);
+            password_complexity.push('Password must contain a number');
           break;
         case 'REQUIRES_SYMBOLS':
           if (!/[\W]/.test(password))
             password_complexity.push(
-              `Password must contain a special character`
+              'Password must contain a special character'
             );
           break;
         default:
@@ -125,7 +124,7 @@ export const defaultServices = {
      * Only return an error if there is at least one error.
      */
     return password_complexity.length !== 0
-      ? { password_complexity: password_complexity }
+      ? { password: password_complexity }
       : null;
   },
   async validateConfirmPassword<Validator>(

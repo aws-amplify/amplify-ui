@@ -5,20 +5,12 @@ import { AuthChallengeNames } from './user';
 /**
  * Maps each input to its validation error, if any
  */
-export type ValidationError = Record<string, string>;
-
-export interface ValidationComplexityError {
-  password_complexity: Array<string>;
-}
+export type ValidationError = Record<string, string | string[]>;
 
 /**
  * Return type of validator. This is `null` if there are no error, and `ValidationError` otherwise.
  */
-export type ValidatorResult =
-  | void
-  | null
-  | ValidationError
-  | ValidationComplexityError; // null if there are no error, `ValidationError` otherwise
+export type ValidatorResult = void | null | ValidationError;
 export type SignInResult = string; // null if there are no error, `ValidationError` otherwise
 
 /**

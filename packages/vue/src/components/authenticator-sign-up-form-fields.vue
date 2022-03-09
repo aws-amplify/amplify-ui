@@ -95,12 +95,9 @@ const order = setFormOrder(formOverrides, fieldNamesCombined);
         :ariainvalid="!!validationErrors.confirm_password"
         @blur="onBlur"
       />
-      <div
-        data-amplify-sign-up-errors
-        v-if="!!validationErrors.password_complexity"
-      >
+      <div data-amplify-sign-up-errors v-if="!!validationErrors.password">
         <p
-          v-for="(error, idx) in validationErrors.password_complexity"
+          v-for="(error, idx) in validationErrors.password"
           :key="idx"
           role="alert"
           data-variation="error"

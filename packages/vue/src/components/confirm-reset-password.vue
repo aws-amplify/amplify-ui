@@ -139,8 +139,8 @@ function onBlur(e: Event) {
               name="password"
               autocomplete="current-password"
               :ariainvalid="
-                  !!(actorContext.validationError as Record<string,string>)['confirm_password']
-                "
+                !!actorContext.validationError?.['confirm_password']
+              "
               @blur="onBlur"
             />
 
@@ -156,8 +156,8 @@ function onBlur(e: Event) {
               name="confirm_password"
               autocomplete="new-password"
               :ariainvalid="
-                  !!(actorContext.validationError as Record<string,string>)['confirm_password']
-                "
+                !!actorContext.validationError?.['confirm_password']
+              "
               @blur="onBlur"
             />
           </base-wrapper>
@@ -167,9 +167,9 @@ function onBlur(e: Event) {
               data-variation="error"
               role="alert"
               class="amplify-text"
-              v-if="!!(actorContext.validationError as Record<string,string>)['confirm_password']"
+              v-if="!!actorContext.validationError?.['confirm_password']"
             >
-              {{ translate((actorContext.validationError as Record<string,string>)?.confirm_password as string) }}
+              {{ translate((actorContext.validationError)?.confirm_password as string) }}
             </base-box>
             <base-alert v-if="actorState?.context?.remoteError">
               {{ translate(actorState?.context?.remoteError) }}

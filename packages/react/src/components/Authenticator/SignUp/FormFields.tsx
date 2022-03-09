@@ -85,9 +85,9 @@ export function FormFields() {
                   name="password"
                   onBlur={handleBlur}
                 />
-                {validationError['password_complexity'] && (
+                {validationError['password'] && (
                   <View data-amplify-sign-up-errors>
-                    {(validationError['password_complexity'] as any)?.map(
+                    {(validationError['password'] as string[])?.map(
                       (error, idx) => {
                         return (
                           <Text key={idx} role="alert" variation="error">
@@ -119,7 +119,7 @@ export function FormFields() {
 
                 {validationError['confirm_password'] && (
                   <Text role="alert" variation="error">
-                    {translate(validationError['confirm_password'])}
+                    {translate(validationError['confirm_password'] as string)}
                   </Text>
                 )}
               </React.Fragment>
