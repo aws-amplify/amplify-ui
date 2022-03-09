@@ -11,16 +11,17 @@ export const FieldDescription: React.FC<FieldDescriptionProps> = ({
   descriptiveText,
   labelHidden,
   ...rest
-}) => (
-  <Text
-    data-testid={QA_FIELD_DESCRIPTION}
-    className={classNames(ComponentClassNames.FieldDescription, {
-      [ComponentClassNames.VisuallyHidden]: labelHidden,
-    })}
-    {...rest}
-  >
-    {descriptiveText}
-  </Text>
-);
+}) =>
+  !labelHidden && descriptiveText ? (
+    <Text
+      data-testid={QA_FIELD_DESCRIPTION}
+      className={classNames(ComponentClassNames.FieldDescription, {
+        [ComponentClassNames.VisuallyHidden]: labelHidden,
+      })}
+      {...rest}
+    >
+      {descriptiveText}
+    </Text>
+  ) : null;
 
 FieldDescription.displayName = 'FieldDescription';

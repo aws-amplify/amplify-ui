@@ -37,6 +37,7 @@ const RadioGroupFieldPrimitive: Primitive<RadioGroupFieldProps, typeof Flex> = (
   const fieldId = useStableId(id);
   const labelId = useStableId();
   const descriptionId = useStableId();
+  const ariaDescribedBy = descriptiveText ? descriptionId : undefined;
 
   const radioGroupContextValue: RadioGroupContextType = React.useMemo(
     () => ({
@@ -85,7 +86,7 @@ const RadioGroupFieldPrimitive: Primitive<RadioGroupFieldProps, typeof Flex> = (
         descriptiveText={descriptiveText}
       />
       <Flex
-        aria-describedby={descriptionId}
+        aria-describedby={ariaDescribedBy}
         aria-labelledby={labelId}
         className={ComponentClassNames.RadioGroup}
         id={fieldId}

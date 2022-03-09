@@ -35,6 +35,7 @@ const TextAreaFieldPrimitive: Primitive<TextAreaFieldProps, 'textarea'> = (
 
   const fieldId = useStableId(id);
   const descriptionId = useStableId();
+  const ariaDescribedBy = descriptiveText ? descriptionId : undefined;
 
   const { flexContainerStyleProps, baseStyleProps, rest } =
     splitPrimitiveProps(_rest);
@@ -61,7 +62,7 @@ const TextAreaFieldPrimitive: Primitive<TextAreaFieldProps, 'textarea'> = (
         descriptiveText={descriptiveText}
       />
       <TextArea
-        aria-describedby={descriptionId}
+        aria-describedby={ariaDescribedBy}
         hasError={hasError}
         id={fieldId}
         ref={ref}

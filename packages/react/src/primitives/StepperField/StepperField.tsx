@@ -47,6 +47,7 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
 
   const fieldId = useStableId(id);
   const descriptionId = useStableId();
+  const ariaDescribedBy = descriptiveText ? descriptionId : undefined;
 
   const { baseStyleProps, flexContainerStyleProps, rest } =
     splitPrimitiveProps(_rest);
@@ -125,7 +126,7 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
         }
       >
         <Input
-          aria-describedby={descriptionId}
+          aria-describedby={ariaDescribedBy}
           className={ComponentClassNames.StepperFieldInput}
           hasError={hasError}
           id={fieldId}
