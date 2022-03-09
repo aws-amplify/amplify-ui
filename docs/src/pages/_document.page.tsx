@@ -45,7 +45,7 @@ const getCSPContent = (context: Readonly<HtmlProps>) => {
 class MyDocument extends Document {
   render() {
     return (
-      <Html>
+      <Html lang="en-us">
         <Head>
           <meta
             httpEquiv="Content-Security-Policy"

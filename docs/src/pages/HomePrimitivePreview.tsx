@@ -57,21 +57,21 @@ export const HomePrimitivePreview = () => {
           isExclusive
           onChange={(value: string) => setExclusiveValue(value)}
         >
-          <ToggleButton value="align-left">
+          <ToggleButton value="align-left" ariaLabel="align-left">
             <IconFormatAlignLeft />
           </ToggleButton>
-          <ToggleButton value="align-center">
+          <ToggleButton value="align-center" ariaLabel="align-center">
             <IconFormatAlignCenter />
           </ToggleButton>
-          <ToggleButton value="align-right">
+          <ToggleButton value="align-right" ariaLabel="align-right">
             <IconFormatAlignRight />
           </ToggleButton>
-          <ToggleButton value="align-justify">
+          <ToggleButton value="align-justify" ariaLabel="align-justify">
             <IconFormatAlignJustify />
           </ToggleButton>
         </ToggleButtonGroup>
         <Button variation="primary">Get started</Button>
-        <Menu>
+        <Menu ariaLabel="homepage demo dropdown menu">
           <MenuItem onClick={() => alert('Download')}>Download</MenuItem>
           <MenuItem onClick={() => alert('Create a Copy')}>
             Create a Copy
