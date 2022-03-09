@@ -65,10 +65,10 @@ const onLostYourCodeClicked = (): void => {
   });
 };
 
-let formFields: SortedFormFields = [];
+let sortedFormFields: SortedFormFields = [];
 
 onBeforeMount(() => {
-  formFields = getSortedFormFields('confirmResetPassword', state.value);
+  sortedFormFields = getSortedFormFields('confirmResetPassword', state.value);
 });
 
 const onInput = (e: Event) => {
@@ -106,7 +106,9 @@ function onBlur(e: Event) {
           </slot>
 
           <base-wrapper class="amplify-flex" style="flex-direction: column">
-            <base-form-fields :form-fields="formFields"></base-form-fields>
+            <base-form-fields
+              :form-fields="sortedFormFields"
+            ></base-form-fields>
           </base-wrapper>
           <base-footer class="amplify-flex" style="flex-direction: column">
             <base-box

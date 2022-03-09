@@ -38,10 +38,10 @@ const confirmSignInHeading = `Confirm ${mfaType} Code`;
 const backSignInText = computed(() => translate('Back to Sign In'));
 const confirmText = computed(() => translate('Confirm'));
 
-let formFields: SortedFormFields = [];
+let sortedFormFields: SortedFormFields = [];
 
 onBeforeMount(() => {
-  formFields = getSortedFormFields('confirmSignIn', state.value);
+  sortedFormFields = getSortedFormFields('confirmSignIn', state.value);
 });
 
 // Methods
@@ -96,7 +96,9 @@ const onBackToSignInClicked = (): void => {
             </base-heading>
           </slot>
           <base-wrapper class="amplify-flex" style="flex-direction: column">
-            <base-form-fields :form-fields="formFields"></base-form-fields>
+            <base-form-fields
+              :form-fields="sortedFormFields"
+            ></base-form-fields>
           </base-wrapper>
           <base-footer class="amplify-flex" style="flex-direction: column">
             <base-alert v-if="actorState?.context?.remoteError">

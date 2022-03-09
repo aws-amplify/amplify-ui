@@ -26,7 +26,7 @@ export const ConfirmResetPassword = (): JSX.Element => {
   const { _state, submitForm, updateForm, updateBlur, isPending } =
     useAuthenticator();
 
-  const formFields = React.useMemo(
+  const sortedFormFields = React.useMemo(
     () => getSortedFormFields('confirmResetPassword', _state),
     []
   );
@@ -73,7 +73,7 @@ export const ConfirmResetPassword = (): JSX.Element => {
         <Header />
 
         <Flex direction="column">
-          <BaseFormFields formFields={formFields} />
+          <BaseFormFields formFields={sortedFormFields} />
         </Flex>
 
         <RemoteErrorMessage />

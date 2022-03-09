@@ -8,13 +8,13 @@ import BaseFormFields from './primitives/base-form-fields.vue';
 // state
 const { state } = useAuth();
 
-let formFields: SortedFormFields = [];
+let sortedFormFields: SortedFormFields = [];
 
 onBeforeMount(() => {
-  formFields = getSortedFormFields('forceNewPassword', state.value);
+  sortedFormFields = getSortedFormFields('forceNewPassword', state.value);
 });
 </script>
 
 <template>
-  <base-form-fields :form-fields="formFields"></base-form-fields>
+  <base-form-fields :form-fields="sortedFormFields"></base-form-fields>
 </template>

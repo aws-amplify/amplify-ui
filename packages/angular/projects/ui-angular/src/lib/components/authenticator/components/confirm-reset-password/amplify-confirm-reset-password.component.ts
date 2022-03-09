@@ -19,7 +19,7 @@ export class ConfirmResetPasswordComponent implements OnInit {
   public sendCodeText = translate('Send Code');
   public backToSignInText = translate('Back to Sign In');
   public resendCodeText = translate('Resend Code');
-  public formFields: SortedFormFields;
+  public sortedFormFields: SortedFormFields;
 
   constructor(public authenticator: AuthenticatorService) {}
 
@@ -29,7 +29,7 @@ export class ConfirmResetPasswordComponent implements OnInit {
 
   public setFormFields() {
     const _state = this.authenticator.authState;
-    this.formFields = getSortedFormFields('confirmResetPassword', _state);
+    this.sortedFormFields = getSortedFormFields('confirmResetPassword', _state);
   }
 
   public get context() {

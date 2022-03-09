@@ -7,7 +7,7 @@ import { SortedFormFields, getSortedFormFields } from '@aws-amplify/ui';
   templateUrl: './force-new-password-form-fields.component.html',
 })
 export class ForceNewPasswordFormFieldsComponent implements OnInit {
-  public formFields: SortedFormFields;
+  public sortedFormFields: SortedFormFields;
 
   constructor(private authenticator: AuthenticatorService) {}
 
@@ -17,6 +17,6 @@ export class ForceNewPasswordFormFieldsComponent implements OnInit {
 
   public setFormFields() {
     const _state = this.authenticator.authState;
-    this.formFields = getSortedFormFields('forceNewPassword', _state);
+    this.sortedFormFields = getSortedFormFields('forceNewPassword', _state);
   }
 }

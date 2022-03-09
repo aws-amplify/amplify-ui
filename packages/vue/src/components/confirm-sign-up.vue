@@ -48,10 +48,10 @@ const subtitleText = computed(() => {
     : translate(`${defaultMessage}`);
 });
 
-let formFields: SortedFormFields = [];
+let sortedFormFields: SortedFormFields = [];
 
 onBeforeMount(() => {
-  formFields = getSortedFormFields('confirmSignUp', state.value);
+  sortedFormFields = getSortedFormFields('confirmSignUp', state.value);
 });
 
 // Methods
@@ -103,7 +103,9 @@ const onLostCodeClicked = (): void => {
             style="flex-direction: column"
             :disabled="isPending"
           >
-            <base-form-fields :formFields="formFields"></base-form-fields>
+            <base-form-fields
+              :form-fields="sortedFormFields"
+            ></base-form-fields>
           </base-field-set>
 
           <base-footer

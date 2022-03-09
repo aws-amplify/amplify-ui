@@ -27,7 +27,7 @@ export class SignInComponent implements OnInit {
     ? translate('Forgot your password?')
     : translate('Forgot your password? ');
   public signInButtonText = translate('Sign in');
-  public formFields: SortedFormFields;
+  public sortedFormFields: SortedFormFields;
 
   constructor(public authenticator: AuthenticatorService) {}
 
@@ -37,7 +37,7 @@ export class SignInComponent implements OnInit {
 
   public setFormFields() {
     const _state = this.authenticator.authState;
-    this.formFields = getSortedFormFields('signIn', _state);
+    this.sortedFormFields = getSortedFormFields('signIn', _state);
   }
 
   public get context() {

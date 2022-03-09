@@ -29,7 +29,7 @@ export class SetupTotpComponent implements OnInit {
   // translated texts
   public backToSignInText = translate('Back to Sign In');
   public confirmText = translate('Confirm');
-  public formFields: SortedFormFields;
+  public sortedFormFields: SortedFormFields;
   public formOverrides: FormFields;
 
   constructor(public authenticator: AuthenticatorService) {}
@@ -42,7 +42,7 @@ export class SetupTotpComponent implements OnInit {
   public setFormFields() {
     const _state = this.authenticator.authState;
     this.formOverrides = getActorState(_state).context?.formFields?.setupTOTP;
-    this.formFields = getSortedFormFields('setupTOTP', _state);
+    this.sortedFormFields = getSortedFormFields('setupTOTP', _state);
   }
 
   public get context() {

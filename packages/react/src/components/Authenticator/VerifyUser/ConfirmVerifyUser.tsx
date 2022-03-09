@@ -25,7 +25,7 @@ export const ConfirmVerifyUser = (): JSX.Element => {
 
   const { submitForm, updateForm, isPending, _state } = useAuthenticator();
 
-  const formFields = React.useMemo(
+  const sortedFormFields = React.useMemo(
     () => getSortedFormFields('confirmVerifyUser', _state),
     []
   );
@@ -66,7 +66,7 @@ export const ConfirmVerifyUser = (): JSX.Element => {
         <Header />
 
         <Flex direction="column">
-          <BaseFormFields formFields={formFields} />
+          <BaseFormFields formFields={sortedFormFields} />
         </Flex>
 
         <RemoteErrorMessage />

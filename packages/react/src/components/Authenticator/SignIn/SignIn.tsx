@@ -26,7 +26,7 @@ export function SignIn() {
     },
   } = useCustomComponents();
 
-  const formFields = React.useMemo(
+  const sortedFormFields = React.useMemo(
     () => getSortedFormFields('signIn', _state),
     []
   );
@@ -69,7 +69,7 @@ export function SignIn() {
             className="amplify-flex"
             disabled={isPending}
           >
-            <BaseFormFields formFields={formFields} />
+            <BaseFormFields formFields={sortedFormFields} />
           </fieldset>
 
           <RemoteErrorMessage />

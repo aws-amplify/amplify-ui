@@ -8,14 +8,14 @@ import { BaseFormFields } from '../shared/BaseFormFields';
 export function FormFields() {
   const { _state } = useAuthenticator();
 
-  const formFields = React.useMemo(
+  const sortedFormFields = React.useMemo(
     () => getSortedFormFields('signUp', _state),
     []
   );
 
   return (
     <>
-      <BaseFormFields formFields={formFields} />
+      <BaseFormFields formFields={sortedFormFields} />
     </>
   );
 }

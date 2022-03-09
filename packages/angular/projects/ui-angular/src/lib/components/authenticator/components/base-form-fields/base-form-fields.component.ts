@@ -9,6 +9,6 @@ import { SortedFormFields } from '@aws-amplify/ui';
   templateUrl: './base-form-fields.component.html',
 })
 export class BaseFormFieldsComponent {
-  @Input() formFields: SortedFormFields; // formFields to sort and render
+  @Input() sortedFormFields: SortedFormFields; // formFields to sort and render
   @HostBinding('style.display') display = 'contents';
 }

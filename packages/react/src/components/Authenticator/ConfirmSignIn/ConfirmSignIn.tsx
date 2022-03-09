@@ -47,7 +47,7 @@ export const ConfirmSignIn = (): JSX.Element => {
     }
   };
 
-  const formFields = React.useMemo(
+  const sortedFormFields = React.useMemo(
     () => getSortedFormFields('confirmSignIn', _state),
     []
   );
@@ -73,7 +73,7 @@ export const ConfirmSignIn = (): JSX.Element => {
         <Header />
 
         <Flex direction="column">
-          <BaseFormFields formFields={formFields} />
+          <BaseFormFields formFields={sortedFormFields} />
           <RemoteErrorMessage />
         </Flex>
 

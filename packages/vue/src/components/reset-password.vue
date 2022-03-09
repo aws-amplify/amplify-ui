@@ -23,10 +23,10 @@ const backSignInText = computed(() => translate('Back to Sign In'));
 const resetPasswordHeading = computed(() => translate('Reset your password'));
 const resetPasswordText = computed(() => translate('Send Code'));
 
-let formFields: SortedFormFields = [];
+let sortedFormFields: SortedFormFields = [];
 
 onBeforeMount(() => {
-  formFields = getSortedFormFields('resetPassword', state);
+  sortedFormFields = getSortedFormFields('resetPassword', state);
 });
 
 // Methods
@@ -80,7 +80,7 @@ const onBackToSignInClicked = (): void => {
           style="flex-direction: column"
           :disabled="isPending"
         >
-          <base-form-fields :form-fields="formFields"></base-form-fields>
+          <base-form-fields :form-fields="sortedFormFields"></base-form-fields>
         </base-field-set>
 
         <base-footer

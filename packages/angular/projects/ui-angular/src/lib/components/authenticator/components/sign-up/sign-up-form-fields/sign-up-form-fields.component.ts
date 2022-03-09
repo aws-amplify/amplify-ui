@@ -7,7 +7,7 @@ import { SortedFormFields, getSortedFormFields } from '@aws-amplify/ui';
   templateUrl: './sign-up-form-fields.component.html',
 })
 export class SignUpFormFieldsComponent implements OnInit {
-  public formFields: SortedFormFields;
+  public sortedFormFields: SortedFormFields;
 
   constructor(private authenticator: AuthenticatorService) {}
 
@@ -17,6 +17,6 @@ export class SignUpFormFieldsComponent implements OnInit {
 
   public setFormFields() {
     const _state = this.authenticator.authState;
-    this.formFields = getSortedFormFields('signUp', _state);
+    this.sortedFormFields = getSortedFormFields('signUp', _state);
   }
 }

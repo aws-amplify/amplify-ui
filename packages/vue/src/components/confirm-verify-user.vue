@@ -33,10 +33,10 @@ const verifyHeading = computed(() =>
 const skipText = computed(() => translate('Skip'));
 const submitText = computed(() => translate('Submit'));
 
-let formFields: SortedFormFields = [];
+let sortedFormFields: SortedFormFields = [];
 
 onBeforeMount(() => {
-  formFields = getSortedFormFields('confirmVerifyUser', state.value);
+  sortedFormFields = getSortedFormFields('confirmVerifyUser', state.value);
 });
 
 // Methods
@@ -87,7 +87,9 @@ const onSkipClicked = (): void => {
             </base-heading>
           </slot>
           <base-wrapper class="amplify-flex" style="flex-direction: column">
-            <base-form-fields :form-fields="formFields"></base-form-fields>
+            <base-form-fields
+              :form-fields="sortedFormFields"
+            ></base-form-fields>
           </base-wrapper>
 
           <base-footer class="amplify-flex" style="flex-direction: column">

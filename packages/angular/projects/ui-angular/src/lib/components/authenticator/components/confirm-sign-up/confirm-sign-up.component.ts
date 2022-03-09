@@ -33,7 +33,7 @@ export class ConfirmSignUpComponent implements OnInit {
   );
   public minutesMessage = translate('It may take a minute to arrive.');
 
-  public formFields: SortedFormFields;
+  public sortedFormFields: SortedFormFields;
 
   constructor(public authenticator: AuthenticatorService) {}
 
@@ -63,7 +63,7 @@ export class ConfirmSignUpComponent implements OnInit {
       getActorContext(state).formFields?.confirmSignUp || {};
 
     const formFields = applyDefaults(defaultFormFields, customFormFields);
-    this.formFields = sortFormFields(formFields);
+    this.sortedFormFields = sortFormFields(formFields);
   }
 
   public get context() {

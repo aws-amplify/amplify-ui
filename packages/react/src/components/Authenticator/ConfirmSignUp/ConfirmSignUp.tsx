@@ -47,7 +47,7 @@ export function ConfirmSignUp() {
     }
   };
 
-  const formFields = React.useMemo(
+  const sortedFormFields = React.useMemo(
     () => getSortedFormFields('confirmSignUp', _state),
     []
   );
@@ -95,7 +95,7 @@ export function ConfirmSignUp() {
         <Flex direction="column">
           <Text style={{ marginBottom: '1rem' }}>{subtitleText}</Text>
 
-          <BaseFormFields formFields={formFields} />
+          <BaseFormFields formFields={sortedFormFields} />
 
           <RemoteErrorMessage />
 

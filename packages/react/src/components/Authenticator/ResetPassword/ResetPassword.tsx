@@ -24,7 +24,7 @@ export const ResetPassword = (): JSX.Element => {
   } = useCustomComponents();
   const { isPending, submitForm, updateForm, _state } = useAuthenticator();
 
-  const formFields = React.useMemo(
+  const sortedFormFields = React.useMemo(
     () => getSortedFormFields('resetPassword', _state),
     []
   );
@@ -65,7 +65,7 @@ export const ResetPassword = (): JSX.Element => {
         <Header />
 
         <Flex direction="column">
-          <BaseFormFields formFields={formFields} />
+          <BaseFormFields formFields={sortedFormFields} />
         </Flex>
 
         <RemoteErrorMessage />

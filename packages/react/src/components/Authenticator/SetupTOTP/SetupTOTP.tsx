@@ -68,7 +68,7 @@ export const SetupTOTP = (): JSX.Element => {
     generateQRCode(user);
   }, [user]);
 
-  const formFields = React.useMemo(
+  const sortedFormFields = React.useMemo(
     () => getSortedFormFields('setupTOTP', _state),
     []
   );
@@ -140,7 +140,7 @@ export const SetupTOTP = (): JSX.Element => {
               </svg>
             </Flex>
           </Flex>
-          <BaseFormFields formFields={formFields} />
+          <BaseFormFields formFields={sortedFormFields} />
           <RemoteErrorMessage />
         </Flex>
 

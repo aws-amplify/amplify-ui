@@ -21,7 +21,7 @@ export class ConfirmVerifyUserComponent implements OnInit {
   // translated texts
   public skipText = translate('Skip');
   public submitText = translate('Submit');
-  public formFields: SortedFormFields;
+  public sortedFormFields: SortedFormFields;
 
   constructor(public authenticator: AuthenticatorService) {}
 
@@ -31,7 +31,7 @@ export class ConfirmVerifyUserComponent implements OnInit {
 
   public setFormFields() {
     const _state = this.authenticator.authState;
-    this.formFields = getSortedFormFields('confirmVerifyUser', _state);
+    this.sortedFormFields = getSortedFormFields('confirmVerifyUser', _state);
   }
 
   public get context() {

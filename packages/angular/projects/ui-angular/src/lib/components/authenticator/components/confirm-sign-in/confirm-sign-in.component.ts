@@ -24,7 +24,7 @@ export class ConfirmSignInComponent implements OnInit {
   public headerText: string;
   public confirmText = translate('Confirm');
   public backToSignInText = translate('Back to Sign In');
-  public formFields: SortedFormFields;
+  public sortedFormFields: SortedFormFields;
 
   constructor(public authenticator: AuthenticatorService) {}
 
@@ -35,7 +35,7 @@ export class ConfirmSignInComponent implements OnInit {
 
   public setFormFields() {
     const _state = this.authenticator.authState;
-    this.formFields = getSortedFormFields('confirmSignIn', _state);
+    this.sortedFormFields = getSortedFormFields('confirmSignIn', _state);
   }
 
   public get context() {

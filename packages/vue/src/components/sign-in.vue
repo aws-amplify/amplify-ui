@@ -43,10 +43,10 @@ const actorState = computed(() =>
   getActorState(state.value)
 ) as ComputedRef<SignInState>;
 
-let formFields: SortedFormFields = [];
+let sortedFormFields: SortedFormFields = [];
 
 onBeforeMount(() => {
-  formFields = getSortedFormFields('signIn', state.value);
+  sortedFormFields = getSortedFormFields('signIn', state.value);
 });
 
 // Methods
@@ -112,7 +112,9 @@ const onForgotPasswordClicked = (): void => {
             <template #fieldSetI="{ slotData }">
               <slot name="signin-fields" :info="slotData"> </slot>
             </template>
-            <base-form-fields :form-fields="formFields"></base-form-fields>
+            <base-form-fields
+              :form-fields="sortedFormFields"
+            ></base-form-fields>
           </base-field-set>
           <base-alert v-if="actorState.context.remoteError">
             {{ translate(actorState.context.remoteError) }}

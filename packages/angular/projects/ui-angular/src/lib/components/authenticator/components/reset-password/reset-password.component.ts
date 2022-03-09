@@ -18,7 +18,7 @@ export class ResetPasswordComponent implements OnInit {
   // translated texts
   public sendCodeText = translate('Send Code');
   public backToSignInText = translate('Back to Sign In');
-  public formFields: SortedFormFields;
+  public sortedFormFields: SortedFormFields;
 
   constructor(public authenticator: AuthenticatorService) {}
 
@@ -28,7 +28,7 @@ export class ResetPasswordComponent implements OnInit {
 
   public setFormFields() {
     const _state = this.authenticator.authState;
-    this.formFields = getSortedFormFields('resetPassword', _state);
+    this.sortedFormFields = getSortedFormFields('resetPassword', _state);
   }
 
   public get context() {
