@@ -1,8 +1,6 @@
 import * as React from 'react';
 import debounce from 'lodash/debounce';
 import {
-  Alert,
-  Button,
   Icon,
   Heading,
   Link,
@@ -10,7 +8,6 @@ import {
   View,
   useTheme,
 } from '@aws-amplify/ui-react';
-import { MdFeedback } from 'react-icons/md';
 import { SiW3C, SiReact } from 'react-icons/si';
 
 import { Sidebar } from './SecondaryNav';
@@ -18,33 +15,6 @@ import { TableOfContents } from '../TableOfContents';
 import { Footer } from './Footer';
 import { GITHUB_REPO_FILE } from '@/data/links';
 import { DesignTokenIcon } from '@/components/DesignTokenIcon';
-
-const PrimitiveAlert = () => {
-  const { tokens } = useTheme();
-  return (
-    <Alert
-      variation="info"
-      heading="Developer preview"
-      margin={`${tokens.space.small} 0 0 0`}
-    >
-      <Text color="inherit">
-        Amplify UI primitive components like this one are in developer preview
-        and only available in React for now.
-      </Text>
-      <Button
-        as="a"
-        size="small"
-        gap={tokens.space.xs}
-        margin={`${tokens.space.xs} 0 0 0`}
-        isExternal
-        href="https://github.com/aws-amplify/amplify-ui/discussions/198"
-      >
-        <MdFeedback />
-        Add feedback here
-      </Button>
-    </Alert>
-  );
-};
 
 export default function Page({
   children,
