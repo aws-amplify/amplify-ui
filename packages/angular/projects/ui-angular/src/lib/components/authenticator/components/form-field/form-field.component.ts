@@ -58,7 +58,7 @@ export class FormFieldComponent implements OnInit {
       this.authenticator.authState
     );
     const { validationError } = formContext;
-    return translate(validationError[this.name]);
+    return translate(validationError[this.name] as string);
   }
 
   public onBlur($event: Event) {
