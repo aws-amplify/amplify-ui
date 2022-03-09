@@ -118,12 +118,13 @@ const onForgotPasswordClicked = (): void => {
           <base-field-set
             :disabled="actorState.matches('signIn.submit')"
             class="amplify-flex"
+            p
             style="flex-direction: column"
           >
             <template #fieldSetI="{ slotData }">
               <slot name="signin-fields" :info="slotData"> </slot>
             </template>
-
+            <legend class="amplify-visually-hidden">Sign in</legend>
             <user-name-alias
               :userNameAlias="true"
               :label-hidden="userOverrides?.labelHidden"
