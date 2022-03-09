@@ -12,30 +12,33 @@ import { getActorState } from '../actor';
 import { defaultFormFieldsGetters } from './defaults';
 import { applyDefaults, applyTranslation, sortFormFields } from './util';
 
+/** Gets the default formFields for given route/route */
 export const getDefaultFormFields = (
-  component: FormFieldComponents,
+  route: FormFieldComponents,
   state: AuthMachineState
 ): FormFields => {
-  const formFieldGetter = defaultFormFieldsGetters[component];
+  const formFieldGetter = defaultFormFieldsGetters[route];
   const formFields: FormFields = formFieldGetter(state);
   return applyTranslation(formFields);
 };
 
+/** Gets default formFields, then merges custom formFields into it */
 export const getFormFields = (
-  component: FormFieldComponents,
+  route: FormFieldComponents,
   state: AuthMachineState
 ): FormFields => {
-  const defaultFormFields = getDefaultFormFields(component, state);
+  const defaultFormFields = getDefaultFormFields(route, state);
   const customFormFields =
-    getActorState(state).context?.formFields?.[component] || {};
+    getActorState(state).context?.formFields?.[route] || {};
   const formFields = applyDefaults(defaultFormFields, customFormFields);
   return formFields;
 };
 
+/** Calls `getFormFields` above, then sorts it into an indexed array */
 export const getSortedFormFields = (
-  component: FormFieldComponents,
+  route: FormFieldComponents,
   state: AuthMachineState
 ): SortedFormFields => {
-  const formFields = getFormFields(component, state);
+  const formFields = getFormFields(route, state);
   return sortFormFields(formFields);
 };
