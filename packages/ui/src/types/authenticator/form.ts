@@ -30,7 +30,8 @@ export type AuthFormFields = {
  * Override option for each screen. Maps each input to override options.
  */
 export interface FormFields {
-  [key: string]: FormFieldOptions;
+  // TODO(breaking): `name` should be part of `FormFieldsOptions` instead of as a key here.
+  [field_name: string]: FormFieldOptions;
 }
 
 /**
