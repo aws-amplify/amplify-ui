@@ -5,19 +5,6 @@ import { FieldDescription, QA_FIELD_DESCRIPTION } from '../FieldDescription';
 import { ComponentClassNames } from '../../shared/constants';
 
 describe('FieldDescription component', () => {
-  const renderFieldDescriptionComponent = ({
-    descriptiveText,
-    labelHidden,
-    ...rest
-  }) =>
-    render(
-      <FieldDescription
-        descriptiveText={descriptiveText}
-        labelHidden={labelHidden}
-        {...rest}
-      />
-    );
-
   it('should not render if it has a "labelHidden" prop is `true`', async () => {
     const { queryByTestId } = render(
       <FieldDescription descriptiveText="some description" labelHidden={true} />
