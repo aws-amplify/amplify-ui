@@ -7,15 +7,16 @@ import { CountryCodeSelectProps, Primitive } from '../types';
 import { SelectField } from '../SelectField';
 
 const CountryCodeSelectPrimitive: Primitive<CountryCodeSelectProps, 'select'> =
-  ({ className, ...props }, ref) => {
+  ({ className, dialCodeList, ...props }, ref) => {
+    const dialList = dialCodeList ?? countryDialCodes;
     const countryCodeOptions = React.useMemo(
       () =>
-        countryDialCodes.map((dialCode) => (
+        dialList.map((dialCode) => (
           <option key={dialCode} value={dialCode}>
             {dialCode}
           </option>
         )),
-      []
+      [dialList]
     );
 
     return (

@@ -20,6 +20,24 @@ export type AuthenticatorProps = AuthenticatorMachineOptions &
   RouterProps &
   ComponentsProviderProps;
 
+// Helper component that sends init event to the parent provider
+function InitMachine({ children, ...data }) {
+  const { _send, route } = useAuthenticator();
+
+  const hasInitialized = React.useRef(false);
+
+  React.useEffect(() => {
+    if (!hasInitialized.current && route === 'idle') {
+      _send({
+        type: 'INIT',
+        data,
+      });
+      hasInitialized.current = true;
+    }
+  }, [_send, route, data]);
+  return <>{children}</>;
+}
+
 export function Authenticator({
   children,
   className,
@@ -31,6 +49,7 @@ export function Authenticator({
   socialProviders,
   variation,
   hideSignUp,
+  formFields,
 }: AuthenticatorProps) {
   const components = { ...defaultComponents, ...customComponents };
   const machineProps = {
@@ -39,21 +58,8 @@ export function Authenticator({
     services,
     signUpAttributes,
     socialProviders,
+    formFields,
   };
-
-  // Helper component that sends init event to the parent provider
-  function InitMachine({ children, ...machineProps }) {
-    const { _send, route } = useAuthenticator();
-    React.useEffect(() => {
-      if (route === 'idle') {
-        _send({
-          type: 'INIT',
-          data: machineProps,
-        });
-      }
-    }, []);
-    return <>{children}</>;
-  }
 
   return (
     <Provider>

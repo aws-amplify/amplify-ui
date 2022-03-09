@@ -1,6 +1,7 @@
 import { Divider, View, Flex, Text } from '@aws-amplify/ui-react';
 import { DividerDemo } from './demo';
 import { Example, ExampleCode } from '@/components/Example';
+import { ComponentClassTable } from '@/components/ComponentClassTable';
 import {
   DefaultDividerExample,
   HorizontalDividerExample,
@@ -9,6 +10,7 @@ import {
   DividerStylePropsExample,
   DividerClassNameExample,
   DividerThemeExample,
+  LabelExample,
 } from './examples';
 
 ## Demo
@@ -73,6 +75,19 @@ Available options are `small`, `large`, and none (default).
   </ExampleCode>
 </Example>
 
+### Label
+
+<Example>
+  <LabelExample />
+  <ExampleCode>
+
+```jsx file=./examples/LabelExample.tsx
+
+```
+
+  </ExampleCode>
+</Example>
+
 ## Customization
 
 ### Theme
@@ -120,6 +135,10 @@ To replace _all_ the Divider styling, unset it:
   /* Add your styling here*/
 }
 ```
+
+### Target classes
+
+<ComponentClassTable componentName="Divider" />
 
 ### Local styling
 

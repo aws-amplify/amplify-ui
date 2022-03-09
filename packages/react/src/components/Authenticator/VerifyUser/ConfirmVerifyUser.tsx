@@ -1,4 +1,4 @@
-import { translate } from '@aws-amplify/ui';
+import { getActorState, translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
 import { Flex, Heading } from '../../..';
@@ -12,6 +12,7 @@ import {
   isInputOrSelectElement,
   isInputElement,
   getFormDataFromEvent,
+  confPropsCreator,
 } from '../../../helpers/utils';
 
 export const ConfirmVerifyUser = (): JSX.Element => {
@@ -24,7 +25,10 @@ export const ConfirmVerifyUser = (): JSX.Element => {
     },
   } = useCustomComponents();
 
-  const { submitForm, updateForm, isPending } = useAuthenticator();
+  const { submitForm, updateForm, isPending, _state } = useAuthenticator();
+
+  const formOverrides =
+    getActorState(_state).context?.formFields?.confirmVerifyUser;
 
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
     if (isInputOrSelectElement(event.target)) {
@@ -62,7 +66,14 @@ export const ConfirmVerifyUser = (): JSX.Element => {
         <Header />
 
         <Flex direction="column">
-          <ConfirmationCodeInput />
+          <ConfirmationCodeInput
+            {...confPropsCreator(
+              'confirmation_code',
+              'Code',
+              'Code *',
+              formOverrides
+            )}
+          />
         </Flex>
 
         <RemoteErrorMessage />

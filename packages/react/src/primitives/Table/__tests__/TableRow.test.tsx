@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import * as React from 'react';
 
 import { Table } from '../Table';
+import { TableBody } from '../TableBody';
 import { TableRow } from '../TableRow';
 
 describe('Forward ref: ', () => {
@@ -9,10 +10,11 @@ describe('Forward ref: ', () => {
     const ref = React.createRef<HTMLTableRowElement>();
     render(
       <Table>
-        <TableRow ref={ref} />
+        <TableBody>
+          <TableRow ref={ref} />
+        </TableBody>
       </Table>
     );
-
     await screen.findByRole('row');
     expect(ref.current.nodeName).toBe('TR');
   });

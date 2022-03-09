@@ -1,0 +1,34 @@
+import { Alert } from '@aws-amplify/ui-react';
+import { FlutterAuthenticatorExample } from '@/components/FlutterAuthenticatorExample';
+import { Fragment } from '@/components/Fragment';
+import { Tabs, TabItem } from '@aws-amplify/ui-react';
+
+<Alert heading="Zero Configuration">
+
+The Authenticator [automatically infers](#zero-configuration) `loginMechanisms` from `amplify pull`.
+Below are examples of username, email, and phone number based login.
+
+</Alert>
+
+> **Note**: A `username`, `email`, or `phone_number` value is required for Cognito User Pools.
+
+<Tabs>
+  <TabItem title="Username">
+    <FlutterAuthenticatorExample
+      id="flutter-authenticator-login-username"
+      usernameAttribute={'USERNAME'}
+    />
+  </TabItem>
+  <TabItem title="Email">
+    <FlutterAuthenticatorExample
+      id="flutter-authenticator-login-email"
+      usernameAttribute={'EMAIL'}
+    />
+  </TabItem>
+  <TabItem title="Phone Number">
+    <FlutterAuthenticatorExample
+      id="flutter-authenticator-login-phone-number"
+      usernameAttribute={'PHONE_NUMBER'}
+    />
+  </TabItem>
+</Tabs>

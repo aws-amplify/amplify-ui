@@ -7,7 +7,7 @@ import { ExpanderItemProps } from '../types/expander';
 import { IconExpandMore } from '../Icon';
 import { Primitive } from '../types/view';
 import { splitPrimitiveProps } from '../shared/styleUtils';
-import { useStableId } from '../shared/utils';
+import { useStableId } from '../utils/useStableId';
 import { View } from '../View';
 
 export const EXPANDER_ITEM_TEST_ID = 'expander-item';

@@ -51,7 +51,6 @@ describe('useNavigateHook: ', () => {
 
   it('Should call window.open', () => {
     windowSpy = jest.spyOn(window, 'open').mockImplementation((url, target) => {
-      console.log(url, target);
       return window;
     });
 
@@ -72,7 +71,6 @@ describe('useNavigateHook: ', () => {
 
   it('Should call window.open with "_blank" as target', () => {
     windowSpy = jest.spyOn(window, 'open').mockImplementation((url, target) => {
-      console.log(url, target);
       return window;
     });
 

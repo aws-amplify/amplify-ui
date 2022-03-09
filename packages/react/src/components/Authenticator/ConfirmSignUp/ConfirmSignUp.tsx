@@ -1,4 +1,4 @@
-import { translate } from '@aws-amplify/ui';
+import { getActorState, translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '../..';
 import { Button, Flex, Heading, Text } from '../../..';
@@ -6,6 +6,7 @@ import {
   isInputOrSelectElement,
   isInputElement,
   getFormDataFromEvent,
+  confPropsCreator,
 } from '../../../helpers/utils';
 import { useCustomComponents } from '../hooks/useCustomComponents';
 
@@ -21,6 +22,7 @@ export function ConfirmSignUp() {
     resendCode,
     submitForm,
     updateForm,
+    _state,
     codeDeliveryDetails: { DeliveryMedium, Destination } = {},
   } = useAuthenticator();
   const {
@@ -31,6 +33,9 @@ export function ConfirmSignUp() {
       },
     },
   } = useCustomComponents();
+
+  const formOverrides =
+    getActorState(_state).context?.formFields?.confirmSignUp;
 
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
     if (isInputOrSelectElement(event.target)) {
@@ -94,7 +99,14 @@ export function ConfirmSignUp() {
 
         <Flex direction="column">
           <Text style={{ marginBottom: '1rem' }}>{subtitleText}</Text>
-          <ConfirmationCodeInput {...confirmationCodeInputProps} />
+          <ConfirmationCodeInput
+            {...confPropsCreator(
+              'confirmation_code',
+              confirmationCodeInputProps.placeholder,
+              confirmationCodeInputProps.label,
+              formOverrides
+            )}
+          />
 
           <RemoteErrorMessage />
 

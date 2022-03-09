@@ -9,7 +9,16 @@ import { Text } from '../Text';
 import { useRadioGroupContext } from '../RadioGroupField/context';
 
 export const RadioPrimitive: Primitive<RadioProps, 'input'> = (
-  { children, className, id, isDisabled, testId, value, ...rest },
+  {
+    children,
+    className,
+    id,
+    isDisabled,
+    testId,
+    value,
+    labelPosition: radioLabelPosition,
+    ...rest
+  },
   ref
 ) => {
   const {
@@ -22,6 +31,7 @@ export const RadioPrimitive: Primitive<RadioProps, 'input'> = (
     isReadOnly,
     onChange,
     size,
+    labelPosition: groupLabelPosition,
   } = useRadioGroupContext();
 
   const shouldBeDisabled =
@@ -34,12 +44,26 @@ export const RadioPrimitive: Primitive<RadioProps, 'input'> = (
   // for uncontrolled component
   const defaultChecked =
     defaultValue !== undefined ? value === defaultValue : undefined;
+
+  const labelPosition = radioLabelPosition
+    ? radioLabelPosition
+    : groupLabelPosition;
   return (
     <Flex
       as="label"
       className={classNames(ComponentClassNames.Radio, className)}
       data-disabled={shouldBeDisabled}
+      data-label-position={labelPosition}
     >
+      {children && (
+        <Text
+          as="span"
+          className={ComponentClassNames.RadioLabel}
+          data-disabled={shouldBeDisabled}
+        >
+          {children}
+        </Text>
+      )}
       <Input
         checked={checked}
         className={classNames(
@@ -66,15 +90,6 @@ export const RadioPrimitive: Primitive<RadioProps, 'input'> = (
         data-size={size}
         testId={testId}
       />
-      {children && (
-        <Text
-          as="span"
-          className={ComponentClassNames.RadioLabel}
-          data-disabled={shouldBeDisabled}
-        >
-          {children}
-        </Text>
-      )}
     </Flex>
   );
 };

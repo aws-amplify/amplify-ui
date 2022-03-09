@@ -3,7 +3,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import { Button } from '@aws-amplify/ui-react';
 
-export const Copy = ({ text, size, variation }) => {
+export const Copy = ({ text, size, variation, className }) => {
   const [copied, setCopied] = React.useState(false);
 
   const copy = () => {
@@ -15,7 +15,12 @@ export const Copy = ({ text, size, variation }) => {
 
   return (
     <CopyToClipboard text={text} onCopy={copy}>
-      <Button size={size} variation={variation} isLoading={copied}>
+      <Button
+        size={size}
+        variation={variation}
+        isLoading={copied}
+        className={className}
+      >
         {copied ? 'Copied!' : 'Copy'}
       </Button>
     </CopyToClipboard>

@@ -14,10 +14,15 @@ import {
   isInputOrSelectElement,
   isInputElement,
   getFormDataFromEvent,
+  confPropsCreator,
 } from '../../../helpers/utils';
 
 export const ConfirmSignIn = (): JSX.Element => {
-  const { error, submitForm, updateForm, isPending } = useAuthenticator();
+  const { error, submitForm, updateForm, isPending, _state } =
+    useAuthenticator();
+
+  const formOverrides =
+    getActorState(_state).context?.formFields?.confirmSignIn;
 
   const {
     components: {
@@ -64,7 +69,15 @@ export const ConfirmSignIn = (): JSX.Element => {
         <Header />
 
         <Flex direction="column">
-          <ConfirmationCodeInput errorText={translate(error)} />
+          <ConfirmationCodeInput
+            {...confPropsCreator(
+              'confirmation_code',
+              'Code',
+              'Code *',
+              formOverrides
+            )}
+            errorText={translate(error)}
+          />
         </Flex>
 
         <ConfirmSignInFooter />
