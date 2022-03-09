@@ -10,16 +10,16 @@ Scenario: Sign up with a new email & password with wrong password requirements
   When I type a new "email"
   And I type an invalid wrong complexity password
   And I confirm my password
-  Then I see "Password must contain a number"
-  Then I see "Password must contain a special character"
-  Then I see "Password must contain an upper case letter"
-  Then I see "Password must contain at least 8 characters"
+  Then I see "Password must have numbers"
+  Then I see "Password must have special characters"
+  Then I see "Password must have upper case letters"
+  Then I see "Password must have at least 8 characters"
 
 Scenario: Sign up with a new email & password without lower case characters
   When I type a new "email"
   And I type an invalid no lower case password
   And I confirm my password
-  Then I see "Password must contain a number"
-  Then I see "Password must contain a special character"
-  Then I see "Password must contain a lower case letter"
-  Then I see "Password must contain at least 8 characters"
+  Then I see "Password must have numbers"
+  Then I see "Password must have special characters"
+  Then I see "Password must have lower case letters"
+  Then I see "Password must have at least 8 characters"
