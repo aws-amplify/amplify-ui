@@ -3,7 +3,7 @@ import { act, render, screen } from '@testing-library/react';
 import kebabCase from 'lodash/kebabCase';
 import userEvent from '@testing-library/user-event';
 
-import { AUTO_GENERATED_ID_PREFIX } from '../../shared/utils';
+import { AUTO_GENERATED_ID_PREFIX } from '../../utils/useStableId';
 import { ComponentClassNames } from '../../shared';
 import { ComponentPropsToStylePropsMap } from '../../types';
 import { SwitchField } from '../SwitchField';

@@ -9,8 +9,7 @@ import {
 } from '../../Flex/__tests__/Flex.test';
 import { ComponentClassNames } from '../../shared/constants';
 import { SharedText } from '../../shared/i18n';
-import { AUTO_GENERATED_ID_PREFIX } from '../../shared/utils';
-
+import { AUTO_GENERATED_ID_PREFIX } from '../../utils/useStableId';
 describe('StepperField: ', () => {
   describe('Flex wrapper', () => {
     it('should render default and custom classname', async () => {

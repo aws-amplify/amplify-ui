@@ -75,6 +75,23 @@ describe('RadioFieldGroup test suite', () => {
     expectFlexContainerStyleProps(radioField);
   });
 
+  it('should have no default labelPosition', async () => {
+    render(getRadioFieldGroup({ ...basicProps }));
+    const radioField = await screen.findByTestId(basicProps.testId);
+    expect(radioField.querySelector('.amplify-radio')).not.toHaveAttribute(
+      'data-label-position'
+    );
+  });
+
+  it('should work with labelPosition', async () => {
+    render(getRadioFieldGroup({ ...basicProps, labelPosition: 'end' }));
+    const radioField = await screen.findByTestId(basicProps.testId);
+    expect(radioField.querySelector('.amplify-radio')).toHaveAttribute(
+      'data-label-position',
+      'end'
+    );
+  });
+
   describe('Label', () => {
     it('should render expected label classname', async () => {
       render(getRadioFieldGroup({ ...basicProps }));
