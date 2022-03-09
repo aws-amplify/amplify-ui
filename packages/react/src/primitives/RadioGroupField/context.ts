@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { LabelPositions } from '../types/field';
 
 export interface RadioGroupContextType {
   name: string;
@@ -10,6 +11,7 @@ export interface RadioGroupContextType {
   isReadOnly?: boolean;
   isGroupDisabled?: boolean;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  labelPosition?: LabelPositions;
 }
 
 const defaultValue: RadioGroupContextType = { name: 'default' };

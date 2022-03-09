@@ -13,8 +13,7 @@ import {
   expectFlexContainerStyleProps,
 } from '../../Flex/__tests__/Flex.test';
 import { ComponentClassNames } from '../../shared/constants';
-import { AUTO_GENERATED_ID_PREFIX } from '../../shared/utils';
-
+import { AUTO_GENERATED_ID_PREFIX } from '../../utils/useStableId';
 // Jest uses JSDom, which apparently doesn't support the ResizeObserver API
 // This will get around that API reference error in Jest
 // We don't necessarily test its functionality since Radix should be responsible for that

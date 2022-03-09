@@ -7,6 +7,7 @@ export interface PhoneNumberFieldProps extends TextInputFieldProps {
   countryCodeLabel?: string;
   countryCodeName?: string;
   defaultCountryCode: string;
+  dialCodeList?: Array<string>;
   onCountryCodeChange?: React.ChangeEventHandler<HTMLSelectElement>;
   type?: 'tel';
   /**
@@ -17,4 +18,5 @@ export interface PhoneNumberFieldProps extends TextInputFieldProps {
 
 export interface CountryCodeSelectProps extends SelectFieldProps {
   defaultValue: string;
+  dialCodeList?: Array<string>;
 }

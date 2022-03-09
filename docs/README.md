@@ -13,6 +13,7 @@ These docs are published at https://docs.amplify.aws/ui and powered by the follo
 1. Run `yarn setup`
 1. Run `yarn docs dev`
 1. Open <http://localhost:5000/>
+1. _Optional:_ To build the flutter authenticator sample, [install flutter](https://docs.flutter.dev/get-started/install) and then run `yarn flutter:build`. This will build the flutter authenticator one time. It will not watch for changes.
 
 ### Creating a Page
 

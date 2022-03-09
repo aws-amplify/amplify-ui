@@ -14,11 +14,16 @@ export const useDividerProps: UseDividerProps = (initialValues) => {
   const [orientation, setOrientation] = React.useState<
     DividerOptions['orientation']
   >(initialValues.orientation);
+  const [label, setLabel] = React.useState<DividerOptions['label']>(
+    initialValues.label
+  );
 
   return {
     size,
     setSize,
     orientation,
     setOrientation,
+    label,
+    setLabel,
   };
 };

@@ -6,8 +6,22 @@ import '@aws-amplify/ui-react/styles.css';
 import awsExports from './aws-exports';
 Amplify.configure(awsExports);
 
+const formFields = {
+  signIn: {
+    username: {
+      dialCode: '+82',
+    },
+  },
+  signUp: {
+    phone_number: {
+      dialCode: '+227',
+      dialCodeList: ['+1', '+82', '+227', '+100', '+227'],
+    },
+  },
+};
+
 function App({ signOut }) {
   return <button onClick={signOut}>Sign out</button>;
 }
 
-export default withAuthenticator(App);
+export default withAuthenticator(App, { formFields: formFields });

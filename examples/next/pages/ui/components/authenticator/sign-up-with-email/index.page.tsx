@@ -6,6 +6,16 @@ import '@aws-amplify/ui-react/styles.css';
 import awsExports from './aws-exports';
 Amplify.configure(awsExports);
 
+const formFields = {
+  confirmSignUp: {
+    confirmation_code: {
+      labelHidden: false,
+      placeholder: 'Enter the code given',
+      isRequired: true,
+    },
+  },
+};
+
 I18n.putVocabularies(translations);
 I18n.setLanguage('en');
 I18n.putVocabulariesForLanguage('en', {
@@ -30,7 +40,11 @@ export default function AuthenticatorWithEmail() {
   };
 
   return (
-    <Authenticator services={services} initialState="signUp">
+    <Authenticator
+      formFields={formFields}
+      services={services}
+      initialState="signUp"
+    >
       {({ signOut }) => <button onClick={signOut}>Sign out</button>}
     </Authenticator>
   );

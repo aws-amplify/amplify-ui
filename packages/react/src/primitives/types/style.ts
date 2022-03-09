@@ -56,6 +56,14 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   letterSpacing?: ResponsiveStyle<StyleToken<Property.LetterSpacing>>;
   lineHeight?: ResponsiveStyle<StyleToken<Property.LineHeight>>;
   margin?: ResponsiveStyle<StyleToken<Property.Margin>>;
+  marginBlockEnd?: ResponsiveStyle<StyleToken<Property.MarginBlockEnd>>;
+  marginBlockStart?: ResponsiveStyle<StyleToken<Property.MarginBlockStart>>;
+  marginBottom?: ResponsiveStyle<StyleToken<Property.MarginBlockEnd>>;
+  marginInlineEnd?: ResponsiveStyle<StyleToken<Property.MarginInlineEnd>>;
+  marginInlineStart?: ResponsiveStyle<StyleToken<Property.MarginInlineStart>>;
+  marginLeft?: ResponsiveStyle<StyleToken<Property.MarginInlineStart>>;
+  marginRight?: ResponsiveStyle<StyleToken<Property.MarginInlineEnd>>;
+  marginTop?: ResponsiveStyle<StyleToken<Property.MarginBlockStart>>;
   maxHeight?: ResponsiveStyle<StyleToken<Property.MaxHeight>>;
   maxWidth?: ResponsiveStyle<StyleToken<Property.MaxWidth>>;
   minHeight?: ResponsiveStyle<StyleToken<Property.MinHeight>>;
@@ -63,6 +71,14 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   opacity?: ResponsiveStyle<StyleToken<Property.Opacity>>;
   overflow?: ResponsiveStyle<StyleToken<Property.Overflow>>;
   padding?: ResponsiveStyle<StyleToken<Property.Padding>>;
+  paddingBlockEnd?: ResponsiveStyle<StyleToken<Property.MarginBlockEnd>>;
+  paddingBlockStart?: ResponsiveStyle<StyleToken<Property.MarginBlockStart>>;
+  paddingBottom?: ResponsiveStyle<StyleToken<Property.PaddingBlockEnd>>;
+  paddingInlineEnd?: ResponsiveStyle<StyleToken<Property.MarginInlineEnd>>;
+  paddingInlineStart?: ResponsiveStyle<StyleToken<Property.MarginInlineStart>>;
+  paddingLeft?: ResponsiveStyle<StyleToken<Property.PaddingInlineStart>>;
+  paddingRight?: ResponsiveStyle<StyleToken<Property.PaddingInlineEnd>>;
+  paddingTop?: ResponsiveStyle<StyleToken<Property.PaddingBlockStart>>;
   position?: ResponsiveStyle<StyleToken<Property.Position>>;
   right?: ResponsiveStyle<StyleToken<Property.Right>>;
   textAlign?: ResponsiveStyle<StyleToken<Property.TextAlign>>;
@@ -159,6 +175,14 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   letterSpacing: 'letterSpacing',
   lineHeight: 'lineHeight',
   margin: 'margin',
+  marginBlockEnd: 'marginBlockEnd',
+  marginBlockStart: 'marginBlockStart',
+  marginBottom: 'marginBlockEnd',
+  marginInlineEnd: 'marginBlockEnd',
+  marginInlineStart: 'marginBlockStart',
+  marginLeft: 'marginInlineStart',
+  marginRight: 'marginInlineEnd',
+  marginTop: 'marginBlockStart',
   maxHeight: 'maxHeight',
   maxWidth: 'maxWidth',
   minHeight: 'minHeight',
@@ -169,6 +193,14 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   order: 'order',
   overflow: 'overflow',
   padding: 'padding',
+  paddingBlockEnd: 'paddingBlockEnd',
+  paddingBlockStart: 'paddingBlockStart',
+  paddingBottom: 'paddingBlockEnd',
+  paddingInlineEnd: 'paddingBlockEnd',
+  paddingInlineStart: 'paddingBlockStart',
+  paddingLeft: 'paddingInlineStart',
+  paddingRight: 'paddingInlineEnd',
+  paddingTop: 'paddingBlockStart',
   position: 'position',
   resize: 'resize',
   right: 'right',

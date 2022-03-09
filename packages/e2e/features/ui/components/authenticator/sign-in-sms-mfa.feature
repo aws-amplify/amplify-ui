@@ -1,14 +1,12 @@
 Feature: Sign In with SMS MFA
 
-  Amplify's SignIn component uses AWS Cognito's authentication
-  service to provide a sign in experience to your application's
-  users.
+  If your backend has SMS MFA required, Authenticator will redirect end users to 
+  SMS confirmation screen when they try to sign in.
 
   Background:
     Given I'm running the example "ui/components/authenticator/sign-in-sms-mfa"
 
-
-@angular @react @vue
+  @angular @react @vue
   Scenario: Sign in with with sms mfa and check mocked name attribute
     When I select my country code with status "CONFIRMED"
     And I type my "phone number" with status "CONFIRMED"
@@ -60,17 +58,15 @@ Feature: Sign In with SMS MFA
     Then I see "User does not exist"
 
 @angular @react @vue
-  Scenario: Sign in with force change password with sms mfa
-    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "force-change-password"
-    When I select my country code with status "FORCE_CHANGE_PASSWORD"
-    And I type my "phone number" with status "CONFIRMED"
-    And I type my password
-    And I click the "Sign in" button
-    Then I see "Change Password"
-    And I type my password
-    And I confirm my password
-    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "force-change-password-sms-mfa"
-    And I click the "Change Password" button
-    Then I see "Confirm SMS Code"
-
-
+Scenario: Sign in with force change password with sms mfa
+  Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "force-change-password"
+  When I select my country code with status "FORCE_CHANGE_PASSWORD"
+  And I type my "phone number" with status "CONFIRMED"
+  And I type my password
+  And I click the "Sign in" button
+  Then I see "Change Password"
+  And I type my password
+  And I confirm my password
+  Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "force-change-password-sms-mfa"
+  And I click the "Change Password" button
+  Then I see "Confirm SMS Code"

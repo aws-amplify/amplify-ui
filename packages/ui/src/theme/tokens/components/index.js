@@ -1,10 +1,12 @@
 module.exports = {
   alert: require('./alert'),
+  authenticator: require('./authenticator'),
   badge: require('./badge'),
   button: require('./button'),
   card: require('./card'),
   checkbox: require('./checkbox'),
   checkboxfield: require('./checkboxField'),
+  copy: require('./copy'),
   countrycodeselect: require('./countryCodeSelect'),
   divider: require('./divider'),
   expander: require('./expander'),

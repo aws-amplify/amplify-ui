@@ -1,0 +1,10 @@
+{
+  "baseUrl": "http://localhost:3000/",
+  "defaultCommandTimeout": 15000,
+  "videoUploadOnPasses": false,
+  "env": {
+    "TAGS": "not @skip"
+  },
+  "integrationFolder": "features",
+  "testFiles": "**/*.{feature,features}"
+}

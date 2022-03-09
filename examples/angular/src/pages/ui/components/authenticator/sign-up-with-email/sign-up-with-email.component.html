@@ -1,4 +1,8 @@
-<amplify-authenticator [services]="services" initialState="signUp">
+<amplify-authenticator
+  [formFields]="formFields"
+  [services]="services"
+  initialState="signUp"
+>
   <ng-template
     amplifySlot="authenticated"
     let-user="user"

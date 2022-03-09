@@ -3,25 +3,7 @@ title: Dark Mode
 ---
 
 import { Fragment } from '@/components/Fragment';
-import { Example } from '@/components/Example';
-import { DarkModeExample } from './darkMode';
 
-<Example>
-  <DarkModeExample />
-</Example>
-
-<Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
-
-## CSS
-
-```css
-@media (prefers-color-scheme: dark) {
-  [data-amplify-color-mode='system'] {
-    --amplify-colors-background-primary: black;
-  }
-}
-
-[data-amplify-color-mode='dark'] {
-  --amplify-colors-background-primary: black;
-}
-```
+<Fragment useCommonWebContent>
+  {({ platform }) => import(`./${platform}.mdx`)}
+</Fragment>

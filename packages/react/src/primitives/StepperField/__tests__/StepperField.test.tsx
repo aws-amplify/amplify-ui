@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import * as React from 'react';
 
@@ -9,8 +9,7 @@ import {
 } from '../../Flex/__tests__/Flex.test';
 import { ComponentClassNames } from '../../shared/constants';
 import { SharedText } from '../../shared/i18n';
-import { AUTO_GENERATED_ID_PREFIX } from '../../shared/utils';
-
+import { AUTO_GENERATED_ID_PREFIX } from '../../utils/useStableId';
 describe('StepperField: ', () => {
   describe('Flex wrapper', () => {
     it('should render default and custom classname', async () => {
@@ -209,7 +208,7 @@ describe('StepperField: ', () => {
       render(<ControlledStepper />);
       let stepperInput = await screen.findByLabelText(label);
       expect(stepperInput).toHaveValue(0);
-      updateValueFunction(8);
+      act(() => updateValueFunction(8));
       stepperInput = await screen.findByLabelText(label);
       expect(stepperInput).toHaveValue(8);
     });

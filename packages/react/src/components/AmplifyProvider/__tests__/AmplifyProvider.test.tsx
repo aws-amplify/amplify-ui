@@ -34,7 +34,7 @@ describe('AmplifyProvider', () => {
 
     expect(global.document.documentElement.setAttribute).toHaveBeenCalledWith(
       'data-amplify-color-mode',
-      undefined
+      ''
     );
   });
 });

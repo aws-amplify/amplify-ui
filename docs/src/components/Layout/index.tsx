@@ -40,12 +40,7 @@ export default function Page({
   children: any;
   frontmatter?: any;
 }) {
-  const {
-    title,
-    description,
-    hideToc = false,
-    isPrimitive = false,
-  } = frontmatter;
+  const { title, description, hideToc = false } = frontmatter;
   const { tokens } = useTheme();
   const [headings, setHeadings] = React.useState([]);
 
@@ -88,7 +83,6 @@ export default function Page({
             >
               {description}
             </Text>
-            {isPrimitive ? <PrimitiveAlert /> : null}
           </section>
 
           {children}
