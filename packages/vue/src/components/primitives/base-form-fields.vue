@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { toRefs } from 'vue';
-import { SortedFormFields } from '@aws-amplify/ui';
+import { FormFieldsArray } from '@aws-amplify/ui';
 
 import BaseFormField from './base-form-field.vue';
 
 interface BaseFormFields {
-  formFields: SortedFormFields;
+  formFields: FormFieldsArray;
 }
 const props = withDefaults(defineProps<BaseFormFields>(), {
   formFields: () => [],

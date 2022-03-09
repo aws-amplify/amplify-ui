@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, useAttrs, toRefs, onBeforeMount } from 'vue';
 import {
-  SortedFormFields,
+  FormFieldsArray,
   getFormDataFromEvent,
   getSortedFormFields,
   translate,
@@ -23,7 +23,7 @@ const backSignInText = computed(() => translate('Back to Sign In'));
 const resetPasswordHeading = computed(() => translate('Reset your password'));
 const resetPasswordText = computed(() => translate('Send Code'));
 
-let sortedFormFields: SortedFormFields = [];
+let sortedFormFields: FormFieldsArray = [];
 
 onBeforeMount(() => {
   sortedFormFields = getSortedFormFields('resetPassword', state);

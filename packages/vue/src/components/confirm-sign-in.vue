@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {
   AuthChallengeNames,
-  SortedFormFields,
+  FormFieldsArray,
   getActorState,
   getFormDataFromEvent,
   getSortedFormFields,
@@ -38,7 +38,7 @@ const confirmSignInHeading = `Confirm ${mfaType} Code`;
 const backSignInText = computed(() => translate('Back to Sign In'));
 const confirmText = computed(() => translate('Confirm'));
 
-let sortedFormFields: SortedFormFields = [];
+let sortedFormFields: FormFieldsArray = [];
 
 onBeforeMount(() => {
   sortedFormFields = getSortedFormFields('confirmSignIn', state.value);

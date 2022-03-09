@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onBeforeMount } from 'vue';
-import { SortedFormFields, getSortedFormFields } from '@aws-amplify/ui';
+import { FormFieldsArray, getSortedFormFields } from '@aws-amplify/ui';
 
 import { useAuth } from '../composables/useAuth';
 import BaseFormFields from './primitives/base-form-fields.vue';
@@ -8,7 +8,7 @@ import BaseFormFields from './primitives/base-form-fields.vue';
 // state
 const { state } = useAuth();
 
-let sortedFormFields: SortedFormFields = [];
+let sortedFormFields: FormFieldsArray = [];
 
 onBeforeMount(() => {
   sortedFormFields = getSortedFormFields('forceNewPassword', state.value);

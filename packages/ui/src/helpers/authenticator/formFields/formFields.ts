@@ -6,7 +6,7 @@ import {
   AuthMachineState,
   FormFields,
   FormFieldComponents,
-  SortedFormFields,
+  FormFieldsArray,
 } from '../../../types';
 import { getActorState } from '../actor';
 import { defaultFormFieldsGetters } from './defaults';
@@ -38,7 +38,7 @@ export const getFormFields = (
 export const getSortedFormFields = (
   route: FormFieldComponents,
   state: AuthMachineState
-): SortedFormFields => {
+): FormFieldsArray => {
   const formFields = getFormFields(route, state);
   return sortFormFields(formFields);
 };

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, useAttrs, toRefs, onBeforeMount } from 'vue';
 import {
-  SortedFormFields,
+  FormFieldsArray,
   getFormDataFromEvent,
   getSortedFormFields,
   translate,
@@ -48,7 +48,7 @@ const subtitleText = computed(() => {
     : translate(`${defaultMessage}`);
 });
 
-let sortedFormFields: SortedFormFields = [];
+let sortedFormFields: FormFieldsArray = [];
 
 onBeforeMount(() => {
   sortedFormFields = getSortedFormFields('confirmSignUp', state.value);

@@ -1,7 +1,7 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 import {
-  SortedFormFields,
+  FormFieldsArray,
   getFormDataFromEvent,
   translate,
   getDefaultFormFields,
@@ -33,7 +33,7 @@ export class ConfirmSignUpComponent implements OnInit {
   );
   public minutesMessage = translate('It may take a minute to arrive.');
 
-  public sortedFormFields: SortedFormFields;
+  public sortedFormFields: FormFieldsArray;
 
   constructor(public authenticator: AuthenticatorService) {}
 

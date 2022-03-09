@@ -16,7 +16,7 @@ import {
   ValidationError,
   translate,
   getFormDataFromEvent,
-  SortedFormFields,
+  FormFieldsArray,
   getSortedFormFields,
 } from '@aws-amplify/ui';
 
@@ -65,7 +65,7 @@ const onLostYourCodeClicked = (): void => {
   });
 };
 
-let sortedFormFields: SortedFormFields = [];
+let sortedFormFields: FormFieldsArray = [];
 
 onBeforeMount(() => {
   sortedFormFields = getSortedFormFields('confirmResetPassword', state.value);

@@ -3,7 +3,7 @@ import { computed, ComputedRef, useAttrs, onBeforeMount } from 'vue';
 import { createSharedComposable } from '@vueuse/core';
 
 import {
-  SortedFormFields,
+  FormFieldsArray,
   getActorState,
   getFormDataFromEvent,
   getSortedFormFields,
@@ -33,7 +33,7 @@ const verifyHeading = computed(() =>
 const skipText = computed(() => translate('Skip'));
 const submitText = computed(() => translate('Submit'));
 
-let sortedFormFields: SortedFormFields = [];
+let sortedFormFields: FormFieldsArray = [];
 
 onBeforeMount(() => {
   sortedFormFields = getSortedFormFields('confirmVerifyUser', state.value);

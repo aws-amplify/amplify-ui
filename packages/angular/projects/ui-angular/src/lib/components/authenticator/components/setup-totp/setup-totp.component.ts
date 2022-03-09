@@ -3,7 +3,7 @@ import QRCode from 'qrcode';
 import { Auth, Logger } from 'aws-amplify';
 import {
   FormFields,
-  SortedFormFields,
+  FormFieldsArray,
   getActorContext,
   getActorState,
   getFormDataFromEvent,
@@ -29,7 +29,7 @@ export class SetupTotpComponent implements OnInit {
   // translated texts
   public backToSignInText = translate('Back to Sign In');
   public confirmText = translate('Confirm');
-  public sortedFormFields: SortedFormFields;
+  public sortedFormFields: FormFieldsArray;
   public formOverrides: FormFields;
 
   constructor(public authenticator: AuthenticatorService) {}

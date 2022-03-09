@@ -3,7 +3,7 @@ import { computed, ComputedRef, useAttrs, onBeforeMount } from 'vue';
 import { createSharedComposable } from '@vueuse/core';
 
 import {
-  SortedFormFields,
+  FormFieldsArray,
   getActorState,
   getFormDataFromEvent,
   getSortedFormFields,
@@ -43,7 +43,7 @@ const actorState = computed(() =>
   getActorState(state.value)
 ) as ComputedRef<SignInState>;
 
-let sortedFormFields: SortedFormFields = [];
+let sortedFormFields: FormFieldsArray = [];
 
 onBeforeMount(() => {
   sortedFormFields = getSortedFormFields('signIn', state.value);

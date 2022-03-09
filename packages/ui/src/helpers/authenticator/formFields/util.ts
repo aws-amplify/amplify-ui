@@ -1,6 +1,6 @@
 import cloneDeep from 'lodash/cloneDeep';
 import { translate } from '../../../i18n/translations';
-import { FormFields, SortedFormFields } from '../../../types';
+import { FormFields, FormFieldsArray } from '../../../types';
 
 /** Applies translations to label and placeholder */
 export const applyTranslation = (formFields: FormFields): FormFields => {
@@ -18,7 +18,7 @@ export const applyTranslation = (formFields: FormFields): FormFields => {
 };
 
 /** Sorts formFields according to their `order`.  */
-export const sortFormFields = (formFields: FormFields): SortedFormFields => {
+export const sortFormFields = (formFields: FormFields): FormFieldsArray => {
   return Object.entries(formFields)
     .sort((a, b) => {
       const orderA = a[1].order || Number.MAX_VALUE;
