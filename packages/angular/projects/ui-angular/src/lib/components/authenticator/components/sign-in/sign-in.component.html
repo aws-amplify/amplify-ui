@@ -9,7 +9,7 @@
     [disabled]="authenticator.isPending"
   >
     <amplify-base-form-fields
-      [formFields]="formFields"
+      [formFields]="sortedFormFields"
     ></amplify-base-form-fields>
     <button amplify-button variation="primary" fullWidth="true" type="submit">
       {{ signInButtonText }}
