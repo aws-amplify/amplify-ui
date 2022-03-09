@@ -85,7 +85,7 @@ export const defaultServices = {
     const policyMinLength = +passwordSettings?.passwordPolicyMinLength;
     if (password.length < policyMinLength) {
       password_complexity.push(
-        `Password must contain at least ${policyMinLength} characters`
+        `Password must have at least ${policyMinLength} characters`
       );
     }
 
@@ -95,25 +95,19 @@ export const defaultServices = {
       switch (errorCheck) {
         case 'REQUIRES_LOWERCASE':
           if (!/[a-z]/.test(password))
-            password_complexity.push(
-              'Password must contain a lower case letter'
-            );
+            password_complexity.push('Password must have lower case letters');
           break;
         case 'REQUIRES_UPPERCASE':
           if (!/[A-Z]/.test(password))
-            password_complexity.push(
-              'Password must contain an upper case letter'
-            );
+            password_complexity.push('Password must have upper case letters');
           break;
         case 'REQUIRES_NUMBERS':
           if (!/[0-9]/.test(password))
-            password_complexity.push('Password must contain a number');
+            password_complexity.push('Password must have numbers');
           break;
         case 'REQUIRES_SYMBOLS':
           if (!/[\W]/.test(password))
-            password_complexity.push(
-              'Password must contain a special character'
-            );
+            password_complexity.push('Password must have special characters');
           break;
         default:
           break;
