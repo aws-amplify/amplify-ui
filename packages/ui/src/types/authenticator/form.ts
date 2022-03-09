@@ -65,8 +65,8 @@ export interface FormField {
   autocomplete?: string;
 }
 
-/** FormFields sorted into an array of [fieldName, formField] */
-export type FormFieldsArray = Array<[string, FormField]>;
-
 /** Default formField values for each supported auth field */
 export type DefaultFormFieldOptions = Record<AuthFieldsWithDefaults, FormField>;
+
+/** Ordered list of formFields */
+export type FormFieldsArray = Array<[string, FormField]>;
