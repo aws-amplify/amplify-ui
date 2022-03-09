@@ -1,6 +1,15 @@
 import * as React from 'react';
 import debounce from 'lodash/debounce';
-import { Alert, Button, Icon, Heading, Link, Text, View, useTheme } from '@aws-amplify/ui-react';
+import {
+  Alert,
+  Button,
+  Icon,
+  Heading,
+  Link,
+  Text,
+  View,
+  useTheme,
+} from '@aws-amplify/ui-react';
 import { MdFeedback } from 'react-icons/md';
 import { SiW3C, SiReact } from 'react-icons/si';
 
