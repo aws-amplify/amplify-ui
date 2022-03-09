@@ -30,9 +30,19 @@
   padding: var(--amplify-space-xxl);
 }
 
-.install-code {
+.install-code__container {
   flex-grow: 1;
-  margin: 0;
+  display: flex;
+}
+
+.install-code__content {
+  margin: auto;
+  overflow-x: auto;
+}
+
+.install-code__button {
+  place-self: end;
+  align-self: center;
 }
 
 .docs-home-amp-product-card {
