@@ -1,17 +1,27 @@
 <script setup lang="ts">
-import { toRefs } from 'vue';
-import { FormFieldsArray } from '@aws-amplify/ui';
+import { toRefs, onBeforeMount } from 'vue';
+import {
+  FormFieldComponents,
+  FormFieldsArray,
+  getSortedFormFields,
+} from '@aws-amplify/ui';
 
+import { useAuth } from '../../composables/useAuth';
 import BaseFormField from './base-form-field.vue';
 
 interface BaseFormFields {
-  formFields: FormFieldsArray;
+  route: FormFieldComponents;
 }
-const props = withDefaults(defineProps<BaseFormFields>(), {
-  formFields: () => [],
-});
+const props = defineProps<BaseFormFields>();
 
-const { formFields } = toRefs(props);
+const { route } = toRefs(props);
+
+const { state } = useAuth();
+let formFields: FormFieldsArray = [];
+
+onBeforeMount(() => {
+  formFields = getSortedFormFields(route.value, state.value);
+});
 </script>
 <template>
   <base-form-field

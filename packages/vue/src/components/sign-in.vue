@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import { computed, ComputedRef, useAttrs, onBeforeMount } from 'vue';
+import { computed, ComputedRef, useAttrs } from 'vue';
 import { createSharedComposable } from '@vueuse/core';
 
 import {
-  FormFieldsArray,
   getActorState,
   getFormDataFromEvent,
-  getSortedFormFields,
   hasTranslation,
   SignInState,
   translate,
@@ -42,12 +40,6 @@ const { state, send } = useAuth();
 const actorState = computed(() =>
   getActorState(state.value)
 ) as ComputedRef<SignInState>;
-
-let sortedFormFields: FormFieldsArray = [];
-
-onBeforeMount(() => {
-  sortedFormFields = getSortedFormFields('signIn', state.value);
-});
 
 // Methods
 
@@ -112,9 +104,7 @@ const onForgotPasswordClicked = (): void => {
             <template #fieldSetI="{ slotData }">
               <slot name="signin-fields" :info="slotData"> </slot>
             </template>
-            <base-form-fields
-              :form-fields="sortedFormFields"
-            ></base-form-fields>
+            <base-form-fields route="signIn"></base-form-fields>
           </base-field-set>
           <base-alert v-if="actorState.context.remoteError">
             {{ translate(actorState.context.remoteError) }}

@@ -1,11 +1,5 @@
 <script setup lang="ts">
-import {
-  computed,
-  ComputedRef,
-  useAttrs,
-  defineEmits,
-  onBeforeMount,
-} from 'vue';
+import { computed, ComputedRef, useAttrs, defineEmits } from 'vue';
 import { createSharedComposable } from '@vueuse/core';
 
 import {
@@ -16,8 +10,6 @@ import {
   ValidationError,
   translate,
   getFormDataFromEvent,
-  FormFieldsArray,
-  getSortedFormFields,
 } from '@aws-amplify/ui';
 
 import { useAuth, useAuthenticator } from '../composables/useAuth';
@@ -65,12 +57,6 @@ const onLostYourCodeClicked = (): void => {
   });
 };
 
-let sortedFormFields: FormFieldsArray = [];
-
-onBeforeMount(() => {
-  sortedFormFields = getSortedFormFields('confirmResetPassword', state.value);
-});
-
 const onInput = (e: Event) => {
   const { name, value } = <HTMLInputElement>e.target;
   send({
@@ -106,9 +92,7 @@ function onBlur(e: Event) {
           </slot>
 
           <base-wrapper class="amplify-flex" style="flex-direction: column">
-            <base-form-fields
-              :form-fields="sortedFormFields"
-            ></base-form-fields>
+            <base-form-fields route="confirmResetPassword"></base-form-fields>
           </base-wrapper>
           <base-footer class="amplify-flex" style="flex-direction: column">
             <base-box

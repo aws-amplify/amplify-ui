@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import { computed, ComputedRef, useAttrs, onBeforeMount } from 'vue';
+import { computed, ComputedRef, useAttrs } from 'vue';
 import { createSharedComposable } from '@vueuse/core';
 
 import {
-  FormFieldsArray,
   getActorState,
   getFormDataFromEvent,
-  getSortedFormFields,
   SignInState,
   translate,
 } from '@aws-amplify/ui';
@@ -32,12 +30,6 @@ const verifyHeading = computed(() =>
 );
 const skipText = computed(() => translate('Skip'));
 const submitText = computed(() => translate('Submit'));
-
-let sortedFormFields: FormFieldsArray = [];
-
-onBeforeMount(() => {
-  sortedFormFields = getSortedFormFields('confirmVerifyUser', state.value);
-});
 
 // Methods
 const onInput = (e: Event): void => {
@@ -87,9 +79,7 @@ const onSkipClicked = (): void => {
             </base-heading>
           </slot>
           <base-wrapper class="amplify-flex" style="flex-direction: column">
-            <base-form-fields
-              :form-fields="sortedFormFields"
-            ></base-form-fields>
+            <base-form-fields route="confirmVerifyUser"></base-form-fields>
           </base-wrapper>
 
           <base-footer class="amplify-flex" style="flex-direction: column">

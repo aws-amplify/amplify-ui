@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import {
   AuthChallengeNames,
-  FormFieldsArray,
   getActorState,
   getFormDataFromEvent,
-  getSortedFormFields,
   SignInState,
   translate,
 } from '@aws-amplify/ui';
@@ -37,12 +35,6 @@ const confirmSignInHeading = `Confirm ${mfaType} Code`;
 // Computed Properties
 const backSignInText = computed(() => translate('Back to Sign In'));
 const confirmText = computed(() => translate('Confirm'));
-
-let sortedFormFields: FormFieldsArray = [];
-
-onBeforeMount(() => {
-  sortedFormFields = getSortedFormFields('confirmSignIn', state.value);
-});
 
 // Methods
 const onInput = (e: Event): void => {
@@ -96,9 +88,7 @@ const onBackToSignInClicked = (): void => {
             </base-heading>
           </slot>
           <base-wrapper class="amplify-flex" style="flex-direction: column">
-            <base-form-fields
-              :form-fields="sortedFormFields"
-            ></base-form-fields>
+            <base-form-fields route="confirmSignIn"></base-form-fields>
           </base-wrapper>
           <base-footer class="amplify-flex" style="flex-direction: column">
             <base-alert v-if="actorState?.context?.remoteError">

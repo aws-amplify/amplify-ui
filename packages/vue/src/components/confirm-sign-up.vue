@@ -1,11 +1,6 @@
 <script setup lang="ts">
 import { computed, useAttrs, toRefs, onBeforeMount } from 'vue';
-import {
-  FormFieldsArray,
-  getFormDataFromEvent,
-  getSortedFormFields,
-  translate,
-} from '@aws-amplify/ui';
+import { getFormDataFromEvent, translate } from '@aws-amplify/ui';
 
 import { useAuthenticator, useAuth } from '../composables/useAuth';
 import { createSharedComposable } from '@vueuse/core';
@@ -46,12 +41,6 @@ const subtitleText = computed(() => {
     : codeDeliveryDetails.value?.DeliveryMedium === 'SMS'
     ? `${textedMessage} ${codeDeliveryDetails.value?.Destination}. ${minutesMessage}`
     : translate(`${defaultMessage}`);
-});
-
-let sortedFormFields: FormFieldsArray = [];
-
-onBeforeMount(() => {
-  sortedFormFields = getSortedFormFields('confirmSignUp', state.value);
 });
 
 // Methods
@@ -103,9 +92,7 @@ const onLostCodeClicked = (): void => {
             style="flex-direction: column"
             :disabled="isPending"
           >
-            <base-form-fields
-              :form-fields="sortedFormFields"
-            ></base-form-fields>
+            <base-form-fields route="confirmSignUp"></base-form-fields>
           </base-field-set>
 
           <base-footer

@@ -1,11 +1,6 @@
 <script setup lang="ts">
 import { computed, useAttrs, toRefs, onBeforeMount } from 'vue';
-import {
-  FormFieldsArray,
-  getFormDataFromEvent,
-  getSortedFormFields,
-  translate,
-} from '@aws-amplify/ui';
+import { getFormDataFromEvent, translate } from '@aws-amplify/ui';
 import BaseFormFields from './primitives/base-form-fields.vue';
 
 import { useAuthenticator } from '../composables/useAuth';
@@ -22,12 +17,6 @@ const { error, isPending } = toRefs(useAuthShared());
 const backSignInText = computed(() => translate('Back to Sign In'));
 const resetPasswordHeading = computed(() => translate('Reset your password'));
 const resetPasswordText = computed(() => translate('Send Code'));
-
-let sortedFormFields: FormFieldsArray = [];
-
-onBeforeMount(() => {
-  sortedFormFields = getSortedFormFields('resetPassword', state);
-});
 
 // Methods
 const onResetPasswordSubmit = (e: Event): void => {
@@ -80,7 +69,7 @@ const onBackToSignInClicked = (): void => {
           style="flex-direction: column"
           :disabled="isPending"
         >
-          <base-form-fields :form-fields="sortedFormFields"></base-form-fields>
+          <base-form-fields route="resetPassword"></base-form-fields>
         </base-field-set>
 
         <base-footer
