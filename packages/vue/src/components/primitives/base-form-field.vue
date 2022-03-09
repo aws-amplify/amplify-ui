@@ -2,14 +2,14 @@
 import { toRefs } from 'vue';
 import { createSharedComposable } from '@vueuse/core';
 
-import { FormField, translate } from '@aws-amplify/ui';
+import { FormFieldOptions, translate } from '@aws-amplify/ui';
 import { useAuthenticator } from '../../composables/useAuth';
 import PasswordControl from '../password-control.vue';
 import AliasControl from '../alias-control.vue';
 
 interface BaseFormField {
   name: string;
-  formField: FormField;
+  formField: FormFieldOptions;
 }
 const props = withDefaults(defineProps<BaseFormField>(), {
   name: '',

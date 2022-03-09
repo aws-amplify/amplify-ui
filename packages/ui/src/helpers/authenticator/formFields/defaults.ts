@@ -10,7 +10,7 @@ import {
   ActorContextWithForms,
   AuthMachineState,
   FormFields,
-  FormField,
+  FormFieldOptions,
   FormFieldComponents,
   SignInState,
   SignInContext,
@@ -23,7 +23,7 @@ const getDefaultFormField = (
   fieldName: keyof typeof defaultFormFieldOptions
 ) => {
   const { country_code } = getActorContext(state) as ActorContextWithForms;
-  let options: FormField = defaultFormFieldOptions[fieldName];
+  let options: FormFieldOptions = defaultFormFieldOptions[fieldName];
   const { type } = options;
 
   if (type === 'tel') {
@@ -34,7 +34,9 @@ const getDefaultFormField = (
 };
 
 /** Helper function that returns default form field for configured primary alias */
-const getAliasDefaultFormField = (state: AuthMachineState): FormField => {
+const getAliasDefaultFormField = (
+  state: AuthMachineState
+): FormFieldOptions => {
   const primaryAlias = getPrimaryAlias(state);
   return {
     ...getDefaultFormField(state, primaryAlias),

@@ -1,4 +1,4 @@
-import { FormField } from '@aws-amplify/ui';
+import { FormFieldOptions } from '@aws-amplify/ui';
 import {
   PasswordField,
   PhoneNumberField,
@@ -8,7 +8,7 @@ import { useAuthenticator } from '../hooks/useAuthenticator';
 
 export interface FormFieldProps {
   name: string;
-  formFieldOptions: FormField;
+  formFieldOptions: FormFieldOptions;
 }
 export function FormField({ name, formFieldOptions }: FormFieldProps) {
   const { validationErrors } = useAuthenticator();

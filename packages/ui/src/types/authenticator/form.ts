@@ -30,13 +30,13 @@ export type AuthFormFields = {
  * Override option for each screen. Maps each input to override options.
  */
 export interface FormFields {
-  [key: string]: FormField;
+  [key: string]: FormFieldOptions;
 }
 
 /**
  * Override options for each field
  */
-export interface FormField {
+export interface FormFieldOptions {
   /** Will hide the label above the input if set to true */
   labelHidden?: boolean;
   /** Label text */
@@ -66,7 +66,10 @@ export interface FormField {
 }
 
 /** Default formField values for each supported auth field */
-export type DefaultFormFieldOptions = Record<AuthFieldsWithDefaults, FormField>;
+export type DefaultFormFieldOptions = Record<
+  AuthFieldsWithDefaults,
+  FormFieldOptions
+>;
 
 /** Ordered list of formFields */
-export type FormFieldsArray = Array<[string, FormField]>;
+export type FormFieldsArray = Array<[string, FormFieldOptions]>;

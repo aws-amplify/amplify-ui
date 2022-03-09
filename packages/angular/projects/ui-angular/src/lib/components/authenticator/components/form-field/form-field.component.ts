@@ -4,7 +4,7 @@ import {
   getActorContext,
   translate,
   countryDialCodes,
-  FormField,
+  FormFieldOptions,
 } from '@aws-amplify/ui';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 
@@ -14,7 +14,7 @@ import { AuthenticatorService } from '../../../../services/authenticator.service
 })
 export class FormFieldComponent {
   @Input() name: string; // name of the input field
-  @Input() formField: FormField; // form field options for this field
+  @Input() formField: FormFieldOptions; // form field options for this field
 
   public defaultCountryCodeValue: string;
   public countryDialCodesValue = countryDialCodes;
