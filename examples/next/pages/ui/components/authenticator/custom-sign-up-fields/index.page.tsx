@@ -28,7 +28,7 @@ export default function App() {
 
                 {/* Append & require Terms & Conditions field to sign up  */}
                 <CheckboxField
-                  errorMessage={validationErrors.acknowledgement}
+                  errorMessage={validationErrors.acknowledgement as string}
                   hasError={!!validationErrors.acknowledgement}
                   name="acknowledgement"
                   value="yes"
