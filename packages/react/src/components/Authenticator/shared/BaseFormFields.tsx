@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { FormFields, sortFormfields } from '@aws-amplify/ui';
+import { FormFields, sortFormFields } from '@aws-amplify/ui';
 import { FormField } from './FormField';
 
 export interface BaseFormFieldsProps {
@@ -8,7 +8,7 @@ export interface BaseFormFieldsProps {
 }
 export function BaseFormFields({ formFields }: BaseFormFieldsProps) {
   const sortedFormFields = React.useMemo(
-    () => sortFormfields(formFields),
+    () => sortFormFields(formFields),
     [formFields]
   );
 

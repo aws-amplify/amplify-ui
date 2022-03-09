@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { toRefs, onBeforeMount } from 'vue';
-import { FormFields, SortedFormFields, sortFormfields } from '@aws-amplify/ui';
+import { FormFields, SortedFormFields, sortFormFields } from '@aws-amplify/ui';
 
 import BaseFormField from './base-form-field.vue';
 
@@ -15,7 +15,7 @@ const { formFields } = toRefs(props);
 let sortedFormFields: SortedFormFields;
 
 onBeforeMount(() => {
-  sortedFormFields = sortFormfields(formFields.value);
+  sortedFormFields = sortFormFields(formFields.value);
 });
 </script>
 <template>

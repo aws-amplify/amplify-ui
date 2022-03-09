@@ -1,5 +1,5 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
-import { FormFields, SortedFormFields, sortFormfields } from '@aws-amplify/ui';
+import { FormFields, SortedFormFields, sortFormFields } from '@aws-amplify/ui';
 
 /**
  * Sorts the given formFields, then renders them in order.
@@ -15,6 +15,6 @@ export class BaseFormFieldsComponent implements OnInit {
   public sortedFormFields: SortedFormFields;
 
   ngOnInit(): void {
-    this.sortedFormFields = sortFormfields(this.formFields);
+    this.sortedFormFields = sortFormFields(this.formFields);
   }
 }

@@ -16,7 +16,7 @@ export const applyTranslation = (formFields: FormFields): FormFields => {
   return newFormFields;
 };
 
-export const sortFormfields = (formFields: FormFields): SortedFormFields => {
+export const sortFormFields = (formFields: FormFields): SortedFormFields => {
   return Object.entries(formFields)
     .sort((a, b) => {
       const orderA = a[1].order || Number.MAX_VALUE;
