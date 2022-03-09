@@ -5,7 +5,6 @@ import {
   FormFieldsArray,
   getActorContext,
   getFormDataFromEvent,
-  getSortedFormFields,
   SignInContext,
 } from '@aws-amplify/ui';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
@@ -30,12 +29,6 @@ export class ConfirmSignInComponent implements OnInit {
 
   ngOnInit(): void {
     this.setHeaderText();
-    this.setFormFields();
-  }
-
-  public setFormFields() {
-    const _state = this.authenticator.authState;
-    this.sortedFormFields = getSortedFormFields('confirmSignIn', _state);
   }
 
   public get context() {

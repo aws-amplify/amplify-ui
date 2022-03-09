@@ -8,9 +8,7 @@
     data-amplify-fieldset
     [disabled]="authenticator.isPending"
   >
-    <amplify-base-form-fields
-      [formFields]="sortedFormFields"
-    ></amplify-base-form-fields>
+    <amplify-base-form-fields route="signIn"></amplify-base-form-fields>
     <button amplify-button variation="primary" fullWidth="true" type="submit">
       {{ signInButtonText }}
     </button>

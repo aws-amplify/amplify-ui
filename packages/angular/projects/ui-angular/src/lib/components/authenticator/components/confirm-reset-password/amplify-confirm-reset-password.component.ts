@@ -3,7 +3,6 @@ import { AuthenticatorService } from '../../../../services/authenticator.service
 import {
   FormFieldsArray,
   getFormDataFromEvent,
-  getSortedFormFields,
   translate,
 } from '@aws-amplify/ui';
 
@@ -11,7 +10,7 @@ import {
   selector: 'amplify-confirm-reset-password',
   templateUrl: './amplify-confirm-reset-password.component.html',
 })
-export class ConfirmResetPasswordComponent implements OnInit {
+export class ConfirmResetPasswordComponent {
   @HostBinding('attr.data-amplify-authenticator-confirmsignin') dataAttr = '';
   @Input() public headerText = translate('Reset your password');
 
@@ -22,15 +21,6 @@ export class ConfirmResetPasswordComponent implements OnInit {
   public sortedFormFields: FormFieldsArray;
 
   constructor(public authenticator: AuthenticatorService) {}
-
-  ngOnInit(): void {
-    this.setFormFields();
-  }
-
-  public setFormFields() {
-    const _state = this.authenticator.authState;
-    this.sortedFormFields = getSortedFormFields('confirmResetPassword', _state);
-  }
 
   public get context() {
     return this.authenticator.slotContext;

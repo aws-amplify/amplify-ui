@@ -1,8 +1,7 @@
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { Component, HostBinding, Input } from '@angular/core';
 import {
   FormFieldsArray,
   getFormDataFromEvent,
-  getSortedFormFields,
   translate,
 } from '@aws-amplify/ui';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
@@ -11,7 +10,7 @@ import { AuthenticatorService } from '../../../../services/authenticator.service
   selector: 'amplify-confirm-verify-user',
   templateUrl: './amplify-confirm-verify-user.component.html',
 })
-export class ConfirmVerifyUserComponent implements OnInit {
+export class ConfirmVerifyUserComponent {
   @HostBinding('attr.data-amplify-authenticator-confirmverifyuser')
   dataAttr = '';
   @Input() public headerText = translate(
@@ -24,15 +23,6 @@ export class ConfirmVerifyUserComponent implements OnInit {
   public sortedFormFields: FormFieldsArray;
 
   constructor(public authenticator: AuthenticatorService) {}
-
-  ngOnInit(): void {
-    this.setFormFields();
-  }
-
-  public setFormFields() {
-    const _state = this.authenticator.authState;
-    this.sortedFormFields = getSortedFormFields('confirmVerifyUser', _state);
-  }
 
   public get context() {
     return this.authenticator.slotContext;

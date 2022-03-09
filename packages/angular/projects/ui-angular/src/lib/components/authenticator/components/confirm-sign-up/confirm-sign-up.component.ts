@@ -4,17 +4,12 @@ import {
   FormFieldsArray,
   getFormDataFromEvent,
   translate,
-  getDefaultFormFields,
-  hasTranslation,
-  applyDefaults,
-  sortFormFields,
-  getActorContext,
 } from '@aws-amplify/ui';
 @Component({
   selector: 'amplify-confirm-sign-up',
   templateUrl: './confirm-sign-up.component.html',
 })
-export class ConfirmSignUpComponent implements OnInit {
+export class ConfirmSignUpComponent {
   @Input() headerText = translate('Confirm Sign Up');
 
   @HostBinding('attr.data-amplify-authenticator-confirmsignup') dataAttr = '';
@@ -36,35 +31,6 @@ export class ConfirmSignUpComponent implements OnInit {
   public sortedFormFields: FormFieldsArray;
 
   constructor(public authenticator: AuthenticatorService) {}
-
-  ngOnInit(): void {
-    this.setFormFields();
-  }
-
-  public setFormFields() {
-    /**
-     * @todo(breaking): Angular has different placholder here from other frameworks.
-     *
-     * Translating here in a backwards-compatible manner, but should be resolved in next major version.
-     */
-    const state = this.authenticator.authState;
-
-    // backwards compatible placeholder text
-    const placeholder = !hasTranslation('Confirmation Code')
-      ? translate('Enter your code') // prioritize new placeholder
-      : translate('Confirmation Code'); // legacy placeholder
-    let defaultFormFields = getDefaultFormFields('confirmSignUp', state);
-
-    if (defaultFormFields.confirmation_code.placeholder) {
-      defaultFormFields.confirmation_code.placeholder = placeholder;
-    }
-
-    const customFormFields =
-      getActorContext(state).formFields?.confirmSignUp || {};
-
-    const formFields = applyDefaults(defaultFormFields, customFormFields);
-    this.sortedFormFields = sortFormFields(formFields);
-  }
 
   public get context() {
     return this.authenticator.slotContext;

@@ -1,9 +1,8 @@
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { Component, HostBinding, Input } from '@angular/core';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 import {
   FormFieldsArray,
   getFormDataFromEvent,
-  getSortedFormFields,
   translate,
 } from '@aws-amplify/ui';
 
@@ -11,7 +10,7 @@ import {
   selector: 'amplify-reset-password',
   templateUrl: './reset-password.component.html',
 })
-export class ResetPasswordComponent implements OnInit {
+export class ResetPasswordComponent {
   @HostBinding('attr.data-amplify-authenticator-resetPassword') dataAttr = '';
   @Input() public headerText = translate('Reset your password');
 
@@ -21,15 +20,6 @@ export class ResetPasswordComponent implements OnInit {
   public sortedFormFields: FormFieldsArray;
 
   constructor(public authenticator: AuthenticatorService) {}
-
-  ngOnInit(): void {
-    this.setFormFields();
-  }
-
-  public setFormFields() {
-    const _state = this.authenticator.authState;
-    this.sortedFormFields = getSortedFormFields('resetPassword', _state);
-  }
 
   public get context() {
     return this.authenticator.slotContext;

@@ -18,7 +18,7 @@ import {
   templateUrl: './sign-in.component.html',
   encapsulation: ViewEncapsulation.None,
 })
-export class SignInComponent implements OnInit {
+export class SignInComponent {
   @HostBinding('attr.data-amplify-authenticator-signin') dataAttr = '';
 
   // translated phrases
@@ -30,15 +30,6 @@ export class SignInComponent implements OnInit {
   public sortedFormFields: FormFieldsArray;
 
   constructor(public authenticator: AuthenticatorService) {}
-
-  ngOnInit(): void {
-    this.setFormFields();
-  }
-
-  public setFormFields() {
-    const _state = this.authenticator.authState;
-    this.sortedFormFields = getSortedFormFields('signIn', _state);
-  }
 
   public get context() {
     return this.authenticator.slotContext;

@@ -5,9 +5,7 @@ import {
   FormFields,
   FormFieldsArray,
   getActorContext,
-  getActorState,
   getFormDataFromEvent,
-  getSortedFormFields,
   SignInContext,
 } from '@aws-amplify/ui';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
@@ -36,13 +34,6 @@ export class SetupTotpComponent implements OnInit {
 
   ngOnInit(): void {
     this.generateQRCode();
-    this.setFormFields();
-  }
-
-  public setFormFields() {
-    const _state = this.authenticator.authState;
-    this.formOverrides = getActorState(_state).context?.formFields?.setupTOTP;
-    this.sortedFormFields = getSortedFormFields('setupTOTP', _state);
   }
 
   public get context() {
