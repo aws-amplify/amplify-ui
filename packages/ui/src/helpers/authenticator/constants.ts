@@ -2,10 +2,10 @@
  * This file contains helpers related to forms and input attributes.
  */
 
-import { FormFields } from '../../types';
+import { DefaultFormFieldOptions } from '../../types';
 import { countryDialCodes } from '../../i18n';
 
-export const defaultFormFieldOptions: FormFields = {
+export const defaultFormFieldOptions: DefaultFormFieldOptions = {
   birthdate: {
     label: 'Birthdate',
     labelHidden: true,
