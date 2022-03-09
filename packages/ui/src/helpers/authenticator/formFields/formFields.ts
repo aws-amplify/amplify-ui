@@ -16,9 +16,10 @@ import {
   FormFieldComponents,
   SignInState,
   SignInContext,
+  SortedFormFields,
 } from '../../../types';
 import { getActorContext, getActorState } from '../actor';
-import { applyDefaults, applyTranslation } from './util';
+import { applyDefaults, applyTranslation, sortFormFields } from './util';
 
 /** Helper function that gets the default formField for given field name */
 const getDefaultFormField = (
@@ -187,4 +188,12 @@ export const getFormFields = (
     getActorState(state).context?.formFields?.[component] || {};
   const formFields = applyDefaults(defaultFormFields, customFormFields);
   return formFields;
+};
+
+export const getSortedFormFields = (
+  component: FormFieldComponents,
+  state: AuthMachineState
+): SortedFormFields => {
+  const formFields = getFormFields(component, state);
+  return sortFormFields(formFields);
 };
