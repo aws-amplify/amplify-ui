@@ -70,9 +70,9 @@ const getSignUpFormFields = (state: AuthMachineState): FormFields => {
   const fieldNames = Array.from(
     new Set([
       ...loginMechanisms,
-      ...signUpAttributes,
       'password',
       'confirm_password',
+      ...signUpAttributes,
     ] as const)
   );
 
