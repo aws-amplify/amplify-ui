@@ -5,6 +5,7 @@ import { AuthChallengeNames } from './user';
 /**
  * Maps each input to its validation error, if any
  */
+// todo(breaking): enforce error to always be array
 export type ValidationError = Record<string, string | string[]>;
 
 /**
