@@ -10,10 +10,14 @@ export interface BaseFormFieldsProps {
 export function FormFields({ route }: BaseFormFieldsProps) {
   // we don't depend on any dynamic value
   const { _state } = useAuthenticator(() => []);
-  const sortedFormFields = React.useMemo(
-    () => getSortedFormFields(route, _state),
-    []
-  );
+  const hasFormFields = React.useRef(false);
+
+  const sortedFormFields = React.useMemo(() => {
+    if (!hasFormFields.current) {
+      return getSortedFormFields(route, _state);
+    }
+    hasFormFields.current = true;
+  }, [route, _state]);
 
   return (
     <>
