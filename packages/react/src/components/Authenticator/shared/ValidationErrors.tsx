@@ -12,7 +12,7 @@ if (!(errors?.length > 0)) return null;
     <View data-amplify-sign-up-errors>
       {errors.map((error, idx) => {
         return (
-          <Text key={idx} role="alert" variation="error">
+          <Text key={error} role="alert" variation="error">
             {translate(error)}
           </Text>
         );
