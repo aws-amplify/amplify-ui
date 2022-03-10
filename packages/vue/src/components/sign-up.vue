@@ -54,8 +54,8 @@ const submit = (e: Event): void => {
 
     <base-wrapper v-bind="$attrs">
       <base-form
-        @blur="onBlur"
         @input="onInput"
+        @blur.capture="onBlur"
         @submit.prevent="onSignUpSubmit"
       >
         <federated-sign-in></federated-sign-in>
