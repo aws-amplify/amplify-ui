@@ -39,7 +39,7 @@ export class FormFieldComponent {
     return this.formField.type === 'tel';
   }
 
-  translate(pharse: string): string {
+  translate(phrase: string): string {
     return translate<string>(pharse);
   }
 }
