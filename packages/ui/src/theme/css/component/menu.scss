@@ -11,6 +11,9 @@
   gap: var(--amplify-components-menu-gap);
   min-width: var(--amplify-components-menu-min-width);
   max-width: var(--amplify-components-menu-max-width);
+  border-color: var(--amplify-components-menu-border-color);
+  border-width: var(--amplify-components-menu-border-width);
+  border-style: var(--amplify-components-menu-border-style);
 }
 .amplify-menu-content__item {
   min-height: var(--amplify-components-menu-item-min-width);

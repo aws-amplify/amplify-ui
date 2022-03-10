@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import * as React from 'react';
 
 import { UsePaginationProps, UsePaginationResult } from '../types/pagination';
 
@@ -13,24 +13,24 @@ export const usePagination = (
   siblingCount = Math.max(siblingCount, 1);
   // The total pages should be always greater than current page
   totalPages = Math.max(initialPage, totalPages);
-  const [currentPage, setCurrentPage] = useState(initialPage);
+  const [currentPage, setCurrentPage] = React.useState(initialPage);
 
   // Reset current page if initialPage or totalPages changes
-  useEffect(() => setCurrentPage(initialPage), [initialPage, totalPages]);
+  React.useEffect(() => setCurrentPage(initialPage), [initialPage, totalPages]);
 
-  const onNext = useCallback(() => {
+  const onNext = React.useCallback(() => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
     }
   }, [currentPage, totalPages]);
 
-  const onPrevious = useCallback(() => {
+  const onPrevious = React.useCallback(() => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
     }
   }, [currentPage]);
 
-  const onChange = useCallback((newPage: number, prevPage: number) => {
+  const onChange = React.useCallback((newPage: number, prevPage: number) => {
     setCurrentPage(newPage);
   }, []);
 

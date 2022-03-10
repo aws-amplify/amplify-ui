@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, useAttrs, toRefs } from 'vue';
-import { translate } from '@aws-amplify/ui';
+import { translate, getFormDataFromEvent } from '@aws-amplify/ui';
 
 import FederatedSignIn from './federated-sign-in.vue';
 import AuthenticatorSignUpFormFields from './authenticator-sign-up-form-fields.vue';
@@ -32,12 +32,12 @@ const onSignUpSubmit = (e: Event): void => {
   if (attrs?.onSignUpSubmit) {
     emit('signUpSubmit', e);
   } else {
-    submit();
+    submit(e);
   }
 };
 
-const submit = (): void => {
-  props.submitForm();
+const submit = (e: Event): void => {
+  props.submitForm(getFormDataFromEvent(e));
 };
 </script>
 

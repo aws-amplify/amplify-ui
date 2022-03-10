@@ -22,6 +22,7 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
     isDisabled,
     label,
     labelHidden,
+    labelPosition,
     onChange: onChangeProp,
     size,
     testId,
@@ -35,10 +36,15 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
   // controlled way should always override uncontrolled way
   const initialChecked = checked !== undefined ? checked : defaultChecked;
 
-  const { dataChecked, dataFocus, onBlur, onChange, onFocus } = useCheckbox(
-    initialChecked,
-    onChangeProp
-  );
+  const { dataChecked, dataFocus, onBlur, onChange, onFocus, setDataChecked } =
+    useCheckbox(initialChecked, onChangeProp);
+
+  React.useEffect(() => {
+    const isControlled = checked !== undefined;
+    if (isControlled && checked !== dataChecked) {
+      setDataChecked(checked);
+    }
+  }, [checked, dataChecked, setDataChecked]);
 
   const buttonTestId = useTestId(testId, ComponentClassNames.CheckboxButton);
   const iconTestId = useTestId(testId, ComponentClassNames.CheckboxIcon);
@@ -49,6 +55,7 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
       as="label"
       className={classNames(ComponentClassNames.Checkbox, className)}
       data-disabled={isDisabled}
+      data-label-position={labelPosition}
       testId={testId}
       {...baseStyleProps}
       {...flexContainerStyleProps}
@@ -67,6 +74,16 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
           {...rest}
         />
       </VisuallyHidden>
+      {label && !labelHidden && (
+        <Text
+          as="span"
+          className={ComponentClassNames.CheckboxLabel}
+          data-disabled={isDisabled}
+          testId={labelTestId}
+        >
+          {label}
+        </Text>
+      )}
       <Flex
         aria-hidden="true"
         as="span"
@@ -85,16 +102,6 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
           size={size}
         />
       </Flex>
-      {label && !labelHidden && (
-        <Text
-          as="span"
-          className={ComponentClassNames.CheckboxLabel}
-          data-disabled={isDisabled}
-          testId={labelTestId}
-        >
-          {label}
-        </Text>
-      )}
     </Flex>
   );
 };

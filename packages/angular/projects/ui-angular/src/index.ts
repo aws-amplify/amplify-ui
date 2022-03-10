@@ -28,3 +28,8 @@ export * from './lib/utilities/amplify-slot/amplify-slot.directive';
  */
 export * from './lib/services/custom-components.service';
 export * from './lib/services/authenticator.service';
+
+/**
+ * Re-export public APIs from `@aws-amplify/ui`
+ */
+export { translations } from '@aws-amplify/ui';

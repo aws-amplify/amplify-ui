@@ -1,7 +1,8 @@
 import { Button, ButtonGroup, Flex, View } from '@aws-amplify/ui-react';
+import { Example, ExampleCode } from '@/components/Example';
+import { ComponentClassTable } from '@/components/ComponentClassTable';
 
 import { ButtonDemo } from './demo';
-import { Example, ExampleCode } from '@/components/Example';
 import { IconButtonExample, ButtonThemeExample } from './examples';
 
 ## Demo
@@ -245,6 +246,10 @@ import '@aws-amplify/ui-react/styles.css';
 
 ## Customization
 
+### Target classes
+
+<ComponentClassTable componentName="Button" />
+
 ### Theme
 
 You can customize the appearance of all Buttons in your application with a [Theme](/theming).
@@ -388,9 +393,3 @@ _Using style props:_
 
 </ExampleCode>
 </Example>
-
-### Default theme
-
-```js file=../../../../../packages/ui/src/theme/tokens/components/badge.js
-
-```

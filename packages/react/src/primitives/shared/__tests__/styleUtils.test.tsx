@@ -7,7 +7,7 @@ import {
   convertStylePropsToStyleObj,
   getGridSpan,
   splitPrimitiveProps,
-  useNonStyleProps,
+  useStyles,
   useTransformStyleProps,
 } from '../styleUtils';
 import {
@@ -53,14 +53,14 @@ const theme = createTheme();
 
 describe('convertStylePropsToStyleObj: ', () => {
   it('should convert style props to a style object', () => {
-    const style = convertStylePropsToStyleObj({
+    const { propStyles } = convertStylePropsToStyleObj({
       props,
       ...defaultStylePropsParams,
     });
     Object.keys(ComponentPropsToStylePropsMap).forEach((prop) => {
-      expect(style[prop]).toBe(props[prop]);
+      expect(propStyles[prop]).toBe(props[prop]);
     });
-    expect(style['as']).toBeUndefined();
+    expect(propStyles['as']).toBeUndefined();
   });
 
   it('should ignore undefined, null or empty string style prop values', () => {
@@ -72,16 +72,16 @@ describe('convertStylePropsToStyleObj: ', () => {
       ariaLabel: 'important section',
       as: 'section',
     };
-    const style = convertStylePropsToStyleObj({
+    const { propStyles } = convertStylePropsToStyleObj({
       props,
       ...defaultStylePropsParams,
     });
 
-    expect(style['backgroundColor']).toBeUndefined();
-    expect(style['color']).toBeUndefined();
-    expect(style['border']).toBeUndefined();
-    expect(style['borderRadius']).toBe(props.borderRadius);
-    expect(style['as']).toBeUndefined();
+    expect(propStyles['backgroundColor']).toBeUndefined();
+    expect(propStyles['color']).toBeUndefined();
+    expect(propStyles['border']).toBeUndefined();
+    expect(propStyles['borderRadius']).toBe(props.borderRadius);
+    expect(propStyles['as']).toBeUndefined();
   });
 
   it('should support object or array style prop values', () => {
@@ -89,7 +89,7 @@ describe('convertStylePropsToStyleObj: ', () => {
       backgroundColor: ['red', 'yellow'],
       direction: { base: 'row', large: 'column' },
     };
-    const baseStyle = convertStylePropsToStyleObj({
+    const { propStyles: baseStyle } = convertStylePropsToStyleObj({
       props,
       ...defaultStylePropsParams,
     });
@@ -101,7 +101,7 @@ describe('convertStylePropsToStyleObj: ', () => {
       props.direction.base
     );
 
-    const mediumStyle = convertStylePropsToStyleObj({
+    const { propStyles: mediumStyle } = convertStylePropsToStyleObj({
       props,
       ...defaultStylePropsParams,
       breakpoint: 'medium',
@@ -114,7 +114,7 @@ describe('convertStylePropsToStyleObj: ', () => {
       props.direction.base
     );
 
-    const largeStyle = convertStylePropsToStyleObj({
+    const { propStyles: largeStyle } = convertStylePropsToStyleObj({
       props,
       ...defaultStylePropsParams,
       breakpoint: 'large',
@@ -135,14 +135,14 @@ describe('convertStylePropsToStyleObj: ', () => {
     const existingStyles: React.CSSProperties = {
       color: 'blue',
     };
-    const style = convertStylePropsToStyleObj({
+    const { propStyles } = convertStylePropsToStyleObj({
       props,
       style: existingStyles,
       ...defaultStylePropsParams,
     });
 
-    expect(style['backgroundColor']).toBe('red');
-    expect(style['color']).toBe('blue');
+    expect(propStyles['backgroundColor']).toBe('red');
+    expect(propStyles['color']).toBe('blue');
   });
 
   it('should give precedence to the stylistic props over the passed in style object', () => {
@@ -155,27 +155,27 @@ describe('convertStylePropsToStyleObj: ', () => {
       backgroundColor: 'yellow',
     };
 
-    const style = convertStylePropsToStyleObj({
+    const { propStyles } = convertStylePropsToStyleObj({
       props,
       style: existingStyles,
       ...defaultStylePropsParams,
     });
 
-    expect(style['backgroundColor']).toBe('yellow');
-    expect(style['color']).toBe('red');
-    expect(style['fontWeight']).toBe('bold');
+    expect(propStyles['backgroundColor']).toBe('yellow');
+    expect(propStyles['color']).toBe('red');
+    expect(propStyles['fontWeight']).toBe('bold');
   });
 
   it('should handle design tokens', () => {
     const props = {
       color: theme.tokens.colors.font.primary,
     };
-    const style = convertStylePropsToStyleObj({
+    const { propStyles } = convertStylePropsToStyleObj({
       props,
       style: {},
       ...defaultStylePropsParams,
     });
-    expect(style['color']).toBe('var(--amplify-colors-font-primary)');
+    expect(propStyles['color']).toBe('var(--amplify-colors-font-primary)');
   });
 
   it('should handle responsive design tokens', () => {
@@ -189,17 +189,17 @@ describe('convertStylePropsToStyleObj: ', () => {
         large: theme.tokens.colors.background.secondary,
       },
     };
-    const style = convertStylePropsToStyleObj({
+    const { propStyles } = convertStylePropsToStyleObj({
       props,
       style: {},
       ...defaultStylePropsParams,
     });
-    expect(style['color']).toBe('var(--amplify-colors-font-primary)');
-    expect(style['backgroundColor']).toBe(
+    expect(propStyles['color']).toBe('var(--amplify-colors-font-primary)');
+    expect(propStyles['backgroundColor']).toBe(
       'var(--amplify-colors-background-primary)'
     );
 
-    const mediumStyle = convertStylePropsToStyleObj({
+    const { propStyles: mediumStyle } = convertStylePropsToStyleObj({
       props,
       ...defaultStylePropsParams,
       breakpoint: 'medium',
@@ -212,7 +212,7 @@ describe('convertStylePropsToStyleObj: ', () => {
       'var(--amplify-colors-background-primary)'
     );
 
-    const largeStyle = convertStylePropsToStyleObj({
+    const { propStyles: largeStyle } = convertStylePropsToStyleObj({
       props,
       ...defaultStylePropsParams,
       breakpoint: 'large',
@@ -233,18 +233,18 @@ describe('convertStylePropsToStyleObj: ', () => {
         large: 'blue',
       },
     };
-    const style = convertStylePropsToStyleObj({
+    const { propStyles } = convertStylePropsToStyleObj({
       props,
       style: {},
       ...defaultStylePropsParams,
     });
 
-    expect(style['color']).toBe('var(--amplify-colors-font-primary)');
-    expect(style['backgroundColor']).toBe(
+    expect(propStyles['color']).toBe('var(--amplify-colors-font-primary)');
+    expect(propStyles['backgroundColor']).toBe(
       'var(--amplify-colors-background-primary)'
     );
 
-    const mediumStyle = convertStylePropsToStyleObj({
+    const { propStyles: mediumStyle } = convertStylePropsToStyleObj({
       props,
       ...defaultStylePropsParams,
       breakpoint: 'medium',
@@ -255,7 +255,7 @@ describe('convertStylePropsToStyleObj: ', () => {
       'var(--amplify-colors-background-primary)'
     );
 
-    const largeStyle = convertStylePropsToStyleObj({
+    const { propStyles: largeStyle } = convertStylePropsToStyleObj({
       props,
       ...defaultStylePropsParams,
       breakpoint: 'large',
@@ -267,10 +267,13 @@ describe('convertStylePropsToStyleObj: ', () => {
   });
 });
 
-describe('useNonStyleProps: ', () => {
+describe('useStyleProps: ', () => {
   it('should return an object containing only the non style props', () => {
-    const { result } = renderHook(() => useNonStyleProps(props));
-    const nonStyleProps = result.current;
+    const {
+      result: {
+        current: { nonStyleProps },
+      },
+    } = renderHook(() => useStyles(props, {}));
     expect(nonStyleProps['border']).toBeUndefined();
     expect(nonStyleProps['as']).toBe(props.as);
     expect(nonStyleProps['ariaLabel']).toBe(props.ariaLabel);
@@ -283,8 +286,11 @@ describe('useNonStyleProps: ', () => {
       backgroundColor: 'blue',
       fontWeight: 'bold',
     };
-    const { result } = renderHook(() => useNonStyleProps(allStyleProps));
-    const nonStyleProps = result.current;
+    const {
+      result: {
+        current: { nonStyleProps },
+      },
+    } = renderHook(() => useStyles(allStyleProps, {}));
     expect(nonStyleProps).toEqual({});
   });
 
@@ -295,8 +301,8 @@ describe('useNonStyleProps: ', () => {
       ariaLabel: props.ariaLabel,
       as: props.as,
     };
-    const { result } = renderHook(() => useNonStyleProps(noStyleProps));
-    const nonStyleProps = result.current;
+    const { result } = renderHook(() => useStyles(noStyleProps, {}));
+    const nonStyleProps = result.current.nonStyleProps;
     expect(nonStyleProps).toEqual(noStyleProps);
     expect(nonStyleProps).not.toBe(noStyleProps);
   });

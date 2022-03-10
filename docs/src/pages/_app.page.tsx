@@ -20,11 +20,18 @@ function MyApp({ Component, pageProps }) {
   const [colorMode, setColorMode] = React.useState<ColorMode>('system');
   const [themeOverride, setThemeOverride] = React.useState('');
 
+  React.useEffect(() => {
+    document.documentElement.setAttribute(
+      'data-amplify-theme-override',
+      themeOverride
+    );
+  }, [themeOverride]);
+
   configure();
   trackPageVisit();
 
   return (
-    <div className={themeOverride}>
+    <>
       <Head>
         <title>Amplify UI</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -44,7 +51,7 @@ function MyApp({ Component, pageProps }) {
       </AmplifyProvider>
       <Script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" />
       <Script src="/scripts/shortbreadv2.js" />
-    </div>
+    </>
   );
 }
 

@@ -2,9 +2,14 @@ import { DesignToken, WebDesignToken, ColorValue } from './types/designToken';
 import { OrdinalScale, OrdinalVariation } from './types/scales';
 
 type ScaleKeys = 10 | 20 | 40 | 60 | 80 | 90 | 100;
+type OverlayKeys = 10 | 20 | 30 | 40 | 50 | 60 | 70 | 80 | 90;
 
 type ColorScale<DesignTokenType = DesignToken<ColorValue>> = {
   [key in ScaleKeys]: DesignTokenType;
+};
+
+type OverlayColors<DesignTokenType = DesignToken<ColorValue>> = {
+  [key in OverlayKeys]: DesignTokenType;
 };
 
 type FontColors<DesignTokenType = DesignToken<ColorValue>> = {
@@ -60,6 +65,8 @@ export type Colors = {
     secondary: ColorScale;
   };
 
+  overlay: OverlayColors;
+
   [key: string]: ColorTypes | Record<string, ColorTypes>;
 };
 
@@ -83,6 +90,8 @@ export type WebColors = {
     primary: ColorScale<WebDesignToken<ColorValue>>;
     secondary: ColorScale<WebDesignToken<ColorValue>>;
   };
+
+  overlay: OverlayColors<WebDesignToken<ColorValue>>;
 
   [key: string]: WebColorTypes | Record<string, WebColorTypes>;
 };

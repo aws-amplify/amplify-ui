@@ -1,4 +1,5 @@
-import React from 'react';
+import * as React from 'react';
+
 import { PartialDeep } from 'src/types';
 import { defaultComponents } from './defaultComponents';
 

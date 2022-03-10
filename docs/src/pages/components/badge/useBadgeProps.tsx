@@ -1,5 +1,6 @@
 import { BadgeProps } from '@aws-amplify/ui-react';
-import { useState } from 'react';
+import * as React from 'react';
+
 import { BadgePropControlsProps } from './BadgePropControls';
 
 interface UseBadgeProps {
@@ -7,11 +8,13 @@ interface UseBadgeProps {
 }
 
 export const useBadgeProps: UseBadgeProps = (initialValues) => {
-  const [variation, setVariation] = useState<BadgeProps['variation']>(
+  const [variation, setVariation] = React.useState<BadgeProps['variation']>(
     initialValues.variation
   );
-  const [size, setSize] = useState<BadgeProps['size']>(initialValues.size);
-  const [body, setBody] = useState<string>(initialValues.body);
+  const [size, setSize] = React.useState<BadgeProps['size']>(
+    initialValues.size
+  );
+  const [body, setBody] = React.useState<string>(initialValues.body);
 
   return {
     variation,

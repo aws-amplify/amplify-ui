@@ -11,13 +11,14 @@ export const RefExample = () => {
   }, []);
 
   React.useEffect(() => {
-    if (searchButtonRef && searchButtonRef.current) {
+    const searchButtonRefCurrent = searchButtonRef.current;
+    if (searchButtonRef && searchButtonRefCurrent) {
       // Note: this example is contrived to demonstrate using refs.
       // Use the `onSubmit` prop on `SearchField` instead which
       // responds to input field `Enter` keypresses and Submit button clicks.
-      searchButtonRef.current.addEventListener('click', onClick, false);
+      searchButtonRefCurrent.addEventListener('click', onClick, false);
       return () => {
-        searchButtonRef.current.removeEventListener('click', onClick, false);
+        searchButtonRefCurrent.removeEventListener('click', onClick, false);
       };
     }
   }, [onClick]);

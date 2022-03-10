@@ -2,14 +2,78 @@
 
 # Testing E2E with Cypress
 
+## Getting Started
+
+To run existing tests on your desired `framework`:
+
+_prerequisite_: You must create populate `packages/e2e/.env` values in order for tests to run successfully against the examples. The values you need to populate are specified in [`packages/e2e/.env.example`](./.env.example). Please see [Creating test users](#creating-test-users) to see our conventions.
+
+1. Navigate to the _root_ of your local clone of [aws-amplify/amplify-ui](https://github.com/aws-amplify/amplify-ui)
+1. Run `yarn setup`
+1. Run `yarn [framework] dev` (e.g. `yarn react build`)
+1. Run `yarn [framework]-example dev` (e.g. `yarn react-example dev`)
+1. Run `yarn e2e dev`
+
+## Contributing
+
 ### Making new tests
 
-- Make a new `.feature` file in `./features/your/feature/path/`
-  - You can follow the example of one of the other existing `.feature` files
-- Navigate to `./cypress/integration/your/feature/path/` and create a new folder following the naming convention of the `.feature` you made, and inside that folder, make a `.steps.ts` file with the same name. Then, write your Cypress tests in that file.
-- Make sure you have the `examples/next` app running on `localhost:3000`, as Cypress will look to that port to test against
-- From this project directory, run `yarn dev` to open Cypress. Then, choose which test to run in the UI.
-- Cypress will automatically re-run tests every time you make an edit to the test file.
+1. Create or Update a `${feature}.feature` file (using [Gherkin](https://cucumber.io/docs/gherkin/reference/)) describing the behavior in [`packages/e2e/features/${slug}`](packages/e2e/features).
+
+   ```gherkin
+   Feature: My new feature
+
+     Documentation-friendly description of this feature, why it exists, & how to use it.
+
+     @angular @react @vue
+     Scenario: Example scenario using this feature
+       Given some "STARTING_POINT"
+       When I DO "SOMETHING"
+       And I DO SOMETHING "ELSE"
+       Then I see "THE DESIRED BEHAVIOR"
+
+     @react @skip
+     Scenario: Some React-specific scenario that can't be rain in CI
+
+     @angular @todo-react @todo-vue
+     Scenario: Some scenario supported in Angular, but React & Vue haven't added yet
+   ```
+
+1. Create or Update the accompanying `${slug}.feature` tests (e.g. `packages/e2e/cypress/integration/${slug}/${feature}/${feature}.steps.ts`
+1. Start one of the [examples](examples).
+1. Run `yarn e2e dev` to load Cypress
+
+   ```shell
+   TAGS='@react and not (@skip or @todo-react)' yarn e2e dev
+   ```
+
+1. Click on your updated `${feature}.feature` file to validate your changes
+1. Add tags above your `Scenario` to indicate how this feature should be tested:
+
+   - If the library supports it, then add one of the following:
+
+     - `@angular` for `@aws-amplify/ui-angular`
+     - `@react` for `@aws-amplify/ui-react`
+     - `@vue` for `@aws-amplify/ui-vue`
+
+     This will ensure automated documentation marks these as supported features.
+
+   - If the library supports it, **but tests cannot be ran in CI for technical reasons**, then also add:
+
+     - `@skip` for all libraries
+     - `@skip-angular` for specifically `@aws-amplify/ui-angular`
+     - `@skip-react` for specifically `@aws-amplify/ui-react`
+     - `@skip-vue` for specifically `@aws-amplify/ui-vue`
+
+     This will ensure automated documentation marks these as supported features, but won't block builds (in PRs or `main`) with test failures.
+
+   - If the library _should_ support it, then also add:
+
+     - `@todo-angular` for `@aws-amplify/ui-angular`
+     - `@todo-react` for `@aws-amplify/ui-react`
+     - `@todo-vue` for `@aws-amplify/ui-vue`
+
+     This will ensure automated documentation marks these as _upcoming_ features, will skip these on PRs, but **will error on `main` until completed**.
 
 ### Creating test users
 

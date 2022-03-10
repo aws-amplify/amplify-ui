@@ -6,7 +6,7 @@ Feature: Hub Events
   Background:
     Given I'm running the example "/ui/components/authenticator/hub-events"
 
-@angular @react @vue
+  @angular @react @vue
   Scenario: Sign in with confirmed credentials then sign out
     When I type my "email" with status "CONFIRMED"
     And I type my password

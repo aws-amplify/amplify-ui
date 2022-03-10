@@ -15,6 +15,11 @@ export interface FragmentProps {
    * list, then the fragment will not render.
    * */
   platforms?: string[];
+  /**
+   * If true, all JS frameworks (react, vue, angular) will be treated as a single platform named 'web'.
+   * Note: if this is true, platforms={['web']} should be used to enable web content instead of platforms={['react', 'vue', 'angular']}
+   */
+  useCommonWebContent?: boolean;
   children: ({ platform: string }) => LoaderComponent;
 }
 
@@ -35,9 +40,14 @@ const shouldRenderFragment = (
   }
 };
 
-export const Fragment = ({ children, platforms }: FragmentProps) => {
+export const Fragment = ({
+  children,
+  platforms,
+  useCommonWebContent,
+}: FragmentProps) => {
   const { query } = useRouter();
-  const { platform = 'react' } = query;
+  const framework = (query.platform as string) ?? 'react';
+  const platform = getPlatform(framework, useCommonWebContent);
   const Component = React.useMemo(() => {
     if (!shouldRenderFragment(platforms, platform)) {
       return null;
@@ -76,3 +86,13 @@ export const Fragment = ({ children, platforms }: FragmentProps) => {
 
   return Component ? <Component /> : null;
 };
+
+function getPlatform(framework = 'react', useCommonWebContent = false) {
+  if (!useCommonWebContent) {
+    return framework;
+  }
+  if (['react', 'vue', 'angular'].includes(framework)) {
+    return 'web';
+  }
+  return framework;
+}

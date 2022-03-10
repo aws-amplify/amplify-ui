@@ -130,6 +130,7 @@ describe('useControllable', () => {
   });
 
   test('if property is provided, the component is controlled', () => {
+    consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation();
     const ref = React.createRef<Ref>();
 
     const { container, rerender } = render(

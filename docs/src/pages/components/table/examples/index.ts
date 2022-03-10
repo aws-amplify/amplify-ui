@@ -1,5 +1,7 @@
-export { BasicExample } from './basicExample';
-export { HighlightExample } from './highlightExample';
-export { SizeExample } from './sizeExample';
-export { SpanExample } from './spanExample';
-export { VariationExample } from './variationExample';
+export { BasicExample } from './BasicExample';
+export { HighlightExample } from './HighlightExample';
+export { SizeExample } from './SizeExample';
+export { SpanExample } from './SpanExample';
+export { TableFontSizePropExample } from './TableFontSizePropExample';
+export { TableStylePropExample } from './TableStylePropExample';
+export { VariationExample } from './VariationExample';

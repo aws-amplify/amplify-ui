@@ -1,4 +1,4 @@
-import { TextField } from '@aws-amplify/ui-react';
+import { Alert, Link, TextField } from '@aws-amplify/ui-react';
 
 import { TextFieldDemo } from './demo';
 import {
@@ -23,6 +23,7 @@ import {
 } from './examples';
 import { Example, ExampleCode } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
+import { ComponentClassTable } from '@/components/ComponentClassTable';
 
 ## Demo
 
@@ -86,6 +87,14 @@ There are two variation styles available: default and `quiet`.
 ### Multiline textarea
 
 To render a multi-line `textarea`, set the `isMultiline` prop to `true`.
+
+<Alert variation="warning" heading="Deprecated">
+  Multiline functionality has been moved to{' '}
+  <Link href="./textareafield">TextAreaField</Link> and will be removed in the
+  next major release. Please use{' '}
+  <Link href="./textareafield">TextAreaField</Link> instead of TextField for
+  multiline text fields.
+</Alert>
 
 <Example>
   <DefaultTextAreaExample />
@@ -265,6 +274,10 @@ Use the `hasError` and `errorMessage` fields to mark a TextField as having an va
 </Example>
 
 ## CSS Styling
+
+### Target classes
+
+<ComponentClassTable componentName="TextField" />
 
 ### Global styling
 

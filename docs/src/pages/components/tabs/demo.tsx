@@ -1,5 +1,6 @@
-import React from 'react';
-import { Tabs, TabItem, Flex, Button, Text, View } from '@aws-amplify/ui-react';
+import * as React from 'react';
+import { Tabs, TabItem, Flex, Button, View } from '@aws-amplify/ui-react';
+
 import { TabsPropControls } from '@/components/TabsPropControls';
 import { useTabsProps } from '@/components/useTabsProps';
 import { Example } from '@/components/Example';

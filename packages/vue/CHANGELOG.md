@@ -1,5 +1,77 @@
 # @aws-amplify/ui-vue
 
+## 2.2.2
+
+### Patch Changes
+
+- [#1472](https://github.com/aws-amplify/amplify-ui/pull/1472) [`ef5dff599`](https://github.com/aws-amplify/amplify-ui/commit/ef5dff599b84dd4b508827264758b11439684142) Thanks [@wlee221](https://github.com/wlee221)! - Set confirmation code input types to `"number"`
+
+* [#1469](https://github.com/aws-amplify/amplify-ui/pull/1469) [`3c0b705e3`](https://github.com/aws-amplify/amplify-ui/commit/3c0b705e3c5eb25a80bea077a6c60a52dc7ffa51) Thanks [@wlee221](https://github.com/wlee221)! - Capitalize form field related types. No actual runtime changes.
+
+* Updated dependencies [[`05a1fa3c3`](https://github.com/aws-amplify/amplify-ui/commit/05a1fa3c3970f04bb87a336aafe87cf3f1946107), [`b97cb9126`](https://github.com/aws-amplify/amplify-ui/commit/b97cb91264d03eed0ce248909708eed112eb9aec), [`ef5dff599`](https://github.com/aws-amplify/amplify-ui/commit/ef5dff599b84dd4b508827264758b11439684142), [`3c0b705e3`](https://github.com/aws-amplify/amplify-ui/commit/3c0b705e3c5eb25a80bea077a6c60a52dc7ffa51), [`9e8d6b212`](https://github.com/aws-amplify/amplify-ui/commit/9e8d6b212bdbc324b75066d664b6adb1ef46163d)]:
+  - @aws-amplify/ui@3.2.1
+
+## 2.2.1
+
+### Patch Changes
+
+- [#1457](https://github.com/aws-amplify/amplify-ui/pull/1457) [`17f66a09c`](https://github.com/aws-amplify/amplify-ui/commit/17f66a09cdfc786b91815cfe2f08b605574e678a) Thanks [@wlee221](https://github.com/wlee221)! - Reflect totp svg changes to Vue and Angular Authenticator.
+
+- Updated dependencies [[`5f1753785`](https://github.com/aws-amplify/amplify-ui/commit/5f175378571e56c1f59bfa39060337148f428ce2), [`4c1a5cfbe`](https://github.com/aws-amplify/amplify-ui/commit/4c1a5cfbe6e984a790261d122ee4df368b249688), [`3d5acaa4c`](https://github.com/aws-amplify/amplify-ui/commit/3d5acaa4cce5ea8daf49caab71d92dc3c91d9021), [`731587a58`](https://github.com/aws-amplify/amplify-ui/commit/731587a58e8ef89e9f0193d7118377093a6024b8), [`3343e187b`](https://github.com/aws-amplify/amplify-ui/commit/3343e187b6dc9eab2c2a9c2d408bac8afb063f74)]:
+  - @aws-amplify/ui@3.2.0
+
+## 2.2.0
+
+### Minor Changes
+
+- [#1389](https://github.com/aws-amplify/amplify-ui/pull/1389) [`57f1441e4`](https://github.com/aws-amplify/amplify-ui/commit/57f1441e4809218a813148d0942de8171d159831) Thanks [@ErikCH](https://github.com/ErikCH)! - Added new formfields prop that allows more customization of inputs and setup TOTP.
+  New docs can be found at https://ui.docs.amplify.aws/components/authenticator#form-field-customization
+
+### Patch Changes
+
+- Updated dependencies [[`74e066622`](https://github.com/aws-amplify/amplify-ui/commit/74e066622e9abe26e9f9427f6bdc82c4e14d4952), [`57f1441e4`](https://github.com/aws-amplify/amplify-ui/commit/57f1441e4809218a813148d0942de8171d159831), [`5b3b8479a`](https://github.com/aws-amplify/amplify-ui/commit/5b3b8479aea06c6b7df031dc6493abdd36b0bd6a)]:
+  - @aws-amplify/ui@3.1.0
+
+## 2.1.3
+
+### Patch Changes
+
+- [#1368](https://github.com/aws-amplify/amplify-ui/pull/1368) [`c57a02349`](https://github.com/aws-amplify/amplify-ui/commit/c57a02349376b4fea82bc9f854971445aa01c676) Thanks [@zchenwei](https://github.com/zchenwei)! - style: cleaning up sr-only class
+
+* [#1366](https://github.com/aws-amplify/amplify-ui/pull/1366) [`e73e0276f`](https://github.com/aws-amplify/amplify-ui/commit/e73e0276f8b1707cd01e24d55bd023b4a2347625) Thanks [@wlee221](https://github.com/wlee221)! - Pass `formData` to `submitForm` event on submit. This will ensure any default form values are submitted to Cognito, without relying on `CHANGE` events.
+
+- [#1357](https://github.com/aws-amplify/amplify-ui/pull/1357) [`65ed5351f`](https://github.com/aws-amplify/amplify-ui/commit/65ed5351f2ca850ddf7db0c9a002ff563351f138) Thanks [@ErikCH](https://github.com/ErikCH)! - Added new translations for confirm sign up page
+
+- Updated dependencies [[`fbfcd04d3`](https://github.com/aws-amplify/amplify-ui/commit/fbfcd04d36753a69d24d5576736a9082f1a66dbe), [`c57a02349`](https://github.com/aws-amplify/amplify-ui/commit/c57a02349376b4fea82bc9f854971445aa01c676), [`e73e0276f`](https://github.com/aws-amplify/amplify-ui/commit/e73e0276f8b1707cd01e24d55bd023b4a2347625), [`929cb8f76`](https://github.com/aws-amplify/amplify-ui/commit/929cb8f768d9a95b3854d7fa87b08a83af72c96c)]:
+  - @aws-amplify/ui@3.0.15
+
+## 2.1.2
+
+### Patch Changes
+
+- [#1320](https://github.com/aws-amplify/amplify-ui/pull/1320) [`94d09948a`](https://github.com/aws-amplify/amplify-ui/commit/94d09948ac9d36a49b1872751f0587e73413bd99) Thanks [@wlee221](https://github.com/wlee221)! - Re-export `translations` from ui-[framework] packages. This lets you use `translations` directly:
+
+  ```diff
+  - import { translations } from '@aws-amplify/ui';
+  + import { translations } from '@aws-amplify/ui-[framework]';
+  ```
+
+- Updated dependencies [[`722e2a932`](https://github.com/aws-amplify/amplify-ui/commit/722e2a93263478aed2a9aee872ab1fcbc86b41ca), [`4c6d198e4`](https://github.com/aws-amplify/amplify-ui/commit/4c6d198e409d46eef37b88b2327132b4a5dbe425), [`38cdf38e4`](https://github.com/aws-amplify/amplify-ui/commit/38cdf38e473853ba93ffb22a1d9252286a7d2a6f)]:
+  - @aws-amplify/ui@3.0.14
+
+## 2.1.1
+
+### Patch Changes
+
+- Updated dependencies [[`f9bb30efd`](https://github.com/aws-amplify/amplify-ui/commit/f9bb30efd4c0a384162fbcef22d4b5bccec62dc5), [`7c81bacdf`](https://github.com/aws-amplify/amplify-ui/commit/7c81bacdfdc71d71843b8a7285e513e09e9842cb), [`4e19822e4`](https://github.com/aws-amplify/amplify-ui/commit/4e19822e4d995d4cb3b3ad23090a161249806939), [`b4254e58a`](https://github.com/aws-amplify/amplify-ui/commit/b4254e58ac3473bd141e48b3a553c632a84fab5c)]:
+  - @aws-amplify/ui@3.0.13
+
+## 2.1.0
+
+### Minor Changes
+
+- [#1260](https://github.com/aws-amplify/amplify-ui/pull/1260) [`ecd7bea7e`](https://github.com/aws-amplify/amplify-ui/commit/ecd7bea7ee4466930c15bceb8986e0a090d0570e) Thanks [@ErikCH](https://github.com/ErikCH)! - Added new hide sign up prop, for Vue, Angular, and React
+
 ## 2.0.12
 
 ### Patch Changes

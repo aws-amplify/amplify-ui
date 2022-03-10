@@ -1,5 +1,6 @@
-import { TabsProps, TabItem, Button } from '@aws-amplify/ui-react';
-import { useState } from 'react';
+import { TabsProps } from '@aws-amplify/ui-react';
+import * as React from 'react';
+
 import { TabsPropControlsProps } from './TabsPropControls';
 
 interface UseTabsProps {
@@ -7,16 +8,16 @@ interface UseTabsProps {
 }
 
 export const useTabsProps: UseTabsProps = (initialValues) => {
-  const [currentIndex, setCurrentIndex] = useState<TabsProps['currentIndex']>(
-    initialValues.currentIndex
-  );
-  const [spacing, setSpacing] = useState<TabsProps['spacing']>(
+  const [currentIndex, setCurrentIndex] = React.useState<
+    TabsProps['currentIndex']
+  >(initialValues.currentIndex);
+  const [spacing, setSpacing] = React.useState<TabsProps['spacing']>(
     initialValues.spacing
   );
-  const [justifyContent, setJustifyContent] = useState<
+  const [justifyContent, setJustifyContent] = React.useState<
     TabsProps['justifyContent']
   >(initialValues.justifyContent);
-  const [indicatorPosition, setIndicatorPosition] = useState<
+  const [indicatorPosition, setIndicatorPosition] = React.useState<
     TabsProps['indicatorPosition']
   >(initialValues.indicatorPosition);
   const children = initialValues.children;

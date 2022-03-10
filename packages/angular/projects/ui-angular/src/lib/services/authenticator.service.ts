@@ -37,6 +37,7 @@ export class AuthenticatorService implements OnDestroy {
     services,
     signUpAttributes,
     socialProviders,
+    formFields,
   }: AuthenticatorMachineOptions) {
     const machine = createAuthenticatorMachine();
 
@@ -50,6 +51,7 @@ export class AuthenticatorService implements OnDestroy {
         socialProviders,
         signUpAttributes,
         services,
+        formFields,
       },
     });
 

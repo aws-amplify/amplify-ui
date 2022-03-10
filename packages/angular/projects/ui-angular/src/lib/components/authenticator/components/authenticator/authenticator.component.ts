@@ -24,6 +24,7 @@ import { AuthenticatorService } from '../../../../services/authenticator.service
   encapsulation: ViewEncapsulation.None,
 })
 export class AuthenticatorComponent implements OnInit, AfterContentInit {
+  @Input() formFields: AuthenticatorMachineOptions['formFields'];
   @Input() initialState: AuthenticatorMachineOptions['initialState'];
   @Input() loginMechanisms: AuthenticatorMachineOptions['loginMechanisms'];
   @Input() services: AuthenticatorMachineOptions['services'];
@@ -51,6 +52,7 @@ export class AuthenticatorComponent implements OnInit, AfterContentInit {
       services,
       signUpAttributes,
       socialProviders,
+      formFields,
     } = this;
     this.authenticator.startMachine({
       initialState,
@@ -58,6 +60,7 @@ export class AuthenticatorComponent implements OnInit, AfterContentInit {
       services,
       signUpAttributes,
       socialProviders,
+      formFields,
     });
 
     /**

@@ -1,5 +1,5 @@
 import { GridContainerStyleProps } from '@aws-amplify/ui-react';
-import { useState } from 'react';
+import * as React from 'react';
 
 import { GridContainerPropControlsProps } from './GridContainerPropControls';
 
@@ -8,22 +8,28 @@ interface UseGridContainerProps {
 }
 
 export const useGridContainerProps: UseGridContainerProps = (initialValues) => {
-  const [autoColumns, setAutoColumns] = useState(initialValues.autoColumns);
-  const [autoFlow, setAutoFlow] = useState(initialValues.autoFlow);
-  const [autoRows, setAutoRows] = useState(initialValues.autoRows);
-  const [columnGap, setColumnGap] = useState(initialValues.columnGap);
-  const [gap, setGap] = useState(initialValues.gap);
-  const [rowGap, setRowGap] = useState(initialValues.rowGap);
-  const [templateAreas, setTemplateAreas] = useState(
+  const [autoColumns, setAutoColumns] = React.useState(
+    initialValues.autoColumns
+  );
+  const [autoFlow, setAutoFlow] = React.useState(initialValues.autoFlow);
+  const [autoRows, setAutoRows] = React.useState(initialValues.autoRows);
+  const [columnGap, setColumnGap] = React.useState(initialValues.columnGap);
+  const [gap, setGap] = React.useState(initialValues.gap);
+  const [rowGap, setRowGap] = React.useState(initialValues.rowGap);
+  const [templateAreas, setTemplateAreas] = React.useState(
     initialValues.templateAreas
   );
-  const [templateColumns, setTemplateColumns] = useState(
+  const [templateColumns, setTemplateColumns] = React.useState(
     initialValues.templateColumns
   );
-  const [templateRows, setTemplateRows] = useState(initialValues.templateRows);
-  const [alignItems, setAlignItems] = useState(initialValues.alignItems);
-  const [alignContent, setAlignContent] = useState(initialValues.alignContent);
-  const [justifyContent, setJustifyContent] = useState(
+  const [templateRows, setTemplateRows] = React.useState(
+    initialValues.templateRows
+  );
+  const [alignItems, setAlignItems] = React.useState(initialValues.alignItems);
+  const [alignContent, setAlignContent] = React.useState(
+    initialValues.alignContent
+  );
+  const [justifyContent, setJustifyContent] = React.useState(
     initialValues.justifyContent
   );
 

@@ -1,5 +1,6 @@
 import { FlexContainerStyleProps } from '@aws-amplify/ui-react';
-import { useState } from 'react';
+import * as React from 'react';
+
 import { FieldControl } from './GetFieldControls';
 
 interface UseFlexContainerStyleProps {
@@ -11,30 +12,36 @@ export const useFlexContainerStyleProps: UseFlexContainerStyleProps = (
 ) => {
   return [
     [
-      ...useState<FlexContainerStyleProps['alignItems']>(
+      ...React.useState<FlexContainerStyleProps['alignItems']>(
         initialValues.alignItems
       ),
       'alignItems',
     ],
     [
-      ...useState<FlexContainerStyleProps['alignContent']>(
+      ...React.useState<FlexContainerStyleProps['alignContent']>(
         initialValues.alignContent
       ),
       'alignContent',
     ],
     [
-      ...useState<FlexContainerStyleProps['direction']>(
+      ...React.useState<FlexContainerStyleProps['direction']>(
         initialValues.direction
       ),
       'direction',
     ],
-    [...useState<FlexContainerStyleProps['gap']>(initialValues.gap), 'gap'],
     [
-      ...useState<FlexContainerStyleProps['justifyContent']>(
+      ...React.useState<FlexContainerStyleProps['gap']>(initialValues.gap),
+      'gap',
+    ],
+    [
+      ...React.useState<FlexContainerStyleProps['justifyContent']>(
         initialValues.justifyContent
       ),
       'justifyContent',
     ],
-    [...useState<FlexContainerStyleProps['wrap']>(initialValues.wrap), 'wrap'],
+    [
+      ...React.useState<FlexContainerStyleProps['wrap']>(initialValues.wrap),
+      'wrap',
+    ],
   ];
 };

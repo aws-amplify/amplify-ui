@@ -3,6 +3,10 @@
 
 name: Tests
 
+concurrency:
+  group: e2e-${{ github.event.pull_request.id || github.sha }}
+  cancel-in-progress: true
+
 on:
   workflow_call:
     inputs:
@@ -37,7 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Amplify UI
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           ref: ${{ inputs.commit }}
           repository: ${{ inputs.repository }}

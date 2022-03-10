@@ -2,7 +2,8 @@
   <!-- Country code field -->
   <amplify-phone-number-field
     *ngIf="isPhoneField()"
-    [defaultCountryCode]="defaultCountryCode"
+    [defaultCountryCode]="defaultCountryCodeValue"
+    [dialCodeList]="dialCodeList"
     [type]="inferType()"
     [name]="name"
     [label]="inferLabel()"

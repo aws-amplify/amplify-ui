@@ -1,23 +1,25 @@
 module.exports = {
+  // States
   disabled: {
     opacity: { value: '{opacities.60.value}' },
   },
   focused: {
     shadow: { value: '{shadows.small.value}' },
   },
+
+  // Sizes
+  large: {
+    fontSize: { value: '{fontSizes.large.value}' },
+  },
+  small: {
+    fontSize: { value: '{fontSizes.small.value}' },
+  },
+
+  // Child elements
   label: {
     padding: { value: '{space.xs.value}' },
   },
-  large: {
-    font: {
-      size: { value: '{fontSizes.large.value}' },
-    },
-  },
-  small: {
-    font: {
-      size: { value: '{fontSizes.small.value}' },
-    },
-  },
+
   thumb: {
     backgroundColor: { value: '{colors.background.primary.value}' },
     borderColor: { value: '{colors.border.tertiary.value}' },
@@ -30,6 +32,7 @@ module.exports = {
     },
     width: { value: '{space.relative.medium.value}' },
   },
+
   track: {
     backgroundColor: { value: '{colors.background.tertiary.value}' },
     borderRadius: { value: '{radii.xxxl.value}' },

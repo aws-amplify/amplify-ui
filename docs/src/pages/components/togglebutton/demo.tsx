@@ -1,29 +1,38 @@
 import * as React from 'react';
 
-import { Flex, ToggleButton } from '@aws-amplify/ui-react';
+import { ToggleButton, ToggleButtonProps } from '@aws-amplify/ui-react';
 
-import { Example } from '@/components/Example';
-import { ToggleButtonPropControls } from '@/components/ToggleButtonPropControls';
-import { useToggleButtonProps } from '@/components/useToggleButtonProps';
+import { Demo } from '@/components/Demo';
+import { ToggleButtonPropControls } from './ToggleButtonPropControls';
+import { useToggleButtonProps } from './useToggleButtonProps';
 
-export const Demo = () => {
+const propsToCode = (props: ToggleButtonProps) => {
+  return (
+    `<ToggleButton` +
+    (props.variation ? ` variation="${props.variation}"` : '') +
+    (props.size ? ` size="${props.size}"` : '') +
+    (props.isDisabled ? ` isDisabled={${props.isDisabled}}>` : '>') +
+    `\n  Press me!` +
+    `\n</ToggleButton>`
+  );
+};
+
+export const ToggleButtonDemo = () => {
   const props = useToggleButtonProps({
     isDisabled: false,
-    size: 'medium',
-    variation: 'default',
   });
   return (
-    <Flex direction="column">
-      <ToggleButtonPropControls {...props} />
-      <Example>
-        <ToggleButton
-          isDisabled={props.isDisabled}
-          size={props.size}
-          variation={props.variation}
-        >
-          Press me!
-        </ToggleButton>
-      </Example>
-    </Flex>
+    <Demo
+      code={propsToCode(props)}
+      propControls={<ToggleButtonPropControls {...props} />}
+    >
+      <ToggleButton
+        isDisabled={props.isDisabled}
+        size={props.size}
+        variation={props.variation}
+      >
+        Press me!
+      </ToggleButton>
+    </Demo>
   );
 };

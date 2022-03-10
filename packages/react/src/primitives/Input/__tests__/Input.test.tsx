@@ -77,7 +77,7 @@ describe('Input component', () => {
   });
 
   it('can set value (controlled component)', async () => {
-    render(<Input value="test" />);
+    render(<Input value="test" onChange={jest.fn()} />);
 
     const input = (await screen.findByRole('textbox')) as HTMLInputElement;
     expect(input.value).toBe('test');

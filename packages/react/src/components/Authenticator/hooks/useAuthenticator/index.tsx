@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import {
   createAuthenticatorMachine,
   getServiceFacade,
@@ -11,6 +11,7 @@ import {
 } from '@aws-amplify/ui';
 import { useSelector, useInterpret } from '@xstate/react';
 import isEmpty from 'lodash/isEmpty';
+
 import { areArraysEqual } from '../../../../helpers';
 
 export type AuthenticatorContextValue = {

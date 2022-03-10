@@ -2,7 +2,7 @@
 /// <reference types="cypress" />
 /// <reference types="../../support/commands" />
 
-import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import { get, escapeRegExp } from 'lodash';
 
 let language = 'en-US';
@@ -51,6 +51,12 @@ Given('I verify the body has {string} included', (value: string) => {
   cy.wait('@route').its('request.body.Username').should('include', value);
 });
 
+Given('I verify the body starts with {string}', (value: string) => {
+  cy.wait('@route')
+    .its('request.body.Username')
+    .should('match', new RegExp(`^${escapeRegExp(value)}`));
+});
+
 Given(
   'I intercept {string} with error fixture {string}',
   (json: string, fixture: string) => {
@@ -96,12 +102,11 @@ When('I type a new {string}', (field: string) => {
   cy.findInputField(field).typeAliasWithStatus(field, `${Date.now()}`);
 });
 
-When(
-  'I type a new {string} with value {string}',
-  (field: string, value: string) => {
-    cy.findInputField(field).type(value);
-  }
-);
+const typeInInputHandler = (field: string, value: string) => {
+  cy.findInputField(field).type(value);
+};
+When('I type a new {string} with value {string}', typeInInputHandler);
+And('I type a new {string} with value {string}', typeInInputHandler);
 
 When('I click the {string} tab', (label: string) => {
   cy.findByRole('tab', {
@@ -113,6 +118,12 @@ When('I click the {string} button', (name: string) => {
   cy.findByRole('button', {
     name: new RegExp(`^${escapeRegExp(name)}$`, 'i'),
   }).click();
+});
+
+Then('I see the {string} button', (name: string) => {
+  cy.findByRole('button', {
+    name: new RegExp(`^${escapeRegExp(name)}$`, 'i'),
+  }).should('be.visible');
 });
 
 When('I click the {string} checkbox', (label: string) => {
@@ -143,8 +154,18 @@ When('I reload the page', () => {
   cy.reload();
 });
 
+Then('I see tab {string}', (search: string) => {
+  cy.findAllByRole('tab').first().should('be.visible').contains(search);
+});
+
 Then('I see {string}', (message: string) => {
-  cy.findByRole('document').contains(new RegExp(escapeRegExp(message), 'i'));
+  cy.findByRole('document')
+    .contains(new RegExp(escapeRegExp(message), 'i'))
+    .should('exist');
+});
+
+Then('I see placeholder {string}', (message: string) => {
+  cy.findByPlaceholderText(message).should('exist');
 });
 
 Then('I see the {string} image', (alt: string) => {
@@ -182,6 +203,20 @@ Then(
   }
 );
 
+Then(
+  '{string} field does not have {string}',
+  (fieldName: string, attribute: string) => {
+    cy.findByLabelText(fieldName).should('not.have.attr', attribute);
+  }
+);
+
+Then(
+  '{string} field does not have class {string}',
+  (fieldName: string, className: string) => {
+    cy.findByText(fieldName).should('not.have.class', className);
+  }
+);
+
 Then('the {string} button is disabled', (name: string) => {
   cy.findByRole('button', {
     name: new RegExp(`^${escapeRegExp(name)}$`, 'i'),
@@ -194,11 +229,48 @@ Then('the {string} field is invalid', (name: string) => {
     .should('be.false');
 });
 
+Then(
+  'the {string} select drop down is {string}',
+  (name: string, value: string) => {
+    cy.findByLabelText(new RegExp(`^${escapeRegExp(name)}`, 'i'))
+      .find('option:selected')
+      .contains(value);
+  }
+);
+
+Then(
+  'the {string} select drop down should have a length of {string}',
+  (name: string, value: string) => {
+    cy.findByLabelText(new RegExp(`^${escapeRegExp(name)}`, 'i'))
+      .find('option')
+      .should('have.length', value);
+  }
+);
+
 When('I type a valid confirmation code', () => {
   // This should be intercepted & mocked
-  cy.findByLabelText('Confirmation Code').type('validcode');
+  cy.findInputField('Confirmation Code').type('123456');
+});
+
+When('I type a custom password from label {string}', (custom) => {
+  cy.findByLabelText(custom).type(Cypress.env('VALID_PASSWORD'));
+});
+
+When('I type a custom confirm password from label {string}', (custom) => {
+  cy.findByLabelText(custom).type(Cypress.env('VALID_PASSWORD'));
+});
+
+When('I type a valid SMS confirmation code', () => {
+  // This should be intercepted & mocked
+  cy.findInputField('Code *').type('123456');
 });
 
 When('I type an invalid confirmation code', () => {
-  cy.findByLabelText('Confirmation Code').type('invalidcode');
+  cy.findInputField('Confirmation Code').type('0000');
+});
+
+When('I see {string} as the {string} input', (custom, order) => {
+  cy.get('input').eq(order).should('have.attr', 'placeholder', custom);
+
+  // cy.findByLabelText(custom).type(Cypress.env('VALID_PASSWORD'));
 });

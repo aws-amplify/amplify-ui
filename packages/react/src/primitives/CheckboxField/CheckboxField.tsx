@@ -14,6 +14,7 @@ const CheckboxFieldPrimitive: Primitive<CheckboxFieldProps, 'input'> = (
     errorMessage,
     hasError = false,
     labelHidden = false,
+    labelPosition,
     testId,
     size,
     ...rest
@@ -35,6 +36,7 @@ const CheckboxFieldPrimitive: Primitive<CheckboxFieldProps, 'input'> = (
         hasError={hasError}
         labelHidden={labelHidden}
         testId={checkboxTestId}
+        labelPosition={labelPosition}
         ref={ref}
         {...rest}
       />

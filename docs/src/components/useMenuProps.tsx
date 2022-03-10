@@ -1,5 +1,6 @@
 import { MenuProps } from '@aws-amplify/ui-react';
-import { useState } from 'react';
+import * as React from 'react';
+
 import { MenuPropControlsProps } from './MenuPropControls';
 
 interface UseMenuProps {
@@ -7,10 +8,10 @@ interface UseMenuProps {
 }
 
 export const useMenuProps: UseMenuProps = (initialValues) => {
-  const [menuAlign, setMenuAlign] = useState<MenuProps['menuAlign']>(
+  const [menuAlign, setMenuAlign] = React.useState<MenuProps['menuAlign']>(
     initialValues.align
   );
-  const [size, setSize] = useState<MenuProps['size']>(initialValues.size);
+  const [size, setSize] = React.useState<MenuProps['size']>(initialValues.size);
 
   return {
     ...initialValues,

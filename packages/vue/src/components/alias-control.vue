@@ -15,24 +15,33 @@ interface PropsInterface {
   name: string;
   placeholder?: string;
   autocomplete?: string;
+  labelHidden?: boolean;
+  required?: boolean;
+  dialCode?: string;
+  dialCodeList?: Array<string>;
 }
 
-const { label, name, placeholder, autocomplete } = withDefaults(
-  defineProps<PropsInterface>(),
-  {
-    label: 'Username',
-    name: 'username',
-    placeholder: '',
-    autocomplete: '',
-  }
-);
+const {
+  label,
+  name,
+  placeholder,
+  autocomplete,
+  labelHidden,
+  required,
+  dialCode,
+  dialCodeList,
+} = withDefaults(defineProps<PropsInterface>(), {
+  label: 'Username',
+  name: 'username',
+  placeholder: '',
+  autocomplete: '',
+  labelHidden: false,
+  required: true,
+});
 const random = Math.floor(Math.random() * 999999);
 const randomPhone = Math.floor(Math.random() * 999999);
 
 const { state, send } = useAuth();
-const {
-  value: { context },
-} = state;
 
 //computed
 const inputAttributes = computed(() => authInputAttributes);
@@ -40,9 +49,9 @@ const actorContext: ComputedRef<ActorContextWithForms> = computed(() =>
   getActorContext(state.value)
 );
 
-const defaultDialCode = actorContext.value.country_code;
+const defaultDialCode = dialCode ?? actorContext.value.country_code;
 
-const dialCodes = computed(() => countryDialCodes);
+const dialCodes = computed(() => dialCodeList ?? countryDialCodes);
 
 onMounted(() => {
   if (inputAttributes.value[name as LoginMechanism]?.type === 'tel') {
@@ -72,6 +81,7 @@ const inferAutocomplete = computed((): string => {
     <base-label
       :for="'amplify-field-' + random"
       class="amplify-label"
+      :class="{ 'sr-only': labelHidden }"
       v-bind="$attrs"
     >
       {{ label }}
@@ -91,7 +101,7 @@ const inferAutocomplete = computed((): string => {
         >
           <base-label
             :for="'amplify-field-' + randomPhone"
-            class="amplify-label sr-only"
+            class="amplify-label amplify-visually-hidden"
             v-bind="$attrs"
           >
             {{ 'Country Code' }}
@@ -132,7 +142,7 @@ const inferAutocomplete = computed((): string => {
           :id="'amplify-field-' + random"
           :autocomplete="inferAutocomplete"
           :name="name"
-          required
+          :required="required ?? true"
           :type="inputAttributes[name as LoginMechanism]?.type ?? 'text'"
           :placeholder="placeholder"
         ></base-input>

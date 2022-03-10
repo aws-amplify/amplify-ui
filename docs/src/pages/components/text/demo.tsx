@@ -1,5 +1,6 @@
-import React from 'react';
+import * as React from 'react';
 import { Text, useTheme } from '@aws-amplify/ui-react';
+
 import { Example } from '@/components/Example';
 
 export const TextDemo = ({ children }) => {

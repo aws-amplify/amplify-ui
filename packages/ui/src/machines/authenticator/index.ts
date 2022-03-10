@@ -1,6 +1,11 @@
 import { assign, createMachine, forwardTo, spawn } from 'xstate';
 
-import { AuthContext, AuthEvent, ServicesContext } from '../../types';
+import {
+  AuthContext,
+  AuthEvent,
+  CognitoUserAmplify,
+  FormFields,
+} from '../../types';
 import { stopActor } from './actions';
 import { resetPasswordActor, signInActor, signOutActor } from './actors';
 import { defaultServices } from './defaultServices';
@@ -64,50 +69,92 @@ export function createAuthenticatorMachine() {
           ],
         },
         signIn: {
-          entry: 'spawnSignInActor',
-          exit: stopActor('signInActor'),
+          initial: 'spawnActor',
+          states: {
+            spawnActor: {
+              always: { actions: 'spawnSignInActor', target: 'runActor' },
+            },
+            runActor: {
+              entry: 'clearActorDoneData',
+              exit: stopActor('signInActor'),
+            },
+          },
           on: {
             SIGN_UP: 'signUp',
             RESET_PASSWORD: 'resetPassword',
             'done.invoke.signInActor': [
               {
                 target: 'signUp',
+                actions: 'setActorDoneData',
                 cond: 'shouldRedirectToSignUp',
               },
               {
                 target: 'resetPassword',
+                actions: 'setActorDoneData',
                 cond: 'shouldRedirectToResetPassword',
               },
               {
                 target: 'authenticated',
-                actions: 'setUser',
+                actions: 'setActorDoneData',
               },
             ],
           },
         },
         signUp: {
-          entry: 'spawnSignUpActor',
-          exit: stopActor('signUpActor'),
+          initial: 'spawnActor',
+          states: {
+            spawnActor: {
+              always: { actions: 'spawnSignUpActor', target: 'runActor' },
+            },
+            runActor: {
+              entry: 'clearActorDoneData',
+              exit: stopActor('signUpActor'),
+            },
+          },
           on: {
             SIGN_IN: 'signIn',
             'done.invoke.signUpActor': {
               target: 'setup',
-              actions: 'setUser',
+              actions: 'setActorDoneData',
             },
           },
         },
         resetPassword: {
-          entry: 'spawnResetPasswordActor',
-          exit: stopActor('resetPasswordActor'),
+          initial: 'spawnActor',
+          states: {
+            spawnActor: {
+              always: {
+                actions: 'spawnResetPasswordActor',
+                target: 'runActor',
+              },
+            },
+            runActor: {
+              entry: 'clearActorDoneData',
+              exit: stopActor('resetPasswordActor'),
+            },
+          },
           on: {
             SIGN_IN: 'signIn',
-            'done.invoke.resetPasswordActor': 'signIn',
+            'done.invoke.resetPasswordActor': {
+              target: 'signIn',
+              actions: 'setActorDoneData',
+            },
           },
         },
         signOut: {
-          entry: 'spawnSignOutActor',
-          exit: [stopActor('signOutActor'), 'clearUser'],
-          on: { 'done.invoke.signOutActor': 'signIn' },
+          initial: 'spawnActor',
+          states: {
+            spawnActor: {
+              always: { actions: 'spawnSignOutActor', target: 'runActor' },
+            },
+            runActor: {
+              entry: 'clearActorDoneData',
+              exit: [stopActor('signOutActor'), 'clearUser'],
+            },
+          },
+          on: {
+            'done.invoke.signOutActor': 'signIn',
+          },
         },
         authenticated: {
           on: { SIGN_OUT: 'signOut' },
@@ -128,11 +175,17 @@ export function createAuthenticatorMachine() {
       actions: {
         forwardToActor: forwardTo((context) => context.actorRef),
         setUser: assign({
-          user: (_, event) => event.data.user || event.data,
+          user: (_, event) => event.data as CognitoUserAmplify,
         }),
-        clearUser: assign({
-          user: undefined,
+        setActorDoneData: assign({
+          actorDoneData: (_, event) => ({
+            authAttributes: { ...event.data?.authAttributes },
+            intent: event.data?.intent,
+          }),
+          user: (_, event) => event.data?.user,
         }),
+        clearUser: assign({ user: undefined }),
+        clearActorDoneData: assign({ actorDoneData: undefined }),
         applyAmplifyConfig: assign({
           config(context, event) {
             // The CLI uses uppercased constants in `aws-exports.js`, while `parameters.json` are lowercase.
@@ -170,9 +223,11 @@ export function createAuthenticatorMachine() {
               signUpAttributes,
               socialProviders,
               initialState,
+              formFields,
             } = context.config;
             return {
               loginMechanisms: loginMechanisms ?? cliLoginMechanisms,
+              formFields: convertFormFields(formFields) ?? {},
               signUpAttributes:
                 signUpAttributes ??
                 Array.from(
@@ -187,46 +242,49 @@ export function createAuthenticatorMachine() {
           },
         }),
         spawnSignInActor: assign({
-          actorRef: (context, event) => {
+          actorRef: (context, _) => {
             const { services } = context;
             const actor = signInActor({ services }).withContext({
-              authAttributes: event.data?.authAttributes,
-              user: event.data?.user,
-              intent: event.data?.intent,
+              authAttributes: context.actorDoneData?.authAttributes,
+              user: context.user,
+              intent: context.actorDoneData?.intent,
               country_code: DEFAULT_COUNTRY_CODE,
               formValues: {},
               touched: {},
               validationError: {},
               loginMechanisms: context.config?.loginMechanisms,
               socialProviders: context.config?.socialProviders,
+              formFields: context.config?.formFields,
             });
             return spawn(actor, { name: 'signInActor' });
           },
         }),
         spawnSignUpActor: assign({
-          actorRef: (context, event) => {
+          actorRef: (context, _) => {
             const { services } = context;
             const actor = createSignUpMachine({ services }).withContext({
-              authAttributes: event.data?.authAttributes ?? {},
+              authAttributes: context.actorDoneData?.authAttributes ?? {},
               country_code: DEFAULT_COUNTRY_CODE,
-              intent: event.data?.intent,
+              intent: context.actorDoneData?.intent,
               formValues: {},
               touched: {},
               validationError: {},
               loginMechanisms: context.config?.loginMechanisms,
               socialProviders: context.config?.socialProviders,
+              formFields: context.config?.formFields,
             });
             return spawn(actor, { name: 'signUpActor' });
           },
         }),
         spawnResetPasswordActor: assign({
-          actorRef: (context, event) => {
+          actorRef: (context, _) => {
             const { services } = context;
             const actor = resetPasswordActor({ services }).withContext({
               formValues: {},
               touched: {},
-              intent: event.data?.intent,
-              username: event.data?.authAttributes?.username,
+              intent: context.actorDoneData?.intent,
+              username: context.actorDoneData?.authAttributes?.username,
+              formFields: context.config?.formFields,
               validationError: {},
             });
             return spawn(actor, { name: 'resetPasswordActor' });
@@ -260,4 +318,16 @@ export function createAuthenticatorMachine() {
       },
     }
   );
+}
+
+function convertFormFields(formFields: FormFields): FormFields {
+  if (formFields) {
+    Object.keys(formFields).forEach((component: string) => {
+      Object.keys(formFields[component]).forEach((inputName) => {
+        let ff = formFields[component][inputName];
+        ff.required = ff.isRequired;
+      });
+    });
+  }
+  return formFields;
 }

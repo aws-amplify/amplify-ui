@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import debounce from 'lodash/debounce';
-import { useCallback, useState } from 'react';
+import * as React from 'react';
+
 import { Flex } from '../Flex';
 import { Grid } from '../Grid';
 import { Pagination, usePagination } from '../Pagination';
@@ -49,12 +50,13 @@ export const Collection = <Item,>({
   testId,
   ...rest
 }: CollectionProps<Item>): JSX.Element => {
-  const [searchText, setSearchText] = useState<string>();
+  const [searchText, setSearchText] = React.useState<string>();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const onSearch = useCallback(debounce(setSearchText, TYPEAHEAD_DELAY_MS), [
-    setSearchText,
-  ]);
+  const onSearch = React.useCallback(
+    debounce(setSearchText, TYPEAHEAD_DELAY_MS),
+    [setSearchText]
+  );
 
   // Make sure that items are iterable
   items = Array.isArray(items) ? items : [];
