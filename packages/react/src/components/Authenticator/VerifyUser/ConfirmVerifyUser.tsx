@@ -11,7 +11,7 @@ import {
   isInputElement,
   getFormDataFromEvent,
 } from '../../../helpers/utils';
-import { BaseFormFields } from '../shared/BaseFormFields';
+import { FormFields } from '../shared/FormFields';
 
 export const ConfirmVerifyUser = (): JSX.Element => {
   const {
@@ -61,7 +61,7 @@ export const ConfirmVerifyUser = (): JSX.Element => {
         <Header />
 
         <Flex direction="column">
-          <BaseFormFields route="confirmVerifyUser" />
+          <FormFields route="confirmVerifyUser" />
         </Flex>
 
         <RemoteErrorMessage />

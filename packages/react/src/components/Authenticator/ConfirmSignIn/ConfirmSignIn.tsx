@@ -17,7 +17,7 @@ import {
   isInputElement,
   getFormDataFromEvent,
 } from '../../../helpers/utils';
-import { BaseFormFields } from '../shared/BaseFormFields';
+import { FormFields } from '../shared/FormFields';
 
 export const ConfirmSignIn = (): JSX.Element => {
   const { submitForm, updateForm, isPending } = useAuthenticator();
@@ -67,7 +67,7 @@ export const ConfirmSignIn = (): JSX.Element => {
         <Header />
 
         <Flex direction="column">
-          <BaseFormFields route="confirmSignIn" />
+          <FormFields route="confirmSignIn" />
           <RemoteErrorMessage />
         </Flex>
 
