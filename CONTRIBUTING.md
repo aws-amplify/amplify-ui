@@ -70,7 +70,7 @@ amplify-ui
 │   └── vue
 ```
 
-## Local Devleopment Guides
+## Local Development Guides
 
 Please refer to the following contributing guides:
 

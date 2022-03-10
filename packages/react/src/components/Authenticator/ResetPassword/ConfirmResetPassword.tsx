@@ -110,7 +110,7 @@ export const ConfirmResetPassword = (): JSX.Element => {
 
           {!!validationError['confirm_password'] && (
             <Text role="alert" variation="error">
-              {translate(validationError['confirm_password'])}
+              {translate(validationError['confirm_password'] as string)}
             </Text>
           )}
         </Flex>

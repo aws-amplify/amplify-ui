@@ -1,9 +1,19 @@
 import * as React from 'react';
 import debounce from 'lodash/debounce';
-import { Heading, Text, useTheme } from '@aws-amplify/ui-react';
+import { SiW3C, SiReact } from 'react-icons/si';
+import {
+  Heading,
+  Link,
+  Icon,
+  Text,
+  View,
+  useTheme,
+} from '@aws-amplify/ui-react';
 import { Sidebar } from './SecondaryNav';
 import { TableOfContents } from '../TableOfContents';
 import { Footer } from './Footer';
+import { GITHUB_REPO_FILE } from '@/data/links';
+import { DesignTokenIcon } from '@/components/DesignTokenIcon';
 
 export default function Page({
   children,
@@ -12,7 +22,14 @@ export default function Page({
   children: any;
   frontmatter?: any;
 }) {
-  const { title, description, hideToc = false } = frontmatter;
+  const {
+    title,
+    description,
+    hideToc = false,
+    ariaPattern,
+    themeSource,
+    reactSource,
+  } = frontmatter;
   const { tokens } = useTheme();
   const [headings, setHeadings] = React.useState([]);
 
@@ -55,6 +72,49 @@ export default function Page({
             >
               {description}
             </Text>
+            <View className="docs-component-links">
+              {ariaPattern ? (
+                <Link
+                  className="docs-component-link"
+                  href={ariaPattern}
+                  isExternal
+                >
+                  <Icon
+                    ariaLabel=""
+                    as={SiW3C}
+                    marginInlineEnd={tokens.space.xs}
+                  />
+                  ARIA pattern
+                </Link>
+              ) : null}
+              {themeSource ? (
+                <Link
+                  className="docs-component-link"
+                  href={`${GITHUB_REPO_FILE}${themeSource}`}
+                  isExternal
+                >
+                  <DesignTokenIcon
+                    ariaLabel=""
+                    marginInlineEnd={tokens.space.xs}
+                  />
+                  Theme source
+                </Link>
+              ) : null}
+              {reactSource ? (
+                <Link
+                  className="docs-component-link"
+                  href={`${GITHUB_REPO_FILE}${reactSource}`}
+                  isExternal
+                >
+                  <Icon
+                    ariaLabel=""
+                    as={SiReact}
+                    marginInlineEnd={tokens.space.xs}
+                  />
+                  React source
+                </Link>
+              ) : null}
+            </View>
           </section>
 
           {children}

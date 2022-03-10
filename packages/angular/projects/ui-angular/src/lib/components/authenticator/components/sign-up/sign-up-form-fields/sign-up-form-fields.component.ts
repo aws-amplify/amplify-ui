@@ -9,7 +9,9 @@ import {
   SignUpAttribute,
   CommonFields,
   setFormOrder,
-  LoginMechanismArray,
+  ActorContextWithForms,
+  getActorContext,
+  translate,
 } from '@aws-amplify/ui';
 
 @Component({
@@ -26,6 +28,7 @@ export class SignUpFormFieldsComponent implements OnInit {
 
   public userOverrides: FormFieldOptions;
   public formOverrides: FormField;
+  public translate = translate;
 
   constructor(private authenticator: AuthenticatorService) {}
 
@@ -58,6 +61,14 @@ export class SignUpFormFieldsComponent implements OnInit {
     ] as CommonFields[];
     this.fieldNamesCombined = [...common, ...this.fieldNames];
     this.setFormFields();
+  }
+
+  get errors() {
+    const formContext: ActorContextWithForms = getActorContext(
+      this.authenticator.authState
+    );
+    const { validationError } = formContext;
+    return validationError['password'];
   }
 
   public setFormFields() {
