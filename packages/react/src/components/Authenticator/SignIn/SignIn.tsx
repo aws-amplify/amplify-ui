@@ -12,7 +12,7 @@ import {
   isInputOrSelectElement,
 } from '../../../helpers/utils';
 import { useCustomComponents } from '../hooks/useCustomComponents';
-import { BaseFormFields } from '../shared/BaseFormFields';
+import { FormFields } from '../shared/FormFields';
 
 export function SignIn() {
   const { isPending, submitForm, updateForm, _state } = useAuthenticator();
@@ -60,7 +60,7 @@ export function SignIn() {
             className="amplify-flex"
             disabled={isPending}
           >
-            <BaseFormFields route="signIn" />
+            <FormFields route="signIn" />
           </fieldset>
 
           <RemoteErrorMessage />

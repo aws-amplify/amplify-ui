@@ -4,13 +4,13 @@ import { useAuthenticator } from '..';
 import { Button, Flex, View } from '../../..';
 import { FederatedSignIn } from '../FederatedSignIn';
 import { RemoteErrorMessage } from '../shared';
-import { FormFields } from './FormFields';
 import {
   isInputOrSelectElement,
   isInputElement,
   getFormDataFromEvent,
 } from '../../../helpers/utils';
 import { useCustomComponents } from '../hooks/useCustomComponents';
+import { FormFields } from '../shared/FormFields';
 
 export function SignUp() {
   const { hasValidationErrors, isPending, submitForm, updateForm, updateBlur } =
@@ -93,5 +93,5 @@ export function SignUp() {
 }
 
 SignUp.Header = (): JSX.Element => null;
-SignUp.FormFields = FormFields;
+SignUp.FormFields = () => <FormFields route="signUp" />;
 SignUp.Footer = (): JSX.Element => null;

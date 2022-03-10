@@ -7,7 +7,7 @@ import { useAuthenticator } from '../hooks/useAuthenticator';
 export interface BaseFormFieldsProps {
   route: FormFieldComponents;
 }
-export function BaseFormFields({ route }: BaseFormFieldsProps) {
+export function FormFields({ route }: BaseFormFieldsProps) {
   // we don't depend on any dynamic value
   const { _state } = useAuthenticator(() => []);
   const hasFormFields = React.useRef(false);

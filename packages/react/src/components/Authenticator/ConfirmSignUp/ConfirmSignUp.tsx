@@ -12,7 +12,7 @@ import {
 import { useCustomComponents } from '../hooks/useCustomComponents';
 
 import { RemoteErrorMessage } from '../shared';
-import { BaseFormFields } from '../shared/BaseFormFields';
+import { FormFields } from '../shared/FormFields';
 
 export function ConfirmSignUp() {
   const {
@@ -89,7 +89,7 @@ export function ConfirmSignUp() {
         <Flex direction="column">
           <Text style={{ marginBottom: '1rem' }}>{subtitleText}</Text>
 
-          <BaseFormFields route="confirmSignUp" />
+          <FormFields route="confirmSignUp" />
 
           <RemoteErrorMessage />
 

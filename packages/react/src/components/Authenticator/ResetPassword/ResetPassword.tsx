@@ -11,7 +11,7 @@ import {
   isInputElement,
   getFormDataFromEvent,
 } from '../../../helpers/utils';
-import { BaseFormFields } from '../shared/BaseFormFields';
+import { FormFields } from '../shared/FormFields';
 
 export const ResetPassword = (): JSX.Element => {
   const {
@@ -60,7 +60,7 @@ export const ResetPassword = (): JSX.Element => {
         <Header />
 
         <Flex direction="column">
-          <BaseFormFields route="resetPassword" />
+          <FormFields route="resetPassword" />
         </Flex>
 
         <RemoteErrorMessage />

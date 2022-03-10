@@ -14,7 +14,7 @@ import {
 
 import { ConfirmSignInFooter, RemoteErrorMessage } from '../shared';
 import { useCustomComponents } from '../hooks/useCustomComponents';
-import { BaseFormFields } from '../shared/BaseFormFields';
+import { FormFields } from '../shared/FormFields';
 
 const logger = new Logger('SetupTOTP-logger');
 
@@ -130,7 +130,7 @@ export const SetupTOTP = (): JSX.Element => {
               </svg>
             </Flex>
           </Flex>
-          <BaseFormFields route="setupTOTP" />
+          <FormFields route="setupTOTP" />
           <RemoteErrorMessage />
         </Flex>
 
