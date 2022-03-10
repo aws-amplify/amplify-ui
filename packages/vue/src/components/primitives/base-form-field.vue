@@ -56,7 +56,7 @@ const isPasswordField = type === 'password';
   ></alias-control>
 
   <!-- Validation error, if any -->
-  <div v-if="errorArray">
+  <div v-if="errorArray?.length > 0">
     <p
       v-for="(error, idx) in errorArray"
       :key="idx"
