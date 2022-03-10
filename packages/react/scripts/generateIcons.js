@@ -37,23 +37,29 @@ const template = ({ iconName, source }) => {
     ''
   )} } from 'react-icons/md';\`
    */`;
+  const importDeprecationWarning = isDeprecatedIcon
+    ? `import { useDeprecationWarning } from '../../../hooks/useDeprecationWarning';`
+    : '';
+  const useDeprecationWarningCode = isDeprecatedIcon
+    ? `useDeprecationWarning({
+    shouldWarn: ${isDeprecatedIcon},
+    message: \`Built-in icons are being deprecated in the next major release. You can use the react-icons (https://react-icons.github.io/react-icons) package with the Material Icon set in place of these icons or any other React Icon library.\nimport { ${iconName} } from '@aws-amplify/ui-react'; → import { Md${iconName.replace(
+        'Icon',
+        ''
+      )} } from 'react-icons/md';\`,
+  });`
+    : '';
 
   return `import classNames from 'classnames';
 
   import { ComponentClassNames } from '../../shared';
   import { View } from '../../View';
-  import { useDeprecationWarning } from '../../../hooks/useDeprecationWarning';
+  ${importDeprecationWarning}
 
   ${isDeprecatedIcon ? deprecationJSDoc : ''}
   export const ${iconName} = (props) => {
     const { className, ...rest } = props;
-    useDeprecationWarning({
-      shouldWarn: ${isDeprecatedIcon},
-      message: \`Built-in icons are being deprecated in the next major release. You can use the react-icons (https://react-icons.github.io/react-icons) package with the Material Icon set in place of these icons or any other React Icon library.\nimport { ${iconName} } from '@aws-amplify/ui-react'; → import { Md${iconName.replace(
-    'Icon',
-    ''
-  )} } from 'react-icons/md';\`,
-    });
+    ${useDeprecationWarningCode}
     return (
       <View
         as='span'
