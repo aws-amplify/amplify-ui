@@ -1375,6 +1375,7 @@ describe('@aws-amplify/ui-react', () => {
           "PasswordField",
           "PhoneNumberField",
           "Placeholder",
+          "Popup",
           "Radio",
           "RadioGroupField",
           "Rating",
