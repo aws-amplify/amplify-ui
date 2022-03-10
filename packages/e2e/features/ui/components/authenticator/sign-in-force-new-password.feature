@@ -1,8 +1,7 @@
 Feature: Sign In with Force New Password flow
 
-  Amplify's SignIn component uses AWS Cognito's authentication
-  service to provide a sign in experience to your application's
-  users.
+  Amplify's SignIn component will redirect end users to force-new-password 
+  screen if their account is on "FORCE_CHANGE_PASSWORD" state.
 
   Background:
     Given I'm running the example "ui/components/authenticator/sign-in-with-phone"
@@ -17,7 +16,6 @@ Feature: Sign In with Force New Password flow
     And I should see the Force Change Password screen
     And I click the "Back to Sign In" button
     And I see "Sign In"
-    
 
   @angular @react @vue 
   Scenario: Sign in using a valid phone number and password and user is in a FORCE_CHANGE_PASSWORD state

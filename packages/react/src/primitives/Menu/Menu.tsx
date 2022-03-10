@@ -24,6 +24,7 @@ const MenuPrimitive: Primitive<MenuProps, 'div'> = (
     size,
     trigger,
     triggerClassName,
+    ariaLabel,
     onOpenChange,
     ...rest
   },
@@ -33,7 +34,7 @@ const MenuPrimitive: Primitive<MenuProps, 'div'> = (
     <DropdownMenuTrigger asChild={true}>
       {trigger ?? (
         <MenuButton
-          role="button"
+          ariaLabel={ariaLabel}
           size={size}
           testId={MENU_TRIGGER_TEST_ID}
           className={classNames(

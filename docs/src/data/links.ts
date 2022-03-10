@@ -173,7 +173,7 @@ export const inputComponents = [
   {
     href: '/components/radiogroupfield',
     label: 'Radio Group Field',
-    body: ``,
+    body: `A RadioGroupField allows users to select a single option from a list of mutually exclusive options.`,
     platforms: ['react'],
   },
   {
@@ -284,3 +284,6 @@ export const IOS_REFERENCE = 'https://aws-amplify.github.io/amplify-ios/docs/';
 export const ANDROID_REFERENCE =
   'https://aws-amplify.github.io/aws-sdk-android/docs/reference/';
 export const JS_REFERENCE = 'https://aws-amplify.github.io/amplify-js/api/';
+
+export const GITHUB_REPO = `${GITHUB}/amplify-ui/`;
+export const GITHUB_REPO_FILE = `${GITHUB_REPO}/blob/main/`;

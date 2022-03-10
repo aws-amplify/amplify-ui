@@ -4,6 +4,7 @@ import { AuthChallengeNames, CognitoUserAmplify } from '../user';
 import { CodeDeliveryDetails } from 'amazon-cognito-identity-js';
 import { LoginMechanism, SignUpAttribute, SocialProvider } from '../attributes';
 import { defaultServices } from '../../../machines/authenticator/defaultServices';
+import { PasswordSettings } from '..';
 
 /**
  * Data that actor returns when they are done and reach the final state
@@ -29,6 +30,7 @@ export interface AuthContext {
     socialProviders?: SocialProvider[];
     formFields?: FormFields;
     initialState?: 'signIn' | 'signUp' | 'resetPassword';
+    passwordSettings?: PasswordSettings;
   };
   services?: Partial<typeof defaultServices>;
   user?: CognitoUserAmplify;
@@ -61,6 +63,8 @@ interface BaseFormContext {
   user?: CognitoUserAmplify;
   /** Maps each input to its validation error, if any */
   validationError?: ValidationError;
+  /** Maps each password validation rule */
+  passwordSettings?: PasswordSettings;
   /** Denotes where a confirmation code has been sent to */
   codeDeliveryDetails?: CodeDeliveryDetails;
   /** Default country code for all phone number fields. */

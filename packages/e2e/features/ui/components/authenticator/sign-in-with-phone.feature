@@ -20,7 +20,7 @@ Feature: Sign In with Phone Number
     When I click the "Create Account" tab
     Then the 'Country code' select drop down is '+227'
 
-@angular @react @vue
+  @angular @react @vue
   Scenario: Sign up and replace dial code list
     When I click the "Create Account" tab
     Then the 'Country code' select drop down should have a length of '5'
@@ -74,17 +74,6 @@ Feature: Sign In with Phone Number
     Then I see "Sign out"
     And I click the "Sign out" button
     Then I see "Sign in"
-
-
-  # FORCE_CHANGE_PASSWORD tests are skipped as the temporary passwords used for these
-  # test accounts will expire in Cognito.
-  @angular @react @vue @skip
-  Scenario: Sign in with force change password credentials
-    When I select my country code with status "FORCE_CHANGE_PASSWORD"
-    And I type my "phone number" with status "FORCE_CHANGE_PASSWORD"
-    And I type my password
-    And I click the "Sign in" button
-    Then I see "Change Password"
 
   @angular @react @vue
   Scenario: Phone number field autocompletes username

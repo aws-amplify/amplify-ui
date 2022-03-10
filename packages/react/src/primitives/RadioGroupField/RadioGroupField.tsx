@@ -7,7 +7,7 @@ import { Flex } from '../Flex';
 import { Label } from '../Label';
 import { RadioGroupContext, RadioGroupContextType } from './context';
 import { RadioGroupFieldProps, Primitive } from '../types';
-import { useStableId } from '../shared/utils';
+import { useStableId } from '../utils/useStableId';
 
 // Note: RadioGroupField doesn't extend the JSX.IntrinsicElements<'input'> types (instead extending 'typeof Flex')
 // because all rest props are passed to Flex container
@@ -25,6 +25,7 @@ const RadioGroupFieldPrimitive: Primitive<RadioGroupFieldProps, typeof Flex> = (
     isReadOnly,
     label,
     labelHidden = false,
+    labelPosition,
     onChange,
     name,
     size,
@@ -48,6 +49,7 @@ const RadioGroupFieldPrimitive: Primitive<RadioGroupFieldProps, typeof Flex> = (
       onChange,
       size,
       name,
+      labelPosition,
     }),
     [
       defaultValue,
@@ -59,6 +61,7 @@ const RadioGroupFieldPrimitive: Primitive<RadioGroupFieldProps, typeof Flex> = (
       size,
       name,
       value,
+      labelPosition,
     ]
   );
 

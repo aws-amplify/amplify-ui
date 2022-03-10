@@ -124,6 +124,7 @@ const onLostCodeClicked = (): void => {
                   aria-invalid="false"
                   autocomplete="one-time-code"
                   name="confirmation_code"
+                  type="number"
                 ></base-input>
               </base-wrapper>
             </base-wrapper>

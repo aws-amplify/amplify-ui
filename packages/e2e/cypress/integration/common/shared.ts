@@ -98,6 +98,14 @@ When('I type an invalid password', () => {
   cy.findInputField('Password').type('invalidpass');
 });
 
+When('I type an invalid wrong complexity password', () => {
+  cy.findInputField('Password').type('inv');
+});
+
+When('I type an invalid no lower case password', () => {
+  cy.findInputField('Password').type('INV');
+});
+
 When('I type a new {string}', (field: string) => {
   cy.findInputField(field).typeAliasWithStatus(field, `${Date.now()}`);
 });
@@ -249,7 +257,7 @@ Then(
 
 When('I type a valid confirmation code', () => {
   // This should be intercepted & mocked
-  cy.findByLabelText('Confirmation Code').type('validcode');
+  cy.findInputField('Confirmation Code').type('123456');
 });
 
 When('I type a custom password from label {string}', (custom) => {
@@ -262,11 +270,11 @@ When('I type a custom confirm password from label {string}', (custom) => {
 
 When('I type a valid SMS confirmation code', () => {
   // This should be intercepted & mocked
-  cy.findByLabelText('Code *').type('validcode');
+  cy.findInputField('Code *').type('123456');
 });
 
 When('I type an invalid confirmation code', () => {
-  cy.findByLabelText('Confirmation Code').type('invalidcode');
+  cy.findInputField('Confirmation Code').type('0000');
 });
 
 When('I see {string} as the {string} input', (custom, order) => {

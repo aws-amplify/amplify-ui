@@ -1,13 +1,11 @@
 Feature: Verify User
 
-  Amplify's SignIn component uses AWS Cognito's authentication
-  service to provide a sign in experience to your application's
-  users.
+  If end user tries to sign in with unverified account, Authenticator will
+  redirect them to account verification screen.
 
   Background:
     Given I'm running the example "ui/components/authenticator/sign-in-with-email"
     And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.GetUserAttributeVerificationCode" } }' with fixture "verify-user-email"
-
 
   @angular @react @vue
   Scenario: Redirect to "Confirm Verify" page and replace label and placeholder

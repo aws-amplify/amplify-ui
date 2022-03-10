@@ -105,5 +105,8 @@ select {
 @import './component/toggleButton.scss';
 @import './component/toggleButtonGroup.scss';
 
+// This comes after the field styles so it can override them
+@import './component/fieldModifiers.scss';
+
 // Accessibility
 @import './component/visuallyHidden.scss';

@@ -120,7 +120,7 @@ describe('Tabs: ', () => {
       expect(tab.innerHTML).toContain('Test1234');
     });
 
-    it('should render the disabled', async () => {
+    it('should render disabled button when disabled', async () => {
       render(
         <Tabs data-demo="true" testId="tabsTest">
           <TabItem title="Tab 1" isDisabled>
@@ -130,11 +130,11 @@ describe('Tabs: ', () => {
       );
 
       const tab = await screen.findByRole('tab');
-      expect(tab).toHaveAttribute('aria-disabled');
+      expect(tab).toHaveAttribute('disabled');
     });
 
-    it('should forward ref to TabItem DOM element', async () => {
-      const ref = React.createRef<HTMLDivElement>();
+    it('should forward ref to TabItem Button DOM element', async () => {
+      const ref = React.createRef<HTMLButtonElement>();
 
       render(
         <Tabs>
@@ -145,7 +145,7 @@ describe('Tabs: ', () => {
       );
 
       await screen.findByRole('tab');
-      expect(ref.current.nodeName).toBe('DIV');
+      expect(ref.current.nodeName).toBe('BUTTON');
     });
   });
 });

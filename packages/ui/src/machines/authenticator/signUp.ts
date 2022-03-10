@@ -324,13 +324,20 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
         async validateSignUp(context, event) {
           // This needs to exist in the machine to reference new `services`
 
-          return runValidators(context.formValues, context.touched, [
-            // Validation for default form fields
-            services.validateConfirmPassword,
-            services.validatePreferredUsername,
-            // Validation for any custom Sign Up fields
-            services.validateCustomSignUp,
-          ]);
+          return runValidators(
+            context.formValues,
+            context.touched,
+            context.passwordSettings,
+            [
+              // Validation of password
+              services.validateFormPassword,
+              // Validation for default form fields
+              services.validateConfirmPassword,
+              services.validatePreferredUsername,
+              // Validation for any custom Sign Up fields
+              services.validateCustomSignUp,
+            ]
+          );
         },
       },
     }

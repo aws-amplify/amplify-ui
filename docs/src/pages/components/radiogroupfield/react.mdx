@@ -1,339 +1,151 @@
 import { Flex, Radio, RadioGroupField } from '@aws-amplify/ui-react';
 
-import { ControlledRadioGroupField, Demo } from './demo';
-import { Example } from '@/components/Example';
+import { RadioGroupFieldDemo } from './demo';
+import { Example, ExampleCode } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
+import { ComponentClassTable } from '@/components/ComponentClassTable';
 
-A RadioGroupField allows users to select a single option from a list of mutually exclusive options.
+import {
+  BasicExample,
+  ControlledExample,
+  DirectionExample,
+  DisabledExample,
+  ErrorExample,
+  LabelPositionExample,
+  ReadOnlyExample,
+  SizeExample,
+  ThemeExample,
+} from './examples';
 
-<Example>
-  <Demo />
-</Example>
+## Demo
+
+<RadioGroupFieldDemo />
 
 ## Usage
 
-Import the Radio, RadioGroupField and styles.
-
-```jsx
-import { Radio, RadioGroupField } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-<RadioGroupField label="Language" name="language" defaultValue="html">
-  <Radio value="html">html</Radio>
-  <Radio value="css">css</Radio>
-  <Radio value="javascript">javascript</Radio>
-</RadioGroupField>;
-```
+Import the Radio and RadioGroupField components.
 
 <Example>
-  <RadioGroupField
-    label="Language"
-    name="example-1"
-    defaultValue="html"
-    labelHidden
-  >
-    <Radio value="html">html</Radio>
-    <Radio value="css">css</Radio>
-    <Radio value="javascript">javascript</Radio>
-  </RadioGroupField>
+  <BasicExample />
+  <ExampleCode>
+
+```jsx file=./examples/BasicExample.tsx
+
+```
+
+  </ExampleCode>
 </Example>
 
 ### Controlled component
 
-```jsx
-import * as React from 'react';
-import { RadioGroupField, Radio } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
+<Example>
+  <ControlledExample />
+  <ExampleCode>
 
-const [value, setValue] = React.useState('html');
+```jsx file=./examples/ControlledExample.tsx
 
-<RadioGroupField
-  label="Language"
-  name="language"
-  value={value}
-  onChange={(e) => setValue(e.target.value)}
->
-  <Radio value="html">html</Radio>
-  <Radio value="css">css</Radio>
-  <Radio value="javascript">javascript</Radio>
-</RadioGroupField>;
 ```
 
-<Example>
-  <ControlledRadioGroupField />
+  </ExampleCode>
 </Example>
 
 ### Accessibility / Label behavior
 
 <Fragment>{() => import('./../shared/formFieldAccessibility.mdx')}</Fragment>
 
-```jsx
-import { Radio, RadioGroupField } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-<RadioGroupField
-  label="Language"
-  name="language"
-  defaultValue="html"
-  labelHidden={true}
->
-  <Radio value="html">html</Radio>
-  <Radio value="css">css</Radio>
-  <Radio value="javascript">javascript</Radio>
-</RadioGroupField>;
-```
-
-<Example>
-  <RadioGroupField
-    label="Language"
-    name="example-3"
-    defaultValue="html"
-    labelHidden
-  >
-    <Radio value="html">html</Radio>
-    <Radio value="css">css</Radio>
-    <Radio value="javascript">javascript</Radio>
-  </RadioGroupField>
-</Example>
-
 ### Sizes
 
 Use the `size` prop to change the RadioGroupField size. Available options are `small`, `large`, and none (default).
 
-```jsx
-import { Radio, RadioGroupField } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
+<Example>
+  <SizeExample />
+  <ExampleCode>
 
-<RadioGroupField label="Language" name="html" defaultValue="html" size="small">
-  <Radio value="html">html</Radio>
-</RadioGroupField>;
+```jsx file=./examples/SizeExample.tsx
 
-<RadioGroupField label="Language" name="css" defaultValue="css">
-  <Radio value="css">css</Radio>
-</RadioGroupField>;
-
-<RadioGroupField
-  label="Language"
-  name="javascript"
-  defaultValue="javascript"
-  size="large"
->
-  <Radio value="javascript">javascript</Radio>
-</RadioGroupField>;
 ```
 
-<Example>
-  <Flex>
-    <RadioGroupField
-      label="Language"
-      name="example-4"
-      defaultValue="html"
-      size="small"
-      labelHidden
-    >
-      <Radio value="html">html</Radio>
-    </RadioGroupField>
-    <RadioGroupField
-      label="Language"
-      name="example-5"
-      defaultValue="css"
-      labelHidden
-    >
-      <Radio value="css">css</Radio>
-    </RadioGroupField>
-    <RadioGroupField
-      label="Language"
-      name="example-6"
-      defaultValue="javascript"
-      size="large"
-      labelHidden
-    >
-      <Radio value="javascript">javascript</Radio>
-    </RadioGroupField>
-  </Flex>
+  </ExampleCode>
 </Example>
 
 ### Direction
 
 Use the `direction` prop to change the RadioGroupField size. Available options are `row`, and `column` (default).
 
-```jsx
-import { Radio, RadioGroupField } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
+<Example>
+  <DirectionExample />
+  <ExampleCode>
 
-<RadioGroupField label="Language" name="direction-column" defaultValue="html">
-  <Radio value="html">html</Radio>
-  <Radio value="css">css</Radio>
-  <Radio value="javascript">javascript</Radio>
-</RadioGroupField>;
+```jsx file=./examples/DirectionExample.tsx
 
-<RadioGroupField
-  label="Language"
-  name="direction-row"
-  defaultValue="html"
-  direction="row"
->
-  <Radio value="html">html</Radio>
-  <Radio value="css">css</Radio>
-  <Radio value="javascript">javascript</Radio>
-</RadioGroupField>;
 ```
 
+  </ExampleCode>
+</Example>
+
+### Label position
+
 <Example>
-  <Flex gap="10rem">
-    <RadioGroupField
-      label="Language"
-      name="example-7"
-      defaultValue="html"
-      labelHidden
-    >
-      <Radio value="html">html</Radio>
-      <Radio value="css">css</Radio>
-      <Radio value="javascript">javascript</Radio>
-    </RadioGroupField>
-    <RadioGroupField
-      label="Language"
-      name="example-8"
-      defaultValue="html"
-      direction="row"
-      labelHidden
-    >
-      <Radio value="html">html</Radio>
-      <Radio value="css">css</Radio>
-      <Radio value="javascript">javascript</Radio>
-    </RadioGroupField>
-  </Flex>
+  <LabelPositionExample />
+  <ExampleCode>
+
+```jsx file=./examples/LabelPositionExample.tsx
+
+```
+
+  </ExampleCode>
 </Example>
 
 ### State
 
-The available RadioGroupField states include `isDisabled` and `isReadonly`. A disabled field will be not be focusable not mutable and will not be submitted with form data. A readonly field cannot be edited by the user.
+The available RadioGroupField states include `isDisabled` and `isReadonly`. A disabled field will be not be focusable not mutable and will not be submitted with form data. A readonly field cannot be edited by the user, but will be submitted with form data.
 
 #### Disabled radios and radio group
 
-```jsx
-import { Radio, RadioGroupField } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
+<Example>
+  <DisabledExample />
+  <ExampleCode>
 
-// disabled a single radio
-<RadioGroupField label="Language" name="disabled-single" defaultValue="html">
-  <Radio value="html">html</Radio>
-  <Radio value="css" isDisabled={true}>
-    css
-  </Radio>
-  <Radio value="javascript">javascript</Radio>
-</RadioGroupField>;
+```jsx file=./examples/DisabledExample.tsx
 
-// disabled the whole group
-<RadioGroupField
-  label="Language"
-  name="disabled-group"
-  defaultValue="html"
-  isDisabled={true}
->
-  <Radio value="html">html</Radio>
-  <Radio value="css">css</Radio>
-  <Radio value="javascript">javascript</Radio>
-</RadioGroupField>;
 ```
 
-<Example>
-  <Flex gap="10rem">
-    <RadioGroupField
-      label="Language"
-      name="example-9"
-      defaultValue="html"
-      labelHidden
-    >
-      <Radio value="html">html</Radio>
-      <Radio value="css" isDisabled>
-        {`css`}
-      </Radio>
-      <Radio value="javascript">javascript</Radio>
-    </RadioGroupField>
-    <RadioGroupField
-      label="Language"
-      name="example-10"
-      defaultValue="html"
-      isDisabled
-      labelHidden
-    >
-      <Radio value="html">html</Radio>
-      <Radio value="css">css</Radio>
-      <Radio value="javascript">javascript</Radio>
-    </RadioGroupField>
-  </Flex>
+  </ExampleCode>
 </Example>
 
 #### Read-only radio group
 
-```jsx
-import { Radio, RadioGroupField } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
+<Example>
+  <ReadOnlyExample />
+  <ExampleCode>
 
-// Provide a defaultValue and set isReadOnly to true
-<RadioGroupField
-  label="Language"
-  name="language"
-  defaultValue="html"
-  isReadonly={true}
->
-  <Radio value="html">html</Radio>
-  <Radio value="css">css</Radio>
-  <Radio value="javascript">javascript</Radio>
-</RadioGroupField>;
+```jsx file=./examples/ReadOnlyExample.tsx
+
 ```
 
-<Example>
-  <RadioGroupField
-    label="Language"
-    name="example-11"
-    defaultValue="html"
-    labelHidden
-    isReadOnly
-  >
-    <Radio value="html">html</Radio>
-    <Radio value="css">css</Radio>
-    <Radio value="javascript">javascript</Radio>
-  </RadioGroupField>
+  </ExampleCode>
 </Example>
 
 ### Validation error
 
 Use the `hasError` and `errorMessage` props to mark a RadioGroupField as having an validation error.
 
-```jsx
-import { Radio, RadioGroupField } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
+<Example>
+  <ErrorExample />
+  <ExampleCode>
 
-// Use the `hasError` and `errorMessage` fields
-<RadioGroupField
-  label="Language"
-  name="language"
-  errorMessage="This is a required field."
-  hasError
->
-  <Radio value="html">html</Radio>
-  <Radio value="css">css</Radio>
-  <Radio value="javascript">javascript</Radio>
-</RadioGroupField>;
+```jsx file=./examples/ErrorExample.tsx
+
 ```
 
-<Example>
-  <RadioGroupField
-    label="Language"
-    name="example-12"
-    errorMessage="This is a required field."
-    hasError
-    labelHidden
-  >
-    <Radio value="html">html</Radio>
-    <Radio value="css">css</Radio>
-    <Radio value="javascript">javascript</Radio>
-  </RadioGroupField>
+  </ExampleCode>
 </Example>
 
-## CSS Styling
+## Styling
+
+### Target classes
+
+<ComponentClassTable componentName="RadioGroupField" />
 
 ### Global styling
 
@@ -361,11 +173,38 @@ To replace Radio button styling, unset it:
 }
 ```
 
+#### Theme
+
+<Example>
+  <ThemeExample />
+  <ExampleCode>
+
+```jsx file=./examples/ThemeExample.tsx
+
+```
+
+  </ExampleCode>
+</Example>
+
 ### Local styling
 
 To override styling on a specific Radio, you can use (in order of increasing specificity): a class selector, data attributes, or style props.
 
-_Using a class selector:_
+#### Using a class selector
+
+<Example>
+  <RadioGroupField
+    label="Language"
+    name="example-13"
+    defaultValue="html"
+    labelHidden
+  >
+    <Radio value="html" className="custom-radio">
+      {`html`}
+    </Radio>
+  </RadioGroupField>
+  
+  <ExampleCode>
 
 ```css
 /* styles.css */
@@ -387,20 +226,10 @@ import '@aws-amplify/ui-react/styles.css';
 </RadioGroupField>;
 ```
 
-<Example>
-  <RadioGroupField
-    label="Language"
-    name="example-13"
-    defaultValue="html"
-    labelHidden
-  >
-    <Radio value="html" className="custom-radio">
-      {`html`}
-    </Radio>
-  </RadioGroupField>
+  </ExampleCode>
 </Example>
 
-_Using data attributes:_
+#### Using data attributes
 
 ```css
 /* styles.css */
@@ -410,31 +239,3 @@ _Using data attributes:_
   font-size: 1.25rem;
 }
 ```
-
-_Using style props:_
-
-```jsx
-import { Radio, RadioGroupField } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-<RadioGroupField
-  label="Language"
-  name="language"
-  defaultValue="html"
-  fontSize="1.25rem"
->
-  <Radio value="html">html</Radio>
-</RadioGroupField>;
-```
-
-<Example>
-  <RadioGroupField
-    label="Language"
-    name="example-14"
-    defaultValue="html"
-    fontSize="1.25rem"
-    labelHidden
-  >
-    <Radio value="html">{`html`}</Radio>
-  </RadioGroupField>
-</Example>

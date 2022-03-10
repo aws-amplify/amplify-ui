@@ -4,7 +4,7 @@
 name: Tests
 
 concurrency:
-  group: e2e-${{ github.event.pull_request.id || github.ref }}
+  group: e2e-${{ github.event.pull_request.id || github.sha }}
   cancel-in-progress: true
 
 on:
@@ -50,7 +50,7 @@ jobs:
           echo "::set-output name=ref::${{ github.event_name == 'push' && github.ref || github.event.pull_request.head.ref }}"
           echo "::set-output name=commit::${{ github.event_name == 'push' && github.sha || github.event.pull_request.head.sha }}"
       - name: Checkout Amplify UI
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           ref: ${{ steps.get-ref.outputs.ref }}
           repository: ${{github.event.pull_request.head.repo.full_name}}

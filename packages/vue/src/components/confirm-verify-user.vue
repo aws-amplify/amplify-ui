@@ -110,7 +110,7 @@ const onSkipClicked = (): void => {
                   aria-invalid="false"
                   autocomplete="one-time-code"
                   name="confirmation_code"
-                  type="text"
+                  type="number"
                 ></base-input>
               </base-wrapper>
             </base-wrapper>

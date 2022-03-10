@@ -513,9 +513,12 @@ export function signInActor({ services }: SignInMachineOptions) {
           );
         },
         async validateFields(context, event) {
-          return runValidators(context.formValues, context.touched, [
-            defaultServices.validateConfirmPassword,
-          ]);
+          return runValidators(
+            context.formValues,
+            context.touched,
+            context.passwordSettings,
+            [defaultServices.validateConfirmPassword]
+          );
         },
       },
     }

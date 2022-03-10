@@ -1,5 +1,29 @@
 # @aws-amplify/ui
 
+## 3.2.1
+
+### Patch Changes
+
+- [#1474](https://github.com/aws-amplify/amplify-ui/pull/1474) [`05a1fa3c3`](https://github.com/aws-amplify/amplify-ui/commit/05a1fa3c3970f04bb87a336aafe87cf3f1946107) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Adding `labelPosition` to Radio and RadioGroupField
+
+  ```jsx
+  <RadioGroupField label="Language" name="language" labelPosition="start">
+    <Radio value="html">html</Radio>
+    <Radio value="css">css</Radio>
+    <Radio value="javascript">javascript</Radio>
+  </RadioGroupField>
+  ```
+
+* [#1483](https://github.com/aws-amplify/amplify-ui/pull/1483) [`b97cb9126`](https://github.com/aws-amplify/amplify-ui/commit/b97cb91264d03eed0ce248909708eed112eb9aec) Thanks [@0618](https://github.com/0618)! - - fix a11y erros on docs homepage
+  - fix type errors
+  - rename css class
+
+- [#1472](https://github.com/aws-amplify/amplify-ui/pull/1472) [`ef5dff599`](https://github.com/aws-amplify/amplify-ui/commit/ef5dff599b84dd4b508827264758b11439684142) Thanks [@wlee221](https://github.com/wlee221)! - Set confirmation code input types to `"number"`
+
+* [#1469](https://github.com/aws-amplify/amplify-ui/pull/1469) [`3c0b705e3`](https://github.com/aws-amplify/amplify-ui/commit/3c0b705e3c5eb25a80bea077a6c60a52dc7ffa51) Thanks [@wlee221](https://github.com/wlee221)! - Capitalize form field related types. No actual runtime changes.
+
+- [#1471](https://github.com/aws-amplify/amplify-ui/pull/1471) [`9e8d6b212`](https://github.com/aws-amplify/amplify-ui/commit/9e8d6b212bdbc324b75066d664b6adb1ef46163d) Thanks [@wlee221](https://github.com/wlee221)! - Cleaned up `@aws-amplify/ui` util directory. No actual code changes.
+
 ## 3.2.0
 
 ### Minor Changes

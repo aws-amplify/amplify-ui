@@ -16,19 +16,3 @@
 .amplify-label {
   color: var(--amplify-components-field-label-color);
 }
-
-[data-label-position='start'] {
-  flex-direction: row;
-}
-
-[data-label-position='end'] {
-  flex-direction: row-reverse;
-}
-
-[data-label-position='top'] {
-  flex-direction: column;
-}
-
-[data-label-position='bottom'] {
-  flex-direction: column-reverse;
-}
