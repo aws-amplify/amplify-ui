@@ -11,15 +11,26 @@
         [dialCode]="userOverrides?.dialCode"
         [dialCodeList]="userOverrides?.dialCodeList"
       ></amplify-user-name-alias>
-      <amplify-form-field
-        *ngSwitchCase="'password'"
-        [labelHidden]="grabField('password', 'labelHidden', true)"
-        [placeholder]="grabField('password', 'placeholder', null)"
-        [required]="grabField('password', 'required', true)"
-        [label]="grabField('password', 'label', null)"
-        name="password"
-        autocomplete="new-password"
-      ></amplify-form-field>
+      <ng-container *ngSwitchCase="'password'">
+        <amplify-form-field
+          [labelHidden]="grabField('password', 'labelHidden', true)"
+          [placeholder]="grabField('password', 'placeholder', null)"
+          [required]="grabField('password', 'required', true)"
+          [label]="grabField('password', 'label', null)"
+          name="password"
+          autocomplete="new-password"
+        ></amplify-form-field>
+        <div data-amplify-sign-up-errors *ngIf="errors">
+          <!-- TODO: add amplify-alert reusable component -->
+          <div
+            class="amplify-text"
+            data-variation="error"
+            *ngFor="let error of errors"
+          >
+            {{ translate(error) }}
+          </div>
+        </div>
+      </ng-container>
       <amplify-form-field
         *ngSwitchCase="'confirm_password'"
         [labelHidden]="grabField('confirm_password', 'labelHidden', true)"

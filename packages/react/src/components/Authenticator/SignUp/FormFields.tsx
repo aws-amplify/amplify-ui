@@ -9,7 +9,13 @@ import {
 } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
-import { PasswordField, PhoneNumberField, Text, TextField } from '../../..';
+import {
+  PasswordField,
+  PhoneNumberField,
+  Text,
+  TextField,
+  View,
+} from '../../..';
 import { UserNameAlias as UserNameAliasComponent } from '../shared';
 import { propsCreator, phonePropsCreator } from '../../../helpers/utils';
 import React from 'react';
@@ -70,15 +76,29 @@ export function FormFields() {
             );
           case 'password':
             return (
-              <PasswordField
-                key={name}
-                autoComplete="new-password"
-                data-amplify-password
-                {...propsCreator('password', 'Password', formOverrides, true)}
-                hasError={!!validationError['confirm_password']}
-                name="password"
-                onBlur={handleBlur}
-              />
+              <React.Fragment key={name}>
+                <PasswordField
+                  autoComplete="new-password"
+                  data-amplify-password
+                  {...propsCreator('password', 'Password', formOverrides, true)}
+                  hasError={!!validationError['confirm_password']}
+                  name="password"
+                  onBlur={handleBlur}
+                />
+                {validationError['password'] && (
+                  <View data-amplify-sign-up-errors>
+                    {(validationError['password'] as string[])?.map(
+                      (error, idx) => {
+                        return (
+                          <Text key={idx} role="alert" variation="error">
+                            {translate(error)}
+                          </Text>
+                        );
+                      }
+                    )}
+                  </View>
+                )}
+              </React.Fragment>
             );
           case 'confirm_password':
             return (
@@ -99,7 +119,7 @@ export function FormFields() {
 
                 {validationError['confirm_password'] && (
                   <Text role="alert" variation="error">
-                    {translate(validationError['confirm_password'])}
+                    {translate(validationError['confirm_password'] as string)}
                   </Text>
                 )}
               </React.Fragment>

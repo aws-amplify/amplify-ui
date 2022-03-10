@@ -58,3 +58,13 @@ export interface FormFieldOptions {
   /** Integer that denotes where this field should be positioned in. */
   order?: number;
 }
+
+export type PasswordPolicyRules =
+  | 'REQUIRES_LOWERCASE'
+  | 'REQUIRES_NUMBERS'
+  | 'REQUIRES_SYMBOLS'
+  | 'REQUIRES_UPPERCASE';
+export interface PasswordSettings {
+  passwordPolicyMinLength: number;
+  passwordPolicyCharacters: Array<PasswordPolicyRules>;
+}
