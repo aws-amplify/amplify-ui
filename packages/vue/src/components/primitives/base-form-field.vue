@@ -23,7 +23,7 @@ const { validationErrors } = toRefs(useAuthShared());
 
 const { type } = formField.value;
 
-const errorArray = computed(() =>
+const errors = computed(() =>
   getErrorArray(validationErrors.value[name.value])
 );
 const isPasswordField = type === 'password';
@@ -56,9 +56,9 @@ const isPasswordField = type === 'password';
   ></alias-control>
 
   <!-- Validation error, if any -->
-  <div v-if="errorArray?.length > 0">
+  <div v-if="errors?.length > 0">
     <p
-      v-for="(error, idx) in errorArray"
+      v-for="(error, idx) in errors"
       :key="idx"
       role="alert"
       data-variation="error"

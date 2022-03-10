@@ -15,8 +15,8 @@ export function FormField({ name, formFieldOptions }: FormFieldProps) {
   const { validationErrors } = useAuthenticator();
   const { type } = formFieldOptions;
 
-  const errorArray = getErrorArray(validationErrors[name]);
-  const hasError = errorArray?.length > 0;
+  const errors = getErrorArray(validationErrors[name]);
+  const hasError = errors?.length > 0;
 
   if (type === 'tel') {
     return (
@@ -33,7 +33,7 @@ export function FormField({ name, formFieldOptions }: FormFieldProps) {
           labelHidden={formFieldOptions.labelHidden}
           hasError={hasError}
         />
-        <ValidationErrors errors={errorArray} />
+        <ValidationErrors errors={errors} />
       </>
     );
   } else if (type === 'password') {
@@ -48,7 +48,7 @@ export function FormField({ name, formFieldOptions }: FormFieldProps) {
           labelHidden={formFieldOptions.labelHidden}
           hasError={hasError}
         />
-        <ValidationErrors errors={errorArray} />
+        <ValidationErrors errors={errors} />
       </>
     );
   } else {
@@ -64,7 +64,7 @@ export function FormField({ name, formFieldOptions }: FormFieldProps) {
           hasError={hasError}
           type={type}
         />
-        <ValidationErrors errors={errorArray} />
+        <ValidationErrors errors={errors} />
       </>
     );
   }
