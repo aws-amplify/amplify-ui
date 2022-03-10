@@ -1,4 +1,4 @@
-import { formField, translate } from '@aws-amplify/ui';
+import { FormField, translate } from '@aws-amplify/ui';
 export const isDevelopment = () => process.env.NODE_ENV !== 'production';
 
 export const isInputOrSelectElement = (
@@ -73,7 +73,7 @@ interface fieldProps {
 export const propsCreator = (
   name: string,
   show: string,
-  formOverrides: formField,
+  formOverrides: FormField,
   labelHiddenDefault: boolean = false
 ): fieldProps => {
   const fo = formOverrides?.[name];
@@ -90,7 +90,7 @@ export const confPropsCreator = (
   name: string,
   showPlaceholder: string,
   showLabel: string,
-  formOverrides: formField
+  formOverrides: FormField
 ): fieldProps | { required?: boolean } => {
   const fo = formOverrides?.[name];
   return {
@@ -104,7 +104,7 @@ export const confPropsCreator = (
 export const phonePropsCreator = (
   name: string,
   show: string,
-  formOverrides: formField,
+  formOverrides: FormField,
   country_code: string
 ) => {
   const fo = formOverrides?.[name];

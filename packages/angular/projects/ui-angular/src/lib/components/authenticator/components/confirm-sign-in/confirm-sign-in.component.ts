@@ -2,7 +2,7 @@ import { Component, HostBinding, OnInit } from '@angular/core';
 import { Logger } from 'aws-amplify';
 import {
   AuthChallengeNames,
-  formField,
+  FormField,
   getActorContext,
   getActorState,
   getFormDataFromEvent,
@@ -24,7 +24,7 @@ export class ConfirmSignInComponent implements OnInit {
   public headerText: string;
   public confirmText = translate('Confirm');
   public backToSignInText = translate('Back to Sign In');
-  public formOverrides: formField;
+  public formOverrides: FormField;
 
   constructor(public authenticator: AuthenticatorService) {}
 

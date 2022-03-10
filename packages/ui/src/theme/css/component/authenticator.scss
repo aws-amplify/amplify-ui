@@ -2,6 +2,7 @@
 [data-amplify-authenticator] {
   display: grid;
   max-width: var(--amplify-components-authenticator-max-width);
+  margin: auto;
 
   &[data-variation='modal'] {
     display: grid;
@@ -20,11 +21,9 @@
 
   & [data-amplify-container] {
     place-self: center;
-    width: var(--amplify-components-authenticator-container-width-handheld);
     @media (min-width: 30rem) {
-      // @media min-width 30rem (--amplify-components-authenticator-container-width-max)
-      width: var(--amplify-components-authenticator-container-width-desktop);
-      max-width: var(--amplify-components-authenticator-container-width-max);
+      // @media min-width 30rem is (--amplify-components-authenticator-container-width-max)
+      width: var(--amplify-components-authenticator-container-width-max);
     }
   }
 
@@ -55,20 +54,9 @@
     );
   }
 
-  & [data-or-container] {
-    position: relative;
-    color: var(--amplify-components-authenticator-or-container-color);
-    align-items: center;
-    justify-content: center;
-    padding: var(--amplify-space-relative-large) var(--amplify-space-zero);
-
-    & [data-or-line] {
-      position: absolute;
-      background: var(
-        --amplify-components-authenticator-or-container-or-line-background-color
-      );
-      z-index: 1;
-      padding: var(--amplify-space-zero) var(--amplify-space-relative-large);
+  [data-amplify-sign-up-errors] {
+    @media (max-width: 26rem) {
+      font-size: 0.688rem;
     }
   }
 }

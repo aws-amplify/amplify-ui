@@ -5,10 +5,9 @@ import {
   getActorState,
   ResetPasswordContext,
   ResetPasswordState,
-  ValidationError,
   translate,
   getFormDataFromEvent,
-  formField,
+  FormField,
 } from '@aws-amplify/ui';
 import { propsCreator } from '../composables/useUtils';
 
@@ -23,7 +22,7 @@ const {
 } = state;
 
 const formOverrides = context?.config?.formFields
-  ?.confirmResetPassword as formField;
+  ?.confirmResetPassword as FormField;
 const confOR = formOverrides?.['confirmation_code'];
 
 const useAuthShared = createSharedComposable(useAuthenticator);
@@ -140,8 +139,8 @@ function onBlur(e: Event) {
               name="password"
               autocomplete="current-password"
               :ariainvalid="
-                  !!(actorContext.validationError as ValidationError)['confirm_password']
-                "
+                !!actorContext.validationError?.['confirm_password']
+              "
               @blur="onBlur"
             />
 
@@ -157,8 +156,8 @@ function onBlur(e: Event) {
               name="confirm_password"
               autocomplete="new-password"
               :ariainvalid="
-                  !!(actorContext.validationError as ValidationError)['confirm_password']
-                "
+                !!actorContext.validationError?.['confirm_password']
+              "
               @blur="onBlur"
             />
           </base-wrapper>
@@ -168,9 +167,9 @@ function onBlur(e: Event) {
               data-variation="error"
               role="alert"
               class="amplify-text"
-              v-if="!!(actorContext.validationError as ValidationError)['confirm_password']"
+              v-if="!!actorContext.validationError?.['confirm_password']"
             >
-              {{ translate(actorContext.validationError?.confirm_password as string) }}
+              {{ translate((actorContext.validationError)?.confirm_password as string) }}
             </base-box>
             <base-alert v-if="actorState?.context?.remoteError">
               {{ translate(actorState?.context?.remoteError) }}

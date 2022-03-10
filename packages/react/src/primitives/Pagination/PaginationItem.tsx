@@ -9,6 +9,9 @@ import { VisuallyHidden } from '../VisuallyHidden';
 import { PaginationItemProps } from '../types/pagination';
 import { ComponentClassNames } from '../shared/constants';
 
+export const PAGINATION_CURRENT_TEST_ID = 'current';
+export const PAGINATION_ELLIPSIS_TEST_ID = 'ellipsis';
+
 export const PaginationItem: React.FC<PaginationItemProps> = ({
   type,
   page,
@@ -38,6 +41,7 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
             <Flex
               as="span"
               className={ComponentClassNames.PaginationItemCurrent}
+              testId={PAGINATION_CURRENT_TEST_ID}
               {...rest}
             >
               {/**
@@ -107,7 +111,7 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
           <Flex
             as="span"
             className={ComponentClassNames.PaginationItemEllipsis}
-            testId="ellipsis"
+            testId={PAGINATION_ELLIPSIS_TEST_ID}
             {...rest}
           >
             &#8230;

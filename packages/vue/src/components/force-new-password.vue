@@ -5,10 +5,9 @@ import {
   getActorState,
   SignInState,
   SignUpContext,
-  ValidationError,
   translate,
   getFormDataFromEvent,
-  formField,
+  FormField,
 } from '@aws-amplify/ui';
 import { propsCreator } from '../composables/useUtils';
 
@@ -28,7 +27,7 @@ const {
 } = state;
 
 const formOverrides = context?.config?.formFields
-  ?.forceNewPassword as formField;
+  ?.forceNewPassword as FormField;
 
 const useAuthShared = createSharedComposable(useAuthenticator);
 const props = useAuthShared();
@@ -112,7 +111,7 @@ function onBlur(e: Event) {
               name="password"
               autocomplete="new-password"
               :ariainvalid="
-                  !!(actorContext.validationError as ValidationError)['confirm_password']
+                  !!(actorContext.validationError as Record<string,string>)['confirm_password']
                 "
               @blur="onBlur"
             />
@@ -130,7 +129,7 @@ function onBlur(e: Event) {
               name="confirm_password"
               autocomplete="new-password"
               :ariainvalid="
-                  !!(actorContext.validationError as ValidationError)['confirm_password']
+                  !!(actorContext.validationError as Record<string,string>)['confirm_password']
                 "
               @blur="onBlur"
             />
@@ -145,9 +144,9 @@ function onBlur(e: Event) {
               role="alert"
               data-variation="error"
               class="amplify-text"
-              v-if="!!(actorContext.validationError as ValidationError)['confirm_password']"
+              v-if="!!(actorContext.validationError as Record<string,string>)['confirm_password']"
             >
-              {{ translate((actorContext.validationError as ValidationError)['confirm_password']) }}
+              {{ translate((actorContext.validationError as Record<string,string>)['confirm_password']) }}
             </base-box>
             <base-alert data-ui-error v-if="actorState.context.remoteError">
               {{ translate(actorState.context.remoteError) }}

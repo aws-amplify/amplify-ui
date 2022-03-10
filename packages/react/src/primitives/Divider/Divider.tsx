@@ -6,7 +6,7 @@ import { DividerProps, Primitive } from '../types';
 import { View } from '../View';
 
 const DividerPrimitive: Primitive<DividerProps, 'hr'> = (
-  { className, orientation = 'horizontal', size, ...rest },
+  { className, orientation = 'horizontal', size, label, ...rest },
   ref
 ) => {
   return (
@@ -17,9 +17,11 @@ const DividerPrimitive: Primitive<DividerProps, 'hr'> = (
         ComponentClassNames.Divider,
         `${ComponentClassNames.Divider}--${orientation}`,
         size ? `${ComponentClassNames.Divider}--${size}` : null,
+        label ? ComponentClassNames.DividerLabel : null,
         className
       )}
       data-size={size}
+      data-label={label}
       ref={ref}
       {...rest}
     />

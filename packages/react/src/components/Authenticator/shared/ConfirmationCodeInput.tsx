@@ -20,9 +20,8 @@ export const ConfirmationCodeInput = (
     label = `${translate('Code')} *`,
     placeholder = translate('Code'),
     required = true,
-    type = 'text',
+    type = 'number',
   } = props;
-  // TODO: enforce type="number" on all confirmation codes
 
   return (
     <TextField

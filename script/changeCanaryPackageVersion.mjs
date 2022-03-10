@@ -7,7 +7,7 @@ import { globbyStream } from 'globby';
 import fs from 'fs';
 import { pathToFileURL } from 'url';
 
-for await (const path of globbyStream('canary/**/package.json')) {
+for await (const path of globbyStream('canary/apps/**/package.json')) {
   const pkgJSON = JSON.parse(fs.readFileSync(path));
   const { dependencies } = pkgJSON;
   if (dependencies) {

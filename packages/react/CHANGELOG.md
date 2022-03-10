@@ -1,5 +1,74 @@
 # @aws-amplify/ui-react
 
+## 2.9.0
+
+### Minor Changes
+
+- [#1474](https://github.com/aws-amplify/amplify-ui/pull/1474) [`05a1fa3c3`](https://github.com/aws-amplify/amplify-ui/commit/05a1fa3c3970f04bb87a336aafe87cf3f1946107) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Adding `labelPosition` to Radio and RadioGroupField
+
+  ```jsx
+  <RadioGroupField label="Language" name="language" labelPosition="start">
+    <Radio value="html">html</Radio>
+    <Radio value="css">css</Radio>
+    <Radio value="javascript">javascript</Radio>
+  </RadioGroupField>
+  ```
+
+### Patch Changes
+
+- [#1489](https://github.com/aws-amplify/amplify-ui/pull/1489) [`8ead973d2`](https://github.com/aws-amplify/amplify-ui/commit/8ead973d23768fb497ad5ad1cde845a663a990ef) Thanks [@reesscot](https://github.com/reesscot)! - fix: Authenticator issue where InitMachine useEffect runs every render, causing `children` of `Authenticator` to be unmounted and remounted on every render.
+
+* [#1429](https://github.com/aws-amplify/amplify-ui/pull/1429) [`5202eba2c`](https://github.com/aws-amplify/amplify-ui/commit/5202eba2cfe6ae76b3128f3781bacd6f3795d764) Thanks [@jacoblogan](https://github.com/jacoblogan)! - Add exported class names object which is a JS object containing the classname, primitive name, and description of class
+
+- [#1483](https://github.com/aws-amplify/amplify-ui/pull/1483) [`b97cb9126`](https://github.com/aws-amplify/amplify-ui/commit/b97cb91264d03eed0ce248909708eed112eb9aec) Thanks [@0618](https://github.com/0618)! - - fix a11y erros on docs homepage
+  - fix type errors
+  - rename css class
+
+* [#1482](https://github.com/aws-amplify/amplify-ui/pull/1482) [`9fb550ccd`](https://github.com/aws-amplify/amplify-ui/commit/9fb550ccd58608ca2f96caf806a858fe55b119eb) Thanks [@reesscot](https://github.com/reesscot)! - Remove IdProvider and upgrade to latest Radix UI packages.
+
+- [#1472](https://github.com/aws-amplify/amplify-ui/pull/1472) [`ef5dff599`](https://github.com/aws-amplify/amplify-ui/commit/ef5dff599b84dd4b508827264758b11439684142) Thanks [@wlee221](https://github.com/wlee221)! - Set confirmation code input types to `"number"`
+
+* [#1486](https://github.com/aws-amplify/amplify-ui/pull/1486) [`9ecb14e35`](https://github.com/aws-amplify/amplify-ui/commit/9ecb14e35ec0c5f6c65ac71d06f56754920d1b61) Thanks [@reesscot](https://github.com/reesscot)! - `TextField` and `TextAreaField` - Apply `width` and `height` style props to
+  `Flex` container element rather than `input` field to match `SelectField` behavior.
+  This will also apply to `PasswordField`, `PhoneNumberField` and `SearchField`
+  which use the `TextField`.
+* Updated dependencies [[`05a1fa3c3`](https://github.com/aws-amplify/amplify-ui/commit/05a1fa3c3970f04bb87a336aafe87cf3f1946107), [`b97cb9126`](https://github.com/aws-amplify/amplify-ui/commit/b97cb91264d03eed0ce248909708eed112eb9aec), [`ef5dff599`](https://github.com/aws-amplify/amplify-ui/commit/ef5dff599b84dd4b508827264758b11439684142), [`3c0b705e3`](https://github.com/aws-amplify/amplify-ui/commit/3c0b705e3c5eb25a80bea077a6c60a52dc7ffa51), [`9e8d6b212`](https://github.com/aws-amplify/amplify-ui/commit/9e8d6b212bdbc324b75066d664b6adb1ef46163d)]:
+  - @aws-amplify/ui@3.2.1
+
+## 2.8.0
+
+### Minor Changes
+
+- [#1394](https://github.com/aws-amplify/amplify-ui/pull/1394) [`3d5acaa4c`](https://github.com/aws-amplify/amplify-ui/commit/3d5acaa4cce5ea8daf49caab71d92dc3c91d9021) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Adding `label` prop to Divider component.
+
+  ```jsx
+  import { Flex, Text, Divider } from '@aws-amplify/ui-react';
+
+  export const LabelExample = () => (
+    <Flex direction="column">
+      <Text>Before</Text>
+      <Divider label="OR" />
+      <Text>After</Text>
+    </Flex>
+  );
+  ```
+
+### Patch Changes
+
+- [#1461](https://github.com/aws-amplify/amplify-ui/pull/1461) [`a7e65c56f`](https://github.com/aws-amplify/amplify-ui/commit/a7e65c56ff3d3beaad3d049581a21277d8135392) Thanks [@jacoblogan](https://github.com/jacoblogan)! - set pagination current page default to 1
+
+* [#1443](https://github.com/aws-amplify/amplify-ui/pull/1443) [`851288030`](https://github.com/aws-amplify/amplify-ui/commit/851288030f6e4ff95fc0a531a8128c7bb64cfa49) Thanks [@joebuono](https://github.com/joebuono)! - Improve efficiency of View styles by combining hooks into single `useStyles` hook
+
+- [#1434](https://github.com/aws-amplify/amplify-ui/pull/1434) [`45546b0d6`](https://github.com/aws-amplify/amplify-ui/commit/45546b0d63e32ecf79f36c4a8b18787a48ad901b) Thanks [@joebuono](https://github.com/joebuono)! - Convert `padding` and `margin` properties to logical equivalents
+  (e.g., `paddingTop` converts to `padding-block-start`)
+
+* [#1407](https://github.com/aws-amplify/amplify-ui/pull/1407) [`731587a58`](https://github.com/aws-amplify/amplify-ui/commit/731587a58e8ef89e9f0193d7118377093a6024b8) Thanks [@0618](https://github.com/0618)! - fix authenticator SetupTOTP, refactor authenticator styles
+
+- [#1447](https://github.com/aws-amplify/amplify-ui/pull/1447) [`3343e187b`](https://github.com/aws-amplify/amplify-ui/commit/3343e187b6dc9eab2c2a9c2d408bac8afb063f74) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Fixing nested AmplifyProviders and theming. This fixes issues seen on the docs site if you have nested AmplifyProviders causing weird issues. The provider now cleans itself up properly and only injects CSS if necessary.
+
+- Updated dependencies [[`5f1753785`](https://github.com/aws-amplify/amplify-ui/commit/5f175378571e56c1f59bfa39060337148f428ce2), [`4c1a5cfbe`](https://github.com/aws-amplify/amplify-ui/commit/4c1a5cfbe6e984a790261d122ee4df368b249688), [`3d5acaa4c`](https://github.com/aws-amplify/amplify-ui/commit/3d5acaa4cce5ea8daf49caab71d92dc3c91d9021), [`731587a58`](https://github.com/aws-amplify/amplify-ui/commit/731587a58e8ef89e9f0193d7118377093a6024b8), [`3343e187b`](https://github.com/aws-amplify/amplify-ui/commit/3343e187b6dc9eab2c2a9c2d408bac8afb063f74)]:
+  - @aws-amplify/ui@3.2.0
+
 ## 2.7.0
 
 ### Minor Changes

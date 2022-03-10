@@ -1,5 +1,10 @@
 import * as React from 'react';
-import { DividerOptions, Flex, SelectField } from '@aws-amplify/ui-react';
+import {
+  DividerOptions,
+  Flex,
+  SelectField,
+  TextField,
+} from '@aws-amplify/ui-react';
 
 export interface DividerPropControlsProps extends DividerOptions {
   setSize: (value: React.SetStateAction<DividerOptions['size']>) => void;
@@ -17,6 +22,8 @@ export const DividerPropControls: DividerPropControlsInterface = ({
   setSize,
   orientation,
   setOrientation,
+  label,
+  setLabel,
 }) => {
   return (
     <Flex direction="column">
@@ -46,6 +53,13 @@ export const DividerPropControls: DividerPropControlsInterface = ({
         <option value="horizontal">horizontal</option>
         <option value="vertical">vertical</option>
       </SelectField>
+
+      <TextField
+        name="label"
+        label="label"
+        value={label}
+        onChange={(event) => setLabel(event.target.value)}
+      />
     </Flex>
   );
 };

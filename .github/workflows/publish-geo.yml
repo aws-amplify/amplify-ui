@@ -23,7 +23,7 @@ jobs:
       github.event.workflow_run.head_branch == 'ui-geo/main'
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           ref: ${{ github.event.workflow_run.head_branch }}
       - name: Setup Node.js LTS

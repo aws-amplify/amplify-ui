@@ -2,13 +2,14 @@
   border-color: var(--amplify-components-divider-border-color);
   border-style: var(--amplify-components-divider-border-style);
   border-width: 0;
-  margin: 0;
   opacity: var(--amplify-components-divider-opacity);
   padding: 0;
   display: block;
   --amplify-internal-divider-size: var(
     --amplify-components-divider-border-width
   );
+  position: relative;
+  text-align: center;
 
   &--small {
     --amplify-internal-divider-size: var(
@@ -27,5 +28,34 @@
 
   &--vertical {
     border-left-width: var(--amplify-internal-divider-size);
+  }
+
+  &--label {
+    // This allows for the label to be centered
+    display: flex;
+    justify-content: center;
+
+    &::after {
+      content: attr(data-label);
+      position: absolute;
+      transform: translateY(-50%);
+      font-size: var(--amplify-components-divider-label-font-size);
+      padding-inline: var(--amplify-components-divider-label-padding-inline);
+      background-color: var(
+        --amplify-components-divider-label-background-color
+      );
+      color: var(--amplify-components-divider-label-color);
+    }
+  }
+
+  &--label[aria-orientation='vertical'] {
+    flex-direction: column;
+
+    &::after {
+      top: auto;
+      transform: translateX(-50%);
+      padding-block: 0;
+      padding-inline: 0;
+    }
   }
 }

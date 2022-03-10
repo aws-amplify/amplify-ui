@@ -6,7 +6,7 @@ import {
   AuthInputAttributes,
   authInputAttributes,
   SignUpAttribute,
-  formField,
+  FormField,
   setFormOrder,
   CommonFields,
 } from '@aws-amplify/ui';
@@ -25,7 +25,7 @@ const {
   value: { context },
 } = state;
 
-const formOverrides = context?.config?.formFields?.signUp as formField;
+const formOverrides = context?.config?.formFields?.signUp as FormField;
 
 const useAuthShared = createSharedComposable(useAuthenticator);
 const { validationErrors } = toRefs(useAuthShared());
@@ -87,14 +87,27 @@ const order = setFormOrder(formOverrides, fieldNamesCombined);
       :dialCode="userOverrides?.dialCode"
       :dialCodeList="userOverrides?.dialCodeList"
     />
-    <password-control
-      v-else-if="field === 'password'"
-      name="password"
-      v-bind="propsCreator('password', passwordLabel, formOverrides, true)"
-      autocomplete="new-password"
-      :ariainvalid="!!validationErrors.confirm_password"
-      @blur="onBlur"
-    />
+    <template v-else-if="field === 'password'">
+      <password-control
+        name="password"
+        v-bind="propsCreator('password', passwordLabel, formOverrides, true)"
+        autocomplete="new-password"
+        :ariainvalid="!!validationErrors.confirm_password"
+        @blur="onBlur"
+      />
+      <div data-amplify-sign-up-errors v-if="!!validationErrors.password">
+        <p
+          v-for="(error, idx) in validationErrors.password"
+          :key="idx"
+          role="alert"
+          data-variation="error"
+          class="amplify-text"
+        >
+          {{ translate(error) }}
+        </p>
+      </div>
+    </template>
+
     <template v-else-if="field === 'confirm_password'">
       <password-control
         name="confirm_password"
