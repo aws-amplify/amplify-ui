@@ -46,7 +46,7 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, typeof Flex> = (
     <Flex
       className={classNames(
         ComponentClassNames.SwitchField,
-        `${ComponentClassNames.SwitchField}--${size}`,
+        size ? `${ComponentClassNames.SwitchField}--${size}` : null,
         className
       )}
       data-size={size}

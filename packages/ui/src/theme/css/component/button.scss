@@ -232,26 +232,25 @@
       --amplify-components-button-large-padding-inline-end
     );
   }
-}
+  &--disabled {
+    background-color: var(--amplify-internal-button-disabled-background-color);
+    border-color: var(--amplify-internal-button-disabled-border-color);
+    color: var(--amplify-internal-button-disabled-color);
+    text-decoration: var(--amplify-internal-button-disabled-text-decoration);
+    cursor: not-allowed;
+  }
 
-.amplify-button--disabled {
-  background-color: var(--amplify-internal-button-disabled-background-color);
-  border-color: var(--amplify-internal-button-disabled-border-color);
-  color: var(--amplify-internal-button-disabled-color);
-  text-decoration: var(--amplify-internal-button-disabled-text-decoration);
-  cursor: not-allowed;
-}
+  &--loading {
+    background-color: var(--amplify-internal-button-loading-background-color);
+    border-color: var(--amplify-internal-button-loading-border-color);
+    color: var(--amplify-components-button-loading-color);
+    text-decoration: var(--amplify-internal-button-loading-text-decoration);
+  }
 
-.amplidy-button--loading {
-  background-color: var(--amplify-internal-button-loading-background-color);
-  border-color: var(--amplify-internal-button-loading-border-color);
-  color: var(--amplify-components-button-loading-color);
-  text-decoration: var(--amplify-internal-button-loading-text-decoration);
-}
-
-.amplify-button__loader-wrapper {
-  align-items: var(--amplify-components-button-loader-wrapper-align-items);
-  gap: var(--amplify-components-button-loader-wrapper-gap);
+  &__loader-wrapper {
+    align-items: var(--amplify-components-button-loader-wrapper-align-items);
+    gap: var(--amplify-components-button-loader-wrapper-gap);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

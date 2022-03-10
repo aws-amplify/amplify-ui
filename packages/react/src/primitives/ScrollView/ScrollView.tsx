@@ -12,7 +12,7 @@ const ScrollViewPrimitive: Primitive<ScrollViewProps, 'div'> = (
   <View
     className={classNames(
       ComponentClassNames.ScrollView,
-      `${ComponentClassNames.ScrollView}--${orientation}`,
+      orientation ? `${ComponentClassNames.ScrollView}--${orientation}` : null,
       className
     )}
     data-orientation={orientation}

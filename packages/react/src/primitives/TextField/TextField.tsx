@@ -93,7 +93,7 @@ const TextFieldPrimitive = <Multiline extends boolean>(
     <Flex
       className={classNames(
         ComponentClassNames.Field,
-        `${ComponentClassNames.Field}--size-${size || 'default'}`,
+        size ? `${ComponentClassNames.Field}--${size}` : null,
         ComponentClassNames.TextField,
         className
       )}

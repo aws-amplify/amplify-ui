@@ -28,16 +28,14 @@ export const MenuButton = React.forwardRef<
     ref
   ) => {
     const { propStyles, nonStyleProps } = useStyles(rest, style);
-    size = size || 'default';
-    variation = variation || 'default';
 
     return (
       <button
         ref={ref}
         className={classNames(
           ComponentClassNames.Button,
-          `${ComponentClassNames.Button}--size-${size}`,
-          `${ComponentClassNames.Button}--variation-${variation}`,
+          size ? `${ComponentClassNames.Button}--${size}` : null,
+          variation ? `${ComponentClassNames.Button}--${variation}` : null,
           className
         )}
         data-fullwidth={isFullWidth}

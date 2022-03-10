@@ -14,7 +14,7 @@ const TextPrimitive: Primitive<TextProps, 'p'> = (
       as={as}
       className={classNames(
         ComponentClassNames.Text,
-        `${ComponentClassNames.Text}--${variation}`,
+        variation ? `${ComponentClassNames.Text}--${variation}` : null,
         isTruncated ? `${ComponentClassNames.Text}--truncated` : null,
         className
       )}
