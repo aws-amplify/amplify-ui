@@ -76,7 +76,7 @@ function onBlur(e: Event) {
       <base-form
         data-amplify-authenticator-confirmResetpassword
         @input="onInput"
-        @blur="onBlur"
+        @blur.capture="onBlur"
         @submit.prevent="onConfirmResetPasswordSubmit"
       >
         <base-field-set

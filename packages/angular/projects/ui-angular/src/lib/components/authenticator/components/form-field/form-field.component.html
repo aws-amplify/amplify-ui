@@ -34,8 +34,13 @@
     [autocomplete]="formField.autocomplete"
     [type]="formField.type"
   ></amplify-text-field>
-
-  <amplify-error *ngIf="error">
-    {{ error }}
-  </amplify-error>
+  <div data-amplify-sign-up-errors *ngIf="errors?.length > 0">
+    <div
+      class="amplify-text"
+      data-variation="error"
+      *ngFor="let error of errors"
+    >
+      {{ translate(error) }}
+    </div>
+  </div>
 </div>
