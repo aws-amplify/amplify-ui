@@ -8,7 +8,7 @@ import {
   getFormDataFromEvent,
 } from '../../../helpers/utils';
 import { useCustomComponents } from '../hooks/useCustomComponents';
-import { FormFields } from './FormFields';
+import { BaseFormFields } from '../shared/BaseFormFields';
 
 export const ForceNewPassword = (): JSX.Element => {
   const { error, isPending, toSignIn, submitForm, updateForm, updateBlur } =
@@ -91,4 +91,4 @@ export const ForceNewPassword = (): JSX.Element => {
   );
 };
 
-ForceNewPassword.FormFields = FormFields;
+ForceNewPassword.FormFields = () => <BaseFormFields route="forceNewPassword" />;
