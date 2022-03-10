@@ -1,10 +1,9 @@
 import { Component, Input } from '@angular/core';
 import {
-  ActorContextWithForms,
-  getActorContext,
   translate,
   countryDialCodes,
   FormFieldOptions,
+  getErrorArray,
 } from '@aws-amplify/ui';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 
@@ -21,12 +20,9 @@ export class FormFieldComponent {
 
   constructor(private authenticator: AuthenticatorService) {}
 
-  get error(): string {
-    const formContext: ActorContextWithForms = getActorContext(
-      this.authenticator.authState
-    );
-    const { validationError } = formContext;
-    return translate(validationError[this.name] as string);
+  get errors(): string[] {
+    const { validationErrors } = this.authenticator;
+    return getErrorArray(validationErrors[this.name]);
   }
 
   public onBlur($event: Event) {
@@ -41,5 +37,9 @@ export class FormFieldComponent {
 
   isPhoneField(): boolean {
     return this.formField.type === 'tel';
+  }
+
+  translate(pharse: string): string {
+    return translate<string>(pharse);
   }
 }
