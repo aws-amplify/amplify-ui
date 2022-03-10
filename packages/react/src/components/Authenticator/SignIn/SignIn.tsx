@@ -62,7 +62,7 @@ export function SignIn() {
             disabled={isPending}
           >
             <VisuallyHidden>
-              <legend>Sign in</legend>
+              <legend>{translate('Sign in')}</legend>
             </VisuallyHidden>
             <UserNameAlias
               labelHidden={userOverrides?.labelHidden}
