@@ -7,7 +7,6 @@ import {
   getActorState,
   ResetPasswordContext,
   ResetPasswordState,
-  ValidationError,
   translate,
   getFormDataFromEvent,
 } from '@aws-amplify/ui';
@@ -95,15 +94,6 @@ function onBlur(e: Event) {
             <base-form-fields route="confirmResetPassword"></base-form-fields>
           </base-wrapper>
           <base-footer class="amplify-flex" style="flex-direction: column">
-            <base-box
-              data-ui-error
-              data-variation="error"
-              role="alert"
-              class="amplify-text"
-              v-if="!!(actorContext.validationError as ValidationError)['confirm_password']"
-            >
-              {{ translate(actorContext.validationError?.confirm_password as string) }}
-            </base-box>
             <base-alert v-if="actorState?.context?.remoteError">
               {{ translate(actorState?.context?.remoteError) }}
             </base-alert>

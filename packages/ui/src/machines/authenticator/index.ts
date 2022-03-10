@@ -190,6 +190,7 @@ export function createAuthenticatorMachine() {
           config(context, event) {
             // The CLI uses uppercased constants in `aws-exports.js`, while `parameters.json` are lowercase.
             // We use lowercase to be consistent with previous versions' values.
+
             const cliLoginMechanisms =
               event.data.aws_cognito_username_attributes?.map((s) =>
                 s.toLowerCase()
@@ -210,6 +211,9 @@ export function createAuthenticatorMachine() {
                 s.toLowerCase()
               ) ?? [];
 
+            const cliPasswordSettings =
+              event.data.aws_cognito_password_protection_settings || {};
+
             // By default, Cognito assumes `username`, so there isn't a different username attribute like `email`.
             // We explicitly add it as a login mechanism to be consistent with Admin UI's language.
             if (cliLoginMechanisms.length === 0) {
@@ -228,6 +232,7 @@ export function createAuthenticatorMachine() {
             return {
               loginMechanisms: loginMechanisms ?? cliLoginMechanisms,
               formFields: convertFormFields(formFields) ?? {},
+              passwordSettings: cliPasswordSettings,
               signUpAttributes:
                 signUpAttributes ??
                 Array.from(
@@ -272,6 +277,7 @@ export function createAuthenticatorMachine() {
               loginMechanisms: context.config?.loginMechanisms,
               socialProviders: context.config?.socialProviders,
               formFields: context.config?.formFields,
+              passwordSettings: context.config?.passwordSettings,
             });
             return spawn(actor, { name: 'signUpActor' });
           },
