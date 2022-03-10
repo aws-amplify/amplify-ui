@@ -1,12 +1,7 @@
 import { Sizes } from './base';
 import { ViewProps } from './view';
 
-export type BadgeVariations =
-  | 'info'
-  | 'error'
-  | 'warning'
-  | 'success'
-  | 'default';
+export type BadgeVariations = 'info' | 'error' | 'warning' | 'success';
 export type BadgeSizes = Sizes;
 
 export interface BadgeProps extends ViewProps {

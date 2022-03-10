@@ -5,7 +5,7 @@ import { Sizes } from './base';
 
 export type LoaderSizes = Sizes;
 
-export type LoaderVariations = 'linear' | 'default';
+export type LoaderVariations = 'linear';
 
 export interface LoaderProps extends ViewProps {
   /**

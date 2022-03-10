@@ -9,12 +9,11 @@ const CardPrimitive: Primitive<CardProps, 'div'> = (
   { className, children, variation, ...rest },
   ref
 ) => {
-  variation = variation || 'default';
   return (
     <View
       className={classNames(
         ComponentClassNames.Card,
-        `${ComponentClassNames.Card}--variation-${variation}`,
+        variation ? `${ComponentClassNames.Card}--${variation}` : null,
         className
       )}
       data-variation={variation}

@@ -6,8 +6,8 @@
   &[data-invalid='true'] {
     border-inline-end: none;
   }
-  
-  [data-variation='quiet'] & {
+
+  &--quiet {
     border-width: 0 0 var(--amplify-components-button-border-width) 0;
     border-radius: 0;
   }
@@ -17,8 +17,8 @@
   &[data-invalid='true'] {
     border-inline-start: none;
   }
-  
-  [data-variation='quiet'] & {
+
+  &--quiet {
     border-width: 0 0 var(--amplify-components-button-border-width) 0;
     border-radius: 0;
   }

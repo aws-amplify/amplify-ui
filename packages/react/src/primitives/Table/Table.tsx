@@ -19,7 +19,12 @@ const TablePrimitive: Primitive<TableProps, 'table'> = (
 ) => (
   <View
     as="table"
-    className={classNames(ComponentClassNames.Table, className)}
+    className={classNames(
+      ComponentClassNames.Table,
+      size ? `${ComponentClassNames.Table}--${size}` : null,
+      variation ? `${ComponentClassNames.Table}--${variation}` : null,
+      className
+    )}
     data-highlightonhover={highlightOnHover}
     data-size={size}
     data-variation={variation}

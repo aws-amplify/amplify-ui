@@ -24,4 +24,4 @@ export interface AriaProps {
   role?: React.AriaRole;
 }
 
-export type Sizes = 'small' | 'large' | 'default';
+export type Sizes = 'small' | 'large';

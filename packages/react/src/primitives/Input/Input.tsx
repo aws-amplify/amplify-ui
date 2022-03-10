@@ -42,6 +42,9 @@ const InputPrimitive: Primitive<InputProps, 'input'> = (
     className={classNames(
       ComponentClassNames.Input,
       ComponentClassNames.FieldGroupControl,
+      variation ? `${ComponentClassNames.Input}--${variation}` : null,
+      hasError ? `${ComponentClassNames.Input}--error` : null,
+      size ? `${ComponentClassNames.Input}--${size}` : null,
       className
     )}
     data-size={size}

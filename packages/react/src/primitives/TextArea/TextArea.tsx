@@ -24,6 +24,9 @@ const TextAreaPrimitive: Primitive<TextAreaProps, 'textarea'> = (
     className={classNames(
       ComponentClassNames.Textarea,
       ComponentClassNames.FieldGroupControl,
+      variation ? `${ComponentClassNames.Textarea}--${variation}` : null,
+      hasError ? `${ComponentClassNames.Textarea}--error` : null,
+      size ? `${ComponentClassNames.Textarea}--${size}` : null,
       className
     )}
     data-size={size}

@@ -21,7 +21,7 @@ export const RadioPrimitive: Primitive<RadioProps, 'input'> = (
     isRequired,
     isReadOnly,
     onChange,
-    size = 'default',
+    size,
   } = useRadioGroupContext();
 
   const shouldBeDisabled =
@@ -64,7 +64,7 @@ export const RadioPrimitive: Primitive<RadioProps, 'input'> = (
         as="span"
         className={classNames(
           ComponentClassNames.RadioButton,
-          `${ComponentClassNames.RadioButton}--size-${size || 'default'}`
+          size ? `${ComponentClassNames.RadioButton}--${size}` : null
         )}
         data-size={size}
         testId={testId}

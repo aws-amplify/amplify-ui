@@ -34,15 +34,13 @@ const AlertPrimitive: Primitive<AlertProps, typeof Flex> = (
     }
   }, [setDismissed, onDismiss, dismissed]);
 
-  variation = variation || 'default';
-
   return (
     !dismissed && (
       <Flex
         className={classNames(
           ComponentClassNames.Alert,
           className,
-          `${ComponentClassNames.Alert}--variation-${variation}`
+          variation ? `${ComponentClassNames.Alert}--${variation}` : null
         )}
         data-variation={variation}
         ref={ref}

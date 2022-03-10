@@ -74,7 +74,6 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
   );
 
   const isVertical = orientation === 'vertical';
-  size = size || 'default';
 
   return (
     <Flex
@@ -111,8 +110,8 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
         <Root
           className={classNames(
             ComponentClassNames.SliderFieldRoot,
-            `${ComponentClassNames.SliderFieldRoot}--orientation-${orientation}`,
-            `${ComponentClassNames.SliderFieldRoot}--orientation-${orientation}--size-${size}`,
+            `${ComponentClassNames.SliderFieldRoot}--${orientation}`,
+            size ? `${ComponentClassNames.SliderFieldRoot}--${size}` : null,
             className
           )}
           data-testid={SLIDER_ROOT_TEST_ID}
@@ -127,8 +126,8 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
           <Track
             className={classNames(
               ComponentClassNames.SliderFieldTrack,
-              `${ComponentClassNames.SliderFieldTrack}--orientation-${orientation}`,
-              `${ComponentClassNames.SliderFieldTrack}--orientation-${orientation}--size-${size}`
+              `${ComponentClassNames.SliderFieldTrack}--${orientation}`,
+              size ? `${ComponentClassNames.SliderFieldTrack}--${size}` : null
             )}
             data-testid={SLIDER_TRACK_TEST_ID}
             style={{
@@ -139,7 +138,7 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
             <Range
               className={classNames(
                 ComponentClassNames.SliderFieldRange,
-                `${ComponentClassNames.SliderFieldRange}--orientation-${orientation}`
+                `${ComponentClassNames.SliderFieldRange}--${orientation}`
               )}
               data-testid={SLIDER_RANGE_TEST_ID}
               style={{ backgroundColor: filledTrackColor }}
@@ -151,7 +150,7 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
             aria-valuetext={ariaValuetext}
             className={classNames(
               ComponentClassNames.SliderFieldThumb,
-              `${ComponentClassNames.SliderFieldThumb}--size-${size}`
+              `${ComponentClassNames.SliderFieldThumb}--${size}`
             )}
             style={{ backgroundColor: thumbColor }}
           />

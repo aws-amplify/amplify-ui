@@ -34,9 +34,8 @@ const ToggleButtonPrimitive: Primitive<ToggleButtonProps, typeof Button> = (
       aria-pressed={isPressed}
       className={classNames(
         ComponentClassNames.ToggleButton,
-        `${ComponentClassNames.ToggleButton}--variation-${
-          variation || 'default'
-        }`,
+        variation ? `${ComponentClassNames.ToggleButton}--${variation}` : null,
+        isPressed ? `${ComponentClassNames.ToggleButton}--pressed` : null,
         className
       )}
       isDisabled={isDisabled}

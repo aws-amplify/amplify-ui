@@ -35,6 +35,7 @@ const FieldGroupPrimitive: Primitive<FieldGroupOptions, typeof Flex> = (
         ComponentClassNames.FieldGroup,
         fieldGroupHasInnerStartClassName,
         fieldGroupHasInnerEndClassName,
+        `${ComponentClassNames.FieldGroup}--${orientation}`,
         className
       )}
       data-orientation={orientation}
@@ -47,7 +48,10 @@ const FieldGroupPrimitive: Primitive<FieldGroupOptions, typeof Flex> = (
         </View>
       )}
       <View
-        className={ComponentClassNames.FieldGroupFieldWrapper}
+        className={classNames(
+          ComponentClassNames.FieldGroupFieldWrapper,
+          `${ComponentClassNames.FieldGroupFieldWrapper}--${orientation}`
+        )}
         data-orientation={orientation}
       >
         {innerStartComponent && (

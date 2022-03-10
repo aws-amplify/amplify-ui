@@ -9,14 +9,14 @@ const DividerPrimitive: Primitive<DividerProps, 'hr'> = (
   { className, orientation = 'horizontal', size, ...rest },
   ref
 ) => {
-  size = size || 'default';
   return (
     <View
       aria-orientation={orientation}
       as="hr"
       className={classNames(
         ComponentClassNames.Divider,
-        `${ComponentClassNames.Divider}--orientation-${orientation}--size-${size}`,
+        `${ComponentClassNames.Divider}--${orientation}`,
+        size ? `${ComponentClassNames.Divider}--${size}` : null,
         className
       )}
       data-size={size}

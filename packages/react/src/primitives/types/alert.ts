@@ -2,12 +2,7 @@ import * as React from 'react';
 
 import { FlexProps } from './flex';
 
-export type AlertVariations =
-  | 'info'
-  | 'error'
-  | 'warning'
-  | 'success'
-  | 'default';
+export type AlertVariations = 'info' | 'error' | 'warning' | 'success';
 
 export interface AlertProps extends FlexProps {
   /**

@@ -9,36 +9,35 @@
   padding: var(--amplify-components-badge-padding-vertical)
     var(--amplify-components-badge-padding-horizontal);
   text-align: var(--amplify-components-badge-text-align);
-}
+  &--info {
+    color: var(--amplify-components-badge-info-color);
+    background-color: var(--amplify-components-badge-info-background-color);
+  }
 
-.amplify-badge--variation-info {
-  color: var(--amplify-components-badge-info-color);
-  background-color: var(--amplify-components-badge-info-background-color);
-}
+  &--error {
+    color: var(--amplify-components-badge-error-color);
+    background-color: var(--amplify-components-badge-error-background-color);
+  }
 
-.amplify-badge--variation-error {
-  color: var(--amplify-components-badge-error-color);
-  background-color: var(--amplify-components-badge-error-background-color);
-}
+  &--warning {
+    color: var(--amplify-components-badge-warning-color);
+    background-color: var(--amplify-components-badge-warning-background-color);
+  }
 
-.amplify-badge--variation-warning {
-  color: var(--amplify-components-badge-warning-color);
-  background-color: var(--amplify-components-badge-warning-background-color);
-}
+  &--success {
+    color: var(--amplify-components-badge-success-color);
+    background-color: var(--amplify-components-badge-success-background-color);
+  }
 
-.amplify-badge--variation-success {
-  color: var(--amplify-components-badge-success-color);
-  background-color: var(--amplify-components-badge-success-background-color);
-}
+  &--small {
+    font-size: var(--amplify-components-badge-small-font-size);
+    padding: var(--amplify-components-badge-small-padding-vertical)
+      var(--amplify-components-badge-small-padding-horizontal);
+  }
 
-.amplify-badge--size-small {
-  font-size: var(--amplify-components-badge-small-font-size);
-  padding: var(--amplify-components-badge-small-padding-vertical)
-    var(--amplify-components-badge-small-padding-horizontal);
-}
-
-.amplify-badge--size-large {
-  font-size: var(--amplify-components-badge-large-font-size);
-  padding: var(--amplify-components-badge-large-padding-vertical)
-    var(--amplify-components-badge-large-padding-horizontal);
+  &--large {
+    font-size: var(--amplify-components-badge-large-font-size);
+    padding: var(--amplify-components-badge-large-padding-vertical)
+      var(--amplify-components-badge-large-padding-horizontal);
+  }
 }

@@ -1,3 +1,5 @@
+@import 'fieldControl';
+
 .amplify-select__wrapper {
   flex: var(--amplify-components-select-wrapper-flex);
   display: var(--amplify-components-select-wrapper-display);
@@ -15,7 +17,7 @@
 }
 
 .amplify-select {
-  @extend %amplify-field-control;
+  @include amplify-field-control;
   // default styles
   min-width: var(--amplify-components-select-min-width);
   padding-inline-end: var(--amplify-components-select-padding-inline-end);
@@ -29,12 +31,11 @@
       );
     }
   }
-}
+  &--small {
+    min-width: var(--amplify-components-select-small-min-width);
+  }
 
-.amplify-select--size-small {
-  min-width: var(--amplify-components-select-small-min-width);
-}
-
-.amplify-select--size-large {
-  min-width: var(--amplify-components-select-large-min-width);
+  &--large {
+    min-width: var(--amplify-components-select-large-min-width);
+  }
 }

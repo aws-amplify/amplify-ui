@@ -22,13 +22,12 @@ const CheckboxFieldPrimitive: Primitive<CheckboxFieldProps, 'input'> = (
   ref
 ) => {
   const checkboxTestId = useTestId(testId, ComponentClassNames.Checkbox);
-  size = size || 'default';
   return (
     <Flex
       className={classNames(
         ComponentClassNames.Field,
         ComponentClassNames.CheckboxField,
-        `${ComponentClassNames.Field}--size-${size}`,
+        size ? `${ComponentClassNames.Field}--${size}` : null,
         className
       )}
       data-size={size}

@@ -53,7 +53,11 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
   return (
     <Flex
       as="label"
-      className={classNames(ComponentClassNames.Checkbox, className)}
+      className={classNames(
+        ComponentClassNames.Checkbox,
+        isDisabled ? `${ComponentClassNames.Checkbox}--disabled` : null,
+        className
+      )}
       data-disabled={isDisabled}
       data-label-position={labelPosition}
       testId={testId}
@@ -87,7 +91,12 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
       <Flex
         aria-hidden="true"
         as="span"
-        className={ComponentClassNames.CheckboxButton}
+        className={classNames(
+          ComponentClassNames.CheckboxButton,
+          isDisabled ? `${ComponentClassNames.CheckboxButton}--disabled` : null,
+          hasError ? `${ComponentClassNames.CheckboxButton}--error` : null,
+          dataFocus ? `${ComponentClassNames.CheckboxButton}--focused` : null
+        )}
         data-checked={dataChecked}
         data-disabled={isDisabled}
         data-focus={dataFocus}
@@ -95,7 +104,11 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
         testId={buttonTestId}
       >
         <IconCheck
-          className={ComponentClassNames.CheckboxIcon}
+          className={classNames(
+            ComponentClassNames.CheckboxIcon,
+            dataChecked ? `${ComponentClassNames.CheckboxIcon}--checked` : null,
+            isDisabled ? `${ComponentClassNames.CheckboxIcon}--disabled` : null
+          )}
           data-checked={dataChecked}
           data-disabled={isDisabled}
           data-testid={iconTestId}

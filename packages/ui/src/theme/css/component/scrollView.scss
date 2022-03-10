@@ -1,14 +1,13 @@
 .amplify-scrollview {
   display: block;
   overflow: scroll;
-}
+  &--horizontal {
+    overflow-x: scroll;
+    overflow-y: initial;
+  }
 
-.amplify-scrollview--orientation-horizontal {
-  overflow-x: scroll;
-  overflow-y: initial;
-}
-
-.amplify-scrollview--orientation-vertical {
-  overflow-x: initial;
-  overflow-y: scroll;
+  &--vertical {
+    overflow-x: initial;
+    overflow-y: scroll;
+  }
 }

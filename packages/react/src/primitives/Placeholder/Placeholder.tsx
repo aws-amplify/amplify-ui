@@ -12,13 +12,12 @@ const PlaceholderPrimitive: Primitive<PlaceholderProps, 'div'> = (
   if (isLoaded) {
     return <>{children}</>;
   }
-  size = size || 'default';
 
   return (
     <View
       className={classNames(
         ComponentClassNames.Placeholder,
-        `${ComponentClassNames.Placeholder}--size-${size}`,
+        size ? `${ComponentClassNames.Placeholder}--${size}` : null,
         className
       )}
       data-size={size}

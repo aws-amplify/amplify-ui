@@ -2,8 +2,11 @@
   cursor: var(--amplify-components-checkbox-cursor);
   align-items: var(--amplify-components-checkbox-align-items);
   gap: inherit;
-  &[data-disabled='true'] {
-    cursor: var(--amplify-components-checkbox-disabled-cursor);
+  --amplify-internal-checkbox-disabled-cursor: var(
+    --amplify-components-checkbox-disabled-cursor
+  );
+  &--disabled {
+    cursor: var(--amplify-internal-checkbox-disabled-cursor);
   }
   flex-direction: row-reverse;
 }
@@ -13,6 +16,12 @@
   align-items: var(--amplify-components-checkbox-button-align-items);
   justify-content: var(--amplify-components-checkbox-button-justify-content);
   color: var(--amplify-components-checkbox-button-color);
+  --amplify-internal-checkbox_button-focused-before-border-color: var(
+    --amplify-components-checkbox-button-focus-border-color
+  );
+  --amplify-internal-checkbox_button-focused-before-box-shadow: var(
+    --amplify-components-checkbox-button-focus-box-shadow
+  );
 
   &::before {
     content: '';
@@ -29,42 +38,46 @@
     border-color: var(--amplify-components-checkbox-button-before-border-color);
   }
 
-  &[data-focus='true']::before {
-    outline-color: var(
-      --amplify-components-checkbox-button-focus-outline-color
-    );
-    outline-style: var(
-      --amplify-components-checkbox-button-focus-outline-style
-    );
-    outline-width: var(
-      --amplify-components-checkbox-button-focus-outline-width
-    );
-    outline-offset: var(
-      --amplify-components-checkbox-button-focus-outline-offset
-    );
+  &--focused {
+    border-color: var(--amplify-components-checkbox-button-before-border-color);
+    &::before {
+      outline-color: var(
+        --amplify-components-checkbox-button-focus-outline-color
+      );
+      outline-style: var(
+        --amplify-components-checkbox-button-focus-outline-style
+      );
+      outline-width: var(
+        --amplify-components-checkbox-button-focus-outline-width
+      );
+      outline-offset: var(
+        --amplify-components-checkbox-button-focus-outline-offset
+      );
 
-    border-color: var(--amplify-components-checkbox-button-focus-border-color);
-    box-shadow: var(--amplify-components-checkbox-button-focus-box-shadow);
+      border-color: var(
+        --amplify-internal-checkbox_button-focused-before-border-color
+      );
+      box-shadow: var(
+        --amplify-internal-checkbox_button-focused-before-box-shadow
+      );
+    }
   }
 
-  &[data-error='true'] {
+  &--error {
     &::before {
       border-color: var(
         --amplify-components-checkbox-button-error-border-color
       );
     }
-
-    &[data-focus='true']::before {
-      border-color: var(
-        --amplify-components-checkbox-button-error-focus-border-color
-      );
-      box-shadow: var(
-        --amplify-components-checkbox-button-error-focus-box-shadow
-      );
-    }
+    --amplify-internal-checkbox_button-focused-before-border-color: var(
+      --amplify-components-checkbox-button-error-focus-border-color
+    );
+    --amplify-internal-checkbox_button-focused-before-box-shadow: var(
+      --amplify-components-checkbox-button-error-focus-box-shadow
+    );
   }
 
-  &[data-disabled='true']::before {
+  &--disabled::before {
     border-color: var(
       --amplify-components-checkbox-button-disabled-border-color
     );
@@ -86,15 +99,22 @@
     --amplify-components-checkbox-icon-transition-timing-function
   );
 
-  &[data-checked='true'] {
+  --amplify-internal-checkbox-icon-disabled-background-color: var(
+    --amplify-components-checkbox-icon-background-color
+  );
+
+  &--checked {
     opacity: var(--amplify-components-checkbox-icon-checked-opacity);
     transform: var(--amplify-components-checkbox-icon-checked-transform);
 
-    &[data-disabled='true'] {
-      background-color: var(
-        --amplify-components-checkbox-icon-checked-disabled-background-color
-      );
-    }
+    --amplify-internal-checkbox-icon-disabled-background-color: var(
+      --amplify-components-checkbox-icon-checked-disabled-background-color
+    );
+  }
+  &--disabled {
+    background-color: var(
+      --amplify-internal-checkbox-icon-disabled-background-color
+    );
   }
 }
 

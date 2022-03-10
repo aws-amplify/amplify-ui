@@ -46,7 +46,7 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, typeof Flex> = (
     <Flex
       className={classNames(
         ComponentClassNames.SwitchField,
-        `${ComponentClassNames.SwitchField}--size-${size}`,
+        `${ComponentClassNames.SwitchField}--${size}`,
         className
       )}
       data-size={size}
@@ -74,7 +74,12 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, typeof Flex> = (
       </VisuallyHidden>
       <Label
         htmlFor={fieldId}
-        className={ComponentClassNames.SwitchWrapper}
+        className={classNames(
+          ComponentClassNames.SwitchWrapper,
+          labelPosition
+            ? `${ComponentClassNames.SwitchWrapper}--${labelPosition}`
+            : null
+        )}
         data-label-position={labelPosition}
       >
         <LabelType as="span" className={ComponentClassNames.SwitchLabel}>
@@ -82,7 +87,12 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, typeof Flex> = (
         </LabelType>
         <View
           as="span"
-          className={ComponentClassNames.SwitchTrack}
+          className={classNames(
+            ComponentClassNames.SwitchTrack,
+            isOn ? `${ComponentClassNames.SwitchTrack}--checked` : null,
+            isDisabled ? `${ComponentClassNames.SwitchTrack}--disabled` : null,
+            isFocused ? `${ComponentClassNames.SwitchTrack}--focused` : null
+          )}
           data-checked={isOn}
           data-disabled={isDisabled}
           data-focused={isFocused}
@@ -90,7 +100,11 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, typeof Flex> = (
         >
           <View
             as="span"
-            className={ComponentClassNames.SwitchThumb}
+            className={classNames(
+              ComponentClassNames.SwitchThumb,
+              isOn ? `${ComponentClassNames.SwitchThumb}--checked` : null,
+              isDisabled ? `${ComponentClassNames.SwitchThumb}--disabled` : null
+            )}
             data-checked={isOn}
             data-disabled={isDisabled}
             backgroundColor={thumbColor}

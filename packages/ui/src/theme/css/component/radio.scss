@@ -25,6 +25,8 @@
   transition-duration: var(
     --amplify-components-radio-button-transition-duration
   );
+  width: var(--amplify-components-radio-button-width);
+  height: var(--amplify-components-radio-button-height);
 
   // For case where box shadow doesn't work
   // https://stackoverflow.com/questions/65663864/does-replacing-a-form-inputs-outline-with-box-shadow-violate-any-wcag-guideline
@@ -42,21 +44,16 @@
     background-color: currentColor;
     border-radius: 50%;
   }
-}
 
-.amplify-radio__button--size-default {
-  width: var(--amplify-components-radio-button-width);
-  height: var(--amplify-components-radio-button-height);
-}
+  &--small {
+    width: var(--amplify-components-radio-button-small-width);
+    height: var(--amplify-components-radio-button-small-height);
+  }
 
-.amplify-radio__button--size-small {
-  width: var(--amplify-components-radio-button-small-width);
-  height: var(--amplify-components-radio-button-small-height);
-}
-
-.amplify-radio__button--size-large {
-  width: var(--amplify-components-radio-button-large-width);
-  height: var(--amplify-components-radio-button-large-height);
+  &--large {
+    width: var(--amplify-components-radio-button-large-width);
+    height: var(--amplify-components-radio-button-large-height);
+  }
 }
 
 .amplify-radio__input:checked + .amplify-radio__button {

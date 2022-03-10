@@ -1,4 +1,5 @@
 import * as React from 'react';
+import classNames from 'classnames';
 
 import { Button } from '../Button';
 import { Flex } from '../Flex';
@@ -50,7 +51,7 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
             <Button
               className={
                 (ComponentClassNames.PaginationItemButton,
-                `${ComponentClassNames.PaginationItemButton}--variation-link`)
+                `${ComponentClassNames.PaginationItemButton}--link`)
               }
               size="small"
               variation="link"
@@ -83,7 +84,12 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
       return (
         <View as="li">
           <Button
-            className={ComponentClassNames.PaginationItemButton}
+            className={classNames(
+              ComponentClassNames.PaginationItemButton,
+              isDisabled
+                ? `${ComponentClassNames.PaginationItemButton}--disabled`
+                : null
+            )}
             size="small"
             variation="link"
             isDisabled={isDisabled}

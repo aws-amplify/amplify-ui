@@ -76,11 +76,11 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
     <Flex
       className={classNames(
         ComponentClassNames.Field,
-        `${ComponentClassNames.Field}--size-${size || 'default'}`,
+        size ? `${ComponentClassNames.Field}--${size}` : null,
         ComponentClassNames.StepperField,
         className
       )}
-      data-size={size || 'default'}
+      data-size={size}
       data-variation={variation}
       testId={testId}
       {...flexContainerStyleProps}
@@ -100,7 +100,12 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
             ariaLabel={`${SharedText.StepperField.ariaLabel.DecreaseTo} ${
               value - step
             }`}
-            className={ComponentClassNames.StepperFieldButtonDecrease}
+            className={classNames(
+              ComponentClassNames.StepperFieldButtonDecrease,
+              variation
+                ? `${ComponentClassNames.StepperFieldButtonDecrease}--${variation}`
+                : null
+            )}
             data-invalid={hasError}
             isDisabled={shouldDisableDecreaseButton}
             onClick={handleDecrease}
@@ -115,7 +120,12 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
             ariaLabel={`${SharedText.StepperField.ariaLabel.IncreaseTo} ${
               value + step
             }`}
-            className={ComponentClassNames.StepperFieldButtonIncrease}
+            className={classNames(
+              ComponentClassNames.StepperFieldButtonIncrease,
+              variation
+                ? `${ComponentClassNames.StepperFieldButtonIncrease}--${variation}`
+                : null
+            )}
             data-invalid={hasError}
             isDisabled={shouldDisableIncreaseButton}
             onClick={handleIncrease}

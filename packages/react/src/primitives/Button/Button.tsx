@@ -22,8 +22,6 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
   },
   ref
 ) => {
-  variation = variation || 'default';
-  size = size || 'default';
   return (
     <View
       ref={ref}
@@ -31,8 +29,13 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
       className={classNames(
         ComponentClassNames.Button,
         ComponentClassNames.FieldGroupControl,
-        `${ComponentClassNames.Button}--variation-${variation}`,
-        `${ComponentClassNames.Button}--size-${size}`,
+        variation ? `${ComponentClassNames.Button}--${variation}` : null,
+        size ? `${ComponentClassNames.Button}--${size}` : null,
+        isDisabled || isLoading
+          ? `${ComponentClassNames.Button}--disabled`
+          : null,
+        isLoading ? `${ComponentClassNames.Button}--loading` : null,
+        isFullWidth ? `${ComponentClassNames.Button}--fullwidth` : null,
         className
       )}
       data-fullwidth={isFullWidth}

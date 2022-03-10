@@ -9,13 +9,13 @@ const TextPrimitive: Primitive<TextProps, 'p'> = (
   { as = 'p', className, children, isTruncated, variation, ...rest },
   ref
 ) => {
-  variation = variation || 'default';
   return (
     <View
       as={as}
       className={classNames(
         ComponentClassNames.Text,
-        `${ComponentClassNames.Text}-variation-${variation}`,
+        `${ComponentClassNames.Text}--${variation}`,
+        isTruncated ? `${ComponentClassNames.Text}--truncated` : null,
         className
       )}
       data-truncate={isTruncated}

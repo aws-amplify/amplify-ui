@@ -28,7 +28,7 @@ const HeadingPrimitive: Primitive<HeadingProps, HeadingTag> = (
     as={headingLevels[level]}
     className={classNames(
       ComponentClassNames.Heading,
-      `${ComponentClassNames.Heading}--size-${level}`,
+      `${ComponentClassNames.Heading}--${level}`,
       className
     )}
     ref={ref}
