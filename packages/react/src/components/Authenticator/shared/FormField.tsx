@@ -16,7 +16,7 @@ export function FormField({ name, formFieldOptions }: FormFieldProps) {
   const { type } = formFieldOptions;
 
   const errorArray = getErrorArray(validationErrors[name]);
-  const hasError = errorArray && errorArray.length == 0;
+  const hasError = errorArray?.length > 0;
 
   if (type === 'tel') {
     return (
