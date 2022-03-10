@@ -12,7 +12,7 @@ export const FieldDescription: React.FC<FieldDescriptionProps> = ({
   labelHidden,
   ...rest
 }) =>
-  !labelHidden && descriptiveText ? (
+  descriptiveText ? (
     <Text
       data-testid={QA_FIELD_DESCRIPTION}
       className={classNames(ComponentClassNames.FieldDescription, {
