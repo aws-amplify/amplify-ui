@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { toRefs } from 'vue';
+import { toRefs, computed } from 'vue';
 import { createSharedComposable } from '@vueuse/core';
 
-import { FormFieldOptions, translate } from '@aws-amplify/ui';
+import { FormFieldOptions, getErrors, translate } from '@aws-amplify/ui';
 import { useAuthenticator } from '../../composables/useAuth';
 import PasswordControl from '../password-control.vue';
 import AliasControl from '../alias-control.vue';
@@ -23,6 +23,7 @@ const { validationErrors } = toRefs(useAuthShared());
 
 const { type } = formField.value;
 
+const errors = computed(() => getErrors(validationErrors.value[name.value]));
 const isPasswordField = type === 'password';
 </script>
 <template>
@@ -53,12 +54,15 @@ const isPasswordField = type === 'password';
   ></alias-control>
 
   <!-- Validation error, if any -->
-  <p
-    role="alert"
-    data-variation="error"
-    class="amplify-text"
-    v-if="!!validationErrors[name]"
-  >
-    {{ translate(validationErrors[name]) }}
-  </p>
+  <div v-if="errors?.length > 0">
+    <p
+      v-for="(error, idx) in errors"
+      :key="idx"
+      role="alert"
+      data-variation="error"
+      class="amplify-text"
+    >
+      {{ translate(error) }}
+    </p>
+  </div>
 </template>
