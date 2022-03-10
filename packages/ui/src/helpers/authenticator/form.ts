@@ -42,3 +42,16 @@ export const isAuthFieldWithDefaults = (
 ): field is AuthFieldsWithDefaults => {
   return authFieldsWithDefaults.includes(field as AuthFieldsWithDefaults);
 };
+
+const isArray = <T>(val: T | T[]): val is T[] => {
+  return Array.isArray(val);
+};
+
+export const getErrorArray = (errors: string | string[]) => {
+  if (!errors) return null;
+  if (isArray(errors)) {
+    return errors;
+  } else {
+    return [errors];
+  }
+};
