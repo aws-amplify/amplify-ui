@@ -5,12 +5,12 @@ import { FieldDescription, QA_FIELD_DESCRIPTION } from '../FieldDescription';
 import { ComponentClassNames } from '../../shared/constants';
 
 describe('FieldDescription component', () => {
-  it('should not render if it has a "labelHidden" prop is `true`', async () => {
+  it('should render if it has a "labelHidden" prop is `true`, as long as there\'s descriptiveText', async () => {
     const { queryByTestId } = render(
       <FieldDescription descriptiveText="some description" labelHidden={true} />
     );
     const descriptionElement = queryByTestId(QA_FIELD_DESCRIPTION);
-    expect(descriptionElement).toBeNull();
+    expect(descriptionElement).toHaveClass(ComponentClassNames.VisuallyHidden);
   });
 
   it('should not be hidden if it has a "labelHidden" prop is `false`', async () => {

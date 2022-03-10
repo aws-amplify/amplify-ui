@@ -118,7 +118,6 @@ const onForgotPasswordClicked = (): void => {
           <base-field-set
             :disabled="actorState.matches('signIn.submit')"
             class="amplify-flex"
-            p
             style="flex-direction: column"
           >
             <template #fieldSetI="{ slotData }">
