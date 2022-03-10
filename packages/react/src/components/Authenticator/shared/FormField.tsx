@@ -1,4 +1,4 @@
-import { FormFieldOptions, getErrorArray } from '@aws-amplify/ui';
+import { FormFieldOptions, getErrors } from '@aws-amplify/ui';
 import {
   PasswordField,
   PhoneNumberField,
@@ -15,7 +15,7 @@ export function FormField({ name, formFieldOptions }: FormFieldProps) {
   const { validationErrors } = useAuthenticator();
   const { type } = formFieldOptions;
 
-  const errors = getErrorArray(validationErrors[name]);
+  const errors = getErrors(validationErrors[name]);
   const hasError = errors?.length > 0;
 
   if (type === 'tel') {

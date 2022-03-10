@@ -47,7 +47,7 @@ const isArray = <T>(val: T | T[]): val is T[] => {
   return Array.isArray(val);
 };
 
-export const getErrorArray = (errors: string | string[]) => {
+export const getErrors = (errors: string | string[]) => {
   if (!errors) return null;
   if (isArray(errors)) {
     return errors;

@@ -3,7 +3,7 @@ import {
   translate,
   countryDialCodes,
   FormFieldOptions,
-  getErrorArray,
+  getErrors,
 } from '@aws-amplify/ui';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 
@@ -22,7 +22,7 @@ export class FormFieldComponent {
 
   get errors(): string[] {
     const { validationErrors } = this.authenticator;
-    return getErrorArray(validationErrors[this.name]);
+    return getErrors(validationErrors[this.name]);
   }
 
   public onBlur($event: Event) {

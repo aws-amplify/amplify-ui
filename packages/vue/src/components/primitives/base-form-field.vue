@@ -2,7 +2,7 @@
 import { toRefs, computed } from 'vue';
 import { createSharedComposable } from '@vueuse/core';
 
-import { FormFieldOptions, getErrorArray, translate } from '@aws-amplify/ui';
+import { FormFieldOptions, getErrors, translate } from '@aws-amplify/ui';
 import { useAuthenticator } from '../../composables/useAuth';
 import PasswordControl from '../password-control.vue';
 import AliasControl from '../alias-control.vue';
@@ -23,9 +23,7 @@ const { validationErrors } = toRefs(useAuthShared());
 
 const { type } = formField.value;
 
-const errors = computed(() =>
-  getErrorArray(validationErrors.value[name.value])
-);
+const errors = computed(() => getErrors(validationErrors.value[name.value]));
 const isPasswordField = type === 'password';
 </script>
 <template>
