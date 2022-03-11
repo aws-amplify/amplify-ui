@@ -4,16 +4,16 @@ import { useAuthenticator } from '..';
 import { Button, Flex, View } from '../../..';
 import { FederatedSignIn } from '../FederatedSignIn';
 import { RemoteErrorMessage } from '../shared';
-import { FormFields } from './FormFields';
 import {
   isInputOrSelectElement,
   isInputElement,
   getFormDataFromEvent,
 } from '../../../helpers/utils';
 import { useCustomComponents } from '../hooks/useCustomComponents';
+import { FormFields } from '../shared/FormFields';
 
 export function SignUp() {
-  const { hasValidationErrors, isPending, submitForm, updateForm, _state } =
+  const { hasValidationErrors, isPending, submitForm, updateForm, updateBlur } =
     useAuthenticator();
 
   const {
@@ -36,9 +36,13 @@ export function SignUp() {
       ) {
         value = undefined;
       }
-
       updateForm({ name, value });
     }
+  };
+
+  const handleBlur = (event: React.FocusEvent<HTMLFormElement>) => {
+    const { name } = event.target;
+    updateBlur({ name });
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -56,6 +60,7 @@ export function SignUp() {
         method="post"
         onChange={handleChange}
         onSubmit={handleSubmit}
+        onBlur={handleBlur}
       >
         <FederatedSignIn />
 
@@ -88,5 +93,5 @@ export function SignUp() {
 }
 
 SignUp.Header = (): JSX.Element => null;
-SignUp.FormFields = FormFields;
+SignUp.FormFields = () => <FormFields route="signUp" />;
 SignUp.Footer = (): JSX.Element => null;

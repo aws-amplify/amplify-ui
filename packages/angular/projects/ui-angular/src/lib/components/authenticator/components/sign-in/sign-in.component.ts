@@ -9,9 +9,8 @@ import {
   translate,
   hasTranslation,
   getFormDataFromEvent,
-  getActorState,
-  FormFieldOptions,
-  FormField,
+  FormFieldsArray,
+  getSortedFormFields,
 } from '@aws-amplify/ui';
 
 @Component({
@@ -19,7 +18,7 @@ import {
   templateUrl: './sign-in.component.html',
   encapsulation: ViewEncapsulation.None,
 })
-export class SignInComponent implements OnInit {
+export class SignInComponent {
   @HostBinding('attr.data-amplify-authenticator-signin') dataAttr = '';
 
   // translated phrases
@@ -28,30 +27,9 @@ export class SignInComponent implements OnInit {
     ? translate('Forgot your password?')
     : translate('Forgot your password? ');
   public signInButtonText = translate('Sign in');
-  public userOverrides: FormFieldOptions;
-  public passwordOR: FormFieldOptions;
-  public formOverrides: FormField;
+  public sortedFormFields: FormFieldsArray;
 
   constructor(public authenticator: AuthenticatorService) {}
-
-  ngOnInit(): void {
-    this.setFormFields();
-  }
-
-  public setFormFields() {
-    const _state = this.authenticator.authState;
-    this.formOverrides = getActorState(_state).context?.formFields?.signIn;
-    this.userOverrides = this.formOverrides?.['username'];
-    this.passwordOR = this.formOverrides?.['password'];
-  }
-
-  public labelHidden(name: string, defaultV = true) {
-    return this.formOverrides?.[name]?.labelHidden ?? defaultV;
-  }
-
-  public required(name: string, defaultV = true) {
-    return this.formOverrides?.[name]?.required ?? defaultV;
-  }
 
   public get context() {
     return this.authenticator.slotContext;

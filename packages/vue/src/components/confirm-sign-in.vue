@@ -6,22 +6,16 @@ import {
   SignInState,
   translate,
 } from '@aws-amplify/ui';
-import { computed, ComputedRef, useAttrs } from 'vue';
+import { computed, ComputedRef, useAttrs, onBeforeMount } from 'vue';
 import { createSharedComposable } from '@vueuse/core';
 
 import { useAuth, useAuthenticator } from '../composables/useAuth';
+import BaseFormFields from './primitives/base-form-fields.vue';
 
 const emit = defineEmits(['confirmSignInSubmit', 'backToSignInClicked']);
 const attrs = useAttrs();
 
 const { state, send } = useAuth();
-
-const {
-  value: { context },
-} = state;
-
-const formOverrides = context?.config?.formFields?.confirmSignIn;
-const confOR = formOverrides?.['confirmation_code'];
 
 const useAuthShared = createSharedComposable(useAuthenticator);
 const props = useAuthShared();
@@ -41,10 +35,6 @@ const confirmSignInHeading = `Confirm ${mfaType} Code`;
 // Computed Properties
 const backSignInText = computed(() => translate('Back to Sign In'));
 const confirmText = computed(() => translate('Confirm'));
-const codeText = computed(() => translate('Code'));
-
-const label = confOR?.label ?? translate('Code *');
-const labelHidden = confOR?.labelHidden;
 
 // Methods
 const onInput = (e: Event): void => {
@@ -98,30 +88,7 @@ const onBackToSignInClicked = (): void => {
             </base-heading>
           </slot>
           <base-wrapper class="amplify-flex" style="flex-direction: column">
-            <base-wrapper
-              class="amplify-flex amplify-field amplify-textfield"
-              style="flex-direction: column"
-            >
-              <base-label
-                class="amplify-label"
-                :class="{ 'amplify-visually-hidden': labelHidden ?? true }"
-                for="amplify-field-51ee"
-              >
-                {{ label }}
-              </base-label>
-              <base-wrapper class="amplify-flex" style="flex-direction: column">
-                <base-input
-                  :placeholder="confOR?.placeholder ?? codeText"
-                  :required="confOR?.required ?? true"
-                  class="amplify-input amplify-field-group__control"
-                  id="amplify-field-51ee"
-                  aria-invalid="false"
-                  name="confirmation_code"
-                  autocomplete="one-time-code"
-                  type="number"
-                ></base-input>
-              </base-wrapper>
-            </base-wrapper>
+            <base-form-fields route="confirmSignIn"></base-form-fields>
           </base-wrapper>
           <base-footer class="amplify-flex" style="flex-direction: column">
             <base-alert v-if="actorState?.context?.remoteError">
