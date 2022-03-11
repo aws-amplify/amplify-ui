@@ -28,7 +28,7 @@ export function FormField({ name, formFieldOptions }: FormFieldProps) {
           defaultCountryCode={formFieldOptions.dialCode}
           countryCodeName="country_code"
           dialCodeList={formFieldOptions.dialCodeList}
-          autoComplete={formFieldOptions.autocomplete as string}
+          autoComplete={formFieldOptions.autocomplete}
           isRequired={formFieldOptions.isRequired}
           labelHidden={formFieldOptions.labelHidden}
           hasError={hasError}
@@ -42,7 +42,7 @@ export function FormField({ name, formFieldOptions }: FormFieldProps) {
         <PasswordField
           name={name}
           label={formFieldOptions.label}
-          autoComplete={formFieldOptions.autocomplete as string}
+          autoComplete={formFieldOptions.autocomplete}
           placeholder={formFieldOptions.placeholder}
           isRequired={formFieldOptions.isRequired}
           labelHidden={formFieldOptions.labelHidden}
@@ -58,7 +58,7 @@ export function FormField({ name, formFieldOptions }: FormFieldProps) {
           name={name}
           label={formFieldOptions.label}
           placeholder={formFieldOptions.placeholder}
-          autoComplete={formFieldOptions.autocomplete as string}
+          autoComplete={formFieldOptions.autocomplete}
           isRequired={formFieldOptions.isRequired}
           labelHidden={formFieldOptions.labelHidden}
           hasError={hasError}

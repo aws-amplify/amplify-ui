@@ -35,7 +35,7 @@ const isPasswordField = type === 'password';
     :placeholder="formField.placeholder!"
     :required="formField.isRequired!"
     :label-hidden="formField.labelHidden!"
-    :autocomplete="formField.autocomplete as string"
+    :autocomplete="formField.autocomplete!"
     :ariainvalid="!!validationErrors[name]"
   ></password-control>
 
@@ -47,7 +47,7 @@ const isPasswordField = type === 'password';
     :placeholder="formField.placeholder"
     :required="formField.isRequired"
     :label-hidden="formField.labelHidden"
-    :autocomplete="(formField.autocomplete as string)"
+    :autocomplete="formField.autocomplete"
     :dial-code="formField.dialCode"
     :dial-code-list="formField.dialCodeList"
     :type="formField.type"
