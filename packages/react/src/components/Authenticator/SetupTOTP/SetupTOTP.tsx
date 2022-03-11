@@ -4,21 +4,17 @@ import * as React from 'react';
 import { Auth, Logger } from 'aws-amplify';
 import { getActorState, SignInState, translate } from '@aws-amplify/ui';
 
-import { useAuthenticator } from '..';
+import { useAuthenticator } from '../hooks/useAuthenticator';
 import { Flex, Heading } from '../../..';
 import {
   isInputOrSelectElement,
   isInputElement,
   getFormDataFromEvent,
-  confPropsCreator,
 } from '../../../helpers/utils';
 
-import {
-  ConfirmationCodeInput,
-  ConfirmSignInFooter,
-  RemoteErrorMessage,
-} from '../shared';
+import { ConfirmSignInFooter, RemoteErrorMessage } from '../shared';
 import { useCustomComponents } from '../hooks/useCustomComponents';
+import { FormFields } from '../shared/FormFields';
 
 const logger = new Logger('SetupTOTP-logger');
 
@@ -134,14 +130,7 @@ export const SetupTOTP = (): JSX.Element => {
               </svg>
             </Flex>
           </Flex>
-          <ConfirmationCodeInput
-            {...confPropsCreator(
-              'confirmation_code',
-              'Code',
-              'Code *',
-              formOverrides
-            )}
-          />
+          <FormFields route="setupTOTP" />
           <RemoteErrorMessage />
         </Flex>
 

@@ -34,14 +34,7 @@
       </div>
     </div>
 
-    <amplify-form-field
-      name="confirmation_code"
-      autocomplete="one-time-code"
-      [labelHidden]="grabField('confirmation_code', 'labelHidden', true)"
-      [placeholder]="grabField('confirmation_code', 'placeholder', null)"
-      [required]="grabField('confirmation_code', 'required', true)"
-      [label]="grabField('confirmation_code', 'label', 'Code *')"
-    ></amplify-form-field>
+    <amplify-base-form-fields route="setupTOTP"></amplify-base-form-fields>
     <button amplify-button variation="primary" fullWidth="true" type="submit">
       {{ confirmText }}
     </button>

@@ -1,3 +1,5 @@
+import { AuthFieldsWithDefaults } from './attributes';
+
 /**
  * Map of each input name to its value
  */
@@ -20,15 +22,16 @@ export type FormFieldComponents =
 /**
  * Used to customize form field attributes for each authenticator screen.
  */
-export type FormFields = {
-  [key in FormFieldComponents]?: FormField;
+export type AuthFormFields = {
+  [key in FormFieldComponents]?: FormFields;
 };
 
 /**
  * Override option for each screen. Maps each input to override options.
  */
-export interface FormField {
-  [key: string]: FormFieldOptions;
+export interface FormFields {
+  // TODO(breaking): `name` should be part of `FormFieldsOptions` instead of as a key here.
+  [field_name: string]: FormFieldOptions;
 }
 
 /**
@@ -57,7 +60,20 @@ export interface FormFieldOptions {
   dialCodeList?: Array<string>;
   /** Integer that denotes where this field should be positioned in. */
   order?: number;
+  /** Desired HTML input type */
+  type?: string;
+  /** Desired autocomplete HTML attribute */
+  autocomplete?: string;
 }
+
+/** Default formField values for each supported auth field */
+export type DefaultFormFieldOptions = Record<
+  AuthFieldsWithDefaults,
+  FormFieldOptions
+>;
+
+/** Ordered list of formFields */
+export type FormFieldsArray = Array<[string, FormFieldOptions]>;
 
 export type PasswordPolicyRules =
   | 'REQUIRES_LOWERCASE'

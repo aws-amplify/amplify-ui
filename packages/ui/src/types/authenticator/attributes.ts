@@ -51,23 +51,13 @@ export type LoginMechanism = typeof LoginMechanismArray[number];
 /** List of social provider Authenticator supports */
 export type SocialProvider = 'amazon' | 'apple' | 'facebook' | 'google';
 
+export const authFieldsWithDefaults = [
+  ...LoginMechanismArray,
+  ...signUpFieldsWithDefault,
+  'confirmation_code',
+  'password',
+  'confirm_password',
+] as const;
+
 /** Input fields that we provide default fields with */
-export type AuthFieldsWithDefaults =
-  | LoginMechanism
-  | SignUpFieldsWithDefaults
-  | 'confirmation_code'
-  | 'password';
-
-/** Maps default attributes values for an input */
-export interface InputAttributeDefaults {
-  label: string;
-  type: string;
-  placeholder: string;
-  autocomplete?: string;
-}
-
-/** Maps default attribute values for each Auth Field */
-export type AuthInputAttributes = Record<
-  AuthFieldsWithDefaults,
-  InputAttributeDefaults
->;
+export type AuthFieldsWithDefaults = typeof authFieldsWithDefaults[number];

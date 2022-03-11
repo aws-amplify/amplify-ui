@@ -4,7 +4,7 @@ import {
   AuthContext,
   AuthEvent,
   CognitoUserAmplify,
-  FormFields,
+  AuthFormFields,
 } from '../../types';
 import { stopActor } from './actions';
 import { resetPasswordActor, signInActor, signOutActor } from './actors';
@@ -326,7 +326,7 @@ export function createAuthenticatorMachine() {
   );
 }
 
-function convertFormFields(formFields: FormFields): FormFields {
+function convertFormFields(formFields: AuthFormFields): AuthFormFields {
   if (formFields) {
     Object.keys(formFields).forEach((component: string) => {
       Object.keys(formFields[component]).forEach((inputName) => {
