@@ -1,5 +1,5 @@
 import { ValidationError } from '../validator';
-import { AuthFormData, FormFields } from '../form';
+import { AuthFormData, AuthFormFields } from '../form';
 import { AuthChallengeNames, CognitoUserAmplify } from '../user';
 import { CodeDeliveryDetails } from 'amazon-cognito-identity-js';
 import { LoginMechanism, SignUpAttribute, SocialProvider } from '../attributes';
@@ -28,7 +28,7 @@ export interface AuthContext {
     loginMechanisms?: LoginMechanism[];
     signUpAttributes?: SignUpAttribute[];
     socialProviders?: SocialProvider[];
-    formFields?: FormFields;
+    formFields?: AuthFormFields;
     initialState?: 'signIn' | 'signUp' | 'resetPassword';
     passwordSettings?: PasswordSettings;
   };
@@ -75,7 +75,7 @@ interface BaseFormContext {
 export interface SignInContext extends BaseFormContext {
   loginMechanisms: Required<AuthContext>['config']['loginMechanisms'];
   socialProviders: Required<AuthContext>['config']['socialProviders'];
-  formFields?: FormFields;
+  formFields?: AuthFormFields;
   attributeToVerify?: string;
   redirectIntent?: string;
   unverifiedAttributes?: Record<string, string>;
@@ -83,14 +83,14 @@ export interface SignInContext extends BaseFormContext {
 export interface SignUpContext extends BaseFormContext {
   loginMechanisms: Required<AuthContext>['config']['loginMechanisms'];
   socialProviders: Required<AuthContext>['config']['socialProviders'];
-  formFields: FormFields;
+  formFields: AuthFormFields;
   unverifiedAttributes?: Record<string, string>;
 }
 
 export interface ResetPasswordContext extends BaseFormContext {
   username?: string;
   unverifiedAttributes?: Record<string, string>;
-  formFields?: FormFields;
+  formFields?: AuthFormFields;
 }
 
 export interface SignOutContext {
@@ -98,7 +98,7 @@ export interface SignOutContext {
   challengeName?: string;
   unverifiedAttributes?: Record<string, string>;
   user?: CognitoUserAmplify;
-  formFields?: FormFields;
+  formFields?: AuthFormFields;
 }
 
 /**

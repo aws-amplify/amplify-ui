@@ -1,7 +1,7 @@
 import {
   AuthContext,
   AuthEvent,
-  AuthInputAttributes,
+  DefaultFormFieldOptions,
   SignInState,
   SignUpState,
 } from '@aws-amplify/ui';
@@ -21,7 +21,6 @@ export interface SignUpSetupReturnTypes {
   haveAccountLabel: ComputedRef<string>;
   createAccountLabel: ComputedRef<string>;
   signUpButtonText: ComputedRef<string>;
-  inputAttributes: ComputedRef<AuthInputAttributes>;
 }
 
 export type InternalSlots = {
@@ -41,7 +40,7 @@ export interface VerifyUserSetupReturnTypes {
   verifyHeading: ComputedRef<string>;
   skipText: ComputedRef<string>;
   verifyText: ComputedRef<string>;
-  authInputAttributes: AuthInputAttributes;
+  defaultFormFieldOptions: DefaultFormFieldOptions;
 }
 
 export type InterpretService = Interpreter<

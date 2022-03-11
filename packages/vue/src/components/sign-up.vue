@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { computed, useAttrs, toRefs } from 'vue';
+import { createSharedComposable } from '@vueuse/core';
 import { translate, getFormDataFromEvent } from '@aws-amplify/ui';
 
 import FederatedSignIn from './federated-sign-in.vue';
 import AuthenticatorSignUpFormFields from './authenticator-sign-up-form-fields.vue';
 
 import { useAuthenticator } from '../composables/useAuth';
-import { createSharedComposable } from '@vueuse/core';
+
 const useAuthShared = createSharedComposable(useAuthenticator);
 const facadeValues = useAuthShared();
 const props = useAuthShared();
@@ -28,6 +29,12 @@ const onInput = (e: Event): void => {
     (value as string | undefined) = undefined;
   props.updateForm({ name, value });
 };
+
+function onBlur(e: Event) {
+  const { name } = <HTMLInputElement>e.target;
+  props.updateBlur({ name });
+}
+
 const onSignUpSubmit = (e: Event): void => {
   if (attrs?.onSignUpSubmit) {
     emit('signUpSubmit', e);
@@ -46,7 +53,11 @@ const submit = (e: Event): void => {
     <slot name="header"></slot>
 
     <base-wrapper v-bind="$attrs">
-      <base-form @input="onInput" @submit.prevent="onSignUpSubmit">
+      <base-form
+        @input="onInput"
+        @blur.capture="onBlur"
+        @submit.prevent="onSignUpSubmit"
+      >
         <federated-sign-in></federated-sign-in>
 
         <base-wrapper class="amplify-flex" style="flex-direction: column">
