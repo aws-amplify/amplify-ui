@@ -1,21 +1,4 @@
-import {
-  AuthEventData,
-  FormField,
-  LoginMechanism,
-  LoginMechanismArray,
-  translate,
-} from '@aws-amplify/ui';
-
-/**
- * If 'username' is the only login mechanism, then we ask for a user's
- * email and phone number during sign up as well.
- */
-export const useAliases = (
-  login_mechanisms: LoginMechanism[]
-): LoginMechanism[] =>
-  login_mechanisms?.length === 1 && login_mechanisms[0] === 'username'
-    ? [...LoginMechanismArray]
-    : login_mechanisms;
+import { AuthEventData } from '@aws-amplify/ui';
 
 export const facade = {
   error: '',
@@ -47,27 +30,4 @@ export const facade = {
   skipVerification: (data?: AuthEventData) => null,
   submit: (data?: AuthEventData) => null,
   submitForm: (data?: AuthEventData) => null,
-};
-
-interface fieldProps {
-  labelHidden: boolean;
-  isRequired?: boolean;
-  label: string;
-  placeholder: string;
-  required?: boolean; // TextField input sometimes uses required instead of isRequired
-}
-
-export const propsCreator = (
-  name: string,
-  show: string,
-  formOverrides: FormField,
-  labelHiddenDefault: boolean = false
-): fieldProps => {
-  const fo = formOverrides?.[name];
-  return {
-    labelHidden: fo?.labelHidden ?? labelHiddenDefault,
-    required: fo?.required ?? true,
-    label: fo?.label ?? translate(show),
-    placeholder: fo?.placeholder ?? translate(show),
-  };
 };

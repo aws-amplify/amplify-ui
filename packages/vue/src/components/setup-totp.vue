@@ -12,6 +12,7 @@ import {
 } from '@aws-amplify/ui';
 
 import { useAuth, useAuthenticator } from '../composables/useAuth';
+import BaseFormFields from './primitives/base-form-fields.vue';
 
 const useAuthShared = createSharedComposable(useAuthenticator);
 const props = useAuthShared();
@@ -155,29 +156,7 @@ const onBackToSignInClicked = (): void => {
                     </svg>
                   </base-wrapper>
                 </base-wrapper>
-                <base-wrapper
-                  class="amplify-flex amplify-field amplify-textfield"
-                  style="flex-direction: column"
-                >
-                  <base-label
-                    class="amplify-label"
-                    :class="{ 'amplify-visually-hidden': labelHidden ?? true }"
-                    for="amplify-field-45d1"
-                    >{{ label }}
-                  </base-label>
-                  <base-wrapper class="amplify-flex">
-                    <base-input
-                      :placeholder="confOR?.placeholder ?? codeText"
-                      :required="confOR?.required ?? true"
-                      class="amplify-input amplify-field-group__control"
-                      id="amplify-field-45d1"
-                      aria-invalid="false"
-                      name="confirmation_code"
-                      autocomplete="one-time-code"
-                      type="number"
-                    ></base-input>
-                  </base-wrapper>
-                </base-wrapper>
+                <base-form-fields route="setupTOTP"></base-form-fields>
               </base-wrapper>
               <base-footer class="amplify-flex" style="flex-direction: column">
                 <base-alert v-if="actorState.context?.remoteError">

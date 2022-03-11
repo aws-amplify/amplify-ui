@@ -1,15 +1,4 @@
 <script setup lang="ts">
-import { computed, ComputedRef, onMounted } from 'vue';
-import {
-  ActorContextWithForms,
-  authInputAttributes,
-  countryDialCodes,
-  getActorContext,
-  LoginMechanism,
-} from '@aws-amplify/ui';
-
-import { useAuth } from '../composables/useAuth';
-
 interface PropsInterface {
   label: string;
   name: string;
@@ -19,6 +8,7 @@ interface PropsInterface {
   required?: boolean;
   dialCode?: string;
   dialCodeList?: Array<string>;
+  type?: string;
 }
 
 const {
@@ -37,38 +27,10 @@ const {
   autocomplete: '',
   labelHidden: false,
   required: true,
+  type: 'text',
 });
 const random = Math.floor(Math.random() * 999999);
 const randomPhone = Math.floor(Math.random() * 999999);
-
-const { state, send } = useAuth();
-
-//computed
-const inputAttributes = computed(() => authInputAttributes);
-const actorContext: ComputedRef<ActorContextWithForms> = computed(() =>
-  getActorContext(state.value)
-);
-
-const defaultDialCode = dialCode ?? actorContext.value.country_code;
-
-const dialCodes = computed(() => dialCodeList ?? countryDialCodes);
-
-onMounted(() => {
-  if (inputAttributes.value[name as LoginMechanism]?.type === 'tel') {
-    send({
-      type: 'CHANGE',
-      data: { name: 'country_code', value: defaultDialCode },
-    });
-  }
-});
-
-const inferAutocomplete = computed((): string => {
-  return (
-    autocomplete ||
-    (authInputAttributes[name as LoginMechanism]?.autocomplete as string) ||
-    name
-  );
-});
 </script>
 
 <template>
@@ -97,7 +59,7 @@ const inferAutocomplete = computed((): string => {
             amplify-countrycodeselect
           "
           style="flex-direction: column"
-          v-if="name === 'phone_number'"
+          v-if="type === 'tel'"
         >
           <base-label
             :for="'amplify-field-' + randomPhone"
@@ -113,8 +75,8 @@ const inferAutocomplete = computed((): string => {
               autocomplete="tel-country-code"
               aria-label="country code"
               name="country_code"
-              :options="dialCodes"
-              :select-value="defaultDialCode"
+              :options="dialCodeList"
+              :select-value="dialCode"
             >
             </base-select>
             <base-wrapper
@@ -140,10 +102,10 @@ const inferAutocomplete = computed((): string => {
           class="amplify-input amplify-field-group__control"
           aria-invalid="false"
           :id="'amplify-field-' + random"
-          :autocomplete="inferAutocomplete"
+          :autocomplete="autocomplete"
           :name="name"
           :required="required ?? true"
-          :type="inputAttributes[name as LoginMechanism]?.type ?? 'text'"
+          :type="type"
           :placeholder="placeholder"
         ></base-input>
       </base-wrapper>

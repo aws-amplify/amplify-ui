@@ -1,5 +1,15 @@
 # @aws-amplify/ui
 
+## 3.3.0
+
+### Minor Changes
+
+- [#1492](https://github.com/aws-amplify/amplify-ui/pull/1492) [`0bfe79caa`](https://github.com/aws-amplify/amplify-ui/commit/0bfe79caa63b037c1c9633c240b35203799f2fab) Thanks [@ErikCH](https://github.com/ErikCH)! - Added new password complexity errors that will show during sign up. Based on the zero-config
+
+### Patch Changes
+
+- [#1496](https://github.com/aws-amplify/amplify-ui/pull/1496) [`ebcc7e610`](https://github.com/aws-amplify/amplify-ui/commit/ebcc7e610fda12f74ba6c5bd6dda89bc4849b898) Thanks [@enes-sahin](https://github.com/enes-sahin)! - Add Turkish as supported language to Authenticator
+
 ## 3.2.1
 
 ### Patch Changes
