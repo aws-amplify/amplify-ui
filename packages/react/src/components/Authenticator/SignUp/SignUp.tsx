@@ -10,11 +10,17 @@ import {
   getFormDataFromEvent,
 } from '../../../helpers/utils';
 import { useCustomComponents } from '../hooks/useCustomComponents';
-import { FormFields } from '../shared/FormFields';
+import { SignUpFormFields } from './FormFields';
 
 export function SignUp() {
-  const { hasValidationErrors, isPending, submitForm, updateForm, updateBlur } =
-    useAuthenticator();
+  const {
+    hasValidationErrors,
+    isPending,
+    submitForm,
+    updateForm,
+    updateBlur,
+    _state,
+  } = useAuthenticator();
 
   const {
     components: {
@@ -93,5 +99,5 @@ export function SignUp() {
 }
 
 SignUp.Header = (): JSX.Element => null;
-SignUp.FormFields = () => <FormFields route="signUp" />;
+SignUp.FormFields = SignUpFormFields;
 SignUp.Footer = (): JSX.Element => null;
