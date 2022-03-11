@@ -98,6 +98,14 @@ When('I type an invalid password', () => {
   cy.findInputField('Password').type('invalidpass');
 });
 
+When('I type an invalid wrong complexity password', () => {
+  cy.findInputField('Password').type('inv');
+});
+
+When('I type an invalid no lower case password', () => {
+  cy.findInputField('Password').type('INV');
+});
+
 When('I type a new {string}', (field: string) => {
   cy.findInputField(field).typeAliasWithStatus(field, `${Date.now()}`);
 });

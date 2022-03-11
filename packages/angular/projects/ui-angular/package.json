@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-angular",
-  "version": "2.2.2",
+  "version": "2.3.0",
   "scripts": {
     "build": "yarn --cwd ../../ build",
     "dev": "yarn --cwd ../../ dev",
@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@aws-amplify/ui-components": "^1.7.0",
-    "@aws-amplify/ui": "3.2.1",
+    "@aws-amplify/ui": "3.3.0",
     "@stencil/core": "2.8.0",
     "nanoid": "3.1.31",
     "qrcode": "1.5.0",
