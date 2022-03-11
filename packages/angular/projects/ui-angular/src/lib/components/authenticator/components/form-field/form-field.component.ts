@@ -40,6 +40,6 @@ export class FormFieldComponent {
   }
 
   translate(phrase: string): string {
-    return translate<string>(pharse);
+    return translate<string>(phrase);
   }
 }
