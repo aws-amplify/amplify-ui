@@ -9,6 +9,11 @@
     "generate:css": "npx tailwindcss -i ./styles/component.tailwind.css -o ./styles/component.css"
   },
   "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aws-amplify/amplify-ui",
+    "directory": "packages/angular/projects/ui-angular"
+  },
   "peerDependencies": {
     "aws-amplify": "3.x.x || 4.x.x"
   },
