@@ -104,6 +104,7 @@ const onForgotPasswordClicked = (): void => {
             <template #fieldSetI="{ slotData }">
               <slot name="signin-fields" :info="slotData"> </slot>
             </template>
+            <legend class="amplify-visually-hidden">Sign in</legend>
             <base-form-fields route="signIn"></base-form-fields>
           </base-field-set>
           <base-alert v-if="actorState.context.remoteError">

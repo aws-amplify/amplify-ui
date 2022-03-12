@@ -6,7 +6,7 @@ export interface ValidationErrorsProps {
   errors: string[];
 }
 export const ValidationErrors = ({ errors }: ValidationErrorsProps) => {
-if (!(errors?.length > 0)) return null;
+  if (!(errors?.length > 0)) return null;
 
   return (
     <View data-amplify-sign-up-errors>
