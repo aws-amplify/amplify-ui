@@ -12,6 +12,7 @@ const PaginationPrimitive: Primitive<PaginationProps, 'nav'> = (
     className,
     currentPage = 1,
     totalPages,
+    hasMorePages,
     siblingCount,
     onNext,
     onPrevious,
@@ -23,6 +24,7 @@ const PaginationPrimitive: Primitive<PaginationProps, 'nav'> = (
   const paginationItems = usePaginationItems(
     currentPage,
     totalPages,
+    hasMorePages,
     siblingCount,
     onNext,
     onPrevious,

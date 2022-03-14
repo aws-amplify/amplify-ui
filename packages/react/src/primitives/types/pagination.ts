@@ -22,6 +22,11 @@ interface BasePaginationProps {
   siblingCount?: number;
 
   /**
+   * Indicates whether there are more pages to load.
+   */
+  hasMorePages?: boolean;
+
+  /**
    * Callback function triggered when the next-page button is pressed
    */
   onNext?: () => void;

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 
 import { i18n } from './i18n';
 import { useRange, ELLIPSIS } from './useRange';
@@ -17,6 +17,7 @@ import { PaginationItem } from './PaginationItem';
 export const usePaginationItems = (
   currentPage: number,
   totalPages: number,
+  hasMorePages: boolean,
   siblingCount: number,
   onNext: () => void,
   onPrevious: () => void,
@@ -39,7 +40,19 @@ export const usePaginationItems = (
       key="next"
       currentPage={currentPage}
       onClick={onNext}
-      isDisabled={currentPage >= totalPages}
+      /*
+        if current page is less than totalPages AND it has more pages, it should not be disabled (false)
+        if current page is less than totalPages AND it DOES NOT have more pages, it should not be disabled (false)
+
+        if current page is greater than totalPages AND it has more pages, it should be disabled (true)
+        if current page is greater than totalPages AND it DOES NOT have more pages, it should be disabled (true)
+
+        if current page is equal to totalPages AND it has more pages, it should NOT be disabled (false)
+        if current page is equal to totalPages AND it DOES NOT have more pages, it should be disabled (true)
+
+        I think this logic is correct
+      */
+      isDisabled={currentPage === totalPages && !hasMorePages}
       ariaLabel={i18n.PaginationItem.NextItem.ariaLabel}
     />
   );

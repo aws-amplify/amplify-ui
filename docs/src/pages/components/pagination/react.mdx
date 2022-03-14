@@ -1,11 +1,23 @@
 import { Flex } from '@aws-amplify/ui-react';
 import { PaginationDemo } from './demo.tsx';
-import { Example } from '@/components/Example';
+import { Example, ExampleCode } from '@/components/Example';
 import { ComponentClassTable } from '@/components/ComponentClassTable';
+import { PaginationHasMorePagesExample } from './examples';
 
 ## Demo
 
 <PaginationDemo />
+
+## Has More Pages
+
+<Example>
+  <PaginationHasMorePagesExample />
+  <ExampleCode>
+```jsx file=./examples/PaginationHasMorePagesExample.tsx
+
+````
+  </ExampleCode>
+</Example>
 
 ## Usage
 
@@ -23,7 +35,7 @@ import '@aws-amplify/ui-react/styles.css';
   onNext={this.onNext}
   onPrevious={this.onPrevious}
 />;
-```
+````
 
 <PaginationDemo isDemo={false} />
 
