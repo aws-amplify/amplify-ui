@@ -53,10 +53,10 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
             </Flex>
           ) : (
             <Button
-              className={
-                (ComponentClassNames.PaginationItemButton,
-                `${ComponentClassNames.PaginationItemButton}--link`)
-              }
+              className={classNames(
+                ComponentClassNames.PaginationItemButton,
+                `${ComponentClassNames.PaginationItemButton}--link`
+              )}
               size="small"
               variation="link"
               onClick={onChange}
