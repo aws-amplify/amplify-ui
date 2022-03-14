@@ -4,16 +4,15 @@
 import includes from 'lodash/includes';
 
 import {
-  LoginMechanism,
   LoginMechanismArray,
   AuthContext,
   AuthMachineState,
+  ActorContextWithForms,
 } from '../../types';
-import { defaultFormFieldOptions } from './constants';
+import { getActorContext } from './actor';
 
 export const getPrimaryAlias = (state: AuthMachineState) => {
-  const loginMechanisms = state?.context.config?.loginMechanisms;
-  const [primaryAlias] = loginMechanisms ?? ['username'];
+  const { primaryAlias } = getActorContext(state) as ActorContextWithForms;
   return primaryAlias;
 };
 

@@ -293,6 +293,7 @@ export function createAuthenticatorMachine() {
               touched: {},
               intent: context.actorDoneData?.intent,
               username: context.actorDoneData?.authAttributes?.username,
+              primaryAlias: context.config?.loginMechanisms[0],
               formFields: context.config?.formFields,
               validationError: {},
             });

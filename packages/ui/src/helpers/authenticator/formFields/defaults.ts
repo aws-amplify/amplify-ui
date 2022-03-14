@@ -67,9 +67,14 @@ const getSignUpFormFields = (state: AuthMachineState): FormFields => {
   const { loginMechanisms, signUpAttributes } = state.context.config;
   const primaryAlias = getPrimaryAlias(state);
 
+  const secondaryAliases = loginMechanisms.filter(
+    (mechanism) => mechanism !== primaryAlias
+  );
+
   const fieldNames = Array.from(
     new Set([
-      ...loginMechanisms,
+      primaryAlias,
+      ...secondaryAliases,
       'password',
       'confirm_password',
       ...signUpAttributes,

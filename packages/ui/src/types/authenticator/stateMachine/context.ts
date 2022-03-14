@@ -91,6 +91,7 @@ export interface SignUpContext extends BaseFormContext {
 
 export interface ResetPasswordContext extends BaseFormContext {
   username?: string;
+  primaryAlias: LoginMechanism;
   unverifiedAttributes?: Record<string, string>;
   formFields?: AuthFormFields;
 }
@@ -110,7 +111,5 @@ export type ActorContextWithForms =
   | SignInContext
   | SignUpContext
   | ResetPasswordContext;
-
-export type ActorContextWithToggles = SignInContext | SignUpContext;
 
 export type AuthActorContext = ActorContextWithForms | SignOutContext;
