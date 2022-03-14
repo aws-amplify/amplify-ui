@@ -17,6 +17,7 @@ import {
 import { Example, ExampleCode } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
 import { ComponentClassTable } from '@/components/ComponentClassTable';
+import NativeHtmlElement from '@/components/NativeHtmlElement.mdx';
 import { RefExample } from './examples/refs';
 
 ## Demo
@@ -287,6 +288,21 @@ The following is an example demonstrating use of the `ref` and `showPasswordButt
 
 </ExampleCode>
 </Example>
+
+<NativeHtmlElement component="PasswordField" link="input" element="<input>">
+  <Example>
+    <PasswordField label="Password" name="password" readonly="true"/>
+
+    <ExampleCode>
+
+    ```jsx
+    <PasswordField label="Password" name="password" readonly="true"/>
+    ```
+
+    </ExampleCode>
+
+  </Example>
+</NativeHtmlElement>
 
 ## CSS Styling
 

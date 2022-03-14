@@ -1,6 +1,7 @@
 import { Button, ButtonGroup, Flex, View } from '@aws-amplify/ui-react';
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentClassTable } from '@/components/ComponentClassTable';
+import NativeHtmlElement from '@/components/NativeHtmlElement.mdx';
 
 import { ButtonDemo } from './demo';
 import { IconButtonExample, ButtonThemeExample } from './examples';
@@ -243,6 +244,21 @@ import '@aws-amplify/ui-react/styles.css';
 
 </ExampleCode>
 </Example>
+
+<NativeHtmlElement component="Button" element="<button>">
+  <Example>
+    <Button autofocus="true">Focused</Button>
+
+    <ExampleCode>
+
+    ```jsx
+    <Button autofocus="true">Focused</Button>
+    ```
+
+    </ExampleCode>
+
+  </Example>
+</NativeHtmlElement>
 
 ## Customization
 

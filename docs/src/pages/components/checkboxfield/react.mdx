@@ -3,9 +3,10 @@ import { CheckboxField } from '@aws-amplify/ui-react';
 import { ControlledCheckbox } from './examples/controlledExample';
 import { ValueExample } from './examples/valueExample';
 import { CheckboxDemo } from './demo';
-import { Example } from '@/components/Example';
+import { Example, ExampleCode } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
 import { ComponentClassTable } from '@/components/ComponentClassTable';
+import NativeHtmlElement from '@/components/NativeHtmlElement.mdx';
 
 ## Demo
 
@@ -136,6 +137,21 @@ import { CheckboxField } from '@aws-amplify/ui-react';
     labelHidden={true}
   />
 </Example>
+
+<NativeHtmlElement component="CheckboxField" link="input" element="<input>">
+  <Example>
+    <CheckboxField label="required" name="subscribe" value="yes" />
+
+    <ExampleCode>
+
+    ```jsx
+    <CheckboxField label="required" name="subscribe" value="yes" />
+    ```
+
+    </ExampleCode>
+
+  </Example>
+</NativeHtmlElement>
 
 ## CSS Styling
 

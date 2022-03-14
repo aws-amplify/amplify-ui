@@ -16,6 +16,7 @@ import {
 import { Example, ExampleCode } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
 import { ComponentClassTable } from '@/components/ComponentClassTable';
+import NativeHtmlElement from '@/components/NativeHtmlElement.mdx';
 import { RefExample } from './examples/refs';
 
 ## Demo
@@ -273,6 +274,21 @@ The following is a contrived example demonstrating use of the `ref` and `country
 
 </ExampleCode>
 </Example>
+
+<NativeHtmlElement component="PhoneNumberField" link="input" element="<input>">
+  <Example>
+    <PhoneNumberField label="Phone Number" name="phone"/>
+
+    <ExampleCode>
+
+    ```jsx
+    <PhoneNumberField label="Phone Number" name="phone"/>
+    ```
+
+    </ExampleCode>
+
+  </Example>
+</NativeHtmlElement>
 
 ## CSS Styling
 

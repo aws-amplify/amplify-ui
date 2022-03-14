@@ -13,6 +13,7 @@ import {
 import { Example, ExampleCode } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
 import { ComponentClassTable } from '@/components/ComponentClassTable';
+import NativeHtmlElement from '@/components/NativeHtmlElement.mdx';
 
 ## Demo
 
@@ -114,6 +115,33 @@ Use the `hasError` and `errorMessage` props to mark a StepperField as having an 
 
   </ExampleCode>
 </Example>
+
+<NativeHtmlElement component="StepperField" link="input" element="<input>">
+  <Example>
+    <StepperField
+      label="Stepper"
+      min={0}
+      max={10}
+      step={1}
+      name="stepper"
+    />
+
+    <ExampleCode>
+
+    ```jsx
+    <StepperField
+      label="Stepper"
+      min={0}
+      max={10}
+      step={1}
+      name="stepper"
+    />
+    ```
+
+    </ExampleCode>
+
+  </Example>
+</NativeHtmlElement>
 
 ## CSS Styling
 
