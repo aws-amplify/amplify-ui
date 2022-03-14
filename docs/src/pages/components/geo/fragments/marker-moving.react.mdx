@@ -1,0 +1,16 @@
+```jsx{2,4,8,10}
+function MapWithMovingMarker() {
+  const [{ latitude, longitude }, setMarkerLocation] = useState({ latitude: 40, longitude: -100 });
+
+  const updateMarker = () => setMarkerLocation({ latitude: latitude + 5, longitude: longitude + 5 });
+
+  return (
+    <>
+      <button onClick={updateMarker}>Move Marker</button>
+      <AmplifyMap>
+        <Marker latitude={latitude} longitude={longitude} />
+      </AmplifyMap>
+    </>
+  );
+}
+```

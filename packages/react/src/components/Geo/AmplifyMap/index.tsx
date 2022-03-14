@@ -2,18 +2,15 @@ import { geoMachine } from '@aws-amplify/ui';
 import { useInterpret, useSelector } from '@xstate/react';
 import { identity } from 'lodash';
 import maplibregl from 'maplibre-gl';
+import type { Style as MaplibreStyle } from 'maplibre-gl';
 import { AmplifyMapLibreRequest } from 'maplibre-gl-js-amplify';
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ReactMapGL from 'react-map-gl';
 import type { MapProps } from 'react-map-gl';
 
 import { View } from '../../../primitives';
 
-export const AmplifyMap = ({
-  children,
-  style,
-  ...rest
-}: Omit<MapProps, 'mapboxAccessToken' | 'mapLib' | 'transformRequest'>) => {
+export const AmplifyMap = ({ children, style, ...rest }: AmplifyMapProps) => {
   const mapRef = useRef<any>();
   const [transformRequest, setTransformRequest] = useState<any>();
   const service = useInterpret(geoMachine);
@@ -21,9 +18,10 @@ export const AmplifyMap = ({
 
   const styleProps = {
     height: '100vh',
-    width: '100%',
+    position: 'relative',
+    width: '100vw',
     ...style,
-  };
+  } as React.CSSProperties;
 
   useEffect(() => {
     const makeRequestTransformer = async () => {
@@ -54,4 +52,14 @@ export const AmplifyMap = ({
       </ReactMapGL>
     </View>
   ) : null;
+};
+
+export type AmplifyMapProps = Omit<
+  MapProps,
+  'mapboxAccessToken' | 'mapLib' | 'transformRequest'
+>;
+
+type AmplifyMapPropsB = {
+  cursor?: Pick<React.CSSProperties, 'cursor'>;
+  mapStyle: string | MaplibreStyle;
 };
