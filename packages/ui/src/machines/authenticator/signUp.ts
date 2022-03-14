@@ -1,3 +1,4 @@
+import { getPrimaryAlias } from '@/helpers';
 import { Auth } from 'aws-amplify';
 import get from 'lodash/get';
 import pickBy from 'lodash/pickBy';
@@ -285,8 +286,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
           return result;
         },
         async signUp(context, _event) {
-          const { formValues, loginMechanisms } = context;
-          const [primaryAlias = 'username'] = loginMechanisms;
+          const { formValues, primaryAlias } = context;
           const { [primaryAlias]: username, password } = formValues;
 
           const attributes = pickBy(formValues, (_, key) => {
