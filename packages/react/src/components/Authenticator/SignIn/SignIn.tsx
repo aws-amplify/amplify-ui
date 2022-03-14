@@ -3,7 +3,7 @@ import * as React from 'react';
 import { translate, hasTranslation } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
-import { Button, Flex, View } from '../../..';
+import { Button, Flex, View, VisuallyHidden } from '../../..';
 import { FederatedSignIn } from '../FederatedSignIn';
 import { RemoteErrorMessage } from '../shared';
 import {
@@ -60,6 +60,9 @@ export function SignIn() {
             className="amplify-flex"
             disabled={isPending}
           >
+            <VisuallyHidden>
+              <legend>{translate('Sign in')}</legend>
+            </VisuallyHidden>
             <FormFields route="signIn" />
           </fieldset>
 
