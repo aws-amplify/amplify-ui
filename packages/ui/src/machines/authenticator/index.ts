@@ -169,6 +169,7 @@ export function createAuthenticatorMachine() {
         SIGN_OUT: { actions: 'forwardToActor' },
         SIGN_IN: { actions: 'forwardToActor' },
         SKIP: { actions: 'forwardToActor' },
+        SET_PRIMARY_ALIAS: { actions: 'forwardToActor' },
       },
     },
     {
@@ -258,6 +259,7 @@ export function createAuthenticatorMachine() {
               touched: {},
               validationError: {},
               loginMechanisms: context.config?.loginMechanisms,
+              primaryAlias: context.config?.loginMechanisms[0],
               socialProviders: context.config?.socialProviders,
               formFields: context.config?.formFields,
             });
@@ -275,6 +277,7 @@ export function createAuthenticatorMachine() {
               touched: {},
               validationError: {},
               loginMechanisms: context.config?.loginMechanisms,
+              primaryAlias: context.config?.loginMechanisms[0],
               socialProviders: context.config?.socialProviders,
               formFields: context.config?.formFields,
               passwordSettings: context.config?.passwordSettings,

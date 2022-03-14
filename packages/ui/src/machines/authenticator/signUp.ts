@@ -79,6 +79,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
                   entry: sendUpdate(),
                   on: {
                     SUBMIT: { actions: 'handleSubmit', target: 'validate' },
+                    SET_PRIMARY_ALIAS: { actions: 'setPrimaryAlias' },
                     FEDERATED_SIGN_IN: 'federatedSignIn',
                   },
                 },

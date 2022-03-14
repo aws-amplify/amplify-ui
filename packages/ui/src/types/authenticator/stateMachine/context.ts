@@ -74,6 +74,7 @@ interface BaseFormContext {
 // Actor context types
 export interface SignInContext extends BaseFormContext {
   loginMechanisms: Required<AuthContext>['config']['loginMechanisms'];
+  primaryAlias: LoginMechanism;
   socialProviders: Required<AuthContext>['config']['socialProviders'];
   formFields?: AuthFormFields;
   attributeToVerify?: string;
@@ -82,6 +83,7 @@ export interface SignInContext extends BaseFormContext {
 }
 export interface SignUpContext extends BaseFormContext {
   loginMechanisms: Required<AuthContext>['config']['loginMechanisms'];
+  primaryAlias: LoginMechanism;
   socialProviders: Required<AuthContext>['config']['socialProviders'];
   formFields: AuthFormFields;
   unverifiedAttributes?: Record<string, string>;
@@ -108,5 +110,7 @@ export type ActorContextWithForms =
   | SignInContext
   | SignUpContext
   | ResetPasswordContext;
+
+export type ActorContextWithLoginMechanisms = SignInContext | SignUpContext;
 
 export type AuthActorContext = ActorContextWithForms | SignOutContext;

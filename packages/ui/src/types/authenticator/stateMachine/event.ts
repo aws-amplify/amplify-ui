@@ -22,6 +22,7 @@ export type AuthEventTypes =
   | 'SKIP'
   | 'SUBMIT'
   | 'INIT'
+  | 'SET_PRIMARY_ALIAS'
   | InvokeActorEventTypes;
 
 /**
