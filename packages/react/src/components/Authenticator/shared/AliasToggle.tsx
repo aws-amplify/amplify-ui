@@ -33,7 +33,7 @@ export const AliasToggle = ({ toggles, onChange }: AliasToggleProps) => {
       >
         {toggles.map((alias) => (
           <ToggleButton key={alias} value={alias}>
-            <Text fontSize="var(--amplify-font-sizes-xs)">
+            <Text fontSize="small">
               {words(alias).map(capitalize).join(' ')}
             </Text>
           </ToggleButton>

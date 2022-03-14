@@ -15,8 +15,9 @@ export interface BaseFormFieldsProps {
 }
 export function FormFields({ route, toggles }: BaseFormFieldsProps) {
   // we don't depend on any dynamic value
-  const { _state, _send } = useAuthenticator();
-  // const hasFormFields = React.useRef(false);
+  const { _state, _send, primaryAlias } = useAuthenticator();
+  const primaryAliasRef = React.useRef(primaryAlias);
+  const formFieldsRef = React.useRef(getSortedFormFields(route, _state));
 
   /** Toggle logics */
   const hasToggle = toggles?.length > 1;
@@ -28,12 +29,25 @@ export function FormFields({ route, toggles }: BaseFormFieldsProps) {
     });
   };
 
-  const sortedFormFields = getSortedFormFields(route, _state);
+  const formFields = React.useMemo(() => {
+    // only recompute formfields if primaryAlias has changed
+    if (primaryAliasRef.current !== primaryAlias) {
+      const newFormFields = getSortedFormFields(route, _state);
+
+      // update refs
+      primaryAliasRef.current = primaryAlias;
+      formFieldsRef.current = newFormFields;
+
+      return newFormFields;
+    } else {
+      return formFieldsRef.current;
+    }
+  }, [route, _state, primaryAlias]);
 
   return (
     <>
       {hasToggle && <AliasToggle toggles={toggles} onChange={handleToggle} />}
-      {sortedFormFields.flatMap(([name, options]) => (
+      {formFields.flatMap(([name, options]) => (
         <FormField name={name} key={name} formFieldOptions={options} />
       ))}
     </>

@@ -13,14 +13,8 @@ import { useCustomComponents } from '../hooks/useCustomComponents';
 import { SignUpFormFields } from './FormFields';
 
 export function SignUp() {
-  const {
-    hasValidationErrors,
-    isPending,
-    submitForm,
-    updateForm,
-    updateBlur,
-    _state,
-  } = useAuthenticator();
+  const { hasValidationErrors, isPending, submitForm, updateForm, updateBlur } =
+    useAuthenticator();
 
   const {
     components: {
