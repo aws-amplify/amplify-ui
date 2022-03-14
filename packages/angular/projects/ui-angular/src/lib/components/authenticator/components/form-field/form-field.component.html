@@ -2,46 +2,45 @@
   <!-- Country code field -->
   <amplify-phone-number-field
     *ngIf="isPhoneField()"
-    [defaultCountryCode]="defaultCountryCodeValue"
-    [dialCodeList]="dialCodeList"
-    [type]="inferType()"
     [name]="name"
-    [label]="inferLabel()"
-    [placeholder]="inferPlaceholder()"
-    [required]="required"
-    [initialValue]="initialValue"
-    [disabled]="disabled"
-    [labelHidden]="labelHidden"
-    [autocomplete]="inferAutocomplete()"
+    [label]="formField.label"
+    [defaultCountryCode]="formField.dialCode"
+    [dialCodeList]="formField.dialCodeList"
+    [placeholder]="formField.placeholder"
+    [required]="formField.isRequired"
+    [labelHidden]="formField.labelHidden"
+    [autocomplete]="formField.autocomplete"
+    type="tel"
   ></amplify-phone-number-field>
 
   <amplify-password-field
     *ngIf="isPasswordField()"
     [name]="name"
-    [label]="inferLabel()"
-    [placeholder]="inferPlaceholder()"
-    [required]="required"
-    [initialValue]="initialValue"
-    [disabled]="disabled"
-    [labelHidden]="labelHidden"
-    [autocomplete]="inferAutocomplete()"
+    [label]="formField.label"
+    [placeholder]="formField.placeholder"
+    [required]="formField.isRequired"
+    [labelHidden]="formField.labelHidden"
+    [autocomplete]="formField.autocomplete"
     (setBlur)="onBlur($event)"
   ></amplify-password-field>
 
   <amplify-text-field
     *ngIf="!isPasswordField() && !isPhoneField()"
-    [type]="inferType()"
     [name]="name"
-    [label]="inferLabel()"
-    [placeholder]="inferPlaceholder()"
-    [required]="required"
-    [initialValue]="initialValue"
-    [disabled]="disabled"
-    [labelHidden]="labelHidden"
-    [autocomplete]="inferAutocomplete()"
+    [label]="formField.label"
+    [placeholder]="formField.placeholder"
+    [required]="formField.isRequired"
+    [labelHidden]="formField.labelHidden"
+    [autocomplete]="formField.autocomplete"
+    [type]="formField.type"
   ></amplify-text-field>
-
-  <amplify-error *ngIf="error">
-    {{ error }}
-  </amplify-error>
+  <div data-amplify-sign-up-errors *ngIf="errors?.length > 0">
+    <div
+      class="amplify-text"
+      data-variation="error"
+      *ngFor="let error of errors"
+    >
+      {{ translate(error) }}
+    </div>
+  </div>
 </div>

@@ -3,24 +3,18 @@ import { computed, ComputedRef, useAttrs } from 'vue';
 import { createSharedComposable } from '@vueuse/core';
 
 import {
-  FormField,
   getActorState,
   getFormDataFromEvent,
   hasTranslation,
-  LoginMechanism,
   SignInState,
-  SignUpAttribute,
   translate,
 } from '@aws-amplify/ui';
 
-import { propsCreator } from '../composables/useUtils';
-
-import PasswordControl from './password-control.vue';
-import UserNameAlias from './user-name-alias.vue';
 import FederatedSignIn from './federated-sign-in.vue';
 
 // @xstate
 import { useAuth, useAuthenticator } from '../composables/useAuth';
+import BaseFormFields from './primitives/base-form-fields.vue';
 
 const useAuthShared = createSharedComposable(useAuthenticator);
 const props = useAuthShared();
@@ -32,7 +26,6 @@ const emit = defineEmits([
   'createAccountClicked',
 ]);
 
-const passwordLabel = computed(() => translate('Password'));
 const forgotYourPasswordLink = computed(() =>
   // Support backwards compatibility for legacy key with trailing space
   !hasTranslation('Forgot your password? ')
@@ -47,18 +40,6 @@ const { state, send } = useAuth();
 const actorState = computed(() =>
   getActorState(state.value)
 ) as ComputedRef<SignInState>;
-
-const {
-  value: { context },
-} = state;
-
-const formOverrides = context?.config?.formFields?.signIn as FormField;
-const userOverrides = formOverrides?.['username'];
-
-let loginMechanisms = context.config?.loginMechanisms as LoginMechanism[];
-let fieldNames: Array<LoginMechanism | SignUpAttribute>;
-fieldNames = Array.from(new Set([...loginMechanisms]));
-const loginMechanism = fieldNames.shift() as LoginMechanism;
 
 // Methods
 
@@ -123,25 +104,8 @@ const onForgotPasswordClicked = (): void => {
             <template #fieldSetI="{ slotData }">
               <slot name="signin-fields" :info="slotData"> </slot>
             </template>
-
-            <user-name-alias
-              :userNameAlias="true"
-              :label-hidden="userOverrides?.labelHidden"
-              :userName="loginMechanism"
-              :placeholder="userOverrides?.placeholder"
-              :required="userOverrides?.required"
-              :label="userOverrides?.label"
-              :dialCode="userOverrides?.dialCode"
-              :dialCodeList="userOverrides?.dialCodeList"
-            />
-            <password-control
-              v-bind="
-                propsCreator('password', passwordLabel, formOverrides, true)
-              "
-              name="password"
-              autocomplete="current-password"
-              :ariainvalid="false"
-            />
+            <legend class="amplify-visually-hidden">Sign in</legend>
+            <base-form-fields route="signIn"></base-form-fields>
           </base-field-set>
           <base-alert v-if="actorState.context.remoteError">
             {{ translate(actorState.context.remoteError) }}

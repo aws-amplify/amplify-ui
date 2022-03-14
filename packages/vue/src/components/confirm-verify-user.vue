@@ -8,6 +8,7 @@ import {
   SignInState,
   translate,
 } from '@aws-amplify/ui';
+import BaseFormFields from './primitives/base-form-fields.vue';
 
 import { useAuth, useAuthenticator } from '../composables/useAuth';
 
@@ -19,13 +20,6 @@ const emit = defineEmits(['confirmVerifyUserSubmit', 'skipClicked']);
 
 const { state, send } = useAuth();
 
-const {
-  value: { context },
-} = state;
-
-const formOverrides = context?.config?.formFields?.confirmVerifyUser;
-const confOR = formOverrides?.['confirmation_code'];
-
 const actorState: ComputedRef<SignInState> = computed(
   () => getActorState(state.value) as SignInState
 );
@@ -35,13 +29,7 @@ const verifyHeading = computed(() =>
   translate('Account recovery requires verified contact information')
 );
 const skipText = computed(() => translate('Skip'));
-const verifyText = computed(() => translate('Verify'));
-const confirmationCodeText = computed(() => translate('Confirmation Code'));
-const codeText = computed(() => translate('Code'));
 const submitText = computed(() => translate('Submit'));
-
-const label = confOR?.label ?? confirmationCodeText.value;
-const labelHidden = confOR?.labelHidden;
 
 // Methods
 const onInput = (e: Event): void => {
@@ -91,29 +79,7 @@ const onSkipClicked = (): void => {
             </base-heading>
           </slot>
           <base-wrapper class="amplify-flex" style="flex-direction: column">
-            <base-wrapper
-              class="amplify-flex amplify-field amplify-textfield"
-              style="flex-direction: column"
-            >
-              <base-label
-                class="amplify-label"
-                :class="{ 'amplify-visually-hidden': labelHidden ?? true }"
-                for="amplify-field-c34b"
-                >{{ label }}</base-label
-              >
-              <base-wrapper class="amplify-flex">
-                <base-input
-                  :placeholder="confOR?.placeholder ?? codeText"
-                  :required="confOR?.required ?? true"
-                  class="amplify-input amplify-field-group__control"
-                  id="amplify-field-c34b"
-                  aria-invalid="false"
-                  autocomplete="one-time-code"
-                  name="confirmation_code"
-                  type="number"
-                ></base-input>
-              </base-wrapper>
-            </base-wrapper>
+            <base-form-fields route="confirmVerifyUser"></base-form-fields>
           </base-wrapper>
 
           <base-footer class="amplify-flex" style="flex-direction: column">

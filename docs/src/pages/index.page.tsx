@@ -147,7 +147,9 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
   return (
     <>
       <View as="section" className="container">
-        <HomeLogo />
+        <h1>
+          <HomeLogo />
+        </h1>
 
         <Flex direction="row" padding={tokens.space.xl}>
           <Card variation="outlined" flex="1">

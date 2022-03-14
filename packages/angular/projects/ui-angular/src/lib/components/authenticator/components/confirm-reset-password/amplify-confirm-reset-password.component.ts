@@ -1,8 +1,7 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 import {
-  FormField,
-  getActorState,
+  FormFieldsArray,
   getFormDataFromEvent,
   translate,
 } from '@aws-amplify/ui';
@@ -11,7 +10,7 @@ import {
   selector: 'amplify-confirm-reset-password',
   templateUrl: './amplify-confirm-reset-password.component.html',
 })
-export class ConfirmResetPasswordComponent implements OnInit {
+export class ConfirmResetPasswordComponent {
   @HostBinding('attr.data-amplify-authenticator-confirmsignin') dataAttr = '';
   @Input() public headerText = translate('Reset your password');
 
@@ -19,23 +18,9 @@ export class ConfirmResetPasswordComponent implements OnInit {
   public sendCodeText = translate('Send Code');
   public backToSignInText = translate('Back to Sign In');
   public resendCodeText = translate('Resend Code');
-  public formOverrides: FormField;
+  public sortedFormFields: FormFieldsArray;
 
   constructor(public authenticator: AuthenticatorService) {}
-
-  ngOnInit(): void {
-    this.setFormFields();
-  }
-
-  public setFormFields() {
-    const _state = this.authenticator.authState;
-    this.formOverrides =
-      getActorState(_state).context?.formFields?.confirmResetPassword;
-  }
-
-  public grabField(name: string, field: string, defaultV) {
-    return this.formOverrides?.[name]?.[field] ?? defaultV;
-  }
 
   public get context() {
     return this.authenticator.slotContext;

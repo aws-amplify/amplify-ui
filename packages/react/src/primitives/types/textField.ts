@@ -38,13 +38,14 @@ export interface TextAreaFieldMultilineProps
   extends TextFieldOptions,
     TextAreaProps {}
 
-export type TextFieldProps<Multiline extends boolean> = (Multiline extends true
-  ? TextAreaFieldMultilineProps
-  : TextInputFieldProps) & {
-  /**
-   * @deprecated
-   * Multiline functionality has been moved to TextAreaField and will be removed in next major release.
-   * Please use TextAreaField instead of TextField for multiline text fields.
-   */
-  isMultiline?: Multiline;
-};
+export type TextFieldProps<Multiline extends boolean = false> =
+  (Multiline extends true
+    ? TextAreaFieldMultilineProps
+    : TextInputFieldProps) & {
+    /**
+     * @deprecated
+     * Multiline functionality has been moved to TextAreaField and will be removed in next major release.
+     * Please use TextAreaField instead of TextField for multiline text fields.
+     */
+    isMultiline?: Multiline;
+  };

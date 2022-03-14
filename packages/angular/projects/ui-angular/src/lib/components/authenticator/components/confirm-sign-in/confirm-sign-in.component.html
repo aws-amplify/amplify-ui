@@ -8,15 +8,7 @@
     <amplify-slot name="confirm-sign-in-header" [context]="context">
       <h3 class="amplify-heading">{{ headerText }}</h3>
     </amplify-slot>
-    <amplify-form-field
-      name="confirmation_code"
-      label="Code *"
-      autocomplete="one-time-code"
-      [labelHidden]="grabField('confirmation_code', 'labelHidden', true)"
-      [placeholder]="grabField('confirmation_code', 'placeholder', null)"
-      [required]="grabField('confirmation_code', 'required', true)"
-      [label]="grabField('confirmation_code', 'label', 'Code *')"
-    ></amplify-form-field>
+    <amplify-base-form-fields route="confirmSignIn"></amplify-base-form-fields>
 
     <button amplify-button variation="primary" fullWidth="true" type="submit">
       {{ confirmText }}

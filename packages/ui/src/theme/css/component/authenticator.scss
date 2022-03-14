@@ -53,4 +53,10 @@
       --amplify-components-authenticator-state-inactive-background-color
     );
   }
+
+  [data-amplify-sign-up-errors] {
+    @media (max-width: 26rem) {
+      font-size: 0.688rem;
+    }
+  }
 }

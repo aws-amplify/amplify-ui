@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Badge, Flex } from '@aws-amplify/ui-react';
+import { Badge } from '@aws-amplify/ui-react';
 
 import { BadgePropControls } from './BadgePropControls';
 import { useBadgeProps } from './useBadgeProps';
