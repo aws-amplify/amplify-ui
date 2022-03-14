@@ -2,7 +2,6 @@ import { assign, stop } from 'xstate/lib/actions';
 
 import {
   ActorContextWithForms,
-  ActorContextWithToggles,
   AuthEvent,
   SignInContext,
   SignUpContext,
@@ -177,6 +176,6 @@ export const parsePhoneNumber = assign({
   },
 });
 
-export const setPrimaryAlias = assign<ActorContextWithToggles>({
+export const setPrimaryAlias = assign<ActorContextWithForms>({
   primaryAlias: (_, event: AuthEvent) => event.data.primaryAlias,
 });
