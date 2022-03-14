@@ -18,21 +18,21 @@ export function FormFields({ route, toggles }: BaseFormFieldsProps) {
   const { _state, _send } = useAuthenticator();
   // const hasFormFields = React.useRef(false);
 
-  // /** Toggle logics */
-  // const hasToggle = toggles?.length > 1;
+  /** Toggle logics */
+  const hasToggle = toggles?.length > 1;
 
   const handleToggle = (primaryAlias: LoginMechanism) => {
-    // _send({
-    //   type: 'TOGGLE_ALIAS',
-    //   data: { primaryAlias },
-    // });
+    _send({
+      type: 'SET_PRIMARY_ALIAS',
+      data: { primaryAlias },
+    });
   };
 
   const sortedFormFields = getSortedFormFields(route, _state);
 
   return (
     <>
-      <AliasToggle toggles={toggles} onChange={handleToggle} />
+      {hasToggle && <AliasToggle toggles={toggles} onChange={handleToggle} />}
       {sortedFormFields.flatMap(([name, options]) => (
         <FormField name={name} key={name} formFieldOptions={options} />
       ))}

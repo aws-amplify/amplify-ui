@@ -111,6 +111,6 @@ export type ActorContextWithForms =
   | SignUpContext
   | ResetPasswordContext;
 
-export type ActorContextWithLoginMechanisms = SignInContext | SignUpContext;
+export type ActorContextWithToggles = SignInContext | SignUpContext;
 
 export type AuthActorContext = ActorContextWithForms | SignOutContext;

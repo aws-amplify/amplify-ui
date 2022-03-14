@@ -15,6 +15,7 @@ import {
   parsePhoneNumber,
   setCredentials,
   setFieldErrors,
+  setPrimaryAlias,
   setRemoteError,
   setCodeDeliveryDetails,
   setUser,
@@ -247,6 +248,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
         setRemoteError,
         setCodeDeliveryDetails,
         setUser,
+        setPrimaryAlias,
       },
       services: {
         async signIn(context, event) {
