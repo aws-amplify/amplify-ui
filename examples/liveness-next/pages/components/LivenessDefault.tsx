@@ -30,6 +30,7 @@ export default function LivenessDefault() {
             clientActionDocument={startLivenessApiData.clientActionDocument}
             onGetLivenessDetection={handleGetLivenessDetection}
             onExit={stopLiveness}
+            enableAnalytics={true}
           />
 
           <GetLivenessResultCard getLivenessResponse={getLivenessResponse} />

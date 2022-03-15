@@ -1,8 +1,13 @@
 import * as React from 'react';
-import { translate } from '@aws-amplify/ui';
+import {
+  translate,
+  recordLivenessAnalyticsEvent,
+  LIVENESS_EVENT_GET_READY_SCREEN,
+} from '@aws-amplify/ui';
 
 import { useTheme } from '../../../hooks';
 import { CancelButton, DescriptionBullet } from '../shared';
+import { useLivenessFlow } from '../providers';
 import { useLivenessActor } from '../hooks';
 import {
   Flex,
@@ -31,7 +36,37 @@ const INSTRUCTIONS = [
 
 export const StartLiveness = () => {
   const { tokens } = useTheme();
+  const { flowProps } = useLivenessFlow();
   const [_, send] = useLivenessActor();
+
+  React.useEffect(() => {
+    recordLivenessAnalyticsEvent(flowProps, {
+      event: LIVENESS_EVENT_GET_READY_SCREEN,
+      attributes: { action: 'AttemptLiveness' },
+      metrics: { count: 1 },
+    });
+    const pageLoadTime = Date.now();
+
+    return () => {
+      recordLivenessAnalyticsEvent(flowProps, {
+        event: LIVENESS_EVENT_GET_READY_SCREEN,
+        attributes: { action: 'TimeSpent' },
+        metrics: {
+          duration: Date.now() - pageLoadTime,
+        },
+      });
+    };
+  }, [flowProps]);
+
+  const handleBeginCheck = () => {
+    recordLivenessAnalyticsEvent(flowProps, {
+      event: LIVENESS_EVENT_GET_READY_SCREEN,
+      attributes: { action: 'BeginLivenessCheck' },
+      metrics: { count: 1 },
+    });
+
+    send({ type: 'BEGIN' });
+  };
 
   return (
     <Flex direction="column">
@@ -55,13 +90,9 @@ export const StartLiveness = () => {
         direction={{ base: 'column-reverse', medium: 'row' }}
         justifyContent="flex-end"
       >
-        <CancelButton />
+        <CancelButton sourceScreen={LIVENESS_EVENT_GET_READY_SCREEN} />
 
-        <Button
-          variation="primary"
-          type="button"
-          onClick={() => send({ type: 'BEGIN' })}
-        >
+        <Button variation="primary" type="button" onClick={handleBeginCheck}>
           {translate('Begin check')}
         </Button>
       </Flex>

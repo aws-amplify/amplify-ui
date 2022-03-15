@@ -1,22 +1,31 @@
 import * as React from 'react';
-import { translate } from '@aws-amplify/ui';
+import { translate, recordLivenessAnalyticsEvent } from '@aws-amplify/ui';
 
 import { useTheme } from '../../../hooks';
 import { useLivenessActor } from '../hooks';
+import { useLivenessFlow } from '../providers';
 import { Button, IconClose } from '../../../primitives';
 
 export interface CancelButtonProps {
+  sourceScreen: string;
   isMobileScreen?: boolean;
 }
 
 export const CancelButton: React.FC<CancelButtonProps> = (props) => {
-  const { isMobileScreen } = props;
+  const { sourceScreen, isMobileScreen } = props;
 
   const { tokens } = useTheme();
+  const { flowProps } = useLivenessFlow();
   const [state, send] = useLivenessActor();
   const isFinalState = state.done;
 
   const handleClick = () => {
+    recordLivenessAnalyticsEvent(flowProps, {
+      event: sourceScreen,
+      attributes: { action: 'Cancelled' },
+      metrics: { count: 1 },
+    });
+
     send({
       type: 'CANCEL',
     });

@@ -32,5 +32,11 @@
       "providerPlugin": "awscloudformation",
       "type": "manual"
     }
+  },
+  "analytics": {
+    "LivenessClient": {
+      "service": "Pinpoint",
+      "providerPlugin": "awscloudformation"
+    }
   }
 }

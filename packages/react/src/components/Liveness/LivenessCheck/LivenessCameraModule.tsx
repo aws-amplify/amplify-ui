@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import Webcam from 'react-webcam';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
+import { LIVENESS_EVENT_LIVENESS_CHECK_SCREEN } from '@aws-amplify/ui';
 
 import { useTheme } from '../../../hooks';
 import { useLivenessActor } from '../hooks';
@@ -107,7 +108,10 @@ export const LivenessCameraModule = (
 
         {isMobileScreen && (
           <View position="absolute" top={10} right={10}>
-            <CancelButton isMobileScreen={true} />
+            <CancelButton
+              isMobileScreen={true}
+              sourceScreen={LIVENESS_EVENT_LIVENESS_CHECK_SCREEN}
+            />
           </View>
         )}
       </Flex>
