@@ -6,7 +6,6 @@ export { default as AuthenticatorSignUpFormFields } from './authenticator-sign-u
 export { default as AuthenticatorForceNewPasswordFormFields } from './authenticator-force-new-password-form-fields.vue';
 export { default as RenderInfo } from './primitives/render-info.vue';
 export { default as PasswordControl } from './password-control.vue';
-export { default as UserNameAlias } from './user-name-alias.vue';
 export { default as ForceNewPassword } from './force-new-password.vue';
 export { default as ResetPassword } from './reset-password.vue';
 export { default as ConfirmResetPassword } from './confirm-reset-password.vue';
@@ -17,4 +16,6 @@ export { default as ConfirmVerifyUser } from './confirm-verify-user.vue';
 export { default as AmplifyTextField } from './primitives/amplify-text-field.vue';
 export { default as AmplifyCheckBox } from './primitives/amplify-check-box.vue';
 export { default as AmplifyButton } from './primitives/amplify-button.vue';
+export { default as BaseFormField } from './primitives/base-form-field.vue';
+export { default as BaseFormFields } from './primitives/base-form-fields.vue';
 export * from '../types';

@@ -74,6 +74,8 @@ const NavLinkComponentsSection = ({ heading, components, ...props }) => {
 // TODO: clean up this logic
 export const SecondaryNav = (props) => {
   const router = useRouter();
+  const { query } = useRouter();
+  const { platform = 'react' } = query;
 
   // Extract section from URL (/section/... => section)
   const section = router.pathname.split('/')[1];
@@ -111,6 +113,11 @@ export const SecondaryNav = (props) => {
         <NavLink {...props} href="/getting-started/installation">
           Installation
         </NavLink>
+        {platform !== 'flutter' && (
+          <NavLink {...props} href="/getting-started/migration">
+            Migration
+          </NavLink>
+        )}
       </>
     );
   }
