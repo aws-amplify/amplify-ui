@@ -1,0 +1,107 @@
+import { Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Alert } from '@aws-amplify/ui-react';
+
+## Installation
+
+Install the latest version of the `@aws-amplify/ui-angular` library.
+
+<Tabs>
+<TabItem title="npm">
+
+```shell
+npm install aws-amplify @aws-amplify/ui-angular@latest
+```
+
+</TabItem>
+<TabItem title="yarn">
+```shell
+yarn add aws-amplify @aws-amplify/ui-angular@latest
+```
+
+</TabItem>
+</Tabs>
+
+### Update
+
+Update the **app.module.ts** with the new `AmplifyAuthenticatorModule` and remove the old `AmplifyUIAngularModule` as seen below:
+
+**app.module.ts**
+
+```diff
+- import { AmplifyUIAngularModule } from '@aws-amplify/ui-angular';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';;
++ import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
+
+import { AppComponent } from './app.component';
+import awsconfig from '../aws-exports';
+
+Amplify.configure(awsconfig);
+
+@NgModule({
+  declarations: [AppComponent],
++ imports: [BrowserModule, AmplifyAuthenticatorModule],
+- imports: [AmplifyUIAngularModule, BrowserModule],
+  providers: [],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+
+
+);
+
+```
+
+You'll also have to import the styles in the `styles.css` file.
+
+```
+@import '~@aws-amplify/ui-angular/theme.css';
+```
+
+## Usage
+
+Using the `Authenticator` component is similar to the `1.x` usage.
+
+Below is an example of how to create an Authenticator.
+
+**app.component.html**
+
+```diff
+- <amplify-authenticator usernameAlias="email">
+-  <amplify-sign-up
+-    slot="sign-up"
+-  ></amplify-sign-up>
+-  <amplify-sign-in slot="sign-in" usernameAlias="email"></amplify-sign-in>
+- </amplify-authenticator>
++ <amplify-authenticator>
++  <ng-template
++    amplifySlot="authenticated"
++    let-user="user"
++    let-signOut="signOut"
++  >
++    <h1>Welcome {{ user.username }}!</h1>
++    <button (click)="signOut()">Sign Out</button>
++  </ng-template>
++</amplify-authenticator>
+```
+
+## Breaking changes
+
+The latest version of the `Authenticator` component has several differences from earlier versions. It's recommended that you look over the
+[Components](/components?platform=angular) section to get an idea of the new changes. However, here are a few of the major changes that you'll need to look out for.
+
+### Slots
+
+All the slot locations have changed with the latest version of the `Authenticator`. To get a
+sense of the changes please check out the [Headers and Footers](/components/authenticator?platform=angular#headers--footers) section.
+
+### Form Fields
+
+The latest version of the `Authenticator` has a different format for the `formFields` prop. It also no long accepts
+`inputProps` nor `hint`. Instead it's recommended that you use the [Headers and Footers Slots](/components/authenticator?platform=angular#headers--footers) or use the
+[Sign Up Fields custimization](/components/authenticator?platform=angular#sign-up-fields). For more information on form field customizations
+please see the [Form Field Customization](/components/authenticator?platform=angular#form-field-customization) section.
+
+### CSS Styling
+
+The latest version of the `Authenticator` has a completely different set of CSS variables. Please look over the [Amplify CSS Variables](/components/authenticator#amplify-css-variables) section for more information.
