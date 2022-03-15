@@ -17,7 +17,8 @@
     "LICENSE"
   ],
   "scripts": {
-    "prebuild": "rimraf dist",
+    "clean": "rimraf dist",
+    "prebuild": "rimraf dist node_modules",
     "build": "tsup --minify",
     "dev": "tsup --watch src",
     "lint": "tsc --noEmit && eslint src",
