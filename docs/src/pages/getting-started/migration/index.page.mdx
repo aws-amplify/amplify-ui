@@ -1,0 +1,8 @@
+---
+title: Migration
+---
+
+import Link from 'next/link';
+import { Fragment } from '@/components/Fragment';
+
+<Fragment>{({ platform }) => import(`./migration.${platform}.mdx`)}</Fragment>

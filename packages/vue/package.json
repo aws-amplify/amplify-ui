@@ -13,6 +13,11 @@
   },
   "types": "dist/index.d.ts",
   "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aws-amplify/amplify-ui",
+    "directory": "packages/vue"
+  },
   "files": [
     "dist",
     "LICENSE"
