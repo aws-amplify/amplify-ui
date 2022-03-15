@@ -1,5 +1,22 @@
 # @aws-amplify/ui-react
 
+## 2.10.1
+
+### Patch Changes
+
+- [#1484](https://github.com/aws-amplify/amplify-ui/pull/1484) [`8b72277ab`](https://github.com/aws-amplify/amplify-ui/commit/8b72277ab8bd7ad64fa298a9d509572318ac8db2) Thanks [@wlee221](https://github.com/wlee221)! - refactor: share default form fields generation logic
+
+* [#1484](https://github.com/aws-amplify/amplify-ui/pull/1484) [`8b72277ab`](https://github.com/aws-amplify/amplify-ui/commit/8b72277ab8bd7ad64fa298a9d509572318ac8db2) Thanks [@wlee221](https://github.com/wlee221)! - Default `labelHidden` to false. This can be adjusted in a later PR for better UX.
+
+- [#1514](https://github.com/aws-amplify/amplify-ui/pull/1514) [`5ca96c4a8`](https://github.com/aws-amplify/amplify-ui/commit/5ca96c4a81722aca00caecb35dc98d17588c6ff1) Thanks [@amirHossein-Ebrahimi](https://github.com/amirHossein-Ebrahimi)! - feat: Add repository information to UI packages
+
+* [#1495](https://github.com/aws-amplify/amplify-ui/pull/1495) [`71abbbe28`](https://github.com/aws-amplify/amplify-ui/commit/71abbbe28c8e87aed63dac8131534cfaeb071843) Thanks [@0618](https://github.com/0618)! - fix a11y errors
+
+- [#1509](https://github.com/aws-amplify/amplify-ui/pull/1509) [`95c02cbf8`](https://github.com/aws-amplify/amplify-ui/commit/95c02cbf8930bc16fe349ff6e23b3b859f92d0d5) Thanks [@jacoblogan](https://github.com/jacoblogan)! - make pagination change functions optional
+
+- Updated dependencies [[`8b72277ab`](https://github.com/aws-amplify/amplify-ui/commit/8b72277ab8bd7ad64fa298a9d509572318ac8db2), [`8b72277ab`](https://github.com/aws-amplify/amplify-ui/commit/8b72277ab8bd7ad64fa298a9d509572318ac8db2), [`5ca96c4a8`](https://github.com/aws-amplify/amplify-ui/commit/5ca96c4a81722aca00caecb35dc98d17588c6ff1), [`1e9c6c031`](https://github.com/aws-amplify/amplify-ui/commit/1e9c6c031b1e5401c456365f0ff3187ed35c6f22)]:
+  - @aws-amplify/ui@3.3.1
+
 ## 2.10.0
 
 ### Minor Changes
