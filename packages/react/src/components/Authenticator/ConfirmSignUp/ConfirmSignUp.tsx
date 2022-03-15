@@ -1,15 +1,12 @@
 import * as React from 'react';
-
 import { translate } from '@aws-amplify/ui';
 
-import { useAuthenticator } from '../..';
 import { Button, Flex, Heading, Text } from '../../..';
 import {
-  isInputOrSelectElement,
-  isInputElement,
-  getFormDataFromEvent,
-} from '../../../helpers/utils';
-import { useCustomComponents } from '../hooks/useCustomComponents';
+  useAuthenticator,
+  useCustomComponents,
+  useFormHandlers,
+} from '../hooks';
 
 import { RemoteErrorMessage } from '../shared';
 import { FormFields } from '../shared/FormFields';
@@ -18,10 +15,10 @@ export function ConfirmSignUp() {
   const {
     isPending,
     resendCode,
-    submitForm,
-    updateForm,
     codeDeliveryDetails: { DeliveryMedium, Destination } = {},
   } = useAuthenticator();
+  const { handleChange, handleSubmit } = useFormHandlers();
+
   const {
     components: {
       ConfirmSignUp: {
@@ -30,26 +27,6 @@ export function ConfirmSignUp() {
       },
     },
   } = useCustomComponents();
-
-  const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
-    if (isInputOrSelectElement(event.target)) {
-      let { name, type, value } = event.target;
-      if (
-        isInputElement(event.target) &&
-        type === 'checkbox' &&
-        !event.target.checked
-      ) {
-        value = undefined;
-      }
-
-      updateForm({ name, value });
-    }
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    submitForm(getFormDataFromEvent(event));
-  };
 
   const emailMessage = translate(
     'Your code is on the way. To log in, enter the code we emailed to'
