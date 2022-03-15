@@ -1,3 +1,3 @@
-import helloWorld from './helloWorld';
+import { helloWorld } from './helloWorld';
 
 export type HelloWorld = typeof helloWorld;
