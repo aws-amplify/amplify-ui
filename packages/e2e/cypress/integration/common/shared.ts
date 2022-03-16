@@ -33,15 +33,7 @@ Given("I'm running the docs page {string}", (page: string) => {
 });
 
 Given("I'm running the docs page", () => {
-  cy.visit('/', {
-    // See: https://glebbahmutov.com/blog/cypress-tips-and-tricks/#control-navigatorlanguage
-    onBeforeLoad(win) {
-      Object.defineProperty(win.navigator, 'language', { value: language });
-    },
-    onLoad(contentWindow) {
-      window = contentWindow;
-    },
-  });
+  cy.visit('/');
 });
 
 Given(
