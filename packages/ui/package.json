@@ -15,7 +15,7 @@
     "./styles.css": "./dist/styles.css",
     "./theme.css": "./dist/theme.css"
   },
-  "types": "dist/index.d.ts",
+  "types": "dist/types/index.d.ts",
   "license": "Apache-2.0",
   "files": [
     "dist",
@@ -27,6 +27,7 @@
     "build:css": "./scripts/generateCSS.js",
     "build:js": "tsup --minify",
     "build:sd": "ts-node --transpile-only sd.config.ts",
+    "build:rollup": "yarn prebuild && yarn build:sd && yarn build:css && rollup --config",
     "clean": "rimraf dist node_modules",
     "dev": "tsup --watch src",
     "lint": "tsc --noEmit",
@@ -38,6 +39,8 @@
     "xstate": "4.28.0"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^21.0.2",
+    "@rollup/plugin-typescript": "^8.3.1",
     "@types/jest": "^26.0.23",
     "@types/lodash": "^4.14.170",
     "@types/webpack-env": "^1.16.2",
@@ -48,6 +51,10 @@
     "jest": "^27.0.4",
     "postcss": "^8.3.6",
     "rimraf": "^3.0.2",
+    "rollup": "^2.70.0",
+    "rollup-plugin-multi-input": "^1.3.1",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-typescript2": "^0.31.2",
     "sass": "^1.35.2",
     "ts-jest": "^27.0.3",
     "ts-node": "^10.2.1",
@@ -56,5 +63,8 @@
   },
   "peerDependencies": {
     "aws-amplify": "3.x.x || 4.x.x"
-  }
+  },
+  "sideEffects": [
+    "dist/*.css"
+  ]
 }

@@ -14,9 +14,11 @@
     "outDir": "./dist",
     "skipLibCheck": true,
     "sourceMap": true,
-    "module": "esnext",
-    "target": "es2015"
+    "module": "es6",
+    "target": "es5",
+    "downlevelIteration": true,
+    "lib": ["ESNext", "DOM", "DOM.Iterable", "ScriptHost"]
   },
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules", "src/**/*.test.ts", "src/**/*.test.tsx"],
   "include": ["src/**/*.ts", "src/**/*.tsx"]
 }
