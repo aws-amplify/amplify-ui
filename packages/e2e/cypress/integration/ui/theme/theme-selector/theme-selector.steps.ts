@@ -3,7 +3,7 @@ import { escapeRegExp } from 'lodash';
 
 And('I change the theme to {string}', (name) => {
   cy.findByRole('button', {
-    name: new RegExp(`^${escapeRegExp(name)}$`, 'i'),
+    name: new RegExp(`${escapeRegExp(name)}`, 'i'),
   })
     .should('be.visible')
     .click({ force: true });
