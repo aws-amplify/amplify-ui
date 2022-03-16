@@ -19,6 +19,9 @@ Amplify.configure({
       },
     ],
   },
+  Analytics: {
+    autoSessionRecord: false,
+  },
 });
 
 const App = () => {

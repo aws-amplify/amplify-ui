@@ -3,3 +3,4 @@ export * from './video-recorder';
 export * from './support';
 export * from './liveness';
 export * from './liveness-predictions-provider';
+export * from './analytics';

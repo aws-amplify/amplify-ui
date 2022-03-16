@@ -39,6 +39,7 @@ export default function LivenessCard() {
               active={isLivenessActive}
               onExit={handleExit}
               onUserCancel={handleUserExit}
+              enableAnalytics={true}
             />
           </Card>
 

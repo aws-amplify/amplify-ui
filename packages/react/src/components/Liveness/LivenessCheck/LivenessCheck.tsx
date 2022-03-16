@@ -1,5 +1,8 @@
 import React, { useEffect, useRef } from 'react';
-import { translate } from '@aws-amplify/ui';
+import {
+  translate,
+  LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
+} from '@aws-amplify/ui';
 
 import { useTheme } from '../../../hooks';
 import { useThemeBreakpoint } from '../../../hooks/useThemeBreakpoint';
@@ -67,7 +70,7 @@ export const LivenessCheck: React.FC = () => {
       {!isMobileScreen && (
         <Flex direction="column" alignItems="flex-end">
           <Divider />
-          <CancelButton />
+          <CancelButton sourceScreen={LIVENESS_EVENT_LIVENESS_CHECK_SCREEN} />
         </Flex>
       )}
     </Flex>

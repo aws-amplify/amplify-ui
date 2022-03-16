@@ -11,4 +11,11 @@ export type AmplifyDependentResourcesAttributes = {
       CreatedSNSRole: 'string';
     };
   };
+  analytics: {
+    LivenessClient: {
+      Region: 'string';
+      Id: 'string';
+      appName: 'string';
+    };
+  };
 };

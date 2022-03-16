@@ -57,6 +57,15 @@ export interface LivenessFlowProps {
    * Callback called when the flow completes successfully
    */
   onSuccess?: () => void;
+
+  /**
+   * Enable analytical events for the flow via Amplify Analytics
+   * NOTE: The Amplify Analytics category needs to be configured for this to work
+   * read more here: https://docs.amplify.aws/lib/analytics/getting-started/q/platform/js/
+   *
+   * @default false
+   */
+  enableAnalytics?: boolean;
 }
 
 /**
