@@ -32,6 +32,10 @@ Given("I'm running the docs page {string}", (page: string) => {
   });
 });
 
+Given("I'm running the docs page", () => {
+  cy.visit('/');
+});
+
 Given(
   'I intercept {string} with fixture {string}',
   (json: string, fixture: string) => {
