@@ -6,7 +6,7 @@ And('I change the theme to {string}', (name) => {
     name: new RegExp(`${escapeRegExp(name)}`, 'i'),
   })
     .should('be.visible')
-    .click({ force: true });
+    .click({ scrollBehavior: 'center' });
 });
 
 And(
