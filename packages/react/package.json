@@ -61,7 +61,6 @@
     "@radix-ui/react-slider": "0.1.4",
     "@radix-ui/react-tabs": "0.1.5",
     "@xstate/react": "1.6.3",
-    "amazon-location-helpers": "1.1.1",
     "classnames": "2.3.1",
     "deepmerge": "4.2.2",
     "lodash": "4.17.21",
