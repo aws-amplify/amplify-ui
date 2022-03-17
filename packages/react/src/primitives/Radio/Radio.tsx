@@ -17,6 +17,7 @@ export const RadioPrimitive: Primitive<RadioProps, 'input'> = (
     testId,
     value,
     labelPosition: radioLabelPosition,
+    height, // @TODO: remove custom destructuring for 3.0 release
     width, // @TODO: remove custom destructuring for 3.0 release
     bottom, // @TODO: remove custom destructuring for 3.0 release
     left, // @TODO: remove custom destructuring for 3.0 release
