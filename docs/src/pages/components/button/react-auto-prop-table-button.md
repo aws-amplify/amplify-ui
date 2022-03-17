@@ -1,4 +1,4 @@
-### Button Props
+## Button Props
 
 ### GridItemStyleProps
 
@@ -17,7 +17,7 @@
 ### ButtonHTMLAttributes
 
 | name           | type             | default           | description |
-| -------------- | ---------------- | ----------------- | ----------- |
+| -------------- | ---------------- | ----------------- | ----------- | --- |
 | form           | string           |                   |             |
 | autoFocus      | boolean          |                   |             |
 | disabled       | boolean          |                   |             |
@@ -27,16 +27,16 @@
 | formNoValidate | boolean          |                   |             |
 | formTarget     | string           |                   |             |
 | name           | string           |                   |             |
-| value          | string \| number | readonly string[] |             |  |
+| value          | string \| number | readonly string[] |             |     |
 
 ### HTMLAttributes
 
 | name                                                                                                   | type                    | default           | description                                                                               |
-| ------------------------------------------------------------------------------------------------------ | ----------------------- | ----------------- | ----------------------------------------------------------------------------------------- |
+| ------------------------------------------------------------------------------------------------------ | ----------------------- | ----------------- | ----------------------------------------------------------------------------------------- | ----- | ------- | --------- | --------- | --- | ----------------------------------------------------------------------------------------------------- |
 | slot                                                                                                   | string                  |                   |                                                                                           |
 | title                                                                                                  | string                  |                   |                                                                                           |
 | defaultChecked                                                                                         | boolean                 |                   |                                                                                           |
-| defaultValue                                                                                           | string \| number        | readonly string[] |                                                                                           |  |
+| defaultValue                                                                                           | string \| number        | readonly string[] |                                                                                           |       |
 | suppressContentEditableWarning                                                                         | boolean                 |                   |                                                                                           |
 | suppressHydrationWarning                                                                               | boolean                 |                   |                                                                                           |
 | accessKey                                                                                              | string                  |                   |                                                                                           |
@@ -70,7 +70,7 @@
 | results                                                                                                | number                  |                   |                                                                                           |
 | security                                                                                               | string                  |                   |                                                                                           |
 | unselectable                                                                                           | "on" \| "off"           |                   |                                                                                           |
-| inputMode                                                                                              | "text" \| "search"      | "none"            | "tel"                                                                                     | "url" | "email" | "numeric" | "decimal" |  | Hints at the type of data that might be entered by the user while editing the element or its contents |
+| inputMode                                                                                              | "text" \| "search"      | "none"            | "tel"                                                                                     | "url" | "email" | "numeric" | "decimal" |     | Hints at the type of data that might be entered by the user while editing the element or its contents |
 | @see https://html.spec.whatwg.org/multipage/interaction.html#input-modalities:-the-inputmode-attribute |
 | is                                                                                                     | string                  |                   | Specify that a standard HTML element should behave like a defined custom built-in element |
 | @see https://html.spec.whatwg.org/multipage/custom-elements.html#attr-is                               |
@@ -192,13 +192,13 @@
 ### AriaAttributes
 
 | name                        | type              | default  | description                                                                                                                                                               |
-| --------------------------- | ----------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| --------------------------- | ----------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | aria-activedescendant       | string            |          | Identifies the currently active element when DOM focus is on a composite widget, textbox, group, or application.                                                          |
 | aria-atomic                 | Booleanish        |          | Indicates whether assistive technologies will present all, or only parts of, the changed region based on the change notifications defined by the aria-relevant attribute. |
-| aria-autocomplete           | "list" \| "none"  | "inline" | "both"                                                                                                                                                                    |  | Indicates whether inputting text could trigger display of one or more predictions of the user's intended value for an input and specifies how predictions would be |
+| aria-autocomplete           | "list" \| "none"  | "inline" | "both"                                                                                                                                                                    |     | Indicates whether inputting text could trigger display of one or more predictions of the user's intended value for an input and specifies how predictions would be |
 | presented if they are made. |
 | aria-busy                   | Booleanish        |          | Indicates an element is being modified and that assistive technologies MAY want to wait until the modifications are complete before exposing them to the user.            |
-| aria-checked                | boolean \| "true" | "false"  | "mixed"                                                                                                                                                                   |  | Indicates the current "checked" state of checkboxes, radio buttons, and other widgets. |
+| aria-checked                | boolean \| "true" | "false"  | "mixed"                                                                                                                                                                   |     | Indicates the current "checked" state of checkboxes, radio buttons, and other widgets.                                                                             |
 
 @see aria-pressed
 @see aria-selected. |

@@ -1,6 +1,7 @@
 import { Button, ButtonGroup, Flex, View } from '@aws-amplify/ui-react';
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentClassTable } from '@/components/ComponentClassTable';
+import { Fragment } from '@/components/Fragment';
 
 import { ButtonDemo } from './demo';
 import { IconButtonExample, ButtonThemeExample } from './examples';
@@ -393,3 +394,7 @@ _Using style props:_
 
 </ExampleCode>
 </Example>
+
+<Fragment>
+  {({ platform }) => import('./react-auto-prop-table-button.md')}
+</Fragment>
