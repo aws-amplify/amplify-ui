@@ -1,0 +1,113 @@
+import { Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Alert } from '@aws-amplify/ui-react';
+
+## Installation
+
+For Vue.js 2 users please continue to use our legacy libary found [here](https://github.com/aws-amplify/amplify-ui/tree/legacy/legacy/amplify-ui-vue).
+
+For Vue.js 3 users please continue on with the following steps:
+
+Install the latest version of the `@aws-amplify/ui-vue` library.
+
+<Tabs>
+<TabItem title="npm">
+
+```shell
+npm install aws-amplify @aws-amplify/ui-vue@latest
+```
+
+</TabItem>
+<TabItem title="yarn">
+```shell
+yarn add aws-amplify @aws-amplify/ui-vue@latest
+```
+
+</TabItem>
+</Tabs>
+
+<Alert variation="info" heading="UI Components">
+  If `@aws-amplify/ui-components` is in your `package.json`, please remove that
+  dependency.
+</Alert>
+
+### Update Main
+
+Update the **main.js** file and remove the references to the older `ui-components` library as see below:
+
+**main.js**
+
+```diff
+- import {
+-   applyPolyfills,
+-   defineCustomElements,
+- } from '@aws-amplify/ui-components/loader';
+
+- applyPolyfills().then(() => {
+-   defineCustomElements(window);
+- });
+- const app = createApp(App);
+- app.config.isCustomElement = tag => tag.startsWith('amplify-');
+- app.mount('#app');
+
+import App from "./App.vue";
+import Amplify from 'aws-amplify';
+import awsconfig from './aws-exports';
+import { createApp } from 'vue';
++ import '@aws-amplify/ui-vue/styles.css';
+
+Amplify.configure(awsconfig);
+
+createApp(App).mount('#app');
+
+```
+
+## Usage
+
+Using the `Authenticator` component is similar to the `1.x` usage.
+
+Below is an example of how to create an Authenticator.
+
+**App.vue**
+
+```diff
+<script setup>
++ import { Authenticator } from '@aws-amplify/ui-vue';
+
+</script>
+
+<template>
+-  <amplify-authenticator>
+-    <div>
+-      My App
+-      <amplify-sign-out></amplify-sign-out>
+-    </div>
+-  </amplify-authenticator>
++  <authenticator>
++     <template v-slot="{ user, signOut }">
++      <h1>Hello {{ user.username }}!</h1>
++      <button @click="signOut">Sign Out</button>
++    </template>
++  </authenticator>
+</template>
+```
+
+## Breaking changes
+
+The latest version of the `Authenticator` component has several differences from earlier versions. It's recommended that you look over the
+[Components](/components?platform=vue) section to get an idea of the new changes. However, here are a few of the major changes that you'll need to look out for.
+
+### Slots
+
+All the slot locations have changed with the latest version of the `Authenticator`. To get a
+sense of the changes please check out the [Headers and Footers](/components/authenticator?platform=vue#headers--footers) section.
+
+### Form Fields
+
+The latest version of the `Authenticator` has a different format for the `formFields` prop. It also no long accepts
+`inputProps` nor `hint`. Instead it's recommended that you use the [Headers and Footers Slots](/components/authenticator?platform=vue#headers--footers) or use the
+[Sign Up Fields custimization](/components/authenticator?platform=vue#sign-up-fields). For more information on form field customizations
+please see the [Form Field Customization](/components/authenticator?platform=vue#form-field-customization) section.
+
+### CSS Styling
+
+The latest version of the `Authenticator` has a completely different set of CSS variables. Please look over the [Amplify CSS Variables](/components/authenticator#amplify-css-variables) section for more information.
