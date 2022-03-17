@@ -42,7 +42,7 @@ export function createAuthenticatorMachine() {
           invoke: [
             {
               // TODO Wait for Auth to be configured
-              src: (context, _) => context.services.getCurrentUser(),
+              src: 'getCurrentUser',
               onDone: {
                 actions: 'setUser',
                 target: 'authenticated',
@@ -50,18 +50,17 @@ export function createAuthenticatorMachine() {
               onError: [
                 {
                   target: 'signUp',
-                  cond: (context) => context.config.initialState === 'signUp',
+                  cond: 'shouldInitSignUp',
                 },
                 {
                   target: 'resetPassword',
-                  cond: (context) =>
-                    context.config.initialState === 'resetPassword',
+                  cond: 'shouldInitResetPassword',
                 },
                 { target: 'signIn' },
               ],
             },
             {
-              src: (context, _) => context.services.getAmplifyConfig(),
+              src: 'getAmplifyConfig',
               onDone: {
                 actions: 'applyAmplifyConfig',
               },
@@ -313,14 +312,19 @@ export function createAuthenticatorMachine() {
         }),
       },
       guards: {
-        shouldRedirectToSignUp: (_, event): boolean => {
-          if (!event.data?.intent) return false;
-          return event.data.intent === 'confirmSignUp';
-        },
-        shouldRedirectToResetPassword: (_, event): boolean => {
-          if (!event.data?.intent) return false;
-          return event.data.intent === 'confirmPasswordReset';
-        },
+        // guards for initial states
+        shouldInitSignUp: (context) => context.config.initialState === 'signUp',
+        shouldInitResetPassword: (context) =>
+          context.config.initialState === 'resetPassword',
+        // guards for redirections
+        shouldRedirectToSignUp: (_, event) =>
+          event.data?.intent === 'confirmSignUp',
+        shouldRedirectToResetPassword: (_, event) =>
+          event.data?.intent === 'confirmPasswordReset',
+      },
+      services: {
+        getCurrentUser: (context, _) => context.services.getCurrentUser(),
+        getAmplifyConfig: (context, _) => context.services.getAmplifyConfig(),
       },
     }
   );
