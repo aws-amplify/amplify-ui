@@ -292,10 +292,10 @@ The following is an example demonstrating use of the `ref` and `showPasswordButt
 
 <StandardHTMLAttributes component="PasswordField" link="input" element="<input>">
   <Example>
-    <form id="password_form">
+    <View as="form" id="input_form">
       <TextField name="username" label="username"/>
-    </form>
-    <PasswordField label="Password" name="password" form="input_form"/>
+      <PasswordField label="Password" name="password" form="password_form"/>
+    </View>
 
     <ExampleCode>
 
