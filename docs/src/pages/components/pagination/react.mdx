@@ -8,17 +8,6 @@ import { PaginationHasMorePagesExample } from './examples';
 
 <PaginationDemo />
 
-## Has More Pages
-
-<Example>
-  <PaginationHasMorePagesExample />
-  <ExampleCode>
-```jsx file=./examples/PaginationHasMorePagesExample.tsx
-
-````
-  </ExampleCode>
-</Example>
-
 ## Usage
 
 Import the Pagination component and styles.
@@ -35,9 +24,20 @@ import '@aws-amplify/ui-react/styles.css';
   onNext={this.onNext}
   onPrevious={this.onPrevious}
 />;
-````
+```
 
 <PaginationDemo isDemo={false} />
+
+### Paginating at the API level
+
+<Example>
+  <PaginationHasMorePagesExample />
+  <ExampleCode>
+```jsx file=./examples/PaginationHasMorePagesExample.tsx
+
+````
+  </ExampleCode>
+</Example>
 
 ## CSS styling
 
@@ -137,3 +137,4 @@ import '@aws-amplify/ui-react/styles.css';
 ## Accessibility
 
 By default, the root node has a role of "navigation" and each page item has an aria-label that identifies the purpose of the item ("Go to previous page", "Go to next page", "Go to page 1" etc.).
+````
