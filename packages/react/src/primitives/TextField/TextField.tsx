@@ -30,7 +30,6 @@ const TextFieldPrimitive = <Multiline extends boolean>(
     descriptiveText,
     errorMessage,
     hasError = false,
-    height, // @TODO: remove custom destructuring for 3.0 release
     id,
     label,
     labelHidden = false,
@@ -42,7 +41,16 @@ const TextFieldPrimitive = <Multiline extends boolean>(
     type, // remove from rest to prevent passing as DOM attribute to textarea
     size,
     testId,
+
+    bottom, // @TODO: remove custom destructuring for 3.0 release
+    height, // @TODO: remove custom destructuring for 3.0 release
+    left, // @TODO: remove custom destructuring for 3.0 release
+    padding, // @TODO: remove custom destructuring for 3.0 release
+    position, // @TODO: remove custom destructuring for 3.0 release
+    right, // @TODO: remove custom destructuring for 3.0 release
+    top, // @TODO: remove custom destructuring for 3.0 release
     width, // @TODO: remove custom destructuring for 3.0 release
+
     ..._rest
   } = props;
 
@@ -97,9 +105,15 @@ const TextFieldPrimitive = <Multiline extends boolean>(
         ComponentClassNames.TextField,
         className
       )}
+      bottom={bottom}
       data-size={size}
       height={height}
+      left={left}
+      padding={padding}
+      position={position}
+      right={right}
       testId={testId}
+      top={top}
       width={width}
       {...flexContainerStyleProps}
     >

@@ -1,0 +1,78 @@
+import { Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Alert } from '@aws-amplify/ui-react';
+
+## Installation
+
+Install the latest version of the `@aws-amplify/ui-react` library.
+
+<Tabs>
+<TabItem title="npm">
+
+```shell
+npm install aws-amplify @aws-amplify/ui-react@latest
+```
+
+</TabItem>
+<TabItem title="yarn">
+```shell
+yarn add aws-amplify @aws-amplify/ui-react@latest
+```
+
+</TabItem>
+</Tabs>
+
+### Update and Usage
+
+Update the **App.js** with the new `Authenticator` and remove the old `AmplifyAuthenticator` as seen below:
+
+**App.js**
+
+```diff
+- import { AmplifyAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
+import { Amplify } from 'aws-amplify';
+
++ import { Authenticator } from '@aws-amplify/ui-react';
++ import '@aws-amplify/ui-react/styles.css';
+
+import awsExports from './aws-exports';
+Amplify.configure(awsExports);
+
+ const App = () => (
+-  <AmplifyAuthenticator>
+-    <div>
+-      My App
+-      <AmplifySignOut />
+-    </div>
+-  </AmplifyAuthenticator>
++  <Authenticator>
++      {({ signOut, user }) => (
++        <main>
++          <h1>Hello {user.username}</h1>
++          <button onClick={signOut}>Sign out</button>
++        </main>
++      )}
++    </Authenticator>
+);
+
+```
+
+## Breaking changes
+
+The latest version of the `Authenticator` component has several differences from earlier versions. It's recommended that you look over the
+[Components](/components?platform=react) section to get an idea of the new changes. However, here are a few of the major changes that you'll need to look out for.
+
+### Slots
+
+All the slot locations have changed with the latest version of the `Authenticator`. To get a
+sense of the changes please check out the [Headers and Footers](/components/authenticator?platform=react#headers--footers) section.
+
+### Form Fields
+
+The latest version of the `Authenticator` has a different format for the `formFields` prop. It also no long accepts
+`inputProps` nor `hint`. Instead it's recommended that you use the [Headers and Footers Slots](/components/authenticator?platform=react#headers--footers) or use the
+[Sign Up Fields custimization](/components/authenticator?platform=react#sign-up-fields). For more information on form field customizations
+please see the [Form Field Customization](/components/authenticator?platform=react#form-field-customization) section.
+
+### CSS Styling
+
+The latest version of the `Authenticator` has a completely different set of CSS variables. Please look over the [Amplify CSS Variables](/components/authenticator#amplify-css-variables) section for more information.
