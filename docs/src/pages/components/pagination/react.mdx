@@ -28,7 +28,9 @@ import '@aws-amplify/ui-react/styles.css';
 
 <PaginationDemo isDemo={false} />
 
-### Paginating at the API level
+### Paginating at an API level
+
+If you need to use the Pagination component with an API where the total number of pages is unknown until you reach the last page of data, then `totalPages` will indicate the total pages of content loaded from the API *so far*, and `hasMorePages` will indicate when the end of the data has been reached (and thus the Pagination component's next button will be disabled). See below for a contrived example:
 
 <Example>
   <PaginationHasMorePagesExample />
