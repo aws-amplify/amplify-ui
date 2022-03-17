@@ -1,12 +1,12 @@
 import * as React from 'react';
 
 interface UseDeprecationWarning {
-  shouldWarn: boolean;
+  shouldWarn?: boolean;
   message: string;
 }
 
 export const useDeprecationWarning = ({
-  shouldWarn,
+  shouldWarn = true,
   message,
 }: UseDeprecationWarning) => {
   React.useEffect(() => {
