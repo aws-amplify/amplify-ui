@@ -75,7 +75,7 @@ export function createAuthenticatorMachine() {
             },
             runActor: {
               entry: 'clearActorDoneData',
-              exit: stopActor('signInActor'),
+              exit: 'stopSignInActor',
             },
           },
           on: {
@@ -107,7 +107,7 @@ export function createAuthenticatorMachine() {
             },
             runActor: {
               entry: 'clearActorDoneData',
-              exit: stopActor('signUpActor'),
+              exit: 'stopSignUpActor',
             },
           },
           on: {
@@ -129,7 +129,7 @@ export function createAuthenticatorMachine() {
             },
             runActor: {
               entry: 'clearActorDoneData',
-              exit: stopActor('resetPasswordActor'),
+              exit: 'stopResetPasswordActor',
             },
           },
           on: {
@@ -148,7 +148,7 @@ export function createAuthenticatorMachine() {
             },
             runActor: {
               entry: 'clearActorDoneData',
-              exit: [stopActor('signOutActor'), 'clearUser'],
+              exit: ['stopSignOutActor', 'clearUser'],
             },
           },
           on: {
@@ -303,6 +303,10 @@ export function createAuthenticatorMachine() {
             return spawn(actor, { name: 'signOutActor' });
           },
         }),
+        stopSignInActor: stopActor('signInActor'),
+        stopSignUpActor: stopActor('signUpActor'),
+        stopResetPasswordActor: stopActor('resetPasswordActor'),
+        stopSignOutActor: stopActor('signOutActor'),
         configure: assign((_, event) => {
           const { services: customServices, ...config } = event.data;
           return {
