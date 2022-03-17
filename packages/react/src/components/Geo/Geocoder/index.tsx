@@ -2,12 +2,13 @@ import maplibregl from 'maplibre-gl';
 import { createAmplifyGeocoder } from 'maplibre-gl-js-amplify';
 import { useEffect } from 'react';
 import { useControl, useMap } from 'react-map-gl';
+import type { IControl } from 'react-map-gl';
 
 const GEOCODER_OPTIONS = {
   maplibregl,
-  marker: { color: '#4668F2' },
+  marker: { color: '#3FB1CE' },
   popup: true,
-  showResultMarkers: { color: '#4668F2' },
+  showResultMarkers: { color: '#3FB1CE' },
   showResultsWhileTyping: true,
 };
 
@@ -26,7 +27,7 @@ export const Geocoder = ({
         createAmplifyGeocoder({
           ...GEOCODER_OPTIONS,
           ...props,
-        }) as any,
+        }) as unknown as IControl,
       { position }
     );
   } else {
@@ -39,17 +40,6 @@ export const Geocoder = ({
       ).addTo(`#${GEOCODER_CONTAINER}`);
     }, []);
   }
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      document
-        .querySelectorAll('.maplibregl-ctrl-geocoder')
-        .forEach((geocoderEl: HTMLElement) => {
-          geocoderEl.setAttribute('data-amplify-geocoder', '');
-          Object.assign(geocoderEl.style, style);
-        });
-    }
-  }, [map]);
 
   return !map ? <div id={GEOCODER_CONTAINER} /> : null;
 };
