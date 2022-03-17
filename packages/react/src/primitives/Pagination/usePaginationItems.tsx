@@ -40,18 +40,6 @@ export const usePaginationItems = (
       key="next"
       currentPage={currentPage}
       onClick={onNext}
-      /*
-        if current page is less than totalPages AND it has more pages, it should not be disabled (false)
-        if current page is less than totalPages AND it DOES NOT have more pages, it should not be disabled (false)
-
-        if current page is greater than totalPages AND it has more pages, it should be disabled (true)
-        if current page is greater than totalPages AND it DOES NOT have more pages, it should be disabled (true)
-
-        if current page is equal to totalPages AND it has more pages, it should NOT be disabled (false)
-        if current page is equal to totalPages AND it DOES NOT have more pages, it should be disabled (true)
-
-        I think this logic is correct
-      */
       isDisabled={currentPage === totalPages && !hasMorePages}
       ariaLabel={i18n.PaginationItem.NextItem.ariaLabel}
     />
