@@ -9463,7 +9463,7 @@ cssnano-preset-default@^5.0.1:
     postcss-svgo "^5.0.3"
     postcss-unique-selectors "^5.0.2"
 
-cssnano-preset-simple@3.0.0, cssnano-preset-simple@^3.0.0:
+cssnano-preset-simple@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/cssnano-preset-simple/-/cssnano-preset-simple-3.0.0.tgz#e95d0012699ca2c741306e9a3b8eeb495a348dbe"
   integrity sha512-vxQPeoMRqUT3c/9f0vWeVa2nKQIHFpogtoBvFdW4GQ3IvEJ6uauCP6p3Y5zQDLFcI7/+40FTgX12o7XUL0Ko+w==
