@@ -69,8 +69,7 @@ export const theme: Theme = {
       },
     },
     {
-      selector:
-        '[data-amplify-theme-override="classic"] [data-amplify-theme="amplify-docs"]',
+      selector: '[data-amplify-theme-override="classic"]',
       tokens: {
         colors: {
           brand: {
@@ -92,8 +91,7 @@ export const theme: Theme = {
       },
     },
     {
-      selector:
-        '[data-amplify-theme-override="terminal"] [data-amplify-theme="amplify-docs"]',
+      selector: '[data-amplify-theme-override="terminal"]',
       tokens: {
         colors: {
           green: {
