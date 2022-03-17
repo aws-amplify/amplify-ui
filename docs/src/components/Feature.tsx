@@ -14,7 +14,7 @@ import { useRouter } from 'next/router';
 import * as React from 'react';
 import * as runtime from 'react/jsx-runtime';
 import remarkGfm from 'remark-gfm';
-import { evaluateSync } from '@mdx-js/mdx';
+import { evaluateSync } from 'xdm';
 
 const parser = new Parser(
   new AstBuilder(IdGenerator.uuid()),

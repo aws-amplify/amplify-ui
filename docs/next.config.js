@@ -128,13 +128,12 @@ module.exports = withNextPluginPreval({
       ],
     ];
 
-    // See: https://mdxjs.com/docs/getting-started/#nextjs
+    // See: https://github.com/wooorm/xdm#next
     config.module.rules.push({
       test: /\.page.mdx$/,
       use: [
         {
-          loader: '@mdx-js/loader',
-          /** @type {import('@mdx-js/loader').Options} */
+          loader: 'xdm/webpack.cjs',
           options: {
             rehypePlugins: defaultRehypePlugins,
             // Pages have reqiure layout & frontmatter
@@ -158,8 +157,7 @@ module.exports = withNextPluginPreval({
       test: /\.mdx?$/,
       use: [
         {
-          loader: '@mdx-js/loader',
-          /** @type {import('@mdx-js/loader').Options} */
+          loader: 'xdm/webpack.cjs',
           options: {
             rehypePlugins: defaultRehypePlugins,
             remarkPlugins: defaultRemarkPlugins,

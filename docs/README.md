@@ -2,7 +2,7 @@
 
 These docs are published at https://docs.amplify.aws/ui and powered by the following technologies:
 
-- [MDX](https://mdxjs.com/) – Content
+- [XDM](https://github.com/wooorm/xdm) – Content
 - [Next.js](https://nextjs.org/) – Framework
 
 ## Contributing
