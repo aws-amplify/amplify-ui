@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react
 
+## 2.10.3
+
+### Patch Changes
+
+- [#1535](https://github.com/aws-amplify/amplify-ui/pull/1535) [`f1d4020be`](https://github.com/aws-amplify/amplify-ui/commit/f1d4020be9a976cc0221a89189bee847a38e6478) Thanks [@reesscot](https://github.com/reesscot)! - fix: typo in mapping of TextField left style prop (left was mapped to right, when should be mapped to left)
+
 ## 2.10.2
 
 ### Patch Changes
