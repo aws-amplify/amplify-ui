@@ -31,6 +31,7 @@ module.exports = {
     },
   ],
   rules: {
+    '@typescript-eslint/explicit-module-boundary-types': 2,
     '@typescript-eslint/member-ordering': 'error',
     '@typescript-eslint/no-extra-semi': 'error',
     '@typescript-eslint/no-unused-expressions': [
@@ -55,6 +56,7 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'jest/expect-expect': ['error', { assertFunctionNames: ['expect*'] }],
     'jest/no-mocks-import': 'off',
+    'max-params': 2,
     'no-alert': 'error',
     'no-console': 'error',
     'no-tabs': ['error', { allowIndentationTabs: true }],

@@ -19,7 +19,7 @@
     "outDir": "dist",
     "skipLibCheck": true,
     "sourceMap": true,
-    "strict": false,
+    "strict": true,
     "target": "es5",
     "types": ["webpack-env", "jest"]
   },
