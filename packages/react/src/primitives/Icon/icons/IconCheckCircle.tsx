@@ -5,6 +5,7 @@ import { View } from '../../View';
 
 export const IconCheckCircle = (props) => {
   const { className, ...rest } = props;
+
   return (
     <View
       as="span"
