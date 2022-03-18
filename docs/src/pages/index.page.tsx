@@ -416,7 +416,6 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
         <Grid
           className="container"
           templateColumns={{ base: '1fr', medium: '1fr 1fr' }}
-          templateRows="1fr 1fr 1fr"
           gap={tokens.space.medium}
           flex="1"
         >

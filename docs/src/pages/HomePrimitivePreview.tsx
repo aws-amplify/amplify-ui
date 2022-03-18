@@ -24,6 +24,7 @@ import {
   Divider,
   Menu,
   MenuItem,
+  View,
 } from '@aws-amplify/ui-react';
 import {
   MdFormatAlignLeft,
@@ -44,16 +45,21 @@ export const HomePrimitivePreview = () => {
   return (
     <Flex direction="column" flex="1">
       <Flex
-        direction="row"
+        direction={{
+          base: 'column',
+          large: 'row',
+        }}
         alignItems="center"
-        padding={`0 0 0 ${tokens.space.xxxl}`}
+        justifyContent="center"
       >
-        <Badge size="small" variation="success">
-          Available
-        </Badge>
-        <Badge size="small" variation="info">
-          New
-        </Badge>
+        <View>
+          <Badge size="small" variation="success">
+            Available
+          </Badge>
+          <Badge size="small" variation="info">
+            New
+          </Badge>
+        </View>
 
         <Pagination {...pagination} />
       </Flex>
@@ -94,13 +100,16 @@ export const HomePrimitivePreview = () => {
           </MenuItem>
         </Menu>
       </Flex>
-      <Flex padding={`0 0 0 ${tokens.space.xxl}`}>
+      <Flex padding={{ base: 0, large: `0 0 0 ${tokens.space.xxl}` }}>
         <Placeholder />
       </Flex>
       <Flex
         alignItems="center"
-        direction="row"
-        padding={`0 0 0 ${tokens.space.xxl}`}
+        direction={{
+          base: 'column',
+          large: 'row',
+        }}
+        padding={{ base: 0, large: `0 0 0 ${tokens.space.xxl}` }}
       >
         <Tabs>
           <TabItem title="Tab 1">
@@ -117,12 +126,15 @@ export const HomePrimitivePreview = () => {
         <Rating value={4} />
       </Flex>
       <Flex
-        direction="row"
+        direction={{
+          base: 'column',
+          large: 'row',
+        }}
         alignItems="flex-start"
-        padding={`0 0 0 ${tokens.space.large}`}
+        padding={{ base: 0, large: `0 0 0 ${tokens.space.large}` }}
       >
         <SearchField placeholder="Search" label="Search" labelHidden={true} />
-        <SwitchField label="Accept" />
+        <SwitchField label="Accept" margin="0 auto" />
         <SliderField
           label="Slider"
           defaultValue={50}
@@ -130,6 +142,7 @@ export const HomePrimitivePreview = () => {
           max={100}
           step={1}
           labelHidden
+          margin="0 auto"
         />
       </Flex>
       <Flex direction="row" alignItems="flex-start">
