@@ -26,6 +26,12 @@ import { getActorContext, getActorState } from './actor';
  * submit({ username, password})
  * ```
  */
+
+type EventsWithData = Extract<AuthEvent, { data: Record<PropertyKey, any> }>;
+type EventsWithoutData = Exclude<AuthEvent, EventsWithData>;
+type EventNamesWithData = EventsWithData['type'];
+type EventNamesWithoutData = EventsWithoutData['type'];
+
 export const getSendEventAliases = (send: Sender<AuthEvent>) => {
   const sendToMachine = (type: AuthEventTypes) => {
     // TODO If these were created during the creation of the machine & provider,

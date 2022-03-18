@@ -5,6 +5,7 @@ import {
   AuthEvent,
   CognitoUserAmplify,
   AuthFormFields,
+  AuthServices,
 } from '../../types';
 import { stopActor } from './actions';
 import { resetPasswordActor, signInActor, signOutActor } from './actors';
@@ -18,8 +19,14 @@ export type AuthenticatorMachineOptions = AuthContext['config'] & {
 };
 
 export function createAuthenticatorMachine() {
-  return createMachine<AuthContext, AuthEvent>(
+  return createMachine(
     {
+      tsTypes: {} as import('./index.typegen').Typegen0,
+      schema: {
+        context: {} as AuthContext,
+        services: {} as AuthServices,
+        events: {} as AuthEvent,
+      },
       id: 'authenticator',
       initial: 'idle',
       context: {
