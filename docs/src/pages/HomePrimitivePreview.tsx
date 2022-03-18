@@ -108,7 +108,9 @@ export const HomePrimitivePreview = () => {
           </Menu>
         </Flex>
       </Flex>
-      <Placeholder />
+      <Flex padding={{ base: 0, large: `0 0 0 ${tokens.space.xxl}` }}>
+        <Placeholder />
+      </Flex>
       <Flex
         alignItems="center"
         direction={{
