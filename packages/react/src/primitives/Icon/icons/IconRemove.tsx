@@ -5,6 +5,7 @@ import { View } from '../../View';
 
 export const IconRemove = (props) => {
   const { className, ...rest } = props;
+
   return (
     <View
       as="span"

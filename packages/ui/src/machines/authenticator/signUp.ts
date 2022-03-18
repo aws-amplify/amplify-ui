@@ -246,7 +246,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
         setRemoteError,
         setCodeDeliveryDetails,
         setUser,
-        sendUpdate,
+        sendUpdate: sendUpdate(), // sendUpdate is a HOC
       },
       services: {
         async signIn(context, event) {

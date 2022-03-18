@@ -172,7 +172,7 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
         setFieldErrors,
         setRemoteError,
         setUsername,
-        sendUpdate,
+        sendUpdate: sendUpdate(), // sendUpdate is a HOC
       },
       guards: {
         shouldAutoConfirmReset: (context, event): boolean => {
