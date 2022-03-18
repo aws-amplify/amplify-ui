@@ -1,14 +1,14 @@
 import { Authenticator, Button } from '@aws-amplify/ui-react';
 
 import { Example } from '@/components/Example';
-import { Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Expander, ExpanderItem } from '@aws-amplify/ui-react';
 
 import { LabelsAndTextDemo } from './LabelsAndTextDemo';
 
 Using the same techniques as [Internationalization (I18n)](#internationalization-i18n), you can customize the labels and text of the components:
 
-<Tabs>
-  <TabItem title="Default Values">
+<Expander type="single" isCollapsible>
+  <ExpanderItem title="Default Values" value="default-values">
     Compare the default labels below to those in the customized screens via the tabs above.
 
     Because `I18n` manages global translations, customizing these will affect all translations of these strings (including those on this page!).
@@ -17,9 +17,9 @@ Using the same techniques as [Internationalization (I18n)](#internationalization
       <Authenticator />
     </Example>
 
-  </TabItem>
-  <TabItem title="Sign In">
+  </ExpanderItem>
 
+  <ExpanderItem title="Sign In" value="sign-in">
     ```js
     I18n.putVocabulariesForLanguage('en', {
       'Sign In': 'Login', // Tab header
@@ -35,10 +35,9 @@ Using the same techniques as [Internationalization (I18n)](#internationalization
       <LabelsAndTextDemo Component={Authenticator.SignIn} />
     </Example>
 
-  </TabItem>
+  </ExpanderItem>
 
-  <TabItem title="Sign Up">
-
+  <ExpanderItem title="Sign Up" value="sign-up">
     ```js
     I18n.putVocabulariesForLanguage('en', {
       'Create Account': 'Register', // Tab header
@@ -53,10 +52,9 @@ Using the same techniques as [Internationalization (I18n)](#internationalization
       <LabelsAndTextDemo Component={Authenticator.SignUp} />
     </Example>
 
-  </TabItem>
+  </ExpanderItem>
 
-  <TabItem title="Reset Password">
-
+  <ExpanderItem title="Reset Password" value="reset-password">
     ```js
     I18n.putVocabulariesForLanguage('en', {
       'Reset your password': 'Forgot your password?',
@@ -70,10 +68,9 @@ Using the same techniques as [Internationalization (I18n)](#internationalization
       <LabelsAndTextDemo Component={Authenticator.ResetPassword} />
     </Example>
 
-  </TabItem>
+  </ExpanderItem>
 
-  <TabItem title="Setup TOTP">
-
+  <ExpanderItem title="Setup TOTP" value="setup-totp">
     ```js
     I18n.putVocabulariesForLanguage('en', {
       Loading: 'QR code would show here',
@@ -87,5 +84,5 @@ Using the same techniques as [Internationalization (I18n)](#internationalization
       <LabelsAndTextDemo Component={Authenticator.SetupTOTP} />
     </Example>
 
-  </TabItem>
-</Tabs>
+  </ExpanderItem>
+</Expander>
