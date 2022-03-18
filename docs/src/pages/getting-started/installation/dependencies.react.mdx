@@ -21,6 +21,8 @@ yarn add aws-amplify @aws-amplify/ui-react
 
 Wrap your application in `<AmplifyProvider/>` and include default styling:
 
+<Tabs>
+<TabItem title="React" >
 ```jsx
 import { AmplifyProvider } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css'; // default theme
@@ -31,3 +33,19 @@ export default () => (
   </AmplifyProvider>
 );
 ```
+</TabItem>
+<TabItem title="Next.js" >
+```jsx
+import { AmplifyProvider } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css'; // default theme
+
+export default function App(props) {
+  return (
+    <Authenticator.Provider>
+      <MyApp {...props} />
+    </Authenticator.Provider>
+  );
+};
+```
+</TabItem>
+</Tabs>
