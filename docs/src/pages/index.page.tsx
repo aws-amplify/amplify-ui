@@ -273,6 +273,7 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
               as="a"
               size="large"
               href={`/components/authenticator?platform=${framework}`}
+              isFullWidth
             >
               Authenticator
               <IconChevronRight />
