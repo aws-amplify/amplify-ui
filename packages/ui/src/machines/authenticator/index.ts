@@ -50,11 +50,11 @@ export function createAuthenticatorMachine() {
               onError: [
                 {
                   target: 'signUp',
-                  cond: 'shouldInitSignUp',
+                  cond: 'isInitialStateSignUp',
                 },
                 {
                   target: 'resetPassword',
-                  cond: 'shouldInitResetPassword',
+                  cond: 'isInitialStateResetPassword',
                 },
                 { target: 'signIn' },
               ],
@@ -317,8 +317,9 @@ export function createAuthenticatorMachine() {
       },
       guards: {
         // guards for initial states
-        shouldInitSignUp: (context) => context.config.initialState === 'signUp',
-        shouldInitResetPassword: (context) =>
+        isInitialStateSignUp: (context) =>
+          context.config.initialState === 'signUp',
+        isInitialStateResetPassword: (context) =>
           context.config.initialState === 'resetPassword',
         // guards for redirections
         shouldRedirectToSignUp: (_, event) =>
