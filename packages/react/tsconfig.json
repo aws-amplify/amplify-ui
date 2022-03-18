@@ -11,13 +11,11 @@
     "esModuleInterop": true,
     "jsx": "react-jsx",
     "rootDir": "./src",
-    "outDir": "./dist",
+    // "outDir": "./dist",
     "skipLibCheck": true,
     "sourceMap": true,
     "module": "esnext",
-    "target": "es5",
-    "downlevelIteration": true,
-    "lib": ["ESNext", "DOM", "DOM.Iterable", "ScriptHost"]
+    "target": "es6"
   },
   "exclude": ["node_modules", "src/**/*.test.ts", "src/**/*.test.tsx"],
   "include": ["src/**/*.ts", "src/**/*.tsx"]

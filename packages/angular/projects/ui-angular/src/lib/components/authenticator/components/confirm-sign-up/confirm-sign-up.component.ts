@@ -1,6 +1,10 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
-import { getFormDataFromEvent, translate } from '@aws-amplify/ui';
+import {
+  FormFieldsArray,
+  getFormDataFromEvent,
+  translate,
+} from '@aws-amplify/ui';
 @Component({
   selector: 'amplify-confirm-sign-up',
   templateUrl: './confirm-sign-up.component.html',
@@ -23,6 +27,8 @@ export class ConfirmSignUpComponent {
     'Your code is on the way. To log in, enter the code we sent you. It may take a minute to arrive.'
   );
   public minutesMessage = translate('It may take a minute to arrive.');
+
+  public sortedFormFields: FormFieldsArray;
 
   constructor(public authenticator: AuthenticatorService) {}
 

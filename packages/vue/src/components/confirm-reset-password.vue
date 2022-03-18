@@ -1,20 +1,21 @@
 <script setup lang="ts">
 import { computed, ComputedRef, useAttrs, defineEmits } from 'vue';
+import { createSharedComposable } from '@vueuse/core';
+
 import {
   getActorContext,
   getActorState,
   ResetPasswordContext,
   ResetPasswordState,
-  ValidationError,
   translate,
   getFormDataFromEvent,
 } from '@aws-amplify/ui';
 
 import { useAuth, useAuthenticator } from '../composables/useAuth';
-import PasswordControl from './password-control.vue';
-import { createSharedComposable } from '@vueuse/core';
+import BaseFormFields from './primitives/base-form-fields.vue';
 
 const { state, send } = useAuth();
+
 const useAuthShared = createSharedComposable(useAuthenticator);
 const props = useAuthShared();
 
@@ -31,15 +32,10 @@ const actorContext = computed(() =>
 
 // Computed Properties
 const resendCodeText = computed(() => translate('Resend Code'));
-const confirmationCodeText = computed(() => translate('Confirmation Code'));
 const confirmResetPasswordHeading = computed(() =>
   translate('Reset your Password')
 );
 const confirmResetPasswordText = computed(() => translate('Submit'));
-
-const codeText = computed(() => translate('Code'));
-const newPasswordLabel = computed(() => translate('New password'));
-const confirmPasswordLabel = computed(() => translate('Confirm Password'));
 
 // Methods
 const onConfirmResetPasswordSubmit = (e: Event): void => {
@@ -80,6 +76,7 @@ function onBlur(e: Event) {
       <base-form
         data-amplify-authenticator-confirmResetpassword
         @input="onInput"
+        @blur.capture="onBlur"
         @submit.prevent="onConfirmResetPasswordSubmit"
       >
         <base-field-set
@@ -94,79 +91,9 @@ function onBlur(e: Event) {
           </slot>
 
           <base-wrapper class="amplify-flex" style="flex-direction: column">
-            <base-wrapper
-              class="amplify-flex amplify-field amplify-textfield"
-              style="flex-direction: column"
-            >
-              <base-label
-                class="amplify-visually-hidden amplify-label"
-                for="amplify-field-d653"
-              >
-                {{ confirmationCodeText }}
-              </base-label>
-              <base-wrapper class="amplify-flex">
-                <base-input
-                  class="amplify-input amplify-field-group__control"
-                  id="amplify-field-d653"
-                  aria-invalid="false"
-                  autocomplete="one-time-code"
-                  :placeholder="codeText"
-                  name="confirmation_code"
-                  required
-                  type="number"
-                ></base-input>
-              </base-wrapper>
-            </base-wrapper>
-            <base-wrapper
-              class="
-                amplify-flex
-                amplify-field
-                amplify-textfield
-                amplify-passwordfield
-                password-field
-              "
-              style="flex-direction: column"
-            >
-              <password-control
-                name="password"
-                :label="newPasswordLabel"
-                autocomplete="current-password"
-                :ariainvalid="
-                  !!(actorContext.validationError as ValidationError)['confirm_password']
-                "
-                @blur="onBlur"
-              />
-            </base-wrapper>
-            <base-wrapper
-              class="
-                amplify-flex
-                amplify-field
-                amplify-textfield
-                amplify-passwordfield
-              "
-              style="flex-direction: column"
-            >
-              <password-control
-                name="confirm_password"
-                :label="confirmPasswordLabel"
-                autocomplete="new-password"
-                :ariainvalid="
-                  !!(actorContext.validationError as ValidationError)['confirm_password']
-                "
-                @blur="onBlur"
-              />
-            </base-wrapper>
+            <base-form-fields route="confirmResetPassword"></base-form-fields>
           </base-wrapper>
           <base-footer class="amplify-flex" style="flex-direction: column">
-            <base-box
-              data-ui-error
-              data-variation="error"
-              role="alert"
-              class="amplify-text"
-              v-if="!!(actorContext.validationError as ValidationError)['confirm_password']"
-            >
-              {{ translate(actorContext.validationError?.confirm_password as string) }}
-            </base-box>
             <base-alert v-if="actorState?.context?.remoteError">
               {{ translate(actorState?.context?.remoteError) }}
             </base-alert>

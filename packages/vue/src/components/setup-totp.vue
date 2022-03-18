@@ -12,6 +12,7 @@ import {
 } from '@aws-amplify/ui';
 
 import { useAuth, useAuthenticator } from '../composables/useAuth';
+import BaseFormFields from './primitives/base-form-fields.vue';
 
 const useAuthShared = createSharedComposable(useAuthenticator);
 const props = useAuthShared();
@@ -20,6 +21,14 @@ const attrs = useAttrs();
 const emit = defineEmits(['confirmSetupTOTPSubmit', 'backToSignInClicked']);
 
 const { state, send } = useAuth();
+const {
+  value: { context },
+} = state;
+
+const formOverrides = context?.config?.formFields?.setupTOTP;
+const QROR = formOverrides?.['QR'];
+const confOR = formOverrides?.['confirmation_code'];
+
 const actorState = computed(() =>
   getActorState(state.value)
 ) as ComputedRef<SignInState>;
@@ -46,8 +55,9 @@ onMounted(async () => {
   }
   try {
     secretKey.value = await Auth.setupTOTP(user);
-    const issuer = 'AWSCognito';
-    const totpCode = `otpauth://totp/${issuer}:${user.username}?secret=${secretKey.value}&issuer=${issuer}`;
+    const issuer = QROR?.totpIssuer ?? 'AWSCognito';
+    const username = QROR?.totpUsername ?? user.username;
+    const totpCode = `otpauth://totp/${issuer}:${username}?secret=${secretKey.value}&issuer=${issuer}`;
     qrCode.qrCodeImageSource = await QRCode.toDataURL(totpCode);
   } catch (error) {
     logger.error(error);
@@ -60,6 +70,9 @@ onMounted(async () => {
 const backSignInText = computed(() => translate('Back to Sign In'));
 const confirmText = computed(() => translate('Confirm'));
 const codeText = computed(() => translate('Code'));
+
+const label = confOR?.label ?? translate('Code *');
+const labelHidden = confOR?.labelHidden;
 
 // Methods
 const onInput = (e: Event): void => {
@@ -135,38 +148,15 @@ const onBackToSignInClicked = (): void => {
                       width="24"
                       height="24"
                       viewBox="0 0 24 24"
-                      fill="none"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         d="M16 1H4C2.9 1 2 1.9 2 3V17H4V3H16V1ZM15 5H8C6.9 5 6.01 5.9 6.01 7L6 21C6 22.1 6.89 23 7.99 23H19C20.1 23 21 22.1 21 21V11L15 5ZM8 21V7H14V12H19V21H8Z"
-                        fill="black"
                       />
                     </svg>
                   </base-wrapper>
                 </base-wrapper>
-                <base-wrapper
-                  class="amplify-flex amplify-field amplify-textfield"
-                  style="flex-direction: column"
-                >
-                  <base-label
-                    class="amplify-visually-hidden amplify-label"
-                    for="amplify-field-45d1"
-                    >Code *</base-label
-                  >
-                  <base-wrapper class="amplify-flex">
-                    <base-input
-                      class="amplify-input amplify-field-group__control"
-                      id="amplify-field-45d1"
-                      aria-invalid="false"
-                      name="confirmation_code"
-                      :placeholder="codeText"
-                      autocomplete="one-time-code"
-                      required
-                      type="text"
-                    ></base-input>
-                  </base-wrapper>
-                </base-wrapper>
+                <base-form-fields route="setupTOTP"></base-form-fields>
               </base-wrapper>
               <base-footer class="amplify-flex" style="flex-direction: column">
                 <base-alert v-if="actorState.context?.remoteError">

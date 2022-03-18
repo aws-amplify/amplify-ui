@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { computed, useAttrs, toRefs } from 'vue';
+import { computed, useAttrs, toRefs, onBeforeMount } from 'vue';
 import { getFormDataFromEvent, translate } from '@aws-amplify/ui';
 
-import { useAuthenticator } from '../composables/useAuth';
+import { useAuthenticator, useAuth } from '../composables/useAuth';
 import { createSharedComposable } from '@vueuse/core';
+import BaseFormFields from './primitives/base-form-fields.vue';
 
 const attrs = useAttrs();
 const emit = defineEmits(['confirmSignUpSubmit', 'lostCodeClicked']);
@@ -11,8 +12,7 @@ const emit = defineEmits(['confirmSignUpSubmit', 'lostCodeClicked']);
 const useAuthShared = createSharedComposable(useAuthenticator);
 const { isPending, error, codeDeliveryDetails } = toRefs(useAuthShared());
 const { submitForm, updateForm, resendCode } = useAuthShared();
-
-//computed properties
+const { state } = useAuth();
 
 // Only two types of delivery methods is EMAIL or SMS
 const confirmSignUpHeading = computed(() => {
@@ -23,8 +23,6 @@ const confirmSignUpHeading = computed(() => {
     : translate('We Sent A Code');
 });
 
-const enterCode = computed(() => translate('Enter your code'));
-const confirmationCodeText = computed(() => translate('Confirmation Code'));
 const resendCodeText = computed(() => translate('Resend Code'));
 const confirmText = computed(() => translate('Confirm'));
 const emailMessage = translate(
@@ -94,27 +92,7 @@ const onLostCodeClicked = (): void => {
             style="flex-direction: column"
             :disabled="isPending"
           >
-            <base-wrapper
-              class="amplify-flex amplify-field amplify-textfield"
-              style="flex-direction: column"
-            >
-              <base-label
-                class="amplify-visually-hidden amplify-label"
-                for="amplify-field-124b"
-                >{{ confirmationCodeText }}
-              </base-label>
-              <base-wrapper class="amplify-flex">
-                <base-input
-                  class="amplify-input amplify-field-group__control"
-                  id="amplify-field-124b"
-                  aria-invalid="false"
-                  autocomplete="one-time-code"
-                  name="confirmation_code"
-                  required
-                  :placeholder="enterCode"
-                ></base-input>
-              </base-wrapper>
-            </base-wrapper>
+            <base-form-fields route="confirmSignUp"></base-form-fields>
           </base-field-set>
 
           <base-footer

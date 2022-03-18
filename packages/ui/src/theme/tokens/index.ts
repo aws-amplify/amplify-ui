@@ -1,5 +1,6 @@
 import { borderWidths, BorderWidths, WebBorderWidths } from './borderWidths';
 import { colors, Colors, WebColors } from './colors';
+import { components } from './components';
 import { fonts, Fonts, WebFonts } from './fonts';
 import { fontSizes, FontSizes, WebFontSizes } from './fontSizes';
 import { fontWeights, FontWeights, WebFontWeights } from './fontWeights';
@@ -22,7 +23,7 @@ import { time, Time, WebTime } from './time';
 import { transforms, Transforms, WebTransforms } from './transforms';
 
 export interface Tokens {
-  // components: any; // TODO type this
+  components: any; // TODO type this
   borderWidths: BorderWidths;
   colors: Colors;
   fonts: Fonts;
@@ -61,8 +62,7 @@ export interface WebTokens extends Tokens {
 }
 
 export const tokens: Tokens = {
-  // TODO: convert component theme files to typescript
-  // components: require('./components'),
+  components,
   borderWidths,
   colors,
   fonts,

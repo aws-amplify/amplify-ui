@@ -1,22 +1,17 @@
-import {
-  getActorContext,
-  ResetPasswordContext,
-  translate,
-} from '@aws-amplify/ui';
+import * as React from 'react';
+
+import { translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
-import { Flex, Heading, PasswordField, Text } from '../../..';
-import {
-  ConfirmationCodeInput,
-  RemoteErrorMessage,
-  TwoButtonSubmitFooter,
-} from '../shared';
+import { Flex, Heading } from '../../..';
+import { RemoteErrorMessage, TwoButtonSubmitFooter } from '../shared';
 import { useCustomComponents } from '../hooks/useCustomComponents';
 import {
   isInputOrSelectElement,
   isInputElement,
   getFormDataFromEvent,
 } from '../../../helpers/utils';
+import { FormFields } from '../shared/FormFields';
 
 export const ConfirmResetPassword = (): JSX.Element => {
   const {
@@ -30,10 +25,6 @@ export const ConfirmResetPassword = (): JSX.Element => {
 
   const { _state, submitForm, updateForm, updateBlur, isPending } =
     useAuthenticator();
-  const { validationError } = getActorContext(_state) as ResetPasswordContext;
-
-  const passwordText = translate('New password');
-  const confirmPasswordLabel = translate('Confirm Password');
 
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
     if (isInputOrSelectElement(event.target)) {
@@ -55,7 +46,7 @@ export const ConfirmResetPassword = (): JSX.Element => {
     submitForm(getFormDataFromEvent(event));
   };
 
-  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+  const handleBlur = (event: React.FocusEvent<HTMLFormElement>) => {
     const { name } = event.target;
     updateBlur({ name });
   };
@@ -67,6 +58,7 @@ export const ConfirmResetPassword = (): JSX.Element => {
       method="post"
       onSubmit={handleSubmit}
       onChange={handleChange}
+      onBlur={handleBlur}
     >
       <fieldset
         style={{ display: 'flex', flexDirection: 'column' }}
@@ -76,34 +68,7 @@ export const ConfirmResetPassword = (): JSX.Element => {
         <Header />
 
         <Flex direction="column">
-          <ConfirmationCodeInput />
-
-          <PasswordField
-            data-amplify-password
-            className="password-field"
-            placeholder={passwordText}
-            required
-            name="password"
-            label={passwordText}
-            labelHidden={true}
-            onBlur={handleBlur}
-          />
-          <PasswordField
-            data-amplify-confirmpassword
-            placeholder={confirmPasswordLabel}
-            required
-            name="confirm_password"
-            label={confirmPasswordLabel}
-            labelHidden={true}
-            hasError={!!validationError['confirm_password']}
-            onBlur={handleBlur}
-          />
-
-          {!!validationError['confirm_password'] && (
-            <Text role="alert" variation="error">
-              {translate(validationError['confirm_password'])}
-            </Text>
-          )}
+          <FormFields route="confirmResetPassword" />
         </Flex>
 
         <RemoteErrorMessage />

@@ -1,5 +1,65 @@
 # @aws-amplify/ui-angular
 
+## 2.3.1
+
+### Patch Changes
+
+- [#1484](https://github.com/aws-amplify/amplify-ui/pull/1484) [`8b72277ab`](https://github.com/aws-amplify/amplify-ui/commit/8b72277ab8bd7ad64fa298a9d509572318ac8db2) Thanks [@wlee221](https://github.com/wlee221)! - refactor: share default form fields generation logic
+
+* [#1484](https://github.com/aws-amplify/amplify-ui/pull/1484) [`8b72277ab`](https://github.com/aws-amplify/amplify-ui/commit/8b72277ab8bd7ad64fa298a9d509572318ac8db2) Thanks [@wlee221](https://github.com/wlee221)! - Default `labelHidden` to false. This can be adjusted in a later PR for better UX.
+
+- [#1514](https://github.com/aws-amplify/amplify-ui/pull/1514) [`5ca96c4a8`](https://github.com/aws-amplify/amplify-ui/commit/5ca96c4a81722aca00caecb35dc98d17588c6ff1) Thanks [@amirHossein-Ebrahimi](https://github.com/amirHossein-Ebrahimi)! - feat: Add repository information to UI packages
+
+* [#1495](https://github.com/aws-amplify/amplify-ui/pull/1495) [`71abbbe28`](https://github.com/aws-amplify/amplify-ui/commit/71abbbe28c8e87aed63dac8131534cfaeb071843) Thanks [@0618](https://github.com/0618)! - fix a11y errors
+
+* Updated dependencies [[`8b72277ab`](https://github.com/aws-amplify/amplify-ui/commit/8b72277ab8bd7ad64fa298a9d509572318ac8db2), [`8b72277ab`](https://github.com/aws-amplify/amplify-ui/commit/8b72277ab8bd7ad64fa298a9d509572318ac8db2), [`5ca96c4a8`](https://github.com/aws-amplify/amplify-ui/commit/5ca96c4a81722aca00caecb35dc98d17588c6ff1), [`1e9c6c031`](https://github.com/aws-amplify/amplify-ui/commit/1e9c6c031b1e5401c456365f0ff3187ed35c6f22)]:
+  - @aws-amplify/ui@3.3.1
+
+## 2.3.0
+
+### Minor Changes
+
+- [#1492](https://github.com/aws-amplify/amplify-ui/pull/1492) [`0bfe79caa`](https://github.com/aws-amplify/amplify-ui/commit/0bfe79caa63b037c1c9633c240b35203799f2fab) Thanks [@ErikCH](https://github.com/ErikCH)! - Added new password complexity errors that will show during sign up. Based on the zero-config
+
+### Patch Changes
+
+- Updated dependencies [[`0bfe79caa`](https://github.com/aws-amplify/amplify-ui/commit/0bfe79caa63b037c1c9633c240b35203799f2fab), [`ebcc7e610`](https://github.com/aws-amplify/amplify-ui/commit/ebcc7e610fda12f74ba6c5bd6dda89bc4849b898)]:
+  - @aws-amplify/ui@3.3.0
+
+## 2.2.2
+
+### Patch Changes
+
+- [#1472](https://github.com/aws-amplify/amplify-ui/pull/1472) [`ef5dff599`](https://github.com/aws-amplify/amplify-ui/commit/ef5dff599b84dd4b508827264758b11439684142) Thanks [@wlee221](https://github.com/wlee221)! - Set confirmation code input types to `"number"`
+
+* [#1469](https://github.com/aws-amplify/amplify-ui/pull/1469) [`3c0b705e3`](https://github.com/aws-amplify/amplify-ui/commit/3c0b705e3c5eb25a80bea077a6c60a52dc7ffa51) Thanks [@wlee221](https://github.com/wlee221)! - Capitalize form field related types. No actual runtime changes.
+
+* Updated dependencies [[`05a1fa3c3`](https://github.com/aws-amplify/amplify-ui/commit/05a1fa3c3970f04bb87a336aafe87cf3f1946107), [`b97cb9126`](https://github.com/aws-amplify/amplify-ui/commit/b97cb91264d03eed0ce248909708eed112eb9aec), [`ef5dff599`](https://github.com/aws-amplify/amplify-ui/commit/ef5dff599b84dd4b508827264758b11439684142), [`3c0b705e3`](https://github.com/aws-amplify/amplify-ui/commit/3c0b705e3c5eb25a80bea077a6c60a52dc7ffa51), [`9e8d6b212`](https://github.com/aws-amplify/amplify-ui/commit/9e8d6b212bdbc324b75066d664b6adb1ef46163d)]:
+  - @aws-amplify/ui@3.2.1
+
+## 2.2.1
+
+### Patch Changes
+
+- [#1459](https://github.com/aws-amplify/amplify-ui/pull/1459) [`8461fb199`](https://github.com/aws-amplify/amplify-ui/commit/8461fb199a9f373f35e6225ac8a58d60ef0bf1fa) Thanks [@wlee221](https://github.com/wlee221)! - Remove unneeded parent divs on Authenticator screens
+
+* [#1457](https://github.com/aws-amplify/amplify-ui/pull/1457) [`17f66a09c`](https://github.com/aws-amplify/amplify-ui/commit/17f66a09cdfc786b91815cfe2f08b605574e678a) Thanks [@wlee221](https://github.com/wlee221)! - Reflect totp svg changes to Vue and Angular Authenticator.
+
+* Updated dependencies [[`5f1753785`](https://github.com/aws-amplify/amplify-ui/commit/5f175378571e56c1f59bfa39060337148f428ce2), [`4c1a5cfbe`](https://github.com/aws-amplify/amplify-ui/commit/4c1a5cfbe6e984a790261d122ee4df368b249688), [`3d5acaa4c`](https://github.com/aws-amplify/amplify-ui/commit/3d5acaa4cce5ea8daf49caab71d92dc3c91d9021), [`731587a58`](https://github.com/aws-amplify/amplify-ui/commit/731587a58e8ef89e9f0193d7118377093a6024b8), [`3343e187b`](https://github.com/aws-amplify/amplify-ui/commit/3343e187b6dc9eab2c2a9c2d408bac8afb063f74)]:
+  - @aws-amplify/ui@3.2.0
+
+## 2.2.0
+
+### Minor Changes
+
+- [#1389](https://github.com/aws-amplify/amplify-ui/pull/1389) [`57f1441e4`](https://github.com/aws-amplify/amplify-ui/commit/57f1441e4809218a813148d0942de8171d159831) Thanks [@ErikCH](https://github.com/ErikCH)! - Added new formfields prop that allows more customization of inputs and setup TOTP.
+  New docs can be found at https://ui.docs.amplify.aws/components/authenticator#form-field-customization
+
+### Patch Changes
+
+- Updated dependencies [[`74e066622`](https://github.com/aws-amplify/amplify-ui/commit/74e066622e9abe26e9f9427f6bdc82c4e14d4952), [`57f1441e4`](https://github.com/aws-amplify/amplify-ui/commit/57f1441e4809218a813148d0942de8171d159831), [`5b3b8479a`](https://github.com/aws-amplify/amplify-ui/commit/5b3b8479aea06c6b7df031dc6493abdd36b0bd6a)]:
+  - @aws-amplify/ui@3.1.0
+
 ## 2.1.3
 
 ### Patch Changes

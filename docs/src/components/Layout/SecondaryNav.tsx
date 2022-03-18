@@ -13,6 +13,7 @@ import {
   navigationComponents,
   utilityComponents,
 } from '../../data/links';
+import LinkButton from './LinkButton';
 
 const NavLinks = ({
   items,
@@ -34,20 +35,16 @@ const NavLink = ({ href, children, onClick, platforms = [] }) => {
   const { pathname, query } = useRouter();
   const isCurrent = pathname === href;
   const { platform = 'react' } = query;
+  const classNames = `docs-secondary-nav-link ${isCurrent ? 'current' : ''}`;
 
   if (platforms.length && !platforms.includes(platform)) {
     return null;
   }
   return (
-    <Link href={{ pathname: href, query }}>
-      <div>
-        <a
-          onClick={onClick}
-          className={`docs-secondary-nav-link ${isCurrent ? 'current' : ''}`}
-        >
-          {children}
-        </a>
-      </div>
+    <Link href={{ pathname: href, query }} passHref>
+      <LinkButton href={href} onClick={onClick} classNames={classNames}>
+        {children}
+      </LinkButton>
     </Link>
   );
 };
@@ -77,6 +74,8 @@ const NavLinkComponentsSection = ({ heading, components, ...props }) => {
 // TODO: clean up this logic
 export const SecondaryNav = (props) => {
   const router = useRouter();
+  const { query } = useRouter();
+  const { platform = 'react' } = query;
 
   // Extract section from URL (/section/... => section)
   const section = router.pathname.split('/')[1];
@@ -114,6 +113,11 @@ export const SecondaryNav = (props) => {
         <NavLink {...props} href="/getting-started/installation">
           Installation
         </NavLink>
+        {platform !== 'flutter' && (
+          <NavLink {...props} href="/getting-started/migration">
+            Migration
+          </NavLink>
+        )}
       </>
     );
   }

@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import { ButtonProps, PrimitiveProps } from '../types';
 import { ComponentClassNames } from '../shared/constants';
-import { useNonStyleProps, usePropStyles } from '../shared/styleUtils';
+import { useStyles } from '../shared/styleUtils';
 
 export const MenuButton = React.forwardRef<
   HTMLButtonElement,
@@ -27,8 +27,7 @@ export const MenuButton = React.forwardRef<
     },
     ref
   ) => {
-    const propStyles = usePropStyles(rest, style);
-    const nonStyleProps = useNonStyleProps(rest);
+    const { propStyles, nonStyleProps } = useStyles(rest, style);
 
     return (
       <button

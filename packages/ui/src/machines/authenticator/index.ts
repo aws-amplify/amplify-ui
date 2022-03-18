@@ -4,7 +4,7 @@ import {
   AuthContext,
   AuthEvent,
   CognitoUserAmplify,
-  ServicesContext,
+  AuthFormFields,
 } from '../../types';
 import { stopActor } from './actions';
 import { resetPasswordActor, signInActor, signOutActor } from './actors';
@@ -42,7 +42,7 @@ export function createAuthenticatorMachine() {
           invoke: [
             {
               // TODO Wait for Auth to be configured
-              src: (context, _) => context.services.getCurrentUser(),
+              src: 'getCurrentUser',
               onDone: {
                 actions: 'setUser',
                 target: 'authenticated',
@@ -50,18 +50,17 @@ export function createAuthenticatorMachine() {
               onError: [
                 {
                   target: 'signUp',
-                  cond: (context) => context.config.initialState === 'signUp',
+                  cond: 'isInitialStateSignUp',
                 },
                 {
                   target: 'resetPassword',
-                  cond: (context) =>
-                    context.config.initialState === 'resetPassword',
+                  cond: 'isInitialStateResetPassword',
                 },
                 { target: 'signIn' },
               ],
             },
             {
-              src: (context, _) => context.services.getAmplifyConfig(),
+              src: 'getAmplifyConfig',
               onDone: {
                 actions: 'applyAmplifyConfig',
               },
@@ -76,7 +75,7 @@ export function createAuthenticatorMachine() {
             },
             runActor: {
               entry: 'clearActorDoneData',
-              exit: stopActor('signInActor'),
+              exit: 'stopSignInActor',
             },
           },
           on: {
@@ -108,7 +107,7 @@ export function createAuthenticatorMachine() {
             },
             runActor: {
               entry: 'clearActorDoneData',
-              exit: stopActor('signUpActor'),
+              exit: 'stopSignUpActor',
             },
           },
           on: {
@@ -130,7 +129,7 @@ export function createAuthenticatorMachine() {
             },
             runActor: {
               entry: 'clearActorDoneData',
-              exit: stopActor('resetPasswordActor'),
+              exit: 'stopResetPasswordActor',
             },
           },
           on: {
@@ -149,7 +148,7 @@ export function createAuthenticatorMachine() {
             },
             runActor: {
               entry: 'clearActorDoneData',
-              exit: [stopActor('signOutActor'), 'clearUser'],
+              exit: ['stopSignOutActor', 'clearUser'],
             },
           },
           on: {
@@ -179,10 +178,10 @@ export function createAuthenticatorMachine() {
         }),
         setActorDoneData: assign({
           actorDoneData: (_, event) => ({
-            authAttributes: { ...event.data.authAttributes },
-            intent: event.data.intent,
+            authAttributes: { ...event.data?.authAttributes },
+            intent: event.data?.intent,
           }),
-          user: (_, event) => event.data.user,
+          user: (_, event) => event.data?.user,
         }),
         clearUser: assign({ user: undefined }),
         clearActorDoneData: assign({ actorDoneData: undefined }),
@@ -190,6 +189,7 @@ export function createAuthenticatorMachine() {
           config(context, event) {
             // The CLI uses uppercased constants in `aws-exports.js`, while `parameters.json` are lowercase.
             // We use lowercase to be consistent with previous versions' values.
+
             const cliLoginMechanisms =
               event.data.aws_cognito_username_attributes?.map((s) =>
                 s.toLowerCase()
@@ -210,6 +210,9 @@ export function createAuthenticatorMachine() {
                 s.toLowerCase()
               ) ?? [];
 
+            const cliPasswordSettings =
+              event.data.aws_cognito_password_protection_settings || {};
+
             // By default, Cognito assumes `username`, so there isn't a different username attribute like `email`.
             // We explicitly add it as a login mechanism to be consistent with Admin UI's language.
             if (cliLoginMechanisms.length === 0) {
@@ -223,9 +226,12 @@ export function createAuthenticatorMachine() {
               signUpAttributes,
               socialProviders,
               initialState,
+              formFields,
             } = context.config;
             return {
               loginMechanisms: loginMechanisms ?? cliLoginMechanisms,
+              formFields: convertFormFields(formFields) ?? {},
+              passwordSettings: cliPasswordSettings,
               signUpAttributes:
                 signUpAttributes ??
                 Array.from(
@@ -252,6 +258,7 @@ export function createAuthenticatorMachine() {
               validationError: {},
               loginMechanisms: context.config?.loginMechanisms,
               socialProviders: context.config?.socialProviders,
+              formFields: context.config?.formFields,
             });
             return spawn(actor, { name: 'signInActor' });
           },
@@ -268,6 +275,8 @@ export function createAuthenticatorMachine() {
               validationError: {},
               loginMechanisms: context.config?.loginMechanisms,
               socialProviders: context.config?.socialProviders,
+              formFields: context.config?.formFields,
+              passwordSettings: context.config?.passwordSettings,
             });
             return spawn(actor, { name: 'signUpActor' });
           },
@@ -280,6 +289,7 @@ export function createAuthenticatorMachine() {
               touched: {},
               intent: context.actorDoneData?.intent,
               username: context.actorDoneData?.authAttributes?.username,
+              formFields: context.config?.formFields,
               validationError: {},
             });
             return spawn(actor, { name: 'resetPasswordActor' });
@@ -293,6 +303,10 @@ export function createAuthenticatorMachine() {
             return spawn(actor, { name: 'signOutActor' });
           },
         }),
+        stopSignInActor: stopActor('signInActor'),
+        stopSignUpActor: stopActor('signUpActor'),
+        stopResetPasswordActor: stopActor('resetPasswordActor'),
+        stopSignOutActor: stopActor('signOutActor'),
         configure: assign((_, event) => {
           const { services: customServices, ...config } = event.data;
           return {
@@ -302,15 +316,33 @@ export function createAuthenticatorMachine() {
         }),
       },
       guards: {
-        shouldRedirectToSignUp: (_, event): boolean => {
-          if (!event.data?.intent) return false;
-          return event.data.intent === 'confirmSignUp';
-        },
-        shouldRedirectToResetPassword: (_, event): boolean => {
-          if (!event.data?.intent) return false;
-          return event.data.intent === 'confirmPasswordReset';
-        },
+        // guards for initial states
+        isInitialStateSignUp: (context) =>
+          context.config.initialState === 'signUp',
+        isInitialStateResetPassword: (context) =>
+          context.config.initialState === 'resetPassword',
+        // guards for redirections
+        shouldRedirectToSignUp: (_, event) =>
+          event.data?.intent === 'confirmSignUp',
+        shouldRedirectToResetPassword: (_, event) =>
+          event.data?.intent === 'confirmPasswordReset',
+      },
+      services: {
+        getCurrentUser: (context, _) => context.services.getCurrentUser(),
+        getAmplifyConfig: (context, _) => context.services.getAmplifyConfig(),
       },
     }
   );
+}
+
+function convertFormFields(formFields: AuthFormFields): AuthFormFields {
+  if (formFields) {
+    Object.keys(formFields).forEach((component: string) => {
+      Object.keys(formFields[component]).forEach((inputName) => {
+        let ff = formFields[component][inputName];
+        ff.required = ff.isRequired;
+      });
+    });
+  }
+  return formFields;
 }

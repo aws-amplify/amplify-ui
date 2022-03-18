@@ -1,7 +1,9 @@
-import { getAliasInfoFromContext, translate } from '@aws-amplify/ui';
+import * as React from 'react';
+
+import { translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
-import { Flex, Heading, TextField } from '../../..';
+import { Flex, Heading } from '../../..';
 import { RemoteErrorMessage, TwoButtonSubmitFooter } from '../shared';
 import { useCustomComponents } from '../hooks/useCustomComponents';
 import {
@@ -9,6 +11,7 @@ import {
   isInputElement,
   getFormDataFromEvent,
 } from '../../../helpers/utils';
+import { FormFields } from '../shared/FormFields';
 
 export const ResetPassword = (): JSX.Element => {
   const {
@@ -20,9 +23,6 @@ export const ResetPassword = (): JSX.Element => {
     },
   } = useCustomComponents();
   const { isPending, submitForm, updateForm, _state } = useAuthenticator();
-
-  const { label } = getAliasInfoFromContext(_state.context);
-  const labelText = `Enter your ${label.toLowerCase()}`;
 
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
     if (isInputOrSelectElement(event.target)) {
@@ -60,15 +60,7 @@ export const ResetPassword = (): JSX.Element => {
         <Header />
 
         <Flex direction="column">
-          <TextField
-            autoComplete="username"
-            name="username"
-            placeholder={translate<string>(labelText)}
-            label={translate<string>(labelText)}
-            labelHidden={true}
-            required={true}
-            type="username"
-          />
+          <FormFields route="resetPassword" />
         </Flex>
 
         <RemoteErrorMessage />

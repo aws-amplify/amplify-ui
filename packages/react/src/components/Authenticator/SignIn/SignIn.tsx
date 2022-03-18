@@ -1,18 +1,21 @@
+import * as React from 'react';
+
 import { translate, hasTranslation } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
-import { Button, Flex, PasswordField, View } from '../../..';
+import { Button, Flex, View, VisuallyHidden } from '../../..';
 import { FederatedSignIn } from '../FederatedSignIn';
-import { RemoteErrorMessage, UserNameAlias } from '../shared';
+import { RemoteErrorMessage } from '../shared';
 import {
   getFormDataFromEvent,
   isInputElement,
   isInputOrSelectElement,
 } from '../../../helpers/utils';
 import { useCustomComponents } from '../hooks/useCustomComponents';
+import { FormFields } from '../shared/FormFields';
 
 export function SignIn() {
-  const { isPending, submitForm, updateForm } = useAuthenticator();
+  const { isPending, submitForm, updateForm, _state } = useAuthenticator();
   const {
     components: {
       SignIn: { Header = SignIn.Header, Footer = SignIn.Footer },
@@ -57,17 +60,10 @@ export function SignIn() {
             className="amplify-flex"
             disabled={isPending}
           >
-            <UserNameAlias data-amplify-usernamealias />
-            <PasswordField
-              data-amplify-password
-              className="password-field"
-              placeholder={translate('Password')}
-              isRequired={true}
-              name="password"
-              label={translate('Password')}
-              autoComplete="current-password"
-              labelHidden={true}
-            />
+            <VisuallyHidden>
+              <legend>{translate('Sign in')}</legend>
+            </VisuallyHidden>
+            <FormFields route="signIn" />
           </fieldset>
 
           <RemoteErrorMessage />

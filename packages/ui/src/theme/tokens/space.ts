@@ -1,6 +1,6 @@
 import { DesignToken, WebDesignToken, SpaceValue } from './types/designToken';
 
-export type Space = {
+type SpaceSizes = {
   xxxs: DesignToken<SpaceValue>;
   xxs: DesignToken<SpaceValue>;
   xs: DesignToken<SpaceValue>;
@@ -10,16 +10,12 @@ export type Space = {
   xl: DesignToken<SpaceValue>;
   xxl: DesignToken<SpaceValue>;
   xxxl: DesignToken<SpaceValue>;
-  relative: {
-    xxxs: DesignToken<SpaceValue>;
-    xxs: DesignToken<SpaceValue>;
-    xs: DesignToken<SpaceValue>;
-    small: DesignToken<SpaceValue>;
-    medium: DesignToken<SpaceValue>;
-    large: DesignToken<SpaceValue>;
-    xl: DesignToken<SpaceValue>;
-    xxl: DesignToken<SpaceValue>;
-    xxxl: DesignToken<SpaceValue>;
+};
+
+export type Space = SpaceSizes & {
+  zero: DesignToken<SpaceValue>;
+  relative: SpaceSizes & {
+    full: DesignToken<SpaceValue>;
   };
 };
 
@@ -32,6 +28,7 @@ export type WebSpace = {
 };
 
 export const space: Space = {
+  zero: { value: '0' },
   xxxs: { value: '0.25rem' },
   xxs: { value: '0.375rem' },
   xs: { value: '0.5rem' },
@@ -44,7 +41,7 @@ export const space: Space = {
   relative: {
     //creating a second set of sizes using em which will be sized relative to a parent instead of the root
     xxxs: { value: '0.25em' },
-    xxs: { value: '0.375rem' },
+    xxs: { value: '0.375em' },
     xs: { value: '0.5em' },
     small: { value: '0.75em' },
     medium: { value: '1em' },
@@ -52,5 +49,6 @@ export const space: Space = {
     xl: { value: '2.0em' },
     xxl: { value: '3.0em' },
     xxxl: { value: '4.5em' },
+    full: { value: '100%' },
   },
 };

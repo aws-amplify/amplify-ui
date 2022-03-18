@@ -10,12 +10,11 @@ import {
   translate,
 } from '@aws-amplify/ui';
 
-import PasswordControl from './password-control.vue';
-import UserNameAlias from './user-name-alias.vue';
 import FederatedSignIn from './federated-sign-in.vue';
 
 // @xstate
 import { useAuth, useAuthenticator } from '../composables/useAuth';
+import BaseFormFields from './primitives/base-form-fields.vue';
 
 const useAuthShared = createSharedComposable(useAuthenticator);
 const props = useAuthShared();
@@ -27,7 +26,6 @@ const emit = defineEmits([
   'createAccountClicked',
 ]);
 
-const passwordLabel = computed(() => translate('Password'));
 const forgotYourPasswordLink = computed(() =>
   // Support backwards compatibility for legacy key with trailing space
   !hasTranslation('Forgot your password? ')
@@ -106,25 +104,8 @@ const onForgotPasswordClicked = (): void => {
             <template #fieldSetI="{ slotData }">
               <slot name="signin-fields" :info="slotData"> </slot>
             </template>
-
-            <user-name-alias :userNameAlias="true" />
-            <base-wrapper
-              class="
-                amplify-flex
-                amplify-field
-                amplify-textfield
-                amplify-passwordfield
-                password-field
-              "
-              style="flex-direction: column"
-            >
-              <password-control
-                name="password"
-                :label="passwordLabel"
-                autocomplete="current-password"
-                :ariainvalid="false"
-              />
-            </base-wrapper>
+            <legend class="amplify-visually-hidden">Sign in</legend>
+            <base-form-fields route="signIn"></base-form-fields>
           </base-field-set>
           <base-alert v-if="actorState.context.remoteError">
             {{ translate(actorState.context.remoteError) }}

@@ -9,7 +9,7 @@ import { Primitive } from '../types';
 import { splitPrimitiveProps } from '../shared/styleUtils';
 import { TextArea } from '../TextArea';
 import { TextAreaFieldProps } from '../types/textAreaField';
-import { useStableId } from '../shared/utils';
+import { useStableId } from '../utils/useStableId';
 
 export const DEFAULT_ROW_COUNT = 3;
 
@@ -28,11 +28,22 @@ const TextAreaFieldPrimitive: Primitive<TextAreaFieldProps, 'textarea'> = (
     rows,
     size,
     testId,
+
+    bottom, // @TODO: remove custom destructuring for 3.0 release
+    height, // @TODO: remove custom destructuring for 3.0 release
+    left, // @TODO: remove custom destructuring for 3.0 release
+    padding, // @TODO: remove custom destructuring for 3.0 release
+    position, // @TODO: remove custom destructuring for 3.0 release
+    right, // @TODO: remove custom destructuring for 3.0 release
+    top, // @TODO: remove custom destructuring for 3.0 release
+    width, // @TODO: remove custom destructuring for 3.0 release
+
     ..._rest
   } = props;
 
   const fieldId = useStableId(id);
   const descriptionId = useStableId();
+  const ariaDescribedBy = descriptiveText ? descriptionId : undefined;
 
   const { flexContainerStyleProps, baseStyleProps, rest } =
     splitPrimitiveProps(_rest);
@@ -45,7 +56,15 @@ const TextAreaFieldPrimitive: Primitive<TextAreaFieldProps, 'textarea'> = (
         className
       )}
       data-size={size}
+      height={height}
       testId={testId}
+      width={width}
+      bottom={bottom}
+      left={left}
+      right={right}
+      top={top}
+      position={position}
+      padding={padding}
       {...flexContainerStyleProps}
     >
       <Label htmlFor={fieldId} visuallyHidden={labelHidden}>
@@ -57,7 +76,7 @@ const TextAreaFieldPrimitive: Primitive<TextAreaFieldProps, 'textarea'> = (
         descriptiveText={descriptiveText}
       />
       <TextArea
-        aria-describedby={descriptionId}
+        aria-describedby={ariaDescribedBy}
         hasError={hasError}
         id={fieldId}
         ref={ref}

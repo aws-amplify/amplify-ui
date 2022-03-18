@@ -1,6 +1,6 @@
 Feature: Modal
 
-  Modal variation overlays an application with the Authenticator
+  Modal variation overlays an application with the Authenticator.
 
   Background:
     Given I'm running the example "/ui/components/authenticator/withAuthenticator"

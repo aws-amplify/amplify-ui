@@ -1,43 +1,20 @@
 import * as React from 'react';
 import debounce from 'lodash/debounce';
 import {
-  Alert,
+  Icon,
   Heading,
-  Button,
+  Link,
   Text,
-  IconFeedback,
+  View,
   useTheme,
 } from '@aws-amplify/ui-react';
+import { SiW3C, SiReact } from 'react-icons/si';
+
 import { Sidebar } from './SecondaryNav';
 import { TableOfContents } from '../TableOfContents';
 import { Footer } from './Footer';
-
-const PrimitiveAlert = () => {
-  const { tokens } = useTheme();
-  return (
-    <Alert
-      variation="info"
-      heading="Developer preview"
-      margin={`${tokens.space.small} 0 0 0`}
-    >
-      <Text color="inherit">
-        Amplify UI primitive components like this one are in developer preview
-        and only available in React for now.
-      </Text>
-      <Button
-        as="a"
-        size="small"
-        gap={tokens.space.xs}
-        margin={`${tokens.space.xs} 0 0 0`}
-        isExternal
-        href="https://github.com/aws-amplify/amplify-ui/discussions/198"
-      >
-        <IconFeedback />
-        Add feedback here
-      </Button>
-    </Alert>
-  );
-};
+import { GITHUB_REPO_FILE } from '@/data/links';
+import { DesignTokenIcon } from '@/components/DesignTokenIcon';
 
 export default function Page({
   children,
@@ -50,7 +27,9 @@ export default function Page({
     title,
     description,
     hideToc = false,
-    isPrimitive = false,
+    ariaPattern,
+    themeSource,
+    reactSource,
   } = frontmatter;
   const { tokens } = useTheme();
   const [headings, setHeadings] = React.useState([]);
@@ -94,7 +73,49 @@ export default function Page({
             >
               {description}
             </Text>
-            {isPrimitive ? <PrimitiveAlert /> : null}
+            <View className="docs-component-links">
+              {ariaPattern ? (
+                <Link
+                  className="docs-component-link"
+                  href={ariaPattern}
+                  isExternal
+                >
+                  <Icon
+                    ariaLabel=""
+                    as={SiW3C}
+                    marginInlineEnd={tokens.space.xs}
+                  />
+                  ARIA pattern
+                </Link>
+              ) : null}
+              {themeSource ? (
+                <Link
+                  className="docs-component-link"
+                  href={`${GITHUB_REPO_FILE}${themeSource}`}
+                  isExternal
+                >
+                  <DesignTokenIcon
+                    ariaLabel=""
+                    marginInlineEnd={tokens.space.xs}
+                  />
+                  Theme source
+                </Link>
+              ) : null}
+              {reactSource ? (
+                <Link
+                  className="docs-component-link"
+                  href={`${GITHUB_REPO_FILE}${reactSource}`}
+                  isExternal
+                >
+                  <Icon
+                    ariaLabel=""
+                    as={SiReact}
+                    marginInlineEnd={tokens.space.xs}
+                  />
+                  React source
+                </Link>
+              ) : null}
+            </View>
           </section>
 
           {children}

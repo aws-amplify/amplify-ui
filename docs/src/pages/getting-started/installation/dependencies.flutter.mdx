@@ -1,15 +1,11 @@
 import { Link, Alert, Text, Tabs, TabItem } from '@aws-amplify/ui-react';
 
-Add the `amplify_authenticator` package with [pub](https://pub.dev/):
-
-```shell
-flutter pub add amplify_authenticator
-```
-
-This will add a dependency like this to your package's pubspec.yaml
+You will need to add dependencies for the `amplify_authenticator` to the `pubspec.yaml` file as shown below.
 
 ```yaml
 dependencies:
+  amplify_flutter: ^0.4.0
+  amplify_auth_cognito: ^0.4.0
   amplify_authenticator: ^0.1.0
 ```
 

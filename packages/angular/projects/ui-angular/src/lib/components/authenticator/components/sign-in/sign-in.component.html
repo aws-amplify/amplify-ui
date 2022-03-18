@@ -1,43 +1,26 @@
-<div data-amplify-container>
-  <amplify-slot name="sign-in-header" [context]="context"></amplify-slot>
+<amplify-slot name="sign-in-header" [context]="context"></amplify-slot>
 
-  <form data-amplify-form (submit)="onSubmit($event)" (input)="onInput($event)">
-    <amplify-federated-sign-in></amplify-federated-sign-in>
-    <fieldset
-      class="amplify-flex"
-      style="flex-direction: column"
-      data-amplify-fieldset
-      [disabled]="authenticator.isPending"
-    >
-      <amplify-user-name-alias></amplify-user-name-alias>
-      <amplify-form-field
-        data-amplify-password
-        name="password"
-        type="password"
-        autocomplete="current-password"
-      ></amplify-form-field>
-      <button amplify-button variation="primary" fullWidth="true" type="submit">
-        {{ signInButtonText }}
-      </button>
+<form data-amplify-form (submit)="onSubmit($event)" (input)="onInput($event)">
+  <amplify-federated-sign-in></amplify-federated-sign-in>
+  <fieldset class="amplify-flex" style="flex-direction: column" data-amplify-fieldset
+    [disabled]="authenticator.isPending">
+    <legend class="amplify-visually-hidden">Sign in</legend>
+    <amplify-base-form-fields route="signIn"></amplify-base-form-fields>
+    <button amplify-button variation="primary" fullWidth="true" type="submit">
+      {{ signInButtonText }}
+    </button>
 
-      <amplify-error *ngIf="authenticator.error">
-        {{ authenticator.error }}
-      </amplify-error>
-    </fieldset>
-  </form>
+    <amplify-error *ngIf="authenticator.error">
+      {{ authenticator.error }}
+    </amplify-error>
+  </fieldset>
+</form>
 
-  <amplify-slot name="sign-in-footer" [context]="context">
-    <div data-amplify-footer>
-      <button
-        amplify-button
-        fontWeight="normal"
-        size="small"
-        variation="link"
-        fullWidth="true"
-        (click)="authenticator.toResetPassword()"
-      >
-        {{ forgotPasswordText }}
-      </button>
-    </div>
-  </amplify-slot>
-</div>
+<amplify-slot name="sign-in-footer" [context]="context">
+  <div data-amplify-footer>
+    <button amplify-button fontWeight="normal" size="small" variation="link" fullWidth="true"
+      (click)="authenticator.toResetPassword()">
+      {{ forgotPasswordText }}
+    </button>
+  </div>
+</amplify-slot>

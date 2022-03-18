@@ -1,7 +1,6 @@
 import * as React from 'react';
 import NextLink from 'next/link';
 import {
-  IconOpenInNew,
   Button,
   VisuallyHidden,
   Link,
@@ -9,20 +8,34 @@ import {
   ColorMode,
   ToggleButton,
   ToggleButtonGroup,
-  IconWbSunny,
-  IconBedtime,
-  IconTonality,
-  IconMenu,
   Divider,
   View,
-  IconClose,
 } from '@aws-amplify/ui-react';
+import {
+  MdClose,
+  MdMenu,
+  MdWbSunny,
+  MdBedtime,
+  MdTonality,
+  MdOpenInNew,
+} from 'react-icons/md';
 import { useRouter } from 'next/router';
 import { Logo } from '@/components/Logo';
 import { FrameworkChooser } from './FrameworkChooser';
 import { SecondaryNav } from './SecondaryNav';
+import LinkButton from './LinkButton';
 
-const NavLink = ({ href, children, isExternal = false, onClick }) => {
+const NavLink = ({
+  href,
+  children,
+  isExternal = false,
+  onClick,
+}: {
+  href: string;
+  children: React.ReactElement;
+  isExternal?: boolean;
+  onClick?: React.MouseEventHandler<HTMLAnchorElement>;
+}) => {
   const { pathname, query } = useRouter();
   const isCurrent = pathname.startsWith(href) && href !== '/';
   const className = `docs-nav-link ${isCurrent ? 'current' : ''}`;
@@ -35,12 +48,10 @@ const NavLink = ({ href, children, isExternal = false, onClick }) => {
     );
   }
   return (
-    <NextLink href={{ pathname: href, query }}>
-      <div>
-        <a className={className} onClick={onClick}>
-          {children}
-        </a>
-      </div>
+    <NextLink href={{ pathname: href, query }} passHref>
+      <LinkButton href={href} classNames={className} onClick={onClick}>
+        {children}
+      </LinkButton>
     </NextLink>
   );
 };
@@ -58,7 +69,7 @@ const Nav = (props) => (
     </NavLink>
     <Divider orientation="vertical" />
     <NavLink {...props} isExternal href="https://docs.amplify.aws">
-      Amplify docs <IconOpenInNew />
+      Amplify docs <MdOpenInNew />
     </NavLink>
   </Flex>
 );
@@ -81,15 +92,15 @@ const ColorModeSwitcher = ({ colorMode, setColorMode }) => {
     >
       <ToggleButton value="light">
         <VisuallyHidden>Light mode</VisuallyHidden>
-        <IconWbSunny />
+        <MdWbSunny />
       </ToggleButton>
       <ToggleButton value="dark">
         <VisuallyHidden>Dark mode</VisuallyHidden>
-        <IconBedtime />
+        <MdBedtime />
       </ToggleButton>
       <ToggleButton value="system">
         <VisuallyHidden>System preference</VisuallyHidden>
-        <IconTonality />
+        <MdTonality />
       </ToggleButton>
     </ToggleButtonGroup>
   );
@@ -104,8 +115,9 @@ export const Header = ({ platform, colorMode, setColorMode }) => {
         <Button
           className="docs-header-menu-button"
           onClick={() => setExpanded(!expanded)}
+          ariaLabel="Docs header menu button"
         >
-          {expanded ? <IconClose /> : <IconMenu />}
+          {expanded ? <MdClose /> : <MdMenu />}
         </Button>
 
         <NavLink href="/">

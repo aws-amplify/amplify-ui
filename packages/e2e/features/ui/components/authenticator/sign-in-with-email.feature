@@ -43,7 +43,7 @@ Feature: Sign In with Email
     And I click the "Sign in" button
     Then I see "Sign out"
 
-@angular @react @vue
+  @angular @react @vue
   Scenario: Sign in with confirmed credentials then sign out
     When I type my "email" with status "CONFIRMED"
     And I type my password
@@ -52,20 +52,10 @@ Feature: Sign In with Email
     And I click the "Sign out" button
     Then I see "Sign in"
 
-@angular @react @vue
+  @angular @react @vue
   Scenario: Sign Up Tab Is Not Present 
     Then I see "Sign in"
     Then I don't see "Create Account"
-
-
-
-  # FORCE_CHANGE_PASSWORD tests are skipped as the temporary passwords used for these
-  # test accounts will expire in Cognito.
-  Scenario: Sign in with force change password credentials
-    When I type my "email" with status "FORCE_CHANGE_PASSWORD"
-    And I type my password
-    And I click the "Sign in" button
-    Then I see "Change Password"
 
   @angular @react @vue
   Scenario: Email field autocompletes username

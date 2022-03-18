@@ -1,5 +1,5 @@
 import {
-  authInputAttributes,
+  defaultFormFieldOptions,
   censorAllButFirstAndLast,
   censorPhoneNumber,
   ContactMethod,
@@ -45,7 +45,7 @@ const generateRadioGroup = (
   for (const [key, value] of Object.entries(attributes)) {
     const radio = (
       <Radio name="unverifiedAttr" value={key} key={key}>
-        {censorContactInformation(authInputAttributes[key].label, value)}
+        {censorContactInformation(defaultFormFieldOptions[key].label, value)}
       </Radio>
     );
 

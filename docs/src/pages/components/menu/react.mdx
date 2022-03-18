@@ -10,8 +10,7 @@ import {
 } from './examples/';
 
 import { Example } from '@/components/Example';
-
-Menu provides an accessible, interactive menu for selecting actions within an application. Dropdown menu is collision-aware and will automatically change location based on available space.
+import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 
 ## Demo
 
@@ -82,11 +81,7 @@ Create a controlled `Menu` using the `isOpen` and `onOpenChange` props.
 
 ### Target classes
 
-| Class                        | Description                                                                     |
-| ---------------------------- | ------------------------------------------------------------------------------- |
-| `amplify-menu-content`       | Menu content container (`Flex`)                                                 |
-| `amplify-menu-content__item` | Menu item button (`MenuButton`, wrapped in `amplify-menu-content` class)        |
-| `amplify-menu-trigger`       | Menu trigger button (`MenuButton`, not wrapped in `amplify-menu-content` class) |
+<ComponentStyleDisplay componentName="Menu" />
 
 ### Global styling
 

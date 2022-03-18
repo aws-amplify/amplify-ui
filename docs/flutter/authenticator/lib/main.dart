@@ -159,17 +159,14 @@ class _FlutterAuthenticatorPreviewState
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            DeviceFrame(
-              screen: const MyApp(),
-              device: Devices.ios.iPhone13,
-            ),
-          ],
-        ),
+      home: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          DeviceFrame(
+            screen: const MyApp(),
+            device: Devices.ios.iPhone13,
+          ),
+        ],
       ),
     );
   }
@@ -237,9 +234,11 @@ class _MyAppState extends State<MyApp> {
     return Authenticator(
       authenticatorBuilder:
           _authenticatorConfig.useCustomUI ? customBuilder : null,
-      signUpForm: SignUpForm.custom(
-        fields: _authenticatorConfig.signUpAttributes,
-      ),
+      signUpForm: _authenticatorConfig.signUpAttributes.isNotEmpty
+          ? SignUpForm.custom(
+              fields: _authenticatorConfig.signUpAttributes,
+            )
+          : null,
       initialStep: _authenticatorConfig.initialStep,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 import { translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '../..';
@@ -9,11 +11,8 @@ import {
 } from '../../../helpers/utils';
 import { useCustomComponents } from '../hooks/useCustomComponents';
 
-import {
-  ConfirmationCodeInput,
-  ConfirmationCodeInputProps,
-  RemoteErrorMessage,
-} from '../shared';
+import { RemoteErrorMessage } from '../shared';
+import { FormFields } from '../shared/FormFields';
 
 export function ConfirmSignUp() {
   const {
@@ -64,11 +63,6 @@ export function ConfirmSignUp() {
 
   const minutesMessage = translate('It may take a minute to arrive.');
 
-  const confirmationCodeInputProps: ConfirmationCodeInputProps = {
-    label: translate('Confirmation Code'),
-    placeholder: translate('Enter your code'),
-  };
-
   const subtitleText =
     DeliveryMedium === 'EMAIL'
       ? `${emailMessage} ${Destination}. ${minutesMessage}`
@@ -94,7 +88,8 @@ export function ConfirmSignUp() {
 
         <Flex direction="column">
           <Text style={{ marginBottom: '1rem' }}>{subtitleText}</Text>
-          <ConfirmationCodeInput {...confirmationCodeInputProps} />
+
+          <FormFields route="confirmSignUp" />
 
           <RemoteErrorMessage />
 

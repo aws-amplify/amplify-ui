@@ -34,9 +34,7 @@ describe('useTheme', () => {
       wrapper: ({ children }) => <AmplifyProvider>{children}</AmplifyProvider>,
     });
 
-    expect(serializeTheme(result.current)).toBe(
-      serializeTheme(createTheme(defaultTheme))
-    );
+    expect(serializeTheme(result.current)).toBe(serializeTheme(createTheme()));
   });
 
   it('should return a default theme when there is no context', () => {

@@ -6,12 +6,13 @@ import { ComponentClassNames } from '../shared/constants';
 import { FieldDescription, FieldErrorMessage } from '../Field';
 import { FieldGroup } from '../FieldGroup';
 import { Flex } from '../Flex';
-import { isFunction, useStableId } from '../shared/utils';
+import { isFunction } from '../shared/utils';
 import { Label } from '../Label';
 import { Primitive } from '../types/view';
 import { SliderFieldProps } from '../types/sliderField';
 import { splitPrimitiveProps } from '../shared/styleUtils';
 import { View } from '../View';
+import { useStableId } from '../utils/useStableId';
 
 export const SLIDER_LABEL_TEST_ID = 'slider-label';
 export const SLIDER_ROOT_TEST_ID = 'slider-root';
@@ -50,8 +51,10 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
   const fieldId = useStableId(id);
   const labelId = useStableId();
   const descriptionId = useStableId();
+  const ariaDescribedBy = descriptiveText ? descriptionId : undefined;
 
-  const { flexContainerStyleProps, rest } = splitPrimitiveProps(_rest);
+  const { flexContainerStyleProps, baseStyleProps, rest } =
+    splitPrimitiveProps(_rest);
 
   const isControlled = value !== undefined;
 
@@ -84,6 +87,7 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
       )}
       testId={testId}
       data-size={size}
+      {...baseStyleProps}
       {...flexContainerStyleProps}
     >
       <Label
@@ -133,7 +137,7 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
             />
           </Track>
           <Thumb
-            aria-describedby={descriptionId}
+            aria-describedby={ariaDescribedBy}
             aria-labelledby={labelId}
             aria-valuetext={ariaValuetext}
             className={ComponentClassNames.SliderFieldThumb}

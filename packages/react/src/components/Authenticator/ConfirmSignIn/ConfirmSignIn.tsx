@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 import {
   AuthChallengeNames,
   getActorState,
@@ -6,18 +8,19 @@ import {
   translate,
 } from '@aws-amplify/ui';
 
-import { useAuthenticator } from '..';
 import { Flex, Heading } from '../../..';
-import { ConfirmationCodeInput, ConfirmSignInFooter } from '../shared';
+import { ConfirmSignInFooter, RemoteErrorMessage } from '../shared';
 import { useCustomComponents } from '../hooks/useCustomComponents';
+import { useAuthenticator } from '../hooks/useAuthenticator';
 import {
   isInputOrSelectElement,
   isInputElement,
   getFormDataFromEvent,
 } from '../../../helpers/utils';
+import { FormFields } from '../shared/FormFields';
 
 export const ConfirmSignIn = (): JSX.Element => {
-  const { error, submitForm, updateForm, isPending } = useAuthenticator();
+  const { submitForm, updateForm, isPending } = useAuthenticator();
 
   const {
     components: {
@@ -64,7 +67,8 @@ export const ConfirmSignIn = (): JSX.Element => {
         <Header />
 
         <Flex direction="column">
-          <ConfirmationCodeInput errorText={translate(error)} />
+          <FormFields route="confirmSignIn" />
+          <RemoteErrorMessage />
         </Flex>
 
         <ConfirmSignInFooter />

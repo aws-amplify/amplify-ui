@@ -5,10 +5,10 @@
   border-style: var(--amplify-components-card-border-style);
   border-color: var(--amplify-components-card-border-color);
   box-shadow: var(--amplify-components-card-box-shadow);
-  display: inline-block;
+  display: block;
   padding: var(--amplify-components-card-padding);
-  
-  &[data-variation="outlined"] {
+
+  &[data-variation='outlined'] {
     background-color: var(--amplify-components-card-outlined-background-color);
     border-radius: var(--amplify-components-card-outlined-border-radius);
     border-width: var(--amplify-components-card-outlined-border-width);
@@ -16,8 +16,8 @@
     border-color: var(--amplify-components-card-outlined-border-color);
     box-shadow: var(--amplify-components-card-outlined-box-shadow);
   }
-  
-  &[data-variation="elevated"] {
+
+  &[data-variation='elevated'] {
     background-color: var(--amplify-components-card-elevated-background-color);
     border-radius: var(--amplify-components-card-elevated-border-radius);
     border-width: var(--amplify-components-card-elevated-border-width);

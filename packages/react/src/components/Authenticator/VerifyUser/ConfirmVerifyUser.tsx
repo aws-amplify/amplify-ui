@@ -1,18 +1,17 @@
+import * as React from 'react';
+
 import { translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
 import { Flex, Heading } from '../../..';
-import {
-  ConfirmationCodeInput,
-  RemoteErrorMessage,
-  TwoButtonSubmitFooter,
-} from '../shared';
+import { RemoteErrorMessage, TwoButtonSubmitFooter } from '../shared';
 import { useCustomComponents } from '../hooks/useCustomComponents';
 import {
   isInputOrSelectElement,
   isInputElement,
   getFormDataFromEvent,
 } from '../../../helpers/utils';
+import { FormFields } from '../shared/FormFields';
 
 export const ConfirmVerifyUser = (): JSX.Element => {
   const {
@@ -24,7 +23,7 @@ export const ConfirmVerifyUser = (): JSX.Element => {
     },
   } = useCustomComponents();
 
-  const { submitForm, updateForm, isPending } = useAuthenticator();
+  const { submitForm, updateForm, isPending, _state } = useAuthenticator();
 
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
     if (isInputOrSelectElement(event.target)) {
@@ -62,7 +61,7 @@ export const ConfirmVerifyUser = (): JSX.Element => {
         <Header />
 
         <Flex direction="column">
-          <ConfirmationCodeInput />
+          <FormFields route="confirmVerifyUser" />
         </Flex>
 
         <RemoteErrorMessage />

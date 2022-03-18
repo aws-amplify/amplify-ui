@@ -8,6 +8,17 @@ import { Heading, Text, useTheme } from '@aws-amplify/ui-react';
 import awsExports from './aws-exports';
 Amplify.configure(awsExports);
 
+const formFields = {
+  confirmVerifyUser: {
+    confirmation_code: {
+      labelHidden: false,
+      label: 'New Label',
+      placeholder: 'Enter your Confirmation Code:',
+      isRequired: false,
+    },
+  },
+};
+
 const components = {
   VerifyUser: {
     Header() {
@@ -46,7 +57,11 @@ const components = {
 
 export default function App() {
   return (
-    <Authenticator components={components} hideSignUp={true}>
+    <Authenticator
+      formFields={formFields}
+      components={components}
+      hideSignUp={true}
+    >
       {({ signOut, user }) => (
         <main>
           <h1>Hello {user.username}</h1>

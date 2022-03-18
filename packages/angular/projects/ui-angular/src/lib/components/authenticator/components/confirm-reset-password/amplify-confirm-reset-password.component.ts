@@ -1,6 +1,10 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
-import { getFormDataFromEvent, translate } from '@aws-amplify/ui';
+import {
+  FormFieldsArray,
+  getFormDataFromEvent,
+  translate,
+} from '@aws-amplify/ui';
 
 @Component({
   selector: 'amplify-confirm-reset-password',
@@ -14,6 +18,7 @@ export class ConfirmResetPasswordComponent {
   public sendCodeText = translate('Send Code');
   public backToSignInText = translate('Back to Sign In');
   public resendCodeText = translate('Resend Code');
+  public sortedFormFields: FormFieldsArray;
 
   constructor(public authenticator: AuthenticatorService) {}
 
