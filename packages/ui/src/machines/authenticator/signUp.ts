@@ -58,8 +58,8 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
                     },
                   },
                 },
-                valid: { entry: sendUpdate() },
-                invalid: { entry: sendUpdate() },
+                valid: { entry: 'sendUpdate' },
+                invalid: { entry: 'sendUpdate' },
               },
               on: {
                 CHANGE: {
@@ -76,7 +76,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
               initial: 'idle',
               states: {
                 idle: {
-                  entry: sendUpdate(),
+                  entry: 'sendUpdate',
                   on: {
                     SUBMIT: { actions: 'handleSubmit', target: 'validate' },
                     FEDERATED_SIGN_IN: 'federatedSignIn',
@@ -84,7 +84,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
                 },
                 federatedSignIn: {
                   tags: ['pending'],
-                  entry: [sendUpdate(), 'clearError'],
+                  entry: ['sendUpdate', 'clearError'],
                   invoke: {
                     src: 'federatedSignIn',
                     onDone: '#signUpActor.resolved',
@@ -92,7 +92,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
                   },
                 },
                 validate: {
-                  entry: sendUpdate(),
+                  entry: 'sendUpdate',
                   invoke: {
                     src: 'validateSignUp',
                     onDone: {
@@ -107,7 +107,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
                 },
                 pending: {
                   tags: ['pending'],
-                  entry: ['parsePhoneNumber', sendUpdate(), 'clearError'],
+                  entry: ['parsePhoneNumber', 'sendUpdate', 'clearError'],
                   invoke: {
                     src: 'signUp',
                     onDone: [
@@ -157,7 +157,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
           initial: 'edit',
           states: {
             edit: {
-              entry: sendUpdate(),
+              entry: 'sendUpdate',
               on: {
                 SUBMIT: { actions: 'handleSubmit', target: 'submit' },
                 CHANGE: { actions: 'handleInput' },
@@ -167,7 +167,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
             },
             resend: {
               tags: ['pending'],
-              entry: sendUpdate(),
+              entry: 'sendUpdate',
               invoke: {
                 src: 'resendConfirmationCode',
                 onDone: { target: 'edit' },
@@ -183,7 +183,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
             },
             submit: {
               tags: ['pending'],
-              entry: [sendUpdate(), 'clearError'],
+              entry: ['sendUpdate', 'clearError'],
               invoke: {
                 src: 'confirmSignUp',
                 onDone: {
@@ -246,6 +246,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
         setRemoteError,
         setCodeDeliveryDetails,
         setUser,
+        sendUpdate: sendUpdate(), // sendUpdate is a HOC
       },
       services: {
         async signIn(context, event) {

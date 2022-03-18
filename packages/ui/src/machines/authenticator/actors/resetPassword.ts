@@ -37,7 +37,7 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
           exit: ['clearFormValues', 'clearError', 'clearTouched'],
           states: {
             edit: {
-              entry: sendUpdate(),
+              entry: 'sendUpdate',
               on: {
                 SUBMIT: { actions: 'handleSubmit', target: 'submit' },
                 CHANGE: { actions: 'handleInput' },
@@ -46,7 +46,7 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
             },
             submit: {
               tags: ['pending'],
-              entry: [sendUpdate(), 'setUsername', 'clearError'],
+              entry: ['sendUpdate', 'setUsername', 'clearError'],
               invoke: {
                 src: 'resetPassword',
                 onDone: {
@@ -85,8 +85,8 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
                     },
                   },
                 },
-                valid: { entry: sendUpdate() },
-                invalid: { entry: sendUpdate() },
+                valid: { entry: 'sendUpdate' },
+                invalid: { entry: 'sendUpdate' },
               },
               on: {
                 CHANGE: {
@@ -103,7 +103,7 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
               initial: 'idle',
               states: {
                 idle: {
-                  entry: sendUpdate(),
+                  entry: 'sendUpdate',
                   on: {
                     SUBMIT: { actions: 'handleSubmit', target: 'validate' },
                     RESEND: 'resendCode',
@@ -112,7 +112,7 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
                   },
                 },
                 validate: {
-                  entry: sendUpdate(),
+                  entry: 'sendUpdate',
                   invoke: {
                     src: 'validateFields',
                     onDone: {
@@ -127,7 +127,7 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
                 },
                 resendCode: {
                   tags: ['pending'],
-                  entry: ['clearError', sendUpdate()],
+                  entry: ['clearError', 'sendUpdate'],
                   invoke: {
                     src: 'resetPassword',
                     onDone: { target: 'idle' },
@@ -139,7 +139,7 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
                 },
                 pending: {
                   tags: ['pending'],
-                  entry: ['clearError', sendUpdate()],
+                  entry: ['clearError', 'sendUpdate'],
                   invoke: {
                     src: 'confirmResetPassword',
                     onDone: {
@@ -172,6 +172,7 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
         setFieldErrors,
         setRemoteError,
         setUsername,
+        sendUpdate: sendUpdate(), // sendUpdate is a HOC
       },
       guards: {
         shouldAutoConfirmReset: (context, event): boolean => {
