@@ -57,7 +57,7 @@ const mockedAPI = (function () {
   let timesCalled = 0;
 
   return function () {
-    if (timesCalled < 3) {
+    if (timesCalled < 2) {
       return response[timesCalled++];
     }
   };
