@@ -50,7 +50,6 @@ export const HomePrimitivePreview = () => {
           large: 'row',
         }}
         alignItems="center"
-        justifyContent="center"
       >
         <View>
           <Badge size="small" variation="success">
@@ -63,7 +62,14 @@ export const HomePrimitivePreview = () => {
 
         <Pagination {...pagination} />
       </Flex>
-      <Flex direction="row" padding={`0 0 0 ${tokens.space.medium}`}>
+      <Flex
+        direction={{
+          base: 'column',
+          large: 'row',
+        }}
+        padding={`0 0 0 ${tokens.space.medium}`}
+        alignItems="center"
+      >
         <ToggleButtonGroup
           value={exclusiveValue}
           isExclusive
@@ -82,27 +88,27 @@ export const HomePrimitivePreview = () => {
             <MdFormatAlignJustify />
           </ToggleButton>
         </ToggleButtonGroup>
-        <Button variation="primary">Get started</Button>
-        <Menu ariaLabel="homepage demo dropdown menu">
-          <MenuItem onClick={() => alert('Download')}>Download</MenuItem>
-          <MenuItem onClick={() => alert('Create a Copy')}>
-            Create a Copy
-          </MenuItem>
-          <MenuItem onClick={() => alert('Mark as Draft')}>
-            Mark as Draft
-          </MenuItem>
-          <Divider />
-          <MenuItem isDisabled onClick={() => alert('Delete')}>
-            Delete
-          </MenuItem>
-          <MenuItem onClick={() => alert('Attend a workshop')}>
-            Attend a workshop
-          </MenuItem>
-        </Menu>
+        <Flex>
+          <Button variation="primary">Get started</Button>
+          <Menu ariaLabel="homepage demo dropdown menu">
+            <MenuItem onClick={() => alert('Download')}>Download</MenuItem>
+            <MenuItem onClick={() => alert('Create a Copy')}>
+              Create a Copy
+            </MenuItem>
+            <MenuItem onClick={() => alert('Mark as Draft')}>
+              Mark as Draft
+            </MenuItem>
+            <Divider />
+            <MenuItem isDisabled onClick={() => alert('Delete')}>
+              Delete
+            </MenuItem>
+            <MenuItem onClick={() => alert('Attend a workshop')}>
+              Attend a workshop
+            </MenuItem>
+          </Menu>
+        </Flex>
       </Flex>
-      <Flex padding={{ base: 0, large: `0 0 0 ${tokens.space.xxl}` }}>
-        <Placeholder />
-      </Flex>
+      <Placeholder />
       <Flex
         alignItems="center"
         direction={{
@@ -130,11 +136,11 @@ export const HomePrimitivePreview = () => {
           base: 'column',
           large: 'row',
         }}
-        alignItems="flex-start"
+        alignItems={{ base: 'center', large: 'flex-start' }}
         padding={{ base: 0, large: `0 0 0 ${tokens.space.large}` }}
       >
         <SearchField placeholder="Search" label="Search" labelHidden={true} />
-        <SwitchField label="Accept" margin="0 auto" />
+        <SwitchField label="Accept" />
         <SliderField
           label="Slider"
           defaultValue={50}
@@ -142,7 +148,6 @@ export const HomePrimitivePreview = () => {
           max={100}
           step={1}
           labelHidden
-          margin="0 auto"
         />
       </Flex>
       <Flex direction="row" alignItems="flex-start">
