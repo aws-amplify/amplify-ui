@@ -14,6 +14,14 @@
   @media (min-width: 62rem) {
     justify-content: space-between;
   }
+
+  // Hide theme color mode switcher on mobile
+  // for main nav header
+  @media (max-width: 767px) {
+    .color-switcher {
+      display: none;
+    }
+  }
 }
 
 .docs-header-mobile-nav {
@@ -27,6 +35,17 @@
     overflow-y: auto;
     padding: 0;
   }
+
+  // Hide theme color mode switcher from mobile nav
+  // on larger screens
+  @media (min-width: 768px) {
+    .color-switcher__wrapper {
+      display: none;
+    }
+  }
+  .color-switcher__wrapper {
+    padding-block-start: var(--amplify-space-small);
+  }
 }
 
 .docs-header-menu-button {
@@ -35,19 +54,6 @@
   }
 }
 
-.docs-settings {
-  //Hide docs settings in mobile dropdown
-  .docs-header-mobile-nav & {
-    display: none;
-  }
-
-  // Hide theme color mode switcher on mobile
-  @media (max-width: 768px) {
-    .docs-settings__color-switcher {
-      display: none;
-    }
-  }
-}
 .docs-nav {
   display: none;
 
