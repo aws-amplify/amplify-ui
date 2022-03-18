@@ -3,4 +3,4 @@
 "@aws-amplify/ui-angular": patch
 ---
 
-Bump xstate to `^4.30.2`
+Bump xstate to `^4.30.6`
