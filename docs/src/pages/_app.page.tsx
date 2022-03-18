@@ -35,6 +35,10 @@ function MyApp({ Component, pageProps }) {
       <Head>
         <title>Amplify UI</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+          name="description"
+          content="Amplify UI is an open-source design system with cloud-connected components and primitives that simplify building accessible, performant, and beautiful applications in React, Angular, Vue, and Flutter (more coming soon)."
+        ></meta>
       </Head>
       <AmplifyProvider theme={theme} colorMode={colorMode}>
         <Header
