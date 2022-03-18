@@ -14,7 +14,7 @@
     "outDir": "./dist",
     "skipLibCheck": true,
     "sourceMap": true,
-    "module": "es6",
+    "module": "esnext",
     "target": "es5",
     "downlevelIteration": true,
     "lib": ["ESNext", "DOM", "DOM.Iterable", "ScriptHost"]
