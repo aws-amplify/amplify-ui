@@ -25,6 +25,12 @@ import {
   Menu,
   MenuItem,
 } from '@aws-amplify/ui-react';
+import {
+  MdFormatAlignLeft,
+  MdFormatAlignRight,
+  MdFormatAlignCenter,
+  MdFormatAlignJustify,
+} from 'react-icons/md';
 
 export const HomePrimitivePreview = () => {
   const [exclusiveValue, setExclusiveValue] = React.useState('align-left');
@@ -57,17 +63,17 @@ export const HomePrimitivePreview = () => {
           isExclusive
           onChange={(value: string) => setExclusiveValue(value)}
         >
-          <ToggleButton value="align-left" ariaLabel="align-left">
-            <IconFormatAlignLeft />
+          <ToggleButton value="align-left" ariaLabel="align left">
+            <MdFormatAlignLeft />
           </ToggleButton>
-          <ToggleButton value="align-center" ariaLabel="align-center">
-            <IconFormatAlignCenter />
+          <ToggleButton value="align-center" ariaLabel="align center">
+            <MdFormatAlignCenter />
           </ToggleButton>
-          <ToggleButton value="align-right" ariaLabel="align-right">
-            <IconFormatAlignRight />
+          <ToggleButton value="align-right" ariaLabel="align right">
+            <MdFormatAlignRight />
           </ToggleButton>
-          <ToggleButton value="align-justify" ariaLabel="align-justify">
-            <IconFormatAlignJustify />
+          <ToggleButton value="align-justify" ariaLabel="align justify">
+            <MdFormatAlignJustify />
           </ToggleButton>
         </ToggleButtonGroup>
         <Button variation="primary">Get started</Button>
