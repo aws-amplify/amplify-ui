@@ -402,7 +402,7 @@ export function signInActor({ services }: SignInMachineOptions) {
         setUnverifiedAttributes,
         setUser,
         setUsernameAuthAttributes,
-        sendUpdate,
+        sendUpdate: sendUpdate(), // sendUpdate is a HOC
       },
       guards: {
         shouldConfirmSignIn: (_, event): boolean => {
