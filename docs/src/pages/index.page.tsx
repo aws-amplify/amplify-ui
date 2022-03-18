@@ -147,13 +147,21 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
   return (
     <>
       <View as="section" className="container">
-        <h1>
+        <h1 className="docs-home-logo">
           <HomeLogo />
         </h1>
 
-        <Flex direction="row" padding={tokens.space.xl}>
+        <Flex
+          direction={{ base: 'column', medium: 'row' }}
+          padding={tokens.space.large}
+        >
           <Card variation="outlined" flex="1">
-            <Text fontSize={tokens.fontSizes.xl}>
+            <Text
+              fontSize={{
+                base: tokens.fontSizes.large,
+                small: tokens.fontSizes.xl,
+              }}
+            >
               Amplify UI is an open-source design system with cloud-connected
               components and primitives that simplify building accessible,
               performant, and beautiful applications in React, Angular, Vue, and
@@ -217,9 +225,9 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
       </View>
       <View
         backgroundColor={tokens.colors.background.secondary}
-        padding={tokens.space.xl}
+        padding={tokens.space.large}
       >
-        <Heading level={2} textAlign="center" margin={tokens.space.xl}>
+        <Heading level={2} textAlign="center" margin={tokens.space.large}>
           Take it for a test drive
         </Heading>
         <View className="container">
@@ -309,7 +317,7 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
             alignContent="center"
             padding={{
               base: '0',
-              large: tokens.space.xl,
+              large: tokens.space.large,
             }}
           >
             <ToggleButtonGroup
@@ -410,7 +418,7 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
       </View>
 
       <View as="section" className="docs-home-section">
-        <Heading level={2} textAlign="center" margin={tokens.space.xl}>
+        <Heading level={2} textAlign="center" margin={tokens.space.large}>
           Looking for other Amplify Products?
         </Heading>
         <Grid

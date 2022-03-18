@@ -89,6 +89,7 @@ const ColorModeSwitcher = ({ colorMode, setColorMode }) => {
       onChange={(value: ColorMode) => setColorMode(value)}
       isExclusive
       isSelectionRequired
+      className="docs-settings__color-switcher"
     >
       <ToggleButton value="light">
         <VisuallyHidden>Light mode</VisuallyHidden>
@@ -117,7 +118,11 @@ export const Header = ({ platform, colorMode, setColorMode }) => {
           onClick={() => setExpanded(!expanded)}
           ariaLabel="Docs header menu button"
         >
-          {expanded ? <MdClose /> : <MdMenu />}
+          {expanded ? (
+            <MdClose style={{ width: '1.5rem', height: '1.5rem' }} />
+          ) : (
+            <MdMenu style={{ width: '1.5rem', height: '1.5rem' }} />
+          )}
         </Button>
 
         <NavLink href="/">
