@@ -4,6 +4,7 @@ import {
   Heading,
   PasswordField,
   TextField,
+  View,
 } from '@aws-amplify/ui-react';
 import { PasswordFieldDemo } from './demo';
 import {
@@ -292,18 +293,12 @@ The following is an example demonstrating use of the `ref` and `showPasswordButt
 
 <StandardHTMLAttributes component="PasswordField" link="input" element="<input>">
   <Example>
-    <View as="form" id="input_form">
-      <TextField name="username" label="username"/>
-      <PasswordField label="Password" name="password" form="password_form"/>
-    </View>
+      <PasswordField label="Password" name="password" maxlength="10"/>
 
     <ExampleCode>
 
     ```jsx
-    <View as="form" id="input_form">
-      <TextField name="username" label="username"/>
-      <PasswordField label="Password" name="password" form="password_form"/>
-    </View>
+    <PasswordField label="Password" name="password" maxlength="10"/>
     ```
 
     </ExampleCode>
