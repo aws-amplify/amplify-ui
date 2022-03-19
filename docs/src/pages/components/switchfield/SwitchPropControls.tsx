@@ -23,9 +23,6 @@ export interface SwitchPropControlsProps extends SwitchFieldProps {
   ) => void;
   setSize: (value: React.SetStateAction<SwitchFieldProps['size']>) => void;
   setLabel: (value: React.SetStateAction<SwitchFieldProps['label']>) => void;
-  setIsLabelHidden: (
-    value: React.SetStateAction<SwitchFieldProps['isLabelHidden']>
-  ) => void;
   setIsChecked: (
     value: React.SetStateAction<SwitchFieldProps['isChecked']>
   ) => void;
@@ -53,8 +50,6 @@ export const SwitchPropControls: SwitchPropControlsInterface = ({
   setLabel,
   labelPosition,
   setLabelPosition,
-  isLabelHidden,
-  setIsLabelHidden,
   isChecked,
   setIsChecked,
 }) => {
@@ -123,13 +118,6 @@ export const SwitchPropControls: SwitchPropControlsInterface = ({
         <option value="top">top</option>
         <option value="bottom">bottom</option>
       </SelectField>
-      <SwitchField
-        name="isLabelHidden"
-        onChange={() => {
-          setIsLabelHidden(!isLabelHidden);
-        }}
-        label="isLabelHidden"
-      />
       <SwitchField
         name="isDisabled"
         onChange={() => {

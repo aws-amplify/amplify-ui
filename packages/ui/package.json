@@ -48,7 +48,7 @@
     "webrtc-adapter": "^8.1.0",
     "lodash": "4.17.21",
     "style-dictionary": "3.0.3",
-    "xstate": "4.28.0"
+    "xstate": "^4.30.6"
   },
   "devDependencies": {
     "@types/dom-mediacapture-record": "^1.0.10",

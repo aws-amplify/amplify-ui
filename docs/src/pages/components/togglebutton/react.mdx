@@ -1,6 +1,8 @@
 import { Flex, ToggleButton } from '@aws-amplify/ui-react';
 
 import { Example, ExampleCode } from '@/components/Example';
+import { ComponentClassTable } from '@/components/ComponentClassTable';
+import StandardHTMLAttributes from '@/components/StandardHTMLAttributes.mdx';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 import { ToggleButtonDemo } from './demo';
 import {
@@ -125,6 +127,21 @@ In cases where you need to have at least one option on, you can set the `isSelec
 
   </ExampleCode>
 </Example>
+
+<StandardHTMLAttributes component="ToggleButton" link="button" element="<button>">
+  <Example>
+    <ToggleButton name="button">Press me!</ToggleButton>
+
+    <ExampleCode>
+
+    ```jsx
+    <ToggleButton name="button">Press me!</ToggleButton>
+    ```
+
+    </ExampleCode>
+
+  </Example>
+</StandardHTMLAttributes>
 
 ## CSS Styling
 
