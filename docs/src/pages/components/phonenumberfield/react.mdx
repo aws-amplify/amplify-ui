@@ -15,6 +15,8 @@ import {
 } from './examples';
 import { Example, ExampleCode } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
+import { ComponentClassTable } from '@/components/ComponentClassTable';
+import StandardHTMLAttributes from '@/components/StandardHTMLAttributes.mdx';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 import { RefExample } from './examples/refs';
 
@@ -273,6 +275,21 @@ The following is a contrived example demonstrating use of the `ref` and `country
 
 </ExampleCode>
 </Example>
+
+<StandardHTMLAttributes component="PhoneNumberField" link="input" element="<input>">
+  <Example>
+    <PhoneNumberField label="Phone Number" name="phone"/>
+
+    <ExampleCode>
+
+    ```jsx
+    <PhoneNumberField label="Phone Number" name="phone"/>
+    ```
+
+    </ExampleCode>
+
+  </Example>
+</StandardHTMLAttributes>
 
 ## CSS Styling
 

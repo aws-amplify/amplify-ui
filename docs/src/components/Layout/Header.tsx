@@ -89,6 +89,7 @@ const ColorModeSwitcher = ({ colorMode, setColorMode }) => {
       onChange={(value: ColorMode) => setColorMode(value)}
       isExclusive
       isSelectionRequired
+      className="color-switcher"
     >
       <ToggleButton value="light">
         <VisuallyHidden>Light mode</VisuallyHidden>
@@ -108,7 +109,6 @@ const ColorModeSwitcher = ({ colorMode, setColorMode }) => {
 
 export const Header = ({ platform, colorMode, setColorMode }) => {
   const [expanded, setExpanded] = React.useState(false);
-
   return (
     <>
       <header className={`docs-header ${expanded ? 'expanded' : ''}`}>
@@ -117,7 +117,11 @@ export const Header = ({ platform, colorMode, setColorMode }) => {
           onClick={() => setExpanded(!expanded)}
           ariaLabel="Docs header menu button"
         >
-          {expanded ? <MdClose /> : <MdMenu />}
+          {expanded ? (
+            <MdClose style={{ width: '1.5rem', height: '1.5rem' }} />
+          ) : (
+            <MdMenu style={{ width: '1.5rem', height: '1.5rem' }} />
+          )}
         </Button>
 
         <NavLink href="/">
@@ -137,11 +141,17 @@ export const Header = ({ platform, colorMode, setColorMode }) => {
       </header>
       {expanded ? (
         <View className="docs-header-mobile-nav">
-          <Settings
-            colorMode={colorMode}
-            setColorMode={setColorMode}
-            platform={platform}
-          />
+          <Flex
+            className="color-switcher__wrapper"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <ColorModeSwitcher
+              setColorMode={setColorMode}
+              colorMode={colorMode}
+            />
+          </Flex>
+
           <Nav onClick={() => setExpanded(false)} />
           <nav className="docs-sidebar-nav">
             <SecondaryNav onClick={() => setExpanded(false)} />

@@ -1,5 +1,7 @@
 import { Button, ButtonGroup, Flex, View } from '@aws-amplify/ui-react';
 import { Example, ExampleCode } from '@/components/Example';
+import { ComponentClassTable } from '@/components/ComponentClassTable';
+import StandardHTMLAttributes from '@/components/StandardHTMLAttributes.mdx';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 
 import { ButtonDemo } from './demo';
@@ -243,6 +245,21 @@ import '@aws-amplify/ui-react/styles.css';
 
 </ExampleCode>
 </Example>
+
+<StandardHTMLAttributes component="Button" element="<button>">
+  <Example>
+    <Button name="named">Named</Button>
+
+    <ExampleCode>
+
+    ```jsx
+    <Button name="named">Named</Button>
+    ```
+
+    </ExampleCode>
+
+  </Example>
+</StandardHTMLAttributes>
 
 ## Customization
 
