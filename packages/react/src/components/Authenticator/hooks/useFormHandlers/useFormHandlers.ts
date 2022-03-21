@@ -22,6 +22,7 @@ export default function useFormHandlers() {
 
   const handleSubmit = useCallback(
     (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
       submitForm(getFormDataFromEvent(event));
     },
     [submitForm]
