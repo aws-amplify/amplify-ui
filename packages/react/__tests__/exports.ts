@@ -1405,6 +1405,7 @@ describe('@aws-amplify/ui-react', () => {
           "translations",
           "useAmplify",
           "useAuthenticator",
+          "useBreakpointValue",
           "usePagination",
           "useTheme",
           "withAuthenticator",

@@ -1,5 +1,6 @@
 import { View, Flex, Text } from '@aws-amplify/ui-react';
-import { Example } from '@/components/Example';
+import { Example, ExampleCode } from '@/components/Example';
+import { UseBreakpointValueExample } from './examples';
 
 ## Example
 
@@ -122,4 +123,18 @@ When using the array syntax, specify each breakpoint styling in order from `base
   <Text as="span" fontSize={['1rem', '2rem', '3rem']} lineHeight="normal">
     {' 🐕 '}
   </Text>
+</Example>
+
+## useBreakpointValue
+
+To achieve a similar effect for none style properties you can use the `useBreakpointValue` hook. The hook will accept the same object or array syntax as
+the style properties and will output the value for the current breakpoint.
+
+<Example>
+  <UseBreakpointValueExample />
+  <ExampleCode>
+  ```jsx file=./examples/UseBreakpointValueExample.tsx
+  ```
+  </ExampleCode>
+
 </Example>
