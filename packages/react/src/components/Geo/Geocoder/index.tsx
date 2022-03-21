@@ -1,6 +1,6 @@
 import maplibregl from 'maplibre-gl';
 import { createAmplifyGeocoder } from 'maplibre-gl-js-amplify';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useControl, useMap } from 'react-map-gl';
 import type { IControl } from 'react-map-gl';
 
@@ -14,21 +14,51 @@ const GEOCODER_OPTIONS = {
 
 const GEOCODER_CONTAINER = 'geocoder-container';
 
+/**
+ * We recast the Geocoder created by Amplify as a `mapboxgl.IControl` to be compatible with control typing for
+ * `react-map-gl` and to include a valid `addTo` property when using Geocoder as a standalone component.
+ */
+type GeocoderControl = IControl & {
+  addTo: (container: string) => void;
+};
+
+/**
+ * The `<Geocoder>` component provides location search. See https://ui.docs.amplify.aws/components/geo#geocoder.
+ *
+ * @example
+ * // Used as a map control:
+ * function App() {
+ *   return (
+ *     <AmplifyMap>
+ *       <Geocoder />
+ *     </AmplifyMap>
+ *   );
+ * }
+ *
+ * @example
+ * // Used as a standalone component:
+ * function App() {
+ *   return <Geocoder />;
+ * }
+ */
 export const Geocoder = ({
   position = 'top-right',
-  style = {},
   ...props
 }: GeocoderProps) => {
   const { current: map } = useMap();
 
+  /**
+   * This logic determines whether the Geocoder exists as part of a Map component or if it is a standalone component.
+   * The `useControl` hook from `react-map-gl` makes it easy to add a control to a map, but throws an error if that map
+   * doesn't exist. If the map doesn't exist, the Geocoder is mounted to a container upon rendering.
+   */
   if (map) {
     useControl(
       () =>
         createAmplifyGeocoder({
           ...GEOCODER_OPTIONS,
           ...props,
-        }) as unknown as IControl,
-      { position }
+        }) as unknown as GeocoderControl
     );
   } else {
     useEffect(() => {
@@ -36,7 +66,7 @@ export const Geocoder = ({
         createAmplifyGeocoder({
           ...GEOCODER_OPTIONS,
           ...props,
-        }) as any
+        }) as unknown as GeocoderControl
       ).addTo(`#${GEOCODER_CONTAINER}`);
     }, []);
   }
@@ -44,6 +74,9 @@ export const Geocoder = ({
   return !map ? <div id={GEOCODER_CONTAINER} /> : null;
 };
 
+// `GeocoderProps` is based upon the typing specified by maplibre-gl-geocoder:
+// https://github.com/maplibre/maplibre-gl-geocoder/blob/main/lib/index.js#L11-L66
+// TODO: formalize this type in the `maplibre-gl-geocoder` library
 export type GeocoderProps = {
   /**
    * A bounding box given as an array in the format `[minX, minY, maxX, maxY]`.
@@ -156,7 +189,7 @@ export type GeocoderProps = {
   popupRender?: Function;
   /**
    * Default: 'top-right'
-   * Position the geocoder will be rendered on the map
+   * Position the geocoder will be rendered on the map. Only relevant when `<Geocoder>` is used with a map.
    */
   position?: 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right';
   /**
@@ -194,10 +227,6 @@ export type GeocoderProps = {
    * search on the input box being updated above the minLength option.
    */
   showResultsWhileTyping?: boolean;
-  /**
-   * Custom CSS properties for the Geocoder
-   */
-  style?: React.CSSProperties;
   /**
    * Default: true
    * If `true`, the geocoder proximity will automatically update based on the map view.
