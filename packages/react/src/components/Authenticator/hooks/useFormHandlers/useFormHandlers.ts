@@ -13,9 +13,14 @@ export default function useFormHandlers() {
     [updateBlur]
   );
 
+  // @TODO: align multiple input type handling with react docs example for 3.0 release
+  // example: https://reactjs.org/docs/forms.html#handling-multiple-inputs
   const handleChange = useCallback(
-    ({ target: { name, value } }: React.ChangeEvent<HTMLFormElement>) => {
-      updateForm({ name, value });
+    ({
+      target: { checked, name, type, value },
+    }: React.ChangeEvent<HTMLFormElement>) => {
+      const isUncheckedCheckbox = type === 'checkbox' && !checked;
+      updateForm({ name, value: isUncheckedCheckbox ? undefined : value });
     },
     [updateForm]
   );
