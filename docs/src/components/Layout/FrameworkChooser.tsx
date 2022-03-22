@@ -43,38 +43,54 @@ export const FrameworkChooser = ({ platform }) => {
       isExclusive
       isSelectionRequired
     >
-      <ToggleButton value="react" size="small">
+      <ToggleButton
+        value="react"
+        size="small"
+        padding={{ base: '4px', medium: undefined }}
+      >
         <VisuallyHidden>React</VisuallyHidden>
         <Image
           alt=""
-          height="1rem"
+          height={{ base: '1.5rem', medium: '1rem' }}
           display="block"
           src="/svg/integrations/react.svg"
         />
       </ToggleButton>
-      <ToggleButton value="angular" size="small">
+      <ToggleButton
+        value="angular"
+        size="small"
+        padding={{ base: '4px', medium: undefined }}
+      >
         <VisuallyHidden>Angular</VisuallyHidden>
         <Image
           alt=""
-          height="1rem"
+          height={{ base: '1.5rem', medium: '1rem' }}
           display="block"
           src="/svg/integrations/angular.svg"
         />
       </ToggleButton>
-      <ToggleButton value="vue" size="small">
+      <ToggleButton
+        value="vue"
+        size="small"
+        padding={{ base: '4px', medium: undefined }}
+      >
         <VisuallyHidden>Vue</VisuallyHidden>
         <Image
           alt=""
-          height="1rem"
+          height={{ base: '1.5rem', medium: '1rem' }}
           display="block"
           src="/svg/integrations/vue.svg"
         />
       </ToggleButton>
-      <ToggleButton value="flutter" size="small">
+      <ToggleButton
+        value="flutter"
+        size="small"
+        padding={{ base: '4px', medium: undefined }}
+      >
         <VisuallyHidden>Flutter</VisuallyHidden>
         <Image
           alt=""
-          height="1rem"
+          height={{ base: '1.5rem', medium: '1rem' }}
           display="block"
           src="/svg/integrations/flutter.svg"
         />

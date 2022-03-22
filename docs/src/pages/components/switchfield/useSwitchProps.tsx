@@ -20,9 +20,6 @@ export const useSwitchProps = (initialValues) => {
   const [label, setLabel] = React.useState<SwitchFieldProps['label']>(
     initialValues.label
   );
-  const [isLabelHidden, setIsLabelHidden] = React.useState<
-    SwitchFieldProps['isLabelHidden']
-  >(initialValues.isLabelHidden);
   const [isChecked, setIsChecked] = React.useState<
     SwitchFieldProps['isChecked']
   >(initialValues.isChecked);
@@ -45,8 +42,6 @@ export const useSwitchProps = (initialValues) => {
     setLabel,
     labelPosition,
     setLabelPosition,
-    isLabelHidden,
-    setIsLabelHidden,
     isChecked,
     setIsChecked,
   };
