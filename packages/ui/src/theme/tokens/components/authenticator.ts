@@ -45,7 +45,7 @@ interface OrContainerStyle {
     backgroundColor: DesignToken<BackgroundColorValue>;
   };
 }
-export interface Authenticator {
+export interface AuthenticatorTokens {
   maxWidth: DesignToken<SpaceValue>;
   modal: ModalStyle;
   container: {
@@ -58,7 +58,7 @@ export interface Authenticator {
   orContainer: OrContainerStyle;
 }
 
-export const authenticator: Authenticator = {
+export const authenticator: AuthenticatorTokens = {
   maxWidth: { value: '60rem' },
   modal: {
     width: { value: '{space.relative.full}' },

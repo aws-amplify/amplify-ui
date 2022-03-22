@@ -1,4 +1,47 @@
-export const badge = {
+import { Fonts } from '../fonts';
+import {
+  DesignToken,
+  AlignItemsValue,
+  JustifyContentValue,
+  ColorValue,
+  FontSizeValue,
+  SpaceValue,
+  FontWeightValue,
+  LineHeightValue,
+  TextAlignValue,
+  BackgroundColorValue,
+  RadiusValue,
+} from '../types/designToken';
+
+export interface BadgeVariation {
+  backgroundColor: DesignToken<BackgroundColorValue>;
+  color: DesignToken<ColorValue>;
+}
+export interface BadgeSizes {
+  fontSize: DesignToken<FontSizeValue>;
+  paddingHorizontal: DesignToken<SpaceValue>;
+  paddingVertical: DesignToken<SpaceValue>;
+}
+
+export interface BadgeTokens {
+  backgroundColor: DesignToken<BackgroundColorValue>;
+  borderRadius: DesignToken<RadiusValue>;
+  color: DesignToken<ColorValue>;
+  error: BadgeVariation;
+  fontSize: DesignToken<FontSizeValue>;
+  fontWeight: DesignToken<FontWeightValue>;
+  info: BadgeVariation;
+  large: BadgeSizes;
+  lineHeight: DesignToken<LineHeightValue>;
+  paddingHorizontal: DesignToken<SpaceValue>;
+  paddingVertical: DesignToken<SpaceValue>;
+  small: BadgeSizes;
+  success: BadgeVariation;
+  textAlign: DesignToken<TextAlignValue>;
+  warning: BadgeVariation;
+}
+
+export const badge: BadgeTokens = {
   // Default styles
   color: { value: '{colors.font.primary.value}' },
   lineHeight: { value: 1 },

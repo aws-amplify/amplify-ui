@@ -6,6 +6,7 @@ import {
   FontSizeValue,
   SpaceValue,
   FontWeightValue,
+  BackgroundColorValue,
 } from '../types/designToken';
 
 export interface IconStyle {
@@ -18,18 +19,18 @@ export interface HeadingStyle {
 
 export interface InfoStyle {
   color: DesignToken<ColorValue>;
-  backgroundColor: DesignToken<ColorValue>;
+  backgroundColor: DesignToken<BackgroundColorValue>;
 }
 export interface AlertVariation {
   color: DesignToken<ColorValue>;
-  backgroundColor: DesignToken<ColorValue>;
+  backgroundColor: DesignToken<BackgroundColorValue>;
 }
 
-export interface Alert {
+export interface AlertTokens {
   alignItems: DesignToken<AlignItemsValue>;
   justifyContent: DesignToken<JustifyContentValue>;
   color: DesignToken<ColorValue>;
-  backgroundColor: DesignToken<ColorValue>;
+  backgroundColor: DesignToken<BackgroundColorValue>;
   paddingBlock: DesignToken<SpaceValue>;
   paddingInline: DesignToken<SpaceValue>;
   icon: IconStyle;
@@ -40,7 +41,7 @@ export interface Alert {
   success: AlertVariation;
 }
 
-export const alert: Alert = {
+export const alert: AlertTokens = {
   // Default styles
   alignItems: { value: 'center' },
   justifyContent: { value: 'space-between' },

@@ -1,6 +1,6 @@
-import { Alert, alert } from './alert';
-import { authenticator } from './authenticator';
-import { badge } from './badge';
+import { AlertTokens, alert } from './alert';
+import { AuthenticatorTokens, authenticator } from './authenticator';
+import { badge, BadgeTokens } from './badge';
 import { button } from './button';
 import { card } from './card';
 import { checkbox } from './checkbox';
@@ -37,9 +37,9 @@ import { togglebutton } from './toggleButton';
 import { togglebuttongroup } from './toggleButtonGroup';
 
 export interface Components {
-  alert: Alert;
-  authenticator: any; // TODO type this
-  badge: any;
+  alert: AlertTokens;
+  authenticator: AuthenticatorTokens;
+  badge: BadgeTokens;
   button: any;
   card: any;
   checkbox: any;
