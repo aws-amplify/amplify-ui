@@ -1,4 +1,4 @@
-import { alert } from './alert';
+import { Alert, alert } from './alert';
 import { authenticator } from './authenticator';
 import { badge } from './badge';
 import { button } from './button';
@@ -36,7 +36,47 @@ import { text } from './text';
 import { togglebutton } from './toggleButton';
 import { togglebuttongroup } from './toggleButtonGroup';
 
-export const components = {
+export interface Components {
+  alert: Alert;
+  authenticator: any; // TODO type this
+  badge: any;
+  button: any;
+  card: any;
+  checkbox: any;
+  checkboxfield: any;
+  copy: any;
+  countrycodeselect: any;
+  divider: any;
+  expander: any;
+  field: any;
+  fieldcontrol: any;
+  fieldgroup: any;
+  fieldmessages: any;
+  flex: any;
+  heading: any;
+  icon: any;
+  image: any;
+  link: any;
+  loader: any;
+  menu: any;
+  pagination: any;
+  phonenumberfield: any;
+  placeholder: any;
+  radio: any;
+  rating: any;
+  select: any;
+  selectfield: any;
+  sliderfield: any;
+  stepperfield: any;
+  switchfield: any;
+  table: any;
+  tabs: any;
+  text: any;
+  togglebutton: any;
+  togglebuttongroup: any;
+}
+
+export const components: Components = {
   alert,
   authenticator,
   badge,

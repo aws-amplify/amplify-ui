@@ -47,7 +47,7 @@ export type ColorValue = string;
 export type BorderWidthValue = string;
 export type FontValue = string;
 export type FontSizeValue = string;
-export type FontWeightValue = number;
+export type FontWeightValue = number | string;
 export type LineHeightValue = string;
 export type OpacityValue = string;
 export type OutlineOffsetValue = string;
@@ -63,3 +63,7 @@ export type ShadowValue = {
 export type SpaceValue = string;
 export type TimeValue = string;
 export type TransformValue = string;
+
+// Flex
+export type AlignItemsValue = string;
+export type JustifyContentValue = string;

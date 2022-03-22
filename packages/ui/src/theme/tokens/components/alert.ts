@@ -1,4 +1,46 @@
-export const alert = {
+import {
+  DesignToken,
+  AlignItemsValue,
+  JustifyContentValue,
+  ColorValue,
+  FontSizeValue,
+  SpaceValue,
+  FontWeightValue,
+} from '../types/designToken';
+
+export interface IconStyle {
+  size: DesignToken<FontSizeValue>;
+}
+export interface HeadingStyle {
+  fontSize: DesignToken<FontSizeValue>;
+  fontWeight: DesignToken<FontWeightValue>;
+}
+
+export interface InfoStyle {
+  color: DesignToken<ColorValue>;
+  backgroundColor: DesignToken<ColorValue>;
+}
+export interface AlertVariation {
+  color: DesignToken<ColorValue>;
+  backgroundColor: DesignToken<ColorValue>;
+}
+
+export interface Alert {
+  alignItems: DesignToken<AlignItemsValue>;
+  justifyContent: DesignToken<JustifyContentValue>;
+  color: DesignToken<ColorValue>;
+  backgroundColor: DesignToken<ColorValue>;
+  paddingBlock: DesignToken<SpaceValue>;
+  paddingInline: DesignToken<SpaceValue>;
+  icon: IconStyle;
+  heading: HeadingStyle;
+  info: AlertVariation;
+  error: AlertVariation;
+  warning: AlertVariation;
+  success: AlertVariation;
+}
+
+export const alert: Alert = {
   // Default styles
   alignItems: { value: 'center' },
   justifyContent: { value: 'space-between' },
