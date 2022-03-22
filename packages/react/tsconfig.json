@@ -11,11 +11,11 @@
     "esModuleInterop": true,
     "jsx": "react-jsx",
     "rootDir": "./src",
-    // "outDir": "./dist",
+    "outDir": "./dist",
     "skipLibCheck": true,
     "sourceMap": true,
     "module": "esnext",
-    "target": "es6"
+    "target": "es2015"
   },
   "exclude": ["node_modules", "src/**/*.test.ts", "src/**/*.test.tsx"],
   "include": ["src/**/*.ts", "src/**/*.tsx"]
