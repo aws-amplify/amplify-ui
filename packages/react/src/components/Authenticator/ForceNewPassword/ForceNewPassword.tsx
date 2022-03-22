@@ -1,49 +1,22 @@
 import { translate } from '@aws-amplify/ui';
 
-import { useAuthenticator } from '..';
 import { Button, Heading, Text } from '../../..';
 import {
-  isInputOrSelectElement,
-  isInputElement,
-  getFormDataFromEvent,
-} from '../../../helpers/utils';
-import { useCustomComponents } from '../hooks/useCustomComponents';
+  useAuthenticator,
+  useCustomComponents,
+  useFormHandlers,
+} from '../hooks';
 import { FormFields } from '../shared/FormFields';
 
 export const ForceNewPassword = (): JSX.Element => {
-  const { error, isPending, toSignIn, submitForm, updateForm, updateBlur } =
-    useAuthenticator();
+  const { error, isPending, toSignIn } = useAuthenticator();
+  const { handleBlur, handleChange, handleSubmit } = useFormHandlers();
 
   const {
     components: {
       ForceNewPassword: { FormFields = ForceNewPassword.FormFields },
     },
   } = useCustomComponents();
-
-  const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
-    if (isInputOrSelectElement(event.target)) {
-      let { name, type, value } = event.target;
-      if (
-        isInputElement(event.target) &&
-        type === 'checkbox' &&
-        !event.target.checked
-      ) {
-        value = undefined;
-      }
-
-      updateForm({ name, value });
-    }
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    submitForm(getFormDataFromEvent(event));
-  };
-
-  const handleBlur = (event: React.FocusEvent<HTMLFormElement>) => {
-    const { name } = event.target;
-    updateBlur({ name });
-  };
 
   return (
     <form

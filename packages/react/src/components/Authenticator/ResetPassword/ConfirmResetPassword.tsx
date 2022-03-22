@@ -1,19 +1,19 @@
 import * as React from 'react';
-
 import { translate } from '@aws-amplify/ui';
 
-import { useAuthenticator } from '..';
 import { Flex, Heading } from '../../..';
-import { RemoteErrorMessage, TwoButtonSubmitFooter } from '../shared';
-import { useCustomComponents } from '../hooks/useCustomComponents';
 import {
-  isInputOrSelectElement,
-  isInputElement,
-  getFormDataFromEvent,
-} from '../../../helpers/utils';
+  useAuthenticator,
+  useCustomComponents,
+  useFormHandlers,
+} from '../hooks';
+import { RemoteErrorMessage, TwoButtonSubmitFooter } from '../shared';
 import { FormFields } from '../shared/FormFields';
 
 export const ConfirmResetPassword = (): JSX.Element => {
+  const { isPending } = useAuthenticator();
+  const { handleBlur, handleChange, handleSubmit } = useFormHandlers();
+
   const {
     components: {
       ConfirmResetPassword: {
@@ -22,34 +22,6 @@ export const ConfirmResetPassword = (): JSX.Element => {
       },
     },
   } = useCustomComponents();
-
-  const { _state, submitForm, updateForm, updateBlur, isPending } =
-    useAuthenticator();
-
-  const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
-    if (isInputOrSelectElement(event.target)) {
-      let { name, type, value } = event.target;
-      if (
-        isInputElement(event.target) &&
-        type === 'checkbox' &&
-        !event.target.checked
-      ) {
-        value = undefined;
-      }
-
-      updateForm({ name, value });
-    }
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    submitForm(getFormDataFromEvent(event));
-  };
-
-  const handleBlur = (event: React.FocusEvent<HTMLFormElement>) => {
-    const { name } = event.target;
-    updateBlur({ name });
-  };
 
   return (
     <form
