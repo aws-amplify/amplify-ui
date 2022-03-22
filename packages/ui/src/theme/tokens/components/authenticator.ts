@@ -1,4 +1,64 @@
-export const authenticator = {
+import {
+  DesignToken,
+  ColorValue,
+  SpaceValue,
+  BorderWidthValue,
+  BorderColorValue,
+  BackgroundColorValue,
+  BorderStyleValue,
+  BoxShadowRefValue,
+} from '../types/designToken';
+
+interface ModalStyle {
+  width: DesignToken<SpaceValue>;
+  height: DesignToken<SpaceValue>;
+  backgroundColor: DesignToken<ColorValue>;
+  top: DesignToken<SpaceValue>;
+  left: DesignToken<SpaceValue>;
+}
+
+interface RouterStyle {
+  borderWidth: DesignToken<BorderWidthValue>; //
+  borderStyle: DesignToken<BorderStyleValue>; //
+  borderColor: DesignToken<BorderColorValue>;
+  backgroundColor: DesignToken<BackgroundColorValue>;
+  boxShadow: DesignToken<BoxShadowRefValue>; //is this right, will it mess things up in figma?
+}
+
+interface FooterStyle {
+  paddingBottom: DesignToken<SpaceValue>;
+}
+
+interface FormStyle {
+  padding: DesignToken<SpaceValue>;
+}
+
+interface StateStyle {
+  inactive: {
+    backgroundColor: DesignToken<BackgroundColorValue>;
+  };
+}
+
+interface OrContainerStyle {
+  color: unknown;
+  orLine: {
+    backgroundColor: DesignToken<BackgroundColorValue>;
+  };
+}
+export interface Authenticator {
+  maxWidth: DesignToken<SpaceValue>;
+  modal: ModalStyle;
+  container: {
+    widthMax: DesignToken<SpaceValue>;
+  };
+  router: RouterStyle;
+  footer: FooterStyle;
+  form: FormStyle;
+  state: StateStyle;
+  orContainer: OrContainerStyle;
+}
+
+export const authenticator: Authenticator = {
   maxWidth: { value: '60rem' },
   modal: {
     width: { value: '{space.relative.full}' },

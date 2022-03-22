@@ -45,6 +45,9 @@ export type WebDesignToken<ValueType = any> = {
 
 export type ColorValue = string;
 export type BorderWidthValue = string;
+export type BorderStyleValue = string;
+export type BorderColorValue = ColorValue;
+export type BackgroundColorValue = ColorValue;
 export type FontValue = string;
 export type FontSizeValue = string;
 export type FontWeightValue = number | string;
@@ -53,6 +56,7 @@ export type OpacityValue = string;
 export type OutlineOffsetValue = string;
 export type OutlineWidthValue = string;
 export type RadiusValue = string;
+export type BoxShadowRefValue = string;
 export type ShadowValue = {
   offsetX: string;
   offsetY: string;
