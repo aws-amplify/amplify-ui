@@ -6,9 +6,10 @@
   "scripts": {
     "clean": "rimraf node_modules",
     "dev": "TZ=UTC cypress open",
-    "test:examples": "TZ=UTC cypress run --spec features/ui/hooks/*.features,features/ui/components/authenticator/*.features",
+    "test:examples": "TZ=UTC cypress run --spec features/ui/hooks/*.features,features/ui/components/**/*.features",
     "test:authenticator": "TZ=UTC cypress run --spec features/ui/components/authenticator/*.features",
     "test:hooks": "TZ=UTC cypress run --spec features/ui/hooks/*.features",
+    "test:geo": "TZ=UTC cypress run --spec features/ui/components/geo/*.features",
     "test:theme": "TZ=UTC cypress run --spec features/ui/theme/*.features"
   },
   "cypress-cucumber-preprocessor": {
