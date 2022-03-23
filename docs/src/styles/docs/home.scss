@@ -27,7 +27,7 @@
 
 .docs-home-section {
   position: relative;
-  padding: var(--amplify-space-xxl);
+  padding: var(--amplify-space-xl);
 }
 
 .install-code__container {
@@ -38,11 +38,17 @@
 .install-code__content {
   margin: auto;
   overflow-x: auto;
+  white-space: normal;
 }
 
 .install-code__button {
   place-self: end;
   align-self: center;
+  // Hiding on smaller screens
+  // because there's not enough space
+  @media (max-width: 480px) {
+    display: none;
+  }
 }
 
 .docs-home-amp-product-card {
@@ -55,5 +61,19 @@
 
   & > .amplify-card {
     width: 100%;
+  }
+}
+
+.docs-home-logo {
+  @media (max-width: 768px) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
   }
 }

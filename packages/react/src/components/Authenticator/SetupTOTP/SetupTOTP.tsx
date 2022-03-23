@@ -4,21 +4,22 @@ import * as React from 'react';
 import { Auth, Logger } from 'aws-amplify';
 import { getActorState, SignInState, translate } from '@aws-amplify/ui';
 
-import { useAuthenticator } from '../hooks/useAuthenticator';
 import { Flex, Heading } from '../../..';
-import {
-  isInputOrSelectElement,
-  isInputElement,
-  getFormDataFromEvent,
-} from '../../../helpers/utils';
 
+import {
+  useAuthenticator,
+  useCustomComponents,
+  useFormHandlers,
+} from '../hooks';
 import { ConfirmSignInFooter, RemoteErrorMessage } from '../shared';
-import { useCustomComponents } from '../hooks/useCustomComponents';
 import { FormFields } from '../shared/FormFields';
 
 const logger = new Logger('SetupTOTP-logger');
 
 export const SetupTOTP = (): JSX.Element => {
+  const { _state, isPending } = useAuthenticator();
+  const { handleChange, handleSubmit } = useFormHandlers();
+
   const {
     components: {
       SetupTOTP: { Header = SetupTOTP.Header, Footer = SetupTOTP.Footer },
@@ -29,7 +30,6 @@ export const SetupTOTP = (): JSX.Element => {
   const [qrCode, setQrCode] = React.useState<string>();
   const [copyTextLabel, setCopyTextLabel] = React.useState<string>('COPY');
   const [secretKey, setSecretKey] = React.useState<string>('');
-  const { _state, submitForm, updateForm, isPending } = useAuthenticator();
 
   // `user` hasn't been set on the top-level state yet, so it's only available from the signIn actor
   const actorState = getActorState(_state) as SignInState;
@@ -62,26 +62,6 @@ export const SetupTOTP = (): JSX.Element => {
 
     generateQRCode(user);
   }, [user]);
-
-  const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
-    if (isInputOrSelectElement(event.target)) {
-      let { name, type, value } = event.target;
-      if (
-        isInputElement(event.target) &&
-        type === 'checkbox' &&
-        !event.target.checked
-      ) {
-        value = undefined;
-      }
-
-      updateForm({ name, value });
-    }
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    submitForm(getFormDataFromEvent(event));
-  };
 
   const copyText = (): void => {
     navigator.clipboard.writeText(secretKey);

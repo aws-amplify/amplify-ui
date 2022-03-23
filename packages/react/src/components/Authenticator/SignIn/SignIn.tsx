@@ -2,45 +2,26 @@ import * as React from 'react';
 
 import { translate, hasTranslation } from '@aws-amplify/ui';
 
-import { useAuthenticator } from '..';
 import { Button, Flex, View, VisuallyHidden } from '../../..';
 import { FederatedSignIn } from '../FederatedSignIn';
-import { RemoteErrorMessage } from '../shared';
 import {
-  getFormDataFromEvent,
-  isInputElement,
-  isInputOrSelectElement,
-} from '../../../helpers/utils';
-import { useCustomComponents } from '../hooks/useCustomComponents';
+  useAuthenticator,
+  useCustomComponents,
+  useFormHandlers,
+} from '../hooks';
+import { RemoteErrorMessage } from '../shared';
+
 import { FormFields } from '../shared/FormFields';
 
 export function SignIn() {
-  const { isPending, submitForm, updateForm, _state } = useAuthenticator();
+  const { isPending } = useAuthenticator();
+  const { handleChange, handleSubmit } = useFormHandlers();
+
   const {
     components: {
       SignIn: { Header = SignIn.Header, Footer = SignIn.Footer },
     },
   } = useCustomComponents();
-
-  const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
-    if (isInputOrSelectElement(event.target)) {
-      let { name, type, value } = event.target;
-      if (
-        isInputElement(event.target) &&
-        type === 'checkbox' &&
-        !event.target.checked
-      ) {
-        value = undefined;
-      }
-
-      updateForm({ name, value });
-    }
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    submitForm(getFormDataFromEvent(event));
-  };
 
   return (
     <View>

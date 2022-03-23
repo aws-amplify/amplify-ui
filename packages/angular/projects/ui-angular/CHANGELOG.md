@@ -1,5 +1,14 @@
 # @aws-amplify/ui-angular
 
+## 2.3.2
+
+### Patch Changes
+
+- [#1545](https://github.com/aws-amplify/amplify-ui/pull/1545) [`30e3155ac`](https://github.com/aws-amplify/amplify-ui/commit/30e3155ac70d3f82c00da562332ce701ade45817) Thanks [@wlee221](https://github.com/wlee221)! - Bump xstate to `^4.30.6`
+
+- Updated dependencies [[`7910c04b5`](https://github.com/aws-amplify/amplify-ui/commit/7910c04b55cb32e3e8a70c3966f509ea43a0dc64), [`30e3155ac`](https://github.com/aws-amplify/amplify-ui/commit/30e3155ac70d3f82c00da562332ce701ade45817)]:
+  - @aws-amplify/ui@3.3.2
+
 ## 2.3.1
 
 ### Patch Changes

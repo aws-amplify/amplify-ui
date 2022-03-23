@@ -2,6 +2,8 @@ import { SelectField, Flex, IconArrowDropDown } from '@aws-amplify/ui-react';
 
 import { Example, ExampleCode } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
+import { ComponentClassTable } from '@/components/ComponentClassTable';
+import StandardHTMLAttributes from '@/components/StandardHTMLAttributes.mdx';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 import { SelectFieldDemo, ControlledSelect } from './demo.tsx';
 import {
@@ -184,6 +186,29 @@ Use the `hasError` and `errorMessage` props to mark a SelectField as having a va
 
   </ExampleCode>
 </Example>
+
+<StandardHTMLAttributes component="SelectField" link="select" element="<select>">
+  <Example>
+    <SelectField label="Fruit" name="fruit">
+      <option value="apple">Apple</option>
+      <option value="banana">Banana</option>
+      <option value="orange">Orange</option>
+    </SelectField>
+
+    <ExampleCode>
+
+    ```jsx
+    <SelectField label="Fruit" name="fruit">
+      <option value="apple">Apple</option>
+      <option value="banana">Banana</option>
+      <option value="orange">Orange</option>
+    </SelectField>
+    ```
+
+    </ExampleCode>
+
+  </Example>
+</StandardHTMLAttributes>
 
 ## CSS Styling
 
