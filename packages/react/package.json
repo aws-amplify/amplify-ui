@@ -12,8 +12,8 @@
       "import": "./dist/esm/internal.js",
       "require": "./dist/internal.js"
     },
-    "./internal/primitive": {
-      "import": "./dist/esm/primitive.js",
+    "./internal/primitives-catalog": {
+      "import": "./dist/esm/primitives-catalog.js",
       "default": null
     },
     "./legacy": {

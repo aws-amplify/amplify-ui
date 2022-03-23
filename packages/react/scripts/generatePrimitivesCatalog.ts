@@ -180,8 +180,7 @@ const jsonString = JSON.stringify(catalog, null, 2);
  * this is being exported under the /internal/primitive subpath and can be used as
  * import { PrimitiveCatalog } from '@aws-amplify/ui-react/internal/primitive'
  */
-const exportString = `export const PrimitiveCatalog = ${jsonString};
-export default PrimitiveCatalog;`;
+const exportString = `export const PrimitiveCatalog = ${jsonString};`;
 
 // Generates dist/primitives.js file
 const JSONoutputPath = path.resolve(__dirname, '..', 'dist', 'primitives.json');
@@ -189,7 +188,7 @@ const internalOutputPath = path.resolve(
   __dirname,
   '..',
   'dist/esm',
-  'primitive.js'
+  'primitives-catalog.js'
 );
 fs.writeFileSync(JSONoutputPath, jsonString);
 fs.writeFileSync(internalOutputPath, exportString);
