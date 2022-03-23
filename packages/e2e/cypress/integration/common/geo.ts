@@ -20,11 +20,11 @@ When('I clear the search results', () => {
 });
 
 Then('I see results for my search term', () => {
-  cy.findByRole('list').should('be.visible');
+  cy.get('.suggestions').should('be.visible');
 });
 
 Then('I see no search results', () => {
-  cy.findByRole('list').should('not.exist');
+  cy.get('.suggestions').should('not.be.visible');
 });
 
 Then('the search input is empty', () => {
