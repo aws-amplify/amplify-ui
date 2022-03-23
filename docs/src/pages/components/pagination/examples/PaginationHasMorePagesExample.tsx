@@ -8,7 +8,7 @@ export const PaginationHasMorePagesExample = () => {
 
   const handleNextPage = async () => {
     if (hasMorePages && currentPageIndex === pageTokens.length) {
-      const { nextToken } = await mockedAPI();
+      const { nextToken } = await myAPI.fetch();
 
       if (!nextToken) {
         setHasMorePages(false);
@@ -42,7 +42,7 @@ export const PaginationHasMorePagesExample = () => {
   );
 };
 
-const mockedAPI = (() => {
+const mockedAPI = () => {
   const response = [
     {
       res: 'cat',
@@ -56,9 +56,13 @@ const mockedAPI = (() => {
 
   let timesCalled = 0;
 
-  return () => {
-    if (timesCalled < 2) {
-      return response[timesCalled++];
-    }
+  return {
+    fetch() {
+      if (timesCalled < 2) {
+        return response[timesCalled++];
+      }
+    },
   };
-})();
+};
+
+const myAPI = mockedAPI();
