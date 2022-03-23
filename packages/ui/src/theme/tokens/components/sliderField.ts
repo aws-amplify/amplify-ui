@@ -1,4 +1,13 @@
-export const sliderfield = {
+export interface SliderFieldTokens {
+  paddingBlock: never;
+  track: never;
+  range: never;
+  thumb: never;
+  small: never;
+  large: never;
+}
+
+export const sliderfield: SliderFieldTokens = {
   paddingBlock: { value: '{space.xs.value}' },
 
   // The track is the thin background of the slider

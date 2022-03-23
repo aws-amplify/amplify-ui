@@ -1,4 +1,17 @@
-export const table = {
+export interface TableTokens {
+  borderCollapse: never;
+  display: never;
+  width: never;
+  head: never;
+  body: never;
+  foot: never;
+  row: never;
+  header: never;
+  data: never;
+  caption: never;
+}
+
+export const table: TableTokens = {
   /**
    * Default table styles
    */

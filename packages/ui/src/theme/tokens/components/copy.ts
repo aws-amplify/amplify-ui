@@ -1,4 +1,11 @@
-export const copy = {
+export interface CopyTokens {
+  fontSize: never;
+  gap: never;
+  svg: never;
+  toolTip: never;
+}
+
+export const copy: CopyTokens = {
   fontSize: { value: '{font.sizes.xs.value}' },
   gap: { value: '{space.relative.medium.value}' },
 

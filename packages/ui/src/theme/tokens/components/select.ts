@@ -1,3 +1,14 @@
+export interface SelectToken {
+  paddingInlineEnd: never;
+  wrapper: never;
+  iconWrapper: never;
+  option: never;
+  whiteSpace: never;
+  minWidth: never;
+  small: never;
+  large: never;
+}
+
 export const select = {
   paddingInlineEnd: { value: '{space.xxl.value}' },
   // wrappers

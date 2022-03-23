@@ -1,3 +1,5 @@
+export interface FieldGroupTokens {}
+
 export const fieldgroup = {
   gap: { value: 0 },
   vertical: {

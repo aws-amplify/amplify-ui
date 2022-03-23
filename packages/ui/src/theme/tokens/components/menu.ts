@@ -1,4 +1,20 @@
-export const menu = {
+export interface MenuTokens {
+  backgroundColor: never;
+  borderRadius: never;
+  borderWidth: never;
+  borderStyle: never;
+  borderColor: never;
+  boxShadow: never;
+  flexDirection: never;
+  gap: never;
+  maxWidth: never;
+  minWidth: never;
+  small: never;
+  large: never;
+  item: never;
+}
+
+export const menu: MenuTokens = {
   backgroundColor: { value: '{colors.white.value}' },
   borderRadius: { value: '{radii.medium.value}' },
   borderWidth: { value: '{borderWidths.small.value}' },

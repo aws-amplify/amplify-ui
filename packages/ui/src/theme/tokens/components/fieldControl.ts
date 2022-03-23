@@ -1,4 +1,31 @@
-export const fieldcontrol = {
+export interface FieldControlTokens {
+  borderStyle: never;
+  borderColor: never;
+  borderWidth: never;
+  borderRadius: never;
+  color: never;
+  paddingBlockStart: never;
+  paddingBlockEnd: never;
+  paddingInlineStart: never;
+  paddingInlineEnd: never;
+
+  fontSize: never;
+  lineHeight: never;
+  transitionDuration: never;
+  outlineColor: never;
+  outlineStyle: never;
+  outlineWidth: never;
+  outlineOffset: never;
+
+  small: never;
+  large: never;
+  quiet: never;
+  _focus: never;
+  _disabled: never;
+  _error: never;
+}
+
+export const fieldcontrol: FieldControlTokens = {
   borderStyle: { value: 'solid' },
   borderColor: { value: '{colors.border.primary.value}' },
   borderWidth: { value: '{borderWidths.small.value}' },

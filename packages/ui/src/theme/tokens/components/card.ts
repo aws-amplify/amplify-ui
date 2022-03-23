@@ -1,4 +1,32 @@
-export const card = {
+interface OutlinedToken {
+  backgroundColor: never;
+  borderRadius: never;
+  borderWidth: never;
+  borderStyle: never;
+  borderColor: never;
+  boxShadow: never;
+}
+interface ElevatedToken {
+  backgroundColor: never;
+  borderRadius: never;
+  borderWidth: never;
+  borderStyle: never;
+  borderColor: never;
+  boxShadow: never;
+}
+export interface CardTokens {
+  backgroundColor: never;
+  borderRadius: never;
+  borderWidth: never;
+  borderStyle: never;
+  borderColor: never;
+  boxShadow: never;
+  padding: never;
+  outlined: OutlinedToken;
+  elevated: ElevatedToken;
+}
+
+export const card: CardTokens = {
   backgroundColor: { value: '{colors.background.primary.value}' },
   borderRadius: { value: '{radii.xs.value}' },
   borderWidth: { value: '0' },

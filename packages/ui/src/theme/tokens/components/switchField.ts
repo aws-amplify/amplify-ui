@@ -1,4 +1,14 @@
-export const switchfield = {
+export interface SwitchFieldTokens {
+  disabled: never;
+  focused: never;
+  large: never;
+  small: never;
+  label: never;
+  thumb: never;
+  track: never;
+}
+
+export const switchfield: SwitchFieldTokens = {
   // States
   disabled: {
     opacity: { value: '{opacities.60.value}' },

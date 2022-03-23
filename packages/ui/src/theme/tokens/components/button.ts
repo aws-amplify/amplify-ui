@@ -1,4 +1,156 @@
-export const button = {
+import {
+  DesignToken,
+  AlignItemsValue,
+  JustifyContentValue,
+  ColorValue,
+  FontSizeValue,
+  SpaceValue,
+  FontWeightValue,
+  BackgroundColorValue,
+  LineHeightValue,
+  BorderColorValue,
+  BorderWidthValue,
+  BorderStyleValue,
+  BorderRadiusValue,
+  BoxShadowRefValue,
+  TransitionDurationValue,
+} from '../types/designToken';
+
+interface StateStyle {
+  color: DesignToken<ColorValue>;
+  backgroundColor: DesignToken<BackgroundColorValue>;
+  borderColor: DesignToken<BorderColorValue>;
+}
+
+interface StateStyleWithShadow extends StateStyle {
+  boxShadow: DesignToken<BoxShadowRefValue>; // is this ok? I think this will end up being the full shadow shape, so probably not
+}
+
+interface PrimaryVariation {
+  borderWidth: DesignToken<BorderWidthValue>;
+  borderStyle: DesignToken<BorderStyleValue>;
+  borderColor: DesignToken<BorderColorValue>;
+  backgroundColor: DesignToken<BackgroundColorValue>;
+  color: DesignToken<ColorValue>;
+  _disabled: {
+    color: DesignToken<ColorValue>;
+    backgroundColor: DesignToken<BackgroundColorValue>;
+    borderColor: DesignToken<BorderColorValue>;
+  };
+  _loading: {
+    color: DesignToken<ColorValue>;
+    backgroundColor: DesignToken<BackgroundColorValue>;
+    borderColor: DesignToken<BorderColorValue>;
+  };
+  _hover: {
+    color: DesignToken<ColorValue>;
+    backgroundColor: DesignToken<BackgroundColorValue>;
+    borderColor: DesignToken<BorderColorValue>;
+  };
+  _focus: {
+    color: DesignToken<ColorValue>;
+    backgroundColor: DesignToken<BackgroundColorValue>;
+    borderColor: DesignToken<BorderColorValue>;
+    boxShadow: DesignToken<BoxShadowRefValue>; // is this ok? I think this will end up being the full shadow shape, so probably not
+  };
+  _active: {
+    color: DesignToken<ColorValue>;
+    backgroundColor: DesignToken<BackgroundColorValue>;
+    borderColor: DesignToken<BorderColorValue>;
+  };
+}
+interface MenuVariation {
+  borderWidth: DesignToken<BorderWidthValue>; //
+  backgroundColor: DesignToken<BackgroundColorValue>;
+  justifyContent: never;
+  _hover: {
+    color: DesignToken<ColorValue>;
+    backgroundColor: DesignToken<BackgroundColorValue>;
+  };
+  _focus: {
+    color: DesignToken<ColorValue>;
+    backgroundColor: DesignToken<BackgroundColorValue>;
+  };
+  _active: {
+    color: DesignToken<ColorValue>;
+    backgroundColor: DesignToken<BackgroundColorValue>;
+  };
+  _disabled: {
+    color: DesignToken<ColorValue>;
+  };
+}
+
+interface LinkVariation {
+  backgroundColor: DesignToken<BackgroundColorValue>;
+  borderColor: DesignToken<BorderColorValue>;
+  borderWidth: DesignToken<BorderWidthValue>;
+  color: DesignToken<ColorValue>;
+  _hover: {
+    color: DesignToken<ColorValue>;
+    backgroundColor: DesignToken<BackgroundColorValue>;
+    borderColor: DesignToken<BorderColorValue>;
+  };
+  _focus: {
+    borderColor: DesignToken<BorderColorValue>;
+    backgroundColor: DesignToken<BackgroundColorValue>;
+    color: DesignToken<ColorValue>;
+    boxShadow: DesignToken<BoxShadowRefValue>; // is this ok? I think this will end up being the full shadow shape, so probably not
+  };
+  _active: {
+    backgroundColor: DesignToken<BackgroundColorValue>;
+    borderColor: DesignToken<BorderColorValue>;
+    color: DesignToken<ColorValue>;
+  };
+  _disabled: {
+    backgroundColor: DesignToken<BackgroundColorValue>;
+    borderColor: DesignToken<BorderColorValue>;
+    color: DesignToken<ColorValue>;
+  };
+  _loading: {
+    backgroundColor: DesignToken<BackgroundColorValue>;
+    borderColor: DesignToken<BorderColorValue>;
+    color: DesignToken<ColorValue>;
+  };
+}
+interface LoaderWrapperStyle {
+  alignItems: never;
+  gap: never;
+}
+interface ButtonSizeStyle {
+  fontSize: never;
+  paddingBlockStart: never;
+  paddingBlockEnd: never;
+  paddingInlineStart: never;
+  paddingInlineEnd: never;
+}
+export interface ButtonTokens {
+  fontWeight: DesignToken<FontWeightValue>;
+  transitionDuration: DesignToken<TransitionDurationValue>;
+  fontSize: DesignToken<FontSizeValue>;
+  lineHeight: DesignToken<LineHeightValue>;
+  paddingBlockStart: DesignToken<SpaceValue>;
+  paddingBlockEnd: DesignToken<SpaceValue>;
+  paddingInlineStart: DesignToken<SpaceValue>;
+  paddingInlineEnd: DesignToken<SpaceValue>;
+  borderColor: DesignToken<BorderColorValue>;
+  borderWidth: DesignToken<BorderWidthValue>;
+  borderStyle: DesignToken<BorderStyleValue>;
+  borderRadius: DesignToken<BorderRadiusValue>;
+  color: DesignToken<ColorValue>;
+  _hover: StateStyle;
+  _focus: StateStyleWithShadow;
+  _active: StateStyle;
+  _loading: StateStyle;
+  _disabled: StateStyle;
+  primary: PrimaryVariation;
+  menu: MenuVariation;
+  link: LinkVariation;
+  small: ButtonSizeStyle;
+  large: ButtonSizeStyle;
+  loaderWrapper: LoaderWrapperStyle;
+}
+
+export const button: ButtonTokens = {
   // shared styles
   fontWeight: { value: '{fontWeights.bold.value}' },
   transitionDuration: {
@@ -87,7 +239,7 @@ export const button = {
   },
 
   menu: {
-    borderWidth: { value: 0 },
+    borderWidth: { value: 0 }, // @TODO Should this be a string?
     backgroundColor: { value: 'transparent' },
     justifyContent: { value: 'start' },
     // Focus and hover styles are identical for menu variation
@@ -111,9 +263,9 @@ export const button = {
   },
 
   link: {
-    borderWidth: { value: 0 },
-    borderColor: { value: 'transparent' },
     backgroundColor: { value: 'transparent' },
+    borderColor: { value: 'transparent' },
+    borderWidth: { value: 0 },
     color: { value: '{colors.font.interactive.value}' },
     _hover: {
       borderColor: { value: 'transparent' },

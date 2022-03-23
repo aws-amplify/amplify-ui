@@ -1,4 +1,16 @@
-export const loader = {
+export interface LoaderTokens {
+  width: never;
+  height: never;
+  strokeEmpty: never;
+  strokeFilled: never;
+  strokeLinecap: never;
+  animationDuration: never;
+  small: never;
+  large: never;
+  linear: never;
+}
+
+export const loader: LoaderTokens = {
   width: { value: '{fontSizes.medium.value}' },
   height: { value: '{fontSizes.medium.value}' },
   strokeEmpty: { value: '{colors.neutral.20.value}' },

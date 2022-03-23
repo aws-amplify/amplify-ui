@@ -1,4 +1,12 @@
-export const tabs = {
+export interface TabsTokens {
+  backgroundColor: never;
+  borderColor: never;
+  borderStyle: never;
+  borderWidth: never;
+  gap: never;
+  item: never;
+}
+export const tabs: TabsTokens = {
   backgroundColor: { value: 'transparent' },
   borderColor: { value: '{colors.border.secondary.value}' },
   borderStyle: { value: 'solid' },

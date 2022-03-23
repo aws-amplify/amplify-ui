@@ -1,4 +1,11 @@
-export const rating = {
+export interface RatingToken {
+  large: never;
+  default: never;
+  small: never;
+  filled: never;
+  empty: never;
+}
+export const rating: RatingToken = {
   large: { size: { value: '{fontSizes.xxxl.value}' } },
   default: { size: { value: '{fontSizes.xl.value}' } },
   small: { size: { value: '{fontSizes.small.value}' } },

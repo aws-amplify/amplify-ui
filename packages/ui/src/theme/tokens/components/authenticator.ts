@@ -22,7 +22,7 @@ interface RouterStyle {
   borderStyle: DesignToken<BorderStyleValue>; //
   borderColor: DesignToken<BorderColorValue>;
   backgroundColor: DesignToken<BackgroundColorValue>;
-  boxShadow: DesignToken<BoxShadowRefValue>; //is this right, will it mess things up in figma?
+  boxShadow: DesignToken<BoxShadowRefValue>; //@TODO is this right, will it mess things up in figma?
 }
 
 interface FooterStyle {

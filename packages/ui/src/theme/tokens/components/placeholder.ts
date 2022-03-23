@@ -1,4 +1,14 @@
-export const placeholder = {
+export interface PlaceholderTokens {
+  borderRadius: never;
+  transitionDuration: never;
+  startColor: never;
+  endColor: never;
+  small: never;
+  default: never;
+  large: never;
+}
+
+export const placeholder: PlaceholderTokens = {
   borderRadius: { value: '{radii.small.value}' },
   transitionDuration: { value: '{time.long.value}' },
 

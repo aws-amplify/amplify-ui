@@ -1,4 +1,71 @@
-export const checkbox = {
+import { DesignToken, ShadowValue } from '../types/designToken';
+
+interface DisableToken {
+  cursor: never;
+}
+
+interface ButtonDisabledToken {
+  borderColor: never;
+}
+interface ButtonErrorFocusToken {
+  borderColor: never;
+  boxShadow: DesignToken<ShadowValue>;
+}
+interface ButtonErrorToken {
+  borderColor: never;
+  _focus: ButtonErrorFocusToken;
+}
+interface ButtonFocusToken {
+  outlineColor: never;
+  outlineStyle: never;
+  outlineWidth: never;
+  outlineOffset: never;
+  borderColor: never;
+  boxShadow: DesignToken<ShadowValue>;
+}
+interface BeforeToken {
+  width: never;
+  height: never;
+  borderWidth: never;
+  borderRadius: never;
+  borderStyle: never;
+  borderColor: never;
+}
+interface ButtonToken {
+  position: never;
+  alignItems: never;
+  justifyContent: never;
+  color: never;
+  before: BeforeToken;
+  _focus: ButtonFocusToken;
+  _disabled: ButtonDisabledToken;
+  _error: ButtonErrorToken;
+}
+interface IconCheckedToken {
+  opacity: never;
+  transform: never;
+  _disabled: never;
+}
+interface IconToken {
+  backgroundColor: never;
+  borderRadius: never;
+  opacity: never;
+  transform: never;
+  transitionProperty: never;
+  transitionDuration: never;
+  transitionTimingFunction: never;
+  _checked: never;
+}
+export interface CheckboxTokens {
+  cursor: never;
+  alignItems: never;
+  _disabled: DisableToken;
+  button: ButtonToken;
+  icon: IconToken;
+  label: never;
+}
+
+export const checkbox: CheckboxTokens = {
   cursor: { value: 'pointer' },
   alignItems: { value: 'center' },
   _disabled: {
