@@ -1,3 +1,3 @@
 export { Authenticator } from './Authenticator';
-export { useAuthenticator } from './hooks/useAuthenticator';
+export { useAuthenticator } from './hooks';
 export { withAuthenticator } from './withAuthenticator';
