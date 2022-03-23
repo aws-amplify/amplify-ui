@@ -1,20 +1,34 @@
-import { geoMachine } from '@aws-amplify/ui';
-import { useInterpret, useSelector } from '@xstate/react';
-import { identity } from 'lodash';
+import type { ICredentials } from '@aws-amplify/core';
+import { Amplify, Auth } from 'aws-amplify';
 import maplibregl from 'maplibre-gl';
-import type { Style as MaplibreStyle } from 'maplibre-gl';
 import { AmplifyMapLibreRequest } from 'maplibre-gl-js-amplify';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactMapGL from 'react-map-gl';
-import type { MapProps } from 'react-map-gl';
+import type { MapProps, TransformRequestFunction } from 'react-map-gl';
 
-import { View } from '../../../primitives';
+/**
+ * The `AmplifyMap` component uses [react-map-gl](https://visgl.github.io/react-map-gl/) and
+ * [maplibre-gl-js](https://visgl.github.io/react-map-gl/) to provide an interactive map using
+ * [Amplify Geo APIs](https://docs.amplify.aws/lib/geo/getting-started/q/platform/js/) powered by
+ * [Amazon Location Service](https://aws.amazon.com/location/). Since `AmplifyMap` is a wrapper of the
+ * [react-map-gl default Map](https://visgl.github.io/react-map-gl/docs/api-reference/map), it accepts the same
+ * properties.
+ *
+ * @example
+ * // Basic usage of AmplifyMap:
+ * function App() {
+ *   return <AmplifyMap />
+ * }
+ */
+export const AmplifyMap = ({ style, ...props }: MapProps) => {
+  const [transformRequest, setTransformRequest] = useState<
+    TransformRequestFunction | undefined
+  >();
+  const [credentials, setCredentials] = useState<ICredentials | undefined>();
 
-export const AmplifyMap = ({ children, style, ...rest }: AmplifyMapProps) => {
-  const mapRef = useRef<any>();
-  const [transformRequest, setTransformRequest] = useState<any>();
-  const service = useInterpret(geoMachine);
-  const state: any = useSelector(service, identity);
+  const amplifyConfig = Amplify.configure() as any;
+  const mapId = amplifyConfig.geo?.amazon_location_service.maps.default;
+  const region = amplifyConfig.geo?.amazon_location_service.region;
 
   const styleProps = {
     height: '100vh',
@@ -24,42 +38,38 @@ export const AmplifyMap = ({ children, style, ...rest }: AmplifyMapProps) => {
   } as React.CSSProperties;
 
   useEffect(() => {
-    const makeRequestTransformer = async () => {
-      if (state.context.credentials != null) {
-        const { transformRequest: amplifyTransformRequest } =
-          new AmplifyMapLibreRequest(
-            state.context.credentials,
-            state.context.config.region
-          );
-        setTransformRequest(() => amplifyTransformRequest);
-      }
+    const getCredentials = async () => {
+      setCredentials(await Auth.currentUserCredentials());
     };
 
-    makeRequestTransformer();
-  }, [state.context.credentials]);
+    getCredentials();
+  }, []);
 
+  /**
+   * The transformRequest is a callback used by react-map-gl before it makes a request for an external URL. It signs
+   * the request with AWS Sigv4 Auth, provided valid credentials, and is how we integrate react-map-gl with Amplify Geo
+   * and Amazon Location Service. Once the transformRequest is created, we render the map.
+   */
+  useEffect(() => {
+    if (credentials) {
+      const { transformRequest: amplifyTransformRequest } =
+        new AmplifyMapLibreRequest(credentials, region);
+      setTransformRequest(() => amplifyTransformRequest);
+    }
+  }, [credentials]);
+
+  /**
+   * The mapLib property is used by react-map-gl@v7 to override the underlying map library. The default library is
+   * mapbox-gl-js, which uses its own copyrighted license. We override the map library with the BSD-licensed
+   * maplibre-gl-js.
+   */
   return transformRequest ? (
-    <View data-amplify-map>
-      <ReactMapGL
-        ref={mapRef}
-        mapLib={maplibregl}
-        transformRequest={transformRequest}
-        mapStyle={state.context.config.mapId}
-        style={styleProps}
-        {...rest}
-      >
-        {children}
-      </ReactMapGL>
-    </View>
+    <ReactMapGL
+      mapLib={maplibregl}
+      mapStyle={mapId}
+      style={styleProps}
+      transformRequest={transformRequest}
+      {...props}
+    />
   ) : null;
-};
-
-export type AmplifyMapProps = Omit<
-  MapProps,
-  'mapboxAccessToken' | 'mapLib' | 'transformRequest'
->;
-
-type AmplifyMapPropsB = {
-  cursor?: Pick<React.CSSProperties, 'cursor'>;
-  mapStyle: string | MaplibreStyle;
 };

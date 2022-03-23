@@ -14,10 +14,6 @@ const GEOCODER_OPTIONS = {
 
 const GEOCODER_CONTAINER = 'geocoder-container';
 
-/**
- * We recast the Geocoder created by Amplify as a `mapboxgl.IControl` to be compatible with control typing for
- * `react-map-gl` and to include a valid `addTo` property when using Geocoder as a standalone component.
- */
 type GeocoderControl = IControl & {
   addTo: (container: string) => void;
 };
