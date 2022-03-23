@@ -169,11 +169,17 @@ for (const [componentName, [node]] of source.getExportedDeclarations()) {
 }
 
 /**
- * Generate the JSON string of the primitives catalog
- * this is being exported under the /primitives.json subpath and can be used by
+ * Generate the JSON string of the PrimitiveCatalog
+ * this is being exported under the /primitives.json subpath and can be used as
  * import PrimitiveCatalog from '@aws-amplify/ui-react/primitives.json'
  */
 const jsonString = JSON.stringify(catalog, null, 2);
+
+/**
+ * Generate the es module of the PrimitiveCatalog
+ * this is being exported under the /internal/primitive subpath and can be used as
+ * import { PrimitiveCatalog } from '@aws-amplify/ui-react/internal/primitive'
+ */
 const exportString = `export const PrimitiveCatalog = ${jsonString};
 export default PrimitiveCatalog;`;
 
