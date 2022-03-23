@@ -1,12 +1,10 @@
 // rollup.config.js
+import { defineConfig } from 'rollup';
 import typescript from '@rollup/plugin-typescript';
 import { terser } from 'rollup-plugin-terser';
 import styles from 'rollup-plugin-styles';
 
-/**
- * @type {import('rollup').RollupOptions}
- */
-const config = [
+const config = defineConfig([
   // CJS config
   {
     input: ['src/index.tsx', 'src/internal.tsx', 'src/legacy.tsx'],
@@ -39,6 +37,6 @@ const config = [
     },
     plugins: [styles({ mode: ['extract'] })],
   },
-];
+]);
 
 export default config;
