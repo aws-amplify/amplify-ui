@@ -1,15 +1,15 @@
-import { useState } from 'react';
+import * as React from 'react';
 import { Pagination } from '@aws-amplify/ui-react';
 
 export const PaginationHasMorePagesExample = () => {
-  const [pageTokens, setPageTokens] = useState([
+  const [pageTokens, setPageTokens] = React.useState([
     {
       res: 'dog',
-      nextToken: '123',
+      nextToken: 'page2',
     },
   ]);
-  const [currPageIndex, setCurrPageIndex] = useState(1);
-  const [hasMorePages, setHasMorePages] = useState(true);
+  const [currPageIndex, setCurrPageIndex] = React.useState(1);
+  const [hasMorePages, setHasMorePages] = React.useState(true);
 
   const handleNextPage = async () => {
     if (hasMorePages && currPageIndex === pageTokens.length) {
@@ -31,6 +31,10 @@ export const PaginationHasMorePagesExample = () => {
     }
   };
 
+  const handleOnChange = (e) => {
+    setCurrPageIndex(e);
+  };
+
   return (
     <Pagination
       currentPage={currPageIndex}
@@ -38,6 +42,7 @@ export const PaginationHasMorePagesExample = () => {
       hasMorePages={hasMorePages}
       onNext={handleNextPage}
       onPrevious={handlePreviousPage}
+      onChange={(e) => handleOnChange(e)}
     />
   );
 };
@@ -46,7 +51,7 @@ const mockedAPI = (function () {
   const response = [
     {
       res: 'cat',
-      nextToken: '456',
+      nextToken: 'page3',
     },
     {
       res: 'parrot',
