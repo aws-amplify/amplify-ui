@@ -10,17 +10,16 @@ import {
 
 import { Flex, Heading } from '../../..';
 import { ConfirmSignInFooter, RemoteErrorMessage } from '../shared';
-import { useCustomComponents } from '../hooks/useCustomComponents';
-import { useAuthenticator } from '../hooks/useAuthenticator';
 import {
-  isInputOrSelectElement,
-  isInputElement,
-  getFormDataFromEvent,
-} from '../../../helpers/utils';
+  useAuthenticator,
+  useCustomComponents,
+  useFormHandlers,
+} from '../hooks';
 import { FormFields } from '../shared/FormFields';
 
 export const ConfirmSignIn = (): JSX.Element => {
-  const { submitForm, updateForm, isPending } = useAuthenticator();
+  const { isPending } = useAuthenticator();
+  const { handleChange, handleSubmit } = useFormHandlers();
 
   const {
     components: {
@@ -30,26 +29,6 @@ export const ConfirmSignIn = (): JSX.Element => {
       },
     },
   } = useCustomComponents();
-
-  const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
-    if (isInputOrSelectElement(event.target)) {
-      let { name, type, value } = event.target;
-      if (
-        isInputElement(event.target) &&
-        type === 'checkbox' &&
-        !event.target.checked
-      ) {
-        value = undefined;
-      }
-
-      updateForm({ name, value });
-    }
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    submitForm(getFormDataFromEvent(event));
-  };
 
   return (
     <form
@@ -102,6 +81,6 @@ function Header() {
 
   return <Heading level={3}>{headerText}</Heading>;
 }
-ConfirmSignIn.Header = Header;
 
+ConfirmSignIn.Header = Header;
 ConfirmSignIn.Footer = (): JSX.Element => null;
