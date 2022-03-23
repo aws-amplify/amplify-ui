@@ -1,0 +1,71 @@
+---
+title: Geo
+---
+
+import { Example } from '@/components/Example';
+import { Feature } from '@/components/Feature';
+import { Fragment } from '@/components/Fragment';
+import { XStateInspector } from '@/components/XStateInspector';
+import { Tabs, TabItem } from '@aws-amplify/ui-react';
+
+Amplify UI Geo provides UI components for maps and location search for popular front end frameworks, powered by
+[Amplify Geo APIs](https://docs.amplify.aws/lib/geo/getting-started/q/platform/js/) and
+[Amazon Location Service](https://aws.amazon.com/location/).
+
+## AmplifyMap
+
+The `AmplifyMap` component adds an interactive map to your application.
+
+`AmplifyMap` is fully integrated with the open source library [react-map-gl](https://visgl.github.io/react-map-gl/) v7
+while using [maplibre-gl-js](https://maplibre.org/maplibre-gl-js-docs/api/) as the map tile source. `AmplifyMap` is
+used as a replacement to `react-map-gl`'s [default map](https://visgl.github.io/react-map-gl/docs/api-reference/map)
+and supports the same functionality.
+
+### Quick Start
+
+> Preqrequisite: [Create a Geo backend](https://docs.amplify.aws/lib/geo/getting-started/q/platform/js/)
+
+Install the required peer dependencies using your preferred package manager. Below, we use [Yarn](https://yarnpkg.com/)
+as an example:
+
+```shell
+yarn add maplibre-gl-js@1 react-map-gl
+```
+
+You can import the `AmplifyMap` component with related styles and use it in your Amplify application without any
+additional configuration.
+
+<Fragment platforms={['react']}>
+  {({ platform }) => import(`./fragments/map-quick-start.${platform}.mdx`)}
+</Fragment>
+
+### Setting Initial Viewport
+
+The map's initial viewport can be set with the `initialViewState` property:
+
+<Fragment platforms={['react']}>
+  {({ platform }) => import(`./fragments/map-initial-viewport.${platform}.mdx`)}
+</Fragment>
+
+### Usage with react-map-gl
+
+#### Moving Marker
+
+The `Marker` component from the `react-map-gl` library can have dynamic `latitude` and `longitude` properties to create
+a moving marker. The marker's position will reflect changes in `latitude` and `longitude`.
+
+<Fragment platforms={['react']}>
+  {({ platform }) => import(`./fragments/marker-moving.${platform}.mdx`)}
+</Fragment>
+
+#### Marker with Popup
+
+The `Popup` component from the `react-map-gl` library can be used with a `Marker` to communicate information to a user
+when the marker is clicked. The `offset` property can be used to prevent the popup from overlapping the marker.
+
+<Fragment platforms={['react']}>
+  {({ platform }) => import(`./fragments/marker-with-popup.${platform}.mdx`)}
+</Fragment>
+
+_Note: Ensure `originalEvent.stopPropagation()` is called in the marker click handler. This allows the `showPopup`
+state to be handled by the component._
