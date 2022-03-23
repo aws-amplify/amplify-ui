@@ -7,6 +7,7 @@ import { AmplifyProvider, ColorMode } from '@aws-amplify/ui-react';
 import { Header } from '@/components/Layout/Header';
 import { configure, trackPageVisit } from '../utils/track';
 import { theme } from '../theme';
+import { META_INFO } from '@/data/meta';
 import '../styles/index.scss';
 
 // suppress useLayoutEffect warnings when running outside a browser
@@ -35,10 +36,12 @@ function MyApp({ Component, pageProps }) {
       <Head>
         <title>Amplify UI</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta
-          name="description"
-          content="Amplify UI is an open-source design system with cloud-connected components and primitives that simplify building accessible, performant, and beautiful applications in React, Angular, Vue, and Flutter (more coming soon)."
-        ></meta>
+        {META_INFO[router.pathname] && (
+          <meta
+            name="description"
+            content={META_INFO[router.pathname].description}
+          />
+        )}
       </Head>
       <AmplifyProvider theme={theme} colorMode={colorMode}>
         <Header
