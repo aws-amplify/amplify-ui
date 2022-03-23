@@ -168,6 +168,22 @@ for (const [componentName, [node]] of source.getExportedDeclarations()) {
   }
 }
 
-// Generates dist/primitives.json file
-const outputPath = path.resolve(__dirname, '..', 'dist', 'primitives.json');
-fs.writeFileSync(outputPath, JSON.stringify(catalog, null, 2));
+/**
+ * Generate the JSON string of the primitives catalog
+ * this is being exported under the /primitives.json subpath and can be used by
+ * import PrimitiveCatalog from '@aws-amplify/ui-react/primitives.json'
+ */
+const jsonString = JSON.stringify(catalog, null, 2);
+const exportString = `export const PrimitiveCatalog = ${jsonString};
+export default PrimitiveCatalog;`;
+
+// Generates dist/primitives.js file
+const JSONoutputPath = path.resolve(__dirname, '..', 'dist', 'primitives.json');
+const internalOutputPath = path.resolve(
+  __dirname,
+  '..',
+  'dist/esm',
+  'primitive.js'
+);
+fs.writeFileSync(JSONoutputPath, jsonString);
+fs.writeFileSync(internalOutputPath, exportString);
