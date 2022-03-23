@@ -1,0 +1,1 @@
+export { AmplifyMap } from './AmplifyMap';
