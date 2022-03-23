@@ -2,9 +2,18 @@ import classNames from 'classnames';
 
 import { ComponentClassNames } from '../../shared';
 import { View } from '../../View';
+import { useDeprecationWarning } from '../../../hooks/useDeprecationWarning';
 
+/**
+ * @deprecated These icons are being removed in the next major release. You can use the [react-icons](https://react-icons.github.io/react-icons) package or other React icon libraries in its place. `import { IconStrikethroughS } from '@aws-amplify/ui-react';` → `import { MdStrikethroughS } from 'react-icons/md';`
+ */
 export const IconStrikethroughS = (props) => {
   const { className, ...rest } = props;
+  useDeprecationWarning({
+    shouldWarn: true,
+    message: `Built-in icons are being deprecated in the next major release. You can use the react-icons (https://react-icons.github.io/react-icons) package with the Material Icon set in place of these icons or any other React Icon library.
+import { IconStrikethroughS } from '@aws-amplify/ui-react'; → import { MdStrikethroughS } from 'react-icons/md';`,
+  });
   return (
     <View
       as="span"

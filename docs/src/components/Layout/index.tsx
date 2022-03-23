@@ -1,14 +1,15 @@
 import * as React from 'react';
 import debounce from 'lodash/debounce';
-import { SiW3C, SiReact } from 'react-icons/si';
 import {
+  Icon,
   Heading,
   Link,
-  Icon,
   Text,
   View,
   useTheme,
 } from '@aws-amplify/ui-react';
+import { SiW3C, SiReact } from 'react-icons/si';
+
 import { Sidebar } from './SecondaryNav';
 import { TableOfContents } from '../TableOfContents';
 import { Footer } from './Footer';

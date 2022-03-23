@@ -9,7 +9,7 @@ Please read through these guidelines carefully before submitting a PR and let us
 - [Bug Reports](#bug-reports)
 - [Pull Requests](#pull-requests)
 - [Project Structure](#project-structure)
-- [Local Development Guides](#local-devleopment-guides)
+- [Local Development Guides](#local-development-guides)
 - [Publishing](#publishing)
 
 ## Bug Reports

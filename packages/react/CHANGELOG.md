@@ -1,5 +1,53 @@
 # @aws-amplify/ui-react
 
+## 2.10.4
+
+### Patch Changes
+
+- [#1548](https://github.com/aws-amplify/amplify-ui/pull/1548) [`0e61396c8`](https://github.com/aws-amplify/amplify-ui/commit/0e61396c8e8bd403dfd1a06bd69d1edcb61de89a) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(react-authenticator): consolidate Authenticator form event handlers in useFormHandlers hook
+
+* [#1343](https://github.com/aws-amplify/amplify-ui/pull/1343) [`4896136e9`](https://github.com/aws-amplify/amplify-ui/commit/4896136e939feb887c5427a35fe903a0181c03fa) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Adding deprecation warnings to icons
+
+- [#1537](https://github.com/aws-amplify/amplify-ui/pull/1537) [`c1eed8265`](https://github.com/aws-amplify/amplify-ui/commit/c1eed82657d1d927500de4164244869ae91fd8d9) Thanks [@reesscot](https://github.com/reesscot)! - fix: suppress erroneous isMultiline deprecation warnings on TextField component
+
+  Deprecation warning messages are showing for users of TextField for the isMultiline prop even though
+  they are not using the prop. This issue is fixed by making the shouldWarn prop required on the internal
+  useDeprecationWarning hook.
+
+- Updated dependencies [[`7910c04b5`](https://github.com/aws-amplify/amplify-ui/commit/7910c04b55cb32e3e8a70c3966f509ea43a0dc64), [`30e3155ac`](https://github.com/aws-amplify/amplify-ui/commit/30e3155ac70d3f82c00da562332ce701ade45817)]:
+  - @aws-amplify/ui@3.3.2
+
+## 2.10.3
+
+### Patch Changes
+
+- [#1535](https://github.com/aws-amplify/amplify-ui/pull/1535) [`f1d4020be`](https://github.com/aws-amplify/amplify-ui/commit/f1d4020be9a976cc0221a89189bee847a38e6478) Thanks [@reesscot](https://github.com/reesscot)! - fix: typo in mapping of TextField left style prop (left was mapped to right, when should be mapped to left)
+
+## 2.10.2
+
+### Patch Changes
+
+- [#1530](https://github.com/aws-amplify/amplify-ui/pull/1530) [`3a8925b76`](https://github.com/aws-amplify/amplify-ui/commit/3a8925b7682de67cb790cb6739cfb15ffb866b18) Thanks [@reesscot](https://github.com/reesscot)! - fix: update complex field components (TextField, TextAreaField, etc) to apply absolute positioning from Figma
+
+  Figma to Studio integration will absolutely position components when autolayout is not enabled in Figma. This causes an issue for field components that were passing position, top, and left, and padding down to the input element, causing the layout not to match Figma. This is fixed by moving the absolute position props and padding up to the container Flex element.
+
+## 2.10.1
+
+### Patch Changes
+
+- [#1484](https://github.com/aws-amplify/amplify-ui/pull/1484) [`8b72277ab`](https://github.com/aws-amplify/amplify-ui/commit/8b72277ab8bd7ad64fa298a9d509572318ac8db2) Thanks [@wlee221](https://github.com/wlee221)! - refactor: share default form fields generation logic
+
+* [#1484](https://github.com/aws-amplify/amplify-ui/pull/1484) [`8b72277ab`](https://github.com/aws-amplify/amplify-ui/commit/8b72277ab8bd7ad64fa298a9d509572318ac8db2) Thanks [@wlee221](https://github.com/wlee221)! - Default `labelHidden` to false. This can be adjusted in a later PR for better UX.
+
+- [#1514](https://github.com/aws-amplify/amplify-ui/pull/1514) [`5ca96c4a8`](https://github.com/aws-amplify/amplify-ui/commit/5ca96c4a81722aca00caecb35dc98d17588c6ff1) Thanks [@amirHossein-Ebrahimi](https://github.com/amirHossein-Ebrahimi)! - feat: Add repository information to UI packages
+
+* [#1495](https://github.com/aws-amplify/amplify-ui/pull/1495) [`71abbbe28`](https://github.com/aws-amplify/amplify-ui/commit/71abbbe28c8e87aed63dac8131534cfaeb071843) Thanks [@0618](https://github.com/0618)! - fix a11y errors
+
+- [#1509](https://github.com/aws-amplify/amplify-ui/pull/1509) [`95c02cbf8`](https://github.com/aws-amplify/amplify-ui/commit/95c02cbf8930bc16fe349ff6e23b3b859f92d0d5) Thanks [@jacoblogan](https://github.com/jacoblogan)! - make pagination change functions optional
+
+- Updated dependencies [[`8b72277ab`](https://github.com/aws-amplify/amplify-ui/commit/8b72277ab8bd7ad64fa298a9d509572318ac8db2), [`8b72277ab`](https://github.com/aws-amplify/amplify-ui/commit/8b72277ab8bd7ad64fa298a9d509572318ac8db2), [`5ca96c4a8`](https://github.com/aws-amplify/amplify-ui/commit/5ca96c4a81722aca00caecb35dc98d17588c6ff1), [`1e9c6c031`](https://github.com/aws-amplify/amplify-ui/commit/1e9c6c031b1e5401c456365f0ff3187ed35c6f22)]:
+  - @aws-amplify/ui@3.3.1
+
 ## 2.10.0
 
 ### Minor Changes

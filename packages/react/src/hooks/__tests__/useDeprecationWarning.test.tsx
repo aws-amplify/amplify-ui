@@ -17,7 +17,7 @@ describe('useDeprecationWarning', () => {
   it('should render message (shouldWarn true)', async () => {
     const message = 'This component is deprecated, use X instead';
 
-    renderHook(() => useDeprecationWarning({ message }));
+    renderHook(() => useDeprecationWarning({ shouldWarn: true, message }));
     expect(console.warn).toHaveBeenCalledTimes(1);
     expect(console.warn).toHaveBeenCalledWith(message);
   });
@@ -30,13 +30,21 @@ describe('useDeprecationWarning', () => {
     expect(console.warn).not.toHaveBeenCalledWith(message);
   });
 
+  it('should not render message if shouldWarn is undefined', async () => {
+    const message = 'This component is deprecated, use X instead';
+
+    renderHook(() => useDeprecationWarning({ message, shouldWarn: undefined }));
+    expect(console.warn).toHaveBeenCalledTimes(0);
+    expect(console.warn).not.toHaveBeenCalledWith(message);
+  });
+
   it('should not throw reference error if process is not defined', async () => {
     const message = 'This component is deprecated, use X instead';
 
     const originalProcess = global.process;
     delete global.process;
 
-    renderHook(() => useDeprecationWarning({ message }));
+    renderHook(() => useDeprecationWarning({ shouldWarn: true, message }));
     expect(console.warn).toHaveBeenCalledTimes(1);
     expect(console.warn).toHaveBeenCalledWith(message);
 

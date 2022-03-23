@@ -105,11 +105,12 @@ const getConfirmSignUpFormFields = (state: AuthMachineState): FormFields => ({
 
 const getResetPasswordFormFields = (state: AuthMachineState): FormFields => {
   const primaryAlias = getPrimaryAlias(state);
+  const { label } = defaultFormFieldOptions[primaryAlias];
   return {
     username: {
       ...getAliasDefaultFormField(state),
-      label: `Enter your ${primaryAlias.toLowerCase()}`,
-      placeholder: `Enter your ${primaryAlias.toLowerCase()}`,
+      label: `Enter your ${label.toLowerCase()}`,
+      placeholder: `Enter your ${label.toLowerCase()}`,
     },
   };
 };
