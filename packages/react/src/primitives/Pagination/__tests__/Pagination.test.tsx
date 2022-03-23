@@ -108,9 +108,6 @@ describe('Pagination component test suite', () => {
           currentPage={5}
           totalPages={5}
           hasMorePages={true}
-          onChange={() => {}}
-          onNext={() => {}}
-          onPrevious={() => {}}
         />
       );
 

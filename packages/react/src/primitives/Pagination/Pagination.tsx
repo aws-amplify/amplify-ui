@@ -12,7 +12,7 @@ const PaginationPrimitive: Primitive<PaginationProps, 'nav'> = (
     className,
     currentPage = 1,
     totalPages,
-    hasMorePages,
+    hasMorePages = false,
     siblingCount,
     onNext,
     onPrevious,

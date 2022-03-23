@@ -22,7 +22,8 @@ interface BasePaginationProps {
   siblingCount?: number;
 
   /**
-   * Indicates whether there are more pages to load.
+   * Optionally indicates whether there are more pages after `totalPages`. Can be combined with `totalPages` to enable the next button when reaching the last page.
+   * @default false
    */
   hasMorePages?: boolean;
 
