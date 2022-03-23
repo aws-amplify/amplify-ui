@@ -33,7 +33,6 @@ describe('@aws-amplify/ui-react', () => {
           "FieldGroupIcon",
           "FieldGroupIconButton",
           "Flex",
-          "Geocoder",
           "Grid",
           "Heading",
           "Icon",
