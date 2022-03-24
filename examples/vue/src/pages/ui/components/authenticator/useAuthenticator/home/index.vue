@@ -3,7 +3,7 @@ import { toRefs } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { Amplify } from 'aws-amplify';
-import { useAuthenticator } from '@aws-amplify/ui-vue';
+import { Authenticator, useAuthenticator } from '@aws-amplify/ui-vue';
 import '@aws-amplify/ui-vue/styles.css';
 import aws_exports from '../aws-exports';
 
@@ -19,6 +19,8 @@ const handleClick = (event: Event) => {
 </script>
 
 <template>
+  <!-- TODO: this authenticator shouldn't be needed -->
+  <authenticator></authenticator>
   <div>Hello, {{ user?.username }}!</div>
   <button @click="handleClick">Sign Out</button>
 </template>
