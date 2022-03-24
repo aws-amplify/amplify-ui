@@ -25,7 +25,7 @@ export function createAuthenticatorMachine() {
       context: {
         user: undefined,
         config: {},
-        services: { ...defaultServices },
+        services: defaultServices,
         actorRef: undefined,
       },
       states: {
