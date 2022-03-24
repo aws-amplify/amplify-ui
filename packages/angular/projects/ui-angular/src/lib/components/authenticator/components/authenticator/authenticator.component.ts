@@ -58,7 +58,7 @@ export class AuthenticatorComponent implements OnInit, AfterContentInit {
     } = this;
 
     // send INIT event once machine is at 'setup' state
-    this.authenticator.subscribe(() => {
+    const { unsubscribe } = this.authenticator.subscribe(() => {
       const { route } = this.authenticator;
       if (!this.hasInitialized && route === 'setup') {
         this.authenticator.send({
@@ -72,7 +72,9 @@ export class AuthenticatorComponent implements OnInit, AfterContentInit {
             formFields,
           },
         });
+
         this.hasInitialized = true;
+        unsubscribe();
       }
     });
 
