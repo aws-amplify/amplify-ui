@@ -24,4 +24,6 @@ Feature: Headless Usage
     Then I see a valid greetings message
     And I reload the page
     Then I see a valid greetings message
+    And I click the "Sign Out" button
+    Then I see "Sign In"
 
