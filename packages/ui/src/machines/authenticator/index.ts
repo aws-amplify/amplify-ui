@@ -25,47 +25,58 @@ export function createAuthenticatorMachine() {
       context: {
         user: undefined,
         config: {},
-        services: {},
+        services: { ...defaultServices },
         actorRef: undefined,
       },
       states: {
         // See: https://xstate.js.org/docs/guides/communication.html#invoking-promises
         idle: {
-          on: {
-            INIT: {
+          invoke: {
+            // TODO Wait for Auth to be configured
+            src: 'getCurrentUser',
+            onDone: {
+              actions: 'setUser',
+              target: 'authenticated',
+            },
+            onError: {
               target: 'setup',
-              actions: 'configure',
             },
           },
         },
         setup: {
-          invoke: [
-            {
-              // TODO Wait for Auth to be configured
-              src: 'getCurrentUser',
-              onDone: {
-                actions: 'setUser',
-                target: 'authenticated',
+          initial: 'waitConfig',
+          states: {
+            waitConfig: {
+              on: {
+                INIT: {
+                  actions: 'configure',
+                  target: 'applyConfig',
+                },
               },
-              onError: [
+            },
+            applyConfig: {
+              invoke: {
+                src: 'getAmplifyConfig',
+                onDone: {
+                  actions: 'applyAmplifyConfig',
+                  target: 'goToInitialState',
+                },
+              },
+            },
+            goToInitialState: {
+              always: [
                 {
-                  target: 'signUp',
+                  target: '#authenticator.signUp',
                   cond: 'isInitialStateSignUp',
                 },
                 {
-                  target: 'resetPassword',
+                  target: '#authenticator.resetPassword',
                   cond: 'isInitialStateResetPassword',
                 },
-                { target: 'signIn' },
+                { target: '#authenticator.signIn' },
               ],
             },
-            {
-              src: 'getAmplifyConfig',
-              onDone: {
-                actions: 'applyAmplifyConfig',
-              },
-            },
-          ],
+          },
         },
         signIn: {
           initial: 'spawnActor',
@@ -220,7 +231,6 @@ export function createAuthenticatorMachine() {
             }
 
             // Prefer explicitly configured settings over default CLI values\
-
             const {
               loginMechanisms,
               signUpAttributes,
