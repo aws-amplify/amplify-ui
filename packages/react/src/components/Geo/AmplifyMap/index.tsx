@@ -1,7 +1,7 @@
 import { Amplify, Auth } from 'aws-amplify';
 import maplibregl from 'maplibre-gl';
 import { AmplifyMapLibreRequest } from 'maplibre-gl-js-amplify';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import ReactMapGL from 'react-map-gl';
 import type { MapProps, TransformRequestFunction } from 'react-map-gl';
 
@@ -20,20 +20,23 @@ import type { MapProps, TransformRequestFunction } from 'react-map-gl';
  * }
  */
 export const AmplifyMap = ({ style, ...props }: MapProps) => {
-  const [transformRequest, setTransformRequest] = useState<
-    TransformRequestFunction | undefined
-  >();
-
   const amplifyConfig = Amplify.configure() as any;
   const mapStyle = amplifyConfig.geo?.amazon_location_service.maps.default;
   const region = amplifyConfig.geo?.amazon_location_service.region;
 
-  const styleProps = {
-    height: '100vh',
-    position: 'relative',
-    width: '100vw',
-    ...style,
-  } as React.CSSProperties;
+  const [transformRequest, setTransformRequest] = useState<
+    TransformRequestFunction | undefined
+  >();
+
+  const styleProps = useMemo<React.CSSProperties>(
+    () => ({
+      height: '100vh',
+      position: 'relative',
+      width: '100vw',
+      ...style,
+    }),
+    [style]
+  );
 
   /**
    * The transformRequest is a callback used by react-map-gl before it makes a request for an external URL. It signs
