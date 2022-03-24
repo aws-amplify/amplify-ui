@@ -17,7 +17,7 @@ export default function App() {
 
   return (
     <>
-      <div>Welcome, {user?.username}</div>
+      <div>Hello, {user?.username}!</div>
       <button onClick={handleClick}>Sign Out</button>
     </>
   );
