@@ -264,7 +264,7 @@ export const button: ButtonTokens = {
   link: {
     backgroundColor: { value: 'transparent' },
     borderColor: { value: 'transparent' },
-    borderWidth: { value: '0' },
+    borderWidth: { value: '{space.zero.value}' },
     color: { value: '{colors.font.interactive.value}' },
     _hover: {
       borderColor: { value: 'transparent' },
