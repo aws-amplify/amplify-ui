@@ -20,6 +20,7 @@ export class UseAuthenticatorHomeComponent {
 
   public handleClick(event: Event) {
     event.preventDefault();
+    this.authenticator.signOut();
     this.router.navigate(['../'], { relativeTo: this.route });
   }
 }
