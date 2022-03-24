@@ -31,10 +31,17 @@ function MyApp({ Component, pageProps }) {
   configure();
   trackPageVisit();
 
+  if (
+    !META_INFO[router.pathname]?.description ||
+    !META_INFO[router.pathname]?.title
+  ) {
+    throw new Error(`Meta Info missing on ${router.pathname}`);
+  }
+
   return (
     <>
       <Head>
-        <title>Amplify UI</title>
+        <title>{META_INFO[router.pathname].title} | Amplify UI</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {META_INFO[router.pathname] && (
           <meta
