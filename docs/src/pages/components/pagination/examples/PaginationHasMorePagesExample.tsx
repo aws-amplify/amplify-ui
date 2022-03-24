@@ -26,8 +26,8 @@ export const PaginationHasMorePagesExample = () => {
     }
   };
 
-  const handleOnChange = (e) => {
-    setCurrentPageIndex(e);
+  const handleOnChange = (pageIndex) => {
+    setCurrentPageIndex(pageIndex);
   };
 
   return (
@@ -37,7 +37,7 @@ export const PaginationHasMorePagesExample = () => {
       hasMorePages={hasMorePages}
       onNext={handleNextPage}
       onPrevious={handlePreviousPage}
-      onChange={(e) => handleOnChange(e)}
+      onChange={handleOnChange}
     />
   );
 };
