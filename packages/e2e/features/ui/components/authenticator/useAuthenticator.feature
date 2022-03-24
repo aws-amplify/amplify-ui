@@ -19,9 +19,9 @@ Feature: Headless Usage
     When I type my "username" with status "CONFIRMED"
     And I type my password
     And I click the "Sign in" button
-    Then I see "Sign out"
-    When I reload the page
-    Then I see "Sign out"
-    And I click the "Sign out" button
-    Then I see "Sign in"
+    Then I see "Navigate to Home"
+    And I click the "Navigate to Home" button
+    Then I see a valid greetings message
+    And I reload the page
+    Then I see a valid greetings message
 
