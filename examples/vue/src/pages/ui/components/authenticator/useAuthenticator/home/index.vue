@@ -13,7 +13,7 @@ const router = useRouter();
 const { user, signOut } = toRefs(useAuthenticator());
 const handleClick = (event: Event) => {
   event.preventDefault();
-  signOut();
+  signOut.value();
   router.push('../useAuthenticator');
 };
 </script>
