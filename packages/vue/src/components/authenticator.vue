@@ -83,21 +83,19 @@ useAuth(service);
 const hasInitialized = ref(false);
 
 service.subscribe((newState) => {
-  if (newState.matches('setup')) {
-    if (!hasInitialized.value) {
-      send({
-        type: 'INIT',
-        data: {
-          initialState,
-          loginMechanisms,
-          socialProviders,
-          signUpAttributes,
-          services,
-          formFields,
-        },
-      });
-      hasInitialized.value = true;
-    }
+  if (newState.matches('setup') && !hasInitialized.value) {
+    send({
+      type: 'INIT',
+      data: {
+        initialState,
+        loginMechanisms,
+        socialProviders,
+        signUpAttributes,
+        services,
+        formFields,
+      },
+    });
+    hasInitialized.value = true;
   }
 });
 
