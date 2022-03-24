@@ -1,4 +1,3 @@
-import type { ICredentials } from '@aws-amplify/core';
 import { Amplify, Auth } from 'aws-amplify';
 import maplibregl from 'maplibre-gl';
 import { AmplifyMapLibreRequest } from 'maplibre-gl-js-amplify';
@@ -24,7 +23,6 @@ export const AmplifyMap = ({ style, ...props }: MapProps) => {
   const [transformRequest, setTransformRequest] = useState<
     TransformRequestFunction | undefined
   >();
-  const [credentials, setCredentials] = useState<ICredentials | undefined>();
 
   const amplifyConfig = Amplify.configure() as any;
   const mapId = amplifyConfig.geo?.amazon_location_service.maps.default;
@@ -37,26 +35,22 @@ export const AmplifyMap = ({ style, ...props }: MapProps) => {
     ...style,
   } as React.CSSProperties;
 
-  useEffect(() => {
-    const getCredentials = async () => {
-      setCredentials(await Auth.currentUserCredentials());
-    };
-
-    getCredentials();
-  }, []);
-
   /**
    * The transformRequest is a callback used by react-map-gl before it makes a request for an external URL. It signs
    * the request with AWS Sigv4 Auth, provided valid credentials, and is how we integrate react-map-gl with Amplify Geo
    * and Amazon Location Service. Once the transformRequest is created, we render the map.
    */
   useEffect(() => {
-    if (credentials) {
-      const { transformRequest: amplifyTransformRequest } =
-        new AmplifyMapLibreRequest(credentials, region);
-      setTransformRequest(() => amplifyTransformRequest);
-    }
-  }, [credentials]);
+    (async () => {
+      const credentials = await Auth.currentUserCredentials();
+
+      if (credentials) {
+        const { transformRequest: amplifyTransformRequest } =
+          new AmplifyMapLibreRequest(credentials, region);
+        setTransformRequest(() => amplifyTransformRequest);
+      }
+    })();
+  }, []);
 
   /**
    * The mapLib property is used by react-map-gl@v7 to override the underlying map library. The default library is
