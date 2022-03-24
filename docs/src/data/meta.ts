@@ -8,12 +8,12 @@ export const META_INFO: MetaInfo = {
     description:
       'Amplify UI is an open-source design system with cloud-connected components and primitives that simplify building accessible, performant, and beautiful applications in React, Angular, Vue, and Flutter (more coming soon).',
   },
-  '/installation': {
+  '/getting-started/installation': {
     title: 'Installation',
     description:
       'Installation Guide - How to install Amplify UI Packages, Styles, Fonts and Troubleshooting.',
   },
-  '/migration': {
+  '/getting-started/migration': {
     title: 'Migration',
     description:
       'Migration Guide - How to migrate from an older version of Amplify UI to a newer version.',
@@ -218,23 +218,36 @@ export const META_INFO: MetaInfo = {
     description:
       'A Theme is a structured collection of design decisions that change the appearance of a UI library. An Amplify UI theme is a structured object of design tokens, breakpoints, and overrides. - Amplify UI',
   },
+  '/theming/default-theme': {
+    title: 'Theming - Default Theme',
+    description:
+      'A Default Theme is a structured collection of the default design decisions that change the appearance of a UI library. An Amplify UI theme is a structured object of design tokens, breakpoints, and overrides. - Amplify UI',
+  },
   '/theming/responsive': {
     title: 'Theming - Responsive',
     description:
       'Responsive styling is supported out of the box using our default breakpoints. Our responsive support uses a mobile first approach, so @media(min-width) rules are used for all breakpoints. - Amplify UI',
   },
   '/theming/dark-mode': {
-    title: 'Theming Dark Mode',
+    title: 'Theming - Dark Mode',
     description:
       'Dark Mode uses a darker color palette for all screens, making foreground content stand out against darker backgrounds. ',
   },
   '/theming/alternative-styling': {
-    title: 'Alternative Styling',
+    title: 'Theming - Alternative Styling',
     description:
       'One of the goals of Amplify is to be a good citizen of the environment it exists in. As such, Amplify works hard to not interfere with other tools that are being used. - Amplify UI',
   },
   '/404': {
     title: '404',
     description: 'Page Not Found',
+  },
+  '/_error': {
+    title: 'Error',
+    description: 'Error',
+  },
+  '/500': {
+    title: 'Error',
+    description: 'Error',
   },
 };
