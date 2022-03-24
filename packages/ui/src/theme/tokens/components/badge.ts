@@ -41,7 +41,7 @@ export interface BadgeTokens {
 export const badge: BadgeTokens = {
   // Default styles
   color: { value: '{colors.font.primary.value}' },
-  lineHeight: { value: '1' },
+  lineHeight: { value: 1 },
   fontWeight: { value: '{fontWeights.semibold.value}' },
   fontSize: { value: '{fontSizes.small.value}' },
   textAlign: { value: 'center' },
