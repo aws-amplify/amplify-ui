@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { Logger } from '@aws-amplify/core';
 import {
   AuthContext,
@@ -31,7 +31,7 @@ export class AuthenticatorService implements OnDestroy {
   private _hubSubscription: ReturnType<typeof listenToAuthHub>;
   private _facade: ReturnType<typeof getServiceContextFacade>;
 
-  public startMachine() {
+  constructor() {
     const machine = createAuthenticatorMachine();
 
     const authService = interpret(machine).start();
