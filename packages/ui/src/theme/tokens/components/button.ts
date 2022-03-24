@@ -16,17 +16,17 @@ import {
   TransitionDurationValue,
 } from '../types/designToken';
 
-interface StateStyle {
+interface StateTokens {
   color: DesignToken<ColorValue>;
   backgroundColor: DesignToken<BackgroundColorValue>;
   borderColor: DesignToken<BorderColorValue>;
 }
 
-interface StateStyleWithShadow extends StateStyle {
+interface StateWithShadowTokens extends StateTokens {
   boxShadow: DesignToken<BoxShadowValue>;
 }
 
-interface PrimaryVariation {
+interface PrimaryVariationTokens {
   borderWidth: DesignToken<BorderWidthValue>;
   borderStyle: DesignToken<BorderStyleValue>;
   borderColor: DesignToken<BorderColorValue>;
@@ -59,7 +59,7 @@ interface PrimaryVariation {
     borderColor: DesignToken<BorderColorValue>;
   };
 }
-interface MenuVariation {
+interface MenuVariationTokens {
   borderWidth: DesignToken<BorderWidthValue>;
   backgroundColor: DesignToken<BackgroundColorValue>;
   justifyContent: DesignToken<JustifyContentValue>;
@@ -80,7 +80,7 @@ interface MenuVariation {
   };
 }
 
-interface LinkVariation {
+interface LinkVariationTokens {
   backgroundColor: DesignToken<BackgroundColorValue>;
   borderColor: DesignToken<BorderColorValue>;
   borderWidth: DesignToken<BorderWidthValue>;
@@ -112,7 +112,7 @@ interface LinkVariation {
     color: DesignToken<ColorValue>;
   };
 }
-interface ButtonSizeStyle {
+interface ButtonSizeTokens {
   fontSize: DesignToken<FontSizeValue>;
   paddingBlockStart: DesignToken<SpaceValue>;
   paddingBlockEnd: DesignToken<SpaceValue>;
@@ -133,16 +133,16 @@ export interface ButtonTokens {
   borderStyle: DesignToken<BorderStyleValue>;
   borderRadius: DesignToken<BorderRadiusValue>;
   color: DesignToken<ColorValue>;
-  _hover: StateStyle;
-  _focus: StateStyleWithShadow;
-  _active: StateStyle;
-  _loading: StateStyle;
-  _disabled: StateStyle;
-  primary: PrimaryVariation;
-  menu: MenuVariation;
-  link: LinkVariation;
-  small: ButtonSizeStyle;
-  large: ButtonSizeStyle;
+  _hover: StateTokens;
+  _focus: StateWithShadowTokens;
+  _active: StateTokens;
+  _loading: StateTokens;
+  _disabled: StateTokens;
+  primary: PrimaryVariationTokens;
+  menu: MenuVariationTokens;
+  link: LinkVariationTokens;
+  small: ButtonSizeTokens;
+  large: ButtonSizeTokens;
   loaderWrapper: {
     alignItems: DesignToken<AlignItemsValue>;
     gap: DesignToken<SpaceValue>;

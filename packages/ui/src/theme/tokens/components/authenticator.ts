@@ -1,50 +1,63 @@
 import {
-  BackgroundColorValue,
-  BorderColorValue,
-  BorderStyleValue,
-  BorderWidthValue,
-  BoxShadowValue,
-  ColorValue,
   DesignToken,
+  ColorValue,
   SpaceValue,
+  BorderWidthValue,
+  BorderColorValue,
+  BackgroundColorValue,
+  BorderStyleValue,
+  BoxShadowValue,
 } from '../types/designToken';
 
+interface AuthenticatorModalStyle {
+  width: DesignToken<SpaceValue>;
+  height: DesignToken<SpaceValue>;
+  backgroundColor: DesignToken<ColorValue>;
+  top: DesignToken<SpaceValue>;
+  left: DesignToken<SpaceValue>;
+}
+
+interface AuthenticatorRouterStyle {
+  borderWidth: DesignToken<BorderWidthValue>;
+  borderStyle: DesignToken<BorderStyleValue>;
+  borderColor: DesignToken<BorderColorValue>;
+  backgroundColor: DesignToken<BackgroundColorValue>;
+  boxShadow: DesignToken<BoxShadowValue>;
+}
+
+interface AuthenticatorFooterStyle {
+  paddingBottom: DesignToken<SpaceValue>;
+}
+
+interface AuthenticatorFormStyle {
+  padding: DesignToken<SpaceValue>;
+}
+
+interface AuthenticatorStateStyle {
+  inactive: {
+    backgroundColor: DesignToken<BackgroundColorValue>;
+  };
+}
+
+interface AuthenticatorOrContainerStyle {
+  color: DesignToken<ColorValue>;
+  orLine: {
+    backgroundColor: DesignToken<BackgroundColorValue>;
+  };
+}
+
+interface AuthenticatorContainerToken {
+  widthMax: DesignToken<SpaceValue>;
+}
 export interface AuthenticatorTokens {
   maxWidth: DesignToken<SpaceValue>;
-  modal: {
-    width: DesignToken<SpaceValue>;
-    height: DesignToken<SpaceValue>;
-    backgroundColor: DesignToken<ColorValue>;
-    top: DesignToken<SpaceValue>;
-    left: DesignToken<SpaceValue>;
-  };
-  container: {
-    widthMax: DesignToken<SpaceValue>;
-  };
-  router: {
-    borderWidth: DesignToken<BorderWidthValue>;
-    borderStyle: DesignToken<BorderStyleValue>;
-    borderColor: DesignToken<BorderColorValue>;
-    backgroundColor: DesignToken<BackgroundColorValue>;
-    boxShadow: DesignToken<BoxShadowValue>;
-  };
-  footer: {
-    paddingBottom: DesignToken<SpaceValue>;
-  };
-  form: {
-    padding: DesignToken<SpaceValue>;
-  };
-  state: {
-    inactive: {
-      backgroundColor: DesignToken<BackgroundColorValue>;
-    };
-  };
-  orContainer: {
-    color: DesignToken<ColorValue>;
-    orLine: {
-      backgroundColor: DesignToken<BackgroundColorValue>;
-    };
-  };
+  modal: AuthenticatorModalStyle;
+  container: AuthenticatorContainerToken;
+  router: AuthenticatorRouterStyle;
+  footer: AuthenticatorFooterStyle;
+  form: AuthenticatorFormStyle;
+  state: AuthenticatorStateStyle;
+  orContainer: AuthenticatorOrContainerStyle;
 }
 
 export const authenticator: AuthenticatorTokens = {

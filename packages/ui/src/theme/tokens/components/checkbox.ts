@@ -1,73 +1,97 @@
-import { DesignToken, ShadowValue } from '../types/designToken';
+import {
+  AlignItemsValue,
+  BackgroundColorValue,
+  BorderColorValue,
+  BorderRadiusValue,
+  BorderStyleValue,
+  BorderWidthValue,
+  BoxShadowValue,
+  ColorValue,
+  CursorValue,
+  DesignToken,
+  JustifyContentValue,
+  OpacityValue,
+  OutlineColorValue,
+  OutlineOffsetValue,
+  OutlineStyleValue,
+  OutlineWidthValue,
+  PositionValue,
+  ShadowValue,
+  SpaceValue,
+  TransformValue,
+  TransitionDurationValue,
+  TransitionPropertyValue,
+  TransitionTimingFunctionValue,
+} from '../types/designToken';
 
 interface DisableToken {
-  cursor: any;
+  cursor: DesignToken<CursorValue>;
 }
 
 interface ButtonDisabledToken {
-  borderColor: any;
+  borderColor: DesignToken<BorderColorValue>;
 }
 interface ButtonErrorFocusToken {
-  borderColor: any;
+  borderColor: DesignToken<BorderColorValue>;
   boxShadow: DesignToken<ShadowValue>;
 }
 interface ButtonErrorToken {
-  borderColor: any;
+  borderColor: DesignToken<BorderColorValue>;
   _focus: ButtonErrorFocusToken;
 }
 interface ButtonFocusToken {
-  outlineColor: any;
-  outlineStyle: any;
-  outlineWidth: any;
-  outlineOffset: any;
-  borderColor: any;
-  boxShadow: DesignToken<ShadowValue>;
+  outlineColor: DesignToken<OutlineColorValue>;
+  outlineStyle: DesignToken<OutlineStyleValue>;
+  outlineWidth: DesignToken<OutlineWidthValue>;
+  outlineOffset: DesignToken<OutlineOffsetValue>;
+  borderColor: DesignToken<BorderColorValue>;
+  boxShadow: DesignToken<BoxShadowValue>;
 }
 interface BeforeToken {
-  width: any;
-  height: any;
-  borderWidth: any;
-  borderRadius: any;
-  borderStyle: any;
-  borderColor: any;
+  width: DesignToken<SpaceValue>;
+  height: DesignToken<SpaceValue>;
+  borderWidth: DesignToken<BorderWidthValue>;
+  borderRadius: DesignToken<BorderRadiusValue>;
+  borderStyle: DesignToken<BorderStyleValue>;
+  borderColor: DesignToken<BorderColorValue>;
 }
 interface ButtonToken {
-  position: any;
-  alignItems: any;
-  justifyContent: any;
-  color: any;
+  position: DesignToken<PositionValue>;
+  alignItems: DesignToken<AlignItemsValue>;
+  justifyContent: DesignToken<JustifyContentValue>;
+  color: DesignToken<ColorValue>;
   before: BeforeToken;
   _focus: ButtonFocusToken;
   _disabled: ButtonDisabledToken;
   _error: ButtonErrorToken;
 }
 interface IconCheckedDisabled {
-  backgroundColor: any;
+  backgroundColor: DesignToken<BackgroundColorValue>;
 }
 interface IconCheckedToken {
-  opacity: any;
-  transform: any;
+  opacity: DesignToken<OpacityValue>;
+  transform: DesignToken<TransformValue>;
   _disabled: IconCheckedDisabled;
 }
 interface IconToken {
-  backgroundColor: any;
-  borderRadius: any;
-  opacity: any;
-  transform: any;
-  transitionProperty: any;
-  transitionDuration: any;
-  transitionTimingFunction: any;
+  backgroundColor: DesignToken<BackgroundColorValue>;
+  borderRadius: DesignToken<BorderRadiusValue>;
+  opacity: DesignToken<OpacityValue>;
+  transform: DesignToken<TransformValue>;
+  transitionProperty: DesignToken<TransitionPropertyValue>;
+  transitionDuration: DesignToken<TransitionDurationValue>;
+  transitionTimingFunction: DesignToken<TransitionTimingFunctionValue>;
   _checked: IconCheckedToken;
 }
 interface LabelDisabledToken {
-  color: any;
+  color: DesignToken<ColorValue>;
 }
 interface LabelToken {
   _disabled: LabelDisabledToken;
 }
 export interface CheckboxTokens {
-  cursor: any;
-  alignItems: any;
+  cursor: DesignToken<CursorValue>;
+  alignItems: DesignToken<AlignItemsValue>;
   _disabled: DisableToken;
   button: ButtonToken;
   icon: IconToken;

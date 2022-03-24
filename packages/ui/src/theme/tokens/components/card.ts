@@ -1,29 +1,40 @@
-interface OutlinedToken {
-  backgroundColor: any;
-  borderRadius: any;
-  borderWidth: any;
-  borderStyle: any;
-  borderColor: any;
-  boxShadow: any;
+import {
+  BackgroundColorValue,
+  BorderColorValue,
+  BorderRadiusValue,
+  BorderStyleValue,
+  BorderWidthValue,
+  BoxShadowValue,
+  DesignToken,
+  SpaceValue,
+} from '../types/designToken';
+
+interface OutlinedTokens {
+  backgroundColor: DesignToken<BackgroundColorValue>;
+  borderRadius: DesignToken<BorderRadiusValue>;
+  borderWidth: DesignToken<BorderWidthValue>;
+  borderStyle: DesignToken<BorderStyleValue>;
+  borderColor: DesignToken<BorderColorValue>;
+  boxShadow: DesignToken<BoxShadowValue>;
 }
-interface ElevatedToken {
-  backgroundColor: any;
-  borderRadius: any;
-  borderWidth: any;
-  borderStyle: any;
-  borderColor: any;
-  boxShadow: any;
+interface ElevatedTokens {
+  backgroundColor: DesignToken<BackgroundColorValue>;
+  borderRadius: DesignToken<BorderRadiusValue>;
+  borderWidth: DesignToken<BorderWidthValue>;
+  borderStyle: DesignToken<BorderStyleValue>;
+  borderColor: DesignToken<BorderColorValue>;
+  boxShadow: DesignToken<BoxShadowValue>;
 }
 export interface CardTokens {
-  backgroundColor: any;
-  borderRadius: any;
-  borderWidth: any;
-  borderStyle: any;
-  borderColor: any;
-  boxShadow: any;
-  padding: any;
-  outlined: OutlinedToken;
-  elevated: ElevatedToken;
+  backgroundColor: DesignToken<BackgroundColorValue>;
+  borderRadius: DesignToken<BorderRadiusValue>;
+  borderWidth: DesignToken<BorderWidthValue>;
+  borderStyle: DesignToken<BorderStyleValue>;
+  borderColor: DesignToken<BorderColorValue>;
+  boxShadow: DesignToken<BoxShadowValue>;
+  padding: DesignToken<SpaceValue>;
+  outlined: OutlinedTokens;
+  elevated: ElevatedTokens;
 }
 
 export const card: CardTokens = {

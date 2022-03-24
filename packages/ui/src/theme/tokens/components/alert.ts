@@ -9,9 +9,18 @@ import {
   SpaceValue,
 } from '../types/designToken';
 
-export interface AlertVariation {
+interface AlertVariationTokens {
   color: DesignToken<ColorValue>;
   backgroundColor: DesignToken<BackgroundColorValue>;
+}
+
+interface AlertIconTokens {
+  size: DesignToken<FontSizeValue>;
+}
+
+interface AlertHeadingTokens {
+  fontSize: DesignToken<FontSizeValue>;
+  fontWeight: DesignToken<FontWeightValue>;
 }
 
 export interface AlertTokens {
@@ -21,17 +30,12 @@ export interface AlertTokens {
   backgroundColor: DesignToken<BackgroundColorValue>;
   paddingBlock: DesignToken<SpaceValue>;
   paddingInline: DesignToken<SpaceValue>;
-  icon: {
-    size: DesignToken<FontSizeValue>;
-  };
-  heading: {
-    fontSize: DesignToken<FontSizeValue>;
-    fontWeight: DesignToken<FontWeightValue>;
-  };
-  info: AlertVariation;
-  error: AlertVariation;
-  warning: AlertVariation;
-  success: AlertVariation;
+  icon: AlertIconTokens;
+  heading: AlertHeadingTokens;
+  info: AlertVariationTokens;
+  error: AlertVariationTokens;
+  warning: AlertVariationTokens;
+  success: AlertVariationTokens;
 }
 
 export const alert: AlertTokens = {
