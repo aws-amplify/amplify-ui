@@ -11,7 +11,7 @@ Amplify.configure(aws_exports);
 
 const router = useRouter();
 const { user, signOut } = toRefs(useAuthenticator());
-const handleClick = (event: Event) => {
+const handleClick = (event) => {
   event.preventDefault();
   signOut.value();
   router.push('../useAuthenticator');
