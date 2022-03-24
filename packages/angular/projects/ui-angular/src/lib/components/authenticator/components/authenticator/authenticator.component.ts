@@ -72,6 +72,7 @@ export class AuthenticatorComponent implements OnInit, AfterContentInit {
             formFields,
           },
         });
+        this.hasInitialized = true;
       }
     });
 
