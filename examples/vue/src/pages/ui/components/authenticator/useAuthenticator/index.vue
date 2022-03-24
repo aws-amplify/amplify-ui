@@ -7,14 +7,15 @@ import aws_exports from './aws-exports';
 
 Amplify.configure(aws_exports);
 
-const { route, user, signOut } = toRefs(useAuthenticator());
+const { route } = toRefs(useAuthenticator());
 const props = useAuthenticator();
 </script>
 
 <template>
   <authenticator> </authenticator>
   <template v-if="route === 'authenticated'">
-    <h1>Hello {{ user?.username }}!</h1>
-    <button @click="signOut">Sign out</button>
+    <router-link to="useAuthenticator/home">
+      <button>Navigate to Home</button>
+    </router-link>
   </template>
 </template>
