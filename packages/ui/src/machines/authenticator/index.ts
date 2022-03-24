@@ -32,7 +32,6 @@ export function createAuthenticatorMachine() {
         // See: https://xstate.js.org/docs/guides/communication.html#invoking-promises
         idle: {
           invoke: {
-            // TODO Wait for Auth to be configured
             src: 'getCurrentUser',
             onDone: {
               actions: 'setUser',
@@ -56,6 +55,7 @@ export function createAuthenticatorMachine() {
             },
             applyConfig: {
               invoke: {
+                // TODO Wait for Auth to be configured
                 src: 'getAmplifyConfig',
                 onDone: {
                   actions: 'applyAmplifyConfig',
