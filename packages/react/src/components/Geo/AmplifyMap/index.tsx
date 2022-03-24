@@ -25,7 +25,7 @@ export const AmplifyMap = ({ style, ...props }: MapProps) => {
   >();
 
   const amplifyConfig = Amplify.configure() as any;
-  const mapId = amplifyConfig.geo?.amazon_location_service.maps.default;
+  const mapStyle = amplifyConfig.geo?.amazon_location_service.maps.default;
   const region = amplifyConfig.geo?.amazon_location_service.region;
 
   const styleProps = {
@@ -60,7 +60,7 @@ export const AmplifyMap = ({ style, ...props }: MapProps) => {
   return transformRequest ? (
     <ReactMapGL
       mapLib={maplibregl}
-      mapStyle={mapId}
+      mapStyle={mapStyle}
       style={styleProps}
       transformRequest={transformRequest}
       {...props}
