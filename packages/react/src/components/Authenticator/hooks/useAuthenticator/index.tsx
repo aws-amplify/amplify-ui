@@ -41,9 +41,7 @@ export const Provider = ({ children }) => {
    *
    * Leaving this as is for now in the interest of suggested code guideline.
    */
-  const service = useInterpret(createAuthenticatorMachine, {
-    devTools: process.env.NODE_ENV === 'development',
-  });
+  const service = useInterpret(createAuthenticatorMachine);
   const currentProviderVal = { service };
 
   const value = isEmpty(parentProviderVal)
