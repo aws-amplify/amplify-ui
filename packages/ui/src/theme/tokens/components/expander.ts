@@ -1,16 +1,16 @@
 import { DesignToken } from '../types/designToken';
 
 export interface ExpanderTokens {
-  display: DesignToken<never>;
-  backgroundColor: DesignToken<never>;
-  borderRadius: DesignToken<never>;
-  boxShadownever: DesignToken<never>;
-  widthnever: DesignToken<never>;
-  itemnever: DesignToken<never>;
-  headernever: DesignToken<never>;
-  triggernever: DesignToken<never>;
-  contentnever: DesignToken<never>;
-  iconnever: DesignToken<never>;
+  display: any;
+  backgroundColor: any;
+  borderRadius: any;
+  boxShadow: any;
+  width: any;
+  item: any;
+  header: any;
+  trigger: any;
+  content: any;
+  icon: any;
 }
 export const expander: ExpanderTokens = {
   display: { value: 'block' },

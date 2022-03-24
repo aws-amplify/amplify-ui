@@ -1,8 +1,8 @@
 export interface CopyTokens {
-  fontSize: never;
-  gap: never;
-  svg: never;
-  toolTip: never;
+  fontSize: any;
+  gap: any;
+  svg: any;
+  toolTip: any;
 }
 
 export const copy: CopyTokens = {

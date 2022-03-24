@@ -1,6 +1,6 @@
 export interface IconTokens {
-  lineHeight: never;
-  height: never;
+  lineHeight: any;
+  height: any;
 }
 export const icon: IconTokens = {
   lineHeight: { value: 1 },

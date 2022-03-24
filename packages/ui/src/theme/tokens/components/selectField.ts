@@ -1,10 +1,10 @@
 import { DesignToken, FlexDirectionValue } from '../types/designToken';
 
-export interface SelectFieldToken {
+export interface SelectFieldTokens {
   flexDirection: DesignToken<FlexDirectionValue>;
 }
 
-export const selectfield: SelectFieldToken = {
+export const selectfield: SelectFieldTokens = {
   flexDirection: {
     value: 'column',
   },

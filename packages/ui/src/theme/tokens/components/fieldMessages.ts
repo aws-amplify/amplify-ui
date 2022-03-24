@@ -1,6 +1,6 @@
 export interface FieldMessagesTokens {
-  error: never;
-  description: never;
+  error: any;
+  description: any;
 }
 
 export const fieldmessages: FieldMessagesTokens = {

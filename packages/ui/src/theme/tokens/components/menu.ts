@@ -1,17 +1,17 @@
 export interface MenuTokens {
-  backgroundColor: never;
-  borderRadius: never;
-  borderWidth: never;
-  borderStyle: never;
-  borderColor: never;
-  boxShadow: never;
-  flexDirection: never;
-  gap: never;
-  maxWidth: never;
-  minWidth: never;
-  small: never;
-  large: never;
-  item: never;
+  backgroundColor: any;
+  borderRadius: any;
+  borderWidth: any;
+  borderStyle: any;
+  borderColor: any;
+  boxShadow: any;
+  flexDirection: any;
+  gap: any;
+  maxWidth: any;
+  minWidth: any;
+  small: any;
+  large: any;
+  item: any;
 }
 
 export const menu: MenuTokens = {

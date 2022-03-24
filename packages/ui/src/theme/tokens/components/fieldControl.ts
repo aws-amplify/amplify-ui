@@ -1,28 +1,28 @@
 export interface FieldControlTokens {
-  borderStyle: never;
-  borderColor: never;
-  borderWidth: never;
-  borderRadius: never;
-  color: never;
-  paddingBlockStart: never;
-  paddingBlockEnd: never;
-  paddingInlineStart: never;
-  paddingInlineEnd: never;
+  borderStyle: any;
+  borderColor: any;
+  borderWidth: any;
+  borderRadius: any;
+  color: any;
+  paddingBlockStart: any;
+  paddingBlockEnd: any;
+  paddingInlineStart: any;
+  paddingInlineEnd: any;
 
-  fontSize: never;
-  lineHeight: never;
-  transitionDuration: never;
-  outlineColor: never;
-  outlineStyle: never;
-  outlineWidth: never;
-  outlineOffset: never;
+  fontSize: any;
+  lineHeight: any;
+  transitionDuration: any;
+  outlineColor: any;
+  outlineStyle: any;
+  outlineWidth: any;
+  outlineOffset: any;
 
-  small: never;
-  large: never;
-  quiet: never;
-  _focus: never;
-  _disabled: never;
-  _error: never;
+  small: any;
+  large: any;
+  quiet: any;
+  _focus: any;
+  _disabled: any;
+  _error: any;
 }
 
 export const fieldcontrol: FieldControlTokens = {

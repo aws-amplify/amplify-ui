@@ -1,8 +1,8 @@
 export interface ImageTokens {
-  maxWidth: never;
-  height: never;
-  objectFit: never;
-  objectPosition: never;
+  maxWidth: any;
+  height: any;
+  objectFit: any;
+  objectPosition: any;
 }
 export const image: ImageTokens = {
   maxWidth: { value: '100%' },

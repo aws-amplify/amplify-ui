@@ -1,12 +1,12 @@
 export interface TextTokens {
-  color: never;
-  primary: never;
-  secondary: never;
-  tertiary: never;
-  error: never;
-  warning: never;
-  success: never;
-  info: never;
+  color: any;
+  primary: any;
+  secondary: any;
+  tertiary: any;
+  error: any;
+  warning: any;
+  success: any;
+  info: any;
 }
 
 export const text: TextTokens = {

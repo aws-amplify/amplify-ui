@@ -1,18 +1,18 @@
 import {
-  DesignToken,
   AlignItemsValue,
-  JustifyContentValue,
-  ColorValue,
-  FontSizeValue,
-  SpaceValue,
-  FontWeightValue,
   BackgroundColorValue,
-  LineHeightValue,
   BorderColorValue,
-  BorderWidthValue,
-  BorderStyleValue,
   BorderRadiusValue,
-  BoxShadowRefValue,
+  BorderStyleValue,
+  BorderWidthValue,
+  BoxShadowValue,
+  ColorValue,
+  DesignToken,
+  FontSizeValue,
+  FontWeightValue,
+  JustifyContentValue,
+  LineHeightValue,
+  SpaceValue,
   TransitionDurationValue,
 } from '../types/designToken';
 
@@ -23,7 +23,7 @@ interface StateStyle {
 }
 
 interface StateStyleWithShadow extends StateStyle {
-  boxShadow: DesignToken<BoxShadowRefValue>; // is this ok? I think this will end up being the full shadow shape, so probably not
+  boxShadow: DesignToken<BoxShadowValue>;
 }
 
 interface PrimaryVariation {
@@ -51,7 +51,7 @@ interface PrimaryVariation {
     color: DesignToken<ColorValue>;
     backgroundColor: DesignToken<BackgroundColorValue>;
     borderColor: DesignToken<BorderColorValue>;
-    boxShadow: DesignToken<BoxShadowRefValue>; // is this ok? I think this will end up being the full shadow shape, so probably not
+    boxShadow: DesignToken<BoxShadowValue>;
   };
   _active: {
     color: DesignToken<ColorValue>;
@@ -60,9 +60,9 @@ interface PrimaryVariation {
   };
 }
 interface MenuVariation {
-  borderWidth: DesignToken<BorderWidthValue>; //
+  borderWidth: DesignToken<BorderWidthValue>;
   backgroundColor: DesignToken<BackgroundColorValue>;
-  justifyContent: never;
+  justifyContent: DesignToken<JustifyContentValue>;
   _hover: {
     color: DesignToken<ColorValue>;
     backgroundColor: DesignToken<BackgroundColorValue>;
@@ -94,7 +94,7 @@ interface LinkVariation {
     borderColor: DesignToken<BorderColorValue>;
     backgroundColor: DesignToken<BackgroundColorValue>;
     color: DesignToken<ColorValue>;
-    boxShadow: DesignToken<BoxShadowRefValue>; // is this ok? I think this will end up being the full shadow shape, so probably not
+    boxShadow: DesignToken<BoxShadowValue>;
   };
   _active: {
     backgroundColor: DesignToken<BackgroundColorValue>;
@@ -112,16 +112,12 @@ interface LinkVariation {
     color: DesignToken<ColorValue>;
   };
 }
-interface LoaderWrapperStyle {
-  alignItems: never;
-  gap: never;
-}
 interface ButtonSizeStyle {
-  fontSize: never;
-  paddingBlockStart: never;
-  paddingBlockEnd: never;
-  paddingInlineStart: never;
-  paddingInlineEnd: never;
+  fontSize: DesignToken<FontSizeValue>;
+  paddingBlockStart: DesignToken<SpaceValue>;
+  paddingBlockEnd: DesignToken<SpaceValue>;
+  paddingInlineStart: DesignToken<SpaceValue>;
+  paddingInlineEnd: DesignToken<SpaceValue>;
 }
 export interface ButtonTokens {
   fontWeight: DesignToken<FontWeightValue>;
@@ -147,7 +143,10 @@ export interface ButtonTokens {
   link: LinkVariation;
   small: ButtonSizeStyle;
   large: ButtonSizeStyle;
-  loaderWrapper: LoaderWrapperStyle;
+  loaderWrapper: {
+    alignItems: DesignToken<AlignItemsValue>;
+    gap: DesignToken<SpaceValue>;
+  };
 }
 
 export const button: ButtonTokens = {
@@ -239,7 +238,7 @@ export const button: ButtonTokens = {
   },
 
   menu: {
-    borderWidth: { value: 0 }, // @TODO Should this be a string?
+    borderWidth: { value: '0' },
     backgroundColor: { value: 'transparent' },
     justifyContent: { value: 'start' },
     // Focus and hover styles are identical for menu variation
@@ -265,7 +264,7 @@ export const button: ButtonTokens = {
   link: {
     backgroundColor: { value: 'transparent' },
     borderColor: { value: 'transparent' },
-    borderWidth: { value: 0 },
+    borderWidth: { value: '0' },
     color: { value: '{colors.font.interactive.value}' },
     _hover: {
       borderColor: { value: 'transparent' },

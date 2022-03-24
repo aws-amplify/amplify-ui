@@ -1,8 +1,8 @@
 export interface CheckboxFieldTokens {
-  alignItems: never;
-  alignContent: never;
-  flexDirection: never;
-  justifyContent: never;
+  alignItems: any;
+  alignContent: any;
+  flexDirection: any;
+  justifyContent: any;
 }
 export const checkboxfield: CheckboxFieldTokens = {
   alignItems: { value: 'flex-start' },

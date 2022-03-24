@@ -1,13 +1,13 @@
 export interface LoaderTokens {
-  width: never;
-  height: never;
-  strokeEmpty: never;
-  strokeFilled: never;
-  strokeLinecap: never;
-  animationDuration: never;
-  small: never;
-  large: never;
-  linear: never;
+  width: any;
+  height: any;
+  strokeEmpty: any;
+  strokeFilled: any;
+  strokeLinecap: any;
+  animationDuration: any;
+  small: any;
+  large: any;
+  linear: any;
 }
 
 export const loader: LoaderTokens = {

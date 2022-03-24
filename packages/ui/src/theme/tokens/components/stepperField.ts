@@ -1,8 +1,6 @@
-import { DesignToken, FlexDirectionValue } from '../types/designToken';
-
 export interface StepperFieldTokens {
-  flexDirection: DesignToken<FlexDirectionValue>;
-  input: never;
+  flexDirection: any;
+  input: any;
 }
 
 export const stepperfield: StepperFieldTokens = {

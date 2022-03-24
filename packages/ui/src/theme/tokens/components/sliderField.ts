@@ -1,10 +1,10 @@
 export interface SliderFieldTokens {
-  paddingBlock: never;
-  track: never;
-  range: never;
-  thumb: never;
-  small: never;
-  large: never;
+  paddingBlock: any;
+  track: any;
+  range: any;
+  thumb: any;
+  small: any;
+  large: any;
 }
 
 export const sliderfield: SliderFieldTokens = {

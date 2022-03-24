@@ -1,9 +1,9 @@
 export interface FlexTokens {
-  gap: never;
-  justifyContent: never;
-  alignItems: never;
-  alignContent: never;
-  flexWrap: never;
+  gap: any;
+  justifyContent: any;
+  alignItems: any;
+  alignContent: any;
+  flexWrap: any;
 }
 export const flex: FlexTokens = {
   gap: { value: '{space.medium.value}' },

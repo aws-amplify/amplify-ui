@@ -1,68 +1,77 @@
 import { DesignToken, ShadowValue } from '../types/designToken';
 
 interface DisableToken {
-  cursor: never;
+  cursor: any;
 }
 
 interface ButtonDisabledToken {
-  borderColor: never;
+  borderColor: any;
 }
 interface ButtonErrorFocusToken {
-  borderColor: never;
+  borderColor: any;
   boxShadow: DesignToken<ShadowValue>;
 }
 interface ButtonErrorToken {
-  borderColor: never;
+  borderColor: any;
   _focus: ButtonErrorFocusToken;
 }
 interface ButtonFocusToken {
-  outlineColor: never;
-  outlineStyle: never;
-  outlineWidth: never;
-  outlineOffset: never;
-  borderColor: never;
+  outlineColor: any;
+  outlineStyle: any;
+  outlineWidth: any;
+  outlineOffset: any;
+  borderColor: any;
   boxShadow: DesignToken<ShadowValue>;
 }
 interface BeforeToken {
-  width: never;
-  height: never;
-  borderWidth: never;
-  borderRadius: never;
-  borderStyle: never;
-  borderColor: never;
+  width: any;
+  height: any;
+  borderWidth: any;
+  borderRadius: any;
+  borderStyle: any;
+  borderColor: any;
 }
 interface ButtonToken {
-  position: never;
-  alignItems: never;
-  justifyContent: never;
-  color: never;
+  position: any;
+  alignItems: any;
+  justifyContent: any;
+  color: any;
   before: BeforeToken;
   _focus: ButtonFocusToken;
   _disabled: ButtonDisabledToken;
   _error: ButtonErrorToken;
 }
+interface IconCheckedDisabled {
+  backgroundColor: any;
+}
 interface IconCheckedToken {
-  opacity: never;
-  transform: never;
-  _disabled: never;
+  opacity: any;
+  transform: any;
+  _disabled: IconCheckedDisabled;
 }
 interface IconToken {
-  backgroundColor: never;
-  borderRadius: never;
-  opacity: never;
-  transform: never;
-  transitionProperty: never;
-  transitionDuration: never;
-  transitionTimingFunction: never;
-  _checked: never;
+  backgroundColor: any;
+  borderRadius: any;
+  opacity: any;
+  transform: any;
+  transitionProperty: any;
+  transitionDuration: any;
+  transitionTimingFunction: any;
+  _checked: IconCheckedToken;
+}
+interface LabelDisabledToken {
+  color: any;
+}
+interface LabelToken {
+  _disabled: LabelDisabledToken;
 }
 export interface CheckboxTokens {
-  cursor: never;
-  alignItems: never;
+  cursor: any;
+  alignItems: any;
   _disabled: DisableToken;
   button: ButtonToken;
   icon: IconToken;
-  label: never;
+  label: LabelToken;
 }
 
 export const checkbox: CheckboxTokens = {

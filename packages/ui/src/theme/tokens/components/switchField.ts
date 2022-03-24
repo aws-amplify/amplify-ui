@@ -1,11 +1,11 @@
 export interface SwitchFieldTokens {
-  disabled: never;
-  focused: never;
-  large: never;
-  small: never;
-  label: never;
-  thumb: never;
-  track: never;
+  disabled: any;
+  focused: any;
+  large: any;
+  small: any;
+  label: any;
+  thumb: any;
+  track: any;
 }
 
 export const switchfield: SwitchFieldTokens = {

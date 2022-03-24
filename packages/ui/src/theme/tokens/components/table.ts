@@ -1,14 +1,14 @@
 export interface TableTokens {
-  borderCollapse: never;
-  display: never;
-  width: never;
-  head: never;
-  body: never;
-  foot: never;
-  row: never;
-  header: never;
-  data: never;
-  caption: never;
+  borderCollapse: any;
+  display: any;
+  width: any;
+  head: any;
+  body: any;
+  foot: any;
+  row: any;
+  header: any;
+  data: any;
+  caption: any;
 }
 
 export const table: TableTokens = {

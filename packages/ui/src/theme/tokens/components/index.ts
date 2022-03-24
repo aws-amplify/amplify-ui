@@ -1,3 +1,4 @@
+import { PaginationInput } from '@aws-amplify/datastore';
 import { AlertTokens, alert } from './alert';
 import { AuthenticatorTokens, authenticator } from './authenticator';
 import { badge, BadgeTokens } from './badge';
@@ -20,24 +21,26 @@ import { flex, FlexTokens } from './flex';
 import { heading, HeadingTokens } from './heading';
 import { icon, IconTokens } from './icon';
 import { image, ImageTokens } from './image';
-import { link } from './link';
-import { loader } from './loader';
-import { menu } from './menu';
-import { pagination } from './pagination';
-import { phonenumberfield } from './phoneNumberField';
-import { placeholder } from './placeholder';
-import { radio } from './radio';
-import { rating } from './rating';
-import { select } from './select';
-import { selectfield } from './selectField';
-import { sliderfield } from './sliderField';
-import { stepperfield } from './stepperField';
-import { switchfield } from './switchField';
-import { table } from './table';
-import { tabs } from './tabs';
-import { text } from './text';
-import { togglebutton } from './toggleButton';
-import { togglebuttongroup } from './toggleButtonGroup';
+import { link, LinkTokens } from './link';
+import { loader, LoaderTokens } from './loader';
+import { menu, MenuTokens } from './menu';
+import { pagination, PaginationTokens } from './pagination';
+import { placeholder, PlaceholderTokens } from './placeholder';
+import { radio, RadioTokens } from './radio';
+import { rating, RatingTokens } from './rating';
+import { select, SelectTokens } from './select';
+import { selectfield, SelectFieldTokens } from './selectField';
+import { sliderfield, SliderFieldTokens } from './sliderField';
+import { stepperfield, StepperFieldTokens } from './stepperField';
+import { switchfield, SwitchFieldTokens } from './switchField';
+import { table, TableTokens } from './table';
+import { tabs, TabsTokens } from './tabs';
+import { text, TextTokens } from './text';
+import { togglebutton, ToggleButtonTokens } from './toggleButton';
+import {
+  togglebuttongroup,
+  ToggleButtonGroupTokens,
+} from './toggleButtonGroup';
 
 export interface Components {
   alert: AlertTokens;
@@ -59,23 +62,23 @@ export interface Components {
   heading: HeadingTokens;
   icon: IconTokens;
   image: ImageTokens;
-  link: any;
-  loader: any;
-  menu: any;
-  pagination: any;
-  placeholder: any;
-  radio: any;
-  rating: any;
-  select: any;
-  selectfield: any;
-  sliderfield: any;
-  stepperfield: any;
-  switchfield: any;
-  table: any;
-  tabs: any;
-  text: any;
-  togglebutton: any;
-  togglebuttongroup: any;
+  link: LinkTokens;
+  loader: LoaderTokens;
+  menu: MenuTokens;
+  pagination: PaginationTokens;
+  placeholder: PlaceholderTokens;
+  radio: RadioTokens;
+  rating: RatingTokens;
+  select: SelectTokens;
+  selectfield: SelectFieldTokens;
+  sliderfield: SliderFieldTokens;
+  stepperfield: StepperFieldTokens;
+  switchfield: SwitchFieldTokens;
+  table: TableTokens;
+  tabs: TabsTokens;
+  text: TextTokens;
+  togglebutton: ToggleButtonTokens;
+  togglebuttongroup: ToggleButtonGroupTokens;
 }
 
 export const components: Components = {

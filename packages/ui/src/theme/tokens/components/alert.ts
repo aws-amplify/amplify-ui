@@ -1,26 +1,14 @@
 import {
-  DesignToken,
   AlignItemsValue,
-  JustifyContentValue,
-  ColorValue,
-  FontSizeValue,
-  SpaceValue,
-  FontWeightValue,
   BackgroundColorValue,
+  ColorValue,
+  DesignToken,
+  FontSizeValue,
+  FontWeightValue,
+  JustifyContentValue,
+  SpaceValue,
 } from '../types/designToken';
 
-export interface IconStyle {
-  size: DesignToken<FontSizeValue>;
-}
-export interface HeadingStyle {
-  fontSize: DesignToken<FontSizeValue>;
-  fontWeight: DesignToken<FontWeightValue>;
-}
-
-export interface InfoStyle {
-  color: DesignToken<ColorValue>;
-  backgroundColor: DesignToken<BackgroundColorValue>;
-}
 export interface AlertVariation {
   color: DesignToken<ColorValue>;
   backgroundColor: DesignToken<BackgroundColorValue>;
@@ -33,8 +21,13 @@ export interface AlertTokens {
   backgroundColor: DesignToken<BackgroundColorValue>;
   paddingBlock: DesignToken<SpaceValue>;
   paddingInline: DesignToken<SpaceValue>;
-  icon: IconStyle;
-  heading: HeadingStyle;
+  icon: {
+    size: DesignToken<FontSizeValue>;
+  };
+  heading: {
+    fontSize: DesignToken<FontSizeValue>;
+    fontWeight: DesignToken<FontWeightValue>;
+  };
   info: AlertVariation;
   error: AlertVariation;
   warning: AlertVariation;

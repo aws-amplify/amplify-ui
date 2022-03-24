@@ -1,61 +1,50 @@
 import {
-  DesignToken,
-  ColorValue,
-  SpaceValue,
-  BorderWidthValue,
-  BorderColorValue,
   BackgroundColorValue,
+  BorderColorValue,
   BorderStyleValue,
-  BoxShadowRefValue,
+  BorderWidthValue,
+  BoxShadowValue,
+  ColorValue,
+  DesignToken,
+  SpaceValue,
 } from '../types/designToken';
 
-interface ModalStyle {
-  width: DesignToken<SpaceValue>;
-  height: DesignToken<SpaceValue>;
-  backgroundColor: DesignToken<ColorValue>;
-  top: DesignToken<SpaceValue>;
-  left: DesignToken<SpaceValue>;
-}
-
-interface RouterStyle {
-  borderWidth: DesignToken<BorderWidthValue>; //
-  borderStyle: DesignToken<BorderStyleValue>; //
-  borderColor: DesignToken<BorderColorValue>;
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  boxShadow: DesignToken<BoxShadowRefValue>; //@TODO is this right, will it mess things up in figma?
-}
-
-interface FooterStyle {
-  paddingBottom: DesignToken<SpaceValue>;
-}
-
-interface FormStyle {
-  padding: DesignToken<SpaceValue>;
-}
-
-interface StateStyle {
-  inactive: {
-    backgroundColor: DesignToken<BackgroundColorValue>;
-  };
-}
-
-interface OrContainerStyle {
-  color: unknown;
-  orLine: {
-    backgroundColor: DesignToken<BackgroundColorValue>;
-  };
-}
 export interface AuthenticatorTokens {
   maxWidth: DesignToken<SpaceValue>;
-  modal: ModalStyle;
+  modal: {
+    width: DesignToken<SpaceValue>;
+    height: DesignToken<SpaceValue>;
+    backgroundColor: DesignToken<ColorValue>;
+    top: DesignToken<SpaceValue>;
+    left: DesignToken<SpaceValue>;
+  };
   container: {
     widthMax: DesignToken<SpaceValue>;
   };
-  router: RouterStyle;
-  footer: FooterStyle;
-  form: FormStyle;
-  state: StateStyle;
-  orContainer: OrContainerStyle;
+  router: {
+    borderWidth: DesignToken<BorderWidthValue>;
+    borderStyle: DesignToken<BorderStyleValue>;
+    borderColor: DesignToken<BorderColorValue>;
+    backgroundColor: DesignToken<BackgroundColorValue>;
+    boxShadow: DesignToken<BoxShadowValue>;
+  };
+  footer: {
+    paddingBottom: DesignToken<SpaceValue>;
+  };
+  form: {
+    padding: DesignToken<SpaceValue>;
+  };
+  state: {
+    inactive: {
+      backgroundColor: DesignToken<BackgroundColorValue>;
+    };
+  };
+  orContainer: {
+    color: DesignToken<ColorValue>;
+    orLine: {
+      backgroundColor: DesignToken<BackgroundColorValue>;
+    };
+  };
 }
 
 export const authenticator: AuthenticatorTokens = {

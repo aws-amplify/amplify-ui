@@ -1,28 +1,17 @@
 import {
   DesignToken,
-  AlignItemsValue,
-  JustifyContentValue,
-  ColorValue,
-  FontSizeValue,
-  SpaceValue,
-  FontWeightValue,
-  BackgroundColorValue,
-  LineHeightValue,
   BorderColorValue,
   BorderWidthValue,
   BorderStyleValue,
-  BorderRadiusValue,
-  BoxShadowRefValue,
-  TransitionDurationValue,
 } from '../types/designToken';
 export interface DividerTokens {
   borderStyle: DesignToken<BorderStyleValue>;
   borderColor: DesignToken<BorderColorValue>;
   borderWidth: DesignToken<BorderWidthValue>;
-  label: DesignToken<never>;
-  small: DesignToken<never>;
-  large: DesignToken<never>;
-  opacity: DesignToken<never>;
+  label: any;
+  small: any;
+  large: any;
+  opacity: any;
 }
 
 export const divider: DividerTokens = {

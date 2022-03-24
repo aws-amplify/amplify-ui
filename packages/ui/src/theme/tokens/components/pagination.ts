@@ -1,9 +1,9 @@
 export interface PaginationTokens {
-  current: never;
-  button: never;
-  ellipsis: never;
-  itemContainer: never;
-  itemShared: never;
+  current: any;
+  button: any;
+  ellipsis: any;
+  itemContainer: any;
+  itemShared: any;
 }
 
 export const pagination: PaginationTokens = {

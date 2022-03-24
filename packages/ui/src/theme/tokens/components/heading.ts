@@ -1,12 +1,12 @@
 export interface HeadingTokens {
-  color: never;
-  lineHeight: never;
-  1: never;
-  2: never;
-  3: never;
-  4: never;
-  5: never;
-  6: never;
+  color: any;
+  lineHeight: any;
+  1: any;
+  2: any;
+  3: any;
+  4: any;
+  5: any;
+  6: any;
 }
 export const heading: HeadingTokens = {
   color: { value: '{colors.font.primary.value}' },

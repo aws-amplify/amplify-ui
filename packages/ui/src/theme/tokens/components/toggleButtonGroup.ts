@@ -1,7 +1,7 @@
 export interface ToggleButtonGroupTokens {
-  alignItems: never;
-  alignContent: never;
-  justifyContent: never;
+  alignItems: any;
+  alignContent: any;
+  justifyContent: any;
 }
 
 export const togglebuttongroup: ToggleButtonGroupTokens = {

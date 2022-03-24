@@ -1,11 +1,11 @@
 export interface LinkTokens {
-  active: never;
-  color: never;
-  focus: never;
-  hover: never;
-  large: never;
-  small: never;
-  visited: never;
+  active: any;
+  color: any;
+  focus: any;
+  hover: any;
+  large: any;
+  small: any;
+  visited: any;
 }
 export const link: LinkTokens = {
   active: {

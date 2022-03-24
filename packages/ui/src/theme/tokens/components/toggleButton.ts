@@ -1,13 +1,13 @@
 export interface ToggleButtonTokens {
-  borderColor: never;
-  color: never;
-  _hover: never;
-  _focus: never;
-  _active: never;
-  _disabled: never;
-  _pressed: never;
-  primary: never;
-  link: never;
+  borderColor: any;
+  color: any;
+  _hover: any;
+  _focus: any;
+  _active: any;
+  _disabled: any;
+  _pressed: any;
+  primary: any;
+  link: any;
 }
 
 export const togglebutton: ToggleButtonTokens = {

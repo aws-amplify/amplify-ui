@@ -1,16 +1,13 @@
-import { Fonts } from '../fonts';
 import {
-  DesignToken,
-  AlignItemsValue,
-  JustifyContentValue,
+  BackgroundColorValue,
   ColorValue,
+  DesignToken,
   FontSizeValue,
-  SpaceValue,
   FontWeightValue,
   LineHeightValue,
-  TextAlignValue,
-  BackgroundColorValue,
   RadiusValue,
+  SpaceValue,
+  TextAlignValue,
 } from '../types/designToken';
 
 export interface BadgeVariation {
@@ -44,7 +41,7 @@ export interface BadgeTokens {
 export const badge: BadgeTokens = {
   // Default styles
   color: { value: '{colors.font.primary.value}' },
-  lineHeight: { value: 1 },
+  lineHeight: { value: '1' },
   fontWeight: { value: '{fontWeights.semibold.value}' },
   fontSize: { value: '{fontSizes.small.value}' },
   textAlign: { value: 'center' },

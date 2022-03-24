@@ -1,9 +1,9 @@
 export interface FieldTokens {
-  gap: never;
-  fontSize: never;
-  small: never;
-  large: never;
-  label: never;
+  gap: any;
+  fontSize: any;
+  small: any;
+  large: any;
+  label: any;
 }
 export const field: FieldTokens = {
   // default styles

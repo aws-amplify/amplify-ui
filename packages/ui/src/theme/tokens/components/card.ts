@@ -1,27 +1,27 @@
 interface OutlinedToken {
-  backgroundColor: never;
-  borderRadius: never;
-  borderWidth: never;
-  borderStyle: never;
-  borderColor: never;
-  boxShadow: never;
+  backgroundColor: any;
+  borderRadius: any;
+  borderWidth: any;
+  borderStyle: any;
+  borderColor: any;
+  boxShadow: any;
 }
 interface ElevatedToken {
-  backgroundColor: never;
-  borderRadius: never;
-  borderWidth: never;
-  borderStyle: never;
-  borderColor: never;
-  boxShadow: never;
+  backgroundColor: any;
+  borderRadius: any;
+  borderWidth: any;
+  borderStyle: any;
+  borderColor: any;
+  boxShadow: any;
 }
 export interface CardTokens {
-  backgroundColor: never;
-  borderRadius: never;
-  borderWidth: never;
-  borderStyle: never;
-  borderColor: never;
-  boxShadow: never;
-  padding: never;
+  backgroundColor: any;
+  borderRadius: any;
+  borderWidth: any;
+  borderStyle: any;
+  borderColor: any;
+  boxShadow: any;
+  padding: any;
   outlined: OutlinedToken;
   elevated: ElevatedToken;
 }

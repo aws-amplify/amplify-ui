@@ -1,11 +1,11 @@
 export interface PlaceholderTokens {
-  borderRadius: never;
-  transitionDuration: never;
-  startColor: never;
-  endColor: never;
-  small: never;
-  default: never;
-  large: never;
+  borderRadius: any;
+  transitionDuration: any;
+  startColor: any;
+  endColor: any;
+  small: any;
+  default: any;
+  large: any;
 }
 
 export const placeholder: PlaceholderTokens = {

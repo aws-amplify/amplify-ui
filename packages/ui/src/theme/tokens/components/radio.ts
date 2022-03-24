@@ -1,13 +1,13 @@
-export interface RadioToken {
-  alignItems: never;
-  justifyContent: never;
-  gap: never;
-  _disabled: never;
-  button: never;
-  label: never;
+export interface RadioTokens {
+  alignItems: any;
+  justifyContent: any;
+  gap: any;
+  _disabled: any;
+  button: any;
+  label: any;
 }
 
-export const radio: RadioToken = {
+export const radio: RadioTokens = {
   alignItems: { value: 'center' },
   justifyContent: { value: 'flex-start' },
   gap: { value: 'inherit' },

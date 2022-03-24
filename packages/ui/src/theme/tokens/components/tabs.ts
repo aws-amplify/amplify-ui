@@ -1,10 +1,10 @@
 export interface TabsTokens {
-  backgroundColor: never;
-  borderColor: never;
-  borderStyle: never;
-  borderWidth: never;
-  gap: never;
-  item: never;
+  backgroundColor: any;
+  borderColor: any;
+  borderStyle: any;
+  borderWidth: any;
+  gap: any;
+  item: any;
 }
 export const tabs: TabsTokens = {
   backgroundColor: { value: 'transparent' },
