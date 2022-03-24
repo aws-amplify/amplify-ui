@@ -21,10 +21,13 @@ export type AmplifyMapProps = Omit<MapProps, 'transformRequest'>;
  *   return <AmplifyMap />
  * }
  */
-export const AmplifyMap = ({ style, ...props }: AmplifyMapProps) => {
+export const AmplifyMap = ({
+  mapLib,
+  mapStyle,
+  style,
+  ...props
+}: AmplifyMapProps) => {
   const amplifyConfig = Amplify.configure() as any;
-  const mapStyle = amplifyConfig.geo?.amazon_location_service.maps.default;
-  const region = amplifyConfig.geo?.amazon_location_service.region;
 
   const [transformRequest, setTransformRequest] = useState<
     TransformRequestFunction | undefined
@@ -50,6 +53,7 @@ export const AmplifyMap = ({ style, ...props }: AmplifyMapProps) => {
       const credentials = await Auth.currentUserCredentials();
 
       if (credentials) {
+        const region = amplifyConfig.geo?.amazon_location_service.region;
         const { transformRequest: amplifyTransformRequest } =
           new AmplifyMapLibreRequest(credentials, region);
         setTransformRequest(() => amplifyTransformRequest);
@@ -61,12 +65,16 @@ export const AmplifyMap = ({ style, ...props }: AmplifyMapProps) => {
    * The mapLib property is used by react-map-gl@v7 to override the underlying map library. The default library is
    * mapbox-gl-js, which uses its own copyrighted license. We override the map library with the BSD-licensed
    * maplibre-gl-js.
+   *
+   * The default mapStyle we use is just the map ID provided by aws-exports.
    */
   return transformRequest ? (
     <ReactMapGL
-      mapLib={maplibregl}
-      mapStyle={mapStyle}
       {...props}
+      mapLib={mapLib ?? maplibregl}
+      mapStyle={
+        mapStyle ?? amplifyConfig.geo?.amazon_location_service.maps.default
+      }
       style={styleProps}
       transformRequest={transformRequest}
     />
