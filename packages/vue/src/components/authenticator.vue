@@ -82,7 +82,7 @@ useAuth(service);
 
 const hasInitialized = ref(false);
 
-service.subscribe((newState) => {
+const { unsubscribe } = service.subscribe((newState) => {
   if (newState.matches('setup') && !hasInitialized.value) {
     send({
       type: 'INIT',
@@ -96,6 +96,7 @@ service.subscribe((newState) => {
       },
     });
     hasInitialized.value = true;
+    unsubscribe();
   }
 });
 
