@@ -12,10 +12,11 @@ const props = useAuthenticator();
 </script>
 
 <template>
-  <authenticator> </authenticator>
-  <template v-if="route === 'authenticated'">
-    <router-link to="useAuthenticator/home">
-      <button>Navigate to Home</button>
-    </router-link>
-  </template>
+  <authenticator>
+    <template v-slot>
+      <router-link to="useAuthenticator/home">
+        <button>Navigate to Home</button>
+      </router-link>
+    </template>
+  </authenticator>
 </template>
