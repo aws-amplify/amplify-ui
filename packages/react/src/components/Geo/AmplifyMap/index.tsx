@@ -5,6 +5,8 @@ import React, { useEffect, useMemo, useState } from 'react';
 import ReactMapGL from 'react-map-gl';
 import type { MapProps, TransformRequestFunction } from 'react-map-gl';
 
+export type AmplifyMapProps = Omit<MapProps, 'transformRequest'>;
+
 /**
  * The `AmplifyMap` component uses [react-map-gl](https://visgl.github.io/react-map-gl/) and
  * [maplibre-gl-js](https://visgl.github.io/react-map-gl/) to provide an interactive map using
@@ -19,7 +21,7 @@ import type { MapProps, TransformRequestFunction } from 'react-map-gl';
  *   return <AmplifyMap />
  * }
  */
-export const AmplifyMap = ({ style, ...props }: MapProps) => {
+export const AmplifyMap = ({ style, ...props }: AmplifyMapProps) => {
   const amplifyConfig = Amplify.configure() as any;
   const mapStyle = amplifyConfig.geo?.amazon_location_service.maps.default;
   const region = amplifyConfig.geo?.amazon_location_service.region;
@@ -64,9 +66,9 @@ export const AmplifyMap = ({ style, ...props }: MapProps) => {
     <ReactMapGL
       mapLib={maplibregl}
       mapStyle={mapStyle}
+      {...props}
       style={styleProps}
       transformRequest={transformRequest}
-      {...props}
     />
   ) : null;
 };
