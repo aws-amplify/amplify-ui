@@ -238,7 +238,7 @@ export const button: ButtonTokens = {
   },
 
   menu: {
-    borderWidth: { value: '0' },
+    borderWidth: { value: '{space.zero.value}' },
     backgroundColor: { value: 'transparent' },
     justifyContent: { value: 'start' },
     // Focus and hover styles are identical for menu variation
