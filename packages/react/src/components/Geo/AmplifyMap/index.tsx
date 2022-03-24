@@ -13,7 +13,7 @@ export type AmplifyMapProps = Omit<MapProps, 'transformRequest'>;
  * [Amplify Geo APIs](https://docs.amplify.aws/lib/geo/getting-started/q/platform/js/) powered by
  * [Amazon Location Service](https://aws.amazon.com/location/). Since `AmplifyMap` is a wrapper of the
  * [react-map-gl default Map](https://visgl.github.io/react-map-gl/docs/api-reference/map), it accepts the same
- * properties.
+ * properties except `transformRequest` which is set by Amplify.
  *
  * @example
  * // Basic usage of AmplifyMap:
