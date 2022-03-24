@@ -11,5 +11,5 @@ const { user } = toRefs(useAuthenticator());
 </script>
 
 <template>
-  <div>Hello, {{ user?.username }}</div>
+  <div>Hello, {{ user?.username }}!</div>
 </template>
