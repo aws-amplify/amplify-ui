@@ -78,3 +78,4 @@ export type TimeValue = string;
 export type TransformValue = string;
 export type TransitionDurationValue = string;
 export type TransitionPropertyValue = string;
+export type TransitionTimingFunctionValue = string;
