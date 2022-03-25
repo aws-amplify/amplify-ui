@@ -120,11 +120,18 @@ export function createAuthenticatorMachine() {
               entry: 'clearActorDoneData',
               exit: 'stopSignUpActor',
             },
+            autoSignIn: {
+              invoke: {
+                src: 'getCurrentUser',
+                onDone: '#authenticator.authenticated',
+                onError: '#authenticator.setup.goToInitialState',
+              },
+            },
           },
           on: {
             SIGN_IN: 'signIn',
             'done.invoke.signUpActor': {
-              target: 'setup',
+              target: 'signUp.autoSignIn',
               actions: 'setActorDoneData',
             },
           },
