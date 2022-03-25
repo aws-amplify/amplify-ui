@@ -1,5 +1,20 @@
 # @aws-amplify/ui-react
 
+## 2.11.0
+
+### Minor Changes
+
+- [#1538](https://github.com/aws-amplify/amplify-ui/pull/1538) [`eedae2362`](https://github.com/aws-amplify/amplify-ui/commit/eedae236249eb1201f3540fa4458fdbac77b5af6) Thanks [@joebuono](https://github.com/joebuono)! - Adds the optional `hasMorePages` prop to the Pagination component
+
+  The reason this is necessary is because sometimes the totalPages count is unknown when pagination occurs at the API level.
+
+  Resulting conditions:
+
+  - Current behavior of totalPages prop stays the same, which determines the page numbers to show
+  - A new hasMorePages prop is added to Pagination component
+  - When hasMorePages is true, and the customer is at the end of the pages (e.g. 10 of 10), then the next button will NOT be disabled
+  - When hasMorePages is false, and the customer is at the end of the pages (e.g. 10 of 10), then the next button WILL be disabled
+
 ## 2.10.4
 
 ### Patch Changes
