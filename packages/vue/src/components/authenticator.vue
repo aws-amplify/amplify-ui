@@ -80,19 +80,28 @@ let unsubscribeHub: ReturnType<typeof listenToAuthHub>;
 const { state, send } = useActor(service);
 useAuth(service);
 
+const hasInitialized = ref(false);
+
+const { unsubscribe } = service.subscribe((newState) => {
+  if (newState.matches('setup') && !hasInitialized.value) {
+    send({
+      type: 'INIT',
+      data: {
+        initialState,
+        loginMechanisms,
+        socialProviders,
+        signUpAttributes,
+        services,
+        formFields,
+      },
+    });
+    hasInitialized.value = true;
+    unsubscribe();
+  }
+});
+
 onMounted(() => {
   unsubscribeHub = listenToAuthHub(send);
-  send({
-    type: 'INIT',
-    data: {
-      initialState,
-      loginMechanisms,
-      socialProviders,
-      signUpAttributes,
-      services,
-      formFields,
-    },
-  });
 });
 
 onUnmounted(() => {

@@ -40,6 +40,8 @@ export class AuthenticatorComponent implements OnInit, AfterContentInit {
   public signInTitle = translate('Sign In');
   public signUpTitle = translate('Create Account');
 
+  private hasInitialized = false;
+
   constructor(
     private authenticator: AuthenticatorService,
     private contextService: CustomComponentsService
@@ -54,13 +56,26 @@ export class AuthenticatorComponent implements OnInit, AfterContentInit {
       socialProviders,
       formFields,
     } = this;
-    this.authenticator.startMachine({
-      initialState,
-      loginMechanisms,
-      services,
-      signUpAttributes,
-      socialProviders,
-      formFields,
+
+    // send INIT event once machine is at 'setup' state
+    const { unsubscribe } = this.authenticator.subscribe(() => {
+      const { route } = this.authenticator;
+      if (!this.hasInitialized && route === 'setup') {
+        this.authenticator.send({
+          type: 'INIT',
+          data: {
+            initialState,
+            loginMechanisms,
+            services,
+            signUpAttributes,
+            socialProviders,
+            formFields,
+          },
+        });
+
+        this.hasInitialized = true;
+        unsubscribe();
+      }
     });
 
     /**
