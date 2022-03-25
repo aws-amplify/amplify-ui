@@ -2,6 +2,12 @@
   width: 100%;
 }
 
+.example [data-amplify-authenticator] {
+  display: grid;
+  max-width: var(--amplify-components-authenticator-max-width);
+  margin: auto;
+}
+
 .example [data-amplify-authenticator][data-variation='modal'] {
   position: relative;
   width: 100%;
