@@ -72,6 +72,11 @@
     "react": ">= 16.8.0",
     "react-dom": ">= 16.8.0"
   },
+  "peerDependenciesMeta": {
+    "aws-amplify": {
+      "optional": true
+    }
+  },
   "devDependencies": {
     "@svgr/core": "^5.5.0",
     "@testing-library/jest-dom": "^5.14.1",
