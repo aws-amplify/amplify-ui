@@ -3,6 +3,7 @@ import {
   Component,
   ContentChildren,
   Input,
+  OnDestroy,
   OnInit,
   QueryList,
   TemplateRef,
@@ -23,7 +24,9 @@ import { AuthenticatorService } from '../../../../services/authenticator.service
   providers: [CustomComponentsService], // make sure custom components are scoped to this authenticator only
   encapsulation: ViewEncapsulation.None,
 })
-export class AuthenticatorComponent implements OnInit, AfterContentInit {
+export class AuthenticatorComponent
+  implements OnInit, AfterContentInit, OnDestroy
+{
   @Input() formFields: AuthenticatorMachineOptions['formFields'];
   @Input() initialState: AuthenticatorMachineOptions['initialState'];
   @Input() loginMechanisms: AuthenticatorMachineOptions['loginMechanisms'];
@@ -41,6 +44,7 @@ export class AuthenticatorComponent implements OnInit, AfterContentInit {
   public signUpTitle = translate('Create Account');
 
   private hasInitialized = false;
+  private unsubscribeMachine: () => void;
 
   constructor(
     private authenticator: AuthenticatorService,
@@ -57,8 +61,11 @@ export class AuthenticatorComponent implements OnInit, AfterContentInit {
       formFields,
     } = this;
 
-    // send INIT event once machine is at 'setup' state
-    const { unsubscribe } = this.authenticator.subscribe(() => {
+    /**
+     * Subscribes to state machine changes and sends INIT event
+     * once machine reaches 'setup' state.
+     */
+    this.unsubscribeMachine = this.authenticator.subscribe(() => {
       const { route } = this.authenticator;
       if (!this.hasInitialized && route === 'setup') {
         this.authenticator.send({
@@ -74,9 +81,8 @@ export class AuthenticatorComponent implements OnInit, AfterContentInit {
         });
 
         this.hasInitialized = true;
-        unsubscribe();
       }
-    });
+    }).unsubscribe;
 
     /**
      * handling translations after content init, because authenticator and its
@@ -93,6 +99,10 @@ export class AuthenticatorComponent implements OnInit, AfterContentInit {
     this.contextService.customComponents = this.mapCustomComponents(
       this.customComponentQuery
     );
+  }
+
+  ngOnDestroy(): void {
+    if (this.unsubscribeMachine) this.unsubscribeMachine();
   }
 
   /**
