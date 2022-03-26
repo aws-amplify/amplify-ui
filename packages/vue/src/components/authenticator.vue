@@ -75,28 +75,42 @@ const emit = defineEmits([
 const machine = createAuthenticatorMachine();
 
 const service = useInterpret(machine);
-let unsubscribeHub: ReturnType<typeof listenToAuthHub>;
+let unsubscribeHub: () => void;
+let unsubscribeMachine: () => void;
 
 const { state, send } = useActor(service);
 useAuth(service);
 
+const hasInitialized = ref(false);
+
+/**
+ * Subscribes to state machine changes and sends INIT event
+ * once machine reaches 'setup' state.
+ */
+unsubscribeMachine = service.subscribe((newState) => {
+  if (newState.matches('setup') && !hasInitialized.value) {
+    send({
+      type: 'INIT',
+      data: {
+        initialState,
+        loginMechanisms,
+        socialProviders,
+        signUpAttributes,
+        services,
+        formFields,
+      },
+    });
+    hasInitialized.value = true;
+  }
+}).unsubscribe;
+
 onMounted(() => {
   unsubscribeHub = listenToAuthHub(send);
-  send({
-    type: 'INIT',
-    data: {
-      initialState,
-      loginMechanisms,
-      socialProviders,
-      signUpAttributes,
-      services,
-      formFields,
-    },
-  });
 });
 
 onUnmounted(() => {
   if (unsubscribeHub) unsubscribeHub();
+  if (unsubscribeMachine) unsubscribeMachine();
 });
 
 const actorState = computed(() => getActorState(state.value));

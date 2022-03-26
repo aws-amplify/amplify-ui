@@ -17,6 +17,6 @@
     "module": "esnext",
     "target": "es2015"
   },
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules", "src/**/*.test.ts", "src/**/*.test.tsx"],
   "include": ["src/**/*.ts", "src/**/*.tsx"]
 }
