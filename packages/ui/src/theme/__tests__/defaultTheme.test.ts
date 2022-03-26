@@ -382,7 +382,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-menu-border-color: var(--amplify-colors-border-primary);
         --amplify-components-menu-box-shadow: var(--amplify-shadows-large);
         --amplify-components-menu-flex-direction: column;
-        --amplify-components-menu-gap: 0;
+        --amplify-components-menu-gap: var(--amplify-space-zero);
         --amplify-components-menu-max-width: 30rem;
         --amplify-components-menu-min-width: 14rem;
         --amplify-components-menu-small-width: var(--amplify-font-sizes-medium);
