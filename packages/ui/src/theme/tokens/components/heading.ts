@@ -1,12 +1,25 @@
+import {
+  ColorValue,
+  DesignToken,
+  FontSizeValue,
+  FontWeightValue,
+  LineHeightValue,
+} from '../types/designToken';
+
+interface HeadingLevelTokens {
+  fontSize: DesignToken<FontSizeValue>;
+  fontWeight: DesignToken<FontWeightValue>;
+}
+
 export interface HeadingTokens {
-  color: any;
-  lineHeight: any;
-  1: any;
-  2: any;
-  3: any;
-  4: any;
-  5: any;
-  6: any;
+  color: DesignToken<ColorValue>;
+  lineHeight: DesignToken<LineHeightValue>;
+  1: HeadingLevelTokens;
+  2: HeadingLevelTokens;
+  3: HeadingLevelTokens;
+  4: HeadingLevelTokens;
+  5: HeadingLevelTokens;
+  6: HeadingLevelTokens;
 }
 export const heading: HeadingTokens = {
   color: { value: '{colors.font.primary.value}' },
