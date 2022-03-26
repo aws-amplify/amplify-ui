@@ -1,29 +1,35 @@
 import {
   AlignItemsValue,
-  ColorValue,
+  BackgroundColorValue,
+  CursorValue,
   DesignToken,
   DisplayValue,
+  FlexValue,
+  PointerEventsValue,
+  PositionValue,
   SpaceValue,
+  TransformValue,
+  WhiteSpaceValue,
 } from '../types/designToken';
 
 interface SelectWrapperTokens {
-  flex: any;
+  flex: DesignToken<FlexValue>;
   display: DesignToken<DisplayValue>;
-  position: any;
-  cursor: any;
+  position: DesignToken<PositionValue>;
+  cursor: DesignToken<CursorValue>;
 }
 
 interface SelectIconWrapperTokens {
   alignItems: DesignToken<AlignItemsValue>;
-  position: any;
-  top: any;
-  right: any;
-  transform: any;
-  pointerEvents: any;
+  position: DesignToken<PositionValue>;
+  top: DesignToken<SpaceValue>;
+  right: DesignToken<SpaceValue>;
+  transform: DesignToken<TransformValue>;
+  pointerEvents: DesignToken<PointerEventsValue>;
 }
 
 interface SelectOptionTokens {
-  backgroundColor: DesignToken<ColorValue>;
+  backgroundColor: DesignToken<BackgroundColorValue>;
 }
 
 interface SelectSizeTokens {
@@ -35,7 +41,7 @@ export interface SelectTokens {
   wrapper: SelectWrapperTokens;
   iconWrapper: SelectIconWrapperTokens;
   option: SelectOptionTokens;
-  whiteSpace: any;
+  whiteSpace: DesignToken<WhiteSpaceValue>;
   minWidth: DesignToken<SpaceValue>;
   small: SelectSizeTokens;
   large: SelectSizeTokens;

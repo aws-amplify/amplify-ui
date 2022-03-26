@@ -1,10 +1,81 @@
+import {
+  BackgroundColorValue,
+  BorderRadiusValue,
+  BorderStyleValue,
+  BorderWidthValue,
+  BoxShadowValue,
+  ColorValue,
+  DesignToken,
+  SpaceValue,
+} from '../types/designToken';
+
+interface SliderFieldTrackTokens {
+  backgroundColor: DesignToken<BackgroundColorValue>;
+  borderRadius: DesignToken<BorderRadiusValue>;
+  height: DesignToken<SpaceValue>;
+  minWidth: DesignToken<SpaceValue>;
+}
+
+interface SliderFieldRangeTokens {
+  backgroundColor: DesignToken<BackgroundColorValue>;
+  borderRadius: DesignToken<BorderRadiusValue>;
+  _disabled: SliderFieldRangeDisabledTokens;
+}
+
+interface SliderFieldRangeDisabledTokens {
+  backgroundColor: DesignToken<BackgroundColorValue>;
+}
+
+interface SliderFieldThumbTokens {
+  width: DesignToken<SpaceValue>;
+  height: DesignToken<SpaceValue>;
+  backgroundColor: DesignToken<BackgroundColorValue>;
+  boxShadow: DesignToken<BoxShadowValue>;
+  borderRadius: DesignToken<BorderRadiusValue>;
+  borderWidth: DesignToken<BorderWidthValue>;
+  borderColor: DesignToken<ColorValue>;
+  borderStyle: DesignToken<BorderStyleValue>;
+  _disabled: SliderFieldThumbDisabledTokens;
+  _hover: SliderFieldThumbHoverTokens;
+  _focus: SliderFieldThumbFocusTokens;
+}
+
+interface SliderFieldThumbDisabledTokens {
+  backgroundColor: DesignToken<BackgroundColorValue>;
+  borderColor: DesignToken<ColorValue>;
+  boxShadow: DesignToken<BoxShadowValue>;
+}
+
+interface SliderFieldThumbHoverTokens {
+  backgroundColor: DesignToken<BackgroundColorValue>;
+  borderColor: DesignToken<ColorValue>;
+}
+
+interface SliderFieldThumbFocusTokens {
+  boxShadow: DesignToken<BoxShadowValue>;
+}
+
+interface SliderFieldSizeTokens {
+  track: SliderFieldSizeTrackTokens;
+  thumb: SliderFieldSizeThumbTokens;
+}
+
+interface SliderFieldSizeTrackTokens {
+  height: DesignToken<SpaceValue>;
+}
+
+interface SliderFieldSizeThumbTokens {
+  height: DesignToken<SpaceValue>;
+  width: DesignToken<SpaceValue>;
+}
+
 export interface SliderFieldTokens {
-  paddingBlock: any;
-  track: any;
-  range: any;
-  thumb: any;
-  small: any;
-  large: any;
+  paddingBlock: DesignToken<SpaceValue>;
+  track: SliderFieldTrackTokens;
+  range: SliderFieldRangeTokens;
+  thumb: SliderFieldThumbTokens;
+  small: SliderFieldSizeTokens;
+  large: SliderFieldSizeTokens;
 }
 
 export const sliderfield: SliderFieldTokens = {

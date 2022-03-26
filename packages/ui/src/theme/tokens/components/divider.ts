@@ -17,7 +17,7 @@ interface DividerLabelTokens {
   color: DesignToken<ColorValue>;
   paddingInline: DesignToken<SpaceValue>;
   fontSize: DesignToken<FontSizeValue>;
-  backgroundColor: DesignToken<ColorValue>;
+  backgroundColor: DesignToken<BackgroundColorValue>;
 }
 
 export interface DividerTokens {

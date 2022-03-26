@@ -34,7 +34,7 @@ interface FieldControlDisabledTokens {
   color: DesignToken<ColorValue>;
   cursor: DesignToken<CursorValue>;
   borderColor: DesignToken<ColorValue>;
-  backgroundColor: DesignToken<ColorValue>;
+  backgroundColor: DesignToken<BackgroundColorValue>;
 }
 
 interface FieldControlErrorTokens {

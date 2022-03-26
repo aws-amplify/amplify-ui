@@ -12,7 +12,7 @@ import {
 interface AuthenticatorModalStyle {
   width: DesignToken<SpaceValue>;
   height: DesignToken<SpaceValue>;
-  backgroundColor: DesignToken<ColorValue>;
+  backgroundColor: DesignToken<BackgroundColorValue>;
   top: DesignToken<SpaceValue>;
   left: DesignToken<SpaceValue>;
 }
