@@ -1,6 +1,9 @@
 import { View, Flex, Text } from '@aws-amplify/ui-react';
 import { Example, ExampleCode } from '@/components/Example';
-import { UseBreakpointValueExample } from './examples';
+import {
+  UseBreakpointValueArrayExample,
+  UseBreakpointValueObjectExample,
+} from './examples';
 
 ## Example
 
@@ -127,13 +130,18 @@ When using the array syntax, specify each breakpoint styling in order from `base
 
 ## useBreakpointValue
 
-To achieve a similar effect for none style properties you can use the `useBreakpointValue` hook. The hook will accept the same object or array syntax as
-the style properties and will output the value for the current breakpoint.
+A responsive design can be achieved for all properties using the `useBreakpointValue` hook.
+The hook will accept the object or array syntax and return the value of the current breakpoint.
 
 <Example>
-  <UseBreakpointValueExample />
+  <UseBreakpointValueObjectExample />
   <ExampleCode>
-  ```jsx file=./examples/UseBreakpointValueExample.tsx
+  ```jsx file=./examples/UseBreakpointValueObjectExample.tsx
+  ```
+  </ExampleCode>
+  <UseBreakpointValueArrayExample />
+  <ExampleCode>
+  ```jsx file=./examples/UseBreakpointValueArrayExample.tsx
   ```
   </ExampleCode>
 

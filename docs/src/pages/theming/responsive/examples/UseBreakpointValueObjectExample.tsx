@@ -1,6 +1,6 @@
 import { Alert, useBreakpointValue } from '@aws-amplify/ui-react';
 
-export const UseBreakpointValueExample = () => {
+export const UseBreakpointValueObjectExample = () => {
   const variation = useBreakpointValue({
     base: 'info',
     small: 'warning',

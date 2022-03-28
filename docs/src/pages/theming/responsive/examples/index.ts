@@ -1,1 +1,2 @@
-export { UseBreakpointValueExample } from './UseBreakpointValueExample';
+export { UseBreakpointValueArrayExample } from './UseBreakpointValueArrayExample';
+export { UseBreakpointValueObjectExample } from './UseBreakpointValueObjectExample';

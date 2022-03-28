@@ -1,5 +1,5 @@
 ---
-"@aws-amplify/ui-react": patch
+"@aws-amplify/ui-react": minor
 ---
 
 added useBreakpointValue hook

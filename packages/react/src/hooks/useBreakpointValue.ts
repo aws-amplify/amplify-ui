@@ -4,7 +4,7 @@ import { useBreakpoint } from '../primitives/shared/responsive/useBreakpoint';
 import { useTheme } from './useTheme';
 
 export function useBreakpointValue<T>(
-  values: Record<string, T> | T[] | string,
+  values: Record<string, T> | T[],
   defaultBreakpoint?: Breakpoint
 ): T | null {
   const {
@@ -13,7 +13,7 @@ export function useBreakpointValue<T>(
 
   const breakpoint = useBreakpoint({
     breakpoints,
-    defaultBreakpoint: defaultBreakpoint,
+    defaultBreakpoint,
   });
 
   return getValueAtCurrentBreakpoint(values, breakpoint, breakpoints);
