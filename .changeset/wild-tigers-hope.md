@@ -1,7 +1,6 @@
 ---
-"docs": patch
-"@aws-amplify/ui-react": patch
-"@aws-amplify/ui": patch
+"@aws-amplify/ui-react": minor
+"@aws-amplify/ui": minor
 ---
 
 feat: adding determinate loader support
