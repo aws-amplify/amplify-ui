@@ -26,58 +26,32 @@ interface StateWithShadowTokens extends StateTokens {
   boxShadow: DesignToken<BoxShadowValue>;
 }
 
+interface MenuStateDisabledTokens
+  extends Omit<StateTokens, 'borderColor' | 'backgroundColor'> {}
+
+interface MenuStateTokens extends Omit<StateTokens, 'borderColor'> {}
+
 interface PrimaryVariationTokens {
   borderWidth: DesignToken<BorderWidthValue>;
   borderStyle: DesignToken<BorderStyleValue>;
   borderColor: DesignToken<BorderColorValue>;
   backgroundColor: DesignToken<BackgroundColorValue>;
   color: DesignToken<ColorValue>;
-  _disabled: {
-    color: DesignToken<ColorValue>;
-    backgroundColor: DesignToken<BackgroundColorValue>;
-    borderColor: DesignToken<BorderColorValue>;
-  };
-  _loading: {
-    color: DesignToken<ColorValue>;
-    backgroundColor: DesignToken<BackgroundColorValue>;
-    borderColor: DesignToken<BorderColorValue>;
-  };
-  _hover: {
-    color: DesignToken<ColorValue>;
-    backgroundColor: DesignToken<BackgroundColorValue>;
-    borderColor: DesignToken<BorderColorValue>;
-  };
-  _focus: {
-    color: DesignToken<ColorValue>;
-    backgroundColor: DesignToken<BackgroundColorValue>;
-    borderColor: DesignToken<BorderColorValue>;
-    boxShadow: DesignToken<BoxShadowValue>;
-  };
-  _active: {
-    color: DesignToken<ColorValue>;
-    backgroundColor: DesignToken<BackgroundColorValue>;
-    borderColor: DesignToken<BorderColorValue>;
-  };
+  _disabled: StateTokens;
+  _loading: StateTokens;
+  _hover: StateTokens;
+  _focus: StateWithShadowTokens;
+  _active: StateTokens;
 }
+
 interface MenuVariationTokens {
   borderWidth: DesignToken<BorderWidthValue>;
   backgroundColor: DesignToken<BackgroundColorValue>;
   justifyContent: DesignToken<JustifyContentValue>;
-  _hover: {
-    color: DesignToken<ColorValue>;
-    backgroundColor: DesignToken<BackgroundColorValue>;
-  };
-  _focus: {
-    color: DesignToken<ColorValue>;
-    backgroundColor: DesignToken<BackgroundColorValue>;
-  };
-  _active: {
-    color: DesignToken<ColorValue>;
-    backgroundColor: DesignToken<BackgroundColorValue>;
-  };
-  _disabled: {
-    color: DesignToken<ColorValue>;
-  };
+  _hover: MenuStateTokens;
+  _focus: MenuStateTokens;
+  _active: MenuStateTokens;
+  _disabled: MenuStateDisabledTokens;
 }
 
 interface LinkVariationTokens {
@@ -85,33 +59,13 @@ interface LinkVariationTokens {
   borderColor: DesignToken<BorderColorValue>;
   borderWidth: DesignToken<BorderWidthValue>;
   color: DesignToken<ColorValue>;
-  _hover: {
-    color: DesignToken<ColorValue>;
-    backgroundColor: DesignToken<BackgroundColorValue>;
-    borderColor: DesignToken<BorderColorValue>;
-  };
-  _focus: {
-    borderColor: DesignToken<BorderColorValue>;
-    backgroundColor: DesignToken<BackgroundColorValue>;
-    color: DesignToken<ColorValue>;
-    boxShadow: DesignToken<BoxShadowValue>;
-  };
-  _active: {
-    backgroundColor: DesignToken<BackgroundColorValue>;
-    borderColor: DesignToken<BorderColorValue>;
-    color: DesignToken<ColorValue>;
-  };
-  _disabled: {
-    backgroundColor: DesignToken<BackgroundColorValue>;
-    borderColor: DesignToken<BorderColorValue>;
-    color: DesignToken<ColorValue>;
-  };
-  _loading: {
-    backgroundColor: DesignToken<BackgroundColorValue>;
-    borderColor: DesignToken<BorderColorValue>;
-    color: DesignToken<ColorValue>;
-  };
+  _hover: StateTokens;
+  _focus: StateWithShadowTokens;
+  _active: StateTokens;
+  _disabled: StateTokens;
+  _loading: StateTokens;
 }
+
 interface ButtonSizeTokens {
   fontSize: DesignToken<FontSizeValue>;
   paddingBlockStart: DesignToken<SpaceValue>;

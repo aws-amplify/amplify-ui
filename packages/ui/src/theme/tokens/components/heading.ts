@@ -21,6 +21,7 @@ export interface HeadingTokens {
   5: HeadingLevelTokens;
   6: HeadingLevelTokens;
 }
+
 export const heading: HeadingTokens = {
   color: { value: '{colors.font.primary.value}' },
   lineHeight: { value: '{lineHeights.small.value}' },

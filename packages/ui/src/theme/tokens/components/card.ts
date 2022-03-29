@@ -9,7 +9,7 @@ import {
   SpaceValue,
 } from '../types/designToken';
 
-interface OutlinedTokens {
+interface CardVariationTokens {
   backgroundColor: DesignToken<BackgroundColorValue>;
   borderRadius: DesignToken<BorderRadiusValue>;
   borderWidth: DesignToken<BorderWidthValue>;
@@ -17,25 +17,12 @@ interface OutlinedTokens {
   borderColor: DesignToken<BorderColorValue>;
   boxShadow: DesignToken<BoxShadowValue>;
 }
-interface ElevatedTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  borderRadius: DesignToken<BorderRadiusValue>;
-  borderWidth: DesignToken<BorderWidthValue>;
-  borderStyle: DesignToken<BorderStyleValue>;
-  borderColor: DesignToken<BorderColorValue>;
-  boxShadow: DesignToken<BoxShadowValue>;
-}
-export interface CardTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  borderRadius: DesignToken<BorderRadiusValue>;
-  borderWidth: DesignToken<BorderWidthValue>;
-  borderStyle: DesignToken<BorderStyleValue>;
-  borderColor: DesignToken<BorderColorValue>;
-  boxShadow: DesignToken<BoxShadowValue>;
+
+export type CardTokens = CardVariationTokens & {
   padding: DesignToken<SpaceValue>;
-  outlined: OutlinedTokens;
-  elevated: ElevatedTokens;
-}
+  outlined: CardVariationTokens;
+  elevated: CardVariationTokens;
+};
 
 export const card: CardTokens = {
   backgroundColor: { value: '{colors.background.primary.value}' },

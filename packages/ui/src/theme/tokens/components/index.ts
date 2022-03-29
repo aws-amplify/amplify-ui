@@ -1,4 +1,3 @@
-import { PaginationInput } from '@aws-amplify/datastore';
 import { AlertTokens, alert } from './alert';
 import { AuthenticatorTokens, authenticator } from './authenticator';
 import { badge, BadgeTokens } from './badge';
@@ -42,7 +41,7 @@ import {
   ToggleButtonGroupTokens,
 } from './toggleButtonGroup';
 
-export interface Components {
+export interface ComponentTokens {
   alert: AlertTokens;
   authenticator: AuthenticatorTokens;
   badge: BadgeTokens;
@@ -81,7 +80,7 @@ export interface Components {
   togglebuttongroup: ToggleButtonGroupTokens;
 }
 
-export const components: Components = {
+export const components: ComponentTokens = {
   alert,
   authenticator,
   badge,
