@@ -31,16 +31,6 @@ let mediaQueries = getMediaQueries({
   breakpoints: defaultTheme.breakpoints.values,
 });
 
-const testBreakpoints = (m) => {
-  it(`should return ${m.breakpoint} breakpoint`, () => {
-    matchMedia.useMediaQuery(m.query);
-    const { result } = renderHook(() => useBreakpointValue(breakpoints));
-    const breakpoint = result;
-
-    expect(breakpoint.current).toBe(`${m.breakpoint}Value`);
-  });
-};
-
 describe('useBreakpoint', () => {
   beforeAll(() => {
     matchMedia = new MatchMediaMock();
@@ -60,7 +50,25 @@ describe('useBreakpoint', () => {
     expect(breakpoint).toBe('baseValue');
   });
 
-  // Test going down and up the breakpoints
-  mediaQueries.forEach(testBreakpoints);
-  mediaQueries.reverse().forEach(testBreakpoints);
+  test.each(mediaQueries)(
+    `should return $breakpoint breakpoint`,
+    ({ breakpoint, query }) => {
+      matchMedia.useMediaQuery(query);
+      const { result } = renderHook(() => useBreakpointValue(breakpoints));
+      const breakpointValue = result;
+
+      expect(breakpointValue.current).toBe(`${breakpoint}Value`);
+    }
+  );
+
+  test.each(mediaQueries.reverse())(
+    `should return $breakpoint breakpoint`,
+    ({ breakpoint, query }) => {
+      matchMedia.useMediaQuery(query);
+      const { result } = renderHook(() => useBreakpointValue(breakpoints));
+      const breakpointValue = result;
+
+      expect(breakpointValue.current).toBe(`${breakpoint}Value`);
+    }
+  );
 });
