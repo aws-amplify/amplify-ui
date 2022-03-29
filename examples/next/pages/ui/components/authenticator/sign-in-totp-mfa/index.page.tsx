@@ -7,9 +7,13 @@ import awsExports from './aws-exports';
 Amplify.configure(awsExports);
 
 export default function SignInTotpMfa() {
+  const formFields = { setupTOTP: { QR: { totpIssuer: 'My Web App' } } };
   return (
-    <Authenticator>
-      {({ signOut }) => <button onClick={signOut}>Sign out</button>}
-    </Authenticator>
+    <>
+      <h3>hi</h3>
+      <Authenticator formFields={formFields}>
+        {({ signOut }) => <button onClick={signOut}>Sign out</button>}
+      </Authenticator>
+    </>
   );
 }
