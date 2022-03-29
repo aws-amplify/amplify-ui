@@ -12,6 +12,7 @@ export interface CheckboxFieldTokens {
   flexDirection: DesignToken<FlexDirectionValue>;
   justifyContent: DesignToken<JustifyContentValue>;
 }
+
 export const checkboxfield: CheckboxFieldTokens = {
   alignItems: { value: 'flex-start' },
   alignContent: { value: 'center' },

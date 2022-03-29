@@ -3,6 +3,7 @@ import {
   Component,
   ContentChildren,
   Input,
+  OnDestroy,
   OnInit,
   QueryList,
   TemplateRef,
@@ -23,7 +24,9 @@ import { AuthenticatorService } from '../../../../services/authenticator.service
   providers: [CustomComponentsService], // make sure custom components are scoped to this authenticator only
   encapsulation: ViewEncapsulation.None,
 })
-export class AuthenticatorComponent implements OnInit, AfterContentInit {
+export class AuthenticatorComponent
+  implements OnInit, AfterContentInit, OnDestroy
+{
   @Input() formFields: AuthenticatorMachineOptions['formFields'];
   @Input() initialState: AuthenticatorMachineOptions['initialState'];
   @Input() loginMechanisms: AuthenticatorMachineOptions['loginMechanisms'];
@@ -40,6 +43,9 @@ export class AuthenticatorComponent implements OnInit, AfterContentInit {
   public signInTitle = translate('Sign In');
   public signUpTitle = translate('Create Account');
 
+  private hasInitialized = false;
+  private unsubscribeMachine: () => void;
+
   constructor(
     private authenticator: AuthenticatorService,
     private contextService: CustomComponentsService
@@ -54,14 +60,29 @@ export class AuthenticatorComponent implements OnInit, AfterContentInit {
       socialProviders,
       formFields,
     } = this;
-    this.authenticator.startMachine({
-      initialState,
-      loginMechanisms,
-      services,
-      signUpAttributes,
-      socialProviders,
-      formFields,
-    });
+
+    /**
+     * Subscribes to state machine changes and sends INIT event
+     * once machine reaches 'setup' state.
+     */
+    this.unsubscribeMachine = this.authenticator.subscribe(() => {
+      const { route } = this.authenticator;
+      if (!this.hasInitialized && route === 'setup') {
+        this.authenticator.send({
+          type: 'INIT',
+          data: {
+            initialState,
+            loginMechanisms,
+            services,
+            signUpAttributes,
+            socialProviders,
+            formFields,
+          },
+        });
+
+        this.hasInitialized = true;
+      }
+    }).unsubscribe;
 
     /**
      * handling translations after content init, because authenticator and its
@@ -78,6 +99,10 @@ export class AuthenticatorComponent implements OnInit, AfterContentInit {
     this.contextService.customComponents = this.mapCustomComponents(
       this.customComponentQuery
     );
+  }
+
+  ngOnDestroy(): void {
+    if (this.unsubscribeMachine) this.unsubscribeMachine();
   }
 
   /**
