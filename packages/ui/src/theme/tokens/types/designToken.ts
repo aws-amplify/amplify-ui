@@ -43,19 +43,26 @@ export type WebDesignToken<ValueType = any> = {
   toString(): string;
 } & DesignToken<ValueType>;
 
+export type AnimationDurationValue = string;
+export type AnimationTimingFunctionValue = string;
 export type AlignItemsValue = string;
+export type AlignContentValue = string;
 export type BackgroundColorValue = ColorValue;
 export type BorderColorValue = ColorValue;
 export type BorderRadiusValue = RadiusValue;
 export type BorderStyleValue = string;
 export type BorderWidthValue = SpaceValue;
+export type BorderValue = string;
 export type BoxShadowValue = ShadowValue | string;
 export type ColorValue = string;
 export type CursorValue = string;
+export type DisplayValue = string;
 export type FlexDirectionValue = string;
 export type FontSizeValue = string;
+export type FontStyleValue = string;
 export type FontValue = string;
 export type FontWeightValue = string | number;
+export type GapValue = string;
 export type JustifyContentValue = string;
 export type LineHeightValue = string | number;
 export type OpacityValue = string;

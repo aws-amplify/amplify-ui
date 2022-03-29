@@ -73,7 +73,6 @@ interface ButtonSizeTokens {
   paddingInlineStart: DesignToken<SpaceValue>;
   paddingInlineEnd: DesignToken<SpaceValue>;
 }
-
 export interface ButtonTokens {
   fontWeight: DesignToken<FontWeightValue>;
   transitionDuration: DesignToken<TransitionDurationValue>;

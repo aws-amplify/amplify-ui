@@ -352,9 +352,9 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-fieldcontrol-quiet-border-block-start: none;
         --amplify-components-fieldcontrol-quiet-border-radius: 0;
         --amplify-components-fieldcontrol-quiet-focus-border-block-end-color: var(--amplify-colors-border-focus);
-        --amplify-components-fieldcontrol-quiet-focus-box-shadow: 0px 1px   var(--amplify-colors-border-focus);
+        --amplify-components-fieldcontrol-quiet-focus-box-shadow: 0px 1px 0px  var(--amplify-colors-border-focus);
         --amplify-components-fieldcontrol-quiet-error-border-block-end-color: var(--amplify-colors-border-error);
-        --amplify-components-fieldcontrol-quiet-error-focus-box-shadow: 0px 1px   var(--amplify-colors-border-error);
+        --amplify-components-fieldcontrol-quiet-error-focus-box-shadow: 0px 1px 0px  var(--amplify-colors-border-error);
         --amplify-components-fieldcontrol-focus-border-color: var(--amplify-colors-border-focus);
         --amplify-components-fieldcontrol-focus-box-shadow: 0px 0px 0px 1px var(--amplify-colors-border-focus);
         --amplify-components-fieldcontrol-disabled-color: var(--amplify-colors-font-disabled);
@@ -363,7 +363,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-fieldcontrol-disabled-background-color: var(--amplify-colors-background-disabled);
         --amplify-components-fieldcontrol-error-border-color: var(--amplify-colors-border-error);
         --amplify-components-fieldcontrol-error-focus-box-shadow: 0px 0px 0px 1px var(--amplify-colors-border-error);
-        --amplify-components-fieldgroup-gap: 0;
+        --amplify-components-fieldgroup-gap: var(--amplify-space-zero);
         --amplify-components-fieldgroup-vertical-align-items: center;
         --amplify-components-fieldgroup-outer-align-items: center;
         --amplify-components-fieldmessages-error-color: var(--amplify-colors-font-error);
