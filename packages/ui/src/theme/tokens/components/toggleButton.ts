@@ -1,4 +1,16 @@
-export const togglebutton = {
+export interface ToggleButtonTokens {
+  borderColor: any;
+  color: any;
+  _hover: any;
+  _focus: any;
+  _active: any;
+  _disabled: any;
+  _pressed: any;
+  primary: any;
+  link: any;
+}
+
+export const togglebutton: ToggleButtonTokens = {
   borderColor: { value: '{colors.border.primary.value}' },
   color: { value: '{colors.overlay.50.value}' },
   _hover: {

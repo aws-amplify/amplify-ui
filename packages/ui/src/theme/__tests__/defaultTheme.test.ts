@@ -112,7 +112,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-button-primary-active-border-color: transparent;
         --amplify-components-button-primary-active-background-color: var(--amplify-colors-brand-primary-100);
         --amplify-components-button-primary-active-color: var(--amplify-colors-font-inverse);
-        --amplify-components-button-menu-border-width: 0;
+        --amplify-components-button-menu-border-width: var(--amplify-space-zero);
         --amplify-components-button-menu-background-color: transparent;
         --amplify-components-button-menu-justify-content: start;
         --amplify-components-button-menu-hover-color: var(--amplify-colors-font-inverse);
@@ -122,9 +122,9 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-button-menu-active-color: var(--amplify-colors-font-inverse);
         --amplify-components-button-menu-active-background-color: var(--amplify-colors-brand-primary-90);
         --amplify-components-button-menu-disabled-color: var(--amplify-colors-font-disabled);
-        --amplify-components-button-link-border-width: 0;
-        --amplify-components-button-link-border-color: transparent;
         --amplify-components-button-link-background-color: transparent;
+        --amplify-components-button-link-border-color: transparent;
+        --amplify-components-button-link-border-width: var(--amplify-space-zero);
         --amplify-components-button-link-color: var(--amplify-colors-font-interactive);
         --amplify-components-button-link-hover-border-color: transparent;
         --amplify-components-button-link-hover-background-color: var(--amplify-colors-brand-primary-10);
@@ -217,7 +217,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-copy-tool-tip-bottom: var(--amplify-space-large);
         --amplify-components-copy-tool-tip-color: var(--amplify-colors-teal-100);
         --amplify-components-copy-tool-tip-font-size: var(--amplify-font-sizes-xxs);
-        --amplify-components-countrycodeselect-height: 100%;
+        --amplify-components-countrycodeselect-height: var(--amplify-space-relative-full);
         --amplify-components-divider-border-style: solid;
         --amplify-components-divider-border-color: var(--amplify-colors-border-primary);
         --amplify-components-divider-border-width: var(--amplify-border-widths-medium);

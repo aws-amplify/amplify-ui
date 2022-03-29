@@ -1,4 +1,13 @@
-export const link = {
+export interface LinkTokens {
+  active: any;
+  color: any;
+  focus: any;
+  hover: any;
+  large: any;
+  small: any;
+  visited: any;
+}
+export const link: LinkTokens = {
   active: {
     color: { value: '{colors.font.active.value}' },
   },

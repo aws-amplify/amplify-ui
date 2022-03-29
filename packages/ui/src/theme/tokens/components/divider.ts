@@ -1,4 +1,20 @@
-export const divider = {
+import {
+  DesignToken,
+  BorderColorValue,
+  BorderWidthValue,
+  BorderStyleValue,
+} from '../types/designToken';
+export interface DividerTokens {
+  borderStyle: DesignToken<BorderStyleValue>;
+  borderColor: DesignToken<BorderColorValue>;
+  borderWidth: DesignToken<BorderWidthValue>;
+  label: any;
+  small: any;
+  large: any;
+  opacity: any;
+}
+
+export const divider: DividerTokens = {
   borderStyle: { value: 'solid' },
   borderColor: { value: '{colors.border.primary.value}' },
   borderWidth: { value: '{borderWidths.medium.value}' },

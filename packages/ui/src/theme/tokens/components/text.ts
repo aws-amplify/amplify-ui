@@ -1,4 +1,15 @@
-export const text = {
+export interface TextTokens {
+  color: any;
+  primary: any;
+  secondary: any;
+  tertiary: any;
+  error: any;
+  warning: any;
+  success: any;
+  info: any;
+}
+
+export const text: TextTokens = {
   // default styles
   color: { value: '{colors.font.primary.value}' },
 

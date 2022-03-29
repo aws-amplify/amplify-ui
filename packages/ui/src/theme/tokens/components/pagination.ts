@@ -1,4 +1,12 @@
-export const pagination = {
+export interface PaginationTokens {
+  current: any;
+  button: any;
+  ellipsis: any;
+  itemContainer: any;
+  itemShared: any;
+}
+
+export const pagination: PaginationTokens = {
   current: {
     alignItems: { value: 'center' },
     justifyContent: { value: 'center' },

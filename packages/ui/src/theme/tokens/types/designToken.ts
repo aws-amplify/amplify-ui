@@ -43,15 +43,27 @@ export type WebDesignToken<ValueType = any> = {
   toString(): string;
 } & DesignToken<ValueType>;
 
+export type AlignItemsValue = string;
+export type BackgroundColorValue = ColorValue;
+export type BorderColorValue = ColorValue;
+export type BorderRadiusValue = RadiusValue;
+export type BorderStyleValue = string;
+export type BorderWidthValue = SpaceValue;
+export type BoxShadowValue = ShadowValue | string;
 export type ColorValue = string;
-export type BorderWidthValue = string;
-export type FontValue = string;
+export type CursorValue = string;
+export type FlexDirectionValue = string;
 export type FontSizeValue = string;
-export type FontWeightValue = number;
-export type LineHeightValue = string;
+export type FontValue = string;
+export type FontWeightValue = string | number;
+export type JustifyContentValue = string;
+export type LineHeightValue = string | number;
 export type OpacityValue = string;
 export type OutlineOffsetValue = string;
 export type OutlineWidthValue = string;
+export type OutlineColorValue = string;
+export type OutlineStyleValue = string;
+export type PositionValue = string;
 export type RadiusValue = string;
 export type ShadowValue = {
   offsetX: string;
@@ -61,5 +73,9 @@ export type ShadowValue = {
   color: string;
 };
 export type SpaceValue = string;
+export type TextAlignValue = string;
 export type TimeValue = string;
 export type TransformValue = string;
+export type TransitionDurationValue = string;
+export type TransitionPropertyValue = string;
+export type TransitionTimingFunctionValue = string;

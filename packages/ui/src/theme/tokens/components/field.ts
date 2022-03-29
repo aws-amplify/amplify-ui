@@ -1,4 +1,11 @@
-export const field = {
+export interface FieldTokens {
+  gap: any;
+  fontSize: any;
+  small: any;
+  large: any;
+  label: any;
+}
+export const field: FieldTokens = {
   // default styles
   gap: { value: '{space.xs.value}' },
   fontSize: { value: '{fontSizes.medium.value}' },

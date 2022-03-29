@@ -1,4 +1,15 @@
-export const select = {
+export interface SelectTokens {
+  paddingInlineEnd: any;
+  wrapper: any;
+  iconWrapper: any;
+  option: any;
+  whiteSpace: any;
+  minWidth: any;
+  small: any;
+  large: any;
+}
+
+export const select: SelectTokens = {
   paddingInlineEnd: { value: '{space.xxl.value}' },
   // wrappers
   wrapper: {

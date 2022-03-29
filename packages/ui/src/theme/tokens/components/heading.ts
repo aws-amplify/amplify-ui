@@ -1,4 +1,14 @@
-export const heading = {
+export interface HeadingTokens {
+  color: any;
+  lineHeight: any;
+  1: any;
+  2: any;
+  3: any;
+  4: any;
+  5: any;
+  6: any;
+}
+export const heading: HeadingTokens = {
   color: { value: '{colors.font.primary.value}' },
   lineHeight: { value: '{lineHeights.small.value}' },
 

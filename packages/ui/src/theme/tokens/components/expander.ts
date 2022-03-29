@@ -1,4 +1,18 @@
-export const expander = {
+import { DesignToken } from '../types/designToken';
+
+export interface ExpanderTokens {
+  display: any;
+  backgroundColor: any;
+  borderRadius: any;
+  boxShadow: any;
+  width: any;
+  item: any;
+  header: any;
+  trigger: any;
+  content: any;
+  icon: any;
+}
+export const expander: ExpanderTokens = {
   display: { value: 'block' },
   backgroundColor: { value: '{colors.white.value}' },
   borderRadius: { value: '{radii.medium.value}' },
