@@ -6641,12 +6641,12 @@ ansi-html-community@0.0.8:
 
 ansi-html@0.0.8:
   version "0.0.8"
-  resolved "https://registry.yarnpkg.com/ansi-html/-/ansi-html-0.0.8.tgz#e969db193b12bcdfa6727b29ffd8882dc13cc501"
+  resolved "https://registry.npmjs.org/ansi-html/-/ansi-html-0.0.8.tgz#e969db193b12bcdfa6727b29ffd8882dc13cc501"
   integrity sha512-QROYz1I1Kj+8bTYgx0IlMBpRSCIU+7GjbE0oH+KF7QKc+qSF8YAlIutN59Db17tXN70Ono9upT9Ht0iG93W7ug==
 
 ansi-regex@5.0.1, ansi-regex@^2.0.0, ansi-regex@^3.0.0, ansi-regex@^4.1.0, ansi-regex@^5.0.0, ansi-regex@^5.0.1, ansi-regex@^6.0.1:
   version "5.0.1"
-  resolved "https://registry.yarnpkg.com/ansi-regex/-/ansi-regex-5.0.1.tgz#082cb2c89c9fe8659a311a53bd6a4dc5301db304"
+  resolved "https://registry.npmjs.org/ansi-regex/-/ansi-regex-5.0.1.tgz#082cb2c89c9fe8659a311a53bd6a4dc5301db304"
   integrity sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ==
 
 ansi-styles@^2.2.1:
@@ -9436,7 +9436,7 @@ cssnano-preset-default@^4.0.8:
 
 cssnano-preset-simple@3.0.0, cssnano-preset-simple@^3.0.0:
   version "3.0.0"
-  resolved "https://registry.yarnpkg.com/cssnano-preset-simple/-/cssnano-preset-simple-3.0.0.tgz#e95d0012699ca2c741306e9a3b8eeb495a348dbe"
+  resolved "https://registry.npmjs.org/cssnano-preset-simple/-/cssnano-preset-simple-3.0.0.tgz#e95d0012699ca2c741306e9a3b8eeb495a348dbe"
   integrity sha512-vxQPeoMRqUT3c/9f0vWeVa2nKQIHFpogtoBvFdW4GQ3IvEJ6uauCP6p3Y5zQDLFcI7/+40FTgX12o7XUL0Ko+w==
   dependencies:
     caniuse-lite "^1.0.30001202"
@@ -14415,7 +14415,7 @@ json-schema-traverse@^1.0.0:
 
 json-schema@0.4.0, json-schema@^0.4.0:
   version "0.4.0"
-  resolved "https://registry.yarnpkg.com/json-schema/-/json-schema-0.4.0.tgz#f7de4cf6efab838ebaeb3236474cbba5a1930ab5"
+  resolved "https://registry.npmjs.org/json-schema/-/json-schema-0.4.0.tgz#f7de4cf6efab838ebaeb3236474cbba5a1930ab5"
   integrity sha512-es94M3nTIfsEPisRafak+HDLfHXnKBhV3vU5eqPcS3flIWqcxJWgXHXiey3YrpaNsanY5ei1VoYEbOzijuq9BA==
 
 json-stable-stringify-without-jsonify@^1.0.1:
@@ -16528,7 +16528,7 @@ node-fetch@2.6.7, node-fetch@^2.5.0, node-fetch@^2.6.1, node-fetch@^2.6.7:
 
 node-forge@1.3.0, node-forge@^0.10.0:
   version "1.3.0"
-  resolved "https://registry.yarnpkg.com/node-forge/-/node-forge-1.3.0.tgz#37a874ea723855f37db091e6c186e5b67a01d4b2"
+  resolved "https://registry.npmjs.org/node-forge/-/node-forge-1.3.0.tgz#37a874ea723855f37db091e6c186e5b67a01d4b2"
   integrity sha512-08ARB91bUi6zNKzVmaj3QO7cr397uiDT2nJ63cHjyNtCTWIgvS47j3eT0WfzUwS9+6Z5YshRaoasFkXCKrIYbA==
 
 node-gyp@^7.1.0:
@@ -18258,7 +18258,7 @@ prism-react-renderer@1.2.1:
 
 prismjs@^1.25.0, prismjs@~1.23.0:
   version "1.27.0"
-  resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.27.0.tgz#bb6ee3138a0b438a3653dd4d6ce0cc6510a45057"
+  resolved "https://registry.npmjs.org/prismjs/-/prismjs-1.27.0.tgz#bb6ee3138a0b438a3653dd4d6ce0cc6510a45057"
   integrity sha512-t13BGPUlFDR7wRB5kQDG4jjl7XeuH6jbJGt11JHPL96qwsEHNX2+68tFXqc1/k+/jALsbSWJKUOT/hcYAZ5LkA==
 
 process-nextick-args@^2.0.1, process-nextick-args@~2.0.0:
@@ -18733,7 +18733,7 @@ react-copy-to-clipboard@^5.0.4:
     copy-to-clipboard "^3"
     prop-types "^15.5.8"
 
-react-dom@latest:
+react-dom@17:
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-17.0.2.tgz#ecffb6845e3ad8dbfcdc498f0d0a939736502c23"
   integrity sha512-s4h96KtLDUQlsENhMn1ar8t2bEa+q/YAtj8pPPdIjPDGBDIVNsrD9aXNWqspUe6AzKCIG0C1HZZLqLV7qpOBGA==
@@ -18824,7 +18824,7 @@ react-style-singleton@^2.1.0:
     invariant "^2.2.4"
     tslib "^1.0.0"
 
-react@latest:
+react@17:
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/react/-/react-17.0.2.tgz#d0b5cc516d29eb3eee383f75b62864cfb6800037"
   integrity sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA==
@@ -21495,7 +21495,7 @@ trim-newlines@^3.0.0:
 
 trim@^0.0.3:
   version "0.0.3"
-  resolved "https://registry.yarnpkg.com/trim/-/trim-0.0.3.tgz#05243a47a3a4113e6b49367880a9cca59697a20b"
+  resolved "https://registry.npmjs.org/trim/-/trim-0.0.3.tgz#05243a47a3a4113e6b49367880a9cca59697a20b"
   integrity sha512-h82ywcYhHK7veeelXrCScdH7HkWfbIT1D/CgYO+nmDarz3SGNssVBMws6jU16Ga60AJCRAvPV6w6RLuNerQqjg==
 
 trough@^1.0.0:
@@ -21515,7 +21515,7 @@ ts-interface-checker@^0.1.9:
 
 ts-jest@^26.4.2, ts-jest@^26.5.6, ts-jest@^27.0.3:
   version "26.5.6"
-  resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-26.5.6.tgz#c32e0746425274e1dfe333f43cd3c800e014ec35"
+  resolved "https://registry.npmjs.org/ts-jest/-/ts-jest-26.5.6.tgz#c32e0746425274e1dfe333f43cd3c800e014ec35"
   integrity sha512-rua+rCP8DxpA8b4DQD/6X2HQS8Zy/xzViVYfEs2OQu68tkCuKLV0Md8pmX55+W24uRIyAsf/BajRfxOs+R2MKA==
   dependencies:
     bs-logger "0.x"
@@ -22659,7 +22659,7 @@ vscode-uri@^3.0.2, vscode-uri@^3.0.3:
 
 vscode-vue-languageservice@0.27.26, vscode-vue-languageservice@^0.27.0:
   version "0.27.26"
-  resolved "https://registry.yarnpkg.com/vscode-vue-languageservice/-/vscode-vue-languageservice-0.27.26.tgz#d20d2b526aa73d003d1329a451328374b9502e2c"
+  resolved "https://registry.npmjs.org/vscode-vue-languageservice/-/vscode-vue-languageservice-0.27.26.tgz#d20d2b526aa73d003d1329a451328374b9502e2c"
   integrity sha512-Xui/YWho4f8OhaUVXYRFe27c4ZHXkZNlblQhh3/vU+TdhDxtcJ/4KK4IWVdotg8Oy0008XI1Ede8QS4zTylDsw==
   dependencies:
     "@volar/code-gen" "^0.27.24"
