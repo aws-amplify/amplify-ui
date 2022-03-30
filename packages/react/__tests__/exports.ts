@@ -13,6 +13,9 @@ describe('@aws-amplify/ui-react', () => {
     it('should match snapshot', () => {
       expect(Object.keys(exported)).toMatchInlineSnapshot(`
         Array [
+          "createTheme",
+          "defaultTheme",
+          "translations",
           "Alert",
           "AmplifyMap",
           "AmplifyProvider",
@@ -1401,12 +1404,10 @@ describe('@aws-amplify/ui-react', () => {
           "View",
           "VisuallyHidden",
           "components",
-          "createTheme",
-          "defaultTheme",
           "primitives",
-          "translations",
           "useAmplify",
           "useAuthenticator",
+          "useBreakpointValue",
           "usePagination",
           "useTheme",
           "withAuthenticator",
@@ -1444,11 +1445,11 @@ describe('@aws-amplify/ui-react/internal', () => {
     it('should match snapshot', () => {
       expect(Object.keys(internal)).toMatchInlineSnapshot(`
         Array [
-          "createDataStorePredicate",
           "findChildOverrides",
           "getOverrideProps",
           "getOverridesFromVariants",
           "mergeVariantsAndOverrides",
+          "createDataStorePredicate",
           "useAuth",
           "useAuthSignOutAction",
           "useDataStoreBinding",
