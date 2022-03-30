@@ -79,7 +79,7 @@ export const META_INFO: MetaInfo = {
   '/components/geo': {
     title: 'Geo',
     description:
-      'Amplify UI Geo provides UI components for maps and location search for popular front end frameworks.',
+      'Amplify UI Geo provides UI components for maps and location search for popular front-end frameworks.',
   },
   '/components/loader': {
     title: 'Loader',
