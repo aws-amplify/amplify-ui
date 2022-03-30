@@ -2,6 +2,7 @@ import {
   getRandomScalingAttributes,
   getRandomLivenessOvalDetails,
   getFaceMatchStateInLivenessOval,
+  isCameraDeviceVirtual,
 } from '../liveness';
 import { Face, FaceMatchState, LivenessOvalDetails } from '../../../types';
 import {
@@ -219,6 +220,34 @@ describe('Liveness Helper', () => {
       const actualState = getFaceMatchStateInLivenessOval(face, ovalDetails);
 
       expect(actualState).toEqual(FaceMatchState.TOO_FAR);
+    });
+  });
+
+  describe('isCameraDeviceVirtual', () => {
+    const mockCameraDevice: MediaDeviceInfo = {
+      deviceId: 'some-device-id',
+      groupId: 'some-group-id',
+      kind: 'videoinput',
+      label: 'some-label',
+      toJSON: () => ({}),
+    };
+
+    it('should return true if device is virtual', () => {
+      const device = {
+        ...mockCameraDevice,
+        label: 'ManyCam Virtual Webcam',
+      };
+
+      expect(isCameraDeviceVirtual(device)).toBe(true);
+    });
+
+    it('should return false if device is not virtual', () => {
+      const device = {
+        ...mockCameraDevice,
+        label: 'FaceTime HD Camera (Built-in)',
+      };
+
+      expect(isCameraDeviceVirtual(device)).toBe(false);
     });
   });
 });

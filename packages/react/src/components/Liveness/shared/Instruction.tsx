@@ -7,7 +7,11 @@ import {
   LivenessErrorStateStringMap,
 } from '@aws-amplify/ui';
 
-import { useLivenessActor } from '../hooks';
+import {
+  useLivenessActor,
+  useLivenessSelector,
+  createLivenessSelector,
+} from '../hooks';
 import { useTheme } from '../../../hooks';
 import {
   Flex,
@@ -16,6 +20,16 @@ import {
   Loader,
   View,
 } from '../../../primitives';
+
+const selectErrorState = createLivenessSelector(
+  (state) => state.context.errorState
+);
+const selectFaceMatchState = createLivenessSelector(
+  (state) => state.context.faceMatchAssociatedParams.faceMatchState
+);
+const selectIlluminationState = createLivenessSelector(
+  (state) => state.context.faceMatchAssociatedParams.illuminationState
+);
 
 export interface InstructionProps {
   isMobileScreen: boolean;
@@ -27,10 +41,10 @@ export const Instruction: React.FC<InstructionProps> = (props) => {
   const { tokens } = useTheme();
   const [state] = useLivenessActor();
 
-  const {
-    errorState,
-    faceMatchAssociatedParams: { faceMatchState, illuminationState },
-  } = state.context;
+  const errorState = useLivenessSelector(selectErrorState);
+  const faceMatchState = useLivenessSelector(selectFaceMatchState);
+  const illuminationState = useLivenessSelector(selectIlluminationState);
+
   const isNotRecording = state.matches('notRecording');
   const isUploading = state.matches('uploading');
   const isCheckSuccessful = state.matches('checkSucceeded');

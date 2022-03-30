@@ -306,6 +306,14 @@ export function estimateIllumination(
   return IlluminationState.NORMAL;
 }
 
+/**
+ * Checks if the provided media device is a virtual camera.
+ * @param device
+ */
+export function isCameraDeviceVirtual(device: MediaDeviceInfo): boolean {
+  return device.label.toLowerCase().includes('virtual');
+}
+
 export const IlluminationStateStringMap: Record<IlluminationState, string> = {
   [IlluminationState.BRIGHT]: translate('Environment too bright'),
   [IlluminationState.DARK]: translate('Environment too dark'),

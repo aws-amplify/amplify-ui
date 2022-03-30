@@ -15,6 +15,7 @@ export interface LivenessContext {
   failedAttempts: number;
   flowProps: LivenessFlowProps;
   videoAssociatedParams: {
+    videoConstraints: MediaTrackConstraints;
     videoEl: HTMLVideoElement;
     canvasEl: HTMLCanvasElement;
     videoMediaStream: MediaStream;

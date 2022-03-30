@@ -6,9 +6,11 @@ import {
 } from '@aws-amplify/ui';
 
 import { useTheme } from '../../../hooks';
+import { useThemeBreakpoint } from '../../../hooks/useThemeBreakpoint';
 import { CancelButton, DescriptionBullet } from '../shared';
 import { useLivenessFlow } from '../providers';
 import { useLivenessActor } from '../hooks';
+import { getVideoConstraints } from './helpers';
 import {
   Flex,
   Heading,
@@ -39,6 +41,10 @@ export const StartLiveness = () => {
   const { flowProps } = useLivenessFlow();
   const [_, send] = useLivenessActor();
 
+  const breakpoint = useThemeBreakpoint();
+  const isMobileScreen = breakpoint === 'base';
+  const currElementRef = React.useRef<HTMLDivElement>(null);
+
   React.useEffect(() => {
     recordLivenessAnalyticsEvent(flowProps, {
       event: LIVENESS_EVENT_GET_READY_SCREEN,
@@ -65,11 +71,19 @@ export const StartLiveness = () => {
       metrics: { count: 1 },
     });
 
-    send({ type: 'BEGIN' });
+    const videoConstraints = getVideoConstraints(
+      isMobileScreen,
+      currElementRef.current.clientWidth
+    );
+
+    send({
+      type: 'BEGIN',
+      data: { videoConstraints },
+    });
   };
 
   return (
-    <Flex direction="column">
+    <Flex direction="column" ref={currElementRef}>
       <Heading level={3}>{translate('How it works')}</Heading>
       <Collection
         type="list"

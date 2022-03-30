@@ -4,19 +4,28 @@ import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import { LIVENESS_EVENT_LIVENESS_CHECK_SCREEN } from '@aws-amplify/ui';
 
 import { useTheme } from '../../../hooks';
-import { useLivenessActor } from '../hooks';
+import {
+  useLivenessActor,
+  useLivenessSelector,
+  createLivenessSelector,
+} from '../hooks';
 import { CancelButton, Instruction, RecordingIcon } from '../shared';
-import { Flex, Text, View } from '../../../primitives';
+import { Flex, Loader, Text, View } from '../../../primitives';
+
+const selectVideoConstraints = createLivenessSelector(
+  (state) => state.context.videoAssociatedParams?.videoConstraints
+);
 
 export interface LivenessCameraModuleProps {
   isMobileScreen: boolean;
-  videoConstraints: MediaTrackConstraints;
 }
 
 export const LivenessCameraModule = (
   props: LivenessCameraModuleProps
 ): JSX.Element => {
-  const { isMobileScreen, videoConstraints } = props;
+  const { isMobileScreen } = props;
+
+  const videoConstraints = useLivenessSelector(selectVideoConstraints);
   const height = (videoConstraints.height as ConstrainULongRange).ideal;
   const width = (videoConstraints.width as ConstrainULongRange).ideal;
 
@@ -30,7 +39,9 @@ export const LivenessCameraModule = (
   const [videoHeight, setVideoHeight] = useState<number>(height);
   const [videoWidth, setVideoWidth] = useState<number>(width);
   const [streamOffset, setStreamOffset] = useState<number>(0);
+  const [isCameraReady, setIsCameraReady] = useState<boolean>(false);
 
+  const isCheckingCamera = state.matches('cameraCheck');
   const isNotRecording = state.matches('notRecording');
   const isRecording = state.matches('recording');
 
@@ -53,10 +64,31 @@ export const LivenessCameraModule = (
     setVideoHeight(streamHeight);
     setVideoWidth(streamWidth);
     setStreamOffset(offsetHeight <= 0 ? 0 : offsetHeight / 2);
-    send({
-      type: 'PERMISSION_GRANTED',
-    });
   };
+
+  const canMediaPlayHandler = () => {
+    setIsCameraReady(true);
+    setCountDownRunning(true);
+  };
+
+  const centeredLoader = (
+    <View
+      position="absolute"
+      left="50%"
+      top="50%"
+      transform="translate(-50%,-50%)"
+    >
+      <Loader size="large" />
+    </View>
+  );
+
+  if (isCheckingCamera) {
+    return (
+      <Flex height={videoHeight} width="100%" position="relative">
+        {centeredLoader}
+      </Flex>
+    );
+  }
 
   return (
     <Flex
@@ -73,6 +105,8 @@ export const LivenessCameraModule = (
       })}
     >
       <Flex direction="column" position="relative">
+        {!isCameraReady && centeredLoader}
+
         <Webcam
           ref={webcamRef}
           audio={false}
@@ -84,7 +118,7 @@ export const LivenessCameraModule = (
           mirrored
           onUserMedia={onMediaAvailable}
           onUserMediaError={() => send({ type: 'PERMISSION_DENIED' })}
-          onCanPlay={() => setCountDownRunning(true)}
+          onCanPlay={canMediaPlayHandler}
         />
         <View
           as="canvas"
