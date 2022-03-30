@@ -31,6 +31,7 @@ export const getFormFields = (
   const customFormFields =
     getActorState(state).context?.formFields?.[route] || {};
   const formFields = applyDefaults(defaultFormFields, customFormFields);
+  delete formFields['QR'];
   return formFields;
 };
 

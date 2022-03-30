@@ -1,5 +1,65 @@
 # @aws-amplify/ui-react
 
+## 2.12.0
+
+### Minor Changes
+
+- [#1569](https://github.com/aws-amplify/amplify-ui/pull/1569) [`6d3981c4a`](https://github.com/aws-amplify/amplify-ui/commit/6d3981c4a26721361e4461d206b0b37d72d67dbd) Thanks [@zchenwei](https://github.com/zchenwei)! - build: setting up Rollup for bundling
+
+  Both `@aws-amplify/ui-react` and `@aws-amplify/ui` cannot be tree shaken before because we bundle it in a wrong way. With `preserveModule` in Rollup, we make them tree-shakeble friendly.
+
+  With webpack, we can see tree shaking is taking effect now
+
+  ```jsx
+  // index.tsx
+  import * as React from 'react';
+  import ReactDOM from 'react-dom';
+  import '@aws-amplify/ui-react/styles.css';
+
+  import { App } from './App';
+
+  ReactDOM.render(<App />, document.getElementById('root'));
+
+  // App.tsx
+  import * as React from 'react';
+  import { Loader } from '@aws-amplify/ui-react';
+
+  export const App = () => {
+    return <Loader />;
+  };
+  ```
+
+  main.js size
+  | Before | After |
+  | ----------- | ----------- |
+  | 1.7M | 161.1k |
+
+### Patch Changes
+
+- [#1510](https://github.com/aws-amplify/amplify-ui/pull/1510) [`683eac926`](https://github.com/aws-amplify/amplify-ui/commit/683eac9261d99ea5c4d8b86048b8c6d2efd83622) Thanks [@reesscot](https://github.com/reesscot)! - fix: make aws-amplify peer dependency optional for ui-react package
+
+* [#1580](https://github.com/aws-amplify/amplify-ui/pull/1580) [`1ac9cda71`](https://github.com/aws-amplify/amplify-ui/commit/1ac9cda712dc7eb7bc7293999340e05059648c93) Thanks [@wlee221](https://github.com/wlee221)! - fix(authenticator): look for current user on routed apps whenever app refreshes
+
+- [#1575](https://github.com/aws-amplify/amplify-ui/pull/1575) [`1570fe132`](https://github.com/aws-amplify/amplify-ui/commit/1570fe132b626223bf194757b8620dbf7d2a31dc) Thanks [@jacoblogan](https://github.com/jacoblogan)! - Add ES export of primitives
+
+- Updated dependencies [[`1ac9cda71`](https://github.com/aws-amplify/amplify-ui/commit/1ac9cda712dc7eb7bc7293999340e05059648c93), [`d47da90a6`](https://github.com/aws-amplify/amplify-ui/commit/d47da90a68d936e2cc22a972a876ef10aca0eaf3), [`6d3981c4a`](https://github.com/aws-amplify/amplify-ui/commit/6d3981c4a26721361e4461d206b0b37d72d67dbd)]:
+  - @aws-amplify/ui@3.4.0
+
+## 2.11.0
+
+### Minor Changes
+
+- [#1538](https://github.com/aws-amplify/amplify-ui/pull/1538) [`eedae2362`](https://github.com/aws-amplify/amplify-ui/commit/eedae236249eb1201f3540fa4458fdbac77b5af6) Thanks [@joebuono](https://github.com/joebuono)! - Adds the optional `hasMorePages` prop to the Pagination component
+
+  The reason this is necessary is because sometimes the totalPages count is unknown when pagination occurs at the API level.
+
+  Resulting conditions:
+
+  - Current behavior of totalPages prop stays the same, which determines the page numbers to show
+  - A new hasMorePages prop is added to Pagination component
+  - When hasMorePages is true, and the customer is at the end of the pages (e.g. 10 of 10), then the next button will NOT be disabled
+  - When hasMorePages is false, and the customer is at the end of the pages (e.g. 10 of 10), then the next button WILL be disabled
+
 ## 2.10.4
 
 ### Patch Changes
