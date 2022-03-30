@@ -27,7 +27,7 @@ function InitMachine({ children, ...data }) {
   const hasInitialized = React.useRef(false);
 
   React.useEffect(() => {
-    if (!hasInitialized.current && route === 'idle') {
+    if (!hasInitialized.current && route === 'setup') {
       _send({
         type: 'INIT',
         data,
