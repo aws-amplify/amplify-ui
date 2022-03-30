@@ -25,9 +25,9 @@ type GeocoderControl = IControl & {
  * // Used as a map control:
  * function App() {
  *   return (
- *     <AmplifyMap>
+ *     <MapView>
  *       <Geocoder />
- *     </AmplifyMap>
+ *     </MapView>
  *   );
  * }
  *
