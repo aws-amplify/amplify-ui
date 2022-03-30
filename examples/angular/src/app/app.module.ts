@@ -25,6 +25,7 @@ import { SignUpWithEmailLambdaComponent } from 'src/pages/ui/components/authenti
 import { SignUpWithPhoneComponent } from 'src/pages/ui/components/authenticator/sign-up-with-phone/sign-up-with-phone.component';
 import { SignUpWithUsernameComponent } from 'src/pages/ui/components/authenticator/sign-up-with-username/sign-up-with-username.component';
 import { UseAuthenticatorComponent } from 'src/pages/ui/components/authenticator/useAuthenticator/useAuthenticator.component';
+import { UseAuthenticatorHomeComponent } from 'src/pages/ui/components/authenticator/useAuthenticator/home/useAuthenticatorHome.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { UseAuthenticatorComponent } from 'src/pages/ui/components/authenticator
     SignUpWithPhoneComponent,
     SignUpWithUsernameComponent,
     UseAuthenticatorComponent,
+    UseAuthenticatorHomeComponent,
   ],
   imports: [
     BrowserModule,
