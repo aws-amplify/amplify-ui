@@ -1,0 +1,51 @@
+---
+title: Geo
+description: Amplify UI Geo provides UI components for maps and location search for popular front end frameworks.
+---
+
+import { Example } from '@/components/Example';
+import { Feature } from '@/components/Feature';
+import { Fragment } from '@/components/Fragment';
+import { XStateInspector } from '@/components/XStateInspector';
+import { Tabs, TabItem } from '@aws-amplify/ui-react';
+
+Amplify UI Geo provides UI components for maps and location search for popular front end frameworks, powered by
+[Amplify Geo APIs](https://docs.amplify.aws/lib/geo/getting-started/q/platform/js/) and
+[Amazon Location Service](https://aws.amazon.com/location/).
+
+## Geocoder
+
+`Geocoder` provides location search powered by [Amazon Location Service](https://aws.amazon.com/location/) for the
+`AmplifyMap` component, using the viewport as the proximity for generating results. `Geocoder` is used as a child
+component of `AmplifyMap` for which it renders visual markers and information based on its location search results.
+
+### Quick Start
+
+> Preqrequisite: [Create a Geo backend](https://docs.amplify.aws/lib/geo/getting-started/q/platform/js/)
+
+You can import the `Geocoder` component with related styles and use it as a child of `AmplifyMap` without any
+additional configuration.
+
+<Fragment platforms={['react']}>
+  {({ platform }) => import(`./fragments/geocoder-quick-start.${platform}.mdx`)}
+</Fragment>
+
+### Geocoder Position
+
+`Geocoder` can be provided a `position` property when used with `AmplifyMap`. The property is not reactive, meaning the
+position is fixed after the component mounts. Valid values are `'top-right'`, `'top-left'`, `'bottom-right'`, and
+`'bottom-left'`. Default value is `'top-right'`.
+
+<Fragment platforms={['react']}>
+  {({ platform }) => import(`./fragments/geocoder-position.${platform}.mdx`)}
+</Fragment>
+
+### Standalone Geocoder
+
+`Geocoder` can also be used as a standalone component without `AmplifyMap`. As a standalone component, `Geocoder`
+provides search results based on an initial proximity. When used as a standlone component, the `proximity` property
+with provided `latitude` and `longitude` properties is required.
+
+<Fragment platforms={['react']}>
+  {({ platform }) => import(`./fragments/standalone-geocoder.${platform}.mdx`)}
+</Fragment>
