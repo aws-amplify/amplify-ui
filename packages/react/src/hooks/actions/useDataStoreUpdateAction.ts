@@ -1,5 +1,6 @@
 import {
   ModelInit,
+  MutableModel,
   PersistentModel,
   PersistentModelConstructor,
   Schema,
@@ -16,13 +17,27 @@ import {
 import { getErrorMessage } from '../../helpers/utils';
 import { AMPLIFY_SYMBOL } from '../../helpers/constants';
 import { useTypeCastFields } from './shared/useTypeCastFields';
+import { ModelFormFields } from './shared/typeUtils';
 
 export interface UseDataStoreUpdateActionOptions<
   Model extends PersistentModel
 > {
   model: PersistentModelConstructor<Model>;
   id: string;
-  fields: ModelInit<Model, { readOnlyFields: 'createdAt' | 'updatedAt' }>;
+  /**
+   * Strongly typed fields based on model. Ensure fields are already
+   * the appropriate type before passing to fields.
+   */
+  fields?: ModelInit<Model>;
+  /**
+   * Used in place of `fields` in combination with `schema` param to have
+   * string field values optimistically cast to the expected type based on the schema
+   */
+  formFields?: ModelFormFields<ModelInit<Model>>;
+  /**
+   * Used in combination with `formFields` param for string field values
+   * optimistically cast to the expected type based on the schema
+   */
   schema?: Schema;
 }
 
@@ -34,10 +49,11 @@ export const useDataStoreUpdateAction = <Model extends PersistentModel>({
   model,
   id,
   fields,
+  formFields,
   schema,
 }: UseDataStoreUpdateActionOptions<Model>) => {
   const convertedFields = useTypeCastFields<Model>({
-    stringFields: fields,
+    formFields,
     modelName: model.name,
     schema,
   });
@@ -64,7 +80,7 @@ export const useDataStoreUpdateAction = <Model extends PersistentModel>({
 
       const item = await DataStore.save(
         model.copyOf(original, (updated: any) => {
-          Object.assign(updated, convertedFields);
+          Object.assign(updated, fields || convertedFields);
         })
       );
 

@@ -2,6 +2,7 @@ import {
   DataStore,
   PersistentModel,
   PersistentModelConstructor,
+  ModelInit,
   Schema,
 } from '@aws-amplify/datastore';
 import { Hub } from 'aws-amplify';
@@ -15,12 +16,29 @@ import {
 import { getErrorMessage } from '../../helpers/utils';
 import { AMPLIFY_SYMBOL } from '../../helpers/constants';
 import { useTypeCastFields } from './shared/useTypeCastFields';
+import { ModelFormFields } from './shared/typeUtils';
 
 export interface UseDataStoreCreateActionOptions<
   Model extends PersistentModel
 > {
+  /**
+   * Expected datastore model
+   */
   model: PersistentModelConstructor<Model>;
-  fields: Record<string, string>; //TODO: take any string fields
+  /**
+   * Strongly typed fields based on model. Ensure fields are already
+   * the appropriate type before passing to fields.
+   */
+  fields?: ModelInit<Model>;
+  /**
+   * Used in place of `fields` in combination with `schema` param to have
+   * string field values optimistically cast to the expected type based on the schema
+   */
+  formFields?: ModelFormFields<ModelInit<Model>>;
+  /**
+   * Used in combination with `formFields` param for string field values
+   * optimistically cast to the expected type based on the schema
+   */
   schema?: Schema;
 }
 
@@ -31,10 +49,11 @@ export interface UseDataStoreCreateActionOptions<
 export const useDataStoreCreateAction = <Model extends PersistentModel>({
   model,
   fields,
+  formFields,
   schema,
 }: UseDataStoreCreateActionOptions<Model>) => {
   const convertedFields = useTypeCastFields<Model>({
-    stringFields: fields,
+    formFields,
     modelName: model.name,
     schema,
   });
@@ -51,7 +70,7 @@ export const useDataStoreCreateAction = <Model extends PersistentModel>({
         AMPLIFY_SYMBOL
       );
 
-      const item = await DataStore.save(new model(convertedFields));
+      const item = await DataStore.save(new model(fields || convertedFields));
 
       Hub.dispatch(
         UI_CHANNEL,

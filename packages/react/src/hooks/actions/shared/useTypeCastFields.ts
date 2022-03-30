@@ -1,50 +1,52 @@
 import * as React from 'react';
 import { ModelInit, Schema } from '@aws-amplify/datastore';
-import { groupBy } from 'lodash';
-import { FieldDescription } from 'src/primitives/Field';
 
-interface UseTypeCastFieldsProps {
-  stringFields: any;
-  schema?: Schema;
-  modelName?: string;
+import { ModelFormFields } from './typeUtils';
+
+interface UseTypeCastFieldsProps<Model> {
+  formFields: ModelFormFields<ModelInit<Model>>;
+  modelName: string;
+  schema: Schema;
 }
 
-type UseTypeCastFieldsReturn<Model> =
-  | ModelInit<Model, { readOnlyFields: 'createdAt' | 'updatedAt' }>
-  | undefined;
+type UseTypeCastFieldsReturn<Model> = ModelInit<Model> | undefined;
 
+/**
+ * Optimistically casts field string values to types required by
+ * datastore based on the schema type
+ * @see: See https://docs.aws.amazon.com/appsync/latest/devguide/scalars.html
+ */
 export const useTypeCastFields = <Model>({
-  stringFields,
+  formFields,
   modelName,
   schema,
-}: UseTypeCastFieldsProps): UseTypeCastFieldsReturn<Model> => {
+}: UseTypeCastFieldsProps<Model>): UseTypeCastFieldsReturn<Model> => {
   return React.useMemo(() => {
-    if (stringFields && (!schema || !modelName)) {
-      return stringFields;
-    }
-    if (!stringFields || !schema || !modelName) {
+    if (!formFields || !schema || !modelName) {
       return;
     }
 
     let castFields = {} as UseTypeCastFieldsReturn<Model>;
-    Object.keys(stringFields).forEach((fieldName) => {
+    Object.keys(formFields).forEach((fieldName) => {
       switch (schema.models[modelName]?.fields?.[fieldName].type) {
-        case 'Int':
-          console.log(`int type ${fieldName}`, Number(stringFields[fieldName]));
-          castFields[fieldName] = Number(stringFields[fieldName]);
+        case 'AWSTimestamp':
+          castFields[fieldName] = Number(formFields[fieldName]);
           break;
         case 'Boolean':
-          castFields[fieldName] = Boolean(stringFields[fieldName]);
+          castFields[fieldName] = Boolean(formFields[fieldName]);
+          break;
+        case 'Int':
+          castFields[fieldName] = parseInt(formFields[fieldName]);
           break;
         case 'Float':
-          castFields[fieldName] = Number(stringFields[fieldName]);
+          castFields[fieldName] = Number(formFields[fieldName]);
           break;
         default:
-          castFields[fieldName] = stringFields[fieldName];
+          castFields[fieldName] = formFields[fieldName];
           break;
       }
     });
 
     return castFields;
-  }, [schema, modelName, stringFields]);
+  }, [schema, modelName, formFields]);
 };
