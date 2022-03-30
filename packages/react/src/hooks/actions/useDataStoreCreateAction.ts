@@ -52,7 +52,8 @@ export const useDataStoreCreateAction = <Model extends PersistentModel>({
   formFields,
   schema,
 }: UseDataStoreCreateActionOptions<Model>) => {
-  const convertedFields = useTypeCastFields<Model>({
+  const fieldsOrConvertedFields = useTypeCastFields<Model>({
+    fields,
     formFields,
     modelName: model.name,
     schema,
@@ -64,19 +65,19 @@ export const useDataStoreCreateAction = <Model extends PersistentModel>({
         UI_CHANNEL,
         {
           event: ACTION_DATASTORE_CREATE_STARTED,
-          data: { originalFields: fields, fields: convertedFields },
+          data: { fields: fieldsOrConvertedFields },
         },
         EVENT_ACTION_DATASTORE_CREATE,
         AMPLIFY_SYMBOL
       );
 
-      const item = await DataStore.save(new model(fields || convertedFields));
+      const item = await DataStore.save(new model(fieldsOrConvertedFields));
 
       Hub.dispatch(
         UI_CHANNEL,
         {
           event: ACTION_DATASTORE_CREATE_FINISHED,
-          data: { fields: convertedFields, item },
+          data: { fields: fieldsOrConvertedFields, item },
         },
         EVENT_ACTION_DATASTORE_CREATE,
         AMPLIFY_SYMBOL
@@ -87,7 +88,7 @@ export const useDataStoreCreateAction = <Model extends PersistentModel>({
         {
           event: ACTION_DATASTORE_CREATE_FINISHED,
           data: {
-            fields: convertedFields,
+            fields: fieldsOrConvertedFields,
             errorMessage: getErrorMessage(error),
           },
         },

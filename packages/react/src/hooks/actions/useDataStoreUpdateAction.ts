@@ -52,7 +52,8 @@ export const useDataStoreUpdateAction = <Model extends PersistentModel>({
   formFields,
   schema,
 }: UseDataStoreUpdateActionOptions<Model>) => {
-  const convertedFields = useTypeCastFields<Model>({
+  const fieldsOrConvertedFields = useTypeCastFields<Model>({
+    fields,
     formFields,
     modelName: model.name,
     schema,
@@ -64,7 +65,7 @@ export const useDataStoreUpdateAction = <Model extends PersistentModel>({
         UI_CHANNEL,
         {
           event: ACTION_DATASTORE_UPDATE_STARTED,
-          data: { originalFields: fields, fields: convertedFields, id },
+          data: { fields: fieldsOrConvertedFields, id },
         },
         EVENT_ACTION_DATASTORE_UPDATE,
         AMPLIFY_SYMBOL
@@ -80,7 +81,7 @@ export const useDataStoreUpdateAction = <Model extends PersistentModel>({
 
       const item = await DataStore.save(
         model.copyOf(original, (updated: any) => {
-          Object.assign(updated, fields || convertedFields);
+          Object.assign(updated, fieldsOrConvertedFields);
         })
       );
 
@@ -88,7 +89,7 @@ export const useDataStoreUpdateAction = <Model extends PersistentModel>({
         UI_CHANNEL,
         {
           event: ACTION_DATASTORE_UPDATE_FINISHED,
-          data: { fields: convertedFields, id, item },
+          data: { fields: fieldsOrConvertedFields, id, item },
         },
         EVENT_ACTION_DATASTORE_UPDATE,
         AMPLIFY_SYMBOL
@@ -99,7 +100,7 @@ export const useDataStoreUpdateAction = <Model extends PersistentModel>({
         {
           event: ACTION_DATASTORE_UPDATE_FINISHED,
           data: {
-            fields: convertedFields,
+            fields: fieldsOrConvertedFields,
             id,
             errorMessage: getErrorMessage(error),
           },
