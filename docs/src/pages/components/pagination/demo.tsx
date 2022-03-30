@@ -8,6 +8,7 @@ interface PaginationDemoProps {
   defaultCurrentPage?: number;
   defaultTotalPages?: number;
   defaultSiblingCount?: number;
+  defaultHasMorePages?: boolean;
 }
 export const PaginationDemo: React.FC<PaginationDemoProps> = (props) => {
   const {
@@ -15,12 +16,14 @@ export const PaginationDemo: React.FC<PaginationDemoProps> = (props) => {
     defaultCurrentPage = 1,
     defaultTotalPages = 10,
     defaultSiblingCount = 1,
+    defaultHasMorePages = false,
     ...rest
   } = props;
 
   const [currentPage, setCurrentPage] = useState(defaultCurrentPage);
   const [totalPages, setTotalPages] = useState(defaultTotalPages);
   const [siblingCount, setSiblingCount] = useState(defaultSiblingCount);
+  const [hasMorePages, setHasMorePages] = useState(defaultHasMorePages);
 
   const onNext = useCallback(() => {
     if (currentPage < totalPages) {
@@ -40,7 +43,21 @@ export const PaginationDemo: React.FC<PaginationDemoProps> = (props) => {
   return (
     <div className="amplify-pagination-demo">
       {isDemo ? (
-        <Flex justifyContent="center">
+        <Flex justifyContent="center" direction="column">
+          <Flex justifyContent="center">
+            <Example>
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                siblingCount={siblingCount}
+                hasMorePages={hasMorePages}
+                onNext={onNext}
+                onPrevious={onPrev}
+                onChange={onChange}
+                {...rest}
+              />
+            </Example>
+          </Flex>
           <Flex justifyContent="center" alignItems="center">
             <label htmlFor="current-page">currentPage</label>
             <input
@@ -86,22 +103,20 @@ export const PaginationDemo: React.FC<PaginationDemoProps> = (props) => {
               }}
             />
           </Flex>
+          <Flex justifyContent="center" alignItems="center">
+            <label htmlFor="hasMorePages">hasMorePages</label>
+            <input
+              type="checkbox"
+              id="hasMorePages"
+              checked={hasMorePages}
+              placeholder="Enter hasMorePages"
+              onChange={(e) => {
+                setHasMorePages(!hasMorePages);
+              }}
+            />
+          </Flex>
         </Flex>
       ) : null}
-      <br />
-      <Flex justifyContent="center">
-        <Example>
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            siblingCount={siblingCount}
-            onNext={onNext}
-            onPrevious={onPrev}
-            onChange={onChange}
-            {...rest}
-          />
-        </Example>
-      </Flex>
     </div>
   );
 };

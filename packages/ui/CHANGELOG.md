@@ -1,5 +1,45 @@
 # @aws-amplify/ui
 
+## 3.4.0
+
+### Minor Changes
+
+- [#1569](https://github.com/aws-amplify/amplify-ui/pull/1569) [`6d3981c4a`](https://github.com/aws-amplify/amplify-ui/commit/6d3981c4a26721361e4461d206b0b37d72d67dbd) Thanks [@zchenwei](https://github.com/zchenwei)! - build: setting up Rollup for bundling
+
+  Both `@aws-amplify/ui-react` and `@aws-amplify/ui` cannot be tree shaken before because we bundle it in a wrong way. With `preserveModule` in Rollup, we make them tree-shakeble friendly.
+
+  With webpack, we can see tree shaking is taking effect now
+
+  ```jsx
+  // index.tsx
+  import * as React from 'react';
+  import ReactDOM from 'react-dom';
+  import '@aws-amplify/ui-react/styles.css';
+
+  import { App } from './App';
+
+  ReactDOM.render(<App />, document.getElementById('root'));
+
+  // App.tsx
+  import * as React from 'react';
+  import { Loader } from '@aws-amplify/ui-react';
+
+  export const App = () => {
+    return <Loader />;
+  };
+  ```
+
+  main.js size
+  | Before | After |
+  | ----------- | ----------- |
+  | 1.7M | 161.1k |
+
+### Patch Changes
+
+- [#1580](https://github.com/aws-amplify/amplify-ui/pull/1580) [`1ac9cda71`](https://github.com/aws-amplify/amplify-ui/commit/1ac9cda712dc7eb7bc7293999340e05059648c93) Thanks [@wlee221](https://github.com/wlee221)! - fix(authenticator): look for current user on routed apps whenever app refreshes
+
+* [#1588](https://github.com/aws-amplify/amplify-ui/pull/1588) [`d47da90a6`](https://github.com/aws-amplify/amplify-ui/commit/d47da90a68d936e2cc22a972a876ef10aca0eaf3) Thanks [@0618](https://github.com/0618)! - fix authenticator modal layout position
+
 ## 3.3.2
 
 ### Patch Changes
