@@ -2,6 +2,7 @@ import {
   ModelInit,
   PersistentModel,
   PersistentModelConstructor,
+  Schema,
 } from '@aws-amplify/datastore';
 import { DataStore, Hub } from 'aws-amplify';
 
@@ -14,6 +15,7 @@ import {
 } from './constants';
 import { getErrorMessage } from '../../helpers/utils';
 import { AMPLIFY_SYMBOL } from '../../helpers/constants';
+import { useTypeCastFields } from './shared/useTypeCastFields';
 
 export interface UseDataStoreUpdateActionOptions<
   Model extends PersistentModel
@@ -21,25 +23,32 @@ export interface UseDataStoreUpdateActionOptions<
   model: PersistentModelConstructor<Model>;
   id: string;
   fields: ModelInit<Model, { readOnlyFields: 'createdAt' | 'updatedAt' }>;
+  schema?: Schema;
 }
 
 /**
  * Action to Update DataStore item
  * @internal
  */
-export const useDataStoreUpdateAction =
-  <Model extends PersistentModel>({
-    model,
-    id,
-    fields,
-  }: UseDataStoreUpdateActionOptions<Model>) =>
-  async () => {
+export const useDataStoreUpdateAction = <Model extends PersistentModel>({
+  model,
+  id,
+  fields,
+  schema,
+}: UseDataStoreUpdateActionOptions<Model>) => {
+  const convertedFields = useTypeCastFields<Model>({
+    stringFields: fields,
+    modelName: model.name,
+    schema,
+  });
+
+  return async () => {
     try {
       Hub.dispatch(
         UI_CHANNEL,
         {
           event: ACTION_DATASTORE_UPDATE_STARTED,
-          data: { fields, id },
+          data: { originalFields: fields, fields: convertedFields, id },
         },
         EVENT_ACTION_DATASTORE_UPDATE,
         AMPLIFY_SYMBOL
@@ -55,7 +64,7 @@ export const useDataStoreUpdateAction =
 
       const item = await DataStore.save(
         model.copyOf(original, (updated: any) => {
-          Object.assign(updated, fields);
+          Object.assign(updated, convertedFields);
         })
       );
 
@@ -63,7 +72,7 @@ export const useDataStoreUpdateAction =
         UI_CHANNEL,
         {
           event: ACTION_DATASTORE_UPDATE_FINISHED,
-          data: { fields, id, item },
+          data: { fields: convertedFields, id, item },
         },
         EVENT_ACTION_DATASTORE_UPDATE,
         AMPLIFY_SYMBOL
@@ -73,10 +82,15 @@ export const useDataStoreUpdateAction =
         UI_CHANNEL,
         {
           event: ACTION_DATASTORE_UPDATE_FINISHED,
-          data: { fields, id, errorMessage: getErrorMessage(error) },
+          data: {
+            fields: convertedFields,
+            id,
+            errorMessage: getErrorMessage(error),
+          },
         },
         EVENT_ACTION_DATASTORE_UPDATE,
         AMPLIFY_SYMBOL
       );
     }
   };
+};

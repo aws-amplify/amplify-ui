@@ -24,6 +24,20 @@ export const schema = {
           isRequired: false,
           attributes: [],
         },
+        count: {
+          name: 'count',
+          isArray: false,
+          type: 'Int',
+          isRequired: true,
+          attributes: [],
+        },
+        price: {
+          name: 'price',
+          isArray: false,
+          type: 'Float',
+          isRequired: true,
+          attributes: [],
+        },
         createdAt: {
           name: 'createdAt',
           isArray: false,

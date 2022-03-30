@@ -12,6 +12,8 @@ export declare class Todo {
   readonly id: string;
   readonly name: string;
   readonly description?: string;
+  readonly price: number;
+  readonly count: number;
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Todo, TodoMetaData>);
