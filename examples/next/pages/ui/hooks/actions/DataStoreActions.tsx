@@ -59,8 +59,7 @@ export const DataStoreTodoForm = () => {
       <h2>Shopping list:</h2>
       <TextField
         name="createTodo"
-        label="ToDo"
-        labelHidden
+        label="Name"
         onInput={onNameInput}
         value={toDoName}
       />
@@ -109,8 +108,10 @@ export const DataStoreTodoForm = () => {
 const TodoItem = ({ todo }: { todo: Todo }) => {
   const [showEdit, setShowEdit] = React.useState(false);
   const [toDoName, setToDoName] = React.useState(todo.name);
-  const [toDoCount, setToDoCount] = React.useState(todo.count);
-  const [toDoPrice, setToDoPrice] = React.useState(todo.price);
+  // convert count and price to string to simulate Amplify Studio customers
+  // use of TextField for Int and Boolean scalar values
+  const [toDoCount, setToDoCount] = React.useState(todo.count.toString());
+  const [toDoPrice, setToDoPrice] = React.useState(todo.price.toString());
   const [toDoCompleted, setToDoCompleted] = React.useState(todo.completed);
 
   const toggleEdit = () => {
@@ -167,7 +168,7 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
           />
           <CheckboxField
             name="toDoCompleted"
-            label="Completed"
+            label="Update Completed"
             value="checked"
             checked={toDoCompleted}
             onChange={(e: any) => {
@@ -185,8 +186,8 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
           <Button
             onClick={() => {
               setToDoName('');
-              setToDoPrice(null);
-              setToDoCount(null);
+              setToDoPrice('');
+              setToDoCount('');
             }}
           >
             Clear
