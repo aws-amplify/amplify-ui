@@ -38,6 +38,13 @@ export const schema = {
           isRequired: true,
           attributes: [],
         },
+        completed: {
+          name: 'completed',
+          isArray: false,
+          type: 'Boolean',
+          isRequired: true,
+          attributes: [],
+        },
         createdAt: {
           name: 'createdAt',
           isArray: false,

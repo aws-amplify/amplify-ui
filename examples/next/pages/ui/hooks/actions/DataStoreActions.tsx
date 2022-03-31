@@ -6,6 +6,7 @@ import {
   Collection,
   Flex,
   View,
+  CheckboxField,
 } from '@aws-amplify/ui-react';
 import {
   useDataStoreCollection,
@@ -21,10 +22,16 @@ export const DataStoreTodoForm = () => {
   const [toDoName, setToDoName] = React.useState<string>('');
   const [toDoCount, setToDoCount] = React.useState<string>('');
   const [toDoPrice, setToDoPrice] = React.useState<string>('');
+  const [toDoCompleted, setToDoCompleted] = React.useState(false);
 
   const createTodoAction = useDataStoreCreateAction({
     model: Todo,
-    fields: { name: toDoName, price: toDoPrice, count: toDoCount },
+    fields: {
+      name: toDoName,
+      price: toDoPrice,
+      count: toDoCount,
+      completed: toDoCompleted,
+    },
     schema,
   });
 
@@ -41,6 +48,10 @@ export const DataStoreTodoForm = () => {
   const onPriceInput = (e: any) => {
     const { value } = e.target;
     setToDoPrice(value);
+  };
+  const onCompletedChange = (e: any) => {
+    const { checked } = e.target;
+    setToDoCompleted(checked);
   };
 
   return (
@@ -65,10 +76,20 @@ export const DataStoreTodoForm = () => {
         onInput={onPriceInput}
         value={toDoPrice}
       />
+      <CheckboxField
+        name="completed"
+        label="Completed"
+        value="yes"
+        checked={toDoCompleted}
+        onChange={onCompletedChange}
+      />
       <Button
         onClick={async () => {
           await createTodoAction();
           setToDoName('');
+          setToDoCount('');
+          setToDoPrice('');
+          setToDoCompleted(false);
         }}
       >
         Save
@@ -87,9 +108,10 @@ export const DataStoreTodoForm = () => {
 
 const TodoItem = ({ todo }: { todo: Todo }) => {
   const [showEdit, setShowEdit] = React.useState(false);
-  const [todoName, setToDoName] = React.useState(todo.name);
-  const [todoCount, setToDoCount] = React.useState(todo.count);
-  const [todoPrice, setToDoPrice] = React.useState(todo.price);
+  const [toDoName, setToDoName] = React.useState(todo.name);
+  const [toDoCount, setToDoCount] = React.useState(todo.count);
+  const [toDoPrice, setToDoPrice] = React.useState(todo.price);
+  const [toDoCompleted, setToDoCompleted] = React.useState(todo.completed);
 
   const toggleEdit = () => {
     setShowEdit(!showEdit);
@@ -103,7 +125,12 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
   const updateTodoAction = useDataStoreUpdateAction({
     model: Todo,
     id: todo.id,
-    fields: { name: todoName, price: todoPrice, count: todoCount },
+    fields: {
+      name: toDoName,
+      price: toDoPrice,
+      count: toDoCount,
+      completed: toDoCompleted,
+    },
     schema,
   });
 
@@ -114,7 +141,7 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
           <TextField
             label="Update Name"
             labelHidden
-            value={todoName}
+            value={toDoName}
             width="100%"
             onChange={(e: any) => {
               setToDoName(e.target.value);
@@ -123,7 +150,7 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
           <TextField
             label="Update Count"
             labelHidden
-            value={todoCount}
+            value={toDoCount}
             width="100%"
             onChange={(e: any) => {
               setToDoCount(e.target.value);
@@ -132,10 +159,19 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
           <TextField
             label="Update Price"
             labelHidden
-            value={todoPrice}
+            value={toDoPrice}
             width="100%"
             onChange={(e: any) => {
               setToDoPrice(e.target.value);
+            }}
+          />
+          <CheckboxField
+            name="toDoCompleted"
+            label="Completed"
+            value="checked"
+            checked={toDoCompleted}
+            onChange={(e: any) => {
+              setToDoCompleted(e.target.checked);
             }}
           />
           <Button
@@ -158,7 +194,7 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
         </Flex>
       ) : (
         <Button isFullWidth variation="link" onClick={toggleEdit}>
-          {todo.name} - {todo.count} @ {todo.price}
+          {todo.name} - {todo.count} @ {todo.price} {todo.completed.toString()}
         </Button>
       )}
       <Button onClick={() => deleteTodoAction()}>Delete</Button>
