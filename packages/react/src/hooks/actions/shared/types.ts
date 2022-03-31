@@ -11,7 +11,7 @@ import {
  * because Datastore Int and Float scalar types are often
  * entered by users in a TextField which returns a string
  */
-export type ModelFormFields<Type> = {
+type ModelFields<Type> = {
   // Text Field, TextArea Field, Password Field, Phone Number Field,
   // Radio Group Field, Select Field return "string"
   // Checkbox Field, Switch Field, Toggle Button return "boolean"
@@ -21,19 +21,19 @@ export type ModelFormFields<Type> = {
 
 export type DataStoreActionFields<Model> =
   | ModelInit<Model>
-  | ModelFormFields<ModelInit<Model>>;
+  | ModelFields<ModelInit<Model>>;
 
 export interface UseDataStoreActionOptions<Model extends PersistentModel> {
   model: PersistentModelConstructor<Model>;
   /**
    * Pass either already converted field values based on DataStore schema,
-   * or also pass the schema param have string field values
-   * optimistically cast to the expected type based on the schema
+   * or also pass the `schema` param have string field values
+   * optimistically cast to the expected type based on the `schema`
    */
-  fields?: DataStoreActionFields<Model>;
+  fields: DataStoreActionFields<Model>;
   /**
-   * Used in combination with `formFields` param for string field values
-   * optimistically cast to the expected type based on the schema
+   * Used to optimistically cast fields values to the
+   * expected value types based on the `schema` provided
    */
   schema?: Schema;
 }
