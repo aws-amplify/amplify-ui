@@ -1,6 +1,6 @@
 import maplibregl from 'maplibre-gl';
 import { createAmplifyGeocoder } from 'maplibre-gl-js-amplify';
-import React, { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useControl, useMap } from 'react-map-gl';
 import type { IControl } from 'react-map-gl';
 
@@ -45,29 +45,37 @@ export const Geocoder = ({
 
   /**
    * This logic determines whether the Geocoder exists as part of a Map component or if it is a standalone component.
-   * The `useControl` hook from `react-map-gl` makes it easy to add a control to a map, but throws an error if that map
-   * doesn't exist. If the map doesn't exist, the Geocoder is mounted to a container upon rendering.
+   * The `useControl` hook inside `ControlledGeocoder` from `react-map-gl` makes it easy to add a control to a map,
+   * but throws an error if that map doesn't exist. If the map doesn't exist, the Geocoder is mounted to a container
+   * upon rendering inside the `StandaloneGeocoder`.
    */
   if (map) {
-    useControl(
-      () =>
-        createAmplifyGeocoder({
-          ...GEOCODER_OPTIONS,
-          ...props,
-        }) as unknown as GeocoderControl
-    );
-  } else {
-    useEffect(() => {
-      (
-        createAmplifyGeocoder({
-          ...GEOCODER_OPTIONS,
-          ...props,
-        }) as unknown as GeocoderControl
-      ).addTo(`#${GEOCODER_CONTAINER}`);
-    }, []);
+    return <ControlledGeocoder {...GEOCODER_OPTIONS} {...props} />;
   }
 
-  return !map ? <div id={GEOCODER_CONTAINER} /> : null;
+  return <StandaloneGeocoder {...GEOCODER_OPTIONS} {...props} />;
+};
+
+const ControlledGeocoder = (props: GeocoderProps) => {
+  useControl(() => createAmplifyGeocoder(props) as unknown as GeocoderControl);
+
+  return null;
+};
+
+const StandaloneGeocoder = (props: GeocoderProps) => {
+  const hasMounted = useRef(false);
+
+  useEffect(() => {
+    if (!hasMounted.current) {
+      (createAmplifyGeocoder(props) as unknown as GeocoderControl).addTo(
+        `#${GEOCODER_CONTAINER}`
+      );
+
+      hasMounted.current = true;
+    }
+  }, [props]);
+
+  return <div id={GEOCODER_CONTAINER} />;
 };
 
 // `GeocoderProps` is based upon the typing specified by maplibre-gl-geocoder:
