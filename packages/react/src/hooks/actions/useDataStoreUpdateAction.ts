@@ -1,6 +1,5 @@
 import {
   ModelInit,
-  MutableModel,
   PersistentModel,
   PersistentModelConstructor,
   Schema,

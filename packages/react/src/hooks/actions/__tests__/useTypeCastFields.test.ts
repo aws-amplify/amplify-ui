@@ -1,16 +1,15 @@
 import { useTypeCastFields } from '../shared/useTypeCastFields';
 import { renderHook } from '@testing-library/react-hooks';
 
-import { schema } from './models/schema';
-import { Home } from './models';
-import exp from 'constants';
-import { result } from 'lodash';
+import { schema } from '../testModels/schema';
+import { Home } from '../testModels/model';
 
 jest.mock('aws-amplify');
 
 const formFields = {
   address: '1234 Main St',
-  image_url: 'https://unsplash.com/photos/qdjotaILp50',
+  image_url:
+    'https://images.unsplash.com/photo-1508166587935-ceab275da5e8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80',
   price: '1.99',
   Rating: '5',
   isAvailable: 'true',
