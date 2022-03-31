@@ -4,7 +4,28 @@
 
 ### Minor Changes
 
-- [#1566](https://github.com/aws-amplify/amplify-ui/pull/1566) [`7ce9dd531`](https://github.com/aws-amplify/amplify-ui/commit/7ce9dd5313b85d9f4b4cab8c7e329e37551e1690) Thanks [@jacoblogan](https://github.com/jacoblogan)! - added useBreakpointValue hook
+- [#1566](https://github.com/aws-amplify/amplify-ui/pull/1566) [`7ce9dd531`](https://github.com/aws-amplify/amplify-ui/commit/7ce9dd5313b85d9f4b4cab8c7e329e37551e1690) Thanks [@jacoblogan](https://github.com/jacoblogan)! - added useBreakpointValue hook.
+      Used with either a breakpoint object or array
+    ```
+    export const UseBreakpointValueObjectExample = () => {
+      const variation = useBreakpointValue({
+        base: 'info',
+        small: 'warning',
+        medium: 'error',
+        large: 'success',
+      });
+
+      return <Alert variation={variation}>Responsive Alert</Alert>;
+    };
+    ```
+    OR
+    ```
+    export const UseBreakpointValueArrayExample = () => {
+      const variation = useBreakpointValue(['info', 'warning', 'error', 'success']);
+
+      return <Alert variation={variation}>Responsive Alert</Alert>;
+    };
+    ```
 
 ### Patch Changes
 
