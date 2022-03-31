@@ -15,31 +15,10 @@ import {
 import { getErrorMessage } from '../../helpers/utils';
 import { AMPLIFY_SYMBOL } from '../../helpers/constants';
 import { useTypeCastFields } from './shared/useTypeCastFields';
-import { ModelFormFields } from './shared/typeUtils';
+import { UseDataStoreActionOptions } from './shared/types';
 
-export interface UseDataStoreCreateActionOptions<
-  Model extends PersistentModel
-> {
-  /**
-   * Expected datastore model
-   */
-  model: PersistentModelConstructor<Model>;
-  /**
-   * Strongly typed fields based on model. Ensure fields are already
-   * the appropriate type before passing to fields.
-   */
-  fields?: ModelInit<Model>;
-  /**
-   * Used in place of `fields` in combination with `schema` param to have
-   * string field values optimistically cast to the expected type based on the schema
-   */
-  formFields?: ModelFormFields<ModelInit<Model>>;
-  /**
-   * Used in combination with `formFields` param for string field values
-   * optimistically cast to the expected type based on the schema
-   */
-  schema?: Schema;
-}
+export interface UseDataStoreCreateActionOptions<Model extends PersistentModel>
+  extends UseDataStoreActionOptions<Model> {}
 
 /**
  * Action to Create DataStore item
@@ -47,13 +26,11 @@ export interface UseDataStoreCreateActionOptions<
  */
 export const useDataStoreCreateAction = <Model extends PersistentModel>({
   model,
-  fields,
-  formFields,
+  fields: initialFields,
   schema,
 }: UseDataStoreCreateActionOptions<Model>) => {
-  const fieldsOrConvertedFields = useTypeCastFields<Model>({
-    fields,
-    formFields,
+  const fields = useTypeCastFields<Model>({
+    fields: initialFields,
     modelName: model.name,
     schema,
   });
@@ -64,19 +41,19 @@ export const useDataStoreCreateAction = <Model extends PersistentModel>({
         UI_CHANNEL,
         {
           event: ACTION_DATASTORE_CREATE_STARTED,
-          data: { fields: fieldsOrConvertedFields },
+          data: { fields },
         },
         EVENT_ACTION_DATASTORE_CREATE,
         AMPLIFY_SYMBOL
       );
 
-      const item = await DataStore.save(new model(fieldsOrConvertedFields));
+      const item = await DataStore.save(new model(fields));
 
       Hub.dispatch(
         UI_CHANNEL,
         {
           event: ACTION_DATASTORE_CREATE_FINISHED,
-          data: { fields: fieldsOrConvertedFields, item },
+          data: { fields, item },
         },
         EVENT_ACTION_DATASTORE_CREATE,
         AMPLIFY_SYMBOL
@@ -87,7 +64,7 @@ export const useDataStoreCreateAction = <Model extends PersistentModel>({
         {
           event: ACTION_DATASTORE_CREATE_FINISHED,
           data: {
-            fields: fieldsOrConvertedFields,
+            fields,
             errorMessage: getErrorMessage(error),
           },
         },

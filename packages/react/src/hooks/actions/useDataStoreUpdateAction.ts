@@ -16,28 +16,11 @@ import {
 import { getErrorMessage } from '../../helpers/utils';
 import { AMPLIFY_SYMBOL } from '../../helpers/constants';
 import { useTypeCastFields } from './shared/useTypeCastFields';
-import { ModelFormFields } from './shared/typeUtils';
+import { UseDataStoreActionOptions } from './shared/types';
 
-export interface UseDataStoreUpdateActionOptions<
-  Model extends PersistentModel
-> {
-  model: PersistentModelConstructor<Model>;
+export interface UseDataStoreUpdateActionOptions<Model extends PersistentModel>
+  extends UseDataStoreActionOptions<Model> {
   id: string;
-  /**
-   * Strongly typed fields based on model. Ensure fields are already
-   * the appropriate type before passing to fields.
-   */
-  fields?: ModelInit<Model>;
-  /**
-   * Used in place of `fields` in combination with `schema` param to have
-   * string field values optimistically cast to the expected type based on the schema
-   */
-  formFields?: ModelFormFields<ModelInit<Model>>;
-  /**
-   * Used in combination with `formFields` param for string field values
-   * optimistically cast to the expected type based on the schema
-   */
-  schema?: Schema;
 }
 
 /**
@@ -45,15 +28,13 @@ export interface UseDataStoreUpdateActionOptions<
  * @internal
  */
 export const useDataStoreUpdateAction = <Model extends PersistentModel>({
-  model,
+  fields: initialFields,
   id,
-  fields,
-  formFields,
+  model,
   schema,
 }: UseDataStoreUpdateActionOptions<Model>) => {
-  const fieldsOrConvertedFields = useTypeCastFields<Model>({
-    fields,
-    formFields,
+  const fields = useTypeCastFields<Model>({
+    fields: initialFields,
     modelName: model.name,
     schema,
   });
@@ -64,7 +45,7 @@ export const useDataStoreUpdateAction = <Model extends PersistentModel>({
         UI_CHANNEL,
         {
           event: ACTION_DATASTORE_UPDATE_STARTED,
-          data: { fields: fieldsOrConvertedFields, id },
+          data: { fields, id },
         },
         EVENT_ACTION_DATASTORE_UPDATE,
         AMPLIFY_SYMBOL
@@ -80,7 +61,7 @@ export const useDataStoreUpdateAction = <Model extends PersistentModel>({
 
       const item = await DataStore.save(
         model.copyOf(original, (updated: any) => {
-          Object.assign(updated, fieldsOrConvertedFields);
+          Object.assign(updated, fields);
         })
       );
 
@@ -88,7 +69,7 @@ export const useDataStoreUpdateAction = <Model extends PersistentModel>({
         UI_CHANNEL,
         {
           event: ACTION_DATASTORE_UPDATE_FINISHED,
-          data: { fields: fieldsOrConvertedFields, id, item },
+          data: { fields, id, item },
         },
         EVENT_ACTION_DATASTORE_UPDATE,
         AMPLIFY_SYMBOL
@@ -99,7 +80,7 @@ export const useDataStoreUpdateAction = <Model extends PersistentModel>({
         {
           event: ACTION_DATASTORE_UPDATE_FINISHED,
           data: {
-            fields: fieldsOrConvertedFields,
+            fields,
             id,
             errorMessage: getErrorMessage(error),
           },

@@ -6,7 +6,7 @@ import { Home } from '../testModels/model';
 
 jest.mock('aws-amplify');
 
-const formFields = {
+const stringFields = {
   address: '1234 Main St',
   image_url:
     'https://images.unsplash.com/photo-1508166587935-ceab275da5e8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80',
@@ -26,29 +26,22 @@ const formFields = {
 };
 
 const fields = {
-  ...formFields,
+  ...stringFields,
   price: 1.99,
   Rating: 5,
   isAvailable: true,
   timestamp: 31556926,
 };
 
-let consoleWarnSpy: jest.SpyInstance;
-
 describe('useTypeCastFields', () => {
-  afterEach(() => {
-    consoleWarnSpy?.mockRestore();
-  });
-
-  describe('when using formFields with schema', () => {
+  describe('when using fields with schema', () => {
     const {
       result: { current: convertedFields },
     } = renderHook(() =>
       useTypeCastFields<Home>({
+        fields: stringFields,
         modelName: 'Home',
         schema,
-        formFields,
-        fields: undefined,
       })
     );
     it('should convert string with Int types to Number', () => {
@@ -63,6 +56,8 @@ describe('useTypeCastFields', () => {
       expect(convertedFields.timestamp).toEqual(31556926);
     });
 
+    // Note this would only apply if users put a Boolean datastore
+    // type on Field that returns string, such an TextField (input)
     it('should convert string with Boolean types to Boolean', () => {
       expect(convertedFields.isAvailable).toEqual(true);
     });
@@ -73,60 +68,18 @@ describe('useTypeCastFields', () => {
     });
   });
 
-  describe('when using formFields without schema', () => {
-    it('expect to throw with error message', () => {
-      const {
-        result: { error },
-      } = renderHook(() =>
-        useTypeCastFields<Home>({
-          modelName: 'Home',
-          fields: undefined,
-          formFields,
-          schema: undefined,
-        })
-      );
-      expect(error).toEqual(
-        Error(
-          'DataStore Actions Error: Must provide both `formFields` and `schema`'
-        )
-      );
-    });
-  });
-
-  describe('when using strongly typed fields param (not formFields nor schema)', () => {
+  describe('when using strongly typed fields (no schema)', () => {
     const {
       result: { current },
     } = renderHook(() =>
       useTypeCastFields<Home>({
-        modelName: 'Home',
         fields,
+        modelName: 'Home',
         schema: undefined,
-        formFields: undefined,
       })
     );
     it('should just return fields directly', () => {
       expect(current).toBe(fields);
-    });
-  });
-
-  describe('when using fields param and formFields', () => {
-    const consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation();
-
-    const {
-      result: { current },
-    } = renderHook(() =>
-      useTypeCastFields<Home>({
-        modelName: 'Home',
-        fields,
-        schema,
-        formFields,
-      })
-    );
-    it('should just return fields directly', () => {
-      expect(current).toBe(fields);
-      expect(consoleWarnSpy).toBeCalledWith(
-        'DataStore Actions Warning: dont use both `fields` and `formFields`. Use either corrrectly typed `fields` or `formFields` + `schema` params. Defaulting to fields.'
-      );
     });
   });
 });

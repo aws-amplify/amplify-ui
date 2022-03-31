@@ -1,11 +1,10 @@
 import * as React from 'react';
 import { ModelInit, Schema } from '@aws-amplify/datastore';
 
-import { ModelFormFields } from './typeUtils';
+import { DataStoreActionFields, isAlreadyTyped } from './types';
 
 interface UseTypeCastFieldsProps<Model> {
-  fields: ModelInit<Model>;
-  formFields: ModelFormFields<ModelInit<Model>>;
+  fields: DataStoreActionFields<Model>;
   modelName: string;
   schema: Schema;
 }
@@ -19,46 +18,35 @@ type UseTypeCastFieldsReturn<Model> = ModelInit<Model> | undefined;
  */
 export const useTypeCastFields = <Model>({
   fields,
-  formFields,
   modelName,
   schema,
 }: UseTypeCastFieldsProps<Model>): UseTypeCastFieldsReturn<Model> => {
   return React.useMemo(() => {
-    if (formFields && fields) {
-      console.warn(
-        'DataStore Actions Warning: dont use both `fields` and `formFields`. Use either corrrectly typed `fields` or `formFields` + `schema` params. Defaulting to fields.'
-      );
-    }
-    if (fields) {
+    if (isAlreadyTyped<Model>(fields, schema)) {
       return fields;
-    }
-    if (!formFields || !schema) {
-      throw new Error(
-        'DataStore Actions Error: Must provide both `formFields` and `schema`'
-      );
     }
 
     let castFields = {} as UseTypeCastFieldsReturn<Model>;
-    Object.keys(formFields).forEach((fieldName) => {
+    Object.keys(fields).forEach((fieldName) => {
       switch (schema?.models[modelName]?.fields?.[fieldName]?.type) {
         case 'AWSTimestamp':
-          castFields[fieldName] = Number(formFields[fieldName]);
+          castFields[fieldName] = Number(fields[fieldName]);
           break;
         case 'Boolean':
-          castFields[fieldName] = Boolean(formFields[fieldName]);
+          castFields[fieldName] = Boolean(fields[fieldName]);
           break;
         case 'Int':
-          castFields[fieldName] = parseInt(formFields[fieldName]);
+          castFields[fieldName] = parseInt(fields[fieldName]);
           break;
         case 'Float':
-          castFields[fieldName] = Number(formFields[fieldName]);
+          castFields[fieldName] = Number(fields[fieldName]);
           break;
         default:
-          castFields[fieldName] = formFields[fieldName];
+          castFields[fieldName] = fields[fieldName];
           break;
       }
     });
 
     return castFields;
-  }, [fields, formFields, schema, modelName]);
+  }, [fields, schema, modelName]);
 };
