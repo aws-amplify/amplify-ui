@@ -5,28 +5,28 @@ import React, { useEffect, useMemo, useState } from 'react';
 import ReactMapGL from 'react-map-gl';
 import type { MapProps, TransformRequestFunction } from 'react-map-gl';
 
-export type AmplifyMapProps = Omit<MapProps, 'transformRequest'>;
+export type MapViewProps = Omit<MapProps, 'transformRequest'>;
 
 /**
- * The `AmplifyMap` component uses [react-map-gl](https://visgl.github.io/react-map-gl/) and
+ * The `MapView` component uses [react-map-gl](https://visgl.github.io/react-map-gl/) and
  * [maplibre-gl-js](https://visgl.github.io/react-map-gl/) to provide an interactive map using
  * [Amplify Geo APIs](https://docs.amplify.aws/lib/geo/getting-started/q/platform/js/) powered by
- * [Amazon Location Service](https://aws.amazon.com/location/). Since `AmplifyMap` is a wrapper of the
+ * [Amazon Location Service](https://aws.amazon.com/location/). Since `MapView` is a wrapper of the
  * [react-map-gl default Map](https://visgl.github.io/react-map-gl/docs/api-reference/map), it accepts the same
  * properties except `transformRequest` which is set by Amplify.
  *
  * @example
- * // Basic usage of AmplifyMap:
+ * // Basic usage of MapView:
  * function App() {
- *   return <AmplifyMap />
+ *   return <MapView />
  * }
  */
-export const AmplifyMap = ({
+export const MapView = ({
   mapLib,
   mapStyle,
   style,
   ...props
-}: AmplifyMapProps) => {
+}: MapViewProps) => {
   const amplifyConfig = Amplify.configure() as any;
 
   const [transformRequest, setTransformRequest] = useState<

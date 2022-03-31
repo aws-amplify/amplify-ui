@@ -17,7 +17,7 @@ describe('@aws-amplify/ui-react', () => {
           "defaultTheme",
           "translations",
           "Alert",
-          "AmplifyMap",
+          "MapView",
           "AmplifyProvider",
           "Authenticator",
           "Badge",
