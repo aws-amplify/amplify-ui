@@ -40,7 +40,7 @@ export const useTypeCastFields = <Model>({
 
     let castFields = {} as UseTypeCastFieldsReturn<Model>;
     Object.keys(formFields).forEach((fieldName) => {
-      switch (schema.models[modelName]?.fields?.[fieldName].type) {
+      switch (schema?.models[modelName]?.fields?.[fieldName]?.type) {
         case 'AWSTimestamp':
           castFields[fieldName] = Number(formFields[fieldName]);
           break;
