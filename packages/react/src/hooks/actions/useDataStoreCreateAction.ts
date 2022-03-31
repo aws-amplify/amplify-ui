@@ -1,9 +1,4 @@
-import {
-  PersistentModel,
-  PersistentModelConstructor,
-  ModelInit,
-  Schema,
-} from '@aws-amplify/datastore';
+import { PersistentModel } from '@aws-amplify/datastore';
 import { DataStore, Hub } from 'aws-amplify';
 
 import {

@@ -4,7 +4,6 @@ import {
   ModelInit,
   Schema,
 } from '@aws-amplify/datastore';
-import { schema } from '../testModels/schema';
 
 /**
  * Converts a Model's field values to types supported by
