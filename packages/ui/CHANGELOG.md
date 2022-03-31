@@ -1,5 +1,11 @@
 # @aws-amplify/ui
 
+## 3.4.1
+
+### Patch Changes
+
+- [#1600](https://github.com/aws-amplify/amplify-ui/pull/1600) [`c00b0f016`](https://github.com/aws-amplify/amplify-ui/commit/c00b0f0161f4df56c3d2ec75ffe0d2975bb859ac) Thanks [@ErikCH](https://github.com/ErikCH)! - Fixed bug that made the input on the Setup TOTP to display twice
+
 ## 3.4.0
 
 ### Minor Changes
