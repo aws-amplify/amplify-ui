@@ -10,10 +10,13 @@ const config = defineConfig([
     output: {
       dir: 'dist',
       format: 'cjs',
-      sourcemap: true,
+      sourcemap: false,
     },
     external: (id) => /style-dictionary/.test(id),
-    plugins: [typescript({ declarationDir: 'dist/types' }), terser()],
+    plugins: [
+      typescript({ declarationDir: 'dist/types', sourceMap: false }),
+      terser(),
+    ],
   },
   // ESM config
   {
@@ -23,13 +26,14 @@ const config = defineConfig([
       format: 'es',
       preserveModules: true,
       preserveModulesRoot: 'src',
-      sourcemap: true,
+      sourcemap: false,
     },
     external: (id) => /style-dictionary/.test(id),
     plugins: [
       typescript({
         outDir: 'dist/esm',
         declaration: false,
+        sourceMap: false,
       }),
       terser(),
     ],
