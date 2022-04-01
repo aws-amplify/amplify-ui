@@ -428,8 +428,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           .filter((device) => device.kind === 'videoinput')
           .filter((device) => !isCameraDeviceVirtual(device));
 
-        // console.log({ devices, realVideoDevices });
-
         if (!realVideoDevices.length) {
           recordLivenessAnalyticsEvent(context.flowProps, {
             event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
