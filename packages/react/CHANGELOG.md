@@ -1,5 +1,39 @@
 # @aws-amplify/ui-react
 
+## 2.13.0
+
+### Minor Changes
+
+- [#1566](https://github.com/aws-amplify/amplify-ui/pull/1566) [`7ce9dd531`](https://github.com/aws-amplify/amplify-ui/commit/7ce9dd5313b85d9f4b4cab8c7e329e37551e1690) Thanks [@jacoblogan](https://github.com/jacoblogan)! - added useBreakpointValue hook.
+      Used with either a breakpoint object or array
+    ```
+    export const UseBreakpointValueObjectExample = () => {
+      const variation = useBreakpointValue({
+        base: 'info',
+        small: 'warning',
+        medium: 'error',
+        large: 'success',
+      });
+
+      return <Alert variation={variation}>Responsive Alert</Alert>;
+    };
+    ```
+    OR
+    ```
+    export const UseBreakpointValueArrayExample = () => {
+      const variation = useBreakpointValue(['info', 'warning', 'error', 'success']);
+
+      return <Alert variation={variation}>Responsive Alert</Alert>;
+    };
+    ```
+
+### Patch Changes
+
+- [#1605](https://github.com/aws-amplify/amplify-ui/pull/1605) [`32eb09aeb`](https://github.com/aws-amplify/amplify-ui/commit/32eb09aebac4633e84e0787552d252f962fee512) Thanks [@reesscot](https://github.com/reesscot)! - feat: datastore actions field value type casting
+
+- Updated dependencies [[`c00b0f016`](https://github.com/aws-amplify/amplify-ui/commit/c00b0f0161f4df56c3d2ec75ffe0d2975bb859ac)]:
+  - @aws-amplify/ui@3.4.1
+
 ## 2.12.0
 
 ### Minor Changes

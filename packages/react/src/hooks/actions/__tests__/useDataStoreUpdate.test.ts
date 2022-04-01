@@ -1,4 +1,5 @@
 import { DataStore, Hub } from 'aws-amplify';
+import { renderHook } from '@testing-library/react-hooks';
 
 import {
   ACTION_DATASTORE_UPDATE_FINISHED,
@@ -11,6 +12,7 @@ import { useDataStoreUpdateAction } from '../useDataStoreUpdateAction';
 import { AMPLIFY_SYMBOL } from '../../../helpers/constants';
 
 jest.mock('aws-amplify');
+
 const name = 'milk';
 const id = '1234';
 const updateActionArgs = {
@@ -31,7 +33,9 @@ describe('useAuthSignOutAction', () => {
   });
 
   it('should call DataStore.save', async () => {
-    const action = useDataStoreUpdateAction(updateActionArgs);
+    const {
+      result: { current: action },
+    } = renderHook(() => useDataStoreUpdateAction(updateActionArgs));
 
     await action();
     expect(querySpy).toHaveBeenCalledTimes(1);
@@ -39,7 +43,9 @@ describe('useAuthSignOutAction', () => {
   });
 
   it('should call Hub with started and finished events', async () => {
-    const action = useDataStoreUpdateAction(updateActionArgs);
+    const {
+      result: { current: action },
+    } = renderHook(() => useDataStoreUpdateAction(updateActionArgs));
 
     await action();
     expect(hubDispatchSpy).toHaveBeenCalledTimes(2);
@@ -67,7 +73,9 @@ describe('useAuthSignOutAction', () => {
     const errorMessage = 'Invalid data model';
     saveSpy.mockImplementation(() => Promise.reject(new Error(errorMessage)));
     querySpy.mockImplementation(() => Promise.resolve([{ id, name }]));
-    const action = useDataStoreUpdateAction(updateActionArgs);
+    const {
+      result: { current: action },
+    } = renderHook(() => useDataStoreUpdateAction(updateActionArgs));
 
     await action();
 
@@ -97,7 +105,9 @@ describe('useAuthSignOutAction', () => {
   });
 
   it('when original not found, should call Hub with error message', async () => {
-    const action = useDataStoreUpdateAction(updateActionArgs);
+    const {
+      result: { current: action },
+    } = renderHook(() => useDataStoreUpdateAction(updateActionArgs));
     querySpy.mockImplementationOnce(() => Promise.resolve(undefined));
 
     await action();

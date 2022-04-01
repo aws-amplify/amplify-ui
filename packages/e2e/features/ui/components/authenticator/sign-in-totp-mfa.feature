@@ -31,6 +31,13 @@ Feature: Sign In with TOTP MFA
     Then I see 'Code mismatch'
 
   @angular @react @vue
+  Scenario: Setup TOTP should only show one input code
+    When I type my "email" with status "CONFIRMED"
+    And I type my password
+    And I click the "Sign In" button
+    And I see one code input
+
+  @angular @react @vue
   Scenario: Sign in with unknown credentials
     When I type my "email" with status "UNKNOWN"
     And I type my password

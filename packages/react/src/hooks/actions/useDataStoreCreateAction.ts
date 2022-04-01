@@ -1,8 +1,4 @@
-import {
-  ModelInit,
-  PersistentModel,
-  PersistentModelConstructor,
-} from '@aws-amplify/datastore';
+import { PersistentModel } from '@aws-amplify/datastore';
 import { DataStore, Hub } from 'aws-amplify';
 
 import {
@@ -13,24 +9,28 @@ import {
 } from './constants';
 import { getErrorMessage } from '../../helpers/utils';
 import { AMPLIFY_SYMBOL } from '../../helpers/constants';
+import { useTypeCastFields } from './shared/useTypeCastFields';
+import { UseDataStoreActionOptions } from './shared/types';
 
-export interface UseDataStoreCreateActionOptions<
-  Model extends PersistentModel
-> {
-  model: PersistentModelConstructor<Model>;
-  fields: ModelInit<Model, { readOnlyFields: 'createdAt' | 'updatedAt' }>;
-}
+export interface UseDataStoreCreateActionOptions<Model extends PersistentModel>
+  extends UseDataStoreActionOptions<Model> {}
 
 /**
  * Action to Create DataStore item
  * @internal
  */
-export const useDataStoreCreateAction =
-  <Model extends PersistentModel>({
-    model,
-    fields,
-  }: UseDataStoreCreateActionOptions<Model>) =>
-  async () => {
+export const useDataStoreCreateAction = <Model extends PersistentModel>({
+  model,
+  fields: initialFields,
+  schema,
+}: UseDataStoreCreateActionOptions<Model>) => {
+  const fields = useTypeCastFields<Model>({
+    fields: initialFields,
+    modelName: model.name,
+    schema,
+  });
+
+  return async () => {
     try {
       Hub.dispatch(
         UI_CHANNEL,
@@ -58,10 +58,14 @@ export const useDataStoreCreateAction =
         UI_CHANNEL,
         {
           event: ACTION_DATASTORE_CREATE_FINISHED,
-          data: { fields, errorMessage: getErrorMessage(error) },
+          data: {
+            fields,
+            errorMessage: getErrorMessage(error),
+          },
         },
         EVENT_ACTION_DATASTORE_CREATE,
         AMPLIFY_SYMBOL
       );
     }
   };
+};
