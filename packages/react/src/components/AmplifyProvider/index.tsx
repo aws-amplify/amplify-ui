@@ -4,6 +4,8 @@ import { createTheme, Theme } from '@aws-amplify/ui';
 
 import { AmplifyContext } from './AmplifyContext';
 
+import DOMPurify from 'dompurify';
+
 export type ColorMode = 'system' | 'light' | 'dark';
 
 interface AmplifyProviderProps {
@@ -77,7 +79,7 @@ export function AmplifyProvider({
       {typeof theme === 'undefined' ? null : (
         <style
           id={`amplify-theme-${name}`}
-          dangerouslySetInnerHTML={{ __html: cssText }}
+          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(cssText) }}
         />
       )}
     </AmplifyContext.Provider>
