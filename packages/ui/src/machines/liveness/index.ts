@@ -68,10 +68,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       cameraCheck: {
         entry: ['setVideoConstraints', 'initializeFaceDetector'],
         invoke: {
-          src: 'checkVirtualCamera',
+          src: 'checkVirtualCameraAndGetStream',
           onDone: {
             target: 'notRecording',
-            actions: ['updateCameraDeviceId'],
+            actions: ['updateVideoMediaStream'],
           },
           onError: {
             target: 'permissionDenied',
@@ -81,7 +81,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       notRecording: {
         on: {
           START_RECORDING: 'recording',
-          PERMISSION_DENIED: 'permissionDenied',
         },
       },
       recording: {
@@ -225,13 +224,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           videoConstraints: event.data?.videoConstraints,
         }),
       }),
-      updateCameraDeviceId: assign({
+      updateVideoMediaStream: assign({
         videoAssociatedParams: (context, event) => ({
           ...context.videoAssociatedParams,
-          videoConstraints: {
-            ...context.videoAssociatedParams.videoConstraints,
-            deviceId: event.data?.deviceId,
-          },
+          videoMediaStream: event.data?.stream,
         }),
       }),
       initializeFaceDetector: assign({
@@ -250,7 +246,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           ...context.videoAssociatedParams,
           videoEl: event.data?.videoEl,
           canvasEl: event.data?.canvasEl,
-          videoMediaStream: event.data?.videoMediaStream,
         }),
       }),
       startRecording: assign({
@@ -420,15 +415,20 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       hasLivenessCheckSucceeded: (_, __, meta) => meta.state.event.data.isLive,
     },
     services: {
-      async checkVirtualCamera(context) {
-        await navigator.mediaDevices.getUserMedia({
-          video: context.videoAssociatedParams.videoConstraints,
+      async checkVirtualCameraAndGetStream(context) {
+        const { videoConstraints } = context.videoAssociatedParams;
+
+        // Get initial stream to enumerate devices with non-empty labels
+        const initialStream = await navigator.mediaDevices.getUserMedia({
+          video: videoConstraints,
           audio: false,
         });
         const devices = await navigator.mediaDevices.enumerateDevices();
         const realVideoDevices = devices
           .filter((device) => device.kind === 'videoinput')
           .filter((device) => !isCameraDeviceVirtual(device));
+
+        // console.log({ devices, realVideoDevices });
 
         if (!realVideoDevices.length) {
           recordLivenessAnalyticsEvent(context.flowProps, {
@@ -438,7 +438,27 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           });
           throw new Error('No real video devices found');
         }
-        return { deviceId: realVideoDevices[0].deviceId };
+
+        // If the initial stream is of real camera, use it otherwise use the first real camera
+        const initialStreamDeviceId = initialStream
+          .getTracks()[0]
+          .getSettings().deviceId;
+        const isInitialStreamFromRealDevice = realVideoDevices.some(
+          (device) => device.deviceId === initialStreamDeviceId
+        );
+
+        let realVideoDeviceStream = initialStream;
+        if (!isInitialStreamFromRealDevice) {
+          realVideoDeviceStream = await navigator.mediaDevices.getUserMedia({
+            video: {
+              ...videoConstraints,
+              deviceId: { exact: realVideoDevices[0].deviceId },
+            },
+            audio: false,
+          });
+        }
+
+        return { stream: realVideoDeviceStream };
       },
 
       async detectInitialFaceAndDrawOval(context) {

@@ -1,5 +1,4 @@
 import React, { useState, useRef } from 'react';
-import Webcam from 'react-webcam';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import { LIVENESS_EVENT_LIVENESS_CHECK_SCREEN } from '@aws-amplify/ui';
 
@@ -8,12 +7,16 @@ import {
   useLivenessActor,
   useLivenessSelector,
   createLivenessSelector,
+  useMediaStreamInVideo,
 } from '../hooks';
 import { CancelButton, Instruction, RecordingIcon } from '../shared';
 import { Flex, Loader, Text, View } from '../../../primitives';
 
 const selectVideoConstraints = createLivenessSelector(
   (state) => state.context.videoAssociatedParams?.videoConstraints
+);
+const selectVideoStream = createLivenessSelector(
+  (state) => state.context.videoAssociatedParams?.videoMediaStream
 );
 
 export interface LivenessCameraModuleProps {
@@ -25,20 +28,17 @@ export const LivenessCameraModule = (
 ): JSX.Element => {
   const { isMobileScreen } = props;
 
-  const videoConstraints = useLivenessSelector(selectVideoConstraints);
-  const height = (videoConstraints.height as ConstrainULongRange).ideal;
-  const width = (videoConstraints.width as ConstrainULongRange).ideal;
-
   const { tokens } = useTheme();
   const [state, send] = useLivenessActor();
 
-  const webcamRef = useRef<Webcam>(null);
+  const videoStream = useLivenessSelector(selectVideoStream);
+  const videoConstraints = useLivenessSelector(selectVideoConstraints);
+
+  const { videoRef, videoHeight, videoWidth, streamOffset } =
+    useMediaStreamInVideo(videoStream, videoConstraints);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const [countDownRunning, setCountDownRunning] = useState<boolean>(false);
-  const [videoHeight, setVideoHeight] = useState<number>(height);
-  const [videoWidth, setVideoWidth] = useState<number>(width);
-  const [streamOffset, setStreamOffset] = useState<number>(0);
   const [isCameraReady, setIsCameraReady] = useState<boolean>(false);
 
   const isCheckingCamera = state.matches('cameraCheck');
@@ -49,24 +49,13 @@ export const LivenessCameraModule = (
     send({
       type: 'START_RECORDING',
       data: {
-        videoEl: webcamRef.current.video,
+        videoEl: videoRef.current,
         canvasEl: canvasRef.current,
-        videoMediaStream: webcamRef.current.stream,
       },
     });
   };
 
-  const onMediaAvailable = () => {
-    const { height: streamHeight, width: streamWidth } =
-      webcamRef.current.stream.getTracks()[0].getSettings();
-    const offsetHeight = window.innerHeight - streamHeight;
-
-    setVideoHeight(streamHeight);
-    setVideoWidth(streamWidth);
-    setStreamOffset(offsetHeight <= 0 ? 0 : offsetHeight / 2);
-  };
-
-  const canMediaPlayHandler = () => {
+  const handleMediaPlay = () => {
     setIsCameraReady(true);
     setCountDownRunning(true);
   };
@@ -107,18 +96,15 @@ export const LivenessCameraModule = (
       <Flex direction="column" position="relative">
         {!isCameraReady && centeredLoader}
 
-        <Webcam
-          ref={webcamRef}
-          audio={false}
-          audioConstraints={false}
-          allowFullScreen
-          videoConstraints={videoConstraints}
+        <video
+          ref={videoRef}
+          muted
+          autoPlay
+          playsInline
           height={videoHeight}
           width={videoWidth}
-          mirrored
-          onUserMedia={onMediaAvailable}
-          onUserMediaError={() => send({ type: 'PERMISSION_DENIED' })}
-          onCanPlay={canMediaPlayHandler}
+          style={{ transform: 'scaleX(-1)' }}
+          onCanPlay={handleMediaPlay}
         />
         <View
           as="canvas"

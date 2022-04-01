@@ -40,12 +40,7 @@ export interface LivenessContext {
 
 export type LivenessEventTypes =
   | 'BEGIN'
-  | 'PERMISSION_GRANTED'
-  | 'PERMISSION_DENIED'
   | 'START_RECORDING'
-  | 'RECORDING_COMPLETE'
-  | 'CHECK_SUCCEEDED'
-  | 'CHECK_FAILED'
   | 'TIMEOUT'
   | 'ERROR'
   | 'CANCEL';
