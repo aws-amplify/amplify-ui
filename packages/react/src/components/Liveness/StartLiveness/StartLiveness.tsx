@@ -21,7 +21,7 @@ import {
   View,
 } from '../../../primitives';
 
-const INSTRUCTIONS = [
+export const INSTRUCTIONS = [
   {
     title: translate('Provide camera permissions'),
     desc: translate(

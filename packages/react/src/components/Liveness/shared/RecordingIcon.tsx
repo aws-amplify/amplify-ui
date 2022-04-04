@@ -15,7 +15,7 @@ export const RecordingIcon: React.FC = () => {
       gap={`${tokens.space.xxs}`}
       borderRadius={`${tokens.borderWidths.large}`}
     >
-      <View color="red">
+      <View color="red" data-testid="rec-icon">
         <IconFiberManualRecord size="large" viewBox="0 0 20 20" />
       </View>
       <Text

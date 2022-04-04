@@ -5511,6 +5511,13 @@
   resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-3.6.11.tgz#4b1d77aa9dfc757407cb9e277216d8e83553f09d"
   integrity sha512-S6pvzQDvMZHrkBz2Mcn/8Du7cpr76PlRJBAoHnSDNbulULsH5dp0Gns+WRyNX5LHejz/ljxK4/vIHK/caHt6SQ==
 
+"@types/jest-when@^3.5.0":
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/@types/jest-when/-/jest-when-3.5.0.tgz#6a573cd521da131e6801f0991b4f1d4dee2ebab5"
+  integrity sha512-rNUuZ3Mn/HDzpImPXDeOtW18zqyerPoOS2aKU0zUFbirWgJ7sN7LnRv73RmbBQ/uzw28sxf/nUofxbhJ5DWB0w==
+  dependencies:
+    "@types/jest" "*"
+
 "@types/jest@*", "@types/jest@^27.0.1":
   version "27.4.1"
   resolved "https://registry.yarnpkg.com/@types/jest/-/jest-27.4.1.tgz#185cbe2926eaaf9662d340cc02e548ce9e11ab6d"
@@ -14341,6 +14348,11 @@ jest-watcher@^27.0.0:
     chalk "^4.0.0"
     jest-util "^27.5.1"
     string-length "^4.0.1"
+
+jest-when@^3.5.1:
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/jest-when/-/jest-when-3.5.1.tgz#33ab6f923661cf878cd08fe9df64b507934603db"
+  integrity sha512-o+HiaIVCg1IC95sMDKHU9G5v5N5l3UHqXvJpf0PgAMThZeQo4Hf5Sgoj+wpCBRGg4/KtzSAZZZEKNiLqE0i4eQ==
 
 jest-worker@26.6.2, jest-worker@^26.2.1, jest-worker@^26.5.0, jest-worker@^26.6.2:
   version "26.6.2"

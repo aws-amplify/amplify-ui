@@ -21,13 +21,13 @@ import {
   View,
 } from '../../../primitives';
 
-const selectErrorState = createLivenessSelector(
+export const selectErrorState = createLivenessSelector(
   (state) => state.context.errorState
 );
-const selectFaceMatchState = createLivenessSelector(
+export const selectFaceMatchState = createLivenessSelector(
   (state) => state.context.faceMatchAssociatedParams.faceMatchState
 );
-const selectIlluminationState = createLivenessSelector(
+export const selectIlluminationState = createLivenessSelector(
   (state) => state.context.faceMatchAssociatedParams.illuminationState
 );
 
@@ -41,6 +41,7 @@ export const Instruction: React.FC<InstructionProps> = (props) => {
   const { tokens } = useTheme();
   const [state] = useLivenessActor();
 
+  // NOTE: Do not change order of these selectors as the unit tests depend on this order
   const errorState = useLivenessSelector(selectErrorState);
   const faceMatchState = useLivenessSelector(selectFaceMatchState);
   const illuminationState = useLivenessSelector(selectIlluminationState);
