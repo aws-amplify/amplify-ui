@@ -1,4 +1,6 @@
 import * as React from 'react';
+import classNames from 'classnames';
+import { ComponentClassNames } from '../../../primitives/shared';
 
 import {
   AuthChallengeNames,
@@ -32,6 +34,10 @@ export const ConfirmSignIn = (): JSX.Element => {
 
   return (
     <form
+      className={classNames(
+        ComponentClassNames.AuthenticatorConfirmSignIn,
+        ComponentClassNames.AuthenticatorForm
+      )}
       data-amplify-form=""
       data-amplify-authenticator-confirmsignin=""
       method="post"
@@ -39,8 +45,10 @@ export const ConfirmSignIn = (): JSX.Element => {
       onSubmit={handleSubmit}
     >
       <fieldset
-        style={{ display: 'flex', flexDirection: 'column' }}
-        className="amplify-flex"
+        className={classNames(
+          'amplify-flex',
+          ComponentClassNames.AuthenticatorFieldSet
+        )}
         disabled={isPending}
       >
         <Header />

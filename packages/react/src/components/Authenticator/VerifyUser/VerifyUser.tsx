@@ -7,6 +7,8 @@ import {
   SignInContext,
   translate,
 } from '@aws-amplify/ui';
+import classNames from 'classnames';
+import { ComponentClassNames } from '../../../primitives/shared';
 
 import { Heading, Radio, RadioGroupField } from '../../..';
 import {
@@ -83,6 +85,10 @@ export const VerifyUser = (): JSX.Element => {
 
   return (
     <form
+      className={classNames(
+        ComponentClassNames.AuthenticatorForm,
+        ComponentClassNames.AuthenticatorVerifyUser
+      )}
       data-amplify-form=""
       data-amplify-authenticator-verifyuser=""
       method="post"
@@ -90,8 +96,10 @@ export const VerifyUser = (): JSX.Element => {
       onSubmit={handleSubmit}
     >
       <fieldset
-        style={{ display: 'flex', flexDirection: 'column' }}
-        className="amplify-flex"
+        className={classNames(
+          'amplify-flex',
+          ComponentClassNames.AuthenticatorFieldSet
+        )}
         disabled={isPending}
       >
         <Header />

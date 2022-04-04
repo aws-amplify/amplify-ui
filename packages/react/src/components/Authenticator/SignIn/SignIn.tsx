@@ -1,6 +1,8 @@
 import * as React from 'react';
 
 import { translate, hasTranslation } from '@aws-amplify/ui';
+import classNames from 'classnames';
+import { ComponentClassNames } from '../../../primitives/shared';
 
 import { Button, Flex, View, VisuallyHidden } from '../../..';
 import { FederatedSignIn } from '../FederatedSignIn';
@@ -28,6 +30,10 @@ export function SignIn() {
       <Header />
 
       <form
+        className={classNames(
+          ComponentClassNames.AuthenticatorForm,
+          ComponentClassNames.AuthenticatorSignIn
+        )}
         data-amplify-form=""
         data-amplify-authenticator-signin=""
         method="post"
@@ -37,8 +43,10 @@ export function SignIn() {
         <FederatedSignIn />
         <Flex direction="column">
           <fieldset
-            style={{ display: 'flex', flexDirection: 'column' }}
-            className="amplify-flex"
+            className={classNames(
+              'amplify-flex',
+              ComponentClassNames.AuthenticatorFieldSet
+            )}
             disabled={isPending}
           >
             <VisuallyHidden>
@@ -56,6 +64,7 @@ export function SignIn() {
             variation="primary"
             isLoading={isPending}
             loadingText={translate('Signing in')}
+            className={ComponentClassNames.AuthenticatorSignInButton}
           >
             {translate('Sign in')}
           </Button>
@@ -76,7 +85,10 @@ SignIn.Footer = () => {
     : translate('Forgot your password? ');
 
   return (
-    <View data-amplify-footer="">
+    <View
+      data-amplify-footer=""
+      className={ComponentClassNames.AuthenticatorFooter}
+    >
       <Button
         fontWeight="normal"
         onClick={toResetPassword}

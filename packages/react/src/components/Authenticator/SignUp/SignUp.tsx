@@ -1,4 +1,6 @@
 import { translate } from '@aws-amplify/ui';
+import classNames from 'classnames';
+import { ComponentClassNames } from '../../../primitives/shared';
 
 import { Button, Flex, View } from '../../..';
 import { FederatedSignIn } from '../FederatedSignIn';
@@ -29,6 +31,10 @@ export function SignUp() {
       <Header />
 
       <form
+        className={classNames(
+          ComponentClassNames.AuthenticatorForm,
+          ComponentClassNames.AuthenticatorSignUp
+        )}
         data-amplify-form=""
         data-amplify-authenticator-signup=""
         method="post"
@@ -39,8 +45,10 @@ export function SignUp() {
         <FederatedSignIn />
 
         <fieldset
-          style={{ display: 'flex', flexDirection: 'column' }}
-          className="amplify-flex"
+          className={classNames(
+            'amplify-flex',
+            ComponentClassNames.AuthenticatorFieldSet
+          )}
           disabled={isPending}
         >
           <Flex direction="column">

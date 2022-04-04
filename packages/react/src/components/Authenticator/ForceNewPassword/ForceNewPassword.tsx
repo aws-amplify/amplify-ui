@@ -1,4 +1,6 @@
 import { translate } from '@aws-amplify/ui';
+import classNames from 'classnames';
+import { ComponentClassNames } from '../../../primitives/shared';
 
 import { Button, Heading, Text } from '../../..';
 import {
@@ -20,6 +22,10 @@ export const ForceNewPassword = (): JSX.Element => {
 
   return (
     <form
+      className={classNames(
+        ComponentClassNames.AuthenticatorForm,
+        ComponentClassNames.AuthenticatorForceNewPassword
+      )}
       data-amplify-form=""
       data-amplify-authenticator-forcenewpassword=""
       method="post"
@@ -28,8 +34,10 @@ export const ForceNewPassword = (): JSX.Element => {
       onBlur={handleBlur}
     >
       <fieldset
-        style={{ display: 'flex', flexDirection: 'column' }}
-        className="amplify-flex"
+        className={classNames(
+          'amplify-flex',
+          ComponentClassNames.AuthenticatorFieldSet
+        )}
         disabled={isPending}
       >
         <Heading level={3}>{translate('Change Password')}</Heading>

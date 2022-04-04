@@ -1,4 +1,6 @@
 import * as React from 'react';
+import classNames from 'classnames';
+import { ComponentClassNames } from '../../../primitives/shared';
 
 import { translate } from '@aws-amplify/ui';
 
@@ -26,6 +28,10 @@ export const ResetPassword = (): JSX.Element => {
 
   return (
     <form
+      className={classNames(
+        ComponentClassNames.AuthenticatorForm,
+        ComponentClassNames.AuthenticatorResetPassword
+      )}
       data-amplify-form=""
       data-amplify-authenticator-resetpassword=""
       method="post"
@@ -33,8 +39,10 @@ export const ResetPassword = (): JSX.Element => {
       onSubmit={handleSubmit}
     >
       <fieldset
-        style={{ display: 'flex', flexDirection: 'column' }}
-        className="amplify-flex"
+        className={classNames(
+          'amplify-flex',
+          ComponentClassNames.AuthenticatorFieldSet
+        )}
         disabled={isPending}
       >
         <Header />

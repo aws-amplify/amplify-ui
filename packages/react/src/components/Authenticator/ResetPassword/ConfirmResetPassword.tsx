@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { translate } from '@aws-amplify/ui';
+import classNames from 'classnames';
+import { ComponentClassNames } from '../../../primitives/shared';
 
 import { Flex, Heading } from '../../..';
 import {
@@ -25,6 +27,10 @@ export const ConfirmResetPassword = (): JSX.Element => {
 
   return (
     <form
+      className={classNames(
+        ComponentClassNames.AuthenticatorForm,
+        ComponentClassNames.AuthenticatorConfirmResetPassword
+      )}
       data-amplify-form=""
       data-amplify-authenticator-confirmresetpassword=""
       method="post"
@@ -33,8 +39,10 @@ export const ConfirmResetPassword = (): JSX.Element => {
       onBlur={handleBlur}
     >
       <fieldset
-        style={{ display: 'flex', flexDirection: 'column' }}
-        className="amplify-flex"
+        className={classNames(
+          'amplify-flex',
+          ComponentClassNames.AuthenticatorFieldSet
+        )}
         disabled={isPending}
       >
         <Header />

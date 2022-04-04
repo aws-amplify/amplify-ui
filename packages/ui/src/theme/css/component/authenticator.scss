@@ -56,3 +56,17 @@
     }
   }
 }
+
+.amplify-authenticator__fieldset {
+  flex-direction: var(
+    --amplify-components-authenticator-fieldset-flex-direction
+  );
+}
+
+.amplify-authenticator__confirm-sign-up-text {
+  margin-bottom: var(--amplify-space-relative-medium);
+}
+
+.amplify-authenticator__confirm-sign-up-heading {
+  font-size: var(--amplify-font-sizes-xl);
+}

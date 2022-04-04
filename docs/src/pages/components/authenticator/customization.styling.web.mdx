@@ -2,6 +2,7 @@ import { Authenticator } from '@aws-amplify/ui-react';
 
 import { Example } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
+import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 
 ### Styling
 
@@ -91,8 +92,16 @@ For example, if you'd like to hide the sign up tab, you can override the `amplif
 If you'd like to update the primary color of your submit button you can override the `amplify-button` class.
 
 ```css
-.amplify-button[data-variation='primary'] {
+.amplify-authenticator__sign-in-button {
   background: linear-gradient(
+    to right,
+    var(--amplify-colors-green-80),
+    var(--amplify-colors-orange-40)
+  );
+}
+/* OR */
+:root {
+  --amplify-components-authenticator-sign-in-button-background: linear-gradient(
     to right,
     var(--amplify-colors-green-80),
     var(--amplify-colors-orange-40)
@@ -102,15 +111,15 @@ If you'd like to update the primary color of your submit button you can override
 
 <Example>
   <style>{`
-    .customization-button .amplify-button[data-variation="primary"] {
+    .customization-button .amplify-authenticator__sign-in-button {
       background:linear-gradient(to right, var(--amplify-colors-green-80),var(--amplify-colors-orange-40) );
     }
   `}</style>
   <Authenticator className="customization-button" />
 </Example>
 
-### Amplify CSS Variables
+### Authenticator CSS Variables and Target Classes
 
 These variables are used in the theming of the Authenticator. You can override these values to update the look and feel.
 
-<Fragment>{() => import(`./css-variables.mdx`)}</Fragment>
+<ComponentStyleDisplay componentName="Authenticator" />

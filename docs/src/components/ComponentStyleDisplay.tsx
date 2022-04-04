@@ -6,6 +6,7 @@ import {
   TabItem,
   Flex,
   View,
+  ScrollView,
   Heading,
   useTheme,
 } from '@aws-amplify/ui-react';
@@ -14,7 +15,7 @@ export const ComponentStyleDisplay = ({ componentName }) => {
   const { tokens } = useTheme();
 
   return (
-    <View className="docs-component-styles">
+    <ScrollView className="docs-component-styles" maxHeight="70vh">
       <Flex
         direction={{
           base: 'column',
@@ -41,6 +42,6 @@ export const ComponentStyleDisplay = ({ componentName }) => {
           </Tabs>
         </Flex>
       </Flex>
-    </View>
+    </ScrollView>
   );
 };

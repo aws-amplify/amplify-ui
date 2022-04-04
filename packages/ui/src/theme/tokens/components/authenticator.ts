@@ -10,6 +10,9 @@ export const authenticator = {
   container: {
     widthMax: { value: '30rem' },
   },
+  fieldset: {
+    flexDirection: { value: 'column' },
+  },
   router: {
     borderWidth: { value: '{borderWidths.small.value}' },
     borderStyle: { value: 'solid' },
@@ -32,6 +35,15 @@ export const authenticator = {
     color: { value: '{colors.neutral.80.value}' },
     orLine: {
       backgroundColor: { value: '{colors.background.primary.value}' },
+    },
+  },
+  signIn: {
+    button: {
+      fontWeight: { value: '{components.button.fontWeight.value}' },
+      borderColor: { value: '{components.button.primary.borderColor.value}' },
+      background: {
+        value: '{components.button.primary.backgroundColor.value}',
+      },
     },
   },
 };

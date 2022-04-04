@@ -1,4 +1,6 @@
 import { CognitoUserAmplify } from '@aws-amplify/ui';
+import classNames from 'classnames';
+import { ComponentClassNames } from '../../../primitives/shared';
 
 import { useAuthenticator } from '..';
 import { View } from '../../..';
@@ -48,14 +50,22 @@ export function Router({
   return (
     <>
       <View
-        className={className}
+        className={classNames(
+          className,
+          ComponentClassNames.Authenticator,
+          `amplify-authenticator--${variation}`
+        )}
         data-amplify-authenticator=""
         data-variation={variation}
       >
-        <View data-amplify-container="">
+        <View
+          data-amplify-container=""
+          className={ComponentClassNames.AuthenticatorContainer}
+        >
           <Header />
 
           <View
+            className={ComponentClassNames.AuthenticatorRouter}
             data-amplify-router=""
             data-amplify-router-content={hasTabs(route) ? undefined : ''}
           >

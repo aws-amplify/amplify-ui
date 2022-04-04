@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { translate } from '@aws-amplify/ui';
+import classNames from 'classnames';
+import { ComponentClassNames } from '../../../primitives/shared';
 
 import { Button, Flex, Heading, Text } from '../../..';
 import {
@@ -50,6 +52,10 @@ export function ConfirmSignUp() {
   return (
     // TODO Automatically add these namespaces again from `useAmplify`
     <form
+      className={classNames(
+        ComponentClassNames.AuthenticatorForm,
+        ComponentClassNames.AuthenticatorSignUp
+      )}
       data-amplify-form=""
       data-amplify-authenticator-confirmsignup=""
       method="post"
@@ -57,14 +63,18 @@ export function ConfirmSignUp() {
       onSubmit={handleSubmit}
     >
       <fieldset
-        style={{ display: 'flex', flexDirection: 'column' }}
-        className="amplify-flex"
+        className={classNames(
+          'amplify-flex',
+          ComponentClassNames.AuthenticatorFieldSet
+        )}
         disabled={isPending}
       >
         <Header />
 
         <Flex direction="column">
-          <Text style={{ marginBottom: '1rem' }}>{subtitleText}</Text>
+          <Text className={ComponentClassNames.AuthenticatorConfirmSignuUpText}>
+            {subtitleText}
+          </Text>
 
           <FormFields route="confirmSignUp" />
 
@@ -103,7 +113,10 @@ ConfirmSignUp.Header = () => {
       : translate('We Sent A Code');
 
   return (
-    <Heading level={3} style={{ fontSize: '1.5rem' }}>
+    <Heading
+      level={3}
+      className={ComponentClassNames.AuthenticatorConfirmSignUpHeading}
+    >
       {confirmSignUpHeading}
     </Heading>
   );

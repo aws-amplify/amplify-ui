@@ -1,4 +1,5 @@
 import { translate } from '@aws-amplify/ui';
+import { ComponentClassNames } from '../../../primitives/shared';
 import { View } from '../../../primitives/View';
 import { Text } from '../../../primitives/Text';
 
@@ -9,7 +10,10 @@ export const ValidationErrors = ({ errors }: ValidationErrorsProps) => {
   if (!(errors?.length > 0)) return null;
 
   return (
-    <View data-amplify-sign-up-errors>
+    <View
+      data-amplify-sign-up-errors
+      className={ComponentClassNames.AuthenticatorSignUpErrors}
+    >
       {errors.map((error, idx) => {
         return (
           <Text key={error} role="alert" variation="error">

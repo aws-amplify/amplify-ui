@@ -24,6 +24,119 @@ export const ComponentClassObject = {
     components: ['Alert'],
     description: 'Class applied to the close Button',
   },
+  Authenticator: {
+    className: 'amplify-authenticator',
+    components: ['Authenticator'],
+    description: 'Top level element that wraps the Authenticator',
+  },
+  AuthenticatorConfirmSignIn: {
+    className: 'amplify-authenticator__comfirm-sign-in',
+    components: ['Authenticator'],
+    description: 'Element that wraps the authenticator confirm sign in',
+  },
+  AuthenticatorConfirmSignUp: {
+    className: 'amplify-authenticator__confirm-sign-up',
+    components: ['Authenticator'],
+    description: 'Element that wraps the authenticator confirm sign up',
+  },
+  AuthenticatorConfirmSignuUpText: {
+    className: 'amplify-authenticator__confirm-sign-up-text',
+    components: ['Authenticator'],
+    description:
+      'Class targetting the subtitle text within the confirm sign up',
+  },
+  AuthenticatorConfirmSignUpHeading: {
+    className: 'amplify-authenticator__confirm-sign-up-heading',
+    components: ['Authenticator'],
+    description: 'Class targetting the confirm sign up heading',
+  },
+  AuthenticatorContainer: {
+    className: 'amplify-authenticator__container',
+    components: ['Authenticator'],
+    description:
+      'Element within the authentication that wraps all the authenticator states',
+  },
+  AuthenticatorFieldSet: {
+    className: 'amplify-authenticator__fieldset',
+    components: ['Authenticator'],
+    description: 'Fieldset element containing the authenticator fields',
+  },
+  AuthenticatorFooter: {
+    className: 'amplify-authenticator__footer',
+    components: ['Authenticator'],
+    description: 'Class targetting the authenticator footer',
+  },
+  AuthenticatorForm: {
+    className: 'amplify-authenticator__form',
+    components: ['Authenticator'],
+    description:
+      'Class targetting the authenticator form across all authenticator states',
+  },
+  AuthenticatorSignUpErrors: {
+    className: 'amplify-authenticator__sign-up-errors',
+    components: ['Authenticator'],
+    description: 'Element that wraps the authenticator sign up error',
+  },
+  AuthenticatorForceNewPassword: {
+    className: 'amplify-authenticator__force-new-password',
+    components: ['Authenticator'],
+    description: 'Element that wraps the authenticator force new password',
+  },
+  AuthenticatorConfirmResetPassword: {
+    className: 'amplify-authenticator__confirm-reset-password',
+    components: ['Authenticator'],
+    description: 'Element that wraps the authenticator confirm reset password',
+  },
+  AuthenticatorResetPassword: {
+    className: 'amplify-authenticator__reset-password',
+    components: ['Authenticator'],
+    description: 'Element that wraps the authenticator reset password',
+  },
+  AuthenticatorRouter: {
+    className: 'amplify-authenticator__router',
+    components: ['Authenticator'],
+    description: 'Element container wrapping all authenticator routes',
+  },
+  AuthenticatorSetupTotp: {
+    className: 'amplify-authenticator__setup-totp',
+    components: ['Authenticator'],
+    description: 'Element that wraps the authenticator setup totp',
+  },
+  AuthenticatorSignIn: {
+    className: 'amplify-authenticator__sign-in',
+    components: ['Authenticator'],
+    description: 'Element that wraps the authenticator sign in',
+  },
+  AuthenticatorSignInButton: {
+    className: 'amplify-authenticator__sign-in-button',
+    components: ['Authenticator'],
+    description: 'Authenticator sign in button',
+  },
+  AuthenticatorSignUp: {
+    className: 'amplify-authenticator__sign-up',
+    components: ['Authenticator'],
+    description: 'Element that wraps the authenticator sign up',
+  },
+  AuthenticatorConfirmVerifyUser: {
+    className: 'amplify-authenticator__confirm-verify-user',
+    components: ['Authenticator'],
+    description: 'Element that wraps the authenticator confirm verify user',
+  },
+  AuthenticatorVerifyUser: {
+    className: 'amplify-authenticator__verify-user',
+    components: ['Authenticator'],
+    description: 'Element that wraps the authenticator verify user',
+  },
+  AuthenticatorVariationDefault: {
+    className: 'amplify-authenticator--default',
+    components: ['Authenticator'],
+    description: 'Class targetting the default variation of the authenticator',
+  },
+  AuthenticatorVariationModal: {
+    className: 'amplify-authenticator--modal',
+    components: ['Authenticator'],
+    description: 'Class targetting the modal variation of the authenticator',
+  },
   Badge: {
     className: 'amplify-badge',
     components: ['Badge'],

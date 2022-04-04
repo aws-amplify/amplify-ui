@@ -1,5 +1,7 @@
 import QRCode from 'qrcode';
 import * as React from 'react';
+import classNames from 'classnames';
+import { ComponentClassNames } from '../../../primitives/shared';
 
 import { Auth, Logger } from 'aws-amplify';
 import { getActorState, SignInState, translate } from '@aws-amplify/ui';
@@ -70,6 +72,10 @@ export const SetupTOTP = (): JSX.Element => {
 
   return (
     <form
+      className={classNames(
+        ComponentClassNames.AuthenticatorForm,
+        ComponentClassNames.AuthenticatorSetupTotp
+      )}
       data-amplify-form=""
       data-amplify-authenticator-setup-totp=""
       method="post"
@@ -77,8 +83,10 @@ export const SetupTOTP = (): JSX.Element => {
       onSubmit={handleSubmit}
     >
       <fieldset
-        style={{ display: 'flex', flexDirection: 'column' }}
-        className="amplify-flex"
+        className={classNames(
+          'amplify-flex',
+          ComponentClassNames.AuthenticatorFieldSet
+        )}
         disabled={isPending}
       >
         <Header />
