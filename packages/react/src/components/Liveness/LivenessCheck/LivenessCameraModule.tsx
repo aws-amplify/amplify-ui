@@ -1,36 +1,47 @@
 import React, { useState, useRef } from 'react';
-import Webcam from 'react-webcam';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import { LIVENESS_EVENT_LIVENESS_CHECK_SCREEN } from '@aws-amplify/ui';
 
 import { useTheme } from '../../../hooks';
-import { useLivenessActor } from '../hooks';
+import {
+  useLivenessActor,
+  useLivenessSelector,
+  createLivenessSelector,
+  useMediaStreamInVideo,
+} from '../hooks';
 import { CancelButton, Instruction, RecordingIcon } from '../shared';
-import { Flex, Text, View } from '../../../primitives';
+import { Flex, Loader, Text, View } from '../../../primitives';
+
+const selectVideoConstraints = createLivenessSelector(
+  (state) => state.context.videoAssociatedParams?.videoConstraints
+);
+const selectVideoStream = createLivenessSelector(
+  (state) => state.context.videoAssociatedParams?.videoMediaStream
+);
 
 export interface LivenessCameraModuleProps {
   isMobileScreen: boolean;
-  videoConstraints: MediaTrackConstraints;
 }
 
 export const LivenessCameraModule = (
   props: LivenessCameraModuleProps
 ): JSX.Element => {
-  const { isMobileScreen, videoConstraints } = props;
-  const height = (videoConstraints.height as ConstrainULongRange).ideal;
-  const width = (videoConstraints.width as ConstrainULongRange).ideal;
+  const { isMobileScreen } = props;
 
   const { tokens } = useTheme();
   const [state, send] = useLivenessActor();
 
-  const webcamRef = useRef<Webcam>(null);
+  const videoStream = useLivenessSelector(selectVideoStream);
+  const videoConstraints = useLivenessSelector(selectVideoConstraints);
+
+  const { videoRef, videoHeight, videoWidth, streamOffset } =
+    useMediaStreamInVideo(videoStream, videoConstraints);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const [countDownRunning, setCountDownRunning] = useState<boolean>(false);
-  const [videoHeight, setVideoHeight] = useState<number>(height);
-  const [videoWidth, setVideoWidth] = useState<number>(width);
-  const [streamOffset, setStreamOffset] = useState<number>(0);
+  const [isCameraReady, setIsCameraReady] = useState<boolean>(false);
 
+  const isCheckingCamera = state.matches('cameraCheck');
   const isNotRecording = state.matches('notRecording');
   const isRecording = state.matches('recording');
 
@@ -38,25 +49,35 @@ export const LivenessCameraModule = (
     send({
       type: 'START_RECORDING',
       data: {
-        videoEl: webcamRef.current.video,
+        videoEl: videoRef.current,
         canvasEl: canvasRef.current,
-        videoMediaStream: webcamRef.current.stream,
       },
     });
   };
 
-  const onMediaAvailable = () => {
-    const { height: streamHeight, width: streamWidth } =
-      webcamRef.current.stream.getTracks()[0].getSettings();
-    const offsetHeight = window.innerHeight - streamHeight;
-
-    setVideoHeight(streamHeight);
-    setVideoWidth(streamWidth);
-    setStreamOffset(offsetHeight <= 0 ? 0 : offsetHeight / 2);
-    send({
-      type: 'PERMISSION_GRANTED',
-    });
+  const handleMediaPlay = () => {
+    setIsCameraReady(true);
+    setCountDownRunning(true);
   };
+
+  const centeredLoader = (
+    <View
+      position="absolute"
+      left="50%"
+      top="50%"
+      transform="translate(-50%,-50%)"
+    >
+      <Loader size="large" />
+    </View>
+  );
+
+  if (isCheckingCamera) {
+    return (
+      <Flex height={videoHeight} width="100%" position="relative">
+        {centeredLoader}
+      </Flex>
+    );
+  }
 
   return (
     <Flex
@@ -73,18 +94,17 @@ export const LivenessCameraModule = (
       })}
     >
       <Flex direction="column" position="relative">
-        <Webcam
-          ref={webcamRef}
-          audio={false}
-          audioConstraints={false}
-          allowFullScreen
-          videoConstraints={videoConstraints}
+        {!isCameraReady && centeredLoader}
+
+        <video
+          ref={videoRef}
+          muted
+          autoPlay
+          playsInline
           height={videoHeight}
           width={videoWidth}
-          mirrored
-          onUserMedia={onMediaAvailable}
-          onUserMediaError={() => send({ type: 'PERMISSION_DENIED' })}
-          onCanPlay={() => setCountDownRunning(true)}
+          style={{ transform: 'scaleX(-1)' }}
+          onCanPlay={handleMediaPlay}
         />
         <View
           as="canvas"

@@ -23,6 +23,7 @@ import {
   estimateIllumination,
   recordLivenessAnalyticsEvent,
   LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
+  isCameraDeviceVirtual,
 } from '../../helpers';
 
 export const MIN_FACE_MATCH_COUNT = 5;
@@ -61,14 +62,20 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
     states: {
       start: {
         on: {
-          BEGIN: 'permissionCheck',
+          BEGIN: 'cameraCheck',
         },
       },
-      permissionCheck: {
-        entry: ['initializeFaceDetector'],
-        on: {
-          PERMISSION_GRANTED: 'notRecording',
-          PERMISSION_DENIED: 'permissionDenied',
+      cameraCheck: {
+        entry: ['setVideoConstraints', 'initializeFaceDetector'],
+        invoke: {
+          src: 'checkVirtualCameraAndGetStream',
+          onDone: {
+            target: 'notRecording',
+            actions: ['updateVideoMediaStream'],
+          },
+          onError: {
+            target: 'permissionDenied',
+          },
         },
       },
       notRecording: {
@@ -211,6 +218,18 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           return context.failedAttempts + 1;
         },
       }),
+      setVideoConstraints: assign({
+        videoAssociatedParams: (context, event) => ({
+          ...context.videoAssociatedParams,
+          videoConstraints: event.data?.videoConstraints,
+        }),
+      }),
+      updateVideoMediaStream: assign({
+        videoAssociatedParams: (context, event) => ({
+          ...context.videoAssociatedParams,
+          videoMediaStream: event.data?.stream,
+        }),
+      }),
       initializeFaceDetector: assign({
         ovalAssociatedParams: (context) => {
           const faceDetector = new BlazeFaceFaceDetection();
@@ -227,7 +246,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           ...context.videoAssociatedParams,
           videoEl: event.data?.videoEl,
           canvasEl: event.data?.canvasEl,
-          videoMediaStream: event.data?.videoMediaStream,
         }),
       }),
       startRecording: assign({
@@ -397,6 +415,50 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       hasLivenessCheckSucceeded: (_, __, meta) => meta.state.event.data.isLive,
     },
     services: {
+      async checkVirtualCameraAndGetStream(context) {
+        const { videoConstraints } = context.videoAssociatedParams;
+
+        // Get initial stream to enumerate devices with non-empty labels
+        const initialStream = await navigator.mediaDevices.getUserMedia({
+          video: videoConstraints,
+          audio: false,
+        });
+        const devices = await navigator.mediaDevices.enumerateDevices();
+        const realVideoDevices = devices
+          .filter((device) => device.kind === 'videoinput')
+          .filter((device) => !isCameraDeviceVirtual(device));
+
+        if (!realVideoDevices.length) {
+          recordLivenessAnalyticsEvent(context.flowProps, {
+            event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
+            attributes: { action: 'NoRealDeviceFound' },
+            metrics: { count: 1 },
+          });
+          throw new Error('No real video devices found');
+        }
+
+        // If the initial stream is of real camera, use it otherwise use the first real camera
+        const initialStreamDeviceId = initialStream
+          .getTracks()[0]
+          .getSettings().deviceId;
+        const isInitialStreamFromRealDevice = realVideoDevices.some(
+          (device) => device.deviceId === initialStreamDeviceId
+        );
+
+        let realVideoDeviceStream = initialStream;
+        if (!isInitialStreamFromRealDevice) {
+          realVideoDeviceStream = await navigator.mediaDevices.getUserMedia({
+            video: {
+              ...videoConstraints,
+              deviceId: { exact: realVideoDevices[0].deviceId },
+            },
+            audio: false,
+          });
+        }
+
+        return { stream: realVideoDeviceStream };
+      },
+
       async detectInitialFaceAndDrawOval(context) {
         const {
           videoAssociatedParams: { videoEl, canvasEl, videoMediaStream },

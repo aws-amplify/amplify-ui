@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import * as React from 'react';
 import {
   translate,
   LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
@@ -10,38 +10,22 @@ import { LivenessCameraModule } from './LivenessCameraModule';
 import { useLivenessActor } from '../hooks';
 import { CancelButton } from '../shared';
 import { Text, Flex, Heading, Divider } from '../../../primitives';
-import { getVideoConstraints } from './helpers';
 
 export const LivenessCheck: React.FC = () => {
   const { tokens } = useTheme();
   const breakpoint = useThemeBreakpoint();
   const [state] = useLivenessActor();
-  const currElementRef = useRef<HTMLDivElement>(null);
-  const [videoConstraints, setVideoConstraints] =
-    React.useState<MediaTrackConstraints>(null);
 
   const isMobileScreen = breakpoint === 'base';
-
-  useEffect(() => {
-    const constraints = getVideoConstraints(
-      isMobileScreen,
-      currElementRef.current.clientWidth
-    );
-    setVideoConstraints(constraints);
-  }, [isMobileScreen]);
+  const isPermissionDenied = state.matches('permissionDenied');
 
   return (
-    <Flex direction="column" position="relative" ref={currElementRef}>
+    <Flex direction="column" position="relative">
       {!isMobileScreen && (
         <Heading level={3}>{translate('Liveness check')}</Heading>
       )}
-      {!state.matches('permissionDenied') ? (
-        videoConstraints && (
-          <LivenessCameraModule
-            isMobileScreen={isMobileScreen}
-            videoConstraints={videoConstraints}
-          />
-        )
+      {!isPermissionDenied ? (
+        <LivenessCameraModule isMobileScreen={isMobileScreen} />
       ) : (
         <Flex
           backgroundColor={`${tokens.colors.black}`}

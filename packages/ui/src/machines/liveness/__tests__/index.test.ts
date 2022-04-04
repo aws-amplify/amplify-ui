@@ -1,4 +1,5 @@
 import { interpret } from 'xstate';
+import { LivenessInterpreter } from '@aws-amplify/ui';
 
 import { livenessMachine, MIN_FACE_MATCH_COUNT } from '../';
 import {
@@ -19,6 +20,10 @@ const flushPromises = () => new Promise(setImmediate);
 const testTimestampMs = 1640995200000;
 
 describe('Liveness Machine', () => {
+  const mockNavigatorMediaDevices: any = {
+    getUserMedia: jest.fn(),
+    enumerateDevices: jest.fn(),
+  };
   const mockVideoRecorder: any = {
     start: jest.fn(),
     stop: jest.fn(),
@@ -47,10 +52,30 @@ describe('Liveness Machine', () => {
     onUserTimeout: jest.fn(),
   };
 
-  const videoEl = document.createElement('video');
-  const canvasEl = document.createElement('canvas');
-  const videoMediaStream = {
-    getTracks: () => [{ getSettings: () => ({ width: 640, height: 480 }) }],
+  const mockVideoConstaints: MediaTrackConstraints = {
+    width: { min: 320, ideal: 640, max: 1920 },
+    height: { min: 240, ideal: 480, max: 1080 },
+    facingMode: 'user',
+  };
+  const mockCameraDevice: MediaDeviceInfo = {
+    deviceId: 'some-device-id',
+    groupId: 'some-group-id',
+    kind: 'videoinput',
+    label: 'some-label',
+    toJSON: () => ({}),
+  };
+  const mockVideoEl = document.createElement('video');
+  const mockCanvasEl = document.createElement('canvas');
+  const mockVideoMediaStream = {
+    getTracks: () => [
+      {
+        getSettings: () => ({
+          width: 640,
+          height: 480,
+          deviceId: mockCameraDevice.deviceId,
+        }),
+      },
+    ],
   } as MediaStream;
   const mockFace: Face = {
     height: 100,
@@ -72,16 +97,24 @@ describe('Liveness Machine', () => {
     maxFailedAttempts: 1,
   });
 
-  function transitionToRecording(service) {
+  let service: LivenessInterpreter;
+
+  function transitionToCameraCheck(service) {
     service.start();
-    service.send('BEGIN');
-    service.send('PERMISSION_GRANTED');
+    service.send({
+      type: 'BEGIN',
+      data: { videoConstraints: mockVideoConstaints },
+    });
+  }
+
+  async function transitionToRecording(service) {
+    transitionToCameraCheck(service);
+    await flushPromises(); // notRecording
     service.send({
       type: 'START_RECORDING',
       data: {
-        videoEl,
-        canvasEl,
-        videoMediaStream,
+        videoEl: mockVideoEl,
+        canvasEl: mockCanvasEl,
       },
     });
   }
@@ -94,7 +127,7 @@ describe('Liveness Machine', () => {
   }
 
   async function transitionToUploading(service) {
-    transitionToRecording(service);
+    await transitionToRecording(service);
     await flushPromises(); // checkFaceDetected
     jest.advanceTimersToNextTimer(); // ovalMatching
     await flushPromises(); // checkMatch
@@ -103,6 +136,17 @@ describe('Liveness Machine', () => {
   }
 
   beforeEach(() => {
+    Object.defineProperty(global.navigator, 'mediaDevices', {
+      value: mockNavigatorMediaDevices,
+    });
+    mockNavigatorMediaDevices.getUserMedia.mockResolvedValue(
+      mockVideoMediaStream
+    );
+    mockNavigatorMediaDevices.enumerateDevices.mockResolvedValue([
+      mockCameraDevice,
+    ]);
+
+    mockedHelpers.isCameraDeviceVirtual.mockImplementation(() => false);
     mockedHelpers.VideoRecorder.mockImplementation(() => mockVideoRecorder);
     mockedHelpers.BlazeFaceFaceDetection.mockImplementation(
       () => mockBlazeFace
@@ -123,65 +167,145 @@ describe('Liveness Machine', () => {
 
     mockBlazeFace.detectFaces.mockResolvedValue([mockFace]);
     mockLivenessPredictionsProvider.putLivenessVideo.mockResolvedValue({});
+
+    service = interpret(machine) as unknown as LivenessInterpreter;
   });
 
   afterEach(() => {
     jest.clearAllMocks();
     jest.clearAllTimers();
+    service.stop();
   });
 
   it('should be in the idle state', () => {
-    const service = interpret(machine).start();
+    service.start();
     expect(service.state.value).toBe('start');
   });
 
   it('should reach userCancel state on CANCEL', () => {
-    const service = interpret(machine).start();
+    service.start();
     service.send('CANCEL');
 
     expect(service.state.value).toBe('userCancel');
     expect(mockFlowProps.onUserCancel).toHaveBeenCalledTimes(1);
   });
 
-  it('should reach permissionCheck state on BEGIN from start', () => {
-    const service = interpret(machine).start();
-    service.send('BEGIN');
+  it('should reach cameraCheck state on BEGIN from start', () => {
+    transitionToCameraCheck(service);
 
-    expect(service.state.value).toBe('permissionCheck');
+    expect(service.state.value).toBe('cameraCheck');
+    expect(
+      service.state.context.videoAssociatedParams.videoConstraints
+    ).toEqual(mockVideoConstaints);
     expect(
       service.state.context.ovalAssociatedParams.faceDetector
     ).toBeDefined();
   });
 
-  it('should reach permissionDenied state on PERMISSION_DENIED from permissionCheck', () => {
-    const service = interpret(machine).start();
-    service.send('BEGIN');
-    service.send('PERMISSION_DENIED');
+  describe('cameraCheck', () => {
+    it('should reach notRecording state on checkVirtualCameraAndGetStream success', async () => {
+      transitionToCameraCheck(service);
 
-    expect(service.state.value).toBe('permissionDenied');
-    expect(mockFlowProps.onUserPermissionDeined).toHaveBeenCalledTimes(1);
+      await flushPromises();
+      expect(service.state.value).toBe('notRecording');
+      expect(
+        service.state.context.videoAssociatedParams.videoMediaStream
+      ).toEqual(mockVideoMediaStream);
+      expect(mockNavigatorMediaDevices.getUserMedia).toHaveBeenCalledWith({
+        video: mockVideoConstaints,
+        audio: false,
+      });
+      expect(mockNavigatorMediaDevices.enumerateDevices).toHaveBeenCalledTimes(
+        1
+      );
+      expect(mockedHelpers.isCameraDeviceVirtual).toHaveBeenCalled();
+    });
+
+    it('should reach notRecording state on checkVirtualCameraAndGetStream success when initialStream is not from real device', async () => {
+      const mockVirtualMediaStream = {
+        getTracks: () => [
+          {
+            getSettings: () => ({
+              width: 640,
+              height: 480,
+              deviceId: 'virtual-device-id',
+            }),
+          },
+        ],
+      } as MediaStream;
+      mockNavigatorMediaDevices.getUserMedia
+        .mockResolvedValueOnce(mockVirtualMediaStream)
+        .mockResolvedValueOnce(mockVideoMediaStream);
+
+      transitionToCameraCheck(service);
+
+      await flushPromises();
+      expect(service.state.value).toBe('notRecording');
+      expect(
+        service.state.context.videoAssociatedParams.videoMediaStream
+      ).toEqual(mockVideoMediaStream);
+      expect(mockNavigatorMediaDevices.getUserMedia).toHaveBeenNthCalledWith(
+        1,
+        {
+          video: mockVideoConstaints,
+          audio: false,
+        }
+      );
+      expect(mockNavigatorMediaDevices.getUserMedia).toHaveBeenNthCalledWith(
+        2,
+        {
+          video: {
+            ...mockVideoConstaints,
+            deviceId: { exact: mockCameraDevice.deviceId },
+          },
+          audio: false,
+        }
+      );
+    });
+
+    it('should reach permissionDenied state on checkVirtualCameraAndGetStream failure due to no real device', async () => {
+      mockedHelpers.isCameraDeviceVirtual.mockImplementation(() => true);
+      transitionToCameraCheck(service);
+
+      await flushPromises();
+      expect(service.state.value).toBe('permissionDenied');
+    });
+
+    it('should reach permissionDenied state on checkVirtualCameraAndGetStream failure due to getUserMedia error', async () => {
+      mockNavigatorMediaDevices.getUserMedia.mockRejectedValue(
+        new Error('some-error')
+      );
+      transitionToCameraCheck(service);
+
+      await flushPromises();
+      expect(service.state.value).toBe('permissionDenied');
+    });
   });
 
-  it('should reach notRecording state on PERMISSION_GRANTED from permissionCheck', () => {
-    const service = interpret(machine).start();
-    service.send('BEGIN');
-    service.send('PERMISSION_GRANTED');
+  describe('notRecording', () => {
+    it('should reach recording state on START_RECORDING', async () => {
+      transitionToCameraCheck(service);
+      await flushPromises(); // notRecording
 
-    expect(service.state.value).toBe('notRecording');
+      service.send({ type: 'START_RECORDING' });
+
+      expect(service.state.value).toEqual({ recording: 'ovalDrawing' });
+    });
   });
 
   describe('recording', () => {
-    it('should reach ovalDrawing state on START_RECORDING and respect ovalDrawingTimeout', () => {
-      const service = interpret(machine);
-      transitionToRecording(service);
+    it('should reach ovalDrawing state as initial state and respect ovalDrawingTimeout', async () => {
+      await transitionToRecording(service);
 
       expect(service.state.value).toEqual({ recording: 'ovalDrawing' });
-      expect(service.state.context.videoAssociatedParams.videoEl).toBe(videoEl);
+      expect(service.state.context.videoAssociatedParams.videoEl).toBe(
+        mockVideoEl
+      );
       expect(service.state.context.videoAssociatedParams.canvasEl).toBe(
-        canvasEl
+        mockCanvasEl
       );
       expect(service.state.context.videoAssociatedParams.videoMediaStream).toBe(
-        videoMediaStream
+        mockVideoMediaStream
       );
       expect(
         service.state.context.videoAssociatedParams.videoRecorder
@@ -199,8 +323,7 @@ describe('Liveness Machine', () => {
     });
 
     it('should reach ovalMatching state after detectInitialFaceAndDrawOval success and respect ovalMatchingTimeout', async () => {
-      const service = interpret(machine);
-      transitionToRecording(service);
+      await transitionToRecording(service);
 
       await flushPromises();
       expect(service.state.value).toEqual({ recording: 'checkFaceDetected' });
@@ -221,8 +344,6 @@ describe('Liveness Machine', () => {
       expect(service.state.value).toEqual('timeout');
       expect(service.state.context.errorState).toBe(LivenessErrorState.TIMEOUT);
       expect(mockFlowProps.onUserTimeout).toHaveBeenCalledTimes(1);
-
-      service.stop();
     });
 
     it('should reach checkFaceDetected again if no face is detected', async () => {
@@ -231,8 +352,7 @@ describe('Liveness Machine', () => {
         () => IlluminationState.BRIGHT
       );
 
-      const service = interpret(machine);
-      transitionToRecording(service);
+      await transitionToRecording(service);
 
       await flushPromises();
       expect(service.state.value).toEqual({ recording: 'checkFaceDetected' });
@@ -245,16 +365,13 @@ describe('Liveness Machine', () => {
       expect(
         service.state.context.faceMatchAssociatedParams.illuminationState
       ).toBe(IlluminationState.BRIGHT);
-
-      service.stop();
     });
 
     it('should reach error state after detectInitialFaceAndDrawOval error', async () => {
       const error = new Error('some-error');
       mockBlazeFace.detectFaces.mockRejectedValue(error);
 
-      const service = interpret(machine);
-      transitionToRecording(service);
+      await transitionToRecording(service);
 
       await flushPromises();
       expect(service.state.value).toEqual('error');
@@ -266,8 +383,7 @@ describe('Liveness Machine', () => {
     });
 
     it('should reach uploading-pending state after detectFaceAndMatchOval success', async () => {
-      const service = interpret(machine);
-      transitionToRecording(service);
+      await transitionToRecording(service);
       await flushPromises(); // checkFaceDetected
       jest.advanceTimersToNextTimer(); // ovalMatching
 
@@ -291,8 +407,7 @@ describe('Liveness Machine', () => {
         () => FaceMatchState.TOO_CLOSE
       );
 
-      const service = interpret(machine);
-      transitionToRecording(service);
+      await transitionToRecording(service);
       await flushPromises(); // checkFaceDetected
       jest.advanceTimersToNextTimer(); // ovalMatching
 
@@ -317,7 +432,6 @@ describe('Liveness Machine', () => {
         isLive: true,
       });
 
-      const service = interpret(machine);
       await transitionToUploading(service);
 
       await flushPromises();
@@ -339,7 +453,6 @@ describe('Liveness Machine', () => {
         isLive: false,
       });
 
-      const service = interpret(machine);
       await transitionToUploading(service);
 
       await flushPromises();
@@ -353,7 +466,6 @@ describe('Liveness Machine', () => {
         error
       );
 
-      const service = interpret(machine);
       await transitionToUploading(service);
 
       await flushPromises();
