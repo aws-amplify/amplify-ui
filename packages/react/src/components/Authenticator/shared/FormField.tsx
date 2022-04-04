@@ -12,7 +12,9 @@ export interface FormFieldProps {
   formFieldOptions: FormFieldOptions;
 }
 export function FormField({ name, formFieldOptions }: FormFieldProps) {
-  const { validationErrors } = useAuthenticator();
+  const { validationErrors } = useAuthenticator((context) => [
+    context.validationErrors,
+  ]);
   const { type } = formFieldOptions;
 
   const errors = getErrors(validationErrors[name]);

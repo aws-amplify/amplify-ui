@@ -14,7 +14,9 @@ export const TwoButtonSubmitFooter = (
 ): JSX.Element => {
   const { cancelButtonSendType, cancelButtonText, submitButtonText } = props;
 
-  const { _send, isPending } = useAuthenticator();
+  const { _send, isPending } = useAuthenticator((context) => [
+    context.isPending,
+  ]);
 
   const defaultSubmitText = isPending ? (
     <>{translate('Submitting')}&hellip;</>

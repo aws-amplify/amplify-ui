@@ -12,7 +12,7 @@ import { RemoteErrorMessage, TwoButtonSubmitFooter } from '../shared';
 import { FormFields } from '../shared/FormFields';
 
 export const ConfirmVerifyUser = (): JSX.Element => {
-  const { isPending } = useAuthenticator();
+  const { isPending } = useAuthenticator((context) => [context.isPending]);
   const { handleChange, handleSubmit } = useFormHandlers();
 
   const {

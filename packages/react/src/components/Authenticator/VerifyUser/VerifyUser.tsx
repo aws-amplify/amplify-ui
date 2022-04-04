@@ -60,6 +60,7 @@ export const VerifyUser = (): JSX.Element => {
     },
   } = useCustomComponents();
 
+  // TODO: expose unverifiedAttributes from `useAuthenticator`
   const { _state, isPending } = useAuthenticator();
   const { handleChange, handleSubmit } = useFormHandlers();
   const context = getActorContext(_state) as SignInContext;

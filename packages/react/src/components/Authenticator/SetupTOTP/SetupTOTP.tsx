@@ -17,6 +17,7 @@ import { FormFields } from '../shared/FormFields';
 const logger = new Logger('SetupTOTP-logger');
 
 export const SetupTOTP = (): JSX.Element => {
+  // TODO: handle `formOverrides` outside `useAuthenticator`
   const { _state, isPending } = useAuthenticator();
   const { handleChange, handleSubmit } = useFormHandlers();
 

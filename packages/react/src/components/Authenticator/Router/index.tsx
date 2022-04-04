@@ -34,7 +34,11 @@ export function Router({
   variation = 'default',
   hideSignUp,
 }: RouterProps) {
-  const { route, signOut, user } = useAuthenticator();
+  const { route, signOut, user } = useAuthenticator((context) => [
+    context.route,
+    context.signOut,
+    context.user,
+  ]);
 
   const {
     components: { Header, Footer },

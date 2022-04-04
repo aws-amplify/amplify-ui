@@ -16,7 +16,11 @@ export function ConfirmSignUp() {
     isPending,
     resendCode,
     codeDeliveryDetails: { DeliveryMedium, Destination } = {},
-  } = useAuthenticator();
+  } = useAuthenticator((context) => [
+    context.isPending,
+    context.resendCode,
+    context.codeDeliveryDetails,
+  ]);
   const { handleChange, handleSubmit } = useFormHandlers();
 
   const {
@@ -92,8 +96,9 @@ export function ConfirmSignUp() {
 }
 
 ConfirmSignUp.Header = () => {
-  const { codeDeliveryDetails: { DeliveryMedium, Destination } = {} } =
-    useAuthenticator();
+  const { codeDeliveryDetails: { DeliveryMedium } = {} } = useAuthenticator(
+    (context) => [context.codeDeliveryDetails]
+  );
 
   const confirmSignUpHeading =
     DeliveryMedium === 'EMAIL'
