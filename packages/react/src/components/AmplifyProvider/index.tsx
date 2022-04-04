@@ -4,7 +4,7 @@ import { createTheme, Theme } from '@aws-amplify/ui';
 
 import { AmplifyContext } from './AmplifyContext';
 
-import DOMPurify from 'dompurify';
+import DOMPurify from 'isomorphic-dompurify';
 
 export type ColorMode = 'system' | 'light' | 'dark';
 
