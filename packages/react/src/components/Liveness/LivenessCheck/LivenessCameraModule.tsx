@@ -12,10 +12,10 @@ import {
 import { CancelButton, Instruction, RecordingIcon } from '../shared';
 import { Flex, Loader, Text, View } from '../../../primitives';
 
-const selectVideoConstraints = createLivenessSelector(
+export const selectVideoConstraints = createLivenessSelector(
   (state) => state.context.videoAssociatedParams?.videoConstraints
 );
-const selectVideoStream = createLivenessSelector(
+export const selectVideoStream = createLivenessSelector(
   (state) => state.context.videoAssociatedParams?.videoMediaStream
 );
 
@@ -66,6 +66,7 @@ export const LivenessCameraModule = (
       left="50%"
       top="50%"
       transform="translate(-50%,-50%)"
+      data-testid="centered-loader"
     >
       <Loader size="large" />
     </View>
@@ -105,6 +106,7 @@ export const LivenessCameraModule = (
           width={videoWidth}
           style={{ transform: 'scaleX(-1)' }}
           onCanPlay={handleMediaPlay}
+          data-testid="video"
         />
         <View
           as="canvas"

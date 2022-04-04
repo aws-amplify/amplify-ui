@@ -42,7 +42,7 @@ export const CancelButton: React.FC<CancelButtonProps> = (props) => {
       borderRadius="100%"
       height="50px"
     >
-      <IconClose size="large" />
+      <IconClose size="large" data-testid="close-icon" />
     </Button>
   ) : (
     <Button variation="link" type="button" onClick={handleClick}>
