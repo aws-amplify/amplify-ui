@@ -7,7 +7,6 @@ import { useCheckboxFieldProps } from './useCheckboxFieldProps';
 const propsToCode = ({
   label,
   labelPosition,
-  labelHidden,
   size,
   isDisabled,
 }: CheckboxFieldProps) => {
@@ -18,7 +17,6 @@ const propsToCode = ({
     (labelPosition
       ? `\n  labelPosition=${JSON.stringify(labelPosition)}`
       : '') +
-    (labelHidden ? `\n  labelHidden={${labelHidden}}` : '') +
     (size ? `\n  size=${JSON.stringify(size)}` : '') +
     `\n/>`
   );
@@ -41,7 +39,6 @@ export const CheckboxDemo = () => {
         isDisabled={props.isDisabled}
         size={props.size}
         label={props.label}
-        labelHidden={props.labelHidden}
         labelPosition={props.labelPosition}
       />
     </Demo>

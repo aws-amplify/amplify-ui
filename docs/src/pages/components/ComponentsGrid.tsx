@@ -15,8 +15,12 @@ import { useRouter } from 'next/router';
 const ComponentGrid = ({ components }) => {
   const { query } = useRouter();
   const { platform = 'react' } = query;
+
   return (
-    <Grid templateColumns="1fr 1fr" gap="var(--amplify-space-large)">
+    <Grid
+      templateColumns={{ base: '1fr', large: '1fr 1fr' }}
+      gap="var(--amplify-space-large)"
+    >
       {components.map(({ href, label, body }) => (
         <Link href={{ pathname: href, query }} key={href}>
           <Card className="docs-component-card" variation="elevated">

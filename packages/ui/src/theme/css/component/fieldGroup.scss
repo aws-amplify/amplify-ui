@@ -57,6 +57,13 @@
   .amplify-field-group__control {
     @extend %remove-end-radii;
 
+    &:not(:focus) {
+      border-inline-end: none;
+    }
+    &:focus {
+      z-index: 1;
+    }
+
     // This targets non first-child controls
     // when there are multiple controls
     &:not(:first-child) {
@@ -78,6 +85,13 @@
 .amplify-field-group__outer-end {
   .amplify-field-group__control {
     @extend %remove-start-radii;
+
+    &:not(:focus) {
+      border-inline-start: none;
+    }
+    &:focus {
+      z-index: 1;
+    }
 
     // This targets non last-child controls
     // where there are multiple controls

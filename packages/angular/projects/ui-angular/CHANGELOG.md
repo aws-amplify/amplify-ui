@@ -1,5 +1,32 @@
 # @aws-amplify/ui-angular
 
+## 2.3.4
+
+### Patch Changes
+
+- Updated dependencies [[`c00b0f016`](https://github.com/aws-amplify/amplify-ui/commit/c00b0f0161f4df56c3d2ec75ffe0d2975bb859ac)]:
+  - @aws-amplify/ui@3.4.1
+
+## 2.3.3
+
+### Patch Changes
+
+- [#1580](https://github.com/aws-amplify/amplify-ui/pull/1580) [`1ac9cda71`](https://github.com/aws-amplify/amplify-ui/commit/1ac9cda712dc7eb7bc7293999340e05059648c93) Thanks [@wlee221](https://github.com/wlee221)! - fix(authenticator): look for current user on routed apps whenever app refreshes
+
+* [#1592](https://github.com/aws-amplify/amplify-ui/pull/1592) [`fc0acacdf`](https://github.com/aws-amplify/amplify-ui/commit/fc0acacdf9247574d1605b32c03537c1768c43f1) Thanks [@wlee221](https://github.com/wlee221)! - Fix unscription timing issues in Vue/Angular
+
+* Updated dependencies [[`1ac9cda71`](https://github.com/aws-amplify/amplify-ui/commit/1ac9cda712dc7eb7bc7293999340e05059648c93), [`d47da90a6`](https://github.com/aws-amplify/amplify-ui/commit/d47da90a68d936e2cc22a972a876ef10aca0eaf3), [`6d3981c4a`](https://github.com/aws-amplify/amplify-ui/commit/6d3981c4a26721361e4461d206b0b37d72d67dbd)]:
+  - @aws-amplify/ui@3.4.0
+
+## 2.3.2
+
+### Patch Changes
+
+- [#1545](https://github.com/aws-amplify/amplify-ui/pull/1545) [`30e3155ac`](https://github.com/aws-amplify/amplify-ui/commit/30e3155ac70d3f82c00da562332ce701ade45817) Thanks [@wlee221](https://github.com/wlee221)! - Bump xstate to `^4.30.6`
+
+- Updated dependencies [[`7910c04b5`](https://github.com/aws-amplify/amplify-ui/commit/7910c04b55cb32e3e8a70c3966f509ea43a0dc64), [`30e3155ac`](https://github.com/aws-amplify/amplify-ui/commit/30e3155ac70d3f82c00da562332ce701ade45817)]:
+  - @aws-amplify/ui@3.3.2
+
 ## 2.3.1
 
 ### Patch Changes
