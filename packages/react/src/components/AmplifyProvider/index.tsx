@@ -107,15 +107,14 @@ export function AmplifyProvider({
           Q: How are we mitigating the potential attack vector?
           A: To fix this potential attack vector on the server side, we need to filter out any closing </style> tags, 
              as this the only way to escape from the context of the browser interpreting the text as CSS. 
-             We also need to catch cases where there is any kind of space character between < and / and style and >, such as tabs, carriage returns, etc:
+             We also need to catch cases where there is any kind of whitespace character </style[HERE]>, such as tabs, carriage returns, etc:
              </style
              
              >
              Therefore, by only rendering CSS text which does not include a closing '</style>' tag, 
              we ensure that the browser will correctly interpret all the text as CSS. 
         */}
-      {typeof theme === 'undefined' ||
-      /<\s*\/\s*s\s*t\s*y\s*l\s*e\s*>/i.test(cssText) ? null : (
+      {typeof theme === 'undefined' || /<\/style\s*>/i.test(cssText) ? null : (
         <style
           id={`amplify-theme-${name}`}
           dangerouslySetInnerHTML={{ __html: cssText }}
