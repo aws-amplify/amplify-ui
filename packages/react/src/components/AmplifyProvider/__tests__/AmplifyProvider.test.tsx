@@ -63,7 +63,8 @@ describe('AmplifyProvider', () => {
 
   it('filters out XSS attacks which attempt to escape the CSS context using whitespace characters', async () => {
     const name = 'maliciousTheme';
-    const xss = `</style\r ><script>alert('XSS')</script>`;
+    const xss = `</style
+    ><script>alert('XSS')</script>`;
     const maliciousTheme: Theme = {
       name,
       tokens: {
