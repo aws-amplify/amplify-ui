@@ -1,8 +1,15 @@
+import isEmpty from 'lodash/isEmpty';
+
 export const isDevelopment = () => process.env.NODE_ENV !== 'production';
 
 export const areArraysEqual = (arr1: Array<any>, arr2: Array<any>) => {
   if (arr1.length !== arr2.length) return false;
-  return arr1.every((value, index) => value === arr2[index]);
+  return arr1.every((value, index) => {
+    // edge case: both values are empty object/array. This can often happen with empty spreads.
+    if (isEmpty(value) && isEmpty(arr2[index])) return true;
+
+    return value === arr2[index];
+  });
 };
 
 // Error message handling source:
