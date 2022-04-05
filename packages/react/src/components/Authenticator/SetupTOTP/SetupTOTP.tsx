@@ -18,7 +18,9 @@ const logger = new Logger('SetupTOTP-logger');
 
 export const SetupTOTP = (): JSX.Element => {
   // TODO: handle `formOverrides` outside `useAuthenticator`
-  const { _state, isPending } = useAuthenticator();
+  const { _state, isPending } = useAuthenticator((context) => [
+    context.isPending,
+  ]);
   const { handleChange, handleSubmit } = useFormHandlers();
 
   const {

@@ -6,7 +6,7 @@ import { FederatedSignInButton } from './FederatedSignInButtons';
 
 export function FederatedSignIn() {
   // TODO: expose `socialProviders`
-  const { _state, route } = useAuthenticator();
+  const { _state, route } = useAuthenticator((context) => [context.route]);
   const { socialProviders = [] } = _state.context.config;
 
   if (socialProviders.length === 0) {
