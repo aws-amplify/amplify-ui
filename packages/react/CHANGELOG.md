@@ -1,31 +1,51 @@
 # @aws-amplify/ui-react
 
+## 2.14.0
+
+### Minor Changes
+
+- [#1607](https://github.com/aws-amplify/amplify-ui/pull/1607) [`4d0a8424e`](https://github.com/aws-amplify/amplify-ui/commit/4d0a8424e2592be52a59e610f0eb1068c6ab0d5a) Thanks [@ErikCH](https://github.com/ErikCH)! - Added new Geo components. Including the MapView and GeoCoder with documentation at https://ui.docs.amplify.aws/components/geo
+
+### Patch Changes
+
+- [#1620](https://github.com/aws-amplify/amplify-ui/pull/1620) [`607c8bc2b`](https://github.com/aws-amplify/amplify-ui/commit/607c8bc2be05f005b75dc94c3f85fb9ffd30f42a) Thanks [@wlee221](https://github.com/wlee221)! - fix(react): Keep a local copy of previous facade value
+
+* [#1608](https://github.com/aws-amplify/amplify-ui/pull/1608) [`4dee728f2`](https://github.com/aws-amplify/amplify-ui/commit/4dee728f25735ce8bc8793806a395dfcee579522) Thanks [@reesscot](https://github.com/reesscot)! - Remove sourcemaps from rollup build
+
+- [#1619](https://github.com/aws-amplify/amplify-ui/pull/1619) [`a224bb914`](https://github.com/aws-amplify/amplify-ui/commit/a224bb914d274d5b7d002d0ff0cfd514aa9a1a0d) Thanks [@wlee221](https://github.com/wlee221)! - Optimize `useAuthenticator`s used internally with `selector` option. This will significantly reduce the number of re-renders in Authenticator.
+
+- Updated dependencies [[`4d0a8424e`](https://github.com/aws-amplify/amplify-ui/commit/4d0a8424e2592be52a59e610f0eb1068c6ab0d5a), [`e20720a89`](https://github.com/aws-amplify/amplify-ui/commit/e20720a894ccb2cfcc7ede7160299e082ec76fd2), [`4dee728f2`](https://github.com/aws-amplify/amplify-ui/commit/4dee728f25735ce8bc8793806a395dfcee579522)]:
+  - @aws-amplify/ui@3.5.0
+
 ## 2.13.0
 
 ### Minor Changes
 
 - [#1566](https://github.com/aws-amplify/amplify-ui/pull/1566) [`7ce9dd531`](https://github.com/aws-amplify/amplify-ui/commit/7ce9dd5313b85d9f4b4cab8c7e329e37551e1690) Thanks [@jacoblogan](https://github.com/jacoblogan)! - added useBreakpointValue hook.
-      Used with either a breakpoint object or array
-    ```
-    export const UseBreakpointValueObjectExample = () => {
-      const variation = useBreakpointValue({
-        base: 'info',
-        small: 'warning',
-        medium: 'error',
-        large: 'success',
-      });
+  Used with either a breakpoint object or array
 
-      return <Alert variation={variation}>Responsive Alert</Alert>;
-    };
-    ```
-    OR
-    ```
-    export const UseBreakpointValueArrayExample = () => {
-      const variation = useBreakpointValue(['info', 'warning', 'error', 'success']);
+  ```
+  export const UseBreakpointValueObjectExample = () => {
+    const variation = useBreakpointValue({
+      base: 'info',
+      small: 'warning',
+      medium: 'error',
+      large: 'success',
+    });
 
-      return <Alert variation={variation}>Responsive Alert</Alert>;
-    };
-    ```
+    return <Alert variation={variation}>Responsive Alert</Alert>;
+  };
+  ```
+
+  OR
+
+  ```
+  export const UseBreakpointValueArrayExample = () => {
+    const variation = useBreakpointValue(['info', 'warning', 'error', 'success']);
+
+    return <Alert variation={variation}>Responsive Alert</Alert>;
+  };
+  ```
 
 ### Patch Changes
 
