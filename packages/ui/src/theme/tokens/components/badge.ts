@@ -10,11 +10,12 @@ import {
   TextAlignValue,
 } from '../types/designToken';
 
-export interface BadgeVariationTokens {
+interface BadgeVariationTokens {
   backgroundColor: DesignToken<BackgroundColorValue>;
   color: DesignToken<ColorValue>;
 }
-export interface BadgeSizeTokens {
+
+interface BadgeSizeTokens {
   fontSize: DesignToken<FontSizeValue>;
   paddingHorizontal: DesignToken<SpaceValue>;
   paddingVertical: DesignToken<SpaceValue>;

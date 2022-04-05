@@ -1,12 +1,23 @@
-export interface LinkTokens {
-  active: any;
-  color: any;
-  focus: any;
-  hover: any;
-  large: any;
-  small: any;
-  visited: any;
+import { ColorValue, DesignToken, FontSizeValue } from '../types/designToken';
+
+interface LinkStateTokens {
+  color: DesignToken<ColorValue>;
 }
+
+interface LinkSizeTokens {
+  fontSize: DesignToken<FontSizeValue>;
+}
+
+export interface LinkTokens {
+  active: LinkStateTokens;
+  color: DesignToken<ColorValue>;
+  focus: LinkStateTokens;
+  hover: LinkStateTokens;
+  large: LinkSizeTokens;
+  small: LinkSizeTokens;
+  visited: LinkStateTokens;
+}
+
 export const link: LinkTokens = {
   active: {
     color: { value: '{colors.font.active.value}' },

@@ -49,6 +49,7 @@ interface AuthenticatorOrContainerTokens {
 interface AuthenticatorContainerToken {
   widthMax: DesignToken<SpaceValue>;
 }
+
 export interface AuthenticatorTokens {
   maxWidth: DesignToken<SpaceValue>;
   modal: AuthenticatorModalTokens;
