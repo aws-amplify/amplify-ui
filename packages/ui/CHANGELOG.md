@@ -1,5 +1,11 @@
 # @aws-amplify/ui
 
+## 3.5.1
+
+### Patch Changes
+
+- [#1628](https://github.com/aws-amplify/amplify-ui/pull/1628) [`ff74c1d1c`](https://github.com/aws-amplify/amplify-ui/commit/ff74c1d1cab859d977dfc0638f0193af842d2bbd) Thanks [@reesscot](https://github.com/reesscot)! - Revert Geo package release
+
 ## 3.5.0
 
 ### Minor Changes
