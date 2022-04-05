@@ -74,14 +74,6 @@ export const LoaderPropControls: React.FC<LoaderPropControlsProps> = ({
         value={filledColor}
         onChange={(event) => setFilledColor(event.target.value)}
       />
-      {isDeterminate ? (
-        <TextField
-          type="number"
-          label="percentage"
-          value={percentage}
-          onChange={(event) => setPercentage(event.target.value)}
-        />
-      ) : null}
       <SwitchField
         label="isDeterminate"
         defaultChecked={isDeterminate}
@@ -90,12 +82,22 @@ export const LoaderPropControls: React.FC<LoaderPropControlsProps> = ({
           setIsDeterminate(event.target.checked), setPercentage(undefined);
         }}
       />
-      <SwitchField
-        label="isPercentageLabelHidden"
-        defaultChecked={isPercentageTextHidden}
-        labelPosition="end"
-        onChange={(event) => setIsPercentageTextHidden(event.target.checked)}
-      />
+      {isDeterminate ? (
+        <TextField
+          type="number"
+          label="percentage"
+          value={percentage}
+          onChange={(event) => setPercentage(event.target.value)}
+        />
+      ) : null}
+      {isDeterminate ? (
+        <SwitchField
+          label="isPercentageLabelHidden"
+          defaultChecked={isPercentageTextHidden}
+          labelPosition="end"
+          onChange={(event) => setIsPercentageTextHidden(event.target.checked)}
+        />
+      ) : null}
     </Flex>
   );
 };

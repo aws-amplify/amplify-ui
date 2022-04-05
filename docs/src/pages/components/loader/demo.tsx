@@ -8,15 +8,13 @@ import { LoaderPropControls } from './LoaderPropControls';
 const propsToCode = (props: LoaderProps) => {
   return (
     `<Loader \n` +
-    (props.size ? ` size=${props.size}\n` : '') +
-    (props.variation ? ` variation=${props.variation}\n` : '') +
-    (props.emptyColor ? ` emptyColor=${props.emptyColor}\n` : '') +
-    (props.filledColor ? ` filledColor=${props.filledColor}\n` : '') +
-    (props.percentage ? ` percentage=${props.percentage}%\n` : '') +
-    (props.isDeterminate ? ` isDeterminate=${props.isDeterminate}\n` : '') +
-    (props.isPercentageTextHidden
-      ? ` isPercentageTextHidden=${props.isPercentageTextHidden}\n`
-      : '') +
+    (props.size ? ` size="${props.size}"\n` : '') +
+    (props.variation ? ` variation="${props.variation}"\n` : '') +
+    (props.emptyColor ? ` emptyColor="${props.emptyColor}"\n` : '') +
+    (props.filledColor ? ` filledColor="${props.filledColor}"\n` : '') +
+    (props.percentage ? ` percentage={${props.percentage}}\n` : '') +
+    (props.isDeterminate ? ` isDeterminate\n` : '') +
+    (props.isPercentageTextHidden ? ` isPercentageTextHidden\n` : '') +
     '/>'
   );
 };

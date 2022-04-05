@@ -10,9 +10,11 @@ export const LINEAR_EMPTY = 'linear-empty';
 export const LINEAR_FILLED = 'linear-filled';
 export const CIRCULAR_EMPTY = 'circular-empty';
 export const CIRCULAR_FILLED = 'circular-filled';
-
+// radius + strokeWidth = 50
+export const CIRCULAR_STROKE_WIDTH = 8;
+export const RADIUS = 42;
 // circumference = 2 * r * PI  (r = 42)
-export const CIRCUMFERENCE = 2 * 42 * Math.PI;
+export const CIRCUMFERENCE = 2 * RADIUS * Math.PI;
 
 const LoaderPrimitive: Primitive<LoaderProps, 'svg'> = (
   {
@@ -77,16 +79,16 @@ const LoaderPrimitive: Primitive<LoaderProps, 'svg'> = (
       <circle
         cx="50%"
         cy="50%"
-        r="42%"
-        strokeWidth="8%"
+        r={`${RADIUS}%`}
+        strokeWidth={`${CIRCULAR_STROKE_WIDTH}%`}
         style={{ stroke: emptyColor }}
         data-testid={CIRCULAR_EMPTY}
       />
       <circle
         cx="50%"
         cy="50%"
-        r="42%"
-        strokeWidth="8%"
+        r={`${RADIUS}%`}
+        strokeWidth={`${CIRCULAR_STROKE_WIDTH}%`}
         style={{
           stroke: filledColor,
           strokeDasharray: isDeterminate
