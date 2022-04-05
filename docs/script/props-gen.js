@@ -7,14 +7,17 @@ const filePath = '../../packages/react/src/primitives/Button/index.ts';
 
 const pathToFile = path.join(__dirname, filePath);
 
-const options = {
-  skipChildrenPropWithoutDoc: true,
-};
-
 // Parse a file for docgen info
-const res = docgen.parse(pathToFile);
+const rawData = docgen.parse(pathToFile)[0];
 
-const categorizedProps = Object.entries(res[0].props).reduce((acc, curr) => {
+const { props, displayName } = JSON.parse(
+  JSON.stringify(rawData)
+    .replaceAll("' + '", ' ')
+    .replaceAll('|', '&#124;')
+    .replaceAll('\\n', ' ')
+);
+
+const categorizedProps = Object.entries(props).reduce((acc, curr) => {
   const [key, val] = curr;
   return {
     ...acc,
@@ -24,6 +27,11 @@ const categorizedProps = Object.entries(res[0].props).reduce((acc, curr) => {
     },
   };
 }, {});
+
+writeFileSync(
+  path.resolve(__dirname, `${displayName}-react-auto-prop-categorized.json`),
+  JSON.stringify(categorizedProps, null, 2)
+);
 
 const createPropsTable = (data) => {
   return Object.entries(data).flatMap(([categoryName, props]) => {
@@ -48,12 +56,8 @@ const createPropsTable = (data) => {
 
 const propsTables = createPropsTable(categorizedProps);
 
-const output = json2md([{ h2: `${res[0].displayName} Props` }, ...propsTables]);
+const output = json2md([{ h2: `${displayName} Props` }, ...propsTables]);
 
-writeFileSync(
-  path.resolve(__dirname, 'react-auto-prop-categorized.json'),
-  JSON.stringify(categorizedProps, null, 2)
-);
 writeFileSync(
   path.resolve(__dirname, 'react-auto-prop-table-button.md'),
   output
