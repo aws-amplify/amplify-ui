@@ -68,13 +68,17 @@
     "classnames": "2.3.1",
     "deepmerge": "4.2.2",
     "lodash": "4.17.21",
+    "mapbox-gl": "npm:empty-npm-package@1.0.0",
+    "maplibre-gl-js-amplify": "1.2.3",
     "qrcode": "1.5.0",
     "react-generate-context": "1.0.1"
   },
   "peerDependencies": {
     "aws-amplify": "3.x.x || 4.x.x",
+    "maplibre-gl": "^1.14.0",
     "react": ">= 16.8.0",
-    "react-dom": ">= 16.8.0"
+    "react-dom": ">= 16.8.0",
+    "react-map-gl": ">= 7.0.10"
   },
   "peerDependenciesMeta": {
     "aws-amplify": {
