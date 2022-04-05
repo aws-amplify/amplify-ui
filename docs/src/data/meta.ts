@@ -76,6 +76,11 @@ export const META_INFO: MetaInfo = {
     description:
       "Alert displays a brief, important message in a way that attracts the user's attention without interrupting the user's task. Alerts are typically intended to be read out dynamically by a screen reader - Amplify UI",
   },
+  '/components/geo': {
+    title: 'Geo',
+    description:
+      'Amplify UI Geo provides UI components for maps and location search for popular front-end frameworks.',
+  },
   '/components/loader': {
     title: 'Loader',
     description:
