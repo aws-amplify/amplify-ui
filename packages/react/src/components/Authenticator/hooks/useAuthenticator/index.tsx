@@ -97,14 +97,9 @@ export const useAuthenticator = (selector?: Selector) => {
     [service]
   );
 
-  const getFacade = (state: AuthMachineState) => ({
-    ...sendAliases,
-    ...getServiceContextFacade(state),
-    /** @deprecated For internal use only */
-    _state: state,
-    /** @deprecated For internal use only */
-    _send: send,
-  });
+  const getFacade = (state: AuthMachineState) => {
+    return { ...sendAliases, ...getServiceContextFacade(state) };
+  };
 
   /**
    * For `useSelector`'s selector argument, we just return back the `state`.
@@ -167,5 +162,11 @@ export const useAuthenticator = (selector?: Selector) => {
 
   const state = useSelector(service, xstateSelector, comparator);
 
-  return getFacade(state);
+  return {
+    ...getFacade(state),
+    /** @deprecated For internal use only */
+    _state: state,
+    /** @deprecated For internal use only */
+    _send: send,
+  };
 };
