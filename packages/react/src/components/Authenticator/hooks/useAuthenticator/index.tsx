@@ -97,9 +97,16 @@ export const useAuthenticator = (selector?: Selector) => {
     [service]
   );
 
-  const getFacade = (state: AuthMachineState) => {
-    return { ...sendAliases, ...getServiceContextFacade(state) };
-  };
+  const getFacade = (state: AuthMachineState) => ({
+    ...sendAliases,
+    ...getServiceContextFacade(state),
+    /** @deprecated For internal use only */
+    _state: state,
+    /** @deprecated For internal use only */
+    _send: send,
+  });
+
+  const prevFacadeRef = React.useRef<ReturnType<typeof getFacade>>();
 
   /**
    * For `useSelector`'s selector argument, we just return back the `state`.
@@ -116,7 +123,7 @@ export const useAuthenticator = (selector?: Selector) => {
    * re-render. Does a deep equality check.
    */
   const comparator = (
-    prevState: AuthMachineState,
+    _prevState: AuthMachineState,
     nextState: AuthMachineState
   ) => {
     if (!selector) return false;
@@ -125,8 +132,16 @@ export const useAuthenticator = (selector?: Selector) => {
      * We only trigger re-render if any of values in specified selected
      * values change. First compute the facade for prev and next state.
      */
-    const prevFacade = getFacade(prevState);
+    const prevFacade = prevFacadeRef.current;
     const nextFacade = getFacade(nextState);
+
+    /**
+     * prevFacadeRef can now be updated  with new facade values
+     */
+    prevFacadeRef.current = nextFacade;
+
+    // If this is the first time comparator is called, return false
+    if (!prevFacade) return false;
 
     /**
      * Apply the passed in `selector` to get the value of their desired
@@ -142,5 +157,5 @@ export const useAuthenticator = (selector?: Selector) => {
 
   const state = useSelector(service, xstateSelector, comparator);
 
-  return { ...getFacade(state), _state: state, _send: send };
+  return getFacade(state);
 };
