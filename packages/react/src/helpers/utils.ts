@@ -1,14 +1,29 @@
 import isEmpty from 'lodash/isEmpty';
+import isArray from 'lodash/isArray';
+import isObject from 'lodash/isObject';
 
 export const isDevelopment = () => process.env.NODE_ENV !== 'production';
 
+const isEmptyObj = (val: any) => isObject(val) && isEmpty(val);
+
+const isEmptyArr = (val: any) => isArray(val) && isEmpty(val);
+
 export const areArraysEqual = (arr1: Array<any>, arr2: Array<any>) => {
   if (arr1.length !== arr2.length) return false;
-  return arr1.every((value, index) => {
-    // edge case: both values are empty object/array. This can often happen with empty spreads.
-    if (isEmpty(value) && isEmpty(arr2[index])) return true;
+  return arr1.every((elem1, index) => {
+    const elem2 = arr2[index];
+    /**
+     * edge cases: if both values are empty object/array, we consider them equal.
+     * These can catch empty default values (`[]`, `{}`) that unintentionally point
+     * to different refernces.
+     *
+     * We can consider doing a deep comparison, but left it here for efficiency
+     * + practicality for authenticator state comparison purposes.
+     */
+    if (isEmptyArr(elem1) && isEmptyArr(elem2)) return true;
+    if (isEmptyObj(elem1) && isEmptyObj(elem2)) return true;
 
-    return value === arr2[index];
+    return elem1 === elem2;
   });
 };
 
