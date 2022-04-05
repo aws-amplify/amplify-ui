@@ -106,8 +106,6 @@ export const useAuthenticator = (selector?: Selector) => {
     _send: send,
   });
 
-  const prevFacadeRef = React.useRef<ReturnType<typeof getFacade>>();
-
   /**
    * For `useSelector`'s selector argument, we just return back the `state`.
    * The reason is that whenever you select a specific value of the state, the
@@ -119,10 +117,22 @@ export const useAuthenticator = (selector?: Selector) => {
   const xstateSelector = (state: AuthMachineState) => state;
 
   /**
+   * Holds a snapshot copy of last previous facade values. Will be used
+   * on state changes to see if any of facade values have changed.
+   */
+  const prevFacadeRef = React.useRef<ReturnType<typeof getFacade>>();
+
+  /**
    * comparator decides whether or not the new authState should trigger a
    * re-render. Does a deep equality check.
    */
   const comparator = (
+    /**
+     * We do not use `_prevState`, because it holds a *reference* to actor
+     * object, of which value could easily mutate between compare calls.
+     *
+     * Instead, we'll use prevFacadeRef for comparison.
+     */
     _prevState: AuthMachineState,
     nextState: AuthMachineState
   ) => {
@@ -136,7 +146,7 @@ export const useAuthenticator = (selector?: Selector) => {
     const nextFacade = getFacade(nextState);
 
     /**
-     * prevFacadeRef can now be updated  with new facade values
+     * prevFacadeRef can now be updated with new facade values
      */
     prevFacadeRef.current = nextFacade;
 
