@@ -8,7 +8,11 @@ const isEmptyObj = (val: any) => isObject(val) && isEmpty(val);
 
 const isEmptyArr = (val: any) => isArray(val) && isEmpty(val);
 
-export const areArraysEqual = (arr1: Array<any>, arr2: Array<any>) => {
+/**
+ * Does a comparison of each array value, plus a value equality check for empty
+ * objects and arrays.
+ */
+export const areArrayValuesEqual = (arr1: any[], arr2: any[]) => {
   if (arr1.length !== arr2.length) return false;
   return arr1.every((elem1, index) => {
     const elem2 = arr2[index];
