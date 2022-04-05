@@ -4,7 +4,10 @@ import { useAuthenticator } from '../..';
 import { Button, Flex } from '../../..';
 
 export const ConfirmSignInFooter = () => {
-  const { isPending, toSignIn } = useAuthenticator();
+  const { isPending, toSignIn } = useAuthenticator((context) => [
+    context.isPending,
+    context.toSignIn,
+  ]);
 
   return (
     <Flex direction="column">

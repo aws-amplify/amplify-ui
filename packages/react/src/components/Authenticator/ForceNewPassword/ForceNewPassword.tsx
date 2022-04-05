@@ -9,7 +9,11 @@ import {
 import { FormFields } from '../shared/FormFields';
 
 export const ForceNewPassword = (): JSX.Element => {
-  const { error, isPending, toSignIn } = useAuthenticator();
+  const { error, isPending, toSignIn } = useAuthenticator((context) => [
+    context.error,
+    context.isPending,
+    context.toSignIn,
+  ]);
   const { handleBlur, handleChange, handleSubmit } = useFormHandlers();
 
   const {

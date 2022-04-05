@@ -4,7 +4,11 @@ import { getFormDataFromEvent } from '../../../../helpers/utils';
 import { useAuthenticator } from '../useAuthenticator';
 
 export default function useFormHandlers() {
-  const { submitForm, updateBlur, updateForm } = useAuthenticator();
+  const { submitForm, updateBlur, updateForm } = useAuthenticator((context) => [
+    context.submitForm,
+    context.updateBlur,
+    context.updateForm,
+  ]);
 
   const handleBlur = useCallback(
     ({ target: { name } }: React.FocusEvent<HTMLFormElement>) => {

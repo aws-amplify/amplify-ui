@@ -22,7 +22,8 @@ export type AuthenticatorProps = AuthenticatorMachineOptions &
 
 // Helper component that sends init event to the parent provider
 function InitMachine({ children, ...data }) {
-  const { _send, route } = useAuthenticator();
+  // TODO: `INIT` event should be removed so that `_send` doesn't need to be extracted
+  const { _send, route } = useAuthenticator((context) => [context.route]);
 
   const hasInitialized = React.useRef(false);
 
