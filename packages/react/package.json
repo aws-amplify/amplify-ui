@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react",
-  "version": "2.10.4",
+  "version": "2.13.0",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "exports": {
@@ -12,17 +12,21 @@
       "import": "./dist/esm/internal.js",
       "require": "./dist/internal.js"
     },
+    "./internal/primitives-catalog": {
+      "import": "./dist/esm/primitives-catalog.js",
+      "default": null
+    },
     "./legacy": {
       "import": "./dist/esm/legacy.js",
       "require": "./dist/legacy.js"
     },
-    "./styles.css": "./dist/index.css",
+    "./styles.css": "./dist/styles.css",
     "./primitives.json": "./dist/primitives.json"
   },
   "browser": {
-    "./styles.css": "./dist/index.css"
+    "./styles.css": "./dist/styles.css"
   },
-  "types": "dist/index.d.ts",
+  "types": "dist/types/index.d.ts",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
@@ -38,9 +42,9 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "yarn run build:ts && yarn run build:catalog",
-    "build:ts": "tsup --minify --keep-names",
+    "build:ts": "rollup --config",
     "build:catalog": "ts-node scripts/generatePrimitivesCatalog.ts",
-    "dev": "tsup --watch src",
+    "dev": "rollup --config --watch",
     "eslint:primitives": "eslint ./src/primitives --ext .js,.ts,.tsx",
     "update:icons": "node scripts/updateIcons.js",
     "build:icons": "yarn run clean:icons && node scripts/generateIcons.js",
@@ -54,7 +58,7 @@
     "test:unit:watch": "jest --watch"
   },
   "dependencies": {
-    "@aws-amplify/ui": "3.3.2",
+    "@aws-amplify/ui": "3.4.1",
     "@aws-amplify/ui-react-v1": "npm:@aws-amplify/ui-react@1.2.9",
     "@radix-ui/react-accordion": "0.1.6",
     "@radix-ui/react-dropdown-menu": "0.1.6",
@@ -72,13 +76,20 @@
     "react": ">= 16.8.0",
     "react-dom": ">= 16.8.0"
   },
+  "peerDependenciesMeta": {
+    "aws-amplify": {
+      "optional": true
+    }
+  },
   "devDependencies": {
+    "@rollup/plugin-typescript": "^8.3.1",
     "@svgr/core": "^5.5.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
     "@testing-library/react-hooks": "^7.0.1",
     "@testing-library/user-event": "^13.2.1",
     "@types/jest": "^26.0.23",
+    "@types/qrcode": "^1.4.2",
     "@types/testing-library__jest-dom": "^5.14.1",
     "@typescript-eslint/eslint-plugin": "^5.6.0",
     "@typescript-eslint/parser": "^5.6.0",
@@ -90,9 +101,15 @@
     "jest-matchmedia-mock": "^1.1.0",
     "react-router-dom": "^6.2.1",
     "rimraf": "^3.0.2",
+    "rollup": "^2.70.0",
+    "rollup-plugin-styles": "^4.0.0",
+    "rollup-plugin-terser": "^7.0.2",
     "ts-jest": "^27.0.3",
     "ts-morph": "^12.0.0",
     "ts-node": "^10.2.1",
     "typescript": "^4.3.2"
-  }
+  },
+  "sideEffects": [
+    "dist/**/*.css"
+  ]
 }
