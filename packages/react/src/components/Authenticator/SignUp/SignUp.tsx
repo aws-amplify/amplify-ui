@@ -11,7 +11,10 @@ import { RemoteErrorMessage } from '../shared';
 import { FormFields } from '../shared/FormFields';
 
 export function SignUp() {
-  const { hasValidationErrors, isPending } = useAuthenticator();
+  const { hasValidationErrors, isPending } = useAuthenticator((context) => [
+    context.hasValidationErrors,
+    context.isPending,
+  ]);
   const { handleChange, handleBlur, handleSubmit } = useFormHandlers();
 
   const {
