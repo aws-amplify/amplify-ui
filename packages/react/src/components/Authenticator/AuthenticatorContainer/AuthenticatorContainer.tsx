@@ -1,0 +1,52 @@
+import * as React from 'react';
+
+import { View } from '../../../primitives/View';
+
+import { useAuthenticator } from '../hooks/useAuthenticator';
+import { useCustomComponents } from '../hooks/useCustomComponents';
+
+export type AuthenticatorContainerProps = {
+  children: React.ReactNode;
+  className: string;
+  variation: 'default' | 'modal';
+};
+
+// TODO replace usage of this util with the `isSignInOrSignUpRoute` util in v3.
+// Currently `hasTabs` always returns `undefined` as the right condition always
+// resolves to truthy. This prevents the "data-amplify-router-content" attribute
+// from being applied below. Fixing it will cause consumer snapshot tests to break,
+// so wait to update.
+const hasTabs = (route: string) => {
+  return route === 'signIn' || 'signUp';
+};
+
+export default function AuthenticatorContainer({
+  children,
+  className,
+  variation = 'default',
+}: AuthenticatorContainerProps) {
+  const { route } = useAuthenticator(({ route }) => [route]);
+
+  const {
+    components: { Header, Footer },
+  } = useCustomComponents();
+
+  return (
+    <View
+      className={className}
+      data-amplify-authenticator=""
+      data-variation={variation}
+    >
+      <View data-amplify-container="">
+        <Header />
+        <View
+          data-amplify-router=""
+          data-amplify-router-content={hasTabs(route)}
+        >
+          {children}
+        </View>
+        <Footer />
+      </View>
+    </View>
+  );
+}

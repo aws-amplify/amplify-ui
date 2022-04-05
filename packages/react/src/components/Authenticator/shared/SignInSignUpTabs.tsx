@@ -20,7 +20,7 @@ export const SignInSignUpTabs = ({
     <>
       {hideSignUp ? (
         <View data-amplify-router-content="">
-           {route === 'signIn' && <SignIn />}
+          {route === 'signIn' && <SignIn />}
         </View>
       ) : (
         <Tabs
@@ -32,12 +32,12 @@ export const SignInSignUpTabs = ({
         >
           <TabItem title={translate('Sign In')}>
             <View data-amplify-router-content="">
-               {route === 'signIn' && <SignIn />}
+              {route === 'signIn' && <SignIn />}
             </View>
           </TabItem>
           <TabItem title={translate('Create Account')}>
             <View data-amplify-router-content="">
-               {route === 'signUp' && <SignUp />}
+              {route === 'signUp' && <SignUp />}
             </View>
           </TabItem>
         </Tabs>
