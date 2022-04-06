@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "eslint": "7.29.0",
-    "rimraf": "^3.0.2",
-    "eslint-config-next": "11.0.1"
+    "eslint-config-next": "11.0.1",
+    "rimraf": "^3.0.2"
   }
 }
