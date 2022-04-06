@@ -10,12 +10,18 @@ const pathToFile = path.join(__dirname, filePath);
 // Parse a file for docgen info
 const rawData = docgen.parse(pathToFile)[0];
 
-const { props, displayName } = JSON.parse(
-  JSON.stringify(rawData)
-    .replaceAll("' + '", ' ')
-    .replaceAll('|', '&#124;')
-    .replaceAll('\\n', ' ')
-);
+/**
+ * need to treat special characters
+ * 1) "|", "<", ">" => replace with unicode "&$<unicode>;"
+ * 2) "' + '" => replace with space
+ * 3) "\n" => replace with space
+ */
+const tobeEncoded = new RegExp(/[|<>]|'\s\+\s'|\\n/g);
+const getEncoded = (match) =>
+  match.match(/[|<>]/) ? `&#${match.charCodeAt()};` : ' ';
+const enCodedData = JSON.stringify(rawData).replaceAll(tobeEncoded, getEncoded);
+
+const { props, displayName } = JSON.parse(enCodedData);
 
 const categorizedProps = Object.entries(props).reduce((acc, curr) => {
   const [key, val] = curr;
@@ -42,8 +48,8 @@ const createPropsTable = (data) => {
           headers: ['name', 'type', 'default', 'description'],
           rows: Object.values(props).map(
             ({ name, type, defaultValue, description }) => ({
-              name,
-              type: type.name,
+              name: name.replaceAll(/[{}]/g, '\\$&'),
+              type: type.name.replaceAll(/[{}]/g, '\\$&'),
               default: defaultValue ? defaultValue.value.toString() : '',
               description,
             })

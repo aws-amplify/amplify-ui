@@ -2,17 +2,17 @@
 
 ### GridItemStyleProps
 
-| name        | type                             | default | description |
-| ----------- | -------------------------------- | ------- | ----------- |
-| area        | ResponsiveStyle<GridArea>        |         |             |
-| column      | ResponsiveStyle<GridColumn>      |         |             |
-| columnEnd   | ResponsiveStyle<GridColumnEnd>   |         |             |
-| columnSpan  | ResponsiveStyle<GridSpanType>    |         |             |
-| columnStart | ResponsiveStyle<GridColumnStart> |         |             |
-| row         | ResponsiveStyle<GridRow>         |         |             |
-| rowEnd      | ResponsiveStyle<GridRowEnd>      |         |             |
-| rowSpan     | ResponsiveStyle<GridSpanType>    |         |             |
-| rowStart    | ResponsiveStyle<GridRowStart>    |         |             |
+| name        | type                                     | default | description |
+| ----------- | ---------------------------------------- | ------- | ----------- |
+| area        | ResponsiveStyle&#60;GridArea&#62;        |         |             |
+| column      | ResponsiveStyle&#60;GridColumn&#62;      |         |             |
+| columnEnd   | ResponsiveStyle&#60;GridColumnEnd&#62;   |         |             |
+| columnSpan  | ResponsiveStyle&#60;GridSpanType&#62;    |         |             |
+| columnStart | ResponsiveStyle&#60;GridColumnStart&#62; |         |             |
+| row         | ResponsiveStyle&#60;GridRow&#62;         |         |             |
+| rowEnd      | ResponsiveStyle&#60;GridRowEnd&#62;      |         |             |
+| rowSpan     | ResponsiveStyle&#60;GridSpanType&#62;    |         |             |
+| rowStart    | ResponsiveStyle&#60;GridRowStart&#62;    |         |             |
 
 ### ButtonHTMLAttributes
 
@@ -87,16 +87,16 @@
 
 ### ButtonProps
 
-| name        | type                                 | default  | description                                                                                            |
-| ----------- | ------------------------------------ | -------- | ------------------------------------------------------------------------------------------------------ |
-| isDisabled  | boolean                              |          | If `true`, the button will be disabled.                                                                |
-| type        | ButtonTypes                          | button   | Changes the button type                                                                                |
-| onClick     | MouseEventHandler<HTMLButtonElement> |          | Button click event handler                                                                             |
-| isFullWidth | boolean                              | false    | If `true`, the button will take up the full width of its container.                                    |
-| isLoading   | boolean                              |          | If `true`, the button will show a spinner.                                                             |
-| loadingText | string                               |          | The label to show in the button when `loading` is true If no text is passed, it only shows the spinner |
-| size        | Sizes                                | "medium" | Changes the size of the button.                                                                        |
-| variation   | ButtonVariations                     |          | Changes the visual weight of the button.                                                               |
+| name        | type                                         | default  | description                                                                                            |
+| ----------- | -------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------ |
+| isDisabled  | boolean                                      |          | If `true`, the button will be disabled.                                                                |
+| type        | ButtonTypes                                  | button   | Changes the button type                                                                                |
+| onClick     | MouseEventHandler&#60;HTMLButtonElement&#62; |          | Button click event handler                                                                             |
+| isFullWidth | boolean                                      | false    | If `true`, the button will take up the full width of its container.                                    |
+| isLoading   | boolean                                      |          | If `true`, the button will show a spinner.                                                             |
+| loadingText | string                                       |          | The label to show in the button when `loading` is true If no text is passed, it only shows the spinner |
+| size        | Sizes                                        | "medium" | Changes the size of the button.                                                                        |
+| variation   | ButtonVariations                             |          | Changes the visual weight of the button.                                                               |
 
 ### BaseComponentProps
 
@@ -108,69 +108,69 @@
 
 ### BaseStyleProps
 
-| name               | type                                                                    | default | description |
-| ------------------ | ----------------------------------------------------------------------- | ------- | ----------- |
-| alignSelf          | ResponsiveStyle<StyleToken<AlignSelf>>                                  |         |             |
-| backgroundColor    | ResponsiveStyle<StyleToken<BackgroundColor>>                            |         |             |
-| backgroundImage    | ResponsiveStyle<StyleToken<BackgroundImage>>                            |         |             |
-| border             | ResponsiveStyle<StyleToken<Border<0 &#124; (string & {})>>>             |         |             |
-| borderRadius       | ResponsiveStyle<StyleToken<BorderRadius<0 &#124; (string & {})>>>       |         |             |
-| bottom             | ResponsiveStyle<StyleToken<Bottom<0 &#124; (string & {})>>>             |         |             |
-| boxShadow          | ResponsiveStyle<StyleToken<BoxShadow>>                                  |         |             |
-| color              | ResponsiveStyle<StyleToken<Color>>                                      |         |             |
-| display            | ResponsiveStyle<StyleToken<Display>>                                    |         |             |
-| fontFamily         | ResponsiveStyle<StyleToken<FontFamily>>                                 |         |             |
-| fontSize           | ResponsiveStyle<StyleToken<FontSize<0 &#124; (string & {})>>>           |         |             |
-| fontStyle          | ResponsiveStyle<StyleToken<FontStyle>>                                  |         |             |
-| fontWeight         | ResponsiveStyle<StyleToken<FontWeight>>                                 |         |             |
-| height             | ResponsiveStyle<StyleToken<Height<0 &#124; (string & {})>>>             |         |             |
-| left               | ResponsiveStyle<StyleToken<Left<0 &#124; (string & {})>>>               |         |             |
-| letterSpacing      | ResponsiveStyle<StyleToken<LetterSpacing<0 &#124; (string & {})>>>      |         |             |
-| lineHeight         | ResponsiveStyle<StyleToken<LineHeight<0 &#124; (string & {})>>>         |         |             |
-| margin             | ResponsiveStyle<StyleToken<Margin<0 &#124; (string & {})>>>             |         |             |
-| marginBlockEnd     | ResponsiveStyle<StyleToken<MarginBlockEnd<0 &#124; (string & {})>>>     |         |             |
-| marginBlockStart   | ResponsiveStyle<StyleToken<MarginBlockStart<0 &#124; (string & {})>>>   |         |             |
-| marginBottom       | ResponsiveStyle<StyleToken<MarginBlockEnd<0 &#124; (string & {})>>>     |         |             |
-| marginInlineEnd    | ResponsiveStyle<StyleToken<MarginInlineEnd<0 &#124; (string & {})>>>    |         |             |
-| marginInlineStart  | ResponsiveStyle<StyleToken<MarginInlineStart<0 &#124; (string & {})>>>  |         |             |
-| marginLeft         | ResponsiveStyle<StyleToken<MarginInlineStart<0 &#124; (string & {})>>>  |         |             |
-| marginRight        | ResponsiveStyle<StyleToken<MarginInlineEnd<0 &#124; (string & {})>>>    |         |             |
-| marginTop          | ResponsiveStyle<StyleToken<MarginBlockStart<0 &#124; (string & {})>>>   |         |             |
-| maxHeight          | ResponsiveStyle<StyleToken<MaxHeight<0 &#124; (string & {})>>>          |         |             |
-| maxWidth           | ResponsiveStyle<StyleToken<MaxWidth<0 &#124; (string & {})>>>           |         |             |
-| minHeight          | ResponsiveStyle<StyleToken<MinHeight<0 &#124; (string & {})>>>          |         |             |
-| minWidth           | ResponsiveStyle<StyleToken<MinWidth<0 &#124; (string & {})>>>           |         |             |
-| opacity            | ResponsiveStyle<StyleToken<Opacity>>                                    |         |             |
-| overflow           | ResponsiveStyle<StyleToken<Overflow>>                                   |         |             |
-| padding            | ResponsiveStyle<StyleToken<Padding<0 &#124; (string & {})>>>            |         |             |
-| paddingBlockEnd    | ResponsiveStyle<StyleToken<MarginBlockEnd<0 &#124; (string & {})>>>     |         |             |
-| paddingBlockStart  | ResponsiveStyle<StyleToken<MarginBlockStart<0 &#124; (string & {})>>>   |         |             |
-| paddingBottom      | ResponsiveStyle<StyleToken<PaddingBlockEnd<0 &#124; (string & {})>>>    |         |             |
-| paddingInlineEnd   | ResponsiveStyle<StyleToken<MarginInlineEnd<0 &#124; (string & {})>>>    |         |             |
-| paddingInlineStart | ResponsiveStyle<StyleToken<MarginInlineStart<0 &#124; (string & {})>>>  |         |             |
-| paddingLeft        | ResponsiveStyle<StyleToken<PaddingInlineStart<0 &#124; (string & {})>>> |         |             |
-| paddingRight       | ResponsiveStyle<StyleToken<PaddingInlineEnd<0 &#124; (string & {})>>>   |         |             |
-| paddingTop         | ResponsiveStyle<StyleToken<PaddingBlockStart<0 &#124; (string & {})>>>  |         |             |
-| position           | ResponsiveStyle<StyleToken<Position>>                                   |         |             |
-| right              | ResponsiveStyle<StyleToken<Right<0 &#124; (string & {})>>>              |         |             |
-| textAlign          | ResponsiveStyle<StyleToken<TextAlign>>                                  |         |             |
-| textDecoration     | ResponsiveStyle<StyleToken<TextDecoration<0 &#124; (string & {})>>>     |         |             |
-| textTransform      | ResponsiveStyle<StyleToken<TextTransform>>                              |         |             |
-| top                | ResponsiveStyle<StyleToken<Top<0 &#124; (string & {})>>>                |         |             |
-| transform          | ResponsiveStyle<StyleToken<Transform>>                                  |         |             |
-| transformOrigin    | ResponsiveStyle<StyleToken<TransformOrigin<0 &#124; (string & {})>>>    |         |             |
-| width              | ResponsiveStyle<StyleToken<Width<0 &#124; (string & {})>>>              |         |             |
-| whiteSpace         | ResponsiveStyle<StyleToken<WhiteSpace>>                                 |         |             |
+| name               | type                                                                                              | default | description |
+| ------------------ | ------------------------------------------------------------------------------------------------- | ------- | ----------- |
+| alignSelf          | ResponsiveStyle&#60;StyleToken&#60;AlignSelf&#62;&#62;                                            |         |             |
+| backgroundColor    | ResponsiveStyle&#60;StyleToken&#60;BackgroundColor&#62;&#62;                                      |         |             |
+| backgroundImage    | ResponsiveStyle&#60;StyleToken&#60;BackgroundImage&#62;&#62;                                      |         |             |
+| border             | ResponsiveStyle&#60;StyleToken&#60;Border&#60;0 &#124; (string & \{\})&#62;&#62;&#62;             |         |             |
+| borderRadius       | ResponsiveStyle&#60;StyleToken&#60;BorderRadius&#60;0 &#124; (string & \{\})&#62;&#62;&#62;       |         |             |
+| bottom             | ResponsiveStyle&#60;StyleToken&#60;Bottom&#60;0 &#124; (string & \{\})&#62;&#62;&#62;             |         |             |
+| boxShadow          | ResponsiveStyle&#60;StyleToken&#60;BoxShadow&#62;&#62;                                            |         |             |
+| color              | ResponsiveStyle&#60;StyleToken&#60;Color&#62;&#62;                                                |         |             |
+| display            | ResponsiveStyle&#60;StyleToken&#60;Display&#62;&#62;                                              |         |             |
+| fontFamily         | ResponsiveStyle&#60;StyleToken&#60;FontFamily&#62;&#62;                                           |         |             |
+| fontSize           | ResponsiveStyle&#60;StyleToken&#60;FontSize&#60;0 &#124; (string & \{\})&#62;&#62;&#62;           |         |             |
+| fontStyle          | ResponsiveStyle&#60;StyleToken&#60;FontStyle&#62;&#62;                                            |         |             |
+| fontWeight         | ResponsiveStyle&#60;StyleToken&#60;FontWeight&#62;&#62;                                           |         |             |
+| height             | ResponsiveStyle&#60;StyleToken&#60;Height&#60;0 &#124; (string & \{\})&#62;&#62;&#62;             |         |             |
+| left               | ResponsiveStyle&#60;StyleToken&#60;Left&#60;0 &#124; (string & \{\})&#62;&#62;&#62;               |         |             |
+| letterSpacing      | ResponsiveStyle&#60;StyleToken&#60;LetterSpacing&#60;0 &#124; (string & \{\})&#62;&#62;&#62;      |         |             |
+| lineHeight         | ResponsiveStyle&#60;StyleToken&#60;LineHeight&#60;0 &#124; (string & \{\})&#62;&#62;&#62;         |         |             |
+| margin             | ResponsiveStyle&#60;StyleToken&#60;Margin&#60;0 &#124; (string & \{\})&#62;&#62;&#62;             |         |             |
+| marginBlockEnd     | ResponsiveStyle&#60;StyleToken&#60;MarginBlockEnd&#60;0 &#124; (string & \{\})&#62;&#62;&#62;     |         |             |
+| marginBlockStart   | ResponsiveStyle&#60;StyleToken&#60;MarginBlockStart&#60;0 &#124; (string & \{\})&#62;&#62;&#62;   |         |             |
+| marginBottom       | ResponsiveStyle&#60;StyleToken&#60;MarginBlockEnd&#60;0 &#124; (string & \{\})&#62;&#62;&#62;     |         |             |
+| marginInlineEnd    | ResponsiveStyle&#60;StyleToken&#60;MarginInlineEnd&#60;0 &#124; (string & \{\})&#62;&#62;&#62;    |         |             |
+| marginInlineStart  | ResponsiveStyle&#60;StyleToken&#60;MarginInlineStart&#60;0 &#124; (string & \{\})&#62;&#62;&#62;  |         |             |
+| marginLeft         | ResponsiveStyle&#60;StyleToken&#60;MarginInlineStart&#60;0 &#124; (string & \{\})&#62;&#62;&#62;  |         |             |
+| marginRight        | ResponsiveStyle&#60;StyleToken&#60;MarginInlineEnd&#60;0 &#124; (string & \{\})&#62;&#62;&#62;    |         |             |
+| marginTop          | ResponsiveStyle&#60;StyleToken&#60;MarginBlockStart&#60;0 &#124; (string & \{\})&#62;&#62;&#62;   |         |             |
+| maxHeight          | ResponsiveStyle&#60;StyleToken&#60;MaxHeight&#60;0 &#124; (string & \{\})&#62;&#62;&#62;          |         |             |
+| maxWidth           | ResponsiveStyle&#60;StyleToken&#60;MaxWidth&#60;0 &#124; (string & \{\})&#62;&#62;&#62;           |         |             |
+| minHeight          | ResponsiveStyle&#60;StyleToken&#60;MinHeight&#60;0 &#124; (string & \{\})&#62;&#62;&#62;          |         |             |
+| minWidth           | ResponsiveStyle&#60;StyleToken&#60;MinWidth&#60;0 &#124; (string & \{\})&#62;&#62;&#62;           |         |             |
+| opacity            | ResponsiveStyle&#60;StyleToken&#60;Opacity&#62;&#62;                                              |         |             |
+| overflow           | ResponsiveStyle&#60;StyleToken&#60;Overflow&#62;&#62;                                             |         |             |
+| padding            | ResponsiveStyle&#60;StyleToken&#60;Padding&#60;0 &#124; (string & \{\})&#62;&#62;&#62;            |         |             |
+| paddingBlockEnd    | ResponsiveStyle&#60;StyleToken&#60;MarginBlockEnd&#60;0 &#124; (string & \{\})&#62;&#62;&#62;     |         |             |
+| paddingBlockStart  | ResponsiveStyle&#60;StyleToken&#60;MarginBlockStart&#60;0 &#124; (string & \{\})&#62;&#62;&#62;   |         |             |
+| paddingBottom      | ResponsiveStyle&#60;StyleToken&#60;PaddingBlockEnd&#60;0 &#124; (string & \{\})&#62;&#62;&#62;    |         |             |
+| paddingInlineEnd   | ResponsiveStyle&#60;StyleToken&#60;MarginInlineEnd&#60;0 &#124; (string & \{\})&#62;&#62;&#62;    |         |             |
+| paddingInlineStart | ResponsiveStyle&#60;StyleToken&#60;MarginInlineStart&#60;0 &#124; (string & \{\})&#62;&#62;&#62;  |         |             |
+| paddingLeft        | ResponsiveStyle&#60;StyleToken&#60;PaddingInlineStart&#60;0 &#124; (string & \{\})&#62;&#62;&#62; |         |             |
+| paddingRight       | ResponsiveStyle&#60;StyleToken&#60;PaddingInlineEnd&#60;0 &#124; (string & \{\})&#62;&#62;&#62;   |         |             |
+| paddingTop         | ResponsiveStyle&#60;StyleToken&#60;PaddingBlockStart&#60;0 &#124; (string & \{\})&#62;&#62;&#62;  |         |             |
+| position           | ResponsiveStyle&#60;StyleToken&#60;Position&#62;&#62;                                             |         |             |
+| right              | ResponsiveStyle&#60;StyleToken&#60;Right&#60;0 &#124; (string & \{\})&#62;&#62;&#62;              |         |             |
+| textAlign          | ResponsiveStyle&#60;StyleToken&#60;TextAlign&#62;&#62;                                            |         |             |
+| textDecoration     | ResponsiveStyle&#60;StyleToken&#60;TextDecoration&#60;0 &#124; (string & \{\})&#62;&#62;&#62;     |         |             |
+| textTransform      | ResponsiveStyle&#60;StyleToken&#60;TextTransform&#62;&#62;                                        |         |             |
+| top                | ResponsiveStyle&#60;StyleToken&#60;Top&#60;0 &#124; (string & \{\})&#62;&#62;&#62;                |         |             |
+| transform          | ResponsiveStyle&#60;StyleToken&#60;Transform&#62;&#62;                                            |         |             |
+| transformOrigin    | ResponsiveStyle&#60;StyleToken&#60;TransformOrigin&#60;0 &#124; (string & \{\})&#62;&#62;&#62;    |         |             |
+| width              | ResponsiveStyle&#60;StyleToken&#60;Width&#60;0 &#124; (string & \{\})&#62;&#62;&#62;              |         |             |
+| whiteSpace         | ResponsiveStyle&#60;StyleToken&#60;WhiteSpace&#62;&#62;                                           |         |             |
 
 ### FlexItemStyleProps
 
-| name   | type                                               | default | description                                                   |
-| ------ | -------------------------------------------------- | ------- | ------------------------------------------------------------- |
-| flex   | ResponsiveStyle<Flex<0 &#124; (string & {})>>      |         | Shorthand for flex grow / shrink / basis                      |
-| order  | ResponsiveStyle<Order>                             |         | Controls order flex items appear                              |
-| grow   | ResponsiveStyle<FlexGrow>                          |         | Ability for flex item to grow                                 |
-| shrink | ResponsiveStyle<FlexShrink>                        |         | Ability for flex item to shrink                               |
-| basis  | ResponsiveStyle<FlexBasis<0 &#124; (string & {})>> |         | Default size of element before remaining space is distributed |
+| name   | type                                                                 | default | description                                                   |
+| ------ | -------------------------------------------------------------------- | ------- | ------------------------------------------------------------- |
+| flex   | ResponsiveStyle&#60;Flex&#60;0 &#124; (string & \{\})&#62;&#62;      |         | Shorthand for flex grow / shrink / basis                      |
+| order  | ResponsiveStyle&#60;Order&#62;                                       |         | Controls order flex items appear                              |
+| grow   | ResponsiveStyle&#60;FlexGrow&#62;                                    |         | Ability for flex item to grow                                 |
+| shrink | ResponsiveStyle&#60;FlexShrink&#62;                                  |         | Ability for flex item to shrink                               |
+| basis  | ResponsiveStyle&#60;FlexBasis&#60;0 &#124; (string & \{\})&#62;&#62; |         | Default size of element before remaining space is distributed |
 
 ### AriaProps
 
@@ -241,189 +241,189 @@
 
 ### DOMAttributes
 
-| name                        | type                                       | default | description |
-| --------------------------- | ------------------------------------------ | ------- | ----------- |
-| dangerouslySetInnerHTML     | { \_\_html: string; }                      |         |             |
-| onCopy                      | ClipboardEventHandler<HTMLButtonElement>   |         |             |
-| onCopyCapture               | ClipboardEventHandler<HTMLButtonElement>   |         |             |
-| onCut                       | ClipboardEventHandler<HTMLButtonElement>   |         |             |
-| onCutCapture                | ClipboardEventHandler<HTMLButtonElement>   |         |             |
-| onPaste                     | ClipboardEventHandler<HTMLButtonElement>   |         |             |
-| onPasteCapture              | ClipboardEventHandler<HTMLButtonElement>   |         |             |
-| onCompositionEnd            | CompositionEventHandler<HTMLButtonElement> |         |             |
-| onCompositionEndCapture     | CompositionEventHandler<HTMLButtonElement> |         |             |
-| onCompositionStart          | CompositionEventHandler<HTMLButtonElement> |         |             |
-| onCompositionStartCapture   | CompositionEventHandler<HTMLButtonElement> |         |             |
-| onCompositionUpdate         | CompositionEventHandler<HTMLButtonElement> |         |             |
-| onCompositionUpdateCapture  | CompositionEventHandler<HTMLButtonElement> |         |             |
-| onFocus                     | FocusEventHandler<HTMLButtonElement>       |         |             |
-| onFocusCapture              | FocusEventHandler<HTMLButtonElement>       |         |             |
-| onBlur                      | FocusEventHandler<HTMLButtonElement>       |         |             |
-| onBlurCapture               | FocusEventHandler<HTMLButtonElement>       |         |             |
-| onChange                    | FormEventHandler<HTMLButtonElement>        |         |             |
-| onChangeCapture             | FormEventHandler<HTMLButtonElement>        |         |             |
-| onBeforeInput               | FormEventHandler<HTMLButtonElement>        |         |             |
-| onBeforeInputCapture        | FormEventHandler<HTMLButtonElement>        |         |             |
-| onInput                     | FormEventHandler<HTMLButtonElement>        |         |             |
-| onInputCapture              | FormEventHandler<HTMLButtonElement>        |         |             |
-| onReset                     | FormEventHandler<HTMLButtonElement>        |         |             |
-| onResetCapture              | FormEventHandler<HTMLButtonElement>        |         |             |
-| onSubmit                    | FormEventHandler<HTMLButtonElement>        |         |             |
-| onSubmitCapture             | FormEventHandler<HTMLButtonElement>        |         |             |
-| onInvalid                   | FormEventHandler<HTMLButtonElement>        |         |             |
-| onInvalidCapture            | FormEventHandler<HTMLButtonElement>        |         |             |
-| onLoad                      | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onLoadCapture               | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onError                     | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onErrorCapture              | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onKeyDown                   | KeyboardEventHandler<HTMLButtonElement>    |         |             |
-| onKeyDownCapture            | KeyboardEventHandler<HTMLButtonElement>    |         |             |
-| onKeyPress                  | KeyboardEventHandler<HTMLButtonElement>    |         | @deprecated |
-| onKeyPressCapture           | KeyboardEventHandler<HTMLButtonElement>    |         | @deprecated |
-| onKeyUp                     | KeyboardEventHandler<HTMLButtonElement>    |         |             |
-| onKeyUpCapture              | KeyboardEventHandler<HTMLButtonElement>    |         |             |
-| onAbort                     | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onAbortCapture              | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onCanPlay                   | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onCanPlayCapture            | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onCanPlayThrough            | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onCanPlayThroughCapture     | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onDurationChange            | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onDurationChangeCapture     | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onEmptied                   | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onEmptiedCapture            | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onEncrypted                 | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onEncryptedCapture          | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onEnded                     | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onEndedCapture              | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onLoadedData                | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onLoadedDataCapture         | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onLoadedMetadata            | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onLoadedMetadataCapture     | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onLoadStart                 | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onLoadStartCapture          | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onPause                     | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onPauseCapture              | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onPlay                      | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onPlayCapture               | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onPlaying                   | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onPlayingCapture            | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onProgress                  | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onProgressCapture           | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onRateChange                | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onRateChangeCapture         | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onSeeked                    | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onSeekedCapture             | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onSeeking                   | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onSeekingCapture            | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onStalled                   | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onStalledCapture            | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onSuspend                   | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onSuspendCapture            | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onTimeUpdate                | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onTimeUpdateCapture         | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onVolumeChange              | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onVolumeChangeCapture       | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onWaiting                   | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onWaitingCapture            | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onAuxClick                  | MouseEventHandler<HTMLButtonElement>       |         |             |
-| onAuxClickCapture           | MouseEventHandler<HTMLButtonElement>       |         |             |
-| onClickCapture              | MouseEventHandler<HTMLButtonElement>       |         |             |
-| onContextMenu               | MouseEventHandler<HTMLButtonElement>       |         |             |
-| onContextMenuCapture        | MouseEventHandler<HTMLButtonElement>       |         |             |
-| onDoubleClick               | MouseEventHandler<HTMLButtonElement>       |         |             |
-| onDoubleClickCapture        | MouseEventHandler<HTMLButtonElement>       |         |             |
-| onDrag                      | DragEventHandler<HTMLButtonElement>        |         |             |
-| onDragCapture               | DragEventHandler<HTMLButtonElement>        |         |             |
-| onDragEnd                   | DragEventHandler<HTMLButtonElement>        |         |             |
-| onDragEndCapture            | DragEventHandler<HTMLButtonElement>        |         |             |
-| onDragEnter                 | DragEventHandler<HTMLButtonElement>        |         |             |
-| onDragEnterCapture          | DragEventHandler<HTMLButtonElement>        |         |             |
-| onDragExit                  | DragEventHandler<HTMLButtonElement>        |         |             |
-| onDragExitCapture           | DragEventHandler<HTMLButtonElement>        |         |             |
-| onDragLeave                 | DragEventHandler<HTMLButtonElement>        |         |             |
-| onDragLeaveCapture          | DragEventHandler<HTMLButtonElement>        |         |             |
-| onDragOver                  | DragEventHandler<HTMLButtonElement>        |         |             |
-| onDragOverCapture           | DragEventHandler<HTMLButtonElement>        |         |             |
-| onDragStart                 | DragEventHandler<HTMLButtonElement>        |         |             |
-| onDragStartCapture          | DragEventHandler<HTMLButtonElement>        |         |             |
-| onDrop                      | DragEventHandler<HTMLButtonElement>        |         |             |
-| onDropCapture               | DragEventHandler<HTMLButtonElement>        |         |             |
-| onMouseDown                 | MouseEventHandler<HTMLButtonElement>       |         |             |
-| onMouseDownCapture          | MouseEventHandler<HTMLButtonElement>       |         |             |
-| onMouseEnter                | MouseEventHandler<HTMLButtonElement>       |         |             |
-| onMouseLeave                | MouseEventHandler<HTMLButtonElement>       |         |             |
-| onMouseMove                 | MouseEventHandler<HTMLButtonElement>       |         |             |
-| onMouseMoveCapture          | MouseEventHandler<HTMLButtonElement>       |         |             |
-| onMouseOut                  | MouseEventHandler<HTMLButtonElement>       |         |             |
-| onMouseOutCapture           | MouseEventHandler<HTMLButtonElement>       |         |             |
-| onMouseOver                 | MouseEventHandler<HTMLButtonElement>       |         |             |
-| onMouseOverCapture          | MouseEventHandler<HTMLButtonElement>       |         |             |
-| onMouseUp                   | MouseEventHandler<HTMLButtonElement>       |         |             |
-| onMouseUpCapture            | MouseEventHandler<HTMLButtonElement>       |         |             |
-| onSelect                    | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onSelectCapture             | ReactEventHandler<HTMLButtonElement>       |         |             |
-| onTouchCancel               | TouchEventHandler<HTMLButtonElement>       |         |             |
-| onTouchCancelCapture        | TouchEventHandler<HTMLButtonElement>       |         |             |
-| onTouchEnd                  | TouchEventHandler<HTMLButtonElement>       |         |             |
-| onTouchEndCapture           | TouchEventHandler<HTMLButtonElement>       |         |             |
-| onTouchMove                 | TouchEventHandler<HTMLButtonElement>       |         |             |
-| onTouchMoveCapture          | TouchEventHandler<HTMLButtonElement>       |         |             |
-| onTouchStart                | TouchEventHandler<HTMLButtonElement>       |         |             |
-| onTouchStartCapture         | TouchEventHandler<HTMLButtonElement>       |         |             |
-| onPointerDown               | PointerEventHandler<HTMLButtonElement>     |         |             |
-| onPointerDownCapture        | PointerEventHandler<HTMLButtonElement>     |         |             |
-| onPointerMove               | PointerEventHandler<HTMLButtonElement>     |         |             |
-| onPointerMoveCapture        | PointerEventHandler<HTMLButtonElement>     |         |             |
-| onPointerUp                 | PointerEventHandler<HTMLButtonElement>     |         |             |
-| onPointerUpCapture          | PointerEventHandler<HTMLButtonElement>     |         |             |
-| onPointerCancel             | PointerEventHandler<HTMLButtonElement>     |         |             |
-| onPointerCancelCapture      | PointerEventHandler<HTMLButtonElement>     |         |             |
-| onPointerEnter              | PointerEventHandler<HTMLButtonElement>     |         |             |
-| onPointerEnterCapture       | PointerEventHandler<HTMLButtonElement>     |         |             |
-| onPointerLeave              | PointerEventHandler<HTMLButtonElement>     |         |             |
-| onPointerLeaveCapture       | PointerEventHandler<HTMLButtonElement>     |         |             |
-| onPointerOver               | PointerEventHandler<HTMLButtonElement>     |         |             |
-| onPointerOverCapture        | PointerEventHandler<HTMLButtonElement>     |         |             |
-| onPointerOut                | PointerEventHandler<HTMLButtonElement>     |         |             |
-| onPointerOutCapture         | PointerEventHandler<HTMLButtonElement>     |         |             |
-| onGotPointerCapture         | PointerEventHandler<HTMLButtonElement>     |         |             |
-| onGotPointerCaptureCapture  | PointerEventHandler<HTMLButtonElement>     |         |             |
-| onLostPointerCapture        | PointerEventHandler<HTMLButtonElement>     |         |             |
-| onLostPointerCaptureCapture | PointerEventHandler<HTMLButtonElement>     |         |             |
-| onScroll                    | UIEventHandler<HTMLButtonElement>          |         |             |
-| onScrollCapture             | UIEventHandler<HTMLButtonElement>          |         |             |
-| onWheel                     | WheelEventHandler<HTMLButtonElement>       |         |             |
-| onWheelCapture              | WheelEventHandler<HTMLButtonElement>       |         |             |
-| onAnimationStart            | AnimationEventHandler<HTMLButtonElement>   |         |             |
-| onAnimationStartCapture     | AnimationEventHandler<HTMLButtonElement>   |         |             |
-| onAnimationEnd              | AnimationEventHandler<HTMLButtonElement>   |         |             |
-| onAnimationEndCapture       | AnimationEventHandler<HTMLButtonElement>   |         |             |
-| onAnimationIteration        | AnimationEventHandler<HTMLButtonElement>   |         |             |
-| onAnimationIterationCapture | AnimationEventHandler<HTMLButtonElement>   |         |             |
-| onTransitionEnd             | TransitionEventHandler<HTMLButtonElement>  |         |             |
-| onTransitionEndCapture      | TransitionEventHandler<HTMLButtonElement>  |         |             |
+| name                        | type                                               | default | description |
+| --------------------------- | -------------------------------------------------- | ------- | ----------- |
+| dangerouslySetInnerHTML     | \{ \_\_html: string; \}                            |         |             |
+| onCopy                      | ClipboardEventHandler&#60;HTMLButtonElement&#62;   |         |             |
+| onCopyCapture               | ClipboardEventHandler&#60;HTMLButtonElement&#62;   |         |             |
+| onCut                       | ClipboardEventHandler&#60;HTMLButtonElement&#62;   |         |             |
+| onCutCapture                | ClipboardEventHandler&#60;HTMLButtonElement&#62;   |         |             |
+| onPaste                     | ClipboardEventHandler&#60;HTMLButtonElement&#62;   |         |             |
+| onPasteCapture              | ClipboardEventHandler&#60;HTMLButtonElement&#62;   |         |             |
+| onCompositionEnd            | CompositionEventHandler&#60;HTMLButtonElement&#62; |         |             |
+| onCompositionEndCapture     | CompositionEventHandler&#60;HTMLButtonElement&#62; |         |             |
+| onCompositionStart          | CompositionEventHandler&#60;HTMLButtonElement&#62; |         |             |
+| onCompositionStartCapture   | CompositionEventHandler&#60;HTMLButtonElement&#62; |         |             |
+| onCompositionUpdate         | CompositionEventHandler&#60;HTMLButtonElement&#62; |         |             |
+| onCompositionUpdateCapture  | CompositionEventHandler&#60;HTMLButtonElement&#62; |         |             |
+| onFocus                     | FocusEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onFocusCapture              | FocusEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onBlur                      | FocusEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onBlurCapture               | FocusEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onChange                    | FormEventHandler&#60;HTMLButtonElement&#62;        |         |             |
+| onChangeCapture             | FormEventHandler&#60;HTMLButtonElement&#62;        |         |             |
+| onBeforeInput               | FormEventHandler&#60;HTMLButtonElement&#62;        |         |             |
+| onBeforeInputCapture        | FormEventHandler&#60;HTMLButtonElement&#62;        |         |             |
+| onInput                     | FormEventHandler&#60;HTMLButtonElement&#62;        |         |             |
+| onInputCapture              | FormEventHandler&#60;HTMLButtonElement&#62;        |         |             |
+| onReset                     | FormEventHandler&#60;HTMLButtonElement&#62;        |         |             |
+| onResetCapture              | FormEventHandler&#60;HTMLButtonElement&#62;        |         |             |
+| onSubmit                    | FormEventHandler&#60;HTMLButtonElement&#62;        |         |             |
+| onSubmitCapture             | FormEventHandler&#60;HTMLButtonElement&#62;        |         |             |
+| onInvalid                   | FormEventHandler&#60;HTMLButtonElement&#62;        |         |             |
+| onInvalidCapture            | FormEventHandler&#60;HTMLButtonElement&#62;        |         |             |
+| onLoad                      | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onLoadCapture               | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onError                     | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onErrorCapture              | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onKeyDown                   | KeyboardEventHandler&#60;HTMLButtonElement&#62;    |         |             |
+| onKeyDownCapture            | KeyboardEventHandler&#60;HTMLButtonElement&#62;    |         |             |
+| onKeyPress                  | KeyboardEventHandler&#60;HTMLButtonElement&#62;    |         | @deprecated |
+| onKeyPressCapture           | KeyboardEventHandler&#60;HTMLButtonElement&#62;    |         | @deprecated |
+| onKeyUp                     | KeyboardEventHandler&#60;HTMLButtonElement&#62;    |         |             |
+| onKeyUpCapture              | KeyboardEventHandler&#60;HTMLButtonElement&#62;    |         |             |
+| onAbort                     | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onAbortCapture              | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onCanPlay                   | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onCanPlayCapture            | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onCanPlayThrough            | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onCanPlayThroughCapture     | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onDurationChange            | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onDurationChangeCapture     | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onEmptied                   | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onEmptiedCapture            | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onEncrypted                 | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onEncryptedCapture          | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onEnded                     | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onEndedCapture              | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onLoadedData                | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onLoadedDataCapture         | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onLoadedMetadata            | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onLoadedMetadataCapture     | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onLoadStart                 | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onLoadStartCapture          | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onPause                     | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onPauseCapture              | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onPlay                      | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onPlayCapture               | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onPlaying                   | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onPlayingCapture            | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onProgress                  | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onProgressCapture           | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onRateChange                | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onRateChangeCapture         | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onSeeked                    | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onSeekedCapture             | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onSeeking                   | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onSeekingCapture            | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onStalled                   | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onStalledCapture            | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onSuspend                   | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onSuspendCapture            | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onTimeUpdate                | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onTimeUpdateCapture         | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onVolumeChange              | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onVolumeChangeCapture       | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onWaiting                   | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onWaitingCapture            | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onAuxClick                  | MouseEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onAuxClickCapture           | MouseEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onClickCapture              | MouseEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onContextMenu               | MouseEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onContextMenuCapture        | MouseEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onDoubleClick               | MouseEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onDoubleClickCapture        | MouseEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onDrag                      | DragEventHandler&#60;HTMLButtonElement&#62;        |         |             |
+| onDragCapture               | DragEventHandler&#60;HTMLButtonElement&#62;        |         |             |
+| onDragEnd                   | DragEventHandler&#60;HTMLButtonElement&#62;        |         |             |
+| onDragEndCapture            | DragEventHandler&#60;HTMLButtonElement&#62;        |         |             |
+| onDragEnter                 | DragEventHandler&#60;HTMLButtonElement&#62;        |         |             |
+| onDragEnterCapture          | DragEventHandler&#60;HTMLButtonElement&#62;        |         |             |
+| onDragExit                  | DragEventHandler&#60;HTMLButtonElement&#62;        |         |             |
+| onDragExitCapture           | DragEventHandler&#60;HTMLButtonElement&#62;        |         |             |
+| onDragLeave                 | DragEventHandler&#60;HTMLButtonElement&#62;        |         |             |
+| onDragLeaveCapture          | DragEventHandler&#60;HTMLButtonElement&#62;        |         |             |
+| onDragOver                  | DragEventHandler&#60;HTMLButtonElement&#62;        |         |             |
+| onDragOverCapture           | DragEventHandler&#60;HTMLButtonElement&#62;        |         |             |
+| onDragStart                 | DragEventHandler&#60;HTMLButtonElement&#62;        |         |             |
+| onDragStartCapture          | DragEventHandler&#60;HTMLButtonElement&#62;        |         |             |
+| onDrop                      | DragEventHandler&#60;HTMLButtonElement&#62;        |         |             |
+| onDropCapture               | DragEventHandler&#60;HTMLButtonElement&#62;        |         |             |
+| onMouseDown                 | MouseEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onMouseDownCapture          | MouseEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onMouseEnter                | MouseEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onMouseLeave                | MouseEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onMouseMove                 | MouseEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onMouseMoveCapture          | MouseEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onMouseOut                  | MouseEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onMouseOutCapture           | MouseEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onMouseOver                 | MouseEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onMouseOverCapture          | MouseEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onMouseUp                   | MouseEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onMouseUpCapture            | MouseEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onSelect                    | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onSelectCapture             | ReactEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onTouchCancel               | TouchEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onTouchCancelCapture        | TouchEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onTouchEnd                  | TouchEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onTouchEndCapture           | TouchEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onTouchMove                 | TouchEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onTouchMoveCapture          | TouchEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onTouchStart                | TouchEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onTouchStartCapture         | TouchEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onPointerDown               | PointerEventHandler&#60;HTMLButtonElement&#62;     |         |             |
+| onPointerDownCapture        | PointerEventHandler&#60;HTMLButtonElement&#62;     |         |             |
+| onPointerMove               | PointerEventHandler&#60;HTMLButtonElement&#62;     |         |             |
+| onPointerMoveCapture        | PointerEventHandler&#60;HTMLButtonElement&#62;     |         |             |
+| onPointerUp                 | PointerEventHandler&#60;HTMLButtonElement&#62;     |         |             |
+| onPointerUpCapture          | PointerEventHandler&#60;HTMLButtonElement&#62;     |         |             |
+| onPointerCancel             | PointerEventHandler&#60;HTMLButtonElement&#62;     |         |             |
+| onPointerCancelCapture      | PointerEventHandler&#60;HTMLButtonElement&#62;     |         |             |
+| onPointerEnter              | PointerEventHandler&#60;HTMLButtonElement&#62;     |         |             |
+| onPointerEnterCapture       | PointerEventHandler&#60;HTMLButtonElement&#62;     |         |             |
+| onPointerLeave              | PointerEventHandler&#60;HTMLButtonElement&#62;     |         |             |
+| onPointerLeaveCapture       | PointerEventHandler&#60;HTMLButtonElement&#62;     |         |             |
+| onPointerOver               | PointerEventHandler&#60;HTMLButtonElement&#62;     |         |             |
+| onPointerOverCapture        | PointerEventHandler&#60;HTMLButtonElement&#62;     |         |             |
+| onPointerOut                | PointerEventHandler&#60;HTMLButtonElement&#62;     |         |             |
+| onPointerOutCapture         | PointerEventHandler&#60;HTMLButtonElement&#62;     |         |             |
+| onGotPointerCapture         | PointerEventHandler&#60;HTMLButtonElement&#62;     |         |             |
+| onGotPointerCaptureCapture  | PointerEventHandler&#60;HTMLButtonElement&#62;     |         |             |
+| onLostPointerCapture        | PointerEventHandler&#60;HTMLButtonElement&#62;     |         |             |
+| onLostPointerCaptureCapture | PointerEventHandler&#60;HTMLButtonElement&#62;     |         |             |
+| onScroll                    | UIEventHandler&#60;HTMLButtonElement&#62;          |         |             |
+| onScrollCapture             | UIEventHandler&#60;HTMLButtonElement&#62;          |         |             |
+| onWheel                     | WheelEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onWheelCapture              | WheelEventHandler&#60;HTMLButtonElement&#62;       |         |             |
+| onAnimationStart            | AnimationEventHandler&#60;HTMLButtonElement&#62;   |         |             |
+| onAnimationStartCapture     | AnimationEventHandler&#60;HTMLButtonElement&#62;   |         |             |
+| onAnimationEnd              | AnimationEventHandler&#60;HTMLButtonElement&#62;   |         |             |
+| onAnimationEndCapture       | AnimationEventHandler&#60;HTMLButtonElement&#62;   |         |             |
+| onAnimationIteration        | AnimationEventHandler&#60;HTMLButtonElement&#62;   |         |             |
+| onAnimationIterationCapture | AnimationEventHandler&#60;HTMLButtonElement&#62;   |         |             |
+| onTransitionEnd             | TransitionEventHandler&#60;HTMLButtonElement&#62;  |         |             |
+| onTransitionEndCapture      | TransitionEventHandler&#60;HTMLButtonElement&#62;  |         |             |
 
 ### FlexContainerStyleProps
 
-| name      | type                           | default | description                                                                                                                                                                                                                                                                                                                                                 |
-| --------- | ------------------------------ | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| direction | ResponsiveStyle<FlexDirection> |         | Sets how flex items are placed in the flex container defining the main axis and the direction (normal or reversed). (maps to flex-direction CSS property)                                                                                                                                                                                                   |
-| wrap      | ResponsiveStyle<FlexWrap>      |         | The flexWrap property is set on containers and it controls what happens when children overflow the size of the container along the main axis. By default, children are forced into a single line (which can shrink elements). If wrapping is allowed, items are wrapped into multiple lines along the main axis if needed. (maps to flex-wrap CSS property) |
+| name      | type                                   | default | description                                                                                                                                                                                                                                                                                                                                                 |
+| --------- | -------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| direction | ResponsiveStyle&#60;FlexDirection&#62; |         | Sets how flex items are placed in the flex container defining the main axis and the direction (normal or reversed). (maps to flex-direction CSS property)                                                                                                                                                                                                   |
+| wrap      | ResponsiveStyle&#60;FlexWrap&#62;      |         | The flexWrap property is set on containers and it controls what happens when children overflow the size of the container along the main axis. By default, children are forced into a single line (which can shrink elements). If wrapping is allowed, items are wrapped into multiple lines along the main axis if needed. (maps to flex-wrap CSS property) |
 
 ### CSSLayoutStyleProps
 
-| name           | type                                                               | default | description                                                           |
-| -------------- | ------------------------------------------------------------------ | ------- | --------------------------------------------------------------------- |
-| alignItems     | ResponsiveStyle<AlignItems>                                        |         | Controls where the Flex/Grid items sit on the cross axis.             |
-| alignContent   | ResponsiveStyle<AlignContent>                                      |         | Sets the distribution of space between and around content items       |
-| justifyContent | ResponsiveStyle<JustifyContent>                                    |         | Controls where the Flex/Grid items sit on the main axis.              |
-| gap            | ResponsiveStyle<StyleToken<Gap<0 &#124; (string & {})>>>           |         | Spacing between child components. Shorthand for rowGap and columnGap. |
-| columnGap      | ResponsiveStyle<StyleToken<GridColumnGap<0 &#124; (string & {})>>> |         | Spacing between Flex/Grid child columns                               |
-| rowGap         | ResponsiveStyle<StyleToken<RowGap<0 &#124; (string & {})>>>        |         | Spacing between Flex/Grid child rows                                  |
+| name           | type                                                                                         | default | description                                                           |
+| -------------- | -------------------------------------------------------------------------------------------- | ------- | --------------------------------------------------------------------- |
+| alignItems     | ResponsiveStyle&#60;AlignItems&#62;                                                          |         | Controls where the Flex/Grid items sit on the cross axis.             |
+| alignContent   | ResponsiveStyle&#60;AlignContent&#62;                                                        |         | Sets the distribution of space between and around content items       |
+| justifyContent | ResponsiveStyle&#60;JustifyContent&#62;                                                      |         | Controls where the Flex/Grid items sit on the main axis.              |
+| gap            | ResponsiveStyle&#60;StyleToken&#60;Gap&#60;0 &#124; (string & \{\})&#62;&#62;&#62;           |         | Spacing between child components. Shorthand for rowGap and columnGap. |
+| columnGap      | ResponsiveStyle&#60;StyleToken&#60;GridColumnGap&#60;0 &#124; (string & \{\})&#62;&#62;&#62; |         | Spacing between Flex/Grid child columns                               |
+| rowGap         | ResponsiveStyle&#60;StyleToken&#60;RowGap&#60;0 &#124; (string & \{\})&#62;&#62;&#62;        |         | Spacing between Flex/Grid child rows                                  |
 
 ### RefAttributes
 
-| name | type                   | default | description |
-| ---- | ---------------------- | ------- | ----------- |
-| ref  | Ref<HTMLButtonElement> |         |             |
+| name | type                           | default | description |
+| ---- | ------------------------------ | ------- | ----------- |
+| ref  | Ref&#60;HTMLButtonElement&#62; |         |             |

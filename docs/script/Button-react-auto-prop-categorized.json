@@ -16,7 +16,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<GridArea>"
+        "name": "ResponsiveStyle&#60;GridArea&#62;"
       }
     },
     "column": {
@@ -35,7 +35,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<GridColumn>"
+        "name": "ResponsiveStyle&#60;GridColumn&#62;"
       }
     },
     "columnEnd": {
@@ -54,7 +54,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<GridColumnEnd>"
+        "name": "ResponsiveStyle&#60;GridColumnEnd&#62;"
       }
     },
     "columnSpan": {
@@ -73,7 +73,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<GridSpanType>"
+        "name": "ResponsiveStyle&#60;GridSpanType&#62;"
       }
     },
     "columnStart": {
@@ -92,7 +92,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<GridColumnStart>"
+        "name": "ResponsiveStyle&#60;GridColumnStart&#62;"
       }
     },
     "row": {
@@ -111,7 +111,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<GridRow>"
+        "name": "ResponsiveStyle&#60;GridRow&#62;"
       }
     },
     "rowEnd": {
@@ -130,7 +130,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<GridRowEnd>"
+        "name": "ResponsiveStyle&#60;GridRowEnd&#62;"
       }
     },
     "rowSpan": {
@@ -149,7 +149,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<GridSpanType>"
+        "name": "ResponsiveStyle&#60;GridSpanType&#62;"
       }
     },
     "rowStart": {
@@ -168,7 +168,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<GridRowStart>"
+        "name": "ResponsiveStyle&#60;GridRowStart&#62;"
       }
     }
   },
@@ -1202,7 +1202,7 @@
       ],
       "required": false,
       "type": {
-        "name": "MouseEventHandler<HTMLButtonElement>"
+        "name": "MouseEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "isFullWidth": {
@@ -1383,7 +1383,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<AlignSelf>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;AlignSelf&#62;&#62;"
       }
     },
     "backgroundColor": {
@@ -1402,7 +1402,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<BackgroundColor>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;BackgroundColor&#62;&#62;"
       }
     },
     "backgroundImage": {
@@ -1421,7 +1421,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<BackgroundImage>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;BackgroundImage&#62;&#62;"
       }
     },
     "border": {
@@ -1440,7 +1440,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<Border<0 &#124; (string & {})>>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;Border&#60;0 &#124; (string & {})&#62;&#62;&#62;"
       }
     },
     "borderRadius": {
@@ -1459,7 +1459,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<BorderRadius<0 &#124; (string & {})>>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;BorderRadius&#60;0 &#124; (string & {})&#62;&#62;&#62;"
       }
     },
     "bottom": {
@@ -1478,7 +1478,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<Bottom<0 &#124; (string & {})>>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;Bottom&#60;0 &#124; (string & {})&#62;&#62;&#62;"
       }
     },
     "boxShadow": {
@@ -1497,7 +1497,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<BoxShadow>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;BoxShadow&#62;&#62;"
       }
     },
     "color": {
@@ -1516,7 +1516,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<Color>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;Color&#62;&#62;"
       }
     },
     "display": {
@@ -1535,7 +1535,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<Display>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;Display&#62;&#62;"
       }
     },
     "fontFamily": {
@@ -1554,7 +1554,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<FontFamily>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;FontFamily&#62;&#62;"
       }
     },
     "fontSize": {
@@ -1573,7 +1573,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<FontSize<0 &#124; (string & {})>>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;FontSize&#60;0 &#124; (string & {})&#62;&#62;&#62;"
       }
     },
     "fontStyle": {
@@ -1592,7 +1592,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<FontStyle>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;FontStyle&#62;&#62;"
       }
     },
     "fontWeight": {
@@ -1611,7 +1611,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<FontWeight>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;FontWeight&#62;&#62;"
       }
     },
     "height": {
@@ -1630,7 +1630,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<Height<0 &#124; (string & {})>>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;Height&#60;0 &#124; (string & {})&#62;&#62;&#62;"
       }
     },
     "left": {
@@ -1649,7 +1649,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<Left<0 &#124; (string & {})>>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;Left&#60;0 &#124; (string & {})&#62;&#62;&#62;"
       }
     },
     "letterSpacing": {
@@ -1668,7 +1668,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<LetterSpacing<0 &#124; (string & {})>>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;LetterSpacing&#60;0 &#124; (string & {})&#62;&#62;&#62;"
       }
     },
     "lineHeight": {
@@ -1687,7 +1687,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<LineHeight<0 &#124; (string & {})>>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;LineHeight&#60;0 &#124; (string & {})&#62;&#62;&#62;"
       }
     },
     "margin": {
@@ -1706,7 +1706,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<Margin<0 &#124; (string & {})>>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;Margin&#60;0 &#124; (string & {})&#62;&#62;&#62;"
       }
     },
     "marginBlockEnd": {
@@ -1725,7 +1725,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<MarginBlockEnd<0 &#124; (string & {})>>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;MarginBlockEnd&#60;0 &#124; (string & {})&#62;&#62;&#62;"
       }
     },
     "marginBlockStart": {
@@ -1744,7 +1744,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<MarginBlockStart<0 &#124; (string & {})>>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;MarginBlockStart&#60;0 &#124; (string & {})&#62;&#62;&#62;"
       }
     },
     "marginBottom": {
@@ -1763,7 +1763,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<MarginBlockEnd<0 &#124; (string & {})>>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;MarginBlockEnd&#60;0 &#124; (string & {})&#62;&#62;&#62;"
       }
     },
     "marginInlineEnd": {
@@ -1782,7 +1782,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<MarginInlineEnd<0 &#124; (string & {})>>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;MarginInlineEnd&#60;0 &#124; (string & {})&#62;&#62;&#62;"
       }
     },
     "marginInlineStart": {
@@ -1801,7 +1801,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<MarginInlineStart<0 &#124; (string & {})>>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;MarginInlineStart&#60;0 &#124; (string & {})&#62;&#62;&#62;"
       }
     },
     "marginLeft": {
@@ -1820,7 +1820,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<MarginInlineStart<0 &#124; (string & {})>>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;MarginInlineStart&#60;0 &#124; (string & {})&#62;&#62;&#62;"
       }
     },
     "marginRight": {
@@ -1839,7 +1839,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<MarginInlineEnd<0 &#124; (string & {})>>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;MarginInlineEnd&#60;0 &#124; (string & {})&#62;&#62;&#62;"
       }
     },
     "marginTop": {
@@ -1858,7 +1858,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<MarginBlockStart<0 &#124; (string & {})>>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;MarginBlockStart&#60;0 &#124; (string & {})&#62;&#62;&#62;"
       }
     },
     "maxHeight": {
@@ -1877,7 +1877,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<MaxHeight<0 &#124; (string & {})>>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;MaxHeight&#60;0 &#124; (string & {})&#62;&#62;&#62;"
       }
     },
     "maxWidth": {
@@ -1896,7 +1896,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<MaxWidth<0 &#124; (string & {})>>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;MaxWidth&#60;0 &#124; (string & {})&#62;&#62;&#62;"
       }
     },
     "minHeight": {
@@ -1915,7 +1915,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<MinHeight<0 &#124; (string & {})>>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;MinHeight&#60;0 &#124; (string & {})&#62;&#62;&#62;"
       }
     },
     "minWidth": {
@@ -1934,7 +1934,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<MinWidth<0 &#124; (string & {})>>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;MinWidth&#60;0 &#124; (string & {})&#62;&#62;&#62;"
       }
     },
     "opacity": {
@@ -1953,7 +1953,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<Opacity>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;Opacity&#62;&#62;"
       }
     },
     "overflow": {
@@ -1972,7 +1972,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<Overflow>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;Overflow&#62;&#62;"
       }
     },
     "padding": {
@@ -1991,7 +1991,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<Padding<0 &#124; (string & {})>>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;Padding&#60;0 &#124; (string & {})&#62;&#62;&#62;"
       }
     },
     "paddingBlockEnd": {
@@ -2010,7 +2010,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<MarginBlockEnd<0 &#124; (string & {})>>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;MarginBlockEnd&#60;0 &#124; (string & {})&#62;&#62;&#62;"
       }
     },
     "paddingBlockStart": {
@@ -2029,7 +2029,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<MarginBlockStart<0 &#124; (string & {})>>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;MarginBlockStart&#60;0 &#124; (string & {})&#62;&#62;&#62;"
       }
     },
     "paddingBottom": {
@@ -2048,7 +2048,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<PaddingBlockEnd<0 &#124; (string & {})>>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;PaddingBlockEnd&#60;0 &#124; (string & {})&#62;&#62;&#62;"
       }
     },
     "paddingInlineEnd": {
@@ -2067,7 +2067,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<MarginInlineEnd<0 &#124; (string & {})>>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;MarginInlineEnd&#60;0 &#124; (string & {})&#62;&#62;&#62;"
       }
     },
     "paddingInlineStart": {
@@ -2086,7 +2086,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<MarginInlineStart<0 &#124; (string & {})>>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;MarginInlineStart&#60;0 &#124; (string & {})&#62;&#62;&#62;"
       }
     },
     "paddingLeft": {
@@ -2105,7 +2105,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<PaddingInlineStart<0 &#124; (string & {})>>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;PaddingInlineStart&#60;0 &#124; (string & {})&#62;&#62;&#62;"
       }
     },
     "paddingRight": {
@@ -2124,7 +2124,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<PaddingInlineEnd<0 &#124; (string & {})>>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;PaddingInlineEnd&#60;0 &#124; (string & {})&#62;&#62;&#62;"
       }
     },
     "paddingTop": {
@@ -2143,7 +2143,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<PaddingBlockStart<0 &#124; (string & {})>>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;PaddingBlockStart&#60;0 &#124; (string & {})&#62;&#62;&#62;"
       }
     },
     "position": {
@@ -2162,7 +2162,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<Position>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;Position&#62;&#62;"
       }
     },
     "right": {
@@ -2181,7 +2181,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<Right<0 &#124; (string & {})>>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;Right&#60;0 &#124; (string & {})&#62;&#62;&#62;"
       }
     },
     "textAlign": {
@@ -2200,7 +2200,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<TextAlign>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;TextAlign&#62;&#62;"
       }
     },
     "textDecoration": {
@@ -2219,7 +2219,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<TextDecoration<0 &#124; (string & {})>>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;TextDecoration&#60;0 &#124; (string & {})&#62;&#62;&#62;"
       }
     },
     "textTransform": {
@@ -2238,7 +2238,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<TextTransform>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;TextTransform&#62;&#62;"
       }
     },
     "top": {
@@ -2257,7 +2257,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<Top<0 &#124; (string & {})>>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;Top&#60;0 &#124; (string & {})&#62;&#62;&#62;"
       }
     },
     "transform": {
@@ -2276,7 +2276,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<Transform>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;Transform&#62;&#62;"
       }
     },
     "transformOrigin": {
@@ -2295,7 +2295,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<TransformOrigin<0 &#124; (string & {})>>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;TransformOrigin&#60;0 &#124; (string & {})&#62;&#62;&#62;"
       }
     },
     "width": {
@@ -2314,7 +2314,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<Width<0 &#124; (string & {})>>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;Width&#60;0 &#124; (string & {})&#62;&#62;&#62;"
       }
     },
     "whiteSpace": {
@@ -2333,7 +2333,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<WhiteSpace>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;WhiteSpace&#62;&#62;"
       }
     }
   },
@@ -2354,7 +2354,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<Flex<0 &#124; (string & {})>>"
+        "name": "ResponsiveStyle&#60;Flex&#60;0 &#124; (string & {})&#62;&#62;"
       }
     },
     "order": {
@@ -2373,7 +2373,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<Order>"
+        "name": "ResponsiveStyle&#60;Order&#62;"
       }
     },
     "grow": {
@@ -2392,7 +2392,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<FlexGrow>"
+        "name": "ResponsiveStyle&#60;FlexGrow&#62;"
       }
     },
     "shrink": {
@@ -2411,7 +2411,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<FlexShrink>"
+        "name": "ResponsiveStyle&#60;FlexShrink&#62;"
       }
     },
     "basis": {
@@ -2430,7 +2430,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<FlexBasis<0 &#124; (string & {})>>"
+        "name": "ResponsiveStyle&#60;FlexBasis&#60;0 &#124; (string & {})&#62;&#62;"
       }
     }
   },
@@ -3468,7 +3468,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ClipboardEventHandler<HTMLButtonElement>"
+        "name": "ClipboardEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onCopyCapture": {
@@ -3487,7 +3487,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ClipboardEventHandler<HTMLButtonElement>"
+        "name": "ClipboardEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onCut": {
@@ -3506,7 +3506,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ClipboardEventHandler<HTMLButtonElement>"
+        "name": "ClipboardEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onCutCapture": {
@@ -3525,7 +3525,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ClipboardEventHandler<HTMLButtonElement>"
+        "name": "ClipboardEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onPaste": {
@@ -3544,7 +3544,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ClipboardEventHandler<HTMLButtonElement>"
+        "name": "ClipboardEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onPasteCapture": {
@@ -3563,7 +3563,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ClipboardEventHandler<HTMLButtonElement>"
+        "name": "ClipboardEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onCompositionEnd": {
@@ -3582,7 +3582,7 @@
       ],
       "required": false,
       "type": {
-        "name": "CompositionEventHandler<HTMLButtonElement>"
+        "name": "CompositionEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onCompositionEndCapture": {
@@ -3601,7 +3601,7 @@
       ],
       "required": false,
       "type": {
-        "name": "CompositionEventHandler<HTMLButtonElement>"
+        "name": "CompositionEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onCompositionStart": {
@@ -3620,7 +3620,7 @@
       ],
       "required": false,
       "type": {
-        "name": "CompositionEventHandler<HTMLButtonElement>"
+        "name": "CompositionEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onCompositionStartCapture": {
@@ -3639,7 +3639,7 @@
       ],
       "required": false,
       "type": {
-        "name": "CompositionEventHandler<HTMLButtonElement>"
+        "name": "CompositionEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onCompositionUpdate": {
@@ -3658,7 +3658,7 @@
       ],
       "required": false,
       "type": {
-        "name": "CompositionEventHandler<HTMLButtonElement>"
+        "name": "CompositionEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onCompositionUpdateCapture": {
@@ -3677,7 +3677,7 @@
       ],
       "required": false,
       "type": {
-        "name": "CompositionEventHandler<HTMLButtonElement>"
+        "name": "CompositionEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onFocus": {
@@ -3696,7 +3696,7 @@
       ],
       "required": false,
       "type": {
-        "name": "FocusEventHandler<HTMLButtonElement>"
+        "name": "FocusEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onFocusCapture": {
@@ -3715,7 +3715,7 @@
       ],
       "required": false,
       "type": {
-        "name": "FocusEventHandler<HTMLButtonElement>"
+        "name": "FocusEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onBlur": {
@@ -3734,7 +3734,7 @@
       ],
       "required": false,
       "type": {
-        "name": "FocusEventHandler<HTMLButtonElement>"
+        "name": "FocusEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onBlurCapture": {
@@ -3753,7 +3753,7 @@
       ],
       "required": false,
       "type": {
-        "name": "FocusEventHandler<HTMLButtonElement>"
+        "name": "FocusEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onChange": {
@@ -3772,7 +3772,7 @@
       ],
       "required": false,
       "type": {
-        "name": "FormEventHandler<HTMLButtonElement>"
+        "name": "FormEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onChangeCapture": {
@@ -3791,7 +3791,7 @@
       ],
       "required": false,
       "type": {
-        "name": "FormEventHandler<HTMLButtonElement>"
+        "name": "FormEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onBeforeInput": {
@@ -3810,7 +3810,7 @@
       ],
       "required": false,
       "type": {
-        "name": "FormEventHandler<HTMLButtonElement>"
+        "name": "FormEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onBeforeInputCapture": {
@@ -3829,7 +3829,7 @@
       ],
       "required": false,
       "type": {
-        "name": "FormEventHandler<HTMLButtonElement>"
+        "name": "FormEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onInput": {
@@ -3848,7 +3848,7 @@
       ],
       "required": false,
       "type": {
-        "name": "FormEventHandler<HTMLButtonElement>"
+        "name": "FormEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onInputCapture": {
@@ -3867,7 +3867,7 @@
       ],
       "required": false,
       "type": {
-        "name": "FormEventHandler<HTMLButtonElement>"
+        "name": "FormEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onReset": {
@@ -3886,7 +3886,7 @@
       ],
       "required": false,
       "type": {
-        "name": "FormEventHandler<HTMLButtonElement>"
+        "name": "FormEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onResetCapture": {
@@ -3905,7 +3905,7 @@
       ],
       "required": false,
       "type": {
-        "name": "FormEventHandler<HTMLButtonElement>"
+        "name": "FormEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onSubmit": {
@@ -3924,7 +3924,7 @@
       ],
       "required": false,
       "type": {
-        "name": "FormEventHandler<HTMLButtonElement>"
+        "name": "FormEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onSubmitCapture": {
@@ -3943,7 +3943,7 @@
       ],
       "required": false,
       "type": {
-        "name": "FormEventHandler<HTMLButtonElement>"
+        "name": "FormEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onInvalid": {
@@ -3962,7 +3962,7 @@
       ],
       "required": false,
       "type": {
-        "name": "FormEventHandler<HTMLButtonElement>"
+        "name": "FormEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onInvalidCapture": {
@@ -3981,7 +3981,7 @@
       ],
       "required": false,
       "type": {
-        "name": "FormEventHandler<HTMLButtonElement>"
+        "name": "FormEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onLoad": {
@@ -4000,7 +4000,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onLoadCapture": {
@@ -4019,7 +4019,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onError": {
@@ -4038,7 +4038,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onErrorCapture": {
@@ -4057,7 +4057,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onKeyDown": {
@@ -4076,7 +4076,7 @@
       ],
       "required": false,
       "type": {
-        "name": "KeyboardEventHandler<HTMLButtonElement>"
+        "name": "KeyboardEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onKeyDownCapture": {
@@ -4095,7 +4095,7 @@
       ],
       "required": false,
       "type": {
-        "name": "KeyboardEventHandler<HTMLButtonElement>"
+        "name": "KeyboardEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onKeyPress": {
@@ -4114,7 +4114,7 @@
       ],
       "required": false,
       "type": {
-        "name": "KeyboardEventHandler<HTMLButtonElement>"
+        "name": "KeyboardEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onKeyPressCapture": {
@@ -4133,7 +4133,7 @@
       ],
       "required": false,
       "type": {
-        "name": "KeyboardEventHandler<HTMLButtonElement>"
+        "name": "KeyboardEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onKeyUp": {
@@ -4152,7 +4152,7 @@
       ],
       "required": false,
       "type": {
-        "name": "KeyboardEventHandler<HTMLButtonElement>"
+        "name": "KeyboardEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onKeyUpCapture": {
@@ -4171,7 +4171,7 @@
       ],
       "required": false,
       "type": {
-        "name": "KeyboardEventHandler<HTMLButtonElement>"
+        "name": "KeyboardEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onAbort": {
@@ -4190,7 +4190,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onAbortCapture": {
@@ -4209,7 +4209,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onCanPlay": {
@@ -4228,7 +4228,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onCanPlayCapture": {
@@ -4247,7 +4247,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onCanPlayThrough": {
@@ -4266,7 +4266,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onCanPlayThroughCapture": {
@@ -4285,7 +4285,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onDurationChange": {
@@ -4304,7 +4304,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onDurationChangeCapture": {
@@ -4323,7 +4323,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onEmptied": {
@@ -4342,7 +4342,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onEmptiedCapture": {
@@ -4361,7 +4361,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onEncrypted": {
@@ -4380,7 +4380,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onEncryptedCapture": {
@@ -4399,7 +4399,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onEnded": {
@@ -4418,7 +4418,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onEndedCapture": {
@@ -4437,7 +4437,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onLoadedData": {
@@ -4456,7 +4456,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onLoadedDataCapture": {
@@ -4475,7 +4475,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onLoadedMetadata": {
@@ -4494,7 +4494,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onLoadedMetadataCapture": {
@@ -4513,7 +4513,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onLoadStart": {
@@ -4532,7 +4532,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onLoadStartCapture": {
@@ -4551,7 +4551,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onPause": {
@@ -4570,7 +4570,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onPauseCapture": {
@@ -4589,7 +4589,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onPlay": {
@@ -4608,7 +4608,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onPlayCapture": {
@@ -4627,7 +4627,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onPlaying": {
@@ -4646,7 +4646,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onPlayingCapture": {
@@ -4665,7 +4665,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onProgress": {
@@ -4684,7 +4684,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onProgressCapture": {
@@ -4703,7 +4703,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onRateChange": {
@@ -4722,7 +4722,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onRateChangeCapture": {
@@ -4741,7 +4741,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onSeeked": {
@@ -4760,7 +4760,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onSeekedCapture": {
@@ -4779,7 +4779,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onSeeking": {
@@ -4798,7 +4798,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onSeekingCapture": {
@@ -4817,7 +4817,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onStalled": {
@@ -4836,7 +4836,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onStalledCapture": {
@@ -4855,7 +4855,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onSuspend": {
@@ -4874,7 +4874,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onSuspendCapture": {
@@ -4893,7 +4893,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onTimeUpdate": {
@@ -4912,7 +4912,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onTimeUpdateCapture": {
@@ -4931,7 +4931,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onVolumeChange": {
@@ -4950,7 +4950,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onVolumeChangeCapture": {
@@ -4969,7 +4969,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onWaiting": {
@@ -4988,7 +4988,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onWaitingCapture": {
@@ -5007,7 +5007,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onAuxClick": {
@@ -5026,7 +5026,7 @@
       ],
       "required": false,
       "type": {
-        "name": "MouseEventHandler<HTMLButtonElement>"
+        "name": "MouseEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onAuxClickCapture": {
@@ -5045,7 +5045,7 @@
       ],
       "required": false,
       "type": {
-        "name": "MouseEventHandler<HTMLButtonElement>"
+        "name": "MouseEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onClickCapture": {
@@ -5064,7 +5064,7 @@
       ],
       "required": false,
       "type": {
-        "name": "MouseEventHandler<HTMLButtonElement>"
+        "name": "MouseEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onContextMenu": {
@@ -5083,7 +5083,7 @@
       ],
       "required": false,
       "type": {
-        "name": "MouseEventHandler<HTMLButtonElement>"
+        "name": "MouseEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onContextMenuCapture": {
@@ -5102,7 +5102,7 @@
       ],
       "required": false,
       "type": {
-        "name": "MouseEventHandler<HTMLButtonElement>"
+        "name": "MouseEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onDoubleClick": {
@@ -5121,7 +5121,7 @@
       ],
       "required": false,
       "type": {
-        "name": "MouseEventHandler<HTMLButtonElement>"
+        "name": "MouseEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onDoubleClickCapture": {
@@ -5140,7 +5140,7 @@
       ],
       "required": false,
       "type": {
-        "name": "MouseEventHandler<HTMLButtonElement>"
+        "name": "MouseEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onDrag": {
@@ -5159,7 +5159,7 @@
       ],
       "required": false,
       "type": {
-        "name": "DragEventHandler<HTMLButtonElement>"
+        "name": "DragEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onDragCapture": {
@@ -5178,7 +5178,7 @@
       ],
       "required": false,
       "type": {
-        "name": "DragEventHandler<HTMLButtonElement>"
+        "name": "DragEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onDragEnd": {
@@ -5197,7 +5197,7 @@
       ],
       "required": false,
       "type": {
-        "name": "DragEventHandler<HTMLButtonElement>"
+        "name": "DragEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onDragEndCapture": {
@@ -5216,7 +5216,7 @@
       ],
       "required": false,
       "type": {
-        "name": "DragEventHandler<HTMLButtonElement>"
+        "name": "DragEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onDragEnter": {
@@ -5235,7 +5235,7 @@
       ],
       "required": false,
       "type": {
-        "name": "DragEventHandler<HTMLButtonElement>"
+        "name": "DragEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onDragEnterCapture": {
@@ -5254,7 +5254,7 @@
       ],
       "required": false,
       "type": {
-        "name": "DragEventHandler<HTMLButtonElement>"
+        "name": "DragEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onDragExit": {
@@ -5273,7 +5273,7 @@
       ],
       "required": false,
       "type": {
-        "name": "DragEventHandler<HTMLButtonElement>"
+        "name": "DragEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onDragExitCapture": {
@@ -5292,7 +5292,7 @@
       ],
       "required": false,
       "type": {
-        "name": "DragEventHandler<HTMLButtonElement>"
+        "name": "DragEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onDragLeave": {
@@ -5311,7 +5311,7 @@
       ],
       "required": false,
       "type": {
-        "name": "DragEventHandler<HTMLButtonElement>"
+        "name": "DragEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onDragLeaveCapture": {
@@ -5330,7 +5330,7 @@
       ],
       "required": false,
       "type": {
-        "name": "DragEventHandler<HTMLButtonElement>"
+        "name": "DragEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onDragOver": {
@@ -5349,7 +5349,7 @@
       ],
       "required": false,
       "type": {
-        "name": "DragEventHandler<HTMLButtonElement>"
+        "name": "DragEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onDragOverCapture": {
@@ -5368,7 +5368,7 @@
       ],
       "required": false,
       "type": {
-        "name": "DragEventHandler<HTMLButtonElement>"
+        "name": "DragEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onDragStart": {
@@ -5387,7 +5387,7 @@
       ],
       "required": false,
       "type": {
-        "name": "DragEventHandler<HTMLButtonElement>"
+        "name": "DragEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onDragStartCapture": {
@@ -5406,7 +5406,7 @@
       ],
       "required": false,
       "type": {
-        "name": "DragEventHandler<HTMLButtonElement>"
+        "name": "DragEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onDrop": {
@@ -5425,7 +5425,7 @@
       ],
       "required": false,
       "type": {
-        "name": "DragEventHandler<HTMLButtonElement>"
+        "name": "DragEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onDropCapture": {
@@ -5444,7 +5444,7 @@
       ],
       "required": false,
       "type": {
-        "name": "DragEventHandler<HTMLButtonElement>"
+        "name": "DragEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onMouseDown": {
@@ -5463,7 +5463,7 @@
       ],
       "required": false,
       "type": {
-        "name": "MouseEventHandler<HTMLButtonElement>"
+        "name": "MouseEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onMouseDownCapture": {
@@ -5482,7 +5482,7 @@
       ],
       "required": false,
       "type": {
-        "name": "MouseEventHandler<HTMLButtonElement>"
+        "name": "MouseEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onMouseEnter": {
@@ -5501,7 +5501,7 @@
       ],
       "required": false,
       "type": {
-        "name": "MouseEventHandler<HTMLButtonElement>"
+        "name": "MouseEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onMouseLeave": {
@@ -5520,7 +5520,7 @@
       ],
       "required": false,
       "type": {
-        "name": "MouseEventHandler<HTMLButtonElement>"
+        "name": "MouseEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onMouseMove": {
@@ -5539,7 +5539,7 @@
       ],
       "required": false,
       "type": {
-        "name": "MouseEventHandler<HTMLButtonElement>"
+        "name": "MouseEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onMouseMoveCapture": {
@@ -5558,7 +5558,7 @@
       ],
       "required": false,
       "type": {
-        "name": "MouseEventHandler<HTMLButtonElement>"
+        "name": "MouseEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onMouseOut": {
@@ -5577,7 +5577,7 @@
       ],
       "required": false,
       "type": {
-        "name": "MouseEventHandler<HTMLButtonElement>"
+        "name": "MouseEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onMouseOutCapture": {
@@ -5596,7 +5596,7 @@
       ],
       "required": false,
       "type": {
-        "name": "MouseEventHandler<HTMLButtonElement>"
+        "name": "MouseEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onMouseOver": {
@@ -5615,7 +5615,7 @@
       ],
       "required": false,
       "type": {
-        "name": "MouseEventHandler<HTMLButtonElement>"
+        "name": "MouseEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onMouseOverCapture": {
@@ -5634,7 +5634,7 @@
       ],
       "required": false,
       "type": {
-        "name": "MouseEventHandler<HTMLButtonElement>"
+        "name": "MouseEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onMouseUp": {
@@ -5653,7 +5653,7 @@
       ],
       "required": false,
       "type": {
-        "name": "MouseEventHandler<HTMLButtonElement>"
+        "name": "MouseEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onMouseUpCapture": {
@@ -5672,7 +5672,7 @@
       ],
       "required": false,
       "type": {
-        "name": "MouseEventHandler<HTMLButtonElement>"
+        "name": "MouseEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onSelect": {
@@ -5691,7 +5691,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onSelectCapture": {
@@ -5710,7 +5710,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ReactEventHandler<HTMLButtonElement>"
+        "name": "ReactEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onTouchCancel": {
@@ -5729,7 +5729,7 @@
       ],
       "required": false,
       "type": {
-        "name": "TouchEventHandler<HTMLButtonElement>"
+        "name": "TouchEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onTouchCancelCapture": {
@@ -5748,7 +5748,7 @@
       ],
       "required": false,
       "type": {
-        "name": "TouchEventHandler<HTMLButtonElement>"
+        "name": "TouchEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onTouchEnd": {
@@ -5767,7 +5767,7 @@
       ],
       "required": false,
       "type": {
-        "name": "TouchEventHandler<HTMLButtonElement>"
+        "name": "TouchEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onTouchEndCapture": {
@@ -5786,7 +5786,7 @@
       ],
       "required": false,
       "type": {
-        "name": "TouchEventHandler<HTMLButtonElement>"
+        "name": "TouchEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onTouchMove": {
@@ -5805,7 +5805,7 @@
       ],
       "required": false,
       "type": {
-        "name": "TouchEventHandler<HTMLButtonElement>"
+        "name": "TouchEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onTouchMoveCapture": {
@@ -5824,7 +5824,7 @@
       ],
       "required": false,
       "type": {
-        "name": "TouchEventHandler<HTMLButtonElement>"
+        "name": "TouchEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onTouchStart": {
@@ -5843,7 +5843,7 @@
       ],
       "required": false,
       "type": {
-        "name": "TouchEventHandler<HTMLButtonElement>"
+        "name": "TouchEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onTouchStartCapture": {
@@ -5862,7 +5862,7 @@
       ],
       "required": false,
       "type": {
-        "name": "TouchEventHandler<HTMLButtonElement>"
+        "name": "TouchEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onPointerDown": {
@@ -5881,7 +5881,7 @@
       ],
       "required": false,
       "type": {
-        "name": "PointerEventHandler<HTMLButtonElement>"
+        "name": "PointerEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onPointerDownCapture": {
@@ -5900,7 +5900,7 @@
       ],
       "required": false,
       "type": {
-        "name": "PointerEventHandler<HTMLButtonElement>"
+        "name": "PointerEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onPointerMove": {
@@ -5919,7 +5919,7 @@
       ],
       "required": false,
       "type": {
-        "name": "PointerEventHandler<HTMLButtonElement>"
+        "name": "PointerEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onPointerMoveCapture": {
@@ -5938,7 +5938,7 @@
       ],
       "required": false,
       "type": {
-        "name": "PointerEventHandler<HTMLButtonElement>"
+        "name": "PointerEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onPointerUp": {
@@ -5957,7 +5957,7 @@
       ],
       "required": false,
       "type": {
-        "name": "PointerEventHandler<HTMLButtonElement>"
+        "name": "PointerEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onPointerUpCapture": {
@@ -5976,7 +5976,7 @@
       ],
       "required": false,
       "type": {
-        "name": "PointerEventHandler<HTMLButtonElement>"
+        "name": "PointerEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onPointerCancel": {
@@ -5995,7 +5995,7 @@
       ],
       "required": false,
       "type": {
-        "name": "PointerEventHandler<HTMLButtonElement>"
+        "name": "PointerEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onPointerCancelCapture": {
@@ -6014,7 +6014,7 @@
       ],
       "required": false,
       "type": {
-        "name": "PointerEventHandler<HTMLButtonElement>"
+        "name": "PointerEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onPointerEnter": {
@@ -6033,7 +6033,7 @@
       ],
       "required": false,
       "type": {
-        "name": "PointerEventHandler<HTMLButtonElement>"
+        "name": "PointerEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onPointerEnterCapture": {
@@ -6052,7 +6052,7 @@
       ],
       "required": false,
       "type": {
-        "name": "PointerEventHandler<HTMLButtonElement>"
+        "name": "PointerEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onPointerLeave": {
@@ -6071,7 +6071,7 @@
       ],
       "required": false,
       "type": {
-        "name": "PointerEventHandler<HTMLButtonElement>"
+        "name": "PointerEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onPointerLeaveCapture": {
@@ -6090,7 +6090,7 @@
       ],
       "required": false,
       "type": {
-        "name": "PointerEventHandler<HTMLButtonElement>"
+        "name": "PointerEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onPointerOver": {
@@ -6109,7 +6109,7 @@
       ],
       "required": false,
       "type": {
-        "name": "PointerEventHandler<HTMLButtonElement>"
+        "name": "PointerEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onPointerOverCapture": {
@@ -6128,7 +6128,7 @@
       ],
       "required": false,
       "type": {
-        "name": "PointerEventHandler<HTMLButtonElement>"
+        "name": "PointerEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onPointerOut": {
@@ -6147,7 +6147,7 @@
       ],
       "required": false,
       "type": {
-        "name": "PointerEventHandler<HTMLButtonElement>"
+        "name": "PointerEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onPointerOutCapture": {
@@ -6166,7 +6166,7 @@
       ],
       "required": false,
       "type": {
-        "name": "PointerEventHandler<HTMLButtonElement>"
+        "name": "PointerEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onGotPointerCapture": {
@@ -6185,7 +6185,7 @@
       ],
       "required": false,
       "type": {
-        "name": "PointerEventHandler<HTMLButtonElement>"
+        "name": "PointerEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onGotPointerCaptureCapture": {
@@ -6204,7 +6204,7 @@
       ],
       "required": false,
       "type": {
-        "name": "PointerEventHandler<HTMLButtonElement>"
+        "name": "PointerEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onLostPointerCapture": {
@@ -6223,7 +6223,7 @@
       ],
       "required": false,
       "type": {
-        "name": "PointerEventHandler<HTMLButtonElement>"
+        "name": "PointerEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onLostPointerCaptureCapture": {
@@ -6242,7 +6242,7 @@
       ],
       "required": false,
       "type": {
-        "name": "PointerEventHandler<HTMLButtonElement>"
+        "name": "PointerEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onScroll": {
@@ -6261,7 +6261,7 @@
       ],
       "required": false,
       "type": {
-        "name": "UIEventHandler<HTMLButtonElement>"
+        "name": "UIEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onScrollCapture": {
@@ -6280,7 +6280,7 @@
       ],
       "required": false,
       "type": {
-        "name": "UIEventHandler<HTMLButtonElement>"
+        "name": "UIEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onWheel": {
@@ -6299,7 +6299,7 @@
       ],
       "required": false,
       "type": {
-        "name": "WheelEventHandler<HTMLButtonElement>"
+        "name": "WheelEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onWheelCapture": {
@@ -6318,7 +6318,7 @@
       ],
       "required": false,
       "type": {
-        "name": "WheelEventHandler<HTMLButtonElement>"
+        "name": "WheelEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onAnimationStart": {
@@ -6337,7 +6337,7 @@
       ],
       "required": false,
       "type": {
-        "name": "AnimationEventHandler<HTMLButtonElement>"
+        "name": "AnimationEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onAnimationStartCapture": {
@@ -6356,7 +6356,7 @@
       ],
       "required": false,
       "type": {
-        "name": "AnimationEventHandler<HTMLButtonElement>"
+        "name": "AnimationEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onAnimationEnd": {
@@ -6375,7 +6375,7 @@
       ],
       "required": false,
       "type": {
-        "name": "AnimationEventHandler<HTMLButtonElement>"
+        "name": "AnimationEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onAnimationEndCapture": {
@@ -6394,7 +6394,7 @@
       ],
       "required": false,
       "type": {
-        "name": "AnimationEventHandler<HTMLButtonElement>"
+        "name": "AnimationEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onAnimationIteration": {
@@ -6413,7 +6413,7 @@
       ],
       "required": false,
       "type": {
-        "name": "AnimationEventHandler<HTMLButtonElement>"
+        "name": "AnimationEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onAnimationIterationCapture": {
@@ -6432,7 +6432,7 @@
       ],
       "required": false,
       "type": {
-        "name": "AnimationEventHandler<HTMLButtonElement>"
+        "name": "AnimationEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onTransitionEnd": {
@@ -6451,7 +6451,7 @@
       ],
       "required": false,
       "type": {
-        "name": "TransitionEventHandler<HTMLButtonElement>"
+        "name": "TransitionEventHandler&#60;HTMLButtonElement&#62;"
       }
     },
     "onTransitionEndCapture": {
@@ -6470,7 +6470,7 @@
       ],
       "required": false,
       "type": {
-        "name": "TransitionEventHandler<HTMLButtonElement>"
+        "name": "TransitionEventHandler&#60;HTMLButtonElement&#62;"
       }
     }
   },
@@ -6491,7 +6491,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<FlexDirection>"
+        "name": "ResponsiveStyle&#60;FlexDirection&#62;"
       }
     },
     "wrap": {
@@ -6510,7 +6510,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<FlexWrap>"
+        "name": "ResponsiveStyle&#60;FlexWrap&#62;"
       }
     }
   },
@@ -6531,7 +6531,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<AlignItems>"
+        "name": "ResponsiveStyle&#60;AlignItems&#62;"
       }
     },
     "alignContent": {
@@ -6550,7 +6550,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<AlignContent>"
+        "name": "ResponsiveStyle&#60;AlignContent&#62;"
       }
     },
     "justifyContent": {
@@ -6569,7 +6569,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<JustifyContent>"
+        "name": "ResponsiveStyle&#60;JustifyContent&#62;"
       }
     },
     "gap": {
@@ -6588,7 +6588,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<Gap<0 &#124; (string & {})>>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;Gap&#60;0 &#124; (string & {})&#62;&#62;&#62;"
       }
     },
     "columnGap": {
@@ -6607,7 +6607,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<GridColumnGap<0 &#124; (string & {})>>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;GridColumnGap&#60;0 &#124; (string & {})&#62;&#62;&#62;"
       }
     },
     "rowGap": {
@@ -6626,7 +6626,7 @@
       ],
       "required": false,
       "type": {
-        "name": "ResponsiveStyle<StyleToken<RowGap<0 &#124; (string & {})>>>"
+        "name": "ResponsiveStyle&#60;StyleToken&#60;RowGap&#60;0 &#124; (string & {})&#62;&#62;&#62;"
       }
     }
   },
@@ -6647,7 +6647,7 @@
       ],
       "required": false,
       "type": {
-        "name": "Ref<HTMLButtonElement>"
+        "name": "Ref&#60;HTMLButtonElement&#62;"
       }
     }
   }
