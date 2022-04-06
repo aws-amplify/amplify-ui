@@ -13,7 +13,6 @@ describe('@aws-amplify/ui-react', () => {
     it('should match snapshot', () => {
       expect(Object.keys(exported)).toMatchInlineSnapshot(`
         Array [
-          "baseTheme",
           "createTheme",
           "defaultTheme",
           "translations",

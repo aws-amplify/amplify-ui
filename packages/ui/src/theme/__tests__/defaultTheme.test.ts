@@ -1,9 +1,9 @@
-import { defaultTheme } from '../';
+import { createTheme } from '../';
 
 describe('@aws-amplify/ui', () => {
   describe('defaultTheme', () => {
     it('should match snapshot', () => {
-      expect(defaultTheme.cssText).toMatchInlineSnapshot(`
+      expect(createTheme().cssText).toMatchInlineSnapshot(`
         "[data-amplify-theme=\\"default-theme\\"] {
         --amplify-components-alert-align-items: center;
         --amplify-components-alert-justify-content: space-between;

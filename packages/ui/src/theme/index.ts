@@ -1,12 +1,7 @@
 import { createTheme } from './createTheme';
-import { baseTheme } from './baseTheme';
+import { defaultTheme } from './defaultTheme';
 
-export { createTheme, baseTheme };
+export { createTheme, defaultTheme };
 export * from './types';
 
-export const defaultTheme = createTheme(
-  {
-    name: 'default-theme',
-  },
-  baseTheme
-);
+export const defaultWebTheme = createTheme();

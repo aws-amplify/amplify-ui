@@ -1,4 +1,4 @@
-import { baseTheme } from '../baseTheme';
+import { defaultTheme } from '../defaultTheme';
 import StyleDictionary from 'style-dictionary';
 
 describe('@aws-amplify/ui', () => {
@@ -7,7 +7,7 @@ describe('@aws-amplify/ui', () => {
       expect(() => {
         StyleDictionary.extend({
           // This is to make typescript happy, the types don't jive well
-          tokens: Object.assign({ ...baseTheme.tokens }),
+          tokens: Object.assign({ ...defaultTheme.tokens }),
           platforms: {
             // Need a platform for Style Dictionary to build so it can try to
             // resolve references
