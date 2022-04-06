@@ -1,6 +1,6 @@
-import isEmpty from 'lodash/isEmpty';
-import isArray from 'lodash/isArray';
-import isObject from 'lodash/isObject';
+import isEmpty from 'lodash-es/isEmpty';
+import isArray from 'lodash-es/isArray';
+import isObject from 'lodash-es/isObject';
 
 export const isDevelopment = () => process.env.NODE_ENV !== 'production';
 

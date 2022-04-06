@@ -1,4 +1,4 @@
-import kebabCase from 'lodash/kebabCase';
+import kebabCase from 'lodash-es/kebabCase';
 // internal style dictionary function
 import usesReference from 'style-dictionary/lib/utils/references/usesReference';
 

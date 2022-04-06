@@ -1,15 +1,13 @@
 /**
  * This file contains helpers that process authenticator state machine context
  */
-import includes from 'lodash/includes';
+import includes from 'lodash-es/includes';
 
 import {
-  LoginMechanism,
   LoginMechanismArray,
   AuthContext,
   AuthMachineState,
 } from '../../types';
-import { defaultFormFieldOptions } from './constants';
 
 export const getPrimaryAlias = (state: AuthMachineState) => {
   const loginMechanisms = state?.context.config?.loginMechanisms;

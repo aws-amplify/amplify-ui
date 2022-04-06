@@ -1,5 +1,5 @@
 import * as React from 'react';
-import kebabCase from 'lodash/kebabCase';
+import kebabCase from 'lodash-es/kebabCase';
 import { fireEvent, render, screen } from '@testing-library/react';
 
 import { Image } from '../Image';

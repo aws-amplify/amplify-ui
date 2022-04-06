@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import kebabCase from 'lodash/kebabCase';
+import kebabCase from 'lodash-es/kebabCase';
 
 import { Collection } from '../Collection';
 import { ComponentPropsToStylePropsMap } from '../../types';

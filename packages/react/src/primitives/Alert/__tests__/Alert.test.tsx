@@ -4,7 +4,7 @@ import * as React from 'react';
 import { Alert } from '../Alert';
 import { ComponentClassNames } from '../../shared/constants';
 import { ComponentPropsToStylePropsMap } from '../../types';
-import kebabCase from 'lodash/kebabCase';
+import kebabCase from 'lodash-es/kebabCase';
 
 describe('Alert: ', () => {
   it('can render Alert variations', async () => {

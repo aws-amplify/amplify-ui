@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { act, render, screen } from '@testing-library/react';
-import kebabCase from 'lodash/kebabCase';
+import kebabCase from 'lodash-es/kebabCase';
 import userEvent from '@testing-library/user-event';
 
 import { AUTO_GENERATED_ID_PREFIX } from '../../utils/useStableId';

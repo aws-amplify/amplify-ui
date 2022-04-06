@@ -1,6 +1,6 @@
 import { Auth } from 'aws-amplify';
-import get from 'lodash/get';
-import isEmpty from 'lodash/isEmpty';
+import get from 'lodash-es/get';
+import isEmpty from 'lodash-es/isEmpty';
 import { createMachine, sendUpdate } from 'xstate';
 import { AuthChallengeNames, AuthEvent, SignInContext } from '../../../types';
 import { runValidators } from '../../../validators';
