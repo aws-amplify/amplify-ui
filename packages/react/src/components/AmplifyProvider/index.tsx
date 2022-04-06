@@ -114,7 +114,7 @@ export function AmplifyProvider({
              Therefore, by only rendering CSS text which does not include a closing '</style>' tag, 
              we ensure that the browser will correctly interpret all the text as CSS. 
         */}
-      {typeof theme === 'undefined' || /<\/style\s*>/i.test(cssText) ? null : (
+      {typeof theme === 'undefined' || /<\/style/i.test(cssText) ? null : (
         <style
           id={`amplify-theme-${name}`}
           dangerouslySetInnerHTML={{ __html: cssText }}
