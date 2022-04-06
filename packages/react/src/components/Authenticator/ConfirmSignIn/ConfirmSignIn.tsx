@@ -16,7 +16,7 @@ import {
 import { FormFields } from '../shared/FormFields';
 
 export const ConfirmSignIn = (): JSX.Element => {
-  const { isPending } = useAuthenticator();
+  const { isPending } = useAuthenticator((context) => [context.isPending]);
   const { handleChange, handleSubmit } = useFormHandlers();
 
   const {
@@ -56,6 +56,7 @@ export const ConfirmSignIn = (): JSX.Element => {
 };
 
 function Header() {
+  // TODO: expose challengeName
   const { _state } = useAuthenticator();
   const actorState = getActorState(_state) as SignInState;
 

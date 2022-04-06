@@ -12,7 +12,7 @@ import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { FormFields } from '../shared/FormFields';
 
 export function SignIn() {
-  const { isPending } = useAuthenticator();
+  const { isPending } = useAuthenticator((context) => [context.isPending]);
   const { handleChange, handleSubmit } = useFormHandlers();
 
   const {
@@ -66,7 +66,9 @@ export function SignIn() {
 
 SignIn.Header = (): JSX.Element => null;
 SignIn.Footer = () => {
-  const { toResetPassword } = useAuthenticator();
+  const { toResetPassword } = useAuthenticator((context) => [
+    context.toResetPassword,
+  ]);
 
   // Support backwards compatibility for legacy key with trailing space
   const forgotPasswordText = !hasTranslation('Forgot your password? ')

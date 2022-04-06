@@ -12,7 +12,7 @@ import {
 import { useSelector, useInterpret } from '@xstate/react';
 import isEmpty from 'lodash/isEmpty';
 
-import { areArraysEqual } from '../../../../helpers';
+import { areArrayValuesEqual } from '../../../../helpers';
 
 export type AuthenticatorContextValue = {
   service?: AuthInterpreter;
@@ -157,7 +157,7 @@ export const useAuthenticator = (selector?: Selector) => {
 
     // Shallow compare the array values
     // TODO: is there a reason to compare deep at the cost of expensive comparisons?
-    return areArraysEqual(prevDepsArray, nextDepsArray);
+    return areArrayValuesEqual(prevDepsArray, nextDepsArray);
   };
 
   const state = useSelector(service, xstateSelector, comparator);

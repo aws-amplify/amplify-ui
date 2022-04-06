@@ -10,7 +10,7 @@ import { RemoteErrorMessage, TwoButtonSubmitFooter } from '../shared';
 import { FormFields } from '../shared/FormFields';
 
 export const ConfirmResetPassword = (): JSX.Element => {
-  const { isPending } = useAuthenticator();
+  const { isPending } = useAuthenticator((context) => [context.isPending]);
   const { handleBlur, handleChange, handleSubmit } = useFormHandlers();
 
   const {
