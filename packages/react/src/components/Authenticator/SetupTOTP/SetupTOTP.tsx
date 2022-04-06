@@ -4,7 +4,7 @@ import * as React from 'react';
 import { Auth, Logger } from 'aws-amplify';
 import { getActorState, SignInState, translate } from '@aws-amplify/ui';
 
-import { Flex, Heading } from '../../..';
+import { Flex, Heading } from '../../../primitives';
 
 import {
   useAuthenticator,

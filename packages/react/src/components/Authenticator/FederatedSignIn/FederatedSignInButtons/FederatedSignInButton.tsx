@@ -1,7 +1,7 @@
 import { FederatedIdentityProviders, SocialProvider } from '@aws-amplify/ui';
 
-import { useAuthenticator } from '../..';
-import { Button, Icon, Text } from '../../../..';
+import { useAuthenticator } from '../../hooks/useAuthenticator';
+import { Button, Icon, Text } from '../../../../primitives';
 
 export interface FederatedSignInButtonProps {
   icon?: SocialProvider;

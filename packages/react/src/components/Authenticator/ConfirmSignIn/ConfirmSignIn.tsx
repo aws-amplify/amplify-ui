@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import {
   AuthChallengeNames,
   getActorState,
@@ -8,7 +6,7 @@ import {
   translate,
 } from '@aws-amplify/ui';
 
-import { Flex, Heading } from '../../..';
+import { Flex, Heading } from '../../../primitives';
 import { ConfirmSignInFooter, RemoteErrorMessage } from '../shared';
 import {
   useAuthenticator,

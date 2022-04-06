@@ -1,15 +1,13 @@
-import * as React from 'react';
-
 import { translate, hasTranslation } from '@aws-amplify/ui';
 
-import { Button, Flex, View, VisuallyHidden } from '../../..';
+import { Button, Flex, View, VisuallyHidden } from '../../../primitives';
 import { FederatedSignIn } from '../FederatedSignIn';
 import {
   useAuthenticator,
   useCustomComponents,
   useFormHandlers,
 } from '../hooks';
-import { RemoteErrorMessage } from '../shared';
+import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 
 import { FormFields } from '../shared/FormFields';
 

@@ -1,6 +1,6 @@
 import { translate } from '@aws-amplify/ui';
 
-import { Button, Heading, Text } from '../../..';
+import { Button, Heading, Text } from '../../../primitives';
 import {
   useAuthenticator,
   useCustomComponents,

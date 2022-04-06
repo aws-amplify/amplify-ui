@@ -1,7 +1,7 @@
 import { CognitoUserAmplify } from '@aws-amplify/ui';
 
-import { useAuthenticator } from '..';
-import { View } from '../../..';
+import { useAuthenticator } from '../hooks/useAuthenticator';
+import { View } from '../../../primitives/View';
 import { ConfirmSignUp } from '../ConfirmSignUp';
 import { ForceNewPassword } from '../ForceNewPassword';
 import { useCustomComponents } from '../hooks/useCustomComponents';

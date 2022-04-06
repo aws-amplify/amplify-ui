@@ -1,7 +1,6 @@
-import * as React from 'react';
 import { translate } from '@aws-amplify/ui';
 
-import { Button, Flex, Heading, Text } from '../../..';
+import { Button, Flex, Heading, Text } from '../../../primitives';
 import {
   useAuthenticator,
   useCustomComponents,

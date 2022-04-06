@@ -1,7 +1,7 @@
 import { FederatedIdentityProviders, translate } from '@aws-amplify/ui';
 
-import { useAuthenticator } from '..';
-import { Divider, Flex } from '../../..';
+import { useAuthenticator } from '../hooks/useAuthenticator';
+import { Divider, Flex } from '../../../primitives';
 import { FederatedSignInButton } from './FederatedSignInButtons';
 
 export function FederatedSignIn() {

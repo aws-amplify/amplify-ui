@@ -8,7 +8,7 @@ import {
   translate,
 } from '@aws-amplify/ui';
 
-import { Heading, Radio, RadioGroupField } from '../../..';
+import { Heading, Radio, RadioGroupField } from '../../../primitives';
 import {
   useAuthenticator,
   useCustomComponents,
