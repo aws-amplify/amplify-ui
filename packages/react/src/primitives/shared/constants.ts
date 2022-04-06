@@ -206,6 +206,16 @@ export const ComponentClassObject = {
     components: ['Loader'],
     description: 'Top level element that wraps the Loader primitive',
   },
+  LoaderDeterminate: {
+    className: 'amplify-loader--determinate',
+    components: ['Loader'],
+    description: 'Class applied to a determinate loader',
+  },
+  LoaderPercentageText: {
+    className: 'amplify-loader__percentage-text',
+    components: ['Loader'],
+    description: 'Class applied to the percentage text of loader',
+  },
   MenuContent: {
     className: 'amplify-menu-content',
     components: ['Menu'],

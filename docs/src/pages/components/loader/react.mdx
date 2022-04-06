@@ -1,7 +1,16 @@
-import { Flex, Loader } from '@aws-amplify/ui-react';
+import { Loader } from '@aws-amplify/ui-react';
 
 import { LoaderDemo } from './demo';
-import { Example } from '@/components/Example';
+import {
+  DefaultLoaderExample,
+  DeterminateLoaderExample,
+  LoaderAccessibilityExample,
+  LoaderColorExample,
+  LoaderIsPercentageTextHiddenExample,
+  LoaderSizesExample,
+  LoaderVariationExample,
+} from './examples';
+import { Example, ExampleCode } from '@/components/Example';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 
 ## Demo
@@ -12,99 +21,96 @@ import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 
 Import the Loader component and styles.
 
-```jsx
-import { Loader } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-<Loader />;
-```
-
 <Example>
-  <Loader />
+  <DefaultLoaderExample />
+  <ExampleCode>
+    ```jsx file=./examples/DefaultLoaderExample.tsx
+
+    ```
+
+  </ExampleCode>
 </Example>
 
 ### Sizes
 
 Use the `size` prop to change the Loader size. Available options are `small`, `large`, and none (default).
 
-```jsx
-import { Loader } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-<Loader size="small"/>
-<Loader />
-<Loader size="large"/>
-```
-
 <Example>
-  <Flex alignItems="center">
-    <Loader size="small" />
-    <Loader />
-    <Loader size="large" />
-  </Flex>
+  <LoaderSizesExample />
+  <ExampleCode>
+    ```jsx file=./examples/LoaderSizesExample.tsx
+
+    ```
+
+  </ExampleCode>
 </Example>
 
 ### Variation
 
 Loader comes in 2 variants, `linear` and none(default). Pass the `variation` prop and set it to either of these values.
 
-```jsx
-import { Loader } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-<Loader />
-<Loader variation="linear" />
-```
-
 <Example>
-  <Loader />
-  <Loader variation="linear" />
+  <LoaderVariationExample />
+  <ExampleCode>
+    ```jsx file=./examples/LoaderVariationExample.tsx
+
+    ```
+
+  </ExampleCode>
 </Example>
 
 ### Colors
 
 Pass `filledColor` and `emptyColor` props to color your own Loader.
 
-```jsx
-import { Loader } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
+<Example>
+  <LoaderColorExample />
+  <ExampleCode>
+    ```jsx file=./examples/LoaderColorExample.tsx
 
-  <Loader
-    emptyColor="var(--amplify-colors-black)"
-    filledColor="var(--amplify-colors-orange-40)"
-  />
-  <Loader
-    variation="linear"
-    emptyColor="var(--amplify-colors-black)"
-    filledColor="var(--amplify-colors-orange-40)"
-  />
-```
+    ```
+
+  </ExampleCode>
+</Example>
+
+### Determinate
+
+Most often loaders are indeterminate (looped) but may be determinate (percentage-based) when the system can calculate the size of the request — for example, when downloading a large file. To use a determinate loader, set `isDeterminate` to `true` and pass `percentage`.
 
 <Example>
-  <Loader
-    emptyColor="var(--amplify-colors-black)"
-    filledColor="var(--amplify-colors-orange-40)"
-  />
-  <Loader
-    variation="linear"
-    emptyColor="var(--amplify-colors-black)"
-    filledColor="var(--amplify-colors-orange-40)"
-  />
+  <DeterminateLoaderExample />
+  <ExampleCode>
+    ```jsx file=./examples/DeterminateLoaderExample.tsx
+
+    ```
+
+  </ExampleCode>
+</Example>
+
+To hide the percentage text, set `isPercentageTextHidden` to `true`.
+
+<Example>
+  <LoaderIsPercentageTextHiddenExample />
+  <ExampleCode>
+    ```jsx file=./examples/LoaderIsPercentageTextHiddenExample.tsx
+
+    ```
+
+  </ExampleCode>
 </Example>
 
 ### Accessibility
 
-The Loader is a SVG image with role set to 'img' on the outer `<svg>` element. This will tell screen readers to just consider it as a single entity and describe it using the label, rather than trying to read out all the child nodes. You can give it a label by passing `ariaLabel` prop.
-
-```jsx
-import { Loader } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-<Loader ariaLabel="Loading..." />;
-```
+The Loader is a SVG image with role set to `img` on the outer `<svg>` element. This will tell screen readers to just consider it as a single entity and describe it using the label, rather than trying to read out all the child nodes. You can give it a label by passing `ariaLabel` prop.
 
 <Example>
-  <Loader ariaLabel="Loading..." />
+  <LoaderAccessibilityExample />
+  <ExampleCode>
+    ```jsx file=./examples/LoaderAccessibilityExample.tsx
+
+    ```
+
+  </ExampleCode>
 </Example>
 
 ## CSS Styling
@@ -117,34 +123,26 @@ import '@aws-amplify/ui-react/styles.css';
 
 To override styling on all Loaders, you can set the Amplify CSS variables with the built-in `.amplify-loader` class.
 
-```css
-/* styles.css */
-.amplify-loader {
-  --amplify-components-loader-stroke-filled-color: var(--amplify-colors-red-80);
-}
-```
-
-```jsx
-import { Loader } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-import './styles.css';
-
-<Loader />;
-```
-
 <Example>
   <Loader className="global-styling-example" />
+  <ExampleCode>
+    ```css
+    /* styles.css */
+    .amplify-loader {
+      --amplify-components-loader-stroke-filled-color: var(--amplify-colors-red-80);
+    }
+    ```
+  </ExampleCode>
+  <ExampleCode>
+    ```jsx
+    import { Loader } from '@aws-amplify/ui-react';
+    import './styles.css';
+
+    <Loader />;
+    ```
+
+  </ExampleCode>
 </Example>
-
-To replace the Loader styling, unset it:
-
-```css
-.amplify-loader {
-  all: unset;
-  /* Add your styling here*/
-}
-```
 
 ### Local styling
 
@@ -152,62 +150,62 @@ To override styling on a specific Loader, you can use (in order of increasing sp
 
 _Using a class selector:_
 
-```css
-/* styles.css */
-.my-loader {
-  width: 5rem;
-  height: 5rem;
-}
-```
-
-```jsx
-import { Loader } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-import './styles.css';
-
-<Loader className="my-loader" />;
-```
-
 <Example>
   <Loader className="my-loader" />
+  <ExampleCode>
+    ```css
+    /* styles.css */
+    .my-loader {
+      width: 5rem;
+      height: 5rem;
+    }
+    ```
+  </ExampleCode>
+  <ExampleCode>
+    ```jsx
+    import { Loader } from '@aws-amplify/ui-react';
+    import './styles.css';
+
+    <Loader className="my-loader" />;
+    ```
+
+  </ExampleCode>
 </Example>
 
 _Using data attributes:_
 
-```css
-/* styles.css */
-.amplify-loader[data-size='large'] {
-  width: 5rem;
-  height: 5rem;
-}
-```
-
-```jsx
-import { Loader } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-import './styles.css';
-
-<Loader variation="large" />;
-```
-
 <Example>
   <Loader className="data-attribute-styling-example" />
+  <ExampleCode>
+  ```css
+  /* styles.css */
+  .amplify-loader[data-size='large'] {
+    width: 5rem;
+    height: 5rem;
+  }
+  ```
+  </ExampleCode>
+  <ExampleCode>
+    ```jsx
+    import { Loader } from '@aws-amplify/ui-react';
+    import './styles.css';
+
+    <Loader variation="large" />;
+    ```
+
+  </ExampleCode>
 </Example>
 
 _Using style props:_
 
-```jsx
-import { Loader } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-<Loader style={{width: '5rem', height: '5rem'}} />
-/* OR */
-<Loader width="5rem" height="5rem" />
-```
-
 <Example>
-  <Loader style={{ width: '5rem', height: '5rem' }} />
   <Loader width="5rem" height="5rem" />
+  <ExampleCode>
+    ```jsx
+    import { Loader } from '@aws-amplify/ui-react';
+
+    <Loader width="5rem" height="5rem" />
+    ```
+
+  </ExampleCode>
 </Example>
