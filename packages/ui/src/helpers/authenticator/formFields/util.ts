@@ -1,4 +1,4 @@
-import cloneDeep from 'lodash-es/cloneDeep';
+import cloneDeep from 'lodash/cloneDeep';
 import { translate } from '../../../i18n/translations';
 import { FormFields, FormFieldsArray } from '../../../types';
 

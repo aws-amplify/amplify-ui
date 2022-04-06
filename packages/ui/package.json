@@ -38,14 +38,14 @@
     "test": "jest"
   },
   "dependencies": {
-    "lodash-es": "4.17.21",
+    "lodash": "^4.17.21",
     "style-dictionary": "3.0.3",
     "xstate": "^4.30.6"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "^8.3.1",
     "@types/jest": "^26.0.23",
-    "@types/lodash-es": "^4.17.6",
+    "@types/lodash": "^4.14.181",
     "@types/webpack-env": "^1.16.2",
     "autoprefixer": "^10.3.1",
     "fs-extra": "^10.0.0",
