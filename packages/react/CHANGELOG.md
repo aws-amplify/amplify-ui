@@ -1,5 +1,67 @@
 # @aws-amplify/ui-react
 
+## 2.15.0
+
+### Minor Changes
+
+- [#1629](https://github.com/aws-amplify/amplify-ui/pull/1629) [`ab9aef8f3`](https://github.com/aws-amplify/amplify-ui/commit/ab9aef8f329612abc2818db6b4477377aaa3ca62) Thanks [@ErikCH](https://github.com/ErikCH)! - Added new Geo components. Including the MapView and GeoCoder with documentation at https://ui.docs.amplify.aws/components/geo
+
+* [#1598](https://github.com/aws-amplify/amplify-ui/pull/1598) [`992c5f6fb`](https://github.com/aws-amplify/amplify-ui/commit/992c5f6fb3eb3c1c5a9514029c4c17f53d8d7b5b) Thanks [@zchenwei](https://github.com/zchenwei)! - feat: adding determinate loader support
+
+  **_Example:_**
+
+  To use determinate loader, set `isDeterminate` to `true` and pass `percentage`
+
+  ```jsx
+  import * as React from 'react';
+  import { Loader } from '@aws-amplify/ui-react';
+
+  export const DeterminateLoaderExample = () => {
+    const [percentage, setPercentage] = React.useState(0);
+    React.useEffect(() => {
+      const clearID = setInterval(() => {
+        setPercentage((percentage) => {
+          if (percentage < 100) {
+            return percentage + 1;
+          }
+          return 0;
+        });
+      }, 1000);
+      return () => clearInterval(clearID);
+    }, []);
+    return (
+      <>
+        <Loader percentage={percentage} isDeterminate />
+        <Loader variation="linear" percentage={percentage} isDeterminate />
+      </>
+    );
+  };
+  ```
+
+  To hide the percentage text, set `isPercentageTextHidden` to `true`
+
+  ```jsx
+  import { Loader } from '@aws-amplify/ui-react';
+
+  export const LoaderIsPercentageTextHiddenExample = () => {
+    return <Loader percentage={60} isDeterminate isPercentageTextHidden />;
+  };
+  ```
+
+### Patch Changes
+
+- Updated dependencies [[`ab9aef8f3`](https://github.com/aws-amplify/amplify-ui/commit/ab9aef8f329612abc2818db6b4477377aaa3ca62), [`992c5f6fb`](https://github.com/aws-amplify/amplify-ui/commit/992c5f6fb3eb3c1c5a9514029c4c17f53d8d7b5b)]:
+  - @aws-amplify/ui@3.6.0
+
+## 2.14.1
+
+### Patch Changes
+
+- [#1628](https://github.com/aws-amplify/amplify-ui/pull/1628) [`ff74c1d1c`](https://github.com/aws-amplify/amplify-ui/commit/ff74c1d1cab859d977dfc0638f0193af842d2bbd) Thanks [@reesscot](https://github.com/reesscot)! - Revert Geo package release
+
+- Updated dependencies [[`ff74c1d1c`](https://github.com/aws-amplify/amplify-ui/commit/ff74c1d1cab859d977dfc0638f0193af842d2bbd)]:
+  - @aws-amplify/ui@3.5.1
+
 ## 2.14.0
 
 ### Minor Changes
