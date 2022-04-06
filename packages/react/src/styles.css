@@ -1,1 +1,4 @@
 @import '../../ui/dist/styles.css';
+@import '@maplibre/maplibre-gl-geocoder/dist/maplibre-gl-geocoder.css';
+@import 'maplibre-gl-js-amplify/dist/public/amplify-geocoder.css';
+@import 'maplibre-gl/dist/maplibre-gl.css';

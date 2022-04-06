@@ -66,6 +66,11 @@ export const connectedComponents = [
     platforms: ['react', 'vue', 'angular'],
   },
   {
+    href: '/components/geo',
+    label: 'Geo',
+    body: 'Amplify UI Geo provides UI components for maps and location search built on top of Amazon Location Service.',
+  },
+  {
     href: '/components/storage',
     label: 'Storage',
     body: 'A set of components to help interact with S3 storage.',
