@@ -3,7 +3,7 @@ import { Alert } from '../../..';
 import { translate } from '@aws-amplify/ui';
 
 export const RemoteErrorMessage = (): JSX.Element => {
-  const { error } = useAuthenticator();
+  const { error } = useAuthenticator((context) => [context.error]);
 
   return (
     <>

@@ -10,7 +10,11 @@ export const SignInSignUpTabs = ({
 }: {
   hideSignUp: boolean;
 }): JSX.Element => {
-  const { route, toSignIn, toSignUp } = useAuthenticator();
+  const { route, toSignIn, toSignUp } = useAuthenticator((context) => [
+    context.route,
+    context.toSignIn,
+    context.toSignUp,
+  ]);
   return (
     <>
       {hideSignUp ? (

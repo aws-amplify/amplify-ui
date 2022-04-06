@@ -1,5 +1,23 @@
 # @aws-amplify/ui
 
+## 3.5.1
+
+### Patch Changes
+
+- [#1628](https://github.com/aws-amplify/amplify-ui/pull/1628) [`ff74c1d1c`](https://github.com/aws-amplify/amplify-ui/commit/ff74c1d1cab859d977dfc0638f0193af842d2bbd) Thanks [@reesscot](https://github.com/reesscot)! - Revert Geo package release
+
+## 3.5.0
+
+### Minor Changes
+
+- [#1607](https://github.com/aws-amplify/amplify-ui/pull/1607) [`4d0a8424e`](https://github.com/aws-amplify/amplify-ui/commit/4d0a8424e2592be52a59e610f0eb1068c6ab0d5a) Thanks [@ErikCH](https://github.com/ErikCH)! - Added new Geo components. Including the MapView and GeoCoder with documentation at https://ui.docs.amplify.aws/components/geo
+
+### Patch Changes
+
+- [#1617](https://github.com/aws-amplify/amplify-ui/pull/1617) [`e20720a89`](https://github.com/aws-amplify/amplify-ui/commit/e20720a894ccb2cfcc7ede7160299e082ec76fd2) Thanks [@hbuchel](https://github.com/hbuchel)! - fix: remove double border on TextField outer components
+
+* [#1608](https://github.com/aws-amplify/amplify-ui/pull/1608) [`4dee728f2`](https://github.com/aws-amplify/amplify-ui/commit/4dee728f25735ce8bc8793806a395dfcee579522) Thanks [@reesscot](https://github.com/reesscot)! - Remove sourcemaps from rollup build
+
 ## 3.4.1
 
 ### Patch Changes

@@ -5,7 +5,8 @@ import { Divider, Flex } from '../../..';
 import { FederatedSignInButton } from './FederatedSignInButtons';
 
 export function FederatedSignIn() {
-  const { _state, route } = useAuthenticator();
+  // TODO: expose `socialProviders`
+  const { _state, route } = useAuthenticator((context) => [context.route]);
   const { socialProviders = [] } = _state.context.config;
 
   if (socialProviders.length === 0) {
