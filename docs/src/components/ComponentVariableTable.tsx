@@ -4,7 +4,7 @@ import {
   View,
   TableRow,
   TableCell,
-  defaultTheme,
+  useTheme,
 } from '@aws-amplify/ui-react';
 
 function extractClasses(themeObject) {
@@ -22,9 +22,10 @@ function extractClasses(themeObject) {
 }
 
 export const ComponentVariableTable = ({ componentName }) => {
+  const { tokens } = useTheme();
   const variableNames = React.useMemo(() => {
     const variableNames = extractClasses(
-      defaultTheme?.tokens?.components?.[componentName]
+      tokens?.components?.[componentName]
     ).sort();
     let tableRows = [];
     if (variableNames.length) {
