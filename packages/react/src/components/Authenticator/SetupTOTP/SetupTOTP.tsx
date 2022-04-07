@@ -4,14 +4,13 @@ import * as React from 'react';
 import { Auth, Logger } from 'aws-amplify';
 import { getActorState, SignInState, translate } from '@aws-amplify/ui';
 
-import { Flex, Heading } from '../../..';
-
-import {
-  useAuthenticator,
-  useCustomComponents,
-  useFormHandlers,
-} from '../hooks';
-import { ConfirmSignInFooter, RemoteErrorMessage } from '../shared';
+import { Flex } from '../../../primitives/Flex';
+import { Heading } from '../../../primitives/Heading';
+import { useAuthenticator } from '../hooks/useAuthenticator';
+import { useCustomComponents } from '../hooks/useCustomComponents';
+import { useFormHandlers } from '../hooks/useFormHandlers';
+import { ConfirmSignInFooter } from '../shared/ConfirmSignInFooter';
+import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { FormFields } from '../shared/FormFields';
 
 const logger = new Logger('SetupTOTP-logger');

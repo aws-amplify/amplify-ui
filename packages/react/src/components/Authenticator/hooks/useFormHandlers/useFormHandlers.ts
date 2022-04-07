@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 import { getFormDataFromEvent } from '../../../../helpers/utils';
 import { useAuthenticator } from '../useAuthenticator';
 
-export default function useFormHandlers() {
+export function useFormHandlers() {
   const { submitForm, updateBlur, updateForm } = useAuthenticator((context) => [
     context.submitForm,
     context.updateBlur,
