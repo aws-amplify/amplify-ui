@@ -21,6 +21,16 @@ export const useLoaderProps: UseLoaderProps = (initialValues) => {
   const [filledColor, setFilledColor] = React.useState<
     LoaderProps['filledColor']
   >(initialValues.filledColor);
+  const [isDeterminate, setIsDeterminate] = React.useState<
+    LoaderProps['isDeterminate']
+  >(initialValues.isDeterminate);
+  const [percentage, setPercentage] = React.useState<LoaderProps['percentage']>(
+    initialValues.percentage
+  );
+  const [isPercentageTextHidden, setIsPercentageTextHidden] = React.useState<
+    LoaderProps['isPercentageTextHidden']
+  >(initialValues.isPercentageTextHidden);
+
   return {
     size,
     setSize,
@@ -30,5 +40,11 @@ export const useLoaderProps: UseLoaderProps = (initialValues) => {
     setEmptyColor,
     filledColor,
     setFilledColor,
+    isDeterminate,
+    setIsDeterminate,
+    percentage,
+    setPercentage,
+    isPercentageTextHidden,
+    setIsPercentageTextHidden,
   };
 };

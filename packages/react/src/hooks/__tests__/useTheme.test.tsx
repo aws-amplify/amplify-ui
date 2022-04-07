@@ -1,4 +1,4 @@
-import { createTheme, defaultTheme, WebTheme } from '@aws-amplify/ui';
+import { createTheme, WebTheme } from '@aws-amplify/ui';
 import { renderHook } from '@testing-library/react-hooks';
 import { AmplifyProvider } from '../../components/AmplifyProvider';
 import { useTheme } from '../useTheme';
@@ -40,6 +40,6 @@ describe('useTheme', () => {
   it('should return a default theme when there is no context', () => {
     const { result } = renderHook(() => useTheme());
 
-    expect(serializeTheme(result.current)).toBe(serializeTheme(defaultTheme));
+    expect(serializeTheme(result.current)).toBe(serializeTheme(createTheme()));
   });
 });

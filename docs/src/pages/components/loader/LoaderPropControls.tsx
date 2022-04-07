@@ -1,8 +1,11 @@
 import * as React from 'react';
-
-import { LoaderProps, SelectField, TextField } from '@aws-amplify/ui-react';
-
-import { DemoBox } from './DemoBox';
+import {
+  Flex,
+  LoaderProps,
+  SelectField,
+  SwitchField,
+  TextField,
+} from '@aws-amplify/ui-react';
 
 export interface LoaderPropControlsProps extends LoaderProps {
   setSize: (value: React.SetStateAction<LoaderProps['size']>) => void;
@@ -12,6 +15,15 @@ export interface LoaderPropControlsProps extends LoaderProps {
   ) => void;
   setFilledColor: (
     value: React.SetStateAction<LoaderProps['filledColor']>
+  ) => void;
+  setIsDeterminate: (
+    value: React.SetStateAction<LoaderProps['isDeterminate']>
+  ) => void;
+  setPercentage: (
+    value: React.SetStateAction<LoaderProps['percentage']>
+  ) => void;
+  setIsPercentageTextHidden: (
+    value: React.SetStateAction<LoaderProps['isPercentageTextHidden']>
   ) => void;
 }
 
@@ -24,9 +36,15 @@ export const LoaderPropControls: React.FC<LoaderPropControlsProps> = ({
   setEmptyColor,
   filledColor,
   setFilledColor,
+  isDeterminate,
+  setIsDeterminate,
+  percentage,
+  setPercentage,
+  isPercentageTextHidden,
+  setIsPercentageTextHidden,
 }) => {
   return (
-    <DemoBox primitiveName="Loader">
+    <Flex direction="column">
       <SelectField
         label="size"
         value={size}
@@ -56,6 +74,30 @@ export const LoaderPropControls: React.FC<LoaderPropControlsProps> = ({
         value={filledColor}
         onChange={(event) => setFilledColor(event.target.value)}
       />
-    </DemoBox>
+      <SwitchField
+        label="isDeterminate"
+        defaultChecked={isDeterminate}
+        labelPosition="end"
+        onChange={(event) => {
+          setIsDeterminate(event.target.checked), setPercentage(undefined);
+        }}
+      />
+      {isDeterminate ? (
+        <TextField
+          type="number"
+          label="percentage"
+          value={percentage}
+          onChange={(event) => setPercentage(event.target.value)}
+        />
+      ) : null}
+      {isDeterminate ? (
+        <SwitchField
+          label="isPercentageLabelHidden"
+          defaultChecked={isPercentageTextHidden}
+          labelPosition="end"
+          onChange={(event) => setIsPercentageTextHidden(event.target.checked)}
+        />
+      ) : null}
+    </Flex>
   );
 };
