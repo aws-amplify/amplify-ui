@@ -22,19 +22,25 @@ interface BasePaginationProps {
   siblingCount?: number;
 
   /**
+   * Optionally indicates whether there are more pages after `totalPages`. Can be combined with `totalPages` to enable the next button when reaching the last page.
+   * @default false
+   */
+  hasMorePages?: boolean;
+
+  /**
    * Callback function triggered when the next-page button is pressed
    */
-  onNext: () => void;
+  onNext?: () => void;
 
   /**
    * Callback function triggered when the prev-page button is pressed
    */
-  onPrevious: () => void;
+  onPrevious?: () => void;
 
   /**
    * Callback function triggered every time the page changes
    */
-  onChange: (newPageIndex: number, prevPageIndex: number) => void;
+  onChange?: (newPageIndex: number, prevPageIndex: number) => void;
 }
 
 export interface PaginationProps extends BasePaginationProps, ViewProps {}

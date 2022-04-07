@@ -1,21 +1,20 @@
-import { getActorState, translate } from '@aws-amplify/ui';
+import * as React from 'react';
 
-import { useAuthenticator } from '..';
+import { translate } from '@aws-amplify/ui';
+
 import { Flex, Heading } from '../../..';
 import {
-  ConfirmationCodeInput,
-  RemoteErrorMessage,
-  TwoButtonSubmitFooter,
-} from '../shared';
-import { useCustomComponents } from '../hooks/useCustomComponents';
-import {
-  isInputOrSelectElement,
-  isInputElement,
-  getFormDataFromEvent,
-  confPropsCreator,
-} from '../../../helpers/utils';
+  useAuthenticator,
+  useCustomComponents,
+  useFormHandlers,
+} from '../hooks';
+import { RemoteErrorMessage, TwoButtonSubmitFooter } from '../shared';
+import { FormFields } from '../shared/FormFields';
 
 export const ConfirmVerifyUser = (): JSX.Element => {
+  const { isPending } = useAuthenticator((context) => [context.isPending]);
+  const { handleChange, handleSubmit } = useFormHandlers();
+
   const {
     components: {
       ConfirmVerifyUser: {
@@ -24,31 +23,6 @@ export const ConfirmVerifyUser = (): JSX.Element => {
       },
     },
   } = useCustomComponents();
-
-  const { submitForm, updateForm, isPending, _state } = useAuthenticator();
-
-  const formOverrides =
-    getActorState(_state).context?.formFields?.confirmVerifyUser;
-
-  const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
-    if (isInputOrSelectElement(event.target)) {
-      let { name, type, value } = event.target;
-      if (
-        isInputElement(event.target) &&
-        type === 'checkbox' &&
-        !event.target.checked
-      ) {
-        value = undefined;
-      }
-
-      updateForm({ name, value });
-    }
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    submitForm(getFormDataFromEvent(event));
-  };
 
   return (
     <form
@@ -66,14 +40,7 @@ export const ConfirmVerifyUser = (): JSX.Element => {
         <Header />
 
         <Flex direction="column">
-          <ConfirmationCodeInput
-            {...confPropsCreator(
-              'confirmation_code',
-              'Code',
-              'Code *',
-              formOverrides
-            )}
-          />
+          <FormFields route="confirmVerifyUser" />
         </Flex>
 
         <RemoteErrorMessage />

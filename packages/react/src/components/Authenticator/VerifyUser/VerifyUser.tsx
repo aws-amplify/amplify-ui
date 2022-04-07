@@ -1,5 +1,5 @@
 import {
-  authInputAttributes,
+  defaultFormFieldOptions,
   censorAllButFirstAndLast,
   censorPhoneNumber,
   ContactMethod,
@@ -8,15 +8,13 @@ import {
   translate,
 } from '@aws-amplify/ui';
 
-import { useAuthenticator } from '..';
 import { Heading, Radio, RadioGroupField } from '../../..';
-import { RemoteErrorMessage, TwoButtonSubmitFooter } from '../shared';
-import { useCustomComponents } from '../hooks/useCustomComponents';
 import {
-  isInputOrSelectElement,
-  isInputElement,
-  getFormDataFromEvent,
-} from '../../../helpers/utils';
+  useAuthenticator,
+  useCustomComponents,
+  useFormHandlers,
+} from '../hooks';
+import { RemoteErrorMessage, TwoButtonSubmitFooter } from '../shared';
 
 const censorContactInformation = (
   type: ContactMethod,
@@ -45,7 +43,7 @@ const generateRadioGroup = (
   for (const [key, value] of Object.entries(attributes)) {
     const radio = (
       <Radio name="unverifiedAttr" value={key} key={key}>
-        {censorContactInformation(authInputAttributes[key].label, value)}
+        {censorContactInformation(defaultFormFieldOptions[key].label, value)}
       </Radio>
     );
 
@@ -62,7 +60,11 @@ export const VerifyUser = (): JSX.Element => {
     },
   } = useCustomComponents();
 
-  const { _state, isPending, submitForm, updateForm } = useAuthenticator();
+  // TODO: expose unverifiedAttributes from `useAuthenticator`
+  const { _state, isPending } = useAuthenticator((context) => [
+    context.isPending,
+  ]);
+  const { handleChange, handleSubmit } = useFormHandlers();
   const context = getActorContext(_state) as SignInContext;
 
   const footerSubmitText = isPending ? (
@@ -81,26 +83,6 @@ export const VerifyUser = (): JSX.Element => {
       {generateRadioGroup(context.unverifiedAttributes)}
     </RadioGroupField>
   );
-
-  const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
-    if (isInputOrSelectElement(event.target)) {
-      let { name, type, value } = event.target;
-      if (
-        isInputElement(event.target) &&
-        type === 'checkbox' &&
-        !event.target.checked
-      ) {
-        value = undefined;
-      }
-
-      updateForm({ name, value });
-    }
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    submitForm(getFormDataFromEvent(event));
-  };
 
   return (
     <form

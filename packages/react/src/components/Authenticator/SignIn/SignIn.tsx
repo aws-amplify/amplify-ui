@@ -1,47 +1,27 @@
-import { translate, hasTranslation, getActorState } from '@aws-amplify/ui';
+import * as React from 'react';
 
-import { useAuthenticator } from '..';
-import { Button, Flex, PasswordField, View } from '../../..';
+import { translate, hasTranslation } from '@aws-amplify/ui';
+
+import { Button, Flex, View, VisuallyHidden } from '../../..';
 import { FederatedSignIn } from '../FederatedSignIn';
-import { RemoteErrorMessage, UserNameAlias } from '../shared';
 import {
-  getFormDataFromEvent,
-  isInputElement,
-  isInputOrSelectElement,
-} from '../../../helpers/utils';
-import { useCustomComponents } from '../hooks/useCustomComponents';
-import { propsCreator } from '../../../helpers/utils';
+  useAuthenticator,
+  useCustomComponents,
+  useFormHandlers,
+} from '../hooks';
+import { RemoteErrorMessage } from '../shared';
+
+import { FormFields } from '../shared/FormFields';
 
 export function SignIn() {
-  const { isPending, submitForm, updateForm, _state } = useAuthenticator();
+  const { isPending } = useAuthenticator((context) => [context.isPending]);
+  const { handleChange, handleSubmit } = useFormHandlers();
+
   const {
     components: {
       SignIn: { Header = SignIn.Header, Footer = SignIn.Footer },
     },
   } = useCustomComponents();
-
-  const formOverrides = getActorState(_state).context?.formFields?.signIn;
-  const userOverrides = formOverrides?.['username'];
-
-  const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
-    if (isInputOrSelectElement(event.target)) {
-      let { name, type, value } = event.target;
-      if (
-        isInputElement(event.target) &&
-        type === 'checkbox' &&
-        !event.target.checked
-      ) {
-        value = undefined;
-      }
-
-      updateForm({ name, value });
-    }
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    submitForm(getFormDataFromEvent(event));
-  };
 
   return (
     <View>
@@ -61,22 +41,10 @@ export function SignIn() {
             className="amplify-flex"
             disabled={isPending}
           >
-            <UserNameAlias
-              labelHidden={userOverrides?.labelHidden}
-              placeholder={userOverrides?.placeholder}
-              required={userOverrides?.required}
-              label={userOverrides?.label}
-              dialCode={userOverrides?.dialCode}
-              dialCodeList={userOverrides?.dialCodeList}
-              data-amplify-usernamealias
-            />
-            <PasswordField
-              data-amplify-password
-              className="password-field"
-              {...propsCreator('password', 'Password', formOverrides, true)}
-              name="password"
-              autoComplete="current-password"
-            />
+            <VisuallyHidden>
+              <legend>{translate('Sign in')}</legend>
+            </VisuallyHidden>
+            <FormFields route="signIn" />
           </fieldset>
 
           <RemoteErrorMessage />
@@ -100,7 +68,9 @@ export function SignIn() {
 
 SignIn.Header = (): JSX.Element => null;
 SignIn.Footer = () => {
-  const { toResetPassword } = useAuthenticator();
+  const { toResetPassword } = useAuthenticator((context) => [
+    context.toResetPassword,
+  ]);
 
   // Support backwards compatibility for legacy key with trailing space
   const forgotPasswordText = !hasTranslation('Forgot your password? ')

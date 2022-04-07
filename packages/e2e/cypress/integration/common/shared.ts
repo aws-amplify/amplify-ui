@@ -32,6 +32,10 @@ Given("I'm running the docs page {string}", (page: string) => {
   });
 });
 
+Given("I'm running the docs page", () => {
+  cy.visit('/');
+});
+
 Given(
   'I intercept {string} with fixture {string}',
   (json: string, fixture: string) => {
@@ -96,6 +100,14 @@ Given(
 
 When('I type an invalid password', () => {
   cy.findInputField('Password').type('invalidpass');
+});
+
+When('I type an invalid wrong complexity password', () => {
+  cy.findInputField('Password').type('inv');
+});
+
+When('I type an invalid no lower case password', () => {
+  cy.findInputField('Password').type('INV');
 });
 
 When('I type a new {string}', (field: string) => {
@@ -267,6 +279,10 @@ When('I type a valid SMS confirmation code', () => {
 
 When('I type an invalid confirmation code', () => {
   cy.findInputField('Confirmation Code').type('0000');
+});
+
+When('I see one code input', () => {
+  cy.get('input').should('have.length', 1);
 });
 
 When('I see {string} as the {string} input', (custom, order) => {

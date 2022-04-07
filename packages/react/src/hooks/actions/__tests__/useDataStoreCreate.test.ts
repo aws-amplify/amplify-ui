@@ -9,6 +9,7 @@ import {
 import { Todo } from '../testShared';
 import { useDataStoreCreateAction } from '../useDataStoreCreateAction';
 import { AMPLIFY_SYMBOL } from '../../../helpers/constants';
+import { renderHook } from '@testing-library/react-hooks';
 
 jest.mock('aws-amplify');
 
@@ -24,14 +25,18 @@ describe('useDataStoreCreateAction', () => {
   beforeEach(() => jest.clearAllMocks());
 
   it('should call DataStore.save', async () => {
-    const action = useDataStoreCreateAction(dataStoreCreateArgs);
+    const {
+      result: { current: action },
+    } = renderHook(() => useDataStoreCreateAction(dataStoreCreateArgs));
 
     await action();
     expect(saveSpy).toHaveBeenCalledTimes(1);
   });
 
   it('should call Hub with started and finished events', async () => {
-    const action = useDataStoreCreateAction(dataStoreCreateArgs);
+    const {
+      result: { current: action },
+    } = renderHook(() => useDataStoreCreateAction(dataStoreCreateArgs));
 
     await action();
     expect(hubDispatchSpy).toHaveBeenCalledTimes(2);
@@ -59,7 +64,9 @@ describe('useDataStoreCreateAction', () => {
     const errorMessage = 'Invalid data model';
     saveSpy.mockImplementation(() => Promise.reject(new Error(errorMessage)));
 
-    const action = useDataStoreCreateAction(dataStoreCreateArgs);
+    const {
+      result: { current: action },
+    } = renderHook(() => useDataStoreCreateAction(dataStoreCreateArgs));
 
     await action();
 

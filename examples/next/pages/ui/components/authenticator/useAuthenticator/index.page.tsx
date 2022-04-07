@@ -1,34 +1,19 @@
-import { Amplify } from 'aws-amplify';
+import router from 'next/router';
 
-import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react';
+import { Amplify } from 'aws-amplify';
 import '@aws-amplify/ui-react/styles.css';
 
 import awsExports from './aws-exports';
+import { Authenticator } from '@aws-amplify/ui-react';
 
 Amplify.configure(awsExports);
 
-const Home = () => {
-  const { user, signOut } = useAuthenticator((context) => [context.user]);
+export default function App() {
+  const navigateHome = () => router.push('useAuthenticator/home');
 
   return (
-    <>
-      <h2>Welcome, {user.username}!</h2>
-      <button onClick={signOut}>Sign Out</button>
-    </>
-  );
-};
-
-const Login = () => <Authenticator />;
-
-function App() {
-  const { route } = useAuthenticator((context) => [context.route]);
-  return route === 'authenticated' ? <Home /> : <Login />;
-}
-
-export default function AppWithProvider() {
-  return (
-    <Authenticator.Provider>
-      <App></App>
-    </Authenticator.Provider>
+    <Authenticator>
+      {() => <button onClick={navigateHome}>Navigate to Home</button>}
+    </Authenticator>
   );
 }

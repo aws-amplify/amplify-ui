@@ -4,25 +4,25 @@ import * as React from 'react';
 import { Auth, Logger } from 'aws-amplify';
 import { getActorState, SignInState, translate } from '@aws-amplify/ui';
 
-import { useAuthenticator } from '..';
 import { Flex, Heading } from '../../..';
-import {
-  isInputOrSelectElement,
-  isInputElement,
-  getFormDataFromEvent,
-  confPropsCreator,
-} from '../../../helpers/utils';
 
 import {
-  ConfirmationCodeInput,
-  ConfirmSignInFooter,
-  RemoteErrorMessage,
-} from '../shared';
-import { useCustomComponents } from '../hooks/useCustomComponents';
+  useAuthenticator,
+  useCustomComponents,
+  useFormHandlers,
+} from '../hooks';
+import { ConfirmSignInFooter, RemoteErrorMessage } from '../shared';
+import { FormFields } from '../shared/FormFields';
 
 const logger = new Logger('SetupTOTP-logger');
 
 export const SetupTOTP = (): JSX.Element => {
+  // TODO: handle `formOverrides` outside `useAuthenticator`
+  const { _state, isPending } = useAuthenticator((context) => [
+    context.isPending,
+  ]);
+  const { handleChange, handleSubmit } = useFormHandlers();
+
   const {
     components: {
       SetupTOTP: { Header = SetupTOTP.Header, Footer = SetupTOTP.Footer },
@@ -33,7 +33,6 @@ export const SetupTOTP = (): JSX.Element => {
   const [qrCode, setQrCode] = React.useState<string>();
   const [copyTextLabel, setCopyTextLabel] = React.useState<string>('COPY');
   const [secretKey, setSecretKey] = React.useState<string>('');
-  const { _state, submitForm, updateForm, isPending } = useAuthenticator();
 
   // `user` hasn't been set on the top-level state yet, so it's only available from the signIn actor
   const actorState = getActorState(_state) as SignInState;
@@ -66,26 +65,6 @@ export const SetupTOTP = (): JSX.Element => {
 
     generateQRCode(user);
   }, [user]);
-
-  const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
-    if (isInputOrSelectElement(event.target)) {
-      let { name, type, value } = event.target;
-      if (
-        isInputElement(event.target) &&
-        type === 'checkbox' &&
-        !event.target.checked
-      ) {
-        value = undefined;
-      }
-
-      updateForm({ name, value });
-    }
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    submitForm(getFormDataFromEvent(event));
-  };
 
   const copyText = (): void => {
     navigator.clipboard.writeText(secretKey);
@@ -134,14 +113,7 @@ export const SetupTOTP = (): JSX.Element => {
               </svg>
             </Flex>
           </Flex>
-          <ConfirmationCodeInput
-            {...confPropsCreator(
-              'confirmation_code',
-              'Code',
-              'Code *',
-              formOverrides
-            )}
-          />
+          <FormFields route="setupTOTP" />
           <RemoteErrorMessage />
         </Flex>
 

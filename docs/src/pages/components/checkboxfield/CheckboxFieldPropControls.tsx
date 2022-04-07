@@ -16,9 +16,6 @@ export interface CheckboxFieldPropControlsProps extends CheckboxFieldProps {
     value: React.SetStateAction<CheckboxFieldProps['isDisabled']>
   ) => void;
   setLabel: (value: React.SetStateAction<CheckboxFieldProps['label']>) => void;
-  setLabelHidden: (
-    value: React.SetStateAction<CheckboxFieldProps['labelHidden']>
-  ) => void;
   setSize: (value: React.SetStateAction<CheckboxFieldProps['size']>) => void;
   setLabelPosition: (
     value: React.SetStateAction<CheckboxFieldProps['labelPosition']>
@@ -34,8 +31,6 @@ export const CheckboxFieldPropControls: CheckboxFieldPropControlsInterface = ({
   setIsDisabled,
   label,
   setLabel,
-  labelHidden,
-  setLabelHidden,
   labelPosition,
   setLabelPosition,
   size,
@@ -86,13 +81,6 @@ export const CheckboxFieldPropControls: CheckboxFieldPropControlsInterface = ({
         checked={isDisabled}
         onChange={(e) => setIsDisabled(e.target.checked)}
         label="isDisabled"
-      />
-      <CheckboxField
-        name="label-hidden"
-        value="true"
-        checked={labelHidden}
-        onChange={(e) => setLabelHidden(e.target.checked)}
-        label="labelHidden"
       />
     </Flex>
   );

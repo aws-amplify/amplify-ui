@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 import {
   AuthChallengeNames,
   getActorState,
@@ -6,23 +8,18 @@ import {
   translate,
 } from '@aws-amplify/ui';
 
-import { useAuthenticator } from '..';
 import { Flex, Heading } from '../../..';
-import { ConfirmationCodeInput, ConfirmSignInFooter } from '../shared';
-import { useCustomComponents } from '../hooks/useCustomComponents';
+import { ConfirmSignInFooter, RemoteErrorMessage } from '../shared';
 import {
-  isInputOrSelectElement,
-  isInputElement,
-  getFormDataFromEvent,
-  confPropsCreator,
-} from '../../../helpers/utils';
+  useAuthenticator,
+  useCustomComponents,
+  useFormHandlers,
+} from '../hooks';
+import { FormFields } from '../shared/FormFields';
 
 export const ConfirmSignIn = (): JSX.Element => {
-  const { error, submitForm, updateForm, isPending, _state } =
-    useAuthenticator();
-
-  const formOverrides =
-    getActorState(_state).context?.formFields?.confirmSignIn;
+  const { isPending } = useAuthenticator((context) => [context.isPending]);
+  const { handleChange, handleSubmit } = useFormHandlers();
 
   const {
     components: {
@@ -32,26 +29,6 @@ export const ConfirmSignIn = (): JSX.Element => {
       },
     },
   } = useCustomComponents();
-
-  const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
-    if (isInputOrSelectElement(event.target)) {
-      let { name, type, value } = event.target;
-      if (
-        isInputElement(event.target) &&
-        type === 'checkbox' &&
-        !event.target.checked
-      ) {
-        value = undefined;
-      }
-
-      updateForm({ name, value });
-    }
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    submitForm(getFormDataFromEvent(event));
-  };
 
   return (
     <form
@@ -69,15 +46,8 @@ export const ConfirmSignIn = (): JSX.Element => {
         <Header />
 
         <Flex direction="column">
-          <ConfirmationCodeInput
-            {...confPropsCreator(
-              'confirmation_code',
-              'Code',
-              'Code *',
-              formOverrides
-            )}
-            errorText={translate(error)}
-          />
+          <FormFields route="confirmSignIn" />
+          <RemoteErrorMessage />
         </Flex>
 
         <ConfirmSignInFooter />
@@ -88,6 +58,7 @@ export const ConfirmSignIn = (): JSX.Element => {
 };
 
 function Header() {
+  // TODO: expose challengeName
   const { _state } = useAuthenticator();
   const actorState = getActorState(_state) as SignInState;
 
@@ -111,6 +82,6 @@ function Header() {
 
   return <Heading level={3}>{headerText}</Heading>;
 }
-ConfirmSignIn.Header = Header;
 
+ConfirmSignIn.Header = Header;
 ConfirmSignIn.Footer = (): JSX.Element => null;

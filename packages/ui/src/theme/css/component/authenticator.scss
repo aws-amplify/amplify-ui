@@ -1,9 +1,5 @@
 /* Center by default */
 [data-amplify-authenticator] {
-  display: grid;
-  max-width: var(--amplify-components-authenticator-max-width);
-  margin: auto;
-
   &[data-variation='modal'] {
     display: grid;
     width: var(--amplify-components-authenticator-modal-width);
@@ -52,5 +48,11 @@
     background-color: var(
       --amplify-components-authenticator-state-inactive-background-color
     );
+  }
+
+  [data-amplify-sign-up-errors] {
+    @media (max-width: 26rem) {
+      font-size: 0.688rem;
+    }
   }
 }

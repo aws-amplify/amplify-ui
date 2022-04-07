@@ -1,30 +1,28 @@
-import { getActorState, translate } from '@aws-amplify/ui';
+import * as React from 'react';
+import { translate } from '@aws-amplify/ui';
 
-import { useAuthenticator } from '../..';
 import { Button, Flex, Heading, Text } from '../../..';
 import {
-  isInputOrSelectElement,
-  isInputElement,
-  getFormDataFromEvent,
-  confPropsCreator,
-} from '../../../helpers/utils';
-import { useCustomComponents } from '../hooks/useCustomComponents';
+  useAuthenticator,
+  useCustomComponents,
+  useFormHandlers,
+} from '../hooks';
 
-import {
-  ConfirmationCodeInput,
-  ConfirmationCodeInputProps,
-  RemoteErrorMessage,
-} from '../shared';
+import { RemoteErrorMessage } from '../shared';
+import { FormFields } from '../shared/FormFields';
 
 export function ConfirmSignUp() {
   const {
     isPending,
     resendCode,
-    submitForm,
-    updateForm,
-    _state,
     codeDeliveryDetails: { DeliveryMedium, Destination } = {},
-  } = useAuthenticator();
+  } = useAuthenticator((context) => [
+    context.isPending,
+    context.resendCode,
+    context.codeDeliveryDetails,
+  ]);
+  const { handleChange, handleSubmit } = useFormHandlers();
+
   const {
     components: {
       ConfirmSignUp: {
@@ -33,29 +31,6 @@ export function ConfirmSignUp() {
       },
     },
   } = useCustomComponents();
-
-  const formOverrides =
-    getActorState(_state).context?.formFields?.confirmSignUp;
-
-  const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
-    if (isInputOrSelectElement(event.target)) {
-      let { name, type, value } = event.target;
-      if (
-        isInputElement(event.target) &&
-        type === 'checkbox' &&
-        !event.target.checked
-      ) {
-        value = undefined;
-      }
-
-      updateForm({ name, value });
-    }
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    submitForm(getFormDataFromEvent(event));
-  };
 
   const emailMessage = translate(
     'Your code is on the way. To log in, enter the code we emailed to'
@@ -68,11 +43,6 @@ export function ConfirmSignUp() {
   );
 
   const minutesMessage = translate('It may take a minute to arrive.');
-
-  const confirmationCodeInputProps: ConfirmationCodeInputProps = {
-    label: translate('Confirmation Code'),
-    placeholder: translate('Enter your code'),
-  };
 
   const subtitleText =
     DeliveryMedium === 'EMAIL'
@@ -99,14 +69,8 @@ export function ConfirmSignUp() {
 
         <Flex direction="column">
           <Text style={{ marginBottom: '1rem' }}>{subtitleText}</Text>
-          <ConfirmationCodeInput
-            {...confPropsCreator(
-              'confirmation_code',
-              confirmationCodeInputProps.placeholder,
-              confirmationCodeInputProps.label,
-              formOverrides
-            )}
-          />
+
+          <FormFields route="confirmSignUp" />
 
           <RemoteErrorMessage />
 
@@ -132,8 +96,9 @@ export function ConfirmSignUp() {
 }
 
 ConfirmSignUp.Header = () => {
-  const { codeDeliveryDetails: { DeliveryMedium, Destination } = {} } =
-    useAuthenticator();
+  const { codeDeliveryDetails: { DeliveryMedium } = {} } = useAuthenticator(
+    (context) => [context.codeDeliveryDetails]
+  );
 
   const confirmSignUpHeading =
     DeliveryMedium === 'EMAIL'

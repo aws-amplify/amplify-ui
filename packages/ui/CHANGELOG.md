@@ -1,5 +1,147 @@
 # @aws-amplify/ui
 
+## 3.6.0
+
+### Minor Changes
+
+- [#1629](https://github.com/aws-amplify/amplify-ui/pull/1629) [`ab9aef8f3`](https://github.com/aws-amplify/amplify-ui/commit/ab9aef8f329612abc2818db6b4477377aaa3ca62) Thanks [@ErikCH](https://github.com/ErikCH)! - Added new Geo components. Including the MapView and GeoCoder with documentation at https://ui.docs.amplify.aws/components/geo
+
+* [#1598](https://github.com/aws-amplify/amplify-ui/pull/1598) [`992c5f6fb`](https://github.com/aws-amplify/amplify-ui/commit/992c5f6fb3eb3c1c5a9514029c4c17f53d8d7b5b) Thanks [@zchenwei](https://github.com/zchenwei)! - feat: adding determinate loader support
+
+  **_Example:_**
+
+  To use determinate loader, set `isDeterminate` to `true` and pass `percentage`
+
+  ```jsx
+  import * as React from 'react';
+  import { Loader } from '@aws-amplify/ui-react';
+
+  export const DeterminateLoaderExample = () => {
+    const [percentage, setPercentage] = React.useState(0);
+    React.useEffect(() => {
+      const clearID = setInterval(() => {
+        setPercentage((percentage) => {
+          if (percentage < 100) {
+            return percentage + 1;
+          }
+          return 0;
+        });
+      }, 1000);
+      return () => clearInterval(clearID);
+    }, []);
+    return (
+      <>
+        <Loader percentage={percentage} isDeterminate />
+        <Loader variation="linear" percentage={percentage} isDeterminate />
+      </>
+    );
+  };
+  ```
+
+  To hide the percentage text, set `isPercentageTextHidden` to `true`
+
+  ```jsx
+  import { Loader } from '@aws-amplify/ui-react';
+
+  export const LoaderIsPercentageTextHiddenExample = () => {
+    return <Loader percentage={60} isDeterminate isPercentageTextHidden />;
+  };
+  ```
+
+## 3.5.1
+
+### Patch Changes
+
+- [#1628](https://github.com/aws-amplify/amplify-ui/pull/1628) [`ff74c1d1c`](https://github.com/aws-amplify/amplify-ui/commit/ff74c1d1cab859d977dfc0638f0193af842d2bbd) Thanks [@reesscot](https://github.com/reesscot)! - Revert Geo package release
+
+## 3.5.0
+
+### Minor Changes
+
+- [#1607](https://github.com/aws-amplify/amplify-ui/pull/1607) [`4d0a8424e`](https://github.com/aws-amplify/amplify-ui/commit/4d0a8424e2592be52a59e610f0eb1068c6ab0d5a) Thanks [@ErikCH](https://github.com/ErikCH)! - Added new Geo components. Including the MapView and GeoCoder with documentation at https://ui.docs.amplify.aws/components/geo
+
+### Patch Changes
+
+- [#1617](https://github.com/aws-amplify/amplify-ui/pull/1617) [`e20720a89`](https://github.com/aws-amplify/amplify-ui/commit/e20720a894ccb2cfcc7ede7160299e082ec76fd2) Thanks [@hbuchel](https://github.com/hbuchel)! - fix: remove double border on TextField outer components
+
+* [#1608](https://github.com/aws-amplify/amplify-ui/pull/1608) [`4dee728f2`](https://github.com/aws-amplify/amplify-ui/commit/4dee728f25735ce8bc8793806a395dfcee579522) Thanks [@reesscot](https://github.com/reesscot)! - Remove sourcemaps from rollup build
+
+## 3.4.1
+
+### Patch Changes
+
+- [#1600](https://github.com/aws-amplify/amplify-ui/pull/1600) [`c00b0f016`](https://github.com/aws-amplify/amplify-ui/commit/c00b0f0161f4df56c3d2ec75ffe0d2975bb859ac) Thanks [@ErikCH](https://github.com/ErikCH)! - Fixed bug that made the input on the Setup TOTP to display twice
+
+## 3.4.0
+
+### Minor Changes
+
+- [#1569](https://github.com/aws-amplify/amplify-ui/pull/1569) [`6d3981c4a`](https://github.com/aws-amplify/amplify-ui/commit/6d3981c4a26721361e4461d206b0b37d72d67dbd) Thanks [@zchenwei](https://github.com/zchenwei)! - build: setting up Rollup for bundling
+
+  Both `@aws-amplify/ui-react` and `@aws-amplify/ui` cannot be tree shaken before because we bundle it in a wrong way. With `preserveModule` in Rollup, we make them tree-shakeble friendly.
+
+  With webpack, we can see tree shaking is taking effect now
+
+  ```jsx
+  // index.tsx
+  import * as React from 'react';
+  import ReactDOM from 'react-dom';
+  import '@aws-amplify/ui-react/styles.css';
+
+  import { App } from './App';
+
+  ReactDOM.render(<App />, document.getElementById('root'));
+
+  // App.tsx
+  import * as React from 'react';
+  import { Loader } from '@aws-amplify/ui-react';
+
+  export const App = () => {
+    return <Loader />;
+  };
+  ```
+
+  main.js size
+  | Before | After |
+  | ----------- | ----------- |
+  | 1.7M | 161.1k |
+
+### Patch Changes
+
+- [#1580](https://github.com/aws-amplify/amplify-ui/pull/1580) [`1ac9cda71`](https://github.com/aws-amplify/amplify-ui/commit/1ac9cda712dc7eb7bc7293999340e05059648c93) Thanks [@wlee221](https://github.com/wlee221)! - fix(authenticator): look for current user on routed apps whenever app refreshes
+
+* [#1588](https://github.com/aws-amplify/amplify-ui/pull/1588) [`d47da90a6`](https://github.com/aws-amplify/amplify-ui/commit/d47da90a68d936e2cc22a972a876ef10aca0eaf3) Thanks [@0618](https://github.com/0618)! - fix authenticator modal layout position
+
+## 3.3.2
+
+### Patch Changes
+
+- [#1544](https://github.com/aws-amplify/amplify-ui/pull/1544) [`7910c04b5`](https://github.com/aws-amplify/amplify-ui/commit/7910c04b55cb32e3e8a70c3966f509ea43a0dc64) Thanks [@wlee221](https://github.com/wlee221)! - refactor(xstate): Use named actions instead of inline actions. No TS runtime / type changes.
+
+* [#1545](https://github.com/aws-amplify/amplify-ui/pull/1545) [`30e3155ac`](https://github.com/aws-amplify/amplify-ui/commit/30e3155ac70d3f82c00da562332ce701ade45817) Thanks [@wlee221](https://github.com/wlee221)! - Bump xstate to `^4.30.6`
+
+## 3.3.1
+
+### Patch Changes
+
+- [#1484](https://github.com/aws-amplify/amplify-ui/pull/1484) [`8b72277ab`](https://github.com/aws-amplify/amplify-ui/commit/8b72277ab8bd7ad64fa298a9d509572318ac8db2) Thanks [@wlee221](https://github.com/wlee221)! - refactor: share default form fields generation logic
+
+* [#1484](https://github.com/aws-amplify/amplify-ui/pull/1484) [`8b72277ab`](https://github.com/aws-amplify/amplify-ui/commit/8b72277ab8bd7ad64fa298a9d509572318ac8db2) Thanks [@wlee221](https://github.com/wlee221)! - Default `labelHidden` to false. This can be adjusted in a later PR for better UX.
+
+- [#1514](https://github.com/aws-amplify/amplify-ui/pull/1514) [`5ca96c4a8`](https://github.com/aws-amplify/amplify-ui/commit/5ca96c4a81722aca00caecb35dc98d17588c6ff1) Thanks [@amirHossein-Ebrahimi](https://github.com/amirHossein-Ebrahimi)! - feat: Add repository information to UI packages
+
+* [#1522](https://github.com/aws-amplify/amplify-ui/pull/1522) [`1e9c6c031`](https://github.com/aws-amplify/amplify-ui/commit/1e9c6c031b1e5401c456365f0ff3187ed35c6f22) Thanks [@wlee221](https://github.com/wlee221)! - Fix phone number label in reset-password
+
+## 3.3.0
+
+### Minor Changes
+
+- [#1492](https://github.com/aws-amplify/amplify-ui/pull/1492) [`0bfe79caa`](https://github.com/aws-amplify/amplify-ui/commit/0bfe79caa63b037c1c9633c240b35203799f2fab) Thanks [@ErikCH](https://github.com/ErikCH)! - Added new password complexity errors that will show during sign up. Based on the zero-config
+
+### Patch Changes
+
+- [#1496](https://github.com/aws-amplify/amplify-ui/pull/1496) [`ebcc7e610`](https://github.com/aws-amplify/amplify-ui/commit/ebcc7e610fda12f74ba6c5bd6dda89bc4849b898) Thanks [@enes-sahin](https://github.com/enes-sahin)! - Add Turkish as supported language to Authenticator
+
 ## 3.2.1
 
 ### Patch Changes
