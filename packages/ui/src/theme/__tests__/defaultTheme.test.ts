@@ -1,9 +1,25 @@
-import { defaultTheme } from '../';
+import StyleDictionary from 'style-dictionary';
+import { defaultTheme, createTheme } from '../';
 
 describe('@aws-amplify/ui', () => {
   describe('defaultTheme', () => {
+    it('all references should resolve', () => {
+      expect(() => {
+        StyleDictionary.extend({
+          // @ts-ignore next-line
+          tokens: { ...defaultTheme.tokens },
+          platforms: {
+            // Need a platform for Style Dictionary to build so it can try to
+            // resolve references
+            test: {},
+          },
+        }).buildAllPlatforms();
+        // This will throw an error if there are any references that can't be resolved
+      }).not.toThrow();
+    });
+
     it('should match snapshot', () => {
-      expect(defaultTheme.cssText).toMatchInlineSnapshot(`
+      expect(createTheme().cssText).toMatchInlineSnapshot(`
         "[data-amplify-theme=\\"default-theme\\"] {
         --amplify-components-alert-align-items: center;
         --amplify-components-alert-justify-content: space-between;
@@ -355,26 +371,30 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-link-visited-color: var(--amplify-colors-font-interactive);
         --amplify-components-loader-width: var(--amplify-font-sizes-medium);
         --amplify-components-loader-height: var(--amplify-font-sizes-medium);
+        --amplify-components-loader-font-size: var(--amplify-font-sizes-xs);
         --amplify-components-loader-stroke-empty: var(--amplify-colors-neutral-20);
         --amplify-components-loader-stroke-filled: var(--amplify-colors-brand-primary-80);
         --amplify-components-loader-stroke-linecap: round;
         --amplify-components-loader-animation-duration: 1s;
         --amplify-components-loader-small-width: var(--amplify-font-sizes-small);
         --amplify-components-loader-small-height: var(--amplify-font-sizes-small);
+        --amplify-components-loader-small-font-size: var(--amplify-font-sizes-xxs);
         --amplify-components-loader-large-width: var(--amplify-font-sizes-large);
         --amplify-components-loader-large-height: var(--amplify-font-sizes-large);
+        --amplify-components-loader-large-font-size: var(--amplify-font-sizes-small);
         --amplify-components-loader-linear-width: 100%;
         --amplify-components-loader-linear-min-width: 5rem;
-        --amplify-components-loader-linear-height: var(--amplify-font-sizes-medium);
+        --amplify-components-loader-linear-font-size: var(--amplify-font-sizes-medium);
         --amplify-components-loader-linear-stroke-width: var(--amplify-font-sizes-medium);
         --amplify-components-loader-linear-stroke-filled: var(--amplify-colors-brand-primary-80);
         --amplify-components-loader-linear-stroke-empty: var(--amplify-colors-neutral-20);
         --amplify-components-loader-linear-stroke-linecap: round;
         --amplify-components-loader-linear-animation-duration: 1s;
-        --amplify-components-loader-linear-small-height: var(--amplify-font-sizes-small);
         --amplify-components-loader-linear-small-stroke-width: var(--amplify-font-sizes-small);
-        --amplify-components-loader-linear-large-height: var(--amplify-font-sizes-large);
+        --amplify-components-loader-linear-small-font-size: var(--amplify-font-sizes-small);
         --amplify-components-loader-linear-large-stroke-width: var(--amplify-font-sizes-large);
+        --amplify-components-loader-linear-large-font-size: var(--amplify-font-sizes-large);
+        --amplify-components-loader-text-fill: var(--amplify-colors-font-primary);
         --amplify-components-menu-background-color: var(--amplify-colors-white);
         --amplify-components-menu-border-radius: var(--amplify-radii-medium);
         --amplify-components-menu-border-width: var(--amplify-border-widths-small);
