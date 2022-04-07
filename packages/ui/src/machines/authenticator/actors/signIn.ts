@@ -476,8 +476,13 @@ export function signInActor({ services }: SignInMachineOptions) {
               `${country_code}${phone_number}`.replace(/[^A-Z0-9+]/gi, '');
             rest = { ...rest, phone_number: phoneNumberWithCountryCode };
           }
+          try {
+            await Auth.completeNewPassword(user, password, rest);
+          } catch (err) {
+            return Promise.reject(err);
+          }
 
-          return Auth.completeNewPassword(user, password, rest);
+          return Auth.currentAuthenticatedUser();
         },
         async verifyTotpToken(context, event) {
           const { user } = context;
