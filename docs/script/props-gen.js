@@ -65,6 +65,9 @@ const propsTables = createPropsTable(categorizedProps);
 const output = json2md([{ h2: `${displayName} Props` }, ...propsTables]);
 
 writeFileSync(
-  path.resolve(__dirname, 'react-auto-prop-table-button.md'),
+  path.resolve(
+    __dirname,
+    `../src/pages/components/${displayName.toLowerCase()}/react-auto-prop-table-button.mdx`
+  ),
   output
 );
