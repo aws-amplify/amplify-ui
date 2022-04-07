@@ -1,7 +1,8 @@
 import { translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '../hooks/useAuthenticator';
-import { TabItem, Tabs, View } from '../../../primitives';
+import { TabItem, Tabs } from '../../../primitives/Tabs';
+import { View } from '../../../primitives/View';
 import { SignIn } from '../SignIn';
 import { SignUp } from '../SignUp';
 
