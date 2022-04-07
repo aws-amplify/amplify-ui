@@ -66,6 +66,8 @@
     "json5-loader": "^4.0.1",
     "postcss": "^8.2.6",
     "react-docgen-typescript": "^2.2.2",
+    "react-markdown": "^8.0.2",
+    "remark-gfm": "^3.0.1",
     "tailwindcss": "^2.0.3",
     "typescript": "^4.2.2"
   }

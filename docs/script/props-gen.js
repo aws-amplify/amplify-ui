@@ -12,13 +12,13 @@ const rawData = docgen.parse(pathToFile)[0];
 
 /**
  * need to treat special characters
- * 1) "|", "<", ">" => replace with unicode "&$<unicode>;"
+ * 1) "|", "<", ">", "`" => replace with unicode "&$<unicode>;"
  * 2) "' + '" => replace with space
  * 3) "\n" => replace with space
  */
-const tobeEncoded = new RegExp(/[|<>]|'\s\+\s'|\\n/g);
+const tobeEncoded = new RegExp(/[|<>`]|'\s\+\s'|\\n/g);
 const getEncoded = (match) =>
-  match.match(/[|<>]/) ? `&#${match.charCodeAt()};` : ' ';
+  match.match(/[|<>`]/) ? `&#${match.charCodeAt()};` : ' ';
 const enCodedData = JSON.stringify(rawData).replaceAll(tobeEncoded, getEncoded);
 
 const { props, displayName } = JSON.parse(enCodedData);
