@@ -1,11 +1,11 @@
 import { translate } from '@aws-amplify/ui';
 
-import { Button, Heading, Text } from '../../..';
-import {
-  useAuthenticator,
-  useCustomComponents,
-  useFormHandlers,
-} from '../hooks';
+import { Button } from '../../../primitives/Button';
+import { Heading } from '../../../primitives/Heading';
+import { Text } from '../../../primitives/Text';
+import { useAuthenticator } from '../hooks/useAuthenticator';
+import { useCustomComponents } from '../hooks/useCustomComponents';
+import { useFormHandlers } from '../hooks/useFormHandlers';
 import { FormFields } from '../shared/FormFields';
 
 export const ForceNewPassword = (): JSX.Element => {

@@ -1,5 +1,18 @@
 # @aws-amplify/ui-react
 
+## 2.15.1
+
+### Patch Changes
+
+- [#1622](https://github.com/aws-amplify/amplify-ui/pull/1622) [`14e66c476`](https://github.com/aws-amplify/amplify-ui/commit/14e66c476871da8e3f88983d0115bfcb95407281) Thanks [@joebuono](https://github.com/joebuono)! - Addresses our use of dangerouslySetInnerHTML within the AmplifyProvider, and prevents server-side XSS by filtering out closing </style> tags.
+
+* [#1625](https://github.com/aws-amplify/amplify-ui/pull/1625) [`e799d32a4`](https://github.com/aws-amplify/amplify-ui/commit/e799d32a4a298e526a3469ee813597a1d09dfd58) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Fix broken references in default theme and changing `defaultTheme` to be exported as `BaseTheme` type rather than `WebTheme` because we don't need to be using a `WebTheme` as it has extra stuff only the provider needs. If you want to get a defaultTheme of `WebTheme` type you can run `createTheme()`
+
+- [#1625](https://github.com/aws-amplify/amplify-ui/pull/1625) [`e799d32a4`](https://github.com/aws-amplify/amplify-ui/commit/e799d32a4a298e526a3469ee813597a1d09dfd58) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Fix broken references in default theme and changing `defaultTheme` to be exported as `BaseTheme` type rather than `WebTheme` because we don't need to be using a `WebTheme` as it has extra stuff only the provider needs. If you want to get a defaultTheme of `WebTheme` type you can run `createTheme()`
+
+- Updated dependencies [[`68cf0494f`](https://github.com/aws-amplify/amplify-ui/commit/68cf0494f15356af54ee5aa0b4749cdd9a104aca), [`e799d32a4`](https://github.com/aws-amplify/amplify-ui/commit/e799d32a4a298e526a3469ee813597a1d09dfd58), [`e799d32a4`](https://github.com/aws-amplify/amplify-ui/commit/e799d32a4a298e526a3469ee813597a1d09dfd58)]:
+  - @aws-amplify/ui@3.6.1
+
 ## 2.15.0
 
 ### Minor Changes
