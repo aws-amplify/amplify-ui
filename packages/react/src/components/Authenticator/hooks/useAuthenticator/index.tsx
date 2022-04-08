@@ -96,6 +96,7 @@ export const useAuthenticator = (selector?: Selector) => {
         'Please ensure you wrap your App with `Authenticator.Provider` like so: ' +
         'https://ui.docs.amplify.aws/components/authenticator#useauthenticator-hook'
     );
+    return null;
   }
 
   const send = service.send;
