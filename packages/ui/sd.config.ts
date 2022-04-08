@@ -4,7 +4,11 @@
 
 import StyleDictionary from 'style-dictionary';
 import { defaultTheme } from './src/theme';
-import { CSS_VARIABLE_PREFIX, cssNameTransform } from './src/theme/utils';
+import {
+  CSS_VARIABLE_PREFIX,
+  cssNameTransform,
+  cssValue,
+} from './src/theme/utils';
 
 const CSS_VARIABLE_SCOPE = ':root, [data-amplify-theme]';
 
@@ -15,10 +19,15 @@ StyleDictionary.extend({
       type: 'name',
       transformer: cssNameTransform,
     },
+    cssValue: {
+      type: 'value',
+      transitive: true,
+      transformer: cssValue,
+    },
   },
   platforms: {
     css: {
-      transforms: ['attribute/cti', 'cssNameTransform'],
+      transforms: ['attribute/cti', 'cssNameTransform', 'cssValue'],
       prefix: CSS_VARIABLE_PREFIX,
       files: [
         {
