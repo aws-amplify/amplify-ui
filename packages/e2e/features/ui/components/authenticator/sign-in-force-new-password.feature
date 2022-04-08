@@ -29,7 +29,7 @@ Feature: Sign In with Force New Password flow
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "force-change-password-phone-success"
     And I mock 'Amplify.Auth.currentAuthenticatedUser' with fixture "Auth.currentAuthenticatedUser-sms-mfa"
     Then I click the "Change Password" button
-    Then I see "+1"
+    Then I see "+17755551212"
 
   @angular @react @vue 
   Scenario: User is in a FORCE_CHANGE_PASSWORD state and then enters an invalid new password
