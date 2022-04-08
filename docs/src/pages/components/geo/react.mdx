@@ -1,20 +1,18 @@
----
-title: Geo
-description: Amplify UI Geo provides UI components for maps and location search for popular front-end frameworks.
----
-
 import { Example } from '@/components/Example';
 import { Feature } from '@/components/Feature';
 import { Fragment } from '@/components/Fragment';
 import { Tabs, TabItem } from '@aws-amplify/ui-react';
 
-Amplify UI Geo provides UI components for maps and location search for popular front-end frameworks, powered by
-[Amplify Geo APIs](https://docs.amplify.aws/lib/geo/getting-started/q/platform/js/) and
+Amplify UI Geo is powered by
+[Geo APIs](https://docs.amplify.aws/lib/geo/getting-started/q/platform/js/) and
 [Amazon Location Service](https://aws.amazon.com/location/).
 
 ### Quick Start
 
-> Prerequisite: [Create a Geo backend](https://docs.amplify.aws/lib/geo/getting-started/q/platform/js/)
+> Prerequisites:
+>
+> 1. Install`@aws-amplify/ui-react`with [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/). ( e.g. `npm install @aws-amplify/ui-react`)
+> 2. Create map resources by following the [Amplify Geo documentation](https://docs.amplify.aws/lib/geo/getting-started/q/platform/js/).
 
 ## MapView
 
@@ -70,7 +68,7 @@ when the marker is clicked. The `offset` property can be used to prevent the pop
 _Note: Ensure `originalEvent.stopPropagation()` is called in the marker click handler. This allows the `showPopup`
 state to be handled by the component._
 
-## Geocoder
+## Geocoder (Location Search)
 
 `Geocoder` provides location search powered by [Amazon Location Service](https://aws.amazon.com/location/) for the
 `MapView` component, using the viewport as the proximity for generating results. `Geocoder` is used as a child

@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import {
   AuthChallengeNames,
   getActorState,
@@ -8,14 +6,14 @@ import {
   translate,
 } from '@aws-amplify/ui';
 
-import { Flex, Heading } from '../../..';
-import { ConfirmSignInFooter, RemoteErrorMessage } from '../shared';
-import {
-  useAuthenticator,
-  useCustomComponents,
-  useFormHandlers,
-} from '../hooks';
+import { Flex } from '../../../primitives/Flex';
+import { Heading } from '../../../primitives/Heading';
+import { useAuthenticator } from '../hooks/useAuthenticator';
+import { useCustomComponents } from '../hooks/useCustomComponents';
+import { useFormHandlers } from '../hooks/useFormHandlers';
 import { FormFields } from '../shared/FormFields';
+import { ConfirmSignInFooter } from '../shared/ConfirmSignInFooter';
+import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 
 export const ConfirmSignIn = (): JSX.Element => {
   const { isPending } = useAuthenticator((context) => [context.isPending]);

@@ -1,1 +1,1 @@
-export { default } from './useFormHandlers';
+export { useFormHandlers } from './useFormHandlers';
