@@ -92,7 +92,7 @@ export const useAuthenticator = (selector?: Selector) => {
 
   if (!service) {
     console.error(
-      'No `Authenticator.Provider` was found above where this hook is being used. ' +
+      'No `Authenticator.Provider` was found above where `useAuthenticator` hook is. ' +
         'Please ensure you wrap your App with `Authenticator.Provider` like so: ' +
         'https://ui.docs.amplify.aws/components/authenticator#useauthenticator-hook'
     );
