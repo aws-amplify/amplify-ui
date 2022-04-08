@@ -89,6 +89,16 @@ export type Selector = (context: AuthenticatorContext) => Array<any>;
 
 export const useAuthenticator = (selector?: Selector) => {
   const { service } = React.useContext(AuthenticatorContext);
+
+  if (!service) {
+    console.error(
+      'No `Authenticator.Provider` was found above where `useAuthenticator` hook is. ' +
+        'Please ensure you wrap your App with `Authenticator.Provider` like so: ' +
+        'https://ui.docs.amplify.aws/components/authenticator#useauthenticator-hook'
+    );
+    return null;
+  }
+
   const send = service.send;
 
   // send aliases are static and thus can be memoized
