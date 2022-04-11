@@ -1,4 +1,5 @@
 import { translate } from '@aws-amplify/ui';
+
 import { View } from '../../../primitives/View';
 import { Text } from '../../../primitives/Text';
 

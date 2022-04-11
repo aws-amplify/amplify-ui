@@ -10,12 +10,14 @@ interface AmplifyProviderProps {
   children: React.ReactNode;
   colorMode?: ColorMode;
   theme?: Theme;
+  nonce?: string;
 }
 
 export function AmplifyProvider({
   children,
   colorMode,
   theme,
+  nonce,
 }: AmplifyProviderProps) {
   const webTheme = createTheme(theme);
   const { name, cssText } = webTheme;
@@ -118,6 +120,7 @@ export function AmplifyProvider({
         <style
           id={`amplify-theme-${name}`}
           dangerouslySetInnerHTML={{ __html: cssText }}
+          nonce={nonce}
         />
       )}
     </AmplifyContext.Provider>
