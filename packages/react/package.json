@@ -77,8 +77,8 @@
   },
   "peerDependencies": {
     "aws-amplify": "3.x.x || 4.x.x",
-    "react": ">= 16.8.0",
-    "react-dom": ">= 16.8.0"
+    "react": ">= 16.8.0 || ^17 || ^18",
+    "react-dom": ">= 16.8.0 || ^17 || ^18"
   },
   "peerDependenciesMeta": {
     "aws-amplify": {
