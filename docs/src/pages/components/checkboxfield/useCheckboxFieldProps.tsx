@@ -18,9 +18,6 @@ export const useCheckboxFieldProps: UseCheckboxFieldProps = (initialValues) => {
   const [label, setLabel] = React.useState<CheckboxFieldProps['label']>(
     initialValues.label
   );
-  const [labelHidden, setLabelHidden] = React.useState<
-    CheckboxFieldProps['labelHidden']
-  >(initialValues.labelHidden);
   const [name, setName] = React.useState<CheckboxFieldProps['name']>(
     initialValues.size
   );
@@ -42,8 +39,6 @@ export const useCheckboxFieldProps: UseCheckboxFieldProps = (initialValues) => {
     setIsDisabled,
     label,
     setLabel,
-    labelHidden,
-    setLabelHidden,
     labelPosition,
     setLabelPosition,
     name,

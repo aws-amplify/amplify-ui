@@ -1,27 +1,27 @@
-import * as React from 'react';
-
 import { translate } from '@aws-amplify/ui';
 
-import { useAuthenticator } from '../..';
-import { Button, Flex, Heading, Text } from '../../..';
-import {
-  isInputOrSelectElement,
-  isInputElement,
-  getFormDataFromEvent,
-} from '../../../helpers/utils';
+import { Button } from '../../../primitives/Button';
+import { Flex } from '../../../primitives/Flex';
+import { Heading } from '../../../primitives/Heading';
+import { Text } from '../../../primitives/Text';
+import { useAuthenticator } from '../hooks/useAuthenticator';
 import { useCustomComponents } from '../hooks/useCustomComponents';
-
-import { RemoteErrorMessage } from '../shared';
+import { useFormHandlers } from '../hooks/useFormHandlers';
+import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { FormFields } from '../shared/FormFields';
 
 export function ConfirmSignUp() {
   const {
     isPending,
     resendCode,
-    submitForm,
-    updateForm,
     codeDeliveryDetails: { DeliveryMedium, Destination } = {},
-  } = useAuthenticator();
+  } = useAuthenticator((context) => [
+    context.isPending,
+    context.resendCode,
+    context.codeDeliveryDetails,
+  ]);
+  const { handleChange, handleSubmit } = useFormHandlers();
+
   const {
     components: {
       ConfirmSignUp: {
@@ -30,26 +30,6 @@ export function ConfirmSignUp() {
       },
     },
   } = useCustomComponents();
-
-  const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
-    if (isInputOrSelectElement(event.target)) {
-      let { name, type, value } = event.target;
-      if (
-        isInputElement(event.target) &&
-        type === 'checkbox' &&
-        !event.target.checked
-      ) {
-        value = undefined;
-      }
-
-      updateForm({ name, value });
-    }
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    submitForm(getFormDataFromEvent(event));
-  };
 
   const emailMessage = translate(
     'Your code is on the way. To log in, enter the code we emailed to'
@@ -115,8 +95,9 @@ export function ConfirmSignUp() {
 }
 
 ConfirmSignUp.Header = () => {
-  const { codeDeliveryDetails: { DeliveryMedium, Destination } = {} } =
-    useAuthenticator();
+  const { codeDeliveryDetails: { DeliveryMedium } = {} } = useAuthenticator(
+    (context) => [context.codeDeliveryDetails]
+  );
 
   const confirmSignUpHeading =
     DeliveryMedium === 'EMAIL'

@@ -9,10 +9,18 @@
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  padding: var(--amplify-space-small) var(--amplify-space-xl);
+  padding: var(--amplify-space-small) var(--amplify-space-large);
 
   @media (min-width: 62rem) {
     justify-content: space-between;
+  }
+
+  // Hide theme color mode switcher on mobile
+  // for main nav header
+  @media (max-width: 767px) {
+    .color-switcher {
+      display: none;
+    }
   }
 }
 
@@ -27,6 +35,17 @@
     overflow-y: auto;
     padding: 0;
   }
+
+  // Hide theme color mode switcher from mobile nav
+  // on larger screens
+  @media (min-width: 768px) {
+    .color-switcher__wrapper {
+      display: none;
+    }
+  }
+  .color-switcher__wrapper {
+    padding-block-start: var(--amplify-space-small);
+  }
 }
 
 .docs-header-menu-button {
@@ -35,19 +54,13 @@
   }
 }
 
-// .docs-nav {
-//   flex-grow: 1;
-// }
-
-.docs-nav,
-.docs-settings {
+.docs-nav {
   display: none;
 
   @media (min-width: 62rem) {
     display: flex;
     padding: 0 var(--amplify-space-medium);
   }
-
   .docs-header-mobile-nav & {
     display: flex;
     width: 100%;
@@ -68,6 +81,13 @@
   font-weight: 500;
   /* why do I need to do this? */
   cursor: pointer;
+
+  // Logo should grow to take the most space on mobile header
+  @media (max-width: 991px) {
+    & {
+      flex-grow: 1;
+    }
+  }
 }
 
 [data-amplify-theme] .docs-nav-link:hover {

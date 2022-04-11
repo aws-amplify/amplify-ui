@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui",
-  "version": "3.3.1",
+  "version": "3.6.2",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "exports": {
@@ -15,7 +15,7 @@
     "./styles.css": "./dist/styles.css",
     "./theme.css": "./dist/theme.css"
   },
-  "types": "dist/index.d.ts",
+  "types": "dist/types/index.d.ts",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
@@ -30,19 +30,20 @@
     "prebuild": "rimraf dist",
     "build": "yarn build:sd && yarn build:css && yarn build:js",
     "build:css": "./scripts/generateCSS.js",
-    "build:js": "tsup --minify",
+    "build:js": "rollup --config",
     "build:sd": "ts-node --transpile-only sd.config.ts",
     "clean": "rimraf dist node_modules",
-    "dev": "tsup --watch src",
+    "dev": "rollup --config --watch",
     "lint": "tsc --noEmit",
     "test": "jest"
   },
   "dependencies": {
     "lodash": "4.17.21",
-    "style-dictionary": "3.0.3",
-    "xstate": "4.28.0"
+    "style-dictionary": "3.7.0",
+    "xstate": "^4.30.6"
   },
   "devDependencies": {
+    "@rollup/plugin-typescript": "^8.3.1",
     "@types/jest": "^26.0.23",
     "@types/lodash": "^4.14.170",
     "@types/webpack-env": "^1.16.2",
@@ -53,6 +54,8 @@
     "jest": "^27.0.4",
     "postcss": "^8.3.6",
     "rimraf": "^3.0.2",
+    "rollup": "^2.70.0",
+    "rollup-plugin-terser": "^7.0.2",
     "sass": "^1.35.2",
     "ts-jest": "^27.0.3",
     "ts-node": "^10.2.1",
@@ -61,5 +64,8 @@
   },
   "peerDependencies": {
     "aws-amplify": "3.x.x || 4.x.x"
-  }
+  },
+  "sideEffects": [
+    "dist/**/*.css"
+  ]
 }

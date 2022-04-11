@@ -5,7 +5,12 @@ import { UsePaginationProps, UsePaginationResult } from '../types/pagination';
 export const usePagination = (
   props: UsePaginationProps
 ): UsePaginationResult => {
-  let { currentPage: initialPage = 1, totalPages, siblingCount = 1 } = props;
+  let {
+    currentPage: initialPage = 1,
+    totalPages,
+    hasMorePages,
+    siblingCount = 1,
+  } = props;
 
   // The current page should not be less than 1
   initialPage = Math.max(initialPage, 1);
@@ -37,6 +42,7 @@ export const usePagination = (
   return {
     currentPage,
     totalPages,
+    hasMorePages,
     siblingCount,
     onNext,
     onPrevious,

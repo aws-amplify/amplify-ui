@@ -1,19 +1,18 @@
-import * as React from 'react';
-
 import { translate } from '@aws-amplify/ui';
 
-import { useAuthenticator } from '..';
-import { Flex, Heading } from '../../..';
-import { RemoteErrorMessage, TwoButtonSubmitFooter } from '../shared';
+import { Flex } from '../../../primitives/Flex';
+import { Heading } from '../../../primitives/Heading';
+import { useAuthenticator } from '../hooks/useAuthenticator';
 import { useCustomComponents } from '../hooks/useCustomComponents';
-import {
-  isInputOrSelectElement,
-  isInputElement,
-  getFormDataFromEvent,
-} from '../../../helpers/utils';
+import { useFormHandlers } from '../hooks/useFormHandlers';
+import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
+import { TwoButtonSubmitFooter } from '../shared/TwoButtonSubmitFooter';
 import { FormFields } from '../shared/FormFields';
 
 export const ConfirmResetPassword = (): JSX.Element => {
+  const { isPending } = useAuthenticator((context) => [context.isPending]);
+  const { handleBlur, handleChange, handleSubmit } = useFormHandlers();
+
   const {
     components: {
       ConfirmResetPassword: {
@@ -22,34 +21,6 @@ export const ConfirmResetPassword = (): JSX.Element => {
       },
     },
   } = useCustomComponents();
-
-  const { _state, submitForm, updateForm, updateBlur, isPending } =
-    useAuthenticator();
-
-  const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
-    if (isInputOrSelectElement(event.target)) {
-      let { name, type, value } = event.target;
-      if (
-        isInputElement(event.target) &&
-        type === 'checkbox' &&
-        !event.target.checked
-      ) {
-        value = undefined;
-      }
-
-      updateForm({ name, value });
-    }
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    submitForm(getFormDataFromEvent(event));
-  };
-
-  const handleBlur = (event: React.FocusEvent<HTMLFormElement>) => {
-    const { name } = event.target;
-    updateBlur({ name });
-  };
 
   return (
     <form

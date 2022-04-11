@@ -1,7 +1,7 @@
 import { CognitoUserAmplify } from '@aws-amplify/ui';
 
-import { useAuthenticator } from '..';
-import { View } from '../../..';
+import { useAuthenticator } from '../hooks/useAuthenticator';
+import { View } from '../../../primitives/View';
 import { ConfirmSignUp } from '../ConfirmSignUp';
 import { ForceNewPassword } from '../ForceNewPassword';
 import { useCustomComponents } from '../hooks/useCustomComponents';
@@ -34,7 +34,11 @@ export function Router({
   variation = 'default',
   hideSignUp,
 }: RouterProps) {
-  const { route, signOut, user } = useAuthenticator();
+  const { route, signOut, user } = useAuthenticator((context) => [
+    context.route,
+    context.signOut,
+    context.user,
+  ]);
 
   const {
     components: { Header, Footer },
