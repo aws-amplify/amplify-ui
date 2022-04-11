@@ -9,7 +9,7 @@ import {
   BoxShadowValue,
 } from '../types/designToken';
 
-interface AuthenticatorModalStyle {
+interface AuthenticatorModalTokens {
   width: DesignToken<SpaceValue>;
   height: DesignToken<SpaceValue>;
   backgroundColor: DesignToken<BackgroundColorValue>;
@@ -17,7 +17,7 @@ interface AuthenticatorModalStyle {
   left: DesignToken<SpaceValue>;
 }
 
-interface AuthenticatorRouterStyle {
+interface AuthenticatorRouterTokens {
   borderWidth: DesignToken<BorderWidthValue>;
   borderStyle: DesignToken<BorderStyleValue>;
   borderColor: DesignToken<BorderColorValue>;
@@ -25,21 +25,21 @@ interface AuthenticatorRouterStyle {
   boxShadow: DesignToken<BoxShadowValue>;
 }
 
-interface AuthenticatorFooterStyle {
+interface AuthenticatorFooterTokens {
   paddingBottom: DesignToken<SpaceValue>;
 }
 
-interface AuthenticatorFormStyle {
+interface AuthenticatorFormTokens {
   padding: DesignToken<SpaceValue>;
 }
 
-interface AuthenticatorStateStyle {
+interface AuthenticatorStateTokens {
   inactive: {
     backgroundColor: DesignToken<BackgroundColorValue>;
   };
 }
 
-interface AuthenticatorOrContainerStyle {
+interface AuthenticatorOrContainerTokens {
   color: DesignToken<ColorValue>;
   orLine: {
     backgroundColor: DesignToken<BackgroundColorValue>;
@@ -49,15 +49,16 @@ interface AuthenticatorOrContainerStyle {
 interface AuthenticatorContainerToken {
   widthMax: DesignToken<SpaceValue>;
 }
+
 export interface AuthenticatorTokens {
   maxWidth: DesignToken<SpaceValue>;
-  modal: AuthenticatorModalStyle;
+  modal: AuthenticatorModalTokens;
   container: AuthenticatorContainerToken;
-  router: AuthenticatorRouterStyle;
-  footer: AuthenticatorFooterStyle;
-  form: AuthenticatorFormStyle;
-  state: AuthenticatorStateStyle;
-  orContainer: AuthenticatorOrContainerStyle;
+  router: AuthenticatorRouterTokens;
+  footer: AuthenticatorFooterTokens;
+  form: AuthenticatorFormTokens;
+  state: AuthenticatorStateTokens;
+  orContainer: AuthenticatorOrContainerTokens;
 }
 
 export const authenticator: AuthenticatorTokens = {

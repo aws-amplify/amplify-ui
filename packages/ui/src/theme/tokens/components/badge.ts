@@ -10,11 +10,12 @@ import {
   TextAlignValue,
 } from '../types/designToken';
 
-export interface BadgeVariation {
+interface BadgeVariationTokens {
   backgroundColor: DesignToken<BackgroundColorValue>;
   color: DesignToken<ColorValue>;
 }
-export interface BadgeSizes {
+
+interface BadgeSizeTokens {
   fontSize: DesignToken<FontSizeValue>;
   paddingHorizontal: DesignToken<SpaceValue>;
   paddingVertical: DesignToken<SpaceValue>;
@@ -24,18 +25,18 @@ export interface BadgeTokens {
   backgroundColor: DesignToken<BackgroundColorValue>;
   borderRadius: DesignToken<RadiusValue>;
   color: DesignToken<ColorValue>;
-  error: BadgeVariation;
+  error: BadgeVariationTokens;
   fontSize: DesignToken<FontSizeValue>;
   fontWeight: DesignToken<FontWeightValue>;
-  info: BadgeVariation;
-  large: BadgeSizes;
+  info: BadgeVariationTokens;
+  large: BadgeSizeTokens;
   lineHeight: DesignToken<LineHeightValue>;
   paddingHorizontal: DesignToken<SpaceValue>;
   paddingVertical: DesignToken<SpaceValue>;
-  small: BadgeSizes;
-  success: BadgeVariation;
+  small: BadgeSizeTokens;
+  success: BadgeVariationTokens;
   textAlign: DesignToken<TextAlignValue>;
-  warning: BadgeVariation;
+  warning: BadgeVariationTokens;
 }
 
 export const badge: BadgeTokens = {

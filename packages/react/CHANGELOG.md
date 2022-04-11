@@ -1,5 +1,37 @@
 # @aws-amplify/ui-react
 
+## 2.11.0
+
+### Minor Changes
+
+- [#1538](https://github.com/aws-amplify/amplify-ui/pull/1538) [`eedae2362`](https://github.com/aws-amplify/amplify-ui/commit/eedae236249eb1201f3540fa4458fdbac77b5af6) Thanks [@joebuono](https://github.com/joebuono)! - Adds the optional `hasMorePages` prop to the Pagination component
+
+  The reason this is necessary is because sometimes the totalPages count is unknown when pagination occurs at the API level.
+
+  Resulting conditions:
+
+  - Current behavior of totalPages prop stays the same, which determines the page numbers to show
+  - A new hasMorePages prop is added to Pagination component
+  - When hasMorePages is true, and the customer is at the end of the pages (e.g. 10 of 10), then the next button will NOT be disabled
+  - When hasMorePages is false, and the customer is at the end of the pages (e.g. 10 of 10), then the next button WILL be disabled
+
+## 2.10.4
+
+### Patch Changes
+
+- [#1548](https://github.com/aws-amplify/amplify-ui/pull/1548) [`0e61396c8`](https://github.com/aws-amplify/amplify-ui/commit/0e61396c8e8bd403dfd1a06bd69d1edcb61de89a) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(react-authenticator): consolidate Authenticator form event handlers in useFormHandlers hook
+
+* [#1343](https://github.com/aws-amplify/amplify-ui/pull/1343) [`4896136e9`](https://github.com/aws-amplify/amplify-ui/commit/4896136e939feb887c5427a35fe903a0181c03fa) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Adding deprecation warnings to icons
+
+- [#1537](https://github.com/aws-amplify/amplify-ui/pull/1537) [`c1eed8265`](https://github.com/aws-amplify/amplify-ui/commit/c1eed82657d1d927500de4164244869ae91fd8d9) Thanks [@reesscot](https://github.com/reesscot)! - fix: suppress erroneous isMultiline deprecation warnings on TextField component
+
+  Deprecation warning messages are showing for users of TextField for the isMultiline prop even though
+  they are not using the prop. This issue is fixed by making the shouldWarn prop required on the internal
+  useDeprecationWarning hook.
+
+- Updated dependencies [[`7910c04b5`](https://github.com/aws-amplify/amplify-ui/commit/7910c04b55cb32e3e8a70c3966f509ea43a0dc64), [`30e3155ac`](https://github.com/aws-amplify/amplify-ui/commit/30e3155ac70d3f82c00da562332ce701ade45817)]:
+  - @aws-amplify/ui@3.3.2
+
 ## 2.10.3
 
 ### Patch Changes

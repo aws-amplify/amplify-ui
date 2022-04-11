@@ -7,6 +7,7 @@ import { AmplifyProvider, ColorMode } from '@aws-amplify/ui-react';
 import { Header } from '@/components/Layout/Header';
 import { configure, trackPageVisit } from '../utils/track';
 import { theme } from '../theme';
+import { META_INFO } from '@/data/meta';
 import '../styles/index.scss';
 
 // suppress useLayoutEffect warnings when running outside a browser
@@ -30,11 +31,24 @@ function MyApp({ Component, pageProps }) {
   configure();
   trackPageVisit();
 
+  if (
+    !META_INFO[router.pathname]?.description ||
+    !META_INFO[router.pathname]?.title
+  ) {
+    throw new Error(`Meta Info missing on ${router.pathname}`);
+  }
+
   return (
     <>
       <Head>
-        <title>Amplify UI</title>
+        <title>{META_INFO[router.pathname].title} | Amplify UI</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        {META_INFO[router.pathname] && (
+          <meta
+            name="description"
+            content={META_INFO[router.pathname].description}
+          />
+        )}
       </Head>
       <AmplifyProvider theme={theme} colorMode={colorMode}>
         <Header
