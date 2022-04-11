@@ -45,7 +45,7 @@
     cursor: not-allowed;
   }
   &[data-focused='true'] {
-    box-shadow: var(--amplify-components-switchfield-focused-shadow);
+    box-shadow: var(--amplify-components-switchfield-focus-track-shadow);
   }
 }
 
