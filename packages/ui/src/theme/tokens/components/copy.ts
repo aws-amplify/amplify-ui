@@ -27,8 +27,8 @@ export interface CopyTokens {
 }
 
 export const copy: CopyTokens = {
-  fontSize: { value: '{font.sizes.xs.value}' },
-  gap: { value: '{space.relative.medium.value}' },
+  fontSize: { value: '{fontSizes.xs}' },
+  gap: { value: '{space.relative.medium}' },
 
   svg: {
     path: {
@@ -40,6 +40,6 @@ export const copy: CopyTokens = {
   toolTip: {
     bottom: { value: '{space.large}' },
     color: { value: '{colors.teal.100}' },
-    fontSize: { value: '{font.sizes.xxs}' },
+    fontSize: { value: '{fontSizes.xxs}' },
   },
 };

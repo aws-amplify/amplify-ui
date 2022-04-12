@@ -1,9 +1,10 @@
-import { useAuthenticator } from '..';
-import { Alert } from '../../..';
 import { translate } from '@aws-amplify/ui';
 
+import { useAuthenticator } from '../hooks/useAuthenticator';
+import { Alert } from '../../../primitives/Alert';
+
 export const RemoteErrorMessage = (): JSX.Element => {
-  const { error } = useAuthenticator();
+  const { error } = useAuthenticator((context) => [context.error]);
 
   return (
     <>
