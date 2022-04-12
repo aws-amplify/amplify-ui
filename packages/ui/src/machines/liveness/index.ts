@@ -256,6 +256,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             metrics: { count: 1 },
           });
 
+          context.videoAssociatedParams.videoRecorder?.destroy();
           const recorder = new VideoRecorder(
             context.videoAssociatedParams.videoMediaStream
           );
@@ -594,6 +595,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         } = context;
 
         const videoBlob = await videoRecorder.getBlob();
+        videoRecorder.destroy();
         const { width, height } = videoMediaStream.getTracks()[0].getSettings();
 
         const flippedInitialFaceLeft =
