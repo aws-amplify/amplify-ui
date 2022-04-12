@@ -1,5 +1,22 @@
 # @aws-amplify/ui-react
 
+## 2.15.2
+
+### Patch Changes
+
+- [#1652](https://github.com/aws-amplify/amplify-ui/pull/1652) [`b9a181bc9`](https://github.com/aws-amplify/amplify-ui/commit/b9a181bc9da2411017877a91dc931812e8371bb8) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Fixing shadow and outline CSS variables in the default styles.
+
+* [#1657](https://github.com/aws-amplify/amplify-ui/pull/1657) [`65ad18e49`](https://github.com/aws-amplify/amplify-ui/commit/65ad18e4980aa7973c28eda333b967eb4aac42dd) Thanks [@wlee221](https://github.com/wlee221)! - chore: Add error message when `useAuthenticator` can't find a parent `Authenticator.Provider`.
+
+- [#1655](https://github.com/aws-amplify/amplify-ui/pull/1655) [`5379686e6`](https://github.com/aws-amplify/amplify-ui/commit/5379686e643e02f35c3aa3b3a26af41d01c5b463) Thanks [@hbuchel](https://github.com/hbuchel)! - fix: accessibly hide label text for CheckboxField when labelHidden is…
+
+* [#1638](https://github.com/aws-amplify/amplify-ui/pull/1638) [`4b146599d`](https://github.com/aws-amplify/amplify-ui/commit/4b146599d49279bda93076f62e33debef5a70edd) Thanks [@zchenwei](https://github.com/zchenwei)! - chore: updating import paths to reduce circular dependencies
+
+- [#1654](https://github.com/aws-amplify/amplify-ui/pull/1654) [`b940de62a`](https://github.com/aws-amplify/amplify-ui/commit/b940de62a2061c9e6f1e5f2ada09ed7153dbeec9) Thanks [@joebuono](https://github.com/joebuono)! - Add `nonce` prop to AmplifyProvider to allow strict CSP rules
+
+- Updated dependencies [[`b9a181bc9`](https://github.com/aws-amplify/amplify-ui/commit/b9a181bc9da2411017877a91dc931812e8371bb8)]:
+  - @aws-amplify/ui@3.6.2
+
 ## 2.15.1
 
 ### Patch Changes
