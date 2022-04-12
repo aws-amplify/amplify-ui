@@ -2,11 +2,8 @@
   cursor: var(--amplify-components-checkbox-cursor);
   align-items: var(--amplify-components-checkbox-align-items);
   gap: inherit;
-  --amplify-internal-checkbox-disabled-cursor: var(
-    --amplify-components-checkbox-disabled-cursor
-  );
   &--disabled {
-    cursor: var(--amplify-internal-checkbox-disabled-cursor);
+    cursor: var(--amplify-components-checkbox-disabled-cursor);
   }
   flex-direction: row-reverse;
 }
@@ -39,7 +36,6 @@
   }
 
   &--focused {
-    border-color: var(--amplify-components-checkbox-button-before-border-color);
     &::before {
       outline-color: var(
         --amplify-components-checkbox-button-focus-outline-color

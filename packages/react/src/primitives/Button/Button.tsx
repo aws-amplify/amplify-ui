@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import * as React from 'react';
 
+import { classNameModifier } from '../shared/utils';
 import { ButtonProps, Primitive } from '../types';
 import { ComponentClassNames } from '../shared/constants';
 import { Flex } from '../Flex';
@@ -29,13 +30,15 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
       className={classNames(
         ComponentClassNames.Button,
         ComponentClassNames.FieldGroupControl,
-        variation ? `${ComponentClassNames.Button}--${variation}` : null,
-        size ? `${ComponentClassNames.Button}--${size}` : null,
-        isDisabled || isLoading
-          ? `${ComponentClassNames.Button}--disabled`
-          : null,
-        isLoading ? `${ComponentClassNames.Button}--loading` : null,
-        isFullWidth ? `${ComponentClassNames.Button}--fullwidth` : null,
+        classNameModifier(ComponentClassNames.Button, variation),
+        classNameModifier(ComponentClassNames.Button, size),
+        classNameModifier(
+          ComponentClassNames.Button,
+          'disabled',
+          isDisabled || isLoading
+        ),
+        classNameModifier(ComponentClassNames.Button, 'loading', isLoading),
+        classNameModifier(ComponentClassNames.Button, 'fullwidth', isFullWidth),
         className
       )}
       data-fullwidth={isFullWidth}

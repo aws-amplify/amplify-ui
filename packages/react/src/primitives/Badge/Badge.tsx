@@ -1,6 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { classNameModifier } from '../shared/utils';
 import { BadgeProps, Primitive } from '../types';
 import { ComponentClassNames } from '../shared/constants';
 import { View } from '../View';
@@ -15,8 +16,8 @@ const BadgePrimitive: Primitive<BadgeProps, 'span'> = (
       className={classNames(
         ComponentClassNames.Badge,
         className,
-        variation ? `${ComponentClassNames.Badge}--${variation}` : null,
-        size ? `${ComponentClassNames.Badge}--${size}` : null
+        classNameModifier(ComponentClassNames.Badge, variation),
+        classNameModifier(ComponentClassNames.Badge, size)
       )}
       data-variation={variation}
       data-size={size}

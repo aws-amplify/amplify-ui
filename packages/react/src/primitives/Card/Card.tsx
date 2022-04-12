@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import * as React from 'react';
 
+import { classNameModifier } from '../shared/utils';
 import { CardProps, Primitive } from '../types';
 import { ComponentClassNames } from '../shared/constants';
 import { View } from '../View';
@@ -13,7 +14,7 @@ const CardPrimitive: Primitive<CardProps, 'div'> = (
     <View
       className={classNames(
         ComponentClassNames.Card,
-        variation ? `${ComponentClassNames.Card}--${variation}` : null,
+        classNameModifier(ComponentClassNames.Card, variation),
         className
       )}
       data-variation={variation}

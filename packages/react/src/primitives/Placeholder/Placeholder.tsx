@@ -1,6 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared';
 import { PlaceholderProps, Primitive } from '../types';
 import { View } from '../View';
@@ -17,7 +18,7 @@ const PlaceholderPrimitive: Primitive<PlaceholderProps, 'div'> = (
     <View
       className={classNames(
         ComponentClassNames.Placeholder,
-        size ? `${ComponentClassNames.Placeholder}--${size}` : null,
+        classNameModifier(ComponentClassNames.Placeholder, size),
         className
       )}
       data-size={size}

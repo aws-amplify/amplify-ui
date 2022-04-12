@@ -1,6 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared';
 import { Flex } from '../Flex';
 import { Input } from '../Input';
@@ -88,7 +89,7 @@ export const RadioPrimitive: Primitive<RadioProps, 'input'> = (
         as="span"
         className={classNames(
           ComponentClassNames.RadioButton,
-          size ? `${ComponentClassNames.RadioButton}--${size}` : null
+          classNameModifier(ComponentClassNames.RadioButton, size)
         )}
         data-size={size}
         testId={testId}

@@ -159,3 +159,15 @@ export const mergeVariantsAndOverrides = (
     ...merged,
   };
 };
+
+export type Modifiers = string | number | null;
+export const classNameModifier = (
+  base: string,
+  modifier: Modifiers,
+  override?: boolean
+): string => {
+  if (override === undefined) {
+    return modifier ? `${base}--${modifier}` : null;
+  }
+  return override ? `${base}--${modifier}` : null;
+};

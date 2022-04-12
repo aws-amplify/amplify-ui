@@ -1,6 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
 import { Flex } from '../Flex';
 import { Input } from '../Input';
@@ -46,7 +47,7 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, typeof Flex> = (
     <Flex
       className={classNames(
         ComponentClassNames.SwitchField,
-        size ? `${ComponentClassNames.SwitchField}--${size}` : null,
+        classNameModifier(ComponentClassNames.SwitchField, size),
         className
       )}
       data-size={size}
@@ -76,9 +77,7 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, typeof Flex> = (
         htmlFor={fieldId}
         className={classNames(
           ComponentClassNames.SwitchWrapper,
-          labelPosition
-            ? `${ComponentClassNames.SwitchWrapper}--${labelPosition}`
-            : null
+          classNameModifier(ComponentClassNames.SwitchWrapper, labelPosition)
         )}
         data-label-position={labelPosition}
       >
@@ -89,9 +88,17 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, typeof Flex> = (
           as="span"
           className={classNames(
             ComponentClassNames.SwitchTrack,
-            isOn ? `${ComponentClassNames.SwitchTrack}--checked` : null,
-            isDisabled ? `${ComponentClassNames.SwitchTrack}--disabled` : null,
-            isFocused ? `${ComponentClassNames.SwitchTrack}--focused` : null
+            classNameModifier(ComponentClassNames.SwitchTrack, 'checked', isOn),
+            classNameModifier(
+              ComponentClassNames.SwitchTrack,
+              'disabled',
+              isDisabled
+            ),
+            classNameModifier(
+              ComponentClassNames.SwitchTrack,
+              'focused',
+              isFocused
+            )
           )}
           data-checked={isOn}
           data-disabled={isDisabled}
@@ -102,8 +109,16 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, typeof Flex> = (
             as="span"
             className={classNames(
               ComponentClassNames.SwitchThumb,
-              isOn ? `${ComponentClassNames.SwitchThumb}--checked` : null,
-              isDisabled ? `${ComponentClassNames.SwitchThumb}--disabled` : null
+              classNameModifier(
+                ComponentClassNames.SwitchThumb,
+                'checked',
+                isOn
+              ),
+              classNameModifier(
+                ComponentClassNames.SwitchThumb,
+                'disabled',
+                isDisabled
+              )
             )}
             data-checked={isOn}
             data-disabled={isDisabled}

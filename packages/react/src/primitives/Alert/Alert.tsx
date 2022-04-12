@@ -2,6 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared/constants';
+import { classNameModifier } from '../shared/utils';
 import { AlertProps, Primitive } from '../types';
 import { View } from '../View';
 import { Flex } from '../Flex';
@@ -40,7 +41,7 @@ const AlertPrimitive: Primitive<AlertProps, typeof Flex> = (
         className={classNames(
           ComponentClassNames.Alert,
           className,
-          variation ? `${ComponentClassNames.Alert}--${variation}` : null
+          classNameModifier(ComponentClassNames.Alert, variation)
         )}
         data-variation={variation}
         ref={ref}

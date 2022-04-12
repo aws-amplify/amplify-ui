@@ -1,6 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
 import { FieldDescription, FieldErrorMessage } from '../Field';
 import { FieldGroup } from '../FieldGroup';
@@ -76,7 +77,7 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
     <Flex
       className={classNames(
         ComponentClassNames.Field,
-        size ? `${ComponentClassNames.Field}--${size}` : null,
+        classNameModifier(ComponentClassNames.Field, size),
         ComponentClassNames.StepperField,
         className
       )}
@@ -102,9 +103,10 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
             }`}
             className={classNames(
               ComponentClassNames.StepperFieldButtonDecrease,
-              variation
-                ? `${ComponentClassNames.StepperFieldButtonDecrease}--${variation}`
-                : null
+              classNameModifier(
+                ComponentClassNames.StepperFieldButtonDecrease,
+                variation
+              )
             )}
             data-invalid={hasError}
             isDisabled={shouldDisableDecreaseButton}
@@ -122,9 +124,10 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
             }`}
             className={classNames(
               ComponentClassNames.StepperFieldButtonIncrease,
-              variation
-                ? `${ComponentClassNames.StepperFieldButtonIncrease}--${variation}`
-                : null
+              classNameModifier(
+                ComponentClassNames.StepperFieldButtonIncrease,
+                variation
+              )
             )}
             data-invalid={hasError}
             isDisabled={shouldDisableIncreaseButton}

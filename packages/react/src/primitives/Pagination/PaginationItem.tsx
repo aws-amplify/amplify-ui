@@ -1,6 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { classNameModifier } from '../shared/utils';
 import { Button } from '../Button';
 import { Flex } from '../Flex';
 import { IconChevronLeft, IconChevronRight } from '../Icon';
@@ -55,7 +56,10 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
             <Button
               className={classNames(
                 ComponentClassNames.PaginationItemButton,
-                `${ComponentClassNames.PaginationItemButton}--link`
+                classNameModifier(
+                  ComponentClassNames.PaginationItemButton,
+                  'link'
+                )
               )}
               size="small"
               variation="link"
@@ -72,7 +76,18 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
       return (
         <View as="li">
           <Button
-            className={ComponentClassNames.PaginationItemButton}
+            className={classNames(
+              ComponentClassNames.PaginationItemButton,
+              classNameModifier(
+                ComponentClassNames.PaginationItemButton,
+                'link'
+              ),
+              classNameModifier(
+                ComponentClassNames.PaginationItemButton,
+                'disabled',
+                isDisabled
+              )
+            )}
             size="small"
             variation="link"
             isDisabled={isDisabled}
@@ -90,9 +105,15 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
           <Button
             className={classNames(
               ComponentClassNames.PaginationItemButton,
-              isDisabled
-                ? `${ComponentClassNames.PaginationItemButton}--disabled`
-                : null
+              classNameModifier(
+                ComponentClassNames.PaginationItemButton,
+                'link'
+              ),
+              classNameModifier(
+                ComponentClassNames.PaginationItemButton,
+                'disabled',
+                isDisabled
+              )
             )}
             size="small"
             variation="link"

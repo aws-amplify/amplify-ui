@@ -1,6 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
 import { splitPrimitiveProps } from '../shared/styleUtils';
 import { FieldDescription, FieldErrorMessage } from '../Field';
@@ -93,7 +94,7 @@ const TextFieldPrimitive = <Multiline extends boolean>(
     <Flex
       className={classNames(
         ComponentClassNames.Field,
-        size ? `${ComponentClassNames.Field}--${size}` : null,
+        classNameModifier(ComponentClassNames.Field, size),
         ComponentClassNames.TextField,
         className
       )}

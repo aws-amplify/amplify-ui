@@ -1,6 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
 import { Primitive, TableProps } from '../types';
 import { View } from '../View';
@@ -21,8 +22,8 @@ const TablePrimitive: Primitive<TableProps, 'table'> = (
     as="table"
     className={classNames(
       ComponentClassNames.Table,
-      size ? `${ComponentClassNames.Table}--${size}` : null,
-      variation ? `${ComponentClassNames.Table}--${variation}` : null,
+      classNameModifier(ComponentClassNames.Table, size),
+      classNameModifier(ComponentClassNames.Table, variation),
       className
     )}
     data-highlightonhover={highlightOnHover}

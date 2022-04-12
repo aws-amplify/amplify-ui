@@ -1,6 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
 import { TextProps, Primitive } from '../types';
 import { View } from '../View';
@@ -14,8 +15,8 @@ const TextPrimitive: Primitive<TextProps, 'p'> = (
       as={as}
       className={classNames(
         ComponentClassNames.Text,
-        variation ? `${ComponentClassNames.Text}--${variation}` : null,
-        isTruncated ? `${ComponentClassNames.Text}--truncated` : null,
+        classNameModifier(ComponentClassNames.Text, variation),
+        classNameModifier(ComponentClassNames.Text, 'truncated', isTruncated),
         className
       )}
       data-truncate={isTruncated}

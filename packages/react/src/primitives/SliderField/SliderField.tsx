@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { Range, Root, Thumb, Track } from '@radix-ui/react-slider';
 import * as React from 'react';
 
+import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
 import { FieldDescription, FieldErrorMessage } from '../Field';
 import { FieldGroup } from '../FieldGroup';
@@ -127,8 +128,11 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
           <Track
             className={classNames(
               ComponentClassNames.SliderFieldTrack,
-              `${ComponentClassNames.SliderFieldTrack}--${orientation}`,
-              size ? `${ComponentClassNames.SliderFieldTrack}--${size}` : null
+              classNameModifier(
+                ComponentClassNames.SliderFieldTrack,
+                orientation
+              ),
+              classNameModifier(ComponentClassNames.SliderFieldTrack, size)
             )}
             data-testid={SLIDER_TRACK_TEST_ID}
             style={{
@@ -139,7 +143,10 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
             <Range
               className={classNames(
                 ComponentClassNames.SliderFieldRange,
-                `${ComponentClassNames.SliderFieldRange}--${orientation}`
+                classNameModifier(
+                  ComponentClassNames.SliderFieldRange,
+                  orientation
+                )
               )}
               data-testid={SLIDER_RANGE_TEST_ID}
               style={{ backgroundColor: filledTrackColor }}
@@ -151,7 +158,7 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
             aria-valuetext={ariaValuetext}
             className={classNames(
               ComponentClassNames.SliderFieldThumb,
-              `${ComponentClassNames.SliderFieldThumb}--${size}`
+              classNameModifier(ComponentClassNames.SliderFieldThumb, size)
             )}
             style={{ backgroundColor: thumbColor }}
           />

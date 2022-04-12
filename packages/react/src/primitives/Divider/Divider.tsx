@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import * as React from 'react';
 
+import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared';
 import { DividerProps, Primitive } from '../types';
 import { View } from '../View';
@@ -15,9 +16,9 @@ const DividerPrimitive: Primitive<DividerProps, 'hr'> = (
       as="hr"
       className={classNames(
         ComponentClassNames.Divider,
-        `${ComponentClassNames.Divider}--${orientation}`,
-        size ? `${ComponentClassNames.Divider}--${size}` : null,
-        label ? ComponentClassNames.DividerLabel : null,
+        classNameModifier(ComponentClassNames.Divider, orientation),
+        classNameModifier(ComponentClassNames.Divider, size),
+        classNameModifier(ComponentClassNames.DividerLabel, label),
         className
       )}
       data-size={size}

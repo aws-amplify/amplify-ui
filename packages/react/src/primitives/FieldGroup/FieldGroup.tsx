@@ -1,6 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
 import { FieldGroupOptions, Primitive } from '../types';
 import { Flex } from '../Flex';
@@ -35,7 +36,7 @@ const FieldGroupPrimitive: Primitive<FieldGroupOptions, typeof Flex> = (
         ComponentClassNames.FieldGroup,
         fieldGroupHasInnerStartClassName,
         fieldGroupHasInnerEndClassName,
-        `${ComponentClassNames.FieldGroup}--${orientation}`,
+        classNameModifier(ComponentClassNames.FieldGroup, orientation),
         className
       )}
       data-orientation={orientation}
@@ -50,7 +51,10 @@ const FieldGroupPrimitive: Primitive<FieldGroupOptions, typeof Flex> = (
       <View
         className={classNames(
           ComponentClassNames.FieldGroupFieldWrapper,
-          `${ComponentClassNames.FieldGroupFieldWrapper}--${orientation}`
+          classNameModifier(
+            ComponentClassNames.FieldGroupFieldWrapper,
+            orientation
+          )
         )}
         data-orientation={orientation}
       >

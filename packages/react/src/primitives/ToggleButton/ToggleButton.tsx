@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import * as React from 'react';
 
+import { classNameModifier } from '../shared/utils';
 import { Button } from '../Button';
 import { ComponentClassNames } from '../shared/constants';
 import { ToggleButtonProps, Primitive } from '../types';
@@ -34,8 +35,12 @@ const ToggleButtonPrimitive: Primitive<ToggleButtonProps, typeof Button> = (
       aria-pressed={isPressed}
       className={classNames(
         ComponentClassNames.ToggleButton,
-        variation ? `${ComponentClassNames.ToggleButton}--${variation}` : null,
-        isPressed ? `${ComponentClassNames.ToggleButton}--pressed` : null,
+        classNameModifier(ComponentClassNames.ToggleButton, variation),
+        classNameModifier(
+          ComponentClassNames.ToggleButton,
+          'pressed',
+          isPressed
+        ),
         className
       )}
       isDisabled={isDisabled}

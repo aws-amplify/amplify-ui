@@ -1,6 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
 import { HeadingProps, Primitive } from '../types';
 import { View } from '../View';
@@ -28,7 +29,7 @@ const HeadingPrimitive: Primitive<HeadingProps, HeadingTag> = (
     as={headingLevels[level]}
     className={classNames(
       ComponentClassNames.Heading,
-      `${ComponentClassNames.Heading}--${level}`,
+      classNameModifier(ComponentClassNames.Heading, level),
       className
     )}
     ref={ref}
