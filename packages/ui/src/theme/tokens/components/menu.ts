@@ -4,7 +4,6 @@ import {
   BorderStyleValue,
   BorderWidthValue,
   BoxShadowValue,
-  ColorValue,
   DesignToken,
   FlexDirectionValue,
   GapValue,
