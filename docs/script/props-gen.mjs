@@ -1,9 +1,3 @@
-// const docgen = require('react-docgen-typescript');
-// const json2md = require('json2md');
-// const {globbyStream} = require('globby');
-// const path = require('path');
-// const { writeFileSync } = require('fs');
-
 import docgen from 'react-docgen-typescript';
 import json2md from 'json2md';
 import { globbyStream } from 'globby';
@@ -42,17 +36,21 @@ const getWantedCategories = (displayName) => [
   'BaseComponentProps',
   'BaseStyleProps',
   'RefAttributes',
-  'TypeLiteral',
 ];
 
 const categorizeProps = (props, wantedCategories) =>
   Object.entries(props).reduce((acc, [key, val]) => {
     const category = val.declarations[0].name;
+    const isCategoryToUse = [...wantedCategories, 'TypeLiteral'].includes(
+      category
+    );
+    const categoryKey =
+      category === 'TypeLiteral' ? 'BaseComponentProps' : category;
     return {
       ...acc,
-      ...(wantedCategories.includes(category) && {
-        [category]: {
-          ...acc[category],
+      ...(isCategoryToUse && {
+        [categoryKey]: {
+          ...acc[categoryKey],
           [key]: val,
         },
       }),
@@ -128,7 +126,6 @@ import remarkGfm from 'remark-gfm';
 for await (const filePath of globbyStream(
   path.join(__dirname, '../../packages/react/src/primitives/**/index.ts')
 )) {
-  console.log(filePath);
 
   const { props, displayName } = getData(filePath);
 
@@ -150,17 +147,12 @@ for await (const filePath of globbyStream(
 
   writeFileSync(
     path.resolve(
-      __dirname,
-      `${displayName.toLowerCase()}-react-auto-prop-categorized.json`
-    ),
-    JSON.stringify(categorizedProps, null, 2)
-  );
-
-  writeFileSync(
-    path.resolve(
       targetPath,
       `./react-auto-prop-table-${displayName.toLowerCase()}.mdx`
     ),
     output
   );
+  console.log(`✅ ${displayName} Props Tables are updated.`)
 }
+
+console.log("🎉 Props Tables are all updated.")

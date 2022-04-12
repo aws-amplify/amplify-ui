@@ -26,6 +26,7 @@ import remarkGfm from 'remark-gfm';
       children={`
 | name | type | default | description |
 | ---- | ---- | ------- | ----------- |
+| as | ElementType | - |  |
 | id | string | - | Unique identifier |
 | className | string | - | Additional CSS class name for component |
 | testId | string | - | Used to provide a &#96;data-testid&#96; attribute for testing purposes |
@@ -105,19 +106,6 @@ import remarkGfm from 'remark-gfm';
 | name | type | default | description |
 | ---- | ---- | ------- | ----------- |
 | ref | Ref&#60;HTMLSpanElement&#62; | - |  |
-
-      `}
-    />
-
-  </ExpanderItem>
-
-<ExpanderItem title="TypeLiteral" value="TypeLiteral">
-    <ReactMarkdown
-      remarkPlugins={[remarkGfm]}
-      children={`
-| name | type | default | description |
-| ---- | ---- | ------- | ----------- |
-| as | ElementType | - |  |
 
       `}
     />
