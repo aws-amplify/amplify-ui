@@ -33,7 +33,7 @@ interface ButtonDisabledToken {
 }
 interface ButtonErrorFocusToken {
   borderColor: DesignToken<BorderColorValue>;
-  boxShadow: DesignToken<ShadowValue>;
+  boxShadow: DesignToken<BoxShadowValue>;
 }
 interface ButtonErrorToken {
   borderColor: DesignToken<BorderColorValue>;
