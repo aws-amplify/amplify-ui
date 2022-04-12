@@ -18,23 +18,6 @@ on:
         # repository to run tests against (possibly a fork of amplify-ui)
         required: true
         type: string
-    secrets:
-      AWS_ACCESS_KEY_ID:
-        required: true
-      AWS_SECRET_ACCESS_KEY:
-        required: true
-      DOMAIN:
-        required: true
-      PHONE_NUMBER:
-        required: true
-      USERNAME:
-        required: true
-      NEW_PASSWORD:
-        required: true
-      VALID_PASSWORD:
-        required: true
-      NOT_SECRET: # Dummy value to validate secret management in this fork
-        required: true
 
 jobs:
   setup:

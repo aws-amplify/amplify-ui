@@ -10,12 +10,3 @@ jobs:
     with:
       commit: ${{ github.sha }}
       repository: ${{ github.repository }}
-    secrets:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      DOMAIN: ${{ secrets.DOMAIN }}
-      PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
-      USERNAME: ${{ secrets.USERNAME }}
-      NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
-      VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
-      NOT_SECRET: ${{ secrets.NOT_SECRET }}
