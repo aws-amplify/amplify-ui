@@ -1,6 +1,8 @@
 import {
   AnimationDurationValue,
+  ColorValue,
   DesignToken,
+  FontSizeValue,
   SpaceValue,
   StrokeEmptyValue,
   StrokeFilledValue,
@@ -8,19 +10,20 @@ import {
 } from '../types/designToken';
 
 interface LoaderSizeTokens {
+  fontSize: DesignToken<FontSizeValue>;
   height: DesignToken<SpaceValue>;
   width: DesignToken<SpaceValue>;
 }
 
 interface LoaderLinearSizeTokens {
-  height: DesignToken<SpaceValue>;
+  fontSize: DesignToken<FontSizeValue>;
   strokeWidth: DesignToken<SpaceValue>;
 }
 
 interface LoaderLinearTokens {
   width: DesignToken<SpaceValue>;
   minWidth: DesignToken<SpaceValue>;
-  height: DesignToken<SpaceValue>;
+  fontSize: DesignToken<FontSizeValue>;
   strokeWidth: DesignToken<SpaceValue>;
   strokeFilled: DesignToken<StrokeFilledValue>;
   strokeEmpty: DesignToken<StrokeEmptyValue>;
@@ -30,9 +33,14 @@ interface LoaderLinearTokens {
   large: LoaderLinearSizeTokens;
 }
 
+interface LoaderTextTokens {
+  fill: DesignToken<ColorValue>;
+}
+
 export interface LoaderTokens {
   width: DesignToken<SpaceValue>;
   height: DesignToken<SpaceValue>;
+  fontSize: DesignToken<FontSizeValue>;
   strokeEmpty: DesignToken<StrokeEmptyValue>;
   strokeFilled: DesignToken<StrokeFilledValue>;
   strokeLinecap: DesignToken<StrokeLinecapValue>;
@@ -40,6 +48,7 @@ export interface LoaderTokens {
   small: LoaderSizeTokens;
   large: LoaderSizeTokens;
   linear: LoaderLinearTokens;
+  text: LoaderTextTokens;
 }
 
 export const loader: LoaderTokens = {
