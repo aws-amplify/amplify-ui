@@ -106,6 +106,45 @@ const myTheme = {
 };
 ```
 
+#### Defining component tokens
+
+Amplify UI should follow a consistent pattern when defining tokens for a component's states and variations. This is helpful for discovering what tokens are available for theming different aspects of a component. Amplify UI uses the following pattern:
+
+```javascript
+component[variant][_state][child];
+```
+
+Following this pattern, our token definition for the component would follow this general structure. **Note**: Amplify UI prefixes states with an underscore, `_`, to help distinguish state names from variation names.
+
+```javascript
+export const component = {
+  child: {}
+
+  _state: {
+    child: {}
+  }
+
+  variation: {
+    child: {},
+    _state: {
+      child: {}
+    }
+  }
+
+}
+```
+
+Compiled, this would create the following CSS custom properties:
+
+```css
+--amplify-component-child-token: value,
+--amplify-component-state-child-token: value,
+--amplify-component-variation-child-token: value,
+--amplify-component-variation-state-child-token: value,
+```
+
+A good example of this structure can be found in our [Button component token definitions](https://github.com/aws-amplify/amplify-ui/blob/main/packages/ui/src/theme/tokens/components/button.ts) which has multiple variations and states.
+
 ### Fonts
 
 Amplify UI allows custom fonts to be used in the theme. The font tokens are defined in the `fonts` namespace. You can define your primary font stack and fallback font stack values the same way you would do in a CSS `font-family` rule.
