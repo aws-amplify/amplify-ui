@@ -1,12 +1,18 @@
+import { ColorValue, DesignToken } from '../types/designToken';
+
+interface TextVariationTokens {
+  color: DesignToken<ColorValue>;
+}
+
 export interface TextTokens {
-  color: any;
-  primary: any;
-  secondary: any;
-  tertiary: any;
-  error: any;
-  warning: any;
-  success: any;
-  info: any;
+  color: DesignToken<ColorValue>;
+  primary: TextVariationTokens;
+  secondary: TextVariationTokens;
+  tertiary: TextVariationTokens;
+  error: TextVariationTokens;
+  warning: TextVariationTokens;
+  success: TextVariationTokens;
+  info: TextVariationTokens;
 }
 
 export const text: TextTokens = {

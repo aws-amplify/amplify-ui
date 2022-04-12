@@ -2,6 +2,7 @@ import {
   AlignItemsValue,
   AnimationDurationValue,
   AnimationTimingFunctionValue,
+  BackgroundColorValue,
   BorderRadiusValue,
   BoxShadowValue,
   ColorValue,
@@ -46,7 +47,7 @@ interface ExpanderTriggerTokens {
 }
 
 interface ExpanderTriggerHoverTokens {
-  backgroundColor: DesignToken<ColorValue>;
+  backgroundColor: DesignToken<BackgroundColorValue>;
 }
 
 interface ExpanderContentTokens {
@@ -80,7 +81,7 @@ interface ExpanderIconTokens {
 
 export interface ExpanderTokens {
   display: DesignToken<DisplayValue>;
-  backgroundColor: DesignToken<ColorValue>;
+  backgroundColor: DesignToken<BackgroundColorValue>;
   borderRadius: DesignToken<BorderRadiusValue>;
   boxShadow: DesignToken<BoxShadowValue>;
   width: DesignToken<SpaceValue>;
