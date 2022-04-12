@@ -163,22 +163,4 @@ for await (const filePath of globbyStream(
     ),
     output
   );
-
-  const importMdx = `
-import { Fragment } from '@/components/Fragment';
-`;
-
-  const propsTableMdx = `
-
-<Fragment>
-  {({ platform }) => import('./react-auto-prop-table-${displayName.toLowerCase()}.mdx')}
-</Fragment>
-`;
-  const reactPath = path.resolve(targetPath, `./react.mdx`);
-  const reactMdx = readFileSync(reactPath).toString();
-
-  writeFileSync(
-    reactPath,
-    importMdx + reactMdx + propsTableMdx
-  );
 }
