@@ -1,7 +1,8 @@
 import { translate } from '@aws-amplify/ui';
 
-import { useAuthenticator } from '..';
-import { TabItem, Tabs, View } from '../../..';
+import { useAuthenticator } from '../hooks/useAuthenticator';
+import { TabItem, Tabs } from '../../../primitives/Tabs';
+import { View } from '../../../primitives/View';
 import { SignIn } from '../SignIn';
 import { SignUp } from '../SignUp';
 
@@ -10,7 +11,11 @@ export const SignInSignUpTabs = ({
 }: {
   hideSignUp: boolean;
 }): JSX.Element => {
-  const { route, toSignIn, toSignUp } = useAuthenticator();
+  const { route, toSignIn, toSignUp } = useAuthenticator((context) => [
+    context.route,
+    context.toSignIn,
+    context.toSignUp,
+  ]);
   return (
     <>
       {hideSignUp ? (

@@ -1,14 +1,13 @@
-import * as React from 'react';
 import { translate } from '@aws-amplify/ui';
 
-import { Button, Flex, Heading, Text } from '../../..';
-import {
-  useAuthenticator,
-  useCustomComponents,
-  useFormHandlers,
-} from '../hooks';
-
-import { RemoteErrorMessage } from '../shared';
+import { Button } from '../../../primitives/Button';
+import { Flex } from '../../../primitives/Flex';
+import { Heading } from '../../../primitives/Heading';
+import { Text } from '../../../primitives/Text';
+import { useAuthenticator } from '../hooks/useAuthenticator';
+import { useCustomComponents } from '../hooks/useCustomComponents';
+import { useFormHandlers } from '../hooks/useFormHandlers';
+import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { FormFields } from '../shared/FormFields';
 
 export function ConfirmSignUp() {
@@ -16,7 +15,11 @@ export function ConfirmSignUp() {
     isPending,
     resendCode,
     codeDeliveryDetails: { DeliveryMedium, Destination } = {},
-  } = useAuthenticator();
+  } = useAuthenticator((context) => [
+    context.isPending,
+    context.resendCode,
+    context.codeDeliveryDetails,
+  ]);
   const { handleChange, handleSubmit } = useFormHandlers();
 
   const {
@@ -92,8 +95,9 @@ export function ConfirmSignUp() {
 }
 
 ConfirmSignUp.Header = () => {
-  const { codeDeliveryDetails: { DeliveryMedium, Destination } = {} } =
-    useAuthenticator();
+  const { codeDeliveryDetails: { DeliveryMedium } = {} } = useAuthenticator(
+    (context) => [context.codeDeliveryDetails]
+  );
 
   const confirmSignUpHeading =
     DeliveryMedium === 'EMAIL'

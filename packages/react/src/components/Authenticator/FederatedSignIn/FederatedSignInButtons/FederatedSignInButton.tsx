@@ -1,7 +1,9 @@
 import { FederatedIdentityProviders, SocialProvider } from '@aws-amplify/ui';
 
-import { useAuthenticator } from '../..';
-import { Button, Icon, Text } from '../../../..';
+import { useAuthenticator } from '../../hooks/useAuthenticator';
+import { Button } from '../../../../primitives/Button';
+import { Icon } from '../../../../primitives/Icon';
+import { Text } from '../../../../primitives/Text';
 
 export interface FederatedSignInButtonProps {
   icon?: SocialProvider;
@@ -94,7 +96,8 @@ export const FederatedSignInButton = (
   props: FederatedSignInButtonProps
 ): JSX.Element => {
   const { icon, provider, text } = props;
-  const { _send } = useAuthenticator();
+  // TODO: Expose federated event sender so `_send` doesn't have to be extracted
+  const { _send } = useAuthenticator(() => []);
 
   const handleClick = (event): void => {
     event.preventDefault();

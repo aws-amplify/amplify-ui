@@ -4,7 +4,8 @@ import {
   View,
   TableRow,
   TableCell,
-  defaultTheme,
+  TableBody,
+  useTheme,
 } from '@aws-amplify/ui-react';
 
 function extractClasses(themeObject) {
@@ -22,9 +23,10 @@ function extractClasses(themeObject) {
 }
 
 export const ComponentVariableTable = ({ componentName }) => {
+  const { tokens } = useTheme();
   const variableNames = React.useMemo(() => {
     const variableNames = extractClasses(
-      defaultTheme?.tokens?.components?.[componentName]
+      tokens?.components?.[componentName]
     ).sort();
     let tableRows = [];
     if (variableNames.length) {
@@ -50,7 +52,9 @@ export const ComponentVariableTable = ({ componentName }) => {
 
   return (
     <View className="docs-css-variables">
-      <Table variation="bordered">{variableNames}</Table>
+      <Table variation="bordered">
+        <TableBody>{variableNames}</TableBody>
+      </Table>
     </View>
   );
 };

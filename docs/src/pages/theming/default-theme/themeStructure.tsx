@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { defaultTheme } from '@aws-amplify/ui-react';
+import { useTheme } from '@aws-amplify/ui-react';
 
 function flattenTheme(obj, arr = []) {
   if (obj.hasOwnProperty('value')) {
@@ -16,7 +16,7 @@ function flattenTheme(obj, arr = []) {
 }
 
 export const ThemeStructure = () => {
-  const allTokens = flattenTheme(defaultTheme.tokens);
+  const allTokens = flattenTheme(useTheme().tokens);
   return (
     <table>
       <thead>
