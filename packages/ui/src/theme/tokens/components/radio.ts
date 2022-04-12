@@ -1,6 +1,7 @@
 import {
   AlignItemsValue,
   BackgroundColorValue,
+  BorderColorValue,
   BorderRadiusValue,
   BorderStyleValue,
   BorderWidthValue,
