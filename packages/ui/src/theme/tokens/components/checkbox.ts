@@ -16,7 +16,6 @@ import {
   OutlineStyleValue,
   OutlineWidthValue,
   PositionValue,
-  ShadowValue,
   SpaceValue,
   TransformValue,
   TransitionDurationValue,
