@@ -4,6 +4,7 @@ import {
   View,
   TableRow,
   TableCell,
+  TableBody,
   useTheme,
 } from '@aws-amplify/ui-react';
 
@@ -51,7 +52,9 @@ export const ComponentVariableTable = ({ componentName }) => {
 
   return (
     <View className="docs-css-variables">
-      <Table variation="bordered">{variableNames}</Table>
+      <Table variation="bordered">
+        <TableBody>{variableNames}</TableBody>
+      </Table>
     </View>
   );
 };

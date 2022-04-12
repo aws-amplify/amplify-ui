@@ -1,5 +1,11 @@
 # @aws-amplify/ui
 
+## 3.6.2
+
+### Patch Changes
+
+- [#1652](https://github.com/aws-amplify/amplify-ui/pull/1652) [`b9a181bc9`](https://github.com/aws-amplify/amplify-ui/commit/b9a181bc9da2411017877a91dc931812e8371bb8) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Fixing shadow and outline CSS variables in the default styles.
+
 ## 3.6.1
 
 ### Patch Changes
