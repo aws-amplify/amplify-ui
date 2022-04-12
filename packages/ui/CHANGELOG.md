@@ -1,5 +1,21 @@
 # @aws-amplify/ui
 
+## 3.6.2
+
+### Patch Changes
+
+- [#1652](https://github.com/aws-amplify/amplify-ui/pull/1652) [`b9a181bc9`](https://github.com/aws-amplify/amplify-ui/commit/b9a181bc9da2411017877a91dc931812e8371bb8) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Fixing shadow and outline CSS variables in the default styles.
+
+## 3.6.1
+
+### Patch Changes
+
+- [#1643](https://github.com/aws-amplify/amplify-ui/pull/1643) [`68cf0494f`](https://github.com/aws-amplify/amplify-ui/commit/68cf0494f15356af54ee5aa0b4749cdd9a104aca) Thanks [@wlee221](https://github.com/wlee221)! - Get user attributes after force-new-password is completed
+
+* [#1625](https://github.com/aws-amplify/amplify-ui/pull/1625) [`e799d32a4`](https://github.com/aws-amplify/amplify-ui/commit/e799d32a4a298e526a3469ee813597a1d09dfd58) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Fix broken references in default theme and changing `defaultTheme` to be exported as `BaseTheme` type rather than `WebTheme` because we don't need to be using a `WebTheme` as it has extra stuff only the provider needs. If you want to get a defaultTheme of `WebTheme` type you can run `createTheme()`
+
+- [#1625](https://github.com/aws-amplify/amplify-ui/pull/1625) [`e799d32a4`](https://github.com/aws-amplify/amplify-ui/commit/e799d32a4a298e526a3469ee813597a1d09dfd58) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Fix broken references in default theme and changing `defaultTheme` to be exported as `BaseTheme` type rather than `WebTheme` because we don't need to be using a `WebTheme` as it has extra stuff only the provider needs. If you want to get a defaultTheme of `WebTheme` type you can run `createTheme()`
+
 ## 3.6.0
 
 ### Minor Changes
