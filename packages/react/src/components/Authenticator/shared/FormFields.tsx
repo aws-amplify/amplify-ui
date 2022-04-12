@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { FormFieldComponents, getSortedFormFields } from '@aws-amplify/ui';
+
 import { FormField } from './FormField';
 import { useAuthenticator } from '../hooks/useAuthenticator';
 

@@ -1,9 +1,8 @@
 import { FormFieldOptions, getErrors } from '@aws-amplify/ui';
-import {
-  PasswordField,
-  PhoneNumberField,
-  TextField,
-} from '../../../primitives';
+
+import { PasswordField } from '../../../primitives/PasswordField';
+import { PhoneNumberField } from '../../../primitives/PhoneNumberField';
+import { TextField } from '../../../primitives/TextField';
 import { useAuthenticator } from '../hooks/useAuthenticator';
 import { ValidationErrors } from './ValidationErrors';
 

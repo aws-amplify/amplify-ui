@@ -1,13 +1,13 @@
 import { translate } from '@aws-amplify/ui';
 
-import { Button, Flex, View } from '../../..';
+import { Button } from '../../../primitives/Button';
+import { Flex } from '../../../primitives/Flex';
+import { View } from '../../../primitives/View';
 import { FederatedSignIn } from '../FederatedSignIn';
-import {
-  useAuthenticator,
-  useCustomComponents,
-  useFormHandlers,
-} from '../hooks';
-import { RemoteErrorMessage } from '../shared';
+import { useAuthenticator } from '../hooks/useAuthenticator';
+import { useCustomComponents } from '../hooks/useCustomComponents';
+import { useFormHandlers } from '../hooks/useFormHandlers';
+import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { FormFields } from '../shared/FormFields';
 
 export function SignUp() {
