@@ -11,8 +11,10 @@ import {
   DesignToken,
   GapValue,
   JustifyContentValue,
+  OutlineColorValue,
   OutlineOffsetValue,
   OutlineStyleValue,
+  OutlineWidthValue,
   SpaceValue,
   TransitionDurationValue,
   TransitionPropertyValue,
@@ -31,14 +33,14 @@ interface RadioButtonTokens {
   borderWidth: DesignToken<BorderWidthValue>;
   borderStyle: DesignToken<BorderStyleValue>;
   borderRadius: DesignToken<BorderRadiusValue>;
-  borderColor: DesignToken<ColorValue>;
+  borderColor: DesignToken<BorderColorValue>;
   color: DesignToken<ColorValue>;
   backgroundColor: DesignToken<BackgroundColorValue>;
   transitionProperty: DesignToken<TransitionPropertyValue>;
   transitionDuration: DesignToken<TransitionDurationValue>;
-  outlineColor: DesignToken<ColorValue>;
+  outlineColor: DesignToken<OutlineColorValue>;
   outlineStyle: DesignToken<OutlineStyleValue>;
-  outlineWidth: DesignToken<SpaceValue>;
+  outlineWidth: DesignToken<OutlineWidthValue>;
   outlineOffset: DesignToken<OutlineOffsetValue>;
   padding: DesignToken<SpaceValue>;
   small: RadioButtonSizeTokens;
@@ -63,12 +65,12 @@ interface RadioButtonCheckedDisabledTokens {
 }
 
 interface RadioButtonFocusTokens {
-  borderColor: DesignToken<ColorValue>;
+  borderColor: DesignToken<BorderColorValue>;
   boxShadow: DesignToken<BoxShadowValue>;
 }
 
 interface RadioButtonErrorTokens {
-  borderColor: DesignToken<ColorValue>;
+  borderColor: DesignToken<BorderColorValue>;
   _focus: RadioButtonErrorFocusTokens;
 }
 
@@ -77,7 +79,7 @@ interface RadioButtonErrorFocusTokens {
 }
 
 interface RadioButtonDisabledTokens {
-  borderColor: DesignToken<ColorValue>;
+  borderColor: DesignToken<BorderColorValue>;
   backgroundColor: DesignToken<BackgroundColorValue>;
 }
 

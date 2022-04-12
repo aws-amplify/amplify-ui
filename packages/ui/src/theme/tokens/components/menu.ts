@@ -27,7 +27,7 @@ export interface MenuTokens {
   borderRadius: DesignToken<BorderRadiusValue>;
   borderWidth: DesignToken<BorderWidthValue>;
   borderStyle: DesignToken<BorderStyleValue>;
-  borderColor: DesignToken<ColorValue>;
+  borderColor: DesignToken<BorderColorValue>;
   boxShadow: DesignToken<BoxShadowValue>;
   flexDirection: DesignToken<FlexDirectionValue>;
   gap: DesignToken<GapValue>;

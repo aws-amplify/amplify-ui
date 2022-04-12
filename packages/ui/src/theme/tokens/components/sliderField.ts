@@ -1,10 +1,10 @@
 import {
   BackgroundColorValue,
+  BorderColorValue,
   BorderRadiusValue,
   BorderStyleValue,
   BorderWidthValue,
   BoxShadowValue,
-  ColorValue,
   DesignToken,
   SpaceValue,
 } from '../types/designToken';
@@ -33,7 +33,7 @@ interface SliderFieldThumbTokens {
   boxShadow: DesignToken<BoxShadowValue>;
   borderRadius: DesignToken<BorderRadiusValue>;
   borderWidth: DesignToken<BorderWidthValue>;
-  borderColor: DesignToken<ColorValue>;
+  borderColor: DesignToken<BorderColorValue>;
   borderStyle: DesignToken<BorderStyleValue>;
   _disabled: SliderFieldThumbDisabledTokens;
   _hover: SliderFieldThumbHoverTokens;
@@ -42,13 +42,13 @@ interface SliderFieldThumbTokens {
 
 interface SliderFieldThumbDisabledTokens {
   backgroundColor: DesignToken<BackgroundColorValue>;
-  borderColor: DesignToken<ColorValue>;
+  borderColor: DesignToken<BorderColorValue>;
   boxShadow: DesignToken<BoxShadowValue>;
 }
 
 interface SliderFieldThumbHoverTokens {
   backgroundColor: DesignToken<BackgroundColorValue>;
-  borderColor: DesignToken<ColorValue>;
+  borderColor: DesignToken<BorderColorValue>;
 }
 
 interface SliderFieldThumbFocusTokens {

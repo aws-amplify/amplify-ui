@@ -1,5 +1,6 @@
 import {
   BackgroundColorValue,
+  BorderColorValue,
   BorderStyleValue,
   BorderWidthValue,
   ColorValue,
@@ -14,7 +15,7 @@ import {
 
 interface TabsItemTokens {
   backgroundColor: DesignToken<BackgroundColorValue>;
-  borderColor: DesignToken<ColorValue>;
+  borderColor: DesignToken<BorderColorValue>;
   borderStyle: DesignToken<BorderStyleValue>;
   borderWidth: DesignToken<BorderWidthValue>;
   color: DesignToken<ColorValue>;
@@ -40,19 +41,19 @@ interface TabsItemFocusTokens {
 
 interface TabsItemActiveTokens {
   color: DesignToken<ColorValue>;
-  borderColor: DesignToken<ColorValue>;
+  borderColor: DesignToken<BorderColorValue>;
   backgroundColor: DesignToken<BackgroundColorValue>;
 }
 
 interface TabsItemDisabledTokens {
   color: DesignToken<ColorValue>;
-  borderColor: DesignToken<ColorValue>;
+  borderColor: DesignToken<BorderColorValue>;
   backgroundColor: DesignToken<BackgroundColorValue>;
 }
 
 export interface TabsTokens {
   backgroundColor: DesignToken<BackgroundColorValue>;
-  borderColor: DesignToken<ColorValue>;
+  borderColor: DesignToken<BorderColorValue>;
   borderStyle: DesignToken<BorderStyleValue>;
   borderWidth: DesignToken<BorderWidthValue>;
   gap: DesignToken<GapValue>;

@@ -1,6 +1,7 @@
 import {
   BackgroundColorValue,
   BorderCollapseValue,
+  BorderColorValue,
   BorderStyleValue,
   BorderWidthValue,
   CaptionSideValue,
@@ -34,7 +35,7 @@ interface TableRowStripedTokens {
 }
 
 interface TableCellTokens extends TableDefaultTokens {
-  borderColor: DesignToken<ColorValue>;
+  borderColor: DesignToken<BorderColorValue>;
   borderStyle: DesignToken<BorderStyleValue>;
   borderWidth: DesignToken<BorderWidthValue>;
   color: DesignToken<ColorValue>;

@@ -27,19 +27,19 @@ interface FieldControlSizeTokens {
 }
 
 interface FieldControlFocusTokens {
-  borderColor: DesignToken<ColorValue>;
+  borderColor: DesignToken<BorderColorValue>;
   boxShadow: DesignToken<BoxShadowValue>;
 }
 
 interface FieldControlDisabledTokens {
   color: DesignToken<ColorValue>;
   cursor: DesignToken<CursorValue>;
-  borderColor: DesignToken<ColorValue>;
+  borderColor: DesignToken<BorderColorValue>;
   backgroundColor: DesignToken<BackgroundColorValue>;
 }
 
 interface FieldControlErrorTokens {
-  borderColor: DesignToken<ColorValue>;
+  borderColor: DesignToken<BorderColorValue>;
   _focus: FieldControlErrorFocusTokens;
 }
 
@@ -74,7 +74,7 @@ interface FieldControlQuietErrorFocusTokens {
 
 export interface FieldControlTokens {
   borderStyle: DesignToken<BorderStyleValue>;
-  borderColor: DesignToken<ColorValue>;
+  borderColor: DesignToken<BorderColorValue>;
   borderWidth: DesignToken<BorderWidthValue>;
   borderRadius: DesignToken<BorderRadiusValue>;
   color: DesignToken<ColorValue>;

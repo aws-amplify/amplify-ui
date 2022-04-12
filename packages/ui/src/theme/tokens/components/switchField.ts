@@ -1,12 +1,11 @@
 import {
   BackgroundColorValue,
+  BorderColorValue,
   BorderRadiusValue,
   BoxShadowValue,
-  ColorValue,
   DesignToken,
   FontSizeValue,
   OpacityValue,
-  ShadowValue,
   SpaceValue,
   TransformValue,
   TransitionDurationValue,
@@ -30,7 +29,7 @@ interface SwitchFieldLabelTokens {
 
 interface SwitchFieldThumbTokens {
   backgroundColor: DesignToken<BackgroundColorValue>;
-  borderColor: DesignToken<ColorValue>;
+  borderColor: DesignToken<BorderColorValue>;
   borderRadius: DesignToken<BorderRadiusValue>;
   checked: SwitchFieldThumbCheckedTokens;
   transition: SwitchFieldThumbTransitionTokens;

@@ -1,5 +1,6 @@
 import {
   BackgroundColorValue,
+  BorderColorValue,
   BorderWidthValue,
   BoxShadowValue,
   ColorValue,
@@ -13,13 +14,13 @@ interface ToggleButtonActiveTokens {
   backgroundColor: DesignToken<BackgroundColorValue>;
 }
 interface ToggleButtonFocusTokens {
-  borderColor: DesignToken<ColorValue>;
+  borderColor: DesignToken<BorderColorValue>;
   color: DesignToken<ColorValue>;
 }
 
 interface ToggleButtonDisabledTokens {
   backgroundColor: DesignToken<BackgroundColorValue>;
-  borderColor: DesignToken<ColorValue>;
+  borderColor: DesignToken<BorderColorValue>;
   color: DesignToken<ColorValue>;
 }
 
@@ -42,7 +43,7 @@ interface ToggleButtonPrimaryTokens {
   _pressed: ToggleButtonPrimaryPressedTokens;
 }
 interface ToggleButtonPrimaryFocusTokens {
-  borderColor: DesignToken<ColorValue>;
+  borderColor: DesignToken<BorderColorValue>;
   backgroundColor: DesignToken<BackgroundColorValue>;
   boxShadow: DesignToken<BoxShadowValue>;
   color: DesignToken<ColorValue>;
@@ -64,7 +65,7 @@ interface ToggleButtonPrimaryDisabledTokens {
 
 interface ToggleButtonPrimaryPressedTokens {
   backgroundColor: DesignToken<BackgroundColorValue>;
-  borderColor: DesignToken<ColorValue>;
+  borderColor: DesignToken<BorderColorValue>;
   color: DesignToken<ColorValue>;
   _focus: TogglButtonPrimaryPressedFocusTokens;
   _hover: TogglButtonPrimaryPressedHoverTokens;
@@ -72,11 +73,11 @@ interface ToggleButtonPrimaryPressedTokens {
 
 interface TogglButtonPrimaryPressedFocusTokens {
   backgroundColor: DesignToken<BackgroundColorValue>;
-  borderColor: DesignToken<ColorValue>;
+  borderColor: DesignToken<BorderColorValue>;
 }
 interface TogglButtonPrimaryPressedHoverTokens {
   backgroundColor: DesignToken<BackgroundColorValue>;
-  borderColor: DesignToken<ColorValue>;
+  borderColor: DesignToken<BorderColorValue>;
 }
 
 interface ToggleButtonLinkTokens {
@@ -111,7 +112,7 @@ interface ToggleButtonLinkPressedHoverTokens {
 }
 
 export interface ToggleButtonTokens {
-  borderColor: DesignToken<ColorValue>;
+  borderColor: DesignToken<BorderColorValue>;
   color: DesignToken<ColorValue>;
   _hover: ToggleButtonHoverTokens;
   _focus: ToggleButtonFocusTokens;
