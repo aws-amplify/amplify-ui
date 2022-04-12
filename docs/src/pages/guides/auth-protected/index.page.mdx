@@ -1,5 +1,9 @@
 ---
-title: Overview
+title: How to create a React application with protected routes using the Authenticator component
 ---
 
-This the new auth guide
+import { Fragment } from '@/components/Fragment';
+
+<Fragment>
+  {({ platform }) => import(`./auth-protected.${platform}.mdx`)}
+</Fragment>

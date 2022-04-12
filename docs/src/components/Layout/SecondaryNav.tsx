@@ -113,11 +113,7 @@ export const SecondaryNav = (props) => {
         <NavLink {...props} href="/guides">
           Guides
         </NavLink>
-        <NavLink
-          {...props}
-          platforms={['react', 'vue', 'angular']}
-          href="/guides/auth-protected"
-        >
+        <NavLink {...props} href="/guides/auth-protected">
           Protected Routes
         </NavLink>
       </>
