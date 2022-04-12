@@ -108,7 +108,7 @@ const useAuthenticatorService = () => {
 export const useAuthenticator = (selector?: Selector) => {
   const service = useAuthenticatorService();
 
-  const send = service.send;
+  const { send } = service;
 
   // send aliases are static and thus can be memoized
   const sendAliases = React.useMemo<ReturnType<typeof getSendEventAliases>>(
