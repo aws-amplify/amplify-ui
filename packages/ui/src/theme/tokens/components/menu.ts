@@ -1,5 +1,6 @@
 import {
   BackgroundColorValue,
+  BorderColorValue,
   BorderRadiusValue,
   BorderStyleValue,
   BorderWidthValue,
