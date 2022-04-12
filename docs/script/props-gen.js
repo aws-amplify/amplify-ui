@@ -51,7 +51,10 @@ const categorizedProps = Object.entries(props).reduce((acc, [key, val]) => {
 }, {});
 
 writeFileSync(
-  path.resolve(__dirname, `${displayName}-react-auto-prop-categorized.json`),
+  path.resolve(
+    __dirname,
+    `${displayName.toLowerCase()}-react-auto-prop-categorized.json`
+  ),
   JSON.stringify(categorizedProps, null, 2)
 );
 
@@ -120,7 +123,7 @@ import remarkGfm from 'remark-gfm';
 writeFileSync(
   path.resolve(
     __dirname,
-    `../src/pages/components/${displayName.toLowerCase()}/react-auto-prop-table-button2.mdx`
+    `../src/pages/components/${displayName.toLowerCase()}/react-auto-prop-table-${displayName.toLowerCase()}.mdx`
   ),
   output
 );
