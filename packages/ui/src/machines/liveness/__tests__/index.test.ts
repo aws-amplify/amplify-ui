@@ -28,6 +28,7 @@ describe('Liveness Machine', () => {
     start: jest.fn(),
     stop: jest.fn(),
     getBlob: jest.fn(),
+    destroy: jest.fn(),
   };
   const mockBlazeFace: any = {
     modelLoadingPromise: Promise.resolve(),
@@ -437,6 +438,7 @@ describe('Liveness Machine', () => {
       await flushPromises();
       expect(service.state.value).toEqual('checkSucceeded');
       expect(mockVideoRecorder.getBlob).toHaveBeenCalledTimes(1);
+      expect(mockVideoRecorder.destroy).toHaveBeenCalledTimes(1);
       expect(mockFlowProps.onSuccess).toHaveBeenCalledTimes(1);
       expect(
         mockLivenessPredictionsProvider.putLivenessVideo

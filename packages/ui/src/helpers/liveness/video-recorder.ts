@@ -68,8 +68,6 @@ export class VideoRecorder {
   destroy(): void {
     this.stop();
     this.clearRecordedData();
-    this._stream.getTracks().forEach((track: MediaStreamTrack) => {
-      track.stop();
-    });
+    this._recorder = null;
   }
 }
