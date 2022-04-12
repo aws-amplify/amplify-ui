@@ -1,0 +1,74 @@
+import { Expander, ExpanderItem } from '@aws-amplify/ui-react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+
+## Expander Props
+
+<Expander type="multiple" defaultValue={['ExpanderProps']}>
+  
+<ExpanderItem title="ExpanderProps" value="ExpanderProps">
+    <ReactMarkdown
+      remarkPlugins={[remarkGfm]}
+      children={`
+| name | type | default | description |
+| ---- | ---- | ------- | ----------- |
+| - | - | - | - |
+
+      `}
+    />
+
+  </ExpanderItem>
+
+<ExpanderItem title="BaseComponentProps" value="BaseComponentProps">
+    <ReactMarkdown
+      remarkPlugins={[remarkGfm]}
+      children={`
+| name | type | default | description |
+| ---- | ---- | ------- | ----------- |
+| - | - | - | - |
+
+      `}
+    />
+
+  </ExpanderItem>
+
+<ExpanderItem title="BaseStyleProps" value="BaseStyleProps">
+    <ReactMarkdown
+      remarkPlugins={[remarkGfm]}
+      children={`
+| name | type | default | description |
+| ---- | ---- | ------- | ----------- |
+| - | - | - | - |
+
+      `}
+    />
+
+  </ExpanderItem>
+
+<ExpanderItem title="RefAttributes" value="RefAttributes">
+    <ReactMarkdown
+      remarkPlugins={[remarkGfm]}
+      children={`
+| name | type | default | description |
+| ---- | ---- | ------- | ----------- |
+| ref | Ref&#60;unknown&#62; | - |  |
+
+      `}
+    />
+
+  </ExpanderItem>
+
+<ExpanderItem title="TypeLiteral" value="TypeLiteral">
+    <ReactMarkdown
+      remarkPlugins={[remarkGfm]}
+      children={`
+| name | type | default | description |
+| ---- | ---- | ------- | ----------- |
+| - | - | - | - |
+
+      `}
+    />
+
+  </ExpanderItem>
+
+</Expander>

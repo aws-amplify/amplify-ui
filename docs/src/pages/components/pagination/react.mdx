@@ -1,3 +1,4 @@
+import { Fragment } from '@/components/Fragment';
 import { Flex } from '@aws-amplify/ui-react';
 import { PaginationDemo } from './demo.tsx';
 import { Example, ExampleCode } from '@/components/Example';
@@ -60,7 +61,7 @@ To replace the Pagination styling, unset it:
   all: unset;
   /* Add your styling here*/
 }
-```
+````
 
 ### Local styling
 
@@ -139,4 +140,7 @@ import '@aws-amplify/ui-react/styles.css';
 ## Accessibility
 
 By default, the root node has a role of "navigation" and each page item has an aria-label that identifies the purpose of the item ("Go to previous page", "Go to next page", "Go to page 1" etc.).
-````
+
+<Fragment>
+  {({ platform }) => import('./react-auto-prop-table-pagination.mdx')}
+</Fragment>

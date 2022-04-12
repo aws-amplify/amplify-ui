@@ -1,3 +1,4 @@
+import { Fragment } from '@/components/Fragment';
 import { Grid, View } from '@aws-amplify/ui-react';
 
 import { GridDemo } from './demo';
@@ -162,3 +163,7 @@ See [responsive design](/ui/theme/responsive) for more details.
 ### Target classes
 
 <ComponentStyleDisplay componentName="Grid" />
+
+<Fragment>
+  {({ platform }) => import('./react-auto-prop-table-grid.mdx')}
+</Fragment>

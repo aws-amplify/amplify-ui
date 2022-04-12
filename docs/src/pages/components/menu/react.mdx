@@ -1,3 +1,4 @@
+import { Fragment } from '@/components/Fragment';
 import { Menu, MenuItem } from '@aws-amplify/ui-react';
 
 import { MenuDemo } from './demo';
@@ -217,3 +218,7 @@ import '@aws-amplify/ui-react/styles.css';
     <MenuItem>Mark as Draft</MenuItem>
   </Menu>
 </Example>
+
+<Fragment>
+  {({ platform }) => import('./react-auto-prop-table-menu.mdx')}
+</Fragment>

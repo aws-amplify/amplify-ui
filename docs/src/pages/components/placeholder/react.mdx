@@ -1,3 +1,4 @@
+import { Fragment } from '@/components/Fragment';
 import { Placeholder, View, Flex } from '@aws-amplify/ui-react';
 import { PlaceholderDemo, TwoWays } from './demo';
 import { Example } from '@/components/Example';
@@ -120,3 +121,7 @@ _Using style props:_
 <Flex>
   <Placeholder height="123px" width="50%" />
 </Flex>
+
+<Fragment>
+  {({ platform }) => import('./react-auto-prop-table-placeholder.mdx')}
+</Fragment>

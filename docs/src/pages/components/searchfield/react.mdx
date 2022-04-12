@@ -1,3 +1,4 @@
+import { Fragment } from '@/components/Fragment';
 import { SearchField, Flex, View } from '@aws-amplify/ui-react';
 
 import { Example, ExampleCode } from '@/components/Example';
@@ -204,3 +205,7 @@ Flex styling props will be applied to the SearchField wrapping Flex component, w
 
   </ExampleCode>
 </Example>
+
+<Fragment>
+  {({ platform }) => import('./react-auto-prop-table-searchfield.mdx')}
+</Fragment>

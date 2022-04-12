@@ -1,5 +1,5 @@
+import { Fragment } from '@/components/Fragment';
 import { Flex, ToggleButton } from '@aws-amplify/ui-react';
-
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentClassTable } from '@/components/ComponentClassTable';
 import StandardHTMLAttributes from '@/components/StandardHTMLAttributes.mdx';
@@ -237,3 +237,7 @@ _Using style props:_
 
   </ExampleCode>
 </Example>
+
+<Fragment>
+  {({ platform }) => import('./react-auto-prop-table-togglebutton.mdx')}
+</Fragment>

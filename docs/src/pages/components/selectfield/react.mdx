@@ -1,3 +1,4 @@
+import { Fragment } from '@/components/Fragment';
 import { SelectField, Flex, IconArrowDropDown } from '@aws-amplify/ui-react';
 
 import { Example, ExampleCode } from '@/components/Example';
@@ -333,3 +334,7 @@ _Using style props:_
     </SelectField>
   </Flex>
 </Example>
+
+<Fragment>
+  {({ platform }) => import('./react-auto-prop-table-selectfield.mdx')}
+</Fragment>

@@ -1,0 +1,1167 @@
+{
+  "TypeLiteral": {
+    "as": {
+      "defaultValue": null,
+      "description": "",
+      "name": "as",
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/view.ts",
+          "name": "TypeLiteral"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ForwardRefExoticComponent&#60;Pick&#60;PrimitivePropsWithRef&#60;FlexProps, \"div\"&#62;, \"area\" &#124; \"slot\" &#124; \"style\" &#124; \"title\" &#124; \"as\" &#124; \"isDisabled\" &#124; \"id\" &#124; \"className\" &#124; \"testId\" &#124; ... 322 more ... &#124; \"rowGap\"&#62; & RefAttributes&#60;...&#62;&#62; &#124; ElementType"
+      }
+    }
+  },
+  "BaseComponentProps": {
+    "id": {
+      "defaultValue": null,
+      "description": "Unique identifier",
+      "name": "id",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/base.ts",
+        "name": "BaseComponentProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/base.ts",
+          "name": "BaseComponentProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "string"
+      }
+    },
+    "className": {
+      "defaultValue": null,
+      "description": "Additional CSS class name for component",
+      "name": "className",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/base.ts",
+        "name": "BaseComponentProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/base.ts",
+          "name": "BaseComponentProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "string"
+      }
+    },
+    "testId": {
+      "defaultValue": null,
+      "description": "Used to provide a &#96;data-testid&#96; attribute for testing purposes",
+      "name": "testId",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/base.ts",
+        "name": "BaseComponentProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/base.ts",
+          "name": "BaseComponentProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "string"
+      }
+    }
+  },
+  "BaseStyleProps": {
+    "alignSelf": {
+      "defaultValue": null,
+      "description": "",
+      "name": "alignSelf",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;AlignSelf&#62;&#62;"
+      }
+    },
+    "backgroundColor": {
+      "defaultValue": null,
+      "description": "",
+      "name": "backgroundColor",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;BackgroundColor&#62;&#62;"
+      }
+    },
+    "backgroundImage": {
+      "defaultValue": null,
+      "description": "",
+      "name": "backgroundImage",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;BackgroundImage&#62;&#62;"
+      }
+    },
+    "border": {
+      "defaultValue": null,
+      "description": "",
+      "name": "border",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;Border&#60;0 &#124; (string & {})&#62;&#62;&#62;"
+      }
+    },
+    "borderRadius": {
+      "defaultValue": null,
+      "description": "",
+      "name": "borderRadius",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;BorderRadius&#60;0 &#124; (string & {})&#62;&#62;&#62;"
+      }
+    },
+    "bottom": {
+      "defaultValue": null,
+      "description": "",
+      "name": "bottom",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;Bottom&#60;0 &#124; (string & {})&#62;&#62;&#62;"
+      }
+    },
+    "boxShadow": {
+      "defaultValue": null,
+      "description": "",
+      "name": "boxShadow",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;BoxShadow&#62;&#62;"
+      }
+    },
+    "color": {
+      "defaultValue": null,
+      "description": "",
+      "name": "color",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;Color&#62;&#62;"
+      }
+    },
+    "display": {
+      "defaultValue": null,
+      "description": "",
+      "name": "display",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;Display&#62;&#62;"
+      }
+    },
+    "fontFamily": {
+      "defaultValue": null,
+      "description": "",
+      "name": "fontFamily",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;FontFamily&#62;&#62;"
+      }
+    },
+    "fontSize": {
+      "defaultValue": null,
+      "description": "",
+      "name": "fontSize",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;FontSize&#60;0 &#124; (string & {})&#62;&#62;&#62;"
+      }
+    },
+    "fontStyle": {
+      "defaultValue": null,
+      "description": "",
+      "name": "fontStyle",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;FontStyle&#62;&#62;"
+      }
+    },
+    "fontWeight": {
+      "defaultValue": null,
+      "description": "",
+      "name": "fontWeight",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;FontWeight&#62;&#62;"
+      }
+    },
+    "height": {
+      "defaultValue": null,
+      "description": "",
+      "name": "height",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;Height&#60;0 &#124; (string & {})&#62;&#62;&#62;"
+      }
+    },
+    "left": {
+      "defaultValue": null,
+      "description": "",
+      "name": "left",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;Left&#60;0 &#124; (string & {})&#62;&#62;&#62;"
+      }
+    },
+    "letterSpacing": {
+      "defaultValue": null,
+      "description": "",
+      "name": "letterSpacing",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;LetterSpacing&#60;0 &#124; (string & {})&#62;&#62;&#62;"
+      }
+    },
+    "lineHeight": {
+      "defaultValue": null,
+      "description": "",
+      "name": "lineHeight",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;LineHeight&#60;0 &#124; (string & {})&#62;&#62;&#62;"
+      }
+    },
+    "margin": {
+      "defaultValue": null,
+      "description": "",
+      "name": "margin",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;Margin&#60;0 &#124; (string & {})&#62;&#62;&#62;"
+      }
+    },
+    "marginBlockEnd": {
+      "defaultValue": null,
+      "description": "",
+      "name": "marginBlockEnd",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;MarginBlockEnd&#60;0 &#124; (string & {})&#62;&#62;&#62;"
+      }
+    },
+    "marginBlockStart": {
+      "defaultValue": null,
+      "description": "",
+      "name": "marginBlockStart",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;MarginBlockStart&#60;0 &#124; (string & {})&#62;&#62;&#62;"
+      }
+    },
+    "marginBottom": {
+      "defaultValue": null,
+      "description": "",
+      "name": "marginBottom",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;MarginBlockEnd&#60;0 &#124; (string & {})&#62;&#62;&#62;"
+      }
+    },
+    "marginInlineEnd": {
+      "defaultValue": null,
+      "description": "",
+      "name": "marginInlineEnd",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;MarginInlineEnd&#60;0 &#124; (string & {})&#62;&#62;&#62;"
+      }
+    },
+    "marginInlineStart": {
+      "defaultValue": null,
+      "description": "",
+      "name": "marginInlineStart",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;MarginInlineStart&#60;0 &#124; (string & {})&#62;&#62;&#62;"
+      }
+    },
+    "marginLeft": {
+      "defaultValue": null,
+      "description": "",
+      "name": "marginLeft",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;MarginInlineStart&#60;0 &#124; (string & {})&#62;&#62;&#62;"
+      }
+    },
+    "marginRight": {
+      "defaultValue": null,
+      "description": "",
+      "name": "marginRight",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;MarginInlineEnd&#60;0 &#124; (string & {})&#62;&#62;&#62;"
+      }
+    },
+    "marginTop": {
+      "defaultValue": null,
+      "description": "",
+      "name": "marginTop",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;MarginBlockStart&#60;0 &#124; (string & {})&#62;&#62;&#62;"
+      }
+    },
+    "maxHeight": {
+      "defaultValue": null,
+      "description": "",
+      "name": "maxHeight",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;MaxHeight&#60;0 &#124; (string & {})&#62;&#62;&#62;"
+      }
+    },
+    "maxWidth": {
+      "defaultValue": null,
+      "description": "",
+      "name": "maxWidth",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;MaxWidth&#60;0 &#124; (string & {})&#62;&#62;&#62;"
+      }
+    },
+    "minHeight": {
+      "defaultValue": null,
+      "description": "",
+      "name": "minHeight",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;MinHeight&#60;0 &#124; (string & {})&#62;&#62;&#62;"
+      }
+    },
+    "minWidth": {
+      "defaultValue": null,
+      "description": "",
+      "name": "minWidth",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;MinWidth&#60;0 &#124; (string & {})&#62;&#62;&#62;"
+      }
+    },
+    "opacity": {
+      "defaultValue": null,
+      "description": "",
+      "name": "opacity",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;Opacity&#62;&#62;"
+      }
+    },
+    "overflow": {
+      "defaultValue": null,
+      "description": "",
+      "name": "overflow",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;Overflow&#62;&#62;"
+      }
+    },
+    "padding": {
+      "defaultValue": null,
+      "description": "",
+      "name": "padding",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;Padding&#60;0 &#124; (string & {})&#62;&#62;&#62;"
+      }
+    },
+    "paddingBlockEnd": {
+      "defaultValue": null,
+      "description": "",
+      "name": "paddingBlockEnd",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;MarginBlockEnd&#60;0 &#124; (string & {})&#62;&#62;&#62;"
+      }
+    },
+    "paddingBlockStart": {
+      "defaultValue": null,
+      "description": "",
+      "name": "paddingBlockStart",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;MarginBlockStart&#60;0 &#124; (string & {})&#62;&#62;&#62;"
+      }
+    },
+    "paddingBottom": {
+      "defaultValue": null,
+      "description": "",
+      "name": "paddingBottom",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;PaddingBlockEnd&#60;0 &#124; (string & {})&#62;&#62;&#62;"
+      }
+    },
+    "paddingInlineEnd": {
+      "defaultValue": null,
+      "description": "",
+      "name": "paddingInlineEnd",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;MarginInlineEnd&#60;0 &#124; (string & {})&#62;&#62;&#62;"
+      }
+    },
+    "paddingInlineStart": {
+      "defaultValue": null,
+      "description": "",
+      "name": "paddingInlineStart",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;MarginInlineStart&#60;0 &#124; (string & {})&#62;&#62;&#62;"
+      }
+    },
+    "paddingLeft": {
+      "defaultValue": null,
+      "description": "",
+      "name": "paddingLeft",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;PaddingInlineStart&#60;0 &#124; (string & {})&#62;&#62;&#62;"
+      }
+    },
+    "paddingRight": {
+      "defaultValue": null,
+      "description": "",
+      "name": "paddingRight",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;PaddingInlineEnd&#60;0 &#124; (string & {})&#62;&#62;&#62;"
+      }
+    },
+    "paddingTop": {
+      "defaultValue": null,
+      "description": "",
+      "name": "paddingTop",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;PaddingBlockStart&#60;0 &#124; (string & {})&#62;&#62;&#62;"
+      }
+    },
+    "position": {
+      "defaultValue": null,
+      "description": "",
+      "name": "position",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;Position&#62;&#62;"
+      }
+    },
+    "right": {
+      "defaultValue": null,
+      "description": "",
+      "name": "right",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;Right&#60;0 &#124; (string & {})&#62;&#62;&#62;"
+      }
+    },
+    "textAlign": {
+      "defaultValue": null,
+      "description": "",
+      "name": "textAlign",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;TextAlign&#62;&#62;"
+      }
+    },
+    "textDecoration": {
+      "defaultValue": null,
+      "description": "",
+      "name": "textDecoration",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;TextDecoration&#60;0 &#124; (string & {})&#62;&#62;&#62;"
+      }
+    },
+    "textTransform": {
+      "defaultValue": null,
+      "description": "",
+      "name": "textTransform",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;TextTransform&#62;&#62;"
+      }
+    },
+    "top": {
+      "defaultValue": null,
+      "description": "",
+      "name": "top",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;Top&#60;0 &#124; (string & {})&#62;&#62;&#62;"
+      }
+    },
+    "transform": {
+      "defaultValue": null,
+      "description": "",
+      "name": "transform",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;Transform&#62;&#62;"
+      }
+    },
+    "transformOrigin": {
+      "defaultValue": null,
+      "description": "",
+      "name": "transformOrigin",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;TransformOrigin&#60;0 &#124; (string & {})&#62;&#62;&#62;"
+      }
+    },
+    "width": {
+      "defaultValue": null,
+      "description": "",
+      "name": "width",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;Width&#60;0 &#124; (string & {})&#62;&#62;&#62;"
+      }
+    },
+    "whiteSpace": {
+      "defaultValue": null,
+      "description": "",
+      "name": "whiteSpace",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+        "name": "BaseStyleProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/style.ts",
+          "name": "BaseStyleProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ResponsiveStyle&#60;StyleToken&#60;WhiteSpace&#62;&#62;"
+      }
+    }
+  },
+  "RadioGroupFieldProps": {
+    "defaultValue": {
+      "defaultValue": null,
+      "description": "Use this to provide a default value for an uncontrolled field",
+      "name": "defaultValue",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/radioGroupField.ts",
+        "name": "RadioGroupFieldProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/radioGroupField.ts",
+          "name": "RadioGroupFieldProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "string"
+      }
+    },
+    "onChange": {
+      "defaultValue": null,
+      "description": "Handle onChange event",
+      "name": "onChange",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/radioGroupField.ts",
+        "name": "RadioGroupFieldProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/radioGroupField.ts",
+          "name": "RadioGroupFieldProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "ChangeEventHandler&#60;HTMLInputElement&#62;"
+      }
+    },
+    "name": {
+      "defaultValue": null,
+      "description": "Name of the field. Submitted with the form as part of a name/value pair.",
+      "name": "name",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/radioGroupField.ts",
+        "name": "RadioGroupFieldProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/radioGroupField.ts",
+          "name": "RadioGroupFieldProps"
+        }
+      ],
+      "required": true,
+      "type": {
+        "name": "string"
+      }
+    },
+    "value": {
+      "defaultValue": null,
+      "description": "If value is provided, this will be a controlled field",
+      "name": "value",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/radioGroupField.ts",
+        "name": "RadioGroupFieldProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/radioGroupField.ts",
+          "name": "RadioGroupFieldProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "string"
+      }
+    },
+    "labelPosition": {
+      "defaultValue": null,
+      "description": "Position of label in relation to the radio, default is 'start'",
+      "name": "labelPosition",
+      "parent": {
+        "fileName": "amplify-ui/packages/react/src/primitives/types/radioGroupField.ts",
+        "name": "RadioGroupFieldProps"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/packages/react/src/primitives/types/radioGroupField.ts",
+          "name": "RadioGroupFieldProps"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "LabelPositions"
+      }
+    }
+  },
+  "RefAttributes": {
+    "ref": {
+      "defaultValue": null,
+      "description": "",
+      "name": "ref",
+      "parent": {
+        "fileName": "amplify-ui/node_modules/@types/react/index.d.ts",
+        "name": "RefAttributes"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/node_modules/@types/react/index.d.ts",
+          "name": "RefAttributes"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "Ref&#60;HTMLDivElement&#62;"
+      }
+    }
+  }
+}

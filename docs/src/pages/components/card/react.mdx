@@ -1,3 +1,4 @@
+import { Fragment } from '@/components/Fragment';
 import {
   Card,
   View,
@@ -159,3 +160,7 @@ _Using style props:_
 ```js file=../../../../../packages/ui/src/theme/tokens/components/card.ts
 
 ```
+
+<Fragment>
+  {({ platform }) => import('./react-auto-prop-table-card.mdx')}
+</Fragment>

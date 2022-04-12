@@ -1,0 +1,23 @@
+{
+  "RefAttributes": {
+    "ref": {
+      "defaultValue": null,
+      "description": "",
+      "name": "ref",
+      "parent": {
+        "fileName": "amplify-ui/node_modules/@types/react/index.d.ts",
+        "name": "RefAttributes"
+      },
+      "declarations": [
+        {
+          "fileName": "amplify-ui/node_modules/@types/react/index.d.ts",
+          "name": "RefAttributes"
+        }
+      ],
+      "required": false,
+      "type": {
+        "name": "Ref&#60;SVGSymbolElement &#124; SVGElement &#124; HTMLObjectElement &#124; HTMLElement &#124; HTMLAnchorElement &#124; ... 112 more ... &#124; SVGViewElement&#62;"
+      }
+    }
+  }
+}

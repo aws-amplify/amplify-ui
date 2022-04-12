@@ -1,3 +1,4 @@
+import { Fragment } from '@/components/Fragment';
 import { Text } from '@aws-amplify/ui-react';
 import { TextDemo, TextTruncatedSample, TextStylingSample } from './demo';
 import { Example } from '@/components/Example';
@@ -144,3 +145,7 @@ _Using style props:_
 <Example>
   <TextStylingSample />
 </Example>
+
+<Fragment>
+  {({ platform }) => import('./react-auto-prop-table-text.mdx')}
+</Fragment>

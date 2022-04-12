@@ -1,3 +1,4 @@
+import { Fragment } from '@/components/Fragment';
 import { CheckboxField } from '@aws-amplify/ui-react';
 
 import { ControlledCheckbox } from './examples/controlledExample';
@@ -273,3 +274,7 @@ import { CheckboxField } from '@aws-amplify/ui-react';
 <Example>
   <CheckboxField label="Subscribe" name="subscribe" value="yes" gap="1rem" />
 </Example>
+
+<Fragment>
+  {({ platform }) => import('./react-auto-prop-table-checkboxfield.mdx')}
+</Fragment>

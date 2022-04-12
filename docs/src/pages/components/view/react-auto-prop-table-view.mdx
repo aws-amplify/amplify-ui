@@ -1,0 +1,74 @@
+import { Expander, ExpanderItem } from '@aws-amplify/ui-react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+
+## View Props
+
+<Expander type="multiple" defaultValue={['ViewProps']}>
+  
+<ExpanderItem title="ViewProps" value="ViewProps">
+    <ReactMarkdown
+      remarkPlugins={[remarkGfm]}
+      children={`
+| name | type | default | description |
+| ---- | ---- | ------- | ----------- |
+| - | - | - | - |
+
+      `}
+    />
+
+  </ExpanderItem>
+
+<ExpanderItem title="BaseComponentProps" value="BaseComponentProps">
+    <ReactMarkdown
+      remarkPlugins={[remarkGfm]}
+      children={`
+| name | type | default | description |
+| ---- | ---- | ------- | ----------- |
+| - | - | - | - |
+
+      `}
+    />
+
+  </ExpanderItem>
+
+<ExpanderItem title="BaseStyleProps" value="BaseStyleProps">
+    <ReactMarkdown
+      remarkPlugins={[remarkGfm]}
+      children={`
+| name | type | default | description |
+| ---- | ---- | ------- | ----------- |
+| - | - | - | - |
+
+      `}
+    />
+
+  </ExpanderItem>
+
+<ExpanderItem title="RefAttributes" value="RefAttributes">
+    <ReactMarkdown
+      remarkPlugins={[remarkGfm]}
+      children={`
+| name | type | default | description |
+| ---- | ---- | ------- | ----------- |
+| ref | Ref&#60;SVGSymbolElement &#124; SVGElement &#124; HTMLObjectElement &#124; HTMLElement &#124; HTMLAnchorElement &#124; ... 112 more ... &#124; SVGViewElement&#62; | - |  |
+
+      `}
+    />
+
+  </ExpanderItem>
+
+<ExpanderItem title="TypeLiteral" value="TypeLiteral">
+    <ReactMarkdown
+      remarkPlugins={[remarkGfm]}
+      children={`
+| name | type | default | description |
+| ---- | ---- | ------- | ----------- |
+| - | - | - | - |
+
+      `}
+    />
+
+  </ExpanderItem>
+
+</Expander>

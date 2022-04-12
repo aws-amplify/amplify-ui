@@ -1,3 +1,4 @@
+import { Fragment } from '@/components/Fragment';
 import { Badge, View } from '@aws-amplify/ui-react';
 import { BadgeDemo } from './demo';
 import { Example, ExampleCode } from '@/components/Example';
@@ -176,3 +177,7 @@ _Using style props:_
 
   </ExampleCode>
 </Example>
+
+<Fragment>
+  {({ platform }) => import('./react-auto-prop-table-badge.mdx')}
+</Fragment>

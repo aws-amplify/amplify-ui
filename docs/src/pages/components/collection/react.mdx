@@ -1,3 +1,4 @@
+import { Fragment } from '@/components/Fragment';
 import {
   Button,
   Card,
@@ -224,3 +225,7 @@ const startsWith = (regions, keyword) => regions.name.startsWith(keyword)
 ### Target classes
 
 <ComponentStyleDisplay componentName="Collection" />
+
+<Fragment>
+  {({ platform }) => import('./react-auto-prop-table-collection.mdx')}
+</Fragment>
