@@ -56,7 +56,7 @@ const NavLink = ({
   );
 };
 
-const Nav = ({ platform, ...props }: any) => (
+const Nav = (props) => (
   <Flex as="nav" className="docs-nav" alignItems="center" gap="0" grow="1">
     <NavLink {...props} href="/getting-started/installation">
       Getting started
