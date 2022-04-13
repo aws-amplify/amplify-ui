@@ -47,7 +47,6 @@
     "rehype-slug": "^4.0.1",
     "remark-code-import": "^0.3.0",
     "remark-frontmatter": "^3.0.0",
-    "remark-gfm": "^1.0.0",
     "remark-github": "^10.1.0",
     "remark-mdx-frontmatter": "^1.0.1",
     "remark-mdx-images": "^1.0.2",

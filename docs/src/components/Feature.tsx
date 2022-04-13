@@ -12,9 +12,6 @@ import {
 } from '@heroicons/react/solid';
 import { useRouter } from 'next/router';
 import * as React from 'react';
-import * as runtime from 'react/jsx-runtime';
-import remarkGfm from 'remark-gfm';
-import { evaluateSync } from '@mdx-js/mdx';
 
 const parser = new Parser(
   new AstBuilder(IdGenerator.uuid()),
@@ -90,16 +87,6 @@ export function Feature({ name = required('Missing feature name') }) {
       </Alert>
     );
   }
-
-  const { default: About } = evaluateSync(
-    document.feature.description,
-    // @ts-ignore because react/jsx-runtime doesn't export types
-    {
-      ...runtime,
-      rehypePlugins: [],
-      remarkPlugins: [remarkGfm],
-    }
-  );
 
   return (
     <React.Fragment key={document.feature.name}>

@@ -114,7 +114,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 `,
     },
-    { h2: `${displayName} Props` },
+    { h2: 'Props' },
     {
       Expander: {
         ExpanderItems: propsTables,
@@ -126,7 +126,6 @@ import remarkGfm from 'remark-gfm';
 for await (const filePath of globbyStream(
   path.join(__dirname, '../../packages/react/src/primitives/**/index.ts')
 )) {
-
   const { props, displayName } = getData(filePath);
 
   const targetPath = path.resolve(
@@ -152,7 +151,7 @@ for await (const filePath of globbyStream(
     ),
     output
   );
-  console.log(`✅ ${displayName} Props Tables are updated.`)
+  console.log(`✅ ${displayName} Props Tables are updated.`);
 }
 
-console.log("🎉 Props Tables are all updated.")
+console.log('🎉 Props Tables are all updated.');
