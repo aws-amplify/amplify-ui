@@ -98,7 +98,7 @@ const useAuthenticatorService = () => {
 
   if (!service) {
     throw new Error(
-      'No `Authenticator.Provider` was found above where `useAuthenticator` hook is. Please ensure you wrap your App with `Authenticator.Provider`.'
+      'Please ensure you wrap your App with `Authenticator.Provider`.\nSee the `useAuthenticator` section on https://ui.docs.amplify.aws/components/authenticator.'
     );
   }
 
