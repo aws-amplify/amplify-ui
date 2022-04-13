@@ -114,24 +114,30 @@ Amplify UI follows a consistent pattern when defining tokens for a component's s
 component[variant][_state][child];
 ```
 
-Following this pattern, our token definition for the component would follow this general structure. **Note**: Amplify UI prefixes states with an underscore, `_`, to help distinguish state names from variation names.
+**Note**: Amplify UI prefixes states with an underscore, `_`, to help distinguish state names from variation names.
+
+The [Button](https://github.com/aws-amplify/amplify-ui/blob/main/packages/ui/src/theme/tokens/components/button.ts) component is a good example of a token definition that includes multiple states and variations and follows this pattern:
 
 ```javascript
-export const component = {
-  child: {}
+export const button = {
+  //  ... default tokens
 
-  _state: {
-    child: {}
-  }
+  // states
+  _hover: {},
+  _focus: {},
+  _active: {},
+  _loading: {},
+  _disabled: {},
 
-  variation: {
-    child: {},
-    _state: {
-      child: {}
-    }
-  }
-
-}
+  // variations with states
+  primary: {
+    _hover: {},
+    _focus: {},
+    _active: {},
+    _loading: {},
+    _disabled: {},
+  },
+};
 ```
 
 Compiled, this would create the following CSS custom properties:
@@ -142,8 +148,6 @@ Compiled, this would create the following CSS custom properties:
 --amplify-component-variation-child-token: value,
 --amplify-component-variation-state-child-token: value,
 ```
-
-A good example of this structure can be found in our [Button component token definitions](https://github.com/aws-amplify/amplify-ui/blob/main/packages/ui/src/theme/tokens/components/button.ts) which has multiple variations and states.
 
 ### Fonts
 
