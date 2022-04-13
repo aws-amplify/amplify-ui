@@ -50,7 +50,6 @@
     "build:icons": "yarn run clean:icons && node scripts/generateIcons.js",
     "clean": "rimraf dist node_modules",
     "clean:icons": "rimraf ./src/primitives/Icon/icons",
-    "primitives:new": "hygen primitives new",
     "lint": "tsc --noEmit && yarn eslint:primitives",
     "test": "yarn test:unit",
     "test:watch": "yarn test:unit:watch",
