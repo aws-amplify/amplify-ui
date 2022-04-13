@@ -44,6 +44,7 @@ const {
   socialProviders,
   hideSignUp,
   formFields,
+  enableAnalytics,
 } = withDefaults(
   defineProps<{
     hideSignUp?: boolean;
@@ -51,6 +52,7 @@ const {
     loginMechanisms?: AuthenticatorMachineOptions['loginMechanisms'];
     services?: AuthenticatorMachineOptions['services'];
     signUpAttributes?: AuthenticatorMachineOptions['signUpAttributes'];
+    enableAnalytics?: AuthenticatorMachineOptions['enableAnalytics'];
     variation?: 'default' | 'modal';
     socialProviders?: SocialProvider[];
     formFields?: AuthFormFields;
@@ -98,6 +100,7 @@ unsubscribeMachine = service.subscribe((newState) => {
         signUpAttributes,
         services,
         formFields,
+        enableAnalytics,
       },
     });
     hasInitialized.value = true;

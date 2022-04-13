@@ -32,6 +32,7 @@ export class AuthenticatorComponent
   @Input() loginMechanisms: AuthenticatorMachineOptions['loginMechanisms'];
   @Input() services: AuthenticatorMachineOptions['services'];
   @Input() signUpAttributes: AuthenticatorMachineOptions['signUpAttributes'];
+  @Input() enableAnalytics?: AuthenticatorMachineOptions['enableAnalytics'];
   @Input() socialProviders: SocialProvider[];
   @Input() variation: 'default' | 'modal';
   @Input() hideSignUp: boolean;
@@ -59,6 +60,7 @@ export class AuthenticatorComponent
       signUpAttributes,
       socialProviders,
       formFields,
+      enableAnalytics,
     } = this;
 
     /**
@@ -77,6 +79,7 @@ export class AuthenticatorComponent
             signUpAttributes,
             socialProviders,
             formFields,
+            enableAnalytics,
           },
         });
 

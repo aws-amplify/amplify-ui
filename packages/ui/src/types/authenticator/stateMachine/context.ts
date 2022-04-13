@@ -31,6 +31,17 @@ export interface AuthContext {
     formFields?: AuthFormFields;
     initialState?: 'signIn' | 'signUp' | 'resetPassword';
     passwordSettings?: PasswordSettings;
+
+    /**
+     * Enable analytical events for the component via Amplify Analytics
+     * NOTE: The Amplify Analytics category needs to be configured for this to work
+     * read more here: https://docs.amplify.aws/lib/analytics/getting-started/q/platform/js/
+     *
+     * @experimental Currently under development
+     *
+     * @default false
+     */
+    enableAnalytics?: boolean;
   };
   services?: Partial<typeof defaultServices>;
   user?: CognitoUserAmplify;
