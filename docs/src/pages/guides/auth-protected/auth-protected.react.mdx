@@ -169,7 +169,7 @@ When the `route` changes to `authenticated` the `useEffect` will trigger and the
 
 Alternatively, instead of using `route` this can also be accomplished using `Auth.currentAuthenticatedUser()`. This promise from the `aws-amplify` [library](https://docs.amplify.aws/lib/auth/manageusers/q/platform/js/) will return the `user` information back. If the user isn't logged in the promise will reject.
 
-## Adding in a RequireAuth Component
+## Adding in a RequireAuth component
 
 Let's take a look at `RequireAuth` next. This component will be used to gate whether a route can be accessed or not. Routes that are **NOT** authenticated will be redirected back to `/login`. State will also be preserved.
 
