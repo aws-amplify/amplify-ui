@@ -3,7 +3,7 @@
   "name": "docs",
   "version": "0.0.1",
   "scripts": {
-    "update:props-table": "node ./script/props-gen.mjs",
+    "update:props-table": "node ./script/generatePropsTables.mjs",
     "dev": "next dev -p 5000",
     "preflutter:build": "yarn flutter:clean",
     "flutter:build": "(cd flutter/authenticator && flutter build web)",
@@ -73,8 +73,8 @@
     "tailwindcss": "^2.0.3",
     "typescript": "^4.2.2"
   },
-  "engines" : { 
-    "npm" : ">=7.0.0",
-    "node" : "16"
+  "engines": {
+    "npm": ">=7.0.0",
+    "node": "16"
   }
 }
