@@ -39,6 +39,7 @@ export interface AuthContext {
   code?: string;
   mfaType?: AuthChallengeNames.SMS_MFA | AuthChallengeNames.SOFTWARE_TOKEN_MFA;
   actorDoneData?: Omit<ActorDoneData, 'user'>; // data returned from actors when they finish and reach their final state
+  hasSetup?: boolean;
 }
 
 /**
