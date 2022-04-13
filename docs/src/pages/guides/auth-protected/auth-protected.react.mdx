@@ -1,19 +1,14 @@
 import { Image } from '@aws-amplify/ui-react';
 
-The [Amplify UI Authenticator](/components/authenticator) component allows you to quickly scaffold out an end-to-end authentication flow, in
-just a few lines of code.
+The [Amplify UI Authenticator](/components/authenticator) component allows you to quickly scaffold out an end-to-end authentication flow, in just a few lines of code.
 
-Typically, this can be accomplished by wrapping the entire application in the [withAuthenticator](components/authenticator?platform=react#quick-start) higher-order component.
-This forces the entire application behind a login page.
+Typically, this can be accomplished by wrapping the entire application in the [withAuthenticator](components/authenticator?platform=react#quick-start) higher-order component. This forces the entire application behind a login page.
 
-Let's imagine you needed a web application where the login page was in it's own route, and that you needed a handful of selected routes
-to only be accessed by logged in users.
+Let's imagine you needed a web application where the login page was in its own route, and that you needed a handful of selected routes to only be accessed by logged in users.
 
 This guide demonstrates that scenario while using the [Amplify UI Authenticator](/components/authenticator) and the [Amplify CLI](https://docs.amplify.aws/cli/).
 
-> If you'd like to follow along, please use this example [Github repo](https://github.com/ErikCH/protected-route-amplify-react). Additionally,
-> you can watch this [video](https://youtu.be/6f635LVtwgk) that walks through this process, and includes a bonus section on how to create a lambda function
-> with a custom authorizer.
+> If you'd like to follow along, please use this example [Github repo](https://github.com/ErikCH/protected-route-amplify-react). Additionally, you can watch this [video](https://youtu.be/6f635LVtwgk) that walks through this process, and includes a bonus section on how to create a lambda function with a custom authorizer.
 
 _Example Screenshot of App_
 
@@ -41,8 +36,7 @@ Next, install the Amplify libraries and React Router.
 npm i @aws-amplify/ui-react aws-amplify react-router-dom@6
 ```
 
-To add authentication to your application we'll need to install the Amplify CLI. This tool gives us a command line utility
-to add AWS services.
+To add authentication to your application we'll need to install the Amplify CLI. This tool gives us a command line utility to add AWS services.
 
 ```bash
 npm i @aws-amplify/cli -g
@@ -118,11 +112,9 @@ This imports the newly created `aws-exports` file into your app and configures i
 
 Next, create a new `components` folder in the root of your application. In here create a new `Login` component.
 
-This component will display the `Authenticator` and allow you to create new users and log in. If you like to add
-additional configuration you can look at the [configuration documentation](/components/authenticator).
+This component will display the `Authenticator` and allow you to create new users and log in. If you like to add additional configuration you can look at the [configuration documentation](/components/authenticator).
 
-In addition, after a user logs in, it will redirected them to the last place they navigated to. This is a very helpful pattern when working
-with protected routes. If you'd like more information on this pattern please see the [React Router Auth documentation](https://reactrouter.com/docs/en/v6/examples/auth).
+In addition, after a user logs in, it will redirected them to the last place they navigated to. This is a very helpful pattern when working with protected routes. If you'd like more information on this pattern please see the [React Router Auth documentation](https://reactrouter.com/docs/en/v6/examples/auth).
 
 ```jsx
 // components/Login.js
@@ -159,13 +151,9 @@ Let's take a look at this line in more detail:
 const { route } = useAuthenticator((context) => [context.route]);
 ```
 
-The [useAuthenticator](/components/authenticator#useauthenticator-hook) hook is used to access, modify, and update the
-Authenticator's auth state. In this example we destructure `useAuthenticator` and receive the `route`. The `route` can be used to tell if a route is `authenticated` or not.
-The `route` can also be set to `signIn`,`signOut`, or even `idle` depending on where the customer is during the authentication flow.
+The [useAuthenticator](/components/authenticator#useauthenticator-hook) hook is used to access, modify, and update the Authenticator's auth state. In this example we destructure `useAuthenticator` and receive the `route`. The `route` can be used to tell if a route is `authenticated` or not. The `route` can also be set to `signIn`,`signOut`, and even `idle` or `setup` depending on where the user is during the authentication flow.
 
-> You may have noticed that we passed into the `useAuthenticator` a context callback function:
-> `(context) => [context.route]`
-> This is very important as it will help prevent unneccessary re-renders of the application. Excluding it may also cause errors!
+> You may have noticed that we passed into the `useAuthenticator` a context callback function: `(context) => [context.route]` This is very important as it will help prevent unneccessary re-renders of the application. Excluding it may also cause errors!
 
 Let's take a look at the `useEffect` below:
 
@@ -179,13 +167,11 @@ useEffect(() => {
 
 When the `route` changes to `authenticated` the `useEffect` will trigger and the user will be navigated to the previous location.
 
-Alternatively, instead of using `route` this can also be accomplished using `Auth.currentAuthenticatedUser()`. This promise from the `aws-amplify` [library](https://docs.amplify.aws/lib/auth/manageusers/q/platform/js/)
-will return the `user` information back. If the user isn't logged in the promise will reject.
+Alternatively, instead of using `route` this can also be accomplished using `Auth.currentAuthenticatedUser()`. This promise from the `aws-amplify` [library](https://docs.amplify.aws/lib/auth/manageusers/q/platform/js/) will return the `user` information back. If the user isn't logged in the promise will reject.
 
 ## Adding in a RequireAuth Component
 
-Let's take a look at `RequireAuth` next. This component will be used to gate whether a route can be accessed or not. Routes that
-are **NOT** authenticated will be redirected back to `/login`. State will also be preserved.
+Let's take a look at `RequireAuth` next. This component will be used to gate whether a route can be accessed or not. Routes that are **NOT** authenticated will be redirected back to `/login`. State will also be preserved.
 
 If the customer is logged in, the `route` will be set to `authenticated`, and the user can continue on.
 
@@ -205,6 +191,8 @@ export function RequireAuth({ children }) {
   return children;
 }
 ```
+
+> If you're logged in and refresh the browser, the `route` may temporarily be set to `idle` or `setup` while it loads. That will cause a redirection back to the `/login` page, which in turn will redirect back to the protected route. The user will not notice anything, and the protected route will be displayed. However, if you like to have more control of this process you can use `Auth.currentAuthenticatedUser()` instead.
 
 We'll need to use this component later.
 
@@ -303,8 +291,7 @@ export function Layout() {
 }
 ```
 
-You'll notice that we are using the `route` to check if the user is `authenticated` again. This is helpful because we can use it
-to show a different message for users who are logged in versus those who are not.
+You'll notice that we are using the `route` to check if the user is `authenticated` again. This is helpful because we can use it to show a different message for users who are logged in versus those who are not.
 
 When a user logs out, we'll navigate them back to the `/login` page.
 
@@ -380,8 +367,7 @@ function App() {
 
 This will assure us that we can use the `useAuthenticator` hook anywhere in your application without issues.
 
-Another important factor is protecting routes. Since we have created the `RequireAuth` component we can now use it to
-surround any route component that we want protected, as seen below:
+Another important factor is protecting routes. Since we have created the `RequireAuth` component we can now use it to surround any route component that we want protected, as seen below:
 
 ```jsx
 <Route
@@ -394,8 +380,7 @@ surround any route component that we want protected, as seen below:
 />
 ```
 
-That's all we have to do. Now this route will be protected, and if anyone tries to navigate to it, without being logged in,
-they'll be redirected to the `/login` page.
+That's all we have to do. Now this route will be protected, and if anyone tries to navigate to it, without being logged in, they'll be redirected to the `/login` page.
 
 ## Try it out!
 
