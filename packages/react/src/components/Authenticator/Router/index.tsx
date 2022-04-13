@@ -11,7 +11,7 @@ import { ConfirmVerifyUser, VerifyUser } from '../VerifyUser';
 import { ConfirmSignIn } from '../ConfirmSignIn/ConfirmSignIn';
 import { ConfirmResetPassword, ResetPassword } from '../ResetPassword';
 
-export type AuthenticatorRenderProp = ({
+type AuthenticatorRenderProp = ({
   signOut,
   user,
 }: {
