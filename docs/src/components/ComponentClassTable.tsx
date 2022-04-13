@@ -4,6 +4,8 @@ import {
   ComponentClassObject,
   View,
   TableRow,
+  TableBody,
+  TableHead,
   TableCell,
 } from '@aws-amplify/ui-react';
 
@@ -30,11 +32,13 @@ export const ComponentClassTable = ({ componentName }) => {
   return (
     <View className="docs-css-classes">
       <Table variation="bordered">
-        <TableRow>
-          <TableCell as="th">Class</TableCell>
-          <TableCell as="th">Description</TableCell>
-        </TableRow>
-        {targetClasses}
+        <TableHead>
+          <TableRow>
+            <TableCell as="th">Class</TableCell>
+            <TableCell as="th">Description</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>{targetClasses}</TableBody>
       </Table>
     </View>
   );

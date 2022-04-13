@@ -1,5 +1,9 @@
-export const countrycodeselect = {
+import { DesignToken, SpaceValue } from '../types/designToken';
+export interface CountryCodeSelectTokens {
+  height: DesignToken<SpaceValue>;
+}
+export const countrycodeselect: CountryCodeSelectTokens = {
   height: {
-    value: '100%',
+    value: '{space.relative.full.value}',
   },
 };
