@@ -38,7 +38,7 @@
   );
   background-color: var(--amplify-components-switchfield-track-background-color);
   &[data-checked='true'] {
-    background-color: var(--amplify-components-switchfield-track-checked-background-color);
+    background-color: var(--amplify-components-switchfield-checked-track-background-color);
   }
   &[data-disabled='true'] {
     opacity: var(--amplify-components-switchfield-disabled-opacity);
@@ -60,7 +60,7 @@
   border-color: var(--amplify-components-switchfield-thumb-border-color);
   overflow-wrap: break-word;
   &[data-checked='true'] {
-    transform: var(--amplify-components-switchfield-thumb-checked-transform);
+    transform: var(--amplify-components-switchfield-checked-thumb-transform);
   }
   &[data-disabled='true'] {
     cursor: not-allowed;
