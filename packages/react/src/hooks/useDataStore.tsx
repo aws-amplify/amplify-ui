@@ -11,83 +11,9 @@ import {
 } from '../primitives/types/datastore';
 
 /**
- * Perform a collection query against a DataStore model
- * @internal
- */
-export const useDataStoreCollection = <M extends PersistentModel>({
-  model,
-  criteria,
-  pagination,
-}: DataStoreCollectionProps<M>): DataStoreCollectionResult<M> => {
-  const [result, setResult] = React.useState<DataStoreCollectionResult<M>>({
-    items: [],
-    isLoading: false,
-    error: undefined,
-  });
-
-  const fetch = () => {
-    setResult({ isLoading: true, items: [] });
-
-    const subscription = DataStore.observeQuery(
-      model,
-      criteria,
-      pagination
-    ).subscribe(
-      (snapshot) => setResult({ items: snapshot.items, isLoading: false }),
-      (error) => setResult({ items: [], error, isLoading: false })
-    );
-
-    // Unsubscribe from query updates on unmount
-    if (subscription) {
-      return () => subscription.unsubscribe();
-    }
-  };
-
-  // Fetch on next render cycle
-  // useEffect should only run once here
-  // Ignore exhaustive dependencies rule here by design
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  React.useEffect(fetch, []);
-
-  return result;
-};
-
-/**
- * Perform a single record query against a DataStore model
- * @internal
- */
-export const useDataStoreItem = <M extends PersistentModel>({
-  model,
-  id,
-}: DataStoreItemProps<M>): DataStoreItemResult<M> => {
-  const [item, setItem] = React.useState<M>();
-  const [isLoading, setLoading] = React.useState<boolean>(false);
-  const [error, setError] = React.useState<Error>();
-
-  const fetch = () => {
-    setLoading(true);
-
-    DataStore.query(model, id)
-      .then(setItem)
-      .catch(setError)
-      .finally(() => setLoading(false));
-  };
-
-  // Fetch on next render cycle
-  // useEffect should only run once here
-  // Ignore exhaustive dependencies rule here by design
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  React.useEffect(fetch, []);
-
-  return {
-    error,
-    item,
-    isLoading,
-  };
-};
-
-/**
  * Perform a query against a DataStore model
+ * @param props object containing params for calling either calling Datastore.query or Datastore.observeQuery
+ * @returns the result of either calling Datastore.query or Datastore.observeQuery for the provided props
  * @internal
  */
 export function useDataStoreBinding<Model extends PersistentModel>(
@@ -101,9 +27,91 @@ export function useDataStoreBinding<Model extends PersistentModel>(
     | DataStoreBindingProps<Model, 'record'>
     | DataStoreBindingProps<Model, 'collection'>
 ): DataStoreItemResult<Model> | DataStoreCollectionResult<Model> {
-  return props.type === 'record'
-    ? // eslint-disable-next-line react-hooks/rules-of-hooks
-      useDataStoreItem(props)
-    : // eslint-disable-next-line react-hooks/rules-of-hooks
-      useDataStoreCollection(props);
+  const isRecord = props.type === 'record';
+
+  const [isLoading, setIsLoading] = React.useState<boolean>(true);
+  const [error, setError] = React.useState<Error>();
+  const [items, setItems] = React.useState<
+    // use DataStoreCollectionResult for both 'record' and 'collection' types
+    DataStoreCollectionResult<Model>['items']
+  >([]);
+
+  // assign the function used to query DataStore to a ref to prevent it from being a dep of the useEffect it is
+  // called in, ensuring that the useEffect dep array remains empty. This guarantees the useEffect only runs
+  // once and that subecription.unsubscribe is not called between render cycles
+  const queryRef = React.useRef(() => {
+    if (isRecord) {
+      // call DataStore.query for single record
+      const { id, model } = props;
+      DataStore.query<Model>(model, id)
+        .then<void>((item) => {
+          setItems([item]);
+        })
+        .catch((error) => {
+          setError(error);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    } else {
+      // call DataStore.observeQuery for record collection
+      const { criteria, model, pagination } = props;
+
+      const subscription = DataStore.observeQuery(
+        model,
+        criteria,
+        pagination
+      ).subscribe(
+        ({ items }) => {
+          setItems(items);
+          setIsLoading(false);
+        },
+        (error: Error) => {
+          setError(error);
+          setIsLoading(false);
+        }
+      );
+
+      // Unsubscribe from query updates on unmount
+      if (subscription) {
+        return () => {
+          subscription.unsubscribe();
+        };
+      }
+    }
+  });
+
+  React.useEffect(() => queryRef.current(), []);
+
+  return {
+    ...(isRecord ? { item: items[0] } : { items }),
+    error,
+    isLoading,
+  };
 }
+
+/**
+ * Perform a collection query against a DataStore model
+ * @internal
+ */
+export const useDataStoreCollection = <M extends PersistentModel>({
+  criteria,
+  model,
+  pagination,
+}: DataStoreCollectionProps<M>): DataStoreCollectionResult<M> =>
+  useDataStoreBinding({
+    criteria,
+    model,
+    pagination,
+    type: 'collection',
+  });
+
+/**
+ * Perform a single record query against a DataStore model
+ * @internal
+ */
+export const useDataStoreItem = <M extends PersistentModel>({
+  id,
+  model,
+}: DataStoreItemProps<M>): DataStoreItemResult<M> =>
+  useDataStoreBinding({ id, model, type: 'record' });
