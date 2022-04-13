@@ -11,15 +11,17 @@ import { ConfirmVerifyUser, VerifyUser } from '../VerifyUser';
 import { ConfirmSignIn } from '../ConfirmSignIn/ConfirmSignIn';
 import { ConfirmResetPassword, ResetPassword } from '../ResetPassword';
 
+export type AuthenticatorRenderProp = ({
+  signOut,
+  user,
+}: {
+  signOut: ReturnType<typeof useAuthenticator>['signOut'];
+  user: CognitoUserAmplify;
+}) => JSX.Element;
+
 export type RouterProps = {
   className?: string;
-  children?: ({
-    signOut,
-    user,
-  }: {
-    signOut: ReturnType<typeof useAuthenticator>['signOut'];
-    user: CognitoUserAmplify;
-  }) => JSX.Element;
+  children?: JSX.Element | AuthenticatorRenderProp;
   variation?: 'default' | 'modal';
   hideSignUp?: boolean;
 };
@@ -46,7 +48,11 @@ export function Router({
 
   // `Authenticator` might not have `children` for non SPA use cases.
   if (['authenticated', 'signOut'].includes(route)) {
-    return children ? children({ signOut, user }) : null;
+    return children
+      ? typeof children === 'function'
+        ? children({ signOut, user })
+        : children
+      : null;
   }
 
   return (
