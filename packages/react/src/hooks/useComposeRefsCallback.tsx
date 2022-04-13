@@ -5,23 +5,26 @@ export interface UseComposeRefsCallbackProps<RefType> {
   internalRef: React.MutableRefObject<RefType>;
 }
 
-export type UseComposeRefsCallbackReturn<RefType> = (node: RefType) => void;
+export type UseComposeRefsCallback<RefType> = (node: RefType) => void;
 
 /**
  *  Creates ref callback to compose together external and internal refs
  */
-export const useComposeRefsCallback = <RefType,>({
+export function useComposeRefsCallback<RefType>({
   externalRef,
   internalRef,
-}: UseComposeRefsCallbackProps<RefType>): UseComposeRefsCallbackReturn<RefType> => {
-  return React.useCallback((node) => {
-    // Handle callback ref
-    if (typeof externalRef === 'function') {
-      externalRef(node);
-    } else if (externalRef != null) {
-      externalRef.current = node;
-    }
+}: UseComposeRefsCallbackProps<RefType>): UseComposeRefsCallback<RefType> {
+  return React.useCallback(
+    (node) => {
+      // Handle callback ref
+      if (typeof externalRef === 'function') {
+        externalRef(node);
+      } else if (externalRef !== null) {
+        externalRef.current = node;
+      }
 
-    internalRef.current = node;
-  }, []);
-};
+      internalRef.current = node;
+    },
+    [externalRef, internalRef]
+  );
+}

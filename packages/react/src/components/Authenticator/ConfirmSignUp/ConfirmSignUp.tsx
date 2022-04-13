@@ -94,7 +94,7 @@ export function ConfirmSignUp() {
   );
 }
 
-ConfirmSignUp.Header = () => {
+const DefaultHeader = () => {
   const { codeDeliveryDetails: { DeliveryMedium } = {} } = useAuthenticator(
     (context) => [context.codeDeliveryDetails]
   );
@@ -112,5 +112,7 @@ ConfirmSignUp.Header = () => {
     </Heading>
   );
 };
+
+ConfirmSignUp.Header = DefaultHeader;
 
 ConfirmSignUp.Footer = (): JSX.Element => null;

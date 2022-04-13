@@ -2,7 +2,12 @@ import QRCode from 'qrcode';
 import * as React from 'react';
 
 import { Auth, Logger } from 'aws-amplify';
-import { getActorState, SignInState, translate } from '@aws-amplify/ui';
+import {
+  CognitoUserAmplify,
+  getActorState,
+  SignInState,
+  translate,
+} from '@aws-amplify/ui';
 
 import { Flex } from '../../../primitives/Flex';
 import { Heading } from '../../../primitives/Heading';
@@ -36,34 +41,33 @@ export const SetupTOTP = (): JSX.Element => {
   // `user` hasn't been set on the top-level state yet, so it's only available from the signIn actor
   const actorState = getActorState(_state) as SignInState;
 
-  const { user } = actorState.context;
+  const { formFields, user } = actorState.context;
+  const { totpIssuer = 'AWSCognito', totpUsername = user.username } =
+    formFields?.setupTOTP?.QR;
 
-  const formOverrides = getActorState(_state).context?.formFields?.setupTOTP;
+  const generateQRCode = React.useCallback(
+    async (currentUser: CognitoUserAmplify): Promise<void> => {
+      try {
+        const newSecretKey = await Auth.setupTOTP(currentUser);
+        setSecretKey(newSecretKey);
+        const totpCode = `otpauth://totp/${totpIssuer}:${totpUsername}?secret=${newSecretKey}&issuer=${totpIssuer}`;
+        const qrCodeImageSource = await QRCode.toDataURL(totpCode);
 
-  const QROR = formOverrides?.['QR'];
-
-  const generateQRCode = async (user): Promise<void> => {
-    try {
-      const newSecretKey = await Auth.setupTOTP(user);
-      setSecretKey(newSecretKey);
-      const issuer = QROR?.totpIssuer ?? 'AWSCognito';
-      const username = QROR?.totpUsername ?? user.username;
-      const totpCode = `otpauth://totp/${issuer}:${username}?secret=${newSecretKey}&issuer=${issuer}`;
-      const qrCodeImageSource = await QRCode.toDataURL(totpCode);
-
-      setQrCode(qrCodeImageSource);
-    } catch (error) {
-      logger.error(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+        setQrCode(qrCodeImageSource);
+      } catch (error) {
+        logger.error(error);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [totpIssuer, totpUsername]
+  );
 
   React.useEffect(() => {
     if (!user) return;
 
     generateQRCode(user);
-  }, [user]);
+  }, [generateQRCode, user]);
 
   const copyText = (): void => {
     navigator.clipboard.writeText(secretKey);

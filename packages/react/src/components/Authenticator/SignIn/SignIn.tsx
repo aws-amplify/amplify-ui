@@ -64,8 +64,7 @@ export function SignIn() {
   );
 }
 
-SignIn.Header = (): JSX.Element => null;
-SignIn.Footer = () => {
+const DefaultFooter = () => {
   const { toResetPassword } = useAuthenticator((context) => [
     context.toResetPassword,
   ]);
@@ -88,3 +87,6 @@ SignIn.Footer = () => {
     </View>
   );
 };
+
+SignIn.Footer = DefaultFooter;
+SignIn.Header = (): JSX.Element => null;
