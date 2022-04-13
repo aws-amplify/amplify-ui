@@ -1,6 +1,6 @@
 import { translate } from '@aws-amplify/ui';
 
-import { TextField } from '../../../primitives';
+import { TextField } from '../../../primitives/TextField';
 
 export interface ConfirmationCodeInputProps {
   errorText?: string;

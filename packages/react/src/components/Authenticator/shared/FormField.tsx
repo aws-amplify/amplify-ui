@@ -1,9 +1,8 @@
 import { FormFieldOptions, getErrors } from '@aws-amplify/ui';
-import {
-  PasswordField,
-  PhoneNumberField,
-  TextField,
-} from '../../../primitives';
+
+import { PasswordField } from '../../../primitives/PasswordField';
+import { PhoneNumberField } from '../../../primitives/PhoneNumberField';
+import { TextField } from '../../../primitives/TextField';
 import { useAuthenticator } from '../hooks/useAuthenticator';
 import { ValidationErrors } from './ValidationErrors';
 
@@ -12,7 +11,9 @@ export interface FormFieldProps {
   formFieldOptions: FormFieldOptions;
 }
 export function FormField({ name, formFieldOptions }: FormFieldProps) {
-  const { validationErrors } = useAuthenticator();
+  const { validationErrors } = useAuthenticator((context) => [
+    context.validationErrors,
+  ]);
   const { type } = formFieldOptions;
 
   const errors = getErrors(validationErrors[name]);

@@ -1,20 +1,18 @@
-import * as React from 'react';
-
 import { translate, hasTranslation } from '@aws-amplify/ui';
 
-import { Button, Flex, View, VisuallyHidden } from '../../..';
+import { Button } from '../../../primitives/Button';
+import { Flex } from '../../../primitives/Flex';
+import { View } from '../../../primitives/View';
+import { VisuallyHidden } from '../../../primitives/VisuallyHidden';
 import { FederatedSignIn } from '../FederatedSignIn';
-import {
-  useAuthenticator,
-  useCustomComponents,
-  useFormHandlers,
-} from '../hooks';
-import { RemoteErrorMessage } from '../shared';
-
+import { useAuthenticator } from '../hooks/useAuthenticator';
+import { useCustomComponents } from '../hooks/useCustomComponents';
+import { useFormHandlers } from '../hooks/useFormHandlers';
+import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { FormFields } from '../shared/FormFields';
 
 export function SignIn() {
-  const { isPending } = useAuthenticator();
+  const { isPending } = useAuthenticator((context) => [context.isPending]);
   const { handleChange, handleSubmit } = useFormHandlers();
 
   const {
@@ -66,9 +64,10 @@ export function SignIn() {
   );
 }
 
-SignIn.Header = (): JSX.Element => null;
-SignIn.Footer = () => {
-  const { toResetPassword } = useAuthenticator();
+const DefaultFooter = () => {
+  const { toResetPassword } = useAuthenticator((context) => [
+    context.toResetPassword,
+  ]);
 
   // Support backwards compatibility for legacy key with trailing space
   const forgotPasswordText = !hasTranslation('Forgot your password? ')
@@ -88,3 +87,6 @@ SignIn.Footer = () => {
     </View>
   );
 };
+
+SignIn.Footer = DefaultFooter;
+SignIn.Header = (): JSX.Element => null;

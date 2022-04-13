@@ -8,13 +8,14 @@ import {
   translate,
 } from '@aws-amplify/ui';
 
-import { Heading, Radio, RadioGroupField } from '../../..';
-import {
-  useAuthenticator,
-  useCustomComponents,
-  useFormHandlers,
-} from '../hooks';
-import { RemoteErrorMessage, TwoButtonSubmitFooter } from '../shared';
+import { Heading } from '../../../primitives/Heading';
+import { Radio } from '../../../primitives/Radio';
+import { RadioGroupField } from '../../../primitives/RadioGroupField';
+import { useAuthenticator } from '../hooks/useAuthenticator';
+import { useCustomComponents } from '../hooks/useCustomComponents';
+import { useFormHandlers } from '../hooks/useFormHandlers';
+import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
+import { TwoButtonSubmitFooter } from '../shared/TwoButtonSubmitFooter';
 
 const censorContactInformation = (
   type: ContactMethod,
@@ -60,7 +61,10 @@ export const VerifyUser = (): JSX.Element => {
     },
   } = useCustomComponents();
 
-  const { _state, isPending } = useAuthenticator();
+  // TODO: expose unverifiedAttributes from `useAuthenticator`
+  const { _state, isPending } = useAuthenticator((context) => [
+    context.isPending,
+  ]);
   const { handleChange, handleSubmit } = useFormHandlers();
   const context = getActorContext(_state) as SignInContext;
 
