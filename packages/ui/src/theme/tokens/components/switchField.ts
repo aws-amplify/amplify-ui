@@ -2,10 +2,10 @@ import {
   BackgroundColorValue,
   BorderColorValue,
   BorderRadiusValue,
-  BoxShadowValue,
   DesignToken,
   FontSizeValue,
   OpacityValue,
+  ShadowValue,
   SpaceValue,
   TransformValue,
   TransitionDurationValue,
@@ -16,7 +16,7 @@ interface SwitchFieldDisabledTokens {
 }
 
 interface SwitchFieldFocusedTokens {
-  shadow: DesignToken<BoxShadowValue>;
+  shadow: DesignToken<ShadowValue>;
 }
 
 interface SwitchFieldSizeTokens {

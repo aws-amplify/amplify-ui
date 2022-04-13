@@ -55,7 +55,7 @@ export type BorderStyleValue = string;
 export type BorderWidthValue = SpaceValue;
 export type BorderValue = string;
 export type BoxSizingValue = string;
-export type BoxShadowValue = ShadowValue | string;
+export type BoxShadowValue = ShadowValue;
 export type CaptionSideValue = string;
 export type ColorValue = string;
 export type CursorValue = string;
@@ -79,13 +79,15 @@ export type OutlineStyleValue = string;
 export type PositionValue = string;
 export type PointerEventsValue = string;
 export type RadiusValue = string;
-export type ShadowValue = {
-  offsetX: string;
-  offsetY: string;
-  blurRadius: string;
-  spreadRadius?: string;
-  color: string;
-};
+export type ShadowValue =
+  | {
+      offsetX: string;
+      offsetY: string;
+      blurRadius: string;
+      spreadRadius?: string;
+      color: string;
+    }
+  | string;
 export type StrokeFilledValue = string;
 export type StrokeEmptyValue = string;
 export type StrokeLinecapValue = string;
