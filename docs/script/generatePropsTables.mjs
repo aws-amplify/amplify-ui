@@ -59,17 +59,17 @@ const categorizeProps = (props, wantedCategories) =>
 
 const createPropsTable = (props) => {
   return {
-    headers: ['name', 'type', 'default', 'description'],
+    headers: ['Name', 'Type', 'Default', 'Description'],
     rows: props
       ? Object.values(props).map(
           ({ name, type, defaultValue, description }) => ({
-            name: name.replaceAll(/[{}]/g, '\\$&'),
-            type: type.name.replaceAll(/[{}]/g, '\\$&'),
-            default: defaultValue ? defaultValue.value.toString() : '-',
-            description,
+            Name: name.replaceAll(/[{}]/g, '\\$&'),
+            Type: type.name.replaceAll(/[{}]/g, '\\$&'),
+            Default: defaultValue ? defaultValue.value.toString() : '/',
+            Description: description,
           })
         )
-      : [{ name: '-', type: '-', default: '-', description: '-' }],
+      : [{ Name: '/', Type: '/', Default: '/', Description: '/' }],
   };
 };
 
