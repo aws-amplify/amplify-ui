@@ -1,10 +1,9 @@
 import * as React from 'react';
 
-import { PartialDeep } from 'src/types';
-import { defaultComponents } from './defaultComponents';
+import { defaultComponents, DefaultComponents } from './defaultComponents';
 
 export interface ComponentsProviderProps {
-  components?: PartialDeep<typeof defaultComponents>;
+  components?: DefaultComponents;
 }
 
 export const CustomComponentsContext =

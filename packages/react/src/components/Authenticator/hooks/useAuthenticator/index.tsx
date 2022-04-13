@@ -52,9 +52,15 @@ export const Provider = ({ children }) => {
     service: { send },
   } = value;
 
+  const isListening = React.useRef(false);
   React.useEffect(() => {
+    if (isListening.current) {
+      return;
+    }
+
+    isListening.current = true;
     return listenToAuthHub(send);
-  }, []);
+  }, [send]);
 
   return (
     <AuthenticatorContext.Provider value={value}>
@@ -87,24 +93,27 @@ export type InternalAuthenticatorContext = {
  */
 export type Selector = (context: AuthenticatorContext) => Array<any>;
 
-export const useAuthenticator = (selector?: Selector) => {
+const useAuthenticatorService = () => {
   const { service } = React.useContext(AuthenticatorContext);
 
   if (!service) {
-    console.error(
-      'No `Authenticator.Provider` was found above where `useAuthenticator` hook is. ' +
-        'Please ensure you wrap your App with `Authenticator.Provider` like so: ' +
-        'https://ui.docs.amplify.aws/components/authenticator#useauthenticator-hook'
+    throw new Error(
+      'Please ensure you wrap your App with `Authenticator.Provider`.\nSee the `useAuthenticator` section on https://ui.docs.amplify.aws/components/authenticator.'
     );
-    return null;
   }
 
-  const send = service.send;
+  return service;
+};
+
+export const useAuthenticator = (selector?: Selector) => {
+  const service = useAuthenticatorService();
+
+  const { send } = service;
 
   // send aliases are static and thus can be memoized
   const sendAliases = React.useMemo<ReturnType<typeof getSendEventAliases>>(
     () => getSendEventAliases(send),
-    [service]
+    [send]
   );
 
   const getFacade = (state: AuthMachineState) => {

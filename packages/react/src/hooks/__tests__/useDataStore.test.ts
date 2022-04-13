@@ -1,11 +1,19 @@
 import { DataStore, SortDirection } from '@aws-amplify/datastore';
 import { renderHook } from '@testing-library/react-hooks';
-import { useDataStoreCollection, useDataStoreItem } from '../useDataStore';
+import {
+  useDataStoreBinding,
+  useDataStoreCollection,
+  useDataStoreItem,
+} from '../useDataStore';
 
 jest.mock('@aws-amplify/datastore');
 
 const fakeModel: any = {
   id: 'FakeModel',
+};
+
+const nextFakeModel: any = {
+  id: 'nextFakeModel',
 };
 
 const fakeItem = {
@@ -35,10 +43,10 @@ describe('useDataStoreCollection', () => {
     expect(result.current.error).toBeUndefined();
   });
 
-  it('should set error if DataStore.query throws an error', async () => {
+  it('should set error if DataStore.observeQuery throws an error', async () => {
     const fakeError = new Error('Unexpected DataStore error');
     const fakeDataStoreObserveQuery = jest.fn(() => ({
-      subscribe: (onSuccess, onError) => {
+      subscribe: (_, onError) => {
         setTimeout(() => onError(fakeError), 500);
         return { unsubscribe: () => {} };
       },
@@ -66,7 +74,7 @@ describe('useDataStoreCollection', () => {
   });
 
   it('should return items on success', async () => {
-    const fakeItems = Array.from({ length: 100 }).map((f) => fakeItem);
+    const fakeItems = Array.from({ length: 100 }).map((_) => fakeItem);
 
     const fakePredicate = (p) => p.fieldName('eq', 'fake-value');
 
@@ -122,6 +130,32 @@ describe('useDataStoreCollection', () => {
     unmount();
 
     expect(unsubscribe).toHaveBeenCalled();
+  });
+
+  it('should only call DataStore.observeQuery once', () => {
+    const unsubscribe = jest.fn();
+    const fakeDataStoreObserveQuery = jest.fn(() => ({
+      subscribe: () => ({ unsubscribe }),
+    }));
+
+    (DataStore.observeQuery as jest.Mock).mockImplementation(
+      fakeDataStoreObserveQuery
+    );
+
+    const { rerender } = renderHook(
+      (params) => useDataStoreCollection(params),
+      {
+        initialProps: {
+          model: fakeModel,
+        },
+      }
+    );
+
+    expect(DataStore.observeQuery).toHaveBeenCalledTimes(1);
+
+    rerender({ model: nextFakeModel });
+
+    expect(DataStore.observeQuery).toHaveBeenCalledTimes(1);
   });
 });
 
@@ -192,5 +226,96 @@ describe('useDataStoreItem', () => {
 
     // Finally, check returned item
     expect(result.current.item).toBe(fakeItem);
+  });
+
+  it('should only call DataStore.query once', async () => {
+    const fakeDataStoreQuery = jest.fn(() => Promise.resolve(fakeItem));
+    (DataStore.query as jest.Mock).mockImplementation(fakeDataStoreQuery);
+
+    const { rerender, waitForNextUpdate } = renderHook(
+      (props) => useDataStoreItem(props),
+      {
+        initialProps: {
+          model: fakeModel,
+          id: fakeId,
+        },
+      }
+    );
+
+    // await fetch
+    await waitForNextUpdate();
+
+    expect(DataStore.query).toHaveBeenCalledTimes(1);
+
+    rerender({ model: nextFakeModel, id: fakeId });
+
+    expect(DataStore.query).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('useDataStoreBinding', () => {
+  afterEach(() => jest.clearAllMocks());
+
+  it('handles calls with type record in the happy path', async () => {
+    const fakeDataStoreQuery = jest.fn(() => Promise.resolve(fakeItem));
+    (DataStore.query as jest.Mock).mockImplementation(fakeDataStoreQuery);
+
+    const { result, waitForNextUpdate } = renderHook(() =>
+      useDataStoreBinding({
+        model: fakeModel,
+        id: fakeId,
+        type: 'record',
+      })
+    );
+
+    // Check if DataStore.query was invoked with expected parameters
+    expect(fakeDataStoreQuery).toHaveBeenCalledWith(fakeModel, fakeId);
+
+    // Trigger fetch
+    await waitForNextUpdate();
+
+    // Check if there's no errors and loading state is back to normal
+    expect(result.current.error).toBeUndefined();
+    expect(result.current.isLoading).toBe(false);
+
+    // Finally, check returned item
+    expect(result.current.item).toBe(fakeItem);
+  });
+
+  it('handles calls with type collection in the happy path', async () => {
+    const fakeItems = Array.from({ length: 100 }).map((_) => fakeItem);
+
+    const fakePredicate = (p) => p.fieldName('eq', 'fake-value');
+
+    const fakePagination = {
+      limit: 100,
+      sort: (s) => s.rating(SortDirection.ASCENDING),
+    };
+
+    const fakeDataStoreObserveQuery = jest.fn(() => ({
+      subscribe: (onSuccess) => {
+        setTimeout(() => onSuccess({ items: fakeItems }), 500);
+        return { unsubscribe: () => {} };
+      },
+    }));
+
+    (DataStore.observeQuery as jest.Mock).mockImplementation(
+      fakeDataStoreObserveQuery
+    );
+
+    const { result, waitForNextUpdate } = renderHook(() =>
+      useDataStoreBinding({
+        model: fakeModel,
+        criteria: fakePredicate,
+        pagination: fakePagination,
+        type: 'collection',
+      })
+    );
+
+    await waitForNextUpdate();
+
+    expect(result.current.isLoading).toBe(false);
+    expect(result.current.error).toBeUndefined();
+    expect(result.current.items).toBe(fakeItems);
   });
 });
