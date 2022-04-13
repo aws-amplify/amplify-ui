@@ -1,4 +1,30 @@
-export const card = {
+import {
+  BackgroundColorValue,
+  BorderColorValue,
+  BorderRadiusValue,
+  BorderStyleValue,
+  BorderWidthValue,
+  BoxShadowValue,
+  DesignToken,
+  SpaceValue,
+} from '../types/designToken';
+
+interface CardVariationTokens {
+  backgroundColor: DesignToken<BackgroundColorValue>;
+  borderRadius: DesignToken<BorderRadiusValue>;
+  borderWidth: DesignToken<BorderWidthValue>;
+  borderStyle: DesignToken<BorderStyleValue>;
+  borderColor: DesignToken<BorderColorValue>;
+  boxShadow: DesignToken<BoxShadowValue>;
+}
+
+export type CardTokens = CardVariationTokens & {
+  padding: DesignToken<SpaceValue>;
+  outlined: CardVariationTokens;
+  elevated: CardVariationTokens;
+};
+
+export const card: CardTokens = {
   backgroundColor: { value: '{colors.background.primary.value}' },
   borderRadius: { value: '{radii.xs.value}' },
   borderWidth: { value: '0' },

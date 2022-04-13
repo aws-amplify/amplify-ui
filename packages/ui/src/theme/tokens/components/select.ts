@@ -1,4 +1,53 @@
-export const select = {
+import {
+  AlignItemsValue,
+  BackgroundColorValue,
+  CursorValue,
+  DesignToken,
+  DisplayValue,
+  FlexValue,
+  PointerEventsValue,
+  PositionValue,
+  SpaceValue,
+  TransformValue,
+  WhiteSpaceValue,
+} from '../types/designToken';
+
+interface SelectWrapperTokens {
+  flex: DesignToken<FlexValue>;
+  display: DesignToken<DisplayValue>;
+  position: DesignToken<PositionValue>;
+  cursor: DesignToken<CursorValue>;
+}
+
+interface SelectIconWrapperTokens {
+  alignItems: DesignToken<AlignItemsValue>;
+  position: DesignToken<PositionValue>;
+  top: DesignToken<SpaceValue>;
+  right: DesignToken<SpaceValue>;
+  transform: DesignToken<TransformValue>;
+  pointerEvents: DesignToken<PointerEventsValue>;
+}
+
+interface SelectOptionTokens {
+  backgroundColor: DesignToken<BackgroundColorValue>;
+}
+
+interface SelectSizeTokens {
+  minWidth: DesignToken<SpaceValue>;
+}
+
+export interface SelectTokens {
+  paddingInlineEnd: DesignToken<SpaceValue>;
+  wrapper: SelectWrapperTokens;
+  iconWrapper: SelectIconWrapperTokens;
+  option: SelectOptionTokens;
+  whiteSpace: DesignToken<WhiteSpaceValue>;
+  minWidth: DesignToken<SpaceValue>;
+  small: SelectSizeTokens;
+  large: SelectSizeTokens;
+}
+
+export const select: SelectTokens = {
   paddingInlineEnd: { value: '{space.xxl.value}' },
   // wrappers
   wrapper: {
