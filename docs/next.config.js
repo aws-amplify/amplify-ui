@@ -118,7 +118,7 @@ module.exports = withNextPluginPreval({
     ];
     const defaultRemarkPlugins = [
       require('remark-code-import'),
-      require('remark-gfm'),
+      import('remark-gfm'),
       require('remark-mdx-images'),
       [
         require('remark-github'),
