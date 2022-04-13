@@ -1,5 +1,22 @@
 # @aws-amplify/ui-react
 
+## 2.15.3
+
+### Patch Changes
+
+- [#1681](https://github.com/aws-amplify/amplify-ui/pull/1681) [`7beda1ea2`](https://github.com/aws-amplify/amplify-ui/commit/7beda1ea2e28f5de4beefa50f2032cef3e4870e1) Thanks [@jacoblogan](https://github.com/jacoblogan)! - Remove hygen
+
+* [#1666](https://github.com/aws-amplify/amplify-ui/pull/1666) [`ef5a70817`](https://github.com/aws-amplify/amplify-ui/commit/ef5a708170ff2b177e79a5e2d8c6ea2645ee453a) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui-react): updates to allow eslint react-hooks/rules-of-hooks set to error
+  - update eslint 'rules-of-hooks/exhaustive-deps' from 'warning' to 'error'
+  - turn linting on for entire ui-react package
+  - add missing or update dep arrays as needed to satisfy 'rules-of-hooks/exhaustive-deps'
+  - add DefaultFooter component in SignIn
+  - add DefaultHeader component in ConfirmSignUp
+  - add DefaultComponents interface and remove PartialDeep and related files
+  - add useAuthenticatorService and error throw in useAuthenticator to prevent conditional hook calls
+* Updated dependencies [[`34a19a541`](https://github.com/aws-amplify/amplify-ui/commit/34a19a541b4b733a6688a38a435423e9c607e918), [`16dced7de`](https://github.com/aws-amplify/amplify-ui/commit/16dced7de5edc73c064b7ec4bddbefe586e98393)]:
+  - @aws-amplify/ui@3.6.3
+
 ## 2.15.2
 
 ### Patch Changes
