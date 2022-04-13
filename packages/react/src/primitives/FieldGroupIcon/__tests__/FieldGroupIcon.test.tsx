@@ -16,6 +16,13 @@ describe('FieldGroupIcon component', () => {
     expect(fieldGroup).toHaveClass(ComponentClassNames.FieldGroupIcon);
   });
 
+  it('should render icon with isHidden default to false', async () => {
+    render(<FieldGroupIcon testId={testId} />);
+
+    const fieldGroupIcon = await screen.findByTestId(testId);
+    expect(fieldGroupIcon).toBeInTheDocument();
+  });
+
   it('should forward ref to DOM element', async () => {
     const ref = React.createRef<HTMLDivElement>();
     render(

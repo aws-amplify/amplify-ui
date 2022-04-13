@@ -14,6 +14,7 @@ const SearchFieldPrimitive: Primitive<SearchFieldProps, 'input'> = (
     autoComplete = 'off',
     className,
     labelHidden = true,
+    isLabelShown = false,
     name = 'q',
     onSubmit,
     onClear,
@@ -30,7 +31,7 @@ const SearchFieldPrimitive: Primitive<SearchFieldProps, 'input'> = (
     <TextField
       autoComplete={autoComplete}
       className={classNames(ComponentClassNames.SearchField, className)}
-      labelHidden={labelHidden}
+      labelHidden={labelHidden && !isLabelShown}
       innerEndComponent={
         <FieldClearButton
           excludeFromTabOrder={true}

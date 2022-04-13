@@ -141,6 +141,13 @@ describe('SearchField component', () => {
     expect(searchField).toHaveValue('');
   });
 
+  it('should not visually show label with isLabelShown default to false', async () => {
+    render(<SearchField label={label} />);
+
+    const searchFieldLabel = await screen.findByText(label);
+    expect(searchFieldLabel).toHaveClass(ComponentClassNames.VisuallyHidden);
+  });
+
   describe(' - search button', () => {
     it('should call onSubmit handler when clicked', async () => {
       const onSubmit = jest.fn();

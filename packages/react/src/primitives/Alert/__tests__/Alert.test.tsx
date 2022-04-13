@@ -86,6 +86,20 @@ describe('Alert: ', () => {
     ).toBe(false);
   });
 
+  it('should have isIconHidden default to false', async () => {
+    render(<Alert variation="info" testId="testIcon" />);
+    const alert = await screen.findByTestId('testIcon');
+    expect(alert.childElementCount).toBe(2);
+    expect(alert.firstElementChild).toHaveClass(ComponentClassNames.Icon);
+  });
+
+  it('should not render icon if isIconHidden is set to true', async () => {
+    render(<Alert variation="info" testId="testIcon" isIconHidden />);
+    const alert = await screen.findByTestId('testIcon');
+    expect(alert.childElementCount).toBe(1);
+    expect(alert.firstElementChild).not.toHaveClass(ComponentClassNames.Icon);
+  });
+
   it('can be dismissible', async () => {
     render(
       <div>
@@ -135,7 +149,7 @@ describe('Alert: ', () => {
     expect(alert.dataset['demo']).toBe('true');
   });
 
-  describe.only('Forward ref: ', () => {
+  describe('Forward ref: ', () => {
     it('should forward ref to container DOM element', async () => {
       const testId = 'alert';
       const ref = React.createRef<HTMLDivElement>();

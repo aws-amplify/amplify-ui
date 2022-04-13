@@ -15,10 +15,16 @@ export interface SearchFieldProps extends TextInputFieldProps {
   onClear?: () => void;
 
   /**
-   * Visually hide label
-   * @default true
+   * @deprecated
+   * labelHidden will be removed in the next major release in favor of isLabelShown. Please use isLabelShown instead.
    */
   labelHidden?: boolean;
+
+  /**
+   * @default false
+   * Visually display label
+   */
+  isLabelShown?: boolean;
 
   /**
    * Provides ref access to search button DOM element

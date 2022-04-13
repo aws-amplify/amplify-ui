@@ -49,6 +49,13 @@ describe('Button test suite', () => {
     expect(button).toBeDisabled();
   });
 
+  it('should have isFullWidth default to false', async () => {
+    render(<Button />);
+
+    const button = await screen.findByRole('button');
+    expect(button).toHaveAttribute('data-fullwidth', 'false');
+  });
+
   it('should set loading state correctly if isLoading is set to true', async () => {
     render(<Button loadingText="loading" isLoading />);
 

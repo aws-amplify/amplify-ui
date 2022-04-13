@@ -13,12 +13,13 @@ const FieldGroupIconPrimitive: Primitive<
     className,
     children,
     isVisible = true,
+    isHidden = false,
     excludeFromTabOrder = false,
     ...rest
   },
   ref
 ) => {
-  return isVisible ? (
+  return isVisible && !isHidden ? (
     <View
       className={classNames(ComponentClassNames.FieldGroupIcon, className)}
       ref={ref}

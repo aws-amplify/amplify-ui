@@ -21,9 +21,16 @@ export interface AlertProps extends FlexProps {
   onDismiss?: () => void;
 
   /**
-   * The hasIcon property will determine whether or not an icon is displayed on the Alert. Defaults to true (icon displayed).
+   * @deprecated
+   * hasIcon property will be removed in the next major release in favor of isIconHidden. Please use isIconHidden instead.
    */
   hasIcon?: boolean;
+
+  /**
+   * @default false
+   * Determines whether or not an icon is hidden on the Alert.
+   */
+  isIconHidden?: boolean;
 
   /**
    * The heading property will affect the content of the Alert heading.
