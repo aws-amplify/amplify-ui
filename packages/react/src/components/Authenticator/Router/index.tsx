@@ -57,11 +57,9 @@ export function Router({
 
     return (
       <>
-        {
-          typeof children === 'function'
-            ? children({ signOut, user }) // children is a React Node (e.g. <div>...</div>)
-            : children // children is a render prop
-        }
+        {typeof children === 'function'
+          ? children({ signOut, user }) // children is a render prop
+          : children}
       </>
     );
   }
