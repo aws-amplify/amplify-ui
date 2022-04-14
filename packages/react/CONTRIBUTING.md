@@ -28,7 +28,7 @@ import { Button } from 'primitives/Button';
 import { THIS_ENUM } from 'utils/types';
 ```
 
-Do **NOT** use implicit paths like below,
+Do **NOT** use implicit paths like below. This can lead to circular dependencies unintentionally which is bad for tree shaking.
 
 ```js
 import { Flex, Heading } from '../../..';
