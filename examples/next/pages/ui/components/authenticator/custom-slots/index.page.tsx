@@ -116,6 +116,9 @@ const components = {
         </Heading>
       );
     },
+    FormFields() {
+      return <Text>Form Field Information</Text>;
+    },
     Footer() {
       return <Text>Footer Information</Text>;
     },

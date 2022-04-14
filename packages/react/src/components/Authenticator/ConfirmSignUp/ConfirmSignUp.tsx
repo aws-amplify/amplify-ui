@@ -11,6 +11,42 @@ import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { FormFields } from '../shared/FormFields';
 
 export function ConfirmSignUp() {
+  const { isPending } = useAuthenticator((context) => [context.isPending]);
+  const { handleChange, handleSubmit } = useFormHandlers();
+
+  const {
+    components: {
+      ConfirmSignUp: {
+        Header = ConfirmSignUp.Header,
+        Footer = ConfirmSignUp.Footer,
+        FormFields = ConfirmSignUp.FormFields,
+      },
+    },
+  } = useCustomComponents();
+
+  return (
+    // TODO Automatically add these namespaces again from `useAmplify`
+    <form
+      data-amplify-form=""
+      data-amplify-authenticator-confirmsignup=""
+      method="post"
+      onChange={handleChange}
+      onSubmit={handleSubmit}
+    >
+      <fieldset
+        style={{ display: 'flex', flexDirection: 'column' }}
+        className="amplify-flex"
+        disabled={isPending}
+      >
+        <Header />
+        <FormFields />
+        <Footer />
+      </fieldset>
+    </form>
+  );
+}
+
+const DefaultFormFields = () => {
   const {
     isPending,
     resendCode,
@@ -20,16 +56,6 @@ export function ConfirmSignUp() {
     context.resendCode,
     context.codeDeliveryDetails,
   ]);
-  const { handleChange, handleSubmit } = useFormHandlers();
-
-  const {
-    components: {
-      ConfirmSignUp: {
-        Header = ConfirmSignUp.Header,
-        Footer = ConfirmSignUp.Footer,
-      },
-    },
-  } = useCustomComponents();
 
   const emailMessage = translate(
     'Your code is on the way. To log in, enter the code we emailed to'
@@ -51,48 +77,30 @@ export function ConfirmSignUp() {
       : translate(`${defaultMessage}`);
 
   return (
-    // TODO Automatically add these namespaces again from `useAmplify`
-    <form
-      data-amplify-form=""
-      data-amplify-authenticator-confirmsignup=""
-      method="post"
-      onChange={handleChange}
-      onSubmit={handleSubmit}
-    >
-      <fieldset
-        style={{ display: 'flex', flexDirection: 'column' }}
-        className="amplify-flex"
-        disabled={isPending}
+    <Flex direction="column">
+      <Text style={{ marginBottom: '1rem' }}>{subtitleText}</Text>
+
+      <FormFields route="confirmSignUp" />
+
+      <RemoteErrorMessage />
+
+      <Button
+        variation="primary"
+        isDisabled={isPending}
+        type="submit"
+        loadingText={translate('Confirming')}
+        isLoading={isPending}
+        fontWeight="normal"
       >
-        <Header />
+        {translate('Confirm')}
+      </Button>
 
-        <Flex direction="column">
-          <Text style={{ marginBottom: '1rem' }}>{subtitleText}</Text>
-
-          <FormFields route="confirmSignUp" />
-
-          <RemoteErrorMessage />
-
-          <Button
-            variation="primary"
-            isDisabled={isPending}
-            type="submit"
-            loadingText={translate('Confirming')}
-            isLoading={isPending}
-            fontWeight="normal"
-          >
-            {translate('Confirm')}
-          </Button>
-
-          <Button onClick={resendCode} type="button" fontWeight="normal">
-            {translate('Resend Code')}
-          </Button>
-        </Flex>
-        <Footer />
-      </fieldset>
-    </form>
+      <Button onClick={resendCode} type="button" fontWeight="normal">
+        {translate('Resend Code')}
+      </Button>
+    </Flex>
   );
-}
+};
 
 const DefaultHeader = () => {
   const { codeDeliveryDetails: { DeliveryMedium } = {} } = useAuthenticator(
@@ -116,3 +124,5 @@ const DefaultHeader = () => {
 ConfirmSignUp.Header = DefaultHeader;
 
 ConfirmSignUp.Footer = (): JSX.Element => null;
+
+ConfirmSignUp.FormFields = DefaultFormFields;

@@ -11,23 +11,30 @@
           {{ confirmSignUpHeading }}
         </h3>
       </amplify-slot>
-      <span style="margin-bottom: 1rem">
-        {{ subtitleText }}
-      </span>
-      <amplify-base-form-fields
-        route="confirmSignUp"
-      ></amplify-base-form-fields>
+      <amplify-slot name="confirm-sign-up-form-fields" [context]="context">
+        <span style="margin-bottom: 1rem">
+          {{ subtitleText }}
+        </span>
+        <amplify-base-form-fields
+          route="confirmSignUp"
+        ></amplify-base-form-fields>
 
-      <button amplify-button variation="primary" fullWidth="true" type="submit">
-        {{ confirmText }}
-      </button>
-      <button
-        amplify-button
-        fontWeight="normal"
-        (click)="authenticator.resendCode()"
-      >
-        {{ resendCodeText }}
-      </button>
+        <button
+          amplify-button
+          variation="primary"
+          fullWidth="true"
+          type="submit"
+        >
+          {{ confirmText }}
+        </button>
+        <button
+          amplify-button
+          fontWeight="normal"
+          (click)="authenticator.resendCode()"
+        >
+          {{ resendCodeText }}
+        </button>
+      </amplify-slot>
     </fieldset>
 
     <amplify-error *ngIf="context.error">

@@ -1,0 +1,19 @@
+```jsx{11}
+const components = {
+  ConfirmSignUp: {
+    FormFields() {
+      return <Text>Form Field Information</Text>;
+    },
+  },
+};
+
+export default function App() {
+  return (
+    <Authenticator components={components}>
+      {({ signOut }) => <button onClick={signOut}>Sign out</button>}
+    </Authenticator>
+  );
+}
+```
+
+Additionally, you can further customize the page by updating the [headers and footers](http://localhost:5000/components/authenticator?platform=react#headers--footers).

@@ -1,0 +1,16 @@
+```html{3}
+<template>
+  <authenticator>
+    <template v-slot:confirm-sign-up-fields>
+      <div>Please contact the adminstrator of your account to continue!</div>
+    </template>
+
+    <template v-slot="{ user, signOut }">
+      <h1>Hello {{ user.username }}!</h1>
+      <button @click="signOut">Sign Out</button>
+    </template>
+  </authenticator>
+</template>
+```
+
+Additionally, you can further customize the page by updating the [headers and footers](http://localhost:5000/components/authenticator?platform=vue#headers--footers).

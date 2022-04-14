@@ -84,52 +84,54 @@ const onLostCodeClicked = (): void => {
               {{ confirmSignUpHeading }}
             </base-heading>
           </slot>
-          <base-text style="margin-bottom: 1rem">
-            {{ subtitleText }}
-          </base-text>
-          <base-field-set
-            class="amplify-flex"
-            style="flex-direction: column"
-            :disabled="isPending"
-          >
-            <base-form-fields route="confirmSignUp"></base-form-fields>
-          </base-field-set>
-
-          <base-footer
-            class="amplify-flex"
-            style="flex-direction: column; align-items: unset"
-          >
-            <base-alert v-if="error">
-              {{ translate(error) }}
-            </base-alert>
-            <amplify-button
-              class="amplify-field-group__control"
-              data-fullwidth="false"
-              data-loading="false"
-              data-variation="primary"
-              type="submit"
-              style="font-weight: normal"
+          <slot name="formFields">
+            <base-text style="margin-bottom: 1rem">
+              {{ subtitleText }}
+            </base-text>
+            <base-field-set
+              class="amplify-flex"
+              style="flex-direction: column"
               :disabled="isPending"
             >
-              {{ confirmText }}
-            </amplify-button>
-            <amplify-button
-              class="amplify-field-group__control"
-              data-fullwidth="false"
-              data-variation="default"
-              style="font-weight: normal"
-              type="button"
-              @click.prevent="onLostCodeClicked"
+              <base-form-fields route="confirmSignUp"></base-form-fields>
+            </base-field-set>
+
+            <base-footer
+              class="amplify-flex"
+              style="flex-direction: column; align-items: unset"
             >
-              {{ resendCodeText }}
-            </amplify-button>
-            <slot
-              name="footer"
-              :onConfirmSignUpSubmit="onConfirmSignUpSubmit"
-              :onLostCodeClicked="onLostCodeClicked"
-            >
-            </slot>
-          </base-footer>
+              <base-alert v-if="error">
+                {{ translate(error) }}
+              </base-alert>
+              <amplify-button
+                class="amplify-field-group__control"
+                data-fullwidth="false"
+                data-loading="false"
+                data-variation="primary"
+                type="submit"
+                style="font-weight: normal"
+                :disabled="isPending"
+              >
+                {{ confirmText }}
+              </amplify-button>
+              <amplify-button
+                class="amplify-field-group__control"
+                data-fullwidth="false"
+                data-variation="default"
+                style="font-weight: normal"
+                type="button"
+                @click.prevent="onLostCodeClicked"
+              >
+                {{ resendCodeText }}
+              </amplify-button>
+            </base-footer>
+          </slot>
+          <slot
+            name="footer"
+            :onConfirmSignUpSubmit="onConfirmSignUpSubmit"
+            :onLostCodeClicked="onLostCodeClicked"
+          >
+          </slot>
         </base-wrapper>
       </base-form>
     </base-wrapper>

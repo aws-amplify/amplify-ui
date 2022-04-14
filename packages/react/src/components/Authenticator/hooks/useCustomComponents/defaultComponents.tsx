@@ -16,7 +16,7 @@ interface Components {
 
 export interface DefaultComponents extends Omit<Components, 'FormFields'> {
   ConfirmSignIn?: Omit<Components, 'FormFields'>;
-  ConfirmSignUp?: Omit<Components, 'FormFields'>;
+  ConfirmSignUp?: Components;
   ConfirmResetPassword?: Omit<Components, 'FormFields'>;
   ConfirmVerifyUser?: Omit<Components, 'FormFields'>;
   ForceNewPassword?: Pick<Components, 'FormFields'>;
@@ -40,6 +40,7 @@ export const defaultComponents: DefaultComponents = {
   },
   ConfirmSignUp: {
     Header: ConfirmSignUp.Header,
+    FormFields: ConfirmSignUp.FormFields,
     Footer: ConfirmSignUp.Footer,
   },
   SetupTOTP: {

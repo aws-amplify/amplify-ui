@@ -1,0 +1,18 @@
+```html{2}
+<amplify-authenticator>
+  <ng-template amplifySlot="confirm-sign-up-form-fields">
+    <div>Please contact the adminstrator of your account to continue!</div>
+  </ng-template>
+
+  <ng-template
+    amplifySlot="authenticated"
+    let-user="user"
+    let-signOut="signOut"
+  >
+    <h2>Welcome, {{ user.username }}!</h2>
+    <button (click)="signOut()">Sign Out</button>
+  </ng-template>
+</amplify-authenticator>
+```
+
+Additionally, you can further customize the page by updating the [headers and footers](http://localhost:5000/components/authenticator?platform=angular#headers--footers).

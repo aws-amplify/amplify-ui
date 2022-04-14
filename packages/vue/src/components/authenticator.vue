@@ -338,6 +338,9 @@ const hasTabs = computed(() => {
             >
             </slot>
           </template>
+          <template #formFields>
+            <slot name="confirm-sign-up-fields"> </slot>
+          </template>
         </confirm-sign-up>
 
         <reset-password

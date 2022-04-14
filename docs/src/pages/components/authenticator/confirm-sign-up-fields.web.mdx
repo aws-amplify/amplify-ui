@@ -1,0 +1,18 @@
+import {
+  Authenticator,
+  CheckboxField,
+  useAuthenticator,
+} from '@aws-amplify/ui-react';
+
+import { Example } from '@/components/Example';
+import { Fragment } from '@/components/Fragment';
+
+### Confirm Sign Up Fields
+
+Occasionally, you may need to replace the confirm sign up fields. For example, imagine if you didn't want users to confirm their accounts. Instead, you needed them to contact an administrator first.
+
+In the example below the confirm sign up fields have been replaced by a message to contact their administrator.
+
+<Fragment>
+  {({ platform }) => import(`./confirm-sign-up-fields.${platform}.mdx`)}
+</Fragment>

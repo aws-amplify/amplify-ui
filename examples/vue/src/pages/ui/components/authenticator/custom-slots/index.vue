@@ -160,6 +160,10 @@ const formFields = {
       </h3>
     </template>
 
+    <template v-slot:confirm-sign-up-fields>
+      <div>Form Field Information</div>
+    </template>
+
     <template v-slot:confirm-sign-up-footer>
       <div>Footer Information</div>
     </template>

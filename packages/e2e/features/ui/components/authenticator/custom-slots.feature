@@ -11,7 +11,7 @@ Feature: Custom Slots
     Given I'm running the example "ui/components/authenticator/custom-slots"
 
   @angular @react @vue  
-  Scenario: Has custom Confirm Sign Up Footer and Header slot text
+  Scenario: Has custom Confirm Sign Up Footer, FormFields and Header slot text
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"
     When I click the "Create Account" tab
     When I type a new "email"
@@ -19,6 +19,7 @@ Feature: Custom Slots
     When I type a custom confirm password from label "Confirm Password:"
     And I click the "Create Account" button
     Then I see "Enter Information:"
+    Then I see "Form Field Information"
     Then I see "Footer Information"
 
   @angular @react @vue

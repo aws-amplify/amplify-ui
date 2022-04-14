@@ -184,6 +184,10 @@ with the exception of `address`, `gender`, `locale`, `picture`, `updated_at`, an
   {({ platform }) => import(`./sign-up-fields.${platform}.mdx`)}
 </Fragment>
 
+<Fragment useCommonWebContent platforms={['web']}>
+  {({ platform }) => import(`./confirm-sign-up-fields.${platform}.mdx`)}
+</Fragment>
+
 ### Force New Password Fields
 
 The following example customizes the Force New Password screen by:
