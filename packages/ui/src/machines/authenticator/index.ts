@@ -27,6 +27,7 @@ export function createAuthenticatorMachine() {
         config: {},
         services: defaultServices,
         actorRef: undefined,
+        hasSetup: false,
       },
       states: {
         // See: https://xstate.js.org/docs/guides/communication.html#invoking-promises
@@ -48,7 +49,7 @@ export function createAuthenticatorMachine() {
             waitConfig: {
               on: {
                 INIT: {
-                  actions: 'configure',
+                  actions: ['configure', 'setHasSetup'],
                   target: 'applyConfig',
                 },
               },
@@ -170,7 +171,10 @@ export function createAuthenticatorMachine() {
             },
           },
           on: {
-            'done.invoke.signOutActor': 'signIn',
+            'done.invoke.signOutActor': [
+              { target: 'setup', cond: 'shouldSetup' },
+              { target: 'setup.goToInitialState' },
+            ],
           },
         },
         authenticated: {
@@ -331,6 +335,9 @@ export function createAuthenticatorMachine() {
             config,
           };
         }),
+        setHasSetup: assign({
+          hasSetup: true,
+        }),
       },
       guards: {
         // guards for initial states
@@ -343,6 +350,7 @@ export function createAuthenticatorMachine() {
           event.data?.intent === 'confirmSignUp',
         shouldRedirectToResetPassword: (_, event) =>
           event.data?.intent === 'confirmPasswordReset',
+        shouldSetup: (context) => context.hasSetup === false,
       },
       services: {
         getCurrentUser: (context, _) => context.services.getCurrentUser(),

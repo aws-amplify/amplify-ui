@@ -84,31 +84,38 @@ export function useControllable<ValueType>({
   // The decision whether a component is controlled or uncontrolled is made on its first render and cannot be changed afterwards.
   const isControlled = React.useState(controlledValue !== undefined)[0];
 
-  if (isDevelopment()) {
-    // Print a warning if the component switches between controlled and uncontrolled mode.
+  const isDev = isDevelopment();
 
-    React.useEffect(() => {
-      if (isControlled && handler === undefined) {
-        console.warn(
-          `${componentName}: You provided a \`${controlledProp}\` prop without an \`${changeHandler}\` handler. This will render a non-interactive component.`
-        );
-      }
-    }, [handler, isControlled, componentName, changeHandler, controlledProp]);
+  // Print a warning if the component switches between controlled and uncontrolled mode.
 
-    React.useEffect(() => {
-      const isControlledNow = controlledValue !== undefined;
-      if (isControlled !== isControlledNow) {
-        const initialMode = isControlled ? 'controlled' : 'uncontrolled';
-        const modeNow = isControlledNow ? 'controlled' : 'uncontrolled';
-        console.warn(
-          `${componentName}: A component tried to change ${initialMode} '${controlledProp}' property to be ${modeNow}. ` +
-            `This is not supported. Properties should not switch from ${initialMode} to ${modeNow} (or vice versa). ` +
-            `Decide between using a controlled or uncontrolled mode for the lifetime of the component. ` +
-            `More info: https://fb.me/react-controlled-components`
-        );
-      }
-    }, [isControlled, controlledProp, componentName, controlledValue]);
-  }
+  React.useEffect(() => {
+    if (isDev && isControlled && handler === undefined) {
+      console.warn(
+        `${componentName}: You provided a \`${controlledProp}\` prop without an \`${changeHandler}\` handler. This will render a non-interactive component.`
+      );
+    }
+  }, [
+    handler,
+    isControlled,
+    componentName,
+    changeHandler,
+    controlledProp,
+    isDev,
+  ]);
+
+  React.useEffect(() => {
+    const isControlledNow = controlledValue !== undefined;
+    if (isDev && isControlled !== isControlledNow) {
+      const initialMode = isControlled ? 'controlled' : 'uncontrolled';
+      const modeNow = isControlledNow ? 'controlled' : 'uncontrolled';
+      console.warn(
+        `${componentName}: A component tried to change ${initialMode} '${controlledProp}' property to be ${modeNow}. ` +
+          `This is not supported. Properties should not switch from ${initialMode} to ${modeNow} (or vice versa). ` +
+          `Decide between using a controlled or uncontrolled mode for the lifetime of the component. ` +
+          `More info: https://fb.me/react-controlled-components`
+      );
+    }
+  }, [isControlled, controlledProp, componentName, controlledValue, isDev]);
 
   // This is the value that is used if the component is uncontrolled.
   const [valueState, setValue] = React.useState(defaultValue);

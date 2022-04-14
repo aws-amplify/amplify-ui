@@ -223,6 +223,15 @@ export const META_INFO: MetaInfo = {
     description:
       'A Theme is a structured collection of design decisions that change the appearance of a UI library. An Amplify UI theme is a structured object of design tokens, breakpoints, and overrides. - Amplify UI',
   },
+  '/guides': {
+    title: 'Guides',
+    description:
+      'Amplify guides are meant to give you a more in-depth understanding of how to use the Amplify CLI, libraries, and hosting to build out common functionality, end-to-end solutions, and frequently asked for workflows.',
+  },
+  '/guides/auth-protected': {
+    title: 'Guides',
+    description: 'How to protect routes with Amplify Authenticator.',
+  },
   '/theming/default-theme': {
     title: 'Theming - Default Theme',
     description:
