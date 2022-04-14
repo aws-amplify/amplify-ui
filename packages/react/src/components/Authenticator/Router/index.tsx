@@ -54,9 +54,16 @@ export function Router({
     if (!children) {
       return null;
     }
-    return typeof children === 'function'
-      ? children({ signOut, user }) // children is a React Node (e.g. <div>...</div>)
-      : children; // children is a render prop
+
+    return (
+      <>
+        {
+          typeof children === 'function'
+            ? children({ signOut, user }) // children is a React Node (e.g. <div>...</div>)
+            : children // children is a render prop
+        }
+      </>
+    );
   }
 
   return (
