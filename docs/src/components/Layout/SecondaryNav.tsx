@@ -107,6 +107,19 @@ export const SecondaryNav = (props) => {
     );
   }
 
+  if (section === 'guides') {
+    return (
+      <>
+        <NavLink {...props} href="/guides">
+          Guides
+        </NavLink>
+        <NavLink {...props} href="/guides/auth-protected">
+          Protected Routes
+        </NavLink>
+      </>
+    );
+  }
+
   if (section === 'getting-started') {
     return (
       <>
