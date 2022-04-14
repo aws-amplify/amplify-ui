@@ -32,8 +32,6 @@ export const usePaginationProps: UsePaginationProps = (initialValues) => {
     }
   };
 
-  // this doesn't exactly align with what's defined in the pagination.ts types
-  // should be onChange?: (newPageIndex: number, prevPageIndex: number) => void;
   const onChange = (pageIndex) => setCurrentPage(pageIndex);
 
   return {

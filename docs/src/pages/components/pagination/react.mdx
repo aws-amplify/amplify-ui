@@ -1,8 +1,12 @@
 import { Flex } from '@aws-amplify/ui-react';
 import { PaginationDemo } from './demo.tsx';
 import { Example, ExampleCode } from '@/components/Example';
-import { PaginationHasMorePagesExample } from './examples';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
+import {
+  DefaultPaginationExample,
+  PaginationHasMorePagesExample,
+  PaginationSiblingCountExample,
+} from './examples';
 
 ## Demo
 
@@ -10,22 +14,20 @@ import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 
 ## Usage
 
-Import the Pagination component.
+Import the Pagination component. Pagination is a controlled component, so you'll need to handle the following callback functions:
 
-```jsx
-import { Pagination } from '@aws-amplify/ui-react';
+- `onNext`: triggered when the next-page button `>` is pressed
+- `onPrevious`: triggered when the previous-page `<` button is pressed
+- `onChange`: triggered every time the page changes (e.g., when a page button is pressed directly)
 
-<Pagination
-  currentPage={1}
-  totalPages={10}
-  siblingCount={1}
-  onChange={this.onChange}
-  onNext={this.onNext}
-  onPrevious={this.onPrevious}
-/>;
-```
+<Example>
+  <DefaultPaginationExample />
+  <ExampleCode>
+```jsx file=./examples/DefaultPaginationExample.tsx
 
-<PaginationDemo isDemo={false} />
+````
+  </ExampleCode>
+</Example>
 
 ### Paginating at an API level
 
@@ -37,6 +39,21 @@ It's common to use a paged API where the total number of pages in the dataset is
 ```jsx file=./examples/PaginationHasMorePagesExample.tsx
 
 ````
+
+  </ExampleCode>
+</Example>
+
+### Sibling Count
+
+`siblingCount` is an optional prop which controls the number of pages displayed on each side of the current page (defaults to `1`). For example, in the demo below, notice how page 5 has two siblings to the left (3 and 4) and two siblings to the right (6 and 7).
+
+<Example>
+  <PaginationSiblingCountExample />
+  <ExampleCode>
+```jsx{7} file=./examples/PaginationSiblingCountExample.tsx
+
+````
+
   </ExampleCode>
 </Example>
 
@@ -138,4 +155,8 @@ import '@aws-amplify/ui-react/styles.css';
 ## Accessibility
 
 By default, the root node has a role of "navigation" and each page item has an aria-label that identifies the purpose of the item ("Go to previous page", "Go to next page", "Go to page 1" etc.).
+
+```
+
+```
 ````
