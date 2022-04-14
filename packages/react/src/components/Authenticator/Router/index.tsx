@@ -15,8 +15,8 @@ type AuthenticatorRenderProp = ({
   signOut,
   user,
 }: {
-  signOut: ReturnType<typeof useAuthenticator>['signOut'];
-  user: CognitoUserAmplify;
+  signOut?: ReturnType<typeof useAuthenticator>['signOut'];
+  user?: CognitoUserAmplify;
 }) => JSX.Element;
 
 export type RouterProps = {
