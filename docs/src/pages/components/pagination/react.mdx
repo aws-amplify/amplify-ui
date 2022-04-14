@@ -74,7 +74,9 @@ To override styling on all Pagination components, you can set the Amplify CSS va
     ```css
     /* styles.css */
     .amplify-pagination {
-      --amplify-components-pagination-current-background-color: red;
+      --amplify-components-pagination-current-background-color: var(
+        --amplify-colors-red-60
+      );
     }
     ```
   </ExampleCode>
@@ -111,8 +113,12 @@ _Using a class selector:_
     ```css
     /* styles.css */
     .my-custom-pagination {
-      --amplify-components-pagination-current-background-color: blue;
-      --amplify-components-pagination-button-hover-background-color: green;
+      --amplify-components-pagination-current-background-color: var(
+        --amplify-colors-green-80
+      );
+      --amplify-components-pagination-button-hover-background-color: var(
+        --amplify-colors-blue-20
+      );
     }
     ```
   </ExampleCode>
@@ -145,4 +151,4 @@ _Using style props:_
 
 ## Accessibility
 
-By default, the root node of the Pagination component has a role of "navigation", and each page item has an aria-label that identifies the purpose of the item ("Go to previous page", "Go to next page", "Go to page 1", etc).
+By default, the root node of the Pagination component has a role of "navigation", and each page item has an `aria-label` that identifies the purpose of the item ("Go to previous page", "Go to next page", "Go to page 1", etc).
