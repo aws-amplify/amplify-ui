@@ -1,7 +1,6 @@
-/**
- * @type {import("tsup").Options}
- */
-module.exports = {
+import { defineConfig } from 'tsup';
+
+export default defineConfig({
   dts: true,
   entryPoints: [
     'src/index.tsx',
@@ -16,6 +15,7 @@ module.exports = {
   inject: ['src/react-shim.js'],
   // ! .cjs/.mjs doesn't work with Angular's webpack4 config by default!
   legacyOutput: true,
-  sourcemap: 'external',
+  sourcemap: true,
   splitting: false,
-};
+  clean: false,
+});
