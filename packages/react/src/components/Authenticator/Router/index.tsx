@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { CognitoUserAmplify } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '../hooks/useAuthenticator';
@@ -11,17 +12,19 @@ import { ConfirmVerifyUser, VerifyUser } from '../VerifyUser';
 import { ConfirmSignIn } from '../ConfirmSignIn/ConfirmSignIn';
 import { ConfirmResetPassword, ResetPassword } from '../ResetPassword';
 
-type AuthenticatorRenderProp = ({
-  signOut,
-  user,
-}: {
-  signOut: ReturnType<typeof useAuthenticator>['signOut'];
-  user: CognitoUserAmplify;
-}) => JSX.Element;
+type AuthenticatorChildren =
+  | React.ReactNode
+  | (({
+      signOut,
+      user,
+    }: {
+      signOut?: ReturnType<typeof useAuthenticator>['signOut'];
+      user?: CognitoUserAmplify;
+    }) => React.ReactNode);
 
 export type RouterProps = {
   className?: string;
-  children?: JSX.Element | AuthenticatorRenderProp;
+  children?: AuthenticatorChildren;
   variation?: 'default' | 'modal';
   hideSignUp?: boolean;
 };
@@ -50,8 +53,8 @@ export function Router({
   if (['authenticated', 'signOut'].includes(route)) {
     return children
       ? typeof children === 'function'
-        ? children({ signOut, user })
-        : children
+        ? children({ signOut, user }) // children is a React Node (e.g. <div>...</div>)
+        : children // children is a render prop
       : null;
   }
 
