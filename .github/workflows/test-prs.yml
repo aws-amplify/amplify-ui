@@ -4,13 +4,10 @@
 name: Tests
 
 concurrency:
-  group: e2e-${{ github.event.pull_request.id || github.sha }}
+  group: e2e-${{ github.event.pull_request.id }}
   cancel-in-progress: true
 
 on:
-  push:
-    branches: [main, ui-svelte/main]
-
   pull_request_target:
     branches: [main, ui-svelte/main]
     types: [opened, synchronize, labeled]
@@ -23,11 +20,9 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     # We run tests only if it's:
-    #   1) push to main, or
-    #   2) pull request not from a fork (ie. internal PR), or
-    #   3) pull request from a fork (ie. external PR) that was added "run-tests" label
+    #   1) pull request not from a fork (ie. internal PR), or
+    #   2) pull request from a fork (ie. external PR) that was added "run-tests" label
     if: |
-      github.event_name == 'push' ||
       (github.event.pull_request.head.repo.full_name == github.repository) ||
       (github.event.action == 'labeled' && github.event.label.name == 'run-tests')
     outputs:
@@ -47,13 +42,13 @@ jobs:
       - name: Get ref and commit
         id: get-ref
         run: |
-          echo "::set-output name=ref::${{ github.event_name == 'push' && github.ref || github.event.pull_request.head.ref }}"
-          echo "::set-output name=commit::${{ github.event_name == 'push' && github.sha || github.event.pull_request.head.sha }}"
+          echo "::set-output name=ref::${{ github.event.pull_request.head.ref }}"
+          echo "::set-output name=commit::${{ github.event.pull_request.head.sha }}"
       - name: Checkout Amplify UI
         uses: actions/checkout@v3
         with:
           ref: ${{ steps.get-ref.outputs.ref }}
-          repository: ${{github.event.pull_request.head.repo.full_name}}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
           persist-credentials: false
       - name: Setup Node.js LTS
         uses: actions/setup-node@v2
@@ -100,8 +95,8 @@ jobs:
       - name: Checkout Amplify UI
         uses: actions/checkout@v2
         with:
-          ref: ${{ github.event_name == 'push' && github.ref || github.event.pull_request.head.ref }}
-          repository: ${{github.event.pull_request.head.repo.full_name}}
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
           persist-credentials: false
 
       - name: Setup Node.js LTS
@@ -183,7 +178,7 @@ jobs:
           # For `pull_request_target`, we want ref to point to `pull_request.head.ref` because `github.ref`
           # always points to the target branch.
           # See: https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
-          ref: ${{ github.event_name == 'push' && github.ref || github.event.pull_request.head.ref }}
+          ref: ${{ github.event.pull_request.head.ref }}
           repository: ${{github.event.pull_request.head.repo.full_name}}
           persist-credentials: false
 
@@ -291,8 +286,8 @@ jobs:
       - name: Checkout Amplify UI
         uses: actions/checkout@v2
         with:
-          ref: ${{ github.event_name == 'push' && github.ref || github.event.pull_request.head.ref }}
-          repository: ${{github.event.pull_request.head.repo.full_name}}
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
           persist-credentials: false
 
       - name: Setup Node.js LTS
