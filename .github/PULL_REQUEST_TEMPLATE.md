@@ -23,6 +23,7 @@ the requirements below.
 - [ ] PR description included
 - [ ] `yarn test` passes
 - [ ] Tests are updated
+- [ ] `sideEffects` field in `package.json` is updated
 - [ ] Relevant documentation is changed or added (and PR referenced)
 
 By submitting this pull request, I confirm that my contribution is made under the terms of the Apache 2.0 license.
