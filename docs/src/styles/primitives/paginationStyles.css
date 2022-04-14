@@ -3,17 +3,11 @@
   font-size: 0.875rem;
 }
 
+.pagination-global-styling {
+  --amplify-components-pagination-current-background-color: red;
+}
+
 .my-custom-pagination {
-  --amplify-components-pagination-current-background-color: rgba(
-    0,
-    181,
-    204,
-    0.8
-  );
-  --amplify-components-pagination-button-hover-background-color: rgba(
-    0,
-    181,
-    204,
-    0.3
-  );
+  --amplify-components-pagination-current-background-color: blue;
+  --amplify-components-pagination-button-hover-background-color: green;
 }
