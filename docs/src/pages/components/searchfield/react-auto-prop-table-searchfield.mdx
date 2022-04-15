@@ -4,41 +4,90 @@ import remarkGfm from 'remark-gfm';
 
 ## Props
 
-<Expander type="multiple" defaultValue={['SearchFieldProps']}>
+<Expander type="multiple" defaultValue={['Props']}>
   
-<ExpanderItem title="SearchFieldProps" value="SearchFieldProps">
+<ExpanderItem title="Amplify UI Props" value="Props">
     <ReactMarkdown
       remarkPlugins={[remarkGfm]}
       children={`
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| onSubmit | (value: string) =&#62; void | / | Handle submission of search field input |
-| onClear | () =&#62; void | / | Triggered when search field is cleared |
-| labelHidden | boolean | true | Visually hide label |
-| searchButtonRef | Ref&#60;HTMLButtonElement&#62; | / | Provides ref access to search button DOM element |
-
-      `}
-    />
-
-  </ExpanderItem>
-
-<ExpanderItem title="BaseComponentProps" value="BaseComponentProps">
-    <ReactMarkdown
-      remarkPlugins={[remarkGfm]}
-      children={`
-| Name | Type | Default | Description |
-| ---- | ---- | ------- | ----------- |
+| ariaLabel | string | / |  |
+| ariaValuetext | string | / |  |
 | as | ElementType | / |  |
-| id | string | / | Unique identifier |
+| autoComplete | string | off | Specifies permissions for browser UA to autocomplete field @link https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete |
+| checked | boolean | / | If checked is provided, this will be a controlled checkbox or radio |
 | className | string | / | Additional CSS class name for component |
+| defaultChecked | boolean | / | Use this to initialize an uncontrolled checkbox or radio |
+| defaultValue | string &#124; number &#124; readonly string[] | / | Use this to provide a default value for an uncontrolled field |
+| descriptiveText | ReactNode | / | Provides additional information needed to fill field (e.g. password requirements, etc.) |
+| errorMessage | string | / | When defined and &#96;hasError&#96; is true, show error message |
+| hasError | boolean | / | Indicates that Field is in error state |
+| id | string | / | Unique identifier |
+| innerEndComponent | ReactNode | / | FieldGroupIconButton component to show inside of input at end |
+| innerStartComponent | ReactNode | / | FieldGroupIconButton component to show inside of input at start |
+| inputMode | InputMode | : "text" | Provides hint for virtual keyboard shown @link https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inputmode |
+| isDisabled | boolean | false | Determines whether field should be disabled |
+| isReadOnly | boolean | false | Determines whether field should be immutable @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-readonly |
+| isRequired | boolean | / | Whether field should be marked required |
+| label | ReactNode | / | Label text for field (required) |
+| labelHidden | boolean | true | Visually hide label |
+| name | string | q | Name of the field. Submitted with the form as part of a name/value pair. |
+| onClear | () =&#62; void | / | Triggered when search field is cleared |
+| onSubmit | (value: string) =&#62; void | / | Handle submission of search field input |
+| outerEndComponent | ReactNode | / | Component(s) to show after input |
+| outerStartComponent | ReactNode | / | Component(s) to show before input |
+| placeholder | string | / | Placeholder text shown when field is empty Accessibility tip: avoid putting important instructions for filling out the TextField in the placeholder. Use descriptiveText for important instructions |
+| ref | Ref&#60;HTMLInputElement&#62; | / |  |
+| role | React.AriaRole | / |  |
+| searchButtonRef | Ref&#60;HTMLButtonElement&#62; | / | Provides ref access to search button DOM element |
+| size | Sizes | / | Changes the font-size, padding, and height of the field. |
+| style | CSSProperties | / |  |
 | testId | string | / | Used to provide a &#96;data-testid&#96; attribute for testing purposes |
+| type | HTMLInputTypeAttribute | / | Input field type (only applies when isMultiline = false) |
+| value | string &#124; number &#124; readonly string[] | / | If value is provided, this will be a controlled field |
+| variation | "quiet" | / | Variants |
 
       `}
     />
 
   </ExpanderItem>
 
-<ExpanderItem title="BaseStyleProps" value="BaseStyleProps">
+<ExpanderItem title="Layout" value="Layout">
+    <ReactMarkdown
+      remarkPlugins={[remarkGfm]}
+      children={`
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| alignContent | ResponsiveStyle&#60;AlignContent&#62; | / | Sets the distribution of space between and around content items |
+| alignItems | ResponsiveStyle&#60;AlignItems&#62; | / | Controls where the Flex/Grid items sit on the cross axis. |
+| area | ResponsiveStyle&#60;GridArea&#62; | / |  |
+| basis | ResponsiveStyle&#60;FlexBasis&#60;0 &#124; (string & \{\})&#62;&#62; | / | Default size of element before remaining space is distributed |
+| column | ResponsiveStyle&#60;GridColumn&#62; | / |  |
+| columnEnd | ResponsiveStyle&#60;GridColumnEnd&#62; | / |  |
+| columnGap | ResponsiveStyle&#60;StyleToken&#60;GridColumnGap&#60;0 &#124; (string & \{\})&#62;&#62;&#62; | / | Spacing between Flex/Grid child columns |
+| columnSpan | ResponsiveStyle&#60;GridSpanType&#62; | / |  |
+| columnStart | ResponsiveStyle&#60;GridColumnStart&#62; | / |  |
+| direction | ResponsiveStyle&#60;FlexDirection&#62; | / | Sets how flex items are placed in the flex container defining the main axis and the direction (normal or reversed). (maps to flex-direction CSS property) |
+| flex | ResponsiveStyle&#60;Flex&#60;0 &#124; (string & \{\})&#62;&#62; | / | Shorthand for flex grow / shrink / basis |
+| gap | ResponsiveStyle&#60;StyleToken&#60;Gap&#60;0 &#124; (string & \{\})&#62;&#62;&#62; | / | Spacing between child components. Shorthand for rowGap and columnGap. |
+| grow | ResponsiveStyle&#60;FlexGrow&#62; | / | Ability for flex item to grow |
+| justifyContent | ResponsiveStyle&#60;JustifyContent&#62; | / | Controls where the Flex/Grid items sit on the main axis. |
+| order | ResponsiveStyle&#60;Order&#62; | / | Controls order flex items appear |
+| row | ResponsiveStyle&#60;GridRow&#62; | / |  |
+| rowEnd | ResponsiveStyle&#60;GridRowEnd&#62; | / |  |
+| rowGap | ResponsiveStyle&#60;StyleToken&#60;RowGap&#60;0 &#124; (string & \{\})&#62;&#62;&#62; | / | Spacing between Flex/Grid child rows |
+| rowSpan | ResponsiveStyle&#60;GridSpanType&#62; | / |  |
+| rowStart | ResponsiveStyle&#60;GridRowStart&#62; | / |  |
+| shrink | ResponsiveStyle&#60;FlexShrink&#62; | / | Ability for flex item to shrink |
+| wrap | ResponsiveStyle&#60;FlexWrap&#62; | / | The flexWrap property is set on containers and it controls what happens when children overflow the size of the container along the main axis. By default, children are forced into a single line (which can shrink elements). If wrapping is allowed, items are wrapped into multiple lines along the main axis if needed. (maps to flex-wrap CSS property) |
+
+      `}
+    />
+
+  </ExpanderItem>
+
+<ExpanderItem title="Styling" value="Styling">
     <ReactMarkdown
       remarkPlugins={[remarkGfm]}
       children={`
@@ -93,21 +142,8 @@ import remarkGfm from 'remark-gfm';
 | top | ResponsiveStyle&#60;StyleToken&#60;Top&#60;0 &#124; (string & \{\})&#62;&#62;&#62; | / |  |
 | transform | ResponsiveStyle&#60;StyleToken&#60;Transform&#62;&#62; | / |  |
 | transformOrigin | ResponsiveStyle&#60;StyleToken&#60;TransformOrigin&#60;0 &#124; (string & \{\})&#62;&#62;&#62; | / |  |
-| width | ResponsiveStyle&#60;StyleToken&#60;Width&#60;0 &#124; (string & \{\})&#62;&#62;&#62; | / |  |
 | whiteSpace | ResponsiveStyle&#60;StyleToken&#60;WhiteSpace&#62;&#62; | / |  |
-
-      `}
-    />
-
-  </ExpanderItem>
-
-<ExpanderItem title="RefAttributes" value="RefAttributes">
-    <ReactMarkdown
-      remarkPlugins={[remarkGfm]}
-      children={`
-| Name | Type | Default | Description |
-| ---- | ---- | ------- | ----------- |
-| ref | Ref&#60;HTMLInputElement&#62; | / |  |
+| width | ResponsiveStyle&#60;StyleToken&#60;Width&#60;0 &#124; (string & \{\})&#62;&#62;&#62; | / |  |
 
       `}
     />

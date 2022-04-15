@@ -4,30 +4,26 @@ import remarkGfm from 'remark-gfm';
 
 ## Props
 
-<Expander type="multiple" defaultValue={['DividerProps']}>
+<Expander type="multiple" defaultValue={['Props']}>
   
-<ExpanderItem title="DividerProps" value="DividerProps">
+<ExpanderItem title="Amplify UI Props" value="Props">
     <ReactMarkdown
       remarkPlugins={[remarkGfm]}
       children={`
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| / | / | / | / |
-
-      `}
-    />
-
-  </ExpanderItem>
-
-<ExpanderItem title="BaseComponentProps" value="BaseComponentProps">
-    <ReactMarkdown
-      remarkPlugins={[remarkGfm]}
-      children={`
-| Name | Type | Default | Description |
-| ---- | ---- | ------- | ----------- |
+| ariaLabel | string | / |  |
+| ariaValuetext | string | / |  |
 | as | ElementType | / |  |
-| id | string | / | Unique identifier |
 | className | string | / | Additional CSS class name for component |
+| id | string | / | Unique identifier |
+| isDisabled | boolean | / |  |
+| label | string | / | Adds text to the divider, usually something like "or" to separate 2 things. |
+| orientation | DividerOrientations | horizontal | Controls whether the divider is oriented horizontally or vertically. |
+| ref | Ref&#60;HTMLHRElement&#62; | / |  |
+| role | React.AriaRole | / |  |
+| size | Sizes | "small" | Size of the divider (height for a horizontal divider, width for vertical) |
+| style | CSSProperties | / |  |
 | testId | string | / | Used to provide a &#96;data-testid&#96; attribute for testing purposes |
 
       `}
@@ -35,7 +31,33 @@ import remarkGfm from 'remark-gfm';
 
   </ExpanderItem>
 
-<ExpanderItem title="BaseStyleProps" value="BaseStyleProps">
+<ExpanderItem title="Layout" value="Layout">
+    <ReactMarkdown
+      remarkPlugins={[remarkGfm]}
+      children={`
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| area | ResponsiveStyle&#60;GridArea&#62; | / |  |
+| basis | ResponsiveStyle&#60;FlexBasis&#60;0 &#124; (string & \{\})&#62;&#62; | / | Default size of element before remaining space is distributed |
+| column | ResponsiveStyle&#60;GridColumn&#62; | / |  |
+| columnEnd | ResponsiveStyle&#60;GridColumnEnd&#62; | / |  |
+| columnSpan | ResponsiveStyle&#60;GridSpanType&#62; | / |  |
+| columnStart | ResponsiveStyle&#60;GridColumnStart&#62; | / |  |
+| flex | ResponsiveStyle&#60;Flex&#60;0 &#124; (string & \{\})&#62;&#62; | / | Shorthand for flex grow / shrink / basis |
+| grow | ResponsiveStyle&#60;FlexGrow&#62; | / | Ability for flex item to grow |
+| order | ResponsiveStyle&#60;Order&#62; | / | Controls order flex items appear |
+| row | ResponsiveStyle&#60;GridRow&#62; | / |  |
+| rowEnd | ResponsiveStyle&#60;GridRowEnd&#62; | / |  |
+| rowSpan | ResponsiveStyle&#60;GridSpanType&#62; | / |  |
+| rowStart | ResponsiveStyle&#60;GridRowStart&#62; | / |  |
+| shrink | ResponsiveStyle&#60;FlexShrink&#62; | / | Ability for flex item to shrink |
+
+      `}
+    />
+
+  </ExpanderItem>
+
+<ExpanderItem title="Styling" value="Styling">
     <ReactMarkdown
       remarkPlugins={[remarkGfm]}
       children={`
@@ -90,21 +112,8 @@ import remarkGfm from 'remark-gfm';
 | top | ResponsiveStyle&#60;StyleToken&#60;Top&#60;0 &#124; (string & \{\})&#62;&#62;&#62; | / |  |
 | transform | ResponsiveStyle&#60;StyleToken&#60;Transform&#62;&#62; | / |  |
 | transformOrigin | ResponsiveStyle&#60;StyleToken&#60;TransformOrigin&#60;0 &#124; (string & \{\})&#62;&#62;&#62; | / |  |
-| width | ResponsiveStyle&#60;StyleToken&#60;Width&#60;0 &#124; (string & \{\})&#62;&#62;&#62; | / |  |
 | whiteSpace | ResponsiveStyle&#60;StyleToken&#60;WhiteSpace&#62;&#62; | / |  |
-
-      `}
-    />
-
-  </ExpanderItem>
-
-<ExpanderItem title="RefAttributes" value="RefAttributes">
-    <ReactMarkdown
-      remarkPlugins={[remarkGfm]}
-      children={`
-| Name | Type | Default | Description |
-| ---- | ---- | ------- | ----------- |
-| ref | Ref&#60;HTMLHRElement&#62; | / |  |
+| width | ResponsiveStyle&#60;StyleToken&#60;Width&#60;0 &#124; (string & \{\})&#62;&#62;&#62; | / |  |
 
       `}
     />

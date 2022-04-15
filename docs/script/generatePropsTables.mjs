@@ -31,60 +31,116 @@ const getData = (pathToFile) => {
   return JSON.parse(enCodedData);
 };
 
-const getWantedCategories = (displayName) => [
-  `${displayName}Props`,
-  'BaseComponentProps',
-  'BaseStyleProps',
-  'RefAttributes',
+const TARGETED_CATEGORIES = ['Props', 'Layout', 'Styling'];
+const EXCLUDED_CATEGORIES = [
+  'AnchorHTMLAttributes',
+  'AriaAttributes',
+  'Attributes',
+  'ButtonHTMLAttributes',
+  'DOMAttributes',
+  'HTMLAttributes',
+  'ImgHTMLAttributes',
+  'InputHTMLAttributes',
+  'SelectHTMLAttributes',
+  'SVGAttributes',
+  'TableHTMLAttributes',
+  'TextareaHTMLAttributes',
 ];
 
-const categorizeProps = (props, wantedCategories) =>
+const CATEGORY_MAP = {
+  AriaProps: 'Props',
+  BaseComponentProps: 'Props',
+  BasePaginationProps: 'Props',
+  BaseStyleProps: 'Styling',
+  ButtonProps: 'Props',
+  CheckboxProps: 'Props',
+  CollectionBaseProps: 'Props',
+  CollectionWrapperProps: 'Props',
+  CSSLayoutStyleProps: 'Layout',
+  DividerOptions: 'Props',
+  FieldProps: 'Props',
+  FlexContainerStyleProps: 'Layout',
+  FlexItemStyleProps: 'Layout',
+  GridContainerStyleProps: 'Props',
+  GridContainerStyleProps: 'Props',
+  GridItemStyleProps: 'Layout',
+  ImageOptions: 'Props',
+  ImageStyleProps: 'Props',
+  InputProps: 'Props',
+  LinkOptions: 'Props',
+  RatingOptions: 'Props',
+  RefAttributes: 'Props',
+  SelectProps: 'Props',
+  SliderProps: 'Props',
+  TextAreaProps: 'Props',
+  TextAreaStyleProps: 'Props',
+  TextFieldOptions: 'Props',
+  TextFieldOptions: 'Props',
+  TextProps: 'Props',
+  TypeLiteral: 'Props',
+  ViewProps: 'Props',
+};
+
+const categorizeProps = (displayName, props, wantedCategories) =>
   Object.entries(props).reduce((acc, [key, val]) => {
     const category = val.declarations[0].name;
-    const isCategoryToUse = [...wantedCategories, 'TypeLiteral'].includes(
-      category
-    );
+    const isCategoryToUse = wantedCategories.includes(category);
     const categoryKey =
-      category === 'TypeLiteral' ? 'BaseComponentProps' : category;
-    return {
-      ...acc,
-      ...(isCategoryToUse && {
-        [categoryKey]: {
-          ...acc[categoryKey],
-          [key]: val,
-        },
-      }),
-    };
+      `${displayName}Props` === category ? 'Props' : CATEGORY_MAP[category];
+    if (categoryKey) {
+      return {
+        ...acc,
+        ...(isCategoryToUse && {
+          [categoryKey]: {
+            ...acc[categoryKey],
+            [key]: val,
+          },
+        }),
+      };
+    } else if (!EXCLUDED_CATEGORIES.includes(category)) {
+      console.log(
+        `${category} is excluded, but it's not in the excludedCategories Array. Are you sure to exclude it?`
+      );
+      return acc;
+    } else {
+      return acc;
+    }
   }, {});
 
 const createPropsTable = (props) => {
   return {
     headers: ['Name', 'Type', 'Default', 'Description'],
     rows: props
-      ? Object.values(props).map(
-          ({ name, type, defaultValue, description }) => ({
+      ? Object.values(props)
+          .map(({ name, type, defaultValue, description }) => ({
             Name: name.replaceAll(/[{}]/g, '\\$&'),
             Type: type.name.replaceAll(/[{}]/g, '\\$&'),
             Default: defaultValue ? defaultValue.value.toString() : '/',
             Description: description,
-          })
-        )
+          }))
+          .sort(({ Name: a }, { Name: b }) => a.localeCompare(b))
       : [{ Name: '/', Type: '/', Default: '/', Description: '/' }],
   };
 };
 
-const createPropsTableExpander = (data, wantedCategories) =>
-  wantedCategories.map((category) => ({
-    ExpanderItem: {
-      title: category,
-      value: category,
-      children: [
-        {
-          table: createPropsTable(data[category]),
+const createPropsTableExpander = (data, targetedCategories) =>
+  targetedCategories.reduce(
+    (acc, category) => [
+      ...acc,
+      {
+        ExpanderItem: {
+          title: category === 'Props' ? 'Amplify UI Props' : category,
+          value: category,
+          children: [
+            {
+              table: createPropsTable(data[category]),
+            },
+          ],
         },
-      ],
-    },
-  }));
+      },
+    ],
+    []
+  );
 
 json2md.converters.ExpanderItem = ({ title, value, children }, json2md) => `
 <ExpanderItem title="${title}" value="${value}">
@@ -98,7 +154,7 @@ ${json2md(children)}
 `;
 
 json2md.converters.Expander = ({ ExpanderItems, displayName }, json2md) => `
-<Expander type="multiple" defaultValue={['${displayName}Props']}>
+<Expander type="multiple" defaultValue={['Props']}>
   ${json2md([...ExpanderItems.map((item) => ({ ...item }))])}
 </Expander>
 `;
@@ -136,11 +192,33 @@ for await (const filePath of globbyStream(
   if (!existsSync(targetPath)) continue;
   if (!props || !displayName) continue;
 
-  const wantedCategories = getWantedCategories(displayName);
-  const categorizedProps = categorizeProps(props, wantedCategories);
+  // const wantedCategories = getWantedCategories(displayName);
+  const wantedCategories = Object.keys(
+    Object.values(props).reduce((acc, curr) => {
+      const category = curr.declarations
+        ? curr.declarations[0].name
+        : undefined;
+      return {
+        ...acc,
+        ...(category &&
+          `${displayName}Props` !== category && {
+            [category]: [category],
+          }),
+      };
+    }, {})
+  ).sort();
+
+  wantedCategories.unshift(`${displayName}Props`);
+
+  const categorizedProps = categorizeProps(
+    displayName,
+    props,
+    wantedCategories
+  );
+
   const propsTables = createPropsTableExpander(
     categorizedProps,
-    wantedCategories
+    TARGETED_CATEGORIES
   );
   const output = getOutput(displayName, propsTables);
 
