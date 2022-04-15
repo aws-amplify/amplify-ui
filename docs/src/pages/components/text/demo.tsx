@@ -46,7 +46,7 @@ export const TextDemo = ({ children }) => {
     isTruncated: true,
     color: 'blue',
     lineHeight: '1em',
-    fontWeight: '400',
+    fontWeight: 400,
     fontSize: '1.5em',
     textDecoration: 'underline',
   });

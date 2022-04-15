@@ -12,7 +12,7 @@ export const useTextProps = (
   const [isTruncated, setIsTruncated] =
     React.useState<TextProps['isTruncated']>(false);
   const [color, setColor] = React.useState<string>('blue');
-  const [lineHeight, setLineHeight] = React.useState<number>(1.5);
+  const [lineHeight, setLineHeight] = React.useState<string>('1.5em');
   const [fontWeight, setFontWeight] = React.useState<number>(400);
   const [fontStyle, setFontStyle] = React.useState<string>('normal');
   const [fontSize, setFontSize] = React.useState<string>('1em');

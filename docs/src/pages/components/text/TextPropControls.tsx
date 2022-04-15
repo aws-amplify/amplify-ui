@@ -3,6 +3,7 @@ import * as React from 'react';
 import {
   Flex,
   SelectField,
+  SliderField,
   SwitchField,
   TextField,
   TextProps,
@@ -93,6 +94,34 @@ export const TextPropControls: TextPropControlsInterface = ({
         defaultChecked={isTruncated}
         labelPosition="end"
         onChange={(event) => setIsTruncated(event.target.checked)}
+      />
+      <TextField
+        label="lineHeight"
+        placeholder={String(lineHeight)}
+        onChange={(event) => setLineHeight(event.target.value)}
+      />
+      <TextField
+        label="fontSize"
+        placeholder={String(fontSize)}
+        onChange={(event) => setFontSize(event.target.value)}
+      />
+      <TextField
+        label="fontStyle"
+        placeholder={String(fontStyle)}
+        onChange={(event) => setFontStyle(event.target.value)}
+      />
+      <TextField
+        label="textDecoration"
+        placeholder={String(textDecoration)}
+        onChange={(event) => setTextDecoration(event.target.value)}
+      />
+      <SliderField
+        label="fontWeight"
+        min={0}
+        max={1200}
+        step={100}
+        value={fontWeight as number}
+        onChange={setFontWeight}
       />
     </Flex>
   );
