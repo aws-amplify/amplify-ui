@@ -8,12 +8,12 @@ import { useTabsProps } from './useTabsProps';
 const propsToCode = (props) => {
   return (
     `<Tabs` +
-    `\n  currentIndex={${props.currentIndex}}` +
-    `${props.spacing ? `\n  spacing={${props.spacing}}` : ``}` +
-    `\n  justifyContent={${props.justifyContent}}` +
+    `\n  currentIndex="${props.currentIndex}"` +
+    `${props.spacing ? `\n  spacing="${props.spacing}"` : ``}` +
+    `\n  justifyContent="${props.justifyContent}"` +
     `${
       props.indicatorPosition
-        ? `\n  indicatorPosition={${props.indicatorPosition}}`
+        ? `\n  indicatorPosition="${props.indicatorPosition}"`
         : ``
     }` +
     `>
