@@ -1,6 +1,7 @@
 /* Center by default */
 [data-amplify-authenticator] {
   &[data-variation='modal'] {
+    overflow-y: auto;
     display: grid;
     width: var(--amplify-components-authenticator-modal-width);
     height: var(--amplify-components-authenticator-modal-height);
