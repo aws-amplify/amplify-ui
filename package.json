@@ -57,6 +57,7 @@
   "resolutions": {
     "ansi-regex": "5.0.1",
     "ansi-html": "0.0.8",
+    "async": "^3.2.2",
     "cssnano-preset-simple": "3.0.0",
     "fs-extra": "^10.0.0",
     "glob-parent": "^6.0.2",
@@ -81,6 +82,7 @@
     "rimraf": "^3.0.2",
     "tsup": "^5.11.9",
     "turbo": "^1.0.23",
+    "typescript": "^4.6.3",
     "wait-on": "^6.0.0"
   },
   "lint-staged": {

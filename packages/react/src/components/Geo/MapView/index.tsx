@@ -59,7 +59,7 @@ export const MapView = ({
         setTransformRequest(() => amplifyTransformRequest);
       }
     })();
-  }, []);
+  }, [amplifyConfig.geo?.amazon_location_service.region]);
 
   /**
    * The mapLib property is used by react-map-gl@v7 to override the underlying map library. The default library is
