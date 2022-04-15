@@ -3,10 +3,12 @@ import { PaginationDemo } from './demo.tsx';
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 import {
+  ControlledPaginationExample,
   DefaultPaginationExample,
   PaginationHasMorePagesExample,
   PaginationSiblingCountExample,
   PaginationStylingExample,
+  PaginationThemeExample,
 } from './examples';
 
 ## Demo
@@ -15,11 +17,12 @@ import {
 
 ## Usage
 
-Import the Pagination component. Pagination is a controlled component, so you'll need to handle state using these callback functions:
+Import the Pagination component. To use Pagination as an uncontrolled component, import the `usePagination` hook and pass it an object including the following properties:
 
-- `onNext`: triggered when the next-page button `>` is pressed
-- `onPrevious`: triggered when the previous-page button `<` is pressed
-- `onChange`: triggered every time the page changes (e.g., when a page button is pressed directly)
+- `totalPages` (required)
+- `currentPage` (optional, defaults to `1`)
+- `siblingCount` (optional, defaults to `1`)
+- `hasMorePages` (optional)
 
 <Example>
   <DefaultPaginationExample />
@@ -27,6 +30,23 @@ Import the Pagination component. Pagination is a controlled component, so you'll
 ```jsx file=./examples/DefaultPaginationExample.tsx
 
 ````
+  </ExampleCode>
+</Example>
+
+### Controlled component
+To use Pagination as a controlled component, you'll need to handle state using these callback functions:
+
+- `onNext`: triggered when the next-page button `>` is pressed
+- `onPrevious`: triggered when the previous-page button `<` is pressed
+- `onChange`: triggered every time the page changes (e.g., when a page button is pressed directly)
+
+<Example>
+  <ControlledPaginationExample />
+  <ExampleCode>
+```jsx file=./examples/ControlledPaginationExample.tsx
+
+````
+
   </ExampleCode>
 </Example>
 
@@ -51,7 +71,7 @@ It's common to use a paged API where the total number of pages in the dataset is
 <Example>
   <PaginationSiblingCountExample />
   <ExampleCode>
-```jsx{7} file=./examples/PaginationSiblingCountExample.tsx
+```jsx{8} file=./examples/PaginationSiblingCountExample.tsx
 
 ````
 
@@ -63,6 +83,19 @@ It's common to use a paged API where the total number of pages in the dataset is
 ### Target classes
 
 <ComponentStyleDisplay componentName="Pagination" />
+
+### Theme
+
+You can customize the appearance of all Pagination components in your application with a [Theme](/theming).
+
+<Example>
+  <PaginationThemeExample />
+  <ExampleCode>
+```jsx file=./examples/PaginationThemeExample.tsx
+
+````
+  </ExampleCode>
+</Example>
 
 ### Global styling
 
@@ -82,11 +115,13 @@ To override styling on all Pagination components, you can set the Amplify CSS va
   </ExampleCode>
   <ExampleCode>
     ```jsx
-    import { Pagination } from '@aws-amplify/ui-react';
+    import { Pagination, usePagination } from '@aws-amplify/ui-react';
     import './styles.css';
 
-    // simplified demo
-    <Pagination totalPages={8} />
+    const PaginationGlobalStylingExample = () => {
+      const paginationProps = usePagination({ totalPages: 8 });
+      return <Pagination {...paginationProps} />;
+    };
     ```
 
   </ExampleCode>
@@ -124,11 +159,13 @@ _Using a class selector:_
   </ExampleCode>
   <ExampleCode>
     ```jsx
-    import { Pagination } from '@aws-amplify/ui-react';
+    import { Pagination, usePagination } from '@aws-amplify/ui-react';
     import './styles.css';
 
-    // simplified demo
-    <Pagination totalPages={7} className="my-custom-pagination" />
+    const PaginationClassStylingExample= () => {
+      const paginationProps = usePagination({ totalPages: 7 });
+      return <Pagination {...paginationProps} className="my-custom-pagination" />;
+    };
     ```
 
   </ExampleCode>
@@ -140,10 +177,12 @@ _Using style props:_
   <PaginationStylingExample totalPages={5} backgroundColor="lavender" padding="1rem" />
   <ExampleCode>
     ```jsx
-    import { Pagination } from '@aws-amplify/ui-react';
+    import { Pagination, usePagination } from '@aws-amplify/ui-react';
 
-    // simplified demo
-    <Pagination totalPages={5} backgroundColor="lavender" padding="1rem" />
+    const PaginationStylePropsExample = () => {
+      const paginationProps = usePagination({ totalPages: 5 });
+      return <Pagination {...paginationProps} backgroundColor="lavender" padding="1rem" />;
+    };
     ```
 
   </ExampleCode>
@@ -152,3 +191,7 @@ _Using style props:_
 ## Accessibility
 
 By default, the root node of the Pagination component has a role of "navigation", and each page item has an `aria-label` that identifies the purpose of the item ("Go to previous page", "Go to next page", "Go to page 1", etc).
+
+```
+
+```
