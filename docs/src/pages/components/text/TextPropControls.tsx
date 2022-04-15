@@ -4,15 +4,24 @@ import {
   Flex,
   SelectField,
   SwitchField,
+  TextField,
   TextProps,
   TextVariation,
 } from '@aws-amplify/ui-react';
 
-interface TextPropControlsProps extends TextProps {
+export interface TextPropControlsProps extends TextProps {
   setAs: (value: React.SetStateAction<TextProps['as']>) => void;
   setVariation: (value: React.SetStateAction<TextProps['variation']>) => void;
   setIsTruncated: (
     value: React.SetStateAction<TextProps['isTruncated']>
+  ) => void;
+  setColor: (value: React.SetStateAction<TextProps['color']>) => void;
+  setLineHeight: (value: React.SetStateAction<TextProps['lineHeight']>) => void;
+  setFontWeight: (value: React.SetStateAction<TextProps['fontWeight']>) => void;
+  setFontStyle: (value: React.SetStateAction<TextProps['fontStyle']>) => void;
+  setFontSize: (value: React.SetStateAction<TextProps['fontSize']>) => void;
+  setTextDecoration: (
+    value: React.SetStateAction<TextProps['textDecoration']>
   ) => void;
 }
 
@@ -27,6 +36,18 @@ export const TextPropControls: TextPropControlsInterface = ({
   setAs,
   isTruncated,
   setIsTruncated,
+  color,
+  setColor,
+  lineHeight,
+  setLineHeight,
+  fontWeight,
+  setFontWeight,
+  fontSize,
+  setFontSize,
+  fontStyle,
+  setFontStyle,
+  textDecoration,
+  setTextDecoration,
 }) => {
   const VARIATIONS_OPTIONS = [
     'primary',
@@ -62,6 +83,11 @@ export const TextPropControls: TextPropControlsInterface = ({
           <option value={option}>{option}</option>
         ))}
       </SelectField>
+      <TextField
+        label="color"
+        placeholder={String(color)}
+        onChange={(event) => setColor(event.target.value)}
+      />
       <SwitchField
         label="isTruncated"
         defaultChecked={isTruncated}
