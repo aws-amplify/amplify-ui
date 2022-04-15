@@ -15,17 +15,8 @@ interface SwitchFieldDisabledTokens {
   opacity: DesignToken<OpacityValue>;
 }
 
-interface SwitchFieldFocusTokens {
-  track: SwitchFieldFocusTrackTokens;
-}
-
-interface SwitchFieldFocusTrackTokens {
+interface SwitchFieldFocusedTokens {
   shadow: DesignToken<ShadowValue>;
-}
-
-interface SwitchFieldCheckedTokens {
-  thumb: SwitchFieldCheckedThumbTokens;
-  track: SwitchFieldCheckedTrackTokens;
 }
 
 interface SwitchFieldSizeTokens {
@@ -40,6 +31,7 @@ interface SwitchFieldThumbTokens {
   backgroundColor: DesignToken<BackgroundColorValue>;
   borderColor: DesignToken<BorderColorValue>;
   borderRadius: DesignToken<BorderRadiusValue>;
+  checked: SwitchFieldThumbCheckedTokens;
   transition: SwitchFieldThumbTransitionTokens;
   width: DesignToken<SpaceValue>;
 }
@@ -48,12 +40,13 @@ interface SwitchFieldThumbTransitionTokens {
   duration: DesignToken<TransitionDurationValue>;
 }
 
-interface SwitchFieldCheckedThumbTokens {
+interface SwitchFieldThumbCheckedTokens {
   transform: DesignToken<TransformValue>;
 }
 interface SwitchFieldTrackTokens {
   backgroundColor: DesignToken<BackgroundColorValue>;
   borderRadius: DesignToken<BorderRadiusValue>;
+  checked: SwitchFieldTrackCheckedTokens;
   height: DesignToken<SpaceValue>;
   padding: DesignToken<SpaceValue>;
   transition: SwitchFieldTrackTransitionTokens;
@@ -64,14 +57,13 @@ interface SwitchFieldTrackTransitionTokens {
   duration: DesignToken<TransitionDurationValue>;
 }
 
-interface SwitchFieldCheckedTrackTokens {
+interface SwitchFieldTrackCheckedTokens {
   backgroundColor: DesignToken<BackgroundColorValue>;
 }
 
 export interface SwitchFieldTokens {
   _disabled: SwitchFieldDisabledTokens;
-  _focus: SwitchFieldFocusTokens;
-  _checked: SwitchFieldCheckedTokens;
+  _focused: SwitchFieldFocusedTokens;
   large: SwitchFieldSizeTokens;
   small: SwitchFieldSizeTokens;
   label: SwitchFieldLabelTokens;
@@ -80,55 +72,19 @@ export interface SwitchFieldTokens {
 }
 
 export const switchfield: SwitchFieldTokens = {
-  // Child elements
-  label: {
-    padding: { value: '{space.xs.value}' },
-  },
-
-  thumb: {
-    backgroundColor: { value: '{colors.background.primary.value}' },
-    borderColor: { value: '{colors.border.tertiary.value}' },
-    borderRadius: { value: '{radii.xxxl.value}' },
-    transition: {
-      duration: { value: '{time.medium.value}' },
-    },
-    width: { value: '{space.relative.medium.value}' },
-  },
-
-  track: {
-    backgroundColor: { value: '{colors.background.tertiary.value}' },
-    borderRadius: { value: '{radii.xxxl.value}' },
-    height: { value: '{space.relative.medium.value}' },
-    padding: { value: '{outlineWidths.medium.value}' },
-    transition: {
-      duration: { value: '{time.short.value}' },
-    },
-    width: { value: '{space.relative.xl.value}' },
-  },
-
   // States
   _disabled: {
     opacity: { value: '{opacities.60.value}' },
   },
-  _focus: {
-    track: {
-      shadow: {
-        value: {
-          offsetX: '0px',
-          offsetY: '0px',
-          blurRadius: '0px',
-          spreadRadius: '2px',
-          color: '{colors.border.focus.value}',
-        },
+  _focused: {
+    shadow: {
+      value: {
+        offsetX: '0px',
+        offsetY: '0px',
+        blurRadius: '0px',
+        spreadRadius: '2px',
+        color: '{colors.border.focus.value}',
       },
-    },
-  },
-  _checked: {
-    thumb: {
-      transform: { value: '{transforms.slideX.medium.value}' },
-    },
-    track: {
-      backgroundColor: { value: '{colors.brand.primary.60.value}' },
     },
   },
 
@@ -138,5 +94,37 @@ export const switchfield: SwitchFieldTokens = {
   },
   small: {
     fontSize: { value: '{fontSizes.small.value}' },
+  },
+
+  // Child elements
+  label: {
+    padding: { value: '{space.xs.value}' },
+  },
+
+  thumb: {
+    backgroundColor: { value: '{colors.background.primary.value}' },
+    borderColor: { value: '{colors.border.tertiary.value}' },
+    borderRadius: { value: '{radii.xxxl.value}' },
+    checked: {
+      transform: { value: '{transforms.slideX.medium.value}' },
+    },
+    transition: {
+      duration: { value: '{time.medium.value}' },
+    },
+    width: { value: '{space.relative.medium.value}' },
+  },
+
+  track: {
+    backgroundColor: { value: '{colors.background.tertiary.value}' },
+    borderRadius: { value: '{radii.xxxl.value}' },
+    checked: {
+      backgroundColor: { value: '{colors.brand.primary.60.value}' },
+    },
+    height: { value: '{space.relative.medium.value}' },
+    padding: { value: '{outlineWidths.medium.value}' },
+    transition: {
+      duration: { value: '{time.short.value}' },
+    },
+    width: { value: '{space.relative.xl.value}' },
   },
 };
