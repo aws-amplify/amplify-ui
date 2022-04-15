@@ -1,6 +1,6 @@
 import { borderWidths, BorderWidths, WebBorderWidths } from './borderWidths';
 import { colors, Colors, WebColors } from './colors';
-import { components } from './components';
+import { ComponentTokens, components } from './components';
 import { fonts, Fonts, WebFonts } from './fonts';
 import { fontSizes, FontSizes, WebFontSizes } from './fontSizes';
 import { fontWeights, FontWeights, WebFontWeights } from './fontWeights';
@@ -23,7 +23,7 @@ import { time, Time, WebTime } from './time';
 import { transforms, Transforms, WebTransforms } from './transforms';
 
 export interface Tokens {
-  components: any; // TODO type this
+  components: ComponentTokens;
   borderWidths: BorderWidths;
   colors: Colors;
   fonts: Fonts;

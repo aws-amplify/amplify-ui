@@ -13,7 +13,7 @@ export default function App() {
 
   return (
     <Authenticator>
-      {() => <button onClick={navigateHome}>Navigate to Home</button>}
+      <button onClick={navigateHome}>Navigate to Home</button>
     </Authenticator>
   );
 }

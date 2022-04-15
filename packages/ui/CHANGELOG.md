@@ -1,5 +1,13 @@
 # @aws-amplify/ui
 
+## 3.6.3
+
+### Patch Changes
+
+- [#1673](https://github.com/aws-amplify/amplify-ui/pull/1673) [`34a19a541`](https://github.com/aws-amplify/amplify-ui/commit/34a19a541b4b733a6688a38a435423e9c607e918) Thanks [@reesscot](https://github.com/reesscot)! - Type theme component design tokens
+
+* [#1679](https://github.com/aws-amplify/amplify-ui/pull/1679) [`16dced7de`](https://github.com/aws-amplify/amplify-ui/commit/16dced7de5edc73c064b7ec4bddbefe586e98393) Thanks [@wlee221](https://github.com/wlee221)! - fix(authenticator): Ensure machine setup runs after user signs in, refreshes, then signs out.
+
 ## 3.6.2
 
 ### Patch Changes
