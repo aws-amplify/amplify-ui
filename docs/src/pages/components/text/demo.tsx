@@ -35,15 +35,16 @@ const propsToCode = (
     fontStyle="${fontStyle}"
     fontSize="${fontSize}"
     textDecoration="${textDecoration}"
+    maxWidth="30vi"
   >
-    {${lorenIpsum}}
+    ${lorenIpsum}
 </Text>`;
 
 export const TextDemo = ({ children }) => {
   const props = useTextProps({
     as: 'p',
     variation: 'primary',
-    isTruncated: true,
+    isTruncated: false,
     color: 'blue',
     lineHeight: '1em',
     fontWeight: 400,
@@ -63,7 +64,7 @@ export const TextDemo = ({ children }) => {
   } = props;
 
   const LOREM_IPSUM =
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. At risus viverra adipiscing at in tellus integer feugiat. Quis vel eros donec ac odio tempor. Mauris a diam maecenas sed enim ut sem viverra aliquet. Auctor elit sed vulputate mi sit. Vitae auctor eu augue ut lectus arcu bibendum at varius. Tempus iaculis urna id volutpat. Consectetur libero id faucibus nisl tincidunt eget nullam non. Aliquam purus sit amet luctus venenatis lectus magna fringilla urna. Id semper risus in hendrerit gravida rutrum quisque. Orci phasellus egestas tellus rutrum tellus pellentesque eu. Amet cursus sit amet dictum sit amet justo donec. Volutpat commodo sed egestas egestas fringilla phasellus faucibus scelerisque. Neque laoreet suspendisse interdum consectetur libero id faucibus nisl. Lorem dolor sed viverra ipsum. Bibendum arcu vitae elementum curabitur vitae. Ullamcorper velit sed ullamcorper morbi.';
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. At risus viverra adipiscing at in tellus integer feugiat.';
   return (
     <Demo
       code={propsToCode(
@@ -92,6 +93,7 @@ export const TextDemo = ({ children }) => {
         fontStyle={fontStyle}
         fontSize={fontSize}
         textDecoration={textDecoration}
+        maxWidth="30vi"
       >
         {LOREM_IPSUM}
       </Text>

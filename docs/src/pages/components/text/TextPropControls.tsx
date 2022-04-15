@@ -125,5 +125,4 @@ export const TextPropControls: TextPropControlsInterface = ({
       />
     </Flex>
   );
-  return null;
 };
