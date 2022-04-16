@@ -5,6 +5,7 @@ import {
   DefaultPlaceholderExample,
   PlaceholderIsLoadedExample,
   PlaceholderSizeExample,
+  PlaceholderThemeExample,
 } from './examples';
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
@@ -55,19 +56,32 @@ Use the `size` prop to change the Placeholder size. Available options are `small
   </ExampleCode>
 </Example>
 
-## CSS Styling
+## Customization
 
 ### Target classes
 
 <ComponentStyleDisplay componentName="Placeholder" />
+
+### Theme
+
+You can customize the appearance of all Placeholders in your application with a [Theme](/theming).
+
+<Example>
+  <PlaceholderThemeExample />
+  <ExampleCode>
+    ```jsx file=./examples/PlaceholderThemeExample.tsx
+
+    ```
+
+  </ExampleCode>
+</Example>
 
 ### Global styling
 
 To override styling on all Placeholder components, you can set the Amplify CSS variables or use the built-in `.amplify-placeholder` class.
 
 <Example>
-    <Placeholder height="2rem" borderRadius="1rem" />
-  
+  <Placeholder height="2rem" borderRadius="1rem" />
   <ExampleCode>
     ```css
     /* styles.css */
@@ -94,13 +108,13 @@ _Using a class selector:_
 Set the starting and ending colors for the Placeholder animation using a custom CSS class with the Amplify CSS variables:
 
 <Example>
-   <Placeholder className="custom-placeholder" />
+   <Placeholder className="placeholder-local-styles" />
   <ExampleCode>
     ```css
     /* styles.css */
-    .custom-placeholder {
-      --amplify-components-placeholder-start-color: purple;
-      --amplify-components-placeholder-end-color: blue;
+    .placeholder-local-styles {
+      --amplify-components-placeholder-start-color: var(--amplify-colors-purple-80);
+      --amplify-components-placeholder-end-color: var(--amplify-colors-blue-80);
     }
     ```
   </ExampleCode>
@@ -108,7 +122,7 @@ Set the starting and ending colors for the Placeholder animation using a custom 
     ```jsx
     import './styles.css';
 
-    <Placeholder className="custom-placeholder" />
+    <Placeholder className="placeholder-local-styles" />
     ```
 
   </ExampleCode>
