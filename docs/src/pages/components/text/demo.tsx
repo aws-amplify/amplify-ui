@@ -65,6 +65,7 @@ export const TextDemo = ({ children }) => {
 
   const LOREM_IPSUM =
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. At risus viverra adipiscing at in tellus integer feugiat.';
+
   return (
     <Demo
       code={propsToCode(
@@ -98,18 +99,6 @@ export const TextDemo = ({ children }) => {
         {LOREM_IPSUM}
       </Text>
     </Demo>
-  );
-};
-
-export const TextTruncatedSample = () => {
-  return (
-    <Text isTruncated={true}>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-      est laborum.
-    </Text>
   );
 };
 
