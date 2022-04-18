@@ -1,11 +1,5 @@
 import * as React from 'react';
-import {
-  Flex,
-  ViewProps,
-  SelectField,
-  SwitchField,
-  TextField,
-} from '@aws-amplify/ui-react';
+import { Flex, ViewProps, SelectField, TextField } from '@aws-amplify/ui-react';
 import _ from 'lodash';
 
 export interface ViewPropControlsProps extends ViewProps {
@@ -22,7 +16,6 @@ export interface ViewPropControlsProps extends ViewProps {
   setBorderRadius: (
     value: React.SetStateAction<ViewProps['borderRadius']>
   ) => void;
-  setOpacity: (value: React.SetStateAction<ViewProps['opacity']>) => void;
   setAsElementType: (value: React.SetStateAction<ViewProps['as']>) => void;
 }
 
@@ -39,7 +32,6 @@ export const ViewPropControls: ViewPropControlsInterface = ({
   boxShadow,
   color,
   height,
-  opacity,
   padding,
   setAriaLabel,
   setAsElementType,
@@ -49,7 +41,6 @@ export const ViewPropControls: ViewPropControlsInterface = ({
   setBoxShadow,
   setColor,
   setHeight,
-  setOpacity,
   setPadding,
   setWidth,
   width,
@@ -104,11 +95,6 @@ export const ViewPropControls: ViewPropControlsInterface = ({
         label="Height"
       />
 
-      <TextField
-        value={opacity as string}
-        onChange={(event) => setOpacity(event.target.value)}
-        label="Opacity"
-      />
       <TextField
         value={padding as string}
         onChange={(event) => setPadding(event.target.value)}

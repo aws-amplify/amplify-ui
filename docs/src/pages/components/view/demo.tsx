@@ -38,7 +38,7 @@ export const ViewDemo = () => {
     boxShadow: '3px 3px 5px 6px var(--amplify-colors-neutral-60)',
     padding: '1rem',
     border: '1px solid var(--amplify-colors-black)',
-    borderRadius: '12px',
+    borderRadius: '6px',
     opacity: '100%',
   });
 

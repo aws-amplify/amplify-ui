@@ -35,9 +35,6 @@ export const useViewProps: UseViewProps = (initialValues) => {
   const [borderRadius, setBorderRadius] = React.useState<
     ViewProps['borderRadius']
   >(initialValues.borderRadius);
-  const [opacity, setOpacity] = React.useState<ViewProps['opacity']>(
-    initialValues.opacity
-  );
 
   const [as, setAsElementType] = React.useState<ViewProps['as']>(
     initialValues.as
@@ -62,8 +59,6 @@ export const useViewProps: UseViewProps = (initialValues) => {
     setBorder,
     borderRadius,
     setBorderRadius,
-    opacity,
-    setOpacity,
     as,
     setAsElementType,
   };
