@@ -15,6 +15,19 @@ These docs are published at https://docs.amplify.aws/ui and powered by the follo
 1. Open <http://localhost:5000/>
 1. _Optional:_ To build the flutter authenticator sample, [install flutter](https://docs.flutter.dev/get-started/install) and then run `yarn flutter:build`. This will build the flutter authenticator one time. It will not watch for changes.
 
+#### To Update Props Table
+
+```sh
+yarn docs update:props-table
+```
+
+_note:_ The above command doesn't update props table for `TextField`. To update `TextField`, need to manually modify file "packages/react/src/primitives/TextField/TextField.tsx" to the following, then run the above command.
+
+```tsx
+export const TextField = React.forwardRef(TextFieldPrimitive);
+TextField.displayName = 'TextField';
+```
+
 ### Creating a Page
 
 Page paths mirror their URLs. For example, `/ui/components/authenticator` is located at [/src/pages/ui/components/authenticator/index.page.mdx](src/pages/ui/components/authenticator/index.page.mdx).

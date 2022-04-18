@@ -3,6 +3,7 @@
   "name": "docs",
   "version": "0.0.1",
   "scripts": {
+    "update:props-table": "node ./script/generatePropsTables.mjs",
     "dev": "next dev -p 5000",
     "preflutter:build": "yarn flutter:clean",
     "flutter:build": "(cd flutter/authenticator && flutter build web)",
