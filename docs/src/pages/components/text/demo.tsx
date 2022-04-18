@@ -22,8 +22,8 @@ const propsToCode = (
     fontStyle,
     fontSize,
     textDecoration,
-  }: TextProps,
-  lorenIpsum: string
+    value,
+  }: TextProps
 ) => `
 <Text
     as="${as}"
@@ -35,22 +35,13 @@ const propsToCode = (
     fontStyle="${fontStyle}"
     fontSize="${fontSize}"
     textDecoration="${textDecoration}"
-    maxWidth="30vi"
+    width="30vw"
   >
-    ${lorenIpsum}
+    ${value}
 </Text>`;
 
 export const TextDemo = ({ children }) => {
-  const props = useTextProps({
-    as: 'p',
-    variation: 'primary',
-    isTruncated: false,
-    color: 'blue',
-    lineHeight: '1em',
-    fontWeight: 400,
-    fontSize: '1.5em',
-    textDecoration: 'underline',
-  });
+  const props = useTextProps({});
   const {
     as,
     variation,
@@ -61,27 +52,22 @@ export const TextDemo = ({ children }) => {
     fontStyle,
     fontSize,
     textDecoration,
+    value,
   } = props;
-
-  const LOREM_IPSUM =
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. At risus viverra adipiscing at in tellus integer feugiat.';
 
   return (
     <Demo
-      code={propsToCode(
-        variation,
-        {
-          as,
-          isTruncated,
-          color,
-          lineHeight,
-          fontWeight,
-          fontStyle,
-          fontSize,
-          textDecoration,
-        },
-        LOREM_IPSUM
-      )}
+      code={propsToCode(variation, {
+        as,
+        isTruncated,
+        color,
+        lineHeight,
+        fontWeight,
+        fontStyle,
+        fontSize,
+        textDecoration,
+        value,
+      })}
       propControls={<TextPropControls {...props} />}
     >
       <Text
@@ -94,9 +80,9 @@ export const TextDemo = ({ children }) => {
         fontStyle={fontStyle}
         fontSize={fontSize}
         textDecoration={textDecoration}
-        maxWidth="30vi"
+        width="30vw"
       >
-        {LOREM_IPSUM}
+        {value}
       </Text>
     </Demo>
   );

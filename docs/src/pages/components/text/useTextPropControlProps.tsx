@@ -4,9 +4,7 @@ import { TextProps, TextVariation } from '@aws-amplify/ui-react';
 
 import { TextPropControlsProps } from './TextPropControls';
 
-export const useTextProps = (
-  initialValues: TextProps
-): TextPropControlsProps => {
+export const useTextProps = (): TextPropControlsProps => {
   const [variation, setVariation] = React.useState<TextVariation>('primary');
   const [as, setAs] = React.useState<TextProps['as']>('p');
   const [isTruncated, setIsTruncated] =
@@ -17,6 +15,7 @@ export const useTextProps = (
   const [fontStyle, setFontStyle] = React.useState<string>('normal');
   const [fontSize, setFontSize] = React.useState<string>('1em');
   const [textDecoration, setTextDecoration] = React.useState<string>('none');
+  const [value, setValue] = React.useState<string>('Hello World!');
 
   return {
     variation,
@@ -37,5 +36,7 @@ export const useTextProps = (
     setFontSize,
     textDecoration,
     setTextDecoration,
+    value,
+    setValue,
   };
 };

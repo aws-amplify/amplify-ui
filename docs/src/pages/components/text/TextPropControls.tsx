@@ -24,6 +24,8 @@ export interface TextPropControlsProps extends TextProps {
   setTextDecoration: (
     value: React.SetStateAction<TextProps['textDecoration']>
   ) => void;
+  value: string;
+  setValue: (value: string) => void;
 }
 
 interface TextPropControlsInterface {
@@ -49,6 +51,8 @@ export const TextPropControls: TextPropControlsInterface = ({
   setFontStyle,
   textDecoration,
   setTextDecoration,
+  value,
+  setValue,
 }) => {
   const VARIATIONS_OPTIONS = [
     'primary',
@@ -64,6 +68,11 @@ export const TextPropControls: TextPropControlsInterface = ({
 
   return (
     <Flex direction="column">
+      <TextField
+        label="Displayed Text"
+        onChange={(event) => setValue(event.target.value)}
+        defaultValue={value}
+      ></TextField>
       <SelectField
         name="variation"
         value={String(variation)}
