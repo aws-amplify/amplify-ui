@@ -40,7 +40,9 @@ export const TextThemeExample = () => (
     <Flex direction="row">
       <Text>Default</Text>
       {VARIATIONS_OPTIONS.map((variation) => (
-        <Text variation={variation}>{variation}</Text>
+        <Text key={variation} variation={variation}>
+          {variation}
+        </Text>
       ))}
     </Flex>
   </AmplifyProvider>

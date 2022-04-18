@@ -80,7 +80,9 @@ export const TextPropControls: TextPropControlsInterface = ({
         label="variation"
       >
         {VARIATIONS_OPTIONS.map((option) => (
-          <option value={option}>{option}</option>
+          <option key={option} value={option}>
+            {option}
+          </option>
         ))}
       </SelectField>
       <SelectField
@@ -90,7 +92,9 @@ export const TextPropControls: TextPropControlsInterface = ({
         label="as"
       >
         {AS_OPTIONS.map((option) => (
-          <option value={option}>{option}</option>
+          <option key={option} value={option}>
+            {option}
+          </option>
         ))}
       </SelectField>
       <TextField
