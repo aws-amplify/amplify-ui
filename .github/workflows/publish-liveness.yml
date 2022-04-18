@@ -87,3 +87,9 @@ jobs:
           NPM_TOKEN: ${{ secrets.LIVENESS_VERDACCIO_TOKEN }}
       - name: Publish to liveness tag for Verdaccio
         run: yarn publish:liveness
+
+      # Trigger sample app build
+      - name: Trigger build for sample app
+        run: curl -X POST -d {} $ENDPOINT -H "Content-Type:application/json"
+        env:
+          ENDPOINT: ${{ secrets.LIVENESS_SAMPLE_APP_BUILD_TRIGGER }}

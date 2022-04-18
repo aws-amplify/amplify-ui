@@ -529,7 +529,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-stepperfield-flex-direction: column;
         --amplify-components-stepperfield-input-text-align: center;
         --amplify-components-switchfield-disabled-opacity: var(--amplify-opacities-60);
-        --amplify-components-switchfield-focused-shadow: var(--amplify-shadows-small);
+        --amplify-components-switchfield-focused-shadow: 0px 0px 0px 2px var(--amplify-colors-border-focus);
         --amplify-components-switchfield-large-font-size: var(--amplify-font-sizes-large);
         --amplify-components-switchfield-small-font-size: var(--amplify-font-sizes-small);
         --amplify-components-switchfield-label-padding: var(--amplify-space-xs);
