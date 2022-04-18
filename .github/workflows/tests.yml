@@ -319,7 +319,7 @@ jobs:
 
       - name: Install packages
         if: steps.restore-cache.outputs.cache-hit != 'true'
-        run: yarn --no-lockfile
+        run: yarn install
 
       - name: Restore ui/dist cache
         uses: actions/cache@v2
