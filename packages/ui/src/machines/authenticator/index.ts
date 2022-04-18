@@ -4,7 +4,7 @@ import {
   AuthContext,
   AuthEvent,
   CognitoUserAmplify,
-  FormFields,
+  AuthFormFields,
 } from '../../types';
 import { stopActor } from './actions';
 import { resetPasswordActor, signInActor, signOutActor } from './actors';
@@ -25,48 +25,59 @@ export function createAuthenticatorMachine() {
       context: {
         user: undefined,
         config: {},
-        services: {},
+        services: defaultServices,
         actorRef: undefined,
+        hasSetup: false,
       },
       states: {
         // See: https://xstate.js.org/docs/guides/communication.html#invoking-promises
         idle: {
-          on: {
-            INIT: {
+          invoke: {
+            src: 'getCurrentUser',
+            onDone: {
+              actions: 'setUser',
+              target: 'authenticated',
+            },
+            onError: {
               target: 'setup',
-              actions: 'configure',
             },
           },
         },
         setup: {
-          invoke: [
-            {
-              // TODO Wait for Auth to be configured
-              src: (context, _) => context.services.getCurrentUser(),
-              onDone: {
-                actions: 'setUser',
-                target: 'authenticated',
+          initial: 'waitConfig',
+          states: {
+            waitConfig: {
+              on: {
+                INIT: {
+                  actions: ['configure', 'setHasSetup'],
+                  target: 'applyConfig',
+                },
               },
-              onError: [
+            },
+            applyConfig: {
+              invoke: {
+                // TODO Wait for Auth to be configured
+                src: 'getAmplifyConfig',
+                onDone: {
+                  actions: 'applyAmplifyConfig',
+                  target: 'goToInitialState',
+                },
+              },
+            },
+            goToInitialState: {
+              always: [
                 {
-                  target: 'signUp',
-                  cond: (context) => context.config.initialState === 'signUp',
+                  target: '#authenticator.signUp',
+                  cond: 'isInitialStateSignUp',
                 },
                 {
-                  target: 'resetPassword',
-                  cond: (context) =>
-                    context.config.initialState === 'resetPassword',
+                  target: '#authenticator.resetPassword',
+                  cond: 'isInitialStateResetPassword',
                 },
-                { target: 'signIn' },
+                { target: '#authenticator.signIn' },
               ],
             },
-            {
-              src: (context, _) => context.services.getAmplifyConfig(),
-              onDone: {
-                actions: 'applyAmplifyConfig',
-              },
-            },
-          ],
+          },
         },
         signIn: {
           initial: 'spawnActor',
@@ -76,7 +87,7 @@ export function createAuthenticatorMachine() {
             },
             runActor: {
               entry: 'clearActorDoneData',
-              exit: stopActor('signInActor'),
+              exit: 'stopSignInActor',
             },
           },
           on: {
@@ -108,13 +119,20 @@ export function createAuthenticatorMachine() {
             },
             runActor: {
               entry: 'clearActorDoneData',
-              exit: stopActor('signUpActor'),
+              exit: 'stopSignUpActor',
+            },
+            autoSignIn: {
+              invoke: {
+                src: 'getCurrentUser',
+                onDone: '#authenticator.authenticated',
+                onError: '#authenticator.setup.goToInitialState',
+              },
             },
           },
           on: {
             SIGN_IN: 'signIn',
             'done.invoke.signUpActor': {
-              target: 'setup',
+              target: 'signUp.autoSignIn',
               actions: 'setActorDoneData',
             },
           },
@@ -130,7 +148,7 @@ export function createAuthenticatorMachine() {
             },
             runActor: {
               entry: 'clearActorDoneData',
-              exit: stopActor('resetPasswordActor'),
+              exit: 'stopResetPasswordActor',
             },
           },
           on: {
@@ -149,11 +167,14 @@ export function createAuthenticatorMachine() {
             },
             runActor: {
               entry: 'clearActorDoneData',
-              exit: [stopActor('signOutActor'), 'clearUser'],
+              exit: ['stopSignOutActor', 'clearUser'],
             },
           },
           on: {
-            'done.invoke.signOutActor': 'signIn',
+            'done.invoke.signOutActor': [
+              { target: 'setup', cond: 'shouldSetup' },
+              { target: 'setup.goToInitialState' },
+            ],
           },
         },
         authenticated: {
@@ -221,7 +242,6 @@ export function createAuthenticatorMachine() {
             }
 
             // Prefer explicitly configured settings over default CLI values\
-
             const {
               loginMechanisms,
               signUpAttributes,
@@ -304,6 +324,10 @@ export function createAuthenticatorMachine() {
             return spawn(actor, { name: 'signOutActor' });
           },
         }),
+        stopSignInActor: stopActor('signInActor'),
+        stopSignUpActor: stopActor('signUpActor'),
+        stopResetPasswordActor: stopActor('resetPasswordActor'),
+        stopSignOutActor: stopActor('signOutActor'),
         configure: assign((_, event) => {
           const { services: customServices, ...config } = event.data;
           return {
@@ -311,22 +335,32 @@ export function createAuthenticatorMachine() {
             config,
           };
         }),
+        setHasSetup: assign({
+          hasSetup: true,
+        }),
       },
       guards: {
-        shouldRedirectToSignUp: (_, event): boolean => {
-          if (!event.data?.intent) return false;
-          return event.data.intent === 'confirmSignUp';
-        },
-        shouldRedirectToResetPassword: (_, event): boolean => {
-          if (!event.data?.intent) return false;
-          return event.data.intent === 'confirmPasswordReset';
-        },
+        // guards for initial states
+        isInitialStateSignUp: (context) =>
+          context.config.initialState === 'signUp',
+        isInitialStateResetPassword: (context) =>
+          context.config.initialState === 'resetPassword',
+        // guards for redirections
+        shouldRedirectToSignUp: (_, event) =>
+          event.data?.intent === 'confirmSignUp',
+        shouldRedirectToResetPassword: (_, event) =>
+          event.data?.intent === 'confirmPasswordReset',
+        shouldSetup: (context) => context.hasSetup === false,
+      },
+      services: {
+        getCurrentUser: (context, _) => context.services.getCurrentUser(),
+        getAmplifyConfig: (context, _) => context.services.getAmplifyConfig(),
       },
     }
   );
 }
 
-function convertFormFields(formFields: FormFields): FormFields {
+function convertFormFields(formFields: AuthFormFields): AuthFormFields {
   if (formFields) {
     Object.keys(formFields).forEach((component: string) => {
       Object.keys(formFields[component]).forEach((inputName) => {

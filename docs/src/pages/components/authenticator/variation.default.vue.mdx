@@ -1,3 +1,10 @@
-```html{2} file=../../../../../examples/vue/src/pages/ui/components/authenticator/sign-in-with-username/index.vue#L10-
-
+```html
+<template>
+  <authenticator>
+    <template v-slot="{ user, signOut }">
+      <h1>Hello {{ user.username }}!</h1>
+      <button @click="signOut">Sign Out</button>
+    </template>
+  </authenticator>
+</template>
 ```

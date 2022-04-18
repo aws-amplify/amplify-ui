@@ -1,6 +1,7 @@
 .amplify-loader {
   width: var(--amplify-components-loader-width);
   height: var(--amplify-components-loader-height);
+  font-size: var(--amplify-components-loader-font-size);
   fill: none;
   stroke: var(--amplify-components-loader-stroke-empty);
 
@@ -17,6 +18,18 @@
     }
     stroke: var(--amplify-components-loader-stroke-filled);
     stroke-linecap: var(--amplify-components-loader-stroke-linecap);
+  }
+
+  &[data-size='small'] {
+    width: var(--amplify-components-loader-small-width);
+    height: var(--amplify-components-loader-small-height);
+    font-size: var(--amplify-components-loader-small-font-size);
+  }
+
+  &[data-size='large'] {
+    width: var(--amplify-components-loader-large-width);
+    height: var(--amplify-components-loader-large-height);
+    font-size: var(--amplify-components-loader-large-font-size);
   }
 
   line:last-of-type {
@@ -63,13 +76,42 @@
     );
   }
 
-  &--linear {
+  &[data-variation='linear'] {
     width: var(--amplify-components-loader-linear-width);
-    min-width: var(--amplify-components-loader-linear-min-width);
     height: var(--amplify-internal-loader-linear-height);
+    font-size: var(--amplify-components-loader-linear-font-size);
     stroke: var(--amplify-components-loader-linear-stroke-empty);
     stroke-width: var(--amplify-internal-loader-linear-stroke-width);
     stroke-linecap: var(--amplify-components-loader-linear-stroke-linecap);
+
+    &[data-size='small'] {
+      font-size: var(--amplify-components-loader-linear-small-font-size);
+      stroke-width: var(--amplify-components-loader-linear-small-stroke-width);
+    }
+
+    &[data-size='large'] {
+      font-size: var(--amplify-components-loader-linear-large-font-size);
+      stroke-width: var(--amplify-components-loader-linear-large-stroke-width);
+    }
+  }
+
+  // This is not supposed to be customized by users
+  &--determinate {
+    circle:last-of-type {
+      animation: none;
+      transform: rotate(-90deg);
+    }
+
+    line:last-of-type {
+      animation: none;
+      stroke-dashoffset: 0%;
+      stroke-dasharray: none;
+    }
+  }
+
+  &__percentage-text {
+    fill: var(--amplify-components-loader-text-fill);
+    stroke: none;
   }
 }
 

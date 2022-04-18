@@ -1,5 +1,100 @@
 # @aws-amplify/ui-angular
 
+## 2.3.10
+
+### Patch Changes
+
+- Updated dependencies [[`34a19a541`](https://github.com/aws-amplify/amplify-ui/commit/34a19a541b4b733a6688a38a435423e9c607e918), [`16dced7de`](https://github.com/aws-amplify/amplify-ui/commit/16dced7de5edc73c064b7ec4bddbefe586e98393)]:
+  - @aws-amplify/ui@3.6.3
+
+## 2.3.9
+
+### Patch Changes
+
+- Updated dependencies [[`b9a181bc9`](https://github.com/aws-amplify/amplify-ui/commit/b9a181bc9da2411017877a91dc931812e8371bb8)]:
+  - @aws-amplify/ui@3.6.2
+
+## 2.3.8
+
+### Patch Changes
+
+- Updated dependencies [[`68cf0494f`](https://github.com/aws-amplify/amplify-ui/commit/68cf0494f15356af54ee5aa0b4749cdd9a104aca), [`e799d32a4`](https://github.com/aws-amplify/amplify-ui/commit/e799d32a4a298e526a3469ee813597a1d09dfd58), [`e799d32a4`](https://github.com/aws-amplify/amplify-ui/commit/e799d32a4a298e526a3469ee813597a1d09dfd58)]:
+  - @aws-amplify/ui@3.6.1
+
+## 2.3.7
+
+### Patch Changes
+
+- Updated dependencies [[`ab9aef8f3`](https://github.com/aws-amplify/amplify-ui/commit/ab9aef8f329612abc2818db6b4477377aaa3ca62), [`992c5f6fb`](https://github.com/aws-amplify/amplify-ui/commit/992c5f6fb3eb3c1c5a9514029c4c17f53d8d7b5b)]:
+  - @aws-amplify/ui@3.6.0
+
+## 2.3.6
+
+### Patch Changes
+
+- Updated dependencies [[`ff74c1d1c`](https://github.com/aws-amplify/amplify-ui/commit/ff74c1d1cab859d977dfc0638f0193af842d2bbd)]:
+  - @aws-amplify/ui@3.5.1
+
+## 2.3.5
+
+### Patch Changes
+
+- Updated dependencies [[`4d0a8424e`](https://github.com/aws-amplify/amplify-ui/commit/4d0a8424e2592be52a59e610f0eb1068c6ab0d5a), [`e20720a89`](https://github.com/aws-amplify/amplify-ui/commit/e20720a894ccb2cfcc7ede7160299e082ec76fd2), [`4dee728f2`](https://github.com/aws-amplify/amplify-ui/commit/4dee728f25735ce8bc8793806a395dfcee579522)]:
+  - @aws-amplify/ui@3.5.0
+
+## 2.3.4
+
+### Patch Changes
+
+- Updated dependencies [[`c00b0f016`](https://github.com/aws-amplify/amplify-ui/commit/c00b0f0161f4df56c3d2ec75ffe0d2975bb859ac)]:
+  - @aws-amplify/ui@3.4.1
+
+## 2.3.3
+
+### Patch Changes
+
+- [#1580](https://github.com/aws-amplify/amplify-ui/pull/1580) [`1ac9cda71`](https://github.com/aws-amplify/amplify-ui/commit/1ac9cda712dc7eb7bc7293999340e05059648c93) Thanks [@wlee221](https://github.com/wlee221)! - fix(authenticator): look for current user on routed apps whenever app refreshes
+
+* [#1592](https://github.com/aws-amplify/amplify-ui/pull/1592) [`fc0acacdf`](https://github.com/aws-amplify/amplify-ui/commit/fc0acacdf9247574d1605b32c03537c1768c43f1) Thanks [@wlee221](https://github.com/wlee221)! - Fix unscription timing issues in Vue/Angular
+
+* Updated dependencies [[`1ac9cda71`](https://github.com/aws-amplify/amplify-ui/commit/1ac9cda712dc7eb7bc7293999340e05059648c93), [`d47da90a6`](https://github.com/aws-amplify/amplify-ui/commit/d47da90a68d936e2cc22a972a876ef10aca0eaf3), [`6d3981c4a`](https://github.com/aws-amplify/amplify-ui/commit/6d3981c4a26721361e4461d206b0b37d72d67dbd)]:
+  - @aws-amplify/ui@3.4.0
+
+## 2.3.2
+
+### Patch Changes
+
+- [#1545](https://github.com/aws-amplify/amplify-ui/pull/1545) [`30e3155ac`](https://github.com/aws-amplify/amplify-ui/commit/30e3155ac70d3f82c00da562332ce701ade45817) Thanks [@wlee221](https://github.com/wlee221)! - Bump xstate to `^4.30.6`
+
+- Updated dependencies [[`7910c04b5`](https://github.com/aws-amplify/amplify-ui/commit/7910c04b55cb32e3e8a70c3966f509ea43a0dc64), [`30e3155ac`](https://github.com/aws-amplify/amplify-ui/commit/30e3155ac70d3f82c00da562332ce701ade45817)]:
+  - @aws-amplify/ui@3.3.2
+
+## 2.3.1
+
+### Patch Changes
+
+- [#1484](https://github.com/aws-amplify/amplify-ui/pull/1484) [`8b72277ab`](https://github.com/aws-amplify/amplify-ui/commit/8b72277ab8bd7ad64fa298a9d509572318ac8db2) Thanks [@wlee221](https://github.com/wlee221)! - refactor: share default form fields generation logic
+
+* [#1484](https://github.com/aws-amplify/amplify-ui/pull/1484) [`8b72277ab`](https://github.com/aws-amplify/amplify-ui/commit/8b72277ab8bd7ad64fa298a9d509572318ac8db2) Thanks [@wlee221](https://github.com/wlee221)! - Default `labelHidden` to false. This can be adjusted in a later PR for better UX.
+
+- [#1514](https://github.com/aws-amplify/amplify-ui/pull/1514) [`5ca96c4a8`](https://github.com/aws-amplify/amplify-ui/commit/5ca96c4a81722aca00caecb35dc98d17588c6ff1) Thanks [@amirHossein-Ebrahimi](https://github.com/amirHossein-Ebrahimi)! - feat: Add repository information to UI packages
+
+* [#1495](https://github.com/aws-amplify/amplify-ui/pull/1495) [`71abbbe28`](https://github.com/aws-amplify/amplify-ui/commit/71abbbe28c8e87aed63dac8131534cfaeb071843) Thanks [@0618](https://github.com/0618)! - fix a11y errors
+
+* Updated dependencies [[`8b72277ab`](https://github.com/aws-amplify/amplify-ui/commit/8b72277ab8bd7ad64fa298a9d509572318ac8db2), [`8b72277ab`](https://github.com/aws-amplify/amplify-ui/commit/8b72277ab8bd7ad64fa298a9d509572318ac8db2), [`5ca96c4a8`](https://github.com/aws-amplify/amplify-ui/commit/5ca96c4a81722aca00caecb35dc98d17588c6ff1), [`1e9c6c031`](https://github.com/aws-amplify/amplify-ui/commit/1e9c6c031b1e5401c456365f0ff3187ed35c6f22)]:
+  - @aws-amplify/ui@3.3.1
+
+## 2.3.0
+
+### Minor Changes
+
+- [#1492](https://github.com/aws-amplify/amplify-ui/pull/1492) [`0bfe79caa`](https://github.com/aws-amplify/amplify-ui/commit/0bfe79caa63b037c1c9633c240b35203799f2fab) Thanks [@ErikCH](https://github.com/ErikCH)! - Added new password complexity errors that will show during sign up. Based on the zero-config
+
+### Patch Changes
+
+- Updated dependencies [[`0bfe79caa`](https://github.com/aws-amplify/amplify-ui/commit/0bfe79caa63b037c1c9633c240b35203799f2fab), [`ebcc7e610`](https://github.com/aws-amplify/amplify-ui/commit/ebcc7e610fda12f74ba6c5bd6dda89bc4849b898)]:
+  - @aws-amplify/ui@3.3.0
+
 ## 2.2.2
 
 ### Patch Changes

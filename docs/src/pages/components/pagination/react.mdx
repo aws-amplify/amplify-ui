@@ -1,7 +1,8 @@
 import { Flex } from '@aws-amplify/ui-react';
 import { PaginationDemo } from './demo.tsx';
-import { Example } from '@/components/Example';
-import { ComponentClassTable } from '@/components/ComponentClassTable';
+import { Example, ExampleCode } from '@/components/Example';
+import { PaginationHasMorePagesExample } from './examples';
+import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 
 ## Demo
 
@@ -27,11 +28,24 @@ import '@aws-amplify/ui-react/styles.css';
 
 <PaginationDemo isDemo={false} />
 
+### Paginating at an API level
+
+It's common to use a paged API where the total number of pages in the dataset is unknown until you've reached the final page. To use the Pagination component in this scenario, set the `totalPages` prop to the total pages of content loaded from the API _so far_, and set `hasMorePages` initially to `true` (which enables the next button to be clicked to trigger another API call). Update the `totalPages` as you fetch more data. Once you reach the end of the data, set the `hasMorePages` to false (and thus the Pagination component's next button will be disabled). See below for a contrived example:
+
+<Example>
+  <PaginationHasMorePagesExample />
+  <ExampleCode>
+```jsx file=./examples/PaginationHasMorePagesExample.tsx
+
+````
+  </ExampleCode>
+</Example>
+
 ## CSS styling
 
 ### Target classes
 
-<ComponentClassTable componentName="Pagination" />
+<ComponentStyleDisplay componentName="Pagination" />
 
 ### Global styling
 
@@ -125,3 +139,4 @@ import '@aws-amplify/ui-react/styles.css';
 ## Accessibility
 
 By default, the root node has a role of "navigation" and each page item has an aria-label that identifies the purpose of the item ("Go to previous page", "Go to next page", "Go to page 1" etc.).
+````

@@ -1,21 +1,18 @@
-import {
-  getActorState,
-  getAliasInfoFromContext,
-  translate,
-} from '@aws-amplify/ui';
+import { translate } from '@aws-amplify/ui';
 
-import { useAuthenticator } from '..';
-import { Flex, Heading, TextField } from '../../..';
-import { RemoteErrorMessage, TwoButtonSubmitFooter } from '../shared';
+import { Flex } from '../../../primitives/Flex';
+import { Heading } from '../../../primitives/Heading';
+import { useAuthenticator } from '../hooks/useAuthenticator';
 import { useCustomComponents } from '../hooks/useCustomComponents';
-import {
-  isInputOrSelectElement,
-  isInputElement,
-  getFormDataFromEvent,
-  propsCreator,
-} from '../../../helpers/utils';
+import { useFormHandlers } from '../hooks/useFormHandlers';
+import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
+import { TwoButtonSubmitFooter } from '../shared/TwoButtonSubmitFooter';
+import { FormFields } from '../shared/FormFields';
 
 export const ResetPassword = (): JSX.Element => {
+  const { isPending } = useAuthenticator((context) => [context.isPending]);
+  const { handleChange, handleSubmit } = useFormHandlers();
+
   const {
     components: {
       ResetPassword: {
@@ -24,33 +21,6 @@ export const ResetPassword = (): JSX.Element => {
       },
     },
   } = useCustomComponents();
-  const { isPending, submitForm, updateForm, _state } = useAuthenticator();
-
-  const formOverrides =
-    getActorState(_state).context?.formFields?.resetPassword;
-
-  const { label } = getAliasInfoFromContext(_state.context);
-  const labelText = `Enter your ${label.toLowerCase()}`;
-
-  const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
-    if (isInputOrSelectElement(event.target)) {
-      let { name, type, value } = event.target;
-      if (
-        isInputElement(event.target) &&
-        type === 'checkbox' &&
-        !event.target.checked
-      ) {
-        value = undefined;
-      }
-
-      updateForm({ name, value });
-    }
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    submitForm(getFormDataFromEvent(event));
-  };
 
   return (
     <form
@@ -68,12 +38,7 @@ export const ResetPassword = (): JSX.Element => {
         <Header />
 
         <Flex direction="column">
-          <TextField
-            {...propsCreator('username', labelText, formOverrides, true)}
-            autoComplete="username"
-            name="username"
-            type="username"
-          />
+          <FormFields route="resetPassword" />
         </Flex>
 
         <RemoteErrorMessage />

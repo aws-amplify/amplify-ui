@@ -1,8 +1,5 @@
-<ng-container *ngIf="authenticator.route === 'authenticated'">
-  <h2>Welcome, {{ authenticator.user.username }}!</h2>
-  <button (click)="authenticator.signOut()">Sign Out</button>
-</ng-container>
-
-<ng-container *ngIf="authenticator.route !== 'authenticated'">
-  <amplify-authenticator></amplify-authenticator>
-</ng-container>
+<amplify-authenticator>
+  <ng-template amplifySlot="authenticated">
+    <button (click)="navigateHome($event)">Navigate to Home</button>
+  </ng-template>
+</amplify-authenticator>

@@ -1,27 +1,18 @@
-import {
-  getActorContext,
-  getActorState,
-  ResetPasswordContext,
-  translate,
-} from '@aws-amplify/ui';
+import { translate } from '@aws-amplify/ui';
 
-import { useAuthenticator } from '..';
-import { Flex, Heading, PasswordField, Text } from '../../..';
-import {
-  ConfirmationCodeInput,
-  RemoteErrorMessage,
-  TwoButtonSubmitFooter,
-} from '../shared';
+import { Flex } from '../../../primitives/Flex';
+import { Heading } from '../../../primitives/Heading';
+import { useAuthenticator } from '../hooks/useAuthenticator';
 import { useCustomComponents } from '../hooks/useCustomComponents';
-import {
-  isInputOrSelectElement,
-  isInputElement,
-  getFormDataFromEvent,
-  confPropsCreator,
-  propsCreator,
-} from '../../../helpers/utils';
+import { useFormHandlers } from '../hooks/useFormHandlers';
+import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
+import { TwoButtonSubmitFooter } from '../shared/TwoButtonSubmitFooter';
+import { FormFields } from '../shared/FormFields';
 
 export const ConfirmResetPassword = (): JSX.Element => {
+  const { isPending } = useAuthenticator((context) => [context.isPending]);
+  const { handleBlur, handleChange, handleSubmit } = useFormHandlers();
+
   const {
     components: {
       ConfirmResetPassword: {
@@ -31,37 +22,6 @@ export const ConfirmResetPassword = (): JSX.Element => {
     },
   } = useCustomComponents();
 
-  const { _state, submitForm, updateForm, updateBlur, isPending } =
-    useAuthenticator();
-  const { validationError } = getActorContext(_state) as ResetPasswordContext;
-  const formOverrides =
-    getActorState(_state).context?.formFields?.confirmResetPassword;
-
-  const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
-    if (isInputOrSelectElement(event.target)) {
-      let { name, type, value } = event.target;
-      if (
-        isInputElement(event.target) &&
-        type === 'checkbox' &&
-        !event.target.checked
-      ) {
-        value = undefined;
-      }
-
-      updateForm({ name, value });
-    }
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    submitForm(getFormDataFromEvent(event));
-  };
-
-  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
-    const { name } = event.target;
-    updateBlur({ name });
-  };
-
   return (
     <form
       data-amplify-form=""
@@ -69,6 +29,7 @@ export const ConfirmResetPassword = (): JSX.Element => {
       method="post"
       onSubmit={handleSubmit}
       onChange={handleChange}
+      onBlur={handleBlur}
     >
       <fieldset
         style={{ display: 'flex', flexDirection: 'column' }}
@@ -78,41 +39,7 @@ export const ConfirmResetPassword = (): JSX.Element => {
         <Header />
 
         <Flex direction="column">
-          <ConfirmationCodeInput
-            {...confPropsCreator(
-              'confirmation_code',
-              'Code',
-              'Code *',
-              formOverrides
-            )}
-            type="number"
-          />
-
-          <PasswordField
-            data-amplify-password
-            {...propsCreator('password', 'New password', formOverrides, true)}
-            className="password-field"
-            name="password"
-            onBlur={handleBlur}
-          />
-          <PasswordField
-            data-amplify-confirmpassword
-            {...propsCreator(
-              'confirm_password',
-              'Confirm Password',
-              formOverrides,
-              true
-            )}
-            name="confirm_password"
-            hasError={!!validationError['confirm_password']}
-            onBlur={handleBlur}
-          />
-
-          {!!validationError['confirm_password'] && (
-            <Text role="alert" variation="error">
-              {translate(validationError['confirm_password'] as string)}
-            </Text>
-          )}
+          <FormFields route="confirmResetPassword" />
         </Flex>
 
         <RemoteErrorMessage />

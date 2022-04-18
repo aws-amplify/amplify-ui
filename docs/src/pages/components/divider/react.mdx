@@ -1,7 +1,7 @@
 import { Divider, View, Flex, Text } from '@aws-amplify/ui-react';
 import { DividerDemo } from './demo';
 import { Example, ExampleCode } from '@/components/Example';
-import { ComponentClassTable } from '@/components/ComponentClassTable';
+import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 import {
   DefaultDividerExample,
   HorizontalDividerExample,
@@ -138,7 +138,7 @@ To replace _all_ the Divider styling, unset it:
 
 ### Target classes
 
-<ComponentClassTable componentName="Divider" />
+<ComponentStyleDisplay componentName="Divider" />
 
 ### Local styling
 
@@ -172,6 +172,6 @@ _Using style props:_
 
 ### Default theme
 
-```js file=../../../../../packages/ui/src/theme/tokens/components/divider.js
+```ts file=../../../../../packages/ui/src/theme/tokens/components/divider.ts
 
 ```

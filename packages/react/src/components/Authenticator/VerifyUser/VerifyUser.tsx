@@ -1,5 +1,5 @@
 import {
-  authInputAttributes,
+  defaultFormFieldOptions,
   censorAllButFirstAndLast,
   censorPhoneNumber,
   ContactMethod,
@@ -8,15 +8,14 @@ import {
   translate,
 } from '@aws-amplify/ui';
 
-import { useAuthenticator } from '..';
-import { Heading, Radio, RadioGroupField } from '../../..';
-import { RemoteErrorMessage, TwoButtonSubmitFooter } from '../shared';
+import { Heading } from '../../../primitives/Heading';
+import { Radio } from '../../../primitives/Radio';
+import { RadioGroupField } from '../../../primitives/RadioGroupField';
+import { useAuthenticator } from '../hooks/useAuthenticator';
 import { useCustomComponents } from '../hooks/useCustomComponents';
-import {
-  isInputOrSelectElement,
-  isInputElement,
-  getFormDataFromEvent,
-} from '../../../helpers/utils';
+import { useFormHandlers } from '../hooks/useFormHandlers';
+import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
+import { TwoButtonSubmitFooter } from '../shared/TwoButtonSubmitFooter';
 
 const censorContactInformation = (
   type: ContactMethod,
@@ -45,7 +44,7 @@ const generateRadioGroup = (
   for (const [key, value] of Object.entries(attributes)) {
     const radio = (
       <Radio name="unverifiedAttr" value={key} key={key}>
-        {censorContactInformation(authInputAttributes[key].label, value)}
+        {censorContactInformation(defaultFormFieldOptions[key].label, value)}
       </Radio>
     );
 
@@ -62,7 +61,11 @@ export const VerifyUser = (): JSX.Element => {
     },
   } = useCustomComponents();
 
-  const { _state, isPending, submitForm, updateForm } = useAuthenticator();
+  // TODO: expose unverifiedAttributes from `useAuthenticator`
+  const { _state, isPending } = useAuthenticator((context) => [
+    context.isPending,
+  ]);
+  const { handleChange, handleSubmit } = useFormHandlers();
   const context = getActorContext(_state) as SignInContext;
 
   const footerSubmitText = isPending ? (
@@ -81,26 +84,6 @@ export const VerifyUser = (): JSX.Element => {
       {generateRadioGroup(context.unverifiedAttributes)}
     </RadioGroupField>
   );
-
-  const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
-    if (isInputOrSelectElement(event.target)) {
-      let { name, type, value } = event.target;
-      if (
-        isInputElement(event.target) &&
-        type === 'checkbox' &&
-        !event.target.checked
-      ) {
-        value = undefined;
-      }
-
-      updateForm({ name, value });
-    }
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    submitForm(getFormDataFromEvent(event));
-  };
 
   return (
     <form

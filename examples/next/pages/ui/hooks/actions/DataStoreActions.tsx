@@ -6,6 +6,7 @@ import {
   Collection,
   Flex,
   View,
+  CheckboxField,
 } from '@aws-amplify/ui-react';
 import {
   useDataStoreCollection,
@@ -15,19 +16,42 @@ import {
 } from '@aws-amplify/ui-react/internal';
 
 import { Todo } from './models';
+import { schema } from './models/schema';
 
 export const DataStoreTodoForm = () => {
   const [toDoName, setToDoName] = React.useState<string>('');
+  const [toDoCount, setToDoCount] = React.useState<string>('');
+  const [toDoPrice, setToDoPrice] = React.useState<string>('');
+  const [toDoCompleted, setToDoCompleted] = React.useState(false);
 
   const createTodoAction = useDataStoreCreateAction({
     model: Todo,
-    fields: { name: toDoName },
+    fields: {
+      name: toDoName,
+      price: toDoPrice,
+      count: toDoCount,
+      completed: toDoCompleted,
+    },
+    schema,
   });
+
   const todos = useDataStoreCollection({ model: Todo });
 
-  const onInput = (e: any) => {
+  const onNameInput = (e: any) => {
     const { value } = e.target;
     setToDoName(value);
+  };
+  const onCountInput = (e: any) => {
+    const { value } = e.target;
+    setToDoCount(value);
+  };
+  const onPriceInput = (e: any) => {
+    const { value } = e.target;
+    setToDoPrice(value);
+  };
+  const onCompletedChange = (e: any) => {
+    const { checked } = e.target;
+    setToDoCompleted(checked);
   };
 
   return (
@@ -35,15 +59,36 @@ export const DataStoreTodoForm = () => {
       <h2>Shopping list:</h2>
       <TextField
         name="createTodo"
-        label="ToDo"
-        labelHidden
-        onInput={onInput}
+        label="Name"
+        onInput={onNameInput}
         value={toDoName}
+      />
+      <TextField
+        name="count"
+        label="Count"
+        onInput={onCountInput}
+        value={toDoCount}
+      />
+      <TextField
+        name="price"
+        label="Price"
+        onInput={onPriceInput}
+        value={toDoPrice}
+      />
+      <CheckboxField
+        name="completed"
+        label="Completed"
+        value="yes"
+        checked={toDoCompleted}
+        onChange={onCompletedChange}
       />
       <Button
         onClick={async () => {
           await createTodoAction();
           setToDoName('');
+          setToDoCount('');
+          setToDoPrice('');
+          setToDoCompleted(false);
         }}
       >
         Save
@@ -62,7 +107,12 @@ export const DataStoreTodoForm = () => {
 
 const TodoItem = ({ todo }: { todo: Todo }) => {
   const [showEdit, setShowEdit] = React.useState(false);
-  const [todoName, setToDoName] = React.useState(todo.name);
+  const [toDoName, setToDoName] = React.useState(todo.name);
+  // convert count and price to string to simulate Amplify Studio customers
+  // use of TextField for Int and Boolean scalar values
+  const [toDoCount, setToDoCount] = React.useState(todo.count.toString());
+  const [toDoPrice, setToDoPrice] = React.useState(todo.price.toString());
+  const [toDoCompleted, setToDoCompleted] = React.useState(todo.completed);
 
   const toggleEdit = () => {
     setShowEdit(!showEdit);
@@ -76,20 +126,53 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
   const updateTodoAction = useDataStoreUpdateAction({
     model: Todo,
     id: todo.id,
-    fields: { name: todoName },
+    fields: {
+      name: toDoName,
+      price: toDoPrice,
+      count: toDoCount,
+      completed: toDoCompleted,
+    },
+    schema,
   });
 
   return (
     <Flex as="li" key={todo.id}>
       {showEdit ? (
-        <Flex>
+        <Flex direction="column">
           <TextField
-            label="Update todo"
+            label="Update Name"
             labelHidden
-            value={todoName}
+            value={toDoName}
             width="100%"
             onChange={(e: any) => {
               setToDoName(e.target.value);
+            }}
+          />
+          <TextField
+            label="Update Count"
+            labelHidden
+            value={toDoCount}
+            width="100%"
+            onChange={(e: any) => {
+              setToDoCount(e.target.value);
+            }}
+          />
+          <TextField
+            label="Update Price"
+            labelHidden
+            value={toDoPrice}
+            width="100%"
+            onChange={(e: any) => {
+              setToDoPrice(e.target.value);
+            }}
+          />
+          <CheckboxField
+            name="toDoCompleted"
+            label="Update Completed"
+            value="checked"
+            checked={toDoCompleted}
+            onChange={(e: any) => {
+              setToDoCompleted(e.target.checked);
             }}
           />
           <Button
@@ -103,6 +186,8 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
           <Button
             onClick={() => {
               setToDoName('');
+              setToDoPrice('');
+              setToDoCount('');
             }}
           >
             Clear
@@ -110,7 +195,7 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
         </Flex>
       ) : (
         <Button isFullWidth variation="link" onClick={toggleEdit}>
-          {todo.name}
+          {todo.name} - {todo.count} @ {todo.price} {todo.completed.toString()}
         </Button>
       )}
       <Button onClick={() => deleteTodoAction()}>Delete</Button>

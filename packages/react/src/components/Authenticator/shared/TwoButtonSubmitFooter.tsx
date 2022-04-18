@@ -1,7 +1,8 @@
 import { AuthEventTypes, translate } from '@aws-amplify/ui';
 
-import { useAuthenticator } from '..';
-import { Button, Flex } from '../../..';
+import { useAuthenticator } from '../hooks/useAuthenticator';
+import { Button } from '../../../primitives/Button';
+import { Flex } from '../../../primitives/Flex';
 
 export interface TwoButtonSubmitFooterProps {
   cancelButtonSendType: AuthEventTypes;
@@ -14,7 +15,9 @@ export const TwoButtonSubmitFooter = (
 ): JSX.Element => {
   const { cancelButtonSendType, cancelButtonText, submitButtonText } = props;
 
-  const { _send, isPending } = useAuthenticator();
+  const { _send, isPending } = useAuthenticator((context) => [
+    context.isPending,
+  ]);
 
   const defaultSubmitText = isPending ? (
     <>{translate('Submitting')}&hellip;</>
