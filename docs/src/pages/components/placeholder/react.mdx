@@ -5,6 +5,7 @@ import {
   DefaultPlaceholderExample,
   PlaceholderIsLoadedExample,
   PlaceholderSizeExample,
+  PlaceholderStylePropsExample,
   PlaceholderThemeExample,
 } from './examples';
 import { Example, ExampleCode } from '@/components/Example';
@@ -81,21 +82,26 @@ You can customize the appearance of all Placeholders in your application with a 
 To override styling on all Placeholder components, you can set the Amplify CSS variables or use the built-in `.amplify-placeholder` class.
 
 <Example>
-  <Placeholder height="2rem" borderRadius="1rem" />
+  <Placeholder className="placeholder-global-styles" />
   <ExampleCode>
     ```css
     /* styles.css */
-    :root {
-      --amplify-components-placeholder-height: 2rem;
-      --amplify-components-placeholder-border-radius: 1rem;
+    [data-amplify-theme] {
+      --amplify-components-placeholder-height: var(--amplify-space-xl);
+      --amplify-components-placeholder-border-radius: var(--amplify-space-medium);
     }
     /* OR */
     .amplify-placeholder {
-      height: 2rem;
-      border-radius: 1rem;
+      height: var(--amplify-space-xl);
+      border-radius: var(--amplify-space-medium);
     }
     ```
 
+  </ExampleCode>
+  <ExampleCode>
+    ```jsx
+    <Placeholder />
+    ```
   </ExampleCode>
 </Example>
 
@@ -131,10 +137,10 @@ Set the starting and ending colors for the Placeholder animation using a custom 
 _Using style props:_
 
 <Example>
-  <Placeholder height="123px" width="50%" />
+  <PlaceholderStylePropsExample />
   <ExampleCode>
-    ```jsx
-    <Placeholder height="123px" width="50%" />
+    ```jsx file=./examples/PlaceholderStylePropsExample.tsx
+    
     ```
 
   </ExampleCode>
