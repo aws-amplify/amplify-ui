@@ -276,39 +276,13 @@ jobs:
           path: ~/.cache/Cypress
           key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
 
-      - name: Restore Cache
-        uses: actions/cache@v2
-        id: restore-cache
-        with:
-          path: |
-            ./node_modules
-            **/node_modules
-          key: ${{ runner.os }}-nodemodules-${{ needs.setup.outputs.commit }}
-
       - name: Install packages
-        if: steps.restore-cache.outputs.cache-hit != 'true'
-        run: yarn --no-lockfile
-
-      - name: Restore ui/dist cache
-        uses: actions/cache@v2
-        id: restore-ui-cache
-        with:
-          path: ./packages/ui/dist
-          key: ${{ runner.os }}-ui-${{ needs.setup.outputs.commit }}
-
-      - name: Restore react/dist cache
-        uses: actions/cache@v2
-        id: restore-react-cache
-        with:
-          path: ./packages/react/dist
-          key: ${{ runner.os }}-@aws-amplify/ui-react-${{ needs.setup.outputs.commit }}
+        run: yarn install
 
       - name: Build ui package
-        if: steps.restore-ui-cache.outputs.cache-hit != 'true'
         run: yarn ui build
 
       - name: Build react package
-        if: steps.restore-react-cache.outputs.cache-hit != 'true'
         run: yarn react build
 
       - name: Build docs package
