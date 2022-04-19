@@ -4,6 +4,11 @@ on:
   push:
     branches: [main]
 
+permissions:
+  contents: write # Used to commit to "Version Packages" PR
+  pull-requests: write # Used to create "Version Packages" PR
+  # Other permissions are defaulted to none
+
 jobs:
   publish:
     runs-on: ubuntu-latest

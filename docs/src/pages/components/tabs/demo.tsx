@@ -1,9 +1,34 @@
 import * as React from 'react';
 import { Tabs, TabItem, Flex, Button, View } from '@aws-amplify/ui-react';
 
-import { TabsPropControls } from '@/components/TabsPropControls';
-import { useTabsProps } from '@/components/useTabsProps';
-import { Example } from '@/components/Example';
+import { Demo } from '@/components/Demo';
+import { TabsPropControls } from './TabsPropControls';
+import { useTabsProps } from './useTabsProps';
+
+const propsToCode = (props) => {
+  return (
+    `<Tabs` +
+    `\n  currentIndex="${props.currentIndex}"` +
+    `${props.spacing ? `\n  spacing="${props.spacing}"` : ``}` +
+    `\n  justifyContent="${props.justifyContent}"` +
+    `${
+      props.indicatorPosition
+        ? `\n  indicatorPosition="${props.indicatorPosition}"`
+        : ``
+    }` +
+    `>
+  <TabItem title="Tab 1">
+    Tab content #1
+  </TabItem>
+  <TabItem title="Tab 2">
+    Tab content #2
+  </TabItem>,
+  <TabItem title="Disabled" isDisabled={true}>
+    Cannot click
+  </TabItem>
+</Tabs>`
+  );
+};
 
 export const DemoTabPanel = ({ children }) => {
   return <View padding="var(--amplify-space-medium">{children}</View>;
@@ -11,13 +36,13 @@ export const DemoTabPanel = ({ children }) => {
 
 const demoChildren = [
   <TabItem key={1} title="Tab 1">
-    <DemoTabPanel>Tab content #1</DemoTabPanel>
+    Tab content #1
   </TabItem>,
   <TabItem key={2} title="Tab 2">
-    <DemoTabPanel>Tab content #2</DemoTabPanel>
+    Tab content #2
   </TabItem>,
   <TabItem key={3} title="Disabled" isDisabled={true}>
-    <DemoTabPanel>Cannot click</DemoTabPanel>
+    Cannot click
   </TabItem>,
 ];
 
@@ -29,20 +54,20 @@ export const TabsDemo = () => {
   });
 
   return (
-    <Flex direction="column" gap="0.5rem">
-      <TabsPropControls {...tabsProps} />
-      <Example>
-        <Tabs
-          currentIndex={tabsProps.currentIndex}
-          onChange={(i) => tabsProps.setCurrentIndex(i)}
-          spacing={tabsProps.spacing}
-          justifyContent={tabsProps.justifyContent}
-          indicatorPosition={tabsProps.indicatorPosition}
-        >
-          {tabsProps.children}
-        </Tabs>
-      </Example>
-    </Flex>
+    <Demo
+      code={propsToCode(tabsProps)}
+      propControls={<TabsPropControls {...tabsProps} />}
+    >
+      <Tabs
+        currentIndex={tabsProps.currentIndex}
+        onChange={(i) => tabsProps.setCurrentIndex(i)}
+        spacing={tabsProps.spacing}
+        justifyContent={tabsProps.justifyContent}
+        indicatorPosition={tabsProps.indicatorPosition}
+      >
+        {tabsProps.children}
+      </Tabs>
+    </Demo>
   );
 };
 

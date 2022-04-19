@@ -1,8 +1,15 @@
-import { Flex } from '@aws-amplify/ui-react';
+import { Pagination } from '@aws-amplify/ui-react';
 import { PaginationDemo } from './demo.tsx';
 import { Example, ExampleCode } from '@/components/Example';
-import { PaginationHasMorePagesExample } from './examples';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
+import {
+  ControlledPaginationExample,
+  DefaultPaginationExample,
+  PaginationHasMorePagesExample,
+  PaginationSiblingCountExample,
+  PaginationStylingExample,
+  PaginationThemeExample,
+} from './examples';
 
 ## Demo
 
@@ -10,23 +17,38 @@ import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 
 ## Usage
 
-Import the Pagination component and styles.
+Import the Pagination component. To use Pagination as an uncontrolled component, import the `usePagination` hook and pass it an object including the following properties:
 
-```jsx
-import { Pagination } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
+- `totalPages` (required)
+- `currentPage` (optional, defaults to `1`)
+- `siblingCount` (optional, defaults to `1`)
+- `hasMorePages` (optional)
 
-<Pagination
-  currentPage={1}
-  totalPages={10}
-  siblingCount={1}
-  onChange={this.onChange}
-  onNext={this.onNext}
-  onPrevious={this.onPrevious}
-/>;
+<Example>
+  <DefaultPaginationExample />
+  <ExampleCode>
+```jsx file=./examples/DefaultPaginationExample.tsx
+
+```
+  </ExampleCode>
+</Example>
+
+### Controlled component
+To use Pagination as a controlled component, you'll need to handle state using these callback functions:
+
+- `onNext`: triggered when the next-page button `>` is pressed
+- `onPrevious`: triggered when the previous-page button `<` is pressed
+- `onChange`: triggered every time the page changes (e.g., when a page button is pressed directly)
+
+<Example>
+  <ControlledPaginationExample />
+  <ExampleCode>
+```jsx file=./examples/ControlledPaginationExample.tsx
+
 ```
 
-<PaginationDemo isDemo={false} />
+  </ExampleCode>
+</Example>
 
 ### Paginating at an API level
 
@@ -37,7 +59,22 @@ It's common to use a paged API where the total number of pages in the dataset is
   <ExampleCode>
 ```jsx file=./examples/PaginationHasMorePagesExample.tsx
 
-````
+```
+
+  </ExampleCode>
+</Example>
+
+### Sibling Count
+
+`siblingCount` is an optional prop which controls the number of pages displayed on each side of the current page (defaults to `1`). For example, in the demo below, notice how page 5 has two siblings to the left (3 and 4) and two siblings to the right (6 and 7).
+
+<Example>
+  <PaginationSiblingCountExample />
+  <ExampleCode>
+```jsx{8} file=./examples/PaginationSiblingCountExample.tsx
+
+```
+
   </ExampleCode>
 </Example>
 
@@ -47,11 +84,48 @@ It's common to use a paged API where the total number of pages in the dataset is
 
 <ComponentStyleDisplay componentName="Pagination" />
 
+### Theme
+
+You can customize the appearance of all Pagination components in your application with a [Theme](/theming).
+
+<Example>
+  <PaginationThemeExample />
+  <ExampleCode>
+```jsx file=./examples/PaginationThemeExample.tsx
+
+```
+  </ExampleCode>
+</Example>
+
 ### Global styling
 
 To override styling on all Pagination components, you can set the Amplify CSS variables or use the built-in `.amplify-pagination` class.
 
-(Example needed)
+<Example>
+  <PaginationStylingExample className="pagination-global-styling" totalPages={8} />
+  <ExampleCode>
+    ```css
+    /* styles.css */
+    .amplify-pagination {
+      --amplify-components-pagination-current-background-color: var(
+        --amplify-colors-red-60
+      );
+    }
+    ```
+  </ExampleCode>
+  <ExampleCode>
+    ```jsx
+    import { Pagination, usePagination } from '@aws-amplify/ui-react';
+    import './styles.css';
+
+    const PaginationGlobalStylingExample = () => {
+      const paginationProps = usePagination({ totalPages: 8 });
+      return <Pagination {...paginationProps} />;
+    };
+    ```
+
+  </ExampleCode>
+</Example>
 
 To replace the Pagination styling, unset it:
 
@@ -68,75 +142,52 @@ To override styling on a specific Pagination component, you can use a class sele
 
 _Using a class selector:_
 
-```css
-/* styles.css */
-.my-custom-pagination {
-  --amplify-components-pagination-current-background-color: rgba(
-    0,
-    181,
-    204,
-    0.8
-  );
-  --amplify-components-pagination-button-hover-background-color: rgba(
-    0,
-    181,
-    204,
-    0.3
-  );
-}
-```
+<Example>
+  <PaginationStylingExample className="my-custom-pagination" totalPages={7} />
+  <ExampleCode>
+    ```css
+    /* styles.css */
+    .my-custom-pagination {
+      --amplify-components-pagination-current-background-color: var(
+        --amplify-colors-green-80
+      );
+      --amplify-components-pagination-button-hover-background-color: var(
+        --amplify-colors-blue-20
+      );
+    }
+    ```
+  </ExampleCode>
+  <ExampleCode>
+    ```jsx
+    import { Pagination, usePagination } from '@aws-amplify/ui-react';
+    import './styles.css';
 
-```jsx
-import { Pagination } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-import './styles.css';
+    const PaginationClassStylingExample= () => {
+      const paginationProps = usePagination({ totalPages: 7 });
+      return <Pagination {...paginationProps} className="my-custom-pagination" />;
+    };
+    ```
 
-<Pagination
-  currentPage={1}
-  totalPages={10}
-  onChange={this.onChange}
-  onNext={this.onNext}
-  onPrevious={this.onPrevious}
-  className="my-custom-pagination"
-/>;
-```
-
-<PaginationDemo isDemo={false} className="my-custom-pagination" />
+  </ExampleCode>
+</Example>
 
 _Using style props:_
 
-**Modify this example to show how to use style props (no inline CSS variables)**
+<Example>
+  <PaginationStylingExample totalPages={5} backgroundColor="lavender" padding="1rem" />
+  <ExampleCode>
+    ```jsx
+    import { Pagination, usePagination } from '@aws-amplify/ui-react';
 
-```jsx
-import { Pagination } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
+    const PaginationStylePropsExample = () => {
+      const paginationProps = usePagination({ totalPages: 5 });
+      return <Pagination {...paginationProps} backgroundColor="lavender" padding="1rem" />;
+    };
+    ```
 
-<Pagination
-  currentPage={1}
-  totalPages={10}
-  onChange={this.onChange}
-  onNext={this.onNext}
-  onPrevious={this.onPrevious}
-  style={{
-    '--amplify-components-pagination-current-background-color':
-      'rgba(219, 10, 91, 0.8)',
-    '--amplify-components-pagination-button-hover-background-color':
-      'rgba(219, 10, 91, 0.3)',
-  }}
-/>;
-```
-
-<PaginationDemo
-  isDemo={false}
-  style={{
-    '--amplify-components-pagination-current-background-color':
-      'rgba(219, 10, 91, 0.8)',
-    '--amplify-components-pagination-button-hover-background-color':
-      'rgba(219, 10, 91, 0.3)',
-  }}
-/>
+  </ExampleCode>
+</Example>
 
 ## Accessibility
 
-By default, the root node has a role of "navigation" and each page item has an aria-label that identifies the purpose of the item ("Go to previous page", "Go to next page", "Go to page 1" etc.).
-````
+By default, the root node of the Pagination component has a role of "navigation", and each page item has an `aria-label` that identifies the purpose of the item ("Go to previous page", "Go to next page", "Go to page 1", etc).
