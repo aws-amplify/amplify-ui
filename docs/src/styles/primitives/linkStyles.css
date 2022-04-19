@@ -1,3 +1,7 @@
+.link-global-styles {
+  color: var(--amplify-colors-red-80);
+}
+
 .link-local-styles {
   color: var(--amplify-colors-red-80);
   font-weight: var(--amplify-font-weights-bold);

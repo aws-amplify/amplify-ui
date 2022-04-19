@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link, LinkProps, Text } from '@aws-amplify/ui-react';
+import { Link, LinkProps, Text, useTheme } from '@aws-amplify/ui-react';
 
 import { Demo } from '@/components/Demo';
 import { LinkPropControls } from './LinkPropControls';
@@ -26,6 +26,8 @@ export const LinkDemo = () => {
     children: 'My Demo Link',
   });
 
+  const { tokens } = useTheme();
+
   return (
     <Demo
       code={propsToCode(linkProps)}
@@ -39,9 +41,12 @@ export const LinkDemo = () => {
         >
           My Demo Link
         </Link>
-        <Text fontSize="0.75em">
-          <sup>*</sup>Rel Attribute=
-          {linkProps.isExternal ? 'noopener noreferrer' : ''}
+        <Text fontSize={tokens.space.relative.small}>
+          {linkProps.isExternal ? (
+            <>
+              <sup>*</sup>Rel Attribute=noopener noreferrer
+            </>
+          ) : null}
         </Text>
       </>
     </Demo>
