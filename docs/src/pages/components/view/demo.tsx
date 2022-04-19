@@ -17,7 +17,6 @@ const propsToCode = (props: ViewProps) => {
     (props.boxShadow ? `\n  boxShadow="${props.boxShadow}"` : '') +
     (props.color ? `\n  color="${props.color}"` : '') +
     (props.height ? `\n  height="${props.height}"` : '') +
-    (props.opacity ? `\n  opacity="${props.opacity}"` : '') +
     (props.padding ? `\n  padding="${props.padding}"` : '') +
     (props.width ? `\n  width="${props.width}"` : '') +
     `\n  onClick={() => alert('🏔 What a beautiful <View>! 🔭')}
@@ -39,7 +38,6 @@ export const ViewDemo = () => {
     padding: '1rem',
     border: '1px solid var(--amplify-colors-black)',
     borderRadius: '6px',
-    opacity: '100%',
   });
 
   const {
@@ -51,7 +49,6 @@ export const ViewDemo = () => {
     border,
     color,
     height,
-    opacity,
     padding,
     width,
   } = props;
@@ -71,7 +68,6 @@ export const ViewDemo = () => {
         color={color}
         height={height}
         onClick={() => alert('🏔 What a beautiful <View>! 🔭')}
-        opacity={opacity}
         padding={padding}
         width={width}
       >
