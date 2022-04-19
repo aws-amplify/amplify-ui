@@ -1,0 +1,21 @@
+import { AuthStyle } from './AuthStyle';
+import { Example } from '@/components/Example';
+
+#### Amplify Provider Theme
+
+You can update the style of the Authenticator by using the [AmplifyProvider](/theming?platform=react) [theme object](/theming?platform=react#theme-object). To do this, you must surround the `Authenticator` in the `AmplifyProvider`.
+
+Then create a [theme object](/theming?platform=react#theme-object), with all your font and color updates. Feel free to use [design tokens](/theming?platform=react#design-tokens), as a way of desiging your theme further.
+
+Below is an example of changing the default colors to a dark theme.
+
+```jsx file=./AuthStyle.tsx
+
+```
+
+<Example>
+<AuthStyle />
+
+</Example>
+
+> If you have TypeScript enabled, all the object keys will be present when creating the [theme object](/theming?platform=react#theme-object). This will help speed up your development time while creating themes.
