@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Flex, ViewProps, SelectField, TextField } from '@aws-amplify/ui-react';
-import _ from 'lodash';
 
 export interface ViewPropControlsProps extends ViewProps {
   setAriaLabel: (value: React.SetStateAction<ViewProps['ariaLabel']>) => void;
