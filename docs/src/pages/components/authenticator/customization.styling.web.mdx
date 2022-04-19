@@ -1,71 +1,40 @@
-import { Authenticator } from '@aws-amplify/ui-react';
+import { Authenticator, AmplifyProvider } from '@aws-amplify/ui-react';
+import { AuthStyle } from './AuthStyle';
 
 import { Example } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
 
 ### Styling
 
-You can customize the Authenticator's default [theme](/theming) with [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties).
+You can customize the Authenticator's default style by using [CSS variables](/components/authenticator?platform=react#amplify-css-variables).
+
+#### CSS style
+
 The example below uses a `<style>` tag to change the default colors to a dark theme:
 
 ```css
 [data-amplify-authenticator] {
   --amplify-colors-background-primary: var(--amplify-colors-neutral-90);
   --amplify-colors-background-secondary: var(--amplify-colors-neutral-100);
-  --amplify-colors-background-tertiary: var(--amplify-colors-black);
-  --amplify-colors-border-primary: var(--amplify-colors-neutral-20);
-  --amplify-colors-border-secondary: var(--amplify-colors-neutral-40);
-  --amplify-colors-border-tertiary: var(--amplify-colors-neutral-60);
   --amplify-colors-brand-primary-10: var(--amplify-colors-teal-100);
-  --amplify-colors-brand-primary-20: var(--amplify-colors-teal-90);
-  --amplify-colors-brand-primary-40: var(--amplify-colors-teal-80);
-  --amplify-colors-brand-primary-60: var(--amplify-colors-teal-60);
   --amplify-colors-brand-primary-80: var(--amplify-colors-teal-40);
   --amplify-colors-brand-primary-90: var(--amplify-colors-teal-20);
   --amplify-colors-brand-primary-100: var(--amplify-colors-teal-10);
   --amplify-colors-font-interactive: var(--amplify-colors-white);
-  --amplify-components-heading-color: var(--amplify-colors-neutral-20);
-  --amplify-components-tabs-item-active-border-color: var(
-    --amplify-colors-white
-  );
   --amplify-components-tabs-item-active-color: var(--amplify-colors-white);
-  --amplify-components-tabs-item-color: var(--amplify-colors-white);
   --amplify-components-tabs-item-focus-color: var(--amplify-colors-white);
-  --amplify-components-text-color: var(--amplify-colors-font-interactive);
+  --amplify-components-tabs-item-hover-color: var(--amplify-colors-orange);
 }
 ```
 
-<Example className="customization-styles">
-  <style>{`
-    .example.customization-styles {
-      background-color: #1a1a1a !important;
-      color: #eee !important;
-    }
-    .example.customization-styles [data-amplify-authenticator] {
-      --amplify-colors-background-primary: var(--amplify-colors-neutral-90);
-      --amplify-colors-background-secondary: var(--amplify-colors-neutral-100);
-      --amplify-colors-background-tertiary: var(--amplify-colors-black);
-      --amplify-colors-border-primary: var(--amplify-colors-neutral-20);
-      --amplify-colors-border-secondary: var(--amplify-colors-neutral-40);
-      --amplify-colors-border-tertiary: var(--amplify-colors-neutral-60);
-      --amplify-colors-brand-primary-10: var(--amplify-colors-teal-100);
-      --amplify-colors-brand-primary-20: var(--amplify-colors-teal-90);
-      --amplify-colors-brand-primary-40: var(--amplify-colors-teal-80);
-      --amplify-colors-brand-primary-60: var(--amplify-colors-teal-60);
-      --amplify-colors-brand-primary-80: var(--amplify-colors-teal-40);
-      --amplify-colors-brand-primary-90: var(--amplify-colors-teal-20);
-      --amplify-colors-brand-primary-100: var(--amplify-colors-teal-10);
-      --amplify-colors-font-interactive: var(--amplify-colors-white);
-      --amplify-components-heading-color: var(--amplify-colors-neutral-20);
-      --amplify-components-tabs-item-active-border-color: var(--amplify-colors-white);
-      --amplify-components-tabs-item-active-color: var(--amplify-colors-white);
-      --amplify-components-tabs-item-color: var(--amplify-colors-white);
-      --amplify-components-tabs-item-focus-color: var(--amplify-colors-white);
-      --amplify-components-text-color: var(--amplify-colors-font-interactive);
-    }
-  `}</style>
-  <Authenticator />
+<Example>
+<AuthStyle />
+
 </Example>
+
+<Fragment platforms={['react']}>
+  {({ platform }) => import(`./customization.styling.${platform}.mdx`)}
+</Fragment>
 
 ### Additional CSS Styling
 
