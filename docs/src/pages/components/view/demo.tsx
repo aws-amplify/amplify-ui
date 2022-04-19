@@ -1,24 +1,24 @@
 import * as React from 'react';
 import { View, ViewProps } from '@aws-amplify/ui-react';
+
+import { Demo } from '@/components/Demo';
+import { getPropString } from '../utils/getPropString';
 import { useViewProps } from './useViewProps';
 import { ViewPropControls } from './ViewPropControls';
-import { Demo } from '@/components/Demo';
 
 const propsToCode = (props: ViewProps) => {
   return (
     `<View` +
-    (props.ariaLabel ? `\n  ariaLabel="${props.ariaLabel}"` : '') +
     `\n  as="${props.as}"` +
-    (props.backgroundColor
-      ? `\n  backgroundColor="${props.backgroundColor}"`
-      : '') +
-    (props.borderRadius ? `\n  borderRadius="${props.borderRadius}"` : '') +
-    (props.border ? `\n  border="${props.border}"` : '') +
-    (props.boxShadow ? `\n  boxShadow="${props.boxShadow}"` : '') +
-    (props.color ? `\n  color="${props.color}"` : '') +
-    (props.height ? `\n  height="${props.height}"` : '') +
-    (props.padding ? `\n  padding="${props.padding}"` : '') +
-    (props.width ? `\n  width="${props.width}"` : '') +
+    getPropString(props.ariaLabel, 'ariaLabel') +
+    getPropString(props.backgroundColor, 'backgroundColor') +
+    getPropString(props.borderRadius, 'borderRadius') +
+    getPropString(props.border, 'border') +
+    getPropString(props.boxShadow, 'boxShadow') +
+    getPropString(props.color, 'color') +
+    getPropString(props.height, 'height') +
+    getPropString(props.padding, 'padding') +
+    getPropString(props.width, 'width') +
     `\n  onClick={() => alert('🏔 What a beautiful <View>! 🔭')}
   >
   {"I\'m a <${props.as}>! 🤩"}
