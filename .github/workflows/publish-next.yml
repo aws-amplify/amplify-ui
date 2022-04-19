@@ -2,7 +2,7 @@ name: Publish to @next
 
 on:
   workflow_run:
-    workflows: ['Tests']
+    workflows: ['Test / main']
     types:
       - completed
 
@@ -18,12 +18,7 @@ jobs:
     # another branch.
     #
     # https://github.community/t/workflow-run-not-working-as-expected/139342
-    if: |
-      github.event.workflow_run.conclusion == 'success' &&
-      (
-        github.event.workflow_run.head_branch == 'main' ||
-        github.event.workflow_run.head_branch == 'ui-svelte/main'
-      )
+    if: github.event.workflow_run.conclusion == 'success'
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
