@@ -106,6 +106,59 @@ const myTheme = {
 };
 ```
 
+#### Component token definitions
+
+Amplify UI follows a consistent pattern when defining tokens for a component's states and variations. This is helpful for discovering what tokens are available for theming different aspects of a component. Amplify UI uses the following pattern:
+
+```javascript
+component[modifier][_state][child];
+```
+
+A `modifier` could be a distinct style variation, like the primary or link variant for the Button component. A modifier could also be a variation based on size, such as `small`, `medium`, or `large`.
+
+State typically refers to a change in the component due to an interaction from the user or application itself, such as hover, focus, loading or disabled. **Note**: Amplify UI prefixes states with an underscore, `_`, to help distinguish state names from modifier names.
+
+The [Button](https://github.com/aws-amplify/amplify-ui/blob/main/packages/ui/src/theme/tokens/components/button.ts) component is a good example of a token definition that includes multiple states and modifiers and follows this pattern:
+
+```javascript
+export const button = {
+  //  ... default tokens
+
+  // states
+  _hover: {},
+  _focus: {},
+  _loading: {},
+  _disabled: {},
+
+  // variations with states
+  primary: {
+    _hover: {},
+    _focus: {},
+    _loading: {},
+    _disabled: {},
+  },
+
+  // size modifiers
+  small: {},
+  large: {},
+};
+```
+
+Compiled, this would create the following CSS custom properties:
+
+```css
+--amplify-component-button-hover-token: value,
+--amplify-component-button-focus-token: value,
+--amplify-component-button-hover-loading: value,
+--amplify-component-button-focus-disabled: value,
+--amplify-component-button-primary-hover-token: value,
+--amplify-component-button-primary-focus-token: value,
+--amplify-component-button-primary-hover-loading: value,
+--amplify-component-button-primary-focus-disabled: value,
+--amplify-component-button-small-token: value,
+--amplify-component-button-large-token: value,
+```
+
 ### Fonts
 
 Amplify UI allows custom fonts to be used in the theme. The font tokens are defined in the `fonts` namespace. You can define your primary font stack and fallback font stack values the same way you would do in a CSS `font-family` rule.

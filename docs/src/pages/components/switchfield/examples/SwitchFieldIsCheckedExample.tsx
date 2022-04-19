@@ -15,10 +15,10 @@ export const SwitchFieldIsCheckedExample = () => {
       />
       <Button
         onClick={() => {
-          setIsChecked(true);
+          setIsChecked((isChecked) => !isChecked);
         }}
       >
-        Switch On
+        Switch
       </Button>
     </>
   );

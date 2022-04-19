@@ -1,14 +1,15 @@
 import * as React from 'react';
 import debounce from 'lodash/debounce';
-import { SiW3C, SiReact } from 'react-icons/si';
 import {
+  Icon,
   Heading,
   Link,
-  Icon,
   Text,
   View,
   useTheme,
 } from '@aws-amplify/ui-react';
+import { SiW3C, SiReact } from 'react-icons/si';
+
 import { Sidebar } from './SecondaryNav';
 import { TableOfContents } from '../TableOfContents';
 import { Footer } from './Footer';
@@ -59,6 +60,20 @@ export default function Page({
 
     return () => observer.disconnect();
   }, [children]);
+
+  React.useEffect(() => {
+    const scrollToHash = () => {
+      const { hash } = window.location;
+
+      if (hash) {
+        document.querySelector(hash)?.scrollIntoView({ behavior: 'smooth' });
+      }
+    };
+    window.addEventListener('load', scrollToHash);
+
+    return () => window.removeEventListener('load', scrollToHash);
+  }, []);
+
   return (
     <div className="docs-main">
       <Sidebar />

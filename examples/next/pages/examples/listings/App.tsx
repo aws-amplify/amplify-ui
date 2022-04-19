@@ -21,7 +21,6 @@ export const App = ({ children }) => {
     <AmplifyProvider theme={theme} colorMode={colorMode}>
       <header className="listing-app-header">
         <Logo />
-
         <input type="search" placeholder="search" />
         <ToggleButtonGroup
           value={colorMode}

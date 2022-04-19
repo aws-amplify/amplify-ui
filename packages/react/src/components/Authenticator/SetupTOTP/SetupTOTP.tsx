@@ -2,23 +2,31 @@ import QRCode from 'qrcode';
 import * as React from 'react';
 
 import { Auth, Logger } from 'aws-amplify';
-import { getActorState, SignInState, translate } from '@aws-amplify/ui';
-
-import { useAuthenticator } from '../hooks/useAuthenticator';
-import { Flex, Heading } from '../../..';
 import {
-  isInputOrSelectElement,
-  isInputElement,
-  getFormDataFromEvent,
-} from '../../../helpers/utils';
+  CognitoUserAmplify,
+  getActorState,
+  SignInState,
+  translate,
+} from '@aws-amplify/ui';
 
-import { ConfirmSignInFooter, RemoteErrorMessage } from '../shared';
+import { Flex } from '../../../primitives/Flex';
+import { Heading } from '../../../primitives/Heading';
+import { useAuthenticator } from '../hooks/useAuthenticator';
 import { useCustomComponents } from '../hooks/useCustomComponents';
+import { useFormHandlers } from '../hooks/useFormHandlers';
+import { ConfirmSignInFooter } from '../shared/ConfirmSignInFooter';
+import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { FormFields } from '../shared/FormFields';
 
 const logger = new Logger('SetupTOTP-logger');
 
 export const SetupTOTP = (): JSX.Element => {
+  // TODO: handle `formOverrides` outside `useAuthenticator`
+  const { _state, isPending } = useAuthenticator((context) => [
+    context.isPending,
+  ]);
+  const { handleChange, handleSubmit } = useFormHandlers();
+
   const {
     components: {
       SetupTOTP: { Header = SetupTOTP.Header, Footer = SetupTOTP.Footer },
@@ -29,59 +37,37 @@ export const SetupTOTP = (): JSX.Element => {
   const [qrCode, setQrCode] = React.useState<string>();
   const [copyTextLabel, setCopyTextLabel] = React.useState<string>('COPY');
   const [secretKey, setSecretKey] = React.useState<string>('');
-  const { _state, submitForm, updateForm, isPending } = useAuthenticator();
 
   // `user` hasn't been set on the top-level state yet, so it's only available from the signIn actor
   const actorState = getActorState(_state) as SignInState;
 
-  const { user } = actorState.context;
+  const { formFields, user } = actorState.context;
+  const { totpIssuer = 'AWSCognito', totpUsername = user.username } =
+    formFields?.setupTOTP?.QR;
 
-  const formOverrides = getActorState(_state).context?.formFields?.setupTOTP;
+  const generateQRCode = React.useCallback(
+    async (currentUser: CognitoUserAmplify): Promise<void> => {
+      try {
+        const newSecretKey = await Auth.setupTOTP(currentUser);
+        setSecretKey(newSecretKey);
+        const totpCode = `otpauth://totp/${totpIssuer}:${totpUsername}?secret=${newSecretKey}&issuer=${totpIssuer}`;
+        const qrCodeImageSource = await QRCode.toDataURL(totpCode);
 
-  const QROR = formOverrides?.['QR'];
-
-  const generateQRCode = async (user): Promise<void> => {
-    try {
-      const newSecretKey = await Auth.setupTOTP(user);
-      setSecretKey(newSecretKey);
-      const issuer = QROR?.totpIssuer ?? 'AWSCognito';
-      const username = QROR?.totpUsername ?? user.username;
-      const totpCode = `otpauth://totp/${issuer}:${username}?secret=${newSecretKey}&issuer=${issuer}`;
-      const qrCodeImageSource = await QRCode.toDataURL(totpCode);
-
-      setQrCode(qrCodeImageSource);
-    } catch (error) {
-      logger.error(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+        setQrCode(qrCodeImageSource);
+      } catch (error) {
+        logger.error(error);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [totpIssuer, totpUsername]
+  );
 
   React.useEffect(() => {
     if (!user) return;
 
     generateQRCode(user);
-  }, [user]);
-
-  const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
-    if (isInputOrSelectElement(event.target)) {
-      let { name, type, value } = event.target;
-      if (
-        isInputElement(event.target) &&
-        type === 'checkbox' &&
-        !event.target.checked
-      ) {
-        value = undefined;
-      }
-
-      updateForm({ name, value });
-    }
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    submitForm(getFormDataFromEvent(event));
-  };
+  }, [generateQRCode, user]);
 
   const copyText = (): void => {
     navigator.clipboard.writeText(secretKey);

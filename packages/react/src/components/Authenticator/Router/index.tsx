@@ -1,7 +1,8 @@
+import * as React from 'react';
 import { CognitoUserAmplify } from '@aws-amplify/ui';
 
-import { useAuthenticator } from '..';
-import { View } from '../../..';
+import { useAuthenticator } from '../hooks/useAuthenticator';
+import { View } from '../../../primitives/View';
 import { ConfirmSignUp } from '../ConfirmSignUp';
 import { ForceNewPassword } from '../ForceNewPassword';
 import { useCustomComponents } from '../hooks/useCustomComponents';
@@ -11,15 +12,19 @@ import { ConfirmVerifyUser, VerifyUser } from '../VerifyUser';
 import { ConfirmSignIn } from '../ConfirmSignIn/ConfirmSignIn';
 import { ConfirmResetPassword, ResetPassword } from '../ResetPassword';
 
+type AuthenticatorChildren =
+  | React.ReactNode
+  | (({
+      signOut,
+      user,
+    }: {
+      signOut?: ReturnType<typeof useAuthenticator>['signOut'];
+      user?: CognitoUserAmplify;
+    }) => React.ReactNode);
+
 export type RouterProps = {
   className?: string;
-  children?: ({
-    signOut,
-    user,
-  }: {
-    signOut: ReturnType<typeof useAuthenticator>['signOut'];
-    user: CognitoUserAmplify;
-  }) => JSX.Element;
+  children?: AuthenticatorChildren;
   variation?: 'default' | 'modal';
   hideSignUp?: boolean;
 };
@@ -34,7 +39,11 @@ export function Router({
   variation = 'default',
   hideSignUp,
 }: RouterProps) {
-  const { route, signOut, user } = useAuthenticator();
+  const { route, signOut, user } = useAuthenticator((context) => [
+    context.route,
+    context.signOut,
+    context.user,
+  ]);
 
   const {
     components: { Header, Footer },
@@ -42,7 +51,17 @@ export function Router({
 
   // `Authenticator` might not have `children` for non SPA use cases.
   if (['authenticated', 'signOut'].includes(route)) {
-    return children ? children({ signOut, user }) : null;
+    if (!children) {
+      return null;
+    }
+
+    return (
+      <>
+        {typeof children === 'function'
+          ? children({ signOut, user }) // children is a render prop
+          : children}
+      </>
+    );
   }
 
   return (

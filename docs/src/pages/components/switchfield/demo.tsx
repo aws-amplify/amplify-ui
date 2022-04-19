@@ -38,7 +38,6 @@ const propsToCode = (props: SwitchFieldProps) => {
   isDisabled={${props.isDisabled}}
   label="${props.label}"
   labelPosition="${props.labelPosition}"
-  isLabelHidden={${props.isLabelHidden}}
 />`
   );
 };
@@ -49,7 +48,6 @@ export const SwitchDemo = () => {
     size: '',
     label: 'SwitchField',
     labelPosition: 'start',
-    isLabelHidden: false,
   });
 
   return (
@@ -66,7 +64,6 @@ export const SwitchDemo = () => {
         size={switchProps.size}
         label={switchProps.label}
         labelPosition={switchProps.labelPosition}
-        isLabelHidden={switchProps.isLabelHidden}
       />
       {typeof switchProps.isChecked !== 'undefined' && (
         <Text>
