@@ -10,7 +10,6 @@ const theme = {
         color: { value: '{colors.neutral.100}' },
         primary: {
           color: { value: '{colors.green.40}' },
-          textDecoration: { value: 'underline' },
         },
         secondary: {
           color: { value: '{colors.teal.40}' },
