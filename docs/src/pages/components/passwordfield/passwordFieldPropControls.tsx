@@ -56,17 +56,50 @@ interface PasswordFieldPropControlsInterface {
   (props: PasswordFieldControlProps): JSX.Element;
 }
 
-export const PasswordFieldPropControls: PasswordFieldPropControlsInterface = (
-  props
-) => {
+export const PasswordFieldPropControls: PasswordFieldPropControlsInterface = ({
+  autoComplete,
+  setAutoComplete,
+  defaultValue,
+  setDefaultValue,
+  errorMessage,
+  setErrorMessage,
+  hasError,
+  setHasError,
+  inputMode,
+  setInputMode,
+  isDisabled,
+  setIsDisabled,
+  isReadOnly,
+  setIsReadOnly,
+  isRequired,
+  setIsRequired,
+  label,
+  setLabel,
+  labelHidden,
+  setLabelHidden,
+  name,
+  setName,
+  placeholder,
+  setPlaceholder,
+  size,
+  setSize,
+  value,
+  setValue,
+  variation,
+  setVariation,
+  hideShowPassword,
+  setHideShowPassword,
+  descriptiveText,
+  setDescriptiveText,
+}) => {
   return (
     <Flex direction="column">
       <SelectField
         name="autoComplete"
         id="autoComplete"
         label="autoComplete"
-        value={props.autoComplete}
-        onChange={(event) => props.setAutoComplete(event.target.value)}
+        value={autoComplete}
+        onChange={(event) => setAutoComplete(event.target.value)}
       >
         <option value="current-password">current-password</option>
         <option value="new-password">new-password</option>
@@ -77,9 +110,9 @@ export const PasswordFieldPropControls: PasswordFieldPropControlsInterface = (
         name="defaultValue"
         id="defaultValue"
         placeholder="set defaultValue"
-        value={props.defaultValue}
+        value={defaultValue}
         onChange={(event) => {
-          props.setDefaultValue(
+          setDefaultValue(
             event.target.value as PasswordFieldProps['defaultValue']
           );
         }}
@@ -90,9 +123,9 @@ export const PasswordFieldPropControls: PasswordFieldPropControlsInterface = (
         name="descriptiveText"
         id="descriptiveText"
         placeholder="set descriptiveText"
-        value={props.descriptiveText as string}
+        value={descriptiveText as string}
         onChange={(event) => {
-          props.setDescriptiveText(
+          setDescriptiveText(
             event.target.value as PasswordFieldProps['descriptiveText']
           );
         }}
@@ -103,9 +136,9 @@ export const PasswordFieldPropControls: PasswordFieldPropControlsInterface = (
         name="errorMessage"
         id="errorMessage"
         placeholder="set errorMessage"
-        value={props.errorMessage}
+        value={errorMessage}
         onChange={(event) => {
-          props.setErrorMessage(
+          setErrorMessage(
             event.target.value as PasswordFieldProps['errorMessage']
           );
         }}
@@ -113,12 +146,10 @@ export const PasswordFieldPropControls: PasswordFieldPropControlsInterface = (
 
       <SwitchField
         label="hasError"
-        defaultChecked={props.hasError}
+        defaultChecked={hasError}
         labelPosition="end"
         onChange={(event) => {
-          props.setHasError(
-            event.target.checked as PasswordFieldProps['hasError']
-          );
+          setHasError(event.target.checked as PasswordFieldProps['hasError']);
         }}
       />
 
@@ -126,11 +157,9 @@ export const PasswordFieldPropControls: PasswordFieldPropControlsInterface = (
         name="inputMode"
         id="inputMode"
         label="inputMode"
-        value={props.inputMode}
+        value={inputMode}
         onChange={(event) =>
-          props.setInputMode(
-            event.target.value as PasswordFieldProps['inputMode']
-          )
+          setInputMode(event.target.value as PasswordFieldProps['inputMode'])
         }
       >
         <option value="none">None</option>
@@ -145,10 +174,10 @@ export const PasswordFieldPropControls: PasswordFieldPropControlsInterface = (
 
       <SwitchField
         label="isDisabled"
-        defaultChecked={props.isDisabled}
+        defaultChecked={isDisabled}
         labelPosition="end"
         onChange={(event) => {
-          props.setIsDisabled(
+          setIsDisabled(
             event.target.checked as PasswordFieldProps['isDisabled']
           );
         }}
@@ -156,10 +185,10 @@ export const PasswordFieldPropControls: PasswordFieldPropControlsInterface = (
 
       <SwitchField
         label="isReadOnly"
-        defaultChecked={props.isReadOnly}
+        defaultChecked={isReadOnly}
         labelPosition="end"
         onChange={(event) => {
-          props.setIsReadOnly(
+          setIsReadOnly(
             event.target.checked as PasswordFieldProps['isReadOnly']
           );
         }}
@@ -167,10 +196,10 @@ export const PasswordFieldPropControls: PasswordFieldPropControlsInterface = (
 
       <SwitchField
         label="isRequired"
-        defaultChecked={props.isRequired}
+        defaultChecked={isRequired}
         labelPosition="end"
         onChange={(event) => {
-          props.setIsRequired(
+          setIsRequired(
             event.target.checked as PasswordFieldProps['isRequired']
           );
         }}
@@ -181,18 +210,18 @@ export const PasswordFieldPropControls: PasswordFieldPropControlsInterface = (
         name="label"
         id="label"
         placeholder="set label"
-        value={props.label as string}
+        value={label as string}
         onChange={(event) => {
-          props.setLabel(event.target.value as PasswordFieldProps['label']);
+          setLabel(event.target.value as PasswordFieldProps['label']);
         }}
       />
 
       <SwitchField
         label="labelHidden"
-        defaultChecked={props.labelHidden}
+        defaultChecked={labelHidden}
         labelPosition="end"
         onChange={(event) => {
-          props.setLabelHidden(
+          setLabelHidden(
             event.target.checked as PasswordFieldProps['labelHidden']
           );
         }}
@@ -203,9 +232,9 @@ export const PasswordFieldPropControls: PasswordFieldPropControlsInterface = (
         name="name"
         id="name"
         placeholder="set name"
-        value={props.name}
+        value={name}
         onChange={(event) => {
-          props.setName(event.target.value as PasswordFieldProps['name']);
+          setName(event.target.value as PasswordFieldProps['name']);
         }}
       />
 
@@ -214,9 +243,9 @@ export const PasswordFieldPropControls: PasswordFieldPropControlsInterface = (
         name="placeholder"
         id="placeholder"
         placeholder="set placeholder"
-        value={props.placeholder}
+        value={placeholder}
         onChange={(event) => {
-          props.setPlaceholder(
+          setPlaceholder(
             event.target.value as PasswordFieldProps['placeholder']
           );
         }}
@@ -226,9 +255,9 @@ export const PasswordFieldPropControls: PasswordFieldPropControlsInterface = (
         name="size"
         id="size"
         label="size"
-        value={props.size}
+        value={size}
         onChange={(event) =>
-          props.setSize(event.target.value as PasswordFieldProps['size'])
+          setSize(event.target.value as PasswordFieldProps['size'])
         }
       >
         <option value="">Defaul</option>
@@ -241,9 +270,9 @@ export const PasswordFieldPropControls: PasswordFieldPropControlsInterface = (
         name="value"
         id="value"
         placeholder="set value"
-        value={props.value}
+        value={value}
         onChange={(event) => {
-          props.setValue(event.target.value as PasswordFieldProps['value']);
+          setValue(event.target.value as PasswordFieldProps['value']);
         }}
       />
 
@@ -251,11 +280,9 @@ export const PasswordFieldPropControls: PasswordFieldPropControlsInterface = (
         name="variation"
         id="variation"
         label="variation"
-        value={props.variation}
+        value={variation}
         onChange={(event) =>
-          props.setVariation(
-            event.target.value as PasswordFieldProps['variation']
-          )
+          setVariation(event.target.value as PasswordFieldProps['variation'])
         }
       >
         <option value="">Defaul</option>
@@ -264,41 +291,14 @@ export const PasswordFieldPropControls: PasswordFieldPropControlsInterface = (
 
       <SwitchField
         label="hideShowPassword"
-        defaultChecked={props.hideShowPassword}
+        defaultChecked={hideShowPassword}
         labelPosition="end"
         onChange={(event) => {
-          props.setHideShowPassword(
+          setHideShowPassword(
             event.target.checked as PasswordFieldProps['hideShowPassword']
           );
         }}
       />
-
-      {/* alignContent={alignContent as FlexContainerStyleProps['alignContent']}
-        alignItems={alignItems as FlexContainerStyleProps['alignItems']}
-        autoComplete={autoComplete as TextFieldProps['autoComplete']}
-        descriptiveText={descriptiveText as TextFieldProps['descriptiveText']}
-        defaultValue={defaultValue as TextFieldProps['defaultValue']}
-        direction={direction as FlexContainerStyleProps['direction']}
-        errorMessage={errorMessage as TextFieldProps['errorMessage']}
-        gap={gap as FlexContainerStyleProps['gap']}
-        hasError={hasError as unknown as boolean}
-        inputMode={inputMode as TextFieldProps['inputMode']}
-        isDisabled={isDisabled as unknown as boolean}
-        isReadOnly={isReadOnly as unknown as boolean}
-        isRequired={isRequired as unknown as boolean}
-        justifyContent={
-          justifyContent as FlexContainerStyleProps['justifyContent']
-        }
-        label={label as TextFieldProps['label']}
-        labelHidden={labelHidden as unknown as boolean}
-        name={name as TextFieldProps['name']}
-        placeholder={placeholder as TextFieldProps['placeholder']}
-        size={size as TextFieldProps['size']}
-        variation={variation as TextFieldProps['variation']}
-        wrap={wrap as FlexContainerStyleProps['wrap']}
-        hideShowPassword={
-          hideShowPassword as unknown as PasswordFieldProps['hideShowPassword']
-        } */}
     </Flex>
   );
 };
