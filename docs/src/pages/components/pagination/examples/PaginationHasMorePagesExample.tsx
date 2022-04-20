@@ -20,24 +20,14 @@ export const PaginationHasMorePagesExample = () => {
     setCurrentPageIndex(currentPageIndex + 1);
   };
 
-  const handlePreviousPage = () => {
-    if (currentPageIndex > 1) {
-      setCurrentPageIndex(currentPageIndex - 1);
-    }
-  };
-
-  const handleOnChange = (pageIndex) => {
-    setCurrentPageIndex(pageIndex);
-  };
-
   return (
     <Pagination
       currentPage={currentPageIndex}
       totalPages={pageTokens.length}
       hasMorePages={hasMorePages}
       onNext={handleNextPage}
-      onPrevious={handlePreviousPage}
-      onChange={handleOnChange}
+      onPrevious={() => setCurrentPageIndex(currentPageIndex - 1)}
+      onChange={(pageIndex) => setCurrentPageIndex(pageIndex)}
     />
   );
 };

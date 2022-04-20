@@ -1,14 +1,13 @@
-.custom-link {
-  color: red;
-  font-weight: bold;
+.link-global-styles {
+  color: var(--amplify-colors-red-80);
 }
 
-.custom-link:hover {
-  color: blue;
-  font-weight: bold;
+.link-local-styles {
+  color: var(--amplify-colors-red-80);
+  font-weight: var(--amplify-font-weights-bold);
 }
 
-.custom-link:focus {
-  color: green;
-  font-weight: bold;
+.link-local-styles:hover {
+  color: var(--amplify-colors-blue-80);
+  font-weight: var(--amplify-font-weights-bold);
 }

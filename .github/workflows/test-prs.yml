@@ -1,0 +1,328 @@
+# This workflow will run unit, e2e, and docs tests on PRs targeted against `main`.
+
+name: Test / PRs
+
+concurrency:
+  group: e2e-${{ github.event.pull_request.id }}
+  cancel-in-progress: true
+
+on:
+  pull_request_target:
+    branches: [main, ui-svelte/main, ui-geo/main]
+    types: [opened, synchronize, labeled]
+
+permissions:
+  pull-requests: write # used to remove label
+  # other permissions are defaulted to "none"
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    # We run tests only if it's:
+    #   1) pull request not from a fork (ie. internal PR), or
+    #   2) pull request from a fork (ie. external PR) that was added "run-tests" label
+    if: |
+      (github.event.pull_request.head.repo.full_name == github.repository) ||
+      (github.event.action == 'labeled' && github.event.label.name == 'run-tests')
+    outputs:
+      ref: ${{ steps.get-ref.outputs.ref }}
+      commit: ${{ steps.get-ref.outputs.commit }}
+    steps:
+      # This would be a good place to run and cache `yarn`, `yarn build`, etc
+      - name: Remove run-tests label, if applicable
+        if: always() && github.event.label.name == 'run-tests'
+        uses: actions/github-script@0.3.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { issue: { number: issue_number }, repo: { owner, repo } } = context;
+            const label = 'run-tests';
+            github.issues.removeLabel({ owner, repo, issue_number, name: label });
+      - name: Get ref and commit
+        id: get-ref
+        run: |
+          echo "::set-output name=ref::${{ github.event.pull_request.head.ref }}"
+          echo "::set-output name=commit::${{ github.event.pull_request.head.sha }}"
+      - name: Checkout Amplify UI
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ steps.get-ref.outputs.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          persist-credentials: false
+      - name: Setup Node.js LTS
+        uses: actions/setup-node@v2
+        with:
+          node-version: lts/*
+          cache: 'yarn'
+      - name: Install packages
+        run: yarn --no-lockfile
+      - name: Build ui package
+        run: yarn ui build
+      - name: Cache cypress runner
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/Cypress
+          key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
+      - name: Cache packages/ui/dist
+        uses: actions/cache@v2
+        with:
+          path: ./packages/ui/dist
+          key: ${{ runner.os }}-ui-${{ steps.get-ref.outputs.commit }}
+      - name: Cache node_modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            ./node_modules
+            **/node_modules
+          key: ${{ runner.os }}-nodemodules-${{ steps.get-ref.outputs.commit }}
+  unit:
+    needs: setup
+    runs-on: ubuntu-latest
+    env:
+      NODE_ENV: test
+
+    strategy:
+      matrix:
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        package:
+          - ui
+          - angular
+          - vue
+          - react
+
+    steps:
+      - name: Checkout Amplify UI
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          persist-credentials: false
+
+      - name: Setup Node.js LTS
+        uses: actions/setup-node@v2
+        with:
+          node-version: lts/*
+          cache: 'yarn'
+
+      - name: Restore node_modules cache
+        uses: actions/cache@v2
+        id: restore-cache
+        with:
+          path: |
+            ./node_modules
+            **/node_modules
+          key: ${{ runner.os }}-nodemodules-${{ needs.setup.outputs.commit }}
+
+      - name: Restore ui/dist cache
+        uses: actions/cache@v2
+        id: restore-ui-cache
+        with:
+          path: ./packages/ui/dist
+          key: ${{ runner.os }}-ui-${{ needs.setup.outputs.commit }}
+
+      - name: Install packages
+        if: steps.restore-cache.outputs.cache-hit != 'true'
+        run: yarn --no-lockfile
+
+      - name: Build ui package
+        if: ${{ steps.restore-ui-cache.outputs.cache-hit != 'true' && matrix.package != 'ui' }}
+        run: yarn ui build
+
+      - name: Build ${{ matrix.package }} package
+        if: ${{ matrix.package != '@aws-amplify/ui' }}
+        run: yarn ${{ matrix.package }} build
+
+      - name: Cache ${{ matrix.package }}/dist
+        uses: actions/cache@v2
+        with:
+          path: ./packages/${{ matrix.package }}/dist
+          key: ${{ runner.os }}-${{ matrix.package }}-${{ needs.setup.outputs.commit }}
+
+      - name: Lint packages
+        run: yarn ${{ matrix.package }} lint
+
+      - name: Run ${{ matrix.package }} tests
+        run: yarn ${{ matrix.package }} test
+
+  e2e:
+    # Only run e2e tests if unit tests pass
+    needs: [setup, unit]
+    runs-on: ubuntu-latest
+    environment: ci
+    env:
+      NODE_ENV: test
+
+    strategy:
+      # Run each examples (e.g. `next-example`) which uses a library (e.g. `@aws-amplify/ui-react`)
+      # BUT, Exclude `@skip` tests in `main` and exclude `@todo-${{ package }}` tests in PRs
+      # See: https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#using-environment-variables-in-a-matrix
+      matrix:
+        include:
+          - example: angular
+            package: angular
+            tags: '@angular and not (@skip or @todo-angular)'
+
+          - example: next
+            package: react
+            tags: '@react and not (@skip or @todo-react)'
+
+          - example: vue
+            package: vue
+            tags: '@vue and not (@skip or @todo-vue)'
+
+    steps:
+      - name: Checkout Amplify UI
+        uses: actions/checkout@v2
+        with:
+          # For `pull_request_target`, we want ref to point to `pull_request.head.ref` because `github.ref`
+          # always points to the target branch.
+          # See: https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{github.event.pull_request.head.repo.full_name}}
+          persist-credentials: false
+
+      - name: Next.js Cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ github.workspace }}/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Setup Node.js LTS
+        uses: actions/setup-node@v2
+        with:
+          node-version: lts/*
+          cache: 'yarn'
+
+      - name: Restore cypress runner Cache
+        uses: actions/cache@v2
+        id: restore-cypress-cache
+        with:
+          path: ~/.cache/Cypress
+          key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
+
+      - name: Restore node_modules cache
+        uses: actions/cache@v2
+        id: restore-cache
+        with:
+          path: |
+            ./node_modules
+            **/node_modules
+          key: ${{ runner.os }}-nodemodules-${{ needs.setup.outputs.commit }}
+
+      - name: Restore ui/dist cache
+        uses: actions/cache@v2
+        id: restore-ui-cache
+        with:
+          path: ./packages/ui/dist
+          key: ${{ runner.os }}-ui-${{ needs.setup.outputs.commit }}
+
+      - name: Restore ${{ matrix.package }}/dist cache
+        id: restore-package-cache
+        uses: actions/cache@v2
+        with:
+          path: ./packages/${{ matrix.package }}/dist
+          key: ${{ runner.os }}-${{ matrix.package }}-${{ needs.setup.outputs.commit }}
+
+      - name: Install packages
+        if: steps.restore-cache.outputs.cache-hit != 'true' || steps.restore-cypress-cache.outputs.cache-hit != 'true'
+        run: yarn --no-lockfile
+
+      - name: Build @aws-amplify/ui package
+        if: steps.restore-ui-cache.outputs.cache-hit != 'true'
+        run: yarn ui build
+
+      - name: Build ${{ matrix.package }} package
+        if: steps.restore-package-cache.outputs.cache-hit != 'true'
+        run: yarn ${{ matrix.package }} build
+
+      - name: Add Amplify CLI
+        run: yarn global add @aws-amplify/cli
+
+      - name: Get CLI versions
+        id: cli-version
+        run: echo "::set-output name=version::$(amplify --version)"
+
+      - name: Create or restore environments cache
+        id: environments-cache
+        uses: actions/cache@v2
+        with:
+          path: environments/**/aws-exports.js
+          key: ${{ runner.os }}-environments-${{ steps.cli-version.outputs.version }}-${{ hashFiles('environments/**/amplify/**') }}
+
+      - name: Pull down AWS environments on cache miss
+        if: steps.environments-cache.outputs.cache-hit != 'true'
+        run: yarn environments pull
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Build ${{ matrix.example }} example
+        run: yarn workspace ${{ matrix.example }}-example build
+
+      - name: Start ${{ matrix.example }} example
+        run: yarn workspace ${{ matrix.example }}-example start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000/ui/components/authenticator/sign-in-with-username
+
+      - name: Run E2E tests against ${{ matrix.example }} example
+        run: yarn workspace e2e test:examples
+        env:
+          # Override on the default value in `cypress.json` with framework-specific tag
+          TAGS: '${{ matrix.tags }}'
+
+          # Env values for testing flows
+          DOMAIN: ${{ secrets.DOMAIN }}
+          PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+          USERNAME: ${{ secrets.USERNAME }}
+          NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
+          VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+  docs:
+    # Only run docs tests if e2e tests pass
+    needs: [setup, unit]
+    runs-on: ubuntu-latest
+    environment: ci
+    env:
+      NODE_ENV: test
+    steps:
+      - name: Checkout Amplify UI
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          persist-credentials: false
+
+      - name: Setup Node.js LTS
+        uses: actions/setup-node@v2
+        with:
+          node-version: lts/*
+          cache: 'yarn'
+
+      - name: Restore cypress runner Cache
+        uses: actions/cache@v2
+        id: restore-cypress-cache
+        with:
+          path: ~/.cache/Cypress
+          key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
+
+      - name: Install packages
+        run: yarn install
+
+      - name: Build ui package
+        run: yarn ui build
+
+      - name: Build react package
+        run: yarn react build
+
+      - name: Build docs package
+        run: yarn docs build
+
+      - name: Start docs site
+        run: yarn docs start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000
+
+      - name: Run E2E tests against docs
+        run: yarn workspace e2e test:theme
+        env:
+          # Env values for testing flows
+          DOMAIN: ${{ secrets.DOMAIN }}
+          PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+          USERNAME: ${{ secrets.USERNAME }}
+          NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
+          VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
