@@ -51,3 +51,44 @@ export default function App(props) {
 ```
 </TabItem>
 </Tabs>
+
+If you're planning on using the [Authenticator](/components/authenticator), also wrap your application in `<Authenticator.Provider/>`.
+
+<Tabs>
+<TabItem title="Create React App">
+```jsx
+import { AmplifyProvider, Authenticator } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css'; // default theme
+
+export default function App() {
+  return (
+    <AmplifyProvider>
+      <Authenticator.Provider>
+        <App />
+      </Authenticator.Provider>
+    </AmplifyProvider>
+  );
+};
+```
+</TabItem>
+<TabItem title="Next.js" >
+```jsx
+import { AmplifyProvider, Authenticator } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css'; // default theme
+
+export default function App(props) {
+  return (
+    <AmplifyProvider>
+      <Authenticator.Provider>
+        <MyApp {...props} />
+      </Authenticator.Provider>
+    </AmplifyProvider>
+  );
+};
+```
+</TabItem>
+</Tabs>
+
+> The `<AmplifyProvider/>` helps direct [theming](/theming) to all the Amplify components in your application. It can optionally be used with a [theme object](/theming#theme-object), to set the look and feel of your app.
+>
+> The `<Authenticator.Provider/>` is used with our [Authenticator](/components/authenticator) component. It's guarantees that the [useAuthenticator hook](/components/authenticator#useauthenticator-hook) is available throughout your application. You can see an example of this pattern in the [Protected Routes Guide.](/guides/auth-protected)
