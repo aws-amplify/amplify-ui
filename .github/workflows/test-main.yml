@@ -8,7 +8,7 @@ concurrency:
 
 on:
   push:
-    branches: [main, ui-svelte/main]
+    branches: [main, ui-svelte/main, ui-geo/main]
 
 permissions:
   pull-requests: write # used to remove label
