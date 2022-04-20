@@ -1,5 +1,20 @@
 # @aws-amplify/ui-react
 
+## 2.15.4
+
+### Patch Changes
+
+- [#1724](https://github.com/aws-amplify/amplify-ui/pull/1724) [`1481e5e04`](https://github.com/aws-amplify/amplify-ui/commit/1481e5e0419f9c13ad48cc8c0d00066acb3c7d92) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui-react): type withAuthenticator
+
+* [#1685](https://github.com/aws-amplify/amplify-ui/pull/1685) [`c984491dc`](https://github.com/aws-amplify/amplify-ui/commit/c984491dcf84171f7e69942ff49e4bccae0c6735) Thanks [@wlee221](https://github.com/wlee221)! - Adjusts Authenticator to accept ReactNode as well as render prop children
+
+- [#1722](https://github.com/aws-amplify/amplify-ui/pull/1722) [`d714ff3ed`](https://github.com/aws-amplify/amplify-ui/commit/d714ff3ed5bc31563ff1ff799bc4bcc9c2743166) Thanks [@ErikCH](https://github.com/ErikCH)! - Updated maplibre-gl to latest version
+
+* [#1721](https://github.com/aws-amplify/amplify-ui/pull/1721) [`13ae3c03c`](https://github.com/aws-amplify/amplify-ui/commit/13ae3c03c3b07ff4b0ccc2dd842f682b42c55fb7) Thanks [@slaymance](https://github.com/slaymance)! - Bump maplibre-gl-js-amplify dependency version
+
+* Updated dependencies [[`1601b3f94`](https://github.com/aws-amplify/amplify-ui/commit/1601b3f94d68acd1df0e592c6328f19b29620447)]:
+  - @aws-amplify/ui@3.6.4
+
 ## 2.15.3
 
 ### Patch Changes
