@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react",
-  "version": "2.15.3",
+  "version": "2.15.4",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "exports": {
@@ -57,7 +57,7 @@
     "test:unit:watch": "jest --watch"
   },
   "dependencies": {
-    "@aws-amplify/ui": "3.6.3",
+    "@aws-amplify/ui": "3.6.4",
     "@aws-amplify/ui-react-v1": "npm:@aws-amplify/ui-react@1.2.9",
     "@radix-ui/react-accordion": "0.1.6",
     "@radix-ui/react-dropdown-menu": "0.1.6",
@@ -68,8 +68,8 @@
     "deepmerge": "4.2.2",
     "lodash": "4.17.21",
     "mapbox-gl": "npm:empty-npm-package@1.0.0",
-    "maplibre-gl": "1.15.2",
-    "maplibre-gl-js-amplify": "1.2.3",
+    "maplibre-gl": "1.15.3",
+    "maplibre-gl-js-amplify": "1.5.0",
     "qrcode": "1.5.0",
     "react-generate-context": "1.0.1",
     "react-map-gl": "7.0.10"

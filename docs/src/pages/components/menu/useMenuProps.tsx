@@ -9,7 +9,7 @@ interface UseMenuProps {
 
 export const useMenuProps: UseMenuProps = (initialValues) => {
   const [menuAlign, setMenuAlign] = React.useState<MenuProps['menuAlign']>(
-    initialValues.align
+    initialValues.menuAlign
   );
   const [size, setSize] = React.useState<MenuProps['size']>(initialValues.size);
 
