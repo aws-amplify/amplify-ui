@@ -1,5 +1,11 @@
 # @aws-amplify/ui
 
+## 3.6.4
+
+### Patch Changes
+
+- [#1667](https://github.com/aws-amplify/amplify-ui/pull/1667) [`1601b3f94`](https://github.com/aws-amplify/amplify-ui/commit/1601b3f94d68acd1df0e592c6328f19b29620447) Thanks [@hbuchel](https://github.com/hbuchel)! - fix: update focus styling/token nesting for switchField
+
 ## 3.6.3
 
 ### Patch Changes

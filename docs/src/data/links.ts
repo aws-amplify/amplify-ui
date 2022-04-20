@@ -240,7 +240,7 @@ export const navigationComponents: ComponentNavItem[] = [
   {
     href: '/components/link',
     label: 'Link',
-    body: ``,
+    body: `Links are customizable and themable elements used for Navigation. By default Links render an anchor tag but can be configured to be used with routing libraries.`,
     platforms: ['react'],
   },
   {
