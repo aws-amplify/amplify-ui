@@ -21,38 +21,54 @@ yarn add aws-amplify @aws-amplify/ui-react
 
 After adding the `aws-amplify` and `@aws-amplify/ui-react` dependencies you are now ready to add any of our [components](/components) to your application.
 
-### Theming
+### Default styling
 
-To add [theming](/theming) wrap your application in the `AmplifyProvider` component and include the default styling.
+Load the default styling by importing our CSS:
+
+```jsx
+import { View } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css'; // default theme
+
+export default function App() {
+  return <View>Your app here</View>;
+}
+```
+
+### Custom Theme
+
+To add a [custom theme](/theming), wrap your app in the `AmplifyProvider` component and include the default styling.
 
 <Tabs>
 <TabItem title="Create React App">
 ```jsx
-import { AmplifyProvider } from '@aws-amplify/ui-react';
+import { AmplifyProvider, View } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css'; // default theme
 
 export default function App() {
   return (
     <AmplifyProvider>
-      <App />
+      <View>Your app here</View>
     </AmplifyProvider>
   );
-};
-```
+}
+
+````
+
 </TabItem>
 <TabItem title="Next.js" >
 ```jsx
-import { AmplifyProvider } from '@aws-amplify/ui-react';
+import { AmplifyProvider, View } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css'; // default theme
 
 export default function App(props) {
   return (
     <AmplifyProvider>
-      <MyApp {...props} />
+      <View {...props} >Your app here </View>
     </AmplifyProvider>
   );
 };
-```
+````
+
 </TabItem>
 </Tabs>
 
@@ -60,18 +76,18 @@ export default function App(props) {
 
 ### Authenticator Provider
 
-If you're planning on using the [Authenticator](/components/authenticator) with the [useAuthenticator hook](/components/authenticator#useauthenticator-hook), for advanced use cases, wrap your application in the `Authenticator.Provider` component.
+In advanced use cases where usage of the [`useAuthenticator` hook](/components/authenticator#useauthenticator-hook) outside the scope of the [`Authenticator`](/components/authenticator) is needed, wrap your application inside a `Authenticator.Provider`.
 
 <Tabs>
 <TabItem title="Create React App">
 ```jsx
-import { AmplifyProvider, Authenticator } from '@aws-amplify/ui-react';
+import { Authenticator, View } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css'; // default theme
 
 export default function App() {
   return (
     <Authenticator.Provider>
-      <App />
+      <View>Your app here</View>
     </Authenticator.Provider>
   );
 };
@@ -79,13 +95,13 @@ export default function App() {
 </TabItem>
 <TabItem title="Next.js" >
 ```jsx
-import { AmplifyProvider, Authenticator } from '@aws-amplify/ui-react';
+import {  Authenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css'; // default theme
 
 export default function App(props) {
   return (
     <Authenticator.Provider>
-      <MyApp {...props} />
+      <View {...props}>Your app here</View>
     </Authenticator.Provider>
   );
 };
