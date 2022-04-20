@@ -70,7 +70,7 @@
     "deepmerge": "4.2.2",
     "lodash": "4.17.21",
     "mapbox-gl": "1.13.1",
-    "maplibre-gl": "1.15.3",
+    "maplibre-gl": "2.1.9",
     "maplibre-gl-js-amplify": "1.5.0",
     "qrcode": "1.5.0",
     "react-generate-context": "1.0.1",
