@@ -26,14 +26,18 @@ const propsToCode = (
   }: TextProps
 ) => `
 <Text
-    as="${as}"
     variation="${variation}"
-    isTruncated="${isTruncated}"
-    color="${color}"
+    as="${as}"
+    color="${color}"${
+  isTruncated
+    ? `
+    isTruncated={true}`
+    : ''
+}
     lineHeight="${lineHeight}"
-    fontWeight="${fontWeight}"
-    fontStyle="${fontStyle}"
+    fontWeight={${fontWeight}}
     fontSize="${fontSize}"
+    fontStyle="${fontStyle}"
     textDecoration="${textDecoration}"
     width="30vw"
   >
@@ -41,7 +45,7 @@ const propsToCode = (
 </Text>`;
 
 export const TextDemo = ({ children }) => {
-  const props = useTextProps({});
+  const props = useTextProps();
   const {
     as,
     variation,

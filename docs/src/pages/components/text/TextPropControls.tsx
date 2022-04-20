@@ -54,7 +54,7 @@ export const TextPropControls: TextPropControlsInterface = ({
   value,
   setValue,
 }) => {
-  const VARIATIONS_OPTIONS = [
+  const VARIATIONS_OPTIONS: TextVariation[] = [
     'primary',
     'secondary',
     'tertiary',
@@ -130,9 +130,9 @@ export const TextPropControls: TextPropControlsInterface = ({
       />
       <SliderField
         label="fontWeight"
-        min={0}
-        max={1200}
-        step={100}
+        min={100}
+        max={950}
+        step={50}
         value={fontWeight as number}
         onChange={setFontWeight}
       />

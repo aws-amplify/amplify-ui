@@ -1,6 +1,19 @@
-import { AmplifyProvider, Flex, Text } from '@aws-amplify/ui-react';
+import {
+  AmplifyProvider,
+  Flex,
+  Text,
+  TextVariation,
+} from '@aws-amplify/ui-react';
 
-import { VARIATIONS_OPTIONS } from '../constants';
+const VARIATIONS_OPTIONS: TextVariation[] = [
+  'primary',
+  'secondary',
+  'tertiary',
+  'error',
+  'warning',
+  'info',
+  'success',
+];
 
 const theme = {
   name: 'text-theme',
@@ -36,7 +49,7 @@ const theme = {
 
 export const TextThemeExample = () => (
   <AmplifyProvider theme={theme}>
-    <Flex direction="row">
+    <Flex>
       <Text>Default</Text>
       {VARIATIONS_OPTIONS.map((variation) => (
         <Text key={variation} variation={variation}>
