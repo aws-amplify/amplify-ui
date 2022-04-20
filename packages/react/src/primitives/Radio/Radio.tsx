@@ -60,7 +60,15 @@ export const RadioPrimitive: Primitive<RadioProps, 'input'> = (
   return (
     <Flex
       as="label"
-      className={classNames(ComponentClassNames.Radio, className)}
+      className={classNames(
+        ComponentClassNames.Radio,
+        classNameModifier(
+          ComponentClassNames.Radio,
+          `--disabled`,
+          shouldBeDisabled
+        ),
+        className
+      )}
       data-disabled={shouldBeDisabled}
       data-label-position={labelPosition}
       width={width}

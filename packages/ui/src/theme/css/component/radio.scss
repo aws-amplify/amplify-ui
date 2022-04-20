@@ -3,10 +3,9 @@
   justify-content: var(--amplify-components-radio-justify-content);
   gap: inherit;
   flex-direction: row-reverse;
-}
-
-.amplify-radio[data-disabled='true'] {
-  cursor: var(--amplify-components-radio-disabled-cursor);
+  &--disabled {
+    cursor: var(--amplify-components-radio-disabled-cursor);
+  }
 }
 
 .amplify-radio__button {
