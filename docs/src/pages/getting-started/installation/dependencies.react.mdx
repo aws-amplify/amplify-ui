@@ -19,7 +19,11 @@ yarn add aws-amplify @aws-amplify/ui-react
 </TabItem>
 </Tabs>
 
-Wrap your application in `<AmplifyProvider/>` and include default styling:
+After adding the `aws-amplify` and `@aws-amplify/ui-react` dependencies you are now ready to add any of our [components](/components) to your application.
+
+### Theming
+
+To add [theming](/theming) wrap your application in the `AmplifyProvider` component and include the default styling.
 
 <Tabs>
 <TabItem title="Create React App">
@@ -52,7 +56,11 @@ export default function App(props) {
 </TabItem>
 </Tabs>
 
-If you're planning on using the [Authenticator](/components/authenticator), also wrap your application in `<Authenticator.Provider/>`.
+> The `AmplifyProvider` helps direct [theming](/theming) to all the Amplify components in your application. It can optionally be used with a [theme object](/theming#theme-object), to set the look and feel of your app.
+
+### Authenticator Provider
+
+If you're planning on using the [Authenticator](/components/authenticator) with the [useAuthenticator hook](/components/authenticator#useauthenticator-hook), for advanced use cases, wrap your application in the `Authenticator.Provider` component.
 
 <Tabs>
 <TabItem title="Create React App">
@@ -62,11 +70,9 @@ import '@aws-amplify/ui-react/styles.css'; // default theme
 
 export default function App() {
   return (
-    <AmplifyProvider>
-      <Authenticator.Provider>
-        <App />
-      </Authenticator.Provider>
-    </AmplifyProvider>
+    <Authenticator.Provider>
+      <App />
+    </Authenticator.Provider>
   );
 };
 ```
@@ -78,17 +84,13 @@ import '@aws-amplify/ui-react/styles.css'; // default theme
 
 export default function App(props) {
   return (
-    <AmplifyProvider>
-      <Authenticator.Provider>
-        <MyApp {...props} />
-      </Authenticator.Provider>
-    </AmplifyProvider>
+    <Authenticator.Provider>
+      <MyApp {...props} />
+    </Authenticator.Provider>
   );
 };
 ```
 </TabItem>
 </Tabs>
 
-> The `AmplifyProvider` helps direct [theming](/theming) to all the Amplify components in your application. It can optionally be used with a [theme object](/theming#theme-object), to set the look and feel of your app.
->
 > The `Authenticator.Provider` is used with our [Authenticator](/components/authenticator) component. It guarantees that the [useAuthenticator hook](/components/authenticator#useauthenticator-hook) is available throughout your application. You can see an example of this pattern in the [Protected Routes Guide.](/guides/auth-protected)
