@@ -2,7 +2,7 @@ name: Publish to @geo
 
 on:
   workflow_run:
-    workflows: ['Tests']
+    workflows: ['Test / main']
     types:
       - completed
 

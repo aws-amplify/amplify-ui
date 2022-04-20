@@ -1,6 +1,14 @@
-import { Placeholder, View, Flex } from '@aws-amplify/ui-react';
-import { PlaceholderDemo, TwoWays } from './demo';
-import { Example } from '@/components/Example';
+import { Placeholder } from '@aws-amplify/ui-react';
+
+import { PlaceholderDemo } from './demo';
+import {
+  DefaultPlaceholderExample,
+  PlaceholderIsLoadedExample,
+  PlaceholderSizeExample,
+  PlaceholderStylePropsExample,
+  PlaceholderThemeExample,
+} from './examples';
+import { Example, ExampleCode } from '@/components/Example';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 
 ## Demo
@@ -9,99 +17,93 @@ import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 
 ## Usage
 
-Import the Placeholder component and styles.
+Import the Placeholder component.
 
-```jsx
-import { Placeholder, Flex } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
+<Example>
+  <DefaultPlaceholderExample />
+  <ExampleCode>
+    ```jsx file=./examples/DefaultPlaceholderExample.tsx 
+    
+    ```
 
-<Flex direction="column">
-  <Placeholder />
-  <Placeholder />
-  <Placeholder />
-</Flex>
-);
-```
+  </ExampleCode>
+</Example>
 
-<Flex direction="column">
-  <Placeholder />
-  <Placeholder />
-  <Placeholder />
-</Flex>
+### isLoaded
 
-There are two ways you can use the Placeholder component:
+Use `isLoaded` prop to indicate whether or not the content is loaded.
 
-1. Pass your loading state to the `isLoaded` prop (suggested)
-2. Use conditional rendering (e.g., ternary operator)
+<Example>
+  <PlaceholderIsLoadedExample />
+  <ExampleCode>
+    ```jsx file=./examples/PlaceholderIsLoadedExample.tsx
 
-```jsx
-let isLoaded = false;
+    ```
 
-<Flex direction="column">
-  <Placeholder isLoaded={isLoaded}>First way</Placeholder>
-  {isLoaded ? 'Second way' : <Placeholder />}
-</Flex>
-);
-```
-
-<TwoWays />
+  </ExampleCode>
+</Example>
 
 ### Sizes
 
 Use the `size` prop to change the Placeholder size. Available options are `small`, `large`, and none (default).
 
-```jsx
-<Placeholder size="small" />
-<Placeholder />
-<Placeholder size="large" />
-```
+<Example>
+  <PlaceholderSizeExample />
+  <ExampleCode>
+    ```jsx file=./examples/PlaceholderSizeExample.tsx
 
-<Flex direction="column">
-  <Placeholder size="small" />
-  <Placeholder />
-  <Placeholder size="large" />
-</Flex>
+    ```
 
-## CSS Styling
+  </ExampleCode>
+</Example>
+
+## Customization
 
 ### Target classes
 
 <ComponentStyleDisplay componentName="Placeholder" />
 
+### Theme
+
+You can customize the appearance of all Placeholders in your application with a [Theme](/theming).
+
+<Example>
+  <PlaceholderThemeExample />
+  <ExampleCode>
+    ```jsx file=./examples/PlaceholderThemeExample.tsx
+
+    ```
+
+  </ExampleCode>
+</Example>
+
 ### Global styling
 
 To override styling on all Placeholder components, you can set the Amplify CSS variables or use the built-in `.amplify-placeholder` class.
 
-(Example needed)
+<Example>
+  <Placeholder className="placeholder-global-styles" />
+  <ExampleCode>
+    ```css
+    /* styles.css */
+    [data-amplify-theme] {
+      --amplify-components-placeholder-height: var(--amplify-space-xl);
+      --amplify-components-placeholder-border-radius: var(--amplify-space-medium);
+    }
+    /* OR */
+    .amplify-placeholder {
+      height: var(--amplify-space-xl);
+      border-radius: var(--amplify-space-medium);
+    }
+    ```
 
-To replace the Placeholder styling, unset it:
-
-```css
-.amplify-placeholder {
-  all: unset;
-  /* Add your styling here*/
-}
-```
-
-Set the starting and ending colors for the Placeholder animation using a custom CSS class with the Amplify CSS variables:
-
-```css
-/* styles.css */
-.custom-placeholder {
-  --amplify-components-placeholder-start-color: purple;
-  --amplify-components-placeholder-end-color: blue;
-}
-```
-
-```jsx
-import './styles.css';
-
-<Placeholder className="custom-placeholder" />;
-```
-
-<Flex>
-  <Placeholder className="custom-placeholder" />
-</Flex>
+  </ExampleCode>
+  <ExampleCode>
+    ```jsx
+    <Placeholder />
+    ```
+  </ExampleCode>
+</Example>
 
 ### Local styling
 
@@ -109,14 +111,37 @@ To override styling on a specific Placeholder, you can use a class selector or s
 
 _Using a class selector:_
 
-(Example needed )
+Set the starting and ending colors for the Placeholder animation using a custom CSS class with the Amplify CSS variables:
+
+<Example>
+   <Placeholder className="placeholder-local-styles" />
+  <ExampleCode>
+    ```css
+    /* styles.css */
+    .placeholder-local-styles {
+      --amplify-components-placeholder-start-color: var(--amplify-colors-purple-80);
+      --amplify-components-placeholder-end-color: var(--amplify-colors-blue-80);
+    }
+    ```
+  </ExampleCode>
+  <ExampleCode>
+    ```jsx
+    import './styles.css';
+
+    <Placeholder className="placeholder-local-styles" />
+    ```
+
+  </ExampleCode>
+</Example>
 
 _Using style props:_
 
-```jsx
-<Placeholder height="123px" width="50%" />
-```
+<Example>
+  <PlaceholderStylePropsExample />
+  <ExampleCode>
+    ```jsx file=./examples/PlaceholderStylePropsExample.tsx
+    
+    ```
 
-<Flex>
-  <Placeholder height="123px" width="50%" />
-</Flex>
+  </ExampleCode>
+</Example>
