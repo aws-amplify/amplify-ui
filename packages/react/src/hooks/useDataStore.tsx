@@ -21,13 +21,11 @@ export const useDataStoreCollection = <M extends PersistentModel>({
 }: DataStoreCollectionProps<M>): DataStoreCollectionResult<M> => {
   const [result, setResult] = React.useState<DataStoreCollectionResult<M>>({
     items: [],
-    isLoading: false,
+    isLoading: true,
     error: undefined,
   });
 
   const fetch = () => {
-    setResult({ isLoading: true, items: [] });
-
     const subscription = DataStore.observeQuery(
       model,
       criteria,
@@ -61,12 +59,10 @@ export const useDataStoreItem = <M extends PersistentModel>({
   id,
 }: DataStoreItemProps<M>): DataStoreItemResult<M> => {
   const [item, setItem] = React.useState<M>();
-  const [isLoading, setLoading] = React.useState<boolean>(false);
+  const [isLoading, setLoading] = React.useState<boolean>(true);
   const [error, setError] = React.useState<Error>();
 
   const fetch = () => {
-    setLoading(true);
-
     DataStore.query(model, id)
       .then(setItem)
       .catch(setError)
