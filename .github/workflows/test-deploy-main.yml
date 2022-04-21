@@ -326,3 +326,17 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish to next tag
         run: yarn publish:next
+
+  build-test: 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Open canary folder
+        run: cd canary/
+      - name: Setup canary folder against @next
+        run: yarn setup:next 
+      - name: Run yarn install on each sample app
+        run: yarn install
+      - name: Run yarn build on each sample app
+        run: yarn build
