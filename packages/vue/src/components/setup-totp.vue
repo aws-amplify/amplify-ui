@@ -164,9 +164,9 @@ const onBackToSignInClicked = (): void => {
                 </base-alert>
                 <amplify-button
                   class="amplify-field-group__control"
-                  data-fullwidth="false"
-                  data-loading="false"
-                  data-variation="primary"
+                  :fullwidth="false"
+                  :loading="false"
+                  :variation="'primary'"
                   type="submit"
                   style="font-weight: normal"
                   :disabled="actorState.matches('confirmSignIn.pending')"
@@ -175,9 +175,9 @@ const onBackToSignInClicked = (): void => {
                 </amplify-button>
                 <amplify-button
                   class="amplify-field-group__control"
-                  data-fullwidth="false"
-                  data-size="small"
-                  data-variation="link"
+                  :fullwidth="false"
+                  :size="'small'"
+                  :variation="'link'"
                   style="font-weight: normal"
                   type="button"
                   @click.prevent="onBackToSignInClicked"

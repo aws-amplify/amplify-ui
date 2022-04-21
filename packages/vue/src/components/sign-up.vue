@@ -76,9 +76,9 @@ const submit = (e: Event): void => {
           </base-alert>
           <amplify-button
             class="amplify-field-group__control"
-            data-fullwidth="true"
-            data-loading="false"
-            data-variation="primary"
+            :fullwidth="true"
+            :loading="false"
+            :variation="'primary'"
             style="border-radius: 0px; font-weight: normal"
             :disabled="isPending || hasValidationErrors"
             >{{ createAccountLabel }}</amplify-button

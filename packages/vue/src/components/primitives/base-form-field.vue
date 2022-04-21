@@ -60,7 +60,7 @@ const isPasswordField = type === 'password';
       :key="idx"
       role="alert"
       data-variation="error"
-      class="amplify-text"
+      class="amplify-text amplify-text--error"
     >
       {{ translate(error) }}
     </p>
