@@ -331,11 +331,12 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
-      - name: Open canary folder
-        run: cd canary/
-      - name: Setup canary folder against @next
+      - name: Setup canary apps against @next
         run: yarn setup:next
+        working-directory: ./canary
       - name: Run yarn install on each sample app
         run: yarn install
+        working-directory: ./canary
       - name: Run yarn build on each sample app
         run: yarn build
+        working-directory: ./canary
