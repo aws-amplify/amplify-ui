@@ -44,13 +44,13 @@ export const Geocoder = (props: GeocoderProps) => {
    * This logic determines whether the Geocoder exists as part of a Map component or if it is a standalone component.
    * The `useControl` hook inside `GeocoderControl` from `react-map-gl` makes it easy to add a control to a map,
    * but throws an error if that map doesn't exist. If the map doesn't exist, the Geocoder is mounted to a container
-   * upon rendering inside the `StandaloneGeocoder`.
+   * upon rendering inside the `GeocoderStandalone`.
    */
   if (map) {
     return <GeocoderControl {...GEOCODER_OPTIONS} {...props} />;
   }
 
-  return <StandaloneGeocoder {...GEOCODER_OPTIONS} {...props} />;
+  return <GeocoderStandalone {...GEOCODER_OPTIONS} {...props} />;
 };
 
 const GeocoderControl = ({
@@ -64,7 +64,7 @@ const GeocoderControl = ({
   return null;
 };
 
-const StandaloneGeocoder = (props: GeocoderProps) => {
+const GeocoderStandalone = (props: GeocoderProps) => {
   const hasMounted = useRef(false);
 
   useEffect(() => {
