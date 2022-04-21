@@ -3,6 +3,7 @@
  */
 
 @import 'dist/theme';
+@import './component/fieldControl';
 
 // Keeping these selector low (001) so it can be easily overridden
 html {
