@@ -37,27 +37,26 @@ type GeocoderControl = IControl & {
  *   return <Geocoder />;
  * }
  */
-export const Geocoder = ({
-  position = 'top-right',
-  ...props
-}: GeocoderProps) => {
+export const Geocoder = (props: GeocoderProps) => {
   const { current: map } = useMap();
 
   /**
    * This logic determines whether the Geocoder exists as part of a Map component or if it is a standalone component.
-   * The `useControl` hook inside `ControlledGeocoder` from `react-map-gl` makes it easy to add a control to a map,
+   * The `useControl` hook inside `GeocoderControl` from `react-map-gl` makes it easy to add a control to a map,
    * but throws an error if that map doesn't exist. If the map doesn't exist, the Geocoder is mounted to a container
    * upon rendering inside the `StandaloneGeocoder`.
    */
   if (map) {
-    return <ControlledGeocoder {...GEOCODER_OPTIONS} {...props} />;
+    return <GeocoderControl {...GEOCODER_OPTIONS} {...props} />;
   }
 
   return <StandaloneGeocoder {...GEOCODER_OPTIONS} {...props} />;
 };
 
-const ControlledGeocoder = (props: GeocoderProps) => {
-  useControl(() => createAmplifyGeocoder(props) as unknown as GeocoderControl);
+const GeocoderControl = ({ position, ...props }: GeocoderProps) => {
+  useControl(() => createAmplifyGeocoder(props) as unknown as GeocoderControl, {
+    position,
+  });
 
   return null;
 };
