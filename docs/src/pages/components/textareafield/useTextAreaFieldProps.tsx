@@ -1,5 +1,6 @@
-import { TextAreaFieldProps } from '@aws-amplify/ui-react';
 import * as React from 'react';
+
+import { TextAreaFieldProps } from '@aws-amplify/ui-react';
 
 export const useTextAreaFieldProps = (initialValues: TextAreaFieldProps) => {
   const [autoComplete, setAutoComplete] = React.useState<
