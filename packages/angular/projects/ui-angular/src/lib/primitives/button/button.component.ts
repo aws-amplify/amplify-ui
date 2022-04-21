@@ -15,7 +15,6 @@ export class ButtonComponent implements OnInit {
   @HostBinding('attr.data-fullwidth') fullWidthAttr: boolean | string;
   @HostBinding('attr.data-size') sizeAttr: string;
   @HostBinding('attr.data-variation') variationAttr: string;
-  // @HostBinding('class.amplify-button') defaultClass = true;
   @HostBinding('style.font-weight') fontWeightAttr: string;
 
   @HostBinding('class') get classNames() {
