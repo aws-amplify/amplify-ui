@@ -7,6 +7,9 @@
     "build": "yarn react && yarn vue && yarn angular",
     "pull": "chmod +x ./environments/pull-environments.sh && ./environments/pull-environments.sh",
     "install": "yarn react:install && yarn vue:install && yarn angular:install",
+    "script:install": "yarn --cwd script",
+    "updatePackage": "node script/changeCanaryPackageVersion.mjs",
+    "setup:next": "rm ../postcss.config.js && yarn script:install && yarn updatePackage",
     "cypress:install": "yarn --cwd e2e install",
     "react": "yarn cra && yarn cra-ts && yarn next",
     "react:install": "yarn cra:install && yarn cra-ts:install && yarn next:install",
@@ -30,6 +33,7 @@
   "author": "",
   "license": "Apache-2.0",
   "devDependencies": {
+    "globby": "^13.1.1",
     "rimraf": "^3.0.2"
   }
 }
