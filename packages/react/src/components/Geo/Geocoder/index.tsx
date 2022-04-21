@@ -14,7 +14,7 @@ const GEOCODER_OPTIONS = {
 
 const GEOCODER_CONTAINER = 'geocoder-container';
 
-type GeocoderControl = IControl & {
+type AmplifyGeocoder = IControl & {
   addTo: (container: string) => void;
 };
 
@@ -57,7 +57,7 @@ const GeocoderControl = ({
   position = 'top-right',
   ...props
 }: GeocoderProps) => {
-  useControl(() => createAmplifyGeocoder(props) as unknown as GeocoderControl, {
+  useControl(() => createAmplifyGeocoder(props) as unknown as AmplifyGeocoder, {
     position,
   });
 
@@ -69,7 +69,7 @@ const GeocoderStandalone = (props: GeocoderProps) => {
 
   useEffect(() => {
     if (!hasMounted.current) {
-      (createAmplifyGeocoder(props) as unknown as GeocoderControl).addTo(
+      (createAmplifyGeocoder(props) as unknown as AmplifyGeocoder).addTo(
         `#${GEOCODER_CONTAINER}`
       );
 
