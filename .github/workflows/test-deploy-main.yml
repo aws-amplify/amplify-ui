@@ -298,6 +298,7 @@ jobs:
           VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
 
   publish:
+    needs: [e2e, docs]
     runs-on: ubuntu-latest
     environment: deployment
     steps:
