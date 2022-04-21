@@ -1,7 +1,7 @@
 <template>
   <amplify-button
     class="amplify-field-group__control federated-sign-in-button"
-    data-fullwidth="false"
+    :fullwidth="false"
     style="font-weight: normal"
     type="button"
     @click="onClick"
