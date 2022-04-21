@@ -10,7 +10,7 @@
     "postflutter:build": "yarn flutter:copy",
     "flutter:clean": "rm -rf public/flutter/authenticator",
     "flutter:copy": "cp -r ./flutter/authenticator/build/web public/flutter/authenticator",
-    "build": "next build",
+    "build": "yarn update:props-table && next build",
     "lint": "next lint",
     "postbuild": "npx next-sitemap",
     "start": "next start",
