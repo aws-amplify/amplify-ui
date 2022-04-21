@@ -1,6 +1,6 @@
 # This workflow will run unit, e2e, and docs tests on commits to main.
 
-name: Test / main
+name: Test / geo
 
 concurrency:
   group: e2e-${{ github.sha }}
@@ -8,7 +8,7 @@ concurrency:
 
 on:
   push:
-    branches: [main]
+    branches: [ui-geo/main]
 
 jobs:
   setup:
