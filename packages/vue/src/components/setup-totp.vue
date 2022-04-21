@@ -116,22 +116,21 @@ const onBackToSignInClicked = (): void => {
         @submit.prevent="onSetupTOTPSubmit"
       >
         <base-field-set
-          class="amplify-flex"
-          style="flex-direction: column"
+          class="amplify-flex amplify-authenticator__column"
           :disabled="actorState.matches('confirmSignIn.pending')"
         >
           <template v-if="qrCode.isLoading">
             <p>Loading...</p>
           </template>
           <template v-else>
-            <base-wrapper class="amplify-flex" style="flex-direction: column">
+            <base-wrapper class="amplify-flex amplify-authenticator__column">
               <slot name="header">
                 <base-heading class="amplify-heading" :level="3">
                   Setup TOTP
                 </base-heading>
               </slot>
 
-              <base-wrapper class="amplify-flex" style="flex-direction: column">
+              <base-wrapper class="amplify-flex amplify-authenticator__column">
                 <img
                   class="amplify-image"
                   data-amplify-qrcode
@@ -158,27 +157,31 @@ const onBackToSignInClicked = (): void => {
                 </base-wrapper>
                 <base-form-fields route="setupTOTP"></base-form-fields>
               </base-wrapper>
-              <base-footer class="amplify-flex" style="flex-direction: column">
+              <base-footer class="amplify-flex amplify-authenticator__column">
                 <base-alert v-if="actorState.context?.remoteError">
                   {{ translate(actorState.context.remoteError) }}
                 </base-alert>
                 <amplify-button
-                  class="amplify-field-group__control"
+                  class="
+                    amplify-field-group__control
+                    amplify-authenticator__font
+                  "
                   data-fullwidth="false"
                   data-loading="false"
                   data-variation="primary"
                   type="submit"
-                  style="font-weight: normal"
                   :disabled="actorState.matches('confirmSignIn.pending')"
                 >
                   {{ confirmText }}
                 </amplify-button>
                 <amplify-button
-                  class="amplify-field-group__control"
+                  class="
+                    amplify-field-group__control
+                    amplify-authenticator__font
+                  "
                   data-fullwidth="false"
                   data-size="small"
                   data-variation="link"
-                  style="font-weight: normal"
                   type="button"
                   @click.prevent="onBackToSignInClicked"
                 >

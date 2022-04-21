@@ -53,8 +53,10 @@ export default {
 
 <template>
   <base-wrapper
-    class="amplify-flex amplify-field amplify-textfield amplify-passwordfield"
-    style="flex-direction: column"
+    class="
+      amplify-flex amplify-field amplify-textfield amplify-passwordfield
+      amplify-authenticator__column
+    "
   >
     <base-label
       class="amplify-label"

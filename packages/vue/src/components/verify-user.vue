@@ -72,8 +72,7 @@ const onSkipClicked = (): void => {
       <base-form @input="onInput" @submit.prevent="onVerifyUserSubmit">
         <base-field-set
           :disabled="actorState.matches('verifyUser.pending')"
-          class="amplify-flex"
-          style="flex-direction: column"
+          class="amplify-flex amplify-authenticator__column"
         >
           <slot name="header">
             <base-heading class="amplify-heading" :level="3">
@@ -81,8 +80,10 @@ const onSkipClicked = (): void => {
             </base-heading>
           </slot>
           <base-wrapper
-            class="amplify-flex amplify-field amplify-radiogroupfield"
-            style="flex-direction: column"
+            class="
+              amplify-flex amplify-field amplify-radiogroupfield
+              amplify-authenticator__column
+            "
           >
             <base-label
               class="amplify-visually-hidden amplify-label"
@@ -91,8 +92,10 @@ const onSkipClicked = (): void => {
               {{ verifyContactText }}
             </base-label>
             <base-wrapper
-              class="amplify-flex amplify-field amplify-radiogroupfield"
-              style="flex-direction: column"
+              class="
+                amplify-flex amplify-field amplify-radiogroupfield
+                amplify-authenticator__column
+              "
               aria-labelledby="amplify-field-493c"
             >
               <base-label
@@ -127,25 +130,23 @@ const onSkipClicked = (): void => {
               </base-label>
             </base-wrapper>
           </base-wrapper>
-          <base-footer class="amplify-flex" style="flex-direction: column">
+          <base-footer class="amplify-flex amplify-authenticator__column">
             <base-alert v-if="actorState?.context?.remoteError">
               {{ translate(actorState?.context.remoteError) }}
             </base-alert>
             <amplify-button
-              class="amplify-field-group__control"
+              class="amplify-field-group__control amplify-authenticator__font"
               data-fullwidth="false"
               data-variation="primary"
               type="submit"
-              style="font-weight: normal"
               :disabled="actorState.matches('verifyUser.pending')"
               >{{ verifyText }}</amplify-button
             >
             <amplify-button
-              class="amplify-field-group__control"
+              class="amplify-field-group__control amplify-authenticator__font"
               data-fullwidth="false"
               data-size="small"
               data-variation="link"
-              style="font-weight: normal"
               type="button"
               @click.prevent="onSkipClicked"
             >

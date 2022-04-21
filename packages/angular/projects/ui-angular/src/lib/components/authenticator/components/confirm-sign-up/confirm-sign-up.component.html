@@ -1,17 +1,16 @@
 <ng-container>
   <form data-amplify-form (submit)="onSubmit($event)" (input)="onInput($event)">
     <fieldset
-      class="amplify-flex"
-      style="flex-direction: column"
+      class="amplify-flex amplify-authenticator__column"
       data-amplify-fieldset
       [disabled]="context.isPending"
     >
       <amplify-slot name="confirm-sign-up-header" [context]="context">
-        <h3 class="amplify-heading" style="font-size: 1.5rem">
+        <h3 class="amplify-heading amplify-authenticator__heading">
           {{ confirmSignUpHeading }}
         </h3>
       </amplify-slot>
-      <span style="margin-bottom: 1rem">
+      <span class="amplify-authenticator__subtitle">
         {{ subtitleText }}
       </span>
       <amplify-base-form-fields
