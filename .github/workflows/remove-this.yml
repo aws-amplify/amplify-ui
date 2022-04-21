@@ -13,7 +13,6 @@ permissions:
 
 jobs:
   build-test:
-    needs: publish
     runs-on: ubuntu-latest
     environment: ci
     steps:
