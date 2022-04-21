@@ -1,51 +1,31 @@
-import React, { useState } from 'react';
-import { Placeholder, PlaceholderSize, Flex } from '@aws-amplify/ui-react';
+import * as React from 'react';
+import { Placeholder, PlaceholderProps } from '@aws-amplify/ui-react';
 
-import { FieldLabeler } from '@/components/FieldLabeler';
+import { Demo } from '@/components/Demo';
+import { PlaceholderControls } from './PlaceholderControls';
+import { usePlaceholderProps } from './usePlaceholderProps';
 
-export const PlaceholderDemo = () => {
-  const [loaded, setLoaded] = useState<boolean>();
-  const [size, setSize] = useState<PlaceholderSize>();
-
+const propsToCode = (props: PlaceholderProps) => {
   return (
-    <Flex direction="column" gap="1rem">
-      <Flex>
-        <FieldLabeler id="loaded">
-          <input
-            id="loaded"
-            name="loaded"
-            type="checkbox"
-            onChange={() => setLoaded(!loaded)}
-          />
-        </FieldLabeler>
-
-        <FieldLabeler id="size">
-          <select
-            value={size}
-            placeholder="Select placeholder size"
-            onChange={(event) => setSize(event.target.value as PlaceholderSize)}
-            id="size"
-            name="size"
-          >
-            <option value="small">small</option>
-            <option>(default)</option>
-            <option value="large">large</option>
-          </select>
-        </FieldLabeler>
-      </Flex>
-      <Placeholder isLoaded={loaded} size={size}>
-        Demo
-      </Placeholder>
-    </Flex>
+    '<Placeholder' +
+    (props.size ? ` size="${props.size}"` : '') +
+    (props.isLoaded ? ` isLoaded={${props.isLoaded}}` : '') +
+    ' />'
   );
 };
 
-export const TwoWays = () => {
-  let isLoaded = false;
+export const PlaceholderDemo = () => {
+  const placeholderProps = usePlaceholderProps({});
+
   return (
-    <Flex direction="column" gap="1rem">
-      <Placeholder isLoaded={isLoaded}>First way</Placeholder>
-      {isLoaded ? 'Second way' : <Placeholder />}
-    </Flex>
+    <Demo
+      code={propsToCode(placeholderProps)}
+      propControls={<PlaceholderControls {...placeholderProps} />}
+    >
+      <Placeholder
+        isLoaded={placeholderProps.isLoaded}
+        size={placeholderProps.size}
+      />
+    </Demo>
   );
 };
