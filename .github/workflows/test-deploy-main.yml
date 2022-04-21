@@ -298,13 +298,12 @@ jobs:
           VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
 
   publish:
+    needs: [e2e, docs]
     runs-on: ubuntu-latest
     environment: deployment
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
-        with:
-          ref: ${{ github.event.workflow_run.head_branch }}
       - name: Setup Node.js LTS
         uses: actions/setup-node@v2
         with:
