@@ -19,35 +19,94 @@ yarn add aws-amplify @aws-amplify/ui-react
 </TabItem>
 </Tabs>
 
-Wrap your application in `<AmplifyProvider/>` and include default styling:
+After adding the `aws-amplify` and `@aws-amplify/ui-react` dependencies you are now ready to add any of our [components](/components) to your application.
+
+### Default styling
+
+Load the default styling by importing our CSS:
+
+```jsx
+import { View } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css'; // default theme
+
+export default function App() {
+  return <View>Your app here</View>;
+}
+```
+
+### Custom Theme
+
+To add a [custom theme](/theming), wrap your app in the `AmplifyProvider` component and include the default styling.
 
 <Tabs>
 <TabItem title="Create React App">
 ```jsx
-import { AmplifyProvider } from '@aws-amplify/ui-react';
+import { AmplifyProvider, View } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css'; // default theme
 
 export default function App() {
   return (
     <AmplifyProvider>
-      <App />
+      <View>Your app here</View>
     </AmplifyProvider>
+  );
+}
+
+````
+
+</TabItem>
+<TabItem title="Next.js" >
+```jsx
+import { AmplifyProvider, View } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css'; // default theme
+
+export default function App(props) {
+  return (
+    <AmplifyProvider>
+      <View {...props} >Your app here </View>
+    </AmplifyProvider>
+  );
+};
+````
+
+</TabItem>
+</Tabs>
+
+> The `AmplifyProvider` helps direct [theming](/theming) to all the Amplify components in your application. It can optionally be used with a [theme object](/theming#theme-object), to set the look and feel of your app.
+
+### Authenticator Provider
+
+In advanced use cases where usage of the [`useAuthenticator` hook](/components/authenticator#useauthenticator-hook) outside the scope of the [`Authenticator`](/components/authenticator) is needed, wrap your application inside a `Authenticator.Provider`.
+
+<Tabs>
+<TabItem title="Create React App">
+```jsx
+import { Authenticator, View } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css'; // default theme
+
+export default function App() {
+  return (
+    <Authenticator.Provider>
+      <View>Your app here</View>
+    </Authenticator.Provider>
   );
 };
 ```
 </TabItem>
 <TabItem title="Next.js" >
 ```jsx
-import { AmplifyProvider } from '@aws-amplify/ui-react';
+import {  Authenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css'; // default theme
 
 export default function App(props) {
   return (
-    <AmplifyProvider>
-      <MyApp {...props} />
-    </AmplifyProvider>
+    <Authenticator.Provider>
+      <View {...props}>Your app here</View>
+    </Authenticator.Provider>
   );
 };
 ```
 </TabItem>
 </Tabs>
+
+> The `Authenticator.Provider` is used with our [Authenticator](/components/authenticator) component. It guarantees that the [useAuthenticator hook](/components/authenticator#useauthenticator-hook) is available throughout your application. You can see an example of this pattern in the [Protected Routes Guide.](/guides/auth-protected)
