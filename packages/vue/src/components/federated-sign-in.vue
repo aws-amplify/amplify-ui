@@ -136,7 +136,6 @@ const signInWithGoogle = computed(() =>
         amplify-divider
         amplify-divider--label
         amplify-divider--small
-        amplify-divider--label
       "
       aria-orientation="horizontal"
       data-size="small"
