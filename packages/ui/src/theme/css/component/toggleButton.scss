@@ -6,6 +6,27 @@
 .amplify-togglebutton {
   // This required to override default button styling
   @extend %togglebutton-shared;
+  --amplify-internal-togglebutton-pressed-background-color: var(
+    --amplify-components-togglebutton-pressed-background-color
+  );
+  --amplify-internal-togglebutton-pressed-color: var(
+    --amplify-components-togglebutton-pressed-color
+  );
+  --amplify-internal-togglebutton-pressed-border-color: var(
+    --amplify-components-togglebutton-border-color
+  );
+  --amplify-internal-togglebutton-pressed-hover-background-color: var(
+    --amplify-components-togglebutton-pressed-hover-background-color
+  );
+  --amplify-internal-togglebutton-pressed-hover-border-color: var(
+    --amplify-components-togglebutton-border-color
+  );
+  --amplify-internal-togglebutton-pressed-focus-background-color: var(
+    --amplify-components-togglebutton-hover-background-color
+  );
+  --amplify-internal-togglebutton-pressed-focus-border-color: var(
+    --amplify-components-togglebutton-border-color
+  );
 
   &:hover {
     @extend %togglebutton-shared;
@@ -33,24 +54,34 @@
     color: var(--amplify-components-togglebutton-disabled-color);
   }
 
-  &[aria-pressed='true'] {
-    background-color: var(
-      --amplify-components-togglebutton-pressed-background-color
-    );
-    color: var(--amplify-components-togglebutton-pressed-color);
-    &:hover:not(:disabled) {
-      background-color: var(
-        --amplify-components-togglebutton-pressed-hover-background-color
-      );
-    }
-  }
-
-  &[data-variation='primary'] {
+  &--primary {
     @extend %togglebutton-shared;
     background-color: var(
       --amplify-components-togglebutton-primary-background-color
     );
     border-width: var(--amplify-components-togglebutton-primary-border-width);
+
+    --amplify-internal-togglebutton-pressed-background-color: var(
+      --amplify-components-togglebutton-primary-pressed-background-color
+    );
+    --amplify-internal-togglebutton-pressed-color: var(
+      --amplify-components-togglebutton-primary-pressed-color
+    );
+    --amplify-internal-togglebutton-pressed-border-color: var(
+      --amplify-components-togglebutton-primary-pressed-border-color
+    );
+    --amplify-internal-togglebutton-pressed-hover-background-color: var(
+      --amplify-components-togglebutton-primary-pressed-hover-background-color
+    );
+    --amplify-internal-togglebutton-pressed-hover-border-color: var(
+      --amplify-components-togglebutton-primary-pressed-hover-border-color
+    );
+    --amplify-internal-togglebutton-pressed-focus-background-color: var(
+      --amplify-components-togglebutton-primary-pressed-focus-background-color
+    );
+    --amplify-internal-togglebutton-pressed-focus-border-color: var(
+      --amplify-components-togglebutton-primary-pressed-focus-border-color
+    );
 
     &:focus {
       background-color: var(
@@ -78,38 +109,20 @@
       );
       color: var(--amplify-components-togglebutton-primary-disabled-color);
     }
-
-    &[aria-pressed='true'] {
-      background-color: var(
-        --amplify-components-togglebutton-primary-pressed-background-color
-      );
-      border-color: var(
-        --amplify-components-togglebutton-primary-pressed-border-color
-      );
-      color: var(--amplify-components-togglebutton-primary-pressed-color);
-
-      &:focus {
-        border-color: var(
-          --amplify-components-togglebutton-primary-pressed-focus-border-color
-        );
-        background-color: var(
-          --amplify-components-togglebutton-primary-pressed-focus-background-color
-        );
-      }
-
-      &:hover:not(:disabled) {
-        border-color: var(
-          --amplify-components-togglebutton-primary-pressed-hover-border-color
-        );
-        background-color: var(
-          --amplify-components-togglebutton-primary-pressed-hover-background-color
-        );
-      }
-    }
   }
 
-  &[data-variation='link'] {
+  &--link {
     color: var(--amplify-components-togglebutton-link-color);
+
+    --amplify-internal-togglebutton-pressed-background-color: var(
+      --amplify-components-togglebutton-link-pressed-background-color
+    );
+    --amplify-internal-togglebutton-pressed-color: var(
+      --amplify-components-togglebutton-link-pressed-color
+    );
+    --amplify-internal-togglebutton-pressed-hover-background-color: var(
+      --amplify-components-togglebutton-link-pressed-hover-background-color
+    );
 
     &:hover {
       background-color: var(
@@ -128,17 +141,29 @@
     &:disabled {
       color: var(--amplify-components-togglebutton-link-disabled-color);
     }
+  }
 
-    &[aria-pressed='true'] {
+  &--pressed {
+    background-color: var(
+      --amplify-internal-togglebutton-pressed-background-color
+    );
+    border-color: var(--amplify-internal-togglebutton-pressed-border-color);
+    color: var(--amplify-internal-togglebutton-pressed-color);
+    &:hover:not(:disabled) {
       background-color: var(
-        --amplify-components-togglebutton-link-pressed-background-color
+        --amplify-internal-togglebutton-pressed-hover-background-color
       );
-      color: var(--amplify-components-togglebutton-link-pressed-color);
-      &:hover {
-        background-color: var(
-          --amplify-components-togglebutton-link-pressed-hover-background-color
-        );
-      }
+      border-color: var(
+        --amplify-internal-togglebutton-pressed-hover-border-color
+      );
+    }
+    &:focus {
+      border-color: var(
+        --amplify-internal-togglebutton-pressed-focus-border-color
+      );
+      background-color: var(
+        --amplify-internal-togglebutton-pressed-focus-background-color
+      );
     }
   }
 }
