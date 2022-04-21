@@ -1,6 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
 import { Flex } from '../Flex';
 import { IconExpandMore } from '../Icon';
@@ -50,6 +51,10 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
         className={classNames(
           ComponentClassNames.Select,
           ComponentClassNames.FieldGroupControl,
+          classNameModifier(ComponentClassNames.Select, size),
+          classNameModifier(ComponentClassNames.Select, variation),
+          classNameModifier(ComponentClassNames.Select, 'error', hasError),
+          classNameModifier(ComponentClassNames.Select, size),
           className
         )}
         ref={ref}

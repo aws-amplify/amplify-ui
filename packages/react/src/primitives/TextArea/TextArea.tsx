@@ -1,6 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared';
 import { Primitive } from '../types/view';
 import { TextAreaProps } from '../types/textArea';
@@ -24,6 +25,9 @@ const TextAreaPrimitive: Primitive<TextAreaProps, 'textarea'> = (
     className={classNames(
       ComponentClassNames.Textarea,
       ComponentClassNames.FieldGroupControl,
+      classNameModifier(ComponentClassNames.Textarea, variation),
+      classNameModifier(ComponentClassNames.Textarea, size),
+      classNameModifier(ComponentClassNames.Textarea, 'error', hasError),
       className
     )}
     data-size={size}

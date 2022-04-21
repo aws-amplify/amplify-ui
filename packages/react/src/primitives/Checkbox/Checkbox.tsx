@@ -1,6 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { classNameModifier } from '../shared/utils';
 import { CheckboxProps } from '../types/checkbox';
 import { ComponentClassNames } from '../shared/constants';
 import { Flex } from '../Flex';
@@ -53,7 +54,11 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
   return (
     <Flex
       as="label"
-      className={classNames(ComponentClassNames.Checkbox, className)}
+      className={classNames(
+        ComponentClassNames.Checkbox,
+        classNameModifier(ComponentClassNames.Checkbox, 'disabled', isDisabled),
+        className
+      )}
       data-disabled={isDisabled}
       data-label-position={labelPosition}
       testId={testId}
@@ -89,7 +94,24 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
       <Flex
         aria-hidden="true"
         as="span"
-        className={ComponentClassNames.CheckboxButton}
+        className={classNames(
+          ComponentClassNames.CheckboxButton,
+          classNameModifier(
+            ComponentClassNames.CheckboxButton,
+            'disabled',
+            isDisabled
+          ),
+          classNameModifier(
+            ComponentClassNames.CheckboxButton,
+            'error',
+            hasError
+          ),
+          classNameModifier(
+            ComponentClassNames.CheckboxButton,
+            'focused',
+            dataFocus
+          )
+        )}
         data-checked={dataChecked}
         data-disabled={isDisabled}
         data-focus={dataFocus}
@@ -97,7 +119,19 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
         testId={buttonTestId}
       >
         <IconCheck
-          className={ComponentClassNames.CheckboxIcon}
+          className={classNames(
+            ComponentClassNames.CheckboxIcon,
+            classNameModifier(
+              ComponentClassNames.CheckboxButton,
+              'checked',
+              dataChecked
+            ),
+            classNameModifier(
+              ComponentClassNames.CheckboxButton,
+              'disabled',
+              isDisabled
+            )
+          )}
           data-checked={dataChecked}
           data-disabled={isDisabled}
           data-testid={iconTestId}

@@ -6,6 +6,7 @@ import {
   mergeVariantsAndOverrides,
   strHasLength,
   EscapeHatchProps,
+  classNameModifier,
 } from '../utils';
 
 const props: ViewProps = {
@@ -334,5 +335,29 @@ describe('mergeVariantsAndOverrides', () => {
 
   it('should return null when both variant & override are null', () => {
     expect(mergeVariantsAndOverrides(null, null)).toEqual(null);
+  });
+});
+
+describe('classNameModifier', () => {
+  const modifiedClassName = 'MyClass--modified';
+  const myClass = 'MyClass';
+  const modifier = 'modified';
+
+  it('should return the modified className', () => {
+    expect(classNameModifier(myClass, modifier)).toEqual(modifiedClassName);
+  });
+
+  it('should return null', () => {
+    expect(classNameModifier(myClass, undefined)).toEqual(null);
+  });
+
+  it('should return the modified className', () => {
+    expect(classNameModifier(myClass, modifier, true)).toEqual(
+      modifiedClassName
+    );
+  });
+
+  it('should return null', () => {
+    expect(classNameModifier(myClass, modifier, false)).toEqual(null);
   });
 });

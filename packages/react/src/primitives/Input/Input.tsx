@@ -1,6 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared';
 import { InputProps, Primitive } from '../types';
 import { View } from '../View';
@@ -42,6 +43,9 @@ const InputPrimitive: Primitive<InputProps, 'input'> = (
     className={classNames(
       ComponentClassNames.Input,
       ComponentClassNames.FieldGroupControl,
+      classNameModifier(ComponentClassNames.Input, variation),
+      classNameModifier(ComponentClassNames.Input, 'error', hasError),
+      classNameModifier(ComponentClassNames.Input, size),
       className
     )}
     data-size={size}

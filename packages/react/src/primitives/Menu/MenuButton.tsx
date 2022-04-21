@@ -1,6 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { classNameModifier } from '../shared/utils';
 import { ButtonProps, PrimitiveProps } from '../types';
 import { ComponentClassNames } from '../shared/constants';
 import { useStyles } from '../shared/styleUtils';
@@ -32,7 +33,12 @@ export const MenuButton = React.forwardRef<
     return (
       <button
         ref={ref}
-        className={classNames(ComponentClassNames.Button, className)}
+        className={classNames(
+          ComponentClassNames.Button,
+          classNameModifier(ComponentClassNames.Button, size),
+          classNameModifier(ComponentClassNames.Button, variation),
+          className
+        )}
         data-fullwidth={isFullWidth}
         data-loading={isLoading}
         data-size={size}

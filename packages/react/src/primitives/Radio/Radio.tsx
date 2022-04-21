@@ -1,6 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared';
 import { Flex } from '../Flex';
 import { Input } from '../Input';
@@ -59,7 +60,15 @@ export const RadioPrimitive: Primitive<RadioProps, 'input'> = (
   return (
     <Flex
       as="label"
-      className={classNames(ComponentClassNames.Radio, className)}
+      className={classNames(
+        ComponentClassNames.Radio,
+        classNameModifier(
+          ComponentClassNames.Radio,
+          `--disabled`,
+          shouldBeDisabled
+        ),
+        className
+      )}
       data-disabled={shouldBeDisabled}
       data-label-position={labelPosition}
       width={width}
@@ -101,7 +110,10 @@ export const RadioPrimitive: Primitive<RadioProps, 'input'> = (
       <Flex
         aria-hidden="true"
         as="span"
-        className={ComponentClassNames.RadioButton}
+        className={classNames(
+          ComponentClassNames.RadioButton,
+          classNameModifier(ComponentClassNames.RadioButton, size)
+        )}
         data-size={size}
         testId={testId}
       />

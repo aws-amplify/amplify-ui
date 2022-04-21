@@ -1,6 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
 import { LoaderProps } from '../types/loader';
 import { Primitive } from '../types/view';
@@ -122,6 +123,8 @@ const LoaderPrimitive: Primitive<LoaderProps, 'svg'> = (
       as="svg"
       className={classNames(
         ComponentClassNames.Loader,
+        classNameModifier(ComponentClassNames.Loader, size),
+        classNameModifier(ComponentClassNames.Loader, variation),
         isDeterminate ? ComponentClassNames.LoaderDeterminate : null,
         className
       )}
