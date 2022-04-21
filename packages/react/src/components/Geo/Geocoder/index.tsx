@@ -53,7 +53,10 @@ export const Geocoder = (props: GeocoderProps) => {
   return <StandaloneGeocoder {...GEOCODER_OPTIONS} {...props} />;
 };
 
-const GeocoderControl = ({ position, ...props }: GeocoderProps) => {
+const GeocoderControl = ({
+  position = 'top-right',
+  ...props
+}: GeocoderProps) => {
   useControl(() => createAmplifyGeocoder(props) as unknown as GeocoderControl, {
     position,
   });
