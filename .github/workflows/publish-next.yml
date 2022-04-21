@@ -10,7 +10,7 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     environment: deployment
-    if: github.event.workflow_run.conclusion == 'success' &&
+    if: github.event.workflow_run.conclusion == 'success'
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
