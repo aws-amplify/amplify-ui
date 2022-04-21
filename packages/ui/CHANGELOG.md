@@ -1,5 +1,17 @@
 # @aws-amplify/ui
 
+## 3.6.5
+
+### Patch Changes
+
+- [#1698](https://github.com/aws-amplify/amplify-ui/pull/1698) [`57e104e16`](https://github.com/aws-amplify/amplify-ui/commit/57e104e169bc1d6b5de6ffa285c0494204c98579) Thanks [@jacoblogan](https://github.com/jacoblogan)! - add overflow styling to authenticator modal
+
+## 3.6.4
+
+### Patch Changes
+
+- [#1667](https://github.com/aws-amplify/amplify-ui/pull/1667) [`1601b3f94`](https://github.com/aws-amplify/amplify-ui/commit/1601b3f94d68acd1df0e592c6328f19b29620447) Thanks [@hbuchel](https://github.com/hbuchel)! - fix: update focus styling/token nesting for switchField
+
 ## 3.6.3
 
 ### Patch Changes
