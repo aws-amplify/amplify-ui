@@ -1,5 +1,11 @@
 # @aws-amplify/ui
 
+## 3.6.5
+
+### Patch Changes
+
+- [#1698](https://github.com/aws-amplify/amplify-ui/pull/1698) [`57e104e16`](https://github.com/aws-amplify/amplify-ui/commit/57e104e169bc1d6b5de6ffa285c0494204c98579) Thanks [@jacoblogan](https://github.com/jacoblogan)! - add overflow styling to authenticator modal
+
 ## 3.6.4
 
 ### Patch Changes
