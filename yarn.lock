@@ -15181,10 +15181,8 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-"mapbox-gl@npm:empty-npm-package@1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/empty-npm-package/-/empty-npm-package-1.0.0.tgz#fda29eb6de5efa391f73d578697853af55f6793a"
-  integrity sha512-q4Mq/+XO7UNDdMiPpR/LIBIW1Zl4V0Z6UT9aKGqIAnBCtCb3lvZJM1KbDbdzdC8fKflwflModfjR29Nt0EpcwA==
+"mapbox-gl@file:packages/react/mapbox-resolution":
+  version "0.0.0"
 
 maplibre-gl-js-amplify@1.5.0:
   version "1.5.0"
