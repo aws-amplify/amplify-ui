@@ -15,6 +15,8 @@ import '../styles/index.scss';
 // @ts-ignore Cannot assign to 'useLayoutEffect' because it is a read-only property.ts(2540)
 if (typeof window === 'undefined') React.useLayoutEffect = React.useEffect;
 
+export const DemoState = new Map();
+
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const { platform = 'react' } = router.query;

@@ -1,8 +1,9 @@
+import * as React from 'react';
 import { Alert } from '@aws-amplify/ui-react';
-
 import { Demo } from '@/components/Demo';
 import { AlertPropControls } from './AlertPropControls';
 import { useAlertProps } from './useAlertProps';
+import { DemoState } from 'src/pages/_app.page';
 
 const propsToCode = (props) => {
   return (
@@ -21,11 +22,17 @@ const propsToCode = (props) => {
 };
 
 export const AlertDemo = () => {
-  const alertProps = useAlertProps({
-    isDismissible: false,
-    hasIcon: true,
-    heading: 'Alert heading',
-    body: 'This is the alert message',
+  const alertProps = useAlertProps(
+    DemoState.get('alert') || {
+      isDismissible: false,
+      hasIcon: true,
+      heading: 'Alert heading',
+      body: 'This is the alert message',
+    }
+  );
+
+  React.useEffect(() => {
+    DemoState.set('alert', alertProps);
   });
 
   return (
