@@ -1,0 +1,24 @@
+# This workflow will run unit, e2e, and docs tests on PRs targeted against `main`.
+
+name: Test / PRs
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened]
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      # This would be a good place to run and cache `yarn`, `yarn build`, etc
+      - name: Decide whether to publish to `next` or `latest`
+        id: has-changesets
+        run: |
+          if (find .changeset -type f -name '*.md' ! -name 'README.md' | grep -q .) ; then
+              echo "::set-output name=publish-to::next"
+          else
+              echo "::set-output name=publish-to::latest"
+          fi
+      - name: Echo `publish-to`
+        run: echo ${{ steps.has-changesets.outputs.publish-to }}
