@@ -1,3 +1,5 @@
+import { ComponentClasses } from './constants';
+
 export const strHasLength = (str: unknown): str is string =>
   typeof str === 'string' && str.length > 0;
 
@@ -160,14 +162,33 @@ export const mergeVariantsAndOverrides = (
   };
 };
 
-export type Modifiers = string | number | null;
+type Modifiers = string | number | null;
+/**
+ * This helper function creates modifier class names that are used for our flat BEM styling
+ * it takes in a base and modifier and returns the modified class if a modifier was passed in and null otherwise
+ * @param base The base class of the output
+ * @param modifier The modifier to add onto the base
+ * @returns the modified class name or null
+ */
 export const classNameModifier = (
-  base: string,
-  modifier: Modifiers,
-  override?: boolean
+  base: ComponentClasses,
+  modifier: Modifiers
 ): string => {
-  if (override === undefined) {
-    return modifier ? `${base}--${modifier}` : null;
-  }
-  return override ? `${base}--${modifier}` : null;
+  return modifier ? `${base}--${modifier}` : null;
+};
+
+/**
+ * This helper function creates modified class names that are used for our flat BEM styling
+ * it takes in a base, modifier, and flag and returns the modified class name if the flag is true and null if the flag is false
+ * @param base
+ * @param modifier
+ * @param flag
+ * @returns the modified class name or null
+ */
+export const classNameModifierByFlag = (
+  base: ComponentClasses,
+  modifier: Modifiers,
+  flag: boolean
+): string => {
+  return flag ? `${base}--${modifier}` : null;
 };

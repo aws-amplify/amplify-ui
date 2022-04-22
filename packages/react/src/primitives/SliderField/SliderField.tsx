@@ -78,6 +78,11 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
   );
 
   const isVertical = orientation === 'vertical';
+  const componentClasses = classNames(
+    ComponentClassNames.SliderFieldTrack,
+    classNameModifier(ComponentClassNames.SliderFieldTrack, orientation),
+    classNameModifier(ComponentClassNames.SliderFieldTrack, size)
+  );
 
   return (
     <Flex
@@ -129,14 +134,7 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
           {...rest}
         >
           <Track
-            className={classNames(
-              ComponentClassNames.SliderFieldTrack,
-              classNameModifier(
-                ComponentClassNames.SliderFieldTrack,
-                orientation
-              ),
-              classNameModifier(ComponentClassNames.SliderFieldTrack, size)
-            )}
+            className={componentClasses}
             data-testid={SLIDER_TRACK_TEST_ID}
             style={{
               backgroundColor: emptyTrackColor,

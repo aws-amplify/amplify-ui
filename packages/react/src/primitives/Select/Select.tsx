@@ -1,7 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { classNameModifier } from '../shared/utils';
+import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
 import { Flex } from '../Flex';
 import { IconExpandMore } from '../Icon';
@@ -32,6 +32,16 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
   // value === undefined is to make sure that component is used in uncontrolled way so that setting defaultValue is valid
   const shouldSetDefaultPlaceholderValue =
     value === undefined && defaultValue === undefined && placeholder;
+  const componentClasses = classNames(
+    ComponentClassNames.Select,
+    ComponentClassNames.FieldGroupControl,
+    classNameModifier(ComponentClassNames.Select, size),
+    classNameModifier(ComponentClassNames.Select, variation),
+    classNameModifierByFlag(ComponentClassNames.Select, 'error', hasError),
+    classNameModifier(ComponentClassNames.Select, size),
+    className
+  );
+
   return (
     <View className={ComponentClassNames.SelectWrapper}>
       <View
@@ -48,15 +58,7 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
         required={isRequired}
         data-size={size}
         data-variation={variation}
-        className={classNames(
-          ComponentClassNames.Select,
-          ComponentClassNames.FieldGroupControl,
-          classNameModifier(ComponentClassNames.Select, size),
-          classNameModifier(ComponentClassNames.Select, variation),
-          classNameModifier(ComponentClassNames.Select, 'error', hasError),
-          classNameModifier(ComponentClassNames.Select, size),
-          className
-        )}
+        className={componentClasses}
         ref={ref}
         {...rest}
       >

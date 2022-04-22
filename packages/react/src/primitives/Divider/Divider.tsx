@@ -10,17 +10,19 @@ const DividerPrimitive: Primitive<DividerProps, 'hr'> = (
   { className, orientation = 'horizontal', size, label, ...rest },
   ref
 ) => {
+  const componentClasses = classNames(
+    ComponentClassNames.Divider,
+    classNameModifier(ComponentClassNames.Divider, orientation),
+    classNameModifier(ComponentClassNames.Divider, size),
+    classNameModifier(ComponentClassNames.DividerLabel, label),
+    className
+  );
+
   return (
     <View
       aria-orientation={orientation}
       as="hr"
-      className={classNames(
-        ComponentClassNames.Divider,
-        classNameModifier(ComponentClassNames.Divider, orientation),
-        classNameModifier(ComponentClassNames.Divider, size),
-        classNameModifier(ComponentClassNames.DividerLabel, label),
-        className
-      )}
+      className={componentClasses}
       data-size={size}
       data-label={label}
       ref={ref}

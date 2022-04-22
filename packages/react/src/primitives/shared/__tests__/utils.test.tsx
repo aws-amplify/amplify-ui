@@ -7,6 +7,7 @@ import {
   strHasLength,
   EscapeHatchProps,
   classNameModifier,
+  classNameModifierByFlag,
 } from '../utils';
 
 const props: ViewProps = {
@@ -343,21 +344,27 @@ describe('classNameModifier', () => {
   const myClass = 'MyClass';
   const modifier = 'modified';
 
-  it('should return the modified className', () => {
+  it('should return the modified className with a modifier passed in', () => {
     expect(classNameModifier(myClass, modifier)).toEqual(modifiedClassName);
   });
 
-  it('should return null', () => {
+  it('should return null without a modifier passed in', () => {
     expect(classNameModifier(myClass, undefined)).toEqual(null);
   });
+});
 
-  it('should return the modified className', () => {
-    expect(classNameModifier(myClass, modifier, true)).toEqual(
+describe('classNameModifierByFlag', () => {
+  const modifiedClassName = 'MyClass--modified';
+  const myClass = 'MyClass';
+  const modifier = 'modified';
+
+  it('should return the modified className with a true flag value passed in', () => {
+    expect(classNameModifierByFlag(myClass, modifier, true)).toEqual(
       modifiedClassName
     );
   });
 
-  it('should return null', () => {
-    expect(classNameModifier(myClass, modifier, false)).toEqual(null);
+  it('should return null with a false flag value passed in', () => {
+    expect(classNameModifierByFlag(myClass, modifier, false)).toEqual(null);
   });
 });

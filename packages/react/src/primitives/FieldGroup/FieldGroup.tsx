@@ -29,16 +29,17 @@ const FieldGroupPrimitive: Primitive<FieldGroupOptions, typeof Flex> = (
   const fieldGroupHasInnerEndClassName = hasInnerEndComponent
     ? ComponentClassNames.FieldGroupHasInnerEnd
     : null;
+  const componentClasses = classNames(
+    ComponentClassNames.FieldGroup,
+    fieldGroupHasInnerStartClassName,
+    fieldGroupHasInnerEndClassName,
+    classNameModifier(ComponentClassNames.FieldGroup, orientation),
+    className
+  );
 
   return (
     <Flex
-      className={classNames(
-        ComponentClassNames.FieldGroup,
-        fieldGroupHasInnerStartClassName,
-        fieldGroupHasInnerEndClassName,
-        classNameModifier(ComponentClassNames.FieldGroup, orientation),
-        className
-      )}
+      className={componentClasses}
       data-orientation={orientation}
       ref={ref}
       {...rest}

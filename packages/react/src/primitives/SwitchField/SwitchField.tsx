@@ -1,7 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { classNameModifier } from '../shared/utils';
+import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
 import { Flex } from '../Flex';
 import { Input } from '../Input';
@@ -42,6 +42,29 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, typeof Flex> = (
 
   const fieldId = useStableId(id);
   const LabelType = isLabelHidden ? VisuallyHidden : View;
+  const wrapperClasses = classNames(
+    ComponentClassNames.SwitchTrack,
+    classNameModifierByFlag(ComponentClassNames.SwitchTrack, 'checked', isOn),
+    classNameModifierByFlag(
+      ComponentClassNames.SwitchTrack,
+      'disabled',
+      isDisabled
+    ),
+    classNameModifierByFlag(
+      ComponentClassNames.SwitchTrack,
+      'focused',
+      isFocused
+    )
+  );
+  const componentClasses = classNames(
+    ComponentClassNames.SwitchThumb,
+    classNameModifierByFlag(ComponentClassNames.SwitchThumb, 'checked', isOn),
+    classNameModifierByFlag(
+      ComponentClassNames.SwitchThumb,
+      'disabled',
+      isDisabled
+    )
+  );
 
   return (
     <Flex
@@ -86,20 +109,7 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, typeof Flex> = (
         </LabelType>
         <View
           as="span"
-          className={classNames(
-            ComponentClassNames.SwitchTrack,
-            classNameModifier(ComponentClassNames.SwitchTrack, 'checked', isOn),
-            classNameModifier(
-              ComponentClassNames.SwitchTrack,
-              'disabled',
-              isDisabled
-            ),
-            classNameModifier(
-              ComponentClassNames.SwitchTrack,
-              'focused',
-              isFocused
-            )
-          )}
+          className={wrapperClasses}
           data-checked={isOn}
           data-disabled={isDisabled}
           data-focused={isFocused}
@@ -107,19 +117,7 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, typeof Flex> = (
         >
           <View
             as="span"
-            className={classNames(
-              ComponentClassNames.SwitchThumb,
-              classNameModifier(
-                ComponentClassNames.SwitchThumb,
-                'checked',
-                isOn
-              ),
-              classNameModifier(
-                ComponentClassNames.SwitchThumb,
-                'disabled',
-                isDisabled
-              )
-            )}
+            className={componentClasses}
             data-checked={isOn}
             data-disabled={isDisabled}
             backgroundColor={thumbColor}

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { classNameModifier } from '../shared/utils';
+import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import { ComponentClassNames } from '../shared';
 import { Flex } from '../Flex';
 import { Input } from '../Input';
@@ -62,9 +62,9 @@ export const RadioPrimitive: Primitive<RadioProps, 'input'> = (
       as="label"
       className={classNames(
         ComponentClassNames.Radio,
-        classNameModifier(
+        classNameModifierByFlag(
           ComponentClassNames.Radio,
-          `--disabled`,
+          `disabled`,
           shouldBeDisabled
         ),
         className

@@ -17,29 +17,33 @@ const TablePrimitive: Primitive<TableProps, 'table'> = (
     ...rest
   },
   ref
-) => (
-  <View
-    as="table"
-    className={classNames(
-      ComponentClassNames.Table,
-      classNameModifier(ComponentClassNames.Table, size),
-      classNameModifier(ComponentClassNames.Table, variation),
-      className
-    )}
-    data-highlightonhover={highlightOnHover}
-    data-size={size}
-    data-variation={variation}
-    ref={ref}
-    {...rest}
-  >
-    {caption && (
-      <View as="caption" className={ComponentClassNames.TableCaption}>
-        {caption}
-      </View>
-    )}
-    {children}
-  </View>
-);
+) => {
+  const componentClasses = classNames(
+    ComponentClassNames.Table,
+    classNameModifier(ComponentClassNames.Table, size),
+    classNameModifier(ComponentClassNames.Table, variation),
+    className
+  );
+
+  return (
+    <View
+      as="table"
+      className={componentClasses}
+      data-highlightonhover={highlightOnHover}
+      data-size={size}
+      data-variation={variation}
+      ref={ref}
+      {...rest}
+    >
+      {caption && (
+        <View as="caption" className={ComponentClassNames.TableCaption}>
+          {caption}
+        </View>
+      )}
+      {children}
+    </View>
+  );
+};
 
 export const Table = React.forwardRef(TablePrimitive);
 

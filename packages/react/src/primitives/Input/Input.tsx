@@ -1,7 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { classNameModifier } from '../shared/utils';
+import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import { ComponentClassNames } from '../shared';
 import { InputProps, Primitive } from '../types';
 import { View } from '../View';
@@ -34,43 +34,47 @@ const InputPrimitive: Primitive<InputProps, 'input'> = (
     ...rest
   },
   ref
-) => (
-  <View
-    aria-invalid={hasError}
-    as="input"
-    autoComplete={autoComplete}
-    checked={checked}
-    className={classNames(
-      ComponentClassNames.Input,
-      ComponentClassNames.FieldGroupControl,
-      classNameModifier(ComponentClassNames.Input, variation),
-      classNameModifier(ComponentClassNames.Input, 'error', hasError),
-      classNameModifier(ComponentClassNames.Input, size),
-      className
-    )}
-    data-size={size}
-    data-variation={variation}
-    defaultChecked={defaultChecked}
-    defaultValue={defaultValue}
-    isDisabled={isDisabled}
-    id={id}
-    onBlur={onBlur}
-    onChange={onChange}
-    onCopy={onCopy}
-    onCut={onCut}
-    onFocus={onFocus}
-    onInput={onInput}
-    onPaste={onPaste}
-    onSelect={onSelect}
-    onWheel={onWheel}
-    readOnly={isReadOnly}
-    ref={ref}
-    required={isRequired}
-    type={type}
-    value={value}
-    {...rest}
-  />
-);
+) => {
+  const componentClasses = classNames(
+    ComponentClassNames.Input,
+    ComponentClassNames.FieldGroupControl,
+    classNameModifier(ComponentClassNames.Input, variation),
+    classNameModifierByFlag(ComponentClassNames.Input, 'error', hasError),
+    classNameModifier(ComponentClassNames.Input, size),
+    className
+  );
+
+  return (
+    <View
+      aria-invalid={hasError}
+      as="input"
+      autoComplete={autoComplete}
+      checked={checked}
+      className={componentClasses}
+      data-size={size}
+      data-variation={variation}
+      defaultChecked={defaultChecked}
+      defaultValue={defaultValue}
+      isDisabled={isDisabled}
+      id={id}
+      onBlur={onBlur}
+      onChange={onChange}
+      onCopy={onCopy}
+      onCut={onCut}
+      onFocus={onFocus}
+      onInput={onInput}
+      onPaste={onPaste}
+      onSelect={onSelect}
+      onWheel={onWheel}
+      readOnly={isReadOnly}
+      ref={ref}
+      required={isRequired}
+      type={type}
+      value={value}
+      {...rest}
+    />
+  );
+};
 
 export const Input = React.forwardRef(InputPrimitive);
 

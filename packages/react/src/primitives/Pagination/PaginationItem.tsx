@@ -1,7 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { classNameModifier } from '../shared/utils';
+import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import { Button } from '../Button';
 import { Flex } from '../Flex';
 import { IconChevronLeft, IconChevronRight } from '../Icon';
@@ -33,6 +33,25 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
   const onNext = React.useCallback(() => {
     onClick();
   }, [onClick]);
+
+  const nextClasses = classNames(
+    ComponentClassNames.PaginationItemButton,
+    classNameModifier(ComponentClassNames.PaginationItemButton, 'link'),
+    classNameModifierByFlag(
+      ComponentClassNames.PaginationItemButton,
+      'disabled',
+      isDisabled
+    )
+  );
+  const previousClasses = classNames(
+    ComponentClassNames.PaginationItemButton,
+    classNameModifier(ComponentClassNames.PaginationItemButton, 'link'),
+    classNameModifierByFlag(
+      ComponentClassNames.PaginationItemButton,
+      'disabled',
+      isDisabled
+    )
+  );
 
   switch (type) {
     case 'page':
@@ -76,18 +95,7 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
       return (
         <View as="li">
           <Button
-            className={classNames(
-              ComponentClassNames.PaginationItemButton,
-              classNameModifier(
-                ComponentClassNames.PaginationItemButton,
-                'link'
-              ),
-              classNameModifier(
-                ComponentClassNames.PaginationItemButton,
-                'disabled',
-                isDisabled
-              )
-            )}
+            className={nextClasses}
             size="small"
             variation="link"
             isDisabled={isDisabled}
@@ -103,18 +111,7 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
       return (
         <View as="li">
           <Button
-            className={classNames(
-              ComponentClassNames.PaginationItemButton,
-              classNameModifier(
-                ComponentClassNames.PaginationItemButton,
-                'link'
-              ),
-              classNameModifier(
-                ComponentClassNames.PaginationItemButton,
-                'disabled',
-                isDisabled
-              )
-            )}
+            className={previousClasses}
             size="small"
             variation="link"
             isDisabled={isDisabled}

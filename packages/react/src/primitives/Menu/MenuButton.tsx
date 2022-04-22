@@ -29,16 +29,17 @@ export const MenuButton = React.forwardRef<
     ref
   ) => {
     const { propStyles, nonStyleProps } = useStyles(rest, style);
+    const componentClasses = classNames(
+      ComponentClassNames.Button,
+      classNameModifier(ComponentClassNames.Button, size),
+      classNameModifier(ComponentClassNames.Button, variation),
+      className
+    );
 
     return (
       <button
         ref={ref}
-        className={classNames(
-          ComponentClassNames.Button,
-          classNameModifier(ComponentClassNames.Button, size),
-          classNameModifier(ComponentClassNames.Button, variation),
-          className
-        )}
+        className={componentClasses}
         data-fullwidth={isFullWidth}
         data-loading={isLoading}
         data-size={size}

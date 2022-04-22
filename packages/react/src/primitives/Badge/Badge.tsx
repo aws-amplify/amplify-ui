@@ -10,15 +10,17 @@ const BadgePrimitive: Primitive<BadgeProps, 'span'> = (
   { className, children, variation, size, ...rest },
   ref
 ) => {
+  const componentClasses = classNames(
+    ComponentClassNames.Badge,
+    className,
+    classNameModifier(ComponentClassNames.Badge, variation),
+    classNameModifier(ComponentClassNames.Badge, size)
+  );
+
   return (
     <View
       as="span"
-      className={classNames(
-        ComponentClassNames.Badge,
-        className,
-        classNameModifier(ComponentClassNames.Badge, variation),
-        classNameModifier(ComponentClassNames.Badge, size)
-      )}
+      className={componentClasses}
       data-variation={variation}
       data-size={size}
       ref={ref}
