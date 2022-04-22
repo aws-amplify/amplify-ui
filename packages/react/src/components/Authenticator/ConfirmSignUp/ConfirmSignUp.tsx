@@ -1,4 +1,5 @@
 import { translate } from '@aws-amplify/ui';
+import classNames from 'classnames';
 
 import { Button } from '../../../primitives/Button';
 import { Flex } from '../../../primitives/Flex';
@@ -60,14 +61,15 @@ export function ConfirmSignUp() {
       onSubmit={handleSubmit}
     >
       <fieldset
-        style={{ display: 'flex', flexDirection: 'column' }}
-        className="amplify-flex"
+        className={classNames('amplify-flex', 'amplify-authenticator__column')}
         disabled={isPending}
       >
         <Header />
 
         <Flex direction="column">
-          <Text style={{ marginBottom: '1rem' }}>{subtitleText}</Text>
+          <Text className="amplify-authenticator__subtitle">
+            {subtitleText}
+          </Text>
 
           <FormFields route="confirmSignUp" />
 
@@ -107,7 +109,7 @@ const DefaultHeader = () => {
       : translate('We Sent A Code');
 
   return (
-    <Heading level={3} style={{ fontSize: '1.5rem' }}>
+    <Heading level={3} className="amplify-authenticator__heading">
       {confirmSignUpHeading}
     </Heading>
   );

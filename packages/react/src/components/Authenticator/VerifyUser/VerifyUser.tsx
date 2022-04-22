@@ -7,6 +7,7 @@ import {
   SignInContext,
   translate,
 } from '@aws-amplify/ui';
+import classNames from 'classnames';
 
 import { Heading } from '../../../primitives/Heading';
 import { Radio } from '../../../primitives/Radio';
@@ -94,8 +95,7 @@ export const VerifyUser = (): JSX.Element => {
       onSubmit={handleSubmit}
     >
       <fieldset
-        style={{ display: 'flex', flexDirection: 'column' }}
-        className="amplify-flex"
+        className={classNames('amplify-flex', 'amplify-authenticator__column')}
         disabled={isPending}
       >
         <Header />

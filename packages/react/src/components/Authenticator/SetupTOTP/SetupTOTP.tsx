@@ -1,5 +1,6 @@
 import QRCode from 'qrcode';
 import * as React from 'react';
+import classNames from 'classnames';
 
 import { Auth, Logger } from 'aws-amplify';
 import {
@@ -83,8 +84,7 @@ export const SetupTOTP = (): JSX.Element => {
       onSubmit={handleSubmit}
     >
       <fieldset
-        style={{ display: 'flex', flexDirection: 'column' }}
-        className="amplify-flex"
+        className={classNames('amplify-flex', 'amplify-authenticator__column')}
         disabled={isPending}
       >
         <Header />
