@@ -76,7 +76,7 @@ export function AmplifyProvider({
           without having to worry about specificity issues because this stylesheet
           will likely come after a user's defined CSS.
         */}
-      {typeof theme === 'undefined' ? null : (
+      {theme == null ? null : (
         <style
           id={`amplify-theme-${name}`}
           nonce={nonce}
