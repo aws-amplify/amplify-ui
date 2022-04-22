@@ -1,6 +1,6 @@
 # This workflow will run unit, e2e, and docs tests on PRs targeted against `main`.
 
-name: Test / PRs
+name: Has Changesets
 
 on:
   pull_request:
