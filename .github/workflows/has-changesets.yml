@@ -21,4 +21,4 @@ jobs:
               echo "::set-output name=publish-to::latest"
           fi
       - name: Echo `publish-to`
-        run: echo ${{ steps.has-changesets.outputs.publish-to }}
+        run: echo "Publishing to ${{ steps.has-changesets.outputs.publish-to }}"
