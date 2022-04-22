@@ -5,10 +5,10 @@ name: Has Changesets
 on:
   pull_request:
     branches: [main]
-    types: [opened]
+    types: [opened, synchronize]
 
 jobs:
-  setup:
+  check-changesets:
     runs-on: ubuntu-latest
     steps:
       # This would be a good place to run and cache `yarn`, `yarn build`, etc
