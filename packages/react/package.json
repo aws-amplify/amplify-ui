@@ -41,7 +41,7 @@
   ],
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "yarn lint && yarn run build:ts && yarn run build:catalog",
+    "build": "yarn run build:ts && yarn run build:catalog",
     "build:ts": "rollup --config",
     "build:catalog": "ts-node scripts/generatePrimitivesCatalog.ts",
     "dev": "tsup --watch",
