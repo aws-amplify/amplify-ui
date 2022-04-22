@@ -32,6 +32,7 @@ const { type, fullWidth, size, variation, fontWeight } = withDefaults(
       :data-variation="variation"
       :data-loading="loading"
       :data-disabled="disabled"
+      :disabled="disabled"
       v-bind="$attrs"
       data-amplify-button=""
     >

@@ -105,7 +105,7 @@ const onLostCodeClicked = (): void => {
             <amplify-button
               class="amplify-field-group__control"
               :fullwidth="false"
-              :laoding="false"
+              :loading="false"
               :variation="'primary'"
               type="submit"
               style="font-weight: normal"
