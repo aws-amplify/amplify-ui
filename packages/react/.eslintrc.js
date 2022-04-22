@@ -1,5 +1,3 @@
-const tsconfig = require('./tsconfig.json');
-
 module.exports = {
   env: { node: true },
   root: true,
@@ -27,7 +25,6 @@ module.exports = {
     tsconfigRootDir: __dirname,
     sourceType: 'module',
   },
-
   overrides: [
     {
       files: ['**/*.spec.*', '**/*.test.*'],
