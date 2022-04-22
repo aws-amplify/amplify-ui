@@ -90,3 +90,16 @@ export default defineConfig({
     "skipLibCheck": true,
 ...
 ```
+
+### Jest
+
+In latest versions of `@aws-amplify/ui-react`, users of the Jest testing framework may run into the following error when attempting to run tests:
+
+```
+window.URL.createObjectURL is not a function
+```
+
+Please follow the steps below to resolve this issue.
+
+**1.** Navigate to or create a [Jest setup file](https://jestjs.io/docs/configuration#setupfilesafterenv-array) for your project.
+**2.**
