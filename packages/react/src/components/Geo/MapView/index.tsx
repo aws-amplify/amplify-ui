@@ -28,11 +28,13 @@ export const MapView = ({
   ...props
 }: MapViewProps) => {
   const amplifyConfig = Amplify.configure() as any;
-  const geoConfig =
-    amplifyConfig.geo?.amazon_location_service ??
-    amplifyConfig.geo?.AmazonLocationService ??
-    {};
-
+  const geoConfig = useMemo(
+    () =>
+      amplifyConfig.geo?.amazon_location_service ??
+      amplifyConfig.geo?.AmazonLocationService ??
+      {},
+    [amplifyConfig]
+  );
   const [transformRequest, setTransformRequest] = useState<
     TransformRequestFunction | undefined
   >();
