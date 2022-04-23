@@ -11,6 +11,8 @@ jobs:
   check-changesets:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Amplify UI
+        uses: actions/checkout@v3
       - name: Check if repo has unconsumed changesets
         id: has-changesets
         uses: ./.github/actions/has-changesets
