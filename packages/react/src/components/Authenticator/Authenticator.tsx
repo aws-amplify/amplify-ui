@@ -73,7 +73,7 @@ function InitMachine({
       : authenticatorChildren;
   }, [authenticatorChildren, children, isAuthenticatedRoute, signOut, user]);
 
-  return ChildComponent;
+  return <>{ChildComponent}</>;
 }
 
 // use Authenticator namespace for both the component and the interface
