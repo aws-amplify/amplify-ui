@@ -37,6 +37,7 @@
     "dist",
     "legacy",
     "internal",
+    "lib",
     "LICENSE"
   ],
   "scripts": {
@@ -67,7 +68,7 @@
     "classnames": "2.3.1",
     "deepmerge": "4.2.2",
     "lodash": "4.17.21",
-    "mapbox-gl": "file:mapbox-resolution",
+    "mapbox-gl": "file:lib/mapbox-gl",
     "maplibre-gl": "1.15.3",
     "maplibre-gl-js-amplify": "1.5.0",
     "qrcode": "1.5.0",
