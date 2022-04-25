@@ -16,13 +16,7 @@ jobs:
       - name: Check if repo has unconsumed changesets
         id: has-changesets
         uses: ./.github/actions/has-changesets
-      - name: Decide whether to publish to `next` or `latest`
-        id: publish-target
-        run: |
-          if ${{ steps.has-changesets.outputs.has-changesets }} == 'true'; then
-              echo "::set-output name=target::next"
-          else
-              echo "::set-output name=target::latest"
-          fi 
+      - name: Echo has-changesets
+        run: echo ${{ steps.has-changesets.outputs.has-changesets }}
       - name: Echo where to publish to
         run: echo "Publishing to ${{ steps.publish-target.outputs.target }}"
