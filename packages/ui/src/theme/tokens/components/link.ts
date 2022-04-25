@@ -13,8 +13,6 @@ export interface LinkTokens {
   color: DesignToken<ColorValue>;
   focus: LinkStateTokens;
   hover: LinkStateTokens;
-  large: LinkSizeTokens;
-  small: LinkSizeTokens;
   visited: LinkStateTokens;
 }
 
@@ -28,12 +26,6 @@ export const link: LinkTokens = {
   },
   hover: {
     color: { value: '{colors.font.hover.value}' },
-  },
-  large: {
-    fontSize: { value: '{fontSizes.large.value}' },
-  },
-  small: {
-    fontSize: { value: '{fontSizes.small.value}' },
   },
   visited: {
     color: { value: '{colors.font.interactive.value}' },
