@@ -15,7 +15,7 @@ export default defineComponent({
     const headerClass = `${attrs.class || ''} amplify-heading--${props.level}`;
     if (headingI[0]?.children?.length === 0) {
       headingI[0].children = [
-        h(`h${props.level}`, { class: headerClass, ...attrs }, [defaultSlot]),
+        h(`h${props.level}`, { ...attrs, class: headerClass }, [defaultSlot]),
       ];
     } else {
       return () =>
