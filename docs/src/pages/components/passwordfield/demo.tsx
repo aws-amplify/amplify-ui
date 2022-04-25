@@ -32,10 +32,10 @@ export const PasswordFieldDemo = () => {
     labelHidden: false,
     name: 'password',
     placeholder: '',
-    size: '',
+    size: 'small',
     type: null,
     value: undefined,
-    variation: '',
+    variation: 'quiet',
     hideShowPassword: false,
   });
   const [
