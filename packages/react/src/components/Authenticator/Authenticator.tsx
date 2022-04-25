@@ -65,7 +65,7 @@ function InitMachine({
 
     // `Authenticator` might not have user defined `authenticatorChildren` for non SPA use cases.
     if (!authenticatorChildren) {
-      return null;
+      return () => null;
     }
 
     return typeof authenticatorChildren === 'function'
