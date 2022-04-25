@@ -80,7 +80,7 @@ function InitMachine({
 // to ensure that Typescript adds the correct properties on the component
 interface Authenticator {
   (props: AuthenticatorProps): JSX.Element;
-  Provider?: (children: React.ReactNode) => JSX.Element;
+  Provider?: ({ children }: { children: React.ReactNode }) => JSX.Element;
   ForceNewPassword?: DefaultComponents['ForceNewPassword'];
   ResetPassword?: DefaultComponents['ResetPassword'];
   SetupTOTP?: DefaultComponents['SetupTOTP'];
