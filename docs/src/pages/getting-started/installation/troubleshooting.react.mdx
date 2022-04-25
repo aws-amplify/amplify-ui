@@ -93,8 +93,7 @@ export default defineConfig({
 
 ### Jest
 
-As of v2.15.0 of `@aws-amplify/ui-react` which included the release of Geo components, users of the Jest testing
-framework may run into the following error when attempting to run tests:
+As of v2.15.0 of `@aws-amplify/ui-react` which included the release of Geo components, users of the Jest testing framework may run into the following error when attempting to run tests:
 
 ```
 window.URL.createObjectURL is not a function
@@ -111,5 +110,4 @@ if (typeof window.URL.createObjectURL === 'undefined') {
 }
 ```
 
-This is a known problem when using the `jsdom` library (a dependency of Jest) with a package that uses the unrecognized
-function. See [this issue](https://github.com/jsdom/jsdom/issues/1721).
+This is a known problem when using the `jsdom` library (a dependency of Jest) with a package that uses the unrecognized function. See [this issue](https://github.com/jsdom/jsdom/issues/1721).
