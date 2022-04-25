@@ -30,6 +30,11 @@
     }
   }
 
+  // For Chrome on Windows, fixes darkmode text color
+  option {
+    color: initial;
+  }
+
   &[data-size='small'] {
     min-width: var(--amplify-components-select-small-min-width);
   }
