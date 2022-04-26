@@ -1,5 +1,14 @@
 # @aws-amplify/ui-react
 
+## 2.15.5
+
+### Patch Changes
+
+- [#1749](https://github.com/aws-amplify/amplify-ui/pull/1749) [`2f41ba169`](https://github.com/aws-amplify/amplify-ui/commit/2f41ba16963c84c21d8b24147109b4d45fe20361) Thanks [@slaymance](https://github.com/slaymance)! - Fix Geocoder position bug
+
+- Updated dependencies [[`57e104e16`](https://github.com/aws-amplify/amplify-ui/commit/57e104e169bc1d6b5de6ffa285c0494204c98579)]:
+  - @aws-amplify/ui@3.6.5
+
 ## 2.15.4
 
 ### Patch Changes

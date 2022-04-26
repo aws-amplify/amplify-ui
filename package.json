@@ -22,12 +22,7 @@
     "version:next": "yarn changeset version --snapshot next-$(git rev-parse --short=7 HEAD) && yarn angular build",
     "publish:next": "yarn changeset publish --tag next",
     "version:latest": "yarn changeset version && yarn angular build",
-    "publish:latest": "yarn changeset publish",
-    "canary:build": "yarn --cwd canary/ build",
-    "canary:install": "yarn --cwd canary/ install ",
-    "canary:clean": "yarn --cwd canary clean ",
-    "canary:updatePackage": "node script/changeCanaryPackageVersion.mjs",
-    "release:canary": "yarn install && yarn canary:updatePackage && rm postcss.config.js && yarn canary:install && yarn canary:build"
+    "publish:latest": "yarn changeset publish"
   },
   "turbo": {
     "baseBranch": "origin/main",
@@ -75,7 +70,6 @@
   "devDependencies": {
     "@changesets/changelog-github": "0.4.1",
     "@changesets/cli": "^2.16.0",
-    "globby": "^13.1.1",
     "husky": ">=6",
     "lint-staged": ">=10",
     "prettier": "2.4.1",
