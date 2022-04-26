@@ -42,7 +42,7 @@ function InitMachine({
   authenticatorChildren,
   children,
   ...data
-}: InitMachineProps) {
+}: InitMachineProps): JSX.Element {
   // TODO: `INIT` event should be removed so that `_send` doesn't need to be extracted
   const { _send, route, signOut, user } = useAuthenticator(
     ({ route, signOut, user }) => [route, signOut, user]
@@ -60,7 +60,7 @@ function InitMachine({
   const isAuthenticatedRoute = route === 'authenticated' || route === 'signOut';
   const ChildComponent = React.useMemo(() => {
     if (!isAuthenticatedRoute) {
-      return children;
+      return () => children;
     }
 
     // `Authenticator` might not have user defined `authenticatorChildren` for non SPA use cases.
@@ -69,11 +69,11 @@ function InitMachine({
     }
 
     return typeof authenticatorChildren === 'function'
-      ? authenticatorChildren({ signOut, user }) // authenticatorChildren is a render prop
-      : authenticatorChildren;
+      ? () => authenticatorChildren({ signOut, user }) // authenticatorChildren is a render prop
+      : () => authenticatorChildren;
   }, [authenticatorChildren, children, isAuthenticatedRoute, signOut, user]);
 
-  return <>{ChildComponent}</>;
+  return <ChildComponent />;
 }
 
 // use Authenticator namespace for both the component and the interface
