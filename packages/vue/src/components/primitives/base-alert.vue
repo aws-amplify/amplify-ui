@@ -10,7 +10,7 @@ function close() {
 <template>
   <div
     v-if="show"
-    class="amplify-flex amplify-alert"
+    class="amplify-flex amplify-alert amplify-alert--error"
     data-variation="error"
     style="align-items: center; justify-content: space-between"
     role="alert"
@@ -30,8 +30,8 @@ function close() {
     </div>
     <amplify-button
       class="amplify-field-group__control"
-      data-fullwidth="false"
-      data-variation="link"
+      :fullwidth="false"
+      :variation="'link'"
       type="button"
       @click="close"
     >
