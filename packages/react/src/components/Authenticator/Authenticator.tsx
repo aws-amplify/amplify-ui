@@ -17,14 +17,13 @@ import { Router } from './Router';
 
 type AuthenticatorChildren =
   | React.ReactNode
-  | undefined
   | (({
       signOut,
       user,
     }: {
       signOut?: (data?: AuthEventData) => void;
       user?: CognitoUserAmplify;
-    }) => React.ReactNode);
+    }) => JSX.Element);
 
 export type AuthenticatorProps = {
   children?: AuthenticatorChildren;
@@ -61,22 +60,34 @@ function InitMachine({
   const isUnauthenticatedRoute = !(
     route === 'authenticated' || route === 'signOut'
   );
-  if (isUnauthenticatedRoute) {
-    return <>{children}</>;
-  }
 
-  // `Authenticator` might not have user defined `authenticatorChildren` for non SPA use cases.
-  if (!authenticatorChildren) {
-    return null;
-  }
+  const ChildComponent: <P = unknown>(props?: P) => JSX.Element =
+    React.useMemo(() => {
+      if (isUnauthenticatedRoute) {
+        return () => <>{children}</>;
+      }
 
-  return (
-    <>
-      {typeof authenticatorChildren === 'function'
-        ? authenticatorChildren({ signOut, user }) // authenticatorChildren is a render prop
-        : authenticatorChildren}
-    </>
-  );
+      // `Authenticator` might not have user defined `authenticatorChildren` for non SPA use cases.
+      if (!authenticatorChildren) {
+        return null;
+      }
+
+      return () => (
+        <>
+          {typeof authenticatorChildren === 'function'
+            ? authenticatorChildren({ signOut, user }) // authenticatorChildren is a render prop
+            : authenticatorChildren}
+        </>
+      );
+    }, [
+      authenticatorChildren,
+      children,
+      isUnauthenticatedRoute,
+      signOut,
+      user,
+    ]);
+
+  return <ChildComponent />;
 }
 
 // use Authenticator namespace for both the component and the interface
@@ -116,16 +127,16 @@ export const Authenticator: Authenticator = ({
 
   return (
     <Provider>
-      <CustomComponentsContext.Provider value={{ components }}>
-        <InitMachine
-          {...machineProps}
-          authenticatorChildren={authenticatorChildren}
-        >
+      <InitMachine
+        {...machineProps}
+        authenticatorChildren={authenticatorChildren}
+      >
+        <CustomComponentsContext.Provider value={{ components }}>
           <AuthenticatorContainer className={className} variation={variation}>
             <Router hideSignUp={hideSignUp} />
           </AuthenticatorContainer>
-        </InitMachine>
-      </CustomComponentsContext.Provider>
+        </CustomComponentsContext.Provider>
+      </InitMachine>
     </Provider>
   );
 };
