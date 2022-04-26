@@ -9,7 +9,7 @@
 ## Style Guide
 
 The @aws-amplify/ui package uses the [BEM](http://getbem.com/) styling syntax to standardize its CSS code and maintain flat CSS selectors.  The goal is to keep all CSS selectors at a 010 specificity so that customers can easily restyle their application using any of the available styling tools that exist. This is achieved by using specific classes that follow the syntax of `{Block}__{Element}--{Modifier}`.  Blocks should be a standalone entity that has meaning on its own. An Element is a part of a block and only has meaning within the context of a block.  A Modifier is state on a block or element that changes its behavior or appearance.
-- A class name following this syntax can only have a single Block, Element, and Modifier, but there are some cases where multiple states influence a css properties value.  In these instances we are using an additional css variable to update the targeted value when multiple states are applied.
+- A class name following this syntax can only have a single Block, Element, and Modifier, but there are some cases where multiple states influence a css properties value.  In these instances we are using an additional css variable prefixed with `amplify-internal` to update the targeted value when multiple states are applied.
 ```
 .amplify-divider {
   --amplify-internal-divider-size: 1rem;
