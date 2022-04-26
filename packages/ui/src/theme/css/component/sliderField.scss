@@ -15,10 +15,10 @@
   touch-action: none;
   box-sizing: content-box; // we want the padding to add to the height
   padding-block: var(--amplify-components-sliderfield-padding-block);
-  --amplify-internal-sliderfield__root-height: var(
+  --amplify-internal-sliderfield-root-height: var(
     --amplify-components-sliderfield-thumb-height
   );
-  --amplify-internal-sliderfield__root-width: var(
+  --amplify-internal-sliderfield-root-width: var(
     --amplify-components-sliderfield-thumb-height
   );
 
@@ -27,28 +27,28 @@
   }
 
   &--horizontal {
-    height: var(--amplify-internal-sliderfield__root-height);
+    height: var(--amplify-internal-sliderfield-root-height);
   }
 
   &--vertical {
     flex-direction: column;
-    width: var(--amplify-internal-sliderfield__root-width);
+    width: var(--amplify-internal-sliderfield-root-width);
   }
 
   &--large {
-    --amplify-internal-sliderfield__root-height: var(
+    --amplify-internal-sliderfield-root-height: var(
       --amplify-components-sliderfield-large-thumb-height
     );
-    --amplify-internal-sliderfield__root-width: var(
+    --amplify-internal-sliderfield-root-width: var(
       --amplify-components-sliderfield-large-thumb-height
     );
   }
 
   &--small {
-    --amplify-internal-sliderfield__root-height: var(
+    --amplify-internal-sliderfield-root-height: var(
       --amplify-components-sliderfield-small-thumb-height
     );
-    --amplify-internal-sliderfield__root-width: var(
+    --amplify-internal-sliderfield-root-width: var(
       --amplify-components-sliderfield-small-thumb-height
     );
   }
@@ -61,43 +61,43 @@
   background-color: var(
     --amplify-components-sliderfield-track-background-color
   );
-  --amplify-internal-sliderfield__track-height: var(
+  --amplify-internal-sliderfield-track-height: var(
     --amplify-components-sliderfield-track-height
   );
-  --amplify-internal-sliderfield__track-min-width: var(
+  --amplify-internal-sliderfield-track-min-width: var(
     --amplify-components-sliderfield-track-min-width
   );
-  --amplify-internal-sliderfield__track-width: var(
+  --amplify-internal-sliderfield-track-width: var(
     --amplify-components-sliderfield-track-height
   );
-  --amplify-internal-sliderfield__track-min-height: var(
+  --amplify-internal-sliderfield-track-min-height: var(
     --amplify-components-sliderfield-track-min-width
   );
 
   &--horizontal {
-    height: var(--amplify-internal-sliderfield__track-height);
-    min-width: var(--amplify-internal-sliderfield__track-min-width);
+    height: var(--amplify-internal-sliderfield-track-height);
+    min-width: var(--amplify-internal-sliderfield-track-min-width);
   }
 
   &--vertical {
-    width: var(--amplify-internal-sliderfield__track-width);
-    min-height: var(--amplify-internal-sliderfield__track-min-height);
+    width: var(--amplify-internal-sliderfield-track-width);
+    min-height: var(--amplify-internal-sliderfield-track-min-height);
   }
 
   &--large {
-    --amplify-internal-sliderfield__track-height: var(
+    --amplify-internal-sliderfield-track-height: var(
       --amplify-components-sliderfield-large-track-height
     );
-    --amplify-internal-sliderfield__track-width: var(
+    --amplify-internal-sliderfield-track-width: var(
       --amplify-components-sliderfield-large-track-height
     );
   }
 
   &--small {
-    --amplify-internal-sliderfield__track-height: var(
+    --amplify-internal-sliderfield-track-height: var(
       --amplify-components-sliderfield-small-track-height
     );
-    --amplify-internal-sliderfield__track-width: var(
+    --amplify-internal-sliderfield-track-width: var(
       --amplify-components-sliderfield-small-track-height
     );
   }

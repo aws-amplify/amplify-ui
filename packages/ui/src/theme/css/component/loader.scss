@@ -7,13 +7,7 @@
 
   // these are css variables used to keep the structure flat but allow multiple states to effect the value
   // because these ultimately refer back to our design tokens, these do not break the contract with our customers
-  --amplify-internal-loader-small-font-size: var(
-    --amplify-components-loader-small-font-size
-  );
-  --amplify-internal-loader-large-font-size: var(
-    --amplify-components-loader-large-font-size
-  );
-  --amplify-internal-laoder-linear-font-size: var(
+  --amplify-internal-loader-linear-font-size: var(
     --amplify-components-loader-linear-font-size
   );
   --amplify-internal-loader-linear-stroke-width: var(
@@ -56,7 +50,7 @@
   &--small {
     width: var(--amplify-components-loader-small-width);
     height: var(--amplify-components-loader-small-height);
-    font-size: var(--amplify-internal-loader-small-font-size);
+    font-size: var(--amplify-components-loader-small-font-size);
     // set the internal css variables for the small and linear state
     --amplify-internal-loader-linear-height: var(
       --amplify-components-loader-linear-small-height
@@ -72,7 +66,7 @@
   &--large {
     width: var(--amplify-components-loader-large-width);
     height: var(--amplify-components-loader-large-height);
-    font-size: var(--amplify-internal-loader-large-font-size);
+    font-size: var(--amplify-components-loader-large-font-size);
     // set the css variables for the large and linear state
     --amplify-internal-loader-linear-height: var(
       --amplify-components-loader-linear-large-height
@@ -87,6 +81,7 @@
 
   &--linear {
     width: var(--amplify-components-loader-linear-width);
+    min-width: var(--amplify-components-loader-linear-min-width);
     stroke: var(--amplify-components-loader-linear-stroke-empty);
     stroke-linecap: var(--amplify-components-loader-linear-stroke-linecap);
     // use the internal css variables that have the small/large states set to them

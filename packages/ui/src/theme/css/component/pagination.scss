@@ -14,7 +14,7 @@
       --amplify-components-pagination-item-container-margin-right
     );
   }
-  &__item-button--link {
+  &__item-button {
     @extend %item-shared;
 
     display: flex;
@@ -42,10 +42,10 @@
         --amplify-components-pagination-button-hover-background-color
       );
     }
-  }
-  &__item-button--disabled {
-    color: var(--amplify-components-pagination-button-disabled-color);
-    pointer-events: none;
+    &--disabled {
+      color: var(--amplify-components-pagination-button-disabled-color);
+      pointer-events: none;
+    }
   }
 
   &__item-current {

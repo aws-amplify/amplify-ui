@@ -3,7 +3,6 @@
  */
 
 @import 'dist/theme';
-@import './component/fieldControl';
 
 // Keeping these selector low (001) so it can be easily overridden
 html {
@@ -55,6 +54,7 @@ select {
 // Layout
 // They are commonly used in other primitives
 // Move them to the top here makes it easy to override their styling
+@import './component/fieldControl';
 @import './component/flex.scss';
 @import './component/grid.scss';
 @import './component/scrollView.scss';

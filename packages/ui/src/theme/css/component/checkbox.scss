@@ -65,6 +65,7 @@
         --amplify-components-checkbox-button-error-border-color
       );
     }
+    // Note: this resets the value of focused state border-color style when an error occurs
     --amplify-internal-checkbox_button-focused-before-border-color: var(
       --amplify-components-checkbox-button-error-focus-border-color
     );
@@ -103,6 +104,7 @@
     opacity: var(--amplify-components-checkbox-icon-checked-opacity);
     transform: var(--amplify-components-checkbox-icon-checked-transform);
 
+    // changes disabled state background-color when checked
     --amplify-internal-checkbox-icon-disabled-background-color: var(
       --amplify-components-checkbox-icon-checked-disabled-background-color
     );

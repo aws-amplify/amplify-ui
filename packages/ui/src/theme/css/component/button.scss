@@ -3,27 +3,25 @@
  */
 
 .amplify-button {
-  display: inline-flex;
-  justify-content: center;
   align-items: center;
-  border-radius: var(--amplify-components-button-border-radius);
-  box-sizing: border-box;
-  font-size: var(--amplify-components-button-font-size);
-  font-weight: var(--amplify-components-button-font-weight);
-  transition: all var(--amplify-components-button-transition-duration);
-  border-style: var(--amplify-components-button-border-style);
   border-color: var(--amplify-components-button-border-color);
   border-radius: var(--amplify-components-button-border-radius);
+  border-style: var(--amplify-components-button-border-style);
   border-width: var(--amplify-components-button-border-width);
+  box-sizing: border-box;
   color: var(--amplify-components-button-color);
+  cursor: pointer;
+  display: inline-flex;
+  font-size: var(--amplify-components-button-font-size);
+  font-weight: var(--amplify-components-button-font-weight);
+  justify-content: center;
   line-height: var(--amplify-components-button-line-height);
-  user-select: none;
   padding-block-start: var(--amplify-components-button-padding-block-start);
   padding-block-end: var(--amplify-components-button-padding-block-end);
   padding-inline-start: var(--amplify-components-button-padding-inline-start);
   padding-inline-end: var(--amplify-components-button-padding-inline-end);
-  // all:unset removes this, so we have to add it back.
-  cursor: pointer;
+  transition: all var(--amplify-components-button-transition-duration);
+  user-select: none;
 
   --amplify-internal-button-disabled-color: var(
     --amplify-components-button-disabled-color
