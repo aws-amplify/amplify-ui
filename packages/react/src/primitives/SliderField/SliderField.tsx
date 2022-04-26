@@ -83,6 +83,12 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
     classNameModifier(ComponentClassNames.SliderFieldTrack, orientation),
     classNameModifier(ComponentClassNames.SliderFieldTrack, size)
   );
+  const rootComponentClasses = classNames(
+    ComponentClassNames.SliderFieldRoot,
+    classNameModifier(ComponentClassNames.SliderFieldTrack, orientation),
+    classNameModifier(ComponentClassNames.SliderFieldTrack, size),
+    className
+  );
 
   return (
     <Flex
@@ -118,12 +124,7 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
         outerEndComponent={outerEndComponent}
       >
         <Root
-          className={classNames(
-            ComponentClassNames.SliderFieldRoot,
-            `${ComponentClassNames.SliderFieldRoot}--${orientation}`,
-            size ? `${ComponentClassNames.SliderFieldRoot}--${size}` : null,
-            className
-          )}
+          className={rootComponentClasses}
           data-testid={SLIDER_ROOT_TEST_ID}
           disabled={isDisabled}
           defaultValue={defaultValues}

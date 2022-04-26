@@ -38,7 +38,6 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
     classNameModifier(ComponentClassNames.Select, size),
     classNameModifier(ComponentClassNames.Select, variation),
     classNameModifierByFlag(ComponentClassNames.Select, 'error', hasError),
-    classNameModifier(ComponentClassNames.Select, size),
     className
   );
 
