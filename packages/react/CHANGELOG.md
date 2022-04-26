@@ -1,5 +1,14 @@
 # @aws-amplify/ui-react
 
+## 2.15.6
+
+### Patch Changes
+
+- [#1766](https://github.com/aws-amplify/amplify-ui/pull/1766) [`3a166e303`](https://github.com/aws-amplify/amplify-ui/commit/3a166e30326b6d6065b9bbf5ecf516e59e2c86b8) Thanks [@slaymance](https://github.com/slaymance)! - Support Pascal case for Amazon Location Service configuration block
+
+- Updated dependencies [[`84fd81868`](https://github.com/aws-amplify/amplify-ui/commit/84fd818689daa5220bfb55ebee7e280454e1c705), [`a9c5aa5f5`](https://github.com/aws-amplify/amplify-ui/commit/a9c5aa5f56c4d222cd8bd652d0fd549aea3576ef)]:
+  - @aws-amplify/ui@3.6.6
+
 ## 2.15.5
 
 ### Patch Changes
