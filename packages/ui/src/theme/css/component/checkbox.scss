@@ -1,11 +1,11 @@
 .amplify-checkbox {
   cursor: var(--amplify-components-checkbox-cursor);
   align-items: var(--amplify-components-checkbox-align-items);
+  flex-direction: row-reverse;
   gap: inherit;
   &--disabled {
     cursor: var(--amplify-components-checkbox-disabled-cursor);
   }
-  flex-direction: row-reverse;
 }
 
 .amplify-checkbox__button {
