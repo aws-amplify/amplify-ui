@@ -13,6 +13,7 @@
   align-items: var(--amplify-components-checkbox-button-align-items);
   justify-content: var(--amplify-components-checkbox-button-justify-content);
   color: var(--amplify-components-checkbox-button-color);
+  //these internal css variables are used to update the values that are influenced by multiple modified states
   --amplify-internal-checkbox_button-focused-before-border-color: var(
     --amplify-components-checkbox-button-focus-border-color
   );

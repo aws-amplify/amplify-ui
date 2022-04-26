@@ -5,6 +5,7 @@
   opacity: var(--amplify-components-divider-opacity);
   padding: 0;
   display: block;
+  //these internal css variables are used to update the values that are influenced by multiple modified states
   --amplify-internal-divider-size: var(
     --amplify-components-divider-border-width
   );

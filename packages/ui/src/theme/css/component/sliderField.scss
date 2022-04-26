@@ -8,13 +8,14 @@
 }
 
 .amplify-sliderfield__root {
-  position: relative;
-  display: flex;
   align-items: center;
-  user-select: none;
-  touch-action: none;
   box-sizing: content-box; // we want the padding to add to the height
+  display: flex;
   padding-block: var(--amplify-components-sliderfield-padding-block);
+  position: relative;
+  touch-action: none;
+  user-select: none;
+  //these internal css variables are used to update the values that are influenced by multiple modified states
   --amplify-internal-sliderfield-root-height: var(
     --amplify-components-sliderfield-thumb-height
   );

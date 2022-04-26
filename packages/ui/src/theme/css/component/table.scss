@@ -5,6 +5,7 @@
   border-collapse: var(--amplify-components-table-border-collapse);
   display: var(--amplify-components-table-display);
   width: var(--amplify-components-table-width);
+  //these internal css variables are used to update the values that are influenced by multiple modified states
   --amplify-internal-table-caption-font-size: var(
     --amplify-components-table-caption-font-size
   );

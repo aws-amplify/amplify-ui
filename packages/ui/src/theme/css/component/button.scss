@@ -23,6 +23,7 @@
   transition: all var(--amplify-components-button-transition-duration);
   user-select: none;
 
+  //These are the internal css variables that are used to update the values that are updated by multiple modifiers
   --amplify-internal-button-disabled-color: var(
     --amplify-components-button-disabled-color
   );

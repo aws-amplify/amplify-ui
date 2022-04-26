@@ -6,6 +6,7 @@
 .amplify-togglebutton {
   // This required to override default button styling
   @extend %togglebutton-shared;
+  //these internal css variables are used to update the values that are influenced by multiple modified states
   --amplify-internal-togglebutton-pressed-background-color: var(
     --amplify-components-togglebutton-pressed-background-color
   );
