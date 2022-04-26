@@ -6,7 +6,7 @@ interface PropsInterface {
   variation?: 'primary' | 'default' | 'link';
   fontWeight?: 'normal' | 'bold' | 'lighter';
   loading?: boolean | string;
-  disabled?: boolean | string;
+  disabled?: boolean | 'true' | 'false';
 }
 const { type, fullWidth, size, variation, fontWeight } = withDefaults(
   defineProps<PropsInterface>(),
