@@ -6,7 +6,6 @@
   stroke: var(--amplify-components-loader-stroke-empty);
 
   // these are css variables used to keep the structure flat but allow multiple states to effect the value
-  // because these ultimately refer back to our design tokens, these do not break the contract with our customers
   --amplify-internal-loader-linear-font-size: var(
     --amplify-components-loader-linear-font-size
   );
