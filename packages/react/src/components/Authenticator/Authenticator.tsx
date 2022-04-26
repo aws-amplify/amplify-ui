@@ -62,7 +62,7 @@ function InitMachine({
     route === 'authenticated' || route === 'signOut'
   );
   if (isUnauthenticatedRoute) {
-    return children;
+    return <>{children}</>;
   }
 
   // `Authenticator` might not have user defined `authenticatorChildren` for non SPA use cases.
@@ -70,9 +70,13 @@ function InitMachine({
     return null;
   }
 
-  return typeof authenticatorChildren === 'function'
-    ? authenticatorChildren({ signOut, user }) // authenticatorChildren is a render prop
-    : authenticatorChildren;
+  return (
+    <>
+      {typeof authenticatorChildren === 'function'
+        ? authenticatorChildren({ signOut, user }) // authenticatorChildren is a render prop
+        : authenticatorChildren}
+    </>
+  );
 }
 
 // use Authenticator namespace for both the component and the interface
