@@ -45,7 +45,7 @@ const getRouteComponent = (route: string) => {
 };
 
 export default function Router({ hideSignUp }: { hideSignUp: boolean }) {
-  const { route } = useAuthenticator();
+  const { route } = useAuthenticator(({ route }) => [route]);
   const RouteComponent = useMemo(() => getRouteComponent(route), [route]);
 
   return (
