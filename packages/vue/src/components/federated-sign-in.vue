@@ -132,7 +132,11 @@ const signInWithGoogle = computed(() =>
       </p>
     </federated-sign-in-button>
     <hr
-      class="amplify-divider amplify-divider--label"
+      class="
+        amplify-divider
+        amplify-divider--label
+        amplify-divider--small
+      "
       aria-orientation="horizontal"
       data-size="small"
       data-label="or"

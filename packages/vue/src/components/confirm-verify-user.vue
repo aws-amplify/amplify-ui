@@ -88,8 +88,8 @@ const onSkipClicked = (): void => {
             </base-alert>
             <amplify-button
               class="amplify-field-group__control"
-              data-fullwidth="false"
-              data-variation="primary"
+              :fullwidth="false"
+              :variation="'primary'"
               type="submit"
               style="font-weight: normal"
               :disabled="actorState.matches('confirmVerifyUser.pending')"
@@ -97,9 +97,9 @@ const onSkipClicked = (): void => {
             >
             <amplify-button
               class="amplify-field-group__control"
-              data-fullwidth="false"
-              data-size="small"
-              data-variation="link"
+              :fullwidth="false"
+              :size="'small'"
+              :variation="'link'"
               style="font-weight: normal"
               type="button"
               @click.prevent="onSkipClicked"

@@ -99,8 +99,8 @@ function onBlur(e: Event) {
             </base-alert>
             <amplify-button
               class="amplify-field-group__control"
-              data-fullwidth="false"
-              data-variation="primary"
+              :variation="'primary'"
+              :fullwidth="false"
               type="submit"
               style="font-weight: normal"
               :disabled="actorState.matches('confirmResetPassword.pending')"
@@ -108,9 +108,9 @@ function onBlur(e: Event) {
             >
             <amplify-button
               class="amplify-field-group__control"
-              data-fullwidth="false"
-              data-size="small"
-              data-variation="link"
+              :variation="'link'"
+              :fullwidth="false"
+              :size="'small'"
               type="button"
               @click.prevent="onLostYourCodeClicked"
               style="font-weight: normal"
