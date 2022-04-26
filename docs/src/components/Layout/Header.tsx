@@ -1,29 +1,34 @@
+import '@docsearch/css';
+
 import * as React from 'react';
-import NextLink from 'next/link';
+
 import {
   Button,
-  VisuallyHidden,
-  Link,
-  Flex,
   ColorMode,
+  Divider,
+  Flex,
+  Link,
   ToggleButton,
   ToggleButtonGroup,
-  Divider,
   View,
+  VisuallyHidden,
 } from '@aws-amplify/ui-react';
 import {
+  MdBedtime,
   MdClose,
   MdMenu,
-  MdWbSunny,
-  MdBedtime,
-  MdTonality,
   MdOpenInNew,
+  MdTonality,
+  MdWbSunny,
 } from 'react-icons/md';
-import { useRouter } from 'next/router';
-import { Logo } from '@/components/Logo';
+
+import { DocSearch } from '@docsearch/react';
 import { FrameworkChooser } from './FrameworkChooser';
-import { SecondaryNav } from './SecondaryNav';
 import LinkButton from './LinkButton';
+import { Logo } from '@/components/Logo';
+import NextLink from 'next/link';
+import { SecondaryNav } from './SecondaryNav';
+import { useRouter } from 'next/router';
 
 const NavLink = ({
   href,
@@ -79,6 +84,11 @@ const Nav = (props) => (
 
 const Settings = ({ platform, setColorMode, colorMode }) => (
   <Flex className="docs-settings" justifyContent="center" alignItems="center">
+    <DocSearch
+      appId={process.env.DOCSEARCH_DOCS_APP_ID}
+      apiKey={process.env.DOCSEARCH_DOCS_API_KEY}
+      indexName={process.env.DOCSEARCH_DOCS_INDEX_NAME}
+    />
     <FrameworkChooser platform={platform} />
     <ColorModeSwitcher setColorMode={setColorMode} colorMode={colorMode} />
   </Flex>
@@ -112,6 +122,7 @@ const ColorModeSwitcher = ({ colorMode, setColorMode }) => {
 
 export const Header = ({ platform, colorMode, setColorMode }) => {
   const [expanded, setExpanded] = React.useState(false);
+
   return (
     <>
       <header className={`docs-header ${expanded ? 'expanded' : ''}`}>
@@ -135,7 +146,6 @@ export const Header = ({ platform, colorMode, setColorMode }) => {
         </NavLink>
 
         <Nav />
-
         <Settings
           colorMode={colorMode}
           setColorMode={setColorMode}
