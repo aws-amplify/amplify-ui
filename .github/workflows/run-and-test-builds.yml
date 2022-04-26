@@ -3,8 +3,6 @@ name: Run and Test Builds
 on:
   schedule:
     - cron: '*/15 * * * *' # Run every  minutes
-  pull_request:
-    branches: [main]
 
 jobs:
   build:
