@@ -6,6 +6,8 @@ import {
   mergeVariantsAndOverrides,
   strHasLength,
   EscapeHatchProps,
+  classNameModifier,
+  classNameModifierByFlag,
 } from '../utils';
 
 const props: ViewProps = {
@@ -334,5 +336,35 @@ describe('mergeVariantsAndOverrides', () => {
 
   it('should return null when both variant & override are null', () => {
     expect(mergeVariantsAndOverrides(null, null)).toEqual(null);
+  });
+});
+
+describe('classNameModifier', () => {
+  const modifiedClassName = 'MyClass--modified';
+  const myClass = 'MyClass';
+  const modifier = 'modified';
+
+  it('should return the modified className with a modifier passed in', () => {
+    expect(classNameModifier(myClass, modifier)).toEqual(modifiedClassName);
+  });
+
+  it('should return null without a modifier passed in', () => {
+    expect(classNameModifier(myClass, undefined)).toEqual(null);
+  });
+});
+
+describe('classNameModifierByFlag', () => {
+  const modifiedClassName = 'MyClass--modified';
+  const myClass = 'MyClass';
+  const modifier = 'modified';
+
+  it('should return the modified className with a true flag value passed in', () => {
+    expect(classNameModifierByFlag(myClass, modifier, true)).toEqual(
+      modifiedClassName
+    );
+  });
+
+  it('should return null with a false flag value passed in', () => {
+    expect(classNameModifierByFlag(myClass, modifier, false)).toEqual(null);
   });
 });
