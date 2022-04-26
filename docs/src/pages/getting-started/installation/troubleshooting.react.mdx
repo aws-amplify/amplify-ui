@@ -90,3 +90,24 @@ export default defineConfig({
     "skipLibCheck": true,
 ...
 ```
+
+### Jest
+
+As of v2.15.0 of `@aws-amplify/ui-react` which included the release of Geo components, users of the Jest testing framework may run into the following error when attempting to run tests:
+
+```
+window.URL.createObjectURL is not a function
+```
+
+Please follow the steps below to resolve this issue.
+
+**1.** Navigate to or create a [Jest setup file](https://jestjs.io/docs/configuration#setupfilesafterenv-array) for your project.
+**2.** Add the following code to polyfill the unrecognized function in your Jest setup file:
+
+```js
+if (typeof window.URL.createObjectURL === 'undefined') {
+  window.URL.createObjectURL = jest.fn();
+}
+```
+
+This is a known problem when using the `jsdom` library (a dependency of Jest) with a package that uses an unrecognized function. See [this issue](https://github.com/jsdom/jsdom/issues/1721).
