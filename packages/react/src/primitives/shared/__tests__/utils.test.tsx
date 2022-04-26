@@ -9,6 +9,7 @@ import {
   classNameModifier,
   classNameModifierByFlag,
 } from '../utils';
+import { ComponentClassNames } from '../constants';
 
 const props: ViewProps = {
   backgroundColor: 'blue',
@@ -340,8 +341,8 @@ describe('mergeVariantsAndOverrides', () => {
 });
 
 describe('classNameModifier', () => {
-  const modifiedClassName = 'MyClass--modified';
-  const myClass = 'MyClass';
+  const modifiedClassName = 'amplify-alert--modified';
+  const myClass = ComponentClassNames['Alert'];
   const modifier = 'modified';
 
   it('should return the modified className with a modifier passed in', () => {
@@ -354,8 +355,8 @@ describe('classNameModifier', () => {
 });
 
 describe('classNameModifierByFlag', () => {
-  const modifiedClassName = 'MyClass--modified';
-  const myClass = 'MyClass';
+  const modifiedClassName = 'amplify-alert--modified';
+  const myClass = ComponentClassNames['Alert'];
   const modifier = 'modified';
 
   it('should return the modified className with a true flag value passed in', () => {
