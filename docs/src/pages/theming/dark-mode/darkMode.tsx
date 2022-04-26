@@ -10,8 +10,6 @@ import {
   ToggleButtonGroup,
 } from '@aws-amplify/ui-react';
 
-import { flipPalette } from '../../../theme';
-
 export const DarkModeExample = () => {
   const [colorMode, setColorMode] = React.useState<ColorMode>('system');
   const theme: Theme = {
@@ -21,7 +19,15 @@ export const DarkModeExample = () => {
         colorMode: 'dark',
         tokens: {
           colors: {
-            neutral: flipPalette(defaultTheme.tokens.colors.neutral),
+            neutral: {
+              // flipping the neutral palette
+              10: defaultTheme.tokens.colors.neutral[100],
+              20: defaultTheme.tokens.colors.neutral[90],
+              40: defaultTheme.tokens.colors.neutral[80],
+              80: defaultTheme.tokens.colors.neutral[40],
+              90: defaultTheme.tokens.colors.neutral[20],
+              100: defaultTheme.tokens.colors.neutral[10],
+            },
             black: { value: '#fff' },
             white: { value: '#000' },
             overlay: {

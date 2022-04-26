@@ -60,6 +60,20 @@ export default function Page({
 
     return () => observer.disconnect();
   }, [children]);
+
+  React.useEffect(() => {
+    const scrollToHash = () => {
+      const { hash } = window.location;
+
+      if (hash) {
+        document.querySelector(hash)?.scrollIntoView({ behavior: 'smooth' });
+      }
+    };
+    window.addEventListener('load', scrollToHash);
+
+    return () => window.removeEventListener('load', scrollToHash);
+  }, []);
+
   return (
     <div className="docs-main">
       <Sidebar />

@@ -1,7 +1,15 @@
 import { Text } from '@aws-amplify/ui-react';
-import { TextDemo, TextTruncatedSample, TextStylingSample } from './demo';
-import { Example } from '@/components/Example';
+import { TextDemo, TextStylingSample } from './demo';
+import { Example, ExampleCode } from '@/components/Example';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
+import {
+  DefaultTextExample,
+  GlobalStylingExample,
+  LocalStylingExample,
+  TextTruncatedExample,
+  TextVariationExample,
+  TextThemeExample,
+} from './examples';
 
 ## Demo
 
@@ -9,65 +17,43 @@ import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 
 ## Usage
 
-Import the Text primitive and styles.
-
-```jsx
-import { Text } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-<Text>Hello world</Text>;
-```
+Import the Text primitive.
 
 <Example>
-  <Text>Hello world</Text>
+  <DefaultTextExample />
+  <ExampleCode>
+  ```jsx file=./examples/DefaultText.tsx
+  
+  ```
+
+  </ExampleCode>
 </Example>
 
 ### Variations
 
 Use the `variation` prop to change the Text variation. Available options are `primary`, `secondary`, `tertiary`, `error`, `warning`, `info`, and `success`.
 
-```jsx
-import { Text } from "@aws-amplify/ui-react";
-import "@aws-amplify/ui-react/styles.css";
-
-<Text variation="primary">Primary</Text>
-<Text variation="secondary">Secondary</Text>
-<Text variation="tertiary">Tertiary</Text>
-<Text variation="error">Error</Text>
-<Text variation="warning">Warning</Text>
-<Text variation="info">Info</Text>
-<Text variation="success">Success</Text>
-<Text>Default</Text>
-```
-
 <Example>
-  <Text variation="primary">Primary</Text>
-  <Text variation="secondary">Secondary</Text>
-  <Text variation="tertiary">Tertiary</Text>
-  <Text variation="error">Error</Text>
-  <Text variation="warning">Warning</Text>
-  <Text variation="info">Info</Text>
-  <Text variation="success">Success</Text>
-  <Text>Default</Text>
+  <TextVariationExample />
+
+  <ExampleCode>
+  ```jsx file=./examples/TextVariation.tsx
+  ```
+  </ExampleCode>
 </Example>
 
 ### Truncate
 
 The `isTruncated` prop will render an ellipsis when the text exceeds the defined width.
 
-```jsx
-<Text isTruncated={true}>
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-  incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-  nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-  Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-  eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
-  in culpa qui officia deserunt mollit anim id est laborum.
-</Text>
-```
-
 <Example>
-  <TextTruncatedSample />
+  <TextTruncatedExample />
+  <ExampleCode>
+      ```jsx file=./examples/TextTruncated.tsx
+
+     ```
+
+  </ExampleCode>
 </Example>
 
 ## CSS Styling
@@ -82,26 +68,21 @@ To override styling on all Text, you can set the Amplify CSS variables or use th
 
 (Revise this example)
 
+<Example>
+  <GlobalStylingExample />
+  <ExampleCode>
 ```css
 /* styles.css */
-.primary-styled-variable-text.amplify-text {
+.amplify-text {
   --amplify-components-text-color-primary: var(--amplify-colors-red-80);
 }
 ```
 
-```jsx
-import { View } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
+```jsx file=./examples/GlobalStyling.tsx
 
-<Text className="primary-styled-variable-text" variation="primary">
-  This is my styled text
-</Text>;
 ```
 
-<Example>
-  <Text className="primary-styled-variable-text" variation="primary">
-    {'This is my styled text'}
-  </Text>
+  </ExampleCode>
 </Example>
 
 ### Local styling
@@ -110,7 +91,10 @@ To override styling on a specific Text, you can use a class selector or style pr
 
 _Using a class selector:_
 
-```css
+<Example>
+  <Text className="styled-text">This is my styled text</Text>
+  <ExampleCode>
+    ```css
 /* styles.css */
 .styled-text {
   font-weight: var(--amplify-font-weights-bold);
@@ -125,22 +109,29 @@ import './styles.css';
 <Text className="styled-text">This is my styled text</Text>;
 ```
 
-<Example>
-  <Text className="styled-text">This is my styled text</Text>
+  </ExampleCode>
 </Example>
 
 _Using style props:_
 
-```jsx
-<Text
-  fontWeight={theme.tokens.fontWeights.bold}
-  color={theme.tokens.colors.red[80]}
-  textDecoration="underline"
->
-  This is my styled text
-</Text>
-```
+<Example>
+  <LocalStylingExample />
+  <ExampleCode>
+    ```jsx file=./examples/LocalStyling.tsx
+
+    ```
+
+  </ExampleCode>
+</Example>
+
+### Theme
 
 <Example>
-  <TextStylingSample />
+  <TextThemeExample />
+  <ExampleCode>
+    ```jsx file=./examples/TextTheme.tsx
+
+    ```
+
+  </ExampleCode>
 </Example>
