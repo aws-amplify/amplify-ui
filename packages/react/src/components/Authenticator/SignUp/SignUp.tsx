@@ -41,12 +41,7 @@ export function SignUp() {
       >
         <FederatedSignIn />
 
-        <Flex
-          as="fieldset"
-          className="amplify-flex"
-          direction="column"
-          isDisabled={isPending}
-        >
+        <Flex as="fieldset" direction="column" isDisabled={isPending}>
           <Flex direction="column">
             <FormFields />
             <RemoteErrorMessage />

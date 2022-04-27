@@ -82,12 +82,7 @@ export const SetupTOTP = (): JSX.Element => {
       onChange={handleChange}
       onSubmit={handleSubmit}
     >
-      <Flex
-        as="fieldset"
-        className="amplify-flex"
-        direction="column"
-        isDisabled={isPending}
-      >
+      <Flex as="fieldset" direction="column" isDisabled={isPending}>
         <Header />
 
         <Flex direction="column">

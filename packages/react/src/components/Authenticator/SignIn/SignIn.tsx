@@ -34,12 +34,7 @@ export function SignIn() {
       >
         <FederatedSignIn />
         <Flex direction="column">
-          <Flex
-            as="fieldset"
-            className="amplify-flex"
-            direction="column"
-            isDisabled={isPending}
-          >
+          <Flex as="fieldset" direction="column" isDisabled={isPending}>
             <VisuallyHidden>
               <legend>{translate('Sign in')}</legend>
             </VisuallyHidden>

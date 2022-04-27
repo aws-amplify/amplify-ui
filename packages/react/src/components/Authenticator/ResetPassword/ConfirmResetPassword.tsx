@@ -31,12 +31,7 @@ export const ConfirmResetPassword = (): JSX.Element => {
       onChange={handleChange}
       onBlur={handleBlur}
     >
-      <Flex
-        as="fieldset"
-        className="amplify-flex"
-        direction="column"
-        isDisabled={isPending}
-      >
+      <Flex as="fieldset" direction="column" isDisabled={isPending}>
         <Header />
 
         <Flex direction="column">

@@ -32,12 +32,7 @@ export const ForceNewPassword = (): JSX.Element => {
       onSubmit={handleSubmit}
       onBlur={handleBlur}
     >
-      <Flex
-        as="fieldset"
-        className="amplify-flex"
-        direction="column"
-        isDisabled={isPending}
-      >
+      <Flex as="fieldset" direction="column" isDisabled={isPending}>
         <Heading level={3}>{translate('Change Password')}</Heading>
 
         <FormFields />

@@ -36,12 +36,7 @@ export const ConfirmSignIn = (): JSX.Element => {
       onChange={handleChange}
       onSubmit={handleSubmit}
     >
-      <Flex
-        as="fieldset"
-        direction="column"
-        className="amplify-flex"
-        isDisabled={isPending}
-      >
+      <Flex as="fieldset" direction="column" isDisabled={isPending}>
         <Header />
 
         <Flex direction="column">
