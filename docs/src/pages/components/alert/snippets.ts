@@ -4,11 +4,10 @@ export const alertSnippets = [
   {
     group: 'Alert',
     name: 'default',
-    code: `
-      <Alert heading="heading">
-        Alert body
-      </Alert>
-    `,
+    code: propsToCode({
+      heading: 'Heading',
+      body: 'Body',
+    }),
   },
   {
     group: 'Alert',
