@@ -1,0 +1,28 @@
+name: Publish to latest
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    environment: deployment
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
+          fetch-depth: 0
+      - name: Check if repo has unconsumed changesets
+        id: has-changesets
+        uses: ./.github/actions/has-changesets
+      - name: Create Release Pull Request
+        id: changesets
+        if: ${{ steps.has-changesets == 'true' }}
+        uses: changesets/action@b98cec97583b917ff1dc6179dd4d230d3e439894
+        with:
+          publish: yarn publish:latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
