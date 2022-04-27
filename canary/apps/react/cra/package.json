@@ -17,6 +17,7 @@
     "dev": "react-app-rewired start",
     "start": "serve build -s -p 3000",
     "build": "react-app-rewired build",
+    "postbuild": "yarn run bundlewatch",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject"
   },
@@ -39,8 +40,17 @@
     ]
   },
   "devDependencies": {
+    "bundlewatch": "^0.3.3",
     "customize-cra": "^1.0.0",
     "react-app-rewired": "^2.2.1",
     "serve": "^13.0.2"
+  },
+  "bundlewatch": {
+    "files": [
+      {
+        "path": "build/static/js/main.*.js",
+        "maxSize": "280kB"
+      }
+    ]
   }
 }
