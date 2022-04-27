@@ -1,5 +1,4 @@
 import { translate } from '@aws-amplify/ui';
-import classNames from 'classnames';
 
 import { Button } from '../../../primitives/Button';
 import { Flex } from '../../../primitives/Flex';
@@ -60,9 +59,11 @@ export function ConfirmSignUp() {
       onChange={handleChange}
       onSubmit={handleSubmit}
     >
-      <fieldset
-        className={classNames('amplify-flex', 'amplify-authenticator__column')}
-        disabled={isPending}
+      <Flex
+        as="fieldset"
+        className="amplify-flex"
+        direction="column"
+        isDisabled={isPending}
       >
         <Header />
 
@@ -91,7 +92,7 @@ export function ConfirmSignUp() {
           </Button>
         </Flex>
         <Footer />
-      </fieldset>
+      </Flex>
     </form>
   );
 }
@@ -108,11 +109,7 @@ const DefaultHeader = () => {
       ? translate('We Texted You')
       : translate('We Sent A Code');
 
-  return (
-    <Heading level={3} className="amplify-authenticator__heading">
-      {confirmSignUpHeading}
-    </Heading>
-  );
+  return <Heading level={4}>{confirmSignUpHeading}</Heading>;
 };
 
 ConfirmSignUp.Header = DefaultHeader;

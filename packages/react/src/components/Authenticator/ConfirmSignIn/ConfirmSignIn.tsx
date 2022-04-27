@@ -5,7 +5,6 @@ import {
   SignInState,
   translate,
 } from '@aws-amplify/ui';
-import classNames from 'classnames';
 
 import { Flex } from '../../../primitives/Flex';
 import { Heading } from '../../../primitives/Heading';
@@ -37,9 +36,11 @@ export const ConfirmSignIn = (): JSX.Element => {
       onChange={handleChange}
       onSubmit={handleSubmit}
     >
-      <fieldset
-        className={classNames('amplify-flex', 'amplify-authenticator__column')}
-        disabled={isPending}
+      <Flex
+        as="fieldset"
+        direction="column"
+        className="amplify-flex"
+        isDisabled={isPending}
       >
         <Header />
 
@@ -50,7 +51,7 @@ export const ConfirmSignIn = (): JSX.Element => {
 
         <ConfirmSignInFooter />
         <Footer />
-      </fieldset>
+      </Flex>
     </form>
   );
 };

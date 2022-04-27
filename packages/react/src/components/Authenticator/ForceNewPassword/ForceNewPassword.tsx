@@ -1,7 +1,7 @@
 import { translate } from '@aws-amplify/ui';
-import classNames from 'classnames';
 
 import { Button } from '../../../primitives/Button';
+import { Flex } from '../../../primitives/Flex';
 import { Heading } from '../../../primitives/Heading';
 import { Text } from '../../../primitives/Text';
 import { useAuthenticator } from '../hooks/useAuthenticator';
@@ -32,9 +32,11 @@ export const ForceNewPassword = (): JSX.Element => {
       onSubmit={handleSubmit}
       onBlur={handleBlur}
     >
-      <fieldset
-        className={classNames('amplify-flex', 'amplify-authenticator__column')}
-        disabled={isPending}
+      <Flex
+        as="fieldset"
+        className="amplify-flex"
+        direction="column"
+        isDisabled={isPending}
       >
         <Heading level={3}>{translate('Change Password')}</Heading>
 
@@ -63,7 +65,7 @@ export const ForceNewPassword = (): JSX.Element => {
         >
           {translate('Back to Sign In')}
         </Button>
-      </fieldset>
+      </Flex>
     </form>
   );
 };

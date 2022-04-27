@@ -1,5 +1,4 @@
 import { translate, hasTranslation } from '@aws-amplify/ui';
-import classNames from 'classnames';
 
 import { Button } from '../../../primitives/Button';
 import { Flex } from '../../../primitives/Flex';
@@ -35,18 +34,17 @@ export function SignIn() {
       >
         <FederatedSignIn />
         <Flex direction="column">
-          <fieldset
-            className={classNames(
-              'amplify-flex',
-              'amplify-authenticator__column'
-            )}
-            disabled={isPending}
+          <Flex
+            as="fieldset"
+            className="amplify-flex"
+            direction="column"
+            isDisabled={isPending}
           >
             <VisuallyHidden>
               <legend>{translate('Sign in')}</legend>
             </VisuallyHidden>
             <FormFields route="signIn" />
-          </fieldset>
+          </Flex>
 
           <RemoteErrorMessage />
 

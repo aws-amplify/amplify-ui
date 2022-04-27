@@ -1,5 +1,4 @@
 import { translate } from '@aws-amplify/ui';
-import classNames from 'classnames';
 
 import { Flex } from '../../../primitives/Flex';
 import { Heading } from '../../../primitives/Heading';
@@ -31,9 +30,11 @@ export const ResetPassword = (): JSX.Element => {
       onChange={handleChange}
       onSubmit={handleSubmit}
     >
-      <fieldset
-        className={classNames('amplify-flex', 'amplify-authenticator__column')}
-        disabled={isPending}
+      <Flex
+        as="fieldset"
+        className="amplify-flex"
+        direction="column"
+        isDisabled={isPending}
       >
         <Header />
 
@@ -54,7 +55,7 @@ export const ResetPassword = (): JSX.Element => {
           }
         />
         <Footer />
-      </fieldset>
+      </Flex>
     </form>
   );
 };
