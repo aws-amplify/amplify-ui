@@ -21,7 +21,10 @@ These docs are published at https://docs.amplify.aws/ui and powered by the follo
 yarn docs update:props-table
 ```
 
-_note:_ The above command doesn't update props table for `TextField`. To update `TextField` you need to reduce the type complexity by temporarily removing the type cast at the bottom of "packages/react/src/primitives/TextField/TextField.tsx" to the following, then run the above command.
+_note:_
+
+1. Props Tables are automatically built on `yarn build`.
+2. The above command doesn't update props table for `TextField`. To update `TextField` you need to reduce the type complexity by temporarily removing the type cast at the bottom of "packages/react/src/primitives/TextField/TextField.tsx" to the following, then run the above command.
 
 ```tsx
 export const TextField = React.forwardRef(TextFieldPrimitive);

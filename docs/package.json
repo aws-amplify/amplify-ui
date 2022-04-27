@@ -69,7 +69,6 @@
     "postcss": "^8.2.6",
     "react-docgen-typescript": "^2.2.2",
     "react-markdown": "^8.0.2",
-    "tailwindcss": "^2.0.3",
-    "typescript": "^4.2.2"
+    "tailwindcss": "^2.0.3"
   }
 }
