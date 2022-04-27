@@ -13,6 +13,7 @@
     "flutter:copy": "cp -r ./flutter/authenticator/build/web public/flutter/authenticator",
     "build": "next build",
     "lint": "next lint",
+    "prebuild": "yarn playroom:build",
     "postbuild": "npx next-sitemap",
     "start": "next start",
     "test": "$_ run build"
