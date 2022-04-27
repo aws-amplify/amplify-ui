@@ -4,6 +4,8 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "next dev -p 5000",
+    "playroom:start": "playroom start",
+    "playroom:build": "playroom build",
     "preflutter:build": "yarn flutter:clean",
     "flutter:build": "(cd flutter/authenticator && flutter build web)",
     "postflutter:build": "yarn flutter:copy",
@@ -55,6 +57,7 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "@swc/core": "^1.2.172",
     "@tailwindcss/forms": "^0.2.1",
     "@tailwindcss/typography": "^0.4.0",
     "@types/lodash": "^4.14.170",
@@ -63,7 +66,9 @@
     "autoprefixer": "^10.2.4",
     "eslint-config-next": "12.0.4",
     "json5-loader": "^4.0.1",
+    "playroom": "^0.28.0",
     "postcss": "^8.2.6",
+    "swc-loader": "^0.2.0",
     "tailwindcss": "^2.0.3"
   }
 }

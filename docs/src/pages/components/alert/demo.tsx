@@ -3,22 +3,7 @@ import { Alert } from '@aws-amplify/ui-react';
 import { Demo } from '@/components/Demo';
 import { AlertPropControls } from './AlertPropControls';
 import { useAlertProps } from './useAlertProps';
-
-const propsToCode = (props) => {
-  return (
-    `<Alert` +
-    (props.variation
-      ? `\n  variation=${JSON.stringify(props.variation)}`
-      : '') +
-    `
-  isDismissible={${props.isDismissible}}
-  hasIcon={${props.hasIcon}}
-  heading="${props.heading}"
-  >
-  ${props.body}
-</Alert>`
-  );
-};
+import { propsToCode } from './propsToCode';
 
 export const AlertDemo = () => {
   const alertProps = useAlertProps({

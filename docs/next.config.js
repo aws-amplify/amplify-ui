@@ -101,6 +101,11 @@ module.exports = withNextPluginPreval({
         destination: '/theming/:page*',
         permanent: false,
       },
+      {
+        source: '/playroom',
+        destination: '/playroom/index.html',
+        permanent: false,
+      },
     ];
   },
 
