@@ -22,7 +22,7 @@ export class ButtonComponent implements OnInit {
     if(this.variation){
       className += ` amplify-button--${this.variation}`;
     }
-    if(this.size){
+    if (this.size) {
       className += ` amplify-button--${this.size}`;
     }
     if (this.fullWidth) {
