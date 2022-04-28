@@ -1,5 +1,16 @@
 # @aws-amplify/ui-react
 
+## 2.15.7
+
+### Patch Changes
+
+- [#1762](https://github.com/aws-amplify/amplify-ui/pull/1762) [`cd710a07c`](https://github.com/aws-amplify/amplify-ui/commit/cd710a07c52c1db57899eaf3feba4fde52c08df2) Thanks [@jacoblogan](https://github.com/jacoblogan)! - remove inline styling from react authenticator
+
+* [#1786](https://github.com/aws-amplify/amplify-ui/pull/1786) [`4341b3862`](https://github.com/aws-amplify/amplify-ui/commit/4341b38621d0835219650fa579b1bd18c5dc5d82) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(ui-react): add graceful handling of falsy form field values in SetupTOTP component
+
+* Updated dependencies [[`cd710a07c`](https://github.com/aws-amplify/amplify-ui/commit/cd710a07c52c1db57899eaf3feba4fde52c08df2)]:
+  - @aws-amplify/ui@3.6.7
+
 ## 2.15.6
 
 ### Patch Changes
