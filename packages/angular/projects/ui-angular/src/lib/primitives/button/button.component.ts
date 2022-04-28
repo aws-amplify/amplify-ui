@@ -19,7 +19,7 @@ export class ButtonComponent implements OnInit {
 
   @HostBinding('class') get classNames() {
     let className = 'amplify-button';
-    if(this.variation){
+    if (this.variation) {
       className += ` amplify-button--${this.variation}`;
     }
     if (this.size) {
