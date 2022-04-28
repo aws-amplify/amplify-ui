@@ -15,7 +15,7 @@ export class ConfirmResetPasswordComponent {
   @Input() public headerText = translate('Reset your password');
 
   // translated strings
-  public sendCodeText = translate('Send Code');
+  public submitText = translate('Submit');
   public backToSignInText = translate('Back to Sign In');
   public resendCodeText = translate('Resend Code');
   public sortedFormFields: FormFieldsArray;
