@@ -59,15 +59,13 @@ export function ConfirmSignUp() {
       onChange={handleChange}
       onSubmit={handleSubmit}
     >
-      <fieldset
-        style={{ display: 'flex', flexDirection: 'column' }}
-        className="amplify-flex"
-        disabled={isPending}
-      >
+      <Flex as="fieldset" direction="column" isDisabled={isPending}>
         <Header />
 
         <Flex direction="column">
-          <Text style={{ marginBottom: '1rem' }}>{subtitleText}</Text>
+          <Text className="amplify-authenticator__subtitle">
+            {subtitleText}
+          </Text>
 
           <FormFields route="confirmSignUp" />
 
@@ -89,7 +87,7 @@ export function ConfirmSignUp() {
           </Button>
         </Flex>
         <Footer />
-      </fieldset>
+      </Flex>
     </form>
   );
 }
@@ -106,11 +104,7 @@ const DefaultHeader = () => {
       ? translate('We Texted You')
       : translate('We Sent A Code');
 
-  return (
-    <Heading level={3} style={{ fontSize: '1.5rem' }}>
-      {confirmSignUpHeading}
-    </Heading>
-  );
+  return <Heading level={4}>{confirmSignUpHeading}</Heading>;
 };
 
 ConfirmSignUp.Header = DefaultHeader;
