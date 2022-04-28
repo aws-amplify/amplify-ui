@@ -163,6 +163,7 @@ export const mergeVariantsAndOverrides = (
 };
 
 type Modifiers = string | number | null;
+
 /**
  * This helper function creates modifier class names that are used for our flat BEM styling
  * it takes in a base and modifier and returns the modified class if a modifier was passed in and null otherwise
