@@ -41,7 +41,7 @@ export const Provider = ({ children }) => {
    *
    * Leaving this as is for now in the interest of suggested code guideline.
    */
-  const service = useInterpret(createAuthenticatorMachine);
+  const service = useInterpret(createAuthenticatorMachine, { devTools: true });
   const currentProviderVal = { service };
 
   const value = isEmpty(parentProviderVal)
@@ -59,11 +59,11 @@ export const Provider = ({ children }) => {
     }
 
     isListening.current = true;
-    return listenToAuthHub(send);
+    return listenToAuthHub(send as any);
   }, [send]);
 
   return (
-    <AuthenticatorContext.Provider value={value}>
+    <AuthenticatorContext.Provider value={value as any}>
       {children}
     </AuthenticatorContext.Provider>
   );
@@ -105,7 +105,7 @@ const useAuthenticatorService = () => {
   return service;
 };
 
-export const useAuthenticator = (selector?: Selector) => {
+export const useAuthenticator = (selector?: Selector, debug = false) => {
   const service = useAuthenticatorService();
 
   const { send } = service;
@@ -174,12 +174,25 @@ export const useAuthenticator = (selector?: Selector) => {
     const prevDepsArray = selector(prevFacade);
     const nextDepsArray = selector(nextFacade);
 
+    if (debug) console.log(_prevState, nextState);
+
     // Shallow compare the array values
     // TODO: is there a reason to compare deep at the cost of expensive comparisons?
-    return areArrayValuesEqual(prevDepsArray, nextDepsArray);
+    const equal = areArrayValuesEqual(prevDepsArray, nextDepsArray);
+    console.log(equal);
+    return equal;
   };
 
-  const state = useSelector(service, xstateSelector, comparator);
+  const state = useSelector(
+    service,
+    xstateSelector,
+    comparator,
+    (interpreter) => {
+      console.log(interpreter.getSnapshot());
+      return interpreter.getSnapshot();
+    }
+  );
+  if (debug) console.log('state', state);
 
   return {
     ...getFacade(state),
