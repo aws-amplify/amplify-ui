@@ -24,6 +24,7 @@ export type AuthenticatorProps = AuthenticatorMachineOptions &
 function InitMachine({ children, ...data }) {
   // TODO: `INIT` event should be removed so that `_send` doesn't need to be extracted
   const { _send, route } = useAuthenticator((context) => [context.route]);
+
   const hasInitialized = React.useRef(false);
 
   React.useEffect(() => {
@@ -35,7 +36,6 @@ function InitMachine({ children, ...data }) {
       hasInitialized.current = true;
     }
   }, [_send, route, data]);
-
   return <>{children}</>;
 }
 
