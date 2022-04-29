@@ -133,12 +133,6 @@ export const useAuthenticator = (selector?: Selector) => {
    * re-render. Does a deep equality check.
    */
   const comparator = (
-    /**
-     * We do not use `_prevState`, because it holds a *reference* to actor
-     * object, of which value could easily mutate between compare calls.
-     *
-     * Instead, we'll use prevFacadeRef for comparison.
-     */
     prevFacade: ReturnType<typeof getFacade>,
     nextFacade: ReturnType<typeof getFacade>
   ) => {
