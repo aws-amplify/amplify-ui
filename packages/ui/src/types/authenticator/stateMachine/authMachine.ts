@@ -8,6 +8,8 @@ import { AuthEvent } from './event';
 
 /**
  * Intefrace for `authMachine` machine interpreter
+ *
+ * TODO: tighten up anys here
  */
 export type AuthInterpreter = Interpreter<
   AuthContext,
