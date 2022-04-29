@@ -26,3 +26,23 @@ You can use `AuthenticatorService` to access `route` string that represents the 
   <amplify-authenticator></amplify-authenticator>
 </ng-container>
 ```
+
+#### Authentication Check
+
+If you just need to check if you're authenticated or not, you can use the more straight forward `AuthenticatorService` to access the `authCheck` string. The `authCheck` string can represent the following states:
+
+- `pending`
+- `authenticated`
+- `unAuthenticated`
+
+```html
+<!-- Only render this if there's an authenticated user -->
+<ng-container *ngIf="authenticator.authCheck === 'authenticated'">
+  Welcome back!
+</ng-container>
+
+<!-- Render sign-in screen otherwise with authenticator -->
+<ng-container *ngIf="authenticator.authCheck !== 'authenticated'">
+  <amplify-authenticator></amplify-authenticator>
+</ng-container>
+```

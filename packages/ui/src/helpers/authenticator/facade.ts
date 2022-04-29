@@ -61,6 +61,7 @@ export const getServiceContextFacade = (state: AuthMachineState) => {
   const hasValidationErrors = Object.keys(validationErrors).length > 0;
   const isPending =
     state.hasTag('pending') || getActorState(state)?.hasTag('pending');
+
   const route = (() => {
     switch (true) {
       case state.matches('idle'):
@@ -100,11 +101,24 @@ export const getServiceContextFacade = (state: AuthMachineState) => {
     }
   })();
 
+  const authCheck = ((route) => {
+    switch (true) {
+      case route === 'idle':
+      case route === 'setup':
+        return 'pending';
+      case route === 'authenticated':
+        return 'authenticated';
+      default:
+        return 'unAuthenticated';
+    }
+  })(route);
+
   return {
     error,
     hasValidationErrors,
     isPending,
     route,
+    authCheck,
     user,
     validationErrors,
     codeDeliveryDetails,

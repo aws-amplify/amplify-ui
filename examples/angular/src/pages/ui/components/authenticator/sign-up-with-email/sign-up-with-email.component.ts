@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Amplify, Auth, I18n } from 'aws-amplify';
 import awsExports from './aws-exports';
-import { translations } from '@aws-amplify/ui-angular';
+import { AuthenticatorService, translations } from '@aws-amplify/ui-angular';
 
 @Component({
   selector: 'sign-up-with-email',
   templateUrl: 'sign-up-with-email.component.html',
 })
 export class SignUpWithEmailComponent implements OnInit {
-  constructor() {
+  constructor(public authenticator: AuthenticatorService) {
     Amplify.configure(awsExports);
   }
 
@@ -32,6 +32,10 @@ export class SignUpWithEmailComponent implements OnInit {
       },
     },
   };
+
+  get authCheck() {
+    return this.authenticator.authCheck;
+  }
 
   services = {
     async handleSignUp(formData: Record<string, any>) {
