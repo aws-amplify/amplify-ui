@@ -1,15 +1,15 @@
-import { useMemo } from 'react';
+import * as React from 'react';
 
-import { ConfirmSignIn } from '../ConfirmSignIn/ConfirmSignIn';
+import { useAuthenticator } from '../hooks/useAuthenticator';
 import { ConfirmSignUp } from '../ConfirmSignUp';
-import { ConfirmResetPassword, ResetPassword } from '../ResetPassword';
-import { ConfirmVerifyUser, VerifyUser } from '../VerifyUser';
 import { ForceNewPassword } from '../ForceNewPassword';
 import { SetupTOTP } from '../SetupTOTP';
 import { SignInSignUpTabs } from '../shared';
-
-import { useAuthenticator } from '../hooks';
+import { ConfirmVerifyUser, VerifyUser } from '../VerifyUser';
+import { ConfirmSignIn } from '../ConfirmSignIn/ConfirmSignIn';
+import { ConfirmResetPassword, ResetPassword } from '../ResetPassword';
 import { isSignInOrSignUpRoute } from '../utils';
+import { RouterProps } from './types';
 
 const getRouteComponent = (route: string) => {
   switch (route) {
@@ -44,9 +44,9 @@ const getRouteComponent = (route: string) => {
   }
 };
 
-export default function Router({ hideSignUp }: { hideSignUp: boolean }) {
+export function Router({ hideSignUp }: RouterProps) {
   const { route } = useAuthenticator(({ route }) => [route]);
-  const RouteComponent = useMemo(() => getRouteComponent(route), [route]);
+  const RouteComponent = React.useMemo(() => getRouteComponent(route), [route]);
 
   return (
     <RouteComponent

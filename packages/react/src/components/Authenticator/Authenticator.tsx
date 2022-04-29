@@ -1,52 +1,41 @@
 import * as React from 'react';
-import {
-  AuthenticatorMachineOptions,
-  AuthEventData,
-  CognitoUserAmplify,
-} from '@aws-amplify/ui';
+import { AuthenticatorMachineOptions } from '@aws-amplify/ui';
 
-import { AuthenticatorContainerProps } from './AuthenticatorContainer';
 import { Provider, useAuthenticator } from './hooks/useAuthenticator';
-import { CustomComponentsContext } from './hooks/useCustomComponents';
 import {
-  defaultComponents,
-  DefaultComponents,
-} from './hooks/useCustomComponents/defaultComponents';
-import { AuthenticatorContainer } from './AuthenticatorContainer';
-import { Router } from './Router';
+  CustomComponentsContext,
+  ComponentsProviderProps,
+} from './hooks/useCustomComponents';
+import {
+  Router,
+  RouterContainer,
+  RouterContainerProps,
+  RouterProps,
+} from './Router';
+import { SetupTOTP } from './SetupTOTP';
+import { SignIn } from './SignIn';
+import { SignUp } from './SignUp';
+import { ForceNewPassword } from './ForceNewPassword';
+import { ResetPassword } from './ResetPassword';
+import { defaultComponents } from './hooks/useCustomComponents/defaultComponents';
 
-type AuthenticatorChildren =
-  | React.ReactNode
-  | (({
-      signOut,
-      user,
-    }: {
-      signOut?: (data?: AuthEventData) => void;
-      user?: CognitoUserAmplify;
-    }) => JSX.Element);
+import {
+  AuthenticatorChildren,
+  AuthenticatorChildrenProps,
+} from './AuthenticatorChildren';
 
-export type AuthenticatorProps = {
-  children?: AuthenticatorChildren;
-  className?: AuthenticatorContainerProps['className'];
-  components?: DefaultComponents;
-  hideSignUp?: boolean;
-  variation?: AuthenticatorContainerProps['variation'];
-} & AuthenticatorMachineOptions;
+export type AuthenticatorProps = Partial<
+  AuthenticatorMachineOptions &
+    ComponentsProviderProps &
+    RouterContainerProps &
+    RouterProps &
+    Pick<AuthenticatorChildrenProps, 'authenticatedChildren'>
+>;
 
-interface InitMachineProps extends AuthenticatorMachineOptions {
-  authenticatorChildren: AuthenticatorChildren;
-  children: React.ReactNode;
-}
-// Helper component that sends init event to the parent provider
-function InitMachine({
-  authenticatorChildren,
-  children,
-  ...data
-}: InitMachineProps) {
+// Helper hook that sends init event to the parent provider
+function useInitMachine(data: AuthenticatorMachineOptions) {
   // TODO: `INIT` event should be removed so that `_send` doesn't need to be extracted
-  const { _send, route, signOut, user } = useAuthenticator(
-    ({ route, signOut, user }) => [route, signOut, user]
-  );
+  const { _send, route } = useAuthenticator(({ route }) => [route]);
 
   const hasInitialized = React.useRef(false);
   React.useEffect(() => {
@@ -56,54 +45,10 @@ function InitMachine({
       hasInitialized.current = true;
     }
   }, [_send, route, data]);
-
-  const isUnauthenticatedRoute = !(
-    route === 'authenticated' || route === 'signOut'
-  );
-
-  const ChildComponent: <P = unknown>(props?: P) => JSX.Element =
-    React.useMemo(() => {
-      if (isUnauthenticatedRoute) {
-        return () => <>{children}</>;
-      }
-
-      // `Authenticator` might not have user defined `authenticatorChildren` for non SPA use cases.
-      if (!authenticatorChildren) {
-        return null;
-      }
-
-      return () => (
-        <>
-          {typeof authenticatorChildren === 'function'
-            ? authenticatorChildren({ signOut, user }) // authenticatorChildren is a render prop
-            : authenticatorChildren}
-        </>
-      );
-    }, [
-      authenticatorChildren,
-      children,
-      isUnauthenticatedRoute,
-      signOut,
-      user,
-    ]);
-
-  return <ChildComponent />;
 }
 
-// use Authenticator namespace for both the component and the interface
-// to ensure that Typescript adds the correct properties on the component
-interface Authenticator {
-  (props: AuthenticatorProps): JSX.Element;
-  Provider?: ({ children }: { children: React.ReactNode }) => JSX.Element;
-  ForceNewPassword?: DefaultComponents['ForceNewPassword'];
-  ResetPassword?: DefaultComponents['ResetPassword'];
-  SetupTOTP?: DefaultComponents['SetupTOTP'];
-  SignIn?: DefaultComponents['SignIn'];
-  SignUp?: DefaultComponents['SignUp'];
-}
-
-export const Authenticator: Authenticator = ({
-  children: authenticatorChildren,
+export function Authenticator({
+  children: authenticatedChildren,
   className,
   components: customComponents,
   formFields,
@@ -114,29 +59,34 @@ export const Authenticator: Authenticator = ({
   services,
   socialProviders,
   variation,
-}) => {
+}: AuthenticatorProps) {
   const components = { ...defaultComponents, ...customComponents };
-  const machineProps = {
+
+  useInitMachine({
     formFields,
     initialState,
     loginMechanisms,
     services,
     signUpAttributes,
     socialProviders,
-  };
+  });
 
   return (
     <Provider>
-      <InitMachine
-        {...machineProps}
-        authenticatorChildren={authenticatorChildren}
-      >
-        <CustomComponentsContext.Provider value={{ components }}>
-          <AuthenticatorContainer className={className} variation={variation}>
+      <CustomComponentsContext.Provider value={{ components }}>
+        <AuthenticatorChildren authenticatedChildren={authenticatedChildren}>
+          <RouterContainer className={className} variation={variation}>
             <Router hideSignUp={hideSignUp} />
-          </AuthenticatorContainer>
-        </CustomComponentsContext.Provider>
-      </InitMachine>
+          </RouterContainer>
+        </AuthenticatorChildren>
+      </CustomComponentsContext.Provider>
     </Provider>
   );
-};
+}
+
+Authenticator.Provider = Provider;
+Authenticator.ResetPassword = ResetPassword;
+Authenticator.SetupTOTP = SetupTOTP;
+Authenticator.SignIn = SignIn;
+Authenticator.SignUp = SignUp;
+Authenticator.ForceNewPassword = ForceNewPassword;

@@ -160,3 +160,5 @@ export const useAuthenticator = (selector?: Selector) => {
     _send: send,
   };
 };
+
+export type UseAuthenticator = ReturnType<typeof useAuthenticator>;

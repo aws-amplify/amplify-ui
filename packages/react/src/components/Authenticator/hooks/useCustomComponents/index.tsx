@@ -2,12 +2,12 @@ import * as React from 'react';
 
 import { DefaultComponents } from './defaultComponents';
 
-interface CustomComponentsType {
+export interface ComponentsProviderProps {
   components?: DefaultComponents;
 }
 
 export const CustomComponentsContext =
-  React.createContext<CustomComponentsType>(null);
+  React.createContext<ComponentsProviderProps>(null);
 
 export const useCustomComponents = () => {
   const context = React.useContext(CustomComponentsContext);
