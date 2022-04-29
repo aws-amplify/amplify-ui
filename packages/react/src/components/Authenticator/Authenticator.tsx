@@ -26,7 +26,6 @@ function InitMachine({ children, ...data }) {
   const { _send, _state, route } = useAuthenticator((context) => [
     context.route,
   ]);
-  console.log(route, _state);
   const hasInitialized = React.useRef(false);
 
   React.useEffect(() => {
