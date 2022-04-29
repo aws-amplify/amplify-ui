@@ -121,12 +121,10 @@ export const useAuthenticator = (selector?: Selector) => {
   };
 
   /**
-   * For `useSelector`'s selector argument, we just return back the `state`.
-   * The reason is that whenever you select a specific value of the state, the
-   * hook will return *only* that selected value instead of the whole `state`.
+   * For `useSelector`'s selector argument, we transform `state` into
+   * public facade values using `getFacade`.
    *
-   * To provide a consistent set of facade, we let the `selector` trivially return
-   * itself and let comparator decide when to re-render.
+   * This is to hide the internal xstate implementation details to customers.
    */
   const xstateSelector = (state: AuthMachineState) => getFacade(state);
 
@@ -162,6 +160,10 @@ export const useAuthenticator = (selector?: Selector) => {
     service,
     xstateSelector,
     comparator,
+    /**
+     * Below parameter was needed to avoid "The result of getSnapshot should be
+     * cached to avoid an infinite loop" error on React 18
+     */
     (interpreter) => interpreter.getSnapshot()
   );
 
