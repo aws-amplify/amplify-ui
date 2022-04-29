@@ -105,7 +105,7 @@ const useAuthenticatorService = () => {
   return service;
 };
 
-export const useAuthenticator = (selector?: Selector, debug = false) => {
+export const useAuthenticator = (selector?: Selector) => {
   const service = useAuthenticatorService();
 
   const { send } = service;
@@ -153,9 +153,6 @@ export const useAuthenticator = (selector?: Selector, debug = false) => {
     const prevDepsArray = selector(prevFacade);
     const nextDepsArray = selector(nextFacade);
 
-    if (debug) console.log(prevFacade.route, nextFacade.route);
-    if (debug) console.log(prevDepsArray, nextDepsArray);
-
     // Shallow compare the array values
     // TODO: is there a reason to compare deep at the cost of expensive comparisons?
     return areArrayValuesEqual(prevDepsArray, nextDepsArray);
@@ -167,7 +164,6 @@ export const useAuthenticator = (selector?: Selector, debug = false) => {
     comparator,
     (interpreter) => interpreter.getSnapshot()
   );
-  if (debug) console.log('state', service.getSnapshot());
 
   return {
     ...facade,
