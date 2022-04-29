@@ -71,12 +71,12 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
   const iconClasses = classNames(
     ComponentClassNames.CheckboxIcon,
     classNameModifierByFlag(
-      ComponentClassNames.CheckboxButton,
+      ComponentClassNames.CheckboxIcon,
       'checked',
       dataChecked
     ),
     classNameModifierByFlag(
-      ComponentClassNames.CheckboxButton,
+      ComponentClassNames.CheckboxIcon,
       'disabled',
       isDisabled
     )
