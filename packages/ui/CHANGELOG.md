@@ -1,5 +1,11 @@
 # @aws-amplify/ui
 
+## 3.6.7
+
+### Patch Changes
+
+- [#1762](https://github.com/aws-amplify/amplify-ui/pull/1762) [`cd710a07c`](https://github.com/aws-amplify/amplify-ui/commit/cd710a07c52c1db57899eaf3feba4fde52c08df2) Thanks [@jacoblogan](https://github.com/jacoblogan)! - remove inline styling from react authenticator
+
 ## 3.6.6
 
 ### Patch Changes
