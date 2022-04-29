@@ -8,6 +8,7 @@ import {
   translate,
 } from '@aws-amplify/ui';
 
+import { Flex } from '../../../primitives/Flex';
 import { Heading } from '../../../primitives/Heading';
 import { Radio } from '../../../primitives/Radio';
 import { RadioGroupField } from '../../../primitives/RadioGroupField';
@@ -93,11 +94,7 @@ export const VerifyUser = (): JSX.Element => {
       onChange={handleChange}
       onSubmit={handleSubmit}
     >
-      <fieldset
-        style={{ display: 'flex', flexDirection: 'column' }}
-        className="amplify-flex"
-        disabled={isPending}
-      >
+      <Flex as="fieldset" direction="column" isDisabled={isPending}>
         <Header />
 
         {verificationRadioGroup}
@@ -110,7 +107,7 @@ export const VerifyUser = (): JSX.Element => {
           submitButtonText={footerSubmitText}
         />
         <Footer />
-      </fieldset>
+      </Flex>
     </form>
   );
 };
