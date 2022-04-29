@@ -9,7 +9,13 @@ import { AuthEvent } from './event';
 /**
  * Intefrace for `authMachine` machine interpreter
  */
-export type AuthInterpreter = Interpreter<AuthContext, any, AuthEvent, any>;
+export type AuthInterpreter = Interpreter<
+  AuthContext,
+  any,
+  AuthEvent,
+  any,
+  any
+>;
 
 /**
  * Function type for `send` in `authMachine`
