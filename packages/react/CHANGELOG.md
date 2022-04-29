@@ -1,5 +1,14 @@
 # @aws-amplify/ui-react
 
+## 2.15.8
+
+### Patch Changes
+
+- [#1798](https://github.com/aws-amplify/amplify-ui/pull/1798) [`331df831f`](https://github.com/aws-amplify/amplify-ui/commit/331df831fd7ddeb8c6f28b4cb385d23d1aa524be) Thanks [@wlee221](https://github.com/wlee221)! - fix(react): Add compatibility with React 18 `useSyncExternalStore` hook
+
+- Updated dependencies [[`331df831f`](https://github.com/aws-amplify/amplify-ui/commit/331df831fd7ddeb8c6f28b4cb385d23d1aa524be)]:
+  - @aws-amplify/ui@3.6.8
+
 ## 2.15.7
 
 ### Patch Changes
