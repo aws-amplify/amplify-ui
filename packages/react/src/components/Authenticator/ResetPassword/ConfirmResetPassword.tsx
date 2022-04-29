@@ -31,11 +31,7 @@ export const ConfirmResetPassword = (): JSX.Element => {
       onChange={handleChange}
       onBlur={handleBlur}
     >
-      <fieldset
-        style={{ display: 'flex', flexDirection: 'column' }}
-        className="amplify-flex"
-        disabled={isPending}
-      >
+      <Flex as="fieldset" direction="column" isDisabled={isPending}>
         <Header />
 
         <Flex direction="column">
@@ -48,7 +44,7 @@ export const ConfirmResetPassword = (): JSX.Element => {
           cancelButtonText={translate('Resend Code')}
         />
         <Footer />
-      </fieldset>
+      </Flex>
     </form>
   );
 };
