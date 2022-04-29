@@ -150,16 +150,7 @@ export const useAuthenticator = (selector?: Selector) => {
     return areArrayValuesEqual(prevDepsArray, nextDepsArray);
   };
 
-  const facade = useSelector(
-    service,
-    xstateSelector,
-    comparator,
-    /**
-     * Below parameter was needed to avoid "The result of getSnapshot should be
-     * cached to avoid an infinite loop" error on React 18
-     */
-    (interpreter) => interpreter.getSnapshot()
-  );
+  const facade = useSelector(service, xstateSelector, comparator);
 
   return {
     ...facade,
