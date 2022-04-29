@@ -41,7 +41,7 @@ export const Provider = ({ children }) => {
    *
    * Leaving this as is for now in the interest of suggested code guideline.
    */
-  const service = useInterpret(createAuthenticatorMachine, { devTools: true });
+  const service = useInterpret(createAuthenticatorMachine);
   const currentProviderVal = { service };
 
   const value = isEmpty(parentProviderVal)
@@ -59,11 +59,11 @@ export const Provider = ({ children }) => {
     }
 
     isListening.current = true;
-    return listenToAuthHub(send as any);
+    return listenToAuthHub(send);
   }, [send]);
 
   return (
-    <AuthenticatorContext.Provider value={value as any}>
+    <AuthenticatorContext.Provider value={value}>
       {children}
     </AuthenticatorContext.Provider>
   );
