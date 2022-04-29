@@ -128,13 +128,7 @@ export const useAuthenticator = (selector?: Selector, debug = false) => {
    * To provide a consistent set of facade, we let the `selector` trivially return
    * itself and let comparator decide when to re-render.
    */
-  const xstateSelector = (state: AuthMachineState) => state;
-
-  /**
-   * Holds a snapshot copy of last previous facade values. Will be used
-   * on state changes to see if any of facade values have changed.
-   */
-  const prevFacadeRef = React.useRef<ReturnType<typeof getFacade>>();
+  const xstateSelector = (state: AuthMachineState) => getFacade(state);
 
   /**
    * comparator decides whether or not the new authState should trigger a
@@ -147,25 +141,10 @@ export const useAuthenticator = (selector?: Selector, debug = false) => {
      *
      * Instead, we'll use prevFacadeRef for comparison.
      */
-    _prevState: AuthMachineState,
-    nextState: AuthMachineState
+    prevFacade: ReturnType<typeof getFacade>,
+    nextFacade: ReturnType<typeof getFacade>
   ) => {
     if (!selector) return false;
-
-    /**
-     * We only trigger re-render if any of values in specified selected
-     * values change. First compute the facade for prev and next state.
-     */
-    const prevFacade = prevFacadeRef.current;
-    const nextFacade = getFacade(nextState);
-
-    /**
-     * prevFacadeRef can now be updated with new facade values
-     */
-    prevFacadeRef.current = nextFacade;
-
-    // If this is the first time comparator is called, return false
-    if (!prevFacade) return false;
 
     /**
      * Apply the passed in `selector` to get the value of their desired
@@ -174,30 +153,26 @@ export const useAuthenticator = (selector?: Selector, debug = false) => {
     const prevDepsArray = selector(prevFacade);
     const nextDepsArray = selector(nextFacade);
 
-    if (debug) console.log(_prevState, nextState);
+    if (debug) console.log(prevFacade.route, nextFacade.route);
+    if (debug) console.log(prevDepsArray, nextDepsArray);
 
     // Shallow compare the array values
     // TODO: is there a reason to compare deep at the cost of expensive comparisons?
-    const equal = areArrayValuesEqual(prevDepsArray, nextDepsArray);
-    console.log(equal);
-    return equal;
+    return areArrayValuesEqual(prevDepsArray, nextDepsArray);
   };
 
-  const state = useSelector(
+  const facade = useSelector(
     service,
     xstateSelector,
     comparator,
-    (interpreter) => {
-      console.log(interpreter.getSnapshot());
-      return interpreter.getSnapshot();
-    }
+    (interpreter) => interpreter.getSnapshot()
   );
-  if (debug) console.log('state', state);
+  if (debug) console.log('state', service.getSnapshot());
 
   return {
-    ...getFacade(state),
+    ...facade,
     /** @deprecated For internal use only */
-    _state: state,
+    _state: service.getSnapshot(),
     /** @deprecated For internal use only */
     _send: send,
   };
