@@ -27,10 +27,9 @@ import {
 export type AuthenticatorProps = Partial<
   AuthenticatorMachineOptions &
     ComponentsProviderProps &
-    RouterContainerProps &
-    RouterProps &
-    Pick<AuthenticatorChildrenProps, 'authenticatedChildren'>
->;
+    Omit<RouterContainerProps, 'children'> &
+    RouterProps
+> & { children?: AuthenticatorChildrenProps['authenticatedChildren'] };
 
 // Helper hook that sends init event to the parent provider
 function useInitMachine(data: AuthenticatorMachineOptions) {

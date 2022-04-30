@@ -17,28 +17,11 @@ export function RouterContainer({
   className,
   variation = 'default',
 }: RouterContainerProps) {
-  const { route, signOut, user } = useAuthenticator(
-    ({ route, signOut, user }) => [route, signOut, user]
-  );
+  const { route } = useAuthenticator(({ route }) => [route]);
 
   const {
     components: { Header, Footer },
   } = useCustomComponents();
-
-  // `Authenticator` might not have `children` for non SPA use cases.
-  if (['authenticated', 'signOut'].includes(route)) {
-    if (!children) {
-      return null;
-    }
-
-    return (
-      <>
-        {typeof children === 'function'
-          ? children({ signOut, user }) // children is a render prop
-          : children}
-      </>
-    );
-  }
 
   return (
     <View
