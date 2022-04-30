@@ -1,5 +1,14 @@
 # @aws-amplify/ui-angular
 
+## 2.3.15
+
+### Patch Changes
+
+- [#1793](https://github.com/aws-amplify/amplify-ui/pull/1793) [`fcb73a957`](https://github.com/aws-amplify/amplify-ui/commit/fcb73a9578596dd5b48a493a71197e0bfefc6645) Thanks [@slaymance](https://github.com/slaymance)! - Update submit text for Angular ConfirmResetPassword screen
+
+- Updated dependencies [[`331df831f`](https://github.com/aws-amplify/amplify-ui/commit/331df831fd7ddeb8c6f28b4cb385d23d1aa524be)]:
+  - @aws-amplify/ui@3.6.8
+
 ## 2.3.14
 
 ### Patch Changes
