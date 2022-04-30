@@ -57,5 +57,7 @@ export type LivenessMachineState = State<LivenessContext, LivenessEvent>;
 export type LivenessInterpreter = Interpreter<
   LivenessContext,
   any,
-  LivenessEvent
+  LivenessEvent,
+  any,
+  any
 >;
