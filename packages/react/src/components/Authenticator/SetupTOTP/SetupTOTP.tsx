@@ -20,6 +20,9 @@ import { FormFields } from '../shared/FormFields';
 
 const logger = new Logger('SetupTOTP-logger');
 
+export const getTotpCode = (issuer: string, username: string, secret: string) =>
+  `otpauth://totp/${issuer}:${username}?secret=${secret}&issuer=${issuer}`;
+
 export const SetupTOTP = (): JSX.Element => {
   // TODO: handle `formOverrides` outside `useAuthenticator`
   const { _state, isPending } = useAuthenticator((context) => [
@@ -43,14 +46,14 @@ export const SetupTOTP = (): JSX.Element => {
 
   const { formFields, user } = actorState.context;
   const { totpIssuer = 'AWSCognito', totpUsername = user.username } =
-    formFields?.setupTOTP?.QR;
+    formFields?.setupTOTP?.QR ?? {};
 
   const generateQRCode = React.useCallback(
     async (currentUser: CognitoUserAmplify): Promise<void> => {
       try {
         const newSecretKey = await Auth.setupTOTP(currentUser);
         setSecretKey(newSecretKey);
-        const totpCode = `otpauth://totp/${totpIssuer}:${totpUsername}?secret=${newSecretKey}&issuer=${totpIssuer}`;
+        const totpCode = getTotpCode(totpIssuer, totpUsername, newSecretKey);
         const qrCodeImageSource = await QRCode.toDataURL(totpCode);
 
         setQrCode(qrCodeImageSource);
@@ -82,11 +85,7 @@ export const SetupTOTP = (): JSX.Element => {
       onChange={handleChange}
       onSubmit={handleSubmit}
     >
-      <fieldset
-        style={{ display: 'flex', flexDirection: 'column' }}
-        className="amplify-flex"
-        disabled={isPending}
-      >
+      <Flex as="fieldset" direction="column" isDisabled={isPending}>
         <Header />
 
         <Flex direction="column">
@@ -122,7 +121,7 @@ export const SetupTOTP = (): JSX.Element => {
 
         <ConfirmSignInFooter />
         <Footer />
-      </fieldset>
+      </Flex>
     </form>
   );
 };
