@@ -4,4 +4,4 @@
 '@aws-amplify/ui-vue': minor
 ---
 
-New authCheck feature, to check if a user is authenticated or not
+New authStatus feature, to check if a user is authenticated or not
