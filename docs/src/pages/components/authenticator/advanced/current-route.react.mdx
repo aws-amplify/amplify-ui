@@ -28,19 +28,19 @@ const App = () => {
 
 #### Authentication Check
 
-If you just need to check if you're authenticated or not, you can use the more straight forward `useAuthenticator` hook to access the `authCheck` string. The `authCheck` string can represent the following states:
+If you just need to check if you're authenticated or not, you can use the more straight forward `useAuthenticator` hook to access the `authStatus` string. The `authStatus` string can represent the following states:
 
 - `pending`
 - `authenticated`
-- `unAuthenticated`
+- `unauthenticated`
 
 ```tsx{1,4-7}
 import { useAuthenticator } from '@aws-amplify/ui-react';
 
 const App = () => {
-  const { authCheck } = useAuthenticator(context => [context.authCheck]);
+  const { authStatus } = useAuthenticator(context => [context.authStatus]);
 
   // Use the value of route to decide which page to render
-  return authCheck === 'authenticated' ? <Home /> : <Authenticator />;
+  return authStatus === 'authenticated' ? <Home /> : <Authenticator />;
 };
 ```

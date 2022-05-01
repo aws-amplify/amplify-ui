@@ -101,7 +101,7 @@ export const getServiceContextFacade = (state: AuthMachineState) => {
     }
   })();
 
-  const authCheck = ((route) => {
+  const authStatus = ((route) => {
     switch (true) {
       case route === 'idle':
       case route === 'setup':
@@ -109,7 +109,7 @@ export const getServiceContextFacade = (state: AuthMachineState) => {
       case route === 'authenticated':
         return 'authenticated';
       default:
-        return 'unAuthenticated';
+        return 'unauthenticated';
     }
   })(route);
 
@@ -118,7 +118,7 @@ export const getServiceContextFacade = (state: AuthMachineState) => {
     hasValidationErrors,
     isPending,
     route,
-    authCheck,
+    authStatus,
     user,
     validationErrors,
     codeDeliveryDetails,

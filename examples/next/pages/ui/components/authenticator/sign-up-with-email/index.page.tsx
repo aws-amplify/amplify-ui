@@ -30,7 +30,7 @@ I18n.putVocabulariesForLanguage('en', {
 });
 
 export default function AuthenticatorWithEmail() {
-  const { authCheck } = useAuthenticator((context) => [context.authCheck]);
+  const { authStatus } = useAuthenticator((context) => [context.authStatus]);
   const services = {
     async handleSignUp(formData) {
       let { username, password, attributes } = formData;
@@ -47,7 +47,7 @@ export default function AuthenticatorWithEmail() {
 
   return (
     <>
-      <View>{authCheck}</View>
+      <View>{authStatus}</View>
       <Authenticator
         formFields={formFields}
         services={services}

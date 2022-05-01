@@ -33,8 +33,8 @@ export class SignUpWithEmailComponent implements OnInit {
     },
   };
 
-  get authCheck() {
-    return this.authenticator.authCheck;
+  get authStatus() {
+    return this.authenticator.authStatus;
   }
 
   services = {

@@ -14,7 +14,7 @@ Feature: Sign Up with Email
   @angular @react @vue  
   Scenario: Sign up with a new email & password and check auth message
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"
-    And I see "unAuthenticated"
+    And I see "unauthenticated"
     When I type a new "email"
     And I type my password
     And I confirm my password

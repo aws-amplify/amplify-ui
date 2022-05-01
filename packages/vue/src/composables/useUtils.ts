@@ -5,7 +5,7 @@ export const facade = {
   hasValidationErrors: false,
   isPending: false,
   route: '',
-  authCheck: '',
+  authStatus: '',
   user: '',
   validationErrors: {
     val: '',
