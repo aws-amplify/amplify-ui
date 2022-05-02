@@ -237,6 +237,30 @@
     color: var(--amplify-internal-button-disabled-color);
     text-decoration: var(--amplify-internal-button-disabled-text-decoration);
     cursor: not-allowed;
+    &:hover {
+      background-color: var(
+        --amplify-internal-button-disabled-background-color
+      );
+      border-color: var(--amplify-internal-button-disabled-border-color);
+      color: var(--amplify-internal-button-disabled-color);
+      text-decoration: var(--amplify-internal-button-disabled-text-decoration);
+    }
+    :focus {
+      background-color: var(
+        --amplify-internal-button-disabled-background-color
+      );
+      border-color: var(--amplify-internal-button-disabled-border-color);
+      color: var(--amplify-internal-button-disabled-color);
+      text-decoration: var(--amplify-internal-button-disabled-text-decoration);
+    }
+    &:active {
+      background-color: var(
+        --amplify-internal-button-disabled-background-color
+      );
+      border-color: var(--amplify-internal-button-disabled-border-color);
+      color: var(--amplify-internal-button-disabled-color);
+      text-decoration: var(--amplify-internal-button-disabled-text-decoration);
+    }
   }
 
   &--loading {
@@ -244,6 +268,24 @@
     border-color: var(--amplify-internal-button-loading-border-color);
     color: var(--amplify-components-button-loading-color);
     text-decoration: var(--amplify-internal-button-loading-text-decoration);
+    &:hover {
+      background-color: var(--amplify-internal-button-loading-background-color);
+      border-color: var(--amplify-internal-button-loading-border-color);
+      color: var(--amplify-components-button-loading-color);
+      text-decoration: var(--amplify-internal-button-loading-text-decoration);
+    }
+    &:focus {
+      background-color: var(--amplify-internal-button-loading-background-color);
+      border-color: var(--amplify-internal-button-loading-border-color);
+      color: var(--amplify-components-button-loading-color);
+      text-decoration: var(--amplify-internal-button-loading-text-decoration);
+    }
+    &:active {
+      background-color: var(--amplify-internal-button-loading-background-color);
+      border-color: var(--amplify-internal-button-loading-border-color);
+      color: var(--amplify-components-button-loading-color);
+      text-decoration: var(--amplify-internal-button-loading-text-decoration);
+    }
   }
 
   &__loader-wrapper {
