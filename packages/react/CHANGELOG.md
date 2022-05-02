@@ -1,5 +1,34 @@
 # @aws-amplify/ui-react
 
+## 2.15.8
+
+### Patch Changes
+
+- [#1798](https://github.com/aws-amplify/amplify-ui/pull/1798) [`331df831f`](https://github.com/aws-amplify/amplify-ui/commit/331df831fd7ddeb8c6f28b4cb385d23d1aa524be) Thanks [@wlee221](https://github.com/wlee221)! - fix(react): Add compatibility with React 18 `useSyncExternalStore` hook
+
+- Updated dependencies [[`331df831f`](https://github.com/aws-amplify/amplify-ui/commit/331df831fd7ddeb8c6f28b4cb385d23d1aa524be)]:
+  - @aws-amplify/ui@3.6.8
+
+## 2.15.7
+
+### Patch Changes
+
+- [#1762](https://github.com/aws-amplify/amplify-ui/pull/1762) [`cd710a07c`](https://github.com/aws-amplify/amplify-ui/commit/cd710a07c52c1db57899eaf3feba4fde52c08df2) Thanks [@jacoblogan](https://github.com/jacoblogan)! - remove inline styling from react authenticator
+
+* [#1786](https://github.com/aws-amplify/amplify-ui/pull/1786) [`4341b3862`](https://github.com/aws-amplify/amplify-ui/commit/4341b38621d0835219650fa579b1bd18c5dc5d82) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(ui-react): add graceful handling of falsy form field values in SetupTOTP component
+
+* Updated dependencies [[`cd710a07c`](https://github.com/aws-amplify/amplify-ui/commit/cd710a07c52c1db57899eaf3feba4fde52c08df2)]:
+  - @aws-amplify/ui@3.6.7
+
+## 2.15.6
+
+### Patch Changes
+
+- [#1766](https://github.com/aws-amplify/amplify-ui/pull/1766) [`3a166e303`](https://github.com/aws-amplify/amplify-ui/commit/3a166e30326b6d6065b9bbf5ecf516e59e2c86b8) Thanks [@slaymance](https://github.com/slaymance)! - Support Pascal case for Amazon Location Service configuration block
+
+- Updated dependencies [[`84fd81868`](https://github.com/aws-amplify/amplify-ui/commit/84fd818689daa5220bfb55ebee7e280454e1c705), [`a9c5aa5f5`](https://github.com/aws-amplify/amplify-ui/commit/a9c5aa5f56c4d222cd8bd652d0fd549aea3576ef)]:
+  - @aws-amplify/ui@3.6.6
+
 ## 2.15.5
 
 ### Patch Changes

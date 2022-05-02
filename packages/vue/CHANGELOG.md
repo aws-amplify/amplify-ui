@@ -1,5 +1,26 @@
 # @aws-amplify/ui-vue
 
+## 2.3.15
+
+### Patch Changes
+
+- Updated dependencies [[`331df831f`](https://github.com/aws-amplify/amplify-ui/commit/331df831fd7ddeb8c6f28b4cb385d23d1aa524be)]:
+  - @aws-amplify/ui@3.6.8
+
+## 2.3.14
+
+### Patch Changes
+
+- Updated dependencies [[`cd710a07c`](https://github.com/aws-amplify/amplify-ui/commit/cd710a07c52c1db57899eaf3feba4fde52c08df2)]:
+  - @aws-amplify/ui@3.6.7
+
+## 2.3.13
+
+### Patch Changes
+
+- Updated dependencies [[`84fd81868`](https://github.com/aws-amplify/amplify-ui/commit/84fd818689daa5220bfb55ebee7e280454e1c705), [`a9c5aa5f5`](https://github.com/aws-amplify/amplify-ui/commit/a9c5aa5f56c4d222cd8bd652d0fd549aea3576ef)]:
+  - @aws-amplify/ui@3.6.6
+
 ## 2.3.12
 
 ### Patch Changes
