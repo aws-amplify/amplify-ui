@@ -47,16 +47,15 @@
       );
       color: var(--amplify-components-divider-label-color);
     }
-  }
+    &[aria-orientation='vertical'] {
+      flex-direction: column;
 
-  &--label[aria-orientation='vertical'] {
-    flex-direction: column;
-
-    &::after {
-      top: auto;
-      transform: translateX(-50%);
-      padding-block: 0;
-      padding-inline: 0;
+      &::after {
+        top: auto;
+        transform: translateX(-50%);
+        padding-block: 0;
+        padding-inline: 0;
+      }
     }
   }
 }

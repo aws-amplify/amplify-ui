@@ -14,7 +14,7 @@ const DividerPrimitive: Primitive<DividerProps, 'hr'> = (
     ComponentClassNames.Divider,
     classNameModifier(ComponentClassNames.Divider, orientation),
     classNameModifier(ComponentClassNames.Divider, size),
-    classNameModifier(ComponentClassNames.DividerLabel, label),
+    label ? ComponentClassNames.DividerLabel : null,
     className
   );
 
