@@ -12,9 +12,6 @@
   --amplify-internal-loader-linear-stroke-width: var(
     --amplify-components-loader-linear-stroke-width
   );
-  --amplify-internal-loader-linear-height: var(
-    --amplify-components-loader-linear-height
-  );
 
   circle:last-of-type {
     transform-origin: center center;
@@ -51,9 +48,6 @@
     height: var(--amplify-components-loader-small-height);
     font-size: var(--amplify-components-loader-small-font-size);
     // set the internal css variables for the small and linear state
-    --amplify-internal-loader-linear-height: var(
-      --amplify-components-loader-linear-small-height
-    );
     --amplify-internal-loader-linear-stroke-width: var(
       --amplify-components-loader-linear-small-stroke-width
     );
@@ -67,9 +61,6 @@
     height: var(--amplify-components-loader-large-height);
     font-size: var(--amplify-components-loader-large-font-size);
     // set the css variables for the large and linear state
-    --amplify-internal-loader-linear-height: var(
-      --amplify-components-loader-linear-large-height
-    );
     --amplify-internal-loader-linear-stroke-width: var(
       --amplify-components-loader-linear-large-stroke-width
     );
@@ -85,7 +76,6 @@
     stroke-linecap: var(--amplify-components-loader-linear-stroke-linecap);
     // use the internal css variables that have the small/large states set to them
     stroke-width: var(--amplify-internal-loader-linear-stroke-width);
-    height: var(--amplify-internal-loader-linear-height);
     font-size: var(--amplify-internal-loader-linear-font-size);
   }
 
