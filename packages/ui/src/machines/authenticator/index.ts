@@ -178,6 +178,7 @@ export function createAuthenticatorMachine() {
           },
         },
         authenticated: {
+          initial: 'idle',
           states: {
             idle: {
               on: {
