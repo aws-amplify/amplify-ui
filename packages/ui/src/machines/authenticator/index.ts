@@ -178,7 +178,26 @@ export function createAuthenticatorMachine() {
           },
         },
         authenticated: {
-          on: { SIGN_OUT: 'signOut' },
+          states: {
+            idle: {
+              on: {
+                TOKEN_REFRESH: 'refreshUser',
+              },
+            },
+            refreshUser: {
+              invoke: {
+                src: 'getCurrentUser',
+                onDone: {
+                  actions: 'setUser',
+                  target: 'idle',
+                },
+                onError: { target: '#authenticator.signOut' },
+              },
+            },
+          },
+          on: {
+            SIGN_OUT: '#authenticator.signOut',
+          },
         },
       },
       on: {
