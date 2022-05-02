@@ -49,7 +49,7 @@ describe('SetupTOTP', () => {
     );
 
     await act(async () => {
-      render(<SetupTOTP />);
+      render(<SetupTOTP className="className" variation="default" />);
     });
 
     expect(setupTOTPSpy).toHaveBeenCalledTimes(1);
@@ -75,7 +75,7 @@ describe('SetupTOTP', () => {
     );
 
     await act(async () => {
-      render(<SetupTOTP />);
+      render(<SetupTOTP className="className" variation="default" />);
     });
 
     expect(setupTOTPSpy).toHaveBeenCalledTimes(1);
