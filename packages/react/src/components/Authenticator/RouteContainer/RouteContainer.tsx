@@ -1,7 +1,7 @@
 import { View } from '../../../primitives/View';
 import { useAuthenticator } from '../hooks/useAuthenticator';
 import { useCustomComponents } from '../hooks/useCustomComponents';
-import { RouterContainerProps } from './types';
+import { RouteContainerProps } from './types';
 
 // TODO replace usage of this util with the `isSignInOrSignUpRoute` util in v3.
 // Currently `hasTabs` always returns `undefined` as the right condition always
@@ -12,11 +12,11 @@ const hasTabs = (route: string) => {
   return route === 'signIn' || 'signUp';
 };
 
-export function RouterContainer({
+export function RouteContainer({
   children,
   className,
   variation = 'default',
-}: RouterContainerProps) {
+}: RouteContainerProps) {
   const { route } = useAuthenticator(({ route }) => [route]);
 
   const {

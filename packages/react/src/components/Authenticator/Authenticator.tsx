@@ -6,12 +6,7 @@ import {
   CustomComponentsContext,
   ComponentsProviderProps,
 } from './hooks/useCustomComponents';
-import {
-  Router,
-  RouterContainer,
-  RouterContainerProps,
-  RouterProps,
-} from './Router';
+import { Router, RouterProps } from './Router';
 import { SetupTOTP } from './SetupTOTP';
 import { SignIn } from './SignIn';
 import { SignUp } from './SignUp';
@@ -19,20 +14,15 @@ import { ForceNewPassword } from './ForceNewPassword';
 import { ResetPassword } from './ResetPassword';
 import { defaultComponents } from './hooks/useCustomComponents/defaultComponents';
 
-import {
-  AuthenticatorChildren,
-  AuthenticatorChildrenProps,
-} from './AuthenticatorChildren';
-
 export type AuthenticatorProps = Partial<
-  AuthenticatorMachineOptions &
-    ComponentsProviderProps &
-    Omit<RouterContainerProps, 'children'> &
-    RouterProps
-> & { children?: AuthenticatorChildrenProps['authenticatedChildren'] };
+  AuthenticatorMachineOptions & ComponentsProviderProps & RouterProps
+>;
 
-// Helper hook that sends init event to the parent provider
-function useInitMachine(data: AuthenticatorMachineOptions) {
+// Helper component that sends init event to the parent provider
+function InitMachine({
+  children,
+  ...data
+}: AuthenticatorMachineOptions & { children: React.ReactNode }) {
   // TODO: `INIT` event should be removed so that `_send` doesn't need to be extracted
   const { _send, route } = useAuthenticator(({ route }) => [route]);
 
@@ -44,10 +34,12 @@ function useInitMachine(data: AuthenticatorMachineOptions) {
       hasInitialized.current = true;
     }
   }, [_send, route, data]);
+
+  return <>{children}</>;
 }
 
 export function Authenticator({
-  children: authenticatedChildren,
+  children,
   className,
   components: customComponents,
   formFields,
@@ -60,24 +52,26 @@ export function Authenticator({
   variation,
 }: AuthenticatorProps) {
   const components = { ...defaultComponents, ...customComponents };
-
-  useInitMachine({
-    formFields,
+  const machineProps = {
     initialState,
     loginMechanisms,
     services,
     signUpAttributes,
     socialProviders,
-  });
-
+    formFields,
+  };
   return (
     <Provider>
       <CustomComponentsContext.Provider value={{ components }}>
-        <AuthenticatorChildren authenticatedChildren={authenticatedChildren}>
-          <RouterContainer className={className} variation={variation}>
-            <Router hideSignUp={hideSignUp} />
-          </RouterContainer>
-        </AuthenticatorChildren>
+        <InitMachine {...machineProps}>
+          <Router
+            className={className}
+            hideSignUp={hideSignUp}
+            variation={variation}
+          >
+            {children}
+          </Router>
+        </InitMachine>
       </CustomComponentsContext.Provider>
     </Provider>
   );

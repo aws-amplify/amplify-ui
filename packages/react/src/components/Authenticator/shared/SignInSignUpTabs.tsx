@@ -5,19 +5,22 @@ import { TabItem, Tabs } from '../../../primitives/Tabs';
 import { View } from '../../../primitives/View';
 import { SignIn } from '../SignIn';
 import { SignUp } from '../SignUp';
+import { RouteContainer, RouteProps } from '../RouteContainer';
 
 export const SignInSignUpTabs = ({
+  className,
   hideSignUp,
+  variation,
 }: {
   hideSignUp: boolean;
-}): JSX.Element => {
+} & RouteProps): JSX.Element => {
   const { route, toSignIn, toSignUp } = useAuthenticator((context) => [
     context.route,
     context.toSignIn,
     context.toSignUp,
   ]);
   return (
-    <>
+    <RouteContainer className={className} variation={variation}>
       {hideSignUp ? (
         <View data-amplify-router-content="">
           {route === 'signIn' && <SignIn />}
@@ -42,6 +45,6 @@ export const SignInSignUpTabs = ({
           </TabItem>
         </Tabs>
       )}
-    </>
+    </RouteContainer>
   );
 };
