@@ -15,7 +15,11 @@ jest.mock('../../hooks/useAuthenticator', () => ({
 
 jest.mock('../../hooks/useCustomComponents', () => ({
   useCustomComponents: () => ({
-    components: { SetupTOTP: { Header: () => null, Footer: () => null } },
+    components: {
+      Header: () => null,
+      Footer: () => null,
+      SetupTOTP: { Header: () => null, Footer: () => null },
+    },
   }),
 }));
 
