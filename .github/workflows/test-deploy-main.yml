@@ -1,6 +1,6 @@
 # This workflow will run unit, e2e, and docs tests on commits to main.
 
-name: Test / main
+name: Test and Publish / main
 
 concurrency:
   group: e2e-${{ github.sha }}
@@ -8,11 +8,7 @@ concurrency:
 
 on:
   push:
-    branches: [main, ui-svelte/main, ui-geo/main]
-
-permissions:
-  pull-requests: write # used to remove label
-  # other permissions are defaulted to "none"
+    branches: [main]
 
 jobs:
   setup:
@@ -300,3 +296,66 @@ jobs:
           USERNAME: ${{ secrets.USERNAME }}
           NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
           VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+
+  publish:
+    needs: [e2e, docs]
+    runs-on: ubuntu-latest
+    environment: deployment
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Setup Node.js LTS
+        uses: actions/setup-node@v2
+        with:
+          node-version: lts/*
+          cache: 'yarn'
+      - name: Install and build packages
+        run: yarn --frozen-lockfile && yarn build
+      - name: Add changeset that bumps all public packages
+        # There needs to be a changeset for @aws-amplify/ui[-framework] to publish.
+        run: cp .github/changeset-presets/bump-versions.md .changeset
+      - name: Run changeset version to next tag
+        run: yarn version:next
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create .npmrc
+        run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Publish to next tag
+        run: yarn publish:next
+
+  build-test:
+    needs: publish
+    runs-on: ubuntu-latest
+    environment: ci
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Add Amplify CLI
+        run: yarn global add @aws-amplify/cli
+      - name: Get CLI versions
+        id: cli-version
+        run: echo "::set-output name=version::$(amplify --version)"
+      - name: Create or restore environments cache
+        id: environments-cache
+        uses: actions/cache@v2
+        with:
+          path: canary/environments/**/aws-exports.js
+          key: ${{ runner.os }}-canary-environments-${{ steps.cli-version.outputs.version }}-${{ hashFiles('canary/environments/**/amplify/**') }}
+      - name: Pull down AWS environments
+        if: steps.environments-cache.outputs.cache-hit != 'true'
+        run: yarn pull
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        working-directory: ./canary
+      - name: Setup canary apps against @next
+        run: yarn setup:next
+        working-directory: ./canary
+      - name: Run yarn install on each sample app
+        run: yarn install
+        working-directory: ./canary
+      - name: Run yarn build on each sample app
+        run: yarn build
+        working-directory: ./canary
