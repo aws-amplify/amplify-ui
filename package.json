@@ -72,7 +72,7 @@
     "@changesets/cli": "^2.16.0",
     "husky": ">=6",
     "lint-staged": ">=10",
-    "prettier": "2.4.1",
+    "prettier": "2.6.2",
     "rimraf": "^3.0.2",
     "tsup": "^5.11.9",
     "turbo": "^1.0.23",
