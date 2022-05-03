@@ -109,39 +109,33 @@ const categorizeProps = (displayName, props, wantedCategories) =>
   }, {});
 
 const createPropsTable = (props) => {
+  if (!props) return null;
   return {
     headers: ['Name', 'Type', 'Default', 'Description'],
-    rows: props
-      ? Object.values(props)
-          .map(({ name, type, defaultValue, description }) => ({
-            Name: name.replaceAll(/[{}]/g, '\\$&'),
-            Type: type.name.replaceAll(/[{}]/g, '\\$&'),
-            Default: defaultValue ? defaultValue.value.toString() : '-',
-            Description: description,
-          }))
-          .sort(({ Name: a }, { Name: b }) => a.localeCompare(b))
-      : [{ Name: '-', Type: '-', Default: '-', Description: '-' }],
+    rows: Object.values(props)
+      .map(({ name, type, defaultValue, description }) => ({
+        Name: name.replaceAll(/[{}]/g, '\\$&'),
+        Type: type.name.replaceAll(/[{}]/g, '\\$&'),
+        Default: defaultValue ? defaultValue.value.toString() : '-',
+        Description: description,
+      }))
+      .sort(({ Name: a }, { Name: b }) => a.localeCompare(b)),
   };
 };
 
 const createPropsTableExpander = (data, targetedCategories) =>
-  targetedCategories.reduce(
-    (acc, category) => [
-      ...acc,
-      {
-        ExpanderItem: {
-          title: category === 'Props' ? 'Amplify UI Props' : category,
-          value: category,
-          children: [
-            {
-              table: createPropsTable(data[category]),
-            },
-          ],
-        },
-      },
-    ],
-    []
-  );
+  targetedCategories.reduce((acc, category) => {
+    const table = createPropsTable(data[category]);
+    return table
+      ? acc.concat({
+          ExpanderItem: {
+            title: category === 'Props' ? 'Amplify UI Props' : category,
+            value: category,
+            children: [{ table }],
+          },
+        })
+      : acc;
+  }, []);
 
 json2md.converters.ExpanderItem = ({ title, value, children }, json2md) => `
 <ExpanderItem title="${title}" value="${value}">
