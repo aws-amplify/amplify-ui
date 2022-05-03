@@ -1,6 +1,11 @@
 import { Amplify, Auth, I18n } from 'aws-amplify';
 
-import { Authenticator, translations } from '@aws-amplify/ui-react';
+import {
+  Authenticator,
+  translations,
+  useAuthenticator,
+  View,
+} from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
 import awsExports from './aws-exports';
@@ -25,6 +30,7 @@ I18n.putVocabulariesForLanguage('en', {
 });
 
 export default function AuthenticatorWithEmail() {
+  const { authStatus } = useAuthenticator((context) => [context.authStatus]);
   const services = {
     async handleSignUp(formData) {
       let { username, password, attributes } = formData;
@@ -40,12 +46,15 @@ export default function AuthenticatorWithEmail() {
   };
 
   return (
-    <Authenticator
-      formFields={formFields}
-      services={services}
-      initialState="signUp"
-    >
-      {({ signOut }) => <button onClick={signOut}>Sign out</button>}
-    </Authenticator>
+    <>
+      <View>{authStatus}</View>
+      <Authenticator
+        formFields={formFields}
+        services={services}
+        initialState="signUp"
+      >
+        {({ signOut }) => <button onClick={signOut}>Sign out</button>}
+      </Authenticator>
+    </>
   );
 }

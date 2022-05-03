@@ -13,7 +13,7 @@ When('I press the enter key', () => {
 });
 
 When('I click on a map marker', () => {
-  cy.get('.maplibregl-marker').first().click();
+  cy.get('.maplibregl-marker').first().click({ force: true });
 });
 
 Then('I see markers equal to my default search results', () => {
