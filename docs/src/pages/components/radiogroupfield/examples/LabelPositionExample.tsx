@@ -2,7 +2,7 @@ import { Radio, RadioGroupField, Flex } from '@aws-amplify/ui-react';
 
 export const LabelPositionExample = () => (
   <Flex direction="row">
-    <RadioGroupField label="Language" name="language" defaultValue="html">
+    <RadioGroupField label="Language" name="language3" defaultValue="html">
       <Radio value="html">html</Radio>
       <Radio value="css">css</Radio>
       <Radio value="javascript">javascript</Radio>
@@ -10,7 +10,7 @@ export const LabelPositionExample = () => (
 
     <RadioGroupField
       label="Language"
-      name="language"
+      name="language4"
       defaultValue="html"
       labelPosition="start"
     >
@@ -21,7 +21,7 @@ export const LabelPositionExample = () => (
 
     <RadioGroupField
       label="Language"
-      name="language"
+      name="language5"
       defaultValue="html"
       labelPosition="start"
     >

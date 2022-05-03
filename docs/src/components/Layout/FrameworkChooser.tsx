@@ -46,6 +46,7 @@ export const FrameworkChooser = ({ platform }) => {
       <ToggleButton
         value="react"
         size="small"
+        title="React"
         padding={{ base: '4px', medium: undefined }}
       >
         <VisuallyHidden>React</VisuallyHidden>
@@ -59,6 +60,7 @@ export const FrameworkChooser = ({ platform }) => {
       <ToggleButton
         value="angular"
         size="small"
+        title="Angular"
         padding={{ base: '4px', medium: undefined }}
       >
         <VisuallyHidden>Angular</VisuallyHidden>
@@ -72,6 +74,7 @@ export const FrameworkChooser = ({ platform }) => {
       <ToggleButton
         value="vue"
         size="small"
+        title="Vue"
         padding={{ base: '4px', medium: undefined }}
       >
         <VisuallyHidden>Vue</VisuallyHidden>
@@ -85,6 +88,7 @@ export const FrameworkChooser = ({ platform }) => {
       <ToggleButton
         value="flutter"
         size="small"
+        title="Flutter"
         padding={{ base: '4px', medium: undefined }}
       >
         <VisuallyHidden>Flutter</VisuallyHidden>
