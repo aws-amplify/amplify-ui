@@ -82,8 +82,5 @@
     "turbo": "^1.0.23",
     "typescript": "^4.6.3",
     "wait-on": "^6.0.0"
-  },
-  "lint-staged": {
-    "*.{ts,tsx,js,css,md,mdx}": "prettier --write"
   }
 }

@@ -2,7 +2,8 @@ import isEmpty from 'lodash/isEmpty';
 import isArray from 'lodash/isArray';
 import isObject from 'lodash/isObject';
 
-export const isDevelopment = () => process.env.NODE_ENV !== 'production';
+export const isDevelopment = (): boolean =>
+  process.env.NODE_ENV !== 'production';
 
 const isEmptyObj = (val: any) => isObject(val) && isEmpty(val);
 
@@ -12,7 +13,10 @@ const isEmptyArr = (val: any) => isArray(val) && isEmpty(val);
  * Does a comparison of each array value, plus a value equality check for empty
  * objects and arrays.
  */
-export const areArrayValuesEqual = (arr1: unknown[], arr2: unknown[]) => {
+export const areArrayValuesEqual = (
+  arr1: unknown[],
+  arr2: unknown[]
+): boolean => {
   if (arr1.length !== arr2.length) return false;
   return arr1.every((elem1, index) => {
     const elem2 = arr2[index];
@@ -60,13 +64,13 @@ export const toErrorWithMessage = (maybeError: unknown): ErrorWithMessage => {
   }
 };
 
-export const getErrorMessage = (error: unknown) => {
+export const getErrorMessage = (error: unknown): string => {
   return toErrorWithMessage(error).message;
 };
 
 export const getFormDataFromEvent = (
   event: React.FormEvent<HTMLFormElement>
-) => {
+): { [k: string]: FormDataEntryValue } => {
   const formData = new FormData(event.target as HTMLFormElement);
   return Object.fromEntries(formData);
 };
