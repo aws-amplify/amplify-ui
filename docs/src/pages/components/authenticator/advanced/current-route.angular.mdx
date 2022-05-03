@@ -31,15 +31,15 @@ You can use `AuthenticatorService` to access `route` string that represents the 
 
 If you just need to check if you're authenticated or not, you can use the more straightforward `AuthenticatorService` to access the `authStatus` string. The `authStatus` string can represent the following states:
 
-- `pending`
+- `configuring`
 - `authenticated`
 - `unauthenticated`
 
-> The `pending` state only occurs when the `Authenticator` is first loading.
+> The `configuring` state only occurs when the `Authenticator` is first loading.
 
 ```html
-<!-- Render loading if authStatus is still pending  -->
-<ng-container *ngIf="authenticator.authStatus === 'pending'">
+<!-- Render loading if authStatus is still configuring  -->
+<ng-container *ngIf="authenticator.authStatus === 'configuring'">
   Loading...
 </ng-container>
 
