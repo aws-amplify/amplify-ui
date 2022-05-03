@@ -26,7 +26,7 @@ export type AuthenticatorContextValue = {
 export const AuthenticatorContext: React.Context<AuthenticatorContextValue> =
   React.createContext({});
 
-export const Provider = ({ children }) => {
+export const Provider = ({ children }: { children: React.ReactNode }) => {
   /**
    * Based on use cases, developer might already have added another Provider
    * outside Authenticator. In that case, we sync the two providers by just
@@ -160,3 +160,5 @@ export const useAuthenticator = (selector?: Selector) => {
     _send: send,
   };
 };
+
+export type UseAuthenticator = ReturnType<typeof useAuthenticator>;
