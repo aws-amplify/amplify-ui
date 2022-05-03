@@ -62,6 +62,7 @@ export const getServiceContextFacade = (state: AuthMachineState) => {
   const isPending =
     state.hasTag('pending') || getActorState(state)?.hasTag('pending');
 
+  // Any additional idle states, (idle, setup, etc) should be updated inside the authStatus below
   const route = (() => {
     switch (true) {
       case state.matches('idle'):
@@ -101,12 +102,14 @@ export const getServiceContextFacade = (state: AuthMachineState) => {
     }
   })();
 
+  // Auth status represents the current state of the auth flow
+  // The `pending` state is used to indicate when the xState machine, or Authenticate is being setup
   const authStatus = ((route) => {
-    switch (true) {
-      case route === 'idle':
-      case route === 'setup':
+    switch (route) {
+      case 'idle':
+      case 'setup':
         return 'pending';
-      case route === 'authenticated':
+      case 'authenticated':
         return 'authenticated';
       default:
         return 'unauthenticated';

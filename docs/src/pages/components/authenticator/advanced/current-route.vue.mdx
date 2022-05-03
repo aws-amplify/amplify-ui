@@ -31,11 +31,13 @@ You can use `useAuthenticator` composable to access `route` string that represen
 
 #### Authentication Check
 
-If you just need to check if you're authenticated or not, you can use the more straight forward `useAuthenticator` composable to access the `authStatus` string. The `authStatus` string can represent the following states:
+If you just need to check if you're authenticated or not, you can use the more straightforward `useAuthenticator` composable to access the `authStatus` string. The `authStatus` string can represent the following states:
 
 - `pending`
 - `authenticated`
 - `unauthenticated`
+
+> The `pending` state only occurs when the `Authenticator` is first loading.
 
 ```html{1,5-7}
 <script setup>
@@ -45,6 +47,9 @@ If you just need to check if you're authenticated or not, you can use the more s
 
 <template>
   <authenticator></authenticator>
+  <template v-if="auth.authStatus === 'pending'">
+    <button @click="auth.signOut">Loading...</button>
+  </template>
   <template v-if="auth.authStatus === 'authenticated'">
     <button @click="auth.signOut">Sign out</button>
   </template>
