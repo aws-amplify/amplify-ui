@@ -29,7 +29,7 @@ const options = ['html', 'css', 'javascript'];
 
 export const ThemeExample = () => (
   <AmplifyProvider theme={theme}>
-    <RadioGroupField label="Language" name="language" defaultValue="html">
+    <RadioGroupField label="Language" name="language6" defaultValue="html">
       {options.map((option) => (
         <Radio key={option} value={option}>
           {option}
