@@ -74,10 +74,7 @@ const submit = (e: Event): void => {
             {{ translate(error) }}
           </base-alert>
           <amplify-button
-            class="
-              amplify-field-group__control
-              amplify-authenticator__font amplify-authenticator__sign-in-button
-            "
+            class="amplify-field-group__control amplify-authenticator__font"
             data-fullwidth="true"
             data-loading="false"
             data-variation="primary"

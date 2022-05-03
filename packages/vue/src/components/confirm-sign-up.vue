@@ -93,12 +93,7 @@ const onLostCodeClicked = (): void => {
             <base-form-fields route="confirmSignUp"></base-form-fields>
           </base-field-set>
 
-          <base-footer
-            class="
-              amplify-flex
-              amplify-authenticator__column amplify-authenticator__footer
-            "
-          >
+          <base-footer class="amplify-flex amplify-authenticator__column">
             <base-alert v-if="error">
               {{ translate(error) }}
             </base-alert>
