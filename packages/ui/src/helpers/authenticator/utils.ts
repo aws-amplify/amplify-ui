@@ -3,7 +3,7 @@
  * implementations can use.
  */
 
-import { Hub, Logger } from 'aws-amplify';
+import { Hub } from 'aws-amplify';
 import { AuthMachineSend } from '../../types';
 
 // replaces all characters in a string with '*', except for the first and last char
