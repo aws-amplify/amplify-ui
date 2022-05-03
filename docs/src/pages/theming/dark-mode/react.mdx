@@ -1,3 +1,45 @@
-```jsx file=./darkMode.tsx
+import { Example, ExampleCode } from '@/components/Example';
 
+import {
+  DefaultDarkMode,
+  SystemDarkModeExample,
+  CustomDarkModeExample,
+} from './examples';
+
+## Default Dark Mode
+
+Amplify UI comes with a default dark mode that you can use.
+
+_Note: the Amplify UI theme and any overrides like dark mode are scoped to the AmplifyProvider. Changing the color mode in the example will only affect the example code._
+
+<Example>
+  <DefaultDarkMode />
+
+  <ExampleCode>```jsx file=./examples/DefaultDarkMode.tsx ```</ExampleCode>
+</Example>
+
+## System Dark Mode
+
+If you don't want to provide a color mode control on your application, but still want to honor the user's operating system preference for color mode, you can set the `colorMode` on the AmplifyProvider to `system` and either use the default dark mode override or provide your own.
+
+_Note: to see dark mode applied, change your OS preferences_
+
+<Example>
+  <SystemDarkModeExample />
+
+  <ExampleCode>```jsx file=./examples/SystemDarkMode.tsx ```</ExampleCode>
+</Example>
+
+## CSS
+
+```css
+@media (prefers-color-scheme: dark) {
+  [data-amplify-color-mode='system'] {
+    --amplify-colors-background-primary: black;
+  }
+}
+
+[data-amplify-color-mode='dark'] {
+  --amplify-colors-background-primary: black;
+}
 ```
