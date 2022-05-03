@@ -10,6 +10,7 @@ import { SwitchPropControls } from './SwitchPropControls';
 import { useSwitchProps } from './useSwitchProps';
 import { Demo } from '@/components/Demo';
 import { Example } from '@/components/Example';
+import { demoState } from '@/utils/demoState';
 
 const propsToCode = (props: SwitchFieldProps) => {
   return (
@@ -42,12 +43,20 @@ const propsToCode = (props: SwitchFieldProps) => {
   );
 };
 
+const defaultSwitchProps = {
+  isDisabled: false,
+  size: '',
+  label: 'SwitchField',
+  labelPosition: 'start',
+};
+
 export const SwitchDemo = () => {
-  const switchProps = useSwitchProps({
-    isDisabled: false,
-    size: '',
-    label: 'SwitchField',
-    labelPosition: 'start',
+  const switchProps = useSwitchProps(
+    demoState.get(SwitchField.displayName) || defaultSwitchProps
+  );
+
+  React.useEffect(() => {
+    demoState.set(SwitchField.displayName, switchProps);
   });
 
   return (

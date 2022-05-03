@@ -4,6 +4,7 @@ import { Tabs, TabItem, Flex, Button, View } from '@aws-amplify/ui-react';
 import { Demo } from '@/components/Demo';
 import { TabsPropControls } from './TabsPropControls';
 import { useTabsProps } from './useTabsProps';
+import { demoState } from '@/utils/demoState';
 
 const propsToCode = (props) => {
   return (
@@ -46,11 +47,19 @@ const demoChildren = [
   </TabItem>,
 ];
 
+const defaultTabsProps = {
+  currentIndex: 0,
+  justifyContent: 'flex-start',
+  children: demoChildren,
+};
+
 export const TabsDemo = () => {
-  const tabsProps = useTabsProps({
-    currentIndex: 0,
-    justifyContent: 'flex-start',
-    children: demoChildren,
+  const tabsProps = useTabsProps(
+    demoState.get(Tabs.displayName) || defaultTabsProps
+  );
+
+  React.useEffect(() => {
+    demoState.set(Tabs.displayName, tabsProps);
   });
 
   return (

@@ -4,6 +4,7 @@ import { Loader, LoaderProps } from '@aws-amplify/ui-react';
 import { Demo } from '@/components/Demo';
 import { useLoaderProps } from './useLoaderProps';
 import { LoaderPropControls } from './LoaderPropControls';
+import { demoState } from '@/utils/demoState';
 
 const propsToCode = (props: LoaderProps) => {
   return (
@@ -19,8 +20,17 @@ const propsToCode = (props: LoaderProps) => {
   );
 };
 
+const defaultLoaderProps = {};
+
 export const LoaderDemo = () => {
-  const props = useLoaderProps({});
+  const props = useLoaderProps(
+    demoState.get(Loader.displayName) || defaultLoaderProps
+  );
+
+  React.useEffect(() => {
+    demoState.set(Loader.displayName, props);
+  });
+
   return (
     <Demo
       code={propsToCode(props)}

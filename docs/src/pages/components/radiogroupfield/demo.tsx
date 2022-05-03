@@ -8,6 +8,7 @@ import {
 import { Demo } from '@/components/Demo';
 import { RadioGroupFieldPropControls } from './RadioGroupFieldPropControls';
 import { useRadioGroupFieldProps } from './useRadioGroupFieldProps';
+import { demoState } from '@/utils/demoState';
 
 const propsToCode = ({
   label,
@@ -35,11 +36,19 @@ const propsToCode = ({
   );
 };
 
+const defaultRadioGroupFieldProps = {
+  label: 'Language',
+  name: 'language',
+  defaultValue: 'html',
+};
+
 export const RadioGroupFieldDemo = () => {
-  const props = useRadioGroupFieldProps({
-    label: 'Language',
-    name: 'language',
-    defaultValue: 'html',
+  const props = useRadioGroupFieldProps(
+    demoState.get(RadioGroupField.displayName) || defaultRadioGroupFieldProps
+  );
+
+  React.useEffect(() => {
+    demoState.set(RadioGroupField.displayName, props);
   });
 
   return (

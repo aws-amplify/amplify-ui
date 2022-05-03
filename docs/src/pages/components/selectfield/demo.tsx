@@ -4,6 +4,7 @@ import { SelectField } from '@aws-amplify/ui-react';
 import { useSelectFieldProps } from './useSelectFieldProps';
 import { SelectFieldPropControls } from './SelectFieldPropControls';
 import { Demo } from '@/components/Demo';
+import { demoState } from '@/utils/demoState';
 
 const propsToCode = (selectFieldProps) => {
   return (
@@ -36,12 +37,20 @@ const propsToCode = (selectFieldProps) => {
   );
 };
 
+const defaultSelectFieldProps = {
+  descriptiveText: "What's your favorite fruit?",
+  hasError: false,
+  label: 'Fruit',
+  labelHidden: false,
+};
+
 export const SelectFieldDemo = () => {
-  const selectFieldProps = useSelectFieldProps({
-    descriptiveText: "What's your favorite fruit?",
-    hasError: false,
-    label: 'Fruit',
-    labelHidden: false,
+  const selectFieldProps = useSelectFieldProps(
+    demoState.get(SelectField.displayName) || defaultSelectFieldProps
+  );
+
+  React.useEffect(() => {
+    demoState.set(SelectField.displayName, selectFieldProps);
   });
 
   return (

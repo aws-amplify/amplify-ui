@@ -3,6 +3,7 @@ import { Divider, Flex, Text } from '@aws-amplify/ui-react';
 import { DividerPropControls } from './DividerPropControls';
 import { useDividerProps } from './useDividerProps';
 import { Demo } from '@/components/Demo';
+import { demoState } from '@/utils/demoState';
 
 const propsToCode = (props) => {
   return (
@@ -18,12 +19,20 @@ const propsToCode = (props) => {
   );
 };
 
+const defaultDividerProps = {
+  orientation: 'horizontal',
+};
+
 export const DividerDemo = () => {
-  const dividerProps = useDividerProps({
-    orientation: 'horizontal',
-  });
+  const dividerProps = useDividerProps(
+    demoState.get(Divider.displayName) || defaultDividerProps
+  );
   const direction =
     dividerProps.orientation === 'horizontal' ? 'column' : 'row';
+
+  React.useEffect(() => {
+    demoState.set(Divider.displayName, dividerProps);
+  });
 
   return (
     <Demo

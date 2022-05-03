@@ -4,6 +4,7 @@ import { Expander, ExpanderItem } from '@aws-amplify/ui-react';
 import { ExpanderPropControls } from './ExpanderPropControls';
 import { useExpanderProps } from './useExpanderProps';
 import { Demo } from '@/components/Demo';
+import { demoState } from '@/utils/demoState';
 
 const propsToCode = (expanderProps) => {
   return (
@@ -29,10 +30,18 @@ const propsToCode = (expanderProps) => {
   );
 };
 
+const defaultExpanderProps = {
+  type: 'single',
+  isCollapsible: false,
+};
+
 export const ExpanderDemo = () => {
-  const expanderProps = useExpanderProps({
-    type: 'single',
-    isCollapsible: false,
+  const expanderProps = useExpanderProps(
+    demoState.get(Expander.displayName) || defaultExpanderProps
+  );
+
+  React.useEffect(() => {
+    demoState.set(Expander.displayName, expanderProps);
   });
 
   return (

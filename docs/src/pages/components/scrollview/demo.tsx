@@ -1,8 +1,9 @@
+import * as React from 'react';
 import { Image, ScrollView, ScrollViewProps } from '@aws-amplify/ui-react';
-
 import { Demo } from '@/components/Demo';
 import { useScrollViewProps } from './useScrollViewProps';
 import { ScrollViewPropControls } from './ScrollViewPropControls';
+import { demoState } from '@/utils/demoState';
 
 const propsToCode = (props: ScrollViewProps) => {
   return `<ScrollView
@@ -19,8 +20,17 @@ const propsToCode = (props: ScrollViewProps) => {
 </ScrollView>`;
 };
 
+const defaultScrollViewProps = { orientation: 'horizontal' };
+
 export const ScrollViewDemo = () => {
-  const scrollViewProps = useScrollViewProps({ orientation: 'horizontal' });
+  const scrollViewProps = useScrollViewProps(
+    demoState.get(ScrollView.displayName) || defaultScrollViewProps
+  );
+
+  React.useEffect(() => {
+    demoState.set(ScrollView.displayName, scrollViewProps);
+  });
+
   return (
     <Demo
       code={propsToCode(scrollViewProps)}

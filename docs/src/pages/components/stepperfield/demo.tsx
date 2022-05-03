@@ -8,6 +8,7 @@ import {
   StepperFieldPropControlsProps,
 } from './StepperFieldPropControls';
 import { useStepperFieldProps } from './useStepperFieldProps';
+import { demoState } from '@/utils/demoState';
 
 const propsToCode = (props: StepperFieldPropControlsProps) => {
   return (
@@ -27,13 +28,21 @@ const propsToCode = (props: StepperFieldPropControlsProps) => {
   );
 };
 
+const defaultStepperFieldProps = {
+  label: 'Stepper',
+  defaultValue: 0,
+  min: 0,
+  max: 10,
+  step: 1,
+};
+
 export const StepperFieldDemo = () => {
-  const stepperFieldProps = useStepperFieldProps({
-    label: 'Stepper',
-    defaultValue: 0,
-    min: 0,
-    max: 10,
-    step: 1,
+  const stepperFieldProps = useStepperFieldProps(
+    demoState.get(StepperField.displayName) || defaultStepperFieldProps
+  );
+
+  React.useEffect(() => {
+    demoState.set(StepperField.displayName, stepperFieldProps);
   });
 
   return (

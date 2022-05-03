@@ -4,6 +4,7 @@ import { useRatingProps } from './useRatingProps';
 
 import { Rating } from '@aws-amplify/ui-react';
 import { Demo } from '@/components/Demo';
+import { demoState } from '@/utils/demoState';
 
 const propsToCode = (props) => {
   return (
@@ -18,12 +19,20 @@ const propsToCode = (props) => {
   );
 };
 
+const defaultRatingProps = {
+  value: 2,
+  maxValue: 5,
+  fillColor: 'hsl(300, 95%, 30%)',
+  emptyColor: 'hsl(210, 5%, 94%)',
+};
+
 export const RatingDemo = () => {
-  const ratingProps = useRatingProps({
-    value: 2,
-    maxValue: 5,
-    fillColor: 'hsl(300, 95%, 30%)',
-    emptyColor: 'hsl(210, 5%, 94%)',
+  const ratingProps = useRatingProps(
+    demoState.get(Rating.displayName) || defaultRatingProps
+  );
+
+  React.useEffect(() => {
+    demoState.set(Rating.displayName, ratingProps);
   });
 
   return (

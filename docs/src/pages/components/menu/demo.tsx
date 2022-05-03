@@ -4,6 +4,7 @@ import { Divider, Menu, MenuItem } from '@aws-amplify/ui-react';
 import { Demo } from '@/components/Demo';
 import { MenuPropControls, MenuPropControlsProps } from './MenuPropControls';
 import { useMenuProps } from './useMenuProps';
+import { demoState } from '@/utils/demoState';
 
 const propsToCode = (props: MenuPropControlsProps) => {
   const size = props.size ? `\n  size="${props.size}"` : '';
@@ -29,10 +30,18 @@ const propsToCode = (props: MenuPropControlsProps) => {
 </Menu>`;
 };
 
+const defaultMenuProps = {
+  menuAlign: 'start',
+  size: null,
+};
+
 export const MenuDemo = () => {
-  const menuProps = useMenuProps({
-    menuAlign: 'start',
-    size: null,
+  const menuProps = useMenuProps(
+    demoState.get(Menu.displayName) || defaultMenuProps
+  );
+
+  React.useEffect(() => {
+    demoState.set(Menu.displayName, menuProps);
   });
 
   return (

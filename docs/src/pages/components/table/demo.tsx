@@ -5,6 +5,8 @@ import { Demo } from '@/components/Demo';
 import { TablePropControls } from './TablePropControls';
 import { useTableProps } from './useTableProps';
 import { BasicExample } from './examples';
+import { Table } from '@aws-amplify/ui-react';
+import { demoState } from '@/utils/demoState';
 
 const propsToCode = (props) => {
   const { caption, highlightOnHover, size, variation } = props;
@@ -43,13 +45,19 @@ const propsToCode = (props) => {
   `;
 };
 
-const initialValues = {
+const defaultTableProps = {
   caption: '',
   highlightOnHover: false,
 };
 
 export const TableDemo = () => {
-  const tableProps = useTableProps(initialValues);
+  const tableProps = useTableProps(
+    demoState.get(Table.displayName) || defaultTableProps
+  );
+
+  React.useEffect(() => {
+    demoState.set(Table.displayName, tableProps);
+  });
 
   return (
     <Demo
