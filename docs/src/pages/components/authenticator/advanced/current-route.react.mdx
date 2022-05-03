@@ -42,7 +42,7 @@ import { useAuthenticator } from '@aws-amplify/ui-react';
 const App = () => {
   const { authStatus } = useAuthenticator(context => [context.authStatus]);
 
-  // Use the value of route to decide which page to render
+  // Use the value of authStatus to decide which page to render
  return (
     <>
       {authStatus === 'configuring' && 'Loading...'}
