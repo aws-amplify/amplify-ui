@@ -46,7 +46,17 @@ import { Heading } from '../../../primitives/Heading';
 
 ### Others
 
-Do **NOT** introduce any [side effects](https://webpack.js.org/guides/tree-shaking/#mark-the-file-as-side-effect-free) unless you have to with rational reasons.
+Do **NOT** introduce any [side effects](https://webpack.js.org/guides/tree-shaking/#mark-the-file-as-side-effect-free) unless you have to with rational reasons. A "side effect" is defined as code that performs a special behavior when imported, other than exposing one or more exports. An example of this are polyfills, which affect the global scope and usually do not provide an export. For example,
+
+```js
+import './polyfill';
+```
+
+Any imported file is subject to tree shaking, that means CSS file needs to be added to the side effect list so it will not be unintentionally dropped,
+
+```js
+import './style.css';
+```
 
 ## Testing for Production
 
