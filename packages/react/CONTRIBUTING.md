@@ -16,14 +16,16 @@ This will start building `@aws-amplify/ui-react` in watch mode. To test your cha
 
 ### Imports
 
-Separate all imports organized, alphabetical blocks of `third_party → internal → local` for easier reading.
+Separate all imports into organized, alphabetical blocks of `third_party → internal → local` for easier reading.
 
 ```js
 import { isEmpty } from 'lodash/isEmpty';
 import * as React from 'react';
+
 import { Auth } from 'aws-amplify';
-import { Button } from 'primitives/Button';
-import { THIS_ENUM } from 'utils/types';
+
+import { Button } from './primitives/Button';
+import { THIS_ENUM } from './utils/types';
 ```
 
 Do **NOT** use implicit paths like below. This can lead to circular dependencies unintentionally which is bad for tree shaking.
