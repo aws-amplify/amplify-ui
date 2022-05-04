@@ -22,8 +22,7 @@ jobs:
       - name: Check if repo has unconsumed changesets
         id: has-changesets
         uses: ./.github/actions/has-changesets
-      - name: Create Release Pull Request
-        id: changesets
+      - name: Create Version Packages PR
         if: ${{ steps.has-changesets == 'true' }}
         uses: changesets/action@b98cec97583b917ff1dc6179dd4d230d3e439894
         env:
