@@ -69,7 +69,8 @@ export class AuthenticatorComponent
     this.unsubscribeHub = listenToAuthHub((event) => {
       /**
        * Hub events aren't properly caught by Angular, because they are
-       * synchronous events.
+       * synchronous events. Angular tracks async network events and
+       * html events, but not synchronous events like hub.
        *
        * On any notable hub events, we run change detection manually.
        */
@@ -77,11 +78,12 @@ export class AuthenticatorComponent
       this.changeDetector.detectChanges();
 
       /**
-       * All Hub events that we handle lead to multiple route changes:
+       * All Hub events that we handle lead to multiple state changes:
        * e.g. `authenticated` -> `signOut` -> initialState.
        *
-       * We want to ensure change detection runs again after the first one,
-       * until we reach back to the initial state.
+       * We want to ensure change detection runs all the way, until
+       * we reach back to the initial state. Setting the below flag
+       * to true to track the sequence of manual change detection.
        */
       this.isHandlingHubEvent = true;
       return state;
