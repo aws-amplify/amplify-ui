@@ -30,7 +30,7 @@ export const BadgeDemo = () => {
 
   React.useEffect(() => {
     demoState.set(Badge.displayName, badgeProps);
-  });
+  }, [badgeProps]);
 
   return (
     <Demo

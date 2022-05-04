@@ -35,7 +35,7 @@ export const AlertDemo = () => {
 
   React.useEffect(() => {
     demoState.set(Alert.displayName, alertProps);
-  });
+  }, [alertProps]);
 
   return (
     <Demo
