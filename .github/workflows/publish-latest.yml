@@ -1,8 +1,9 @@
 name: Publish to latest
 
 on:
-  push:
+  pull_request:
     branches: [main]
+    types: [opened, synchronize]
 
 jobs:
   setup:
