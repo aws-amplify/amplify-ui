@@ -8,6 +8,12 @@ import { get, escapeRegExp } from 'lodash';
 let language = 'en-US';
 let window = null;
 
+/**
+ * Given dot delimited paths to a method (e.g. Amplify.Auth.signIn) on window,
+ * returns the object that holds the method (Amplify.Auth) and the method (signIn).
+ *
+ * Used for mocking and spying Amplify methods.
+ */
 const getMethodFromWindow = (path: string) => {
   let paths = path.split('.');
   const method = paths.pop();
