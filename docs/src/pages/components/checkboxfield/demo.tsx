@@ -31,12 +31,9 @@ const defaultCheckboxFieldProps = {
 
 export const CheckboxDemo = () => {
   const props = useCheckboxFieldProps(
-    demoState.get(CheckboxField.displayName) || defaultCheckboxFieldProps
+    (demoState.get(CheckboxField.displayName) as CheckboxFieldProps) ||
+      defaultCheckboxFieldProps
   );
-
-  React.useEffect(() => {
-    demoState.set(CheckboxField.displayName, props);
-  }, [props]);
 
   return (
     <Demo

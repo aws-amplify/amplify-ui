@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { ViewProps } from '@aws-amplify/ui-react';
+import { View, ViewProps } from '@aws-amplify/ui-react';
 
 import { ViewPropControlsProps } from './ViewPropControls';
+import { demoState } from '@/utils/demoState';
 
 interface UseViewProps {
   (initialValues: ViewProps): ViewPropControlsProps;
@@ -39,6 +40,32 @@ export const useViewProps: UseViewProps = (initialValues) => {
   const [as, setAsElementType] = React.useState<ViewProps['as']>(
     initialValues.as
   );
+
+  React.useEffect(() => {
+    demoState.set(View.displayName, {
+      ariaLabel,
+      width,
+      height,
+      color,
+      backgroundColor,
+      boxShadow,
+      padding,
+      border,
+      borderRadius,
+      as,
+    });
+  }, [
+    ariaLabel,
+    width,
+    height,
+    color,
+    backgroundColor,
+    boxShadow,
+    padding,
+    border,
+    borderRadius,
+    as,
+  ]);
 
   return React.useMemo(
     () => ({

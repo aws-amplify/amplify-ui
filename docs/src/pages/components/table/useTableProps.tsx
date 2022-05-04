@@ -1,8 +1,9 @@
 import * as React from 'react';
 
-import { TableProps } from '@aws-amplify/ui-react';
+import { Table, TableProps } from '@aws-amplify/ui-react';
 
 import { TablePropControlsProps } from './TablePropControls';
+import { demoState } from '@/utils/demoState';
 
 interface UseTableProps {
   (initialValues?: TableProps): TablePropControlsProps;
@@ -24,6 +25,15 @@ export const useTableProps: UseTableProps = (initialValues) => {
   const [variation, setVariation] = React.useState<TableProps['variation']>(
     initialValues.variation
   );
+
+  React.useEffect(() => {
+    demoState.set(Table.displayName, {
+      caption,
+      highlightOnHover,
+      size,
+      variation,
+    });
+  }, [caption, highlightOnHover, size, variation]);
 
   return React.useMemo(
     () => ({

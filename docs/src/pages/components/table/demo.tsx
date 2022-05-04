@@ -55,10 +55,6 @@ export const TableDemo = () => {
     demoState.get(Table.displayName) || defaultTableProps
   );
 
-  React.useEffect(() => {
-    demoState.set(Table.displayName, tableProps);
-  }, [tableProps]);
-
   return (
     <Demo
       code={propsToCode(tableProps)}

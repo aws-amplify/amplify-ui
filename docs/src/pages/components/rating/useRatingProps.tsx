@@ -1,7 +1,8 @@
-import { RatingProps } from '@aws-amplify/ui-react';
+import { Rating, RatingProps } from '@aws-amplify/ui-react';
 import * as React from 'react';
 
 import { RatingPropControlsProps } from './RatingPropControls';
+import { demoState } from '@/utils/demoState';
 
 interface UseRatingProps {
   (initialValues: RatingProps): RatingPropControlsProps;
@@ -23,6 +24,16 @@ export const useRatingProps: UseRatingProps = (initialValues) => {
   const [emptyColor, setEmptyColor] = React.useState<RatingProps['emptyColor']>(
     initialValues.emptyColor
   );
+
+  React.useEffect(() => {
+    demoState.set(Rating.displayName, {
+      value,
+      maxValue,
+      size,
+      fillColor,
+      emptyColor,
+    });
+  }, [value, maxValue, size, fillColor, emptyColor]);
 
   return React.useMemo(
     () => ({

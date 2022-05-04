@@ -30,10 +30,6 @@ export const DividerDemo = () => {
   const direction =
     dividerProps.orientation === 'horizontal' ? 'column' : 'row';
 
-  React.useEffect(() => {
-    demoState.set(Divider.displayName, dividerProps);
-  }, [dividerProps]);
-
   return (
     <Demo
       propControls={<DividerPropControls {...dividerProps} />}

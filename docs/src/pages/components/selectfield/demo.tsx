@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { SelectField } from '@aws-amplify/ui-react';
+import { SelectField, SelectFieldProps } from '@aws-amplify/ui-react';
 import { useSelectFieldProps } from './useSelectFieldProps';
 import { SelectFieldPropControls } from './SelectFieldPropControls';
 import { Demo } from '@/components/Demo';
@@ -46,12 +46,9 @@ const defaultSelectFieldProps = {
 
 export const SelectFieldDemo = () => {
   const selectFieldProps = useSelectFieldProps(
-    demoState.get(SelectField.displayName) || defaultSelectFieldProps
+    (demoState.get(SelectField.displayName) as SelectFieldProps) ||
+      defaultSelectFieldProps
   );
-
-  React.useEffect(() => {
-    demoState.set(SelectField.displayName, selectFieldProps);
-  }, [selectFieldProps]);
 
   return (
     <Demo

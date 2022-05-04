@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { FlexProps } from '@aws-amplify/ui-react';
+import { Flex, FlexProps } from '@aws-amplify/ui-react';
 import { FlexPropControlsProps } from './FlexPropControls';
+import { demoState } from '@/utils/demoState';
 
 interface UseFlexProps {
   (initialValues: FlexProps): FlexPropControlsProps;
@@ -21,6 +22,17 @@ export const useFlexProps: UseFlexProps = (initialValues) => {
   >(initialValues.alignContent);
   const [wrap, setWrap] = React.useState<FlexProps['wrap']>(initialValues.wrap);
   const [gap, setGap] = React.useState<string>(initialValues.gap as string);
+
+  React.useEffect(() => {
+    demoState.set(Flex.displayName, {
+      direction,
+      justifyContent,
+      alignItems,
+      alignContent,
+      wrap,
+      gap,
+    });
+  }, [direction, justifyContent, alignItems, alignContent, wrap, gap]);
 
   return React.useMemo(
     () => ({

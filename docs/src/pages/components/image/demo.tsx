@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Image } from '@aws-amplify/ui-react';
+import { Image, ImageProps } from '@aws-amplify/ui-react';
 
 import { Demo } from '@/components/Demo';
 import { ImagePropControls } from './ImagePropControls';
@@ -66,7 +66,7 @@ export const ImageDemo = () => {
   );
 
   const imageProps = useImageProps(
-    demoState.get(Image.displayName) || defaultImageProps
+    (demoState.get(Image.displayName) as ImageProps) || defaultImageProps
   );
 
   React.useEffect(() => {

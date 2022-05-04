@@ -27,10 +27,6 @@ export const LoaderDemo = () => {
     demoState.get(Loader.displayName) || defaultLoaderProps
   );
 
-  React.useEffect(() => {
-    demoState.set(Loader.displayName, props);
-  }, [props]);
-
   return (
     <Demo
       code={propsToCode(props)}

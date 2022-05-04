@@ -28,12 +28,8 @@ const defaultLinkProps = {
 
 export const LinkDemo = () => {
   const linkProps = useLinkProps(
-    demoState.get(Link.displayName) || defaultLinkProps
+    (demoState.get(Link.displayName) as LinkProps) || defaultLinkProps
   );
-
-  React.useEffect(() => {
-    demoState.set(Link.displayName, linkProps);
-  }, [linkProps]);
 
   const { tokens } = useTheme();
 

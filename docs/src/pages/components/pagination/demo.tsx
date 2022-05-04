@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Pagination } from '@aws-amplify/ui-react';
+import { Pagination, PaginationProps } from '@aws-amplify/ui-react';
 import { Demo } from '@/components/Demo';
 import { PaginationPropControls } from './PaginationPropControls';
 import { usePaginationProps } from './usePaginationProps';
@@ -25,12 +25,9 @@ const defaultPaginationProps = {
 
 export const PaginationDemo = () => {
   const paginationProps = usePaginationProps(
-    demoState.get(Pagination.displayName) || defaultPaginationProps
+    (demoState.get(Pagination.displayName) as PaginationProps) ||
+      defaultPaginationProps
   );
-
-  React.useEffect(() => {
-    demoState.set(Pagination.displayName, paginationProps);
-  }, [paginationProps]);
 
   return (
     <Demo

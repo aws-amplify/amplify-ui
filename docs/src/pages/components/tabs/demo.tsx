@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Tabs, TabItem, Flex, Button, View } from '@aws-amplify/ui-react';
+import { Tabs, TabItem, TabsProps, Button, View } from '@aws-amplify/ui-react';
 
 import { Demo } from '@/components/Demo';
 import { TabsPropControls } from './TabsPropControls';
@@ -55,12 +55,8 @@ const defaultTabsProps = {
 
 export const TabsDemo = () => {
   const tabsProps = useTabsProps(
-    demoState.get(Tabs.displayName) || defaultTabsProps
+    (demoState.get(Tabs.displayName) as TabsProps) || defaultTabsProps
   );
-
-  React.useEffect(() => {
-    demoState.set(Tabs.displayName, tabsProps);
-  }, [tabsProps]);
 
   return (
     <Demo

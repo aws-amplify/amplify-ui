@@ -1,10 +1,11 @@
-import { AlertProps } from '@aws-amplify/ui-react';
+import { demoState } from '@/utils/demoState';
+import { Alert, AlertProps } from '@aws-amplify/ui-react';
 import * as React from 'react';
 
 import { AlertPropControlsProps } from './AlertPropControls';
 
 interface UseAlertProps {
-  (initialValues: AlertProps & { body: string }): AlertPropControlsProps;
+  (initialValues: AlertProps & { body?: string }): AlertPropControlsProps;
 }
 
 export const useAlertProps: UseAlertProps = (initialValues) => {
@@ -21,6 +22,16 @@ export const useAlertProps: UseAlertProps = (initialValues) => {
     initialValues.heading
   );
   const [body, setBody] = React.useState<string>(initialValues.body);
+
+  React.useEffect(() => {
+    demoState.set(Alert.displayName, {
+      variation,
+      isDismissible,
+      hasIcon,
+      heading,
+      body,
+    });
+  }, [variation, isDismissible, hasIcon, heading, body]);
 
   return React.useMemo(
     () => ({

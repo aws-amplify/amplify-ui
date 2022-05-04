@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { SearchField } from '@aws-amplify/ui-react';
+import { SearchField, SearchFieldProps } from '@aws-amplify/ui-react';
 import { useSearchFieldProps } from './useSearchFieldProps';
 import { SearchFieldPropControls } from './SearchFieldPropControls';
 import { Demo } from '@/components/Demo';
@@ -40,12 +40,9 @@ const defaultSearchFieldProps = {
 
 export const SearchFieldDemo = () => {
   const searchFieldProps = useSearchFieldProps(
-    demoState.get(SearchField.displayName) || defaultSearchFieldProps
+    (demoState.get(SearchField.displayName) as SearchFieldProps) ||
+      defaultSearchFieldProps
   );
-
-  React.useEffect(() => {
-    demoState.set(SearchField.displayName, searchFieldProps);
-  }, [searchFieldProps]);
 
   const onSubmit = React.useCallback(
     (value) => alert(`you searched for ${value}`),

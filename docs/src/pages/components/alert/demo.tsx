@@ -33,10 +33,6 @@ export const AlertDemo = () => {
     demoState.get(Alert.displayName) || defaultAlertProps
   );
 
-  React.useEffect(() => {
-    demoState.set(Alert.displayName, alertProps);
-  }, [alertProps]);
-
   return (
     <Demo
       code={propsToCode(alertProps)}

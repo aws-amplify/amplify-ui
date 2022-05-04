@@ -1,5 +1,6 @@
-import { SwitchFieldProps } from '@aws-amplify/ui-react';
+import { SwitchField, SwitchFieldProps } from '@aws-amplify/ui-react';
 import * as React from 'react';
+import { demoState } from '@/utils/demoState';
 
 export const useSwitchProps = (initialValues) => {
   const [thumbColor, setThumbColor] = React.useState<
@@ -26,6 +27,28 @@ export const useSwitchProps = (initialValues) => {
   const [labelPosition, setLabelPosition] = React.useState<
     SwitchFieldProps['labelPosition']
   >(initialValues.labelPosition);
+
+  React.useEffect(() => {
+    demoState.set(SwitchField.displayName, {
+      thumbColor,
+      trackColor,
+      trackCheckedColor,
+      isDisabled,
+      size,
+      label,
+      isChecked,
+      labelPosition,
+    });
+  }, [
+    thumbColor,
+    trackColor,
+    trackCheckedColor,
+    isDisabled,
+    size,
+    label,
+    isChecked,
+    labelPosition,
+  ]);
 
   return React.useMemo(
     () => ({

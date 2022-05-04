@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { ExpanderProps } from '@aws-amplify/ui-react';
+import { Expander, ExpanderProps } from '@aws-amplify/ui-react';
 import { ExpanderPropControlsProps } from './ExpanderPropControls';
+import { demoState } from '@/utils/demoState';
 
 interface UseExpanderProps {
   (initialValues: ExpanderProps): ExpanderPropControlsProps;
@@ -11,6 +12,13 @@ export const useExpanderProps: UseExpanderProps = (initialValues) => {
   const [isCollapsible, setIsCollapsible] = React.useState(
     initialValues.isCollapsible
   );
+
+  React.useEffect(() => {
+    demoState.set(Expander.displayName, {
+      type,
+      isCollapsible,
+    });
+  }, [type, isCollapsible]);
 
   return React.useMemo(
     () => ({

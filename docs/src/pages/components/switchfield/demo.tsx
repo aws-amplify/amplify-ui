@@ -55,10 +55,6 @@ export const SwitchDemo = () => {
     demoState.get(SwitchField.displayName) || defaultSwitchProps
   );
 
-  React.useEffect(() => {
-    demoState.set(SwitchField.displayName, switchProps);
-  }, [switchProps]);
-
   return (
     <Demo
       code={propsToCode(switchProps)}

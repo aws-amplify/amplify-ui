@@ -1,8 +1,9 @@
 import * as React from 'react';
 
-import { LoaderProps } from '@aws-amplify/ui-react';
+import { Loader, LoaderProps } from '@aws-amplify/ui-react';
 
 import { LoaderPropControlsProps } from './LoaderPropControls';
+import { demoState } from '@/utils/demoState';
 
 interface UseLoaderProps {
   (initialValues: LoaderProps): LoaderPropControlsProps;
@@ -30,6 +31,26 @@ export const useLoaderProps: UseLoaderProps = (initialValues) => {
   const [isPercentageTextHidden, setIsPercentageTextHidden] = React.useState<
     LoaderProps['isPercentageTextHidden']
   >(initialValues.isPercentageTextHidden);
+
+  React.useEffect(() => {
+    demoState.set(Loader.displayName, {
+      size,
+      variation,
+      emptyColor,
+      filledColor,
+      isDeterminate,
+      percentage,
+      isPercentageTextHidden,
+    });
+  }, [
+    size,
+    variation,
+    emptyColor,
+    filledColor,
+    isDeterminate,
+    percentage,
+    isPercentageTextHidden,
+  ]);
 
   return React.useMemo(
     () => ({

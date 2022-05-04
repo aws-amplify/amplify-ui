@@ -40,10 +40,6 @@ export const ExpanderDemo = () => {
     demoState.get(Expander.displayName) || defaultExpanderProps
   );
 
-  React.useEffect(() => {
-    demoState.set(Expander.displayName, expanderProps);
-  }, [expanderProps]);
-
   return (
     <Demo
       code={propsToCode(expanderProps)}

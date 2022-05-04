@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { PaginationProps } from '@aws-amplify/ui-react';
+import { Pagination, PaginationProps } from '@aws-amplify/ui-react';
 import { PaginationPropControlsProps } from './PaginationPropControls';
+import { demoState } from '@/utils/demoState';
 
 interface UsePaginationProps {
   (initialValues: PaginationProps): PaginationPropControlsProps;
@@ -36,6 +37,15 @@ export const usePaginationProps: UsePaginationProps = (initialValues) => {
     (pageIndex) => setCurrentPage(pageIndex),
     []
   );
+
+  React.useEffect(() => {
+    demoState.set(Pagination.displayName, {
+      currentPage,
+      totalPages,
+      siblingCount,
+      hasMorePages,
+    });
+  }, [currentPage, totalPages, siblingCount, hasMorePages]);
 
   return React.useMemo(
     () => ({

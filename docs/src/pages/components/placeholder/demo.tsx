@@ -22,10 +22,6 @@ export const PlaceholderDemo = () => {
     demoState.get(Placeholder.displayName) || defaultPlaceholderProps
   );
 
-  React.useEffect(() => {
-    demoState.set(Placeholder.displayName, placeholderProps);
-  }, [placeholderProps]);
-
   return (
     <Demo
       code={propsToCode(placeholderProps)}

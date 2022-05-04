@@ -40,10 +40,6 @@ export const MenuDemo = () => {
     demoState.get(Menu.displayName) || defaultMenuProps
   );
 
-  React.useEffect(() => {
-    demoState.set(Menu.displayName, menuProps);
-  }, [menuProps]);
-
   return (
     <Demo
       code={propsToCode(menuProps)}

@@ -51,10 +51,6 @@ export const FlexDemo = () => {
     demoState.get(Flex.displayName) || defaultFlexProps
   );
 
-  React.useEffect(() => {
-    demoState.set(Flex.displayName, flexProps);
-  }, [flexProps]);
-
   const { tokens } = useTheme();
 
   return (

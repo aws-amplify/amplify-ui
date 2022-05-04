@@ -11,12 +11,10 @@ We are not using React Context for two reasons (based on the React Context docs:
   these props aren't "global" state in the same way that a current authenticated user, theme, or preferred language would be
 - React Context is primarily used when some data needs to be accessible by many components at different nesting levels, which does not match our use case
 
-The Map's key-value pairs are the component's name and its demo's props
+The Map's key-value pairs are the component's name and its demo's props. 
+- Since the demo's props could be the props for any of the Amplify UI primitives, we are typing it as 'unknown' 
+  and then casting the specific type when we retrieve it with the Map's `get` method
 
 */
 
-// type DemoStateValue = {
-//   [key: string]: string | number | boolean | null;
-// };
-
-export const demoState = new Map<string, any>();
+export const demoState = new Map<string, unknown>();

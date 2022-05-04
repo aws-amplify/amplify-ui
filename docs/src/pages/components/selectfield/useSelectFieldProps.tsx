@@ -1,7 +1,8 @@
-import { SelectFieldProps } from '@aws-amplify/ui-react';
+import { SelectField, SelectFieldProps } from '@aws-amplify/ui-react';
 import * as React from 'react';
 
 import { SelectFieldPropControlsProps } from './SelectFieldPropControls';
+import { demoState } from '@/utils/demoState';
 
 interface UseSelectFieldProps {
   (initialValues?: SelectFieldProps): SelectFieldPropControlsProps;
@@ -32,6 +33,28 @@ export const useSelectFieldProps: UseSelectFieldProps = (initialValues) => {
   const [variation, setVariation] = React.useState<
     SelectFieldProps['variation']
   >(initialValues.variation);
+
+  React.useEffect(() => {
+    demoState.set(SelectField.displayName, {
+      descriptiveText,
+      errorMessage,
+      hasError,
+      isDisabled,
+      label,
+      labelHidden,
+      size,
+      variation,
+    });
+  }, [
+    descriptiveText,
+    errorMessage,
+    hasError,
+    isDisabled,
+    label,
+    labelHidden,
+    size,
+    variation,
+  ]);
 
   return React.useMemo(
     () => ({

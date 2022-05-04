@@ -45,10 +45,6 @@ export const ViewDemo = () => {
     demoState.get(View.displayName) || defaultViewProps
   );
 
-  React.useEffect(() => {
-    demoState.set(View.displayName, props);
-  }, [props]);
-
   const {
     ariaLabel,
     as,

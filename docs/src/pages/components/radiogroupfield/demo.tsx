@@ -44,12 +44,9 @@ const defaultRadioGroupFieldProps = {
 
 export const RadioGroupFieldDemo = () => {
   const props = useRadioGroupFieldProps(
-    demoState.get(RadioGroupField.displayName) || defaultRadioGroupFieldProps
+    (demoState.get(RadioGroupField.displayName) as RadioGroupFieldProps) ||
+      defaultRadioGroupFieldProps
   );
-
-  React.useEffect(() => {
-    demoState.set(RadioGroupField.displayName, props);
-  }, [props]);
 
   return (
     <Demo

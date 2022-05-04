@@ -31,10 +31,6 @@ export const RatingDemo = () => {
     demoState.get(Rating.displayName) || defaultRatingProps
   );
 
-  React.useEffect(() => {
-    demoState.set(Rating.displayName, ratingProps);
-  }, [ratingProps]);
-
   return (
     <Demo
       code={propsToCode(ratingProps)}

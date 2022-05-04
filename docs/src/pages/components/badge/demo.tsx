@@ -28,10 +28,6 @@ export const BadgeDemo = () => {
     demoState.get(Badge.displayName) || defaultBadgeProps
   );
 
-  React.useEffect(() => {
-    demoState.set(Badge.displayName, badgeProps);
-  }, [badgeProps]);
-
   return (
     <Demo
       code={propsToCode(badgeProps)}

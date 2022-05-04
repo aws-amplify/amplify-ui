@@ -27,10 +27,6 @@ export const ToggleButtonDemo = () => {
     demoState.get(ToggleButton.displayName) || defaultToggleButtonProps
   );
 
-  React.useEffect(() => {
-    demoState.set(ToggleButton.displayName, props);
-  }, [props]);
-
   return (
     <Demo
       code={propsToCode(props)}

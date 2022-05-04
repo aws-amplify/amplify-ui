@@ -27,10 +27,6 @@ export const ScrollViewDemo = () => {
     demoState.get(ScrollView.displayName) || defaultScrollViewProps
   );
 
-  React.useEffect(() => {
-    demoState.set(ScrollView.displayName, scrollViewProps);
-  }, [scrollViewProps]);
-
   return (
     <Demo
       code={propsToCode(scrollViewProps)}

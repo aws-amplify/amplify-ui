@@ -1,10 +1,10 @@
-import { BadgeProps } from '@aws-amplify/ui-react';
+import { Badge, BadgeProps } from '@aws-amplify/ui-react';
 import * as React from 'react';
-
+import { demoState } from '@/utils/demoState';
 import { BadgePropControlsProps } from './BadgePropControls';
 
 interface UseBadgeProps {
-  (initialValues: BadgeProps): BadgePropControlsProps;
+  (initialValues: BadgeProps & { body?: string }): BadgePropControlsProps;
 }
 
 export const useBadgeProps: UseBadgeProps = (initialValues) => {
@@ -15,6 +15,14 @@ export const useBadgeProps: UseBadgeProps = (initialValues) => {
     initialValues.size
   );
   const [body, setBody] = React.useState<string>(initialValues.body);
+
+  React.useEffect(() => {
+    demoState.set(Badge.displayName, {
+      variation,
+      size,
+      body,
+    });
+  }, [variation, size, body]);
 
   return React.useMemo(
     () => ({
