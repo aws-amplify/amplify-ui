@@ -11,14 +11,11 @@ import {
   TemplateRef,
   ViewEncapsulation,
 } from '@angular/core';
-
-import { Hub } from 'aws-amplify';
 import {
   AuthenticatorMachineOptions,
   SocialProvider,
   translate,
 } from '@aws-amplify/ui';
-
 import { AmplifySlotDirective } from '../../../../utilities/amplify-slot/amplify-slot.directive';
 import { CustomComponentsService } from '../../../../services/custom-components.service';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
