@@ -22,15 +22,28 @@ export const useTabsProps: UseTabsProps = (initialValues) => {
   >(initialValues.indicatorPosition);
   const children = initialValues.children;
 
-  return {
-    currentIndex,
-    setCurrentIndex,
-    spacing,
-    setSpacing,
-    children,
-    justifyContent,
-    setJustifyContent,
-    indicatorPosition,
-    setIndicatorPosition,
-  };
+  return React.useMemo(
+    () => ({
+      currentIndex,
+      setCurrentIndex,
+      spacing,
+      setSpacing,
+      children,
+      justifyContent,
+      setJustifyContent,
+      indicatorPosition,
+      setIndicatorPosition,
+    }),
+    [
+      currentIndex,
+      setCurrentIndex,
+      spacing,
+      setSpacing,
+      children,
+      justifyContent,
+      setJustifyContent,
+      indicatorPosition,
+      setIndicatorPosition,
+    ]
+  );
 };

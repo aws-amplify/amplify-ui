@@ -16,12 +16,15 @@ export const useBadgeProps: UseBadgeProps = (initialValues) => {
   );
   const [body, setBody] = React.useState<string>(initialValues.body);
 
-  return {
-    variation,
-    setVariation,
-    size,
-    setSize,
-    body,
-    setBody,
-  };
+  return React.useMemo(
+    () => ({
+      variation,
+      setVariation,
+      size,
+      setSize,
+      body,
+      setBody,
+    }),
+    [variation, setVariation, size, setSize, body, setBody]
+  );
 };

@@ -22,18 +22,34 @@ export const useFlexProps: UseFlexProps = (initialValues) => {
   const [wrap, setWrap] = React.useState<FlexProps['wrap']>(initialValues.wrap);
   const [gap, setGap] = React.useState<string>(initialValues.gap as string);
 
-  return {
-    direction,
-    setDirection,
-    justifyContent,
-    setJustifyContent,
-    alignItems,
-    setAlignItems,
-    alignContent,
-    setAlignContent,
-    wrap,
-    setWrap,
-    gap,
-    setGap,
-  };
+  return React.useMemo(
+    () => ({
+      direction,
+      setDirection,
+      justifyContent,
+      setJustifyContent,
+      alignItems,
+      setAlignItems,
+      alignContent,
+      setAlignContent,
+      wrap,
+      setWrap,
+      gap,
+      setGap,
+    }),
+    [
+      direction,
+      setDirection,
+      justifyContent,
+      setJustifyContent,
+      alignItems,
+      setAlignItems,
+      alignContent,
+      setAlignContent,
+      wrap,
+      setWrap,
+      gap,
+      setGap,
+    ]
+  );
 };

@@ -25,14 +25,26 @@ export const useTableProps: UseTableProps = (initialValues) => {
     initialValues.variation
   );
 
-  return {
-    caption,
-    highlightOnHover,
-    setCaption,
-    setHighlightOnHover,
-    setSize,
-    setVariation,
-    size,
-    variation,
-  };
+  return React.useMemo(
+    () => ({
+      caption,
+      highlightOnHover,
+      setCaption,
+      setHighlightOnHover,
+      setSize,
+      setVariation,
+      size,
+      variation,
+    }),
+    [
+      caption,
+      highlightOnHover,
+      setCaption,
+      setHighlightOnHover,
+      setSize,
+      setVariation,
+      size,
+      variation,
+    ]
+  );
 };

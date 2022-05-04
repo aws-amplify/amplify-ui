@@ -24,16 +24,30 @@ export const useRatingProps: UseRatingProps = (initialValues) => {
     initialValues.emptyColor
   );
 
-  return {
-    value,
-    setValue,
-    maxValue,
-    setMaxValue,
-    size,
-    setSize,
-    fillColor,
-    setFillColor,
-    emptyColor,
-    setEmptyColor,
-  };
+  return React.useMemo(
+    () => ({
+      value,
+      setValue,
+      maxValue,
+      setMaxValue,
+      size,
+      setSize,
+      fillColor,
+      setFillColor,
+      emptyColor,
+      setEmptyColor,
+    }),
+    [
+      value,
+      setValue,
+      maxValue,
+      setMaxValue,
+      size,
+      setSize,
+      fillColor,
+      setFillColor,
+      emptyColor,
+      setEmptyColor,
+    ]
+  );
 };

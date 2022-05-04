@@ -11,5 +11,12 @@ export const useScrollViewProps: UseScrollViewProps = (initialValues) => {
   const [orientation, setOrientation] = React.useState(
     initialValues.orientation
   );
-  return { orientation, setOrientation };
+
+  return React.useMemo(
+    () => ({
+      orientation,
+      setOrientation,
+    }),
+    [orientation, setOrientation]
+  );
 };

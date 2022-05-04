@@ -18,13 +18,24 @@ export const useLinkProps: UseLinkProps = (initialValues) => {
     LinkProps['textDecoration']
   >(initialValues.textDecoration);
 
-  return {
-    isExternal,
-    setIsExternal,
-    color,
-    setColor,
-    textDecoration,
-    setTextDecoration,
-    children: initialValues.children,
-  };
+  return React.useMemo(
+    () => ({
+      isExternal,
+      setIsExternal,
+      color,
+      setColor,
+      textDecoration,
+      setTextDecoration,
+      children: initialValues.children,
+    }),
+    [
+      isExternal,
+      setIsExternal,
+      color,
+      setColor,
+      textDecoration,
+      setTextDecoration,
+      initialValues.children,
+    ]
+  );
 };

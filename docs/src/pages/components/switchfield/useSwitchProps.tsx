@@ -27,22 +27,42 @@ export const useSwitchProps = (initialValues) => {
     SwitchFieldProps['labelPosition']
   >(initialValues.labelPosition);
 
-  return {
-    thumbColor,
-    setThumbColor,
-    trackColor,
-    setTrackColor,
-    trackCheckedColor,
-    setTrackCheckedColor,
-    isDisabled,
-    setIsDisabled,
-    size,
-    setSize,
-    label,
-    setLabel,
-    labelPosition,
-    setLabelPosition,
-    isChecked,
-    setIsChecked,
-  };
+  return React.useMemo(
+    () => ({
+      thumbColor,
+      setThumbColor,
+      trackColor,
+      setTrackColor,
+      trackCheckedColor,
+      setTrackCheckedColor,
+      isDisabled,
+      setIsDisabled,
+      size,
+      setSize,
+      label,
+      setLabel,
+      labelPosition,
+      setLabelPosition,
+      isChecked,
+      setIsChecked,
+    }),
+    [
+      thumbColor,
+      setThumbColor,
+      trackColor,
+      setTrackColor,
+      trackCheckedColor,
+      setTrackCheckedColor,
+      isDisabled,
+      setIsDisabled,
+      size,
+      setSize,
+      label,
+      setLabel,
+      labelPosition,
+      setLabelPosition,
+      isChecked,
+      setIsChecked,
+    ]
+  );
 };

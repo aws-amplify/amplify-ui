@@ -18,12 +18,15 @@ export const useDividerProps: UseDividerProps = (initialValues) => {
     initialValues.label
   );
 
-  return {
-    size,
-    setSize,
-    orientation,
-    setOrientation,
-    label,
-    setLabel,
-  };
+  return React.useMemo(
+    () => ({
+      size,
+      setSize,
+      orientation,
+      setOrientation,
+      label,
+      setLabel,
+    }),
+    [size, setSize, orientation, setOrientation, label, setLabel]
+  );
 };

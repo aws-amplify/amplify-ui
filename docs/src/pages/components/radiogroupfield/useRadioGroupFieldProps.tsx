@@ -29,19 +29,36 @@ export const useRadioGroupFieldProps: UseRadioGroupFieldProps = (
     RadioProps['labelPosition']
   >(initialValues.labelPosition);
 
-  return {
-    ...initialValues,
-    direction,
-    label,
-    labelPosition,
-    name,
-    size,
-    isDisabled,
-    setDirection,
-    setIsDisabled,
-    setLabel,
-    setName,
-    setSize,
-    setLabelPosition,
-  };
+  return React.useMemo(
+    () => ({
+      ...initialValues,
+      direction,
+      label,
+      labelPosition,
+      name,
+      size,
+      isDisabled,
+      setDirection,
+      setIsDisabled,
+      setLabel,
+      setName,
+      setSize,
+      setLabelPosition,
+    }),
+    [
+      initialValues,
+      direction,
+      label,
+      labelPosition,
+      name,
+      size,
+      isDisabled,
+      setDirection,
+      setIsDisabled,
+      setLabel,
+      setName,
+      setSize,
+      setLabelPosition,
+    ]
+  );
 };

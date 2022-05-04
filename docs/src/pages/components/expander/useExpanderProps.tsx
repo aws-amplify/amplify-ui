@@ -1,7 +1,5 @@
 import * as React from 'react';
-
 import { ExpanderProps } from '@aws-amplify/ui-react';
-
 import { ExpanderPropControlsProps } from './ExpanderPropControls';
 
 interface UseExpanderProps {
@@ -13,10 +11,14 @@ export const useExpanderProps: UseExpanderProps = (initialValues) => {
   const [isCollapsible, setIsCollapsible] = React.useState(
     initialValues.isCollapsible
   );
-  return {
-    type,
-    setType,
-    isCollapsible,
-    setIsCollapsible,
-  };
+
+  return React.useMemo(
+    () => ({
+      type,
+      setType,
+      isCollapsible,
+      setIsCollapsible,
+    }),
+    [type, setType, isCollapsible, setIsCollapsible]
+  );
 };

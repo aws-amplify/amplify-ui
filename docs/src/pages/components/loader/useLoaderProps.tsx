@@ -31,20 +31,38 @@ export const useLoaderProps: UseLoaderProps = (initialValues) => {
     LoaderProps['isPercentageTextHidden']
   >(initialValues.isPercentageTextHidden);
 
-  return {
-    size,
-    setSize,
-    variation,
-    setVariation,
-    emptyColor,
-    setEmptyColor,
-    filledColor,
-    setFilledColor,
-    isDeterminate,
-    setIsDeterminate,
-    percentage,
-    setPercentage,
-    isPercentageTextHidden,
-    setIsPercentageTextHidden,
-  };
+  return React.useMemo(
+    () => ({
+      size,
+      setSize,
+      variation,
+      setVariation,
+      emptyColor,
+      setEmptyColor,
+      filledColor,
+      setFilledColor,
+      isDeterminate,
+      setIsDeterminate,
+      percentage,
+      setPercentage,
+      isPercentageTextHidden,
+      setIsPercentageTextHidden,
+    }),
+    [
+      size,
+      setSize,
+      variation,
+      setVariation,
+      emptyColor,
+      setEmptyColor,
+      filledColor,
+      setFilledColor,
+      isDeterminate,
+      setIsDeterminate,
+      percentage,
+      setPercentage,
+      isPercentageTextHidden,
+      setIsPercentageTextHidden,
+    ]
+  );
 };

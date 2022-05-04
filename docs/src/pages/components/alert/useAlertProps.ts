@@ -22,16 +22,30 @@ export const useAlertProps: UseAlertProps = (initialValues) => {
   );
   const [body, setBody] = React.useState<string>(initialValues.body);
 
-  return {
-    variation,
-    setVariation,
-    isDismissible,
-    setIsDismissible,
-    hasIcon,
-    setHasIcon,
-    heading,
-    setHeading,
-    body,
-    setBody,
-  };
+  return React.useMemo(
+    () => ({
+      variation,
+      setVariation,
+      isDismissible,
+      setIsDismissible,
+      hasIcon,
+      setHasIcon,
+      heading,
+      setHeading,
+      body,
+      setBody,
+    }),
+    [
+      variation,
+      setVariation,
+      isDismissible,
+      setIsDismissible,
+      hasIcon,
+      setHasIcon,
+      heading,
+      setHeading,
+      body,
+      setBody,
+    ]
+  );
 };

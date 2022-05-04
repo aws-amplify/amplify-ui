@@ -33,22 +33,42 @@ export const useSelectFieldProps: UseSelectFieldProps = (initialValues) => {
     SelectFieldProps['variation']
   >(initialValues.variation);
 
-  return {
-    descriptiveText,
-    errorMessage,
-    hasError,
-    label,
-    labelHidden,
-    size,
-    variation,
-    isDisabled,
-    setDescriptiveText,
-    setErrorMessage,
-    setHasError,
-    setIsDisabled,
-    setLabel,
-    setLabelHidden,
-    setSize,
-    setVariation,
-  };
+  return React.useMemo(
+    () => ({
+      descriptiveText,
+      errorMessage,
+      hasError,
+      label,
+      labelHidden,
+      size,
+      variation,
+      isDisabled,
+      setDescriptiveText,
+      setErrorMessage,
+      setHasError,
+      setIsDisabled,
+      setLabel,
+      setLabelHidden,
+      setSize,
+      setVariation,
+    }),
+    [
+      descriptiveText,
+      errorMessage,
+      hasError,
+      label,
+      labelHidden,
+      size,
+      variation,
+      isDisabled,
+      setDescriptiveText,
+      setErrorMessage,
+      setHasError,
+      setIsDisabled,
+      setLabel,
+      setLabelHidden,
+      setSize,
+      setVariation,
+    ]
+  );
 };

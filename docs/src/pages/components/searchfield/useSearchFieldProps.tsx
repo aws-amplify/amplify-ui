@@ -28,18 +28,34 @@ export const useSearchFieldProps: UseSearchFieldFieldProps = (
     SearchFieldProps['isDisabled']
   >(initialValues.isDisabled);
 
-  return {
-    label,
-    setLabel,
-    placeholder,
-    setPlaceholder,
-    size,
-    setSize,
-    variation,
-    setVariation,
-    labelHidden,
-    setLabelHidden,
-    isDisabled,
-    setIsDisabled,
-  };
+  return React.useMemo(
+    () => ({
+      label,
+      setLabel,
+      placeholder,
+      setPlaceholder,
+      size,
+      setSize,
+      variation,
+      setVariation,
+      labelHidden,
+      setLabelHidden,
+      isDisabled,
+      setIsDisabled,
+    }),
+    [
+      label,
+      setLabel,
+      placeholder,
+      setPlaceholder,
+      size,
+      setSize,
+      variation,
+      setVariation,
+      labelHidden,
+      setLabelHidden,
+      isDisabled,
+      setIsDisabled,
+    ]
+  );
 };

@@ -18,12 +18,15 @@ export const useToggleButtonProps: UseToggleButtonProps = (initialValues) => {
     ToggleButtonProps['variation']
   >(initialValues.variation);
 
-  return {
-    isDisabled,
-    setIsDisabled,
-    size,
-    setSize,
-    variation,
-    setVariation,
-  };
+  return React.useMemo(
+    () => ({
+      isDisabled,
+      setIsDisabled,
+      size,
+      setSize,
+      variation,
+      setVariation,
+    }),
+    [isDisabled, setIsDisabled, size, setSize, variation, setVariation]
+  );
 };

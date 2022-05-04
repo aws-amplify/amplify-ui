@@ -31,21 +31,39 @@ export const useCheckboxFieldProps: UseCheckboxFieldProps = (initialValues) => {
     CheckboxFieldProps['labelPosition']
   >(initialValues.labelPosition);
 
-  return {
-    checked,
-    children: label,
-    setChecked,
-    isDisabled,
-    setIsDisabled,
-    label,
-    setLabel,
-    labelPosition,
-    setLabelPosition,
-    name,
-    setName,
-    size,
-    setSize,
-    value,
-    setValue,
-  };
+  return React.useMemo(
+    () => ({
+      checked,
+      children: label,
+      setChecked,
+      isDisabled,
+      setIsDisabled,
+      label,
+      setLabel,
+      labelPosition,
+      setLabelPosition,
+      name,
+      setName,
+      size,
+      setSize,
+      value,
+      setValue,
+    }),
+    [
+      checked,
+      setChecked,
+      isDisabled,
+      setIsDisabled,
+      label,
+      setLabel,
+      labelPosition,
+      setLabelPosition,
+      name,
+      setName,
+      size,
+      setSize,
+      value,
+      setValue,
+    ]
+  );
 };

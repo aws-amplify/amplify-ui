@@ -15,10 +15,13 @@ export const usePlaceholderProps: UsePlaceholderProps = (initialValues) => {
     initialValues.isLoaded
   );
 
-  return {
-    size,
-    setSize,
-    isLoaded,
-    setIsLoaded,
-  };
+  return React.useMemo(
+    () => ({
+      size,
+      setSize,
+      isLoaded,
+      setIsLoaded,
+    }),
+    [size, setSize, isLoaded, setIsLoaded]
+  );
 };

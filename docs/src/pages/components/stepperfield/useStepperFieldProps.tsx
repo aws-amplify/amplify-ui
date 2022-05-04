@@ -18,20 +18,39 @@ export const useStepperFieldProps: UseStepperFieldProps = (initialValues) => {
   const [step, setStep] = React.useState(initialValues.step);
   const [size, setSize] = React.useState(initialValues.size);
   const [variation, setVariation] = React.useState(initialValues.variation);
-  return {
-    label,
-    setLabel,
-    labelHidden,
-    setLabelHidden,
-    max,
-    setMax,
-    min,
-    setMin,
-    step,
-    setStep,
-    size,
-    setSize,
-    variation,
-    setVariation,
-  };
+
+  return React.useMemo(
+    () => ({
+      label,
+      setLabel,
+      labelHidden,
+      setLabelHidden,
+      max,
+      setMax,
+      min,
+      setMin,
+      step,
+      setStep,
+      size,
+      setSize,
+      variation,
+      setVariation,
+    }),
+    [
+      label,
+      setLabel,
+      labelHidden,
+      setLabelHidden,
+      max,
+      setMax,
+      min,
+      setMin,
+      step,
+      setStep,
+      size,
+      setSize,
+      variation,
+      setVariation,
+    ]
+  );
 };

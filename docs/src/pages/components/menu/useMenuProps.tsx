@@ -13,11 +13,14 @@ export const useMenuProps: UseMenuProps = (initialValues) => {
   );
   const [size, setSize] = React.useState<MenuProps['size']>(initialValues.size);
 
-  return {
-    ...initialValues,
-    menuAlign,
-    size,
-    setMenuAlign,
-    setSize,
-  };
+  return React.useMemo(
+    () => ({
+      ...initialValues,
+      menuAlign,
+      size,
+      setMenuAlign,
+      setSize,
+    }),
+    [initialValues, menuAlign, size, setMenuAlign, setSize]
+  );
 };
