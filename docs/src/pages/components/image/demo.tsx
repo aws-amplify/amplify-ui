@@ -72,7 +72,7 @@ export const ImageDemo = () => {
   React.useEffect(() => {
     demoState.set(Image.displayName + 'styleProps', styleProps);
     demoState.set(Image.displayName, imageProps);
-  });
+  }, [styleProps, imageProps]);
 
   return (
     <Demo

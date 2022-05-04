@@ -29,7 +29,7 @@ export const ToggleButtonDemo = () => {
 
   React.useEffect(() => {
     demoState.set(ToggleButton.displayName, props);
-  });
+  }, [props]);
 
   return (
     <Demo

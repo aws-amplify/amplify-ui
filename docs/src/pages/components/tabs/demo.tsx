@@ -60,7 +60,7 @@ export const TabsDemo = () => {
 
   React.useEffect(() => {
     demoState.set(Tabs.displayName, tabsProps);
-  });
+  }, [tabsProps]);
 
   return (
     <Demo

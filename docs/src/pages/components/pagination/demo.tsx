@@ -30,7 +30,7 @@ export const PaginationDemo = () => {
 
   React.useEffect(() => {
     demoState.set(Pagination.displayName, paginationProps);
-  });
+  }, [paginationProps]);
 
   return (
     <Demo

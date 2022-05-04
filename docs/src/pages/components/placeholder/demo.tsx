@@ -24,7 +24,7 @@ export const PlaceholderDemo = () => {
 
   React.useEffect(() => {
     demoState.set(Placeholder.displayName, placeholderProps);
-  });
+  }, [placeholderProps]);
 
   return (
     <Demo

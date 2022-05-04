@@ -57,7 +57,7 @@ export const SwitchDemo = () => {
 
   React.useEffect(() => {
     demoState.set(SwitchField.displayName, switchProps);
-  });
+  }, [switchProps]);
 
   return (
     <Demo

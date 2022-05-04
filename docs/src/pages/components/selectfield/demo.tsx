@@ -51,7 +51,7 @@ export const SelectFieldDemo = () => {
 
   React.useEffect(() => {
     demoState.set(SelectField.displayName, selectFieldProps);
-  });
+  }, [selectFieldProps]);
 
   return (
     <Demo

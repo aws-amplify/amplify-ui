@@ -49,7 +49,7 @@ export const RadioGroupFieldDemo = () => {
 
   React.useEffect(() => {
     demoState.set(RadioGroupField.displayName, props);
-  });
+  }, [props]);
 
   return (
     <Demo

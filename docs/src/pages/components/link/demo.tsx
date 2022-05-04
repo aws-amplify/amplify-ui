@@ -33,7 +33,7 @@ export const LinkDemo = () => {
 
   React.useEffect(() => {
     demoState.set(Link.displayName, linkProps);
-  });
+  }, [linkProps]);
 
   const { tokens } = useTheme();
 

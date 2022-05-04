@@ -57,7 +57,7 @@ export const TableDemo = () => {
 
   React.useEffect(() => {
     demoState.set(Table.displayName, tableProps);
-  });
+  }, [tableProps]);
 
   return (
     <Demo

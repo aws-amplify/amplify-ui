@@ -53,7 +53,7 @@ export const FlexDemo = () => {
 
   React.useEffect(() => {
     demoState.set(Flex.displayName, flexProps);
-  });
+  }, [flexProps]);
 
   const { tokens } = useTheme();
 

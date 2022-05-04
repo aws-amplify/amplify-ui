@@ -29,7 +29,7 @@ export const LoaderDemo = () => {
 
   React.useEffect(() => {
     demoState.set(Loader.displayName, props);
-  });
+  }, [props]);
 
   return (
     <Demo

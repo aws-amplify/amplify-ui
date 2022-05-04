@@ -29,7 +29,7 @@ export const ScrollViewDemo = () => {
 
   React.useEffect(() => {
     demoState.set(ScrollView.displayName, scrollViewProps);
-  });
+  }, [scrollViewProps]);
 
   return (
     <Demo

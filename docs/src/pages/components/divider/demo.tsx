@@ -32,7 +32,7 @@ export const DividerDemo = () => {
 
   React.useEffect(() => {
     demoState.set(Divider.displayName, dividerProps);
-  });
+  }, [dividerProps]);
 
   return (
     <Demo

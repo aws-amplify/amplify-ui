@@ -43,7 +43,7 @@ export const StepperFieldDemo = () => {
 
   React.useEffect(() => {
     demoState.set(StepperField.displayName, stepperFieldProps);
-  });
+  }, [stepperFieldProps]);
 
   return (
     <Demo

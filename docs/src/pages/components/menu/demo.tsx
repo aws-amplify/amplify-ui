@@ -42,7 +42,7 @@ export const MenuDemo = () => {
 
   React.useEffect(() => {
     demoState.set(Menu.displayName, menuProps);
-  });
+  }, [menuProps]);
 
   return (
     <Demo

@@ -36,7 +36,7 @@ export const CheckboxDemo = () => {
 
   React.useEffect(() => {
     demoState.set(CheckboxField.displayName, props);
-  });
+  }, [props]);
 
   return (
     <Demo

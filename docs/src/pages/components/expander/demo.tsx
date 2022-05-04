@@ -42,7 +42,7 @@ export const ExpanderDemo = () => {
 
   React.useEffect(() => {
     demoState.set(Expander.displayName, expanderProps);
-  });
+  }, [expanderProps]);
 
   return (
     <Demo

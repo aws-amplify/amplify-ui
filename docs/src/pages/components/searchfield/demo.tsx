@@ -45,7 +45,7 @@ export const SearchFieldDemo = () => {
 
   React.useEffect(() => {
     demoState.set(SearchField.displayName, searchFieldProps);
-  });
+  }, [searchFieldProps]);
 
   const onSubmit = React.useCallback(
     (value) => alert(`you searched for ${value}`),

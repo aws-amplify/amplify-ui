@@ -33,7 +33,7 @@ export const RatingDemo = () => {
 
   React.useEffect(() => {
     demoState.set(Rating.displayName, ratingProps);
-  });
+  }, [ratingProps]);
 
   return (
     <Demo
