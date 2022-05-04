@@ -45,7 +45,7 @@ export const ConfirmSignIn = ({
           <Header />
 
           <Flex direction="column">
-            <FormFields route="confirmSignIn" />
+            <FormFields />
             <RemoteErrorMessage />
           </Flex>
 
