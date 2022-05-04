@@ -1,4 +1,4 @@
-name: Publish to latest
+name: Version Packages
 
 on:
   pull_request:
