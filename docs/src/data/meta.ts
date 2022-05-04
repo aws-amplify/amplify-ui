@@ -146,7 +146,7 @@ export const META_INFO: MetaInfo = {
       'SelectField allows users to create a drop-down list - Amplify UI',
   },
   '/components/sliderfield': {
-    title: 'sliderfield',
+    title: 'SliderField',
     description:
       'Slider allows users to quickly select a value within a range. It should be used when the upper and lower bounds to the range are invariable - Amplify UI',
   },

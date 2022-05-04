@@ -1,7 +1,5 @@
 import * as React from 'react';
-
 import { SliderFieldProps } from '@aws-amplify/ui-react';
-
 import { SliderFieldPropControlsProps } from './SliderFieldPropControls';
 
 export interface UseSliderFieldProps {
