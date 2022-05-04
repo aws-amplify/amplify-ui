@@ -78,7 +78,7 @@ export class AuthenticatorComponent
       this.changeDetector.detectChanges();
 
       /**
-       * All Hub events that we handle lead to multiple state changes:
+       * Hub events that we handle can lead to multiple state changes:
        * e.g. `authenticated` -> `signOut` -> initialState.
        *
        * We want to ensure change detection runs all the way, until
