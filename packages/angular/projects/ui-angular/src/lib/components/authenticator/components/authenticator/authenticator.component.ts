@@ -1,5 +1,7 @@
 import {
   AfterContentInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ContentChildren,
   Input,
@@ -9,11 +11,13 @@ import {
   TemplateRef,
   ViewEncapsulation,
 } from '@angular/core';
+
 import {
   AuthenticatorMachineOptions,
   SocialProvider,
   translate,
 } from '@aws-amplify/ui';
+
 import { AmplifySlotDirective } from '../../../../utilities/amplify-slot/amplify-slot.directive';
 import { CustomComponentsService } from '../../../../services/custom-components.service';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
@@ -23,6 +27,8 @@ import { AuthenticatorService } from '../../../../services/authenticator.service
   templateUrl: './authenticator.component.html',
   providers: [CustomComponentsService], // make sure custom components are scoped to this authenticator only
   encapsulation: ViewEncapsulation.None,
+  /** Turn off disable change detection strategy and rely on xstate */
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AuthenticatorComponent
   implements OnInit, AfterContentInit, OnDestroy
@@ -48,7 +54,8 @@ export class AuthenticatorComponent
 
   constructor(
     private authenticator: AuthenticatorService,
-    private contextService: CustomComponentsService
+    private contextService: CustomComponentsService,
+    private changeDetector: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -67,6 +74,15 @@ export class AuthenticatorComponent
      */
     this.unsubscribeMachine = this.authenticator.subscribe(() => {
       const { route } = this.authenticator;
+
+      /**
+       * Invoke change detection whenever state machine gets an update.
+       *
+       * TODO: optimize this so this only runs whenever route changes
+       */
+      this.changeDetector.detectChanges();
+
+      // init machine when ready
       if (!this.hasInitialized && route === 'setup') {
         this.authenticator.send({
           type: 'INIT',
