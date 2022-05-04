@@ -4,6 +4,11 @@ on:
   push:
     branches: [main]
 
+permissions:
+  contents: write # Used to commit to "Version Packages" PR
+  pull-requests: write # Used to create "Version Packages" PR
+  # Other permissions are defaulted to none
+
 jobs:
   version:
     runs-on: ubuntu-latest
@@ -21,8 +26,5 @@ jobs:
         id: changesets
         if: ${{ steps.has-changesets == 'true' }}
         uses: changesets/action@b98cec97583b917ff1dc6179dd4d230d3e439894
-        with:
-          publish: yarn publish:latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
