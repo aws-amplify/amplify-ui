@@ -14,8 +14,12 @@ import { useFormHandlers } from '../hooks/useFormHandlers';
 import { FormFields } from '../shared/FormFields';
 import { ConfirmSignInFooter } from '../shared/ConfirmSignInFooter';
 import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
+import { RouteContainer, RouteProps } from '../RouteContainer';
 
-export const ConfirmSignIn = (): JSX.Element => {
+export const ConfirmSignIn = ({
+  className,
+  variation,
+}: RouteProps): JSX.Element => {
   const { isPending } = useAuthenticator((context) => [context.isPending]);
   const { handleChange, handleSubmit } = useFormHandlers();
 
@@ -29,25 +33,27 @@ export const ConfirmSignIn = (): JSX.Element => {
   } = useCustomComponents();
 
   return (
-    <form
-      data-amplify-form=""
-      data-amplify-authenticator-confirmsignin=""
-      method="post"
-      onChange={handleChange}
-      onSubmit={handleSubmit}
-    >
-      <Flex as="fieldset" direction="column" isDisabled={isPending}>
-        <Header />
+    <RouteContainer className={className} variation={variation}>
+      <form
+        data-amplify-form=""
+        data-amplify-authenticator-confirmsignin=""
+        method="post"
+        onChange={handleChange}
+        onSubmit={handleSubmit}
+      >
+        <Flex as="fieldset" direction="column" isDisabled={isPending}>
+          <Header />
 
-        <Flex direction="column">
-          <FormFields route="confirmSignIn" />
-          <RemoteErrorMessage />
+          <Flex direction="column">
+            <FormFields route="confirmSignIn" />
+            <RemoteErrorMessage />
+          </Flex>
+
+          <ConfirmSignInFooter />
+          <Footer />
         </Flex>
-
-        <ConfirmSignInFooter />
-        <Footer />
-      </Flex>
-    </form>
+      </form>
+    </RouteContainer>
   );
 };
 

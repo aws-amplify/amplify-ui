@@ -23,6 +23,7 @@ the requirements below.
 - [ ] PR description included
 - [ ] `yarn test` passes
 - [ ] Tests are updated
+- [ ] No side effects or [`sideEffects`](https://github.com/aws-amplify/amplify-ui/blob/main/packages/react/CONTRIBUTING.md#code-standards) field updated
 - [ ] Relevant documentation is changed or added (and PR referenced)
 
 By submitting this pull request, I confirm that my contribution is made under the terms of the Apache 2.0 license.

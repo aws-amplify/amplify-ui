@@ -2,6 +2,7 @@ module.exports = {
   env: { node: true },
   root: true,
   ignorePatterns: [
+    '__tests__',
     '.eslintrc.js',
     'jest.config.js',
     'tsup.config.ts',
