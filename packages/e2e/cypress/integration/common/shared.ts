@@ -8,6 +8,22 @@ import { get, escapeRegExp } from 'lodash';
 let language = 'en-US';
 let window = null;
 
+const getMethodFromWindow = (path: string) => {
+  let paths = path.split('.');
+  const method = paths.pop();
+  const obj = get(window, paths);
+
+  if (!window) {
+    throw new Error(`window has not been set in the Cypress tests`);
+  }
+
+  if (!obj || !method) {
+    throw new Error(`Could not find "${path}" on the window`);
+  }
+
+  return { obj, method };
+};
+
 Given("I'm running the example {string}", (example: string) => {
   cy.visit(example, {
     // See: https://glebbahmutov.com/blog/cypress-tips-and-tricks/#control-navigatorlanguage
@@ -79,17 +95,7 @@ Given(
 Given(
   'I mock {string} with fixture {string}',
   (path: string, fixture: string) => {
-    let paths = path.split('.');
-    const method = paths.pop();
-    const obj = get(window, paths);
-
-    if (!window) {
-      throw new Error(`window has not been set in the Cypress tests`);
-    }
-
-    if (!obj || !method) {
-      throw new Error(`Could not find "${path}" on the window`);
-    }
+    const { obj, method } = getMethodFromWindow(path);
 
     cy.fixture(fixture).then((result) => {
       console.info('`%s` mocked with %o', path, result);
@@ -135,7 +141,7 @@ When('I click the {string} button', (name: string) => {
 Then('I see the {string} button', (name: string) => {
   cy.findByRole('button', {
     name: new RegExp(`^${escapeRegExp(name)}$`, 'i'),
-  }).should('be.visible');
+  }).should('exist');
 });
 
 When('I click the {string} checkbox', (label: string) => {
@@ -289,4 +295,26 @@ When('I see {string} as the {string} input', (custom, order) => {
   cy.get('input').eq(order).should('have.attr', 'placeholder', custom);
 
   // cy.findByLabelText(custom).type(Cypress.env('VALID_PASSWORD'));
+});
+
+When('I mock {string} event', (eventName: string) => {
+  if (!window) {
+    throw new Error(`window has not been set in the Cypress tests`);
+  }
+
+  const Hub = window['Hub'];
+  if (!Hub) {
+    throw new Error('Hub is not available on the window.');
+  }
+
+  Hub.dispatch('auth', { event: eventName });
+});
+
+Given('I spy {string} method', (path) => {
+  const { obj, method } = getMethodFromWindow(path);
+  cy.spy(obj, method).as(path);
+});
+
+Then('{string} method is called', (path) => {
+  cy.get(`@${path}`).should('have.been.calledOnce');
 });
