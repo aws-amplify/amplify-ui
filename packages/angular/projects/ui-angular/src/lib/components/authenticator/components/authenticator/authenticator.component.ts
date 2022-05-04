@@ -70,6 +70,11 @@ export class AuthenticatorComponent
     this.unsubscribeMachine = this.authenticator.subscribe(() => {
       const { route } = this.authenticator;
       if (this.route === 'signOut' || this.route === initialState) {
+        /**
+         * Hub events do not trigger Angular change detection because they are
+         * synchronous. Explicitly running change detection on routes that we
+         * can get to as a result of hub event.
+         */
         this.changeDetector.detectChanges();
       }
 
