@@ -196,9 +196,7 @@ export function createAuthenticatorMachine() {
               },
             },
           },
-          on: {
-            SIGN_OUT: '#authenticator.signOut',
-          },
+          on: { SIGN_OUT: 'signOut' },
         },
       },
       on: {
