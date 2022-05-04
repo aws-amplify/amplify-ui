@@ -70,6 +70,10 @@ export class AuthenticatorService implements OnDestroy {
     return this._facade?.route;
   }
 
+  public get authStatus() {
+    return this._facade?.authStatus;
+  }
+
   public get user() {
     return this._facade?.user;
   }
