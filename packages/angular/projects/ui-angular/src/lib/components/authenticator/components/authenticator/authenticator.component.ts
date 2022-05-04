@@ -83,7 +83,7 @@ export class AuthenticatorComponent
        *
        * We want to ensure change detection runs all the way, until
        * we reach back to the initial state. Setting the below flag
-       * to true to track the sequence of manual change detection.
+       * to true to until we reach initial state.
        */
       this.isHandlingHubEvent = true;
       return state;
