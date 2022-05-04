@@ -24,4 +24,5 @@ jobs:
         id: has-changesets
         uses: ./.github/actions/has-changesets
       - name: Create Version Packages PR
+        if: ${{ steps.has-changesets == 'true' }}
         run: echo "mock version packages PR"
