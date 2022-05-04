@@ -66,5 +66,5 @@ export function SignUp() {
 }
 
 SignUp.Header = (): JSX.Element => null;
-SignUp.FormFields = () => <FormFields route="signUp" />;
+SignUp.FormFields = () => <FormFields />;
 SignUp.Footer = (): JSX.Element => null;
