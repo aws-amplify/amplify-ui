@@ -2,29 +2,25 @@ import * as React from 'react';
 
 import { FormFieldComponents, getSortedFormFields } from '@aws-amplify/ui';
 
-import { FormField } from './FormField';
+import { FormField, FormFieldProps } from './FormField';
 import { useAuthenticator } from '../hooks/useAuthenticator';
 
-export interface BaseFormFieldsProps {
-  route: FormFieldComponents;
-}
-export function FormFields({ route }: BaseFormFieldsProps) {
-  // we don't depend on any dynamic value
-  const { _state } = useAuthenticator(() => []);
-  const hasFormFields = React.useRef(false);
+export function FormFields() {
+  // TODO remove _state
+  const { _state, route } = useAuthenticator(({ route }) => [route]);
 
-  const sortedFormFields = React.useMemo(() => {
-    if (!hasFormFields.current) {
-      return getSortedFormFields(route, _state);
-    }
-    hasFormFields.current = true;
-  }, [route, _state]);
+  const formFields = React.useRef(
+    getSortedFormFields(route as FormFieldComponents, _state).flatMap(
+      ([name, options], index) => (
+        <FormField
+          // use index for key, field order is static
+          key={index}
+          name={name}
+          {...(options as Omit<FormFieldProps, 'name'>)}
+        />
+      )
+    )
+  ).current;
 
-  return (
-    <>
-      {sortedFormFields.flatMap(([name, options]) => (
-        <FormField name={name} key={name} formFieldOptions={options} />
-      ))}
-    </>
-  );
+  return <>{formFields}</>;
 }

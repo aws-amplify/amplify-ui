@@ -58,3 +58,21 @@
     }
   }
 }
+
+// To be removed once primitives have been implemented in angular and vue
+.amplify-authenticator__column {
+  display: flex;
+  flex-direction: column;
+}
+
+.amplify-authenticator__subtitle {
+  margin-bottom: var(--amplify-space-medium);
+}
+
+.amplify-authenticator__heading {
+  font-size: var(--amplify-font-sizes-xl);
+}
+
+.amplify-authenticator__federated-text {
+  align-self: center;
+}
