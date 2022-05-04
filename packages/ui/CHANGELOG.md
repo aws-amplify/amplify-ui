@@ -1,5 +1,43 @@
 # @aws-amplify/ui
 
+## 3.7.0
+
+### Minor Changes
+
+- [#1804](https://github.com/aws-amplify/amplify-ui/pull/1804) [`3e5b93e25`](https://github.com/aws-amplify/amplify-ui/commit/3e5b93e25b8e410497332eedf194d2871acb3e79) Thanks [@ErikCH](https://github.com/ErikCH)! - New authStatus feature, to check if a user is authenticated or not
+
+## 3.6.8
+
+### Patch Changes
+
+- [#1798](https://github.com/aws-amplify/amplify-ui/pull/1798) [`331df831f`](https://github.com/aws-amplify/amplify-ui/commit/331df831fd7ddeb8c6f28b4cb385d23d1aa524be) Thanks [@wlee221](https://github.com/wlee221)! - fix(react): Add compatibility with React 18 `useSyncExternalStore` hook
+
+## 3.6.7
+
+### Patch Changes
+
+- [#1762](https://github.com/aws-amplify/amplify-ui/pull/1762) [`cd710a07c`](https://github.com/aws-amplify/amplify-ui/commit/cd710a07c52c1db57899eaf3feba4fde52c08df2) Thanks [@jacoblogan](https://github.com/jacoblogan)! - remove inline styling from react authenticator
+
+## 3.6.6
+
+### Patch Changes
+
+- [#1755](https://github.com/aws-amplify/amplify-ui/pull/1755) [`84fd81868`](https://github.com/aws-amplify/amplify-ui/commit/84fd818689daa5220bfb55ebee7e280454e1c705) Thanks [@hbuchel](https://github.com/hbuchel)! - fix: Resets select option text color to fix windows darkmode bug
+
+* [#1776](https://github.com/aws-amplify/amplify-ui/pull/1776) [`a9c5aa5f5`](https://github.com/aws-amplify/amplify-ui/commit/a9c5aa5f56c4d222cd8bd652d0fd549aea3576ef) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(authenticator): add display:grid to data-amplify-authenticator class
+
+## 3.6.5
+
+### Patch Changes
+
+- [#1698](https://github.com/aws-amplify/amplify-ui/pull/1698) [`57e104e16`](https://github.com/aws-amplify/amplify-ui/commit/57e104e169bc1d6b5de6ffa285c0494204c98579) Thanks [@jacoblogan](https://github.com/jacoblogan)! - add overflow styling to authenticator modal
+
+## 3.6.4
+
+### Patch Changes
+
+- [#1667](https://github.com/aws-amplify/amplify-ui/pull/1667) [`1601b3f94`](https://github.com/aws-amplify/amplify-ui/commit/1601b3f94d68acd1df0e592c6328f19b29620447) Thanks [@hbuchel](https://github.com/hbuchel)! - fix: update focus styling/token nesting for switchField
+
 ## 3.6.3
 
 ### Patch Changes

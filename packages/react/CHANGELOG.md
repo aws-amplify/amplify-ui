@@ -1,5 +1,69 @@
 # @aws-amplify/ui-react
 
+## 2.16.0
+
+### Minor Changes
+
+- [#1811](https://github.com/aws-amplify/amplify-ui/pull/1811) [`78857c29e`](https://github.com/aws-amplify/amplify-ui/commit/78857c29e6e1f0ec501c017a5cbb83710a1f8f3d) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui-react): refactor Authenticator Router, add RouteContainer
+
+### Patch Changes
+
+- Updated dependencies [[`3e5b93e25`](https://github.com/aws-amplify/amplify-ui/commit/3e5b93e25b8e410497332eedf194d2871acb3e79)]:
+  - @aws-amplify/ui@3.7.0
+
+## 2.15.8
+
+### Patch Changes
+
+- [#1798](https://github.com/aws-amplify/amplify-ui/pull/1798) [`331df831f`](https://github.com/aws-amplify/amplify-ui/commit/331df831fd7ddeb8c6f28b4cb385d23d1aa524be) Thanks [@wlee221](https://github.com/wlee221)! - fix(react): Add compatibility with React 18 `useSyncExternalStore` hook
+
+- Updated dependencies [[`331df831f`](https://github.com/aws-amplify/amplify-ui/commit/331df831fd7ddeb8c6f28b4cb385d23d1aa524be)]:
+  - @aws-amplify/ui@3.6.8
+
+## 2.15.7
+
+### Patch Changes
+
+- [#1762](https://github.com/aws-amplify/amplify-ui/pull/1762) [`cd710a07c`](https://github.com/aws-amplify/amplify-ui/commit/cd710a07c52c1db57899eaf3feba4fde52c08df2) Thanks [@jacoblogan](https://github.com/jacoblogan)! - remove inline styling from react authenticator
+
+* [#1786](https://github.com/aws-amplify/amplify-ui/pull/1786) [`4341b3862`](https://github.com/aws-amplify/amplify-ui/commit/4341b38621d0835219650fa579b1bd18c5dc5d82) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(ui-react): add graceful handling of falsy form field values in SetupTOTP component
+
+* Updated dependencies [[`cd710a07c`](https://github.com/aws-amplify/amplify-ui/commit/cd710a07c52c1db57899eaf3feba4fde52c08df2)]:
+  - @aws-amplify/ui@3.6.7
+
+## 2.15.6
+
+### Patch Changes
+
+- [#1766](https://github.com/aws-amplify/amplify-ui/pull/1766) [`3a166e303`](https://github.com/aws-amplify/amplify-ui/commit/3a166e30326b6d6065b9bbf5ecf516e59e2c86b8) Thanks [@slaymance](https://github.com/slaymance)! - Support Pascal case for Amazon Location Service configuration block
+
+- Updated dependencies [[`84fd81868`](https://github.com/aws-amplify/amplify-ui/commit/84fd818689daa5220bfb55ebee7e280454e1c705), [`a9c5aa5f5`](https://github.com/aws-amplify/amplify-ui/commit/a9c5aa5f56c4d222cd8bd652d0fd549aea3576ef)]:
+  - @aws-amplify/ui@3.6.6
+
+## 2.15.5
+
+### Patch Changes
+
+- [#1749](https://github.com/aws-amplify/amplify-ui/pull/1749) [`2f41ba169`](https://github.com/aws-amplify/amplify-ui/commit/2f41ba16963c84c21d8b24147109b4d45fe20361) Thanks [@slaymance](https://github.com/slaymance)! - Fix Geocoder position bug
+
+- Updated dependencies [[`57e104e16`](https://github.com/aws-amplify/amplify-ui/commit/57e104e169bc1d6b5de6ffa285c0494204c98579)]:
+  - @aws-amplify/ui@3.6.5
+
+## 2.15.4
+
+### Patch Changes
+
+- [#1724](https://github.com/aws-amplify/amplify-ui/pull/1724) [`1481e5e04`](https://github.com/aws-amplify/amplify-ui/commit/1481e5e0419f9c13ad48cc8c0d00066acb3c7d92) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui-react): type withAuthenticator
+
+* [#1685](https://github.com/aws-amplify/amplify-ui/pull/1685) [`c984491dc`](https://github.com/aws-amplify/amplify-ui/commit/c984491dcf84171f7e69942ff49e4bccae0c6735) Thanks [@wlee221](https://github.com/wlee221)! - Adjusts Authenticator to accept ReactNode as well as render prop children
+
+- [#1722](https://github.com/aws-amplify/amplify-ui/pull/1722) [`d714ff3ed`](https://github.com/aws-amplify/amplify-ui/commit/d714ff3ed5bc31563ff1ff799bc4bcc9c2743166) Thanks [@ErikCH](https://github.com/ErikCH)! - Updated maplibre-gl to latest version
+
+* [#1721](https://github.com/aws-amplify/amplify-ui/pull/1721) [`13ae3c03c`](https://github.com/aws-amplify/amplify-ui/commit/13ae3c03c3b07ff4b0ccc2dd842f682b42c55fb7) Thanks [@slaymance](https://github.com/slaymance)! - Bump maplibre-gl-js-amplify dependency version
+
+* Updated dependencies [[`1601b3f94`](https://github.com/aws-amplify/amplify-ui/commit/1601b3f94d68acd1df0e592c6328f19b29620447)]:
+  - @aws-amplify/ui@3.6.4
+
 ## 2.15.3
 
 ### Patch Changes

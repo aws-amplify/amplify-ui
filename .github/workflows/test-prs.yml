@@ -8,7 +8,7 @@ concurrency:
 
 on:
   pull_request_target:
-    branches: [main, ui-svelte/main]
+    branches: [main, ui-svelte/main, ui-geo/main]
     types: [opened, synchronize, labeled]
 
 permissions:
@@ -129,7 +129,7 @@ jobs:
         run: yarn ui build
 
       - name: Build ${{ matrix.package }} package
-        if: ${{ matrix.package != '@aws-amplify/ui' }}
+        if: ${{ matrix.package != 'ui' }}
         run: yarn ${{ matrix.package }} build
 
       - name: Cache ${{ matrix.package }}/dist

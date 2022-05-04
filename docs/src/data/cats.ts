@@ -47,4 +47,8 @@ export const cats = [
     url: '/cats/12.jpg',
     alt: 'Handsome christmas cat',
   },
+  {
+    url: '/cats/13.jpg',
+    alt: 'Hateful cat',
+  },
 ];

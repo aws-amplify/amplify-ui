@@ -48,7 +48,10 @@ export const Demo = ({
             <TabItem title="Props">
               <View padding={`${tokens.space.medium} 0`}>{propControls}</View>
             </TabItem>
-            {themeControls ?? <TabItem title="Theme">{themeControls}</TabItem>}
+            {/* Temporarily removing the Theme tab until we figure out a way 
+                to let customers dynamically edit a theme object in the demos 
+            */}
+            {/* {themeControls ? <TabItem title="Theme">{themeControls}</TabItem> : null} */}
           </Tabs>
         </Flex>
         <View
