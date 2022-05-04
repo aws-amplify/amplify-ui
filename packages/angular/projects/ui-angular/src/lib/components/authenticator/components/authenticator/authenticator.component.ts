@@ -1,5 +1,6 @@
 import {
   AfterContentInit,
+  ChangeDetectorRef,
   Component,
   ContentChildren,
   Input,
@@ -48,7 +49,8 @@ export class AuthenticatorComponent
 
   constructor(
     private authenticator: AuthenticatorService,
-    private contextService: CustomComponentsService
+    private contextService: CustomComponentsService,
+    private changeDetector: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -67,6 +69,10 @@ export class AuthenticatorComponent
      */
     this.unsubscribeMachine = this.authenticator.subscribe(() => {
       const { route } = this.authenticator;
+      if (this.route === 'signOut' || this.route === initialState) {
+        this.changeDetector.detectChanges();
+      }
+
       if (!this.hasInitialized && route === 'setup') {
         this.authenticator.send({
           type: 'INIT',
