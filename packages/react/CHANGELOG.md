@@ -1,5 +1,16 @@
 # @aws-amplify/ui-react
 
+## 2.16.0
+
+### Minor Changes
+
+- [#1811](https://github.com/aws-amplify/amplify-ui/pull/1811) [`78857c29e`](https://github.com/aws-amplify/amplify-ui/commit/78857c29e6e1f0ec501c017a5cbb83710a1f8f3d) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui-react): refactor Authenticator Router, add RouteContainer
+
+### Patch Changes
+
+- Updated dependencies [[`3e5b93e25`](https://github.com/aws-amplify/amplify-ui/commit/3e5b93e25b8e410497332eedf194d2871acb3e79)]:
+  - @aws-amplify/ui@3.7.0
+
 ## 2.15.8
 
 ### Patch Changes
