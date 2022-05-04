@@ -12,6 +12,7 @@ import {
 } from '@angular/core';
 import {
   AuthenticatorMachineOptions,
+  listenToAuthHub,
   SocialProvider,
   translate,
 } from '@aws-amplify/ui';
@@ -45,7 +46,9 @@ export class AuthenticatorComponent
   public signUpTitle = translate('Create Account');
 
   private hasInitialized = false;
+  private isHandlingHubEvent = false;
   private unsubscribeMachine: () => void;
+  private unsubscribeHub: ReturnType<typeof listenToAuthHub>;
 
   constructor(
     private authenticator: AuthenticatorService,
@@ -63,19 +66,43 @@ export class AuthenticatorComponent
       formFields,
     } = this;
 
+    this.unsubscribeHub = listenToAuthHub((event) => {
+      /**
+       * Hub events aren't properly caught by Angular, because they are
+       * synchronous events.
+       *
+       * On any notable hub events, we run change detection manually.
+       */
+      const state = this.authenticator.authService.send(event);
+      this.changeDetector.detectChanges();
+
+      /**
+       * All Hub events that we handle lead to multiple route changes:
+       * e.g. `authenticated` -> `signOut` -> initialState.
+       *
+       * We want to ensure change detection runs again after the first one,
+       * until we reach back to the initial state.
+       */
+      this.isHandlingHubEvent = true;
+      return state;
+    });
+
     /**
      * Subscribes to state machine changes and sends INIT event
      * once machine reaches 'setup' state.
      */
     this.unsubscribeMachine = this.authenticator.subscribe(() => {
       const { route } = this.authenticator;
-      if (this.route === 'signOut' || this.route === initialState) {
-        /**
-         * Hub events do not trigger Angular change detection because they are
-         * synchronous. Explicitly running change detection on routes that we
-         * can get to as a result of hub event.
-         */
+
+      if (this.isHandlingHubEvent) {
         this.changeDetector.detectChanges();
+
+        const initialStateWithDefault = initialState ?? 'signIn';
+
+        // We can stop manual change detection if we're back to the initial state
+        if (route === initialStateWithDefault) {
+          this.isHandlingHubEvent = false;
+        }
       }
 
       if (!this.hasInitialized && route === 'setup') {
@@ -114,6 +141,7 @@ export class AuthenticatorComponent
 
   ngOnDestroy(): void {
     if (this.unsubscribeMachine) this.unsubscribeMachine();
+    if (this.unsubscribeHub) this.unsubscribeHub();
   }
 
   /**
