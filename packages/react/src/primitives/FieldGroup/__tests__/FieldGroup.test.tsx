@@ -8,6 +8,25 @@ import { Text } from '../../Text';
 
 describe('FieldGroup component', () => {
   const testId = 'fieldGroupTestId';
+  it('should render the orientation classes', async () => {
+    render(
+      <div>
+        <FieldGroup testId="horizontal" orientation="horizontal">
+          <Text>Hello</Text>
+        </FieldGroup>
+        <FieldGroup testId="vertical" orientation="vertical">
+          <Text>Hello</Text>
+        </FieldGroup>
+      </div>
+    );
+
+    const horizontal = await screen.findByTestId('horizontal');
+    const vertical = await screen.findByTestId(`vertical`);
+
+    expect(horizontal.classList).toContain('amplify-field-group--horizontal');
+    expect(vertical.classList).toContain('amplify-field-group--vertical');
+  });
+
   it('should render custom classname for FieldGroup', async () => {
     render(
       <FieldGroup className="custom-class" testId={testId}>

@@ -5,6 +5,36 @@ import { Divider } from '../Divider';
 import { ComponentClassNames } from '../../shared';
 
 describe('Divider component', () => {
+  it('should add the size classes', async () => {
+    render(
+      <div>
+        <Divider size="small" testId="small" />
+        <Divider size="large" testId="large" />
+      </div>
+    );
+
+    const small = await screen.findByTestId('small');
+    const large = await screen.findByTestId(`large`);
+
+    expect(small.classList).toContain('amplify-divider--small');
+    expect(large.classList).toContain('amplify-divider--large');
+  });
+
+  it('should add the orientation classes', async () => {
+    render(
+      <div>
+        <Divider orientation="horizontal" testId="horizontal" />
+        <Divider orientation="vertical" testId="vertical" />
+      </div>
+    );
+
+    const horizontal = await screen.findByTestId('horizontal');
+    const vertical = await screen.findByTestId(`vertical`);
+
+    expect(horizontal.classList).toContain('amplify-divider--horizontal');
+    expect(vertical.classList).toContain('amplify-divider--vertical');
+  });
+
   it('renders <hr> with expected data attributes and classname', async () => {
     const dividerTestId = 'dividerTest';
     render(<Divider id={dividerTestId} />);

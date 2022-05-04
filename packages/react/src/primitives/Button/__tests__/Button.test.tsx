@@ -6,6 +6,92 @@ import { Button } from '../Button';
 import { ComponentClassNames } from '../../shared';
 
 describe('Button test suite', () => {
+  it('should render button variations', async () => {
+    render(
+      <div>
+        <Button variation="primary" testId="primary">
+          Primary
+        </Button>
+        <Button variation="link" testId="link">
+          Link
+        </Button>
+      </div>
+    );
+
+    const primary = await screen.findByTestId('primary');
+    const link = await screen.findByTestId('link');
+
+    expect(primary.classList).toContain('amplify-button--primary');
+    expect(link.classList).toContain('amplify-button--link');
+  });
+
+  it('should render button variations', async () => {
+    render(
+      <div>
+        <Button variation="primary" testId="primary">
+          Primary
+        </Button>
+        <Button variation="link" testId="link">
+          Link
+        </Button>
+        <Button variation="menu" testId="menu">
+          Link
+        </Button>
+      </div>
+    );
+
+    const primary = await screen.findByTestId('primary');
+    const link = await screen.findByTestId('link');
+    const menu = await screen.findByTestId('menu');
+
+    expect(primary.classList).toContain('amplify-button--primary');
+    expect(link.classList).toContain('amplify-button--link');
+    expect(menu.classList).toContain('amplify-button--menu');
+  });
+
+  it('should render button states', async () => {
+    render(
+      <div>
+        <Button isFullWidth={true} testId="fullwidth">
+          Full Width
+        </Button>
+        <Button isDisabled={true} testId="disabled">
+          Disabled
+        </Button>
+        <Button isLoading={true} testId="loading">
+          Disabled
+        </Button>
+      </div>
+    );
+
+    const fullwidth = await screen.findByTestId('fullwidth');
+    const disabled = await screen.findByTestId('disabled');
+    const loading = await screen.findByTestId('loading');
+
+    expect(fullwidth.classList).toContain('amplify-button--fullwidth');
+    expect(disabled.classList).toContain('amplify-button--disabled');
+    expect(loading.classList).toContain('amplify-button--loading');
+  });
+
+  it('should render button sizes', async () => {
+    render(
+      <div>
+        <Button size="small" testId="small">
+          Small
+        </Button>
+        <Button size="large" testId="large">
+          Large
+        </Button>
+      </div>
+    );
+
+    const small = await screen.findByTestId('small');
+    const large = await screen.findByTestId('large');
+
+    expect(small.classList).toContain('amplify-button--small');
+    expect(large.classList).toContain('amplify-button--large');
+  });
+
   it('should render classname and custom classname', async () => {
     const className = 'test-class';
     render(<Button className={className} />);
