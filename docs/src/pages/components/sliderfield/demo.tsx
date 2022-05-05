@@ -1,26 +1,43 @@
 import * as React from 'react';
-import { SliderField } from '@aws-amplify/ui-react';
+import { SliderField, SliderFieldProps } from '@aws-amplify/ui-react';
 import { Demo } from '@/components/Demo';
 import { SliderFieldPropControls } from './SliderFieldPropControls';
 import { useSliderFieldProps } from './useSliderFieldProps';
+import { getPropString } from '../utils/getPropString';
 
-const propsToCode = (props) => {
+/*
+
+What's the difference between size and trackSize?
+- trackSize is the width of the track itself (e.g., 0.5rem)
+- size is the overall size of the SliderField, including the thumb (e.g., small, large or default)
+
+Demonstrate defaultValue?
+
+*/
+const propsToCode = (props: SliderFieldProps) => {
   return (
     `<SliderField` +
-    (props.variation
-      ? `\n  variation=${JSON.stringify(props.variation)}`
+    `\n  label="${props.label}"` +
+    (props.min ? `\n  min={${props.min}}` : '') +
+    `\n  max={${props.max}}` +
+    (props.step !== 1 ? `\n  step={${props.step}}` : '') +
+    getPropString(props.trackSize, 'trackSize') +
+    getPropString(props.emptyTrackColor, 'emptyTrackColor') +
+    getPropString(props.filledTrackColor, 'filledTrackColor') +
+    getPropString(props.thumbColor, 'thumbColor') +
+    (props.orientation === 'vertical'
+      ? `\n  orientation="${props.orientation}"`
       : '') +
-    `
-  isDismissible={${props.isDismissible}}
-  hasIcon={${props.hasIcon}}
-  heading="${props.heading}"
-  >
-  ${props.body}
-/>`
+    getPropString(props.size, 'size') +
+    (props.isDisabled ? `\n  isDisabled` : '') +
+    (props.isValueHidden ? `\n  isValueHidden` : '') +
+    (props.labelHidden ? `\n  labelHidden` : '') +
+    `\n/>`
   );
 };
 
 export const SliderFieldDemo = () => {
+  // Needs to persist demo state using demoState
   const sliderFieldProps = useSliderFieldProps({
     label: 'Slider',
     defaultValue: 50,
@@ -35,7 +52,6 @@ export const SliderFieldDemo = () => {
       propControls={<SliderFieldPropControls {...sliderFieldProps} />}
     >
       <SliderField
-        // what is defaultValue?
         defaultValue={sliderFieldProps.defaultValue}
         isDisabled={sliderFieldProps.isDisabled}
         isValueHidden={sliderFieldProps.isValueHidden}
@@ -54,46 +70,3 @@ export const SliderFieldDemo = () => {
     </Demo>
   );
 };
-
-/*
-import * as React from 'react';
-
-import { Flex, SliderField } from '@aws-amplify/ui-react';
-
-import { SliderFieldPropControls } from 'src/pages/components/sliderfield/SliderFieldPropControls';
-import { useSliderFieldProps } from 'src/pages/components/sliderfield/useSliderFieldProps';
-import { Example } from '@/components/Example';
-
-export const SliderFieldDemo = () => {
-  const sliderFieldProps = useSliderFieldProps({
-    label: 'Slider',
-    defaultValue: 50,
-    min: 0,
-    max: 100,
-    step: 1,
-  });
-  return (
-    <Flex direction="column">
-      <SliderFieldPropControls {...sliderFieldProps} />
-      <Example>
-        <SliderField
-          defaultValue={sliderFieldProps.defaultValue}
-          label={sliderFieldProps.label}
-          max={sliderFieldProps.max}
-          min={sliderFieldProps.min}
-          step={sliderFieldProps.step}
-          orientation={sliderFieldProps.orientation}
-          isDisabled={sliderFieldProps.isDisabled}
-          isValueHidden={sliderFieldProps.isValueHidden}
-          labelHidden={sliderFieldProps.labelHidden}
-          emptyTrackColor={sliderFieldProps.emptyTrackColor}
-          filledTrackColor={sliderFieldProps.filledTrackColor}
-          thumbColor={sliderFieldProps.thumbColor}
-          trackSize={sliderFieldProps.trackSize}
-          size={sliderFieldProps.size}
-        />
-      </Example>
-    </Flex>
-  );
-};
-*/

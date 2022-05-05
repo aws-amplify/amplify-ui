@@ -90,9 +90,7 @@ export const SliderFieldPropControls: SliderFieldPropControlsInterface = ({
         min={0}
         max={10}
         step={1}
-        onChange={(event) =>
-          setMin(+event.target.value as SliderFieldProps['min'])
-        }
+        onStepChange={setMin}
       />
       <StepperField
         label="max"
@@ -100,9 +98,7 @@ export const SliderFieldPropControls: SliderFieldPropControlsInterface = ({
         min={50}
         max={100}
         step={1}
-        onChange={(event) =>
-          setMax(+event.target.value as SliderFieldProps['max'])
-        }
+        onStepChange={setMax}
       />
       <StepperField
         label="step"
@@ -110,9 +106,7 @@ export const SliderFieldPropControls: SliderFieldPropControlsInterface = ({
         min={1}
         max={10}
         step={1}
-        onChange={(event) =>
-          setStep(+event.target.value as SliderFieldProps['step'])
-        }
+        onStepChange={setStep}
       />
       <TextField
         label="trackSize"
@@ -131,19 +125,19 @@ export const SliderFieldPropControls: SliderFieldPropControlsInterface = ({
         }
       />
       <TextField
-        label="thumbColor"
-        value={thumbColor}
-        onChange={(event) =>
-          setThumbColor(event.target.value as SliderFieldProps['thumbColor'])
-        }
-      />
-      <TextField
         label="filledTrackColor"
         value={filledTrackColor}
         onChange={(event) =>
           setFilledTrackColor(
             event.target.value as SliderFieldProps['filledTrackColor']
           )
+        }
+      />
+      <TextField
+        label="thumbColor"
+        value={thumbColor}
+        onChange={(event) =>
+          setThumbColor(event.target.value as SliderFieldProps['thumbColor'])
         }
       />
       <SelectField
