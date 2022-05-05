@@ -1,5 +1,11 @@
 # @aws-amplify/ui
 
+## 3.7.0
+
+### Minor Changes
+
+- [#1804](https://github.com/aws-amplify/amplify-ui/pull/1804) [`3e5b93e25`](https://github.com/aws-amplify/amplify-ui/commit/3e5b93e25b8e410497332eedf194d2871acb3e79) Thanks [@ErikCH](https://github.com/ErikCH)! - New authStatus feature, to check if a user is authenticated or not
+
 ## 3.6.8
 
 ### Patch Changes

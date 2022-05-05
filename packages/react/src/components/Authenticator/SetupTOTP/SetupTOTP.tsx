@@ -17,13 +17,17 @@ import { useFormHandlers } from '../hooks/useFormHandlers';
 import { ConfirmSignInFooter } from '../shared/ConfirmSignInFooter';
 import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { FormFields } from '../shared/FormFields';
+import { RouteContainer, RouteProps } from '../RouteContainer';
 
 const logger = new Logger('SetupTOTP-logger');
 
 export const getTotpCode = (issuer: string, username: string, secret: string) =>
   `otpauth://totp/${issuer}:${username}?secret=${secret}&issuer=${issuer}`;
 
-export const SetupTOTP = (): JSX.Element => {
+export const SetupTOTP = ({
+  className,
+  variation,
+}: RouteProps): JSX.Element => {
   // TODO: handle `formOverrides` outside `useAuthenticator`
   const { _state, isPending } = useAuthenticator((context) => [
     context.isPending,
@@ -78,51 +82,53 @@ export const SetupTOTP = (): JSX.Element => {
   };
 
   return (
-    <form
-      data-amplify-form=""
-      data-amplify-authenticator-setup-totp=""
-      method="post"
-      onChange={handleChange}
-      onSubmit={handleSubmit}
-    >
-      <Flex as="fieldset" direction="column" isDisabled={isPending}>
-        <Header />
+    <RouteContainer className={className} variation={variation}>
+      <form
+        data-amplify-form=""
+        data-amplify-authenticator-setup-totp=""
+        method="post"
+        onChange={handleChange}
+        onSubmit={handleSubmit}
+      >
+        <Flex as="fieldset" direction="column" isDisabled={isPending}>
+          <Header />
 
-        <Flex direction="column">
-          {/* TODO: Add spinner here instead of loading text... */}
-          {isLoading ? (
-            <p>{translate('Loading')}&hellip;</p>
-          ) : (
-            <img
-              data-amplify-qrcode
-              src={qrCode}
-              alt="qr code"
-              width="228"
-              height="228"
-            />
-          )}
-          <Flex data-amplify-copy>
-            <div>{secretKey}</div>
-            <Flex data-amplify-copy-svg onClick={copyText}>
-              <div data-amplify-copy-tooltip>{copyTextLabel}</div>
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M16 1H4C2.9 1 2 1.9 2 3V17H4V3H16V1ZM15 5H8C6.9 5 6.01 5.9 6.01 7L6 21C6 22.1 6.89 23 7.99 23H19C20.1 23 21 22.1 21 21V11L15 5ZM8 21V7H14V12H19V21H8Z" />
-              </svg>
+          <Flex direction="column">
+            {/* TODO: Add spinner here instead of loading text... */}
+            {isLoading ? (
+              <p>{translate('Loading')}&hellip;</p>
+            ) : (
+              <img
+                data-amplify-qrcode
+                src={qrCode}
+                alt="qr code"
+                width="228"
+                height="228"
+              />
+            )}
+            <Flex data-amplify-copy>
+              <div>{secretKey}</div>
+              <Flex data-amplify-copy-svg onClick={copyText}>
+                <div data-amplify-copy-tooltip>{copyTextLabel}</div>
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M16 1H4C2.9 1 2 1.9 2 3V17H4V3H16V1ZM15 5H8C6.9 5 6.01 5.9 6.01 7L6 21C6 22.1 6.89 23 7.99 23H19C20.1 23 21 22.1 21 21V11L15 5ZM8 21V7H14V12H19V21H8Z" />
+                </svg>
+              </Flex>
             </Flex>
+            <FormFields />
+            <RemoteErrorMessage />
           </Flex>
-          <FormFields route="setupTOTP" />
-          <RemoteErrorMessage />
-        </Flex>
 
-        <ConfirmSignInFooter />
-        <Footer />
-      </Flex>
-    </form>
+          <ConfirmSignInFooter />
+          <Footer />
+        </Flex>
+      </form>
+    </RouteContainer>
   );
 };
 

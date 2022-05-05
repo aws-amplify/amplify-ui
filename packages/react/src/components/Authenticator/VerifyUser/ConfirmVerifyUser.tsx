@@ -8,8 +8,12 @@ import { useFormHandlers } from '../hooks/useFormHandlers';
 import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { TwoButtonSubmitFooter } from '../shared/TwoButtonSubmitFooter';
 import { FormFields } from '../shared/FormFields';
+import { RouteContainer, RouteProps } from '../RouteContainer';
 
-export const ConfirmVerifyUser = (): JSX.Element => {
+export const ConfirmVerifyUser = ({
+  className,
+  variation,
+}: RouteProps): JSX.Element => {
   const { isPending } = useAuthenticator((context) => [context.isPending]);
   const { handleChange, handleSubmit } = useFormHandlers();
 
@@ -23,29 +27,31 @@ export const ConfirmVerifyUser = (): JSX.Element => {
   } = useCustomComponents();
 
   return (
-    <form
-      data-amplify-form=""
-      data-amplify-authenticator-confirmverifyuser=""
-      method="post"
-      onChange={handleChange}
-      onSubmit={handleSubmit}
-    >
-      <Flex as="fieldset" direction="column" isDisabled={isPending}>
-        <Header />
+    <RouteContainer className={className} variation={variation}>
+      <form
+        data-amplify-form=""
+        data-amplify-authenticator-confirmverifyuser=""
+        method="post"
+        onChange={handleChange}
+        onSubmit={handleSubmit}
+      >
+        <Flex as="fieldset" direction="column" isDisabled={isPending}>
+          <Header />
 
-        <Flex direction="column">
-          <FormFields route="confirmVerifyUser" />
+          <Flex direction="column">
+            <FormFields />
+          </Flex>
+
+          <RemoteErrorMessage />
+
+          <TwoButtonSubmitFooter
+            cancelButtonText={translate('Skip')}
+            cancelButtonSendType="SKIP"
+          />
+          <Footer />
         </Flex>
-
-        <RemoteErrorMessage />
-
-        <TwoButtonSubmitFooter
-          cancelButtonText={translate('Skip')}
-          cancelButtonSendType="SKIP"
-        />
-        <Footer />
-      </Flex>
-    </form>
+      </form>
+    </RouteContainer>
   );
 };
 
