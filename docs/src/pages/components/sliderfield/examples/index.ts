@@ -5,3 +5,5 @@ export { SliderFieldOrientationExample } from './SliderFieldOrientationExample';
 export { SliderFieldAriaExample } from './SliderFieldAriaExample';
 export { SliderFieldIconsExample } from './SliderFieldIconsExample';
 export { SliderFieldAccessibilityExample } from './SliderFieldAccessibilityExample';
+export { SliderFieldFormExample } from './SliderFieldFormExample';
+export { SliderFieldValidationExample } from './SliderFieldValidationExample';

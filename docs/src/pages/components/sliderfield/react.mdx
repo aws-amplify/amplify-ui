@@ -1,8 +1,4 @@
-import {
-  SliderField,
-  IconVolumeDown,
-  IconVolumeUp,
-} from '@aws-amplify/ui-react';
+import { SliderField } from '@aws-amplify/ui-react';
 
 import { SliderFieldDemo } from './demo';
 import {
@@ -13,9 +9,10 @@ import {
   SliderFieldAriaExample,
   SliderFieldIconsExample,
   SliderFieldAccessibilityExample,
+  SliderFieldFormExample,
+  SliderFieldValidationExample,
 } from './examples';
 
-import { ControlledSliderField, DaySlider, SliderInForm } from './OLD_examples';
 import { Example, ExampleCode } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
@@ -53,7 +50,7 @@ To use the SliderField as a controlled component, handle the current value using
 
 ### Basics
 
-To control the range of the SliderField, use the `min` and `max` props. To control the interval between selectable values, use the `step` prop (defaults to 1).
+To control the range of the SliderField, use the `min` and `max` props. To control the interval between selectable values, use the `step` prop (defaults to 1). You may also set a `defaultValue`.
 
 <Example>
   <SliderFieldBasicsExample />
@@ -63,56 +60,6 @@ To control the range of the SliderField, use the `min` and `max` props. To contr
 ````
 
   </ExampleCode>
-</Example>
-
-### Orientation
-
-To change the orientation from horizontal (default) to vertical, use the `orientation` prop.
-
-<Example>
-  <SliderFieldOrientationExample />
-  <ExampleCode>
-```jsx file=./examples/SliderFieldOrientationExample.tsx
-
-````
-
-  </ExampleCode>
-</Example>
-
-### FORM STUFF
-
-The `Slider` will render an input for the thumb when used within a form to ensure that value will be submitted with form data.
-
-```jsx
-import { Button, SliderField } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-const SliderInForm = () => {
-  const onSubmit = (event) => {
-    event.preventDefault();
-    alert(event.target.slider.value);
-  };
-  return (
-    <form onSubmit={onSubmit}>
-      <SliderField
-        name="slider"
-        label="Slider"
-        defaultValue={50}
-        min={0}
-        max={100}
-        step={1}
-        labelHidden
-      />
-      <Button type="submit">Submit</Button>
-    </form>
-  );
-};
-
-<SliderInForm />;
-```
-
-<Example>
-  <SliderInForm />
 </Example>
 
 ### Accessibility / Label behavior
@@ -143,6 +90,34 @@ The SliderField will programmatically update the value of `aria-valuenow` in res
   </ExampleCode>
 </Example>
 
+### Forms
+
+To use the SliderField in a form, pass a `name` prop to the SliderField to access its current value. To disable the SliderField, set the `isDisabled` prop. A disabled SliderField will not be focusable, mutable, or submit a value with form data.
+
+<Example>
+  <SliderFieldFormExample />
+  <ExampleCode>
+```jsx file=./examples/SliderFieldFormExample.tsx
+
+````
+
+  </ExampleCode>
+</Example>
+
+### Orientation
+
+To change the orientation from horizontal (default) to vertical, use the `orientation` prop.
+
+<Example>
+  <SliderFieldOrientationExample />
+  <ExampleCode>
+```jsx file=./examples/SliderFieldOrientationExample.tsx
+
+````
+
+  </ExampleCode>
+</Example>
+
 ### Icons
 
 To add icons on either side of the SliderField, you may use the `outerStartComponent` or `outerEndComponent` props.
@@ -157,67 +132,18 @@ To add icons on either side of the SliderField, you may use the `outerStartCompo
   </ExampleCode>
 </Example>
 
-### Disabled SliderField
-
-A disabled field will not be focusable or mutable and will not be submitted with form data.
-
-```jsx
-import { SliderField } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-<SliderField
-  label="Slider"
-  defaultValue={50}
-  min={0}
-  max={100}
-  step={1}
-  isDisabled
-  labelHidden
-/>;
-```
-
-<Example>
-  <SliderField
-    label="Slider"
-    defaultValue={50}
-    min={0}
-    max={100}
-    step={1}
-    isDisabled
-    labelHidden
-  />
-</Example>
-
 ### Validation error
 
-Use the `hasError` and `errorMessage` props to mark a SliderField as having an validation error.
-
-```jsx
-import { SliderField } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-<SliderField
-  label="Slider"
-  defaultValue={50}
-  min={0}
-  max={100}
-  step={1}
-  hasError
-  labelHidden
-/>;
-```
+To validate the SliderField input, use the `hasError` and `errorMessage` props.
 
 <Example>
-  <SliderField
-    label="Slider"
-    defaultValue={50}
-    min={0}
-    max={100}
-    step={1}
-    errorMessage="This is an error message."
-    hasError
-    labelHidden
-  />
+  <SliderFieldValidationExample />
+  <ExampleCode>
+```jsx file=./examples/SliderFieldValidationExample.tsx
+
+````
+
+  </ExampleCode>
 </Example>
 
 ## CSS Styling
