@@ -40,7 +40,7 @@ export const ConfirmResetPassword = ({
           <Header />
 
           <Flex direction="column">
-            <FormFields route="confirmResetPassword" />
+            <FormFields />
           </Flex>
 
           <RemoteErrorMessage />
