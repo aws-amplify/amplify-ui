@@ -1,10 +1,11 @@
-import { useRouter } from 'next/router';
 import {
+  Image,
   ToggleButton,
   ToggleButtonGroup,
-  Image,
   VisuallyHidden,
 } from '@aws-amplify/ui-react';
+
+import { useRouter } from 'next/router';
 
 export const FrameworkChooser = ({ platform }) => {
   const router = useRouter();

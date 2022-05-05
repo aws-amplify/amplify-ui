@@ -1,31 +1,31 @@
 import * as React from 'react';
-import { useRouter } from 'next/router';
-import { Sandpack } from '@codesandbox/sandpack-react';
+
 import {
-  Link,
-  Grid,
   Authenticator,
   Button,
   Card,
-  TextField,
-  Heading,
-  View,
-  Text,
   Flex,
-  Image,
-  useTheme,
-  ToggleButtonGroup,
-  ToggleButton,
+  Grid,
+  Heading,
   IconChevronRight,
+  Image,
+  Link,
+  Text,
+  TextField,
+  ToggleButton,
+  ToggleButtonGroup,
+  View,
+  useTheme,
 } from '@aws-amplify/ui-react';
 
-import { HomeLogo } from './HomeLogo';
-import { ThemeButton } from './ThemeButton';
-import { HomePrimitivePreview } from './HomePrimitivePreview';
 import { Copy } from '@/components/Copy';
 import { Footer } from '@/components/Layout/Footer';
-
+import { HomeLogo } from './HomeLogo';
+import { HomePrimitivePreview } from './HomePrimitivePreview';
+import { Sandpack } from '@codesandbox/sandpack-react';
 import type { SandpackThemeProp } from '@codesandbox/sandpack-react';
+import { ThemeButton } from './ThemeButton';
+import { useRouter } from 'next/router';
 
 const code = `import { AmplifyProvider, Button, Card, Text, Heading, Flex, Badge, Image, StepperField, useTheme } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
@@ -99,9 +99,10 @@ const AmpCard = ({ title, description, href }) => (
 );
 
 const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
-  const router = useRouter();
+  const {
+    query: { platform = 'react' },
+  } = useRouter();
   const { tokens } = useTheme();
-  const framework = (router.query.platform as string) ?? 'react';
   const sandPackTheme: SandpackThemeProp = {
     palette: {
       activeText: `${tokens.colors.font.interactive}`,
@@ -138,12 +139,12 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
     },
   };
   const installScripts = {
-    react: `npm i @aws-amplify/ui-${framework} aws-amplify`,
-    vue: `npm i @aws-amplify/ui-${framework} aws-amplify`,
-    angular: `npm i @aws-amplify/ui-${framework} aws-amplify`,
+    react: `npm i @aws-amplify/ui-${platform} aws-amplify`,
+    vue: `npm i @aws-amplify/ui-${platform} aws-amplify`,
+    angular: `npm i @aws-amplify/ui-${platform} aws-amplify`,
     flutter: 'flutter pub add amplify_authenticator',
   };
-  const frameworkInstallScript = installScripts[framework];
+  const frameworkInstallScript = installScripts[platform.toString()];
   return (
     <>
       <View as="section" className="container">
@@ -176,7 +177,7 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
                 size="large"
                 variation="primary"
                 as="a"
-                href={`/getting-started/installation?platform=${framework}`}
+                href={`/getting-started/installation/${platform}`}
               >
                 Get started
                 <IconChevronRight />
@@ -280,7 +281,7 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
             <Button
               as="a"
               size="large"
-              href={`/components/authenticator?platform=${framework}`}
+              href={`/components/authenticator/${platform}`}
               isFullWidth
             >
               Authenticator
@@ -308,7 +309,7 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
               Theming capabilities that allow you to customize the appearance of
               Amplify UI to match your brand.
             </Text>
-            <Button as="a" size="large" href={`/theming?platform=${framework}`}>
+            <Button as="a" size="large" href={`/theming/${platform}`}>
               Get started with theming
               <IconChevronRight />
             </Button>
@@ -375,7 +376,7 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
             <Button
               as="a"
               size="large"
-              href={`/components/authenticator?platform=${framework}`}
+              href={`/components/authenticator/${platform}`}
             >
               Get started with components
               <IconChevronRight />

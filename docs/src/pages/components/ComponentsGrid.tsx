@@ -1,3 +1,4 @@
+import { Card, Flex, Grid, Heading } from '@aws-amplify/ui-react';
 import {
   baseComponents,
   connectedComponents,
@@ -8,13 +9,14 @@ import {
   navigationComponents,
   utilityComponents,
 } from '@/data/links';
-import { Card, Flex, Grid, Heading } from '@aws-amplify/ui-react';
+
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 const ComponentGrid = ({ components }) => {
-  const { query } = useRouter();
-  const { platform = 'react' } = query;
+  const {
+    query: { platform = 'react' },
+  } = useRouter();
 
   return (
     <Grid
@@ -22,7 +24,7 @@ const ComponentGrid = ({ components }) => {
       gap="var(--amplify-space-large)"
     >
       {components.map(({ href, label, body }) => (
-        <Link href={{ pathname: href, query }} key={href}>
+        <Link href={`${href}/${platform}`} key={href} passHref>
           <Card className="docs-component-card" variation="elevated">
             <Heading level={4}>{label}</Heading>
             <div className="docs-component-card-contents">{body}</div>

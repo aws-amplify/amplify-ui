@@ -1,29 +1,31 @@
 import * as React from 'react';
-import NextLink from 'next/link';
+
 import {
   Button,
-  VisuallyHidden,
-  Link,
-  Flex,
   ColorMode,
+  Divider,
+  Flex,
+  Link,
   ToggleButton,
   ToggleButtonGroup,
-  Divider,
   View,
+  VisuallyHidden,
 } from '@aws-amplify/ui-react';
 import {
+  MdBedtime,
   MdClose,
   MdMenu,
-  MdWbSunny,
-  MdBedtime,
-  MdTonality,
   MdOpenInNew,
+  MdTonality,
+  MdWbSunny,
 } from 'react-icons/md';
-import { useRouter } from 'next/router';
-import { Logo } from '@/components/Logo';
+
 import { FrameworkChooser } from './FrameworkChooser';
-import { SecondaryNav } from './SecondaryNav';
 import LinkButton from './LinkButton';
+import { Logo } from '@/components/Logo';
+import NextLink from 'next/link';
+import { SecondaryNav } from './SecondaryNav';
+import { useRouter } from 'next/router';
 
 const NavLink = ({
   href,
@@ -36,7 +38,8 @@ const NavLink = ({
   isExternal?: boolean;
   onClick?: React.MouseEventHandler<HTMLAnchorElement>;
 }) => {
-  const { pathname, query } = useRouter();
+  const { pathname } = useRouter();
+
   const isCurrent = pathname.startsWith(href) && href !== '/';
   const className = `docs-nav-link ${isCurrent ? 'current' : ''}`;
 
@@ -48,7 +51,7 @@ const NavLink = ({
     );
   }
   return (
-    <NextLink href={{ pathname: href, query }} passHref>
+    <NextLink href={href} passHref>
       <LinkButton href={href} classNames={className} onClick={onClick}>
         {children}
       </LinkButton>
@@ -58,16 +61,19 @@ const NavLink = ({
 
 const Nav = (props) => (
   <Flex as="nav" className="docs-nav" alignItems="center" gap="0" grow="1">
-    <NavLink {...props} href="/getting-started/installation">
+    <NavLink
+      {...props}
+      href={`/getting-started/installation/${props.platform}`}
+    >
       Getting started
     </NavLink>
-    <NavLink {...props} href="/components">
+    <NavLink {...props} href={`/components/${props.platform}`}>
       Components
     </NavLink>
-    <NavLink {...props} href="/theming">
+    <NavLink {...props} href={`/theming/${props.platform}`}>
       Theming
     </NavLink>
-    <NavLink {...props} href="/guides">
+    <NavLink {...props} href={`/guides/${props.platform}`}>
       Guides
     </NavLink>
     <Divider orientation="vertical" />
@@ -127,14 +133,14 @@ export const Header = ({ platform, colorMode, setColorMode }) => {
           )}
         </Button>
 
-        <NavLink href="/">
+        <NavLink href={`/${platform}`}>
           <span className="docs-logo-link">
             <VisuallyHidden>Amplify UI Home</VisuallyHidden>
             <Logo />
           </span>
         </NavLink>
 
-        <Nav />
+        <Nav platform={platform} />
 
         <Settings
           colorMode={colorMode}
@@ -155,7 +161,7 @@ export const Header = ({ platform, colorMode, setColorMode }) => {
             />
           </Flex>
 
-          <Nav onClick={() => setExpanded(false)} />
+          <Nav onClick={() => setExpanded(false)} platform={platform} />
           <nav className="docs-sidebar-nav">
             <SecondaryNav onClick={() => setExpanded(false)} />
           </nav>

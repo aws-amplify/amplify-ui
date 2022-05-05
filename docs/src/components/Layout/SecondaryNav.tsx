@@ -1,10 +1,7 @@
-import Link from 'next/link';
-import { Heading, Collection } from '@aws-amplify/ui-react';
-import { useRouter } from 'next/router';
-
+import { Collection, Heading } from '@aws-amplify/ui-react';
 import {
-  baseComponents,
   ComponentNavItem,
+  baseComponents,
   connectedComponents,
   dataDisplayComponents,
   feedbackComponents,
@@ -13,7 +10,10 @@ import {
   navigationComponents,
   utilityComponents,
 } from '../../data/links';
+
+import Link from 'next/link';
 import LinkButton from './LinkButton';
+import { useRouter } from 'next/router';
 
 const NavLinks = ({
   items,
@@ -41,7 +41,7 @@ const NavLink = ({ href, children, onClick, platforms = [] }) => {
     return null;
   }
   return (
-    <Link href={{ pathname: href, query }} passHref>
+    <Link href={`${href}/${platform}`} passHref>
       <LinkButton href={href} onClick={onClick} classNames={classNames}>
         {children}
       </LinkButton>
@@ -83,13 +83,13 @@ export const SecondaryNav = (props) => {
   if (section === 'theming') {
     return (
       <>
-        <NavLink {...props} href="/theming">
+        <NavLink {...props} href={`/theming/${platform}`}>
           Overview
         </NavLink>
         <NavLink
           {...props}
           platforms={['react', 'vue', 'angular']}
-          href="/theming/responsive"
+          href={`/theming/responsive/${platform}`}
         >
           Responsive
         </NavLink>
@@ -99,7 +99,7 @@ export const SecondaryNav = (props) => {
         <NavLink
           {...props}
           platforms={['react', 'vue', 'angular']}
-          href="/theming/alternative-styling"
+          href={`/theming/alternative-styling/${platform}`}
         >
           Alternative styling
         </NavLink>
@@ -110,10 +110,10 @@ export const SecondaryNav = (props) => {
   if (section === 'guides') {
     return (
       <>
-        <NavLink {...props} href="/guides">
+        <NavLink {...props} href={`/guides/${platform}`}>
           Guides
         </NavLink>
-        <NavLink {...props} href="/guides/auth-protected">
+        <NavLink {...props} href={`/guides/auth-protected/${platform}`}>
           Protected Routes
         </NavLink>
       </>
@@ -123,11 +123,11 @@ export const SecondaryNav = (props) => {
   if (section === 'getting-started') {
     return (
       <>
-        <NavLink {...props} href="/getting-started/installation">
+        <NavLink {...props} href={`/getting-started/installation/${platform}`}>
           Installation
         </NavLink>
         {platform !== 'flutter' && (
-          <NavLink {...props} href="/getting-started/migration">
+          <NavLink {...props} href={`/getting-started/migration/${platform}`}>
             Migration
           </NavLink>
         )}

@@ -101,6 +101,35 @@ module.exports = withNextPluginPreval({
         destination: '/theming/:page*',
         permanent: false,
       },
+      /**
+       * source: a url has one of the folder's names (components, getting-started, guides, theming)
+       * and not ends with the framework's name,
+       * destination: add '/react' to the end
+       */
+      {
+        source:
+          '/:nav(components|getting-started|guides|theming)/:page(.*(?<!/react|/vue|/angular|/flutter)$)',
+        destination: '/:nav/:page/react',
+        permanent: true,
+      },
+      /**
+       * source: a url points one of the folder's names (components, getting-started, guides, theming)'s index file
+       * destination: add '/react' to the end
+       */
+      {
+        source: '/:nav(components|getting-started|guides|theming)',
+        destination: '/:nav/react',
+        permanent: true,
+      },
+      /**
+       * source: home page with neutral platform
+       * destination: add '/react' to the end
+       */
+      {
+        source: '/',
+        destination: '/react',
+        permanent: true,
+      },
     ];
   },
 
