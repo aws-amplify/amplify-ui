@@ -89,27 +89,20 @@ describe('SetupTOTP', () => {
     expect(toDataURLSpy).toHaveBeenCalledWith(customTotpCode);
   });
 
-  it('handles customTotpIssuer with spaces', async () => {
-    const customTotpIssuer = 'customTOTPIssuer spaces';
-    const customTotpUsername = 'customTotpUsername';
+  describe('QR Tests', () => {
+    it('handles customTotpIssuer with spaces', async () => {
+      const customTotpIssuer = 'customTOTPIssuer spaces';
+      const customTotpUsername = 'customTotpUsername';
 
-    mockContext.formFields.setupTOTP.QR = {
-      totpIssuer: customTotpIssuer,
-      totpUsername: customTotpUsername,
-    };
+      const customTotpCode = getTotpCode(
+        customTotpIssuer,
+        customTotpUsername,
+        SECRET_KEY
+      );
 
-    const customTotpCode = getTotpCode(
-      customTotpIssuer,
-      customTotpUsername,
-      SECRET_KEY
-    );
-
-    await act(async () => {
-      render(<SetupTOTP className="className" variation="default" />);
+      expect(customTotpCode).toBe(
+        'otpauth://totp/customTOTPIssuer%20spaces:customTotpUsername?secret=secretKey&issuer=customTOTPIssuer%20spaces'
+      );
     });
-
-    expect(customTotpCode).toBe(
-      'otpauth://totp/customTOTPIssuer%20spaces:customTotpUsername?secret=secretKey&issuer=customTOTPIssuer%20spaces'
-    );
   });
 });
