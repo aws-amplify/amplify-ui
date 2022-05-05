@@ -38,7 +38,7 @@ export function SignIn() {
             <VisuallyHidden>
               <legend>{translate('Sign in')}</legend>
             </VisuallyHidden>
-            <FormFields route="signIn" />
+            <FormFields />
           </Flex>
 
           <RemoteErrorMessage />

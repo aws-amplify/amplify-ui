@@ -8,8 +8,12 @@ import { useFormHandlers } from '../hooks/useFormHandlers';
 import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { TwoButtonSubmitFooter } from '../shared/TwoButtonSubmitFooter';
 import { FormFields } from '../shared/FormFields';
+import { RouteContainer, RouteProps } from '../RouteContainer';
 
-export const ResetPassword = (): JSX.Element => {
+export const ResetPassword = ({
+  className,
+  variation,
+}: RouteProps): JSX.Element => {
   const { isPending } = useAuthenticator((context) => [context.isPending]);
   const { handleChange, handleSubmit } = useFormHandlers();
 
@@ -23,35 +27,37 @@ export const ResetPassword = (): JSX.Element => {
   } = useCustomComponents();
 
   return (
-    <form
-      data-amplify-form=""
-      data-amplify-authenticator-resetpassword=""
-      method="post"
-      onChange={handleChange}
-      onSubmit={handleSubmit}
-    >
-      <Flex as="fieldset" direction="column" isDisabled={isPending}>
-        <Header />
+    <RouteContainer className={className} variation={variation}>
+      <form
+        data-amplify-form=""
+        data-amplify-authenticator-resetpassword=""
+        method="post"
+        onChange={handleChange}
+        onSubmit={handleSubmit}
+      >
+        <Flex as="fieldset" direction="column" isDisabled={isPending}>
+          <Header />
 
-        <Flex direction="column">
-          <FormFields route="resetPassword" />
+          <Flex direction="column">
+            <FormFields />
+          </Flex>
+
+          <RemoteErrorMessage />
+          <TwoButtonSubmitFooter
+            cancelButtonText={translate('Back to Sign In')}
+            cancelButtonSendType="SIGN_IN"
+            submitButtonText={
+              isPending ? (
+                <>{translate('Sending')}&hellip;</>
+              ) : (
+                <>{translate('Send code')}</>
+              )
+            }
+          />
+          <Footer />
         </Flex>
-
-        <RemoteErrorMessage />
-        <TwoButtonSubmitFooter
-          cancelButtonText={translate('Back to Sign In')}
-          cancelButtonSendType="SIGN_IN"
-          submitButtonText={
-            isPending ? (
-              <>{translate('Sending')}&hellip;</>
-            ) : (
-              <>{translate('Send code')}</>
-            )
-          }
-        />
-        <Footer />
-      </Flex>
-    </form>
+      </form>
+    </RouteContainer>
   );
 };
 
