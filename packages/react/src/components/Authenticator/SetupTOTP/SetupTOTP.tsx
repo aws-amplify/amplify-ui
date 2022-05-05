@@ -120,7 +120,7 @@ export const SetupTOTP = ({
                 </svg>
               </Flex>
             </Flex>
-            <FormFields route="setupTOTP" />
+            <FormFields />
             <RemoteErrorMessage />
           </Flex>
 

@@ -11,6 +11,24 @@ Feature: Sign In with Phone Number
     Given I'm running the example "ui/components/authenticator/sign-in-with-phone"
 
   @angular @react @vue
+  Scenario: Reset Password with valid phone with country code
+    When I click the "Forgot your password?" button
+    When I select my country code with status "CONFIRMED"
+    And I type my "phone number" with status "CONFIRMED"
+    And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ForgotPassword" } }' with fixture "reset-password"
+    And I click the "Send code" button
+    And I verify the body has "+19995554444" included
+    Then I will be redirected to the confirm forgot password page
+    And I see "Code"
+    Then I type a valid code
+    And I type my new password
+    And I confirm my password
+    And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmForgotPassword" } }' with fixture "confirm-reset-password"
+    And I click the submit button
+    And I verify the body has "+19995554444" included
+    Then I see "Sign In"
+
+  @angular @react @vue
   Scenario: Sign in and replace default dial code
     Then I see "Sign In"
     Then the 'Country code' select drop down is '+82'
