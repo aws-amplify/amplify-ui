@@ -108,9 +108,21 @@ export const SliderFieldPropControls: SliderFieldPropControlsInterface = ({
         step={1}
         onStepChange={setStep}
       />
+      <SelectField
+        label="size"
+        value={size}
+        onChange={(event) =>
+          setSize(event.target.value as SliderFieldProps['size'])
+        }
+      >
+        <option value="">default</option>
+        <option value="large">large</option>
+        <option value="small">small</option>
+      </SelectField>
       <TextField
         label="trackSize"
         value={trackSize}
+        placeholder="e.g., 6px"
         onChange={(event) =>
           setTrackSize(event.target.value as SliderFieldProps['trackSize'])
         }
@@ -118,6 +130,7 @@ export const SliderFieldPropControls: SliderFieldPropControlsInterface = ({
       <TextField
         label="emptyTrackColor"
         value={emptyTrackColor}
+        placeholder="e.g., gray"
         onChange={(event) =>
           setEmptyTrackColor(
             event.target.value as SliderFieldProps['emptyTrackColor']
@@ -127,6 +140,7 @@ export const SliderFieldPropControls: SliderFieldPropControlsInterface = ({
       <TextField
         label="filledTrackColor"
         value={filledTrackColor}
+        placeholder="e.g., blue"
         onChange={(event) =>
           setFilledTrackColor(
             event.target.value as SliderFieldProps['filledTrackColor']
@@ -136,6 +150,7 @@ export const SliderFieldPropControls: SliderFieldPropControlsInterface = ({
       <TextField
         label="thumbColor"
         value={thumbColor}
+        placeholder="e.g., red"
         onChange={(event) =>
           setThumbColor(event.target.value as SliderFieldProps['thumbColor'])
         }
@@ -149,17 +164,6 @@ export const SliderFieldPropControls: SliderFieldPropControlsInterface = ({
       >
         <option value="horizontal">horizontal</option>
         <option value="vertical">vertical</option>
-      </SelectField>
-      <SelectField
-        label="size"
-        value={size}
-        onChange={(event) =>
-          setSize(event.target.value as SliderFieldProps['size'])
-        }
-      >
-        <option value="">default</option>
-        <option value="large">large</option>
-        <option value="small">small</option>
       </SelectField>
       <CheckboxField
         name="isDisabled"

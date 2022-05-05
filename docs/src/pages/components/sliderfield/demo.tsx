@@ -5,15 +5,6 @@ import { SliderFieldPropControls } from './SliderFieldPropControls';
 import { useSliderFieldProps } from './useSliderFieldProps';
 import { getPropString } from '../utils/getPropString';
 
-/*
-
-What's the difference between size and trackSize?
-- trackSize is the width of the track itself (e.g., 0.5rem)
-- size is the overall size of the SliderField, including the thumb (e.g., small, large or default)
-
-Demonstrate defaultValue?
-
-*/
 const propsToCode = (props: SliderFieldProps) => {
   return (
     `<SliderField` +
@@ -21,6 +12,7 @@ const propsToCode = (props: SliderFieldProps) => {
     (props.min ? `\n  min={${props.min}}` : '') +
     `\n  max={${props.max}}` +
     (props.step !== 1 ? `\n  step={${props.step}}` : '') +
+    getPropString(props.size, 'size') +
     getPropString(props.trackSize, 'trackSize') +
     getPropString(props.emptyTrackColor, 'emptyTrackColor') +
     getPropString(props.filledTrackColor, 'filledTrackColor') +
@@ -28,7 +20,6 @@ const propsToCode = (props: SliderFieldProps) => {
     (props.orientation === 'vertical'
       ? `\n  orientation="${props.orientation}"`
       : '') +
-    getPropString(props.size, 'size') +
     (props.isDisabled ? `\n  isDisabled` : '') +
     (props.isValueHidden ? `\n  isValueHidden` : '') +
     (props.labelHidden ? `\n  labelHidden` : '') +
