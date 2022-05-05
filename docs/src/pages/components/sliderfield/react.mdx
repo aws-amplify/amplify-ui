@@ -11,6 +11,8 @@ import {
   SliderFieldAccessibilityExample,
   SliderFieldFormExample,
   SliderFieldValidationExample,
+  SliderFieldThemeExample,
+  SliderFieldStylePropsExample,
 } from './examples';
 
 import { Example, ExampleCode } from '@/components/Example';
@@ -152,34 +154,40 @@ To validate the SliderField input, use the `hasError` and `errorMessage` props.
 
 <ComponentStyleDisplay componentName="SliderField" />
 
+### Theme
+
+You can customize the appearance of all SliderField components in your application with a [Theme](/theming).
+
+<Example>
+  <SliderFieldThemeExample />
+  <ExampleCode>
+```jsx file=./examples/SliderFieldThemeExample.tsx
+
+````
+
+  </ExampleCode>
+</Example>
+
 ### Global styling
 
-To override styling on all SliderFields, you can set the Amplify CSS variables or use the built-in `.amplify-sliderfield__root`, `.amplify-sliderfield__track`, `.amplify-sliderfield__range` and `.amplify-sliderfield__thumb`.
-
-```css
-/* styles.css */
-:root {
-  --amplify-components-sliderfield-track-background-color: var(
-    --amplify-colors-purple-80
-  );
-}
-/* OR */
-.amplify-sliderfield__track {
-  background-color: var(--amplify-colors-purple-80);
-}
-```
+To override styling on all SliderField components, you can set the Amplify CSS variables or use the target classes.
 
 <Example>
   <SliderField
     className="global-styling-slider"
-    label="Slider"
+    label="Globally Styled Slider"
     defaultValue={50}
-    min={0}
-    max={100}
-    step={1}
-    labelHidden
   />
 </Example>
+
+```css
+/* styles.css */
+.amplify-sliderfield {
+  --amplify-components-sliderfield-range-background-color: var(
+    --amplify-colors-orange-60
+  );
+}
+```
 
 To replace SliderField styling, unset it:
 
@@ -192,9 +200,19 @@ To replace SliderField styling, unset it:
 
 ### Local styling
 
-To override styling on a specific SliderField, you can use (in order of increasing specificity): a class selector, data attributes, or style props.
+To override styling on a specific SliderField, you can use class selectors or style props.
 
 _Using a class selector:_
+
+Note that `.amplify-sliderfield__range` applies to the filled-in portion of the SliderField track, and `.amplify-sliderfield__track` applies to the empty portion.
+
+<Example>
+  <SliderField
+    className="custom-slider"
+    label="Classname Slider"
+    defaultValue={50}
+  />
+</Example>
 
 ```css
 /* styles.css */
@@ -205,65 +223,33 @@ _Using a class selector:_
 
 ```jsx
 import { SliderField } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
+import './styles.css';
 
 <SliderField
   className="custom-slider"
-  label="Slider"
+  label="Classname Slider"
   defaultValue={50}
-  min={0}
-  max={100}
-  step={1}
-  labelHidden
 />;
 ```
-
-<Example>
-  <SliderField
-    className="custom-slider"
-    label="Slider"
-    defaultValue={50}
-    min={0}
-    max={100}
-    step={1}
-    labelHidden
-  />
-</Example>
 
 _Using style props:_
 
-The Sliders have built-in `trackSize`, `emptyTrackColor`, `filledTrackColor` and `thumbColor` to use out of the box.
+There are several props you can use to style different parts of the SliderField:
 
-```jsx
-import { SliderField } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-<SliderField
-  label="Slider"
-  defaultValue={50}
-  min={0}
-  max={100}
-  step={1}
-  trackSize="10px"
-  emptyTrackColor="var(--amplify-colors-black)"
-  filledTrackColor="var(--amplify-colors-blue-60)"
-  thumbColor="var(--amplify-colors-orange-40)"
-  labelHidden
-/>;
-```
+- `filledTrackColor` applies to the filled-in part of the SliderField
+- `emptyTrackColor` applies to the empty part of the SliderField
+- `thumbColor` applies to the thumb component that users can slide
+- `trackSize` applies to the width of the track itself (e.g., 15px)
+- `size` applies to the overall size of the SliderField, including the thumb (options include `'small'`, `'large'`, and default)
 
 <Example>
-  <SliderField
-    label="Slider"
-    defaultValue={50}
-    min={0}
-    max={100}
-    step={1}
-    trackSize="10px"
-    emptyTrackColor="var(--amplify-colors-black)"
-    filledTrackColor="var(--amplify-colors-blue-60)"
-    thumbColor="var(--amplify-colors-orange-40)"
-    labelHidden
-  />
+  <SliderFieldStylePropsExample />
+  <ExampleCode>
+```jsx file=./examples/SliderFieldStylePropsExample.tsx
+
+```
+
+  </ExampleCode>
 </Example>
-````
+
+```

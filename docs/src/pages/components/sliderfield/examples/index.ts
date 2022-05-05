@@ -7,3 +7,5 @@ export { SliderFieldIconsExample } from './SliderFieldIconsExample';
 export { SliderFieldAccessibilityExample } from './SliderFieldAccessibilityExample';
 export { SliderFieldFormExample } from './SliderFieldFormExample';
 export { SliderFieldValidationExample } from './SliderFieldValidationExample';
+export { SliderFieldThemeExample } from './SliderFieldThemeExample';
+export { SliderFieldStylePropsExample } from './SliderFieldStylePropsExample';
