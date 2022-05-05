@@ -15,12 +15,12 @@ let window = null;
  * Used for mocking and spying Amplify methods.
  */
 const getMethodFromWindow = (path: string) => {
-  let paths = path.split('.');
+  const paths = path.split('.');
   const method = paths.pop();
   const obj = get(window, paths);
 
   if (!window) {
-    throw new Error(`window has not been set in the Cypress tests`);
+    throw new Error('window has not been set in the Cypress tests');
   }
 
   if (!obj || !method) {
@@ -305,7 +305,7 @@ When('I see {string} as the {string} input', (custom, order) => {
 
 When('I mock {string} event', (eventName: string) => {
   if (!window) {
-    throw new Error(`window has not been set in the Cypress tests`);
+    throw new Error('window has not been set in the Cypress tests');
   }
 
   const Hub = window['Hub'];
