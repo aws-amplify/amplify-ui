@@ -32,13 +32,17 @@ describe('Badge: ', () => {
     const defaultAlert = await screen.findByTestId('default');
 
     expect(info.dataset['variation']).toBe('info');
-    expect(info.classList).toContain('amplify-badge--info');
+    expect(info.classList).toContain(`${ComponentClassNames['Badge']}--info`);
     expect(error.dataset['variation']).toBe('error');
-    expect(error.classList).toContain('amplify-badge--error');
+    expect(error.classList).toContain(`${ComponentClassNames['Badge']}--error`);
     expect(warning.dataset['variation']).toBe('warning');
-    expect(warning.classList).toContain('amplify-badge--warning');
+    expect(warning.classList).toContain(
+      `${ComponentClassNames['Badge']}--warning`
+    );
     expect(success.dataset['variation']).toBe('success');
-    expect(success.classList).toContain('amplify-badge--success');
+    expect(success.classList).toContain(
+      `${ComponentClassNames['Badge']}--success`
+    );
     expect(defaultAlert.dataset['variation']).toBe(undefined);
   });
 
@@ -57,8 +61,8 @@ describe('Badge: ', () => {
     const small = await screen.findByTestId('small');
     const large = await screen.findByTestId('large');
 
-    expect(small.classList).toContain('amplify-badge--small');
-    expect(large.classList).toContain('amplify-badge--large');
+    expect(small.classList).toContain(`${ComponentClassNames['Badge']}--small`);
+    expect(large.classList).toContain(`${ComponentClassNames['Badge']}--large`);
   });
 
   it('can apply styling via props', async () => {

@@ -22,8 +22,12 @@ describe('Card component', () => {
     const outlined = await screen.findByTestId('outlined');
     const elevated = await screen.findByTestId('elevated');
 
-    expect(outlined.classList).toContain('amplify-card--outlined');
-    expect(elevated.classList).toContain('amplify-card--elevated');
+    expect(outlined.classList).toContain(
+      `${ComponentClassNames['Card']}--outlined`
+    );
+    expect(elevated.classList).toContain(
+      `${ComponentClassNames['Card']}--elevated`
+    );
   });
 
   it('can render custom classnames', async () => {

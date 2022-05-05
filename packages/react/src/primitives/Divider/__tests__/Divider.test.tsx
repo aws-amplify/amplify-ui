@@ -16,8 +16,12 @@ describe('Divider component', () => {
     const small = await screen.findByTestId('small');
     const large = await screen.findByTestId(`large`);
 
-    expect(small.classList).toContain('amplify-divider--small');
-    expect(large.classList).toContain('amplify-divider--large');
+    expect(small.classList).toContain(
+      `${ComponentClassNames['Divider']}--small`
+    );
+    expect(large.classList).toContain(
+      `${ComponentClassNames['Divider']}--large`
+    );
   });
 
   it('should add the orientation classes', async () => {
@@ -31,8 +35,12 @@ describe('Divider component', () => {
     const horizontal = await screen.findByTestId('horizontal');
     const vertical = await screen.findByTestId(`vertical`);
 
-    expect(horizontal.classList).toContain('amplify-divider--horizontal');
-    expect(vertical.classList).toContain('amplify-divider--vertical');
+    expect(horizontal.classList).toContain(
+      `${ComponentClassNames['Divider']}--horizontal`
+    );
+    expect(vertical.classList).toContain(
+      `${ComponentClassNames['Divider']}--vertical`
+    );
   });
 
   it('renders <hr> with expected data attributes and classname', async () => {

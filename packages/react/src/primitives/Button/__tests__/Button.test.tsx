@@ -44,9 +44,11 @@ describe('Button test suite', () => {
     const link = await screen.findByTestId('link');
     const menu = await screen.findByTestId('menu');
 
-    expect(primary.classList).toContain('amplify-button--primary');
-    expect(link.classList).toContain('amplify-button--link');
-    expect(menu.classList).toContain('amplify-button--menu');
+    expect(primary.classList).toContain(
+      `${ComponentClassNames['Button']}--primary`
+    );
+    expect(link.classList).toContain(`${ComponentClassNames['Button']}--link`);
+    expect(menu.classList).toContain(`${ComponentClassNames['Button']}--menu`);
   });
 
   it('should render button states', async () => {
@@ -68,9 +70,15 @@ describe('Button test suite', () => {
     const disabled = await screen.findByTestId('disabled');
     const loading = await screen.findByTestId('loading');
 
-    expect(fullwidth.classList).toContain('amplify-button--fullwidth');
-    expect(disabled.classList).toContain('amplify-button--disabled');
-    expect(loading.classList).toContain('amplify-button--loading');
+    expect(fullwidth.classList).toContain(
+      `${ComponentClassNames['Button']}--fullwidth`
+    );
+    expect(disabled.classList).toContain(
+      `${ComponentClassNames['Button']}--disabled`
+    );
+    expect(loading.classList).toContain(
+      `${ComponentClassNames['Button']}--loading`
+    );
   });
 
   it('should render button sizes', async () => {
@@ -88,8 +96,12 @@ describe('Button test suite', () => {
     const small = await screen.findByTestId('small');
     const large = await screen.findByTestId('large');
 
-    expect(small.classList).toContain('amplify-button--small');
-    expect(large.classList).toContain('amplify-button--large');
+    expect(small.classList).toContain(
+      `${ComponentClassNames['Button']}--small`
+    );
+    expect(large.classList).toContain(
+      `${ComponentClassNames['Button']}--large`
+    );
   });
 
   it('should render classname and custom classname', async () => {

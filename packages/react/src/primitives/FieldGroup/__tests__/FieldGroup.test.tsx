@@ -23,8 +23,12 @@ describe('FieldGroup component', () => {
     const horizontal = await screen.findByTestId('horizontal');
     const vertical = await screen.findByTestId(`vertical`);
 
-    expect(horizontal.classList).toContain('amplify-field-group--horizontal');
-    expect(vertical.classList).toContain('amplify-field-group--vertical');
+    expect(horizontal.classList).toContain(
+      `${ComponentClassNames['FieldGroup']}--horizontal`
+    );
+    expect(vertical.classList).toContain(
+      `${ComponentClassNames['FieldGroup']}--vertical`
+    );
   });
 
   it('should render custom classname for FieldGroup', async () => {

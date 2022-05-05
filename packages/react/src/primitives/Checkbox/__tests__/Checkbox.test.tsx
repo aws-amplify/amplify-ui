@@ -55,9 +55,15 @@ describe('Checkbox test suite', () => {
     const error = await screen.findByTestId(`error-amplify-checkbox__button`);
     const checked = await screen.findByTestId(`checked-amplify-checkbox__icon`);
 
-    expect(disabled.classList).toContain('amplify-checkbox--disabled');
-    expect(error.classList).toContain('amplify-checkbox__button--error');
-    expect(checked.classList).toContain('amplify-checkbox__icon--checked');
+    expect(disabled.classList).toContain(
+      `${ComponentClassNames['Checkbox']}--disabled`
+    );
+    expect(error.classList).toContain(
+      `${ComponentClassNames['CheckboxButton']}--error`
+    );
+    expect(checked.classList).toContain(
+      `${ComponentClassNames['CheckboxIcon']}--checked`
+    );
   });
 
   it('should render basic props correctly', async () => {

@@ -33,13 +33,17 @@ describe('Alert: ', () => {
     const defaultAlert = await screen.findByTestId('default');
 
     expect(info.dataset['variation']).toBe('info');
-    expect(info.classList).toContain('amplify-alert--info');
+    expect(info.classList).toContain(`${ComponentClassNames['Alert']}--info`);
     expect(error.dataset['variation']).toBe('error');
-    expect(error.classList).toContain('amplify-alert--error');
+    expect(error.classList).toContain(`${ComponentClassNames['Alert']}--error`);
     expect(warning.dataset['variation']).toBe('warning');
-    expect(warning.classList).toContain('amplify-alert--warning');
+    expect(warning.classList).toContain(
+      `${ComponentClassNames['Alert']}--warning`
+    );
     expect(success.dataset['variation']).toBe('success');
-    expect(success.classList).toContain('amplify-alert--success');
+    expect(success.classList).toContain(
+      `${ComponentClassNames['Alert']}--success`
+    );
     expect(defaultAlert.dataset['variation']).toBe(undefined);
   });
 
