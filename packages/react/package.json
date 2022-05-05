@@ -54,7 +54,8 @@
     "test": "yarn test:unit",
     "test:watch": "yarn test:unit:watch",
     "test:unit": "jest",
-    "test:unit:watch": "jest --watch"
+    "test:unit:watch": "jest --watch",
+    "size": "yarn run size-limit"
   },
   "dependencies": {
     "@aws-amplify/ui": "3.7.0",
@@ -86,6 +87,7 @@
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "^8.3.1",
+    "@size-limit/preset-big-lib": "^7.0.8",
     "@svgr/core": "^5.5.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
@@ -112,11 +114,19 @@
     "rollup": "^2.70.0",
     "rollup-plugin-styles": "^4.0.0",
     "rollup-plugin-terser": "^7.0.2",
+    "size-limit": "^7.0.8",
     "ts-jest": "^27.0.3",
     "ts-morph": "^12.0.0",
     "ts-node": "^10.2.1"
   },
   "sideEffects": [
     "dist/**/*.css"
+  ],
+  "size-limit": [
+    {
+      "path": "dist/esm/index.js",
+      "import": "{ Authenticator }",
+      "limit": "100 kB"
+    }
   ]
 }
