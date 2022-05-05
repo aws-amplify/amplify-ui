@@ -39,7 +39,7 @@ export const ConfirmVerifyUser = ({
           <Header />
 
           <Flex direction="column">
-            <FormFields route="confirmVerifyUser" />
+            <FormFields />
           </Flex>
 
           <RemoteErrorMessage />

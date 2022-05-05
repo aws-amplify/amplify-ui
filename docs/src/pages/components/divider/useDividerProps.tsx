@@ -1,7 +1,8 @@
-import { DividerOptions } from '@aws-amplify/ui-react';
+import { Divider, DividerOptions } from '@aws-amplify/ui-react';
 import * as React from 'react';
 
 import { DividerPropControlsProps } from './DividerPropControls';
+import { demoState } from '@/utils/demoState';
 
 interface UseDividerProps {
   (initialValues: DividerOptions): DividerPropControlsProps;
@@ -18,12 +19,23 @@ export const useDividerProps: UseDividerProps = (initialValues) => {
     initialValues.label
   );
 
-  return {
-    size,
-    setSize,
-    orientation,
-    setOrientation,
-    label,
-    setLabel,
-  };
+  React.useEffect(() => {
+    demoState.set(Divider.displayName, {
+      size,
+      orientation,
+      label,
+    });
+  }, [size, orientation, label]);
+
+  return React.useMemo(
+    () => ({
+      size,
+      setSize,
+      orientation,
+      setOrientation,
+      label,
+      setLabel,
+    }),
+    [size, setSize, orientation, setOrientation, label, setLabel]
+  );
 };

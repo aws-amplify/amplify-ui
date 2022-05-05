@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { ViewProps } from '@aws-amplify/ui-react';
+import { View, ViewProps } from '@aws-amplify/ui-react';
 
 import { ViewPropControlsProps } from './ViewPropControls';
+import { demoState } from '@/utils/demoState';
 
 interface UseViewProps {
   (initialValues: ViewProps): ViewPropControlsProps;
@@ -40,26 +41,76 @@ export const useViewProps: UseViewProps = (initialValues) => {
     initialValues.as
   );
 
-  return {
+  React.useEffect(() => {
+    demoState.set(View.displayName, {
+      ariaLabel,
+      width,
+      height,
+      color,
+      backgroundColor,
+      boxShadow,
+      padding,
+      border,
+      borderRadius,
+      as,
+    });
+  }, [
     ariaLabel,
-    setAriaLabel,
     width,
-    setWidth,
     height,
-    setHeight,
     color,
-    setColor,
     backgroundColor,
-    setBackgroundColor,
     boxShadow,
-    setBoxShadow,
     padding,
-    setPadding,
     border,
-    setBorder,
     borderRadius,
-    setBorderRadius,
     as,
-    setAsElementType,
-  };
+  ]);
+
+  return React.useMemo(
+    () => ({
+      ariaLabel,
+      setAriaLabel,
+      width,
+      setWidth,
+      height,
+      setHeight,
+      color,
+      setColor,
+      backgroundColor,
+      setBackgroundColor,
+      boxShadow,
+      setBoxShadow,
+      padding,
+      setPadding,
+      border,
+      setBorder,
+      borderRadius,
+      setBorderRadius,
+      as,
+      setAsElementType,
+    }),
+    [
+      ariaLabel,
+      setAriaLabel,
+      width,
+      setWidth,
+      height,
+      setHeight,
+      color,
+      setColor,
+      backgroundColor,
+      setBackgroundColor,
+      boxShadow,
+      setBoxShadow,
+      padding,
+      setPadding,
+      border,
+      setBorder,
+      borderRadius,
+      setBorderRadius,
+      as,
+      setAsElementType,
+    ]
+  );
 };

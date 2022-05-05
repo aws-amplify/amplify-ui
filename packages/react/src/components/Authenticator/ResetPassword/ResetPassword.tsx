@@ -39,7 +39,7 @@ export const ResetPassword = ({
           <Header />
 
           <Flex direction="column">
-            <FormFields route="resetPassword" />
+            <FormFields />
           </Flex>
 
           <RemoteErrorMessage />

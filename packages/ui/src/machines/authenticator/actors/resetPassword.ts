@@ -183,7 +183,7 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
       },
       services: {
         async resetPassword(context) {
-          const username = context.formValues?.username ?? context.username;
+          const { username } = context;
 
           return services.handleForgotPassword(username);
         },
