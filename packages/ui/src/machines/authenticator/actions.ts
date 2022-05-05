@@ -105,7 +105,15 @@ export const setUser = assign({
 });
 
 export const setUsername = assign({
-  username: (context: ActorContextWithForms, _) => context.formValues.username,
+  username: (context: ActorContextWithForms, _) => {
+    let {
+      formValues: { username, country_code },
+    } = context;
+    if (country_code) {
+      username = `${country_code}${username}`;
+    }
+    return username;
+  },
 });
 
 export const setCodeDeliveryDetails = assign({

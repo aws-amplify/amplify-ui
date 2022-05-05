@@ -71,4 +71,4 @@ export const ForceNewPassword = ({
   );
 };
 
-ForceNewPassword.FormFields = () => <FormFields route="forceNewPassword" />;
+ForceNewPassword.FormFields = () => <FormFields />;

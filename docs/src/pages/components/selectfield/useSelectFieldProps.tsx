@@ -1,7 +1,8 @@
-import { SelectFieldProps } from '@aws-amplify/ui-react';
+import { SelectField, SelectFieldProps } from '@aws-amplify/ui-react';
 import * as React from 'react';
 
 import { SelectFieldPropControlsProps } from './SelectFieldPropControls';
+import { demoState } from '@/utils/demoState';
 
 interface UseSelectFieldProps {
   (initialValues?: SelectFieldProps): SelectFieldPropControlsProps;
@@ -33,22 +34,64 @@ export const useSelectFieldProps: UseSelectFieldProps = (initialValues) => {
     SelectFieldProps['variation']
   >(initialValues.variation);
 
-  return {
+  React.useEffect(() => {
+    demoState.set(SelectField.displayName, {
+      descriptiveText,
+      errorMessage,
+      hasError,
+      isDisabled,
+      label,
+      labelHidden,
+      size,
+      variation,
+    });
+  }, [
     descriptiveText,
     errorMessage,
     hasError,
+    isDisabled,
     label,
     labelHidden,
     size,
     variation,
-    isDisabled,
-    setDescriptiveText,
-    setErrorMessage,
-    setHasError,
-    setIsDisabled,
-    setLabel,
-    setLabelHidden,
-    setSize,
-    setVariation,
-  };
+  ]);
+
+  return React.useMemo(
+    () => ({
+      descriptiveText,
+      errorMessage,
+      hasError,
+      label,
+      labelHidden,
+      size,
+      variation,
+      isDisabled,
+      setDescriptiveText,
+      setErrorMessage,
+      setHasError,
+      setIsDisabled,
+      setLabel,
+      setLabelHidden,
+      setSize,
+      setVariation,
+    }),
+    [
+      descriptiveText,
+      errorMessage,
+      hasError,
+      label,
+      labelHidden,
+      size,
+      variation,
+      isDisabled,
+      setDescriptiveText,
+      setErrorMessage,
+      setHasError,
+      setIsDisabled,
+      setLabel,
+      setLabelHidden,
+      setSize,
+      setVariation,
+    ]
+  );
 };
