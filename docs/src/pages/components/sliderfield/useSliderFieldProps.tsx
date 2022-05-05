@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { SliderFieldProps } from '@aws-amplify/ui-react';
+import { SliderField, SliderFieldProps } from '@aws-amplify/ui-react';
 import { SliderFieldPropControlsProps } from './SliderFieldPropControls';
+import { demoState } from '@/utils/demoState';
 
 export interface UseSliderFieldProps {
   (initialValues: SliderFieldProps): SliderFieldPropControlsProps;
@@ -30,8 +31,27 @@ export const useSliderFieldProps: UseSliderFieldProps = (initialValues) => {
   );
   const [thumbColor, setThumbColor] = React.useState(initialValues.thumbColor);
   const [size, setSize] = React.useState(initialValues.size);
-  return {
-    defaultValue: initialValues.defaultValue,
+  const [value, setValue] = React.useState(initialValues.value);
+
+  React.useEffect(() => {
+    demoState.set(SliderField.displayName, {
+      isDisabled,
+      isValueHidden,
+      label,
+      labelHidden,
+      max,
+      min,
+      step,
+      orientation,
+      trackSize,
+      emptyTrackColor,
+      filledTrackColor,
+      thumbColor,
+      size,
+      value,
+    });
+  }, [
+    initialValues,
     isDisabled,
     isValueHidden,
     label,
@@ -45,18 +65,71 @@ export const useSliderFieldProps: UseSliderFieldProps = (initialValues) => {
     filledTrackColor,
     thumbColor,
     size,
-    setEmptyTrackColor,
-    setFilledTrackColor,
-    setIsDisabled,
-    setIsValueHidden,
-    setLabel,
-    setLabelHidden,
-    setMax,
-    setMin,
-    setOrientation,
-    setStep,
-    setThumbColor,
-    setTrackSize,
-    setSize,
-  };
+    value,
+  ]);
+
+  return React.useMemo(
+    () => ({
+      defaultValue: initialValues.defaultValue,
+      isDisabled,
+      isValueHidden,
+      label,
+      labelHidden,
+      max,
+      min,
+      step,
+      orientation,
+      trackSize,
+      emptyTrackColor,
+      filledTrackColor,
+      thumbColor,
+      size,
+      value,
+      setEmptyTrackColor,
+      setFilledTrackColor,
+      setIsDisabled,
+      setIsValueHidden,
+      setLabel,
+      setLabelHidden,
+      setMax,
+      setMin,
+      setOrientation,
+      setStep,
+      setThumbColor,
+      setTrackSize,
+      setSize,
+      setValue,
+    }),
+    [
+      initialValues,
+      isDisabled,
+      isValueHidden,
+      label,
+      labelHidden,
+      max,
+      min,
+      step,
+      orientation,
+      trackSize,
+      emptyTrackColor,
+      filledTrackColor,
+      thumbColor,
+      size,
+      value,
+      setEmptyTrackColor,
+      setFilledTrackColor,
+      setIsDisabled,
+      setIsValueHidden,
+      setLabel,
+      setLabelHidden,
+      setMax,
+      setMin,
+      setOrientation,
+      setStep,
+      setThumbColor,
+      setTrackSize,
+      setSize,
+      setValue,
+    ]
+  );
 };

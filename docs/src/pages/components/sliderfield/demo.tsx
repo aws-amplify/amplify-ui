@@ -4,6 +4,7 @@ import { Demo } from '@/components/Demo';
 import { SliderFieldPropControls } from './SliderFieldPropControls';
 import { useSliderFieldProps } from './useSliderFieldProps';
 import { getPropString } from '../utils/getPropString';
+import { demoState } from '@/utils/demoState';
 
 const propsToCode = (props: SliderFieldProps) => {
   return (
@@ -27,15 +28,18 @@ const propsToCode = (props: SliderFieldProps) => {
   );
 };
 
+const defaultSliderFieldProps = {
+  label: 'Slider',
+  value: 50,
+  min: 0,
+  max: 100,
+  step: 1,
+};
+
 export const SliderFieldDemo = () => {
-  // Needs to persist demo state using demoState
-  const sliderFieldProps = useSliderFieldProps({
-    label: 'Slider',
-    defaultValue: 50,
-    min: 0,
-    max: 100,
-    step: 1,
-  });
+  const sliderFieldProps = useSliderFieldProps(
+    demoState.get(SliderField.displayName) || defaultSliderFieldProps
+  );
 
   return (
     <Demo
@@ -43,7 +47,8 @@ export const SliderFieldDemo = () => {
       propControls={<SliderFieldPropControls {...sliderFieldProps} />}
     >
       <SliderField
-        defaultValue={sliderFieldProps.defaultValue}
+        value={sliderFieldProps.value}
+        onChange={sliderFieldProps.setValue}
         isDisabled={sliderFieldProps.isDisabled}
         isValueHidden={sliderFieldProps.isValueHidden}
         label={sliderFieldProps.label}
