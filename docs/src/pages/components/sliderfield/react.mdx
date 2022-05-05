@@ -5,7 +5,15 @@ import {
 } from '@aws-amplify/ui-react';
 
 import { SliderFieldDemo } from './demo';
-import { DefaultSliderFieldExample } from './examples';
+import {
+  DefaultSliderFieldExample,
+  ControlledSliderFieldExample,
+  SliderFieldBasicsExample,
+  SliderFieldOrientationExample,
+  SliderFieldAriaExample,
+  SliderFieldIconsExample,
+  SliderFieldAccessibilityExample,
+} from './examples';
 
 import { ControlledSliderField, DaySlider, SliderInForm } from './OLD_examples';
 import { Example, ExampleCode } from '@/components/Example';
@@ -28,6 +36,50 @@ Import the SliderField component.
 ````
   </ExampleCode>
 </Example>
+
+### Controlled component
+
+To use the SliderField as a controlled component, handle the current value using the `value` and `onChange` props.
+
+<Example>
+  <ControlledSliderFieldExample />
+  <ExampleCode>
+```jsx file=./examples/ControlledSliderFieldExample.tsx
+
+````
+
+  </ExampleCode>
+</Example>
+
+### Basics
+
+To control the range of the SliderField, use the `min` and `max` props. To control the interval between selectable values, use the `step` prop (defaults to 1).
+
+<Example>
+  <SliderFieldBasicsExample />
+  <ExampleCode>
+```jsx file=./examples/SliderFieldBasicsExample.tsx
+
+````
+
+  </ExampleCode>
+</Example>
+
+### Orientation
+
+To change the orientation from horizontal (default) to vertical, use the `orientation` prop.
+
+<Example>
+  <SliderFieldOrientationExample />
+  <ExampleCode>
+```jsx file=./examples/SliderFieldOrientationExample.tsx
+
+````
+
+  </ExampleCode>
+</Example>
+
+### FORM STUFF
 
 The `Slider` will render an input for the thumb when used within a form to ensure that value will be submitted with form data.
 
@@ -57,154 +109,52 @@ const SliderInForm = () => {
 };
 
 <SliderInForm />;
-````
-
-<Example>
-  <SliderInForm />
-</Example>
-
-### Controlled component
-
-```jsx
-import * as React from 'react';
-import { SliderField } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-const ControlledSliderField = () => {
-  const [value, setValue] = React.useState(50);
-  return (
-    <SliderField
-      label="Controlled slider"
-      min={0}
-      max={100}
-      step={1}
-      value={value}
-      onChange={setValue}
-      labelHidden
-    />
-  );
-};
-
-<ControlledSliderField />;
 ```
 
 <Example>
-  <ControlledSliderField />
+  <SliderInForm />
 </Example>
 
 ### Accessibility / Label behavior
 
 <Fragment>{() => import('./../shared/formFieldAccessibility.mdx')}</Fragment>
 
-```jsx
-import { SliderField } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-<SliderField label="Slider" defaultValue={50} min={0} max={100} step={1} />;
-```
+You can hide the value to the right of the label with `isValueHidden` prop.
 
 <Example>
-  <SliderField label="Slider" defaultValue={50} min={0} max={100} step={1} />
+  <SliderFieldAccessibilityExample />
+  <ExampleCode>
+```jsx file=./examples/SliderFieldAccessibilityExample.tsx
+
+````
+
+  </ExampleCode>
 </Example>
 
-You can hide the value to the right of the label with `isValueHidden` prop
-
-```jsx
-import { SliderField } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-<SliderField
-  label="Slider"
-  defaultValue={50}
-  min={0}
-  max={100}
-  step={1}
-  isValueHidden
-/>;
-```
+The SliderField will programmatically update the value of `aria-valuenow` in response to user input. However, a slider sometimes is used to choose a value that is not, semantically, a number. In these cases, the `ariaValuetext` attribute is used to provide the appropriate text name for the currently selected value. See [MDN using the slider role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_slider_role).
 
 <Example>
-  <SliderField
-    label="Slider"
-    defaultValue={50}
-    min={0}
-    max={100}
-    step={1}
-    isValueHidden
-  />
+  <SliderFieldAriaExample />
+  <ExampleCode>
+```jsx file=./examples/SliderFieldAriaExample.tsx
+
+````
+
+  </ExampleCode>
 </Example>
 
-The Sliders will programmatically update the value of `aria-valuenow` in response to user input. However, a slider sometimes is used to choose a value that is not, semantically, a number. In these cases, the `ariaValuetext` attribute is used to provide the appropriate text name for the currently selected value. See [MDN using the slider role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_slider_role).
+### Icons
 
-```jsx
-import * as React from 'react';
-import { SliderField } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-const dayNames = [
-  'Sunday',
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday',
-];
-
-const DaySlider = () => {
-  const [value, setValue] = React.useState(2);
-  return (
-    <SliderField
-      ariaValuetext={dayNames[value]}
-      label="Day slider"
-      min={0}
-      max={6}
-      step={1}
-      value={value}
-      onChange={setValue}
-      labelHidden
-    />
-  );
-};
-
-<DaySlider />;
-```
+To add icons on either side of the SliderField, you may use the `outerStartComponent` or `outerEndComponent` props.
 
 <Example>
-  <DaySlider />
-</Example>
+  <SliderFieldIconsExample />
+  <ExampleCode>
+```jsx file=./examples/SliderFieldIconsExample.tsx
 
-### Outer components
+````
 
-Adding icons at the start or end of an Slider using the `outerStartComponent` or `outerEndComponent` props.
-
-```jsx
-import { SliderField } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-<SliderField
-  label="Slider"
-  defaultValue={50}
-  min={0}
-  max={100}
-  step={1}
-  outerEndComponent={<IconVolumeUp />}
-  outerStartComponent={<IconVolumeDown />}
-  labelHidden
-/>;
-```
-
-<Example>
-  <SliderField
-    label="Volume"
-    defaultValue={50}
-    min={0}
-    max={100}
-    step={1}
-    outerEndComponent={<IconVolumeUp />}
-    outerStartComponent={<IconVolumeDown />}
-    labelHidden
-  />
+  </ExampleCode>
 </Example>
 
 ### Disabled SliderField
@@ -390,3 +340,4 @@ import '@aws-amplify/ui-react/styles.css';
     labelHidden
   />
 </Example>
+````
