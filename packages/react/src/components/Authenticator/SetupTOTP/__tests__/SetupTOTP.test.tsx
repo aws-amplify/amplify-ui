@@ -15,7 +15,11 @@ jest.mock('../../hooks/useAuthenticator', () => ({
 
 jest.mock('../../hooks/useCustomComponents', () => ({
   useCustomComponents: () => ({
-    components: { SetupTOTP: { Header: () => null, Footer: () => null } },
+    components: {
+      Header: () => null,
+      Footer: () => null,
+      SetupTOTP: { Header: () => null, Footer: () => null },
+    },
   }),
 }));
 
@@ -49,7 +53,7 @@ describe('SetupTOTP', () => {
     );
 
     await act(async () => {
-      render(<SetupTOTP />);
+      render(<SetupTOTP className="className" variation="default" />);
     });
 
     expect(setupTOTPSpy).toHaveBeenCalledTimes(1);
@@ -75,7 +79,7 @@ describe('SetupTOTP', () => {
     );
 
     await act(async () => {
-      render(<SetupTOTP />);
+      render(<SetupTOTP className="className" variation="default" />);
     });
 
     expect(setupTOTPSpy).toHaveBeenCalledTimes(1);
