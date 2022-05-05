@@ -1,5 +1,16 @@
 # @aws-amplify/ui-react
 
+## 2.16.1
+
+### Patch Changes
+
+- [#1829](https://github.com/aws-amplify/amplify-ui/pull/1829) [`4c6ca0abd`](https://github.com/aws-amplify/amplify-ui/commit/4c6ca0abd73a6b7df51193c27223ac2befb43c9a) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui-react): update eslint config
+
+* [#1838](https://github.com/aws-amplify/amplify-ui/pull/1838) [`8efa2b238`](https://github.com/aws-amplify/amplify-ui/commit/8efa2b238319f591e0397f89d302dcda9bb6aa8a) Thanks [@ErikCH](https://github.com/ErikCH)! - Fixed bug with MS Authenticator not working with Setup TOTP page
+
+* Updated dependencies [[`b1656e136`](https://github.com/aws-amplify/amplify-ui/commit/b1656e13612b5a748cc19be6eeeb44bf70822fda), [`f2ab1b8e4`](https://github.com/aws-amplify/amplify-ui/commit/f2ab1b8e468597e7b81284b46cd4b03dcd02e201)]:
+  - @aws-amplify/ui@3.8.0
+
 ## 2.16.0
 
 ### Minor Changes

@@ -5,6 +5,7 @@ import { Demo } from '@/components/Demo';
 import { getPropString } from '../utils/getPropString';
 import { useViewProps } from './useViewProps';
 import { ViewPropControls } from './ViewPropControls';
+import { demoState } from '@/utils/demoState';
 
 const propsToCode = (props: ViewProps) => {
   return (
@@ -26,19 +27,23 @@ const propsToCode = (props: ViewProps) => {
   );
 };
 
+const defaultViewProps = {
+  as: 'div',
+  ariaLabel: 'View example',
+  width: '20rem',
+  height: '4rem',
+  color: 'var(--amplify-colors-blue-60)',
+  backgroundColor: 'var(--amplify-colors-white)',
+  boxShadow: '3px 3px 5px 6px var(--amplify-colors-neutral-60)',
+  padding: '1rem',
+  border: '1px solid var(--amplify-colors-black)',
+  borderRadius: '6px',
+};
+
 export const ViewDemo = () => {
-  const props = useViewProps({
-    as: 'div',
-    ariaLabel: 'View example',
-    width: '20rem',
-    height: '4rem',
-    color: 'var(--amplify-colors-blue-60)',
-    backgroundColor: 'var(--amplify-colors-white)',
-    boxShadow: '3px 3px 5px 6px var(--amplify-colors-neutral-60)',
-    padding: '1rem',
-    border: '1px solid var(--amplify-colors-black)',
-    borderRadius: '6px',
-  });
+  const props = useViewProps(
+    demoState.get(View.displayName) || defaultViewProps
+  );
 
   const {
     ariaLabel,

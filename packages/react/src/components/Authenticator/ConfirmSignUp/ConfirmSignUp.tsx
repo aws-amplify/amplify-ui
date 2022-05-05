@@ -69,7 +69,7 @@ export function ConfirmSignUp({ className, variation }: RouteProps) {
               {subtitleText}
             </Text>
 
-            <FormFields route="confirmSignUp" />
+            <FormFields />
 
             <RemoteErrorMessage />
 

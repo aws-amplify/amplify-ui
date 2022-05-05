@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { ToggleButtonProps } from '@aws-amplify/ui-react';
+import { ToggleButton, ToggleButtonProps } from '@aws-amplify/ui-react';
 
 import { ToggleButtonPropControlsProps } from './ToggleButtonPropControls';
+import { demoState } from '@/utils/demoState';
 
 interface UseToggleButtonProps {
   (initialValues: ToggleButtonProps): ToggleButtonPropControlsProps;
@@ -18,12 +19,19 @@ export const useToggleButtonProps: UseToggleButtonProps = (initialValues) => {
     ToggleButtonProps['variation']
   >(initialValues.variation);
 
-  return {
-    isDisabled,
-    setIsDisabled,
-    size,
-    setSize,
-    variation,
-    setVariation,
-  };
+  React.useEffect(() => {
+    demoState.set(ToggleButton.displayName, { isDisabled, size, variation });
+  }, [isDisabled, size, variation]);
+
+  return React.useMemo(
+    () => ({
+      isDisabled,
+      setIsDisabled,
+      size,
+      setSize,
+      variation,
+      setVariation,
+    }),
+    [isDisabled, setIsDisabled, size, setSize, variation, setVariation]
+  );
 };
