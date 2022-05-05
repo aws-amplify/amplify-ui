@@ -1,6 +1,6 @@
-import { readFile } from 'fs/promises';
 import matter from 'gray-matter';
 import path from 'path';
+import { readFile } from 'fs/promises';
 
 export async function getPageFromSlug(slug: string) {
   if (slug.startsWith('/')) {
@@ -14,7 +14,7 @@ export async function getPageFromSlug(slug: string) {
     'src',
     'pages',
     slug,
-    'index.page.mdx'
+    '[platform].page.mdx'
   );
 
   const source = await readFile(contentPath, 'utf8');

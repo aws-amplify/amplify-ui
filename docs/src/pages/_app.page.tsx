@@ -1,14 +1,16 @@
-import * as React from 'react';
-import Head from 'next/head';
-import Script from 'next/script';
-import { useRouter } from 'next/router';
-import { AmplifyProvider, ColorMode } from '@aws-amplify/ui-react';
-
-import { Header } from '@/components/Layout/Header';
-import { configure, trackPageVisit } from '../utils/track';
-import { theme } from '../theme';
-import { META_INFO } from '@/data/meta';
 import '../styles/index.scss';
+
+import * as React from 'react';
+
+import { AmplifyProvider, ColorMode } from '@aws-amplify/ui-react';
+import { configure, trackPageVisit } from '../utils/track';
+
+import Head from 'next/head';
+import { Header } from '@/components/Layout/Header';
+import { META_INFO } from '@/data/meta';
+import Script from 'next/script';
+import { theme } from '../theme';
+import { useRouter } from 'next/router';
 
 // suppress useLayoutEffect warnings when running outside a browser
 // See: https://gist.github.com/gaearon/e7d97cdf38a2907924ea12e4ebdf3c85#gistcomment-3886909
@@ -31,17 +33,17 @@ function MyApp({ Component, pageProps }) {
   configure();
   trackPageVisit();
 
-  if (
-    !META_INFO[router.pathname]?.description ||
-    !META_INFO[router.pathname]?.title
-  ) {
-    throw new Error(`Meta Info missing on ${router.pathname}`);
-  }
+  // if (
+  //   !META_INFO[router.pathname]?.description ||
+  //   !META_INFO[router.pathname]?.title
+  // ) {
+  //   throw new Error(`Meta Info missing on ${router.pathname}`);
+  // }
 
   return (
     <>
       <Head>
-        <title>{META_INFO[router.pathname].title} | Amplify UI</title>
+        <title>{META_INFO[router.pathname]?.title} | Amplify UI</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {META_INFO[router.pathname] && (
           <meta
