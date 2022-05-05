@@ -38,9 +38,8 @@ export interface SliderFieldPropControlsProps extends SliderFieldProps {
   setThumbColor: (
     value: React.SetStateAction<SliderFieldProps['thumbColor']>
   ) => void;
-  setSize: (
-    value: React.SetStateAction<SliderFieldProps['thumbColor']>
-  ) => void;
+  setSize: (value: React.SetStateAction<SliderFieldProps['size']>) => void;
+  setValue: (value: React.SetStateAction<SliderFieldProps['value']>) => void;
 }
 
 interface SliderFieldPropControlsInterface {

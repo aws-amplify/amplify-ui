@@ -38,7 +38,8 @@ const defaultSliderFieldProps = {
 
 export const SliderFieldDemo = () => {
   const sliderFieldProps = useSliderFieldProps(
-    demoState.get(SliderField.displayName) || defaultSliderFieldProps
+    (demoState.get(SliderField.displayName) as SliderFieldProps) ||
+      defaultSliderFieldProps
   );
 
   return (
