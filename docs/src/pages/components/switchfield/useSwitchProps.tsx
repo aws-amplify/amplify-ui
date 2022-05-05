@@ -1,5 +1,6 @@
-import { SwitchFieldProps } from '@aws-amplify/ui-react';
+import { SwitchField, SwitchFieldProps } from '@aws-amplify/ui-react';
 import * as React from 'react';
+import { demoState } from '@/utils/demoState';
 
 export const useSwitchProps = (initialValues) => {
   const [thumbColor, setThumbColor] = React.useState<
@@ -27,22 +28,64 @@ export const useSwitchProps = (initialValues) => {
     SwitchFieldProps['labelPosition']
   >(initialValues.labelPosition);
 
-  return {
+  React.useEffect(() => {
+    demoState.set(SwitchField.displayName, {
+      thumbColor,
+      trackColor,
+      trackCheckedColor,
+      isDisabled,
+      size,
+      label,
+      isChecked,
+      labelPosition,
+    });
+  }, [
     thumbColor,
-    setThumbColor,
     trackColor,
-    setTrackColor,
     trackCheckedColor,
-    setTrackCheckedColor,
     isDisabled,
-    setIsDisabled,
     size,
-    setSize,
     label,
-    setLabel,
-    labelPosition,
-    setLabelPosition,
     isChecked,
-    setIsChecked,
-  };
+    labelPosition,
+  ]);
+
+  return React.useMemo(
+    () => ({
+      thumbColor,
+      setThumbColor,
+      trackColor,
+      setTrackColor,
+      trackCheckedColor,
+      setTrackCheckedColor,
+      isDisabled,
+      setIsDisabled,
+      size,
+      setSize,
+      label,
+      setLabel,
+      labelPosition,
+      setLabelPosition,
+      isChecked,
+      setIsChecked,
+    }),
+    [
+      thumbColor,
+      setThumbColor,
+      trackColor,
+      setTrackColor,
+      trackCheckedColor,
+      setTrackCheckedColor,
+      isDisabled,
+      setIsDisabled,
+      size,
+      setSize,
+      label,
+      setLabel,
+      labelPosition,
+      setLabelPosition,
+      isChecked,
+      setIsChecked,
+    ]
+  );
 };
