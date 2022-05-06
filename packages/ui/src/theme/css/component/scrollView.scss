@@ -10,7 +10,7 @@
 
   // @TODO: Deprecated - Remove in 3.0
   &[data-orientation='vertical'] {
-    overflow-x: scroll;
-    overflow-y: auto;
+    overflow-x: initial;
+    overflow-y: scroll;
   }
 }
