@@ -2,13 +2,15 @@
   display: block;
   overflow: auto;
 
+  // @TODO: Deprecated - Remove in 3.0
   &[data-orientation='horizontal'] {
-    overflow-x: auto;
+    overflow-x: scroll;
     overflow-y: initial;
   }
 
+  // @TODO: Deprecated - Remove in 3.0
   &[data-orientation='vertical'] {
-    overflow-x: initial;
+    overflow-x: scroll;
     overflow-y: auto;
   }
 }
