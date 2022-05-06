@@ -87,7 +87,7 @@ export const SliderFieldPropControls: SliderFieldPropControlsInterface = ({
         label="min"
         value={min}
         min={0}
-        max={10}
+        max={49}
         step={1}
         onStepChange={setMin}
       />

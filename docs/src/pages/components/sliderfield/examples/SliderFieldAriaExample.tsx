@@ -1,4 +1,4 @@
-import { SliderField, Flex, Text } from '@aws-amplify/ui-react';
+import { SliderField, Text } from '@aws-amplify/ui-react';
 import * as React from 'react';
 
 const userFeedback = [
@@ -13,7 +13,7 @@ export const SliderFieldAriaExample = () => {
   const [index, setIndex] = React.useState(2);
 
   return (
-    <Flex direction="column">
+    <>
       <SliderField
         ariaValuetext={userFeedback[index]}
         label="I tend to be more introverted."
@@ -23,6 +23,6 @@ export const SliderFieldAriaExample = () => {
         isValueHidden
       />
       <Text>{userFeedback[index]}</Text>
-    </Flex>
+    </>
   );
 };
