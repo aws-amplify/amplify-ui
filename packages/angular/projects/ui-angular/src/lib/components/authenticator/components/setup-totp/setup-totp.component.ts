@@ -50,7 +50,9 @@ export class SetupTotpComponent implements OnInit {
       const issuer = this.formOverrides?.['QR']?.totpIssuer ?? 'AWSCognito';
       const username =
         this.formOverrides?.['QR']?.totpUsername ?? user.username;
-      const totpCode = `otpauth://totp/${issuer}:${username}?secret=${this.secretKey}&issuer=${issuer}`;
+      const totpCode = encodeURI(
+        `otpauth://totp/${issuer}:${username}?secret=${this.secretKey}&issuer=${issuer}`
+      );
 
       logger.info('totp code was generated:', totpCode);
       this.qrCodeSource = await QRCode.toDataURL(totpCode);

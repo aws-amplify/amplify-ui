@@ -132,6 +132,10 @@ jobs:
         if: ${{ matrix.package != 'ui' }}
         run: yarn ${{ matrix.package }} build
 
+      - name: Check ${{ matrix.package }} bundle size
+        if: ${{ matrix.package == 'react' }}
+        run: yarn react size
+
       - name: Cache ${{ matrix.package }}/dist
         uses: actions/cache@v2
         with:
