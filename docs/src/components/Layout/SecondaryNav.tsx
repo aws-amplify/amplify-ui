@@ -32,8 +32,8 @@ const NavLinks = ({
 );
 
 const NavLink = ({ href, children, onClick, platforms = [] }) => {
-  const { pathname, query } = useRouter();
-  const isCurrent = pathname === href;
+  const { query, asPath } = useRouter();
+  const isCurrent = asPath === href;
   const { platform = 'react' } = query;
   const classNames = `docs-secondary-nav-link ${isCurrent ? 'current' : ''}`;
 
@@ -73,15 +73,19 @@ const NavLinkComponentsSection = ({ heading, components, ...props }) => {
 
 // TODO: clean up this logic
 export const SecondaryNav = (props) => {
-  const router = useRouter();
+  const {
+    asPath,
+    query: { platform },
+  } = useRouter();
 
   // Extract section from URL (/section/... => section)
-  const section = router.pathname.split('/')[1];
+  const section = asPath.split('/')[1];
+
   switch (section) {
     case 'theming':
       return (
         <>
-          <NavLink {...props} href={`/theming`}>
+          <NavLink {...props} href={`/theming/${platform}`}>
             Overview
           </NavLink>
           <NavLink
@@ -91,13 +95,13 @@ export const SecondaryNav = (props) => {
           >
             Responsive
           </NavLink>
-          <NavLink {...props} href="/theming/dark-mode">
+          <NavLink {...props} href={`/theming/dark-mode/${platform}`}>
             Dark mode
           </NavLink>
           <NavLink
             {...props}
             platforms={['react', 'vue', 'angular']}
-            href={`/theming/alternative-styling`}
+            href={`/theming/alternative-styling/${platform}`}
           >
             Alternative styling
           </NavLink>
@@ -106,10 +110,10 @@ export const SecondaryNav = (props) => {
     case 'guides':
       return (
         <>
-          <NavLink {...props} href={`/guides`}>
+          <NavLink {...props} href={`/guides${platform}`}>
             Guides
           </NavLink>
-          <NavLink {...props} href={`/guides/auth-protected`}>
+          <NavLink {...props} href={`/guides/auth-protected/${platform}`}>
             Protected Routes
           </NavLink>
         </>
@@ -117,12 +121,17 @@ export const SecondaryNav = (props) => {
     case 'getting-started':
       return (
         <>
-          <NavLink {...props} href={`/guides`}>
-            Guides
+          <NavLink
+            {...props}
+            href={`/getting-started/installation/${platform}`}
+          >
+            Installation
           </NavLink>
-          <NavLink {...props} href={`/guides/auth-protected`}>
-            Protected Routes
-          </NavLink>
+          {platform !== 'flutter' && (
+            <NavLink {...props} href={`/getting-started/migration/${platform}`}>
+              Migration
+            </NavLink>
+          )}
         </>
       );
     case 'components':
