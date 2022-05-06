@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { SearchFieldProps } from '@aws-amplify/ui-react';
+import { SearchField, SearchFieldProps } from '@aws-amplify/ui-react';
 import { SearchFieldPropControlsProps } from './SearchFieldPropControls';
+import { demoState } from '@/utils/demoState';
 
 interface UseSearchFieldFieldProps {
   (initialValues?: SearchFieldProps): SearchFieldPropControlsProps;
@@ -28,18 +29,45 @@ export const useSearchFieldProps: UseSearchFieldFieldProps = (
     SearchFieldProps['isDisabled']
   >(initialValues.isDisabled);
 
-  return {
-    label,
-    setLabel,
-    placeholder,
-    setPlaceholder,
-    size,
-    setSize,
-    variation,
-    setVariation,
-    labelHidden,
-    setLabelHidden,
-    isDisabled,
-    setIsDisabled,
-  };
+  React.useEffect(() => {
+    demoState.set(SearchField.displayName, {
+      label,
+      placeholder,
+      size,
+      variation,
+      labelHidden,
+      isDisabled,
+    });
+  }, [label, placeholder, size, variation, labelHidden, isDisabled]);
+
+  return React.useMemo(
+    () => ({
+      label,
+      setLabel,
+      placeholder,
+      setPlaceholder,
+      size,
+      setSize,
+      variation,
+      setVariation,
+      labelHidden,
+      setLabelHidden,
+      isDisabled,
+      setIsDisabled,
+    }),
+    [
+      label,
+      setLabel,
+      placeholder,
+      setPlaceholder,
+      size,
+      setSize,
+      variation,
+      setVariation,
+      labelHidden,
+      setLabelHidden,
+      isDisabled,
+      setIsDisabled,
+    ]
+  );
 };
