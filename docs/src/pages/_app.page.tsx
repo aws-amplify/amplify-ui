@@ -28,7 +28,7 @@ function MyApp({ Component, pageProps }) {
     .join('/')}`;
   const [colorMode, setColorMode] = React.useState<ColorMode>('system');
   const [themeOverride, setThemeOverride] = React.useState('');
-  console.log(pathname, filepath);
+
   React.useEffect(() => {
     document.documentElement.setAttribute(
       'data-amplify-theme-override',
