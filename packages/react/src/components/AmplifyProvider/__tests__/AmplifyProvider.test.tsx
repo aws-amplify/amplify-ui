@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
+import { Theme } from '@aws-amplify/ui';
 
 import { AmplifyProvider } from '../index';
 import { Heading } from '../../../primitives';
-import { Theme } from '@aws-amplify/ui-react';
 
 const App = () => {
   return <Heading>Howdy</Heading>;

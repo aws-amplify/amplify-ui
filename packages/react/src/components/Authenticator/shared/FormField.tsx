@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { FormFieldOptions, getErrors } from '@aws-amplify/ui';
 
 import { PasswordField } from '../../../primitives/PasswordField';
@@ -6,32 +7,38 @@ import { TextField } from '../../../primitives/TextField';
 import { useAuthenticator } from '../hooks/useAuthenticator';
 import { ValidationErrors } from './ValidationErrors';
 
-export interface FormFieldProps {
+export interface FormFieldProps extends Omit<FormFieldOptions, 'label'> {
+  // label is a required prop for the UI field components used in FormField
+  label: string;
   name: string;
-  formFieldOptions: FormFieldOptions;
 }
-export function FormField({ name, formFieldOptions }: FormFieldProps) {
-  const { validationErrors } = useAuthenticator((context) => [
-    context.validationErrors,
-  ]);
-  const { type } = formFieldOptions;
 
-  const errors = getErrors(validationErrors[name]);
+export function FormField({
+  autocomplete: autoComplete,
+  dialCode,
+  name,
+  type,
+  ...props
+}: FormFieldProps) {
+  const { validationErrors } = useAuthenticator(({ validationErrors }) => [
+    validationErrors,
+  ]);
+
+  const errors = React.useMemo(
+    () => getErrors(validationErrors[name]),
+    [name, validationErrors]
+  );
   const hasError = errors?.length > 0;
 
   if (type === 'tel') {
     return (
       <>
         <PhoneNumberField
+          {...props}
           name={name}
-          label={formFieldOptions.label}
-          placeholder={formFieldOptions.placeholder}
-          defaultCountryCode={formFieldOptions.dialCode}
+          defaultCountryCode={dialCode}
           countryCodeName="country_code"
-          dialCodeList={formFieldOptions.dialCodeList}
-          autoComplete={formFieldOptions.autocomplete}
-          isRequired={formFieldOptions.isRequired}
-          labelHidden={formFieldOptions.labelHidden}
+          autoComplete={autoComplete}
           hasError={hasError}
         />
         <ValidationErrors errors={errors} />
@@ -41,12 +48,9 @@ export function FormField({ name, formFieldOptions }: FormFieldProps) {
     return (
       <>
         <PasswordField
+          {...props}
           name={name}
-          label={formFieldOptions.label}
-          autoComplete={formFieldOptions.autocomplete}
-          placeholder={formFieldOptions.placeholder}
-          isRequired={formFieldOptions.isRequired}
-          labelHidden={formFieldOptions.labelHidden}
+          autoComplete={autoComplete}
           hasError={hasError}
         />
         <ValidationErrors errors={errors} />
@@ -56,12 +60,9 @@ export function FormField({ name, formFieldOptions }: FormFieldProps) {
     return (
       <>
         <TextField
+          {...props}
           name={name}
-          label={formFieldOptions.label}
-          placeholder={formFieldOptions.placeholder}
-          autoComplete={formFieldOptions.autocomplete}
-          isRequired={formFieldOptions.isRequired}
-          labelHidden={formFieldOptions.labelHidden}
+          autoComplete={autoComplete}
           hasError={hasError}
           type={type}
         />

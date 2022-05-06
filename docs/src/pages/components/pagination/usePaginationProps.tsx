@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { PaginationProps } from '@aws-amplify/ui-react';
+import { Pagination, PaginationProps } from '@aws-amplify/ui-react';
 import { PaginationPropControlsProps } from './PaginationPropControls';
+import { demoState } from '@/utils/demoState';
 
 interface UsePaginationProps {
   (initialValues: PaginationProps): PaginationPropControlsProps;
@@ -20,31 +21,58 @@ export const usePaginationProps: UsePaginationProps = (initialValues) => {
     PaginationProps['hasMorePages']
   >(initialValues.hasMorePages);
 
-  const onNext = () => {
+  const onNext = React.useCallback(() => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
     }
-  };
+  }, [currentPage, totalPages]);
 
-  const onPrevious = () => {
+  const onPrevious = React.useCallback(() => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
     }
-  };
+  }, [currentPage]);
 
-  const onChange = (pageIndex) => setCurrentPage(pageIndex);
+  const onChange = React.useCallback(
+    (pageIndex) => setCurrentPage(pageIndex),
+    []
+  );
 
-  return {
-    currentPage,
-    setCurrentPage,
-    totalPages,
-    setTotalPages,
-    siblingCount,
-    setSiblingCount,
-    hasMorePages,
-    setHasMorePages,
-    onNext,
-    onPrevious,
-    onChange,
-  };
+  React.useEffect(() => {
+    demoState.set(Pagination.displayName, {
+      currentPage,
+      totalPages,
+      siblingCount,
+      hasMorePages,
+    });
+  }, [currentPage, totalPages, siblingCount, hasMorePages]);
+
+  return React.useMemo(
+    () => ({
+      currentPage,
+      setCurrentPage,
+      totalPages,
+      setTotalPages,
+      siblingCount,
+      setSiblingCount,
+      hasMorePages,
+      setHasMorePages,
+      onNext,
+      onPrevious,
+      onChange,
+    }),
+    [
+      currentPage,
+      setCurrentPage,
+      totalPages,
+      setTotalPages,
+      siblingCount,
+      setSiblingCount,
+      hasMorePages,
+      setHasMorePages,
+      onNext,
+      onPrevious,
+      onChange,
+    ]
+  );
 };

@@ -5,14 +5,13 @@ on:
     branches: [main]
 
 permissions:
-  contents: write # Used to commit to "Version Packages" PR
-  pull-requests: write # Used to create "Version Packages" PR
-  # Other permissions are defaulted to none
+  contents: write # Used to push tags to GitHub
 
 jobs:
-  publish:
+  setup:
     runs-on: ubuntu-latest
-    environment: deployment
+    outputs:
+      has-changesets: ${{ steps.has-changesets.outputs.has-changesets }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -22,8 +21,18 @@ jobs:
       - name: Check if repo has unconsumed changesets
         id: has-changesets
         uses: ./.github/actions/has-changesets
-      - name: Echo has-changesets
-        run: echo ${{ steps.has-changesets.outputs.has-changesets }}
+
+  publish:
+    runs-on: ubuntu-latest
+    environment: ci
+    needs: setup
+    if: ${{ needs.setup.outputs.has-changesets != 'true' }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
+          fetch-depth: 0
       - name: Setup Node.js LTS
         uses: actions/setup-node@v2
         with:
@@ -31,8 +40,7 @@ jobs:
           cache: 'yarn'
       - name: Install and build packages
         run: yarn --frozen-lockfile && yarn build
-      - name: Create Release Pull Request or Publish to npm
-        id: changesets
+      - name: Publish to @latest
         uses: changesets/action@b98cec97583b917ff1dc6179dd4d230d3e439894
         with:
           publish: yarn publish:latest
