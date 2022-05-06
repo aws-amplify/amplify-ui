@@ -74,113 +74,104 @@ const NavLinkComponentsSection = ({ heading, components, ...props }) => {
 // TODO: clean up this logic
 export const SecondaryNav = (props) => {
   const router = useRouter();
-  const { query } = useRouter();
-  const { platform = 'react' } = query;
 
   // Extract section from URL (/section/... => section)
   const section = router.pathname.split('/')[1];
-
-  if (section === 'theming') {
-    return (
-      <>
-        <NavLink {...props} href={`/theming/${platform}`}>
-          Overview
-        </NavLink>
-        <NavLink
-          {...props}
-          platforms={['react', 'vue', 'angular']}
-          href={`/theming/responsive/${platform}`}
-        >
-          Responsive
-        </NavLink>
-        <NavLink {...props} href="/theming/dark-mode">
-          Dark mode
-        </NavLink>
-        <NavLink
-          {...props}
-          platforms={['react', 'vue', 'angular']}
-          href={`/theming/alternative-styling/${platform}`}
-        >
-          Alternative styling
-        </NavLink>
-      </>
-    );
-  }
-
-  if (section === 'guides') {
-    return (
-      <>
-        <NavLink {...props} href={`/guides/${platform}`}>
-          Guides
-        </NavLink>
-        <NavLink {...props} href={`/guides/auth-protected/${platform}`}>
-          Protected Routes
-        </NavLink>
-      </>
-    );
-  }
-
-  if (section === 'getting-started') {
-    return (
-      <>
-        <NavLink {...props} href={`/getting-started/installation/${platform}`}>
-          Installation
-        </NavLink>
-        {platform !== 'flutter' && (
-          <NavLink {...props} href={`/getting-started/migration/${platform}`}>
-            Migration
+  switch (section) {
+    case 'theming':
+      return (
+        <>
+          <NavLink {...props} href={`/theming`}>
+            Overview
           </NavLink>
-        )}
-      </>
-    );
+          <NavLink
+            {...props}
+            platforms={['react', 'vue', 'angular']}
+            href={`/theming/responsive`}
+          >
+            Responsive
+          </NavLink>
+          <NavLink {...props} href="/theming/dark-mode">
+            Dark mode
+          </NavLink>
+          <NavLink
+            {...props}
+            platforms={['react', 'vue', 'angular']}
+            href={`/theming/alternative-styling`}
+          >
+            Alternative styling
+          </NavLink>
+        </>
+      );
+    case 'guides':
+      return (
+        <>
+          <NavLink {...props} href={`/guides`}>
+            Guides
+          </NavLink>
+          <NavLink {...props} href={`/guides/auth-protected`}>
+            Protected Routes
+          </NavLink>
+        </>
+      );
+    case 'getting-started':
+      return (
+        <>
+          <NavLink {...props} href={`/guides`}>
+            Guides
+          </NavLink>
+          <NavLink {...props} href={`/guides/auth-protected`}>
+            Protected Routes
+          </NavLink>
+        </>
+      );
+    case 'components':
+      return (
+        <>
+          <NavLinkComponentsSection
+            heading={'Connected Components'}
+            components={connectedComponents}
+          ></NavLinkComponentsSection>
+
+          <NavLinkComponentsSection
+            heading={'Base'}
+            components={baseComponents}
+          ></NavLinkComponentsSection>
+
+          <NavLinkComponentsSection
+            heading={'Feedback'}
+            components={feedbackComponents}
+          ></NavLinkComponentsSection>
+
+          <NavLinkComponentsSection
+            heading={'Navigation'}
+            components={navigationComponents}
+          ></NavLinkComponentsSection>
+
+          <NavLinkComponentsSection
+            heading={'Inputs'}
+            components={inputComponents}
+          ></NavLinkComponentsSection>
+
+          <NavLinkComponentsSection
+            heading={'Layout'}
+            components={layoutComponents}
+          ></NavLinkComponentsSection>
+
+          <NavLinkComponentsSection
+            heading={'Data Display'}
+            components={dataDisplayComponents}
+          ></NavLinkComponentsSection>
+
+          <NavLinkComponentsSection
+            heading={'Utilities'}
+            components={utilityComponents}
+          ></NavLinkComponentsSection>
+        </>
+      );
+    default:
+      return null;
   }
-
-  if (section === 'components') {
-    return (
-      <>
-        <NavLinkComponentsSection
-          heading={'Connected Components'}
-          components={connectedComponents}
-        ></NavLinkComponentsSection>
-
-        <NavLinkComponentsSection
-          heading={'Base'}
-          components={baseComponents}
-        ></NavLinkComponentsSection>
-
-        <NavLinkComponentsSection
-          heading={'Feedback'}
-          components={feedbackComponents}
-        ></NavLinkComponentsSection>
-
-        <NavLinkComponentsSection
-          heading={'Navigation'}
-          components={navigationComponents}
-        ></NavLinkComponentsSection>
-
-        <NavLinkComponentsSection
-          heading={'Inputs'}
-          components={inputComponents}
-        ></NavLinkComponentsSection>
-
-        <NavLinkComponentsSection
-          heading={'Layout'}
-          components={layoutComponents}
-        ></NavLinkComponentsSection>
-
-        <NavLinkComponentsSection
-          heading={'Data Display'}
-          components={dataDisplayComponents}
-        ></NavLinkComponentsSection>
-
-        <NavLinkComponentsSection
-          heading={'Utilities'}
-          components={utilityComponents}
-        ></NavLinkComponentsSection>
-      </>
-    );
-  }
-  return null;
 };
 
 export const Sidebar = () => {
