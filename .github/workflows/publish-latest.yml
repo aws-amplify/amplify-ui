@@ -4,6 +4,9 @@ on:
   push:
     branches: [main]
 
+permissions:
+  contents: write # Used to push tags to GitHub
+
 jobs:
   setup:
     runs-on: ubuntu-latest
