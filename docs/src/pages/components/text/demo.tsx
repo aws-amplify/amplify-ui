@@ -10,6 +10,7 @@ import {
 import { Demo } from '@/components/Demo';
 import { TextPropControls } from './TextPropControls';
 import { useTextProps } from './useTextPropControlProps';
+import { demoState } from '@/utils/demoState';
 
 const propsToCode = (
   variation: TextVariation,

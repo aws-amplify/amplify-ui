@@ -1,8 +1,9 @@
+import * as React from 'react';
 import { Flex, View, useTheme } from '@aws-amplify/ui-react';
-
 import { Demo } from '@/components/Demo';
 import { FlexPropControls } from './FlexPropControls';
 import { useFlexProps } from './useFlexProps';
+import { demoState } from '@/utils/demoState';
 
 const propsToCode = (props) => {
   return `<Flex
@@ -36,15 +37,19 @@ const propsToCode = (props) => {
 </Flex>`;
 };
 
+const defaultFlexProps = {
+  direction: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'stretch',
+  alignContent: 'flex-start',
+  wrap: 'nowrap',
+  gap: '1rem',
+};
+
 export const FlexDemo = () => {
-  const flexProps = useFlexProps({
-    direction: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'stretch',
-    alignContent: 'flex-start',
-    wrap: 'nowrap',
-    gap: '1rem',
-  });
+  const flexProps = useFlexProps(
+    demoState.get(Flex.displayName) || defaultFlexProps
+  );
 
   const { tokens } = useTheme();
 

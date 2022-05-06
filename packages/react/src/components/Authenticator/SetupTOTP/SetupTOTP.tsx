@@ -22,7 +22,9 @@ import { RouteContainer, RouteProps } from '../RouteContainer';
 const logger = new Logger('SetupTOTP-logger');
 
 export const getTotpCode = (issuer: string, username: string, secret: string) =>
-  `otpauth://totp/${issuer}:${username}?secret=${secret}&issuer=${issuer}`;
+  encodeURI(
+    `otpauth://totp/${issuer}:${username}?secret=${secret}&issuer=${issuer}`
+  );
 
 export const SetupTOTP = ({
   className,
