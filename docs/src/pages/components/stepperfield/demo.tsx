@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { StepperField } from '@aws-amplify/ui-react';
+import { StepperField, StepperFieldProps } from '@aws-amplify/ui-react';
 
 import { Demo } from '@/components/Demo';
 import {
@@ -8,6 +8,7 @@ import {
   StepperFieldPropControlsProps,
 } from './StepperFieldPropControls';
 import { useStepperFieldProps } from './useStepperFieldProps';
+import { demoState } from '@/utils/demoState';
 
 const propsToCode = (props: StepperFieldPropControlsProps) => {
   return (
@@ -27,14 +28,19 @@ const propsToCode = (props: StepperFieldPropControlsProps) => {
   );
 };
 
+const defaultStepperFieldProps = {
+  label: 'Stepper',
+  defaultValue: 0,
+  min: 0,
+  max: 10,
+  step: 1,
+};
+
 export const StepperFieldDemo = () => {
-  const stepperFieldProps = useStepperFieldProps({
-    label: 'Stepper',
-    defaultValue: 0,
-    min: 0,
-    max: 10,
-    step: 1,
-  });
+  const stepperFieldProps = useStepperFieldProps(
+    (demoState.get(StepperField.displayName) as StepperFieldProps) ||
+      defaultStepperFieldProps
+  );
 
   return (
     <Demo

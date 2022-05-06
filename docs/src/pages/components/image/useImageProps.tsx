@@ -23,18 +23,34 @@ export const useImageProps: UseImageProps = (initialValues) => {
     ImageOptions['objectPosition']
   >(initialValues.objectPosition);
 
-  return {
-    alt,
-    sizes,
-    src,
-    srcSet,
-    objectFit,
-    objectPosition,
-    setAlt,
-    setSizes,
-    setSrc,
-    setSrcSet,
-    setObjectFit,
-    setObjectPosition,
-  };
+  return React.useMemo(
+    () => ({
+      alt,
+      sizes,
+      src,
+      srcSet,
+      objectFit,
+      objectPosition,
+      setAlt,
+      setSizes,
+      setSrc,
+      setSrcSet,
+      setObjectFit,
+      setObjectPosition,
+    }),
+    [
+      alt,
+      sizes,
+      src,
+      srcSet,
+      objectFit,
+      objectPosition,
+      setAlt,
+      setSizes,
+      setSrc,
+      setSrcSet,
+      setObjectFit,
+      setObjectPosition,
+    ]
+  );
 };
