@@ -25,7 +25,7 @@ import LinkButton from './LinkButton';
 import { Logo } from '@/components/Logo';
 import NextLink from 'next/link';
 import { SecondaryNav } from './SecondaryNav';
-import { useRouter } from 'next/router';
+import { useCustomRouter } from '../../components/useCustomRouter';
 
 const NavLink = ({
   href,
@@ -41,7 +41,7 @@ const NavLink = ({
   const {
     asPath,
     query: { platform },
-  } = useRouter();
+  } = useCustomRouter();
 
   const isCurrent = asPath.startsWith(href) && href !== `/${platform}`;
   const className = `docs-nav-link ${isCurrent ? 'current' : ''}`;

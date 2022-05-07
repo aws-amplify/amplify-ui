@@ -11,12 +11,12 @@ import {
 } from '@/data/links';
 
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { useCustomRouter } from '../../components/useCustomRouter';
 
 const ComponentGrid = ({ components }) => {
   const {
     query: { platform = 'react' },
-  } = useRouter();
+  } = useCustomRouter();
 
   return (
     <Grid
@@ -36,7 +36,7 @@ const ComponentGrid = ({ components }) => {
 };
 
 const ComponentGridSection = ({ heading, components }) => {
-  const { query } = useRouter();
+  const { query } = useCustomRouter();
   const { platform = 'react' } = query;
 
   const platformComponents = components.filter((component) => {

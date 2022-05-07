@@ -25,7 +25,7 @@ import { HomePrimitivePreview } from './HomePrimitivePreview';
 import { Sandpack } from '@codesandbox/sandpack-react';
 import type { SandpackThemeProp } from '@codesandbox/sandpack-react';
 import { ThemeButton } from './ThemeButton';
-import { useRouter } from 'next/router';
+import { useCustomRouter } from '../components/useCustomRouter';
 
 const code = `import { AmplifyProvider, Button, Card, Text, Heading, Flex, Badge, Image, StepperField, useTheme } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
@@ -101,7 +101,7 @@ const AmpCard = ({ title, description, href }) => (
 const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
   const {
     query: { platform = 'react' },
-  } = useRouter();
+  } = useCustomRouter();
   const { tokens } = useTheme();
   const sandPackTheme: SandpackThemeProp = {
     palette: {

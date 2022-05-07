@@ -13,7 +13,7 @@ import {
 
 import Link from 'next/link';
 import LinkButton from './LinkButton';
-import { useRouter } from 'next/router';
+import { useCustomRouter } from '../../components/useCustomRouter';
 
 const NavLinks = ({
   items,
@@ -35,7 +35,7 @@ const NavLink = ({ href, children, onClick, platforms = [] }) => {
   const {
     query: { platform = 'react' },
     asPath,
-  } = useRouter();
+  } = useCustomRouter();
   const isCurrent = asPath === `${href}/${platform}`;
   const classNames = `docs-secondary-nav-link ${isCurrent ? 'current' : ''}`;
 
@@ -53,7 +53,7 @@ const NavLink = ({ href, children, onClick, platforms = [] }) => {
 };
 
 const NavLinkComponentsSection = ({ heading, components, ...props }) => {
-  const { query } = useRouter();
+  const { query } = useCustomRouter();
   const { platform = 'react' } = query;
 
   const platformComponents = components.filter((component) => {
@@ -79,7 +79,7 @@ export const SecondaryNav = (props) => {
   const {
     asPath,
     query: { platform },
-  } = useRouter();
+  } = useCustomRouter();
 
   // Extract section from URL (/section/... => section)
   const section = asPath.split('/')[1];

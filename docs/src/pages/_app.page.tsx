@@ -10,7 +10,7 @@ import { Header } from '@/components/Layout/Header';
 import { META_INFO } from '@/data/meta'; // TODO: use data generated from pages.preval.ts instead
 import Script from 'next/script';
 import { theme } from '../theme';
-import { useRouter } from 'next/router';
+import { useCustomRouter } from '../components/useCustomRouter';
 
 // suppress useLayoutEffect warnings when running outside a browser
 // See: https://gist.github.com/gaearon/e7d97cdf38a2907924ea12e4ebdf3c85#gistcomment-3886909
@@ -21,7 +21,8 @@ function MyApp({ Component, pageProps }) {
   const {
     pathname,
     query: { platform = 'react' },
-  } = useRouter();
+  } = useCustomRouter();
+
   const filepath = `/${pathname
     .split('/')
     .filter((n) => n && n !== '[platform]')

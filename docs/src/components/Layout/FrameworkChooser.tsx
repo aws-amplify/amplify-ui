@@ -5,10 +5,10 @@ import {
   VisuallyHidden,
 } from '@aws-amplify/ui-react';
 
-import { useRouter } from 'next/router';
+import { useCustomRouter } from '../../components/useCustomRouter';
 
 export const FrameworkChooser = ({ platform }) => {
-  const router = useRouter();
+  const router = useCustomRouter();
 
   const chooseFramework = (framework) => {
     const { hash } = window.location;
