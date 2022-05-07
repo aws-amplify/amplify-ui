@@ -127,9 +127,16 @@
   ],
   "size-limit": [
     {
+      "name": "Authenticator",
       "path": "dist/esm/index.js",
       "import": "{ Authenticator }",
       "limit": "100 kB"
+    },
+    {
+      "name": "Geo",
+      "path": "dist/esm/index.js",
+      "import": "{ MapView, Geocoder }",
+      "limit": "300 kB"
     }
   ]
 }
