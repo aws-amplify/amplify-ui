@@ -285,6 +285,7 @@ jobs:
     environment: ci
     env:
       NODE_ENV: test
+      SITE_URL: ${{ secrets.SITE_URL }}
     steps:
       - name: Checkout Amplify UI
         uses: actions/checkout@v2
