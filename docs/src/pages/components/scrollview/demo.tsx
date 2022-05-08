@@ -1,16 +1,9 @@
-import * as React from 'react';
-import { Image, ScrollView, ScrollViewProps } from '@aws-amplify/ui-react';
-import { Demo } from '@/components/Demo';
-import { useScrollViewProps } from './useScrollViewProps';
-import { ScrollViewPropControls } from './ScrollViewPropControls';
-import { demoState } from '@/utils/demoState';
+import { Image, ScrollView, useTheme } from '@aws-amplify/ui-react';
 
-const propsToCode = (props: ScrollViewProps) => {
-  return `<ScrollView
-  orientation="${props.orientation}"
-  height="300px"
-  width="400px"
->
+import { Demo } from '@/components/Demo';
+
+const demoCode = `
+<ScrollView width="100%" height="300px" maxWidth="580px">
   <Image
     width="800px"
     maxWidth="800px"
@@ -18,24 +11,18 @@ const propsToCode = (props: ScrollViewProps) => {
     alt="Amplify-logo"
   />
 </ScrollView>`;
-};
-
-const defaultScrollViewProps = { orientation: 'horizontal' };
 
 export const ScrollViewDemo = () => {
-  const scrollViewProps = useScrollViewProps(
-    demoState.get(ScrollView.displayName) || defaultScrollViewProps
-  );
-
+  const {
+    tokens: { colors },
+  } = useTheme();
   return (
-    <Demo
-      code={propsToCode(scrollViewProps)}
-      propControls={<ScrollViewPropControls {...scrollViewProps} />}
-    >
+    <Demo code={demoCode}>
       <ScrollView
-        orientation={scrollViewProps.orientation}
+        width="100%"
         height="300px"
-        width="400px"
+        maxWidth="580px"
+        backgroundColor={colors.neutral[10]}
       >
         <Image
           width="800px"
