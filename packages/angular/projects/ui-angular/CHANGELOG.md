@@ -1,5 +1,16 @@
 # @aws-amplify/ui-angular
 
+## 2.4.1
+
+### Patch Changes
+
+- [#1809](https://github.com/aws-amplify/amplify-ui/pull/1809) [`f2ab1b8e4`](https://github.com/aws-amplify/amplify-ui/commit/f2ab1b8e468597e7b81284b46cd4b03dcd02e201) Thanks [@wlee221](https://github.com/wlee221)! - Update Angular Authenticator to manually trigger change detection after hub events.
+
+* [#1838](https://github.com/aws-amplify/amplify-ui/pull/1838) [`8efa2b238`](https://github.com/aws-amplify/amplify-ui/commit/8efa2b238319f591e0397f89d302dcda9bb6aa8a) Thanks [@ErikCH](https://github.com/ErikCH)! - Fixed bug with MS Authenticator not working with Setup TOTP page
+
+* Updated dependencies [[`b1656e136`](https://github.com/aws-amplify/amplify-ui/commit/b1656e13612b5a748cc19be6eeeb44bf70822fda), [`f2ab1b8e4`](https://github.com/aws-amplify/amplify-ui/commit/f2ab1b8e468597e7b81284b46cd4b03dcd02e201)]:
+  - @aws-amplify/ui@3.8.0
+
 ## 2.4.0
 
 ### Minor Changes

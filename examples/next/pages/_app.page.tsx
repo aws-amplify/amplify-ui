@@ -2,11 +2,12 @@
 
 // https://nextjs.org/docs/advanced-features/custom-app
 import App from 'next/app';
-import { Amplify } from 'aws-amplify';
+import { Amplify, Hub } from 'aws-amplify';
 import { Authenticator, AmplifyProvider } from '@aws-amplify/ui-react';
 
 if (typeof window !== 'undefined') {
   window['Amplify'] = Amplify;
+  window['Hub'] = Hub;
 }
 
 export default function MyApp(props) {

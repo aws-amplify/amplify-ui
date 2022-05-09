@@ -1,17 +1,18 @@
-name: Publish to latest
+name: Version Packages
 
 on:
   push:
     branches: [main]
 
 permissions:
-  contents: write # Used to push tags to GitHub
+  contents: write # Used to commit to "Version Packages" PR
+  pull-requests: write # Used to create "Version Packages" PR
+  # Other permissions are defaulted to none
 
 jobs:
-  setup:
+  version:
     runs-on: ubuntu-latest
-    outputs:
-      has-changesets: ${{ steps.has-changesets.outputs.has-changesets }}
+    environment: deployment
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -21,29 +22,17 @@ jobs:
       - name: Check if repo has unconsumed changesets
         id: has-changesets
         uses: ./.github/actions/has-changesets
-
-  publish:
-    runs-on: ubuntu-latest
-    environment: ci
-    needs: setup
-    if: ${{ needs.setup.outputs.has-changesets != 'true' }}
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-        with:
-          # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
-          fetch-depth: 0
       - name: Setup Node.js LTS
+        if: ${{ steps.has-changesets.outputs.has-changesets == 'true' }}
         uses: actions/setup-node@v2
         with:
           node-version: lts/*
           cache: 'yarn'
       - name: Install and build packages
-        run: yarn --frozen-lockfile && yarn build
-      - name: Publish to @latest
+        if: ${{ steps.has-changesets.outputs.has-changesets == 'true' }}
+        run: yarn --frozen-lockfile
+      - name: Create or update Version Packages PR
+        if: ${{ steps.has-changesets.outputs.has-changesets == 'true' }}
         uses: changesets/action@b98cec97583b917ff1dc6179dd4d230d3e439894
-        with:
-          publish: yarn publish:latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

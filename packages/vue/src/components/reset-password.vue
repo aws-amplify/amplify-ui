@@ -58,38 +58,33 @@ const onBackToSignInClicked = (): void => {
       @input="onInput"
       @submit.prevent="onResetPasswordSubmit"
     >
-      <base-wrapper class="amplify-flex" style="flex-direction: column">
+      <base-wrapper class="amplify-flex amplify-authenticator__column">
         <slot name="header">
           <base-heading class="amplify-heading" :level="3">
             {{ resetPasswordHeading }}
           </base-heading>
         </slot>
         <base-field-set
-          class="amplify-flex"
-          style="flex-direction: column"
+          class="amplify-flex amplify-authenticator__column"
           :disabled="isPending"
         >
           <base-form-fields route="resetPassword"></base-form-fields>
         </base-field-set>
 
-        <base-footer
-          class="amplify-flex"
-          style="flex-direction: column; align-items: unset"
-        >
+        <base-footer class="amplify-flex amplify-authenticator__column">
           <base-alert v-if="error">
             {{ translate(error) }}
           </base-alert>
           <amplify-button
-            class="amplify-field-group__control"
+            class="amplify-field-group__control amplify-authenticator__font"
             :fullwidth="false"
             :variation="'primary'"
             type="submit"
-            style="font-weight: normal"
             :disabled="isPending"
             >{{ resetPasswordText }}</amplify-button
           >
           <amplify-button
-            class="amplify-field-group__control"
+            class="amplify-field-group__control amplify-authenticator__font"
             :fullwidth="false"
             :size="'small'"
             :variation="'link'"

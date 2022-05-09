@@ -1,8 +1,9 @@
+import * as React from 'react';
 import { CheckboxField, CheckboxFieldProps, Flex } from '@aws-amplify/ui-react';
-
 import { Demo } from '@/components/Demo';
 import { CheckboxFieldPropControls } from './CheckboxFieldPropControls';
 import { useCheckboxFieldProps } from './useCheckboxFieldProps';
+import { demoState } from '@/utils/demoState';
 
 const propsToCode = ({
   label,
@@ -22,12 +23,18 @@ const propsToCode = ({
   );
 };
 
+const defaultCheckboxFieldProps = {
+  label: 'Subscribe',
+  name: 'subscribe',
+  value: 'yes',
+};
+
 export const CheckboxDemo = () => {
-  const props = useCheckboxFieldProps({
-    label: 'Subscribe',
-    name: 'subscribe',
-    value: 'yes',
-  });
+  const props = useCheckboxFieldProps(
+    (demoState.get(CheckboxField.displayName) as CheckboxFieldProps) ||
+      defaultCheckboxFieldProps
+  );
+
   return (
     <Demo
       code={propsToCode(props)}

@@ -78,8 +78,7 @@ const onBackToSignInClicked = (): void => {
         @submit.prevent="onConfirmSignInSubmit"
       >
         <base-field-set
-          class="amplify-flex"
-          style="flex-direction: column"
+          class="amplify-flex amplify-authenticator__column"
           :disabled="actorState.matches('confirmSignIn.pending')"
         >
           <slot name="header">
@@ -87,15 +86,15 @@ const onBackToSignInClicked = (): void => {
               {{ confirmSignInHeading }}
             </base-heading>
           </slot>
-          <base-wrapper class="amplify-flex" style="flex-direction: column">
+          <base-wrapper class="amplify-flex amplify-authenticator__column">
             <base-form-fields route="confirmSignIn"></base-form-fields>
           </base-wrapper>
-          <base-footer class="amplify-flex" style="flex-direction: column">
+          <base-footer class="amplify-flex amplify-authenticator__column">
             <base-alert v-if="actorState?.context?.remoteError">
               {{ translate(actorState?.context?.remoteError) }}
             </base-alert>
             <amplify-button
-              class="amplify-field-group__control"
+              class="amplify-field-group__control amplify-authenticator__font"
               :fullwidth="false"
               :loading="false"
               :variation="'primary'"
@@ -104,7 +103,7 @@ const onBackToSignInClicked = (): void => {
               >{{ confirmText }}</amplify-button
             >
             <amplify-button
-              class="amplify-field-group__control"
+              class="amplify-field-group__control amplify-authenticator__font"
               :fullwidth="false"
               :size="'small'"
               :variation="'link'"

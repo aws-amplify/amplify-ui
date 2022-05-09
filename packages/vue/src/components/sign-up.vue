@@ -60,10 +60,9 @@ const submit = (e: Event): void => {
       >
         <federated-sign-in></federated-sign-in>
 
-        <base-wrapper class="amplify-flex" style="flex-direction: column">
+        <base-wrapper class="amplify-flex amplify-authenticator__column">
           <base-field-set
-            class="amplify-flex"
-            style="flex-direction: column"
+            class="amplify-flex amplify-authenticator__column"
             :disabled="isPending"
           >
             <template #fieldSetI="{ slotData }">
@@ -75,7 +74,7 @@ const submit = (e: Event): void => {
             {{ translate(error) }}
           </base-alert>
           <amplify-button
-            class="amplify-field-group__control"
+            class="amplify-field-group__control amplify-authenticator__font"
             :fullwidth="true"
             :loading="false"
             :variation="'primary'"

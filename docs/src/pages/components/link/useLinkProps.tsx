@@ -1,5 +1,6 @@
-import { LinkProps } from '@aws-amplify/ui-react';
+import { Link, LinkProps } from '@aws-amplify/ui-react';
 import * as React from 'react';
+import { demoState } from '@/utils/demoState';
 
 import { LinkPropControlsProps } from './LinkPropControls';
 
@@ -18,13 +19,28 @@ export const useLinkProps: UseLinkProps = (initialValues) => {
     LinkProps['textDecoration']
   >(initialValues.textDecoration);
 
-  return {
-    isExternal,
-    setIsExternal,
-    color,
-    setColor,
-    textDecoration,
-    setTextDecoration,
-    children: initialValues.children,
-  };
+  React.useEffect(() => {
+    demoState.set(Link.displayName, { isExternal, color, textDecoration });
+  }, [isExternal, color, textDecoration]);
+
+  return React.useMemo(
+    () => ({
+      isExternal,
+      setIsExternal,
+      color,
+      setColor,
+      textDecoration,
+      setTextDecoration,
+      children: initialValues.children,
+    }),
+    [
+      isExternal,
+      setIsExternal,
+      color,
+      setColor,
+      textDecoration,
+      setTextDecoration,
+      initialValues.children,
+    ]
+  );
 };
