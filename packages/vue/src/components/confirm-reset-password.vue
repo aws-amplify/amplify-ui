@@ -98,17 +98,17 @@ function onBlur(e: Event) {
             </base-alert>
             <amplify-button
               class="amplify-field-group__control amplify-authenticator__font"
-              data-fullwidth="false"
-              data-variation="primary"
+              :variation="'primary'"
+              :fullwidth="false"
               type="submit"
               :disabled="actorState.matches('confirmResetPassword.pending')"
               >{{ confirmResetPasswordText }}</amplify-button
             >
             <amplify-button
               class="amplify-field-group__control amplify-authenticator__font"
-              data-fullwidth="false"
-              data-size="small"
-              data-variation="link"
+              :variation="'link'"
+              :fullwidth="false"
+              :size="'small'"
               type="button"
               @click.prevent="onLostYourCodeClicked"
             >

@@ -96,9 +96,10 @@ function onBlur(e: Event) {
             </base-alert>
             <amplify-button
               class="amplify-field-group__control amplify-authenticator__font"
-              data-fullwidth="false"
-              data-loading="false"
-              data-variation="primary"
+              :fullwidth="false"
+              :loading="false"
+              :variation="'primary'"
+              style="font-weight: normal"
               :disabled="actorState.matches('signUp.submit')"
               >{{
                 actorState.matches('forceNewPassword.pending')
@@ -108,9 +109,10 @@ function onBlur(e: Event) {
             >
             <amplify-button
               class="amplify-field-group__control amplify-authenticator__font"
-              data-fullwidth="false"
-              data-size="small"
-              data-variation="link"
+              :fullwidth="false"
+              :size="'small'"
+              :variation="'link'"
+              style="font-weight: normal"
               type="button"
               @click.prevent="onHaveAccountClicked"
             >

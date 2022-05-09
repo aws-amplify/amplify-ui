@@ -1,6 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
 import { Flex } from '../Flex';
 import { IconStar } from '../Icon';
@@ -59,9 +60,14 @@ const RatingPrimitive: Primitive<RatingProps, typeof Flex> = (
         />
       );
   });
+
   return (
     <Flex
-      className={classNames(ComponentClassNames.Rating, className)}
+      className={classNames(
+        ComponentClassNames.Rating,
+        classNameModifier(ComponentClassNames.Rating, size),
+        className
+      )}
       data-size={size}
       ref={ref}
       {...rest}

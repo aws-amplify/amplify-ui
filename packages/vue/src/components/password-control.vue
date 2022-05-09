@@ -86,6 +86,7 @@ export default {
             amplify-button
             amplify-field-group__control
             amplify-field__show-password
+            amplify-button--fullwidth
           "
           data-fullwidth="false"
           type="button"
