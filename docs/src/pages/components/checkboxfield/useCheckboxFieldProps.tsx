@@ -1,8 +1,9 @@
 import * as React from 'react';
 
-import { CheckboxFieldProps } from '@aws-amplify/ui-react';
+import { CheckboxFieldProps, CheckboxField } from '@aws-amplify/ui-react';
 
 import { CheckboxFieldPropControlsProps } from './CheckboxFieldPropControls';
+import { demoState } from '@/utils/demoState';
 
 interface UseCheckboxFieldProps {
   (initialValues: CheckboxFieldProps): CheckboxFieldPropControlsProps;
@@ -31,21 +32,51 @@ export const useCheckboxFieldProps: UseCheckboxFieldProps = (initialValues) => {
     CheckboxFieldProps['labelPosition']
   >(initialValues.labelPosition);
 
-  return {
-    checked,
-    children: label,
-    setChecked,
-    isDisabled,
-    setIsDisabled,
-    label,
-    setLabel,
-    labelPosition,
-    setLabelPosition,
-    name,
-    setName,
-    size,
-    setSize,
-    value,
-    setValue,
-  };
+  React.useEffect(() => {
+    demoState.set(CheckboxField.displayName, {
+      checked,
+      isDisabled,
+      label,
+      name,
+      size,
+      value,
+      labelPosition,
+    });
+  }, [checked, isDisabled, label, name, size, value, labelPosition]);
+
+  return React.useMemo(
+    () => ({
+      checked,
+      children: label,
+      setChecked,
+      isDisabled,
+      setIsDisabled,
+      label,
+      setLabel,
+      labelPosition,
+      setLabelPosition,
+      name,
+      setName,
+      size,
+      setSize,
+      value,
+      setValue,
+    }),
+    [
+      checked,
+      setChecked,
+      isDisabled,
+      setIsDisabled,
+      label,
+      setLabel,
+      labelPosition,
+      setLabelPosition,
+      name,
+      setName,
+      size,
+      setSize,
+      value,
+      setValue,
+    ]
+  );
 };

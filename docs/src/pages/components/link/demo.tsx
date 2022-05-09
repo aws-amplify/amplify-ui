@@ -4,6 +4,7 @@ import { Link, LinkProps, Text, useTheme } from '@aws-amplify/ui-react';
 import { Demo } from '@/components/Demo';
 import { LinkPropControls } from './LinkPropControls';
 import { useLinkProps } from './useLinkProps';
+import { demoState } from '@/utils/demoState';
 
 const propsToCode = (props: LinkProps) => {
   return (
@@ -18,13 +19,17 @@ const propsToCode = (props: LinkProps) => {
   );
 };
 
+const defaultLinkProps = {
+  isExternal: false,
+  color: '#007EB9',
+  textDecoration: 'none',
+  children: 'My Demo Link',
+};
+
 export const LinkDemo = () => {
-  const linkProps = useLinkProps({
-    isExternal: false,
-    color: '#007EB9',
-    textDecoration: 'none',
-    children: 'My Demo Link',
-  });
+  const linkProps = useLinkProps(
+    (demoState.get(Link.displayName) as LinkProps) || defaultLinkProps
+  );
 
   const { tokens } = useTheme();
 

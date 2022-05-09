@@ -37,8 +37,8 @@ const randomPhone = Math.floor(Math.random() * 999999);
   <base-wrapper
     class="
       amplify-flex amplify-field amplify-textfield amplify-phonenumberfield
+      amplify-authenticator__column
     "
-    style="flex-direction: column"
   >
     <base-label
       :for="'amplify-field-' + random"
@@ -57,8 +57,8 @@ const randomPhone = Math.floor(Math.random() * 999999);
             amplify-field
             amplify-selectfield
             amplify-countrycodeselect
+            amplify-authenticator__column
           "
-          style="flex-direction: column"
           v-if="type === 'tel'"
         >
           <base-label
@@ -80,15 +80,18 @@ const randomPhone = Math.floor(Math.random() * 999999);
             >
             </base-select>
             <base-wrapper
-              class="amplify-flex amplify-select__icon-wrapper"
-              style="align-items: center; justify-content: center"
+              class="
+                amplify-flex
+                amplify-select__icon-wrapper
+                amplify-authenticator__icon-wrapper
+              "
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 data-size="large"
                 fill="currentColor"
                 viewBox="0 0 24 24"
-                class="amplify-icon"
+                class="amplify-icon amplify-icon--large"
               >
                 <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path>
               </svg>

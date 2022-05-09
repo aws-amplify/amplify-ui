@@ -1,5 +1,34 @@
 # @aws-amplify/ui-vue
 
+## 2.4.2
+
+### Patch Changes
+
+- [#1814](https://github.com/aws-amplify/amplify-ui/pull/1814) [`d66a7265e`](https://github.com/aws-amplify/amplify-ui/commit/d66a7265e9de36b1d8a1ad05745ffc7ad734b003) Thanks [@jacoblogan](https://github.com/jacoblogan)! - Remove inline styling from vue authenticator
+
+- Updated dependencies [[`286e7df79`](https://github.com/aws-amplify/amplify-ui/commit/286e7df790a103d164cd8424161a9cd6dc4483e3)]:
+  - @aws-amplify/ui@3.8.1
+
+## 2.4.1
+
+### Patch Changes
+
+- [#1838](https://github.com/aws-amplify/amplify-ui/pull/1838) [`8efa2b238`](https://github.com/aws-amplify/amplify-ui/commit/8efa2b238319f591e0397f89d302dcda9bb6aa8a) Thanks [@ErikCH](https://github.com/ErikCH)! - Fixed bug with MS Authenticator not working with Setup TOTP page
+
+- Updated dependencies [[`b1656e136`](https://github.com/aws-amplify/amplify-ui/commit/b1656e13612b5a748cc19be6eeeb44bf70822fda), [`f2ab1b8e4`](https://github.com/aws-amplify/amplify-ui/commit/f2ab1b8e468597e7b81284b46cd4b03dcd02e201)]:
+  - @aws-amplify/ui@3.8.0
+
+## 2.4.0
+
+### Minor Changes
+
+- [#1804](https://github.com/aws-amplify/amplify-ui/pull/1804) [`3e5b93e25`](https://github.com/aws-amplify/amplify-ui/commit/3e5b93e25b8e410497332eedf194d2871acb3e79) Thanks [@ErikCH](https://github.com/ErikCH)! - New authStatus feature, to check if a user is authenticated or not
+
+### Patch Changes
+
+- Updated dependencies [[`3e5b93e25`](https://github.com/aws-amplify/amplify-ui/commit/3e5b93e25b8e410497332eedf194d2871acb3e79)]:
+  - @aws-amplify/ui@3.7.0
+
 ## 2.3.15
 
 ### Patch Changes

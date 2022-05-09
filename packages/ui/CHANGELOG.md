@@ -1,5 +1,27 @@
 # @aws-amplify/ui
 
+## 3.8.1
+
+### Patch Changes
+
+- [#1835](https://github.com/aws-amplify/amplify-ui/pull/1835) [`286e7df79`](https://github.com/aws-amplify/amplify-ui/commit/286e7df790a103d164cd8424161a9cd6dc4483e3) Thanks [@reesscot](https://github.com/reesscot)! - Fix ScrollView to only show scrollbars when content overflows
+
+## 3.8.0
+
+### Minor Changes
+
+- [#1809](https://github.com/aws-amplify/amplify-ui/pull/1809) [`f2ab1b8e4`](https://github.com/aws-amplify/amplify-ui/commit/f2ab1b8e468597e7b81284b46cd4b03dcd02e201) Thanks [@wlee221](https://github.com/wlee221)! - feat(authenticator): listen to tokenRefresh events
+
+### Patch Changes
+
+- [#1833](https://github.com/aws-amplify/amplify-ui/pull/1833) [`b1656e136`](https://github.com/aws-amplify/amplify-ui/commit/b1656e13612b5a748cc19be6eeeb44bf70822fda) Thanks [@ErikCH](https://github.com/ErikCH)! - Fixed bug with reset password for phone
+
+## 3.7.0
+
+### Minor Changes
+
+- [#1804](https://github.com/aws-amplify/amplify-ui/pull/1804) [`3e5b93e25`](https://github.com/aws-amplify/amplify-ui/commit/3e5b93e25b8e410497332eedf194d2871acb3e79) Thanks [@ErikCH](https://github.com/ErikCH)! - New authStatus feature, to check if a user is authenticated or not
+
 ## 3.6.8
 
 ### Patch Changes
