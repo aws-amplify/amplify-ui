@@ -14,8 +14,7 @@ export const ForceNewPassword = ({
   className,
   variation,
 }: RouteProps): JSX.Element => {
-  const { error, isPending, toSignIn } = useAuthenticator((context) => [
-    context.error,
+  const { isPending, toSignIn } = useAuthenticator((context) => [
     context.isPending,
     context.toSignIn,
   ]);

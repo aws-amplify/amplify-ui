@@ -21,7 +21,6 @@ Feature: Sign In with Force New Password flow
     Then I click the "Change Password" button
     Then I see "Your password is too short! Try a longer password!"
 
-
   @angular @react @vue 
   Scenario: Back to Sign In works in the FORCE_CHANGE_PASSWORD state
     When I select my country code with status "FORCE_CHANGE_PASSWORD"
@@ -45,7 +44,6 @@ Feature: Sign In with Force New Password flow
     And I mock 'Amplify.Auth.currentAuthenticatedUser' with fixture "Auth.currentAuthenticatedUser-sms-mfa"
     Then I click the "Change Password" button
     Then I see "+17755551212"
-
 
   @angular @react @vue 
   Scenario: User is in a FORCE_CHANGE_PASSWORD state and then enters an invalid new password
