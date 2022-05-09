@@ -1,6 +1,6 @@
 import { PhoneNumberField, Flex, Button } from '@aws-amplify/ui-react';
 
-export const PhoneNumberFieldSizeExample = () => (
+export const SizeExample = () => (
   <Flex direction="column" gap="1rem">
     <Flex>
       <PhoneNumberField

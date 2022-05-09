@@ -25,17 +25,6 @@ export const AutoCompleteExample = () => (
   </Flex>
 );
 
-export const AccessibilityExample = () => (
-  <Flex direction="column">
-    <PhoneNumberField
-      label="Phone Number"
-      labelHidden={true}
-      defaultCountryCode="+1"
-      placeholder="Phone Number"
-    />
-  </Flex>
-);
-
 export const CountryCodePropsExample = () => (
   <Flex direction="column">
     <PhoneNumberField
@@ -46,56 +35,6 @@ export const CountryCodePropsExample = () => (
       onCountryCodeChange={(e) => console.log(e.target.value)}
     />
   </Flex>
-);
-
-export const SizeExample = () => (
-  <Flex direction="column" gap="1rem">
-    <Flex>
-      <PhoneNumberField
-        defaultCountryCode="+1"
-        label="Small"
-        size="small"
-        labelHidden={true}
-      />
-      <Button size="small">Small</Button>
-    </Flex>
-    <Flex>
-      <PhoneNumberField
-        defaultCountryCode="+1"
-        label="Default"
-        labelHidden={true}
-      />
-      <Button>Default</Button>
-    </Flex>
-    <Flex>
-      <PhoneNumberField
-        defaultCountryCode="+1"
-        label="Large"
-        size="large"
-        labelHidden={true}
-      />
-      <Button size="large">Large</Button>
-    </Flex>
-  </Flex>
-);
-
-export const DescriptiveTextExample = () => (
-  <View width="100%">
-    <PhoneNumberField
-      defaultCountryCode="+1"
-      label="Phone Number"
-      descriptiveText={
-        <Text
-          as="span"
-          color="rebeccapurple"
-          fontStyle="italic"
-          fontSize="0.8rem"
-        >
-          Please enter your phone number
-        </Text>
-      }
-    />
-  </View>
 );
 
 export const StatesExample = () => (
@@ -140,26 +79,6 @@ export const StyledRequiredExample = () => (
       isRequired={true}
     />
     <Button type="submit">Submit</Button>
-  </Flex>
-);
-
-export const ErrorExample = () => (
-  <Flex gap="1rem" direction="column">
-    <PhoneNumberField
-      defaultCountryCode="+1"
-      label="Phone Number"
-      defaultValue="1234"
-      hasError={true}
-      errorMessage="Not a valid phone number! 😱"
-    />
-    <PhoneNumberField
-      defaultCountryCode="+1"
-      label="Phone Number"
-      defaultValue="1234"
-      hasError={true}
-      variation="quiet"
-      errorMessage="Not a valid phone number! 😱"
-    />
   </Flex>
 );
 
