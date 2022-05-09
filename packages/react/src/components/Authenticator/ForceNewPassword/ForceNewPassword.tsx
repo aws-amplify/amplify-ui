@@ -3,7 +3,7 @@ import { translate } from '@aws-amplify/ui';
 import { Button } from '../../../primitives/Button';
 import { Flex } from '../../../primitives/Flex';
 import { Heading } from '../../../primitives/Heading';
-import { Text } from '../../../primitives/Text';
+import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { useAuthenticator } from '../hooks/useAuthenticator';
 import { useCustomComponents } from '../hooks/useCustomComponents';
 import { useFormHandlers } from '../hooks/useFormHandlers';
@@ -41,11 +41,8 @@ export const ForceNewPassword = ({
           <Heading level={3}>{translate('Change Password')}</Heading>
 
           <FormFields />
-          {error && (
-            <Text className="forceNewPasswordErrorText" variation="error">
-              {error}
-            </Text>
-          )}
+
+          <RemoteErrorMessage />
           <Button
             isDisabled={isPending}
             type="submit"
