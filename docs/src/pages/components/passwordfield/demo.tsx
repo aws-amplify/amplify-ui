@@ -1,30 +1,31 @@
+import { PasswordField, PasswordFieldProps } from '@aws-amplify/ui-react';
 import * as React from 'react';
 
-import {
-  PasswordField,
-  PasswordFieldProps,
-  TextFieldProps,
-} from '@aws-amplify/ui-react';
-
 import { Demo } from '@/components/Demo';
-import { usePasswordFieldProps } from '@/components/usePasswordFieldProps';
-import { GetFieldControls } from '../shared/GetFieldControls';
+import {
+  filterDemoProps,
+  getDemoProps,
+  objectEntriesToPropString,
+} from '../utils/demoProps';
 import { PasswordFieldPropControls } from './passwordFieldPropControls';
+import { usePasswordFieldProps } from './usePasswordFieldProps';
 
-const propsToCode = (props) => {
+export const propsToCode = (props) => {
+  const filteredProps = filterDemoProps(props);
   return `
-  <PasswordField label="Password" name="password" />
-  `;
+<PasswordField
+${objectEntriesToPropString(Object.entries(filteredProps))}
+/>`;
 };
 
 export const PasswordFieldDemo = () => {
-  const textFieldProps = usePasswordFieldProps({
+  const passwordFieldProps = usePasswordFieldProps({
     autoComplete: 'new-password',
     defaultValue: '',
-    descriptiveText: 'Please enter password with at least 8 characters',
+    descriptiveText: 'Please enter password',
     errorMessage: '',
     hasError: false,
-    inputMode: 'text',
+    hideShowPassword: false,
     isDisabled: false,
     isReadOnly: false,
     isRequired: false,
@@ -33,73 +34,50 @@ export const PasswordFieldDemo = () => {
     name: 'password',
     placeholder: '',
     size: 'small',
-    type: null,
-    value: undefined,
-    variation: 'quiet',
-    hideShowPassword: false,
+    value: '',
+    variation: null,
   });
-  const [
-    [autoComplete],
-    [setAutoComplete],
-    [defaultValue],
-    [setDefaultValue],
-    [descriptiveText],
-    [setDescriptiveText],
-    [errorMessage],
-    [setErrorMessage],
-    [hasError],
-    [setHasError],
-    [inputMode],
-    [setInputMode],
-    [isDisabled],
-    [setIsDisabled],
-    [isReadOnly],
-    [setIsReadOnly],
-    [isRequired],
-    [setIsRequired],
-    [label],
-    [setLabel],
-    [labelHidden],
-    [setLabelHidden],
-    [name],
-    [setName],
-    [placeholder],
-    [setPlaceholder],
-    [size],
-    [setSize],
-    [type],
-    [setType],
-    [value],
-    [setValue],
-    [variation],
-    [setVariation],
-    [hideShowPassword],
-    [setHideShowPassword],
-  ] = textFieldProps;
+  const demoProps = [
+    'autoComplete',
+    'defaultValue',
+    'descriptiveText',
+    'errorMessage',
+    'hasError',
+    'hideShowPassword',
+    'isDisabled',
+    'isReadOnly',
+    'isRequired',
+    'label',
+    'labelHidden',
+    'name',
+    'placeholder',
+    'size',
+    'value',
+    'variation',
+  ];
+  const passwordFieldDemoProps = getDemoProps(passwordFieldProps, demoProps);
   return (
     <Demo
-      code={propsToCode('test')}
-      propControls={<PasswordFieldPropControls {...textFieldProps} />}
+      code={propsToCode(passwordFieldDemoProps)}
+      propControls={<PasswordFieldPropControls {...passwordFieldProps} />}
     >
       <PasswordField
-        autoComplete={autoComplete as TextFieldProps['autoComplete']}
-        descriptiveText={descriptiveText as TextFieldProps['descriptiveText']}
-        defaultValue={defaultValue as TextFieldProps['defaultValue']}
-        errorMessage={errorMessage as TextFieldProps['errorMessage']}
-        hasError={hasError as unknown as boolean}
-        inputMode={inputMode as TextFieldProps['inputMode']}
-        isDisabled={isDisabled as unknown as boolean}
-        isReadOnly={isReadOnly as unknown as boolean}
-        isRequired={isRequired as unknown as boolean}
-        label={label as TextFieldProps['label']}
-        labelHidden={labelHidden as unknown as boolean}
-        name={name as TextFieldProps['name']}
-        placeholder={placeholder as TextFieldProps['placeholder']}
-        size={size as TextFieldProps['size']}
-        variation={variation as TextFieldProps['variation']}
-        hideShowPassword={
-          hideShowPassword as unknown as PasswordFieldProps['hideShowPassword']
-        }
+        autoComplete={passwordFieldProps.autoComplete}
+        descriptiveText={passwordFieldProps.descriptiveText}
+        defaultValue={passwordFieldProps.defaultValue}
+        errorMessage={passwordFieldProps.errorMessage}
+        hasError={passwordFieldProps.hasError}
+        hideShowPassword={passwordFieldProps.hideShowPassword}
+        isDisabled={passwordFieldProps.isDisabled}
+        isReadOnly={passwordFieldProps.isReadOnly}
+        isRequired={passwordFieldProps.isRequired}
+        label={passwordFieldProps.label}
+        labelHidden={passwordFieldProps.labelHidden}
+        name={passwordFieldProps.name}
+        placeholder={passwordFieldProps.placeholder}
+        size={passwordFieldProps.size}
+        value={passwordFieldProps.value || null}
+        variation={passwordFieldProps.variation}
       />
     </Demo>
   );

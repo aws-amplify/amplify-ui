@@ -6,7 +6,7 @@ import {
   SwitchField,
 } from '@aws-amplify/ui-react';
 
-export interface PasswordFieldControlProps extends PasswordFieldProps {
+export interface PasswordFieldControlsProps extends PasswordFieldProps {
   setDefaultValue: (
     value: React.SetStateAction<PasswordFieldProps['defaultValue']>
   ) => void;
@@ -21,9 +21,6 @@ export interface PasswordFieldControlProps extends PasswordFieldProps {
   ) => void;
   setHasError: (
     value: React.SetStateAction<PasswordFieldProps['hasError']>
-  ) => void;
-  setInputMode: (
-    value: React.SetStateAction<PasswordFieldProps['inputMode']>
   ) => void;
   setIsDisabled: (
     value: React.SetStateAction<PasswordFieldProps['isDisabled']>
@@ -53,7 +50,7 @@ export interface PasswordFieldControlProps extends PasswordFieldProps {
 }
 
 interface PasswordFieldPropControlsInterface {
-  (props: PasswordFieldControlProps): JSX.Element;
+  (props: PasswordFieldControlsProps): JSX.Element;
 }
 
 export const PasswordFieldPropControls: PasswordFieldPropControlsInterface = ({
@@ -65,8 +62,6 @@ export const PasswordFieldPropControls: PasswordFieldPropControlsInterface = ({
   setErrorMessage,
   hasError,
   setHasError,
-  inputMode,
-  setInputMode,
   isDisabled,
   setIsDisabled,
   isReadOnly,
@@ -152,25 +147,6 @@ export const PasswordFieldPropControls: PasswordFieldPropControlsInterface = ({
           setHasError(event.target.checked as PasswordFieldProps['hasError']);
         }}
       />
-
-      <SelectField
-        name="inputMode"
-        id="inputMode"
-        label="inputMode"
-        value={inputMode}
-        onChange={(event) =>
-          setInputMode(event.target.value as PasswordFieldProps['inputMode'])
-        }
-      >
-        <option value="none">None</option>
-        <option value="text">Text</option>
-        <option value="decimal">Decimal</option>
-        <option value="numeric">Numeric</option>
-        <option value="tel">Tel</option>
-        <option value="search">Search</option>
-        <option value="email">Email</option>
-        <option value="url">Url</option>
-      </SelectField>
 
       <SwitchField
         label="isDisabled"
@@ -285,7 +261,7 @@ export const PasswordFieldPropControls: PasswordFieldPropControlsInterface = ({
           setVariation(event.target.value as PasswordFieldProps['variation'])
         }
       >
-        <option value="">Defaul</option>
+        <option value="">Default</option>
         <option value="quiet">Quiet</option>
       </SelectField>
 
