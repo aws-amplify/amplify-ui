@@ -114,6 +114,10 @@ When('I type an invalid password', () => {
   cy.findInputField('Password').type('invalidpass');
 });
 
+When('I type a short password', () => {
+  cy.findInputField('Password').type('inv');
+});
+
 When('I type an invalid wrong complexity password', () => {
   cy.findInputField('Password').type('inv');
 });
