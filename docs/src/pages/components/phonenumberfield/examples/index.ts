@@ -5,3 +5,5 @@ export { DescriptiveTextExample } from './DescriptiveTextExample';
 export { ValidationErrorExample } from './ValidationErrorExample';
 export { AccessibilityExample } from './AccessibilityExample';
 export { CountryCodeSelectExample } from './CountryCodeSelectExample';
+export { RequiredFieldExample } from './RequiredFieldExample';
+export { RequiredFieldStyledExample } from './RequiredFieldStyledExample';

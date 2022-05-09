@@ -25,18 +25,6 @@ export const AutoCompleteExample = () => (
   </Flex>
 );
 
-export const CountryCodePropsExample = () => (
-  <Flex direction="column">
-    <PhoneNumberField
-      label="Phone Number"
-      defaultCountryCode="+7"
-      countryCodeName="country_code"
-      countryCodeLabel="Country Code"
-      onCountryCodeChange={(e) => console.log(e.target.value)}
-    />
-  </Flex>
-);
-
 export const StatesExample = () => (
   <Flex direction="column" gap="1rem">
     <PhoneNumberField
@@ -51,34 +39,6 @@ export const StatesExample = () => (
       isReadOnly={true}
       descriptiveText="You can't edit me"
     />
-  </Flex>
-);
-
-export const StyledRequiredExample = () => (
-  <Flex as="form" direction="column">
-    <PhoneNumberField
-      defaultCountryCode="+1"
-      label={
-        <Text>
-          Phone Number
-          <Text as="span" fontSize="0.8rem" color="red" padding="0.25rem">
-            (required)
-          </Text>
-        </Text>
-      }
-      isRequired={true}
-    />
-    <PhoneNumberField
-      defaultCountryCode="+1"
-      label="Phone Number"
-      descriptiveText={
-        <Text as="span" fontSize="0.8rem" color="red" fontStyle="italic">
-          Required
-        </Text>
-      }
-      isRequired={true}
-    />
-    <Button type="submit">Submit</Button>
   </Flex>
 );
 

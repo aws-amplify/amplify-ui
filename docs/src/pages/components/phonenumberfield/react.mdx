@@ -18,6 +18,8 @@ import {
   CountryCodeSelectExample,
   DescriptiveTextExample,
   RefExample,
+  RequiredFieldExample,
+  RequiredFieldStyledExample,
   SizeExample,
   ValidationErrorExample,
   VariationExample,
@@ -153,51 +155,28 @@ and will not be submitted with form data. A readonly field cannot be edited by t
 
 ### Required fields
 
-Use the `isRequired` prop to specify a required field.
-
-```jsx
-<Flex as="form" direction="column" width="20rem">
-  <PhoneNumberField
-    defaultCountryCode="+1"
-    label="Phone Number"
-    isRequired={true}
-  />
-  <Button type="submit">Submit</Button>
-</Flex>
-```
-
-There is no default styling for required fields. Customize the `label` or `descriptiveText` to instruct the form user of the required field.
-
-```jsx
-<Flex as="form" direction="column" width="20rem">
-  <PhoneNumberField
-    defaultCountryCode="+1"
-    label={
-      <Text>
-        Phone Number
-        <Text as="span" fontSize="0.8rem" color="red" padding="0.25rem">
-          (required)
-        </Text>
-      </Text>
-    }
-    isRequired={true}
-  />
-  <PhoneNumberField
-    defaultCountryCode="+1"
-    label="Phone Number"
-    descriptiveText={
-      <Text as="span" fontSize="0.8rem" color="red" fontStyle="italic">
-        Required
-      </Text>
-    }
-    isRequired={true}
-  />
-  <Button type="submit">Submit</Button>
-</Flex>
-```
+Use the `isRequired` prop to specify a required field. If the user attempts to submit a field that is both required and empty, they will be prompted to fill out the field.
 
 <Example>
-  <StyledRequiredExample />
+  <RequiredFieldExample />
+  <ExampleCode>
+```jsx file=./examples/RequiredFieldExample.tsx
+
+````
+
+  </ExampleCode>
+</Example>
+
+There is no default styling for required form fields. Customize the `label` or `descriptiveText` to instruct the user of the required field.
+
+<Example>
+  <RequiredFieldStyledExample />
+  <ExampleCode>
+```jsx file=./examples/RequiredFieldStyledExample.tsx
+
+````
+
+  </ExampleCode>
 </Example>
 
 ### Validation error
@@ -209,7 +188,7 @@ Use the `hasError` and `errorMessage` fields to mark a `PhoneNumberField` as hav
   <ExampleCode>
 ```jsx file=./examples/ValidationErrorExample.tsx
 
-````
+`````
 
   </ExampleCode>
 </Example>
@@ -322,5 +301,5 @@ This allows us to change the layout of the label and field, while also styling t
 <Example>
   <LocalStylingExample />
 </Example>
-```
-````
+``` ````
+`````
