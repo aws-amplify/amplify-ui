@@ -162,7 +162,7 @@ export const inputComponents = [
   {
     href: '/components/phonenumberfield',
     label: 'Phone Number Field',
-    body: ``,
+    body: `The PhoneNumberField form primitive allows users to input a phone number`,
     platforms: ['react'],
   },
   {
