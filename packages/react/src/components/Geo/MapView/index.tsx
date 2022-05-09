@@ -28,7 +28,13 @@ export const MapView = ({
   ...props
 }: MapViewProps) => {
   const amplifyConfig = Amplify.configure() as any;
-
+  const geoConfig = useMemo(
+    () =>
+      amplifyConfig.geo?.amazon_location_service ??
+      amplifyConfig.geo?.AmazonLocationService ??
+      {},
+    [amplifyConfig]
+  );
   const [transformRequest, setTransformRequest] = useState<
     TransformRequestFunction | undefined
   >();
@@ -53,13 +59,13 @@ export const MapView = ({
       const credentials = await Auth.currentUserCredentials();
 
       if (credentials) {
-        const region = amplifyConfig.geo?.amazon_location_service.region;
+        const { region } = geoConfig;
         const { transformRequest: amplifyTransformRequest } =
           new AmplifyMapLibreRequest(credentials, region);
         setTransformRequest(() => amplifyTransformRequest);
       }
     })();
-  }, [amplifyConfig.geo?.amazon_location_service.region]);
+  }, [geoConfig]);
 
   /**
    * The mapLib property is used by react-map-gl@v7 to override the underlying map library. The default library is
@@ -72,9 +78,7 @@ export const MapView = ({
     <ReactMapGL
       {...props}
       mapLib={mapLib ?? maplibregl}
-      mapStyle={
-        mapStyle ?? amplifyConfig.geo?.amazon_location_service.maps.default
-      }
+      mapStyle={mapStyle ?? geoConfig.maps?.default}
       style={styleProps}
       transformRequest={transformRequest}
     />

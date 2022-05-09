@@ -94,15 +94,15 @@ const ColorModeSwitcher = ({ colorMode, setColorMode }) => {
       isSelectionRequired
       className="color-switcher"
     >
-      <ToggleButton value="light">
+      <ToggleButton value="light" title="Light mode">
         <VisuallyHidden>Light mode</VisuallyHidden>
         <MdWbSunny />
       </ToggleButton>
-      <ToggleButton value="dark">
+      <ToggleButton value="dark" title="Dark mode">
         <VisuallyHidden>Dark mode</VisuallyHidden>
         <MdBedtime />
       </ToggleButton>
-      <ToggleButton value="system">
+      <ToggleButton value="system" title="System preferences">
         <VisuallyHidden>System preference</VisuallyHidden>
         <MdTonality />
       </ToggleButton>
