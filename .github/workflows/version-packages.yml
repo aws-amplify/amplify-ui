@@ -23,7 +23,7 @@ jobs:
         id: has-changesets
         uses: ./.github/actions/has-changesets
       - name: Create or update Version Packages PR
-        if: ${{ steps.has-changesets == 'true' }}
+        if: ${{ steps.has-changesets.outputs.has-changesets == 'true' }}
         uses: changesets/action@b98cec97583b917ff1dc6179dd4d230d3e439894
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
