@@ -1,4 +1,5 @@
 export { AccessibilityExample } from './AccessibilityExample';
+export { AutoCompleteExample } from './AutoCompleteExample';
 export { CountryCodeSelectExample } from './CountryCodeSelectExample';
 export { DescriptiveTextExample } from './DescriptiveTextExample';
 export { RefExample } from './refs';

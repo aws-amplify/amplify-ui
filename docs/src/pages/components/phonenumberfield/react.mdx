@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { PhoneNumberField } from '@aws-amplify/ui-react';
 import { PhoneNumberFieldDemo } from './demo';
-import { AutoCompleteExample, LocalStylingExample } from './OLDexamples';
+import { LocalStylingExample } from './OLDexamples';
 import { Example, ExampleCode } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
 import { ComponentClassTable } from '@/components/ComponentClassTable';
@@ -10,6 +10,7 @@ import StandardHTMLAttributes from '@/components/StandardHTMLAttributes.mdx';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 import {
   AccessibilityExample,
+  AutoCompleteExample,
   CountryCodeSelectExample,
   DescriptiveTextExample,
   RefExample,
@@ -64,24 +65,14 @@ as the `autoComplete` property for the text field and `tel-country-code` as the 
 If the `PhoneNumberField` primitive is intended to be used in a form that is compatible with most password managers, the `autoComplete` property should
 be set to `username` (see [Password Form Styles that Chromium Understands](https://www.chromium.org/developers/design-documents/form-styles-that-chromium-understands)).
 
-```jsx
-// For use with a password manager:
-<form>
-  <Flex as="form" direction="column" gap="1rem">
-    <Heading level={3}>Sign In</Heading>
-    <PhoneNumberField
-      autoComplete="username"
-      defaultCountryCode="+1"
-      label="Phone Number"
-    />
-    <PasswordField label="Password" />
-    <Button type="submit">Sign In</Button>
-  </Flex>
-</form>
-```
-
 <Example>
   <AutoCompleteExample />
+  <ExampleCode>
+```jsx file=./examples/AutoCompleteExample.tsx
+
+````
+
+  </ExampleCode>
 </Example>
 
 ### Accessibility / Label behavior
@@ -146,6 +137,7 @@ or submitted with form data. A readonly field cannot be edited by the user.
 ```jsx file=./examples/StatesExample.tsx
 
 ````
+
   </ExampleCode>
 </Example>
 
@@ -184,7 +176,7 @@ Use the `hasError` and `errorMessage` fields to mark a `PhoneNumberField` as hav
   <ExampleCode>
 ```jsx file=./examples/ValidationErrorExample.tsx
 
-````
+``````
 
   </ExampleCode>
 </Example>
@@ -298,3 +290,4 @@ This allows us to change the layout of the label and field, while also styling t
   <LocalStylingExample />
 </Example>
 ``` ```` `````
+``````
