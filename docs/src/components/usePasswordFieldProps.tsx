@@ -1,8 +1,8 @@
-import { PasswordFieldProps } from '@aws-amplify/ui-react';
 import * as React from 'react';
 
-import { FieldControl } from '../pages/components/shared/GetFieldControls';
-import { useTextFieldProps } from '../pages/components/textfield/useTextFieldProps';
+import { FieldControl } from '../pages/[platform]/components/shared/GetFieldControls';
+import { PasswordFieldProps } from '@aws-amplify/ui-react';
+import { useTextFieldProps } from '../pages/[platform]/components/textfield/useTextFieldProps';
 
 export type PasswordFieldDocsProps = Omit<PasswordFieldProps, '[key]'>;
 
