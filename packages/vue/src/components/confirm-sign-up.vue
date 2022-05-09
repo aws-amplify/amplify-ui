@@ -74,50 +74,43 @@ const onLostCodeClicked = (): void => {
   <slot v-bind="$attrs" name="confirmSignUpSlotI">
     <base-wrapper v-bind="$attrs">
       <base-form @input="onInput" @submit.prevent="onConfirmSignUpSubmit">
-        <base-wrapper class="amplify-flex" style="flex-direction: column">
+        <base-wrapper class="amplify-flex amplify-authenticator__column">
           <slot name="header">
             <base-heading
-              class="amplify-heading"
-              style="font-size: 1.5rem"
+              class="amplify-heading amplify-authenticator__heading"
               :level="3"
             >
               {{ confirmSignUpHeading }}
             </base-heading>
           </slot>
-          <base-text style="margin-bottom: 1rem">
+          <base-text class="amplify-authenticator__subtitle">
             {{ subtitleText }}
           </base-text>
           <base-field-set
-            class="amplify-flex"
-            style="flex-direction: column"
+            class="amplify-flex amplify-authenticator__column"
             :disabled="isPending"
           >
             <base-form-fields route="confirmSignUp"></base-form-fields>
           </base-field-set>
 
-          <base-footer
-            class="amplify-flex"
-            style="flex-direction: column; align-items: unset"
-          >
+          <base-footer class="amplify-flex amplify-authenticator__column">
             <base-alert v-if="error">
               {{ translate(error) }}
             </base-alert>
             <amplify-button
-              class="amplify-field-group__control"
+              class="amplify-field-group__control amplify-authenticator__font"
               data-fullwidth="false"
               data-loading="false"
               data-variation="primary"
               type="submit"
-              style="font-weight: normal"
               :disabled="isPending"
             >
               {{ confirmText }}
             </amplify-button>
             <amplify-button
-              class="amplify-field-group__control"
+              class="amplify-field-group__control amplify-authenticator__font"
               data-fullwidth="false"
               data-variation="default"
-              style="font-weight: normal"
               type="button"
               @click.prevent="onLostCodeClicked"
             >

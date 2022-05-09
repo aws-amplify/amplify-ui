@@ -69,8 +69,7 @@ const onSkipClicked = (): void => {
     <base-wrapper v-bind="$attrs">
       <base-form @input="onInput" @submit.prevent="onConfirmVerifyUserSubmit">
         <base-field-set
-          class="amplify-flex"
-          style="flex-direction: column"
+          class="amplify-flex amplify-authenticator__column"
           :disabled="actorState.matches('confirmVerifyUser.pending')"
         >
           <slot name="header">
@@ -78,29 +77,27 @@ const onSkipClicked = (): void => {
               {{ verifyHeading }}
             </base-heading>
           </slot>
-          <base-wrapper class="amplify-flex" style="flex-direction: column">
+          <base-wrapper class="amplify-flex amplify-authenticator__column">
             <base-form-fields route="confirmVerifyUser"></base-form-fields>
           </base-wrapper>
 
-          <base-footer class="amplify-flex" style="flex-direction: column">
+          <base-footer class="amplify-flex amplify-authenticator__column">
             <base-alert v-if="actorState?.context?.remoteError">
               {{ translate(actorState?.context.remoteError) }}
             </base-alert>
             <amplify-button
-              class="amplify-field-group__control"
+              class="amplify-field-group__control amplify-authenticator__font"
               data-fullwidth="false"
               data-variation="primary"
               type="submit"
-              style="font-weight: normal"
               :disabled="actorState.matches('confirmVerifyUser.pending')"
               >{{ submitText }}</amplify-button
             >
             <amplify-button
-              class="amplify-field-group__control"
+              class="amplify-field-group__control amplify-authenticator__font"
               data-fullwidth="false"
               data-size="small"
               data-variation="link"
-              style="font-weight: normal"
               type="button"
               @click.prevent="onSkipClicked"
             >
