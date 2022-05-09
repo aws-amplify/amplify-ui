@@ -13,7 +13,7 @@ import {
   AutoCompleteExample,
   CountryCodeSelectExample,
   DescriptiveTextExample,
-  RefExample,
+  RefsExample,
   RequiredFieldExample,
   RequiredFieldStyledExample,
   SizeExample,
@@ -190,14 +190,13 @@ The standard `ref` prop will forward to the underlying `input` element, and the 
 The following is a contrived example demonstrating use of the `ref` and `countryCodeRef` props:
 
 <Example>
-  <RefExample />
-<ExampleCode>
-
-```tsx file=./examples/refs.tsx
+  <RefsExample />
+  <ExampleCode>
+```jsx file=./examples/RefsExample.tsx
 
 ```
 
-</ExampleCode>
+  </ExampleCode>
 </Example>
 
 <StandardHTMLAttributes component="PhoneNumberField" link="input" element="<input>">

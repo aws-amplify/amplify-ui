@@ -2,7 +2,7 @@ export { AccessibilityExample } from './AccessibilityExample';
 export { AutoCompleteExample } from './AutoCompleteExample';
 export { CountryCodeSelectExample } from './CountryCodeSelectExample';
 export { DescriptiveTextExample } from './DescriptiveTextExample';
-export { RefExample } from './refs';
+export { RefsExample } from './RefsExample';
 export { RequiredFieldExample } from './RequiredFieldExample';
 export { RequiredFieldStyledExample } from './RequiredFieldStyledExample';
 export { SizeExample } from './SizeExample';
