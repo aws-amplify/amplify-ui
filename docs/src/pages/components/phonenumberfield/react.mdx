@@ -9,16 +9,15 @@ import {
   DescriptiveTextExample,
   ErrorExample,
   LocalStylingExample,
-  SizeExample,
   StatesExample,
   StyledRequiredExample,
-} from './examples';
+} from './OLDexamples';
 import { Example, ExampleCode } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
 import { ComponentClassTable } from '@/components/ComponentClassTable';
 import StandardHTMLAttributes from '@/components/StandardHTMLAttributes.mdx';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
-import { RefExample } from './examples/refs';
+import { RefExample, PhoneNumberFieldSizeExample } from './examples';
 
 ## Demo
 
@@ -111,27 +110,15 @@ be set to `username` (see [Password Form Styles that Chromium Understands](https
 
 ### Sizes
 
-`PhoneNumberField` sizes are designed to match styling of other field components such as buttons. There are three sizes: small, (default), and large.
-
-```jsx
-<Flex>
-  <PhoneNumberField defaultCountryCode="+1" label="Small" size="small" labelHidden={true} />
-  <Button size="small">Small</Button>
-</Flex>
-
-<Flex>
-  <PhoneNumberField defaultCountryCode="+1" label="Default" labelHidden={true} />
-  <Button>Default</Button>
-</Flex>
-
-<Flex>
-  <PhoneNumberField defaultCountryCode="+1" label="Large" size="large" labelHidden={true} />
-  <Button size="large">Large</Button>
-</Flex>
-```
+`PhoneNumberField` sizes are designed to match the styling of other form field components such as Buttons. There are three sizes: `'small'`, (default), and `'large'`.
 
 <Example>
-  <SizeExample />
+  <PhoneNumberFieldSizeExample />
+  <ExampleCode>
+```jsx file=./examples/PhoneNumberFieldSizeExample.tsx
+
+````
+  </ExampleCode>
 </Example>
 
 ### Variations
@@ -141,7 +128,7 @@ There are two variation styles available: default and `quiet`.
 ```jsx
 <PhoneNumberField defaultCountryCode="+1" label="Default" />
 <PhoneNumberField defaultCountryCode="+1" label="Quiet"  variation="quiet"/>
-```
+````
 
 <Example>
   <PhoneNumberField defaultCountryCode="+1" label="Default" />
