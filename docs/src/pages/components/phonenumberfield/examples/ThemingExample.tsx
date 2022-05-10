@@ -5,16 +5,18 @@ import {
 } from '@aws-amplify/ui-react';
 
 const theme: Theme = {
-  name: 'pagination-theme',
+  name: 'phonenumber-theme',
   tokens: {
     components: {
-      countrycodeselect: {},
-      fieldcontrol: {},
+      fieldcontrol: {
+        color: { value: '{colors.blue.60}' },
+        fontSize: { value: '{fontSizes.large}' },
+      },
     },
   },
 };
 
-export const PaginationThemeExample = () => (
+export const ThemingExample = () => (
   <AmplifyProvider theme={theme}>
     <PhoneNumberField label="Themed field" defaultCountryCode="+1" />
   </AmplifyProvider>
