@@ -281,7 +281,7 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
             <Button
               as="a"
               size="large"
-              href={`/${platform}/components/authenticator/`}
+              href={`/${platform}/components/authenticator`}
               isFullWidth
             >
               Authenticator
