@@ -1,40 +1,69 @@
 import * as React from 'react';
+import { SliderField, SliderFieldProps } from '@aws-amplify/ui-react';
+import { Demo } from '@/components/Demo';
+import { SliderFieldPropControls } from './SliderFieldPropControls';
+import { useSliderFieldProps } from './useSliderFieldProps';
+import { getPropString } from '../utils/getPropString';
+import { demoState } from '@/utils/demoState';
 
-import { Flex, SliderField } from '@aws-amplify/ui-react';
+const propsToCode = (props: SliderFieldProps) => {
+  return (
+    `<SliderField` +
+    `\n  label="${props.label}"` +
+    (props.min ? `\n  min={${props.min}}` : '') +
+    `\n  max={${props.max}}` +
+    (props.step !== 1 ? `\n  step={${props.step}}` : '') +
+    getPropString(props.size, 'size') +
+    getPropString(props.trackSize, 'trackSize') +
+    getPropString(props.emptyTrackColor, 'emptyTrackColor') +
+    getPropString(props.filledTrackColor, 'filledTrackColor') +
+    getPropString(props.thumbColor, 'thumbColor') +
+    (props.orientation === 'vertical'
+      ? `\n  orientation="${props.orientation}"`
+      : '') +
+    (props.isDisabled ? `\n  isDisabled` : '') +
+    (props.isValueHidden ? `\n  isValueHidden` : '') +
+    (props.labelHidden ? `\n  labelHidden` : '') +
+    `\n/>`
+  );
+};
 
-import { SliderFieldPropControls } from '@/components/SliderFieldPropControls';
-import { useSliderFieldProps } from '@/components/useSliderFieldProps';
-import { Example } from '@/components/Example';
+const defaultSliderFieldProps = {
+  label: 'Slider',
+  value: 50,
+  min: 0,
+  max: 100,
+  step: 1,
+};
 
 export const SliderFieldDemo = () => {
-  const sliderFieldProps = useSliderFieldProps({
-    label: 'Slider',
-    defaultValue: 50,
-    min: 0,
-    max: 100,
-    step: 1,
-  });
+  const sliderFieldProps = useSliderFieldProps(
+    (demoState.get(SliderField.displayName) as SliderFieldProps) ||
+      defaultSliderFieldProps
+  );
+
   return (
-    <Flex direction="column">
-      <SliderFieldPropControls {...sliderFieldProps} />
-      <Example>
-        <SliderField
-          defaultValue={sliderFieldProps.defaultValue}
-          label={sliderFieldProps.label}
-          max={sliderFieldProps.max}
-          min={sliderFieldProps.min}
-          step={sliderFieldProps.step}
-          orientation={sliderFieldProps.orientation}
-          isDisabled={sliderFieldProps.isDisabled}
-          isValueHidden={sliderFieldProps.isValueHidden}
-          labelHidden={sliderFieldProps.labelHidden}
-          emptyTrackColor={sliderFieldProps.emptyTrackColor}
-          filledTrackColor={sliderFieldProps.filledTrackColor}
-          thumbColor={sliderFieldProps.thumbColor}
-          trackSize={sliderFieldProps.trackSize}
-          size={sliderFieldProps.size}
-        />
-      </Example>
-    </Flex>
+    <Demo
+      code={propsToCode(sliderFieldProps)}
+      propControls={<SliderFieldPropControls {...sliderFieldProps} />}
+    >
+      <SliderField
+        value={sliderFieldProps.value}
+        onChange={sliderFieldProps.setValue}
+        isDisabled={sliderFieldProps.isDisabled}
+        isValueHidden={sliderFieldProps.isValueHidden}
+        label={sliderFieldProps.label}
+        labelHidden={sliderFieldProps.labelHidden}
+        max={sliderFieldProps.max}
+        min={sliderFieldProps.min}
+        step={sliderFieldProps.step}
+        orientation={sliderFieldProps.orientation}
+        trackSize={sliderFieldProps.trackSize}
+        emptyTrackColor={sliderFieldProps.emptyTrackColor}
+        filledTrackColor={sliderFieldProps.filledTrackColor}
+        thumbColor={sliderFieldProps.thumbColor}
+        size={sliderFieldProps.size}
+      />
+    </Demo>
   );
 };

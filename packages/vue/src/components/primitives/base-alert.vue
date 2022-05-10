@@ -10,12 +10,14 @@ function close() {
 <template>
   <div
     v-if="show"
-    class="amplify-flex amplify-alert"
+    class="
+      amplify-flex amplify-alert amplify-alert--error
+      amplify-authenticator__base
+    "
     data-variation="error"
-    style="align-items: center; justify-content: space-between"
     role="alert"
   >
-    <div class="amplify-flex" style="align-items: center">
+    <div class="amplify-flex amplify-authenticator__icon-wrapper">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="amplify-icon"
@@ -30,8 +32,8 @@ function close() {
     </div>
     <amplify-button
       class="amplify-field-group__control"
-      data-fullwidth="false"
-      data-variation="link"
+      :fullwidth="false"
+      :variation="'link'"
       type="button"
       @click="close"
     >

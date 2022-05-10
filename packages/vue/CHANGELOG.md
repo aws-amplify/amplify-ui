@@ -1,5 +1,14 @@
 # @aws-amplify/ui-vue
 
+## 2.4.2
+
+### Patch Changes
+
+- [#1814](https://github.com/aws-amplify/amplify-ui/pull/1814) [`d66a7265e`](https://github.com/aws-amplify/amplify-ui/commit/d66a7265e9de36b1d8a1ad05745ffc7ad734b003) Thanks [@jacoblogan](https://github.com/jacoblogan)! - Remove inline styling from vue authenticator
+
+- Updated dependencies [[`286e7df79`](https://github.com/aws-amplify/amplify-ui/commit/286e7df790a103d164cd8424161a9cd6dc4483e3)]:
+  - @aws-amplify/ui@3.8.1
+
 ## 2.4.1
 
 ### Patch Changes

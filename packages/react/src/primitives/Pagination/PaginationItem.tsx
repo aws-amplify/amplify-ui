@@ -1,5 +1,7 @@
 import * as React from 'react';
+import classNames from 'classnames';
 
+import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import { Button } from '../Button';
 import { Flex } from '../Flex';
 import { IconChevronLeft, IconChevronRight } from '../Icon';
@@ -32,6 +34,25 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
     onClick();
   }, [onClick]);
 
+  const nextClasses = classNames(
+    ComponentClassNames.PaginationItemButton,
+    classNameModifier(ComponentClassNames.PaginationItemButton, 'link'),
+    classNameModifierByFlag(
+      ComponentClassNames.PaginationItemButton,
+      'disabled',
+      isDisabled
+    )
+  );
+  const previousClasses = classNames(
+    ComponentClassNames.PaginationItemButton,
+    classNameModifier(ComponentClassNames.PaginationItemButton, 'link'),
+    classNameModifierByFlag(
+      ComponentClassNames.PaginationItemButton,
+      'disabled',
+      isDisabled
+    )
+  );
+
   switch (type) {
     case 'page':
       return (
@@ -52,7 +73,13 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
             </Flex>
           ) : (
             <Button
-              className={ComponentClassNames.PaginationItemButton}
+              className={classNames(
+                ComponentClassNames.PaginationItemButton,
+                classNameModifier(
+                  ComponentClassNames.PaginationItemButton,
+                  'link'
+                )
+              )}
               size="small"
               variation="link"
               onClick={onChange}
@@ -68,7 +95,7 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
       return (
         <View as="li">
           <Button
-            className={ComponentClassNames.PaginationItemButton}
+            className={nextClasses}
             size="small"
             variation="link"
             isDisabled={isDisabled}
@@ -84,7 +111,7 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
       return (
         <View as="li">
           <Button
-            className={ComponentClassNames.PaginationItemButton}
+            className={previousClasses}
             size="small"
             variation="link"
             isDisabled={isDisabled}

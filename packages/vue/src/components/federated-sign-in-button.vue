@@ -1,14 +1,21 @@
 <template>
   <amplify-button
-    class="amplify-field-group__control federated-sign-in-button"
-    data-fullwidth="false"
+    class="
+      amplify-field-group__control
+      federated-sign-in-button
+      amplify-authenticator__font
+    "
+    :fullwidth="false"
     style="font-weight: normal"
     type="button"
     @click="onClick"
   >
     <base-wrapper
-      class="amplify-flex federated-sign-in-button-row"
-      style="flex-direction: row; justify-content: center; align-items: center"
+      class="
+        amplify-flex
+        federated-sign-in-button-row
+        amplify-authenticator__sign-in-button-wrapper
+      "
     >
       <slot></slot>
     </base-wrapper>

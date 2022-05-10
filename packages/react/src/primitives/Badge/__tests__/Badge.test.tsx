@@ -6,6 +6,65 @@ import { ComponentClassNames } from '../../shared';
 describe('Badge: ', () => {
   const badgeText = 'Badge primitive';
 
+  it('can render badge variations', async () => {
+    render(
+      <div>
+        <Badge variation="info" testId="info">
+          Info
+        </Badge>
+        <Badge variation="error" testId="error">
+          Error
+        </Badge>
+        <Badge variation="warning" testId="warning">
+          Warning
+        </Badge>
+        <Badge variation="success" testId="success">
+          Success
+        </Badge>
+        <Badge testId="default">Default</Badge>
+      </div>
+    );
+
+    const info = await screen.findByTestId('info');
+    const error = await screen.findByTestId('error');
+    const warning = await screen.findByTestId('warning');
+    const success = await screen.findByTestId('success');
+    const defaultAlert = await screen.findByTestId('default');
+
+    expect(info.dataset['variation']).toBe('info');
+    expect(info.classList).toContain(`${ComponentClassNames['Badge']}--info`);
+    expect(error.dataset['variation']).toBe('error');
+    expect(error.classList).toContain(`${ComponentClassNames['Badge']}--error`);
+    expect(warning.dataset['variation']).toBe('warning');
+    expect(warning.classList).toContain(
+      `${ComponentClassNames['Badge']}--warning`
+    );
+    expect(success.dataset['variation']).toBe('success');
+    expect(success.classList).toContain(
+      `${ComponentClassNames['Badge']}--success`
+    );
+    expect(defaultAlert.dataset['variation']).toBe(undefined);
+  });
+
+  it('can render badge sizes', async () => {
+    render(
+      <div>
+        <Badge size="small" testId="small">
+          Small
+        </Badge>
+        <Badge size="large" testId="large">
+          Large
+        </Badge>
+      </div>
+    );
+
+    const small = await screen.findByTestId('small');
+    const large = await screen.findByTestId('large');
+
+    expect(small.classList).toContain(`${ComponentClassNames['Badge']}--small`);
+    expect(large.classList).toContain(`${ComponentClassNames['Badge']}--large`);
+  });
+
   it('can apply styling via props', async () => {
     render(
       <Badge variation="success" size="large">

@@ -46,6 +46,25 @@ describe('TextField component', () => {
       const field = await screen.findByTestId('testId');
       expectFlexContainerStyleProps(field);
     });
+
+    it('should render size classes for TextField', async () => {
+      render(
+        <div>
+          <TextField size="small" testId="small" label="small" />
+          <TextField size="large" testId="large" label="large" />
+        </div>
+      );
+
+      const small = await screen.findByTestId('small');
+      const large = await screen.findByTestId('large');
+
+      expect(small.classList).toContain(
+        `${ComponentClassNames['Field']}--small`
+      );
+      expect(large.classList).toContain(
+        `${ComponentClassNames['Field']}--large`
+      );
+    });
   });
 
   describe('Label ', () => {

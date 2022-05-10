@@ -1,5 +1,16 @@
 # @aws-amplify/ui-react
 
+## 2.16.2
+
+### Patch Changes
+
+- [#1835](https://github.com/aws-amplify/amplify-ui/pull/1835) [`286e7df79`](https://github.com/aws-amplify/amplify-ui/commit/286e7df790a103d164cd8424161a9cd6dc4483e3) Thanks [@reesscot](https://github.com/reesscot)! - Fix ScrollView to only show scrollbars when content overflows
+
+* [#1850](https://github.com/aws-amplify/amplify-ui/pull/1850) [`06b900ff7`](https://github.com/aws-amplify/amplify-ui/commit/06b900ff719fb8ddabd8c85e78784716aa31e181) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(ui-react): remove optional flag from render child prop in RouterProps
+
+* Updated dependencies [[`286e7df79`](https://github.com/aws-amplify/amplify-ui/commit/286e7df790a103d164cd8424161a9cd6dc4483e3)]:
+  - @aws-amplify/ui@3.8.1
+
 ## 2.16.1
 
 ### Patch Changes
