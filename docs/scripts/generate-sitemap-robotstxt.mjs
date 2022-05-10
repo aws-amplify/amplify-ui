@@ -40,7 +40,8 @@ async function generateSitemap() {
               .replace('data', '')
               .replace('.js', '')
               .replace('.page.mdx', '')
-              .replace('.page.tsx', '');
+              .replace('.page.tsx', '')
+              .replace('/index', '');
             const route = path === '/index' ? '' : path;
 
             return `
