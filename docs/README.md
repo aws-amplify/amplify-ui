@@ -17,9 +17,9 @@ These docs are published at https://docs.amplify.aws/ui and powered by the follo
 
 ### Creating a Page
 
-Page paths mirror their URLs. For example, `/ui/components/authenticator` is located at [/src/pages/ui/components/authenticator/[platform].page.mdx](src/pages/ui/components/authenticator/[platform].page.mdx).
+Page paths mirror their URLs. For example, `/components/authenticator` is located at [/src/pages/[platform]/components/authenticator/index.page.mdx](src/pages/[platform]/components/authenticator/index.page.mdx).
 
-Component & primitive pages are located at `src/pages/ui/components/*/[platform].page.mdx` and `src/pages/ui/primitives/*/[platform].page.mdx`, respectively.
+Component & primitive pages are located at `src/pages/ui/components/*/index.page.mdx` and `src/pages/ui/primitives/*/index.page.mdx`, respectively.
 
 At a minimum, all `.page.mdx` files require the following basic frontmatter:
 

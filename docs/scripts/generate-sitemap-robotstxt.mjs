@@ -17,8 +17,8 @@ async function generateSitemap() {
   console.log('🗺 ▶️ SiteMap generating...');
   const prettierConfig = await prettier.resolveConfig('./.prettierrc.js');
   const pagesWithParam = await globby([
-    'src/pages/**/[platform].page.tsx',
-    'src/pages/**/[platform].page.mdx',
+    'src/pages/**/index.page.tsx',
+    'src/pages/**/index.page.mdx',
     '!data/*.mdx',
     '!src/pages/_*.tsx',
     '!src/pages/404.page.tsx',
