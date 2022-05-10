@@ -214,6 +214,16 @@ describe('SliderField: ', () => {
         expect(range).toHaveClass(ComponentClassNames.SliderFieldRange);
       });
 
+      it('should render orientation classes for SliderField', async () => {
+        render(
+          <SliderField defaultValue={0} label="slider" orientation="vertical" />
+        );
+        const vertical = await screen.findByTestId(SLIDER_RANGE_TEST_ID);
+        expect(vertical).toHaveClass(
+          `${ComponentClassNames.SliderFieldRange}--vertical`
+        );
+      });
+
       it('should set filled track color', async () => {
         render(
           <SliderField

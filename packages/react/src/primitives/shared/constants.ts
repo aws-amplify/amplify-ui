@@ -513,10 +513,12 @@ export const ComponentClassObject = {
     components: ['VisuallyHidden'],
     description: 'Top level element that wraps the VisuallyHidden primitive',
   },
-};
+} as const;
 
 type ComponentNames = keyof typeof ComponentClassObject;
-let ComponentClassNames: { [Name in ComponentNames]?: string } = {};
+export type ComponentClasses =
+  typeof ComponentClassObject[ComponentNames]['className'];
+let ComponentClassNames: { [Name in ComponentNames]?: ComponentClasses } = {};
 Object.keys(ComponentClassObject).map((keyName) => {
   ComponentClassNames[keyName] = ComponentClassObject[keyName].className;
 });

@@ -1,8 +1,7 @@
 import * as React from 'react';
 
 import { ViewProps } from './view';
-
-export type SelectSize = 'small' | 'large';
+import { Sizes } from './base';
 
 export type SelectVariation = 'quiet';
 
@@ -15,7 +14,7 @@ export interface SelectProps extends ViewProps {
 
   value?: string;
 
-  size?: SelectSize;
+  size?: Sizes;
 
   variation?: SelectVariation;
 

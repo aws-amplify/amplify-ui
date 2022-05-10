@@ -65,7 +65,14 @@ const NavLink = ({
 };
 
 const Nav = (props) => (
-  <Flex as="nav" className="docs-nav" alignItems="center" gap="0" grow="1">
+  <Flex
+    as="nav"
+    aria-label="Main navigation"
+    className="docs-nav"
+    alignItems="center"
+    gap="0"
+    grow="1"
+  >
     <NavLink
       {...props}
       href={`/${props.platform}/getting-started/installation`}
@@ -167,7 +174,7 @@ export const Header = ({ platform, colorMode, setColorMode }) => {
           </Flex>
 
           <Nav onClick={() => setExpanded(false)} platform={platform} />
-          <nav className="docs-sidebar-nav">
+          <nav aria-label="Section navigation" className="docs-sidebar-nav">
             <SecondaryNav onClick={() => setExpanded(false)} />
           </nav>
         </View>

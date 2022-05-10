@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import * as React from 'react';
 
+import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import { ButtonProps, Primitive } from '../types';
 import { ComponentClassNames } from '../shared/constants';
 import { Flex } from '../Flex';
@@ -22,15 +23,30 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
   },
   ref
 ) => {
+  const componentClasses = classNames(
+    ComponentClassNames.Button,
+    ComponentClassNames.FieldGroupControl,
+    classNameModifier(ComponentClassNames.Button, variation),
+    classNameModifier(ComponentClassNames.Button, size),
+    classNameModifierByFlag(
+      ComponentClassNames.Button,
+      'disabled',
+      isDisabled || isLoading
+    ),
+    classNameModifierByFlag(ComponentClassNames.Button, 'loading', isLoading),
+    classNameModifierByFlag(
+      ComponentClassNames.Button,
+      'fullwidth',
+      isFullWidth
+    ),
+    className
+  );
+
   return (
     <View
       ref={ref}
       as="button"
-      className={classNames(
-        ComponentClassNames.Button,
-        ComponentClassNames.FieldGroupControl,
-        className
-      )}
+      className={componentClasses}
       data-fullwidth={isFullWidth}
       data-loading={isLoading}
       data-size={size}

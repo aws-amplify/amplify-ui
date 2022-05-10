@@ -1,10 +1,17 @@
 <script setup lang="ts">
-import Amplify from 'aws-amplify';
-import { Authenticator } from '@aws-amplify/ui-vue';
+import { Amplify, I18n } from 'aws-amplify';
+import { Authenticator, translations } from '@aws-amplify/ui-vue';
 import '@aws-amplify/ui-vue/styles.css';
 import aws_exports from './aws-exports';
 
 Amplify.configure(aws_exports);
+
+I18n.putVocabularies(translations);
+I18n.setLanguage('en');
+I18n.putVocabulariesForLanguage('en', {
+  'Password does not conform to policy: Password not long enough':
+    'Your password is too short! Try a longer password!',
+});
 
 const formFields = {
   signIn: {

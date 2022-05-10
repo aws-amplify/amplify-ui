@@ -1,4 +1,4 @@
-%amplify-field-control {
+@mixin amplify-field-control {
   box-sizing: border-box;
   color: var(--amplify-components-fieldcontrol-color);
   font-size: var(--amplify-components-fieldcontrol-font-size);
@@ -30,7 +30,7 @@
     box-shadow: var(--amplify-components-fieldcontrol-focus-box-shadow);
   }
 
-  &[data-size='small'] {
+  &--small {
     font-size: var(--amplify-components-fieldcontrol-small-font-size);
     padding-block-start: var(
       --amplify-components-fieldcontrol-small-padding-block-start
@@ -46,7 +46,7 @@
     );
   }
 
-  &[data-size='large'] {
+  &--large {
     font-size: var(--amplify-components-fieldcontrol-large-font-size);
     padding-block-start: var(
       --amplify-components-fieldcontrol-large-padding-block-start
@@ -63,7 +63,7 @@
   }
 
   // Error styling
-  &[aria-invalid='true'] {
+  &--error {
     border-color: var(--amplify-components-fieldcontrol-error-border-color);
     &:focus {
       border-color: var(--amplify-components-fieldcontrol-error-border-color);
@@ -82,7 +82,7 @@
   }
 
   // variation styles
-  &[data-variation='quiet'] {
+  &--quiet {
     border-block-start: var(
       --amplify-components-fieldcontrol-quiet-border-block-start
     );

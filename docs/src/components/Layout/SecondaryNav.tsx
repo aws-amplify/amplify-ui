@@ -185,12 +185,12 @@ export const SecondaryNav = (props) => {
 
 export const Sidebar = () => {
   return (
-    <aside className="docs-sidebar">
+    <nav aria-label="Section navigation" className="docs-sidebar">
       <div className="docs-sidebar-inner">
-        <nav className="docs-sidebar-nav">
+        <div className="docs-sidebar-nav">
           <SecondaryNav />
-        </nav>
+        </div>
       </div>
-    </aside>
+    </nav>
   );
 };
