@@ -39,11 +39,13 @@ const NavLink = ({
   onClick?: React.MouseEventHandler<HTMLAnchorElement>;
 }) => {
   const {
-    asPath,
+    pathname,
     query: { platform },
   } = useCustomRouter();
 
-  const isCurrent = asPath.startsWith(href) && href !== `/${platform}`;
+  const isCurrent =
+    pathname.replace('[platform]', platform.toString()).startsWith(href) &&
+    href !== `/`;
   const className = `docs-nav-link ${isCurrent ? 'current' : ''}`;
 
   if (isExternal) {
@@ -73,7 +75,7 @@ const Nav = (props) => (
     <NavLink {...props} href={`/${props.platform}/components`}>
       Components
     </NavLink>
-    <NavLink {...props} href={`/${props.platform}/theming/`}>
+    <NavLink {...props} href={`/${props.platform}/theming`}>
       Theming
     </NavLink>
     <NavLink {...props} href={`/${props.platform}/guides`}>

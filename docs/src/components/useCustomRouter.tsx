@@ -16,11 +16,14 @@ export const useCustomRouter = () => {
     push,
   } = router;
   const platforms = ['react', 'angular', 'vue', 'flutter'];
+
   React.useEffect(() => {
     if (!platforms.includes(platform.toString())) {
       push('/404');
     }
   }, [platform]);
+
+  router.query.platform = platform;
 
   return router;
 };

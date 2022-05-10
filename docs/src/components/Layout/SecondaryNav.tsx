@@ -77,12 +77,12 @@ const NavLinkComponentsSection = ({ heading, components, ...props }) => {
 // TODO: clean up this logic
 export const SecondaryNav = (props) => {
   const {
-    asPath,
+    pathname,
     query: { platform },
   } = useCustomRouter();
 
   // Extract section from URL (/section/... => section)
-  const section = asPath.split('/')[2];
+  const section = pathname.split('/')[2];
 
   switch (section) {
     case 'theming':
