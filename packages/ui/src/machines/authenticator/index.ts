@@ -206,7 +206,6 @@ export function createAuthenticatorMachine() {
         SUBMIT: { actions: 'forwardToActor' },
         FEDERATED_SIGN_IN: { actions: 'forwardToActor' },
         RESEND: { actions: 'forwardToActor' },
-        SIGN_OUT: { actions: 'forwardToActor' },
         SIGN_IN: { actions: 'forwardToActor' },
         SKIP: { actions: 'forwardToActor' },
       },
@@ -216,7 +215,7 @@ export function createAuthenticatorMachine() {
         forwardToActor: choose([
           {
             cond: 'hasActor',
-            actions: forwardTo((context, event) => context.actorRef),
+            actions: forwardTo((context) => context.actorRef),
           },
         ]),
         setUser: assign({
