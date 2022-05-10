@@ -1,6 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
 import { FieldGroupOptions, Primitive } from '../types';
 import { Flex } from '../Flex';
@@ -28,15 +29,17 @@ const FieldGroupPrimitive: Primitive<FieldGroupOptions, typeof Flex> = (
   const fieldGroupHasInnerEndClassName = hasInnerEndComponent
     ? ComponentClassNames.FieldGroupHasInnerEnd
     : null;
+  const componentClasses = classNames(
+    ComponentClassNames.FieldGroup,
+    fieldGroupHasInnerStartClassName,
+    fieldGroupHasInnerEndClassName,
+    classNameModifier(ComponentClassNames.FieldGroup, orientation),
+    className
+  );
 
   return (
     <Flex
-      className={classNames(
-        ComponentClassNames.FieldGroup,
-        fieldGroupHasInnerStartClassName,
-        fieldGroupHasInnerEndClassName,
-        className
-      )}
+      className={componentClasses}
       data-orientation={orientation}
       ref={ref}
       {...rest}
@@ -47,7 +50,13 @@ const FieldGroupPrimitive: Primitive<FieldGroupOptions, typeof Flex> = (
         </View>
       )}
       <View
-        className={ComponentClassNames.FieldGroupFieldWrapper}
+        className={classNames(
+          ComponentClassNames.FieldGroupFieldWrapper,
+          classNameModifier(
+            ComponentClassNames.FieldGroupFieldWrapper,
+            orientation
+          )
+        )}
         data-orientation={orientation}
       >
         {innerStartComponent && (

@@ -99,9 +99,9 @@ const onLostCodeClicked = (): void => {
             </base-alert>
             <amplify-button
               class="amplify-field-group__control amplify-authenticator__font"
-              data-fullwidth="false"
-              data-loading="false"
-              data-variation="primary"
+              :fullwidth="false"
+              :loading="false"
+              :variation="'primary'"
               type="submit"
               :disabled="isPending"
             >
@@ -109,8 +109,9 @@ const onLostCodeClicked = (): void => {
             </amplify-button>
             <amplify-button
               class="amplify-field-group__control amplify-authenticator__font"
-              data-fullwidth="false"
-              data-variation="default"
+              :fullwidth="false"
+              :variation="'default'"
+              style="font-weight: normal"
               type="button"
               @click.prevent="onLostCodeClicked"
             >

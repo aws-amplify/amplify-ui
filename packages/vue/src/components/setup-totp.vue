@@ -168,9 +168,9 @@ const onBackToSignInClicked = (): void => {
                     amplify-field-group__control
                     amplify-authenticator__font
                   "
-                  data-fullwidth="false"
-                  data-loading="false"
-                  data-variation="primary"
+                  :fullwidth="false"
+                  :loading="false"
+                  :variation="'primary'"
                   type="submit"
                   :disabled="actorState.matches('confirmSignIn.pending')"
                 >
@@ -181,9 +181,10 @@ const onBackToSignInClicked = (): void => {
                     amplify-field-group__control
                     amplify-authenticator__font
                   "
-                  data-fullwidth="false"
-                  data-size="small"
-                  data-variation="link"
+                  :fullwidth="false"
+                  :size="'small'"
+                  :variation="'link'"
+                  style="font-weight: normal"
                   type="button"
                   @click.prevent="onBackToSignInClicked"
                 >

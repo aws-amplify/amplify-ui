@@ -91,7 +91,7 @@ const randomPhone = Math.floor(Math.random() * 999999);
                 data-size="large"
                 fill="currentColor"
                 viewBox="0 0 24 24"
-                class="amplify-icon"
+                class="amplify-icon amplify-icon--large"
               >
                 <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path>
               </svg>

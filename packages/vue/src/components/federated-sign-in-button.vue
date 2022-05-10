@@ -5,7 +5,8 @@
       federated-sign-in-button
       amplify-authenticator__font
     "
-    data-fullwidth="false"
+    :fullwidth="false"
+    style="font-weight: normal"
     type="button"
     @click="onClick"
   >

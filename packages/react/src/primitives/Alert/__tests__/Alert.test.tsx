@@ -33,9 +33,17 @@ describe('Alert: ', () => {
     const defaultAlert = await screen.findByTestId('default');
 
     expect(info.dataset['variation']).toBe('info');
+    expect(info.classList).toContain(`${ComponentClassNames['Alert']}--info`);
     expect(error.dataset['variation']).toBe('error');
+    expect(error.classList).toContain(`${ComponentClassNames['Alert']}--error`);
     expect(warning.dataset['variation']).toBe('warning');
+    expect(warning.classList).toContain(
+      `${ComponentClassNames['Alert']}--warning`
+    );
     expect(success.dataset['variation']).toBe('success');
+    expect(success.classList).toContain(
+      `${ComponentClassNames['Alert']}--success`
+    );
     expect(defaultAlert.dataset['variation']).toBe(undefined);
   });
 
@@ -135,7 +143,7 @@ describe('Alert: ', () => {
     expect(alert.dataset['demo']).toBe('true');
   });
 
-  describe.only('Forward ref: ', () => {
+  describe('Forward ref: ', () => {
     it('should forward ref to container DOM element', async () => {
       const testId = 'alert';
       const ref = React.createRef<HTMLDivElement>();

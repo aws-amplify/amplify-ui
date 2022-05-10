@@ -136,17 +136,18 @@ const onSkipClicked = (): void => {
             </base-alert>
             <amplify-button
               class="amplify-field-group__control amplify-authenticator__font"
-              data-fullwidth="false"
-              data-variation="primary"
+              :fullwidth="false"
+              :variation="'primary'"
               type="submit"
               :disabled="actorState.matches('verifyUser.pending')"
               >{{ verifyText }}</amplify-button
             >
             <amplify-button
               class="amplify-field-group__control amplify-authenticator__font"
-              data-fullwidth="false"
-              data-size="small"
-              data-variation="link"
+              :fullwidth="false"
+              :size="'small'"
+              :variation="'link'"
+              style="font-weight: normal"
               type="button"
               @click.prevent="onSkipClicked"
             >

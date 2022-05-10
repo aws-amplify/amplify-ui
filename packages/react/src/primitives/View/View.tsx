@@ -27,6 +27,7 @@ const ViewPrimitive = <Element extends ElementType = 'div'>(
       'aria-label': ariaLabel,
       'data-testid': testId,
       disabled: isDisabled,
+      isDisabled: isDisabled,
       ref,
       style: propStyles,
       ...nonStyleProps,

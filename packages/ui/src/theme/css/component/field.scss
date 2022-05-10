@@ -1,13 +1,12 @@
-@import 'fieldControl';
-
 .amplify-field {
   font-size: var(--amplify-components-field-font-size);
   gap: var(--amplify-components-field-gap);
-  &[data-size='small'] {
+  &--small {
     font-size: var(--amplify-components-field-small-font-size);
     gap: var(--amplify-components-field-small-gap);
   }
-  &[data-size='large'] {
+
+  &--large {
     font-size: var(--amplify-components-field-large-font-size);
     gap: var(--amplify-components-field-large-gap);
   }
