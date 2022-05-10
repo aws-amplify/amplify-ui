@@ -66,17 +66,17 @@ const Nav = (props) => (
   <Flex as="nav" className="docs-nav" alignItems="center" gap="0" grow="1">
     <NavLink
       {...props}
-      href={`/getting-started/installation/${props.platform}`}
+      href={`/${props.platform}/getting-started/installation`}
     >
       Getting started
     </NavLink>
-    <NavLink {...props} href={`/components/${props.platform}`}>
+    <NavLink {...props} href={`/${props.platform}/components`}>
       Components
     </NavLink>
-    <NavLink {...props} href={`/theming/${props.platform}`}>
+    <NavLink {...props} href={`/${props.platform}/theming/`}>
       Theming
     </NavLink>
-    <NavLink {...props} href={`/guides/${props.platform}`}>
+    <NavLink {...props} href={`/${props.platform}/guides`}>
       Guides
     </NavLink>
     <Divider orientation="vertical" />

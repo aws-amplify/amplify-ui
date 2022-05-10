@@ -177,7 +177,7 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
                 size="large"
                 variation="primary"
                 as="a"
-                href={`/getting-started/installation/${platform}`}
+                href={`/${platform}/getting-started/installation`}
               >
                 Get started
                 <IconChevronRight />
@@ -281,7 +281,7 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
             <Button
               as="a"
               size="large"
-              href={`/components/authenticator/${platform}`}
+              href={`/${platform}/components/authenticator/`}
               isFullWidth
             >
               Authenticator
@@ -309,7 +309,7 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
               Theming capabilities that allow you to customize the appearance of
               Amplify UI to match your brand.
             </Text>
-            <Button as="a" size="large" href={`/theming/${platform}`}>
+            <Button as="a" size="large" href={`/${platform}/theming/`}>
               Get started with theming
               <IconChevronRight />
             </Button>
@@ -376,7 +376,7 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
             <Button
               as="a"
               size="large"
-              href={`/components/authenticator/${platform}`}
+              href={`/${platform}/components/authenticator`}
             >
               Get started with components
               <IconChevronRight />

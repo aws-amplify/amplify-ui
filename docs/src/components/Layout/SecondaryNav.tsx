@@ -36,7 +36,7 @@ const NavLink = ({ href, children, onClick, platforms = [] }) => {
     query: { platform = 'react' },
     asPath,
   } = useCustomRouter();
-  const isCurrent = asPath === `${href}/${platform}`;
+  const isCurrent = asPath === `/${platform}${href}`;
   const classNames = `docs-secondary-nav-link ${isCurrent ? 'current' : ''}`;
 
   if (platforms.length && !platforms.includes(platform)) {
@@ -44,7 +44,7 @@ const NavLink = ({ href, children, onClick, platforms = [] }) => {
   }
 
   return (
-    <Link href={`${href}/${platform}`} passHref>
+    <Link href={`/${platform}${href}`} passHref>
       <LinkButton onClick={onClick} classNames={classNames}>
         {children}
       </LinkButton>
@@ -82,7 +82,7 @@ export const SecondaryNav = (props) => {
   } = useCustomRouter();
 
   // Extract section from URL (/section/... => section)
-  const section = asPath.split('/')[1];
+  const section = asPath.split('/')[2];
 
   switch (section) {
     case 'theming':
