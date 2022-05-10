@@ -95,7 +95,7 @@ export default function Page({
                   isExternal
                 >
                   <Icon
-                    ariaLabel=""
+                    ariaLabel="W3C"
                     as={SiW3C}
                     marginInlineEnd={tokens.space.xs}
                   />
