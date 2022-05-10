@@ -75,21 +75,3 @@ export const TabsDemo = () => {
     </Demo>
   );
 };
-
-export const ControlledTabExample = () => {
-  const [index, setIndex] = React.useState(0);
-  return (
-    <Tabs currentIndex={index} onChange={(i: number) => setIndex(i)}>
-      <TabItem title="First">
-        <DemoTabPanel>Content of the first tab</DemoTabPanel>
-      </TabItem>
-      <TabItem title="Second">
-        <DemoTabPanel>
-          The content of the second tab is initially shown because we passed in
-          index 1 to defaultIndex (notice that the tabs are zero-indexed).
-          <Button onClick={() => setIndex(0)}>Go to first tab</Button>
-        </DemoTabPanel>
-      </TabItem>
-    </Tabs>
-  );
-};
