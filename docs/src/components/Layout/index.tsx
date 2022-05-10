@@ -123,6 +123,7 @@ export default function Page({
                 >
                   <Icon
                     ariaLabel=""
+                    aria-hidden="true"
                     as={SiReact}
                     marginInlineEnd={tokens.space.xs}
                   />
