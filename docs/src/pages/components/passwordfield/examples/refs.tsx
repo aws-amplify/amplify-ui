@@ -20,11 +20,13 @@ export const RefExample = () => {
         false
       );
       return () => {
-        showPasswordButtonRef.current.removeEventListener(
-          'click',
-          onShowPasswordClick,
-          false
-        );
+        if (showPasswordButtonRef && showPasswordButtonRef.current) {
+          showPasswordButtonRef.current.removeEventListener(
+            'click',
+            onShowPasswordClick,
+            false
+          );
+        }
       };
     }
   }, [onShowPasswordClick]);

@@ -9,6 +9,7 @@ import {
 } from '../utils/demoProps';
 import { PasswordFieldPropControls } from './passwordFieldPropControls';
 import { usePasswordFieldProps } from './usePasswordFieldProps';
+import { demoState } from '@/utils/demoState';
 
 export const propsToCode = (props) => {
   const filteredProps = filterDemoProps(props);
@@ -19,24 +20,26 @@ ${objectEntriesToPropString(Object.entries(filteredProps))}
 };
 
 export const PasswordFieldDemo = () => {
-  const passwordFieldProps = usePasswordFieldProps({
-    autoComplete: 'new-password',
-    defaultValue: '',
-    descriptiveText: 'Please enter password',
-    errorMessage: '',
-    hasError: false,
-    hideShowPassword: false,
-    isDisabled: false,
-    isReadOnly: false,
-    isRequired: false,
-    label: 'Password',
-    labelHidden: false,
-    name: 'password',
-    placeholder: '',
-    size: 'small',
-    value: '',
-    variation: null,
-  });
+  const passwordFieldProps = usePasswordFieldProps(
+    (demoState.get(PasswordField.displayName) as PasswordFieldProps) || {
+      autoComplete: 'new-password',
+      defaultValue: '',
+      descriptiveText: 'Please enter password',
+      errorMessage: '',
+      hasError: false,
+      hideShowPassword: false,
+      isDisabled: false,
+      isReadOnly: false,
+      isRequired: false,
+      label: 'Password',
+      labelHidden: false,
+      name: 'password',
+      placeholder: '',
+      size: 'small',
+      value: '',
+      variation: null,
+    }
+  );
   const demoProps = [
     'autoComplete',
     'defaultValue',

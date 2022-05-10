@@ -253,12 +253,12 @@ To override styling on all TextField primitives, you can set the Amplify CSS var
 
 ```css
 /* styles.css */
-:root {
-  --amplify-components-field-border-color: rebeccapurple;
+[data-amplify-theme] {
+  --amplify-components-field-border-color: var(--amplify-colors-purple-80);
 }
 /* OR */
 .amplify-passwordfield {
-  --amplify-components-field-border-color: rebeccapurple;
+  --amplify-components-field-border-color: var(--amplify-colors-purple-80);
 }
 ```
 
@@ -296,22 +296,13 @@ _Using style props:_
 
 Flex styling props will be applied to the PasswordField wrapping Flex component, whereas other style props will be applied to the input field. This allows us to change the layout of the label and input field, while also styling the input field directly.
 
-```jsx
-<PasswordField
-  direction="row"
-  alignItems="baseline"
-  label={
-    <Text fontWeight="bold" fontSize="1.5rem">
-      Password:
-    </Text>
-  }
-  fontSize="1.5rem"
-  backgroundColor="#fff1e7"
-  color="#000"
-  width="400px"
-/>
-```
-
 <Example>
   <PasswordFieldStyledPropsExample />
+  <ExampleCode>
+
+```jsx file=./examples/PasswordFieldStyledPropsExample.tsx
+
+```
+
+  </ExampleCode>
 </Example>

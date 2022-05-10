@@ -4,7 +4,7 @@ export { DescriptiveTextExample } from './DescriptiveTextExample';
 export { HidePasswordFieldExample } from './HidePasswordFieldExample';
 export { IsRequiredExample } from './IsRequiredExample';
 export { LoginFormExample } from './LoginFormExample';
-import { MaxLengthExample } from './MaxLengthExample';
+export { MaxLengthExample } from './MaxLengthExample';
 export { PasswordFieldStyledPropsExample } from './PasswordFieldStyledPropsExample';
 export { RefExample } from './refs';
 export { RequiredPasswordFieldExample } from './RequiredPasswordFieldExample';
