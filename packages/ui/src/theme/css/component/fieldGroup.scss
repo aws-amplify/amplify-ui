@@ -58,7 +58,7 @@
     @extend %remove-end-radii;
 
     &:not(:focus) {
-      border-inline-end: none;
+      border-inline-end-color: transparent;
     }
     &:focus {
       z-index: 1;
@@ -70,6 +70,17 @@
       @extend %remove-start-radii;
     }
   }
+
+  &--quiet {
+    .amplify-field-group__control {
+      @extend %remove-start-radii;
+      &:not(:focus) {
+        border-block-start-color: transparent;
+        border-inline-start-color: transparent;
+      }
+    }
+  }
+
   // Select requires special rules due to icon
   .amplify-select__wrapper {
     .amplify-select {
@@ -87,7 +98,7 @@
     @extend %remove-start-radii;
 
     &:not(:focus) {
-      border-inline-start: none;
+      border-inline-start-color: transparent;
     }
     &:focus {
       z-index: 1;
@@ -99,6 +110,17 @@
       @extend %remove-end-radii;
     }
   }
+
+  &--quiet {
+    .amplify-field-group__control {
+      @extend %remove-end-radii;
+      &:not(:focus) {
+        border-block-start-color: transparent;
+        border-inline-end-color: transparent;
+      }
+    }
+  }
+
   // Select requires special rules due to icon
   .amplify-select__wrapper {
     .amplify-select {

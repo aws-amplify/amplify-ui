@@ -2,9 +2,10 @@ import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 
 import { Button } from '../../Button';
-import { ComponentClassNames } from '../../shared';
 import { FieldGroup } from '../FieldGroup';
 import { Text } from '../../Text';
+import { ComponentClassNames } from '../../shared/constants';
+import { classNameModifier } from '../../shared/utils';
 
 describe('FieldGroup component', () => {
   const testId = 'fieldGroupTestId';
@@ -150,6 +151,35 @@ describe('FieldGroup component', () => {
     );
     expect(outerEndComponent).toHaveClass(
       ComponentClassNames.FieldGroupOuterEnd
+    );
+  });
+
+  it('should render quiet class on outer components when variation is set to quiet', async () => {
+    const outerStart = 'outerStart';
+    const outerEnd = 'outerEnd';
+    const variation = 'quiet';
+
+    render(
+      <FieldGroup
+        testId={testId}
+        outerStartComponent={outerStart}
+        outerEndComponent={outerEnd}
+        variation={variation}
+      >
+        <Text>Hello</Text>
+      </FieldGroup>
+    );
+
+    const outerStartComponent = await screen.queryByText(outerStart);
+    const outerEndComponent = await screen.queryByText(outerEnd);
+
+    expect(outerStartComponent).not.toBeNull();
+    expect(outerEndComponent).not.toBeNull();
+    expect(outerStartComponent).toHaveClass(
+      classNameModifier(ComponentClassNames.FieldGroupOuterStart, variation)
+    );
+    expect(outerEndComponent).toHaveClass(
+      classNameModifier(ComponentClassNames.FieldGroupOuterEnd, variation)
     );
   });
 
