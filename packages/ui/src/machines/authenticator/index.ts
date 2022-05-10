@@ -1,4 +1,5 @@
 import { assign, createMachine, forwardTo, spawn } from 'xstate';
+import { choose } from 'xstate/lib/actions';
 
 import {
   AuthContext,
@@ -212,7 +213,12 @@ export function createAuthenticatorMachine() {
     },
     {
       actions: {
-        forwardToActor: forwardTo((context) => context.actorRef),
+        forwardToActor: choose([
+          {
+            cond: 'hasActor',
+            actions: forwardTo((context, event) => context.actorRef),
+          },
+        ]),
         setUser: assign({
           user: (_, event) => event.data as CognitoUserAmplify,
         }),
@@ -369,6 +375,8 @@ export function createAuthenticatorMachine() {
         shouldRedirectToResetPassword: (_, event) =>
           event.data?.intent === 'confirmPasswordReset',
         shouldSetup: (context) => context.hasSetup === false,
+        // other context guards
+        hasActor: (context) => !!context.actorRef,
       },
       services: {
         getCurrentUser: (context, _) => context.services.getCurrentUser(),
