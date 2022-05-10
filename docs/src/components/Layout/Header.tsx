@@ -136,7 +136,7 @@ export const Header = ({ platform, colorMode, setColorMode }) => {
           )}
         </Button>
 
-        <NavLink href={`/${platform}`}>
+        <NavLink href={`/`}>
           <span className="docs-logo-link">
             <VisuallyHidden>Amplify UI Home</VisuallyHidden>
             <Logo />
