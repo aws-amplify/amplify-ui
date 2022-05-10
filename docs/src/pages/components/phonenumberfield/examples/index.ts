@@ -1,11 +1,14 @@
 export { AccessibilityExample } from './AccessibilityExample';
 export { AutoCompleteExample } from './AutoCompleteExample';
+export { ClassNameExample } from './ClassNameExample';
 export { CountryCodeSelectExample } from './CountryCodeSelectExample';
+export { DefaultPhoneNumberFieldExample } from './DefaultPhoneNumberFieldExample';
 export { DescriptiveTextExample } from './DescriptiveTextExample';
 export { RefsExample } from './RefsExample';
 export { RequiredFieldExample } from './RequiredFieldExample';
 export { RequiredFieldStyledExample } from './RequiredFieldStyledExample';
 export { SizeExample } from './SizeExample';
 export { StatesExample } from './StatesExample';
+export { StylePropsExample } from './StylePropsExample';
 export { ValidationErrorExample } from './ValidationErrorExample';
 export { VariationExample } from './VariationExample';

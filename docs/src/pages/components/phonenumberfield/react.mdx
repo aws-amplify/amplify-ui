@@ -12,12 +12,15 @@ import {
   AccessibilityExample,
   AutoCompleteExample,
   CountryCodeSelectExample,
+  ClassNameExample,
+  DefaultPhoneNumberFieldExample,
   DescriptiveTextExample,
   RefsExample,
   RequiredFieldExample,
   RequiredFieldStyledExample,
   SizeExample,
   StatesExample,
+  StylePropsExample,
   ValidationErrorExample,
   VariationExample,
 } from './examples';
@@ -28,15 +31,17 @@ import {
 
 ## Usage
 
-Import the `PhoneNumberField` component and styles and provide a `label` for accessibility/usability as well as a `defaultCountryCode`
+Import the `PhoneNumberField` component and provide a `label` for accessibility/usability as well as a `defaultCountryCode`
 which will auto-populate the country or region code select field.
 
-```jsx
-import { PhoneNumberField } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
+<Example>
+  <DefaultPhoneNumberFieldExample />
+  <ExampleCode>
+```jsx file=./examples/DefaultPhoneNumberFieldExample.tsx
 
-<PhoneNumberField defaultCountryCode="+1" label="Phone Number" />;
-```
+````
+  </ExampleCode>
+</Example>
 
 ### Country or Region Code Select Properties
 
@@ -54,6 +59,7 @@ properties specific to the country or region code selector are the following:
 ```jsx file=./examples/CountryCodeSelectExample.tsx
 
 ````
+
   </ExampleCode>
 </Example>
 
@@ -98,7 +104,7 @@ be set to `username` (see [Password Form Styles that Chromium Understands](https
   <ExampleCode>
 ```jsx file=./examples/SizeExample.tsx
 
-```</ExampleCode>
+````</ExampleCode>
 </Example>
 
 ### Variations
@@ -179,7 +185,7 @@ Use the `hasError` and `errorMessage` fields to mark a `PhoneNumberField` as hav
   <ExampleCode>
 ```jsx file=./examples/ValidationErrorExample.tsx
 
-``````
+````
 
   </ExampleCode>
 </Example>
@@ -197,7 +203,7 @@ The following is a contrived example demonstrating use of the `ref` and `country
   <ExampleCode>
 ```jsx file=./examples/RefsExample.tsx
 
-```
+````
 
   </ExampleCode>
 </Example>
@@ -259,11 +265,13 @@ _Using a class selector:_
 ```
 
 <Example>
-  <PhoneNumberField
-    className="custom-phonenumberfield-class"
-    defaultCountryCode="+1"
-    label="Square field"
-  />
+  <ClassNameExample />
+  <ExampleCode>
+```jsx file=./examples/ClassNameExample.tsx
+
+````
+
+  </ExampleCode>
 </Example>
 
 _Using style props:_
@@ -271,25 +279,12 @@ _Using style props:_
 Flex styling props will be applied to the `PhoneNumberField` wrapping `Flex` component, whereas other style props will be applied to the field.
 This allows us to change the layout of the label and field, while also styling the input field.
 
-```jsx
-<PhoneNumberField
-  direction="row"
-  alignItems="baseline"
-  defaultCountryCode="+1"
-  label={
-    <Text fontWeight="bold" fontSize="1.5rem">
-      Phone Number:
-    </Text>
-  }
-  fontSize="1.5rem"
-  backgroundColor="#fff1e7"
-  color="#000"
-  width="400px"
-/>
-```
-
 <Example>
-  <LocalStylingExample />
+  <StylePropsExample />
+  <ExampleCode>
+```jsx file=./examples/StylePropsExample.tsx
+
+````
+
+  </ExampleCode>
 </Example>
-``` ```` `````
-``````
