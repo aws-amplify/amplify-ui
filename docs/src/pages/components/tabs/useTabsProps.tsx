@@ -1,7 +1,8 @@
-import { TabsProps } from '@aws-amplify/ui-react';
+import { Tabs, TabsProps } from '@aws-amplify/ui-react';
 import * as React from 'react';
 
 import { TabsPropControlsProps } from './TabsPropControls';
+import { demoState } from '@/utils/demoState';
 
 interface UseTabsProps {
   (initialValues: TabsProps): TabsPropControlsProps;
@@ -22,15 +23,38 @@ export const useTabsProps: UseTabsProps = (initialValues) => {
   >(initialValues.indicatorPosition);
   const children = initialValues.children;
 
-  return {
-    currentIndex,
-    setCurrentIndex,
-    spacing,
-    setSpacing,
-    children,
-    justifyContent,
-    setJustifyContent,
-    indicatorPosition,
-    setIndicatorPosition,
-  };
+  React.useEffect(() => {
+    demoState.set(Tabs.displayName, {
+      currentIndex,
+      spacing,
+      justifyContent,
+      indicatorPosition,
+      children,
+    });
+  }, [currentIndex, spacing, justifyContent, indicatorPosition, children]);
+
+  return React.useMemo(
+    () => ({
+      currentIndex,
+      setCurrentIndex,
+      spacing,
+      setSpacing,
+      children,
+      justifyContent,
+      setJustifyContent,
+      indicatorPosition,
+      setIndicatorPosition,
+    }),
+    [
+      currentIndex,
+      setCurrentIndex,
+      spacing,
+      setSpacing,
+      children,
+      justifyContent,
+      setJustifyContent,
+      indicatorPosition,
+      setIndicatorPosition,
+    ]
+  );
 };

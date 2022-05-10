@@ -76,8 +76,7 @@ function onBlur(e: Event) {
         @submit.prevent="onForceNewPasswordSubmit"
       >
         <base-field-set
-          class="amplify-flex"
-          style="flex-direction: column"
+          class="amplify-flex amplify-authenticator__column"
           :disabled="actorState.matches('forceNewPassword.pending')"
         >
           <slot name="header">
@@ -85,21 +84,21 @@ function onBlur(e: Event) {
               {{ changePasswordLabel }}
             </base-heading>
           </slot>
-          <base-wrapper class="amplify-flex" style="flex-direction: column">
+          <base-wrapper class="amplify-flex amplify-authenticator__column">
             <slot name="force-new-password-form-fields">
               <authenticator-force-new-password-form-fields />
             </slot>
           </base-wrapper>
 
-          <base-footer class="amplify-flex" style="flex-direction: column">
+          <base-footer class="amplify-flex amplify-authenticator__column">
             <base-alert data-ui-error v-if="actorState.context.remoteError">
               {{ translate(actorState.context.remoteError) }}
             </base-alert>
             <amplify-button
-              class="amplify-field-group__control"
-              data-fullwidth="false"
-              data-loading="false"
-              data-variation="primary"
+              class="amplify-field-group__control amplify-authenticator__font"
+              :fullwidth="false"
+              :loading="false"
+              :variation="'primary'"
               style="font-weight: normal"
               :disabled="actorState.matches('signUp.submit')"
               >{{
@@ -109,10 +108,10 @@ function onBlur(e: Event) {
               }}</amplify-button
             >
             <amplify-button
-              class="amplify-field-group__control"
-              data-fullwidth="false"
-              data-size="small"
-              data-variation="link"
+              class="amplify-field-group__control amplify-authenticator__font"
+              :fullwidth="false"
+              :size="'small'"
+              :variation="'link'"
               style="font-weight: normal"
               type="button"
               @click.prevent="onHaveAccountClicked"

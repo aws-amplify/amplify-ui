@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { PlaceholderProps } from '@aws-amplify/ui-react';
+import { Placeholder, PlaceholderProps } from '@aws-amplify/ui-react';
 
 import { PlaceholderPropControlsProps } from './PlaceholderControls';
+import { demoState } from '@/utils/demoState';
 
 interface UsePlaceholderProps {
   (initialValues: PlaceholderProps): PlaceholderPropControlsProps;
@@ -15,10 +16,20 @@ export const usePlaceholderProps: UsePlaceholderProps = (initialValues) => {
     initialValues.isLoaded
   );
 
-  return {
-    size,
-    setSize,
-    isLoaded,
-    setIsLoaded,
-  };
+  React.useEffect(() => {
+    demoState.set(Placeholder.displayName, {
+      size,
+      isLoaded,
+    });
+  }, [size, isLoaded]);
+
+  return React.useMemo(
+    () => ({
+      size,
+      setSize,
+      isLoaded,
+      setIsLoaded,
+    }),
+    [size, setSize, isLoaded, setIsLoaded]
+  );
 };

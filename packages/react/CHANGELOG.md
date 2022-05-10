@@ -1,5 +1,67 @@
 # @aws-amplify/ui-react
 
+## 2.16.2
+
+### Patch Changes
+
+- [#1835](https://github.com/aws-amplify/amplify-ui/pull/1835) [`286e7df79`](https://github.com/aws-amplify/amplify-ui/commit/286e7df790a103d164cd8424161a9cd6dc4483e3) Thanks [@reesscot](https://github.com/reesscot)! - Fix ScrollView to only show scrollbars when content overflows
+
+* [#1850](https://github.com/aws-amplify/amplify-ui/pull/1850) [`06b900ff7`](https://github.com/aws-amplify/amplify-ui/commit/06b900ff719fb8ddabd8c85e78784716aa31e181) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(ui-react): remove optional flag from render child prop in RouterProps
+
+* Updated dependencies [[`286e7df79`](https://github.com/aws-amplify/amplify-ui/commit/286e7df790a103d164cd8424161a9cd6dc4483e3)]:
+  - @aws-amplify/ui@3.8.1
+
+## 2.16.1
+
+### Patch Changes
+
+- [#1829](https://github.com/aws-amplify/amplify-ui/pull/1829) [`4c6ca0abd`](https://github.com/aws-amplify/amplify-ui/commit/4c6ca0abd73a6b7df51193c27223ac2befb43c9a) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui-react): update eslint config
+
+* [#1838](https://github.com/aws-amplify/amplify-ui/pull/1838) [`8efa2b238`](https://github.com/aws-amplify/amplify-ui/commit/8efa2b238319f591e0397f89d302dcda9bb6aa8a) Thanks [@ErikCH](https://github.com/ErikCH)! - Fixed bug with MS Authenticator not working with Setup TOTP page
+
+* Updated dependencies [[`b1656e136`](https://github.com/aws-amplify/amplify-ui/commit/b1656e13612b5a748cc19be6eeeb44bf70822fda), [`f2ab1b8e4`](https://github.com/aws-amplify/amplify-ui/commit/f2ab1b8e468597e7b81284b46cd4b03dcd02e201)]:
+  - @aws-amplify/ui@3.8.0
+
+## 2.16.0
+
+### Minor Changes
+
+- [#1811](https://github.com/aws-amplify/amplify-ui/pull/1811) [`78857c29e`](https://github.com/aws-amplify/amplify-ui/commit/78857c29e6e1f0ec501c017a5cbb83710a1f8f3d) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui-react): refactor Authenticator Router, add RouteContainer
+
+### Patch Changes
+
+- Updated dependencies [[`3e5b93e25`](https://github.com/aws-amplify/amplify-ui/commit/3e5b93e25b8e410497332eedf194d2871acb3e79)]:
+  - @aws-amplify/ui@3.7.0
+
+## 2.15.8
+
+### Patch Changes
+
+- [#1798](https://github.com/aws-amplify/amplify-ui/pull/1798) [`331df831f`](https://github.com/aws-amplify/amplify-ui/commit/331df831fd7ddeb8c6f28b4cb385d23d1aa524be) Thanks [@wlee221](https://github.com/wlee221)! - fix(react): Add compatibility with React 18 `useSyncExternalStore` hook
+
+- Updated dependencies [[`331df831f`](https://github.com/aws-amplify/amplify-ui/commit/331df831fd7ddeb8c6f28b4cb385d23d1aa524be)]:
+  - @aws-amplify/ui@3.6.8
+
+## 2.15.7
+
+### Patch Changes
+
+- [#1762](https://github.com/aws-amplify/amplify-ui/pull/1762) [`cd710a07c`](https://github.com/aws-amplify/amplify-ui/commit/cd710a07c52c1db57899eaf3feba4fde52c08df2) Thanks [@jacoblogan](https://github.com/jacoblogan)! - remove inline styling from react authenticator
+
+* [#1786](https://github.com/aws-amplify/amplify-ui/pull/1786) [`4341b3862`](https://github.com/aws-amplify/amplify-ui/commit/4341b38621d0835219650fa579b1bd18c5dc5d82) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(ui-react): add graceful handling of falsy form field values in SetupTOTP component
+
+* Updated dependencies [[`cd710a07c`](https://github.com/aws-amplify/amplify-ui/commit/cd710a07c52c1db57899eaf3feba4fde52c08df2)]:
+  - @aws-amplify/ui@3.6.7
+
+## 2.15.6
+
+### Patch Changes
+
+- [#1766](https://github.com/aws-amplify/amplify-ui/pull/1766) [`3a166e303`](https://github.com/aws-amplify/amplify-ui/commit/3a166e30326b6d6065b9bbf5ecf516e59e2c86b8) Thanks [@slaymance](https://github.com/slaymance)! - Support Pascal case for Amazon Location Service configuration block
+
+- Updated dependencies [[`84fd81868`](https://github.com/aws-amplify/amplify-ui/commit/84fd818689daa5220bfb55ebee7e280454e1c705), [`a9c5aa5f5`](https://github.com/aws-amplify/amplify-ui/commit/a9c5aa5f56c4d222cd8bd652d0fd549aea3576ef)]:
+  - @aws-amplify/ui@3.6.6
+
 ## 2.15.5
 
 ### Patch Changes
