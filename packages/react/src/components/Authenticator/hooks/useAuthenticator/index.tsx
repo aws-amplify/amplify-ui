@@ -41,26 +41,22 @@ export const Provider = ({ children }: { children: React.ReactNode }) => {
    *
    * Leaving this as is for now in the interest of suggested code guideline.
    */
-  const service = useInterpret(createAuthenticatorMachine);
+  const service = useInterpret(createAuthenticatorMachine, { devTools: true });
   const currentProviderVal = { service };
 
   const value = isEmpty(parentProviderVal)
     ? currentProviderVal
     : parentProviderVal;
 
-  const {
-    service: { send },
-  } = value;
+  const { service: activeService } = value;
 
   const isListening = React.useRef(false);
   React.useEffect(() => {
-    if (isListening.current) {
-      return;
-    }
+    if (isListening.current) return;
 
     isListening.current = true;
-    return listenToAuthHub(send);
-  }, [send]);
+    return listenToAuthHub(activeService);
+  }, [activeService]);
 
   return (
     <AuthenticatorContext.Provider value={value}>

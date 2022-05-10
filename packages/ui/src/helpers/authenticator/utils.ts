@@ -4,7 +4,8 @@
  */
 
 import { Hub } from 'aws-amplify';
-import { AuthMachineSend } from '../../types';
+import { HubCapsule } from '@aws-amplify/core';
+import { AuthInterpreter, HubHandler } from '../../types';
 
 // replaces all characters in a string with '*', except for the first and last char
 export const censorAllButFirstAndLast = (value: string): string => {
@@ -32,6 +33,27 @@ export const censorPhoneNumber = (val: string): string => {
   return split.join('');
 };
 
+export const defaultAuthHubHandler: HubHandler = (data, service) => {
+  const { send } = service;
+  const state = service.getSnapshot(); // this is just a getter and is not expensive
+
+  switch (data.payload.event) {
+    // TODO: We can add more cases here, according to
+    // https://docs.amplify.aws/lib/auth/auth-events/q/platform/js/
+    case 'tokenRefresh':
+      if (state.matches('authenticated.idle')) {
+        send('TOKEN_REFRESH');
+      }
+      break;
+    case 'signOut':
+    case 'tokenRefresh_failure':
+      if (state.matches('authenticated.idle')) {
+        send('SIGN_OUT');
+      }
+      break;
+  }
+};
+
 /**
  * Listens to external auth Hub events and sends corresponding event to
  * the `authService` of interest
@@ -40,18 +62,11 @@ export const censorPhoneNumber = (val: string): string => {
  *
  * @returns function that unsubscribes to the hub evenmt
  */
-export const listenToAuthHub = (send: AuthMachineSend) => {
+export const listenToAuthHub = (
+  service: AuthInterpreter,
+  handler: HubHandler = defaultAuthHubHandler
+) => {
   return Hub.listen('auth', (data) => {
-    switch (data.payload.event) {
-      // TODO: We can add more cases here, according to
-      // https://docs.amplify.aws/lib/auth/auth-events/q/platform/js/
-      case 'tokenRefresh':
-        send('TOKEN_REFRESH');
-        break;
-      case 'signOut':
-      case 'tokenRefresh_failure':
-        send('SIGN_OUT');
-        break;
-    }
+    handler(data, service);
   });
 };
