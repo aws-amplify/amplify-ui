@@ -11,7 +11,12 @@ export const DescriptiveTextExample = () => (
       defaultCountryCode="+1"
       label="Phone Number"
       descriptiveText={
-        <Text color="rebeccapurple" fontStyle="normal" fontSize="1.2rem">
+        <Text
+          color="rebeccapurple"
+          fontStyle="normal"
+          fontSize="1.2rem"
+          as="span"
+        >
           This is customized descriptive text
         </Text>
       }
