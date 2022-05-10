@@ -1,6 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
 import { FieldDescription, FieldErrorMessage } from '../Field';
 import { FieldGroup } from '../FieldGroup';
@@ -87,6 +88,7 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
     <Flex
       className={classNames(
         ComponentClassNames.Field,
+        classNameModifier(ComponentClassNames.Field, size),
         ComponentClassNames.StepperField,
         className
       )}
@@ -118,7 +120,13 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
             ariaLabel={`${SharedText.StepperField.ariaLabel.DecreaseTo} ${
               value - step
             }`}
-            className={ComponentClassNames.StepperFieldButtonDecrease}
+            className={classNames(
+              ComponentClassNames.StepperFieldButtonDecrease,
+              classNameModifier(
+                ComponentClassNames.StepperFieldButtonDecrease,
+                variation
+              )
+            )}
             data-invalid={hasError}
             isDisabled={shouldDisableDecreaseButton}
             onClick={handleDecrease}
@@ -133,7 +141,13 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
             ariaLabel={`${SharedText.StepperField.ariaLabel.IncreaseTo} ${
               value + step
             }`}
-            className={ComponentClassNames.StepperFieldButtonIncrease}
+            className={classNames(
+              ComponentClassNames.StepperFieldButtonIncrease,
+              classNameModifier(
+                ComponentClassNames.StepperFieldButtonIncrease,
+                variation
+              )
+            )}
             data-invalid={hasError}
             isDisabled={shouldDisableIncreaseButton}
             onClick={handleIncrease}
