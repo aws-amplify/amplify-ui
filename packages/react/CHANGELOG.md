@@ -1,5 +1,53 @@
 # @aws-amplify/ui-react
 
+## 2.17.0
+
+### Minor Changes
+
+- [#1791](https://github.com/aws-amplify/amplify-ui/pull/1791) [`2f6adb494`](https://github.com/aws-amplify/amplify-ui/commit/2f6adb4949181e522eb0eded96b3cca52123fcdd) Thanks [@slaymance](https://github.com/slaymance)! - Add forward ref functionality to MapView
+
+### Patch Changes
+
+- [#1772](https://github.com/aws-amplify/amplify-ui/pull/1772) [`9c25f80b6`](https://github.com/aws-amplify/amplify-ui/commit/9c25f80b6f4c84e0e1727873e3dd78b3ce5684a0) Thanks [@jacoblogan](https://github.com/jacoblogan)! - Refactor of styling to flatten css selectors across angular, react, and vue
+
+* [#1859](https://github.com/aws-amplify/amplify-ui/pull/1859) [`a130303af`](https://github.com/aws-amplify/amplify-ui/commit/a130303af84a68cd77ab80de6ee32e90b480a6b4) Thanks [@ErikCH](https://github.com/ErikCH)! - Added a translatable text for errors on the Force new password page
+
+* Updated dependencies [[`e9ae76995`](https://github.com/aws-amplify/amplify-ui/commit/e9ae7699589ec005475b4fc16dac7164ad9e0caa), [`9c25f80b6`](https://github.com/aws-amplify/amplify-ui/commit/9c25f80b6f4c84e0e1727873e3dd78b3ce5684a0)]:
+  - @aws-amplify/ui@3.8.2
+
+## 2.16.2
+
+### Patch Changes
+
+- [#1835](https://github.com/aws-amplify/amplify-ui/pull/1835) [`286e7df79`](https://github.com/aws-amplify/amplify-ui/commit/286e7df790a103d164cd8424161a9cd6dc4483e3) Thanks [@reesscot](https://github.com/reesscot)! - Fix ScrollView to only show scrollbars when content overflows
+
+* [#1850](https://github.com/aws-amplify/amplify-ui/pull/1850) [`06b900ff7`](https://github.com/aws-amplify/amplify-ui/commit/06b900ff719fb8ddabd8c85e78784716aa31e181) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(ui-react): remove optional flag from render child prop in RouterProps
+
+* Updated dependencies [[`286e7df79`](https://github.com/aws-amplify/amplify-ui/commit/286e7df790a103d164cd8424161a9cd6dc4483e3)]:
+  - @aws-amplify/ui@3.8.1
+
+## 2.16.1
+
+### Patch Changes
+
+- [#1829](https://github.com/aws-amplify/amplify-ui/pull/1829) [`4c6ca0abd`](https://github.com/aws-amplify/amplify-ui/commit/4c6ca0abd73a6b7df51193c27223ac2befb43c9a) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui-react): update eslint config
+
+* [#1838](https://github.com/aws-amplify/amplify-ui/pull/1838) [`8efa2b238`](https://github.com/aws-amplify/amplify-ui/commit/8efa2b238319f591e0397f89d302dcda9bb6aa8a) Thanks [@ErikCH](https://github.com/ErikCH)! - Fixed bug with MS Authenticator not working with Setup TOTP page
+
+* Updated dependencies [[`b1656e136`](https://github.com/aws-amplify/amplify-ui/commit/b1656e13612b5a748cc19be6eeeb44bf70822fda), [`f2ab1b8e4`](https://github.com/aws-amplify/amplify-ui/commit/f2ab1b8e468597e7b81284b46cd4b03dcd02e201)]:
+  - @aws-amplify/ui@3.8.0
+
+## 2.16.0
+
+### Minor Changes
+
+- [#1811](https://github.com/aws-amplify/amplify-ui/pull/1811) [`78857c29e`](https://github.com/aws-amplify/amplify-ui/commit/78857c29e6e1f0ec501c017a5cbb83710a1f8f3d) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui-react): refactor Authenticator Router, add RouteContainer
+
+### Patch Changes
+
+- Updated dependencies [[`3e5b93e25`](https://github.com/aws-amplify/amplify-ui/commit/3e5b93e25b8e410497332eedf194d2871acb3e79)]:
+  - @aws-amplify/ui@3.7.0
+
 ## 2.15.8
 
 ### Patch Changes

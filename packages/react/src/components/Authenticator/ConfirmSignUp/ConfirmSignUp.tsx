@@ -9,8 +9,9 @@ import { useCustomComponents } from '../hooks/useCustomComponents';
 import { useFormHandlers } from '../hooks/useFormHandlers';
 import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { FormFields } from '../shared/FormFields';
+import { RouteContainer, RouteProps } from '../RouteContainer';
 
-export function ConfirmSignUp() {
+export function ConfirmSignUp({ className, variation }: RouteProps) {
   const {
     isPending,
     resendCode,
@@ -52,43 +53,45 @@ export function ConfirmSignUp() {
 
   return (
     // TODO Automatically add these namespaces again from `useAmplify`
-    <form
-      data-amplify-form=""
-      data-amplify-authenticator-confirmsignup=""
-      method="post"
-      onChange={handleChange}
-      onSubmit={handleSubmit}
-    >
-      <Flex as="fieldset" direction="column" isDisabled={isPending}>
-        <Header />
+    <RouteContainer className={className} variation={variation}>
+      <form
+        data-amplify-form=""
+        data-amplify-authenticator-confirmsignup=""
+        method="post"
+        onChange={handleChange}
+        onSubmit={handleSubmit}
+      >
+        <Flex as="fieldset" direction="column" isDisabled={isPending}>
+          <Header />
 
-        <Flex direction="column">
-          <Text className="amplify-authenticator__subtitle">
-            {subtitleText}
-          </Text>
+          <Flex direction="column">
+            <Text className="amplify-authenticator__subtitle">
+              {subtitleText}
+            </Text>
 
-          <FormFields route="confirmSignUp" />
+            <FormFields />
 
-          <RemoteErrorMessage />
+            <RemoteErrorMessage />
 
-          <Button
-            variation="primary"
-            isDisabled={isPending}
-            type="submit"
-            loadingText={translate('Confirming')}
-            isLoading={isPending}
-            fontWeight="normal"
-          >
-            {translate('Confirm')}
-          </Button>
+            <Button
+              variation="primary"
+              isDisabled={isPending}
+              type="submit"
+              loadingText={translate('Confirming')}
+              isLoading={isPending}
+              fontWeight="normal"
+            >
+              {translate('Confirm')}
+            </Button>
 
-          <Button onClick={resendCode} type="button" fontWeight="normal">
-            {translate('Resend Code')}
-          </Button>
+            <Button onClick={resendCode} type="button" fontWeight="normal">
+              {translate('Resend Code')}
+            </Button>
+          </Flex>
+          <Footer />
         </Flex>
-        <Footer />
-      </Flex>
-    </form>
+      </form>
+    </RouteContainer>
   );
 }
 

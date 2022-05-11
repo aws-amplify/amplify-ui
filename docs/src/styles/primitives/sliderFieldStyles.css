@@ -1,6 +1,6 @@
 .global-styling-slider {
-  --amplify-components-sliderfield-track-background-color: var(
-    --amplify-colors-purple-80
+  --amplify-components-sliderfield-range-background-color: var(
+    --amplify-colors-orange-60
   );
 }
 

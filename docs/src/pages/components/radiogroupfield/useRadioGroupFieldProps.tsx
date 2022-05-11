@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { RadioGroupFieldProps } from '@aws-amplify/ui-react';
+import { RadioGroupField, RadioGroupFieldProps } from '@aws-amplify/ui-react';
 
 import { RadioGroupFieldPropControlsProps } from './RadioGroupFieldPropControls';
+import { demoState } from '@/utils/demoState';
 
 interface UseRadioGroupFieldProps {
   (initialValues?: RadioGroupFieldProps): RadioGroupFieldPropControlsProps;
@@ -26,22 +27,50 @@ export const useRadioGroupFieldProps: UseRadioGroupFieldProps = (
     initialValues.size
   );
   const [labelPosition, setLabelPosition] = React.useState<
-    RadioProps['labelPosition']
+    RadioGroupFieldProps['labelPosition']
   >(initialValues.labelPosition);
 
-  return {
-    ...initialValues,
-    direction,
-    label,
-    labelPosition,
-    name,
-    size,
-    isDisabled,
-    setDirection,
-    setIsDisabled,
-    setLabel,
-    setName,
-    setSize,
-    setLabelPosition,
-  };
+  React.useEffect(() => {
+    demoState.set(RadioGroupField.displayName, {
+      direction,
+      isDisabled,
+      label,
+      name,
+      size,
+      labelPosition,
+    });
+  }, [direction, isDisabled, label, name, size, labelPosition]);
+
+  return React.useMemo(
+    () => ({
+      ...initialValues,
+      direction,
+      label,
+      labelPosition,
+      name,
+      size,
+      isDisabled,
+      setDirection,
+      setIsDisabled,
+      setLabel,
+      setName,
+      setSize,
+      setLabelPosition,
+    }),
+    [
+      initialValues,
+      direction,
+      label,
+      labelPosition,
+      name,
+      size,
+      isDisabled,
+      setDirection,
+      setIsDisabled,
+      setLabel,
+      setName,
+      setSize,
+      setLabelPosition,
+    ]
+  );
 };

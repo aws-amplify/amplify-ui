@@ -58,7 +58,7 @@ export const META_INFO: MetaInfo = {
     description: 'Image can be used to display responsive images - Amplify UI',
   },
   '/components/scrollview': {
-    title: 'Scrollview',
+    title: 'Scroll View',
     description:
       'ScrollView is a View component that allows scrolling of its inner contents - Amplify UI',
   },
@@ -117,60 +117,60 @@ export const META_INFO: MetaInfo = {
       'Button is used to trigger an action or event, such as submitting a form, opening a dialog, canceling an action, or performing a delete operation - Amplify UI',
   },
   '/components/checkboxfield': {
-    title: 'Checkboxfield',
+    title: 'Checkbox Field',
     description:
       'CheckboxField is used to mark an individual item as selected, or to select multiple items from a list of individual items - Amplify UI',
   },
   '/components/passwordfield': {
-    title: 'Passwordfield',
+    title: 'Password Field',
     description:
       'PasswordField allows users to input passwords, featuring full password manager support and an optional show/hide password button for user convenience - Amplify UI',
   },
   '/components/phonenumberfield': {
-    title: 'Phonenumberfield',
+    title: 'Phone Number Field',
     description:
       'PhoneNumberField allow users to input a phone number - Amplify UI',
   },
   '/components/radiogroupfield': {
-    title: 'Radiogroupfield',
+    title: 'Radio Group Field',
     description:
       'RadioGroupField allows users to select a single option from a list of mutually exclusive options - Amplify UI',
   },
   '/components/searchfield': {
-    title: 'Searchfield',
+    title: 'Search Field',
     description: 'SearchField accepts query text for search - Amplify UI',
   },
   '/components/selectfield': {
-    title: 'selectfield',
+    title: 'Select Field',
     description:
       'SelectField allows users to create a drop-down list - Amplify UI',
   },
   '/components/sliderfield': {
-    title: 'sliderfield',
+    title: 'Slider Field',
     description:
       'Slider allows users to quickly select a value within a range. It should be used when the upper and lower bounds to the range are invariable - Amplify UI',
   },
   '/components/stepperfield': {
-    title: 'stepperfield',
+    title: 'Stepper Field',
     description:
       'StepperField is a number input with buttons to increase or decrease the value - Amplify UI',
   },
   '/components/switchfield': {
-    title: 'switchfield',
+    title: 'Switch Field',
     description:
       'SwitchField is a toggleable input type with a checked (on) and unchecked (off) state - Amplify UI',
   },
   '/components/textfield': {
-    title: 'textfield',
+    title: 'Text Field',
     description: 'TextField allows users to input text content - Amplify UI',
   },
   '/components/textareafield': {
-    title: 'textareafield',
+    title: 'TextArea Field',
     description:
       'TextAreaField allows users to input multiline text content - Amplify UI',
   },
   '/components/togglebutton': {
-    title: 'togglebutton',
+    title: 'Toggle Button',
     description:
       'ToggleButton represents an on/off state for some configuration, such switching on/off bold text in a text editor - Amplify UI',
   },
@@ -214,7 +214,7 @@ export const META_INFO: MetaInfo = {
       'Rating displays a read-only star rating of a product or service - Amplify UI',
   },
   '/components/visuallyhidden': {
-    title: 'VisuallyHidden',
+    title: 'Visually Hidden',
     description:
       'VisuallyHidden can be used to visually hide content while leaving it available for screen readers - Amplify UI',
   },

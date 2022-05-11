@@ -45,7 +45,11 @@ export const listenToAuthHub = (send: AuthMachineSend) => {
     switch (data.payload.event) {
       // TODO: We can add more cases here, according to
       // https://docs.amplify.aws/lib/auth/auth-events/q/platform/js/
+      case 'tokenRefresh':
+        send('TOKEN_REFRESH');
+        break;
       case 'signOut':
+      case 'tokenRefresh_failure':
         send('SIGN_OUT');
         break;
     }

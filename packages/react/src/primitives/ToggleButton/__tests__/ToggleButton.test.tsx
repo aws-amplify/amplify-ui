@@ -23,6 +23,36 @@ describe('ToggleButton: ', () => {
     );
   });
 
+  it('should render variation classes for ToggleButton', async () => {
+    render(
+      <div>
+        <ToggleButton variation="primary" testId="primary">
+          primary
+        </ToggleButton>
+        <ToggleButton variation="link" testId="link">
+          link
+        </ToggleButton>
+        <ToggleButton variation="menu" testId="menu">
+          menu
+        </ToggleButton>
+      </div>
+    );
+
+    const primary = await screen.findByTestId('primary');
+    const link = await screen.findByTestId('link');
+    const menu = await screen.findByTestId('menu');
+
+    expect(primary.classList).toContain(
+      `${ComponentClassNames['ToggleButton']}--primary`
+    );
+    expect(link.classList).toContain(
+      `${ComponentClassNames['ToggleButton']}--link`
+    );
+    expect(menu.classList).toContain(
+      `${ComponentClassNames['ToggleButton']}--menu`
+    );
+  });
+
   it('should set size and variation correctly', async () => {
     render(<ToggleButton size="large" variation="primary" />);
     const toggleButton = await screen.findByRole('button');
