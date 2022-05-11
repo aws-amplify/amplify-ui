@@ -5,7 +5,7 @@ export const SwitchFieldTrackCheckedColorExample = () => {
   return (
     <SwitchField
       label="This is a switch"
-      trackColor={`${tokens.colors.green[60]}`}
+      trackCheckedColor={`${tokens.colors.green[60]}`}
       defaultChecked={true}
     />
   );

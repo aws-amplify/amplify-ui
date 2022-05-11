@@ -57,7 +57,14 @@ const NavLink = ({
 };
 
 const Nav = (props) => (
-  <Flex as="nav" className="docs-nav" alignItems="center" gap="0" grow="1">
+  <Flex
+    as="nav"
+    aria-label="Main navigation"
+    className="docs-nav"
+    alignItems="center"
+    gap="0"
+    grow="1"
+  >
     <NavLink {...props} href="/getting-started/installation">
       Getting started
     </NavLink>
@@ -94,15 +101,15 @@ const ColorModeSwitcher = ({ colorMode, setColorMode }) => {
       isSelectionRequired
       className="color-switcher"
     >
-      <ToggleButton value="light">
+      <ToggleButton value="light" title="Light mode">
         <VisuallyHidden>Light mode</VisuallyHidden>
         <MdWbSunny />
       </ToggleButton>
-      <ToggleButton value="dark">
+      <ToggleButton value="dark" title="Dark mode">
         <VisuallyHidden>Dark mode</VisuallyHidden>
         <MdBedtime />
       </ToggleButton>
-      <ToggleButton value="system">
+      <ToggleButton value="system" title="System preferences">
         <VisuallyHidden>System preference</VisuallyHidden>
         <MdTonality />
       </ToggleButton>
@@ -156,7 +163,7 @@ export const Header = ({ platform, colorMode, setColorMode }) => {
           </Flex>
 
           <Nav onClick={() => setExpanded(false)} />
-          <nav className="docs-sidebar-nav">
+          <nav aria-label="Section navigation" className="docs-sidebar-nav">
             <SecondaryNav onClick={() => setExpanded(false)} />
           </nav>
         </View>

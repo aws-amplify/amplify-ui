@@ -1,5 +1,51 @@
 # @aws-amplify/ui
 
+## 3.8.2
+
+### Patch Changes
+
+- [#1867](https://github.com/aws-amplify/amplify-ui/pull/1867) [`e9ae76995`](https://github.com/aws-amplify/amplify-ui/commit/e9ae7699589ec005475b4fc16dac7164ad9e0caa) Thanks [@wlee221](https://github.com/wlee221)! - This patch ensures refresh tokens are handled properly after expiration.
+
+  Refresh tokens are used to refresh your idToken and accessToken. While it's uncommon for refresh tokens to expire in app due to their longevity (default 30 days), this would cause an early `tokenRefresh_failure` event on refresh which previously confused the authenticator. This is now handled properly from the Authenticator.
+
+  See https://github.com/aws-amplify/amplify-ui/pull/1863 for technical details. Note that token refresh is attempted when (1) on refresh, and (2) an Amplify API call is attempted but it gets back a token expiration exception.
+
+* [#1772](https://github.com/aws-amplify/amplify-ui/pull/1772) [`9c25f80b6`](https://github.com/aws-amplify/amplify-ui/commit/9c25f80b6f4c84e0e1727873e3dd78b3ce5684a0) Thanks [@jacoblogan](https://github.com/jacoblogan)! - Refactor of styling to flatten css selectors across angular, react, and vue
+
+## 3.8.1
+
+### Patch Changes
+
+- [#1835](https://github.com/aws-amplify/amplify-ui/pull/1835) [`286e7df79`](https://github.com/aws-amplify/amplify-ui/commit/286e7df790a103d164cd8424161a9cd6dc4483e3) Thanks [@reesscot](https://github.com/reesscot)! - Fix ScrollView to only show scrollbars when content overflows
+
+## 3.8.0
+
+### Minor Changes
+
+- [#1809](https://github.com/aws-amplify/amplify-ui/pull/1809) [`f2ab1b8e4`](https://github.com/aws-amplify/amplify-ui/commit/f2ab1b8e468597e7b81284b46cd4b03dcd02e201) Thanks [@wlee221](https://github.com/wlee221)! - feat(authenticator): listen to tokenRefresh events
+
+### Patch Changes
+
+- [#1833](https://github.com/aws-amplify/amplify-ui/pull/1833) [`b1656e136`](https://github.com/aws-amplify/amplify-ui/commit/b1656e13612b5a748cc19be6eeeb44bf70822fda) Thanks [@ErikCH](https://github.com/ErikCH)! - Fixed bug with reset password for phone
+
+## 3.7.0
+
+### Minor Changes
+
+- [#1804](https://github.com/aws-amplify/amplify-ui/pull/1804) [`3e5b93e25`](https://github.com/aws-amplify/amplify-ui/commit/3e5b93e25b8e410497332eedf194d2871acb3e79) Thanks [@ErikCH](https://github.com/ErikCH)! - New authStatus feature, to check if a user is authenticated or not
+
+## 3.6.8
+
+### Patch Changes
+
+- [#1798](https://github.com/aws-amplify/amplify-ui/pull/1798) [`331df831f`](https://github.com/aws-amplify/amplify-ui/commit/331df831fd7ddeb8c6f28b4cb385d23d1aa524be) Thanks [@wlee221](https://github.com/wlee221)! - fix(react): Add compatibility with React 18 `useSyncExternalStore` hook
+
+## 3.6.7
+
+### Patch Changes
+
+- [#1762](https://github.com/aws-amplify/amplify-ui/pull/1762) [`cd710a07c`](https://github.com/aws-amplify/amplify-ui/commit/cd710a07c52c1db57899eaf3feba4fde52c08df2) Thanks [@jacoblogan](https://github.com/jacoblogan)! - remove inline styling from react authenticator
+
 ## 3.6.6
 
 ### Patch Changes

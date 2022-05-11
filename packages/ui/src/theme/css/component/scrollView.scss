@@ -1,13 +1,14 @@
 .amplify-scrollview {
   display: block;
   overflow: scroll;
-
-  &[data-orientation='horizontal'] {
+  // @TODO: Deprecated - Remove in 3.0
+  &--horizontal {
     overflow-x: scroll;
     overflow-y: initial;
   }
-
-  &[data-orientation='vertical'] {
+  // @TODO: Deprecated - Remove in 3.0
+  &--vertical {
+    // @TODO: Deprecated - Remove in 3.0
     overflow-x: initial;
     overflow-y: scroll;
   }

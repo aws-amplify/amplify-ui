@@ -24,6 +24,17 @@ describe('Switch Field', () => {
       expect(wrapper).toHaveClass('my-switch');
     });
 
+    it('should render the position classes on SwitchField', async () => {
+      const { container } = render(
+        <SwitchField label={label} labelPosition="top" />
+      );
+
+      const wrapper = container.getElementsByClassName(
+        ComponentClassNames.SwitchWrapper
+      )[0];
+      expect(wrapper).toHaveClass(`${ComponentClassNames.SwitchWrapper}--top`);
+    });
+
     it('should forward ref to DOM element', async () => {
       const ref = React.createRef<HTMLDivElement>();
       render(<SwitchField testId="testId" label={label} ref={ref} />);
@@ -226,6 +237,22 @@ describe('Switch Field', () => {
   });
 
   describe('Switch Track', () => {
+    it('should render the state classes on SwitchField', async () => {
+      const { container } = render(
+        <SwitchField label={label} isChecked={true} isDisabled={true} />
+      );
+
+      const wrapper = container.getElementsByClassName(
+        ComponentClassNames.SwitchTrack
+      )[0];
+      expect(wrapper).toHaveClass(
+        `${ComponentClassNames.SwitchTrack}--checked`
+      );
+      expect(wrapper).toHaveClass(
+        `${ComponentClassNames.SwitchTrack}--disabled`
+      );
+    });
+
     it('should set the track color for the unchecked switch', async () => {
       const { container } = render(
         <SwitchField label={label} trackColor="red" />

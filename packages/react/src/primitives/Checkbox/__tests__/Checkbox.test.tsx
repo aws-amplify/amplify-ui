@@ -10,6 +10,7 @@ import {
   testFlexProps,
   expectFlexContainerStyleProps,
 } from '../../Flex/__tests__/Flex.test';
+import { useTestId } from '../../utils/testUtils';
 
 describe('Checkbox test suite', () => {
   const basicProps = {
@@ -22,6 +23,48 @@ describe('Checkbox test suite', () => {
   const getCheckbox = (props: PrimitiveProps<CheckboxProps, 'input'>) => {
     return <Checkbox {...props} />;
   };
+
+  it('should render checkbox states', async () => {
+    render(
+      <div>
+        <Checkbox
+          label="disabled"
+          name="disabled"
+          value="disabled"
+          isDisabled={true}
+          testId="disabled"
+        />
+        <Checkbox
+          label="error"
+          name="error"
+          value="error"
+          hasError={true}
+          testId="error"
+        />
+        <Checkbox
+          label="checked"
+          name="checked"
+          value="checked"
+          checked={true}
+          testId="checked"
+        />
+      </div>
+    );
+
+    const disabled = await screen.findByTestId('disabled');
+    const error = await screen.findByTestId(`error-amplify-checkbox__button`);
+    const checked = await screen.findByTestId(`checked-amplify-checkbox__icon`);
+
+    expect(disabled.classList).toContain(
+      `${ComponentClassNames['Checkbox']}--disabled`
+    );
+    expect(error.classList).toContain(
+      `${ComponentClassNames['CheckboxButton']}--error`
+    );
+    expect(checked.classList).toContain(
+      `${ComponentClassNames['CheckboxIcon']}--checked`
+    );
+  });
 
   it('should render basic props correctly', async () => {
     render(getCheckbox({ ...basicProps }));

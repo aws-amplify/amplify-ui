@@ -3,4 +3,4 @@
 "@aws-amplify/ui": patch
 ---
 
-remove inline styling from react authenticator
+fix(style): fix PasswordField and SearchField quiet styling

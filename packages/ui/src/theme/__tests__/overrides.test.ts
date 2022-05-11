@@ -400,8 +400,6 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-link-color: var(--amplify-colors-font-interactive);
         --amplify-components-link-focus-color: var(--amplify-colors-font-focus);
         --amplify-components-link-hover-color: var(--amplify-colors-font-hover);
-        --amplify-components-link-large-font-size: var(--amplify-font-sizes-large);
-        --amplify-components-link-small-font-size: var(--amplify-font-sizes-small);
         --amplify-components-link-visited-color: var(--amplify-colors-font-interactive);
         --amplify-components-loader-width: var(--amplify-font-sizes-medium);
         --amplify-components-loader-height: var(--amplify-font-sizes-medium);

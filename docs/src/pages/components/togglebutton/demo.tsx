@@ -5,6 +5,7 @@ import { ToggleButton, ToggleButtonProps } from '@aws-amplify/ui-react';
 import { Demo } from '@/components/Demo';
 import { ToggleButtonPropControls } from './ToggleButtonPropControls';
 import { useToggleButtonProps } from './useToggleButtonProps';
+import { demoState } from '@/utils/demoState';
 
 const propsToCode = (props: ToggleButtonProps) => {
   return (
@@ -17,10 +18,15 @@ const propsToCode = (props: ToggleButtonProps) => {
   );
 };
 
+const defaultToggleButtonProps = {
+  isDisabled: false,
+};
+
 export const ToggleButtonDemo = () => {
-  const props = useToggleButtonProps({
-    isDisabled: false,
-  });
+  const props = useToggleButtonProps(
+    demoState.get(ToggleButton.displayName) || defaultToggleButtonProps
+  );
+
   return (
     <Demo
       code={propsToCode(props)}

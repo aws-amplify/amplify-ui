@@ -14,6 +14,45 @@ describe('Input component', () => {
     expect(input).toHaveClass(ComponentClassNames.Input);
   });
 
+  it('should render variation classes for Input', async () => {
+    render(
+      <div>
+        <Input testId="quiet" variation="quiet" />
+      </div>
+    );
+
+    const quiet = await screen.findByTestId('quiet');
+
+    expect(quiet.classList).toContain(`${ComponentClassNames['Input']}--quiet`);
+  });
+
+  it('should render error classes for Input', async () => {
+    render(
+      <div>
+        <Input testId="error" hasError={true} />
+      </div>
+    );
+
+    const error = await screen.findByTestId('error');
+
+    expect(error.classList).toContain(`${ComponentClassNames['Input']}--error`);
+  });
+
+  it('should render size classes for Input', async () => {
+    render(
+      <div>
+        <Input testId="small" size="small" />
+        <Input testId="large" size="large" />
+      </div>
+    );
+
+    const small = await screen.findByTestId('small');
+    const large = await screen.findByTestId('large');
+
+    expect(small.classList).toContain(`${ComponentClassNames['Input']}--small`);
+    expect(large.classList).toContain(`${ComponentClassNames['Input']}--large`);
+  });
+
   it('should render expected classname, id Input field', async () => {
     render(
       <Input

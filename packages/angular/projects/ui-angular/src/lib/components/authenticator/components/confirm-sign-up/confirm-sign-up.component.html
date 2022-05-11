@@ -6,7 +6,10 @@
       [disabled]="context.isPending"
     >
       <amplify-slot name="confirm-sign-up-header" [context]="context">
-        <h3 class="amplify-heading amplify-authenticator__heading">
+        <h3
+          class="amplify-heading amplify-authenticator__heading"
+          style="font-size: 1.5rem"
+        >
           {{ confirmSignUpHeading }}
         </h3>
       </amplify-slot>
