@@ -8,16 +8,15 @@ import {
 import { useCustomRouter } from '../../components/useCustomRouter';
 
 export const FrameworkChooser = ({ platform }) => {
-  const router = useCustomRouter();
+  const { replace, pathname } = useCustomRouter();
 
-  const chooseFramework = (framework) => {
+  const chooseFramework = (platform) => {
     const { hash } = window.location;
-
-    router.replace(
+    replace(
       {
         hash,
-        pathname: router.pathname,
-        query: { platform: framework },
+        pathname: pathname === '/' ? '/[platform]' : pathname,
+        query: { platform },
       },
       // `as?` prop  isn't needed when URL is already provided
       undefined,
