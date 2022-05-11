@@ -21,8 +21,8 @@
     "prepare": "husky install",
     "version:next": "yarn changeset version --snapshot next-$(git rev-parse --short=7 HEAD) && yarn angular build",
     "publish:next": "yarn changeset publish --tag next",
-    "version:studio": "yarn changeset version --snapshot studio-$(git rev-parse --short=7 HEAD) && yarn angular build",
-    "publish:studio": "yarn changeset publish --tag studio",
+    "version:studio": "echo \"[POC] Mock version step \"",
+    "publish:studio": "echo \"[POC] Mock publish step \"",
     "version:latest": "yarn changeset version && yarn angular build",
     "publish:latest": "yarn changeset publish"
   },

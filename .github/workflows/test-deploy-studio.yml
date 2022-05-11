@@ -7,8 +7,8 @@ concurrency:
   cancel-in-progress: true
 
 on:
-  push:
-    branches: [studio]
+  pull_request:
+    branches: [main]
 
 jobs:
   setup:
@@ -317,11 +317,11 @@ jobs:
         run: cp .github/changeset-presets/bump-react.md .changeset
       - name: Run changeset version to studio tag
         run: yarn version:studio
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Create .npmrc
-        run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        # env:
+        #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Create .npmrc
+      #   run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
+      #   env:
+      #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish to studio tag
         run: yarn publish:studio
