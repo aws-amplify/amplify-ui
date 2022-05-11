@@ -16,6 +16,7 @@ const FieldGroupPrimitive: Primitive<FieldGroupOptions, typeof Flex> = (
     orientation = 'horizontal',
     outerEndComponent,
     outerStartComponent,
+    variation,
     ...rest
   },
   ref
@@ -45,7 +46,15 @@ const FieldGroupPrimitive: Primitive<FieldGroupOptions, typeof Flex> = (
       {...rest}
     >
       {outerStartComponent && (
-        <View className={ComponentClassNames.FieldGroupOuterStart}>
+        <View
+          className={classNames(
+            ComponentClassNames.FieldGroupOuterStart,
+            classNameModifier(
+              ComponentClassNames.FieldGroupOuterStart,
+              variation
+            )
+          )}
+        >
           {outerStartComponent}
         </View>
       )}
@@ -73,7 +82,12 @@ const FieldGroupPrimitive: Primitive<FieldGroupOptions, typeof Flex> = (
       </View>
 
       {outerEndComponent && (
-        <View className={ComponentClassNames.FieldGroupOuterEnd}>
+        <View
+          className={classNames(
+            ComponentClassNames.FieldGroupOuterEnd,
+            classNameModifier(ComponentClassNames.FieldGroupOuterEnd, variation)
+          )}
+        >
           {outerEndComponent}
         </View>
       )}
