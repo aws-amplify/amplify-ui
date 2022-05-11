@@ -19,4 +19,5 @@ export interface PhoneNumberFieldProps extends TextInputFieldProps {
 export interface CountryCodeSelectProps extends SelectFieldProps {
   defaultValue: string;
   dialCodeList?: Array<string>;
+  isReadOnly?: boolean;
 }

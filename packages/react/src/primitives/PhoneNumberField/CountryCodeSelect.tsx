@@ -7,20 +7,21 @@ import { CountryCodeSelectProps, Primitive } from '../types';
 import { SelectField } from '../SelectField';
 
 const CountryCodeSelectPrimitive: Primitive<CountryCodeSelectProps, 'select'> =
-  ({ className, dialCodeList, ...props }, ref) => {
+  ({ className, dialCodeList, isReadOnly, ...props }, ref) => {
     const dialList = dialCodeList ?? countryDialCodes;
     const countryCodeOptions = React.useMemo(
       () =>
         dialList.map((dialCode) => (
-          <option key={dialCode} value={dialCode}>
+          <option key={dialCode} value={dialCode} disabled={isReadOnly}>
             {dialCode}
           </option>
         )),
-      [dialList]
+      [dialList, isReadOnly]
     );
 
     return (
       <SelectField
+        aria-disabled={isReadOnly}
         autoComplete="tel-country-code"
         className={classNames(ComponentClassNames.CountryCodeSelect, className)}
         labelHidden={true}

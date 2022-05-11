@@ -3,6 +3,8 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { PhoneNumberField } from '../PhoneNumberField';
+import { Flex } from '../../Flex';
+import { Button } from '../../Button';
 import { ComponentClassNames } from '../../shared/constants';
 
 describe('PhoneNumberField primitive', () => {
@@ -27,6 +29,34 @@ describe('PhoneNumberField primitive', () => {
         name: /country code/i,
       }),
     };
+  };
+
+  const originalLog = console.log;
+  console.log = jest.fn();
+
+  const ReadOnlyFormTest = () => {
+    const inputRef = React.useRef(null);
+    const countryCodeRef = React.useRef(null);
+
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      console.log(`${countryCodeRef.current.value} ${inputRef.current.value}`);
+    };
+
+    return (
+      <Flex as="form" onSubmit={handleSubmit}>
+        <PhoneNumberField
+          defaultCountryCode="+40"
+          defaultValue="1234567"
+          label="Read Only"
+          name="read_only_phone"
+          ref={inputRef}
+          countryCodeRef={countryCodeRef}
+          isReadOnly
+        />
+        <Button type="submit">Submit</Button>
+      </Flex>
+    );
   };
 
   it('should forward ref and countryCodeRef to DOM elements', async () => {
@@ -134,5 +164,25 @@ describe('PhoneNumberField primitive', () => {
     userEvent.selectOptions($countryCodeSelector, '+7');
 
     expect(onCountryCodeChange).toHaveBeenCalled();
+  });
+
+  it('should set aria-disabled="true" when the isReadOnly prop is passed, and disable all the select options', async () => {
+    const { $countryCodeSelector } = await setup({ isReadOnly: true });
+
+    expect($countryCodeSelector).toHaveAttribute('aria-disabled', 'true');
+
+    $countryCodeSelector.querySelectorAll('option').forEach((option) => {
+      expect(option).toHaveAttribute('disabled');
+    });
+  });
+
+  it('should still submit the form values when the isReadOnly prop is passed', async () => {
+    const { container } = render(<ReadOnlyFormTest />);
+
+    const button = container.getElementsByTagName('button')[0];
+    userEvent.click(button);
+    expect(console.log).toHaveBeenCalledWith('+40 1234567');
+
+    console.log = originalLog;
   });
 });
