@@ -1,6 +1,6 @@
 # This workflow will run unit, e2e, and docs tests on commits to main.
 
-name: Test and Publish / geo
+name: Test and Publish / studio
 
 concurrency:
   group: e2e-${{ github.sha }}
