@@ -38,14 +38,10 @@ const NavLink = ({
   isExternal?: boolean;
   onClick?: React.MouseEventHandler<HTMLAnchorElement>;
 }) => {
-  const {
-    pathname,
-    query: { platform },
-  } = useCustomRouter();
-
-  const isCurrent =
-    pathname.replace('[platform]', platform.toString()).startsWith(href) &&
-    href !== `/`;
+  const { pathname } = useCustomRouter();
+  const pathnameHeader = pathname.split('/')[2];
+  const hrefHeader = href.split('/')[2];
+  const isCurrent = pathnameHeader === hrefHeader && href !== `/`;
   const className = `docs-nav-link ${isCurrent ? 'current' : ''}`;
 
   if (isExternal) {
