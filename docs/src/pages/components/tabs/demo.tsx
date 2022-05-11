@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Tabs, TabItem, TabsProps, Button, View } from '@aws-amplify/ui-react';
+import { Tabs, TabItem, TabsProps } from '@aws-amplify/ui-react';
 
 import { Demo } from '@/components/Demo';
 import { TabsPropControls } from './TabsPropControls';
@@ -29,10 +29,6 @@ const propsToCode = (props) => {
   </TabItem>
 </Tabs>`
   );
-};
-
-export const DemoTabPanel = ({ children }) => {
-  return <View padding="var(--amplify-space-medium">{children}</View>;
 };
 
 const demoChildren = [
