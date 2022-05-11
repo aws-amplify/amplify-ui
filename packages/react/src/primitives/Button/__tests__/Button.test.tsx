@@ -27,16 +27,14 @@ describe('Button test suite', () => {
 
   it('should add the disabled class with the disabled attribute', async () => {
     render(
-      <div>
-        <Button disabled testId="disabled">
-          Disabled
-        </Button>
-      </div>
+      <Button disabled testId="disabled">
+        Disabled
+      </Button>
     );
 
     const disabled = await screen.findByTestId('disabled');
 
-    expect(disabled.classList).toContain('amplify-button--disabled');
+    expect(disabled).toHaveClass('amplify-button--disabled');
   });
 
   it('should render button variations', async () => {
