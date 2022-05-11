@@ -2,6 +2,22 @@ import { ExampleCode } from '@/components/Example';
 
 ## Dark mode with CSS variables
 
+To support the OS color mode preference, add the [`prefers-color-scheme` media query](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme) to your CSS:
+
+<ExampleCode>
+
+```css
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Insert your CSS variable overrides here */
+  }
+}
+```
+
+</ExampleCode>
+
+Here is example dark mode CSS that flips the default color palette
+
 <ExampleCode>
 
 ```css
