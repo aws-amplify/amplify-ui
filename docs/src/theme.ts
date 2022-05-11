@@ -35,6 +35,13 @@ export const theme: Theme = {
     {
       colorMode: 'dark',
       tokens: {
+        components: {
+          switchfield: {
+            thumb: {
+              backgroundColor: { value: '#fff' },
+            },
+          },
+        },
         colors: {
           red: flipPalette(defaultTheme.tokens.colors.red),
           orange: flipPalette(defaultTheme.tokens.colors.orange),
