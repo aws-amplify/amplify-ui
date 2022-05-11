@@ -9,6 +9,7 @@ import Head from 'next/head';
 import { Header } from '@/components/Layout/Header';
 import { META_INFO } from '@/data/meta'; // TODO: use data generated from pages.preval.ts instead
 import Script from 'next/script';
+import { capitalizeString } from '../utils/capitalizeString';
 import { theme } from '../theme';
 import { useCustomRouter } from '../components/useCustomRouter';
 
@@ -49,10 +50,11 @@ function MyApp({ Component, pageProps }) {
     <>
       <Head>
         <title>
-          {META_INFO[filepath]?.title} | {platform} | Amplify UI
+          {META_INFO[filepath]?.title} | {capitalizeString(platform)} - Amplify
+          UI
         </title>
         {['/', '/react'].includes(asPath) && (
-          <link rel="canonical" href={window.location.origin} />
+          <link rel="canonical" href="https://ui.docs.amplify.aws/" />
         )}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {META_INFO[filepath] && (
