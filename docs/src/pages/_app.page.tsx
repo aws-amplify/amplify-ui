@@ -19,6 +19,7 @@ if (typeof window === 'undefined') React.useLayoutEffect = React.useEffect;
 
 function MyApp({ Component, pageProps }) {
   const {
+    asPath,
     pathname,
     query: { platform = 'react' },
   } = useCustomRouter();
@@ -50,6 +51,9 @@ function MyApp({ Component, pageProps }) {
         <title>
           {META_INFO[filepath]?.title} | {platform} | Amplify UI
         </title>
+        {['/', '/react'].includes(asPath) && (
+          <link rel="canonical" href={window.location.origin} />
+        )}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {META_INFO[filepath] && (
           <meta name="description" content={META_INFO[filepath].description} />
