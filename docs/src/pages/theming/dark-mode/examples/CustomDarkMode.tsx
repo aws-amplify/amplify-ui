@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {
-  Theme,
   defaultTheme,
   AmplifyProvider,
   ColorMode,
@@ -12,7 +11,7 @@ import {
 
 export const CustomDarkModeExample = () => {
   const [colorMode, setColorMode] = React.useState<ColorMode>('system');
-  const theme: Theme = {
+  const theme = {
     name: 'my-theme',
     overrides: [
       {
@@ -20,19 +19,19 @@ export const CustomDarkModeExample = () => {
         tokens: {
           colors: {
             font: {
-              primary: { value: '{colors.white}' },
-              secondary: { value: '{colors.neutral.10}' },
-              tertiary: { value: '{colors.neutral.20}' },
+              primary: { value: '{colors.pink.100}' },
+              secondary: { value: '{colors.pink.90}' },
+              tertiary: { value: '{colors.pink.80}' },
             },
             background: {
-              primary: { value: '{colors.neutral.100}' },
-              secondary: { value: '{colors.neutral.90}' },
-              tertiary: { value: '{colors.neutral.80}' },
+              primary: { value: '{colors.purple.10}' },
+              secondary: { value: '{colors.purple.20}' },
+              tertiary: { value: '{colors.purple.40}' },
             },
             border: {
-              primary: { value: '{colors.neutral.60}' },
-              secondary: { value: '{colors.neutral.40}' },
-              tertiary: { value: '{colors.neutral.20}' },
+              primary: { value: '{colors.pink.60}' },
+              secondary: { value: '{colors.pink.40}' },
+              tertiary: { value: '{colors.pink.20}' },
             },
           },
         },
