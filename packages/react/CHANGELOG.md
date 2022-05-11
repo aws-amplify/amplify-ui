@@ -1,5 +1,20 @@
 # @aws-amplify/ui-react
 
+## 2.17.0
+
+### Minor Changes
+
+- [#1791](https://github.com/aws-amplify/amplify-ui/pull/1791) [`2f6adb494`](https://github.com/aws-amplify/amplify-ui/commit/2f6adb4949181e522eb0eded96b3cca52123fcdd) Thanks [@slaymance](https://github.com/slaymance)! - Add forward ref functionality to MapView
+
+### Patch Changes
+
+- [#1772](https://github.com/aws-amplify/amplify-ui/pull/1772) [`9c25f80b6`](https://github.com/aws-amplify/amplify-ui/commit/9c25f80b6f4c84e0e1727873e3dd78b3ce5684a0) Thanks [@jacoblogan](https://github.com/jacoblogan)! - Refactor of styling to flatten css selectors across angular, react, and vue
+
+* [#1859](https://github.com/aws-amplify/amplify-ui/pull/1859) [`a130303af`](https://github.com/aws-amplify/amplify-ui/commit/a130303af84a68cd77ab80de6ee32e90b480a6b4) Thanks [@ErikCH](https://github.com/ErikCH)! - Added a translatable text for errors on the Force new password page
+
+* Updated dependencies [[`e9ae76995`](https://github.com/aws-amplify/amplify-ui/commit/e9ae7699589ec005475b4fc16dac7164ad9e0caa), [`9c25f80b6`](https://github.com/aws-amplify/amplify-ui/commit/9c25f80b6f4c84e0e1727873e3dd78b3ce5684a0)]:
+  - @aws-amplify/ui@3.8.2
+
 ## 2.16.2
 
 ### Patch Changes

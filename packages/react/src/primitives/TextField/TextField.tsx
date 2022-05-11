@@ -42,6 +42,7 @@ const TextFieldPrimitive = <Multiline extends boolean>(
     type, // remove from rest to prevent passing as DOM attribute to textarea
     size,
     testId,
+    variation,
 
     bottom, // @TODO: remove custom destructuring for 3.0 release
     height, // @TODO: remove custom destructuring for 3.0 release
@@ -79,6 +80,7 @@ const TextFieldPrimitive = <Multiline extends boolean>(
         ref={isTextAreaRef(props, ref) ? ref : undefined}
         rows={rows ?? DEFAULT_ROW_COUNT}
         size={size}
+        variation={variation}
         {...baseStyleProps}
         {...rest}
       />
@@ -93,6 +95,7 @@ const TextFieldPrimitive = <Multiline extends boolean>(
         ref={isInputRef(props, ref) ? ref : undefined}
         size={size}
         type={type}
+        variation={variation}
         {...baseStyleProps}
         {...rest}
       />
@@ -132,6 +135,7 @@ const TextFieldPrimitive = <Multiline extends boolean>(
         outerEndComponent={outerEndComponent}
         innerStartComponent={innerStartComponent}
         innerEndComponent={innerEndComponent}
+        variation={variation}
       >
         {control}
       </FieldGroup>
