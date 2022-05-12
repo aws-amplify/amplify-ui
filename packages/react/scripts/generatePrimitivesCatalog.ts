@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+
 import { Node, Project, Symbol, Type, VariableDeclaration } from 'ts-morph';
 import {
   PrimitiveCatalog,
