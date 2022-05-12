@@ -88,23 +88,23 @@ export const SecondaryNav = (props) => {
     case 'theming':
       return (
         <>
-          <NavLink {...props} href={`/theming`}>
+          <NavLink {...props} href="/theming">
             Overview
           </NavLink>
           <NavLink
             {...props}
             platforms={['react', 'vue', 'angular']}
-            href={`/theming/responsive`}
+            href="/theming/responsive"
           >
             Responsive
           </NavLink>
-          <NavLink {...props} href={`/theming/dark-mode`}>
+          <NavLink {...props} href="/theming/dark-mode">
             Dark mode
           </NavLink>
           <NavLink
             {...props}
             platforms={['react', 'vue', 'angular']}
-            href={`/theming/alternative-styling`}
+            href="/theming/alternative-styling"
           >
             Alternative styling
           </NavLink>
@@ -113,22 +113,24 @@ export const SecondaryNav = (props) => {
     case 'guides':
       return (
         <>
-          <NavLink {...props} href={`/guides`}>
+          <NavLink {...props} href="/guides">
             Guides
           </NavLink>
-          <NavLink {...props} href={`/guides/auth-protected`}>
-            Protected Routes
-          </NavLink>
+          {platform === 'react' && (
+            <NavLink {...props} href="/guides/auth-protected">
+              Protected Routes
+            </NavLink>
+          )}
         </>
       );
     case 'getting-started':
       return (
         <>
-          <NavLink {...props} href={`/getting-started/installation`}>
+          <NavLink {...props} href="/getting-started/installation">
             Installation
           </NavLink>
           {platform !== 'flutter' && (
-            <NavLink {...props} href={`/getting-started/migration`}>
+            <NavLink {...props} href="/getting-started/migration">
               Migration
             </NavLink>
           )}
