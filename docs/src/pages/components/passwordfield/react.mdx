@@ -27,6 +27,7 @@ import {
   RequiredPasswordFieldExample,
   SignUpFormExample,
   SizeExample,
+  ThemeExample,
   ValidationErrorExample,
   VariationExample,
 } from './examples';
@@ -252,9 +253,32 @@ The following is an example demonstrating use of the `ref` and `showPasswordButt
 
 <ComponentStyleDisplay componentName="PasswordField" />
 
+### Theme
+
+You can customize the appearance of all PasswordField components in your application with a [Theme](/theming).
+
+<Example>
+  <ThemeExample />
+  <ExampleCode>
+
+```jsx file=./examples/ThemeExample.tsx
+
+```
+
+  </ExampleCode>
+</Example>
+
 ### Global styling
 
 To override styling on all TextField primitives, you can set the Amplify CSS variables or use the built-in `.amplify-textfield` class.
+
+<Example>
+  <PasswordField
+    label="Globally styled password field"
+    name="password"
+    className="globally-styled-textfield"
+  />
+  <ExampleCode>
 
 ```css
 /* styles.css */
@@ -267,12 +291,7 @@ To override styling on all TextField primitives, you can set the Amplify CSS var
 }
 ```
 
-<Example>
-  <PasswordField
-    label="Globally styled password field"
-    name="password"
-    className="globally-styled-textfield"
-  />
+  </ExampleCode>
 </Example>
 
 ### Local styling
@@ -280,6 +299,14 @@ To override styling on all TextField primitives, you can set the Amplify CSS var
 To override styling on a specific TextField, you can use a class selector or style props.
 
 _Using a class selector:_
+
+<Example>
+  <PasswordField
+    className="custom-passwordfield-class"
+    label="Square password field"
+    name="password"
+  />
+  <ExampleCode>
 
 ```css
 /* styles.css */
@@ -289,12 +316,7 @@ _Using a class selector:_
 }
 ```
 
-<Example>
-  <PasswordField
-    className="custom-passwordfield-class"
-    label="Square password field"
-    name="password"
-  />
+  </ExampleCode>
 </Example>
 
 _Using style props:_
@@ -305,9 +327,8 @@ Flex styling props will be applied to the PasswordField wrapping Flex component,
   <PasswordFieldStyledPropsExample />
   <ExampleCode>
 
-```jsx file=./examples/PasswordFieldStyledPropsExample.tsx
-
-```
+    ```jsx file=./examples/PasswordFieldStyledPropsExample.tsx
+    ```
 
   </ExampleCode>
 </Example>
