@@ -203,17 +203,17 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
             <Image
               alt=""
               className="docs-home-vue"
-              src="/svg/integrations/vue.svg"
-            />
-            <Image
-              alt=""
-              className="docs-home-react"
               src="/svg/integrations/react.svg"
             />
             <Image
               alt=""
-              className="docs-home-angular"
+              className="docs-home-react"
               src="/svg/integrations/angular.svg"
+            />
+            <Image
+              alt=""
+              className="docs-home-angular"
+              src="/svg/integrations/vue.svg"
             />
             <Image
               alt=""
