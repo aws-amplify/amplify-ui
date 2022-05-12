@@ -70,9 +70,22 @@ async function generateSitemap() {
 }
 
 function generateRobotsTxt() {
-  console.log('🤖▶️ robots.txt generating...');
-  const txt = `
-# *
+  const isProd = process.env.SITE_URL === 'https://ui.docs.amplify.aws';
+  console.log(
+    `🤖▶️ robots.txt generating for ${
+      isProd
+        ? 'Prod. Googlebot is allowed.'
+        : 'non-Prod. Googlebot is disallowed.'
+    }...`
+  );
+  const disallowTxt = `# *
+User-agent: Googlebot
+Disallow: /
+`;
+
+  const txt = `${
+    process.env.SITE_URL === 'https://ui.docs.amplify.aws' ? '' : disallowTxt
+  }
 User-agent: *
 Allow: /
 
