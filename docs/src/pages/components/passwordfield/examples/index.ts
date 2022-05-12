@@ -3,6 +3,7 @@ export { DefaultPasswordFieldExample } from './DefaultPasswordFieldExample';
 export { DescriptiveTextExample } from './DescriptiveTextExample';
 export { HidePasswordFieldExample } from './HidePasswordFieldExample';
 export { IsRequiredExample } from './IsRequiredExample';
+export { LabelHiddenExample } from './LabelHiddenExample';
 export { LoginFormExample } from './LoginFormExample';
 export { MaxLengthExample } from './MaxLengthExample';
 export { PasswordFieldStyledPropsExample } from './PasswordFieldStyledPropsExample';
