@@ -53,7 +53,7 @@ function MyApp({ Component, pageProps }) {
           {META_INFO[filepath]?.title} | {capitalizeString(platform)} - Amplify
           UI
         </title>
-        {['/', '/react'].includes(asPath) && (
+        {['/', '/react', '/angular', '/vue', '/flutter'].includes(asPath) && (
           <link rel="canonical" href="https://ui.docs.amplify.aws/" />
         )}
         <meta name="viewport" content="width=device-width, initial-scale=1" />

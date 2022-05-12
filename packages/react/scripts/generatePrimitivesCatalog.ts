@@ -1,3 +1,6 @@
+import fs from 'fs';
+import path from 'path';
+
 import { Node, Project, Symbol, Type, VariableDeclaration } from 'ts-morph';
 import {
   PrimitiveCatalog,
@@ -5,9 +8,6 @@ import {
   PrimitiveCatalogComponentProperty,
   PrimitiveCatalogComponentPropertyType,
 } from '../src/types/catalog';
-
-import fs from 'fs';
-import path from 'path';
 
 /**
  * Because our types have a lot of noise, we want to mark the important props.
