@@ -29,7 +29,7 @@ Import the Heading primitive.
 
 ### Heading levels
 
-Use the `level` prop to change the heading level (e.g., `h1 - h6`). Available options are `1`, `2`, `3`, `4`, `5` and `6`.
+Use the `level` prop to change the heading level (e.g., `h1 - h6`). Default heading level is `6` and available options are `1`, `2`, `3`, `4`, `5` and `6`.
 
 <Example>
   <HeadingLevelExample />
@@ -67,7 +67,7 @@ To override styling on all Headings, you can set the Amplify CSS variables or us
   </ExampleCode>
 </Example>
 
-Override styles for any `Heading` component `h1 - h6`
+Override styles for any `Heading` component `h1 - h6` using the `.amplify-heading--[LEVEL]` classes.
 
 <Example>
   <Heading fontSize="1rem" fontStyle="italic">
@@ -79,12 +79,12 @@ Override styles for any `Heading` component `h1 - h6`
   <ExampleCode>
     ```css
     /* styles.css */
-    h1.amplify-heading {
+    .amplify-heading--1 {
       font-size: 1rem;
       font-style: italic;
     }
 
-    h6.amplify-heading {
+    .amplify-heading--6 {
       font-size: 2rem;
       font-weight: bold;
     }
