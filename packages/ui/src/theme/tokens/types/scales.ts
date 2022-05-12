@@ -4,6 +4,7 @@ export interface OrdinalScale<DesignTokenType = DesignToken<ColorValue>> {
   primary: DesignTokenType;
   secondary: DesignTokenType;
   tertiary: DesignTokenType;
+  quaternary?: DesignTokenType;
 }
 
 export interface OrdinalVariation<DesignTokenType = DesignToken<ColorValue>> {
