@@ -7,6 +7,9 @@ import { Flex } from '../../Flex';
 import { Button } from '../../Button';
 import { ComponentClassNames } from '../../shared/constants';
 
+const originalLog = console.log;
+console.log = jest.fn();
+
 describe('PhoneNumberField primitive', () => {
   const setup = async ({
     defaultCountryCode = '+1',
@@ -30,9 +33,6 @@ describe('PhoneNumberField primitive', () => {
       }),
     };
   };
-
-  const originalLog = console.log;
-  console.log = jest.fn();
 
   const ReadOnlyFormTest = () => {
     const inputRef = React.useRef(null);
@@ -166,6 +166,10 @@ describe('PhoneNumberField primitive', () => {
     expect(onCountryCodeChange).toHaveBeenCalled();
   });
 
+  /*
+    Since <select> elements do not support the `readonly` html attribute, it is suggested to use the `disabled` html attribute 
+    so that a screen reader will announce something to the user about the interactivity of the options list ( https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/readonly)
+  */
   it('should set aria-disabled="true" when the isReadOnly prop is passed, and disable all the select options', async () => {
     const { $countryCodeSelector } = await setup({ isReadOnly: true });
 
