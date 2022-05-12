@@ -1,5 +1,13 @@
 # @aws-amplify/ui
 
+## 3.8.3
+
+### Patch Changes
+
+- [#1895](https://github.com/aws-amplify/amplify-ui/pull/1895) [`7dbd14546`](https://github.com/aws-amplify/amplify-ui/commit/7dbd145461d27a8cb1ba63a261e543a154dd8343) Thanks [@zchenwei](https://github.com/zchenwei)! - fix(style): adjust switch track color to comply with 3:1 contrast ratio.
+
+* [#1864](https://github.com/aws-amplify/amplify-ui/pull/1864) [`716e24298`](https://github.com/aws-amplify/amplify-ui/commit/716e2429848592254f0b53df6470a53ac735b71c) Thanks [@zchenwei](https://github.com/zchenwei)! - fix(style): fix PasswordField and SearchField quiet styling
+
 ## 3.8.2
 
 ### Patch Changes

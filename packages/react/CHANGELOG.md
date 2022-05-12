@@ -1,5 +1,20 @@
 # @aws-amplify/ui-react
 
+## 2.17.1
+
+### Patch Changes
+
+- [#1887](https://github.com/aws-amplify/amplify-ui/pull/1887) [`fb605b81d`](https://github.com/aws-amplify/amplify-ui/commit/fb605b81d2df12e95a4fc21ad42ff0ab23c0fec2) Thanks [@slaymance](https://github.com/slaymance)! - fix(geo): Point to react-map-gl es5 bundle to mitigate es2020 build errors
+
+* [#1876](https://github.com/aws-amplify/amplify-ui/pull/1876) [`542dc14cd`](https://github.com/aws-amplify/amplify-ui/commit/542dc14cd037d387ad3bec962e020b89271810cf) Thanks [@jacoblogan](https://github.com/jacoblogan)! - Update Button to include disabled classes with disabled attribute
+
+- [#1864](https://github.com/aws-amplify/amplify-ui/pull/1864) [`716e24298`](https://github.com/aws-amplify/amplify-ui/commit/716e2429848592254f0b53df6470a53ac735b71c) Thanks [@zchenwei](https://github.com/zchenwei)! - fix(style): fix PasswordField and SearchField quiet styling
+
+* [#1872](https://github.com/aws-amplify/amplify-ui/pull/1872) [`dfa3a1be9`](https://github.com/aws-amplify/amplify-ui/commit/dfa3a1be916bae010c01e46fe58d215bef1a1051) Thanks [@ErikCH](https://github.com/ErikCH)! - Removed isDisabled prop, since it doesn't exist as an HTML element
+
+* Updated dependencies [[`7dbd14546`](https://github.com/aws-amplify/amplify-ui/commit/7dbd145461d27a8cb1ba63a261e543a154dd8343), [`716e24298`](https://github.com/aws-amplify/amplify-ui/commit/716e2429848592254f0b53df6470a53ac735b71c)]:
+  - @aws-amplify/ui@3.8.3
+
 ## 2.17.0
 
 ### Minor Changes
