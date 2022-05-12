@@ -23,4 +23,12 @@ describe('FieldGroupIconButton: ', () => {
     await screen.findAllByTestId(testId);
     expect(ref.current.nodeName).toBe('BUTTON');
   });
+
+  it('should add the disabled button class to the underlying button element', async () => {
+    render(<FieldGroupIconButton isDisabled={true} testId="disabled" />);
+
+    const disabled = await screen.findByTestId('disabled');
+
+    expect(disabled).toHaveClass(`${ComponentClassNames.Button}--disabled`);
+  });
 });
