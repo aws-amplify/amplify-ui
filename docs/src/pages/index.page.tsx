@@ -201,22 +201,22 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
             display={{ base: 'none', large: 'initial' }}
           >
             <Image
-              alt="React framework image"
+              alt="React logo"
               className="docs-home-react"
               src="/svg/integrations/react.svg"
             />
             <Image
-              alt="Angular framework image"
+              alt="Angular logo"
               className="docs-home-angular"
               src="/svg/integrations/angular.svg"
             />
             <Image
-              alt="Vue framework image"
+              alt="Vue logo"
               className="docs-home-vue"
               src="/svg/integrations/vue.svg"
             />
             <Image
-              alt="Flutter framework image"
+              alt="Flutter logo"
               className="docs-home-flutter"
               src="/svg/integrations/flutter.svg"
             />
