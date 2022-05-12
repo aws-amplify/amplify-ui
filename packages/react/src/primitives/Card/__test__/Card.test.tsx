@@ -7,6 +7,29 @@ import { ComponentClassNames } from '../../shared';
 const testId = 'cardId';
 
 describe('Card component', () => {
+  it('should render card variations', async () => {
+    render(
+      <div>
+        <Card variation="outlined" testId="outlined">
+          outlined
+        </Card>
+        <Card variation="elevated" testId="elevated">
+          elevated
+        </Card>
+      </div>
+    );
+
+    const outlined = await screen.findByTestId('outlined');
+    const elevated = await screen.findByTestId('elevated');
+
+    expect(outlined.classList).toContain(
+      `${ComponentClassNames['Card']}--outlined`
+    );
+    expect(elevated.classList).toContain(
+      `${ComponentClassNames['Card']}--elevated`
+    );
+  });
+
   it('can render custom classnames', async () => {
     render(<Card className="custom-classname" testId={testId}></Card>);
 

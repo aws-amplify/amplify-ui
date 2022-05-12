@@ -22,8 +22,17 @@ jobs:
       - name: Check if repo has unconsumed changesets
         id: has-changesets
         uses: ./.github/actions/has-changesets
+      - name: Setup Node.js LTS
+        if: ${{ steps.has-changesets.outputs.has-changesets == 'true' }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: lts/*
+          cache: 'yarn'
+      - name: Install and build packages
+        if: ${{ steps.has-changesets.outputs.has-changesets == 'true' }}
+        run: yarn --frozen-lockfile
       - name: Create or update Version Packages PR
-        if: ${{ steps.has-changesets == 'true' }}
+        if: ${{ steps.has-changesets.outputs.has-changesets == 'true' }}
         uses: changesets/action@b98cec97583b917ff1dc6179dd4d230d3e439894
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

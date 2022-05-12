@@ -7,8 +7,7 @@
   box-shadow: var(--amplify-components-card-box-shadow);
   display: block;
   padding: var(--amplify-components-card-padding);
-
-  &[data-variation='outlined'] {
+  &--outlined {
     background-color: var(--amplify-components-card-outlined-background-color);
     border-radius: var(--amplify-components-card-outlined-border-radius);
     border-width: var(--amplify-components-card-outlined-border-width);
@@ -17,7 +16,7 @@
     box-shadow: var(--amplify-components-card-outlined-box-shadow);
   }
 
-  &[data-variation='elevated'] {
+  &--elevated {
     background-color: var(--amplify-components-card-elevated-background-color);
     border-radius: var(--amplify-components-card-elevated-border-radius);
     border-width: var(--amplify-components-card-elevated-border-width);

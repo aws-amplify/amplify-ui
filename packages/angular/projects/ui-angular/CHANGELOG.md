@@ -1,5 +1,21 @@
 # @aws-amplify/ui-angular
 
+## 2.4.3
+
+### Patch Changes
+
+- [#1772](https://github.com/aws-amplify/amplify-ui/pull/1772) [`9c25f80b6`](https://github.com/aws-amplify/amplify-ui/commit/9c25f80b6f4c84e0e1727873e3dd78b3ce5684a0) Thanks [@jacoblogan](https://github.com/jacoblogan)! - Refactor of styling to flatten css selectors across angular, react, and vue
+
+- Updated dependencies [[`e9ae76995`](https://github.com/aws-amplify/amplify-ui/commit/e9ae7699589ec005475b4fc16dac7164ad9e0caa), [`9c25f80b6`](https://github.com/aws-amplify/amplify-ui/commit/9c25f80b6f4c84e0e1727873e3dd78b3ce5684a0)]:
+  - @aws-amplify/ui@3.8.2
+
+## 2.4.2
+
+### Patch Changes
+
+- Updated dependencies [[`286e7df79`](https://github.com/aws-amplify/amplify-ui/commit/286e7df790a103d164cd8424161a9cd6dc4483e3)]:
+  - @aws-amplify/ui@3.8.1
+
 ## 2.4.1
 
 ### Patch Changes

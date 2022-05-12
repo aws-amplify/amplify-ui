@@ -1,5 +1,23 @@
 # @aws-amplify/ui
 
+## 3.8.2
+
+### Patch Changes
+
+- [#1867](https://github.com/aws-amplify/amplify-ui/pull/1867) [`e9ae76995`](https://github.com/aws-amplify/amplify-ui/commit/e9ae7699589ec005475b4fc16dac7164ad9e0caa) Thanks [@wlee221](https://github.com/wlee221)! - This patch ensures refresh tokens are handled properly after expiration.
+
+  Refresh tokens are used to refresh your idToken and accessToken. While it's uncommon for refresh tokens to expire in app due to their longevity (default 30 days), this would cause an early `tokenRefresh_failure` event on refresh which previously confused the authenticator. This is now handled properly from the Authenticator.
+
+  See https://github.com/aws-amplify/amplify-ui/pull/1863 for technical details. Note that token refresh is attempted when (1) on refresh, and (2) an Amplify API call is attempted but it gets back a token expiration exception.
+
+* [#1772](https://github.com/aws-amplify/amplify-ui/pull/1772) [`9c25f80b6`](https://github.com/aws-amplify/amplify-ui/commit/9c25f80b6f4c84e0e1727873e3dd78b3ce5684a0) Thanks [@jacoblogan](https://github.com/jacoblogan)! - Refactor of styling to flatten css selectors across angular, react, and vue
+
+## 3.8.1
+
+### Patch Changes
+
+- [#1835](https://github.com/aws-amplify/amplify-ui/pull/1835) [`286e7df79`](https://github.com/aws-amplify/amplify-ui/commit/286e7df790a103d164cd8424161a9cd6dc4483e3) Thanks [@reesscot](https://github.com/reesscot)! - Fix ScrollView to only show scrollbars when content overflows
+
 ## 3.8.0
 
 ### Minor Changes
