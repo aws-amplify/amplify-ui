@@ -4,6 +4,7 @@ import { Flex, ViewProps, SelectField, TextField } from '@aws-amplify/ui-react';
 export interface ViewPropControlsProps extends ViewProps {
   setAriaLabel: (value: React.SetStateAction<ViewProps['ariaLabel']>) => void;
   setWidth: (value: React.SetStateAction<ViewProps['width']>) => void;
+  setMaxWidth: (value: React.SetStateAction<ViewProps['maxWidth']>) => void;
   setHeight: (value: React.SetStateAction<ViewProps['height']>) => void;
   setColor: (value: React.SetStateAction<ViewProps['color']>) => void;
   setBackgroundColor: (
@@ -31,6 +32,7 @@ export const ViewPropControls: ViewPropControlsInterface = ({
   boxShadow,
   color,
   height,
+  maxWidth,
   padding,
   setAriaLabel,
   setAsElementType,
@@ -40,6 +42,7 @@ export const ViewPropControls: ViewPropControlsInterface = ({
   setBoxShadow,
   setColor,
   setHeight,
+  setMaxWidth,
   setPadding,
   setWidth,
   width,
@@ -93,7 +96,11 @@ export const ViewPropControls: ViewPropControlsInterface = ({
         onChange={(event) => setHeight(event.target.value)}
         label="Height"
       />
-
+      <TextField
+        value={maxWidth as string}
+        onChange={(event) => setMaxWidth(event.target.value)}
+        label="Max Width"
+      />
       <TextField
         value={padding as string}
         onChange={(event) => setPadding(event.target.value)}
