@@ -15,6 +15,9 @@ export const useViewProps: UseViewProps = (initialValues) => {
   const [width, setWidth] = React.useState<ViewProps['width']>(
     initialValues.width
   );
+  const [maxWidth, setMaxWidth] = React.useState<ViewProps['maxWidth']>(
+    initialValues.maxWidth
+  );
   const [height, setHeight] = React.useState<ViewProps['height']>(
     initialValues.height
   );
@@ -45,6 +48,7 @@ export const useViewProps: UseViewProps = (initialValues) => {
     demoState.set(View.displayName, {
       ariaLabel,
       width,
+      maxWidth,
       height,
       color,
       backgroundColor,
@@ -57,6 +61,7 @@ export const useViewProps: UseViewProps = (initialValues) => {
   }, [
     ariaLabel,
     width,
+    maxWidth,
     height,
     color,
     backgroundColor,
@@ -73,6 +78,8 @@ export const useViewProps: UseViewProps = (initialValues) => {
       setAriaLabel,
       width,
       setWidth,
+      maxWidth,
+      setMaxWidth,
       height,
       setHeight,
       color,
@@ -95,6 +102,8 @@ export const useViewProps: UseViewProps = (initialValues) => {
       setAriaLabel,
       width,
       setWidth,
+      maxWidth,
+      setMaxWidth,
       height,
       setHeight,
       color,

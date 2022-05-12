@@ -18,6 +18,7 @@ const propsToCode = (props: ViewProps) => {
     getPropString(props.boxShadow, 'boxShadow') +
     getPropString(props.color, 'color') +
     getPropString(props.height, 'height') +
+    getPropString(props.maxWidth, 'maxWidth') +
     getPropString(props.padding, 'padding') +
     getPropString(props.width, 'width') +
     `\n  onClick={() => alert('🏔 What a beautiful <View>! 🔭')}
@@ -31,6 +32,7 @@ const defaultViewProps = {
   as: 'div',
   ariaLabel: 'View example',
   width: '20rem',
+  maxWidth: '100%',
   height: '4rem',
   color: 'var(--amplify-colors-blue-60)',
   backgroundColor: 'var(--amplify-colors-white)',
@@ -54,6 +56,7 @@ export const ViewDemo = () => {
     border,
     color,
     height,
+    maxWidth,
     padding,
     width,
   } = props;
@@ -72,6 +75,7 @@ export const ViewDemo = () => {
         boxShadow={boxShadow}
         color={color}
         height={height}
+        maxWidth={maxWidth}
         onClick={() => alert('🏔 What a beautiful <View>! 🔭')}
         padding={padding}
         width={width}
