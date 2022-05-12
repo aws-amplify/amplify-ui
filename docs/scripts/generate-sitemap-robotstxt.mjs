@@ -83,7 +83,7 @@ Host: https://ui.docs.amplify.aws
 Sitemap: ${process.env.SITE_URL ?? 'https://ui.docs.amplify.aws'}
 `;
   writeFileSync('public/robots.txt', txt);
-  console.log('🤖✅ robots.txt generating...');
+  console.log('🤖✅ robots.txt generated.');
 }
 
 generateSitemap();
