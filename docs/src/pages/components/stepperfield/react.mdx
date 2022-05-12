@@ -30,19 +30,23 @@ Import StepperField and styles. You could edit the stepping value directly but i
   <ExampleCode>
     ```jsx file=./examples/DefaultStepperFieldExample.tsx
 
-    ````
+    ```
 
   </ExampleCode>
 </Example>
 
 ### Controlled component
 
+To use the StepperField as a controlled component, use the `value` prop and `onStepChange` handler.
+
+Note that `onStepChange` returns a new value (`number`), not the event object. This is because the StepperField is a complex component which is handling input, blur, and change events on the input element as well as click events on the button elements. The `onStepChange` handler simplifies all of this and returns the new value of the input in response to any of these events.
+
 <Example>
   <ControlledStepperFieldExample />
   <ExampleCode>
-    ```jsx file=./examples/ControlledStepperFieldExample.tsx
+    ```tsx file=./examples/ControlledStepperFieldExample.tsx
 
-    ````
+    ```
 
   </ExampleCode>
 </Example>
