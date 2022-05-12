@@ -66,3 +66,9 @@ Cypress.Commands.add('findInputField', (field: string) => {
     return cy.findByRole('textbox', { name: regex });
   }
 });
+
+Cypress.Commands.add('waitForMapIdle', () => {
+  cy.window().should((windowObj) => {
+    expect(windowObj['mapIdle']).to.be.true;
+  });
+});
