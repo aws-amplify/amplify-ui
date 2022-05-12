@@ -51,6 +51,8 @@ export const defaultAuthHubHandler: HubHandler = (data, service) => {
         send('SIGN_OUT');
       }
       break;
+    case default:
+      break;
   }
 };
 
