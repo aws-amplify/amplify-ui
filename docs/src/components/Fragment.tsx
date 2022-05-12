@@ -4,7 +4,7 @@ import { Alert, Flex, Link, Placeholder } from '@aws-amplify/ui-react';
 import dynamic, { LoaderComponent } from 'next/dynamic';
 
 import { isArray } from 'lodash';
-import { useCustomRouter } from '../components/useCustomRouter';
+import { useCustomRouter } from '@/components/useCustomRouter';
 
 export default function Example() {
   return;

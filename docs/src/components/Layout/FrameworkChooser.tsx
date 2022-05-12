@@ -5,7 +5,7 @@ import {
   VisuallyHidden,
 } from '@aws-amplify/ui-react';
 
-import { useCustomRouter } from '../../components/useCustomRouter';
+import { useCustomRouter } from '@/components/useCustomRouter';
 
 export const FrameworkChooser = ({ platform }) => {
   const { replace, pathname } = useCustomRouter();

@@ -11,7 +11,7 @@ import {
 } from '@/data/links';
 
 import Link from 'next/link';
-import { useCustomRouter } from '../../../components/useCustomRouter';
+import { useCustomRouter } from '@/components/useCustomRouter';
 
 const ComponentGrid = ({ components }) => {
   const {

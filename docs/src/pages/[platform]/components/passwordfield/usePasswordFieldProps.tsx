@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { FieldControl } from '../pages/[platform]/components/shared/GetFieldControls';
+import { FieldControl } from '../shared/GetFieldControls';
 import { PasswordFieldProps } from '@aws-amplify/ui-react';
-import { useTextFieldProps } from '../pages/[platform]/components/textfield/useTextFieldProps';
+import { useTextFieldProps } from '../textfield/useTextFieldProps';
 
 export type PasswordFieldDocsProps = Omit<PasswordFieldProps, '[key]'>;
 
@@ -21,5 +21,5 @@ export const usePasswordFieldProps: UsePasswordFieldProps = (initialValues) => {
       'hideShowPassword',
       'checkbox',
     ],
-  ];
+  ] as FieldControl[];
 };

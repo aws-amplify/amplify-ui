@@ -13,7 +13,7 @@ import {
 
 import Link from 'next/link';
 import LinkButton from './LinkButton';
-import { useCustomRouter } from '../../components/useCustomRouter';
+import { useCustomRouter } from '@/components/useCustomRouter';
 
 const NavLinks = ({
   items,

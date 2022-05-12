@@ -16,7 +16,7 @@ import {
 import { IdGenerator } from '@cucumber/messages';
 import { evaluateSync } from '@mdx-js/mdx';
 import remarkGfm from 'remark-gfm';
-import { useCustomRouter } from '../components/useCustomRouter';
+import { useCustomRouter } from '@/components/useCustomRouter';
 
 const parser = new Parser(
   new AstBuilder(IdGenerator.uuid()),

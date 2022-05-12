@@ -25,7 +25,7 @@ import LinkButton from './LinkButton';
 import { Logo } from '@/components/Logo';
 import NextLink from 'next/link';
 import { SecondaryNav } from './SecondaryNav';
-import { useCustomRouter } from '../../components/useCustomRouter';
+import { useCustomRouter } from '@/components/useCustomRouter';
 
 const NavLink = ({
   href,

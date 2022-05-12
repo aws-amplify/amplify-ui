@@ -11,7 +11,7 @@ import { META_INFO } from '@/data/meta'; // TODO: use data generated from pages.
 import Script from 'next/script';
 import { capitalizeString } from '../utils/capitalizeString';
 import { theme } from '../theme';
-import { useCustomRouter } from '../components/useCustomRouter';
+import { useCustomRouter } from '@/components/useCustomRouter';
 
 // suppress useLayoutEffect warnings when running outside a browser
 // See: https://gist.github.com/gaearon/e7d97cdf38a2907924ea12e4ebdf3c85#gistcomment-3886909
