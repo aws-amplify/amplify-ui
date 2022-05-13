@@ -141,5 +141,22 @@ describe('Menu: ', () => {
         menuItem1ClassName
       );
     });
+
+    it('should add the Amplify UI Button disabled class to disabled MenuItems', async () => {
+      render(
+        <Menu isOpen>
+          {/* Force open to test menu items */}
+          <MenuItem>Option 1</MenuItem>
+          <MenuItem>Option 2</MenuItem>
+          <MenuItem isDisabled testId="disabled_option">
+            Option 3
+          </MenuItem>
+        </Menu>
+      );
+
+      const disabled = await screen.findByTestId('disabled_option');
+
+      expect(disabled).toHaveClass('amplify-button--disabled');
+    });
   });
 });
