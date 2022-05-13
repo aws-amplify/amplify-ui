@@ -1,4 +1,4 @@
-import { defaultTheme, defaultDarkMode, Theme } from '@aws-amplify/ui-react';
+import { defaultDarkModeOverride, Theme } from '@aws-amplify/ui-react';
 
 const flipper = {
   100: 10,
@@ -22,7 +22,7 @@ const usePalette = (str) => {
 export const theme: Theme = {
   name: 'amplify-docs',
   overrides: [
-    defaultDarkMode,
+    defaultDarkModeOverride,
     {
       selector:
         '[data-amplify-theme-override="classic"] [data-amplify-theme="amplify-docs"]',
