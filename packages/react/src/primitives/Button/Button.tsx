@@ -31,7 +31,7 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
     classNameModifierByFlag(
       ComponentClassNames.Button,
       'disabled',
-      isDisabled || isLoading
+      isDisabled || isLoading || rest['disabled']
     ),
     classNameModifierByFlag(ComponentClassNames.Button, 'loading', isLoading),
     classNameModifierByFlag(

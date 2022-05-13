@@ -3,7 +3,7 @@
 <form data-amplify-form (submit)="onSubmit($event)" (input)="onInput($event)">
   <amplify-federated-sign-in></amplify-federated-sign-in>
   <fieldset
-    class="amplify-flex"
+    class="amplify-flex amplify-authenticator__column"
     style="flex-direction: column"
     data-amplify-fieldset
     [disabled]="authenticator.isPending"
