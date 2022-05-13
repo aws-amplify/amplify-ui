@@ -222,6 +222,35 @@ describe('StepperField: ', () => {
       expect(buttons[1]).toHaveAttribute('data-size', 'small');
     });
 
+    it('should render the size classes for StepperField', async () => {
+      render(
+        <div>
+          <StepperField label="stepper" size="small" />
+          <StepperField label="stepper" size="large" />
+        </div>
+      );
+      const buttons = await screen.findAllByRole('button');
+      expect(buttons[0]).toHaveClass(`${ComponentClassNames.Button}--small`);
+      expect(buttons[1]).toHaveClass(`${ComponentClassNames.Button}--small`);
+      expect(buttons[2]).toHaveClass(`${ComponentClassNames.Button}--large`);
+      expect(buttons[3]).toHaveClass(`${ComponentClassNames.Button}--large`);
+    });
+
+    it('should render the variation classes for StepperField', async () => {
+      render(
+        <div>
+          <StepperField label="stepper" variation="quiet" />
+        </div>
+      );
+      const buttons = await screen.findAllByRole('button');
+      expect(buttons[0]).toHaveClass(
+        `${ComponentClassNames.StepperFieldButtonDecrease}--quiet`
+      );
+      expect(buttons[1]).toHaveClass(
+        `${ComponentClassNames.StepperFieldButtonIncrease}--quiet`
+      );
+    });
+
     it('should render aria attributes', async () => {
       const id = 'stepper-field';
       render(

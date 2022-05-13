@@ -20,6 +20,39 @@ describe('Loader: ', () => {
     expect(loader).toHaveClass(ComponentClassNames.Loader, className);
   });
 
+  it('should render size classes for Loader', async () => {
+    render(
+      <div>
+        <Loader testId="small" size="small" />
+        <Loader testId="large" size="large" />
+      </div>
+    );
+
+    const small = await screen.findByTestId('small');
+    const large = await screen.findByTestId('large');
+
+    expect(small.classList).toContain(
+      `${ComponentClassNames['Loader']}--small`
+    );
+    expect(large.classList).toContain(
+      `${ComponentClassNames['Loader']}--large`
+    );
+  });
+
+  it('should render variation classes for Loader', async () => {
+    render(
+      <div>
+        <Loader testId="linear" variation="linear" />
+      </div>
+    );
+
+    const linear = await screen.findByTestId('linear');
+
+    expect(linear.classList).toContain(
+      `${ComponentClassNames['Loader']}--linear`
+    );
+  });
+
   it('should forward ref to DOM element', async () => {
     const ref = React.createRef<SVGSVGElement>();
     render(<Loader ref={ref} />);

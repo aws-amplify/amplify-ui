@@ -16,6 +16,25 @@ describe('Placeholder: ', () => {
     expect(placeholder.dataset['size']).toBeUndefined();
   });
 
+  it('should render size classes for Placeholder', async () => {
+    render(
+      <div>
+        <Placeholder testId="small" size="small" />
+        <Placeholder testId="large" size="large" />
+      </div>
+    );
+
+    const small = await screen.findByTestId('small');
+    const large = await screen.findByTestId('large');
+
+    expect(small.classList).toContain(
+      `${ComponentClassNames['Placeholder']}--small`
+    );
+    expect(large.classList).toContain(
+      `${ComponentClassNames['Placeholder']}--large`
+    );
+  });
+
   it('should forward ref to DOM element', async () => {
     const ref = React.createRef<HTMLDivElement>();
     render(<Placeholder ref={ref} testId="placeholderId" />);

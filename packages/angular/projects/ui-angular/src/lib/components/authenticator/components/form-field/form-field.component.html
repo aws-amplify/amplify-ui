@@ -1,4 +1,4 @@
-<div class="amplify-flex amplify-field" style="flex-direction: column">
+<div class="amplify-flex amplify-field amplify-authenticator__column">
   <!-- Country code field -->
   <amplify-phone-number-field
     *ngIf="isPhoneField()"
@@ -36,7 +36,7 @@
   ></amplify-text-field>
   <div data-amplify-sign-up-errors *ngIf="errors?.length > 0">
     <div
-      class="amplify-text"
+      class="amplify-text amplify-text--error"
       data-variation="error"
       *ngFor="let error of errors"
     >

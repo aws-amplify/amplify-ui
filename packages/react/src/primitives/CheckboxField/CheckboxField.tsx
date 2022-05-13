@@ -1,6 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { classNameModifier } from '../shared/utils';
 import { Checkbox } from '../Checkbox';
 import { CheckboxFieldProps, Primitive } from '../types';
 import { ComponentClassNames } from '../shared';
@@ -27,6 +28,7 @@ const CheckboxFieldPrimitive: Primitive<CheckboxFieldProps, 'input'> = (
       className={classNames(
         ComponentClassNames.Field,
         ComponentClassNames.CheckboxField,
+        classNameModifier(ComponentClassNames.Field, size),
         className
       )}
       data-size={size}

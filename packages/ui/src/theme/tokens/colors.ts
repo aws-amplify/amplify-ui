@@ -181,7 +181,7 @@ export const colors: Colors = {
     10: { value: 'hsl(210, 5%, 98%)' },
     20: { value: 'hsl(210, 5%, 94%)' },
     40: { value: 'hsl(210, 5%, 87%)' },
-    60: { value: 'hsl(210, 6%, 70%)' },
+    60: { value: 'hsl(210, 8%, 55%)' },
     80: { value: 'hsl(210, 10%, 40%)' },
     90: { value: 'hsl(210, 25%, 25%)' },
     100: { value: 'hsl(210, 50%, 10%)' },
@@ -234,6 +234,7 @@ export const colors: Colors = {
     primary: { value: '{colors.white.value}' },
     secondary: { value: '{colors.neutral.10.value}' },
     tertiary: { value: '{colors.neutral.20.value}' },
+    quaternary: { value: '{colors.neutral.60.value}' },
     disabled: { value: '{colors.background.tertiary.value}' },
 
     info: { value: '{colors.blue.20.value}' },

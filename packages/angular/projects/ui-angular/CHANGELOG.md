@@ -1,5 +1,30 @@
 # @aws-amplify/ui-angular
 
+## 2.4.4
+
+### Patch Changes
+
+- [#1792](https://github.com/aws-amplify/amplify-ui/pull/1792) [`1a14bdcd4`](https://github.com/aws-amplify/amplify-ui/commit/1a14bdcd4cb565ab97636fbc02aef08e0fcbb352) Thanks [@jacoblogan](https://github.com/jacoblogan)! - remove all inline styling from angular authenticator
+
+- Updated dependencies [[`7dbd14546`](https://github.com/aws-amplify/amplify-ui/commit/7dbd145461d27a8cb1ba63a261e543a154dd8343), [`716e24298`](https://github.com/aws-amplify/amplify-ui/commit/716e2429848592254f0b53df6470a53ac735b71c)]:
+  - @aws-amplify/ui@3.8.3
+
+## 2.4.3
+
+### Patch Changes
+
+- [#1772](https://github.com/aws-amplify/amplify-ui/pull/1772) [`9c25f80b6`](https://github.com/aws-amplify/amplify-ui/commit/9c25f80b6f4c84e0e1727873e3dd78b3ce5684a0) Thanks [@jacoblogan](https://github.com/jacoblogan)! - Refactor of styling to flatten css selectors across angular, react, and vue
+
+- Updated dependencies [[`e9ae76995`](https://github.com/aws-amplify/amplify-ui/commit/e9ae7699589ec005475b4fc16dac7164ad9e0caa), [`9c25f80b6`](https://github.com/aws-amplify/amplify-ui/commit/9c25f80b6f4c84e0e1727873e3dd78b3ce5684a0)]:
+  - @aws-amplify/ui@3.8.2
+
+## 2.4.2
+
+### Patch Changes
+
+- Updated dependencies [[`286e7df79`](https://github.com/aws-amplify/amplify-ui/commit/286e7df790a103d164cd8424161a9cd6dc4483e3)]:
+  - @aws-amplify/ui@3.8.1
+
 ## 2.4.1
 
 ### Patch Changes
