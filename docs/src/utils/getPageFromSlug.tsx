@@ -1,6 +1,6 @@
-import { readFile } from 'fs/promises';
 import matter from 'gray-matter';
 import path from 'path';
+import { readFile } from 'fs/promises';
 
 export async function getPageFromSlug(slug: string) {
   if (slug.startsWith('/')) {
