@@ -8,7 +8,7 @@ Add default dark mode theme override for React
 ```jsx
   const theme: Theme = {
     name: 'my-theme',
-    overrides: [defaultDarkMode],
+    overrides: [defaultDarkModeOverride],
   };
   
   // ...
