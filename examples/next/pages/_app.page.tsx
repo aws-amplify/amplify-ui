@@ -4,7 +4,7 @@
 import App from 'next/app';
 import { Amplify, Hub } from 'aws-amplify';
 import { Authenticator, AmplifyProvider } from '@aws-amplify/ui-react';
-import { MapProvider, useMap } from 'react-map-gl';
+import { MapProvider, useMap } from 'react-map-gl/dist/es5';
 
 if (typeof window !== 'undefined') {
   window['Amplify'] = Amplify;

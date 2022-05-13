@@ -22,8 +22,5 @@
     "eslint": "7.29.0",
     "eslint-config-next": "11.0.1",
     "rimraf": "^3.0.2"
-  },
-  "peerDependencies": {
-    "react-map-gl": "7.x.x"
   }
 }
