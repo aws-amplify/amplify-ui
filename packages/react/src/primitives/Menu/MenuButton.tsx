@@ -1,5 +1,6 @@
 import * as React from 'react';
 import classNames from 'classnames';
+import { Button } from '../Button';
 
 import { classNameModifier } from '../shared/utils';
 import { ButtonProps, PrimitiveProps } from '../types';
@@ -37,7 +38,7 @@ export const MenuButton = React.forwardRef<
     );
 
     return (
-      <button
+      <Button
         ref={ref}
         className={componentClasses}
         data-fullwidth={isFullWidth}
@@ -52,7 +53,7 @@ export const MenuButton = React.forwardRef<
         {...nonStyleProps}
       >
         {children}
-      </button>
+      </Button>
     );
   }
 );

@@ -16,6 +16,7 @@ const PhoneNumberFieldPrimitive: Primitive<PhoneNumberFieldProps, 'input'> = (
     defaultCountryCode,
     hasError,
     isDisabled,
+    isReadOnly,
     onCountryCodeChange,
     onInput,
     size,
@@ -36,6 +37,7 @@ const PhoneNumberFieldPrimitive: Primitive<PhoneNumberFieldProps, 'input'> = (
           className={className}
           hasError={hasError}
           isDisabled={isDisabled}
+          isReadOnly={isReadOnly}
           label={countryCodeLabel}
           name={countryCodeName}
           onChange={onCountryCodeChange}
@@ -48,6 +50,7 @@ const PhoneNumberFieldPrimitive: Primitive<PhoneNumberFieldProps, 'input'> = (
       className={classNames(ComponentClassNames.PhoneNumberField, className)}
       hasError={hasError}
       isDisabled={isDisabled}
+      isReadOnly={isReadOnly}
       isMultiline={false}
       onInput={onInput}
       ref={ref}
