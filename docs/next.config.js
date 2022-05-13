@@ -101,6 +101,24 @@ module.exports = withNextPluginPreval({
         destination: '/theming/:page*',
         permanent: false,
       },
+      /**
+       * source: a url has one of the folder's names (components, getting-started, guides, theming)
+       * destination: add '[platform]' to the the beginning
+       */
+      {
+        source: '/:nav(components|getting-started|guides|theming)/:page*',
+        destination: '/[platform]/:nav/:page*',
+        permanent: true,
+      },
+      /**
+       * source: a url points one of the folder's names (components, getting-started, guides, theming)'s index file
+       * destination: add '[platform]' to the beginning
+       */
+      {
+        source: '/:nav(components|getting-started|guides|theming)',
+        destination: '/[platform]/:nav',
+        permanent: true,
+      },
     ];
   },
 
