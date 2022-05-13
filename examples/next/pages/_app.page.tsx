@@ -15,13 +15,14 @@ const SignalIdleMap = () => {
   const { default: map } = useMap();
 
   map?.on('idle', () => {
-    if (window['Cypress'] && !window['mapIdle']) {
+    if (window['Cypress']) {
       window['mapIdle'] = true;
     }
   });
 
   map?.on('render', () => {
-    if (window['Cypress'] && window['mapIdle']) {
+    if (window['Cypress']) {
+      window['map'] = map;
       window['mapIdle'] = false;
     }
   });
