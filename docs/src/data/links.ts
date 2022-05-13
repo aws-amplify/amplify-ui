@@ -219,7 +219,7 @@ export const layoutComponents = [
   {
     href: '/components/grid',
     label: 'Grid',
-    body: ``,
+    body: 'Grid primitive provides a grid container. Any of other primitives can be used as grid item children.',
     platforms: ['react'],
   },
   {

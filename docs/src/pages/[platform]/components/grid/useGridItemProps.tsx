@@ -1,10 +1,13 @@
 import { GridItemStyleProps } from '@aws-amplify/ui-react';
 import * as React from 'react';
 
+import { demoState } from '@/utils/demoState';
 import { GridItemPropControlsProps } from './GridItemPropControls';
 
 interface UseGridItemProps {
-  (initialValues: GridItemStyleProps): GridItemPropControlsProps;
+  (
+    initialValues: GridItemStyleProps & { name?: string }
+  ): GridItemPropControlsProps;
 }
 
 export const useGridItemProps: UseGridItemProps = (initialValues) => {
@@ -19,6 +22,33 @@ export const useGridItemProps: UseGridItemProps = (initialValues) => {
   const [rowEnd, setRowEnd] = React.useState(initialValues.rowEnd);
   const [rowSpan, setRowSpan] = React.useState(initialValues.rowSpan);
   const [rowStart, setRowStart] = React.useState(initialValues.rowStart);
+
+  const { name } = initialValues;
+  React.useEffect(() => {
+    demoState.set(name, {
+      name,
+      area,
+      column,
+      columnEnd,
+      columnSpan,
+      columnStart,
+      row,
+      rowEnd,
+      rowSpan,
+      rowStart,
+    });
+  }, [
+    name,
+    area,
+    column,
+    columnEnd,
+    columnSpan,
+    columnStart,
+    row,
+    rowEnd,
+    rowSpan,
+    rowStart,
+  ]);
 
   return {
     area,

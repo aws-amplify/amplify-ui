@@ -1,17 +1,98 @@
-import React, { useState } from 'react';
+import * as React from 'react';
 import {
   Card,
+  Expander,
+  ExpanderItem,
   Grid,
   GridContainerStyleProps,
   GridItemStyleProps,
   useTheme,
-  View,
 } from '@aws-amplify/ui-react';
-import { useGridContainerProps } from '@/components/useGridContainerProps';
-import { Example } from '@/components/Example';
-import { GridContainerPropControls } from '@/components/GridContainerPropControls';
-import { GridItemPropControls } from '@/components/GridItemPropControls';
-import { useGridItemProps } from '@/components/useGridItemProps';
+
+import { Demo } from '@/components/Demo';
+import { demoState } from '@/utils/demoState';
+import { GridContainerPropControls } from './GridContainerPropControls';
+import {
+  GridItemPropControls,
+  GridItemPropControlsProps,
+} from './GridItemPropControls';
+import { useGridItemProps } from './useGridItemProps';
+import { useGridContainerProps } from './useGridContainerProps';
+
+const propsToHeaderGridItemCode = (props: GridItemPropControlsProps) => {
+  return (
+    '<Card' +
+    (props.columnStart ? `\n  columnStart={${props.columnStart}}` : '') +
+    (props.columnEnd ? `\n  columnEnd={${props.columnEnd}}` : '') +
+    (props.rowStart ? `\n  rowStart={${props.rowStart}}` : '') +
+    (props.rowEnd ? `\n  rowEnd={${props.rowEnd}}` : '') +
+    '\n >' +
+    '\n  Header' +
+    '\n </Card>'
+  );
+};
+
+const propsToNavGridItemPcode = (props: GridItemPropControlsProps) => {
+  return (
+    '<Card' +
+    (props.columnStart ? `\n  columnStart={${props.columnStart}}` : '') +
+    (props.columnEnd ? `\n  columnEnd={${props.columnEnd}}` : '') +
+    (props.rowStart ? `\n  rowStart={${props.rowStart}}` : '') +
+    (props.rowEnd ? `\n  rowEnd={${props.rowEnd}}` : '') +
+    '\n >' +
+    '\n  Nav' +
+    '\n </Card>'
+  );
+};
+
+const propsToMainGridItemCode = (props: GridItemPropControlsProps) => {
+  return (
+    '<Card' +
+    (props.columnStart ? `\n  columnStart={${props.columnStart}}` : '') +
+    (props.columnEnd ? `\n  columnEnd={${props.columnEnd}}` : '') +
+    (props.rowStart ? `\n  rowStart={${props.rowStart}}` : '') +
+    (props.rowEnd ? `\n  rowEnd={${props.rowEnd}}` : '') +
+    '\n >' +
+    '\n  Main' +
+    '\n </Card>'
+  );
+};
+
+const propsToFooterGridItemCode = (props: GridItemPropControlsProps) => {
+  return (
+    '<Card' +
+    (props.columnStart ? `\n  columnStart={${props.columnStart}}` : '') +
+    (props.columnEnd ? `\n  columnEnd={${props.columnEnd}}` : '') +
+    (props.rowStart ? `\n  rowStart={${props.rowStart}}` : '') +
+    (props.rowEnd ? `\n  rowEnd={${props.rowEnd}}` : '') +
+    '\n >' +
+    '\n  Footer' +
+    '\n </Card>'
+  );
+};
+
+const propsToCode = (props: GridContainerStyleProps, children: string) => {
+  return (
+    '<Grid' +
+    (props.autoFlow ? `\n autoFlow="${props.autoFlow}"` : '') +
+    (props.autoColumns ? `\n autoColumns="${props.autoColumns}"` : '') +
+    (props.autoRows ? `\n autoRows="${props.autoRows}"` : '') +
+    (props.gap ? `\n gap="${props.gap}"` : '') +
+    (props.columnGap ? `\n columnGap="${props.columnGap}"` : '') +
+    (props.rowGap ? `\n rowGap="${props.rowGap}"` : '') +
+    (props.templateAreas ? `\n templateAreas="${props.templateAreas}"` : '') +
+    (props.templateColumns
+      ? `\n templateColumns="${props.templateColumns}"`
+      : '') +
+    (props.templateRows ? `\n templateRows="${props.templateRows}"` : '') +
+    (props.alignItems ? `\n alignItems="${props.alignItems}"` : '') +
+    (props.alignContent ? `\n templateRows="${props.alignContent}"` : '') +
+    (props.justifyContent ? `\n templateRows="${props.justifyContent}"` : '') +
+    '\n>' +
+    children +
+    '\n</Grid>'
+  );
+};
 
 const defaultGridContainerStyleProps: GridContainerStyleProps = {
   alignContent: '',
@@ -54,105 +135,146 @@ const defaultMainGridItemStyleProps: GridItemStyleProps = {
 export const GridDemo = () => {
   const theme = useTheme();
   const gridContainerProps = useGridContainerProps(
-    defaultGridContainerStyleProps
+    demoState.get('GridContainer') || defaultGridContainerStyleProps
   );
-  const headerGridItemProps = useGridItemProps(defaultHeaderGridItemStyleProps);
-  const footerGridItemProps = useGridItemProps(defaultFooterGridItemStyleProps);
-  const navGridItemProps = useGridItemProps(defaultNavGridItemStyleProps);
-  const mainGridItemProps = useGridItemProps(defaultMainGridItemStyleProps);
+  const headerGridItemProps = useGridItemProps(
+    demoState.get('GridItemHeader') || {
+      ...defaultHeaderGridItemStyleProps,
+      name: 'GridItemHeader',
+    }
+  );
+  const footerGridItemProps = useGridItemProps(
+    demoState.get('GridItemFooter') || {
+      ...defaultFooterGridItemStyleProps,
+      name: 'GridItemFooter',
+    }
+  );
+  const navGridItemProps = useGridItemProps(
+    demoState.get('GirdItemNav') || {
+      ...defaultNavGridItemStyleProps,
+      name: 'GirdItemNav',
+    }
+  );
+  const mainGridItemProps = useGridItemProps(
+    demoState.get('GridItemMain') || {
+      ...defaultMainGridItemStyleProps,
+      name: 'GridItemMain',
+    }
+  );
+  // To retain expanded items between light and dark mode
+  const [value, setValue] = React.useState(
+    demoState.get('GridDemoExpandedItems') || ''
+  );
+  const handleExpandChange = React.useCallback((value: string | string[]) => {
+    demoState.set('GridDemoExpandedItems', value);
+    setValue(value);
+  }, []);
+
+  const gridItemsCode =
+    `\n ${propsToHeaderGridItemCode(headerGridItemProps)}` +
+    `\n ${propsToNavGridItemPcode(navGridItemProps)}` +
+    `\n ${propsToMainGridItemCode(mainGridItemProps)}` +
+    `\n ${propsToFooterGridItemCode(footerGridItemProps)}`;
 
   return (
-    <View>
-      <GridContainerPropControls {...gridContainerProps} />
-      <GridItemPropControls
-        primitiveName="Grid item (Header)"
-        {...headerGridItemProps}
-      />
-      <GridItemPropControls
-        primitiveName="Grid item (Nav)"
-        {...navGridItemProps}
-      />
-      <GridItemPropControls
-        primitiveName="Grid item (Main)"
-        {...mainGridItemProps}
-      />
-      <GridItemPropControls
-        primitiveName="Grid item (Footer)"
-        {...footerGridItemProps}
-      />
-
-      <Example>
-        <Grid
-          alignContent={gridContainerProps.alignContent}
-          alignItems={gridContainerProps.alignItems}
-          autoColumns={gridContainerProps.autoColumns}
-          autoRows={gridContainerProps.autoRows}
-          columnGap={gridContainerProps.columnGap}
-          gap={gridContainerProps.gap}
-          rowGap={gridContainerProps.rowGap}
-          templateAreas={gridContainerProps.templateAreas}
-          templateColumns={gridContainerProps.templateColumns}
-          templateRows={gridContainerProps.templateRows}
-          justifyContent={gridContainerProps.justifyContent}
+    <Demo
+      code={propsToCode(gridContainerProps, gridItemsCode)}
+      propControls={
+        <>
+          <Expander
+            type="multiple"
+            value={value as string | string[]}
+            onChange={handleExpandChange}
+          >
+            <ExpanderItem title="Grid container props" value="item-1">
+              <GridContainerPropControls {...gridContainerProps} />
+            </ExpanderItem>
+            <ExpanderItem title="Grid item (Header) props" value="item-2">
+              <GridItemPropControls {...headerGridItemProps} />
+            </ExpanderItem>
+            <ExpanderItem title="Grid item (Nav) props" value="item-3">
+              <GridItemPropControls {...navGridItemProps} />
+            </ExpanderItem>
+            <ExpanderItem title="Grid item (Main) props" value="item-4">
+              <GridItemPropControls {...mainGridItemProps} />
+            </ExpanderItem>
+            <ExpanderItem title="Grid item (Footer) props" value="item-5">
+              <GridItemPropControls {...footerGridItemProps} />
+            </ExpanderItem>
+          </Expander>
+        </>
+      }
+    >
+      <Grid
+        alignContent={gridContainerProps.alignContent}
+        alignItems={gridContainerProps.alignItems}
+        autoColumns={gridContainerProps.autoColumns}
+        autoRows={gridContainerProps.autoRows}
+        columnGap={gridContainerProps.columnGap}
+        gap={gridContainerProps.gap}
+        rowGap={gridContainerProps.rowGap}
+        templateAreas={gridContainerProps.templateAreas}
+        templateColumns={gridContainerProps.templateColumns}
+        templateRows={gridContainerProps.templateRows}
+        justifyContent={gridContainerProps.justifyContent}
+      >
+        <Card
+          backgroundColor={`${theme.tokens.colors.blue[10]}`}
+          area={headerGridItemProps.area}
+          column={headerGridItemProps.column}
+          columnEnd={headerGridItemProps.columnEnd}
+          columnSpan={headerGridItemProps.columnSpan}
+          columnStart={headerGridItemProps.columnStart}
+          row={headerGridItemProps.row}
+          rowEnd={headerGridItemProps.rowEnd}
+          rowStart={headerGridItemProps.rowStart}
+          rowSpan={headerGridItemProps.rowSpan}
         >
-          <Card
-            backgroundColor={`${theme.tokens.colors.blue[10].value}`}
-            area={headerGridItemProps.area}
-            column={headerGridItemProps.column}
-            columnEnd={headerGridItemProps.columnEnd}
-            columnSpan={headerGridItemProps.columnSpan}
-            columnStart={headerGridItemProps.columnStart}
-            row={headerGridItemProps.row}
-            rowEnd={headerGridItemProps.rowEnd}
-            rowStart={headerGridItemProps.rowStart}
-            rowSpan={headerGridItemProps.rowSpan}
-          >
-            Header
-          </Card>
-          <Card
-            backgroundColor={`${theme.tokens.colors.yellow[10].value}`}
-            area={navGridItemProps.area}
-            column={navGridItemProps.column}
-            columnEnd={navGridItemProps.columnEnd}
-            columnSpan={navGridItemProps.columnSpan}
-            columnStart={navGridItemProps.columnStart}
-            row={navGridItemProps.row}
-            rowEnd={navGridItemProps.rowEnd}
-            rowStart={navGridItemProps.rowStart}
-            rowSpan={navGridItemProps.rowSpan}
-          >
-            Nav
-          </Card>
-          <Card
-            backgroundColor={`${theme.tokens.colors.green[10].value}`}
-            area={mainGridItemProps.area}
-            column={mainGridItemProps.column}
-            columnEnd={mainGridItemProps.columnEnd}
-            columnSpan={mainGridItemProps.columnSpan}
-            columnStart={mainGridItemProps.columnStart}
-            row={mainGridItemProps.row}
-            rowEnd={mainGridItemProps.rowEnd}
-            rowStart={mainGridItemProps.rowStart}
-            rowSpan={mainGridItemProps.rowSpan}
-          >
-            Main
-          </Card>
-          <Card
-            backgroundColor={`${theme.tokens.colors.red[10].value}`}
-            area={footerGridItemProps.area}
-            column={footerGridItemProps.column}
-            columnEnd={footerGridItemProps.columnEnd}
-            columnSpan={footerGridItemProps.columnSpan}
-            columnStart={footerGridItemProps.columnStart}
-            row={footerGridItemProps.row}
-            rowEnd={footerGridItemProps.rowEnd}
-            rowStart={footerGridItemProps.rowStart}
-            rowSpan={footerGridItemProps.rowSpan}
-          >
-            Footer
-          </Card>
-        </Grid>
-      </Example>
-    </View>
+          Header
+        </Card>
+        <Card
+          backgroundColor={`${theme.tokens.colors.yellow[10]}`}
+          area={navGridItemProps.area}
+          column={navGridItemProps.column}
+          columnEnd={navGridItemProps.columnEnd}
+          columnSpan={navGridItemProps.columnSpan}
+          columnStart={navGridItemProps.columnStart}
+          row={navGridItemProps.row}
+          rowEnd={navGridItemProps.rowEnd}
+          rowStart={navGridItemProps.rowStart}
+          rowSpan={navGridItemProps.rowSpan}
+        >
+          Nav
+        </Card>
+        <Card
+          backgroundColor={`${theme.tokens.colors.green[10]}`}
+          area={mainGridItemProps.area}
+          column={mainGridItemProps.column}
+          columnEnd={mainGridItemProps.columnEnd}
+          columnSpan={mainGridItemProps.columnSpan}
+          columnStart={mainGridItemProps.columnStart}
+          row={mainGridItemProps.row}
+          rowEnd={mainGridItemProps.rowEnd}
+          rowStart={mainGridItemProps.rowStart}
+          rowSpan={mainGridItemProps.rowSpan}
+        >
+          Main
+        </Card>
+        <Card
+          backgroundColor={`${theme.tokens.colors.red[10]}`}
+          area={footerGridItemProps.area}
+          column={footerGridItemProps.column}
+          columnEnd={footerGridItemProps.columnEnd}
+          columnSpan={footerGridItemProps.columnSpan}
+          columnStart={footerGridItemProps.columnStart}
+          row={footerGridItemProps.row}
+          rowEnd={footerGridItemProps.rowEnd}
+          rowStart={footerGridItemProps.rowStart}
+          rowSpan={footerGridItemProps.rowSpan}
+        >
+          Footer
+        </Card>
+      </Grid>
+    </Demo>
   );
 };
