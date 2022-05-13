@@ -48,7 +48,7 @@ export const MenuDemo = () => {
       code={propsToCode(menuProps)}
       propControls={<MenuPropControls {...menuProps} />}
     >
-      <Menu {...menuProps}>
+      <Menu menuAlign={menuProps.menuAlign} size={menuProps.size}>
         <MenuItem onClick={() => alert('Download')}>Download</MenuItem>
         <MenuItem onClick={() => alert('Create a Copy')}>
           Create a Copy

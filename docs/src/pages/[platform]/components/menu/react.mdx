@@ -18,7 +18,7 @@ import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 
 ## Usage
 
-Import the `Menu` and `MenuItem` components. Use the `MenuItem` component to configure menu options.
+Import the `Menu` and `MenuItem` components. Use the `MenuItem` component to configure Menu options.
 
 <Example>
   <BasicExample />
@@ -29,10 +29,23 @@ Import the `Menu` and `MenuItem` components. Use the `MenuItem` component to con
   </ExampleCode>
 </Example>
 
+### Menu alignment
+
+To control the alignment of the Menu with the Menu button, use the `menuAlign` prop. Available options are `start` (default), `center`, and `end`.
+
+<Example>
+  <MenuAlignExample />
+  <ExampleCode>
+```tsx file=./examples/menuAlignExample.tsx
+
+````
+
+  </ExampleCode>
+</Example>
+
 ### Size
 
-Control the size of the Menu buttons and items using the `size` prop. Available options are `small`, none (default), and `large`.
-
+Control the size of the Menu button and items using the `size` prop. Available options are `small`, none (default), and `large`.
 
 <Example>
   <SizeExample />
@@ -44,23 +57,9 @@ Control the size of the Menu buttons and items using the `size` prop. Available 
   </ExampleCode>
 </Example>
 
-### Menu alignment
+### Customize Menu button
 
-To control the alignment of the menu with the trigger button, use the `menuAlign` prop. Available options are `start` (default), `center`, and `end`.
-
-<Example>
-  <MenuAlignExample />
-  <ExampleCode>
-```tsx file=./examples/menuAlignExample.tsx
-
-````
-  </ExampleCode>
-</Example>
-
-### Customize trigger button
-
-The default trigger button can be overwritten using the `trigger` prop on `Menu` with the `MenuButton` component.
-`MenuButton` can take all the same props as [Button](./button).
+The default Menu button can be customized by importing the `MenuButton` component and passing it to the `Menu`'s `trigger` prop. `MenuButton` can take all the same props as [Button](./button).
 
 ```tsx file=./examples/menuExample.tsx
 

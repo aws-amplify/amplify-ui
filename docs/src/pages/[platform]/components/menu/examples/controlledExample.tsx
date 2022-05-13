@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 import { Menu, MenuItem } from '@aws-amplify/ui-react';
 
 export const ControlledExample = () => {
@@ -9,10 +8,11 @@ export const ControlledExample = () => {
     setIsOpen(open);
     // Do something else
   };
+
   const closeMenu = () => setIsOpen(false);
 
   return (
-    <Menu onOpenChange={handleOpenChange} isOpen={isOpen}>
+    <Menu isOpen={isOpen} onOpenChange={handleOpenChange}>
       <MenuItem
         onClick={() => {
           closeMenu();
