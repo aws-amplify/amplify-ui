@@ -1,9 +1,10 @@
-import dynamic, { LoaderComponent } from 'next/dynamic';
-import { useRouter } from 'next/router';
-import { isArray } from 'lodash';
 import * as React from 'react';
 
-import { Placeholder, Flex, Link, Alert } from '@aws-amplify/ui-react';
+import { Alert, Flex, Link, Placeholder } from '@aws-amplify/ui-react';
+import dynamic, { LoaderComponent } from 'next/dynamic';
+
+import { isArray } from 'lodash';
+import { useCustomRouter } from '@/components/useCustomRouter';
 
 export default function Example() {
   return;
@@ -45,7 +46,7 @@ export const Fragment = ({
   platforms,
   useCommonWebContent,
 }: FragmentProps) => {
-  const { query } = useRouter();
+  const { query } = useCustomRouter();
   const framework = (query.platform as string) ?? 'react';
   const platform = getPlatform(framework, useCommonWebContent);
   const Component = React.useMemo(() => {
