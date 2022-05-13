@@ -1,5 +1,14 @@
 # @aws-amplify/ui-angular
 
+## 2.4.4
+
+### Patch Changes
+
+- [#1792](https://github.com/aws-amplify/amplify-ui/pull/1792) [`1a14bdcd4`](https://github.com/aws-amplify/amplify-ui/commit/1a14bdcd4cb565ab97636fbc02aef08e0fcbb352) Thanks [@jacoblogan](https://github.com/jacoblogan)! - remove all inline styling from angular authenticator
+
+- Updated dependencies [[`7dbd14546`](https://github.com/aws-amplify/amplify-ui/commit/7dbd145461d27a8cb1ba63a261e543a154dd8343), [`716e24298`](https://github.com/aws-amplify/amplify-ui/commit/716e2429848592254f0b53df6470a53ac735b71c)]:
+  - @aws-amplify/ui@3.8.3
+
 ## 2.4.3
 
 ### Patch Changes
