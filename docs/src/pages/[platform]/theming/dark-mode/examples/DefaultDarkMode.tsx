@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {
-  Theme,
-  defaultDarkMode,
+  defaultDarkModeOverride,
   AmplifyProvider,
   ColorMode,
   Card,
@@ -12,9 +11,9 @@ import {
 
 export const DefaultDarkMode = () => {
   const [colorMode, setColorMode] = React.useState<ColorMode>('system');
-  const theme: Theme = {
+  const theme = {
     name: 'my-theme',
-    overrides: [defaultDarkMode],
+    overrides: [defaultDarkModeOverride],
   };
 
   return (

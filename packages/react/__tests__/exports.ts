@@ -14,7 +14,7 @@ describe('@aws-amplify/ui-react', () => {
       expect(Object.keys(exported)).toMatchInlineSnapshot(`
         Array [
           "createTheme",
-          "defaultDarkMode",
+          "defaultDarkModeOverride",
           "defaultTheme",
           "translations",
           "Alert",

@@ -10,7 +10,7 @@ export * as primitives from './primitives';
  */
 export {
   defaultTheme,
-  defaultDarkMode,
+  defaultDarkModeOverride,
   createTheme,
   translations,
 } from '@aws-amplify/ui';

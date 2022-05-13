@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {
-  defaultTheme,
   AmplifyProvider,
   ColorMode,
   Card,

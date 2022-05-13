@@ -5,7 +5,7 @@ import { tokens } from './tokens';
  * A basic dark mode that just flips the base color
  * palette.
  */
-export const defaultDarkMode: ColorModeOverride = {
+export const defaultDarkModeOverride: ColorModeOverride = {
   colorMode: 'dark',
   tokens: {
     colors: {

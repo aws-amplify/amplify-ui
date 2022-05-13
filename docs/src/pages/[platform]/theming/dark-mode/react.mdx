@@ -9,7 +9,7 @@ import {
 
 ## Overview
 
-Amplify UI supports color modes/schemes, like Dark Mode, through theme overrides. Amplify UI Theme Overrides let you define different theme styles in different contexts, such as color mode. You can also use plain CSS
+Amplify UI supports color modes/schemes, like Dark Mode, through theme overrides. Amplify UI Theme Overrides let you define different theme styles in different contexts, such as color mode. You can also use plain CSS.
 
 There are 2 ways to support light/dark mode in your application:
 
@@ -42,7 +42,7 @@ _Note: the Amplify UI theme and any overrides like dark mode are scoped to the A
   <DefaultDarkMode />
 
   <ExampleCode>
-    ```jsx file=./examples/DefaultDarkMode.tsx
+    ```tsx file=./examples/DefaultDarkMode.tsx
     ```
     
   </ExampleCode>
@@ -50,7 +50,7 @@ _Note: the Amplify UI theme and any overrides like dark mode are scoped to the A
 
 ### System Dark Mode
 
-If you don't want to provide a color mode control on your application, but still want to honor the user's operating system preference for color mode, you can set the `colorMode` on the AmplifyProvider to `system` and either use the default dark mode override or provide your own.
+If you don't want to provide a color mode control on your application, but still want to honor the user's operating system preference for color mode, you can set the `colorMode` on the AmplifyProvider to `system`. Then use either the default dark mode override styling or provide your own.
 
 _Note: to see dark mode applied, change your OS preferences_
 
@@ -58,7 +58,7 @@ _Note: to see dark mode applied, change your OS preferences_
   <SystemDarkModeExample />
 
   <ExampleCode>
-    ```jsx file=./examples/SystemDarkMode.tsx
+    ```tsx file=./examples/SystemDarkMode.tsx
     ```
     
 </ExampleCode>
@@ -70,7 +70,7 @@ _Note: to see dark mode applied, change your OS preferences_
   <CustomDarkModeExample />
 
   <ExampleCode>
-    ```jsx file=./examples/CustomDarkMode.tsx
+    ```tsx file=./examples/CustomDarkMode.tsx
     ```
     
 </ExampleCode>
@@ -78,9 +78,10 @@ _Note: to see dark mode applied, change your OS preferences_
 
 ## CSS
 
-You can also write CSS variables directly to support color modes. If you are using the `colorMode` prop in the `AmplifyProvider` you will write CSS like this to support dark mode:
+You can also write CSS variables directly to support color modes. If you are using the `colorMode` prop in the `AmplifyProvider`, you can write CSS like this to support dark mode:
 
 ```css
+/* The prefers-color-scheme media query detects the system setting */
 @media (prefers-color-scheme: dark) {
   [data-amplify-color-mode='system'] {
     --amplify-colors-background-primary: black;

@@ -1,18 +1,16 @@
 import * as React from 'react';
 import {
-  Theme,
-  defaultDarkMode,
+  defaultDarkModeOverride,
   AmplifyProvider,
-  ColorMode,
   Card,
   Text,
   Button,
 } from '@aws-amplify/ui-react';
 
 export const SystemDarkModeExample = () => {
-  const theme: Theme = {
+  const theme = {
     name: 'my-theme',
-    overrides: [defaultDarkMode],
+    overrides: [defaultDarkModeOverride],
   };
 
   return (
