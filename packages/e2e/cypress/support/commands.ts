@@ -67,6 +67,6 @@ Cypress.Commands.add('findInputField', (field: string) => {
   }
 });
 
-Cypress.Commands.add('waitForMapIdle', () => {
-  cy.window().its('mapIdle').should('be.true');
+Cypress.Commands.add('waitForIdleMap', () => {
+  cy.window().its('idleMap').should('be.true');
 });

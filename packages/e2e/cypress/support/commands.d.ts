@@ -30,10 +30,10 @@ declare global {
        * Waits for the map's idle event to be fired. Useful for waiting for map animations to complete before executing
        * additional Cypress commands.
        *
-       * @example cy.waitForMapIdle();
+       * @example cy.waitForIdleMap();
        * cy.get('.maplibregl-marker').first().click();
        */
-      waitForMapIdle(): void;
+      waitForIdleMap(): void;
     }
   }
 }

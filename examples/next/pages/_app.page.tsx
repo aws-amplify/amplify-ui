@@ -22,13 +22,13 @@ const SignalIdleMap = () => {
 
   map?.on('idle', () => {
     if (window['Cypress']) {
-      window['mapIdle'] = true;
+      window['idleMap'] = true;
     }
   });
 
   map?.on('render', () => {
     if (window['Cypress']) {
-      window['mapIdle'] = false;
+      window['idleMap'] = false;
     }
   });
 
