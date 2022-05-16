@@ -2,7 +2,11 @@ import '../styles/index.scss';
 
 import * as React from 'react';
 
-import { AmplifyProvider, ColorMode } from '@aws-amplify/ui-react';
+import {
+  AmplifyProvider,
+  ColorMode,
+  defaultDarkModeOverride,
+} from '@aws-amplify/ui-react';
 import { configure, trackPageVisit } from '../utils/track';
 
 import Head from 'next/head';
@@ -10,7 +14,6 @@ import { Header } from '@/components/Layout/Header';
 import { META_INFO } from '@/data/meta'; // TODO: use data generated from pages.preval.ts instead
 import Script from 'next/script';
 import { capitalizeString } from '../utils/capitalizeString';
-import { theme } from '../theme';
 import { useCustomRouter } from '@/components/useCustomRouter';
 
 // suppress useLayoutEffect warnings when running outside a browser
@@ -37,6 +40,11 @@ function MyApp({ Component, pageProps }) {
   if (!META_INFO[filepath]?.description || !META_INFO[filepath]?.title) {
     throw new Error(`Meta Info missing on ${filepath}`);
   }
+
+  const theme = {
+    name: 'amplify-docs',
+    overrides: [defaultDarkModeOverride],
+  };
 
   return (
     <>
