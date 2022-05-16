@@ -26,6 +26,7 @@ import { Sandpack } from '@codesandbox/sandpack-react';
 import type { SandpackThemeProp } from '@codesandbox/sandpack-react';
 import { ThemeButton } from '../ThemeButton';
 import { useCustomRouter } from '@/components/useCustomRouter';
+import classNames from 'classnames';
 
 const code = `import { AmplifyProvider, Button, Card, Text, Heading, Flex, Badge, Image, StepperField, useTheme } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
@@ -98,10 +99,11 @@ const AmpCard = ({ title, description, href }) => (
   </Link>
 );
 
-const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
+const HomePage = ({ colorMode }) => {
   const {
     query: { platform = 'react' },
   } = useCustomRouter();
+  const [themeOverride, setThemeOverride] = React.useState('');
   const { tokens } = useTheme();
   const sandPackTheme: SandpackThemeProp = {
     palette: {
@@ -147,7 +149,11 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
   const frameworkInstallScript = installScripts[platform.toString()];
   return (
     <>
-      <View as="section" className="container">
+      <View
+        as="section"
+        className={classNames('container', 'home')}
+        data-amplify-theme-override={themeOverride}
+      >
         <h1 className="docs-home-logo">
           <HomeLogo />
         </h1>

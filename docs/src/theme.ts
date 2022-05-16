@@ -24,8 +24,7 @@ export const theme: Theme = {
   overrides: [
     defaultDarkModeOverride,
     {
-      selector:
-        '[data-amplify-theme-override="classic"] [data-amplify-theme="amplify-docs"]',
+      selector: '[data-amplify-theme-override="classic"].home',
       tokens: {
         colors: {
           brand: {
@@ -47,8 +46,7 @@ export const theme: Theme = {
       },
     },
     {
-      selector:
-        '[data-amplify-theme-override="terminal"] [data-amplify-theme="amplify-docs"]',
+      selector: '[data-amplify-theme-override="terminal"].home',
       tokens: {
         colors: {
           green: {

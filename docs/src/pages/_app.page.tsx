@@ -30,14 +30,6 @@ function MyApp({ Component, pageProps }) {
     .filter((n) => n && n !== '[platform]')
     .join('/')}`;
   const [colorMode, setColorMode] = React.useState<ColorMode>('system');
-  const [themeOverride, setThemeOverride] = React.useState('');
-
-  React.useEffect(() => {
-    document.documentElement.setAttribute(
-      'data-amplify-theme-override',
-      themeOverride
-    );
-  }, [themeOverride]);
 
   configure();
   trackPageVisit();
@@ -67,12 +59,7 @@ function MyApp({ Component, pageProps }) {
           colorMode={colorMode}
           setColorMode={setColorMode}
         />
-        <Component
-          {...pageProps}
-          colorMode={colorMode}
-          setThemeOverride={setThemeOverride}
-          themeOverride={themeOverride}
-        />
+        <Component {...pageProps} colorMode={colorMode} />
       </AmplifyProvider>
       <Script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" />
       <Script src="/scripts/shortbreadv2.js" />
