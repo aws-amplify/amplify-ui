@@ -8,6 +8,7 @@ import {
   ControlledExample,
   SizeExample,
   StylePropsExample,
+  ThemeExample,
 } from './examples/';
 
 import { Example, ExampleCode } from '@/components/Example';
@@ -62,24 +63,28 @@ Control the size of the Menu button and items using the `size` prop. Available o
 
 The default Menu button can be customized by importing the `MenuButton` component and passing it to the `Menu`'s `trigger` prop. `MenuButton` can take all the same props as [Button](./button).
 
+<Example>
+  <MenuExample />
+  <ExampleCode>
 ```tsx file=./examples/menuExample.tsx
 
 ```
 
-<Example>
-  <MenuExample />
+  </ExampleCode>
 </Example>
 
 ### Controlled Menu
 
 Create a controlled `Menu` using the `isOpen` and `onOpenChange` props.
 
+<Example>
+  <ControlledExample />
+  <ExampleCode>
 ```tsx file=./examples/controlledExample.tsx
 
 ```
 
-<Example>
-  <ControlledExample />
+  </ExampleCode>
 </Example>
 
 ## CSS Styling
@@ -87,6 +92,19 @@ Create a controlled `Menu` using the `isOpen` and `onOpenChange` props.
 ### Target classes
 
 <ComponentStyleDisplay componentName="Menu" />
+
+### Theme
+
+You can customize the appearance of all Menus in your application with a [Theme](/theming).
+
+<Example>
+  <ThemeExample />
+  <ExampleCode>
+```tsx file=./examples/themeExample.tsx
+
+```
+  </ExampleCode>
+</Example>
 
 ### Global styling
 
