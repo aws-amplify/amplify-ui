@@ -7,6 +7,7 @@ import {
   MenuExample,
   ControlledExample,
   SizeExample,
+  StylePropsExample,
 } from './examples/';
 
 import { Example, ExampleCode } from '@/components/Example';
@@ -25,7 +26,7 @@ Import the `Menu` and `MenuItem` components. Use the `MenuItem` component to con
   <ExampleCode>
 ```tsx file=./examples/basicExample.tsx
 
-````
+```
   </ExampleCode>
 </Example>
 
@@ -38,7 +39,7 @@ To control the alignment of the Menu with the Menu button, use the `menuAlign` p
   <ExampleCode>
 ```tsx file=./examples/menuAlignExample.tsx
 
-````
+```
 
   </ExampleCode>
 </Example>
@@ -52,7 +53,7 @@ Control the size of the Menu button and items using the `size` prop. Available o
   <ExampleCode>
 ```tsx file=./examples/sizeExample.tsx
 
-````
+```
 
   </ExampleCode>
 </Example>
@@ -63,7 +64,7 @@ The default Menu button can be customized by importing the `MenuButton` componen
 
 ```tsx file=./examples/menuExample.tsx
 
-````
+```
 
 <Example>
   <MenuExample />
@@ -110,11 +111,13 @@ import '@aws-amplify/ui-react/styles.css';
 
 import './styles.css';
 
-<Menu>
-  <MenuItem>Download</MenuItem>
-  <MenuItem>Create a Copy</MenuItem>
-  <MenuItem>Mark as Draft</MenuItem>
-</Menu>;
+export const GlobalStylingExample = () => (
+  <Menu>
+    <MenuItem>Download</MenuItem>
+    <MenuItem>Create a Copy</MenuItem>
+    <MenuItem>Mark as Draft</MenuItem>
+  </Menu>
+);
 ```
 
 <Example>
@@ -156,11 +159,13 @@ import '@aws-amplify/ui-react/styles.css';
 
 import './styles.css';
 
-<Menu className="my-menu-content" triggerClassName="my-menu-trigger">
-  <MenuItem>Download</MenuItem>
-  <MenuItem>Create a Copy</MenuItem>
-  <MenuItem>Mark as Draft</MenuItem>
-</Menu>;
+export const ClassNameExample = () => (
+  <Menu className="my-menu-content" triggerClassName="my-menu-trigger">
+    <MenuItem>Download</MenuItem>
+    <MenuItem>Create a Copy</MenuItem>
+    <MenuItem>Mark as Draft</MenuItem>
+  </Menu>
+);
 ```
 
 <Example>
@@ -186,11 +191,13 @@ import '@aws-amplify/ui-react/styles.css';
 
 import './styles.css';
 
-<Menu size="large">
-  <MenuItem>Download</MenuItem>
-  <MenuItem>Create a Copy</MenuItem>
-  <MenuItem>Mark as Draft</MenuItem>
-</Menu>;
+export const DataAttributesExample = () => (
+  <Menu size="large">
+    <MenuItem>Download</MenuItem>
+    <MenuItem>Create a Copy</MenuItem>
+    <MenuItem>Mark as Draft</MenuItem>
+  </Menu>
+);
 ```
 
 <Example>
@@ -207,11 +214,13 @@ _Using style props:_
 import { Menu, MenuItem } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-<Menu direction="row">
-  <MenuItem>Download</MenuItem>
-  <MenuItem>Create a Copy</MenuItem>
-  <MenuItem>Mark as Draft</MenuItem>
-</Menu>;
+export const StylePropsExample = () => (
+  <Menu direction="row">
+    <MenuItem>Download</MenuItem>
+    <MenuItem>Create a Copy</MenuItem>
+    <MenuItem>Mark as Draft</MenuItem>
+  </Menu>
+);
 ```
 
 <Example>
