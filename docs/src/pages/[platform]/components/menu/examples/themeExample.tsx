@@ -1,7 +1,7 @@
 import { AmplifyProvider, Menu, MenuItem, Theme } from '@aws-amplify/ui-react';
 
 const theme: Theme = {
-  name: 'custom-theme',
+  name: 'menu-example-theme',
   tokens: {
     components: {
       menu: {
