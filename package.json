@@ -7,6 +7,7 @@
     "refresh": "yarn clean && yarn setup",
     "angular": "yarn workspace @aws-amplify/ui-angular",
     "react": "yarn workspace @aws-amplify/ui-react",
+    "react-native": "yarn workspace @aws-amplify/ui-react-native",
     "ui": "yarn workspace @aws-amplify/ui",
     "vue": "yarn workspace @aws-amplify/ui-vue",
     "angular-example": "yarn workspace angular-example",
@@ -26,14 +27,20 @@
     "version:latest": "yarn changeset version && yarn angular build",
     "publish:latest": "yarn changeset publish"
   },
-  "workspaces": [
-    "docs",
-    "angular-docs",
-    "environments",
-    "examples/*",
-    "packages/*",
-    "packages/angular/projects/ui-angular"
-  ],
+  "workspaces": {
+    "packages": [
+      "docs",
+      "angular-docs",
+      "environments",
+      "examples/*",
+      "packages/*",
+      "packages/angular/projects/ui-angular"
+    ],
+    "nohoist": [
+      "**/react-native",
+      "**/react-native/**"
+    ]
+  },
   "resolutions": {
     "ansi-regex": "5.0.1",
     "ansi-html": "0.0.8",
