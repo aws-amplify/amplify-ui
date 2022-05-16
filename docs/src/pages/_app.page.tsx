@@ -13,6 +13,7 @@ import Head from 'next/head';
 import { Header } from '@/components/Layout/Header';
 import { META_INFO } from '@/data/meta'; // TODO: use data generated from pages.preval.ts instead
 import Script from 'next/script';
+import { baseTheme } from '../theme';
 import { capitalizeString } from '../utils/capitalizeString';
 import { useCustomRouter } from '@/components/useCustomRouter';
 
@@ -41,11 +42,6 @@ function MyApp({ Component, pageProps }) {
     throw new Error(`Meta Info missing on ${filepath}`);
   }
 
-  const theme = {
-    name: 'amplify-docs',
-    overrides: [defaultDarkModeOverride],
-  };
-
   return (
     <>
       <Head>
@@ -61,7 +57,7 @@ function MyApp({ Component, pageProps }) {
           <meta name="description" content={META_INFO[filepath].description} />
         )}
       </Head>
-      <AmplifyProvider theme={theme} colorMode={colorMode}>
+      <AmplifyProvider theme={baseTheme} colorMode={colorMode}>
         <Header
           platform={platform}
           colorMode={colorMode}
