@@ -12,6 +12,7 @@ import {
 } from '@angular/core';
 import {
   AuthenticatorMachineOptions,
+  defaultAuthHubHandler,
   listenToAuthHub,
   SocialProvider,
   translate,
@@ -66,7 +67,10 @@ export class AuthenticatorComponent
       formFields,
     } = this;
 
-    this.unsubscribeHub = listenToAuthHub((event) => {
+    const { authService } = this.authenticator;
+
+    this.unsubscribeHub = listenToAuthHub(authService, (data, service) => {
+      defaultAuthHubHandler(data, service);
       /**
        * Hub events aren't properly caught by Angular, because they are
        * synchronous events. Angular tracks async network events and
@@ -74,7 +78,6 @@ export class AuthenticatorComponent
        *
        * On any notable hub events, we run change detection manually.
        */
-      const state = this.authenticator.authService.send(event);
       this.changeDetector.detectChanges();
 
       /**
@@ -86,7 +89,6 @@ export class AuthenticatorComponent
        * to true to until we reach initial state.
        */
       this.isHandlingHubEvent = true;
-      return state;
     });
 
     /**
