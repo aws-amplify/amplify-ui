@@ -72,7 +72,7 @@ module.exports = withNextPluginPreval({
       },
       {
         source: '/ui/theme/alternativeStyling',
-        destination: '/theming/alternative-styling',
+        destination: '/guides/css-in-js',
         permanent: false,
       },
       // Generic redirects from old IA

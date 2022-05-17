@@ -108,13 +108,6 @@ export const SecondaryNav = (props) => {
           <NavLink {...props} href="/theming/dark-mode">
             Dark mode
           </NavLink>
-          <NavLink
-            {...props}
-            platforms={['react', 'vue', 'angular']}
-            href="/theming/alternative-styling"
-          >
-            Alternative styling
-          </NavLink>
         </>
       );
     case 'guides':
@@ -122,6 +115,13 @@ export const SecondaryNav = (props) => {
         <>
           <NavLink {...props} href="/guides">
             Guides
+          </NavLink>
+          <NavLink
+            {...props}
+            platforms={['react', 'vue', 'angular']}
+            href="/guides/css-in-js"
+          >
+            CSS in JS
           </NavLink>
           {platform === 'react' && (
             <NavLink {...props} href="/guides/auth-protected">

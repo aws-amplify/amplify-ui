@@ -267,8 +267,8 @@ export const META_INFO: MetaInfo = {
     description:
       'Dark Mode uses a darker color palette for all screens, making foreground content stand out against darker backgrounds. ',
   },
-  '/theming/alternative-styling': {
-    title: 'Theming - Alternative Styling',
+  '/guides/css-in-js': {
+    title: 'Guides - CSS in JS',
     description:
       'One of the goals of Amplify is to be a good citizen of the environment it exists in. As such, Amplify works hard to not interfere with other tools that are being used. - Amplify UI',
   },
