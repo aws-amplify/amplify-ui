@@ -105,7 +105,7 @@ unsubscribeMachine = service.subscribe((newState) => {
 }).unsubscribe;
 
 onMounted(() => {
-  unsubscribeHub = listenToAuthHub(send);
+  unsubscribeHub = listenToAuthHub(service);
 });
 
 onUnmounted(() => {
