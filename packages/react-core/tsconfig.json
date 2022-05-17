@@ -13,6 +13,7 @@
     "importHelpers": true,
     "module": "esnext",
     "moduleResolution": "node",
+    "noImplicitAny": true,
     "outDir": "dist",
     "skipLibCheck": true,
     "sourceMap": true,
