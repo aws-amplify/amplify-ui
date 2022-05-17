@@ -46,6 +46,8 @@ export const ComponentVariableTable = ({ componentName }) => {
           </TableRow>
         );
       }
+    } else {
+      return 'No variables available for this component';
     }
     return tableRows;
   }, [componentName]);
