@@ -1,6 +1,6 @@
 .amplify-scrollview {
   display: block;
-  overflow: scroll;
+  overflow: auto;
   // @TODO: Deprecated - Remove in 3.0
   &--horizontal {
     overflow-x: scroll;
@@ -8,7 +8,6 @@
   }
   // @TODO: Deprecated - Remove in 3.0
   &--vertical {
-    // @TODO: Deprecated - Remove in 3.0
     overflow-x: initial;
     overflow-y: scroll;
   }

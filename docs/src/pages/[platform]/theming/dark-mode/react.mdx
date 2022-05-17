@@ -1,3 +1,94 @@
-```jsx file=./darkMode.tsx
+import { Alert } from '@aws-amplify/ui-react';
+import { Example, ExampleCode } from '@/components/Example';
 
+import {
+  DefaultDarkMode,
+  SystemDarkModeExample,
+  CustomDarkModeExample,
+} from './examples';
+
+## Overview
+
+Amplify UI supports color modes/schemes, like Dark Mode, through theme overrides. Amplify UI Theme Overrides let you define different theme styles in different contexts, such as color mode. You can also use plain CSS.
+
+There are 2 ways to support light/dark mode in your application:
+
+1. Rely on the user's OS preference (_System Preferences > General > Appearance in Mac_)
+2. Place a control like a toggle button in your application that allows the user to switch color modes. With this option you could default to the OS preference or show 3 options: light, dark, system, like this site does.
+
+Either of these approaches work with Amplify UI whether you are using the Theme Overrides or writing plain CSS.
+
+## AmplifyProvider
+
+### colorMode
+
+The `AmplifyProvider` accepts a `colorMode` prop which can be `light`, `dark`, or `system`.
+
+<Alert variation="warning">
+
+If you have multiple `AmplifyProvider`s in your application, make sure to store `colorMode` in the application's state or context and pass it to each `AmplifyProvider` or else some parts of your app won't have the right color mode applied. Also, because the theme uses CSS variables which are inherited, your application can have some weird behavior with nested themes and color modes.
+
+Multiple `AmplifyProvider`s should be avoided if possible because it is more efficient to use a selector override instead. This site uses nested `AmplifyProvider`s for demos.
+
+</Alert>
+
+### Default Dark Mode
+
+Amplify UI comes with a default dark mode that you can use.
+
+_Note: the Amplify UI theme and any overrides like dark mode are scoped to the AmplifyProvider. Changing the color mode in the example will only affect the example code._
+
+<Example>
+  <DefaultDarkMode />
+
+  <ExampleCode>
+    ```tsx file=./examples/DefaultDarkMode.tsx
+    ```
+    
+  </ExampleCode>
+</Example>
+
+### System Dark Mode
+
+If you don't want to provide a color mode control on your application, but still want to honor the user's operating system preference for color mode, you can set the `colorMode` on the AmplifyProvider to `system`. Then use either the default dark mode override styling or provide your own.
+
+_Note: to see dark mode applied, change your OS preferences_
+
+<Example>
+  <SystemDarkModeExample />
+
+  <ExampleCode>
+    ```tsx file=./examples/SystemDarkMode.tsx
+    ```
+    
+</ExampleCode>
+</Example>
+
+### Custom dark mode
+
+<Example>
+  <CustomDarkModeExample />
+
+  <ExampleCode>
+    ```tsx file=./examples/CustomDarkMode.tsx
+    ```
+    
+</ExampleCode>
+</Example>
+
+## CSS
+
+You can also write CSS variables directly to support color modes. If you are using the `colorMode` prop in the `AmplifyProvider`, you can write CSS like this to support dark mode:
+
+```css
+/* The prefers-color-scheme media query detects the system setting */
+@media (prefers-color-scheme: dark) {
+  [data-amplify-color-mode='system'] {
+    --amplify-colors-background-primary: black;
+  }
+}
+
+[data-amplify-color-mode='dark'] {
+  --amplify-colors-background-primary: black;
+}
 ```
