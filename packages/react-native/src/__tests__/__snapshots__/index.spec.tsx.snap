@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`HelloWorld should render as expected 1`] = `
-<View>
-  <Text>
-    Hello World!
-  </Text>
-</View>
-`;
