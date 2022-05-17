@@ -267,6 +267,11 @@ export const META_INFO: MetaInfo = {
     description:
       'Dark Mode uses a darker color palette for all screens, making foreground content stand out against darker backgrounds. ',
   },
+  '/theming/css-variables': {
+    title: 'Theming - CSS Variables',
+    description:
+      'CSS Variables used in Amplify UI. You can override these values to update the look and feel.',
+  },
   '/guides/css-in-js': {
     title: 'Guides - CSS in JS',
     description:

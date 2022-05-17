@@ -108,6 +108,9 @@ export const SecondaryNav = (props) => {
           <NavLink {...props} href="/theming/dark-mode">
             Dark mode
           </NavLink>
+          <NavLink {...props} href="/theming/css-variables">
+            CSS Variables
+          </NavLink>
         </>
       );
     case 'guides':
