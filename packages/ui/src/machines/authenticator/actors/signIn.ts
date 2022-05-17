@@ -141,6 +141,85 @@ export function signInActor({ services }: SignInMachineOptions) {
             rejected: { always: '#signInActor.rejected' },
           },
         },
+        autoSignIn: {
+          initial: 'submit',
+          states: {
+            submit: {
+              tags: ['pending'],
+              entry: ['clearError', 'sendUpdate'],
+              invoke: {
+                src: 'signIn',
+                onDone: [
+                  {
+                    cond: 'shouldSetupTOTP',
+                    actions: ['setUser', 'setChallengeName'],
+                    target: '#signInActor.setupTOTP',
+                  },
+                  {
+                    cond: 'shouldConfirmSignIn',
+                    actions: ['setUser', 'setChallengeName'],
+                    target: '#signInActor.confirmSignIn',
+                  },
+                  {
+                    cond: 'shouldForceChangePassword',
+                    actions: [
+                      'setUser',
+                      'setChallengeName',
+                      'setRequiredAttributes',
+                    ],
+                    target: '#signInActor.forceNewPassword',
+                  },
+                  {
+                    actions: 'setUser',
+                    target: 'verifying',
+                  },
+                ],
+                onError: [
+                  {
+                    cond: 'shouldRedirectToConfirmSignUp',
+                    actions: ['setCredentials', 'setConfirmSignUpIntent'],
+                    target: 'rejected',
+                  },
+                  {
+                    cond: 'shouldRedirectToConfirmResetPassword',
+                    actions: [
+                      'setUsernameAuthAttributes',
+                      'setConfirmResetPasswordIntent',
+                    ],
+                    target: 'rejected',
+                  },
+                  {
+                    actions: 'setRemoteError',
+                    target: '#signInActor.signIn',
+                  },
+                ],
+              },
+            },
+            verifying: {
+              tags: ['pending'],
+              entry: ['clearError', 'sendUpdate'],
+              invoke: {
+                src: 'checkVerifiedContact',
+                onDone: [
+                  {
+                    cond: 'shouldRequestVerification',
+                    target: '#signInActor.verifyUser',
+                    actions: 'setUnverifiedAttributes',
+                  },
+                  {
+                    target: 'resolved',
+                  },
+                ],
+                onError: {
+                  actions: 'setRemoteError',
+                  target: '#signInActor.signIn',
+                },
+              },
+            },
+            resolved: { always: '#signInActor.resolved' },
+            rejected: { always: '#signInActor.rejected' },
+          },
+        },
         confirmSignIn: {
           initial: 'edit',
           exit: ['clearFormValues', 'clearError', 'clearTouched'],
