@@ -6,7 +6,13 @@ First, navigate to the [React Native docs](https://reactnative.dev/docs/environm
 
 > Only the Installing Dependencies section of the documentation is required for getting started with the Example App.
 
-Follow the docs for adding the required dependencies making sure the **React Native CLI Quickstart** tab is selected. Click on **macOS** as the Development Environment, and select either **Android** or **iOS** as the target OS.
+Follow the docs for adding the required dependencies making sure the **React Native CLI Quickstart** tab is selected. Click on **macOS** as the Development Environment, and select either **Android** or **iOS** as the target OS with the following caveat:
+
+**If using an M1 Macbook** and getting started with iOS, in the [install `CocoaPods` step](https://reactnative.dev/docs/environment-setup#cocoapods), rather than installing `ffi`, install `CocoaPods` via `brew`:
+
+```bash
+arch -arm64 brew install cocoapods
+```
 
 > the Example App assumes usage with **macOS** and has not been tested for **Windows** or **Linux** development.
 
