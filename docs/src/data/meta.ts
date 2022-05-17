@@ -8,6 +8,26 @@ export const META_INFO: MetaInfo = {
     description:
       'Amplify UI is an open-source design system with cloud-connected components and primitives that simplify building accessible, performant, and beautiful applications in React, Angular, Vue, and Flutter (more coming soon).',
   },
+  '/react': {
+    title: 'Home',
+    description:
+      'Amplify UI is an open-source design system with cloud-connected components and primitives that simplify building accessible, performant, and beautiful applications in React, Angular, Vue, and Flutter (more coming soon).',
+  },
+  '/angular': {
+    title: 'Home',
+    description:
+      'Amplify UI is an open-source design system with cloud-connected components and primitives that simplify building accessible, performant, and beautiful applications in React, Angular, Vue, and Flutter (more coming soon).',
+  },
+  '/vue': {
+    title: 'Home',
+    description:
+      'Amplify UI is an open-source design system with cloud-connected components and primitives that simplify building accessible, performant, and beautiful applications in React, Angular, Vue, and Flutter (more coming soon).',
+  },
+  '/flutter': {
+    title: 'Home',
+    description:
+      'Amplify UI is an open-source design system with cloud-connected components and primitives that simplify building accessible, performant, and beautiful applications in React, Angular, Vue, and Flutter (more coming soon).',
+  },
   '/getting-started/installation': {
     title: 'Installation',
     description:

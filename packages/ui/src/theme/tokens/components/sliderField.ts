@@ -83,7 +83,7 @@ export const sliderfield: SliderFieldTokens = {
 
   // The track is the thin background of the slider
   track: {
-    backgroundColor: { value: '{colors.background.tertiary.value}' },
+    backgroundColor: { value: '{colors.background.quaternary.value}' },
     borderRadius: { value: '9999px' },
     height: { value: '0.375rem' },
     minWidth: { value: '10rem' },

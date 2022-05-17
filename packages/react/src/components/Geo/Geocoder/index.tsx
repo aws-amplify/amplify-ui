@@ -1,7 +1,7 @@
 import maplibregl from 'maplibre-gl';
 import { createAmplifyGeocoder } from 'maplibre-gl-js-amplify';
 import { useEffect, useRef } from 'react';
-import { useControl, useMap } from 'react-map-gl';
+import { useControl, useMap } from 'react-map-gl/dist/es5';
 import type { IControl } from 'react-map-gl';
 
 const GEOCODER_OPTIONS = {

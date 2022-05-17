@@ -43,7 +43,7 @@ export const Demo = ({
         alignItems="stretch"
       >
         <Flex direction="column" flex="1">
-          <View>{children}</View>
+          <View overflow="auto">{children}</View>
           {propControls && (
             <Tabs>
               <TabItem title="Props">
@@ -58,7 +58,7 @@ export const Demo = ({
         </Flex>
         <View
           flex="1"
-          maxWidth="50%"
+          overflow="auto"
           position="relative"
           backgroundColor={tokens.colors.background.secondary}
         >
