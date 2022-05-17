@@ -52,6 +52,7 @@ interface SliderFieldThumbHoverTokens {
 }
 
 interface SliderFieldThumbFocusTokens {
+  borderColor: DesignToken<BorderColorValue>;
   boxShadow: DesignToken<BoxShadowValue>;
 }
 
@@ -118,12 +119,13 @@ export const sliderfield: SliderFieldTokens = {
       borderColor: { value: '{colors.border.focus.value}' },
     },
     _focus: {
+      borderColor: { value: '{colors.border.focus.value}' },
       boxShadow: {
         value: {
           offsetX: '0',
           offsetY: '0',
           blurRadius: '0',
-          spreadRadius: '3px',
+          spreadRadius: '2px',
           color: '{colors.border.focus.value}',
         },
       },
