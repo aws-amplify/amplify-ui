@@ -18,76 +18,75 @@ import {
 } from './GridItemPropControls';
 import { useGridItemProps } from './useGridItemProps';
 import { useGridContainerProps } from './useGridContainerProps';
+import { getPropString } from '../utils/getPropString';
 
 const propsToHeaderGridItemCode = (props: GridItemPropControlsProps) => {
   return (
     '<Card' +
-    (props.columnStart ? `\n  columnStart={${props.columnStart}}` : '') +
-    (props.columnEnd ? `\n  columnEnd={${props.columnEnd}}` : '') +
-    (props.rowStart ? `\n  rowStart={${props.rowStart}}` : '') +
-    (props.rowEnd ? `\n  rowEnd={${props.rowEnd}}` : '') +
-    '\n >' +
-    '\n  Header' +
-    '\n </Card>'
+    getPropString(props.columnStart, 'columnStart', 4) +
+    getPropString(props.columnEnd, 'columnEnd', 4) +
+    getPropString(props.rowStart, 'rowStart', 4) +
+    getPropString(props.rowEnd, 'rowEnd', 4) +
+    '\n  >' +
+    '\n    Header' +
+    '\n  </Card>'
   );
 };
 
-const propsToNavGridItemPcode = (props: GridItemPropControlsProps) => {
+const propsToNavGridItemCode = (props: GridItemPropControlsProps) => {
   return (
     '<Card' +
-    (props.columnStart ? `\n  columnStart={${props.columnStart}}` : '') +
-    (props.columnEnd ? `\n  columnEnd={${props.columnEnd}}` : '') +
-    (props.rowStart ? `\n  rowStart={${props.rowStart}}` : '') +
-    (props.rowEnd ? `\n  rowEnd={${props.rowEnd}}` : '') +
-    '\n >' +
-    '\n  Nav' +
-    '\n </Card>'
+    getPropString(props.columnStart, 'columnStart', 4) +
+    getPropString(props.columnEnd, 'columnEnd', 4) +
+    getPropString(props.rowStart, 'rowStart', 4) +
+    getPropString(props.rowEnd, 'rowEnd', 4) +
+    '\n  >' +
+    '\n    Nav' +
+    '\n  </Card>'
   );
 };
 
 const propsToMainGridItemCode = (props: GridItemPropControlsProps) => {
   return (
     '<Card' +
-    (props.columnStart ? `\n  columnStart={${props.columnStart}}` : '') +
-    (props.columnEnd ? `\n  columnEnd={${props.columnEnd}}` : '') +
-    (props.rowStart ? `\n  rowStart={${props.rowStart}}` : '') +
-    (props.rowEnd ? `\n  rowEnd={${props.rowEnd}}` : '') +
-    '\n >' +
-    '\n  Main' +
-    '\n </Card>'
+    getPropString(props.columnStart, 'columnStart', 4) +
+    getPropString(props.columnEnd, 'columnEnd', 4) +
+    getPropString(props.rowStart, 'rowStart', 4) +
+    getPropString(props.rowEnd, 'rowEnd', 4) +
+    '\n  >' +
+    '\n    Main' +
+    '\n  </Card>'
   );
 };
 
 const propsToFooterGridItemCode = (props: GridItemPropControlsProps) => {
   return (
     '<Card' +
-    (props.columnStart ? `\n  columnStart={${props.columnStart}}` : '') +
-    (props.columnEnd ? `\n  columnEnd={${props.columnEnd}}` : '') +
-    (props.rowStart ? `\n  rowStart={${props.rowStart}}` : '') +
-    (props.rowEnd ? `\n  rowEnd={${props.rowEnd}}` : '') +
-    '\n >' +
-    '\n  Footer' +
-    '\n </Card>'
+    getPropString(props.columnStart, 'columnStart', 4) +
+    getPropString(props.columnEnd, 'columnEnd', 4) +
+    getPropString(props.rowStart, 'rowStart', 4) +
+    getPropString(props.rowEnd, 'rowEnd', 4) +
+    '\n  >' +
+    '\n    Footer' +
+    '\n  </Card>'
   );
 };
 
 const propsToCode = (props: GridContainerStyleProps, children: string) => {
   return (
     '<Grid' +
-    (props.autoFlow ? `\n autoFlow="${props.autoFlow}"` : '') +
-    (props.autoColumns ? `\n autoColumns="${props.autoColumns}"` : '') +
-    (props.autoRows ? `\n autoRows="${props.autoRows}"` : '') +
-    (props.gap ? `\n gap="${props.gap}"` : '') +
-    (props.columnGap ? `\n columnGap="${props.columnGap}"` : '') +
-    (props.rowGap ? `\n rowGap="${props.rowGap}"` : '') +
-    (props.templateAreas ? `\n templateAreas="${props.templateAreas}"` : '') +
-    (props.templateColumns
-      ? `\n templateColumns="${props.templateColumns}"`
-      : '') +
-    (props.templateRows ? `\n templateRows="${props.templateRows}"` : '') +
-    (props.alignItems ? `\n alignItems="${props.alignItems}"` : '') +
-    (props.alignContent ? `\n templateRows="${props.alignContent}"` : '') +
-    (props.justifyContent ? `\n templateRows="${props.justifyContent}"` : '') +
+    getPropString(props.autoFlow, 'autoFlow') +
+    getPropString(props.autoColumns, 'autoColumns') +
+    getPropString(props.autoRows, 'autoRows') +
+    getPropString(props.gap, 'gap') +
+    getPropString(props.columnGap, 'columnGap') +
+    getPropString(props.rowGap, 'rowGap') +
+    getPropString(props.templateAreas, 'templateAreas') +
+    getPropString(props.templateColumns, 'templateColumns') +
+    getPropString(props.templateRows, 'templateRows') +
+    getPropString(props.alignItems, 'alignItems') +
+    getPropString(props.alignContent, 'alignContent') +
+    getPropString(props.justifyContent, 'justifyContent') +
     '\n>' +
     children +
     '\n</Grid>'
@@ -150,9 +149,9 @@ export const GridDemo = () => {
     }
   );
   const navGridItemProps = useGridItemProps(
-    demoState.get('GirdItemNav') || {
+    demoState.get('GridItemNav') || {
       ...defaultNavGridItemStyleProps,
-      name: 'GirdItemNav',
+      name: 'GridItemNav',
     }
   );
   const mainGridItemProps = useGridItemProps(
@@ -171,10 +170,10 @@ export const GridDemo = () => {
   }, []);
 
   const gridItemsCode =
-    `\n ${propsToHeaderGridItemCode(headerGridItemProps)}` +
-    `\n ${propsToNavGridItemPcode(navGridItemProps)}` +
-    `\n ${propsToMainGridItemCode(mainGridItemProps)}` +
-    `\n ${propsToFooterGridItemCode(footerGridItemProps)}`;
+    `\n  ${propsToHeaderGridItemCode(headerGridItemProps)}` +
+    `\n  ${propsToNavGridItemCode(navGridItemProps)}` +
+    `\n  ${propsToMainGridItemCode(mainGridItemProps)}` +
+    `\n  ${propsToFooterGridItemCode(footerGridItemProps)}`;
 
   return (
     <Demo
