@@ -105,7 +105,7 @@ export const sliderfield: SliderFieldTokens = {
     backgroundColor: { value: '{colors.background.primary.value}' },
     boxShadow: { value: '{shadows.small.value}' },
     borderRadius: { value: '50%' },
-    borderWidth: { value: '{borderWidths.small.value}' },
+    borderWidth: { value: '{borderWidths.medium.value}' },
     borderColor: { value: '{colors.border.primary.value}' },
     borderStyle: { value: 'solid' },
     _disabled: {
