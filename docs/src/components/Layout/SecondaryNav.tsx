@@ -94,6 +94,13 @@ export const SecondaryNav = (props) => {
           <NavLink
             {...props}
             platforms={['react', 'vue', 'angular']}
+            href="/theming/default-theme"
+          >
+            Default Theme
+          </NavLink>
+          <NavLink
+            {...props}
+            platforms={['react', 'vue', 'angular']}
             href="/theming/responsive"
           >
             Responsive
