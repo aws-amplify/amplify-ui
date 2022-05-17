@@ -19,7 +19,6 @@ interface AuthenticatorModalTokens {
 
 interface AuthenticatorRouterTokens {
   borderWidth: DesignToken<BorderWidthValue>;
-  borderStyle: DesignToken<BorderStyleValue>;
   borderColor: DesignToken<BorderColorValue>;
   backgroundColor: DesignToken<BackgroundColorValue>;
   boxShadow: DesignToken<BoxShadowValue>;
@@ -75,7 +74,6 @@ export const authenticator: AuthenticatorTokens = {
   },
   router: {
     borderWidth: { value: '{borderWidths.small.value}' },
-    borderStyle: { value: 'solid' },
     borderColor: { value: '{colors.border.primary.value}' },
     backgroundColor: { value: '{colors.background.primary.value}' },
     boxShadow: { value: '{shadows.medium.value}' },
