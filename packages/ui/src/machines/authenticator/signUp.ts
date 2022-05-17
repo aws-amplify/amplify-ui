@@ -1,7 +1,7 @@
 import { Auth } from 'aws-amplify';
 import get from 'lodash/get';
 import pickBy from 'lodash/pickBy';
-import { createMachine, sendUpdate } from 'xstate';
+import { assign, createMachine, sendUpdate } from 'xstate';
 
 import { AuthEvent, SignUpContext } from '../../types';
 import { runValidators } from '../../validators';
@@ -132,16 +132,9 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
                   },
                 },
                 skipConfirm: {
-                  invoke: {
-                    src: 'signIn',
-                    onDone: {
-                      target: '#signUpActor.resolved',
-                      actions: 'setUser',
-                    },
-                    onError: {
-                      target: 'idle',
-                      actions: 'setRemoteError',
-                    },
+                  always: {
+                    target: '#signUpActor.resolved',
+                    actions: 'setAutoSignInIntent',
                   },
                 },
 
@@ -174,7 +167,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
                 onError: [
                   {
                     target: '#signUpActor.resolved',
-                    actions: 'setUser',
+                    actions: 'setAutoSignInIntent',
                     cond: 'isUserAlreadyConfirmed',
                   },
                   { target: 'edit', actions: 'setRemoteError' },
@@ -188,7 +181,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
                 src: 'confirmSignUp',
                 onDone: {
                   target: '#signUpActor.resolved',
-                  actions: ['setUser'],
+                  actions: 'setAutoSignInIntent',
                 },
                 onError: { target: 'edit', actions: 'setRemoteError' },
               },
@@ -203,6 +196,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
             return {
               user: get(event, 'data.user') || context.user,
               authAttributes: { username, password },
+              intent: context.intent,
             };
           },
         },
@@ -247,17 +241,9 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
         setCodeDeliveryDetails,
         setUser,
         sendUpdate: sendUpdate(), // sendUpdate is a HOC
+        setAutoSignInIntent: assign({ intent: (_) => 'autoSignIn' }),
       },
       services: {
-        async signIn(context, event) {
-          const { user, authAttributes, formValues } = context;
-
-          const username =
-            get(user, 'username') || get(authAttributes, 'username');
-          const password = get(formValues, 'password');
-
-          return await Auth.signIn(username, password);
-        },
         async confirmSignUp(context, event) {
           const { user, authAttributes, formValues } = context;
           const { confirmation_code: code } = formValues;

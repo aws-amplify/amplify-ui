@@ -41,7 +41,10 @@ export function signInActor({ services }: SignInMachineOptions) {
       id: 'signInActor',
       states: {
         init: {
-          always: [{ target: 'signIn' }],
+          always: [
+            { target: 'autoSignIn', cond: 'shouldAutoSignIn' },
+            { target: 'signIn' },
+          ],
         },
         signIn: {
           initial: 'edit',
@@ -493,6 +496,9 @@ export function signInActor({ services }: SignInMachineOptions) {
 
           return validChallengeNames.includes(challengeName);
         },
+        shouldAutoSignIn: (context) => {
+          return context.intent && context.intent === 'autoSignIn';
+        },
         shouldRedirectToConfirmSignUp: (_, event): boolean => {
           return event.data.code === 'UserNotConfirmedException';
         },
@@ -517,7 +523,15 @@ export function signInActor({ services }: SignInMachineOptions) {
       },
       services: {
         async signIn(context) {
-          const { username, password } = context.formValues;
+          /**
+           * `authAttributes` are any username/password combo we remembered in
+           * memory. This is used in autoSignIn flow usually to pass username/pw
+           * from `confirmSignUp`.
+           */
+          const { authAttributes = {}, formValues = {} } = context;
+
+          const credentials = { ...authAttributes, ...formValues };
+          const { username, password } = credentials;
 
           return await services.handleSignIn({
             username,
