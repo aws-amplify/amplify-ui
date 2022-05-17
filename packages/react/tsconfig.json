@@ -10,6 +10,7 @@
     "declaration": true,
     "esModuleInterop": true,
     "jsx": "react-jsx",
+    "noImplicitAny": true,
     "rootDir": "./src",
     "outDir": "./dist",
     "skipLibCheck": true,
