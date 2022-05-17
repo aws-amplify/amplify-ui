@@ -1,11 +1,10 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { HelloWorld } from '@aws-amplify/ui-react-native';
+import { StyleSheet, View, Text } from 'react-native';
 
 const App = () => {
   return (
     <View style={style.container}>
-      <HelloWorld />
+      <Text>Hello World!</Text>
     </View>
   );
 };
