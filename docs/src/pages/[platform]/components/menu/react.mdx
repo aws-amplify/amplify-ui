@@ -3,9 +3,10 @@ import { Menu, MenuItem } from '@aws-amplify/ui-react';
 import { MenuDemo } from './demo';
 import {
   BasicExample,
+  ControlledExample,
   MenuAlignExample,
   MenuExample,
-  ControlledExample,
+  MenuItemsExample,
   SizeExample,
   StylePropsExample,
   ThemeExample,
@@ -20,12 +21,25 @@ import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 
 ## Usage
 
-Import the `Menu` and `MenuItem` components. Use the `MenuItem` component to configure Menu options.
+Import the `Menu` and `MenuItem` components. Note that the Menu component is rendered in a React Portal, so you can set the Menu button's width from its outer container. 
 
 <Example>
   <BasicExample />
   <ExampleCode>
 ```tsx file=./examples/basicExample.tsx
+
+```
+  </ExampleCode>
+</Example>
+
+### Menu items
+
+Use the `MenuItem` component to configure Menu options. The example below demonstrates how to add interactivity to the `MenuItem`'s via the `onClick` handler, as well as how to use the `Divider` component and `isDisabled` prop. 
+
+<Example>
+  <MenuItemsExample />
+  <ExampleCode>
+```tsx file=./examples/menuItemsExample.tsx
 
 ```
   </ExampleCode>
@@ -233,23 +247,11 @@ export const DataAttributesExample = () => (
 
 _Using style props:_
 
-```jsx
-import { Menu, MenuItem } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-export const StylePropsExample = () => (
-  <Menu direction="row">
-    <MenuItem>Download</MenuItem>
-    <MenuItem>Create a Copy</MenuItem>
-    <MenuItem>Mark as Draft</MenuItem>
-  </Menu>
-);
-```
-
 <Example>
-  <Menu direction="row">
-    <MenuItem>Download</MenuItem>
-    <MenuItem>Create a Copy</MenuItem>
-    <MenuItem>Mark as Draft</MenuItem>
-  </Menu>
+  <StylePropsExample />
+  <ExampleCode>
+```tsx file=./examples/stylePropsExample.tsx
+
+```
+  </ExampleCode>
 </Example>
