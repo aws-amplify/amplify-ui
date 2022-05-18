@@ -7,11 +7,11 @@ import { configure, trackPageVisit } from '../utils/track';
 
 import Head from 'next/head';
 import { Header } from '@/components/Layout/Header';
-import { META_INFO } from '@/data/meta'; // TODO: use data generated from pages.preval.ts instead
 import Script from 'next/script';
 import { capitalizeString } from '../utils/capitalizeString';
 import { theme } from '../theme';
 import { useCustomRouter } from '@/components/useCustomRouter';
+import metaData from '../data/pages.preval';
 
 // suppress useLayoutEffect warnings when running outside a browser
 // See: https://gist.github.com/gaearon/e7d97cdf38a2907924ea12e4ebdf3c85#gistcomment-3886909
@@ -42,7 +42,9 @@ function MyApp({ Component, pageProps }) {
   configure();
   trackPageVisit();
 
-  if (!META_INFO[filepath]?.description || !META_INFO[filepath]?.title) {
+  const { metaTitle, metaDescription } = metaData[pathname]?.frontmatter ?? {};
+
+  if (!metaDescription || !metaTitle) {
     throw new Error(`Meta Info missing on ${filepath}`);
   }
 
@@ -50,16 +52,13 @@ function MyApp({ Component, pageProps }) {
     <>
       <Head>
         <title>
-          {META_INFO[filepath]?.title} | {capitalizeString(platform)} - Amplify
-          UI
+          {metaTitle} | {capitalizeString(platform)} - Amplify UI
         </title>
         {['/', '/react', '/angular', '/vue', '/flutter'].includes(asPath) && (
           <link rel="canonical" href="https://ui.docs.amplify.aws/" />
         )}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        {META_INFO[filepath] && (
-          <meta name="description" content={META_INFO[filepath].description} />
-        )}
+        <meta name="description" content={metaDescription} />
       </Head>
       <AmplifyProvider theme={theme} colorMode={colorMode}>
         <Header
