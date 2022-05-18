@@ -625,14 +625,15 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-text-success-color: var(--amplify-colors-font-success);
         --amplify-components-text-info-color: var(--amplify-colors-font-info);
         --amplify-components-togglebutton-border-color: var(--amplify-colors-border-primary);
-        --amplify-components-togglebutton-color: var(--amplify-colors-overlay-50);
+        --amplify-components-togglebutton-color: var(--amplify-colors-font-primary);
         --amplify-components-togglebutton-hover-background-color: var(--amplify-colors-overlay-10);
         --amplify-components-togglebutton-focus-border-color: var(--amplify-colors-border-focus);
-        --amplify-components-togglebutton-focus-color: var(--amplify-colors-overlay-50);
+        --amplify-components-togglebutton-focus-color: var(--amplify-colors-font-primary);
         --amplify-components-togglebutton-active-background-color: var(--amplify-colors-transparent);
         --amplify-components-togglebutton-disabled-background-color: var(--amplify-colors-transparent);
-        --amplify-components-togglebutton-disabled-border-color: var(--amplify-colors-border-secondary);
+        --amplify-components-togglebutton-disabled-border-color: var(--amplify-colors-border-disabled);
         --amplify-components-togglebutton-disabled-color: var(--amplify-colors-font-disabled);
+        --amplify-components-togglebutton-pressed-border-color: var(--amplify-colors-border-pressed);
         --amplify-components-togglebutton-pressed-color: var(--amplify-colors-font-primary);
         --amplify-components-togglebutton-pressed-background-color: var(--amplify-colors-overlay-20);
         --amplify-components-togglebutton-pressed-hover-background-color: var(--amplify-colors-overlay-30);
@@ -641,10 +642,9 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-togglebutton-primary-focus-border-color: var(--amplify-colors-border-focus);
         --amplify-components-togglebutton-primary-focus-background-color: var(--amplify-colors-transparent);
         --amplify-components-togglebutton-primary-focus-box-shadow: var(--amplify-components-fieldcontrol-focus-box-shadow);
-        --amplify-components-togglebutton-primary-focus-color: var(--amplify-colors-overlay-50);
         --amplify-components-togglebutton-primary-hover-background-color: var(--amplify-colors-overlay-10);
-        --amplify-components-togglebutton-primary-hover-color: var(--amplify-colors-overlay-50);
-        --amplify-components-togglebutton-primary-disabled-background-color: var(--amplify-colors-background-tertiary);
+        --amplify-components-togglebutton-primary-disabled-border-color: var(--amplify-colors-border-disabled);
+        --amplify-components-togglebutton-primary-disabled-background-color: var(--amplify-colors-background-disabled);
         --amplify-components-togglebutton-primary-disabled-color: var(--amplify-colors-font-disabled);
         --amplify-components-togglebutton-primary-pressed-background-color: var(--amplify-colors-brand-primary-80);
         --amplify-components-togglebutton-primary-pressed-border-color: var(--amplify-colors-brand-primary-80);
@@ -658,6 +658,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-togglebutton-link-hover-color: var(--amplify-colors-overlay-50);
         --amplify-components-togglebutton-link-focus-background-color: var(--amplify-colors-transparent);
         --amplify-components-togglebutton-link-focus-color: var(--amplify-colors-overlay-50);
+        --amplify-components-togglebutton-link-disabled-background-color: var(--amplify-colors-transparent);
         --amplify-components-togglebutton-link-disabled-color: var(--amplify-colors-font-disabled);
         --amplify-components-togglebutton-link-pressed-background-color: var(--amplify-colors-transparent);
         --amplify-components-togglebutton-link-pressed-color: var(--amplify-colors-overlay-90);
@@ -771,6 +772,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-colors-border-secondary: var(--amplify-colors-neutral-40);
         --amplify-colors-border-tertiary: var(--amplify-colors-neutral-20);
         --amplify-colors-border-disabled: var(--amplify-colors-border-tertiary);
+        --amplify-colors-border-pressed: var(--amplify-colors-brand-primary-100);
         --amplify-colors-border-focus: var(--amplify-colors-brand-primary-100);
         --amplify-colors-border-error: var(--amplify-colors-red-80);
         --amplify-colors-shadow-primary: hsla(210, 50%, 10%, 0.25);
