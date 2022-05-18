@@ -30,6 +30,9 @@
       --amplify-components-authenticator-router-background-color
     );
     box-shadow: var(--amplify-components-authenticator-router-box-shadow);
+    border-color: var(--amplify-components-authenticator-router-border-color);
+    border-width: var(--amplify-components-authenticator-router-border-width);
+    border-style: var(--amplify-components-authenticator-router-border-style);
   }
 
   & [data-amplify-footer] {
