@@ -15,7 +15,6 @@ export function Example({ children, className = '' }: ExampleProps) {
       variation="outlined"
       className={`example ${className}`}
       style={{ marginBottom: `${tokens.space.large}` }}
-      overflow="auto"
     >
       <Flex direction="column">{children}</Flex>
     </Card>
