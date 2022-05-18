@@ -76,18 +76,26 @@
 
   //pressed state for the default variation
   &--pressed {
+    --amplify-internal-togglebutton-border-color: var(
+      --amplify-components-togglebutton-pressed-border-color
+    );
     --amplify-internal-togglebutton-background-color: var(
       --amplify-components-togglebutton-pressed-background-color
     );
     --amplify-internal-togglebutton-color: var(
       --amplify-components-togglebutton-pressed-color
     );
-    &:hover:not(:disabled) {
+    &:hover {
       --amplify-internal-togglebutton-hover-background-color: var(
         --amplify-components-togglebutton-pressed-hover-background-color
       );
     }
     &:disabled {
+      // No hover effects in disabled state
+      --amplify-internal-togglebutton-hover-background-color: var(
+        --amplify-internal-togglebutton-disabled-background-color
+      );
+
       --amplify-internal-togglebutton-disabled-background-color: var(
         --amplify-components-togglebutton-pressed-background-color
       );
@@ -126,9 +134,6 @@
     --amplify-internal-togglebutton-focus-border-color: var(
       --amplify-components-togglebutton-border-color
     );
-    --amplify-internal-togglebutton-focus-color: var(
-      --amplify-components-togglebutton-color
-    );
     --amplify-internal-togglebutton-active-background-color: var(
       --amplify-components-togglebutton-primary-background-color
     );
@@ -149,8 +154,9 @@
     --amplify-internal-togglebutton-primary-focus-border-color: var(
       --amplify-components-togglebutton-primary-focus-border-color
     );
+    //there is no primary focus color but this is being made and set to its default value so that it can be overwritten by the pressed primary focus color
     --amplify-internal-togglebutton-primary-focus-color: var(
-      --amplify-components-togglebutton-primary-focus-color
+      --amplify-internal-togglebutton-primary-color
     );
     &:focus {
       --amplify-internal-togglebutton-focus-background-color: var(
@@ -177,12 +183,13 @@
     --amplify-internal-togglebutton-primary-hover-background-color: var(
       --amplify-components-togglebutton-primary-hover-background-color
     );
-    //there is no primary hover border color but this is being made and set to its default value so that it can be overwritten by the pressed primary hover color
+    //there is no primary hover border color but this is being made and set to its default value so that it can be overwritten by the pressed primary hover border color
     --amplify-internal-togglebutton-primary-hover-border-color: var(
       --amplify-internal-togglebutton-primary-border-color
     );
+    //there is no primary hover color but this is being made and set to its default value so that it can be overwritten by the pressed primary hover color
     --amplify-internal-togglebutton-primary-hover-color: var(
-      --amplify-components-togglebutton-primary-hover-color
+      --amplify-internal-togglebutton-primary-color
     );
     &:hover {
       background-color: var(
@@ -202,14 +209,25 @@
     --amplify-internal-togglebutton-primary-disabled-background-color: var(
       --amplify-components-togglebutton-primary-disabled-background-color
     );
-    //this property doesn't have a specific value for this state but is being created and set to the default value so that it can be overwritten in the primary pressed state
+
     --amplify-internal-togglebutton-primary-disabled-border-color: var(
-      --amplify-internal-togglebutton-primary-border-color
+      --amplify-components-togglebutton-primary-disabled-border-color
     );
     --amplify-internal-togglebutton-primary-disabled-color: var(
       --amplify-components-togglebutton-primary-disabled-color
     );
     &:disabled {
+      // No hover effects visually in disabled state
+      --amplify-internal-togglebutton-primary-hover-background-color: var(
+        --amplify-internal-togglebutton-primary-disabled-background-color
+      );
+      --amplify-internal-togglebutton-primary-hover-border-color: var(
+        --amplify-internal-togglebutton-primary-disabled-border-color
+      );
+      --amplify-internal-togglebutton-primary-hover-color: var(
+        --amplify-internal-togglebutton-primary-disabled-color
+      );
+
       --amplify-internal-togglebutton-disabled-background-color: var(
         --amplify-internal-togglebutton-primary-disabled-background-color
       );
@@ -245,7 +263,7 @@
       );
     }
 
-    &:hover:not(:disabled) {
+    &:hover {
       --amplify-internal-togglebutton-primary-hover-background-color: var(
         --amplify-components-togglebutton-primary-pressed-hover-background-color
       );
@@ -265,21 +283,15 @@
       );
     }
 
-    //here we don't have to omit the values being declared above in the hover primary pressed state because the not(:disabled) selector gives that rule a higher specificity than this one
-    &:hover {
-      --amplify-internal-togglebutton-primary-hover-background-color: var(
-        --amplify-components-togglebutton-primary-hover-background-color
-      );
-      //there is no primary hover border color but this is being made and set to its default value so that it can be overwritten by the pressed primary hover color
-      --amplify-internal-togglebutton-primary-hover-border-color: var(
-        --amplify-internal-togglebutton-primary-border-color
-      );
-      --amplify-internal-togglebutton-primary-hover-color: var(
-        --amplify-components-togglebutton-primary-pressed-color
-      );
-    }
-
     &:disabled {
+      // No hover effects visually in disabled state
+      --amplify-internal-togglebutton-primary-hover-background-color: var(
+        --amplify-internal-togglebutton-primary-disabled-background-color
+      );
+      --amplify-internal-togglebutton-primary-hover-border-color: var(
+        --amplify-internal-togglebutton-primary-disabled-border-color
+      );
+
       --amplify-internal-togglebutton-primary-disabled-background-color: var(
         --amplify-components-togglebutton-primary-pressed-background-color
       );
@@ -334,9 +346,21 @@
       );
     }
 
+    --amplify-internal-togglebutton-link-disabled-color: var(
+      --amplify-components-togglebutton-link-disabled-color
+    );
+
     &:disabled {
-      --amplify-internal-togglebutton-disabled-color: var(
+      // No hover effects visually in disabled state
+      --amplify-internal-togglebutton-link-hover-color: var(
         --amplify-components-togglebutton-link-disabled-color
+      );
+
+      --amplify-internal-togglebutton-disabled-color: var(
+        --amplify-internal-togglebutton-link-disabled-color
+      );
+      --amplify-internal-togglebutton-disabled-background-color: var(
+        --amplify-components-togglebutton-link-disabled-background-color
       );
     }
   }
@@ -364,6 +388,12 @@
         --amplify-components-togglebutton-link-pressed-background-color
       );
       --amplify-internal-togglebutton-link-focus-color: var(
+        --amplify-components-togglebutton-link-pressed-color
+      );
+    }
+
+    &:disabled {
+      --amplify-internal-togglebutton-link-disabled-color: var(
         --amplify-components-togglebutton-link-pressed-color
       );
     }
