@@ -2,7 +2,7 @@ import { Amplify, Auth } from 'aws-amplify';
 import maplibregl from 'maplibre-gl';
 import { AmplifyMapLibreRequest } from 'maplibre-gl-js-amplify';
 import React, { forwardRef, useEffect, useMemo, useState } from 'react';
-import ReactMapGL from 'react-map-gl/dist/es5';
+import ReactMapGL from 'react-map-gl';
 import type { MapProps, MapRef, TransformRequestFunction } from 'react-map-gl';
 
 export type MapViewProps = Omit<MapProps, 'transformRequest'>;
