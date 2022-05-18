@@ -11,7 +11,7 @@ export const baseComponents: ComponentNavItem[] = [
   {
     href: '/components/view',
     label: 'View',
-    body: `View is the container component on top of which all other Amplify UI components live.`,
+    body: `View is the container component within which all other Amplify UI components live.`,
     platforms: ['react'],
   },
   {
