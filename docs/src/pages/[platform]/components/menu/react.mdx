@@ -1,4 +1,4 @@
-import { Menu, MenuItem } from '@aws-amplify/ui-react';
+import { Menu, MenuItem, View } from '@aws-amplify/ui-react';
 
 import { MenuDemo } from './demo';
 import {
@@ -45,6 +45,20 @@ Use the `MenuItem` component to configure Menu options. The example below demons
   </ExampleCode>
 </Example>
 
+### Customize Menu button
+
+The default Menu button can be customized by importing the `MenuButton` component and passing it to the `Menu`'s `trigger` prop. `MenuButton` can take all the same props as [Button](./button).
+
+<Example>
+  <MenuExample />
+  <ExampleCode>
+```tsx file=./examples/menuExample.tsx
+
+```
+
+  </ExampleCode>
+</Example>
+
 ### Menu alignment
 
 To control the alignment of the Menu with the Menu button, use the `menuAlign` prop. Available options are `start` (default), `center`, and `end`.
@@ -67,20 +81,6 @@ Control the size of the Menu button and items using the `size` prop. Available o
   <SizeExample />
   <ExampleCode>
 ```tsx file=./examples/sizeExample.tsx
-
-```
-
-  </ExampleCode>
-</Example>
-
-### Customize Menu button
-
-The default Menu button can be customized by importing the `MenuButton` component and passing it to the `Menu`'s `trigger` prop. `MenuButton` can take all the same props as [Button](./button).
-
-<Example>
-  <MenuExample />
-  <ExampleCode>
-```tsx file=./examples/menuExample.tsx
 
 ```
 
@@ -112,11 +112,13 @@ Create a controlled `Menu` using the `isOpen` and `onOpenChange` props.
 You can customize the appearance of all Menus in your application with a [Theme](/theming).
 
 <Example>
-  <Menu className="theming-menu">
-    <MenuItem>Download</MenuItem>
-    <MenuItem>Create a Copy</MenuItem>
-    <MenuItem>Mark as Draft</MenuItem>
-  </Menu>
+  <View width="4rem">
+    <Menu className="theming-menu">
+      <MenuItem>Download</MenuItem>
+      <MenuItem>Create a Copy</MenuItem>
+      <MenuItem>Mark as Draft</MenuItem>
+    </Menu>
+  </View>
 </Example>
 
 <ExampleCode>
@@ -158,14 +160,16 @@ export const GlobalStylingExample = () => (
 ```
 
 <Example>
-  <Menu
-    className="global-styling-menu"
-    triggerClassName="global-styling-menu-trigger"
-  >
-    <MenuItem>Download</MenuItem>
-    <MenuItem>Create a Copy</MenuItem>
-    <MenuItem>Mark as Draft</MenuItem>
-  </Menu>
+  <View width="4rem">
+    <Menu
+      className="global-styling-menu"
+      triggerClassName="global-styling-menu-trigger"
+    >
+      <MenuItem>Download</MenuItem>
+      <MenuItem>Create a Copy</MenuItem>
+      <MenuItem>Mark as Draft</MenuItem>
+    </Menu>
+  </View>
 </Example>
 
 ### Local styling
@@ -206,11 +210,13 @@ export const ClassNameExample = () => (
 ```
 
 <Example>
-  <Menu className="my-menu-content" triggerClassName="my-menu-trigger">
-    <MenuItem>Download</MenuItem>
-    <MenuItem>Create a Copy</MenuItem>
-    <MenuItem>Mark as Draft</MenuItem>
-  </Menu>
+  <View width="4rem">
+    <Menu className="my-menu-content" triggerClassName="my-menu-trigger">
+      <MenuItem>Download</MenuItem>
+      <MenuItem>Create a Copy</MenuItem>
+      <MenuItem>Mark as Draft</MenuItem>
+    </Menu>
+  </View>
 </Example>
 
 _Using data attributes:_
@@ -238,11 +244,13 @@ export const DataAttributesExample = () => (
 ```
 
 <Example>
-  <Menu size="large" className="custom-font-size">
-    <MenuItem>Download</MenuItem>
-    <MenuItem>Create a Copy</MenuItem>
-    <MenuItem>Mark as Draft</MenuItem>
-  </Menu>
+  <View width="4rem">
+    <Menu size="large" className="custom-font-size">
+      <MenuItem>Download</MenuItem>
+      <MenuItem>Create a Copy</MenuItem>
+      <MenuItem>Mark as Draft</MenuItem>
+    </Menu>
+  </View>
 </Example>
 
 _Using style props:_
