@@ -23,60 +23,62 @@ Import the View component.
   <ExampleCode>
 ```jsx file=./examples/DefaultViewExample.tsx
 
-````
+```
   </ExampleCode>
 </Example>
 
 ### Set rendered HTML element
 
-Change the HTML element rendered by View with the `as` property.
+To change the HTML element rendered by the View, use the `as` prop.
 
 <Example>
   <SetRenderedHTML />
   <ExampleCode>
 ```jsx file=./examples/SetRenderedHTML.tsx
 
-````
+```
 
   </ExampleCode>
 </Example>
 
 ### Disabled state
 
+To mark a View as disabled, pass the `isDisabled` prop.
+
 <Example>
   <DisabledStateExample />
   <ExampleCode>
 ```jsx file=./examples/DisabledStateExample.tsx
 
-````
+```
 
   </ExampleCode>
 </Example>
 
 ### Accessibility
 
-Setting an `aria-label` attribute and `role` for an icon button
+The example below demonstrates setting an `aria-label` attribute and `role` for an icon button.
 
 <Example>
   <AccessibilityExample />
   <ExampleCode>
 ```jsx file=./examples/AccessibilityExample.tsx
 
-````
+```
 
   </ExampleCode>
 </Example>
 
-### Custom attributes
+### Standard HTML attributes
 
-Pass any attribute to the underlying HTML element.
+View will accept any of the standard HTML attributes that its underlying HTML element accepts. View renders a `<div>` by default.
 
 <Example>
   <CustomAttributesExample />
   <ExampleCode>
 ```jsx file=./examples/CustomAttributesExample.tsx
 
-````
+```
   </ExampleCode>
 </Example>
 
@@ -118,19 +120,7 @@ _Using style props:_
   <ExampleCode>
 ```jsx file=./examples/StylePropsExample.tsx
 
-````
+```
 
   </ExampleCode>
 </Example>
-
-```
-
-```
-
-```
-
-```
-
-```
-
-```

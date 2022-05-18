@@ -7,8 +7,8 @@ export const StylePropsExample = () => {
     <View
       backgroundColor={tokens.colors.green[20]}
       borderRadius={tokens.radii.large}
-      textAlign="center"
       fontSize={tokens.fontSizes.xxxxl}
+      textAlign="center"
     >
       🌲🌲🌲 🏕 🌲🌲🌲
     </View>
