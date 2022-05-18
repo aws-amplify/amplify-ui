@@ -5,6 +5,9 @@ module.exports = {
     '<rootDir>/src/**/*.{js,jsx,ts,tsx}',
     '!<rootDir>/src/**/*{c,C}onstants.ts',
   ],
+  moduleNameMapper: {
+    '^react$': '<rootDir>/node_modules/react',
+  },
   coverageThreshold: {
     global: {
       branches: 0,
