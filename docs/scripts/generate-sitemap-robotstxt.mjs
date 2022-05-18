@@ -105,7 +105,9 @@ async function generateSitemap() {
 }
 
 function generateRobotsTxt() {
-  const isProd = process.env.SITE_URL === 'https://ui.docs.amplify.aws';
+  const isProd =
+    process.env.SITE_URL &&
+    process.env.SITE_URL.startsWith('https://ui.docs.amplify.aws');
   console.log(
     `🤖▶️ robots.txt generating for ${
       isProd
@@ -118,14 +120,12 @@ User-agent: Googlebot
 Disallow: /
 `;
 
-  const txt = `${
-    process.env.SITE_URL === 'https://ui.docs.amplify.aws' ? '' : disallowTxt
-  }
+  const txt = `${isProd ? '' : disallowTxt}
 User-agent: *
 Allow: /
 
 # Host
-Host: https://ui.docs.amplify.aws
+Host: ui.docs.amplify.aws
 
 # Sitemaps
 Sitemap: ${process.env.SITE_URL ?? 'https://ui.docs.amplify.aws'}

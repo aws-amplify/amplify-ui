@@ -543,7 +543,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-sliderfield-thumb-background-color: var(--amplify-colors-background-primary);
         --amplify-components-sliderfield-thumb-box-shadow: var(--amplify-shadows-small);
         --amplify-components-sliderfield-thumb-border-radius: 50%;
-        --amplify-components-sliderfield-thumb-border-width: var(--amplify-border-widths-small);
+        --amplify-components-sliderfield-thumb-border-width: var(--amplify-border-widths-medium);
         --amplify-components-sliderfield-thumb-border-color: var(--amplify-colors-border-primary);
         --amplify-components-sliderfield-thumb-border-style: solid;
         --amplify-components-sliderfield-thumb-disabled-background-color: var(--amplify-colors-background-disabled);
@@ -551,7 +551,8 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-sliderfield-thumb-disabled-box-shadow: none;
         --amplify-components-sliderfield-thumb-hover-background-color: var(--amplify-colors-background-primary);
         --amplify-components-sliderfield-thumb-hover-border-color: var(--amplify-colors-border-focus);
-        --amplify-components-sliderfield-thumb-focus-box-shadow: 0 0 0 3px var(--amplify-colors-border-focus);
+        --amplify-components-sliderfield-thumb-focus-border-color: var(--amplify-colors-border-focus);
+        --amplify-components-sliderfield-thumb-focus-box-shadow: 0 0 0 2px var(--amplify-colors-border-focus);
         --amplify-components-sliderfield-small-track-height: 0.25rem;
         --amplify-components-sliderfield-small-thumb-width: 1rem;
         --amplify-components-sliderfield-small-thumb-height: 1rem;

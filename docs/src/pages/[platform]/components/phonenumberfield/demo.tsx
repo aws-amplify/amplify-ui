@@ -1,114 +1,71 @@
 import * as React from 'react';
+import { PhoneNumberField, PhoneNumberFieldProps } from '@aws-amplify/ui-react';
+import { Demo } from '@/components/Demo';
+import { PhoneNumberFieldPropControls } from './PhoneNumberFieldPropControls';
+import { usePhoneNumberFieldProps } from './usePhoneNumberFieldProps';
+import { demoState } from '@/utils/demoState';
+import { getPropString } from '../utils/getPropString';
 
-import {
-  FlexContainerStyleProps,
-  PhoneNumberField,
-  TextFieldProps,
-  View,
-} from '@aws-amplify/ui-react';
+const propsToCode = (props) => {
+  return (
+    `<PhoneNumberField` +
+    `\n  defaultCountryCode="${props.defaultCountryCode}"` +
+    `\n  label="${props.label}"` +
+    (props.labelHidden ? `\n  labelHidden` : '') +
+    getPropString(props.descriptiveText, 'descriptiveText') +
+    getPropString(props.placeholder, 'placeholder') +
+    getPropString(props.size, 'size') +
+    getPropString(props.variation, 'variation') +
+    getPropString(props.errorMessage, 'errorMessage') +
+    (props.hasError ? `\n  hasError` : '') +
+    (props.isDisabled ? `\n  isDisabled` : '') +
+    (props.isReadOnly ? `\n  isReadOnly` : '') +
+    `\n/>`
+  );
+};
 
-import { Example } from '@/components/Example';
-import { GetFieldControls } from '../shared/GetFieldControls';
-import { useFlexContainerStyleProps } from '../shared/useFlexContainerStyleProps';
-import { useTextFieldProps } from '../textfield/useTextFieldProps';
+const defaultPhoneNumberFieldProps: PhoneNumberFieldProps = {
+  defaultCountryCode: '+1',
+  label: 'Phone number',
+  value: '',
+  descriptiveText: 'Please enter your phone number',
+  placeholder: '234-567-8910',
+  errorMessage: '',
+  labelHidden: false,
+  hasError: false,
+  isDisabled: false,
+  isReadOnly: false,
+};
 
 export const PhoneNumberFieldDemo = () => {
-  const flexStyleProps = useFlexContainerStyleProps({
-    alignItems: '',
-    alignContent: '',
-    direction: 'column',
-    gap: '',
-    justifyContent: '',
-    wrap: 'nowrap',
-  });
-  const textFieldProps = useTextFieldProps({
-    autoComplete: 'username',
-    defaultValue: '',
-    descriptiveText: 'Please enter your phone number',
-    errorMessage: '',
-    hasError: false,
-    inputMode: 'text',
-    isDisabled: false,
-    isReadOnly: false,
-    isRequired: false,
-    label: 'Phone Number',
-    labelHidden: false,
-    name: 'phone_number',
-    placeholder: 'Phone Number',
-    size: '',
-    type: null,
-    variation: '',
-    value: '',
-  });
-  const FlexPropControls = GetFieldControls({
-    typeName: 'Flex',
-    fields: flexStyleProps,
-  });
-  const TextFieldPropControls = GetFieldControls({
-    typeName: 'PhoneNumberField',
-    fields: textFieldProps,
-  });
-
-  const [
-    [alignItems],
-    [alignContent],
-    [direction],
-    [gap],
-    [justifyContent],
-    [wrap],
-  ] = flexStyleProps;
-  const [
-    [autoComplete],
-    [defaultValue],
-    [descriptiveText],
-    [errorMessage],
-    [hasError],
-    [inputMode],
-    [isDisabled],
-    [isReadOnly],
-    [isRequired],
-    [label],
-    [labelHidden],
-    [name],
-    [placeholder],
-    [size],
-    [type],
-    [value],
-    [variation],
-  ] = textFieldProps;
+  const phoneNumberFieldProps = usePhoneNumberFieldProps(
+    (demoState.get(PhoneNumberField.displayName) as PhoneNumberFieldProps) ||
+      defaultPhoneNumberFieldProps
+  );
 
   return (
-    <View width="100%">
-      {TextFieldPropControls}
-      {FlexPropControls}
-      <Example>
-        <PhoneNumberField
-          defaultCountryCode="+1"
-          alignContent={alignContent as FlexContainerStyleProps['alignContent']}
-          alignItems={alignItems as FlexContainerStyleProps['alignItems']}
-          autoComplete={autoComplete as TextFieldProps['autoComplete']}
-          descriptiveText={descriptiveText as TextFieldProps['descriptiveText']}
-          defaultValue={defaultValue as TextFieldProps['defaultValue']}
-          direction={direction as FlexContainerStyleProps['direction']}
-          errorMessage={errorMessage as TextFieldProps['errorMessage']}
-          gap={gap as FlexContainerStyleProps['gap']}
-          hasError={hasError as unknown as boolean}
-          inputMode={inputMode as TextFieldProps['inputMode']}
-          isDisabled={isDisabled as unknown as boolean}
-          isReadOnly={isReadOnly as unknown as boolean}
-          isRequired={isRequired as unknown as boolean}
-          justifyContent={
-            justifyContent as FlexContainerStyleProps['justifyContent']
-          }
-          label={label as TextFieldProps['label']}
-          labelHidden={labelHidden as unknown as boolean}
-          name={name as TextFieldProps['name']}
-          placeholder={placeholder as TextFieldProps['placeholder']}
-          size={size as TextFieldProps['size']}
-          variation={variation as TextFieldProps['variation']}
-          wrap={wrap as FlexContainerStyleProps['wrap']}
-        />
-      </Example>
-    </View>
+    <Demo
+      code={propsToCode(phoneNumberFieldProps)}
+      propControls={<PhoneNumberFieldPropControls {...phoneNumberFieldProps} />}
+    >
+      <PhoneNumberField
+        value={phoneNumberFieldProps.value}
+        onChange={(event) => phoneNumberFieldProps.setValue(event.target.value)}
+        defaultCountryCode={phoneNumberFieldProps.defaultCountryCode}
+        onCountryCodeChange={(event) =>
+          phoneNumberFieldProps.setDefaultCountryCode(event.target.value)
+        }
+        label={phoneNumberFieldProps.label}
+        labelHidden={phoneNumberFieldProps.labelHidden}
+        descriptiveText={phoneNumberFieldProps.descriptiveText}
+        placeholder={phoneNumberFieldProps.placeholder}
+        size={phoneNumberFieldProps.size}
+        variation={phoneNumberFieldProps.variation}
+        errorMessage={phoneNumberFieldProps.errorMessage}
+        hasError={phoneNumberFieldProps.hasError}
+        isDisabled={phoneNumberFieldProps.isDisabled}
+        isReadOnly={phoneNumberFieldProps.isReadOnly}
+      />
+    </Demo>
   );
 };

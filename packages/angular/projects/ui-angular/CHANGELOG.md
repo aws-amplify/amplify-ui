@@ -1,5 +1,14 @@
 # @aws-amplify/ui-angular
 
+## 2.4.5
+
+### Patch Changes
+
+- [#1868](https://github.com/aws-amplify/amplify-ui/pull/1868) [`1c3e35a8d`](https://github.com/aws-amplify/amplify-ui/commit/1c3e35a8df815402da68c203b84cf599064c863a) Thanks [@wlee221](https://github.com/wlee221)! - This PR adds additional safeguards to hub event listeners we use. Now, we will only pass hub events to the auth machine if it is in the correct state.
+
+- Updated dependencies [[`62edc9ee3`](https://github.com/aws-amplify/amplify-ui/commit/62edc9ee34a64a81190631fed31cf388bcf3b2e0), [`1c3e35a8d`](https://github.com/aws-amplify/amplify-ui/commit/1c3e35a8df815402da68c203b84cf599064c863a), [`937498b3f`](https://github.com/aws-amplify/amplify-ui/commit/937498b3ff016f2f76f60d861a995b8b1bb77bdf), [`5c5e89407`](https://github.com/aws-amplify/amplify-ui/commit/5c5e89407d2946be61ffb4ab5a4e9d7352c41065)]:
+  - @aws-amplify/ui@3.9.0
+
 ## 2.4.4
 
 ### Patch Changes
