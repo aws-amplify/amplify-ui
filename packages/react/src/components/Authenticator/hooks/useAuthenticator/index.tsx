@@ -48,19 +48,15 @@ export const Provider = ({ children }: { children: React.ReactNode }) => {
     ? currentProviderVal
     : parentProviderVal;
 
-  const {
-    service: { send },
-  } = value;
+  const { service: activeService } = value;
 
   const isListening = React.useRef(false);
   React.useEffect(() => {
-    if (isListening.current) {
-      return;
-    }
+    if (isListening.current) return;
 
     isListening.current = true;
-    return listenToAuthHub(send);
-  }, [send]);
+    return listenToAuthHub(activeService);
+  }, [activeService]);
 
   return (
     <AuthenticatorContext.Provider value={value}>
