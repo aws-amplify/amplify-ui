@@ -104,9 +104,9 @@ export const SecondaryNav = (props) => {
           <NavLink
             {...props}
             platforms={['react', 'vue', 'angular']}
-            href="/theming/alternative-styling"
+            href="/theming/css-variables"
           >
-            Alternative styling
+            CSS Variables
           </NavLink>
         </>
       );
@@ -115,6 +115,13 @@ export const SecondaryNav = (props) => {
         <>
           <NavLink {...props} href="/guides">
             Guides
+          </NavLink>
+          <NavLink
+            {...props}
+            platforms={['react', 'vue', 'angular']}
+            href="/guides/css-in-js"
+          >
+            CSS in JS
           </NavLink>
           {platform === 'react' && (
             <NavLink {...props} href="/guides/auth-protected">
