@@ -275,7 +275,7 @@ export const META_INFO: MetaInfo = {
   '/guides/css-in-js': {
     title: 'Guides - CSS in JS',
     description:
-      'One of the goals of Amplify is to be a good citizen of the environment it exists in. As such, Amplify works hard to not interfere with other tools that are being used. - Amplify UI',
+      'Amplify UI supports using many popular CSS-in-JS frameworks to override styling on our components.',
   },
   '/404': {
     title: '404',
