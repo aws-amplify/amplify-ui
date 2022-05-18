@@ -90,7 +90,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://ui.docs.amplify.aws
+Host: ui.docs.amplify.aws
 
 # Sitemaps
 Sitemap: ${process.env.SITE_URL ?? 'https://ui.docs.amplify.aws'}
