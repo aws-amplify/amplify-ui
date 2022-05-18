@@ -270,7 +270,7 @@ export const META_INFO: MetaInfo = {
   '/theming/css-variables': {
     title: 'Theming - CSS Variables',
     description:
-      'CSS Variables used in Amplify UI. You can override these values to update the look and feel.',
+      'CSS Variables used in Amplify UI. You can override these values to update the look and feel of your application.',
   },
   '/guides/css-in-js': {
     title: 'Guides - CSS in JS',
