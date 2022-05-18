@@ -52,7 +52,7 @@ const submit = (e: Event): void => {
 };
 
 const onInput = (e: Event): void => {
-  const { name, value } = <HTMLInputElement>e.target;
+  const { name, value } = e.target as HTMLInputElement;
   send({
     type: 'CHANGE',
     //@ts-ignore
@@ -61,7 +61,7 @@ const onInput = (e: Event): void => {
 };
 
 function onBlur(e: Event) {
-  const { name } = <HTMLInputElement>e.target;
+  const { name } = e.target as HTMLInputElement;
   props.updateBlur({ name });
 }
 </script>
