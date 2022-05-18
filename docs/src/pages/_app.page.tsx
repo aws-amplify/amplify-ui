@@ -2,14 +2,18 @@ import '../styles/index.scss';
 
 import * as React from 'react';
 
-import { AmplifyProvider, ColorMode } from '@aws-amplify/ui-react';
+import {
+  AmplifyProvider,
+  ColorMode,
+  defaultDarkModeOverride,
+} from '@aws-amplify/ui-react';
 import { configure, trackPageVisit } from '../utils/track';
 
 import Head from 'next/head';
 import { Header } from '@/components/Layout/Header';
 import Script from 'next/script';
+import { baseTheme } from '../theme';
 import { capitalizeString } from '../utils/capitalizeString';
-import { theme } from '../theme';
 import { useCustomRouter } from '@/components/useCustomRouter';
 import metaData from '../data/pages.preval';
 
@@ -30,14 +34,6 @@ function MyApp({ Component, pageProps }) {
     .filter((n) => n && n !== '[platform]')
     .join('/')}`;
   const [colorMode, setColorMode] = React.useState<ColorMode>('system');
-  const [themeOverride, setThemeOverride] = React.useState('');
-
-  React.useEffect(() => {
-    document.documentElement.setAttribute(
-      'data-amplify-theme-override',
-      themeOverride
-    );
-  }, [themeOverride]);
 
   configure();
   trackPageVisit();
@@ -60,18 +56,13 @@ function MyApp({ Component, pageProps }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content={metaDescription} />
       </Head>
-      <AmplifyProvider theme={theme} colorMode={colorMode}>
+      <AmplifyProvider theme={baseTheme} colorMode={colorMode}>
         <Header
           platform={platform}
           colorMode={colorMode}
           setColorMode={setColorMode}
         />
-        <Component
-          {...pageProps}
-          colorMode={colorMode}
-          setThemeOverride={setThemeOverride}
-          themeOverride={themeOverride}
-        />
+        <Component {...pageProps} colorMode={colorMode} />
       </AmplifyProvider>
       <Script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" />
       <Script src="/scripts/shortbreadv2.js" />
