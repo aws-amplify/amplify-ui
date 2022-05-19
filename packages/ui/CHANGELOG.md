@@ -1,5 +1,11 @@
 # @aws-amplify/ui
 
+## 3.9.1
+
+### Patch Changes
+
+- [#1933](https://github.com/aws-amplify/amplify-ui/pull/1933) [`376c39fc0`](https://github.com/aws-amplify/amplify-ui/commit/376c39fc04aec3a41d02a722a62d4b8e4eb43230) Thanks [@zchenwei](https://github.com/zchenwei)! - fix(style): adjust slider thumb border width, focus color and box shadow. #1922
+
 ## 3.9.0
 
 ### Minor Changes

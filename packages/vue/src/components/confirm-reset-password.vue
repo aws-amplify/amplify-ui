@@ -3,9 +3,7 @@ import { computed, ComputedRef, useAttrs, defineEmits } from 'vue';
 import { createSharedComposable } from '@vueuse/core';
 
 import {
-  getActorContext,
   getActorState,
-  ResetPasswordContext,
   ResetPasswordState,
   translate,
   getFormDataFromEvent,
@@ -25,10 +23,6 @@ const emit = defineEmits(['confirmResetPasswordSubmit', 'backToSignInClicked']);
 const actorState: ComputedRef<ResetPasswordState> = computed(() =>
   getActorState(state.value)
 ) as ComputedRef<ResetPasswordState>;
-
-const actorContext = computed(() =>
-  getActorContext(state.value)
-) as ComputedRef<ResetPasswordContext>;
 
 // Computed Properties
 const resendCodeText = computed(() => translate('Resend Code'));
@@ -57,7 +51,7 @@ const onLostYourCodeClicked = (): void => {
 };
 
 const onInput = (e: Event) => {
-  const { name, value } = <HTMLInputElement>e.target;
+  const { name, value } = e.target as HTMLInputElement;
   send({
     type: 'CHANGE',
     data: { name, value },
@@ -65,7 +59,7 @@ const onInput = (e: Event) => {
 };
 
 function onBlur(e: Event) {
-  const { name } = <HTMLInputElement>e.target;
+  const { name } = e.target as HTMLInputElement;
   props.updateBlur({ name });
 }
 </script>
