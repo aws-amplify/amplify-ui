@@ -37,7 +37,7 @@ const verifyContactText = computed(() => translate('Verify Contact'));
 
 // Methods
 const onInput = (e: Event): void => {
-  const { name, value } = <HTMLInputElement>e.target;
+  const { name, value } = e.target as HTMLInputElement;
   send({
     type: 'CHANGE',
     //@ts-ignore

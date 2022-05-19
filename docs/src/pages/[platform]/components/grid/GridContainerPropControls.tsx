@@ -1,6 +1,9 @@
 import * as React from 'react';
-import { GridContainerStyleProps, TextField } from '@aws-amplify/ui-react';
-import { DemoBox } from './DemoBox';
+import {
+  Flex,
+  GridContainerStyleProps,
+  TextField,
+} from '@aws-amplify/ui-react';
 
 export interface GridContainerPropControlsProps
   extends GridContainerStyleProps {
@@ -10,6 +13,7 @@ export interface GridContainerPropControlsProps
   setColumnGap: (value: any) => void;
   setGap: (value: any) => void;
   setRowGap: (value: any) => void;
+  setTemplateAreas: (value: any) => void;
   setTemplateColumns: (value: any) => void;
   setTemplateRows: (value: any) => void;
   setAlignItems: (value: any) => void;
@@ -34,6 +38,8 @@ export const GridContainerPropControls: GridContainerPropControls = ({
   setGap,
   rowGap,
   setRowGap,
+  templateAreas,
+  setTemplateAreas,
   templateColumns,
   setTemplateColumns,
   templateRows,
@@ -46,7 +52,7 @@ export const GridContainerPropControls: GridContainerPropControls = ({
   setJustifyContent,
 }) => {
   return (
-    <DemoBox primitiveName="Grid container">
+    <Flex direction="column">
       <TextField
         label="autoColumns"
         onInput={(event) => setAutoColumns(event.target.value)}
@@ -78,6 +84,11 @@ export const GridContainerPropControls: GridContainerPropControls = ({
         value={rowGap as string}
       />
       <TextField
+        label="templateAreas"
+        onInput={(event) => setTemplateAreas(event.target.value)}
+        value={templateAreas as string}
+      />
+      <TextField
         label="templateColumns"
         onInput={(event) => setTemplateColumns(event.target.value)}
         value={templateColumns as string}
@@ -102,6 +113,6 @@ export const GridContainerPropControls: GridContainerPropControls = ({
         onInput={(event) => setJustifyContent(event.target.value)}
         value={justifyContent as string}
       />
-    </DemoBox>
+    </Flex>
   );
 };

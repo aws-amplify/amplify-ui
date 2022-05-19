@@ -1,6 +1,7 @@
 import { GridContainerStyleProps } from '@aws-amplify/ui-react';
 import * as React from 'react';
 
+import { demoState } from '@/utils/demoState';
 import { GridContainerPropControlsProps } from './GridContainerPropControls';
 
 interface UseGridContainerProps {
@@ -32,6 +33,36 @@ export const useGridContainerProps: UseGridContainerProps = (initialValues) => {
   const [justifyContent, setJustifyContent] = React.useState(
     initialValues.justifyContent
   );
+
+  React.useEffect(() => {
+    demoState.set('GridContainer', {
+      autoColumns,
+      autoFlow,
+      autoRows,
+      columnGap,
+      gap,
+      rowGap,
+      templateAreas,
+      templateColumns,
+      templateRows,
+      alignItems,
+      alignContent,
+      justifyContent,
+    });
+  }, [
+    autoColumns,
+    autoFlow,
+    autoRows,
+    columnGap,
+    gap,
+    rowGap,
+    templateAreas,
+    templateColumns,
+    templateRows,
+    alignItems,
+    alignContent,
+    justifyContent,
+  ]);
 
   return {
     autoColumns,
