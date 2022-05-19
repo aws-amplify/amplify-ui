@@ -33,7 +33,7 @@ const submitText = computed(() => translate('Submit'));
 
 // Methods
 const onInput = (e: Event): void => {
-  const { name, value } = <HTMLInputElement>e.target;
+  const { name, value } = e.target as HTMLInputElement;
   send({
     type: 'CHANGE',
     //@ts-ignore
