@@ -11,7 +11,9 @@ interface MenuPropControlsInterface {
 }
 
 export const MenuPropControls: MenuPropControlsInterface = ({
+  menuAlign,
   setMenuAlign,
+  size,
   setSize,
 }) => {
   return (
@@ -19,6 +21,7 @@ export const MenuPropControls: MenuPropControlsInterface = ({
       <SelectField
         label="menuAlign"
         name="menuAlign"
+        value={menuAlign}
         onChange={(event) =>
           setMenuAlign(event.target.value as MenuProps['menuAlign'])
         }
@@ -32,6 +35,7 @@ export const MenuPropControls: MenuPropControlsInterface = ({
         label="size"
         name="size"
         placeholder="default"
+        value={size}
         onChange={(event) => setSize(event.target.value as MenuProps['size'])}
       >
         <option value="small">small</option>

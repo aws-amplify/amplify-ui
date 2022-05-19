@@ -162,7 +162,7 @@ export const inputComponents = [
   {
     href: '/components/phonenumberfield',
     label: 'Phone Number Field',
-    body: ``,
+    body: `The PhoneNumberField form primitive allows users to input a phone number`,
     platforms: ['react'],
   },
   {
@@ -246,13 +246,13 @@ export const navigationComponents: ComponentNavItem[] = [
   {
     href: '/components/menu',
     label: 'Menu',
-    body: ``,
+    body: `Menu provides an accessible, interactive menu for selecting actions within an application. Dropdown menu is collision-aware and will automatically change location based on available space.`,
     platforms: ['react'],
   },
   {
     href: '/components/tabs',
     label: 'Tabs',
-    body: ``,
+    body: `Tabs organize content into multiple sections and allow users to navigate between them.`,
     platforms: ['react'],
   },
 ].sort(sortByLabel);
