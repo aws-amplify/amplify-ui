@@ -10,6 +10,11 @@ import dotenv from 'dotenv-safe';
 import { globby } from 'globby';
 import prettier from 'prettier';
 import { writeFileSync } from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 dotenv.config();
 
@@ -41,15 +46,15 @@ async function generateSitemap() {
         '/[platform]/components/chatbot',
         '/[platform]/components/storage',
       ];
-      const path = p.replace('[platform]', framework);
+      const filepath = p.replace('[platform]', framework);
       if (
         framework === frameworkWithAllPath ||
         !p.includes(navNotForAllFrameworks) ||
         pathForAllFrameworks.includes(p)
       ) {
-        return path;
+        return filepath;
       } else {
-        console.log(`${path} is not added to sitemap.`);
+        console.log(`${filepath} is not added to sitemap.`);
         return '';
       }
     });
@@ -81,9 +86,7 @@ async function generateSitemap() {
 
             return `
               <url>
-                  <loc>${
-                    process.env.SITE_URL ?? 'https://ui.docs.amplify.aws'
-                  }${route}</loc>
+                  <loc>${'https://ui.docs.amplify.aws'}${route}</loc>
                   <changefreq>weekly</changefreq>
                   <priority>${priority}</priority>
                   <lastmod>${new Date().toISOString()}</lastmod>
@@ -100,14 +103,13 @@ async function generateSitemap() {
   });
 
   // eslint-disable-next-line no-sync
-  writeFileSync('public/sitemap.xml', formatted);
+  writeFileSync(path.resolve(__dirname, '../public/sitemap.xml'), formatted);
   console.log('🗺 ✅ SiteMap generated.');
 }
 
 function generateRobotsTxt() {
-  const isProd =
-    process.env.SITE_URL &&
-    process.env.SITE_URL.startsWith('https://ui.docs.amplify.aws');
+  const isProd = false;
+  console.log(__dirname);
   console.log(
     `🤖▶️ robots.txt generating for ${
       isProd
@@ -128,9 +130,9 @@ Allow: /
 Host: ui.docs.amplify.aws
 
 # Sitemaps
-Sitemap: ${process.env.SITE_URL ?? 'https://ui.docs.amplify.aws'}
+Sitemap: ${'https://ui.docs.amplify.aws'}
 `;
-  writeFileSync('public/robots.txt', txt);
+  writeFileSync(path.resolve(__dirname, '../public/robots.txt'), txt);
   console.log('🤖✅ robots.txt generated.');
 }
 

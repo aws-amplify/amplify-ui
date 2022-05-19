@@ -2,6 +2,7 @@
   "private": true,
   "name": "docs",
   "version": "0.0.1",
+  "type": "module",
   "scripts": {
     "dev": "next dev -p 5000",
     "preflutter:build": "yarn flutter:clean",
@@ -11,7 +12,7 @@
     "flutter:copy": "cp -r ./flutter/authenticator/build/web public/flutter/authenticator",
     "build": "next build",
     "lint": "next lint",
-    "postbuild": "node ./scripts/generate-sitemap-robotstxt.mjs",
+    "postbuild": "ts-node ./scripts/generate-sitemap-robotstxt.ts",
     "start": "next start",
     "test": "$_ run build"
   },
@@ -60,10 +61,12 @@
     "@types/node": "^14.14.31",
     "@types/react": "^17.0.2",
     "autoprefixer": "^10.2.4",
+    "dotenv-safe": "^8.2.0",
     "eslint-config-next": "12.0.4",
     "globby": "^13.1.1",
     "json5-loader": "^4.0.1",
     "postcss": "^8.2.6",
-    "tailwindcss": "^2.0.3"
+    "tailwindcss": "^2.0.3",
+    "ts-node": "^10.7.0"
   }
 }
