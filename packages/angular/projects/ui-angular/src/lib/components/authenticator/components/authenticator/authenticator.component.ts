@@ -182,6 +182,7 @@ export class AuthenticatorComponent
       case 'authenticated':
       case 'idle':
       case 'setup':
+      case 'signOut':
       case 'autoSignIn':
         return false;
       default:
