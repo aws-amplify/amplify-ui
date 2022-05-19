@@ -4,13 +4,51 @@
 import App from 'next/app';
 import { Amplify, Hub } from 'aws-amplify';
 import { Authenticator, AmplifyProvider } from '@aws-amplify/ui-react';
+import { MapProvider, useMap } from 'react-map-gl';
 
 if (typeof window !== 'undefined') {
   window['Amplify'] = Amplify;
   window['Hub'] = Hub;
 }
 
+const SignalIdleMap = () => {
+  const { default: map } = useMap();
+
+  map?.once('load', () => {
+    if (window['Cypress']) {
+      window['map'] = map;
+    }
+  });
+
+  map?.on('idle', () => {
+    if (window['Cypress']) {
+      window['idleMap'] = true;
+    }
+  });
+
+  map?.on('render', () => {
+    if (window['Cypress']) {
+      window['idleMap'] = false;
+    }
+  });
+
+  return null;
+};
+
 export default function MyApp(props) {
+  if (/\/geo\//g.test(props.router.route)) {
+    return (
+      /**
+       * TODO: Remove @ts-ignore once a fix for https://github.com/visgl/react-map-gl/issues/1858 is released
+       */
+      // @ts-ignore
+      <MapProvider>
+        <App {...props} />
+        <SignalIdleMap />
+      </MapProvider>
+    );
+  }
+
   return (
     <AmplifyProvider>
       <Authenticator.Provider>
