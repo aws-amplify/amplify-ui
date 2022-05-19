@@ -474,7 +474,7 @@ export function signInActor({ services }: SignInMachineOptions) {
           return validChallengeNames.includes(challengeName);
         },
         shouldAutoSignIn: (context) => {
-          return context.intent && context.intent === 'autoSignIn';
+          return context?.intent === 'autoSignIn';
         },
         shouldRedirectToConfirmSignUp: (_, event): boolean => {
           return event.data.code === 'UserNotConfirmedException';
