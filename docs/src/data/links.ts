@@ -252,7 +252,7 @@ export const navigationComponents: ComponentNavItem[] = [
   {
     href: '/components/tabs',
     label: 'Tabs',
-    body: ``,
+    body: `Tabs organize content into multiple sections and allow users to navigate between them.`,
     platforms: ['react'],
   },
 ].sort(sortByLabel);
