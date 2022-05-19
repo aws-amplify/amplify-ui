@@ -242,11 +242,11 @@ const hasTabs = computed(() => {
 
 const hasRouteComponent = computed(() => {
   return !(
+    state.value.matches('authenticated') ||
     state.value.matches('idle') ||
     state.value.matches('setup') ||
-    state.value.matches('autoSignIn') ||
     state.value.matches('signOut') ||
-    actorState.value?.matches('authenticated')
+    actorState.value?.matches('autoSignIn')
   );
 });
 </script>
