@@ -3,4 +3,4 @@
 "@aws-amplify/ui-angular": patch
 ---
 
-Remove floating border that appears between transitions in Vue and Angular Authenticator. 
+Removed floating border that appears between transitions in Vue and Angular Authenticator. 
