@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
 import { useControl, useMap } from 'react-map-gl';
 import type { IControl } from 'react-map-gl';
 
-const GEOCODER_OPTIONS = {
+const LOCATION_SEARCH_OPTIONS = {
   maplibregl,
   marker: { color: '#3FB1CE' },
   popup: true,
@@ -12,21 +12,21 @@ const GEOCODER_OPTIONS = {
   showResultsWhileTyping: true,
 };
 
-const GEOCODER_CONTAINER = 'geocoder-container';
+const LOCATION_SEARCH_CONTAINER = 'geocoder-container';
 
-type AmplifyGeocoder = IControl & {
+type AmplifyLocationSearch = IControl & {
   addTo: (container: string) => void;
 };
 
 /**
- * The `<Geocoder>` component provides location search. See https://ui.docs.amplify.aws/components/geo#geocoder.
+ * The `<LocationSearch>` component provides location search. See https://ui.docs.amplify.aws/components/geo#geocoder.
  *
  * @example
  * // Used as a map control:
  * function App() {
  *   return (
  *     <MapView>
- *       <Geocoder />
+ *       <LocationSearch />
  *     </MapView>
  *   );
  * }
@@ -34,56 +34,61 @@ type AmplifyGeocoder = IControl & {
  * @example
  * // Used as a standalone component:
  * function App() {
- *   return <Geocoder />;
+ *   return <LocationSearch />;
  * }
  */
-export const Geocoder = (props: GeocoderProps) => {
+export const LocationSearch = (props: LocationSearchProps) => {
   const { current: map } = useMap();
 
   /**
-   * This logic determines whether the Geocoder exists as part of a Map component or if it is a standalone component.
-   * The `useControl` hook inside `GeocoderControl` from `react-map-gl` makes it easy to add a control to a map,
-   * but throws an error if that map doesn't exist. If the map doesn't exist, the Geocoder is mounted to a container
-   * upon rendering inside the `GeocoderStandalone`.
+   * This logic determines whether the LocationSearch exists as part of a Map component or if it is a standalone component.
+   * The `useControl` hook inside `LocationSearchControl` from `react-map-gl` makes it easy to add a control to a map,
+   * but throws an error if that map doesn't exist. If the map doesn't exist, the LocationSearch is mounted to a container
+   * upon rendering inside the `LocationSearchStandalone`.
    */
   if (map) {
-    return <GeocoderControl {...GEOCODER_OPTIONS} {...props} />;
+    return <LocationSearchControl {...LOCATION_SEARCH_OPTIONS} {...props} />;
   }
 
-  return <GeocoderStandalone {...GEOCODER_OPTIONS} {...props} />;
+  return <LocationSearchStandalone {...LOCATION_SEARCH_OPTIONS} {...props} />;
 };
 
-const GeocoderControl = ({
+const LocationSearchControl = ({
   position = 'top-right',
   ...props
-}: GeocoderProps) => {
-  useControl(() => createAmplifyGeocoder(props) as unknown as AmplifyGeocoder, {
-    position,
-  });
+}: LocationSearchProps) => {
+  useControl(
+    () => createAmplifyGeocoder(props) as unknown as AmplifyLocationSearch,
+    {
+      position,
+    }
+  );
 
   return null;
 };
 
-const GeocoderStandalone = (props: GeocoderProps) => {
+const LocationSearchStandalone = (props: LocationSearchProps) => {
   const hasMounted = useRef(false);
 
   useEffect(() => {
     if (!hasMounted.current) {
-      (createAmplifyGeocoder(props) as unknown as AmplifyGeocoder).addTo(
-        `#${GEOCODER_CONTAINER}`
+      (createAmplifyGeocoder(props) as unknown as AmplifyLocationSearch).addTo(
+        `#${LOCATION_SEARCH_CONTAINER}`
       );
 
       hasMounted.current = true;
     }
   }, [props]);
 
-  return <div id={GEOCODER_CONTAINER} />;
+  return <div id={LOCATION_SEARCH_CONTAINER} />;
 };
 
-// `GeocoderProps` is based upon the typing specified by maplibre-gl-geocoder:
+export const Geocoder = LocationSearch;
+
+// `LocationSearchProps` is based upon the typing specified by maplibre-gl-geocoder:
 // https://github.com/maplibre/maplibre-gl-geocoder/blob/main/lib/index.js#L11-L66
 // TODO: formalize this type in the `maplibre-gl-geocoder` library
-export type GeocoderProps = {
+export type LocationSearchProps = {
   /**
    * A bounding box given as an array in the format `[minX, minY, maxX, maxY]`.
    * Search results will be limited to the bounding box.
@@ -91,17 +96,17 @@ export type GeocoderProps = {
   bbox?: number[];
   /**
    * Default: false
-   * If `true`, the geocoder control will clear it's contents and blur when user presses the escape key.
+   * If `true`, the LocationSearch control will clear it's contents and blur when user presses the escape key.
    */
   clearAndBlurOnEsc?: boolean;
   /**
    * Default: false
-   * If `true`, the geocoder control will clear its value when the input blurs.
+   * If `true`, the LocationSearch control will clear its value when the input blurs.
    */
   clearOnBlur?: boolean;
   /**
    * Default: false
-   * If `true`, the geocoder control will collapse until hovered or in focus.
+   * If `true`, the LocationSearch control will collapse until hovered or in focus.
    */
   collapsed?: boolean;
   /**
@@ -110,7 +115,7 @@ export type GeocoderProps = {
   countries?: string;
   /**
    * Default: 200
-   * Sets the amount of time, in milliseconds, to wait before querying the server when a user types into the Geocoder
+   * Sets the amount of time, in milliseconds, to wait before querying the server when a user types into the LocationSearch
    * input box. This parameter may be useful for reducing the total number of API calls made for a single query.
    */
   debounceSearch?: number;
@@ -120,7 +125,7 @@ export type GeocoderProps = {
    */
   enableEventLogging?: boolean;
   /**
-   *  A function accepting the query string, current features list, and geocoder options which performs geocoding to
+   *  A function accepting the query string, current features list, and LocationSearch options which performs geocoding to
    * supplement results from the Maplibre Geocoding API. Expected to return a Promise which resolves to an Array of
    * GeoJSON Features in the [Carmen GeoJSON](https://github.com/mapbox/carmen/blob/master/carmen-geojson.md) format.
    */
@@ -195,7 +200,7 @@ export type GeocoderProps = {
   popupRender?: Function;
   /**
    * Default: 'top-right'
-   * Position the geocoder will be rendered on the map. Only relevant when `<Geocoder>` is used with a map.
+   * Position the LocationSearch will be rendered on the map. Only relevant when `<LocationSearch>` is used with a map.
    */
   position?: 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right';
   /**
@@ -229,13 +234,13 @@ export type GeocoderProps = {
   showResultMarkers?: boolean | object;
   /**
    * Default: true
-   * If `false`, indicates that search will only occur on enter key press. If `true`, indicates that the Geocoder will
+   * If `false`, indicates that search will only occur on enter key press. If `true`, indicates that the LocationSearch will
    * search on the input box being updated above the minLength option.
    */
   showResultsWhileTyping?: boolean;
   /**
    * Default: true
-   * If `true`, the geocoder proximity will automatically update based on the map view.
+   * If `true`, the LocationSearch proximity will automatically update based on the map view.
    */
   trackProximity?: boolean;
   /**
