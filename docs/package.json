@@ -2,7 +2,6 @@
   "private": true,
   "name": "docs",
   "version": "0.0.1",
-  "type": "module",
   "scripts": {
     "dev": "next dev -p 5000",
     "preflutter:build": "yarn flutter:clean",
