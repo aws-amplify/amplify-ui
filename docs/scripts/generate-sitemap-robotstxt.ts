@@ -28,51 +28,48 @@ async function generateSitemap() {
     getPageFromSlug,
     META_INFO
   );
-  console.log(manifest);
+  // console.log(manifest);
   console.log('🗺 ▶️ SiteMap generating...');
   const prettierConfig = await prettier.resolveConfig('./.prettierrc.js');
   const pagesWithParam = await globby([
     'src/pages/**/index.page.tsx',
     'src/pages/**/index.page.mdx',
-    '!data/*.mdx',
     '!src/pages/_*.tsx',
     '!src/pages/404.page.tsx',
   ]);
 
-  const pages = pagesWithParam.flatMap((p) => {
-    p = p
-      .replace('src/pages', '')
-      .replace('data', '')
-      .replace('.js', '')
-      .replace('.page.mdx', '')
-      .replace('.page.tsx', '')
-      .replace('/index', '');
-    return ['react', 'angular', 'vue', 'flutter'].map((framework) => {
-      const frameworkWithAllPath = 'react';
-      const navNotForAllFrameworks = '[platform]/components';
-      const pathForAllFrameworks = [
-        '/[platform]/components',
-        '/[platform]/components/authenticator',
-        '/[platform]/components/chatbot',
-        '/[platform]/components/storage',
-      ];
-      const filepath = p.replace('[platform]', framework);
-      if (
-        framework === frameworkWithAllPath ||
-        !p.includes(navNotForAllFrameworks) ||
-        pathForAllFrameworks.includes(p)
-      ) {
-        return filepath;
-      } else {
-        console.log(`${filepath} is not added to sitemap.`);
-        return '';
-      }
-    });
-  });
+  const pages = pagesWithParam
+    .slice(1)
+    .flatMap((p) => {
+      p = p
+        .replace('src/pages', '')
+        .replace('.page.mdx', '')
+        .replace('.page.tsx', '')
+        .replace('/index', '');
+
+      return ['react', 'angular', 'vue', 'flutter'].map((framework) => {
+        const filepath = p.replace('[platform]', framework);
+        const supportedFrameworks =
+          manifest[p].frontmatter.supportedFrameworks.split('|');
+        if (supportedFrameworks.includes(framework)) {
+          return filepath;
+        } else {
+          console.log(`ⓧ ${filepath} is not added to sitemap.`);
+          return '';
+        }
+      });
+    })
+    .filter((el) => el);
 
   const sitemap = `
     <?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+          <url>
+            <loc>https://ui.docs.amplify.aws</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.5</priority>
+            <lastmod>2022-05-19T16:24:03.254Z</lastmod>
+          </url>
         ${pages
           .map((path) => {
             const route = path === '/index' ? '' : path;
@@ -118,8 +115,9 @@ async function generateSitemap() {
 }
 
 function generateRobotsTxt() {
-  const isProd = false;
-  console.log(__dirname);
+  const isProd =
+    process.env.SITE_URL &&
+    process.env.SITE_URL.startsWith('https://ui.docs.amplify.aws');
   console.log(
     `🤖▶️ robots.txt generating for ${
       isProd
