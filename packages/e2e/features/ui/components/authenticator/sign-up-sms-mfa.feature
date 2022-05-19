@@ -1,7 +1,7 @@
-Feature: Sign In with SMS MFA
+Feature: Sign up with SMS MFA
 
   If your backend has SMS MFA required, Authenticator will redirect end users to 
-  SMS confirmation screen when they try to sign in.
+  SMS confirmation screen when they successfully sign up.
 
   Background:
     Given I'm running the example "ui/components/authenticator/sign-in-sms-mfa"
