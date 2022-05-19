@@ -19,6 +19,11 @@ const usePalette = (str) => {
   }, {});
 };
 
+export const baseTheme: Theme = {
+  name: 'amplify-docs',
+  overrides: [defaultDarkModeOverride],
+};
+
 export const theme: Theme = {
   name: 'amplify-docs',
   overrides: [

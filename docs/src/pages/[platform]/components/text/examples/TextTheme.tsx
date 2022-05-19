@@ -49,7 +49,7 @@ const theme = {
 
 export const TextThemeExample = () => (
   <AmplifyProvider theme={theme}>
-    <Flex>
+    <Flex wrap="wrap">
       <Text>Default</Text>
       {VARIATIONS_OPTIONS.map((variation) => (
         <Text key={variation} variation={variation}>
