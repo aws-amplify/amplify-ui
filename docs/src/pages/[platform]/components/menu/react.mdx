@@ -1,15 +1,18 @@
-import { Menu, MenuItem } from '@aws-amplify/ui-react';
+import { Menu, MenuItem, View } from '@aws-amplify/ui-react';
 
 import { MenuDemo } from './demo';
 import {
   BasicExample,
+  ControlledExample,
   MenuAlignExample,
   MenuExample,
-  ControlledExample,
+  MenuItemsExample,
   SizeExample,
+  StylePropsExample,
+  ThemeExample,
 } from './examples/';
 
-import { Example } from '@/components/Example';
+import { Example, ExampleCode } from '@/components/Example';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 
 ## Demo
@@ -18,63 +21,84 @@ import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 
 ## Usage
 
-Import the `Menu` and `MenuItem` components and styles. Use `MenuItem` component to configure menu options.
-
-```tsx file=./examples/basicExample.tsx
-
-```
+Import the `Menu` and `MenuItem` components. Note that the Menu component is rendered in a React Portal, so you can set the Menu button's width from its outer container. 
 
 <Example>
   <BasicExample />
-</Example>
-
-### Size
-
-Control the size of the Menu buttons and items using the `size` prop. Available options are `small`, none (default), and `large`.
-
-```tsx file=./examples/sizeExample.tsx
+  <ExampleCode>
+```tsx file=./examples/basicExample.tsx
 
 ```
-
-<Example>
-  <SizeExample />
+  </ExampleCode>
 </Example>
 
-### Menu alignment
+### Menu items
 
-Alignment of menu with button trigger can be controlled using the `menuAlign` prop. Available options are `start` (default), `center`, and `end`.
+Use the `MenuItem` component to configure Menu options. The example below demonstrates how to add interactivity to the `MenuItem`'s via the `onClick` handler, as well as how to use the `Divider` component and `isDisabled` prop. 
 
-```tsx file=./examples/menuAlignExample.tsx
+<Example>
+  <MenuItemsExample />
+  <ExampleCode>
+```tsx file=./examples/menuItemsExample.tsx
 
 ```
-
-<Example>
-  <MenuAlignExample />
+  </ExampleCode>
 </Example>
 
-### Customize trigger button
+### Customize Menu button
 
-The default trigger button can be overwritten using the `trigger` prop on `Menu` with the `MenuButton` component.
-`MenuButton` can take all the same props as [Button](./button).
+The default Menu button can be customized by importing the `MenuButton` component and passing it to the `Menu`'s `trigger` prop. `MenuButton` can take all the same props as [Button](./button).
 
+<Example>
+  <MenuExample />
+  <ExampleCode>
 ```tsx file=./examples/menuExample.tsx
 
 ```
 
+  </ExampleCode>
+</Example>
+
+### Menu alignment
+
+To control the alignment of the Menu with the Menu button, use the `menuAlign` prop. Available options are `start` (default), `center`, and `end`.
+
 <Example>
-  <MenuExample />
+  <MenuAlignExample />
+  <ExampleCode>
+```tsx file=./examples/menuAlignExample.tsx
+
+```
+
+  </ExampleCode>
+</Example>
+
+### Size
+
+Control the size of the Menu button and items using the `size` prop. Available options are `small`, none (default), and `large`.
+
+<Example>
+  <SizeExample />
+  <ExampleCode>
+```tsx file=./examples/sizeExample.tsx
+
+```
+
+  </ExampleCode>
 </Example>
 
 ### Controlled Menu
 
 Create a controlled `Menu` using the `isOpen` and `onOpenChange` props.
 
+<Example>
+  <ControlledExample />
+  <ExampleCode>
 ```tsx file=./examples/controlledExample.tsx
 
 ```
 
-<Example>
-  <ControlledExample />
+  </ExampleCode>
 </Example>
 
 ## CSS Styling
@@ -82,6 +106,26 @@ Create a controlled `Menu` using the `isOpen` and `onOpenChange` props.
 ### Target classes
 
 <ComponentStyleDisplay componentName="Menu" />
+
+### Theme
+
+You can customize the appearance of all Menus in your application with a [Theme](/theming).
+
+<Example>
+  <View width="4rem">
+    <Menu className="theming-menu">
+      <MenuItem>Download</MenuItem>
+      <MenuItem>Create a Copy</MenuItem>
+      <MenuItem>Mark as Draft</MenuItem>
+    </Menu>
+  </View>
+</Example>
+
+<ExampleCode>
+```tsx file=./examples/themeExample.tsx
+
+```
+</ExampleCode>
 
 ### Global styling
 
@@ -106,22 +150,26 @@ import '@aws-amplify/ui-react/styles.css';
 
 import './styles.css';
 
-<Menu>
-  <MenuItem>Download</MenuItem>
-  <MenuItem>Create a Copy</MenuItem>
-  <MenuItem>Mark as Draft</MenuItem>
-</Menu>;
-```
-
-<Example>
-  <Menu
-    className="global-styling-menu"
-    triggerClassName="global-styling-menu-trigger"
-  >
+export const GlobalStylingExample = () => (
+  <Menu>
     <MenuItem>Download</MenuItem>
     <MenuItem>Create a Copy</MenuItem>
     <MenuItem>Mark as Draft</MenuItem>
   </Menu>
+);
+```
+
+<Example>
+  <View width="4rem">
+    <Menu
+      className="global-styling-menu"
+      triggerClassName="global-styling-menu-trigger"
+    >
+      <MenuItem>Download</MenuItem>
+      <MenuItem>Create a Copy</MenuItem>
+      <MenuItem>Mark as Draft</MenuItem>
+    </Menu>
+  </View>
 </Example>
 
 ### Local styling
@@ -152,19 +200,23 @@ import '@aws-amplify/ui-react/styles.css';
 
 import './styles.css';
 
-<Menu className="my-menu-content" triggerClassName="my-menu-trigger">
-  <MenuItem>Download</MenuItem>
-  <MenuItem>Create a Copy</MenuItem>
-  <MenuItem>Mark as Draft</MenuItem>
-</Menu>;
-```
-
-<Example>
+export const ClassNameExample = () => (
   <Menu className="my-menu-content" triggerClassName="my-menu-trigger">
     <MenuItem>Download</MenuItem>
     <MenuItem>Create a Copy</MenuItem>
     <MenuItem>Mark as Draft</MenuItem>
   </Menu>
+);
+```
+
+<Example>
+  <View width="4rem">
+    <Menu className="my-menu-content" triggerClassName="my-menu-trigger">
+      <MenuItem>Download</MenuItem>
+      <MenuItem>Create a Copy</MenuItem>
+      <MenuItem>Mark as Draft</MenuItem>
+    </Menu>
+  </View>
 </Example>
 
 _Using data attributes:_
@@ -182,38 +234,32 @@ import '@aws-amplify/ui-react/styles.css';
 
 import './styles.css';
 
-<Menu size="large">
-  <MenuItem>Download</MenuItem>
-  <MenuItem>Create a Copy</MenuItem>
-  <MenuItem>Mark as Draft</MenuItem>
-</Menu>;
-```
-
-<Example>
-  <Menu size="large" className="custom-font-size">
+export const DataAttributesExample = () => (
+  <Menu size="large">
     <MenuItem>Download</MenuItem>
     <MenuItem>Create a Copy</MenuItem>
     <MenuItem>Mark as Draft</MenuItem>
   </Menu>
+);
+```
+
+<Example>
+  <View width="4rem">
+    <Menu size="large" className="custom-font-size">
+      <MenuItem>Download</MenuItem>
+      <MenuItem>Create a Copy</MenuItem>
+      <MenuItem>Mark as Draft</MenuItem>
+    </Menu>
+  </View>
 </Example>
 
 _Using style props:_
 
-```jsx
-import { Menu, MenuItem } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-<Menu direction="row">
-  <MenuItem>Download</MenuItem>
-  <MenuItem>Create a Copy</MenuItem>
-  <MenuItem>Mark as Draft</MenuItem>
-</Menu>;
-```
-
 <Example>
-  <Menu direction="row">
-    <MenuItem>Download</MenuItem>
-    <MenuItem>Create a Copy</MenuItem>
-    <MenuItem>Mark as Draft</MenuItem>
-  </Menu>
+  <StylePropsExample />
+  <ExampleCode>
+```tsx file=./examples/stylePropsExample.tsx
+
+```
+  </ExampleCode>
 </Example>

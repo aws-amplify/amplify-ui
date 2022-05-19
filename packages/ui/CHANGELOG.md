@@ -1,5 +1,40 @@
 # @aws-amplify/ui
 
+## 3.9.0
+
+### Minor Changes
+
+- [#1879](https://github.com/aws-amplify/amplify-ui/pull/1879) [`937498b3f`](https://github.com/aws-amplify/amplify-ui/commit/937498b3ff016f2f76f60d861a995b8b1bb77bdf) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Add default dark mode theme override for React
+
+  ```jsx
+    const theme: Theme = {
+      name: 'my-theme',
+      overrides: [defaultDarkModeOverride],
+    };
+
+    // ...
+    <AmplifyProvider theme={theme} colorMode="system">
+
+    // or
+    <AmplifyProvider theme={theme} colorMode={colorMode}>
+  ```
+
+### Patch Changes
+
+- [#1908](https://github.com/aws-amplify/amplify-ui/pull/1908) [`62edc9ee3`](https://github.com/aws-amplify/amplify-ui/commit/62edc9ee34a64a81190631fed31cf388bcf3b2e0) Thanks [@reesscot](https://github.com/reesscot)! - fix: regression in scrollview that shows scrollbars when unneeded
+
+* [#1868](https://github.com/aws-amplify/amplify-ui/pull/1868) [`1c3e35a8d`](https://github.com/aws-amplify/amplify-ui/commit/1c3e35a8df815402da68c203b84cf599064c863a) Thanks [@wlee221](https://github.com/wlee221)! - This PR adds additional safeguards to hub event listeners we use. Now, we will only pass hub events to the auth machine if it is in the correct state.
+
+- [#1904](https://github.com/aws-amplify/amplify-ui/pull/1904) [`5c5e89407`](https://github.com/aws-amplify/amplify-ui/commit/5c5e89407d2946be61ffb4ab5a4e9d7352c41065) Thanks [@joebuono](https://github.com/joebuono)! - bug(fix): MenuItem minHeight mapped incorrectly
+
+## 3.8.3
+
+### Patch Changes
+
+- [#1895](https://github.com/aws-amplify/amplify-ui/pull/1895) [`7dbd14546`](https://github.com/aws-amplify/amplify-ui/commit/7dbd145461d27a8cb1ba63a261e543a154dd8343) Thanks [@zchenwei](https://github.com/zchenwei)! - fix(style): adjust switch track color to comply with 3:1 contrast ratio.
+
+* [#1864](https://github.com/aws-amplify/amplify-ui/pull/1864) [`716e24298`](https://github.com/aws-amplify/amplify-ui/commit/716e2429848592254f0b53df6470a53ac735b71c) Thanks [@zchenwei](https://github.com/zchenwei)! - fix(style): fix PasswordField and SearchField quiet styling
+
 ## 3.8.2
 
 ### Patch Changes
