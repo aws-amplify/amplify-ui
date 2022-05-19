@@ -146,6 +146,9 @@
     );
   }
   &:focus {
+    border-color: var(
+      --amplify-components-sliderfield-thumb-focus-border-color
+    );
     box-shadow: var(--amplify-components-sliderfield-thumb-focus-box-shadow);
   }
 

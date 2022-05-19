@@ -156,13 +156,13 @@ export const inputComponents = [
   {
     href: '/components/passwordfield',
     label: 'Password Field',
-    body: ``,
+    body: `PasswordField allows users to input passwords, featuring full password manager support and an optional show/hide password button for user convenience - Amplify UI`,
     platforms: ['react'],
   },
   {
     href: '/components/phonenumberfield',
     label: 'Phone Number Field',
-    body: ``,
+    body: `The PhoneNumberField form primitive allows users to input a phone number`,
     platforms: ['react'],
   },
   {
