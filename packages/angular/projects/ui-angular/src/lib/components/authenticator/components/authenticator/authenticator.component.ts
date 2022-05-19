@@ -178,12 +178,15 @@ export class AuthenticatorComponent
   public hasRouteComponent() {
     const { route } = this.authenticator;
 
-    return !(
-      route === 'idle' ||
-      route === 'setup' ||
-      route === 'autoSignIn' ||
-      route === 'authenticated'
-    );
+    switch (route) {
+      case 'authenticated':
+      case 'idle':
+      case 'setup':
+      case 'autoSignIn':
+        return false;
+      default:
+        return true;
+    }
   }
 
   private mapCustomComponents(
