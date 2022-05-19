@@ -1,5 +1,8 @@
 export { BasicExample } from './basicExample';
 export { ControlledExample } from './controlledExample';
-export { MenuExample } from './menuExample';
-export { SizeExample } from './sizeExample';
 export { MenuAlignExample } from './menuAlignExample';
+export { MenuExample } from './menuExample';
+export { MenuItemsExample } from './menuItemsExample';
+export { SizeExample } from './sizeExample';
+export { StylePropsExample } from './stylePropsExample';
+export { ThemeExample } from './themeExample';
