@@ -3,4 +3,4 @@
 "@aws-amplify/ui": patch
 ---
 
-refactor: move autoSignIn logic to signIn actor
+refactor(internal): Move `autoSignIn` logic out of `signUp` actor
