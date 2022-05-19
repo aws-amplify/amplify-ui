@@ -174,14 +174,14 @@ export function signInActor({ services }: SignInMachineOptions) {
                   },
                   {
                     actions: 'setUser',
-                    target: 'verifying',
+                    target: '#signInActor.resolved',
                   },
                 ],
                 onError: [
                   {
                     cond: 'shouldRedirectToConfirmSignUp',
                     actions: ['setCredentials', 'setConfirmSignUpIntent'],
-                    target: 'rejected',
+                    target: '#signInActor.rejected',
                   },
                   {
                     cond: 'shouldRedirectToConfirmResetPassword',
@@ -189,7 +189,7 @@ export function signInActor({ services }: SignInMachineOptions) {
                       'setUsernameAuthAttributes',
                       'setConfirmResetPasswordIntent',
                     ],
-                    target: 'rejected',
+                    target: '#signInActor.rejected',
                   },
                   {
                     actions: 'setRemoteError',
@@ -198,29 +198,6 @@ export function signInActor({ services }: SignInMachineOptions) {
                 ],
               },
             },
-            verifying: {
-              tags: ['pending'],
-              entry: ['clearError', 'sendUpdate'],
-              invoke: {
-                src: 'checkVerifiedContact',
-                onDone: [
-                  {
-                    cond: 'shouldRequestVerification',
-                    target: '#signInActor.verifyUser',
-                    actions: 'setUnverifiedAttributes',
-                  },
-                  {
-                    target: 'resolved',
-                  },
-                ],
-                onError: {
-                  actions: 'setRemoteError',
-                  target: '#signInActor.signIn',
-                },
-              },
-            },
-            resolved: { always: '#signInActor.resolved' },
-            rejected: { always: '#signInActor.rejected' },
           },
         },
         confirmSignIn: {
