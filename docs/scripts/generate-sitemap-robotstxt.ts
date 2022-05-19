@@ -12,6 +12,10 @@ import prettier from 'prettier';
 import { writeFileSync } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { getContentPaths } from '../src/utils/getContentPaths.js';
+import { getPageFromSlug } from '../src/utils/getPageFromSlug.js';
+import { getPagesManifest } from '../src/utils/getPagesManifest.js';
+import { META_INFO } from '../src/data/meta.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -19,6 +23,12 @@ const __dirname = path.dirname(__filename);
 dotenv.config();
 
 async function generateSitemap() {
+  const manifest = await getPagesManifest(
+    getContentPaths,
+    getPageFromSlug,
+    META_INFO
+  );
+  console.log(manifest);
   console.log('🗺 ▶️ SiteMap generating...');
   const prettierConfig = await prettier.resolveConfig('./.prettierrc.js');
   const pagesWithParam = await globby([

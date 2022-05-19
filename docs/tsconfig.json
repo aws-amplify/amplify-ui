@@ -1,6 +1,10 @@
 {
   "ts-node": {
-    "esm": true
+    "esm": true,
+    "compilerOptions": {
+      "module": "esnext",
+      "target": "es2017"
+    }
   },
   "compilerOptions": {
     "baseUrl": ".",
@@ -33,6 +37,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "src/**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
 }
