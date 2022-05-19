@@ -1,0 +1,11 @@
+---
+title: Icon
+metaTitle: Icon
+description: The icon component displays simple vector graphics for use in other components like Buttons.
+metaDescription: The icon component displays simple vector graphics for use in other components like Buttons.
+supportedFrameworks: react
+---
+
+import { Fragment } from '@/components/Fragment';
+
+<Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>

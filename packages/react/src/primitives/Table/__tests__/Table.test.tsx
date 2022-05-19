@@ -84,6 +84,44 @@ describe('Table primitive', () => {
       expect($table).toHaveClass(ComponentClassNames.Table, testClass);
     });
 
+    it('should render size classes for Table', async () => {
+      render(
+        <div>
+          <Table testId="small" size="small" />
+          <Table testId="large" size="large" />
+        </div>
+      );
+
+      const small = await screen.findByTestId('small');
+      const large = await screen.findByTestId('large');
+
+      expect(small.classList).toContain(
+        `${ComponentClassNames['Table']}--small`
+      );
+      expect(large.classList).toContain(
+        `${ComponentClassNames['Table']}--large`
+      );
+    });
+
+    it('should render variation classes for Table', async () => {
+      render(
+        <div>
+          <Table testId="striped" variation="striped" />
+          <Table testId="bordered" variation="bordered" />
+        </div>
+      );
+
+      const striped = await screen.findByTestId('striped');
+      const bordered = await screen.findByTestId('bordered');
+
+      expect(striped.classList).toContain(
+        `${ComponentClassNames['Table']}--striped`
+      );
+      expect(bordered.classList).toContain(
+        `${ComponentClassNames['Table']}--bordered`
+      );
+    });
+
     it('should render TableHead with default class name', async () => {
       const { $header } = await setup();
 

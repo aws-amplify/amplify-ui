@@ -25,6 +25,9 @@ const { errorMessage } = toRefs(props);
           value="yes" /></span
       ><span
         class="amplify-flex amplify-checkbox__button"
+        :class="{
+          'amplify-checkbox__button--error': !checked,
+        }"
         aria-hidden="true"
         data-focus="false"
         :data-error="!checked"
@@ -32,6 +35,9 @@ const { errorMessage } = toRefs(props);
         ><svg
           xmlns="http://www.w3.org/2000/svg"
           class="amplify-icon amplify-checkbox__icon"
+          :class="{
+            'amplify-checkbox__icon--checked': checked,
+          }"
           viewBox="0 0 24 24"
           fill="currentColor"
           :data-checked="checked"

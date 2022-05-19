@@ -1,22 +1,22 @@
-import { useRouter } from 'next/router';
 import {
+  Image,
   ToggleButton,
   ToggleButtonGroup,
-  Image,
   VisuallyHidden,
 } from '@aws-amplify/ui-react';
 
+import { useCustomRouter } from '@/components/useCustomRouter';
+
 export const FrameworkChooser = ({ platform }) => {
-  const router = useRouter();
+  const { replace, pathname } = useCustomRouter();
 
-  const chooseFramework = (framework) => {
+  const chooseFramework = (platform) => {
     const { hash } = window.location;
-
-    router.replace(
+    replace(
       {
         hash,
-        pathname: router.pathname,
-        query: { platform: framework },
+        pathname: pathname === '/' ? '/[platform]' : pathname,
+        query: { platform },
       },
       // `as?` prop  isn't needed when URL is already provided
       undefined,
@@ -46,6 +46,7 @@ export const FrameworkChooser = ({ platform }) => {
       <ToggleButton
         value="react"
         size="small"
+        title="React"
         padding={{ base: '4px', medium: undefined }}
       >
         <VisuallyHidden>React</VisuallyHidden>
@@ -59,6 +60,7 @@ export const FrameworkChooser = ({ platform }) => {
       <ToggleButton
         value="angular"
         size="small"
+        title="Angular"
         padding={{ base: '4px', medium: undefined }}
       >
         <VisuallyHidden>Angular</VisuallyHidden>
@@ -72,6 +74,7 @@ export const FrameworkChooser = ({ platform }) => {
       <ToggleButton
         value="vue"
         size="small"
+        title="Vue"
         padding={{ base: '4px', medium: undefined }}
       >
         <VisuallyHidden>Vue</VisuallyHidden>
@@ -85,6 +88,7 @@ export const FrameworkChooser = ({ platform }) => {
       <ToggleButton
         value="flutter"
         size="small"
+        title="Flutter"
         padding={{ base: '4px', medium: undefined }}
       >
         <VisuallyHidden>Flutter</VisuallyHidden>

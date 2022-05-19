@@ -366,8 +366,6 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-link-color: var(--amplify-colors-font-interactive);
         --amplify-components-link-focus-color: var(--amplify-colors-font-focus);
         --amplify-components-link-hover-color: var(--amplify-colors-font-hover);
-        --amplify-components-link-large-font-size: var(--amplify-font-sizes-large);
-        --amplify-components-link-small-font-size: var(--amplify-font-sizes-small);
         --amplify-components-link-visited-color: var(--amplify-colors-font-interactive);
         --amplify-components-loader-width: var(--amplify-font-sizes-medium);
         --amplify-components-loader-height: var(--amplify-font-sizes-medium);
@@ -499,7 +497,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-select-large-min-width: 7.5rem;
         --amplify-components-selectfield-flex-direction: column;
         --amplify-components-sliderfield-padding-block: var(--amplify-space-xs);
-        --amplify-components-sliderfield-track-background-color: var(--amplify-colors-background-tertiary);
+        --amplify-components-sliderfield-track-background-color: var(--amplify-colors-background-quaternary);
         --amplify-components-sliderfield-track-border-radius: 9999px;
         --amplify-components-sliderfield-track-height: 0.375rem;
         --amplify-components-sliderfield-track-min-width: 10rem;
@@ -511,7 +509,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-sliderfield-thumb-background-color: var(--amplify-colors-background-primary);
         --amplify-components-sliderfield-thumb-box-shadow: var(--amplify-shadows-small);
         --amplify-components-sliderfield-thumb-border-radius: 50%;
-        --amplify-components-sliderfield-thumb-border-width: var(--amplify-border-widths-small);
+        --amplify-components-sliderfield-thumb-border-width: var(--amplify-border-widths-medium);
         --amplify-components-sliderfield-thumb-border-color: var(--amplify-colors-border-primary);
         --amplify-components-sliderfield-thumb-border-style: solid;
         --amplify-components-sliderfield-thumb-disabled-background-color: var(--amplify-colors-background-disabled);
@@ -519,7 +517,8 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-sliderfield-thumb-disabled-box-shadow: none;
         --amplify-components-sliderfield-thumb-hover-background-color: var(--amplify-colors-background-primary);
         --amplify-components-sliderfield-thumb-hover-border-color: var(--amplify-colors-border-focus);
-        --amplify-components-sliderfield-thumb-focus-box-shadow: 0 0 0 3px var(--amplify-colors-border-focus);
+        --amplify-components-sliderfield-thumb-focus-border-color: var(--amplify-colors-border-focus);
+        --amplify-components-sliderfield-thumb-focus-box-shadow: 0 0 0 2px var(--amplify-colors-border-focus);
         --amplify-components-sliderfield-small-track-height: 0.25rem;
         --amplify-components-sliderfield-small-thumb-width: 1rem;
         --amplify-components-sliderfield-small-thumb-height: 1rem;
@@ -539,9 +538,9 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-switchfield-thumb-checked-transform: var(--amplify-transforms-slide-x-medium);
         --amplify-components-switchfield-thumb-transition-duration: var(--amplify-time-medium);
         --amplify-components-switchfield-thumb-width: var(--amplify-space-relative-medium);
-        --amplify-components-switchfield-track-background-color: var(--amplify-colors-background-tertiary);
+        --amplify-components-switchfield-track-background-color: var(--amplify-colors-background-quaternary);
         --amplify-components-switchfield-track-border-radius: var(--amplify-radii-xxxl);
-        --amplify-components-switchfield-track-checked-background-color: var(--amplify-colors-brand-primary-60);
+        --amplify-components-switchfield-track-checked-background-color: var(--amplify-colors-brand-primary-80);
         --amplify-components-switchfield-track-height: var(--amplify-space-relative-medium);
         --amplify-components-switchfield-track-padding: var(--amplify-outline-widths-medium);
         --amplify-components-switchfield-track-transition-duration: var(--amplify-time-short);
@@ -728,7 +727,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-colors-neutral-10: hsl(210, 5%, 98%);
         --amplify-colors-neutral-20: hsl(210, 5%, 94%);
         --amplify-colors-neutral-40: hsl(210, 5%, 87%);
-        --amplify-colors-neutral-60: hsl(210, 6%, 70%);
+        --amplify-colors-neutral-60: hsl(210, 8%, 55%);
         --amplify-colors-neutral-80: hsl(210, 10%, 40%);
         --amplify-colors-neutral-90: hsl(210, 25%, 25%);
         --amplify-colors-neutral-100: hsl(210, 50%, 10%);
@@ -762,6 +761,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-colors-background-primary: var(--amplify-colors-white);
         --amplify-colors-background-secondary: var(--amplify-colors-neutral-10);
         --amplify-colors-background-tertiary: var(--amplify-colors-neutral-20);
+        --amplify-colors-background-quaternary: var(--amplify-colors-neutral-60);
         --amplify-colors-background-disabled: var(--amplify-colors-background-tertiary);
         --amplify-colors-background-info: var(--amplify-colors-blue-20);
         --amplify-colors-background-warning: var(--amplify-colors-orange-20);

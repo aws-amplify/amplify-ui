@@ -1,5 +1,6 @@
 import {
   AfterContentInit,
+  ChangeDetectorRef,
   Component,
   ContentChildren,
   Input,
@@ -11,6 +12,8 @@ import {
 } from '@angular/core';
 import {
   AuthenticatorMachineOptions,
+  defaultAuthHubHandler,
+  listenToAuthHub,
   SocialProvider,
   translate,
 } from '@aws-amplify/ui';
@@ -44,11 +47,14 @@ export class AuthenticatorComponent
   public signUpTitle = translate('Create Account');
 
   private hasInitialized = false;
+  private isHandlingHubEvent = false;
   private unsubscribeMachine: () => void;
+  private unsubscribeHub: ReturnType<typeof listenToAuthHub>;
 
   constructor(
     private authenticator: AuthenticatorService,
-    private contextService: CustomComponentsService
+    private contextService: CustomComponentsService,
+    private changeDetector: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -61,12 +67,48 @@ export class AuthenticatorComponent
       formFields,
     } = this;
 
+    const { authService } = this.authenticator;
+
+    this.unsubscribeHub = listenToAuthHub(authService, (data, service) => {
+      defaultAuthHubHandler(data, service);
+      /**
+       * Hub events aren't properly caught by Angular, because they are
+       * synchronous events. Angular tracks async network events and
+       * html events, but not synchronous events like hub.
+       *
+       * On any notable hub events, we run change detection manually.
+       */
+      this.changeDetector.detectChanges();
+
+      /**
+       * Hub events that we handle can lead to multiple state changes:
+       * e.g. `authenticated` -> `signOut` -> initialState.
+       *
+       * We want to ensure change detection runs all the way, until
+       * we reach back to the initial state. Setting the below flag
+       * to true to until we reach initial state.
+       */
+      this.isHandlingHubEvent = true;
+    });
+
     /**
      * Subscribes to state machine changes and sends INIT event
      * once machine reaches 'setup' state.
      */
     this.unsubscribeMachine = this.authenticator.subscribe(() => {
       const { route } = this.authenticator;
+
+      if (this.isHandlingHubEvent) {
+        this.changeDetector.detectChanges();
+
+        const initialStateWithDefault = initialState ?? 'signIn';
+
+        // We can stop manual change detection if we're back to the initial state
+        if (route === initialStateWithDefault) {
+          this.isHandlingHubEvent = false;
+        }
+      }
+
       if (!this.hasInitialized && route === 'setup') {
         this.authenticator.send({
           type: 'INIT',
@@ -103,6 +145,7 @@ export class AuthenticatorComponent
 
   ngOnDestroy(): void {
     if (this.unsubscribeMachine) this.unsubscribeMachine();
+    if (this.unsubscribeHub) this.unsubscribeHub();
   }
 
   /**

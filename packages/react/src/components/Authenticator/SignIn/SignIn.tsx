@@ -34,16 +34,12 @@ export function SignIn() {
       >
         <FederatedSignIn />
         <Flex direction="column">
-          <fieldset
-            style={{ display: 'flex', flexDirection: 'column' }}
-            className="amplify-flex"
-            disabled={isPending}
-          >
+          <Flex as="fieldset" direction="column" isDisabled={isPending}>
             <VisuallyHidden>
               <legend>{translate('Sign in')}</legend>
             </VisuallyHidden>
-            <FormFields route="signIn" />
-          </fieldset>
+            <FormFields />
+          </Flex>
 
           <RemoteErrorMessage />
 

@@ -5,12 +5,12 @@ export const facade = {
   hasValidationErrors: false,
   isPending: false,
   route: '',
+  authStatus: '',
   user: '',
-  validationErrors: {
-    val: '',
-  },
+  validationErrors: [''],
   codeDeliveryDetails: {
     val: '',
+    DeliveryMedium: '',
   },
   change: (data?: AuthEventData) => null,
   updateForm: (data?: AuthEventData) => null,
