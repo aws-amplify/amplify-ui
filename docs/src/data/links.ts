@@ -219,7 +219,7 @@ export const layoutComponents = [
   {
     href: '/components/grid',
     label: 'Grid',
-    body: ``,
+    body: 'A layout container using CSS Grid',
     platforms: ['react'],
   },
   {
