@@ -250,7 +250,6 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
 
           const username =
             get(user, 'username') || get(authAttributes, 'username');
-          const { password } = authAttributes;
 
           return await services.handleConfirmSignUp({ username, code });
         },
