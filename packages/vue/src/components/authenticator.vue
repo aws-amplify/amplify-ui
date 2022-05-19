@@ -245,7 +245,7 @@ const hasRouteComponent = computed(() => {
     state.value.matches('idle') ||
     state.value.matches('setup') ||
     state.value.matches('autoSignIn') ||
-    state.value.matches('authenticated')
+    actorState.value?.matches('authenticated')
   );
 });
 </script>
