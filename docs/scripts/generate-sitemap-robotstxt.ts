@@ -12,6 +12,7 @@ import prettier from 'prettier';
 import { writeFileSync } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+
 import { getContentPaths } from '../src/utils/getContentPaths.js';
 import { getPageFromSlug } from '../src/utils/getPageFromSlug.js';
 import { getPagesManifest } from '../src/utils/getPagesManifest.js';
