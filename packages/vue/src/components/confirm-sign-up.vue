@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, useAttrs, toRefs, onBeforeMount } from 'vue';
+import { computed, useAttrs, toRefs } from 'vue';
 import { getFormDataFromEvent, translate } from '@aws-amplify/ui';
 
-import { useAuthenticator, useAuth } from '../composables/useAuth';
+import { useAuthenticator } from '../composables/useAuth';
 import { createSharedComposable } from '@vueuse/core';
 import BaseFormFields from './primitives/base-form-fields.vue';
 
@@ -12,7 +12,6 @@ const emit = defineEmits(['confirmSignUpSubmit', 'lostCodeClicked']);
 const useAuthShared = createSharedComposable(useAuthenticator);
 const { isPending, error, codeDeliveryDetails } = toRefs(useAuthShared());
 const { submitForm, updateForm, resendCode } = useAuthShared();
-const { state } = useAuth();
 
 // Only two types of delivery methods is EMAIL or SMS
 const confirmSignUpHeading = computed(() => {
@@ -45,7 +44,7 @@ const subtitleText = computed(() => {
 
 // Methods
 const onInput = (e: Event): void => {
-  const { name, value } = <HTMLInputElement>e.target;
+  const { name, value } = e.target as HTMLInputElement;
   updateForm({ name, value });
 };
 

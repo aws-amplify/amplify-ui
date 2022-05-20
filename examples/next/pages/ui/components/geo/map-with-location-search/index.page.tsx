@@ -1,5 +1,4 @@
-```js{12}
-import { MapView, Geocoder } from '@aws-amplify/ui-react';
+import { MapView, LocationSearch } from '@aws-amplify/ui-react';
 import { Amplify } from 'aws-amplify';
 
 import '@aws-amplify/ui-react/styles.css';
@@ -7,12 +6,11 @@ import '@aws-amplify/ui-react/styles.css';
 import awsExports from './aws-exports';
 
 Amplify.configure(awsExports);
-export default function GeocoderPosition() {
+
+export default function MapWithLocationSearch() {
   return (
     <MapView>
-      <Geocoder position="top-left" />
+      <LocationSearch />
     </MapView>
   );
 }
-
-```
