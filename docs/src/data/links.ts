@@ -207,7 +207,7 @@ export const layoutComponents = [
   {
     href: '/components/collection',
     label: 'Collection',
-    body: ``,
+    body: `A Collection wraps Flex and Grid components, and provides a way to display items in a collection from a data source.`,
     platforms: ['react'],
   },
   {
