@@ -132,7 +132,7 @@
     {
       "name": "Geo",
       "path": "dist/esm/index.js",
-      "import": "{ MapView, Geocoder }",
+      "import": "{ MapView, LocationSearch }",
       "limit": "300 kB"
     }
   ]
