@@ -4,16 +4,13 @@ export const MenuAlignExample = () => {
   return (
     <Flex direction="column" width="4rem">
       <Menu>
-        <MenuItem>Download</MenuItem>
-        <MenuItem>Create a Copy</MenuItem>
+        <MenuItem>Align start (default)</MenuItem>
       </Menu>
       <Menu menuAlign="center">
-        <MenuItem>Download</MenuItem>
-        <MenuItem>Create a Copy</MenuItem>
+        <MenuItem>Align center</MenuItem>
       </Menu>
       <Menu menuAlign="end">
-        <MenuItem>Download</MenuItem>
-        <MenuItem>Create a Copy</MenuItem>
+        <MenuItem>Align end</MenuItem>
       </Menu>
     </Flex>
   );

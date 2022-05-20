@@ -5,12 +5,14 @@ import { Demo } from '@/components/Demo';
 import { MenuPropControls, MenuPropControlsProps } from './MenuPropControls';
 import { useMenuProps } from './useMenuProps';
 import { demoState } from '@/utils/demoState';
+import { getPropString } from '../utils/getPropString';
 
 const propsToCode = (props: MenuPropControlsProps) => {
-  const size = props.size ? `\n  size="${props.size}"` : '';
-  return `<Menu ${size}
-  menuAlign="${props.menuAlign}"
-  >
+  return (
+    `<Menu
+  menuAlign="${props.menuAlign}"` +
+    getPropString(props.size, 'size') +
+    `\n>
   <MenuItem onClick={() => alert('Download')}>
     Download
   </MenuItem>
@@ -27,7 +29,8 @@ const propsToCode = (props: MenuPropControlsProps) => {
   <MenuItem onClick={() => alert('Attend a workshop')}>
     Attend a workshop
   </MenuItem>
-</Menu>`;
+</Menu>`
+  );
 };
 
 const defaultMenuProps = {
@@ -45,7 +48,7 @@ export const MenuDemo = () => {
       code={propsToCode(menuProps)}
       propControls={<MenuPropControls {...menuProps} />}
     >
-      <Menu {...menuProps}>
+      <Menu menuAlign={menuProps.menuAlign} size={menuProps.size}>
         <MenuItem onClick={() => alert('Download')}>Download</MenuItem>
         <MenuItem onClick={() => alert('Create a Copy')}>
           Create a Copy
