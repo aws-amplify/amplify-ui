@@ -8,6 +8,7 @@ import {
   translate,
 } from '@aws-amplify/ui';
 
+import { Flex } from '../../../primitives/Flex';
 import { Heading } from '../../../primitives/Heading';
 import { Radio } from '../../../primitives/Radio';
 import { RadioGroupField } from '../../../primitives/RadioGroupField';
@@ -16,6 +17,7 @@ import { useCustomComponents } from '../hooks/useCustomComponents';
 import { useFormHandlers } from '../hooks/useFormHandlers';
 import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { TwoButtonSubmitFooter } from '../shared/TwoButtonSubmitFooter';
+import { RouteContainer, RouteProps } from '../RouteContainer';
 
 const censorContactInformation = (
   type: ContactMethod,
@@ -54,7 +56,10 @@ const generateRadioGroup = (
   return radioButtons;
 };
 
-export const VerifyUser = (): JSX.Element => {
+export const VerifyUser = ({
+  className,
+  variation,
+}: RouteProps): JSX.Element => {
   const {
     components: {
       VerifyUser: { Header = VerifyUser.Header, Footer = VerifyUser.Footer },
@@ -86,32 +91,30 @@ export const VerifyUser = (): JSX.Element => {
   );
 
   return (
-    <form
-      data-amplify-form=""
-      data-amplify-authenticator-verifyuser=""
-      method="post"
-      onChange={handleChange}
-      onSubmit={handleSubmit}
-    >
-      <fieldset
-        style={{ display: 'flex', flexDirection: 'column' }}
-        className="amplify-flex"
-        disabled={isPending}
+    <RouteContainer className={className} variation={variation}>
+      <form
+        data-amplify-form=""
+        data-amplify-authenticator-verifyuser=""
+        method="post"
+        onChange={handleChange}
+        onSubmit={handleSubmit}
       >
-        <Header />
+        <Flex as="fieldset" direction="column" isDisabled={isPending}>
+          <Header />
 
-        {verificationRadioGroup}
+          {verificationRadioGroup}
 
-        <RemoteErrorMessage />
+          <RemoteErrorMessage />
 
-        <TwoButtonSubmitFooter
-          cancelButtonText={translate('Skip')}
-          cancelButtonSendType="SKIP"
-          submitButtonText={footerSubmitText}
-        />
-        <Footer />
-      </fieldset>
-    </form>
+          <TwoButtonSubmitFooter
+            cancelButtonText={translate('Skip')}
+            cancelButtonSendType="SKIP"
+            submitButtonText={footerSubmitText}
+          />
+          <Footer />
+        </Flex>
+      </form>
+    </RouteContainer>
   );
 };
 

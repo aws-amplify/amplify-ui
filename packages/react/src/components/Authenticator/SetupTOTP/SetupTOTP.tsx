@@ -2,7 +2,12 @@ import QRCode from 'qrcode';
 import * as React from 'react';
 
 import { Auth, Logger } from 'aws-amplify';
-import { getActorState, SignInState, translate } from '@aws-amplify/ui';
+import {
+  CognitoUserAmplify,
+  getActorState,
+  SignInState,
+  translate,
+} from '@aws-amplify/ui';
 
 import { Flex } from '../../../primitives/Flex';
 import { Heading } from '../../../primitives/Heading';
@@ -12,10 +17,19 @@ import { useFormHandlers } from '../hooks/useFormHandlers';
 import { ConfirmSignInFooter } from '../shared/ConfirmSignInFooter';
 import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { FormFields } from '../shared/FormFields';
+import { RouteContainer, RouteProps } from '../RouteContainer';
 
 const logger = new Logger('SetupTOTP-logger');
 
-export const SetupTOTP = (): JSX.Element => {
+export const getTotpCode = (issuer: string, username: string, secret: string) =>
+  encodeURI(
+    `otpauth://totp/${issuer}:${username}?secret=${secret}&issuer=${issuer}`
+  );
+
+export const SetupTOTP = ({
+  className,
+  variation,
+}: RouteProps): JSX.Element => {
   // TODO: handle `formOverrides` outside `useAuthenticator`
   const { _state, isPending } = useAuthenticator((context) => [
     context.isPending,
@@ -36,34 +50,33 @@ export const SetupTOTP = (): JSX.Element => {
   // `user` hasn't been set on the top-level state yet, so it's only available from the signIn actor
   const actorState = getActorState(_state) as SignInState;
 
-  const { user } = actorState.context;
+  const { formFields, user } = actorState.context;
+  const { totpIssuer = 'AWSCognito', totpUsername = user.username } =
+    formFields?.setupTOTP?.QR ?? {};
 
-  const formOverrides = getActorState(_state).context?.formFields?.setupTOTP;
+  const generateQRCode = React.useCallback(
+    async (currentUser: CognitoUserAmplify): Promise<void> => {
+      try {
+        const newSecretKey = await Auth.setupTOTP(currentUser);
+        setSecretKey(newSecretKey);
+        const totpCode = getTotpCode(totpIssuer, totpUsername, newSecretKey);
+        const qrCodeImageSource = await QRCode.toDataURL(totpCode);
 
-  const QROR = formOverrides?.['QR'];
-
-  const generateQRCode = async (user): Promise<void> => {
-    try {
-      const newSecretKey = await Auth.setupTOTP(user);
-      setSecretKey(newSecretKey);
-      const issuer = QROR?.totpIssuer ?? 'AWSCognito';
-      const username = QROR?.totpUsername ?? user.username;
-      const totpCode = `otpauth://totp/${issuer}:${username}?secret=${newSecretKey}&issuer=${issuer}`;
-      const qrCodeImageSource = await QRCode.toDataURL(totpCode);
-
-      setQrCode(qrCodeImageSource);
-    } catch (error) {
-      logger.error(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+        setQrCode(qrCodeImageSource);
+      } catch (error) {
+        logger.error(error);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [totpIssuer, totpUsername]
+  );
 
   React.useEffect(() => {
     if (!user) return;
 
     generateQRCode(user);
-  }, [user]);
+  }, [generateQRCode, user]);
 
   const copyText = (): void => {
     navigator.clipboard.writeText(secretKey);
@@ -71,55 +84,53 @@ export const SetupTOTP = (): JSX.Element => {
   };
 
   return (
-    <form
-      data-amplify-form=""
-      data-amplify-authenticator-setup-totp=""
-      method="post"
-      onChange={handleChange}
-      onSubmit={handleSubmit}
-    >
-      <fieldset
-        style={{ display: 'flex', flexDirection: 'column' }}
-        className="amplify-flex"
-        disabled={isPending}
+    <RouteContainer className={className} variation={variation}>
+      <form
+        data-amplify-form=""
+        data-amplify-authenticator-setup-totp=""
+        method="post"
+        onChange={handleChange}
+        onSubmit={handleSubmit}
       >
-        <Header />
+        <Flex as="fieldset" direction="column" isDisabled={isPending}>
+          <Header />
 
-        <Flex direction="column">
-          {/* TODO: Add spinner here instead of loading text... */}
-          {isLoading ? (
-            <p>{translate('Loading')}&hellip;</p>
-          ) : (
-            <img
-              data-amplify-qrcode
-              src={qrCode}
-              alt="qr code"
-              width="228"
-              height="228"
-            />
-          )}
-          <Flex data-amplify-copy>
-            <div>{secretKey}</div>
-            <Flex data-amplify-copy-svg onClick={copyText}>
-              <div data-amplify-copy-tooltip>{copyTextLabel}</div>
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M16 1H4C2.9 1 2 1.9 2 3V17H4V3H16V1ZM15 5H8C6.9 5 6.01 5.9 6.01 7L6 21C6 22.1 6.89 23 7.99 23H19C20.1 23 21 22.1 21 21V11L15 5ZM8 21V7H14V12H19V21H8Z" />
-              </svg>
+          <Flex direction="column">
+            {/* TODO: Add spinner here instead of loading text... */}
+            {isLoading ? (
+              <p>{translate('Loading')}&hellip;</p>
+            ) : (
+              <img
+                data-amplify-qrcode
+                src={qrCode}
+                alt="qr code"
+                width="228"
+                height="228"
+              />
+            )}
+            <Flex data-amplify-copy>
+              <div>{secretKey}</div>
+              <Flex data-amplify-copy-svg onClick={copyText}>
+                <div data-amplify-copy-tooltip>{copyTextLabel}</div>
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M16 1H4C2.9 1 2 1.9 2 3V17H4V3H16V1ZM15 5H8C6.9 5 6.01 5.9 6.01 7L6 21C6 22.1 6.89 23 7.99 23H19C20.1 23 21 22.1 21 21V11L15 5ZM8 21V7H14V12H19V21H8Z" />
+                </svg>
+              </Flex>
             </Flex>
+            <FormFields />
+            <RemoteErrorMessage />
           </Flex>
-          <FormFields route="setupTOTP" />
-          <RemoteErrorMessage />
-        </Flex>
 
-        <ConfirmSignInFooter />
-        <Footer />
-      </fieldset>
-    </form>
+          <ConfirmSignInFooter />
+          <Footer />
+        </Flex>
+      </form>
+    </RouteContainer>
   );
 };
 

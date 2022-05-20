@@ -26,7 +26,7 @@ export type AuthenticatorContextValue = {
 export const AuthenticatorContext: React.Context<AuthenticatorContextValue> =
   React.createContext({});
 
-export const Provider = ({ children }) => {
+export const Provider = ({ children }: { children: React.ReactNode }) => {
   /**
    * Based on use cases, developer might already have added another Provider
    * outside Authenticator. In that case, we sync the two providers by just
@@ -48,13 +48,15 @@ export const Provider = ({ children }) => {
     ? currentProviderVal
     : parentProviderVal;
 
-  const {
-    service: { send },
-  } = value;
+  const { service: activeService } = value;
 
+  const isListening = React.useRef(false);
   React.useEffect(() => {
-    return listenToAuthHub(send);
-  }, []);
+    if (isListening.current) return;
+
+    isListening.current = true;
+    return listenToAuthHub(activeService);
+  }, [activeService]);
 
   return (
     <AuthenticatorContext.Provider value={value}>
@@ -87,24 +89,27 @@ export type InternalAuthenticatorContext = {
  */
 export type Selector = (context: AuthenticatorContext) => Array<any>;
 
-export const useAuthenticator = (selector?: Selector) => {
+const useAuthenticatorService = () => {
   const { service } = React.useContext(AuthenticatorContext);
 
   if (!service) {
-    console.error(
-      'No `Authenticator.Provider` was found above where `useAuthenticator` hook is. ' +
-        'Please ensure you wrap your App with `Authenticator.Provider` like so: ' +
-        'https://ui.docs.amplify.aws/components/authenticator#useauthenticator-hook'
+    throw new Error(
+      'Please ensure you wrap your App with `Authenticator.Provider`.\nSee the `useAuthenticator` section on https://ui.docs.amplify.aws/components/authenticator.'
     );
-    return null;
   }
 
-  const send = service.send;
+  return service;
+};
+
+export const useAuthenticator = (selector?: Selector) => {
+  const service = useAuthenticatorService();
+
+  const { send } = service;
 
   // send aliases are static and thus can be memoized
   const sendAliases = React.useMemo<ReturnType<typeof getSendEventAliases>>(
     () => getSendEventAliases(send),
-    [service]
+    [send]
   );
 
   const getFacade = (state: AuthMachineState) => {
@@ -112,51 +117,22 @@ export const useAuthenticator = (selector?: Selector) => {
   };
 
   /**
-   * For `useSelector`'s selector argument, we just return back the `state`.
-   * The reason is that whenever you select a specific value of the state, the
-   * hook will return *only* that selected value instead of the whole `state`.
+   * For `useSelector`'s selector argument, we transform `state` into
+   * public facade values using `getFacade`.
    *
-   * To provide a consistent set of facade, we let the `selector` trivially return
-   * itself and let comparator decide when to re-render.
+   * This is to hide the internal xstate implementation details to customers.
    */
-  const xstateSelector = (state: AuthMachineState) => state;
-
-  /**
-   * Holds a snapshot copy of last previous facade values. Will be used
-   * on state changes to see if any of facade values have changed.
-   */
-  const prevFacadeRef = React.useRef<ReturnType<typeof getFacade>>();
+  const xstateSelector = (state: AuthMachineState) => getFacade(state);
 
   /**
    * comparator decides whether or not the new authState should trigger a
    * re-render. Does a deep equality check.
    */
   const comparator = (
-    /**
-     * We do not use `_prevState`, because it holds a *reference* to actor
-     * object, of which value could easily mutate between compare calls.
-     *
-     * Instead, we'll use prevFacadeRef for comparison.
-     */
-    _prevState: AuthMachineState,
-    nextState: AuthMachineState
+    prevFacade: ReturnType<typeof getFacade>,
+    nextFacade: ReturnType<typeof getFacade>
   ) => {
     if (!selector) return false;
-
-    /**
-     * We only trigger re-render if any of values in specified selected
-     * values change. First compute the facade for prev and next state.
-     */
-    const prevFacade = prevFacadeRef.current;
-    const nextFacade = getFacade(nextState);
-
-    /**
-     * prevFacadeRef can now be updated with new facade values
-     */
-    prevFacadeRef.current = nextFacade;
-
-    // If this is the first time comparator is called, return false
-    if (!prevFacade) return false;
 
     /**
      * Apply the passed in `selector` to get the value of their desired
@@ -170,13 +146,15 @@ export const useAuthenticator = (selector?: Selector) => {
     return areArrayValuesEqual(prevDepsArray, nextDepsArray);
   };
 
-  const state = useSelector(service, xstateSelector, comparator);
+  const facade = useSelector(service, xstateSelector, comparator);
 
   return {
-    ...getFacade(state),
+    ...facade,
     /** @deprecated For internal use only */
-    _state: state,
+    _state: service.getSnapshot(),
     /** @deprecated For internal use only */
     _send: send,
   };
 };
+
+export type UseAuthenticator = ReturnType<typeof useAuthenticator>;

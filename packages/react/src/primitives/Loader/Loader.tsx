@@ -1,6 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
 import { LoaderProps } from '../types/loader';
 import { Primitive } from '../types/view';
@@ -34,6 +35,13 @@ const LoaderPrimitive: Primitive<LoaderProps, 'svg'> = (
   percentage = Math.max(percentage, 0);
 
   const percent = `${percentage}%`;
+  const componentClasses = classNames(
+    ComponentClassNames.Loader,
+    classNameModifier(ComponentClassNames.Loader, size),
+    classNameModifier(ComponentClassNames.Loader, variation),
+    isDeterminate ? ComponentClassNames.LoaderDeterminate : null,
+    className
+  );
 
   const linearLoader = (
     <g>
@@ -120,11 +128,7 @@ const LoaderPrimitive: Primitive<LoaderProps, 'svg'> = (
   return (
     <View
       as="svg"
-      className={classNames(
-        ComponentClassNames.Loader,
-        isDeterminate ? ComponentClassNames.LoaderDeterminate : null,
-        className
-      )}
+      className={componentClasses}
       data-size={size}
       data-variation={variation}
       ref={ref}

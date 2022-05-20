@@ -1,1 +1,0 @@
-export { PaginationHasMorePagesExample } from './PaginationHasMorePagesExample';

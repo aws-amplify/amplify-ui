@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+
 import { Node, Project, Symbol, Type, VariableDeclaration } from 'ts-morph';
 import {
   PrimitiveCatalog,
@@ -34,7 +35,7 @@ const priorityProps = {
   Pagination: ['totalPages', 'currentPage', 'siblingCount'],
   PasswordField: [...fieldProps, 'hideShowPassword', 'labelHidden'],
   PhoneNumberField: [...fieldProps, 'labelHidden'],
-  Radio: ['label', 'value', 'checked', 'isDisabled', 'size', 'labelPosition'],
+  Radio: ['value', 'checked', 'isDisabled', 'size', 'labelPosition'],
   Rating: ['value', 'size', 'maxValue', 'fillColor', 'emptyColor'],
   SearchField: [...fieldProps, 'variation', 'labelHidden'],
   SliderField: [
@@ -65,7 +66,7 @@ const priorityProps = {
     'trackCheckedColor',
   ],
   Text: ['children', 'fontWeight', 'fontSize', 'color'],
-  TextField: [...fieldProps, 'variation', 'isMultiline'],
+  TextField: [...fieldProps, 'variation'],
 };
 
 /**
@@ -115,9 +116,19 @@ const getCatalogComponentProperty = (
   } else if (propType.isNumber() || propType.isNumberLiteral()) {
     return { type: PrimitiveCatalogComponentPropertyType.Number };
   } else if (propType.isUnion()) {
+    const hasNumber = propType
+      .getUnionTypes()
+      .every((prop) => prop.isNumber() || prop.isNumberLiteral());
+
     const hasString = propType
       .getUnionTypes()
       .some((prop) => prop.isStringLiteral() || prop.isString());
+
+    if (hasNumber) {
+      return {
+        type: PrimitiveCatalogComponentPropertyType.Number,
+      };
+    }
 
     if (hasString) {
       return {

@@ -60,6 +60,20 @@ export default function Page({
 
     return () => observer.disconnect();
   }, [children]);
+
+  React.useEffect(() => {
+    const scrollToHash = () => {
+      const { hash } = window.location;
+
+      if (hash) {
+        document.querySelector(hash)?.scrollIntoView({ behavior: 'smooth' });
+      }
+    };
+    window.addEventListener('load', scrollToHash);
+
+    return () => window.removeEventListener('load', scrollToHash);
+  }, []);
+
   return (
     <div className="docs-main">
       <Sidebar />
@@ -81,7 +95,7 @@ export default function Page({
                   isExternal
                 >
                   <Icon
-                    ariaLabel=""
+                    ariaLabel="W3C"
                     as={SiW3C}
                     marginInlineEnd={tokens.space.xs}
                   />
@@ -109,6 +123,7 @@ export default function Page({
                 >
                   <Icon
                     ariaLabel=""
+                    aria-hidden="true"
                     as={SiReact}
                     marginInlineEnd={tokens.space.xs}
                   />

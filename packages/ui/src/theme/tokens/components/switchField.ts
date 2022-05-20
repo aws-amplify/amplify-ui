@@ -62,8 +62,8 @@ interface SwitchFieldTrackCheckedTokens {
 }
 
 export interface SwitchFieldTokens {
-  disabled: SwitchFieldDisabledTokens;
-  focused: SwitchFieldFocusedTokens;
+  _disabled: SwitchFieldDisabledTokens;
+  _focused: SwitchFieldFocusedTokens;
   large: SwitchFieldSizeTokens;
   small: SwitchFieldSizeTokens;
   label: SwitchFieldLabelTokens;
@@ -73,11 +73,19 @@ export interface SwitchFieldTokens {
 
 export const switchfield: SwitchFieldTokens = {
   // States
-  disabled: {
+  _disabled: {
     opacity: { value: '{opacities.60.value}' },
   },
-  focused: {
-    shadow: { value: '{shadows.small.value}' },
+  _focused: {
+    shadow: {
+      value: {
+        offsetX: '0px',
+        offsetY: '0px',
+        blurRadius: '0px',
+        spreadRadius: '2px',
+        color: '{colors.border.focus.value}',
+      },
+    },
   },
 
   // Sizes
@@ -107,10 +115,10 @@ export const switchfield: SwitchFieldTokens = {
   },
 
   track: {
-    backgroundColor: { value: '{colors.background.tertiary.value}' },
+    backgroundColor: { value: '{colors.background.quaternary.value}' },
     borderRadius: { value: '{radii.xxxl.value}' },
     checked: {
-      backgroundColor: { value: '{colors.brand.primary.60.value}' },
+      backgroundColor: { value: '{colors.brand.primary.80.value}' },
     },
     height: { value: '{space.relative.medium.value}' },
     padding: { value: '{outlineWidths.medium.value}' },

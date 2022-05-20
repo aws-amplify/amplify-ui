@@ -26,13 +26,11 @@ export const ComponentStyleDisplay = ({ componentName }) => {
           <Tabs>
             <TabItem title="Target Classes">
               <View padding={`${tokens.space.medium} 0`}>
-                <Heading>Component Class Names</Heading>
                 <ComponentClassTable componentName={componentName} />
               </View>
             </TabItem>
             <TabItem title="CSS Variables">
               <View padding={`${tokens.space.medium} 0`}>
-                <Heading>Component CSS Variable Names</Heading>
                 <ComponentVariableTable
                   componentName={componentName.toLowerCase()}
                 />

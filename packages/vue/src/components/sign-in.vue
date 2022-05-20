@@ -44,7 +44,7 @@ const actorState = computed(() =>
 // Methods
 
 const onInput = (e: Event): void => {
-  const { name, value } = <HTMLInputElement>e.target;
+  const { name, value } = e.target as HTMLInputElement;
   send({
     type: 'CHANGE',
     //@ts-ignore
@@ -95,11 +95,10 @@ const onForgotPasswordClicked = (): void => {
           </slot>
         </template>
         <federated-sign-in></federated-sign-in>
-        <base-wrapper class="amplify-flex" style="flex-direction: column">
+        <base-wrapper class="amplify-flex amplify-authenticator__column">
           <base-field-set
             :disabled="actorState.matches('signIn.submit')"
-            class="amplify-flex"
-            style="flex-direction: column"
+            class="amplify-flex amplify-authenticator__column"
           >
             <template #fieldSetI="{ slotData }">
               <slot name="signin-fields" :info="slotData"> </slot>
@@ -113,11 +112,10 @@ const onForgotPasswordClicked = (): void => {
 
           <amplify-button
             :disabled="actorState.matches('signIn.submit')"
-            class="amplify-field-group__control"
+            class="amplify-field-group__control amplify-authenticator__font"
             :fullwidth="true"
-            data-loading="false"
+            :loading="false"
             :variation="'primary'"
-            style="border-radius: 0x; font-weight: normal"
           >
             {{
               actorState.matches('signIn.submit')
@@ -134,10 +132,10 @@ const onForgotPasswordClicked = (): void => {
         <div data-amplify-footer>
           <amplify-button
             @click="onForgotPasswordClicked"
-            class="amplify-field-group__control"
-            data-fullwidth="true"
-            data-size="small"
-            data-variation="link"
+            class="amplify-field-group__control amplify-authenticator__font"
+            :variation="'link'"
+            :fullwidth="true"
+            :size="'small'"
             style="font-weight: normal"
             type="button"
           >
