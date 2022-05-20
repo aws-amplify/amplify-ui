@@ -1,2 +1,2 @@
 export { MapView } from './MapView';
-export { Geocoder } from './Geocoder';
+export { Geocoder, LocationSearch } from './LocationSearch';

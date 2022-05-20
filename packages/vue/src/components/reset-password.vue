@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, useAttrs, toRefs, onBeforeMount } from 'vue';
+import { computed, useAttrs, toRefs } from 'vue';
 import { getFormDataFromEvent, translate } from '@aws-amplify/ui';
 import BaseFormFields from './primitives/base-form-fields.vue';
 
@@ -10,7 +10,7 @@ const attrs = useAttrs();
 const emit = defineEmits(['resetPasswordSubmit', 'backToSignInClicked']);
 
 const useAuthShared = createSharedComposable(useAuthenticator);
-const { state, send, submitForm } = useAuthShared();
+const { send, submitForm } = useAuthShared();
 const { error, isPending } = toRefs(useAuthShared());
 
 // Computed Properties
@@ -32,7 +32,7 @@ const submit = (e: Event): void => {
 };
 
 const onInput = (e: Event): void => {
-  const { name, value } = <HTMLFormElement>e.target;
+  const { name, value } = e.target as HTMLInputElement;
   send({
     type: 'CHANGE',
     data: { name, value },

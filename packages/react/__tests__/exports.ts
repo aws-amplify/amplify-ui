@@ -1372,6 +1372,7 @@ describe('@aws-amplify/ui-react', () => {
           "Link",
           "LivenessFlow",
           "Loader",
+          "LocationSearch",
           "MapView",
           "Menu",
           "MenuButton",
