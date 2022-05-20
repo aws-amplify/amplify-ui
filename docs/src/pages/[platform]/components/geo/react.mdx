@@ -75,35 +75,43 @@ If you want access to the `map` object in a child component of `<MapView>`, you 
   {({ platform }) => import(`./fragments/use-map.${platform}.mdx`)}
 </Fragment>
 
-## Geocoder (Location Search)
+## Location Search
 
-`Geocoder` provides location search powered by [Amazon Location Service](https://aws.amazon.com/location/) for the
-`MapView` component, using the viewport as the proximity for generating results. `Geocoder` is used as a child
+_Component can also be imported as `Geocoder`_
+
+`LocationSearch` provides location search powered by [Amazon Location Service](https://aws.amazon.com/location/) for the
+`MapView` component, using the viewport as the proximity for generating results. `LocationSearch` is used as a child
 component of `MapView` for which it renders visual markers and information based on its location search results.
 
-You can import the `Geocoder` component with related styles and use it as a child of `MapView` without any
+You can import the `LocationSearch` component with related styles and use it as a child of `MapView` without any
 additional configuration.
 
 <Fragment platforms={['react']}>
-  {({ platform }) => import(`./fragments/geocoder-quick-start.${platform}.mdx`)}
+  {({ platform }) =>
+    import(`./fragments/location-search-quick-start.${platform}.mdx`)
+  }
 </Fragment>
 
-### Geocoder Position
+### LocationSearch Position
 
-`Geocoder` can be provided a `position` property when used with `MapView`. The property is not reactive, meaning the
+`LocationSearch` can be provided a `position` property when used with `MapView`. The property is not reactive, meaning the
 position is fixed after the component mounts. Valid values are `'top-right'`, `'top-left'`, `'bottom-right'`, and
 `'bottom-left'`. Default value is `'top-right'`.
 
 <Fragment platforms={['react']}>
-  {({ platform }) => import(`./fragments/geocoder-position.${platform}.mdx`)}
+  {({ platform }) =>
+    import(`./fragments/location-search-position.${platform}.mdx`)
+  }
 </Fragment>
 
-### Standalone Geocoder
+### Standalone LocationSearch
 
-`Geocoder` can also be used as a standalone component without `MapView`. As a standalone component, `Geocoder`
+`LocationSearch` can also be used as a standalone component without `MapView`. As a standalone component, `LocationSearch`
 provides search results based on an initial proximity. When used as a standlone component, the `proximity` property
 with provided `latitude` and `longitude` properties is required.
 
 <Fragment platforms={['react']}>
-  {({ platform }) => import(`./fragments/standalone-geocoder.${platform}.mdx`)}
+  {({ platform }) =>
+    import(`./fragments/location-search-standalone.${platform}.mdx`)
+  }
 </Fragment>

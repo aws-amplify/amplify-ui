@@ -23,7 +23,7 @@ const createAccountLabel = computed(() => translate('Create Account'));
 // Methods
 
 const onInput = (e: Event): void => {
-  let { checked, name, type, value } = <HTMLInputElement>e.target;
+  let { checked, name, type, value } = e.target as HTMLInputElement;
 
   if (type === 'checkbox' && !checked)
     (value as string | undefined) = undefined;
@@ -31,7 +31,7 @@ const onInput = (e: Event): void => {
 };
 
 function onBlur(e: Event) {
-  const { name } = <HTMLInputElement>e.target;
+  const { name } = e.target as HTMLInputElement;
   props.updateBlur({ name });
 }
 

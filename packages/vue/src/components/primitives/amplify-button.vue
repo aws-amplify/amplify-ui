@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { toRefs } from 'vue';
 interface PropsInterface {
   type?: 'submit' | 'button';
   fullWidth?: boolean | string;
@@ -8,10 +9,9 @@ interface PropsInterface {
   loading?: boolean | string;
   disabled?: boolean | 'true' | 'false';
 }
-const { type, fullWidth, size, variation, fontWeight } = withDefaults(
-  defineProps<PropsInterface>(),
-  {}
-);
+const props = withDefaults(defineProps<PropsInterface>(), {});
+
+const { type, fullWidth, size, variation, fontWeight } = toRefs(props);
 </script>
 <template>
   <slot v-bind="$attrs" name="buttont">

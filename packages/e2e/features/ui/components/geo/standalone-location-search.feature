@@ -1,9 +1,9 @@
-Feature: Standalone Geocoder
+Feature: Standalone LocationSearch
 
-  Testing geocoder without an attached map.
+  Testing LocationSearch without an attached map.
 
   Background:
-    Given I'm running the example "ui/components/geo/standalone-geocoder"
+    Given I'm running the example "ui/components/geo/standalone-location-search"
     And my default search results is 5
 
   @react

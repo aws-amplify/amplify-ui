@@ -27,7 +27,6 @@ const {
 
 const formOverrides = context?.config?.formFields?.setupTOTP;
 const QROR = formOverrides?.['QR'];
-const confOR = formOverrides?.['confirmation_code'];
 
 const actorState = computed(() =>
   getActorState(state.value)
@@ -71,14 +70,10 @@ onMounted(async () => {
 // Computed Properties
 const backSignInText = computed(() => translate('Back to Sign In'));
 const confirmText = computed(() => translate('Confirm'));
-const codeText = computed(() => translate('Code'));
-
-const label = confOR?.label ?? translate('Code *');
-const labelHidden = confOR?.labelHidden;
 
 // Methods
 const onInput = (e: Event): void => {
-  const { name, value } = <HTMLInputElement>e.target;
+  const { name, value } = e.target as HTMLInputElement;
   send({
     type: 'CHANGE',
     //@ts-ignore
