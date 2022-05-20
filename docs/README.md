@@ -51,3 +51,12 @@ Pages **must** end with `.page.(mdx|tsx)` to differentiate them supplemental
 #### Meta Information
 
 As default, pages use its title and description information as meta information. If you would like to override it with different message, you can use `metaTitle` or `metaDescription`.
+
+## Host on Amplify
+
+To preview the changes you made for this Amplify UI Docs, you can use Amplify to host your feature branch for the forked repository by [following these steps](https://docs.amplify.aws/guides/hosting/git-based-deployments/q/platform/js/#4-deploy-your-app-to-aws-amplify).
+
+Then you need to:
+
+1. After selecting a branch, check "Connecting a monorepo? Pick a folder." and at "Enter the root directory of your app (e.g. src/myapp)", enter "docs"
+2. Set "Environment variables" from the left sidebar. Add "SITE_URL" and set it to a string value.
