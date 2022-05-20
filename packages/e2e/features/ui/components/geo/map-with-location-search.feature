@@ -1,9 +1,9 @@
-Feature: Map with Geocoder
+Feature: Map with LocationSearch
 
-  Testing map with geocoder.
+  Testing map with LocationSearch.
 
   Background:
-    Given I'm running the example "ui/components/geo/map-with-geocoder"
+    Given I'm running the example "ui/components/geo/map-with-location-search"
     And my default search results is 5
 
   @react
