@@ -15,6 +15,14 @@ These docs are published at https://docs.amplify.aws/ui and powered by the follo
 1. Open <http://localhost:5000/>
 1. _Optional:_ To build the flutter authenticator sample, [install flutter](https://docs.flutter.dev/get-started/install) and then run `yarn flutter:build`. This will build the flutter authenticator one time. It will not watch for changes.
 
+Note: to set up local environment
+
+```sh
+cp ./docs/.env.example ./docs/.env
+```
+
+Then set values to the variables.
+
 ### Creating a Page
 
 Page paths mirror their URLs. For example, `/components/authenticator` is located at [/src/pages/[platform]/components/authenticator/index.page.mdx](src/pages/[platform]/components/authenticator/index.page.mdx).
@@ -39,3 +47,7 @@ content & demos are loaded asynchronously.
 
 Pages **must** end with `.page.(mdx|tsx)` to differentiate them supplemental
 `.mdx` fragments or `.tsx` utilities.
+
+#### Meta Information
+
+As default, pages use its title and description information as meta information. If you would like to override it with different message, you can use `metaTitle` or `metaDescription`.
