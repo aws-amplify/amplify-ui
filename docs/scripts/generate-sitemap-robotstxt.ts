@@ -56,7 +56,7 @@ async function generateSitemap() {
         if (supportedFrameworks.includes(framework)) {
           return filepath;
         } else {
-          console.log(`ⓧ ${filepath} is not added to sitemap.`);
+          console.log(`ⓧ ${filepath} does not support ${framework}. Skipping adding to sitemap.`);
           return '';
         }
       });
