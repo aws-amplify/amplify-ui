@@ -12,6 +12,7 @@ import prettier from 'prettier';
 import { writeFileSync } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+
 import { getContentPaths } from '../src/utils/getContentPaths.js';
 import { getPageFromSlug } from '../src/utils/getPageFromSlug.js';
 import { getPagesManifest } from '../src/utils/getPagesManifest.js';
@@ -55,7 +56,7 @@ async function generateSitemap() {
         if (supportedFrameworks.includes(framework)) {
           return filepath;
         } else {
-          console.log(`ⓧ ${filepath} is not added to sitemap.`);
+          console.log(`ⓧ ${filepath} does not support ${framework}. Skipping adding to sitemap.`);
           return '';
         }
       });
