@@ -52,11 +52,15 @@ async function generateSitemap() {
       return FRAMEWORKS.map((framework) => {
         const filepath = p.replace('[platform]', framework);
         const supportedFrameworks =
-          manifest[p].frontmatter.supportedFrameworks.split('|');
+          manifest[p].frontmatter.supportedFrameworks === 'all'
+            ? FRAMEWORKS
+            : manifest[p].frontmatter.supportedFrameworks.split('|');
         if (supportedFrameworks.includes(framework)) {
           return filepath;
         } else {
-          console.log(`ⓧ ${filepath} does not support ${framework}. Skipping adding to sitemap.`);
+          console.log(
+            `ⓧ ${filepath} does not support ${framework}. Skipping adding to sitemap.`
+          );
           return '';
         }
       });
