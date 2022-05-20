@@ -11,7 +11,7 @@ if (typeof window !== 'undefined') {
   window['Hub'] = Hub;
 }
 
-const SignalIdleMap = () => {
+const SetCypressProperties = () => {
   const { default: map } = useMap();
 
   map?.once('load', () => {
@@ -38,13 +38,9 @@ const SignalIdleMap = () => {
 export default function MyApp(props) {
   if (/\/geo\//g.test(props.router.route)) {
     return (
-      /**
-       * TODO: Remove @ts-ignore once a fix for https://github.com/visgl/react-map-gl/issues/1858 is released
-       */
-      // @ts-ignore
       <MapProvider>
         <App {...props} />
-        <SignalIdleMap />
+        <SetCypressProperties />
       </MapProvider>
     );
   }
