@@ -11,16 +11,12 @@ import { globby } from 'globby';
 import prettier from 'prettier';
 import { writeFileSync } from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
 
-import { getContentPaths } from '../src/utils/getContentPaths.js';
-import { getPageFromSlug } from '../src/utils/getPageFromSlug.js';
-import { getPagesManifest } from '../src/utils/getPagesManifest.js';
-import { META_INFO } from '../src/data/meta.js';
-import { FRAMEWORKS } from '../src/data/frameworks.js';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import { getContentPaths } from '../src/utils/getContentPaths';
+import { getPageFromSlug } from '../src/utils/getPageFromSlug';
+import { getPagesManifest } from '../src/utils/getPagesManifest';
+import { META_INFO } from '../src/data/meta';
+import { FRAMEWORKS } from '../src/data/frameworks';
 
 dotenv.config();
 

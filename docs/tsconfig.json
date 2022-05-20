@@ -1,11 +1,4 @@
 {
-  "ts-node": {
-    "esm": true,
-    "compilerOptions": {
-      "module": "esnext",
-      "target": "es2017"
-    }
-  },
   "compilerOptions": {
     "baseUrl": ".",
     "target": "es5",
