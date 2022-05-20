@@ -11,7 +11,7 @@ export const baseComponents: ComponentNavItem[] = [
   {
     href: '/components/view',
     label: 'View',
-    body: `View is the foundational component for Amplify UI. View is a container that maps directly to <div> by default, can be configured to render any HTML element, and accepts style props.`,
+    body: `View is the foundational component for Amplify UI primitives. While View renders a <div> by default, it can render any HTML element and supports styling via props.`,
     platforms: ['react'],
   },
   {
