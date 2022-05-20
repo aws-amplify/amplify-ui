@@ -24,3 +24,11 @@
 .custom-font-size .amplify-button[data-size='large'] {
   font-size: var(--amplify-font-sizes-xxl);
 }
+.theming-menu {
+  background-color: var(--amplify-colors-blue-20);
+  border-radius: 0;
+}
+
+.theming-menu .amplify-menu-content__item {
+  min-height: 5rem;
+}

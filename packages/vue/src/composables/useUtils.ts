@@ -7,11 +7,10 @@ export const facade = {
   route: '',
   authStatus: '',
   user: '',
-  validationErrors: {
-    val: '',
-  },
+  validationErrors: [''],
   codeDeliveryDetails: {
     val: '',
+    DeliveryMedium: '',
   },
   change: (data?: AuthEventData) => null,
   updateForm: (data?: AuthEventData) => null,

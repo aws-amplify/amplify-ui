@@ -12,16 +12,19 @@
 </template>
 
 <script setup lang="ts">
-const { options, selectValue } = withDefaults(
+import { toRefs } from 'vue';
+const props = withDefaults(
   defineProps<{ selectValue: string; options: string[] }>(),
   {
     selectValue: '',
   }
 );
 
+const { options, selectValue } = toRefs(props);
+
 const emit = defineEmits(['update:selectValue']);
 
 const onChange = (e: Event): void => {
-  emit('update:selectValue', (<HTMLInputElement>e.target).value);
+  emit('update:selectValue', (e.target as HTMLInputElement).value);
 };
 </script>

@@ -1,5 +1,16 @@
 # @aws-amplify/ui-angular
 
+## 2.4.6
+
+### Patch Changes
+
+- [#1916](https://github.com/aws-amplify/amplify-ui/pull/1916) [`f2371c897`](https://github.com/aws-amplify/amplify-ui/commit/f2371c897e44b2cd59cf71f277088c2e0aaeb073) Thanks [@ErikCH](https://github.com/ErikCH)! - Updated translations for Send Code, while also preserving legacy customers who have already translated that text.
+
+* [#1929](https://github.com/aws-amplify/amplify-ui/pull/1929) [`c7fc662a0`](https://github.com/aws-amplify/amplify-ui/commit/c7fc662a078a5facf4adc9254ff33ded044c6650) Thanks [@jacoblogan](https://github.com/jacoblogan)! - don't render authenticator on authenticated routes
+
+* Updated dependencies [[`376c39fc0`](https://github.com/aws-amplify/amplify-ui/commit/376c39fc04aec3a41d02a722a62d4b8e4eb43230)]:
+  - @aws-amplify/ui@3.9.1
+
 ## 2.4.5
 
 ### Patch Changes

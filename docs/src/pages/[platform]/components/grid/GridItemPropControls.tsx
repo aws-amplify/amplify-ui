@@ -6,11 +6,9 @@
  */
 
 import * as React from 'react';
-import { GridItemStyleProps, TextField } from '@aws-amplify/ui-react';
-import { DemoBox } from './DemoBox';
+import { Flex, GridItemStyleProps, TextField } from '@aws-amplify/ui-react';
 
 export interface GridItemPropControlsProps extends GridItemStyleProps {
-  primitiveName: string;
   setArea: (value: any) => void;
   setColumn: (value: any) => void;
   setColumnEnd: (value: any) => void;
@@ -27,7 +25,6 @@ interface GridItemPropControls {
 }
 
 export const GridItemPropControls: GridItemPropControls = ({
-  primitiveName,
   columnEnd,
   setColumnEnd,
   columnStart,
@@ -38,7 +35,7 @@ export const GridItemPropControls: GridItemPropControls = ({
   setRowStart,
 }) => {
   return (
-    <DemoBox primitiveName={primitiveName}>
+    <Flex direction="column">
       <TextField
         label="columnStart"
         onInput={(event) => setColumnStart(event.target.value)}
@@ -59,6 +56,6 @@ export const GridItemPropControls: GridItemPropControls = ({
         onInput={(event) => setRowEnd(event.target.value)}
         value={rowEnd as string}
       />
-    </DemoBox>
+    </Flex>
   );
 };
