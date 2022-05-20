@@ -123,7 +123,13 @@
   background-color: var(--amplify-colors-background-primary);
   z-index: 99999;
   transform: translateX(calc(-1 * var(--width)));
-  transition: transform var(--amplify-time-long) ease;
+  
+  // this ensures the menu doesn't initially show and then transition out
+  // because this will only get added to the html after the React code loads
+  // and runs
+  html[data-amplify-theme] & {
+    transition: transform var(--amplify-time-long) ease;
+  }
   
   .expanded > & {
     transform: translateX(0);
@@ -134,7 +140,6 @@
     width: var(--width);
     .docs-home & {
       transform: translateX(calc(-1 * var(--width)));
-      position: fixed;
     }
     
     .expanded > & {
