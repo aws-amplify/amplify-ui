@@ -7,7 +7,7 @@ import {
 
 import { useCustomRouter } from '@/components/useCustomRouter';
 
-export const FrameworkChooser = ({ platform }) => {
+export const FrameworkChooser = ({ platform, onClick }) => {
   const { replace, pathname } = useCustomRouter();
 
   const chooseFramework = (platform) => {
@@ -43,61 +43,55 @@ export const FrameworkChooser = ({ platform }) => {
       isExclusive
       isSelectionRequired
     >
-      <ToggleButton
-        value="react"
-        size="small"
-        title="React"
-        padding={{ base: '4px', medium: undefined }}
-      >
-        <VisuallyHidden>React</VisuallyHidden>
+      <ToggleButton value="react" size="small" title="React" onClick={onClick}>
         <Image
           alt=""
-          height={{ base: '1.5rem', medium: '1rem' }}
+          height="1.25rem"
+          width="1.25rem"
           display="block"
           src="/svg/integrations/react.svg"
         />
+        React
       </ToggleButton>
       <ToggleButton
         value="angular"
         size="small"
         title="Angular"
-        padding={{ base: '4px', medium: undefined }}
+        onClick={onClick}
       >
-        <VisuallyHidden>Angular</VisuallyHidden>
         <Image
           alt=""
-          height={{ base: '1.5rem', medium: '1rem' }}
+          height="1.25rem"
+          width="1.25rem"
           display="block"
           src="/svg/integrations/angular.svg"
         />
+        Angular
       </ToggleButton>
-      <ToggleButton
-        value="vue"
-        size="small"
-        title="Vue"
-        padding={{ base: '4px', medium: undefined }}
-      >
-        <VisuallyHidden>Vue</VisuallyHidden>
+      <ToggleButton value="vue" size="small" title="Vue" onClick={onClick}>
         <Image
           alt=""
-          height={{ base: '1.5rem', medium: '1rem' }}
+          height="1.25rem"
+          width="1.25rem"
           display="block"
           src="/svg/integrations/vue.svg"
         />
+        Vue
       </ToggleButton>
       <ToggleButton
         value="flutter"
         size="small"
         title="Flutter"
-        padding={{ base: '4px', medium: undefined }}
+        onClick={onClick}
       >
-        <VisuallyHidden>Flutter</VisuallyHidden>
         <Image
           alt=""
-          height={{ base: '1.5rem', medium: '1rem' }}
+          height="1.25rem"
+          width="1.25rem"
           display="block"
           src="/svg/integrations/flutter.svg"
         />
+        Flutter
       </ToggleButton>
     </ToggleButtonGroup>
   );

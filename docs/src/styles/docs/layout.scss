@@ -1,13 +1,21 @@
-.docs-main {
+@import './variables';
+
+.docs-main,
+.docs {
   display: flex;
   flex-direction: row;
   min-width: 0;
   flex: 1 0 auto;
 }
 
-.docs-content {
+.docs-content,
+.docs-main {
   flex-grow: 1;
   min-width: 0;
+}
+
+.docs-content {
+  margin-top: 3rem;
 }
 
 .docs-footer {

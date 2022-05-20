@@ -1,5 +1,10 @@
-.docs-main p:not([class*='amplify']) {
+.docs-content p:not([class*='amplify']) {
   margin-bottom: var(--amplify-space-medium);
+}
+
+.docs .docs-content .amplify-alert p,
+.docs .docs-content blockquote p {
+  margin-bottom: 0;
 }
 
 .docs-main .docs-description {
