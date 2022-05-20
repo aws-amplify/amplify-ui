@@ -2,6 +2,7 @@
 import { useAuth } from '../composables/useAuth';
 import {
   ref,
+  toRefs,
   computed,
   useAttrs,
   watch,
@@ -35,16 +36,7 @@ import ConfirmVerifyUser from './confirm-verify-user.vue';
 
 const attrs = useAttrs();
 
-const {
-  initialState,
-  loginMechanisms,
-  variation,
-  services,
-  signUpAttributes,
-  socialProviders,
-  hideSignUp,
-  formFields,
-} = withDefaults(
+const props = withDefaults(
   defineProps<{
     hideSignUp?: boolean;
     initialState?: AuthenticatorMachineOptions['initialState'];
@@ -59,6 +51,17 @@ const {
     variation: 'default',
   }
 );
+
+const {
+  initialState,
+  loginMechanisms,
+  variation,
+  services,
+  signUpAttributes,
+  socialProviders,
+  hideSignUp,
+  formFields,
+} = toRefs(props);
 
 const emit = defineEmits([
   'signInSubmit',
@@ -92,12 +95,12 @@ unsubscribeMachine = service.subscribe((newState) => {
     send({
       type: 'INIT',
       data: {
-        initialState,
-        loginMechanisms,
-        socialProviders,
-        signUpAttributes,
-        services,
-        formFields,
+        initialState: initialState?.value,
+        loginMechanisms: loginMechanisms?.value,
+        socialProviders: socialProviders?.value,
+        signUpAttributes: signUpAttributes?.value,
+        services: services?.value,
+        formFields: formFields?.value,
       },
     });
     hasInitialized.value = true;

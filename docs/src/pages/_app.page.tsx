@@ -38,9 +38,10 @@ function MyApp({ Component, pageProps }) {
   configure();
   trackPageVisit();
 
-  const { metaTitle, metaDescription } = metaData[pathname]?.frontmatter ?? {};
+  const { title, metaTitle, description, metaDescription } =
+    metaData[pathname]?.frontmatter ?? {};
 
-  if (!metaDescription || !metaTitle) {
+  if ((!description && !metaDescription) || (!title && !metaTitle)) {
     throw new Error(`Meta Info missing on ${filepath}`);
   }
 
@@ -48,13 +49,13 @@ function MyApp({ Component, pageProps }) {
     <>
       <Head>
         <title>
-          {metaTitle} | {capitalizeString(platform)} - Amplify UI
+          {metaTitle ?? title} | {capitalizeString(platform)} - Amplify UI
         </title>
         {['/', '/react', '/angular', '/vue', '/flutter'].includes(asPath) && (
           <link rel="canonical" href="https://ui.docs.amplify.aws/" />
         )}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="description" content={metaDescription} />
+        <meta name="description" content={metaDescription ?? description} />
       </Head>
       <AmplifyProvider theme={baseTheme} colorMode={colorMode}>
         <Header

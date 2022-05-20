@@ -23,20 +23,22 @@
 </template>
 
 <script setup lang="ts">
-// @xstate
+import { toRefs } from 'vue';
 import { useAuth } from '../composables/useAuth';
-const { provider } = defineProps({
+const props = defineProps({
   provider: String,
 });
+
+const { provider } = toRefs(props);
 
 const { send } = useAuth();
 
 // Methods
-const onClick = (e: Event): void => {
+const onClick = (): void => {
   send({
     type: 'FEDERATED_SIGN_IN',
     data: {
-      provider: provider,
+      provider: provider?.value,
     },
   });
 };
