@@ -11,7 +11,7 @@
     "flutter:copy": "cp -r ./flutter/authenticator/build/web public/flutter/authenticator",
     "build": "next build",
     "lint": "next lint",
-    "postbuild": "node ./scripts/generate-sitemap-robotstxt.mjs",
+    "postbuild": "node --require esbuild-register ./scripts/generate-sitemap-robotstxt.ts",
     "start": "next start",
     "test": "$_ run build"
   },
@@ -63,6 +63,8 @@
     "@types/node": "^14.14.31",
     "@types/react": "^17.0.2",
     "autoprefixer": "^10.2.4",
+    "dotenv-safe": "^8.2.0",
+    "esbuild-register": "^3.3.2",
     "eslint-config-next": "12.0.4",
     "globby": "^13.1.1",
     "json5-loader": "^4.0.1",

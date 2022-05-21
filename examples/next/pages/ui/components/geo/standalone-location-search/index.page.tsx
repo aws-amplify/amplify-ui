@@ -1,4 +1,4 @@
-import { Geocoder } from '@aws-amplify/ui-react';
+import { LocationSearch } from '@aws-amplify/ui-react';
 import { Amplify } from 'aws-amplify';
 
 import '@aws-amplify/ui-react/styles.css';
@@ -12,6 +12,6 @@ const SAN_FRANCISCO = {
   longitude: -122.431,
 };
 
-export default function StandaloneGeocoder() {
-  return <Geocoder proximity={SAN_FRANCISCO} />;
+export default function StandaloneLocationSearch() {
+  return <LocationSearch proximity={SAN_FRANCISCO} />;
 }
