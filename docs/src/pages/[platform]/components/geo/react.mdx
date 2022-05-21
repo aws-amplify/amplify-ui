@@ -61,6 +61,20 @@ when the marker is clicked. The `offset` property can be used to prevent the pop
 _Note: Ensure `originalEvent.stopPropagation()` is called in the marker click handler. This allows the `showPopup`
 state to be handled by the component._
 
+### Animation and Native Map Methods
+
+You may want to access the [native maplibre-gl map object](https://maplibre.org/maplibre-gl-js-docs/api/map/) from within the component that renders `<MapView>` (to animate a viewport transition with `flyTo`, for example). To accomplish this, you can pass your own ref to `<MapView>` using [React's `useRef` hook](https://reactjs.org/docs/hooks-reference.html#useref) which will contain the `map` object:
+
+<Fragment platforms={['react']}>
+  {({ platform }) => import(`./fragments/map-ref.${platform}.mdx`)}
+</Fragment>
+
+If you want access to the `map` object in a child component of `<MapView>`, you can use the [useMap hook from react-map-gl](https://visgl.github.io/react-map-gl/docs/api-reference/use-map) instead:
+
+<Fragment platforms={['react']}>
+  {({ platform }) => import(`./fragments/use-map.${platform}.mdx`)}
+</Fragment>
+
 ## Location Search
 
 _Component can also be imported as `Geocoder`_
