@@ -66,7 +66,6 @@
     "globby": "^13.1.1",
     "json5-loader": "^4.0.1",
     "postcss": "^8.2.6",
-    "tailwindcss": "^2.0.3",
-    "ts-node": "^10.7.0"
+    "tailwindcss": "^2.0.3"
   }
 }
