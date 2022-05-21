@@ -1,8 +1,7 @@
 name: Run and Test Builds
 
 on:
-  schedule:
-    - cron: '*/15 * * * *' # Run every  minutes
+  workflow_dispatch:
 
 jobs:
   build:
