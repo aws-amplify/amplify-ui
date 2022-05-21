@@ -47,10 +47,12 @@ interface ToggleButtonPrimaryFocusTokens {
   borderColor: DesignToken<BorderColorValue>;
   backgroundColor: DesignToken<BackgroundColorValue>;
   boxShadow: DesignToken<BoxShadowValue>;
+  color: DesignToken<ColorValue>;
 }
 
 interface ToggleButtonPrimaryHoverTokens {
   backgroundColor: DesignToken<BackgroundColorValue>;
+  color: DesignToken<ColorValue>;
 }
 
 interface ToggleButtonPrimaryDisabledTokens {
@@ -74,13 +76,17 @@ interface ToggleButtonPrimaryPressedTokens {
 interface TogglButtonPrimaryPressedFocusTokens {
   backgroundColor: DesignToken<BackgroundColorValue>;
   borderColor: DesignToken<BorderColorValue>;
+  color: DesignToken<ColorValue>;
 }
 interface TogglButtonPrimaryPressedHoverTokens {
   backgroundColor: DesignToken<BackgroundColorValue>;
   borderColor: DesignToken<BorderColorValue>;
+  boxShadow: DesignToken<BoxShadowValue>;
+  color: DesignToken<ColorValue>;
 }
 
 interface ToggleButtonLinkTokens {
+  backgroundColor: DesignToken<BackgroundColorValue>;
   color: DesignToken<ColorValue>;
   _hover: ToggleButtonLinkHoverTokens;
   _focus: ToggleButtonLinkFocusTokens;
@@ -105,10 +111,17 @@ interface ToggleButtonLinkDisabledTokens {
 interface ToggleButtonLinkPressedTokens {
   backgroundColor: DesignToken<BackgroundColorValue>;
   color: DesignToken<ColorValue>;
+  _focus: ToggleButtonLinkPressedFocusTokens;
   _hover: ToggleButtonLinkPressedHoverTokens;
 }
 
+interface ToggleButtonLinkPressedFocusTokens {
+  color: DesignToken<ColorValue>;
+  backgroundColor: DesignToken<BackgroundColorValue>;
+}
+
 interface ToggleButtonLinkPressedHoverTokens {
+  color: DesignToken<ColorValue>;
   backgroundColor: DesignToken<BackgroundColorValue>;
 }
 
@@ -157,9 +170,11 @@ export const togglebutton: ToggleButtonTokens = {
       borderColor: { value: '{colors.border.focus.value}' },
       backgroundColor: { value: '{colors.transparent.value}' },
       boxShadow: { value: '{components.fieldcontrol._focus.boxShadow.value}' },
+      color: { value: '{colors.font.primary.value}' },
     },
     _hover: {
       backgroundColor: { value: '{colors.overlay.10.value}' },
+      color: { value: '{colors.font.primary.value}' },
     },
     _disabled: {
       borderColor: { value: '{colors.border.disabled.value}' },
@@ -175,16 +190,20 @@ export const togglebutton: ToggleButtonTokens = {
           value: '{colors.border.focus.value}',
         },
         borderColor: { value: '{colors.border.focus.value}' },
+        color: { value: '{colors.white.value}' },
       },
       _hover: {
         borderColor: { value: '{colors.brand.primary.60.value}' },
         backgroundColor: {
           value: '{colors.brand.primary.60.value}',
         },
+        boxShadow: { value: '{colors.brand.primary.60.value}' },
+        color: { value: '{colors.white.value}' },
       },
     },
   },
   link: {
+    backgroundColor: { value: '{colors.transparent.value}' },
     color: { value: '{colors.overlay.50.value}' },
     _hover: {
       backgroundColor: { value: '{colors.transparent.value}' },
@@ -201,7 +220,12 @@ export const togglebutton: ToggleButtonTokens = {
     _pressed: {
       backgroundColor: { value: '{colors.transparent.value}' },
       color: { value: '{colors.overlay.90.value}' },
+      _focus: {
+        backgroundColor: { value: '{colors.transparent.value}' },
+        color: { value: '{colors.overlay.90.value}' },
+      },
       _hover: {
+        color: { value: '{colors.overlay.90.value}' },
         backgroundColor: { value: '{colors.transparent.value}' },
       },
     },

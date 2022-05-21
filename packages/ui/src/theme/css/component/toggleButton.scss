@@ -1,8 +1,4 @@
 .amplify-togglebutton {
-  // This required to override default button styling
-  background-color: var(--amplify-internal-togglebutton-background-color);
-  border-color: var(--amplify-internal-togglebutton-border-color);
-  color: var(--amplify-internal-togglebutton-color);
   //these internal css variables are used to update the values that are influenced by multiple modified states
   --amplify-internal-togglebutton-background-color: initial;
   --amplify-internal-togglebutton-border-color: var(
@@ -11,22 +7,10 @@
   --amplify-internal-togglebutton-color: var(
     --amplify-components-togglebutton-color
   );
-
-  --amplify-internal-togglebutton-hover-background-color: var(
-    --amplify-components-togglebutton-hover-background-color
-  );
-  &:hover {
-    background-color: var(
-      --amplify-internal-togglebutton-hover-background-color
-    );
-    border-color: var(--amplify-internal-togglebutton-border-color);
-    color: var(--amplify-internal-togglebutton-color);
-
-    //when both focus and hover are active, use the hover background color because focus is just using the default background color
-    --amplify-internal-togglebutton-focus-background-color: var(
-      --amplify-internal-togglebutton-hover-background-color
-    );
-  }
+  // This required to override default button styling
+  background-color: var(--amplify-internal-togglebutton-background-color);
+  border-color: var(--amplify-internal-togglebutton-border-color);
+  color: var(--amplify-internal-togglebutton-color);
 
   //internal focus variables to be overwritten by other classes
   --amplify-internal-togglebutton-focus-background-color: var(
@@ -44,6 +28,25 @@
     );
     border-color: var(--amplify-internal-togglebutton-focus-border-color);
     color: var(--amplify-internal-togglebutton-focus-color);
+  }
+
+  --amplify-internal-togglebutton-hover-background-color: var(
+    --amplify-components-togglebutton-hover-background-color
+  );
+  // there is no primary hover border color and color but this is being made and set to its default value
+  // so that it can be overwritten in different states
+  --amplify-internal-togglebutton-hover-border-color: var(
+    --amplify-internal-togglebutton-border-color
+  );
+  --amplify-internal-togglebutton-hover-color: var(
+    --amplify-internal-togglebutton-color
+  );
+  &:hover {
+    background-color: var(
+      --amplify-internal-togglebutton-hover-background-color
+    );
+    border-color: var(--amplify-internal-togglebutton-hover-border-color);
+    color: var(--amplify-internal-togglebutton-hover-color);
   }
 
   //internal active variables to be overwritten by other classes
@@ -85,27 +88,27 @@
     --amplify-internal-togglebutton-color: var(
       --amplify-components-togglebutton-pressed-color
     );
-    &:hover {
-      --amplify-internal-togglebutton-hover-background-color: var(
-        --amplify-components-togglebutton-pressed-hover-background-color
-      );
-    }
-    &:disabled {
-      // No hover effects in disabled state
-      --amplify-internal-togglebutton-hover-background-color: var(
-        --amplify-internal-togglebutton-disabled-background-color
-      );
 
-      --amplify-internal-togglebutton-disabled-background-color: var(
-        --amplify-components-togglebutton-pressed-background-color
-      );
-      --amplify-internal-togglebutton-disabled-color: var(
-        --amplify-components-togglebutton-pressed-color
-      );
-    }
+    // pressed hover overwrites
+    --amplify-internal-togglebutton-hover-background-color: var(
+      --amplify-components-togglebutton-pressed-hover-background-color
+    );
+
+    // disabled overwrites
+    // there are no tokens for them but will keep the pressed styling
+    --amplify-internal-togglebutton-disabled-background-color: var(
+      --amplify-components-togglebutton-pressed-background-color
+    );
+    --amplify-internal-togglebutton-disabled-border-color: var(
+      --amplify-components-togglebutton-pressed-border-color
+    );
+    --amplify-internal-togglebutton-disabled-color: var(
+      --amplify-components-togglebutton-pressed-color
+    );
   }
 
   &--primary {
+    // overwite the default styling
     --amplify-internal-togglebutton-primary-background-color: var(
       --amplify-components-togglebutton-primary-background-color
     );
@@ -127,26 +130,6 @@
 
     border-width: var(--amplify-components-togglebutton-primary-border-width);
 
-    //overwrite variables
-    --amplify-internal-togglebutton-hover-background-color: var(
-      --amplify-components-togglebutton-primary-background-color
-    );
-    --amplify-internal-togglebutton-focus-border-color: var(
-      --amplify-components-togglebutton-border-color
-    );
-    --amplify-internal-togglebutton-active-background-color: var(
-      --amplify-components-togglebutton-primary-background-color
-    );
-    --amplify-internal-togglebutton-disabled-background-color: var(
-      --amplify-components-togglebutton-primary-background-color
-    );
-    --amplify-internal-togglebutton-disabled-border-color: var(
-      --amplify-components-togglebutton-border-color
-    );
-    --amplify-internal-togglebutton-disabled-color: var(
-      --amplify-components-togglebutton-color
-    );
-
     //these variables are being made so that the primary pressed state can overwrite them
     --amplify-internal-togglebutton-primary-focus-background-color: var(
       --amplify-components-togglebutton-primary-focus-background-color
@@ -154,56 +137,49 @@
     --amplify-internal-togglebutton-primary-focus-border-color: var(
       --amplify-components-togglebutton-primary-focus-border-color
     );
-    //there is no primary focus color but this is being made and set to its default value so that it can be overwritten by the pressed primary focus color
     --amplify-internal-togglebutton-primary-focus-color: var(
-      --amplify-internal-togglebutton-primary-color
+      --amplify-components-togglebutton-primary-focus-color
+    );
+    --amplify-internal-togglebutton-primary-focus-box-shadow: var(
+      --amplify-components-togglebutton-primary-focus-box-shadow
+    );
+
+    // focus overwrites
+    --amplify-internal-togglebutton-focus-background-color: var(
+      --amplify-internal-togglebutton-primary-focus-background-color
+    );
+    --amplify-internal-togglebutton-focus-border-color: var(
+      --amplify-internal-togglebutton-primary-focus-border-color
+    );
+    --amplify-internal-togglebutton-focus-color: var(
+      --amplify-internal-togglebutton-primary-focus-color
     );
     &:focus {
-      --amplify-internal-togglebutton-focus-background-color: var(
-        --amplify-internal-togglebutton-primary-focus-background-color
-      );
-      --amplify-internal-togglebutton-focus-border-color: var(
-        --amplify-internal-togglebutton-primary-focus-border-color
-      );
-      --amplify-internal-togglebutton-focus-color: var(
-        --amplify-internal-togglebutton-primary-focus-color
-      );
-
-      box-shadow: var(
-        --amplify-components-togglebutton-primary-focus-box-shadow
-      );
-
-      //prod puts primary hover border color before focus
-      --amplify-internal-togglebutton-primary-hover-border-color: var(
-        --amplify-internal-togglebutton-primary-focus-border-color
-      );
+      box-shadow: var(--amplify-internal-togglebutton-primary-focus-box-shadow);
     }
 
     //these variables are being made so that the primary pressed state can overwrite them
     --amplify-internal-togglebutton-primary-hover-background-color: var(
       --amplify-components-togglebutton-primary-hover-background-color
     );
-    //there is no primary hover border color but this is being made and set to its default value so that it can be overwritten by the pressed primary hover border color
+    // there is no primary hover border color but this is being made and set to its default value
+    // so that it can be overwritten by the pressed primary hover border color
     --amplify-internal-togglebutton-primary-hover-border-color: var(
       --amplify-internal-togglebutton-primary-border-color
     );
-    //there is no primary hover color but this is being made and set to its default value so that it can be overwritten by the pressed primary hover color
     --amplify-internal-togglebutton-primary-hover-color: var(
-      --amplify-internal-togglebutton-primary-color
+      --amplify-components-togglebutton-primary-hover-color
     );
-    &:hover {
-      background-color: var(
-        --amplify-internal-togglebutton-primary-hover-background-color
-      );
-      border-color: var(
-        --amplify-internal-togglebutton-primary-hover-border-color
-      );
-      color: var(--amplify-internal-togglebutton-primary-hover-color);
-      //update the focus background color in case both states are active default puts focus first but prod primary puts hover first
-      --amplify-internal-togglebutton-focus-background-color: var(
-        --amplify-internal-togglebutton-primary-hover-background-color
-      );
-    }
+    // hover overwrites
+    --amplify-internal-togglebutton-hover-background-color: var(
+      --amplify-internal-togglebutton-primary-hover-background-color
+    );
+    --amplify-internal-togglebutton-hover-border-color: var(
+      --amplify-internal-togglebutton-primary-hover-border-color
+    );
+    --amplify-internal-togglebutton-hover-color: var(
+      --amplify-internal-togglebutton-primary-hover-color
+    );
 
     //these variables are being made so that they can be overwritten by the primary pressed state
     --amplify-internal-togglebutton-primary-disabled-background-color: var(
@@ -216,32 +192,19 @@
     --amplify-internal-togglebutton-primary-disabled-color: var(
       --amplify-components-togglebutton-primary-disabled-color
     );
-    &:disabled {
-      // No hover effects visually in disabled state
-      --amplify-internal-togglebutton-primary-hover-background-color: var(
-        --amplify-internal-togglebutton-primary-disabled-background-color
-      );
-      --amplify-internal-togglebutton-primary-hover-border-color: var(
-        --amplify-internal-togglebutton-primary-disabled-border-color
-      );
-      --amplify-internal-togglebutton-primary-hover-color: var(
-        --amplify-internal-togglebutton-primary-disabled-color
-      );
-
-      --amplify-internal-togglebutton-disabled-background-color: var(
-        --amplify-internal-togglebutton-primary-disabled-background-color
-      );
-      --amplify-internal-togglebutton-disabled-border-color: var(
-        --amplify-internal-togglebutton-primary-disabled-border-color
-      );
-      --amplify-internal-togglebutton-disabled-color: var(
-        --amplify-internal-togglebutton-primary-disabled-color
-      );
-    }
+    // disable overwrites
+    --amplify-internal-togglebutton-disabled-background-color: var(
+      --amplify-internal-togglebutton-primary-disabled-background-color
+    );
+    --amplify-internal-togglebutton-disabled-border-color: var(
+      --amplify-internal-togglebutton-primary-disabled-border-color
+    );
+    --amplify-internal-togglebutton-disabled-color: var(
+      --amplify-internal-togglebutton-primary-disabled-color
+    );
   }
 
   &--pressed {
-    //these are the primary pressed values
     //these are the primary pressed values which should beat everything above it
     --amplify-internal-togglebutton-primary-background-color: var(
       --amplify-components-togglebutton-primary-pressed-background-color
@@ -253,116 +216,103 @@
       --amplify-components-togglebutton-primary-pressed-color
     );
 
-    //set the pressed primary states
-    &:focus {
-      --amplify-internal-togglebutton-primary-focus-background-color: var(
-        --amplify-components-togglebutton-primary-pressed-focus-background-color
-      );
-      --amplify-internal-togglebutton-primary-focus-border-color: var(
-        --amplify-components-togglebutton-primary-pressed-focus-border-color
-      );
-    }
+    // pressed focus overwrites
+    --amplify-internal-togglebutton-primary-focus-background-color: var(
+      --amplify-components-togglebutton-primary-pressed-focus-background-color
+    );
+    --amplify-internal-togglebutton-primary-focus-border-color: var(
+      --amplify-components-togglebutton-primary-pressed-focus-border-color
+    );
+    --amplify-internal-togglebutton-primary-focus-color: var(
+      --amplify-components-togglebutton-primary-pressed-focus-color
+    );
 
+    // pressed hover overwrites
+    --amplify-internal-togglebutton-primary-hover-background-color: var(
+      --amplify-components-togglebutton-primary-pressed-hover-background-color
+    );
+    --amplify-internal-togglebutton-primary-hover-border-color: var(
+      --amplify-components-togglebutton-primary-pressed-hover-border-color
+    );
+    --amplify-internal-togglebutton-primary-hover-color: var(
+      --amplify-components-togglebutton-primary-pressed-hover-color
+    );
     &:hover {
-      --amplify-internal-togglebutton-primary-hover-background-color: var(
-        --amplify-components-togglebutton-primary-pressed-hover-background-color
-      );
-      --amplify-internal-togglebutton-primary-hover-border-color: var(
-        --amplify-components-togglebutton-primary-pressed-hover-border-color
-      );
-      //because of the ordering focus color is taking precedence over hover, in prod this just sets the background color and is more specific than everything else.
-      --amplify-internal-togglebutton-primary-focus-background-color: var(
-        --amplify-components-togglebutton-primary-pressed-hover-background-color
+      --amplify-internal-togglebutton-primary-focus-box-shadow: var(
+        --amplify-components-togglebutton-primary-pressed-hover-box-shadow
       );
     }
 
-    //overwrite the primary states with the default pressed primary values because pressed primary should beat out primary states
-    &:focus {
-      --amplify-internal-togglebutton-primary-focus-color: var(
-        --amplify-components-togglebutton-primary-pressed-color
-      );
-    }
-
-    &:disabled {
-      // No hover effects visually in disabled state
-      --amplify-internal-togglebutton-primary-hover-background-color: var(
-        --amplify-internal-togglebutton-primary-disabled-background-color
-      );
-      --amplify-internal-togglebutton-primary-hover-border-color: var(
-        --amplify-internal-togglebutton-primary-disabled-border-color
-      );
-
-      --amplify-internal-togglebutton-primary-disabled-background-color: var(
-        --amplify-components-togglebutton-primary-pressed-background-color
-      );
-      --amplify-internal-togglebutton-primary-disabled-border-color: var(
-        --amplify-components-togglebutton-primary-pressed-border-color
-      );
-      --amplify-internal-togglebutton-primary-disabled-color: var(
-        --amplify-components-togglebutton-primary-pressed-color
-      );
-    }
+    // pressed disabled overwrites
+    // there are no tokens for them but will keep the pressed styling
+    --amplify-internal-togglebutton-primary-disabled-background-color: var(
+      --amplify-components-togglebutton-primary-pressed-background-color
+    );
+    --amplify-internal-togglebutton-primary-disabled-border-color: var(
+      --amplify-components-togglebutton-primary-pressed-border-color
+    );
+    --amplify-internal-togglebutton-primary-disabled-color: var(
+      --amplify-components-togglebutton-primary-pressed-color
+    );
   }
 
   &--link {
+    // overwrite the default styling
     --amplify-internal-togglebutton-link-background-color: var(
-      --amplify-components-togglebutton-background-color
+      --amplify-components-togglebutton-link-background-color
     );
     --amplify-internal-togglebutton-link-color: var(
       --amplify-components-togglebutton-link-color
     );
-
-    background-color: var(
+    --amplify-internal-togglebutton-background-color: var(
       --amplify-internal-togglebutton-link-background-color
     );
-    color: var(--amplify-internal-togglebutton-link-color);
+    --amplify-internal-togglebutton-color: var(
+      --amplify-internal-togglebutton-link-color
+    );
 
+    // focus overwrites
+    --amplify-internal-togglebutton-link-focus-background-color: var(
+      --amplify-components-togglebutton-link-focus-background-color
+    );
+    --amplify-internal-togglebutton-link-focus-color: var(
+      --amplify-components-togglebutton-link-focus-color
+    );
+
+    --amplify-internal-togglebutton-focus-background-color: var(
+      --amplify-internal-togglebutton-link-focus-background-color
+    );
+    --amplify-internal-togglebutton-focus-color: var(
+      --amplify-internal-togglebutton-link-focus-color
+    );
+
+    // hover overwrites
     --amplify-internal-togglebutton-link-hover-background-color: var(
       --amplify-components-togglebutton-link-hover-background-color
     );
     --amplify-internal-togglebutton-link-hover-color: var(
       --amplify-components-togglebutton-link-hover-color
     );
-    &:hover {
-      background-color: var(
-        --amplify-internal-togglebutton-link-hover-background-color
-      );
-      color: var(--amplify-internal-togglebutton-link-hover-color);
-    }
+    --amplify-internal-togglebutton-hover-background-color: var(
+      --amplify-internal-togglebutton-link-hover-background-color
+    );
+    --amplify-internal-togglebutton-hover-color: var(
+      --amplify-internal-togglebutton-link-hover-color
+    );
 
-    &:focus {
-      --amplify-internal-togglebutton-link-focus-background-color: var(
-        --amplify-components-togglebutton-link-focus-background-color
-      );
-      --amplify-internal-togglebutton-link-focus-color: var(
-        --amplify-components-togglebutton-link-focus-color
-      );
-
-      --amplify-internal-togglebutton-focus-background-color: var(
-        --amplify-internal-togglebutton-link-focus-background-color
-      );
-      --amplify-internal-togglebutton-focus-color: var(
-        --amplify-internal-togglebutton-link-focus-color
-      );
-    }
-
+    // disabled overwrites
     --amplify-internal-togglebutton-link-disabled-color: var(
       --amplify-components-togglebutton-link-disabled-color
     );
-
-    &:disabled {
-      // No hover effects visually in disabled state
-      --amplify-internal-togglebutton-link-hover-color: var(
-        --amplify-components-togglebutton-link-disabled-color
-      );
-
-      --amplify-internal-togglebutton-disabled-color: var(
-        --amplify-internal-togglebutton-link-disabled-color
-      );
-      --amplify-internal-togglebutton-disabled-background-color: var(
-        --amplify-components-togglebutton-link-disabled-background-color
-      );
-    }
+    --amplify-internal-togglebutton-link-disabled-background-color: var(
+      --amplify-components-togglebutton-link-disabled-background-color
+    );
+    --amplify-internal-togglebutton-disabled-color: var(
+      --amplify-internal-togglebutton-link-disabled-color
+    );
+    --amplify-internal-togglebutton-disabled-background-color: var(
+      --amplify-internal-togglebutton-link-disabled-background-color
+    );
   }
 
   //these are the styles for the pressed link state
@@ -374,28 +324,26 @@
       --amplify-components-togglebutton-link-pressed-background-color
     );
 
-    &:hover {
-      --amplify-internal-togglebutton-link-hover-background-color: var(
-        --amplify-components-togglebutton-link-pressed-hover-background-color
-      );
-      --amplify-internal-togglebutton-link-hover-color: var(
-        --amplify-components-togglebutton-link-pressed-color
-      );
-    }
+    // pressed focus overwrites
+    --amplify-internal-togglebutton-link-focus-background-color: var(
+      --amplify-components-togglebutton-link-pressed-focus-background-color
+    );
+    --amplify-internal-togglebutton-link-focus-color: var(
+      --amplify-components-togglebutton-link-pressed-focus-color
+    );
 
-    &:focus {
-      --amplify-internal-togglebutton-link-focus-background-color: var(
-        --amplify-components-togglebutton-link-pressed-background-color
-      );
-      --amplify-internal-togglebutton-link-focus-color: var(
-        --amplify-components-togglebutton-link-pressed-color
-      );
-    }
+    // pressed hover overwrites
+    --amplify-internal-togglebutton-link-hover-background-color: var(
+      --amplify-components-togglebutton-link-pressed-hover-background-color
+    );
+    --amplify-internal-togglebutton-link-hover-color: var(
+      --amplify-components-togglebutton-link-pressed-hover-color
+    );
 
-    &:disabled {
-      --amplify-internal-togglebutton-link-disabled-color: var(
-        --amplify-components-togglebutton-link-pressed-color
-      );
-    }
+    // pressed disabled overwrites
+    // there are no tokens for them but will keep the pressed styling
+    --amplify-internal-togglebutton-link-disabled-color: var(
+      --amplify-components-togglebutton-link-pressed-color
+    );
   }
 }
