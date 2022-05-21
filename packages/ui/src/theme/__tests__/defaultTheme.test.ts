@@ -642,7 +642,9 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-togglebutton-primary-focus-border-color: var(--amplify-colors-border-focus);
         --amplify-components-togglebutton-primary-focus-background-color: var(--amplify-colors-transparent);
         --amplify-components-togglebutton-primary-focus-box-shadow: var(--amplify-components-fieldcontrol-focus-box-shadow);
+        --amplify-components-togglebutton-primary-focus-color: var(--amplify-colors-font-primary);
         --amplify-components-togglebutton-primary-hover-background-color: var(--amplify-colors-overlay-10);
+        --amplify-components-togglebutton-primary-hover-color: var(--amplify-colors-font-primary);
         --amplify-components-togglebutton-primary-disabled-border-color: var(--amplify-colors-border-disabled);
         --amplify-components-togglebutton-primary-disabled-background-color: var(--amplify-colors-background-disabled);
         --amplify-components-togglebutton-primary-disabled-color: var(--amplify-colors-font-disabled);
@@ -651,8 +653,12 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-togglebutton-primary-pressed-color: var(--amplify-colors-white);
         --amplify-components-togglebutton-primary-pressed-focus-background-color: var(--amplify-colors-border-focus);
         --amplify-components-togglebutton-primary-pressed-focus-border-color: var(--amplify-colors-border-focus);
+        --amplify-components-togglebutton-primary-pressed-focus-color: var(--amplify-colors-white);
         --amplify-components-togglebutton-primary-pressed-hover-border-color: var(--amplify-colors-brand-primary-60);
         --amplify-components-togglebutton-primary-pressed-hover-background-color: var(--amplify-colors-brand-primary-60);
+        --amplify-components-togglebutton-primary-pressed-hover-box-shadow: var(--amplify-colors-brand-primary-60);
+        --amplify-components-togglebutton-primary-pressed-hover-color: var(--amplify-colors-white);
+        --amplify-components-togglebutton-link-background-color: var(--amplify-colors-transparent);
         --amplify-components-togglebutton-link-color: var(--amplify-colors-overlay-50);
         --amplify-components-togglebutton-link-hover-background-color: var(--amplify-colors-transparent);
         --amplify-components-togglebutton-link-hover-color: var(--amplify-colors-overlay-50);
@@ -662,6 +668,9 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-togglebutton-link-disabled-color: var(--amplify-colors-font-disabled);
         --amplify-components-togglebutton-link-pressed-background-color: var(--amplify-colors-transparent);
         --amplify-components-togglebutton-link-pressed-color: var(--amplify-colors-overlay-90);
+        --amplify-components-togglebutton-link-pressed-focus-background-color: var(--amplify-colors-transparent);
+        --amplify-components-togglebutton-link-pressed-focus-color: var(--amplify-colors-overlay-90);
+        --amplify-components-togglebutton-link-pressed-hover-color: var(--amplify-colors-overlay-90);
         --amplify-components-togglebutton-link-pressed-hover-background-color: var(--amplify-colors-transparent);
         --amplify-components-togglebuttongroup-align-items: center;
         --amplify-components-togglebuttongroup-align-content: center;
