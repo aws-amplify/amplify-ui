@@ -24,6 +24,7 @@ jobs:
       USERNAME: ${{ secrets.USERNAME }}
       NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
       VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+      NOT_SECRET: ${{ secrets.NOT_SECRET }}
 
   publish:
     needs: [e2e, docs]
