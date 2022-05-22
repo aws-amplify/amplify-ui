@@ -8,11 +8,11 @@
   width: 100%;
   display: block;
 
-  &[data-size='small'] {
+  &--small {
     height: var(--amplify-components-placeholder-small-height);
   }
 
-  &[data-size='large'] {
+  &--large {
     height: var(--amplify-components-placeholder-large-height);
   }
 }

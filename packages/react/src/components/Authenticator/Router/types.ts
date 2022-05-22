@@ -7,7 +7,7 @@ import { UseAuthenticator } from '../hooks/useAuthenticator';
 export type RouterProps = {
   children:
     | React.ReactNode
-    | ((props?: {
+    | ((props: {
         signOut?: UseAuthenticator['signOut'];
         user?: CognitoUserAmplify;
       }) => React.ReactNode);

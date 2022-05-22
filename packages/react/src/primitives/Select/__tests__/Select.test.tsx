@@ -58,6 +58,53 @@ describe('Select primitive test suite', () => {
     expect(select).not.toBeRequired();
   });
 
+  it('should render size classes for Select', async () => {
+    render(
+      <div>
+        <Select testId="small" size="small" />
+        <Select testId="large" size="large" />
+      </div>
+    );
+
+    const small = await screen.findByTestId('small');
+    const large = await screen.findByTestId('large');
+
+    expect(small.classList).toContain(
+      `${ComponentClassNames['Select']}--small`
+    );
+    expect(large.classList).toContain(
+      `${ComponentClassNames['Select']}--large`
+    );
+  });
+
+  it('should render variation classes for Select', async () => {
+    render(
+      <div>
+        <Select testId="quiet" variation="quiet" />
+      </div>
+    );
+
+    const quiet = await screen.findByTestId('quiet');
+
+    expect(quiet.classList).toContain(
+      `${ComponentClassNames['Select']}--quiet`
+    );
+  });
+
+  it('should render error classes for Select', async () => {
+    render(
+      <div>
+        <Select testId="error" hasError={true} />
+      </div>
+    );
+
+    const error = await screen.findByTestId('error');
+
+    expect(error.classList).toContain(
+      `${ComponentClassNames['Select']}--error`
+    );
+  });
+
   it('should forward ref to DOM element', async () => {
     const ref = React.createRef<HTMLSelectElement>();
     render(<Select ref={ref} testId={testId}></Select>);

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, useAttrs, toRefs, onBeforeMount } from 'vue';
+import { computed, useAttrs, toRefs } from 'vue';
 import { getFormDataFromEvent, translate } from '@aws-amplify/ui';
 import BaseFormFields from './primitives/base-form-fields.vue';
 
@@ -10,7 +10,7 @@ const attrs = useAttrs();
 const emit = defineEmits(['resetPasswordSubmit', 'backToSignInClicked']);
 
 const useAuthShared = createSharedComposable(useAuthenticator);
-const { state, send, submitForm } = useAuthShared();
+const { send, submitForm } = useAuthShared();
 const { error, isPending } = toRefs(useAuthShared());
 
 // Computed Properties
@@ -32,7 +32,7 @@ const submit = (e: Event): void => {
 };
 
 const onInput = (e: Event): void => {
-  const { name, value } = <HTMLFormElement>e.target;
+  const { name, value } = e.target as HTMLInputElement;
   send({
     type: 'CHANGE',
     data: { name, value },
@@ -58,41 +58,36 @@ const onBackToSignInClicked = (): void => {
       @input="onInput"
       @submit.prevent="onResetPasswordSubmit"
     >
-      <base-wrapper class="amplify-flex" style="flex-direction: column">
+      <base-wrapper class="amplify-flex amplify-authenticator__column">
         <slot name="header">
           <base-heading class="amplify-heading" :level="3">
             {{ resetPasswordHeading }}
           </base-heading>
         </slot>
         <base-field-set
-          class="amplify-flex"
-          style="flex-direction: column"
+          class="amplify-flex amplify-authenticator__column"
           :disabled="isPending"
         >
           <base-form-fields route="resetPassword"></base-form-fields>
         </base-field-set>
 
-        <base-footer
-          class="amplify-flex"
-          style="flex-direction: column; align-items: unset"
-        >
+        <base-footer class="amplify-flex amplify-authenticator__column">
           <base-alert v-if="error">
             {{ translate(error) }}
           </base-alert>
           <amplify-button
-            class="amplify-field-group__control"
-            data-fullwidth="false"
-            data-variation="primary"
+            class="amplify-field-group__control amplify-authenticator__font"
+            :fullwidth="false"
+            :variation="'primary'"
             type="submit"
-            style="font-weight: normal"
             :disabled="isPending"
             >{{ resetPasswordText }}</amplify-button
           >
           <amplify-button
-            class="amplify-field-group__control"
-            data-fullwidth="false"
-            data-size="small"
-            data-variation="link"
+            class="amplify-field-group__control amplify-authenticator__font"
+            :fullwidth="false"
+            :size="'small'"
+            :variation="'link'"
             style="font-weight: normal"
             type="button"
             @click.prevent="onBackToSignInClicked"

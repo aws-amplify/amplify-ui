@@ -1,0 +1,10 @@
+---
+title: Flex
+description: A layout container using Flexbox.
+reactSource: packages/react/src/primitives/Flex/Flex.tsx
+supportedFrameworks: react
+---
+
+import { Fragment } from '@/components/Fragment';
+
+<Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>

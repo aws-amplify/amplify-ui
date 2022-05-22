@@ -109,6 +109,10 @@ jobs:
         if: ${{ matrix.package != 'ui' }}
         run: yarn ${{ matrix.package }} build
 
+      - name: Check ${{ matrix.package }} bundle size
+        if: ${{ matrix.package == 'react' }}
+        run: yarn react size
+
       - name: Cache ${{ matrix.package }}/dist
         uses: actions/cache@v2
         with:
@@ -283,6 +287,8 @@ jobs:
 
       - name: Build docs package
         run: yarn docs build
+        env:
+          SITE_URL: ${{ secrets.SITE_URL }}
 
       - name: Start docs site
         run: yarn docs start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000

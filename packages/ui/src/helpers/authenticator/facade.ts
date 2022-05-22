@@ -73,6 +73,8 @@ export const getServiceContextFacade = (state: AuthMachineState) => {
         return 'signOut';
       case state.matches('authenticated'):
         return 'authenticated';
+      case actorState?.matches('autoSignIn'):
+        return 'autoSignIn';
       case actorState?.matches('confirmSignUp'):
         return 'confirmSignUp';
       case actorState?.matches('confirmSignIn'):
