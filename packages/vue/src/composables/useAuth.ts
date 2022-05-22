@@ -3,10 +3,13 @@ import { ref, reactive, Ref, watchEffect } from 'vue';
 import { getServiceFacade } from '@aws-amplify/ui';
 import { facade } from './useUtils';
 import { InterpretService } from '@/components';
-import { createSharedComposable } from '@vueuse/core';
 
 const service = ref() as Ref<InterpretService>;
-let useAuthenticatorValue = reactive({ ...facade, send: '', state: '' }) as any;
+const useAuthenticatorValue = reactive({
+  ...facade,
+  send: '' as unknown,
+  state: '' as unknown,
+}) as any;
 
 export const useAuth = (serv?: InterpretService) => {
   if (serv) {
