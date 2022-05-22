@@ -6,7 +6,7 @@ import {
   SignInState,
   translate,
 } from '@aws-amplify/ui';
-import { computed, ComputedRef, useAttrs, onBeforeMount } from 'vue';
+import { computed, ComputedRef, useAttrs } from 'vue';
 import { createSharedComposable } from '@vueuse/core';
 
 import { useAuth, useAuthenticator } from '../composables/useAuth';
@@ -25,7 +25,7 @@ const actorState = computed(() =>
 ) as ComputedRef<SignInState>;
 const challengeName = actorState.value.context.challengeName;
 
-let mfaType: string = 'SMS';
+let mfaType = 'SMS';
 
 if (challengeName === AuthChallengeNames.SOFTWARE_TOKEN_MFA) {
   mfaType = 'TOTP';
@@ -38,7 +38,7 @@ const confirmText = computed(() => translate('Confirm'));
 
 // Methods
 const onInput = (e: Event): void => {
-  const { name, value } = <HTMLInputElement>e.target;
+  const { name, value } = e.target as HTMLInputElement;
   send({
     type: 'CHANGE',
     //@ts-ignore
@@ -78,8 +78,7 @@ const onBackToSignInClicked = (): void => {
         @submit.prevent="onConfirmSignInSubmit"
       >
         <base-field-set
-          class="amplify-flex"
-          style="flex-direction: column"
+          class="amplify-flex amplify-authenticator__column"
           :disabled="actorState.matches('confirmSignIn.pending')"
         >
           <slot name="header">
@@ -87,27 +86,27 @@ const onBackToSignInClicked = (): void => {
               {{ confirmSignInHeading }}
             </base-heading>
           </slot>
-          <base-wrapper class="amplify-flex" style="flex-direction: column">
+          <base-wrapper class="amplify-flex amplify-authenticator__column">
             <base-form-fields route="confirmSignIn"></base-form-fields>
           </base-wrapper>
-          <base-footer class="amplify-flex" style="flex-direction: column">
+          <base-footer class="amplify-flex amplify-authenticator__column">
             <base-alert v-if="actorState?.context?.remoteError">
               {{ translate(actorState?.context?.remoteError) }}
             </base-alert>
             <amplify-button
-              class="amplify-field-group__control"
-              data-fullwidth="false"
-              data-loading="false"
-              data-variation="primary"
+              class="amplify-field-group__control amplify-authenticator__font"
+              :fullwidth="false"
+              :loading="false"
+              :variation="'primary'"
               style="font-weight: normal"
               :disabled="actorState.matches('confirmSignIn.pending')"
               >{{ confirmText }}</amplify-button
             >
             <amplify-button
-              class="amplify-field-group__control"
-              data-fullwidth="false"
-              data-size="small"
-              data-variation="link"
+              class="amplify-field-group__control amplify-authenticator__font"
+              :fullwidth="false"
+              :size="'small'"
+              :variation="'link'"
               style="font-weight: normal"
               type="button"
               @click.prevent="onBackToSignInClicked"

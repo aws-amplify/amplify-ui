@@ -1,5 +1,74 @@
 # @aws-amplify/ui
 
+## 3.9.1
+
+### Patch Changes
+
+- [#1933](https://github.com/aws-amplify/amplify-ui/pull/1933) [`376c39fc0`](https://github.com/aws-amplify/amplify-ui/commit/376c39fc04aec3a41d02a722a62d4b8e4eb43230) Thanks [@zchenwei](https://github.com/zchenwei)! - fix(style): adjust slider thumb border width, focus color and box shadow. #1922
+
+## 3.9.0
+
+### Minor Changes
+
+- [#1879](https://github.com/aws-amplify/amplify-ui/pull/1879) [`937498b3f`](https://github.com/aws-amplify/amplify-ui/commit/937498b3ff016f2f76f60d861a995b8b1bb77bdf) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Add default dark mode theme override for React
+
+  ```jsx
+    const theme: Theme = {
+      name: 'my-theme',
+      overrides: [defaultDarkModeOverride],
+    };
+
+    // ...
+    <AmplifyProvider theme={theme} colorMode="system">
+
+    // or
+    <AmplifyProvider theme={theme} colorMode={colorMode}>
+  ```
+
+### Patch Changes
+
+- [#1908](https://github.com/aws-amplify/amplify-ui/pull/1908) [`62edc9ee3`](https://github.com/aws-amplify/amplify-ui/commit/62edc9ee34a64a81190631fed31cf388bcf3b2e0) Thanks [@reesscot](https://github.com/reesscot)! - fix: regression in scrollview that shows scrollbars when unneeded
+
+* [#1868](https://github.com/aws-amplify/amplify-ui/pull/1868) [`1c3e35a8d`](https://github.com/aws-amplify/amplify-ui/commit/1c3e35a8df815402da68c203b84cf599064c863a) Thanks [@wlee221](https://github.com/wlee221)! - This PR adds additional safeguards to hub event listeners we use. Now, we will only pass hub events to the auth machine if it is in the correct state.
+
+- [#1904](https://github.com/aws-amplify/amplify-ui/pull/1904) [`5c5e89407`](https://github.com/aws-amplify/amplify-ui/commit/5c5e89407d2946be61ffb4ab5a4e9d7352c41065) Thanks [@joebuono](https://github.com/joebuono)! - bug(fix): MenuItem minHeight mapped incorrectly
+
+## 3.8.3
+
+### Patch Changes
+
+- [#1895](https://github.com/aws-amplify/amplify-ui/pull/1895) [`7dbd14546`](https://github.com/aws-amplify/amplify-ui/commit/7dbd145461d27a8cb1ba63a261e543a154dd8343) Thanks [@zchenwei](https://github.com/zchenwei)! - fix(style): adjust switch track color to comply with 3:1 contrast ratio.
+
+* [#1864](https://github.com/aws-amplify/amplify-ui/pull/1864) [`716e24298`](https://github.com/aws-amplify/amplify-ui/commit/716e2429848592254f0b53df6470a53ac735b71c) Thanks [@zchenwei](https://github.com/zchenwei)! - fix(style): fix PasswordField and SearchField quiet styling
+
+## 3.8.2
+
+### Patch Changes
+
+- [#1867](https://github.com/aws-amplify/amplify-ui/pull/1867) [`e9ae76995`](https://github.com/aws-amplify/amplify-ui/commit/e9ae7699589ec005475b4fc16dac7164ad9e0caa) Thanks [@wlee221](https://github.com/wlee221)! - This patch ensures refresh tokens are handled properly after expiration.
+
+  Refresh tokens are used to refresh your idToken and accessToken. While it's uncommon for refresh tokens to expire in app due to their longevity (default 30 days), this would cause an early `tokenRefresh_failure` event on refresh which previously confused the authenticator. This is now handled properly from the Authenticator.
+
+  See https://github.com/aws-amplify/amplify-ui/pull/1863 for technical details. Note that token refresh is attempted when (1) on refresh, and (2) an Amplify API call is attempted but it gets back a token expiration exception.
+
+* [#1772](https://github.com/aws-amplify/amplify-ui/pull/1772) [`9c25f80b6`](https://github.com/aws-amplify/amplify-ui/commit/9c25f80b6f4c84e0e1727873e3dd78b3ce5684a0) Thanks [@jacoblogan](https://github.com/jacoblogan)! - Refactor of styling to flatten css selectors across angular, react, and vue
+
+## 3.8.1
+
+### Patch Changes
+
+- [#1835](https://github.com/aws-amplify/amplify-ui/pull/1835) [`286e7df79`](https://github.com/aws-amplify/amplify-ui/commit/286e7df790a103d164cd8424161a9cd6dc4483e3) Thanks [@reesscot](https://github.com/reesscot)! - Fix ScrollView to only show scrollbars when content overflows
+
+## 3.8.0
+
+### Minor Changes
+
+- [#1809](https://github.com/aws-amplify/amplify-ui/pull/1809) [`f2ab1b8e4`](https://github.com/aws-amplify/amplify-ui/commit/f2ab1b8e468597e7b81284b46cd4b03dcd02e201) Thanks [@wlee221](https://github.com/wlee221)! - feat(authenticator): listen to tokenRefresh events
+
+### Patch Changes
+
+- [#1833](https://github.com/aws-amplify/amplify-ui/pull/1833) [`b1656e136`](https://github.com/aws-amplify/amplify-ui/commit/b1656e13612b5a748cc19be6eeeb44bf70822fda) Thanks [@ErikCH](https://github.com/ErikCH)! - Fixed bug with reset password for phone
+
 ## 3.7.0
 
 ### Minor Changes

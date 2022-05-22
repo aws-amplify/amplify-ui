@@ -1,4 +1,5 @@
 import { assign, createMachine, forwardTo, spawn } from 'xstate';
+import { choose } from 'xstate/lib/actions';
 
 import {
   AuthContext,
@@ -132,8 +133,9 @@ export function createAuthenticatorMachine() {
           on: {
             SIGN_IN: 'signIn',
             'done.invoke.signUpActor': {
-              target: 'signUp.autoSignIn',
+              target: '#authenticator.signIn',
               actions: 'setActorDoneData',
+              cond: 'shouldAutoSignIn',
             },
           },
         },
@@ -178,6 +180,24 @@ export function createAuthenticatorMachine() {
           },
         },
         authenticated: {
+          initial: 'idle',
+          states: {
+            idle: {
+              on: {
+                TOKEN_REFRESH: 'refreshUser',
+              },
+            },
+            refreshUser: {
+              invoke: {
+                src: 'getCurrentUser',
+                onDone: {
+                  actions: 'setUser',
+                  target: 'idle',
+                },
+                onError: { target: '#authenticator.signOut' },
+              },
+            },
+          },
           on: { SIGN_OUT: 'signOut' },
         },
       },
@@ -187,14 +207,18 @@ export function createAuthenticatorMachine() {
         SUBMIT: { actions: 'forwardToActor' },
         FEDERATED_SIGN_IN: { actions: 'forwardToActor' },
         RESEND: { actions: 'forwardToActor' },
-        SIGN_OUT: { actions: 'forwardToActor' },
         SIGN_IN: { actions: 'forwardToActor' },
         SKIP: { actions: 'forwardToActor' },
       },
     },
     {
       actions: {
-        forwardToActor: forwardTo((context) => context.actorRef),
+        forwardToActor: choose([
+          {
+            cond: 'hasActor',
+            actions: forwardTo((context) => context.actorRef),
+          },
+        ]),
         setUser: assign({
           user: (_, event) => event.data as CognitoUserAmplify,
         }),
@@ -270,7 +294,7 @@ export function createAuthenticatorMachine() {
           actorRef: (context, _) => {
             const { services } = context;
             const actor = signInActor({ services }).withContext({
-              authAttributes: context.actorDoneData?.authAttributes,
+              authAttributes: context.actorDoneData?.authAttributes ?? {},
               user: context.user,
               intent: context.actorDoneData?.intent,
               country_code: DEFAULT_COUNTRY_CODE,
@@ -350,7 +374,10 @@ export function createAuthenticatorMachine() {
           event.data?.intent === 'confirmSignUp',
         shouldRedirectToResetPassword: (_, event) =>
           event.data?.intent === 'confirmPasswordReset',
+        shouldAutoSignIn: (_, event) => event.data?.intent === 'autoSignIn',
         shouldSetup: (context) => context.hasSetup === false,
+        // other context guards
+        hasActor: (context) => !!context.actorRef,
       },
       services: {
         getCurrentUser: (context, _) => context.services.getCurrentUser(),

@@ -1,20 +1,22 @@
+import * as React from 'react';
+import * as runtime from 'react/jsx-runtime';
+
 import { Alert, VisuallyHidden } from '@aws-amplify/ui-react';
 import {
   AstBuilder,
   GherkinClassicTokenMatcher,
   Parser,
 } from '@cucumber/gherkin';
-import { IdGenerator } from '@cucumber/messages';
 import {
   ClipboardCheckIcon,
   CodeIcon,
   ExternalLinkIcon,
 } from '@heroicons/react/solid';
-import { useRouter } from 'next/router';
-import * as React from 'react';
-import * as runtime from 'react/jsx-runtime';
-import remarkGfm from 'remark-gfm';
+
+import { IdGenerator } from '@cucumber/messages';
 import { evaluateSync } from '@mdx-js/mdx';
+import remarkGfm from 'remark-gfm';
+import { useCustomRouter } from '@/components/useCustomRouter';
 
 const parser = new Parser(
   new AstBuilder(IdGenerator.uuid()),
@@ -55,7 +57,7 @@ function getGitHubUrlForExample(platform) {
 
 export function Feature({ name = required('Missing feature name') }) {
   const [source, setSource] = React.useState(null);
-  const { pathname, query } = useRouter();
+  const { pathname, query } = useCustomRouter();
   const { platform = 'react' } = query;
 
   const port = getPortForPlatform(platform);

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
 import { FieldGroupOptions, Primitive } from '../types';
 import { Flex } from '../Flex';
@@ -15,6 +16,7 @@ const FieldGroupPrimitive: Primitive<FieldGroupOptions, typeof Flex> = (
     orientation = 'horizontal',
     outerEndComponent,
     outerStartComponent,
+    variation,
     ...rest
   },
   ref
@@ -28,26 +30,42 @@ const FieldGroupPrimitive: Primitive<FieldGroupOptions, typeof Flex> = (
   const fieldGroupHasInnerEndClassName = hasInnerEndComponent
     ? ComponentClassNames.FieldGroupHasInnerEnd
     : null;
+  const componentClasses = classNames(
+    ComponentClassNames.FieldGroup,
+    fieldGroupHasInnerStartClassName,
+    fieldGroupHasInnerEndClassName,
+    classNameModifier(ComponentClassNames.FieldGroup, orientation),
+    className
+  );
 
   return (
     <Flex
-      className={classNames(
-        ComponentClassNames.FieldGroup,
-        fieldGroupHasInnerStartClassName,
-        fieldGroupHasInnerEndClassName,
-        className
-      )}
+      className={componentClasses}
       data-orientation={orientation}
       ref={ref}
       {...rest}
     >
       {outerStartComponent && (
-        <View className={ComponentClassNames.FieldGroupOuterStart}>
+        <View
+          className={classNames(
+            ComponentClassNames.FieldGroupOuterStart,
+            classNameModifier(
+              ComponentClassNames.FieldGroupOuterStart,
+              variation
+            )
+          )}
+        >
           {outerStartComponent}
         </View>
       )}
       <View
-        className={ComponentClassNames.FieldGroupFieldWrapper}
+        className={classNames(
+          ComponentClassNames.FieldGroupFieldWrapper,
+          classNameModifier(
+            ComponentClassNames.FieldGroupFieldWrapper,
+            orientation
+          )
+        )}
         data-orientation={orientation}
       >
         {innerStartComponent && (
@@ -64,7 +82,12 @@ const FieldGroupPrimitive: Primitive<FieldGroupOptions, typeof Flex> = (
       </View>
 
       {outerEndComponent && (
-        <View className={ComponentClassNames.FieldGroupOuterEnd}>
+        <View
+          className={classNames(
+            ComponentClassNames.FieldGroupOuterEnd,
+            classNameModifier(ComponentClassNames.FieldGroupOuterEnd, variation)
+          )}
+        >
           {outerEndComponent}
         </View>
       )}

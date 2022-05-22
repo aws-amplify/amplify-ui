@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react",
-  "version": "2.16.0",
+  "version": "2.18.1",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "exports": {
@@ -54,10 +54,11 @@
     "test": "yarn test:unit",
     "test:watch": "yarn test:unit:watch",
     "test:unit": "jest",
-    "test:unit:watch": "jest --watch"
+    "test:unit:watch": "jest --watch",
+    "size": "yarn run size-limit"
   },
   "dependencies": {
-    "@aws-amplify/ui": "3.7.0",
+    "@aws-amplify/ui": "3.9.1",
     "@aws-amplify/ui-react-v1": "npm:@aws-amplify/ui-react@1.2.9",
     "@radix-ui/react-accordion": "0.1.6",
     "@radix-ui/react-dropdown-menu": "0.1.6",
@@ -86,6 +87,7 @@
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "^8.3.1",
+    "@size-limit/preset-big-lib": "^7.0.8",
     "@svgr/core": "^5.5.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
@@ -98,8 +100,6 @@
     "@typescript-eslint/parser": "^5.20.0",
     "degit": "^2.8.4",
     "eslint": "^8.13.0",
-    "eslint-config-airbnb": "^19.0.4",
-    "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jest": "^26.1.4",
@@ -114,11 +114,26 @@
     "rollup": "^2.70.0",
     "rollup-plugin-styles": "^4.0.0",
     "rollup-plugin-terser": "^7.0.2",
+    "size-limit": "^7.0.8",
     "ts-jest": "^27.0.3",
     "ts-morph": "^12.0.0",
     "ts-node": "^10.2.1"
   },
   "sideEffects": [
     "dist/**/*.css"
+  ],
+  "size-limit": [
+    {
+      "name": "Authenticator",
+      "path": "dist/esm/index.js",
+      "import": "{ Authenticator }",
+      "limit": "100 kB"
+    },
+    {
+      "name": "Geo",
+      "path": "dist/esm/index.js",
+      "import": "{ MapView, LocationSearch }",
+      "limit": "300 kB"
+    }
   ]
 }

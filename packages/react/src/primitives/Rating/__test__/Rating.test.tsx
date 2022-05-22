@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { ComponentClassNames } from '../../shared';
 import { Rating } from '../Rating';
 import { render, screen } from '@testing-library/react';
 
@@ -16,6 +17,25 @@ describe('Rating: ', () => {
 
     const rating = await screen.findByTestId('testId');
     expect(rating.className).toContain('my-rating-component');
+  });
+
+  it('should render size classes for Rating', async () => {
+    render(
+      <div>
+        <Rating testId="small" size="small" />
+        <Rating testId="large" size="large" />
+      </div>
+    );
+
+    const small = await screen.findByTestId('small');
+    const large = await screen.findByTestId('large');
+
+    expect(small.classList).toContain(
+      `${ComponentClassNames['Rating']}--small`
+    );
+    expect(large.classList).toContain(
+      `${ComponentClassNames['Rating']}--large`
+    );
   });
 
   it('should forward ref to DOM element', async () => {
