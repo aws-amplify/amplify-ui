@@ -17,10 +17,10 @@ permissions:
 
 jobs:
   setup:
+    runs-on: ubuntu-latest
     # We run tests only if it's:
     #   1) pull request not from a fork (ie. internal PR), or
     #   2) pull request from a fork (ie. external PR) that was added "run-tests" label
-    runs-on: ubuntu-latest
     if: |
       (github.event.pull_request.head.repo.full_name == github.repository) ||
       (github.event.action == 'labeled' && github.event.label.name == 'run-tests')
