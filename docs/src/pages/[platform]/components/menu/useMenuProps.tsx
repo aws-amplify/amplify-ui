@@ -20,12 +20,11 @@ export const useMenuProps: UseMenuProps = (initialValues) => {
 
   return React.useMemo(
     () => ({
-      ...initialValues,
       menuAlign,
       size,
       setMenuAlign,
       setSize,
     }),
-    [initialValues, menuAlign, size, setMenuAlign, setSize]
+    [menuAlign, size, setMenuAlign, setSize]
   );
 };

@@ -11,8 +11,7 @@ const props = withDefaults(
   }
 );
 
-const { id, label } = props;
-const { active } = toRefs(props);
+const { active, id, label } = toRefs(props);
 </script>
 
 <template>

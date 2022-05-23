@@ -1,5 +1,22 @@
 # @aws-amplify/ui-vue
 
+## 2.4.6
+
+### Patch Changes
+
+- [#1928](https://github.com/aws-amplify/amplify-ui/pull/1928) [`a917b08bb`](https://github.com/aws-amplify/amplify-ui/commit/a917b08bbf6d845e602b36b5d1632955a86d6557) Thanks [@ErikCH](https://github.com/ErikCH)! - Turned on ESLint for the Vue.js package. Fixed the following ESLint errors:
+
+  - The `alias-control`, `authenticator`, `amplify-button`, `base-select`, `reset-password` and `federated-sign-in-button` all had the improper use of destructuring props, and was fixed.
+
+  - Several components had typecasted the `HTMLInputElement` incorrectly, which was fixed.
+
+  - Turned off `vue/multi-word-component-names` for the `authenticator` component, since it needs to match other frameworks.
+
+  - Turned off `no-explicity-any` in the `useAuth` and `index.ts` file. We'll be adding types to `useAuth` in a future PR.
+
+- Updated dependencies [[`376c39fc0`](https://github.com/aws-amplify/amplify-ui/commit/376c39fc04aec3a41d02a722a62d4b8e4eb43230)]:
+  - @aws-amplify/ui@3.9.1
+
 ## 2.4.5
 
 ### Patch Changes
