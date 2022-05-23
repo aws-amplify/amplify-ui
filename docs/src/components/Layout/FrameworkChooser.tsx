@@ -2,12 +2,12 @@ import { Flex, Image, useTheme } from '@aws-amplify/ui-react';
 
 import { useCustomRouter } from '@/components/useCustomRouter';
 import Link from 'next/link';
+import { FRAMEWORKS } from '@/data/frameworks';
 
 import LinkButton from './LinkButton';
 
 const FrameworkLink = ({ platform, label }) => {
   const router = useCustomRouter();
-  const { hash } = window.location;
   const { pathname, query } = router;
 
   const isCurrent = query.platform === platform;
@@ -35,10 +35,9 @@ export const FrameworkChooser = () => {
   const { tokens } = useTheme();
   return (
     <Flex direction="column" gap={tokens.space.xs}>
-      <FrameworkLink platform="react" label="React" />
-      <FrameworkLink platform="angular" label="Angular" />
-      <FrameworkLink platform="vue" label="Vue" />
-      <FrameworkLink platform="flutter" label="Flutter" />
+      {FRAMEWORKS.map((framework) => (
+        <FrameworkLink platform={framework} label={framework} />
+      ))}
     </Flex>
   );
 };

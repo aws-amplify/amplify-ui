@@ -149,6 +149,11 @@ const SecondaryNav = (props) => {
               Migration
             </NavLink>
           )}
+          {platform !== 'flutter' && (
+            <NavLink {...props} href="/getting-started/troubleshooting">
+              Troubleshooting
+            </NavLink>
+          )}
         </>
       </ExpanderItem>
       <ExpanderItem
