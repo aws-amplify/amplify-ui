@@ -25,3 +25,21 @@ yarn add aws-amplify @aws-amplify/ui-vue
   documentation](https://github.com/aws-amplify/amplify-ui/tree/legacy/legacy/amplify-ui-vue)
   please click here.
 </Alert>
+
+### Install as a global plugin (Optional)
+
+Optionally, you can register all the `@aws-amplify/ui-vue` components at once.
+
+```js
+// main.js
+import { createApp } from 'vue';
+import App from './App.vue';
+import AmplifyVue from '@aws-amplify/ui-vue';
+
+const app = createApp(App);
+app.use(AmplifyVue);
+app.mount('#app');
+```
+
+Otherwise, you can import individual components from the `@aws-amplify/ui-vue` package in each one of your components.
+
