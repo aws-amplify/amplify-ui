@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@aws-amplify/ui-vue": "^2.4.6",
-    "aws-amplify": "latest",
+    "aws-amplify": "in-app-messaging",
     "vue": "^3.0.5",
     "vue-router": "4"
   },
