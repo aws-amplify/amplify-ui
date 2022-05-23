@@ -18,14 +18,13 @@
     "LICENSE"
   ],
   "scripts": {
-    "clean": "rimraf dist",
-    "prebuild": "rimraf dist node_modules",
+    "clean": "rimraf dist node_modules",
+    "prebuild": "rimraf dist",
     "build": "tsup --minify",
     "dev": "tsup --watch src",
     "lint": "tsc --noEmit && eslint src",
     "test": "jest"
   },
-  "dependencies": {},
   "peerDependencies": {
     "react": ">= 16.8.0",
     "react-dom": ">= 16.8.0"
@@ -49,7 +48,6 @@
     "eslint-plugin-react-hooks": "^4.3.0",
     "jest": "^27.0.4",
     "prettier": "2.4.1",
-    "react": "latest",
     "react-test-renderer": "^17.0.2",
     "rimraf": "^3.0.2",
     "ts-jest": "^27.1.3",
