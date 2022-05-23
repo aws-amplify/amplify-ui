@@ -37,21 +37,21 @@ jobs:
         with:
           node-version: lts/*
           cache: 'yarn'
-      # - name: Install and build packages
-      #   run: yarn --frozen-lockfile && yarn build
-      # - name: Add changeset that bumps all public packages
-      #   # There needs to be a changeset for @aws-amplify/ui[-framework] to publish.
-      #   run: cp .github/changeset-presets/bump-versions.md .changeset
-      # - name: Run changeset version to next tag
-      #   run: yarn version:next
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # - name: Create .npmrc
-      #   run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
-      #   env:
-      #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      # - name: Publish to next tag
-      #   run: yarn publish:next
+      - name: Install and build packages
+        run: yarn --frozen-lockfile && yarn build
+      - name: Add changeset that bumps all public packages
+        # There needs to be a changeset for @aws-amplify/ui[-framework] to publish.
+        run: cp .github/changeset-presets/bump-versions.md .changeset
+      - name: Run changeset version to next tag
+        run: yarn version:next
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create .npmrc
+        run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Publish to next tag
+        run: yarn publish:next
 
   build-test:
     needs: publish
@@ -65,25 +65,25 @@ jobs:
       - name: Get CLI versions
         id: cli-version
         run: echo "::set-output name=version::$(amplify --version)"
-      # - name: Create or restore environments cache
-      #   id: environments-cache
-      #   uses: actions/cache@v2
-      #   with:
-      #     path: canary/environments/**/aws-exports.js
-      #     key: ${{ runner.os }}-canary-environments-${{ steps.cli-version.outputs.version }}-${{ hashFiles('canary/environments/**/amplify/**') }}
-      # - name: Pull down AWS environments
-      #   if: steps.environments-cache.outputs.cache-hit != 'true'
-      #   run: yarn pull
-      #   env:
-      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #   working-directory: ./canary
-      # - name: Setup canary apps against @next
-      #   run: yarn setup:next
-      #   working-directory: ./canary
-      # - name: Run yarn install on each sample app
-      #   run: yarn install
-      #   working-directory: ./canary
-      # - name: Run yarn build on each sample app
-      #   run: yarn build
-      #   working-directory: ./canary
+      - name: Create or restore environments cache
+        id: environments-cache
+        uses: actions/cache@v2
+        with:
+          path: canary/environments/**/aws-exports.js
+          key: ${{ runner.os }}-canary-environments-${{ steps.cli-version.outputs.version }}-${{ hashFiles('canary/environments/**/amplify/**') }}
+      - name: Pull down AWS environments
+        if: steps.environments-cache.outputs.cache-hit != 'true'
+        run: yarn pull
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        working-directory: ./canary
+      - name: Setup canary apps against @next
+        run: yarn setup:next
+        working-directory: ./canary
+      - name: Run yarn install on each sample app
+        run: yarn install
+        working-directory: ./canary
+      - name: Run yarn build on each sample app
+        run: yarn build
+        working-directory: ./canary
