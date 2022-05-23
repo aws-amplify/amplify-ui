@@ -4,6 +4,7 @@
 import App from 'next/app';
 import { Amplify, Hub } from 'aws-amplify';
 import { Authenticator, AmplifyProvider } from '@aws-amplify/ui-react';
+import { useEffect } from 'react';
 import { MapProvider, useMap } from 'react-map-gl';
 
 if (typeof window !== 'undefined') {
@@ -14,23 +15,31 @@ if (typeof window !== 'undefined') {
 const SetCypressProperties = () => {
   const { default: map } = useMap();
 
-  map?.once('load', () => {
-    if (window['Cypress']) {
-      window['map'] = map;
-    }
-  });
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window['Cypress']) {
+      map?.once('load', () => {
+        window['map'] = map;
+      });
 
-  map?.on('idle', () => {
-    if (window['Cypress']) {
-      window['idleMap'] = true;
-    }
-  });
+      map?.on('idle', () => {
+        window['idleMap'] = true;
+      });
 
-  map?.on('render', () => {
-    if (window['Cypress']) {
-      window['idleMap'] = false;
+      map?.on('render', () => {
+        window['idleMap'] = false;
+      });
+
+      return () => {
+        map?.off('idle', () => {
+          delete window['idleMap'];
+        });
+
+        map?.off('render', () => {
+          delete window['idleMap'];
+        });
+      };
     }
-  });
+  }, [map]);
 
   return null;
 };
