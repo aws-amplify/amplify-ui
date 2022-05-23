@@ -309,20 +309,20 @@ jobs:
       - name: Build react package
         run: yarn react build
 
-      # - name: Build docs package
-      #   run: yarn docs build
-      #   env:
-      #     SITE_URL: ${{ secrets.SITE_URL }}
+      - name: Build docs package
+        run: yarn docs build
+        env:
+          SITE_URL: ${{ secrets.SITE_URL }}
 
-      # - name: Start docs site
-      #   run: yarn docs start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000
+      - name: Start docs site
+        run: yarn docs start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000
 
-      # - name: Run E2E tests against docs
-      #   run: yarn workspace e2e test:theme
-      #   env:
-      #     # Env values for testing flows
-      #     DOMAIN: ${{ secrets.DOMAIN }}
-      #     PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
-      #     USERNAME: ${{ secrets.USERNAME }}
-      #     NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
-      #     VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+      - name: Run E2E tests against docs
+        run: yarn workspace e2e test:theme
+        env:
+          # Env values for testing flows
+          DOMAIN: ${{ secrets.DOMAIN }}
+          PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+          USERNAME: ${{ secrets.USERNAME }}
+          NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
+          VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
