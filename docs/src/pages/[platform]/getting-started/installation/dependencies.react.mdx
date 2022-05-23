@@ -36,19 +36,19 @@ export default function App() {
 
 ### Custom Theme
 
-To add a [custom theme](/theming), wrap your app in the `AmplifyProvider` component and include the default styling.
+To add a [custom theme](/theming), wrap your app in the `ThemeProvider` component and include the default styling.
 
 <Tabs>
 <TabItem title="Create React App">
 ```jsx
-import { AmplifyProvider, View } from '@aws-amplify/ui-react';
+import { ThemeProvider, View } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css'; // default theme
 
 export default function App() {
   return (
-    <AmplifyProvider>
+    <ThemeProvider>
       <View>Your app here</View>
-    </AmplifyProvider>
+    </ThemeProvider>
   );
 }
 
@@ -57,14 +57,14 @@ export default function App() {
 </TabItem>
 <TabItem title="Next.js" >
 ```jsx
-import { AmplifyProvider, View } from '@aws-amplify/ui-react';
+import { ThemeProvider, View } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css'; // default theme
 
 export default function App(props) {
   return (
-    <AmplifyProvider>
+    <ThemeProvider>
       <View {...props} >Your app here </View>
-    </AmplifyProvider>
+    </ThemeProvider>
   );
 };
 ````
@@ -72,7 +72,7 @@ export default function App(props) {
 </TabItem>
 </Tabs>
 
-> The `AmplifyProvider` helps direct [theming](/theming) to all the Amplify components in your application. It can optionally be used with a [theme object](/theming#theme-object), to set the look and feel of your app.
+> The `ThemeProvider` helps direct [theming](/theming) to all the Amplify components in your application. It can optionally be used with a [theme object](/theming#theme-object), to set the look and feel of your app.
 
 ### Authenticator Provider
 

@@ -126,3 +126,5 @@ export function AmplifyProvider({
     </AmplifyContext.Provider>
   );
 }
+
+export const ThemeProvider = AmplifyProvider;

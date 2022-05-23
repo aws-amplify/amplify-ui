@@ -3,7 +3,7 @@ import '../styles/index.scss';
 import * as React from 'react';
 
 import {
-  AmplifyProvider,
+  ThemeProvider,
   ColorMode,
   defaultDarkModeOverride,
 } from '@aws-amplify/ui-react';
@@ -57,14 +57,14 @@ function MyApp({ Component, pageProps }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content={metaDescription ?? description} />
       </Head>
-      <AmplifyProvider theme={baseTheme} colorMode={colorMode}>
+      <ThemeProvider theme={baseTheme} colorMode={colorMode}>
         <Header
           platform={platform}
           colorMode={colorMode}
           setColorMode={setColorMode}
         />
         <Component {...pageProps} colorMode={colorMode} />
-      </AmplifyProvider>
+      </ThemeProvider>
       <Script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" />
       <Script src="/scripts/shortbreadv2.js" />
     </>
