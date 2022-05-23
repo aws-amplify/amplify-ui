@@ -6,6 +6,7 @@ import {
   MdWebAssetOff,
   MdOutlineArticle,
   MdOutlinePower,
+  MdClose,
 } from 'react-icons/md';
 import {
   Text,
@@ -15,6 +16,7 @@ import {
   ExpanderItem,
   VisuallyHidden,
   useTheme,
+  Button,
 } from '@aws-amplify/ui-react';
 import {
   ComponentNavItem,
@@ -249,12 +251,22 @@ export const Sidebar = ({ expanded, setExpanded, platform }) => {
   const onClick = () => setExpanded(false);
   return (
     <nav
-      aria-label="Section navigation"
+      aria-label="Main navigation"
+      id="docs-sidebar"
       className={`docs-sidebar ${expanded ? 'expanded' : 'collapsed'}`}
     >
       <div className="docs-sidebar-overlay" onClick={onClick} />
       <div className="docs-sidebar-inner">
         <Flex direction="column" className="docs-sidebar-nav">
+          <Button
+            size="small"
+            aria-expanded={expanded}
+            aria-controls="docs-sidebar"
+            onClick={() => setExpanded(!expanded)}
+          >
+            <VisuallyHidden>Menu</VisuallyHidden>
+            <MdClose style={{ height: '1.5rem' }} />
+          </Button>
           <Link href={`/${platform}`} passHref>
             <LinkButton onClick={onClick} classNames="docs-logo-link">
               <>
@@ -263,7 +275,7 @@ export const Sidebar = ({ expanded, setExpanded, platform }) => {
               </>
             </LinkButton>
           </Link>
-          <FrameworkChooser platform={platform} onClick={onClick} />
+          <FrameworkChooser />
           <SecondaryNav onClick={onClick} />
         </Flex>
       </div>

@@ -31,54 +31,22 @@
   --amplify-components-expander-item-border-end-end-radius: 0;
   --amplify-components-expander-item-focus-box-shadow: none;
   --amplify-components-expander-trigger-hover-background-color: var(--amplify-colors-background-tertiary);
-  
-  
-  --amplify-components-togglebutton-border-color: var(--amplify-components-button-border-color);
-  --amplify-components-togglebutton-color: var(--amplify-components-button-color);
-  --amplify-components-togglebutton-pressed-background-color: var(--amplify-colors-brand-primary-10);
-  --amplify-components-togglebutton-hover-background-color: var(--amplify-colors-background-tertiary);
-  --amplify-components-togglebutton-pressed-hover-background-color: var(--amplify-colors-brand-primary-10);
-  --amplify-components-togglebutton-focus-color: var(--amplify-colors-font-primary);
 
   
   .amplify-expander__trigger {
     padding-block: var(--amplify-space-xs);
     cursor: pointer;
   }
-  
-  .amplify-togglebuttongroup {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.5rem;
-  }
-  
-  .amplify-togglebuttongroup .amplify-togglebutton {
-    justify-content: flex-start;
-    font-weight: var(--amplify-font-weights-medium);
-    border-color: var(--amplify-colors-border-secondary);
-    border-radius: var(--amplify-components-button-border-radius) !important;
-    gap: var(--amplify-space-small);
-    
-  }
-  
-  .amplify-togglebuttongroup .amplify-togglebutton:first-of-type {
-    border-start-start-radius: var(--amplify-components-button-border-radius);
-    border-start-end-radius: var(--amplify-components-button-border-radius);
-    border-color: var(--amplify-colors-border-secondary);
-  }
-  
-  .amplify-togglebuttongroup .amplify-togglebutton:last-of-type {
-    border-end-start-radius: var(--amplify-components-button-border-radius);
-    border-end-end-radius: var(--amplify-components-button-border-radius);
-    border-color: var(--amplify-colors-border-secondary);
-  }
-  
-  .amplify-togglebuttongroup .amplify-togglebutton:not(:first-of-type):not(:focus) {
-    border-color: var(--amplify-colors-border-secondary);
-  }
+}
 
-  .amplify-togglebuttongroup .amplify-togglebutton--pressed {
-    border-color: var(--amplify-colors-brand-primary-80) !important;
+.docs-framework-link {
+  justify-content: flex-start;
+  border-color: var(--amplify-colors-border-secondary);
+  gap: var(--amplify-space-xs);
+  
+  &.current {
+    background-color: var(--amplify-components-button-hover-background-color);
+    border-color: var(--amplify-components-button-active-border-color);
   }
 }
 

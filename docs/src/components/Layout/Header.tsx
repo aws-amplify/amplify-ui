@@ -20,8 +20,9 @@ export const Header = ({
 
       <Button
         size="small"
+        aria-expanded={expanded}
+        aria-controls="docs-sidebar"
         onClick={() => setExpanded(!expanded)}
-        ariaLabel="Docs header menu button"
       >
         <VisuallyHidden>Menu</VisuallyHidden>
         {expanded ? (

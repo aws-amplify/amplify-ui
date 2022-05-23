@@ -1,98 +1,44 @@
-import {
-  Image,
-  ToggleButton,
-  ToggleButtonGroup,
-  VisuallyHidden,
-} from '@aws-amplify/ui-react';
+import { Flex, Image, useTheme } from '@aws-amplify/ui-react';
 
 import { useCustomRouter } from '@/components/useCustomRouter';
+import Link from 'next/link';
 
-export const FrameworkChooser = ({ platform, onClick }) => {
-  const { replace, pathname } = useCustomRouter();
+import LinkButton from './LinkButton';
 
-  const chooseFramework = (platform) => {
-    const { hash } = window.location;
-    replace(
-      {
-        hash,
-        pathname: pathname === '/' ? '/[platform]' : pathname,
-        query: { platform },
-      },
-      // `as?` prop  isn't needed when URL is already provided
-      undefined,
-      {
-        // Scroll to top if a new page
-        scroll: hash ? false : true,
-      }
-    );
+const FrameworkLink = ({ platform, label }) => {
+  const router = useCustomRouter();
+  const { hash } = window.location;
+  const { pathname, query } = router;
 
-    // Because layout may change, explicitly tell the browser to scroll to that anchor
-    // e.g. <a id="#variation" />
-    if (hash) {
-      document.getElementById(hash.slice(1)).scrollIntoView();
-    }
-  };
+  const isCurrent = query.platform === platform;
+  const classNames = `docs-framework-link amplify-button amplify-button--small ${
+    isCurrent ? 'current' : ''
+  }`;
 
   return (
-    <ToggleButtonGroup
-      value={platform}
-      size="small"
-      onChange={(value: string) => {
-        chooseFramework(value);
-      }}
-      isExclusive
-      isSelectionRequired
-    >
-      <ToggleButton value="react" size="small" title="React" onClick={onClick}>
+    <Link href={pathname.replace('[platform]', platform)} passHref>
+      <LinkButton classNames={classNames}>
         <Image
           alt=""
           height="1.25rem"
           width="1.25rem"
           display="block"
-          src="/svg/integrations/react.svg"
+          src={`/svg/integrations/${platform}.svg`}
         />
-        React
-      </ToggleButton>
-      <ToggleButton
-        value="angular"
-        size="small"
-        title="Angular"
-        onClick={onClick}
-      >
-        <Image
-          alt=""
-          height="1.25rem"
-          width="1.25rem"
-          display="block"
-          src="/svg/integrations/angular.svg"
-        />
-        Angular
-      </ToggleButton>
-      <ToggleButton value="vue" size="small" title="Vue" onClick={onClick}>
-        <Image
-          alt=""
-          height="1.25rem"
-          width="1.25rem"
-          display="block"
-          src="/svg/integrations/vue.svg"
-        />
-        Vue
-      </ToggleButton>
-      <ToggleButton
-        value="flutter"
-        size="small"
-        title="Flutter"
-        onClick={onClick}
-      >
-        <Image
-          alt=""
-          height="1.25rem"
-          width="1.25rem"
-          display="block"
-          src="/svg/integrations/flutter.svg"
-        />
-        Flutter
-      </ToggleButton>
-    </ToggleButtonGroup>
+        {label}
+      </LinkButton>
+    </Link>
+  );
+};
+
+export const FrameworkChooser = () => {
+  const { tokens } = useTheme();
+  return (
+    <Flex direction="column" gap={tokens.space.xs}>
+      <FrameworkLink platform="react" label="React" />
+      <FrameworkLink platform="angular" label="Angular" />
+      <FrameworkLink platform="vue" label="Vue" />
+      <FrameworkLink platform="flutter" label="Flutter" />
+    </Flex>
   );
 };

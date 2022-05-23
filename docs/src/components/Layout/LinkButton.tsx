@@ -10,7 +10,7 @@ const LinkButton = (
     onClick?: React.MouseEventHandler<HTMLAnchorElement>;
     href?: string;
     classNames?: string;
-    children?: React.ReactElement;
+    children?: React.ReactNode;
   },
   ref
 ) => (
