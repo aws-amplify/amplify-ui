@@ -5,14 +5,12 @@
     }
   },
   "compilerOptions": {
-    "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "declaration": true,
     "esModuleInterop": true,
-    "jsx": "preserve",
+    "jsx": "react",
     "importHelpers": true,
-    "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
     "module": "esnext",
     "moduleResolution": "node",
     "noImplicitAny": true,
@@ -20,9 +18,8 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
-    "target": "es5",
-    "types": ["webpack-env", "jest"]
+    "target": "es5"
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "src/**/*.test.ts", "src/**/*.test.tsx"]
 }
