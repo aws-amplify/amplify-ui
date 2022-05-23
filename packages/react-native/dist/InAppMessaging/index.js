@@ -1,1 +1,0 @@
-export { InAppMessageDisplay } from './components';
