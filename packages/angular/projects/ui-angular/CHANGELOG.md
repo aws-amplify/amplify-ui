@@ -1,5 +1,25 @@
 # @aws-amplify/ui-angular
 
+## 2.4.6
+
+### Patch Changes
+
+- [#1916](https://github.com/aws-amplify/amplify-ui/pull/1916) [`f2371c897`](https://github.com/aws-amplify/amplify-ui/commit/f2371c897e44b2cd59cf71f277088c2e0aaeb073) Thanks [@ErikCH](https://github.com/ErikCH)! - Updated translations for Send Code, while also preserving legacy customers who have already translated that text.
+
+* [#1929](https://github.com/aws-amplify/amplify-ui/pull/1929) [`c7fc662a0`](https://github.com/aws-amplify/amplify-ui/commit/c7fc662a078a5facf4adc9254ff33ded044c6650) Thanks [@jacoblogan](https://github.com/jacoblogan)! - don't render authenticator on authenticated routes
+
+* Updated dependencies [[`376c39fc0`](https://github.com/aws-amplify/amplify-ui/commit/376c39fc04aec3a41d02a722a62d4b8e4eb43230)]:
+  - @aws-amplify/ui@3.9.1
+
+## 2.4.5
+
+### Patch Changes
+
+- [#1868](https://github.com/aws-amplify/amplify-ui/pull/1868) [`1c3e35a8d`](https://github.com/aws-amplify/amplify-ui/commit/1c3e35a8df815402da68c203b84cf599064c863a) Thanks [@wlee221](https://github.com/wlee221)! - This PR adds additional safeguards to hub event listeners we use. Now, we will only pass hub events to the auth machine if it is in the correct state.
+
+- Updated dependencies [[`62edc9ee3`](https://github.com/aws-amplify/amplify-ui/commit/62edc9ee34a64a81190631fed31cf388bcf3b2e0), [`1c3e35a8d`](https://github.com/aws-amplify/amplify-ui/commit/1c3e35a8df815402da68c203b84cf599064c863a), [`937498b3f`](https://github.com/aws-amplify/amplify-ui/commit/937498b3ff016f2f76f60d861a995b8b1bb77bdf), [`5c5e89407`](https://github.com/aws-amplify/amplify-ui/commit/5c5e89407d2946be61ffb4ab5a4e9d7352c41065)]:
+  - @aws-amplify/ui@3.9.0
+
 ## 2.4.4
 
 ### Patch Changes

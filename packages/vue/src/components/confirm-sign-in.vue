@@ -6,7 +6,7 @@ import {
   SignInState,
   translate,
 } from '@aws-amplify/ui';
-import { computed, ComputedRef, useAttrs, onBeforeMount } from 'vue';
+import { computed, ComputedRef, useAttrs } from 'vue';
 import { createSharedComposable } from '@vueuse/core';
 
 import { useAuth, useAuthenticator } from '../composables/useAuth';
@@ -25,7 +25,7 @@ const actorState = computed(() =>
 ) as ComputedRef<SignInState>;
 const challengeName = actorState.value.context.challengeName;
 
-let mfaType: string = 'SMS';
+let mfaType = 'SMS';
 
 if (challengeName === AuthChallengeNames.SOFTWARE_TOKEN_MFA) {
   mfaType = 'TOTP';
@@ -38,7 +38,7 @@ const confirmText = computed(() => translate('Confirm'));
 
 // Methods
 const onInput = (e: Event): void => {
-  const { name, value } = <HTMLInputElement>e.target;
+  const { name, value } = e.target as HTMLInputElement;
   send({
     type: 'CHANGE',
     //@ts-ignore

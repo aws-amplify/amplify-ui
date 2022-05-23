@@ -1,4 +1,8 @@
-<div data-amplify-authenticator [attr.data-variation]="variation">
+<div
+  data-amplify-authenticator
+  [attr.data-variation]="variation"
+  *ngIf="hasRouteComponent()"
+>
   <div data-amplify-container>
     <amplify-slot name="header" [context]="context"></amplify-slot>
     <div

@@ -58,48 +58,53 @@ module.exports = withNextPluginPreval({
       {
         source: '/ui/primitives/stepperField',
         destination: '/components/stepperfield',
-        permanent: false,
+        permanent: true,
       },
       {
         source: '/ui/primitives/toggleButton',
         destination: '/components/togglebutton',
-        permanent: false,
+        permanent: true,
       },
       {
         source: '/ui/primitives/visuallyHidden',
         destination: '/components/visuallyhidden',
-        permanent: false,
+        permanent: true,
       },
+      /*
+       * source: /ui/theme/alternativeStyling and theming/alternative-styling
+       * destination: '/guides/css-in-js'
+       */
       {
-        source: '/ui/theme/alternativeStyling',
-        destination: '/theming/alternative-styling',
-        permanent: false,
+        source:
+          '/:page(ui/theme/alternativeStyling|theming/alternative-styling)',
+        destination: '/guides/css-in-js',
+        permanent: true,
       },
       // Generic redirects from old IA
       {
         source: '/ui',
         destination: '/',
-        permanent: false,
+        permanent: true,
       },
       {
         source: '/ui/components/:page*',
         destination: '/components/:page*',
-        permanent: false,
+        permanent: true,
       },
       {
         source: '/ui/getting-started/:page*',
         destination: '/getting-started/:page*',
-        permanent: false,
+        permanent: true,
       },
       {
         source: '/ui/primitives/:page*',
         destination: '/components/:page*',
-        permanent: false,
+        permanent: true,
       },
       {
         source: '/ui/theme/:page*',
         destination: '/theming/:page*',
-        permanent: false,
+        permanent: true,
       },
       /**
        * source: a url has one of the folder's names (components, getting-started, guides, theming)

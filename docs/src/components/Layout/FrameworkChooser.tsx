@@ -6,6 +6,7 @@ import {
 } from '@aws-amplify/ui-react';
 
 import { useCustomRouter } from '@/components/useCustomRouter';
+import { FRAMEWORKS } from '@/data/frameworks';
 
 export const FrameworkChooser = ({ platform }) => {
   const { replace, pathname } = useCustomRouter();
@@ -43,62 +44,23 @@ export const FrameworkChooser = ({ platform }) => {
       isExclusive
       isSelectionRequired
     >
-      <ToggleButton
-        value="react"
-        size="small"
-        title="React"
-        padding={{ base: '4px', medium: undefined }}
-      >
-        <VisuallyHidden>React</VisuallyHidden>
-        <Image
-          alt=""
-          height={{ base: '1.5rem', medium: '1rem' }}
-          display="block"
-          src="/svg/integrations/react.svg"
-        />
-      </ToggleButton>
-      <ToggleButton
-        value="angular"
-        size="small"
-        title="Angular"
-        padding={{ base: '4px', medium: undefined }}
-      >
-        <VisuallyHidden>Angular</VisuallyHidden>
-        <Image
-          alt=""
-          height={{ base: '1.5rem', medium: '1rem' }}
-          display="block"
-          src="/svg/integrations/angular.svg"
-        />
-      </ToggleButton>
-      <ToggleButton
-        value="vue"
-        size="small"
-        title="Vue"
-        padding={{ base: '4px', medium: undefined }}
-      >
-        <VisuallyHidden>Vue</VisuallyHidden>
-        <Image
-          alt=""
-          height={{ base: '1.5rem', medium: '1rem' }}
-          display="block"
-          src="/svg/integrations/vue.svg"
-        />
-      </ToggleButton>
-      <ToggleButton
-        value="flutter"
-        size="small"
-        title="Flutter"
-        padding={{ base: '4px', medium: undefined }}
-      >
-        <VisuallyHidden>Flutter</VisuallyHidden>
-        <Image
-          alt=""
-          height={{ base: '1.5rem', medium: '1rem' }}
-          display="block"
-          src="/svg/integrations/flutter.svg"
-        />
-      </ToggleButton>
+      {FRAMEWORKS.map((framework) => (
+        <ToggleButton
+          key={framework}
+          value={framework}
+          size="small"
+          title={framework}
+          padding={{ base: '4px', medium: undefined }}
+        >
+          <VisuallyHidden>{framework}</VisuallyHidden>
+          <Image
+            alt=""
+            height={{ base: '1.5rem', medium: '1rem' }}
+            display="block"
+            src={`/svg/integrations/${framework}.svg`}
+          />
+        </ToggleButton>
+      ))}
     </ToggleButtonGroup>
   );
 };

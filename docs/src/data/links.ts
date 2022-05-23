@@ -11,7 +11,7 @@ export const baseComponents: ComponentNavItem[] = [
   {
     href: '/components/view',
     label: 'View',
-    body: `View is a container that contains stuff. View is the most abstract component on top of which all other components live.`,
+    body: `View is the foundational component for Amplify UI primitives. While View renders a <div> by default, it can render any HTML element and supports styling via props.`,
     platforms: ['react'],
   },
   {
@@ -162,7 +162,7 @@ export const inputComponents = [
   {
     href: '/components/phonenumberfield',
     label: 'Phone Number Field',
-    body: ``,
+    body: `The PhoneNumberField form primitive allows users to input a phone number`,
     platforms: ['react'],
   },
   {
@@ -219,7 +219,7 @@ export const layoutComponents = [
   {
     href: '/components/grid',
     label: 'Grid',
-    body: ``,
+    body: 'A layout container using CSS Grid',
     platforms: ['react'],
   },
   {
@@ -246,13 +246,13 @@ export const navigationComponents: ComponentNavItem[] = [
   {
     href: '/components/menu',
     label: 'Menu',
-    body: ``,
+    body: `Menu provides an accessible, interactive menu for selecting actions within an application. Dropdown menu is collision-aware and will automatically change location based on available space.`,
     platforms: ['react'],
   },
   {
     href: '/components/tabs',
     label: 'Tabs',
-    body: ``,
+    body: `Tabs organize content into multiple sections and allow users to navigate between them.`,
     platforms: ['react'],
   },
 ].sort(sortByLabel);
