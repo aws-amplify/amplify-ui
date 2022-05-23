@@ -1,0 +1,11 @@
+---
+title: Accessibility
+metaTitle: Accessibility
+metaDescription: Migration Guide - How to migrate from an older version of Amplify UI to a newer version.
+supportedFrameworks: react|angular|vue
+---
+
+import Link from 'next/link';
+import { Fragment } from '@/components/Fragment';
+
+<Fragment>{({ platform }) => import(`./accessibility.${platform}.mdx`)}</Fragment>
