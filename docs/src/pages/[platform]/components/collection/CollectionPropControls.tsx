@@ -5,23 +5,23 @@ import {
   SelectField,
   TextField,
 } from '@aws-amplify/ui-react';
+import React from 'react';
 
-export type CollectionPropControlsProps = CollectionProps<[]> & {
-  setAlignContent: (
-    value: React.SetStateAction<CollectionProps<[]>['alignContent']>
-  ) => void;
-  setAlignItems: () => void;
-  setDirection: () => void;
-  setGap: () => void;
-  setJustifyContent: () => void;
-  setWrap: () => void;
-};
+export type CollectionPropControlsProps = Omit<
+  CollectionProps<[]>,
+  'type' | 'children' | 'items'
+> &
+  FlexProps & {
+    setDirection: (value: React.SetStateAction<FlexProps['direction']>) => void;
+    setGap: (value: React.SetStateAction<FlexProps['gap']>) => void;
+    setWrap: (value: React.SetStateAction<FlexProps['wrap']>) => void;
+  };
 
 interface CollectionPropControlsInterface {
   (props: CollectionPropControlsProps): JSX.Element;
 }
 
-export const CollectionPropControls = ({
+export const CollectionPropControls: CollectionPropControlsInterface = ({
   direction,
   setDirection,
   gap,
@@ -35,10 +35,8 @@ export const CollectionPropControls = ({
         name="direction"
         id="direction"
         label="direction"
-        value={direction}
-        onChange={(event) =>
-          setDirection(event.target.value as FlexProps['direction'])
-        }
+        value={direction as string}
+        onChange={(event) => setDirection(event.target.value)}
       >
         <option value="row">row</option>
         <option value="column">column</option>
@@ -47,17 +45,15 @@ export const CollectionPropControls = ({
       <TextField
         label="Gap"
         value={gap as string}
-        onChange={(event) =>
-          setGap(event.target.value as CollectionProps<[]>['gap'])
-        }
+        onChange={(event) => setGap(event.target.value)}
       />
 
       <SelectField
         name="wrap"
         id="wrap"
         label="Wrap"
-        value={wrap}
-        onChange={(event) => setWrap(event.target.value as FlexProps['wrap'])}
+        value={wrap as string}
+        onChange={(event) => setWrap(event.target.value)}
       >
         <option value="nowrap">nowrap</option>
         <option value="wrap">wrap</option>

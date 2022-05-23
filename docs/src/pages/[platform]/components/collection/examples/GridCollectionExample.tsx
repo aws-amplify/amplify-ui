@@ -37,7 +37,7 @@ export const GridCollectionExample = () => {
         return (
           <Card
             key={index}
-            padding="1rem"
+            padding={tokens.space.medium}
             maxWidth="180px"
             fontSize="0.5em"
             backgroundColor={tokens.colors.background.secondary}

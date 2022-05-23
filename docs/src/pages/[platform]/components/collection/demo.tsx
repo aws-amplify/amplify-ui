@@ -14,6 +14,7 @@ import {
 } from '@aws-amplify/ui-react';
 
 import { Demo } from '@/components/Demo';
+import { demoState } from '@/utils/demoState';
 import { CollectionPropControls } from './CollectionPropControls';
 import { useCollectionProps } from './useCollectionProps';
 import {
@@ -42,7 +43,9 @@ export const CollectionDemo = () => {
 
   const { tokens } = useTheme();
 
-  const collectionProps = useCollectionProps(defaultValues);
+  const collectionProps = useCollectionProps(
+    demoState.get(Collection.displayName) || defaultValues
+  );
   const demoProps = ['alignContent', 'alignItems', 'direction', 'gap', 'wrap'];
   const collectionDemoProps = getDemoProps(collectionProps, demoProps);
 
@@ -107,7 +110,7 @@ export const CollectionDemo = () => {
               borderRadius="5px"
             >
               <Image src={item.imageSrc} alt={item.imageAlt} />
-              <View padding="0.5rem">
+              <View padding={tokens.space.xs}>
                 <Flex>
                   {item.badges.map((badge) => (
                     <Badge key={badge.text} backgroundColor={badge.color}>
@@ -115,8 +118,8 @@ export const CollectionDemo = () => {
                     </Badge>
                   ))}
                 </Flex>
-                <Divider padding="0.25rem 0" />
-                <Heading level={6} padding="0.25rem">
+                <Divider padding={`${tokens.space.xxxs} 0`} />
+                <Heading level={6} padding={tokens.space.xxxs}>
                   {item.title}
                 </Heading>
                 <Button isFullWidth={true} variation="primary">
