@@ -28,6 +28,7 @@ import type { SandpackThemeProp } from '@codesandbox/sandpack-react';
 import { theme } from '../../theme';
 import { ThemeButton } from '../ThemeButton';
 import { useCustomRouter } from '@/components/useCustomRouter';
+import { FRAMEWORKS } from '@/data/frameworks';
 
 const code = `import { AmplifyProvider, Button, Card, Text, Heading, Flex, Badge, Image, StepperField, useTheme } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
@@ -202,26 +203,14 @@ const HomePage = ({ colorMode }) => {
               flex="1"
               display={{ base: 'none', large: 'initial' }}
             >
-              <Image
-                alt="React logo"
-                className="docs-home-react"
-                src="/svg/integrations/react.svg"
-              />
-              <Image
-                alt="Angular logo"
-                className="docs-home-angular"
-                src="/svg/integrations/angular.svg"
-              />
-              <Image
-                alt="Vue logo"
-                className="docs-home-vue"
-                src="/svg/integrations/vue.svg"
-              />
-              <Image
-                alt="Flutter logo"
-                className="docs-home-flutter"
-                src="/svg/integrations/flutter.svg"
-              />
+              {FRAMEWORKS.map((framework) => (
+                <Image
+                  key={framework}
+                  alt={`${framework} logo`}
+                  className={`docs-home-${framework}`}
+                  src={`/svg/integrations/${framework}.svg`}
+                />
+              ))}
             </Flex>
           </Flex>
         </View>

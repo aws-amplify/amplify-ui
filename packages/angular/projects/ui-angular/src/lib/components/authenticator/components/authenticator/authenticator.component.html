@@ -1,7 +1,7 @@
 <div
   data-amplify-authenticator
   [attr.data-variation]="variation"
-  *ngIf="route !== 'authenticated'"
+  *ngIf="hasRouteComponent()"
 >
   <div data-amplify-container>
     <amplify-slot name="header" [context]="context"></amplify-slot>

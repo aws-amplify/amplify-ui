@@ -171,8 +171,23 @@ export class AuthenticatorComponent
   }
 
   public hasTabs() {
-    const route = this.authenticator.route;
+    const { route } = this.authenticator;
     return route === 'signIn' || route === 'signUp';
+  }
+
+  public hasRouteComponent() {
+    const { route } = this.authenticator;
+
+    switch (route) {
+      case 'authenticated':
+      case 'idle':
+      case 'setup':
+      case 'signOut':
+      case 'autoSignIn':
+        return false;
+      default:
+        return true;
+    }
   }
 
   private mapCustomComponents(

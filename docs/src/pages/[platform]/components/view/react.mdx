@@ -1,8 +1,14 @@
 import { View } from '@aws-amplify/ui-react';
 import { ViewDemo } from './demo';
-import { Example } from '@/components/Example';
-
-View is a container that contains stuff. View is the most abstract component on top of which all other components live.
+import { Example, ExampleCode } from '@/components/Example';
+import {
+  AccessibilityExample,
+  CustomAttributesExample,
+  DefaultViewExample,
+  DisabledStateExample,
+  SetRenderedHTML,
+  StylePropsExample,
+} from './examples';
 
 ## Demo
 
@@ -10,85 +16,70 @@ View is a container that contains stuff. View is the most abstract component on 
 
 ## Usage
 
-Import the View component and styles.
-
-```jsx
-import { View } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-<View>Nice view! 🏔</View>;
-```
+Import the View component.
 
 <Example>
-  <View>Nice view! 🏔</View>
+  <DefaultViewExample />
+  <ExampleCode>
+```jsx file=./examples/DefaultViewExample.tsx
+
+```
+  </ExampleCode>
 </Example>
 
 ### Set rendered HTML element
 
-Change the HTML element rendered by View with the `as` property.
-
-```jsx
-<View as="section">I'm a Section</View>
-```
+To change the HTML element rendered by the View, use the `as` prop. View renders a `<div>` by default.
 
 <Example>
-  <View as="section">I'm a Section</View>
+  <SetRenderedHTML />
+  <ExampleCode>
+```jsx file=./examples/SetRenderedHTML.tsx
+
+```
+
+  </ExampleCode>
 </Example>
 
 ### Disabled state
 
-```jsx
-<View as="button" isDisabled={true} onClick={() => alert("This won't fire 🚫")}>
-  You can't click me!
-</View>
-```
+To mark a View as disabled, pass the `isDisabled` prop.
 
 <Example>
-  <View
-    as="button"
-    isDisabled={true}
-    onClick={() => alert("This won't fire 🚫")}
-  >
-    You can't click me!
-  </View>
+  <DisabledStateExample />
+  <ExampleCode>
+```jsx file=./examples/DisabledStateExample.tsx
+
+```
+
+  </ExampleCode>
 </Example>
 
 ### Accessibility
 
-Setting an `aria-label` attribute and `role` for an icon button
-
-```jsx
-<View ariaLabel="To the moon!" role="button" onClick={() => alert('👋 hello')}>
-  🚀
-</View>
-```
+The example below demonstrates setting an `aria-label` attribute and `role` for an icon button.
 
 <Example>
-  <View
-    ariaLabel="To the moon!"
-    role="button"
-    onClick={() => alert('👋 hello')}
-  >
-    🚀
-  </View>
+  <AccessibilityExample />
+  <ExampleCode>
+```jsx file=./examples/AccessibilityExample.tsx
+
+```
+
+  </ExampleCode>
 </Example>
 
-### Custom attributes
+### Standard HTML attributes
 
-Pass any attribute to the underlying HTML element.
-
-```jsx
-<View as="progress" data-progress-bar max="100" value="50" />
-```
+View will accept any of the standard HTML attributes that its underlying HTML element accepts. 
 
 <Example>
-  <View
-    as="progress"
-    data-progress-bar
-    max="100"
-    value="50"
-    style={{ all: 'revert' }}
-  />
+  <CustomAttributesExample />
+  <ExampleCode>
+```jsx file=./examples/CustomAttributesExample.tsx
+
+```
+  </ExampleCode>
 </Example>
 
 ## CSS Styling
@@ -110,9 +101,12 @@ _Using a class selector:_
 ```
 
 ```jsx
+import { View } from '@aws-amplify/ui-react';
 import './styles.css';
 
-<View className="mountain-view">🏔</View>;
+export const ClassNameExample = () => {
+  return <View className="mountain-view">🏔</View>;
+};
 ```
 
 <Example>
@@ -121,4 +115,12 @@ import './styles.css';
 
 _Using style props:_
 
-(Example needed)
+<Example>
+  <StylePropsExample />
+  <ExampleCode>
+```jsx file=./examples/StylePropsExample.tsx
+
+```
+
+  </ExampleCode>
+</Example>
