@@ -6,7 +6,7 @@ import { AmplifyContext } from './AmplifyContext';
 
 export type ColorMode = 'system' | 'light' | 'dark';
 
-interface AmplifyProviderProps {
+interface ThemeProviderProps {
   children: React.ReactNode;
   colorMode?: ColorMode;
   theme?: Theme;
@@ -18,7 +18,7 @@ export function AmplifyProvider({
   colorMode,
   theme,
   nonce,
-}: AmplifyProviderProps) {
+}: ThemeProviderProps) {
   const webTheme = createTheme(theme);
   const { name, cssText } = webTheme;
 
