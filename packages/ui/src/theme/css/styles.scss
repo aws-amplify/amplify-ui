@@ -20,6 +20,23 @@ html:focus-within {
   scroll-behavior: smooth;
 }
 
+// Remove default margin
+// https://piccalil.li/blog/a-modern-css-reset/
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
 // https://piccalil.li/blog/a-modern-css-reset/
 body {
   min-height: 100vh;
