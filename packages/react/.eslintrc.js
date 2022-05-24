@@ -21,6 +21,7 @@ module.exports = {
     // top level directories
     '__tests__',
     'dist',
+    'lib',
     'node_modules',
     'scripts',
 
