@@ -15532,7 +15532,7 @@ map-visit@^1.0.0:
     object-visit "^1.0.0"
 
 "mapbox-gl@file:packages/react/lib/mapbox-gl":
-  version "1.0.0"
+  version "0.0.0"
 
 maplibre-gl-js-amplify@1.5.0:
   version "1.5.0"
@@ -19131,11 +19131,6 @@ react-map-gl@7.0.13:
   integrity sha512-XkZ2OySoVe7t8WA0ftsgzoDh6jGUCAEKqNgSXRPTIgD0ewvHYnxC+aCNAif9dq61fOCui3gMjyo1GWchNfHm/g==
   dependencies:
     "@types/mapbox-gl" "^2.6.0"
-
-"react-map-gl@file:packages/react/lib/react-map-gl":
-  version "1.0.0"
-  dependencies:
-    react-map-gl "7.0.13"
 
 react-native-get-random-values@^1.4.0:
   version "1.7.2"

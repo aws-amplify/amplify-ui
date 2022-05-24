@@ -1,8 +1,0 @@
-{
-  "name": "react-map-gl",
-  "version": "0.0.0",
-  "main": "node_modules/react-map-gl/dist/es5/index.js",
-  "dependencies": {
-    "react-map-gl": "7.0.13"
-  }
-}
