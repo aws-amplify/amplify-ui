@@ -73,7 +73,7 @@
     "maplibre-gl-js-amplify": "1.5.0",
     "qrcode": "1.5.0",
     "react-generate-context": "1.0.1",
-    "react-map-gl": "7.0.10"
+    "react-map-gl": "7.0.13"
   },
   "peerDependencies": {
     "aws-amplify": "3.x.x || 4.x.x",
