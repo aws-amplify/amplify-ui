@@ -60,3 +60,10 @@ Then you need to:
 
 1. After selecting a branch, check "Connecting a monorepo? Pick a folder." and at "Enter the root directory of your app (e.g. src/myapp)", enter "docs"
 2. Set "Environment variables" from the left sidebar. Add "SITE_URL", "DOCSEARCH_DOCS_APP_ID", "DOCSEARCH_DOCS_API_KEY", "DOCSEARCH_DOCS_INDEX_NAME".
+   - "SITE_URL": feel free to use any string
+   - "DOCSEARCH_DOCS_APP_ID", "DOCSEARCH_DOCS_API_KEY", "DOCSEARCH_DOCS_INDEX_NAME". If you have them from [Algolia DocSearch](https://docsearch.algolia.com/), use them. Otherwise, please use DocSearch's [testing credentials](https://docsearch.algolia.com/docs/DocSearch-v3)
+     ```
+     DOCSEARCH_DOCS_APP_ID="R2IYF7ETH7"
+     DOCSEARCH_DOCS_API_KEY="599cec31baffa4868cae4e79f180729b"
+     DOCSEARCH_DOCS_INDEX_NAME="docsearch"
+     ```
