@@ -18,6 +18,20 @@
   }
 }
 
+.docs-header-menu-button,
+.docs-header > .docs-logo-link {
+  display: inline-flex;
+  
+  // desktop
+  @media (min-width: $breakpoint-large) {
+    display: none;
+    
+    .docs-home & {
+      display: inline-flex;
+    }
+  }
+}
+
 .docs-header-bg {
   z-index: -1;
   background-color: var(--amplify-colors-background-primary);

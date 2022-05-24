@@ -84,11 +84,12 @@ function MyApp({ Component, pageProps }) {
             platform={platform}
           />
           <div className={`docs`}>
-            <Sidebar
-              expanded={expanded}
-              setExpanded={setExpanded}
-              platform={platform}
+            <div
+              className={`docs-sidebar-spacer ${
+                expanded ? 'expanded' : 'collapsed'
+              }`}
             />
+
             <Component
               {...pageProps}
               setExpanded={setExpanded}

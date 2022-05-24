@@ -6,6 +6,7 @@ import { MdClose, MdMenu } from 'react-icons/md';
 
 import { Logo } from '@/components/Logo';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
+import { Sidebar } from './Sidebar';
 
 export const Header = ({
   expanded,
@@ -22,6 +23,7 @@ export const Header = ({
         size="small"
         aria-expanded={expanded}
         aria-controls="docs-sidebar"
+        className="docs-header-menu-button"
         onClick={() => setExpanded(!expanded)}
       >
         <VisuallyHidden>Menu</VisuallyHidden>
@@ -31,6 +33,13 @@ export const Header = ({
           <MdMenu style={{ height: '1.5rem' }} />
         )}
       </Button>
+
+      <Sidebar
+        expanded={expanded}
+        setExpanded={setExpanded}
+        platform={platform}
+      />
+
       <Link href={`/${platform}`} passHref>
         <LinkButton classNames="docs-logo-link">
           <Logo />

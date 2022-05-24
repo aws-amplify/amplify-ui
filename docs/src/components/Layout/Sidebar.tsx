@@ -7,6 +7,7 @@ import {
   MdOutlineArticle,
   MdOutlinePower,
   MdClose,
+  MdOpenInNew,
 } from 'react-icons/md';
 import {
   Text,
@@ -17,6 +18,8 @@ import {
   VisuallyHidden,
   useTheme,
   Button,
+  Divider,
+  Link as ALink,
 } from '@aws-amplify/ui-react';
 import {
   ComponentNavItem,
@@ -111,12 +114,17 @@ const NavLinkComponentsSection = ({ heading, components, ...props }) => {
 const ExpanderTitle = ({ Icon, text }) => {
   const { tokens } = useTheme();
   return (
-    <Flex direction="row" alignItems="center" gap={tokens.space.small}>
+    <Flex
+      direction="row"
+      alignItems="center"
+      gap={tokens.space.small}
+      padding={tokens.space.xs}
+    >
       <Icon
         style={{ height: '1.25rem', width: '1.25rem' }}
         color={tokens.colors.brand.primary[60]}
       />
-      <Text>{text}</Text>
+      <Text as="span">{text}</Text>
     </Flex>
   );
 };
@@ -290,6 +298,13 @@ export const Sidebar = ({ expanded, setExpanded, platform }) => {
 
           <FrameworkChooser />
           <SecondaryNav onClick={onClick} />
+          <Divider size="small" />
+          <ALink href="https://docs.amplify.aws" isExternal>
+            <Flex as="span" direction="row">
+              Amplify Docs
+              <MdOpenInNew />
+            </Flex>
+          </ALink>
         </Flex>
       </div>
     </nav>
