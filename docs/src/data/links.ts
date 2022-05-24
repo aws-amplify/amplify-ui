@@ -54,13 +54,13 @@ export const baseComponents: ComponentNavItem[] = [
 
 export const connectedComponents = [
   {
-    href: '/connected-components/authenticator',
+    href: '/components/authenticator',
     label: 'Authenticator',
     body: 'The Authenticator component adds complete authentication flows to your application with minimal boilerplate.',
     platforms: ['react', 'vue', 'angular', 'flutter'],
   },
   {
-    href: '/connected-components/geo',
+    href: '/components/geo',
     label: 'Geo',
     body: 'Amplify UI Geo provides UI components for maps and location search built on top of Amazon Location Service.',
     platforms: ['react'],
@@ -256,13 +256,13 @@ export const utilityComponents = [
 
 export const legacyComponents = [
   {
-    href: '/legacy-components/chatbot',
+    href: '/components/chatbot',
     label: 'Chatbot',
     body: 'Chatbot automatically renders a complete chat messaging interface that can be used out-of-the-box, or it can be customized using theming support.',
     platforms: ['react', 'vue', 'angular'],
   },
   {
-    href: '/legacy-components/storage',
+    href: '/components/storage',
     label: 'Storage',
     body: 'A set of components to help interact with S3 storage.',
     platforms: ['react', 'vue', 'angular'],
