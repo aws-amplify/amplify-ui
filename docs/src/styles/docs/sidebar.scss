@@ -141,3 +141,13 @@
     background-color: var(--amplify-colors-brand-primary-10);
   }
 }
+
+.docs-sidebar-menu-button {
+  @media (min-width: $breakpoint-large) {
+    visibility: hidden;
+  }
+  
+  .docs-home & {
+    visibility: visible;
+  }
+}

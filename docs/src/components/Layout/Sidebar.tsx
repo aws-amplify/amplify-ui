@@ -263,23 +263,31 @@ export const Sidebar = ({ expanded, setExpanded, platform }) => {
       <div className="docs-sidebar-overlay" onClick={onClick} />
       <div className="docs-sidebar-inner">
         <Flex direction="column" className="docs-sidebar-nav">
-          <Button
-            size="small"
-            aria-expanded={expanded}
-            aria-controls="docs-sidebar"
-            onClick={() => setExpanded(!expanded)}
+          <Flex
+            direction="row"
+            alignItems="center"
+            justifyContent="space-between"
           >
-            <VisuallyHidden>Menu</VisuallyHidden>
-            <MdClose style={{ height: '1.5rem' }} />
-          </Button>
-          <Link href={`/${platform}`} passHref>
-            <LinkButton onClick={onClick} classNames="docs-logo-link">
-              <>
-                <VisuallyHidden>Amplify UI Home</VisuallyHidden>
-                <Logo />
-              </>
-            </LinkButton>
-          </Link>
+            <Link href={`/${platform}`} passHref>
+              <LinkButton onClick={onClick} classNames="docs-logo-link">
+                <>
+                  <VisuallyHidden>Amplify UI Home</VisuallyHidden>
+                  <Logo />
+                </>
+              </LinkButton>
+            </Link>
+            <Button
+              size="small"
+              className="docs-sidebar-menu-button"
+              aria-expanded={expanded}
+              aria-controls="docs-sidebar"
+              onClick={() => setExpanded(!expanded)}
+            >
+              <VisuallyHidden>Menu</VisuallyHidden>
+              <MdClose style={{ height: '1.5rem' }} />
+            </Button>
+          </Flex>
+
           <FrameworkChooser />
           <SecondaryNav onClick={onClick} />
         </Flex>
