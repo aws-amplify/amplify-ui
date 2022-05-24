@@ -89,6 +89,60 @@ export default defineConfig({
 ...
 ```
 
+## Create React App
+
+Versions of [Create React App](https://create-react-app.dev/) prior to v5 may not include necessary plugins to transpile ES2020 features. This may result in an `Unexpected token` error:
+
+```bash
+Module parse failed: Unexpected token
+File was processed with these loaders:
+ * ./node_modules/babel-loader/lib/index.js
+You may need an additional loader to handle the result of these loaders.
+```
+
+The best solution to this error is to upgrade the version of Create React App to v5 where ES2020 features are transpiled correctly:
+
+```shell
+npm install --save react-scripts@5
+```
+
+If you are unable to upgrade your `react-scripts` version, try making your browser target list less aggressive by doing the following:
+
+**1.** Remove the `.cache` directory from your project's `node_modules`:
+
+```shell
+rm -rf node_modules/.cache
+```
+
+**2.** Change the `browserslist` block in your `package.json` from:
+
+```json
+"browserslist": {
+  "production": [
+    ">0.2%",
+    "not dead",
+    "not op_mini all"
+  ],
+  "development": [
+    "last 1 chrome version",
+    "last 1 firefox version",
+    "last 1 safari version"
+  ]
+}
+```
+
+to the following:
+
+```json
+"browserslist": [
+  ">0.2%",
+  "not dead",
+  "not op_mini all"
+]
+```
+
+**3.** Try rebuilding and starting your project.
+
 ## Jest
 
 As of v2.15.0 of `@aws-amplify/ui-react` which included the release of Geo components, users of the Jest testing framework may run into the following error when attempting to run tests:
@@ -100,6 +154,7 @@ window.URL.createObjectURL is not a function
 Please follow the steps below to resolve this issue.
 
 **1.** Navigate to or create a [Jest setup file](https://jestjs.io/docs/configuration#setupfilesafterenv-array) for your project.
+
 **2.** Add the following code to polyfill the unrecognized function in your Jest setup file:
 
 ```js
