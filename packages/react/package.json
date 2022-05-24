@@ -76,7 +76,7 @@
     "react-map-gl": "7.0.13"
   },
   "peerDependencies": {
-    "aws-amplify": "3.x.x || 4.x.x",
+    "aws-amplify": "in-app-messaging",
     "react": ">= 16.8.0",
     "react-dom": ">= 16.8.0"
   },

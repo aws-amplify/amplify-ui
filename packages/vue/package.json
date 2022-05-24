@@ -67,6 +67,6 @@
     "vue-tsc": "^0.3.0"
   },
   "peerDependencies": {
-    "aws-amplify": "^4.2.2"
+    "aws-amplify": "in-app-messaging"
   }
 }
