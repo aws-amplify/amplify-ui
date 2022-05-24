@@ -59,4 +59,4 @@ To preview the changes you made for this Amplify UI Docs, you can use Amplify to
 Then you need to:
 
 1. After selecting a branch, check "Connecting a monorepo? Pick a folder." and at "Enter the root directory of your app (e.g. src/myapp)", enter "docs"
-2. Set "Environment variables" from the left sidebar. Add "SITE_URL" and set it to a string value.
+2. Set "Environment variables" from the left sidebar. Add "SITE_URL", "DOCSEARCH_DOCS_APP_ID", "DOCSEARCH_DOCS_API_KEY", "DOCSEARCH_DOCS_INDEX_NAME".

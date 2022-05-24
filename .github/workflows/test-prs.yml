@@ -319,6 +319,9 @@ jobs:
         run: yarn docs build
         env:
           SITE_URL: ${{ secrets.SITE_URL }}
+          DOCSEARCH_DOCS_APP_ID: ${{ secrets.DOCSEARCH_DOCS_APP_ID }}
+          DOCSEARCH_DOCS_API_KEY: ${{ secrets.DOCSEARCH_DOCS_API_KEY }}
+          DOCSEARCH_DOCS_INDEX_NAME: ${{ secrets.DOCSEARCH_DOCS_INDEX_NAME }}
 
       - name: Start docs site
         run: yarn docs start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000
