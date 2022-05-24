@@ -39,8 +39,8 @@ import {
 import Link from 'next/link';
 import LinkButton from './LinkButton';
 import { useCustomRouter } from '@/components/useCustomRouter';
-import { Logo } from '@/components/Logo';
 import { FrameworkChooser } from './FrameworkChooser';
+import { LogoLink } from './LogoLink';
 
 const NavLinks = ({
   items,
@@ -276,14 +276,7 @@ export const Sidebar = ({ expanded, setExpanded, platform }) => {
             alignItems="center"
             justifyContent="space-between"
           >
-            <Link href={`/${platform}`} passHref>
-              <LinkButton onClick={onClick} classNames="docs-logo-link">
-                <>
-                  <VisuallyHidden>Amplify UI Home</VisuallyHidden>
-                  <Logo />
-                </>
-              </LinkButton>
-            </Link>
+            <LogoLink platform={platform} onClick={onClick} />
             <Button
               size="small"
               className="docs-sidebar-menu-button"
@@ -296,9 +289,12 @@ export const Sidebar = ({ expanded, setExpanded, platform }) => {
             </Button>
           </Flex>
 
-          <FrameworkChooser />
+          <FrameworkChooser onClick={onClick} />
+
           <SecondaryNav onClick={onClick} />
+
           <Divider size="small" />
+
           <ALink href="https://docs.amplify.aws" isExternal>
             <Flex as="span" direction="row">
               Amplify Docs

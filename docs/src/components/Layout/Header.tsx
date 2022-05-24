@@ -1,12 +1,9 @@
-import * as React from 'react';
-import Link from 'next/link';
-import LinkButton from './LinkButton';
 import { Button, Flex, Image, VisuallyHidden } from '@aws-amplify/ui-react';
 import { MdClose, MdMenu } from 'react-icons/md';
 
-import { Logo } from '@/components/Logo';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { Sidebar } from './Sidebar';
+import { LogoLink } from './LogoLink';
 
 export const Header = ({
   expanded,
@@ -40,11 +37,8 @@ export const Header = ({
         platform={platform}
       />
 
-      <Link href={`/${platform}`} passHref>
-        <LinkButton classNames="docs-logo-link">
-          <Logo />
-        </LinkButton>
-      </Link>
+      <LogoLink platform={platform} />
+
       <Image
         alt={platform}
         height="1.5rem"
