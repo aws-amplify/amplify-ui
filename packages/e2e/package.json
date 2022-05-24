@@ -18,7 +18,7 @@
     "stepDefinitions": "features"
   },
   "devDependencies": {
-    "@aws-amplify/ui": "^3.9.1",
+    "@aws-amplify/ui": "^3.9.2",
     "aws-crt": "^1.10.6",
     "@testing-library/cypress": "^7.0.6",
     "@types/cypress-cucumber-preprocessor": "^4.0.0",
