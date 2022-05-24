@@ -1,0 +1,11 @@
+---
+title: Troubleshooting
+metaTitle: Troubleshooting
+description: Workarounds for common issues using Amplify UI.
+supportedFrameworks: react|angular|vue
+---
+
+import Link from 'next/link';
+import { Fragment } from '@/components/Fragment';
+
+<Fragment>{({ platform }) => import(`./troubleshooting.${platform}.mdx`)}</Fragment>
