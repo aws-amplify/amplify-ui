@@ -1,11 +1,32 @@
 ---
 title: Accessibility
 metaTitle: Accessibility
-metaDescription: Migration Guide - How to migrate from an older version of Amplify UI to a newer version.
+description: An introduction to building accessible apps with Amplify UI.
 supportedFrameworks: react|angular|vue
 ---
 
-import Link from 'next/link';
-import { Fragment } from '@/components/Fragment';
+import { Alert } from '@aws-amplify/ui-react';
 
-<Fragment>{({ platform }) => import(`./accessibility.${platform}.mdx`)}</Fragment>
+Amplify UI components follow [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/) and 
+[WAI-ARIA](https://www.w3.org/WAI/ARIA/apg/) best practices and guidelines for color contrast, 
+keyboard navigation, accessible labels, and focus management. The intent of Amplify UI is to 
+provide components that are flexible and can be composed into modern, accessible patterns 
+with as few limitations as possible.
+
+<Alert variation="info" heading="Report an accessibility issue">
+  Have you found an accessibility bug or limitation? 
+  [Open an issue](https://github.com/aws-amplify/amplify-ui/issues/new/choose) so we can take a look!
+</Alert>
+
+## What's included?
+
+Many Amplify UI components ship with accessibility features baked in for ease of use. This includes features 
+such as auto-associated labels with form inputs, a default theme with accessible color contrast, the flexibility to 
+enhance components to create your own accessible patterns, and more.
+
+###  Accessible form fields
+The TextField component allows passing a 'string' to a 'label' prop. The component will take care of creating and associating the `<label>` element with it's corresponding text `<input />`.  
+
+### Themable color tokens
+
+### Enhancing primitives

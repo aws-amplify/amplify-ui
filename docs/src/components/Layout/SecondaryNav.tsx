@@ -137,13 +137,13 @@ export const SecondaryNav = (props) => {
             Installation
           </NavLink>
           {platform !== 'flutter' && (
-            <NavLink {...props} href="/getting-started/migration">
-              Migration
+            <NavLink {...props} href="/getting-started/accessibility">
+              Accessibility
             </NavLink>
           )}
           {platform !== 'flutter' && (
-            <NavLink {...props} href="/getting-started/accessibility">
-              Accessibility
+            <NavLink {...props} href="/getting-started/migration">
+              Migration
             </NavLink>
           )}
         </>
