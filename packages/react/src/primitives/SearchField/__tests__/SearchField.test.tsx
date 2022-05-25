@@ -3,11 +3,11 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { SearchField } from '../SearchField';
-import { ComponentClassNames, SharedText } from '../../shared/constants';
+import { ComponentClassNames, ComponentText } from '../../shared/constants';
 
 const label = 'Search Amplify UI';
-const searchButtonLabel = SharedText.SearchField.ariaLabel.search;
-const clearButtonLabel = SharedText.Fields.ariaLabel.clearField;
+const searchButtonLabel = ComponentText.SearchField.searchButtonLabel;
+const clearButtonLabel = ComponentText.Fields.clearButtonLabel;
 
 const testId = 'SearchFieldTestId';
 const searchQuery = 'Amplify UI components';
@@ -73,7 +73,7 @@ describe('SearchField component', () => {
   it('should be text input type', async () => {
     render(<SearchField label={label} name="q" />);
 
-    const searchField = await screen.getByLabelText(label);
+    const searchField = screen.getByLabelText(label);
     expect(searchField.getAttribute('type')).toBe('text');
   });
 
@@ -146,7 +146,7 @@ describe('SearchField component', () => {
     it('should have clear button only after text is entered', async () => {
       render(<SearchField label={label} name="q" />);
 
-      let clearButton = await screen.queryByLabelText(clearButtonLabel);
+      let clearButton = screen.queryByLabelText(clearButtonLabel);
       const searchField = await screen.findByLabelText(label);
 
       expect(clearButton).toBeNull();

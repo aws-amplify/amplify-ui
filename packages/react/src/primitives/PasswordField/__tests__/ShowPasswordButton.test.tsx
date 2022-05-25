@@ -2,9 +2,9 @@ import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 
 import { ShowPasswordButton } from '../ShowPasswordButton';
-import { ComponentClassNames, SharedText } from '../../shared/constants';
+import { ComponentClassNames, ComponentText } from '../../shared/constants';
 
-const ariaLabelText = SharedText.ShowPasswordButton.ariaLabel;
+const ariaLabelText = ComponentText.PasswordField;
 
 describe('ShowPasswordButton component', () => {
   const testId = 'testId';
@@ -30,7 +30,7 @@ describe('ShowPasswordButton component', () => {
     const ref = React.createRef<HTMLButtonElement>();
     render(<ShowPasswordButton fieldType="password" ref={ref} />);
 
-    await screen.findByLabelText(ariaLabelText.showPassword);
+    await screen.findByLabelText(ariaLabelText.showPasswordButtonLabel);
 
     expect(ref.current.nodeName).toBe('BUTTON');
   });
@@ -46,7 +46,7 @@ describe('ShowPasswordButton component', () => {
       />
     );
 
-    await screen.findByLabelText(ariaLabelText.hidePassword);
+    await screen.findByLabelText(ariaLabelText.hidePasswordButtonLabel);
 
     expect(ref.current.nodeName).toBe('BUTTON');
   });

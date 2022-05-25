@@ -12,7 +12,7 @@ import { Label } from '../Label';
 import { Primitive } from '../types/view';
 import { StepperFieldProps } from '../types/stepperField';
 import { classNameModifier } from '../shared/utils';
-import { ComponentClassNames, SharedText } from '../shared/constants';
+import { ComponentClassNames, ComponentText } from '../shared/constants';
 import { splitPrimitiveProps } from '../shared/styleUtils';
 import { useStableId } from '../utils/useStableId';
 
@@ -34,8 +34,8 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
     isDisabled,
     isReadOnly,
     isRequired,
-    increaseButtonLabel = SharedText.StepperField.ariaLabel.IncreaseTo,
-    decreaseButtonLabel = SharedText.StepperField.ariaLabel.DecreaseTo,
+    increaseButtonLabel = ComponentText.StepperField.increaseButtonLabel,
+    decreaseButtonLabel = ComponentText.StepperField.decreaseButtonLabel,
     label,
     labelHidden = false,
     onStepChange,

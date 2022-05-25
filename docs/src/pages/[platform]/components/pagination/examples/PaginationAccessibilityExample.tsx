@@ -6,8 +6,8 @@ export const PaginationAccessibilityExample = () => {
     <Pagination
       pageLabel="Jump to page"
       currentPageLabel="You are on page"
-      leftArrowLabel="Back to previous page"
-      rightArrowLabel="Forward to next page"
+      previousLabel="Back to previous page"
+      nextLabel="Forward to next page"
       {...paginationProps}
     />
   );

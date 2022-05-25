@@ -1,1 +1,1 @@
-export * from './constants';
+export { ComponentClassNames, SharedText } from './constants';

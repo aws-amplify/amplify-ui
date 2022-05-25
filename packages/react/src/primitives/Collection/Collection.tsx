@@ -6,8 +6,7 @@ import { Flex } from '../Flex';
 import { Grid } from '../Grid';
 import { Pagination, usePagination } from '../Pagination';
 import { SearchField } from '../SearchField';
-import { ComponentClassNames } from '../shared/constants';
-import { SharedText } from '../shared/constants';
+import { ComponentClassNames, ComponentText } from '../shared/constants';
 import { strHasLength } from '../shared/utils';
 import {
   CollectionProps,
@@ -45,7 +44,7 @@ export const Collection = <Item,>({
   items,
   itemsPerPage = DEFAULT_PAGE_SIZE,
   searchFilter = itemHasText,
-  searchLabel = SharedText.Collection.SearchFieldLabel,
+  searchLabel = ComponentText.Collection.searchButtonLabel,
   searchPlaceholder,
   type = 'list',
   testId,

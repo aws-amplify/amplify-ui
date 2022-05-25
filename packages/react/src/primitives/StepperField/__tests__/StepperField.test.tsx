@@ -7,7 +7,7 @@ import {
   testFlexProps,
   expectFlexContainerStyleProps,
 } from '../../Flex/__tests__/Flex.test';
-import { ComponentClassNames, SharedText } from '../../shared/constants';
+import { ComponentClassNames, ComponentText } from '../../shared/constants';
 import { AUTO_GENERATED_ID_PREFIX } from '../../utils/useStableId';
 
 describe('StepperField: ', () => {
@@ -266,11 +266,11 @@ describe('StepperField: ', () => {
       const buttons = await screen.findAllByRole('button');
       expect(buttons[0]).toHaveAttribute(
         'aria-label',
-        `${SharedText.StepperField.ariaLabel.DecreaseTo} -2`
+        `${ComponentText.StepperField.decreaseButtonLabel} -2`
       );
       expect(buttons[1]).toHaveAttribute(
         'aria-label',
-        `${SharedText.StepperField.ariaLabel.IncreaseTo} 2`
+        `${ComponentText.StepperField.increaseButtonLabel} 2`
       );
       expect(buttons[0]).toHaveAttribute('aria-controls', id);
       expect(buttons[1]).toHaveAttribute('aria-controls', id);

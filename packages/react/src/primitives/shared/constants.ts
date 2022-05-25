@@ -515,32 +515,43 @@ export const ComponentClassObject = {
   },
 } as const;
 
-export const SharedText = {
+// For internal use, no need to export
+export const ComponentText = {
   Collection: {
-    SearchFieldLabel: 'Search',
-  },
-  CountryCodeSelect: {
-    ariaLabel: 'Country code',
+    searchButtonLabel: 'Search',
   },
   Fields: {
-    ariaLabel: {
-      clearField: 'Clear search',
-    },
+    clearButtonLabel: 'Clear input',
   },
   PaginationItem: {
-    invisibleLabel: {
-      currentPage: 'Current Page:',
-    },
-    ariaLabel: {
-      goToNextPage: 'Go to next page',
-      goToPage: 'Go to page',
-      goToPrevPage: 'Go to previous page',
-    },
+    currentPageLabel: 'Current Page:',
+    nextLabel: 'Go to next page',
+    pageLabel: 'Go to page',
+    previousLabel: 'Go to previous page',
+  },
+  PhoneNumberField: {
+    countryOrRegionCodeLabel: 'Country or region code',
   },
   SearchField: {
-    ariaLabel: {
-      search: 'Search',
-    },
+    searchButtonLabel: 'Search',
+  },
+  PasswordField: {
+    showPasswordButtonLabel: 'Show password',
+    hidePasswordButtonLabel: 'Hide password',
+  },
+  StepperField: {
+    increaseButtonLabel: 'Increase to',
+    decreaseButtonLabel: 'Decrease to',
+  },
+};
+
+/**
+ * @deprecated
+ * This is supposed to be used internally and will be removed in the next majoy release.
+ */
+export const SharedText = {
+  CountryCodeSelect: {
+    ariaLabel: 'Country code',
   },
   ShowPasswordButton: {
     ariaLabel: {
@@ -548,11 +559,24 @@ export const SharedText = {
       hidePassword: 'Hide password',
     },
   },
+  Fields: {
+    ariaLabel: {
+      clearField: 'Clear search',
+    },
+  },
+  SearchField: {
+    ariaLabel: {
+      search: 'Search',
+    },
+  },
   StepperField: {
     ariaLabel: {
       IncreaseTo: 'Increase to',
       DecreaseTo: 'Decrease to',
     },
+  },
+  Collection: {
+    SearchFieldLabel: 'Search',
   },
 };
 

@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { Pagination } from '../Pagination';
-import { ComponentClassNames, SharedText } from '../../shared/constants';
+import { ComponentClassNames, ComponentText } from '../../shared/constants';
 import {
   PaginationItem,
   PAGINATION_CURRENT_TEST_ID,
@@ -35,7 +35,7 @@ describe('Pagination component: ', () => {
     expect(firstPage).toHaveClass(ComponentClassNames.PaginationItemCurrent);
 
     const lastPage = await screen.findByLabelText(
-      `${SharedText.PaginationItem.ariaLabel.goToPage} ${totalPages}`
+      `${ComponentText.PaginationItem.pageLabel} ${totalPages}`
     );
     expect(lastPage.childNodes.length).toBe(1);
     expect(lastPage).toHaveTextContent('5');
@@ -73,14 +73,14 @@ describe('Pagination component: ', () => {
     );
 
     const previous = await screen.findByLabelText(
-      SharedText.PaginationItem.ariaLabel.goToPrevPage
+      ComponentText.PaginationItem.previousLabel
     );
     expect(previous.nodeName).toBe('BUTTON');
     expect(previous.childNodes.length).toBe(1);
     expect(previous).toBeDisabled();
 
     const next = await screen.findByLabelText(
-      SharedText.PaginationItem.ariaLabel.goToNextPage
+      ComponentText.PaginationItem.nextLabel
     );
     expect(next.nodeName).toBe('BUTTON');
     expect(next.childNodes.length).toBe(1);
@@ -100,13 +100,13 @@ describe('Pagination component: ', () => {
     );
 
     const previous = await screen.findByLabelText(
-      SharedText.PaginationItem.ariaLabel.goToPrevPage
+      ComponentText.PaginationItem.previousLabel
     );
     expect(previous.childNodes.length).toBe(1);
     expect(previous).not.toBeDisabled();
 
     const next = await screen.findByLabelText(
-      SharedText.PaginationItem.ariaLabel.goToNextPage
+      ComponentText.PaginationItem.nextLabel
     );
     expect(next.childNodes.length).toBe(1);
     expect(next).toBeDisabled();
@@ -118,13 +118,13 @@ describe('Pagination component: ', () => {
     );
 
     const previous = await screen.findByLabelText(
-      SharedText.PaginationItem.ariaLabel.goToPrevPage
+      ComponentText.PaginationItem.previousLabel
     );
     expect(previous.childNodes.length).toBe(1);
     expect(previous).not.toBeDisabled();
 
     const next = await screen.findByLabelText(
-      SharedText.PaginationItem.ariaLabel.goToNextPage
+      ComponentText.PaginationItem.nextLabel
     );
     expect(next.childNodes.length).toBe(1);
     expect(next).not.toBeDisabled();
@@ -143,13 +143,13 @@ describe('Pagination component: ', () => {
     );
 
     const previous = await screen.findByLabelText(
-      SharedText.PaginationItem.ariaLabel.goToPrevPage
+      ComponentText.PaginationItem.previousLabel
     );
     expect(previous.childNodes.length).toBe(1);
     expect(previous).not.toBeDisabled();
 
     const next = await screen.findByLabelText(
-      SharedText.PaginationItem.ariaLabel.goToNextPage
+      ComponentText.PaginationItem.nextLabel
     );
     expect(next.childNodes.length).toBe(1);
     expect(next).not.toBeDisabled();
@@ -173,7 +173,7 @@ describe('Pagination component: ', () => {
     // click on page 2
     const page2 = 2;
     const pageTwo = await screen.findByLabelText(
-      `${SharedText.PaginationItem.ariaLabel.goToPage} ${page2}`
+      `${ComponentText.PaginationItem.pageLabel} ${page2}`
     );
     userEvent.click(pageTwo);
     expect(mockOnChange).toHaveBeenCalledTimes(1);
@@ -188,7 +188,7 @@ describe('Pagination component: ', () => {
     // click on page 4
     const page4 = 4;
     const pageFour = await screen.findByLabelText(
-      `${SharedText.PaginationItem.ariaLabel.goToPage} ${page4}`
+      `${ComponentText.PaginationItem.pageLabel} ${page4}`
     );
     userEvent.click(pageFour);
     expect(mockOnChange).toHaveBeenCalledTimes(2);
@@ -196,7 +196,7 @@ describe('Pagination component: ', () => {
 
     // click on previous page button
     const previous = await screen.findByLabelText(
-      SharedText.PaginationItem.ariaLabel.goToPrevPage
+      ComponentText.PaginationItem.previousLabel
     );
     userEvent.click(previous);
     expect(mockOnPrevious).toHaveBeenCalledTimes(1);
@@ -204,7 +204,7 @@ describe('Pagination component: ', () => {
 
     // click on next page button
     const next = await screen.findByLabelText(
-      SharedText.PaginationItem.ariaLabel.goToNextPage
+      ComponentText.PaginationItem.nextLabel
     );
     userEvent.click(next);
     expect(mockOnNext).toHaveBeenCalledTimes(1);
@@ -247,7 +247,7 @@ describe('Pagination component: ', () => {
     const pagination = await screen.findByRole('navigation');
     // curent page
     expect(pagination).toHaveTextContent(
-      SharedText.PaginationItem.invisibleLabel.currentPage
+      ComponentText.PaginationItem.currentPageLabel
     );
     expect(pagination).toHaveTextContent('5');
     // sibling pages
@@ -275,8 +275,8 @@ describe('Pagination component: ', () => {
   it('should be able to customize text label', async () => {
     const pageLabel = 'Jump to page';
     const currentPageLabel = 'The current page is:';
-    const leftArrowLabel = 'Jump to previous page';
-    const rightArrowLabel = 'Jump to next page';
+    const previousLabel = 'Jump to previous page';
+    const nextLabel = 'Jump to next page';
     render(
       <Pagination
         id={id}
@@ -284,18 +284,18 @@ describe('Pagination component: ', () => {
         totalPages={3}
         pageLabel={pageLabel}
         currentPageLabel={currentPageLabel}
-        leftArrowLabel={leftArrowLabel}
-        rightArrowLabel={rightArrowLabel}
+        previousLabel={previousLabel}
+        nextLabel={nextLabel}
         onChange={() => {}}
         onNext={() => {}}
         onPrevious={() => {}}
       />
     );
-    const previous = await screen.findByLabelText(leftArrowLabel);
-    expect(previous).toHaveAttribute('aria-label', leftArrowLabel);
+    const previous = await screen.findByLabelText(previousLabel);
+    expect(previous).toHaveAttribute('aria-label', previousLabel);
 
-    const next = await screen.findByLabelText(rightArrowLabel);
-    expect(next).toHaveAttribute('aria-label', rightArrowLabel);
+    const next = await screen.findByLabelText(nextLabel);
+    expect(next).toHaveAttribute('aria-label', nextLabel);
 
     // page 1(current page)
     const current = await screen.findByText('1');
@@ -322,7 +322,7 @@ describe('Pagination component: ', () => {
         <PaginationItem
           type="page"
           page={page}
-          ariaLabel={`${SharedText.PaginationItem.invisibleLabel.currentPage} ${page}`}
+          ariaLabel={`${ComponentText.PaginationItem.currentPageLabel} ${page}`}
           currentPage={currentPage}
           onClick={mockOnClick}
         />
@@ -331,7 +331,7 @@ describe('Pagination component: ', () => {
       expect(pageItem.nodeName).toBe('SPAN');
       expect(pageItem).toHaveClass(ComponentClassNames.PaginationItemCurrent);
       const invisibleLabel = await screen.findByText(
-        SharedText.PaginationItem.invisibleLabel.currentPage
+        ComponentText.PaginationItem.currentPageLabel
       );
       expect(invisibleLabel).toHaveClass(ComponentClassNames.VisuallyHidden);
 
@@ -343,13 +343,13 @@ describe('Pagination component: ', () => {
       render(
         <PaginationItem
           type="previous"
-          ariaLabel={SharedText.PaginationItem.ariaLabel.goToPrevPage}
+          ariaLabel={ComponentText.PaginationItem.previousLabel}
           currentPage={2}
           onClick={mockOnClick}
         />
       );
       const previous = await screen.findByLabelText(
-        SharedText.PaginationItem.ariaLabel.goToPrevPage
+        ComponentText.PaginationItem.previousLabel
       );
       expect(previous.nodeName).toBe('BUTTON');
       expect(previous).not.toBeDisabled();
@@ -362,13 +362,13 @@ describe('Pagination component: ', () => {
       render(
         <PaginationItem
           type="next"
-          ariaLabel={SharedText.PaginationItem.ariaLabel.goToNextPage}
+          ariaLabel={ComponentText.PaginationItem.nextLabel}
           currentPage={2}
           onClick={mockOnClick}
         />
       );
       const previous = await screen.findByLabelText(
-        SharedText.PaginationItem.ariaLabel.goToNextPage
+        ComponentText.PaginationItem.nextLabel
       );
       expect(previous.nodeName).toBe('BUTTON');
       expect(previous).not.toBeDisabled();

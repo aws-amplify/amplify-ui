@@ -7,8 +7,8 @@ export type PaginationCallbackType = 'onNext' | 'onPrevious' | 'onChange';
 export type PaginationLabelType =
   | 'pageLabel'
   | 'currentPageLabel'
-  | 'leftArrowLabel'
-  | 'rightArrowLabel';
+  | 'previousLabel'
+  | 'nextLabel';
 
 interface BasePaginationProps {
   /**
@@ -49,13 +49,13 @@ interface BasePaginationProps {
    * Set the `aria-label` for the left arrow button.
    * @default "Go to previous page"
    */
-  leftArrowLabel?: string;
+  previousLabel?: string;
 
   /**
    * Set the `aria-label` for the right arrow button.
    * @default "Go to next page"
    */
-  rightArrowLabel?: string;
+  nextLabel?: string;
 
   /**
    * Callback function triggered when the next-page button is pressed

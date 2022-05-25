@@ -3,9 +3,9 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { PasswordField } from '../PasswordField';
-import { ComponentClassNames, SharedText } from '../../shared/constants';
+import { ComponentClassNames, ComponentText } from '../../shared/constants';
 
-const ariaLabelText = SharedText.ShowPasswordButton.ariaLabel;
+const ariaLabelText = ComponentText.PasswordField;
 
 describe('PasswordField component', () => {
   const testId = 'PasswordFieldTestId';
@@ -84,7 +84,9 @@ describe('PasswordField component', () => {
 
     const button = await screen.findByRole('button');
     expect(button).toBeDefined();
-    expect(button.getAttribute('aria-label')).toBe(ariaLabelText.showPassword);
+    expect(button.getAttribute('aria-label')).toBe(
+      ariaLabelText.showPasswordButtonLabel
+    );
   });
 
   it('should be able to hide show password button', async () => {
@@ -117,21 +119,21 @@ describe('PasswordField component', () => {
 
       expect(passwordField.getAttribute('type')).toBe('password');
       expect(button.getAttribute('aria-label')).toBe(
-        ariaLabelText.showPassword
+        ariaLabelText.showPasswordButtonLabel
       );
 
       userEvent.click(button);
 
       expect(passwordField.getAttribute('type')).toBe('text');
       expect(button.getAttribute('aria-label')).toBe(
-        ariaLabelText.hidePassword
+        ariaLabelText.hidePasswordButtonLabel
       );
 
       userEvent.click(button);
 
       expect(passwordField.getAttribute('type')).toBe('password');
       expect(button.getAttribute('aria-label')).toBe(
-        ariaLabelText.showPassword
+        ariaLabelText.showPasswordButtonLabel
       );
     });
   });

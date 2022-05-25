@@ -7,7 +7,7 @@ import { IconChevronLeft, IconChevronRight } from '../Icon';
 import { View } from '../View';
 import { VisuallyHidden } from '../VisuallyHidden';
 import { PaginationItemProps } from '../types/pagination';
-import { ComponentClassNames, SharedText } from '../shared/constants';
+import { ComponentClassNames, ComponentText } from '../shared/constants';
 import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 
 export const PAGINATION_CURRENT_TEST_ID = 'current';
@@ -17,7 +17,7 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
   type,
   page,
   currentPage,
-  currentPageLabel = SharedText.PaginationItem.invisibleLabel.currentPage,
+  currentPageLabel = ComponentText.PaginationItem.currentPageLabel,
   isDisabled,
   onClick,
   ariaLabel,

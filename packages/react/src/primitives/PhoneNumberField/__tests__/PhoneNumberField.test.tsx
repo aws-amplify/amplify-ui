@@ -29,7 +29,7 @@ describe('PhoneNumberField primitive', () => {
         name: /phone number/i,
       }),
       $countryCodeSelector: await screen.findByRole('combobox', {
-        name: /country code/i,
+        name: /country or region code/i,
       }),
     };
   };
@@ -76,8 +76,7 @@ describe('PhoneNumberField primitive', () => {
   });
 
   it('should render a country code selector with an accessible label', async () => {
-    await setup({});
-    const $countryCodeSelector = await screen.findByLabelText(/country code/i);
+    const { $countryCodeSelector } = await setup({});
 
     expect($countryCodeSelector).toBeDefined();
   });
