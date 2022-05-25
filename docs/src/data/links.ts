@@ -41,7 +41,7 @@ export const baseComponents: ComponentNavItem[] = [
   {
     href: '/components/divider',
     label: 'Divider',
-    body: ``,
+    body: `A Divider creates separations in content. Dividers can help organize content and establish visual rhythm.`,
     platforms: ['react'],
   },
   {
@@ -80,7 +80,12 @@ export const connectedComponents = [
 ].sort(sortByLabel);
 
 export const dataDisplayComponents = [
-  { href: '/components/badge', label: 'Badge', body: ``, platforms: ['react'] },
+  {
+    href: '/components/badge',
+    label: 'Badge',
+    body: `A Badge is a small visual element to denote a status or message about an item. A small, color-coded visual element that contains letters or numbers, that you can use to label, categorize, or organize items.`,
+    platforms: ['react'],
+  },
   {
     href: '/components/rating',
     label: 'Rating',
@@ -111,7 +116,7 @@ export const feedbackComponents: ComponentNavItem[] = [
   {
     href: '/components/loader',
     label: 'Loader',
-    body: ``,
+    body: `Loaders provide a visual cue that an action is either processing or awaiting a result. They are used to help the customer understand the system is working to fulfill a request.`,
     platforms: ['react'],
   },
 ].sort(sortByLabel);
@@ -138,7 +143,7 @@ export const inputComponents = [
   {
     href: '/components/sliderfield',
     label: 'Slider Field',
-    body: ``,
+    body: `Sliders allow users to quickly select a value within a range. They should be used when the upper and lower bounds to the range are invariable.`,
     platforms: ['react'],
   },
   {
@@ -180,7 +185,7 @@ export const inputComponents = [
   {
     href: '/components/checkboxfield',
     label: 'Checkbox Field',
-    body: ``,
+    body: `CheckboxField is used to mark an individual item as selected, or to select multiple items from a list of individual items.`,
     platforms: ['react'],
   },
   {
@@ -192,7 +197,7 @@ export const inputComponents = [
   {
     href: '/components/button',
     label: 'Button',
-    body: ``,
+    body: `The Button primitive is used to trigger an action or event, such as submitting a form, opening a dialog, canceling an action, or performing a delete operation.`,
     platforms: ['react'],
   },
 ].sort(sortByLabel);
@@ -201,13 +206,13 @@ export const layoutComponents = [
   {
     href: '/components/card',
     label: 'Card',
-    body: ``,
+    body: `The Card component can be used to group related pieces of content.`,
     platforms: ['react'],
   },
   {
     href: '/components/collection',
     label: 'Collection',
-    body: ``,
+    body: `A Collection wraps Flex and Grid components, and provides a way to display items in a collection from a data source.`,
     platforms: ['react'],
   },
   {
