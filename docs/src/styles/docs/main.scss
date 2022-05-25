@@ -1,13 +1,4 @@
-.docs-content p:not([class*='amplify']) {
-  margin-bottom: var(--amplify-space-medium);
-}
-
-.docs .docs-content .amplify-alert p,
-.docs .docs-content blockquote p {
-  margin-bottom: 0;
-}
-
-.docs-main .docs-description {
+.docs-description {
   color: var(--amplify-colors-font-secondary);
   font-size: var(--amplify-font-sizes-large);
   padding-top: var(--amplify-space-medium);
@@ -25,18 +16,18 @@
 .docs-content-body {
   padding: var(--amplify-space-xxl);
   
-  & table {
-    border-collapse: collapse;
-    width: 100%;
+  & > p {
+    margin-bottom: var(--amplify-space-medium);
   }
   
-  & td,
-  & th {
-    padding:var(--amplify-space-small) var(--amplify-space-medium);
-    border: var(--amplify-border-widths-small) solid var(--amplify-colors-border-tertiary);
+  & > table {
+    border-collapse: collapse;
+    width: 100%;
+    
+    & td,
+    & th {
+      padding:var(--amplify-space-small) var(--amplify-space-medium);
+      border: var(--amplify-border-widths-small) solid var(--amplify-colors-border-tertiary);
+    }
   }
-}
-
-.docs-main blockquote > p {
-  margin: 0;
 }
