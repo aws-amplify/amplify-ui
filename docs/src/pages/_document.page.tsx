@@ -25,7 +25,7 @@ const getCSPContent = (context: Readonly<HtmlProps>) => {
       style-src 'self' 'unsafe-inline';
       font-src 'self' data:;
       frame-src 'self' *.codesandbox.io;
-      img-src 'self' cm.everesttech.net amazonwebservices.d2.sc.omtrdc.net dpm.demdex.net;
+      img-src 'self' cm.everesttech.net amazonwebservices.d2.sc.omtrdc.net dpm.demdex.net images.unsplash.com;
       connect-src 'self' *.shortbread.aws.dev amazonwebservices.d2.sc.omtrdc.net dpm.demdex.net ;
       script-src 'unsafe-eval' 'self' '${cspInlineScriptHash}' a0.awsstatic.com;
     `;
