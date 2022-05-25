@@ -94,7 +94,7 @@ function App() {
                   {currentPainting.bestSeller ? (
                     <Badge variation="success">Bestseller</Badge>
                   ) : null}
-                  {currentPainting.new ? (
+                  {currentPainting.isNew ? (
                     <Badge variation="info">New</Badge>
                   ) : null}
                   {currentPainting.limitedSupply ? (

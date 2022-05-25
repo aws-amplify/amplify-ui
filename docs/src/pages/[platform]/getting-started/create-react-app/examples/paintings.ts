@@ -11,7 +11,7 @@ export const PAINTINGS = [
     inStock: true,
     readyForPickup: true,
     bestSeller: true,
-    new: false,
+    isNew: false,
     limitedSupply: false,
   },
   {
@@ -26,7 +26,7 @@ export const PAINTINGS = [
     inStock: true,
     readyForPickup: true,
     bestSeller: false,
-    new: false,
+    isNew: false,
     limitedSupply: false,
   },
   {
@@ -41,7 +41,7 @@ export const PAINTINGS = [
     inStock: true,
     readyForPickup: false,
     bestSeller: false,
-    new: true,
+    isNew: true,
     limitedSupply: false,
   },
   {
@@ -56,7 +56,7 @@ export const PAINTINGS = [
     inStock: true,
     readyForPickup: true,
     bestSeller: true,
-    new: false,
+    isNew: false,
     limitedSupply: false,
   },
   {
@@ -71,7 +71,7 @@ export const PAINTINGS = [
     inStock: true,
     readyForPickup: true,
     bestSeller: false,
-    new: true,
+    isNew: true,
     limitedSupply: false,
   },
   {
@@ -86,7 +86,7 @@ export const PAINTINGS = [
     inStock: true,
     readyForPickup: false,
     bestSeller: true,
-    new: false,
+    isNew: false,
     limitedSupply: true,
   },
   {
@@ -101,7 +101,7 @@ export const PAINTINGS = [
     inStock: true,
     readyForPickup: true,
     bestSeller: false,
-    new: false,
+    isNew: false,
     limitedSupply: false,
   },
   {
@@ -116,7 +116,7 @@ export const PAINTINGS = [
     inStock: false,
     readyForPickup: false,
     bestSeller: false,
-    new: false,
+    isNew: false,
     limitedSupply: true,
   },
 ];
