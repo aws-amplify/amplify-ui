@@ -139,6 +139,9 @@ export const SecondaryNav = (props) => {
           <NavLink {...props} href="/getting-started/usage">
             Usage
           </NavLink>
+          <NavLink {...props} href="/getting-started/create-react-app">
+            Create React App
+          </NavLink>
           {platform !== 'flutter' && (
             <NavLink {...props} href="/getting-started/migration">
               Migration
