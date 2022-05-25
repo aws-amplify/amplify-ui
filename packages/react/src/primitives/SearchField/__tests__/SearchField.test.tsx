@@ -3,7 +3,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { SearchField } from '../SearchField';
-import { ComponentClassNames, SharedText } from '../../shared';
+import { ComponentClassNames, SharedText } from '../../shared/constants';
 
 const label = 'Search Amplify UI';
 const searchButtonLabel = SharedText.SearchField.ariaLabel.search;
@@ -100,20 +100,6 @@ describe('SearchField component', () => {
     expect(button).toHaveClass(ComponentClassNames.SearchFieldSearch);
   });
 
-  it('should have clear button only after text is entered', async () => {
-    render(<SearchField label={label} name="q" />);
-
-    let clearButton = await screen.queryByLabelText(clearButtonLabel);
-    const searchField = await screen.findByLabelText(label);
-
-    expect(clearButton).toBeNull();
-
-    userEvent.type(searchField, searchQuery);
-    clearButton = await screen.findByLabelText(clearButtonLabel);
-
-    expect(clearButton).toBeDefined();
-  });
-
   it('should pass query text to onSubmit handler on Enter', async () => {
     const onSubmit = jest.fn();
     render(<SearchField label={label} name="q" onSubmit={onSubmit} />);
@@ -157,6 +143,20 @@ describe('SearchField component', () => {
   });
 
   describe(' - clear button', () => {
+    it('should have clear button only after text is entered', async () => {
+      render(<SearchField label={label} name="q" />);
+
+      let clearButton = await screen.queryByLabelText(clearButtonLabel);
+      const searchField = await screen.findByLabelText(label);
+
+      expect(clearButton).toBeNull();
+
+      userEvent.type(searchField, searchQuery);
+      clearButton = await screen.findByLabelText(clearButtonLabel);
+
+      expect(clearButton).toBeDefined();
+    });
+
     it('should clear text and refocus input when clicked', async () => {
       render(<SearchField label={label} name="q" />);
 
@@ -171,6 +171,27 @@ describe('SearchField component', () => {
       userEvent.click(clearButton);
       expect(searchField).toHaveValue('');
       expect(searchField).toHaveFocus();
+    });
+
+    it('should be able to customize clear button text', async () => {
+      const clearButtonLabel = 'Reset search';
+      render(
+        <SearchField
+          label={label}
+          clearButtonLabel={clearButtonLabel}
+          name="q"
+        />
+      );
+
+      const searchField = (await screen.findByLabelText(
+        label
+      )) as HTMLInputElement;
+      userEvent.type(searchField, searchQuery);
+
+      const clearButton = (await screen.findByLabelText(
+        clearButtonLabel
+      )) as HTMLButtonElement;
+      expect(clearButton).toHaveAttribute('aria-label', clearButtonLabel);
     });
   });
 });

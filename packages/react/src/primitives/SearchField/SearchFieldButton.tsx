@@ -1,10 +1,9 @@
 import * as React from 'react';
 
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassNames, SharedText } from '../shared/constants';
 import { FieldGroupIconButton } from '../FieldGroupIcon';
 import { IconSearch } from '../Icon';
 import { Primitive, SearchFieldButtonProps } from '../types';
-import { SharedText } from '../shared/i18n';
 
 const ariaLabelText = SharedText.SearchField.ariaLabel.search;
 

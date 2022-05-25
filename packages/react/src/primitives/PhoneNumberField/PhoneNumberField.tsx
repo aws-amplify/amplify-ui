@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { ComponentClassNames } from '../shared/constants';
 import { CountryCodeSelect } from './CountryCodeSelect';
 import { PhoneNumberFieldProps, Primitive } from '../types';
-import { SharedText } from '../shared/i18n';
+import { SharedText } from '../shared/constants';
 import { TextField } from '../TextField';
 
 const PhoneNumberFieldPrimitive: Primitive<PhoneNumberFieldProps, 'input'> = (

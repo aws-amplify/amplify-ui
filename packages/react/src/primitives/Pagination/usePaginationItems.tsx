@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { i18n } from './i18n';
 import { useRange, ELLIPSIS } from './useRange';
 import { PaginationItem } from './PaginationItem';
+import { SharedText } from '../shared/constants';
 
 /**
  * This hook will be used to get the pagination items to be rendered in the pagination primitive
@@ -19,6 +19,11 @@ export const usePaginationItems = (
   totalPages: number,
   hasMorePages: boolean,
   siblingCount: number,
+  currentPageLabel: string = SharedText.PaginationItem.invisibleLabel
+    .currentPage,
+  pageLabel: string = SharedText.PaginationItem.ariaLabel.goToPage,
+  leftArrowLabel: string = SharedText.PaginationItem.ariaLabel.goToPrevPage,
+  rightArrowLabel: string = SharedText.PaginationItem.ariaLabel.goToNextPage,
   onNext: () => void,
   onPrevious: () => void,
   onChange: (newPageIdx: number, prevPageIdx) => void
@@ -30,7 +35,7 @@ export const usePaginationItems = (
       currentPage={currentPage}
       onClick={onPrevious}
       isDisabled={currentPage <= 1}
-      ariaLabel={i18n.PaginationItem.PreviousItem.ariaLabel}
+      ariaLabel={leftArrowLabel}
     />
   );
 
@@ -41,7 +46,7 @@ export const usePaginationItems = (
       currentPage={currentPage}
       onClick={onNext}
       isDisabled={currentPage >= totalPages && !hasMorePages}
-      ariaLabel={i18n.PaginationItem.NextItem.ariaLabel}
+      ariaLabel={rightArrowLabel}
     />
   );
   // To get the range of page numbers to be rendered in the pagination primitive
@@ -66,12 +71,13 @@ export const usePaginationItems = (
             type="page"
             page={item as number}
             currentPage={currentPage}
+            currentPageLabel={currentPageLabel}
             onClick={onChange}
-            ariaLabel={`Go to page ${item}`}
+            ariaLabel={`${pageLabel} ${item}`}
           />
         );
       }),
-    [range, currentPage, onChange]
+    [range, currentPage, currentPageLabel, pageLabel, onChange]
   );
   return [previousItem, ...pageItems, nextItem];
 };

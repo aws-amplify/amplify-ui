@@ -515,6 +515,47 @@ export const ComponentClassObject = {
   },
 } as const;
 
+export const SharedText = {
+  Collection: {
+    SearchFieldLabel: 'Search',
+  },
+  CountryCodeSelect: {
+    ariaLabel: 'Country code',
+  },
+  Fields: {
+    ariaLabel: {
+      clearField: 'Clear search',
+    },
+  },
+  PaginationItem: {
+    invisibleLabel: {
+      currentPage: 'Current Page:',
+    },
+    ariaLabel: {
+      goToNextPage: 'Go to next page',
+      goToPage: 'Go to page',
+      goToPrevPage: 'Go to previous page',
+    },
+  },
+  SearchField: {
+    ariaLabel: {
+      search: 'Search',
+    },
+  },
+  ShowPasswordButton: {
+    ariaLabel: {
+      showPassword: 'Show password',
+      hidePassword: 'Hide password',
+    },
+  },
+  StepperField: {
+    ariaLabel: {
+      IncreaseTo: 'Increase to',
+      DecreaseTo: 'Decrease to',
+    },
+  },
+};
+
 type ComponentNames = keyof typeof ComponentClassObject;
 export type ComponentClasses =
   typeof ComponentClassObject[ComponentNames]['className'];

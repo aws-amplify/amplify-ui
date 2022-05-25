@@ -7,7 +7,7 @@ import { Grid } from '../Grid';
 import { Pagination, usePagination } from '../Pagination';
 import { SearchField } from '../SearchField';
 import { ComponentClassNames } from '../shared/constants';
-import { SharedText } from '../shared/i18n';
+import { SharedText } from '../shared/constants';
 import { strHasLength } from '../shared/utils';
 import {
   CollectionProps,
@@ -45,6 +45,7 @@ export const Collection = <Item,>({
   items,
   itemsPerPage = DEFAULT_PAGE_SIZE,
   searchFilter = itemHasText,
+  searchLabel = SharedText.Collection.SearchFieldLabel,
   searchPlaceholder,
   type = 'list',
   testId,
@@ -98,7 +99,7 @@ export const Collection = <Item,>({
       {isSearchable ? (
         <Flex className={ComponentClassNames.CollectionSearch}>
           <SearchField
-            label={SharedText.Collection.SearchFieldLabel}
+            label={searchLabel}
             placeholder={searchPlaceholder}
             onChange={(e) => onSearch(e.target.value)}
             onClear={() => setSearchText('')}

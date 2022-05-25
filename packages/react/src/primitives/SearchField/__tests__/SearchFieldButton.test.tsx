@@ -1,10 +1,8 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 
-import { ComponentClassNames } from '../../shared';
 import { SearchFieldButton } from '../SearchFieldButton';
-
-import { SharedText } from '../../shared/i18n';
+import { ComponentClassNames, SharedText } from '../../shared/constants';
 
 const ariaLabelText = SharedText.SearchField.ariaLabel.search;
 

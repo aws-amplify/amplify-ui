@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 
-import { ComponentClassNames } from '../../shared';
 import { ShowPasswordButton } from '../ShowPasswordButton';
+import { ComponentClassNames, SharedText } from '../../shared/constants';
 
-import { SharedText } from '../../shared/i18n';
 const ariaLabelText = SharedText.ShowPasswordButton.ariaLabel;
 
 describe('ShowPasswordButton component', () => {

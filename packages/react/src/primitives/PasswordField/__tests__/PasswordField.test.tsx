@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { PasswordField } from '../PasswordField';
-import { ComponentClassNames, SharedText } from '../../shared';
+import { ComponentClassNames, SharedText } from '../../shared/constants';
 
 const ariaLabelText = SharedText.ShowPasswordButton.ariaLabel;
 
@@ -53,7 +53,7 @@ describe('PasswordField component', () => {
       />
     );
 
-    const passwordField = await screen.getByPlaceholderText('Password');
+    const passwordField = await screen.findByPlaceholderText('Password');
     expect(passwordField.getAttribute('type')).toBe('password');
   });
 
@@ -69,7 +69,7 @@ describe('PasswordField component', () => {
       />
     );
 
-    const passwordField = await screen.getByPlaceholderText('Password');
+    const passwordField = await screen.findByPlaceholderText('Password');
     expect(passwordField.dataset['size']).toBe('large');
   });
 
@@ -97,7 +97,7 @@ describe('PasswordField component', () => {
       />
     );
 
-    const button = await screen.queryByRole('button');
+    const button = screen.queryByRole('button');
     expect(button).toBeNull();
   });
 
@@ -113,7 +113,7 @@ describe('PasswordField component', () => {
       );
 
       const button = await screen.findByRole('button');
-      const passwordField = await screen.getByPlaceholderText('Password');
+      const passwordField = await screen.findByPlaceholderText('Password');
 
       expect(passwordField.getAttribute('type')).toBe('password');
       expect(button.getAttribute('aria-label')).toBe(
@@ -134,5 +134,26 @@ describe('PasswordField component', () => {
         ariaLabelText.showPassword
       );
     });
+  });
+
+  it('should be able to customize show/hide password button label', async () => {
+    const showPasswordButtonLabel = 'Show my password';
+    const hidePasswordButtonLabel = 'Hide my password';
+    render(
+      <PasswordField
+        label="Password"
+        name="password"
+        placeholder="Password"
+        showPasswordButtonLabel={showPasswordButtonLabel}
+        hidePasswordButtonLabel={hidePasswordButtonLabel}
+      />
+    );
+
+    const button = await screen.findByRole('button');
+    expect(button).toHaveAttribute('aria-label', showPasswordButtonLabel);
+
+    userEvent.click(button);
+
+    expect(button).toHaveAttribute('aria-label', hidePasswordButtonLabel);
   });
 });
