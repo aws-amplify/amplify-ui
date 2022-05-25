@@ -286,6 +286,23 @@ export const guides = [
   },
 ];
 
+export const gettingStarted = [
+  {
+    href: '/getting-started/installation',
+    label: 'Installation',
+  },
+  {
+    href: '/getting-started/migration',
+    label: 'Migration',
+    platforms: ['react', 'vue', 'angular'],
+  },
+  {
+    href: '/getting-started/troubleshooting',
+    label: 'Troubleshooting',
+    platforms: ['react', 'vue', 'angular'],
+  },
+];
+
 export const theming = [
   {
     href: '/theming',

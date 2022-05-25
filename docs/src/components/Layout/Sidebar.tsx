@@ -34,6 +34,7 @@ import {
   legacyComponents,
   guides,
   theming,
+  gettingStarted,
 } from '../../data/links';
 
 import Link from 'next/link';
@@ -148,21 +149,11 @@ const SecondaryNav = (props) => {
         }
         value="getting-started"
       >
-        <>
-          <NavLink {...props} href="/getting-started/installation">
-            Installation
+        {gettingStarted.map(({ label, ...rest }) => (
+          <NavLink key={label} {...rest} onClick={props.onClick}>
+            {label}
           </NavLink>
-          {platform !== 'flutter' && (
-            <NavLink {...props} href="/getting-started/migration">
-              Migration
-            </NavLink>
-          )}
-          {platform !== 'flutter' && (
-            <NavLink {...props} href="/getting-started/troubleshooting">
-              Troubleshooting
-            </NavLink>
-          )}
-        </>
+        ))}
       </ExpanderItem>
       <ExpanderItem
         title={
