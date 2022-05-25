@@ -35,7 +35,7 @@ const FrameworkLink = ({ platform, onClick }: FrameworkLinkProps) => {
 };
 
 interface FrameworkChooserProps {
-  onClick?: () => void;
+  onClick: () => void;
 }
 
 export const FrameworkChooser = ({ onClick }: FrameworkChooserProps) => {
