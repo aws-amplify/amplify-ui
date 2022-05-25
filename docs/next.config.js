@@ -211,6 +211,13 @@ module.exports = withNextPluginPreval({
       type: 'javascript/auto',
     });
 
+    // resolve react and react-dom from project node_modules
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      react: path.resolve(__dirname, 'node_modules/react'),
+      'react-dom': path.resolve(__dirname, 'node_modules/react-dom'),
+    };
+
     return config;
   },
 });
