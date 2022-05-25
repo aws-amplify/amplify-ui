@@ -32,14 +32,14 @@ export function AmplifyProvider({
     if (document && document.documentElement) {
       // Keep original data attributes to reset on unmount
       const originalName =
-        document.documentElement.getAttribute('data-amplify-theme');
+        document.documentElement.getAttribute('data-amplify-theme') ?? name;
       const originalColorMode =
         document.documentElement.getAttribute('data-amplify-color-mode') ??
-        'system';
+        colorMode;
       document.documentElement.setAttribute('data-amplify-theme', name);
       document.documentElement.setAttribute(
         'data-amplify-color-mode',
-        colorMode || 'system'
+        colorMode
       );
 
       return function cleanup() {
@@ -53,7 +53,7 @@ export function AmplifyProvider({
         );
       };
     }
-  }, [name, colorMode]);
+  }, [name, colorMode, theme]);
   return (
     <AmplifyContext.Provider
       value={{
