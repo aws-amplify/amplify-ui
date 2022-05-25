@@ -79,7 +79,7 @@
   color: var(--amplify-colors-font-secondary);
   display: inline-block;
   font-weight: 500;
-  /* why do I need to do this? */
+  // all:unset removes this, so we have to add it back.
   cursor: pointer;
 
   // Logo should grow to take the most space on mobile header

@@ -5,14 +5,14 @@
     align-items: center;
     border-radius: var(--amplify-components-button-border-radius);
     box-sizing: border-box;
-    font-weight: var(--amplify-components-button-font-weight);
+    font-weight: 500;
     transition: all var(--amplify-components-button-transition-duration);
     background-color: inherit;
     border-width: var(--amplify-components-button-border-width);
     border-style: var(--amplify-components-button-border-style);
-    border-color: var(--amplify-components-button-border-color);
+    border-color: var(--amplify-colors-font-secondary);
     border-radius: var(--amplify-components-button-border-radius);
-    color: var(--amplify-components-button-color);
+    color: var(--amplify-colors-font-secondary);
     font-size: var(--amplify-components-button-font-size);
     line-height: var(--amplify-components-button-line-height);
     padding-block-start: var(--amplify-components-button-padding-block-start);
