@@ -137,7 +137,7 @@ export default function Page({
         <Footer />
       </main>
 
-      {hideToc ? null : (
+      {!hideToc && headings.length && (
         <TableOfContents title="Contents" headings={headings} />
       )}
     </>
