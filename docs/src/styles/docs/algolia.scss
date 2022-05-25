@@ -66,6 +66,10 @@
     color: inherit;
   }
 
+  .DocSearch-Reset:focus {
+    outline: revert;
+  }
+
   .DocSearch-MagnifierLabel,
   .DocSearch-Hit-source,
   .DocSearch-Hits mark,
