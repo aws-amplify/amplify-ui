@@ -52,6 +52,11 @@
 .DocSearch-Container .DocSearch-Modal {
   background: var(--amplify-colors-background-secondary);
   color: var(--amplify-colors-font-primary);
+  position: fixed;
+
+  @media (min-width: 480px) {
+    position: relative;
+  }
 
   .DocSearch-Hit-source {
     background: var(--amplify-colors-background-secondary);
