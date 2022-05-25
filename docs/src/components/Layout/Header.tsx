@@ -1,9 +1,9 @@
-import { Button, Flex, Image, VisuallyHidden } from '@aws-amplify/ui-react';
-import { MdClose, MdMenu } from 'react-icons/md';
+import { Flex, Image } from '@aws-amplify/ui-react';
 
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { Sidebar } from './Sidebar';
 import { LogoLink } from './LogoLink';
+import { MenuButton } from './MenuButton';
 
 export const Header = ({
   expanded,
@@ -15,21 +15,7 @@ export const Header = ({
   return (
     <Flex as="header" className="docs-header">
       <div className="docs-header-bg" />
-
-      <Button
-        size="small"
-        aria-expanded={expanded}
-        aria-controls="docs-sidebar"
-        className="docs-header-menu-button"
-        onClick={() => setExpanded(!expanded)}
-      >
-        <VisuallyHidden>Menu</VisuallyHidden>
-        {expanded ? (
-          <MdClose style={{ height: '1.5rem' }} />
-        ) : (
-          <MdMenu style={{ height: '1.5rem' }} />
-        )}
-      </Button>
+      <MenuButton expanded={expanded} setExpanded={setExpanded} />
 
       <Sidebar
         expanded={expanded}

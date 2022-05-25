@@ -23,7 +23,6 @@
   }
 }
 
-.docs-header-menu-button,
 .docs-header > .docs-logo-link {
   display: inline-flex;
   
@@ -33,6 +32,25 @@
     .docs-home & {
       display: inline-flex;
     }
+  }
+}
+
+// The same menu button is used in the sidebar and header
+// we want to hide it in certain scenarios so it can't be tabbed to
+.docs-header-menu-button {
+  @media (min-width: $breakpoint-large) {
+    display: none;
+    .docs-home & {
+      display: inline-flex;
+    }
+  }
+  
+  &.close {
+    .docs-header > & { display: none; }
+  }
+  
+  &.open {
+    .docs-sidebar & { display: none; }
   }
 }
 
@@ -48,10 +66,12 @@
 }
 
 .docs-logo-svg {
-  height: 1.5rem;
+  height: 1.25rem;
   display: inline-block;
   vertical-align: middle;
   position: relative;
+  // because the logo is text in the SVG with descenders (p,y),
+  // this is to make the baseline of the logo text line up
   top: 0.125rem;
 }
 
@@ -65,4 +85,9 @@
 
 .docs-logo-link path {
   transition: all var(--amplify-time-short) ease;
+}
+
+.docs-header-icon {
+  width: 1rem;
+  height: 1rem;
 }

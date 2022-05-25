@@ -37,10 +37,10 @@ import {
 } from '../../data/links';
 
 import Link from 'next/link';
-import LinkButton from './LinkButton';
 import { useCustomRouter } from '@/components/useCustomRouter';
 import { FrameworkChooser } from './FrameworkChooser';
 import { LogoLink } from './LogoLink';
+import { MenuButton } from './MenuButton';
 
 const NavLinks = ({
   items,
@@ -72,9 +72,9 @@ const NavLink = ({ href, children, onClick, platforms = [] }) => {
 
   return (
     <Link href={`/${platform}${href}`} passHref>
-      <LinkButton onClick={onClick} classNames={classNames}>
+      <a onClick={onClick} className={classNames}>
         {children}
-      </LinkButton>
+      </a>
     </Link>
   );
 };
@@ -277,16 +277,7 @@ export const Sidebar = ({ expanded, setExpanded, platform }) => {
             justifyContent="space-between"
           >
             <LogoLink platform={platform} onClick={onClick} />
-            <Button
-              size="small"
-              className="docs-sidebar-menu-button"
-              aria-expanded={expanded}
-              aria-controls="docs-sidebar"
-              onClick={() => setExpanded(!expanded)}
-            >
-              <VisuallyHidden>Menu</VisuallyHidden>
-              <MdClose style={{ height: '1.5rem' }} />
-            </Button>
+            <MenuButton expanded={expanded} setExpanded={setExpanded} />
           </Flex>
 
           <FrameworkChooser onClick={onClick} />

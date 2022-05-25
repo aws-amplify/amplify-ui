@@ -1,31 +1,26 @@
-import { Flex, Image, useTheme } from '@aws-amplify/ui-react';
+import { Flex, Image, Button, useTheme } from '@aws-amplify/ui-react';
 
 import { capitalize } from 'lodash';
 import { useCustomRouter } from '@/components/useCustomRouter';
 import Link from 'next/link';
 import { FRAMEWORKS } from '@/data/frameworks';
 
-import LinkButton from './LinkButton';
-
 interface FrameworkLinkProps extends FrameworkChooserProps {
   platform: string;
 }
 
 const FrameworkLink = ({ platform, onClick }: FrameworkLinkProps) => {
-  const router = useCustomRouter();
-  const { pathname, query } = router;
+  const { pathname, query } = useCustomRouter();
 
   const isCurrent = query.platform === platform;
-  const classNames = `docs-framework-link amplify-button amplify-button--small ${
-    isCurrent ? 'current' : ''
-  }`;
+  const classNames = `docs-framework-link ${isCurrent ? 'current' : ''}`;
   const href = pathname.includes('[platform]')
     ? pathname.replace('[platform]', platform)
     : `/${platform}`;
 
   return (
     <Link href={href} passHref>
-      <LinkButton classNames={classNames} onClick={onClick}>
+      <Button as="a" size="small" className={classNames} onClick={onClick}>
         <Image
           alt=""
           height="1.25rem"
@@ -34,7 +29,7 @@ const FrameworkLink = ({ platform, onClick }: FrameworkLinkProps) => {
           src={`/svg/integrations/${platform}.svg`}
         />
         {capitalize(platform)}
-      </LinkButton>
+      </Button>
     </Link>
   );
 };

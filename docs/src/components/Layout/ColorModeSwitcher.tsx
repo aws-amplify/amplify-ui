@@ -18,15 +18,15 @@ export const ColorModeSwitcher = ({ colorMode, setColorMode }) => {
     >
       <ToggleButton value="light" title="Light mode">
         <VisuallyHidden>Light mode</VisuallyHidden>
-        <MdWbSunny style={{ height: '1.5rem' }} />
+        <MdWbSunny className="docs-header-icon" />
       </ToggleButton>
       <ToggleButton value="dark" title="Dark mode">
         <VisuallyHidden>Dark mode</VisuallyHidden>
-        <MdBedtime style={{ height: '1.5rem' }} />
+        <MdBedtime className="docs-header-icon" />
       </ToggleButton>
       <ToggleButton value="system" title="System preferences">
         <VisuallyHidden>System preference</VisuallyHidden>
-        <MdTonality style={{ height: '1.5rem' }} />
+        <MdTonality className="docs-header-icon" />
       </ToggleButton>
     </ToggleButtonGroup>
   );
