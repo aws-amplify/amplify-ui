@@ -107,7 +107,6 @@
   --amplify-components-expander-item-border-start-end-radius: 0;
   --amplify-components-expander-item-border-end-start-radius: 0;
   --amplify-components-expander-item-border-end-end-radius: 0;
-  --amplify-components-expander-item-focus-box-shadow: none;
   --amplify-components-expander-trigger-hover-background-color: var(--amplify-colors-background-tertiary);
 
 
@@ -163,7 +162,6 @@
   text-decoration: none;
   
   &:hover,
-  &:focus,
   &.current {
     color: var(--amplify-colors-font-hover);
     background-color: var(--amplify-colors-brand-primary-10);
