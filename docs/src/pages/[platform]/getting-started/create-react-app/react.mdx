@@ -1,14 +1,46 @@
+import { Link, Tabs, TabItem } from '@aws-amplify/ui-react';
 import { Example, ExampleCode } from '@/components/Example';
 import { BasicExampleDemo, CompleteExampleDemo } from './examples';
 
 ### TESTING 123
+
+Is there a way to make this terminal code snippet copy/pastable?
+
+```shell
+npx create-react-app amplify-ui-demo
+```
+
+<Link href="https://create-react-app.dev" isExternal>
+  Link CRA docs
+</Link>
+
+If you haven't already, install the Amplify UI React package:
+
+<Tabs>
+<TabItem title="npm">
+
+```shell
+npm install aws-amplify @aws-amplify/ui-react
+```
+
+</TabItem>
+<TabItem title="yarn">
+
+```shell
+yarn add aws-amplify @aws-amplify/ui-react
+```
+
+</TabItem>
+</Tabs>
+
+Hey hey look at me
 
 <Example>
   <ExampleCode>
   
 ```tsx file=./examples/BasicExampleCode.tsx
 
-```
+````
 
   </ExampleCode>
   <BasicExampleDemo />
@@ -18,12 +50,11 @@ import { BasicExampleDemo, CompleteExampleDemo } from './examples';
 
 <Example>
   <ExampleCode>
-  
+
 ```tsx file=./examples/CompleteExampleCode.tsx
 
-```
+````
 
   </ExampleCode>
   <CompleteExampleDemo />
 </Example>
-
