@@ -2,7 +2,7 @@
 
 .docs-header {
   display: flex;
-  position: fixed;
+  position: sticky;
   top: 0;
   width: 100%;
   flex-direction: row;
@@ -10,10 +10,15 @@
   align-items: center;
   padding: var(--amplify-space-small) var(--amplify-space-medium);
   z-index: 100;
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(10px);
 
   @media (max-width: $breakpoint-large) {
-    border-bottom: var(--amplify-borders-primary);
+    border-bottom: var(--amplify-borders-secondary);
+    box-shadow: var(--amplify-shadows-small);
+  }
+  
+  .docs-home & {
+    border-bottom: var(--amplify-borders-secondary);
     box-shadow: var(--amplify-shadows-small);
   }
 }
@@ -22,7 +27,6 @@
 .docs-header > .docs-logo-link {
   display: inline-flex;
   
-  // desktop
   @media (min-width: $breakpoint-large) {
     display: none;
     

@@ -48,7 +48,7 @@ export const FrameworkChooser = ({ onClick }: FrameworkChooserProps) => {
   return (
     <Flex direction="column" gap={tokens.space.xs}>
       {FRAMEWORKS.map((framework) => (
-        <FrameworkLink platform={framework} onClick={onClick} />
+        <FrameworkLink key={framework} platform={framework} onClick={onClick} />
       ))}
     </Flex>
   );

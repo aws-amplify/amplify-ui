@@ -1,21 +1,15 @@
 @import './variables';
 
-.docs-main,
-.docs {
+.docs-main {
   display: flex;
   flex-direction: row;
   min-width: 0;
   flex: 1 0 auto;
 }
 
-.docs-content,
-.docs-main {
+.docs-content {
   flex-grow: 1;
   min-width: 0;
-}
-
-.docs-content {
-  margin-top: 3rem;
 }
 
 .docs-footer {

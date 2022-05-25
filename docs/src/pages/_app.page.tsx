@@ -83,7 +83,7 @@ function MyApp({ Component, pageProps }) {
             setColorMode={setColorMode}
             platform={platform}
           />
-          <div className={`docs`}>
+          <div className={`docs-main`}>
             <div
               className={`docs-sidebar-spacer ${
                 expanded ? 'expanded' : 'collapsed'
