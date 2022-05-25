@@ -81,7 +81,7 @@ It's common to use a paged API where the total number of pages in the dataset is
 
 ## Accessibility
 
-By default, the root node of the Pagination component has a role of "navigation". The previous-page button `<` has `aria-label="Go to previous page"` by default, and likewise, the next-page button `>` has `aria-label=Go to next page`. The current page is labelled by an invisible text [`Current Page:`](https://www.w3.org/WAI/tutorials/menus/structure/#indicate-the-current-item) in conjunction with the current page number (e.g, `Current Page: 1` if page `1` is the current page). Other pages by default have `aria-label=Go to page X`, where `X` is the number of the page. To customize these labels:
+By default, the root node of the Pagination component has a role of `navigation`. The previous-page button `<` has `aria-label="Go to previous page"` by default, and likewise, the next-page button `>` has `aria-label=Go to next page`. The current page is labelled by an invisible text [`Current Page:`](https://www.w3.org/WAI/tutorials/menus/structure/#indicate-the-current-item) in conjunction with the current page number (e.g, `Current Page: 1` if page `1` is the current page). Other pages by default have `aria-label=Go to page X`, where `X` is the number of the page. To customize these labels:
 
 - `leftArrowLabel`: Set the `aria-label` for the left arrow button `<` (defaults to `Go to previous page`)
 
@@ -92,7 +92,7 @@ By default, the root node of the Pagination component has a role of "navigation"
 - `pageLabel`: Set the label for each page button other than the current page (defaults to `Go to page`). It will be used to construct the `aria-label`. e.g, `Go to page 1` for page `1` button.
 
 <Example>
-
+  <PaginationAccessibilityExample />
   <ExampleCode>
 ```tsx file=./examples/PaginationAccessibilityExample.tsx
 
