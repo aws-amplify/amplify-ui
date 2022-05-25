@@ -6,7 +6,6 @@ import {
   MdWebAssetOff,
   MdOutlineArticle,
   MdOutlinePower,
-  MdClose,
   MdOpenInNew,
 } from 'react-icons/md';
 import {
@@ -15,26 +14,18 @@ import {
   Collection,
   Expander,
   ExpanderItem,
-  VisuallyHidden,
   useTheme,
-  Button,
   Divider,
   Link as ALink,
 } from '@aws-amplify/ui-react';
 import {
   ComponentNavItem,
-  baseComponents,
   connectedComponents,
-  dataDisplayComponents,
-  feedbackComponents,
-  inputComponents,
-  layoutComponents,
-  navigationComponents,
-  utilityComponents,
   legacyComponents,
   guides,
   theming,
   gettingStarted,
+  primitiveComponents,
 } from '../../data/links';
 
 import Link from 'next/link';
@@ -119,10 +110,13 @@ const ExpanderTitle = ({ Icon, text }) => {
       direction="row"
       alignItems="center"
       gap={tokens.space.small}
-      padding={tokens.space.xs}
+      padding={`${tokens.space.small} ${tokens.space.xs}`}
     >
       <Icon
-        style={{ height: '1.25rem', width: '1.25rem' }}
+        style={{
+          height: tokens.fontSizes.large,
+          width: tokens.fontSizes.large,
+        }}
         color={tokens.colors.brand.primary[60]}
       />
       <Text as="span">{text}</Text>
@@ -132,13 +126,19 @@ const ExpanderTitle = ({ Icon, text }) => {
 
 // TODO: clean up this logic
 const SecondaryNav = (props) => {
-  const {
-    pathname,
-    query: { platform },
-  } = useCustomRouter();
+  const { pathname } = useCustomRouter();
 
   // Extract section from URL (/section/... => section)
-  const section = pathname.split('/')[2];
+  let section = pathname.split('/')[2];
+  // NOTE: Remove this logic when we update the URLs for these sections.
+  if (section === 'components') {
+    if (pathname.match(/(chatbot|storage)/gi)) {
+      section = 'legacy-components';
+    }
+    if (pathname.match(/(authenticator|geo)/gi)) {
+      section = 'connected-components';
+    }
+  }
   const [value, setValue] = React.useState<string | string[]>([section]);
 
   return (
@@ -159,7 +159,7 @@ const SecondaryNav = (props) => {
         title={
           <ExpanderTitle Icon={MdOutlinePower} text="Connected components" />
         }
-        value="components"
+        value="connected-components"
       >
         {connectedComponents.map(({ label, ...rest }) => (
           <NavLink key={label} {...rest} onClick={props.onClick}>
@@ -173,53 +173,18 @@ const SecondaryNav = (props) => {
         }
         value="components"
       >
-        <>
+        {primitiveComponents.map(({ heading, components }) => (
           <NavLinkComponentsSection
             {...props}
-            heading={'Base'}
-            components={baseComponents}
-          ></NavLinkComponentsSection>
-
-          <NavLinkComponentsSection
-            {...props}
-            heading={'Feedback'}
-            components={feedbackComponents}
-          ></NavLinkComponentsSection>
-
-          <NavLinkComponentsSection
-            {...props}
-            heading={'Navigation'}
-            components={navigationComponents}
-          ></NavLinkComponentsSection>
-
-          <NavLinkComponentsSection
-            {...props}
-            heading={'Inputs'}
-            components={inputComponents}
-          ></NavLinkComponentsSection>
-
-          <NavLinkComponentsSection
-            {...props}
-            heading={'Layout'}
-            components={layoutComponents}
-          ></NavLinkComponentsSection>
-
-          <NavLinkComponentsSection
-            {...props}
-            heading={'Data Display'}
-            components={dataDisplayComponents}
-          ></NavLinkComponentsSection>
-
-          <NavLinkComponentsSection
-            {...props}
-            heading={'Utilities'}
-            components={utilityComponents}
-          ></NavLinkComponentsSection>
-        </>
+            key={heading}
+            heading={heading}
+            components={components}
+          />
+        ))}
       </ExpanderItem>
       <ExpanderItem
         title={<ExpanderTitle Icon={MdWebAssetOff} text="Legacy components" />}
-        value="legacy"
+        value="legacy-components"
       >
         {legacyComponents.map(({ label, ...rest }) => (
           <NavLink key={label} {...rest} onClick={props.onClick}>
@@ -278,7 +243,7 @@ export const Sidebar = ({ expanded, setExpanded, platform }) => {
           <Divider size="small" />
 
           <ALink href="https://docs.amplify.aws" isExternal>
-            <Flex as="span" direction="row">
+            <Flex as="span" direction="row" alignItems="center">
               Amplify Docs
               <MdOpenInNew />
             </Flex>

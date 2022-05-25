@@ -50,7 +50,7 @@ function MyApp({ Component, pageProps }) {
     .filter((n) => n && n !== '[platform]')
     .join('/')}`;
   const [colorMode, setColorMode] = React.useState<ColorMode>('system');
-  const [expanded, setExpanded] = React.useState<boolean>(false);
+  const [expanded, setExpanded] = React.useState(false);
 
   configure();
   trackPageVisit();

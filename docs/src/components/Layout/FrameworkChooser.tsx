@@ -6,29 +6,31 @@ import Link from 'next/link';
 import { FRAMEWORKS } from '@/data/frameworks';
 
 interface FrameworkLinkProps extends FrameworkChooserProps {
-  platform: string;
+  framework: string;
 }
 
-const FrameworkLink = ({ platform, onClick }: FrameworkLinkProps) => {
+const platformPath = '[platform]';
+
+const FrameworkLink = ({ framework, onClick }: FrameworkLinkProps) => {
   const { pathname, query } = useCustomRouter();
 
-  const isCurrent = query.platform === platform;
+  const isCurrent = query.platform === framework;
   const classNames = `docs-framework-link ${isCurrent ? 'current' : ''}`;
-  const href = pathname.includes('[platform]')
-    ? pathname.replace('[platform]', platform)
-    : `/${platform}`;
+  const href = pathname.includes(platformPath)
+    ? pathname.replace(platformPath, framework)
+    : `/${framework}`;
 
   return (
     <Link href={href} passHref>
       <Button as="a" size="small" className={classNames} onClick={onClick}>
         <Image
-          alt=""
+          alt={framework}
           height="1.25rem"
           width="1.25rem"
           display="block"
-          src={`/svg/integrations/${platform}.svg`}
+          src={`/svg/integrations/${framework}.svg`}
         />
-        {capitalize(platform)}
+        {capitalize(framework)}
       </Button>
     </Link>
   );
@@ -43,7 +45,11 @@ export const FrameworkChooser = ({ onClick }: FrameworkChooserProps) => {
   return (
     <Flex direction="column" gap={tokens.space.xs}>
       {FRAMEWORKS.map((framework) => (
-        <FrameworkLink key={framework} platform={framework} onClick={onClick} />
+        <FrameworkLink
+          key={framework}
+          framework={framework}
+          onClick={onClick}
+        />
       ))}
     </Flex>
   );

@@ -7,7 +7,9 @@ export const MenuButton = ({ expanded, setExpanded }) => (
     aria-expanded={expanded}
     aria-controls="docs-sidebar"
     className={`docs-header-menu-button ${expanded ? 'close' : 'open'}`}
-    onClick={() => setExpanded(!expanded)}
+    onClick={() => {
+      setExpanded(!expanded);
+    }}
   >
     <VisuallyHidden>{expanded ? 'Close menu' : 'Open menu'}</VisuallyHidden>
     {expanded ? (

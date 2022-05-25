@@ -229,6 +229,15 @@ export const layoutComponents = [
   },
 ].sort(sortByLabel);
 
+export const utilityComponents = [
+  {
+    href: '/components/visuallyhidden',
+    label: 'Visually Hidden',
+    body: `The Visually Hidden component is used to visually hide content while leaving it available to screen readers.`,
+    platforms: ['react'],
+  },
+].sort(sortByLabel);
+
 export const navigationComponents: ComponentNavItem[] = [
   {
     href: '/components/link',
@@ -250,14 +259,36 @@ export const navigationComponents: ComponentNavItem[] = [
   },
 ].sort(sortByLabel);
 
-export const utilityComponents = [
+export const primitiveComponents = [
   {
-    href: '/components/visuallyhidden',
-    label: 'Visually Hidden',
-    body: `The Visually Hidden component is used to visually hide content while leaving it available to screen readers.`,
-    platforms: ['react'],
+    heading: 'Base',
+    components: baseComponents,
   },
-].sort(sortByLabel);
+  {
+    heading: 'Feedback',
+    components: feedbackComponents,
+  },
+  {
+    heading: 'Navigation',
+    components: navigationComponents,
+  },
+  {
+    heading: 'Inputs',
+    components: inputComponents,
+  },
+  {
+    heading: 'Layout',
+    components: layoutComponents,
+  },
+  {
+    heading: 'Data display',
+    components: dataDisplayComponents,
+  },
+  {
+    heading: 'Utilities',
+    components: utilityComponents,
+  },
+];
 
 export const legacyComponents = [
   {
