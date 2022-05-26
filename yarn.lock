@@ -18851,10 +18851,10 @@ react-live@^2.4.1:
     react-simple-code-editor "^0.11.0"
     unescape "^1.0.1"
 
-react-map-gl@7.0.13:
-  version "7.0.13"
-  resolved "https://registry.yarnpkg.com/react-map-gl/-/react-map-gl-7.0.13.tgz#5f701435b503418a4476cf915fae9ce91d158cc9"
-  integrity sha512-XkZ2OySoVe7t8WA0ftsgzoDh6jGUCAEKqNgSXRPTIgD0ewvHYnxC+aCNAif9dq61fOCui3gMjyo1GWchNfHm/g==
+react-map-gl@7.0.15:
+  version "7.0.15"
+  resolved "https://registry.yarnpkg.com/react-map-gl/-/react-map-gl-7.0.15.tgz#ded08ccff49012099a9945b6c2ef7f266dfbde49"
+  integrity sha512-l7x8lBhIEcHTreSgrc7hsKv5HsMY1wQg2PVXuKAPmQtgRZc9C3NGwurVJFe24gOlAwzta5UavAHWDiZdU1ZNCw==
   dependencies:
     "@types/mapbox-gl" "^2.6.0"
 
