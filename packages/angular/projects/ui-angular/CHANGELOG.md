@@ -1,5 +1,14 @@
 # @aws-amplify/ui-angular
 
+## 2.4.7
+
+### Patch Changes
+
+- [#1937](https://github.com/aws-amplify/amplify-ui/pull/1937) [`e9240b21e`](https://github.com/aws-amplify/amplify-ui/commit/e9240b21e10cc6f3bb97f42e0101d575e1b7d0b7) Thanks [@wlee221](https://github.com/wlee221)! - Removed floating border that appears between transitions in Vue and Angular Authenticator.
+
+- Updated dependencies [[`766bf302c`](https://github.com/aws-amplify/amplify-ui/commit/766bf302c4d594ae92f1506967b6f1858687a41c), [`766bf302c`](https://github.com/aws-amplify/amplify-ui/commit/766bf302c4d594ae92f1506967b6f1858687a41c), [`a41ecfbf1`](https://github.com/aws-amplify/amplify-ui/commit/a41ecfbf1e7fc35e20622a6fb514c3bab7404621)]:
+  - @aws-amplify/ui@3.9.2
+
 ## 2.4.6
 
 ### Patch Changes
