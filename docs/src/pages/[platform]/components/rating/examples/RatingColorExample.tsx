@@ -5,8 +5,8 @@ export const RatingColorExample = () => {
   return (
     <Rating
       value={2.5}
-      fillColor={`${tokens.colors.red[60]}`}
-      emptyColor={`${tokens.colors.green[60]}`}
+      fillColor={tokens.colors.red[60]}
+      emptyColor={tokens.colors.green[60]}
     />
   );
 };

@@ -2,6 +2,7 @@ import { Property } from 'csstype';
 
 import { ViewProps } from '../types/view';
 import { Sizes } from './base';
+import { StyleToken } from './style';
 
 export type LoaderSizes = Sizes;
 
