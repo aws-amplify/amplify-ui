@@ -2,10 +2,10 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared/constants';
-import { GridProps, PrimitiveWithForwardRef } from '../types';
+import { GridProps, Primitive } from '../types';
 import { View } from '../View';
 
-const GridInner: PrimitiveWithForwardRef<GridProps, 'div'> = (
+const GridPrimitive: Primitive<GridProps, 'div'> = (
   { className, children, ...rest },
   ref
 ) => (
@@ -18,6 +18,6 @@ const GridInner: PrimitiveWithForwardRef<GridProps, 'div'> = (
   </View>
 );
 
-export const Grid = React.forwardRef(GridInner);
+export const Grid = React.forwardRef(GridPrimitive);
 
 Grid.displayName = 'Grid';

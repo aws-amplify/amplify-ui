@@ -2,7 +2,7 @@
 import deepExtend from 'style-dictionary/lib/utils/deepExtend';
 import flattenProperties from 'style-dictionary/lib/utils/flattenProperties';
 
-import { baseTheme as _baseTheme } from './baseTheme';
+import { defaultTheme } from './defaultTheme';
 import { Theme, BaseTheme, WebTheme, Override } from './types';
 import { cssValue, cssNameTransform } from './utils';
 import { WebTokens } from './tokens';
@@ -59,7 +59,7 @@ function setupTokens(obj: any, path = []) {
  */
 export function createTheme(
   theme?: Theme,
-  baseTheme: BaseTheme = _baseTheme
+  baseTheme: BaseTheme = defaultTheme
 ): WebTheme {
   // merge theme and baseTheme to get a complete theme
   // deepExtend is an internal Style Dictionary method
@@ -100,29 +100,28 @@ export function createTheme(
       // Overrides can have a selector, media query, breakpoint, or color mode
       // for creating the selector
       if ('selector' in override) {
-        cssText += `\n${override.selector} {\n${customProperties}\n}`;
+        cssText += `\n${override.selector} {\n${customProperties}\n}\n`;
       }
       if ('mediaQuery' in override) {
         cssText += `\n@media (${override.mediaQuery}) {
   [data-amplify-theme="${name}"] {
     ${customProperties}
   }
-}`;
+}\n`;
       }
       if ('breakpoint' in override) {
         const breakpoint = mergedTheme.breakpoints.values[override.breakpoint];
-        const breakpointUnit = mergedTheme.breakpoints.unit;
-        cssText += `\n@media(min-width: ${breakpoint}${breakpointUnit}) {
+        cssText += `\n@media (min-width: ${breakpoint}px) {
   [data-amplify-theme="${name}"] {
     ${customProperties}
   }
-}`;
+}\n`;
       }
       if ('colorMode' in override) {
-        cssText += `\n@media(prefers-color-scheme: ${override.colorMode}) {
+        cssText += `\n@media (prefers-color-scheme: ${override.colorMode}) {
           [data-amplify-theme="${name}"][data-amplify-color-mode="system"] {\n${customProperties}\n}
-        }`;
-        cssText += `\n[data-amplify-theme="${name}"][data-amplify-color-mode="${override.colorMode}"] {\n${customProperties}\n}`;
+        }\n`;
+        cssText += `\n[data-amplify-theme="${name}"][data-amplify-color-mode="${override.colorMode}"] {\n${customProperties}\n}\n`;
       }
 
       return {

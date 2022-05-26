@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import { computed, useAttrs, toRefs } from 'vue';
-import { translate } from '@aws-amplify/ui';
+import { createSharedComposable } from '@vueuse/core';
+import { translate, getFormDataFromEvent } from '@aws-amplify/ui';
 
 import FederatedSignIn from './federated-sign-in.vue';
 import AuthenticatorSignUpFormFields from './authenticator-sign-up-form-fields.vue';
 
 import { useAuthenticator } from '../composables/useAuth';
-const facadeValues = useAuthenticator();
-const props = useAuthenticator();
+
+const useAuthShared = createSharedComposable(useAuthenticator);
+const facadeValues = useAuthShared();
+const props = useAuthShared();
 const { hasValidationErrors, isPending, error } = toRefs(facadeValues);
 
 const attrs = useAttrs();
@@ -20,22 +23,28 @@ const createAccountLabel = computed(() => translate('Create Account'));
 // Methods
 
 const onInput = (e: Event): void => {
-  let { checked, name, type, value } = <HTMLInputElement>e.target;
+  let { checked, name, type, value } = e.target as HTMLInputElement;
 
   if (type === 'checkbox' && !checked)
     (value as string | undefined) = undefined;
   props.updateForm({ name, value });
 };
+
+function onBlur(e: Event) {
+  const { name } = e.target as HTMLInputElement;
+  props.updateBlur({ name });
+}
+
 const onSignUpSubmit = (e: Event): void => {
   if (attrs?.onSignUpSubmit) {
     emit('signUpSubmit', e);
   } else {
-    submit();
+    submit(e);
   }
 };
 
-const submit = (): void => {
-  props.submitForm();
+const submit = (e: Event): void => {
+  props.submitForm(getFormDataFromEvent(e));
 };
 </script>
 
@@ -44,13 +53,16 @@ const submit = (): void => {
     <slot name="header"></slot>
 
     <base-wrapper v-bind="$attrs">
-      <base-form @input="onInput" @submit.prevent="onSignUpSubmit">
+      <base-form
+        @input="onInput"
+        @blur.capture="onBlur"
+        @submit.prevent="onSignUpSubmit"
+      >
         <federated-sign-in></federated-sign-in>
 
-        <base-wrapper class="amplify-flex" style="flex-direction: column">
+        <base-wrapper class="amplify-flex amplify-authenticator__column">
           <base-field-set
-            class="amplify-flex"
-            style="flex-direction: column"
+            class="amplify-flex amplify-authenticator__column"
             :disabled="isPending"
           >
             <template #fieldSetI="{ slotData }">
@@ -59,13 +71,13 @@ const submit = (): void => {
             <authenticator-sign-up-form-fields />
           </base-field-set>
           <base-alert v-if="error">
-            {{ error }}
+            {{ translate(error) }}
           </base-alert>
           <amplify-button
-            class="amplify-field-group__control"
-            data-fullwidth="true"
-            data-loading="false"
-            data-variation="primary"
+            class="amplify-field-group__control amplify-authenticator__font"
+            :fullwidth="true"
+            :loading="false"
+            :variation="'primary'"
             style="border-radius: 0px; font-weight: normal"
             :disabled="isPending || hasValidationErrors"
             >{{ createAccountLabel }}</amplify-button

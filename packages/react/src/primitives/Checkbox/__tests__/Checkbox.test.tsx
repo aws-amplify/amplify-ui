@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { Checkbox } from '../Checkbox';
@@ -10,6 +10,7 @@ import {
   testFlexProps,
   expectFlexContainerStyleProps,
 } from '../../Flex/__tests__/Flex.test';
+import { useTestId } from '../../utils/testUtils';
 
 describe('Checkbox test suite', () => {
   const basicProps = {
@@ -22,6 +23,48 @@ describe('Checkbox test suite', () => {
   const getCheckbox = (props: PrimitiveProps<CheckboxProps, 'input'>) => {
     return <Checkbox {...props} />;
   };
+
+  it('should render checkbox states', async () => {
+    render(
+      <div>
+        <Checkbox
+          label="disabled"
+          name="disabled"
+          value="disabled"
+          isDisabled={true}
+          testId="disabled"
+        />
+        <Checkbox
+          label="error"
+          name="error"
+          value="error"
+          hasError={true}
+          testId="error"
+        />
+        <Checkbox
+          label="checked"
+          name="checked"
+          value="checked"
+          checked={true}
+          testId="checked"
+        />
+      </div>
+    );
+
+    const disabled = await screen.findByTestId('disabled');
+    const error = await screen.findByTestId(`error-amplify-checkbox__button`);
+    const checked = await screen.findByTestId(`checked-amplify-checkbox__icon`);
+
+    expect(disabled.classList).toContain(
+      `${ComponentClassNames['Checkbox']}--disabled`
+    );
+    expect(error.classList).toContain(
+      `${ComponentClassNames['CheckboxButton']}--error`
+    );
+    expect(checked.classList).toContain(
+      `${ComponentClassNames['CheckboxIcon']}--checked`
+    );
+  });
 
   it('should render basic props correctly', async () => {
     render(getCheckbox({ ...basicProps }));
@@ -116,6 +159,21 @@ describe('Checkbox test suite', () => {
   });
 
   describe('Button test suite', () => {
+    let updateCheckedFunction;
+    const ControlledCheckbox = () => {
+      const [checked, setChecked] = React.useState(false);
+      updateCheckedFunction = setChecked;
+      return (
+        <Checkbox
+          {...basicProps}
+          onChange={(event) => {
+            setChecked(event.target.checked);
+          }}
+          checked={checked}
+        />
+      );
+    };
+
     it('should render basic props correctly', async () => {
       render(getCheckbox({ ...basicProps }));
 
@@ -126,6 +184,23 @@ describe('Checkbox test suite', () => {
       expect(button).not.toHaveAttribute('data-disabled');
       expect(button).toHaveAttribute('data-focus', 'false');
       expect(button).toHaveClass(ComponentClassNames.CheckboxButton);
+    });
+
+    it('should update the checked button with a change to the controlled value', async () => {
+      render(<ControlledCheckbox />);
+
+      let button = await screen.findByTestId(
+        `${basicProps.testId}-${ComponentClassNames.CheckboxButton}`
+      );
+      expect(button).toHaveAttribute('data-checked', 'false');
+      expect(button).not.toHaveAttribute('data-disabled');
+      expect(button).toHaveAttribute('data-focus', 'false');
+      expect(button).toHaveClass(ComponentClassNames.CheckboxButton);
+      act(() => updateCheckedFunction(true));
+      button = await screen.findByTestId(
+        `${basicProps.testId}-${ComponentClassNames.CheckboxButton}`
+      );
+      expect(button).toHaveAttribute('data-checked', 'true');
     });
   });
 

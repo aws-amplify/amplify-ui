@@ -1,23 +1,28 @@
 import classNames from 'classnames';
+import * as React from 'react';
 
-import { useToggleButton } from './useToggleButton';
+import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import { Button } from '../Button';
-import { ToggleButtonProps, Primitive } from '../types';
 import { ComponentClassNames } from '../shared/constants';
+import { ToggleButtonProps, Primitive } from '../types';
+import { useToggleButton } from './useToggleButton';
 
-export const ToggleButton: Primitive<ToggleButtonProps, typeof Button> = ({
-  className,
-  children,
-  defaultPressed = false,
-  isDisabled,
-  isPressed: isPressedProp,
-  onChange,
-  onClick,
-  size,
-  value,
-  variation,
-  ...rest
-}) => {
+const ToggleButtonPrimitive: Primitive<ToggleButtonProps, typeof Button> = (
+  {
+    className,
+    children,
+    defaultPressed = false,
+    isDisabled,
+    isPressed: isPressedProp,
+    onChange,
+    onClick,
+    size,
+    value,
+    variation,
+    ...rest
+  },
+  ref
+) => {
   const { isPressed, handleClick } = useToggleButton({
     isPressed: isPressedProp,
     defaultPressed,
@@ -25,12 +30,24 @@ export const ToggleButton: Primitive<ToggleButtonProps, typeof Button> = ({
     onClick,
     value,
   });
+  const componentClasses = classNames(
+    ComponentClassNames.ToggleButton,
+    classNameModifier(ComponentClassNames.ToggleButton, variation),
+    classNameModifierByFlag(
+      ComponentClassNames.ToggleButton,
+      'pressed',
+      isPressed
+    ),
+    className
+  );
+
   return (
     <Button
       aria-pressed={isPressed}
-      className={classNames(ComponentClassNames.ToggleButton, className)}
+      className={componentClasses}
       isDisabled={isDisabled}
       onClick={handleClick}
+      ref={ref}
       size={size}
       type="button"
       variation={variation}
@@ -40,5 +57,7 @@ export const ToggleButton: Primitive<ToggleButtonProps, typeof Button> = ({
     </Button>
   );
 };
+
+export const ToggleButton = React.forwardRef(ToggleButtonPrimitive);
 
 ToggleButton.displayName = 'ToggleButton';

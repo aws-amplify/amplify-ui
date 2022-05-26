@@ -12,67 +12,117 @@ module.exports = withNextPluginPreval({
   // Differentiate pages with frontmatter & layout vs. normal MD(X)
   pageExtensions: ['page.mdx', 'page.tsx'],
 
-  // Sets the lang attribute on html element
-  i18n: {
-    locales: ['en'],
-    defaultLocale: 'en',
-  },
+  swcMinify: true,
 
   // don't want to fix typescript errors right now...
   typescript: {
     ignoreBuildErrors: true,
   },
 
+  async headers() {
+    return [
+      {
+        // Apply these headers to all routes in your application.
+        source: '/(.*)',
+        headers: [
+          // IMPORTANT:
+          // These are ONLY used for the Dev server and MUST
+          // be kept in sync with customHttp.yml
+          {
+            key: 'Strict-Transport-Security',
+            value: 'max-age=63072000; includeSubDomains',
+          },
+          {
+            key: 'X-Frame-Options',
+            value: 'SAMEORIGIN',
+          },
+          {
+            key: 'X-XSS-Protection',
+            value: '1; mode=block',
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+          // for 'Content-Security-Policy', see _document.page.tsx
+        ],
+      },
+    ];
+  },
+
   // These redirects are because of the IA change from previous docs
-  redirects() {
+  async redirects() {
     return [
       // Normalizing URLs
       // these need to come before the generic redirects
       {
         source: '/ui/primitives/stepperField',
         destination: '/components/stepperfield',
-        permanent: false,
+        permanent: true,
       },
       {
         source: '/ui/primitives/toggleButton',
         destination: '/components/togglebutton',
-        permanent: false,
+        permanent: true,
       },
       {
         source: '/ui/primitives/visuallyHidden',
         destination: '/components/visuallyhidden',
-        permanent: false,
+        permanent: true,
       },
+      /*
+       * source: /ui/theme/alternativeStyling and theming/alternative-styling
+       * destination: '/guides/css-in-js'
+       */
       {
-        source: '/ui/theme/alternativeStyling',
-        destination: '/theming/alternative-styling',
-        permanent: false,
+        source:
+          '/:page(ui/theme/alternativeStyling|theming/alternative-styling)',
+        destination: '/guides/css-in-js',
+        permanent: true,
       },
       // Generic redirects from old IA
       {
         source: '/ui',
         destination: '/',
-        permanent: false,
+        permanent: true,
       },
       {
         source: '/ui/components/:page*',
         destination: '/components/:page*',
-        permanent: false,
+        permanent: true,
       },
       {
         source: '/ui/getting-started/:page*',
         destination: '/getting-started/:page*',
-        permanent: false,
+        permanent: true,
       },
       {
         source: '/ui/primitives/:page*',
         destination: '/components/:page*',
-        permanent: false,
+        permanent: true,
       },
       {
         source: '/ui/theme/:page*',
         destination: '/theming/:page*',
-        permanent: false,
+        permanent: true,
+      },
+      /**
+       * source: a url has one of the folder's names (components, getting-started, guides, theming)
+       * destination: add '[platform]' to the the beginning
+       */
+      {
+        source: '/:nav(components|getting-started|guides|theming)/:page*',
+        destination: '/[platform]/:nav/:page*',
+        permanent: true,
+      },
+      /**
+       * source: a url points one of the folder's names (components, getting-started, guides, theming)'s index file
+       * destination: add '[platform]' to the beginning
+       */
+      {
+        source: '/:nav(components|getting-started|guides|theming)',
+        destination: '/[platform]/:nav',
+        permanent: true,
       },
     ];
   },
@@ -101,12 +151,13 @@ module.exports = withNextPluginPreval({
       ],
     ];
 
-    // See: https://github.com/wooorm/xdm#next
+    // See: https://mdxjs.com/docs/getting-started/#nextjs
     config.module.rules.push({
       test: /\.page.mdx$/,
       use: [
         {
-          loader: 'xdm/webpack.cjs',
+          loader: '@mdx-js/loader',
+          /** @type {import('@mdx-js/loader').Options} */
           options: {
             rehypePlugins: defaultRehypePlugins,
             // Pages have reqiure layout & frontmatter
@@ -130,7 +181,8 @@ module.exports = withNextPluginPreval({
       test: /\.mdx?$/,
       use: [
         {
-          loader: 'xdm/webpack.cjs',
+          loader: '@mdx-js/loader',
+          /** @type {import('@mdx-js/loader').Options} */
           options: {
             rehypePlugins: defaultRehypePlugins,
             remarkPlugins: defaultRemarkPlugins,

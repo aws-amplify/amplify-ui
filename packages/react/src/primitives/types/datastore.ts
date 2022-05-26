@@ -17,8 +17,7 @@ export type DataStoreCollectionProps<Model extends PersistentModel> = {
 };
 
 type DataStoreBaseResult = {
-  error: Error;
-  fetch: () => void;
+  error?: Error;
   isLoading: boolean;
 };
 

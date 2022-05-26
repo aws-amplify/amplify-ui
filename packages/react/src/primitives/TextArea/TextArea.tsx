@@ -1,12 +1,13 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import { ComponentClassNames } from '../shared';
-import { PrimitiveWithForwardRef } from '../types/view';
+import { Primitive } from '../types/view';
 import { TextAreaProps } from '../types/textArea';
 import { View } from '../View';
 
-const TextAreaInner: PrimitiveWithForwardRef<TextAreaProps, 'textarea'> = (
+const TextAreaPrimitive: Primitive<TextAreaProps, 'textarea'> = (
   {
     className,
     isReadOnly,
@@ -17,24 +18,31 @@ const TextAreaInner: PrimitiveWithForwardRef<TextAreaProps, 'textarea'> = (
     ...rest
   },
   ref
-) => (
-  <View
-    aria-invalid={hasError}
-    as="textarea"
-    className={classNames(
-      ComponentClassNames.Textarea,
-      ComponentClassNames.FieldGroupControl,
-      className
-    )}
-    data-size={size}
-    data-variation={variation}
-    readOnly={isReadOnly}
-    ref={ref}
-    required={isRequired}
-    {...rest}
-  />
-);
+) => {
+  const componentClasses = classNames(
+    ComponentClassNames.Textarea,
+    ComponentClassNames.FieldGroupControl,
+    classNameModifier(ComponentClassNames.Textarea, variation),
+    classNameModifier(ComponentClassNames.Textarea, size),
+    classNameModifierByFlag(ComponentClassNames.Textarea, 'error', hasError),
+    className
+  );
 
-export const TextArea = React.forwardRef(TextAreaInner);
+  return (
+    <View
+      aria-invalid={hasError}
+      as="textarea"
+      className={componentClasses}
+      data-size={size}
+      data-variation={variation}
+      readOnly={isReadOnly}
+      ref={ref}
+      required={isRequired}
+      {...rest}
+    />
+  );
+};
+
+export const TextArea = React.forwardRef(TextAreaPrimitive);
 
 TextArea.displayName = 'TextArea';

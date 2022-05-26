@@ -1,13 +1,13 @@
-import { useState } from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import * as React from 'react';
 
 import { ComponentClassNames } from '../../shared';
 import { ToggleButton } from '../ToggleButton';
 
 describe('ToggleButton: ', () => {
   const ControlledToggleButton = () => {
-    const [pressed, setPressed] = useState(false);
+    const [pressed, setPressed] = React.useState(false);
     return (
       <ToggleButton isPressed={pressed} onChange={() => setPressed(!pressed)} />
     );
@@ -20,6 +20,36 @@ describe('ToggleButton: ', () => {
     expect(toggleButton).toHaveClass(
       ComponentClassNames.ToggleButton,
       className
+    );
+  });
+
+  it('should render variation classes for ToggleButton', async () => {
+    render(
+      <div>
+        <ToggleButton variation="primary" testId="primary">
+          primary
+        </ToggleButton>
+        <ToggleButton variation="link" testId="link">
+          link
+        </ToggleButton>
+        <ToggleButton variation="menu" testId="menu">
+          menu
+        </ToggleButton>
+      </div>
+    );
+
+    const primary = await screen.findByTestId('primary');
+    const link = await screen.findByTestId('link');
+    const menu = await screen.findByTestId('menu');
+
+    expect(primary.classList).toContain(
+      `${ComponentClassNames['ToggleButton']}--primary`
+    );
+    expect(link.classList).toContain(
+      `${ComponentClassNames['ToggleButton']}--link`
+    );
+    expect(menu.classList).toContain(
+      `${ComponentClassNames['ToggleButton']}--menu`
     );
   });
 
@@ -66,5 +96,13 @@ describe('ToggleButton: ', () => {
     expect(toggleButton).toHaveAttribute('aria-pressed', 'true');
     userEvent.click(toggleButton);
     expect(toggleButton).toHaveAttribute('aria-pressed', 'false');
+  });
+
+  it('should forward ref to DOM element', async () => {
+    const ref = React.createRef<HTMLButtonElement>();
+    render(<ToggleButton ref={ref} />);
+
+    await screen.findByRole('button');
+    expect(ref.current.nodeName).toBe('BUTTON');
   });
 });

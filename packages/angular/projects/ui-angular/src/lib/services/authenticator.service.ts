@@ -2,17 +2,17 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { Logger } from '@aws-amplify/core';
 import {
   AuthContext,
-  AuthenticatorMachineOptions,
   AuthEvent,
   AuthInterpreter,
   AuthMachineState,
   createAuthenticatorMachine,
   getSendEventAliases,
   getServiceContextFacade,
-  getServiceFacade,
+  listenToAuthHub,
 } from '@aws-amplify/ui';
 import { Event, interpret, Subscription } from 'xstate';
 import { AuthSubscriptionCallback } from '../common';
+import { translate } from '@aws-amplify/ui';
 
 const logger = new Logger('state-machine');
 
@@ -26,29 +26,15 @@ export class AuthenticatorService implements OnDestroy {
   private _authState: AuthMachineState;
   private _authService: AuthInterpreter;
   private _sendEventAliases: ReturnType<typeof getSendEventAliases>;
-  private _subscription: Subscription;
+  private _machineSubscription: Subscription;
   private _facade: ReturnType<typeof getServiceContextFacade>;
 
-  public startMachine({
-    initialState,
-    loginMechanisms,
-    services,
-    signUpAttributes,
-    socialProviders,
-  }: AuthenticatorMachineOptions) {
-    const machine = createAuthenticatorMachine({
-      initialState,
-      loginMechanisms,
-      services,
-      signUpAttributes,
-      socialProviders,
-    });
+  constructor() {
+    const machine = createAuthenticatorMachine();
 
-    const authService = interpret(machine, {
-      devTools: process.env.NODE_ENV === 'development',
-    }).start();
+    const authService = interpret(machine).start();
 
-    this._subscription = authService.subscribe((state) => {
+    this._machineSubscription = authService.subscribe((state) => {
       this._authState = state;
       this._facade = getServiceContextFacade(state);
     });
@@ -58,7 +44,7 @@ export class AuthenticatorService implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this._subscription) this._subscription.unsubscribe();
+    if (this._machineSubscription) this._machineSubscription.unsubscribe();
   }
 
   /**
@@ -66,7 +52,7 @@ export class AuthenticatorService implements OnDestroy {
    */
 
   public get error() {
-    return this._facade?.error;
+    return translate(this._facade?.error);
   }
 
   public get hasValidationErrors() {
@@ -81,6 +67,10 @@ export class AuthenticatorService implements OnDestroy {
     return this._facade?.route;
   }
 
+  public get authStatus() {
+    return this._facade?.authStatus;
+  }
+
   public get user() {
     return this._facade?.user;
   }
@@ -89,12 +79,20 @@ export class AuthenticatorService implements OnDestroy {
     return this._facade?.validationErrors;
   }
 
+  public get codeDeliveryDetails() {
+    return this._facade?.codeDeliveryDetails;
+  }
+
   /**
    * Service facades
    */
 
   public get updateForm() {
     return this._sendEventAliases.updateForm;
+  }
+
+  public get updateBlur() {
+    return this._sendEventAliases.updateBlur;
   }
 
   public get resendCode() {

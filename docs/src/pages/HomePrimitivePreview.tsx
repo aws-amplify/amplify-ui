@@ -24,7 +24,14 @@ import {
   Divider,
   Menu,
   MenuItem,
+  View,
 } from '@aws-amplify/ui-react';
+import {
+  MdFormatAlignLeft,
+  MdFormatAlignRight,
+  MdFormatAlignCenter,
+  MdFormatAlignJustify,
+} from 'react-icons/md';
 
 export const HomePrimitivePreview = () => {
   const [exclusiveValue, setExclusiveValue] = React.useState('align-left');
@@ -38,60 +45,80 @@ export const HomePrimitivePreview = () => {
   return (
     <Flex direction="column" flex="1">
       <Flex
-        direction="row"
+        direction={{
+          base: 'column',
+          large: 'row',
+        }}
         alignItems="center"
-        padding={`0 0 0 ${tokens.space.xxxl}`}
       >
-        <Badge size="small" variation="success">
-          Available
-        </Badge>
-        <Badge size="small" variation="info">
-          New
-        </Badge>
+        <View>
+          <Badge size="small" variation="success">
+            Available
+          </Badge>
+          <Badge size="small" variation="info">
+            New
+          </Badge>
+        </View>
 
         <Pagination {...pagination} />
       </Flex>
-      <Flex direction="row" padding={`0 0 0 ${tokens.space.medium}`}>
+      <Flex
+        direction={{
+          base: 'column',
+          large: 'row',
+        }}
+        padding={`0 0 0 ${tokens.space.medium}`}
+        alignItems="center"
+      >
         <ToggleButtonGroup
           value={exclusiveValue}
           isExclusive
           onChange={(value: string) => setExclusiveValue(value)}
         >
-          <ToggleButton value="align-left">
-            <IconFormatAlignLeft />
+          <ToggleButton value="align-left" ariaLabel="align left">
+            <MdFormatAlignLeft />
           </ToggleButton>
-          <ToggleButton value="align-center">
-            <IconFormatAlignCenter />
+          <ToggleButton value="align-center" ariaLabel="align center">
+            <MdFormatAlignCenter />
           </ToggleButton>
-          <ToggleButton value="align-right">
-            <IconFormatAlignRight />
+          <ToggleButton value="align-right" ariaLabel="align right">
+            <MdFormatAlignRight />
           </ToggleButton>
-          <ToggleButton value="align-justify">
-            <IconFormatAlignJustify />
+          <ToggleButton value="align-justify" ariaLabel="align justify">
+            <MdFormatAlignJustify />
           </ToggleButton>
         </ToggleButtonGroup>
-        <Button variation="primary">Get started</Button>
-        <Menu>
-          <MenuItem onClick={() => alert('Download')}>Download</MenuItem>
-          <MenuItem onClick={() => alert('Create a Copy')}>
-            Create a Copy
-          </MenuItem>
-          <MenuItem onClick={() => alert('Mark as Draft')}>
-            Mark as Draft
-          </MenuItem>
-          <Divider />
-          <MenuItem isDisabled onClick={() => alert('Delete')}>
-            Delete
-          </MenuItem>
-          <MenuItem onClick={() => alert('Attend a workshop')}>
-            Attend a workshop
-          </MenuItem>
-        </Menu>
+        <Flex>
+          <Button variation="primary">Get started</Button>
+          <Menu ariaLabel="homepage demo dropdown menu">
+            <MenuItem onClick={() => alert('Download')}>Download</MenuItem>
+            <MenuItem onClick={() => alert('Create a Copy')}>
+              Create a Copy
+            </MenuItem>
+            <MenuItem onClick={() => alert('Mark as Draft')}>
+              Mark as Draft
+            </MenuItem>
+            <Divider />
+            <MenuItem isDisabled onClick={() => alert('Delete')}>
+              Delete
+            </MenuItem>
+            <MenuItem onClick={() => alert('Attend a workshop')}>
+              Attend a workshop
+            </MenuItem>
+          </Menu>
+        </Flex>
       </Flex>
-      <Flex padding={`0 0 0 ${tokens.space.xxl}`}>
+      <Flex padding={{ base: 0, large: `0 0 0 ${tokens.space.xxl}` }}>
         <Placeholder />
       </Flex>
-      <Flex direction="row" padding={`0 0 0 ${tokens.space.xxl}`}>
+      <Flex
+        alignItems="center"
+        direction={{
+          base: 'column',
+          large: 'row',
+        }}
+        padding={{ base: 0, large: `0 0 0 ${tokens.space.xxl}` }}
+      >
         <Tabs>
           <TabItem title="Tab 1">
             <p></p>
@@ -107,9 +134,12 @@ export const HomePrimitivePreview = () => {
         <Rating value={4} />
       </Flex>
       <Flex
-        direction="row"
-        alignItems="flex-start"
-        padding={`0 0 0 ${tokens.space.large}`}
+        direction={{
+          base: 'column',
+          large: 'row',
+        }}
+        alignItems={{ base: 'center', large: 'flex-start' }}
+        padding={{ base: 0, large: `0 0 0 ${tokens.space.large}` }}
       >
         <SearchField placeholder="Search" label="Search" labelHidden={true} />
         <SwitchField label="Accept" />

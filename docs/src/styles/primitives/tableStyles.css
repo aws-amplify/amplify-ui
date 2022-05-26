@@ -1,0 +1,37 @@
+.global-styling-table .amplify-table__th {
+  background-color: var(--amplify-colors-background-tertiary);
+}
+
+.global-styling-table .amplify-table__th:first-child {
+  text-align: right;
+}
+
+.global-styling-table .amplify-table__row:not(:first-child) .amplify-table__th {
+  border-top: none;
+}
+
+.global-styling-table .amplify-table__row:not(:last-child) .amplify-table__th {
+  border-bottom: none;
+}
+
+.global-styling-table .amplify-table__caption {
+  caption-side: top;
+  text-align: right;
+}
+
+.global-styling-table .table-summary {
+  color: var(--amplify-colors-font-secondary);
+  font-style: italic;
+}
+
+.my-custom-table .amplify-table__td {
+  font-size: var(--amplify-font-sizes-xs);
+}
+
+.my-custom-table .amplify-table__row {
+  background-color: var(--amplify-colors-neutral-60);
+}
+
+.custom-data-styling.amplify-table[data-size='large'] .amplify-table__td {
+  font-size: var(--amplify-font-sizes-xxxl);
+}

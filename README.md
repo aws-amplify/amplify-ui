@@ -6,7 +6,6 @@
 
 [![GitHub](https://img.shields.io/github/license/aws-amplify/amplify-ui)](LICENSE)
 [![Discord](https://img.shields.io/discord/308323056592486420?logo=discord)](https://discord.gg/jWVbPfC)
-[![Tests](https://github.com/aws-amplify/amplify-ui/actions/workflows/tests.yml/badge.svg)](https://github.com/aws-amplify/amplify-ui/actions/workflows/tests.yml)
 [![Open Bugs](https://img.shields.io/github/issues/aws-amplify/amplify-ui/bug?color=d73a4a&label=bugs)](https://github.com/aws-amplify/amplify-ui/issues?q=is%3Aissue+is%3Aopen+label%3Abug)
 [![Feature Requests](https://img.shields.io/github/issues/aws-amplify/amplify-ui/feature-request?color=ff9001&label=feature%20requests)](https://github.com/aws-amplify/amplify-ui/issues?q=is%3Aissue+label%3Afeature-request+is%3Aopen)
 [![GA milestone](https://img.shields.io/github/milestones/progress-percent/aws-amplify/amplify-ui/1)](https://github.com/aws-amplify/amplify-ui/milestone/1)
@@ -18,59 +17,60 @@ Amplify UI is an open-source UI library with cloud-connected components that are
 3. Data-bound components that make it easy to display dynamic data, like DataStoreCollections.
 4. Theming capabilities that allow you to customize the appearance of Amplify UI to match your brand.
 
-
 ## Documentation
 
 - https://ui.docs.amplify.aws/
 
 ## Getting started
 
-- https://ui.docs.amplify.aws/ui/getting-started/installation
+- https://ui.docs.amplify.aws/getting-started/installation
 
 ## Component Matrix
 
-| **Component**            | **React** | **Angular** | **Vue** |
+| **Connected Components** | **React** | **Angular** | **Vue** |
 | :----------------------- | :-------: | :---------: | :-----: |
-| **Connected Components** |           |             |
 | Authenticator            |    ✅     |     ✅      |   ✅    |
 | Interactions             |           |             |
 | Storage                  |           |             |
-| **Primitives**           |           |             |
-| Alert                    |    ✅     |             |
-| Badge                    |    ✅     |             |
-| Button                   |    ✅     |             |
-| Card                     |    ✅     |             |
-| CheckboxField            |    ✅     |             |
-| Collection               |    ✅     |             |
-| Divider                  |    ✅     |             |
-| Dropdown                 |           |             |
-| Expander                 |    ✅     |             |
-| Flex                     |    ✅     |             |
-| Grid                     |    ✅     |             |
-| Heading                  |    ✅     |             |
-| Icon                     |    ✅     |             |
-| Image                    |    ✅     |             |
-| Link                     |    ✅     |             |
-| Pagination               |    ✅     |             |
-| PasswordField            |    ✅     |             |
-| PhoneNumberField         |    ✅     |             |
-| Placeholder              |    ✅     |             |
-| RadioGroupField          |    ✅     |             |
-| Rating                   |    ✅     |             |
-| ScrollView               |    ✅     |             |
-| SearchField              |    ✅     |             |
-| SelectField              |    ✅     |             |
-| SliderField              |    ✅     |             |
-| Loader                   |    ✅     |             |
-| StepperField             |    ✅     |             |
-| SwitchField              |    ✅     |             |
-| Table                    |           |             |
-| Tabs                     |    ✅     |             |
-| Text                     |    ✅     |             |
-| TextField                |    ✅     |             |
-| ToggleButton             |    ✅     |             |
-| View                     |    ✅     |             |
-| VisuallyHidden           |    ✅     |             |
+
+| **Primitives**   | **React** | **Angular** | **Vue** |
+| :--------------- | :-------: | :---------: | :-----: |
+| Alert            |    ✅     |             |
+| Badge            |    ✅     |             |
+| Button           |    ✅     |             |
+| Card             |    ✅     |             |
+| CheckboxField    |    ✅     |             |
+| Collection       |    ✅     |             |
+| Divider          |    ✅     |             |
+| Expander         |    ✅     |             |
+| Flex             |    ✅     |             |
+| Grid             |    ✅     |             |
+| Heading          |    ✅     |             |
+| Icon             |    ✅     |             |
+| Image            |    ✅     |             |
+| Link             |    ✅     |             |
+| Loader           |    ✅     |             |
+| Menu             |    ✅     |             |
+| Pagination       |    ✅     |             |
+| PasswordField    |    ✅     |             |
+| PhoneNumberField |    ✅     |             |
+| Placeholder      |    ✅     |             |
+| RadioGroupField  |    ✅     |             |
+| Rating           |    ✅     |             |
+| ScrollView       |    ✅     |             |
+| SearchField      |    ✅     |             |
+| SelectField      |    ✅     |             |
+| SliderField      |    ✅     |             |
+| StepperField     |    ✅     |             |
+| SwitchField      |    ✅     |             |
+| Table            |    ✅     |             |
+| Tabs             |    ✅     |             |
+| Text             |    ✅     |             |
+| TextAreaField    |    ✅     |             |
+| TextField        |    ✅     |             |
+| ToggleButton     |    ✅     |             |
+| View             |    ✅     |             |
+| VisuallyHidden   |    ✅     |             |
 
 ## Frequently asked questions
 

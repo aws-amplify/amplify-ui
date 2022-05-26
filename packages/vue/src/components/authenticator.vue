@@ -1,6 +1,15 @@
 <script setup lang="ts">
 import { useAuth } from '../composables/useAuth';
-import { ref, computed, useAttrs, watch, Ref } from 'vue';
+import {
+  ref,
+  toRefs,
+  computed,
+  useAttrs,
+  watch,
+  Ref,
+  onMounted,
+  onUnmounted,
+} from 'vue';
 import { useActor, useInterpret } from '@xstate/vue';
 import {
   getActorState,
@@ -10,6 +19,8 @@ import {
   translate,
   CognitoUserAmplify,
   SocialProvider,
+  listenToAuthHub,
+  AuthFormFields,
 } from '@aws-amplify/ui';
 
 import SignIn from './sign-in.vue';
@@ -25,6 +36,22 @@ import ConfirmVerifyUser from './confirm-verify-user.vue';
 
 const attrs = useAttrs();
 
+const props = withDefaults(
+  defineProps<{
+    hideSignUp?: boolean;
+    initialState?: AuthenticatorMachineOptions['initialState'];
+    loginMechanisms?: AuthenticatorMachineOptions['loginMechanisms'];
+    services?: AuthenticatorMachineOptions['services'];
+    signUpAttributes?: AuthenticatorMachineOptions['signUpAttributes'];
+    variation?: 'default' | 'modal';
+    socialProviders?: SocialProvider[];
+    formFields?: AuthFormFields;
+  }>(),
+  {
+    variation: 'default',
+  }
+);
+
 const {
   initialState,
   loginMechanisms,
@@ -32,19 +59,9 @@ const {
   services,
   signUpAttributes,
   socialProviders,
-} = withDefaults(
-  defineProps<{
-    initialState?: AuthenticatorMachineOptions['initialState'];
-    loginMechanisms?: AuthenticatorMachineOptions['loginMechanisms'];
-    services?: AuthenticatorMachineOptions['services'];
-    signUpAttributes?: AuthenticatorMachineOptions['signUpAttributes'];
-    variation?: 'default' | 'modal';
-    socialProviders?: SocialProvider[];
-  }>(),
-  {
-    variation: 'default',
-  }
-);
+  hideSignUp,
+  formFields,
+} = toRefs(props);
 
 const emit = defineEmits([
   'signInSubmit',
@@ -58,20 +75,46 @@ const emit = defineEmits([
   'verifyUserSubmit',
   'confirmVerifyUserSubmit',
 ]);
-const machine = createAuthenticatorMachine({
-  initialState,
-  loginMechanisms,
-  services,
-  signUpAttributes,
-  socialProviders,
-});
+const machine = createAuthenticatorMachine();
 
-const service = useInterpret(machine, {
-  devTools: process.env.NODE_ENV === 'development',
-});
+const service = useInterpret(machine);
+let unsubscribeHub: () => void;
+let unsubscribeMachine: () => void;
 
 const { state, send } = useActor(service);
 useAuth(service);
+
+const hasInitialized = ref(false);
+
+/**
+ * Subscribes to state machine changes and sends INIT event
+ * once machine reaches 'setup' state.
+ */
+unsubscribeMachine = service.subscribe((newState) => {
+  if (newState.matches('setup') && !hasInitialized.value) {
+    send({
+      type: 'INIT',
+      data: {
+        initialState: initialState?.value,
+        loginMechanisms: loginMechanisms?.value,
+        socialProviders: socialProviders?.value,
+        signUpAttributes: signUpAttributes?.value,
+        services: services?.value,
+        formFields: formFields?.value,
+      },
+    });
+    hasInitialized.value = true;
+  }
+}).unsubscribe;
+
+onMounted(() => {
+  unsubscribeHub = listenToAuthHub(service);
+});
+
+onUnmounted(() => {
+  if (unsubscribeHub) unsubscribeHub();
+  if (unsubscribeMachine) unsubscribeMachine();
+});
 
 const actorState = computed(() => getActorState(state.value));
 
@@ -193,6 +236,22 @@ watch(
     signOut.value = s;
   }
 );
+
+const hasTabs = computed(() => {
+  return (
+    actorState.value?.matches('signIn') || actorState.value?.matches('signUp')
+  );
+});
+
+const hasRouteComponent = computed(() => {
+  return !(
+    state.value.matches('authenticated') ||
+    state.value.matches('idle') ||
+    state.value.matches('setup') ||
+    state.value.matches('signOut') ||
+    actorState.value?.matches('autoSignIn')
+  );
+});
 </script>
 
 <template>
@@ -200,14 +259,15 @@ watch(
     v-bind="$attrs"
     data-amplify-authenticator
     :data-variation="variation"
-    v-if="!state?.matches('authenticated')"
+    v-if="hasRouteComponent"
   >
     <div data-amplify-container>
       <slot name="header"> </slot>
-      <div data-amplify-router>
-        <base-two-tabs
-          v-if="actorState?.matches('signIn') || actorState?.matches('signUp')"
-        >
+      <div
+        data-amplify-router
+        :data-amplify-router-content="hasTabs ? undefined : ''"
+      >
+        <base-two-tabs v-if="hasTabs && !hideSignUp">
           <base-two-tab-item
             :active="actorState?.matches('signIn')"
             :id="44472"
@@ -221,54 +281,56 @@ watch(
             @click="send('SIGN_UP')"
           />
         </base-two-tabs>
-        <sign-in
-          v-if="actorState?.matches('signIn')"
-          @sign-in-submit="onSignInSubmitI"
-          ref="signInComponent"
-        >
-          <template #signInSlotI>
-            <slot name="sign-in"></slot>
-          </template>
-
-          <template
-            #form="{ info, onSignInSubmit, onForgotPasswordClicked, onInput }"
+        <div v-if="hasTabs" data-amplify-router-content>
+          <sign-in
+            v-if="actorState?.matches('signIn')"
+            @sign-in-submit="onSignInSubmitI"
+            ref="signInComponent"
           >
-            <slot
-              name="sign-in-form"
-              :info="info"
-              :onInput="onInput"
-              :onSignInSubmit="onSignInSubmit"
-              :onForgotPasswordClicked="onForgotPasswordClicked"
-            ></slot>
-          </template>
+            <template #signInSlotI>
+              <slot name="sign-in"></slot>
+            </template>
 
-          <template #header>
-            <slot name="sign-in-header"></slot>
-          </template>
+            <template
+              #form="{ info, onSignInSubmit, onForgotPasswordClicked, onInput }"
+            >
+              <slot
+                name="sign-in-form"
+                :info="info"
+                :onInput="onInput"
+                :onSignInSubmit="onSignInSubmit"
+                :onForgotPasswordClicked="onForgotPasswordClicked"
+              ></slot>
+            </template>
 
-          <template #footer>
-            <slot name="sign-in-footer"> </slot>
-          </template>
-        </sign-in>
-        <sign-up
-          v-if="actorState?.matches('signUp')"
-          @sign-up-submit="onSignUpSubmitI"
-          ref="signUpComponent"
-        >
-          <template #signUpSlotI>
-            <slot name="sign-up"></slot>
-          </template>
-          <template #header>
-            <slot name="sign-up-header"></slot>
-          </template>
-          <template #signup-fields="{ info }">
-            <slot name="sign-up-fields" :info="info"></slot>
-          </template>
+            <template #header>
+              <slot name="sign-in-header"></slot>
+            </template>
 
-          <template #footer>
-            <slot name="sign-up-footer"> </slot>
-          </template>
-        </sign-up>
+            <template #footer>
+              <slot name="sign-in-footer"> </slot>
+            </template>
+          </sign-in>
+          <sign-up
+            v-if="actorState?.matches('signUp') && !hideSignUp"
+            @sign-up-submit="onSignUpSubmitI"
+            ref="signUpComponent"
+          >
+            <template #signUpSlotI>
+              <slot name="sign-up"></slot>
+            </template>
+            <template #header>
+              <slot name="sign-up-header"></slot>
+            </template>
+            <template #signup-fields="{ info }">
+              <slot name="sign-up-fields" :info="info"></slot>
+            </template>
+
+            <template #footer>
+              <slot name="sign-up-footer"> </slot>
+            </template>
+          </sign-up>
+        </div>
 
         <confirm-sign-up
           v-if="actorState?.matches('confirmSignUp')"
@@ -388,6 +450,9 @@ watch(
           <template #header>
             <slot name="force-new-password-header"></slot>
           </template>
+          <template #force-new-password-form-fields>
+            <slot name="force-new-password-form-fields"></slot>
+          </template>
           <template
             #footer="{ onHaveAccountClicked, onForceNewPasswordSubmit }"
           >
@@ -445,7 +510,6 @@ watch(
       <slot name="footer"></slot>
     </div>
   </div>
-
   <slot
     v-if="state?.matches('authenticated')"
     :user="user"

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useNonStyleProps, usePropStyles } from '../shared/styleUtils';
+import { useStyles } from '../shared/styleUtils';
 import {
   ElementType,
   HTMLElementType,
@@ -7,13 +7,10 @@ import {
   ViewProps,
 } from '../types';
 
-const ViewInner = <Element extends ElementType = 'div'>(
+const ViewPrimitive = <Element extends ElementType = 'div'>(
   {
     as = 'div',
-    className,
     children,
-    role,
-    id,
     testId,
     ariaLabel,
     isDisabled,
@@ -22,18 +19,14 @@ const ViewInner = <Element extends ElementType = 'div'>(
   }: PrimitivePropsWithRef<ViewProps, Element>,
   ref?: React.ForwardedRef<HTMLElementType<Element>>
 ) => {
-  const propStyles = usePropStyles(rest, style);
-  const nonStyleProps = useNonStyleProps(rest);
+  const { propStyles, nonStyleProps } = useStyles(rest, style);
 
   return React.createElement(
     as,
     {
       'aria-label': ariaLabel,
-      className,
       'data-testid': testId,
       disabled: isDisabled,
-      id,
-      role,
       ref,
       style: propStyles,
       ...nonStyleProps,
@@ -42,6 +35,6 @@ const ViewInner = <Element extends ElementType = 'div'>(
   );
 };
 
-export const View = React.forwardRef(ViewInner);
+export const View = React.forwardRef(ViewPrimitive);
 
 View.displayName = 'View';

@@ -1,8 +1,9 @@
 import { render, screen } from '@testing-library/react';
+import * as React from 'react';
 
 import { Button } from '../../Button';
 import { ButtonGroup } from '../ButtonGroup';
-import { ButtonGroupProps } from '../../types';
+import { ButtonGroupProps, PrimitivePropsWithRef } from '../../types';
 import { ComponentClassNames } from '../../shared/constants';
 import {
   testFlexProps,
@@ -10,7 +11,9 @@ import {
 } from '../../Flex/__tests__/Flex.test';
 
 describe('ButtonGroup: ', () => {
-  const getButtonGroup = (props: Partial<ButtonGroupProps>) => {
+  const getButtonGroup = (
+    props: Partial<PrimitivePropsWithRef<ButtonGroupProps, 'div'>>
+  ) => {
     return (
       <ButtonGroup {...props}>
         <Button>Button 1</Button>
@@ -51,5 +54,13 @@ describe('ButtonGroup: ', () => {
     expect(buttons[0]).toHaveAttribute('data-variation', variation);
     expect(buttons[1]).toHaveAttribute('data-variation', variation);
     expect(buttons[2]).toHaveAttribute('data-variation', variation);
+  });
+
+  it('should forward ref to DOM element', async () => {
+    const ref = React.createRef<HTMLDivElement>();
+    render(getButtonGroup({ ref }));
+
+    await screen.findAllByRole('group');
+    expect(ref.current.nodeName).toBe('DIV');
   });
 });

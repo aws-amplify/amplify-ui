@@ -1,16 +1,13 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { CountryCodeSelect } from './CountryCodeSelect';
-import { TextField } from '../TextField';
 import { ComponentClassNames } from '../shared/constants';
+import { CountryCodeSelect } from './CountryCodeSelect';
+import { PhoneNumberFieldProps, Primitive } from '../types';
 import { SharedText } from '../shared/i18n';
-import { PhoneNumberFieldProps, PrimitiveWithForwardRef } from '../types';
+import { TextField } from '../TextField';
 
-const PhoneNumberFieldPrimitive: PrimitiveWithForwardRef<
-  PhoneNumberFieldProps,
-  'input'
-> = (
+const PhoneNumberFieldPrimitive: Primitive<PhoneNumberFieldProps, 'input'> = (
   {
     autoComplete = 'tel-national',
     className,
@@ -19,12 +16,14 @@ const PhoneNumberFieldPrimitive: PrimitiveWithForwardRef<
     defaultCountryCode,
     hasError,
     isDisabled,
+    isReadOnly,
     onCountryCodeChange,
     onInput,
     size,
     type,
     variation,
     countryCodeRef,
+    dialCodeList,
     ...rest
   },
   ref
@@ -34,9 +33,11 @@ const PhoneNumberFieldPrimitive: PrimitiveWithForwardRef<
       outerStartComponent={
         <CountryCodeSelect
           defaultValue={defaultCountryCode}
+          dialCodeList={dialCodeList}
           className={className}
           hasError={hasError}
           isDisabled={isDisabled}
+          isReadOnly={isReadOnly}
           label={countryCodeLabel}
           name={countryCodeName}
           onChange={onCountryCodeChange}
@@ -49,6 +50,7 @@ const PhoneNumberFieldPrimitive: PrimitiveWithForwardRef<
       className={classNames(ComponentClassNames.PhoneNumberField, className)}
       hasError={hasError}
       isDisabled={isDisabled}
+      isReadOnly={isReadOnly}
       isMultiline={false}
       onInput={onInput}
       ref={ref}

@@ -7,7 +7,14 @@ Given('I click {string}', (text: string) => {
 });
 
 When('I confirm my password', () => {
-  cy.findInputField('Confirm Password').type(Cypress.env('VALID_PASSWORD'));
+  cy.findInputField('Confirm Password')
+    .type(Cypress.env('VALID_PASSWORD'))
+    .blur()
+    .wait(100);
+});
+
+When('I confirm my short password', () => {
+  cy.findInputField('Confirm Password').type('inv').blur().wait(100);
 });
 
 Then('I see {string} as an input field', (name: string) => {

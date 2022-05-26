@@ -1,0 +1,47 @@
+import { Alert, Authenticator } from '@aws-amplify/ui-react';
+import { Example } from '@/components/Example';
+import { Fragment } from '@/components/Fragment';
+import { Tabs, TabItem } from '@aws-amplify/ui-react';
+
+<Alert heading="Zero Configuration">
+
+The Authenticator [automatically infers](#zero-configuration) `loginMechanisms` from `amplify pull`,
+but can be explicitly defined as seen below.
+
+</Alert>
+
+By default, the Authenticator creates new users in the Amazon Cognito UserPool based on a unique `username` using
+[`Auth.signUp`](https://docs.amplify.aws/lib/auth/emailpassword/q/platform/js).
+
+You can provide an alternative `username` such as `email` or `phone_number`.
+
+> **Note**: A `username`, `email`, or `phone_number` value is required for Cognito User Pools.
+
+<Tabs>
+  <TabItem title="Username">
+    <Fragment>
+      {({ platform }) => import(`./loginMechanisms.username.${platform}.mdx`)}
+    </Fragment>
+    <Example>
+      <Authenticator />
+    </Example>
+  </TabItem>
+  <TabItem title="Email">
+    <Fragment>
+      {({ platform }) => import(`./loginMechanisms.email.${platform}.mdx`)}
+    </Fragment>
+    <Example>
+      <Authenticator loginMechanisms={['email']} />
+    </Example>
+  </TabItem>
+  <TabItem title="Phone Number">
+    <Fragment>
+      {({ platform }) =>
+        import(`./loginMechanisms.phone_number.${platform}.mdx`)
+      }
+    </Fragment>
+    <Example>
+      <Authenticator loginMechanisms={['phone_number']} />
+    </Example>
+  </TabItem>
+</Tabs>

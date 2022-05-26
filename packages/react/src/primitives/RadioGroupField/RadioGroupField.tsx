@@ -1,20 +1,17 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { RadioGroupContext, RadioGroupContextType } from './context';
+import { ComponentClassNames } from '../shared/constants';
 import { FieldErrorMessage, FieldDescription } from '../Field';
 import { Flex } from '../Flex';
 import { Label } from '../Label';
-import { RadioGroupFieldProps, PrimitiveWithForwardRef } from '../types';
-import { ComponentClassNames } from '../shared/constants';
-import { useStableId } from '../shared/utils';
+import { RadioGroupContext, RadioGroupContextType } from './context';
+import { RadioGroupFieldProps, Primitive } from '../types';
+import { useStableId } from '../utils/useStableId';
 
 // Note: RadioGroupField doesn't extend the JSX.IntrinsicElements<'input'> types (instead extending 'typeof Flex')
 // because all rest props are passed to Flex container
-const RadioGroupFieldInner: PrimitiveWithForwardRef<
-  RadioGroupFieldProps,
-  typeof Flex
-> = (
+const RadioGroupFieldPrimitive: Primitive<RadioGroupFieldProps, typeof Flex> = (
   {
     children,
     className,
@@ -28,6 +25,7 @@ const RadioGroupFieldInner: PrimitiveWithForwardRef<
     isReadOnly,
     label,
     labelHidden = false,
+    labelPosition,
     onChange,
     name,
     size,
@@ -37,6 +35,10 @@ const RadioGroupFieldInner: PrimitiveWithForwardRef<
   ref
 ) => {
   const fieldId = useStableId(id);
+  const labelId = useStableId();
+  const descriptionId = useStableId();
+  const ariaDescribedBy = descriptiveText ? descriptionId : undefined;
+
   const radioGroupContextValue: RadioGroupContextType = React.useMemo(
     () => ({
       currentValue: value,
@@ -48,6 +50,7 @@ const RadioGroupFieldInner: PrimitiveWithForwardRef<
       onChange,
       size,
       name,
+      labelPosition,
     }),
     [
       defaultValue,
@@ -59,6 +62,7 @@ const RadioGroupFieldInner: PrimitiveWithForwardRef<
       size,
       name,
       value,
+      labelPosition,
     ]
   );
 
@@ -73,16 +77,19 @@ const RadioGroupFieldInner: PrimitiveWithForwardRef<
       ref={ref}
       {...rest}
     >
-      <Label id={fieldId} visuallyHidden={labelHidden}>
+      <Label id={labelId} visuallyHidden={labelHidden}>
         {label}
       </Label>
       <FieldDescription
+        id={descriptionId}
         labelHidden={labelHidden}
         descriptiveText={descriptiveText}
       />
       <Flex
-        aria-labelledby={fieldId}
+        aria-describedby={ariaDescribedBy}
+        aria-labelledby={labelId}
         className={ComponentClassNames.RadioGroup}
+        id={fieldId}
         role="radiogroup"
       >
         <RadioGroupContext.Provider value={radioGroupContextValue}>
@@ -94,6 +101,6 @@ const RadioGroupFieldInner: PrimitiveWithForwardRef<
   );
 };
 
-export const RadioGroupField = React.forwardRef(RadioGroupFieldInner);
+export const RadioGroupField = React.forwardRef(RadioGroupFieldPrimitive);
 
 RadioGroupField.displayName = 'RadioGroupField';

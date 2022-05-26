@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 
 import {
@@ -83,6 +84,44 @@ describe('Table primitive', () => {
       expect($table).toHaveClass(ComponentClassNames.Table, testClass);
     });
 
+    it('should render size classes for Table', async () => {
+      render(
+        <div>
+          <Table testId="small" size="small" />
+          <Table testId="large" size="large" />
+        </div>
+      );
+
+      const small = await screen.findByTestId('small');
+      const large = await screen.findByTestId('large');
+
+      expect(small.classList).toContain(
+        `${ComponentClassNames['Table']}--small`
+      );
+      expect(large.classList).toContain(
+        `${ComponentClassNames['Table']}--large`
+      );
+    });
+
+    it('should render variation classes for Table', async () => {
+      render(
+        <div>
+          <Table testId="striped" variation="striped" />
+          <Table testId="bordered" variation="bordered" />
+        </div>
+      );
+
+      const striped = await screen.findByTestId('striped');
+      const bordered = await screen.findByTestId('bordered');
+
+      expect(striped.classList).toContain(
+        `${ComponentClassNames['Table']}--striped`
+      );
+      expect(bordered.classList).toContain(
+        `${ComponentClassNames['Table']}--bordered`
+      );
+    });
+
     it('should render TableHead with default class name', async () => {
       const { $header } = await setup();
 
@@ -153,5 +192,13 @@ describe('Table primitive', () => {
 
       expect($table).toHaveAttribute('data-variation', variation);
     });
+  });
+
+  it('should forward ref to DOM element', async () => {
+    const ref = React.createRef<HTMLTableElement>();
+    render(<Table testId="testId" ref={ref} />);
+
+    await screen.findByTestId('testId');
+    expect(ref.current.nodeName).toBe('TABLE');
   });
 });

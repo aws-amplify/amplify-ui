@@ -1,8 +1,7 @@
 Feature: Sign In with TOTP MFA
 
-  Amplify's SignIn component uses AWS Cognito's authentication
-  service to provide a sign in experience to your application's
-  users.
+  If your backend has TOTP MFA required, Authenticator will redirect end users to 
+  TOTP confirmation screen when they try to sign in.
 
   Background:
     Given I'm running the example "ui/components/authenticator/sign-in-totp-mfa"
@@ -29,7 +28,14 @@ Feature: Sign In with TOTP MFA
     And I click the "Sign In" button
     And I enter an invalid confirmation code
     And I click the "Confirm" button
-    Then I see 'Code mismatch and fail enable Software Token MFA'
+    Then I see 'Code mismatch'
+
+  @angular @react @vue
+  Scenario: Setup TOTP should only show one input code
+    When I type my "email" with status "CONFIRMED"
+    And I type my password
+    And I click the "Sign In" button
+    And I see one code input
 
   @angular @react @vue
   Scenario: Sign in with unknown credentials
@@ -37,3 +43,18 @@ Feature: Sign In with TOTP MFA
     And I type my password
     And I click the "Sign in" button
     Then I see "User does not exist"
+
+  @angular @react @vue
+  Scenario: Sign in with force change password with mfa setup
+    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "force-change-password"
+    When I type my "email" with status "FORCE_CHANGE_PASSWORD"
+    And I type my password
+    And I click the "Sign in" button
+    Then I see "Change Password"
+    And I type my password
+    And I confirm my password
+    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "force-change-password-mfa-setup"
+    And I click the "Change Password" button
+    Then I see "Setup TOTP"
+
+

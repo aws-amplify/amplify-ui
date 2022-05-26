@@ -24,9 +24,15 @@ export const itemHasText = (item: unknown, text: string): boolean => {
     return item.toLowerCase().includes(text.toLowerCase());
   }
 
-  if (typeof item === 'object') {
+  if (typeof item === 'object' && item !== null) {
     return Object.values(item).some((subItem) => itemHasText(subItem, text));
   }
 
   return false;
 };
+
+/**
+ * Computes the amount of available pages
+ */
+export const getPageCount = (totalItems: number, itemsPerPage: number) =>
+  Math.ceil(totalItems / itemsPerPage);

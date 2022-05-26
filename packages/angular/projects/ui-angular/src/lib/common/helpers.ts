@@ -1,4 +1,5 @@
-import { authInputAttributes } from '@aws-amplify/ui';
+import { defaultFormFieldOptions } from '@aws-amplify/ui';
 import { AttributeInfoProvider } from './types';
 
-export const getAttributeMap: AttributeInfoProvider = () => authInputAttributes;
+export const getAttributeMap: AttributeInfoProvider = () =>
+  defaultFormFieldOptions;

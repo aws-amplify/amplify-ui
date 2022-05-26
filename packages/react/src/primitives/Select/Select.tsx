@@ -1,14 +1,15 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { Flex } from '../Flex';
-import { View } from '../View';
-import { IconExpandMore } from '../Icon';
-import { SelectProps } from '../types/select';
-import { PrimitiveWithForwardRef } from '../types';
+import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
+import { Flex } from '../Flex';
+import { IconExpandMore } from '../Icon';
+import { Primitive } from '../types';
+import { SelectProps } from '../types/select';
+import { View } from '../View';
 
-const SelectInner: PrimitiveWithForwardRef<SelectProps, 'select'> = (
+const SelectPrimitive: Primitive<SelectProps, 'select'> = (
   {
     autoComplete,
     className,
@@ -31,6 +32,15 @@ const SelectInner: PrimitiveWithForwardRef<SelectProps, 'select'> = (
   // value === undefined is to make sure that component is used in uncontrolled way so that setting defaultValue is valid
   const shouldSetDefaultPlaceholderValue =
     value === undefined && defaultValue === undefined && placeholder;
+  const componentClasses = classNames(
+    ComponentClassNames.Select,
+    ComponentClassNames.FieldGroupControl,
+    classNameModifier(ComponentClassNames.Select, size),
+    classNameModifier(ComponentClassNames.Select, variation),
+    classNameModifierByFlag(ComponentClassNames.Select, 'error', hasError),
+    className
+  );
+
   return (
     <View className={ComponentClassNames.SelectWrapper}>
       <View
@@ -47,11 +57,7 @@ const SelectInner: PrimitiveWithForwardRef<SelectProps, 'select'> = (
         required={isRequired}
         data-size={size}
         data-variation={variation}
-        className={classNames(
-          ComponentClassNames.Select,
-          ComponentClassNames.FieldGroupControl,
-          className
-        )}
+        className={componentClasses}
         ref={ref}
         {...rest}
       >
@@ -65,6 +71,6 @@ const SelectInner: PrimitiveWithForwardRef<SelectProps, 'select'> = (
   );
 };
 
-export const Select = React.forwardRef(SelectInner);
+export const Select = React.forwardRef(SelectPrimitive);
 
 Select.displayName = 'Select';

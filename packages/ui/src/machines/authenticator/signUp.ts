@@ -1,19 +1,24 @@
 import { Auth } from 'aws-amplify';
 import get from 'lodash/get';
 import pickBy from 'lodash/pickBy';
-import { createMachine, sendUpdate } from 'xstate';
+import { assign, createMachine, sendUpdate } from 'xstate';
 
 import { AuthEvent, SignUpContext } from '../../types';
 import { runValidators } from '../../validators';
 import {
   clearError,
   clearFormValues,
+  clearTouched,
   clearValidationError,
   handleInput,
+  handleBlur,
+  parsePhoneNumber,
   setCredentials,
   setFieldErrors,
   setRemoteError,
+  setCodeDeliveryDetails,
   setUser,
+  handleSubmit,
 } from './actions';
 import { defaultServices } from './defaultServices';
 
@@ -35,7 +40,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
         },
         signUp: {
           type: 'parallel',
-          exit: ['clearError', 'clearFormValues'],
+          exit: ['clearError', 'clearFormValues', 'clearTouched'],
           states: {
             validation: {
               initial: 'pending',
@@ -53,12 +58,16 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
                     },
                   },
                 },
-                valid: { entry: sendUpdate() },
-                invalid: { entry: sendUpdate() },
+                valid: { entry: 'sendUpdate' },
+                invalid: { entry: 'sendUpdate' },
               },
               on: {
                 CHANGE: {
                   actions: 'handleInput',
+                  target: '.pending',
+                },
+                BLUR: {
+                  actions: 'handleBlur',
                   target: '.pending',
                 },
               },
@@ -67,15 +76,15 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
               initial: 'idle',
               states: {
                 idle: {
-                  entry: sendUpdate(),
+                  entry: 'sendUpdate',
                   on: {
-                    SUBMIT: 'validate',
+                    SUBMIT: { actions: 'handleSubmit', target: 'validate' },
                     FEDERATED_SIGN_IN: 'federatedSignIn',
                   },
                 },
                 federatedSignIn: {
                   tags: ['pending'],
-                  entry: [sendUpdate(), 'clearError'],
+                  entry: ['sendUpdate', 'clearError'],
                   invoke: {
                     src: 'federatedSignIn',
                     onDone: '#signUpActor.resolved',
@@ -83,7 +92,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
                   },
                 },
                 validate: {
-                  entry: sendUpdate(),
+                  entry: 'sendUpdate',
                   invoke: {
                     src: 'validateSignUp',
                     onDone: {
@@ -98,7 +107,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
                 },
                 pending: {
                   tags: ['pending'],
-                  entry: [sendUpdate(), 'clearError'],
+                  entry: ['parsePhoneNumber', 'sendUpdate', 'clearError'],
                   invoke: {
                     src: 'signUp',
                     onDone: [
@@ -109,7 +118,11 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
                       },
                       {
                         target: 'resolved',
-                        actions: ['setUser', 'setCredentials'],
+                        actions: [
+                          'setUser',
+                          'setCredentials',
+                          'setCodeDeliveryDetails',
+                        ],
                       },
                     ],
                     onError: {
@@ -119,16 +132,9 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
                   },
                 },
                 skipConfirm: {
-                  invoke: {
-                    src: 'signIn',
-                    onDone: {
-                      target: '#signUpActor.resolved',
-                      actions: 'setUser',
-                    },
-                    onError: {
-                      target: 'idle',
-                      actions: 'setRemoteError',
-                    },
+                  always: {
+                    target: '#signUpActor.resolved',
+                    actions: 'setAutoSignInIntent',
                   },
                 },
 
@@ -144,23 +150,24 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
           initial: 'edit',
           states: {
             edit: {
-              entry: sendUpdate(),
+              entry: 'sendUpdate',
               on: {
-                SUBMIT: 'submit',
+                SUBMIT: { actions: 'handleSubmit', target: 'submit' },
                 CHANGE: { actions: 'handleInput' },
+                BLUR: { actions: 'handleBlur' },
                 RESEND: 'resend',
               },
             },
             resend: {
               tags: ['pending'],
-              entry: sendUpdate(),
+              entry: 'sendUpdate',
               invoke: {
                 src: 'resendConfirmationCode',
                 onDone: { target: 'edit' },
                 onError: [
                   {
                     target: '#signUpActor.resolved',
-                    actions: 'setUser',
+                    actions: 'setAutoSignInIntent',
                     cond: 'isUserAlreadyConfirmed',
                   },
                   { target: 'edit', actions: 'setRemoteError' },
@@ -169,10 +176,13 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
             },
             submit: {
               tags: ['pending'],
-              entry: [sendUpdate(), 'clearError'],
+              entry: ['sendUpdate', 'clearError'],
               invoke: {
                 src: 'confirmSignUp',
-                onDone: { target: '#signUpActor.resolved', actions: 'setUser' },
+                onDone: {
+                  target: '#signUpActor.resolved',
+                  actions: 'setAutoSignInIntent',
+                },
                 onError: { target: 'edit', actions: 'setRemoteError' },
               },
             },
@@ -186,6 +196,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
             return {
               user: get(event, 'data.user') || context.user,
               authAttributes: { username, password },
+              intent: context.intent,
             };
           },
         },
@@ -218,34 +229,29 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
       actions: {
         clearError,
         clearFormValues,
+        clearTouched,
         clearValidationError,
         handleInput,
+        handleSubmit,
+        handleBlur,
+        parsePhoneNumber,
         setCredentials,
         setFieldErrors,
         setRemoteError,
+        setCodeDeliveryDetails,
         setUser,
+        sendUpdate: sendUpdate(), // sendUpdate is a HOC
+        setAutoSignInIntent: assign({ intent: (_) => 'autoSignIn' }),
       },
       services: {
-        async signIn(context, event) {
-          const { user, authAttributes, formValues } = context;
-
-          const username =
-            get(user, 'username') || get(authAttributes, 'username');
-          const password = get(formValues, 'password');
-
-          return await Auth.signIn(username, password);
-        },
         async confirmSignUp(context, event) {
           const { user, authAttributes, formValues } = context;
           const { confirmation_code: code } = formValues;
 
           const username =
             get(user, 'username') || get(authAttributes, 'username');
-          const { password } = authAttributes;
 
-          await Auth.confirmSignUp(username, code);
-
-          return await Auth.signIn(username, password);
+          return await services.handleConfirmSignUp({ username, code });
         },
         async resendConfirmationCode(context, event) {
           const { user, authAttributes } = context;
@@ -261,19 +267,10 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
         },
         async signUp(context, _event) {
           const { formValues, loginMechanisms } = context;
-          const [primaryAlias] = loginMechanisms ?? ['username'];
+          const [primaryAlias = 'username'] = loginMechanisms;
+          const { [primaryAlias]: username, password } = formValues;
 
-          if (formValues.phone_number) {
-            formValues.phone_number =
-              `${formValues.country_code}${formValues.phone_number}`.replace(
-                /[^A-Z0-9+]/gi,
-                ''
-              );
-          }
-
-          const username = formValues[primaryAlias];
-          const { password } = formValues;
-          const attributes = pickBy(formValues, (value, key) => {
+          const attributes = pickBy(formValues, (_, key) => {
             // Allowlist of Cognito User Pool Attributes (from OpenID Connect specification)
             // See: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html
             switch (key) {
@@ -302,21 +299,29 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
             }
           });
 
-          const result = await Auth.signUp({ username, password, attributes });
-
-          // TODO `cond`itionally transition to `signUp.confirm` or `resolved` based on result
-          return result;
+          return await services.handleSignUp({
+            username,
+            password,
+            attributes,
+          });
         },
         async validateSignUp(context, event) {
           // This needs to exist in the machine to reference new `services`
-          return runValidators(context.formValues, [
-            // Validation for default form fields
-            services.validateConfirmPassword,
-            services.validatePreferredUsername,
 
-            // Validation for any custom Sign Up fields
-            services.validateCustomSignUp,
-          ]);
+          return runValidators(
+            context.formValues,
+            context.touched,
+            context.passwordSettings,
+            [
+              // Validation of password
+              services.validateFormPassword,
+              // Validation for default form fields
+              services.validateConfirmPassword,
+              services.validatePreferredUsername,
+              // Validation for any custom Sign Up fields
+              services.validateCustomSignUp,
+            ]
+          );
         },
       },
     }

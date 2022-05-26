@@ -1,8 +1,10 @@
 import {
   AfterContentInit,
+  ChangeDetectorRef,
   Component,
   ContentChildren,
   Input,
+  OnDestroy,
   OnInit,
   QueryList,
   TemplateRef,
@@ -10,6 +12,8 @@ import {
 } from '@angular/core';
 import {
   AuthenticatorMachineOptions,
+  defaultAuthHubHandler,
+  listenToAuthHub,
   SocialProvider,
   translate,
 } from '@aws-amplify/ui';
@@ -23,13 +27,17 @@ import { AuthenticatorService } from '../../../../services/authenticator.service
   providers: [CustomComponentsService], // make sure custom components are scoped to this authenticator only
   encapsulation: ViewEncapsulation.None,
 })
-export class AuthenticatorComponent implements OnInit, AfterContentInit {
+export class AuthenticatorComponent
+  implements OnInit, AfterContentInit, OnDestroy
+{
+  @Input() formFields: AuthenticatorMachineOptions['formFields'];
   @Input() initialState: AuthenticatorMachineOptions['initialState'];
   @Input() loginMechanisms: AuthenticatorMachineOptions['loginMechanisms'];
   @Input() services: AuthenticatorMachineOptions['services'];
   @Input() signUpAttributes: AuthenticatorMachineOptions['signUpAttributes'];
   @Input() socialProviders: SocialProvider[];
   @Input() variation: 'default' | 'modal';
+  @Input() hideSignUp: boolean;
 
   @ContentChildren(AmplifySlotDirective)
   private customComponentQuery: QueryList<AmplifySlotDirective> = null;
@@ -38,9 +46,15 @@ export class AuthenticatorComponent implements OnInit, AfterContentInit {
   public signInTitle = translate('Sign In');
   public signUpTitle = translate('Create Account');
 
+  private hasInitialized = false;
+  private isHandlingHubEvent = false;
+  private unsubscribeMachine: () => void;
+  private unsubscribeHub: ReturnType<typeof listenToAuthHub>;
+
   constructor(
     private authenticator: AuthenticatorService,
-    private contextService: CustomComponentsService
+    private contextService: CustomComponentsService,
+    private changeDetector: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -50,14 +64,67 @@ export class AuthenticatorComponent implements OnInit, AfterContentInit {
       services,
       signUpAttributes,
       socialProviders,
+      formFields,
     } = this;
-    this.authenticator.startMachine({
-      initialState,
-      loginMechanisms,
-      services,
-      signUpAttributes,
-      socialProviders,
+
+    const { authService } = this.authenticator;
+
+    this.unsubscribeHub = listenToAuthHub(authService, (data, service) => {
+      defaultAuthHubHandler(data, service);
+      /**
+       * Hub events aren't properly caught by Angular, because they are
+       * synchronous events. Angular tracks async network events and
+       * html events, but not synchronous events like hub.
+       *
+       * On any notable hub events, we run change detection manually.
+       */
+      this.changeDetector.detectChanges();
+
+      /**
+       * Hub events that we handle can lead to multiple state changes:
+       * e.g. `authenticated` -> `signOut` -> initialState.
+       *
+       * We want to ensure change detection runs all the way, until
+       * we reach back to the initial state. Setting the below flag
+       * to true to until we reach initial state.
+       */
+      this.isHandlingHubEvent = true;
     });
+
+    /**
+     * Subscribes to state machine changes and sends INIT event
+     * once machine reaches 'setup' state.
+     */
+    this.unsubscribeMachine = this.authenticator.subscribe(() => {
+      const { route } = this.authenticator;
+
+      if (this.isHandlingHubEvent) {
+        this.changeDetector.detectChanges();
+
+        const initialStateWithDefault = initialState ?? 'signIn';
+
+        // We can stop manual change detection if we're back to the initial state
+        if (route === initialStateWithDefault) {
+          this.isHandlingHubEvent = false;
+        }
+      }
+
+      if (!this.hasInitialized && route === 'setup') {
+        this.authenticator.send({
+          type: 'INIT',
+          data: {
+            initialState,
+            loginMechanisms,
+            services,
+            signUpAttributes,
+            socialProviders,
+            formFields,
+          },
+        });
+
+        this.hasInitialized = true;
+      }
+    }).unsubscribe;
 
     /**
      * handling translations after content init, because authenticator and its
@@ -74,6 +141,11 @@ export class AuthenticatorComponent implements OnInit, AfterContentInit {
     this.contextService.customComponents = this.mapCustomComponents(
       this.customComponentQuery
     );
+  }
+
+  ngOnDestroy(): void {
+    if (this.unsubscribeMachine) this.unsubscribeMachine();
+    if (this.unsubscribeHub) this.unsubscribeHub();
   }
 
   /**
@@ -95,6 +167,26 @@ export class AuthenticatorComponent implements OnInit, AfterContentInit {
       this.authenticator.toSignUp();
     } else {
       this.authenticator.toSignIn();
+    }
+  }
+
+  public hasTabs() {
+    const { route } = this.authenticator;
+    return route === 'signIn' || route === 'signUp';
+  }
+
+  public hasRouteComponent() {
+    const { route } = this.authenticator;
+
+    switch (route) {
+      case 'authenticated':
+      case 'idle':
+      case 'setup':
+      case 'signOut':
+      case 'autoSignIn':
+        return false;
+      default:
+        return true;
     }
   }
 

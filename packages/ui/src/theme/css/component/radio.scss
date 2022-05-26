@@ -2,17 +2,15 @@
   align-items: var(--amplify-components-radio-align-items);
   justify-content: var(--amplify-components-radio-justify-content);
   gap: inherit;
-}
-
-.amplify-radio[data-disabled='true'] {
-  cursor: var(--amplify-components-radio-disabled-cursor);
+  flex-direction: row-reverse;
+  &--disabled {
+    cursor: var(--amplify-components-radio-disabled-cursor);
+  }
 }
 
 .amplify-radio__button {
   align-items: var(--amplify-components-radio-button-align-items);
   justify-content: var(--amplify-components-radio-button-justify-content);
-  width: var(--amplify-components-radio-button-width);
-  height: var(--amplify-components-radio-button-height);
   padding: var(--amplify-components-radio-button-padding);
   box-sizing: var(--amplify-components-radio-button-box-sizing);
   border-width: var(--amplify-components-radio-button-border-width);
@@ -27,6 +25,8 @@
   transition-duration: var(
     --amplify-components-radio-button-transition-duration
   );
+  width: var(--amplify-components-radio-button-width);
+  height: var(--amplify-components-radio-button-height);
 
   // For case where box shadow doesn't work
   // https://stackoverflow.com/questions/65663864/does-replacing-a-form-inputs-outline-with-box-shadow-violate-any-wcag-guideline
@@ -45,11 +45,12 @@
     border-radius: 50%;
   }
 
-  &[data-size='small'] {
+  &--small {
     width: var(--amplify-components-radio-button-small-width);
     height: var(--amplify-components-radio-button-small-height);
   }
-  &[data-size='large'] {
+
+  &--large {
     width: var(--amplify-components-radio-button-large-width);
     height: var(--amplify-components-radio-button-large-height);
   }

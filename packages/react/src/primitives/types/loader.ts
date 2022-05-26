@@ -24,4 +24,16 @@ export interface LoaderProps extends ViewProps {
    * This will set the empty color of Loader.
    */
   emptyColor?: Property.Color;
+  /**
+   * This will set the percentage of a determinate Loader.
+   */
+  percentage?: number;
+  /**
+   * This will mark the Loader as determinate.
+   */
+  isDeterminate?: boolean;
+  /**
+   * This will set the visibility of percentage text.
+   */
+  isPercentageTextHidden?: boolean;
 }

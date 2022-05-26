@@ -1,4 +1,9 @@
-<amplify-authenticator initialState="signUp">
+{{ authStatus }}
+<amplify-authenticator
+  [formFields]="formFields"
+  [services]="services"
+  initialState="signUp"
+>
   <ng-template
     amplifySlot="authenticated"
     let-user="user"

@@ -2,7 +2,9 @@ import { Component, HostBinding, OnInit } from '@angular/core';
 import { Logger } from 'aws-amplify';
 import {
   AuthChallengeNames,
+  FormFieldsArray,
   getActorContext,
+  getFormDataFromEvent,
   SignInContext,
 } from '@aws-amplify/ui';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
@@ -21,6 +23,7 @@ export class ConfirmSignInComponent implements OnInit {
   public headerText: string;
   public confirmText = translate('Confirm');
   public backToSignInText = translate('Back to Sign In');
+  public sortedFormFields: FormFieldsArray;
 
   constructor(public authenticator: AuthenticatorService) {}
 
@@ -56,6 +59,6 @@ export class ConfirmSignInComponent implements OnInit {
 
   onSubmit(event: Event): void {
     event.preventDefault();
-    this.authenticator.submitForm();
+    this.authenticator.submitForm(getFormDataFromEvent(event));
   }
 }

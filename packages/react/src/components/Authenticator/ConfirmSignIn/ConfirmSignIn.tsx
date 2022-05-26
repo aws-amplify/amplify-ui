@@ -6,13 +6,60 @@ import {
   translate,
 } from '@aws-amplify/ui';
 
-import { useAuthenticator } from '..';
-import { Flex, Heading } from '../../..';
-import { ConfirmationCodeInput, ConfirmSignInFooter } from '../shared';
-import { isInputOrSelectElement, isInputElement } from '../../../helpers/utils';
+import { Flex } from '../../../primitives/Flex';
+import { Heading } from '../../../primitives/Heading';
+import { useAuthenticator } from '../hooks/useAuthenticator';
+import { useCustomComponents } from '../hooks/useCustomComponents';
+import { useFormHandlers } from '../hooks/useFormHandlers';
+import { FormFields } from '../shared/FormFields';
+import { ConfirmSignInFooter } from '../shared/ConfirmSignInFooter';
+import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
+import { RouteContainer, RouteProps } from '../RouteContainer';
 
-export const ConfirmSignIn = (): JSX.Element => {
-  const { _state, error, submitForm, updateForm } = useAuthenticator();
+export const ConfirmSignIn = ({
+  className,
+  variation,
+}: RouteProps): JSX.Element => {
+  const { isPending } = useAuthenticator((context) => [context.isPending]);
+  const { handleChange, handleSubmit } = useFormHandlers();
+
+  const {
+    components: {
+      ConfirmSignIn: {
+        Header = ConfirmSignIn.Header,
+        Footer = ConfirmSignIn.Footer,
+      },
+    },
+  } = useCustomComponents();
+
+  return (
+    <RouteContainer className={className} variation={variation}>
+      <form
+        data-amplify-form=""
+        data-amplify-authenticator-confirmsignin=""
+        method="post"
+        onChange={handleChange}
+        onSubmit={handleSubmit}
+      >
+        <Flex as="fieldset" direction="column" isDisabled={isPending}>
+          <Header />
+
+          <Flex direction="column">
+            <FormFields />
+            <RemoteErrorMessage />
+          </Flex>
+
+          <ConfirmSignInFooter />
+          <Footer />
+        </Flex>
+      </form>
+    </RouteContainer>
+  );
+};
+
+function Header() {
+  // TODO: expose challengeName
+  const { _state } = useAuthenticator();
   const actorState = getActorState(_state) as SignInState;
 
   const { challengeName } = actorState.context as SignInContext;
@@ -27,46 +74,14 @@ export const ConfirmSignIn = (): JSX.Element => {
       break;
     default:
       throw new Error(
-        `Unexpected challengeName encountered in ConfirmSignIn: ${challengeName}`
+        `${translate(
+          'Unexpected challengeName encountered in ConfirmSignIn:'
+        )} ${challengeName}`
       );
   }
-  const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
-    if (isInputOrSelectElement(event.target)) {
-      let { name, type, value } = event.target;
-      if (
-        isInputElement(event.target) &&
-        type === 'checkbox' &&
-        !event.target.checked
-      ) {
-        value = undefined;
-      }
 
-      updateForm({ name, value });
-    }
-  };
+  return <Heading level={3}>{headerText}</Heading>;
+}
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    submitForm();
-  };
-
-  return (
-    <form
-      data-amplify-form=""
-      data-amplify-authenticator-confirmsignin=""
-      method="post"
-      onChange={handleChange}
-      onSubmit={handleSubmit}
-    >
-      <Flex direction="column">
-        <Heading level={3}>{headerText}</Heading>
-
-        <Flex direction="column">
-          <ConfirmationCodeInput errorText={error} />
-        </Flex>
-
-        <ConfirmSignInFooter />
-      </Flex>
-    </form>
-  );
-};
+ConfirmSignIn.Header = Header;
+ConfirmSignIn.Footer = (): JSX.Element => null;

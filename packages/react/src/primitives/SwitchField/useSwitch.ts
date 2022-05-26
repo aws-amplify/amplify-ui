@@ -12,12 +12,11 @@ export const useSwitch = (props) => {
         event.preventDefault();
         return;
       }
-      if (!isControlled) {
-        typeof onChange === 'function' && onChange(event);
-        setIsOn(event.target.checked);
-      }
+
+      typeof onChange === 'function' && onChange(event);
+      setIsOn(event.target.checked);
     },
-    [onChange, isChecked]
+    [onChange, isDisabled]
   );
 
   if (isControlled && isOn !== isChecked) {

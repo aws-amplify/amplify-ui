@@ -5,7 +5,11 @@ import { facade } from './useUtils';
 import { InterpretService } from '@/components';
 
 const service = ref() as Ref<InterpretService>;
-let useAuthenticatorValue = reactive({ ...facade, send: '', state: '' }) as any;
+const useAuthenticatorValue = reactive({
+  ...facade,
+  send: '' as unknown,
+  state: '' as unknown,
+}) as any;
 
 export const useAuth = (serv?: InterpretService) => {
   if (serv) {
@@ -14,13 +18,15 @@ export const useAuth = (serv?: InterpretService) => {
   return useActor(service.value);
 };
 
-export const useAuthenticator = () => {
+const useInternalAuthenticator = () => {
   createValues();
   watchEffect(() => {
     createValues();
   });
   return useAuthenticatorValue;
 };
+
+export const useAuthenticator = useInternalAuthenticator;
 
 function createValues() {
   if (!service.value) return;

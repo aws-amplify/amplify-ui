@@ -3,8 +3,8 @@ import * as React from 'react';
 import kebabCase from 'lodash/kebabCase';
 import { render, screen } from '@testing-library/react';
 
-import { ComponentPropsToStylePropsMap } from '../../types';
 import { View } from '../View';
+import { ComponentPropsToStylePropsMap } from '../../types';
 
 describe('View: ', () => {
   const viewText = 'Hello from inside a view';
@@ -23,6 +23,15 @@ describe('View: ', () => {
     expect(view.dataset['testid']).toBe(viewTestId);
     expect(view.innerHTML).toBe(viewText);
     expect(view.nodeName).toBe('DIV');
+  });
+
+  it('should render class name', async () => {
+    const className = 'class-test';
+    const testId = 'view-test';
+    render(<View className={className} testId={testId} />);
+
+    const view = await screen.findByTestId(testId);
+    expect(view).toHaveClass(className);
   });
 
   it('should forward ref to DOM element', async () => {

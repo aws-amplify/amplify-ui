@@ -1,8 +1,7 @@
 Feature: Sign In with Federation
 
-  Amplify's SignIn component uses AWS Cognito's authentication
-  service to provide a sign in experience to your application's
-  users.
+  Authenticator supports sign in with social provider, including Amazon, Apple,
+  Facebook, and Google.
 
   Background:
     Given I'm running the example "ui/components/authenticator/sign-in-federated"

@@ -1,0 +1,24 @@
+---
+title: Installation
+metaDescription: Installation Guide - How to install Amplify UI Packages, Styles, and Fonts.
+supportedFrameworks: all
+---
+
+import Link from 'next/link';
+import { Fragment } from '@/components/Fragment';
+
+## Dependencies
+
+### Packages
+
+<Fragment>
+  {({ platform }) => import(`./dependencies.${platform}.mdx`)}
+</Fragment>
+
+<Fragment platforms={['web']} useCommonWebContent>
+  {({ platform }) => import(`./styles.${platform}.mdx`)}
+</Fragment>
+
+<Fragment platforms={['web']} useCommonWebContent>
+  {({ platform }) => import(`./fonts.${platform}.mdx`)}
+</Fragment>

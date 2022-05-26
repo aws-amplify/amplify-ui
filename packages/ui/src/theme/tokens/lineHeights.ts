@@ -15,7 +15,7 @@ export type WebLineHeights = {
 };
 
 export const lineHeights: LineHeights = {
-  small: { value: '1.5' },
-  medium: { value: '1.75' },
+  small: { value: '1.25' },
+  medium: { value: '1.5' },
   large: { value: '2' },
 };

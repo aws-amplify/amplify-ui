@@ -1,21 +1,22 @@
-import { Alert } from '@aws-amplify/ui-react';
+import * as React from 'react';
+import * as runtime from 'react/jsx-runtime';
+
+import { Alert, VisuallyHidden } from '@aws-amplify/ui-react';
 import {
   AstBuilder,
   GherkinClassicTokenMatcher,
   Parser,
 } from '@cucumber/gherkin';
-import { IdGenerator } from '@cucumber/messages';
 import {
   ClipboardCheckIcon,
   CodeIcon,
   ExternalLinkIcon,
 } from '@heroicons/react/solid';
-import { useRouter } from 'next/router';
-import * as React from 'react';
-import { useEffect } from 'react';
-import * as runtime from 'react/jsx-runtime';
+
+import { IdGenerator } from '@cucumber/messages';
+import { evaluateSync } from '@mdx-js/mdx';
 import remarkGfm from 'remark-gfm';
-import { evaluateSync } from 'xdm';
+import { useCustomRouter } from '@/components/useCustomRouter';
 
 const parser = new Parser(
   new AstBuilder(IdGenerator.uuid()),
@@ -56,12 +57,12 @@ function getGitHubUrlForExample(platform) {
 
 export function Feature({ name = required('Missing feature name') }) {
   const [source, setSource] = React.useState(null);
-  const { pathname, query } = useRouter();
+  const { pathname, query } = useCustomRouter();
   const { platform = 'react' } = query;
 
   const port = getPortForPlatform(platform);
 
-  useEffect(() => {
+  React.useEffect(() => {
     import(`../../../packages/e2e/features${pathname}/${name}.feature`).then(
       (exports) => setSource(exports.default)
     );
@@ -113,7 +114,7 @@ export function Feature({ name = required('Missing feature name') }) {
         <table className="w-full ml-4 table-auto">
           <thead>
             <tr className="text-sm text-left text-gray-600">
-              <th className="sr-only">Example</th>
+              <VisuallyHidden as="th">Example</VisuallyHidden>
               {process.env.NODE_ENV === 'development' && <td>Demo</td>}
               <td>Source</td>
               <td>Test</td>
@@ -130,9 +131,10 @@ export function Feature({ name = required('Missing feature name') }) {
                   <td>
                     <a
                       href={`http://localhost:${port}${pathname}/${name}`}
+                      rel="noreferrer"
                       target="_blank"
                     >
-                      <span className="sr-only">Demo</span>
+                      <VisuallyHidden as="span">Demo</VisuallyHidden>
                       <ExternalLinkIcon className="h-4" />
                     </a>
                   </td>
@@ -142,18 +144,20 @@ export function Feature({ name = required('Missing feature name') }) {
                     href={`${getGitHubUrlForExample(
                       platform
                     )}${pathname}/${name}`}
+                    rel="noreferrer"
                     target="_blank"
                   >
-                    <span className="sr-only">Source</span>
+                    <VisuallyHidden as="span">Source</VisuallyHidden>
                     <CodeIcon className="h-4" />
                   </a>
                 </td>
                 <td>
                   <a
                     href={`https://github.com/aws-amplify/amplify-ui/blob/${process.env.BRANCH}/packages/e2e/features${pathname}/${name}.feature#L${scenario.location.line}`}
+                    rel="noreferrer"
                     target="_blank"
                   >
-                    <span className="sr-only">Test</span>
+                    <VisuallyHidden as="span">Test</VisuallyHidden>
                     <ClipboardCheckIcon className="h-4" />
                   </a>
                 </td>

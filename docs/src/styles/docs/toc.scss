@@ -4,11 +4,11 @@
   right: -14rem;
   background-color: var(--amplify-colors-background-primary);
   font-size: var(--amplify-font-sizes-small);
-  
+
   &:hover {
     right: 0;
   }
-  
+
   @media (min-width: 80rem) {
     display: block;
     position: relative;
@@ -21,24 +21,26 @@
 .docs-toc-inner {
   position: sticky;
   width: 16rem;
+  height: calc(100vh - var(--docs-header-height));
   flex-shrink: 0;
-  top: 8rem;
+  top: var(--docs-header-height);
   right: 0;
   padding: var(--amplify-space-medium);
 }
 
 .docs-toc-heading {
   color: var(--amplify-colors-font-tertiary);
+  font-weight: var(--amplify-font-weights-bold);
   padding: var(--amplify-space-xs) var(--amplify-space-medium);
 }
 
 .docs-toc-link {
   display: block;
-  padding: var(--amplify-space-xs) var(--amplify-space-medium);
+  padding: var(--amplify-space-xxs) var(--amplify-space-medium);
   text-decoration: none;
   color: var(--amplify-colors-font-secondary);
   position: relative;
-  
+
   &::before {
     content: '';
     position: absolute;
@@ -50,7 +52,7 @@
     border-radius: 0.5rem;
     background-color: var(--amplify-colors-font-tertiary);
   }
-  
+
   &.active {
     color: var(--amplify-colors-font-primary);
     font-weight: 700;
@@ -58,7 +60,7 @@
       background-color: var(--amplify-colors-font-primary);
     }
   }
-  
+
   &.level-H3 {
     // padding-left: var(--amplify-space-large);
     margin-left: var(--amplify-space-small);

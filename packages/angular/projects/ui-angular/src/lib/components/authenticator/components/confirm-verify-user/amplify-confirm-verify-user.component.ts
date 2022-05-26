@@ -1,5 +1,9 @@
 import { Component, HostBinding, Input } from '@angular/core';
-import { translate } from '@aws-amplify/ui';
+import {
+  FormFieldsArray,
+  getFormDataFromEvent,
+  translate,
+} from '@aws-amplify/ui';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 
 @Component({
@@ -16,6 +20,7 @@ export class ConfirmVerifyUserComponent {
   // translated texts
   public skipText = translate('Skip');
   public submitText = translate('Submit');
+  public sortedFormFields: FormFieldsArray;
 
   constructor(public authenticator: AuthenticatorService) {}
 
@@ -31,6 +36,6 @@ export class ConfirmVerifyUserComponent {
 
   onSubmit(event: Event): void {
     event.preventDefault();
-    this.authenticator.submitForm();
+    this.authenticator.submitForm(getFormDataFromEvent(event));
   }
 }

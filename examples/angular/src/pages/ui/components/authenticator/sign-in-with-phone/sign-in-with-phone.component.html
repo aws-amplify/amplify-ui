@@ -1,10 +1,10 @@
-<amplify-authenticator>
+<amplify-authenticator [formFields]="formFields">
   <ng-template
     amplifySlot="authenticated"
     let-user="user"
     let-signOut="signOut"
   >
-    <h2>Welcome, {{ user.username }}!</h2>
+    <h2>Welcome, {{ user.attributes?.phone_number }}!</h2>
     <button (click)="signOut()">Sign Out</button>
   </ng-template>
 </amplify-authenticator>

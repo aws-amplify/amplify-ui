@@ -48,14 +48,25 @@ Cypress.Commands.add(
 );
 
 Cypress.Commands.add('findInputField', (field: string) => {
-  const passwordFieldNames = ['password', 'confirm password'];
+  const codeFieldNames = ['confirmation code', 'code *'];
+  const passwordFieldNames = ['password', 'new password', 'confirm password'];
+
+  const isConfirmationCodeField = codeFieldNames.includes(field.toLowerCase());
   const isPasswordField = passwordFieldNames.includes(field.toLowerCase());
+
   const regexString = `^(enter your )?${escapeRegExp(field)}$`;
   const regex = new RegExp(regexString, 'i');
 
-  if (isPasswordField) {
+  if (isConfirmationCodeField) {
+    const regex = new RegExp(`^(confirmation )?code( *)?`, 'i');
+    return cy.findByRole('spinbutton', { name: regex });
+  } else if (isPasswordField) {
     return cy.findAllByLabelText(regex);
   } else {
     return cy.findByRole('textbox', { name: regex });
   }
+});
+
+Cypress.Commands.add('waitForIdleMap', () => {
+  cy.window().its('idleMap').should('be.true');
 });

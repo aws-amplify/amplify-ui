@@ -1,24 +1,30 @@
+import * as React from 'react';
 import classNames from 'classnames';
 
-import { Flex } from '../Flex';
-import { View } from '../View';
-import { usePaginationItems } from './usePaginationItems';
-import { PaginationProps, Primitive } from '../types';
 import { ComponentClassNames } from '../shared/constants';
+import { Flex } from '../Flex';
+import { PaginationProps, Primitive } from '../types';
+import { usePaginationItems } from './usePaginationItems';
+import { View } from '../View';
 
-export const Pagination: Primitive<PaginationProps, 'nav'> = ({
-  className,
-  currentPage,
-  totalPages,
-  siblingCount,
-  onNext,
-  onPrevious,
-  onChange,
-  ...rest
-}) => {
+const PaginationPrimitive: Primitive<PaginationProps, 'nav'> = (
+  {
+    className,
+    currentPage = 1,
+    totalPages,
+    hasMorePages = false,
+    siblingCount,
+    onNext,
+    onPrevious,
+    onChange,
+    ...rest
+  },
+  ref
+) => {
   const paginationItems = usePaginationItems(
     currentPage,
     totalPages,
+    hasMorePages,
     siblingCount,
     onNext,
     onPrevious,
@@ -29,6 +35,7 @@ export const Pagination: Primitive<PaginationProps, 'nav'> = ({
     <View
       as="nav"
       className={classNames(ComponentClassNames.Pagination, className)}
+      ref={ref}
       {...rest}
     >
       <Flex as="ol" justifyContent="center" alignItems="center" gap="inherit">
@@ -37,5 +44,7 @@ export const Pagination: Primitive<PaginationProps, 'nav'> = ({
     </View>
   );
 };
+
+export const Pagination = React.forwardRef(PaginationPrimitive);
 
 Pagination.displayName = 'Pagination';

@@ -2,64 +2,63 @@ import { Breakpoints } from '../../../types/responsive';
 import { getMediaQueries } from '../getMediaQueries';
 
 const unSortedBreakpoints: Breakpoints = {
-  xl: 80,
-  small: 30,
+  xl: 1280,
+  small: 480,
   base: 0,
-  large: 62,
-  medium: 48,
-  xxl: 96,
+  large: 992,
+  medium: 768,
+  xxl: 1536,
 };
 
 const expectedMediaQueries = [
   {
     breakpoint: 'xxl',
     maxWidth: null,
-    minWidth: 96,
-    query: '(min-width: 96em)',
+    minWidth: 1536,
+    query: '(min-width: 1536px)',
   },
   {
     breakpoint: 'xl',
-    maxWidth: 96,
-    minWidth: 80,
-    query: '(min-width: 80em) and (max-width: 95em)',
+    maxWidth: 1535,
+    minWidth: 1280,
+    query: '(min-width: 1280px) and (max-width: 1535px)',
   },
   {
     breakpoint: 'large',
-    maxWidth: 80,
-    minWidth: 62,
-    query: '(min-width: 62em) and (max-width: 79em)',
+    maxWidth: 1279,
+    minWidth: 992,
+    query: '(min-width: 992px) and (max-width: 1279px)',
   },
   {
     breakpoint: 'medium',
-    maxWidth: 62,
-    minWidth: 48,
-    query: '(min-width: 48em) and (max-width: 61em)',
+    maxWidth: 991,
+    minWidth: 768,
+    query: '(min-width: 768px) and (max-width: 991px)',
   },
   {
     breakpoint: 'small',
-    maxWidth: 48,
-    minWidth: 30,
-    query: '(min-width: 30em) and (max-width: 47em)',
+    maxWidth: 767,
+    minWidth: 480,
+    query: '(min-width: 480px) and (max-width: 767px)',
   },
   {
     breakpoint: 'base',
-    maxWidth: 30,
+    maxWidth: 479,
     minWidth: 0,
-    query: '(min-width: 0em) and (max-width: 29em)',
+    query: '(min-width: 0px) and (max-width: 479px)',
   },
 ];
 
 describe('getMediaQueries', () => {
-  it('should return a sorted list of queries and use breakpointUnit', () => {
+  it('should return a sorted list of queries using px unit', () => {
     const result = getMediaQueries({
       breakpoints: unSortedBreakpoints,
-      breakpointUnit: 'em',
     });
     // Didn't use a snapshot here because snapshots are too
     // easy to ignore and update without understanding why
     // they changed
     expect(result).toEqual(expectedMediaQueries);
-    expect(result[0].query.includes('em')).toBe(true);
+    expect(result[0].query.includes('px')).toBe(true);
   });
 
   it('should handle negative min-width', () => {
@@ -69,12 +68,11 @@ describe('getMediaQueries', () => {
     };
     const expectedMediaQueriesNegWidth = [...expectedMediaQueries];
     expectedMediaQueriesNegWidth[5].minWidth = -1;
-    expectedMediaQueriesNegWidth[5].query = '(max-width: 29em)';
+    expectedMediaQueriesNegWidth[5].query = '(max-width: 479px)';
 
     expect(
       getMediaQueries({
         breakpoints: negativeBreakpoints,
-        breakpointUnit: 'em',
       })
     ).toEqual(expectedMediaQueriesNegWidth);
   });

@@ -3,8 +3,13 @@ import {
   getConsecutiveIntArray,
   getOverrideProps,
   getOverridesFromVariants,
+  mergeVariantsAndOverrides,
   strHasLength,
+  EscapeHatchProps,
+  classNameModifier,
+  classNameModifierByFlag,
 } from '../utils';
+import { ComponentClassNames } from '../constants';
 
 const props: ViewProps = {
   backgroundColor: 'blue',
@@ -230,5 +235,137 @@ describe('getOverridesFromVariants', () => {
     expect(getOverridesFromVariants(variants, selectedVariantValue)).toEqual(
       expected
     );
+  });
+});
+
+describe('mergeVariantsAndOverrides', () => {
+  const expected: EscapeHatchProps = {
+    'Flex.Button[0]': {
+      color: 'red',
+      size: 'large',
+    },
+    'Flex.CheckBox[1]': {
+      isEnabled: 'false',
+      size: 'large',
+    },
+  };
+  it('should return merged variants after applying overrides', () => {
+    const variants: EscapeHatchProps = {
+      'Flex.Button[0]': {
+        color: 'red',
+      },
+      'Flex.CheckBox[1]': {
+        isEnabled: 'false',
+        size: 'small',
+      },
+    };
+
+    const overrides: EscapeHatchProps = {
+      'Flex.Button[0]': {
+        size: 'large',
+      },
+      'Flex.CheckBox[1]': {
+        size: 'large',
+      },
+    };
+
+    expect(mergeVariantsAndOverrides(variants, overrides)).toEqual(expected);
+  });
+
+  it('should return merged variants when override includes new control', () => {
+    const variants: EscapeHatchProps = {
+      'Flex.Button[0]': {
+        color: 'red',
+        size: 'large',
+      },
+    };
+
+    const overrides: EscapeHatchProps = {
+      'Flex.CheckBox[1]': {
+        isEnabled: 'false',
+        size: 'large',
+      },
+    };
+
+    expect(mergeVariantsAndOverrides(variants, overrides)).toEqual(expected);
+  });
+
+  it('should return merged variants when all variants overridden', () => {
+    const variants: EscapeHatchProps = {
+      'Flex.Button[0]': {
+        color: 'green',
+        size: 'small',
+      },
+      'Flex.CheckBox[1]': {
+        isEnabled: 'true',
+        size: 'small',
+      },
+    };
+
+    const overrides: EscapeHatchProps = {
+      ...expected,
+    };
+
+    expect(mergeVariantsAndOverrides(variants, overrides)).toEqual(expected);
+  });
+
+  it('should return original variants when override is empty', () => {
+    const variants: EscapeHatchProps = {
+      ...expected,
+    };
+
+    const overrides: EscapeHatchProps = {};
+
+    expect(mergeVariantsAndOverrides(variants, overrides)).toEqual(expected);
+  });
+
+  it('should return original variants when override is null', () => {
+    const variants: EscapeHatchProps = {
+      ...expected,
+    };
+
+    expect(mergeVariantsAndOverrides(variants, null)).toEqual(expected);
+  });
+
+  it('should return overrides when variant is null', () => {
+    const overrides: EscapeHatchProps = {
+      ...expected,
+    };
+
+    expect(mergeVariantsAndOverrides(null, overrides)).toEqual(expected);
+  });
+
+  it('should return null when both variant & override are null', () => {
+    expect(mergeVariantsAndOverrides(null, null)).toEqual(null);
+  });
+});
+
+describe('classNameModifier', () => {
+  const modifiedClassName = 'amplify-alert--modified';
+  const myClass = ComponentClassNames['Alert'];
+  const modifier = 'modified';
+
+  it('should return the modified className with a modifier passed in', () => {
+    expect(classNameModifier(myClass, modifier)).toEqual(modifiedClassName);
+  });
+
+  it('should return null without a modifier passed in', () => {
+    expect(classNameModifier(myClass, undefined)).toEqual(null);
+  });
+});
+
+describe('classNameModifierByFlag', () => {
+  const modifiedClassName = 'amplify-alert--modified';
+  const myClass = ComponentClassNames['Alert'];
+  const modifier = 'modified';
+
+  it('should return the modified className with a true flag value passed in', () => {
+    expect(classNameModifierByFlag(myClass, modifier, true)).toEqual(
+      modifiedClassName
+    );
+  });
+
+  it('should return null with a false flag value passed in', () => {
+    expect(classNameModifierByFlag(myClass, modifier, false)).toEqual(null);
   });
 });

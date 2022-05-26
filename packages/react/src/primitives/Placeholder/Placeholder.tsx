@@ -1,11 +1,12 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared';
-import { PlaceholderProps, PrimitiveWithForwardRef } from '../types';
+import { PlaceholderProps, Primitive } from '../types';
 import { View } from '../View';
 
-const PlaceholderInner: PrimitiveWithForwardRef<PlaceholderProps, 'div'> = (
+const PlaceholderPrimitive: Primitive<PlaceholderProps, 'div'> = (
   { className, children, isLoaded, size, ...rest },
   ref
 ) => {
@@ -15,7 +16,11 @@ const PlaceholderInner: PrimitiveWithForwardRef<PlaceholderProps, 'div'> = (
 
   return (
     <View
-      className={classNames(ComponentClassNames.Placeholder, className)}
+      className={classNames(
+        ComponentClassNames.Placeholder,
+        classNameModifier(ComponentClassNames.Placeholder, size),
+        className
+      )}
       data-size={size}
       ref={ref}
       {...rest}
@@ -23,6 +28,6 @@ const PlaceholderInner: PrimitiveWithForwardRef<PlaceholderProps, 'div'> = (
   );
 };
 
-export const Placeholder = React.forwardRef(PlaceholderInner);
+export const Placeholder = React.forwardRef(PlaceholderPrimitive);
 
 Placeholder.displayName = 'Placeholder';

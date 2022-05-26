@@ -1,5 +1,7 @@
+import * as React from 'react';
+
 import { DataStore, PersistentModel } from '@aws-amplify/datastore';
-import { useEffect, useState } from 'react';
+
 import {
   DataStoreBindingProps,
   DataStoreCollectionProps,
@@ -17,28 +19,37 @@ export const useDataStoreCollection = <M extends PersistentModel>({
   criteria,
   pagination,
 }: DataStoreCollectionProps<M>): DataStoreCollectionResult<M> => {
-  const [items, setItems] = useState<M[]>([]);
-  const [isLoading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<Error>();
+  const [result, setResult] = React.useState<DataStoreCollectionResult<M>>({
+    items: [],
+    isLoading: false,
+    error: undefined,
+  });
 
   const fetch = () => {
-    setLoading(true);
+    setResult({ isLoading: true, items: [] });
 
-    DataStore.query(model, criteria, pagination)
-      .then(setItems)
-      .catch(setError)
-      .finally(() => setLoading(false));
+    const subscription = DataStore.observeQuery(
+      model,
+      criteria,
+      pagination
+    ).subscribe(
+      (snapshot) => setResult({ items: snapshot.items, isLoading: false }),
+      (error) => setResult({ items: [], error, isLoading: false })
+    );
+
+    // Unsubscribe from query updates on unmount
+    if (subscription) {
+      return () => subscription.unsubscribe();
+    }
   };
 
   // Fetch on next render cycle
-  useEffect(fetch, []);
+  // useEffect should only run once here
+  // Ignore exhaustive dependencies rule here by design
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  React.useEffect(fetch, []);
 
-  return {
-    error,
-    fetch,
-    items,
-    isLoading,
-  };
+  return result;
 };
 
 /**
@@ -49,9 +60,9 @@ export const useDataStoreItem = <M extends PersistentModel>({
   model,
   id,
 }: DataStoreItemProps<M>): DataStoreItemResult<M> => {
-  const [item, setItem] = useState<M>();
-  const [isLoading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<Error>();
+  const [item, setItem] = React.useState<M>();
+  const [isLoading, setLoading] = React.useState<boolean>(false);
+  const [error, setError] = React.useState<Error>();
 
   const fetch = () => {
     setLoading(true);
@@ -63,11 +74,13 @@ export const useDataStoreItem = <M extends PersistentModel>({
   };
 
   // Fetch on next render cycle
-  useEffect(fetch, []);
+  // useEffect should only run once here
+  // Ignore exhaustive dependencies rule here by design
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  React.useEffect(fetch, []);
 
   return {
     error,
-    fetch,
     item,
     isLoading,
   };
@@ -89,6 +102,8 @@ export function useDataStoreBinding<Model extends PersistentModel>(
     | DataStoreBindingProps<Model, 'collection'>
 ): DataStoreItemResult<Model> | DataStoreCollectionResult<Model> {
   return props.type === 'record'
-    ? useDataStoreItem(props)
-    : useDataStoreCollection(props);
+    ? // eslint-disable-next-line react-hooks/rules-of-hooks
+      useDataStoreItem(props)
+    : // eslint-disable-next-line react-hooks/rules-of-hooks
+      useDataStoreCollection(props);
 }

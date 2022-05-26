@@ -4,15 +4,19 @@ applications:
       phases:
         preBuild:
           commands:
-            - nvm install
-            - nvm use
+            - nvm install 14
+            - nvm use 14
             - node -v
-            - (cd .. && yarn install)
+            - export FLUTTER_HOME=${HOME}/sdks/flutter
+            - git clone -b stable --depth 1 https://github.com/flutter/flutter.git ${FLUTTER_HOME}
+            - export PATH="$PATH:${FLUTTER_HOME}/bin"
+            - (cd .. && yarn install && yarn build)
         build:
           commands:
-            - nvm install
-            - nvm use
+            - nvm install 14
+            - nvm use 14
             - node -v
+            - yarn flutter:build
             - yarn build
       artifacts:
         baseDirectory: .next

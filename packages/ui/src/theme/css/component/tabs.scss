@@ -4,6 +4,7 @@
   border-width: 0 0 var(--amplify-components-tabs-border-width) 0;
   border-style: var(--amplify-components-tabs-border-style);
   border-color: var(--amplify-components-tabs-border-color);
+  gap: var(--amplify-components-tabs-gap);
 
   &[data-indicator-position='top'] {
     border-width: var(--amplify-components-tabs-border-width) 0 0 0;

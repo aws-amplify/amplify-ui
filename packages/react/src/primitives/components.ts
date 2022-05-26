@@ -33,6 +33,7 @@ export { SwitchField } from './SwitchField';
 export * from './Table';
 export { Tabs, TabItem } from './Tabs';
 export { Text } from './Text';
+export { TextAreaField } from './TextAreaField';
 export { TextField } from './TextField';
 export { ToggleButton } from './ToggleButton';
 export { ToggleButtonGroup } from './ToggleButtonGroup';

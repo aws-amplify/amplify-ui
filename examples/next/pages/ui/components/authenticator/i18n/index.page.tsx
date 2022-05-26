@@ -9,7 +9,10 @@ Amplify.configure(awsExports);
 
 I18n.putVocabularies(translations);
 I18n.setLanguage('ja');
-I18n.putVocabulariesForLanguage('ja', { 'Sign In': 'Sign In Custom' });
+I18n.putVocabulariesForLanguage('ja', {
+  'Sign In': 'Sign In Custom',
+  'User does not exist.': 'Error with your user',
+});
 
 function App({ signOut, user }) {
   return (

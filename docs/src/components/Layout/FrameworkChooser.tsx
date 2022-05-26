@@ -1,22 +1,23 @@
-import { useRouter } from 'next/router';
 import {
+  Image,
   ToggleButton,
   ToggleButtonGroup,
-  Image,
   VisuallyHidden,
 } from '@aws-amplify/ui-react';
 
+import { useCustomRouter } from '@/components/useCustomRouter';
+import { FRAMEWORKS } from '@/data/frameworks';
+
 export const FrameworkChooser = ({ platform }) => {
-  const router = useRouter();
+  const { replace, pathname } = useCustomRouter();
 
-  const chooseFramework = (framework) => {
+  const chooseFramework = (platform) => {
     const { hash } = window.location;
-
-    router.replace(
+    replace(
       {
         hash,
-        pathname: router.pathname,
-        query: { platform: framework },
+        pathname: pathname === '/' ? '/[platform]' : pathname,
+        query: { platform },
       },
       // `as?` prop  isn't needed when URL is already provided
       undefined,
@@ -36,40 +37,30 @@ export const FrameworkChooser = ({ platform }) => {
   return (
     <ToggleButtonGroup
       value={platform}
-      isExclusive
       size="small"
       onChange={(value: string) => {
-        if (!value) return;
         chooseFramework(value);
       }}
+      isExclusive
+      isSelectionRequired
     >
-      <ToggleButton value="react" size="small">
-        <VisuallyHidden>React</VisuallyHidden>
-        <Image
-          alt=""
-          height="1rem"
-          style={{ display: 'block' }}
-          src="/svg/integrations/react.svg"
-        />
-      </ToggleButton>
-      <ToggleButton value="angular" size="small">
-        <VisuallyHidden>Angular</VisuallyHidden>
-        <Image
-          alt=""
-          height="1rem"
-          style={{ display: 'block' }}
-          src="/svg/integrations/angular.svg"
-        />
-      </ToggleButton>
-      <ToggleButton value="vue" size="small">
-        <VisuallyHidden>Vue</VisuallyHidden>
-        <Image
-          alt=""
-          height="1rem"
-          style={{ display: 'block' }}
-          src="/svg/integrations/vue.svg"
-        />
-      </ToggleButton>
+      {FRAMEWORKS.map((framework) => (
+        <ToggleButton
+          key={framework}
+          value={framework}
+          size="small"
+          title={framework}
+          padding={{ base: '4px', medium: undefined }}
+        >
+          <VisuallyHidden>{framework}</VisuallyHidden>
+          <Image
+            alt=""
+            height={{ base: '1.5rem', medium: '1rem' }}
+            display="block"
+            src={`/svg/integrations/${framework}.svg`}
+          />
+        </ToggleButton>
+      ))}
     </ToggleButtonGroup>
   );
 };

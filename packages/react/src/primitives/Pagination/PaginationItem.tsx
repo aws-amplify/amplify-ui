@@ -1,5 +1,7 @@
 import * as React from 'react';
+import classNames from 'classnames';
 
+import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import { Button } from '../Button';
 import { Flex } from '../Flex';
 import { IconChevronLeft, IconChevronRight } from '../Icon';
@@ -7,6 +9,9 @@ import { View } from '../View';
 import { VisuallyHidden } from '../VisuallyHidden';
 import { PaginationItemProps } from '../types/pagination';
 import { ComponentClassNames } from '../shared/constants';
+
+export const PAGINATION_CURRENT_TEST_ID = 'current';
+export const PAGINATION_ELLIPSIS_TEST_ID = 'ellipsis';
 
 export const PaginationItem: React.FC<PaginationItemProps> = ({
   type,
@@ -17,17 +22,46 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
   ariaLabel,
   ...rest
 }) => {
+  const onChange = React.useCallback(() => {
+    onClick(page, currentPage);
+  }, [page, currentPage, onClick]);
+
+  const onPrevious = React.useCallback(() => {
+    onClick();
+  }, [onClick]);
+
+  const onNext = React.useCallback(() => {
+    onClick();
+  }, [onClick]);
+
+  const nextClasses = classNames(
+    ComponentClassNames.PaginationItemButton,
+    classNameModifier(ComponentClassNames.PaginationItemButton, 'link'),
+    classNameModifierByFlag(
+      ComponentClassNames.PaginationItemButton,
+      'disabled',
+      isDisabled
+    )
+  );
+  const previousClasses = classNames(
+    ComponentClassNames.PaginationItemButton,
+    classNameModifier(ComponentClassNames.PaginationItemButton, 'link'),
+    classNameModifierByFlag(
+      ComponentClassNames.PaginationItemButton,
+      'disabled',
+      isDisabled
+    )
+  );
+
   switch (type) {
     case 'page':
-      const onChange = React.useCallback(() => {
-        onClick(page, currentPage);
-      }, [page, currentPage, onClick]);
       return (
         <View as="li">
           {page === currentPage ? (
             <Flex
               as="span"
               className={ComponentClassNames.PaginationItemCurrent}
+              testId={PAGINATION_CURRENT_TEST_ID}
               {...rest}
             >
               {/**
@@ -39,7 +73,13 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
             </Flex>
           ) : (
             <Button
-              className={ComponentClassNames.PaginationItemButton}
+              className={classNames(
+                ComponentClassNames.PaginationItemButton,
+                classNameModifier(
+                  ComponentClassNames.PaginationItemButton,
+                  'link'
+                )
+              )}
               size="small"
               variation="link"
               onClick={onChange}
@@ -52,13 +92,10 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
         </View>
       );
     case 'next':
-      const onNext = React.useCallback(() => {
-        onClick();
-      }, [onClick]);
       return (
         <View as="li">
           <Button
-            className={ComponentClassNames.PaginationItemButton}
+            className={nextClasses}
             size="small"
             variation="link"
             isDisabled={isDisabled}
@@ -71,13 +108,10 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
         </View>
       );
     case 'previous':
-      const onPrevious = React.useCallback(() => {
-        onClick();
-      }, [onClick]);
       return (
         <View as="li">
           <Button
-            className={ComponentClassNames.PaginationItemButton}
+            className={previousClasses}
             size="small"
             variation="link"
             isDisabled={isDisabled}
@@ -95,7 +129,7 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
           <Flex
             as="span"
             className={ComponentClassNames.PaginationItemEllipsis}
-            testId="ellipsis"
+            testId={PAGINATION_ELLIPSIS_TEST_ID}
             {...rest}
           >
             &#8230;

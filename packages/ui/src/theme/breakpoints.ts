@@ -7,19 +7,18 @@ export interface Breakpoints {
     xl: number;
     xxl: number;
   };
-  unit: string;
   defaultBreakpoint: string;
 }
 
+// Breakpoint unit is in pixels
 export const breakpoints: Breakpoints = {
   values: {
     base: 0,
-    small: 30, // 480px (16px base)
-    medium: 48, // 768px
-    large: 62, // 992px
-    xl: 80, // 1280px
-    xxl: 96, // 1536px
+    small: 480, // breakpoint unit is px
+    medium: 768,
+    large: 992,
+    xl: 1280,
+    xxl: 1536,
   },
-  unit: 'em',
   defaultBreakpoint: 'base',
 };

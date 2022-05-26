@@ -1,10 +1,7 @@
-import Link from 'next/link';
-import { Heading, Collection } from '@aws-amplify/ui-react';
-import { useRouter } from 'next/router';
-
+import { Collection, Heading } from '@aws-amplify/ui-react';
 import {
-  baseComponents,
   ComponentNavItem,
+  baseComponents,
   connectedComponents,
   dataDisplayComponents,
   feedbackComponents,
@@ -13,6 +10,10 @@ import {
   navigationComponents,
   utilityComponents,
 } from '../../data/links';
+
+import Link from 'next/link';
+import LinkButton from './LinkButton';
+import { useCustomRouter } from '@/components/useCustomRouter';
 
 const NavLinks = ({
   items,
@@ -30,101 +31,183 @@ const NavLinks = ({
   </Collection>
 );
 
-const NavLink = ({ href, children, onClick }) => {
-  const { pathname, query } = useRouter();
-  const isCurrent = pathname === href;
+const NavLink = ({ href, children, onClick, platforms = [] }) => {
+  const {
+    query: { platform = 'react' },
+    asPath,
+  } = useCustomRouter();
+  const isCurrent = asPath === `/${platform}${href}`;
+  const classNames = `docs-secondary-nav-link ${isCurrent ? 'current' : ''}`;
+
+  if (platforms.length && !platforms.includes(platform)) {
+    return null;
+  }
 
   return (
-    <Link href={{ pathname: href, query }}>
-      <div>
-        <a
-          onClick={onClick}
-          className={`docs-secondary-nav-link ${isCurrent ? 'current' : ''}`}
-        >
-          {children}
-        </a>
-      </div>
+    <Link href={`/${platform}${href}`} passHref>
+      <LinkButton onClick={onClick} classNames={classNames}>
+        {children}
+      </LinkButton>
     </Link>
+  );
+};
+
+const NavLinkComponentsSection = ({ heading, components, ...props }) => {
+  const { query } = useCustomRouter();
+  const { platform = 'react' } = query;
+
+  const platformComponents = components.filter((component) => {
+    if (component.platforms) {
+      return component.platforms.includes(platform);
+    }
+    return true;
+  });
+
+  if (!platformComponents.length) {
+    return null;
+  }
+  return (
+    <>
+      <Heading level={6}>{heading}</Heading>
+      <NavLinks {...props} items={platformComponents} />
+    </>
   );
 };
 
 // TODO: clean up this logic
 export const SecondaryNav = (props) => {
-  const router = useRouter();
-  const { platform = 'react' } = router.query;
+  const {
+    pathname,
+    query: { platform },
+  } = useCustomRouter();
 
   // Extract section from URL (/section/... => section)
-  const section = router.pathname.split('/')[1];
+  const section = pathname.split('/')[2];
 
-  if (section === 'theming') {
-    return (
-      <>
-        <NavLink {...props} href="/theming">
-          Overview
-        </NavLink>
-        <NavLink {...props} href="/theming/responsive">
-          Responsive
-        </NavLink>
-        <NavLink {...props} href="/theming/dark-mode">
-          Dark mode
-        </NavLink>
-        <NavLink {...props} href="/theming/alternative-styling">
-          Alternative styling
-        </NavLink>
-      </>
-    );
+  switch (section) {
+    case 'theming':
+      return (
+        <>
+          <NavLink {...props} href="/theming">
+            Overview
+          </NavLink>
+          <NavLink
+            {...props}
+            platforms={['react', 'vue', 'angular']}
+            href="/theming/responsive"
+          >
+            Responsive
+          </NavLink>
+          <NavLink {...props} href="/theming/dark-mode">
+            Dark mode
+          </NavLink>
+          <NavLink
+            {...props}
+            platforms={['react', 'vue', 'angular']}
+            href="/theming/css-variables"
+          >
+            CSS Variables
+          </NavLink>
+        </>
+      );
+    case 'guides':
+      return (
+        <>
+          <NavLink {...props} href="/guides">
+            Guides
+          </NavLink>
+          <NavLink
+            {...props}
+            platforms={['react', 'vue', 'angular']}
+            href="/guides/css-in-js"
+          >
+            CSS in JS
+          </NavLink>
+          {platform === 'react' && (
+            <NavLink {...props} href="/guides/auth-protected">
+              Protected Routes
+            </NavLink>
+          )}
+        </>
+      );
+    case 'getting-started':
+      return (
+        <>
+          <NavLink {...props} href="/getting-started/installation">
+            Installation
+          </NavLink>
+          <NavLink {...props} href="/getting-started/usage">
+            Usage
+          </NavLink>
+          {platform !== 'flutter' && (
+            <NavLink {...props} href="/getting-started/migration">
+              Migration
+            </NavLink>
+          )}
+          {platform !== 'flutter' && (
+            <NavLink {...props} href="/getting-started/troubleshooting">
+              Troubleshooting
+            </NavLink>
+          )}
+        </>
+      );
+    case 'components':
+      return (
+        <>
+          <NavLinkComponentsSection
+            heading={'Connected Components'}
+            components={connectedComponents}
+          ></NavLinkComponentsSection>
+
+          <NavLinkComponentsSection
+            heading={'Base'}
+            components={baseComponents}
+          ></NavLinkComponentsSection>
+
+          <NavLinkComponentsSection
+            heading={'Feedback'}
+            components={feedbackComponents}
+          ></NavLinkComponentsSection>
+
+          <NavLinkComponentsSection
+            heading={'Navigation'}
+            components={navigationComponents}
+          ></NavLinkComponentsSection>
+
+          <NavLinkComponentsSection
+            heading={'Inputs'}
+            components={inputComponents}
+          ></NavLinkComponentsSection>
+
+          <NavLinkComponentsSection
+            heading={'Layout'}
+            components={layoutComponents}
+          ></NavLinkComponentsSection>
+
+          <NavLinkComponentsSection
+            heading={'Data Display'}
+            components={dataDisplayComponents}
+          ></NavLinkComponentsSection>
+
+          <NavLinkComponentsSection
+            heading={'Utilities'}
+            components={utilityComponents}
+          ></NavLinkComponentsSection>
+        </>
+      );
+    default:
+      return null;
   }
-
-  if (section === 'getting-started') {
-    return (
-      <>
-        <NavLink {...props} href="/getting-started/installation">
-          Installation
-        </NavLink>
-      </>
-    );
-  }
-
-  if (section === 'components') {
-    return (
-      <>
-        <Heading level={6}>Connected Components</Heading>
-        <NavLinks {...props} items={connectedComponents} />
-
-        <Heading level={6}>Base</Heading>
-        <NavLinks {...props} items={baseComponents} />
-
-        <Heading level={6}>Feedback</Heading>
-        <NavLinks {...props} items={feedbackComponents} />
-
-        <Heading level={6}>Navigation</Heading>
-        <NavLinks {...props} items={navigationComponents} />
-
-        <Heading level={6}>Inputs</Heading>
-        <NavLinks {...props} items={inputComponents} />
-
-        <Heading level={6}>Layout</Heading>
-        <NavLinks {...props} items={layoutComponents} />
-
-        <Heading level={6}>Data Display</Heading>
-        <NavLinks {...props} items={dataDisplayComponents} />
-
-        <Heading level={6}>Utilities</Heading>
-        <NavLinks {...props} items={utilityComponents} />
-      </>
-    );
-  }
-  return null;
 };
 
 export const Sidebar = () => {
   return (
-    <aside className="docs-sidebar">
+    <nav aria-label="Section navigation" className="docs-sidebar">
       <div className="docs-sidebar-inner">
-        <nav className="docs-sidebar-nav">
+        <div className="docs-sidebar-nav">
           <SecondaryNav />
-        </nav>
+        </div>
       </div>
-    </aside>
+    </nav>
   );
 };

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
 
 /**
  * Note: Angular components and directives inside module files has to be imported directly.
@@ -15,14 +14,15 @@ import { ConfirmVerifyUserComponent } from './components/confirm-verify-user/amp
 import { FederatedSignInButtonComponent } from './components/federated-sign-in-button/federated-sign-in-button.component';
 import { FederatedSignInComponent } from './components/federated-sign-in/federated-sign-in.component';
 import { ForceNewPasswordComponent } from './components/force-new-password/force-new-password.component';
+import { ForceNewPasswordFormFieldsComponent } from './components/force-new-password/force-new-password-form-fields/force-new-password-form-fields.component';
 import { FormFieldComponent } from './components/form-field/form-field.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { SetupTotpComponent } from './components/setup-totp/setup-totp.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { SignUpFormFieldsComponent } from './components/sign-up/sign-up-form-fields/sign-up-form-fields.component';
-import { UserNameAliasComponent } from './components/user-name-alias/user-name-alias.component';
 import { VerifyUserComponent } from './components/verify-user/verify-user.component';
+import { BaseFormFieldsComponent } from './components/base-form-fields/base-form-fields.component';
 
 import { ButtonComponent } from '../../primitives/button/button.component';
 import { CheckboxComponent } from '../../primitives/checkbox/checkbox.component';
@@ -42,6 +42,7 @@ import { AmplifySlotDirective } from '../../utilities/amplify-slot/amplify-slot.
     AmplifySlotComponent,
     AmplifySlotDirective,
     AuthenticatorComponent,
+    BaseFormFieldsComponent,
     ButtonComponent,
     CheckboxComponent,
     ConfirmResetPasswordComponent,
@@ -52,6 +53,7 @@ import { AmplifySlotDirective } from '../../utilities/amplify-slot/amplify-slot.
     FederatedSignInButtonComponent,
     FederatedSignInComponent,
     ForceNewPasswordComponent,
+    ForceNewPasswordFormFieldsComponent,
     FormFieldComponent,
     PasswordFieldComponent,
     PhoneNumberFieldComponent,
@@ -64,15 +66,15 @@ import { AmplifySlotDirective } from '../../utilities/amplify-slot/amplify-slot.
     TabItemComponent,
     TabsComponent,
     TextFieldComponent,
-    UserNameAliasComponent,
     VerifyUserComponent,
   ],
-  imports: [CommonModule, BrowserModule],
+  imports: [CommonModule],
   exports: [
     AmplifySlotDirective,
     AuthenticatorComponent,
     CheckboxComponent,
     SignUpFormFieldsComponent,
+    ForceNewPasswordFormFieldsComponent,
     TextFieldComponent,
   ],
 })

@@ -1,26 +1,36 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { classNameModifier } from '../shared/utils';
+import { BadgeProps, Primitive } from '../types';
 import { ComponentClassNames } from '../shared/constants';
-import { BadgeProps, PrimitiveWithForwardRef } from '../types';
 import { View } from '../View';
 
-const BadgeInner: PrimitiveWithForwardRef<BadgeProps, 'span'> = (
+const BadgePrimitive: Primitive<BadgeProps, 'span'> = (
   { className, children, variation, size, ...rest },
   ref
-) => (
-  <View
-    as="span"
-    className={classNames(ComponentClassNames.Badge, className)}
-    data-variation={variation}
-    data-size={size}
-    ref={ref}
-    {...rest}
-  >
-    {children}
-  </View>
-);
+) => {
+  const componentClasses = classNames(
+    ComponentClassNames.Badge,
+    className,
+    classNameModifier(ComponentClassNames.Badge, variation),
+    classNameModifier(ComponentClassNames.Badge, size)
+  );
 
-export const Badge = React.forwardRef(BadgeInner);
+  return (
+    <View
+      as="span"
+      className={componentClasses}
+      data-variation={variation}
+      data-size={size}
+      ref={ref}
+      {...rest}
+    >
+      {children}
+    </View>
+  );
+};
+
+export const Badge = React.forwardRef(BadgePrimitive);
 
 Badge.displayName = 'Badge';

@@ -1,9 +1,10 @@
-import dynamic, { LoaderComponent } from 'next/dynamic';
-import { useRouter } from 'next/router';
-import { isArray } from 'lodash';
 import * as React from 'react';
 
-import { Placeholder, Flex, Link, Alert } from '@aws-amplify/ui-react';
+import { Alert, Flex, Link, Placeholder } from '@aws-amplify/ui-react';
+import dynamic, { LoaderComponent } from 'next/dynamic';
+
+import { isArray } from 'lodash';
+import { useCustomRouter } from '@/components/useCustomRouter';
 
 export default function Example() {
   return;
@@ -15,6 +16,11 @@ export interface FragmentProps {
    * list, then the fragment will not render.
    * */
   platforms?: string[];
+  /**
+   * If true, all JS frameworks (react, vue, angular) will be treated as a single platform named 'web'.
+   * Note: if this is true, platforms={['web']} should be used to enable web content instead of platforms={['react', 'vue', 'angular']}
+   */
+  useCommonWebContent?: boolean;
   children: ({ platform: string }) => LoaderComponent;
 }
 
@@ -35,9 +41,14 @@ const shouldRenderFragment = (
   }
 };
 
-export const Fragment = ({ children, platforms }: FragmentProps) => {
-  const { query } = useRouter();
-  const { platform = 'react' } = query;
+export const Fragment = ({
+  children,
+  platforms,
+  useCommonWebContent,
+}: FragmentProps) => {
+  const { query } = useCustomRouter();
+  const framework = (query.platform as string) ?? 'react';
+  const platform = getPlatform(framework, useCommonWebContent);
   const Component = React.useMemo(() => {
     if (!shouldRenderFragment(platforms, platform)) {
       return null;
@@ -76,3 +87,13 @@ export const Fragment = ({ children, platforms }: FragmentProps) => {
 
   return Component ? <Component /> : null;
 };
+
+function getPlatform(framework = 'react', useCommonWebContent = false) {
+  if (!useCommonWebContent) {
+    return framework;
+  }
+  if (['react', 'vue', 'angular'].includes(framework)) {
+    return 'web';
+  }
+  return framework;
+}

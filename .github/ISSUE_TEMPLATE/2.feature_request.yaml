@@ -1,0 +1,61 @@
+name: Feature request
+description: Help us make Amplify UI even better! 
+labels: feature-request
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        We love to hear from our customers. One of our goal is to work backwards from your needs. Let us know if you have any suggestions on where we can make improvements on our product offerings. 
+  - type: dropdown
+    attributes:
+      label: On which framework/platform would you like to see this feature implemented? 
+      description: Please select one or more platform!
+      multiple: true
+      options:
+        - React
+        - Angular
+        - Vue
+        - React Native
+        - Flutter
+        - iOS
+        - Android
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    attributes:
+      label: Which UI component is this feature-request for?
+      description: We are continuously adding new features on existing cloud connected UI components. Please select one below!  
+      multiple: false
+      options:
+        - Authenticator
+        - Chatbot
+        - Storage
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Please describe your feature-request in detail. 
+      description: |
+        What problem would you like us to solve? Please include **any related issues**, documentation, etc.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Please describe a solution you'd like. 
+      description: |
+        We will build the solution for you. However, if you have a solution that you would like to share or have considered any alternatives, please share with us! We encourage you to share any links for prototype/sandbox, workaround, or reference implementation. 
+    validations:
+      required: false
+
+  - type: checkboxes
+    attributes:
+      label: We love contributors! Is this something you'd be interested in working on?
+      options:
+        - label: 👋 I may be able to implement this feature request.
+        - label: ⚠️ This feature might incur a breaking change.

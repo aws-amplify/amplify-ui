@@ -1,18 +1,24 @@
-<div data-amplify-container>
+<ng-container>
   <form data-amplify-form (submit)="onSubmit($event)" (input)="onInput($event)">
     <fieldset
-      class="amplify-flex"
-      style="flex-direction: column"
+      class="amplify-flex amplify-authenticator__column"
       data-amplify-fieldset
       [disabled]="context.isPending"
     >
       <amplify-slot name="confirm-sign-up-header" [context]="context">
-        <h3 class="amplify-heading">{{ this.headerText }}</h3>
+        <h3
+          class="amplify-heading amplify-authenticator__heading"
+          style="font-size: 1.5rem"
+        >
+          {{ confirmSignUpHeading }}
+        </h3>
       </amplify-slot>
-      <amplify-form-field
-        name="confirmation_code"
-        autocomplete="one-time-code"
-      ></amplify-form-field>
+      <span class="amplify-authenticator__subtitle">
+        {{ subtitleText }}
+      </span>
+      <amplify-base-form-fields
+        route="confirmSignUp"
+      ></amplify-base-form-fields>
 
       <button amplify-button variation="primary" fullWidth="true" type="submit">
         {{ confirmText }}
@@ -34,4 +40,4 @@
       [context]="context"
     ></amplify-slot>
   </form>
-</div>
+</ng-container>

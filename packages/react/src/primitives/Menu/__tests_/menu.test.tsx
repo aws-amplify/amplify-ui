@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { screen, render, cleanup } from '@testing-library/react';
 
 import { ComponentClassNames } from '../../shared';
@@ -98,6 +99,14 @@ describe('Menu: ', () => {
       );
     });
 
+    it('should forward ref to DOM element', async () => {
+      const ref = React.createRef<HTMLDivElement>();
+      render(<Menu ref={ref} isOpen></Menu>);
+
+      await screen.findByTestId(MENU_ITEMS_GROUP_TEST_ID);
+      expect(ref.current.nodeName).toBe('DIV');
+    });
+
     it('should set size attribute', async () => {
       render(<Menu size="large" />);
       const menu = await screen.findByTestId(MENU_TRIGGER_TEST_ID);
@@ -131,6 +140,23 @@ describe('Menu: ', () => {
         ComponentClassNames.MenuItem,
         menuItem1ClassName
       );
+    });
+
+    it('should add the Amplify UI Button disabled class to disabled MenuItems', async () => {
+      render(
+        <Menu isOpen>
+          {/* Force open to test menu items */}
+          <MenuItem>Option 1</MenuItem>
+          <MenuItem>Option 2</MenuItem>
+          <MenuItem isDisabled testId="disabled_option">
+            Option 3
+          </MenuItem>
+        </Menu>
+      );
+
+      const disabled = await screen.findByTestId('disabled_option');
+
+      expect(disabled).toHaveClass('amplify-button--disabled');
     });
   });
 });

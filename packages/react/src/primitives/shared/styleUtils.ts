@@ -1,14 +1,9 @@
 import * as React from 'react';
-import autoprefixer from 'autoprefixer';
-import postcss from 'postcss-js';
 import { isDesignToken } from '@aws-amplify/ui';
-
-export const prefixer = postcss.sync([autoprefixer]);
 
 import {
   BaseStyleProps,
   ComponentPropsToStylePropsMap,
-  ComponentPropsToStylePropsMapKeys,
   GridItemStyleProps,
   GridSpanType,
   ResponsiveObject,
@@ -20,7 +15,7 @@ import { useBreakpoint } from './responsive/useBreakpoint';
 import { Breakpoint, Breakpoints } from '../types/responsive';
 
 import { useTheme } from '../../hooks';
-import { isNullOrEmptyString } from './utils';
+import { isEmptyString, isNullOrEmptyString } from './utils';
 import { FlexContainerStyleProps } from '../types/flex';
 
 /**
@@ -40,7 +35,7 @@ export const useTransformStyleProps = (props: ViewProps): ViewProps => {
         columnSpan
       ) as GridItemStyleProps['column'],
     };
-  }, [rowSpan, columnSpan, convertGridSpan]);
+  }, [rowSpan, columnSpan]);
 
   return {
     row: !isNullOrEmptyString(row) ? row : rowFromSpanValue,
@@ -49,18 +44,13 @@ export const useTransformStyleProps = (props: ViewProps): ViewProps => {
   };
 };
 
-export const usePropStyles = (props: ViewProps, style: React.CSSProperties) => {
+export const useStyles = (props: ViewProps, style: React.CSSProperties) => {
   const {
-    breakpoints: {
-      values: breakpoints,
-      unit: breakpointUnit,
-      defaultBreakpoint,
-    },
+    breakpoints: { values: breakpoints, defaultBreakpoint },
   } = useTheme();
 
   const breakpoint = useBreakpoint({
     breakpoints,
-    breakpointUnit,
     defaultBreakpoint: defaultBreakpoint as Breakpoint,
   });
 
@@ -68,14 +58,12 @@ export const usePropStyles = (props: ViewProps, style: React.CSSProperties) => {
 
   return React.useMemo(
     () =>
-      prefixer(
-        convertStylePropsToStyleObj({
-          props: propStyles,
-          style,
-          breakpoint,
-          breakpoints,
-        })
-      ),
+      convertStylePropsToStyleObj({
+        props: propStyles,
+        style,
+        breakpoint,
+        breakpoints,
+      }),
     [propStyles, style, breakpoints, breakpoint]
   );
 };
@@ -137,37 +125,25 @@ export const convertStylePropsToStyleObj: ConvertStylePropsToStyleObj = ({
   breakpoint,
   breakpoints,
 }) => {
-  ComponentPropsToStylePropsMapKeys.filter(
-    (stylePropKey) => !isNullOrEmptyString(props[stylePropKey])
-  ).forEach((stylePropKey: any) => {
-    let value = props[stylePropKey];
-    // if styleProp is a DesignToken use its toString()
-    if (isDesignToken(value)) {
-      value = value.toString();
-    } else {
-      value = getValueAtCurrentBreakpoint(value, breakpoint, breakpoints);
-    }
-    const reactStyleProp = ComponentPropsToStylePropsMap[stylePropKey];
-    style = { ...style, [reactStyleProp]: value };
-  });
-  return style;
-};
-
-/**
- * Filter out known style props to prevent errors adding invalid HTML attributes
- * @param props
- * @returns non styled props
- */
-export const useNonStyleProps = (props: ViewProps) => {
-  return React.useMemo(() => {
-    const nonStyleProps = {};
-    Object.keys(props).forEach((propKey) => {
+  const nonStyleProps = {};
+  Object.keys(props)
+    .filter((propKey) => props[propKey] != null)
+    .forEach((propKey) => {
       if (!(propKey in ComponentPropsToStylePropsMap)) {
         nonStyleProps[propKey] = props[propKey];
+      } else if (!isEmptyString(props[propKey])) {
+        let value = props[propKey];
+        // if styleProp is a DesignToken use its toString()
+        if (isDesignToken(value)) {
+          value = value.toString();
+        } else {
+          value = getValueAtCurrentBreakpoint(value, breakpoint, breakpoints);
+        }
+        const reactStyleProp = ComponentPropsToStylePropsMap[propKey];
+        style = { ...style, [reactStyleProp]: value };
       }
     });
-    return nonStyleProps;
-  }, [props]);
+  return { propStyles: style, nonStyleProps };
 };
 
 /**
@@ -189,9 +165,9 @@ const FlexContainerStylePropsMap: Required<{
 };
 
 /**
- * Map of all the FlexContainerStyleProps type keys
+ * Map of all the BaseStylePropsMap type keys
  * The type requires all keys in order to ensure it remains
- * in sync with the FlexContainerStyleProps type.
+ * in sync with the BaseStylePropsMap type.
  */
 const BaseStylePropsMap: Required<{ [key in keyof BaseStyleProps]: true }> = {
   alignSelf: true,
@@ -220,6 +196,14 @@ const BaseStylePropsMap: Required<{ [key in keyof BaseStyleProps]: true }> = {
   letterSpacing: true,
   lineHeight: true,
   margin: true,
+  marginBlockEnd: true,
+  marginBlockStart: true,
+  marginBottom: true,
+  marginInlineEnd: true,
+  marginInlineStart: true,
+  marginLeft: true,
+  marginRight: true,
+  marginTop: true,
   maxHeight: true,
   maxWidth: true,
   minHeight: true,
@@ -228,6 +212,14 @@ const BaseStylePropsMap: Required<{ [key in keyof BaseStyleProps]: true }> = {
   order: true,
   overflow: true,
   padding: true,
+  paddingBlockEnd: true,
+  paddingBlockStart: true,
+  paddingBottom: true,
+  paddingInlineEnd: true,
+  paddingInlineStart: true,
+  paddingLeft: true,
+  paddingRight: true,
+  paddingTop: true,
   position: true,
   right: true,
   row: true,
@@ -242,6 +234,7 @@ const BaseStylePropsMap: Required<{ [key in keyof BaseStyleProps]: true }> = {
   transform: true,
   transformOrigin: true,
   width: true,
+  whiteSpace: true,
 };
 
 interface SplitProps<PrimitiveProps> {

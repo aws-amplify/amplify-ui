@@ -150,6 +150,7 @@ export const useStepper = ({
     handleOnBlur,
     handleOnChange,
     handleOnWheel,
+    setInputValue,
     shouldDisableDecreaseButton,
     shouldDisableIncreaseButton,
   };

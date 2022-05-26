@@ -2,33 +2,60 @@
   border-color: var(--amplify-components-divider-border-color);
   border-style: var(--amplify-components-divider-border-style);
   border-width: 0;
-  margin: 0;
   opacity: var(--amplify-components-divider-opacity);
   padding: 0;
   display: block;
+  //these internal css variables are used to update the values that are influenced by multiple modified states
+  --amplify-internal-divider-size: var(
+    --amplify-components-divider-border-width
+  );
+  position: relative;
+  text-align: center;
 
-  &[aria-orientation='horizontal'] {
+  &--small {
+    --amplify-internal-divider-size: var(
+      --amplify-components-divider-small-border-width
+    );
+  }
+  &--large {
+    --amplify-internal-divider-size: var(
+      --amplify-components-divider-large-border-width
+    );
+  }
+  &--horizontal {
     width: 100%;
-    border-bottom-width: var(--amplify-components-divider-border-width);
-
-    &[data-size='small'] {
-      border-bottom-width: var(--amplify-components-divider-small-border-width);
-    }
-
-    &[data-size='large'] {
-      border-bottom-width: var(--amplify-components-divider-large-border-width);
-    }
+    border-bottom-width: var(--amplify-internal-divider-size);
   }
 
-  &[aria-orientation='vertical'] {
-    border-left-width: var(--amplify-components-divider-border-width);
+  &--vertical {
+    border-left-width: var(--amplify-internal-divider-size);
+  }
 
-    &[data-size='small'] {
-      border-left-width: var(--amplify-components-divider-small-border-width);
+  &--label {
+    // This allows for the label to be centered
+    display: flex;
+    justify-content: center;
+
+    &::after {
+      content: attr(data-label);
+      position: absolute;
+      transform: translateY(-50%);
+      font-size: var(--amplify-components-divider-label-font-size);
+      padding-inline: var(--amplify-components-divider-label-padding-inline);
+      background-color: var(
+        --amplify-components-divider-label-background-color
+      );
+      color: var(--amplify-components-divider-label-color);
     }
+    &[aria-orientation='vertical'] {
+      flex-direction: column;
 
-    &[data-size='large'] {
-      border-left-width: var(--amplify-components-divider-large-border-width);
+      &::after {
+        top: auto;
+        transform: translateX(-50%);
+        padding-block: 0;
+        padding-inline: 0;
+      }
     }
   }
 }

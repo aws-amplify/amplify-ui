@@ -1,21 +1,18 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { Flex } from '../Flex';
 import { ButtonProps, ButtonGroupProps, Primitive } from '../types';
 import { ComponentClassNames } from '../shared/constants';
+import { Flex } from '../Flex';
 
-export const ButtonGroup: Primitive<ButtonGroupProps, typeof Flex> = ({
-  className,
-  children,
-  role = 'group',
-  size,
-  variation,
-  ...rest
-}) => (
+const ButtonGroupPrimitive: Primitive<ButtonGroupProps, typeof Flex> = (
+  { className, children, role = 'group', size, variation, ...rest },
+  ref
+) => (
   <Flex
     className={classNames(ComponentClassNames.ButtonGroup, className)}
     role={role}
+    ref={ref}
     {...rest}
   >
     {React.Children.map(children, (child) => {
@@ -26,5 +23,7 @@ export const ButtonGroup: Primitive<ButtonGroupProps, typeof Flex> = ({
     })}
   </Flex>
 );
+
+export const ButtonGroup = React.forwardRef(ButtonGroupPrimitive);
 
 ButtonGroup.displayName = 'ButtonGroup';

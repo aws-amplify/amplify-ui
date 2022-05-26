@@ -1,11 +1,17 @@
 import {
   Component,
   HostBinding,
-  Input,
+  OnInit,
   ViewEncapsulation,
 } from '@angular/core';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
-import { translate } from '@aws-amplify/ui';
+import {
+  translate,
+  hasTranslation,
+  getFormDataFromEvent,
+  FormFieldsArray,
+  getSortedFormFields,
+} from '@aws-amplify/ui';
 
 @Component({
   selector: 'amplify-sign-in',
@@ -16,8 +22,12 @@ export class SignInComponent {
   @HostBinding('attr.data-amplify-authenticator-signin') dataAttr = '';
 
   // translated phrases
-  public forgotPasswordText = translate('Forgot your password? ');
+  // Support backwards compatibility for legacy key with trailing space
+  public forgotPasswordText = !hasTranslation('Forgot your password? ')
+    ? translate('Forgot your password?')
+    : translate('Forgot your password? ');
   public signInButtonText = translate('Sign in');
+  public sortedFormFields: FormFieldsArray;
 
   constructor(public authenticator: AuthenticatorService) {}
 
@@ -33,6 +43,6 @@ export class SignInComponent {
 
   onSubmit(event: Event): void {
     event.preventDefault();
-    this.authenticator.submitForm();
+    this.authenticator.submitForm(getFormDataFromEvent(event));
   }
 }

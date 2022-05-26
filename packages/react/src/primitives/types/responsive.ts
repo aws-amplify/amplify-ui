@@ -11,7 +11,6 @@ export interface MediaQueryBreakpoint {
 
 export interface GetMediaQueriesParams {
   breakpoints: Breakpoints;
-  breakpointUnit: string;
 }
 
 export interface GetMediaQueries {
@@ -21,7 +20,6 @@ export interface GetMediaQueries {
 export interface UseBreakpointParams {
   breakpoints: Breakpoints;
   defaultBreakpoint: Breakpoint;
-  breakpointUnit: string;
 }
 
 export interface UseBreakpoint {

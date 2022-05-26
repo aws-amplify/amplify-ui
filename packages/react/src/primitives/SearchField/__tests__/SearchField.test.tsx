@@ -50,6 +50,26 @@ describe('SearchField component', () => {
     expect(searchButtonRef.current.nodeName).toBe('BUTTON');
   });
 
+  it('should forward callback ref to DOM element', async () => {
+    let ref: HTMLInputElement;
+
+    const setRef = (node) => (ref = node);
+
+    render(
+      <SearchField
+        className="custom-class"
+        label={label}
+        name="q"
+        ref={setRef}
+        testId={testId}
+      />
+    );
+
+    await screen.findByRole('button');
+
+    expect(ref.nodeName).toBe('INPUT');
+  });
+
   it('should be text input type', async () => {
     render(<SearchField label={label} name="q" />);
 
@@ -137,7 +157,7 @@ describe('SearchField component', () => {
   });
 
   describe(' - clear button', () => {
-    it('should clear text when clicked', async () => {
+    it('should clear text and refocus input when clicked', async () => {
       render(<SearchField label={label} name="q" />);
 
       const searchField = (await screen.findByLabelText(
@@ -150,6 +170,7 @@ describe('SearchField component', () => {
       expect(searchField).toHaveValue(searchQuery);
       userEvent.click(clearButton);
       expect(searchField).toHaveValue('');
+      expect(searchField).toHaveFocus();
     });
   });
 });

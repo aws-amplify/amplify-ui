@@ -1,6 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
 import { splitPrimitiveProps } from '../shared/styleUtils';
 import { FieldDescription, FieldErrorMessage } from '../Field';
@@ -16,7 +17,8 @@ import {
   isTextAreaRef,
 } from './utils';
 import { TextArea } from '../TextArea';
-import { useStableId } from '../shared/utils';
+import { useStableId } from '../utils/useStableId';
+import { useDeprecationWarning } from '../../hooks/useDeprecationWarning';
 
 export const DEFAULT_ROW_COUNT = 3;
 
@@ -40,24 +42,45 @@ const TextFieldPrimitive = <Multiline extends boolean>(
     type, // remove from rest to prevent passing as DOM attribute to textarea
     size,
     testId,
+    variation,
+
+    bottom, // @TODO: remove custom destructuring for 3.0 release
+    height, // @TODO: remove custom destructuring for 3.0 release
+    left, // @TODO: remove custom destructuring for 3.0 release
+    padding, // @TODO: remove custom destructuring for 3.0 release
+    position, // @TODO: remove custom destructuring for 3.0 release
+    right, // @TODO: remove custom destructuring for 3.0 release
+    top, // @TODO: remove custom destructuring for 3.0 release
+    width, // @TODO: remove custom destructuring for 3.0 release
+
     ..._rest
   } = props;
 
   const fieldId = useStableId(id);
+  const descriptionId = useStableId();
+  const ariaDescribedBy = descriptiveText ? descriptionId : undefined;
 
   const { flexContainerStyleProps, baseStyleProps, rest } =
     splitPrimitiveProps(_rest);
+
+  useDeprecationWarning({
+    shouldWarn: props.isMultiline,
+    message:
+      'TextField isMultiLine prop will be deprecated in next major release of @aws-amplify/ui-react. Please use TextAreaField component instead.',
+  });
 
   let control: JSX.Element = null;
   if (isTextAreaField(props)) {
     const { rows } = props;
     control = (
       <TextArea
+        aria-describedby={ariaDescribedBy}
         hasError={hasError}
         id={fieldId}
         ref={isTextAreaRef(props, ref) ? ref : undefined}
         rows={rows ?? DEFAULT_ROW_COUNT}
         size={size}
+        variation={variation}
         {...baseStyleProps}
         {...rest}
       />
@@ -66,11 +89,13 @@ const TextFieldPrimitive = <Multiline extends boolean>(
     const { type = 'text' } = props;
     control = (
       <Input
+        aria-describedby={ariaDescribedBy}
         hasError={hasError}
         id={fieldId}
         ref={isInputRef(props, ref) ? ref : undefined}
         size={size}
         type={type}
+        variation={variation}
         {...baseStyleProps}
         {...rest}
       />
@@ -81,17 +106,27 @@ const TextFieldPrimitive = <Multiline extends boolean>(
     <Flex
       className={classNames(
         ComponentClassNames.Field,
+        classNameModifier(ComponentClassNames.Field, size),
         ComponentClassNames.TextField,
         className
       )}
+      bottom={bottom}
       data-size={size}
+      height={height}
+      left={left}
+      padding={padding}
+      position={position}
+      right={right}
       testId={testId}
+      top={top}
+      width={width}
       {...flexContainerStyleProps}
     >
       <Label htmlFor={fieldId} visuallyHidden={labelHidden}>
         {label}
       </Label>
       <FieldDescription
+        id={descriptionId}
         labelHidden={labelHidden}
         descriptiveText={descriptiveText}
       />
@@ -100,6 +135,7 @@ const TextFieldPrimitive = <Multiline extends boolean>(
         outerEndComponent={outerEndComponent}
         innerStartComponent={innerStartComponent}
         innerEndComponent={innerEndComponent}
+        variation={variation}
       >
         {control}
       </FieldGroup>

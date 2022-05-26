@@ -1,9 +1,11 @@
 import * as React from 'react';
 import classNames from 'classnames';
+import { Button } from '../Button';
 
+import { classNameModifier } from '../shared/utils';
 import { ButtonProps, PrimitiveProps } from '../types';
 import { ComponentClassNames } from '../shared/constants';
-import { useNonStyleProps, usePropStyles } from '../shared/styleUtils';
+import { useStyles } from '../shared/styleUtils';
 
 export const MenuButton = React.forwardRef<
   HTMLButtonElement,
@@ -27,13 +29,18 @@ export const MenuButton = React.forwardRef<
     },
     ref
   ) => {
-    const propStyles = usePropStyles(rest, style);
-    const nonStyleProps = useNonStyleProps(rest);
+    const { propStyles, nonStyleProps } = useStyles(rest, style);
+    const componentClasses = classNames(
+      ComponentClassNames.Button,
+      classNameModifier(ComponentClassNames.Button, size),
+      classNameModifier(ComponentClassNames.Button, variation),
+      className
+    );
 
     return (
-      <button
+      <Button
         ref={ref}
-        className={classNames(ComponentClassNames.Button, className)}
+        className={componentClasses}
         data-fullwidth={isFullWidth}
         data-loading={isLoading}
         data-size={size}
@@ -46,7 +53,7 @@ export const MenuButton = React.forwardRef<
         {...nonStyleProps}
       >
         {children}
-      </button>
+      </Button>
     );
   }
 );

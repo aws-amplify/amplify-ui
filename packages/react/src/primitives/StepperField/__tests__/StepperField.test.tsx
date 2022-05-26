@@ -1,16 +1,15 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import * as React from 'react';
 
-import { StepperField, DECREASE_ICON, INCREASE_ICON } from '../StepperField';
+import { StepperField } from '../StepperField';
 import {
   testFlexProps,
   expectFlexContainerStyleProps,
 } from '../../Flex/__tests__/Flex.test';
 import { ComponentClassNames } from '../../shared/constants';
 import { SharedText } from '../../shared/i18n';
-import { AUTO_GENERATED_ID_PREFIX } from '../../shared/utils';
-
+import { AUTO_GENERATED_ID_PREFIX } from '../../utils/useStableId';
 describe('StepperField: ', () => {
   describe('Flex wrapper', () => {
     it('should render default and custom classname', async () => {
@@ -60,19 +59,21 @@ describe('StepperField: ', () => {
       expect(label).toHaveClass(ComponentClassNames.Label);
     });
 
-    it('should have `sr-only` class when labelHidden is true', async () => {
+    it('should have `amplify-visually-hidden` class when labelHidden is true', async () => {
       render(<StepperField label="stepper" labelHidden={true} />);
 
       const label = await screen.findByText('stepper');
-      expect(label).toHaveClass('sr-only');
+      expect(label).toHaveClass('amplify-visually-hidden');
     });
   });
 
   describe('Input field', () => {
     const label = 'stepper';
+    let updateValueFunction;
 
     const ControlledStepper = () => {
       const [value, setValue] = React.useState(0);
+      updateValueFunction = setValue;
       return (
         <StepperField
           label={label}
@@ -202,6 +203,15 @@ describe('StepperField: ', () => {
       expect(onBlur).toHaveBeenCalled();
       expect(onWheel).toHaveBeenCalled();
     });
+
+    it('should update the value correctly(controlled)', async () => {
+      render(<ControlledStepper />);
+      let stepperInput = await screen.findByLabelText(label);
+      expect(stepperInput).toHaveValue(0);
+      act(() => updateValueFunction(8));
+      stepperInput = await screen.findByLabelText(label);
+      expect(stepperInput).toHaveValue(8);
+    });
   });
 
   describe('Increase/Decrease button', () => {
@@ -210,6 +220,35 @@ describe('StepperField: ', () => {
       const buttons = await screen.findAllByRole('button');
       expect(buttons[0]).toHaveAttribute('data-size', 'small');
       expect(buttons[1]).toHaveAttribute('data-size', 'small');
+    });
+
+    it('should render the size classes for StepperField', async () => {
+      render(
+        <div>
+          <StepperField label="stepper" size="small" />
+          <StepperField label="stepper" size="large" />
+        </div>
+      );
+      const buttons = await screen.findAllByRole('button');
+      expect(buttons[0]).toHaveClass(`${ComponentClassNames.Button}--small`);
+      expect(buttons[1]).toHaveClass(`${ComponentClassNames.Button}--small`);
+      expect(buttons[2]).toHaveClass(`${ComponentClassNames.Button}--large`);
+      expect(buttons[3]).toHaveClass(`${ComponentClassNames.Button}--large`);
+    });
+
+    it('should render the variation classes for StepperField', async () => {
+      render(
+        <div>
+          <StepperField label="stepper" variation="quiet" />
+        </div>
+      );
+      const buttons = await screen.findAllByRole('button');
+      expect(buttons[0]).toHaveClass(
+        `${ComponentClassNames.StepperFieldButtonDecrease}--quiet`
+      );
+      expect(buttons[1]).toHaveClass(
+        `${ComponentClassNames.StepperFieldButtonIncrease}--quiet`
+      );
     });
 
     it('should render aria attributes', async () => {
@@ -235,18 +274,6 @@ describe('StepperField: ', () => {
       );
       expect(buttons[0]).toHaveAttribute('aria-controls', id);
       expect(buttons[1]).toHaveAttribute('aria-controls', id);
-    });
-
-    describe('Increase/Decrease icon', () => {
-      it('should pass through size attribute', async () => {
-        render(<StepperField label="stepper" size="small" />);
-
-        const decreaseIcon = await screen.findByTestId(DECREASE_ICON);
-        const increaseIcon = await screen.findByTestId(INCREASE_ICON);
-
-        // expect(decreaseIcon).toHaveAttribute('data-size', 'small');
-        // expect(increaseIcon).toHaveAttribute('data-size', 'small');
-      });
     });
   });
 
@@ -274,6 +301,13 @@ describe('StepperField: ', () => {
 
       const descriptiveText = await screen.queryByText('Description');
       expect(descriptiveText.innerHTML).toContain('Description');
+    });
+
+    it('should map to descriptive text correctly', async () => {
+      render(<StepperField label="stepper" descriptiveText="Description" />);
+
+      const stepperInput = await screen.findByLabelText('stepper');
+      expect(stepperInput).toHaveAccessibleDescription('Description');
     });
   });
 });

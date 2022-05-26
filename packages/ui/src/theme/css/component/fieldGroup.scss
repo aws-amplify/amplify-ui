@@ -24,11 +24,11 @@
 .amplify-field-group {
   gap: var(--amplify-components-fieldgroup-gap);
 
-  &[data-orientation='horizontal'] {
+  &--horizontal {
     flex-direction: row;
   }
 
-  &[data-orientation='vertical'] {
+  &--vertical {
     flex-direction: column;
     align-items: var(--amplify-components-fieldgroup-vertical-align-items);
   }
@@ -57,12 +57,30 @@
   .amplify-field-group__control {
     @extend %remove-end-radii;
 
+    &:not(:focus) {
+      border-inline-end-color: transparent;
+    }
+    &:focus {
+      z-index: 1;
+    }
+
     // This targets non first-child controls
     // when there are multiple controls
     &:not(:first-child) {
       @extend %remove-start-radii;
     }
   }
+
+  &--quiet {
+    .amplify-field-group__control {
+      @extend %remove-start-radii;
+      &:not(:focus) {
+        border-block-start-color: transparent;
+        border-inline-start-color: transparent;
+      }
+    }
+  }
+
   // Select requires special rules due to icon
   .amplify-select__wrapper {
     .amplify-select {
@@ -79,12 +97,30 @@
   .amplify-field-group__control {
     @extend %remove-start-radii;
 
+    &:not(:focus) {
+      border-inline-start-color: transparent;
+    }
+    &:focus {
+      z-index: 1;
+    }
+
     // This targets non last-child controls
     // where there are multiple controls
     &:not(:last-child) {
       @extend %remove-end-radii;
     }
   }
+
+  &--quiet {
+    .amplify-field-group__control {
+      @extend %remove-end-radii;
+      &:not(:focus) {
+        border-block-start-color: transparent;
+        border-inline-end-color: transparent;
+      }
+    }
+  }
+
   // Select requires special rules due to icon
   .amplify-select__wrapper {
     .amplify-select {
@@ -105,7 +141,7 @@
   position: relative;
   width: 100%;
 
-  &[data-orientation='vertical'] {
+  &--vertical {
     width: fit-content;
   }
 }

@@ -1,4 +1,5 @@
 import { FlexProps } from './flex';
+import { FieldVariations } from './field';
 export type FieldGroupOrientation = 'horizontal' | 'vertical';
 
 export interface FieldGroupOptions extends FlexProps {
@@ -8,4 +9,5 @@ export interface FieldGroupOptions extends FlexProps {
   outerEndComponent?: React.ReactNode;
   innerStartComponent?: React.ReactNode;
   innerEndComponent?: React.ReactNode;
+  variation?: FieldVariations;
 }

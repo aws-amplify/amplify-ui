@@ -1,5 +1,5 @@
 import {
-  authInputAttributes,
+  defaultFormFieldOptions,
   censorAllButFirstAndLast,
   censorPhoneNumber,
   ContactMethod,
@@ -8,10 +8,16 @@ import {
   translate,
 } from '@aws-amplify/ui';
 
-import { useAuthenticator } from '..';
-import { Flex, Heading, Radio, RadioGroupField } from '../../..';
-import { RemoteErrorMessage, TwoButtonSubmitFooter } from '../shared';
-import { isInputOrSelectElement, isInputElement } from '../../../helpers/utils';
+import { Flex } from '../../../primitives/Flex';
+import { Heading } from '../../../primitives/Heading';
+import { Radio } from '../../../primitives/Radio';
+import { RadioGroupField } from '../../../primitives/RadioGroupField';
+import { useAuthenticator } from '../hooks/useAuthenticator';
+import { useCustomComponents } from '../hooks/useCustomComponents';
+import { useFormHandlers } from '../hooks/useFormHandlers';
+import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
+import { TwoButtonSubmitFooter } from '../shared/TwoButtonSubmitFooter';
+import { RouteContainer, RouteProps } from '../RouteContainer';
 
 const censorContactInformation = (
   type: ContactMethod,
@@ -40,7 +46,7 @@ const generateRadioGroup = (
   for (const [key, value] of Object.entries(attributes)) {
     const radio = (
       <Radio name="unverifiedAttr" value={key} key={key}>
-        {censorContactInformation(authInputAttributes[key].label, value)}
+        {censorContactInformation(defaultFormFieldOptions[key].label, value)}
       </Radio>
     );
 
@@ -50,8 +56,21 @@ const generateRadioGroup = (
   return radioButtons;
 };
 
-export const VerifyUser = (): JSX.Element => {
-  const { _state, isPending, submitForm, updateForm } = useAuthenticator();
+export const VerifyUser = ({
+  className,
+  variation,
+}: RouteProps): JSX.Element => {
+  const {
+    components: {
+      VerifyUser: { Header = VerifyUser.Header, Footer = VerifyUser.Footer },
+    },
+  } = useCustomComponents();
+
+  // TODO: expose unverifiedAttributes from `useAuthenticator`
+  const { _state, isPending } = useAuthenticator((context) => [
+    context.isPending,
+  ]);
+  const { handleChange, handleSubmit } = useFormHandlers();
   const context = getActorContext(_state) as SignInContext;
 
   const footerSubmitText = isPending ? (
@@ -71,49 +90,40 @@ export const VerifyUser = (): JSX.Element => {
     </RadioGroupField>
   );
 
-  const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
-    if (isInputOrSelectElement(event.target)) {
-      let { name, type, value } = event.target;
-      if (
-        isInputElement(event.target) &&
-        type === 'checkbox' &&
-        !event.target.checked
-      ) {
-        value = undefined;
-      }
-
-      updateForm({ name, value });
-    }
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    submitForm();
-  };
-
   return (
-    <form
-      data-amplify-form=""
-      data-amplify-authenticator-verifyuser=""
-      method="post"
-      onChange={handleChange}
-      onSubmit={handleSubmit}
-    >
-      <Flex direction="column">
-        <Heading level={3}>
-          {translate('Account recovery requires verified contact information')}
-        </Heading>
+    <RouteContainer className={className} variation={variation}>
+      <form
+        data-amplify-form=""
+        data-amplify-authenticator-verifyuser=""
+        method="post"
+        onChange={handleChange}
+        onSubmit={handleSubmit}
+      >
+        <Flex as="fieldset" direction="column" isDisabled={isPending}>
+          <Header />
 
-        {verificationRadioGroup}
+          {verificationRadioGroup}
 
-        <RemoteErrorMessage />
+          <RemoteErrorMessage />
 
-        <TwoButtonSubmitFooter
-          cancelButtonText={translate('Skip')}
-          cancelButtonSendType="SKIP"
-          submitButtonText={footerSubmitText}
-        />
-      </Flex>
-    </form>
+          <TwoButtonSubmitFooter
+            cancelButtonText={translate('Skip')}
+            cancelButtonSendType="SKIP"
+            submitButtonText={footerSubmitText}
+          />
+          <Footer />
+        </Flex>
+      </form>
+    </RouteContainer>
   );
 };
+
+VerifyUser.Header = () => {
+  return (
+    <Heading level={3}>
+      {translate('Account recovery requires verified contact information')}
+    </Heading>
+  );
+};
+
+VerifyUser.Footer = (): JSX.Element => null;

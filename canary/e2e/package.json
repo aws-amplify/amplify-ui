@@ -1,0 +1,28 @@
+{
+  "name": "canary-cypress",
+  "version": "0.0.1",
+  "license": "MIT",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "clean": "rimraf node_modules",
+    "dev": "TZ=UTC cypress open",
+    "test": "TZ=UTC cypress run --spec 'features/**/*.feature'"
+  },
+  "cypress-cucumber-preprocessor": {
+    "nonGlobalStepDefinitions": true,
+    "nonGlobalStepBaseDir": "cypress/integration",
+    "stepDefinitions": "features"
+  },
+  "author": "",
+  "devDependencies": {
+    "cypress": "^9.5.1",
+    "@aws-amplify/ui": "^3.1.0",
+    "@testing-library/cypress": "^7.0.6",
+    "@types/cypress-cucumber-preprocessor": "^4.0.0",
+    "cypress-cucumber-preprocessor": "^4.1.2",
+    "dotenv-safe": "^8.2.0",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.3.2"
+  }
+}

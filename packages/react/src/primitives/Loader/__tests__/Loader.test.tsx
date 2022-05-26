@@ -6,6 +6,7 @@ import {
   Loader,
   CIRCULAR_EMPTY,
   CIRCULAR_FILLED,
+  CIRCUMFERENCE,
   LINEAR_EMPTY,
   LINEAR_FILLED,
 } from '../Loader';
@@ -17,6 +18,39 @@ describe('Loader: ', () => {
     render(<Loader className={className} />);
     const loader = await screen.findByRole('img');
     expect(loader).toHaveClass(ComponentClassNames.Loader, className);
+  });
+
+  it('should render size classes for Loader', async () => {
+    render(
+      <div>
+        <Loader testId="small" size="small" />
+        <Loader testId="large" size="large" />
+      </div>
+    );
+
+    const small = await screen.findByTestId('small');
+    const large = await screen.findByTestId('large');
+
+    expect(small.classList).toContain(
+      `${ComponentClassNames['Loader']}--small`
+    );
+    expect(large.classList).toContain(
+      `${ComponentClassNames['Loader']}--large`
+    );
+  });
+
+  it('should render variation classes for Loader', async () => {
+    render(
+      <div>
+        <Loader testId="linear" variation="linear" />
+      </div>
+    );
+
+    const linear = await screen.findByTestId('linear');
+
+    expect(linear.classList).toContain(
+      `${ComponentClassNames['Loader']}--linear`
+    );
   });
 
   it('should forward ref to DOM element', async () => {
@@ -70,5 +104,73 @@ describe('Loader: ', () => {
     const linearFilled = await screen.findByTestId(LINEAR_FILLED);
     expect(linearEmpty).toHaveStyle({ stroke: emptyColor });
     expect(linearFilled).toHaveStyle({ stroke: filledColor });
+  });
+
+  it('should render circular determinate loader correctly', async () => {
+    const percentage = 80;
+    render(<Loader percentage={percentage} isDeterminate />);
+
+    const loader = await screen.findByRole('img');
+    expect(loader).toHaveClass(ComponentClassNames.LoaderDeterminate);
+
+    const circularFilled = await screen.findByTestId(CIRCULAR_FILLED);
+    expect(circularFilled).toHaveStyle({
+      strokeDasharray: `${CIRCUMFERENCE}% ${CIRCUMFERENCE}%`,
+      strokeDashoffset: `${
+        CIRCUMFERENCE - (CIRCUMFERENCE * percentage) / 100
+      }%`,
+    });
+
+    const textContent = `${percentage}%`;
+    const percentageText = await screen.findByText(textContent);
+    expect(percentageText).toHaveClass(
+      ComponentClassNames.LoaderPercentageText
+    );
+    expect(percentageText).toHaveAttribute('aria-live', 'polite');
+    expect(percentageText).toHaveTextContent(textContent);
+  });
+
+  it('should add visually hidden class to circular loader if isPercentageHidden is set to true', async () => {
+    const percentage = 80;
+    render(<Loader percentage={80} isDeterminate isPercentageTextHidden />);
+
+    const textContent = `${percentage}%`;
+    const percentageText = await screen.findByText(textContent);
+    expect(percentageText).toHaveClass(ComponentClassNames.VisuallyHidden);
+  });
+
+  it('should render linear determinate loader correctly', async () => {
+    const percentage = 80;
+    render(<Loader percentage={percentage} variation="linear" isDeterminate />);
+
+    const loader = await screen.findByRole('img');
+    expect(loader).toHaveClass(ComponentClassNames.LoaderDeterminate);
+
+    const linearFilled = await screen.findByTestId(LINEAR_FILLED);
+    expect(linearFilled).toHaveAttribute('x2', `${percentage}%`);
+
+    const textContent = `${percentage}%`;
+    const percentageText = await screen.findByText(textContent);
+    expect(percentageText).toHaveClass(
+      ComponentClassNames.LoaderPercentageText
+    );
+    expect(percentageText).toHaveAttribute('aria-live', 'polite');
+    expect(percentageText).toHaveTextContent(textContent);
+  });
+
+  it('should add visually hidden class to linear loader if isPercentageHidden is set to true', async () => {
+    const percentage = 80;
+    render(
+      <Loader
+        percentage={80}
+        variation="linear"
+        isDeterminate
+        isPercentageTextHidden
+      />
+    );
+
+    const textContent = `${percentage}%`;
+    const percentageText = await screen.findByText(textContent);
+    expect(percentageText).toHaveClass(ComponentClassNames.VisuallyHidden);
   });
 });

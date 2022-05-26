@@ -8,11 +8,21 @@ import {
   testFlexProps,
   expectFlexContainerStyleProps,
 } from '../../Flex/__tests__/Flex.test';
-import { AUTO_GENERATED_ID_PREFIX } from '../../shared/utils';
-
+import { AUTO_GENERATED_ID_PREFIX } from '../../utils/useStableId';
 const label = 'Field';
 const testId = 'testId';
+const originalWarn = console.warn;
+const deprecationMessage =
+  'TextField isMultiLine prop will be deprecated in next major release of @aws-amplify/ui-react. Please use TextAreaField component instead.';
+
 describe('TextField component', () => {
+  beforeAll(() => {
+    console.warn = jest.fn();
+  });
+  afterAll(() => {
+    console.warn = originalWarn;
+  });
+
   describe('wrapper Flex', () => {
     it('should render default and custom classname ', async () => {
       const customClassName = 'my-textfield';
@@ -36,6 +46,25 @@ describe('TextField component', () => {
       const field = await screen.findByTestId('testId');
       expectFlexContainerStyleProps(field);
     });
+
+    it('should render size classes for TextField', async () => {
+      render(
+        <div>
+          <TextField size="small" testId="small" label="small" />
+          <TextField size="large" testId="large" label="large" />
+        </div>
+      );
+
+      const small = await screen.findByTestId('small');
+      const large = await screen.findByTestId('large');
+
+      expect(small.classList).toContain(
+        `${ComponentClassNames['Field']}--small`
+      );
+      expect(large.classList).toContain(
+        `${ComponentClassNames['Field']}--large`
+      );
+    });
   });
 
   describe('Label ', () => {
@@ -46,11 +75,11 @@ describe('TextField component', () => {
       expect(label).toHaveClass(ComponentClassNames.Label);
     });
 
-    it('should have `sr-only` class when labelHidden is true', async () => {
+    it('should have `amplify-visually-hidden` class when labelHidden is true', async () => {
       render(<TextField label="Search" labelHidden={true} />);
 
       const label = await screen.findByText('Search');
-      expect(label).toHaveClass('sr-only');
+      expect(label).toHaveClass('amplify-visually-hidden');
     });
   });
 
@@ -170,6 +199,8 @@ describe('TextField component', () => {
       expect(field.tagName).toBe('TEXTAREA');
       expect(field).toHaveClass(ComponentClassNames.Textarea);
       expect(field.id).toBe('testField');
+      // Show deprecation message
+      expect(console.warn).toHaveBeenLastCalledWith(deprecationMessage);
     });
 
     it('should forward ref to DOM element', async () => {
@@ -317,6 +348,20 @@ describe('TextField component', () => {
 
       const descriptiveText = await screen.queryByText('Description');
       expect(descriptiveText.innerHTML).toContain('Description');
+    });
+
+    it('should map to descriptive text correctly', async () => {
+      const descriptiveText = 'Description';
+      render(
+        <TextField
+          descriptiveText={descriptiveText}
+          label="Field"
+          id="testField"
+        />
+      );
+
+      const field = (await screen.findByRole('textbox')) as HTMLInputElement;
+      expect(field).toHaveAccessibleDescription(descriptiveText);
     });
   });
 });

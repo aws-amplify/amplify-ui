@@ -54,11 +54,6 @@ export type PrimitivePropsWithRef<
 export type Primitive<
   Props extends ViewProps,
   Element extends ElementType
-> = React.FC<PrimitiveProps<Props, Element>>;
-
-export type PrimitiveWithForwardRef<
-  Props extends ViewProps,
-  Element extends ElementType
 > = React.ForwardRefRenderFunction<
   HTMLElementType<Element>,
   PrimitivePropsWithRef<Props, Element>

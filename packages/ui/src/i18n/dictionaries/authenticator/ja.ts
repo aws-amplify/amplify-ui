@@ -19,7 +19,7 @@ export const jaDict = {
   'Enter your password': 'パスワードを入力 ',
   'Enter your username': 'ユーザー名を入力 ',
   'Forgot Password': 'パスワードを忘れた ',
-  'Forgot your password? ': 'パスワードを忘れましたか？ ',
+  'Forgot your password?': 'パスワードを忘れましたか？ ',
   'Have an account? ': 'アカウントを持っていますか？',
   'Incorrect username or password': 'ユーザー名かパスワードが異なります ',
   'Invalid password format': 'パスワードの形式が無効です ',

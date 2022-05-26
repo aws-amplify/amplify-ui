@@ -1,43 +1,20 @@
 import * as React from 'react';
 import debounce from 'lodash/debounce';
 import {
-  Alert,
+  Icon,
   Heading,
-  Button,
+  Link,
   Text,
-  IconFeedback,
+  View,
   useTheme,
 } from '@aws-amplify/ui-react';
+import { SiW3C, SiReact } from 'react-icons/si';
+
 import { Sidebar } from './SecondaryNav';
 import { TableOfContents } from '../TableOfContents';
 import { Footer } from './Footer';
-
-const PrimitiveAlert = () => {
-  const { tokens } = useTheme();
-  return (
-    <Alert
-      variation="info"
-      heading="Developer preview"
-      margin={`${tokens.space.small} 0 0 0`}
-    >
-      <Text color="inherit">
-        Amplify UI primitive components like this one are in developer preview
-        and only available in React for now.
-      </Text>
-      <Button
-        as="a"
-        size="small"
-        gap={tokens.space.xs}
-        margin={`${tokens.space.xs} 0 0 0`}
-        isExternal
-        href="https://github.com/aws-amplify/amplify-ui/discussions/198"
-      >
-        <IconFeedback />
-        Add feedback here
-      </Button>
-    </Alert>
-  );
-};
+import { GITHUB_REPO_FILE } from '@/data/links';
+import { DesignTokenIcon } from '@/components/DesignTokenIcon';
 
 export default function Page({
   children,
@@ -50,7 +27,9 @@ export default function Page({
     title,
     description,
     hideToc = false,
-    isPrimitive = false,
+    ariaPattern,
+    themeSource,
+    reactSource,
   } = frontmatter;
   const { tokens } = useTheme();
   const [headings, setHeadings] = React.useState([]);
@@ -59,14 +38,16 @@ export default function Page({
   React.useLayoutEffect(() => {
     const updateHeaders = debounce(() => {
       setHeadings(
-        [...document.querySelectorAll('h2[id],h3[id]')].map(
-          (node: HTMLElement) => ({
-            id: node.id,
-            label: node.innerText,
-            level: node.nodeName,
-            top: node.offsetTop,
-          })
-        )
+        [
+          ...document
+            .querySelector('#__next')
+            .querySelectorAll('h2[id],h3[id]'),
+        ].map((node: HTMLElement) => ({
+          id: node.id,
+          label: node.innerText,
+          level: node.nodeName,
+          top: node.offsetTop,
+        }))
       );
     });
 
@@ -79,6 +60,20 @@ export default function Page({
 
     return () => observer.disconnect();
   }, [children]);
+
+  React.useEffect(() => {
+    const scrollToHash = () => {
+      const { hash } = window.location;
+
+      if (hash) {
+        document.querySelector(hash)?.scrollIntoView({ behavior: 'smooth' });
+      }
+    };
+    window.addEventListener('load', scrollToHash);
+
+    return () => window.removeEventListener('load', scrollToHash);
+  }, []);
+
   return (
     <div className="docs-main">
       <Sidebar />
@@ -92,7 +87,50 @@ export default function Page({
             >
               {description}
             </Text>
-            {isPrimitive ? <PrimitiveAlert /> : null}
+            <View className="docs-component-links">
+              {ariaPattern ? (
+                <Link
+                  className="docs-component-link"
+                  href={ariaPattern}
+                  isExternal
+                >
+                  <Icon
+                    ariaLabel="W3C"
+                    as={SiW3C}
+                    marginInlineEnd={tokens.space.xs}
+                  />
+                  ARIA pattern
+                </Link>
+              ) : null}
+              {themeSource ? (
+                <Link
+                  className="docs-component-link"
+                  href={`${GITHUB_REPO_FILE}${themeSource}`}
+                  isExternal
+                >
+                  <DesignTokenIcon
+                    ariaLabel=""
+                    marginInlineEnd={tokens.space.xs}
+                  />
+                  Theme source
+                </Link>
+              ) : null}
+              {reactSource ? (
+                <Link
+                  className="docs-component-link"
+                  href={`${GITHUB_REPO_FILE}${reactSource}`}
+                  isExternal
+                >
+                  <Icon
+                    ariaLabel=""
+                    aria-hidden="true"
+                    as={SiReact}
+                    marginInlineEnd={tokens.space.xs}
+                  />
+                  React source
+                </Link>
+              ) : null}
+            </View>
           </section>
 
           {children}
@@ -100,7 +138,7 @@ export default function Page({
         <Footer />
       </main>
 
-      {hideToc ? null : (
+      {!hideToc && headings.length && (
         <TableOfContents title="Contents" headings={headings} />
       )}
     </div>

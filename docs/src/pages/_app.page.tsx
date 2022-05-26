@@ -1,13 +1,19 @@
 import * as React from 'react';
-import Head from 'next/head';
-import { useRouter } from 'next/router';
+
 import { AmplifyProvider, ColorMode } from '@aws-amplify/ui-react';
+import { configure, trackPageVisit } from '../utils/track';
+
+import Head from 'next/head';
+import { Header } from '@/components/Layout/Header';
+import Script from 'next/script';
+import { baseTheme } from '../theme';
+import { capitalizeString } from '../utils/capitalizeString';
+import { useCustomRouter } from '@/components/useCustomRouter';
+import metaData from '../data/pages.preval';
 
 import { UI_DOCS_REFERENCE } from '@/data/links';
 import { getImagePath } from '@/utils/previews';
-import { Header } from '@/components/Layout/Header';
 
-import { theme } from '../theme';
 import '../styles/index.scss';
 
 // suppress useLayoutEffect warnings when running outside a browser
@@ -16,52 +22,55 @@ import '../styles/index.scss';
 if (typeof window === 'undefined') React.useLayoutEffect = React.useEffect;
 
 function MyApp({ Component, pageProps }) {
-  const router = useRouter();
-  const { platform = 'react' } = router.query;
-  const [colorMode, setColorMode] = React.useState<ColorMode>('system');
-  const [themeOverride, setThemeOverride] = React.useState('');
+  const {
+    asPath,
+    pathname,
+    query: { platform = 'react' },
+  } = useCustomRouter();
 
-  const favicon =
-    process.env.NODE_ENV === 'development'
-      ? '/svg/favicon-dev.svg'
-      : '/svg/favicon.svg';
+  const filepath = `/${pathname
+    .split('/')
+    .filter((n) => n && n !== '[platform]')
+    .join('/')}`;
+  const [colorMode, setColorMode] = React.useState<ColorMode>('system');
+
+  configure();
+  trackPageVisit();
+
+  const { title, metaTitle, description, metaDescription } =
+    metaData[pathname]?.frontmatter ?? {};
+
+  if ((!description && !metaDescription) || (!title && !metaTitle)) {
+    throw new Error(`Meta Info missing on ${filepath}`);
+  }
+
   return (
-    <div className={themeOverride}>
+    <>
       <Head>
-        <title>Amplify UI</title>
+        <title>
+          {metaTitle ?? title} | {capitalizeString(platform)} - Amplify UI
+        </title>
+        {['/', '/react', '/angular', '/vue', '/flutter'].includes(asPath) && (
+          <link rel="canonical" href="https://ui.docs.amplify.aws/" />
+        )}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" type="image/svg+xml" href={favicon} />
-        {/* Adding custom variable fonts from google */}
-        {/* Including multiple to show theming capabilities */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="true"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&family=Open+Sans:wght@300..800&family=Work+Sans:wght@100..900&display=swap"
-          rel="stylesheet"
-        />
+        <meta name="description" content={metaDescription ?? description} />
         <meta
           property="og:image"
-          content={UI_DOCS_REFERENCE + getImagePath(router.pathname)}
+          content={UI_DOCS_REFERENCE + getImagePath(pathname)}
         />
       </Head>
-      <AmplifyProvider theme={theme} colorMode={colorMode}>
+      <AmplifyProvider theme={baseTheme} colorMode={colorMode}>
         <Header
           platform={platform}
           colorMode={colorMode}
           setColorMode={setColorMode}
         />
-        <Component
-          {...pageProps}
-          colorMode={colorMode}
-          setThemeOverride={setThemeOverride}
-          themeOverride={themeOverride}
-        />
+        <Component {...pageProps} colorMode={colorMode} />
       </AmplifyProvider>
-    </div>
+      <Script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" />
+      <Script src="/scripts/shortbreadv2.js" />
+    </>
   );
 }
 

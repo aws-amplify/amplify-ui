@@ -1,9 +1,14 @@
+import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { Pagination } from '../Pagination';
 import { ComponentClassNames } from '../../shared';
-import { PaginationItem } from '../PaginationItem';
+import {
+  PaginationItem,
+  PAGINATION_CURRENT_TEST_ID,
+  PAGINATION_ELLIPSIS_TEST_ID,
+} from '../PaginationItem';
 
 describe('Pagination component test suite', () => {
   const id = 'my-pagination';
@@ -33,6 +38,25 @@ describe('Pagination component test suite', () => {
       expect(lastPage).toHaveTextContent('5');
     });
 
+    it('should forward ref to DOM element', async () => {
+      const ref = React.createRef<HTMLDivElement>();
+      render(
+        <Pagination
+          currentPage={1}
+          id={id}
+          onChange={() => {}}
+          onNext={() => {}}
+          onPrevious={() => {}}
+          ref={ref}
+          siblingCount={2}
+          totalPages={10}
+        />
+      );
+
+      await screen.findByRole('navigation');
+      expect(ref.current.nodeName).toBe('NAV');
+    });
+
     it('should disable previous page button but enable next page button if current page is the first page', async () => {
       render(
         <Pagination
@@ -56,7 +80,7 @@ describe('Pagination component test suite', () => {
       expect(next).not.toBeDisabled();
     });
 
-    it('should enable previous page button but disable next page button if current page is the last page', async () => {
+    it('should enable previous page button but disable next page button if current page is the last page and there are no more pages', async () => {
       render(
         <Pagination
           id={id}
@@ -75,6 +99,25 @@ describe('Pagination component test suite', () => {
       const next = await screen.findByLabelText('Go to next page');
       expect(next.childNodes.length).toBe(1);
       expect(next).toBeDisabled();
+    });
+
+    it('should enable previous page button and next page button if current page is the last page and there are more pages', async () => {
+      render(
+        <Pagination
+          id={id}
+          currentPage={5}
+          totalPages={5}
+          hasMorePages={true}
+        />
+      );
+
+      const previous = await screen.findByLabelText('Go to previous page');
+      expect(previous.childNodes.length).toBe(1);
+      expect(previous).not.toBeDisabled();
+
+      const next = await screen.findByLabelText('Go to next page');
+      expect(next.childNodes.length).toBe(1);
+      expect(next).not.toBeDisabled();
     });
 
     it('should enable both previous page button and next page button if current page is neither the first or last page', async () => {
@@ -187,10 +230,25 @@ describe('Pagination component test suite', () => {
       expect(pagination).toHaveTextContent('6');
       expect(pagination).toHaveTextContent('7');
     });
+
+    it('should default the current page to 1 if one is not provided', async () => {
+      render(
+        <Pagination
+          id={id}
+          totalPages={10}
+          siblingCount={2}
+          onChange={() => {}}
+          onNext={() => {}}
+          onPrevious={() => {}}
+        />
+      );
+      const currentPage = await screen.findByTestId(PAGINATION_CURRENT_TEST_ID);
+      expect(currentPage).toHaveTextContent('1');
+    });
   });
 
   describe('Test PaginationItem', () => {
-    it('should render page item with provided porps', async () => {
+    it('should render page item with provided props', async () => {
       const mockOnClick = jest.fn();
       render(
         <PaginationItem
@@ -210,7 +268,7 @@ describe('Pagination component test suite', () => {
       userEvent.click(pageItem);
       expect(mockOnClick).not.toHaveBeenCalled();
     });
-    it('should render previous page button with provided porps', async () => {
+    it('should render previous page button with provided props', async () => {
       const mockOnClick = jest.fn();
       render(
         <PaginationItem
@@ -227,7 +285,7 @@ describe('Pagination component test suite', () => {
       expect(mockOnClick).toHaveBeenCalledTimes(1);
       expect(mockOnClick).toHaveBeenCalledWith();
     });
-    it('should render next page button with provided porps', async () => {
+    it('should render next page button with provided props', async () => {
       const mockOnClick = jest.fn();
       render(
         <PaginationItem
@@ -244,9 +302,9 @@ describe('Pagination component test suite', () => {
       expect(mockOnClick).toHaveBeenCalledTimes(1);
       expect(mockOnClick).toHaveBeenCalledWith();
     });
-    it('should render ellipsis item with provided porps', async () => {
+    it('should render ellipsis item with provided props', async () => {
       render(<PaginationItem type="ellipsis" ariaLabel="ellipsis" />);
-      const ellipsis = await screen.findByTestId('ellipsis');
+      const ellipsis = await screen.findByTestId(PAGINATION_ELLIPSIS_TEST_ID);
       expect(ellipsis.nodeName).toBe('SPAN');
       expect(ellipsis).toHaveClass(ComponentClassNames.PaginationItemEllipsis);
       expect(ellipsis.innerHTML).toBe('\u2026');

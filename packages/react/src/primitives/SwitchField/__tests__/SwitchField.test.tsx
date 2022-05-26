@@ -1,18 +1,21 @@
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import * as React from 'react';
+import { act, render, screen } from '@testing-library/react';
 import kebabCase from 'lodash/kebabCase';
+import userEvent from '@testing-library/user-event';
 
-import { SwitchField } from '../SwitchField';
+import { AUTO_GENERATED_ID_PREFIX } from '../../utils/useStableId';
 import { ComponentClassNames } from '../../shared';
-import { AUTO_GENERATED_ID_PREFIX } from '../../shared/utils';
 import { ComponentPropsToStylePropsMap } from '../../types';
+import { SwitchField } from '../SwitchField';
+import { Button } from '../../Button';
 
 describe('Switch Field', () => {
   const label = 'My switch label';
+
   describe('Switch wrapper', () => {
     it('should pass through the className', async () => {
       const { container } = render(
-        <SwitchField label={label} className={'my-switch'} />
+        <SwitchField label={label} className="my-switch" />
       );
 
       const wrapper = container.getElementsByClassName(
@@ -21,10 +24,27 @@ describe('Switch Field', () => {
       expect(wrapper).toHaveClass('my-switch');
     });
 
-    it('should set the data-size attribute', async () => {
+    it('should render the position classes on SwitchField', async () => {
       const { container } = render(
-        <SwitchField label={label} size={'large'} />
+        <SwitchField label={label} labelPosition="top" />
       );
+
+      const wrapper = container.getElementsByClassName(
+        ComponentClassNames.SwitchWrapper
+      )[0];
+      expect(wrapper).toHaveClass(`${ComponentClassNames.SwitchWrapper}--top`);
+    });
+
+    it('should forward ref to DOM element', async () => {
+      const ref = React.createRef<HTMLDivElement>();
+      render(<SwitchField testId="testId" label={label} ref={ref} />);
+
+      await screen.findByLabelText(label);
+      expect(ref.current.nodeName).toBe('DIV');
+    });
+
+    it('should set the data-size attribute', async () => {
+      const { container } = render(<SwitchField label={label} size="large" />);
 
       const wrapper = container.getElementsByClassName(
         ComponentClassNames.SwitchField
@@ -34,7 +54,7 @@ describe('Switch Field', () => {
 
     it('should set the label for attribute to match the passed in id', async () => {
       const { container } = render(
-        <SwitchField label={label} id={'my-switch'} />
+        <SwitchField label={label} id="my-switch" />
       );
 
       const wrapper = container.getElementsByClassName(
@@ -45,7 +65,7 @@ describe('Switch Field', () => {
 
     it('should set the data-label-position attribute', async () => {
       const { container } = render(
-        <SwitchField label={label} labelPosition={'end'} />
+        <SwitchField label={label} labelPosition="end" />
       );
 
       const wrapper = container.getElementsByClassName(
@@ -86,6 +106,23 @@ describe('Switch Field', () => {
   });
 
   describe('Input', () => {
+    let updateControlledValue;
+    const ControlledSwitch = () => {
+      const [isChecked, setIsChecked] = React.useState(true);
+      const changeFunction = (e) => {
+        setIsChecked(e.target.checked);
+      };
+      updateControlledValue = setIsChecked;
+
+      return (
+        <SwitchField
+          label={label}
+          isChecked={isChecked}
+          onChange={changeFunction}
+        />
+      );
+    };
+
     it('should create a checkbox input element', async () => {
       const { container } = render(<SwitchField label={label} />);
 
@@ -102,11 +139,7 @@ describe('Switch Field', () => {
 
     it('should pass through the name and value properties to the checkbox', async () => {
       const { container } = render(
-        <SwitchField
-          label={label}
-          name={'myCheckbox'}
-          value={'checkboxValue'}
-        />
+        <SwitchField label={label} name="myCheckbox" value="checkboxValue" />
       );
 
       const field = container.getElementsByTagName('input')[0];
@@ -124,12 +157,32 @@ describe('Switch Field', () => {
     });
 
     it('should set the input to checked with the isChecked prop', async () => {
-      const { container } = render(
-        <SwitchField label={label} isChecked={true} />
-      );
+      const { container } = render(<ControlledSwitch />);
 
       const field = container.getElementsByTagName('input')[0];
       expect(field).toBeChecked();
+    });
+
+    it('should update the checked value when a controlled value is updated', async () => {
+      render(<ControlledSwitch />);
+
+      let input = await screen.findByLabelText(label);
+      expect(input).toBeChecked();
+
+      act(() => updateControlledValue(false));
+      input = await screen.findByLabelText(label);
+      expect(input).not.toBeChecked();
+    });
+
+    it('should update the checked value with a click event', async () => {
+      render(<ControlledSwitch />);
+
+      let input = await screen.findByLabelText(label);
+      expect(input).toBeChecked();
+
+      userEvent.click(input);
+      input = await screen.findByLabelText(label);
+      expect(input).not.toBeChecked();
     });
 
     it('should set the input to checked with the defaultChecked prop', async () => {
@@ -142,18 +195,34 @@ describe('Switch Field', () => {
     });
 
     it('should fire the onChange function with a checkbox change event', async () => {
-      const onChange = jest.fn();
-      const { container } = render(
-        <SwitchField label={label} onChange={onChange} />
-      );
-      const labelField = container.getElementsByTagName('label')[0];
-      userEvent.click(labelField);
-      expect(onChange).toHaveBeenCalled();
+      const originalLog = console.log;
+      console.log = jest.fn();
+
+      const SwitchFieldControlledExample = () => {
+        const [isChecked, setIsChecked] = React.useState(true);
+        console.log(`isChecked set to ${isChecked}`);
+
+        return (
+          <>
+            <SwitchField label="This is a switch" isChecked={isChecked} />
+            <Button onClick={() => setIsChecked(!isChecked)}>Switch On</Button>
+          </>
+        );
+      };
+
+      const { container } = render(<SwitchFieldControlledExample />);
+      const button = container.getElementsByTagName('button')[0];
+
+      expect(console.log).toHaveBeenCalledWith('isChecked set to true');
+      userEvent.click(button);
+      expect(console.log).toHaveBeenCalledWith('isChecked set to false');
+
+      console.log = originalLog;
     });
 
     it('should set the id on the input element', async () => {
       const { container } = render(
-        <SwitchField label={label} id={'my-switch'} />
+        <SwitchField label={label} id="my-switch" />
       );
 
       const field = container.getElementsByTagName('input')[0];
@@ -168,9 +237,25 @@ describe('Switch Field', () => {
   });
 
   describe('Switch Track', () => {
+    it('should render the state classes on SwitchField', async () => {
+      const { container } = render(
+        <SwitchField label={label} isChecked={true} isDisabled={true} />
+      );
+
+      const wrapper = container.getElementsByClassName(
+        ComponentClassNames.SwitchTrack
+      )[0];
+      expect(wrapper).toHaveClass(
+        `${ComponentClassNames.SwitchTrack}--checked`
+      );
+      expect(wrapper).toHaveClass(
+        `${ComponentClassNames.SwitchTrack}--disabled`
+      );
+    });
+
     it('should set the track color for the unchecked switch', async () => {
       const { container } = render(
-        <SwitchField label={label} trackColor={'red'} />
+        <SwitchField label={label} trackColor="red" />
       );
 
       const track = container.getElementsByClassName(
@@ -187,7 +272,7 @@ describe('Switch Field', () => {
       const { container } = render(
         <SwitchField
           label={label}
-          trackCheckedColor={'red'}
+          trackCheckedColor="red"
           defaultChecked={true}
         />
       );
@@ -218,7 +303,7 @@ describe('Switch Field', () => {
   describe('Switch Thumb', () => {
     it('should change the switch thumb color', async () => {
       const { container } = render(
-        <SwitchField label={label} thumbColor={'red'} />
+        <SwitchField label={label} thumbColor="red" />
       );
 
       const track = container.getElementsByClassName(

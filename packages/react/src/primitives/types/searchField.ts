@@ -1,4 +1,5 @@
-import React from 'react';
+import * as React from 'react';
+
 import { FieldGroupIconButtonProps } from './fieldGroupIcon';
 import { TextInputFieldProps } from './textField';
 
@@ -27,3 +28,7 @@ export interface SearchFieldProps extends TextInputFieldProps {
 
 export interface SearchFieldButtonProps
   extends Partial<FieldGroupIconButtonProps> {}
+
+export type UseSearchFieldProps = Partial<SearchFieldProps> & {
+  externalRef?: React.ForwardedRef<HTMLInputElement>;
+};

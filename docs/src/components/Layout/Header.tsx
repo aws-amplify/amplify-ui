@@ -1,30 +1,47 @@
 import * as React from 'react';
-import NextLink from 'next/link';
+
 import {
-  IconOpenInNew,
   Button,
-  VisuallyHidden,
-  Link,
-  Flex,
   ColorMode,
+  Divider,
+  Flex,
+  Link,
   ToggleButton,
   ToggleButtonGroup,
-  IconWbSunny,
-  IconBedtime,
-  IconTonality,
-  IconMenu,
-  Divider,
   View,
-  IconClose,
+  VisuallyHidden,
 } from '@aws-amplify/ui-react';
-import { useRouter } from 'next/router';
-import { Logo } from '@/components/Logo';
-import { FrameworkChooser } from './FrameworkChooser';
-import { SecondaryNav } from './SecondaryNav';
+import {
+  MdBedtime,
+  MdClose,
+  MdMenu,
+  MdOpenInNew,
+  MdTonality,
+  MdWbSunny,
+} from 'react-icons/md';
 
-const NavLink = ({ href, children, isExternal = false, onClick }) => {
-  const { pathname, query } = useRouter();
-  const isCurrent = pathname.startsWith(href) && href !== '/';
+import { FrameworkChooser } from './FrameworkChooser';
+import LinkButton from './LinkButton';
+import { Logo } from '@/components/Logo';
+import NextLink from 'next/link';
+import { SecondaryNav } from './SecondaryNav';
+import { useCustomRouter } from '@/components/useCustomRouter';
+
+const NavLink = ({
+  href,
+  children,
+  isExternal = false,
+  onClick,
+}: {
+  href: string;
+  children: React.ReactElement;
+  isExternal?: boolean;
+  onClick?: React.MouseEventHandler<HTMLAnchorElement>;
+}) => {
+  const { pathname } = useCustomRouter();
+  const pathnameHeader = pathname.split('/')[2];
+  const hrefHeader = href.split('/')[2];
+  const isCurrent = pathnameHeader === hrefHeader && href !== `/`;
   const className = `docs-nav-link ${isCurrent ? 'current' : ''}`;
 
   if (isExternal) {
@@ -35,30 +52,41 @@ const NavLink = ({ href, children, isExternal = false, onClick }) => {
     );
   }
   return (
-    <NextLink href={{ pathname: href, query }}>
-      <div>
-        <a className={className} onClick={onClick}>
-          {children}
-        </a>
-      </div>
+    <NextLink href={href} passHref>
+      <LinkButton href={href} classNames={className} onClick={onClick}>
+        {children}
+      </LinkButton>
     </NextLink>
   );
 };
 
 const Nav = (props) => (
-  <Flex as="nav" className="docs-nav" alignItems="center" gap="0" grow="1">
-    <NavLink {...props} href="/getting-started/installation">
+  <Flex
+    as="nav"
+    aria-label="Main navigation"
+    className="docs-nav"
+    alignItems="center"
+    gap="0"
+    grow="1"
+  >
+    <NavLink
+      {...props}
+      href={`/${props.platform}/getting-started/installation`}
+    >
       Getting started
     </NavLink>
-    <NavLink {...props} href="/components">
+    <NavLink {...props} href={`/${props.platform}/components`}>
       Components
     </NavLink>
-    <NavLink {...props} href="/theming">
+    <NavLink {...props} href={`/${props.platform}/theming`}>
       Theming
+    </NavLink>
+    <NavLink {...props} href={`/${props.platform}/guides`}>
+      Guides
     </NavLink>
     <Divider orientation="vertical" />
     <NavLink {...props} isExternal href="https://docs.amplify.aws">
-      Amplify docs <IconOpenInNew />
+      Amplify docs <MdOpenInNew />
     </NavLink>
   </Flex>
 );
@@ -74,21 +102,23 @@ const ColorModeSwitcher = ({ colorMode, setColorMode }) => {
   return (
     <ToggleButtonGroup
       value={colorMode}
-      isExclusive
       size="small"
       onChange={(value: ColorMode) => setColorMode(value)}
+      isExclusive
+      isSelectionRequired
+      className="color-switcher"
     >
-      <ToggleButton value="light">
+      <ToggleButton value="light" title="Light mode">
         <VisuallyHidden>Light mode</VisuallyHidden>
-        <IconWbSunny />
+        <MdWbSunny />
       </ToggleButton>
-      <ToggleButton value="dark">
+      <ToggleButton value="dark" title="Dark mode">
         <VisuallyHidden>Dark mode</VisuallyHidden>
-        <IconBedtime />
+        <MdBedtime />
       </ToggleButton>
-      <ToggleButton value="system">
+      <ToggleButton value="system" title="System preferences">
         <VisuallyHidden>System preference</VisuallyHidden>
-        <IconTonality />
+        <MdTonality />
       </ToggleButton>
     </ToggleButtonGroup>
   );
@@ -96,25 +126,29 @@ const ColorModeSwitcher = ({ colorMode, setColorMode }) => {
 
 export const Header = ({ platform, colorMode, setColorMode }) => {
   const [expanded, setExpanded] = React.useState(false);
-
   return (
     <>
       <header className={`docs-header ${expanded ? 'expanded' : ''}`}>
         <Button
           className="docs-header-menu-button"
           onClick={() => setExpanded(!expanded)}
+          ariaLabel="Docs header menu button"
         >
-          {expanded ? <IconClose /> : <IconMenu />}
+          {expanded ? (
+            <MdClose style={{ width: '1.5rem', height: '1.5rem' }} />
+          ) : (
+            <MdMenu style={{ width: '1.5rem', height: '1.5rem' }} />
+          )}
         </Button>
 
-        <NavLink href="/">
-          <a className="docs-logo-link">
+        <NavLink href={`/`}>
+          <span className="docs-logo-link">
             <VisuallyHidden>Amplify UI Home</VisuallyHidden>
             <Logo />
-          </a>
+          </span>
         </NavLink>
 
-        <Nav />
+        <Nav platform={platform} />
 
         <Settings
           colorMode={colorMode}
@@ -124,13 +158,19 @@ export const Header = ({ platform, colorMode, setColorMode }) => {
       </header>
       {expanded ? (
         <View className="docs-header-mobile-nav">
-          <Settings
-            colorMode={colorMode}
-            setColorMode={setColorMode}
-            platform={platform}
-          />
-          <Nav onClick={() => setExpanded(false)} />
-          <nav className="docs-sidebar-nav">
+          <Flex
+            className="color-switcher__wrapper"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <ColorModeSwitcher
+              setColorMode={setColorMode}
+              colorMode={colorMode}
+            />
+          </Flex>
+
+          <Nav onClick={() => setExpanded(false)} platform={platform} />
+          <nav aria-label="Section navigation" className="docs-sidebar-nav">
             <SecondaryNav onClick={() => setExpanded(false)} />
           </nav>
         </View>

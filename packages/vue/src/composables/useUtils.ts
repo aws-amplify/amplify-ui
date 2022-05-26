@@ -1,31 +1,20 @@
-import {
-  AuthEventData,
-  LoginMechanism,
-  LoginMechanismArray,
-} from '@aws-amplify/ui';
-
-/**
- * If 'username' is the only login mechanism, then we ask for a user's
- * email and phone number during sign up as well.
- */
-export const useAliases = (
-  login_mechanisms: LoginMechanism[]
-): LoginMechanism[] =>
-  login_mechanisms?.length === 1 && login_mechanisms[0] === 'username'
-    ? [...LoginMechanismArray]
-    : login_mechanisms;
+import { AuthEventData } from '@aws-amplify/ui';
 
 export const facade = {
   error: '',
   hasValidationErrors: false,
   isPending: false,
   route: '',
+  authStatus: '',
   user: '',
-  validationErrors: {
+  validationErrors: [''],
+  codeDeliveryDetails: {
     val: '',
+    DeliveryMedium: '',
   },
   change: (data?: AuthEventData) => null,
   updateForm: (data?: AuthEventData) => null,
+  updateBlur: (data?: AuthEventData) => null,
   resend: (data?: AuthEventData) => null,
   resendCode: (data?: AuthEventData) => null,
   signOut: (data?: AuthEventData) => null,
