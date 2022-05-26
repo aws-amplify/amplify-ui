@@ -4,25 +4,28 @@
 
 import { When } from 'cypress-cucumber-preprocessor/steps';
 
-When('I select my country code with status {string}', (status: string) => {
-  const countryCodeSelect = cy.findByRole('combobox', {
-    name: /country code/i,
-  });
-  if (countryCodeSelect) {
-    const countryCode =
-      status === 'CONFIRMED'
-        ? '+1'
-        : status === 'UNCONFIRMED'
-        ? '+7'
-        : status === 'UNKNOWN'
-        ? '+20'
-        : status === 'FORCE_CHANGE_PASSWORD'
-        ? '+30'
-        : null;
+When(
+  'I select my country or region code with status {string}',
+  (status: string) => {
+    const countryOrRegionCodeSelect = cy.findByRole('combobox', {
+      name: /country or region code/i,
+    });
+    if (countryOrRegionCodeSelect) {
+      const countryOrRegionCode =
+        status === 'CONFIRMED'
+          ? '+1'
+          : status === 'UNCONFIRMED'
+          ? '+7'
+          : status === 'UNKNOWN'
+          ? '+20'
+          : status === 'FORCE_CHANGE_PASSWORD'
+          ? '+30'
+          : null;
 
-    countryCodeSelect.select(countryCode);
+      countryOrRegionCodeSelect.select(countryOrRegionCode);
+    }
   }
-});
+);
 
 When(
   'I type my {string} with status {string}',
