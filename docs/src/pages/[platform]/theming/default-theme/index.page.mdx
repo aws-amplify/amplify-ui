@@ -1,0 +1,10 @@
+---
+title: Default Theme
+metaDescription: Replace
+supportedFrameworks: react
+---
+
+import { Fragment } from '@/components/Fragment';
+
+<Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+
