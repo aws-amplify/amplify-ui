@@ -18,7 +18,6 @@
     "dev": "react-app-rewired start",
     "start": "serve build -s -p 3000",
     "build": "react-app-rewired build",
-    "postbuild": "yarn run size-limit",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject"
   },
