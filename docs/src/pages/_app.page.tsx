@@ -2,11 +2,7 @@ import '../styles/index.scss';
 
 import * as React from 'react';
 
-import {
-  AmplifyProvider,
-  ColorMode,
-  defaultDarkModeOverride,
-} from '@aws-amplify/ui-react';
+import { AmplifyProvider, ColorMode } from '@aws-amplify/ui-react';
 import { configure, trackPageVisit } from '../utils/track';
 
 import Head from 'next/head';
@@ -33,7 +29,18 @@ function MyApp({ Component, pageProps }) {
     .split('/')
     .filter((n) => n && n !== '[platform]')
     .join('/')}`;
+
   const [colorMode, setColorMode] = React.useState<ColorMode>('system');
+  const handleColorModeChange = (colorMode: ColorMode) => {
+    setColorMode(colorMode);
+    localStorage.setItem('colorMode', colorMode);
+  };
+  React.useEffect(() => {
+    const colorModePreference = localStorage.getItem('colorMode') as ColorMode;
+    if (colorModePreference) {
+      setColorMode(colorModePreference);
+    }
+  }, []);
 
   configure();
   trackPageVisit();
@@ -61,7 +68,7 @@ function MyApp({ Component, pageProps }) {
         <Header
           platform={platform}
           colorMode={colorMode}
-          setColorMode={setColorMode}
+          setColorMode={handleColorModeChange}
         />
         <Component {...pageProps} colorMode={colorMode} />
       </AmplifyProvider>
