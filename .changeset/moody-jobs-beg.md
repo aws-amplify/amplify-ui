@@ -1,6 +1,5 @@
 ---
-'angular-example': patch
-'amplify-ui-angular-mono': patch
+'@aws-amplify/ui-angular': patch
 ---
 
 update @angular-devkit/build-angular version
