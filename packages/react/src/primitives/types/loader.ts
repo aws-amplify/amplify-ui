@@ -20,11 +20,11 @@ export interface LoaderProps extends ViewProps {
   /**
    * This will set the filled color of Loader.
    */
-  filledColor?: Property.Color;
+  filledColor?: StyleToken<Property.Color>;
   /**
    * This will set the empty color of Loader.
    */
-  emptyColor?: Property.Color;
+  emptyColor?: StyleToken<Property.Color>;
   /**
    * This will set the percentage of a determinate Loader.
    */
