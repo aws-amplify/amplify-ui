@@ -88,7 +88,11 @@ jobs:
 
       - name: Install packages
         run: yarn install
-
+      - name: Add Amplify CLI
+        run: yarn global add @aws-amplify/cli
+      - name: Get CLI versions
+        id: cli-version
+        run: echo "::set-output name=version::$(amplify --version)"
       - name: Pull down AWS environments
         if: steps.environments-cache.outputs.cache-hit != 'true'
         run: yarn environments pull
