@@ -1,6 +1,6 @@
 import {
   Authenticator,
-  AmplifyProvider,
+  ThemeProvider,
   Theme,
   useTheme,
 } from '@aws-amplify/ui-react';
@@ -57,8 +57,8 @@ export function AuthStyle() {
   };
 
   return (
-    <AmplifyProvider theme={theme}>
+    <ThemeProvider theme={theme}>
       <Authenticator></Authenticator>
-    </AmplifyProvider>
+    </ThemeProvider>
   );
 }
