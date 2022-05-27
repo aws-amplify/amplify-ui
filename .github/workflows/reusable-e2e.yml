@@ -26,6 +26,12 @@ on:
         required: true
       SITE_URL:
         required: true
+      DOCSEARCH_DOCS_APP_ID:
+        required: true
+      DOCSEARCH_DOCS_API_KEY:
+        required: true
+      DOCSEARCH_DOCS_INDEX_NAME:
+        required: true
 
 jobs:
   setup:
