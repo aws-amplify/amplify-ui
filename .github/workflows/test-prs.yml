@@ -48,3 +48,4 @@ jobs:
       USERNAME: ${{ secrets.USERNAME }}
       NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
       VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+      SITE_URL: ${{ secrets.SITE_URL }}

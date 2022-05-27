@@ -24,6 +24,8 @@ on:
         required: true
       VALID_PASSWORD:
         required: true
+      SITE_URL:
+        required: true
 
 jobs:
   setup:
