@@ -1,16 +1,17 @@
 import * as React from 'react';
 import {
-  AmplifyProvider,
+  ThemeProvider,
   ColorMode,
   Card,
   Text,
   ToggleButton,
   ToggleButtonGroup,
+  Theme,
 } from '@aws-amplify/ui-react';
 
 export const CustomDarkModeExample = () => {
   const [colorMode, setColorMode] = React.useState<ColorMode>('system');
-  const theme = {
+  const theme: Theme = {
     name: 'my-theme',
     overrides: [
       {
@@ -39,9 +40,9 @@ export const CustomDarkModeExample = () => {
   };
 
   return (
-    // Note: color mode overrides are scoped to the AmplifyProvider
+    // Note: color mode overrides are scoped to the ThemeProvider
     // if you use multiple providers
-    <AmplifyProvider theme={theme} colorMode={colorMode}>
+    <ThemeProvider theme={theme} colorMode={colorMode}>
       <Card>
         <ToggleButtonGroup
           value={colorMode}
@@ -54,6 +55,6 @@ export const CustomDarkModeExample = () => {
         </ToggleButtonGroup>
         <Text>Current color mode: {colorMode}</Text>
       </Card>
-    </AmplifyProvider>
+    </ThemeProvider>
   );
 };

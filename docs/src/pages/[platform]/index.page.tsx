@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import {
-  AmplifyProvider,
+  ThemeProvider,
   Authenticator,
   Button,
   Card,
@@ -30,7 +30,7 @@ import { ThemeButton } from '../ThemeButton';
 import { useCustomRouter } from '@/components/useCustomRouter';
 import { FRAMEWORKS } from '@/data/frameworks';
 
-const code = `import { AmplifyProvider, Button, Card, Text, Heading, Flex, Badge, Image, StepperField, useTheme } from '@aws-amplify/ui-react';
+const code = `import { ThemeProvider, Button, Card, Text, Heading, Flex, Badge, Image, StepperField, useTheme } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import { theme } from './theme';
 const Example = () => {
@@ -71,9 +71,9 @@ const Example = () => {
 }
 export default function App() {
   return (
-    <AmplifyProvider theme={theme}>
+    <ThemeProvider theme={theme}>
       <Example />
-    </AmplifyProvider>
+    </ThemeProvider>
   )
 }`;
 
@@ -148,7 +148,7 @@ const HomePage = ({ colorMode }) => {
   const frameworkInstallScript = installScripts[platform.toString()];
   return (
     <View data-amplify-theme-override={themeOverride}>
-      <AmplifyProvider theme={theme} colorMode={colorMode}>
+      <ThemeProvider theme={theme} colorMode={colorMode}>
         <View as="section" className="container">
           <h1 className="docs-home-logo">
             <HomeLogo />
@@ -442,7 +442,7 @@ const HomePage = ({ colorMode }) => {
           </Grid>
         </View>
         <Footer />
-      </AmplifyProvider>
+      </ThemeProvider>
     </View>
   );
 };

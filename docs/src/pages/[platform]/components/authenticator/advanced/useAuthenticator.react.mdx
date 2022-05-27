@@ -1,6 +1,8 @@
+import { Tabs, TabItem } from '@aws-amplify/ui-react';
+
 ### useAuthenticator Hook
 
-`@aws-amplify/ui-react` ships with `useAuthenticator` React hook that can be used to access, modify, and update Authenticator's auth state. To use them, first wrap your application with `<Authenticator.Provider>`:
+`@aws-amplify/ui-react` ships with `useAuthenticator` React hook that can be used to access, modify, and update Authenticator's auth state. To use them, first wrap your application with [`<Authenticator.Provider>`](#authenticator-provider):
 
 ```tsx
 import { Authenticator } from '@aws-amplify/ui-react';
@@ -22,6 +24,42 @@ const App = () => {
   // ...
 };
 ```
+
+### Authenticator Provider
+
+In advanced use cases where usage of the [`useAuthenticator` hook](/components/authenticator#useauthenticator-hook) outside the scope of the [`Authenticator`](/components/authenticator) is needed, wrap your application inside an `Authenticator.Provider`. The `Authenticator.Provider` guarantees that the [useAuthenticator hook](/components/authenticator#useauthenticator-hook) is available throughout your application. You can see an example of this pattern in the [Protected Routes Guide.](/guides/auth-protected)
+
+
+<Tabs>
+<TabItem title="Create React App">
+```jsx
+import { Authenticator, View } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css'; // default theme
+
+export default function App() {
+  return (
+    <Authenticator.Provider>
+      <View>Your app here</View>
+    </Authenticator.Provider>
+  );
+};
+```
+</TabItem>
+<TabItem title="Next.js" >
+```jsx
+import {  Authenticator } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css'; // default theme
+
+export default function App(props) {
+  return (
+    <Authenticator.Provider>
+      <View {...props}>Your app here</View>
+    </Authenticator.Provider>
+  );
+};
+```
+</TabItem>
+</Tabs>
 
 ### Prevent Re-renders
 
