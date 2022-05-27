@@ -1,5 +1,11 @@
 # @aws-amplify/ui-angular
 
+## 2.4.8
+
+### Patch Changes
+
+- [#1983](https://github.com/aws-amplify/amplify-ui/pull/1983) [`be38810f1`](https://github.com/aws-amplify/amplify-ui/commit/be38810f1ed6475f037f7f15011609c229e33a18) Thanks [@0618](https://github.com/0618)! - update @angular-devkit/build-angular version
+
 ## 2.4.7
 
 ### Patch Changes
