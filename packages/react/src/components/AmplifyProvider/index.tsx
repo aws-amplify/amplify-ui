@@ -33,13 +33,13 @@ export function AmplifyProvider({
       // Keep original data attributes to reset on unmount
       const originalName =
         document.documentElement.getAttribute('data-amplify-theme');
-      const originalColorMode =
-        document.documentElement.getAttribute('data-amplify-color-mode') ??
-        'system';
+      const originalColorMode = document.documentElement.getAttribute(
+        'data-amplify-color-mode'
+      );
       document.documentElement.setAttribute('data-amplify-theme', name);
       document.documentElement.setAttribute(
         'data-amplify-color-mode',
-        colorMode || 'system'
+        colorMode || ''
       );
 
       return function cleanup() {
