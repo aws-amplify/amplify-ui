@@ -49,3 +49,6 @@ jobs:
       NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
       VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
       SITE_URL: ${{ secrets.SITE_URL }}
+      DOCSEARCH_DOCS_APP_ID: ${{ secrets.DOCSEARCH_DOCS_APP_ID }}
+      DOCSEARCH_DOCS_API_KEY: ${{ secrets.DOCSEARCH_DOCS_API_KEY }}
+      DOCSEARCH_DOCS_INDEX_NAME: ${{ secrets.DOCSEARCH_DOCS_INDEX_NAME }}
