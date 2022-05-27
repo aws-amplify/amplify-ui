@@ -94,17 +94,26 @@ const Nav = (props) => (
   </Flex>
 );
 
-const Settings = ({ platform, setColorMode, colorMode }) => (
-  <Flex className="docs-settings" justifyContent="center" alignItems="center">
-    <DocSearch
-      appId={process.env.DOCSEARCH_DOCS_APP_ID}
-      apiKey={process.env.DOCSEARCH_DOCS_API_KEY}
-      indexName={process.env.DOCSEARCH_DOCS_INDEX_NAME}
-    />
-    <FrameworkChooser platform={platform} />
-    <ColorModeSwitcher setColorMode={setColorMode} colorMode={colorMode} />
-  </Flex>
-);
+const Settings = ({ platform, setColorMode, colorMode }) => {
+  const [showSearch, setShowSearch] = React.useState(false);
+
+  React.useEffect(() => {
+    setShowSearch(true);
+  }, [showSearch]);
+  return (
+    <Flex className="docs-settings" justifyContent="center" alignItems="center">
+      {showSearch && (
+        <DocSearch
+          appId={process.env.DOCSEARCH_DOCS_APP_ID}
+          apiKey={process.env.DOCSEARCH_DOCS_API_KEY}
+          indexName={process.env.DOCSEARCH_DOCS_INDEX_NAME}
+        />
+      )}
+      <FrameworkChooser platform={platform} />
+      <ColorModeSwitcher setColorMode={setColorMode} colorMode={colorMode} />
+    </Flex>
+  );
+};
 
 const ColorModeSwitcher = ({ colorMode, setColorMode }) => {
   return (
