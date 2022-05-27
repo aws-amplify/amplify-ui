@@ -1,4 +1,4 @@
-import { AmplifyProvider, Tabs, TabItem } from '@aws-amplify/ui-react';
+import { ThemeProvider, Tabs, TabItem } from '@aws-amplify/ui-react';
 
 const theme = {
   name: 'tabs-theme',
@@ -23,11 +23,11 @@ const theme = {
 
 export const ThemeExample = () => {
   return (
-    <AmplifyProvider theme={theme}>
+    <ThemeProvider theme={theme}>
       <Tabs>
         <TabItem title="Tab 1">Tab 1 Content</TabItem>
         <TabItem title="Tab 2">Tab 2 Content</TabItem>
       </Tabs>
-    </AmplifyProvider>
+    </ThemeProvider>
   );
 };

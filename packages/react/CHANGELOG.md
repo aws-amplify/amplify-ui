@@ -1,5 +1,13 @@
 # @aws-amplify/ui-react
 
+## 2.18.3
+
+### Patch Changes
+
+- [#1989](https://github.com/aws-amplify/amplify-ui/pull/1989) [`d7f15b30b`](https://github.com/aws-amplify/amplify-ui/commit/d7f15b30b4dce32c11f87c129f838a3aa7e7f07e) Thanks [@zchenwei](https://github.com/zchenwei)! - fix(style): fix a regression on SliderField style
+
+* [#1956](https://github.com/aws-amplify/amplify-ui/pull/1956) [`bca2d1c5d`](https://github.com/aws-amplify/amplify-ui/commit/bca2d1c5dd043326bf93847ca1d2c6d3ab88b2ff) Thanks [@jacoblogan](https://github.com/jacoblogan)! - re export AmplifyProvider as ThemeProvider
+
 ## 2.18.2
 
 ### Patch Changes

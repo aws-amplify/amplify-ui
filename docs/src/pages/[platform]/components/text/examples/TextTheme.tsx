@@ -1,5 +1,5 @@
 import {
-  AmplifyProvider,
+  ThemeProvider,
   Flex,
   Text,
   TextVariation,
@@ -48,7 +48,7 @@ const theme = {
 };
 
 export const TextThemeExample = () => (
-  <AmplifyProvider theme={theme}>
+  <ThemeProvider theme={theme}>
     <Flex wrap="wrap">
       <Text>Default</Text>
       {VARIATIONS_OPTIONS.map((variation) => (
@@ -57,5 +57,5 @@ export const TextThemeExample = () => (
         </Text>
       ))}
     </Flex>
-  </AmplifyProvider>
+  </ThemeProvider>
 );
