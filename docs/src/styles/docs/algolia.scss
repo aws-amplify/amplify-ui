@@ -20,8 +20,6 @@
     padding-inline-start: var(--amplify-components-button-padding-inline-start);
     padding-inline-end: var(--amplify-components-button-padding-inline-end);
     user-select: none;
-    // all:unset removes this, so we have to add it back.
-    cursor: pointer;
 
     &:hover {
       background: var(--amplify-components-button-hover-background-color);
