@@ -11,7 +11,7 @@
     "test:hooks": "TZ=UTC cypress run --spec features/ui/hooks/*.features",
     "test:geo": "TZ=UTC cypress run --spec features/ui/components/geo/*.features",
     "test:theme": "TZ=UTC cypress run --spec features/ui/theme/*.features",
-    "test:guides": "TZ=UTC cypress run --spec features/ui/guides/*.features"
+    "test:guides": "TZ=UTC cypress run --spec features/ui/guides/*.feature"
   },
   "cypress-cucumber-preprocessor": {
     "nonGlobalStepDefinitions": true,
