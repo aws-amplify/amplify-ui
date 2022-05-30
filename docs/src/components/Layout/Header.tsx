@@ -42,15 +42,14 @@ export const Header = ({
         src={`/svg/integrations/${platform}.svg`}
       />
 
-      {showSearch && (
-        <DocSearch
-          appId={process.env.DOCSEARCH_DOCS_APP_ID}
-          apiKey={process.env.DOCSEARCH_DOCS_API_KEY}
-          indexName={process.env.DOCSEARCH_DOCS_INDEX_NAME}
-        />
-      )}
-
       <Flex flex="1" justifyContent="flex-end">
+        {showSearch && (
+          <DocSearch
+            appId={process.env.DOCSEARCH_DOCS_APP_ID}
+            apiKey={process.env.DOCSEARCH_DOCS_API_KEY}
+            indexName={process.env.DOCSEARCH_DOCS_INDEX_NAME}
+          />
+        )}
         <ColorModeSwitcher colorMode={colorMode} setColorMode={setColorMode} />
       </Flex>
     </Flex>

@@ -15,6 +15,10 @@
   @media (max-width: $breakpoint-large) {
     border-bottom: var(--amplify-borders-secondary);
     box-shadow: var(--amplify-shadows-small);
+
+    .color-switcher .amplify-button {
+      padding-inline: var(--amplify-space-relative-xxs);
+    }
   }
 
   .docs-home & {
