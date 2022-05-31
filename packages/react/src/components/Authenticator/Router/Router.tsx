@@ -48,9 +48,7 @@ const getRouteComponent = (route: string) => {
 export function useRouterChildren(
   children: RouterProps['children']
 ): (props?: Omit<RouterProps, 'children'>) => JSX.Element {
-  const { route, signOut, user } = useAuthenticator(
-    ({ route, signOut, user }) => [route, signOut, user]
-  );
+  const { route } = useAuthenticator(({ route }) => [route]);
 
   return React.useMemo(() => {
     const isUnauthenticatedRoute = !(
