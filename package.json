@@ -39,8 +39,15 @@
       "packages/angular/projects/ui-angular"
     ],
     "nohoist": [
+      "**/@radix-ui",
+      "**/@radix-ui/**",
+      "**/react",
       "**/react-native",
-      "**/react-native/**"
+      "**/react-native/**",
+      "**/react-map-gl",
+      "**/use-sync-external-store",
+      "**/use-isomorphic-layout-effect",
+      "**/use-isomorphic-layout-effect/**"
     ]
   },
   "resolutions": {
