@@ -1,4 +1,4 @@
-import { AmplifyProvider, Card, Text, Flex } from '@aws-amplify/ui-react';
+import { ThemeProvider, Card, Text, Flex } from '@aws-amplify/ui-react';
 
 const cardTheme = {
   name: 'card-theme',
@@ -21,7 +21,7 @@ const cardTheme = {
 
 export const CardThemeExample = () => {
   return (
-    <AmplifyProvider theme={cardTheme}>
+    <ThemeProvider theme={cardTheme}>
       <Flex direction="row">
         <Card>
           <Text>Hello</Text>
@@ -33,6 +33,6 @@ export const CardThemeExample = () => {
           <Text>Hello</Text>
         </Card>
       </Flex>
-    </AmplifyProvider>
+    </ThemeProvider>
   );
 };

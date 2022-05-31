@@ -1,4 +1,4 @@
-import { AmplifyProvider, SliderField, Theme } from '@aws-amplify/ui-react';
+import { ThemeProvider, SliderField, Theme } from '@aws-amplify/ui-react';
 
 const theme: Theme = {
   name: 'slider-theme',
@@ -24,8 +24,8 @@ const theme: Theme = {
 
 export const SliderFieldThemeExample = () => {
   return (
-    <AmplifyProvider theme={theme}>
+    <ThemeProvider theme={theme}>
       <SliderField label="Themed Slider" defaultValue={50} />
-    </AmplifyProvider>
+    </ThemeProvider>
   );
 };

@@ -18,17 +18,17 @@ There are 2 ways to support light/dark mode in your application:
 
 Either of these approaches work with Amplify UI whether you are using the Theme Overrides or writing plain CSS.
 
-## AmplifyProvider
+## ThemeProvider
 
 ### colorMode
 
-The `AmplifyProvider` accepts a `colorMode` prop which can be `light`, `dark`, or `system`.
+The `ThemeProvider` accepts a `colorMode` prop which can be `light`, `dark`, or `system`.
 
 <Alert variation="warning">
 
-If you have multiple `AmplifyProvider`s in your application, make sure to store `colorMode` in the application's state or context and pass it to each `AmplifyProvider` or else some parts of your app won't have the right color mode applied. Also, because the theme uses CSS variables which are inherited, your application can have some weird behavior with nested themes and color modes.
+If you have multiple `ThemeProvider`s in your application, make sure to store `colorMode` in the application's state or context and pass it to each `ThemeProvider` or else some parts of your app won't have the right color mode applied. Also, because the theme uses CSS variables which are inherited, your application can have some weird behavior with nested themes and color modes.
 
-Multiple `AmplifyProvider`s should be avoided if possible because it is more efficient to use a selector override instead. This site uses nested `AmplifyProvider`s for demos.
+Multiple `ThemeProvider`s should be avoided if possible because it is more efficient to use a selector override instead. This site uses nested `ThemeProvider`s for demos.
 
 </Alert>
 
@@ -36,7 +36,7 @@ Multiple `AmplifyProvider`s should be avoided if possible because it is more eff
 
 Amplify UI comes with a default dark mode that you can use.
 
-_Note: the Amplify UI theme and any overrides like dark mode are scoped to the AmplifyProvider. Changing the color mode in the example will only affect the example code._
+_Note: the Amplify UI theme and any overrides like dark mode are scoped to the ThemeProvider. Changing the color mode in the example will only affect the example code._
 
 <Example>
   <DefaultDarkMode />
@@ -50,7 +50,7 @@ _Note: the Amplify UI theme and any overrides like dark mode are scoped to the A
 
 ### System Dark Mode
 
-If you don't want to provide a color mode control on your application, but still want to honor the user's operating system preference for color mode, you can set the `colorMode` on the AmplifyProvider to `system`. Then use either the default dark mode override styling or provide your own.
+If you don't want to provide a color mode control on your application, but still want to honor the user's operating system preference for color mode, you can set the `colorMode` on the ThemeProvider to `system`. Then use either the default dark mode override styling or provide your own.
 
 _Note: to see dark mode applied, change your OS preferences_
 
@@ -78,7 +78,7 @@ _Note: to see dark mode applied, change your OS preferences_
 
 ## CSS
 
-You can also write CSS variables directly to support color modes. If you are using the `colorMode` prop in the `AmplifyProvider`, you can write CSS like this to support dark mode:
+You can also write CSS variables directly to support color modes. If you are using the `colorMode` prop in the `ThemeProvider`, you can write CSS like this to support dark mode:
 
 ```css
 /* The prefers-color-scheme media query detects the system setting */
