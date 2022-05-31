@@ -18,6 +18,15 @@ Feature: Sign In with Email
     Then I see "User does not exist"
 
   @angular @react @vue
+  Scenario: Sign in with confirmed credentials and verify inputs are working
+    When I type my "email" with status "CONFIRMED"
+    And I type my password
+    And I click the "Sign in" button
+    Then I see "Sign out"
+    And I type "test" in the input field
+    Then I see input text "test"
+
+  @angular @react @vue
   Scenario: Sign in with unconfirmed credentials
 
   If you sign in with an unconfirmed account, Authenticator will redirect you to `confirmSignUp` route.
@@ -34,6 +43,8 @@ Feature: Sign In with Email
     And I mock 'Amplify.Auth.currentAuthenticatedUser' with fixture "Auth.currentAuthenticatedUser-verified-email"
     And I click the "Confirm" button
     Then I see "Sign out"
+
+
 
 
   @angular @react @vue

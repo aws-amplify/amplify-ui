@@ -1,9 +1,10 @@
 import { Amplify } from 'aws-amplify';
+import { useState } from 'react';
 
 import { Authenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-import { Heading, Text, useTheme } from '@aws-amplify/ui-react';
+import { Heading, Text, useTheme, TextField } from '@aws-amplify/ui-react';
 
 import awsExports from './aws-exports';
 Amplify.configure(awsExports);
@@ -56,6 +57,7 @@ const components = {
 };
 
 export default function App() {
+  const [text, setText] = useState('');
   return (
     <Authenticator
       formFields={formFields}
@@ -64,6 +66,13 @@ export default function App() {
     >
       {({ signOut, user }) => (
         <main>
+          <TextField
+            name="testInput"
+            type="text"
+            label="myInput"
+            value={text}
+            onChange={(event) => setText(event.target.value)}
+          />
           <h1>Hello {user.username}</h1>
           <button onClick={signOut}>Sign out</button>
         </main>

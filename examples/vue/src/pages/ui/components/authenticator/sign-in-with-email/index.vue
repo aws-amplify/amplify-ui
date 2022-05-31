@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import Amplify, { Auth } from 'aws-amplify';
-import { Authenticator } from '@aws-amplify/ui-vue';
+import { Amplify } from 'aws-amplify';
+import { Authenticator, AmplifyTextField } from '@aws-amplify/ui-vue';
 import '@aws-amplify/ui-vue/styles.css';
 import aws_exports from './aws-exports';
 
@@ -20,6 +20,7 @@ const formFields = {
 <template>
   <authenticator :form-fields="formFields" :hide-sign-up="true">
     <template v-slot="{ user, signOut }">
+      <amplify-text-field name="testInput" type="text" label="myInput" />
       <h1>Hello {{ user.username }}!</h1>
       <button @click="signOut">Sign Out</button>
     </template>

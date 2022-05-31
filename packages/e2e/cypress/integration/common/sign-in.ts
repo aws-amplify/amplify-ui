@@ -34,6 +34,14 @@ When(
   }
 );
 
+When('I type {string} in the input field', (text: string) => {
+  cy.get('input').type(text);
+});
+
+When('I see input text {string}', (text: string) => {
+  cy.get('input').should('have.value', text);
+});
+
 When('I type my password', () => {
   cy.findInputField('Password').type(Cypress.env('VALID_PASSWORD'));
 });

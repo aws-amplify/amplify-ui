@@ -60,17 +60,7 @@ export function useRouterChildren(
     if (isUnauthenticatedRoute) {
       return getRouteComponent(route);
     }
-
-    // `Authenticator` might not have user defined `children` for non SPA use cases.
-    if (!children) {
-      return () => null;
-    }
-
-    return () =>
-      typeof children === 'function'
-        ? children({ signOut, user }) // children is a render prop
-        : children;
-  }, [children, route, signOut, user]);
+  }, [route]);
 }
 
 export function Router({
@@ -79,8 +69,21 @@ export function Router({
   hideSignUp,
   variation,
 }: RouterProps) {
-  const { route } = useAuthenticator(({ route }) => [route]);
+  const { route, signOut, user } = useAuthenticator(
+    ({ route, signOut, user }) => [route, signOut, user]
+  );
   const RouterChildren = useRouterChildren(children);
+
+  // `Authenticator` might not have user defined `children` for non SPA use cases.
+  if (route === 'authenticated' || route === 'signOut') {
+    if (!children) {
+      return null;
+    }
+
+    return typeof children === 'function'
+      ? children({ signOut, user }) // children is a render prop
+      : children;
+  }
 
   return (
     <RouterChildren
