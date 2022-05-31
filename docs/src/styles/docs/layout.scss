@@ -3,6 +3,10 @@
   flex-direction: row;
   min-width: 0;
   flex: 1 0 auto;
+  
+  .docs-home & {
+    display: block;
+  }
 }
 
 .docs-content {

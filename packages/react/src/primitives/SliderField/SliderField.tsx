@@ -85,8 +85,8 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
   );
   const rootComponentClasses = classNames(
     ComponentClassNames.SliderFieldRoot,
-    classNameModifier(ComponentClassNames.SliderFieldTrack, orientation),
-    classNameModifier(ComponentClassNames.SliderFieldTrack, size),
+    classNameModifier(ComponentClassNames.SliderFieldRoot, orientation),
+    classNameModifier(ComponentClassNames.SliderFieldRoot, size),
     className
   );
 
