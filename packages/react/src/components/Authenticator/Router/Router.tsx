@@ -45,17 +45,17 @@ const getRouteComponent = (route: string) => {
   }
 };
 
-export function useRouterChildren(
-  children: RouterProps['children']
-): (props?: Omit<RouterProps, 'children'>) => JSX.Element {
+const isUnauthenticatedRoute = (route: string): boolean => {
+  return !(route === 'authenticated' || route === 'signOut');
+};
+
+export function useRouterChildren(): (
+  props?: Omit<RouterProps, 'children'>
+) => JSX.Element {
   const { route } = useAuthenticator(({ route }) => [route]);
 
   return React.useMemo(() => {
-    const isUnauthenticatedRoute = !(
-      route === 'authenticated' || route === 'signOut'
-    );
-
-    if (isUnauthenticatedRoute) {
+    if (isUnauthenticatedRoute(route)) {
       return getRouteComponent(route);
     }
   }, [route]);
@@ -70,10 +70,10 @@ export function Router({
   const { route, signOut, user } = useAuthenticator(
     ({ route, signOut, user }) => [route, signOut, user]
   );
-  const RouterChildren = useRouterChildren(children);
+  const RouterChildren = useRouterChildren();
 
   // `Authenticator` might not have user defined `children` for non SPA use cases.
-  if (route === 'authenticated' || route === 'signOut') {
+  if (!isUnauthenticatedRoute(route)) {
     if (!children) {
       return null;
     }
