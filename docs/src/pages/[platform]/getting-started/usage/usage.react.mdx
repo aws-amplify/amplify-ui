@@ -1,11 +1,17 @@
 import { Tabs, TabItem } from '@aws-amplify/ui-react';
 import { Example, ExampleCode } from '@/components/Example';
-import { ReactExampleDemo } from './examples';
+import {
+  ComponentExampleDemo,
+  ReactExampleDemo,
+  ThemeExampleDemo,
+} from './examples';
 
 ## React and Amplify UI
 
+Amplify UI is designed to integrate seamlessly with the React framework.
 
 ### Installation
+
 If you haven't already, install `@aws-amplify/ui-react` with [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/):
 
 <Tabs>
@@ -30,20 +36,44 @@ yarn add aws-amplify @aws-amplify/ui-react
 Here's all you need to get up and running:
 
 <ExampleCode>
-```tsx file=./examples/ReactExampleCode.tsx
+```tsx file=./examples/ReactExampleCode.tsx 
+
 ```
 </ExampleCode>
 
 Copy/paste the code above into your React app, start the app, and look at that lovely Button!
 
+<ReactExampleDemo />
+
+### Components
+
+You can use all of Amplify UI's primitive components (e.g., `Button`, `Tabs`, `Flex`) right out-of-the-box. These are the same components we use to build our connected components such as the [Authenticator](https://ui.docs.amplify.aws/react/components/authenticator). Please refer to each component's [documentation](https://ui.docs.amplify.aws/react/components/button) to see how they should be imported, configured and styled.
+
 <Example>
-  <ReactExampleDemo />
+  <ComponentExampleDemo />
+  <ExampleCode>
+```tsx file=./examples/ComponentExampleCode.tsx
+
+```
+  </ExampleCode>
 </Example>
 
-
+### Theming
 
 ## Import styles and components
 
-You can use any of the components as demonstrated in the documentation. Please refer to each component's [demo page](https://ui.docs.amplify.aws/react/components/button) to see how they should be imported.
-
 Load the default styling by importing our CSS:
+
+You can customize the appearance of all Button components in your application with a [Theme](/theming).
+
+To learn how to style and theme, etc etc etc......
+
+<Example>
+  <ThemeExampleDemo />
+  <ExampleCode>
+```tsx file=./examples/ThemeExampleCode.tsx
+
+```
+  </ExampleCode>
+</Example>
+
