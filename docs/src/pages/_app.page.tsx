@@ -33,7 +33,11 @@ function MyApp({ Component, pageProps }) {
   const [colorMode, setColorMode] = React.useState<ColorMode>('system');
   const handleColorModeChange = (colorMode: ColorMode) => {
     setColorMode(colorMode);
-    localStorage.setItem('colorMode', colorMode);
+    if (colorMode !== 'system') {
+      localStorage.setItem('colorMode', colorMode);
+    } else {
+      localStorage.removeItem('colorMode');
+    }
   };
   React.useEffect(() => {
     const colorModePreference = localStorage.getItem('colorMode') as ColorMode;

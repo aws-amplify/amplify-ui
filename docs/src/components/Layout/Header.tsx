@@ -101,6 +101,7 @@ const Settings = ({ platform, setColorMode, colorMode }) => (
 const ColorModeSwitcher = ({ colorMode, setColorMode }) => {
   return (
     <ToggleButtonGroup
+      ariaLabel="color-switcher"
       value={colorMode}
       size="small"
       onChange={(value: ColorMode) => setColorMode(value)}
