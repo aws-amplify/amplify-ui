@@ -18,7 +18,9 @@ const code = `() => {
           <Heading level={3}>
             Product title
           </Heading>
-          <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut scelerisque risus in sem dapibus, nec vestibulum metus mattis. Mauris dignissim maximus tellus, in feugiat nibh rhoncus a.</Text>
+          <Text>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut scelerisque risus in sem dapibus, nec vestibulum metus mattis. Mauris dignissim maximus tellus, in feugiat nibh rhoncus a.
+          </Text>
           <Text
             fontSize={tokens.fontSizes.large}
             color={tokens.colors.font.secondary}>
@@ -26,14 +28,13 @@ const code = `() => {
           </Text>
           <Flex direction='row'>
             <StepperField
-              width="4rem"
-              label="Stepper"
-              defaultValue={1}
+              label="Quantity"
               min={0}
               max={10}
               step={1}
               labelHidden
             />
+            <Button variation="primary">Add to cart</Button>
           </Flex>
         </Flex>
       </Flex>
