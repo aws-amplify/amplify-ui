@@ -8,7 +8,12 @@ const BRANCH = gitHead === 'HEAD' ? 'main' : gitHead;
 const withNextPluginPreval = require('next-plugin-preval/config')();
 
 module.exports = withNextPluginPreval({
-  env: { BRANCH },
+  env: {
+    BRANCH,
+    DOCSEARCH_DOCS_APP_ID: process.env.DOCSEARCH_DOCS_APP_ID,
+    DOCSEARCH_DOCS_API_KEY: process.env.DOCSEARCH_DOCS_API_KEY,
+    DOCSEARCH_DOCS_INDEX_NAME: process.env.DOCSEARCH_DOCS_INDEX_NAME,
+  },
   // Differentiate pages with frontmatter & layout vs. normal MD(X)
   pageExtensions: ['page.mdx', 'page.tsx'],
 
