@@ -13,6 +13,7 @@ module.exports = {
       ...config.resolve.alias,
       react: path.resolve(__dirname, 'node_modules/react'),
       'react-dom': path.resolve(__dirname, 'node_modules/react-dom'),
+      'react-map-gl': path.resolve(__dirname, 'node_modules/react-map-gl'),
     };
 
     return config;
