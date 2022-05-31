@@ -1,15 +1,49 @@
 import { Tabs, TabItem } from '@aws-amplify/ui-react';
 import { Example, ExampleCode } from '@/components/Example';
+import { ReactExampleDemo } from './examples';
+
+## React and Amplify UI
+
+
+### Installation
+If you haven't already, install `@aws-amplify/ui-react` with [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/):
+
+<Tabs>
+<TabItem title="npm">
+
+```shell
+npm install aws-amplify @aws-amplify/ui-react
+```
+
+</TabItem>
+<TabItem title="yarn">
+
+```shell
+yarn add aws-amplify @aws-amplify/ui-react
+```
+
+</TabItem>
+</Tabs>
+
+### Quick start
+
+Here's all you need to get up and running:
+
+<ExampleCode>
+```tsx file=./examples/ReactExampleCode.tsx
+```
+</ExampleCode>
+
+Copy/paste the code above into your React app, start the app, and look at that lovely Button!
+
+<Example>
+  <ReactExampleDemo />
+</Example>
+
+
 
 ## Import styles and components
 
+You can use any of the components as demonstrated in the documentation. Please refer to each component's [demo page](https://ui.docs.amplify.aws/react/components/button) to see how they should be imported.
+
 Load the default styling by importing our CSS:
-
-```jsx
-import { View } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css'; // default theme
-
-export default function App() {
-  return <View>Your app here</View>;
-}
-```
