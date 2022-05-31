@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import {
-  AmplifyProvider,
+  ThemeProvider,
   Authenticator,
   Button,
   Card,
@@ -54,7 +54,7 @@ const HomePage = ({ colorMode }) => {
   const frameworkInstallScript = installScripts[platform.toString()];
   return (
     <View data-amplify-theme-override={themeOverride}>
-      <AmplifyProvider theme={theme} colorMode={colorMode}>
+      <ThemeProvider theme={theme} colorMode={colorMode}>
         <View as="section" className="container">
           <h1 className="docs-home-logo">
             <HomeLogo />
@@ -326,7 +326,7 @@ const HomePage = ({ colorMode }) => {
           </Grid>
         </View>
         <Footer />
-      </AmplifyProvider>
+      </ThemeProvider>
     </View>
   );
 };

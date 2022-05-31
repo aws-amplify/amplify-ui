@@ -26,7 +26,7 @@ const getCSPContent = (context: Readonly<HtmlProps>) => {
       font-src 'self' data:;
       frame-src 'self' *.codesandbox.io;
       img-src 'self' images.unsplash.com cm.everesttech.net amazonwebservices.d2.sc.omtrdc.net dpm.demdex.net;
-      connect-src 'self' *.shortbread.aws.dev amazonwebservices.d2.sc.omtrdc.net dpm.demdex.net ;
+      connect-src 'self' *.shortbread.aws.dev amazonwebservices.d2.sc.omtrdc.net dpm.demdex.net https://*.algolia.net https://*.algolianet.com;
       script-src 'unsafe-eval' 'self' '${cspInlineScriptHash}' a0.awsstatic.com;
     `;
   }
@@ -37,8 +37,8 @@ const getCSPContent = (context: Readonly<HtmlProps>) => {
     font-src 'self';
     frame-src 'self' *.codesandbox.io aws.demdex.net;
     img-src 'self' images.unsplash.com cm.everesttech.net amazonwebservices.d2.sc.omtrdc.net dpm.demdex.net;
-    connect-src 'self' *.shortbread.aws.dev amazonwebservices.d2.sc.omtrdc.net dpm.demdex.net;
     script-src 'self' 'unsafe-eval '${cspInlineScriptHash}' a0.awsstatic.com;
+    connect-src 'self' *.shortbread.aws.dev amazonwebservices.d2.sc.omtrdc.net dpm.demdex.net https://*.algolia.net https://*.algolianet.com;
   `;
 };
 
