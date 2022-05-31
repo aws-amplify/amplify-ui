@@ -2,6 +2,7 @@ import { Pagination } from '@aws-amplify/ui-react';
 import { PaginationDemo } from './demo.tsx';
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
+import { ThemeAlert } from '@/components/ThemeAlert';
 import {
   ControlledPaginationExample,
   DefaultPaginationExample,
@@ -29,7 +30,7 @@ Import the Pagination component. To use Pagination as an uncontrolled component,
   <ExampleCode>
 ```tsx file=./examples/DefaultPaginationExample.tsx
 
-```
+````
   </ExampleCode>
 </Example>
 
@@ -45,7 +46,7 @@ To use Pagination as a controlled component, you'll need to handle state using t
   <ExampleCode>
 ```tsx file=./examples/ControlledPaginationExample.tsx
 
-```
+````
 
   </ExampleCode>
 </Example>
@@ -59,7 +60,7 @@ It's common to use a paged API where the total number of pages in the dataset is
   <ExampleCode>
 ```tsx file=./examples/PaginationHasMorePagesExample.tsx
 
-```
+````
 
   </ExampleCode>
 </Example>
@@ -73,7 +74,7 @@ It's common to use a paged API where the total number of pages in the dataset is
   <ExampleCode>
 ```tsx{8} file=./examples/PaginationSiblingCountExample.tsx
 
-```
+````
 
   </ExampleCode>
 </Example>
@@ -86,6 +87,8 @@ It's common to use a paged API where the total number of pages in the dataset is
 
 ### Theme
 
+<ThemeAlert />
+
 You can customize the appearance of all Pagination components in your application with a [Theme](/theming).
 
 <Example>
@@ -93,7 +96,7 @@ You can customize the appearance of all Pagination components in your applicatio
   <ExampleCode>
 ```tsx file=./examples/PaginationThemeExample.tsx
 
-```
+````
   </ExampleCode>
 </Example>
 
@@ -134,7 +137,7 @@ To replace the Pagination styling, unset it:
   all: unset;
   /* Add your styling here*/
 }
-```
+````
 
 ### Local styling
 
