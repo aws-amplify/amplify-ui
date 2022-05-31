@@ -1,9 +1,7 @@
-import {
-  InAppMessageButton,
-  InAppMessageContent,
-  InAppMessageLayout,
-} from '@aws-amplify/notifications';
 import { ConsoleLogger as Logger } from '@aws-amplify/core';
+
+import { MessageButton, MessageContent } from '../../../types';
+import { BannerMessageLayouts } from '../../../types';
 import { getActionHandler, getContentProps, getPositionProp } from '../utils';
 
 // use empty mockImplementation to turn off console output
@@ -11,17 +9,17 @@ const errorSpy = jest.spyOn(Logger.prototype, 'error').mockImplementation();
 
 const onMessageAction = jest.fn();
 
-const baseContent: InAppMessageContent = {
+const baseContent: MessageContent = {
   container: { style: { backgroundColor: 'purple' } },
 };
 
-const primaryButton: InAppMessageButton = {
+const primaryButton: MessageButton = {
   action: 'LINK',
   title: 'Go to docs',
   url: 'https://docs.amplify.aws/',
 };
 
-const secondaryButton: InAppMessageButton = {
+const secondaryButton: MessageButton = {
   action: 'CLOSE',
   title: 'close',
 };
@@ -36,15 +34,10 @@ describe('getPositionProp', () => {
   ])(
     'returns the expected position when provided a %s argument',
     (layout, expected) => {
-      const output = getPositionProp(layout as InAppMessageLayout);
+      const output = getPositionProp(layout as BannerMessageLayouts);
       expect(output).toBe(expected);
     }
   );
-
-  it('returns null when provided an unhandled layout argument', () => {
-    const output = getPositionProp('LEFT_BANNER' as InAppMessageLayout);
-    expect(output).toBeNull();
-  });
 });
 
 describe('getContentProps', () => {
@@ -89,7 +82,7 @@ describe('getContentProps', () => {
 
   it('returns an empty props object when content is null', () => {
     const output = getContentProps(
-      null as unknown as InAppMessageContent,
+      null as unknown as MessageContent,
       onMessageAction,
       onActionCallback
     );

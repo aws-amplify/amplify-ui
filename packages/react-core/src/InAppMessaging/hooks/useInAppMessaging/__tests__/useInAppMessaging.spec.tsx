@@ -1,13 +1,12 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
+import { RenderNothing } from '../../../../components';
+
 import useInAppMessaging from '../useInAppMessaging';
 
-function ChildComponent<P>(_: P) {
-  return null;
-}
 const TestComponent = () => {
   const props = useInAppMessaging();
-  return <ChildComponent {...props} />;
+  return <RenderNothing {...props} />;
 };
 
 describe('useInAppMessaging', () => {

@@ -1,5 +1,6 @@
 import { ConsoleLogger as Logger } from '@aws-amplify/core';
-import { InAppMessageAction } from '@aws-amplify/notifications';
+
+import { MessageAction } from '../../types';
 
 import handleMessageAction from '../handleMessageAction';
 
@@ -7,9 +8,9 @@ import handleMessageAction from '../handleMessageAction';
 const infoSpy = jest.spyOn(Logger.prototype, 'info').mockImplementation();
 const warnSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
 
-const close: InAppMessageAction = 'CLOSE';
-const deepLink: InAppMessageAction = 'DEEP_LINK';
-const link: InAppMessageAction = 'LINK';
+const close: MessageAction = 'CLOSE';
+const deepLink: MessageAction = 'DEEP_LINK';
+const link: MessageAction = 'LINK';
 const url = 'https://docs.amplify.aws/';
 
 const handleMessageLinkAction = jest.fn();
@@ -21,7 +22,7 @@ describe('handleMessageAction', () => {
 
   it.each([deepLink, link])(
     'handles a %s action as expected in the happy path',
-    (action: InAppMessageAction) => {
+    (action: MessageAction) => {
       handleMessageAction({ action, handleMessageLinkAction, url });
 
       expect(infoSpy).toHaveBeenCalledWith(`Handle action: ${action}`);
@@ -31,7 +32,7 @@ describe('handleMessageAction', () => {
 
   it.each([deepLink, link])(
     'logs a warning and early returns when a %s action is provided with a null url value',
-    (action: InAppMessageAction) => {
+    (action: MessageAction) => {
       const invalidUrl = null as unknown as string;
 
       handleMessageAction({ action, handleMessageLinkAction, url: invalidUrl });
@@ -48,7 +49,7 @@ describe('handleMessageAction', () => {
 
   it.each([deepLink, link])(
     'logs a warning and early returns when a %s action is provided with an undefined url value',
-    (action: InAppMessageAction) => {
+    (action: MessageAction) => {
       const invalidUrl = undefined as unknown as string;
 
       handleMessageAction({ action, handleMessageLinkAction, url: invalidUrl });

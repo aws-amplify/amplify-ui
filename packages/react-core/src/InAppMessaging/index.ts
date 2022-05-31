@@ -1,16 +1,22 @@
 export { useInAppMessaging, useMessage } from './hooks';
 export { InAppMessagingProvider } from './context';
-export { handleMessageAction, HandleMessageLinkAction } from './utils';
 export {
   BannerMessageCommonProps,
+  BannerMessageComponent,
   CarouselMessageCommonProps,
+  CarouselMessageComponent,
   FullScreenMessageCommonProps,
+  FullScreenMessageComponent,
   MessageButtonProps,
   MessageCommonProps,
   MessageComponentBaseProps,
-  MessageComponents,
+  MessageContentProps,
+  MessageImage,
+  MessageLayout,
   MessagePayloadStyle,
-  MessageStyles,
+  MessageTextAlign,
   ModalMessageCommonProps,
+  ModalMessageComponent,
   OnMessageAction,
 } from './types';
+export { handleMessageAction, HandleMessageLinkAction } from './utils';

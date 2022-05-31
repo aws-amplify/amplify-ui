@@ -1,10 +1,10 @@
 import { createContext } from 'react';
-import { InAppMessage } from '@aws-amplify/notifications';
+import { Message } from '../../types';
 
 export interface InAppMessagingContextType {
-  clearInAppMessage: () => void;
-  displayInAppMessage: (inAppMessage: InAppMessage) => void;
-  inAppMessage: InAppMessage | null;
+  clearMessage: () => void;
+  displayMessage: (message: Message) => void;
+  message: Message | null;
 }
 
 const InAppMessagingContext = createContext<InAppMessagingContextType | null>(

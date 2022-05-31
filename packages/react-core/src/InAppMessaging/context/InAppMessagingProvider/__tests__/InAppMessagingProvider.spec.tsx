@@ -2,6 +2,8 @@ import React from 'react';
 import TestRenderer, { ReactTestRenderer } from 'react-test-renderer';
 import { Notifications } from '@aws-amplify/notifications';
 
+import { RenderNothing } from '../../../../components';
+
 import { useInAppMessaging } from '../../../hooks/useInAppMessaging';
 import { InAppMessagingContextType } from '../..';
 import InAppMessagingProvider from '../InAppMessagingProvider';
@@ -14,26 +16,23 @@ jest.mock('@aws-amplify/notifications', () => ({
 const { InAppMessaging } = Notifications;
 
 let onMessageReceivedCallback =
-  null as unknown as InAppMessagingContextType['displayInAppMessage'];
+  null as unknown as InAppMessagingContextType['displayMessage'];
 
 const mockRemove = jest.fn(() => {
   onMessageReceivedCallback =
-    null as unknown as InAppMessagingContextType['displayInAppMessage'];
+    null as unknown as InAppMessagingContextType['displayMessage'];
 });
 
 const mockOnMessageReceived = (
-  callback: InAppMessagingContextType['displayInAppMessage']
+  callback: InAppMessagingContextType['displayMessage']
 ) => {
   onMessageReceivedCallback = callback;
   return { remove: mockRemove };
 };
 
-function ChildComponent<P = unknown>(_: P) {
-  return null;
-}
 const TestComponent = () => {
   const props = useInAppMessaging();
-  return <ChildComponent {...props} />;
+  return <RenderNothing {...props} />;
 };
 
 const message = { layout: 'TOP_BANNER' as const, id: '0', content: [] };
@@ -59,17 +58,17 @@ describe('InAppMessagingProvider', () => {
 
   it('vends the expected initial context values', () => {
     const expectedProps = {
-      clearInAppMessage: expect.any(
+      clearMessage: expect.any(
         Function
-      ) as InAppMessagingContextType['clearInAppMessage'],
-      displayInAppMessage: expect.any(
+      ) as InAppMessagingContextType['clearMessage'],
+      displayMessage: expect.any(
         Function
-      ) as InAppMessagingContextType['displayInAppMessage'],
-      inAppMessage: null,
+      ) as InAppMessagingContextType['displayMessage'],
+      message: null,
       style: undefined,
     };
 
-    expect(renderer.root.findByType(ChildComponent).props).toEqual(
+    expect(renderer.root.findByType(RenderNothing).props).toEqual(
       expectedProps
     );
   });
@@ -77,20 +76,20 @@ describe('InAppMessagingProvider', () => {
   it('registers a listener to InAppMessaging.onMessageReceived as expected', () => {
     expect(InAppMessaging.onMessageReceived).toBeCalledTimes(1);
     expect(InAppMessaging.onMessageReceived).toBeCalledWith(
-      expect.any(Function) as InAppMessagingContextType['displayInAppMessage']
+      expect.any(Function) as InAppMessagingContextType['displayMessage']
     );
   });
 
-  it('updates the value of inAppMessage when the listener registered to InAppMessaging.onMessageReceived is called', () => {
+  it('updates the value of message when the listener registered to InAppMessaging.onMessageReceived is called', () => {
     TestRenderer.act(() => {
       onMessageReceivedCallback(message);
     });
 
-    const consumer = renderer.root.findByType(ChildComponent);
+    const consumer = renderer.root.findByType(RenderNothing);
 
-    expect(
-      (consumer.props as InAppMessagingContextType).inAppMessage
-    ).toStrictEqual(message);
+    expect((consumer.props as InAppMessagingContextType).message).toStrictEqual(
+      message
+    );
   });
 
   it('removes the listener registered to InAppMessaging.onMessageReceived as expected', () => {
@@ -101,36 +100,34 @@ describe('InAppMessagingProvider', () => {
     expect(mockRemove).toBeCalledTimes(1);
   });
 
-  it('updates the value of inAppMessage when displayInAppMessage is called', () => {
-    const consumer = renderer.root.findByType(ChildComponent);
+  it('updates the value of message when displayMessage is called', () => {
+    const consumer = renderer.root.findByType(RenderNothing);
 
     TestRenderer.act(() => {
       (
         consumer.props
-          .displayInAppMessage as InAppMessagingContextType['displayInAppMessage']
+          .displayMessage as InAppMessagingContextType['displayMessage']
       )(message);
     });
 
-    expect(
-      (consumer.props as InAppMessagingContextType).inAppMessage
-    ).toStrictEqual(message);
+    expect((consumer.props as InAppMessagingContextType).message).toStrictEqual(
+      message
+    );
   });
 
-  it('updates the value of inAppMessage when clearInAppMessage is called', () => {
-    const consumer = renderer.root.findByType(ChildComponent);
+  it('updates the value of message when clearMessage is called', () => {
+    const consumer = renderer.root.findByType(RenderNothing);
 
     TestRenderer.act(() => {
-      (consumer.props as InAppMessagingContextType).displayInAppMessage(
-        message
-      );
+      (consumer.props as InAppMessagingContextType).displayMessage(message);
     });
 
-    expect(consumer.props.inAppMessage).not.toBeNull();
+    expect(consumer.props.message).not.toBeNull();
 
     TestRenderer.act(() => {
-      (consumer.props as InAppMessagingContextType).clearInAppMessage();
+      (consumer.props as InAppMessagingContextType).clearMessage();
     });
 
-    expect(consumer.props.inAppMessage).toBeNull();
+    expect(consumer.props.message).toBeNull();
   });
 });
