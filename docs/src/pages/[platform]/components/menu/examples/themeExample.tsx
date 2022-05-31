@@ -1,4 +1,4 @@
-import { AmplifyProvider, Menu, MenuItem, Theme } from '@aws-amplify/ui-react';
+import { ThemeProvider, Menu, MenuItem, Theme } from '@aws-amplify/ui-react';
 
 const theme: Theme = {
   name: 'menu-example-theme',
@@ -17,12 +17,12 @@ const theme: Theme = {
 
 export const ThemeExample = () => {
   return (
-    <AmplifyProvider theme={theme}>
+    <ThemeProvider theme={theme}>
       <Menu>
         <MenuItem>Download</MenuItem>
         <MenuItem>Create a Copy</MenuItem>
         <MenuItem>Mark as Draft</MenuItem>
       </Menu>
-    </AmplifyProvider>
+    </ThemeProvider>
   );
 };

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {
   defaultDarkModeOverride,
-  AmplifyProvider,
+  ThemeProvider,
   ColorMode,
   Card,
   Text,
@@ -17,7 +17,7 @@ export const DefaultDarkMode = () => {
   };
 
   return (
-    <AmplifyProvider theme={theme} colorMode={colorMode}>
+    <ThemeProvider theme={theme} colorMode={colorMode}>
       <Card>
         <ToggleButtonGroup
           value={colorMode}
@@ -30,6 +30,6 @@ export const DefaultDarkMode = () => {
         </ToggleButtonGroup>
         <Text>Current color mode: {colorMode}</Text>
       </Card>
-    </AmplifyProvider>
+    </ThemeProvider>
   );
 };
