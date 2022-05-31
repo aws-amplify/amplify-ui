@@ -1,5 +1,30 @@
 # @aws-amplify/ui-react
 
+## 2.18.3
+
+### Patch Changes
+
+- [#1989](https://github.com/aws-amplify/amplify-ui/pull/1989) [`d7f15b30b`](https://github.com/aws-amplify/amplify-ui/commit/d7f15b30b4dce32c11f87c129f838a3aa7e7f07e) Thanks [@zchenwei](https://github.com/zchenwei)! - fix(style): fix a regression on SliderField style
+
+* [#1956](https://github.com/aws-amplify/amplify-ui/pull/1956) [`bca2d1c5d`](https://github.com/aws-amplify/amplify-ui/commit/bca2d1c5dd043326bf93847ca1d2c6d3ab88b2ff) Thanks [@jacoblogan](https://github.com/jacoblogan)! - re export AmplifyProvider as ThemeProvider
+
+## 2.18.2
+
+### Patch Changes
+
+- [#1938](https://github.com/aws-amplify/amplify-ui/pull/1938) [`344e65f8a`](https://github.com/aws-amplify/amplify-ui/commit/344e65f8a535a76ce0fb2108acbf77e7438311e3) Thanks [@slaymance](https://github.com/slaymance)! - feat(geo): Rename 'Geocoder' to 'LocationSearch'
+
+* [#1910](https://github.com/aws-amplify/amplify-ui/pull/1910) [`766bf302c`](https://github.com/aws-amplify/amplify-ui/commit/766bf302c4d594ae92f1506967b6f1858687a41c) Thanks [@wlee221](https://github.com/wlee221)! - refactor(internal): Move `autoSignIn` logic out of `signUp` actor
+
+- [#1910](https://github.com/aws-amplify/amplify-ui/pull/1910) [`766bf302c`](https://github.com/aws-amplify/amplify-ui/commit/766bf302c4d594ae92f1506967b6f1858687a41c) Thanks [@wlee221](https://github.com/wlee221)! - On userpools with sms mfa required, authenticator will now automatically redirect user to sms mfa page after successful sign up.
+
+  Previously, end users needed to sign in again to go to the sms mfa page ([#1660](https://github.com/aws-amplify/amplify-ui/issues/1660)).
+
+* [#1971](https://github.com/aws-amplify/amplify-ui/pull/1971) [`fc076a997`](https://github.com/aws-amplify/amplify-ui/commit/fc076a997d4347c88e1a22266ce1c96c6fe5350c) Thanks [@slaymance](https://github.com/slaymance)! - fix(geo): Bump react-map-gl to resolve ES2020 build errors
+
+* Updated dependencies [[`766bf302c`](https://github.com/aws-amplify/amplify-ui/commit/766bf302c4d594ae92f1506967b6f1858687a41c), [`766bf302c`](https://github.com/aws-amplify/amplify-ui/commit/766bf302c4d594ae92f1506967b6f1858687a41c), [`a41ecfbf1`](https://github.com/aws-amplify/amplify-ui/commit/a41ecfbf1e7fc35e20622a6fb514c3bab7404621)]:
+  - @aws-amplify/ui@3.9.2
+
 ## 2.18.1
 
 ### Patch Changes

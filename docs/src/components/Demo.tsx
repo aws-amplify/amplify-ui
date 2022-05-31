@@ -43,7 +43,9 @@ export const Demo = ({
         alignItems="stretch"
       >
         <Flex direction="column" flex="1">
-          <View overflow="auto">{children}</View>
+          <View overflow="auto" padding="5px">
+            {children}
+          </View>
           {propControls && (
             <Tabs>
               <TabItem title="Props">
