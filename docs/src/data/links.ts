@@ -60,22 +60,10 @@ export const connectedComponents = [
     platforms: ['react', 'vue', 'angular', 'flutter'],
   },
   {
-    href: '/components/chatbot',
-    label: 'Chatbot',
-    body: 'Chatbot automatically renders a complete chat messaging interface that can be used out-of-the-box, or it can be customized using theming support.',
-    platforms: ['react', 'vue', 'angular'],
-  },
-  {
     href: '/components/geo',
     label: 'Geo',
     body: 'Amplify UI Geo provides UI components for maps and location search built on top of Amazon Location Service.',
     platforms: ['react'],
-  },
-  {
-    href: '/components/storage',
-    label: 'Storage',
-    body: 'A set of components to help interact with S3 storage.',
-    platforms: ['react', 'vue', 'angular'],
   },
 ].sort(sortByLabel);
 
@@ -241,6 +229,15 @@ export const layoutComponents = [
   },
 ].sort(sortByLabel);
 
+export const utilityComponents = [
+  {
+    href: '/components/visuallyhidden',
+    label: 'Visually Hidden',
+    body: `The Visually Hidden component is used to visually hide content while leaving it available to screen readers.`,
+    platforms: ['react'],
+  },
+].sort(sortByLabel);
+
 export const navigationComponents: ComponentNavItem[] = [
   {
     href: '/components/link',
@@ -262,14 +259,110 @@ export const navigationComponents: ComponentNavItem[] = [
   },
 ].sort(sortByLabel);
 
-export const utilityComponents = [
+export const primitiveComponents = [
   {
-    href: '/components/visuallyhidden',
-    label: 'Visually Hidden',
-    body: `The Visually Hidden component is used to visually hide content while leaving it available to screen readers.`,
+    heading: 'Base',
+    components: baseComponents,
+  },
+  {
+    heading: 'Feedback',
+    components: feedbackComponents,
+  },
+  {
+    heading: 'Navigation',
+    components: navigationComponents,
+  },
+  {
+    heading: 'Inputs',
+    components: inputComponents,
+  },
+  {
+    heading: 'Layout',
+    components: layoutComponents,
+  },
+  {
+    heading: 'Data display',
+    components: dataDisplayComponents,
+  },
+  {
+    heading: 'Utilities',
+    components: utilityComponents,
+  },
+];
+
+export const legacyComponents = [
+  {
+    href: '/components/chatbot',
+    label: 'Chatbot',
+    body: 'Chatbot automatically renders a complete chat messaging interface that can be used out-of-the-box, or it can be customized using theming support.',
+    platforms: ['react', 'vue', 'angular'],
+  },
+  {
+    href: '/components/storage',
+    label: 'Storage',
+    body: 'A set of components to help interact with S3 storage.',
+    platforms: ['react', 'vue', 'angular'],
+  },
+];
+
+export const guides = [
+  {
+    href: '/guides',
+    label: 'Overview',
+  },
+  {
+    href: '/guides/css-in-js',
+    label: 'CSS in JS',
+    platforms: ['react', 'vue', 'angular'],
+  },
+  {
+    href: '/guides/auth-protected',
+    label: 'Protected Routes',
     platforms: ['react'],
   },
-].sort(sortByLabel);
+];
+
+export const gettingStarted = [
+  {
+    href: '/getting-started/installation',
+    label: 'Installation',
+  },
+  {
+    href: '/getting-started/usage',
+    label: 'Usage',
+  },
+  {
+    href: '/getting-started/migration',
+    label: 'Migration',
+    platforms: ['react', 'vue', 'angular'],
+  },
+  {
+    href: '/getting-started/troubleshooting',
+    label: 'Troubleshooting',
+    platforms: ['react', 'vue', 'angular'],
+  },
+];
+
+export const theming = [
+  {
+    href: '/theming',
+    label: 'Overview',
+  },
+  {
+    href: '/theming/responsive',
+    label: 'Responsive',
+    platforms: ['react', 'vue', 'angular'],
+  },
+  {
+    href: '/theming/dark-mode',
+    label: 'Dark mode',
+  },
+  {
+    href: '/theming/css-variables',
+    label: 'CSS variables',
+    platforms: ['react', 'vue', 'angular'],
+  },
+];
 
 export const DISCORD = 'https://discord.gg/amplify';
 export const COMMUNITY = 'https://amplify.aws/community';

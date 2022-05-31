@@ -1,71 +1,183 @@
-.docs-sidebar {
-  display: none;
-  
-  @media (min-width: 62rem) {
-    display: block;
-    flex-shrink: 0;
-    width: 16rem;
-    position: relative;
+@import './_variables.scss';
+
+
+@keyframes showSidebar {
+  0% {
+    transform: translate(-100%);
+  }
+  100% {
+    transform: translate(0);
   }
 }
 
+@keyframes showOverlay {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.docs-sidebar {
+  display: block;
+  
+  &.collapsed {
+    display: none;
+    @media (min-width: $breakpoint-large) {
+      display: block;
+      .docs-home & {
+        display: none;
+      }
+    }
+  }
+}
+
+.docs-sidebar-spacer {
+  width: 0;
+  
+  // desktop
+  @media (min-width: $breakpoint-large) {
+    flex-shrink: 0;
+    width: 20rem;
+    position: relative;
+    
+    .docs-home & {
+      width: 0;
+    }
+  }
+}
+
+.docs-framework-link {
+  justify-content: flex-start;
+  border-color: var(--amplify-colors-border-secondary);
+  gap: var(--amplify-space-xs);
+  
+  &.current {
+    background-color: var(--amplify-components-button-hover-background-color);
+    border-color: var(--amplify-components-button-active-border-color);
+  }
+}
+
+.docs-sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  background-color: var(--amplify-colors-overlay-40);
+  
+  .expanded > & {
+    width: 100vw;
+    height: 100vh;
+    opacity: 1;
+    animation: showOverlay var(--amplify-time-long) forwards;
+  }
+  
+  @media (min-width: $breakpoint-large) {
+    .expanded > & {
+      display: none;
+    }
+    
+    .docs-home .expanded > & {
+      display: block;
+    }
+  }
+}
+
+
 .docs-sidebar-inner {
-  height: calc(100vh - var(--docs-header-height));
-  width: 16rem;
+  // For mobile screens, take up 90% width
+  --width: 90vw;
+  // Tablet and up use a fixed width
+  @media (min-width: $breakpoint-small) {
+    --width: 20rem;
+  }
+  
+  // This is to get the secondary link text lined up with the primary nav item
+  --secondary-nav-indent: calc(1.25rem + var(--amplify-space-small) + var(--amplify-space-small));
+  
+  // Custom expander styles
+  --amplify-components-expander-box-shadow: none;
+  --amplify-components-expander-item-box-shadow: none;
+  --amplify-components-expander-header-box-shadow: none;
+  --amplify-components-expander-trigger-padding-inline-start: 0;
+  --amplify-components-expander-trigger-padding-inline-end: var(--amplify-space-xs);
+  --amplify-components-expander-trigger-min-height: 0;
+  --amplify-components-expander-item-border-start-start-radius: 0;
+  --amplify-components-expander-item-border-start-end-radius: 0;
+  --amplify-components-expander-item-border-end-start-radius: 0;
+  --amplify-components-expander-item-border-end-end-radius: 0;
+  --amplify-components-expander-trigger-hover-background-color: var(--amplify-colors-background-tertiary);
+
+
+  height: 100vh;
+  width: var(--width);
   overflow-y: auto;
   position: fixed;
+  top: 0;
+  left: 0;
+  padding: var(--amplify-space-medium);
   border-right: var(--amplify-border-widths-small) solid
     var(--amplify-colors-border-primary);
   box-shadow: var(--amplify-shadows-medium);
-  z-index: 10;
-}
-
-.docs-sidebar-nav > .amplify-heading {
-  color: var(--amplify-colors-font-tertiary);
-  padding: var(--amplify-space-xs) var(--amplify-space-medium);
-  font-weight: 400;
-  font-size: 1rem;
-  letter-spacing: 0.05em;
-  position: relative;
-}
-
-.docs-sidebar-nav .amplify-heading:not(:first-of-type) {
-  padding-top: var(--amplify-space-medium);
-  margin-top: var(--amplify-space-medium);
-  &::before {
-    position: absolute;
-    top: 0;
-    left: var(--amplify-space-medium);
-    width: 25%;
-    border-top: var(--amplify-borders-tertiary);
-    content: '';
+  background-color: var(--amplify-colors-background-primary);
+  z-index: 99999;
+  transform: translateX(calc(-1 * var(--width)));
+  
+  .expanded > & {
+    animation: showSidebar var(--amplify-time-long) forwards;
+  }
+  
+  @media (min-width: $breakpoint-large) {
+    transform: translateX(0);
+    width: var(--width);
+    .docs-home & {
+      transform: translateX(-100%);
+    }
+    
+    .expanded > & {
+      transform: translateX(0);
+      width: var(--width);
+    }
   }
 }
 
 .docs-sidebar-nav {
-  padding: var(--amplify-space-medium) 0;
+  & .amplify-expander__content {
+    padding-inline: 0;
+  }
+  
+  & .amplify-expander__content__text {
+    padding-block: 0;
+  }
 }
+
 
 .docs-secondary-nav-link {
   display: block;
   padding: var(--amplify-space-small);
-  margin: 0 var(--amplify-space-medium);
+  padding-inline-start: var(--secondary-nav-indent);
   font-size: var(--amplify-font-sizes-small);
   color: var(--amplify-colors-font-secondary);
   text-decoration: none;
   
+  &:hover,
   &.current {
     color: var(--amplify-colors-font-hover);
     background-color: var(--amplify-colors-brand-primary-10);
   }
+  
+  &:active {
+    background-color: var(--amplify-colors-brand-primary-20);
+  }
 }
 
-.docs-sidebar-footer {
-  position: sticky;
-  bottom: 0;
-  width: 100%;
-  padding: var(--amplify-space-medium);
-  background-color: var(--amplify-colors-background-primary);
-  border-top: var(--amplify-border-widths-small) solid var(--amplify-colors-border-tertiary);
-  z-index: 2;
+.docs-sidebar-menu-button {
+  @media (min-width: $breakpoint-large) {
+    display: none;
+  }
+  
+  .docs-home & {
+    display: inline-flex;
+  }
 }

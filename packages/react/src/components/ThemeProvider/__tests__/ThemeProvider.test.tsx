@@ -1,19 +1,19 @@
 import { render, screen } from '@testing-library/react';
 import { Theme } from '@aws-amplify/ui';
 
-import { AmplifyProvider } from '../index';
+import { ThemeProvider } from '../index';
 import { Heading } from '../../../primitives';
 
 const App = () => {
   return <Heading>Howdy</Heading>;
 };
 
-describe('AmplifyProvider', () => {
+describe('ThemeProvider', () => {
   it('does not require props', async () => {
     render(
-      <AmplifyProvider>
+      <ThemeProvider>
         <App />
-      </AmplifyProvider>
+      </ThemeProvider>
     );
 
     const heading = await screen.getByText('Howdy');
@@ -23,9 +23,9 @@ describe('AmplifyProvider', () => {
   it('wraps the App in [data-amplify-theme="default-theme"]', () => {
     spyOn(global.document.documentElement, 'setAttribute');
     const { container } = render(
-      <AmplifyProvider>
+      <ThemeProvider>
         <App />
-      </AmplifyProvider>
+      </ThemeProvider>
     );
 
     expect(global.document.documentElement.setAttribute).toHaveBeenCalledWith(
@@ -35,7 +35,7 @@ describe('AmplifyProvider', () => {
 
     expect(global.document.documentElement.setAttribute).toHaveBeenCalledWith(
       'data-amplify-color-mode',
-      ''
+      'undefined'
     );
   });
 
@@ -52,9 +52,9 @@ describe('AmplifyProvider', () => {
     };
 
     const { container } = render(
-      <AmplifyProvider theme={maliciousTheme}>
+      <ThemeProvider theme={maliciousTheme}>
         <App />
-      </AmplifyProvider>
+      </ThemeProvider>
     );
 
     const styleTag = container.querySelector(`#amplify-theme-${name}`);
@@ -75,9 +75,9 @@ describe('AmplifyProvider', () => {
     };
 
     const { container } = render(
-      <AmplifyProvider theme={maliciousTheme}>
+      <ThemeProvider theme={maliciousTheme}>
         <App />
-      </AmplifyProvider>
+      </ThemeProvider>
     );
 
     const styleTag = container.querySelector(`#amplify-theme-${name}`);
