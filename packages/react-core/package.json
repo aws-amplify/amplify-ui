@@ -11,7 +11,7 @@
     },
     "./package.json": "./package.json"
   },
-  "types": "dist/index.d.ts",
+  "types": "dist/types/index.d.ts",
   "license": "Apache-2.0",
   "files": [
     "dist",
@@ -20,8 +20,10 @@
   "scripts": {
     "clean": "rimraf dist node_modules",
     "prebuild": "rimraf dist",
-    "build": "tsup --minify",
-    "dev": "tsup --watch src",
+    "build": "yarn build:cjs && yarn build:esm",
+    "build:cjs": "tsc --project tsconfig.cjs.json",
+    "build:esm": "tsc --project tsconfig.esm.json",
+    "dev": "yarn build:esm --watch",
     "lint": "tsc --noEmit && eslint src",
     "test": "jest"
   },
