@@ -15,8 +15,12 @@
   @media (max-width: $breakpoint-large) {
     border-bottom: var(--amplify-borders-secondary);
     box-shadow: var(--amplify-shadows-small);
+
+    .color-switcher .amplify-button {
+      padding-inline: var(--amplify-space-relative-xxs);
+    }
   }
-  
+
   .docs-home & {
     border-bottom: var(--amplify-borders-secondary);
     box-shadow: var(--amplify-shadows-small);
@@ -25,10 +29,10 @@
 
 .docs-header > .docs-logo-link {
   display: inline-flex;
-  
+
   @media (min-width: $breakpoint-large) {
     display: none;
-    
+
     .docs-home & {
       display: inline-flex;
     }
@@ -44,13 +48,17 @@
       display: inline-flex;
     }
   }
-  
+
   &.close {
-    .docs-header > & { display: none; }
+    .docs-header > & {
+      display: none;
+    }
   }
-  
+
   &.open {
-    .docs-sidebar & { display: none; }
+    .docs-sidebar & {
+      display: none;
+    }
   }
 }
 
