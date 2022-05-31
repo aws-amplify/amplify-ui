@@ -11,7 +11,7 @@
     },
     "./package.json": "./package.json"
   },
-  "types": "dist/index.d.ts",
+  "types": "dist/types/index.d.ts",
   "license": "Apache-2.0",
   "files": [
     "dist",
@@ -20,8 +20,10 @@
   "scripts": {
     "clean": "rimraf dist node_modules",
     "prebuild": "rimraf dist",
-    "build": "tsup --minify",
-    "dev": "tsup --watch src",
+    "build": "yarn build:cjs && yarn build:esm",
+    "build:cjs": "tsc --project tsconfig.cjs.json",
+    "build:esm": "tsc --project tsconfig.esm.json",
+    "dev": "yarn build:esm --watch",
     "lint": "tsc --noEmit && eslint src",
     "test": "jest"
   },
@@ -49,6 +51,8 @@
     "eslint-plugin-react-hooks": "^4.3.0",
     "jest": "^27.0.4",
     "prettier": "2.4.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "react-test-renderer": "^17.0.2",
     "rimraf": "^3.0.2",
     "ts-jest": "^27.1.3",
