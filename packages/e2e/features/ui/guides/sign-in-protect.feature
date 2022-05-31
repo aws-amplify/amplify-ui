@@ -3,7 +3,7 @@ Feature: Sign in protected feature guide
   Checks the protected feature guide
 
   Background:
-    Given I'm running the example "/"
+    Given I'm running the example "/login"
 
   @guides
   Scenario: Verify redirect to protected route after logging in
@@ -19,4 +19,4 @@ Feature: Sign in protected feature guide
     When I type my "email" with status "CONFIRMED"
     And I type my password
     And I click the "Sign in" button
-    Then I see "SECOND PROTECTED ROUTE!"
+    Then I see "SECOND PROTECTED ROUTE"
