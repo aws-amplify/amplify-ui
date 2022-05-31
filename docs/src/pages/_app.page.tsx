@@ -12,6 +12,7 @@ import { baseTheme } from '../theme';
 import { capitalizeString } from '../utils/capitalizeString';
 import { useCustomRouter } from '@/components/useCustomRouter';
 import metaData from '../data/pages.preval';
+import { FRAMEWORKS } from '@/data/frameworks';
 
 // suppress useLayoutEffect warnings when running outside a browser
 // See: https://gist.github.com/gaearon/e7d97cdf38a2907924ea12e4ebdf3c85#gistcomment-3886909
@@ -63,8 +64,8 @@ function MyApp({ Component, pageProps }) {
         <title>
           {metaTitle ?? title} | {capitalizeString(platform)} - Amplify UI
         </title>
-        {['/', '/react', '/angular', '/vue', '/flutter'].includes(asPath) && (
-          <link rel="canonical" href="https://ui.docs.amplify.aws/" />
+        {(asPath === '/' || FRAMEWORKS.includes(asPath.slice(1))) && (
+          <link rel="canonical" href={process.env.SITE_URL} />
         )}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content={metaDescription ?? description} />
