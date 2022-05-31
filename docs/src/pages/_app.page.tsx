@@ -9,7 +9,7 @@ import Script from 'next/script';
 import { baseTheme } from '../theme';
 import { capitalizeString } from '../utils/capitalizeString';
 import { useCustomRouter } from '@/components/useCustomRouter';
-import metaData from '../data/pages.preval';
+import metaData from '@/data/pages.preval';
 
 import { UI_DOCS_REFERENCE } from '@/data/links';
 import { getImagePath } from '@/utils/previews';
