@@ -17,6 +17,7 @@ import {
   ToggleButtonGroup,
   View,
   useTheme,
+  useBreakpointValue,
 } from '@aws-amplify/ui-react';
 
 import { Copy } from '@/components/Copy';
@@ -44,6 +45,10 @@ const HomePage = ({ colorMode }) => {
   } = useCustomRouter();
   const { tokens } = useTheme();
   const [themeOverride, setThemeOverride] = React.useState('');
+  const showEditor = useBreakpointValue({
+    base: false,
+    medium: true,
+  });
 
   const installScripts = {
     react: `npm i @aws-amplify/ui-${platform} aws-amplify`,
@@ -120,19 +125,21 @@ const HomePage = ({ colorMode }) => {
             </Flex>
           </Flex>
         </View>
-        <View
-          backgroundColor={tokens.colors.background.secondary}
-          padding={tokens.space.large}
-        >
-          <Heading level={2} textAlign="center" margin={tokens.space.large}>
-            Take it for a test drive
-          </Heading>
-          <View className="container">
-            <Card style={{ width: '100%', padding: 0 }} variation="outlined">
-              <HomeEditor />
-            </Card>
+        {showEditor ? (
+          <View
+            backgroundColor={tokens.colors.background.secondary}
+            padding={tokens.space.large}
+          >
+            <Heading level={2} textAlign="center" margin={tokens.space.large}>
+              Take it for a test drive
+            </Heading>
+            <View className="container">
+              <Card style={{ width: '100%', padding: 0 }} variation="outlined">
+                <HomeEditor />
+              </Card>
+            </View>
           </View>
-        </View>
+        ) : null}
 
         <View as="section" className="docs-home-section container">
           <Flex
