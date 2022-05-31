@@ -1,4 +1,4 @@
-import { Flex, Text, Divider, AmplifyProvider } from '@aws-amplify/ui-react';
+import { Flex, Text, Divider, ThemeProvider } from '@aws-amplify/ui-react';
 
 const theme = {
   name: 'divider-theme',
@@ -18,12 +18,12 @@ const theme = {
 };
 
 export const DividerThemeExample = () => (
-  <AmplifyProvider theme={theme}>
+  <ThemeProvider theme={theme}>
     <Flex direction="column">
       <Text>Before</Text>
       <Divider />
       <Text>After</Text>
       <Divider size="large" />
     </Flex>
-  </AmplifyProvider>
+  </ThemeProvider>
 );

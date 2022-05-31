@@ -6,7 +6,7 @@ import { AmplifyContext } from './AmplifyContext';
 
 export type ColorMode = 'system' | 'light' | 'dark';
 
-interface AmplifyProviderProps {
+interface ThemeProviderProps {
   children: React.ReactNode;
   colorMode?: ColorMode;
   theme?: Theme;
@@ -18,7 +18,7 @@ export function AmplifyProvider({
   colorMode,
   theme,
   nonce,
-}: AmplifyProviderProps) {
+}: ThemeProviderProps) {
   const webTheme = createTheme(theme);
   const { name, cssText } = webTheme;
 
@@ -32,14 +32,14 @@ export function AmplifyProvider({
     if (document && document.documentElement) {
       // Keep original data attributes to reset on unmount
       const originalName =
-        document.documentElement.getAttribute('data-amplify-theme');
-      const originalColorMode = document.documentElement.getAttribute(
-        'data-amplify-color-mode'
-      );
+        document.documentElement.getAttribute('data-amplify-theme') ?? name;
+      const originalColorMode =
+        document.documentElement.getAttribute('data-amplify-color-mode') ||
+        colorMode;
       document.documentElement.setAttribute('data-amplify-theme', name);
       document.documentElement.setAttribute(
         'data-amplify-color-mode',
-        colorMode || ''
+        colorMode || originalColorMode
       );
 
       return function cleanup() {
@@ -126,3 +126,5 @@ export function AmplifyProvider({
     </AmplifyContext.Provider>
   );
 }
+
+export const ThemeProvider = AmplifyProvider;

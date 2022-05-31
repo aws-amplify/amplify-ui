@@ -2,16 +2,11 @@ import '../styles/index.scss';
 
 import * as React from 'react';
 
-import {
-  AmplifyProvider,
-  ColorMode,
-  defaultTheme,
-} from '@aws-amplify/ui-react';
+import { ThemeProvider, ColorMode, defaultTheme } from '@aws-amplify/ui-react';
 import { configure, trackPageVisit } from '../utils/track';
 
 import Head from 'next/head';
 import { Header } from '@/components/Layout/Header';
-import { Sidebar } from '@/components/Layout/Sidebar';
 import Script from 'next/script';
 import { baseTheme } from '../theme';
 import { capitalizeString } from '../utils/capitalizeString';
@@ -75,7 +70,7 @@ function MyApp({ Component, pageProps }) {
         <meta name="description" content={metaDescription ?? description} />
       </Head>
       <div className={isHomepage ? `docs-home` : ''}>
-        <AmplifyProvider theme={baseTheme} colorMode={colorMode}>
+        <ThemeProvider theme={baseTheme} colorMode={colorMode}>
           <Header
             expanded={expanded}
             setExpanded={setExpanded}
@@ -96,7 +91,7 @@ function MyApp({ Component, pageProps }) {
               colorMode={colorMode}
             />
           </div>
-        </AmplifyProvider>
+        </ThemeProvider>
       </div>
       <Script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" />
       <Script src="/scripts/shortbreadv2.js" />
