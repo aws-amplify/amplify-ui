@@ -1,66 +1,56 @@
-import {
-  Image,
-  ToggleButton,
-  ToggleButtonGroup,
-  VisuallyHidden,
-} from '@aws-amplify/ui-react';
+import { Flex, Image, Button, useTheme } from '@aws-amplify/ui-react';
 
+import { capitalize } from 'lodash';
 import { useCustomRouter } from '@/components/useCustomRouter';
+import Link from 'next/link';
 import { FRAMEWORKS } from '@/data/frameworks';
 
-export const FrameworkChooser = ({ platform }) => {
-  const { replace, pathname } = useCustomRouter();
+interface FrameworkLinkProps extends FrameworkChooserProps {
+  framework: string;
+}
 
-  const chooseFramework = (platform) => {
-    const { hash } = window.location;
-    replace(
-      {
-        hash,
-        pathname: pathname === '/' ? '/[platform]' : pathname,
-        query: { platform },
-      },
-      // `as?` prop  isn't needed when URL is already provided
-      undefined,
-      {
-        // Scroll to top if a new page
-        scroll: hash ? false : true,
-      }
-    );
+const platformPath = '[platform]';
 
-    // Because layout may change, explicitly tell the browser to scroll to that anchor
-    // e.g. <a id="#variation" />
-    if (hash) {
-      document.getElementById(hash.slice(1)).scrollIntoView();
-    }
-  };
+const FrameworkLink = ({ framework, onClick }: FrameworkLinkProps) => {
+  const { pathname, query } = useCustomRouter();
+
+  const isCurrent = query.platform === framework;
+  const classNames = `docs-framework-link ${isCurrent ? 'current' : ''}`;
+  const href = pathname.includes(platformPath)
+    ? pathname.replace(platformPath, framework)
+    : `/${framework}`;
 
   return (
-    <ToggleButtonGroup
-      value={platform}
-      size="small"
-      onChange={(value: string) => {
-        chooseFramework(value);
-      }}
-      isExclusive
-      isSelectionRequired
-    >
+    <Link href={href} passHref>
+      <Button as="a" size="small" className={classNames} onClick={onClick}>
+        <Image
+          alt={framework}
+          height="1.25rem"
+          width="1.25rem"
+          display="block"
+          src={`/svg/integrations/${framework}.svg`}
+        />
+        {capitalize(framework)}
+      </Button>
+    </Link>
+  );
+};
+
+interface FrameworkChooserProps {
+  onClick: () => void;
+}
+
+export const FrameworkChooser = ({ onClick }: FrameworkChooserProps) => {
+  const { tokens } = useTheme();
+  return (
+    <Flex direction="column" gap={tokens.space.xs}>
       {FRAMEWORKS.map((framework) => (
-        <ToggleButton
+        <FrameworkLink
           key={framework}
-          value={framework}
-          size="small"
-          title={framework}
-          padding={{ base: '4px', medium: undefined }}
-        >
-          <VisuallyHidden>{framework}</VisuallyHidden>
-          <Image
-            alt=""
-            height={{ base: '1.5rem', medium: '1rem' }}
-            display="block"
-            src={`/svg/integrations/${framework}.svg`}
-          />
-        </ToggleButton>
+          framework={framework}
+          onClick={onClick}
+        />
       ))}
-    </ToggleButtonGroup>
+    </Flex>
   );
 };

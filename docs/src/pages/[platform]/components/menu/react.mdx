@@ -14,6 +14,7 @@ import {
 
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
+import { ThemeAlert } from '@/components/ThemeAlert';
 
 ## Demo
 
@@ -21,27 +22,28 @@ import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 
 ## Usage
 
-Import the `Menu` and `MenuItem` components. Note that the Menu component is rendered in a React Portal, so you can set the Menu button's width from its outer container. 
+Import the `Menu` and `MenuItem` components. Note that the Menu component is rendered in a React Portal, so you can set the Menu button's width from its outer container.
 
 <Example>
   <BasicExample />
   <ExampleCode>
 ```tsx file=./examples/basicExample.tsx
 
-```
+````
   </ExampleCode>
 </Example>
 
 ### Menu items
 
-Use the `MenuItem` component to configure Menu options. The example below demonstrates how to add interactivity to the `MenuItem`'s via the `onClick` handler, as well as how to use the `Divider` component and `isDisabled` prop. 
+Use the `MenuItem` component to configure Menu options. The example below demonstrates how to add interactivity to the `MenuItem`'s via the `onClick` handler, as well as how to use the `Divider` component and `isDisabled` prop.
 
 <Example>
   <MenuItemsExample />
   <ExampleCode>
 ```tsx file=./examples/menuItemsExample.tsx
 
-```
+````
+
   </ExampleCode>
 </Example>
 
@@ -54,7 +56,7 @@ The default Menu button can be customized by importing the `MenuButton` componen
   <ExampleCode>
 ```tsx file=./examples/menuExample.tsx
 
-```
+````
 
   </ExampleCode>
 </Example>
@@ -68,7 +70,7 @@ To control the alignment of the Menu with the Menu button, use the `menuAlign` p
   <ExampleCode>
 ```tsx file=./examples/menuAlignExample.tsx
 
-```
+````
 
   </ExampleCode>
 </Example>
@@ -82,7 +84,7 @@ Control the size of the Menu button and items using the `size` prop. Available o
   <ExampleCode>
 ```tsx file=./examples/sizeExample.tsx
 
-```
+````
 
   </ExampleCode>
 </Example>
@@ -96,7 +98,7 @@ Create a controlled `Menu` using the `isOpen` and `onOpenChange` props.
   <ExampleCode>
 ```tsx file=./examples/controlledExample.tsx
 
-```
+````
 
   </ExampleCode>
 </Example>
@@ -108,6 +110,8 @@ Create a controlled `Menu` using the `isOpen` and `onOpenChange` props.
 <ComponentStyleDisplay componentName="Menu" />
 
 ### Theme
+
+<ThemeAlert />
 
 You can customize the appearance of all Menus in your application with a [Theme](/theming).
 
@@ -124,7 +128,7 @@ You can customize the appearance of all Menus in your application with a [Theme]
 <ExampleCode>
 ```tsx file=./examples/themeExample.tsx
 
-```
+````
 </ExampleCode>
 
 ### Global styling
@@ -142,7 +146,7 @@ To override styling on all Menus, you can set the Amplify CSS variables with the
   );
   --amplify-components-button-color: var(--amplify-colors-brand-secondary-90);
 }
-```
+````
 
 ```jsx
 import { Menu, MenuItem } from '@aws-amplify/ui-react';
@@ -263,3 +267,4 @@ _Using style props:_
 ```
   </ExampleCode>
 </Example>
+```
