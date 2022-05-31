@@ -25,7 +25,7 @@
     "@angular-devkit/core" "11.2.19"
     rxjs "6.6.3"
 
-"@angular-devkit/build-angular@~0.1102.13":
+"@angular-devkit/build-angular@~0.1102.13", "@angular-devkit/build-angular@~0.1102.3":
   version "0.1102.19"
   resolved "https://registry.yarnpkg.com/@angular-devkit/build-angular/-/build-angular-0.1102.19.tgz#db1b3beaf48613c847bca97655e95d0e1410c1b7"
   integrity sha512-frI8UyujPB5WV7l9uecH8Ev73TWTV7xEHrwYIKryD/mVmqeg64ILi4/ATPHm1qGFjAH27WWHtzL2vnik5wBlNg==
