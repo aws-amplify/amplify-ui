@@ -27,6 +27,7 @@ import { pagination, PaginationTokens } from './pagination';
 import { placeholder, PlaceholderTokens } from './placeholder';
 import { radio, RadioTokens } from './radio';
 import { rating, RatingTokens } from './rating';
+import { searchfield, SearchFieldTokens } from './searchField';
 import { select, SelectTokens } from './select';
 import { selectfield, SelectFieldTokens } from './selectField';
 import { sliderfield, SliderFieldTokens } from './sliderField';
@@ -68,6 +69,7 @@ export interface ComponentTokens {
   placeholder: PlaceholderTokens;
   radio: RadioTokens;
   rating: RatingTokens;
+  searchfield: SearchFieldTokens;
   select: SelectTokens;
   selectfield: SelectFieldTokens;
   sliderfield: SliderFieldTokens;
@@ -107,6 +109,7 @@ export const components: ComponentTokens = {
   placeholder,
   radio,
   rating,
+  searchfield,
   select,
   selectfield,
   sliderfield,

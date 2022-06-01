@@ -1,0 +1,23 @@
+.amplify-searchfield {
+  &__search {
+    color: var(--amplify-components-searchfield-search-color);
+    &:disabled {
+      color: var(--amplify-components-searchfield-search-disabled-color);
+      background-color: var(
+        --amplify-components-searchfield-search-disabled-background-color
+      );
+    }
+    &:focus {
+      color: var(--amplify-components-searchfield-search-focus-color);
+      background-color: var(
+        --amplify-components-searchfield-search-focus-background-color
+      );
+    }
+    &:hover {
+      color: var(--amplify-components-searchfield-search-hover-color);
+      background-color: var(
+        --amplify-components-searchfield-search-hover-background-color
+      );
+    }
+  }
+}
