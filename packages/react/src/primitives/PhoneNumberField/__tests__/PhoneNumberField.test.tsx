@@ -29,7 +29,7 @@ describe('PhoneNumberField primitive', () => {
         name: /phone number/i,
       }),
       $countryCodeSelector: await screen.findByRole('combobox', {
-        name: /country or region code/i,
+        name: /country code/i,
       }),
     };
   };

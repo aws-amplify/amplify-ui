@@ -530,7 +530,7 @@ export const ComponentText = {
     previousLabel: 'Go to previous page',
   },
   PhoneNumberField: {
-    countryOrRegionCodeLabel: 'Country or region code',
+    countryCodeLabel: 'Country code',
   },
   SearchField: {
     searchButtonLabel: 'Search',

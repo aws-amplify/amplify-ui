@@ -12,7 +12,7 @@ const PhoneNumberFieldPrimitive: Primitive<PhoneNumberFieldProps, 'input'> = (
     autoComplete = 'tel-national',
     className,
     countryCodeName,
-    countryCodeLabel = ComponentText.PhoneNumberField.countryOrRegionCodeLabel,
+    countryCodeLabel = ComponentText.PhoneNumberField.countryCodeLabel,
     defaultCountryCode,
     hasError,
     isDisabled,

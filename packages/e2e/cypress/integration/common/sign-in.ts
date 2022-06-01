@@ -7,11 +7,11 @@ import { When } from 'cypress-cucumber-preprocessor/steps';
 When(
   'I select my country or region code with status {string}',
   (status: string) => {
-    const countryOrRegionCodeSelect = cy.findByRole('combobox', {
-      name: /country or region code/i,
+    const countryCodeSelect = cy.findByRole('combobox', {
+      name: /country code/i,
     });
-    if (countryOrRegionCodeSelect) {
-      const countryOrRegionCode =
+    if (countryCodeSelect) {
+      const countryCode =
         status === 'CONFIRMED'
           ? '+1'
           : status === 'UNCONFIRMED'
@@ -22,7 +22,7 @@ When(
           ? '+30'
           : null;
 
-      countryOrRegionCodeSelect.select(countryOrRegionCode);
+      countryCodeSelect.select(countryCode);
     }
   }
 );
