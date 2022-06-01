@@ -1,104 +1,74 @@
-import {
-  Image,
-  ToggleButton,
-  ToggleButtonGroup,
-  VisuallyHidden,
-} from '@aws-amplify/ui-react';
+import { Flex, Image, Button, useTheme } from '@aws-amplify/ui-react';
 
+import { capitalize } from 'lodash';
 import { useCustomRouter } from '@/components/useCustomRouter';
+import Link from 'next/link';
+import { FRAMEWORKS } from '@/data/frameworks';
+import metaData from '@/data/pages.preval';
 
-export const FrameworkChooser = ({ platform }) => {
-  const { replace, pathname } = useCustomRouter();
+interface FrameworkLinkProps extends FrameworkChooserProps {
+  framework: string;
+  isDisabled: boolean;
+}
 
-  const chooseFramework = (platform) => {
-    const { hash } = window.location;
-    replace(
-      {
-        hash,
-        pathname: pathname === '/' ? '/[platform]' : pathname,
-        query: { platform },
-      },
-      // `as?` prop  isn't needed when URL is already provided
-      undefined,
-      {
-        // Scroll to top if a new page
-        scroll: hash ? false : true,
-      }
-    );
+const platformPath = '[platform]';
 
-    // Because layout may change, explicitly tell the browser to scroll to that anchor
-    // e.g. <a id="#variation" />
-    if (hash) {
-      document.getElementById(hash.slice(1)).scrollIntoView();
-    }
-  };
+const FrameworkLink = ({
+  framework,
+  onClick,
+  isDisabled,
+}: FrameworkLinkProps) => {
+  const { pathname, query } = useCustomRouter();
+  const isCurrent = query.platform === framework;
+  const classNames = `docs-framework-link ${isCurrent ? 'current' : ''}`;
+  const href = pathname.includes(platformPath)
+    ? pathname.replace(platformPath, framework)
+    : `/${framework}`;
 
   return (
-    <ToggleButtonGroup
-      value={platform}
-      size="small"
-      onChange={(value: string) => {
-        chooseFramework(value);
-      }}
-      isExclusive
-      isSelectionRequired
-    >
-      <ToggleButton
-        value="react"
+    <Link href={href} passHref>
+      <Button
         size="small"
-        title="React"
-        padding={{ base: '4px', medium: undefined }}
+        className={classNames}
+        onClick={onClick}
+        isDisabled={isDisabled}
       >
-        <VisuallyHidden>React</VisuallyHidden>
         <Image
-          alt=""
-          height={{ base: '1.5rem', medium: '1rem' }}
+          alt={framework}
+          height="1.25rem"
+          width="1.25rem"
           display="block"
-          src="/svg/integrations/react.svg"
+          src={`/svg/integrations/${framework}.svg`}
         />
-      </ToggleButton>
-      <ToggleButton
-        value="angular"
-        size="small"
-        title="Angular"
-        padding={{ base: '4px', medium: undefined }}
-      >
-        <VisuallyHidden>Angular</VisuallyHidden>
-        <Image
-          alt=""
-          height={{ base: '1.5rem', medium: '1rem' }}
-          display="block"
-          src="/svg/integrations/angular.svg"
+        {capitalize(framework)}
+      </Button>
+    </Link>
+  );
+};
+
+interface FrameworkChooserProps {
+  onClick: () => void;
+}
+
+export const FrameworkChooser = ({ onClick }: FrameworkChooserProps) => {
+  const { pathname } = useCustomRouter();
+  const { tokens } = useTheme();
+  const {
+    frontmatter: { supportedFrameworks = 'react' },
+  } = metaData[pathname];
+  const frameworksOptions =
+    supportedFrameworks === 'all' ? FRAMEWORKS : supportedFrameworks.split('|');
+
+  return (
+    <Flex direction="column" gap={tokens.space.xs}>
+      {FRAMEWORKS.map((framework) => (
+        <FrameworkLink
+          key={framework}
+          framework={framework}
+          onClick={onClick}
+          isDisabled={!frameworksOptions.includes(framework)}
         />
-      </ToggleButton>
-      <ToggleButton
-        value="vue"
-        size="small"
-        title="Vue"
-        padding={{ base: '4px', medium: undefined }}
-      >
-        <VisuallyHidden>Vue</VisuallyHidden>
-        <Image
-          alt=""
-          height={{ base: '1.5rem', medium: '1rem' }}
-          display="block"
-          src="/svg/integrations/vue.svg"
-        />
-      </ToggleButton>
-      <ToggleButton
-        value="flutter"
-        size="small"
-        title="Flutter"
-        padding={{ base: '4px', medium: undefined }}
-      >
-        <VisuallyHidden>Flutter</VisuallyHidden>
-        <Image
-          alt=""
-          height={{ base: '1.5rem', medium: '1rem' }}
-          display="block"
-          src="/svg/integrations/flutter.svg"
-        />
-      </ToggleButton>
-    </ToggleButtonGroup>
+      ))}
+    </Flex>
   );
 };

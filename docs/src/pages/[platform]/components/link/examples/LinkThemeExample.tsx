@@ -1,4 +1,4 @@
-import { Link, Theme, AmplifyProvider } from '@aws-amplify/ui-react';
+import { Link, Theme, ThemeProvider } from '@aws-amplify/ui-react';
 
 const theme: Theme = {
   name: 'link-theme',
@@ -13,8 +13,8 @@ const theme: Theme = {
 };
 export const LinkThemeExample = () => {
   return (
-    <AmplifyProvider theme={theme}>
+    <ThemeProvider theme={theme}>
       <Link>My custom Link</Link>
-    </AmplifyProvider>
+    </ThemeProvider>
   );
 };

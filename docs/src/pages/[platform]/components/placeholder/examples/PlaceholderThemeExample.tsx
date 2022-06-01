@@ -1,4 +1,4 @@
-import { Theme, Placeholder, AmplifyProvider } from '@aws-amplify/ui-react';
+import { Theme, Placeholder, ThemeProvider } from '@aws-amplify/ui-react';
 
 const theme: Theme = {
   name: 'placeholder-theme',
@@ -14,8 +14,8 @@ const theme: Theme = {
 
 export const PlaceholderThemeExample = () => {
   return (
-    <AmplifyProvider theme={theme}>
+    <ThemeProvider theme={theme}>
       <Placeholder />
-    </AmplifyProvider>
+    </ThemeProvider>
   );
 };
