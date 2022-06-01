@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { toRefs } from 'vue';
 interface PropsInterface {
   label: string;
   name: string;
@@ -11,6 +12,16 @@ interface PropsInterface {
   type?: string;
 }
 
+const props = withDefaults(defineProps<PropsInterface>(), {
+  label: 'Username',
+  name: 'username',
+  placeholder: '',
+  autocomplete: '',
+  labelHidden: false,
+  required: true,
+  type: 'text',
+});
+
 const {
   label,
   name,
@@ -20,15 +31,8 @@ const {
   required,
   dialCode,
   dialCodeList,
-} = withDefaults(defineProps<PropsInterface>(), {
-  label: 'Username',
-  name: 'username',
-  placeholder: '',
-  autocomplete: '',
-  labelHidden: false,
-  required: true,
-  type: 'text',
-});
+} = toRefs(props);
+
 const random = Math.floor(Math.random() * 999999);
 const randomPhone = Math.floor(Math.random() * 999999);
 </script>

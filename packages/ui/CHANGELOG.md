@@ -1,5 +1,23 @@
 # @aws-amplify/ui
 
+## 3.9.2
+
+### Patch Changes
+
+- [#1910](https://github.com/aws-amplify/amplify-ui/pull/1910) [`766bf302c`](https://github.com/aws-amplify/amplify-ui/commit/766bf302c4d594ae92f1506967b6f1858687a41c) Thanks [@wlee221](https://github.com/wlee221)! - refactor(internal): Move `autoSignIn` logic out of `signUp` actor
+
+* [#1910](https://github.com/aws-amplify/amplify-ui/pull/1910) [`766bf302c`](https://github.com/aws-amplify/amplify-ui/commit/766bf302c4d594ae92f1506967b6f1858687a41c) Thanks [@wlee221](https://github.com/wlee221)! - On userpools with sms mfa required, authenticator will now automatically redirect user to sms mfa page after successful sign up.
+
+  Previously, end users needed to sign in again to go to the sms mfa page ([#1660](https://github.com/aws-amplify/amplify-ui/issues/1660)).
+
+- [#1932](https://github.com/aws-amplify/amplify-ui/pull/1932) [`a41ecfbf1`](https://github.com/aws-amplify/amplify-ui/commit/a41ecfbf1e7fc35e20622a6fb514c3bab7404621) Thanks [@zchenwei](https://github.com/zchenwei)! - fix(style): adjust color and border color on ToggleButton to meet 3:1 contrast ratio
+
+## 3.9.1
+
+### Patch Changes
+
+- [#1933](https://github.com/aws-amplify/amplify-ui/pull/1933) [`376c39fc0`](https://github.com/aws-amplify/amplify-ui/commit/376c39fc04aec3a41d02a722a62d4b8e4eb43230) Thanks [@zchenwei](https://github.com/zchenwei)! - fix(style): adjust slider thumb border width, focus color and box shadow. #1922
+
 ## 3.9.0
 
 ### Minor Changes

@@ -1,5 +1,5 @@
 import {
-  AmplifyProvider,
+  ThemeProvider,
   Pagination,
   usePagination,
 } from '@aws-amplify/ui-react';
@@ -27,8 +27,8 @@ export const PaginationThemeExample = () => {
   const paginationProps = usePagination({ totalPages: 6 });
 
   return (
-    <AmplifyProvider theme={theme}>
+    <ThemeProvider theme={theme}>
       <Pagination {...paginationProps} />
-    </AmplifyProvider>
+    </ThemeProvider>
   );
 };

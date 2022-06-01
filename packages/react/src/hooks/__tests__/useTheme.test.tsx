@@ -1,6 +1,6 @@
 import { createTheme, WebTheme } from '@aws-amplify/ui';
 import { renderHook } from '@testing-library/react-hooks';
-import { AmplifyProvider } from '../../components/AmplifyProvider';
+import { AmplifyProvider } from '../../components/ThemeProvider';
 import { useTheme } from '../useTheme';
 
 const serializeTheme = (theme: WebTheme) => JSON.stringify(theme, null, 2);

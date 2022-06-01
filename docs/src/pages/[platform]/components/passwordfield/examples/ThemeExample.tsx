@@ -1,4 +1,4 @@
-import { AmplifyProvider, PasswordField } from '@aws-amplify/ui-react';
+import { ThemeProvider, PasswordField } from '@aws-amplify/ui-react';
 
 const theme = {
   name: 'passwordfield-theme',
@@ -18,8 +18,8 @@ const theme = {
 
 export const ThemeExample = () => {
   return (
-    <AmplifyProvider theme={theme}>
+    <ThemeProvider theme={theme}>
       <PasswordField label="password" />
-    </AmplifyProvider>
+    </ThemeProvider>
   );
 };

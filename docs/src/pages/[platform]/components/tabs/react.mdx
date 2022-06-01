@@ -26,6 +26,7 @@ import {
   Title,
 } from './examples';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
+import { ThemeAlert } from '@/components/ThemeAlert';
 
 ## Demo
 
@@ -166,6 +167,8 @@ In the `TabItem` component, use the `isDisabled` prop to make a Tab not clickabl
 <ComponentStyleDisplay componentName="Tabs" />
 
 ### Theme
+
+<ThemeAlert />
 
 You can customize the appearance of Tabs in your application using a [Theme](/theming).
 
@@ -327,7 +330,7 @@ Note: there is currently no way to style different states like hover using only 
 
 ## Accessibility
 
-Adheres to the [Tabs WAI-ARIA design pattern](https://www.w3.org/TR/wai-aria-practices-1.1/#tabpanel).
+Adheres to the [Tabs WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabpanel/).
 
 We recommend passing an `ariaLabel` prop to help enable assistive technology.
 
