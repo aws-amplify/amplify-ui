@@ -337,7 +337,7 @@ export const gettingStarted = [
   },
   {
     href: '/getting-started/nextjs',
-    label: 'Next JS',
+    label: 'Next.js',
   },
   {
     href: '/getting-started/migration',

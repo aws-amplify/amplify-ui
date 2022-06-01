@@ -19,7 +19,7 @@ import {
 import '@aws-amplify/ui-react/styles.css';
 import { PAINTINGS } from './paintings';
 
-function App() {
+export default function Home() {
   const [currentPainting, setCurrentPainting] = React.useState(PAINTINGS[0]);
   const [image, setImage] = React.useState(PAINTINGS[0].src);
   const [frame, setFrame] = React.useState(true);
@@ -194,5 +194,3 @@ function App() {
     </View>
   );
 }
-
-export default App;
