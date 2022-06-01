@@ -332,6 +332,10 @@ export const gettingStarted = [
     label: 'Usage',
   },
   {
+    href: '/getting-started/create-react-app',
+    label: 'Create React App',
+  },
+  {
     href: '/getting-started/migration',
     label: 'Migration',
     platforms: ['react', 'vue', 'angular'],
