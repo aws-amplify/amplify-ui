@@ -30,14 +30,25 @@
     "version:latest": "yarn changeset version && yarn angular build",
     "publish:latest": "yarn changeset publish"
   },
-  "workspaces": [
-    "docs",
-    "angular-docs",
-    "environments",
-    "examples/*",
-    "packages/*",
-    "packages/angular/projects/ui-angular"
-  ],
+  "workspaces": {
+    "packages": [
+      "docs",
+      "angular-docs",
+      "environments",
+      "examples/*",
+      "packages/*",
+      "packages/angular/projects/ui-angular"
+    ],
+    "nohoist": [
+      "**/@radix-ui",
+      "**/@radix-ui/**",
+      "**/react",
+      "**/react-map-gl",
+      "**/use-sync-external-store",
+      "**/use-isomorphic-layout-effect",
+      "**/use-isomorphic-layout-effect/**"
+    ]
+  },
   "resolutions": {
     "ansi-regex": "5.0.1",
     "ansi-html": "0.0.8",

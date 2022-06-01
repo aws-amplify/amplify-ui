@@ -11,7 +11,7 @@ import Script from 'next/script';
 import { baseTheme } from '../theme';
 import { capitalizeString } from '../utils/capitalizeString';
 import { useCustomRouter } from '@/components/useCustomRouter';
-import metaData from '../data/pages.preval';
+import metaData from '@/data/pages.preval';
 
 // suppress useLayoutEffect warnings when running outside a browser
 // See: https://gist.github.com/gaearon/e7d97cdf38a2907924ea12e4ebdf3c85#gistcomment-3886909
