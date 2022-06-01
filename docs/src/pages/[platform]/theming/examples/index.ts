@@ -1,0 +1,1 @@
+export { AuthenticatorButtonExample } from './AuthenticatorButtonExample';
