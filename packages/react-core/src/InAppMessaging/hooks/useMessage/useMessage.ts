@@ -1,18 +1,19 @@
 import { ConsoleLogger as Logger } from '@aws-amplify/core';
 import {
-  Notifications,
   InAppMessageInteractionEvent,
+  Notifications,
 } from '@aws-amplify/notifications';
 import isNil from 'lodash/isNil';
 
+import { RenderNothing } from '../../../components';
 import { useInAppMessaging } from '../useInAppMessaging';
-
 import { UseMessage, UseMessageParams } from './types';
 import { getContentProps, getPositionProp } from './utils';
 
-const { InAppMessaging } = Notifications;
+export const EMPTY_PROPS = Object.freeze({});
 
 const logger = new Logger('Notifications.InAppMessaging');
+const { InAppMessaging } = Notifications;
 
 /**
  * Utility hook for parsing a message and retrieving its corresponding UI component and props
@@ -21,40 +22,43 @@ const logger = new Logger('Notifications.InAppMessaging');
  * @returns {UseMessage} message UI component and props
  */
 
-export default function useMessage<Style>({
+export default function useMessage<PlatformStyleProps>({
   components,
   onMessageAction,
   styles,
-}: UseMessageParams<Style>): UseMessage<Style> {
-  const { clearInAppMessage, inAppMessage } = useInAppMessaging();
+}: UseMessageParams<PlatformStyleProps>): UseMessage<PlatformStyleProps> {
+  const { clearMessage, message } = useInAppMessaging();
   const { BannerMessage, CarouselMessage, FullScreenMessage, ModalMessage } =
     components;
 
-  if (isNil(inAppMessage)) {
-    return { Component: null, props: null };
+  if (isNil(message)) {
+    return {
+      Component: RenderNothing,
+      props: EMPTY_PROPS as UseMessage<PlatformStyleProps>['props'],
+    };
   }
 
-  const { content, layout } = inAppMessage;
+  const { content, layout } = message;
 
   const onActionCallback = () => {
     InAppMessaging.notifyMessageInteraction(
-      inAppMessage,
+      message,
       InAppMessageInteractionEvent.MESSAGE_ACTION_TAKEN
     );
-    clearInAppMessage();
+    clearMessage();
   };
 
   const onClose = () => {
     InAppMessaging.notifyMessageInteraction(
-      inAppMessage,
+      message,
       InAppMessageInteractionEvent.MESSAGE_DISMISSED
     );
-    clearInAppMessage();
+    clearMessage();
   };
 
   const onDisplay = () => {
     InAppMessaging.notifyMessageInteraction(
-      inAppMessage,
+      message,
       InAppMessageInteractionEvent.MESSAGE_DISPLAYED
     );
   };
@@ -107,7 +111,10 @@ export default function useMessage<Style>({
     }
     default: {
       logger.info(`Received unknown InAppMessage layout: ${layout}`);
-      return { Component: null, props: null };
+      return {
+        Component: RenderNothing,
+        props: EMPTY_PROPS as UseMessage<PlatformStyleProps>['props'],
+      };
     }
   }
 }

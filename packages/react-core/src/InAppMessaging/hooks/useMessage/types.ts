@@ -7,15 +7,27 @@ import {
   FullScreenMessageComponent,
   ModalMessageCommonProps,
   ModalMessageComponent,
-  MessageComponents,
-  MessageStyles,
   OnMessageAction,
 } from '../../types';
 
+interface Components<PlatformStyleProps> {
+  BannerMessage: BannerMessageComponent<PlatformStyleProps>;
+  CarouselMessage: CarouselMessageComponent<PlatformStyleProps>;
+  FullScreenMessage: FullScreenMessageComponent<PlatformStyleProps>;
+  ModalMessage: ModalMessageComponent<PlatformStyleProps>;
+}
+
+interface Styles<PlatformStyleProps> {
+  bannerMessage?: PlatformStyleProps;
+  carouselMessage?: PlatformStyleProps;
+  fullScreenMessage?: PlatformStyleProps;
+  modalMessage?: PlatformStyleProps;
+}
+
 export interface UseMessageParams<PlatformStyleProps> {
-  components: MessageComponents<PlatformStyleProps>;
+  components: Components<PlatformStyleProps>;
   onMessageAction: OnMessageAction;
-  styles?: MessageStyles<PlatformStyleProps>;
+  styles?: Styles<PlatformStyleProps>;
 }
 
 type MessageComponent<PlatformStyleProps> =
@@ -31,6 +43,6 @@ type MessageProps<PlatformStyleProps> =
   | ModalMessageCommonProps<PlatformStyleProps>;
 
 export interface UseMessage<PlatformStyleProps> {
-  Component: MessageComponent<PlatformStyleProps> | null;
-  props: MessageProps<PlatformStyleProps> | null;
+  Component: MessageComponent<PlatformStyleProps>;
+  props: MessageProps<PlatformStyleProps>;
 }

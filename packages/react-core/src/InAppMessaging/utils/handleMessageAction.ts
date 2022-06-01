@@ -1,13 +1,14 @@
 import { ConsoleLogger as Logger } from '@aws-amplify/core';
-import { InAppMessageAction } from '@aws-amplify/notifications';
 import isString from 'lodash/isString';
+
+import { MessageAction } from '../types';
 
 const logger = new Logger('Notifications.InAppMessaging');
 
 export type HandleMessageLinkAction = (url: string) => Promise<void>;
 
 interface HandleMessageActionParams {
-  action: InAppMessageAction;
+  action: MessageAction;
   handleMessageLinkAction: HandleMessageLinkAction;
   url: string | undefined;
 }

@@ -1,24 +1,36 @@
-import {
+import type {
+  InAppMessage,
   InAppMessageAction,
   InAppMessageButton,
   InAppMessageContent,
+  InAppMessageImage,
   InAppMessageLayout,
   InAppMessageStyle,
+  InAppMessageTextAlign,
 } from '@aws-amplify/notifications';
 
+export type Message = InAppMessage;
+export type MessageAction = InAppMessageAction;
+export type MessageButton = InAppMessageButton;
+export type MessageContent = InAppMessageContent;
+export type MessageImage = InAppMessageImage;
+export type MessageLayout = InAppMessageLayout;
+export type MessageStyle = InAppMessageStyle;
+export type MessageTextAlign = InAppMessageTextAlign;
+
 export type OnMessageAction = (params: {
-  action: InAppMessageAction;
+  action: MessageAction;
   url?: string | undefined;
 }) => void;
 
 export interface MessageButtonProps
-  extends Omit<InAppMessageButton, 'action' | 'url'> {
+  extends Omit<MessageButton, 'action' | 'url'> {
   onAction: () => void;
 }
 
 // omit payload button props, replace with MessageButtonProps
 export interface MessageContentProps
-  extends Omit<InAppMessageContent, 'primaryButton' | 'secondaryButton'> {
+  extends Omit<MessageContent, 'primaryButton' | 'secondaryButton'> {
   primaryButton?: MessageButtonProps;
   secondaryButton?: MessageButtonProps;
 }
@@ -29,13 +41,18 @@ export interface MessageComponentBaseProps<Style = unknown>
 
 // props common to each Message component
 export interface MessageCommonProps<PlatformStyleProps> {
-  layout: InAppMessageLayout;
+  layout: MessageLayout;
   onClose?: () => void;
   onDisplay?: () => void;
   style?: PlatformStyleProps;
 }
 
-export type MessageComponentPosition = 'bottom' | 'middle' | 'top' | null;
+export type BannerMessageLayouts =
+  | 'BOTTOM_BANNER'
+  | 'MIDDLE_BANNER'
+  | 'TOP_BANNER';
+
+export type MessageComponentPosition = 'bottom' | 'middle' | 'top';
 
 // Banner Message requires a `position` prop
 export interface BannerMessageCommonProps<PlatformStyleProps>
@@ -59,11 +76,11 @@ export interface ModalMessageCommonProps<PlatformStyleProps>
     MessageContentProps {}
 
 export interface MessagePayloadStyle {
-  body?: InAppMessageStyle;
-  container?: InAppMessageStyle;
-  header?: InAppMessageStyle;
-  primaryButton?: InAppMessageStyle;
-  secondaryButton?: InAppMessageStyle;
+  body?: MessageStyle;
+  container?: MessageStyle;
+  header?: MessageStyle;
+  primaryButton?: MessageStyle;
+  secondaryButton?: MessageStyle;
 }
 
 export type BannerMessageComponent<PlatformStyleProps> = (
@@ -78,17 +95,3 @@ export type FullScreenMessageComponent<PlatformStyleProps> = (
 export type ModalMessageComponent<PlatformStyleProps> = (
   props: ModalMessageCommonProps<PlatformStyleProps>
 ) => JSX.Element | null;
-
-export interface MessageComponents<PlatformStyleProps> {
-  BannerMessage: BannerMessageComponent<PlatformStyleProps>;
-  CarouselMessage: CarouselMessageComponent<PlatformStyleProps>;
-  FullScreenMessage: FullScreenMessageComponent<PlatformStyleProps>;
-  ModalMessage: ModalMessageComponent<PlatformStyleProps>;
-}
-
-export interface MessageStyles<PlatformStyleProps> {
-  bannerMessage: PlatformStyleProps;
-  carouselMessage: PlatformStyleProps;
-  fullScreenMessage: PlatformStyleProps;
-  modalMessage: PlatformStyleProps;
-}

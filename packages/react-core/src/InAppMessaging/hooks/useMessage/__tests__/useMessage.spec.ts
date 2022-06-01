@@ -1,15 +1,19 @@
 import {
-  InAppMessage,
   InAppMessageInteractionEvent,
   Notifications,
 } from '@aws-amplify/notifications';
 import { ConsoleLogger as Logger } from '@aws-amplify/core';
 
+import { RenderNothing } from '../../../../components';
 import { useInAppMessaging } from '../../useInAppMessaging';
-import { BannerMessageCommonProps, MessageCommonProps } from '../../../types';
+import {
+  BannerMessageCommonProps,
+  Message,
+  MessageCommonProps,
+} from '../../../types';
 import { UseMessageParams } from '../types';
 
-import useMessage from '../useMessage';
+import useMessage, { EMPTY_PROPS } from '../useMessage';
 
 const notifyMessageInteractionSpy = jest.spyOn(
   Notifications.InAppMessaging,
@@ -19,23 +23,30 @@ const notifyMessageInteractionSpy = jest.spyOn(
 jest.mock('../../useInAppMessaging');
 jest.useFakeTimers();
 
-type TestStyle = void;
+type TestStyle = { backgroundColor: string };
 type TestMessageProps = Required<MessageCommonProps<TestStyle>>;
 
 const infoSpy = jest.spyOn(Logger.prototype, 'info');
 
 const mockUseInAppMessaging = useInAppMessaging as jest.Mock;
-const mockClearInAppMessage = jest.fn();
+const mockClearMessage = jest.fn();
 
 const header = { content: 'header one' };
-const baseInAppMessage: Partial<InAppMessage> = {
+const baseMessage: Partial<Message> = {
   id: 'test',
   content: [{ header }],
 };
-const carouselInAppMessage: Partial<InAppMessage> = {
+const carouselMessage: Partial<Message> = {
   id: 'carousel',
   content: [{ header }, { header: { content: 'header two' } }],
   layout: 'CAROUSEL',
+};
+const style = { backgroundColor: 'fuschia' };
+const styles = {
+  bannerMessage: style,
+  carouselMessage: style,
+  fullScreenMessage: style,
+  modalMessage: style,
 };
 
 function BannerMessage() {
@@ -75,7 +86,7 @@ describe('useMessage', () => {
     'returns the expected values of Component and props for a %s layout',
     (layout, layoutComponent, layoutProps) => {
       mockUseInAppMessaging.mockReturnValueOnce({
-        inAppMessage: { ...baseInAppMessage, layout },
+        message: { ...baseMessage, layout },
       });
       const { Component, props } = useMessage({ components, onMessageAction });
 
@@ -95,8 +106,8 @@ describe('useMessage', () => {
 
   it('returns the expected values of Component and props for a CAROUSEL layout', () => {
     mockUseInAppMessaging.mockReturnValueOnce({
-      components: {},
-      inAppMessage: carouselInAppMessage,
+      components,
+      message: carouselMessage,
     });
 
     const { Component, props } = useMessage({ components, onMessageAction });
@@ -113,23 +124,65 @@ describe('useMessage', () => {
     );
   });
 
-  it('returns null values for Component and props when inAppMessage is null', () => {
+  it.each([
+    'BOTTOM_BANNER',
+    'CAROUSEL',
+    'FULL_SCREEN',
+    'MIDDLE_BANNER',
+    'TOP_BANNER',
+    'MODAL',
+  ])('gracefully handles an empty content prop for a %s layout', (layout) => {
     mockUseInAppMessaging.mockReturnValueOnce({
-      components: {},
-      inAppMessage: null,
+      components,
+      message: { content: undefined, layout },
+    });
+
+    const { props } = useMessage({ components, onMessageAction });
+
+    expect(props).toEqual(
+      expect.objectContaining({
+        layout,
+        onClose: expect.any(Function) as TestMessageProps['onClose'],
+        onDisplay: expect.any(Function) as TestMessageProps['onDisplay'],
+      })
+    );
+  });
+
+  it.each([
+    'BOTTOM_BANNER',
+    'CAROUSEL',
+    'FULL_SCREEN',
+    'MIDDLE_BANNER',
+    'TOP_BANNER',
+    'MODAL',
+  ])('handles custom style props for a %s layout', (layout) => {
+    mockUseInAppMessaging.mockReturnValueOnce({
+      components,
+      message: { ...baseMessage, layout },
+    });
+
+    const { props } = useMessage({ components, onMessageAction, styles });
+
+    expect(props.style).toBe(style);
+  });
+
+  it('returns the expected values of Component and props when message is null', () => {
+    mockUseInAppMessaging.mockReturnValueOnce({
+      components,
+      message: null,
     });
 
     const { Component, props } = useMessage({ components, onMessageAction });
 
-    expect(Component).toBeNull();
-    expect(props).toBeNull();
+    expect(Component).toBe(RenderNothing);
+    expect(props).toBe(EMPTY_PROPS);
   });
 
-  it('returns null values for Component and props when inAppMessage.layout is not supported', () => {
+  it('returns the expected values of Component and props when a message layout is not supported', () => {
     const layout = 'NOT_A_SUPPORTED_LAYOUT';
     mockUseInAppMessaging.mockReturnValueOnce({
-      components: {},
-      inAppMessage: { layout },
+      components,
+      message: { layout },
     });
 
     const { Component, props } = useMessage({ components, onMessageAction });
@@ -138,12 +191,12 @@ describe('useMessage', () => {
       `Received unknown InAppMessage layout: ${layout}`
     );
     expect(infoSpy).toHaveBeenCalledTimes(1);
-    expect(Component).toBeNull();
-    expect(props).toBeNull();
+    expect(Component).toBe(RenderNothing);
+    expect(props).toBe(EMPTY_PROPS);
   });
 
   describe('event handling', () => {
-    const inAppMessage = {
+    const message = {
       content: [{ primaryButton: { action: 'CLOSE', title: 'primary' } }],
       layout: 'TOP_BANNER',
     };
@@ -152,9 +205,9 @@ describe('useMessage', () => {
       jest.clearAllMocks();
 
       mockUseInAppMessaging.mockReturnValueOnce({
-        clearInAppMessage: mockClearInAppMessage,
-        components: {},
-        inAppMessage,
+        clearMessage: mockClearMessage,
+        components,
+        message,
       });
     });
 
@@ -166,10 +219,10 @@ describe('useMessage', () => {
 
         expect(notifyMessageInteractionSpy).toHaveBeenCalledTimes(1);
         expect(notifyMessageInteractionSpy).toHaveBeenCalledWith(
-          inAppMessage,
+          message,
           InAppMessageInteractionEvent.MESSAGE_DISMISSED
         );
-        expect(mockClearInAppMessage).toHaveBeenCalledTimes(1);
+        expect(mockClearMessage).toHaveBeenCalledTimes(1);
       });
     });
 
@@ -181,7 +234,7 @@ describe('useMessage', () => {
 
         expect(notifyMessageInteractionSpy).toHaveBeenCalledTimes(1);
         expect(notifyMessageInteractionSpy).toHaveBeenCalledWith(
-          inAppMessage,
+          message,
           InAppMessageInteractionEvent.MESSAGE_DISPLAYED
         );
       });
@@ -199,10 +252,10 @@ describe('useMessage', () => {
 
         expect(notifyMessageInteractionSpy).toHaveBeenCalledTimes(1);
         expect(notifyMessageInteractionSpy).toHaveBeenCalledWith(
-          inAppMessage,
+          message,
           InAppMessageInteractionEvent.MESSAGE_ACTION_TAKEN
         );
-        expect(mockClearInAppMessage).toHaveBeenCalledTimes(1);
+        expect(mockClearMessage).toHaveBeenCalledTimes(1);
       });
     });
   });

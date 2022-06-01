@@ -1,41 +1,30 @@
-import {
-  InAppMessageAction,
-  InAppMessageButton,
-  InAppMessageContent,
-  InAppMessageLayout,
-} from '@aws-amplify/notifications';
 import { ConsoleLogger as Logger } from '@aws-amplify/core';
 
 import {
+  BannerMessageLayouts,
+  MessageAction,
+  MessageButton,
   MessageButtonProps,
   MessageComponentPosition,
+  MessageContent,
   MessageContentProps,
   OnMessageAction,
 } from '../../types';
 
 const logger = new Logger('Notifications.InAppMessaging');
 
-export const getPositionProp = (
-  layout: InAppMessageLayout
-): MessageComponentPosition => {
-  switch (layout) {
-    case 'BOTTOM_BANNER': {
-      return 'bottom';
-    }
-    case 'MIDDLE_BANNER': {
-      return 'middle';
-    }
-    case 'TOP_BANNER': {
-      return 'top';
-    }
-    default: {
-      return null;
-    }
-  }
+const positions: Record<BannerMessageLayouts, MessageComponentPosition> = {
+  BOTTOM_BANNER: 'bottom',
+  MIDDLE_BANNER: 'middle',
+  TOP_BANNER: 'top',
 };
 
+export const getPositionProp = (
+  layout: BannerMessageLayouts
+): MessageComponentPosition => positions[layout];
+
 export const getActionHandler = (
-  actionParams: { action: InAppMessageAction; url?: string },
+  actionParams: { action: MessageAction; url?: string },
   onMessageAction: OnMessageAction,
   onActionCallback: () => void
 ): { onAction: () => void } => ({
@@ -45,13 +34,13 @@ export const getActionHandler = (
     } catch (e) {
       logger.error(`Message action failure: ${e}`);
     } finally {
-      onActionCallback?.();
+      onActionCallback();
     }
   },
 });
 
 const getButtonProps = (
-  { action, url, ...baseButtonProps }: InAppMessageButton,
+  { action, url, ...baseButtonProps }: MessageButton,
   onMessageAction: OnMessageAction,
   onActionCallback: () => void
 ): MessageButtonProps => ({
@@ -60,7 +49,7 @@ const getButtonProps = (
 });
 
 export const getContentProps = (
-  content: InAppMessageContent,
+  content: MessageContent,
   onMessageAction: OnMessageAction,
   onActionCallback: () => void
 ): MessageContentProps => {

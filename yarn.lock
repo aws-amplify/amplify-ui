@@ -492,20 +492,6 @@
     universal-cookie "^4.0.4"
     zen-observable-ts "0.8.19"
 
-"@aws-amplify/core@4.5.6":
-  version "4.5.6"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/core/-/core-4.5.6.tgz#92dc2801fe8f26f58b680232a903856f2ac9870d"
-  integrity sha512-TmtKtxMno7TubMqiXQpqdFIfIBm2bCqK6sW1BUk8N8WoHnuA3hBPf1qmZeDHTaSjTFBV1AOxfVgVZ9RGErZQzw==
-  dependencies:
-    "@aws-crypto/sha256-js" "1.0.0-alpha.0"
-    "@aws-sdk/client-cloudwatch-logs" "3.6.1"
-    "@aws-sdk/client-cognito-identity" "3.6.1"
-    "@aws-sdk/credential-provider-cognito-identity" "3.6.1"
-    "@aws-sdk/types" "3.6.1"
-    "@aws-sdk/util-hex-encoding" "3.6.1"
-    universal-cookie "^4.0.4"
-    zen-observable-ts "0.8.19"
-
 "@aws-amplify/datastore@3.4.9-in-app-messaging.66+3322097b2":
   version "3.4.9-in-app-messaging.66"
   resolved "https://registry.yarnpkg.com/@aws-amplify/datastore/-/datastore-3.4.9-in-app-messaging.66.tgz#c27d8d1859dfd711db4dbcadc90e09c6698fe52c"
@@ -580,19 +566,6 @@
     paho-mqtt "^1.1.0"
     uuid "^3.2.1"
     zen-observable-ts "0.8.19"
-
-"@aws-amplify/storage@4.4.25":
-  version "4.4.25"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/storage/-/storage-4.4.25.tgz#39d50de47731ef88bfc063c0606c39ac9f836942"
-  integrity sha512-0me1i3moPI3RyHIjk+jRLex+UbtzGeRhZ9inIzeS7nS1mcYdTHo6UtDSjBT5AWmRxbSxXrDtjWJFf73cI7nmLg==
-  dependencies:
-    "@aws-amplify/core" "4.5.6"
-    "@aws-sdk/client-s3" "3.6.1"
-    "@aws-sdk/s3-request-presigner" "3.6.1"
-    "@aws-sdk/util-create-request" "3.6.1"
-    "@aws-sdk/util-format-url" "3.6.1"
-    axios "0.21.4"
-    events "^3.1.0"
 
 "@aws-amplify/storage@4.4.4-in-app-messaging.66+3322097b2":
   version "4.4.4-in-app-messaging.66"
