@@ -1,7 +1,7 @@
 module.exports = {
   env: { node: true },
   root: true,
-  ignorePatterns: ['dist', '.eslintrc.js', 'jest.config.js', 'babel.config.js'],
+  ignorePatterns: ['dist', '.eslintrc.js', 'babel.config.js', 'jest.config.js'],
   extends: [
     'eslint:recommended',
     'plugin:jest/recommended',
@@ -31,13 +31,14 @@ module.exports = {
       files: ['**/*.spec.*', '**/*.test.*'],
       parser: '@typescript-eslint/parser',
       parserOptions: {
-        project: ['./tsconfig.dev.json'],
+        project: ['./tsconfig.json'],
       },
       plugins: ['@typescript-eslint', 'jest'],
       rules: {
         // Turn the original rule off for test files, turn on the jest rule
         '@typescript-eslint/unbound-method': 'off',
         'jest/unbound-method': 'error',
+        '@typescript-eslint/no-unsafe-assignment': 'off',
       },
     },
   ],

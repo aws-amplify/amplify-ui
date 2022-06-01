@@ -42,9 +42,11 @@
       "**/@radix-ui",
       "**/@radix-ui/**",
       "**/react",
+      "**/react-map-gl",
       "**/react-native",
       "**/react-native/**",
-      "**/react-map-gl",
+      "**/react-native-safe-area-context",
+      "**/react-native-safe-area-context/**",
       "**/use-sync-external-store",
       "**/use-isomorphic-layout-effect",
       "**/use-isomorphic-layout-effect/**"
