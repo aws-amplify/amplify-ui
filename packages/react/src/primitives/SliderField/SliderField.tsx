@@ -138,7 +138,7 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
             className={componentClasses}
             data-testid={SLIDER_TRACK_TEST_ID}
             style={{
-              backgroundColor: emptyTrackColor.toString(),
+              backgroundColor: String(emptyTrackColor),
               [`${isVertical ? 'width' : 'height'}`]: trackSize,
             }}
           >
@@ -151,7 +151,7 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
                 )
               )}
               data-testid={SLIDER_RANGE_TEST_ID}
-              style={{ backgroundColor: filledTrackColor.toString() }}
+              style={{ backgroundColor: String(filledTrackColor) }}
             />
           </Track>
           <Thumb
@@ -162,7 +162,7 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
               ComponentClassNames.SliderFieldThumb,
               classNameModifier(ComponentClassNames.SliderFieldThumb, size)
             )}
-            style={{ backgroundColor: thumbColor.toString() }}
+            style={{ backgroundColor: String(thumbColor) }}
           />
         </Root>
       </FieldGroup>
