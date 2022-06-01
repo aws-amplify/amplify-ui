@@ -354,6 +354,11 @@ export const theming = [
     platforms: ['react', 'vue', 'angular'],
   },
   {
+    href: '/theming/default-theme',
+    label: 'Default Theme',
+    platforms: ['react', 'vue', 'angular'],
+  },
+  {
     href: '/theming/dark-mode',
     label: 'Dark mode',
   },

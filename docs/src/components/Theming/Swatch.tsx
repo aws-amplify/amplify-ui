@@ -3,10 +3,12 @@ import { Text, Grid, Flex, View, useTheme } from '@aws-amplify/ui-react';
 export function Swatch({ colorGroup, color, value }) {
   const { tokens } = useTheme();
   return (
-    <Flex>
-      <View width="40px" height="40px" backgroundColor={value}></View>
+    <Flex gap={tokens.space.xxxs} direction="column">
+      <View height="40px" backgroundColor={value}></View>
       <div>
-        <Text fontWeight="bold">{color}</Text>
+        <Text fontWeight="bold">
+          {colorGroup}[{color}]
+        </Text>
         <Text
           color={tokens.colors.neutral['80']}
           fontSize={tokens.fontSizes.small}
