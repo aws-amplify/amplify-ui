@@ -70,14 +70,14 @@ const randomPhone = Math.floor(Math.random() * 999999);
             class="amplify-label amplify-visually-hidden"
             v-bind="$attrs"
           >
-            {{ 'Country Code' }}
+            {{ 'Country or Region Code' }}
           </base-label>
           <base-wrapper class="amplify-select__wrapper">
             <base-select
               class="amplify-select amplify-field-group__control"
               :id="'amplify-field-' + randomPhone"
               autocomplete="tel-country-code"
-              aria-label="country code"
+              aria-label="country or region code"
               name="country_code"
               :options="dialCodeList"
               :select-value="dialCode"
