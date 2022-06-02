@@ -17,6 +17,9 @@ const ImagePrimitive: Primitive<ImageProps, 'img'> = (
   />
 );
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/image)
+ */
 export const Image = React.forwardRef(ImagePrimitive);
 
 Image.displayName = 'Image';

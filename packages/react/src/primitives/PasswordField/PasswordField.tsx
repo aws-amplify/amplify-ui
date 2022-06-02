@@ -56,6 +56,9 @@ const PasswordFieldPrimitive: Primitive<PasswordFieldProps, 'input'> = (
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/passwordfield)
+ */
 export const PasswordField = React.forwardRef(PasswordFieldPrimitive);
 
 PasswordField.displayName = 'PasswordField';

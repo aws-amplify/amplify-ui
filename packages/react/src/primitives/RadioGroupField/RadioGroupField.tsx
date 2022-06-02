@@ -101,6 +101,9 @@ const RadioGroupFieldPrimitive: Primitive<RadioGroupFieldProps, typeof Flex> = (
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/radiogroupfield)
+ */
 export const RadioGroupField = React.forwardRef(RadioGroupFieldPrimitive);
 
 RadioGroupField.displayName = 'RadioGroupField';

@@ -62,6 +62,9 @@ const PhoneNumberFieldPrimitive: Primitive<PhoneNumberFieldProps, 'input'> = (
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/phonenumberfield)
+ */
 export const PhoneNumberField = React.forwardRef(PhoneNumberFieldPrimitive);
 
 PhoneNumberField.displayName = 'PhoneNumberField';

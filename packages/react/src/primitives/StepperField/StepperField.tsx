@@ -179,6 +179,9 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/stepperfield)
+ */
 export const StepperField = React.forwardRef(StepperFieldPrimitive);
 
 StepperField.displayName = 'StepperField';
