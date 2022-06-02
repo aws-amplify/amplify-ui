@@ -1,5 +1,65 @@
 # @aws-amplify/ui-react
 
+## 2.19.0
+
+### Minor Changes
+
+- [#1980](https://github.com/aws-amplify/amplify-ui/pull/1980) [`a9b29e879`](https://github.com/aws-amplify/amplify-ui/commit/a9b29e8796baa8ba7986cf787b5879a6d4b74a99) Thanks [@zchenwei](https://github.com/zchenwei)! - feat: adding missing label props to make text in i18n file customizable
+
+* [#1986](https://github.com/aws-amplify/amplify-ui/pull/1986) [`c58c1e056`](https://github.com/aws-amplify/amplify-ui/commit/c58c1e0568e7d2b1ec870ebc78245a770da04b2b) Thanks [@zchenwei](https://github.com/zchenwei)! - feat: update custom style props to accept StyleToken type
+
+  For example:
+
+  ```jsx
+  import {
+    Flex,
+    Loader,
+    Rating,
+    SliderField,
+    SwitchField,
+  } from '@aws-amplify/ui-react';
+
+  export const StyleTokenExample = () => {
+    return (
+    <Flex>
+      <Loader
+      emptyColor={tokens.colors.black}
+      filledColor={tokens.colors.orange[40]}
+      />
+
+      <Rating
+        value={2.5}
+        fillColor={tokens.colors.red[60]}
+        emptyColor={tokens.colors.green[60]}
+      />
+
+      <SliderField
+        label="Style Props Slider"
+        filledTrackColor={tokens.colors.green[80].value}
+        emptyTrackColor={tokens.colors.green[20].value}
+        thumbColor="red"
+        filledTrackColor={tokens.colors.green[80]}
+        emptyTrackColor={tokens.colors.green[20]}
+        thumbColor={tokens.colors.red[60]}
+        trackSize="15px"
+        defaultValue={50}
+      />
+
+      <SwitchField
+        label="This is a switch"
+        trackCheckedColor={tokens.colors.green[60]}
+        thumbColor={tokens.colors.orange[10]}
+      />
+    <Flex>
+   );
+  }
+
+  ```
+
+### Patch Changes
+
+- [#1996](https://github.com/aws-amplify/amplify-ui/pull/1996) [`2c3ee1a7f`](https://github.com/aws-amplify/amplify-ui/commit/2c3ee1a7fd66bd6f090b7a469c84acd1203349f9) Thanks [@0618](https://github.com/0618)! - fix ThemeProvider original value
+
 ## 2.18.3
 
 ### Patch Changes
