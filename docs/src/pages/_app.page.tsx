@@ -75,17 +75,22 @@ function MyApp({ Component, pageProps }) {
     throw new Error(`Meta Info missing on ${filepath}`);
   }
 
+  const pageTitle = `${metaTitle ?? title} | ${capitalizeString(
+    platform
+  )} - Amplify UI`;
+
   return (
     <>
       <Head>
-        <title>
-          {metaTitle ?? title} | {capitalizeString(platform)} - Amplify UI
-        </title>
+        <title>{pageTitle}</title>
         {['/', '/react', '/angular', '/vue', '/flutter'].includes(asPath) && (
           <link rel="canonical" href="https://ui.docs.amplify.aws/" />
         )}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content={metaDescription ?? description} />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:type" content="object" />
+        <meta property="og:url" content={`${process.env.SITE_URL}${asPath}`} />
         <meta
           property="og:image"
           content={process.env.SITE_URL + getImagePath(asPath)}
