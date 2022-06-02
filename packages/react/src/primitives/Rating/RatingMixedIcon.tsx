@@ -1,11 +1,13 @@
 import classNames from 'classnames';
-import { View } from '../View';
 import { Property } from 'csstype';
 
+import { View } from '../View';
+import { StyleToken } from '../types/style';
+
 interface RatingMixedIconProps {
-  emptyColor: Property.Color;
+  emptyColor: StyleToken<Property.Color>;
   emptyIcon: JSX.Element;
-  fillColor: Property.Color;
+  fillColor: StyleToken<Property.Color>;
   fillIcon: JSX.Element;
   value: number;
 }

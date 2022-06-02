@@ -11,7 +11,7 @@ import Script from 'next/script';
 import { baseTheme } from '../theme';
 import { capitalizeString } from '../utils/capitalizeString';
 import { useCustomRouter } from '@/components/useCustomRouter';
-import metaData from '../data/pages.preval';
+import metaData from '@/data/pages.preval';
 
 // suppress useLayoutEffect warnings when running outside a browser
 // See: https://gist.github.com/gaearon/e7d97cdf38a2907924ea12e4ebdf3c85#gistcomment-3886909
@@ -44,7 +44,23 @@ function MyApp({ Component, pageProps }) {
     .split('/')
     .filter((n) => n && n !== '[platform]')
     .join('/')}`;
+
   const [colorMode, setColorMode] = React.useState<ColorMode>('system');
+  const handleColorModeChange = (colorMode: ColorMode) => {
+    setColorMode(colorMode);
+    if (colorMode !== 'system') {
+      localStorage.setItem('colorMode', colorMode);
+    } else {
+      localStorage.removeItem('colorMode');
+    }
+  };
+  React.useEffect(() => {
+    const colorModePreference = localStorage.getItem('colorMode') as ColorMode;
+    if (colorModePreference) {
+      setColorMode(colorModePreference);
+    }
+  }, []);
+
   const [expanded, setExpanded] = React.useState(false);
 
   configure();
@@ -75,7 +91,7 @@ function MyApp({ Component, pageProps }) {
             expanded={expanded}
             setExpanded={setExpanded}
             colorMode={colorMode}
-            setColorMode={setColorMode}
+            setColorMode={handleColorModeChange}
             platform={platform}
           />
           <div className={`docs-main`}>

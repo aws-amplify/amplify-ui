@@ -21,6 +21,12 @@ export interface SearchFieldProps extends TextInputFieldProps {
   labelHidden?: boolean;
 
   /**
+   * Set the `aria-label` for clear button
+   * @default "Clear search"
+   */
+  clearButtonLabel?: string;
+
+  /**
    * Provides ref access to search button DOM element
    */
   searchButtonRef?: React.Ref<HTMLButtonElement>;

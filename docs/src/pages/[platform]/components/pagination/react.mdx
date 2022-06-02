@@ -6,6 +6,7 @@ import { ThemeAlert } from '@/components/ThemeAlert';
 import {
   ControlledPaginationExample,
   DefaultPaginationExample,
+  PaginationAccessibilityExample,
   PaginationHasMorePagesExample,
   PaginationSiblingCountExample,
   PaginationStylingExample,
@@ -28,13 +29,15 @@ Import the Pagination component. To use Pagination as an uncontrolled component,
 <Example>
   <DefaultPaginationExample />
   <ExampleCode>
-```tsx file=./examples/DefaultPaginationExample.tsx
+    ```tsx file=./examples/DefaultPaginationExample.tsx
 
-````
+    ```
+
   </ExampleCode>
 </Example>
 
 ### Controlled component
+
 To use Pagination as a controlled component, you'll need to handle state using these callback functions:
 
 - `onNext`: triggered when the next-page button `>` is pressed
@@ -44,9 +47,9 @@ To use Pagination as a controlled component, you'll need to handle state using t
 <Example>
   <ControlledPaginationExample />
   <ExampleCode>
-```tsx file=./examples/ControlledPaginationExample.tsx
+    ```tsx file=./examples/ControlledPaginationExample.tsx
 
-````
+    ```
 
   </ExampleCode>
 </Example>
@@ -58,9 +61,9 @@ It's common to use a paged API where the total number of pages in the dataset is
 <Example>
   <PaginationHasMorePagesExample />
   <ExampleCode>
-```tsx file=./examples/PaginationHasMorePagesExample.tsx
+    ```tsx file=./examples/PaginationHasMorePagesExample.tsx
 
-````
+    ```
 
   </ExampleCode>
 </Example>
@@ -72,9 +75,31 @@ It's common to use a paged API where the total number of pages in the dataset is
 <Example>
   <PaginationSiblingCountExample />
   <ExampleCode>
-```tsx{8} file=./examples/PaginationSiblingCountExample.tsx
+    ```tsx{7} file=./examples/PaginationSiblingCountExample.tsx
 
-````
+    ```
+
+  </ExampleCode>
+</Example>
+
+## Accessibility
+
+By default, the root node of the Pagination component has a role of `navigation`. The previous-page button `<` has `aria-label="Go to previous page"` by default, and likewise, the next-page button `>` has `aria-label=Go to next page`. The current page is labelled by an invisible text [`Current Page:`](https://www.w3.org/WAI/tutorials/menus/structure/#indicate-the-current-item) in conjunction with the current page number (e.g, `Current Page: 1` if page `1` is the current page). Other pages by default have `aria-label=Go to page X`, where `X` is the number of the page. To customize these labels:
+
+- `previousLabel`: Set the `aria-label` for the left arrow button `<` (defaults to `Go to previous page`)
+
+- `nextLabel`: Set the `aria-label` for the right arrow button `>` (defaults to `Go to next page`)
+
+- `currentPageLabel`: Set the invisible label for current page (defaults to `Current Page:`). It will be used to construct the label text for current page. e.g, `Current Page: 1` if page `1` is the current page.
+
+- `pageLabel`: Set the label for each page button other than the current page (defaults to `Go to page`). It will be used to construct the `aria-label`. e.g, `Go to page 1` for page `1` button.
+
+<Example>
+  <PaginationAccessibilityExample />
+  <ExampleCode>
+    ```tsx file=./examples/PaginationAccessibilityExample.tsx
+
+    ```
 
   </ExampleCode>
 </Example>
@@ -94,9 +119,10 @@ You can customize the appearance of all Pagination components in your applicatio
 <Example>
   <PaginationThemeExample />
   <ExampleCode>
-```tsx file=./examples/PaginationThemeExample.tsx
+    ```tsx file=./examples/PaginationThemeExample.tsx
 
-````
+    ```
+
   </ExampleCode>
 </Example>
 
@@ -129,15 +155,6 @@ To override styling on all Pagination components, you can set the Amplify CSS va
 
   </ExampleCode>
 </Example>
-
-To replace the Pagination styling, unset it:
-
-```css
-.amplify-pagination {
-  all: unset;
-  /* Add your styling here*/
-}
-````
 
 ### Local styling
 
@@ -190,7 +207,3 @@ _Using style props:_
 
   </ExampleCode>
 </Example>
-
-## Accessibility
-
-By default, the root node of the Pagination component has a role of "navigation", and each page item has an `aria-label` that identifies the purpose of the item ("Go to previous page", "Go to next page", "Go to page 1", etc).

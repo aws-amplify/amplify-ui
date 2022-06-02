@@ -80,10 +80,7 @@ export default function Page({
         <section className="docs-content-body">
           <section className="docs-meta">
             <Heading level={1}>{title}</Heading>
-            <Text
-              fontSize={`${tokens.fontSizes.xl}`}
-              className="docs-description"
-            >
+            <Text fontSize={tokens.fontSizes.xl} className="docs-description">
               {description}
             </Text>
             <View className="docs-component-links">

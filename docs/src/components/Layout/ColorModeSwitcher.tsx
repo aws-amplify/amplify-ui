@@ -9,6 +9,7 @@ import { MdWbSunny, MdBedtime, MdTonality } from 'react-icons/md';
 export const ColorModeSwitcher = ({ colorMode, setColorMode }) => {
   return (
     <ToggleButtonGroup
+      ariaLabel="color-switcher"
       value={colorMode}
       size="small"
       onChange={(value: ColorMode) => setColorMode(value)}
