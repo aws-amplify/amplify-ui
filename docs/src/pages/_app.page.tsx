@@ -44,7 +44,23 @@ function MyApp({ Component, pageProps }) {
     .split('/')
     .filter((n) => n && n !== '[platform]')
     .join('/')}`;
+
   const [colorMode, setColorMode] = React.useState<ColorMode>('system');
+  const handleColorModeChange = (colorMode: ColorMode) => {
+    setColorMode(colorMode);
+    if (colorMode !== 'system') {
+      localStorage.setItem('colorMode', colorMode);
+    } else {
+      localStorage.removeItem('colorMode');
+    }
+  };
+  React.useEffect(() => {
+    const colorModePreference = localStorage.getItem('colorMode') as ColorMode;
+    if (colorModePreference) {
+      setColorMode(colorModePreference);
+    }
+  }, []);
+
   const [expanded, setExpanded] = React.useState(false);
 
   configure();
@@ -75,7 +91,7 @@ function MyApp({ Component, pageProps }) {
             expanded={expanded}
             setExpanded={setExpanded}
             colorMode={colorMode}
-            setColorMode={setColorMode}
+            setColorMode={handleColorModeChange}
             platform={platform}
           />
           <div className={`docs-main`}>

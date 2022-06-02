@@ -5,7 +5,7 @@ export const SwitchFieldThumbColorExample = () => {
   return (
     <SwitchField
       label="This is a switch"
-      thumbColor={`${tokens.colors.orange[10]}`}
+      thumbColor={tokens.colors.orange[10]}
     />
   );
 };

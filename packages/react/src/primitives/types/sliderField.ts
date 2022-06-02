@@ -1,5 +1,6 @@
 import { Property } from 'csstype';
 
+import { StyleToken } from './style';
 import { TextInputFieldProps } from './textField';
 import { ViewProps } from './view';
 
@@ -12,9 +13,9 @@ export interface SliderFieldProps extends TextInputFieldProps, ViewProps {
   orientation?: SliderOrientation;
   isValueHidden?: boolean;
   trackSize?: string;
-  emptyTrackColor?: Property.Color;
-  filledTrackColor?: Property.Color;
-  thumbColor?: Property.Color;
+  emptyTrackColor?: StyleToken<Property.Color>;
+  filledTrackColor?: StyleToken<Property.Color>;
+  thumbColor?: StyleToken<Property.Color>;
   value?: number;
   defaultValue?: number;
   onChange?: (value: number) => void;
