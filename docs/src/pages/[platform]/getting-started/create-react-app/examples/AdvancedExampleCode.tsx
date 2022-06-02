@@ -40,15 +40,18 @@ function App() {
   };
 
   return (
-    <View width="50rem" padding="2rem">
+    <View width="100%" maxWidth="50rem" padding={{ base: 0, large: '2rem' }}>
       <Card variation="elevated">
-        <Flex justifyContent="space-evenly">
-          <Flex direction="column" gap="5rem">
+        <Flex
+          direction={{ base: 'column', large: 'row' }}
+          justifyContent="space-evenly"
+        >
+          <Flex direction="column" gap="5rem" alignItems="center">
             <View width="15rem" height="19rem">
               <Image
                 src={image}
                 alt={`${currentPainting.title} abstract painting`}
-                width="14rem"
+                width="100%"
                 height="21rem"
                 border={frame ? '3px solid black' : ''}
               />
@@ -58,13 +61,15 @@ function App() {
               items={PAINTINGS}
               templateColumns="1fr 1fr 1fr 1fr"
               templateRows="1fr 1fr"
+              width="14rem"
             >
               {(item, index) => (
-                <View
+                <Flex
                   width="100%"
                   onMouseOver={() => setImage(item.src)}
                   onMouseLeave={() => setImage(currentPainting.src)}
                   key={index}
+                  justifyContent="center"
                 >
                   <Image
                     src={item.src}
@@ -74,6 +79,7 @@ function App() {
                     onClick={() => setCurrentPainting(item)}
                     borderRadius="5px"
                     padding="3px"
+                    marginBottom="1rem"
                     style={{
                       cursor: 'pointer',
                       ...(currentPainting.src === item.src && {
@@ -82,12 +88,12 @@ function App() {
                       }),
                     }}
                   />
-                </View>
+                </Flex>
               )}
             </Collection>
           </Flex>
           <Flex direction="column" justifyContent="space-between">
-            <Flex direction="column" gap="0.7rem" width="24rem">
+            <Flex direction="column" gap="0.7rem">
               <Flex justifyContent="space-between" alignItems="center">
                 <Heading level={3}>{currentPainting.title}</Heading>
                 <Flex height="1.8rem">
@@ -103,7 +109,10 @@ function App() {
                 </Flex>
               </Flex>
               <Text fontWeight="bold">{currentPainting.artist}</Text>
-              <Flex alignItems="baseline">
+              <Flex
+                direction={{ base: 'column', large: 'row' }}
+                alignItems="baseline"
+              >
                 <Rating
                   value={currentPainting.avgRating}
                   fillColor="#f4a41d"
@@ -164,7 +173,10 @@ function App() {
                 <Alert variation="error">Out of stock!</Alert>
               ) : null}
             </Flex>
-            <Flex justifyContent="space-between">
+            <Flex
+              justifyContent="space-between"
+              direction={{ base: 'column', large: 'row' }}
+            >
               <Flex alignItems="center" gap="5px">
                 <Text>Qty:</Text>
                 <StepperField
@@ -182,7 +194,7 @@ function App() {
               <Button
                 variation="primary"
                 onClick={handleAddToCart}
-                width="10rem"
+                // width="10rem"
                 disabled={!currentPainting.inStock || !quantity}
               >
                 Add to Cart
