@@ -7,9 +7,10 @@ import Head from 'next/head';
 import { Header } from '@/components/Layout/Header';
 import Script from 'next/script';
 import { baseTheme } from '../theme';
-import { capitalizeString } from '../utils/capitalizeString';
+import { capitalizeString } from '@/utils/capitalizeString';
 import { useCustomRouter } from '@/components/useCustomRouter';
 import metaData from '@/data/pages.preval';
+import { PREVIEW_HEIGHT, PREVIEW_WIDTH } from '@/data/preview';
 
 import { getImagePath } from '@/utils/previews';
 
@@ -95,8 +96,8 @@ function MyApp({ Component, pageProps }) {
           property="og:image"
           content={process.env.SITE_URL + getImagePath(asPath)}
         />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="600" />
+        <meta property="og:image:width" content={String(PREVIEW_WIDTH)} />
+        <meta property="og:image:height" content={String(PREVIEW_HEIGHT)} />
         <meta
           property="og:image:secure_url"
           content={`${process.env.SITE_URL}${asPath}`}
