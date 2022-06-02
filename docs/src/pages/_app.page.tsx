@@ -41,6 +41,8 @@ function MyApp({ Component, pageProps }) {
     query: { platform = 'react' },
   } = useCustomRouter();
 
+  const asPathname = pathname.replace('[platform]', String(platform));
+
   const isHomepage = pathname === '/' || pathname === '/[platform]';
 
   const filepath = `/${pathname
@@ -94,13 +96,13 @@ function MyApp({ Component, pageProps }) {
         <meta property="og:url" content={`${process.env.SITE_URL}${asPath}`} />
         <meta
           property="og:image"
-          content={process.env.SITE_URL + getImagePath(asPath)}
+          content={process.env.SITE_URL + getImagePath(asPathname)}
         />
         <meta property="og:image:width" content={String(PREVIEW_WIDTH)} />
         <meta property="og:image:height" content={String(PREVIEW_HEIGHT)} />
         <meta
           property="og:image:secure_url"
-          content={`${process.env.SITE_URL}${asPath}`}
+          content={process.env.SITE_URL + getImagePath(asPathname)}
         />
         <meta property="og:image:type" content="image/png" />
         <meta
