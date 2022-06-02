@@ -29,8 +29,80 @@ jobs:
       DOCSEARCH_DOCS_API_KEY: ${{ secrets.DOCSEARCH_DOCS_API_KEY }}
       DOCSEARCH_DOCS_INDEX_NAME: ${{ secrets.DOCSEARCH_DOCS_INDEX_NAME }}
 
-  publish:
+  guides:
+    # Only run guides if test is done
     needs: test
+    runs-on: ubuntu-latest
+    environment: ci
+    env:
+      NODE_ENV: test
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - path: ./guides/react/protected-routes
+            tags: '@guides and not (@skip or @todo-guides)'
+
+    steps:
+      - name: Checkout Amplify UI
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+
+      - name: Setup Node.js LTS
+        uses: actions/setup-node@v2
+        with:
+          node-version: lts/*
+          cache: 'yarn'
+
+      - name: Restore cypress runner Cache
+        uses: actions/cache@v2
+        id: restore-cypress-cache
+        with:
+          path: ~/.cache/Cypress
+          key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
+
+      - name: Install packages
+        run: yarn install
+      - name: Add Amplify CLI
+        run: yarn global add @aws-amplify/cli
+      - name: Get CLI versions
+        id: cli-version
+        run: echo "::set-output name=version::$(amplify --version)"
+      - name: Pull down AWS environments
+        if: steps.environments-cache.outputs.cache-hit != 'true'
+        run: yarn environments pull
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Install guides
+        run: yarn install
+        working-directory: ${{ matrix.path }}
+
+      - name: Build guides
+        run: yarn build
+        working-directory: ${{ matrix.path }}
+
+      - name: Start guides site
+        run: yarn start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000
+        working-directory: ${{ matrix.path }}
+
+      - name: Run E2E tests against guides
+        run: yarn workspace e2e test:guides
+        env:
+          # Override on the default value in `cypress.json` with framework-specific tag
+          TAGS: '${{ matrix.tags }}'
+
+          # Env values for testing flows
+          DOMAIN: ${{ secrets.DOMAIN }}
+          PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+          USERNAME: ${{ secrets.USERNAME }}
+          NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
+          VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+
+  publish:
+    needs: guides
     runs-on: ubuntu-latest
     environment: deployment
     steps:

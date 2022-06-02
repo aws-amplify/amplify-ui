@@ -36,7 +36,7 @@ const components = {
 
     return (
       <View textAlign="center" padding={tokens.space.large}>
-        <Text color={`${tokens.colors.neutral['80']}`}>
+        <Text color={tokens.colors.neutral[80]}>
           &copy; All Rights Reserved
         </Text>
       </View>
