@@ -1,11 +1,13 @@
 import * as React from 'react';
 import classNames from 'classnames';
 import { Property } from 'csstype';
+
 import { View } from '../View';
+import { StyleToken } from '../types/style';
 
 interface RatingIconProps {
   icon: JSX.Element;
-  fill: Property.Color;
+  fill: StyleToken<Property.Color>;
   className: string;
 }
 

@@ -1,0 +1,17 @@
+#root {
+  text-align: center;
+  margin: 1.2rem;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.auth-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
