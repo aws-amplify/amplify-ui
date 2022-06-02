@@ -1,0 +1,20 @@
+.authenticator-theme-class-example {
+  .amplify-button[data-variation='link']:hover {
+    background: none;
+    text-decoration: underline;
+  }
+}
+
+.authenticator-theme-variable-example {
+  .amplify-tabs {
+    display: none;
+  }
+
+  [data-amplify-authenticator] {
+    --amplify-components-button-primary-background-color: #f90;
+    --amplify-components-button-primary-hover-background-color: #fa0;
+    --amplify-components-button-link-color: #f90;
+    --amplify-components-button-link-hover-color: #f90;
+    --amplify-components-button-link-hover-background-color: transparent;
+  }
+}
