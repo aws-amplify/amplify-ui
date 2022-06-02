@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FormField Snapshots:  Username formfield snapshot without validation errors 1`] = `
+exports[`FormField:  renders as expected in the happy path 1`] = `
 <div>
   <div
     class="amplify-flex amplify-field amplify-textfield"
@@ -35,14 +35,14 @@ exports[`FormField Snapshots:  Username formfield snapshot without validation er
 </div>
 `;
 
-exports[`FormField Snapshots:  Username formfield with validation errors 1`] = `
+exports[`FormField:  renders as expected in the unhappy path 1`] = `
 <div>
   <div
     class="amplify-flex amplify-field amplify-textfield"
   >
     <label
       class="amplify-label amplify-visually-hidden"
-      for="mock-id-0"
+      for="amplify-id-0"
     >
       Username
     </label>
@@ -55,11 +55,11 @@ exports[`FormField Snapshots:  Username formfield with validation errors 1`] = `
         data-orientation="horizontal"
       >
         <input
-          aria-describedby="mock-id-0"
+          aria-describedby="amplify-id-1"
           aria-invalid="true"
           autocomplete="username"
           class="amplify-input amplify-field-group__control amplify-input--error"
-          id="mock-id-0"
+          id="amplify-id-0"
           name="username"
           placeholder="Username"
           required=""
@@ -70,7 +70,7 @@ exports[`FormField Snapshots:  Username formfield with validation errors 1`] = `
   </div>
   <div
     data-amplify-sign-up-errors="true"
-    id="mock-id-0"
+    id="amplify-id-1"
   >
     <p
       class="amplify-text amplify-text--error"

@@ -17,49 +17,38 @@ const useAuthenticatorSpy = jest.spyOn(
   'useAuthenticator'
 );
 
-const errorMessage = 'Username cannot be empty.';
-
-const mockValidFormField = () => {
-  useAuthenticatorSpy.mockReturnValue({ validationErrors: {} } as any);
-};
-
-const mockInvalidFormField = () => {
-  useAuthenticatorSpy.mockReturnValue({
-    validationErrors: { username: errorMessage },
-  } as any);
-};
+const ERROR_MESSAGE = 'Username cannot be empty.';
 
 const useStableIdSpy = jest.spyOn(UseStableIdModule, 'useStableId');
 
-describe('FormField Snapshots: ', () => {
-  beforeAll(() => {
+describe('FormField: ', () => {
+  it('renders as expected in the happy path', () => {
     // mocking ids so snapshots are consistent
     useStableIdSpy.mockReturnValue('mock-id-0');
-  });
-
-  it('Username formfield snapshot without validation errors', () => {
-    mockValidFormField();
+    useAuthenticatorSpy.mockReturnValue({ validationErrors: {} } as any);
 
     const { container } = render(<FormField {...usernameFormFieldProps} />);
     expect(container).toMatchSnapshot();
+
+    useStableIdSpy.mockRestore();
   });
 
-  it('Username formfield with validation errors', () => {
-    mockInvalidFormField();
+  it('renders as expected in the unhappy path', () => {
+    useStableIdSpy.mockReturnValue('mock-id-0');
+    useAuthenticatorSpy.mockReturnValue({
+      validationErrors: { username: ERROR_MESSAGE },
+    } as any);
 
     const { container } = render(<FormField {...usernameFormFieldProps} />);
     expect(container).toMatchSnapshot();
-  });
-});
 
-describe('FormField Accesibility:', () => {
-  beforeAll(() => {
-    // Need useStableId to emit actual values to check accessibility
     useStableIdSpy.mockRestore();
   });
 
   it('Invalid field is described by validation error', async () => {
-    mockInvalidFormField();
+    useAuthenticatorSpy.mockReturnValue({
+      validationErrors: { username: ERROR_MESSAGE },
+    } as any);
 
     const { container } = render(<FormField {...usernameFormFieldProps} />);
 
@@ -71,6 +60,6 @@ describe('FormField Accesibility:', () => {
     // now, follow the id this id just like a screen reader would
     const errors = container.querySelector(`#${describedById}`);
 
-    expect(errors).toHaveTextContent(errorMessage);
+    expect(errors).toHaveTextContent(ERROR_MESSAGE);
   });
 });
