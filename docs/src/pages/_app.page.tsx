@@ -91,6 +91,8 @@ function MyApp({ Component, pageProps }) {
         )}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content={metaDescription ?? description} />
+
+        {/* Open Graph */}
         <meta property="og:title" content={pageTitle} />
         <meta property="og:type" content="object" />
         <meta property="og:url" content={`${process.env.SITE_URL}${asPath}`} />
@@ -109,6 +111,8 @@ function MyApp({ Component, pageProps }) {
           property="og:image:alt"
           content={metaDescription ?? description}
         />
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" key="twcard" />
       </Head>
       <div className={isHomepage ? `docs-home` : ''}>
         <ThemeProvider theme={baseTheme} colorMode={colorMode}>
