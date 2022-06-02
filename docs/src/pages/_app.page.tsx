@@ -90,6 +90,8 @@ function MyApp({ Component, pageProps }) {
           property="og:image"
           content={process.env.SITE_URL + getImagePath(asPath)}
         />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="600" />
       </Head>
       <div className={isHomepage ? `docs-home` : ''}>
         <ThemeProvider theme={baseTheme} colorMode={colorMode}>
