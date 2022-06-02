@@ -145,6 +145,9 @@ const LoaderPrimitive: Primitive<LoaderProps, 'svg'> = (
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/loader)
+ */
 export const Loader = React.forwardRef(LoaderPrimitive);
 
 Loader.displayName = 'Loader';

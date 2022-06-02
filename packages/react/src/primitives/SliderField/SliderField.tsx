@@ -171,6 +171,9 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/sliderfield)
+ */
 export const SliderField = React.forwardRef(SliderFieldPrimitive);
 
 SliderField.displayName = 'SliderField';

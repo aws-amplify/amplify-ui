@@ -38,6 +38,9 @@ const GridCollection = <Item,>({
   <Grid {...rest}>{Array.isArray(items) ? items.map(children) : null}</Grid>
 );
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/collection)
+ */
 export const Collection = <Item,>({
   className,
   isSearchable,

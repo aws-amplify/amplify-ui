@@ -59,6 +59,9 @@ const SearchFieldPrimitive: Primitive<SearchFieldProps, 'input'> = (
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/searchfield)
+ */
 export const SearchField = React.forwardRef(SearchFieldPrimitive);
 
 SearchField.displayName = 'SearchField';

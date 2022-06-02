@@ -45,6 +45,9 @@ const PaginationPrimitive: Primitive<PaginationProps, 'nav'> = (
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/pagination)
+ */
 export const Pagination = React.forwardRef(PaginationPrimitive);
 
 Pagination.displayName = 'Pagination';

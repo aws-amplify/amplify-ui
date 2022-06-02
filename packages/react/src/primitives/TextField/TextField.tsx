@@ -144,6 +144,9 @@ const TextFieldPrimitive = <Multiline extends boolean>(
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/textfield)
+ */
 export const TextField = React.forwardRef(TextFieldPrimitive) as <
   Multiline extends boolean
 >(
