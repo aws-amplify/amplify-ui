@@ -6,7 +6,7 @@ import {
 } from 'canvas';
 import fs from 'fs';
 import path from 'path';
-import { UI_DOCS_REFERENCE } from '../data/links';
+import dotenv from 'dotenv-safe';
 import {
   PREVIEW_BACKGROUND_COLOR,
   PREVIEW_HEIGHT,
@@ -14,10 +14,16 @@ import {
   PREVIEW_MARGIN,
   PREVIEW_TEXT_COLOR,
   PREVIEW_WIDTH,
-} from '../data/preview';
-import { getContentPaths } from './getContentPaths';
-import { getPageFromSlug } from './getPageFromSlug';
-import { getImagePath } from './previews';
+} from '../src/data/preview';
+import { getContentPaths } from '../src/utils/getContentPaths';
+import { getPageFromSlug } from '../src/utils/getPageFromSlug';
+import { getImagePath } from '../src/utils/previews';
+import { getAllPaths } from '../src/utils/getAllPaths';
+import { FRAMEWORKS } from '../src/data/frameworks';
+import { getPagesManifest } from '../src/utils/getPagesManifest';
+import { META_INFO } from '../src/data/meta';
+
+dotenv.config();
 
 type DrawTextOptions = {
   font: string;
@@ -114,34 +120,61 @@ export const drawSocialPreview = async (
   return canvas;
 };
 
-const main = async () => {
-  const paths = await getContentPaths();
-  const pages = await Promise.all(paths.map(getPageFromSlug));
-
-  for (const page of pages) {
-    const {
-      frontmatter: { title, description, slug },
-      href,
-    } = page;
-
-    const url = UI_DOCS_REFERENCE + href;
-
-    const backgroundImage = await loadImage('./public/preview-background.png');
+const writeSocialPreview = async ({
+  asHref,
+  asSlug,
+  allPaths,
+  frontmatter,
+}) => {
+  if (allPaths.includes(asHref)) {
+    const { title, metaTitle, description, metaDescription } = frontmatter;
+    const url = process.env.SITE_URL + asHref;
+    const backgroundImage = await loadImage(
+      path.join(__dirname, '../public/preview-background.png')
+    );
     const canvas = await drawSocialPreview(
-      title,
-      description,
+      title ?? metaTitle,
+      description ?? metaDescription,
       url,
       backgroundImage
     );
 
     const buffer = canvas.toBuffer('image/png');
-    const imagePath = getImagePath(slug);
+    const imagePath = getImagePath(asSlug);
 
-    console.info(`Generating social preview: ${slug}`);
+    console.info(`Generating social preview: ${asSlug}`);
 
-    const filePath = path.resolve(__dirname, '../../public' + imagePath);
+    const filePath = path.resolve(__dirname, '../public' + imagePath);
     await fs.promises.writeFile(filePath, buffer);
   }
+};
+
+const main = async () => {
+  const allPaths = await getAllPaths();
+  const manifest = await getPagesManifest(
+    getContentPaths,
+    getPageFromSlug,
+    META_INFO
+  );
+
+  Object.entries(manifest).forEach(async ([filepath, manifestVal]) => {
+    const { frontmatter, slug } = manifestVal;
+
+    if (filepath.includes('[platform]')) {
+      FRAMEWORKS.forEach(async (framework) => {
+        const asHref = filepath.replace('[platform]', framework);
+        const asSlug = slug.replace('[platform]', framework);
+        writeSocialPreview({ asHref, asSlug, allPaths, frontmatter });
+      });
+    } else {
+      writeSocialPreview({
+        asHref: filepath,
+        asSlug: slug,
+        allPaths,
+        frontmatter,
+      });
+    }
+  });
 };
 
 if (require.main) {

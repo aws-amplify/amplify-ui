@@ -387,7 +387,6 @@ export const IOS_REFERENCE = 'https://aws-amplify.github.io/amplify-ios/docs/';
 export const ANDROID_REFERENCE =
   'https://aws-amplify.github.io/aws-sdk-android/docs/reference/';
 export const JS_REFERENCE = 'https://aws-amplify.github.io/amplify-js/api/';
-export const UI_DOCS_REFERENCE = 'https://ui.docs.amplify.aws';
 
 export const GITHUB_REPO = `${GITHUB}/amplify-ui/`;
 export const GITHUB_REPO_FILE = `${GITHUB_REPO}/blob/main/`;

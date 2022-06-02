@@ -11,7 +11,6 @@ import { capitalizeString } from '../utils/capitalizeString';
 import { useCustomRouter } from '@/components/useCustomRouter';
 import metaData from '@/data/pages.preval';
 
-import { UI_DOCS_REFERENCE } from '@/data/links';
 import { getImagePath } from '@/utils/previews';
 
 import '../styles/index.scss';
@@ -89,7 +88,7 @@ function MyApp({ Component, pageProps }) {
         <meta name="description" content={metaDescription ?? description} />
         <meta
           property="og:image"
-          content={UI_DOCS_REFERENCE + getImagePath(pathname)}
+          content={process.env.SITE_URL + getImagePath(asPath)}
         />
       </Head>
       <div className={isHomepage ? `docs-home` : ''}>

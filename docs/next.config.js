@@ -10,6 +10,7 @@ const withNextPluginPreval = require('next-plugin-preval/config')();
 module.exports = withNextPluginPreval({
   env: {
     BRANCH,
+    SITE_URL: process.env.SITE_URL,
     DOCSEARCH_DOCS_APP_ID: process.env.DOCSEARCH_DOCS_APP_ID,
     DOCSEARCH_DOCS_API_KEY: process.env.DOCSEARCH_DOCS_API_KEY,
     DOCSEARCH_DOCS_INDEX_NAME: process.env.DOCSEARCH_DOCS_INDEX_NAME,
