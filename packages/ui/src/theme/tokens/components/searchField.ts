@@ -17,10 +17,12 @@ interface StateTokens {
 }
 
 export interface SearchFieldTokens {
+  color: DesignToken<ColorValue>;
   search: SearchTokens;
 }
 
 export const searchfield: SearchFieldTokens = {
+  color: { value: '{components.fieldcontrol.color.value}' },
   search: {
     color: { value: '{components.button.color.value}' },
     _disabled: {

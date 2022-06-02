@@ -1,4 +1,7 @@
 .amplify-searchfield {
+  --amplify-components-fieldcontrol-color: var(
+    --amplify-components-searchfield-color
+  );
   &__search {
     color: var(--amplify-components-searchfield-search-color);
     &:disabled {

@@ -1,23 +1,30 @@
-import { SearchField, ThemeProvider, Theme } from '@aws-amplify/ui-react';
+import {
+  SearchField,
+  ThemeProvider,
+  Theme,
+  useTheme,
+} from '@aws-amplify/ui-react';
 
-const theme: Theme = {
-  name: 'searchfield-theme',
-  tokens: {
-    components: {
-      searchfield: {
-        search: {
+export const SearchFieldThemeExample = () => {
+  const { tokens } = useTheme();
+
+  const theme: Theme = {
+    name: 'searchfield-theme',
+    tokens: {
+      components: {
+        searchfield: {
           color: { value: 'red' },
-          _disabled: { color: { value: 'green' } },
-          _hover: {
-            color: { value: 'green' },
+          search: {
+            color: { value: 'red' },
+            _hover: {
+              color: { value: tokens.colors.blue[80].value },
+            },
           },
         },
       },
     },
-  },
-};
+  };
 
-export const SearchFieldThemeExample = () => {
   return (
     <ThemeProvider theme={theme}>
       <SearchField label="search" />

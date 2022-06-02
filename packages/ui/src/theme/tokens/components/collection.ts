@@ -27,6 +27,7 @@ interface StateTokens {
 }
 
 export interface SearchTokens {
+  color: DesignToken<ColorValue>;
   button: {
     color: DesignToken<ColorValue>;
     _disabled: StateTokens;
@@ -62,6 +63,7 @@ export const collection: CollectionTokens = {
     },
   },
   search: {
+    color: { value: '{components.searchfield.color}' },
     button: {
       color: { value: '{components.searchfield.search.color.value}' },
       _disabled: {

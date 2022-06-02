@@ -479,6 +479,14 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-rating-small-size: var(--amplify-font-sizes-small);
         --amplify-components-rating-filled-color: var(--amplify-colors-brand-secondary-80);
         --amplify-components-rating-empty-color: var(--amplify-colors-background-tertiary);
+        --amplify-components-searchfield-color: var(--amplify-components-fieldcontrol-color);
+        --amplify-components-searchfield-search-color: var(--amplify-components-button-color);
+        --amplify-components-searchfield-search-disabled-color: var(--amplify-components-button-disabled-color);
+        --amplify-components-searchfield-search-disabled-background-color: var(--amplify-components-button-disabled-background-color);
+        --amplify-components-searchfield-search-hover-color: var(--amplify-components-button-hover-color);
+        --amplify-components-searchfield-search-hover-background-color: var(--amplify-components-button-hover-background-color);
+        --amplify-components-searchfield-search-focus-color: var(--amplify-components-button-focus-color);
+        --amplify-components-searchfield-search-focus-background-color: var(--amplify-components-button-focus-background-color);
         --amplify-components-select-padding-inline-end: var(--amplify-space-xxl);
         --amplify-components-select-wrapper-flex: 1;
         --amplify-components-select-wrapper-display: block;
