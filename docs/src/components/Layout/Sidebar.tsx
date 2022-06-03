@@ -55,7 +55,7 @@ const NavLink = ({ href, children, onClick, platforms = [] }) => {
     query: { platform = 'react' },
     asPath,
   } = useCustomRouter();
-  const isCurrent = asPath === `/${platform}${href}`;
+  const isCurrent = asPath.split('#')[0] === `/${platform}${href}`;
   const classNames = `docs-secondary-nav-link ${isCurrent ? 'current' : ''}`;
 
   if (platforms.length && !platforms.includes(platform)) {
