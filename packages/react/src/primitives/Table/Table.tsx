@@ -45,6 +45,9 @@ const TablePrimitive: Primitive<TableProps, 'table'> = (
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/table)
+ */
 export const Table = React.forwardRef(TablePrimitive);
 
 Table.displayName = 'Table';

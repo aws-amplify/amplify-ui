@@ -19,7 +19,9 @@ type AmplifyLocationSearch = IControl & {
 };
 
 /**
- * The `<LocationSearch>` component provides location search. See https://ui.docs.amplify.aws/components/geo#geocoder.
+ * The `<LocationSearch>` component provides location search.
+ *
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/geo#location-search)
  *
  * @example
  * // Used as a map control:

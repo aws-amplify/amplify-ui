@@ -28,6 +28,9 @@ const PlaceholderPrimitive: Primitive<PlaceholderProps, 'div'> = (
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/placeholder)
+ */
 export const Placeholder = React.forwardRef(PlaceholderPrimitive);
 
 Placeholder.displayName = 'Placeholder';
