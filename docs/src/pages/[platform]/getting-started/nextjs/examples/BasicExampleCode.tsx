@@ -1,7 +1,7 @@
 import { Button, Flex, Heading, Image, Text } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-function App() {
+export default function Home() {
   return (
     <Flex
       direction={{ base: 'column', large: 'row' }}
@@ -33,5 +33,3 @@ function App() {
     </Flex>
   );
 }
-
-export default App;
