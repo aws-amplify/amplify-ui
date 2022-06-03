@@ -1,8 +1,4 @@
-import {
-  BackgroundColorValue,
-  ColorValue,
-  DesignToken,
-} from '../types/designToken';
+import { ColorValue, DesignToken } from '../types/designToken';
 import { StateTokens } from './button';
 
 interface SearchTokens {
