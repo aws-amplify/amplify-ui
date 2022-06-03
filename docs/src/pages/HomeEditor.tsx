@@ -1,5 +1,11 @@
 import * as React from 'react';
-import { LiveProvider, LiveEditor, LivePreview, LiveContext } from 'react-live';
+import {
+  LiveProvider,
+  LiveEditor,
+  LivePreview,
+  LiveContext,
+  ContextProps,
+} from 'react-live';
 import * as AUI from '@aws-amplify/ui-react';
 
 const { Flex, View, Alert } = AUI;
@@ -43,7 +49,7 @@ const code = `() => {
 }`;
 
 const Error = () => {
-  const context = React.useContext(LiveContext);
+  const context: ContextProps = React.useContext(LiveContext);
   const { error } = context;
   if (error) {
     return <Alert variation="error">{error}</Alert>;
@@ -52,7 +58,7 @@ const Error = () => {
   }
 };
 
-export const HomeEditor = () => {
+const HomeEditor = () => {
   return (
     <LiveProvider
       scope={{ ...AUI }}
@@ -80,3 +86,5 @@ export const HomeEditor = () => {
     </LiveProvider>
   );
 };
+
+export default HomeEditor;

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import dynamic from 'next/dynamic';
 
 import {
   ThemeProvider,
@@ -24,11 +25,14 @@ import { Copy } from '@/components/Copy';
 import { Footer } from '@/components/Layout/Footer';
 import { HomeLogo } from '../HomeLogo';
 import { HomePrimitivePreview } from '../HomePrimitivePreview';
-import { HomeEditor } from '../HomeEditor';
 import { theme } from '../../theme';
 import { ThemeButton } from '../ThemeButton';
 import { useCustomRouter } from '@/components/useCustomRouter';
 import { FRAMEWORKS } from '@/data/frameworks';
+
+// react-live does not work with SSR so we have to load
+// it dynamically and only in the client
+const HomeEditor = dynamic(() => import('../HomeEditor'), { ssr: false });
 
 const AmpCard = ({ title, description, href }) => (
   <Link isExternal href={href} className="docs-home-amp-product-card">
