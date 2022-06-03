@@ -3,24 +3,40 @@
     --amplify-components-searchfield-color
   );
   &__search {
-    color: var(--amplify-components-searchfield-search-color);
-    &:disabled {
-      color: var(--amplify-components-searchfield-search-disabled-color);
+    color: var(--amplify-components-searchfield-button-color);
+    &:active {
       background-color: var(
-        --amplify-components-searchfield-search-disabled-background-color
+        --amplify-components-button-active-background-color
       );
+      border-color: var(--amplify-components-button-active-border-color);
+      color: var(--amplify-components-button-active-color);
+    }
+    &:disabled {
+      background-color: var(
+        --amplify-components-searchfield-button-disabled-background-color
+      );
+      border-color: var(
+        --amplify-components-searchfield-button-disabled-border-color
+      );
+      color: var(--amplify-components-searchfield-button-disabled-color);
     }
     &:focus {
-      color: var(--amplify-components-searchfield-search-focus-color);
       background-color: var(
-        --amplify-components-searchfield-search-focus-background-color
+        --amplify-components-searchfield-button-focus-background-color
       );
+      border-color: var(
+        --amplify-components-searchfield-button-focus-border-color
+      );
+      color: var(--amplify-components-searchfield-button-focus-color);
     }
     &:hover {
-      color: var(--amplify-components-searchfield-search-hover-color);
       background-color: var(
-        --amplify-components-searchfield-search-hover-background-color
+        --amplify-components-searchfield-button-hover-background-color
       );
+      border-color: var(
+        --amplify-components-searchfield-button-hover-border-color
+      );
+      color: var(--amplify-components-searchfield-button-hover-color);
     }
   }
 }

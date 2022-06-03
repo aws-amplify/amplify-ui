@@ -1,4 +1,9 @@
 import {
+  PaginationButtonDisabledTokens,
+  PaginationButtonHoverTokens,
+} from './pagination';
+import { StateTokens } from './button';
+import {
   BackgroundColorValue,
   ColorValue,
   DesignToken,
@@ -11,28 +16,19 @@ interface PaginationTokens {
   };
   button: {
     color: DesignToken<ColorValue>;
-    _hover: {
-      backgroundColor: DesignToken<BackgroundColorValue>;
-      color: DesignToken<ColorValue>;
-    };
-    _disabled: {
-      color: DesignToken<ColorValue>;
-    };
+    _hover: PaginationButtonHoverTokens;
+    _disabled: PaginationButtonDisabledTokens;
   };
-}
-
-interface StateTokens {
-  color: DesignToken<ColorValue>;
-  backgroundColor: DesignToken<BackgroundColorValue>;
 }
 
 export interface SearchTokens {
   color: DesignToken<ColorValue>;
   button: {
     color: DesignToken<ColorValue>;
+    _active: StateTokens;
     _disabled: StateTokens;
-    _hover: StateTokens;
     _focus: StateTokens;
+    _hover: StateTokens;
   };
 }
 
@@ -44,48 +40,65 @@ interface CollectionTokens {
 export const collection: CollectionTokens = {
   pagination: {
     current: {
-      color: { value: '{components.pagination.current.color.value}' },
+      color: { value: '{components.pagination.current.color}' },
       backgroundColor: {
-        value: '{components.pagination.current.backgroundColor.value}',
+        value: '{components.pagination.current.backgroundColor}',
       },
     },
     button: {
-      color: { value: '{components.pagination.button.color.value}' },
+      color: { value: '{components.pagination.button.color}' },
       _hover: {
         backgroundColor: {
-          value: '{components.pagination.button.hover.backgroundColor.value}',
+          value: '{components.pagination.button.hover.backgroundColor}',
         },
-        color: { value: '{components.pagination.button.hover.color.value}' },
+        color: { value: '{components.pagination.button.hover.color}' },
       },
       _disabled: {
-        color: { value: '{components.pagination.button.disabled.color.value}' },
+        color: { value: '{components.pagination.button.disabled.color}' },
       },
     },
   },
   search: {
     color: { value: '{components.searchfield.color}' },
     button: {
-      color: { value: '{components.searchfield.search.color.value}' },
-      _disabled: {
-        color: {
-          value: '{components.searchfield.search._disabled.color.value}',
-        },
+      color: { value: '{components.searchfield.button.color}' },
+      _active: {
         backgroundColor: {
-          value:
-            '{components.searchfield.search._disabled.backgroundColor.value}',
+          value: '{components.searchfield.button._active.backgroundColor}',
         },
+        borderColor: {
+          value: '{components.searchfield.button._active.borderColor}',
+        },
+        color: { value: '{components.searchfield.button._active.color}' },
       },
-      _hover: {
-        color: { value: '{components.searchfield.search._hover.color.value}' },
+      _disabled: {
         backgroundColor: {
-          value: '{components.searchfield.search._hover.backgroundColor}',
+          value: '{components.searchfield.button._disabled.backgroundColor}',
+        },
+        borderColor: {
+          value: '{components.searchfield.button._disabled.borderColor}',
+        },
+        color: {
+          value: '{components.searchfield.button._disabled.color}',
         },
       },
       _focus: {
-        color: { value: '{components.searchfield.search._focus.color.value}' },
         backgroundColor: {
-          value: '{components.searchfield.search._focus.backgroundColor}',
+          value: '{components.searchfield.button._focus.backgroundColor}',
         },
+        borderColor: {
+          value: '{components.searchfield.button._focus.borderColor}',
+        },
+        color: { value: '{components.searchfield.button._focus.color}' },
+      },
+      _hover: {
+        backgroundColor: {
+          value: '{components.searchfield.button._hover.backgroundColor}',
+        },
+        borderColor: {
+          value: '{components.searchfield.button._hover.borderColor}',
+        },
+        color: { value: '{components.searchfield.button._hover.color}' },
       },
     },
   },

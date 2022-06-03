@@ -27,26 +27,48 @@
     --amplify-components-searchfield-color: var(
       --amplify-components-collection-search-color
     );
-    --amplify-components-searchfield-search-color: var(
+    --amplify-components-searchfield-button-color: var(
       --amplify-components-collection-search-button-color
     );
-    --amplify-components-searchfield-search-disabled-color: var(
-      --amplify-components-collection-search-button-disabled-color
+    //active styles
+    --amplify-components-searchfield-button-active-background-color: var(
+      --amplify-components-collection-search-button-active-background-color
     );
-    --amplify-components-searchfield-search-disabled-background-color: var(
+    --amplify-components-searchfield-button-active-border-color: var(
+      --amplify-components-collection-search-button-active-border-color
+    );
+    --amplify-components-searchfield-button-active-color: var(
+      --amplify-components-collection-search-button-active-color
+    );
+    //disabled styles
+    --amplify-components-searchfield-button-disabled-background-color: var(
       --amplify-components-collection-search-button-disabled-background-color
     );
-    --amplify-components-searchfield-search-hover-color: var(
-      --amplify-components-collection-search-button-hover-color
+    --amplify-components-searchfield-button-disabled-border-color: var(
+      --amplify-components-collection-search-button-disabled-border-color
     );
-    --amplify-components-searchfield-search-hover-background-color: var(
-      --amplify-components-collection-search-button-hover-background-color
+    --amplify-components-searchfield-button-disabled-color: var(
+      --amplify-components-collection-search-button-disabled-color
     );
-    --amplify-components-searchfield-search-focus-color: var(
+    //focus styles
+    --amplify-components-searchfield-button-focus-background-color: var(
+      --amplify-components-collection-search-button-focus-background-color
+    );
+    --amplify-components-searchfield-button-focus-border-color: var(
+      --amplify-components-collection-search-button-focus-border-color
+    );
+    --amplify-components-searchfield-button-focus-color: var(
       --amplify-components-collection-search-button-focus-color
     );
-    --amplify-components-searchfield-search-focus-background-color: var(
-      --amplify-components-collection-search-button-focus-background-color
+    //hover styles
+    --amplify-components-searchfield-button-hover-background-color: var(
+      --amplify-components-collection-search-button-hover-background-color
+    );
+    --amplify-components-searchfield-button-hover-border-color: var(
+      --amplify-components-collection-search-button-hover-border-color
+    );
+    --amplify-components-searchfield-button-hover-color: var(
+      --amplify-components-collection-search-button-hover-color
     );
   }
 }
