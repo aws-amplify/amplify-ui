@@ -1,12 +1,10 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 
-import { ComponentClassNames } from '../../shared';
 import { SearchFieldButton } from '../SearchFieldButton';
+import { ComponentClassNames, ComponentText } from '../../shared/constants';
 
-import { SharedText } from '../../shared/i18n';
-
-const ariaLabelText = SharedText.SearchField.ariaLabel.search;
+const ariaLabelText = ComponentText.SearchField.searchButtonLabel;
 
 describe('SearchFieldButton component', () => {
   const testId = 'testId';

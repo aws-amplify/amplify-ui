@@ -80,6 +80,9 @@ const RatingPrimitive: Primitive<RatingProps, typeof Flex> = (
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/rating)
+ */
 export const Rating = React.forwardRef(RatingPrimitive);
 
 Rating.displayName = 'Rating';

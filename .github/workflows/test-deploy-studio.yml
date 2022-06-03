@@ -30,7 +30,7 @@ jobs:
       DOCSEARCH_DOCS_INDEX_NAME: ${{ secrets.DOCSEARCH_DOCS_INDEX_NAME }}
 
   publish:
-    needs: [e2e, docs]
+    needs: test
     runs-on: ubuntu-latest
     environment: deployment
     steps:

@@ -96,6 +96,9 @@ const SelectFieldPrimitive: Primitive<SelectFieldProps, 'select'> = (
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/selectfield)
+ */
 export const SelectField = React.forwardRef(SelectFieldPrimitive);
 
 SelectField.displayName = 'SelectField';

@@ -6,6 +6,9 @@ import {
   AmplifyContextType,
 } from '../components/ThemeProvider/AmplifyContext';
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/theming)
+ */
 export const useTheme = (): WebTheme => {
   const context = React.useContext(AmplifyContext);
   return getThemeFromContext(context);
