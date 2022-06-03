@@ -6,8 +6,7 @@ import { Flex } from '../Flex';
 import { Grid } from '../Grid';
 import { Pagination, usePagination } from '../Pagination';
 import { SearchField } from '../SearchField';
-import { ComponentClassNames } from '../shared/constants';
-import { SharedText } from '../shared/i18n';
+import { ComponentClassNames, ComponentText } from '../shared/constants';
 import { strHasLength } from '../shared/utils';
 import {
   CollectionProps,
@@ -38,6 +37,9 @@ const GridCollection = <Item,>({
   <Grid {...rest}>{Array.isArray(items) ? items.map(children) : null}</Grid>
 );
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/collection)
+ */
 export const Collection = <Item,>({
   className,
   isSearchable,
@@ -45,6 +47,7 @@ export const Collection = <Item,>({
   items,
   itemsPerPage = DEFAULT_PAGE_SIZE,
   searchFilter = itemHasText,
+  searchLabel = ComponentText.Collection.searchButtonLabel,
   searchPlaceholder,
   type = 'list',
   testId,
@@ -98,7 +101,7 @@ export const Collection = <Item,>({
       {isSearchable ? (
         <Flex className={ComponentClassNames.CollectionSearch}>
           <SearchField
-            label={SharedText.Collection.SearchFieldLabel}
+            label={searchLabel}
             placeholder={searchPlaceholder}
             onChange={(e) => onSearch(e.target.value)}
             onClear={() => setSearchText('')}

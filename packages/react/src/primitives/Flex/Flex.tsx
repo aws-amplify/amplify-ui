@@ -18,6 +18,9 @@ const FlexPrimitive: Primitive<FlexProps, 'div'> = (
   </View>
 );
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/flex)
+ */
 export const Flex = React.forwardRef(FlexPrimitive);
 
 Flex.displayName = 'Flex';

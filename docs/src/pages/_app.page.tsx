@@ -1,18 +1,14 @@
 import * as React from 'react';
 
 import { ThemeProvider, ColorMode, defaultTheme } from '@aws-amplify/ui-react';
-import { configure, trackPageVisit } from '../utils/track';
 
-import Head from 'next/head';
+import { configure, trackPageVisit } from '@/utils/track';
 import { Header } from '@/components/Layout/Header';
 import Script from 'next/script';
 import { baseTheme } from '../theme';
-import { capitalizeString } from '@/utils/capitalizeString';
 import { useCustomRouter } from '@/components/useCustomRouter';
-import metaData from '@/data/pages.preval';
-import { PREVIEW_HEIGHT, PREVIEW_WIDTH } from '@/data/preview';
 
-import { getImagePath } from '@/utils/previews';
+import { Head } from './Head';
 
 import '../styles/index.scss';
 
@@ -35,20 +31,14 @@ if (typeof window === 'undefined') {
 }
 
 function MyApp({ Component, pageProps }) {
+  const [expanded, setExpanded] = React.useState(false);
+
   const {
-    asPath,
     pathname,
     query: { platform = 'react' },
   } = useCustomRouter();
 
-  const asPathname = pathname.replace('[platform]', String(platform));
-
   const isHomepage = pathname === '/' || pathname === '/[platform]';
-
-  const filepath = `/${pathname
-    .split('/')
-    .filter((n) => n && n !== '[platform]')
-    .join('/')}`;
 
   const [colorMode, setColorMode] = React.useState<ColorMode>('system');
   const handleColorModeChange = (colorMode: ColorMode) => {
@@ -59,6 +49,7 @@ function MyApp({ Component, pageProps }) {
       localStorage.removeItem('colorMode');
     }
   };
+
   React.useEffect(() => {
     const colorModePreference = localStorage.getItem('colorMode') as ColorMode;
     if (colorModePreference) {
@@ -66,64 +57,13 @@ function MyApp({ Component, pageProps }) {
     }
   }, []);
 
-  const [expanded, setExpanded] = React.useState(false);
-
   configure();
   trackPageVisit();
 
-  const { title, metaTitle, description, metaDescription } =
-    metaData[pathname]?.frontmatter ?? {};
-
-  if ((!description && !metaDescription) || (!title && !metaTitle)) {
-    throw new Error(`Meta Info missing on ${filepath}`);
-  }
-
-  const pageTitle = `${metaTitle ?? title} | ${capitalizeString(
-    platform
-  )} - Amplify UI`;
-
   return (
     <>
-      <Head>
-        <title>{pageTitle}</title>
-        {['/', '/react', '/angular', '/vue', '/flutter'].includes(asPath) && (
-          <link rel="canonical" href="https://ui.docs.amplify.aws/" />
-        )}
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="description" content={metaDescription ?? description} />
+      <Head />
 
-        {/* Open Graph */}
-        <meta property="og:title" content={pageTitle} />
-        <meta property="og:type" content="object" />
-        <meta property="og:url" content={`${process.env.SITE_URL}${asPath}`} />
-        <meta
-          property="og:image"
-          content={process.env.SITE_URL + getImagePath(asPathname)}
-        />
-        <meta property="og:image:width" content={String(PREVIEW_WIDTH)} />
-        <meta property="og:image:height" content={String(PREVIEW_HEIGHT)} />
-        <meta
-          property="og:image:secure_url"
-          content={process.env.SITE_URL + getImagePath(asPathname)}
-        />
-        <meta property="og:image:type" content="image/png" />
-        <meta
-          property="og:image:alt"
-          content={metaDescription ?? description}
-        />
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={pageTitle} />
-        <meta name="twitter:url" content={`${process.env.SITE_URL}${asPath}`} />
-        <meta
-          name="twitter:description"
-          content={metaDescription ?? description}
-        />
-        <meta
-          name="twitter:image"
-          content={process.env.SITE_URL + getImagePath(asPathname)}
-        />
-      </Head>
       <div className={isHomepage ? `docs-home` : ''}>
         <ThemeProvider theme={baseTheme} colorMode={colorMode}>
           <Header

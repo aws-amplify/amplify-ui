@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FormField renders as expected in the happy path 1`] = `
+<div>
+  <div
+    class="amplify-flex amplify-field amplify-textfield"
+  >
+    <label
+      class="amplify-label amplify-visually-hidden"
+      for="mock-id-0"
+    >
+      Username
+    </label>
+    <div
+      class="amplify-flex amplify-field-group amplify-field-group--horizontal"
+      data-orientation="horizontal"
+    >
+      <div
+        class="amplify-field-group__field-wrapper amplify-field-group__field-wrapper--horizontal"
+        data-orientation="horizontal"
+      >
+        <input
+          aria-invalid="false"
+          autocomplete="username"
+          class="amplify-input amplify-field-group__control"
+          id="mock-id-0"
+          name="username"
+          placeholder="Username"
+          required=""
+          type="text"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`FormField renders as expected in the unhappy path 1`] = `
+<div>
+  <div
+    class="amplify-flex amplify-field amplify-textfield"
+  >
+    <label
+      class="amplify-label amplify-visually-hidden"
+      for="amplify-id-0"
+    >
+      Username
+    </label>
+    <div
+      class="amplify-flex amplify-field-group amplify-field-group--horizontal"
+      data-orientation="horizontal"
+    >
+      <div
+        class="amplify-field-group__field-wrapper amplify-field-group__field-wrapper--horizontal"
+        data-orientation="horizontal"
+      >
+        <input
+          aria-describedby="amplify-id-1"
+          aria-invalid="true"
+          autocomplete="username"
+          class="amplify-input amplify-field-group__control amplify-input--error"
+          id="amplify-id-0"
+          name="username"
+          placeholder="Username"
+          required=""
+          type="text"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    data-amplify-sign-up-errors="true"
+    id="amplify-id-1"
+  >
+    <p
+      class="amplify-text amplify-text--error"
+      data-variation="error"
+      role="alert"
+    >
+      Username cannot be empty.
+    </p>
+  </div>
+</div>
+`;

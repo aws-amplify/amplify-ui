@@ -127,4 +127,7 @@ export function AmplifyProvider({
   );
 }
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/theming)
+ */
 export const ThemeProvider = AmplifyProvider;

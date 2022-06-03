@@ -58,6 +58,9 @@ const ToggleButtonPrimitive: Primitive<ToggleButtonProps, typeof Button> = (
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/togglebutton)
+ */
 export const ToggleButton = React.forwardRef(ToggleButtonPrimitive);
 
 ToggleButton.displayName = 'ToggleButton';
