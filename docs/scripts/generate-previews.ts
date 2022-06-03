@@ -133,8 +133,8 @@ const writeSocialPreview = async ({
       path.join(__dirname, '../public/preview-background.png')
     );
     const canvas = await drawSocialPreview(
-      title ?? metaTitle,
-      description ?? metaDescription,
+      metaTitle ?? title,
+      metaDescription ?? description,
       url,
       backgroundImage
     );

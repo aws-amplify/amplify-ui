@@ -112,7 +112,17 @@ function MyApp({ Component, pageProps }) {
           content={metaDescription ?? description}
         />
         {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" key="twcard" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:url" content={`${process.env.SITE_URL}${asPath}`} />
+        <meta
+          name="twitter:description"
+          content={metaDescription ?? description}
+        />
+        <meta
+          name="twitter:image"
+          content={process.env.SITE_URL + getImagePath(asPathname)}
+        />
       </Head>
       <div className={isHomepage ? `docs-home` : ''}>
         <ThemeProvider theme={baseTheme} colorMode={colorMode}>
