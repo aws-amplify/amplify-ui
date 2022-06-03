@@ -34,11 +34,13 @@ export interface SearchTokens {
   };
 }
 
-interface CollectionTokens {
+export interface CollectionTokens {
   pagination: PaginationTokens;
   search: SearchTokens;
 }
 
+//we are reusing the types from the nested components but new tokens need to be created that reference the previous tokens so that they can inherit the needed values but can be overwritten and only effect the collection component.
+//only a subset of the design tokens of the nested components are being exposed, this can be expanded later.
 export const collection: CollectionTokens = {
   pagination: {
     current: {

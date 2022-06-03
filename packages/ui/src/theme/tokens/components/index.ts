@@ -5,6 +5,7 @@ import { button, ButtonTokens } from './button';
 import { card, CardTokens } from './card';
 import { checkbox, CheckboxTokens } from './checkbox';
 import { checkboxfield, CheckboxFieldTokens } from './checkboxField';
+import { collection, CollectionTokens } from './collection';
 import { copy, CopyTokens } from './copy';
 import {
   countrycodeselect,
@@ -50,6 +51,7 @@ export interface ComponentTokens {
   card: CardTokens;
   checkbox: CheckboxTokens;
   checkboxfield: CheckboxFieldTokens;
+  collection: CollectionTokens;
   copy: CopyTokens;
   countrycodeselect: CountryCodeSelectTokens;
   divider: DividerTokens;
@@ -90,6 +92,7 @@ export const components: ComponentTokens = {
   card,
   checkbox,
   checkboxfield,
+  collection,
   copy,
   countrycodeselect,
   divider,
