@@ -11,6 +11,7 @@ import { capitalizeString } from '@/utils/capitalizeString';
 import { useCustomRouter } from '@/components/useCustomRouter';
 import metaData from '@/data/pages.preval';
 import { PREVIEW_HEIGHT, PREVIEW_WIDTH } from '@/data/preview';
+import { FRAMEWORKS } from '@/data/frameworks';
 
 import { getImagePath } from '@/utils/previews';
 
@@ -35,42 +36,19 @@ if (typeof window === 'undefined') {
 }
 
 function MyApp({ Component, pageProps }) {
+  const [expanded, setExpanded] = React.useState(false);
+
   const {
     asPath,
     pathname,
     query: { platform = 'react' },
   } = useCustomRouter();
-
   const asPathname = pathname.replace('[platform]', String(platform));
-
   const isHomepage = pathname === '/' || pathname === '/[platform]';
-
   const filepath = `/${pathname
     .split('/')
     .filter((n) => n && n !== '[platform]')
     .join('/')}`;
-
-  const [colorMode, setColorMode] = React.useState<ColorMode>('system');
-  const handleColorModeChange = (colorMode: ColorMode) => {
-    setColorMode(colorMode);
-    if (colorMode !== 'system') {
-      localStorage.setItem('colorMode', colorMode);
-    } else {
-      localStorage.removeItem('colorMode');
-    }
-  };
-  React.useEffect(() => {
-    const colorModePreference = localStorage.getItem('colorMode') as ColorMode;
-    if (colorModePreference) {
-      setColorMode(colorModePreference);
-    }
-  }, []);
-
-  const [expanded, setExpanded] = React.useState(false);
-
-  configure();
-  trackPageVisit();
-
   const { title, metaTitle, description, metaDescription } =
     metaData[pathname]?.frontmatter ?? {};
 
@@ -81,12 +59,36 @@ function MyApp({ Component, pageProps }) {
   const pageTitle = `${metaTitle ?? title} | ${capitalizeString(
     platform
   )} - Amplify UI`;
+  const homepagePaths = [
+    '/',
+    ...FRAMEWORKS.map((framework) => `/${framework}`),
+  ];
+
+  const [colorMode, setColorMode] = React.useState<ColorMode>('system');
+  const handleColorModeChange = (colorMode: ColorMode) => {
+    setColorMode(colorMode);
+    if (colorMode !== 'system') {
+      localStorage.setItem('colorMode', colorMode);
+    } else {
+      localStorage.removeItem('colorMode');
+    }
+  };
+
+  React.useEffect(() => {
+    const colorModePreference = localStorage.getItem('colorMode') as ColorMode;
+    if (colorModePreference) {
+      setColorMode(colorModePreference);
+    }
+  }, []);
+
+  configure();
+  trackPageVisit();
 
   return (
     <>
       <Head>
         <title>{pageTitle}</title>
-        {['/', '/react', '/angular', '/vue', '/flutter'].includes(asPath) && (
+        {homepagePaths.includes(asPath) && (
           <link rel="canonical" href="https://ui.docs.amplify.aws/" />
         )}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
