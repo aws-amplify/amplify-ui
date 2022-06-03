@@ -194,7 +194,6 @@ function App() {
               <Button
                 variation="primary"
                 onClick={handleAddToCart}
-                // width="10rem"
                 disabled={!currentPainting.inStock || !quantity}
               >
                 Add to Cart
