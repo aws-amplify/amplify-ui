@@ -40,7 +40,7 @@
     align-self: center;
   }
   @media (min-width: 600px) {
-    grid-template-columns: var(--swatch-size) 140px 1fr 1fr;
+    grid-template-columns: var(--swatch-size) 140px 180px 1fr;
     padding: var(--amplify-space-xs) 0;
     align-items: center;
     .docs-colorBlock {
@@ -48,7 +48,32 @@
     }
   }
 }
+
+.docs-tokenItem--font {
+  grid-template-columns: auto 1fr;
+  .docs-fontBlock {
+    grid-area: 1 / 1 / 4 / 1;
+    align-self: center;
+  }
+  @media (min-width: 600px) {
+    grid-template-columns: auto 140px 180px 1fr;
+    .docs-fontBlock {
+      grid-area: 1 / 1 / 2 / 1;
+    }
+  }
+}
+
 .docs-tokenItem--space {
+  grid-template-columns: 100px auto;
+  @media (min-width: 600px) {
+    grid-template-columns: 140px 140px 80px auto;
+    .docs-tokenItem-path {
+      text-align: right;
+    }
+  }
+}
+
+.docs-tokenItem--border {
   grid-template-columns: 100px auto;
   @media (min-width: 600px) {
     grid-template-columns: 140px 140px 80px auto;
@@ -61,6 +86,12 @@
 .docs-tokenItem--radius {
   @media (min-width: 600px) {
     grid-template-columns: 100px 1fr 1fr;
+  }
+}
+
+.docs-tokenItem--fontFamily {
+  .docs-fontBlock {
+    padding: var(--amplify-space-medium) 0;
   }
 }
 
@@ -87,6 +118,15 @@
   }
 }
 
+.docs-borderBlock {
+  grid-area: 1 / 1 / 4 / 1;
+  align-self: center;
+  min-width: 100%;
+  @media (min-width: 600px) {
+    grid-area: auto;
+  }
+}
+
 .docs-spaceBlock-inner {
   height: 16px;
   background-color: var(--amplify-colors-brand-primary-80);
@@ -101,6 +141,21 @@
   background-image:
     linear-gradient(to right, hsla(210, 25%, 25%, 5%) 1px, transparent 1px),
     linear-gradient(to bottom, hsla(210, 25%, 25%, 5%) 1px, transparent 1px);
+}
+
+.docs-radiusSVG {
+  margin: 0 auto;
+  display: block;
+  background-size: 1rem 1rem;
+  background-image:
+    linear-gradient(to right, hsla(210, 25%, 25%, 5%) 1px, transparent 1px),
+    linear-gradient(to bottom, hsla(210, 25%, 25%, 5%) 1px, transparent 1px);
+}
+
+.docs-radiusSVG-text {
+  font-family: $font-code;
+  font-size: var(--amplify-font-sizes-small);
+  font-weight: var(--amplify-font-weights-bold);
 }
 
 .docs-tokenItem-meta, .docs-tokenItem-path {
