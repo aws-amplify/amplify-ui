@@ -22,6 +22,11 @@ const ERROR_MESSAGE = 'Username cannot be empty.';
 const useStableIdSpy = jest.spyOn(UseStableIdModule, 'useStableId');
 
 describe('FormField: ', () => {
+  beforeEach(() => {
+    useAuthenticatorSpy.mockRestore();
+    useStableIdSpy.mockRestore();
+  });
+
   it('renders as expected in the happy path', () => {
     // mocking ids so snapshots are consistent
     useStableIdSpy.mockReturnValue('mock-id-0');
@@ -29,8 +34,6 @@ describe('FormField: ', () => {
 
     const { container } = render(<FormField {...usernameFormFieldProps} />);
     expect(container).toMatchSnapshot();
-
-    useStableIdSpy.mockRestore();
   });
 
   it('renders as expected in the unhappy path', () => {
@@ -41,8 +44,6 @@ describe('FormField: ', () => {
 
     const { container } = render(<FormField {...usernameFormFieldProps} />);
     expect(container).toMatchSnapshot();
-
-    useStableIdSpy.mockRestore();
   });
 
   it('Invalid field is described by validation error', async () => {
