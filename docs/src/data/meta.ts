@@ -1,10 +1,15 @@
 export interface MetaInfo {
   [pathname: string]: {
     frontmatter: {
-      metaTitle: string;
-      metaDescription: string;
-      supportedFrameworks: string;
+      title?: string;
+      description?: string;
+      metaTitle?: string;
+      metaDescription?: string;
+      supportedFrameworks?: string;
+      slug?: string;
     };
+    slug?: string;
+    href?: string;
   };
 }
 
@@ -15,7 +20,9 @@ export const META_INFO: MetaInfo = {
       metaDescription:
         'Amplify UI is an open-source design system with cloud-connected components and primitives that simplify building accessible, performant, and beautiful applications in React, Angular, Vue, and Flutter (more coming soon).',
       supportedFrameworks: 'all',
+      slug: '',
     },
+    slug: '',
   },
   '/[platform]': {
     frontmatter: {
@@ -23,7 +30,9 @@ export const META_INFO: MetaInfo = {
       metaDescription:
         'Amplify UI is an open-source design system with cloud-connected components and primitives that simplify building accessible, performant, and beautiful applications in React, Angular, Vue, and Flutter (more coming soon).',
       supportedFrameworks: 'all',
+      slug: '[platform]',
     },
+    slug: '[platform]',
   },
   '/404': {
     frontmatter: {
