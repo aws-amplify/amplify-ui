@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FormField:  renders as expected in the happy path 1`] = `
+exports[`FormField renders as expected in the happy path 1`] = `
 <div>
   <div
     class="amplify-flex amplify-field amplify-textfield"
@@ -35,7 +35,7 @@ exports[`FormField:  renders as expected in the happy path 1`] = `
 </div>
 `;
 
-exports[`FormField:  renders as expected in the unhappy path 1`] = `
+exports[`FormField renders as expected in the unhappy path 1`] = `
 <div>
   <div
     class="amplify-flex amplify-field amplify-textfield"

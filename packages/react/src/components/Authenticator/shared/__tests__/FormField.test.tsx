@@ -6,11 +6,8 @@ import { FormField, FormFieldProps } from '../FormField';
 import * as UseAuthenticatorModule from '../../hooks/useAuthenticator';
 import * as UseStableIdModule from '../../../../primitives/utils/useStableId';
 
-const usernameFormFieldProps: FormFieldProps = {
-  ...defaultFormFieldOptions.username,
-  name: 'username',
-  label: 'Username',
-};
+jest.mock('../../hooks/useAuthenticator');
+const useStableIdSpy = jest.spyOn(UseStableIdModule, 'useStableId');
 
 const useAuthenticatorSpy = jest.spyOn(
   UseAuthenticatorModule,
@@ -19,10 +16,14 @@ const useAuthenticatorSpy = jest.spyOn(
 
 const ERROR_MESSAGE = 'Username cannot be empty.';
 
-const useStableIdSpy = jest.spyOn(UseStableIdModule, 'useStableId');
+const usernameFormFieldProps: FormFieldProps = {
+  ...defaultFormFieldOptions.username,
+  name: 'username',
+  label: 'Username',
+};
 
-describe('FormField: ', () => {
-  beforeEach(() => {
+describe('FormField', () => {
+  afterEach(() => {
     useAuthenticatorSpy.mockRestore();
     useStableIdSpy.mockRestore();
   });
