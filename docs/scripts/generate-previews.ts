@@ -22,6 +22,7 @@ import { getAllPaths } from '../src/utils/getAllPaths';
 import { FRAMEWORKS } from '../src/data/frameworks';
 import { getPagesManifest } from '../src/utils/getPagesManifest';
 import { META_INFO } from '../src/data/meta';
+import { SITE_NAME } from '../src/data/general';
 
 dotenv.config();
 
@@ -78,7 +79,7 @@ export const drawSocialPreview = async (
 ) => {
   const canvas = createCanvas(PREVIEW_WIDTH, PREVIEW_HEIGHT);
   const context = canvas.getContext('2d');
-  title = title === 'Home' ? 'Amplify UI' : title;
+  title = title === 'Home' ? SITE_NAME : title;
 
   // Paint Preview background
   context.fillStyle = PREVIEW_BACKGROUND_COLOR;
