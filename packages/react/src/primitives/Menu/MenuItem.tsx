@@ -8,6 +8,9 @@ import { MenuItemProps } from '../types';
 
 export const MENU_ITEM_TEST_ID = 'amplify-menu-item-test-id';
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/menu)
+ */
 export const MenuItem = React.forwardRef<HTMLDivElement, MenuItemProps>(
   ({ children, className, variation, ...rest }, ref) => {
     return (

@@ -76,8 +76,7 @@ describe('PhoneNumberField primitive', () => {
   });
 
   it('should render a country code selector with an accessible label', async () => {
-    await setup({});
-    const $countryCodeSelector = await screen.findByLabelText(/country code/i);
+    const { $countryCodeSelector } = await setup({});
 
     expect($countryCodeSelector).toBeDefined();
   });

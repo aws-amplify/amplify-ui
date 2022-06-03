@@ -39,6 +39,9 @@ const HeadingPrimitive: Primitive<HeadingProps, HeadingTag> = (
   </View>
 );
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/heading)
+ */
 export const Heading = React.forwardRef(HeadingPrimitive);
 
 Heading.displayName = 'Heading';

@@ -13,6 +13,7 @@ const SearchFieldPrimitive: Primitive<SearchFieldProps, 'input'> = (
   {
     autoComplete = 'off',
     className,
+    clearButtonLabel,
     labelHidden = true,
     name = 'q',
     onSubmit,
@@ -33,6 +34,7 @@ const SearchFieldPrimitive: Primitive<SearchFieldProps, 'input'> = (
       labelHidden={labelHidden}
       innerEndComponent={
         <FieldClearButton
+          ariaLabel={clearButtonLabel}
           excludeFromTabOrder={true}
           isVisible={strHasLength(value)}
           onClick={onClearHandler}
@@ -59,6 +61,9 @@ const SearchFieldPrimitive: Primitive<SearchFieldProps, 'input'> = (
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/searchfield)
+ */
 export const SearchField = React.forwardRef(SearchFieldPrimitive);
 
 SearchField.displayName = 'SearchField';

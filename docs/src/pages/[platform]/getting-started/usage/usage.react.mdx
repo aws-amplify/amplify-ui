@@ -1,15 +1,78 @@
 import { Tabs, TabItem } from '@aws-amplify/ui-react';
 import { Example, ExampleCode } from '@/components/Example';
+import {
+  ComponentExampleDemo,
+  ReactExampleDemo,
+  ThemeExampleDemo,
+} from './examples';
 
-## Import styles and components
+## React and Amplify UI
 
-Load the default styling by importing our CSS:
+Amplify UI is designed to integrate seamlessly with the React framework so you can get started in no time. 
 
-```jsx
-import { View } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css'; // default theme
+### Installation
 
-export default function App() {
-  return <View>Your app here</View>;
-}
+If you haven't already, install `@aws-amplify/ui-react` with [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/):
+
+<Tabs>
+<TabItem title="npm">
+
+```shell
+npm install aws-amplify @aws-amplify/ui-react
 ```
+
+</TabItem>
+<TabItem title="yarn">
+
+```shell
+yarn add aws-amplify @aws-amplify/ui-react
+```
+
+</TabItem>
+</Tabs>
+
+### Quick start
+
+Here's all you need to get up and running:
+
+<ExampleCode>
+```tsx file=./examples/ReactExampleCode.tsx 
+
+```
+</ExampleCode>
+
+Copy/paste the code above into your React app, start the app, and look at that lovely Button!
+
+<ReactExampleDemo />
+
+### Components
+
+You can use all of Amplify UI's primitive components (e.g., `Button`, `Tabs`, `Flex`) right out-of-the-box. These are the same components we use to build our connected components such as the [Authenticator](/react/components/authenticator). Please refer to each component's [documentation](/react/components/button) to see how they should be imported, configured and styled.
+
+<Example>
+  <ComponentExampleDemo />
+  <ExampleCode>
+```tsx file=./examples/ComponentExampleCode.tsx
+
+```
+  </ExampleCode>
+</Example>
+
+### Theming
+
+Amplify UI ships with a default [theme](/react/theming) that you can customize to match the look and feel of your project. Remember to load the default styling by importing our CSS at the entry-point to your application (e.g., `src/App.js`).
+
+```js
+import '@aws-amplify/ui-react/styles.css';
+```
+
+To learn how to customize the appearance of all components in your application with a theme, see [theming](/react/theming). 
+
+<Example>
+  <ThemeExampleDemo />
+  <ExampleCode>
+```tsx file=./examples/ThemeExampleCode.tsx
+
+```
+  </ExampleCode>
+</Example>

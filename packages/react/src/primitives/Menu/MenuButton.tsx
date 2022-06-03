@@ -7,6 +7,9 @@ import { ButtonProps, PrimitiveProps } from '../types';
 import { ComponentClassNames } from '../shared/constants';
 import { useStyles } from '../shared/styleUtils';
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/menu)
+ */
 export const MenuButton = React.forwardRef<
   HTMLButtonElement,
   PrimitiveProps<ButtonProps, 'button'>

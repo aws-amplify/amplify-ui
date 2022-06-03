@@ -60,6 +60,9 @@ const MenuPrimitive: Primitive<MenuProps, 'div'> = (
   </DropdownMenu>
 );
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/menu)
+ */
 export const Menu = React.forwardRef(MenuPrimitive);
 
 Menu.displayName = 'Menu';

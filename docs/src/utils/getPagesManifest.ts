@@ -1,6 +1,16 @@
+import type { MetaInfo } from '@/data/meta';
+import type { GetPageFromSlug } from '@/utils/getPageFromSlug';
+import type { GetContentPaths } from '@/utils/getContentPaths';
+
 function pluckMeta({ frontmatter, href, slug }) {
   return { frontmatter, href, slug };
 }
+
+export function getPagesManifest(
+  getContentPaths: GetContentPaths,
+  getPageFromSlug: GetPageFromSlug,
+  default_meta_info: MetaInfo
+): Promise<MetaInfo>;
 export async function getPagesManifest(
   getContentPaths,
   getPageFromSlug,
