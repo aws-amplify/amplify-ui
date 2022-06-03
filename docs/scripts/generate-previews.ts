@@ -78,6 +78,7 @@ export const drawSocialPreview = async (
 ) => {
   const canvas = createCanvas(PREVIEW_WIDTH, PREVIEW_HEIGHT);
   const context = canvas.getContext('2d');
+  title = title === 'Home' ? 'Amplify UI' : title;
 
   // Paint Preview background
   context.fillStyle = PREVIEW_BACKGROUND_COLOR;
