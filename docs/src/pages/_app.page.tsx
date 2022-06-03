@@ -7,6 +7,7 @@ import { Header } from '@/components/Layout/Header';
 import Script from 'next/script';
 import { baseTheme } from '../theme';
 import { useCustomRouter } from '@/components/useCustomRouter';
+
 import { Head } from './Head';
 
 import '../styles/index.scss';
@@ -36,6 +37,7 @@ function MyApp({ Component, pageProps }) {
     pathname,
     query: { platform = 'react' },
   } = useCustomRouter();
+
   const isHomepage = pathname === '/' || pathname === '/[platform]';
 
   const [colorMode, setColorMode] = React.useState<ColorMode>('system');
