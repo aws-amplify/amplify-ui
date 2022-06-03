@@ -128,6 +128,9 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, typeof Flex> = (
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/switchfield)
+ */
 export const SwitchField = React.forwardRef(SwitchFieldPrimitive);
 
 SwitchField.displayName = 'SwitchField';

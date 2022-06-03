@@ -18,6 +18,9 @@ const GridPrimitive: Primitive<GridProps, 'div'> = (
   </View>
 );
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/grid)
+ */
 export const Grid = React.forwardRef(GridPrimitive);
 
 Grid.displayName = 'Grid';

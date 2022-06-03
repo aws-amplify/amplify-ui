@@ -31,6 +31,9 @@ const DividerPrimitive: Primitive<DividerProps, 'hr'> = (
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/divider)
+ */
 export const Divider = React.forwardRef(DividerPrimitive);
 
 Divider.displayName = 'Divider';

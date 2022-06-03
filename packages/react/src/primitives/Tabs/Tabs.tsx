@@ -107,6 +107,9 @@ const TabItemPrimitive: Primitive<TabItemProps, 'button'> = (
   </View>
 );
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/tabs)
+ */
 export const Tabs = React.forwardRef(TabsPrimitive);
 export const TabItem = React.forwardRef(TabItemPrimitive);
 

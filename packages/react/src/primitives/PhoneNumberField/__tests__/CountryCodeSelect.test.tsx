@@ -1,10 +1,9 @@
 import * as React from 'react';
 
-import { getByAltText, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { countryDialCodes } from '@aws-amplify/ui';
 
 import { CountryCodeSelect } from '../CountryCodeSelect';
-import { CountryCodeSelectProps } from '../../types';
 import { ComponentClassNames } from '../../shared/constants';
 
 describe('CountryCodeSelect', () => {
