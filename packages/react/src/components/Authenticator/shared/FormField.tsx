@@ -6,6 +6,7 @@ import { PhoneNumberField } from '../../../primitives/PhoneNumberField';
 import { TextField } from '../../../primitives/TextField';
 import { useAuthenticator } from '../hooks/useAuthenticator';
 import { ValidationErrors } from './ValidationErrors';
+import { useStableId } from '../../../primitives/utils/useStableId';
 
 export interface FormFieldProps extends Omit<FormFieldOptions, 'label'> {
   // label is a required prop for the UI field components used in FormField
@@ -29,6 +30,8 @@ export function FormField({
     [name, validationErrors]
   );
   const hasError = errors?.length > 0;
+  const errorId = useStableId();
+  const ariaDescribedBy = hasError ? errorId : undefined;
 
   if (type === 'tel') {
     return (
@@ -40,8 +43,9 @@ export function FormField({
           countryCodeName="country_code"
           autoComplete={autoComplete}
           hasError={hasError}
+          aria-describedby={ariaDescribedBy}
         />
-        <ValidationErrors errors={errors} />
+        <ValidationErrors errors={errors} id={errorId} />
       </>
     );
   } else if (type === 'password') {
@@ -52,8 +56,9 @@ export function FormField({
           name={name}
           autoComplete={autoComplete}
           hasError={hasError}
+          aria-describedby={ariaDescribedBy}
         />
-        <ValidationErrors errors={errors} />
+        <ValidationErrors errors={errors} id={errorId} />
       </>
     );
   } else {
@@ -65,8 +70,9 @@ export function FormField({
           autoComplete={autoComplete}
           hasError={hasError}
           type={type}
+          aria-describedby={ariaDescribedBy}
         />
-        <ValidationErrors errors={errors} />
+        <ValidationErrors errors={errors} id={errorId} />
       </>
     );
   }
