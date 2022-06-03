@@ -24,8 +24,8 @@
   &-search {
     flex-direction: row;
     justify-content: center;
-    --amplify-components-searchfield-color: var(
-      --amplify-components-collection-search-color
+    --amplify-components-searchfield-input-color: var(
+      --amplify-components-collection-search-input-color
     );
     --amplify-components-searchfield-button-color: var(
       --amplify-components-collection-search-button-color

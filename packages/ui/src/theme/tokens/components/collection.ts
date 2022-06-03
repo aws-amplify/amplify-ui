@@ -22,7 +22,9 @@ interface PaginationTokens {
 }
 
 export interface SearchTokens {
-  color: DesignToken<ColorValue>;
+  input: {
+    color: DesignToken<ColorValue>;
+  };
   button: {
     color: DesignToken<ColorValue>;
     _active: StateTokens;
@@ -59,7 +61,9 @@ export const collection: CollectionTokens = {
     },
   },
   search: {
-    color: { value: '{components.searchfield.color}' },
+    input: {
+      color: { value: '{components.searchfield.color}' },
+    },
     button: {
       color: { value: '{components.searchfield.button.color}' },
       _active: {
