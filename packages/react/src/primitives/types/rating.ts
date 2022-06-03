@@ -2,6 +2,7 @@ import { Property } from 'csstype';
 
 import { FlexProps } from './flex';
 import { Sizes } from './base';
+import { StyleToken } from './style';
 
 export type RatingSizes = Sizes;
 
@@ -10,7 +11,7 @@ export interface RatingOptions {
    * The CSS color to use on the empty rating icon
    * Default css value is #A2A2A2
    */
-  emptyColor?: Property.Color;
+  emptyColor?: StyleToken<Property.Color>;
 
   /**
    * This will override which icon to use as the empty icon. This will only
@@ -23,7 +24,7 @@ export interface RatingOptions {
    * The CSS color to use on the filled rating icon
    * Default css value is #ffb400
    */
-  fillColor?: Property.Color;
+  fillColor?: StyleToken<Property.Color>;
 
   /**
    * This will override which icon to use. This will override both

@@ -2,6 +2,7 @@ import { Property } from 'csstype';
 
 import { ViewProps } from '../types/view';
 import { Sizes } from './base';
+import { StyleToken } from './style';
 
 export type LoaderSizes = Sizes;
 
@@ -19,11 +20,11 @@ export interface LoaderProps extends ViewProps {
   /**
    * This will set the filled color of Loader.
    */
-  filledColor?: Property.Color;
+  filledColor?: StyleToken<Property.Color>;
   /**
    * This will set the empty color of Loader.
    */
-  emptyColor?: Property.Color;
+  emptyColor?: StyleToken<Property.Color>;
   /**
    * This will set the percentage of a determinate Loader.
    */

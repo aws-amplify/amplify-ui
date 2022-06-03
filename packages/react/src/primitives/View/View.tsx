@@ -35,6 +35,9 @@ const ViewPrimitive = <Element extends ElementType = 'div'>(
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/view)
+ */
 export const View = React.forwardRef(ViewPrimitive);
 
 View.displayName = 'View';

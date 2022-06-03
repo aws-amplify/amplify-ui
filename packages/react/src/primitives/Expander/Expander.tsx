@@ -59,6 +59,9 @@ const ExpanderPrimitive: Primitive<ExpanderProps, typeof Root> = (
   return expander;
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/expander)
+ */
 export const Expander = React.forwardRef(ExpanderPrimitive);
 
 Expander.displayName = 'Expander';
