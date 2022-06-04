@@ -1,4 +1,4 @@
-import { Flex, Image, Button, useTheme } from '@aws-amplify/ui-react';
+import { Flex, Image, Button } from '@aws-amplify/ui-react';
 
 import { capitalize } from 'lodash';
 import { useCustomRouter } from '@/components/useCustomRouter';
@@ -35,9 +35,7 @@ const FrameworkLink = ({
       >
         <Image
           alt={framework}
-          height="1.25rem"
-          width="1.25rem"
-          display="block"
+          className="docs-framework-img"
           src={`/svg/integrations/${framework}.svg`}
         />
         {capitalize(framework)}
@@ -47,12 +45,12 @@ const FrameworkLink = ({
 };
 
 interface FrameworkChooserProps {
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 export const FrameworkChooser = ({ onClick }: FrameworkChooserProps) => {
   const { pathname } = useCustomRouter();
-  const { tokens } = useTheme();
+
   const {
     frontmatter: { supportedFrameworks = 'react' },
   } = metaData[pathname];
@@ -60,7 +58,7 @@ export const FrameworkChooser = ({ onClick }: FrameworkChooserProps) => {
     supportedFrameworks === 'all' ? FRAMEWORKS : supportedFrameworks.split('|');
 
   return (
-    <Flex direction="column" gap={tokens.space.xs}>
+    <Flex className="docs-framework-chooser">
       {FRAMEWORKS.map((framework) => (
         <FrameworkLink
           key={framework}

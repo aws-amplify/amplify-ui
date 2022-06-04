@@ -33,10 +33,14 @@
 .install-code__container {
   flex-grow: 1;
   display: flex;
+  background-color: var(--amplify-colors-background-secondary);
+  border-radius: var(--amplify-radii-medium);
+  align-items: center;
 }
 
 .install-code__content {
-  margin: auto;
+  flex: 1;
+  margin: 0 var(--amplify-space-medium);
   overflow-x: auto;
   white-space: normal;
 }
@@ -75,5 +79,26 @@
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border-width: 0;
+  }
+}
+
+.docs-home {
+  .docs-framework-chooser {
+    flex-direction: row;
+    flex-wrap: wrap;
+    min-width: 50vw;
+    padding: var(--amplify-space-xxl);
+  }
+  
+  .docs-framework-link {
+    flex: 1;
+    flex-direction: column;
+    padding: var(--amplify-space-large);
+    font-size: var(--amplify-font-sizes-xl);
+  }
+  
+  .docs-framework-img {
+    width: var(--amplify-font-sizes-xxxxl);
+    height: var(--amplify-font-sizes-xxxxl);
   }
 }
