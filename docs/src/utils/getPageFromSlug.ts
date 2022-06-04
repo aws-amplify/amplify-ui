@@ -2,7 +2,13 @@ import matter from 'gray-matter';
 import path from 'path';
 import { readFile } from 'fs/promises';
 
-export async function getPageFromSlug(slug: string) {
+export type GetPageFromSlug = (slug: string) => Promise<{
+  content: string;
+  frontmatter: Record<string, string>;
+  href: string;
+  slug: string;
+}>;
+export const getPageFromSlug: GetPageFromSlug = async (slug: string) => {
   if (slug.startsWith('/')) {
     slug = slug.slice(1);
   }
@@ -25,4 +31,4 @@ export async function getPageFromSlug(slug: string) {
   };
 
   return { content, frontmatter, href, slug };
-}
+};
