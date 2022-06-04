@@ -206,17 +206,6 @@ module.exports = withNextPluginPreval({
       ],
     });
 
-    config.module.rules.push({
-      test: /\.json5?$/i,
-      loader: 'json5-loader',
-      options: {
-        // TypeError: Cannot read property 'split' of undefined
-        // ../node_modules/axios/lib/helpers/validator.js (15:0)
-        esModule: false,
-      },
-      type: 'javascript/auto',
-    });
-
     // resolve react and react-dom from project node_modules
     config.resolve.alias = {
       ...config.resolve.alias,

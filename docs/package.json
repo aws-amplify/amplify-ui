@@ -23,14 +23,12 @@
     "@cucumber/gherkin": "^19.0.3",
     "@cucumber/messages": "^16.0.1",
     "@docsearch/react": "3",
-    "@heroicons/react": "^1.0.1",
     "@mdx-js/loader": "^2.1.0",
     "@mdx-js/mdx": "^2.1.0",
     "@mdx-js/react": "^2.1.0",
     "@moxy/next-compile-node-modules": "^2.1.1",
     "@xstate/inspect": "^0.4.1",
     "aws-amplify": "latest",
-    "aws-amplify-react": "latest",
     "classnames": "^2.3.1",
     "countries-list": "^2.6.1",
     "dotenv": "^16.0.0",
@@ -59,8 +57,6 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@tailwindcss/forms": "^0.2.1",
-    "@tailwindcss/typography": "^0.4.0",
     "@types/lodash": "^4.14.170",
     "@types/node": "^14.14.31",
     "@types/react": "^17.0.2",
@@ -70,8 +66,6 @@
     "esbuild-register": "^3.3.2",
     "eslint-config-next": "12.0.4",
     "globby": "^13.1.1",
-    "json5-loader": "^4.0.1",
-    "postcss": "^8.2.6",
-    "tailwindcss": "^2.0.3"
+    "postcss": "^8.2.6"
   }
 }
