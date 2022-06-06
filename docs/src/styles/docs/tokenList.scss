@@ -112,28 +112,6 @@
   }
 }
 
-.docs-radiusBlock svg {
-  background-size: 1rem 1rem;
-  background-image:
-    linear-gradient(to right, hsla(210, 25%, 25%, 5%) 1px, transparent 1px),
-    linear-gradient(to bottom, hsla(210, 25%, 25%, 5%) 1px, transparent 1px);
-}
-
-.docs-radiusSVG {
-  margin: 0 auto;
-  display: block;
-  background-size: 1rem 1rem;
-  background-image:
-    linear-gradient(to right, hsla(210, 25%, 25%, 5%) 1px, transparent 1px),
-    linear-gradient(to bottom, hsla(210, 25%, 25%, 5%) 1px, transparent 1px);
-}
-
-.docs-radiusSVG-text {
-  font-family: $font-code;
-  font-size: var(--amplify-font-sizes-small);
-  font-weight: var(--amplify-font-weights-bold);
-}
-
 .docs-tokenItem-meta, .docs-tokenItem-path {
   font-family: $font-code;
   font-size: var(--amplify-font-sizes-small);
