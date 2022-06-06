@@ -62,6 +62,7 @@ export function TokenMeta({ children }) {
 
 export function TokenList({ namespace, childNamespace }) {
   const { tokens } = useTheme();
+  console.log('tokens: ', tokens);
   const tokenList = createTokenList(
     childNamespace ? tokens[namespace][childNamespace] : tokens[namespace]
   );

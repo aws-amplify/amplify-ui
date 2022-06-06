@@ -1,61 +1,73 @@
-import { TokenList } from '@/components/Theming/TokenList';
+import React from 'react';
+import { CardLink } from '@/components/CardLink';
+import { Grid, Icon } from '@aws-amplify/ui-react';
+import { Colors, Typography, Sizes } from './icons';
 
-## Fonts
-<TokenList namespace="fonts" />
+Amplify UI follows the [System UI Theme Specification](https://system-ui.com/theme/) with some modifications. This allows for a consistent pattern when defining our default tokens for properties such as color, fontSizes, border radius, and more. In addition to the reference here, you can browse our [default tokens](https://github.com/aws-amplify/amplify-ui/tree/main/packages/ui/src/theme/tokens) and their corresponding types on Github.
 
-## FontWeights
-<TokenList namespace="fontWeights" />
+## Explore the tokens
 
-## FontSizes
-<TokenList namespace="fontSizes" />
+<Grid 
+  templateColumns="repeat(auto-fill, minmax(16rem, 1fr))"
+  gap="var(--amplify-space-small)">
+  <CardLink 
+    img={<Colors />}
+    href="/react/theming/default-theme/colors" 
+    title="Colors" 
+    desc="Tokens that define our default color palette" />
 
-## LineHeights
-<TokenList namespace="lineHeights" />
+  <CardLink 
+    img={<Typography />}
+    href="/react/theming/default-theme/typography" 
+    title="Typography" 
+    desc="Font families, font sizes, line heights and more" />
 
-## Radii
-<TokenList namespace="radii" />
+  <CardLink 
+    img={<Sizes />}
+    href="/react/theming/default-theme/sizes" 
+    title="Sizes" 
+    desc="Tokens for spacing, border widths and radii" />
+    
+</Grid>
+## Using default theme tokens
 
-## Space
-<TokenList namespace="space" />
+The overall structure of the default theme object gives us a clue as to how to reference each token. If we look at the top level of the object, we can see how the tokens are separated by properties:
 
-## BorderGroup
-<TokenList namespace="borderWidths" />
+```typescript file=../../../../../../packages/ui/src/theme/tokens/index.ts#L25-L41
 
+```
 
-## Neutral
-<TokenList namespace="colors" childNamespace="neutral" />
+If we use `space` as an example, we'd discover its token definition looks similar to the following (shortened for example):
 
-## Red
-<TokenList namespace="colors" childNamespace="red" />
+```json
+  space: {
+    xxs: {},
+    xs: {},
+    small: {
+      value: "0.75rem"
+    }
+    medium: {},
+    large: {},
+  }
+```
 
-## Orange
-<TokenList namespace="colors" childNamespace="orange" />
+All of our tokens follow this pattern: a top level namespace that is further defined by a scale, each which has their own unique value. In the case of our space design tokens, that scale is based on a size: small, medium, large, etc. Our color tokens, on the other hand, are further defined by hue (red, blue, yellow, etc), and then by a numerical scale based on lightness (10-100). 
 
-## Yellow
-<TokenList namespace="colors" childNamespace="yellow" />
+This structure allows us to reference the small space value as `tokens.space.small` such as in the following example:
 
-## Green
-<TokenList namespace="colors" childNamespace="green" />
+```jsx
+import { useTheme } from '@aws-amplify/ui-react';
 
-## Teal
-<TokenList namespace="colors" childNamespace="teal" />
+const MyComponent = () => {
+  const { tokens } = useTheme();
+  return <View marginBottom={tokens.space.small}>{children}</Text>;
+};
+```
 
-## Blue
-<TokenList namespace="colors" childNamespace="blue" />
+The space token definition also gives us an idea of how the css custom properties associated with each token are named. Amplify UI uses StyleDictionary to generate the associated css custom properties for each token. For the small space token, this would be `--amplify-space-small` and we can use it like in the following example:
 
-## Purple
-<TokenList namespace="colors" childNamespace="purple" />
-
-## Pink
-<TokenList namespace="colors" childNamespace="pink" />
-
-## Black
-<TokenList namespace="colors" childNamespace="black" />
-
-## White
-<TokenList namespace="colors" childNamespace="white" />
-
-## Transparent
-<TokenList namespace="colors" childNamespace="transparent" />
-
-
+```jsx
+const MyComponent = () => {
+  return <View marginBottom="var(--amplify-space-small)">{children}</Text>;
+};
+```

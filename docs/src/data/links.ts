@@ -364,7 +364,22 @@ export const theming = [
   {
     href: '/theming/default-theme',
     label: 'Default Theme',
-    platforms: ['react', 'vue', 'angular'],
+    platforms: ['react'],
+  },
+  {
+    href: '/theming/default-theme/colors',
+    label: 'Colors',
+    platforms: ['react'],
+  },
+  {
+    href: '/theming/default-theme/typography',
+    label: 'Typography',
+    platforms: ['react'],
+  },
+  {
+    href: '/theming/default-theme/sizes',
+    label: 'Sizes',
+    platforms: ['react'],
   },
   {
     href: '/theming/dark-mode',
