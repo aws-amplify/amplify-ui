@@ -6,5 +6,6 @@ export const AccessibilityExample = () => (
     labelHidden={true}
     defaultCountryCode="+1"
     placeholder="Phone Number"
+    countryCodeLabel="Country code"
   />
 );

@@ -10,6 +10,7 @@ const withNextPluginPreval = require('next-plugin-preval/config')();
 module.exports = withNextPluginPreval({
   env: {
     BRANCH,
+    SITE_URL: process.env.SITE_URL,
     DOCSEARCH_DOCS_APP_ID: process.env.DOCSEARCH_DOCS_APP_ID,
     DOCSEARCH_DOCS_API_KEY: process.env.DOCSEARCH_DOCS_API_KEY,
     DOCSEARCH_DOCS_INDEX_NAME: process.env.DOCSEARCH_DOCS_INDEX_NAME,
@@ -203,17 +204,6 @@ module.exports = withNextPluginPreval({
           loader: 'raw-loader',
         },
       ],
-    });
-
-    config.module.rules.push({
-      test: /\.json5?$/i,
-      loader: 'json5-loader',
-      options: {
-        // TypeError: Cannot read property 'split' of undefined
-        // ../node_modules/axios/lib/helpers/validator.js (15:0)
-        esModule: false,
-      },
-      type: 'javascript/auto',
     });
 
     // resolve react and react-dom from project node_modules
