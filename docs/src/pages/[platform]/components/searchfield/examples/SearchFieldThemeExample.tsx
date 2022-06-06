@@ -14,7 +14,7 @@ export const SearchFieldThemeExample = () => {
       components: {
         searchfield: {
           color: { value: 'red' },
-          search: {
+          button: {
             color: { value: 'red' },
             _hover: {
               color: { value: tokens.colors.blue[80].value },
