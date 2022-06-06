@@ -13,6 +13,7 @@ const SearchFieldPrimitive: Primitive<SearchFieldProps, 'input'> = (
   {
     autoComplete = 'off',
     className,
+    isDisabled,
     clearButtonLabel,
     labelHidden = true,
     name = 'q',
@@ -42,12 +43,14 @@ const SearchFieldPrimitive: Primitive<SearchFieldProps, 'input'> = (
           variation="link"
         />
       }
+      isDisabled={isDisabled}
       isMultiline={false}
       name={name}
       onInput={onInput}
       onKeyDown={onKeyDown}
       outerEndComponent={
         <SearchFieldButton
+          isDisabled={isDisabled}
           onClick={onClick}
           ref={searchButtonRef}
           size={size}
