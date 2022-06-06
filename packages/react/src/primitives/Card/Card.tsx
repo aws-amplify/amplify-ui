@@ -26,6 +26,9 @@ const CardPrimitive: Primitive<CardProps, 'div'> = (
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/card)
+ */
 export const Card = React.forwardRef(CardPrimitive);
 
 Card.displayName = 'Card';

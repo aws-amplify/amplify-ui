@@ -24,6 +24,9 @@ const ScrollViewPrimitive: Primitive<ScrollViewProps, 'div'> = (
   </View>
 );
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/scrollview)
+ */
 export const ScrollView = React.forwardRef(ScrollViewPrimitive);
 
 ScrollView.displayName = 'ScrollView';

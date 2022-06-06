@@ -67,6 +67,9 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/button)
+ */
 export const Button = React.forwardRef(ButtonPrimitive);
 
 Button.displayName = 'Button';

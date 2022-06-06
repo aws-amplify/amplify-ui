@@ -7,16 +7,15 @@
  */
 
 import dotenv from 'dotenv-safe';
-import { globby } from 'globby';
 import prettier from 'prettier';
 import { writeFileSync } from 'fs';
 import path from 'path';
 
+import { getAllPaths } from '../src/utils/getAllPaths';
 import { getContentPaths } from '../src/utils/getContentPaths';
 import { getPageFromSlug } from '../src/utils/getPageFromSlug';
 import { getPagesManifest } from '../src/utils/getPagesManifest';
 import { META_INFO } from '../src/data/meta';
-import { FRAMEWORKS } from '../src/data/frameworks';
 
 dotenv.config();
 
@@ -29,39 +28,8 @@ async function generateSitemap() {
 
   console.log('🗺 ▶️ SiteMap generating...');
   const prettierConfig = await prettier.resolveConfig('./.prettierrc.js');
-  const pagesWithParam = await globby([
-    'src/pages/**/index.page.tsx',
-    'src/pages/**/index.page.mdx',
-    '!src/pages/_*.tsx',
-    '!src/pages/404.page.tsx',
-  ]);
 
-  const pages = pagesWithParam
-    .slice(1)
-    .flatMap((p) => {
-      p = p
-        .replace('src/pages', '')
-        .replace('.page.mdx', '')
-        .replace('.page.tsx', '')
-        .replace('/index', '');
-
-      return FRAMEWORKS.map((framework) => {
-        const filepath = p.replace('[platform]', framework);
-        const supportedFrameworks =
-          manifest[p].frontmatter.supportedFrameworks === 'all'
-            ? FRAMEWORKS
-            : manifest[p].frontmatter.supportedFrameworks.split('|');
-        if (supportedFrameworks.includes(framework)) {
-          return filepath;
-        } else {
-          console.log(
-            `ⓧ ${filepath} does not support ${framework}. Skipping adding to sitemap.`
-          );
-          return '';
-        }
-      });
-    })
-    .filter((el) => el);
+  const pages = await getAllPaths();
 
   const sitemap = `
     <?xml version="1.0" encoding="UTF-8"?>

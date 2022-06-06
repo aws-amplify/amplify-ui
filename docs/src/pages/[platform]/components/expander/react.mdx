@@ -6,6 +6,7 @@ import {
   ClassStylingExpander,
   CollapsibleExpander,
   ControlledSingleExpander,
+  CustomTitleComponent,
   DefaultExpanderExample,
   ExpandedByDefaultMultipleExpander,
   StylePropsExpander,
@@ -125,6 +126,22 @@ To use the Expander as controlled component, specify the `value` of the item(s) 
 
   </ExampleCode>
 </Example>
+
+### Custom title component
+
+For more control over the layout or styling of the expander item header, pass a custom component to the `<ExpanderItem>` title prop.
+
+<Example>
+  <View>
+    <CustomTitleComponent />
+  </View>
+  <ExampleCode>
+```jsx file=./examples/CustomTitleComponent.tsx
+
+```
+  </ExampleCode>
+</Example>
+
 
 ## CSS Styling
 

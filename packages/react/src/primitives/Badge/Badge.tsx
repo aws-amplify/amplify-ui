@@ -31,6 +31,9 @@ const BadgePrimitive: Primitive<BadgeProps, 'span'> = (
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/badge)
+ */
 export const Badge = React.forwardRef(BadgePrimitive);
 
 Badge.displayName = 'Badge';
