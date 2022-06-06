@@ -1,0 +1,72 @@
+import { View, Text } from '@aws-amplify/ui-react';
+
+export function SpaceBlock({ value }) {
+  return (
+    <View className="docs-spaceBlock">
+      <View className="docs-spaceBlock-inner" width={value}></View>
+    </View>
+  );
+}
+
+export function BorderWidthBlock({ value }) {
+  return (
+    <View
+      className="docs-borderBlock"
+      backgroundColor="var(--amplify-colors-teal-80)"
+      height={value}
+    ></View>
+  );
+}
+
+export function FontBlock({ children }) {
+  return <View className="docs-fontBlock">{children}</View>;
+}
+
+export function FontSizeBlock({ value }) {
+  return (
+    <FontBlock>
+      <View width="4rem" align="right" fontSize={value}>
+        Aa
+      </View>
+    </FontBlock>
+  );
+}
+
+export function LineHeightBlock({ value }) {
+  return (
+    <FontBlock>
+      <View
+        style={{ display: 'inline-Block' }}
+        backgroundColor="var(--amplify-colors-teal-20)"
+        fontSize="var(--amplify-fontSizes-large"
+        lineHeight={value}
+      >
+        Aa
+      </View>
+    </FontBlock>
+  );
+}
+
+export function FontFamilyBlock({ value }) {
+  return (
+    <FontBlock>
+      <Text fontSize="var(--amplify-font-sizes-xxl" fontFamily={value}>
+        The quick brown fox jumps over the lazy dog.
+      </Text>
+    </FontBlock>
+  );
+}
+
+export function FontWeightBlock({ value }) {
+  return (
+    <FontBlock>
+      <Text fontSize="var(--amplify-font-sizes-large" fontWeight={value}>
+        Aa
+      </Text>
+    </FontBlock>
+  );
+}
+
+export function ColorBlock({ value }) {
+  return <View className="docs-colorBlock" backgroundColor={value}></View>;
+}
