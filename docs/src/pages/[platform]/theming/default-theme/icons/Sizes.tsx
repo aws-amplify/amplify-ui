@@ -37,7 +37,7 @@ export function Sizes() {
         height="12"
         fill="var(--amplify-colors-teal-80)"
       />
-      <rect width="12" height="115" fill="var(--amplify-colors-red-10)" />
+      <rect width="12" height="115" fill="var(--amplify-colors-red-40)" />
     </Icon>
   );
 }

@@ -1,29 +1,37 @@
+@import './_variables.scss';
+
 .docs-cardLink {
   display: flex;
-  flex-direction: column;
   background: var(--amplify-colors-neutral-10);
   padding: var(--amplify-space-medium);
   gap: var(--amplify-space-small);
   border-radius: var(--amplify-radii-small);
   line-height: var(--amplify-line-heights-small);
   text-decoration: none;
+  position: relative;
+  align-items: center;
+  &:before {
+    content: '';
+    position: absolute;
+    width: calc(4rem + var(--amplify-space-medium));
+    height: 3px;
+    top: 0;
+    left: 0;
+    background: var(--amplify-colors-brand-primary-80);
+  }
   &:hover {
+    &:before {
+      background: var(--amplify-colors-brand-secondary-60);
+    }
     .docs-cardLink-title {
       text-decoration: underline;
     }
   }
 }
 
-.docs-cardLink-details {
-  margin-top: auto;
-}
-
 .docs-cardLink-img {
   display: flex;
-  width: 100%;
-  max-width: 12rem;
-  height: 8rem;
-  margin: auto;
+  flex: 0 0 4rem;
   svg {
     width: 100%;
     height: 100%;
@@ -41,5 +49,4 @@
 
 .docs-cardLink-title {
   font-weight: bold;
-  margin-bottom: var(--amplify-space-xxs);
 }
