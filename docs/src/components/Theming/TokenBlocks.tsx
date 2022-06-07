@@ -19,7 +19,11 @@ export function BorderWidthBlock({ value }) {
 }
 
 export function FontBlock({ children }) {
-  return <View className="docs-fontBlock">{children}</View>;
+  return (
+    <View className="docs-fontBlock" aria-hidden="true">
+      {children}
+    </View>
+  );
 }
 
 export function FontSizeBlock({ value }) {

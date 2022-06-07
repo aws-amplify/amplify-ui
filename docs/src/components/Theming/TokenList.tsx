@@ -84,7 +84,7 @@ export function TokenList({ namespace, childNamespace }) {
       case 'colors':
         return <ColorBlock value={value} />;
       default:
-        return <div>{value}</div>;
+        return <div></div>;
     }
   }
 
