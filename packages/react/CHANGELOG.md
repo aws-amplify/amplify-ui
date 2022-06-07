@@ -1,5 +1,59 @@
 # @aws-amplify/ui-react
 
+## 2.19.1
+
+### Patch Changes
+
+- [#2021](https://github.com/aws-amplify/amplify-ui/pull/2021) [`6c267aaf8`](https://github.com/aws-amplify/amplify-ui/commit/6c267aaf8b6cb656458e3398cc923e0e259ea9a2) Thanks [@jacoblogan](https://github.com/jacoblogan)! - React: pass isDisabled flag on searchfield onto the search button
+  UI: add design tokens for collection and searchfield
+
+  ### Searchfield Tokens added
+
+  - --amplify-components-searchfield-color
+  - --amplify-components-searchfield-button-color
+  - --amplify-components-searchfield-button-active-background-color
+  - --amplify-components-searchfield-button-active-border-color
+  - --amplify-components-searchfield-button-active-color
+  - --amplify-components-searchfield-button-disabled-background-color
+  - --amplify-components-searchfield-button-disabled-border-color
+  - --amplify-components-searchfield-button-disabled-color
+  - --amplify-components-searchfield-button-focus-background-color
+  - --amplify-components-searchfield-button-focus-border-color
+  - --amplify-components-searchfield-button-focus-color
+  - --amplify-components-searchfield-button-hover-background-color
+  - --amplify-components-searchfield-button-hover-border-color
+  - --amplify-components-searchfield-button-hover-color
+
+  ### Collection tokens added
+
+  - --amplify-components-collection-pagination-current-color
+  - --amplify-components-collection-pagination-current-background-color
+  - --amplify-components-collection-pagination-button-color
+  - --amplify-components-collection-pagination-button-hover-background-color
+  - --amplify-components-collection-pagination-button-hover-color
+  - --amplify-components-collection-pagination-button-disabled-color
+  - --amplify-components-collection-search-input-color
+  - --amplify-components-collection-search-button-color
+  - --amplify-components-collection-search-button-active-background-color
+  - --amplify-components-collection-search-button-active-border-color
+  - --amplify-components-collection-search-button-active-color
+  - --amplify-components-collection-search-button-disabled-background-color
+  - --amplify-components-collection-search-button-disabled-border-color
+  - --amplify-components-collection-search-button-disabled-color
+  - --amplify-components-collection-search-button-focus-background-color
+  - --amplify-components-collection-search-button-focus-border-color
+  - --amplify-components-collection-search-button-focus-color
+  - --amplify-components-collection-search-button-hover-background-color
+  - --amplify-components-collection-search-button-hover-border-color
+  - --amplify-components-collection-search-button-hover-color
+
+* [#2036](https://github.com/aws-amplify/amplify-ui/pull/2036) [`8862110f1`](https://github.com/aws-amplify/amplify-ui/commit/8862110f14784a1ed75069fef733a9c85950910c) Thanks [@hbuchel](https://github.com/hbuchel)! - chore(react): update unit tests for Expander, which now supports passing any ReactNode (custom component) as title prop
+
+- [#1945](https://github.com/aws-amplify/amplify-ui/pull/1945) [`cf151f9d8`](https://github.com/aws-amplify/amplify-ui/commit/cf151f9d87b4851c5cc87088ef2286dcf6945a0d) Thanks [@wlee221](https://github.com/wlee221)! - Added aria-describedby attribute to link validation error messages to their respective field. This makes the errors more accessible.
+
+- Updated dependencies [[`6c267aaf8`](https://github.com/aws-amplify/amplify-ui/commit/6c267aaf8b6cb656458e3398cc923e0e259ea9a2)]:
+  - @aws-amplify/ui@3.10.0
+
 ## 2.19.0
 
 ### Minor Changes
