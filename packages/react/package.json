@@ -35,6 +35,7 @@
   },
   "files": [
     "dist",
+    "dist/esm/node_modules",
     "legacy",
     "internal",
     "LICENSE"
