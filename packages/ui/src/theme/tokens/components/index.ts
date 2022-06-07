@@ -5,6 +5,7 @@ import { button, ButtonTokens } from './button';
 import { card, CardTokens } from './card';
 import { checkbox, CheckboxTokens } from './checkbox';
 import { checkboxfield, CheckboxFieldTokens } from './checkboxField';
+import { collection, CollectionTokens } from './collection';
 import { copy, CopyTokens } from './copy';
 import {
   countrycodeselect,
@@ -27,6 +28,7 @@ import { pagination, PaginationTokens } from './pagination';
 import { placeholder, PlaceholderTokens } from './placeholder';
 import { radio, RadioTokens } from './radio';
 import { rating, RatingTokens } from './rating';
+import { searchfield, SearchFieldTokens } from './searchField';
 import { select, SelectTokens } from './select';
 import { selectfield, SelectFieldTokens } from './selectField';
 import { sliderfield, SliderFieldTokens } from './sliderField';
@@ -49,6 +51,7 @@ export interface ComponentTokens {
   card: CardTokens;
   checkbox: CheckboxTokens;
   checkboxfield: CheckboxFieldTokens;
+  collection: CollectionTokens;
   copy: CopyTokens;
   countrycodeselect: CountryCodeSelectTokens;
   divider: DividerTokens;
@@ -68,6 +71,7 @@ export interface ComponentTokens {
   placeholder: PlaceholderTokens;
   radio: RadioTokens;
   rating: RatingTokens;
+  searchfield: SearchFieldTokens;
   select: SelectTokens;
   selectfield: SelectFieldTokens;
   sliderfield: SliderFieldTokens;
@@ -88,6 +92,7 @@ export const components: ComponentTokens = {
   card,
   checkbox,
   checkboxfield,
+  collection,
   copy,
   countrycodeselect,
   divider,
@@ -107,6 +112,7 @@ export const components: ComponentTokens = {
   placeholder,
   radio,
   rating,
+  searchfield,
   select,
   selectfield,
   sliderfield,

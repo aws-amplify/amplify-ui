@@ -29,11 +29,11 @@ interface PaginationButtonTokens {
   disabled: PaginationButtonDisabledTokens;
 }
 
-interface PaginationButtonHoverTokens {
+export interface PaginationButtonHoverTokens {
   backgroundColor: DesignToken<BackgroundColorValue>;
   color: DesignToken<ColorValue>;
 }
-interface PaginationButtonDisabledTokens {
+export interface PaginationButtonDisabledTokens {
   color: DesignToken<ColorValue>;
 }
 
