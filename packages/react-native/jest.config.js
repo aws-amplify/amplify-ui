@@ -7,13 +7,14 @@ module.exports = {
   ],
   moduleNameMapper: {
     '^react$': '<rootDir>/node_modules/react',
+    '^react-native$': '<rootDir>/node_modules/react-native',
   },
   coverageThreshold: {
     global: {
-      branches: 0,
-      functions: 0,
-      lines: 0,
-      statements: 0,
+      branches: 90,
+      functions: 90,
+      lines: 90,
+      statements: 90,
     },
   },
 };

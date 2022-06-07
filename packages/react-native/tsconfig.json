@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
     "declaration": true,
     "downlevelIteration": true,
     "esModuleInterop": true,
@@ -10,10 +11,11 @@
     "moduleResolution": "node",
     "noEmitOnError": true,
     "outDir": "./dist",
+    "rootDir": "src",
     "skipLibCheck": true,
     "strict": true,
-    "target": "es5"
+    "target": "esnext"
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "exclude": ["node_modules", "**/__tests__/**.*"]
+  "exclude": ["node_modules"]
 }
