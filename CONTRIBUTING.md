@@ -54,6 +54,7 @@ You should open an issue to discuss your pull request, unless it's a trivial cha
 ### Troubleshooting
 
 If using an M1/M2 Macbook and you get the following error message regarding installation of `canvas`:
+
 ```bash
 error /Users/USERNAME/amplify-ui/node_modules/canvas: Command failed.
 Exit code: 1
@@ -63,7 +64,6 @@ gyp: Call to 'pkg-config pixman-1 --libs' returned exit status 127 while in bind
 ```
 
 See the [canvas docs](https://github.com/Automattic/node-canvas#compiling) to install required dependencies for local docs development.
-
 
 ## Project Structure
 
@@ -105,6 +105,3 @@ Amplify UI team publishes to NPM on every Tues (mandatory) and Thurs (optional).
 1. Changesets get accumulated into [Version Packages PR](https://github.com/aws-amplify/amplify-ui/pulls/app%2Fgithub-actions).
 1. Maintainer will run tests, approve, and merge the PR.
 1. Previous step will trigger [`publish-latest`](./.github/workflows/publish-next.yml) action that will build and publish packages to NPM.
-
-
-
