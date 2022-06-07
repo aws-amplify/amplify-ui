@@ -40,7 +40,7 @@
     align-self: center;
   }
   @media (min-width: 600px) {
-    grid-template-columns: var(--swatch-size) 140px 180px 1fr;
+    grid-template-columns: var(--swatch-size) 180px 1fr 1fr;
     padding: var(--amplify-space-xs) 0;
     align-items: center;
     .docs-colorBlock {

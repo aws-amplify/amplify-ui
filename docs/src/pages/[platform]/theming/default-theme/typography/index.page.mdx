@@ -1,10 +1,10 @@
 ---
 title: Typography
 description: The default theme provides tokens for variable weight and static font families, as well as tokens for line height, font size and font weight.
-supportedFrameworks: react
+supportedFrameworks: react|angular|vue
 ---
 
 import { Fragment } from '@/components/Fragment';
 
-<Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+<Fragment useCommonWebContent>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
 

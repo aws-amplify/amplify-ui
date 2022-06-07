@@ -13,7 +13,6 @@ export function createTokenList(tokens) {
   let tokenList = [];
   function iterateGroup(group) {
     for (const [key, value] of Object.entries(group)) {
-      // console.log(value);
       if (typeof value === 'object' && value.hasOwnProperty('name')) {
         tokenList.push({
           ...value,
@@ -62,10 +61,16 @@ export function TokenMeta({ children }) {
 
 export function TokenList({ namespace, childNamespace }) {
   const { tokens } = useTheme();
-  console.log('tokens: ', tokens);
-  const tokenList = createTokenList(
-    childNamespace ? tokens[namespace][childNamespace] : tokens[namespace]
-  );
+
+  let tokenNamespace = tokens[namespace];
+  if (childNamespace) {
+    let childNamespaceArr = childNamespace.trim().split(',');
+    for (var i = 0; i < childNamespaceArr.length; i++) {
+      tokenNamespace = tokenNamespace[childNamespaceArr[i]];
+    }
+  }
+
+  const tokenList = createTokenList(tokenNamespace);
 
   function renderVisualElement(value) {
     switch (namespace) {
