@@ -24,9 +24,6 @@
     "eslint-plugin-vue": "^7.0.0",
     "serve": "^13.0.2"
   },
-  "resolutions": {
-    "error-stack-parser": "2.0.7"
-  },
   "eslintConfig": {
     "root": true,
     "env": {
