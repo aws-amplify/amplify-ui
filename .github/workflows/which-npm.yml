@@ -22,5 +22,7 @@ jobs:
         with:
           node-version: lts/*
           cache: 'yarn'
+      - name: Check node version
+        run: node --version
       - name: Check npm version
         run: npm --version
