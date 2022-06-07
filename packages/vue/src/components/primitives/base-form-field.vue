@@ -43,7 +43,7 @@ const ariaDescribedBy = computed(() =>
     :required="formField.isRequired!"
     :label-hidden="formField.labelHidden!"
     :autocomplete="formField.autocomplete!"
-    :hasError="!!validationErrors[name]"
+    :hasError="hasError"
     :describedBy="ariaDescribedBy"
   ></password-control>
 
@@ -59,12 +59,12 @@ const ariaDescribedBy = computed(() =>
     :dial-code="formField.dialCode"
     :dial-code-list="formField.dialCodeList"
     :type="formField.type"
-    :hasError="!!validationErrors[name]"
+    :hasError="hasError"
     :describedBy="ariaDescribedBy"
   ></alias-control>
 
   <!-- Validation error, if any -->
-  <div v-if="errors?.length > 0" :id="ariaDescribedBy">
+  <div v-if="hasError" :id="ariaDescribedBy">
     <p
       v-for="(error, idx) in errors"
       :key="idx"
