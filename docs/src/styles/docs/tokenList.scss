@@ -75,8 +75,21 @@
 
 
 .docs-tokenItem--radii {
+  grid-template-columns: auto;
+  justify-items: center;
+  .docs-radiusBlock {
+    grid-area: 1 / 1 / 4 / 1;
+    align-self: center;
+  }
   @media (min-width: $breakpoint-medium) {
-    grid-template-columns: 100px 100px 1fr 1fr;
+    // This first column size accomodates our largest radius + an extra
+    // pixel width to account for SVG stroke
+    grid-template-columns: calc(2 * var(--amplify-radii-xxxl) + 1px) 100px 100px 1fr;
+    justify-items: start;
+    .docs-radiusBlock {
+      grid-area: 1 / 1 / 2 / 1;
+      margin-left: auto;
+    }
   }
 }
 
@@ -110,6 +123,18 @@
   @media (min-width: $breakpoint-medium) {
     margin-left: 0;
   }
+}
+
+.docs-radiusBlock {
+  svg {
+    background-size: 1rem 1rem;
+    background-image:
+      linear-gradient(to right, var(--amplify-colors-neutral-20) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--amplify-colors-neutral-20) 1px, transparent 1px);
+  }
+}
+.docs-radiusBlock-border {
+  transform: translate(-100%, 0);
 }
 
 .docs-tokenItem-meta, .docs-tokenItem-path {

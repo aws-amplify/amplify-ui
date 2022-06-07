@@ -74,3 +74,34 @@ export function FontWeightBlock({ value }) {
 export function ColorBlock({ value }) {
   return <View className="docs-colorBlock" backgroundColor={value}></View>;
 }
+
+export function RadiusBlock({ value }) {
+  const minBlockSize = 'calc(2rem + 1px)';
+  return (
+    <div className="docs-radiusBlock">
+      <svg
+        width={`max(${minBlockSize}, calc(2 * ${value} + 1px))`}
+        height={`max(${minBlockSize}, calc(2 * ${value} + 1px))`}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect
+          x="1"
+          y="1"
+          strokeWidth="1px"
+          stroke="var(--amplify-colors-neutral-60)"
+          className="docs-radiusBlock-border"
+          fill="transparent"
+          width={`max(4rem, calc(4 * ${value}))`}
+          height={`max(4rem, calc(4 * ${value}))`}
+          rx={value}
+        ></rect>
+        <circle
+          fill="hsla(340, 50%, 50%, 60%)"
+          cx={`calc(max(${minBlockSize}, calc(2 * ${value} + 1px)) - calc(${value} + 1px))`}
+          cy={`calc(${value} + 1px)`}
+          r={value}
+        ></circle>
+      </svg>
+    </div>
+  );
+}

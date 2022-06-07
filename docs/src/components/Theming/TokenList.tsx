@@ -8,6 +8,7 @@ import {
   LineHeightBlock,
   FontWeightBlock,
   ColorBlock,
+  RadiusBlock,
 } from './TokenBlocks';
 
 export function createTokenList(tokens) {
@@ -108,6 +109,8 @@ export function TokenList({ namespace, childNamespace }) {
         return <SpaceBlock value={value} />;
       case 'colors':
         return <ColorBlock value={value} />;
+      case 'radii':
+        return <RadiusBlock value={value} />;
       default:
         return <div></div>;
     }
