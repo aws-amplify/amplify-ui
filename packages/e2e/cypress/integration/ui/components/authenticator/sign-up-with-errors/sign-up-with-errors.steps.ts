@@ -1,7 +1,7 @@
 import { And } from 'cypress-cucumber-preprocessor/steps';
 
 And('I confirm {string} error is accessible', () => {
-  // input value should be invalid
+  // input field should be invalid
   cy.findInputField('Password')
     .should('have.attr', 'aria-invalid')
     .should('equal', 'true');
