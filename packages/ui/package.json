@@ -24,6 +24,7 @@
   },
   "files": [
     "dist",
+    "dist/esm/node_modules",
     "LICENSE"
   ],
   "scripts": {
