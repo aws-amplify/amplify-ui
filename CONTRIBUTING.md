@@ -53,7 +53,7 @@ You should open an issue to discuss your pull request, unless it's a trivial cha
 
 ### Troubleshooting
 
-If using an M1/M2 Macbook and you get the following error message regarding installation of `canvas`:
+If using an M1 (or more recent) Macbook and you get the following error message regarding installation of `canvas`:
 
 ```bash
 error /Users/USERNAME/amplify-ui/node_modules/canvas: Command failed.
