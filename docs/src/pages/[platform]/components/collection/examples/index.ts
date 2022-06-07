@@ -1,4 +1,5 @@
 export { CollectionStylePropExample } from './CollectionStylePropExample';
+export { CollectionThemeExample } from './CollectionThemeExample';
 export { DefaultCollectionExample } from './DefaultCollectionExample';
 export { GridCollectionExample } from './GridCollectionExample';
 export { ListCollectionExample } from './ListCollectionExample';
