@@ -1,3 +1,4 @@
+import React from 'react';
 import { useTheme } from '@aws-amplify/ui-react';
 import {
   SpaceBlock,
@@ -10,6 +11,7 @@ import {
 } from './TokenBlocks';
 
 export function createTokenList(tokens) {
+  // Creates an array out of the token object passed to createTokenList()
   let tokenList = [];
   function iterateGroup(group) {
     for (const [key, value] of Object.entries(group)) {
@@ -45,10 +47,19 @@ export function TokenPath({ path }) {
     <div className="docs-tokenItem-path">
       {path.map((pathFragment, index) => {
         return (
-          <>
-            {index !== 0 && isNaN(pathFragment) && '.'}
-            {!isNaN(pathFragment) ? `[${pathFragment}]` : pathFragment}
-          </>
+          <React.Fragment key={index}>
+            {
+              /**
+               * Path fragments start with a '.' unless it's the first
+               * item or a number, e.g. 'neutral[80]'.
+               */
+              index !== 0 && isNaN(pathFragment) && '.'
+            }
+            {
+              // Path fragments that are a number should be wrapped in
+              isNaN(pathFragment) ? pathFragment : `[${pathFragment}]`
+            }
+          </React.Fragment>
         );
       })}
     </div>
@@ -62,6 +73,10 @@ export function TokenMeta({ children }) {
 export function TokenList({ namespace, childNamespace }) {
   const { tokens } = useTheme();
 
+  /**
+   * Get the tokens from useTheme() depending on what namespace
+   * and childNamespace(s) are passed to the TokenList
+   */
   let tokenNamespace = tokens[namespace];
   if (childNamespace) {
     let childNamespaceArr = childNamespace.trim().split(',');
@@ -70,8 +85,13 @@ export function TokenList({ namespace, childNamespace }) {
     }
   }
 
+  // Create a more iteratable list (array) from our tokens
   const tokenList = createTokenList(tokenNamespace);
 
+  /**
+   * Depending on the namespace,  render a different visual
+   * element for the token list (like a color swatch for 'colors')
+   */
   function renderVisualElement(value) {
     switch (namespace) {
       case 'fontWeights':
@@ -97,7 +117,10 @@ export function TokenList({ namespace, childNamespace }) {
     <ul className="docs-tokenGroup docs-tokenGroup--list">
       {tokenList.map((tokenItem) => {
         const { name, path, value } = tokenItem;
+
+        // Remove the first path fragment which is the same as the namespace.
         path.shift();
+
         return (
           <TokenItem variation={namespace} key={name}>
             {renderVisualElement(value)}
