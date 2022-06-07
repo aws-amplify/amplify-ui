@@ -51,6 +51,20 @@ You should open an issue to discuss your pull request, unless it's a trivial cha
 1. Add a [changeset](https://github.com/changesets/changesets) that describes your changes. More info [here](https://github.com/changesets/changesets/blob/main/docs/adding-a-changeset.md). Please make sure that your changeset only bumps `@aws-amplify/*` packages and does not bump any of private packages like `docs`, `e2e`, `examples`, etc.
 1. Finally, Amplify UI team will review your PR. Add reviewers based on the core member who is tracking the issue with you or code owners. In the meantime, address any automated check that fail (such as linting, unit tests, etc. in CI)
 
+### Troubleshooting
+
+If using an M1 (or more recent) Macbook and you get the following error message regarding installation of `canvas`:
+
+```bash
+error /Users/USERNAME/amplify-ui/node_modules/canvas: Command failed.
+Exit code: 1
+...
+/bin/sh: pkg-config: command not found
+gyp: Call to 'pkg-config pixman-1 --libs' returned exit status 127 while in binding.gyp. while trying to load binding.gyp`
+```
+
+See the [canvas docs](https://github.com/Automattic/node-canvas#compiling) to install required dependencies for local docs development.
+
 ## Project Structure
 
 `amplify-ui` is a monorepo that contains the following workspaces:
