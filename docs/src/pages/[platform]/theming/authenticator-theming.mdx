@@ -1,6 +1,6 @@
 import { Fragment } from '@/components/Fragment';
 import { Example, ExampleCode } from '@/components/Example';
-import { Authenticator } from '@aws-amplify/ui-react';
+import { Authenticator, Alert } from '@aws-amplify/ui-react';
 import Link from 'next/link';
 import {
   AuthenticatorButtonClassExample,
@@ -9,15 +9,11 @@ import {
 
 A Theme is a structured collection of design decisions that change the appearance of a UI library. An Amplify UI theme allows application wide visual changes through the use of targeted CSS classes and variables.
 
-## Getting started
+<Alert variation="info">
+  For instructions on setting up authenticator and base styling please see <Link href={`/${props.framework}/components/authenticator#quick-start`}>#quick-start</Link>
+</Alert>
 
-<Fragment>
-  {({ platform }) =>
-    import(`../components/authenticator/quick-start-example.${platform}.mdx`)
-  }
-</Fragment>
-
-### Classes
+## Classes
 
 You can override the Authenticator's `amplify-*` classes to Theme the authenticator. For example to style all of the buttons in the Authenticator you could target the `amplify-button` class.
 
@@ -40,7 +36,7 @@ To view additional examples of styling the Authenticator using css classes pleas
 
 <AuthenticatorClasses />
 
-### Variables
+## Variables
 
 You can overwrite the Authenticator's `--amplify-*` css variables to theme the Authenticator. For example the sign in page of the Authenticator uses the `--amplify-components-button-*` css variables to style the sign in fields.
 
