@@ -1,0 +1,21 @@
+# This workflow will run unit, e2e, and docs tests on PRs targeted against `main`.
+
+name: Check NPM version
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, labeled]
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup Node.js LTS
+        uses: actions/setup-node@v2
+        with:
+          node-version: lts/*
+          cache: 'yarn'
+      - name: Check npm version
+        run: npm --version
