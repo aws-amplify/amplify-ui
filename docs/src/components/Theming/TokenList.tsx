@@ -11,10 +11,10 @@ import {
 } from './TokenBlocks';
 
 export function createTokenList(tokens) {
-  // Creates an array out of the token object passed to createTokenList()
+  // Creates a flattened array out of the token object passed to createTokenList()
   let tokenList = [];
   function iterateGroup(group) {
-    for (const [key, value] of Object.entries(group)) {
+    Object.values(group).forEach((value) => {
       if (typeof value === 'object' && value.hasOwnProperty('name')) {
         tokenList.push({
           ...value,
@@ -22,7 +22,7 @@ export function createTokenList(tokens) {
       } else {
         iterateGroup(value);
       }
-    }
+    });
   }
   if (tokens.hasOwnProperty('name')) {
     tokenList.push(tokens);
