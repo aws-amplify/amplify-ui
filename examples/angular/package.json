@@ -13,7 +13,7 @@
   },
   "private": true,
   "dependencies": {
-    "aws-amplify": "4.3.24",
+    "aws-amplify": "latest",
     "@angular/animations": "~13.3.11",
     "@angular/common": "~13.3.11",
     "@angular/compiler": "~13.3.11",
