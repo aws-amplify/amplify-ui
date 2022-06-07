@@ -200,4 +200,26 @@ describe('Collection component', () => {
     userEvent.type(searchInput, text);
     expect(searchInput).toHaveValue(text);
   });
+
+  it('should be able to customize search field label', async () => {
+    const searchLabel = 'Search emojis';
+    render(
+      <Collection
+        testId={testList}
+        type="list"
+        items={emojis}
+        searchLabel={searchLabel}
+        isSearchable
+      >
+        {(item, index) => (
+          <div key={index} aria-label={item.title}>
+            {item.emoji}
+          </div>
+        )}
+      </Collection>
+    );
+
+    const searchControl = await screen.findByLabelText(searchLabel);
+    expect(searchControl).toBeDefined();
+  });
 });

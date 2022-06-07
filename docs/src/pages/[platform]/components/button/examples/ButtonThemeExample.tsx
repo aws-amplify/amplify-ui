@@ -1,4 +1,4 @@
-import { Flex, Button, AmplifyProvider } from '@aws-amplify/ui-react';
+import { Flex, Button, ThemeProvider } from '@aws-amplify/ui-react';
 
 const theme = {
   name: 'button-theme',
@@ -26,11 +26,11 @@ const theme = {
 };
 
 export const ButtonThemeExample = () => (
-  <AmplifyProvider theme={theme}>
+  <ThemeProvider theme={theme}>
     <Flex direction="row">
       <Button>Default</Button>
       <Button variation="primary">Primary</Button>
       <Button variation="link">Link</Button>
     </Flex>
-  </AmplifyProvider>
+  </ThemeProvider>
 );

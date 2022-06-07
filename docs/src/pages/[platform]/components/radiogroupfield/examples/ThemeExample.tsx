@@ -1,7 +1,7 @@
 import {
   Radio,
   RadioGroupField,
-  AmplifyProvider,
+  ThemeProvider,
   Theme,
 } from '@aws-amplify/ui-react';
 
@@ -37,7 +37,7 @@ const theme: Theme = {
 const options = ['html', 'css', 'javascript'];
 
 export const ThemeExample = () => (
-  <AmplifyProvider theme={theme}>
+  <ThemeProvider theme={theme}>
     <RadioGroupField label="Language" name="language6" defaultValue="html">
       {options.map((option) => (
         <Radio key={option} value={option}>
@@ -45,5 +45,5 @@ export const ThemeExample = () => (
         </Radio>
       ))}
     </RadioGroupField>
-  </AmplifyProvider>
+  </ThemeProvider>
 );

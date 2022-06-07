@@ -32,6 +32,12 @@ export interface CollectionWrapperProps extends BaseStyleProps {
   searchFilter?: (item: unknown, searchText: string) => boolean;
 
   /**
+   * Search field label
+   * @default "Search"
+   */
+  searchLabel?: string;
+
+  /**
    * Search field placeholder
    */
   searchPlaceholder?: string;

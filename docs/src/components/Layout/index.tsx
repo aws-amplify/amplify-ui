@@ -10,7 +10,7 @@ import {
 } from '@aws-amplify/ui-react';
 import { SiW3C, SiReact } from 'react-icons/si';
 
-import { Sidebar } from './SecondaryNav';
+import { Sidebar } from './Sidebar';
 import { TableOfContents } from '../TableOfContents';
 import { Footer } from './Footer';
 import { GITHUB_REPO_FILE } from '@/data/links';
@@ -75,16 +75,12 @@ export default function Page({
   }, []);
 
   return (
-    <div className="docs-main">
-      <Sidebar />
+    <>
       <main className="docs-content">
         <section className="docs-content-body">
           <section className="docs-meta">
             <Heading level={1}>{title}</Heading>
-            <Text
-              fontSize={`${tokens.fontSizes.xl}`}
-              className="docs-description"
-            >
+            <Text fontSize={tokens.fontSizes.xl} className="docs-description">
               {description}
             </Text>
             <View className="docs-component-links">
@@ -138,9 +134,9 @@ export default function Page({
         <Footer />
       </main>
 
-      {hideToc ? null : (
+      {!hideToc && headings.length && (
         <TableOfContents title="Contents" headings={headings} />
       )}
-    </div>
+    </>
   );
 }

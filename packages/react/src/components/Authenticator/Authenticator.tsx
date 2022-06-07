@@ -38,6 +38,9 @@ function InitMachine({
   return <>{children}</>;
 }
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/authenticator)
+ */
 export function Authenticator({
   children,
   className,

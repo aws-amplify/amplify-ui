@@ -1,0 +1,42 @@
+.amplify-searchfield {
+  --amplify-components-fieldcontrol-color: var(
+    --amplify-components-searchfield-input-color
+  );
+  &__search {
+    color: var(--amplify-components-searchfield-button-color);
+    &:active {
+      background-color: var(
+        --amplify-components-button-active-background-color
+      );
+      border-color: var(--amplify-components-button-active-border-color);
+      color: var(--amplify-components-button-active-color);
+    }
+    &:disabled {
+      background-color: var(
+        --amplify-components-searchfield-button-disabled-background-color
+      );
+      border-color: var(
+        --amplify-components-searchfield-button-disabled-border-color
+      );
+      color: var(--amplify-components-searchfield-button-disabled-color);
+    }
+    &:focus {
+      background-color: var(
+        --amplify-components-searchfield-button-focus-background-color
+      );
+      border-color: var(
+        --amplify-components-searchfield-button-focus-border-color
+      );
+      color: var(--amplify-components-searchfield-button-focus-color);
+    }
+    &:hover {
+      background-color: var(
+        --amplify-components-searchfield-button-hover-background-color
+      );
+      border-color: var(
+        --amplify-components-searchfield-button-hover-border-color
+      );
+      color: var(--amplify-components-searchfield-button-hover-color);
+    }
+  }
+}
