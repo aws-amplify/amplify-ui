@@ -1,6 +1,7 @@
+import * as React from 'react';
+
 import { Footer } from '@/components/Layout/Footer';
 import { useCustomRouter } from '@/components/useCustomRouter';
-import React from 'react';
 import { AmplifySection } from './AmplifySection';
 import { HeroSection } from './HeroSection';
 import ReactHomePage from './index.react';

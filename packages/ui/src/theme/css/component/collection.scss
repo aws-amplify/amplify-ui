@@ -1,12 +1,74 @@
 .amplify-collection {
   flex-direction: column;
-}
-
-.amplify-collection-search {
-  flex-direction: row;
-  justify-content: center;
-}
-
-.amplify-collection-pagination {
-  justify-content: center;
+  &-pagination {
+    justify-content: center;
+    --amplify-components-pagination-current-color: var(
+      --amplify-components-collection-pagination-current-color
+    );
+    --amplify-components-pagination-current-background-color: var(
+      --amplify-components-collection-pagination-current-background-color
+    );
+    --amplify-components-pagination-button-color: var(
+      --amplify-components-collection-pagination-button-color
+    );
+    --amplify-components-pagination-button-hover-color: var(
+      --amplify-components-collection-pagination-button-hover-color
+    );
+    --amplify-components-pagination-button-hover-background-color: var(
+      --amplify-components-collection-pagination-button-hover-background-color
+    );
+    --amplify-components-pagination-button-disabled-color: var(
+      --amplify-components-collection-pagination-button-disabled-color
+    );
+  }
+  &-search {
+    flex-direction: row;
+    justify-content: center;
+    --amplify-components-searchfield-input-color: var(
+      --amplify-components-collection-search-input-color
+    );
+    --amplify-components-searchfield-button-color: var(
+      --amplify-components-collection-search-button-color
+    );
+    //active styles
+    --amplify-components-searchfield-button-active-background-color: var(
+      --amplify-components-collection-search-button-active-background-color
+    );
+    --amplify-components-searchfield-button-active-border-color: var(
+      --amplify-components-collection-search-button-active-border-color
+    );
+    --amplify-components-searchfield-button-active-color: var(
+      --amplify-components-collection-search-button-active-color
+    );
+    //disabled styles
+    --amplify-components-searchfield-button-disabled-background-color: var(
+      --amplify-components-collection-search-button-disabled-background-color
+    );
+    --amplify-components-searchfield-button-disabled-border-color: var(
+      --amplify-components-collection-search-button-disabled-border-color
+    );
+    --amplify-components-searchfield-button-disabled-color: var(
+      --amplify-components-collection-search-button-disabled-color
+    );
+    //focus styles
+    --amplify-components-searchfield-button-focus-background-color: var(
+      --amplify-components-collection-search-button-focus-background-color
+    );
+    --amplify-components-searchfield-button-focus-border-color: var(
+      --amplify-components-collection-search-button-focus-border-color
+    );
+    --amplify-components-searchfield-button-focus-color: var(
+      --amplify-components-collection-search-button-focus-color
+    );
+    //hover styles
+    --amplify-components-searchfield-button-hover-background-color: var(
+      --amplify-components-collection-search-button-hover-background-color
+    );
+    --amplify-components-searchfield-button-hover-border-color: var(
+      --amplify-components-collection-search-button-hover-border-color
+    );
+    --amplify-components-searchfield-button-hover-color: var(
+      --amplify-components-collection-search-button-hover-color
+    );
+  }
 }
