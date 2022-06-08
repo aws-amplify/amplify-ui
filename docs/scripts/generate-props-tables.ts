@@ -2,12 +2,6 @@ import fs from 'fs';
 import path from 'path';
 
 import { Node, Project, Symbol, Type, VariableDeclaration } from 'ts-morph';
-import {
-  PrimitiveCatalog,
-  PrimitiveCatalogComponentProperties,
-  PrimitiveCatalogComponentProperty,
-  PrimitiveCatalogComponentPropertyType,
-} from '../../packages/react/src/types/catalog';
 import { getAllTypesData } from './util/getAllTypesData';
 
 const allTypesData = getAllTypesData();
@@ -26,8 +20,7 @@ const source = project.getSourceFile(
 );
 
 function getCatalog() {
-  const catalog: PrimitiveCatalog = {};
-
+  const catalog = {};
   for (const [componentName, [node]] of source.getExportedDeclarations()) {
     let properties = {};
 
@@ -71,10 +64,11 @@ function isPrimitive(node: Node): node is VariableDeclaration {
 }
 
 function getComponentProperties(type: Type) {
-  const properties: PrimitiveCatalogComponentProperties = {};
+  const properties = {};
 
   type.getProperties().forEach((prop) => {
     const propName = prop.getName();
+
     const property = getCatalogComponentProperty(prop);
 
     if (property) {
@@ -88,40 +82,26 @@ function getComponentProperties(type: Type) {
 /**
  * Get a catalog-compatible component property definition
  */
-function getCatalogComponentProperty(
-  property: Symbol
-): PrimitiveCatalogComponentProperty {
+function getCatalogComponentProperty(property: Symbol) {
+  const name = property.getName();
   const propType = property.getDeclarations()[0].getType();
+  const description = property
+    .getJsDocTags()
+    .map(
+      (tag) =>
+        `${tag?.getName()}: ${tag
+          ?.getText()
+          .map((el) => JSON.stringify(el, null, 2))
+          .join('')}`
+    )
+    .join('');
+  const type = propType.getText();
 
-  if (!propType) {
-    return;
-  } else if (propType.isBoolean() || propType.isBooleanLiteral()) {
-    return { type: PrimitiveCatalogComponentPropertyType.Boolean };
-  } else if (propType.isString() || propType.isStringLiteral()) {
-    return { type: PrimitiveCatalogComponentPropertyType.String };
-  } else if (propType.isNumber() || propType.isNumberLiteral()) {
-    return { type: PrimitiveCatalogComponentPropertyType.Number };
-  } else if (propType.isUnion()) {
-    const hasNumber = propType
-      .getUnionTypes()
-      .every((prop) => prop.isNumber() || prop.isNumberLiteral());
-
-    const hasString = propType
-      .getUnionTypes()
-      .some((prop) => prop.isStringLiteral() || prop.isString());
-
-    if (hasNumber) {
-      return {
-        type: PrimitiveCatalogComponentPropertyType.Number,
-      };
-    }
-
-    if (hasString) {
-      return {
-        type: PrimitiveCatalogComponentPropertyType.String,
-      };
-    }
-  }
+  return {
+    name,
+    type,
+    description,
+  };
 }
 
 function isCallableNode(node: Node): node is VariableDeclaration {
