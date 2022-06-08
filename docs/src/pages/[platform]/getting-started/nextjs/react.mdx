@@ -1,0 +1,89 @@
+import { Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Example, ExampleCode } from '@/components/Example';
+import { BasicShoppingCard, AdvancedShoppingCard } from '../shared';
+
+## Tutorial
+
+In this brief tutorial, we're going to build a basic shopping card component using [Next.js](https://nextjs.org/docs/getting-started) and Amplify UI. Then, we'll elaborate on our shopping card to play with the possibilities of using Amplify UI.
+
+### Setup and Installation
+
+First, execute the command below in your terminal. When prompted for the name of your project, type `amplify-ui-demo`. 
+
+<Tabs>
+<TabItem title="npm">
+
+```shell
+npx create-next-app@latest
+```
+
+</TabItem>
+<TabItem title="yarn">
+
+```shell
+yarn create next-app
+```
+
+</TabItem>
+</Tabs>
+
+If you haven't already, `cd` into the `amplify-ui-demo` folder. Then, install the Amplify UI React package:
+
+<Tabs>
+<TabItem title="npm">
+
+```shell
+npm install aws-amplify @aws-amplify/ui-react
+```
+
+</TabItem>
+<TabItem title="yarn">
+
+```shell
+yarn add aws-amplify @aws-amplify/ui-react
+```
+
+</TabItem>
+</Tabs>
+
+### Basic Demo
+
+Open up the project in your IDE and replace the contents of the `pages/index.js` file with the code below:
+
+<Example>
+  <ExampleCode>
+  
+```tsx file=./examples/BasicExampleCode.tsx
+
+```
+
+  </ExampleCode>
+  <BasicShoppingCard />
+</Example>
+
+When you start the app (`npm run dev` or `yarn dev`), you should see a basic shopping card component.
+
+### Advanced Demo
+
+If you’d like to play around with a more comprehensive demo of the Amplify UI library, create a separate file under the `pages` folder named `paintings.js`, and copy/paste this code into it:
+
+  <ExampleCode>
+
+```tsx file=./examples/paintings.ts
+
+```
+
+  </ExampleCode>
+
+Then, replace the contents of `pages/index.js` with the code below, restart the app, and experience all the beautiful components in action!
+
+<Example>
+  <ExampleCode>
+
+```tsx file=./examples/AdvancedExampleCode.tsx
+
+```
+
+  </ExampleCode>
+  <AdvancedShoppingCard />
+</Example>

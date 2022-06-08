@@ -11,24 +11,23 @@
     "flutter:copy": "cp -r ./flutter/authenticator/build/web public/flutter/authenticator",
     "build": "next build",
     "lint": "next lint",
-    "postbuild": "node --require esbuild-register ./scripts/generate-sitemap-robotstxt.ts",
+    "postbuild:previews": "node --require esbuild-register ./scripts/generate-previews.ts",
+    "postbuild:sitemap": "node --require esbuild-register ./scripts/generate-sitemap-robotstxt.ts",
+    "postbuild": "yarn postbuild:previews && yarn postbuild:sitemap",
     "start": "next start",
     "test": "$_ run build"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "2.19.0",
-    "@codesandbox/sandpack-react": "0.1.9",
+    "@aws-amplify/ui-react": "2.19.1",
     "@cucumber/gherkin": "^19.0.3",
     "@cucumber/messages": "^16.0.1",
     "@docsearch/react": "3",
-    "@heroicons/react": "^1.0.1",
     "@mdx-js/loader": "^2.1.0",
     "@mdx-js/mdx": "^2.1.0",
     "@mdx-js/react": "^2.1.0",
     "@moxy/next-compile-node-modules": "^2.1.1",
     "@xstate/inspect": "^0.4.1",
     "aws-amplify": "latest",
-    "aws-amplify-react": "latest",
     "classnames": "^2.3.1",
     "countries-list": "^2.6.1",
     "dotenv": "^16.0.0",
@@ -43,6 +42,7 @@
     "react-copy-to-clipboard": "^5.0.4",
     "react-dom": "17",
     "react-icons": "^4.3.1",
+    "react-live": "^2.4.1",
     "rehype": "^11.0.0",
     "rehype-autolink-headings": "^5.1.0",
     "rehype-slug": "^4.0.1",
@@ -52,22 +52,20 @@
     "remark-github": "^10.1.0",
     "remark-mdx-frontmatter": "^1.0.1",
     "remark-mdx-images": "^1.0.2",
-    "sass": "^1.43.4"
+    "sass": "^1.43.4",
+    "slugify": "^1.6.3"
   },
   "license": "MIT",
   "devDependencies": {
-    "@tailwindcss/forms": "^0.2.1",
-    "@tailwindcss/typography": "^0.4.0",
     "@types/lodash": "^4.14.170",
     "@types/node": "^14.14.31",
     "@types/react": "^17.0.2",
     "autoprefixer": "^10.2.4",
+    "canvas": "^2.8.0",
     "dotenv-safe": "^8.2.0",
     "esbuild-register": "^3.3.2",
     "eslint-config-next": "12.0.4",
     "globby": "^13.1.1",
-    "json5-loader": "^4.0.1",
-    "postcss": "^8.2.6",
-    "tailwindcss": "^2.0.3"
+    "postcss": "^8.2.6"
   }
 }

@@ -77,3 +77,19 @@
     border-width: 0;
   }
 }
+
+.docs-home-preview {
+  padding: var(--amplify-space-large);
+  background-color: var(--amplify-colors-background-secondary);
+}
+
+.docs-home-editor {
+  border-right: var(--amplify-border-widths-small) solid var(--amplify-colors-border-primary);
+  max-height: 30rem;
+  overflow-y: auto;
+  font-size: var(--amplify-font-sizes-medium);
+}
+
+.npm__react-simple-code-editor__textarea {
+  outline: none;
+}

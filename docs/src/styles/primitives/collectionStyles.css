@@ -1,0 +1,23 @@
+.collection-styling-example {
+  --amplify-components-collection-pagination-current-color: var(
+    --amplify-colors-brand-secondary-20
+  );
+  --amplify-components-collection-pagination-current-background-color: var(
+    --amplify-colors-teal-80
+  );
+}
+
+.collection-local-styling-example {
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 5px;
+}
+
+.collection-local-styling-example .amplify-collection-items {
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.collection-local-styling-example .amplify-button {
+  background-color: var(--amplify-colors-neutral-20);
+}
