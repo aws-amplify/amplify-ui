@@ -5,9 +5,11 @@ export const FontSizesExample = () => {
   return (
     <>
       <Heading level={2} fontSize={tokens.fontSizes.medium}>
-        This is an H2 with a smaller than usual font size.*
+        This is an H2 with a smaller than usual font size.<sup>*</sup>
       </Heading>
-      <Text fontSize={tokens.fontSizes.small}>*Note: Some smaller text.</Text>
+      <Text fontSize={tokens.fontSizes.small}>
+        <sup>*</sup>Note: Some smaller text.
+      </Text>
     </>
   );
 };

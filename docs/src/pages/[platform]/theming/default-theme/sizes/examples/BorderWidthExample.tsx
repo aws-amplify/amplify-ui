@@ -2,6 +2,7 @@ import { Button, useTheme, ThemeProvider } from '@aws-amplify/ui-react';
 
 export const BorderWidthExample = () => {
   const { tokens } = useTheme();
+
   const theme = {
     name: 'custom-theme',
     tokens: {
@@ -12,9 +13,12 @@ export const BorderWidthExample = () => {
       },
     },
   };
+
   return (
     <ThemeProvider theme={theme}>
-      <Button>Custom border button</Button>
+      <Button color={tokens.colors.brand.secondary[60]}>
+        Custom border button
+      </Button>
     </ThemeProvider>
   );
 };
