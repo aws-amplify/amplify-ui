@@ -113,9 +113,12 @@ function isCallableNode(node: Node): node is VariableDeclaration {
 }
 
 function getCategory(propName, componentName) {
+  const preSetCategories = { as: 'Base', ref: 'Base' };
   return (
-    [componentName, 'base', 'style', 'flex'].find((component) =>
-      allTypesData.get(component)?.has(propName)
-    ) ?? 'other'
+    [componentName, 'Base', 'Style', 'Flex', 'Grid', 'Responsive'].find(
+      (component) => allTypesData.get(component)?.has(propName)
+    ) ??
+    preSetCategories[propName] ??
+    'other'
   );
 }
