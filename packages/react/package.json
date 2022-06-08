@@ -132,7 +132,11 @@
     "size-limit": "^7.0.8",
     "ts-jest": "^27.0.3",
     "ts-morph": "^12.0.0",
-    "ts-node": "^10.2.1"
+    "ts-node": "^10.2.1",
+    "mapbox-gl": "npm:empty-npm-package@1.0.0",
+    "maplibre-gl": "1.15.3",
+    "maplibre-gl-js-amplify": "1.5.0",
+    "react-map-gl": "7.0.15"
   },
   "sideEffects": [
     "dist/**/*.css"
