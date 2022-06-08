@@ -15,6 +15,7 @@ export const CollectionThemeExample = () => {
         collection: {
           search: {
             button: {
+              color: { value: '{colors.brand.secondary.40}' },
               _active: {
                 backgroundColor: { value: '{colors.brand.primary.80}' },
               },

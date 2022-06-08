@@ -134,7 +134,12 @@ To override the styling on all Collections you can use the built in `.amplify-co
 
 ```css
 .amplify-collection {
-  border: var(--amplify-border-widths-medium) solid var(--amplify-colors-red-60);
+  --amplify-components-collection-pagination-current-color: var(
+    --amplify-colors-brand-secondary-20
+  );
+  --amplify-components-collection-pagination-current-background-color: var(
+    --amplify-colors-teal-80
+  );
 }
 ```
 
@@ -160,7 +165,6 @@ _Using a class selector:_
 
 ```css
 .collection-local-styling-example {
-  border: var(--amplify-border-widths-medium) solid var(--amplify-colors-red-60);
   flex-wrap: wrap;
   gap: 20px;
   padding: 5px;
@@ -169,6 +173,10 @@ _Using a class selector:_
 .collection-local-styling-example .amplify-collection-items {
   flex-wrap: wrap;
   gap: 20px;
+}
+
+.collection-local-styling-example .amplify-button {
+  background-color: var(--amplify-colors-neutral-60);
 }
 ```
 
