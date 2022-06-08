@@ -14,8 +14,6 @@ import {
   StylingCollectionExample,
 } from './examples';
 
-A Collection wraps Flex and Grid components, and provides a way to display items in a collection from a data source.
-
 ## Demo
 
 <CollectionDemo />
@@ -57,7 +55,7 @@ The `list` collection type can be customized with any of following Flex props: `
 
 ### Grid
 
-The `grid` collection type can be customized with and of the following Grid props: `templateColumns` and `templateRows`. Then the Collection children can use the Grid props to control their size and placement such as `row` and `column`.
+The `grid` collection type can be customized with the following Grid props: `templateColumns` and `templateRows`. Then the Collection children can use the Grid props to control their size and placement such as `row` and `column`.
 
 <Example>
   <GridCollectionExample />
@@ -72,7 +70,7 @@ The `grid` collection type can be customized with and of the following Grid prop
 
 ## Pagination
 
-A Collection can be paginated, adding a special `isPaginated` property. Change the page size passing a `itemsPerPage` property (default: 10).
+A Collection can be paginated, by adding a special `isPaginated` property. Change the page size by passing a `itemsPerPage` property (default: 10).
 
 <Example>
   <PaginationCollectionExample />
@@ -124,7 +122,7 @@ You can customize the appearance of all Collections in your application with a [
 </ExampleCode>
 </Example>
 
-### CSS
+### Global Styling
 
 To override the styling on all Collections you can use the built in `.amplify-collection` class.
 

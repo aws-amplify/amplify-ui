@@ -1,6 +1,13 @@
-import { Collection, Card, Heading, Text } from '@aws-amplify/ui-react';
+import {
+  Collection,
+  Card,
+  Heading,
+  Text,
+  useTheme,
+} from '@aws-amplify/ui-react';
 
 export const ListCollectionExample = () => {
+  const { tokens } = useTheme();
   const items = [
     {
       title: 'Fiordland National Park',
@@ -28,7 +35,12 @@ export const ListCollectionExample = () => {
       wrap="wrap"
     >
       {(item, index) => (
-        <Card key={index} padding="1rem" maxWidth="180px" fontSize="0.5em">
+        <Card
+          key={index}
+          padding={tokens.space.medium}
+          maxWidth="180px"
+          fontSize={tokens.fontSizes.xs}
+        >
           <Heading level={4}>{item.title}</Heading>
           <Text>{item.description}</Text>
         </Card>

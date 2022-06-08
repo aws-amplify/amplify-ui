@@ -31,7 +31,7 @@ export const GridCollectionExample = () => {
       type="grid"
       items={items}
       templateColumns="1fr 1fr 1fr"
-      templateRows="10rem 10rem 10rem"
+      templateRows="12rem 12rem 12rem"
     >
       {(item, index) => {
         return (
@@ -39,7 +39,7 @@ export const GridCollectionExample = () => {
             key={index}
             padding={tokens.space.medium}
             maxWidth="180px"
-            fontSize="0.5em"
+            fontSize={tokens.fontSizes.xs}
             backgroundColor={tokens.colors.background.secondary}
             row={index + 1}
             column={index + 1}
