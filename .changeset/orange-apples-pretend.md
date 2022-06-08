@@ -13,7 +13,7 @@ This **will** affect:
 {
   // ...
   "angularCompilerOptions": {
-    "enableIvy": false
+    "enableIvy": true
   }
 }
 ```
