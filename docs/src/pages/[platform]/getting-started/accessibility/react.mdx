@@ -1,19 +1,10 @@
-import { Grid, View, Text, Alert, CheckboxField } from '@aws-amplify/ui-react';
+import { Grid } from '@aws-amplify/ui-react';
 import { CardLink } from '@/components/CardLink';
 import { Example, ExampleCode } from '@/components/Example';
 import { LabelInputExample, CheckboxExample, NavRoleExample, AriaLiveExample } from './examples';
 import { MdOutlineCheckBox, MdEdit, MdOutlineAutoAwesome } from 'react-icons/md';
 
-Amplify UI components follow [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/) and 
-[WAI-ARIA](https://www.w3.org/WAI/ARIA/apg/) best practices and guidelines for color contrast, 
-keyboard navigation, accessible labels, and focus management. The intent of Amplify UI is to 
-provide components that are flexible and can be composed into modern, accessible patterns 
-with as few limitations as possible.
 
-<Alert heading="Report an accessibility issue">
-  Have you found an accessibility bug or limitation? 
-  [Open an issue](https://github.com/aws-amplify/amplify-ui/issues/new/choose) so we can take a look!
-</Alert>
 
 ## What's included?
 
@@ -58,7 +49,7 @@ Amplify UI also follows web standards as much as possible for our components, in
   desc="Learn about making accessible labels for the TextField component" />
 <CardLink 
   img={<MdOutlineCheckBox />}
-  href="react/components/checkboxfield#css-styling"
+  href="/react/components/checkboxfield#css-styling"
   title="Styling Checkbox inputs"
   desc="Various ways to style the CheckboxField" />
 </Grid>
@@ -73,11 +64,6 @@ Amplify UI uses design tokens for the color palette, which makes modifying the t
   href="/react/components/textfield#accessibility--label-behavior"
   title="Theming overview"
   desc="Learn how to make a custom theme" />
-<CardLink 
-  img={<MdOutlineCheckBox />}
-  href="react/components/checkboxfield#css-styling"
-  title="Browse design tokens"
-  desc="View the tokens that ship with our default theme" />
 </Grid>
 
 ## Enhancable primitives
