@@ -87,13 +87,11 @@ function getCatalogComponentProperty(property: Symbol) {
   const propType = property.getDeclarations()[0].getType();
   const description = property
     .getJsDocTags()
-    .map(
-      (tag) =>
-        `${tag?.getName()}: ${tag
-          ?.getText()
-          .map((el) => JSON.stringify(el, null, 2))
-          .join('')}`
-    )
+    .map((tag) => {
+      const name = tag?.getName();
+      const text = tag?.getText().map((el) => el.text);
+      return `${name === 'description' ? '' : `${name}: `}${text}`;
+    })
     .join('');
   const type = propType.getText();
 
