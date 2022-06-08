@@ -11,6 +11,7 @@ export interface PhoneNumberFieldProps extends TextInputFieldProps {
   onCountryCodeChange?: React.ChangeEventHandler<HTMLSelectElement>;
   type?: 'tel';
   /**
+   * @description
    * Forwarded ref for access to Country Code select DOM element
    */
   countryCodeRef?: React.Ref<HTMLSelectElement>;

@@ -7,6 +7,7 @@ import { ImageStyleProps } from './image';
 import { TextAreaStyleProps } from './textArea';
 
 /**
+ * @description
  * Extract style compatible types (string literal | number | any string)
  */
 export type StyleProp<PropertyType> =
@@ -27,6 +28,7 @@ export interface ResponsiveObject<PropertyType> {
 }
 
 /**
+ * @description
  * Allows a style prop to be the property type
  * or a design token of that property type.
  */
@@ -95,31 +97,37 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
 
 export interface CSSLayoutStyleProps {
   /**
+   * @description
    * Controls where the Flex/Grid items sit on the cross axis.
    */
   alignItems?: ResponsiveStyle<Property.AlignItems>;
 
   /**
+   * @description
    * Sets the distribution of space between and around content items
    */
   alignContent?: ResponsiveStyle<Property.AlignContent>;
 
   /**
+   * @description
    * Controls where the Flex/Grid items sit on the main axis.
    */
   justifyContent?: ResponsiveStyle<Property.JustifyContent>;
 
   /**
+   * @description
    * Spacing between child components. Shorthand for rowGap and columnGap.
    */
   gap?: ResponsiveStyle<StyleToken<Property.Gap>>;
 
   /**
+   * @description
    * Spacing between Flex/Grid child columns
    */
   columnGap?: ResponsiveStyle<StyleToken<Property.GridColumnGap>>;
 
   /**
+   * @description
    * Spacing between Flex/Grid child rows
    */
   rowGap?: ResponsiveStyle<StyleToken<Property.RowGap>>;

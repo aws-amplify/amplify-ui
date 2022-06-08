@@ -1,3 +1,4 @@
+import fs from 'fs';
 import path from 'path';
 import { Project } from 'ts-morph';
 
@@ -33,6 +34,17 @@ export const getAllTypesData = () => {
         const typeAliasDescription = typeAliasJsDocs[0]?.getDescription();
         const typeAliasName = typeAlias.getNameNode().getText();
         const typeAliasType = typeAlias.getTypeNode().getText();
+        if (typeAliasDescription) {
+          typeAliasJsDocs[0].set({
+            description: '',
+            tags: [
+              {
+                tagName: 'description',
+                text: typeAliasDescription,
+              },
+            ],
+          });
+        }
         typeAliasData.set('name', typeAliasName);
         typeAliasData.set('type', typeAliasType);
         typeAliasData.set('description', typeAliasDescription);
@@ -47,6 +59,18 @@ export const getAllTypesData = () => {
         const propertyDescription = propertyJsDocs?.getDescription();
         const propertyName = typeProperty.getNameNode().getText();
         const propertyType = typeProperty.getTypeNode().getText();
+
+        if (propertyDescription) {
+          propertyJsDocs.set({
+            description: '',
+            tags: [
+              {
+                tagName: 'description',
+                text: propertyDescription,
+              },
+            ],
+          });
+        }
         typeInterfaceData.set('name', propertyName);
         typeInterfaceData.set('type', propertyType);
         typeInterfaceData.set('description', propertyDescription);
@@ -55,7 +79,10 @@ export const getAllTypesData = () => {
     });
 
     allTypeFilesData.set(typeFileName, typeFileData);
+
+    fs.writeFileSync(typeFile.getFilePath(), typeFile.getFullText());
   });
+
   return allTypeFilesData;
 };
 

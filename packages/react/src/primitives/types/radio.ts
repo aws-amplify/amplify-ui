@@ -5,6 +5,7 @@ export interface RadioProps extends InputProps {
   value: string;
 
   /**
+   * @description
    * Position of label in relation to the radio,
    * default is 'start'
    */

@@ -8,6 +8,7 @@ type MergeProps<A, B> = A & Omit<B, keyof A>;
 export type ElementType = React.FC<any> | keyof JSX.IntrinsicElements;
 
 /**
+ * @description
  * Convert string element type to DOMElement Type
  * e.g. 'button' => HTMLButtonElement
  */
@@ -17,6 +18,7 @@ export type HTMLElementType<Element extends ElementType> =
     : HTMLElementTypeFromExoticComponentRef<Element>;
 
 /**
+ * @description
  * Allows us to extract ElementType from `typeof Root` used in SliderField
  * e.g. React.ForwardRefExoticComponent<SliderProps & React.RefAttributes<HTMLSpanElement>> => HTMLSpanElement
  */
