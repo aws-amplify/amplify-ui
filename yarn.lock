@@ -22466,10 +22466,10 @@ vscode-uri@^3.0.2, vscode-uri@^3.0.3:
   resolved "https://registry.npmjs.org/vscode-uri/-/vscode-uri-3.0.3.tgz#a95c1ce2e6f41b7549f86279d19f47951e4f4d84"
   integrity sha512-EcswR2S8bpR7fD0YPeS7r2xXExrScVMxg4MedACaWHEtx9ftCF/qHG1xGkolzTPcEmjTavCQgbVzHUIdTMzFGA==
 
-vscode-vue-languageservice@^0.27.0:
-  version "0.27.30"
-  resolved "https://registry.npmjs.org/vscode-vue-languageservice/-/vscode-vue-languageservice-0.27.30.tgz#1f32b0203dd233582f74a457428519a6318f039e"
-  integrity sha512-nPnUNCMqqHfxcCPLyLWvmgbNCgos3SwvPcl/CzAnMbqcjLtNZppsdI7bKX3EEj0Jbg6SGLQ9NanIvZaMI1bsUA==
+vscode-vue-languageservice@0.27.26, vscode-vue-languageservice@^0.27.0:
+  version "0.27.26"
+  resolved "https://registry.npmjs.org/vscode-vue-languageservice/-/vscode-vue-languageservice-0.27.26.tgz#d20d2b526aa73d003d1329a451328374b9502e2c"
+  integrity sha512-Xui/YWho4f8OhaUVXYRFe27c4ZHXkZNlblQhh3/vU+TdhDxtcJ/4KK4IWVdotg8Oy0008XI1Ede8QS4zTylDsw==
   dependencies:
     "@volar/code-gen" "^0.27.24"
     "@volar/html2pug" "^0.27.13"
