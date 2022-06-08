@@ -30,7 +30,9 @@ export interface ResponsiveObject<PropertyType> {
  * Allows a style prop to be the property type
  * or a design token of that property type.
  */
-type StyleToken<PropertyType> = PropertyType | WebDesignToken<PropertyType>;
+export type StyleToken<PropertyType> =
+  | PropertyType
+  | WebDesignToken<PropertyType>;
 
 export type ResponsiveStyle<PropertyType> =
   | StyleProp<PropertyType>

@@ -54,6 +54,9 @@ const ToggleButtonGroupPrimitive: Primitive<
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/togglebutton#togglebuttongroup)
+ */
 export const ToggleButtonGroup = React.forwardRef(ToggleButtonGroupPrimitive);
 
 ToggleButtonGroup.displayName = 'ToggleButtonGroup';

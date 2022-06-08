@@ -69,6 +69,9 @@ const AlertPrimitive: Primitive<AlertProps, typeof Flex> = (
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/alert)
+ */
 export const Alert = React.forwardRef(AlertPrimitive);
 
 Alert.displayName = 'Alert';

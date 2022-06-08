@@ -54,6 +54,9 @@ const IconPrimitive: Primitive<IconProps, 'svg'> = (
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/icon)
+ */
 export const Icon = React.forwardRef(IconPrimitive);
 
 Icon.displayName = 'Icon';

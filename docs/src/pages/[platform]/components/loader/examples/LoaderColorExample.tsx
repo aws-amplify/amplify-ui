@@ -5,13 +5,13 @@ export const LoaderColorExample = () => {
   return (
     <>
       <Loader
-        emptyColor={`${tokens.colors.black}`}
-        filledColor={`${tokens.colors.orange[40]}`}
+        emptyColor={tokens.colors.black}
+        filledColor={tokens.colors.orange[40]}
       />
       <Loader
         variation="linear"
-        emptyColor={`${tokens.colors.black}`}
-        filledColor={`${tokens.colors.orange[40]}`}
+        emptyColor={tokens.colors.black}
+        filledColor={tokens.colors.orange[40]}
       />
     </>
   );

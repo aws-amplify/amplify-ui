@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { ComponentClassNames } from '../shared/constants';
 import { CountryCodeSelect } from './CountryCodeSelect';
 import { PhoneNumberFieldProps, Primitive } from '../types';
-import { SharedText } from '../shared/i18n';
+import { ComponentText } from '../shared/constants';
 import { TextField } from '../TextField';
 
 const PhoneNumberFieldPrimitive: Primitive<PhoneNumberFieldProps, 'input'> = (
@@ -12,7 +12,7 @@ const PhoneNumberFieldPrimitive: Primitive<PhoneNumberFieldProps, 'input'> = (
     autoComplete = 'tel-national',
     className,
     countryCodeName,
-    countryCodeLabel = SharedText.CountryCodeSelect.ariaLabel,
+    countryCodeLabel = ComponentText.PhoneNumberField.countryCodeLabel,
     defaultCountryCode,
     hasError,
     isDisabled,
@@ -62,6 +62,9 @@ const PhoneNumberFieldPrimitive: Primitive<PhoneNumberFieldProps, 'input'> = (
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/phonenumberfield)
+ */
 export const PhoneNumberField = React.forwardRef(PhoneNumberFieldPrimitive);
 
 PhoneNumberField.displayName = 'PhoneNumberField';

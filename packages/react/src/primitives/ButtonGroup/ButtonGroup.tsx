@@ -24,6 +24,9 @@ const ButtonGroupPrimitive: Primitive<ButtonGroupProps, typeof Flex> = (
   </Flex>
 );
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/button#buttongroup)
+ */
 export const ButtonGroup = React.forwardRef(ButtonGroupPrimitive);
 
 ButtonGroup.displayName = 'ButtonGroup';

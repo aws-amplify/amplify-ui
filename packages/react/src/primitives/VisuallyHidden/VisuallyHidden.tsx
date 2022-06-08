@@ -19,6 +19,9 @@ const VisuallyHiddenPrimitive: Primitive<VisuallyHiddenProps, 'span'> = (
   </View>
 );
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/visuallyhidden)
+ */
 export const VisuallyHidden = React.forwardRef(VisuallyHiddenPrimitive);
 
 VisuallyHidden.displayName = 'VisuallyHidden';

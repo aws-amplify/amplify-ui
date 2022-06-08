@@ -12,10 +12,6 @@ When('I press the enter key', () => {
   }).type('{enter}');
 });
 
-When('I click on a map marker', () => {
-  cy.get('.maplibregl-marker').first().click({ force: true });
-});
-
 Then('I see markers equal to my default search results', () => {
   cy.get('.maplibregl-marker').should('have.length', defaultSearchResults);
 });

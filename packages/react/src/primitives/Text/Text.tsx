@@ -31,6 +31,9 @@ const TextPrimitive: Primitive<TextProps, 'p'> = (
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/text)
+ */
 export const Text = React.forwardRef(TextPrimitive);
 
 Text.displayName = 'Text';

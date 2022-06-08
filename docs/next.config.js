@@ -8,7 +8,13 @@ const BRANCH = gitHead === 'HEAD' ? 'main' : gitHead;
 const withNextPluginPreval = require('next-plugin-preval/config')();
 
 module.exports = withNextPluginPreval({
-  env: { BRANCH },
+  env: {
+    BRANCH,
+    SITE_URL: process.env.SITE_URL,
+    DOCSEARCH_DOCS_APP_ID: process.env.DOCSEARCH_DOCS_APP_ID,
+    DOCSEARCH_DOCS_API_KEY: process.env.DOCSEARCH_DOCS_API_KEY,
+    DOCSEARCH_DOCS_INDEX_NAME: process.env.DOCSEARCH_DOCS_INDEX_NAME,
+  },
   // Differentiate pages with frontmatter & layout vs. normal MD(X)
   pageExtensions: ['page.mdx', 'page.tsx'],
 
@@ -200,16 +206,12 @@ module.exports = withNextPluginPreval({
       ],
     });
 
-    config.module.rules.push({
-      test: /\.json5?$/i,
-      loader: 'json5-loader',
-      options: {
-        // TypeError: Cannot read property 'split' of undefined
-        // ../node_modules/axios/lib/helpers/validator.js (15:0)
-        esModule: false,
-      },
-      type: 'javascript/auto',
-    });
+    // resolve react and react-dom from project node_modules
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      react: path.resolve(__dirname, 'node_modules/react'),
+      'react-dom': path.resolve(__dirname, 'node_modules/react-dom'),
+    };
 
     return config;
   },

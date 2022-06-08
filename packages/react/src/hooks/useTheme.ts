@@ -4,8 +4,11 @@ import { createTheme, WebTheme } from '@aws-amplify/ui';
 import {
   AmplifyContext,
   AmplifyContextType,
-} from '../components/AmplifyProvider/AmplifyContext';
+} from '../components/ThemeProvider/AmplifyContext';
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/theming)
+ */
 export const useTheme = (): WebTheme => {
   const context = React.useContext(AmplifyContext);
   return getThemeFromContext(context);

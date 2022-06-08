@@ -1,12 +1,4 @@
-import {
-  Icon,
-  Link,
-  Text,
-  Flex,
-  View,
-  useTheme,
-  Button,
-} from '@aws-amplify/ui-react';
+import { Icon, Link, Text, Flex, View, useTheme } from '@aws-amplify/ui-react';
 
 import * as links from '@/data/links';
 import * as icons from '@/data/icon';
@@ -19,40 +11,53 @@ export const Footer = () => {
       <Flex direction="row" justifyContent="center">
         <Logo />
       </Flex>
-      <View textAlign="center">
-        <Button
-          as={Link}
-          variation="link"
-          gap={tokens.space.small}
-          alignItems="baseline"
+      <Flex
+        justifyContent="center"
+        alignItems="center"
+        direction={{ base: 'column', medium: 'row' }}
+        gap={tokens.space.xs}
+      >
+        <Link
           href="https://github.com/aws-amplify/amplify-ui"
           isExternal={true}
-          color={tokens.colors.font.tertiary}
         >
-          <Icon ariaLabel="Github" pathData={icons.GITHUB} />
-          Github
-        </Button>
-        <Button
-          as={Link}
-          variation="link"
-          gap={tokens.space.small}
-          alignItems="baseline"
-          href="https://discord.gg/amplify"
-          isExternal={true}
-          color={tokens.colors.font.tertiary}
-        >
-          <Icon
-            viewBox={{ minX: 0, minY: 0, width: 245, height: 240 }}
-            pathData={icons.DISCORD}
-          />
-          Discord
-        </Button>
-      </View>
-      <Flex direction="row">
-        <View>
-          Amplify open source, documentation and community are supported by
-          Amazon Web Services © {new Date().getFullYear()}, Amazon Web Services,
-          Inc. and its affiliates. All rights reserved. View the{' '}
+          <Flex
+            as="span"
+            alignItems="baseline"
+            justifyContent="center"
+            display="flex"
+            gap={tokens.space.xs}
+          >
+            <Icon ariaLabel="Github" pathData={icons.GITHUB} />
+            Contribute on Github
+          </Flex>
+        </Link>
+        <Link href="https://discord.gg/amplify" isExternal={true}>
+          <Flex
+            as="span"
+            alignItems="baseline"
+            justifyContent="center"
+            display="flex"
+            gap={tokens.space.xxs}
+          >
+            <Icon
+              ariaLabel=""
+              viewBox={{ minX: 0, minY: 0, width: 245, height: 240 }}
+              pathData={icons.DISCORD}
+            />
+            Discuss on Discord
+          </Flex>
+        </Link>
+      </Flex>
+      <View fontSize={tokens.fontSizes.small}>
+        <Text>
+          Amplify open source software, documentation and community are
+          supported by Amazon Web Services.
+        </Text>
+        <Text>
+          {' '}
+          © {new Date().getFullYear()} Amazon Web Services, Inc. and its
+          affiliates. All rights reserved. View the{' '}
           <Link isExternal={true} href={links.TERMS}>
             site terms
           </Link>{' '}
@@ -61,12 +66,12 @@ export const Footer = () => {
             privacy policy
           </Link>
           .
-          <View margin={`${tokens.space.medium} 0 0 0`}>
-            Flutter and the related logo are trademarks of Google LLC. We are
-            not endorsed by or affiliated with Google LLC.
-          </View>
-        </View>
-      </Flex>
+        </Text>
+        <Text marginBlockStart={tokens.space.medium}>
+          Flutter and the related logo are trademarks of Google LLC. We are not
+          endorsed by or affiliated with Google LLC.
+        </Text>
+      </View>
     </Flex>
   );
 };

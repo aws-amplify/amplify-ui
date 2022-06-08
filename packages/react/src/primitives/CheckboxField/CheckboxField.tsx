@@ -47,6 +47,9 @@ const CheckboxFieldPrimitive: Primitive<CheckboxFieldProps, 'input'> = (
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/checkboxfield)
+ */
 export const CheckboxField = React.forwardRef(CheckboxFieldPrimitive);
 
 CheckboxField.displayName = 'CheckboxField';
