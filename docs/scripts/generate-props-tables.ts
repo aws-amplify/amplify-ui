@@ -8,6 +8,11 @@ import {
   PrimitiveCatalogComponentProperty,
   PrimitiveCatalogComponentPropertyType,
 } from '../../packages/react/src/types/catalog';
+import { getAllTypesData } from './util/getAllTypesData';
+
+const allTypesData = getAllTypesData();
+
+console.log('🐤 allTypesData', allTypesData);
 
 const project = new Project({
   tsConfigFilePath: path.resolve(
