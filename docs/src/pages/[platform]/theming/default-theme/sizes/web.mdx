@@ -1,22 +1,101 @@
+import { Tabs, TabItem, View } from '@aws-amplify/ui-react';
 import { TokenList } from '@/components/Theming/TokenList';
+import { Example, ExampleCode } from '@/components/Example';
+import { BorderWidthExample, RadiiExample, SpaceExample, SpaceCSSExample, BorderCSSExample } from './examples';
+
 
 ## Space
-```js
-// Example usage
-{ tokens.space.xxl }
+
+<Tabs>
+  <TabItem title="Example usage">
+    <View marginTop="var(--amplify-space-large)">
+      <Example>
+        <SpaceExample  />
+        <ExampleCode>
+```tsx file=./examples/SpaceExample.tsx
+
 ```
+        </ExampleCode>
+      </Example>
+    </View>
+  </TabItem>
+  <TabItem title="CSS">
+    <View marginTop="var(--amplify-space-large)">
+    <Example>
+      <ExampleCode>
+```tsx file=./examples/SpaceExample.css
+
+```
+      </ExampleCode>
+    </Example>
+    </View>
+
+
+  </TabItem>
+</Tabs>
+
 <TokenList namespace="space" />
 
 ## Border Widths
-```js
-// Example usage
-{ tokens.borderWidths.large }
+
+<Tabs>
+  <TabItem title="Example usage">
+    <View marginTop="var(--amplify-space-large)">
+      <Example>
+        <BorderWidthExample />
+        <ExampleCode>
+```tsx file=./examples/BorderWidthExample.tsx
+
 ```
+        </ExampleCode>
+      </Example>
+    </View>
+  </TabItem>
+  <TabItem title="CSS">
+    <View marginTop="var(--amplify-space-large)">
+    <Example>
+      <ExampleCode>
+```tsx file=./examples/BorderExample.css
+
+```
+      </ExampleCode>
+    </Example>
+    </View>
+
+
+  </TabItem>
+</Tabs>
+
 <TokenList namespace="borderWidths" />
 
 ## Radii
-```js
-// Example usage
-{ tokens.radii.small }
+
+<Tabs>
+  <TabItem title="Example usage">
+    <View marginTop="var(--amplify-space-large)">
+      <Example>
+        <RadiiExample />
+        <ExampleCode>
+```tsx file=./examples/RadiiExample.tsx
+
 ```
+        </ExampleCode>
+      </Example>
+    </View>
+  </TabItem>
+  <TabItem title="CSS">
+    <View marginTop="var(--amplify-space-large)">
+    <Example>
+      <ExampleCode>
+```tsx file=./examples/RadiiExample.css
+
+```
+      </ExampleCode>
+    </Example>
+    </View>
+
+
+  </TabItem>
+</Tabs>
+
 <TokenList namespace="radii" />
