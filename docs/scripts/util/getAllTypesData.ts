@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { Project } from 'ts-morph';
+import { Project, PropertySignature, TypeAliasDeclaration } from 'ts-morph';
 import { capitalizeString } from '../../src/utils/capitalizeString';
 
 export const getAllTypesData = () => {
@@ -30,52 +30,13 @@ export const getAllTypesData = () => {
     const typeAliases = typeFile.getTypeAliases();
     if (typeAliases) {
       typeAliases.forEach((typeAlias) => {
-        const typeAliasData = new Map();
-        const typeAliasJsDocs = typeAlias.getJsDocs();
-        const typeAliasDescription = typeAliasJsDocs[0]?.getDescription();
-        const typeAliasName = typeAlias.getNameNode().getText();
-        const typeAliasType = typeAlias.getTypeNode().getText();
-        if (typeAliasDescription) {
-          typeAliasJsDocs[0].set({
-            description: '',
-            tags: [
-              {
-                tagName: 'description',
-                text: typeAliasDescription,
-              },
-            ],
-          });
-        }
-        typeAliasData.set('name', typeAliasName);
-        typeAliasData.set('type', typeAliasType);
-        typeAliasData.set('description', typeAliasDescription);
-        typeFileData.set(typeAliasName, typeAliasData);
+        setTypeData(typeAlias, typeFileData);
       });
     }
 
     typeFile.getInterfaces().forEach((typeInterface) => {
       typeInterface.getProperties().forEach((typeProperty) => {
-        const typeInterfaceData = new Map();
-        const propertyJsDocs = typeProperty.getJsDocs()[0];
-        const propertyDescription = propertyJsDocs?.getDescription();
-        const propertyName = typeProperty.getNameNode().getText();
-        const propertyType = typeProperty.getTypeNode().getText();
-
-        if (propertyDescription) {
-          propertyJsDocs.set({
-            description: '',
-            tags: [
-              {
-                tagName: 'description',
-                text: propertyDescription,
-              },
-            ],
-          });
-        }
-        typeInterfaceData.set('name', propertyName);
-        typeInterfaceData.set('type', propertyType);
-        typeInterfaceData.set('description', propertyDescription);
-        typeFileData.set(propertyName, typeInterfaceData);
+        setTypeData(typeProperty, typeFileData);
       });
     });
 
@@ -86,3 +47,25 @@ export const getAllTypesData = () => {
 
   return allTypeFilesData;
 };
+
+function setTypeData(
+  typeProp: TypeAliasDeclaration | PropertySignature,
+  typeFileData
+) {
+  const typeData = new Map();
+  const typeJsDocs = typeProp.getJsDocs();
+  const typeDescription = typeJsDocs[0]?.getTags().reduce(
+    (descriptions, tag) => ({
+      ...descriptions,
+      [tag.getTagName()]: tag.getText(),
+    }),
+    {}
+  );
+  const typeName = typeProp.getNameNode().getText();
+  const typeType = typeProp.getTypeNode().getText();
+
+  typeData.set('name', typeName);
+  typeData.set('type', typeType);
+  typeData.set('description', typeDescription);
+  typeFileData.set(typeName, typeData);
+}

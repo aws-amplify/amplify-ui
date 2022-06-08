@@ -20,6 +20,26 @@ const source = project.getSourceFile(
   path.resolve(__dirname, '../../packages/react/src/primitives/components.ts')
 );
 
+const catalog = getCatalog();
+
+console.log('⭐ Catalog: ', JSON.stringify(catalog, null, 2));
+
+/**
+ * @description getCatalog function get props information for all components.
+ * @returns catalog data object
+ *  {
+      componentName: {
+        prop: {
+          "name": string,
+          "type": string,
+          "description": "",
+          "category": string,
+        },
+        ...
+      }
+      ...
+    }
+ */
 function getCatalog() {
   const catalog = {};
   for (const [componentName, [node]] of source.getExportedDeclarations()) {
@@ -48,10 +68,6 @@ function getCatalog() {
   }
   return catalog;
 }
-
-const catalog = getCatalog();
-
-console.log('⭐ Catalog: ', JSON.stringify(catalog, null, 2));
 
 /**
  * Determine if a TypeScript AST Node is a React component
