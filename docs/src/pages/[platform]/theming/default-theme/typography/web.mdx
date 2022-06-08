@@ -1,29 +1,97 @@
+import { Tabs, TabItem, View } from '@aws-amplify/ui-react';
 import { TokenList } from '@/components/Theming/TokenList';
-
-## Font families
-```js
-// Example usage
-{ tokens.fonts.default.static }
-```
-<TokenList namespace="fonts" />
+import { Example, ExampleCode } from '@/components/Example';
+import { FontWeightExample, FontSizesExample, LineHeightsExample } from './examples';
 
 ## Font weights
-```js
-// Example usage
-{ tokens.fontWeights.normal }
+<Tabs>
+  <TabItem title="Example usage">
+    <View marginTop="var(--amplify-space-large)">
+      <Example>
+        <FontWeightExample  />
+        <ExampleCode>
+```tsx file=./examples/FontWeightExample.tsx
+
 ```
+        </ExampleCode>
+      </Example>
+    </View>
+  </TabItem>
+  <TabItem title="CSS">
+    <View marginTop="var(--amplify-space-large)">
+    <Example>
+      <ExampleCode>
+```css file=./examples/FontWeightExample.css
+
+```
+      </ExampleCode>
+    </Example>
+    </View>
+  </TabItem>
+</Tabs>
+
 <TokenList namespace="fontWeights" />
 
 ## Font sizes
-```js
-// Example usage
-{ tokens.fontSizes.xl }
+
+<Tabs>
+  <TabItem title="Example usage">
+    <View marginTop="var(--amplify-space-large)">
+      <Example>
+        <FontSizesExample  />
+        <ExampleCode>
+```tsx file=./examples/FontSizesExample.tsx
+
 ```
+        </ExampleCode>
+      </Example>
+    </View>
+  </TabItem>
+  <TabItem title="CSS">
+    <View marginTop="var(--amplify-space-large)">
+    <Example>
+      <ExampleCode>
+```css file=./examples/FontSizesExample.css
+
+```
+      </ExampleCode>
+    </Example>
+    </View>
+  </TabItem>
+</Tabs>
+
 <TokenList namespace="fontSizes" />
 
 ## Line heights
-```js
-// Example usage
-{ tokens.lineHeights.medium }
+
+<Tabs>
+  <TabItem title="Example usage">
+    <View marginTop="var(--amplify-space-large)">
+      <Example>
+        <LineHeightsExample  />
+        <ExampleCode>
+```tsx file=./examples/LineHeightsExample.tsx
+
 ```
+        </ExampleCode>
+      </Example>
+    </View>
+  </TabItem>
+  <TabItem title="CSS">
+    <View marginTop="var(--amplify-space-large)">
+    <Example>
+      <ExampleCode>
+```css file=./examples/LineHeightsExample.css
+
+```
+      </ExampleCode>
+    </Example>
+    </View>
+  </TabItem>
+</Tabs>
+
 <TokenList namespace="lineHeights" />
+
+## Font families
+<TokenList namespace="fonts" />
+
