@@ -4,8 +4,8 @@ applications:
       phases:
         preBuild:
           commands:
-            - nvm install 14
-            - nvm use 14
+            - nvm install 16.13
+            - nvm use 16
             - node -v
             - export FLUTTER_HOME=${HOME}/sdks/flutter
             - git clone -b stable --depth 1 https://github.com/flutter/flutter.git ${FLUTTER_HOME}
@@ -13,8 +13,8 @@ applications:
             - (cd .. && yarn install && yarn build)
         build:
           commands:
-            - nvm install 14
-            - nvm use 14
+            - nvm install 16.13
+            - nvm use 16
             - node -v
             - yarn flutter:build
             - yarn build
