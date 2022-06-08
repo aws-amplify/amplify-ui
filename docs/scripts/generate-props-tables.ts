@@ -3,6 +3,7 @@ import path from 'path';
 
 import { Node, Project, Symbol, Type, VariableDeclaration } from 'ts-morph';
 import { getAllTypesData } from './util/getAllTypesData';
+import { capitalizeString } from '../src/utils/capitalizeString';
 
 const allTypesData = getAllTypesData();
 
@@ -26,13 +27,14 @@ function getCatalog() {
 
     if (isPrimitive(node)) {
       const [propsType] = node.getType().getTypeArguments();
-      properties = getComponentProperties(propsType);
+      properties = getComponentProperties(propsType, componentName);
     } else if (isCallableNode(node)) {
       const [signature] = node.getType().getCallSignatures();
 
       if (signature && signature.getParameters().length > 0) {
         properties = getComponentProperties(
-          signature.getParameters()[0].getValueDeclaration().getType()
+          signature.getParameters()[0].getValueDeclaration().getType(),
+          componentName
         );
       }
     }
@@ -63,13 +65,13 @@ function isPrimitive(node: Node): node is VariableDeclaration {
   );
 }
 
-function getComponentProperties(type: Type) {
+function getComponentProperties(type: Type, componentName: string) {
   const properties = {};
 
   type.getProperties().forEach((prop) => {
     const propName = prop.getName();
 
-    const property = getCatalogComponentProperty(prop);
+    const property = getCatalogComponentProperty(prop, componentName);
 
     if (property) {
       properties[propName] = property;
@@ -82,7 +84,7 @@ function getComponentProperties(type: Type) {
 /**
  * Get a catalog-compatible component property definition
  */
-function getCatalogComponentProperty(property: Symbol) {
+function getCatalogComponentProperty(property: Symbol, componentName: string) {
   const name = property.getName();
   const propType = property.getDeclarations()[0].getType();
   const description = property
@@ -94,14 +96,26 @@ function getCatalogComponentProperty(property: Symbol) {
     })
     .join('');
   const type = propType.getText();
+  const category = `${capitalizeString(
+    getCategory(name, componentName)
+  )} Props`;
 
   return {
     name,
     type,
     description,
+    category,
   };
 }
 
 function isCallableNode(node: Node): node is VariableDeclaration {
   return node.getType().getCallSignatures().length > 0;
+}
+
+function getCategory(propName, componentName) {
+  return (
+    [componentName, 'base', 'style', 'flex'].find((component) =>
+      allTypesData.get(component)?.has(propName)
+    ) ?? 'other'
+  );
 }

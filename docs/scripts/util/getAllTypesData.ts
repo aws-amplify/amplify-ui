@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { Project } from 'ts-morph';
+import { capitalizeString } from '../../src/utils/capitalizeString';
 
 export const getAllTypesData = () => {
   const project = new Project({
@@ -22,9 +23,9 @@ export const getAllTypesData = () => {
   const allTypeFiles = source.getReferencedSourceFiles();
 
   allTypeFiles.forEach((typeFile) => {
-    const typeFileName = typeFile
-      .getBaseName()
-      .slice(0, typeFile.getBaseName().indexOf('.ts'));
+    const typeFileName = capitalizeString(
+      typeFile.getBaseName().slice(0, typeFile.getBaseName().indexOf('.ts'))
+    );
     const typeFileData = new Map();
     const typeAliases = typeFile.getTypeAliases();
     if (typeAliases) {
@@ -85,5 +86,3 @@ export const getAllTypesData = () => {
 
   return allTypeFilesData;
 };
-
-console.log('🐤 allTypesData', getAllTypesData());
