@@ -70,7 +70,8 @@ function getCatalog() {
 }
 
 /**
- * Determine if a TypeScript AST Node is a React component
+ * @name isPrimitive
+ * @description Determine if a TypeScript AST Node is a React component
  */
 function isPrimitive(node: Node): node is VariableDeclaration {
   const typeName = node.getType().getText(node);
@@ -80,6 +81,11 @@ function isPrimitive(node: Node): node is VariableDeclaration {
       typeName.startsWith('React.ForwardRef'))
   );
 }
+
+/**
+ * @name getComponentProperties
+ * @description get all the properties for a component
+ */
 
 function getComponentProperties(type: Type, componentName: string) {
   const properties = {};
@@ -98,7 +104,8 @@ function getComponentProperties(type: Type, componentName: string) {
 }
 
 /**
- * Get a catalog-compatible component property definition
+ * @name getCatalogComponentProperty
+ * @description Get a catalog-compatible component property definition
  */
 function getCatalogComponentProperty(property: Symbol, componentName: string) {
   const name = property.getName();
@@ -111,16 +118,15 @@ function getCatalogComponentProperty(property: Symbol, componentName: string) {
       return `${name === 'description' ? '' : `${name}: `}${text}`;
     })
     .join('');
-  const type = propType.getText();
-  const category = `${capitalizeString(
-    getCategory(name, componentName)
-  )} Props`;
+  const category = capitalizeString(getCategory(name, componentName));
+  const type =
+    allTypesData.get(category)?.get(name)?.get('type') ?? propType.getText(); // use type from allTypesData because it has a better-looking format
 
   return {
-    name,
-    type,
-    description,
-    category,
+    name: sanitize(name),
+    type: sanitize(type),
+    description: sanitize(description),
+    category: `${sanitize(category)}Prop`,
   };
 }
 
@@ -128,6 +134,10 @@ function isCallableNode(node: Node): node is VariableDeclaration {
   return node.getType().getCallSignatures().length > 0;
 }
 
+/**
+ * @name getCategory
+ * @description categorize properties by checking if they belong to a certain property group.
+ */
 function getCategory(propName, componentName) {
   const preSetCategories = { as: 'Base', ref: 'Base' };
   return (
@@ -137,4 +147,19 @@ function getCategory(propName, componentName) {
     preSetCategories[propName] ??
     'other'
   );
+}
+
+/**
+ * @name sanitize
+ * @description treat special characters
+ * 1) "|", "<", ">", "`" => replace with character code, "&$<unicode>;"
+ * 2) "' + '" => replace with space
+ * 3) "\n" => replace with space
+ */
+function sanitize(string) {
+  const tobeEncoded = new RegExp(/[|<>`]|'\s\+\s'|\\n/g);
+  const getEncoded = (match) =>
+    match.match(/[|<>`]/) ? `&#${match.charCodeAt()};` : ' ';
+
+  return string.replaceAll(tobeEncoded, getEncoded);
 }

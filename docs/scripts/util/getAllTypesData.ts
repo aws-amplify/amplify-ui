@@ -48,9 +48,13 @@ export const getAllTypesData = () => {
   return allTypeFilesData;
 };
 
+/**
+ * @name setTypeData
+ * @description set property information for TypeAlias and Interfaces to typeFileData.
+ */
 function setTypeData(
   typeProp: TypeAliasDeclaration | PropertySignature,
-  typeFileData
+  typeFileData: Map<string, Map<string, string | object>>
 ) {
   const typeData = new Map();
   const typeJsDocs = typeProp.getJsDocs();
