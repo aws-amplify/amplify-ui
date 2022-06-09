@@ -1,5 +1,34 @@
 # @aws-amplify/ui-angular
 
+## 2.5.0
+
+### Minor Changes
+
+- [#2046](https://github.com/aws-amplify/amplify-ui/pull/2046) [`635a8436b`](https://github.com/aws-amplify/amplify-ui/commit/635a8436b32ee71ad810cda7442df797b9ca6046) Thanks [@wlee221](https://github.com/wlee221)! - This migrates `@aws-amplify/ui-angular` from view engine to ivy engine.
+
+  This **will** affect:
+
+  - Customers on Angular 8 or before. They will need to [upgrade](https://update.angular.io/) to Angular 9+ for ivy support.
+  - Customers on Angular 9+, who opted out of ivy. They will need to enable ivy in your `tsconfig.app.json`:
+
+  ```js
+  {
+    // ...
+    "angularCompilerOptions": {
+      "enableIvy": true
+    }
+  }
+  ```
+
+  This will **not** affect:
+
+  - Customers on Angular 9+ who did not opt out of ivy.
+  - Any new customers.
+
+### Patch Changes
+
+- [#2046](https://github.com/aws-amplify/amplify-ui/pull/2046) [`635a8436b`](https://github.com/aws-amplify/amplify-ui/commit/635a8436b32ee71ad810cda7442df797b9ca6046) Thanks [@wlee221](https://github.com/wlee221)! - Bumps `@aws-amplify/ui-angular` devDependencies from Angular 11 to Angular 13.
+
 ## 2.4.9
 
 ### Patch Changes
