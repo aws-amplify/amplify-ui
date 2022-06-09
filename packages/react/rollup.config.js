@@ -7,7 +7,12 @@ import styles from 'rollup-plugin-styles';
 const config = defineConfig([
   // CJS config
   {
-    input: ['src/index.tsx', 'src/internal.tsx', 'src/legacy.tsx'],
+    input: [
+      'src/index.tsx',
+      'src/internal.tsx',
+      'src/legacy.tsx',
+      'src/geo.tsx',
+    ],
     output: {
       dir: 'dist',
       format: 'cjs',
@@ -20,7 +25,12 @@ const config = defineConfig([
   },
   // ESM config
   {
-    input: ['src/index.tsx', 'src/internal.tsx', 'src/legacy.tsx'],
+    input: [
+      'src/index.tsx',
+      'src/internal.tsx',
+      'src/legacy.tsx',
+      'src/geo.tsx',
+    ],
     output: {
       dir: 'dist/esm',
       format: 'es',

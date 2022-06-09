@@ -20,6 +20,10 @@
       "import": "./dist/esm/legacy.js",
       "require": "./dist/legacy.js"
     },
+    "./geo": {
+      "import": "./dist/esm/geo.js",
+      "require": "./dist/geo.js"
+    },
     "./styles.css": "./dist/styles.css",
     "./primitives.json": "./dist/primitives.json"
   },
