@@ -1,6 +1,13 @@
 import Link from 'next/link';
 
-export function CardLink({ href, title, desc, img }) {
+interface CardLinkProps {
+  href: string;
+  title: string;
+  desc: string;
+  img: React.ReactNode;
+}
+
+export function CardLink({ href, title, desc, img }: CardLinkProps) {
   return (
     <Link href={href}>
       <a className="docs-cardLink">
