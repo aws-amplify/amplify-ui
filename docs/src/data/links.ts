@@ -362,7 +362,7 @@ export const theming = [
   {
     href: '/theming/responsive',
     label: 'Responsive',
-    platforms: ['react', 'vue', 'angular'],
+    platforms: ['react'],
   },
   {
     href: '/theming/dark-mode',

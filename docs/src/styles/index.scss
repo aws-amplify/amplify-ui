@@ -49,3 +49,6 @@
 @import './primitives/textStyles.css';
 @import './primitives/toggleButtonStyles.css';
 @import './primitives/viewStyles.css';
+
+/* Connected Component override styles for docs examples */
+@import './components/authenticatorStyles.scss';
