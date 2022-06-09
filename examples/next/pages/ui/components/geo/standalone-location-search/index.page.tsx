@@ -1,4 +1,4 @@
-import { LocationSearch } from '@aws-amplify/ui-react';
+import { LocationSearch } from '@aws-amplify/ui-react/dist/geo';
 import { Amplify } from 'aws-amplify';
 
 import '@aws-amplify/ui-react/styles.css';

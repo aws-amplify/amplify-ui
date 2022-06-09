@@ -1,4 +1,5 @@
-import { MapView, Button } from '@aws-amplify/ui-react';
+import { Button } from '@aws-amplify/ui-react';
+import { MapView } from '@aws-amplify/ui-react/dist/geo';
 import { Amplify } from 'aws-amplify';
 import { useState } from 'react';
 import { Marker } from 'react-map-gl';

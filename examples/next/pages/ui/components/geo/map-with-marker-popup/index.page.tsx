@@ -1,4 +1,5 @@
-import { MapView, Heading, Text } from '@aws-amplify/ui-react';
+import { Heading, Text } from '@aws-amplify/ui-react';
+import { MapView } from '@aws-amplify/ui-react/dist/geo';
 import { Amplify } from 'aws-amplify';
 import { useState } from 'react';
 import { Marker, Popup } from 'react-map-gl';
