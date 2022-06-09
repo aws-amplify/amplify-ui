@@ -373,16 +373,19 @@ export const theming = [
     href: '/theming/default-theme/colors',
     label: 'Colors',
     platforms: ['react'],
+    tertiary: true,
   },
   {
     href: '/theming/default-theme/typography',
     label: 'Typography',
     platforms: ['react'],
+    tertiary: true,
   },
   {
     href: '/theming/default-theme/sizes',
     label: 'Sizes',
     platforms: ['react'],
+    tertiary: true,
   },
   {
     href: '/theming/dark-mode',
