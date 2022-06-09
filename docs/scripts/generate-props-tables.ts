@@ -38,15 +38,25 @@ async function createAllPropsTables() {
       componentPageName
     );
 
-    console.log('🍰', propsSortedByCategory);
+    // console.log('🍰', propsSortedByCategory);
 
     const expander = createPropsTableExpander(propsSortedByCategory);
+    const componentName = Object.keys(
+      propsSortedByCategory[0]
+    )[0] as ComponentName;
 
-    console.log('⭐ table:', expander);
+    // console.log('⭐ table:', expander);
 
     const output = getOutput(
       componentPageName,
-      json2md([{ Expander: { ExpanderItems: expander } }])
+      json2md([
+        {
+          Expander: {
+            ExpanderItems: expander,
+            defaultOpen: componentName,
+          },
+        },
+      ])
     );
 
     fs.writeFileSync(
@@ -69,15 +79,11 @@ type PropsTables = PropsTable[];
 type CategoryProperty = { [key in Category]: Properties };
 type SortedPropertiesByCategory = CategoryProperty[];
 
-json2md.converters.Expander = ({ ExpanderItems }, json2md) => {
-  console.log('🐛 ExpanderItems:', ExpanderItems);
-  return `
-<Expander type="multiple" defaultValue={['Props']}>
+json2md.converters.Expander = ({ ExpanderItems, defaultOpen }, json2md) => `
+<Expander type="multiple" defaultValue={['${defaultOpen}']}>
   ${json2md([...ExpanderItems.map((item) => ({ ...item }))])}
 </Expander>
 `;
-};
-
 json2md.converters.ExpanderItem = ({ title, value, children }, json2md) => `
 <ExpanderItem title="${title}" value="${value}">
     ${json2md(children)}
@@ -163,10 +169,7 @@ function getPropsSortedByCategory(
     const allCategories = [
       componentName,
       ...Object.keys(propertiesByCategory)
-        .filter(
-          (category) =>
-            ![componentPageName, 'Other'].includes(category.toLowerCase())
-        )
+        .filter((category) => ![componentName, 'Other'].includes(category))
         .sort((a, b) => a.localeCompare(b)),
       'Other',
     ] as (Category | 'Other')[];
