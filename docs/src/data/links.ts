@@ -343,6 +343,10 @@ export const gettingStarted = [
     tertiary: true,
   },
   {
+    href: '/getting-started/accessibility',
+    label: 'Accessibility',
+  },
+  {
     href: '/getting-started/migration',
     label: 'Migration',
     platforms: ['react', 'vue', 'angular'],
