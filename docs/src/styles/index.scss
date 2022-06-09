@@ -23,6 +23,7 @@
 @import './primitives/buttonStyles.css';
 @import './primitives/cardStyles.css';
 @import './primitives/checkboxFieldStyles.css';
+@import './primitives/collectionStyles.css';
 @import './primitives/dividerStyles.css';
 @import './primitives/expanderStyles.css';
 @import './primitives/flexStyles.css';
@@ -50,3 +51,6 @@
 @import './primitives/textStyles.css';
 @import './primitives/toggleButtonStyles.css';
 @import './primitives/viewStyles.css';
+
+/* Connected Component override styles for docs examples */
+@import './components/authenticatorStyles.scss';
