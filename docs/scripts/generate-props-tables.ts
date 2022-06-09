@@ -13,7 +13,7 @@ import type {
 
 const catalog = getCatalog();
 
-console.log(' 🐻 catalog: ', JSON.stringify(getCatalog(), null, 2));
+// console.log(' 🐻 catalog: ', JSON.stringify(getCatalog(), null, 2));
 
 createAllPropsTables();
 
@@ -21,7 +21,7 @@ async function createAllPropsTables() {
   for await (const componentFilepath of globbyStream(
     path.join(
       __dirname,
-      '../../docs/src/pages/[platform]/components/alert/index.page.mdx'
+      '../../docs/src/pages/[platform]/components/*/index.page.mdx'
     )
   )) {
     const regex =
@@ -38,6 +38,11 @@ async function createAllPropsTables() {
       componentPageName
     );
 
+    if (!propsSortedByCategory) {
+      console.log(`❗️ Not generating props table for ${componentPageName}`);
+      continue;
+    }
+
     // console.log('🍰', propsSortedByCategory);
 
     const expander = createPropsTableExpander(propsSortedByCategory);
@@ -48,7 +53,7 @@ async function createAllPropsTables() {
     // console.log('⭐ table:', expander);
 
     const output = getOutput(
-      componentPageName,
+      componentName,
       json2md([
         {
           Expander: {
@@ -108,6 +113,10 @@ ${propsTables}
 function createPropsTableExpander(
   propsSortedByCategory: SortedPropertiesByCategory
 ): { ExpanderItem: { title: string; value: string; children: any[] } }[] {
+  if (!propsSortedByCategory || !Array.isArray(propsSortedByCategory)) {
+    console.log('🐛 propsSortedByCategory:', propsSortedByCategory);
+    return;
+  }
   return propsSortedByCategory.map((categoryProperty) => {
     const category = Object.keys(categoryProperty)[0];
     const table = createPropsTable(categoryProperty);
@@ -189,6 +198,7 @@ function getPropsSortedByCategory(
       .filter((val) => Object.values(val)[0]);
   } else {
     console.log(` 🫥  ${componentPageName} doesn't have any type properties.`);
+    return null;
   }
 }
 
