@@ -24,7 +24,7 @@ describe('getValueAtCurrentBreakpoint', () => {
     expect(result).toBe(0);
   });
 
-  it('should return design token toString vaule directly', () => {
+  it('should return design token toString value directly', () => {
     const { result } = renderHook(() => useTheme());
     const { tokens } = result.current;
     const value = getValueAtCurrentBreakpoint(
