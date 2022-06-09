@@ -6,17 +6,5 @@ supportedFrameworks: react|angular|vue
 ---
 
 import { Fragment } from '@/components/Fragment';
-import { Alert } from '@aws-amplify/ui-react';
 
-Amplify UI components follow [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/) and 
-[WAI-ARIA](https://www.w3.org/WAI/ARIA/apg/) best practices and guidelines for color contrast, 
-keyboard navigation, accessible labels, and focus management. The intent of Amplify UI is to 
-provide components that are flexible and can be composed into modern, accessible patterns 
-with as few limitations as possible.
-
-<Alert heading="Report an accessibility issue">
-  Have you found an accessibility bug or limitation? 
-  [Open an issue](https://github.com/aws-amplify/amplify-ui/issues/new/choose) so we can take a look!
-</Alert>
-
-<Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+<Fragment>{({ platform }) => import(`./accessibility.${platform}.mdx`)}</Fragment>

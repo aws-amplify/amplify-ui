@@ -1,10 +1,13 @@
 import { Grid } from '@aws-amplify/ui-react';
 import { CardLink } from '@/components/CardLink';
+import { Fragment } from '@/components/Fragment';
 import { Example, ExampleCode } from '@/components/Example';
 import { LabelInputExample, CheckboxExample, NavRoleExample, AriaLiveExample } from './examples';
 import { MdOutlineCheckBox, MdEdit, MdOutlineAutoAwesome } from 'react-icons/md';
 
-
+<Fragment>
+  {({ platform }) => import(`./intro.mdx`)}
+</Fragment>
 
 ## What's included?
 
