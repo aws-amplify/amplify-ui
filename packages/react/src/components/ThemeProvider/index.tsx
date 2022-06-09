@@ -16,11 +16,13 @@ interface ThemeProviderProps {
 export function AmplifyProvider({
   children,
   colorMode,
-  theme,
+  theme: overrideTheme,
   nonce,
-}: ThemeProviderProps) {
-  const webTheme = createTheme(theme);
-  const { name, cssText } = webTheme;
+}: ThemeProviderProps): JSX.Element {
+  const theme = createTheme(overrideTheme);
+  const { name, cssText } = theme;
+
+  const value = React.useMemo(() => ({ theme }), [theme]);
 
   // In order for the theme to apply to Portalled elements like our Menu
   // we need to put the CSS variables we generate from the theme on the
@@ -55,11 +57,7 @@ export function AmplifyProvider({
     }
   }, [name, colorMode]);
   return (
-    <AmplifyContext.Provider
-      value={{
-        theme: webTheme,
-      }}
-    >
+    <AmplifyContext.Provider value={value}>
       {/*
           The data attributes on here as well as the root element allow for nested
           themes to work because CSS variables are inherited, ones closer in the 
@@ -119,6 +117,7 @@ export function AmplifyProvider({
       {typeof theme === 'undefined' || /<\/style/i.test(cssText) ? null : (
         <style
           id={`amplify-theme-${name}`}
+          // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: cssText }}
           nonce={nonce}
         />
