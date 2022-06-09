@@ -20,7 +20,7 @@ export function AmplifyProvider({
   nonce,
 }: ThemeProviderProps): JSX.Element {
   const value = React.useMemo(() => ({ theme: createTheme(theme) }), [theme]);
-  const { name, cssText } = value.theme;
+  const { theme: { name, cssText } } = value;
 
   // In order for the theme to apply to Portalled elements like our Menu
   // we need to put the CSS variables we generate from the theme on the
