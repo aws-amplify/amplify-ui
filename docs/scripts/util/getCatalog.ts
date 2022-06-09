@@ -180,7 +180,7 @@ function getCategory(propName: string, componentName: ComponentName): Category {
  * 3) "\n" => replace with space
  */
 function sanitize(string) {
-  const tobeEncoded = new RegExp(/[|<>`]|'\s\+\s'|\\n/g);
+  const tobeEncoded = new RegExp(/[|<>`]|'\s\+\s'|\\n|\n/g);
   const getEncoded = (match) =>
     match.match(/[|<>`]/) ? `&#${match.charCodeAt()};` : ' ';
 
