@@ -16,13 +16,11 @@ interface ThemeProviderProps {
 export function AmplifyProvider({
   children,
   colorMode,
-  theme: overrideTheme,
+  theme,
   nonce,
 }: ThemeProviderProps): JSX.Element {
-  const theme = createTheme(overrideTheme);
-  const { name, cssText } = theme;
-
-  const value = React.useMemo(() => ({ theme }), [theme]);
+  const value = React.useMemo(() => ({ theme: createTheme(theme) }), [theme]);
+  const { name, cssText } = value.theme;
 
   // In order for the theme to apply to Portalled elements like our Menu
   // we need to put the CSS variables we generate from the theme on the
