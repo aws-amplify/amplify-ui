@@ -25,11 +25,13 @@ const { validationErrors } = toRefs(useAuthShared());
 const { type } = formField.value;
 
 const isPasswordField = type === 'password';
-const errorId = nanoid(12);
 
 const errors = computed(() => getErrors(validationErrors.value[name.value]));
 const hasError = computed(() => errors.value?.length > 0);
-const ariaDescribedBy = computed(() => (hasError.value ? errorId : undefined));
+const errorId = computed(() => nanoid(12));
+const ariaDescribedBy = computed(() =>
+  hasError.value ? errorId.value : undefined
+);
 </script>
 <template>
   <!-- password input -->
