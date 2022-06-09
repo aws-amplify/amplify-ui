@@ -44,7 +44,7 @@ const source = project.getSourceFile(
       ...
     }
  */
-export function getCatalog() {
+function getCatalog() {
   const catalog: Catalog = {} as Catalog;
   for (const [componentName, [node]] of source.getExportedDeclarations()) {
     let properties: Properties = {};
@@ -186,3 +186,5 @@ function sanitize(string) {
 
   return string.replaceAll(tobeEncoded, getEncoded);
 }
+
+export { getCatalog, sharedCategories };
