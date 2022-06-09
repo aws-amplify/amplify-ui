@@ -7,6 +7,7 @@ import { HeroSection } from './HeroSection';
 import ReactHomePage from './index.react';
 import VueHomePage from './index.vue';
 import AngularHomePage from './index.angular';
+import FlutterHomePage from './index.flutter';
 import { debounce } from 'lodash';
 
 const HomePage = ({ colorMode }) => {
@@ -41,6 +42,9 @@ const HomePage = ({ colorMode }) => {
       break;
     case 'angular':
       pageContent = <AngularHomePage colorMode={colorMode} />;
+      break;
+    case 'flutter':
+      pageContent = <FlutterHomePage colorMode={colorMode} />;
       break;
     default:
       pageContent = <ReactHomePage colorMode={colorMode} />;

@@ -174,9 +174,9 @@
 
 .docs-hero {
   background-image: url('/svg/grid.svg'),
-    linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 20%),
-    linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 20%);
-  background-color: var(--amplify-colors-brand-primary-10);
+    linear-gradient(0deg, rgba(var(--docs-gradient-color-rgb), 1) 0%, rgba(var(--docs-gradient-color-rgb), 0) 20%),
+    linear-gradient(180deg, rgba(var(--docs-gradient-color-rgb), 1) 0%, rgba(var(--docs-gradient-color-rgb), 0) 20%);
+  background-color: var(--docs-callout-bg);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -188,14 +188,14 @@
 
 .docs-grid-bg {
   background-image: url('/svg/grid.svg'),
-    linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 20%),
-    linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 20%);
+    linear-gradient(0deg, rgba(var(--docs-gradient-color-rgb), 1) 0%, rgba(var(--docs-gradient-color-rgb), 0) 20%),
+    linear-gradient(180deg, rgba(var(--docs-gradient-color-rgb), 1) 0%, rgba(var(--docs-gradient-color-rgb), 0) 20%);
   background-color: var(--amplify-colors-background-secondary);
 }
 
 .docs-gradient-bg {
-  background-image: linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 20%),
-  linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 20%),
+  background-image: linear-gradient(0deg, rgba(var(--docs-gradient-color-rgb), 1) 0%, rgba(var(--docs-gradient-color-rgb), 0) 20%),
+  linear-gradient(180deg, rgba(var(--docs-gradient-color-rgb), 1) 0%, rgba(var(--docs-gradient-color-rgb), 0) 20%),
     linear-gradient(
       86deg,
       var(--amplify-colors-brand-primary-10) 12%,
@@ -212,14 +212,31 @@
       rgba(255, 255, 255, 0) 83%,
       var(--amplify-colors-brand-secondary-10) 100%
     ),
-    linear-gradient(175deg, rgba(255, 255, 255, 0) 0%, var(--amplify-colors-brand-secondary-10) 54%);
+    linear-gradient(175deg, rgba(var(--docs-gradient-color-rgb), 0) 0%, var(--amplify-colors-brand-secondary-10) 54%);
 }
 
-pre.prism-code {
+pre.with-lines {
   counter-reset: code-lines;
   margin: 0;
   padding: 0;
+  
+  & .token-line {
+    counter-increment: code-lines;
+    position: relative;
+    padding-left: 3rem;
+    
+    &::before {
+      position: absolute;
+      left: 0;
+      width: 2rem;
+      text-align: right;
+      color: var(--amplify-colors-font-tertiary);
+      opacity: 0.75;
+      content: counter(code-lines) " ";
+    }
+  }
 }
+
 .token-line {
   counter-increment: code-lines;
   position: relative;
@@ -237,7 +254,43 @@ pre.prism-code {
 }
 
 .docs-home-code-card {
+  position: relative;
   border-radius: var(--amplify-radii-large);
+  border: var(--amplify-border-widths-small) solid var(--amplify-colors-border-secondary);
   box-shadow: var(--amplify-shadows-medium);
   width: 50%;
+  font-size: var(--amplify-font-sizes-medium);
+  
+  & pre.prism-code {
+    margin: 0;
+    padding: 0;
+    font-size: var(--amplify-font-sizes-medium);
+  }
+  
+  &::after,
+  &::before {
+    --degree: 0deg;
+    content: '';
+    position: absolute;
+    z-index: 1;
+    right: var(--amplify-space-xs);
+    left: var(--amplify-space-xs);
+    height: var(--amplify-space-medium);
+    background-image: linear-gradient(var(--degree), rgba(var(--docs-gradient-color-rgb), 1) 0%, rgba(var(--docs-gradient-color-rgb), 0) 100%);
+  }
+  
+  &::after {
+    bottom: var(--amplify-space-medium);
+  }
+  
+  &::before {
+    --degree: 180deg;
+    top: var(--amplify-space-medium);
+  }
+}
+
+.docs-home-code {
+  // don't make code samples taller than the screen
+  max-height: 80vh;
+  overflow: auto;
 }

@@ -30,7 +30,7 @@ export const A11ySection = () => {
               WCAG
             </Link>{' '}
             and{' '}
-            <Link isExternal href="https://www.w3.org/TR/wai-aria-1.2/">
+            <Link isExternal href="https://www.w3.org/WAI/ARIA/apg/">
               WAI-ARIA
             </Link>{' '}
             best practices and guidelines such as color contrast, keyboard
