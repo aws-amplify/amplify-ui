@@ -5,7 +5,8 @@ import ReactMapGL from 'react-map-gl';
 import type { MapProps, MapRef, TransformRequestFunction } from 'react-map-gl';
 import { Amplify, Auth } from 'aws-amplify';
 
-// utility types for missing AmplifyConfig type, only includes Geo related key/values
+// Utility types for missing AmplifyConfig type, only includes Geo related key/values.
+// Note: these types should not be be used outside this file
 type AmplifyGeoOptions = {
   maps?: { default: string };
   region: string;
@@ -17,10 +18,9 @@ type AmplifyGeoConfig = {
   };
 };
 
-type MapLib = typeof maplibregl;
-
-interface MapViewProps extends Omit<MapProps, 'transformRequest'> {
-  mapLib: MapLib;
+interface MapViewProps extends Omit<MapProps, 'mapLib' | 'transformRequest'> {
+  // replace `any` typed MapProps.mapLib
+  mapLib?: typeof maplibregl;
 }
 
 /**
