@@ -1,3 +1,4 @@
+import { Fragment } from '@/components/Fragment'; 
 import { Button, Icon, Flex, Text, Alert } from '@aws-amplify/ui-react';
 import { IconDemo } from './demo';
 import { Example, ExampleCode } from '@/components/Example';
@@ -194,3 +195,9 @@ Set an `aria-label` attribute for an Icon.
 
   </ExampleCode>
 </Example>
+
+
+<Fragment>
+  {({ platform }) => import('./props-table.mdx')}
+</Fragment>
+

@@ -1,3 +1,4 @@
+import { Fragment } from '@/components/Fragment'; 
 import { Button, ButtonGroup, Flex, View } from '@aws-amplify/ui-react';
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentClassTable } from '@/components/ComponentClassTable';
@@ -413,3 +414,9 @@ _Using style props:_
 
 </ExampleCode>
 </Example>
+
+
+<Fragment>
+  {({ platform }) => import('./props-table.mdx')}
+</Fragment>
+

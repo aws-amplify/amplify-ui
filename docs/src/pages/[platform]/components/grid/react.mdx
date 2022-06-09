@@ -1,3 +1,4 @@
+import { Fragment } from '@/components/Fragment'; 
 import { GridDemo } from './demo';
 import {
   DefaultGridExample,
@@ -100,3 +101,9 @@ See [responsive design](/ui/theme/responsive) for more details.
 ### Target classes
 
 <ComponentStyleDisplay componentName="Grid" />
+
+
+<Fragment>
+  {({ platform }) => import('./props-table.mdx')}
+</Fragment>
+

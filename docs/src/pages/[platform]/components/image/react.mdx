@@ -1,3 +1,4 @@
+import { Fragment } from '@/components/Fragment'; 
 import { Image, View } from '@aws-amplify/ui-react';
 
 import { Example, ExampleCode } from '@/components/Example';
@@ -60,3 +61,9 @@ To control how an Image fits its container, use the `objectFit` and `objectPosit
 ### Target classes
 
 <ComponentStyleDisplay componentName="Image" />
+
+
+<Fragment>
+  {({ platform }) => import('./props-table.mdx')}
+</Fragment>
+

@@ -1,3 +1,4 @@
+import { Fragment } from '@/components/Fragment'; 
 import { Rating, IconAdd, IconStarBorder } from '@aws-amplify/ui-react';
 
 import {
@@ -253,3 +254,9 @@ Here we override the `small` size to display `xxxl` stars.
 
   </ExampleCode>
 </Example>
+
+
+<Fragment>
+  {({ platform }) => import('./props-table.mdx')}
+</Fragment>
+

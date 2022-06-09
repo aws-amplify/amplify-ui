@@ -1,3 +1,4 @@
+import { Fragment } from '@/components/Fragment'; 
 import { Flex, Image, ScrollView } from '@aws-amplify/ui-react';
 
 import { ScrollViewDemo } from './demo';
@@ -111,3 +112,9 @@ _Using style props:_
 
   </ExampleCode>
 </Example>
+
+
+<Fragment>
+  {({ platform }) => import('./props-table.mdx')}
+</Fragment>
+

@@ -1,3 +1,4 @@
+import { Fragment } from '@/components/Fragment'; 
 import { Divider, View, Flex, Text } from '@aws-amplify/ui-react';
 import { DividerDemo } from './demo';
 import { Example, ExampleCode } from '@/components/Example';
@@ -178,3 +179,9 @@ _Using style props:_
 ```ts file=../../../../../../packages/ui/src/theme/tokens/components/divider.ts
 
 ```
+
+
+<Fragment>
+  {({ platform }) => import('./props-table.mdx')}
+</Fragment>
+
