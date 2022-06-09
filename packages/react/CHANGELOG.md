@@ -1,5 +1,119 @@
 # @aws-amplify/ui-react
 
+## 2.19.1
+
+### Patch Changes
+
+- [#2021](https://github.com/aws-amplify/amplify-ui/pull/2021) [`6c267aaf8`](https://github.com/aws-amplify/amplify-ui/commit/6c267aaf8b6cb656458e3398cc923e0e259ea9a2) Thanks [@jacoblogan](https://github.com/jacoblogan)! - React: pass isDisabled flag on searchfield onto the search button
+  UI: add design tokens for collection and searchfield
+
+  ### Searchfield Tokens added
+
+  - --amplify-components-searchfield-color
+  - --amplify-components-searchfield-button-color
+  - --amplify-components-searchfield-button-active-background-color
+  - --amplify-components-searchfield-button-active-border-color
+  - --amplify-components-searchfield-button-active-color
+  - --amplify-components-searchfield-button-disabled-background-color
+  - --amplify-components-searchfield-button-disabled-border-color
+  - --amplify-components-searchfield-button-disabled-color
+  - --amplify-components-searchfield-button-focus-background-color
+  - --amplify-components-searchfield-button-focus-border-color
+  - --amplify-components-searchfield-button-focus-color
+  - --amplify-components-searchfield-button-hover-background-color
+  - --amplify-components-searchfield-button-hover-border-color
+  - --amplify-components-searchfield-button-hover-color
+
+  ### Collection tokens added
+
+  - --amplify-components-collection-pagination-current-color
+  - --amplify-components-collection-pagination-current-background-color
+  - --amplify-components-collection-pagination-button-color
+  - --amplify-components-collection-pagination-button-hover-background-color
+  - --amplify-components-collection-pagination-button-hover-color
+  - --amplify-components-collection-pagination-button-disabled-color
+  - --amplify-components-collection-search-input-color
+  - --amplify-components-collection-search-button-color
+  - --amplify-components-collection-search-button-active-background-color
+  - --amplify-components-collection-search-button-active-border-color
+  - --amplify-components-collection-search-button-active-color
+  - --amplify-components-collection-search-button-disabled-background-color
+  - --amplify-components-collection-search-button-disabled-border-color
+  - --amplify-components-collection-search-button-disabled-color
+  - --amplify-components-collection-search-button-focus-background-color
+  - --amplify-components-collection-search-button-focus-border-color
+  - --amplify-components-collection-search-button-focus-color
+  - --amplify-components-collection-search-button-hover-background-color
+  - --amplify-components-collection-search-button-hover-border-color
+  - --amplify-components-collection-search-button-hover-color
+
+* [#2036](https://github.com/aws-amplify/amplify-ui/pull/2036) [`8862110f1`](https://github.com/aws-amplify/amplify-ui/commit/8862110f14784a1ed75069fef733a9c85950910c) Thanks [@hbuchel](https://github.com/hbuchel)! - chore(react): update unit tests for Expander, which now supports passing any ReactNode (custom component) as title prop
+
+- [#1945](https://github.com/aws-amplify/amplify-ui/pull/1945) [`cf151f9d8`](https://github.com/aws-amplify/amplify-ui/commit/cf151f9d87b4851c5cc87088ef2286dcf6945a0d) Thanks [@wlee221](https://github.com/wlee221)! - Added aria-describedby attribute to link validation error messages to their respective field. This makes the errors more accessible.
+
+- Updated dependencies [[`6c267aaf8`](https://github.com/aws-amplify/amplify-ui/commit/6c267aaf8b6cb656458e3398cc923e0e259ea9a2)]:
+  - @aws-amplify/ui@3.10.0
+
+## 2.19.0
+
+### Minor Changes
+
+- [#1980](https://github.com/aws-amplify/amplify-ui/pull/1980) [`a9b29e879`](https://github.com/aws-amplify/amplify-ui/commit/a9b29e8796baa8ba7986cf787b5879a6d4b74a99) Thanks [@zchenwei](https://github.com/zchenwei)! - feat: adding missing label props to make text in i18n file customizable
+
+* [#1986](https://github.com/aws-amplify/amplify-ui/pull/1986) [`c58c1e056`](https://github.com/aws-amplify/amplify-ui/commit/c58c1e0568e7d2b1ec870ebc78245a770da04b2b) Thanks [@zchenwei](https://github.com/zchenwei)! - feat: update custom style props to accept StyleToken type
+
+  For example:
+
+  ```jsx
+  import {
+    Flex,
+    Loader,
+    Rating,
+    SliderField,
+    SwitchField,
+  } from '@aws-amplify/ui-react';
+
+  export const StyleTokenExample = () => {
+    return (
+    <Flex>
+      <Loader
+      emptyColor={tokens.colors.black}
+      filledColor={tokens.colors.orange[40]}
+      />
+
+      <Rating
+        value={2.5}
+        fillColor={tokens.colors.red[60]}
+        emptyColor={tokens.colors.green[60]}
+      />
+
+      <SliderField
+        label="Style Props Slider"
+        filledTrackColor={tokens.colors.green[80].value}
+        emptyTrackColor={tokens.colors.green[20].value}
+        thumbColor="red"
+        filledTrackColor={tokens.colors.green[80]}
+        emptyTrackColor={tokens.colors.green[20]}
+        thumbColor={tokens.colors.red[60]}
+        trackSize="15px"
+        defaultValue={50}
+      />
+
+      <SwitchField
+        label="This is a switch"
+        trackCheckedColor={tokens.colors.green[60]}
+        thumbColor={tokens.colors.orange[10]}
+      />
+    <Flex>
+   );
+  }
+
+  ```
+
+### Patch Changes
+
+- [#1996](https://github.com/aws-amplify/amplify-ui/pull/1996) [`2c3ee1a7f`](https://github.com/aws-amplify/amplify-ui/commit/2c3ee1a7fd66bd6f090b7a469c84acd1203349f9) Thanks [@0618](https://github.com/0618)! - fix ThemeProvider original value
+
 ## 2.18.3
 
 ### Patch Changes

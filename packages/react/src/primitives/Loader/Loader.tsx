@@ -50,7 +50,7 @@ const LoaderPrimitive: Primitive<LoaderProps, 'svg'> = (
         x2="100%"
         y1="50%"
         y2="50%"
-        style={{ stroke: emptyColor }}
+        style={{ stroke: String(emptyColor) }}
         data-testid={LINEAR_EMPTY}
       />
       <line
@@ -60,7 +60,12 @@ const LoaderPrimitive: Primitive<LoaderProps, 'svg'> = (
         y2="50%"
         style={{
           // To get rid of the visible stroke linecap when percentage is 0
-          stroke: isDeterminate && percentage === 0 ? 'none' : filledColor,
+          stroke:
+            isDeterminate && percentage === 0
+              ? 'none'
+              : filledColor
+              ? String(filledColor)
+              : undefined,
         }}
         data-testid={LINEAR_FILLED}
       />
@@ -89,7 +94,7 @@ const LoaderPrimitive: Primitive<LoaderProps, 'svg'> = (
         cy="50%"
         r={`${RADIUS}%`}
         strokeWidth={`${CIRCULAR_STROKE_WIDTH}%`}
-        style={{ stroke: emptyColor }}
+        style={{ stroke: String(emptyColor) }}
         data-testid={CIRCULAR_EMPTY}
       />
       <circle
@@ -98,7 +103,7 @@ const LoaderPrimitive: Primitive<LoaderProps, 'svg'> = (
         r={`${RADIUS}%`}
         strokeWidth={`${CIRCULAR_STROKE_WIDTH}%`}
         style={{
-          stroke: filledColor,
+          stroke: String(filledColor),
           strokeDasharray: isDeterminate
             ? `${CIRCUMFERENCE}% ${CIRCUMFERENCE}%`
             : undefined,
@@ -140,6 +145,9 @@ const LoaderPrimitive: Primitive<LoaderProps, 'svg'> = (
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/loader)
+ */
 export const Loader = React.forwardRef(LoaderPrimitive);
 
 Loader.displayName = 'Loader';

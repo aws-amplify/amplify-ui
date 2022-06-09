@@ -71,7 +71,7 @@ module.exports = {
         // If needed, these can be broken down further, e.g. 'src/components/Geo/**/*'
         'src/helpers/**/*',
         'src/components/InAppMessaging/*',
-        'src/components/**/*',
+        // 'src/components/**/*',
         // 'src/hooks/**/*',
         // 'src/primitives/**/*',
       ],

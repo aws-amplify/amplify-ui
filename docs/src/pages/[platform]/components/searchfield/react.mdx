@@ -5,12 +5,14 @@ import { Fragment } from '@/components/Fragment';
 import { ComponentClassTable } from '@/components/ComponentClassTable';
 import StandardHTMLAttributes from '@/components/StandardHTMLAttributes.mdx';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
+import { ThemeAlert } from '@/components/ThemeAlert';
 import { SearchFieldDemo } from './demo';
 import {
   DefaultSearchFieldExample,
   PlaceholderSearchFieldExample,
   RefExample,
   SearchFieldStyledPropsExample,
+  SearchFieldThemeExample,
   SizeSearchFieldExample,
   VariationSearchFieldExample,
 } from './examples';
@@ -139,6 +141,24 @@ The following is a contrived example demonstrating use of the ref props:
 ### Target classes
 
 <ComponentStyleDisplay componentName="SearchField" />
+
+### Theme
+
+<ThemeAlert />
+
+You can customize the appearance of all SearchFields in your application with a [Theme](/theming).
+
+<Example>
+  <SearchFieldThemeExample />
+  
+<ExampleCode>
+
+```tsx file=./examples/SearchFieldThemeExample.tsx
+
+```
+
+</ExampleCode>
+</Example>
 
 ### Global styling
 

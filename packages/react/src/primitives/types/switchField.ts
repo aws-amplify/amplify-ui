@@ -1,8 +1,9 @@
-import { AriaProps, BaseComponentProps, Sizes } from './base';
-import { BaseStyleProps } from './style';
+import { Property } from 'csstype';
+
+import { Sizes } from './base';
+import { BaseStyleProps, StyleToken } from './style';
 import { InputProps } from './input';
 import { FieldProps, LabelPositions } from './field';
-import { Property } from 'csstype';
 
 export interface SwitchFieldProps
   extends InputProps,
@@ -58,17 +59,17 @@ export interface SwitchFieldProps
    * This property will change the color of the thumb in the switch component
    */
 
-  thumbColor?: Property.Color;
+  thumbColor?: StyleToken<Property.Color>;
 
   /**
    * This property will change the color of the track in the switch component
    */
-  trackColor?: Property.Color;
+  trackColor?: StyleToken<Property.Color>;
 
   /**
    * This property will change the color of the checked track in the switch component
    */
-  trackCheckedColor?: Property.Color;
+  trackCheckedColor?: StyleToken<Property.Color>;
 
   /**
    * This is the value of the switch input and will be submitted with a form submission

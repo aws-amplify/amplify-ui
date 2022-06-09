@@ -12,12 +12,8 @@ export const TableFontSizePropExample = () => {
     <Table>
       <TableBody>
         <TableRow>
-          <TableCell fontSize={`${tokens.fontSizes.xs}`}>
-            Smaller Text
-          </TableCell>
-          <TableCell fontSize={`${tokens.fontSizes.xs}`}>
-            Smaller Text
-          </TableCell>
+          <TableCell fontSize={tokens.fontSizes.xs}>Smaller Text</TableCell>
+          <TableCell fontSize={tokens.fontSizes.xs}>Smaller Text</TableCell>
         </TableRow>
       </TableBody>
     </Table>
