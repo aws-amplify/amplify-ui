@@ -6,10 +6,10 @@ import { useTheme } from './useTheme';
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/theming/responsive#usebreakpointvalue)
  */
-export function useBreakpointValue<T>(
-  values: Record<string, T> | T[],
+export function useBreakpointValue(
+  values: Record<string, string> | string[],
   defaultBreakpoint?: Breakpoint
-): T | null {
+): string | null {
   const {
     breakpoints: { values: breakpoints },
   } = useTheme();

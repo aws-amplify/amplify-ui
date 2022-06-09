@@ -3,10 +3,10 @@ import { isDesignToken } from '@aws-amplify/ui';
 import { Breakpoint, Breakpoints } from '../../types/responsive';
 
 export const getValueAtCurrentBreakpoint = (
-  values: Record<string, any> | string[] | string,
+  values: Record<string, string> | string[] | string,
   breakpoint: Breakpoint,
   breakpoints: Breakpoints
-) => {
+): string | null => {
   if (typeof values !== 'object') {
     return values;
   }
@@ -38,10 +38,10 @@ export const getValueAtCurrentBreakpoint = (
 };
 
 const getClosestValueByBreakpoint = (
-  values: Record<string, any>,
+  values: Record<string, string>,
   breakpoint: Breakpoint,
   breakpoints: Breakpoints
-) => {
+): string | null => {
   // Use exact match
   if (values.hasOwnProperty(breakpoint)) {
     return values[breakpoint];
