@@ -10,6 +10,12 @@ import { useCustomRouter } from '@/components/useCustomRouter';
 
 import { Head } from './Head';
 
+// import Prism from "prism-react-renderer/prism";
+
+// (typeof global !== "undefined" ? global : window).Prism = Prism;
+
+// require("prismjs/components/prism-html");
+
 import '../styles/index.scss';
 
 // suppress useLayoutEffect warnings when running outside a browser

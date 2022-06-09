@@ -7,6 +7,7 @@ import {
   ContextProps,
 } from 'react-live';
 import * as AUI from '@aws-amplify/ui-react';
+import { Card } from '@aws-amplify/ui-react';
 
 const { Flex, View, Alert } = AUI;
 
@@ -75,9 +76,9 @@ const HomeEditor = () => {
         }}
         gap="0"
       >
-        <View flex="1" className="docs-home-editor">
+        <Card flex="1" className="docs-home-editor docs-home-code-card">
           <LiveEditor />
-        </View>
+        </Card>
         <View flex="1" className="docs-home-preview">
           <LivePreview />
         </View>

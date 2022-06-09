@@ -23,7 +23,6 @@ export const Header = ({
 
   return (
     <Flex as="header" className="docs-header">
-      <div className="docs-header-bg" />
       <MenuButton expanded={expanded} setExpanded={setExpanded} />
 
       <Sidebar
@@ -39,6 +38,7 @@ export const Header = ({
         height="1.5rem"
         width="1.5rem"
         display="block"
+        className="docs-logo-framework"
         src={`/svg/integrations/${platform}.svg`}
       />
 

@@ -21,7 +21,6 @@ const VueHomePage = ({ colorMode }) => {
   const {
     query: { platform = 'react' },
   } = useCustomRouter();
-  const { tokens } = useTheme();
 
   return (
     <>

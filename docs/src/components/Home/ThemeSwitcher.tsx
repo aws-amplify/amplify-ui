@@ -11,7 +11,6 @@ import {
   ToggleButton,
   ToggleButtonGroup,
   Text,
-  Theme,
   ThemeProvider,
   Grid,
   View,
@@ -19,29 +18,22 @@ import {
   SliderField,
   TabItem,
   Tabs,
-  Heading,
-  HeadingLevel,
   Alert,
   useTheme,
   Loader,
-  Rating,
   Icon,
   CheckboxField,
   RadioGroupField,
   Radio,
   SearchField,
+  useBreakpointValue,
+  createTheme,
 } from '@aws-amplify/ui-react';
 
-import { CgTerminal, CgOverflow, CgLinear, CgCopyright } from 'react-icons/cg';
+import { CgTerminal, CgLinear, CgCopyright } from 'react-icons/cg';
 
 import themePreval from './themes/index.preval';
 import { useCustomRouter } from '@/components/useCustomRouter';
-import {
-  MdFormatAlignCenter,
-  MdFormatAlignJustify,
-  MdFormatAlignLeft,
-  MdFormatAlignRight,
-} from 'react-icons/md';
 
 const colorKeys = [10, 20, 40, 60, 80, 90, 100];
 const scale = ['primary', 'secondary', 'tertiary', 'success', 'info', 'error'];
@@ -58,18 +50,29 @@ const Swatch = ({ color }) => (
 const Preview = () => {
   const [exclusiveValue, setExclusiveValue] = React.useState('align-left');
   const { tokens } = useTheme();
+  const hideOnMobile = useBreakpointValue({
+    base: false,
+    medium: true,
+  });
+
+  const isMobile = useBreakpointValue({
+    base: true,
+    small: false,
+  });
+
   return (
     <Grid
       columnGap={tokens.space.small}
       rowGap={tokens.space.small}
-      templateColumns="1fr 1fr 1fr 1fr"
+      templateColumns={hideOnMobile ? '1fr 1fr 1fr 1fr' : '1fr'}
     >
       <Card variation="outlined" columnStart="1" columnEnd="4">
         <Flex direction="column">
           <Alert variation="info" heading="Flash sale!" />
-          <Flex direction="row">
+          <Flex direction={isMobile ? 'column' : 'row'}>
             <Flex
               alignItems="center"
+              justifyContent="center"
               padding={tokens.space.xl}
               backgroundColor={tokens.colors.background.secondary}
               fontSize={tokens.fontSizes.xxl}
@@ -118,110 +121,98 @@ const Preview = () => {
           </Flex>
         </Flex>
       </Card>
-      <Card variation="outlined" columnStart="4" columnEnd="-1">
-        <Flex direction="column">
-          <CheckboxField
-            label="Sprinkles"
-            value="Sprinkles"
-            name="topping"
-            defaultChecked
-          />
-          <CheckboxField label="Frosting" value="Frosting" name="topping" />
-          <RadioGroupField
-            label="Language"
-            name="language"
-            defaultValue="css"
-            labelHidden
-          >
-            <Radio value="html">html</Radio>
-            <Radio value="css">css</Radio>
-            <Radio value="javascript">javascript</Radio>
-          </RadioGroupField>
-        </Flex>
-      </Card>
-      <Card variation="outlined" columnStart="1" columnEnd="3">
-        <Flex direction="column">
-          <SliderField
-            label="Slider"
-            min={0}
-            max={100}
-            step={1}
-            defaultValue={50}
-          />
-          {/* <ToggleButtonGroup
-          justifyContent='center'
-          value={exclusiveValue}
-          isExclusive
-          onChange={(value: string) => setExclusiveValue(value)}
-        >
-          <ToggleButton value="align-left" ariaLabel="align left">
-            <MdFormatAlignLeft />
-          </ToggleButton>
-          <ToggleButton value="align-center" ariaLabel="align center">
-            <MdFormatAlignCenter />
-          </ToggleButton>
-          <ToggleButton value="align-right" ariaLabel="align right">
-            <MdFormatAlignRight />
-          </ToggleButton>
-          <ToggleButton value="align-justify" ariaLabel="align justify">
-            <MdFormatAlignJustify />
-          </ToggleButton>
-        </ToggleButtonGroup> */}
-          <Loader variation="linear" />
-          <SearchField placeholder="Search" label="Search" />
-        </Flex>
-      </Card>
-      <Card variation="outlined" columnStart="3" columnEnd="-1">
-        <Flex direction="column">
-          <Flex direction="row" gap={tokens.space.xs}>
-            {scale.map((level) => (
-              <Text
-                fontSize={tokens.fontSizes.xl}
-                color={tokens.colors.font[level]}
+      {hideOnMobile ? (
+        <>
+          <Card variation="outlined" columnStart="4" columnEnd="-1">
+            <Flex direction="column">
+              <CheckboxField
+                label="Sprinkles"
+                value="Sprinkles"
+                name="topping"
+                defaultChecked
+              />
+              <CheckboxField label="Frosting" value="Frosting" name="topping" />
+              <RadioGroupField
+                label="Language"
+                name="language"
+                defaultValue="css"
+                labelHidden
               >
-                Aa
-              </Text>
-            ))}
-          </Flex>
-          {/* {[1,2,3].map(level => <Heading key={level} level={level as HeadingLevel}>Heading {level}</Heading>)} */}
-          <Flex direction="row" gap={tokens.space.xs}>
-            {colorKeys.map((key) => (
-              <Swatch key={key} color={tokens.colors.brand.primary[key]} />
-            ))}
-          </Flex>
-          <Flex direction="row" gap={tokens.space.xs}>
-            {colorKeys.map((key) => (
-              <Swatch key={key} color={tokens.colors.brand.secondary[key]} />
-            ))}
-          </Flex>
-        </Flex>
-      </Card>
-      <Card variation="outlined" columnStart="1" columnEnd="2">
-        <Flex
-          justifyContent="center"
-          alignItems="center"
-          width="100%"
-          height="100%"
-        >
-          <SwitchField label="switch" labelPosition="end" />
-        </Flex>
-      </Card>
-      <Card variation="outlined" columnStart="2" columnEnd="-1">
-        <Tabs>
-          <TabItem title="Sports"></TabItem>
+                <Radio value="html">html</Radio>
+                <Radio value="css">css</Radio>
+                <Radio value="javascript">javascript</Radio>
+              </RadioGroupField>
+            </Flex>
+          </Card>
+          <Card variation="outlined" columnStart="1" columnEnd="3">
+            <Flex direction="column">
+              <SliderField
+                label="Slider"
+                min={0}
+                max={100}
+                step={1}
+                defaultValue={50}
+              />
+              <Loader variation="linear" />
+              <SearchField placeholder="Search" label="Search" />
+            </Flex>
+          </Card>
+          <Card variation="outlined" columnStart="3" columnEnd="-1">
+            <Flex direction="column">
+              <Flex direction="row" gap={tokens.space.xs}>
+                {scale.map((level) => (
+                  <Text
+                    key={level}
+                    fontSize={tokens.fontSizes.xl}
+                    color={tokens.colors.font[level]}
+                  >
+                    Aa
+                  </Text>
+                ))}
+              </Flex>
+              <Flex direction="row" gap={tokens.space.xs}>
+                {colorKeys.map((key) => (
+                  <Swatch key={key} color={tokens.colors.brand.primary[key]} />
+                ))}
+              </Flex>
+              <Flex direction="row" gap={tokens.space.xs}>
+                {colorKeys.map((key) => (
+                  <Swatch
+                    key={key}
+                    color={tokens.colors.brand.secondary[key]}
+                  />
+                ))}
+              </Flex>
+            </Flex>
+          </Card>
+          <Card variation="outlined" columnStart="1" columnEnd="2">
+            <Flex
+              justifyContent="center"
+              alignItems="center"
+              width="100%"
+              height="100%"
+            >
+              <SwitchField label="switch" labelPosition="end" />
+            </Flex>
+          </Card>
+          <Card variation="outlined" columnStart="2" columnEnd="-1">
+            <Tabs>
+              <TabItem title="Sports"></TabItem>
 
-          <TabItem
-            title={
-              <View>
-                Donuts{' '}
-                <Badge size="small" variation="success">
-                  new
-                </Badge>
-              </View>
-            }
-          ></TabItem>
-        </Tabs>
-      </Card>
+              <TabItem
+                title={
+                  <View>
+                    Donuts{' '}
+                    <Badge size="small" variation="success">
+                      new
+                    </Badge>
+                  </View>
+                }
+              ></TabItem>
+            </Tabs>
+          </Card>
+        </>
+      ) : null}
     </Grid>
   );
 };
@@ -233,6 +224,20 @@ export const ThemeSwitcher = ({ colorMode }) => {
     query: { platform = 'react' },
   } = useCustomRouter();
   const { tokens } = useTheme();
+  const hideOnMobile = useBreakpointValue({
+    base: false,
+    large: true,
+  });
+
+  const isTablet = useBreakpointValue({
+    base: false,
+    medium: true,
+  });
+
+  const isMobile = useBreakpointValue({
+    base: true,
+    small: false,
+  });
 
   const copy = () => {
     setCopied(true);
@@ -260,78 +265,95 @@ export const ThemeSwitcher = ({ colorMode }) => {
               },
             ]}
           />
-          Default
+          {isMobile ? '' : 'Default'}
         </ToggleButton>
         <ToggleButton value="terminal" gap={tokens.space.xs}>
-          <CgTerminal />
-          Terminal
+          <Icon ariaLabel="" as={CgTerminal} />
+          {isMobile ? '' : 'Terminal'}
         </ToggleButton>
         <ToggleButton value="synthwave" gap={tokens.space.xs}>
-          <CgLinear />
-          Synthwave
+          <Icon ariaLabel="" as={CgLinear} />
+          {isMobile ? '' : 'Synthwave'}
         </ToggleButton>
         <ToggleButton value="classic" gap={tokens.space.xs}>
-          <CgCopyright />
-          Classic
+          <Icon ariaLabel="" as={CgCopyright} />
+          {isMobile ? '' : 'Classic'}
         </ToggleButton>
       </ToggleButtonGroup>
-      <Grid
-        columnGap={tokens.space.large}
-        templateColumns="1fr 1fr"
-        templateRows="1fr"
-        width="100%"
-      >
-        <View flex="1" columnStart="1" columnEnd="2">
+      <Flex direction="row" width="100%">
+        {hideOnMobile ? (
+          <Card
+            flex="1"
+            columnStart="2"
+            columnEnd="-1"
+            position="relative"
+            className="docs-home-code-card"
+          >
+            {/* <CopyToClipboard text={themePreval[theme].string} onCopy={copy}>
+            <Button
+              size="small"
+              // position='absolute'
+              disabled={copied}
+            >
+              {copied ? 'Copied!' : 'Copy'}
+            </Button>
+          </CopyToClipboard> */}
+
+            <View position="relative" height="100%">
+              <Highlight
+                Prism={defaultProps.Prism}
+                code={
+                  platform === 'react'
+                    ? themePreval[theme].string
+                    : themePreval[theme].css
+                }
+                language={platform === 'react' ? 'jsx' : 'css'}
+              >
+                {({
+                  className,
+                  style,
+                  tokens,
+                  getLineProps,
+                  getTokenProps,
+                }) => (
+                  <pre
+                    className={className}
+                    style={{
+                      ...style,
+                      position: 'absolute',
+                      top: '0',
+                      right: 0,
+                      left: 0,
+                      bottom: 0,
+                      maxHeight: '100%',
+                      height: '100%',
+                      overflowY: 'auto',
+                    }}
+                  >
+                    <code className={className}>
+                      {tokens.map((line, i) => (
+                        <div key={i} {...getLineProps({ line, key: i })}>
+                          {line.map((token, key) => (
+                            <span
+                              key={key}
+                              {...getTokenProps({ token, key })}
+                            />
+                          ))}
+                        </div>
+                      ))}
+                    </code>
+                  </pre>
+                )}
+              </Highlight>
+            </View>
+          </Card>
+        ) : null}
+        <View flex="1" minWidth="50%">
           <ThemeProvider theme={themePreval[theme].code} colorMode={colorMode}>
             <Preview />
           </ThemeProvider>
         </View>
-        <View flex="1" columnStart="2" columnEnd="-1" position="relative">
-          {/* <CopyToClipboard text={themePreval[theme].string} onCopy={copy}>
-          <Button
-            size="small"
-            // position='absolute'
-            disabled={copied}
-          >
-            {copied ? 'Copied!' : 'Copy'}
-          </Button>
-        </CopyToClipboard> */}
-          <View position="relative" height="100%">
-            <Highlight
-              Prism={defaultProps.Prism}
-              code={themePreval[theme].string}
-              language="jsx"
-            >
-              {({ className, style, tokens, getLineProps, getTokenProps }) => (
-                <pre
-                  className={className}
-                  style={{
-                    ...style,
-                    position: 'absolute',
-                    top: '0',
-                    right: 0,
-                    left: 0,
-                    bottom: 0,
-                    maxHeight: '100%',
-                    height: '100%',
-                    overflowY: 'auto',
-                  }}
-                >
-                  <code className={className}>
-                    {tokens.map((line, i) => (
-                      <div key={i} {...getLineProps({ line, key: i })}>
-                        {line.map((token, key) => (
-                          <span key={key} {...getTokenProps({ token, key })} />
-                        ))}
-                      </div>
-                    ))}
-                  </code>
-                </pre>
-              )}
-            </Highlight>
-          </View>
-        </View>
-      </Grid>
+      </Flex>
       <Link href={`${platform}/theming`} passHref>
         <Button size="large" as="a">
           Learn more about theming

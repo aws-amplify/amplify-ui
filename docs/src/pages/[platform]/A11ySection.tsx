@@ -11,11 +11,7 @@ export const A11ySection = () => {
   const { tokens } = useTheme();
 
   return (
-    <View
-      as="section"
-      className="docs-home-section"
-      backgroundColor={tokens.colors.background.secondary}
-    >
+    <View as="section" className="docs-home-section">
       <Flex
         className="container"
         direction={{

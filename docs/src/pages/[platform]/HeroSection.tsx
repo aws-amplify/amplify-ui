@@ -1,5 +1,6 @@
 import { Copy } from '@/components/Copy';
 import { FrameworkChooser } from '@/components/Layout/FrameworkChooser';
+import { AmplifyIcon, Logo } from '@/components/Logo';
 import { useCustomRouter } from '@/components/useCustomRouter';
 import { FRAMEWORKS } from '@/data/frameworks';
 import {
@@ -12,7 +13,6 @@ import {
   useTheme,
   View,
 } from '@aws-amplify/ui-react';
-import { HomeLogo } from '../HomeLogo';
 
 export const HeroSection = () => {
   const { tokens } = useTheme();
@@ -29,26 +29,23 @@ export const HeroSection = () => {
   const frameworkInstallScript = installScripts[platform.toString()];
 
   return (
-    <View as="section" className="container">
-      <Heading level={1}>Build complex UI faster</Heading>
-
-      <Flex
-        direction={{ base: 'column', medium: 'row' }}
-        padding={tokens.space.large}
-      >
-        <Card flex="1">
+    <View as="section" className="container docs-hero">
+      <Flex className="container" justifyContent="center" textAlign="center">
+        <Flex direction="column" maxWidth="60rem" alignItems="center">
+          <Heading level={1} className="docs-home-h1">
+            Build UI faster
+          </Heading>
           <Text
             fontSize={{
               base: tokens.fontSizes.large,
               small: tokens.fontSizes.xl,
             }}
           >
-            Amplify UI is an open-source design system with cloud-connected
-            components and primitives that simplify building accessible,
-            performant, and beautiful applications in React, Angular, Vue, and
-            Flutter (more coming soon).
+            Amplify UI simplifies building accessible, performant, and beautiful
+            applications with cloud-connected and primitive components, theming,
+            and utilities.
           </Text>
-
+          <FrameworkChooser />
           <Flex
             direction={{ base: 'column-reverse', medium: 'row' }}
             padding={`${tokens.space.medium} 0 0 0`}
@@ -67,16 +64,20 @@ export const HeroSection = () => {
               </code>
               <Copy
                 className="install-code__button"
-                size=""
                 variation="link"
+                size="large"
                 text={frameworkInstallScript}
               />
             </View>
           </Flex>
-        </Card>
+        </Flex>
       </Flex>
-
-      <FrameworkChooser />
+      <Flex direction="column">
+        <Flex direction={{ base: 'column', medium: 'row' }}>
+          <View flex="1"></View>
+          <View flex="1"></View>
+        </Flex>
+      </Flex>
     </View>
   );
 };
