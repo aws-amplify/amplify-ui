@@ -11,6 +11,16 @@ import {
   RadiusBlock,
 } from './TokenBlocks';
 
+type Namespaces =
+  | 'colors'
+  | 'radii'
+  | 'space'
+  | 'borderWidths'
+  | 'lineHeights'
+  | 'fonts'
+  | 'fontSizes'
+  | 'fontWeights';
+
 export function createTokenList(tokens) {
   // Creates a flattened array out of the token object passed to createTokenList()
   let tokenList = [];
@@ -33,7 +43,12 @@ export function createTokenList(tokens) {
   return tokenList;
 }
 
-export function TokenItem({ variation, children }) {
+type TokenItemProps = {
+  variation: Namespaces;
+  children: React.ReactNode;
+};
+
+export function TokenItem({ variation, children }: TokenItemProps) {
   return (
     <li>
       <div className={`docs-tokenItem docs-tokenItem--${variation}`}>
@@ -43,7 +58,11 @@ export function TokenItem({ variation, children }) {
   );
 }
 
-export function TokenPath({ path }) {
+type TokenPathProps = {
+  path: Array<string>;
+};
+
+export function TokenPath({ path }: TokenPathProps) {
   return (
     <div className="docs-tokenItem-path">
       {path.map((pathFragment, index) => {
@@ -54,11 +73,11 @@ export function TokenPath({ path }) {
                * Path fragments start with a '.' unless it's the first
                * item or a number, e.g. 'neutral[80]'.
                */
-              index !== 0 && isNaN(pathFragment) && '.'
+              index !== 0 && isNaN(pathFragment as any) && '.'
             }
             {
               // Path fragments that are a number should be wrapped in
-              isNaN(pathFragment) ? pathFragment : `[${pathFragment}]`
+              isNaN(pathFragment as any) ? pathFragment : `[${pathFragment}]`
             }
           </React.Fragment>
         );
@@ -67,11 +86,20 @@ export function TokenPath({ path }) {
   );
 }
 
-export function TokenMeta({ children }) {
+type TokenMetaProps = {
+  children: string;
+};
+
+export function TokenMeta({ children }: TokenMetaProps) {
   return <div className="docs-tokenItem-meta">{children}</div>;
 }
 
-export function TokenList({ namespace, childNamespace }) {
+type TokenListProps = {
+  namespace: Namespaces;
+  childNamespace?: string;
+};
+
+export function TokenList({ namespace, childNamespace }: TokenListProps) {
   const { tokens } = useTheme();
 
   /**
