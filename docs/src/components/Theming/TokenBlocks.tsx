@@ -1,6 +1,20 @@
 import { View, Text } from '@aws-amplify/ui-react';
+import {
+  ColorValue,
+  FontWeightValue,
+  FontValue,
+  LineHeightValue,
+  FontSizeValue,
+  BorderWidthValue,
+  SpaceValue,
+  RadiusValue,
+} from '@aws-amplify/ui';
 
-export function SpaceBlock({ value }) {
+type SpaceBlockProps = {
+  value: SpaceValue;
+};
+
+export function SpaceBlock({ value }: SpaceBlockProps) {
   return (
     <View className="docs-spaceBlock">
       <View className="docs-spaceBlock-inner" width={value}></View>
@@ -8,7 +22,11 @@ export function SpaceBlock({ value }) {
   );
 }
 
-export function BorderWidthBlock({ value }) {
+type BorderWidthBlockProps = {
+  value: BorderWidthValue;
+};
+
+export function BorderWidthBlock({ value }: BorderWidthBlockProps) {
   return (
     <View
       className="docs-borderBlock"
@@ -18,7 +36,11 @@ export function BorderWidthBlock({ value }) {
   );
 }
 
-export function FontBlock({ children }) {
+type FontBlockProps = {
+  children: React.ReactNode;
+};
+
+export function FontBlock({ children }: FontBlockProps) {
   return (
     <View className="docs-fontBlock" aria-hidden="true">
       {children}
@@ -26,7 +48,11 @@ export function FontBlock({ children }) {
   );
 }
 
-export function FontSizeBlock({ value }) {
+type FontSizeBlockProps = {
+  value: FontSizeValue;
+};
+
+export function FontSizeBlock({ value }: FontSizeBlockProps) {
   return (
     <FontBlock>
       <View width="4rem" align="right" fontSize={value}>
@@ -36,7 +62,11 @@ export function FontSizeBlock({ value }) {
   );
 }
 
-export function LineHeightBlock({ value }) {
+type LineHeightBlockProps = {
+  value: LineHeightValue;
+};
+
+export function LineHeightBlock({ value }: LineHeightBlockProps) {
   return (
     <FontBlock>
       <View
@@ -51,7 +81,11 @@ export function LineHeightBlock({ value }) {
   );
 }
 
-export function FontFamilyBlock({ value }) {
+type FontFamilyBlockProps = {
+  value: FontValue;
+};
+
+export function FontFamilyBlock({ value }: FontFamilyBlockProps) {
   return (
     <FontBlock>
       <Text fontSize="var(--amplify-font-sizes-xxl" fontFamily={value}>
@@ -61,7 +95,11 @@ export function FontFamilyBlock({ value }) {
   );
 }
 
-export function FontWeightBlock({ value }) {
+type FontWeightBlockProps = {
+  value: FontWeightValue;
+};
+
+export function FontWeightBlock({ value }: FontWeightBlockProps) {
   return (
     <FontBlock>
       <Text fontSize="var(--amplify-font-sizes-large" fontWeight={value}>
@@ -71,11 +109,19 @@ export function FontWeightBlock({ value }) {
   );
 }
 
-export function ColorBlock({ value }) {
+type ColorBlockProps = {
+  value: ColorValue;
+};
+
+export function ColorBlock({ value }: ColorBlockProps) {
   return <View className="docs-colorBlock" backgroundColor={value}></View>;
 }
 
-export function RadiusBlock({ value }) {
+type RadiusBlockProps = {
+  value: RadiusValue;
+};
+
+export function RadiusBlock({ value }: RadiusBlockProps) {
   const minBlockSize = 'calc(2rem + 1px)';
   return (
     <div className="docs-radiusBlock">
