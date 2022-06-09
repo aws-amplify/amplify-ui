@@ -3,6 +3,14 @@ import path from 'path';
 import { Node, Project, Symbol, Type, VariableDeclaration } from 'ts-morph';
 import { getAllTypesData } from './getAllTypesData';
 import { capitalizeString } from '../../src/utils/capitalizeString';
+import {
+  ComponentName,
+  Category,
+  SharedCategory,
+  Property,
+  Properties,
+  Catalog,
+} from '../types/catalog';
 
 const allTypesData = getAllTypesData();
 
@@ -37,31 +45,34 @@ const source = project.getSourceFile(
     }
  */
 export function getCatalog() {
-  const catalog = {};
+  const catalog: Catalog = {} as Catalog;
   for (const [componentName, [node]] of source.getExportedDeclarations()) {
-    let properties = {};
-
+    let properties: Properties = {};
     if (isPrimitive(node)) {
       const [propsType] = node.getType().getTypeArguments();
-      properties = getComponentProperties(propsType, componentName);
+      properties = getComponentProperties(
+        propsType,
+        componentName as ComponentName
+      );
     } else if (isCallableNode(node)) {
       const [signature] = node.getType().getCallSignatures();
 
-      if (signature && signature.getParameters().length > 0) {
+      if (signature && signature.getParameters().length) {
         properties = getComponentProperties(
           signature.getParameters()[0].getValueDeclaration().getType(),
-          componentName
+          componentName as ComponentName
         );
       }
     }
 
     // Skip primitives without properties
-    if (Object.keys(properties).length > 0) {
-      catalog[componentName] = { properties };
+    if (Object.keys(properties).length) {
+      catalog[componentName as ComponentName] = { properties };
     } else {
       console.log(`Skip ${componentName} since it's without properties.`);
     }
   }
+
   return catalog;
 }
 
@@ -82,9 +93,12 @@ function isPrimitive(node: Node): node is VariableDeclaration {
  * @name getComponentProperties
  * @description get all the properties for a component
  */
-
-function getComponentProperties(type: Type, componentName: string) {
-  const properties = {};
+function getComponentProperties(
+  type: Type,
+  componentName: ComponentName
+): Properties;
+function getComponentProperties(type: Type, componentName: ComponentName) {
+  const properties: Properties = {};
 
   type.getProperties().forEach((prop) => {
     const propName = prop.getName();
@@ -103,7 +117,10 @@ function getComponentProperties(type: Type, componentName: string) {
  * @name getCatalogComponentProperty
  * @description Get a catalog-compatible component property definition
  */
-function getCatalogComponentProperty(property: Symbol, componentName: string) {
+function getCatalogComponentProperty(
+  property: Symbol,
+  componentName: ComponentName
+): Property {
   const name = property.getName();
   const propType = property.getDeclarations()[0].getType();
   const description = property
@@ -114,7 +131,10 @@ function getCatalogComponentProperty(property: Symbol, componentName: string) {
       return `${name === 'description' ? '' : `${name}: `}${text}`;
     })
     .join('');
-  const category = capitalizeString(getCategory(name, componentName));
+  const category = capitalizeString(
+    getCategory(name, componentName)
+  ) as Category;
+
   const type =
     allTypesData.get(category)?.get(name)?.get('type') ?? propType.getText(); // use type from allTypesData because it has a better-looking format
 
@@ -122,7 +142,7 @@ function getCatalogComponentProperty(property: Symbol, componentName: string) {
     name: sanitize(name),
     type: sanitize(type),
     description: sanitize(description),
-    category: `${sanitize(category)}Prop`,
+    category: sanitize(category),
   };
 }
 
@@ -134,11 +154,18 @@ function isCallableNode(node: Node): node is VariableDeclaration {
  * @name getCategory
  * @description categorize properties by checking if they belong to a certain property group.
  */
-function getCategory(propName, componentName) {
+const sharedCategories: SharedCategory[] = [
+  'Base',
+  'Style',
+  'Flex',
+  'Grid',
+  'Responsive',
+];
+function getCategory(propName: string, componentName: ComponentName): Category {
   const preSetCategories = { as: 'Base', ref: 'Base' };
   return (
-    [componentName, 'Base', 'Style', 'Flex', 'Grid', 'Responsive'].find(
-      (component) => allTypesData.get(component)?.has(propName)
+    [componentName, ...sharedCategories].find((component) =>
+      allTypesData.get(component)?.has(propName)
     ) ??
     preSetCategories[propName] ??
     'other'

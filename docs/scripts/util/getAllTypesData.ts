@@ -2,6 +2,11 @@ import fs from 'fs';
 import path from 'path';
 import { Project, PropertySignature, TypeAliasDeclaration } from 'ts-morph';
 import { capitalizeString } from '../../src/utils/capitalizeString';
+import {
+  AllTypeFileData,
+  TypeFileName,
+  TypeFileData,
+} from '../types/allTypesData';
 
 export const getAllTypesData = () => {
   const project = new Project({
@@ -18,15 +23,16 @@ export const getAllTypesData = () => {
     )
   );
 
-  const allTypeFilesData = new Map();
+  const allTypeFilesData: AllTypeFileData = new Map();
 
   const allTypeFiles = source.getReferencedSourceFiles();
-
+  const names = [];
   allTypeFiles.forEach((typeFile) => {
-    const typeFileName = capitalizeString(
+    const typeFileName: TypeFileName = capitalizeString(
       typeFile.getBaseName().slice(0, typeFile.getBaseName().indexOf('.ts'))
-    );
-    const typeFileData = new Map();
+    ) as TypeFileName;
+    names.push(typeFileName);
+    const typeFileData: TypeFileData = new Map();
     const typeAliases = typeFile.getTypeAliases();
     if (typeAliases) {
       typeAliases.forEach((typeAlias) => {
@@ -54,9 +60,10 @@ export const getAllTypesData = () => {
  */
 function setTypeData(
   typeProp: TypeAliasDeclaration | PropertySignature,
-  typeFileData: Map<string, Map<string, string | object>>
+  typeFileData: TypeFileData
 ) {
-  const typeData = new Map();
+  type TypeData = Map<string, string | { description: string }>;
+  const typeData: TypeData = new Map();
   const typeJsDocs = typeProp.getJsDocs();
   const typeDescription = typeJsDocs[0]?.getTags().reduce(
     (descriptions, tag) => ({
@@ -64,7 +71,7 @@ function setTypeData(
       [tag.getTagName()]: tag.getText(),
     }),
     {}
-  );
+  ) as { description: string };
   const typeName = typeProp.getNameNode().getText();
   const typeType = typeProp.getTypeNode().getText();
 
