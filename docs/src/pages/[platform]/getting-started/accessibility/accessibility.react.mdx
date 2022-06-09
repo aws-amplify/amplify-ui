@@ -2,7 +2,7 @@ import { Grid } from '@aws-amplify/ui-react';
 import { CardLink } from '@/components/CardLink';
 import { Fragment } from '@/components/Fragment';
 import { Example, ExampleCode } from '@/components/Example';
-import { LabelInputExample, CheckboxExample, NavRoleExample, AriaLiveExample } from './examples';
+import { LabelInputExample, CheckboxExample, NavRoleExample, AriaLiveExample, ThemeExample } from './examples';
 import { MdOutlineCheckBox, MdEdit, MdOutlineAutoAwesome } from 'react-icons/md';
 
 <Fragment>
@@ -11,8 +11,7 @@ import { MdOutlineCheckBox, MdEdit, MdOutlineAutoAwesome } from 'react-icons/md'
 
 ## What's included?
 
-Amplify UI components have some accessibility needs baked in for ease of use. This includes auto-associating labels with form inputs, a default theme with accessible color contrast, and the flexibility to 
-enhance components to create your own accessible patterns.
+Amplify UI components have some accessibility needs baked in for ease of use. This includes auto-associating labels with form inputs, a default theme with accessible color contrast, and the flexibility to enhance components to create your own accessible patterns.
 
 ##  Accessible form fields
 
@@ -60,6 +59,17 @@ Amplify UI also follows web standards as much as possible for our components, in
 ## Themable design tokens
 
 Amplify UI uses design tokens for the color palette, which makes modifying the theme to meet your own color contrast goals more manageable. Amplify UI also provides tokens for properties such as border width and font size if you need to make your own customizations for higher contrast requirements.
+
+The example below shows how to use Theming to supply higher contrast text and border styles.
+
+<Example>
+  <ThemeExample />
+  <ExampleCode>
+```jsx file=./examples/ThemeExample.tsx
+
+```
+  </ExampleCode>
+</Example>
 
 <Grid gap="var(--amplify-space-large)" margin="var(--amplify-space-xl) 0" templateColumns={{ base: '1fr', large: '1fr 1fr' }}>
  <CardLink 
