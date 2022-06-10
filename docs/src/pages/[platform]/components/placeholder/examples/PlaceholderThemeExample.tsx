@@ -5,8 +5,13 @@ const theme: Theme = {
   tokens: {
     components: {
       placeholder: {
-        startColor: { value: 'rebeccapurple' },
-        endColor: { value: 'cyan' },
+        transitionDuration: { value: '1250ms' },
+        startColor: { value: '{colors.purple.40.value}' },
+        endColor: { value: '{colors.purple.100.value}' },
+        borderRadius: { value: '{radii.large.value}' },
+        large: {
+          height: { value: '{space.xxxl.value}' },
+        },
       },
     },
   },
@@ -15,7 +20,7 @@ const theme: Theme = {
 export const PlaceholderThemeExample = () => {
   return (
     <ThemeProvider theme={theme}>
-      <Placeholder />
+      <Placeholder size="large" />
     </ThemeProvider>
   );
 };

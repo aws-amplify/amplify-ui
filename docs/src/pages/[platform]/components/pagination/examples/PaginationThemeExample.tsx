@@ -1,10 +1,11 @@
 import {
-  ThemeProvider,
   Pagination,
   usePagination,
+  ThemeProvider,
+  Theme,
 } from '@aws-amplify/ui-react';
 
-const theme = {
+const theme: Theme = {
   name: 'pagination-theme',
   tokens: {
     components: {

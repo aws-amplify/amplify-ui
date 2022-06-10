@@ -1,6 +1,12 @@
-import { Flex, Text, Divider, ThemeProvider } from '@aws-amplify/ui-react';
+import {
+  Flex,
+  Text,
+  Divider,
+  ThemeProvider,
+  Theme,
+} from '@aws-amplify/ui-react';
 
-const theme = {
+const theme: Theme = {
   name: 'divider-theme',
   tokens: {
     borderWidths: {
@@ -27,3 +33,30 @@ export const DividerThemeExample = () => (
     </Flex>
   </ThemeProvider>
 );
+
+/*
+
+  borderStyle: { value: 'solid' },
+  borderColor: { value: '{colors.border.primary.value}' },
+  borderWidth: { value: '{borderWidths.medium.value}' },
+
+  label: {
+    color: { value: '{colors.font.tertiary.value}' },
+    paddingInline: { value: '{space.medium.value}' },
+    fontSize: { value: '{fontSizes.small.value}' },
+    backgroundColor: { value: '{colors.background.primary.value}' },
+  },
+
+  small: {
+    borderWidth: { value: '{borderWidths.small.value}' },
+  },
+
+  large: {
+    borderWidth: { value: '{borderWidths.large.value}' },
+  },
+
+  opacity: {
+    value: '{opacities.60.value}',
+  },
+
+*/
