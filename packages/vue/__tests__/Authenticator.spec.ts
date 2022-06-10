@@ -1,7 +1,6 @@
 import { mount } from '@vue/test-utils';
 import { Authenticator } from '../dist';
-
-const crypto = require('crypto');
+import crypto from 'crypto';
 
 // This is needed for jest to get crypto module needed by nanoid
 Object.defineProperty(global.self, 'crypto', {
