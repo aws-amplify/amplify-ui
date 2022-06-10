@@ -103,7 +103,8 @@
 .docs-colorBlock {
   width: var(--swatch-size);
   height: var(--swatch-size);
-  border: 1px solid rgba(0,0,0,.1);
+  border: 1px solid var(--amplify-colors-overlay-20);
+  // border: 1px solid rgba(0,0,0,.1);
   border-radius: 100%;
 }
 
