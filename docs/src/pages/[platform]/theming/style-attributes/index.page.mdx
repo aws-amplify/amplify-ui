@@ -49,41 +49,163 @@ const { tokens } = useTheme();
 
 ### Border Styles
 
+```tsx
+import { Button, useTheme } from '@aws-amplify/ui-react';
+
+//use any CSS value
+<Button borderRadius="0.5rem">CSS Style</Button>
+
+//using a design token
+const { tokens } = useTheme();
+<Button borderRadius={tokens.radii.medium}>Token Styling</Button>
+
+//use a design token name
+<Button borderRadius="medium">Token Name</Button>
+```
+
 <BorderStyles />
 
 ### Color Styles
+
+```tsx
+import { Alert, useTheme } from '@aws-amplify/ui-react';
+
+//use any CSS value
+<Alert color="red">CSS Style</Alert>
+
+//using a design token
+const { tokens } = useTheme();
+<Alert color={tokens.colors.brand.primary[40]}>Design Token</Alert>
+
+//use a design token name
+<Alert color="brand.primary.40">Token Name</Alert>
+```
 
 <ColorStyles />
 
 ### Flex
 
+```tsx
+import { Flex, useTheme } from '@aws-amplify/ui-react';
+
+//use any CSS value
+<Flex direction="row-reverse" wrap="wrap">
+  <Button order="3">Button 1</Button>
+  <Button order="1">Button 2</Button>
+  <Button order="2">Button 3</Button>
+</Flex>;
+
+//using design tokens
+<Flex direction="row-reverse" backgroundColor={tokens.colors.neutral[20]}>
+  <Button order="3" color={tokens.colors.secondary[80]}>
+    Button 1
+  </Button>
+  <Button order="1" color={tokens.colors.secondary[80]}>
+    Button 2
+  </Button>
+  <Button order="2" color={tokens.colors.secondary[80]}>
+    Button 3
+  </Button>
+</Flex>;
+
+//using token names
+<Flex direction="row-reverse" backgroundColor="colors.neutral.20">
+  <Button order="3" color="secondary.80">
+    Button 1
+  </Button>
+  <Button order="1" color="secondary.80">
+    Button 2
+  </Button>
+  <Button order="2" color="secondary.80">
+    Button 3
+  </Button>
+</Flex>;
+```
+
 <FlexStyles />
 
 ### Grid
+
+```tsx
+import { Grid, View, useTheme } from '@aws-amplify/ui-react';
+
+//use any CSS value
+<Grid templateColumns="1fr 1fr" templateRows="10rem 10rem">
+  <View backgroundColor="blue"></View>
+  <View backgroundColor="blue"></View>
+  <View backgroundColor="blue"></View>
+  <View backgroundColor="blue"></View>
+</Grid>;
+
+//use design tokens
+const { tokens } = useTheme();
+<Grid
+  templateColumns="1fr 1fr"
+  templateRows="10rem 10rem"
+  gap={tokens.space.small}
+>
+  <View backgroundColor={tokens.colors.blue[10]}></View>
+  <View backgroundColor={tokens.colors.blue[20]}></View>
+  <View backgroundColor={tokens.colors.blue[40]}></View>
+  <View backgroundColor={tokens.colors.blue[60]}></View>
+</Grid>;
+
+//use token names
+<Grid templateColumns="1fr 1fr" templateRows="10rem 10rem" gap="space.small">
+  <View backgroundColor="blue.10"></View>
+  <View backgroundColor="blue.10"></View>
+  <View backgroundColor="blue.10"></View>
+  <View backgroundColor="blue.10"></View>
+</Grid>;
+```
 
 <GridStyles />
 
 ### Layout Styles
 
+```tsx
+import { useTheme } from '@aws-amplify/ui-react';
+```
+
 <LayoutStyles />
 
 ### Margin and Padding
+
+```tsx
+import { useTheme } from '@aws-amplify/ui-react';
+```
 
 <MarginAndPaddingStyles />
 
 ### Position Styles
 
+```tsx
+import { useTheme } from '@aws-amplify/ui-react';
+```
+
 <PositionStyles />
 
 ### Size Styles
+
+```tsx
+import { useTheme } from '@aws-amplify/ui-react';
+```
 
 <SizeStyles />
 
 ### Shadow Styles
 
+```tsx
+import { useTheme } from '@aws-amplify/ui-react';
+```
+
 <ShadowStyles />
 
 ### Typography Styles
+
+```tsx
+import { useTheme } from '@aws-amplify/ui-react';
+```
 
 <TypographyStyles />
 
