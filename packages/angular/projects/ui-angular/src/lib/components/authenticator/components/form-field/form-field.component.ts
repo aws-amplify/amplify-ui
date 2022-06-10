@@ -5,6 +5,7 @@ import {
   FormFieldOptions,
   getErrors,
 } from '@aws-amplify/ui';
+import { nanoid } from 'nanoid';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 
 @Component({
@@ -17,6 +18,7 @@ export class FormFieldComponent {
 
   public defaultCountryCodeValue: string;
   public countryDialCodesValue = countryDialCodes;
+  public errorId = nanoid(12);
 
   constructor(private authenticator: AuthenticatorService) {}
 
@@ -37,6 +39,14 @@ export class FormFieldComponent {
 
   isPhoneField(): boolean {
     return this.formField.type === 'tel';
+  }
+
+  hasError(): boolean {
+    return this.errors?.length > 0;
+  }
+
+  get ariaDescribedBy() {
+    return this.hasError() ? this.errorId : undefined;
   }
 
   translate(phrase: string): string {

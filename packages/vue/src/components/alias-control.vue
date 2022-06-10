@@ -10,6 +10,8 @@ interface PropsInterface {
   dialCode?: string;
   dialCodeList?: Array<string>;
   type?: string;
+  hasError?: boolean;
+  describedBy?: string;
 }
 
 const props = withDefaults(defineProps<PropsInterface>(), {
@@ -39,10 +41,7 @@ const randomPhone = Math.floor(Math.random() * 999999);
 
 <template>
   <base-wrapper
-    class="
-      amplify-flex amplify-field amplify-textfield amplify-phonenumberfield
-      amplify-authenticator__column
-    "
+    class="amplify-flex amplify-field amplify-textfield amplify-phonenumberfield amplify-authenticator__column"
   >
     <base-label
       :for="'amplify-field-' + random"
@@ -56,13 +55,7 @@ const randomPhone = Math.floor(Math.random() * 999999);
       <base-wrapper class="amplify-field-group__outer-start">
         <!--select drop down-->
         <base-wrapper
-          class="
-            amplify-flex
-            amplify-field
-            amplify-selectfield
-            amplify-countrycodeselect
-            amplify-authenticator__column
-          "
+          class="amplify-flex amplify-field amplify-selectfield amplify-countrycodeselect amplify-authenticator__column"
           v-if="type === 'tel'"
         >
           <base-label
@@ -84,11 +77,7 @@ const randomPhone = Math.floor(Math.random() * 999999);
             >
             </base-select>
             <base-wrapper
-              class="
-                amplify-flex
-                amplify-select__icon-wrapper
-                amplify-authenticator__icon-wrapper
-              "
+              class="amplify-flex amplify-select__icon-wrapper amplify-authenticator__icon-wrapper"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -107,13 +96,14 @@ const randomPhone = Math.floor(Math.random() * 999999);
         <!--Phone input-->
         <base-input
           class="amplify-input amplify-field-group__control"
-          aria-invalid="false"
           :id="'amplify-field-' + random"
           :autocomplete="autocomplete"
           :name="name"
           :required="required ?? true"
           :type="type"
           :placeholder="placeholder"
+          :aria-invalid="hasError"
+          :aria-describedBy="describedBy"
         ></base-input>
       </base-wrapper>
     </base-wrapper>
