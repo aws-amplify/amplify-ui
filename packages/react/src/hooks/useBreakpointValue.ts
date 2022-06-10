@@ -10,7 +10,7 @@ export function useBreakpointValue<T>(
   values: Record<string, T> | T[],
   defaultBreakpoint?: Breakpoint,
   propKey?: string
-): T | null {
+): T | string {
   const {
     breakpoints: { values: breakpoints },
   } = useTheme();
