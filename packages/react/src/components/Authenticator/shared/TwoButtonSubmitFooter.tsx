@@ -1,3 +1,4 @@
+import React from 'react';
 import { AuthEventTypes, translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '../hooks/useAuthenticator';

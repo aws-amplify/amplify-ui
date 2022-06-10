@@ -1,3 +1,4 @@
+import React from 'react';
 import { translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '../hooks/useAuthenticator';
@@ -9,7 +10,7 @@ export const RemoteErrorMessage = (): JSX.Element => {
   return (
     <>
       {error ? (
-        <Alert variation="error" isDismissible={true}>
+        <Alert variation="error" isDismissible>
           {translate(error)}
         </Alert>
       ) : null}
