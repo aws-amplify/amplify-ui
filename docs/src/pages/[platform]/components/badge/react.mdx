@@ -2,11 +2,13 @@ import { Badge, View } from '@aws-amplify/ui-react';
 import { BadgeDemo } from './demo';
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
+import { ThemeAlert } from '@/components/ThemeAlert';
 import {
   DefaultBadgeExample,
   BadgeVariationExample,
   BadgeSizeExample,
   BadgeStyleProps,
+  BadgeThemeExample,
 } from './examples';
 
 ## Demo
@@ -68,6 +70,24 @@ Use the `size` prop to change the Badge size. Available options are `small`, `la
 </Example>
 
 ## Styling
+
+### Theme
+
+<ThemeAlert />
+
+You can customize the appearance of all Badge components in your application with a [Theme](/theming).
+
+<Example>
+  <BadgeThemeExample />
+  
+  <ExampleCode>
+
+  ```jsx file=./examples/BadgeThemeExample.tsx
+
+  ```
+
+  </ExampleCode>
+</Example>
 
 ### Target classes
 
