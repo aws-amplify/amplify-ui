@@ -12,10 +12,10 @@ import { Head } from './Head';
 
 import '../styles/index.scss';
 
-// suppress useLayoutEffect warnings when running outside a browser
-// See: https://gist.github.com/gaearon/e7d97cdf38a2907924ea12e4ebdf3c85#gistcomment-3886909
-// @ts-ignore Cannot assign to 'useLayoutEffect' because it is a read-only property.ts(2540)
 if (typeof window === 'undefined') {
+  // suppress useLayoutEffect warnings when running outside a browser
+  // See: https://gist.github.com/gaearon/e7d97cdf38a2907924ea12e4ebdf3c85#gistcomment-3886909
+  // @ts-ignore Cannot assign to 'useLayoutEffect' because it is a read-only property.ts(2540)
   React.useLayoutEffect = React.useEffect;
 } else {
   console.log(`
