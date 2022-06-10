@@ -1,0 +1,26 @@
+import { Link } from '@aws-amplify/ui-react';
+import { Fragment } from '@/components/Fragment';
+import { ThemeAlert } from '@/components/ThemeAlert';
+import { GITHUB_REPO_FILE } from '@/data/links';
+import { DesignTokenIcon } from '@/components/DesignTokenIcon';
+
+### Theme
+
+<ThemeAlert />
+
+<br />
+
+You can customize the appearance of all {props.component} components in your application with a [Theme](/theming).
+
+<Link
+  className="docs-component-link"
+  href={`${GITHUB_REPO_FILE}packages/ui/src/theme/tokens/components/${props.component.toLowerCase()}.ts`}
+  isExternal
+>
+  <DesignTokenIcon ariaLabel="theme-source" marginInlineEnd="0.5rem" />
+  {props.component} Theme Source
+</Link>
+
+<br />
+
+<>{props.children}</>

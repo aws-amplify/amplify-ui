@@ -10,6 +10,8 @@ const theme: Theme = {
         fontWeight: { value: '{fontWeights.normal.value}' },
         fontSize: { value: '{fontSizes.large.value}' },
         backgroundColor: { value: '{colors.purple.80.value}' },
+        paddingVertical: { value: '{space.small.value}' },
+        paddingHorizontal: { value: '{space.medium.value}' },
         borderRadius: { value: '{radii.small.value}' },
 
         // Variations

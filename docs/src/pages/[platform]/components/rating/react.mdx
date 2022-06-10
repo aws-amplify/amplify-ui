@@ -18,7 +18,7 @@ import {
 import { RatingDemo } from './demo';
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
-import { ThemeAlert } from '@/components/ThemeAlert';
+import ThemeExample from '@/components/ThemeExample.mdx';
 
 ## Demo
 
@@ -146,23 +146,19 @@ A custom empty icon can be used in the Rating component using the `emptyIcon` pr
 
 ## CSS Styling
 
-### Theme
+<ThemeExample component="Rating">
+  <Example>
+    <RatingThemeExample />
+    
+    <ExampleCode>
 
-<ThemeAlert />
+    ```jsx file=./examples/RatingThemeExample.tsx
 
-You can customize the appearance of all Rating components in your application with a [Theme](/theming).
+    ```
 
-<Example>
-  <RatingThemeExample />
-  
-  <ExampleCode>
-
-  ```jsx file=./examples/RatingThemeExample.tsx
-
-  ```
-
-  </ExampleCode>
-</Example>
+    </ExampleCode>
+  </Example>
+</ThemeExample>
 
 ### Target classes
 
