@@ -3,8 +3,8 @@ import { isDesignToken } from '@aws-amplify/ui';
 import { getCSSVariableIfValueIsThemeKey } from '../../shared/utils';
 import { Breakpoint, Breakpoints } from '../../types/responsive';
 
-export const getValueAtCurrentBreakpoint = (
-  values: Record<string, any> | string[] | string | number,
+export const getValueAtCurrentBreakpoint = <Value>(
+  values: Record<string, Value> | Value[] | Value,
   breakpoint: Breakpoint,
   breakpoints: Breakpoints,
   propKey?: string
@@ -30,7 +30,7 @@ export const getValueAtCurrentBreakpoint = (
     breakpointCompatValues = values;
   }
 
-  return getClosestValueByBreakpoint(
+  return getClosestValueByBreakpoint<Value>(
     propKey,
     breakpointCompatValues,
     breakpoint,
@@ -38,20 +38,18 @@ export const getValueAtCurrentBreakpoint = (
   );
 };
 
-const getClosestValueByBreakpoint = (
+const getClosestValueByBreakpoint = <Value>(
   propKey: string,
-  values: Record<string, any>,
+  values: Record<string, Value>,
   breakpoint: Breakpoint,
   breakpoints: Breakpoints
 ) => {
   // Use exact match
   if (values.hasOwnProperty(breakpoint)) {
     const value = values[breakpoint];
-    return value
-      ? isDesignToken(value)
-        ? value.toString()
-        : getCSSVariableIfValueIsThemeKey(propKey, value)
-      : value;
+    return isDesignToken(value)
+      ? value.toString()
+      : getCSSVariableIfValueIsThemeKey(propKey, value);
   }
 
   // Otherwise use a lower breakpoint value
@@ -64,11 +62,9 @@ const getClosestValueByBreakpoint = (
   for (const breakpoint of lowerBreakpoints) {
     if (values.hasOwnProperty(breakpoint)) {
       const value = values[breakpoint];
-      return value
-        ? isDesignToken(value)
-          ? value.toString()
-          : getCSSVariableIfValueIsThemeKey(propKey, value)
-        : value;
+      return isDesignToken(value)
+        ? value.toString()
+        : getCSSVariableIfValueIsThemeKey(propKey, value);
     }
   }
 

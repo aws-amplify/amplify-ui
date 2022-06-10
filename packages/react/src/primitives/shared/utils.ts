@@ -197,11 +197,11 @@ export const classNameModifierByFlag = (
   return flag ? `${base}--${modifier}` : null;
 };
 
-export const getCSSVariableIfValueIsThemeKey = (
+export const getCSSVariableIfValueIsThemeKey = <Value>(
   propKey: string,
-  value: string | number
+  value: Value
 ) => {
-  if (typeof value === 'number') {
+  if (typeof value !== 'string') {
     return value;
   }
   const path = value.split('.');
