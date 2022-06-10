@@ -5,16 +5,32 @@ const theme: Theme = {
   tokens: {
     components: {
       link: {
-        // this will affect the color of all links
-        color: { value: '{colors.red.80.value}' },
+        // unable to see color
+        color: { value: 'black' },
+        // unable to see active
+        active: {
+          color: { value: '{colors.yellow.60.value}' },
+        },
+        focus: {
+          color: { value: '{colors.red.60.value}' },
+        },
+        hover: {
+          color: { value: '{colors.green.60.value}' },
+        },
+        visited: {
+          color: { value: '{colors.purple.80.value}' },
+        },
       },
     },
   },
 };
+
 export const LinkThemeExample = () => {
   return (
     <ThemeProvider theme={theme}>
-      <Link>My custom Link</Link>
+      <Link href="https://ui.docs.amplify.aws/react/components/link" isExternal>
+        Themed Link
+      </Link>
     </ThemeProvider>
   );
 };

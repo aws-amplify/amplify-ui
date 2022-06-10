@@ -7,3 +7,4 @@ export { SelectionRequiredToggleButtonGroupExample } from './SelectionRequiredTo
 export { ToggleButtonSizeExample } from './ToggleButtonSizeExample';
 export { ToggleButtonStylePropsExample } from './ToggleButtonStylePropsExample';
 export { ToggleButtonVariationsExample } from './ToggleButtonVariationsExample';
+export { ToggleButtonThemeExample } from './ToggleButtonThemeExample';

@@ -2,7 +2,7 @@ import { Link as AmplifyLink } from '@aws-amplify/ui-react';
 
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
-import { ThemeAlert } from '@/components/ThemeAlert';
+import ThemeExample from '@/components/ThemeExample.mdx';
 import { LinkDemo } from './demo';
 import {
   DefaultLinkExample,
@@ -81,25 +81,23 @@ The Link component can be used with react routing libraries by passing in routin
 
 ## Customization
 
-### Target classes
+<ThemeExample component="Link">
+  <Example>
+    <LinkThemeExample />
+    
+    <ExampleCode>
 
-<ComponentStyleDisplay componentName="Link" />
-
-### Theme
-
-<ThemeAlert />
-
-You can customize the appearance of all Links in your application with a [Theme](/theming).
-
-<Example>
-  <LinkThemeExample />
-  <ExampleCode>
     ```jsx file=./examples/LinkThemeExample.tsx
 
     ```
 
-  </ExampleCode>
-</Example>
+    </ExampleCode>
+  </Example>
+</ThemeExample>
+
+### Target classes
+
+<ComponentStyleDisplay componentName="Link" />
 
 ### CSS Pseudo Classes
 
