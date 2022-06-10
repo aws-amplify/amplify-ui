@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTheme } from '@aws-amplify/ui-react';
+import { isDesignToken } from '@aws-amplify/ui';
 import {
   SpaceBlock,
   BorderWidthBlock,
@@ -26,7 +27,7 @@ export function createTokenList(tokens) {
   let tokenList = [];
   function iterateGroup(group) {
     Object.values(group).forEach((value) => {
-      if (typeof value === 'object' && value.hasOwnProperty('name')) {
+      if (isDesignToken(value)) {
         tokenList.push({
           ...value,
         });
@@ -35,7 +36,7 @@ export function createTokenList(tokens) {
       }
     });
   }
-  if (tokens.hasOwnProperty('name')) {
+  if (isDesignToken(tokens)) {
     tokenList.push(tokens);
   } else {
     iterateGroup(tokens);
@@ -96,6 +97,8 @@ export function TokenMeta({ children }: TokenMetaProps) {
 
 type TokenListProps = {
   namespace: Namespaces;
+  // TODO: better type for childNamespace? This should be children
+  // of whatever namespace you chose. e.g. namespace: 'colors', childNamespace: 'brand,primary'
   childNamespace?: string;
 };
 
