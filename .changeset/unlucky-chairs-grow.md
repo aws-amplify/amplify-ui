@@ -3,4 +3,4 @@
 "@aws-amplify/ui": patch
 ---
 
-feat: adding theme key support for more style props
+feat: adding theme key(`radii`, `space`, `fontSizes`, and `fontWeights`) support for more style props
