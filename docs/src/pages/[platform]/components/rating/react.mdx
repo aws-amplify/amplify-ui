@@ -13,10 +13,12 @@ import {
   RatingStyleSizeExample,
   RatingSVGExample,
   RatingValueExample,
+  RatingThemeExample,
 } from './examples';
 import { RatingDemo } from './demo';
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
+import { ThemeAlert } from '@/components/ThemeAlert';
 
 ## Demo
 
@@ -143,6 +145,24 @@ A custom empty icon can be used in the Rating component using the `emptyIcon` pr
 </Example>
 
 ## CSS Styling
+
+### Theme
+
+<ThemeAlert />
+
+You can customize the appearance of all Rating components in your application with a [Theme](/theming).
+
+<Example>
+  <RatingThemeExample />
+  
+  <ExampleCode>
+
+  ```jsx file=./examples/RatingThemeExample.tsx
+
+  ```
+
+  </ExampleCode>
+</Example>
 
 ### Target classes
 
