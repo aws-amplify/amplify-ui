@@ -20,6 +20,8 @@ export class PhoneNumberFieldComponent implements OnInit {
   @Input() type: string;
   @Input() labelHidden = false;
   @Input() dialCodeList: Array<string>;
+  @Input() hasError: boolean;
+  @Input() describedBy: string;
 
   @HostBinding('style.display') display = 'contents';
 
