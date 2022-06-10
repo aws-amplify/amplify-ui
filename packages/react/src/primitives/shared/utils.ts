@@ -199,9 +199,9 @@ export const classNameModifierByFlag = (
 
 export const getCSSVariableIfValueIsThemeKey = (
   propKey: string,
-  value: string | number
+  value: any
 ) => {
-  if (typeof value === 'number') {
+  if (typeof value !== 'string') {
     return value;
   }
   const path = value.split('.');
