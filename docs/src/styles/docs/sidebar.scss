@@ -94,7 +94,8 @@
   }
   
   // This is to get the secondary link text lined up with the primary nav item
-  --secondary-nav-indent: calc(1.25rem + var(--amplify-space-small) + var(--amplify-space-small));
+  --secondary-nav-indent: calc(1.25rem + var(--amplify-space-small) * 2);
+  --tertiary-nav-indent:  calc(var(--secondary-nav-indent) + var(--amplify-space-medium));
   
   // Custom expander styles
   --amplify-components-expander-box-shadow: none;
@@ -153,14 +154,12 @@
 }
 
 
-.docs-secondary-nav-link {
+.docs-secondary-nav-link, .docs-tertiary-nav-link  {
   display: block;
   padding: var(--amplify-space-small);
-  padding-inline-start: var(--secondary-nav-indent);
   font-size: var(--amplify-font-sizes-small);
   color: var(--amplify-colors-font-secondary);
   text-decoration: none;
-  
   &:hover,
   &.current {
     color: var(--amplify-colors-font-hover);
@@ -170,6 +169,14 @@
   &:active {
     background-color: var(--amplify-colors-brand-primary-20);
   }
+}
+
+.docs-secondary-nav-link {
+  padding-inline-start: var(--secondary-nav-indent);
+}
+
+.docs-tertiary-nav-link {
+  padding-inline-start: var(--tertiary-nav-indent);
 }
 
 .docs-sidebar-menu-button {
