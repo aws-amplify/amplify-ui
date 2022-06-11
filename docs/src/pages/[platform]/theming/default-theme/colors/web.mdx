@@ -1,7 +1,26 @@
-import { Tabs, TabItem, View } from '@aws-amplify/ui-react';
-import { TokenList } from '@/components/Theming/TokenList';
+import { Tabs, TabItem, View } from '@aws-amplify/ui-react'
 import { Example, ExampleCode } from '@/components/Example';
 import { ColorsExample } from './examples';
+import { 
+  TokensColorsFont, 
+  TokensColorsBackground, 
+  TokensColorsBorder, 
+  TokensColorsShadow, 
+  TokensColorsOverlay,
+  TokensColorsBrandPrimary,
+  TokensColorsBrandSecondary,
+  TokensColorsNeutral,
+  TokensColorsRed,
+  TokensColorsOrange,
+  TokensColorsYellow,
+  TokensColorsGreen,
+  TokensColorsTeal,
+  TokensColorsBlue,
+  TokensColorsPurple,
+  TokensColorsPink,
+  TokensColorsBlack,
+  TokensColorsWhite,
+  TokensColorsTransparent } from '@/components/Theming/TokenGroups';
 
 <Tabs>
   <TabItem title="Example usage">
@@ -32,63 +51,63 @@ import { ColorsExample } from './examples';
 ## Semantic
 
 ### Font
-<TokenList namespace="colors" childNamespace="font" />
+<TokensColorsFont />
 
 ### Background
-<TokenList namespace="colors" childNamespace="background" />
+<TokensColorsBackground />
 
 ### Border
-<TokenList namespace="colors" childNamespace="border" />
+<TokensColorsBorder />
 
 ### Shadow
-<TokenList namespace="colors" childNamespace="shadow" />
+<TokensColorsShadow />
 
 ### Overlay
-<TokenList namespace="colors" childNamespace="overlay" />
+<TokensColorsOverlay />
 
 
 ## Brand
 
 ### Primary
-<TokenList namespace="colors" childNamespace="brand,primary" />
+<TokensColorsBrandPrimary />
 
 ### Secondary
-<TokenList namespace="colors" childNamespace="brand,secondary" />
+<TokensColorsBrandSecondary />
 
 ## Palette
 
 ### Neutral
-<TokenList namespace="colors" childNamespace="neutral" />
+<TokensColorsNeutral />
 
 ### Red
-<TokenList namespace="colors" childNamespace="red" />
+<TokensColorsRed />
 
 ### Orange
-<TokenList namespace="colors" childNamespace="orange" />
+<TokensColorsOrange />
 
 ### Yellow
-<TokenList namespace="colors" childNamespace="yellow" />
+<TokensColorsYellow />
 
 ### Green
-<TokenList namespace="colors" childNamespace="green" />
+<TokensColorsGreen />
 
 ### Teal
-<TokenList namespace="colors" childNamespace="teal" />
+<TokensColorsTeal />
 
 ### Blue
-<TokenList namespace="colors" childNamespace="blue" />
+<TokensColorsBlue />
 
 ### Purple
-<TokenList namespace="colors" childNamespace="purple" />
+<TokensColorsPurple />
 
 ### Pink
-<TokenList namespace="colors" childNamespace="pink" />
+<TokensColorsPink />
 
 ### Black
-<TokenList namespace="colors" childNamespace="black" />
+<TokensColorsBlack />
 
 ### White
-<TokenList namespace="colors" childNamespace="white" />
+<TokensColorsWhite />
 
 ### Transparent
-<TokenList namespace="colors" childNamespace="transparent" />
+<TokensColorsTransparent />

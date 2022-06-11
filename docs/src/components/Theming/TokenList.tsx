@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTheme } from '@aws-amplify/ui-react';
-import { isDesignToken } from '@aws-amplify/ui';
+import { createTokenList } from './utils';
 import {
   SpaceBlock,
   BorderWidthBlock,
@@ -21,28 +21,6 @@ type Namespaces =
   | 'fonts'
   | 'fontSizes'
   | 'fontWeights';
-
-export function createTokenList(tokens) {
-  // Creates a flattened array out of the token object passed to createTokenList()
-  let tokenList = [];
-  function iterateGroup(group) {
-    Object.values(group).forEach((value) => {
-      if (isDesignToken(value)) {
-        tokenList.push({
-          ...value,
-        });
-      } else {
-        iterateGroup(value);
-      }
-    });
-  }
-  if (isDesignToken(tokens)) {
-    tokenList.push(tokens);
-  } else {
-    iterateGroup(tokens);
-  }
-  return tokenList;
-}
 
 type TokenItemProps = {
   variation: Namespaces;
@@ -97,7 +75,7 @@ type TokenListProps = {
   namespace: Namespaces;
   // TODO: better type for childNamespace? This should be children
   // of whatever namespace you chose. e.g. namespace: 'colors', childNamespace: 'brand,primary'
-  childNamespace?: string;
+  childNamespace?: Array<string>;
 };
 
 export function TokenList({ namespace, childNamespace }: TokenListProps) {
@@ -109,9 +87,8 @@ export function TokenList({ namespace, childNamespace }: TokenListProps) {
    */
   let tokenNamespace = tokens[namespace];
   if (childNamespace) {
-    let childNamespaceArr = childNamespace.trim().split(',');
-    for (var i = 0; i < childNamespaceArr.length; i++) {
-      tokenNamespace = tokenNamespace[childNamespaceArr[i]];
+    for (var i = 0; i < childNamespace.length; i++) {
+      tokenNamespace = tokenNamespace[childNamespace[i]];
     }
   }
 

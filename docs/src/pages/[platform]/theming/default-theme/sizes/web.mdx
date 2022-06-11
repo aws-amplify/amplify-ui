@@ -1,6 +1,9 @@
 import { Tabs, TabItem, View } from '@aws-amplify/ui-react';
-import { TokenList } from '@/components/Theming/TokenList';
 import { Example, ExampleCode } from '@/components/Example';
+import { 
+  TokensSizeSpace,
+  TokensSizeBorderWidths,
+  TokensSizeRadii } from '@/components/Theming/TokenGroups';
 import { BorderWidthExample, RadiiExample, SpaceExample, SpaceCSSExample, BorderCSSExample } from './examples';
 
 ## Space
@@ -33,7 +36,7 @@ import { BorderWidthExample, RadiiExample, SpaceExample, SpaceCSSExample, Border
   </TabItem>
 </Tabs>
 
-<TokenList namespace="space" />
+<TokensSizeSpace />
 
 ## Border Widths
 
@@ -63,7 +66,7 @@ import { BorderWidthExample, RadiiExample, SpaceExample, SpaceCSSExample, Border
   </TabItem>
 </Tabs>
 
-<TokenList namespace="borderWidths" />
+<TokensSizeBorderWidths />
 
 ## Radii
 
@@ -93,4 +96,4 @@ import { BorderWidthExample, RadiiExample, SpaceExample, SpaceCSSExample, Border
   </TabItem>
 </Tabs>
 
-<TokenList namespace="radii" />
+<TokensSizeRadii />

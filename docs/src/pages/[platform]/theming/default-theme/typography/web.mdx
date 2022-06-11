@@ -1,6 +1,10 @@
 import { Tabs, TabItem, View } from '@aws-amplify/ui-react';
-import { TokenList } from '@/components/Theming/TokenList';
 import { Example, ExampleCode } from '@/components/Example';
+import { 
+  TokensTypographyFontWeights,
+  TokensTypographyFontSizes,
+  TokensTypographyLineHeights,
+  TokensTypographyFonts } from '@/components/Theming/TokenGroups';
 import { FontWeightExample, FontSizesExample, LineHeightsExample } from './examples';
 
 ## Font weights
@@ -31,7 +35,7 @@ import { FontWeightExample, FontSizesExample, LineHeightsExample } from './examp
   </TabItem>
 </Tabs>
 
-<TokenList namespace="fontWeights" />
+<TokensTypographyFontWeights />
 
 ## Font sizes
 
@@ -61,7 +65,7 @@ import { FontWeightExample, FontSizesExample, LineHeightsExample } from './examp
   </TabItem>
 </Tabs>
 
-<TokenList namespace="fontSizes" />
+<TokensTypographyFontSizes />
 
 ## Line heights
 
@@ -91,11 +95,11 @@ import { FontWeightExample, FontSizesExample, LineHeightsExample } from './examp
   </TabItem>
 </Tabs>
 
-<TokenList namespace="lineHeights" />
+<TokensTypographyLineHeights />
 
 ## Font families
 
 Amplify UI ships with tokens for both static and variable fonts. The benefit of a variable font is you can include many variations of the font (for weight and axes) in a single file. [Learn more about variable weight fonts in this guide from MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Fonts/Variable_Fonts_Guide)
 
-<TokenList namespace="fonts" />
+<TokensTypographyFonts />
 
