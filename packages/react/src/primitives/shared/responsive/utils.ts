@@ -43,7 +43,7 @@ const getClosestValueByBreakpoint = <Value>(
   values: Record<string, Value>,
   breakpoint: Breakpoint,
   breakpoints: Breakpoints
-): string | null => {
+): string | Value => {
   // Use exact match
   if (values.hasOwnProperty(breakpoint)) {
     const value = values[breakpoint];
