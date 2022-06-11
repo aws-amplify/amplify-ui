@@ -98,6 +98,23 @@ describe('validateFormPassword', () => {
     });
   });
 
+  it.only('validates each of special characters accepted by Cognito', async () => {
+    // adapted from https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-policies.html
+    const specialChars =
+      '^ $ * . [ ] { } ( ) ? " ! @ # % & / \\ , > < \' : ; | _ ~ ` = + -';
+    const specialCharsArray = specialChars.split(' ');
+    specialCharsArray.push(' '); // space is a valid character too (see docs above)
+
+    for (const char of specialCharsArray) {
+      const password = `password${char}`;
+      const result = await validateFormPassword({ password }, touched, {
+        passwordPolicyMinLength: 4,
+        passwordPolicyCharacters: ['REQUIRES_SYMBOLS'],
+      });
+      expect(result).toBe(null);
+    }
+  });
+
   it('skips validation if inputs are not touched', async () => {
     const password = '';
     const result = await validateFormPassword(
