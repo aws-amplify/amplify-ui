@@ -139,9 +139,11 @@ function getCatalogComponentProperty(
     (allTypesData.get(category)?.get(name)?.get('type') as string) ??
     propType.getText(); // use type from allTypesData because it has a better-looking format
 
+  const regex = /import\(\".*\.(.*)/;
+
   return {
     name: sanitize(name),
-    type: type,
+    type: type.includes('import') ? type.match(regex)[1] : type,
     description: sanitize(description),
     category: sanitize(category),
   };

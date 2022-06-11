@@ -11,7 +11,7 @@ import type {
 
 const catalog = getCatalog();
 
-// console.log(' 🐻 catalog: ', JSON.stringify(getCatalog(), null, 2));
+console.log(' 🐻 catalog: ', JSON.stringify(getCatalog(), null, 2));
 
 createAllPropsTables();
 
