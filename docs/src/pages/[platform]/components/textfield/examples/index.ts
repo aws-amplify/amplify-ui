@@ -16,3 +16,4 @@ export { TextFieldStatesExample } from './TextFieldStatesExample';
 export { TextFieldStylePropsExample } from './TextFieldStylePropsExample';
 export { TextFieldValidationErrorExample } from './TextFieldValidationErrorExample';
 export { TextFieldVariationExample } from './TextFieldVariationExample';
+export { TextFieldThemeExample } from './TextFieldThemeExample';

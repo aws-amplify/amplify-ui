@@ -10,3 +10,4 @@ export { TextAreaFieldStatesExample } from './TextAreaFieldStatesExample';
 export { TextAreaFieldStylePropsExample } from './TextAreaFieldStylePropsExample';
 export { TextAreaFieldValidationErrorExample } from './TextAreaFieldValidationErrorExample';
 export { TextAreaFieldVariationExample } from './TextAreaFieldVariationExample';
+export { TextAreaFieldThemeExample } from './TextAreaFieldThemeExample';

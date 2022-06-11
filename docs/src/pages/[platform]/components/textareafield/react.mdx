@@ -14,10 +14,12 @@ import {
   TextAreaFieldStylePropsExample,
   TextAreaFieldValidationErrorExample,
   TextAreaFieldVariationExample,
+  TextAreaFieldThemeExample,
 } from './examples';
 import { Example, ExampleCode } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
+import ThemeExample from '@/components/ThemeExample.mdx';
 
 ## Demo
 
@@ -178,7 +180,22 @@ Use the `hasError` and `errorMessage` fields to mark a `TextAreaField` with a va
   </ExampleCode>
 </Example>
 
-## Styling
+## CSS Styling
+
+<ThemeExample component="TextAreaField">
+  <Example>
+    <TextAreaFieldThemeExample />
+    
+    <ExampleCode>
+
+    ```jsx file=./examples/TextAreaFieldThemeExample.tsx
+
+    ```
+
+    </ExampleCode>
+  </Example>
+</ThemeExample>
+
 
 ### Target classes
 
