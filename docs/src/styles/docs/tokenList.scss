@@ -12,7 +12,7 @@
 }
 
 .docs-tokenGroup--list {
-  li {
+  .docs-tokenItem {
     border-bottom: 1px solid var(--amplify-colors-neutral-20);
     padding: var(--amplify-space-small) 0;
     &:last-child {

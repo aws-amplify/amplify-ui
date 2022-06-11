@@ -51,10 +51,8 @@ type TokenItemProps = {
 
 export function TokenItem({ variation, children }: TokenItemProps) {
   return (
-    <li>
-      <div className={`docs-tokenItem docs-tokenItem--${variation}`}>
-        {children}
-      </div>
+    <li className={`docs-tokenItem docs-tokenItem--${variation}`}>
+      {children}
     </li>
   );
 }
