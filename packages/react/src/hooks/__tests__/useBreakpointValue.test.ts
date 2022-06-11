@@ -1,10 +1,11 @@
 /** @jest-environment jsdom */
 
 import { useBreakpointValue } from '../useBreakpointValue';
-import { act, renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react-hooks';
 import MatchMediaMock from 'jest-matchmedia-mock';
 import * as React from 'react';
 import { getMediaQueries } from '../../primitives/shared/responsive/getMediaQueries';
+import { MediaQueryBreakpoint } from '../../primitives/types/responsive';
 import { defaultTheme } from '@aws-amplify/ui';
 
 jest.mock('react', () => ({
@@ -27,9 +28,10 @@ const breakpoints = {
 const defaultBreakpoint = 'base';
 
 let matchMedia: MatchMediaMock;
-let mediaQueries = getMediaQueries({
-  breakpoints: defaultTheme.breakpoints.values,
-});
+let mediaQueries: [MediaQueryBreakpoint['breakpoint'], MediaQueryBreakpoint][] =
+  getMediaQueries({
+    breakpoints: defaultTheme.breakpoints.values,
+  }).map((mediaQuery) => [mediaQuery.breakpoint, mediaQuery]);
 
 describe('useBreakpoint', () => {
   beforeAll(() => {
@@ -51,24 +53,24 @@ describe('useBreakpoint', () => {
   });
 
   test.each(mediaQueries)(
-    `should return $breakpoint breakpoint`,
-    ({ breakpoint, query }) => {
+    'should return %s breakpoint',
+    (breakpoint, { query }) => {
       matchMedia.useMediaQuery(query);
       const { result } = renderHook(() => useBreakpointValue(breakpoints));
       const breakpointValue = result;
 
-      expect(breakpointValue.current).toBe(`${String(breakpoint)}Value`);
+      expect(breakpointValue.current).toBe(`${breakpoint as string}Value`);
     }
   );
 
   test.each(mediaQueries.reverse())(
-    `should return $breakpoint breakpoint`,
-    ({ breakpoint, query }) => {
+    'should return %s breakpoint - reverse',
+    (breakpoint, { query }) => {
       matchMedia.useMediaQuery(query);
       const { result } = renderHook(() => useBreakpointValue(breakpoints));
       const breakpointValue = result;
 
-      expect(breakpointValue.current).toBe(`${String(breakpoint)}Value`);
+      expect(breakpointValue.current).toBe(`${breakpoint as string}Value`);
     }
   );
 
