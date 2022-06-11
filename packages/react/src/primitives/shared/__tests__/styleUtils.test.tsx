@@ -145,7 +145,7 @@ describe('convertStylePropsToStyleObj: ', () => {
     expect(propStyles['color']).toBe('blue');
   });
 
-  it('should give precedence to the stylistic props over the passed in style object', () => {
+  it.only('should give precedence to the stylistic props over the passed in style object', () => {
     const props: ViewProps = {
       color: 'red',
       fontWeight: 'bold',
@@ -163,7 +163,7 @@ describe('convertStylePropsToStyleObj: ', () => {
 
     expect(propStyles['backgroundColor']).toBe('yellow');
     expect(propStyles['color']).toBe('red');
-    expect(propStyles['fontWeight']).toBe('bold');
+    expect(propStyles['fontWeight']).toBe('var(--amplify-font-weights-bold)');
   });
 
   it('should handle design tokens', () => {
