@@ -22,7 +22,7 @@ const lenientPasswordPolicy: PasswordSettings = {
 };
 
 describe('validateFormPassword', () => {
-  it('happy case with valid password and strict password policy', async () => {
+  it('validates as expected with valid password and strict password policy', async () => {
     const password = 'UnitTest_Password1';
     const result = await validateFormPassword(
       { password },
@@ -32,30 +32,34 @@ describe('validateFormPassword', () => {
     expect(result).toBe(null);
   });
 
-  it('unhappy cases with invalid passwords and strict password policy', async () => {
+  it('validates as expected with invalid password (has unknown special character) on strict password policy', async () => {
     // has special character not recognized by Cognito
-    const password1 = 'UnitTestㄱPassword1';
-    const result1 = await validateFormPassword(
-      { password: password1 },
+    const password = 'UnitTestㄱPassword1';
+    const result = await validateFormPassword(
+      { password: password },
       touched,
       strictPasswordPolicy
     );
-    expect(result1).toStrictEqual({
+    expect(result).toStrictEqual({
       password: ['Password must have special characters'],
     });
+  });
 
+  it('validates as expected with invalid password (no special characters) on strict password policy', async () => {
     // does not have special character
-    const password2 = 'UnitTestPassword1';
-    const result2 = await validateFormPassword(
-      { password: password2 },
+    const password = 'UnitTestPassword1';
+    const result = await validateFormPassword(
+      { password: password },
       touched,
       strictPasswordPolicy
     );
-    expect(result2).toStrictEqual({
+    expect(result).toStrictEqual({
       password: ['Password must have special characters'],
     });
+  });
 
-    // is too short, and does not meet character requirements
+  it('validates as expected with invalid password on strict password policy', async () => {
+    // is too short, and does not meet any of character requirements
     const password3 = 'short';
     const result3 = await validateFormPassword(
       { password: password3 },
