@@ -98,7 +98,7 @@ describe('validateFormPassword', () => {
     });
   });
 
-  it.only('validates each of special characters allowed by Cognito is accepted', async () => {
+  it.only('validates each of special characters allowed by Cognito as expected', async () => {
     // adapted from https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-policies.html
     const specialChars =
       '^ $ * . [ ] { } ( ) ? " ! @ # % & / \\ , > < \' : ; | _ ~ ` = + -';
