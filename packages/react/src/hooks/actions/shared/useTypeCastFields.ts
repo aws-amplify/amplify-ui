@@ -26,23 +26,24 @@ export const useTypeCastFields = <Model>({
       return fields;
     }
 
-    let castFields = {} as UseTypeCastFieldsReturn<Model>;
+    const castFields = {} as UseTypeCastFieldsReturn<Model>;
     Object.keys(fields).forEach((fieldName) => {
+      const field = fields[fieldName] as string;
       switch (schema?.models[modelName]?.fields?.[fieldName]?.type) {
         case 'AWSTimestamp':
-          castFields[fieldName] = Number(fields[fieldName]);
+          castFields[fieldName] = Number(field);
           break;
         case 'Boolean':
-          castFields[fieldName] = Boolean(fields[fieldName]);
+          castFields[fieldName] = Boolean(field);
           break;
         case 'Int':
-          castFields[fieldName] = parseInt(fields[fieldName]);
+          castFields[fieldName] = parseInt(field);
           break;
         case 'Float':
-          castFields[fieldName] = Number(fields[fieldName]);
+          castFields[fieldName] = Number(field);
           break;
         default:
-          castFields[fieldName] = fields[fieldName];
+          castFields[fieldName] = field;
           break;
       }
     });
