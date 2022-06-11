@@ -96,8 +96,10 @@ function PropsTableExpander(propsSortedByCategory: SortedPropertiesByCategory) {
 }
 
 function PropsTable(properties: Properties) {
-  const rows = Object.entries(properties).map(
-    ([propName, { name, type, description }]) => `
+  const rows = Object.entries(properties)
+    .sort(([propNameA], [propNameB]) => propNameA.localeCompare(propNameB))
+    .map(
+      ([propName, { name, type, description }]) => `
     <TableRow>
       <TableCell className="props-table__tr-name">${name}</TableCell>
       <TableCell>${`
@@ -108,7 +110,7 @@ ${type}
       <TableCell className="props-table__tr-description">${description}</TableCell>
     </TableRow>
 `
-  );
+    );
   return `
 <Table
   highlightOnHover={true}

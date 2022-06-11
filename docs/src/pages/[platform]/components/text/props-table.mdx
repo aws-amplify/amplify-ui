@@ -35,16 +35,6 @@ import { Expander, ExpanderItem, Table, TableBody, TableCell, TableHead, TableRo
     </TableRow>
 
     <TableRow>
-      <TableCell className="props-table__tr-name">variation</TableCell>
-      <TableCell>
-```jsx
-TextVariation
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">This should be the primary way to handle different styles of text. Lower-level text styling attributes like color can be set directly, that should be more of an escape hatch.</TableCell>
-    </TableRow>
-
-    <TableRow>
       <TableCell className="props-table__tr-name">isTruncated</TableCell>
       <TableCell>
 ```jsx
@@ -52,6 +42,16 @@ boolean
 ```
 </TableCell>
       <TableCell className="props-table__tr-description">This attribute will be used to indicate if the text component should truncate text that exceeds the width of the text element.  Truncated text will render an ellipsis.</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">variation</TableCell>
+      <TableCell>
+```jsx
+TextVariation
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">This should be the primary way to handle different styles of text. Lower-level text styling attributes like color can be set directly, that should be more of an escape hatch.</TableCell>
     </TableRow>
 
   </TableBody>
@@ -75,36 +75,6 @@ boolean
   <TableBody>
     
     <TableRow>
-      <TableCell className="props-table__tr-name">id</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">Unique identifier</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">className</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">Additional CSS class name for component</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">testId</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">Used to provide a &#96;data-testid&#96; attribute for testing purposes</TableCell>
-    </TableRow>
-
-    <TableRow>
       <TableCell className="props-table__tr-name">ariaLabel</TableCell>
       <TableCell>
 ```jsx
@@ -125,13 +95,23 @@ AriaAttributes['aria-valuetext']
     </TableRow>
 
     <TableRow>
-      <TableCell className="props-table__tr-name">role</TableCell>
+      <TableCell className="props-table__tr-name">className</TableCell>
       <TableCell>
 ```jsx
-React.AriaRole
+string
 ```
 </TableCell>
-      <TableCell className="props-table__tr-description"></TableCell>
+      <TableCell className="props-table__tr-description">Additional CSS class name for component</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">id</TableCell>
+      <TableCell>
+```jsx
+string
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">Unique identifier</TableCell>
     </TableRow>
 
     <TableRow>
@@ -142,6 +122,26 @@ React.Ref<T>
 ```
 </TableCell>
       <TableCell className="props-table__tr-description"></TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">role</TableCell>
+      <TableCell>
+```jsx
+React.AriaRole
+```
+</TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">testId</TableCell>
+      <TableCell>
+```jsx
+string
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">Used to provide a &#96;data-testid&#96; attribute for testing purposes</TableCell>
     </TableRow>
 
   </TableBody>
@@ -165,6 +165,16 @@ React.Ref<T>
   <TableBody>
     
     <TableRow>
+      <TableCell className="props-table__tr-name">basis</TableCell>
+      <TableCell>
+```jsx
+ResponsiveStyle<Property.FlexBasis>
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">Default size of element before remaining space is distributed</TableCell>
+    </TableRow>
+
+    <TableRow>
       <TableCell className="props-table__tr-name">flex</TableCell>
       <TableCell>
 ```jsx
@@ -172,16 +182,6 @@ ResponsiveStyle<Property.Flex>
 ```
 </TableCell>
       <TableCell className="props-table__tr-description">Shorthand for flex grow / shrink / basis</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">order</TableCell>
-      <TableCell>
-```jsx
-ResponsiveStyle<Property.Order>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">Controls order flex items appear</TableCell>
     </TableRow>
 
     <TableRow>
@@ -195,6 +195,16 @@ ResponsiveStyle<Property.FlexGrow>
     </TableRow>
 
     <TableRow>
+      <TableCell className="props-table__tr-name">order</TableCell>
+      <TableCell>
+```jsx
+ResponsiveStyle<Property.Order>
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">Controls order flex items appear</TableCell>
+    </TableRow>
+
+    <TableRow>
       <TableCell className="props-table__tr-name">shrink</TableCell>
       <TableCell>
 ```jsx
@@ -202,16 +212,6 @@ ResponsiveStyle<Property.FlexShrink>
 ```
 </TableCell>
       <TableCell className="props-table__tr-description">Ability for flex item to shrink</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">basis</TableCell>
-      <TableCell>
-```jsx
-ResponsiveStyle<Property.FlexBasis>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">Default size of element before remaining space is distributed</TableCell>
     </TableRow>
 
   </TableBody>
@@ -358,7 +358,9 @@ ResponsiveStyle<StyleToken<Property.AlignSelf>>
       <TableCell className="props-table__tr-name">backgroundColor</TableCell>
       <TableCell>
 ```jsx
-ResponsiveStyle<StyleToken<Property.BackgroundColor>>
+ResponsiveStyle<
+    ColorKeys<StyleToken<Property.BackgroundColor>>
+  >
 ```
 </TableCell>
       <TableCell className="props-table__tr-description"></TableCell>
@@ -418,7 +420,7 @@ ResponsiveStyle<StyleToken<Property.BoxShadow>>
       <TableCell className="props-table__tr-name">color</TableCell>
       <TableCell>
 ```jsx
-ResponsiveStyle<StyleToken<Property.Color>>
+ResponsiveStyle<ColorKeys<StyleToken<Property.Color>>>
 ```
 </TableCell>
       <TableCell className="props-table__tr-description"></TableCell>
@@ -835,20 +837,20 @@ ResponsiveStyle<StyleToken<Property.TransformOrigin>>
     </TableRow>
 
     <TableRow>
-      <TableCell className="props-table__tr-name">width</TableCell>
+      <TableCell className="props-table__tr-name">whiteSpace</TableCell>
       <TableCell>
 ```jsx
-ResponsiveStyle<StyleToken<Property.Width>>
+ResponsiveStyle<StyleToken<Property.WhiteSpace>>
 ```
 </TableCell>
       <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell className="props-table__tr-name">whiteSpace</TableCell>
+      <TableCell className="props-table__tr-name">width</TableCell>
       <TableCell>
 ```jsx
-ResponsiveStyle<StyleToken<Property.WhiteSpace>>
+ResponsiveStyle<StyleToken<Property.Width>>
 ```
 </TableCell>
       <TableCell className="props-table__tr-description"></TableCell>

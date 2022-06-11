@@ -25,26 +25,6 @@ import { Expander, ExpanderItem, Table, TableBody, TableCell, TableHead, TableRo
   <TableBody>
     
     <TableRow>
-      <TableCell className="props-table__tr-name">height</TableCell>
-      <TableCell>
-```jsx
-number
-```
-</TableCell>
-      <TableCell className="props-table__tr-description"></TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">width</TableCell>
-      <TableCell>
-```jsx
-number
-```
-</TableCell>
-      <TableCell className="props-table__tr-description"></TableCell>
-    </TableRow>
-
-    <TableRow>
       <TableCell className="props-table__tr-name">ariaLabel</TableCell>
       <TableCell>
 ```jsx
@@ -75,13 +55,13 @@ Property.Color
     </TableRow>
 
     <TableRow>
-      <TableCell className="props-table__tr-name">viewBox</TableCell>
+      <TableCell className="props-table__tr-name">height</TableCell>
       <TableCell>
 ```jsx
-ViewBox
+number
 ```
 </TableCell>
-      <TableCell className="props-table__tr-description">This defines the position and dimension, in user space, of an SVG viewport.</TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
@@ -102,6 +82,26 @@ Array<React.SVGAttributes<SVGPathElement>>
 ```
 </TableCell>
       <TableCell className="props-table__tr-description">Optionally pass an array of path-like objects which the icon will map to &#60;path&#62; elements.</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">viewBox</TableCell>
+      <TableCell>
+```jsx
+ViewBox
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">This defines the position and dimension, in user space, of an SVG viewport.</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">width</TableCell>
+      <TableCell>
+```jsx
+number
+```
+</TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
   </TableBody>
@@ -125,6 +125,16 @@ Array<React.SVGAttributes<SVGPathElement>>
   <TableBody>
     
     <TableRow>
+      <TableCell className="props-table__tr-name">ariaValuetext</TableCell>
+      <TableCell>
+```jsx
+AriaAttributes['aria-valuetext']
+```
+</TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
+    </TableRow>
+
+    <TableRow>
       <TableCell className="props-table__tr-name">as</TableCell>
       <TableCell>
 ```jsx
@@ -132,16 +142,6 @@ Element | Props["as"]
 ```
 </TableCell>
       <TableCell className="props-table__tr-description"></TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">id</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">Unique identifier</TableCell>
     </TableRow>
 
     <TableRow>
@@ -155,20 +155,20 @@ string
     </TableRow>
 
     <TableRow>
-      <TableCell className="props-table__tr-name">testId</TableCell>
+      <TableCell className="props-table__tr-name">id</TableCell>
       <TableCell>
 ```jsx
 string
 ```
 </TableCell>
-      <TableCell className="props-table__tr-description">Used to provide a &#96;data-testid&#96; attribute for testing purposes</TableCell>
+      <TableCell className="props-table__tr-description">Unique identifier</TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell className="props-table__tr-name">ariaValuetext</TableCell>
+      <TableCell className="props-table__tr-name">ref</TableCell>
       <TableCell>
 ```jsx
-AriaAttributes['aria-valuetext']
+React.Ref<T>
 ```
 </TableCell>
       <TableCell className="props-table__tr-description"></TableCell>
@@ -185,13 +185,13 @@ React.AriaRole
     </TableRow>
 
     <TableRow>
-      <TableCell className="props-table__tr-name">ref</TableCell>
+      <TableCell className="props-table__tr-name">testId</TableCell>
       <TableCell>
 ```jsx
-React.Ref<T>
+string
 ```
 </TableCell>
-      <TableCell className="props-table__tr-description"></TableCell>
+      <TableCell className="props-table__tr-description">Used to provide a &#96;data-testid&#96; attribute for testing purposes</TableCell>
     </TableRow>
 
   </TableBody>
@@ -215,46 +215,6 @@ React.Ref<T>
   <TableBody>
     
     <TableRow>
-      <TableCell className="props-table__tr-name">flex</TableCell>
-      <TableCell>
-```jsx
-ResponsiveStyle<Property.Flex>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">Shorthand for flex grow / shrink / basis</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">order</TableCell>
-      <TableCell>
-```jsx
-ResponsiveStyle<Property.Order>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">Controls order flex items appear</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">grow</TableCell>
-      <TableCell>
-```jsx
-ResponsiveStyle<Property.FlexGrow>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">Ability for flex item to grow</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">shrink</TableCell>
-      <TableCell>
-```jsx
-ResponsiveStyle<Property.FlexShrink>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">Ability for flex item to shrink</TableCell>
-    </TableRow>
-
-    <TableRow>
       <TableCell className="props-table__tr-name">basis</TableCell>
       <TableCell>
 ```jsx
@@ -272,6 +232,46 @@ ResponsiveStyle<Property.FlexDirection>
 ```
 </TableCell>
       <TableCell className="props-table__tr-description"></TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">flex</TableCell>
+      <TableCell>
+```jsx
+ResponsiveStyle<Property.Flex>
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">Shorthand for flex grow / shrink / basis</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">grow</TableCell>
+      <TableCell>
+```jsx
+ResponsiveStyle<Property.FlexGrow>
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">Ability for flex item to grow</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">order</TableCell>
+      <TableCell>
+```jsx
+ResponsiveStyle<Property.Order>
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">Controls order flex items appear</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">shrink</TableCell>
+      <TableCell>
+```jsx
+ResponsiveStyle<Property.FlexShrink>
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">Ability for flex item to shrink</TableCell>
     </TableRow>
 
   </TableBody>
@@ -418,7 +418,9 @@ ResponsiveStyle<StyleToken<Property.AlignSelf>>
       <TableCell className="props-table__tr-name">backgroundColor</TableCell>
       <TableCell>
 ```jsx
-ResponsiveStyle<StyleToken<Property.BackgroundColor>>
+ResponsiveStyle<
+    ColorKeys<StyleToken<Property.BackgroundColor>>
+  >
 ```
 </TableCell>
       <TableCell className="props-table__tr-description"></TableCell>
@@ -478,7 +480,7 @@ ResponsiveStyle<StyleToken<Property.BoxShadow>>
       <TableCell className="props-table__tr-name">color</TableCell>
       <TableCell>
 ```jsx
-ResponsiveStyle<StyleToken<Property.Color>>
+ResponsiveStyle<ColorKeys<StyleToken<Property.Color>>>
 ```
 </TableCell>
       <TableCell className="props-table__tr-description"></TableCell>
