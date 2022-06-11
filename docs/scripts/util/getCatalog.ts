@@ -136,11 +136,12 @@ function getCatalogComponentProperty(
   ) as Category;
 
   const type =
-    allTypesData.get(category)?.get(name)?.get('type') ?? propType.getText(); // use type from allTypesData because it has a better-looking format
+    (allTypesData.get(category)?.get(name)?.get('type') as string) ??
+    propType.getText(); // use type from allTypesData because it has a better-looking format
 
   return {
     name: sanitize(name),
-    type: sanitize(type),
+    type: type,
     description: sanitize(description),
     category: sanitize(category),
   };
