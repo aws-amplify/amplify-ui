@@ -20,7 +20,9 @@ const FrameworkLink = ({
 }: FrameworkLinkProps) => {
   const { pathname, query } = useCustomRouter();
   const isCurrent = query.platform === framework;
-  const classNames = `docs-framework-link ${isCurrent ? 'current' : ''}`;
+  const classNames = `docs-framework-link ${
+    isCurrent ? 'current' : isDisabled ? 'disabled' : null
+  }`;
   const href = pathname.includes(platformPath)
     ? pathname.replace(platformPath, framework)
     : `/${framework}`;
