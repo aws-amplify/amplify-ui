@@ -75,22 +75,16 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   marginBlockStart?: ResponsiveStyle<
     SpaceKeys<StyleToken<Property.MarginBlockStart>>
   >;
-  marginBottom?: ResponsiveStyle<
-    SpaceKeys<StyleToken<Property.MarginBlockEnd>>
-  >;
+  marginBottom?: ResponsiveStyle<SpaceKeys<StyleToken<Property.MarginBottom>>>;
   marginInlineEnd?: ResponsiveStyle<
     SpaceKeys<StyleToken<Property.MarginInlineEnd>>
   >;
   marginInlineStart?: ResponsiveStyle<
     SpaceKeys<StyleToken<Property.MarginInlineStart>>
   >;
-  marginLeft?: ResponsiveStyle<
-    SpaceKeys<StyleToken<Property.MarginInlineStart>>
-  >;
-  marginRight?: ResponsiveStyle<
-    SpaceKeys<StyleToken<Property.MarginInlineEnd>>
-  >;
-  marginTop?: ResponsiveStyle<SpaceKeys<StyleToken<Property.MarginBlockStart>>>;
+  marginLeft?: ResponsiveStyle<SpaceKeys<StyleToken<Property.MarginLeft>>>;
+  marginRight?: ResponsiveStyle<SpaceKeys<StyleToken<Property.MarginRight>>>;
+  marginTop?: ResponsiveStyle<SpaceKeys<StyleToken<Property.MarginTop>>>;
   maxHeight?: ResponsiveStyle<SpaceKeys<StyleToken<Property.MaxHeight>>>;
   maxWidth?: ResponsiveStyle<SpaceKeys<StyleToken<Property.MaxWidth>>>;
   minHeight?: ResponsiveStyle<SpaceKeys<StyleToken<Property.MinHeight>>>;
@@ -99,29 +93,23 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   overflow?: ResponsiveStyle<StyleToken<Property.Overflow>>;
   padding?: ResponsiveStyle<StyleToken<Property.Padding>>;
   paddingBlockEnd?: ResponsiveStyle<
-    SpaceKeys<StyleToken<Property.MarginBlockEnd>>
-  >;
-  paddingBlockStart?: ResponsiveStyle<
-    SpaceKeys<StyleToken<Property.MarginBlockStart>>
-  >;
-  paddingBottom?: ResponsiveStyle<
     SpaceKeys<StyleToken<Property.PaddingBlockEnd>>
   >;
-  paddingInlineEnd?: ResponsiveStyle<
-    SpaceKeys<StyleToken<Property.MarginInlineEnd>>
-  >;
-  paddingInlineStart?: ResponsiveStyle<
-    SpaceKeys<StyleToken<Property.MarginInlineStart>>
-  >;
-  paddingLeft?: ResponsiveStyle<
-    SpaceKeys<StyleToken<Property.PaddingInlineStart>>
-  >;
-  paddingRight?: ResponsiveStyle<
-    SpaceKeys<StyleToken<Property.PaddingInlineEnd>>
-  >;
-  paddingTop?: ResponsiveStyle<
+  paddingBlockStart?: ResponsiveStyle<
     SpaceKeys<StyleToken<Property.PaddingBlockStart>>
   >;
+  paddingBottom?: ResponsiveStyle<
+    SpaceKeys<StyleToken<Property.PaddingBottom>>
+  >;
+  paddingInlineEnd?: ResponsiveStyle<
+    SpaceKeys<StyleToken<Property.PaddingInlineEnd>>
+  >;
+  paddingInlineStart?: ResponsiveStyle<
+    SpaceKeys<StyleToken<Property.PaddingInlineStart>>
+  >;
+  paddingLeft?: ResponsiveStyle<SpaceKeys<StyleToken<Property.PaddingLeft>>>;
+  paddingRight?: ResponsiveStyle<SpaceKeys<StyleToken<Property.PaddingRight>>>;
+  paddingTop?: ResponsiveStyle<SpaceKeys<StyleToken<Property.PaddingTop>>>;
   position?: ResponsiveStyle<StyleToken<Property.Position>>;
   right?: ResponsiveStyle<SpaceKeys<StyleToken<Property.Right>>>;
   textAlign?: ResponsiveStyle<StyleToken<Property.TextAlign>>;

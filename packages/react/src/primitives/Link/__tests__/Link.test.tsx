@@ -87,7 +87,7 @@ describe('Link: ', () => {
     expect(link.nodeName).toBe('P');
   });
 
-  it.only('can apply styling via props', async () => {
+  it('can apply styling via props', async () => {
     render(
       <Link
         color="blue"

@@ -144,7 +144,7 @@ describe('Text: ', () => {
     ).toBe('italic');
   });
 
-  it.only('can apply font-weight via props', async () => {
+  it('can apply font-weight via props', async () => {
     render(<Text fontWeight="bold">{textText}</Text>);
     const text = await screen.findByText(textText);
     expect(text).toHaveStyle({

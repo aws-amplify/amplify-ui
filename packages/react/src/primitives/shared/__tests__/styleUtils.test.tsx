@@ -145,7 +145,7 @@ describe('convertStylePropsToStyleObj: ', () => {
     expect(propStyles['color']).toBe('blue');
   });
 
-  it.only('should give precedence to the stylistic props over the passed in style object', () => {
+  it('should give precedence to the stylistic props over the passed in style object', () => {
     const props: ViewProps = {
       color: 'red',
       fontWeight: 'bold',
