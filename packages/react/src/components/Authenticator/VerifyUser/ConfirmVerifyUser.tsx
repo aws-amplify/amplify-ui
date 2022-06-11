@@ -1,65 +1,66 @@
 import { translate } from '@aws-amplify/ui';
 
-import { useAuthenticator } from '..';
-import { Flex, Heading } from '../../..';
-import {
-  ConfirmationCodeInput,
-  RemoteErrorMessage,
-  TwoButtonSubmitFooter,
-} from '../shared';
-import { isInputOrSelectElement, isInputElement } from '../../../helpers/utils';
+import { Flex } from '../../../primitives/Flex';
+import { Heading } from '../../../primitives/Heading';
+import { useAuthenticator } from '../hooks/useAuthenticator';
+import { useCustomComponents } from '../hooks/useCustomComponents';
+import { useFormHandlers } from '../hooks/useFormHandlers';
+import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
+import { TwoButtonSubmitFooter } from '../shared/TwoButtonSubmitFooter';
+import { FormFields } from '../shared/FormFields';
+import { RouteContainer, RouteProps } from '../RouteContainer';
 
-export const ConfirmVerifyUser = (): JSX.Element => {
-  const { submitForm, updateForm, isPending } = useAuthenticator();
+export const ConfirmVerifyUser = ({
+  className,
+  variation,
+}: RouteProps): JSX.Element => {
+  const { isPending } = useAuthenticator((context) => [context.isPending]);
+  const { handleChange, handleSubmit } = useFormHandlers();
 
-  const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
-    if (isInputOrSelectElement(event.target)) {
-      let { name, type, value } = event.target;
-      if (
-        isInputElement(event.target) &&
-        type === 'checkbox' &&
-        !event.target.checked
-      ) {
-        value = undefined;
-      }
-
-      updateForm({ name, value });
-    }
-  };
-
-  const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    submitForm();
-  };
+  const {
+    components: {
+      ConfirmVerifyUser: {
+        Header = ConfirmVerifyUser.Header,
+        Footer = ConfirmVerifyUser.Footer,
+      },
+    },
+  } = useCustomComponents();
 
   return (
-    <form
-      data-amplify-form=""
-      data-amplify-authenticator-confirmverifyuser=""
-      method="post"
-      onChange={handleChange}
-      onSubmit={handleSubmit}
-    >
-      <fieldset
-        style={{ display: 'flex', flexDirection: 'column' }}
-        className="amplify-flex"
-        disabled={isPending}
+    <RouteContainer className={className} variation={variation}>
+      <form
+        data-amplify-form=""
+        data-amplify-authenticator-confirmverifyuser=""
+        method="post"
+        onChange={handleChange}
+        onSubmit={handleSubmit}
       >
-        <Heading level={3}>
-          {translate('Account recovery requires verified contact information')}
-        </Heading>
+        <Flex as="fieldset" direction="column" isDisabled={isPending}>
+          <Header />
 
-        <Flex direction="column">
-          <ConfirmationCodeInput />
+          <Flex direction="column">
+            <FormFields />
+          </Flex>
+
+          <RemoteErrorMessage />
+
+          <TwoButtonSubmitFooter
+            cancelButtonText={translate('Skip')}
+            cancelButtonSendType="SKIP"
+          />
+          <Footer />
         </Flex>
-
-        <RemoteErrorMessage />
-
-        <TwoButtonSubmitFooter
-          cancelButtonText={translate('Skip')}
-          cancelButtonSendType="SKIP"
-        />
-      </fieldset>
-    </form>
+      </form>
+    </RouteContainer>
   );
 };
+
+ConfirmVerifyUser.Header = () => {
+  return (
+    <Heading level={3}>
+      {translate('Account recovery requires verified contact information')}
+    </Heading>
+  );
+};
+
+ConfirmVerifyUser.Footer = (): JSX.Element => null;

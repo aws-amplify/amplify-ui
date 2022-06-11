@@ -3,16 +3,16 @@ import * as React from 'react';
 import { FieldClearButtonProps, Primitive } from '../types';
 import { FieldGroupIconButton } from '../FieldGroupIcon';
 import { IconClose } from '../Icon';
-import { SharedText } from '../shared/i18n';
+import { ComponentText } from '../shared/constants';
 
-const ariaLabelText = SharedText.Fields.ariaLabel.clearField;
+const ariaLabelText = ComponentText.Fields.clearButtonLabel;
 
 const FieldClearButtonPrimitive: Primitive<FieldClearButtonProps, 'button'> = (
-  props,
+  { ariaLabel = ariaLabelText, size, ...rest },
   ref
 ) => (
-  <FieldGroupIconButton ariaLabel={ariaLabelText} ref={ref} {...props}>
-    <IconClose size={props.size} />
+  <FieldGroupIconButton ariaLabel={ariaLabel} ref={ref} {...rest}>
+    <IconClose size={size} />
   </FieldGroupIconButton>
 );
 

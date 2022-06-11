@@ -2,7 +2,6 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { Logger } from '@aws-amplify/core';
 import {
   AuthContext,
-  AuthenticatorMachineOptions,
   AuthEvent,
   AuthInterpreter,
   AuthMachineState,
@@ -28,44 +27,24 @@ export class AuthenticatorService implements OnDestroy {
   private _authService: AuthInterpreter;
   private _sendEventAliases: ReturnType<typeof getSendEventAliases>;
   private _machineSubscription: Subscription;
-  private _hubSubscription: ReturnType<typeof listenToAuthHub>;
   private _facade: ReturnType<typeof getServiceContextFacade>;
 
-  public startMachine({
-    initialState,
-    loginMechanisms,
-    services,
-    signUpAttributes,
-    socialProviders,
-  }: AuthenticatorMachineOptions) {
+  constructor() {
     const machine = createAuthenticatorMachine();
 
     const authService = interpret(machine).start();
-
-    authService.send({
-      type: 'INIT',
-      data: {
-        initialState,
-        loginMechanisms,
-        socialProviders,
-        signUpAttributes,
-        services,
-      },
-    });
 
     this._machineSubscription = authService.subscribe((state) => {
       this._authState = state;
       this._facade = getServiceContextFacade(state);
     });
 
-    this._hubSubscription = listenToAuthHub(authService.send);
     this._sendEventAliases = getSendEventAliases(authService.send);
     this._authService = authService;
   }
 
   ngOnDestroy(): void {
     if (this._machineSubscription) this._machineSubscription.unsubscribe();
-    if (this._hubSubscription) this._hubSubscription();
   }
 
   /**
@@ -86,6 +65,10 @@ export class AuthenticatorService implements OnDestroy {
 
   public get route() {
     return this._facade?.route;
+  }
+
+  public get authStatus() {
+    return this._facade?.authStatus;
   }
 
   public get user() {

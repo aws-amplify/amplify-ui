@@ -1,6 +1,6 @@
-import { useMemo } from 'react';
+import * as React from 'react';
 export const useTestId = (testId: string, component: string) => {
-  const newTestId = useMemo(
+  const newTestId = React.useMemo(
     () => (testId && component ? `${testId}-${component}` : undefined),
     [testId, component]
   );

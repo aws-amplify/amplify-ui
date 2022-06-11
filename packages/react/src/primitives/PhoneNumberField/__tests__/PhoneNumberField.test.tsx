@@ -3,7 +3,12 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { PhoneNumberField } from '../PhoneNumberField';
+import { Flex } from '../../Flex';
+import { Button } from '../../Button';
 import { ComponentClassNames } from '../../shared/constants';
+
+const originalLog = console.log;
+console.log = jest.fn();
 
 describe('PhoneNumberField primitive', () => {
   const setup = async ({
@@ -29,6 +34,31 @@ describe('PhoneNumberField primitive', () => {
     };
   };
 
+  const ReadOnlyFormTest = () => {
+    const inputRef = React.useRef(null);
+    const countryCodeRef = React.useRef(null);
+
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      console.log(`${countryCodeRef.current.value} ${inputRef.current.value}`);
+    };
+
+    return (
+      <Flex as="form" onSubmit={handleSubmit}>
+        <PhoneNumberField
+          defaultCountryCode="+40"
+          defaultValue="1234567"
+          label="Read Only"
+          name="read_only_phone"
+          ref={inputRef}
+          countryCodeRef={countryCodeRef}
+          isReadOnly
+        />
+        <Button type="submit">Submit</Button>
+      </Flex>
+    );
+  };
+
   it('should forward ref and countryCodeRef to DOM elements', async () => {
     const ref = React.createRef<HTMLInputElement>();
     const countryCodeRef = React.createRef<HTMLSelectElement>();
@@ -46,8 +76,7 @@ describe('PhoneNumberField primitive', () => {
   });
 
   it('should render a country code selector with an accessible label', async () => {
-    await setup({});
-    const $countryCodeSelector = await screen.findByLabelText(/country code/i);
+    const { $countryCodeSelector } = await setup({});
 
     expect($countryCodeSelector).toBeDefined();
   });
@@ -134,5 +163,29 @@ describe('PhoneNumberField primitive', () => {
     userEvent.selectOptions($countryCodeSelector, '+7');
 
     expect(onCountryCodeChange).toHaveBeenCalled();
+  });
+
+  /*
+    Since <select> elements do not support the `readonly` html attribute, it is suggested to use the `disabled` html attribute 
+    so that a screen reader will announce something to the user about the interactivity of the options list ( https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/readonly)
+  */
+  it('should set aria-disabled="true" when the isReadOnly prop is passed, and disable all the select options', async () => {
+    const { $countryCodeSelector } = await setup({ isReadOnly: true });
+
+    expect($countryCodeSelector).toHaveAttribute('aria-disabled', 'true');
+
+    $countryCodeSelector.querySelectorAll('option').forEach((option) => {
+      expect(option).toHaveAttribute('disabled');
+    });
+  });
+
+  it('should still submit the form values when the isReadOnly prop is passed', async () => {
+    const { container } = render(<ReadOnlyFormTest />);
+
+    const button = container.getElementsByTagName('button')[0];
+    userEvent.click(button);
+    expect(console.log).toHaveBeenCalledWith('+40 1234567');
+
+    console.log = originalLog;
   });
 });

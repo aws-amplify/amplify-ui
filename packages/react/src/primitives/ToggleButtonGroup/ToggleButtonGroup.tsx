@@ -14,6 +14,7 @@ const ToggleButtonGroupPrimitive: Primitive<
     children,
     className,
     isExclusive,
+    isSelectionRequired,
     onChange,
     size,
     value,
@@ -22,7 +23,12 @@ const ToggleButtonGroupPrimitive: Primitive<
   },
   ref
 ) => {
-  const handleChange = useToggleButtonGroup(onChange, value, isExclusive);
+  const handleChange = useToggleButtonGroup(
+    onChange,
+    value,
+    isExclusive,
+    isSelectionRequired
+  );
 
   return (
     <Flex
@@ -48,6 +54,9 @@ const ToggleButtonGroupPrimitive: Primitive<
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/togglebutton#togglebuttongroup)
+ */
 export const ToggleButtonGroup = React.forwardRef(ToggleButtonGroupPrimitive);
 
 ToggleButtonGroup.displayName = 'ToggleButtonGroup';

@@ -12,7 +12,7 @@ import {
 
 interface DemoProps {
   children: React.ReactNode;
-  propControls: React.ReactNode;
+  propControls?: React.ReactNode;
   themeControls?: React.ReactNode;
   code: string;
 }
@@ -43,17 +43,24 @@ export const Demo = ({
         alignItems="stretch"
       >
         <Flex direction="column" flex="1">
-          <View>{children}</View>
-          <Tabs>
-            <TabItem title="Props">
-              <View padding={`${tokens.space.medium} 0`}>{propControls}</View>
-            </TabItem>
-            {themeControls ?? <TabItem title="Theme">{themeControls}</TabItem>}
-          </Tabs>
+          <View overflow="auto" padding="5px">
+            {children}
+          </View>
+          {propControls && (
+            <Tabs>
+              <TabItem title="Props">
+                <View padding={`${tokens.space.medium} 0`}>{propControls}</View>
+              </TabItem>
+              {/* Temporarily removing the Theme tab until we figure out a way 
+                to let customers dynamically edit a theme object in the demos 
+            */}
+              {/* {themeControls ? <TabItem title="Theme">{themeControls}</TabItem> : null} */}
+            </Tabs>
+          )}
         </Flex>
         <View
           flex="1"
-          maxWidth="50%"
+          overflow="auto"
           position="relative"
           backgroundColor={tokens.colors.background.secondary}
         >

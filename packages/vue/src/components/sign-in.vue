@@ -1,18 +1,23 @@
 <script setup lang="ts">
 import { computed, ComputedRef, useAttrs } from 'vue';
+import { createSharedComposable } from '@vueuse/core';
+
 import {
   getActorState,
+  getFormDataFromEvent,
   hasTranslation,
   SignInState,
   translate,
 } from '@aws-amplify/ui';
 
-import PasswordControl from './password-control.vue';
-import UserNameAlias from './user-name-alias.vue';
 import FederatedSignIn from './federated-sign-in.vue';
 
 // @xstate
-import { useAuth } from '../composables/useAuth';
+import { useAuth, useAuthenticator } from '../composables/useAuth';
+import BaseFormFields from './primitives/base-form-fields.vue';
+
+const useAuthShared = createSharedComposable(useAuthenticator);
+const props = useAuthShared();
 
 const attrs = useAttrs();
 const emit = defineEmits([
@@ -21,7 +26,6 @@ const emit = defineEmits([
   'createAccountClicked',
 ]);
 
-const passwordLabel = computed(() => translate('Password'));
 const forgotYourPasswordLink = computed(() =>
   // Support backwards compatibility for legacy key with trailing space
   !hasTranslation('Forgot your password? ')
@@ -40,7 +44,7 @@ const actorState = computed(() =>
 // Methods
 
 const onInput = (e: Event): void => {
-  const { name, value } = <HTMLInputElement>e.target;
+  const { name, value } = e.target as HTMLInputElement;
   send({
     type: 'CHANGE',
     //@ts-ignore
@@ -57,12 +61,7 @@ const onSignInSubmit = (e: Event): void => {
 };
 
 const submit = (e: Event): void => {
-  const formData = new FormData(<HTMLFormElement>e.target);
-  send({
-    type: 'SUBMIT',
-    // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
-    data: Object.fromEntries(formData),
-  });
+  props.submitForm(getFormDataFromEvent(e));
 };
 
 const onForgotPasswordClicked = (): void => {
@@ -96,34 +95,16 @@ const onForgotPasswordClicked = (): void => {
           </slot>
         </template>
         <federated-sign-in></federated-sign-in>
-        <base-wrapper class="amplify-flex" style="flex-direction: column">
+        <base-wrapper class="amplify-flex amplify-authenticator__column">
           <base-field-set
             :disabled="actorState.matches('signIn.submit')"
-            class="amplify-flex"
-            style="flex-direction: column"
+            class="amplify-flex amplify-authenticator__column"
           >
             <template #fieldSetI="{ slotData }">
               <slot name="signin-fields" :info="slotData"> </slot>
             </template>
-
-            <user-name-alias :userNameAlias="true" />
-            <base-wrapper
-              class="
-                amplify-flex
-                amplify-field
-                amplify-textfield
-                amplify-passwordfield
-                password-field
-              "
-              style="flex-direction: column"
-            >
-              <password-control
-                name="password"
-                :label="passwordLabel"
-                autocomplete="current-password"
-                :ariainvalid="false"
-              />
-            </base-wrapper>
+            <legend class="amplify-visually-hidden">Sign in</legend>
+            <base-form-fields route="signIn"></base-form-fields>
           </base-field-set>
           <base-alert v-if="actorState.context.remoteError">
             {{ translate(actorState.context.remoteError) }}
@@ -131,11 +112,10 @@ const onForgotPasswordClicked = (): void => {
 
           <amplify-button
             :disabled="actorState.matches('signIn.submit')"
-            class="amplify-field-group__control"
+            class="amplify-field-group__control amplify-authenticator__font"
             :fullwidth="true"
-            data-loading="false"
+            :loading="false"
             :variation="'primary'"
-            style="border-radius: 0x; font-weight: normal"
           >
             {{
               actorState.matches('signIn.submit')
@@ -152,10 +132,10 @@ const onForgotPasswordClicked = (): void => {
         <div data-amplify-footer>
           <amplify-button
             @click="onForgotPasswordClicked"
-            class="amplify-field-group__control"
-            data-fullwidth="true"
-            data-size="small"
-            data-variation="link"
+            class="amplify-field-group__control amplify-authenticator__font"
+            :variation="'link'"
+            :fullwidth="true"
+            :size="'small'"
             style="font-weight: normal"
             type="button"
           >

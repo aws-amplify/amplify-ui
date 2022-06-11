@@ -43,4 +43,12 @@ export const cats = [
     url: '/cats/11.jpg',
     alt: 'Grey tortoise shell cat wearing a yogurt container as a hat',
   },
+  {
+    url: '/cats/12.jpg',
+    alt: 'Handsome christmas cat',
+  },
+  {
+    url: '/cats/13.jpg',
+    alt: 'Hateful cat',
+  },
 ];

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
 import { HeadingProps, Primitive } from '../types';
 import { View } from '../View';
@@ -26,7 +27,11 @@ const HeadingPrimitive: Primitive<HeadingProps, HeadingTag> = (
 ) => (
   <View
     as={headingLevels[level]}
-    className={classNames(ComponentClassNames.Heading, className)}
+    className={classNames(
+      ComponentClassNames.Heading,
+      classNameModifier(ComponentClassNames.Heading, level),
+      className
+    )}
     ref={ref}
     {...rest}
   >
@@ -34,6 +39,9 @@ const HeadingPrimitive: Primitive<HeadingProps, HeadingTag> = (
   </View>
 );
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/heading)
+ */
 export const Heading = React.forwardRef(HeadingPrimitive);
 
 Heading.displayName = 'Heading';

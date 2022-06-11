@@ -1,11 +1,13 @@
 import { FederatedIdentityProviders, translate } from '@aws-amplify/ui';
 
-import { useAuthenticator } from '..';
-import { Divider, Flex, View } from '../../..';
+import { useAuthenticator } from '../hooks/useAuthenticator';
+import { Divider } from '../../../primitives/Divider';
+import { Flex } from '../../../primitives/Flex';
 import { FederatedSignInButton } from './FederatedSignInButtons';
 
 export function FederatedSignIn() {
-  const { _state, route } = useAuthenticator();
+  // TODO: expose `socialProviders`
+  const { _state, route } = useAuthenticator((context) => [context.route]);
   const { socialProviders = [] } = _state.context.config;
 
   if (socialProviders.length === 0) {
@@ -65,10 +67,7 @@ export function FederatedSignIn() {
         }
       })}
 
-      <Flex data-or-container="">
-        <View data-or-line>or</View>
-        <Divider size="small" />
-      </Flex>
+      <Divider size="small" label="or" />
     </Flex>
   );
 }

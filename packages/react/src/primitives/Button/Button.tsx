@@ -1,9 +1,11 @@
 import classNames from 'classnames';
 import * as React from 'react';
 
+import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import { ButtonProps, Primitive } from '../types';
 import { ComponentClassNames } from '../shared/constants';
-import { Text } from '../Text';
+import { Flex } from '../Flex';
+import { Loader } from '../Loader';
 import { View } from '../View';
 
 const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
@@ -21,15 +23,30 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
   },
   ref
 ) => {
+  const componentClasses = classNames(
+    ComponentClassNames.Button,
+    ComponentClassNames.FieldGroupControl,
+    classNameModifier(ComponentClassNames.Button, variation),
+    classNameModifier(ComponentClassNames.Button, size),
+    classNameModifierByFlag(
+      ComponentClassNames.Button,
+      'disabled',
+      isDisabled || isLoading || rest['disabled']
+    ),
+    classNameModifierByFlag(ComponentClassNames.Button, 'loading', isLoading),
+    classNameModifierByFlag(
+      ComponentClassNames.Button,
+      'fullwidth',
+      isFullWidth
+    ),
+    className
+  );
+
   return (
     <View
       ref={ref}
       as="button"
-      className={classNames(
-        ComponentClassNames.Button,
-        ComponentClassNames.FieldGroupControl,
-        className
-      )}
+      className={componentClasses}
       data-fullwidth={isFullWidth}
       data-loading={isLoading}
       data-size={size}
@@ -39,7 +56,10 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
       {...rest}
     >
       {isLoading && loadingText ? (
-        <Text as="span">{loadingText}</Text>
+        <Flex as="span" className={ComponentClassNames.ButtonLoaderWrapper}>
+          <Loader size={size} />
+          {loadingText}
+        </Flex>
       ) : (
         children
       )}
@@ -47,6 +67,9 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/button)
+ */
 export const Button = React.forwardRef(ButtonPrimitive);
 
 Button.displayName = 'Button';

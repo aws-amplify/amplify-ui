@@ -1,0 +1,10 @@
+---
+title: Accessibility
+metaTitle: Accessibility
+description: An introduction to building accessible apps with Amplify UI.
+supportedFrameworks: react|angular|vue
+---
+
+import { Fragment } from '@/components/Fragment';
+
+<Fragment>{({ platform }) => import(`./accessibility.${platform}.mdx`)}</Fragment>

@@ -8,46 +8,47 @@
   border-width: 0;
 }
 
+.docs-home-flutter {
+  height: 10rem;
+  padding: 1.4rem 0 0.6rem 0.75rem;
+}
+
 .docs-home-vue {
-  position: absolute;
-  right: 5rem;
-  bottom: 8rem;
   height: 10rem;
 }
 
 .docs-home-react {
-  position: absolute;
-  right: 15rem;
-  bottom: 8rem;
   height: 10rem;
 }
 
 .docs-home-angular {
-  position: absolute;
-  right: 25rem;
-  bottom: 8rem;
   height: 10rem;
 }
 
 .docs-home-section {
   position: relative;
-  padding: var(--amplify-space-xxl);
+  padding: var(--amplify-space-xl);
 }
 
-.docs-home-section-bg {
-  position: relative;
-}
-
-.docs-home-section-bg > .amplify-card {
-  position: relative;
-  max-width: 70ch;
-  margin: calc(var(--amplify-space-xl) * -1) var(--amplify-space-xl)
-    var(--amplify-space-xl) var(--amplify-space-xl);
-}
-
-.install-code {
+.install-code__container {
   flex-grow: 1;
-  margin: 0;
+  display: flex;
+}
+
+.install-code__content {
+  margin: auto;
+  overflow-x: auto;
+  white-space: normal;
+}
+
+.install-code__button {
+  place-self: end;
+  align-self: center;
+  // Hiding on smaller screens
+  // because there's not enough space
+  @media (max-width: 480px) {
+    display: none;
+  }
 }
 
 .docs-home-amp-product-card {
@@ -61,4 +62,34 @@
   & > .amplify-card {
     width: 100%;
   }
+}
+
+.docs-home-logo {
+  @media (max-width: 768px) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+}
+
+.docs-home-preview {
+  padding: var(--amplify-space-large);
+  background-color: var(--amplify-colors-background-secondary);
+}
+
+.docs-home-editor {
+  border-right: var(--amplify-border-widths-small) solid var(--amplify-colors-border-primary);
+  max-height: 30rem;
+  overflow-y: auto;
+  font-size: var(--amplify-font-sizes-medium);
+}
+
+.npm__react-simple-code-editor__textarea {
+  outline: none;
 }

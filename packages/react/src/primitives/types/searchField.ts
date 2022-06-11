@@ -1,4 +1,5 @@
-import React from 'react';
+import * as React from 'react';
+
 import { FieldGroupIconButtonProps } from './fieldGroupIcon';
 import { TextInputFieldProps } from './textField';
 
@@ -18,6 +19,12 @@ export interface SearchFieldProps extends TextInputFieldProps {
    * @default true
    */
   labelHidden?: boolean;
+
+  /**
+   * Set the `aria-label` for clear button
+   * @default "Clear search"
+   */
+  clearButtonLabel?: string;
 
   /**
    * Provides ref access to search button DOM element

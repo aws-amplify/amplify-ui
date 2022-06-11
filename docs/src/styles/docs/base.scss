@@ -25,11 +25,6 @@
     url('/fonts/Inter-Regular.woff?v=3.19') format('woff');
 }
 
-html {
-  /* this enables some alternative styles and contextual characters to the font */
-  font-feature-settings: 'ss01', 'ss02', 'case', 'salt';
-}
-
 @media screen and (prefers-reduced-motion: no-preference) {
   html {
     scroll-behavior: smooth;
@@ -51,6 +46,7 @@ html {
 }
 
 html {
+  // this enables some alternative styles and contextual characters to the font
   // https://rsms.me/inter/#features
   font-feature-settings: 'ss01', 'ss02', 'case', 'salt';
 }
@@ -70,6 +66,12 @@ a {
   &:hover,
   &:focus {
     color: var(--amplify-components-link-hover-color);
+  }
+  
+  &:focus,
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--amplify-colors-border-focus);
   }
 
   &:active {
@@ -162,13 +164,26 @@ h2[id] {
 }
 
 h2[id] > a,
-h3[id] > a {
+h3[id] > a,
+h4[id] > a {
   position: absolute;
   left: -1.75rem;
   text-decoration: none;
 
   &:hover {
     text-decoration: none;
+  }
+}
+
+h4[id] {
+  position: relative;
+  scroll-margin-block-start: 6rem;
+  > a {
+    left: -1rem;
+    top: -.1rem;
+    .icon-link {
+      font-size: 1.2em;
+    }
   }
 }
 
@@ -184,7 +199,8 @@ h3[id] > a {
 }
 
 h2:hover > a .icon-link,
-h3:hover > a .icon-link {
+h3:hover > a .icon-link,
+h4:hover>  a .icon-link {
   opacity: 1;
 }
 
@@ -193,16 +209,12 @@ h3:hover > a .icon-link {
   color: var(--amplify-colors-font-primary);
   min-height: 100vh;
 
-  --amplify-components-fieldcontrol-line-height: 1.5;
   --amplify-borders-primary: var(--amplify-border-widths-small) solid
     var(--amplify-colors-border-primary);
   --amplify-borders-secondary: var(--amplify-border-widths-small) solid
     var(--amplify-colors-border-secondary);
   --amplify-borders-tertiary: var(--amplify-border-widths-small) solid
     var(--amplify-colors-border-tertiary);
-
-  --amplify-components-heading-1-font-size: 3rem;
-  --amplify-components-heading-1-font-weight: 750;
 
   /* custom vars */
   --docs-header-height: 4rem;

@@ -39,6 +39,23 @@ describe('CheckboxField test suite', () => {
     );
   });
 
+  it('should have no default labelPosition', async () => {
+    render(getCheckboxField({ ...basicProps }));
+    const checkboxField = await screen.findByTestId(basicProps.testId);
+    expect(checkboxField.querySelector('label')).not.toHaveAttribute(
+      'data-label-position'
+    );
+  });
+
+  it('should work with labelPosition', async () => {
+    render(getCheckboxField({ ...basicProps, labelPosition: 'end' }));
+    const checkboxField = await screen.findByTestId(basicProps.testId);
+    expect(checkboxField.querySelector('label')).toHaveAttribute(
+      'data-label-position',
+      'end'
+    );
+  });
+
   it('should forward ref to DOM element', async () => {
     const ref = React.createRef<HTMLInputElement>();
     render(<CheckboxField {...basicProps} ref={ref} />);

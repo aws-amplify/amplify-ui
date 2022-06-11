@@ -105,7 +105,15 @@ export const setUser = assign({
 });
 
 export const setUsername = assign({
-  username: (context: ActorContextWithForms, _) => context.formValues.username,
+  username: (context: ActorContextWithForms, _) => {
+    let {
+      formValues: { username, country_code },
+    } = context;
+    if (country_code) {
+      username = `${country_code}${username}`;
+    }
+    return username;
+  },
 });
 
 export const setCodeDeliveryDetails = assign({
@@ -127,6 +135,13 @@ export const handleInput = assign({
       [name]: value,
     };
   },
+});
+
+export const handleSubmit = assign({
+  formValues: (context, event: AuthEvent) => ({
+    ...context['formValues'],
+    ...event.data,
+  }),
 });
 
 export const handleBlur = assign({

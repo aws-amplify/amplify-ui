@@ -1,19 +1,19 @@
 <script setup lang="ts">
 import { computed, ComputedRef, useAttrs, defineEmits } from 'vue';
+import { createSharedComposable } from '@vueuse/core';
+
 import {
-  getActorContext,
   getActorState,
-  ResetPasswordContext,
   ResetPasswordState,
-  ValidationError,
   translate,
+  getFormDataFromEvent,
 } from '@aws-amplify/ui';
 
 import { useAuth, useAuthenticator } from '../composables/useAuth';
-import PasswordControl from './password-control.vue';
-import { createSharedComposable } from '@vueuse/core';
+import BaseFormFields from './primitives/base-form-fields.vue';
 
 const { state, send } = useAuth();
+
 const useAuthShared = createSharedComposable(useAuthenticator);
 const props = useAuthShared();
 
@@ -24,21 +24,12 @@ const actorState: ComputedRef<ResetPasswordState> = computed(() =>
   getActorState(state.value)
 ) as ComputedRef<ResetPasswordState>;
 
-const actorContext = computed(() =>
-  getActorContext(state.value)
-) as ComputedRef<ResetPasswordContext>;
-
 // Computed Properties
 const resendCodeText = computed(() => translate('Resend Code'));
-const confirmationCodeText = computed(() => translate('Confirmation Code'));
 const confirmResetPasswordHeading = computed(() =>
   translate('Reset your Password')
 );
 const confirmResetPasswordText = computed(() => translate('Submit'));
-
-const codeText = computed(() => translate('Code'));
-const newPasswordLabel = computed(() => translate('New password'));
-const confirmPasswordLabel = computed(() => translate('Confirm Password'));
 
 // Methods
 const onConfirmResetPasswordSubmit = (e: Event): void => {
@@ -50,15 +41,7 @@ const onConfirmResetPasswordSubmit = (e: Event): void => {
 };
 
 const submit = (e: Event): void => {
-  const formData = new FormData(<HTMLFormElement>e.target);
-  send({
-    type: 'SUBMIT',
-    //@ts-ignore
-    data: {
-      //@ts-ignore
-      ...Object.fromEntries(formData),
-    },
-  });
+  props.submitForm(getFormDataFromEvent(e));
 };
 
 const onLostYourCodeClicked = (): void => {
@@ -68,7 +51,7 @@ const onLostYourCodeClicked = (): void => {
 };
 
 const onInput = (e: Event) => {
-  const { name, value } = <HTMLInputElement>e.target;
+  const { name, value } = e.target as HTMLInputElement;
   send({
     type: 'CHANGE',
     data: { name, value },
@@ -76,7 +59,7 @@ const onInput = (e: Event) => {
 };
 
 function onBlur(e: Event) {
-  const { name } = <HTMLInputElement>e.target;
+  const { name } = e.target as HTMLInputElement;
   props.updateBlur({ name });
 }
 </script>
@@ -87,11 +70,11 @@ function onBlur(e: Event) {
       <base-form
         data-amplify-authenticator-confirmResetpassword
         @input="onInput"
+        @blur.capture="onBlur"
         @submit.prevent="onConfirmResetPasswordSubmit"
       >
         <base-field-set
-          class="amplify-flex"
-          style="flex-direction: column"
+          class="amplify-flex amplify-authenticator__column"
           :disabled="actorState.matches('confirmResetPassword.pending')"
         >
           <slot name="header">
@@ -100,100 +83,28 @@ function onBlur(e: Event) {
             </base-heading>
           </slot>
 
-          <base-wrapper class="amplify-flex" style="flex-direction: column">
-            <base-wrapper
-              class="amplify-flex amplify-field amplify-textfield"
-              style="flex-direction: column"
-            >
-              <base-label
-                class="sr-only amplify-label"
-                for="amplify-field-d653"
-              >
-                {{ confirmationCodeText }}
-              </base-label>
-              <base-wrapper class="amplify-flex">
-                <base-input
-                  class="amplify-input amplify-field-group__control"
-                  id="amplify-field-d653"
-                  aria-invalid="false"
-                  autocomplete="one-time-code"
-                  :placeholder="codeText"
-                  name="confirmation_code"
-                  required
-                  type="number"
-                ></base-input>
-              </base-wrapper>
-            </base-wrapper>
-            <base-wrapper
-              class="
-                amplify-flex
-                amplify-field
-                amplify-textfield
-                amplify-passwordfield
-                password-field
-              "
-              style="flex-direction: column"
-            >
-              <password-control
-                name="password"
-                :label="newPasswordLabel"
-                autocomplete="current-password"
-                :ariainvalid="
-                  !!(actorContext.validationError as ValidationError)['confirm_password']
-                "
-                @blur="onBlur"
-              />
-            </base-wrapper>
-            <base-wrapper
-              class="
-                amplify-flex
-                amplify-field
-                amplify-textfield
-                amplify-passwordfield
-              "
-              style="flex-direction: column"
-            >
-              <password-control
-                name="confirm_password"
-                :label="confirmPasswordLabel"
-                autocomplete="new-password"
-                :ariainvalid="
-                  !!(actorContext.validationError as ValidationError)['confirm_password']
-                "
-                @blur="onBlur"
-              />
-            </base-wrapper>
+          <base-wrapper class="amplify-flex amplify-authenticator__column">
+            <base-form-fields route="confirmResetPassword"></base-form-fields>
           </base-wrapper>
-          <base-footer class="amplify-flex" style="flex-direction: column">
-            <base-box
-              data-ui-error
-              data-variation="error"
-              role="alert"
-              class="amplify-text"
-              v-if="!!(actorContext.validationError as ValidationError)['confirm_password']"
-            >
-              {{ translate(actorContext.validationError?.confirm_password as string) }}
-            </base-box>
+          <base-footer class="amplify-flex amplify-authenticator__column">
             <base-alert v-if="actorState?.context?.remoteError">
               {{ translate(actorState?.context?.remoteError) }}
             </base-alert>
             <amplify-button
-              class="amplify-field-group__control"
-              data-fullwidth="false"
-              data-variation="primary"
+              class="amplify-field-group__control amplify-authenticator__font"
+              :variation="'primary'"
+              :fullwidth="false"
               type="submit"
-              style="font-weight: normal"
               :disabled="actorState.matches('confirmResetPassword.pending')"
               >{{ confirmResetPasswordText }}</amplify-button
             >
             <amplify-button
-              class="amplify-field-group__control"
-              data-fullwidth="false"
-              data-size="small"
-              data-variation="link"
+              class="amplify-field-group__control amplify-authenticator__font"
+              :variation="'link'"
+              :fullwidth="false"
+              :size="'small'"
               type="button"
               @click.prevent="onLostYourCodeClicked"
-              style="font-weight: normal"
             >
               {{ resendCodeText }}
             </amplify-button>

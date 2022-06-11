@@ -1,4 +1,9 @@
-.custom-placeholder {
-  --amplify-components-placeholder-start-color: purple;
-  --amplify-components-placeholder-end-color: blue;
+.placeholder-global-styles {
+  height: var(--amplify-space-xl);
+  border-radius: var(--amplify-space-medium);
+}
+
+.placeholder-local-styles {
+  --amplify-components-placeholder-start-color: var(--amplify-colors-purple-80);
+  --amplify-components-placeholder-end-color: var(--amplify-colors-blue-80);
 }

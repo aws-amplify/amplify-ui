@@ -1,8 +1,9 @@
 .amplify-checkbox {
   cursor: var(--amplify-components-checkbox-cursor);
   align-items: var(--amplify-components-checkbox-align-items);
+  flex-direction: row-reverse;
   gap: inherit;
-  &[data-disabled='true'] {
+  &--disabled {
     cursor: var(--amplify-components-checkbox-disabled-cursor);
   }
 }
@@ -12,6 +13,13 @@
   align-items: var(--amplify-components-checkbox-button-align-items);
   justify-content: var(--amplify-components-checkbox-button-justify-content);
   color: var(--amplify-components-checkbox-button-color);
+  //these internal css variables are used to update the values that are influenced by multiple modified states
+  --amplify-internal-checkbox_button-focused-before-border-color: var(
+    --amplify-components-checkbox-button-focus-border-color
+  );
+  --amplify-internal-checkbox_button-focused-before-box-shadow: var(
+    --amplify-components-checkbox-button-focus-box-shadow
+  );
 
   &::before {
     content: '';
@@ -28,42 +36,46 @@
     border-color: var(--amplify-components-checkbox-button-before-border-color);
   }
 
-  &[data-focus='true']::before {
-    outline-color: var(
-      --amplify-components-checkbox-button-focus-outline-color
-    );
-    outline-style: var(
-      --amplify-components-checkbox-button-focus-outline-style
-    );
-    outline-width: var(
-      --amplify-components-checkbox-button-focus-outline-width
-    );
-    outline-offset: var(
-      --amplify-components-checkbox-button-focus-outline-offset
-    );
+  &--focused {
+    &::before {
+      outline-color: var(
+        --amplify-components-checkbox-button-focus-outline-color
+      );
+      outline-style: var(
+        --amplify-components-checkbox-button-focus-outline-style
+      );
+      outline-width: var(
+        --amplify-components-checkbox-button-focus-outline-width
+      );
+      outline-offset: var(
+        --amplify-components-checkbox-button-focus-outline-offset
+      );
 
-    border-color: var(--amplify-components-checkbox-button-focus-border-color);
-    box-shadow: var(--amplify-components-checkbox-button-focus-box-shadow);
+      border-color: var(
+        --amplify-internal-checkbox_button-focused-before-border-color
+      );
+      box-shadow: var(
+        --amplify-internal-checkbox_button-focused-before-box-shadow
+      );
+    }
   }
 
-  &[data-error='true'] {
+  &--error {
     &::before {
       border-color: var(
         --amplify-components-checkbox-button-error-border-color
       );
     }
-
-    &[data-focus='true']::before {
-      border-color: var(
-        --amplify-components-checkbox-button-error-focus-border-color
-      );
-      box-shadow: var(
-        --amplify-components-checkbox-button-error-focus-box-shadow
-      );
-    }
+    // Note: this resets the value of focused state border-color style when an error occurs
+    --amplify-internal-checkbox_button-focused-before-border-color: var(
+      --amplify-components-checkbox-button-error-focus-border-color
+    );
+    --amplify-internal-checkbox_button-focused-before-box-shadow: var(
+      --amplify-components-checkbox-button-error-focus-box-shadow
+    );
   }
 
-  &[data-disabled='true']::before {
+  &--disabled::before {
     border-color: var(
       --amplify-components-checkbox-button-disabled-border-color
     );
@@ -85,15 +97,23 @@
     --amplify-components-checkbox-icon-transition-timing-function
   );
 
-  &[data-checked='true'] {
+  --amplify-internal-checkbox-icon-disabled-background-color: var(
+    --amplify-components-checkbox-icon-background-color
+  );
+
+  &--checked {
     opacity: var(--amplify-components-checkbox-icon-checked-opacity);
     transform: var(--amplify-components-checkbox-icon-checked-transform);
 
-    &[data-disabled='true'] {
-      background-color: var(
-        --amplify-components-checkbox-icon-checked-disabled-background-color
-      );
-    }
+    // changes disabled state background-color when checked
+    --amplify-internal-checkbox-icon-disabled-background-color: var(
+      --amplify-components-checkbox-icon-checked-disabled-background-color
+    );
+  }
+  &--disabled {
+    background-color: var(
+      --amplify-internal-checkbox-icon-disabled-background-color
+    );
   }
 }
 

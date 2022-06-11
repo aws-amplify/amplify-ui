@@ -1,0 +1,11 @@
+---
+title: Collection
+description: Collection provides a way to display items from a data source.
+themeSource: packages/ui/src/theme/tokens/components/collection.ts
+reactSource: packages/react/src/primitives/Collection/Collection.tsx
+supportedFrameworks: react
+---
+
+import { Fragment } from '@/components/Fragment';
+
+<Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>

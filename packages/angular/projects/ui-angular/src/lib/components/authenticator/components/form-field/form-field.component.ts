@@ -1,62 +1,30 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {
-  ActorContextWithForms,
-  AuthInputAttributes,
-  getActorContext,
   translate,
   countryDialCodes,
+  FormFieldOptions,
+  getErrors,
 } from '@aws-amplify/ui';
-import { getAttributeMap } from '../../../../common';
+import { nanoid } from 'nanoid';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 
-/**
- * Input interface opinionated for authenticator usage.
- *
- * TODO: Separate this component out to two parts -- 1) amplify-auth-input that
- * contains authenticator opinionated logic and 2) amplify-text-field primitive
- * that does not make any auth-related inference.
- */
 @Component({
   selector: 'amplify-form-field',
   templateUrl: './form-field.component.html',
 })
-export class FormFieldComponent implements OnInit {
-  @Input() name: string;
-  @Input() type: string;
-  @Input() required = true;
-  @Input() placeholder = '';
-  @Input() label = '';
-  @Input() initialValue = '';
-  @Input() disabled = false;
-  @Input() autocomplete = '';
-  @Input() labelHidden = true;
+export class FormFieldComponent {
+  @Input() name: string; // name of the input field
+  @Input() formField: FormFieldOptions; // form field options for this field
 
-  public defaultCountryCode: string;
-  public countryDialCodes = countryDialCodes;
-  public textFieldId: string;
-  public selectFieldId: string;
+  public defaultCountryCodeValue: string;
+  public countryDialCodesValue = countryDialCodes;
+  public errorId = nanoid(12);
 
   constructor(private authenticator: AuthenticatorService) {}
 
-  ngOnInit(): void {
-    // TODO: consider better default handling mechanisms across frameworks
-    if (this.isPhoneField()) {
-      const state = this.authenticator.authState;
-      const { country_code }: ActorContextWithForms = getActorContext(state);
-      this.defaultCountryCode = country_code;
-    }
-  }
-
-  get attributeMap(): AuthInputAttributes {
-    return getAttributeMap();
-  }
-
-  get error(): string {
-    const formContext: ActorContextWithForms = getActorContext(
-      this.authenticator.authState
-    );
-    const { validationError } = formContext;
-    return translate(validationError[this.name]);
+  get errors(): string[] {
+    const { validationErrors } = this.authenticator;
+    return getErrors(validationErrors[this.name]);
   }
 
   public onBlur($event: Event) {
@@ -65,34 +33,23 @@ export class FormFieldComponent implements OnInit {
     this.authenticator.updateBlur({ name });
   }
 
-  inferLabel(): string {
-    const label = this.label || this.attributeMap[this.name]?.label;
-    return translate<string>(label);
-  }
-
-  inferPlaceholder(): string {
-    const placeholder =
-      this.placeholder ||
-      this.attributeMap[this.name]?.placeholder ||
-      this.inferLabel();
-    return translate<string>(placeholder);
-  }
-
-  // infers what the `type` of underlying input element should be.
-  inferType(): string {
-    return this.type ?? this.attributeMap[this.name]?.type ?? 'text';
-  }
-
-  inferAutocomplete(): string {
-    return this.autocomplete || this.attributeMap[this.name]?.autocomplete;
-  }
-
-  // TODO(enhancement): use enum to differentiate special field types
   isPasswordField(): boolean {
-    return this.inferType() === 'password';
+    return this.formField.type === 'password';
   }
 
   isPhoneField(): boolean {
-    return this.inferType() === 'tel';
+    return this.formField.type === 'tel';
+  }
+
+  hasError(): boolean {
+    return this.errors?.length > 0;
+  }
+
+  get ariaDescribedBy() {
+    return this.hasError() ? this.errorId : undefined;
+  }
+
+  translate(phrase: string): string {
+    return translate<string>(phrase);
   }
 }

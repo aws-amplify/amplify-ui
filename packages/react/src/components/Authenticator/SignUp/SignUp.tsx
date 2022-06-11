@@ -1,16 +1,21 @@
 import { translate } from '@aws-amplify/ui';
 
-import { useAuthenticator } from '..';
-import { Button, Flex, View } from '../../..';
+import { Button } from '../../../primitives/Button';
+import { Flex } from '../../../primitives/Flex';
+import { View } from '../../../primitives/View';
 import { FederatedSignIn } from '../FederatedSignIn';
-import { RemoteErrorMessage } from '../shared';
-import { FormFields } from './FormFields';
-import { isInputOrSelectElement, isInputElement } from '../../../helpers/utils';
+import { useAuthenticator } from '../hooks/useAuthenticator';
 import { useCustomComponents } from '../hooks/useCustomComponents';
+import { useFormHandlers } from '../hooks/useFormHandlers';
+import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
+import { FormFields } from '../shared/FormFields';
 
 export function SignUp() {
-  const { hasValidationErrors, isPending, submitForm, updateForm } =
-    useAuthenticator();
+  const { hasValidationErrors, isPending } = useAuthenticator((context) => [
+    context.hasValidationErrors,
+    context.isPending,
+  ]);
+  const { handleChange, handleBlur, handleSubmit } = useFormHandlers();
 
   const {
     components: {
@@ -22,26 +27,6 @@ export function SignUp() {
     },
   } = useCustomComponents();
 
-  const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
-    if (isInputOrSelectElement(event.target)) {
-      let { name, type, value } = event.target;
-      if (
-        isInputElement(event.target) &&
-        type === 'checkbox' &&
-        !event.target.checked
-      ) {
-        value = undefined;
-      }
-
-      updateForm({ name, value });
-    }
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    submitForm();
-  };
-
   return (
     <View>
       <Header />
@@ -52,14 +37,11 @@ export function SignUp() {
         method="post"
         onChange={handleChange}
         onSubmit={handleSubmit}
+        onBlur={handleBlur}
       >
         <FederatedSignIn />
 
-        <fieldset
-          style={{ display: 'flex', flexDirection: 'column' }}
-          className="amplify-flex"
-          disabled={isPending}
-        >
+        <Flex as="fieldset" direction="column" isDisabled={isPending}>
           <Flex direction="column">
             <FormFields />
             <RemoteErrorMessage />
@@ -75,7 +57,7 @@ export function SignUp() {
           >
             {translate('Create Account')}
           </Button>
-        </fieldset>
+        </Flex>
       </form>
 
       <Footer />
@@ -84,5 +66,5 @@ export function SignUp() {
 }
 
 SignUp.Header = (): JSX.Element => null;
-SignUp.FormFields = FormFields;
+SignUp.FormFields = () => <FormFields />;
 SignUp.Footer = (): JSX.Element => null;

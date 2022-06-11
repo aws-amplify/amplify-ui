@@ -2,6 +2,7 @@
 import { useAuth } from '../composables/useAuth';
 import {
   ref,
+  toRefs,
   computed,
   useAttrs,
   watch,
@@ -19,6 +20,7 @@ import {
   CognitoUserAmplify,
   SocialProvider,
   listenToAuthHub,
+  AuthFormFields,
 } from '@aws-amplify/ui';
 
 import SignIn from './sign-in.vue';
@@ -34,15 +36,7 @@ import ConfirmVerifyUser from './confirm-verify-user.vue';
 
 const attrs = useAttrs();
 
-const {
-  initialState,
-  loginMechanisms,
-  variation,
-  services,
-  signUpAttributes,
-  socialProviders,
-  hideSignUp,
-} = withDefaults(
+const props = withDefaults(
   defineProps<{
     hideSignUp?: boolean;
     initialState?: AuthenticatorMachineOptions['initialState'];
@@ -51,11 +45,23 @@ const {
     signUpAttributes?: AuthenticatorMachineOptions['signUpAttributes'];
     variation?: 'default' | 'modal';
     socialProviders?: SocialProvider[];
+    formFields?: AuthFormFields;
   }>(),
   {
     variation: 'default',
   }
 );
+
+const {
+  initialState,
+  loginMechanisms,
+  variation,
+  services,
+  signUpAttributes,
+  socialProviders,
+  hideSignUp,
+  formFields,
+} = toRefs(props);
 
 const emit = defineEmits([
   'signInSubmit',
@@ -72,27 +78,42 @@ const emit = defineEmits([
 const machine = createAuthenticatorMachine();
 
 const service = useInterpret(machine);
-let unsubscribeHub: ReturnType<typeof listenToAuthHub>;
+let unsubscribeHub: () => void;
+let unsubscribeMachine: () => void;
 
 const { state, send } = useActor(service);
 useAuth(service);
 
+const hasInitialized = ref(false);
+
+/**
+ * Subscribes to state machine changes and sends INIT event
+ * once machine reaches 'setup' state.
+ */
+unsubscribeMachine = service.subscribe((newState) => {
+  if (newState.matches('setup') && !hasInitialized.value) {
+    send({
+      type: 'INIT',
+      data: {
+        initialState: initialState?.value,
+        loginMechanisms: loginMechanisms?.value,
+        socialProviders: socialProviders?.value,
+        signUpAttributes: signUpAttributes?.value,
+        services: services?.value,
+        formFields: formFields?.value,
+      },
+    });
+    hasInitialized.value = true;
+  }
+}).unsubscribe;
+
 onMounted(() => {
-  unsubscribeHub = listenToAuthHub(send);
-  send({
-    type: 'INIT',
-    data: {
-      initialState,
-      loginMechanisms,
-      socialProviders,
-      signUpAttributes,
-      services,
-    },
-  });
+  unsubscribeHub = listenToAuthHub(service);
 });
 
 onUnmounted(() => {
   if (unsubscribeHub) unsubscribeHub();
+  if (unsubscribeMachine) unsubscribeMachine();
 });
 
 const actorState = computed(() => getActorState(state.value));
@@ -221,6 +242,16 @@ const hasTabs = computed(() => {
     actorState.value?.matches('signIn') || actorState.value?.matches('signUp')
   );
 });
+
+const hasRouteComponent = computed(() => {
+  return !(
+    state.value.matches('authenticated') ||
+    state.value.matches('idle') ||
+    state.value.matches('setup') ||
+    state.value.matches('signOut') ||
+    actorState.value?.matches('autoSignIn')
+  );
+});
 </script>
 
 <template>
@@ -228,7 +259,7 @@ const hasTabs = computed(() => {
     v-bind="$attrs"
     data-amplify-authenticator
     :data-variation="variation"
-    v-if="!state?.matches('authenticated')"
+    v-if="hasRouteComponent"
   >
     <div data-amplify-container>
       <slot name="header"> </slot>

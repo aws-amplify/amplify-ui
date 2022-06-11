@@ -6,7 +6,11 @@ import {
   mergeVariantsAndOverrides,
   strHasLength,
   EscapeHatchProps,
+  classNameModifier,
+  classNameModifierByFlag,
+  getCSSVariableIfValueIsThemeKey,
 } from '../utils';
+import { ComponentClassNames } from '../constants';
 
 const props: ViewProps = {
   backgroundColor: 'blue',
@@ -334,5 +338,49 @@ describe('mergeVariantsAndOverrides', () => {
 
   it('should return null when both variant & override are null', () => {
     expect(mergeVariantsAndOverrides(null, null)).toEqual(null);
+  });
+});
+
+describe('classNameModifier', () => {
+  const modifiedClassName = 'amplify-alert--modified';
+  const myClass = ComponentClassNames['Alert'];
+  const modifier = 'modified';
+
+  it('should return the modified className with a modifier passed in', () => {
+    expect(classNameModifier(myClass, modifier)).toEqual(modifiedClassName);
+  });
+
+  it('should return null without a modifier passed in', () => {
+    expect(classNameModifier(myClass, undefined)).toEqual(null);
+  });
+});
+
+describe('classNameModifierByFlag', () => {
+  const modifiedClassName = 'amplify-alert--modified';
+  const myClass = ComponentClassNames['Alert'];
+  const modifier = 'modified';
+
+  it('should return the modified className with a true flag value passed in', () => {
+    expect(classNameModifierByFlag(myClass, modifier, true)).toEqual(
+      modifiedClassName
+    );
+  });
+
+  it('should return null with a false flag value passed in', () => {
+    expect(classNameModifierByFlag(myClass, modifier, false)).toEqual(null);
+  });
+});
+
+describe('getCSSVariableIfValueIsThemeKey', () => {
+  it('should return CSS variable if value is a theme key', () => {
+    expect(getCSSVariableIfValueIsThemeKey('backgroundColor', 'red.10')).toBe(
+      'var(--amplify-colors-red-10)'
+    );
+  });
+
+  it('should return value directly if it is not a theme key', () => {
+    expect(getCSSVariableIfValueIsThemeKey('backgroundColor', 'red')).toBe(
+      'red'
+    );
   });
 });

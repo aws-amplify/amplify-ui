@@ -18,6 +18,20 @@ Feature: Sign In with Username
     Then I see "User does not exist"
 
   @angular @react @vue
+  Scenario: Verify Submit text is correct on confirm Reset Password Page without translation
+    And I click the "Forgot your Password?" button
+    When I type my "username" with status "CONFIRMED"
+    And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ForgotPassword" } }' with fixture "reset-password"
+    And I click the "Send code" button
+    Then I will be redirected to the confirm forgot password page
+    And I see "Code"
+    Then I type a valid code
+    And I type my new password
+    And I confirm my password
+    And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmForgotPassword" } }' with fixture "confirm-reset-password"
+    And I see "Submit"
+
+  @angular @react @vue
   Scenario: Sign in with unconfirmed credentials
     When I type my "username" with status "UNCONFIRMED"
     And I type my password
@@ -34,7 +48,7 @@ Feature: Sign In with Username
     Then I see "Sign out"
 
   @angular @react @vue
-  Scenario: Sign in with confirmed credentials then sign out
+  Scenario: Sign in with confirmed credentials, reload, sign out, then sign in again
     When I type my "username" with status "CONFIRMED"
     And I type my password
     And I click the "Sign in" button
@@ -43,6 +57,23 @@ Feature: Sign In with Username
     Then I see "Sign out"
     And I click the "Sign out" button
     Then I see "Sign in"
+    And I type my "username" with status "CONFIRMED"
+    And I type my password
+    And I click the "Sign in" button
+    Then I see "Sign out"
+
+  @angular @react @vue
+  Scenario: Sign in with confirmed credentials, sign out, then sign in again
+    When I type my "username" with status "CONFIRMED"
+    And I type my password
+    And I click the "Sign in" button
+    Then I see "Sign out"
+    And I click the "Sign out" button
+    Then I see "Sign in"
+    And I type my "username" with status "CONFIRMED"
+    And I type my password
+    And I click the "Sign in" button
+    Then I see "Sign out"
 
   # FORCE_CHANGE_PASSWORD tests are skipped as the temporary passwords used for these
   # test accounts will expire in Cognito.

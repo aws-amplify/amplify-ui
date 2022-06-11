@@ -8,7 +8,32 @@ import { Label } from '../Label';
 import { Select } from '../Select';
 import { SelectFieldProps, Primitive } from '../types';
 import { splitPrimitiveProps } from '../shared/styleUtils';
-import { useStableId } from '../shared/utils';
+import { useStableId } from '../utils/useStableId';
+
+interface SelectFieldChildrenProps {
+  children?: React.ReactNode;
+  options?: SelectFieldProps['options'];
+}
+
+const selectFieldChildren = ({
+  children,
+  options,
+}: SelectFieldChildrenProps) => {
+  if (children) {
+    if (options?.length) {
+      console.warn(
+        'Amplify UI: <SelectField> component  defaults to rendering children over `options`. When using the `options` prop, omit children.'
+      );
+    }
+    return children;
+  }
+
+  return options?.map((option, index) => (
+    <option label={option} value={option} key={`${option}-${index}`}>
+      {option}
+    </option>
+  ));
+};
 
 const SelectFieldPrimitive: Primitive<SelectFieldProps, 'select'> = (
   props,
@@ -23,12 +48,15 @@ const SelectFieldPrimitive: Primitive<SelectFieldProps, 'select'> = (
     id,
     label,
     labelHidden = false,
+    options,
     size,
     testId,
     ..._rest
   } = props;
 
   const fieldId = useStableId(id);
+  const descriptionId = useStableId();
+  const ariaDescribedBy = descriptiveText ? descriptionId : undefined;
 
   const { flexContainerStyleProps, baseStyleProps, rest } =
     splitPrimitiveProps(_rest);
@@ -49,17 +77,28 @@ const SelectFieldPrimitive: Primitive<SelectFieldProps, 'select'> = (
         {label}
       </Label>
       <FieldDescription
+        id={descriptionId}
         labelHidden={labelHidden}
         descriptiveText={descriptiveText}
       />
-      <Select hasError={hasError} id={fieldId} ref={ref} size={size} {...rest}>
-        {children}
+      <Select
+        aria-describedby={ariaDescribedBy}
+        hasError={hasError}
+        id={fieldId}
+        ref={ref}
+        size={size}
+        {...rest}
+      >
+        {selectFieldChildren({ children, options })}
       </Select>
       <FieldErrorMessage hasError={hasError} errorMessage={errorMessage} />
     </Flex>
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/selectfield)
+ */
 export const SelectField = React.forwardRef(SelectFieldPrimitive);
 
 SelectField.displayName = 'SelectField';

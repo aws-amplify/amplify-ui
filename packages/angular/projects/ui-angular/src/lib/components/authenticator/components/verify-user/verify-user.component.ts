@@ -5,7 +5,12 @@ import {
   OnInit,
   ViewEncapsulation,
 } from '@angular/core';
-import { getActorState, SignInState, translate } from '@aws-amplify/ui';
+import {
+  getActorState,
+  getFormDataFromEvent,
+  SignInState,
+  translate,
+} from '@aws-amplify/ui';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 import { getAttributeMap } from '../../../../common';
 import { nanoid } from 'nanoid';
@@ -54,6 +59,6 @@ export class VerifyUserComponent implements OnInit {
 
   onSubmit(event: Event): void {
     event.preventDefault();
-    this.authenticator.submitForm();
+    this.authenticator.submitForm(getFormDataFromEvent(event));
   }
 }

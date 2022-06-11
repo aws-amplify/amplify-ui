@@ -14,6 +14,7 @@ import {
   clearUnverifiedAttributes,
   clearValidationError,
   handleInput,
+  handleSubmit,
   handleBlur,
   parsePhoneNumber,
   setChallengeName,
@@ -40,23 +41,26 @@ export function signInActor({ services }: SignInMachineOptions) {
       id: 'signInActor',
       states: {
         init: {
-          always: [{ target: 'signIn' }],
+          always: [
+            { target: 'autoSignIn', cond: 'shouldAutoSignIn' },
+            { target: 'signIn' },
+          ],
         },
         signIn: {
           initial: 'edit',
           exit: ['clearFormValues', 'clearTouched'],
           states: {
             edit: {
-              entry: sendUpdate(),
+              entry: 'sendUpdate',
               on: {
-                SUBMIT: 'submit',
+                SUBMIT: { actions: 'handleSubmit', target: 'submit' },
                 CHANGE: { actions: 'handleInput' },
                 FEDERATED_SIGN_IN: 'federatedSignIn',
               },
             },
             federatedSignIn: {
               tags: ['pending'],
-              entry: [sendUpdate(), 'clearError'],
+              entry: ['sendUpdate', 'clearError'],
               invoke: {
                 src: 'federatedSignIn',
                 // getting navigated out anyway, only track errors.
@@ -66,7 +70,7 @@ export function signInActor({ services }: SignInMachineOptions) {
             },
             submit: {
               tags: ['pending'],
-              entry: ['parsePhoneNumber', 'clearError', sendUpdate()],
+              entry: ['parsePhoneNumber', 'clearError', 'sendUpdate'],
               invoke: {
                 src: 'signIn',
                 onDone: [
@@ -117,7 +121,7 @@ export function signInActor({ services }: SignInMachineOptions) {
             },
             verifying: {
               tags: ['pending'],
-              entry: ['clearError', sendUpdate()],
+              entry: ['clearError', 'sendUpdate'],
               invoke: {
                 src: 'checkVerifiedContact',
                 onDone: [
@@ -140,21 +144,77 @@ export function signInActor({ services }: SignInMachineOptions) {
             rejected: { always: '#signInActor.rejected' },
           },
         },
+        autoSignIn: {
+          initial: 'submit',
+          states: {
+            submit: {
+              tags: ['pending'],
+              entry: ['clearError', 'sendUpdate'],
+              invoke: {
+                src: 'signIn',
+                onDone: [
+                  {
+                    cond: 'shouldSetupTOTP',
+                    actions: ['setUser', 'setChallengeName'],
+                    target: '#signInActor.setupTOTP',
+                  },
+                  {
+                    cond: 'shouldConfirmSignIn',
+                    actions: ['setUser', 'setChallengeName'],
+                    target: '#signInActor.confirmSignIn',
+                  },
+                  {
+                    cond: 'shouldForceChangePassword',
+                    actions: [
+                      'setUser',
+                      'setChallengeName',
+                      'setRequiredAttributes',
+                    ],
+                    target: '#signInActor.forceNewPassword',
+                  },
+                  {
+                    actions: 'setUser',
+                    target: '#signInActor.resolved',
+                  },
+                ],
+                onError: [
+                  {
+                    cond: 'shouldRedirectToConfirmSignUp',
+                    actions: ['setCredentials', 'setConfirmSignUpIntent'],
+                    target: '#signInActor.rejected',
+                  },
+                  {
+                    cond: 'shouldRedirectToConfirmResetPassword',
+                    actions: [
+                      'setUsernameAuthAttributes',
+                      'setConfirmResetPasswordIntent',
+                    ],
+                    target: '#signInActor.rejected',
+                  },
+                  {
+                    actions: 'setRemoteError',
+                    target: '#signInActor.signIn',
+                  },
+                ],
+              },
+            },
+          },
+        },
         confirmSignIn: {
           initial: 'edit',
           exit: ['clearFormValues', 'clearError', 'clearTouched'],
           states: {
             edit: {
-              entry: sendUpdate(),
+              entry: 'sendUpdate',
               on: {
-                SUBMIT: 'submit',
+                SUBMIT: { actions: 'handleSubmit', target: 'submit' },
                 SIGN_IN: '#signInActor.signIn',
                 CHANGE: { actions: 'handleInput' },
               },
             },
             submit: {
               tags: ['pending'],
-              entry: ['clearError', sendUpdate()],
+              entry: ['clearError', 'sendUpdate'],
               invoke: {
                 src: 'confirmSignIn',
                 onDone: {
@@ -193,10 +253,11 @@ export function signInActor({ services }: SignInMachineOptions) {
                     },
                   },
                 },
-                valid: { entry: sendUpdate() },
-                invalid: { entry: sendUpdate() },
+                valid: { entry: 'sendUpdate' },
+                invalid: { entry: 'sendUpdate' },
               },
               on: {
+                SIGN_IN: '#signInActor.signIn',
                 CHANGE: {
                   actions: 'handleInput',
                   target: '.pending',
@@ -212,13 +273,13 @@ export function signInActor({ services }: SignInMachineOptions) {
               entry: 'clearError',
               states: {
                 idle: {
-                  entry: sendUpdate(),
+                  entry: 'sendUpdate',
                   on: {
-                    SUBMIT: 'validate',
+                    SUBMIT: { actions: 'handleSubmit', target: 'validate' },
                   },
                 },
                 validate: {
-                  entry: sendUpdate(),
+                  entry: 'sendUpdate',
                   invoke: {
                     src: 'validateFields',
                     onDone: {
@@ -233,7 +294,7 @@ export function signInActor({ services }: SignInMachineOptions) {
                 },
                 pending: {
                   tags: ['pending'],
-                  entry: [sendUpdate(), 'clearError'],
+                  entry: ['sendUpdate', 'clearError'],
                   invoke: {
                     src: 'forceNewPassword',
                     onDone: [
@@ -269,16 +330,16 @@ export function signInActor({ services }: SignInMachineOptions) {
           exit: ['clearFormValues', 'clearError', 'clearTouched'],
           states: {
             edit: {
-              entry: sendUpdate(),
+              entry: 'sendUpdate',
               on: {
-                SUBMIT: 'submit',
+                SUBMIT: { actions: 'handleSubmit', target: 'submit' },
                 SIGN_IN: '#signInActor.signIn',
                 CHANGE: { actions: 'handleInput' },
               },
             },
             submit: {
               tags: ['pending'],
-              entry: [sendUpdate(), 'clearError'],
+              entry: ['sendUpdate', 'clearError'],
               invoke: {
                 src: 'verifyTotpToken',
                 onDone: {
@@ -302,9 +363,9 @@ export function signInActor({ services }: SignInMachineOptions) {
           exit: ['clearFormValues', 'clearError', 'clearTouched'],
           states: {
             edit: {
-              entry: sendUpdate(),
+              entry: 'sendUpdate',
               on: {
-                SUBMIT: 'submit',
+                SUBMIT: { actions: 'handleSubmit', target: 'submit' },
                 SKIP: '#signInActor.resolved',
                 CHANGE: { actions: 'handleInput' },
               },
@@ -336,9 +397,9 @@ export function signInActor({ services }: SignInMachineOptions) {
           ],
           states: {
             edit: {
-              entry: sendUpdate(),
+              entry: 'sendUpdate',
               on: {
-                SUBMIT: 'submit',
+                SUBMIT: { actions: 'handleSubmit', target: 'submit' },
                 SKIP: '#signInActor.resolved',
                 CHANGE: { actions: 'handleInput' },
               },
@@ -387,6 +448,7 @@ export function signInActor({ services }: SignInMachineOptions) {
         clearUnverifiedAttributes,
         clearValidationError,
         handleInput,
+        handleSubmit,
         handleBlur,
         parsePhoneNumber,
         setChallengeName,
@@ -399,6 +461,7 @@ export function signInActor({ services }: SignInMachineOptions) {
         setUnverifiedAttributes,
         setUser,
         setUsernameAuthAttributes,
+        sendUpdate: sendUpdate(), // sendUpdate is a HOC
       },
       guards: {
         shouldConfirmSignIn: (_, event): boolean => {
@@ -409,6 +472,9 @@ export function signInActor({ services }: SignInMachineOptions) {
           ];
 
           return validChallengeNames.includes(challengeName);
+        },
+        shouldAutoSignIn: (context) => {
+          return context?.intent === 'autoSignIn';
         },
         shouldRedirectToConfirmSignUp: (_, event): boolean => {
           return event.data.code === 'UserNotConfirmedException';
@@ -434,7 +500,15 @@ export function signInActor({ services }: SignInMachineOptions) {
       },
       services: {
         async signIn(context) {
-          const { username, password } = context.formValues;
+          /**
+           * `authAttributes` are any username/password combo we remembered in
+           * memory. This is used in autoSignIn flow usually to pass username/pw
+           * from `confirmSignUp`.
+           */
+          const { authAttributes = {}, formValues = {} } = context;
+
+          const credentials = { ...authAttributes, ...formValues };
+          const { username, password } = credentials;
 
           return await services.handleSignIn({
             username,
@@ -453,7 +527,8 @@ export function signInActor({ services }: SignInMachineOptions) {
             mfaType = challengeName;
           }
 
-          return await services.handleConfirmSignIn({ user, code, mfaType });
+          await services.handleConfirmSignIn({ user, code, mfaType });
+          return await Auth.currentAuthenticatedUser();
         },
         async forceNewPassword(context, event) {
           const { user, formValues } = context;
@@ -472,7 +547,31 @@ export function signInActor({ services }: SignInMachineOptions) {
             rest = { ...rest, phone_number: phoneNumberWithCountryCode };
           }
 
-          return Auth.completeNewPassword(user, password, rest);
+          try {
+            // complete forceNewPassword flow and get updated CognitoUser
+            const newUser = await Auth.completeNewPassword(
+              user,
+              password,
+              rest
+            );
+
+            if (newUser.challengeName) {
+              /**
+               * User still needs to complete MFA challenge. Return back the
+               * `completeNewPassword` result to start confirmSignIn flow.
+               */
+              return newUser;
+            } else {
+              /**
+               * Else, user has signed in! Return up-to-date user with
+               * `currentAuthenticatedUser`. Note that we're calling this extra
+               * API because this gets all `user.attributes` as well.
+               */
+              return Auth.currentAuthenticatedUser();
+            }
+          } catch (err) {
+            return Promise.reject(err);
+          }
         },
         async verifyTotpToken(context, event) {
           const { user } = context;
@@ -509,9 +608,12 @@ export function signInActor({ services }: SignInMachineOptions) {
           );
         },
         async validateFields(context, event) {
-          return runValidators(context.formValues, context.touched, [
-            defaultServices.validateConfirmPassword,
-          ]);
+          return runValidators(
+            context.formValues,
+            context.touched,
+            context.passwordSettings,
+            [defaultServices.validateConfirmPassword]
+          );
         },
       },
     }

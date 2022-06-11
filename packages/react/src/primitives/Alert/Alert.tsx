@@ -2,6 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared/constants';
+import { classNameModifier } from '../shared/utils';
 import { AlertProps, Primitive } from '../types';
 import { View } from '../View';
 import { Flex } from '../Flex';
@@ -37,7 +38,11 @@ const AlertPrimitive: Primitive<AlertProps, typeof Flex> = (
   return (
     !dismissed && (
       <Flex
-        className={classNames(ComponentClassNames.Alert, className)}
+        className={classNames(
+          ComponentClassNames.Alert,
+          className,
+          classNameModifier(ComponentClassNames.Alert, variation)
+        )}
         data-variation={variation}
         ref={ref}
         {...rest}
@@ -64,6 +69,9 @@ const AlertPrimitive: Primitive<AlertProps, typeof Flex> = (
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/alert)
+ */
 export const Alert = React.forwardRef(AlertPrimitive);
 
 Alert.displayName = 'Alert';

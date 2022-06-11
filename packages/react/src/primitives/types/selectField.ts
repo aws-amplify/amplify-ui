@@ -5,4 +5,9 @@ import { FieldProps } from './field';
 export interface SelectFieldProps
   extends FieldProps,
     FlexContainerStyleProps,
-    SelectProps {}
+    SelectProps {
+  /**
+   * List of option values for select dropdown
+   */
+  options?: string[];
+}

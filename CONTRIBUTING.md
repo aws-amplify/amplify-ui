@@ -9,9 +9,8 @@ Please read through these guidelines carefully before submitting a PR and let us
 - [Bug Reports](#bug-reports)
 - [Pull Requests](#pull-requests)
 - [Project Structure](#project-structure)
-- [Local Development Guides](#local-devleopment-guides)
+- [Local Development Guides](#local-development-guides)
 - [Publishing](#publishing)
-- [Updating Icons](#updating-icons)
 
 ## Bug Reports
 
@@ -52,6 +51,20 @@ You should open an issue to discuss your pull request, unless it's a trivial cha
 1. Add a [changeset](https://github.com/changesets/changesets) that describes your changes. More info [here](https://github.com/changesets/changesets/blob/main/docs/adding-a-changeset.md). Please make sure that your changeset only bumps `@aws-amplify/*` packages and does not bump any of private packages like `docs`, `e2e`, `examples`, etc.
 1. Finally, Amplify UI team will review your PR. Add reviewers based on the core member who is tracking the issue with you or code owners. In the meantime, address any automated check that fail (such as linting, unit tests, etc. in CI)
 
+### Troubleshooting
+
+If using an M1 (or more recent) Macbook and you get the following error message regarding installation of `canvas`:
+
+```bash
+error /Users/USERNAME/amplify-ui/node_modules/canvas: Command failed.
+Exit code: 1
+...
+/bin/sh: pkg-config: command not found
+gyp: Call to 'pkg-config pixman-1 --libs' returned exit status 127 while in binding.gyp. while trying to load binding.gyp`
+```
+
+See the [canvas docs](https://github.com/Automattic/node-canvas#compiling) to install required dependencies for local docs development.
+
 ## Project Structure
 
 `amplify-ui` is a monorepo that contains the following workspaces:
@@ -71,7 +84,7 @@ amplify-ui
 │   └── vue
 ```
 
-## Local Devleopment Guides
+## Local Development Guides
 
 Please refer to the following contributing guides:
 
@@ -92,17 +105,3 @@ Amplify UI team publishes to NPM on every Tues (mandatory) and Thurs (optional).
 1. Changesets get accumulated into [Version Packages PR](https://github.com/aws-amplify/amplify-ui/pulls/app%2Fgithub-actions).
 1. Maintainer will run tests, approve, and merge the PR.
 1. Previous step will trigger [`publish-latest`](./.github/workflows/publish-next.yml) action that will build and publish packages to NPM.
-
-## Updating Icons
-
-If material design icon svg files are updated [upstream](https://github.com/google/material-design-icons/), follow these steps to update our icons components for all frameworks:
-
-1. Copy [material-design-icons repo](https://github.com/google/material-design-icons/) svg icons to `material-design-icons` folder (TODO: create script for this step)
-1. Update components for all frameworks by runing the following command at root:
-
-```
-yarn build:icons
-```
-
-1. Review and commit changes to icons
-1. Submit PR for review

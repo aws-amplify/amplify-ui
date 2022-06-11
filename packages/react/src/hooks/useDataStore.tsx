@@ -1,5 +1,7 @@
+import * as React from 'react';
+
 import { DataStore, PersistentModel } from '@aws-amplify/datastore';
-import { useEffect, useState } from 'react';
+
 import {
   DataStoreBindingProps,
   DataStoreCollectionProps,
@@ -17,7 +19,7 @@ export const useDataStoreCollection = <M extends PersistentModel>({
   criteria,
   pagination,
 }: DataStoreCollectionProps<M>): DataStoreCollectionResult<M> => {
-  const [result, setResult] = useState<DataStoreCollectionResult<M>>({
+  const [result, setResult] = React.useState<DataStoreCollectionResult<M>>({
     items: [],
     isLoading: false,
     error: undefined,
@@ -42,7 +44,10 @@ export const useDataStoreCollection = <M extends PersistentModel>({
   };
 
   // Fetch on next render cycle
-  useEffect(fetch, []);
+  // useEffect should only run once here
+  // Ignore exhaustive dependencies rule here by design
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  React.useEffect(fetch, []);
 
   return result;
 };
@@ -55,9 +60,9 @@ export const useDataStoreItem = <M extends PersistentModel>({
   model,
   id,
 }: DataStoreItemProps<M>): DataStoreItemResult<M> => {
-  const [item, setItem] = useState<M>();
-  const [isLoading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<Error>();
+  const [item, setItem] = React.useState<M>();
+  const [isLoading, setLoading] = React.useState<boolean>(false);
+  const [error, setError] = React.useState<Error>();
 
   const fetch = () => {
     setLoading(true);
@@ -69,7 +74,10 @@ export const useDataStoreItem = <M extends PersistentModel>({
   };
 
   // Fetch on next render cycle
-  useEffect(fetch, []);
+  // useEffect should only run once here
+  // Ignore exhaustive dependencies rule here by design
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  React.useEffect(fetch, []);
 
   return {
     error,
@@ -94,6 +102,8 @@ export function useDataStoreBinding<Model extends PersistentModel>(
     | DataStoreBindingProps<Model, 'collection'>
 ): DataStoreItemResult<Model> | DataStoreCollectionResult<Model> {
   return props.type === 'record'
-    ? useDataStoreItem(props)
-    : useDataStoreCollection(props);
+    ? // eslint-disable-next-line react-hooks/rules-of-hooks
+      useDataStoreItem(props)
+    : // eslint-disable-next-line react-hooks/rules-of-hooks
+      useDataStoreCollection(props);
 }

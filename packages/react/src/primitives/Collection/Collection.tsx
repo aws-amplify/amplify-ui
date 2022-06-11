@@ -1,12 +1,12 @@
 import classNames from 'classnames';
 import debounce from 'lodash/debounce';
-import { useCallback, useState } from 'react';
+import * as React from 'react';
+
 import { Flex } from '../Flex';
 import { Grid } from '../Grid';
 import { Pagination, usePagination } from '../Pagination';
 import { SearchField } from '../SearchField';
-import { ComponentClassNames } from '../shared/constants';
-import { SharedText } from '../shared/i18n';
+import { ComponentClassNames, ComponentText } from '../shared/constants';
 import { strHasLength } from '../shared/utils';
 import {
   CollectionProps,
@@ -37,6 +37,9 @@ const GridCollection = <Item,>({
   <Grid {...rest}>{Array.isArray(items) ? items.map(children) : null}</Grid>
 );
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/collection)
+ */
 export const Collection = <Item,>({
   className,
   isSearchable,
@@ -44,17 +47,19 @@ export const Collection = <Item,>({
   items,
   itemsPerPage = DEFAULT_PAGE_SIZE,
   searchFilter = itemHasText,
+  searchLabel = ComponentText.Collection.searchButtonLabel,
   searchPlaceholder,
   type = 'list',
   testId,
   ...rest
 }: CollectionProps<Item>): JSX.Element => {
-  const [searchText, setSearchText] = useState<string>();
+  const [searchText, setSearchText] = React.useState<string>();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const onSearch = useCallback(debounce(setSearchText, TYPEAHEAD_DELAY_MS), [
-    setSearchText,
-  ]);
+  const onSearch = React.useCallback(
+    debounce(setSearchText, TYPEAHEAD_DELAY_MS),
+    [setSearchText]
+  );
 
   // Make sure that items are iterable
   items = Array.isArray(items) ? items : [];
@@ -96,7 +101,7 @@ export const Collection = <Item,>({
       {isSearchable ? (
         <Flex className={ComponentClassNames.CollectionSearch}>
           <SearchField
-            label={SharedText.Collection.SearchFieldLabel}
+            label={searchLabel}
             placeholder={searchPlaceholder}
             onChange={(e) => onSearch(e.target.value)}
             onClear={() => setSearchText('')}

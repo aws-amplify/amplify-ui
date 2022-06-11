@@ -1,7 +1,13 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import QRCode from 'qrcode';
 import { Auth, Logger } from 'aws-amplify';
-import { getActorContext, SignInContext } from '@aws-amplify/ui';
+import {
+  FormFields,
+  FormFieldsArray,
+  getActorContext,
+  getFormDataFromEvent,
+  SignInContext,
+} from '@aws-amplify/ui';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 import { translate } from '@aws-amplify/ui';
 
@@ -21,6 +27,8 @@ export class SetupTotpComponent implements OnInit {
   // translated texts
   public backToSignInText = translate('Back to Sign In');
   public confirmText = translate('Confirm');
+  public sortedFormFields: FormFieldsArray;
+  public formOverrides: FormFields;
 
   constructor(public authenticator: AuthenticatorService) {}
 
@@ -39,8 +47,12 @@ export class SetupTotpComponent implements OnInit {
     const { user } = actorContext;
     try {
       this.secretKey = await Auth.setupTOTP(user);
-      const issuer = 'AWSCognito';
-      const totpCode = `otpauth://totp/${issuer}:${user.username}?secret=${this.secretKey}&issuer=${issuer}`;
+      const issuer = this.formOverrides?.['QR']?.totpIssuer ?? 'AWSCognito';
+      const username =
+        this.formOverrides?.['QR']?.totpUsername ?? user.username;
+      const totpCode = encodeURI(
+        `otpauth://totp/${issuer}:${username}?secret=${this.secretKey}&issuer=${issuer}`
+      );
 
       logger.info('totp code was generated:', totpCode);
       this.qrCodeSource = await QRCode.toDataURL(totpCode);
@@ -57,7 +69,7 @@ export class SetupTotpComponent implements OnInit {
 
   onSubmit(event: Event): void {
     event.preventDefault();
-    this.authenticator.submitForm();
+    this.authenticator.submitForm(getFormDataFromEvent(event));
   }
 
   copyText(): void {

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import {
   createAuthenticatorMachine,
   getServiceFacade,
@@ -11,7 +11,8 @@ import {
 } from '@aws-amplify/ui';
 import { useSelector, useInterpret } from '@xstate/react';
 import isEmpty from 'lodash/isEmpty';
-import { areArraysEqual } from '../../../../helpers';
+
+import { areArrayValuesEqual } from '../../../../helpers';
 
 export type AuthenticatorContextValue = {
   service?: AuthInterpreter;
@@ -25,7 +26,7 @@ export type AuthenticatorContextValue = {
 export const AuthenticatorContext: React.Context<AuthenticatorContextValue> =
   React.createContext({});
 
-export const Provider = ({ children }) => {
+export const Provider = ({ children }: { children: React.ReactNode }) => {
   /**
    * Based on use cases, developer might already have added another Provider
    * outside Authenticator. In that case, we sync the two providers by just
@@ -47,13 +48,15 @@ export const Provider = ({ children }) => {
     ? currentProviderVal
     : parentProviderVal;
 
-  const {
-    service: { send },
-  } = value;
+  const { service: activeService } = value;
 
+  const isListening = React.useRef(false);
   React.useEffect(() => {
-    return listenToAuthHub(send);
-  }, []);
+    if (isListening.current) return;
+
+    isListening.current = true;
+    return listenToAuthHub(activeService);
+  }, [activeService]);
 
   return (
     <AuthenticatorContext.Provider value={value}>
@@ -86,14 +89,30 @@ export type InternalAuthenticatorContext = {
  */
 export type Selector = (context: AuthenticatorContext) => Array<any>;
 
-export const useAuthenticator = (selector?: Selector) => {
+const useAuthenticatorService = () => {
   const { service } = React.useContext(AuthenticatorContext);
-  const send = service.send;
+
+  if (!service) {
+    throw new Error(
+      'Please ensure you wrap your App with `Authenticator.Provider`.\nSee the `useAuthenticator` section on https://ui.docs.amplify.aws/components/authenticator.'
+    );
+  }
+
+  return service;
+};
+
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/authenticator#useauthenticator-hook)
+ */
+export const useAuthenticator = (selector?: Selector) => {
+  const service = useAuthenticatorService();
+
+  const { send } = service;
 
   // send aliases are static and thus can be memoized
   const sendAliases = React.useMemo<ReturnType<typeof getSendEventAliases>>(
     () => getSendEventAliases(send),
-    [service]
+    [send]
   );
 
   const getFacade = (state: AuthMachineState) => {
@@ -101,31 +120,22 @@ export const useAuthenticator = (selector?: Selector) => {
   };
 
   /**
-   * For `useSelector`'s selector argument, we just return back the `state`.
-   * The reason is that whenever you select a specific value of the state, the
-   * hook will return *only* that selected value instead of the whole `state`.
+   * For `useSelector`'s selector argument, we transform `state` into
+   * public facade values using `getFacade`.
    *
-   * To provide a consistent set of facade, we let the `selector` trivially return
-   * itself and let comparator decide when to re-render.
+   * This is to hide the internal xstate implementation details to customers.
    */
-  const xstateSelector = (state: AuthMachineState) => state;
+  const xstateSelector = (state: AuthMachineState) => getFacade(state);
 
   /**
    * comparator decides whether or not the new authState should trigger a
    * re-render. Does a deep equality check.
    */
   const comparator = (
-    prevState: AuthMachineState,
-    nextState: AuthMachineState
+    prevFacade: ReturnType<typeof getFacade>,
+    nextFacade: ReturnType<typeof getFacade>
   ) => {
     if (!selector) return false;
-
-    /**
-     * We only trigger re-render if any of values in specified selected
-     * values change. First compute the facade for prev and next state.
-     */
-    const prevFacade = getFacade(prevState);
-    const nextFacade = getFacade(nextState);
 
     /**
      * Apply the passed in `selector` to get the value of their desired
@@ -136,10 +146,18 @@ export const useAuthenticator = (selector?: Selector) => {
 
     // Shallow compare the array values
     // TODO: is there a reason to compare deep at the cost of expensive comparisons?
-    return areArraysEqual(prevDepsArray, nextDepsArray);
+    return areArrayValuesEqual(prevDepsArray, nextDepsArray);
   };
 
-  const state = useSelector(service, xstateSelector, comparator);
+  const facade = useSelector(service, xstateSelector, comparator);
 
-  return { ...getFacade(state), _state: state, _send: send };
+  return {
+    ...facade,
+    /** @deprecated For internal use only */
+    _state: service.getSnapshot(),
+    /** @deprecated For internal use only */
+    _send: send,
+  };
 };
+
+export type UseAuthenticator = ReturnType<typeof useAuthenticator>;

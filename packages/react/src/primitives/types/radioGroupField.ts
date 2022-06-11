@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { FlexContainerStyleProps } from './flex';
-import { FieldProps } from './field';
+import { FieldProps, LabelPositions } from './field';
 import { InputProps } from './input';
 
 export interface RadioGroupFieldProps
@@ -15,4 +15,10 @@ export interface RadioGroupFieldProps
    * Handle onChange event
    */
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
+
+  /**
+   * Position of label in relation to the radio,
+   * default is 'start'
+   */
+  labelPosition?: LabelPositions;
 }

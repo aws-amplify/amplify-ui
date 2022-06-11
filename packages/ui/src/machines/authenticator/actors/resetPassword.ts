@@ -8,6 +8,7 @@ import {
   clearUsername,
   clearValidationError,
   handleInput,
+  handleSubmit,
   handleBlur,
   setFieldErrors,
   setRemoteError,
@@ -36,16 +37,16 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
           exit: ['clearFormValues', 'clearError', 'clearTouched'],
           states: {
             edit: {
-              entry: sendUpdate(),
+              entry: 'sendUpdate',
               on: {
-                SUBMIT: 'submit',
+                SUBMIT: { actions: 'handleSubmit', target: 'submit' },
                 CHANGE: { actions: 'handleInput' },
                 BLUR: { actions: 'handleBlur' },
               },
             },
             submit: {
               tags: ['pending'],
-              entry: [sendUpdate(), 'setUsername', 'clearError'],
+              entry: ['sendUpdate', 'setUsername', 'clearError'],
               invoke: {
                 src: 'resetPassword',
                 onDone: {
@@ -84,8 +85,8 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
                     },
                   },
                 },
-                valid: { entry: sendUpdate() },
-                invalid: { entry: sendUpdate() },
+                valid: { entry: 'sendUpdate' },
+                invalid: { entry: 'sendUpdate' },
               },
               on: {
                 CHANGE: {
@@ -102,16 +103,16 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
               initial: 'idle',
               states: {
                 idle: {
-                  entry: sendUpdate(),
+                  entry: 'sendUpdate',
                   on: {
-                    SUBMIT: 'validate',
+                    SUBMIT: { actions: 'handleSubmit', target: 'validate' },
                     RESEND: 'resendCode',
                     CHANGE: { actions: 'handleInput' },
                     BLUR: { actions: 'handleBlur' },
                   },
                 },
                 validate: {
-                  entry: sendUpdate(),
+                  entry: 'sendUpdate',
                   invoke: {
                     src: 'validateFields',
                     onDone: {
@@ -126,7 +127,7 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
                 },
                 resendCode: {
                   tags: ['pending'],
-                  entry: ['clearError', sendUpdate()],
+                  entry: ['clearError', 'sendUpdate'],
                   invoke: {
                     src: 'resetPassword',
                     onDone: { target: 'idle' },
@@ -138,7 +139,7 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
                 },
                 pending: {
                   tags: ['pending'],
-                  entry: ['clearError', sendUpdate()],
+                  entry: ['clearError', 'sendUpdate'],
                   invoke: {
                     src: 'confirmResetPassword',
                     onDone: {
@@ -166,10 +167,12 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
         clearUsername,
         clearValidationError,
         handleInput,
+        handleSubmit,
         handleBlur,
         setFieldErrors,
         setRemoteError,
         setUsername,
+        sendUpdate: sendUpdate(), // sendUpdate is a HOC
       },
       guards: {
         shouldAutoConfirmReset: (context, event): boolean => {
@@ -180,7 +183,7 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
       },
       services: {
         async resetPassword(context) {
-          const username = context.formValues?.username ?? context.username;
+          const { username } = context;
 
           return services.handleForgotPassword(username);
         },
@@ -195,9 +198,12 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
           });
         },
         async validateFields(context, event) {
-          return runValidators(context.formValues, context.touched, [
-            defaultServices.validateConfirmPassword,
-          ]);
+          return runValidators(
+            context.formValues,
+            context.touched,
+            context.passwordSettings,
+            [defaultServices.validateConfirmPassword]
+          );
         },
       },
     }

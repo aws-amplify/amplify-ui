@@ -68,18 +68,17 @@ describe('Tabs: ', () => {
     expect(console.warn).not.toHaveBeenCalledWith(warningMessage);
   });
 
-  it('should log a warning for children not matching the tabItem structure', async () => {
+  it('should log a warning for children not matching the TabItem structure', async () => {
     const invalidChildren = [
       123,
       'test',
-      <div title="someTitle"></div>,
       <div>
         <span></span>
       </div>,
     ];
     const warningMessage =
       'Amplify UI: <Tabs> component only accepts <TabItem> as children.';
-    const spy = jest.spyOn(console, 'warn');
+    const spy = jest.spyOn(console, 'warn').mockImplementation();
 
     invalidChildren.forEach((child) => {
       render(
@@ -121,7 +120,7 @@ describe('Tabs: ', () => {
       expect(tab.innerHTML).toContain('Test1234');
     });
 
-    it('should render the disabled', async () => {
+    it('should render disabled button when disabled', async () => {
       render(
         <Tabs data-demo="true" testId="tabsTest">
           <TabItem title="Tab 1" isDisabled>
@@ -131,11 +130,11 @@ describe('Tabs: ', () => {
       );
 
       const tab = await screen.findByRole('tab');
-      expect(tab).toHaveAttribute('aria-disabled');
+      expect(tab).toHaveAttribute('disabled');
     });
 
-    it('should forward ref to TabItem DOM element', async () => {
-      const ref = React.createRef<HTMLDivElement>();
+    it('should forward ref to TabItem Button DOM element', async () => {
+      const ref = React.createRef<HTMLButtonElement>();
 
       render(
         <Tabs>
@@ -146,7 +145,7 @@ describe('Tabs: ', () => {
       );
 
       await screen.findByRole('tab');
-      expect(ref.current.nodeName).toBe('DIV');
+      expect(ref.current.nodeName).toBe('BUTTON');
     });
   });
 });

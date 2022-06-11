@@ -2,9 +2,14 @@ import { DesignToken, WebDesignToken, ColorValue } from './types/designToken';
 import { OrdinalScale, OrdinalVariation } from './types/scales';
 
 type ScaleKeys = 10 | 20 | 40 | 60 | 80 | 90 | 100;
+type OverlayKeys = 10 | 20 | 30 | 40 | 50 | 60 | 70 | 80 | 90;
 
 type ColorScale<DesignTokenType = DesignToken<ColorValue>> = {
   [key in ScaleKeys]: DesignTokenType;
+};
+
+type OverlayColors<DesignTokenType = DesignToken<ColorValue>> = {
+  [key in OverlayKeys]: DesignTokenType;
 };
 
 type FontColors<DesignTokenType = DesignToken<ColorValue>> = {
@@ -24,6 +29,7 @@ type BackgroundColors<DesignTokenType = DesignToken<ColorValue>> = {
 
 type BorderColors<DesignTokenType = DesignToken<ColorValue>> = {
   disabled: DesignTokenType;
+  pressed: DesignTokenType;
   focus: DesignTokenType;
   error: DesignTokenType;
 } & OrdinalScale<DesignTokenType>;
@@ -60,6 +66,8 @@ export type Colors = {
     secondary: ColorScale;
   };
 
+  overlay: OverlayColors;
+
   [key: string]: ColorTypes | Record<string, ColorTypes>;
 };
 
@@ -83,6 +91,8 @@ export type WebColors = {
     primary: ColorScale<WebDesignToken<ColorValue>>;
     secondary: ColorScale<WebDesignToken<ColorValue>>;
   };
+
+  overlay: OverlayColors<WebDesignToken<ColorValue>>;
 
   [key: string]: WebColorTypes | Record<string, WebColorTypes>;
 };
@@ -172,7 +182,7 @@ export const colors: Colors = {
     10: { value: 'hsl(210, 5%, 98%)' },
     20: { value: 'hsl(210, 5%, 94%)' },
     40: { value: 'hsl(210, 5%, 87%)' },
-    60: { value: 'hsl(210, 6%, 70%)' },
+    60: { value: 'hsl(210, 8%, 55%)' },
     80: { value: 'hsl(210, 10%, 40%)' },
     90: { value: 'hsl(210, 25%, 25%)' },
     100: { value: 'hsl(210, 50%, 10%)' },
@@ -225,6 +235,7 @@ export const colors: Colors = {
     primary: { value: '{colors.white.value}' },
     secondary: { value: '{colors.neutral.10.value}' },
     tertiary: { value: '{colors.neutral.20.value}' },
+    quaternary: { value: '{colors.neutral.60.value}' },
     disabled: { value: '{colors.background.tertiary.value}' },
 
     info: { value: '{colors.blue.20.value}' },
@@ -239,6 +250,8 @@ export const colors: Colors = {
     tertiary: { value: '{colors.neutral.20.value}' },
 
     disabled: { value: '{colors.border.tertiary.value}' },
+
+    pressed: { value: '{colors.brand.primary.100.value}' },
     // Focus color is set to 100 to ensure enough contrast for accessibility
     focus: { value: '{colors.brand.primary.100.value}' },
     error: { value: '{colors.red.80.value}' },

@@ -1,77 +1,52 @@
 <script setup lang="ts">
-import { computed, ComputedRef, onMounted } from 'vue';
-import {
-  ActorContextWithForms,
-  authInputAttributes,
-  countryDialCodes,
-  getActorContext,
-  LoginMechanism,
-} from '@aws-amplify/ui';
-
-import { useAuth } from '../composables/useAuth';
-
+import { toRefs } from 'vue';
 interface PropsInterface {
   label: string;
   name: string;
   placeholder?: string;
   autocomplete?: string;
+  labelHidden?: boolean;
+  required?: boolean;
+  dialCode?: string;
+  dialCodeList?: Array<string>;
+  type?: string;
+  hasError?: boolean;
+  describedBy?: string;
 }
 
-const { label, name, placeholder, autocomplete } = withDefaults(
-  defineProps<PropsInterface>(),
-  {
-    label: 'Username',
-    name: 'username',
-    placeholder: '',
-    autocomplete: '',
-  }
-);
+const props = withDefaults(defineProps<PropsInterface>(), {
+  label: 'Username',
+  name: 'username',
+  placeholder: '',
+  autocomplete: '',
+  labelHidden: false,
+  required: true,
+  type: 'text',
+});
+
+const {
+  label,
+  name,
+  placeholder,
+  autocomplete,
+  labelHidden,
+  required,
+  dialCode,
+  dialCodeList,
+} = toRefs(props);
+
 const random = Math.floor(Math.random() * 999999);
 const randomPhone = Math.floor(Math.random() * 999999);
-
-const { state, send } = useAuth();
-const {
-  value: { context },
-} = state;
-
-//computed
-const inputAttributes = computed(() => authInputAttributes);
-const actorContext: ComputedRef<ActorContextWithForms> = computed(() =>
-  getActorContext(state.value)
-);
-
-const defaultDialCode = actorContext.value.country_code;
-
-const dialCodes = computed(() => countryDialCodes);
-
-onMounted(() => {
-  if (inputAttributes.value[name as LoginMechanism]?.type === 'tel') {
-    send({
-      type: 'CHANGE',
-      data: { name: 'country_code', value: defaultDialCode },
-    });
-  }
-});
-
-const inferAutocomplete = computed((): string => {
-  return (
-    autocomplete ||
-    (authInputAttributes[name as LoginMechanism]?.autocomplete as string) ||
-    name
-  );
-});
 </script>
 
 <template>
   <base-wrapper
-    class="
-      amplify-flex amplify-field amplify-textfield amplify-phonenumberfield
-    "
-    style="flex-direction: column"
+    class="amplify-flex amplify-field amplify-textfield amplify-phonenumberfield amplify-authenticator__column"
   >
     <base-label
       :for="'amplify-field-' + random"
       class="amplify-label"
+      :class="{ 'sr-only': labelHidden }"
       v-bind="$attrs"
     >
       {{ label }}
@@ -80,18 +55,12 @@ const inferAutocomplete = computed((): string => {
       <base-wrapper class="amplify-field-group__outer-start">
         <!--select drop down-->
         <base-wrapper
-          class="
-            amplify-flex
-            amplify-field
-            amplify-selectfield
-            amplify-countrycodeselect
-          "
-          style="flex-direction: column"
-          v-if="name === 'phone_number'"
+          class="amplify-flex amplify-field amplify-selectfield amplify-countrycodeselect amplify-authenticator__column"
+          v-if="type === 'tel'"
         >
           <base-label
             :for="'amplify-field-' + randomPhone"
-            class="amplify-label sr-only"
+            class="amplify-label amplify-visually-hidden"
             v-bind="$attrs"
           >
             {{ 'Country Code' }}
@@ -103,20 +72,19 @@ const inferAutocomplete = computed((): string => {
               autocomplete="tel-country-code"
               aria-label="country code"
               name="country_code"
-              :options="dialCodes"
-              :select-value="defaultDialCode"
+              :options="dialCodeList"
+              :select-value="dialCode"
             >
             </base-select>
             <base-wrapper
-              class="amplify-flex amplify-select__icon-wrapper"
-              style="align-items: center; justify-content: center"
+              class="amplify-flex amplify-select__icon-wrapper amplify-authenticator__icon-wrapper"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 data-size="large"
                 fill="currentColor"
                 viewBox="0 0 24 24"
-                class="amplify-icon"
+                class="amplify-icon amplify-icon--large"
               >
                 <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path>
               </svg>
@@ -128,13 +96,14 @@ const inferAutocomplete = computed((): string => {
         <!--Phone input-->
         <base-input
           class="amplify-input amplify-field-group__control"
-          aria-invalid="false"
           :id="'amplify-field-' + random"
-          :autocomplete="inferAutocomplete"
+          :autocomplete="autocomplete"
           :name="name"
-          required
-          :type="inputAttributes[name as LoginMechanism]?.type ?? 'text'"
+          :required="required ?? true"
+          :type="type"
           :placeholder="placeholder"
+          :aria-invalid="hasError"
+          :aria-describedBy="describedBy"
         ></base-input>
       </base-wrapper>
     </base-wrapper>

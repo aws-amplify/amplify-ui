@@ -1,4 +1,5 @@
 import * as React from 'react';
+import classNames from 'classnames';
 
 import { Button } from '../Button';
 import { Flex } from '../Flex';
@@ -6,12 +7,17 @@ import { IconChevronLeft, IconChevronRight } from '../Icon';
 import { View } from '../View';
 import { VisuallyHidden } from '../VisuallyHidden';
 import { PaginationItemProps } from '../types/pagination';
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassNames, ComponentText } from '../shared/constants';
+import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
+
+export const PAGINATION_CURRENT_TEST_ID = 'current';
+export const PAGINATION_ELLIPSIS_TEST_ID = 'ellipsis';
 
 export const PaginationItem: React.FC<PaginationItemProps> = ({
   type,
   page,
   currentPage,
+  currentPageLabel = ComponentText.PaginationItem.currentPageLabel,
   isDisabled,
   onClick,
   ariaLabel,
@@ -29,6 +35,25 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
     onClick();
   }, [onClick]);
 
+  const nextClasses = classNames(
+    ComponentClassNames.PaginationItemButton,
+    classNameModifier(ComponentClassNames.PaginationItemButton, 'link'),
+    classNameModifierByFlag(
+      ComponentClassNames.PaginationItemButton,
+      'disabled',
+      isDisabled
+    )
+  );
+  const previousClasses = classNames(
+    ComponentClassNames.PaginationItemButton,
+    classNameModifier(ComponentClassNames.PaginationItemButton, 'link'),
+    classNameModifierByFlag(
+      ComponentClassNames.PaginationItemButton,
+      'disabled',
+      isDisabled
+    )
+  );
+
   switch (type) {
     case 'page':
       return (
@@ -37,18 +62,25 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
             <Flex
               as="span"
               className={ComponentClassNames.PaginationItemCurrent}
+              testId={PAGINATION_CURRENT_TEST_ID}
               {...rest}
             >
               {/**
                * Use markup to indicate the current item of a menu, such as the current page on a website, to improve orientation in the menu.
                * @link https://www.w3.org/WAI/tutorials/menus/structure/#indicate-the-current-item
                */}
-              <VisuallyHidden>Current Page:</VisuallyHidden>
+              <VisuallyHidden>{currentPageLabel}</VisuallyHidden>
               {page}
             </Flex>
           ) : (
             <Button
-              className={ComponentClassNames.PaginationItemButton}
+              className={classNames(
+                ComponentClassNames.PaginationItemButton,
+                classNameModifier(
+                  ComponentClassNames.PaginationItemButton,
+                  'link'
+                )
+              )}
               size="small"
               variation="link"
               onClick={onChange}
@@ -64,7 +96,7 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
       return (
         <View as="li">
           <Button
-            className={ComponentClassNames.PaginationItemButton}
+            className={nextClasses}
             size="small"
             variation="link"
             isDisabled={isDisabled}
@@ -80,7 +112,7 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
       return (
         <View as="li">
           <Button
-            className={ComponentClassNames.PaginationItemButton}
+            className={previousClasses}
             size="small"
             variation="link"
             isDisabled={isDisabled}
@@ -98,7 +130,7 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
           <Flex
             as="span"
             className={ComponentClassNames.PaginationItemEllipsis}
-            testId="ellipsis"
+            testId={PAGINATION_ELLIPSIS_TEST_ID}
             {...rest}
           >
             &#8230;

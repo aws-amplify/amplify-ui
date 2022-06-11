@@ -35,7 +35,7 @@ const IconPrimitive: Primitive<IconProps, 'svg'> = (
     _children = children;
   }
   if (paths) {
-    _children = paths.map((path) => <path {...path} />);
+    _children = paths.map((path, index) => <path {...path} key={index} />);
   }
   if (pathData) {
     _children = <path d={pathData} fill={fill} />;
@@ -54,6 +54,9 @@ const IconPrimitive: Primitive<IconProps, 'svg'> = (
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/icon)
+ */
 export const Icon = React.forwardRef(IconPrimitive);
 
 Icon.displayName = 'Icon';
