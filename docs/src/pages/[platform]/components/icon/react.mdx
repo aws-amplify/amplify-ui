@@ -1,4 +1,4 @@
-import { Button, Icon, Flex, Text, Alert } from '@aws-amplify/ui-react';
+import { Button, Icon, Flex, Text, Alert, Link } from '@aws-amplify/ui-react';
 import { IconDemo } from './demo';
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
@@ -14,10 +14,14 @@ import {
   CustomIconWithLibExample,
   ViewboxExample,
 } from './examples';
-Icons should be thought of as plain text; they inherit the size and color of their context or can be set directly. Icons themselves do not have any state or handlers, those should be at a higher level like a button. Amplify UI does not include any icons other than the ones Amplify UI components like [Alert](/components/alert) and [Expander](/components/expander) use. The icons for these primitives come from [Google Material](https://github.com/google/material-design-icons).
+
 ## Demo
 
 <IconDemo />
+
+<Alert variation="info" heading="Note">
+Icons should be thought of as plain text; they inherit the size and color of their context or can be set directly. Icons themselves do not have any state or handlers, those should be at a higher level like a button. Amplify UI does not include any icons other than the ones Amplify UI components like [Alert](/components/alert) and [Expander](/components/expander) use.
+</Alert>
 
 ## Usage
 
@@ -27,18 +31,17 @@ Import the Icon component and styles.
 <DefaultIconExample />
   <ExampleCode>
 
-```jsx
+```jsx file=./examples/DefaultIconExample.tsx
 
 ```
-
   </ExampleCode>
 </Example>
 
 ### Built-in iconset
 
 <Alert variation="warning" heading="Deprecated">
-  The built-in icons were removed in version `3.0`. You can use
-  the [react-icons](https://react-icons.github.io/react-icons) package or other
+  The built-in icons were removed in version `3.0`. You can use the
+  [react-icons](https://react-icons.github.io/react-icons) package or other
   React icon libraries in its place. `import {ICON_NAME} from
   '@aws-amplify/ui-react';` becomes `import {ICON_NAME} from 'react-icons/md';`
 </Alert>
@@ -54,7 +57,7 @@ To create a custom icon using a path data, provide the `d` attribute in svg to `
   
   <ExampleCode>
 
-```jsx
+```jsx file=./examples/CustomIconExample.tsx
 
 ```
 
@@ -68,7 +71,7 @@ You can use the `viewBox` prop to change the SVG [`viewBox`](https://developer.m
   
   <ExampleCode>
 
-```jsx
+```jsx file=./examples/ViewboxExample.tsx
 
 ```
 
@@ -84,7 +87,7 @@ You can also pass SVG elements as children to the `Icon` component if you have m
   
   <ExampleCode>
 
-```jsx
+```jsx file=./examples/CustomIconWithSvgExample.tsx
 
 ```
 
@@ -98,7 +101,7 @@ You can also optionally use a `paths` array of path-like objects that will be ma
   
   <ExampleCode>
 
-```jsx
+```jsx file=./examples/CustomIconWithPathsExample.tsx
 
 ```
 
@@ -114,7 +117,7 @@ To use an icon library like [React Icons](https://react-icons.github.io/react-ic
   
   <ExampleCode>
 
-```jsx
+```jsx file=./examples/CustomIconWithLibExample.tsx
 
 ```
 
@@ -123,15 +126,9 @@ To use an icon library like [React Icons](https://react-icons.github.io/react-ic
 
 Here are some good open source icon libraries:
 
-- <Link href="https://css.gg" isExternal={true}>
-  CSS.gg
-</Link>
-- <Link href="https://react-icons.github.io/react-icons/" isExternal={true}>
-  React icons
-</Link>
-- <Link href="https://heroicons.com/" isExternal={true}>
-  Hero icons
-</Link>
+- <Link href="https://css.gg" isExternal={true}>CSS.gg</Link>
+- <Link href="https://react-icons.github.io/react-icons/" isExternal={true}>React icons</Link>
+- <Link href="https://heroicons.com/" isExternal={true}>Hero icons</Link>
 
 ## Styling
 
@@ -150,7 +147,7 @@ _Inherited size from button sizes_
   
   <ExampleCode>
 
-```jsx
+```jsx file=./examples/IconSizesExample.tsx
 
 ```
 
@@ -166,7 +163,7 @@ Use the `color` prop to change the Icon color. The fill of the path inside the S
   
   <ExampleCode>
 
-```jsx
+```jsx file=./examples/IconColorExample.tsx
 
 ```
 
@@ -182,7 +179,7 @@ Set an `aria-label` attribute for an Icon.
   
   <ExampleCode>
 
-```jsx
+```jsx file=./examples/AccessibilityIconExample.tsx
 
 ```
 
