@@ -25,63 +25,63 @@ import { Expander, ExpanderItem, Table, TableBody, TableCell, TableHead, TableRo
   <TableBody>
     
     <TableRow>
-      <TableCell>title</TableCell>
+      <TableCell className="props-table__tr-name">title</TableCell>
       <TableCell>
 ```jsx
 React.ReactNode
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>defaultValue</TableCell>
+      <TableCell className="props-table__tr-name">defaultValue</TableCell>
       <TableCell>
 ```jsx
 string | string[]
 ```
 </TableCell>
-      <TableCell>The value of the item(s) to expand.  Use on uncontrolled component.</TableCell>
+      <TableCell className="props-table__tr-description">The value of the item(s) to expand.  Use on uncontrolled component.</TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>onChange</TableCell>
+      <TableCell className="props-table__tr-name">onChange</TableCell>
       <TableCell>
 ```jsx
 (value?: string | string[]) => void
 ```
 </TableCell>
-      <TableCell>Event handler called when the expanded state of an item changes</TableCell>
+      <TableCell className="props-table__tr-description">Event handler called when the expanded state of an item changes</TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>type</TableCell>
+      <TableCell className="props-table__tr-name">type</TableCell>
       <TableCell>
 ```jsx
 ExpanderType
 ```
 </TableCell>
-      <TableCell>Determines whether one or multiple items can be opened at the same time.</TableCell>
+      <TableCell className="props-table__tr-description">Determines whether one or multiple items can be opened at the same time.</TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>value</TableCell>
+      <TableCell className="props-table__tr-name">value</TableCell>
       <TableCell>
 ```jsx
 string
 ```
 </TableCell>
-      <TableCell>The controlled value of the item(s) to expand. Must be used in conjunction with onChange.</TableCell>
+      <TableCell className="props-table__tr-description">The controlled value of the item(s) to expand. Must be used in conjunction with onChange.</TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>isCollapsible</TableCell>
+      <TableCell className="props-table__tr-name">isCollapsible</TableCell>
       <TableCell>
 ```jsx
 boolean
 ```
 </TableCell>
-      <TableCell>Determines whether the opened item can be collapsed if this is a single expander.</TableCell>
+      <TableCell className="props-table__tr-description">Determines whether the opened item can be collapsed if this is a single expander.</TableCell>
     </TableRow>
 
   </TableBody>
@@ -105,83 +105,83 @@ boolean
   <TableBody>
     
     <TableRow>
-      <TableCell>as</TableCell>
+      <TableCell className="props-table__tr-name">as</TableCell>
       <TableCell>
 ```jsx
 Element | Props["as"]
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>id</TableCell>
+      <TableCell className="props-table__tr-name">id</TableCell>
       <TableCell>
 ```jsx
 string
 ```
 </TableCell>
-      <TableCell>Unique identifier</TableCell>
+      <TableCell className="props-table__tr-description">Unique identifier</TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>className</TableCell>
+      <TableCell className="props-table__tr-name">className</TableCell>
       <TableCell>
 ```jsx
 string
 ```
 </TableCell>
-      <TableCell>Additional CSS class name for component</TableCell>
+      <TableCell className="props-table__tr-description">Additional CSS class name for component</TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>testId</TableCell>
+      <TableCell className="props-table__tr-name">testId</TableCell>
       <TableCell>
 ```jsx
 string
 ```
 </TableCell>
-      <TableCell>Used to provide a &#96;data-testid&#96; attribute for testing purposes</TableCell>
+      <TableCell className="props-table__tr-description">Used to provide a &#96;data-testid&#96; attribute for testing purposes</TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>ariaLabel</TableCell>
+      <TableCell className="props-table__tr-name">ariaLabel</TableCell>
       <TableCell>
 ```jsx
 AriaAttributes['aria-label']
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>ariaValuetext</TableCell>
+      <TableCell className="props-table__tr-name">ariaValuetext</TableCell>
       <TableCell>
 ```jsx
 AriaAttributes['aria-valuetext']
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>role</TableCell>
+      <TableCell className="props-table__tr-name">role</TableCell>
       <TableCell>
 ```jsx
 React.AriaRole
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>ref</TableCell>
+      <TableCell className="props-table__tr-name">ref</TableCell>
       <TableCell>
 ```jsx
 React.Ref<T>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
   </TableBody>
@@ -205,53 +205,53 @@ React.Ref<T>
   <TableBody>
     
     <TableRow>
-      <TableCell>flex</TableCell>
+      <TableCell className="props-table__tr-name">flex</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<Property.Flex>
 ```
 </TableCell>
-      <TableCell>Shorthand for flex grow / shrink / basis</TableCell>
+      <TableCell className="props-table__tr-description">Shorthand for flex grow / shrink / basis</TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>order</TableCell>
+      <TableCell className="props-table__tr-name">order</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<Property.Order>
 ```
 </TableCell>
-      <TableCell>Controls order flex items appear</TableCell>
+      <TableCell className="props-table__tr-description">Controls order flex items appear</TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>grow</TableCell>
+      <TableCell className="props-table__tr-name">grow</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<Property.FlexGrow>
 ```
 </TableCell>
-      <TableCell>Ability for flex item to grow</TableCell>
+      <TableCell className="props-table__tr-description">Ability for flex item to grow</TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>shrink</TableCell>
+      <TableCell className="props-table__tr-name">shrink</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<Property.FlexShrink>
 ```
 </TableCell>
-      <TableCell>Ability for flex item to shrink</TableCell>
+      <TableCell className="props-table__tr-description">Ability for flex item to shrink</TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>basis</TableCell>
+      <TableCell className="props-table__tr-name">basis</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<Property.FlexBasis>
 ```
 </TableCell>
-      <TableCell>Default size of element before remaining space is distributed</TableCell>
+      <TableCell className="props-table__tr-description">Default size of element before remaining space is distributed</TableCell>
     </TableRow>
 
   </TableBody>
@@ -275,93 +275,93 @@ ResponsiveStyle<Property.FlexBasis>
   <TableBody>
     
     <TableRow>
-      <TableCell>area</TableCell>
+      <TableCell className="props-table__tr-name">area</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<Property.GridArea>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>column</TableCell>
+      <TableCell className="props-table__tr-name">column</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<Property.GridColumn>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>columnEnd</TableCell>
+      <TableCell className="props-table__tr-name">columnEnd</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<Property.GridColumnEnd>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>columnSpan</TableCell>
+      <TableCell className="props-table__tr-name">columnSpan</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<GridSpanType>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>columnStart</TableCell>
+      <TableCell className="props-table__tr-name">columnStart</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<Property.GridColumnStart>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>row</TableCell>
+      <TableCell className="props-table__tr-name">row</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<Property.GridRow>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>rowEnd</TableCell>
+      <TableCell className="props-table__tr-name">rowEnd</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<Property.GridRowEnd>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>rowSpan</TableCell>
+      <TableCell className="props-table__tr-name">rowSpan</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<GridSpanType>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>rowStart</TableCell>
+      <TableCell className="props-table__tr-name">rowStart</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<Property.GridRowStart>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
   </TableBody>
@@ -385,513 +385,513 @@ ResponsiveStyle<Property.GridRowStart>
   <TableBody>
     
     <TableRow>
-      <TableCell>alignSelf</TableCell>
+      <TableCell className="props-table__tr-name">alignSelf</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.AlignSelf>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>backgroundColor</TableCell>
+      <TableCell className="props-table__tr-name">backgroundColor</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.BackgroundColor>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>backgroundImage</TableCell>
+      <TableCell className="props-table__tr-name">backgroundImage</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.BackgroundImage>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>border</TableCell>
+      <TableCell className="props-table__tr-name">border</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.Border>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>borderRadius</TableCell>
+      <TableCell className="props-table__tr-name">borderRadius</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.BorderRadius>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>bottom</TableCell>
+      <TableCell className="props-table__tr-name">bottom</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.Bottom>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>boxShadow</TableCell>
+      <TableCell className="props-table__tr-name">boxShadow</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.BoxShadow>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>color</TableCell>
+      <TableCell className="props-table__tr-name">color</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.Color>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>display</TableCell>
+      <TableCell className="props-table__tr-name">display</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.Display>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>fontFamily</TableCell>
+      <TableCell className="props-table__tr-name">fontFamily</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.FontFamily>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>fontSize</TableCell>
+      <TableCell className="props-table__tr-name">fontSize</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.FontSize>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>fontStyle</TableCell>
+      <TableCell className="props-table__tr-name">fontStyle</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.FontStyle>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>fontWeight</TableCell>
+      <TableCell className="props-table__tr-name">fontWeight</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.FontWeight>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>height</TableCell>
+      <TableCell className="props-table__tr-name">height</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.Height>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>left</TableCell>
+      <TableCell className="props-table__tr-name">left</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.Left>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>letterSpacing</TableCell>
+      <TableCell className="props-table__tr-name">letterSpacing</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.LetterSpacing>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>lineHeight</TableCell>
+      <TableCell className="props-table__tr-name">lineHeight</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.LineHeight>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>margin</TableCell>
+      <TableCell className="props-table__tr-name">margin</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.Margin>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>marginBlockEnd</TableCell>
+      <TableCell className="props-table__tr-name">marginBlockEnd</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.MarginBlockEnd>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>marginBlockStart</TableCell>
+      <TableCell className="props-table__tr-name">marginBlockStart</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.MarginBlockStart>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>marginBottom</TableCell>
+      <TableCell className="props-table__tr-name">marginBottom</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.MarginBlockEnd>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>marginInlineEnd</TableCell>
+      <TableCell className="props-table__tr-name">marginInlineEnd</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.MarginInlineEnd>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>marginInlineStart</TableCell>
+      <TableCell className="props-table__tr-name">marginInlineStart</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.MarginInlineStart>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>marginLeft</TableCell>
+      <TableCell className="props-table__tr-name">marginLeft</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.MarginInlineStart>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>marginRight</TableCell>
+      <TableCell className="props-table__tr-name">marginRight</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.MarginInlineEnd>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>marginTop</TableCell>
+      <TableCell className="props-table__tr-name">marginTop</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.MarginBlockStart>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>maxHeight</TableCell>
+      <TableCell className="props-table__tr-name">maxHeight</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.MaxHeight>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>maxWidth</TableCell>
+      <TableCell className="props-table__tr-name">maxWidth</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.MaxWidth>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>minHeight</TableCell>
+      <TableCell className="props-table__tr-name">minHeight</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.MinHeight>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>minWidth</TableCell>
+      <TableCell className="props-table__tr-name">minWidth</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.MinWidth>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>opacity</TableCell>
+      <TableCell className="props-table__tr-name">opacity</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.Opacity>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>overflow</TableCell>
+      <TableCell className="props-table__tr-name">overflow</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.Overflow>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>padding</TableCell>
+      <TableCell className="props-table__tr-name">padding</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.Padding>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>paddingBlockEnd</TableCell>
+      <TableCell className="props-table__tr-name">paddingBlockEnd</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.MarginBlockEnd>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>paddingBlockStart</TableCell>
+      <TableCell className="props-table__tr-name">paddingBlockStart</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.MarginBlockStart>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>paddingBottom</TableCell>
+      <TableCell className="props-table__tr-name">paddingBottom</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.PaddingBlockEnd>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>paddingInlineEnd</TableCell>
+      <TableCell className="props-table__tr-name">paddingInlineEnd</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.MarginInlineEnd>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>paddingInlineStart</TableCell>
+      <TableCell className="props-table__tr-name">paddingInlineStart</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.MarginInlineStart>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>paddingLeft</TableCell>
+      <TableCell className="props-table__tr-name">paddingLeft</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.PaddingInlineStart>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>paddingRight</TableCell>
+      <TableCell className="props-table__tr-name">paddingRight</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.PaddingInlineEnd>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>paddingTop</TableCell>
+      <TableCell className="props-table__tr-name">paddingTop</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.PaddingBlockStart>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>position</TableCell>
+      <TableCell className="props-table__tr-name">position</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.Position>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>right</TableCell>
+      <TableCell className="props-table__tr-name">right</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.Right>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>textAlign</TableCell>
+      <TableCell className="props-table__tr-name">textAlign</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.TextAlign>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>textDecoration</TableCell>
+      <TableCell className="props-table__tr-name">textDecoration</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.TextDecoration>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>textTransform</TableCell>
+      <TableCell className="props-table__tr-name">textTransform</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.TextTransform>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>top</TableCell>
+      <TableCell className="props-table__tr-name">top</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.Top>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>transform</TableCell>
+      <TableCell className="props-table__tr-name">transform</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.Transform>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>transformOrigin</TableCell>
+      <TableCell className="props-table__tr-name">transformOrigin</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.TransformOrigin>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>width</TableCell>
+      <TableCell className="props-table__tr-name">width</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.Width>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
     <TableRow>
-      <TableCell>whiteSpace</TableCell>
+      <TableCell className="props-table__tr-name">whiteSpace</TableCell>
       <TableCell>
 ```jsx
 ResponsiveStyle<StyleToken<Property.WhiteSpace>>
 ```
 </TableCell>
-      <TableCell></TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
   </TableBody>

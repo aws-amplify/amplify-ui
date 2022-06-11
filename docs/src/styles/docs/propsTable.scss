@@ -1,0 +1,10 @@
+.props-table {
+  & pre[class*='language-'] {
+    max-width: 20rem;
+  }
+
+  & .props-table__tr-name,
+  & .props-table__tr-description {
+    line-break: anywhere;
+  }
+}

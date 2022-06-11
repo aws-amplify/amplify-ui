@@ -99,13 +99,13 @@ function PropsTable(properties: Properties) {
   const rows = Object.entries(properties).map(
     ([propName, { name, type, description }]) => `
     <TableRow>
-      <TableCell>${name}</TableCell>
+      <TableCell className="props-table__tr-name">${name}</TableCell>
       <TableCell>${`
 \`\`\`jsx
 ${type}
 \`\`\`
 `}</TableCell>
-      <TableCell>${description}</TableCell>
+      <TableCell className="props-table__tr-description">${description}</TableCell>
     </TableRow>
 `
   );
@@ -160,7 +160,7 @@ function getPropsSortedByCategory(
       ...Object.keys(propertiesByCategory)
         .filter((category) => ![componentName, 'Other'].includes(category))
         .sort((a, b) => a.localeCompare(b)),
-      // 'Other',
+      // 'Other',  // 1. No need to show this category to the customers 2. It causes Amplify Hosting build memory leak
     ] as (Category | 'Other')[];
 
     return allCategories
