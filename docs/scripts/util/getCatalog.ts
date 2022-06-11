@@ -143,10 +143,19 @@ function getCatalogComponentProperty(
 
   return {
     name: sanitize(name),
-    type: type.includes('import') ? type.match(regex)[1] : type,
+    type: treatType(type, name),
     description: sanitize(description),
     category: sanitize(category),
   };
+
+  function treatType(type, name) {
+    if (type.includes('import')) {
+      type = type.match(regex)[1];
+    } else if (name === 'ref' && type === 'React.Ref<T>') {
+      type = 'React.Ref<HTMLParagraphElement>';
+    }
+    return type;
+  }
 }
 
 function isCallableNode(node: Node): node is VariableDeclaration {
