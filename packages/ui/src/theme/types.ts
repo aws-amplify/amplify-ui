@@ -3,6 +3,8 @@ import { Tokens, WebTokens } from './tokens';
 import { Breakpoints } from './breakpoints';
 
 export * from './tokens/types/designToken';
+export type { LineHeights } from './tokens/lineHeights';
+export type { Shadows } from './tokens/shadows';
 
 /**
  * An override is a set of tokens that override others

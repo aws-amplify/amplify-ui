@@ -1,3 +1,5 @@
+import type { LineHeights, Shadows } from '@aws-amplify/ui';
+
 /**
  * Token keys for colors
  *
@@ -177,7 +179,43 @@ export type ColorKeys<PropertyType> =
   | BorderColorKeys
   | ShadowColorKeys;
 
+export type LineHeightKeys<PropertyType> = PropertyType | keyof LineHeights;
+
+export type BoxShadowKeys<PropertyType> = PropertyType | keyof Shadows;
+
+export type FontFamilyKeys<PropertyType> =
+  | PropertyType
+  | 'default.variable'
+  | 'default.static';
+
+export type TransformKeys<PropertyType> =
+  | PropertyType
+  | 'slideX.small'
+  | 'slideX.medium'
+  | 'slideX.large';
+
+// Note: we cannot use keyof Opacities
+// because the return type will be number union and no intellisense
+export type OpacityKeys<PropertyType> =
+  | PropertyType
+  | '0'
+  | '10'
+  | '20'
+  | '30'
+  | '40'
+  | '50'
+  | '60'
+  | '70'
+  | '80'
+  | '90'
+  | '100';
+
 export const stylePropsToThemeKeys = {
   backgroundColor: 'colors',
   color: 'colors',
+  fontFamily: 'fonts',
+  lineHeight: 'lineHeights',
+  opacity: 'opacities',
+  boxShadow: 'shadows',
+  transform: 'transforms',
 };
