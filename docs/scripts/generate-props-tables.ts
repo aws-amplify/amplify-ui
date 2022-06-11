@@ -99,9 +99,11 @@ function PropsTable(properties: Properties) {
   const rows = Object.entries(properties)
     .sort(([propNameA], [propNameB]) => propNameA.localeCompare(propNameB))
     .map(
-      ([propName, { name, type, description }]) => `
+      ([propName, { name, type, description, isOptional }]) => `
     <TableRow>
-      <TableCell className="props-table__tr-name">${name}</TableCell>
+      <TableCell className="props-table__tr-name">${name}${
+        isOptional ? '' : '<sup>*</sup>'
+      }</TableCell>
       <TableCell>${`
 \`\`\`jsx
 ${type}

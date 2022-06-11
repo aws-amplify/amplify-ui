@@ -7,6 +7,7 @@ import {
   TypeFileName,
   TypeFileData,
 } from '../types/allTypesData';
+import { SyntaxKind } from 'typescript';
 
 export const getAllTypesData = () => {
   const project = new Project({
@@ -62,7 +63,7 @@ function setTypeData(
   typeProp: TypeAliasDeclaration | PropertySignature,
   typeFileData: TypeFileData
 ) {
-  type TypeData = Map<string, string | { description: string }>;
+  type TypeData = Map<string, string | boolean | { description: string }>;
   const typeData: TypeData = new Map();
   const typeJsDocs = typeProp.getJsDocs();
   const typeDescription = typeJsDocs[0]?.getTags().reduce(
@@ -74,9 +75,12 @@ function setTypeData(
   ) as { description: string };
   const typeName = typeProp.getNameNode().getText();
   const typeType = typeProp.getTypeNode().getText();
+  const isOptional =
+    typeProp.getChildrenOfKind(SyntaxKind.QuestionToken)[0]?.getText() === '?';
 
   typeData.set('name', typeName);
   typeData.set('type', typeType);
   typeData.set('description', typeDescription);
+  typeData.set('isOptional', isOptional);
   typeFileData.set(typeName, typeData);
 }

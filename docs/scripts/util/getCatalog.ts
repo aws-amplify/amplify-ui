@@ -146,6 +146,7 @@ function getCatalogComponentProperty(
     type: treatType(type, name),
     description: sanitize(description),
     category: sanitize(category),
+    isOptional: property.isOptional(),
   };
 
   function treatType(type, name) {

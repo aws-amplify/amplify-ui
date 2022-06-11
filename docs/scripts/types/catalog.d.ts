@@ -56,6 +56,7 @@ export type Property = {
   type: string;
   description: string;
   category: Category;
+  isOptional: boolean;
 };
 export type Properties = Record<string, Property>;
 

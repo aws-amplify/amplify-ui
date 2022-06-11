@@ -49,5 +49,5 @@ export type TypeFileName =
   | 'View'
   | 'VisuallyHidden'
   | 'Grid';
-export type TypeFileData = Map<string, Map<string, string | object>>;
+export type TypeFileData = Map<string, Map<string, string | boolean | object>>;
 export type AllTypeFileData = Map<TypeFileName | Category, TypeFileData>;
