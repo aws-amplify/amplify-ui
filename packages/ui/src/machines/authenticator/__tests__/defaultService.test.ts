@@ -98,7 +98,7 @@ describe('validateFormPassword', () => {
     });
   });
 
-  it('validation is skipped if inputs are not touched', async () => {
+  it('skips validation if inputs are not touched', async () => {
     const password = '';
     const result = await validateFormPassword(
       { password: password },
