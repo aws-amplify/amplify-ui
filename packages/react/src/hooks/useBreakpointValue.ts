@@ -8,8 +8,9 @@ import { useTheme } from './useTheme';
  */
 export function useBreakpointValue<T>(
   values: Record<string, T> | T[],
-  defaultBreakpoint?: Breakpoint
-): T | null {
+  defaultBreakpoint?: Breakpoint,
+  propKey?: string
+): T | string {
   const {
     breakpoints: { values: breakpoints },
   } = useTheme();
@@ -19,5 +20,5 @@ export function useBreakpointValue<T>(
     defaultBreakpoint,
   });
 
-  return getValueAtCurrentBreakpoint(values, breakpoint, breakpoints);
+  return getValueAtCurrentBreakpoint(values, breakpoint, breakpoints, propKey);
 }

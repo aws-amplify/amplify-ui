@@ -1,18 +1,18 @@
-import {
-  Button,
-  Card,
-  Collection,
-  Flex,
-  View,
-  Text,
-  Heading,
-} from '@aws-amplify/ui-react';
-import { countries } from 'countries-list';
-import { CollectionDemo, ListCollectionExample } from './demo';
-import { Example } from '@/components/Example';
+import { CollectionDemo } from './demo';
+import { Example, ExampleCode } from '@/components/Example';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
-
-A Collection wraps Flex and Grid components, and provides a way to display items in a collection from a data source.
+import { ThemeAlert } from '@/components/ThemeAlert';
+import {
+  CollectionStylePropExample,
+  CollectionThemeExample,
+  DefaultCollectionExample,
+  GridCollectionExample,
+  ListCollectionExample,
+  LocalCollectionClassExample,
+  PaginationCollectionExample,
+  SearchCollectionExample,
+  StylingCollectionExample,
+} from './examples';
 
 ## Demo
 
@@ -20,207 +20,176 @@ A Collection wraps Flex and Grid components, and provides a way to display items
 
 ## Usage
 
-Import the `Collection` component and styles and provide your own repeating component as a function. Here's an example using the `list` collection `type`.
-
-```jsx
-import { Collection, Card, Heading, Text } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-const visitNewZealand = [
-  {
-    title: 'Fiordland National Park',
-    description:
-      'This national park includes the famous fjords of Milford, Dusky and Doubtful Sounds.',
-  },
-  {
-    title: 'Bay of Islands, North Island',
-    description:
-      'Three hours north of Auckland, this area features over 144 islands to explore.',
-  },
-  {
-    title: 'Queenstown, South Island',
-    description:
-      "This hopping town is New Zealand's adventure capital and is located right on Lake Wakatipu.",
-  },
-];
-<Collection type="list" items={visitNewZealand} gap="1.5rem">
-  {(item, index) => (
-    <Card key={index} padding="1rem">
-      <Heading level={4}>{item.title}</Heading>
-      <Text>{item.description}</Text>
-    </Card>
-  )}
-</Collection>;
-```
+Import the `Collection` component and provide your own repeating component as a function. Here's an example using the `list` collection `type`.
 
 <Example>
-  <Collection
-    type="list"
-    items={[
-      {
-        title: 'Fiordland National Park',
-        description:
-          'This national park includes the famous fjords of Milford, Dusky and Doubtful Sounds.',
-      },
-      {
-        title: 'Bay of Islands, North Island',
-        description:
-          'Three hours north of Auckland, this area features over 144 islands to explore.',
-      },
-      {
-        title: 'Queenstown, South Island',
-        description:
-          "This hopping town is New Zealand's adventure capital and is located right on Lake Wakatipu.",
-      },
-    ]}
-    gap="1.5rem"
-  >
-    {(item, index) => (
-      <Card key={index} padding="1rem">
-        <Heading level={4}>{item.title}</Heading>
-        <Text>{item.description}</Text>
-      </Card>
-    )}
-  </Collection>
+  <DefaultCollectionExample />
+  <ExampleCode>
+
+```tsx file=./examples/DefaultCollectionExample.tsx
+
+```
+
+  </ExampleCode>
 </Example>
 
 ## Collection types
 
-Collection `type` options include `list`, `grid`, and `table`.
+Collection `type` options include `list` and `grid`.
 
 ### List
 
 The `list` collection type can be customized with any of following Flex props: `alignItems`, `alignContent`, `direction`, `gap`, `justifyContent`, `wrap`.
 
-```jsx
-<Collection
-  type="list"
-  items={visitNewZealand}
-  gap="1.5rem"
-  direction="row"
-  justifyContent="space-between"
-  wrap="wrap"
->
-  {(item, index) => (
-    <Card key={index} padding="1rem">
-      <Heading level={4}>{item.title}</Heading>
-      <Text>{item.description}</Text>
-    </Card>
-  )}
-</Collection>
+<Example>
+  <ListCollectionExample />
+
+  <ExampleCode>
+
+```tsx file=./examples/ListCollectionExample.tsx
+
 ```
 
+  </ExampleCode>
+</Example>
+
+### Grid
+
+The `grid` collection type can be customized with the following Grid props: `templateColumns` and `templateRows`. Then the Collection children can use the Grid props to control their size and placement such as `row` and `column`.
+
 <Example>
-  <Collection
-    type="list"
-    items={[
-      {
-        title: 'Fiordland National Park',
-        description:
-          'This national park includes the famous fjords of Milford, Dusky and Doubtful Sounds.',
-      },
-      {
-        title: 'Bay of Islands, North Island',
-        description:
-          'Three hours north of Auckland, this area features over 144 islands to explore.',
-      },
-      {
-        title: 'Queenstown, South Island',
-        description:
-          "This hopping town is New Zealand's adventure capital and is located right on Lake Wakatipu.",
-      },
-    ]}
-    direction="row"
-    justifyContent="space-between"
-    wrap="wrap"
-  >
-    {(item, index) => (
-      <Card key={index} padding="1rem" maxWidth="180px" fontSize="0.5em">
-        <Heading level={4}>{item.title}</Heading>
-        <Text>{item.description}</Text>
-      </Card>
-    )}
-  </Collection>
+  <GridCollectionExample />
+  <ExampleCode>
+
+```tsx file=./examples/GridCollectionExample.tsx
+
+```
+
+  </ExampleCode>
 </Example>
 
 ## Pagination
 
-A Collection can be paginated, adding a special `isPaginated` property. Change the page size passing a `itemsPerPage` property (default: 10).
-
-```jsx
-<Collection type="list" items={countries} isPaginated itemsPerPage={12}>
-  {(regions) => (
-    <Button>
-      {regions.emoji} {regions.name}
-    </Button>
-  )}
-</Collection>
-```
+A Collection can be paginated by adding a special `isPaginated` property. Change the page size by passing a `itemsPerPage` property (default: 10).
 
 <Example>
-  <Collection
-    type="list"
-    direction="row"
-    wrap="wrap"
-    items={Object.values(countries).map(({ name, emoji }) => ({ name, emoji }))}
-    isPaginated
-    itemsPerPage={12}
-  >
-    {(regions) => (
-      <Button grow="1">
-        {regions.emoji} {regions.name}
-      </Button>
-    )}
-  </Collection>
+  <PaginationCollectionExample />
+  <ExampleCode>
+
+```tsx file=./examples/PaginationCollectionExample.tsx
+
+```
+
+  </ExampleCode>
 </Example>
 
 ## Search
 
 Collections can also be filtered, adding a `isSearchable` property. Pass a custom `searchFilter` function to enhance your search experience (default search filter looks for any string-like property inside of items)
 
-```jsx
-const startsWith = (regions, keyword) => regions.name.startsWith(keyword)
+<Example>
+  <SearchCollectionExample />
+  <ExampleCode>
 
-<Collection
-  type="grid"
-  items={countries}
-  itemsPerPage={9}
-  isSearchable
-  searchFilter={startsWith}
-  searchPlaceholder="Type to search..."
->
-  {(regions) => (
-    <Button grow="1">
-      {regions.emoji} {regions.name}
-    </Button>
-  )}
-</Collection>
+```tsx file=./examples/SearchCollectionExample.tsx
+
 ```
 
-<Example>
-  <Collection
-    type="grid"
-    templateColumns="1fr 1fr 1fr"
-    gap="15px"
-    items={Object.values(countries).map(({ name, emoji }) => ({ name, emoji }))}
-    isSearchable
-    isPaginated
-    itemsPerPage={9}
-    searchPlaceholder="Type to search..."
-    searchFilter={(regions, keyword) =>
-      regions.name.toLowerCase().startsWith(keyword.toLowerCase())
-    }
-  >
-    {(regions) => (
-      <Button grow="1">
-        {regions.emoji} {regions.name}
-      </Button>
-    )}
-  </Collection>
+  </ExampleCode>
 </Example>
 
-## CSS Styling
+## Customization
 
 ### Target classes
 
 <ComponentStyleDisplay componentName="Collection" />
+
+### Theme
+
+<ThemeAlert />
+
+You can customize the appearance of all Collections in your application with a [Theme](/theming).
+
+<Example>
+  <CollectionThemeExample />
+  
+<ExampleCode>
+
+```jsx file=./examples/CollectionThemeExample.tsx
+
+```
+
+</ExampleCode>
+</Example>
+
+### Global Styling
+
+To override the styling on all Collections you can use the built in `.amplify-collection` class.
+
+<Example>
+<StylingCollectionExample />
+<ExampleCode>
+
+```css
+.amplify-collection {
+  --amplify-components-collection-pagination-current-color: var(
+    --amplify-colors-brand-secondary-20
+  );
+  --amplify-components-collection-pagination-current-background-color: var(
+    --amplify-colors-teal-80
+  );
+}
+```
+
+</ExampleCode>
+</Example>
+
+### Local Styling
+
+To override styling on a specific Collection, you can use a class selector or style props.
+
+_Using a class selector:_
+
+<Example>
+  <LocalCollectionClassExample />
+  <ExampleCode>
+
+```tsx file=./examples/LocalCollectionClassExample.tsx
+
+```
+
+  </ExampleCode>
+  <ExampleCode>
+
+```css
+.collection-local-styling-example {
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 5px;
+}
+
+.collection-local-styling-example .amplify-collection-items {
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.collection-local-styling-example .amplify-button {
+  background-color: var(--amplify-colors-neutral-60);
+}
+```
+
+  </ExampleCode>
+</Example>
+
+_Using style props:_
+
+<Example>
+  <CollectionStylePropExample />
+  <ExampleCode>
+
+```tsx file=./examples/CollectionStylePropExample.tsx
+
+```
+
+  </ExampleCode>
+</Example>

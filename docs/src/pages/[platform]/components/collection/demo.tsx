@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {
   Card,
-  Text,
   View,
   Image,
   Badge,
@@ -11,46 +10,55 @@ import {
   Heading,
   Collection,
   FlexContainerStyleProps,
+  useTheme,
 } from '@aws-amplify/ui-react';
 
-import { Example } from '@/components/Example';
-import { GetFieldControls } from '../shared/GetFieldControls';
-import { useFlexContainerStyleProps } from '../shared/useFlexContainerStyleProps';
+import { Demo } from '@/components/Demo';
+import { demoState } from '@/utils/demoState';
+import { CollectionPropControls } from './CollectionPropControls';
+import { useCollectionProps } from './useCollectionProps';
+import {
+  filterDemoProps,
+  getDemoProps,
+  objectEntriesToPropString,
+} from '../utils/demoProps';
+
+const propsToCode = (props) => {
+  const filteredProps = filterDemoProps(props);
+  return `
+<Collection
+  type='list'
+${objectEntriesToPropString(Object.entries(filteredProps))}
+>
+  {collectionItems}
+</Collection>`;
+};
 
 export const CollectionDemo = () => {
-  const flexStyleProps = useFlexContainerStyleProps({
-    alignItems: 'normal',
-    alignContent: 'start',
+  const defaultValues = {
     direction: 'row',
     gap: '20px',
-    justifyContent: 'space-between',
     wrap: 'nowrap',
-  });
-  const PropControls = GetFieldControls({
-    typeName: 'Collection List (Flex)',
-    fields: flexStyleProps,
-  });
-  const [
-    [alignItems],
-    [alignContent],
-    [direction],
-    [gap],
-    [justifyContent],
-    [wrap],
-  ] = flexStyleProps;
+  };
+
+  const { tokens } = useTheme();
+
+  const collectionProps = useCollectionProps(
+    demoState.get(Collection.displayName) || defaultValues
+  );
+  const demoProps = ['alignContent', 'alignItems', 'direction', 'gap', 'wrap'];
+  const collectionDemoProps = getDemoProps(collectionProps, demoProps);
 
   const list = [
     {
-      title: 'Milford Sound - Room #1',
+      title: 'Milford - Room #1',
       imageSrc: '/road-to-milford-new-zealand-800w.jpg',
       imageAlt:
         'Glittering stream with old log, snowy mountain peaks tower over a green field.',
-      description:
-        'Join us on this beautiful outdoor adventure through the glittering rivers through the snowy peaks on New Zealand.',
       badges: [
         {
           color: 'lightblue',
-          text: 'Waterfront View',
+          text: 'Waterfront',
         },
         {
           color: 'lightgreen',
@@ -59,16 +67,14 @@ export const CollectionDemo = () => {
       ],
     },
     {
-      title: 'Milford Sound - Room #2',
+      title: 'Milford - Room #2',
       imageSrc: '/road-to-milford-new-zealand-800w.jpg',
       imageAlt:
         'Glittering stream with old log, snowy mountain peaks tower over a green field.',
-      description:
-        'Join us on this beautiful outdoor adventure through the glittering rivers through the snowy peaks on New Zealand.',
       badges: [
         {
-          color: 'lightyellow',
-          text: 'Mountain View',
+          color: tokens.colors.yellow[60].value,
+          text: 'Mountain',
         },
         {
           color: 'lightgreen',
@@ -79,26 +85,32 @@ export const CollectionDemo = () => {
   ];
 
   return (
-    <View width="100%">
-      {PropControls}
-      <Divider margin="0.5rem 0.5rem" />
-      <Example>
+    <Demo
+      code={propsToCode(collectionDemoProps)}
+      propControls={<CollectionPropControls {...collectionProps} />}
+    >
+      <View
+        backgroundColor={tokens.colors.background.secondary}
+        padding={tokens.space.medium}
+      >
         <Collection
           items={list}
           type="list"
-          alignContent={alignContent as FlexContainerStyleProps['alignContent']}
-          alignItems={alignItems as FlexContainerStyleProps['alignItems']}
-          direction={direction as FlexContainerStyleProps['direction']}
-          gap={gap as FlexContainerStyleProps['gap']}
-          justifyContent={
-            justifyContent as FlexContainerStyleProps['justifyContent']
+          direction={
+            collectionProps.direction as FlexContainerStyleProps['direction']
           }
-          wrap={wrap as FlexContainerStyleProps['wrap']}
+          gap={collectionProps.gap as FlexContainerStyleProps['gap']}
+          wrap={collectionProps.wrap as FlexContainerStyleProps['wrap']}
         >
           {(item, index) => (
-            <Card key={index}>
+            <Card
+              key={index}
+              maxWidth="20rem"
+              variation="outlined"
+              borderRadius="5px"
+            >
               <Image src={item.imageSrc} alt={item.imageAlt} />
-              <View padding="1rem">
+              <View padding={tokens.space.xs}>
                 <Flex>
                   {item.badges.map((badge) => (
                     <Badge key={badge.text} backgroundColor={badge.color}>
@@ -106,15 +118,18 @@ export const CollectionDemo = () => {
                     </Badge>
                   ))}
                 </Flex>
-                <Divider padding="1rem 0 0 0" />
-                <Heading level={3}>{item.title}</Heading>
-                <Text padding="0 0 1rem 0">{item.description}</Text>
-                <Button isFullWidth={true}>Book it</Button>
+                <Divider padding={`${tokens.space.xxxs} 0`} />
+                <Heading level={6} padding={tokens.space.xxxs}>
+                  {item.title}
+                </Heading>
+                <Button isFullWidth={true} variation="primary">
+                  Book it
+                </Button>
               </View>
             </Card>
           )}
         </Collection>
-      </Example>
-    </View>
+      </View>
+    </Demo>
   );
 };
