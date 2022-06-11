@@ -130,7 +130,7 @@ function getCatalogComponentProperty(
       const text = tag?.getText().map((el) => el.text);
       return `${name === 'description' ? '' : `${name}: `}${text}`;
     })
-    .join('');
+    .join(' ');
   const category = capitalizeString(
     getCategory(name, componentName)
   ) as Category;
