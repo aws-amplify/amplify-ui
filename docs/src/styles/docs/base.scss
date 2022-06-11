@@ -164,13 +164,26 @@ h2[id] {
 }
 
 h2[id] > a,
-h3[id] > a {
+h3[id] > a,
+h4[id] > a {
   position: absolute;
   left: -1.75rem;
   text-decoration: none;
 
   &:hover {
     text-decoration: none;
+  }
+}
+
+h4[id] {
+  position: relative;
+  scroll-margin-block-start: 6rem;
+  > a {
+    left: -1rem;
+    top: -.1rem;
+    .icon-link {
+      font-size: 1.2em;
+    }
   }
 }
 
@@ -186,7 +199,8 @@ h3[id] > a {
 }
 
 h2:hover > a .icon-link,
-h3:hover > a .icon-link {
+h3:hover > a .icon-link,
+h4:hover>  a .icon-link {
   opacity: 1;
 }
 

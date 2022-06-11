@@ -13,10 +13,11 @@ interface PropsInterface {
   name: string;
   label: string;
   autocomplete: string;
-  ariainvalid: boolean;
+  hasError: boolean;
   labelHidden?: boolean;
   placeholder?: string | null;
   required?: boolean;
+  describedBy?: string;
 }
 
 const props = withDefaults(defineProps<PropsInterface>(), {
@@ -28,7 +29,7 @@ const {
   name,
   label,
   autocomplete,
-  ariainvalid,
+  hasError,
   labelHidden,
   placeholder,
   required,
@@ -53,10 +54,7 @@ export default {
 
 <template>
   <base-wrapper
-    class="
-      amplify-flex amplify-field amplify-textfield amplify-passwordfield
-      amplify-authenticator__column
-    "
+    class="amplify-flex amplify-field amplify-textfield amplify-passwordfield amplify-authenticator__column"
   >
     <base-label
       class="amplify-label"
@@ -70,7 +68,6 @@ export default {
         v-bind="$attrs"
         v-model="password"
         class="amplify-input amplify-field-group__control"
-        :aria-invalid="ariainvalid"
         :id="'amplify-field-' + random"
         data-amplify-password="true"
         :name="name"
@@ -78,16 +75,13 @@ export default {
         :required="required ?? true"
         :placeholder="placeholderValue"
         :type="showHideType"
+        :aria-invalid="hasError"
+        :aria-describedBy="describedBy"
       />
       <base-wrapper class="amplify-field-group__outer-end">
         <button
           :aria-label="showHideLabel"
-          class="
-            amplify-button
-            amplify-field-group__control
-            amplify-field__show-password
-            amplify-button--fullwidth
-          "
+          class="amplify-button amplify-field-group__control amplify-field__show-password amplify-button--fullwidth"
           data-fullwidth="false"
           type="button"
           @click="togglePasswordText"
