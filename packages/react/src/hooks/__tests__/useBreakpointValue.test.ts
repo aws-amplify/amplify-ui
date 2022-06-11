@@ -57,7 +57,7 @@ describe('useBreakpoint', () => {
       const { result } = renderHook(() => useBreakpointValue(breakpoints));
       const breakpointValue = result;
 
-      expect(breakpointValue.current).toBe(`${breakpoint}Value`);
+      expect(breakpointValue.current).toBe(`${String(breakpoint)}Value`);
     }
   );
 
@@ -68,7 +68,18 @@ describe('useBreakpoint', () => {
       const { result } = renderHook(() => useBreakpointValue(breakpoints));
       const breakpointValue = result;
 
-      expect(breakpointValue.current).toBe(`${breakpoint}Value`);
+      expect(breakpointValue.current).toBe(`${String(breakpoint)}Value`);
     }
   );
+
+  test('handles an object with boolean values as a breakpoints argument', () => {
+    const { result } = renderHook(() =>
+      useBreakpointValue({
+        base: false,
+        medium: true,
+      })
+    );
+
+    expect(result.current).toBe(true);
+  });
 });
