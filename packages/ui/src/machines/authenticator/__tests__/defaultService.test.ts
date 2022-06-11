@@ -24,10 +24,11 @@ const lenientPasswordPolicy: PasswordSettings = {
 describe('validateFormPassword', () => {
   it('happy case with valid password and strict password policy', async () => {
     const password = 'UnitTest_Password1';
-    const result = await validateFormPassword({ password }, touched, {
-      passwordPolicyCharacters: ['REQUIRES_SYMBOLS'],
-      passwordPolicyMinLength: 1,
-    });
+    const result = await validateFormPassword(
+      { password },
+      touched,
+      strictPasswordPolicy
+    );
     expect(result).toBe(null);
   });
 
