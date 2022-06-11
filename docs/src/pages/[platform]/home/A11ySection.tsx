@@ -3,7 +3,7 @@ import { Heading, Link, Text, useTheme, View } from '@aws-amplify/ui-react';
 import { IoAccessibility } from 'react-icons/io5';
 
 import { HomeCTA } from 'src/pages/[platform]/home/HomeCTA';
-import { useIntersectionObserver } from '@/utils/useIntersection';
+import { useIntersectionObserver } from 'src/hooks/useIntersection';
 
 export const A11ySection = ({ platform }) => {
   const { tokens } = useTheme();

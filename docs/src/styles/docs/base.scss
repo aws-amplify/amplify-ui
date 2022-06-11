@@ -219,22 +219,16 @@ h4:hover>  a .icon-link {
   /* custom vars */
   --docs-header-height: 4rem;
   --docs-gradient-color-rgb: 255, 255, 255;
-  --docs-gradient-color-hsl: 210, 0%, 100%;
-  --docs-callout-bg: var(--amplify-colors-brand-primary-10);
 }
 
 [data-amplify-theme='amplify-docs'][data-amplify-color-mode='dark'] {
   --docs-gradient-color-rgb: 0, 0, 0;
-  --docs-gradient-color-hsl: 210, 50%, 10%;
-  --docs-callout-bg: var(--amplify-colors-background-secondary);
 }
 
 @media (prefers-color-scheme: dark) {
   [data-amplify-theme='amplify-docs'],
   [data-amplify-theme='amplify-docs'][data-amplify-color-mode="system"] {
     --docs-gradient-color-rgb: 0, 0, 0;
-    --docs-gradient-color-hsl: 210, 50%, 10%;
-    --docs-callout-bg: var(--amplify-colors-background-secondary);
   }
 }
 

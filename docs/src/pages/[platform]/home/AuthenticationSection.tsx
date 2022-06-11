@@ -12,7 +12,7 @@ import {
 import { HomeCode } from 'src/pages/[platform]/home/HomeCode';
 import { HomeCTA } from 'src/pages/[platform]/home/HomeCTA';
 import { HomeCodeHighlight } from '@/components/CodeHighlight';
-import { useIntersectionObserver } from '@/utils/useIntersection';
+import { useIntersectionObserver } from 'src/hooks/useIntersection';
 
 // TODO: grab this code from actual examples so we don't need to keep these in sync
 const authenticatorCode = {

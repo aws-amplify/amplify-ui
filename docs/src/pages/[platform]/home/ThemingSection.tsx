@@ -6,7 +6,7 @@ import { useIntersectionObserver } from '@/utils/useIntersection';
 
 export const ThemingSection = ({ colorMode, platform }) => {
   const { tokens } = useTheme();
-  const ref = React.useRef<HTMLDivElement | null>(null);
+  const ref = React.useRef < HTMLDivElementsrc / hooks / useIntersection;
   const entry = useIntersectionObserver(ref, {
     threshold: 0.125,
     freezeOnceVisible: true,

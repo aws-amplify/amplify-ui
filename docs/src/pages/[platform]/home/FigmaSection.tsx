@@ -16,7 +16,7 @@ import {
   useTheme,
   View,
 } from '@aws-amplify/ui-react';
-import { useIntersectionObserver } from '@/utils/useIntersection';
+import { useIntersectionObserver } from 'src/hooks/useIntersection';
 
 const StudioCard = () => {
   const { tokens } = useTheme();
