@@ -12,7 +12,7 @@ import {
   RadiusBlock,
 } from './TokenBlocks';
 
-type Namespaces =
+type Namespace =
   | 'colors'
   | 'radii'
   | 'space'
@@ -23,13 +23,13 @@ type Namespaces =
   | 'fontWeights';
 
 type TokenItemProps = {
-  variation: Namespaces;
+  namespace: Namespace;
   children: React.ReactNode;
 };
 
-export function TokenItem({ variation, children }: TokenItemProps) {
+export function TokenItem({ namespace, children }: TokenItemProps) {
   return (
-    <li className={`docs-tokenItem docs-tokenItem--${variation}`}>
+    <li className={`docs-tokenItem docs-tokenItem--${namespace}`}>
       {children}
     </li>
   );
@@ -72,7 +72,7 @@ export function TokenMeta({ children }: TokenMetaProps) {
 }
 
 type TokenListProps = {
-  namespace: Namespaces;
+  namespace: Namespace;
   // TODO: better type for childNamespace? This should be children
   // of whatever namespace you chose. e.g. namespace: 'colors', childNamespace: 'brand,primary'
   childNamespace?: Array<string>;
@@ -131,7 +131,7 @@ export function TokenList({ namespace, childNamespace }: TokenListProps) {
         path.shift();
 
         return (
-          <TokenItem variation={namespace} key={name}>
+          <TokenItem namespace={namespace} key={name}>
             {renderVisualElement(value)}
             <TokenPath path={path} />
             <TokenMeta>{value}</TokenMeta>
