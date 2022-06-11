@@ -9,15 +9,20 @@ import {
   View,
 } from '@aws-amplify/ui-react';
 import { SiTypescript } from 'react-icons/si';
+import { FiLifeBuoy, FiZapOff } from 'react-icons/fi';
 
-import { HomeCTA } from '@/components/Home/HomeCTA';
+import { HomeCTA } from 'src/pages/[platform]/home/HomeCTA';
 
 const CompatibleCard = ({ title, description, Icon }) => {
   const { tokens } = useTheme();
 
   return (
     <Flex direction="column" flex="1" padding={tokens.space.large}>
-      <Icon as={AmpIcon} />
+      <Icon
+        as={AmpIcon}
+        fontSize={tokens.fontSizes.xl}
+        color={tokens.colors.brand.secondary[40]}
+      />
       <Text
         fontWeight={tokens.fontWeights.semibold}
         fontSize={tokens.fontSizes.large}
@@ -45,12 +50,12 @@ export const CompatibleSection = ({ platform }) => {
         }}
       >
         <CompatibleCard
-          Icon={SiTypescript}
+          Icon={FiLifeBuoy}
           title="Escape hatches"
           description="Connected components like the Authenticator have headless, or UI-less, implementations that handle complex state management and leave the UI up to you."
         />
         <CompatibleCard
-          Icon={SiTypescript}
+          Icon={FiZapOff}
           title="Styling optional"
           description="Don't like our style? Throw it out and use your own! Amplify UI components use plain CSS so you have complete control over the styling."
         />

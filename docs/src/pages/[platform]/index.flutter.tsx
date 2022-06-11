@@ -13,9 +13,9 @@ import {
 } from '@aws-amplify/ui-react';
 
 import { useCustomRouter } from '@/components/useCustomRouter';
-import { A11ySection } from './A11ySection';
-import { AuthenticationSection } from './AuthenticationSection';
-import { ThemingSection } from './ThemingSection';
+import { A11ySection } from './home/A11ySection';
+import { AuthenticationSection } from './home/AuthenticationSection';
+import { ThemingSection } from './home/ThemingSection';
 
 const FlutterHomePage = ({ colorMode }) => {
   const {

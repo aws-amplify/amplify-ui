@@ -1,9 +1,6 @@
-import NextLink from 'next/link';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
-import Highlight, { defaultProps, Language } from 'prism-react-renderer';
+import * as React from 'react';
 
 import {
-  Button,
   Flex,
   Heading,
   Text,
@@ -11,11 +8,11 @@ import {
   useTheme,
   View,
   Authenticator,
-  Card,
 } from '@aws-amplify/ui-react';
-import { HomeCode } from '@/components/Home/HomeCode';
-import { HomeCTA } from '@/components/Home/HomeCTA';
-import { HomeCodeHighlight } from '@/components/Home/CodeHighlight';
+import { HomeCode } from 'src/pages/[platform]/home/HomeCode';
+import { HomeCTA } from 'src/pages/[platform]/home/HomeCTA';
+import { HomeCodeHighlight } from '@/components/CodeHighlight';
+import { useIntersectionObserver } from '@/utils/useIntersection';
 
 // TODO: grab this code from actual examples so we don't need to keep these in sync
 const authenticatorCode = {
@@ -127,48 +124,52 @@ const languages = {
 
 export const AuthenticationSection = ({ platform }) => {
   const { tokens } = useTheme();
-  const { colors } = tokens;
+
+  const ref = React.useRef<HTMLDivElement | null>(null);
+  const entry = useIntersectionObserver(ref, {
+    threshold: 0.125,
+    freezeOnceVisible: true,
+  });
+  const isVisible = !!entry?.isIntersecting;
 
   return (
-    <>
-      <View as="section" className="docs-home-section">
-        <View className="docs-home-container">
-          <Heading level={2} textAlign="center">
-            <strong>Authentication</strong> made easy
-          </Heading>
-          <Text className="docs-home-description">
-            Add authentication to your app in under 10 lines of code using the
-            Authenticator component. The Authenticator works seamlessly with the{' '}
-            <Link href="https://docs.amplify.aws/cli/start/install/">
-              Amplify CLI
-            </Link>{' '}
-            to <strong>automatically</strong> work with your backend, no extra
-            configuration needed! Customize every detail of the authentication
-            flow with themes, overrides, or bring your own UI with a headless
-            mode.
-          </Text>
-        </View>
-
-        <Flex
-          direction="row"
-          padding={tokens.space.xxl}
-          className="docs-grid-bg"
+    <View ref={ref} as="section" className="docs-home-section">
+      <View className="docs-home-container">
+        <Heading
+          level={2}
+          textAlign="center"
+          className={`fade-in ${isVisible ? 'shown' : ''}`}
         >
-          <HomeCode>
-            <HomeCodeHighlight
-              code={authenticatorCode[platform]}
-              language={languages[platform]}
-              withLines={true}
-            />
-          </HomeCode>
-          <View flex="1">
-            <Authenticator></Authenticator>
-          </View>
-        </Flex>
-        <HomeCTA href={`/${platform}/components/authenticator`}>
-          Get started with the Authenticator
-        </HomeCTA>
+          <strong>Authentication</strong> made easy
+        </Heading>
+        <Text className="docs-home-description">
+          Add authentication to your app in under 10 lines of code using the
+          Authenticator component. The Authenticator works seamlessly with the{' '}
+          <Link href="https://docs.amplify.aws/cli/start/install/">
+            Amplify CLI
+          </Link>{' '}
+          to <strong>automatically</strong> work with your backend, no extra
+          configuration needed! Customize every detail of the authentication
+          flow with themes, overrides, or bring your own UI with a headless
+          mode.
+        </Text>
       </View>
-    </>
+
+      <Flex direction="row" padding={tokens.space.xxl} className="docs-grid-bg">
+        <HomeCode>
+          <HomeCodeHighlight
+            code={authenticatorCode[platform]}
+            language={languages[platform]}
+            withLines={true}
+          />
+        </HomeCode>
+        <View flex="1">
+          <Authenticator></Authenticator>
+        </View>
+      </Flex>
+      <HomeCTA href={`/${platform}/components/authenticator`}>
+        Get started with the Authenticator
+      </HomeCTA>
+    </View>
   );
 };

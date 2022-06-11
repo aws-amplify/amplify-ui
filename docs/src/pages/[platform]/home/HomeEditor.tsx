@@ -8,7 +8,7 @@ import {
 } from 'react-live';
 import * as AUI from '@aws-amplify/ui-react';
 import { Badge, Card } from '@aws-amplify/ui-react';
-import { HomeCode } from '@/components/Home/HomeCode';
+import { HomeCode } from 'src/pages/[platform]/home/HomeCode';
 
 const { Flex, View, Alert } = AUI;
 

@@ -35,7 +35,7 @@ import { CgTerminal, CgLinear, CgCopyright } from 'react-icons/cg';
 import themePreval from './themes/index.preval';
 import { useCustomRouter } from '@/components/useCustomRouter';
 import { HomeCode } from './HomeCode';
-import { HomeCodeHighlight } from './CodeHighlight';
+import { HomeCodeHighlight } from '../../../components/CodeHighlight';
 
 const colorKeys = [10, 20, 40, 60, 80, 90, 100];
 const scale = ['primary', 'secondary', 'tertiary', 'success', 'info', 'error'];

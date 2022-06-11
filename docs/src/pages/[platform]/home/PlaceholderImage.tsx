@@ -1,5 +1,5 @@
 import { Flex, useTheme } from '@aws-amplify/ui-react';
-import { AmplifyIcon } from './AmplifyIcon';
+import { AmplifyIcon } from '../../../components/AmplifyIcon';
 
 export const PlaceholderImage = (props) => {
   const { tokens } = useTheme();

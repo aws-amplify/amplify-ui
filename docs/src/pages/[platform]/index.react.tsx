@@ -1,12 +1,12 @@
 import * as React from 'react';
 
 import { useCustomRouter } from '@/components/useCustomRouter';
-import { A11ySection } from './A11ySection';
-import { FigmaSection } from './FigmaSection';
-import { AuthenticationSection } from './AuthenticationSection';
-import { ThemingSection } from './ThemingSection';
-import { CompatibleSection } from './CompatibleSection';
-import { PrimitiveSection } from './PrimitiveSection';
+import { A11ySection } from './home/A11ySection';
+import { FigmaSection } from './home/FigmaSection';
+import { AuthenticationSection } from './home/AuthenticationSection';
+import { ThemingSection } from './home/ThemingSection';
+import { CompatibleSection } from './home/CompatibleSection';
+import { PrimitiveSection } from './home/PrimitiveSection';
 
 const ReactHomePage = ({ colorMode }) => {
   const {

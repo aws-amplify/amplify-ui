@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import { Footer } from '@/components/Layout/Footer';
 import { useCustomRouter } from '@/components/useCustomRouter';
-import { AmplifySection } from './AmplifySection';
-import { HeroSection } from './HeroSection';
+import { AmplifySection } from './home/AmplifySection';
+import { HeroSection } from './home/HeroSection';
 import ReactHomePage from './index.react';
 import VueHomePage from './index.vue';
 import AngularHomePage from './index.angular';

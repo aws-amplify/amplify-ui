@@ -1,6 +1,7 @@
-import { HomeCodeHighlight } from '@/components/Home/CodeHighlight';
-import { DataIcon } from '@/components/Home/DataIcon';
-import { HomeCTA } from '@/components/Home/HomeCTA';
+import * as React from 'react';
+import { HomeCodeHighlight } from '@/components/CodeHighlight';
+import { DataIcon } from '@/components/DataIcon';
+import { HomeCTA } from 'src/pages/[platform]/home/HomeCTA';
 import { AmplifyIcon } from '@/components/Logo';
 import {
   Button,
@@ -15,6 +16,7 @@ import {
   useTheme,
   View,
 } from '@aws-amplify/ui-react';
+import { useIntersectionObserver } from '@/utils/useIntersection';
 
 const StudioCard = () => {
   const { tokens } = useTheme();
@@ -67,8 +69,14 @@ const StudioCard = () => {
   );
 };
 
-export const FigmaSection = () => {
+export const FigmaSection = (props) => {
   const { tokens } = useTheme();
+  const ref = React.useRef<HTMLDivElement | null>(null);
+  const entry = useIntersectionObserver(ref, {
+    threshold: 0.25,
+    freezeOnceVisible: true,
+  });
+  const isVisible = !!entry?.isIntersecting;
 
   return (
     <Flex
@@ -76,8 +84,13 @@ export const FigmaSection = () => {
       gap={tokens.space.large}
       as="section"
       className="docs-home-section docs-burst-bg"
+      ref={ref}
     >
-      <Heading level={2} textAlign="center">
+      <Heading
+        level={2}
+        textAlign="center"
+        className={`fade-in ${isVisible ? 'shown' : ''}`}
+      >
         Build UI <strong>visually</strong> in Figma
       </Heading>
       <Flex

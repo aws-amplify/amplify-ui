@@ -1,19 +1,24 @@
-import { HomeCTA } from '@/components/Home/HomeCTA';
-import {
-  Flex,
-  Heading,
-  Link,
-  Text,
-  useTheme,
-  View,
-} from '@aws-amplify/ui-react';
+import * as React from 'react';
+import { Heading, Link, Text, useTheme, View } from '@aws-amplify/ui-react';
+import { IoAccessibility } from 'react-icons/io5';
+
+import { HomeCTA } from 'src/pages/[platform]/home/HomeCTA';
+import { useIntersectionObserver } from '@/utils/useIntersection';
 
 export const A11ySection = ({ platform }) => {
   const { tokens } = useTheme();
+  const ref = React.useRef<HTMLDivElement | null>(null);
+  const entry = useIntersectionObserver(ref, {
+    threshold: 0.125,
+    freezeOnceVisible: true,
+  });
+  const isVisible = !!entry?.isIntersecting;
 
   return (
-    <View as="section" className="docs-home-section">
-      <View className="docs-home-container">
+    <View ref={ref} as="section" className="docs-home-section">
+      <View
+        className={`docs-home-container fade-in ${isVisible ? 'shown' : ''}`}
+      >
         <Heading level={2} textAlign="center">
           <strong>Accessibility</strong> built-in
         </Heading>
@@ -33,7 +38,8 @@ export const A11ySection = ({ platform }) => {
           navigation, accessible labels, and focus management.
         </Text>
         <HomeCTA href={`${platform}/getting-started/accessibility`}>
-          View our accessibility guidelines
+          <span>View our accessibility guidelines</span>
+          <IoAccessibility />
         </HomeCTA>
       </View>
     </View>
