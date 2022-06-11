@@ -25,8 +25,8 @@ const VueHomePage = ({ colorMode }) => {
   return (
     <>
       <AuthenticationSection platform={platform} />
-      <ThemingSection colorMode={colorMode} />
-      <A11ySection />
+      <ThemingSection platform={platform} colorMode={colorMode} />
+      <A11ySection platform={platform} />
     </>
   );
 };

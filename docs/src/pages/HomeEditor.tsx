@@ -7,7 +7,7 @@ import {
   ContextProps,
 } from 'react-live';
 import * as AUI from '@aws-amplify/ui-react';
-import { Card } from '@aws-amplify/ui-react';
+import { Badge, Card } from '@aws-amplify/ui-react';
 import { HomeCode } from '@/components/Home/HomeCode';
 
 const { Flex, View, Alert } = AUI;
@@ -17,8 +17,8 @@ const code = `() => {
   return (
     <Card variation="elevated">
       <Flex direction="row" alignItems="flex-start">
-        <Image src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=930&q=80"
-          alt="Grey chair" width="8rem"/>
+        <Image src="/amplify-logo.svg"
+          alt="Amplify" width="8rem"/>
         <Flex direction="column" gap={tokens.space.xs}>
           <Flex direction="row">
             <Badge variation="success">New</Badge>
@@ -77,7 +77,12 @@ const HomeEditor = () => {
         }}
         gap="0"
       >
-        <HomeCode>
+        <HomeCode className="with-lines" data-editable>
+          <Alert
+            className="docs-home-editor-badge"
+            variation="info"
+            heading="Try it out! 👇"
+          ></Alert>
           <LiveEditor />
         </HomeCode>
         <View flex="1" className="docs-home-preview">

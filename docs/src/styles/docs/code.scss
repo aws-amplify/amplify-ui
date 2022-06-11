@@ -4,12 +4,12 @@
  */
 
 code.prism-code {
-  font-size: 1rem;
+  font-size: inherit;
 }
  
 code[class*='language-'],
 pre[class*='language-'] {
-  background: var(--amplify-colors-background-primary);
+  background: var(--amplify-colors-background-secondary);
   color: var(--amplify-colors-font-secondary);
   padding: 0;
 }

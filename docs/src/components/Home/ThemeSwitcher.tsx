@@ -34,6 +34,8 @@ import { CgTerminal, CgLinear, CgCopyright } from 'react-icons/cg';
 
 import themePreval from './themes/index.preval';
 import { useCustomRouter } from '@/components/useCustomRouter';
+import { HomeCode } from './HomeCode';
+import { HomeCodeHighlight } from './CodeHighlight';
 
 const colorKeys = [10, 20, 40, 60, 80, 90, 100];
 const scale = ['primary', 'secondary', 'tertiary', 'success', 'info', 'error'];
@@ -247,7 +249,12 @@ export const ThemeSwitcher = ({ colorMode }) => {
   };
 
   return (
-    <Flex direction="column" alignItems="center">
+    <Flex
+      direction="column"
+      alignItems="center"
+      gap={tokens.space.large}
+      padding={tokens.space.xl}
+    >
       <ToggleButtonGroup
         value={theme}
         isExclusive
@@ -282,13 +289,7 @@ export const ThemeSwitcher = ({ colorMode }) => {
       </ToggleButtonGroup>
       <Flex direction="row" width="100%">
         {hideOnMobile ? (
-          <Card
-            flex="1"
-            columnStart="2"
-            columnEnd="-1"
-            position="relative"
-            className="docs-home-code-card"
-          >
+          <HomeCode flex="1" columnStart="2" columnEnd="-1" position="relative">
             {/* <CopyToClipboard text={themePreval[theme].string} onCopy={copy}>
             <Button
               size="small"
@@ -298,55 +299,16 @@ export const ThemeSwitcher = ({ colorMode }) => {
               {copied ? 'Copied!' : 'Copy'}
             </Button>
           </CopyToClipboard> */}
-
-            <View position="relative" height="100%">
-              <Highlight
-                Prism={defaultProps.Prism}
-                code={
-                  platform === 'react'
-                    ? themePreval[theme].string
-                    : themePreval[theme].css
-                }
-                language={platform === 'react' ? 'jsx' : 'css'}
-              >
-                {({
-                  className,
-                  style,
-                  tokens,
-                  getLineProps,
-                  getTokenProps,
-                }) => (
-                  <pre
-                    className={className}
-                    style={{
-                      ...style,
-                      position: 'absolute',
-                      top: '0',
-                      right: 0,
-                      left: 0,
-                      bottom: 0,
-                      maxHeight: '100%',
-                      height: '100%',
-                      overflowY: 'auto',
-                    }}
-                  >
-                    <code className={className}>
-                      {tokens.map((line, i) => (
-                        <div key={i} {...getLineProps({ line, key: i })}>
-                          {line.map((token, key) => (
-                            <span
-                              key={key}
-                              {...getTokenProps({ token, key })}
-                            />
-                          ))}
-                        </div>
-                      ))}
-                    </code>
-                  </pre>
-                )}
-              </Highlight>
-            </View>
-          </Card>
+            <HomeCodeHighlight
+              withLines
+              code={
+                platform === 'react'
+                  ? themePreval[theme].string
+                  : themePreval[theme].css
+              }
+              language={platform === 'react' ? 'jsx' : 'css'}
+            />
+          </HomeCode>
         ) : null}
         <View flex="1" minWidth="50%">
           <ThemeProvider theme={themePreval[theme].code} colorMode={colorMode}>
@@ -354,11 +316,6 @@ export const ThemeSwitcher = ({ colorMode }) => {
           </ThemeProvider>
         </View>
       </Flex>
-      <Link href={`${platform}/theming`} passHref>
-        <Button size="large" as="a">
-          Learn more about theming
-        </Button>
-      </Link>
     </Flex>
   );
 };

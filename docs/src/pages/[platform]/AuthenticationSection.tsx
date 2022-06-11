@@ -14,6 +14,8 @@ import {
   Card,
 } from '@aws-amplify/ui-react';
 import { HomeCode } from '@/components/Home/HomeCode';
+import { HomeCTA } from '@/components/Home/HomeCTA';
+import { HomeCodeHighlight } from '@/components/Home/CodeHighlight';
 
 // TODO: grab this code from actual examples so we don't need to keep these in sync
 const authenticatorCode = {
@@ -130,70 +132,42 @@ export const AuthenticationSection = ({ platform }) => {
   return (
     <>
       <View as="section" className="docs-home-section">
-        <Flex className="container" justifyContent="center">
-          <View maxWidth="60rem">
-            <Heading level={2}>Authentication made easy</Heading>
-            <Text className="docs-home-description">
-              Add authentication to your app in under 10 lines of code using the
-              Authenticator component. The Authenticator works seamlessly with
-              the{' '}
-              <Link href="https://docs.amplify.aws/cli/start/install/">
-                Amplify CLI
-              </Link>{' '}
-              to <strong>automatically</strong> work with your backend, no extra
-              configuration needed! Customize every detail of the authentication
-              flow with themes, overrides, or bring your own UI with a headless
-              mode.
-            </Text>
+        <View className="docs-home-container">
+          <Heading level={2} textAlign="center">
+            <strong>Authentication</strong> made easy
+          </Heading>
+          <Text className="docs-home-description">
+            Add authentication to your app in under 10 lines of code using the
+            Authenticator component. The Authenticator works seamlessly with the{' '}
+            <Link href="https://docs.amplify.aws/cli/start/install/">
+              Amplify CLI
+            </Link>{' '}
+            to <strong>automatically</strong> work with your backend, no extra
+            configuration needed! Customize every detail of the authentication
+            flow with themes, overrides, or bring your own UI with a headless
+            mode.
+          </Text>
+        </View>
+
+        <Flex
+          direction="row"
+          padding={tokens.space.xxl}
+          className="docs-grid-bg"
+        >
+          <HomeCode>
+            <HomeCodeHighlight
+              code={authenticatorCode[platform]}
+              language={languages[platform]}
+              withLines={true}
+            />
+          </HomeCode>
+          <View flex="1">
+            <Authenticator></Authenticator>
           </View>
         </Flex>
-      </View>
-      <Flex direction="row" padding={tokens.space.xxl} className="docs-grid-bg">
-        <HomeCode>
-          <Highlight
-            Prism={defaultProps.Prism}
-            code={authenticatorCode[platform]}
-            language={languages[platform] as Language}
-          >
-            {({ className, style, tokens, getLineProps, getTokenProps }) => (
-              <View
-                as="pre"
-                className={className}
-                backgroundColor={colors.background.primary}
-              >
-                <View
-                  as="code"
-                  className={className}
-                  backgroundColor={colors.background.primary}
-                >
-                  {tokens.map((line, i) => (
-                    <div
-                      className="code-line"
-                      key={i}
-                      {...getLineProps({ line, key: i })}
-                    >
-                      {line.map((token, key) => (
-                        <span key={key} {...getTokenProps({ token, key })} />
-                      ))}
-                    </div>
-                  ))}
-                </View>
-              </View>
-            )}
-          </Highlight>
-        </HomeCode>
-        <View flex="1">
-          <Authenticator></Authenticator>
-        </View>
-      </Flex>
-      <View as="section" className="docs-home-section">
-        <Flex justifyContent="center">
-          <NextLink href={`/${platform}/components/authenticator`} passHref>
-            <Button as="a" size="large">
-              Get started with the Authenticator
-            </Button>
-          </NextLink>
-        </Flex>
+        <HomeCTA href={`/${platform}/components/authenticator`}>
+          Get started with the Authenticator
+        </HomeCTA>
       </View>
     </>
   );

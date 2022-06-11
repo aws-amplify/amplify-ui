@@ -33,7 +33,7 @@ export const HeroSection = () => {
       <Flex className="container" justifyContent="center" textAlign="center">
         <Flex direction="column" maxWidth="60rem" alignItems="center">
           <Heading level={1} className="docs-home-h1">
-            Build UI faster
+            Build UI <strong>faster</strong>
           </Heading>
           <Text
             fontSize={{
