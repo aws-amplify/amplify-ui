@@ -1,3 +1,3 @@
-export { Colors } from './Colors';
-export { Typography } from './Typography';
-export { Sizes } from './Sizes';
+export { ColorsIcon } from './ColorsIcon';
+export { TypographyIcon } from './TypographyIcon';
+export { SizesIcon } from './SizesIcon';

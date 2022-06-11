@@ -1,6 +1,6 @@
 import { Icon } from '@aws-amplify/ui-react';
 
-export function Sizes() {
+export function SizesIcon() {
   return (
     <Icon ariaLabel="" viewBox={{ width: 246, height: 116 }}>
       <rect

@@ -1,6 +1,6 @@
 import { Icon } from '@aws-amplify/ui-react';
 
-export function Typography() {
+export function TypographyIcon() {
   return (
     <Icon ariaLabel="" viewBox={{ width: 404, height: 120 }}>
       <path

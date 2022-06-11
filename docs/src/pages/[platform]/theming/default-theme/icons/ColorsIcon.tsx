@@ -1,6 +1,6 @@
 import { Icon } from '@aws-amplify/ui-react';
 
-export function Colors() {
+export function ColorsIcon() {
   return (
     <Icon ariaLabel="" viewBox={{ width: 128, height: 128 }}>
       <circle
