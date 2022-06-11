@@ -57,7 +57,7 @@ export function AuthStyle() {
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme} isNested>
       <Authenticator></Authenticator>
     </ThemeProvider>
   );

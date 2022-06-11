@@ -26,7 +26,7 @@ The `ThemeProvider` accepts a `colorMode` prop which can be `light`, `dark`, or 
 
 <Alert variation="warning">
 
-If you have multiple `ThemeProvider`s in your application, make sure to store `colorMode` in the application's state or context and pass it to each `ThemeProvider` or else some parts of your app won't have the right color mode applied. Also, because the theme uses CSS variables which are inherited, your application can have some weird behavior with nested themes and color modes.
+If you have multiple `ThemeProvider`s in your application, make sure to set `isNested` to `true` on nested `ThemeProvider`s other than the root one and store `colorMode` in the application's state or context and pass it to each `ThemeProvider` or else some parts of your app won't have the right color mode applied. Also, because the theme uses CSS variables which are inherited, your application can have some weird behavior with nested themes and color modes.
 
 Multiple `ThemeProvider`s should be avoided if possible because it is more efficient to use a selector override instead. This site uses nested `ThemeProvider`s for demos.
 

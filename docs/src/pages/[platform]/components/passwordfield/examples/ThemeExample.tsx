@@ -18,7 +18,7 @@ const theme = {
 
 export const ThemeExample = () => {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme} isNested>
       <PasswordField label="password" />
     </ThemeProvider>
   );

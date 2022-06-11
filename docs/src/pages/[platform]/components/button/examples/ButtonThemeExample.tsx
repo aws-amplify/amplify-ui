@@ -26,7 +26,7 @@ const theme = {
 };
 
 export const ButtonThemeExample = () => (
-  <ThemeProvider theme={theme}>
+  <ThemeProvider theme={theme} isNested>
     <Flex direction="row">
       <Button>Default</Button>
       <Button variation="primary">Primary</Button>

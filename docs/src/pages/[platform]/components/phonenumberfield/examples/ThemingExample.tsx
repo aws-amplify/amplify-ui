@@ -13,7 +13,7 @@ const theme: Theme = {
 };
 
 export const ThemingExample = () => (
-  <ThemeProvider theme={theme}>
+  <ThemeProvider theme={theme} isNested>
     <PhoneNumberField label="Themed field" defaultCountryCode="+1" />
   </ThemeProvider>
 );

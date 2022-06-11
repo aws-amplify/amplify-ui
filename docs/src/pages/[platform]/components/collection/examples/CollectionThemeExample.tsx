@@ -33,7 +33,7 @@ export const CollectionThemeExample = () => {
     overrides: [defaultDarkModeOverride],
   };
   return (
-    <ThemeProvider theme={theme} colorMode="system">
+    <ThemeProvider theme={theme} colorMode="system" isNested>
       <Collection
         type="grid"
         templateColumns="1fr 1fr 1fr"

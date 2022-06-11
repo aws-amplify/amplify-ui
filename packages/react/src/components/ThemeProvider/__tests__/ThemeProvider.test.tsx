@@ -22,7 +22,7 @@ describe('ThemeProvider', () => {
 
   it('wraps the App in [data-amplify-theme="default-theme"]', () => {
     spyOn(global.document.documentElement, 'setAttribute');
-    const { container } = render(
+    render(
       <ThemeProvider>
         <App />
       </ThemeProvider>
@@ -35,8 +35,20 @@ describe('ThemeProvider', () => {
 
     expect(global.document.documentElement.setAttribute).toHaveBeenCalledWith(
       'data-amplify-color-mode',
-      'undefined'
+      undefined
     );
+  });
+
+  it('should not set attributes on root element if isNested is ture', () => {
+    spyOn(global.document.documentElement, 'setAttribute');
+    render(
+      <ThemeProvider isNested>
+        <App />
+      </ThemeProvider>
+    );
+
+    expect(global.document.documentElement.setAttribute).not.toHaveBeenCalled();
+    expect(global.document.documentElement.setAttribute).not.toHaveBeenCalled();
   });
 
   it('filters out XSS attacks which attempt to escape the CSS context', async () => {

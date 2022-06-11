@@ -26,7 +26,7 @@ export const SearchFieldThemeExample = () => {
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme} isNested>
       <SearchField label="search" />
     </ThemeProvider>
   );

@@ -23,7 +23,7 @@ const theme = {
 
 export const ThemeExample = () => {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme} isNested>
       <Tabs>
         <TabItem title="Tab 1">Tab 1 Content</TabItem>
         <TabItem title="Tab 2">Tab 2 Content</TabItem>

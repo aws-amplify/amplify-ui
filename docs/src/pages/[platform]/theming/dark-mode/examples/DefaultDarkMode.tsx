@@ -17,7 +17,7 @@ export const DefaultDarkMode = () => {
   };
 
   return (
-    <ThemeProvider theme={theme} colorMode={colorMode}>
+    <ThemeProvider theme={theme} colorMode={colorMode} isNested>
       <Card>
         <ToggleButtonGroup
           value={colorMode}

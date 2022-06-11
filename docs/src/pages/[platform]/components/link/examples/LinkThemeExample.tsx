@@ -13,7 +13,7 @@ const theme: Theme = {
 };
 export const LinkThemeExample = () => {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme} isNested>
       <Link>My custom Link</Link>
     </ThemeProvider>
   );

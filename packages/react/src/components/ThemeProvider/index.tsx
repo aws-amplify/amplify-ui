@@ -11,6 +11,11 @@ interface ThemeProviderProps {
   colorMode?: ColorMode;
   theme?: Theme;
   nonce?: string;
+  /**
+   * Set it to true if this is a nested ThemeProvider
+   * @default false
+   */
+  isNested?: boolean;
 }
 
 export function AmplifyProvider({
@@ -18,9 +23,12 @@ export function AmplifyProvider({
   colorMode,
   theme,
   nonce,
+  isNested = false,
 }: ThemeProviderProps): JSX.Element {
   const value = React.useMemo(() => ({ theme: createTheme(theme) }), [theme]);
-  const { theme: { name, cssText } } = value;
+  const {
+    theme: { name, cssText },
+  } = value;
 
   // In order for the theme to apply to Portalled elements like our Menu
   // we need to put the CSS variables we generate from the theme on the
@@ -29,31 +37,15 @@ export function AmplifyProvider({
   // the same data attributes are on a div down the DOM tree, the CSS variables
   // will apply to both.
   React.useEffect(() => {
-    if (document && document.documentElement) {
-      // Keep original data attributes to reset on unmount
-      const originalName =
-        document.documentElement.getAttribute('data-amplify-theme') ?? name;
-      const originalColorMode =
-        document.documentElement.getAttribute('data-amplify-color-mode') ||
-        colorMode;
+    if (!isNested) {
+      // Only modify root element if the ThemeProvider is at root
       document.documentElement.setAttribute('data-amplify-theme', name);
       document.documentElement.setAttribute(
         'data-amplify-color-mode',
-        colorMode || originalColorMode
+        colorMode
       );
-
-      return function cleanup() {
-        document.documentElement.setAttribute(
-          'data-amplify-theme',
-          originalName
-        );
-        document.documentElement.setAttribute(
-          'data-amplify-color-mode',
-          originalColorMode
-        );
-      };
     }
-  }, [name, colorMode]);
+  }, [name, colorMode, isNested]);
   return (
     <AmplifyContext.Provider value={value}>
       {/*

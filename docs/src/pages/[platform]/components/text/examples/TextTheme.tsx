@@ -48,7 +48,7 @@ const theme = {
 };
 
 export const TextThemeExample = () => (
-  <ThemeProvider theme={theme}>
+  <ThemeProvider theme={theme} isNested>
     <Flex wrap="wrap">
       <Text>Default</Text>
       {VARIATIONS_OPTIONS.map((variation) => (

@@ -18,7 +18,7 @@ const theme = {
 };
 
 export const DividerThemeExample = () => (
-  <ThemeProvider theme={theme}>
+  <ThemeProvider theme={theme} isNested>
     <Flex direction="column">
       <Text>Before</Text>
       <Divider />

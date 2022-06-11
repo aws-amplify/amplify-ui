@@ -17,7 +17,7 @@ const theme: Theme = {
 
 export const ThemeExample = () => {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme} isNested>
       <Menu>
         <MenuItem>Download</MenuItem>
         <MenuItem>Create a Copy</MenuItem>

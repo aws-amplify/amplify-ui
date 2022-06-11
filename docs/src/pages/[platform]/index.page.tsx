@@ -63,7 +63,7 @@ const HomePage = ({ colorMode }) => {
   const frameworkInstallScript = installScripts[platform.toString()];
   return (
     <View data-amplify-theme-override={themeOverride}>
-      <ThemeProvider theme={theme} colorMode={colorMode}>
+      <ThemeProvider theme={theme} colorMode={colorMode} isNested>
         <View as="section" className="container">
           <h1 className="docs-home-logo">
             <HomeLogo />

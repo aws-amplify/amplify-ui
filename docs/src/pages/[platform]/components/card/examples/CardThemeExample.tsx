@@ -21,7 +21,7 @@ const cardTheme = {
 
 export const CardThemeExample = () => {
   return (
-    <ThemeProvider theme={cardTheme}>
+    <ThemeProvider theme={cardTheme} isNested>
       <Flex direction="row">
         <Card>
           <Text>Hello</Text>

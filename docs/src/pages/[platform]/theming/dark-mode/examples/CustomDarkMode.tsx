@@ -42,7 +42,7 @@ export const CustomDarkModeExample = () => {
   return (
     // Note: color mode overrides are scoped to the ThemeProvider
     // if you use multiple providers
-    <ThemeProvider theme={theme} colorMode={colorMode}>
+    <ThemeProvider theme={theme} colorMode={colorMode} isNested>
       <Card>
         <ToggleButtonGroup
           value={colorMode}

@@ -18,7 +18,7 @@ const theme = {
 };
 export const ThemeExampleDemo = () => {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme} isNested>
       <Button variation="primary">Custom button</Button>
     </ThemeProvider>
   );

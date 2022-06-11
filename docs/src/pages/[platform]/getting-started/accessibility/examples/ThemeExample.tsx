@@ -23,7 +23,7 @@ export const ThemeExample = () => {
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme} isNested>
       <Card variation="outlined">Example Card</Card>
     </ThemeProvider>
   );
