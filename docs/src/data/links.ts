@@ -2,6 +2,7 @@ export interface ComponentNavItem {
   href: string;
   label: string;
   body: string;
+  tertiary?: boolean;
 }
 
 const sortByLabel = (a: ComponentNavItem, b: ComponentNavItem) =>
@@ -332,12 +333,18 @@ export const gettingStarted = [
     label: 'Usage',
   },
   {
-    href: '/getting-started/create-react-app',
+    href: '/getting-started/usage/create-react-app',
     label: 'Create React App',
+    tertiary: true,
   },
   {
-    href: '/getting-started/nextjs',
+    href: '/getting-started/usage/nextjs',
     label: 'Next.js',
+    tertiary: true,
+  },
+  {
+    href: '/getting-started/accessibility',
+    label: 'Accessibility',
   },
   {
     href: '/getting-started/migration',
@@ -359,7 +366,7 @@ export const theming = [
   {
     href: '/theming/responsive',
     label: 'Responsive',
-    platforms: ['react', 'vue', 'angular'],
+    platforms: ['react'],
   },
   {
     href: '/theming/dark-mode',

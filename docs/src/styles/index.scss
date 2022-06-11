@@ -1,6 +1,5 @@
 /* Amplify UI styles */
 @import '@aws-amplify/ui-react/styles.css';
-@import '@codesandbox/sandpack-react/dist/index.css';
 
 /* Docs styles */
 @import './docs/algolia.scss';
@@ -15,6 +14,7 @@
 @import './docs/example.scss';
 @import './docs/component.scss';
 @import './docs/styleTable.scss';
+@import './docs/cardLink.scss';
 
 /* Primitive override styles for docs examples */
 @import './primitives/alertStyles.css';
@@ -22,6 +22,7 @@
 @import './primitives/buttonStyles.css';
 @import './primitives/cardStyles.css';
 @import './primitives/checkboxFieldStyles.css';
+@import './primitives/collectionStyles.css';
 @import './primitives/dividerStyles.css';
 @import './primitives/expanderStyles.css';
 @import './primitives/flexStyles.css';
@@ -49,3 +50,6 @@
 @import './primitives/textStyles.css';
 @import './primitives/toggleButtonStyles.css';
 @import './primitives/viewStyles.css';
+
+/* Connected Component override styles for docs examples */
+@import './components/authenticatorStyles.scss';

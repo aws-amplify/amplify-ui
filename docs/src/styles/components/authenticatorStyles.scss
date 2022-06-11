@@ -1,0 +1,42 @@
+.authenticator-theme-class-example {
+  .amplify-button[data-variation='link']:hover {
+    background: none;
+    text-decoration: underline;
+  }
+}
+
+.authenticator-theme-variable-example {
+  .amplify-tabs {
+    display: none;
+  }
+
+  [data-amplify-authenticator] {
+    --amplify-components-button-primary-background-color: var(
+      --amplify-colors-brand-secondary-80
+    );
+    --amplify-components-button-primary-hover-background-color: var(
+      --amplify-colors-brand-secondary-90
+    );
+    --amplify-components-button-primary-focus-background-color: var(
+      --amplify-colors-brand-secondary-90
+    );
+    --amplify-components-button-primary-active-background-color: var(
+      --amplify-colors-brand-secondary-100
+    );
+    --amplify-components-button-link-color: var(
+      --amplify-colors-brand-secondary-80
+    );
+    --amplify-components-button-link-hover-color: var(
+      --amplify-colors-brand-secondary-90
+    );
+    --amplify-components-button-link-focus-color: var(
+      --amplify-colors-brand-secondary-90
+    );
+    --amplify-components-button-link-active-color: var(
+      --amplify-colors-brand-secondary-100
+    );
+    --amplify-components-button-link-active-background-color: transparent;
+    --amplify-components-button-link-focus-background-color: transparent;
+    --amplify-components-button-link-hover-background-color: transparent;
+  }
+}

@@ -1,6 +1,7 @@
 import { Property } from 'csstype';
 import { WebDesignToken } from '@aws-amplify/ui';
 
+import type { ColorKeys } from './theme';
 import { FlexItemStyleProps, FlexContainerStyleProps } from './flex';
 import { GridItemStyleProps, GridContainerStyleProps } from './grid';
 import { ImageStyleProps } from './image';
@@ -41,13 +42,15 @@ export type ResponsiveStyle<PropertyType> =
 
 export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   alignSelf?: ResponsiveStyle<StyleToken<Property.AlignSelf>>;
-  backgroundColor?: ResponsiveStyle<StyleToken<Property.BackgroundColor>>;
+  backgroundColor?: ResponsiveStyle<
+    ColorKeys<StyleToken<Property.BackgroundColor>>
+  >;
   backgroundImage?: ResponsiveStyle<StyleToken<Property.BackgroundImage>>;
   border?: ResponsiveStyle<StyleToken<Property.Border>>;
   borderRadius?: ResponsiveStyle<StyleToken<Property.BorderRadius>>;
   bottom?: ResponsiveStyle<StyleToken<Property.Bottom>>;
   boxShadow?: ResponsiveStyle<StyleToken<Property.BoxShadow>>;
-  color?: ResponsiveStyle<StyleToken<Property.Color>>;
+  color?: ResponsiveStyle<ColorKeys<StyleToken<Property.Color>>>;
   display?: ResponsiveStyle<StyleToken<Property.Display>>;
   fontFamily?: ResponsiveStyle<StyleToken<Property.FontFamily>>;
   fontSize?: ResponsiveStyle<StyleToken<Property.FontSize>>;
