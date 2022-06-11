@@ -106,6 +106,7 @@ export const defaultServices = {
             password_complexity.push('Password must have numbers');
           break;
         case 'REQUIRES_SYMBOLS':
+          // https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-policies.html
           if (!/[\^$*.[\]{}()?"!@#%&\/\\,><':;|_~`=+\-\ ]/.test(password))
             password_complexity.push('Password must have special characters');
           break;
