@@ -106,7 +106,7 @@ export const defaultServices = {
             password_complexity.push('Password must have numbers');
           break;
         case 'REQUIRES_SYMBOLS':
-          if (!/[\W]/.test(password))
+          if (!/[\^$*.[\]{}()?"!@#%&\/\\,><':;|_~`=+\-\ ]/.test(password))
             password_complexity.push('Password must have special characters');
           break;
         default:
