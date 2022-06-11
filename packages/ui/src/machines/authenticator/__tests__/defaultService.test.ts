@@ -49,7 +49,7 @@ describe('validateFormPassword', () => {
     // does not have special character
     const password = 'UnitTestPassword1';
     const result = await validateFormPassword(
-      { password: password },
+      { password },
       touched,
       strictPasswordPolicy
     );
@@ -60,13 +60,13 @@ describe('validateFormPassword', () => {
 
   it('validates as expected with invalid password (fails all requirements) and strict password policy', async () => {
     // is too short, and does not meet any of character requirements
-    const password3 = 'short';
-    const result3 = await validateFormPassword(
-      { password: password3 },
+    const password = 'short';
+    const result = await validateFormPassword(
+      { password },
       touched,
       strictPasswordPolicy
     );
-    expect(result3).toStrictEqual({
+    expect(result).toStrictEqual({
       password: [
         'Password must have at least 8 characters',
         'Password must have numbers',
@@ -79,7 +79,7 @@ describe('validateFormPassword', () => {
   it('happy case with valid password and lenient password policy', async () => {
     const password = 'legitpassword123';
     const result = await validateFormPassword(
-      { password: password },
+      { password },
       touched,
       lenientPasswordPolicy
     );
@@ -89,7 +89,7 @@ describe('validateFormPassword', () => {
   it('unhappy case with valid password and lenient password policy', async () => {
     const password = '123';
     const result = await validateFormPassword(
-      { password: password },
+      { password },
       touched,
       lenientPasswordPolicy
     );
