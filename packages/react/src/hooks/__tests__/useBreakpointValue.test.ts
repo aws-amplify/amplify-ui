@@ -27,13 +27,16 @@ const breakpoints = {
 
 const defaultBreakpoint = 'base';
 
-let matchMedia: MatchMediaMock;
-let mediaQueries: [MediaQueryBreakpoint['breakpoint'], MediaQueryBreakpoint][] =
-  getMediaQueries({
-    breakpoints: defaultTheme.breakpoints.values,
-  }).map((mediaQuery) => [mediaQuery.breakpoint, mediaQuery]);
+// map over output of getMediaQueries to get an array formatted to be printable by jest.each
+const mediaQueries: [
+  MediaQueryBreakpoint['breakpoint'],
+  MediaQueryBreakpoint
+][] = getMediaQueries({
+  breakpoints: defaultTheme.breakpoints.values,
+}).map((mediaQuery) => [mediaQuery.breakpoint, mediaQuery]);
 
 describe('useBreakpoint', () => {
+  let matchMedia: MatchMediaMock;
   beforeAll(() => {
     matchMedia = new MatchMediaMock();
   });
