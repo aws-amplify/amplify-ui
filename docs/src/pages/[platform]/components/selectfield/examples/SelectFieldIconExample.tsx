@@ -1,7 +1,7 @@
 import { Icon, SelectField } from '@aws-amplify/ui-react';
 
 const IconArrowDropDown = () => {
-  return <Icon path="M7 10L12 15L17 10H7Z" ariaLabel="Down arrow" />;
+  return <Icon pathData="M7 10L12 15L17 10H7Z" ariaLabel="Down arrow" />;
 };
 
 export const SelectFieldIconExample = () => (
