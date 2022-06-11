@@ -16,6 +16,7 @@ You can customize the appearance of all {props.component} components in your app
   <Link
     className="docs-component-link"
     href={`${GITHUB_REPO_FILE}packages/ui/src/theme/tokens/components/${
+      props.link ||
       props.component.charAt(0).toLowerCase() + props.component.slice(1)
     }.ts`}
     isExternal

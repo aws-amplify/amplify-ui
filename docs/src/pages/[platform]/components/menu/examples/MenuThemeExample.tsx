@@ -15,7 +15,7 @@ const theme: Theme = {
   },
 };
 
-export const ThemeExample = () => {
+export const MenuThemeExample = () => {
   return (
     <ThemeProvider theme={theme}>
       <Menu>

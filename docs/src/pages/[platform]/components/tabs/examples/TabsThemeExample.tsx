@@ -21,7 +21,7 @@ const theme = {
   },
 };
 
-export const ThemeExample = () => {
+export const TabsThemeExample = () => {
   return (
     <ThemeProvider theme={theme}>
       <Tabs>

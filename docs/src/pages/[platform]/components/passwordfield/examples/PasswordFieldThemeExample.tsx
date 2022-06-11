@@ -4,6 +4,7 @@ const theme = {
   name: 'passwordfield-theme',
   tokens: {
     components: {
+      // extend example
       fieldcontrol: {
         borderColor: {
           value: '{colors.purple.60}',
@@ -16,7 +17,7 @@ const theme = {
   },
 };
 
-export const ThemeExample = () => {
+export const PasswordFieldThemeExample = () => {
   return (
     <ThemeProvider theme={theme}>
       <PasswordField label="password" />

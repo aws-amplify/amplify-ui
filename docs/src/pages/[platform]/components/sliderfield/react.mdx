@@ -18,7 +18,7 @@ import {
 import { Example, ExampleCode } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
-import { ThemeAlert } from '@/components/ThemeAlert';
+import ThemeExample from '@/components/ThemeExample.mdx';
 
 ## Demo
 
@@ -151,25 +151,23 @@ To validate the SliderField input, use the `hasError` and `errorMessage` props.
 
 ## CSS Styling
 
+<ThemeExample component="SliderField">
+  <Example>
+    <SliderFieldThemeExample />
+    
+    <ExampleCode>
+
+    ```jsx file=./examples/SliderFieldThemeExample.tsx
+
+    ```
+
+    </ExampleCode>
+  </Example>
+</ThemeExample>
+
 ### Target classes
 
 <ComponentStyleDisplay componentName="SliderField" />
-
-### Theme
-
-<ThemeAlert />
-
-You can customize the appearance of all SliderField components in your application with a [Theme](/theming).
-
-<Example>
-  <SliderFieldThemeExample />
-  <ExampleCode>
-```jsx file=./examples/SliderFieldThemeExample.tsx
-
-````
-
-  </ExampleCode>
-</Example>
 
 ### Global styling
 

@@ -22,11 +22,11 @@ import {
   PseudoStyles,
   Spacing,
   StyleProps,
-  ThemeExample,
+  TabsThemeExample,
   Title,
 } from './examples';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
-import { ThemeAlert } from '@/components/ThemeAlert';
+import ThemeExample from '@/components/ThemeExample.mdx';
 
 ## Demo
 
@@ -162,25 +162,23 @@ In the `TabItem` component, use the `isDisabled` prop to make a Tab not clickabl
 
 ## CSS Styling
 
-### Target classes
+<ThemeExample component="Tabs">
+  <Example>
+    <TabsThemeExample />
+    
+    <ExampleCode>
 
-<ComponentStyleDisplay componentName="Tabs" />
-
-### Theme
-
-<ThemeAlert />
-
-You can customize the appearance of Tabs in your application using a [Theme](/theming).
-
-<Example>
-  <ThemeExample />
-  <ExampleCode>
-    ```jsx file=./examples/ThemeExample.tsx
+    ```jsx file=./examples/TabsThemeExample.tsx
 
     ```
 
-</ExampleCode>
-</Example>
+    </ExampleCode>
+  </Example>
+</ThemeExample>
+
+### Target classes
+
+<ComponentStyleDisplay componentName="Tabs" />
 
 ### Global styling
 
