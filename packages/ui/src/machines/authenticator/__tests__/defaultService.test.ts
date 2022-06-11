@@ -32,7 +32,7 @@ describe('validateFormPassword', () => {
     expect(result).toBe(null);
   });
 
-  it('validates as expected with invalid password (has unknown special character) on strict password policy', async () => {
+  it('validates as expected with invalid password (has unknown special character) and strict password policy', async () => {
     // has special character not recognized by Cognito
     const password = 'UnitTestㄱPassword1';
     const result = await validateFormPassword(
@@ -45,7 +45,7 @@ describe('validateFormPassword', () => {
     });
   });
 
-  it('validates as expected with invalid password (no special characters) on strict password policy', async () => {
+  it('validates as expected with invalid password (no special characters) and strict password policy', async () => {
     // does not have special character
     const password = 'UnitTestPassword1';
     const result = await validateFormPassword(
@@ -58,7 +58,7 @@ describe('validateFormPassword', () => {
     });
   });
 
-  it('validates as expected with invalid password on strict password policy', async () => {
+  it('validates as expected with invalid password and strict password policy', async () => {
     // is too short, and does not meet any of character requirements
     const password3 = 'short';
     const result3 = await validateFormPassword(
