@@ -58,7 +58,7 @@ describe('validateFormPassword', () => {
     });
   });
 
-  it('validates as expected with invalid password and strict password policy', async () => {
+  it('validates as expected with invalid password (fails all requirements) and strict password policy', async () => {
     // is too short, and does not meet any of character requirements
     const password3 = 'short';
     const result3 = await validateFormPassword(
