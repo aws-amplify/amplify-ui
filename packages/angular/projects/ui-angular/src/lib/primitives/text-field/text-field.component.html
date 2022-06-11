@@ -13,6 +13,8 @@
   [placeholder]="placeholder"
   [required]="required"
   [value]="initialValue"
-  [attr.disabled]="disabled ? '' : null"
   [autocomplete]="autocomplete"
+  [attr.disabled]="disabled ? '' : null"
+  [attr.aria-invalid]="hasError ? 'true' : 'false'"
+  [attr.aria-describedby]="describedBy"
 />
