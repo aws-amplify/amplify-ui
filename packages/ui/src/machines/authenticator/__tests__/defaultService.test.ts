@@ -76,7 +76,7 @@ describe('validateFormPassword', () => {
     });
   });
 
-  it('happy case with valid password and lenient password policy', async () => {
+  it('validates as expected with valid password and lenient password policy', async () => {
     const password = 'legitpassword123';
     const result = await validateFormPassword(
       { password },
@@ -86,7 +86,7 @@ describe('validateFormPassword', () => {
     expect(result).toBe(null);
   });
 
-  it('unhappy case with valid password and lenient password policy', async () => {
+  it('validates as expected with invalid password and lenient password policy', async () => {
     const password = '123';
     const result = await validateFormPassword(
       { password },
