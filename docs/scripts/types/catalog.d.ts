@@ -60,4 +60,4 @@ export type Property = {
 };
 export type Properties = Record<string, Property>;
 
-export type Catalog = Record<ComponentName, Record<'properties', Properties>>;
+export type Catalog = Record<ComponentName, Properties>;

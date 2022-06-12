@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { globbyStream } from 'globby';
 import { getCatalog } from './util/getCatalog';
+import { getAllTypesData } from './util/getAllTypesData';
 import type {
   Catalog,
   Category,
@@ -10,8 +11,7 @@ import type {
 } from './types/catalog';
 
 const catalog = getCatalog();
-
-console.log(' 🐻 catalog: ', JSON.stringify(getCatalog(), null, 2));
+const allTypesData = getAllTypesData();
 
 createAllPropsTables();
 
@@ -30,7 +30,7 @@ async function createAllPropsTables() {
     const properties = getObjectValueWithCaselessKey(
       catalog,
       componentPageName
-    )?.properties;
+    );
     const propsSortedByCategory = getPropsSortedByCategory(
       properties,
       componentPageName
@@ -137,22 +137,8 @@ function getPropsSortedByCategory(
   componentPageName: Lowercase<ComponentName>
 ): SortedPropertiesByCategory {
   if (properties) {
-    let propertiesByCategory: PropertiesByCategory = {} as PropertiesByCategory;
-
-    for (const propertyName in getObjectValueWithCaselessKey(
-      catalog,
-      componentPageName
-    ).properties) {
-      const property = getObjectValueWithCaselessKey(catalog, componentPageName)
-        .properties[propertyName];
-      propertiesByCategory = {
-        ...propertiesByCategory,
-        [property.category]: {
-          ...propertiesByCategory[property.category],
-          [propertyName]: property,
-        },
-      };
-    }
+    let propertiesByCategory: PropertiesByCategory =
+      getPropertiesByCategory(componentPageName);
 
     const componentName =
       Object.keys(propertiesByCategory).find(
@@ -186,13 +172,63 @@ function getPropsSortedByCategory(
   }
 }
 
+function getPropertiesByCategory(
+  componentPageName: Lowercase<ComponentName>
+): PropertiesByCategory {
+  let propertiesByCategory: PropertiesByCategory = {} as PropertiesByCategory;
+
+  if (componentPageName !== 'view') {
+    for (const propertyName in getObjectValueWithCaselessKey(
+      catalog,
+      componentPageName
+    )) {
+      const property = getObjectValueWithCaselessKey(
+        catalog,
+        componentPageName
+      )[propertyName];
+      propertiesByCategory = {
+        ...propertiesByCategory,
+        [property.category]: {
+          ...propertiesByCategory[property.category],
+          [propertyName]: property,
+        },
+      };
+    }
+    /**
+     * `view` doesn't have correct data in Catalog, so have to use AllTypesData
+     */
+  } else {
+    let viewProps: Properties;
+    for (const [propName, property] of allTypesData.get('View').entries()) {
+      viewProps = {
+        ...viewProps,
+        [propName]: {
+          name: String(property.get('name')),
+          type: String(property.get('type')),
+          description: property.get('description')
+            ? (property.get('description') as { description: string })
+                .description
+            : '',
+          category: property.get('category') as Category,
+          isOptional: property.get('isOptional') as boolean,
+        },
+      };
+    }
+    propertiesByCategory = {
+      ...propertiesByCategory,
+      View: viewProps,
+    };
+  }
+  return propertiesByCategory;
+}
+
 /**
  *
  * @name getProperties
  * @description case-insensitively get the values from an object
  */
 function getObjectValueWithCaselessKey(
-  object: PropertiesByCategory,
+  object: PropertiesByCategory | Catalog,
   key:
     | ComponentName
     | Lowercase<ComponentName>
@@ -200,17 +236,6 @@ function getObjectValueWithCaselessKey(
     | Lowercase<Category>
     | 'Other'
 ): Properties;
-function getObjectValueWithCaselessKey(
-  object: Catalog,
-  key:
-    | ComponentName
-    | Lowercase<ComponentName>
-    | Category
-    | Lowercase<Category>
-    | 'Other'
-): {
-  properties: Properties;
-};
 function getObjectValueWithCaselessKey(object, key) {
   const asLowercase = key.toLowerCase();
   return object[

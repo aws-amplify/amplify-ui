@@ -2,12 +2,10 @@ import fs from 'fs';
 import path from 'path';
 import { Project, PropertySignature, TypeAliasDeclaration } from 'ts-morph';
 import { capitalizeString } from '../../src/utils/capitalizeString';
-import {
-  AllTypeFileData,
-  TypeFileName,
-  TypeFileData,
-} from '../types/allTypesData';
+import { AllTypeFileData, TypeFileData } from '../types/allTypesData';
 import { SyntaxKind } from 'typescript';
+import { Category } from 'scripts/types/catalog';
+import { sanitize } from './sanitize';
 
 export const getAllTypesData = () => {
   const project = new Project({
@@ -29,21 +27,21 @@ export const getAllTypesData = () => {
   const allTypeFiles = source.getReferencedSourceFiles();
   const names = [];
   allTypeFiles.forEach((typeFile) => {
-    const typeFileName: TypeFileName = capitalizeString(
+    const typeFileName: Category = capitalizeString(
       typeFile.getBaseName().slice(0, typeFile.getBaseName().indexOf('.ts'))
-    ) as TypeFileName;
+    ) as Category;
     names.push(typeFileName);
     const typeFileData: TypeFileData = new Map();
     const typeAliases = typeFile.getTypeAliases();
     if (typeAliases) {
       typeAliases.forEach((typeAlias) => {
-        setTypeData(typeAlias, typeFileData);
+        setTypeData(typeAlias, typeFileName, typeFileData);
       });
     }
 
     typeFile.getInterfaces().forEach((typeInterface) => {
       typeInterface.getProperties().forEach((typeProperty) => {
-        setTypeData(typeProperty, typeFileData);
+        setTypeData(typeProperty, typeFileName, typeFileData);
       });
     });
 
@@ -61,6 +59,7 @@ export const getAllTypesData = () => {
  */
 function setTypeData(
   typeProp: TypeAliasDeclaration | PropertySignature,
+  typeFileName: Category,
   typeFileData: TypeFileData
 ) {
   type TypeData = Map<string, string | boolean | { description: string }>;
@@ -69,7 +68,7 @@ function setTypeData(
   const typeDescription = typeJsDocs[0]?.getTags().reduce(
     (descriptions, tag) => ({
       ...descriptions,
-      [tag.getTagName()]: tag.getText(),
+      [tag.getTagName()]: sanitize(tag.getText()),
     }),
     {}
   ) as { description: string };
@@ -78,9 +77,10 @@ function setTypeData(
   const isOptional =
     typeProp.getChildrenOfKind(SyntaxKind.QuestionToken)[0]?.getText() === '?';
 
-  typeData.set('name', typeName);
+  typeData.set('name', sanitize(typeName));
   typeData.set('type', typeType);
   typeData.set('description', typeDescription);
   typeData.set('isOptional', isOptional);
+  typeData.set('category', typeFileName);
   typeFileData.set(typeName, typeData);
 }

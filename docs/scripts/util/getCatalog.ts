@@ -11,6 +11,7 @@ import {
   Properties,
   Catalog,
 } from '../types/catalog';
+import { sanitize } from './sanitize';
 
 const allTypesData = getAllTypesData();
 
@@ -67,7 +68,7 @@ function getCatalog() {
 
     // Skip primitives without properties
     if (Object.keys(properties).length) {
-      catalog[componentName as ComponentName] = { properties };
+      catalog[componentName as ComponentName] = { ...properties };
     } else {
       console.log(`Skip ${componentName} since it's without properties.`);
     }
@@ -183,21 +184,6 @@ function getCategory(propName: string, componentName: ComponentName): Category {
     preSetCategories[propName] ??
     'other'
   );
-}
-
-/**
- * @name sanitize
- * @description treat special characters
- * 1) "|", "<", ">", "`" => replace with character code, "&$<unicode>;"
- * 2) "' + '" => replace with space
- * 3) "\n" => replace with space
- */
-function sanitize(string) {
-  const tobeEncoded = new RegExp(/[|<>`]|'\s\+\s'|\\n|\n/g);
-  const getEncoded = (match) =>
-    match.match(/[|<>`]/) ? `&#${match.charCodeAt()};` : ' ';
-
-  return string.replaceAll(tobeEncoded, getEncoded);
 }
 
 export { getCatalog, sharedCategories };
