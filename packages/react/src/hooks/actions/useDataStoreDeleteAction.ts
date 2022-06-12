@@ -28,7 +28,7 @@ export const useDataStoreDeleteAction =
   <Model extends PersistentModel>({
     model,
     id,
-  }: UseDataStoreDeleteActionOptions<Model>) =>
+  }: UseDataStoreDeleteActionOptions<Model>): (() => Promise<void>) =>
   async () => {
     try {
       Hub.dispatch(
