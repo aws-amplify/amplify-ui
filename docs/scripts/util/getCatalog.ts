@@ -153,7 +153,7 @@ function getCatalogComponentProperty(
     if (type.includes('import')) {
       type = type.match(regex)[1];
     } else if (name === 'ref' && type === 'React.Ref<T>') {
-      type = 'React.Ref<HTMLParagraphElement>';
+      type = 'React.Ref<HTMLElement>';
     }
     return type;
   }
