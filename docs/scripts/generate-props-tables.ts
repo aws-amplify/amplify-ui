@@ -63,6 +63,9 @@ type CategoryProperty = { [key in Category]: Properties };
 type SortedPropertiesByCategory = CategoryProperty[];
 type PropertiesByCategory = Record<Category, Properties>;
 
+/**
+ * @todo After Marketing Launch 2022-06, to update the note under the Props Heading to specify the HTML element's name and MDN link.
+ */
 function Output(displayName, tableExpander) {
   return `
 {/* DO NOT EDIT DIRECTLY */}
@@ -71,6 +74,8 @@ function Output(displayName, tableExpander) {
 import { Expander, ExpanderItem, Table, TableBody, TableCell, TableHead, TableRow } from '@aws-amplify/ui-react';
 
 ## ${displayName} Props
+
+The ${displayName} will accept any of the standard HTML attributes that a HTML element accepts. Standard element attributes can be found in the [MDN Documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Element).
 
 ${tableExpander}
 `;
