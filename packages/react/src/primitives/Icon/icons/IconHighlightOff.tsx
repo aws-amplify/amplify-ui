@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { ComponentClassNames } from '../../shared';
 import { View } from '../../View';
 
-export const IconRemove = (props) => {
+export const IconHighlightOff = (props) => {
   const { className, ...rest } = props;
   return (
     <View
@@ -12,16 +12,6 @@ export const IconRemove = (props) => {
       height="1em"
       className={classNames(ComponentClassNames.Icon, className)}
       {...rest}
-    >
-      <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path d="M19 13H5V11H19V13Z" fill="currentColor" />
-      </svg>
-    </View>
+    ></View>
   );
 };

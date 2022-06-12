@@ -5,7 +5,6 @@ import { View } from '../../View';
 
 export const IconChevronRight = (props) => {
   const { className, ...rest } = props;
-
   return (
     <View
       as="span"

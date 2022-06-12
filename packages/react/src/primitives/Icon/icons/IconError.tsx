@@ -5,7 +5,6 @@ import { View } from '../../View';
 
 export const IconError = (props) => {
   const { className, ...rest } = props;
-
   return (
     <View
       as="span"
