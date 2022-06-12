@@ -7,9 +7,8 @@ import {
   useTheme,
   View,
 } from '@aws-amplify/ui-react';
-import { debounce } from 'lodash';
 import { HomeCTA } from 'src/pages/[platform]/home/HomeCTA';
-import { useIntersectionObserver } from 'src/hooks/useIntersection';
+import { useIntersectionObserver } from '@/components/useIntersection';
 
 // react-live does not work with SSR so we have to load
 // it dynamically and only in the client

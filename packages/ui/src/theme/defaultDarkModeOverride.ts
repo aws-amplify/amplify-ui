@@ -90,13 +90,26 @@ export const defaultDarkModeOverride: ColorModeOverride = {
         90: { value: tokens.colors.neutral[20].value },
         100: { value: tokens.colors.neutral[10].value },
       },
-      black: { value: '#fff' },
-      white: { value: '#000' },
+      // black: { value: '#fff' },
+      // white: { value: '#000' },
+
+      font: {
+        primary: { value: '{colors.white.value}' },
+        secondary: { value: '{colors.neutral.100.value}' },
+        tertiary: { value: '{colors.neutral.90.value}' },
+        inverse: { value: '{colors.neutral.10.value}' },
+      },
+
+      background: {
+        primary: { value: '{colors.neutral.10.value}' },
+        secondary: { value: '{colors.neutral.20.value}' },
+        tertiary: { value: '{colors.neutral.40.value}' },
+      },
 
       border: {
-        primary: { value: '{colors.neutral.40.value}' },
-        secondary: { value: '{colors.neutral.20.value}' },
-        tertiary: { value: '{colors.neutral.10.value}' },
+        primary: { value: '{colors.neutral.60.value}' },
+        secondary: { value: '{colors.neutral.40.value}' },
+        tertiary: { value: '{colors.neutral.20.value}' },
       },
 
       overlay: {
@@ -111,11 +124,11 @@ export const defaultDarkModeOverride: ColorModeOverride = {
         90: { value: 'hsla(0, 0%, 100%, 0.9)' },
       },
 
-      shadow: {
-        primary: { value: 'hsla(0, 0%, 100%, 0.25)' },
-        secondary: { value: 'hsla(0, 0%, 100%, 0.15)' },
-        tertiary: { value: 'hsla(0, 0%, 100%, 0.05)' },
-      },
+      // shadow: {
+      //   primary: { value: 'hsla(0, 0%, 100%, 0.25)' },
+      //   secondary: { value: 'hsla(0, 0%, 100%, 0.15)' },
+      //   tertiary: { value: 'hsla(0, 0%, 100%, 0.05)' },
+      // },
     },
   },
 };

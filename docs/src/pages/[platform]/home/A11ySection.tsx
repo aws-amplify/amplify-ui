@@ -3,10 +3,9 @@ import { Heading, Link, Text, useTheme, View } from '@aws-amplify/ui-react';
 import { IoAccessibility } from 'react-icons/io5';
 
 import { HomeCTA } from 'src/pages/[platform]/home/HomeCTA';
-import { useIntersectionObserver } from 'src/hooks/useIntersection';
+import { useIntersectionObserver } from '@/components/useIntersection';
 
 export const A11ySection = ({ platform }) => {
-  const { tokens } = useTheme();
   const ref = React.useRef<HTMLDivElement | null>(null);
   const entry = useIntersectionObserver(ref, {
     threshold: 0.125,

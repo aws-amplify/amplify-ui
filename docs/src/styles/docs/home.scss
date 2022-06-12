@@ -200,8 +200,8 @@
 
 .docs-hero {
   background-image: url('/svg/grid.svg'),
-    linear-gradient(0deg, rgba(var(--docs-gradient-color-rgb), 1) 0%, rgba(var(--docs-gradient-color-rgb), 0) 20%),
-    linear-gradient(180deg, rgba(var(--docs-gradient-color-rgb), 1) 0%, rgba(var(--docs-gradient-color-rgb), 0) 20%);
+    linear-gradient(0deg, hsla(var(--docs-gradient-color-hsl), 1) 0%, hsla(var(--docs-gradient-color-hsl), 0) 20%),
+    linear-gradient(180deg, hsla(var(--docs-gradient-color-hsl), 1) 0%, hsla(var(--docs-gradient-color-hsl), 0) 20%);
   background-color: var(--docs-callout-bg);
   min-height: 100vh;
   display: flex;
@@ -214,13 +214,13 @@
 
 .docs-grid-bg {
   background-image: url('/svg/grid.svg'),
-    linear-gradient(0deg, rgba(var(--docs-gradient-color-rgb), 1) 0%, rgba(var(--docs-gradient-color-rgb), 0) 20%),
-    linear-gradient(180deg, rgba(var(--docs-gradient-color-rgb), 1) 0%, rgba(var(--docs-gradient-color-rgb), 0) 20%);
+    linear-gradient(0deg, hsla(var(--docs-gradient-color-hsl), 1) 0%, hsla(var(--docs-gradient-color-hsl), 0) 20%),
+    linear-gradient(180deg, hsla(var(--docs-gradient-color-hsl), 1) 0%, hsla(var(--docs-gradient-color-hsl), 0) 20%);
 }
 
 .docs-gradient-bg {
-  background-image: linear-gradient(0deg, rgba(var(--docs-gradient-color-rgb), 1) 0%, rgba(var(--docs-gradient-color-rgb), 0) 20%),
-  linear-gradient(180deg, rgba(var(--docs-gradient-color-rgb), 1) 0%, rgba(var(--docs-gradient-color-rgb), 0) 20%),
+  background-image: linear-gradient(0deg, hsla(var(--docs-gradient-color-hsl), 1) 0%, hsla(var(--docs-gradient-color-hsl), 0) 20%),
+  linear-gradient(180deg, hsla(var(--docs-gradient-color-hsl), 1) 0%, hsla(var(--docs-gradient-color-hsl), 0) 20%),
     linear-gradient(
       86deg,
       var(--amplify-colors-brand-primary-10) 12%,
@@ -237,7 +237,7 @@
       rgba(255, 255, 255, 0) 83%,
       var(--amplify-colors-brand-secondary-10) 100%
     ),
-    linear-gradient(175deg, rgba(var(--docs-gradient-color-rgb), 0) 0%, var(--amplify-colors-brand-secondary-10) 54%);
+    linear-gradient(175deg, hsla(var(--docs-gradient-color-hsl), 0) 0%, var(--amplify-colors-brand-secondary-10) 54%);
 }
 
 .docs-burst-bg {
@@ -250,14 +250,13 @@
     pointer-events: none;
     position: absolute;
     top: 0; right: 0; bottom: 0; left: 0;
-    background-image: linear-gradient(0deg, rgba(var(--docs-gradient-color-rgb), 1) 0%, rgba(var(--docs-gradient-color-rgb), 0) 40%),
-      linear-gradient(180deg, rgba(var(--docs-gradient-color-rgb), 1) 0%, rgba(var(--docs-gradient-color-rgb), 0) 40%),
-      radial-gradient(circle at 0% 50%, var(--amplify-colors-pink-40), rgba(var(--docs-gradient-color-rgb), 0) 25%),
-      radial-gradient(circle at 85% 30%, var(--amplify-colors-purple-40), rgba(var(--docs-gradient-color-rgb), 0) 50%),
-      radial-gradient(circle at 35% 70%, var(--amplify-colors-teal-40), rgba(var(--docs-gradient-color-rgb), 0) 50%);
+    background-image: linear-gradient(0deg, hsla(var(--docs-gradient-color-hsl), 1) 0%, hsla(var(--docs-gradient-color-hsl), 0) 40%),
+      linear-gradient(180deg, hsla(var(--docs-gradient-color-hsl), 1) 0%, hsla(var(--docs-gradient-color-hsl), 0) 40%),
+      radial-gradient(circle at 0% 50%, var(--amplify-colors-pink-40), hsla(var(--docs-gradient-color-hsl), 0) 25%),
+      radial-gradient(circle at 85% 30%, var(--amplify-colors-purple-40), hsla(var(--docs-gradient-color-hsl), 0) 50%),
+      radial-gradient(circle at 35% 70%, var(--amplify-colors-teal-40), hsla(var(--docs-gradient-color-hsl), 0) 50%);
     opacity: 0.25;
   }
-
 }
 
 
@@ -282,22 +281,6 @@
     }
   }
 }
-
-// .token-line {
-//   counter-increment: code-lines;
-//   position: relative;
-//   padding-left: 3rem;
-  
-//   &::before {
-//     position: absolute;
-//     left: 0;
-//     width: 2rem;
-//     text-align: right;
-//     color: var(--amplify-colors-font-tertiary);
-//     opacity: 0.75;
-//     content: counter(code-lines) " ";
-//   }
-// }
 
 .docs-home-code-card {
   position: relative;
@@ -333,7 +316,7 @@
     right: var(--amplify-space-xs);
     left: var(--amplify-space-xs);
     height: var(--amplify-space-medium);
-    background-image: linear-gradient(var(--degree), var(--amplify-colors-background-secondary) 0%, rgba(var(--docs-gradient-color-rgb), 0) 100%);
+    background-image: linear-gradient(var(--degree), var(--amplify-colors-background-secondary) 0%, hsla(var(--docs-gradient-color-hsl), 0) 100%);
   }
   
   &::after {

@@ -430,5 +430,5 @@ pre > code.diff-highlight .token.token.inserted:not(.prefix) *::selection {
   margin-left: calc(var(--amplify-space-medium) * -1);
   margin-right: calc(var(--amplify-space-medium) * -1);
   padding-left: var(--amplify-space-medium);
-  background-color: var(--amplify-colors-yellow-10);
+  background-color: hsla(190, 95%, 50%, 0.125);
 }

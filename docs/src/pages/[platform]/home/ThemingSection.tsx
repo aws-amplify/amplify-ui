@@ -2,11 +2,10 @@ import * as React from 'react';
 import { Heading, useTheme, View } from '@aws-amplify/ui-react';
 import { ThemeSwitcher } from 'src/pages/[platform]/home/ThemeSwitcher';
 import { HomeCTA } from 'src/pages/[platform]/home/HomeCTA';
-import { useIntersectionObserver } from '@/utils/useIntersection';
+import { useIntersectionObserver } from '@/components/useIntersection';
 
 export const ThemingSection = ({ colorMode, platform }) => {
-  const { tokens } = useTheme();
-  const ref = React.useRef < HTMLDivElementsrc / hooks / useIntersection;
+  const ref = React.useRef<HTMLDivElement | null>(null);
   const entry = useIntersectionObserver(ref, {
     threshold: 0.125,
     freezeOnceVisible: true,

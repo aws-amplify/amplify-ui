@@ -8,11 +8,12 @@ import {
   useTheme,
   View,
   Authenticator,
+  useBreakpointValue,
 } from '@aws-amplify/ui-react';
 import { HomeCode } from 'src/pages/[platform]/home/HomeCode';
 import { HomeCTA } from 'src/pages/[platform]/home/HomeCTA';
 import { HomeCodeHighlight } from '@/components/CodeHighlight';
-import { useIntersectionObserver } from 'src/hooks/useIntersection';
+import { useIntersectionObserver } from '@/components/useIntersection';
 
 // TODO: grab this code from actual examples so we don't need to keep these in sync
 const authenticatorCode = {
@@ -123,14 +124,16 @@ const languages = {
 };
 
 export const AuthenticationSection = ({ platform }) => {
-  const { tokens } = useTheme();
-
   const ref = React.useRef<HTMLDivElement | null>(null);
   const entry = useIntersectionObserver(ref, {
     threshold: 0.125,
     freezeOnceVisible: true,
   });
   const isVisible = !!entry?.isIntersecting;
+  const hiddenOnMobile = useBreakpointValue({
+    base: false,
+    large: true,
+  });
 
   return (
     <View ref={ref} as="section" className="docs-home-section">
@@ -155,14 +158,16 @@ export const AuthenticationSection = ({ platform }) => {
         </Text>
       </View>
 
-      <Flex direction="row" padding={tokens.space.xxl} className="docs-grid-bg">
-        <HomeCode>
-          <HomeCodeHighlight
-            code={authenticatorCode[platform]}
-            language={languages[platform]}
-            withLines={true}
-          />
-        </HomeCode>
+      <Flex direction="row" padding="xxl" className="docs-grid-bg">
+        {hiddenOnMobile ? (
+          <HomeCode>
+            <HomeCodeHighlight
+              code={authenticatorCode[platform]}
+              language={languages[platform]}
+              withLines={true}
+            />
+          </HomeCode>
+        ) : null}
         <View flex="1">
           <Authenticator></Authenticator>
         </View>
