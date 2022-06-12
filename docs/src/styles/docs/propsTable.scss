@@ -1,3 +1,7 @@
+.props-table-expander .amplify-expander__content__text {
+  overflow-x: auto;
+}
+
 .props-table {
   & pre[class*='language-'] {
     max-width: 20rem;

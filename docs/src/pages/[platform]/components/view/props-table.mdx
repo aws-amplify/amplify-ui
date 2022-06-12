@@ -7,7 +7,7 @@ import { Expander, ExpanderItem, Table, TableBody, TableCell, TableHead, TableRo
 ## View Props
 
 
-<Expander type="multiple" defaultValue={['View']}>
+<Expander type="multiple" defaultValue={['View']} className="props-table-expander" >
   
 <ExpanderItem title="View" value="View">
     
@@ -23,6 +23,7 @@ import { Expander, ExpanderItem, Table, TableBody, TableCell, TableHead, TableRo
     </TableRow>
   </TableHead>
   <TableBody>
+    
     <TableRow>
       <TableCell className="props-table__tr-name">as</TableCell>
       <TableCell>
@@ -46,6 +47,7 @@ Element extends keyof JSX.IntrinsicElements
 </TableCell>
       <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
+
     <TableRow>
       <TableCell className="props-table__tr-name">ElementType<sup>*</sup></TableCell>
       <TableCell>
@@ -151,8 +153,10 @@ React.CSSProperties
 </TableCell>
       <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
+
   </TableBody>
 </Table>
+
 </ExpanderItem>
 
 </Expander>

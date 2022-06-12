@@ -89,7 +89,7 @@ function PropsTableExpander(propsSortedByCategory: SortedPropertiesByCategory) {
   };
 
   return `
-<Expander type="multiple" defaultValue={['${defaultOpen}']}>
+<Expander type="multiple" defaultValue={['${defaultOpen}']} className="props-table-expander" >
   ${propsSortedByCategory.map(expanderItem).join('')}
 </Expander>
 `;
