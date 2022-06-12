@@ -37,6 +37,7 @@ const template = ({ iconName, source }) => {
 
   export const ${iconName} = (props) => {
     const { className, ...rest } = props;
+
     return (
       <View
         as='span'
