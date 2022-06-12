@@ -1,14 +1,14 @@
+import * as React from 'react';
 import {
   ToggleButton,
   ToggleButtonGroup,
   AmplifyProvider,
   ColorMode,
 } from '@aws-amplify/ui-react';
-import * as React from 'react';
+import { MdWbSunny, MdBedtime, MdTonality } from 'react-icons/md';
 
 import { theme } from '../../../theme';
 import { Logo } from './Logo';
-
 import '@aws-amplify/ui-react/styles.css';
 import './styles.scss';
 
