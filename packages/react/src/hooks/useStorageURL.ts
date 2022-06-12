@@ -12,7 +12,10 @@ export interface UseStorageURLResult {
  * Computes a public URL for an Amplify Storage file
  * @internal
  */
-export const useStorageURL = (key: string, options?: S3ProviderGetConfig) => {
+export const useStorageURL = (
+  key: string,
+  options?: S3ProviderGetConfig
+): UseStorageURLResult & { fetch: () => () => void } => {
   const [result, setResult] = React.useState<UseStorageURLResult>({
     isLoading: true,
   });
@@ -29,7 +32,7 @@ export const useStorageURL = (key: string, options?: S3ProviderGetConfig) => {
     // Attempt to fetch storage object url
     promise
       .then((url) => setResult({ url, isLoading: false }))
-      .catch((error) => setResult({ error, isLoading: false }));
+      .catch((error: Error) => setResult({ error, isLoading: false }));
 
     // Cancel current promise on unmount
     return () => Storage.cancel(promise);

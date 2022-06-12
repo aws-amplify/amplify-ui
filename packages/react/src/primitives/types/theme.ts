@@ -1,3 +1,10 @@
+import type {
+  FontSizes,
+  FontWeights,
+  SpaceSizes,
+  Radii,
+} from '@aws-amplify/ui';
+
 /**
  * Token keys for colors
  *
@@ -177,7 +184,62 @@ export type ColorKeys<PropertyType> =
   | BorderColorKeys
   | ShadowColorKeys;
 
+export type FontSizeKeys<PropertyType> = PropertyType | keyof FontSizes;
+
+export type FontWeightKeys<PropertyType> = PropertyType | keyof FontWeights;
+
+export type RadiiKeys<PropertyType> = PropertyType | keyof Radii;
+
+// Theme keys for space
+export type SpaceKeys<PropertyType> =
+  | PropertyType
+  | keyof SpaceSizes
+  | 'zero'
+  | 'relative.xxxs'
+  | 'relative.xxs'
+  | 'relative.xs'
+  | 'relative.small'
+  | 'relative.medium'
+  | 'relative.large'
+  | 'relative.xl'
+  | 'relative.xxl'
+  | 'relative.xxxl'
+  | 'relative.full';
+
 export const stylePropsToThemeKeys = {
   backgroundColor: 'colors',
   color: 'colors',
+  left: 'space',
+  right: 'space',
+  top: 'space',
+  bottom: 'space',
+  height: 'space',
+  width: 'space',
+  letterSpacing: 'space',
+  marginBlockEnd: 'space',
+  marginBlockStart: 'space',
+  marginInlineEnd: 'space',
+  marginInlineStart: 'space',
+  marginLeft: 'space',
+  marginRight: 'space',
+  marginTop: 'space',
+  marginBottom: 'space',
+  maxHeight: 'space',
+  maxWidth: 'space',
+  minHeight: 'space',
+  minWidth: 'space',
+  paddingBlockEnd: 'space',
+  paddingBlockStart: 'space',
+  paddingInlineEnd: 'space',
+  paddingInlineStart: 'space',
+  paddingLeft: 'space',
+  paddingRight: 'space',
+  paddingTop: 'space',
+  paddingBottom: 'space',
+  gap: 'space',
+  columnGap: 'space',
+  rowGap: 'space',
+  borderRadius: 'radii',
+  fontSize: 'fontSizes',
+  fontWeight: 'fontWeights',
 };
