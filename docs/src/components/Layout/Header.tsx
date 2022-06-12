@@ -1,13 +1,21 @@
 import * as React from 'react';
 import { DocSearch } from '@docsearch/react';
-import { Flex, Image } from '@aws-amplify/ui-react';
+import {
+  Button,
+  Flex,
+  Image,
+  Link,
+  View,
+  VisuallyHidden,
+} from '@aws-amplify/ui-react';
 
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { Sidebar } from './Sidebar';
 import { LogoLink } from './LogoLink';
 import { MenuButton } from './MenuButton';
-
+import { DISCORD, GITHUB_REPO } from '@/data/links';
 import '@docsearch/css';
+import { DiscordIcon, GithubIcon } from '../Icons';
 
 export const Header = ({
   expanded,
@@ -17,6 +25,7 @@ export const Header = ({
   platform,
 }) => {
   const [showSearch, setShowSearch] = React.useState(false);
+
   React.useEffect(() => {
     setShowSearch(true);
   }, [showSearch]);
@@ -51,6 +60,28 @@ export const Header = ({
           />
         )}
         <ColorModeSwitcher colorMode={colorMode} setColorMode={setColorMode} />
+        <View>
+          <Button
+            variation="link"
+            as={Link}
+            href={DISCORD}
+            isExternal
+            color="font.tertiary"
+          >
+            <VisuallyHidden>Discord</VisuallyHidden>
+            <DiscordIcon />
+          </Button>
+          <Button
+            variation="link"
+            as={Link}
+            href={GITHUB_REPO}
+            isExternal
+            color="font.tertiary"
+          >
+            <VisuallyHidden>Github</VisuallyHidden>
+            <GithubIcon />
+          </Button>
+        </View>
       </Flex>
     </Flex>
   );
