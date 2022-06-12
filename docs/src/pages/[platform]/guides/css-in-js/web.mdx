@@ -46,7 +46,7 @@ const StyledView = styled(View)`
 <StyledView color="red">Using Styling props</StyledView>;
 ```
 
-In the example above, the color of the view will be set to `red` because of the Amplify styling prop. [Here]() is a list of all Amplify styling props.
+In the example above, the color of the view will be set to `red` because of the Amplify styling prop.
 
 ##### Amplify variation props
 
@@ -61,10 +61,10 @@ const StyledButton = styled(Button)`
   color: blue
 `;
 
-<StyledButton variation="primary'>Primary Button</StyledButton>
+<StyledButton variation="primary">Primary Button</StyledButton>
 ```
 
-In the example above, the color of the button will be set to `white`, because the primary variation of the button has a color set to `white` and it takes precedence over the Styled Components styling. A list of Amplify variations can be found on [here]().
+In the example above, the color of the button will be set to `blue`. Although the `primary` variation has a color value of white the Styled Components color value of blue will take precedence over the amplify-ui variation styling.
 
 ##### Amplify Custom ClassNames
 
@@ -166,8 +166,7 @@ const classes = useStyles();
 </Text>;
 ```
 
-In the example above, the color of the view will be set to `red` because of the Amplify styling prop. [Here]() is a list of all Amplify styling props.
-
+In the example above, the color of the view will be set to `red` because of the Amplify styling prop.
 ##### Amplify variation props
 
 These props change the look and/or behavior of certain Amplify components. Examples include `size` and `variation`.
@@ -190,7 +189,7 @@ const classes = useStyles();
 </Button>;
 ```
 
-In the example above, the color of the button will be set to `white`, because the primary variation of the button has a color set to `white` and it takes precedence over the JSS styling. A list of Amplify variations can be found on [here]().
+In the example above, the color of the button will be set to `blue`. Although the `primary` variation has a color value of white the JSS color value of blue will take precedence over the amplify-ui variation styling.
 
 ##### Amplify Custom ClassNames
 
@@ -293,7 +292,7 @@ const styles = {
 </Text>;
 ```
 
-In the example above, the color of the view will be set to `red` because of the Amplify styling prop. [Here]() is a list of all Amplify styling props.
+In the example above, the color of the view will be set to `red` because of the Amplify styling prop.
 
 ##### Amplify variation props
 
@@ -301,7 +300,7 @@ These props change the look and/or behavior of certain Amplify components. Examp
 
 ```jsx
 /** @jsxImportSource @emotion/react */
-import { jsx, css } from '@emotion/react';
+import { css } from '@emotion/react';
 import { Button } from '@aws-amplify/ui-react';
 
 const styles = {
@@ -313,7 +312,7 @@ const styles = {
 </Button>;
 ```
 
-In the example above, the color of the button will be set to `white`, because the primary variation of the button has a color set to `white` and it takes precedence over the Emotion styling. A list of Amplify variations can be found on [here]().
+In the example above, the color of the button will be set to `blue`. Although the `primary` variation has a color value of white the Emotion color value of blue will take precedence over the amplify-ui variation styling.
 
 ##### Amplify Custom ClassNames
 
@@ -321,7 +320,7 @@ These are custom classnames added onto Amplify components and can be used with C
 
 ```jsx
 /** @jsxImportSource @emotion/react */
-import { jsx, css } from '@emotion/react';
+import { css } from '@emotion/react';
 import { Text } from '@aws-amplify/ui-react';
 
 const styles = {
@@ -411,7 +410,7 @@ const styles = StyleSheet.create({
 </Text>;
 ```
 
-In the example above, the color of the view will be set to `blue` because of the Aphrodite styling will take precedence. [Here]() is a list of all Amplify styling props.
+In the example above, the color of the view will be set to `blue` because of the Aphrodite styling will take precedence.
 
 ##### Amplify variation props
 
@@ -432,7 +431,7 @@ const styles = StyleSheet.create({
 </Button>;
 ```
 
-In the example above, the color of the button will be set to `blue`, because the Aphrodite styling will take precedence over the Amplify variation styling. A list of Amplify variations can be found on [here]().
+In the example above, the color of the button will be set to `blue`, because the Aphrodite styling will take precedence over the Amplify variation styling.
 
 ##### Amplify Custom ClassNames
 
@@ -469,7 +468,7 @@ Amplify theming provides many CSS variables to customize the look and feel of th
 ```jsx
 /** @jsxImportSource @emotion/react */
 import { StyleSheet, css } from 'aphrodite';
-import { Text } from '@aws-amplify/ui-react';
+import { Button } from '@aws-amplify/ui-react';
 
 const styles = StyleSheet.create({
   blue: {
