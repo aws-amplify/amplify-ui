@@ -14,7 +14,7 @@ export const DiscordIcon = ({ ariaLabel = '', ...rest }) => (
 );
 
 export const GithubIcon = ({ ariaLabel = '', ...rest }) => (
-  <SiGithub {...rest} ariaLabel={ariaLabel} as={Icon} />
+  <Icon {...rest} ariaLabel={ariaLabel} as={SiGithub} />
 );
 
 export const DesignTokenIcon = ({ ariaLabel = '', ...rest }) => (
