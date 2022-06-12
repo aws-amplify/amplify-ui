@@ -17,6 +17,7 @@ describe('@aws-amplify/ui-react', () => {
           "defaultDarkModeOverride",
           "defaultTheme",
           "translations",
+          "stylePropsToThemeKeys",
           "Alert",
           "AmplifyProvider",
           "Authenticator",
