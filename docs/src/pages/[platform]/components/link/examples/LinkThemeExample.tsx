@@ -1,13 +1,27 @@
 import { Link, Theme, ThemeProvider } from '@aws-amplify/ui-react';
 
+/*
+
+color and visited-color point to the same value
+
+--amplify-components-link-active-color: var(--amplify-colors-font-active);
+--amplify-components-link-color: var(--amplify-colors-font-interactive);
+--amplify-components-link-focus-color: var(--amplify-colors-font-focus);
+--amplify-components-link-hover-color: var(--amplify-colors-font-hover);
+--amplify-components-link-visited-color: var(--amplify-colors-font-interactive);
+
+
+I can only see the active state color if I toggle it in DevTools
+
+*/
+
 const theme: Theme = {
   name: 'link-theme',
   tokens: {
     components: {
       link: {
-        // unable to see color
-        color: { value: 'black' },
-        // unable to see active
+        // color doesn't seem to get applied
+        color: { value: '{colors.yellow.60.value}' },
         active: {
           color: { value: '{colors.yellow.60.value}' },
         },
@@ -18,7 +32,7 @@ const theme: Theme = {
           color: { value: '{colors.green.60.value}' },
         },
         visited: {
-          color: { value: '{colors.purple.80.value}' },
+          color: { value: '{colors.purple.60.value}' },
         },
       },
     },
