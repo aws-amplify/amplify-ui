@@ -25,6 +25,36 @@ import { Expander, ExpanderItem, Table, TableBody, TableCell, TableHead, TableRo
   <TableBody>
     
     <TableRow>
+      <TableCell className="props-table__tr-name">ariaLabel</TableCell>
+      <TableCell>
+```jsx
+AriaAttributes['aria-label']
+```
+</TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">ariaValuetext</TableCell>
+      <TableCell>
+```jsx
+AriaAttributes['aria-valuetext']
+```
+</TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">as</TableCell>
+      <TableCell>
+```jsx
+Element | Props["as"]
+```
+</TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
+    </TableRow>
+
+    <TableRow>
       <TableCell className="props-table__tr-name">children<sup>*</sup></TableCell>
       <TableCell>
 ```jsx
@@ -32,6 +62,16 @@ React.ReactElement | React.ReactElement[]
 ```
 </TableCell>
       <TableCell className="props-table__tr-description">The Tabs component only accepts TabItem components as children.</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">className</TableCell>
+      <TableCell>
+```jsx
+string
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">Additional CSS class name for component</TableCell>
     </TableRow>
 
     <TableRow>
@@ -52,6 +92,16 @@ number | string
 ```
 </TableCell>
       <TableCell className="props-table__tr-description">Change which Tab content is initially displayed. Pass in the index of the Tab you wish to show. The default is index 0 (the first tab).</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">id</TableCell>
+      <TableCell>
+```jsx
+string
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">Unique identifier</TableCell>
     </TableRow>
 
     <TableRow>
@@ -85,96 +135,6 @@ boolean
     </TableRow>
 
     <TableRow>
-      <TableCell className="props-table__tr-name">spacing</TableCell>
-      <TableCell>
-```jsx
-TabsSpacing
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">Control how Tabs take up the remaining space. Pass &#96;equal&#96; to make each tab take up the same amount of space, and &#96;relative&#96; to make each tab take up space relative to the size of its title.</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">title</TableCell>
-      <TableCell>
-```jsx
-React.ReactNode
-```
-</TableCell>
-      <TableCell className="props-table__tr-description"></TableCell>
-    </TableRow>
-
-  </TableBody>
-</Table>
-
-</ExpanderItem>
-
-<ExpanderItem title="Base" value="Base">
-    
-<Table
-  highlightOnHover={true}
-  className="props-table"
-  >
-  <TableHead>
-    <TableRow>
-      <TableCell as="th">Name</TableCell>
-      <TableCell as="th">Type</TableCell>
-      <TableCell as="th">Description</TableCell>
-    </TableRow>
-  </TableHead>
-  <TableBody>
-    
-    <TableRow>
-      <TableCell className="props-table__tr-name">ariaLabel</TableCell>
-      <TableCell>
-```jsx
-AriaAttributes['aria-label']
-```
-</TableCell>
-      <TableCell className="props-table__tr-description"></TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">ariaValuetext</TableCell>
-      <TableCell>
-```jsx
-AriaAttributes['aria-valuetext']
-```
-</TableCell>
-      <TableCell className="props-table__tr-description"></TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">as</TableCell>
-      <TableCell>
-```jsx
-Element | Props["as"]
-```
-</TableCell>
-      <TableCell className="props-table__tr-description"></TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">className</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">Additional CSS class name for component</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">id</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">Unique identifier</TableCell>
-    </TableRow>
-
-    <TableRow>
       <TableCell className="props-table__tr-name">ref</TableCell>
       <TableCell>
 ```jsx
@@ -195,6 +155,16 @@ React.AriaRole
     </TableRow>
 
     <TableRow>
+      <TableCell className="props-table__tr-name">spacing</TableCell>
+      <TableCell>
+```jsx
+TabsSpacing
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">Control how Tabs take up the remaining space. Pass &#96;equal&#96; to make each tab take up the same amount of space, and &#96;relative&#96; to make each tab take up space relative to the size of its title.</TableCell>
+    </TableRow>
+
+    <TableRow>
       <TableCell className="props-table__tr-name">testId</TableCell>
       <TableCell>
 ```jsx
@@ -202,6 +172,16 @@ string
 ```
 </TableCell>
       <TableCell className="props-table__tr-description">Used to provide a &#96;data-testid&#96; attribute for testing purposes</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">title</TableCell>
+      <TableCell>
+```jsx
+React.ReactNode
+```
+</TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
     </TableRow>
 
   </TableBody>

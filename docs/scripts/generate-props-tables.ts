@@ -157,19 +157,32 @@ function getPropsSortedByCategory(
       .map(
         (category) =>
           ({
-            [category]: getObjectValueWithCaselessKey(
-              propertiesByCategory,
-              category
-            ),
+            [category]:
+              category === componentName
+                ? combineCategories(propertiesByCategory, [category, 'Base'])
+                : getObjectValueWithCaselessKey(propertiesByCategory, category),
           } as {
             [key in Category]: Properties;
           })
       )
-      .filter((val) => Object.values(val)[0]);
+      .filter((val) => Object.values(val)[0] && Object.keys(val)[0] !== 'Base');
   } else {
     console.log(` 🫥  ${componentPageName} doesn't have any type properties.`);
     return null;
   }
+}
+
+function combineCategories(
+  propertiesByCategory,
+  toBeCombined: (Category | 'Other')[]
+) {
+  return toBeCombined.reduce(
+    (acc, category) => ({
+      ...acc,
+      ...getObjectValueWithCaselessKey(propertiesByCategory, category),
+    }),
+    {}
+  );
 }
 
 function getPropertiesByCategory(

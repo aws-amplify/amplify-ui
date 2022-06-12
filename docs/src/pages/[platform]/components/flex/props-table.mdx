@@ -25,6 +25,36 @@ import { Expander, ExpanderItem, Table, TableBody, TableCell, TableHead, TableRo
   <TableBody>
     
     <TableRow>
+      <TableCell className="props-table__tr-name">ariaLabel</TableCell>
+      <TableCell>
+```jsx
+AriaAttributes['aria-label']
+```
+</TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">ariaValuetext</TableCell>
+      <TableCell>
+```jsx
+AriaAttributes['aria-valuetext']
+```
+</TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">as</TableCell>
+      <TableCell>
+```jsx
+Element | Props["as"]
+```
+</TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
+    </TableRow>
+
+    <TableRow>
       <TableCell className="props-table__tr-name">basis</TableCell>
       <TableCell>
 ```jsx
@@ -32,6 +62,16 @@ ResponsiveStyle<Property.FlexBasis>
 ```
 </TableCell>
       <TableCell className="props-table__tr-description">Default size of element before remaining space is distributed</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">className</TableCell>
+      <TableCell>
+```jsx
+string
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">Additional CSS class name for component</TableCell>
     </TableRow>
 
     <TableRow>
@@ -65,96 +105,6 @@ ResponsiveStyle<Property.FlexGrow>
     </TableRow>
 
     <TableRow>
-      <TableCell className="props-table__tr-name">order</TableCell>
-      <TableCell>
-```jsx
-ResponsiveStyle<Property.Order>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">Controls order flex items appear</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">shrink</TableCell>
-      <TableCell>
-```jsx
-ResponsiveStyle<Property.FlexShrink>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">Ability for flex item to shrink</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">wrap</TableCell>
-      <TableCell>
-```jsx
-ResponsiveStyle<Property.FlexWrap>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">The flexWrap property is set on containers and it controls what happens when children overflow the size of the container along the main axis. By default, children are forced into a single line (which can shrink elements). If wrapping is allowed, items are wrapped into multiple lines along the main axis if needed. (maps to flex-wrap CSS property)</TableCell>
-    </TableRow>
-
-  </TableBody>
-</Table>
-
-</ExpanderItem>
-
-<ExpanderItem title="Base" value="Base">
-    
-<Table
-  highlightOnHover={true}
-  className="props-table"
-  >
-  <TableHead>
-    <TableRow>
-      <TableCell as="th">Name</TableCell>
-      <TableCell as="th">Type</TableCell>
-      <TableCell as="th">Description</TableCell>
-    </TableRow>
-  </TableHead>
-  <TableBody>
-    
-    <TableRow>
-      <TableCell className="props-table__tr-name">ariaLabel</TableCell>
-      <TableCell>
-```jsx
-AriaAttributes['aria-label']
-```
-</TableCell>
-      <TableCell className="props-table__tr-description"></TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">ariaValuetext</TableCell>
-      <TableCell>
-```jsx
-AriaAttributes['aria-valuetext']
-```
-</TableCell>
-      <TableCell className="props-table__tr-description"></TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">as</TableCell>
-      <TableCell>
-```jsx
-Element | Props["as"]
-```
-</TableCell>
-      <TableCell className="props-table__tr-description"></TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">className</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">Additional CSS class name for component</TableCell>
-    </TableRow>
-
-    <TableRow>
       <TableCell className="props-table__tr-name">id</TableCell>
       <TableCell>
 ```jsx
@@ -162,6 +112,16 @@ string
 ```
 </TableCell>
       <TableCell className="props-table__tr-description">Unique identifier</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">order</TableCell>
+      <TableCell>
+```jsx
+ResponsiveStyle<Property.Order>
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">Controls order flex items appear</TableCell>
     </TableRow>
 
     <TableRow>
@@ -185,6 +145,16 @@ React.AriaRole
     </TableRow>
 
     <TableRow>
+      <TableCell className="props-table__tr-name">shrink</TableCell>
+      <TableCell>
+```jsx
+ResponsiveStyle<Property.FlexShrink>
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">Ability for flex item to shrink</TableCell>
+    </TableRow>
+
+    <TableRow>
       <TableCell className="props-table__tr-name">testId</TableCell>
       <TableCell>
 ```jsx
@@ -192,6 +162,16 @@ string
 ```
 </TableCell>
       <TableCell className="props-table__tr-description">Used to provide a &#96;data-testid&#96; attribute for testing purposes</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">wrap</TableCell>
+      <TableCell>
+```jsx
+ResponsiveStyle<Property.FlexWrap>
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">The flexWrap property is set on containers and it controls what happens when children overflow the size of the container along the main axis. By default, children are forced into a single line (which can shrink elements). If wrapping is allowed, items are wrapped into multiple lines along the main axis if needed. (maps to flex-wrap CSS property)</TableCell>
     </TableRow>
 
   </TableBody>

@@ -25,86 +25,6 @@ import { Expander, ExpanderItem, Table, TableBody, TableCell, TableHead, TableRo
   <TableBody>
     
     <TableRow>
-      <TableCell className="props-table__tr-name">defaultValue</TableCell>
-      <TableCell>
-```jsx
-string | string[]
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">The value of the item(s) to expand.  Use on uncontrolled component.</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">isCollapsible</TableCell>
-      <TableCell>
-```jsx
-boolean
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">Determines whether the opened item can be collapsed if this is a single expander.</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onChange</TableCell>
-      <TableCell>
-```jsx
-(value?: string | string[]) => void
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">Event handler called when the expanded state of an item changes</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">title</TableCell>
-      <TableCell>
-```jsx
-React.ReactNode
-```
-</TableCell>
-      <TableCell className="props-table__tr-description"></TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">type</TableCell>
-      <TableCell>
-```jsx
-ExpanderType
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">Determines whether one or multiple items can be opened at the same time.</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">value</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">The controlled value of the item(s) to expand. Must be used in conjunction with onChange.</TableCell>
-    </TableRow>
-
-  </TableBody>
-</Table>
-
-</ExpanderItem>
-
-<ExpanderItem title="Base" value="Base">
-    
-<Table
-  highlightOnHover={true}
-  className="props-table"
-  >
-  <TableHead>
-    <TableRow>
-      <TableCell as="th">Name</TableCell>
-      <TableCell as="th">Type</TableCell>
-      <TableCell as="th">Description</TableCell>
-    </TableRow>
-  </TableHead>
-  <TableBody>
-    
-    <TableRow>
       <TableCell className="props-table__tr-name">ariaLabel</TableCell>
       <TableCell>
 ```jsx
@@ -145,6 +65,16 @@ string
     </TableRow>
 
     <TableRow>
+      <TableCell className="props-table__tr-name">defaultValue</TableCell>
+      <TableCell>
+```jsx
+string | string[]
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">The value of the item(s) to expand.  Use on uncontrolled component.</TableCell>
+    </TableRow>
+
+    <TableRow>
       <TableCell className="props-table__tr-name">id</TableCell>
       <TableCell>
 ```jsx
@@ -152,6 +82,26 @@ string
 ```
 </TableCell>
       <TableCell className="props-table__tr-description">Unique identifier</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">isCollapsible</TableCell>
+      <TableCell>
+```jsx
+boolean
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">Determines whether the opened item can be collapsed if this is a single expander.</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">onChange</TableCell>
+      <TableCell>
+```jsx
+(value?: string | string[]) => void
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">Event handler called when the expanded state of an item changes</TableCell>
     </TableRow>
 
     <TableRow>
@@ -182,6 +132,36 @@ string
 ```
 </TableCell>
       <TableCell className="props-table__tr-description">Used to provide a &#96;data-testid&#96; attribute for testing purposes</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">title</TableCell>
+      <TableCell>
+```jsx
+React.ReactNode
+```
+</TableCell>
+      <TableCell className="props-table__tr-description"></TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">type</TableCell>
+      <TableCell>
+```jsx
+ExpanderType
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">Determines whether one or multiple items can be opened at the same time.</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">value</TableCell>
+      <TableCell>
+```jsx
+string
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">The controlled value of the item(s) to expand. Must be used in conjunction with onChange.</TableCell>
     </TableRow>
 
   </TableBody>
