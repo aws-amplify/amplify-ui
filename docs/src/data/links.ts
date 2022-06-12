@@ -380,7 +380,7 @@ export const theming = [
   {
     href: '/theming/style-attributes',
     label: 'Style Attributes',
-    platforms: ['react', 'vue', 'angular'],
+    platforms: ['react'],
   },
 ];
 

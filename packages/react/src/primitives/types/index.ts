@@ -41,6 +41,7 @@ export * from './text';
 export * from './textArea';
 export * from './textAreaField';
 export * from './textField';
+export * from './theme';
 export * from './toggleButton';
 export * from './toggleButtonGroup';
 export * from './view';

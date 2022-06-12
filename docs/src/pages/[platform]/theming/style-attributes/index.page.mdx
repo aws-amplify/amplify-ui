@@ -164,7 +164,45 @@ const { tokens } = useTheme();
 ### Layout Styles
 
 ```tsx
-import { useTheme } from '@aws-amplify/ui-react';
+import { Flex, View, useTheme } from '@aws-amplify/ui-react';
+
+//use any css value
+<View
+  display="flex"
+  justifyContent="flex-start"
+  alignItems="stretch"
+  alignContent="flex-start"
+  gap="1rem"
+>
+  <Button>Button 1</Button>
+  <Button>Button 2</Button>
+  <Button>Button 3</Button>
+</View>;
+
+//using design tokens
+const { tokens } = useTheme();
+<Flex
+  justifyContent="flex-start"
+  alignItems="stretch"
+  alignContent="flex-start"
+  gap={tokens.space.medium}
+>
+  <Button>Button 1</Button>
+  <Button>Button 2</Button>
+  <Button>Button 3</Button>
+</Flex>;
+
+//using token names
+<Flex
+  justifyContent="flex-start"
+  alignItems="stretch"
+  alignContent="flex-start"
+  gap="medium"
+>
+  <Button>Button 1</Button>
+  <Button>Button 2</Button>
+  <Button>Button 3</Button>
+</Flex>;
 ```
 
 <LayoutStyles />
@@ -172,7 +210,17 @@ import { useTheme } from '@aws-amplify/ui-react';
 ### Margin and Padding
 
 ```tsx
-import { useTheme } from '@aws-amplify/ui-react';
+import { Button, useTheme } from '@aws-amplify/ui-react';
+
+//use any CSS value
+<Button padding="1rem">Padded Button</Button>
+
+//use design tokens
+const { tokens } = useTheme();
+<Button margin={tokens.space.medium}>Button with margin</Button>
+
+//use design token name
+<Button padding="relative.large">Padded Button</Button>
 ```
 
 <MarginAndPaddingStyles />
@@ -180,7 +228,35 @@ import { useTheme } from '@aws-amplify/ui-react';
 ### Position Styles
 
 ```tsx
-import { useTheme } from '@aws-amplify/ui-react';
+import { View, useTheme } from '@aws-amplify/ui-react';
+
+//use any CSS value
+<View position="relative" width="200px" height="200px">
+  <View position="absolute" left="10%" top="20%" width="20px" height="20px" />
+</View>;
+
+//using design tokens
+const { tokens } = useTheme();
+<View position="relative" width="200px" height="200px">
+  <View
+    position="absolute"
+    left={tokens.space.relative.xxl}
+    top={tokens.space.relative.xxxl}
+    width={tokens.space.large}
+    height={tokens.space.large}
+  />
+</View>;
+
+//using design token names
+<View position="relative" width="200px" height="200px">
+  <View
+    position="absolute"
+    left="relative.xxl"
+    top="relative.xxxl"
+    width="large"
+    height="large"
+  />
+</View>;
 ```
 
 <PositionStyles />
@@ -188,7 +264,17 @@ import { useTheme } from '@aws-amplify/ui-react';
 ### Size Styles
 
 ```tsx
-import { useTheme } from '@aws-amplify/ui-react';
+import { View, useTheme } from '@aws-amplify/ui-react';
+
+//use any css value
+<View height="100vh" width="100vw"> Full View </View>
+
+//use design tokens
+const { tokens } = useTheme();
+<View height={tokens.space.relative.full} width={tokens.space.relative.full}> Full View </View>
+
+//use token names
+<View width="large" height="large" maxHeight="relative.xl" maxWidth="relative.xl"> Large View </View>
 ```
 
 <SizeStyles />
@@ -196,7 +282,10 @@ import { useTheme } from '@aws-amplify/ui-react';
 ### Shadow Styles
 
 ```tsx
-import { useTheme } from '@aws-amplify/ui-react';
+import { Button, useTheme } from '@aws-amplify/ui-react';
+
+//use any css value
+<Button boxShadow="10px 5px 5px black">Shadow Button</Button>;
 ```
 
 <ShadowStyles />
@@ -204,7 +293,17 @@ import { useTheme } from '@aws-amplify/ui-react';
 ### Typography Styles
 
 ```tsx
-import { useTheme } from '@aws-amplify/ui-react';
+import { Text, useTheme } from '@aws-amplify/ui-react';
+
+//use any css value
+<Text fontSize="24px" textDecoration="underline">Typography text</Text>
+
+//use design tokens
+const { tokens } = useTheme();
+<Text fontSize={tokens.fontSizes.large}>Typography text</Text>
+
+//use token names
+<Text fontSize="xl">Typography text</Text>
 ```
 
 <TypographyStyles />
