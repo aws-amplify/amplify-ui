@@ -7,6 +7,7 @@ import {
   Link,
   View,
   VisuallyHidden,
+  useBreakpointValue,
 } from '@aws-amplify/ui-react';
 
 import { ColorModeSwitcher } from './ColorModeSwitcher';
@@ -25,6 +26,10 @@ export const Header = ({
   platform,
 }) => {
   const [showSearch, setShowSearch] = React.useState(false);
+  const hiddenOnMobile = useBreakpointValue({
+    base: false,
+    small: true,
+  });
 
   React.useEffect(() => {
     setShowSearch(true);
@@ -60,28 +65,34 @@ export const Header = ({
           />
         )}
         <ColorModeSwitcher colorMode={colorMode} setColorMode={setColorMode} />
-        <View>
-          <Button
-            variation="link"
-            as={Link}
-            href={DISCORD}
-            isExternal
-            color="font.tertiary"
-          >
-            <VisuallyHidden>Discord</VisuallyHidden>
-            <DiscordIcon />
-          </Button>
-          <Button
-            variation="link"
-            as={Link}
-            href={GITHUB_REPO}
-            isExternal
-            color="font.tertiary"
-          >
-            <VisuallyHidden>Github</VisuallyHidden>
-            <GithubIcon />
-          </Button>
-        </View>
+        {hiddenOnMobile ? (
+          <View>
+            <Button
+              variation="link"
+              size="small"
+              as={Link}
+              href={DISCORD}
+              isExternal
+              color="font.tertiary"
+              fontSize="medium"
+            >
+              <VisuallyHidden>Discord</VisuallyHidden>
+              <DiscordIcon />
+            </Button>
+            <Button
+              variation="link"
+              size="small"
+              as={Link}
+              href={GITHUB_REPO}
+              isExternal
+              color="font.tertiary"
+              fontSize="medium"
+            >
+              <VisuallyHidden>Github</VisuallyHidden>
+              <GithubIcon />
+            </Button>
+          </View>
+        ) : null}
       </Flex>
     </Flex>
   );
