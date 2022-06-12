@@ -1,3 +1,4 @@
+import { AriaAttributes } from 'react';
 import { Property } from 'csstype';
 
 import { StyleToken } from './style';
@@ -18,5 +19,6 @@ export interface SliderFieldProps extends TextInputFieldProps, ViewProps {
   thumbColor?: StyleToken<Property.Color>;
   value?: number;
   defaultValue?: number;
+  ariaValuetext?: AriaAttributes['aria-valuetext'];
   onChange?: (value: number) => void;
 }

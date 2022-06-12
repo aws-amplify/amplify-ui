@@ -23,7 +23,6 @@ export interface BaseComponentProps {
 
 export interface AriaProps {
   ariaLabel?: AriaAttributes['aria-label'];
-  ariaValuetext?: AriaAttributes['aria-valuetext'];
   role?: React.AriaRole;
 }
 
