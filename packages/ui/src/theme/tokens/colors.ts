@@ -213,7 +213,7 @@ export const colors: Colors = {
     primary: { value: '{colors.neutral.100.value}' },
     secondary: { value: '{colors.neutral.90.value}' },
     tertiary: { value: '{colors.neutral.80.value}' },
-    disabled: { value: '{colors.font.tertiary.value}' },
+    disabled: { value: '{colors.neutral.60.value}' },
     inverse: { value: '{colors.white.value}' },
 
     interactive: { value: '{colors.brand.primary.80.value}' },
