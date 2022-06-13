@@ -3,10 +3,9 @@ import {
   Flex,
   FieldGroupIcon,
   FieldGroupIconButton,
-  IconInfo,
-  IconSearch,
   TextField,
 } from '@aws-amplify/ui-react';
+import { IconInfo, IconSearch } from '@aws-amplify/ui-react/internal';
 
 export const TextFieldOuterAndInnerComponentsExample = () => (
   <Flex gap="1rem" direction="column">

@@ -9,7 +9,6 @@ import {
   Flex,
   Grid,
   Heading,
-  IconChevronRight,
   Image,
   Link,
   Text,
@@ -19,6 +18,7 @@ import {
   useTheme,
   useBreakpointValue,
 } from '@aws-amplify/ui-react';
+import { IconChevronRight } from '@aws-amplify/ui-react/internal';
 
 import { CopyButton } from '@/components/CopyButton';
 import { Footer } from '@/components/Layout/Footer';
