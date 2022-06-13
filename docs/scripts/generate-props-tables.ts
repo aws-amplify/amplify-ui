@@ -153,7 +153,9 @@ function getPropsSortedByCategory(
     const allCategories = [
       componentName,
       ...Object.keys(propertiesByCategory)
-        .filter((category) => ![componentName, 'Other'].includes(category))
+        .filter(
+          (category) => ![componentName, 'Style', 'Other'].includes(category) // remove "Style" Category because we've already got the style props page
+        )
         .sort((a, b) => a.localeCompare(b)),
       // 'Other',  // 1. No need to show this category to the customers 2. It causes Amplify Hosting build memory leak
     ] as (Category | 'Other')[];
