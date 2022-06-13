@@ -13,21 +13,32 @@ const theme: Theme = {
   tokens: {
     components: {
       table: {
-        // TODO: customize here
+        row: {
+          hover: {
+            backgroundColor: { value: '{colors.green.40.value}' },
+          },
+
+          striped: {
+            backgroundColor: { value: '{colors.blue.20.value}' },
+          },
+        },
+
+        header: {
+          color: { value: '{colors.brand.secondary.80.value}' },
+          fontSize: { value: '{fontSizes.xl.value}' },
+        },
+
+        data: {
+          fontWeight: { value: '{fontWeights.semibold.value}' },
+        },
       },
-      // subcomponents?
     },
   },
 };
 
 export const TableThemeExample = () => (
   <ThemeProvider theme={theme}>
-    <Table
-    // caption={}
-    // highlightOnHover={false}
-    // size={undefined}
-    // variation={undefined}
-    >
+    <Table highlightOnHover variation="striped">
       <TableHead>
         <TableRow>
           <TableCell as="th">Citrus</TableCell>
