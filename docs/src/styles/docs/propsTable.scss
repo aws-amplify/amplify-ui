@@ -4,14 +4,11 @@
 
 .props-table {
   & pre[class*='language-'] {
-    max-width: 20rem;
+    margin: 0;
+    padding: 0;
   }
 
   & .amplify-expander__content__text {
     overflow-x: auto;
-  }
-
-  & .props-table__tr-description {
-    line-break: anywhere;
   }
 }
