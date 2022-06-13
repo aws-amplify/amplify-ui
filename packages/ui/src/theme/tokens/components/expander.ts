@@ -94,7 +94,7 @@ export interface ExpanderTokens {
 
 export const expander: ExpanderTokens = {
   display: { value: 'block' },
-  backgroundColor: { value: '{colors.white.value}' },
+  backgroundColor: { value: '{colors.background.primary.value}' },
   borderRadius: { value: '{radii.medium.value}' },
   boxShadow: {
     value: '{shadows.large.value}',
