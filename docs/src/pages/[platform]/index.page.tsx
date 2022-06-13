@@ -18,7 +18,7 @@ import {
   useTheme,
   useBreakpointValue,
 } from '@aws-amplify/ui-react';
-import { IconChevronRight } from '@aws-amplify/ui-react/internal';
+import { MdChevronRight } from 'react-icons/md';
 
 import { CopyButton } from '@/components/CopyButton';
 import { Footer } from '@/components/Layout/Footer';
@@ -96,7 +96,7 @@ const HomePage = ({ colorMode }) => {
                   href={`/${platform}/getting-started/installation`}
                 >
                   Get started
-                  <IconChevronRight />
+                  <MdChevronRight />
                 </Button>
                 <code className="install-code__container">
                   <p className="install-code__content">
@@ -168,7 +168,7 @@ const HomePage = ({ colorMode }) => {
                 isFullWidth
               >
                 Authenticator
-                <IconChevronRight />
+                <MdChevronRight />
               </Button>
             </Flex>
           </Flex>
@@ -194,7 +194,7 @@ const HomePage = ({ colorMode }) => {
               </Text>
               <Button as="a" size="large" href={`/${platform}/theming/`}>
                 Get started with theming
-                <IconChevronRight />
+                <MdChevronRight />
               </Button>
             </Flex>
             <Flex
@@ -262,7 +262,7 @@ const HomePage = ({ colorMode }) => {
                 href={`/${platform}/components/authenticator`}
               >
                 Get started with components
-                <IconChevronRight />
+                <MdChevronRight />
               </Button>
             </Flex>
           </Flex>
