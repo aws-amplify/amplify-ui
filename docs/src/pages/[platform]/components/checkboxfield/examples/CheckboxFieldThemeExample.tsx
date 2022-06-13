@@ -5,10 +5,16 @@ const theme: Theme = {
   tokens: {
     components: {
       checkbox: {
-        // TODO: customize here
-      },
-      checkboxfield: {
-        // TODO: customize here
+        button: {
+          color: { value: '{colors.yellow.40.value}' },
+          _focus: {
+            outlineColor: { value: '{colors.blue.40.value}' },
+            borderColor: { value: '{colors.red.40.value}' },
+          },
+        },
+        icon: {
+          backgroundColor: { value: '{colors.brand.secondary.80.value}' },
+        },
       },
     },
   },
