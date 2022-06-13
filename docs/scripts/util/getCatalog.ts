@@ -144,17 +144,19 @@ function getCatalogComponentProperty(
 
   return {
     name: sanitize(name),
-    type: treatType(type, name),
+    type: overwriteType(type, name),
     description: sanitize(description),
     category: sanitize(category),
     isOptional: property.isOptional(),
   };
 
-  function treatType(type, name) {
+  function overwriteType(type, name) {
     if (type.includes('import')) {
       type = type.match(regex)[1];
     } else if (name === 'ref' && type === 'React.Ref<T>') {
       type = 'React.Ref<HTMLElement>';
+    } else if (name === 'as' && type === 'Element | Props["as"]') {
+      type = 'Element';
     }
     return type;
   }
