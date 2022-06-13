@@ -371,24 +371,24 @@ export const theming = [
   {
     href: '/theming/default-theme',
     label: 'Default Theme',
-    platforms: ['react'],
+    platforms: ['react', 'vue', 'angular'],
   },
   {
     href: '/theming/default-theme/colors',
     label: 'Colors',
-    platforms: ['react'],
+    platforms: ['react', 'vue', 'angular'],
     tertiary: true,
   },
   {
     href: '/theming/default-theme/typography',
     label: 'Typography',
-    platforms: ['react'],
+    platforms: ['react', 'vue', 'angular'],
     tertiary: true,
   },
   {
     href: '/theming/default-theme/sizes',
     label: 'Sizes',
-    platforms: ['react'],
+    platforms: ['react', 'vue', 'angular'],
     tertiary: true,
   },
   {

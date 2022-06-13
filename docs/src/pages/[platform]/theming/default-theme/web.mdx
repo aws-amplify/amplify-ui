@@ -55,7 +55,7 @@ If we use `space` as an example, we'd discover its token definition looks simila
 
 All of our tokens follow this pattern: a top level namespace that is further defined by a scale, each which has their own unique value. In the case of our space design tokens, that scale is based on a size: small, medium, large, etc. Our [color tokens](/react/theming/default-theme/colors#neutral), on the other hand, are further defined by hue (red, blue, yellow, etc), and then by a numerical scale based on lightness (10-100). 
 
-This structure allows us to reference the small space value as `tokens.space.small` such as in the following example:
+This structure allows us to reference the small space value as `tokens.space.small` such as in the following example. You can also learn more about [theming](/theming#getting-started) in our getting started guide.
 
 ```jsx
 import { useTheme } from '@aws-amplify/ui-react';
@@ -81,9 +81,3 @@ Or in your own stylesheet:
   margin-bottom: var(--amplify-space-small);
 }
 ```
-
-<CardLink 
-  img={<MdOutlineAutoAwesome />}
-  href="/react/theming#getting-started" 
-  title="Theming overview" 
-  desc="Learn more about theming in our Getting Started guide" />

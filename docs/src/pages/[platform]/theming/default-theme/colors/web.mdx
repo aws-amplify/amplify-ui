@@ -1,6 +1,4 @@
-import { Tabs, TabItem, View } from '@aws-amplify/ui-react'
-import { Example, ExampleCode } from '@/components/Example';
-import { ColorsExample } from './examples';
+import { Fragment } from '@/components/Fragment';
 import { 
   TokensColorsFont, 
   TokensColorsBackground, 
@@ -22,33 +20,9 @@ import {
   TokensColorsWhite,
   TokensColorsTransparent } from '@/components/Theming/TokenGroups';
 
-<Tabs>
-  <TabItem title="Example usage">
-    <View marginTop="var(--amplify-space-large)">
-      <Example>
-        <ColorsExample  />
-        <ExampleCode>
-```tsx file=./examples/ColorsExample.tsx
-
-```
-        </ExampleCode>
-      </Example>
-    </View>
-  </TabItem>
-  <TabItem title="CSS">
-    <View marginTop="var(--amplify-space-large)">
-    <Example>
-      <ExampleCode>
-```css file=./examples/ColorsExample.css
-
-```
-      </ExampleCode>
-    </Example>
-    </View>
-  </TabItem>
-</Tabs>
-
 ## Semantic
+
+<Fragment>{({ platform }) => import(`./colorUsage.${platform}.mdx`)}</Fragment>
 
 ### Font
 <TokensColorsFont />
@@ -64,7 +38,6 @@ import {
 
 ### Overlay
 <TokensColorsOverlay />
-
 
 ## Brand
 

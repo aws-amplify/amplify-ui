@@ -1,99 +1,25 @@
-import { Tabs, TabItem, View } from '@aws-amplify/ui-react';
-import { Example, ExampleCode } from '@/components/Example';
+import { Fragment } from '@/components/Fragment';
 import { 
   TokensTypographyFontWeights,
   TokensTypographyFontSizes,
   TokensTypographyLineHeights,
   TokensTypographyFonts } from '@/components/Theming/TokenGroups';
-import { FontWeightExample, FontSizesExample, LineHeightsExample } from './examples';
 
 ## Font weights
 
-<Tabs>
-  <TabItem title="Example usage">
-    <View marginTop="var(--amplify-space-large)">
-      <Example>
-        <FontWeightExample  />
-        <ExampleCode>
-```tsx file=./examples/FontWeightExample.tsx
-
-```
-        </ExampleCode>
-      </Example>
-    </View>
-  </TabItem>
-  <TabItem title="CSS">
-    <View marginTop="var(--amplify-space-large)">
-    <Example>
-      <ExampleCode>
-```css file=./examples/FontWeightExample.css
-
-```
-      </ExampleCode>
-    </Example>
-    </View>
-  </TabItem>
-</Tabs>
+<Fragment>{({ platform }) => import(`./fontWeightUsage.${platform}.mdx`)}</Fragment>
 
 <TokensTypographyFontWeights />
 
 ## Font sizes
 
-<Tabs>
-  <TabItem title="Example usage">
-    <View marginTop="var(--amplify-space-large)">
-      <Example>
-        <FontSizesExample  />
-        <ExampleCode>
-```tsx file=./examples/FontSizesExample.tsx
-
-```
-        </ExampleCode>
-      </Example>
-    </View>
-  </TabItem>
-  <TabItem title="CSS">
-    <View marginTop="var(--amplify-space-large)">
-    <Example>
-      <ExampleCode>
-```css file=./examples/FontSizesExample.css
-
-```
-      </ExampleCode>
-    </Example>
-    </View>
-  </TabItem>
-</Tabs>
+<Fragment>{({ platform }) => import(`./fontSizeUsage.${platform}.mdx`)}</Fragment>
 
 <TokensTypographyFontSizes />
 
 ## Line heights
 
-<Tabs>
-  <TabItem title="Example usage">
-    <View marginTop="var(--amplify-space-large)">
-      <Example>
-        <LineHeightsExample  />
-        <ExampleCode>
-```tsx file=./examples/LineHeightsExample.tsx
-
-```
-        </ExampleCode>
-      </Example>
-    </View>
-  </TabItem>
-  <TabItem title="CSS">
-    <View marginTop="var(--amplify-space-large)">
-    <Example>
-      <ExampleCode>
-```css file=./examples/LineHeightsExample.css
-
-```
-      </ExampleCode>
-    </Example>
-    </View>
-  </TabItem>
-</Tabs>
+<Fragment>{({ platform }) => import(`./lineHeightsUsage.${platform}.mdx`)}</Fragment>
 
 <TokensTypographyLineHeights />
 
