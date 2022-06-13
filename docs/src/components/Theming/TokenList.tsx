@@ -43,21 +43,24 @@ export function TokenPath({ path }: TokenPathProps) {
   return (
     <div className="docs-tokenItem-path">
       {path.map((pathFragment, index) => {
-        return (
+        /**
+         * We show a delimiter (.) between path fragments, unless that
+         * fragment is first in the list, or can be interpreted as a number.
+         * We use isNaN() here because our path returns all fragments as strings.
+         **/
+        const showDelimiter = index !== 1 && isNaN(pathFragment as any);
+
+        /**
+         * Wrap any path fragments that can be interpreted as a number in brackets.
+         */
+        const wrapFragmentInBrackets = !isNaN(pathFragment as any);
+
+        return index !== 0 ? (
           <React.Fragment key={index}>
-            {
-              /**
-               * Path fragments start with a '.' unless it's the first
-               * item or a number, e.g. 'neutral[80]'.
-               */
-              index !== 0 && isNaN(pathFragment as any) && '.'
-            }
-            {
-              // Path fragments that are a number should be wrapped in
-              isNaN(pathFragment as any) ? pathFragment : `[${pathFragment}]`
-            }
+            {showDelimiter && '.'}
+            {wrapFragmentInBrackets ? `[${pathFragment}]` : pathFragment}
           </React.Fragment>
-        );
+        ) : null;
       })}
     </div>
   );
@@ -73,8 +76,10 @@ export function TokenMeta({ children }: TokenMetaProps) {
 
 type TokenListProps = {
   namespace: Namespace;
-  // TODO: better type for childNamespace? This should be children
-  // of whatever namespace you chose. e.g. namespace: 'colors', childNamespace: 'brand,primary'
+  /**
+   * TODO: better type for childNamespace? This should be children
+   * of whatever namespace you chose. e.g. namespace: 'colors', childNamespace: 'brand,primary'
+   */
   childNamespace?: Array<string>;
 };
 
@@ -92,7 +97,9 @@ export function TokenList({ namespace, childNamespace }: TokenListProps) {
     }
   }
 
-  // Create a more iteratable list (array) from our tokens
+  /**
+   * Create a more iteratable list (array) from our tokens
+   */
   const tokenList = createTokenList(tokenNamespace);
 
   /**
@@ -126,9 +133,6 @@ export function TokenList({ namespace, childNamespace }: TokenListProps) {
     <ul className="docs-tokenGroup docs-tokenGroup--list">
       {tokenList.map((tokenItem) => {
         const { name, path, value } = tokenItem;
-
-        // Remove the first path fragment which is the same as the namespace.
-        path.shift();
 
         return (
           <TokenItem namespace={namespace} key={name}>
