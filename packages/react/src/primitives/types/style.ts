@@ -116,7 +116,7 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   paddingRight?: ResponsiveStyle<SpaceKeys<StyleToken<Property.PaddingRight>>>;
   paddingTop?: ResponsiveStyle<SpaceKeys<StyleToken<Property.PaddingTop>>>;
   position?: ResponsiveStyle<StyleToken<Property.Position>>;
-  right?: ResponsiveStyle<SpaceKeys<SpaceKeys<StyleToken<Property.Right>>>>;
+  right?: ResponsiveStyle<SpaceKeys<StyleToken<Property.Right>>>;
   textAlign?: ResponsiveStyle<StyleToken<Property.TextAlign>>;
   textDecoration?: ResponsiveStyle<StyleToken<Property.TextDecoration>>;
   textTransform?: ResponsiveStyle<StyleToken<Property.TextTransform>>;
