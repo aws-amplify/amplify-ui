@@ -66,10 +66,13 @@
 .docs-tokenItem--space, .docs-tokenItem--borderWidths {
   grid-template-columns: 100px auto;
   @media (min-width: $breakpoint-medium) {
-    grid-template-columns: 140px 100px 280px auto;
+    grid-template-columns: 140px 100px 1fr auto;
     .docs-tokenItem-path {
       text-align: right;
     }
+  }
+  @media (min-width: $breakpoint-xl) {
+    grid-template-columns: 140px 100px 280px auto;
   }
 }
 
@@ -84,12 +87,15 @@
   @media (min-width: $breakpoint-medium) {
     // This first column size accomodates our largest radius + an extra
     // pixel width to account for SVG stroke
-    grid-template-columns: calc(2 * var(--amplify-radii-xxxl) + 1px) 80px 200px 1fr;
+    grid-template-columns: calc(2 * var(--amplify-radii-xxxl) + 1px) 80px 1fr auto;
     justify-items: start;
     .docs-radiusBlock {
       grid-area: 1 / 1 / 2 / 1;
       margin-left: auto;
     }
+  }
+  @media (min-width: $breakpoint-xl) {
+    grid-template-columns: calc(2 * var(--amplify-radii-xxxl) + 1px) 80px 280px auto;
   }
 }
 
