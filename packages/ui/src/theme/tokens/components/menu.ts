@@ -39,7 +39,7 @@ export interface MenuTokens {
 }
 
 export const menu: MenuTokens = {
-  backgroundColor: { value: '{colors.white.value}' },
+  backgroundColor: { value: '{colors.background.primary.value}' },
   borderRadius: { value: '{radii.medium.value}' },
   borderWidth: { value: '{borderWidths.small.value}' },
   borderStyle: { value: 'solid' },

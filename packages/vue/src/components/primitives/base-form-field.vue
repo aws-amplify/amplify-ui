@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { toRefs, computed } from 'vue';
 import { createSharedComposable } from '@vueuse/core';
+import { nanoid } from 'nanoid';
 
 import { FormFieldOptions, getErrors, translate } from '@aws-amplify/ui';
 import { useAuthenticator } from '../../composables/useAuth';
@@ -23,8 +24,13 @@ const { validationErrors } = toRefs(useAuthShared());
 
 const { type } = formField.value;
 
-const errors = computed(() => getErrors(validationErrors.value[name.value]));
 const isPasswordField = type === 'password';
+
+const errorId = nanoid(12);
+
+const errors = computed(() => getErrors(validationErrors.value[name.value]));
+const hasError = computed(() => errors.value?.length > 0);
+const ariaDescribedBy = computed(() => (hasError.value ? errorId : undefined));
 </script>
 <template>
   <!-- password input -->
@@ -36,7 +42,8 @@ const isPasswordField = type === 'password';
     :required="formField.isRequired!"
     :label-hidden="formField.labelHidden!"
     :autocomplete="formField.autocomplete!"
-    :ariainvalid="!!validationErrors[name]"
+    :hasError="hasError"
+    :describedBy="ariaDescribedBy"
   ></password-control>
 
   <!-- textfield input -->
@@ -51,10 +58,12 @@ const isPasswordField = type === 'password';
     :dial-code="formField.dialCode"
     :dial-code-list="formField.dialCodeList"
     :type="formField.type"
+    :hasError="hasError"
+    :describedBy="ariaDescribedBy"
   ></alias-control>
 
   <!-- Validation error, if any -->
-  <div v-if="errors?.length > 0">
+  <div v-if="hasError" :id="ariaDescribedBy">
     <p
       v-for="(error, idx) in errors"
       :key="idx"

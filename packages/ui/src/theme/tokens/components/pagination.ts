@@ -67,7 +67,7 @@ export const pagination: PaginationTokens = {
   current: {
     alignItems: { value: 'center' },
     justifyContent: { value: 'center' },
-    color: { value: '{colors.white.value}' },
+    color: { value: '{colors.font.inverse.value}' },
     fontSize: { value: '{fontSizes.small.value}' },
     backgroundColor: { value: '{colors.overlay.40.value}' },
   },

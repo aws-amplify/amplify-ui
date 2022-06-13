@@ -163,7 +163,7 @@ describe('convertStylePropsToStyleObj: ', () => {
 
     expect(propStyles['backgroundColor']).toBe('yellow');
     expect(propStyles['color']).toBe('red');
-    expect(propStyles['fontWeight']).toBe('bold');
+    expect(propStyles['fontWeight']).toBe('var(--amplify-font-weights-bold)');
   });
 
   it('should handle design tokens', () => {

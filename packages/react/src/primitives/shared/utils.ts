@@ -1,4 +1,7 @@
+import { cssNameTransform, defaultTheme, isDesignToken } from '@aws-amplify/ui';
+
 import { ComponentClasses } from './constants';
+import { stylePropsToThemeKeys } from '../types/theme';
 
 export const strHasLength = (str: unknown): str is string =>
   typeof str === 'string' && str.length > 0;
@@ -192,4 +195,28 @@ export const classNameModifierByFlag = (
   flag: boolean
 ): string => {
   return flag ? `${base}--${modifier}` : null;
+};
+
+export const getCSSVariableIfValueIsThemeKey = <Value>(
+  propKey: string,
+  value: Value
+) => {
+  if (typeof value !== 'string') {
+    return value;
+  }
+  const path = value.split('.');
+  let { tokens } = defaultTheme;
+  tokens = tokens[stylePropsToThemeKeys[propKey]];
+  for (let i = 0; i < path.length; i++) {
+    if (tokens) {
+      tokens = tokens[path[i]];
+      continue;
+    }
+    break;
+  }
+  return isDesignToken(tokens)
+    ? `var(--${cssNameTransform({
+        path: [stylePropsToThemeKeys[propKey], ...path],
+      })})`
+    : value;
 };

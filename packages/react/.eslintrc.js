@@ -69,9 +69,11 @@ module.exports = {
       files: [
         // TODO Uncomment the below lines on an individual basis as the updates to pass linting are completed.
         // If needed, these can be broken down further, e.g. 'src/components/Geo/**/*'
+        'src/components/Geo/**/*',
+        'src/components/ThemeProvider/**/*',
         'src/helpers/**/*',
+        'src/hooks/**/*',
         // 'src/components/**/*',
-        // 'src/hooks/**/*',
         // 'src/primitives/**/*',
       ],
       extends: [
