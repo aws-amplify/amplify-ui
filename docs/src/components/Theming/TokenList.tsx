@@ -55,6 +55,9 @@ export function TokenPath({ path }: TokenPathProps) {
          */
         const wrapFragmentInBrackets = !isNaN(pathFragment as any);
 
+        /**
+         * Skip the first index which matches our namespace and is redundant in the UI
+         */
         return index !== 0 ? (
           <React.Fragment key={index}>
             {showDelimiter && '.'}
