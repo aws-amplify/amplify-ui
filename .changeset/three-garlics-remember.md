@@ -4,8 +4,9 @@
 
 🚨BREAKING CHANGE🚨: Built-in icons removed
 
-We're removed the majority of the built-in icons (Icon360, IconSave, etc) from the `@aws-amplify/ui-react` package for a few reasons:
-* Including icons makes the package large. While in most cases the icons can be tree-shaken out of the final application, by removing them we can ensure they are are never included.
-* There are plenty of other React icon libraries that are compatible with Amplify UI components
+We've removed the built-in icons (Icon360, IconSave, etc) from the `@aws-amplify/ui-react` package. This change was made for a few reasons:
+* There are many other React icon libraries that are compatible with Amplify UI components
+* Removing the icons reduces the overall package size by about 74%.
+* While in most cases the icons are tree-shaken out of the final app bundle, by removing the icons we ensure smaller bundles sizes for all users.
 
-We've left the `<Icon>` component, which still allows customers to easily add SVG icons using the `pathData` prop. A limited set of of the icons have also been left for internal use inside of Amplify UI primitives.
+We are not removing the `<Icon>` component, which allows customers to easily add SVG icons using the `pathData` prop. A limited set of of the icons have been left for internal only use in Amplify UI primitives.
