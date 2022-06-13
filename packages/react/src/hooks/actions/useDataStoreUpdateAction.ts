@@ -27,7 +27,7 @@ export const useDataStoreUpdateAction = <Model extends PersistentModel>({
   id,
   model,
   schema,
-}: UseDataStoreUpdateActionOptions<Model>) => {
+}: UseDataStoreUpdateActionOptions<Model>): (() => Promise<void>) => {
   const fields = useTypeCastFields<Model>({
     fields: initialFields,
     modelName: model.name,
