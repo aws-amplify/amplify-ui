@@ -11,7 +11,7 @@
     "flutter:copy": "cp -r ./flutter/authenticator/build/web public/flutter/authenticator",
     "build:props-tables": "node --require esbuild-register ./scripts/generate-props-tables.ts",
     "helper": "node --require esbuild-register ./scripts/helper/getAllTypesData.ts",
-    "build": "next build",
+    "build": "yarn build:props-tables && next build",
     "lint": "next lint",
     "postbuild:previews": "node --require esbuild-register ./scripts/generate-previews.ts",
     "postbuild:sitemap": "node --require esbuild-register ./scripts/generate-sitemap-robotstxt.ts",
