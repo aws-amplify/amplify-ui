@@ -61,12 +61,30 @@ export const connectedComponents = [
     platforms: ['react', 'vue', 'angular', 'flutter'],
   },
   {
+    href: '/components/authenticator/configuration',
+    label: 'Configuration',
+    platforms: ['react', 'vue', 'angular', 'flutter'],
+    tertiary: true,
+  },
+  {
+    href: '/components/authenticator/customization',
+    label: 'Customization',
+    platforms: ['react', 'vue', 'angular', 'flutter'],
+    tertiary: true,
+  },
+  {
+    href: '/components/authenticator/headless',
+    label: 'Headless Usage',
+    platforms: ['react', 'vue', 'angular', 'flutter'],
+    tertiary: true,
+  },
+  {
     href: '/components/geo',
     label: 'Geo',
     body: 'Amplify UI Geo provides UI components for maps and location search built on top of Amazon Location Service.',
     platforms: ['react'],
   },
-].sort(sortByLabel);
+];
 
 export const dataDisplayComponents = [
   {
