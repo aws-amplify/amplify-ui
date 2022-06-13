@@ -8,6 +8,7 @@ export const HomeCodeHighlight = ({
   code = '',
   language = 'jsx',
   withLines = false,
+  withCopy = false,
   ...rest
 }) => {
   const [copied, setCopied] = React.useState(false);
@@ -19,11 +20,13 @@ export const HomeCodeHighlight = ({
   };
   return (
     <>
-      <CopyToClipboard text={code} onCopy={copy}>
-        <Button size="small" disabled={copied} className="copy-button">
-          {copied ? 'Copied!' : 'Copy'}
-        </Button>
-      </CopyToClipboard>
+      {withCopy ? (
+        <CopyToClipboard text={code} onCopy={copy}>
+          <Button size="small" disabled={copied} className="copy-button">
+            {copied ? 'Copied!' : 'Copy'}
+          </Button>
+        </CopyToClipboard>
+      ) : null}
       <Highlight
         Prism={defaultProps.Prism}
         code={code}

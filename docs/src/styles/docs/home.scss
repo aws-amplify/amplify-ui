@@ -194,7 +194,6 @@
 
 
 .docs-home-h1 {
-  // font-weight: var(--amplify-font-weights-black);
   font-size: 5rem;
 }
 
@@ -478,5 +477,36 @@ code.docs-home-code {
       opacity: 1;
       transform: translateX(0);
     }
+  }
+}
+
+
+.docs-home-browser {
+  border: var(--amplify-border-widths-small) solid var(--amplify-colors-border-primary);
+  border-radius: var(--amplify-radii-small);
+  background-color: var(--amplify-colors-background-primary);
+  &__nav-bar {
+    background-color: var(--amplify-colors-background-secondary);
+    padding: var(--amplify-space-xxs);
+    margin-block-end: var(--amplify-space-medium);
+    border-start-start-radius: var(--amplify-radii-small);
+    border-start-end-radius: var(--amplify-radii-small);
+  }
+  &__close-button,
+  &__min-button,
+  &__max-button {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 0.5rem;
+    display: inline-block
+  }
+  &__close-button {
+    background-color: var(--amplify-colors-red-60);
+  }
+  &__max-button {
+    background-color: var(--amplify-colors-green-60);
+  }
+  &__min-button {
+    background-color: var(--amplify-colors-yellow-60);
   }
 }

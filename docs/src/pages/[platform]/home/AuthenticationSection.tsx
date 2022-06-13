@@ -137,44 +137,55 @@ export const AuthenticationSection = ({ platform }) => {
 
   return (
     <View ref={ref} as="section" className="docs-home-section">
-      <View className="docs-home-container">
-        <Heading
-          level={2}
-          textAlign="center"
-          className={`fade-in ${isVisible ? 'shown' : ''}`}
-        >
-          <strong>Authentication</strong> made easy
-        </Heading>
-        <Text className="docs-home-description">
-          Add authentication to your app in under 10 lines of code using the
-          Authenticator component. The Authenticator works seamlessly with the{' '}
-          <Link href="https://docs.amplify.aws/cli/start/install/">
-            Amplify CLI
-          </Link>{' '}
-          to <strong>automatically</strong> work with your backend, no extra
-          configuration needed! Customize every detail of the authentication
-          flow with themes, overrides, or bring your own UI with a headless
-          mode.
-        </Text>
-      </View>
-
-      <Flex direction="row" padding="xxl" className="docs-grid-bg">
-        {hiddenOnMobile ? (
-          <HomeCode>
-            <HomeCodeHighlight
-              code={authenticatorCode[platform]}
-              language={languages[platform]}
-              withLines={true}
-            />
-          </HomeCode>
-        ) : null}
-        <View flex="1">
-          <Authenticator></Authenticator>
+      <Flex direction="column">
+        <View className="docs-home-container">
+          <Heading
+            level={2}
+            textAlign="center"
+            className={`fade-in ${isVisible ? 'shown' : ''}`}
+          >
+            <strong>Authentication</strong> made easy
+          </Heading>
+          <Text className="docs-home-description">
+            Add authentication to your app in under 10 lines of code using the
+            Authenticator component. The Authenticator works seamlessly with the{' '}
+            <Link href="https://docs.amplify.aws/cli/start/install/">
+              Amplify CLI
+            </Link>{' '}
+            to <strong>automatically</strong> work with your backend, no extra
+            configuration needed! Customize every detail of the authentication
+            flow with themes, overrides, or bring your own UI with a headless
+            mode.
+          </Text>
         </View>
+
+        <Flex direction="row" padding="xxl" className="docs-grid-bg">
+          {hiddenOnMobile ? (
+            <HomeCode>
+              <HomeCodeHighlight
+                code={authenticatorCode[platform]}
+                language={languages[platform]}
+                withLines={true}
+              />
+            </HomeCode>
+          ) : null}
+          <View flex="1" className="docs-home-browser">
+            <Flex
+              direction="row"
+              gap="xxs"
+              className="docs-home-browser__nav-bar"
+            >
+              <View as="span" className="docs-home-browser__close-button" />
+              <View as="span" className="docs-home-browser__min-button" />
+              <View as="span" className="docs-home-browser__max-button" />
+            </Flex>
+            <Authenticator></Authenticator>
+          </View>
+        </Flex>
+        <HomeCTA href={`/${platform}/components/authenticator`}>
+          Get started with the Authenticator
+        </HomeCTA>
       </Flex>
-      <HomeCTA href={`/${platform}/components/authenticator`}>
-        Get started with the Authenticator
-      </HomeCTA>
     </View>
   );
 };

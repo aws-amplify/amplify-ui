@@ -111,9 +111,7 @@ code {
   background-color: var(--amplify-colors-background-secondary);
   font-size: 0.875em;
   border-radius: 0.3em;
-  font-family: 'Source Code Pro', 'Fira Code', 'Fira Mono', ui-monospace,
-    SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
-    monospace;
+  font-family: var(--docs-font-mono);
   direction: ltr;
   text-align: left;
   white-space: pre;
@@ -220,18 +218,19 @@ h4:hover>  a .icon-link {
   --docs-header-height: 4rem;
   --docs-gradient-color-hsl: 210, 0%, 100%;
   --docs-callout-bg: var(--amplify-colors-brand-primary-10);
+  --docs-font-mono: 'Source Code Pro', 'Fira Code', 'Fira Mono', ui-monospace,
+  SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+  monospace;
 }
 
 [data-amplify-theme='amplify-docs'][data-amplify-color-mode='dark'] {
   --docs-gradient-color-hsl: 210, 50%, 10%;
-  // --docs-callout-bg: var(--amplify-colors-background-secondary);
 }
 
 @media (prefers-color-scheme: dark) {
   [data-amplify-theme='amplify-docs'],
   [data-amplify-theme='amplify-docs'][data-amplify-color-mode="system"] {
     --docs-gradient-color-hsl: 210, 50%, 10%;
-    // --docs-callout-bg: var(--amplify-colors-background-secondary);
   }
 }
 

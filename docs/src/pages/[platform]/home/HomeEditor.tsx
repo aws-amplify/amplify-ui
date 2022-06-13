@@ -17,7 +17,7 @@ const code = `() => {
   return (
     <Card variation="elevated">
       <Flex direction="row" alignItems="flex-start">
-        <Image src="/amplify-logo.svg"
+        <Image src="/amplify-ui-logo-2.svg"
           alt="Amplify" width="8rem"/>
         <Flex direction="column" gap={tokens.space.xs}>
           <Flex direction="row">

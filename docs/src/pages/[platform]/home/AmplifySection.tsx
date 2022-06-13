@@ -1,19 +1,15 @@
 import {
-  Card,
   Grid,
   Heading,
   Link,
   Text,
-  useTheme,
   View,
   Flex,
   Icon as AmpIcon,
 } from '@aws-amplify/ui-react';
-import { TbPrompt } from 'react-icons/tb';
-import { MdOutlineLibraryBooks } from 'react-icons/md';
-import { BsTerminalFill } from 'react-icons/bs';
 import { DiTerminal, DiJsBadge } from 'react-icons/di';
-import { FaServer, FaAws } from 'react-icons/fa';
+import { FaServer } from 'react-icons/fa';
+import { AmplifyIcon } from '@/components/AmplifyIcon';
 
 const AmpCard = ({ title, description, href, Icon }) => (
   <Flex
@@ -38,18 +34,16 @@ const AmpCard = ({ title, description, href, Icon }) => (
 );
 
 export const AmplifySection = () => {
-  const { tokens } = useTheme();
-
   return (
     <View as="section" className="docs-home-section">
       <View className="docs-home-container">
-        <Heading level={2} textAlign="center" margin={tokens.space.large}>
-          Integrated with AWS Amplify
+        <Heading level={2} textAlign="center">
+          <strong>Integrated</strong> with AWS Amplify
         </Heading>
         <Grid
           className="container"
           templateColumns={{ base: '1fr', medium: '1fr 1fr' }}
-          gap={tokens.space.xl}
+          gap="xl"
           flex="1"
         >
           <AmpCard
@@ -73,7 +67,7 @@ export const AmplifySection = () => {
           <AmpCard
             href="https://docs.amplify.aws/console/"
             title="Amplify Studio"
-            Icon={FaAws}
+            Icon={AmplifyIcon}
             description="Visual development environment to accelerate full-stack development."
           />
         </Grid>
