@@ -1,4 +1,11 @@
-import type { LineHeights, Shadows } from '@aws-amplify/ui';
+import type {
+  FontSizes,
+  FontWeights,
+  LineHeights,
+  Radii,
+  Shadows,
+  SpaceSizes,
+} from '@aws-amplify/ui';
 
 /**
  * Token keys for colors
@@ -179,20 +186,18 @@ export type ColorKeys<PropertyType> =
   | BorderColorKeys
   | ShadowColorKeys;
 
-export type LineHeightKeys<PropertyType> = PropertyType | keyof LineHeights;
-
 export type BoxShadowKeys<PropertyType> = PropertyType | keyof Shadows;
+
+export type FontSizeKeys<PropertyType> = PropertyType | keyof FontSizes;
+
+export type FontWeightKeys<PropertyType> = PropertyType | keyof FontWeights;
 
 export type FontFamilyKeys<PropertyType> =
   | PropertyType
   | 'default.variable'
   | 'default.static';
 
-export type TransformKeys<PropertyType> =
-  | PropertyType
-  | 'slideX.small'
-  | 'slideX.medium'
-  | 'slideX.large';
+export type LineHeightKeys<PropertyType> = PropertyType | keyof LineHeights;
 
 // Note: we cannot use keyof Opacities
 // because the return type will be number union and no intellisense
@@ -210,12 +215,69 @@ export type OpacityKeys<PropertyType> =
   | '90'
   | '100';
 
+export type RadiiKeys<PropertyType> = PropertyType | keyof Radii;
+
+// Theme keys for space
+export type SpaceKeys<PropertyType> =
+  | PropertyType
+  | keyof SpaceSizes
+  | 'zero'
+  | 'relative.xxxs'
+  | 'relative.xxs'
+  | 'relative.xs'
+  | 'relative.small'
+  | 'relative.medium'
+  | 'relative.large'
+  | 'relative.xl'
+  | 'relative.xxl'
+  | 'relative.xxxl'
+  | 'relative.full';
+
+export type TransformKeys<PropertyType> =
+  | PropertyType
+  | 'slideX.small'
+  | 'slideX.medium'
+  | 'slideX.large';
+
 export const stylePropsToThemeKeys = {
   backgroundColor: 'colors',
   color: 'colors',
+  borderRadius: 'radii',
+  fontSize: 'fontSizes',
+  fontWeight: 'fontWeights',
   fontFamily: 'fonts',
   lineHeight: 'lineHeights',
   opacity: 'opacities',
   boxShadow: 'shadows',
   transform: 'transforms',
+  left: 'space',
+  right: 'space',
+  top: 'space',
+  bottom: 'space',
+  height: 'space',
+  width: 'space',
+  letterSpacing: 'space',
+  marginBlockEnd: 'space',
+  marginBlockStart: 'space',
+  marginInlineEnd: 'space',
+  marginInlineStart: 'space',
+  marginLeft: 'space',
+  marginRight: 'space',
+  marginTop: 'space',
+  marginBottom: 'space',
+  maxHeight: 'space',
+  maxWidth: 'space',
+  minHeight: 'space',
+  minWidth: 'space',
+  paddingBlockEnd: 'space',
+  paddingBlockStart: 'space',
+  paddingInlineEnd: 'space',
+  paddingInlineStart: 'space',
+  paddingLeft: 'space',
+  paddingRight: 'space',
+  paddingTop: 'space',
+  paddingBottom: 'space',
+  gap: 'space',
+  columnGap: 'space',
+  rowGap: 'space',
 };

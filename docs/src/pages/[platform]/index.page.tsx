@@ -13,7 +13,6 @@ import {
   Image,
   Link,
   Text,
-  TextField,
   ToggleButton,
   ToggleButtonGroup,
   View,
@@ -21,7 +20,7 @@ import {
   useBreakpointValue,
 } from '@aws-amplify/ui-react';
 
-import { Copy } from '@/components/Copy';
+import { CopyButton } from '@/components/CopyButton';
 import { Footer } from '@/components/Layout/Footer';
 import { HomeLogo } from '../HomeLogo';
 import { HomePrimitivePreview } from '../HomePrimitivePreview';
@@ -103,11 +102,10 @@ const HomePage = ({ colorMode }) => {
                   <p className="install-code__content">
                     {frameworkInstallScript}
                   </p>
-                  <Copy
+                  <CopyButton
                     className="install-code__button"
-                    size=""
+                    copyText={frameworkInstallScript}
                     variation="link"
-                    text={frameworkInstallScript}
                   />
                 </code>
               </Flex>
