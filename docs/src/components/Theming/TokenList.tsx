@@ -80,15 +80,15 @@ export function TokenList({ namespace, childNamespace }: TokenListProps) {
   const { tokens } = useTheme();
 
   /**
-   * Get the tokens from useTheme() depending on what namespace
-   * and childNamespace(s) are passed to the TokenList
+   * Get the tokens from useTheme() depending on namespace and childNamespace(s).
+   * e.g. for namespace: 'colors' and childNamespace: ['brand', 'primary'],
+   * tokenNamespace will equal tokens.colors.brand.primary
    */
-  let tokenNamespace = tokens[namespace];
-  if (childNamespace) {
-    for (var i = 0; i < childNamespace.length; i++) {
-      tokenNamespace = tokenNamespace[childNamespace[i]];
-    }
-  }
+  const tokenNamespace = childNamespace
+    ? childNamespace.reduce((namespace, childNamespace) => {
+        return namespace && namespace[childNamespace];
+      }, tokens[namespace])
+    : tokens[namespace];
 
   /**
    * Create a more iteratable list (array) from our tokens
