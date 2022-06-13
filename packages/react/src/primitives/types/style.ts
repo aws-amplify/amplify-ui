@@ -80,22 +80,16 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   marginBlockStart?: ResponsiveStyle<
     SpaceKeys<StyleToken<Property.MarginBlockStart>>
   >;
-  marginBottom?: ResponsiveStyle<
-    SpaceKeys<StyleToken<Property.MarginBlockEnd>>
-  >;
+  marginBottom?: ResponsiveStyle<SpaceKeys<StyleToken<Property.MarginBottom>>>;
   marginInlineEnd?: ResponsiveStyle<
     SpaceKeys<StyleToken<Property.MarginInlineEnd>>
   >;
   marginInlineStart?: ResponsiveStyle<
     SpaceKeys<StyleToken<Property.MarginInlineStart>>
   >;
-  marginLeft?: ResponsiveStyle<
-    SpaceKeys<StyleToken<Property.MarginInlineStart>>
-  >;
-  marginRight?: ResponsiveStyle<
-    SpaceKeys<StyleToken<Property.MarginInlineEnd>>
-  >;
-  marginTop?: ResponsiveStyle<SpaceKeys<StyleToken<Property.MarginBlockStart>>>;
+  marginLeft?: ResponsiveStyle<SpaceKeys<StyleToken<Property.MarginLeft>>>;
+  marginRight?: ResponsiveStyle<SpaceKeys<StyleToken<Property.MarginRight>>>;
+  marginTop?: ResponsiveStyle<SpaceKeys<StyleToken<Property.MarginTop>>>;
   maxHeight?: ResponsiveStyle<SpaceKeys<StyleToken<Property.MaxHeight>>>;
   maxWidth?: ResponsiveStyle<SpaceKeys<StyleToken<Property.MaxWidth>>>;
   minHeight?: ResponsiveStyle<SpaceKeys<StyleToken<Property.MinHeight>>>;
