@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { render, screen, within } from '@testing-library/react';
 
-import { Icon } from '../Icon';
+import { Icon } from '../Icon/internal';
 import { ComponentClassNames } from '../../shared';
 
 describe('Icon component', () => {

@@ -8,7 +8,7 @@ import { View } from '../View';
 import { Flex } from '../Flex';
 import { Button } from '../Button';
 import { AlertIcon } from './AlertIcon';
-import { IconClose } from '../Icon';
+import { IconClose } from '../Icon/internal';
 import { isFunction } from '../shared/utils';
 
 const AlertPrimitive: Primitive<AlertProps, typeof Flex> = (

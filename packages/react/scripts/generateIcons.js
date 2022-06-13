@@ -6,35 +6,15 @@ const dirPath = `./src/primitives/Icon/icons/`;
 const iconSetPath = '../ui/src/icons/*.svg';
 const iconNames = [];
 
-const INTERNAL_ICONS = [
-  'Icon',
-  'IconAdd',
-  'IconCheck',
-  'IconCheckCircle',
-  'IconCheckCircleOutline',
-  'IconChevronLeft',
-  'IconChevronRight',
-  'IconClose',
-  'IconError',
-  'IconExpandMore',
-  'IconFiberManualRecord',
-  'IconHighlightOff',
-  'IconInfo',
-  'IconMenu',
-  'IconRemove',
-  'IconSearch',
-  'IconStar',
-  'IconVisibility',
-  'IconVisibilityOff',
-  'IconWarning',
-];
-
 const template = ({ iconName, source }) => {
   return `import classNames from 'classnames';
 
   import { ComponentClassNames } from '../../shared';
   import { View } from '../../View';
 
+  /**
+   * @internal For internal Amplify UI use only. May be removed in a future release.
+   */
   export const ${iconName} = (props) => {
     const { className, ...rest } = props;
 
