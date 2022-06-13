@@ -6,7 +6,7 @@ import { FieldDescription, FieldErrorMessage } from '../Field';
 import { FieldGroup } from '../FieldGroup';
 import { FieldGroupIconButton } from '../FieldGroupIcon';
 import { Flex } from '../Flex';
-import { IconAdd, IconRemove } from '../Icon';
+import { IconAdd, IconRemove } from '../Icon/internal';
 import { Input } from '../Input';
 import { Label } from '../Label';
 import { Primitive } from '../types/view';
