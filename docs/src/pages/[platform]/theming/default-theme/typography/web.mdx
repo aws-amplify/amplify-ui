@@ -1,0 +1,31 @@
+import { Fragment } from '@/components/Fragment';
+import { 
+  TokensTypographyFontWeights,
+  TokensTypographyFontSizes,
+  TokensTypographyLineHeights,
+  TokensTypographyFonts } from '@/components/Theming/TokenGroups';
+
+## Font weights
+
+<Fragment>{({ platform }) => import(`./fontWeightUsage.${platform}.mdx`)}</Fragment>
+
+<TokensTypographyFontWeights />
+
+## Font sizes
+
+<Fragment>{({ platform }) => import(`./fontSizeUsage.${platform}.mdx`)}</Fragment>
+
+<TokensTypographyFontSizes />
+
+## Line heights
+
+<Fragment>{({ platform }) => import(`./lineHeightsUsage.${platform}.mdx`)}</Fragment>
+
+<TokensTypographyLineHeights />
+
+## Font families
+
+Amplify UI ships with tokens for both static and variable fonts. The benefit of a variable font is you can include many variations of the font (for weight and axes) in a single file. [Learn more about variable weight fonts in this guide from MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Fonts/Variable_Fonts_Guide)
+
+<TokensTypographyFonts />
+
