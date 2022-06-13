@@ -5,7 +5,23 @@ const theme: Theme = {
   tokens: {
     components: {
       loader: {
-        // TODO: customize here
+        strokeEmpty: { value: '{colors.neutral.20.value}' },
+        strokeFilled: { value: '{colors.green.80.value}' },
+
+        // sizes
+        large: {
+          width: { value: '{fontSizes.xxxl.value}' },
+          height: { value: '{fontSizes.xxxl.value}' },
+        },
+
+        // linear loader
+        linear: {
+          width: { value: '50%' },
+          strokeWidth: { value: '{fontSizes.xxs.value}' },
+          strokeFilled: { value: '{colors.brand.secondary.80.value}' },
+          strokeEmpty: { value: '{colors.neutral.20.value}' },
+          animationDuration: { value: '2s' },
+        },
       },
     },
   },
@@ -14,7 +30,7 @@ const theme: Theme = {
 export const LoaderThemeExample = () => (
   <ThemeProvider theme={theme}>
     <Flex direction="column">
-      <Loader />
+      <Loader size="large" />
       <Loader variation="linear" />
     </Flex>
   </ThemeProvider>

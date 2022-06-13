@@ -20,7 +20,7 @@ const theme: Theme = {
   tokens: {
     components: {
       link: {
-        // color doesn't seem to get applied
+        // color and active don't seem to get applied
         color: { value: '{colors.yellow.60.value}' },
         active: {
           color: { value: '{colors.yellow.60.value}' },
