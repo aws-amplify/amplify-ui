@@ -1,8 +1,10 @@
 import type {
   FontSizes,
   FontWeights,
-  SpaceSizes,
+  LineHeights,
   Radii,
+  Shadows,
+  SpaceSizes,
 } from '@aws-amplify/ui';
 
 /**
@@ -184,9 +186,34 @@ export type ColorKeys<PropertyType> =
   | BorderColorKeys
   | ShadowColorKeys;
 
+export type BoxShadowKeys<PropertyType> = PropertyType | keyof Shadows;
+
 export type FontSizeKeys<PropertyType> = PropertyType | keyof FontSizes;
 
 export type FontWeightKeys<PropertyType> = PropertyType | keyof FontWeights;
+
+export type FontFamilyKeys<PropertyType> =
+  | PropertyType
+  | 'default.variable'
+  | 'default.static';
+
+export type LineHeightKeys<PropertyType> = PropertyType | keyof LineHeights;
+
+// Note: we cannot use keyof Opacities
+// because the return type will be number union and no intellisense
+export type OpacityKeys<PropertyType> =
+  | PropertyType
+  | '0'
+  | '10'
+  | '20'
+  | '30'
+  | '40'
+  | '50'
+  | '60'
+  | '70'
+  | '80'
+  | '90'
+  | '100';
 
 export type RadiiKeys<PropertyType> = PropertyType | keyof Radii;
 
@@ -206,9 +233,23 @@ export type SpaceKeys<PropertyType> =
   | 'relative.xxxl'
   | 'relative.full';
 
+export type TransformKeys<PropertyType> =
+  | PropertyType
+  | 'slideX.small'
+  | 'slideX.medium'
+  | 'slideX.large';
+
 export const stylePropsToThemeKeys = {
   backgroundColor: 'colors',
   color: 'colors',
+  borderRadius: 'radii',
+  fontSize: 'fontSizes',
+  fontWeight: 'fontWeights',
+  fontFamily: 'fonts',
+  lineHeight: 'lineHeights',
+  opacity: 'opacities',
+  boxShadow: 'shadows',
+  transform: 'transforms',
   left: 'space',
   right: 'space',
   top: 'space',
@@ -239,7 +280,4 @@ export const stylePropsToThemeKeys = {
   gap: 'space',
   columnGap: 'space',
   rowGap: 'space',
-  borderRadius: 'radii',
-  fontSize: 'fontSizes',
-  fontWeight: 'fontWeights',
 };
