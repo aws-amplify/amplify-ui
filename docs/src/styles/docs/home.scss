@@ -372,6 +372,10 @@ code.docs-home-code {
   right: 0;
 }
 
+.docs-home-figma-studio {
+  padding-top: var(--amplify-space-medium);
+}
+
 .docs-home-figma-graphic {
   .amplify-card {
     counter-reset: figma-data;

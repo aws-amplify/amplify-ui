@@ -15,9 +15,9 @@ const { Flex, View, Alert } = AUI;
 const code = `() => {
   const { tokens } = useTheme();
   return (
-    <Card variation="elevated">
+    <Card variation="outlined">
       <Flex direction="row" alignItems="flex-start">
-        <Image src="/amplify-ui-logo-2.svg"
+        <Image src="/amplify-placeholder.svg"
           alt="Amplify" width="8rem"/>
         <Flex direction="column" gap={tokens.space.xs}>
           <Flex direction="row">

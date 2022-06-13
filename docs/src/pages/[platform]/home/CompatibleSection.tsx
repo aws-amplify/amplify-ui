@@ -1,28 +1,25 @@
-import NextLink from 'next/link';
 import {
-  Button,
   Flex,
   Heading,
   Icon as AmpIcon,
   Text,
-  useTheme,
   View,
 } from '@aws-amplify/ui-react';
 import { SiTypescript } from 'react-icons/si';
-import { FiLifeBuoy, FiZapOff } from 'react-icons/fi';
-import { RiLifebuoyLine } from 'react-icons/ri';
 import {
   MdOutlineFlashOff,
   MdFlashOff,
   MdOutlineSupport,
 } from 'react-icons/md';
 
-import { HomeCTA } from 'src/pages/[platform]/home/HomeCTA';
+import { HomeCTA } from './HomeCTA';
 
 const CompatibleCard = ({ title, description, Icon }) => {
   return (
     <Flex direction="column" flex="1" alignItems="flex-start">
-      <AmpIcon as={Icon} fontSize="xl" color="brand.secondary.20" />
+      <View as="span" padding="1rem" backgroundColor="brand.secondary.10">
+        <AmpIcon as={Icon} fontSize="xl" color="brand.secondary.60" />
+      </View>
       <Text fontWeight="semibold" fontSize="large">
         {title}
       </Text>

@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { HomeCodeHighlight } from '@/components/CodeHighlight';
-import { DataIcon } from '@/components/DataIcon';
-import { HomeCTA } from 'src/pages/[platform]/home/HomeCTA';
-import { AmplifyIcon } from '@/components/Logo';
+import { DataIcon } from '@/components/Icons';
+import { HomeCTA } from './HomeCTA';
 import {
   Button,
   Card,
@@ -10,7 +9,6 @@ import {
   Heading,
   Icon,
   Image,
-  Link,
   Rating,
   Text,
   useTheme,
@@ -37,16 +35,9 @@ const StudioCard = () => {
       <View className="docs-home-figma-node-handles" />
       <Card variation="elevated">
         <Flex direction="column">
-          <Flex
-            className="docs-home-figma-data"
-            alignItems="center"
-            justifyContent="center"
-            padding={tokens.space.xl}
-            backgroundColor={tokens.colors.background.tertiary}
-            fontSize={tokens.fontSizes.xxl}
-          >
-            <AmplifyIcon />
-          </Flex>
+          <View className="docs-home-figma-data">
+            <Image alt="" src="/amplify-placeholder.svg" width="100%" />
+          </View>
           <Text
             className="docs-home-figma-data"
             fontSize={tokens.fontSizes.large}
@@ -129,13 +120,7 @@ export const FigmaSection = (props) => {
           <StudioCard />
           <Card className="docs-home-figma-studio">
             <Text fontSize={tokens.fontSizes.xl}>
-              <View
-                as="span"
-                fontSize={tokens.fontSizes.xxl}
-                color={tokens.colors.brand.secondary[40]}
-              >
-                <DataIcon />
-              </View>
+              <DataIcon color="font.disabled" />
               <code>Product</code>
             </Text>
             <Text className="docs-home-figma-data">

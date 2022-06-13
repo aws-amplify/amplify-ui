@@ -1,7 +1,4 @@
 import * as React from 'react';
-import Link from 'next/link';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
-import Highlight, { defaultProps } from 'prism-react-renderer';
 
 import {
   Card,
@@ -27,7 +24,7 @@ import {
   Radio,
   SearchField,
   useBreakpointValue,
-  createTheme,
+  Image,
 } from '@aws-amplify/ui-react';
 
 import { CgTerminal, CgLinear, CgCopyright } from 'react-icons/cg';
@@ -45,7 +42,7 @@ const Swatch = ({ color }) => (
     height="2rem"
     flex="1"
     backgroundColor={color}
-    borderRadius="var(--amplify-radii-medium"
+    borderRadius="var(--amplify-radii-medium)"
   />
 );
 
@@ -72,23 +69,7 @@ const Preview = () => {
         <Flex direction="column">
           <Alert variation="info" heading="Flash sale!" />
           <Flex direction={isMobile ? 'column' : 'row'}>
-            <Flex
-              alignItems="center"
-              justifyContent="center"
-              padding={tokens.space.xl}
-              backgroundColor={tokens.colors.background.secondary}
-              fontSize={tokens.fontSizes.xxl}
-            >
-              <Icon
-                ariaLabel=""
-                paths={[
-                  {
-                    d: 'M5.22274 17.8571H11.9827L13.7143 20.9048H13.6655H0L4.8154 12.5604L6.83337 9.06616L8.56591 12.0683L5.22274 17.8571ZM7.74389 7.48595L9.40738 4.60353L18.8218 20.9047H15.4878L7.74389 7.48595ZM10.3333 3H13.6628L24 20.9048H20.6662L10.3333 3Z',
-                    fillRule: 'evenodd',
-                  },
-                ]}
-              />
-            </Flex>
+            <Image alt="" src="/amplify-placeholder.svg" width="100px" />
             <Flex direction="column">
               <Text>Hi quality Amplify</Text>
               <ToggleButtonGroup
@@ -290,16 +271,8 @@ export const ThemeSwitcher = ({ colorMode }) => {
       <Flex direction="row" width="100%">
         {hideOnMobile ? (
           <HomeCode flex="1" columnStart="2" columnEnd="-1" position="relative">
-            {/* <CopyToClipboard text={themePreval[theme].string} onCopy={copy}>
-            <Button
-              size="small"
-              // position='absolute'
-              disabled={copied}
-            >
-              {copied ? 'Copied!' : 'Copy'}
-            </Button>
-          </CopyToClipboard> */}
             <HomeCodeHighlight
+              withCopy
               withLines
               code={
                 platform === 'react'

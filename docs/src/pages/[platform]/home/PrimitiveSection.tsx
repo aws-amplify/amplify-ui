@@ -12,11 +12,11 @@ import { useIntersectionObserver } from '@/components/useIntersection';
 
 // react-live does not work with SSR so we have to load
 // it dynamically and only in the client
-const HomeEditor = dynamic(() => import('./HomeEditor'), { ssr: false });
+const HomeEditor = dynamic(() => import('./HomeEditor'), {
+  ssr: false,
+}) as React.FC<any>;
 
 export const PrimitiveSection = ({ platform, ...rest }) => {
-  const { tokens } = useTheme();
-
   const showEditor = useBreakpointValue({
     base: false,
     medium: true,

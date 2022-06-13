@@ -1,8 +1,15 @@
 import * as React from 'react';
-import { Heading, Link, Text, useTheme, View } from '@aws-amplify/ui-react';
-import { IoAccessibility } from 'react-icons/io5';
+import { Heading, Link, Text, Flex, View } from '@aws-amplify/ui-react';
+import {
+  MdInvertColors,
+  MdKeyboard,
+  MdLabel,
+  MdSmartButton,
+  MdAccessibilityNew,
+} from 'react-icons/md';
 
-import { HomeCTA } from 'src/pages/[platform]/home/HomeCTA';
+import { HomeCTA } from './HomeCTA';
+import { HomeFeatureCard } from './HomeFeatureCard';
 import { useIntersectionObserver } from '@/components/useIntersection';
 
 export const A11ySection = ({ platform }) => {
@@ -36,9 +43,39 @@ export const A11ySection = ({ platform }) => {
           best practices and guidelines such as color contrast, keyboard
           navigation, accessible labels, and focus management.
         </Text>
+
+        <Flex
+          className="container"
+          direction={{
+            base: 'column',
+            large: 'row',
+          }}
+        >
+          <HomeFeatureCard
+            title="Color contrast"
+            Icon={MdInvertColors}
+            description=""
+          />
+          <HomeFeatureCard
+            title="Keyboard navigation"
+            Icon={MdKeyboard}
+            description=""
+          />
+          <HomeFeatureCard
+            title="Focus management"
+            Icon={MdSmartButton}
+            description=""
+          />
+          <HomeFeatureCard
+            title="Accessible labels"
+            Icon={MdLabel}
+            description=""
+          />
+        </Flex>
+
         <HomeCTA href={`${platform}/getting-started/accessibility`}>
           <span>View our accessibility guidelines</span>
-          <IoAccessibility />
+          <MdAccessibilityNew />
         </HomeCTA>
       </View>
     </View>

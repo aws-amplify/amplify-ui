@@ -7,9 +7,12 @@ import {
   Flex,
   Icon as AmpIcon,
 } from '@aws-amplify/ui-react';
-import { DiTerminal, DiJsBadge } from 'react-icons/di';
-import { FaServer } from 'react-icons/fa';
-import { AmplifyIcon } from '@/components/AmplifyIcon';
+import {
+  AmplifyIcon,
+  ServerIcon,
+  LibraryIcon,
+  CLIIcon,
+} from '@/components/Icons';
 
 const AmpCard = ({ title, description, href, Icon }) => (
   <Flex
@@ -49,19 +52,19 @@ export const AmplifySection = () => {
           <AmpCard
             href="https://docs.amplify.aws/lib/q/platform/js/"
             title="Amplify Libraries"
-            Icon={DiJsBadge}
+            Icon={LibraryIcon}
             description="Connect app to new or existing AWS services (Cognito, S3, and more)."
           />
           <AmpCard
             href="https://docs.amplify.aws/cli/"
             title="Amplify CLI"
-            Icon={DiTerminal}
+            Icon={CLIIcon}
             description="Configure an app backend with a guided CLI workflow."
           />
           <AmpCard
             href="https://docs.amplify.aws/console/"
             title="Amplify Hosting"
-            Icon={FaServer}
+            Icon={ServerIcon}
             description="Fully managed web hosting with full-stack CI/CD."
           />
           <AmpCard

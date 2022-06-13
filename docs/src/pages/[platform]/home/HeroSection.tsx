@@ -1,14 +1,10 @@
-import { Copy } from '@/components/Copy';
+import { CopyButton } from '@/components/CopyButton';
 import { FrameworkChooser } from '@/components/Layout/FrameworkChooser';
-import { AmplifyIcon, Logo } from '@/components/Logo';
 import { useCustomRouter } from '@/components/useCustomRouter';
-import { FRAMEWORKS } from '@/data/frameworks';
 import {
   Button,
-  Card,
   Flex,
   Heading,
-  Image,
   Text,
   useTheme,
   View,
@@ -62,7 +58,7 @@ export const HeroSection = () => {
               <code className="install-code__content">
                 {frameworkInstallScript}
               </code>
-              <Copy
+              <CopyButton
                 className="install-code__button"
                 variation="link"
                 size="large"
