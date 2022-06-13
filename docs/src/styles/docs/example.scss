@@ -32,6 +32,12 @@
   top: var(--amplify-space-small);
 }
 
+@media (max-width: 479px) {
+  h2#demo {
+    display: none;
+  }
+}
+
 .docs-component-demo {
   width: 100%;
   margin-bottom: var(--amplify-space-large);
