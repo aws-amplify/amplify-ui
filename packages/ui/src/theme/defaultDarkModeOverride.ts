@@ -90,8 +90,6 @@ export const defaultDarkModeOverride: ColorModeOverride = {
         90: { value: tokens.colors.neutral[20].value },
         100: { value: tokens.colors.neutral[10].value },
       },
-      // black: { value: '#fff' },
-      // white: { value: '#000' },
 
       font: {
         primary: { value: '{colors.white.value}' },
@@ -123,12 +121,6 @@ export const defaultDarkModeOverride: ColorModeOverride = {
         80: { value: 'hsla(0, 0%, 100%, 0.8)' },
         90: { value: 'hsla(0, 0%, 100%, 0.9)' },
       },
-
-      // shadow: {
-      //   primary: { value: 'hsla(0, 0%, 100%, 0.25)' },
-      //   secondary: { value: 'hsla(0, 0%, 100%, 0.15)' },
-      //   tertiary: { value: 'hsla(0, 0%, 100%, 0.05)' },
-      // },
     },
   },
 };
