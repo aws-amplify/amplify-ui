@@ -10,6 +10,14 @@ import {
   RadiusValue,
 } from '@aws-amplify/ui';
 
+type GenericBlockProps = {
+  value: string;
+};
+
+export function GenericBlock({ value }: GenericBlockProps) {
+  return <div></div>;
+}
+
 type SpaceBlockProps = {
   value: SpaceValue;
 };

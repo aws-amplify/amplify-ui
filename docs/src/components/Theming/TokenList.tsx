@@ -1,18 +1,8 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useTheme } from '@aws-amplify/ui-react';
-import { createTokenList } from './utils';
-import {
-  SpaceBlock,
-  BorderWidthBlock,
-  FontFamilyBlock,
-  FontSizeBlock,
-  LineHeightBlock,
-  FontWeightBlock,
-  ColorBlock,
-  RadiusBlock,
-} from './TokenBlocks';
+import { createTokenList, getTokenBlock } from './utils';
 
-type Namespace =
+export type Namespace =
   | 'colors'
   | 'radii'
   | 'space'
@@ -106,46 +96,30 @@ export function TokenList({ namespace, childNamespace }: TokenListProps) {
   const tokenList = createTokenList(tokenNamespace);
 
   /**
-   * Depending on the namespace,  render a different visual
-   * element for the token list (like a color swatch for 'colors')
+   * getTokenBlock() returns a visual element (like a color circle)
+   * depending on the namespace.
    */
-  function renderVisualElement(value) {
-    switch (namespace) {
-      case 'fontWeights':
-        return <FontWeightBlock value={value} />;
-      case 'fontSizes':
-        return <FontSizeBlock value={value} />;
-      case 'fonts':
-        return <FontFamilyBlock value={value} />;
-      case 'lineHeights':
-        return <LineHeightBlock value={value} />;
-      case 'borderWidths':
-        return <BorderWidthBlock value={value} />;
-      case 'space':
-        return <SpaceBlock value={value} />;
-      case 'colors':
-        return <ColorBlock value={value} />;
-      case 'radii':
-        return <RadiusBlock value={value} />;
-      default:
-        return <div></div>;
-    }
-  }
+  const TokenBlock = getTokenBlock(namespace);
 
+  const tokenItems = useMemo(() => {
+    return (
+      <>
+        {tokenList.map((tokenItem) => {
+          const { name, path, value } = tokenItem;
+
+          return (
+            <TokenItem namespace={namespace} key={name}>
+              <TokenBlock value={value} />
+              <TokenPath path={path} />
+              <TokenMeta>{value}</TokenMeta>
+              <TokenMeta>{name}</TokenMeta>
+            </TokenItem>
+          );
+        })}
+      </>
+    );
+  }, [tokenList, TokenBlock, namespace]);
   return (
-    <ul className="docs-tokenGroup docs-tokenGroup--list">
-      {tokenList.map((tokenItem) => {
-        const { name, path, value } = tokenItem;
-
-        return (
-          <TokenItem namespace={namespace} key={name}>
-            {renderVisualElement(value)}
-            <TokenPath path={path} />
-            <TokenMeta>{value}</TokenMeta>
-            <TokenMeta>{name}</TokenMeta>
-          </TokenItem>
-        );
-      })}
-    </ul>
+    <ul className="docs-tokenGroup docs-tokenGroup--list">{tokenItems}</ul>
   );
 }
