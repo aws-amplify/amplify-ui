@@ -111,8 +111,8 @@ export function TokenList({ namespace, childNamespace }: TokenListProps) {
             <TokenItem namespace={namespace} key={name}>
               <TokenBlock value={value} />
               <TokenPath path={path} />
-              <TokenMeta>{value}</TokenMeta>
               <TokenMeta>{name}</TokenMeta>
+              <TokenMeta>{value}</TokenMeta>
             </TokenItem>
           );
         })}
