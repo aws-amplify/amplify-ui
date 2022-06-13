@@ -1,6 +1,23 @@
 import { Icon } from '@aws-amplify/ui-react';
+import { SiGithub, SiDiscord, SiW3C, SiReact } from 'react-icons/si';
 
-export const DesignTokenIcon = ({ ariaLabel, ...rest }) => (
+export const ReactIcon = ({ ariaLabel = '', ...rest }) => (
+  <Icon {...rest} ariaLabel={ariaLabel} as={SiReact} />
+);
+
+export const W3CIcon = ({ ariaLabel = '', ...rest }) => (
+  <Icon {...rest} ariaLabel={ariaLabel} as={SiW3C} />
+);
+
+export const DiscordIcon = ({ ariaLabel = '', ...rest }) => (
+  <Icon {...rest} ariaLabel={ariaLabel} as={SiDiscord} />
+);
+
+export const GithubIcon = ({ ariaLabel = '', ...rest }) => (
+  <Icon {...rest} ariaLabel={ariaLabel} as={SiGithub} />
+);
+
+export const DesignTokenIcon = ({ ariaLabel = '', ...rest }) => (
   <Icon
     {...rest}
     ariaLabel={ariaLabel}

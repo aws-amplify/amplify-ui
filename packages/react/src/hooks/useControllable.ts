@@ -42,6 +42,10 @@ export interface UseControllableProps<ValueType> {
   propertyDescription: PropertyDescription;
 }
 
+function defaultCallback() {
+  return void 0;
+}
+
 /**
  * This hook allows you to make a component that can be used both in controlled mode and uncontrolled mode.
  * Pass in your component's props, and then implement your component as if it was only controlled.
@@ -80,7 +84,9 @@ export function useControllable<ValueType>({
   handler,
   defaultValue,
   propertyDescription: { componentName, changeHandler, controlledProp },
-}: UseControllableProps<ValueType>) {
+}: UseControllableProps<ValueType>):
+  | [ValueType, typeof defaultCallback]
+  | [ValueType, (newValue: React.SetStateAction<ValueType>) => void] {
   // The decision whether a component is controlled or uncontrolled is made on its first render and cannot be changed afterwards.
   const isControlled = React.useState(controlledValue !== undefined)[0];
 
@@ -90,6 +96,7 @@ export function useControllable<ValueType>({
 
   React.useEffect(() => {
     if (isDev && isControlled && handler === undefined) {
+      // eslint-disable-next-line no-console
       console.warn(
         `${componentName}: You provided a \`${controlledProp}\` prop without an \`${changeHandler}\` handler. This will render a non-interactive component.`
       );
@@ -108,6 +115,7 @@ export function useControllable<ValueType>({
     if (isDev && isControlled !== isControlledNow) {
       const initialMode = isControlled ? 'controlled' : 'uncontrolled';
       const modeNow = isControlledNow ? 'controlled' : 'uncontrolled';
+      // eslint-disable-next-line no-console
       console.warn(
         `${componentName}: A component tried to change ${initialMode} '${controlledProp}' property to be ${modeNow}. ` +
           `This is not supported. Properties should not switch from ${initialMode} to ${modeNow} (or vice versa). ` +
@@ -133,12 +141,8 @@ export function useControllable<ValueType>({
   );
 
   if (isControlled) {
-    return [controlledValue, defaultCallback] as const;
+    return [controlledValue, defaultCallback];
   } else {
-    return [currentUncontrolledValue, setUncontrolledValue] as const;
+    return [currentUncontrolledValue, setUncontrolledValue];
   }
-}
-
-function defaultCallback() {
-  return void 0;
 }

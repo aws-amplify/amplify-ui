@@ -8,7 +8,7 @@ interface UseDeprecationWarning {
 export const useDeprecationWarning = ({
   shouldWarn,
   message,
-}: UseDeprecationWarning) => {
+}: UseDeprecationWarning): void => {
   React.useEffect(() => {
     if (
       shouldWarn &&
@@ -17,6 +17,7 @@ export const useDeprecationWarning = ({
       (typeof process === 'undefined' ||
         (process && process.env.NODE_ENV !== 'production'))
     ) {
+      // eslint-disable-next-line no-console
       console.warn(message);
     }
   }, [shouldWarn, message]);
