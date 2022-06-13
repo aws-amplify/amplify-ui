@@ -25,6 +25,7 @@ import { link, LinkTokens } from './link';
 import { loader, LoaderTokens } from './loader';
 import { menu, MenuTokens } from './menu';
 import { pagination, PaginationTokens } from './pagination';
+import { passwordfield, PasswordFieldTokens } from './passwordField';
 import { placeholder, PlaceholderTokens } from './placeholder';
 import { radio, RadioTokens } from './radio';
 import { rating, RatingTokens } from './rating';
@@ -68,6 +69,7 @@ export interface ComponentTokens {
   loader: LoaderTokens;
   menu: MenuTokens;
   pagination: PaginationTokens;
+  passwordfield: PasswordFieldTokens;
   placeholder: PlaceholderTokens;
   radio: RadioTokens;
   rating: RatingTokens;
@@ -109,6 +111,7 @@ export const components: ComponentTokens = {
   loader,
   menu,
   pagination,
+  passwordfield,
   placeholder,
   radio,
   rating,
