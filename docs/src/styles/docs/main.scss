@@ -16,7 +16,7 @@
 .docs-content-body {
   padding: var(--amplify-space-xxl);
   
-  & > p {
+  & > * + * {
     margin-bottom: var(--amplify-space-medium);
   }
   

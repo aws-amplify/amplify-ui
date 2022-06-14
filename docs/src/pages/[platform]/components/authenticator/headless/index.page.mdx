@@ -1,0 +1,12 @@
+---
+title: Headless
+metaTitle: Headless
+description: For advanced use cases you can run the Authenticator in a headless mode.
+supportedFrameworks: react|angular|vue
+---
+
+import { Fragment } from '@/components/Fragment';
+
+<Fragment useCommonWebContent platforms={['web', 'flutter']}>
+  {({ platform }) => import(`./headless-usage.${platform}.mdx`)}
+</Fragment>

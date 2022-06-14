@@ -21,21 +21,15 @@ describe('ThemeProvider', () => {
   });
 
   it('wraps the App in [data-amplify-theme="default-theme"]', () => {
-    jest.spyOn(global.document.documentElement, 'setAttribute');
     const { container } = render(
       <ThemeProvider>
         <App />
       </ThemeProvider>
     );
 
-    expect(global.document.documentElement.setAttribute).toHaveBeenCalledWith(
+    expect(container.querySelector(`[data-amplify-theme]`)).toHaveAttribute(
       'data-amplify-theme',
       'default-theme'
-    );
-
-    expect(global.document.documentElement.setAttribute).toHaveBeenCalledWith(
-      'data-amplify-color-mode',
-      'undefined'
     );
   });
 

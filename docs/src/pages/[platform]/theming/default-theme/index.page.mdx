@@ -1,0 +1,10 @@
+---
+title: Default Theme
+description: The default theme tokens in Amplify UI define our base palette, typography, and sizing used throughout the design system.
+supportedFrameworks: react|angular|vue
+---
+
+import { Fragment } from '@/components/Fragment';
+
+<Fragment useCommonWebContent>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+
