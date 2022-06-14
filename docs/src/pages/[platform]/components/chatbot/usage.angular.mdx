@@ -6,7 +6,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 - import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
 + import { LegacyAmplifyUiModule } from '@aws-amplify/ui-angular/legacy';
-import Amplify from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
 import awsconfig from './aws-exports';
 
 Amplify.configure(awsconfig);

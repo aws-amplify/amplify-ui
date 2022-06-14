@@ -14,6 +14,7 @@ export { TextFieldOuterComponentsExample } from './TextFieldOuterComponentsExamp
 export { TextFieldSizeExample } from './TextFieldSizeExample';
 export { TextFieldStatesExample } from './TextFieldStatesExample';
 export { TextFieldStylePropsExample } from './TextFieldStylePropsExample';
+export { TextFieldThemeExample } from './TextFieldThemeExample';
 export { TextFieldValidationErrorExample } from './TextFieldValidationErrorExample';
 export { TextFieldVariationExample } from './TextFieldVariationExample';
 export { TextFieldThemeExample } from './TextFieldThemeExample';

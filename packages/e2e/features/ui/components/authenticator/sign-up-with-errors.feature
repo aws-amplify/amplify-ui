@@ -5,7 +5,7 @@ Feature: Sign Up with Errors
   Background:
     Given I'm running the example "ui/components/authenticator/sign-up-with-email"
 
-@angular @react @vue  
+@angular @react @vue
 Scenario: Sign up with a new email & password with wrong password requirements
   When I type a new "email"
   And I type an invalid wrong complexity password
@@ -15,6 +15,7 @@ Scenario: Sign up with a new email & password with wrong password requirements
   Then I see "Password must have upper case letters"
   Then I see "Password must have at least 8 characters"
 
+@angular @react @vue
 Scenario: Sign up with a new email & password without lower case characters
   When I type a new "email"
   And I type an invalid no lower case password
@@ -23,3 +24,4 @@ Scenario: Sign up with a new email & password without lower case characters
   Then I see "Password must have special characters"
   Then I see "Password must have lower case letters"
   Then I see "Password must have at least 8 characters"
+  And I confirm "Password must have numbers" error is accessible 

@@ -8,7 +8,7 @@ import {
 
 import { ButtonGroup } from '../ButtonGroup';
 import { ComponentClassNames } from '../shared/constants';
-import { IconMenu } from '../Icon';
+import { IconMenu } from '../Icon/internal';
 import { MenuButton } from './MenuButton';
 import { MenuProps, Primitive } from '../types';
 
@@ -46,7 +46,7 @@ const MenuPrimitive: Primitive<MenuProps, 'div'> = (
         </MenuButton>
       )}
     </DropdownMenuTrigger>
-    <DropdownMenuContent align={menuAlign}>
+    <DropdownMenuContent align={menuAlign} portalled={false}>
       <ButtonGroup
         className={classNames(ComponentClassNames.MenuContent, className)}
         ref={ref}

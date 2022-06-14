@@ -12,7 +12,6 @@ export { Flex } from './Flex';
 export { Grid } from './Grid';
 export { Heading } from './Heading';
 export { Icon } from './Icon';
-export * from './Icon/icons';
 export { Image } from './Image';
 export { Link } from './Link';
 export { Loader } from './Loader';

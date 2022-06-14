@@ -147,11 +147,9 @@ describe('Text: ', () => {
   it('can apply font-weight via props', async () => {
     render(<Text fontWeight="bold">{textText}</Text>);
     const text = await screen.findByText(textText);
-    expect(
-      text.style.getPropertyValue(
-        kebabCase(ComponentPropsToStylePropsMap.fontWeight)
-      )
-    ).toBe('bold');
+    expect(text).toHaveStyle({
+      fontWeight: 'var(--amplify-font-weights-bold)',
+    });
   });
 
   it('can apply font-size via props', async () => {
