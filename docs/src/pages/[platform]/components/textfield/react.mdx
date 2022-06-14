@@ -1,7 +1,6 @@
 import { Alert, Link, TextField } from '@aws-amplify/ui-react';
 
 import { TextFieldDemo } from './demo';
-import { ThemeAlert } from '@/components/ThemeAlert';
 import {
   DefaultRequiredTextFieldExample,
   DefaultTextAreaExample,
@@ -22,7 +21,6 @@ import {
   TextFieldThemeExample,
   TextFieldValidationErrorExample,
   TextFieldVariationExample,
-  TextFieldThemeExample,
 } from './examples';
 import { Example, ExampleCode } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
@@ -321,24 +319,6 @@ Use the `hasError` and `errorMessage` fields to mark a TextField as having an va
 ### Target classes
 
 <ComponentStyleDisplay componentName="TextField" />
-
-### Theme
-
-<ThemeAlert />
-
-You can customize the appearance of all TextFields in your application with a [Theme](/theming).
-
-<Example>
-  <TextFieldThemeExample />
-  
-<ExampleCode>
-
-```tsx file=./examples/TextFieldThemeExample.tsx
-
-```
-
-</ExampleCode>
-</Example>
 
 ### Global styling
 

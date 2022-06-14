@@ -21,18 +21,18 @@ const theme: Theme = {
     components: {
       link: {
         // color and active don't seem to get applied
-        color: { value: '{colors.yellow.60.value}' },
+        color: { value: '{colors.yellow.60}' },
         active: {
-          color: { value: '{colors.yellow.60.value}' },
+          color: { value: '{colors.yellow.60}' },
         },
         focus: {
-          color: { value: '{colors.red.60.value}' },
+          color: { value: '{colors.red.60}' },
         },
         hover: {
-          color: { value: '{colors.green.60.value}' },
+          color: { value: '{colors.green.60}' },
         },
         visited: {
-          color: { value: '{colors.purple.60.value}' },
+          color: { value: '{colors.purple.60}' },
         },
       },
     },

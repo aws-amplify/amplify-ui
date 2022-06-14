@@ -1,13 +1,13 @@
-import { ThemeProvider, TextAreaField } from '@aws-amplify/ui-react';
+import { TextAreaField, ThemeProvider, Theme } from '@aws-amplify/ui-react';
 
-const theme = {
-  name: 'text-area-theme',
+const theme: Theme = {
+  name: 'textareafield-theme',
   tokens: {
     components: {
       textareafield: {
-        color: { value: 'red' },
+        color: { value: '{colors.brand.secondary.60}' },
         _focus: {
-          borderColor: { value: '{colors.brand.primary.40}' },
+          borderColor: { value: 'red' },
         },
       },
     },
@@ -16,6 +16,6 @@ const theme = {
 
 export const TextAreaFieldThemeExample = () => (
   <ThemeProvider theme={theme}>
-    <TextAreaField label="Name" defaultValue="Starting Value" />
+    <TextAreaField label="Name" defaultValue="Default Value" />
   </ThemeProvider>
 );

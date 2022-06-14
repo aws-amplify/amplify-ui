@@ -1,13 +1,13 @@
-import { ThemeProvider, TextField } from '@aws-amplify/ui-react';
+import { TextField, ThemeProvider, Theme } from '@aws-amplify/ui-react';
 
-const theme = {
-  name: 'text-theme',
+const theme: Theme = {
+  name: 'textfield-theme',
   tokens: {
     components: {
       textfield: {
-        color: { value: 'red' },
+        color: { value: '{colors.brand.secondary.60}' },
         _focus: {
-          borderColor: { value: '{colors.brand.primary.40}' },
+          borderColor: { value: 'red' },
         },
       },
     },

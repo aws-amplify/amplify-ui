@@ -11,4 +11,3 @@ export { TextAreaFieldStylePropsExample } from './TextAreaFieldStylePropsExample
 export { TextAreaFieldThemeExample } from './TextAreaFieldThemeExample';
 export { TextAreaFieldValidationErrorExample } from './TextAreaFieldValidationErrorExample';
 export { TextAreaFieldVariationExample } from './TextAreaFieldVariationExample';
-export { TextAreaFieldThemeExample } from './TextAreaFieldThemeExample';
