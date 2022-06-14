@@ -9,19 +9,18 @@ import {
   Flex,
   Grid,
   Heading,
-  IconChevronRight,
   Image,
   Link,
   Text,
-  TextField,
   ToggleButton,
   ToggleButtonGroup,
   View,
   useTheme,
   useBreakpointValue,
 } from '@aws-amplify/ui-react';
+import { MdChevronRight } from 'react-icons/md';
 
-import { Copy } from '@/components/Copy';
+import { CopyButton } from '@/components/CopyButton';
 import { Footer } from '@/components/Layout/Footer';
 import { HomeLogo } from '../HomeLogo';
 import { HomePrimitivePreview } from '../HomePrimitivePreview';
@@ -97,17 +96,16 @@ const HomePage = ({ colorMode }) => {
                   href={`/${platform}/getting-started/installation`}
                 >
                   Get started
-                  <IconChevronRight />
+                  <MdChevronRight />
                 </Button>
                 <code className="install-code__container">
                   <p className="install-code__content">
                     {frameworkInstallScript}
                   </p>
-                  <Copy
+                  <CopyButton
                     className="install-code__button"
-                    size=""
+                    copyText={frameworkInstallScript}
                     variation="link"
-                    text={frameworkInstallScript}
                   />
                 </code>
               </Flex>
@@ -170,7 +168,7 @@ const HomePage = ({ colorMode }) => {
                 isFullWidth
               >
                 Authenticator
-                <IconChevronRight />
+                <MdChevronRight />
               </Button>
             </Flex>
           </Flex>
@@ -196,7 +194,7 @@ const HomePage = ({ colorMode }) => {
               </Text>
               <Button as="a" size="large" href={`/${platform}/theming/`}>
                 Get started with theming
-                <IconChevronRight />
+                <MdChevronRight />
               </Button>
             </Flex>
             <Flex
@@ -264,7 +262,7 @@ const HomePage = ({ colorMode }) => {
                 href={`/${platform}/components/authenticator`}
               >
                 Get started with components
-                <IconChevronRight />
+                <MdChevronRight />
               </Button>
             </Flex>
           </Flex>
