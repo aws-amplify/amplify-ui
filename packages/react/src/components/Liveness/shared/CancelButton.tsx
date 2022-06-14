@@ -4,7 +4,8 @@ import { translate, recordLivenessAnalyticsEvent } from '@aws-amplify/ui';
 import { useTheme } from '../../../hooks';
 import { useLivenessActor } from '../hooks';
 import { useLivenessFlow } from '../providers';
-import { Button, IconClose } from '../../../primitives';
+import { Button } from '../../../primitives';
+import { IconClose } from '../../../primitives/Icon/icons';
 
 export interface CancelButtonProps {
   sourceScreen: string;
