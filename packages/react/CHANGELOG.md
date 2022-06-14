@@ -1,5 +1,38 @@
 # @aws-amplify/ui-react
 
+## 2.20.0
+
+### Minor Changes
+
+- [#2054](https://github.com/aws-amplify/amplify-ui/pull/2054) [`5eedbbed4`](https://github.com/aws-amplify/amplify-ui/commit/5eedbbed4d04fc00a50d37ae3be61522212eb5cb) Thanks [@zchenwei](https://github.com/zchenwei)! - feat: adding colors theme key support in style props
+
+  **_Example code_**
+
+  ```jsx
+  import { View } from '@aws-amplify/ui-react';
+
+  export const Demo = () => {
+    return <View backgroundColor="pink.10" color="red.40" />;
+  };
+  ```
+
+* [#2077](https://github.com/aws-amplify/amplify-ui/pull/2077) [`736cfe7cb`](https://github.com/aws-amplify/amplify-ui/commit/736cfe7cb3544bf0ecae5ab2c3b2caf381b497c4) Thanks [@zchenwei](https://github.com/zchenwei)! - feat(style): adding theme key support on more style props(`font-family`, `line-height`, `opacity`, `box-shadow` and `transform`)
+
+- [#2070](https://github.com/aws-amplify/amplify-ui/pull/2070) [`28bf92ddb`](https://github.com/aws-amplify/amplify-ui/commit/28bf92ddbd893a3c2839d5215537f845db46b181) Thanks [@zchenwei](https://github.com/zchenwei)! - feat: adding theme key(`radii`, `space`, `fontSizes`, and `fontWeights`) support for more style props
+
+### Patch Changes
+
+- [#2062](https://github.com/aws-amplify/amplify-ui/pull/2062) [`d7dbdb1eb`](https://github.com/aws-amplify/amplify-ui/commit/d7dbdb1ebdb63718c5c8e223db3d034ec8331760) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui-react): lint components/Geo directory
+
+* [#2060](https://github.com/aws-amplify/amplify-ui/pull/2060) [`6800bf6c3`](https://github.com/aws-amplify/amplify-ui/commit/6800bf6c31ad1b1656e7b799fc0f3853115932e4) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui-react): lint hooks directory
+
+- [#2067](https://github.com/aws-amplify/amplify-ui/pull/2067) [`c447a53b0`](https://github.com/aws-amplify/amplify-ui/commit/c447a53b08bf3b7b1b30bdd102107a6d76a30fa2) Thanks [@zchenwei](https://github.com/zchenwei)! - fix(docs): fix type error
+
+* [#2063](https://github.com/aws-amplify/amplify-ui/pull/2063) [`f01bf291f`](https://github.com/aws-amplify/amplify-ui/commit/f01bf291f8f74082d45ca96fe58dbce0278486fe) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui-react): lint components/ThemeProvider directory
+
+* Updated dependencies [[`5eedbbed4`](https://github.com/aws-amplify/amplify-ui/commit/5eedbbed4d04fc00a50d37ae3be61522212eb5cb), [`ef790e5fd`](https://github.com/aws-amplify/amplify-ui/commit/ef790e5fd0d6c91311a4db2456f7de10f8fdad7a), [`736cfe7cb`](https://github.com/aws-amplify/amplify-ui/commit/736cfe7cb3544bf0ecae5ab2c3b2caf381b497c4), [`5f3d3a264`](https://github.com/aws-amplify/amplify-ui/commit/5f3d3a2642401788f1fc79334140c5f3cfc83876), [`28bf92ddb`](https://github.com/aws-amplify/amplify-ui/commit/28bf92ddbd893a3c2839d5215537f845db46b181)]:
+  - @aws-amplify/ui@3.10.1
+
 ## 2.19.1
 
 ### Patch Changes
