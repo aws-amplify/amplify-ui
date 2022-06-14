@@ -65,10 +65,13 @@ function setTypeData(
   const typeDescription = typeJsDocs[0]?.getTags().reduce(
     (descriptions, tag) => ({
       ...descriptions,
-      [tag.getTagName()]: sanitize(tag.getText()),
+      [tag.getTagName()]: sanitize(
+        tag.getText().replace(`@${tag.getTagName()}\n   * `, '').trim()
+      ),
     }),
     {}
   ) as { description: string };
+
   const typeName = typeProp.getNameNode().getText();
   const typeType = typeProp.getTypeNode().getText();
   const isOptional =
