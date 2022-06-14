@@ -3,7 +3,7 @@ Feature: Custom Slots
   Authenticator has several "slots" that you can customize to add messaging 
   and functionality to meet your app's needs. 
   
-  Visit https://ui.docs.amplify.aws/components/authenticator#headers--footers
+  Visit https://ui.docs.amplify.aws/react/components/authenticator/customization#headers--footers
   for more details. 
   
 

@@ -1,4 +1,4 @@
-import { Button, Icon, Flex, Text, Alert } from '@aws-amplify/ui-react';
+import { Button, Icon, Flex, Text, Alert, Link } from '@aws-amplify/ui-react';
 import { IconDemo } from './demo';
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
@@ -6,7 +6,6 @@ import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 import {
   AccessibilityIconExample,
   DefaultIconExample,
-  BuiltInIconExample,
   CustomIconExample,
   IconColorExample,
   IconSizesExample,
@@ -16,11 +15,13 @@ import {
   ViewboxExample,
 } from './examples';
 
-Icons should be thought of as plain text; they inherit the size and color of their context or can be set directly. Icons themselves do not have any state or handlers, those should be at a higher level like a button. Amplify uses the [Google Material icon set](https://github.com/google/material-design-icons) as the default because it meets the needs above and uses an approved license (Apache-2).
-
 ## Demo
 
 <IconDemo />
+
+<Alert variation="info" heading="Note">
+Icons should be thought of as plain text; they inherit the size and color of their context or can be set directly. Icons themselves do not have any state or handlers, those should be at a higher level like a button. Amplify UI does not include any icons other than the ones Amplify UI components like [Alert](/components/alert) and [Expander](/components/expander) use.
+</Alert>
 
 ## Usage
 
@@ -28,38 +29,23 @@ Import the Icon component and styles.
 
 <Example>
 <DefaultIconExample />
-
   <ExampleCode>
 
 ```jsx file=./examples/DefaultIconExample.tsx
 
 ```
-
   </ExampleCode>
 </Example>
 
 ### Built-in iconset
 
 <Alert variation="warning" heading="Deprecated">
-  The built-in icons are being removed in the next major release. You can use
-  the [react-icons](https://react-icons.github.io/react-icons) package or other
-  React icon libraries in its place. `import {ICON_NAME} from
+  The built-in icons were removed in version `3.0`. You can use the
+  [react-icons](https://react-icons.github.io/react-icons) package or other
+  `import {ICON_NAME} from
   '@aws-amplify/ui-react';` becomes `import {ICON_NAME} from 'react-icons/md';`
+  React icon libraries in its place. 
 </Alert>
-
-Use a default icon from the [Material Design icons](http://google.github.io/material-design-icons/).
-
-<Example>
-  <BuiltInIconExample />
-  
-  <ExampleCode>
-
-```jsx file=./examples/BuiltInIconExample.tsx
-
-```
-
-  </ExampleCode>
-</Example>
 
 ## Custom icon
 
@@ -138,6 +124,12 @@ To use an icon library like [React Icons](https://react-icons.github.io/react-ic
 
   </ExampleCode>
 </Example>
+
+Here are some good open source icon libraries:
+
+- <Link href="https://css.gg" isExternal={true}>CSS.gg</Link>
+- <Link href="https://react-icons.github.io/react-icons/" isExternal={true}>React icons</Link>
+- <Link href="https://heroicons.com/" isExternal={true}>Hero icons</Link>
 
 ## Styling
 

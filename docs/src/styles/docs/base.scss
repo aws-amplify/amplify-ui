@@ -1,3 +1,5 @@
+@import './variables';
+
 @font-face {
   font-family: 'Inter var';
   font-style: normal;
@@ -111,7 +113,7 @@ code {
   background-color: var(--amplify-colors-background-secondary);
   font-size: 0.875em;
   border-radius: 0.3em;
-  font-family: var(--docs-font-mono);
+  font-family: $font-code;
   direction: ltr;
   text-align: left;
   white-space: pre;

@@ -3,3 +3,4 @@
 .changeset
 dist
 .d.ts
+*.mdx
