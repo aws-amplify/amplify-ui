@@ -2,13 +2,13 @@
 title: Configuration
 metaTitle: Configuration
 description: How to setup and configure your Authenticator component.
-supportedFrameworks: react|angular|vue
+supportedFrameworks: all
 ---
 
 import { Fragment } from '@/components/Fragment';
 import { Alert, Tabs, TabItem } from '@aws-amplify/ui-react';
 
-### Zero Configuration
+## Zero Configuration
 
 The Authenticator works seamlessly with the [Amplify CLI](https://docs.amplify.aws/cli/start/install/)
 to **automatically** work with your backend.
@@ -37,7 +37,7 @@ yarn global add @aws-amplify/cli@latest
   {({ platform }) => import(`./amplify-pull.${platform}.mdx`)}
 </Fragment>
 
-### Initial State
+## Initial State
 
 By default, unauthenticated users are redirected to the Sign In flow. You can explicitly redirect to Sign Up or Reset Password:
 
@@ -74,13 +74,13 @@ By default, unauthenticated users are redirected to the Sign In flow. You can ex
   </TabItem>
 </Tabs>
 
-### Login Mechanisms
+## Login Mechanisms
 
 <Fragment useCommonWebContent>
   {({ platform }) => import(`./loginMechanisms.${platform}.mdx`)}
 </Fragment>
 
-### Sign Up Attributes
+## Sign Up Attributes
 
 <Alert heading="Zero Configuration">
 
@@ -117,7 +117,7 @@ with the exception of `address`, `gender`, `locale`, `picture`, `updated_at`, an
   </TabItem>
 </Tabs>
 
-### Social Providers
+## Social Providers
 
 <Fragment useCommonWebContent>
   {({ platform }) => import(`./socialProviders.${platform}.mdx`)}

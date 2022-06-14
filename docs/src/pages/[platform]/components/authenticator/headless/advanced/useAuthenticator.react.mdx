@@ -1,6 +1,6 @@
 import { Tabs, TabItem } from '@aws-amplify/ui-react';
 
-### useAuthenticator Hook
+## useAuthenticator Hook
 
 `@aws-amplify/ui-react` ships with `useAuthenticator` React hook that can be used to access, modify, and update Authenticator's auth state. To use them, first wrap your application with [`<Authenticator.Provider>`](#authenticator-provider):
 
@@ -25,7 +25,7 @@ const App = () => {
 };
 ```
 
-### Authenticator Provider
+## Authenticator Provider
 
 In advanced use cases where usage of the [`useAuthenticator` hook](headless#useauthenticator-hook) outside the scope of the [`Authenticator`](../components/authenticator) is needed, wrap your application inside an `Authenticator.Provider`. The `Authenticator.Provider` guarantees that the [useAuthenticator hook](headless#useauthenticator-hook) is available throughout your application. You can see an example of this pattern in the [Protected Routes Guide.](../../guides/auth-protected)
 
@@ -60,7 +60,7 @@ export default function App(props) {
 </TabItem>
 </Tabs>
 
-### Prevent Re-renders
+## Prevent Re-renders
 
 Using `useAuthenticator` hook at your `App` level is risky, because it'll trigger a re-render down its tree whenever any of its context changes value.
 

@@ -7,7 +7,7 @@ import {
 import { Example } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
 
-### Sign Up Field Order
+## Sign Up Field Order
 
 The authenticator allows a custom order of sign up fields on the Sign Up page.
 
@@ -55,7 +55,7 @@ In the example below the order will be set as `email`, `family_name`, `birthdate
 
 </Example>
 
-### Form Field Customization
+## Form Field Customization
 
 The Authenticator allows for customization of multiple aspects of the form fields.
 The sections below will describe several use cases, on how to modify these fields.
@@ -73,7 +73,7 @@ For customers wishing to change a phone number field, a new `dialCode` and `dial
 
 For a full list of component names and field names can be found in the [input form table](#input-form-field-names-table).
 
-#### Updating labels, placeholders, required fields and showing labels
+### Updating labels, placeholders, required fields and showing labels
 
 You can customize any label, placeholder, set a field as required or not required, and hide or show labels by configuring the `formFields` props, and passing it into the Authenticator component.
 To use this feature create a `formFields` prop and include the component name as a key.
@@ -107,7 +107,7 @@ The following example customizes the Sign In page by:
 
 </Example>
 
-#### Default international dial code
+### Default international dial code
 
 Default Dial code customization is available via the `dialCode` form field key.
 
@@ -135,7 +135,7 @@ The following example will set the default dial code to `+227` on the Sign Up an
   />
 </Example>
 
-#### Change dial code list
+### Change dial code list
 
 If needed, you can update the list of dial codes shown to the user by assigning an array of dial codes to the `dialCodeList`.
 
@@ -166,7 +166,7 @@ In this example, only four dial codes are show in the drop down list for the sig
 
 </Example>
 
-#### Input Form Field Names Table
+### Input Form Field Names Table
 
 Here are the various components and input names that are available for customization.
 
@@ -184,7 +184,7 @@ Here are the various components and input names that are available for customiza
 
 **Note:** Custom sign up attributes not listed in this table are customizable. Use the form field name as the key.
 
-### Update Setup TOTP QR Issuer and Username
+## Update Setup TOTP QR Issuer and Username
 
 When setting up TOTP you can customize the issuer and username that will be shown in TOTP applications.
 This can be done by adding the `formFields` prop to the Authenticator component with a `setupTOTP` key.

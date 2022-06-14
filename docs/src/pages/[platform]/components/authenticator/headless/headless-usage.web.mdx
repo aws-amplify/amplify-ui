@@ -1,31 +1,30 @@
 import { Fragment } from '@/components/Fragment';
 import { Tabs, TabItem } from '@aws-amplify/ui-react';
 
-## Headless Usage
 
 <Fragment>
   {({ platform }) => import(`./advanced/useAuthenticator.${platform}.mdx`)}
 </Fragment>
 
-### Access Auth State
+## Access Auth State
 
 <Fragment>
   {({ platform }) => import(`./advanced/current-route.${platform}.mdx`)}
 </Fragment>
 
-### Access Authenticated User
+## Access Authenticated User
 
 <Fragment>
   {({ platform }) => import(`./advanced/current-user.${platform}.mdx`)}
 </Fragment>
 
-### Trigger Transitions
+## Trigger Transitions
 
 <Fragment>
   {({ platform }) => import(`./advanced/trigger-transitions.${platform}.mdx`)}
 </Fragment>
 
-#### Example
+### Example
 
 Here's an example that conditionally renders different components based on current authentication status. Note that this can be extended to support routed application.
 
@@ -33,7 +32,7 @@ Here's an example that conditionally renders different components based on curre
   {({ platform }) => import(`./advanced/example.${platform}.mdx`)}
 </Fragment>
 
-### Full API
+## Full API
 
 <Fragment>
   {({ platform }) => import(`./advanced/full-api.${platform}.mdx`)}

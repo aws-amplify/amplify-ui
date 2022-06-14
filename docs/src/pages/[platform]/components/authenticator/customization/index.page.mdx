@@ -2,7 +2,7 @@
 title: Customization
 metaTitle: Customization
 description: Override and customize your Authenticator.
-supportedFrameworks: react|angular|vue
+supportedFrameworks: all
 ---
 
 import { Fragment } from '@/components/Fragment';
@@ -23,25 +23,25 @@ import { Fragment } from '@/components/Fragment';
   }
 </Fragment>
 
-### Internationalization (I18n)
+## Internationalization (I18n)
 
 <Fragment useCommonWebContent>
   {({ platform }) => import(`./customization.i18n.${platform}.mdx`)}
 </Fragment>
 
-### Labels & Text
+## Labels & Text
 
 <Fragment useCommonWebContent>
   {({ platform }) => import(`./customization.labels-and-text.${platform}.mdx`)}
 </Fragment>
 
-### Sign Up Fields
+## Sign Up Fields
 
 <Fragment useCommonWebContent>
   {({ platform }) => import(`./sign-up-fields.${platform}.mdx`)}
 </Fragment>
 
-### Force New Password Fields
+## Force New Password Fields
 
 The following example customizes the Force New Password screen by:
 
