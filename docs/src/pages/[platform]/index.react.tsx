@@ -7,6 +7,7 @@ import { AuthenticationSection } from './home/AuthenticationSection';
 import { ThemingSection } from './home/ThemingSection';
 import { CompatibleSection } from './home/CompatibleSection';
 import { PrimitiveSection } from './home/PrimitiveSection';
+import { LiveSection } from './home/LiveSection';
 
 const ReactHomePage = ({ colorMode }) => {
   const {
@@ -21,6 +22,7 @@ const ReactHomePage = ({ colorMode }) => {
       <ThemingSection platform={platform} colorMode={colorMode} />
       <A11ySection platform={platform} />
       <CompatibleSection platform={platform} />
+      <LiveSection platform={platform} />
     </>
   );
 };

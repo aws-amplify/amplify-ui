@@ -25,9 +25,12 @@ export const HeroSection = () => {
   const frameworkInstallScript = installScripts[platform.toString()];
 
   return (
-    <View as="section" className="container docs-hero">
+    <View as="section" className="docs-hero">
       <Flex className="container" justifyContent="center" textAlign="center">
-        <Flex direction="column" maxWidth="60rem" alignItems="center">
+        <Flex
+          direction="column"
+          className="docs-home-section docs-home-container"
+        >
           <Heading level={1} className="docs-home-h1">
             Build UI <strong>faster</strong>
           </Heading>
@@ -42,10 +45,7 @@ export const HeroSection = () => {
             and utilities.
           </Text>
           <FrameworkChooser />
-          <Flex
-            direction={{ base: 'column-reverse', medium: 'row' }}
-            padding={`${tokens.space.medium} 0 0 0`}
-          >
+          <Flex direction={{ base: 'column-reverse', medium: 'row' }}>
             <Button
               size="large"
               variation="primary"
@@ -66,12 +66,6 @@ export const HeroSection = () => {
               />
             </View>
           </Flex>
-        </Flex>
-      </Flex>
-      <Flex direction="column">
-        <Flex direction={{ base: 'column', medium: 'row' }}>
-          <View flex="1"></View>
-          <View flex="1"></View>
         </Flex>
       </Flex>
     </View>

@@ -29,6 +29,10 @@
 .docs-home-section {
   position: relative;
   padding: var(--amplify-space-xxxl) var(--amplify-space-xl);
+  
+  & > * + * {
+    margin-bottom: var(--amplify-space-large);
+  }
 }
 
 .docs-home-cta {
@@ -63,6 +67,15 @@
 .docs-home-container {
   max-width: 60rem;
   margin: 0 auto;
+  align-items: center;
+  text-align: center;
+}
+
+.docs-home-text {
+  font-size: var(--amplify-font-sizes-large);
+  @media (min-width: $breakpoint-small) {
+    font-size: var(--amplify-font-sizes-xl);
+  }
 }
 
 .install-code__container {
@@ -138,7 +151,6 @@
     flex-wrap: wrap;
     justify-content: flex-start;
     width: 100%;
-    padding: var(--amplify-space-xl) 0;
   }
   
   .docs-framework-link {

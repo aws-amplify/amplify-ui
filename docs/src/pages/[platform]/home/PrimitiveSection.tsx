@@ -4,8 +4,11 @@ import { MdOutlineWidgets } from 'react-icons/md';
 import {
   Heading,
   useBreakpointValue,
-  useTheme,
+  Text,
   View,
+  Grid,
+  Card,
+  TextField,
 } from '@aws-amplify/ui-react';
 import { HomeCTA } from 'src/pages/[platform]/home/HomeCTA';
 import { useIntersectionObserver } from '@/components/useIntersection';
@@ -15,6 +18,18 @@ import { useIntersectionObserver } from '@/components/useIntersection';
 const HomeEditor = dynamic(() => import('./HomeEditor'), {
   ssr: false,
 }) as React.FC<any>;
+
+export const ComingSoonPrimitiveSection = ({ platform }) => {
+  return (
+    <View as="section" className="docs-home-section docs-grid-bg centered">
+      <View className="docs-home-container">
+        <Heading level={2} textAlign="center">
+          {platform} primitive components coming soon!
+        </Heading>
+      </View>
+    </View>
+  );
+};
 
 export const PrimitiveSection = ({ platform, ...rest }) => {
   const showEditor = useBreakpointValue({
@@ -44,7 +59,21 @@ export const PrimitiveSection = ({ platform, ...rest }) => {
           Speed up development with over <br />
           <strong>45 production-ready components</strong>
         </Heading>
+        <Text className="docs-home-text">
+          Amplify UI components are built with plain React and CSS to provide a
+          solid foundation for building UIs and design systems. These components
+          are themeable, composable, reusable. They work well with other UI
+          components or styling frameworks. Interactive components can be
+          controlled and uncontrolled.
+        </Text>
       </View>
+
+      <Grid templateColumns="1fr 1fr 1fr 1fr">
+        <Card>
+          <Text fontWeight="bold"></Text>
+          <TextField label="Pizza" />
+        </Card>
+      </Grid>
 
       {showEditor ? (
         <View className="docs-home-section">
