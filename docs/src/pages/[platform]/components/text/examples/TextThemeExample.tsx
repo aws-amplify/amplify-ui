@@ -1,6 +1,6 @@
 import { Text, Flex, ThemeProvider, Theme } from '@aws-amplify/ui-react';
 
-const theme = {
+const theme: Theme = {
   name: 'text-theme',
   tokens: {
     components: {

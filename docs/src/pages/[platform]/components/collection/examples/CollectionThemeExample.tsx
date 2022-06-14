@@ -7,31 +7,59 @@ import {
 } from '@aws-amplify/ui-react';
 import { countries } from 'countries-list';
 
-export const CollectionThemeExample = () => {
-  const theme: Theme = {
-    name: 'collection-theme',
-    tokens: {
-      components: {
-        collection: {
-          search: {
-            button: {
-              color: { value: '{colors.brand.secondary.40}' },
-              _active: {
-                backgroundColor: { value: '{colors.brand.primary.80}' },
+const theme: Theme = {
+  name: 'collection-theme',
+  tokens: {
+    components: {
+      collection: {
+        pagination: {
+          current: {
+            color: { value: 'white' },
+            backgroundColor: {
+              value: '{colors.red.40}',
+            },
+          },
+          button: {
+            color: { value: '{colors.red.60}' },
+            _hover: {
+              backgroundColor: {
+                value: '{colors.neutral.40}',
               },
-              _focus: {
-                backgroundColor: { value: '{colors.brand.primary.80}' },
+              color: { value: 'white' },
+            },
+          },
+        },
+        search: {
+          input: {
+            color: { value: '{colors.red.60}' },
+          },
+          button: {
+            color: { value: '{colors.red.60}' },
+            _focus: {
+              backgroundColor: {
+                value: '{colors.red.20}',
               },
-              _hover: {
-                backgroundColor: { value: '{colors.brand.primary.80}' },
+              color: {
+                value: 'white',
+              },
+            },
+            _hover: {
+              backgroundColor: {
+                value: '{colors.red.40}',
+              },
+              color: {
+                value: 'white',
               },
             },
           },
         },
       },
     },
-    overrides: [defaultDarkModeOverride],
-  };
+  },
+  overrides: [defaultDarkModeOverride],
+};
+
+export const CollectionThemeExample = () => {
   return (
     <ThemeProvider theme={theme} colorMode="system">
       <Collection
