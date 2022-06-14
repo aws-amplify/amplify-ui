@@ -16,6 +16,8 @@ export class TextFieldComponent {
   @Input() required = true;
   @Input() type: string;
   @Input() labelHidden = false;
+  @Input() hasError: boolean;
+  @Input() describedBy: string;
 
   @HostBinding('style.display') display = 'contents';
 }

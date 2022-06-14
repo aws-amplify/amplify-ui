@@ -1,0 +1,21 @@
+import { AuthStyle } from './AuthStyle';
+import { Example } from '@/components/Example';
+
+### Theme Provider Theme
+
+You can update the style of the Authenticator by using the [ThemeProvider](/react/theming) [theme object](/react/theming#theme-object). To do this, you must surround the `Authenticator` in the `ThemeProvider`.
+
+Then create a [theme object](/react/theming#theme-object), with all your font and color updates. Feel free to use [design tokens](/react/theming#design-tokens), as a way of designing your theme further.
+
+Below is an example of changing the default colors to a dark theme.
+
+```jsx file=./AuthStyle.tsx
+
+```
+
+<Example>
+<AuthStyle />
+
+</Example>
+
+> If you have TypeScript enabled, all the object keys will be present when creating the [theme object](/react/theming#theme-object). This will help speed up your development time while creating themes.

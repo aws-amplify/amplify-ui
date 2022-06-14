@@ -1,0 +1,132 @@
+---
+title: Configuration
+metaTitle: Configuration
+description: How to setup and configure your Authenticator component.
+supportedFrameworks: all
+---
+
+import { Fragment } from '@/components/Fragment';
+import { Alert, Tabs, TabItem } from '@aws-amplify/ui-react';
+
+## Zero Configuration
+
+The Authenticator works seamlessly with the [Amplify CLI](https://docs.amplify.aws/cli/start/install/)
+to **automatically** work with your backend.
+
+First, update `@aws-amplify/cli` with [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+if you're using a version before `6.4.0`:
+
+<Tabs>
+<TabItem title="npm">
+
+```shell
+npm install -g @aws-amplify/cli@latest
+```
+
+</TabItem>
+<TabItem title="yarn">
+
+```shell
+yarn global add @aws-amplify/cli@latest
+```
+
+</TabItem>
+</Tabs>
+
+<Fragment useCommonWebContent>
+  {({ platform }) => import(`./amplify-pull.${platform}.mdx`)}
+</Fragment>
+
+## Initial State
+
+By default, unauthenticated users are redirected to the Sign In flow. You can explicitly redirect to Sign Up or Reset Password:
+
+<Tabs>
+  <TabItem title="Sign In">
+    <Fragment>
+      {({ platform }) => import(`./initialState.signIn.${platform}.mdx`)}
+    </Fragment>
+    <Fragment useCommonWebContent>
+      {({ platform }) =>
+        import(`./initialState.signIn.example.${platform}.mdx`)
+      }
+    </Fragment>
+  </TabItem>
+  <TabItem title="Sign Up">
+    <Fragment>
+      {({ platform }) => import(`./initialState.signUp.${platform}.mdx`)}
+    </Fragment>
+    <Fragment useCommonWebContent>
+      {({ platform }) =>
+        import(`./initialState.signUp.example.${platform}.mdx`)
+      }
+    </Fragment>
+  </TabItem>
+  <TabItem title="Reset Password">
+    <Fragment>
+      {({ platform }) => import(`./initialState.resetPassword.${platform}.mdx`)}
+    </Fragment>
+    <Fragment useCommonWebContent>
+      {({ platform }) =>
+        import(`./initialState.resetPassword.example.${platform}.mdx`)
+      }
+    </Fragment>
+  </TabItem>
+</Tabs>
+
+## Login Mechanisms
+
+<Fragment useCommonWebContent>
+  {({ platform }) => import(`./loginMechanisms.${platform}.mdx`)}
+</Fragment>
+
+## Sign Up Attributes
+
+<Alert heading="Zero Configuration">
+
+The Authenticator [automatically infers](#zero-configuration) `signUpAttributes` from `amplify pull`,
+but can be explicitly defined as seen below.
+
+</Alert>
+
+The Authenticator automatically renders _most_ [Cognito User Pools attributes](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html),
+with the exception of `address`, `gender`, `locale`, `picture`, `updated_at`, and `zoneinfo`. Because these are often app-specific, they can be customized via [Sign Up fields](#sign-up-fields).
+
+<Tabs>
+  <TabItem title="Verification Attributes">
+    By default, the Authenticator will still require any attributes required for
+    verification, such as `email`, _even if `signUpAttributes` is empty_:
+    <Fragment>
+      {({ platform }) => import(`./signUpAttributes.default.${platform}.mdx`)}
+    </Fragment>
+    <Fragment useCommonWebContent>
+      {({ platform }) =>
+        import(`./signUpAttributes.default.example.${platform}.mdx`)
+      }
+    </Fragment>
+  </TabItem>
+  <TabItem title="All Attributes">
+    <Fragment>
+      {({ platform }) => import(`./signUpAttributes.all.${platform}.mdx`)}
+    </Fragment>
+    <Fragment useCommonWebContent>
+      {({ platform }) =>
+        import(`./signUpAttributes.all.example.${platform}.mdx`)
+      }
+    </Fragment>
+  </TabItem>
+</Tabs>
+
+## Social Providers
+
+<Fragment useCommonWebContent>
+  {({ platform }) => import(`./socialProviders.${platform}.mdx`)}
+</Fragment>
+
+<Fragment useCommonWebContent platforms={['web']}>
+  {({ platform }) => import(`./variation.${platform}.mdx`)}
+</Fragment>
+
+<Fragment useCommonWebContent platforms={['web']}>
+  {({ platform }) => import(`./hidesignup.${platform}.mdx`)}
+</Fragment>

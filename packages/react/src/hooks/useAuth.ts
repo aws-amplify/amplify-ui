@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import Auth, { CognitoUser } from '@aws-amplify/auth';
-import { Hub } from '@aws-amplify/core';
+import { Hub, HubCallback } from '@aws-amplify/core';
 
 // Exposes relevant CognitoUser properties
 interface AuthUser extends CognitoUser {
@@ -27,10 +27,10 @@ export const useAuth = (): UseAuthResult => {
     user: undefined,
   });
 
-  const handleAuth = ({ payload }) => {
+  const handleAuth: HubCallback = ({ payload }) => {
     switch (payload.event) {
       case 'signIn':
-        return setResult({ user: payload.data, isLoading: false });
+        return setResult({ user: payload.data as AuthUser, isLoading: false });
       case 'signOut':
         return setResult({ isLoading: false });
       default:
@@ -42,8 +42,8 @@ export const useAuth = (): UseAuthResult => {
     setResult({ isLoading: true });
 
     Auth.currentAuthenticatedUser()
-      .then((user) => setResult({ user, isLoading: false }))
-      .catch((error) => setResult({ error, isLoading: false }));
+      .then((user: AuthUser) => setResult({ user, isLoading: false }))
+      .catch((error: Error) => setResult({ error, isLoading: false }));
 
     // Handle Hub Auth events
     Hub.listen('auth', handleAuth);
