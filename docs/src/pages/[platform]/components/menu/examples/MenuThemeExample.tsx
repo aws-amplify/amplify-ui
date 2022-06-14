@@ -1,9 +1,16 @@
-import { ThemeProvider, Menu, MenuItem, Theme } from '@aws-amplify/ui-react';
+import {
+  ThemeProvider,
+  Menu,
+  MenuItem,
+  Theme,
+  defaultDarkModeOverride,
+} from '@aws-amplify/ui-react';
 
 const theme: Theme = {
-  name: 'menu-example-theme',
+  name: 'menu-theme',
   tokens: {
     components: {
+      // Is there a way to theme the menu trigger button?
       menu: {
         backgroundColor: { value: '{colors.blue.20}' },
         borderRadius: { value: '0' },
@@ -13,11 +20,12 @@ const theme: Theme = {
       },
     },
   },
+  overrides: [defaultDarkModeOverride],
 };
 
 export const MenuThemeExample = () => {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme} colorMode="system">
       <Menu>
         <MenuItem>Download</MenuItem>
         <MenuItem>Create a Copy</MenuItem>

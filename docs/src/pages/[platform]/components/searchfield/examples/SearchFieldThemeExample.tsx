@@ -1,53 +1,42 @@
-import { SearchField, ThemeProvider, Theme } from '@aws-amplify/ui-react';
+import {
+  SearchField,
+  ThemeProvider,
+  Theme,
+  defaultDarkModeOverride,
+} from '@aws-amplify/ui-react';
 
 const theme: Theme = {
   name: 'searchfield-theme',
   tokens: {
     components: {
       searchfield: {
-        // color seemingly has no effect
-        // color: { value: 'red' },
+        // color seems to have no effect
+        color: { value: '{colors.blue.40}' },
+
         button: {
-          color: { value: 'red' },
-          _active: {
+          color: { value: '{colors.blue.40}' },
+          _focus: {
             backgroundColor: {
-              value: 'green',
-            },
-            borderColor: {
-              value: 'yellow',
+              value: '{colors.blue.20}',
             },
             color: { value: 'white' },
           },
-          _focus: {
-            backgroundColor: {
-              value: 'purple',
-            },
-            borderColor: {
-              value: 'red',
-            },
-            color: { value: 'yellow}' },
-          },
           _hover: {
             backgroundColor: {
-              value: 'orange',
+              value: '{colors.blue.40}',
             },
-            borderColor: {
-              value: 'blue',
-            },
-            color: { value: 'black' },
+            color: { value: 'white' },
           },
         },
       },
-      // fieldcontrol: {
-      //   color: { value: 'red' },
-      // },
     },
   },
+  overrides: [defaultDarkModeOverride],
 };
 
 export const SearchFieldThemeExample = () => {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme} colorMode="system">
       <SearchField label="search" />
     </ThemeProvider>
   );
