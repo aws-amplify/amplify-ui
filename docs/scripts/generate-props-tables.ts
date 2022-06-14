@@ -9,6 +9,7 @@ import type {
   ComponentName,
   Properties,
 } from './types/catalog';
+import { TypeFileName } from './types/allTypesData';
 
 const catalog = getCatalog();
 const allTypesData = getAllTypesData();
@@ -199,31 +200,49 @@ function getPropertiesByCategory(
 ): PropertiesByCategory {
   let propertiesByCategory: PropertiesByCategory = {} as PropertiesByCategory;
 
-  if (componentPageName !== 'view') {
-    for (const propertyName in getObjectValueWithCaselessKey(
-      catalog,
-      componentPageName
-    )) {
-      const property = getObjectValueWithCaselessKey(
-        catalog,
-        componentPageName
-      )[propertyName];
-      propertiesByCategory = {
-        ...propertiesByCategory,
-        [property.category]: {
-          ...propertiesByCategory[property.category],
-          [propertyName]: property,
-        },
-      };
-    }
-    /**
-     * `view` doesn't have correct data in Catalog, so have to use AllTypesData
-     */
-  } else {
-    let viewProps: Properties;
-    for (const [propName, property] of allTypesData.get('View').entries()) {
-      viewProps = {
-        ...viewProps,
+  /**
+   * Some special components doesn't have accurate properties generated from getCatalog, so we have to manually point it to AllTypesData as well.
+   */
+  const specialComponents = {
+    view: ['View', 'Input'],
+    textfield: ['TextField', 'Input', 'Field'],
+  };
+
+  for (const propertyName in getObjectValueWithCaselessKey(
+    catalog,
+    componentPageName
+  )) {
+    const property = getObjectValueWithCaselessKey(catalog, componentPageName)[
+      propertyName
+    ];
+    propertiesByCategory = {
+      ...propertiesByCategory,
+      [property.category]: {
+        ...propertiesByCategory[property.category],
+        [propertyName]: property,
+      },
+    };
+  }
+  if (Object.keys(specialComponents).includes(componentPageName)) {
+    const componentName = specialComponents[componentPageName][0];
+    propertiesByCategory = {
+      ...propertiesByCategory,
+      [componentName]: {
+        ...propertiesByCategory[componentName],
+        ...getPropertiesFromAllTypeData(specialComponents[componentPageName]),
+      },
+    };
+  }
+  return propertiesByCategory;
+}
+
+function getPropertiesFromAllTypeData(sourceTypes: TypeFileName[]) {
+  let targetProps: Properties;
+
+  sourceTypes.forEach((type) => {
+    for (const [propName, property] of allTypesData.get(type).entries()) {
+      targetProps = {
+        ...targetProps,
         [propName]: {
           name: String(property.get('name')),
           type: String(property.get('type')),
@@ -236,12 +255,8 @@ function getPropertiesByCategory(
         },
       };
     }
-    propertiesByCategory = {
-      ...propertiesByCategory,
-      View: viewProps,
-    };
-  }
-  return propertiesByCategory;
+  });
+  return targetProps;
 }
 
 /**

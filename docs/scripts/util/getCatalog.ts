@@ -12,6 +12,7 @@ import {
   Catalog,
 } from '../types/catalog';
 import { sanitize } from './sanitize';
+import { TypeFileName } from 'scripts/types/allTypesData';
 
 const allTypesData = getAllTypesData();
 
@@ -137,8 +138,10 @@ function getCatalogComponentProperty(
   ) as Category;
 
   const type =
-    (allTypesData.get(category)?.get(name)?.get('type') as string) ??
-    propType.getText(); // use type from allTypesData because it has a better-looking format
+    (allTypesData
+      .get(category as TypeFileName)
+      ?.get(name)
+      ?.get('type') as string) ?? propType.getText(); // use type from allTypesData because it has a better-looking format
 
   const regex = /import\(\".*\.(.*)/;
 
@@ -181,7 +184,7 @@ function getCategory(propName: string, componentName: ComponentName): Category {
   const preSetCategories = { as: 'Base', ref: 'Base' };
   return (
     [componentName, ...sharedCategories].find((component) =>
-      allTypesData.get(component)?.has(propName)
+      allTypesData.get(component as TypeFileName)?.has(propName)
     ) ??
     preSetCategories[propName] ??
     'other'

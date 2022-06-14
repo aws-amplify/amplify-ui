@@ -2,9 +2,12 @@ import fs from 'fs';
 import path from 'path';
 import { Project, PropertySignature, TypeAliasDeclaration } from 'ts-morph';
 import { capitalizeString } from '../../src/utils/capitalizeString';
-import { AllTypeFileData, TypeFileData } from '../types/allTypesData';
+import {
+  AllTypeFileData,
+  TypeFileData,
+  TypeFileName,
+} from '../types/allTypesData';
 import { SyntaxKind } from 'typescript';
-import { Category } from 'scripts/types/catalog';
 import { sanitize } from './sanitize';
 
 export const getAllTypesData = () => {
@@ -27,9 +30,9 @@ export const getAllTypesData = () => {
   const allTypeFiles = source.getReferencedSourceFiles();
   const names = [];
   allTypeFiles.forEach((typeFile) => {
-    const typeFileName: Category = capitalizeString(
+    const typeFileName: TypeFileName = capitalizeString(
       typeFile.getBaseName().slice(0, typeFile.getBaseName().indexOf('.ts'))
-    ) as Category;
+    ) as TypeFileName;
     names.push(typeFileName);
     const typeFileData: TypeFileData = new Map();
     const typeAliases = typeFile.getTypeAliases();
@@ -59,7 +62,7 @@ export const getAllTypesData = () => {
  */
 function setTypeData(
   typeProp: TypeAliasDeclaration | PropertySignature,
-  typeFileName: Category,
+  typeFileName: TypeFileName,
   typeFileData: TypeFileData
 ) {
   type TypeData = Map<string, string | boolean | { description: string }>;
