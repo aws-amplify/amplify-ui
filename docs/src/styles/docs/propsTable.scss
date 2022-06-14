@@ -6,6 +6,11 @@
   & pre[class*='language-'] {
     margin: 0;
     padding: 0;
+    max-width: 20rem;
+  }
+
+  .amplify-table__td {
+    padding: 0.5rem;
   }
 
   & .amplify-expander__content__text {
