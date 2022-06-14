@@ -1,6 +1,6 @@
 .amplify-text {
-  color: var(--amplify-components-text-color);
   display: block;
+  color: var(--amplify-components-text-color);
 
   @at-root b#{&},
     em#{&},
@@ -10,39 +10,38 @@
     display: inline;
   }
 
-  &[data-truncate='true'] {
+  &--truncated {
     display: inline-block;
     max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-
-  &[data-variation='primary'] {
+  &--primary {
     color: var(--amplify-components-text-primary-color);
   }
 
-  &[data-variation='secondary'] {
+  &--secondary {
     color: var(--amplify-components-text-secondary-color);
   }
 
-  &[data-variation='tertiary'] {
+  &--tertiary {
     color: var(--amplify-components-text-tertiary-color);
   }
 
-  &[data-variation='error'] {
+  &--error {
     color: var(--amplify-components-text-error-color);
   }
 
-  &[data-variation='info'] {
+  &--info {
     color: var(--amplify-components-text-info-color);
   }
 
-  &[data-variation='success'] {
+  &--success {
     color: var(--amplify-components-text-success-color);
   }
 
-  &[data-variation='warning'] {
+  &--warning {
     color: var(--amplify-components-text-warning-color);
   }
 }

@@ -14,6 +14,25 @@ describe('ScrollView: ', () => {
     );
   });
 
+  it('should render orientation classes for ScrollView', async () => {
+    render(
+      <div>
+        <ScrollView testId="horizontal" orientation="horizontal" />
+        <ScrollView testId="vertical" orientation="vertical" />
+      </div>
+    );
+
+    const horizontal = await screen.findByTestId('horizontal');
+    const vertical = await screen.findByTestId('vertical');
+
+    expect(horizontal.classList).toContain(
+      `${ComponentClassNames['ScrollView']}--horizontal`
+    );
+    expect(vertical.classList).toContain(
+      `${ComponentClassNames['ScrollView']}--vertical`
+    );
+  });
+
   it('should forward ref to DOM element', async () => {
     const ref = React.createRef<HTMLDivElement>();
     render(<ScrollView ref={ref} testId="test-id" />);

@@ -5,6 +5,7 @@
 import { Interpreter } from 'xstate';
 import { AuthContext } from './context';
 import { AuthEvent } from './event';
+import { HubCapsule } from '@aws-amplify/core';
 
 /**
  * Intefrace for `authMachine` machine interpreter
@@ -23,3 +24,5 @@ export type AuthInterpreter = Interpreter<
  * Function type for `send` in `authMachine`
  */
 export type AuthMachineSend = AuthInterpreter['send'];
+
+export type HubHandler = (data: HubCapsule, service: AuthInterpreter) => void;

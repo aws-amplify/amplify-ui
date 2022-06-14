@@ -1,6 +1,18 @@
 import { Property } from 'csstype';
 import { WebDesignToken } from '@aws-amplify/ui';
 
+import type {
+  BoxShadowKeys,
+  ColorKeys,
+  FontFamilyKeys,
+  FontSizeKeys,
+  FontWeightKeys,
+  LineHeightKeys,
+  OpacityKeys,
+  RadiiKeys,
+  SpaceKeys,
+  TransformKeys,
+} from './theme';
 import { FlexItemStyleProps, FlexContainerStyleProps } from './flex';
 import { GridItemStyleProps, GridContainerStyleProps } from './grid';
 import { ImageStyleProps } from './image';
@@ -30,7 +42,9 @@ export interface ResponsiveObject<PropertyType> {
  * Allows a style prop to be the property type
  * or a design token of that property type.
  */
-type StyleToken<PropertyType> = PropertyType | WebDesignToken<PropertyType>;
+export type StyleToken<PropertyType> =
+  | PropertyType
+  | WebDesignToken<PropertyType>;
 
 export type ResponsiveStyle<PropertyType> =
   | StyleProp<PropertyType>
@@ -39,55 +53,77 @@ export type ResponsiveStyle<PropertyType> =
 
 export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   alignSelf?: ResponsiveStyle<StyleToken<Property.AlignSelf>>;
-  backgroundColor?: ResponsiveStyle<StyleToken<Property.BackgroundColor>>;
+  backgroundColor?: ResponsiveStyle<
+    ColorKeys<StyleToken<Property.BackgroundColor>>
+  >;
   backgroundImage?: ResponsiveStyle<StyleToken<Property.BackgroundImage>>;
   border?: ResponsiveStyle<StyleToken<Property.Border>>;
-  borderRadius?: ResponsiveStyle<StyleToken<Property.BorderRadius>>;
-  bottom?: ResponsiveStyle<StyleToken<Property.Bottom>>;
-  boxShadow?: ResponsiveStyle<StyleToken<Property.BoxShadow>>;
-  color?: ResponsiveStyle<StyleToken<Property.Color>>;
+  borderRadius?: ResponsiveStyle<RadiiKeys<StyleToken<Property.BorderRadius>>>;
+  bottom?: ResponsiveStyle<SpaceKeys<StyleToken<Property.Bottom>>>;
+  boxShadow?: ResponsiveStyle<BoxShadowKeys<StyleToken<Property.BoxShadow>>>;
+  color?: ResponsiveStyle<ColorKeys<StyleToken<Property.Color>>>;
   display?: ResponsiveStyle<StyleToken<Property.Display>>;
-  fontFamily?: ResponsiveStyle<StyleToken<Property.FontFamily>>;
-  fontSize?: ResponsiveStyle<StyleToken<Property.FontSize>>;
+  fontFamily?: ResponsiveStyle<FontFamilyKeys<StyleToken<Property.FontFamily>>>;
+  fontSize?: ResponsiveStyle<FontSizeKeys<StyleToken<Property.FontSize>>>;
   fontStyle?: ResponsiveStyle<StyleToken<Property.FontStyle>>;
-  fontWeight?: ResponsiveStyle<StyleToken<Property.FontWeight>>;
-  height?: ResponsiveStyle<StyleToken<Property.Height>>;
-  left?: ResponsiveStyle<StyleToken<Property.Left>>;
-  letterSpacing?: ResponsiveStyle<StyleToken<Property.LetterSpacing>>;
-  lineHeight?: ResponsiveStyle<StyleToken<Property.LineHeight>>;
+  fontWeight?: ResponsiveStyle<FontWeightKeys<StyleToken<Property.FontWeight>>>;
+  height?: ResponsiveStyle<SpaceKeys<StyleToken<Property.Height>>>;
+  left?: ResponsiveStyle<SpaceKeys<StyleToken<Property.Left>>>;
+  letterSpacing?: ResponsiveStyle<
+    SpaceKeys<StyleToken<Property.LetterSpacing>>
+  >;
+  lineHeight?: ResponsiveStyle<LineHeightKeys<StyleToken<Property.LineHeight>>>;
   margin?: ResponsiveStyle<StyleToken<Property.Margin>>;
-  marginBlockEnd?: ResponsiveStyle<StyleToken<Property.MarginBlockEnd>>;
-  marginBlockStart?: ResponsiveStyle<StyleToken<Property.MarginBlockStart>>;
-  marginBottom?: ResponsiveStyle<StyleToken<Property.MarginBlockEnd>>;
-  marginInlineEnd?: ResponsiveStyle<StyleToken<Property.MarginInlineEnd>>;
-  marginInlineStart?: ResponsiveStyle<StyleToken<Property.MarginInlineStart>>;
-  marginLeft?: ResponsiveStyle<StyleToken<Property.MarginInlineStart>>;
-  marginRight?: ResponsiveStyle<StyleToken<Property.MarginInlineEnd>>;
-  marginTop?: ResponsiveStyle<StyleToken<Property.MarginBlockStart>>;
-  maxHeight?: ResponsiveStyle<StyleToken<Property.MaxHeight>>;
-  maxWidth?: ResponsiveStyle<StyleToken<Property.MaxWidth>>;
-  minHeight?: ResponsiveStyle<StyleToken<Property.MinHeight>>;
-  minWidth?: ResponsiveStyle<StyleToken<Property.MinWidth>>;
-  opacity?: ResponsiveStyle<StyleToken<Property.Opacity>>;
+  marginBlockEnd?: ResponsiveStyle<
+    SpaceKeys<StyleToken<Property.MarginBlockEnd>>
+  >;
+  marginBlockStart?: ResponsiveStyle<
+    SpaceKeys<StyleToken<Property.MarginBlockStart>>
+  >;
+  marginBottom?: ResponsiveStyle<SpaceKeys<StyleToken<Property.MarginBottom>>>;
+  marginInlineEnd?: ResponsiveStyle<
+    SpaceKeys<StyleToken<Property.MarginInlineEnd>>
+  >;
+  marginInlineStart?: ResponsiveStyle<
+    SpaceKeys<StyleToken<Property.MarginInlineStart>>
+  >;
+  marginLeft?: ResponsiveStyle<SpaceKeys<StyleToken<Property.MarginLeft>>>;
+  marginRight?: ResponsiveStyle<SpaceKeys<StyleToken<Property.MarginRight>>>;
+  marginTop?: ResponsiveStyle<SpaceKeys<StyleToken<Property.MarginTop>>>;
+  maxHeight?: ResponsiveStyle<SpaceKeys<StyleToken<Property.MaxHeight>>>;
+  maxWidth?: ResponsiveStyle<SpaceKeys<StyleToken<Property.MaxWidth>>>;
+  minHeight?: ResponsiveStyle<SpaceKeys<StyleToken<Property.MinHeight>>>;
+  minWidth?: ResponsiveStyle<SpaceKeys<StyleToken<Property.MinWidth>>>;
+  opacity?: ResponsiveStyle<OpacityKeys<StyleToken<Property.Opacity>>>;
   overflow?: ResponsiveStyle<StyleToken<Property.Overflow>>;
   padding?: ResponsiveStyle<StyleToken<Property.Padding>>;
-  paddingBlockEnd?: ResponsiveStyle<StyleToken<Property.MarginBlockEnd>>;
-  paddingBlockStart?: ResponsiveStyle<StyleToken<Property.MarginBlockStart>>;
-  paddingBottom?: ResponsiveStyle<StyleToken<Property.PaddingBlockEnd>>;
-  paddingInlineEnd?: ResponsiveStyle<StyleToken<Property.MarginInlineEnd>>;
-  paddingInlineStart?: ResponsiveStyle<StyleToken<Property.MarginInlineStart>>;
-  paddingLeft?: ResponsiveStyle<StyleToken<Property.PaddingInlineStart>>;
-  paddingRight?: ResponsiveStyle<StyleToken<Property.PaddingInlineEnd>>;
-  paddingTop?: ResponsiveStyle<StyleToken<Property.PaddingBlockStart>>;
+  paddingBlockEnd?: ResponsiveStyle<
+    SpaceKeys<StyleToken<Property.PaddingBlockEnd>>
+  >;
+  paddingBlockStart?: ResponsiveStyle<
+    SpaceKeys<StyleToken<Property.PaddingBlockStart>>
+  >;
+  paddingBottom?: ResponsiveStyle<
+    SpaceKeys<StyleToken<Property.PaddingBottom>>
+  >;
+  paddingInlineEnd?: ResponsiveStyle<
+    SpaceKeys<StyleToken<Property.PaddingInlineEnd>>
+  >;
+  paddingInlineStart?: ResponsiveStyle<
+    SpaceKeys<StyleToken<Property.PaddingInlineStart>>
+  >;
+  paddingLeft?: ResponsiveStyle<SpaceKeys<StyleToken<Property.PaddingLeft>>>;
+  paddingRight?: ResponsiveStyle<SpaceKeys<StyleToken<Property.PaddingRight>>>;
+  paddingTop?: ResponsiveStyle<SpaceKeys<StyleToken<Property.PaddingTop>>>;
   position?: ResponsiveStyle<StyleToken<Property.Position>>;
-  right?: ResponsiveStyle<StyleToken<Property.Right>>;
+  right?: ResponsiveStyle<SpaceKeys<StyleToken<Property.Right>>>;
   textAlign?: ResponsiveStyle<StyleToken<Property.TextAlign>>;
   textDecoration?: ResponsiveStyle<StyleToken<Property.TextDecoration>>;
   textTransform?: ResponsiveStyle<StyleToken<Property.TextTransform>>;
-  top?: ResponsiveStyle<StyleToken<Property.Top>>;
-  transform?: ResponsiveStyle<StyleToken<Property.Transform>>;
+  top?: ResponsiveStyle<SpaceKeys<StyleToken<Property.Top>>>;
+  transform?: ResponsiveStyle<TransformKeys<StyleToken<Property.Transform>>>;
   transformOrigin?: ResponsiveStyle<StyleToken<Property.TransformOrigin>>;
-  width?: ResponsiveStyle<StyleToken<Property.Width>>;
+  width?: ResponsiveStyle<SpaceKeys<StyleToken<Property.Width>>>;
   whiteSpace?: ResponsiveStyle<StyleToken<Property.WhiteSpace>>;
 }
 
@@ -110,17 +146,17 @@ export interface CSSLayoutStyleProps {
   /**
    * Spacing between child components. Shorthand for rowGap and columnGap.
    */
-  gap?: ResponsiveStyle<StyleToken<Property.Gap>>;
+  gap?: ResponsiveStyle<SpaceKeys<StyleToken<Property.Gap>>>;
 
   /**
    * Spacing between Flex/Grid child columns
    */
-  columnGap?: ResponsiveStyle<StyleToken<Property.GridColumnGap>>;
+  columnGap?: ResponsiveStyle<SpaceKeys<StyleToken<Property.GridColumnGap>>>;
 
   /**
    * Spacing between Flex/Grid child rows
    */
-  rowGap?: ResponsiveStyle<StyleToken<Property.RowGap>>;
+  rowGap?: ResponsiveStyle<SpaceKeys<StyleToken<Property.RowGap>>>;
 }
 
 export interface AllStyleProps

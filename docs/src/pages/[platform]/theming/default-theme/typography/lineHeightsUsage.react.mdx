@@ -1,0 +1,29 @@
+import { Example, ExampleCode } from '@/components/Example';
+import { Tabs, TabItem, View } from '@aws-amplify/ui-react';
+import { LineHeightsExample } from './examples';
+
+<Tabs>
+  <TabItem title="Example usage">
+    <View marginTop="var(--amplify-space-large)">
+      <Example>
+        <LineHeightsExample  />
+        <ExampleCode>
+```tsx file=./examples/LineHeightsExample.tsx
+
+```
+        </ExampleCode>
+      </Example>
+    </View>
+  </TabItem>
+  <TabItem title="CSS">
+    <View marginTop="var(--amplify-space-large)">
+    <Example>
+      <ExampleCode>
+```css file=./examples/LineHeightsExample.css
+
+```
+      </ExampleCode>
+    </Example>
+    </View>
+  </TabItem>
+</Tabs>

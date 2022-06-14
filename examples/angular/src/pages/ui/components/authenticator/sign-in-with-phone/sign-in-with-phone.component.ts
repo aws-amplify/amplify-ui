@@ -1,15 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { Amplify } from 'aws-amplify';
+import { Amplify, I18n } from 'aws-amplify';
+import { translations } from '@aws-amplify/ui-angular';
 import awsExports from './aws-exports';
 
 @Component({
   selector: 'sign-in-with-phone',
   templateUrl: 'sign-in-with-phone.component.html',
 })
-export class SignInWithPhoneComponent {
+export class SignInWithPhoneComponent implements OnInit {
   constructor() {
     Amplify.configure(awsExports);
+  }
+
+  ngOnInit(): void {
+    I18n.putVocabularies(translations);
+    I18n.setLanguage('en');
+    I18n.putVocabulariesForLanguage('en', {
+      'Password does not conform to policy: Password not long enough':
+        'Your password is too short! Try a longer password!',
+    });
   }
 
   public formFields = {

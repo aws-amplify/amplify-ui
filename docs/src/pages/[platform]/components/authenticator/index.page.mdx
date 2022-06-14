@@ -1,0 +1,26 @@
+---
+title: Authenticator
+description: Authenticator component adds complete authentication flows to your application with minimal boilerplate.
+supportedFrameworks: all
+---
+
+import { Fragment } from '@/components/Fragment';
+import { Alert, Tabs, TabItem } from '@aws-amplify/ui-react';
+
+<Fragment useCommonWebContent>
+  {({ platform }) => import(`./intro.${platform}.mdx`)}
+</Fragment>
+
+## Quick Start
+
+<Fragment useCommonWebContent>
+  {({ platform }) => import(`./quick-start-intro.${platform}.mdx`)}
+</Fragment>
+
+<Fragment>
+  {({ platform }) => import(`./quick-start-example.${platform}.mdx`)}
+</Fragment>
+
+<Fragment useCommonWebContent platforms={['web']}>
+  {({ platform }) => import(`./trouble-shooting-alert.${platform}.mdx`)}
+</Fragment>

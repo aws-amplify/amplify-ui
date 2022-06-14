@@ -5,6 +5,7 @@ import { button, ButtonTokens } from './button';
 import { card, CardTokens } from './card';
 import { checkbox, CheckboxTokens } from './checkbox';
 import { checkboxfield, CheckboxFieldTokens } from './checkboxField';
+import { collection, CollectionTokens } from './collection';
 import { copy, CopyTokens } from './copy';
 import {
   countrycodeselect,
@@ -24,9 +25,11 @@ import { link, LinkTokens } from './link';
 import { loader, LoaderTokens } from './loader';
 import { menu, MenuTokens } from './menu';
 import { pagination, PaginationTokens } from './pagination';
+import { passwordfield, PasswordFieldTokens } from './passwordField';
 import { placeholder, PlaceholderTokens } from './placeholder';
 import { radio, RadioTokens } from './radio';
 import { rating, RatingTokens } from './rating';
+import { searchfield, SearchFieldTokens } from './searchField';
 import { select, SelectTokens } from './select';
 import { selectfield, SelectFieldTokens } from './selectField';
 import { sliderfield, SliderFieldTokens } from './sliderField';
@@ -35,6 +38,8 @@ import { switchfield, SwitchFieldTokens } from './switchField';
 import { table, TableTokens } from './table';
 import { tabs, TabsTokens } from './tabs';
 import { text, TextTokens } from './text';
+import { textareafield, TextAreaFieldTokens } from './textAreaField';
+import { textfield, TextFieldTokens } from './textField';
 import { togglebutton, ToggleButtonTokens } from './toggleButton';
 import {
   togglebuttongroup,
@@ -49,6 +54,7 @@ export interface ComponentTokens {
   card: CardTokens;
   checkbox: CheckboxTokens;
   checkboxfield: CheckboxFieldTokens;
+  collection: CollectionTokens;
   copy: CopyTokens;
   countrycodeselect: CountryCodeSelectTokens;
   divider: DividerTokens;
@@ -65,9 +71,11 @@ export interface ComponentTokens {
   loader: LoaderTokens;
   menu: MenuTokens;
   pagination: PaginationTokens;
+  passwordfield: PasswordFieldTokens;
   placeholder: PlaceholderTokens;
   radio: RadioTokens;
   rating: RatingTokens;
+  searchfield: SearchFieldTokens;
   select: SelectTokens;
   selectfield: SelectFieldTokens;
   sliderfield: SliderFieldTokens;
@@ -76,6 +84,8 @@ export interface ComponentTokens {
   table: TableTokens;
   tabs: TabsTokens;
   text: TextTokens;
+  textareafield: TextAreaFieldTokens;
+  textfield: TextFieldTokens;
   togglebutton: ToggleButtonTokens;
   togglebuttongroup: ToggleButtonGroupTokens;
 }
@@ -88,6 +98,7 @@ export const components: ComponentTokens = {
   card,
   checkbox,
   checkboxfield,
+  collection,
   copy,
   countrycodeselect,
   divider,
@@ -104,9 +115,11 @@ export const components: ComponentTokens = {
   loader,
   menu,
   pagination,
+  passwordfield,
   placeholder,
   radio,
   rating,
+  searchfield,
   select,
   selectfield,
   sliderfield,
@@ -115,6 +128,8 @@ export const components: ComponentTokens = {
   table,
   tabs,
   text,
+  textareafield,
+  textfield,
   togglebutton,
   togglebuttongroup,
 };

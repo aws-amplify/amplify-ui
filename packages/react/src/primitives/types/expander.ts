@@ -33,7 +33,7 @@ export interface ExpanderItemProps extends ViewProps {
   /**
    * The content of the heading.
    */
-  title?: string;
+  title?: React.ReactNode;
 
   /**
    * A unique value for the item.

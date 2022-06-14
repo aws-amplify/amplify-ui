@@ -513,10 +513,77 @@ export const ComponentClassObject = {
     components: ['VisuallyHidden'],
     description: 'Top level element that wraps the VisuallyHidden primitive',
   },
+} as const;
+
+// For internal use, no need to export
+export const ComponentText = {
+  Collection: {
+    searchButtonLabel: 'Search',
+  },
+  Fields: {
+    clearButtonLabel: 'Clear input',
+  },
+  PaginationItem: {
+    currentPageLabel: 'Current Page:',
+    nextLabel: 'Go to next page',
+    pageLabel: 'Go to page',
+    previousLabel: 'Go to previous page',
+  },
+  PhoneNumberField: {
+    countryCodeLabel: 'Country code',
+  },
+  SearchField: {
+    searchButtonLabel: 'Search',
+  },
+  PasswordField: {
+    showPasswordButtonLabel: 'Show password',
+    hidePasswordButtonLabel: 'Hide password',
+  },
+  StepperField: {
+    increaseButtonLabel: 'Increase to',
+    decreaseButtonLabel: 'Decrease to',
+  },
+};
+
+/**
+ * @deprecated
+ * This is supposed to be used internally and will be removed in the next majoy release.
+ */
+export const SharedText = {
+  CountryCodeSelect: {
+    ariaLabel: 'Country code',
+  },
+  ShowPasswordButton: {
+    ariaLabel: {
+      showPassword: 'Show password',
+      hidePassword: 'Hide password',
+    },
+  },
+  Fields: {
+    ariaLabel: {
+      clearField: 'Clear search',
+    },
+  },
+  SearchField: {
+    ariaLabel: {
+      search: 'Search',
+    },
+  },
+  StepperField: {
+    ariaLabel: {
+      IncreaseTo: 'Increase to',
+      DecreaseTo: 'Decrease to',
+    },
+  },
+  Collection: {
+    SearchFieldLabel: 'Search',
+  },
 };
 
 type ComponentNames = keyof typeof ComponentClassObject;
-let ComponentClassNames: { [Name in ComponentNames]?: string } = {};
+export type ComponentClasses =
+  typeof ComponentClassObject[ComponentNames]['className'];
+let ComponentClassNames: { [Name in ComponentNames]?: ComponentClasses } = {};
 Object.keys(ComponentClassObject).map((keyName) => {
   ComponentClassNames[keyName] = ComponentClassObject[keyName].className;
 });

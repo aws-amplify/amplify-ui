@@ -19,6 +19,10 @@ When('I clear the search results', () => {
   cy.findByRole('button', { name: 'Clear' }).click();
 });
 
+When('I click on a map marker', () => {
+  cy.get('.maplibregl-marker').first().click({ force: true });
+});
+
 Then('I see results for my search term', () => {
   cy.get('.suggestions').should('be.visible');
 });

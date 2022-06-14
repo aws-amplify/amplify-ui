@@ -9,6 +9,18 @@ export interface PasswordFieldProps extends TextInputFieldProps {
   hideShowPassword?: boolean;
 
   /**
+   * Set the `aria-label` for hide password button
+   * @default "Hide password"
+   */
+  hidePasswordButtonLabel?: string;
+
+  /**
+   * Set the `aria-label` for show password button
+   * @default "Show password"
+   */
+  showPasswordButtonLabel?: string;
+
+  /**
    * Password autocomplete type
    * See: https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete#values
    * @default "current-password"
@@ -25,4 +37,16 @@ export type PasswordFieldType = 'password' | 'text';
 
 export interface ShowPasswordButtonProps extends ButtonProps {
   fieldType: PasswordFieldType;
+
+  /**
+   * Set the `aria-label` for hide password button
+   * @default "Hide password"
+   */
+  hidePasswordButtonLabel?: string;
+
+  /**
+   * Set the `aria-label` for show password button
+   * @default "Show password"
+   */
+  showPasswordButtonLabel?: string;
 }

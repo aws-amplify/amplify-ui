@@ -18,6 +18,76 @@ describe('Text: ', () => {
     expect(text.className).toContain(ComponentClassNames.Text);
   });
 
+  it('should render variation classes for Text', async () => {
+    render(
+      <div>
+        <Text testId="primary" variation="primary">
+          primary
+        </Text>
+        <Text testId="secondary" variation="secondary">
+          secondary
+        </Text>
+        <Text testId="tertiary" variation="tertiary">
+          tertiary
+        </Text>
+        <Text testId="error" variation="error">
+          error
+        </Text>
+        <Text testId="warning" variation="warning">
+          warning
+        </Text>
+        <Text testId="info" variation="info">
+          info
+        </Text>
+        <Text testId="success" variation="success">
+          success
+        </Text>
+      </div>
+    );
+
+    const primary = await screen.findByTestId('primary');
+    const secondary = await screen.findByTestId('secondary');
+    const tertiary = await screen.findByTestId('tertiary');
+    const error = await screen.findByTestId('error');
+    const warning = await screen.findByTestId('warning');
+    const info = await screen.findByTestId('info');
+    const success = await screen.findByTestId('success');
+
+    expect(primary.classList).toContain(
+      `${ComponentClassNames['Text']}--primary`
+    );
+    expect(secondary.classList).toContain(
+      `${ComponentClassNames['Text']}--secondary`
+    );
+    expect(tertiary.classList).toContain(
+      `${ComponentClassNames['Text']}--tertiary`
+    );
+    expect(error.classList).toContain(`${ComponentClassNames['Text']}--error`);
+    expect(warning.classList).toContain(
+      `${ComponentClassNames['Text']}--warning`
+    );
+    expect(info.classList).toContain(`${ComponentClassNames['Text']}--info`);
+    expect(success.classList).toContain(
+      `${ComponentClassNames['Text']}--success`
+    );
+  });
+
+  it('should render the truncated class on Text', async () => {
+    render(
+      <div>
+        <Text testId="truncated" isTruncated={true}>
+          truncated
+        </Text>
+      </div>
+    );
+
+    const truncated = await screen.findByTestId('truncated');
+
+    expect(truncated.classList).toContain(
+      `${ComponentClassNames['Text']}--truncated`
+    );
+  });
+
   it('should forward ref to DOM element', async () => {
     const ref = React.createRef<HTMLParagraphElement>();
     render(<Text ref={ref}>{textText}</Text>);
@@ -77,11 +147,9 @@ describe('Text: ', () => {
   it('can apply font-weight via props', async () => {
     render(<Text fontWeight="bold">{textText}</Text>);
     const text = await screen.findByText(textText);
-    expect(
-      text.style.getPropertyValue(
-        kebabCase(ComponentPropsToStylePropsMap.fontWeight)
-      )
-    ).toBe('bold');
+    expect(text).toHaveStyle({
+      fontWeight: 'var(--amplify-font-weights-bold)',
+    });
   });
 
   it('can apply font-size via props', async () => {

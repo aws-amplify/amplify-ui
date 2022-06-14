@@ -24,7 +24,7 @@ export class ConfirmResetPasswordComponent {
    * See https://github.com/aws-amplify/amplify-ui/issues/1784
    * TODO: Remove support for 'Send Code' translation in next Major release
    */
-  public submitText = hasTranslation('Submit')
+  public submitText = !hasTranslation('Send Code')
     ? translate('Submit')
     : translate('Send Code');
 

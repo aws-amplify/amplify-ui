@@ -1,166 +1,99 @@
 import * as React from 'react';
-import NextLink from 'next/link';
+import { DocSearch } from '@docsearch/react';
 import {
   Button,
-  VisuallyHidden,
-  Link,
   Flex,
-  ColorMode,
-  ToggleButton,
-  ToggleButtonGroup,
-  Divider,
+  Image,
+  Link,
   View,
+  VisuallyHidden,
+  useBreakpointValue,
 } from '@aws-amplify/ui-react';
-import {
-  MdClose,
-  MdMenu,
-  MdWbSunny,
-  MdBedtime,
-  MdTonality,
-  MdOpenInNew,
-} from 'react-icons/md';
-import { useRouter } from 'next/router';
-import { Logo } from '@/components/Logo';
-import { FrameworkChooser } from './FrameworkChooser';
-import { SecondaryNav } from './SecondaryNav';
-import LinkButton from './LinkButton';
 
-const NavLink = ({
-  href,
-  children,
-  isExternal = false,
-  onClick,
-}: {
-  href: string;
-  children: React.ReactElement;
-  isExternal?: boolean;
-  onClick?: React.MouseEventHandler<HTMLAnchorElement>;
+import { ColorModeSwitcher } from './ColorModeSwitcher';
+import { Sidebar } from './Sidebar';
+import { LogoLink } from './LogoLink';
+import { MenuButton } from './MenuButton';
+import { DISCORD, GITHUB_REPO } from '@/data/links';
+import '@docsearch/css';
+import { DiscordIcon, GithubIcon } from '../Icons';
+
+export const Header = ({
+  expanded,
+  setExpanded,
+  colorMode,
+  setColorMode,
+  platform,
 }) => {
-  const { pathname, query } = useRouter();
-  const isCurrent = pathname.startsWith(href) && href !== '/';
-  const className = `docs-nav-link ${isCurrent ? 'current' : ''}`;
+  const [showSearch, setShowSearch] = React.useState(false);
+  const hiddenOnMobile = useBreakpointValue({
+    base: false,
+    small: true,
+  });
 
-  if (isExternal) {
-    return (
-      <Link isExternal href={href} className={className}>
-        {children}
-      </Link>
-    );
-  }
+  React.useEffect(() => {
+    setShowSearch(true);
+  }, [showSearch]);
+
   return (
-    <NextLink href={{ pathname: href, query }} passHref>
-      <LinkButton href={href} classNames={className} onClick={onClick}>
-        {children}
-      </LinkButton>
-    </NextLink>
-  );
-};
+    <Flex as="header" className="docs-header">
+      <div className="docs-header-bg" />
+      <MenuButton expanded={expanded} setExpanded={setExpanded} />
 
-const Nav = (props) => (
-  <Flex as="nav" className="docs-nav" alignItems="center" gap="0" grow="1">
-    <NavLink {...props} href="/getting-started/installation">
-      Getting started
-    </NavLink>
-    <NavLink {...props} href="/components">
-      Components
-    </NavLink>
-    <NavLink {...props} href="/theming">
-      Theming
-    </NavLink>
-    <NavLink {...props} href="/guides">
-      Guides
-    </NavLink>
-    <Divider orientation="vertical" />
-    <NavLink {...props} isExternal href="https://docs.amplify.aws">
-      Amplify docs <MdOpenInNew />
-    </NavLink>
-  </Flex>
-);
+      <Sidebar
+        expanded={expanded}
+        setExpanded={setExpanded}
+        platform={platform}
+      />
 
-const Settings = ({ platform, setColorMode, colorMode }) => (
-  <Flex className="docs-settings" justifyContent="center" alignItems="center">
-    <FrameworkChooser platform={platform} />
-    <ColorModeSwitcher setColorMode={setColorMode} colorMode={colorMode} />
-  </Flex>
-);
+      <LogoLink platform={platform} />
 
-const ColorModeSwitcher = ({ colorMode, setColorMode }) => {
-  return (
-    <ToggleButtonGroup
-      value={colorMode}
-      size="small"
-      onChange={(value: ColorMode) => setColorMode(value)}
-      isExclusive
-      isSelectionRequired
-      className="color-switcher"
-    >
-      <ToggleButton value="light" title="Light mode">
-        <VisuallyHidden>Light mode</VisuallyHidden>
-        <MdWbSunny />
-      </ToggleButton>
-      <ToggleButton value="dark" title="Dark mode">
-        <VisuallyHidden>Dark mode</VisuallyHidden>
-        <MdBedtime />
-      </ToggleButton>
-      <ToggleButton value="system" title="System preferences">
-        <VisuallyHidden>System preference</VisuallyHidden>
-        <MdTonality />
-      </ToggleButton>
-    </ToggleButtonGroup>
-  );
-};
+      <Image
+        alt={platform}
+        height="1.5rem"
+        width="1.5rem"
+        display="block"
+        src={`/svg/integrations/${platform}.svg`}
+      />
 
-export const Header = ({ platform, colorMode, setColorMode }) => {
-  const [expanded, setExpanded] = React.useState(false);
-  return (
-    <>
-      <header className={`docs-header ${expanded ? 'expanded' : ''}`}>
-        <Button
-          className="docs-header-menu-button"
-          onClick={() => setExpanded(!expanded)}
-          ariaLabel="Docs header menu button"
-        >
-          {expanded ? (
-            <MdClose style={{ width: '1.5rem', height: '1.5rem' }} />
-          ) : (
-            <MdMenu style={{ width: '1.5rem', height: '1.5rem' }} />
-          )}
-        </Button>
-
-        <NavLink href="/">
-          <span className="docs-logo-link">
-            <VisuallyHidden>Amplify UI Home</VisuallyHidden>
-            <Logo />
-          </span>
-        </NavLink>
-
-        <Nav />
-
-        <Settings
-          colorMode={colorMode}
-          setColorMode={setColorMode}
-          platform={platform}
-        />
-      </header>
-      {expanded ? (
-        <View className="docs-header-mobile-nav">
-          <Flex
-            className="color-switcher__wrapper"
-            justifyContent="center"
-            alignItems="center"
-          >
-            <ColorModeSwitcher
-              setColorMode={setColorMode}
-              colorMode={colorMode}
-            />
-          </Flex>
-
-          <Nav onClick={() => setExpanded(false)} />
-          <nav className="docs-sidebar-nav">
-            <SecondaryNav onClick={() => setExpanded(false)} />
-          </nav>
-        </View>
-      ) : null}
-    </>
+      <Flex flex="1" justifyContent="flex-end">
+        {showSearch && (
+          <DocSearch
+            appId={process.env.DOCSEARCH_DOCS_APP_ID}
+            apiKey={process.env.DOCSEARCH_DOCS_API_KEY}
+            indexName={process.env.DOCSEARCH_DOCS_INDEX_NAME}
+          />
+        )}
+        <ColorModeSwitcher colorMode={colorMode} setColorMode={setColorMode} />
+        {hiddenOnMobile ? (
+          <View>
+            <Button
+              variation="link"
+              size="small"
+              as={Link}
+              href={DISCORD}
+              isExternal
+              color="font.tertiary"
+              fontSize="medium"
+            >
+              <VisuallyHidden>Discord</VisuallyHidden>
+              <DiscordIcon />
+            </Button>
+            <Button
+              variation="link"
+              size="small"
+              as={Link}
+              href={GITHUB_REPO}
+              isExternal
+              color="font.tertiary"
+              fontSize="medium"
+            >
+              <VisuallyHidden>Github</VisuallyHidden>
+              <GithubIcon />
+            </Button>
+          </View>
+        ) : null}
+      </Flex>
+    </Flex>
   );
 };

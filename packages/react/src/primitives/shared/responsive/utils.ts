@@ -1,15 +1,23 @@
 import { isDesignToken } from '@aws-amplify/ui';
 
+import { getCSSVariableIfValueIsThemeKey } from '../../shared/utils';
 import { Breakpoint, Breakpoints } from '../../types/responsive';
 
-export const getValueAtCurrentBreakpoint = (
-  values: Record<string, any> | string[] | string,
+export const getValueAtCurrentBreakpoint = <Value>(
+  values: Record<string, Value> | Value[] | Value,
   breakpoint: Breakpoint,
-  breakpoints: Breakpoints
+  breakpoints: Breakpoints,
+  propKey?: string
 ) => {
-  if (typeof values !== 'object') {
-    return values;
+  // if value is a DesignToken use its toString()
+  if (isDesignToken(values)) {
+    return values.toString();
   }
+
+  if (typeof values !== 'object') {
+    return getCSSVariableIfValueIsThemeKey(propKey, values);
+  }
+
   let breakpointCompatValues = {};
   const breakpointsAscending = Object.keys(breakpoints).sort(
     (a, b) => breakpoints[a] - breakpoints[b]
@@ -22,29 +30,26 @@ export const getValueAtCurrentBreakpoint = (
     breakpointCompatValues = values;
   }
 
-  // Replace any breakpoint values if they are design tokens
-  Object.keys(breakpointCompatValues).forEach((key) => {
-    const value = breakpointCompatValues[key];
-    if (isDesignToken(value)) {
-      breakpointCompatValues[key] = value.toString();
-    }
-  });
-
-  return getClosestValueByBreakpoint(
+  return getClosestValueByBreakpoint<Value>(
+    propKey,
     breakpointCompatValues,
     breakpoint,
     breakpoints
   );
 };
 
-const getClosestValueByBreakpoint = (
-  values: Record<string, any>,
+const getClosestValueByBreakpoint = <Value>(
+  propKey: string,
+  values: Record<string, Value>,
   breakpoint: Breakpoint,
   breakpoints: Breakpoints
-) => {
+): string | Value => {
   // Use exact match
   if (values.hasOwnProperty(breakpoint)) {
-    return values[breakpoint];
+    const value = values[breakpoint];
+    return isDesignToken(value)
+      ? value.toString()
+      : getCSSVariableIfValueIsThemeKey(propKey, value);
   }
 
   // Otherwise use a lower breakpoint value
@@ -56,7 +61,10 @@ const getClosestValueByBreakpoint = (
   );
   for (const breakpoint of lowerBreakpoints) {
     if (values.hasOwnProperty(breakpoint)) {
-      return values[breakpoint];
+      const value = values[breakpoint];
+      return isDesignToken(value)
+        ? value.toString()
+        : getCSSVariableIfValueIsThemeKey(propKey, value);
     }
   }
 

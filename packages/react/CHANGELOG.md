@@ -1,5 +1,235 @@
 # @aws-amplify/ui-react
 
+## 2.19.1
+
+### Patch Changes
+
+- [#2021](https://github.com/aws-amplify/amplify-ui/pull/2021) [`6c267aaf8`](https://github.com/aws-amplify/amplify-ui/commit/6c267aaf8b6cb656458e3398cc923e0e259ea9a2) Thanks [@jacoblogan](https://github.com/jacoblogan)! - React: pass isDisabled flag on searchfield onto the search button
+  UI: add design tokens for collection and searchfield
+
+  ### Searchfield Tokens added
+
+  - --amplify-components-searchfield-color
+  - --amplify-components-searchfield-button-color
+  - --amplify-components-searchfield-button-active-background-color
+  - --amplify-components-searchfield-button-active-border-color
+  - --amplify-components-searchfield-button-active-color
+  - --amplify-components-searchfield-button-disabled-background-color
+  - --amplify-components-searchfield-button-disabled-border-color
+  - --amplify-components-searchfield-button-disabled-color
+  - --amplify-components-searchfield-button-focus-background-color
+  - --amplify-components-searchfield-button-focus-border-color
+  - --amplify-components-searchfield-button-focus-color
+  - --amplify-components-searchfield-button-hover-background-color
+  - --amplify-components-searchfield-button-hover-border-color
+  - --amplify-components-searchfield-button-hover-color
+
+  ### Collection tokens added
+
+  - --amplify-components-collection-pagination-current-color
+  - --amplify-components-collection-pagination-current-background-color
+  - --amplify-components-collection-pagination-button-color
+  - --amplify-components-collection-pagination-button-hover-background-color
+  - --amplify-components-collection-pagination-button-hover-color
+  - --amplify-components-collection-pagination-button-disabled-color
+  - --amplify-components-collection-search-input-color
+  - --amplify-components-collection-search-button-color
+  - --amplify-components-collection-search-button-active-background-color
+  - --amplify-components-collection-search-button-active-border-color
+  - --amplify-components-collection-search-button-active-color
+  - --amplify-components-collection-search-button-disabled-background-color
+  - --amplify-components-collection-search-button-disabled-border-color
+  - --amplify-components-collection-search-button-disabled-color
+  - --amplify-components-collection-search-button-focus-background-color
+  - --amplify-components-collection-search-button-focus-border-color
+  - --amplify-components-collection-search-button-focus-color
+  - --amplify-components-collection-search-button-hover-background-color
+  - --amplify-components-collection-search-button-hover-border-color
+  - --amplify-components-collection-search-button-hover-color
+
+* [#2036](https://github.com/aws-amplify/amplify-ui/pull/2036) [`8862110f1`](https://github.com/aws-amplify/amplify-ui/commit/8862110f14784a1ed75069fef733a9c85950910c) Thanks [@hbuchel](https://github.com/hbuchel)! - chore(react): update unit tests for Expander, which now supports passing any ReactNode (custom component) as title prop
+
+- [#1945](https://github.com/aws-amplify/amplify-ui/pull/1945) [`cf151f9d8`](https://github.com/aws-amplify/amplify-ui/commit/cf151f9d87b4851c5cc87088ef2286dcf6945a0d) Thanks [@wlee221](https://github.com/wlee221)! - Added aria-describedby attribute to link validation error messages to their respective field. This makes the errors more accessible.
+
+- Updated dependencies [[`6c267aaf8`](https://github.com/aws-amplify/amplify-ui/commit/6c267aaf8b6cb656458e3398cc923e0e259ea9a2)]:
+  - @aws-amplify/ui@3.10.0
+
+## 2.19.0
+
+### Minor Changes
+
+- [#1980](https://github.com/aws-amplify/amplify-ui/pull/1980) [`a9b29e879`](https://github.com/aws-amplify/amplify-ui/commit/a9b29e8796baa8ba7986cf787b5879a6d4b74a99) Thanks [@zchenwei](https://github.com/zchenwei)! - feat: adding missing label props to make text in i18n file customizable
+
+* [#1986](https://github.com/aws-amplify/amplify-ui/pull/1986) [`c58c1e056`](https://github.com/aws-amplify/amplify-ui/commit/c58c1e0568e7d2b1ec870ebc78245a770da04b2b) Thanks [@zchenwei](https://github.com/zchenwei)! - feat: update custom style props to accept StyleToken type
+
+  For example:
+
+  ```jsx
+  import {
+    Flex,
+    Loader,
+    Rating,
+    SliderField,
+    SwitchField,
+  } from '@aws-amplify/ui-react';
+
+  export const StyleTokenExample = () => {
+    return (
+    <Flex>
+      <Loader
+      emptyColor={tokens.colors.black}
+      filledColor={tokens.colors.orange[40]}
+      />
+
+      <Rating
+        value={2.5}
+        fillColor={tokens.colors.red[60]}
+        emptyColor={tokens.colors.green[60]}
+      />
+
+      <SliderField
+        label="Style Props Slider"
+        filledTrackColor={tokens.colors.green[80].value}
+        emptyTrackColor={tokens.colors.green[20].value}
+        thumbColor="red"
+        filledTrackColor={tokens.colors.green[80]}
+        emptyTrackColor={tokens.colors.green[20]}
+        thumbColor={tokens.colors.red[60]}
+        trackSize="15px"
+        defaultValue={50}
+      />
+
+      <SwitchField
+        label="This is a switch"
+        trackCheckedColor={tokens.colors.green[60]}
+        thumbColor={tokens.colors.orange[10]}
+      />
+    <Flex>
+   );
+  }
+
+  ```
+
+### Patch Changes
+
+- [#1996](https://github.com/aws-amplify/amplify-ui/pull/1996) [`2c3ee1a7f`](https://github.com/aws-amplify/amplify-ui/commit/2c3ee1a7fd66bd6f090b7a469c84acd1203349f9) Thanks [@0618](https://github.com/0618)! - fix ThemeProvider original value
+
+## 2.18.3
+
+### Patch Changes
+
+- [#1989](https://github.com/aws-amplify/amplify-ui/pull/1989) [`d7f15b30b`](https://github.com/aws-amplify/amplify-ui/commit/d7f15b30b4dce32c11f87c129f838a3aa7e7f07e) Thanks [@zchenwei](https://github.com/zchenwei)! - fix(style): fix a regression on SliderField style
+
+* [#1956](https://github.com/aws-amplify/amplify-ui/pull/1956) [`bca2d1c5d`](https://github.com/aws-amplify/amplify-ui/commit/bca2d1c5dd043326bf93847ca1d2c6d3ab88b2ff) Thanks [@jacoblogan](https://github.com/jacoblogan)! - re export AmplifyProvider as ThemeProvider
+
+## 2.18.2
+
+### Patch Changes
+
+- [#1938](https://github.com/aws-amplify/amplify-ui/pull/1938) [`344e65f8a`](https://github.com/aws-amplify/amplify-ui/commit/344e65f8a535a76ce0fb2108acbf77e7438311e3) Thanks [@slaymance](https://github.com/slaymance)! - feat(geo): Rename 'Geocoder' to 'LocationSearch'
+
+* [#1910](https://github.com/aws-amplify/amplify-ui/pull/1910) [`766bf302c`](https://github.com/aws-amplify/amplify-ui/commit/766bf302c4d594ae92f1506967b6f1858687a41c) Thanks [@wlee221](https://github.com/wlee221)! - refactor(internal): Move `autoSignIn` logic out of `signUp` actor
+
+- [#1910](https://github.com/aws-amplify/amplify-ui/pull/1910) [`766bf302c`](https://github.com/aws-amplify/amplify-ui/commit/766bf302c4d594ae92f1506967b6f1858687a41c) Thanks [@wlee221](https://github.com/wlee221)! - On userpools with sms mfa required, authenticator will now automatically redirect user to sms mfa page after successful sign up.
+
+  Previously, end users needed to sign in again to go to the sms mfa page ([#1660](https://github.com/aws-amplify/amplify-ui/issues/1660)).
+
+* [#1971](https://github.com/aws-amplify/amplify-ui/pull/1971) [`fc076a997`](https://github.com/aws-amplify/amplify-ui/commit/fc076a997d4347c88e1a22266ce1c96c6fe5350c) Thanks [@slaymance](https://github.com/slaymance)! - fix(geo): Bump react-map-gl to resolve ES2020 build errors
+
+* Updated dependencies [[`766bf302c`](https://github.com/aws-amplify/amplify-ui/commit/766bf302c4d594ae92f1506967b6f1858687a41c), [`766bf302c`](https://github.com/aws-amplify/amplify-ui/commit/766bf302c4d594ae92f1506967b6f1858687a41c), [`a41ecfbf1`](https://github.com/aws-amplify/amplify-ui/commit/a41ecfbf1e7fc35e20622a6fb514c3bab7404621)]:
+  - @aws-amplify/ui@3.9.2
+
+## 2.18.1
+
+### Patch Changes
+
+- Updated dependencies [[`376c39fc0`](https://github.com/aws-amplify/amplify-ui/commit/376c39fc04aec3a41d02a722a62d4b8e4eb43230)]:
+  - @aws-amplify/ui@3.9.1
+
+## 2.18.0
+
+### Minor Changes
+
+- [#1879](https://github.com/aws-amplify/amplify-ui/pull/1879) [`937498b3f`](https://github.com/aws-amplify/amplify-ui/commit/937498b3ff016f2f76f60d861a995b8b1bb77bdf) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Add default dark mode theme override for React
+
+  ```jsx
+    const theme: Theme = {
+      name: 'my-theme',
+      overrides: [defaultDarkModeOverride],
+    };
+
+    // ...
+    <AmplifyProvider theme={theme} colorMode="system">
+
+    // or
+    <AmplifyProvider theme={theme} colorMode={colorMode}>
+  ```
+
+### Patch Changes
+
+- [#1868](https://github.com/aws-amplify/amplify-ui/pull/1868) [`1c3e35a8d`](https://github.com/aws-amplify/amplify-ui/commit/1c3e35a8df815402da68c203b84cf599064c863a) Thanks [@wlee221](https://github.com/wlee221)! - This PR adds additional safeguards to hub event listeners we use. Now, we will only pass hub events to the auth machine if it is in the correct state.
+
+* [#1878](https://github.com/aws-amplify/amplify-ui/pull/1878) [`279dbc8b1`](https://github.com/aws-amplify/amplify-ui/commit/279dbc8b1b239be27081faff09ec864e38220e55) Thanks [@joebuono](https://github.com/joebuono)! - bug(fix): PhoneNumberField does not honor readonly prop
+
+- [#1898](https://github.com/aws-amplify/amplify-ui/pull/1898) [`1f3c60a1a`](https://github.com/aws-amplify/amplify-ui/commit/1f3c60a1a76dc5e895d14bcc9f2ad55d32aac699) Thanks [@joebuono](https://github.com/joebuono)! - bug(fix): Apply styling to disabled MenuItems
+
+* [#1917](https://github.com/aws-amplify/amplify-ui/pull/1917) [`435be20a9`](https://github.com/aws-amplify/amplify-ui/commit/435be20a9546e938406dc37a48d0a3bc45880536) Thanks [@slaymance](https://github.com/slaymance)! - Revert "fix(geo): Point to react-map-gl es5 bundle"
+
+* Updated dependencies [[`62edc9ee3`](https://github.com/aws-amplify/amplify-ui/commit/62edc9ee34a64a81190631fed31cf388bcf3b2e0), [`1c3e35a8d`](https://github.com/aws-amplify/amplify-ui/commit/1c3e35a8df815402da68c203b84cf599064c863a), [`937498b3f`](https://github.com/aws-amplify/amplify-ui/commit/937498b3ff016f2f76f60d861a995b8b1bb77bdf), [`5c5e89407`](https://github.com/aws-amplify/amplify-ui/commit/5c5e89407d2946be61ffb4ab5a4e9d7352c41065)]:
+  - @aws-amplify/ui@3.9.0
+
+## 2.17.1
+
+### Patch Changes
+
+- [#1887](https://github.com/aws-amplify/amplify-ui/pull/1887) [`fb605b81d`](https://github.com/aws-amplify/amplify-ui/commit/fb605b81d2df12e95a4fc21ad42ff0ab23c0fec2) Thanks [@slaymance](https://github.com/slaymance)! - fix(geo): Point to react-map-gl es5 bundle to mitigate es2020 build errors
+
+* [#1876](https://github.com/aws-amplify/amplify-ui/pull/1876) [`542dc14cd`](https://github.com/aws-amplify/amplify-ui/commit/542dc14cd037d387ad3bec962e020b89271810cf) Thanks [@jacoblogan](https://github.com/jacoblogan)! - Update Button to include disabled classes with disabled attribute
+
+- [#1864](https://github.com/aws-amplify/amplify-ui/pull/1864) [`716e24298`](https://github.com/aws-amplify/amplify-ui/commit/716e2429848592254f0b53df6470a53ac735b71c) Thanks [@zchenwei](https://github.com/zchenwei)! - fix(style): fix PasswordField and SearchField quiet styling
+
+* [#1872](https://github.com/aws-amplify/amplify-ui/pull/1872) [`dfa3a1be9`](https://github.com/aws-amplify/amplify-ui/commit/dfa3a1be916bae010c01e46fe58d215bef1a1051) Thanks [@ErikCH](https://github.com/ErikCH)! - Removed isDisabled prop, since it doesn't exist as an HTML element
+
+* Updated dependencies [[`7dbd14546`](https://github.com/aws-amplify/amplify-ui/commit/7dbd145461d27a8cb1ba63a261e543a154dd8343), [`716e24298`](https://github.com/aws-amplify/amplify-ui/commit/716e2429848592254f0b53df6470a53ac735b71c)]:
+  - @aws-amplify/ui@3.8.3
+
+## 2.17.0
+
+### Minor Changes
+
+- [#1791](https://github.com/aws-amplify/amplify-ui/pull/1791) [`2f6adb494`](https://github.com/aws-amplify/amplify-ui/commit/2f6adb4949181e522eb0eded96b3cca52123fcdd) Thanks [@slaymance](https://github.com/slaymance)! - Add forward ref functionality to MapView
+
+### Patch Changes
+
+- [#1772](https://github.com/aws-amplify/amplify-ui/pull/1772) [`9c25f80b6`](https://github.com/aws-amplify/amplify-ui/commit/9c25f80b6f4c84e0e1727873e3dd78b3ce5684a0) Thanks [@jacoblogan](https://github.com/jacoblogan)! - Refactor of styling to flatten css selectors across angular, react, and vue
+
+* [#1859](https://github.com/aws-amplify/amplify-ui/pull/1859) [`a130303af`](https://github.com/aws-amplify/amplify-ui/commit/a130303af84a68cd77ab80de6ee32e90b480a6b4) Thanks [@ErikCH](https://github.com/ErikCH)! - Added a translatable text for errors on the Force new password page
+
+* Updated dependencies [[`e9ae76995`](https://github.com/aws-amplify/amplify-ui/commit/e9ae7699589ec005475b4fc16dac7164ad9e0caa), [`9c25f80b6`](https://github.com/aws-amplify/amplify-ui/commit/9c25f80b6f4c84e0e1727873e3dd78b3ce5684a0)]:
+  - @aws-amplify/ui@3.8.2
+
+## 2.16.2
+
+### Patch Changes
+
+- [#1835](https://github.com/aws-amplify/amplify-ui/pull/1835) [`286e7df79`](https://github.com/aws-amplify/amplify-ui/commit/286e7df790a103d164cd8424161a9cd6dc4483e3) Thanks [@reesscot](https://github.com/reesscot)! - Fix ScrollView to only show scrollbars when content overflows
+
+* [#1850](https://github.com/aws-amplify/amplify-ui/pull/1850) [`06b900ff7`](https://github.com/aws-amplify/amplify-ui/commit/06b900ff719fb8ddabd8c85e78784716aa31e181) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(ui-react): remove optional flag from render child prop in RouterProps
+
+* Updated dependencies [[`286e7df79`](https://github.com/aws-amplify/amplify-ui/commit/286e7df790a103d164cd8424161a9cd6dc4483e3)]:
+  - @aws-amplify/ui@3.8.1
+
+## 2.16.1
+
+### Patch Changes
+
+- [#1829](https://github.com/aws-amplify/amplify-ui/pull/1829) [`4c6ca0abd`](https://github.com/aws-amplify/amplify-ui/commit/4c6ca0abd73a6b7df51193c27223ac2befb43c9a) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui-react): update eslint config
+
+* [#1838](https://github.com/aws-amplify/amplify-ui/pull/1838) [`8efa2b238`](https://github.com/aws-amplify/amplify-ui/commit/8efa2b238319f591e0397f89d302dcda9bb6aa8a) Thanks [@ErikCH](https://github.com/ErikCH)! - Fixed bug with MS Authenticator not working with Setup TOTP page
+
+* Updated dependencies [[`b1656e136`](https://github.com/aws-amplify/amplify-ui/commit/b1656e13612b5a748cc19be6eeeb44bf70822fda), [`f2ab1b8e4`](https://github.com/aws-amplify/amplify-ui/commit/f2ab1b8e468597e7b81284b46cd4b03dcd02e201)]:
+  - @aws-amplify/ui@3.8.0
+
 ## 2.16.0
 
 ### Minor Changes

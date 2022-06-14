@@ -1,10 +1,11 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { classNameModifierByFlag } from '../shared/utils';
 import { CheckboxProps } from '../types/checkbox';
 import { ComponentClassNames } from '../shared/constants';
 import { Flex } from '../Flex';
-import { IconCheck } from '../Icon';
+import { IconCheck } from '../Icon/internal';
 import { Input } from '../Input';
 import { Primitive } from '../types/view';
 import { splitPrimitiveProps } from '../shared/styleUtils';
@@ -49,11 +50,50 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
   const buttonTestId = useTestId(testId, ComponentClassNames.CheckboxButton);
   const iconTestId = useTestId(testId, ComponentClassNames.CheckboxIcon);
   const labelTestId = useTestId(testId, ComponentClassNames.CheckboxLabel);
+  const flexClasses = classNames(
+    ComponentClassNames.CheckboxButton,
+    classNameModifierByFlag(
+      ComponentClassNames.CheckboxButton,
+      'disabled',
+      isDisabled
+    ),
+    classNameModifierByFlag(
+      ComponentClassNames.CheckboxButton,
+      'error',
+      hasError
+    ),
+    classNameModifierByFlag(
+      ComponentClassNames.CheckboxButton,
+      'focused',
+      dataFocus
+    )
+  );
+  const iconClasses = classNames(
+    ComponentClassNames.CheckboxIcon,
+    classNameModifierByFlag(
+      ComponentClassNames.CheckboxIcon,
+      'checked',
+      dataChecked
+    ),
+    classNameModifierByFlag(
+      ComponentClassNames.CheckboxIcon,
+      'disabled',
+      isDisabled
+    )
+  );
 
   return (
     <Flex
       as="label"
-      className={classNames(ComponentClassNames.Checkbox, className)}
+      className={classNames(
+        ComponentClassNames.Checkbox,
+        classNameModifierByFlag(
+          ComponentClassNames.Checkbox,
+          'disabled',
+          isDisabled
+        ),
+        className
+      )}
       data-disabled={isDisabled}
       data-label-position={labelPosition}
       testId={testId}
@@ -89,7 +129,7 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
       <Flex
         aria-hidden="true"
         as="span"
-        className={ComponentClassNames.CheckboxButton}
+        className={flexClasses}
         data-checked={dataChecked}
         data-disabled={isDisabled}
         data-focus={dataFocus}
@@ -97,7 +137,7 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
         testId={buttonTestId}
       >
         <IconCheck
-          className={ComponentClassNames.CheckboxIcon}
+          className={iconClasses}
           data-checked={dataChecked}
           data-disabled={isDisabled}
           data-testid={iconTestId}

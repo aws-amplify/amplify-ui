@@ -1,6 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
 import { LoaderProps } from '../types/loader';
 import { Primitive } from '../types/view';
@@ -34,6 +35,13 @@ const LoaderPrimitive: Primitive<LoaderProps, 'svg'> = (
   percentage = Math.max(percentage, 0);
 
   const percent = `${percentage}%`;
+  const componentClasses = classNames(
+    ComponentClassNames.Loader,
+    classNameModifier(ComponentClassNames.Loader, size),
+    classNameModifier(ComponentClassNames.Loader, variation),
+    isDeterminate ? ComponentClassNames.LoaderDeterminate : null,
+    className
+  );
 
   const linearLoader = (
     <g>
@@ -42,7 +50,7 @@ const LoaderPrimitive: Primitive<LoaderProps, 'svg'> = (
         x2="100%"
         y1="50%"
         y2="50%"
-        style={{ stroke: emptyColor }}
+        style={{ stroke: String(emptyColor) }}
         data-testid={LINEAR_EMPTY}
       />
       <line
@@ -52,7 +60,12 @@ const LoaderPrimitive: Primitive<LoaderProps, 'svg'> = (
         y2="50%"
         style={{
           // To get rid of the visible stroke linecap when percentage is 0
-          stroke: isDeterminate && percentage === 0 ? 'none' : filledColor,
+          stroke:
+            isDeterminate && percentage === 0
+              ? 'none'
+              : filledColor
+              ? String(filledColor)
+              : undefined,
         }}
         data-testid={LINEAR_FILLED}
       />
@@ -81,7 +94,7 @@ const LoaderPrimitive: Primitive<LoaderProps, 'svg'> = (
         cy="50%"
         r={`${RADIUS}%`}
         strokeWidth={`${CIRCULAR_STROKE_WIDTH}%`}
-        style={{ stroke: emptyColor }}
+        style={{ stroke: String(emptyColor) }}
         data-testid={CIRCULAR_EMPTY}
       />
       <circle
@@ -90,7 +103,7 @@ const LoaderPrimitive: Primitive<LoaderProps, 'svg'> = (
         r={`${RADIUS}%`}
         strokeWidth={`${CIRCULAR_STROKE_WIDTH}%`}
         style={{
-          stroke: filledColor,
+          stroke: String(filledColor),
           strokeDasharray: isDeterminate
             ? `${CIRCUMFERENCE}% ${CIRCUMFERENCE}%`
             : undefined,
@@ -120,11 +133,7 @@ const LoaderPrimitive: Primitive<LoaderProps, 'svg'> = (
   return (
     <View
       as="svg"
-      className={classNames(
-        ComponentClassNames.Loader,
-        isDeterminate ? ComponentClassNames.LoaderDeterminate : null,
-        className
-      )}
+      className={componentClasses}
       data-size={size}
       data-variation={variation}
       ref={ref}
@@ -136,6 +145,9 @@ const LoaderPrimitive: Primitive<LoaderProps, 'svg'> = (
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/loader)
+ */
 export const Loader = React.forwardRef(LoaderPrimitive);
 
 Loader.displayName = 'Loader';

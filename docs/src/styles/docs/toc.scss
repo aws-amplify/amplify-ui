@@ -1,4 +1,7 @@
+@import './variables';
+
 .docs-toc {
+  display: none;
   transition: right var(--amplify-time-medium) ease;
   position: fixed;
   right: -14rem;
@@ -9,7 +12,7 @@
     right: 0;
   }
 
-  @media (min-width: 80rem) {
+  @media (min-width: $breakpoint-xl) {
     display: block;
     position: relative;
     right: 0;

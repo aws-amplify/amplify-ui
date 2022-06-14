@@ -1,4 +1,4 @@
-<div class="amplify-flex amplify-field" style="flex-direction: column">
+<div class="amplify-flex amplify-field amplify-authenticator__column">
   <!-- Country code field -->
   <amplify-phone-number-field
     *ngIf="isPhoneField()"
@@ -10,6 +10,8 @@
     [required]="formField.isRequired"
     [labelHidden]="formField.labelHidden"
     [autocomplete]="formField.autocomplete"
+    [hasError]="hasError"
+    [describedBy]="ariaDescribedBy"
     type="tel"
   ></amplify-phone-number-field>
 
@@ -21,6 +23,8 @@
     [required]="formField.isRequired"
     [labelHidden]="formField.labelHidden"
     [autocomplete]="formField.autocomplete"
+    [hasError]="hasError"
+    [describedBy]="ariaDescribedBy"
     (setBlur)="onBlur($event)"
   ></amplify-password-field>
 
@@ -33,10 +37,13 @@
     [labelHidden]="formField.labelHidden"
     [autocomplete]="formField.autocomplete"
     [type]="formField.type"
+    [hasError]="hasError"
+    [describedBy]="ariaDescribedBy"
   ></amplify-text-field>
-  <div data-amplify-sign-up-errors *ngIf="errors?.length > 0">
+
+  <div data-amplify-sign-up-errors *ngIf="hasError()" [id]="errorId">
     <div
-      class="amplify-text"
+      class="amplify-text amplify-text--error"
       data-variation="error"
       *ngFor="let error of errors"
     >

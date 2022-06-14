@@ -4,20 +4,21 @@
   text-align: left;
   font-size: var(--amplify-components-rating-default-size);
   line-height: var(--amplify-components-rating-default-size);
-  &[data-size='small'] {
-    font-size: var(--amplify-components-rating-small-size);
-    line-height: var(--amplify-components-rating-small-size);
-  }
-
-  &[data-size='large'] {
-    font-size: var(--amplify-components-rating-large-size);
-    line-height: var(--amplify-components-rating-large-size);
-  }
 
   .amplify-icon {
     font-size: unset;
     line-height: unset;
     height: 1em;
+  }
+
+  &--small {
+    font-size: var(--amplify-components-rating-small-size);
+    line-height: var(--amplify-components-rating-small-size);
+  }
+
+  &--large {
+    font-size: var(--amplify-components-rating-large-size);
+    line-height: var(--amplify-components-rating-large-size);
   }
 }
 

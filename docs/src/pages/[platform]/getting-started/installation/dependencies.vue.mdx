@@ -1,0 +1,45 @@
+import { Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Alert } from '@aws-amplify/ui-react';
+
+For Vue 3 install `@aws-amplify/ui-vue` with [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/):
+
+<Tabs>
+<TabItem title="npm">
+
+```shell
+npm install aws-amplify @aws-amplify/ui-vue
+```
+
+</TabItem>
+<TabItem title="yarn">
+
+```shell
+yarn add aws-amplify @aws-amplify/ui-vue
+```
+
+</TabItem>
+</Tabs>
+
+<Alert variation="info" heading="Vue 2">
+  If you're looking for the [Vue 2
+  documentation](https://github.com/aws-amplify/amplify-ui/tree/legacy/legacy/amplify-ui-vue)
+  please click here.
+</Alert>
+
+### Register as a global plugin (Optional)
+
+Optionally, you can register all the `@aws-amplify/ui-vue` components at once.
+
+```js
+// main.js
+import { createApp } from 'vue';
+import App from './App.vue';
+import AmplifyVue from '@aws-amplify/ui-vue';
+
+const app = createApp(App);
+app.use(AmplifyVue);
+app.mount('#app');
+```
+
+Otherwise, you can import individual components from the `@aws-amplify/ui-vue` package in each one of your components.
+

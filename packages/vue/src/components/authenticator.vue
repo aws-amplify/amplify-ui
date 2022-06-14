@@ -2,6 +2,7 @@
 import { useAuth } from '../composables/useAuth';
 import {
   ref,
+  toRefs,
   computed,
   useAttrs,
   watch,
@@ -35,16 +36,7 @@ import ConfirmVerifyUser from './confirm-verify-user.vue';
 
 const attrs = useAttrs();
 
-const {
-  initialState,
-  loginMechanisms,
-  variation,
-  services,
-  signUpAttributes,
-  socialProviders,
-  hideSignUp,
-  formFields,
-} = withDefaults(
+const props = withDefaults(
   defineProps<{
     hideSignUp?: boolean;
     initialState?: AuthenticatorMachineOptions['initialState'];
@@ -59,6 +51,17 @@ const {
     variation: 'default',
   }
 );
+
+const {
+  initialState,
+  loginMechanisms,
+  variation,
+  services,
+  signUpAttributes,
+  socialProviders,
+  hideSignUp,
+  formFields,
+} = toRefs(props);
 
 const emit = defineEmits([
   'signInSubmit',
@@ -92,12 +95,12 @@ unsubscribeMachine = service.subscribe((newState) => {
     send({
       type: 'INIT',
       data: {
-        initialState,
-        loginMechanisms,
-        socialProviders,
-        signUpAttributes,
-        services,
-        formFields,
+        initialState: initialState?.value,
+        loginMechanisms: loginMechanisms?.value,
+        socialProviders: socialProviders?.value,
+        signUpAttributes: signUpAttributes?.value,
+        services: services?.value,
+        formFields: formFields?.value,
       },
     });
     hasInitialized.value = true;
@@ -105,7 +108,7 @@ unsubscribeMachine = service.subscribe((newState) => {
 }).unsubscribe;
 
 onMounted(() => {
-  unsubscribeHub = listenToAuthHub(send);
+  unsubscribeHub = listenToAuthHub(service);
 });
 
 onUnmounted(() => {
@@ -239,6 +242,16 @@ const hasTabs = computed(() => {
     actorState.value?.matches('signIn') || actorState.value?.matches('signUp')
   );
 });
+
+const hasRouteComponent = computed(() => {
+  return !(
+    state.value.matches('authenticated') ||
+    state.value.matches('idle') ||
+    state.value.matches('setup') ||
+    state.value.matches('signOut') ||
+    actorState.value?.matches('autoSignIn')
+  );
+});
 </script>
 
 <template>
@@ -246,7 +259,7 @@ const hasTabs = computed(() => {
     v-bind="$attrs"
     data-amplify-authenticator
     :data-variation="variation"
-    v-if="!state?.matches('authenticated')"
+    v-if="hasRouteComponent"
   >
     <div data-amplify-container>
       <slot name="header"> </slot>

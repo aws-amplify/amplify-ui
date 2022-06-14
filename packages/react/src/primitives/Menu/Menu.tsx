@@ -8,7 +8,7 @@ import {
 
 import { ButtonGroup } from '../ButtonGroup';
 import { ComponentClassNames } from '../shared/constants';
-import { IconMenu } from '../Icon';
+import { IconMenu } from '../Icon/internal';
 import { MenuButton } from './MenuButton';
 import { MenuProps, Primitive } from '../types';
 
@@ -60,6 +60,9 @@ const MenuPrimitive: Primitive<MenuProps, 'div'> = (
   </DropdownMenu>
 );
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/menu)
+ */
 export const Menu = React.forwardRef(MenuPrimitive);
 
 Menu.displayName = 'Menu';
