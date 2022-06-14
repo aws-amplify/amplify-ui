@@ -8,7 +8,7 @@ concurrency:
 
 on:
   pull_request: # not pull_request_target, because v2 is in maintenance mode and will not accept external pull requests
-    branches: [v2/react]
+    branches: [ui-react@v2]
     types: [opened, synchronize, labeled]
 
 permissions:
@@ -35,7 +35,7 @@ jobs:
             const label = 'run-tests';
             github.issues.removeLabel({ owner, repo, issue_number, name: label });
   test:
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@v2/react
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@ui-react@v2
     needs: setup
     with:
       commit: ${{ github.event.pull_request.head.sha }}
