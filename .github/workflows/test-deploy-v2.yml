@@ -8,7 +8,7 @@ concurrency:
 
 on:
   push:
-    branches: [v2/react]
+    branches: [ui-react@v2]
 
 jobs:
   test:

@@ -2,7 +2,7 @@ name: Version Packages / v2
 
 on:
   push:
-    branches: [v2/react]
+    branches: [ui-react@v2]
 
 permissions:
   contents: write # Used to commit to "Version Packages" PR
