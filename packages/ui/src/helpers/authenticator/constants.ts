@@ -128,3 +128,18 @@ export const defaultFormFieldOptions: DefaultFormFieldOptions = {
     isRequired: true,
   },
 } as const;
+
+/**
+ * List of special characters that Cognito allows.
+ *
+ * Adapted from https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-policies.html
+ */
+// prettier-ignore
+export const ALLOWED_SPECIAL_CHARACTERS = [
+  '^',  '$', '*', '.', '[', ']',
+  '{',  '}', '(', ')', '?', '"',
+  '!',  '@', '#', '%', '&', '/',
+  '\\', ',', '>', '<', "'", ':',
+  ';',  '|', '_', '~', '`', '=',
+  '+',  '-', ' '
+];
