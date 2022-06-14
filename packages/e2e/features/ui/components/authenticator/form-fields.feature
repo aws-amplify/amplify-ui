@@ -3,7 +3,7 @@ Feature: Form Fields
   You are able to customize the order and the contents of form fields on your Authenticator 
   through `formFields` prop.
 
-  Please see https://ui.docs.amplify.aws/components/authenticator#form-field-customization
+  Please see https://ui.docs.amplify.aws/react/components/authenticator/customization#form-field-customization
   for more details.
 
   Background:

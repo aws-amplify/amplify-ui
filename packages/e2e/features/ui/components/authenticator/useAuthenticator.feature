@@ -5,7 +5,7 @@ Feature: Headless Usage
   hook and composable respectively, and Angular provides it through `AuthenticatorService` 
   service. They can be used to access current authState (routes), authenticated user, etc.
 
-  See https://ui.docs.amplify.aws/components/authenticator#headless for details.
+  See https://ui.docs.amplify.aws/react/components/authenticator/customization#headless for details.
 
   Background:
     Given I'm running the example "/ui/components/authenticator/useAuthenticator"
