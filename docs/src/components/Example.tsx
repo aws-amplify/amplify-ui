@@ -1,7 +1,9 @@
 import * as React from 'react';
 
-import { Card, Flex, useTheme } from '@aws-amplify/ui-react';
+import { Card, Flex, useTheme, Button } from '@aws-amplify/ui-react';
 import { CopyButton } from './CopyButton';
+import { StackBlitzIcon } from './Icons';
+import { openReactStackBlitz } from '@/utils/openInStackblitz';
 
 interface ExampleProps {
   children: React.ReactNode;
@@ -21,7 +23,12 @@ export function Example({ children, className = '' }: ExampleProps) {
   );
 }
 
-export function ExampleCode({ children }) {
+interface ExampleCodeProps {
+  children: React.ReactNode;
+  name?: string;
+}
+
+export function ExampleCode({ children, name }: ExampleCodeProps) {
   const [text, setText] = React.useState('');
   const ref = React.useRef(null);
 
@@ -31,12 +38,36 @@ export function ExampleCode({ children }) {
 
   return (
     <div className="example-code">
-      <CopyButton
-        className="example-copy-button"
-        copyText={text}
-        size="small"
-      />
       <div ref={ref}>{children}</div>
+      <Flex
+        direction="row"
+        justifyContent="flex-end"
+        backgroundColor="background.primary"
+        padding="small"
+      >
+        {name ? (
+          <Button
+            size="small"
+            gap="xs"
+            variation="link"
+            onClick={() => {
+              openReactStackBlitz({
+                name,
+                text,
+              });
+            }}
+          >
+            <StackBlitzIcon />
+            Open in StackBlitz
+          </Button>
+        ) : null}
+        <CopyButton
+          // className="example-copy-button"
+          copyText={text}
+          size="small"
+          variation="link"
+        />
+      </Flex>
     </div>
   );
 }
