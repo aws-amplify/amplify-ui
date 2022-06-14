@@ -109,7 +109,7 @@ export const checkbox: CheckboxTokens = {
     position: { value: 'relative' },
     alignItems: { value: 'center' },
     justifyContent: { value: 'center' },
-    color: { value: '{colors.white.value}' },
+    color: { value: '{colors.font.inverse.value}' },
     before: {
       width: { value: '100%' },
       height: { value: '100%' },

@@ -1,0 +1,31 @@
+import { Example, ExampleCode } from '@/components/Example';
+import { Tabs, TabItem, View } from '@aws-amplify/ui-react';
+import { SpaceExample, SpaceCSSExample } from './examples';
+
+<Tabs>
+  <TabItem title="Example usage">
+    <View marginTop="var(--amplify-space-large)">
+      <Example>
+        <SpaceExample  />
+        <ExampleCode>
+```tsx file=./examples/SpaceExample.tsx
+
+```
+        </ExampleCode>
+      </Example>
+    </View>
+  </TabItem>
+  <TabItem title="CSS">
+    <View marginTop="var(--amplify-space-large)">
+    <Example>
+      <ExampleCode>
+```css file=./examples/SpaceExample.css
+
+```
+      </ExampleCode>
+    </Example>
+    </View>
+
+
+  </TabItem>
+</Tabs>

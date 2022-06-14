@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
 import { Flex } from '../Flex';
-import { IconExpandMore } from '../Icon';
+import { IconExpandMore } from '../Icon/internal';
 import { Primitive } from '../types';
 import { SelectProps } from '../types/select';
 import { View } from '../View';
