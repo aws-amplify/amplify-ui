@@ -4,8 +4,8 @@
  */
 
 import { Hub } from 'aws-amplify';
-import { HubCapsule } from '@aws-amplify/core';
 import { AuthInterpreter, HubHandler } from '../../types';
+import { ALLOWED_SPECIAL_CHARACTERS } from './constants';
 
 // replaces all characters in a string with '*', except for the first and last char
 export const censorAllButFirstAndLast = (value: string): string => {
@@ -72,3 +72,6 @@ export const listenToAuthHub = (
     handler(data, service);
   });
 };
+
+export const hasSpecialChars = (password: string) =>
+  password.split('').some((char) => ALLOWED_SPECIAL_CHARACTERS.includes(char));

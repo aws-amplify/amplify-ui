@@ -1,5 +1,6 @@
 import { PasswordSettings } from '../../../types';
 import { defaultServices } from '../defaultServices';
+import { ALLOWED_SPECIAL_CHARACTERS } from '../../../helpers/authenticator/constants';
 
 const { validateFormPassword } = defaultServices;
 
@@ -98,22 +99,17 @@ describe('validateFormPassword', () => {
     });
   });
 
-  it('validates each of special characters allowed by Cognito as expected', async () => {
-    // adapted from https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-policies.html
-    const specialChars =
-      '^ $ * . [ ] { } ( ) ? " ! @ # % & / \\ , > < \' : ; | _ ~ ` = + -';
-    const specialCharsArray = specialChars.split(' ');
-    specialCharsArray.push(' '); // space is a valid character too (see docs above)
-
-    for (const char of specialCharsArray) {
-      const password = `password${char}`;
+  it.each(ALLOWED_SPECIAL_CHARACTERS)(
+    'validates usage of a %s character as expected',
+    async (character) => {
+      const password = `password${character}`;
       const result = await validateFormPassword({ password }, touched, {
         passwordPolicyMinLength: 4,
         passwordPolicyCharacters: ['REQUIRES_SYMBOLS'],
       });
       expect(result).toBeNull();
     }
-  });
+  );
 
   it('skips validation if inputs are not touched', async () => {
     const password = '';
