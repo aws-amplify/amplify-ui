@@ -1,0 +1,57 @@
+You can use `useAuthenticator` composable to access `route` string that represents the current `authState`. They can be one of:
+
+- `idle`
+- `setup`
+- `signIn`
+- `signUp`
+- `confirmSignIn`
+- `confirmSignUp`
+- `setupTOTP`
+- `forceNewPassword`
+- `resetPassword`
+- `confirmResetPassword`
+- `verifyUser`
+- `confirmVerifyUser`
+- `signOut`
+- `authenticated`
+
+```html{1,5-7}
+<script setup>
+  import { Authenticator, useAuthenticator } from '@aws-amplify/ui-vue';
+  const auth = useAuthenticator();
+</script>
+
+<template>
+  <authenticator></authenticator>
+  <template v-if="auth.route === 'authenticated'">
+    <button @click="auth.signOut">Sign out</button>
+  </template>
+</template>
+```
+
+### Authentication Check
+
+If you just need to check if you're authenticated or not, you can use the more straightforward `useAuthenticator` composable to access the `authStatus` string. The `authStatus` string can represent the following states:
+
+- `configuring`
+- `authenticated`
+- `unauthenticated`
+
+> The `configuring` state only occurs when the `Authenticator` is first loading.
+
+```html{1,5-7}
+<script setup>
+  import { Authenticator, useAuthenticator } from '@aws-amplify/ui-vue';
+  const auth = useAuthenticator();
+</script>
+
+<template>
+  <authenticator></authenticator>
+  <template v-if="auth.authStatus === 'configuring'">
+    <button @click="auth.signOut">Loading...</button>
+  </template>
+  <template v-if="auth.authStatus === 'authenticated'">
+    <button @click="auth.signOut">Sign out</button>
+  </template>
+</template>
+```

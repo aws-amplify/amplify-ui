@@ -8,7 +8,7 @@ import {
 
 import { ButtonGroup } from '../ButtonGroup';
 import { ComponentClassNames } from '../shared/constants';
-import { IconMenu } from '../Icon';
+import { IconMenu } from '../Icon/internal';
 import { MenuButton } from './MenuButton';
 import { MenuProps, Primitive } from '../types';
 

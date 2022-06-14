@@ -3,10 +3,9 @@ import {
   Flex,
   FieldGroupIcon,
   FieldGroupIconButton,
-  IconInfo,
-  IconSearch,
   TextField,
 } from '@aws-amplify/ui-react';
+import { MdInfo, MdSearch } from 'react-icons/md';
 
 export const TextFieldOuterAndInnerComponentsExample = () => (
   <Flex gap="1rem" direction="column">
@@ -17,7 +16,7 @@ export const TextFieldOuterAndInnerComponentsExample = () => (
       innerStartComponent={
         <FieldGroupIcon ariaLabel="">
           {/** Accessibility tip: pass empty ariaLabel for decorative icons. */}
-          <IconInfo />
+          <MdInfo />
         </FieldGroupIcon>
       }
       innerEndComponent={
@@ -26,7 +25,7 @@ export const TextFieldOuterAndInnerComponentsExample = () => (
           variation="link"
           onClick={() => alert('😎')}
         >
-          <IconSearch />
+          <MdSearch />
         </FieldGroupIconButton>
       }
     />

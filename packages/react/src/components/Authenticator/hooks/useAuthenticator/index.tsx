@@ -134,7 +134,7 @@ const useAuthenticatorService = () => {
 };
 
 /**
- * [📖 Docs](https://ui.docs.amplify.aws/react/components/authenticator#useauthenticator-hook)
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/authenticator/headless#useauthenticator-hook)
  */
 export const useAuthenticator = (selector?: Selector): UseAuthenticator => {
   const service = useAuthenticatorService();

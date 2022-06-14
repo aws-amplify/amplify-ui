@@ -184,13 +184,13 @@ export const togglebutton: ToggleButtonTokens = {
     _pressed: {
       backgroundColor: { value: '{colors.brand.primary.80.value}' },
       borderColor: { value: '{colors.brand.primary.80.value}' },
-      color: { value: '{colors.white.value}' },
+      color: { value: '{colors.background.primary.value}' },
       _focus: {
         backgroundColor: {
           value: '{colors.border.focus.value}',
         },
         borderColor: { value: '{colors.border.focus.value}' },
-        color: { value: '{colors.white.value}' },
+        color: { value: '{colors.background.primary.value}' },
       },
       _hover: {
         borderColor: { value: '{colors.brand.primary.60.value}' },
@@ -198,7 +198,7 @@ export const togglebutton: ToggleButtonTokens = {
           value: '{colors.brand.primary.60.value}',
         },
         boxShadow: { value: '{colors.brand.primary.60.value}' },
-        color: { value: '{colors.white.value}' },
+        color: { value: '{colors.background.primary.value}' },
       },
     },
   },
