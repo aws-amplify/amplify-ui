@@ -1,6 +1,6 @@
 import { DesignToken, WebDesignToken, SpaceValue } from './types/designToken';
 
-type SpaceSizes = {
+export type SpaceSizes = {
   xxxs: DesignToken<SpaceValue>;
   xxs: DesignToken<SpaceValue>;
   xs: DesignToken<SpaceValue>;

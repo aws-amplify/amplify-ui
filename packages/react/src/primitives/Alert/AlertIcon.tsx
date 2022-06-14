@@ -2,7 +2,12 @@ import * as React from 'react';
 
 import { ComponentClassNames } from '../shared/constants';
 import { AlertVariations } from '../types';
-import { IconInfo, IconError, IconWarning, IconCheckCircle } from '../Icon';
+import {
+  IconInfo,
+  IconError,
+  IconWarning,
+  IconCheckCircle,
+} from '../Icon/internal';
 
 interface AlertIconProps {
   variation: AlertVariations;

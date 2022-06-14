@@ -25,6 +25,7 @@ import { link, LinkTokens } from './link';
 import { loader, LoaderTokens } from './loader';
 import { menu, MenuTokens } from './menu';
 import { pagination, PaginationTokens } from './pagination';
+import { passwordfield, PasswordFieldTokens } from './passwordField';
 import { placeholder, PlaceholderTokens } from './placeholder';
 import { radio, RadioTokens } from './radio';
 import { rating, RatingTokens } from './rating';
@@ -37,6 +38,7 @@ import { switchfield, SwitchFieldTokens } from './switchField';
 import { table, TableTokens } from './table';
 import { tabs, TabsTokens } from './tabs';
 import { text, TextTokens } from './text';
+import { textfield, TextFieldTokens } from './textField';
 import { togglebutton, ToggleButtonTokens } from './toggleButton';
 import {
   togglebuttongroup,
@@ -68,6 +70,7 @@ export interface ComponentTokens {
   loader: LoaderTokens;
   menu: MenuTokens;
   pagination: PaginationTokens;
+  passwordfield: PasswordFieldTokens;
   placeholder: PlaceholderTokens;
   radio: RadioTokens;
   rating: RatingTokens;
@@ -80,6 +83,7 @@ export interface ComponentTokens {
   table: TableTokens;
   tabs: TabsTokens;
   text: TextTokens;
+  textfield: TextFieldTokens;
   togglebutton: ToggleButtonTokens;
   togglebuttongroup: ToggleButtonGroupTokens;
 }
@@ -109,6 +113,7 @@ export const components: ComponentTokens = {
   loader,
   menu,
   pagination,
+  passwordfield,
   placeholder,
   radio,
   rating,
@@ -121,6 +126,7 @@ export const components: ComponentTokens = {
   table,
   tabs,
   text,
+  textfield,
   togglebutton,
   togglebuttongroup,
 };
