@@ -74,4 +74,4 @@ export const listenToAuthHub = (
 };
 
 export const hasSpecialChars = (password: string) =>
-  password.split('').some((char) => ALLOWED_SPECIAL_CHARACTERS.includes(char));
+  ALLOWED_SPECIAL_CHARACTERS.some((char) => password.includes(char));
