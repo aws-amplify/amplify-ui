@@ -1,0 +1,6 @@
+.amplify-heading--2 {
+  font-weight: var(--amplify-font-weights-thin);
+}
+.amplify-text {
+  font-weight: var(--amplify-font-weights-bold);
+}

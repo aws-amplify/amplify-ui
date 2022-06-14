@@ -5,8 +5,10 @@ import { Breakpoints } from './breakpoints';
 export * from './tokens/types/designToken';
 export type { FontSizes } from './tokens/fontSizes';
 export type { FontWeights } from './tokens/fontWeights';
-export type { SpaceSizes } from './tokens/space';
+export type { LineHeights } from './tokens/lineHeights';
 export type { Radii } from './tokens/radii';
+export type { Shadows } from './tokens/shadows';
+export type { SpaceSizes } from './tokens/space';
 
 /**
  * An override is a set of tokens that override others

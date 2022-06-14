@@ -1,0 +1,6 @@
+.custom-grid {
+  gap: var(--amplify-space-xxl);
+}
+.custom-view {
+  padding: var(--amplify-space-medium);
+}
