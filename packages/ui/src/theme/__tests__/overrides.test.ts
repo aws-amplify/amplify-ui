@@ -706,6 +706,9 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-text-warning-color: var(--amplify-colors-font-warning);
         --amplify-components-text-success-color: var(--amplify-colors-font-success);
         --amplify-components-text-info-color: var(--amplify-colors-font-info);
+        --amplify-components-textfield-color: var(--amplify-components-fieldcontrol-color);
+        --amplify-components-textfield-border-color: var(--amplify-components-fieldcontrol-border-color);
+        --amplify-components-textfield-focus-border-color: var(--amplify-components-fieldcontrol-focus-border-color);
         --amplify-components-togglebutton-border-color: var(--amplify-colors-border-primary);
         --amplify-components-togglebutton-color: var(--amplify-colors-font-primary);
         --amplify-components-togglebutton-hover-background-color: var(--amplify-colors-overlay-10);
