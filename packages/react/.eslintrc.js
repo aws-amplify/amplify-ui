@@ -33,9 +33,6 @@ module.exports = {
 
     // TODO remove once the full set of rules can be turned on for the repo
     'src/react-shim.js',
-
-    // TODO remove once the icons have been deprecated for v3
-    'src/primitives/Icon/icons',
   ],
   extends: sharedExtensions,
   plugins: ['react-hooks'],
