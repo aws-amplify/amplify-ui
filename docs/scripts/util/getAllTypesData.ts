@@ -35,12 +35,6 @@ export const getAllTypesData = () => {
     ) as TypeFileName;
     names.push(typeFileName);
     const typeFileData: TypeFileData = new Map();
-    const typeAliases = typeFile.getTypeAliases();
-    if (typeAliases) {
-      typeAliases.forEach((typeAlias) => {
-        setTypeData(typeAlias, typeFileName, typeFileData);
-      });
-    }
 
     typeFile.getInterfaces().forEach((typeInterface) => {
       typeInterface.getProperties().forEach((typeProperty) => {
