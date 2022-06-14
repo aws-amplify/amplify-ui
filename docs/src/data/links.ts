@@ -369,6 +369,29 @@ export const theming = [
     platforms: ['react'],
   },
   {
+    href: '/theming/default-theme',
+    label: 'Default Theme',
+    platforms: ['react', 'vue', 'angular'],
+  },
+  {
+    href: '/theming/default-theme/colors',
+    label: 'Colors',
+    platforms: ['react', 'vue', 'angular'],
+    tertiary: true,
+  },
+  {
+    href: '/theming/default-theme/typography',
+    label: 'Typography',
+    platforms: ['react', 'vue', 'angular'],
+    tertiary: true,
+  },
+  {
+    href: '/theming/default-theme/sizes',
+    label: 'Sizes',
+    platforms: ['react', 'vue', 'angular'],
+    tertiary: true,
+  },
+  {
     href: '/theming/dark-mode',
     label: 'Dark mode',
   },

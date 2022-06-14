@@ -195,7 +195,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-checkbox-button-position: relative;
         --amplify-components-checkbox-button-align-items: center;
         --amplify-components-checkbox-button-justify-content: center;
-        --amplify-components-checkbox-button-color: var(--amplify-colors-white);
+        --amplify-components-checkbox-button-color: var(--amplify-colors-font-inverse);
         --amplify-components-checkbox-button-before-width: 100%;
         --amplify-components-checkbox-button-before-height: 100%;
         --amplify-components-checkbox-button-before-border-width: var(--amplify-border-widths-medium);
@@ -265,7 +265,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-divider-large-border-width: var(--amplify-border-widths-large);
         --amplify-components-divider-opacity: var(--amplify-opacities-60);
         --amplify-components-expander-display: block;
-        --amplify-components-expander-background-color: var(--amplify-colors-white);
+        --amplify-components-expander-background-color: var(--amplify-colors-background-primary);
         --amplify-components-expander-border-radius: var(--amplify-radii-medium);
         --amplify-components-expander-box-shadow: var(--amplify-shadows-large);
         --amplify-components-expander-width: 100%;
@@ -413,7 +413,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-loader-linear-large-stroke-width: var(--amplify-font-sizes-large);
         --amplify-components-loader-linear-large-font-size: var(--amplify-font-sizes-large);
         --amplify-components-loader-text-fill: var(--amplify-colors-font-primary);
-        --amplify-components-menu-background-color: var(--amplify-colors-white);
+        --amplify-components-menu-background-color: var(--amplify-colors-background-primary);
         --amplify-components-menu-border-radius: var(--amplify-radii-medium);
         --amplify-components-menu-border-width: var(--amplify-border-widths-small);
         --amplify-components-menu-border-style: solid;
@@ -432,7 +432,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-menu-item-padding-inline-end: var(--amplify-space-medium);
         --amplify-components-pagination-current-align-items: center;
         --amplify-components-pagination-current-justify-content: center;
-        --amplify-components-pagination-current-color: var(--amplify-colors-white);
+        --amplify-components-pagination-current-color: var(--amplify-colors-font-inverse);
         --amplify-components-pagination-current-font-size: var(--amplify-font-sizes-small);
         --amplify-components-pagination-current-background-color: var(--amplify-colors-overlay-40);
         --amplify-components-pagination-button-color: var(--amplify-colors-font-primary);
@@ -472,8 +472,8 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-radio-button-border-style: solid;
         --amplify-components-radio-button-border-radius: 50%;
         --amplify-components-radio-button-border-color: var(--amplify-colors-border-primary);
-        --amplify-components-radio-button-color: var(--amplify-colors-white);
-        --amplify-components-radio-button-background-color: var(--amplify-colors-white);
+        --amplify-components-radio-button-color: var(--amplify-colors-background-primary);
+        --amplify-components-radio-button-background-color: var(--amplify-colors-background-primary);
         --amplify-components-radio-button-transition-property: all;
         --amplify-components-radio-button-transition-duration: var(--amplify-time-medium);
         --amplify-components-radio-button-outline-color: var(--amplify-colors-transparent);
@@ -684,14 +684,14 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-togglebutton-primary-disabled-color: var(--amplify-colors-font-disabled);
         --amplify-components-togglebutton-primary-pressed-background-color: var(--amplify-colors-brand-primary-80);
         --amplify-components-togglebutton-primary-pressed-border-color: var(--amplify-colors-brand-primary-80);
-        --amplify-components-togglebutton-primary-pressed-color: var(--amplify-colors-white);
+        --amplify-components-togglebutton-primary-pressed-color: var(--amplify-colors-background-primary);
         --amplify-components-togglebutton-primary-pressed-focus-background-color: var(--amplify-colors-border-focus);
         --amplify-components-togglebutton-primary-pressed-focus-border-color: var(--amplify-colors-border-focus);
-        --amplify-components-togglebutton-primary-pressed-focus-color: var(--amplify-colors-white);
+        --amplify-components-togglebutton-primary-pressed-focus-color: var(--amplify-colors-background-primary);
         --amplify-components-togglebutton-primary-pressed-hover-border-color: var(--amplify-colors-brand-primary-60);
         --amplify-components-togglebutton-primary-pressed-hover-background-color: var(--amplify-colors-brand-primary-60);
         --amplify-components-togglebutton-primary-pressed-hover-box-shadow: var(--amplify-colors-brand-primary-60);
-        --amplify-components-togglebutton-primary-pressed-hover-color: var(--amplify-colors-white);
+        --amplify-components-togglebutton-primary-pressed-hover-color: var(--amplify-colors-background-primary);
         --amplify-components-togglebutton-link-background-color: var(--amplify-colors-transparent);
         --amplify-components-togglebutton-link-color: var(--amplify-colors-overlay-50);
         --amplify-components-togglebutton-link-hover-background-color: var(--amplify-colors-transparent);
@@ -792,7 +792,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-colors-font-primary: var(--amplify-colors-neutral-100);
         --amplify-colors-font-secondary: var(--amplify-colors-neutral-90);
         --amplify-colors-font-tertiary: var(--amplify-colors-neutral-80);
-        --amplify-colors-font-disabled: var(--amplify-colors-font-tertiary);
+        --amplify-colors-font-disabled: var(--amplify-colors-neutral-60);
         --amplify-colors-font-inverse: var(--amplify-colors-white);
         --amplify-colors-font-interactive: var(--amplify-colors-brand-primary-80);
         --amplify-colors-font-hover: var(--amplify-colors-brand-primary-90);

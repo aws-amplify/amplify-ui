@@ -5,7 +5,7 @@ import { classNameModifierByFlag } from '../shared/utils';
 import { CheckboxProps } from '../types/checkbox';
 import { ComponentClassNames } from '../shared/constants';
 import { Flex } from '../Flex';
-import { IconCheck } from '../Icon';
+import { IconCheck } from '../Icon/internal';
 import { Input } from '../Input';
 import { Primitive } from '../types/view';
 import { splitPrimitiveProps } from '../shared/styleUtils';
