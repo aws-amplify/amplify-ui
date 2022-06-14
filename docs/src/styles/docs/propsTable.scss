@@ -1,3 +1,5 @@
+@import './_variables.scss';
+
 .props-table-expander .amplify-expander__content__text {
   overflow-x: auto;
 }
@@ -15,5 +17,37 @@
 
   & .amplify-expander__content__text {
     overflow-x: auto;
+  }
+}
+
+@media (max-width: $breakpoint-medium) {
+  .props-table {
+    & .amplify-table__td {
+      display: block;
+    }
+    & .amplify-table__head {
+      display: none;
+    }
+    * .amplify-table__row {
+      margin: 1rem 0;
+      border-color: var(--amplify-components-card-outlined-border-color);
+      border-style: var(--amplify-components-card-outlined-border-style);
+      border-width: var(--amplify-components-card-outlined-border-width) 0;
+      border-radius: var(--amplify-components-card-outlined-border-radius);
+    }
+
+    & pre[class*='language-'] {
+      max-width: 14rem;
+    }
+    & [class*='language-'] {
+      background-color: inherit;
+    }
+
+    & .amplify-table__td:first-child {
+      border-left-width: inherit;
+    }
+    & .amplify-table__td:last-child {
+      border-right-width: inherit;
+    }
   }
 }

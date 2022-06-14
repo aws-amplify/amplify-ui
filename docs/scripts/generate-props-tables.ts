@@ -117,7 +117,9 @@ function PropsTable(properties: Properties) {
 ${type}
 \`\`\`
 `}</TableCell>
-      <TableCell className="props-table__tr-description">${description}</TableCell>
+      <TableCell className="props-table__tr-description">${
+        description ? description : '-'
+      }</TableCell>
     </TableRow>
 `
     );
