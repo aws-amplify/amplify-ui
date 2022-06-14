@@ -21,7 +21,7 @@ describe('ThemeProvider', () => {
   });
 
   it('wraps the App in [data-amplify-theme="default-theme"]', () => {
-    spyOn(global.document.documentElement, 'setAttribute');
+    jest.spyOn(global.document.documentElement, 'setAttribute');
     const { container } = render(
       <ThemeProvider>
         <App />

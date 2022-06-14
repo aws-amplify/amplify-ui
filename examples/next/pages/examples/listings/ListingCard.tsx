@@ -4,9 +4,6 @@ import {
   Card,
   Flex,
   Heading,
-  IconCheckCircle,
-  IconFavorite,
-  IconWhatshot,
   Image,
   Placeholder,
   Rating,
@@ -14,6 +11,7 @@ import {
   View,
   useTheme,
 } from '@aws-amplify/ui-react';
+import { MdWhatshot, MdCheckCircle, MdFavorite } from 'react-icons/md';
 
 export const ListingCard = ({
   title,
@@ -62,17 +60,17 @@ export const ListingCard = ({
             <Flex gap={tokens.space.xs}>
               {plus ? (
                 <Badge variation="success">
-                  <IconFavorite /> Favorite
+                  <MdFavorite /> Favorite
                 </Badge>
               ) : null}
               {verified ? (
                 <Badge variation="info">
-                  <IconCheckCircle /> Verified
+                  <MdCheckCircle /> Verified
                 </Badge>
               ) : null}
               {hot ? (
                 <Badge variation="error">
-                  <IconWhatshot /> Hot
+                  <MdWhatshot /> Hot
                 </Badge>
               ) : null}
             </Flex>
