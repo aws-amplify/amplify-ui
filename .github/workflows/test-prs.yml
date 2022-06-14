@@ -1,4 +1,4 @@
-# This workflow will run unit, e2e, and docs tests on PRs targeted against main, ui-svelte/main, ui-geo/main, and ui-react@v2 branches.
+# This workflow will run unit, e2e, and docs tests on PRs targeted against main, ui-svelte/main, ui-geo/main, and ui-react/v2 branches.
 
 name: Test / PRs
 
@@ -8,7 +8,7 @@ concurrency:
 
 on:
   pull_request:
-    branches: [ui-react@v2]
+    branches: [ui-react/v2]
     types: [opened, synchronize, labeled]
 
 permissions:
@@ -35,7 +35,7 @@ jobs:
             const label = 'run-tests';
             github.issues.removeLabel({ owner, repo, issue_number, name: label });
   test:
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@ui-react@v2
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@ui-react/v2
     needs: setup
     with:
       commit: ${{ github.event.pull_request.head.sha }}
