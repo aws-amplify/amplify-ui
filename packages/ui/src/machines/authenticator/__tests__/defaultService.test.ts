@@ -30,7 +30,7 @@ describe('validateFormPassword', () => {
       touched,
       strictPasswordPolicy
     );
-    expect(result).toBe(null);
+    expect(result).toBeNull();
   });
 
   it('validates as expected with invalid password (has unknown special character) and strict password policy', async () => {
@@ -84,7 +84,7 @@ describe('validateFormPassword', () => {
       touched,
       lenientPasswordPolicy
     );
-    expect(result).toBe(null);
+    expect(result).toBeNull();
   });
 
   it('validates as expected with invalid password and lenient password policy', async () => {
@@ -118,6 +118,6 @@ describe('validateFormPassword', () => {
       untouched,
       strictPasswordPolicy
     );
-    expect(result).toBe(null);
+    expect(result).toBeNull();
   });
 });
