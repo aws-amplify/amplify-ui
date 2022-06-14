@@ -1,4 +1,4 @@
-# This workflow will run unit, e2e, and docs tests on PRs targeted against `main`.
+# This workflow will run unit, e2e, and docs tests on PRs targeted against main, ui-svelte/main, ui-geo/main, and ui-react@v2 branches.
 
 name: Test / PRs
 
@@ -7,7 +7,7 @@ concurrency:
   cancel-in-progress: true
 
 on:
-  pull_request: # not pull_request_target, because v2 is in maintenance mode and will not accept external pull requests
+  pull_request:
     branches: [ui-react@v2]
     types: [opened, synchronize, labeled]
 
