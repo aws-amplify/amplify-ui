@@ -1,3 +1,5 @@
+@import './variables';
+
 .example {
   width: 100%;
 }
@@ -30,6 +32,12 @@
   position: absolute;
   right: var(--amplify-space-medium);
   top: var(--amplify-space-small);
+}
+
+@media (max-width: $breakpoint-medium) {
+  h2#demo {
+    display: none;
+  }
 }
 
 .docs-component-demo {
