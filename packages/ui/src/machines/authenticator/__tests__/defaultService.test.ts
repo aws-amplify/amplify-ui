@@ -111,7 +111,7 @@ describe('validateFormPassword', () => {
         passwordPolicyMinLength: 4,
         passwordPolicyCharacters: ['REQUIRES_SYMBOLS'],
       });
-      expect(result).toBe(null);
+      expect(result).toBeNull();
     }
   });
 
