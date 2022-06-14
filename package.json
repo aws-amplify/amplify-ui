@@ -23,8 +23,8 @@
     "publish:next": "yarn changeset publish --tag next",
     "version:studio": "yarn changeset version --snapshot studio-$(git rev-parse --short=7 HEAD) && yarn angular build",
     "publish:studio": "yarn changeset publish --tag studio",
-    "version:latest": "yarn changeset version && yarn angular build",
-    "publish:latest": "yarn changeset publish"
+    "version:v2": "yarn changeset version && yarn angular build",
+    "publish:v2": "yarn changeset publish"
   },
   "workspaces": {
     "packages": [

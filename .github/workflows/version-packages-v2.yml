@@ -1,8 +1,8 @@
-name: Version Packages
+name: Version Packages / v2
 
 on:
   push:
-    branches: [main]
+    branches: [v2/react]
 
 permissions:
   contents: write # Used to commit to "Version Packages" PR
@@ -34,5 +34,7 @@ jobs:
       - name: Create or update Version Packages PR
         if: ${{ steps.has-changesets.outputs.has-changesets == 'true' }}
         uses: changesets/action@b98cec97583b917ff1dc6179dd4d230d3e439894
+        with:
+          title: 'Version Packages (ui-react@v2)'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

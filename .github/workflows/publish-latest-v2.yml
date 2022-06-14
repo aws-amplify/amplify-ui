@@ -1,8 +1,8 @@
-name: Publish to latest
+name: Publish to latest / v2
 
 on:
   push:
-    branches: [main]
+    branches: [v2/react]
 
 permissions:
   contents: write # Used to push tags to GitHub
@@ -79,7 +79,7 @@ jobs:
       - name: Publish to @latest
         uses: changesets/action@b98cec97583b917ff1dc6179dd4d230d3e439894
         with:
-          publish: yarn publish:latest
+          publish: yarn publish:v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
