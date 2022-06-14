@@ -10,8 +10,8 @@ const theme: Theme = {
   tokens: {
     components: {
       togglebutton: {
-        borderColor: { value: '{colors.brand.secondary.80.value}' },
-        color: { value: '{colors.brand.secondary.80.value}' },
+        borderColor: { value: '{colors.brand.secondary.80}' },
+        color: { value: '{colors.brand.secondary.80}' },
         _hover: {
           backgroundColor: { value: 'red' },
         },
@@ -23,13 +23,13 @@ const theme: Theme = {
         },
         _pressed: {
           backgroundColor: { value: 'green' },
-          color: { value: '{colors.white.value}' },
+          color: { value: '{colors.white}' },
           _hover: {
             backgroundColor: { value: 'blue' },
           },
         },
         primary: {
-          backgroundColor: { value: '{colors.pink.20.value}' },
+          backgroundColor: { value: '{colors.pink.20}' },
         },
       },
     },

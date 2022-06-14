@@ -6,20 +6,20 @@ const theme: Theme = {
     components: {
       switchfield: {
         thumb: {
-          backgroundColor: { value: '{colors.green.40.value}' },
-          borderColor: { value: '{colors.border.tertiary.value}' },
+          backgroundColor: { value: '{colors.green.40}' },
+          borderColor: { value: '{colors.border.tertiary}' },
           transition: {
-            duration: { value: '{time.long.value}' },
+            duration: { value: '{time.long}' },
           },
         },
 
         track: {
-          backgroundColor: { value: '{colors.neutral.60.value}' },
+          backgroundColor: { value: '{colors.neutral.60}' },
           checked: {
-            backgroundColor: { value: '{colors.brand.secondary.60.value}' },
+            backgroundColor: { value: '{colors.brand.secondary.60}' },
           },
           transition: {
-            duration: { value: '{time.long.value}' },
+            duration: { value: '{time.long}' },
           },
         },
       },

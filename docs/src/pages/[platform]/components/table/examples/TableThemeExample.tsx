@@ -15,21 +15,21 @@ const theme: Theme = {
       table: {
         row: {
           hover: {
-            backgroundColor: { value: '{colors.green.40.value}' },
+            backgroundColor: { value: '{colors.green.40}' },
           },
 
           striped: {
-            backgroundColor: { value: '{colors.blue.20.value}' },
+            backgroundColor: { value: '{colors.blue.20}' },
           },
         },
 
         header: {
-          color: { value: '{colors.brand.secondary.80.value}' },
-          fontSize: { value: '{fontSizes.xl.value}' },
+          color: { value: '{colors.brand.secondary.80}' },
+          fontSize: { value: '{fontSizes.xl}' },
         },
 
         data: {
-          fontWeight: { value: '{fontWeights.semibold.value}' },
+          fontWeight: { value: '{fontWeights.semibold}' },
         },
       },
     },
