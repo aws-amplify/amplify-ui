@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import { Button } from '../Button';
 import { Flex } from '../Flex';
-import { IconChevronLeft, IconChevronRight } from '../Icon';
+import { IconChevronLeft, IconChevronRight } from '../Icon/internal';
 import { View } from '../View';
 import { VisuallyHidden } from '../VisuallyHidden';
 import { PaginationItemProps } from '../types/pagination';

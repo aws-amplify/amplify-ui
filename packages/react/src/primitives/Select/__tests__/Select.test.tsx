@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { Select } from '../Select';
-import { IconExpandMore } from '../../Icon';
+import { IconExpandMore } from '../../Icon/internal';
 import { ComponentClassNames } from '../../shared';
 
 describe('Select primitive test suite', () => {

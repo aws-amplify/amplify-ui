@@ -1,7 +1,8 @@
 import React from 'react';
 
 import { useTheme } from '../../../hooks';
-import { IconFiberManualRecord, Text, Flex, View } from '../../../primitives';
+import { Text, Flex, View } from '../../../primitives';
+import { IconFiberManualRecord } from '../../../primitives/Icon/icons';
 
 export const RecordingIcon: React.FC = () => {
   const { tokens } = useTheme();

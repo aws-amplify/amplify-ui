@@ -2,11 +2,16 @@ import { Property } from 'csstype';
 import { WebDesignToken } from '@aws-amplify/ui';
 
 import type {
+  BoxShadowKeys,
   ColorKeys,
+  FontFamilyKeys,
   FontSizeKeys,
   FontWeightKeys,
+  LineHeightKeys,
+  OpacityKeys,
   RadiiKeys,
   SpaceKeys,
+  TransformKeys,
 } from './theme';
 import { FlexItemStyleProps, FlexContainerStyleProps } from './flex';
 import { GridItemStyleProps, GridContainerStyleProps } from './grid';
@@ -55,10 +60,10 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   border?: ResponsiveStyle<StyleToken<Property.Border>>;
   borderRadius?: ResponsiveStyle<RadiiKeys<StyleToken<Property.BorderRadius>>>;
   bottom?: ResponsiveStyle<SpaceKeys<StyleToken<Property.Bottom>>>;
-  boxShadow?: ResponsiveStyle<StyleToken<Property.BoxShadow>>;
+  boxShadow?: ResponsiveStyle<BoxShadowKeys<StyleToken<Property.BoxShadow>>>;
   color?: ResponsiveStyle<ColorKeys<StyleToken<Property.Color>>>;
   display?: ResponsiveStyle<StyleToken<Property.Display>>;
-  fontFamily?: ResponsiveStyle<StyleToken<Property.FontFamily>>;
+  fontFamily?: ResponsiveStyle<FontFamilyKeys<StyleToken<Property.FontFamily>>>;
   fontSize?: ResponsiveStyle<FontSizeKeys<StyleToken<Property.FontSize>>>;
   fontStyle?: ResponsiveStyle<StyleToken<Property.FontStyle>>;
   fontWeight?: ResponsiveStyle<FontWeightKeys<StyleToken<Property.FontWeight>>>;
@@ -67,7 +72,7 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   letterSpacing?: ResponsiveStyle<
     SpaceKeys<StyleToken<Property.LetterSpacing>>
   >;
-  lineHeight?: ResponsiveStyle<StyleToken<Property.LineHeight>>;
+  lineHeight?: ResponsiveStyle<LineHeightKeys<StyleToken<Property.LineHeight>>>;
   margin?: ResponsiveStyle<StyleToken<Property.Margin>>;
   marginBlockEnd?: ResponsiveStyle<
     SpaceKeys<StyleToken<Property.MarginBlockEnd>>
@@ -89,7 +94,7 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   maxWidth?: ResponsiveStyle<SpaceKeys<StyleToken<Property.MaxWidth>>>;
   minHeight?: ResponsiveStyle<SpaceKeys<StyleToken<Property.MinHeight>>>;
   minWidth?: ResponsiveStyle<SpaceKeys<StyleToken<Property.MinWidth>>>;
-  opacity?: ResponsiveStyle<StyleToken<Property.Opacity>>;
+  opacity?: ResponsiveStyle<OpacityKeys<StyleToken<Property.Opacity>>>;
   overflow?: ResponsiveStyle<StyleToken<Property.Overflow>>;
   padding?: ResponsiveStyle<StyleToken<Property.Padding>>;
   paddingBlockEnd?: ResponsiveStyle<
@@ -116,7 +121,7 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   textDecoration?: ResponsiveStyle<StyleToken<Property.TextDecoration>>;
   textTransform?: ResponsiveStyle<StyleToken<Property.TextTransform>>;
   top?: ResponsiveStyle<SpaceKeys<StyleToken<Property.Top>>>;
-  transform?: ResponsiveStyle<StyleToken<Property.Transform>>;
+  transform?: ResponsiveStyle<TransformKeys<StyleToken<Property.Transform>>>;
   transformOrigin?: ResponsiveStyle<StyleToken<Property.TransformOrigin>>;
   width?: ResponsiveStyle<SpaceKeys<StyleToken<Property.Width>>>;
   whiteSpace?: ResponsiveStyle<StyleToken<Property.WhiteSpace>>;

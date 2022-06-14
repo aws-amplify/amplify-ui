@@ -1,0 +1,10 @@
+---
+title: Sizes
+description: Amplify UI uses design tokens for consistent spacing, border radius,  widths, etc.
+supportedFrameworks: react|angular|vue
+---
+
+import { Fragment } from '@/components/Fragment';
+
+<Fragment useCommonWebContent>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+

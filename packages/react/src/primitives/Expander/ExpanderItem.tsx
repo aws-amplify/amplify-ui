@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared/constants';
 import { ExpanderItemProps } from '../types/expander';
-import { IconExpandMore } from '../Icon';
+import { IconExpandMore } from '../Icon/internal';
 import { Primitive } from '../types/view';
 import { splitPrimitiveProps } from '../shared/styleUtils';
 import { useStableId } from '../utils/useStableId';

@@ -13,13 +13,11 @@ import {
   createLivenessSelector,
 } from '../hooks';
 import { useTheme } from '../../../hooks';
+import { Flex, Loader, View } from '../../../primitives';
 import {
-  Flex,
   IconCheckCircleOutline,
   IconHighlightOff,
-  Loader,
-  View,
-} from '../../../primitives';
+} from '../../../primitives/Icon/icons';
 
 export const selectErrorState = createLivenessSelector(
   (state) => state.context.errorState

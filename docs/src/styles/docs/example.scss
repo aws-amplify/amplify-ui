@@ -26,9 +26,10 @@
 }
 
 .example-copy-button {
+  background: var(--amplify-colors-background-secondary);
   position: absolute;
+  right: var(--amplify-space-medium);
   top: var(--amplify-space-small);
-  right: var(--amplify-space-small);
 }
 
 .docs-component-demo {
@@ -37,11 +38,13 @@
 
   pre {
     white-space: pre-wrap;
+    margin: 0;
   }
 
   & .example-copy-button {
+    background: var(--amplify-colors-background-secondary);
     bottom: var(--amplify-space-small);
     top: auto;
-    right: var(--amplify-space-small);
+    right: var(--amplify-space-medium);
   }
 }
