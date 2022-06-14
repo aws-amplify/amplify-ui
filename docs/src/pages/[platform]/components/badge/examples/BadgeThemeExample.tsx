@@ -6,23 +6,23 @@ const theme: Theme = {
     components: {
       badge: {
         // Default styles
-        color: { value: '{colors.white.value}' },
-        fontWeight: { value: '{fontWeights.normal.value}' },
-        fontSize: { value: '{fontSizes.large.value}' },
-        backgroundColor: { value: '{colors.purple.80.value}' },
-        paddingVertical: { value: '{space.small.value}' },
-        paddingHorizontal: { value: '{space.medium.value}' },
-        borderRadius: { value: '{radii.small.value}' },
+        color: { value: '{colors.white}' },
+        fontWeight: { value: '{fontWeights.normal}' },
+        fontSize: { value: '{fontSizes.large}' },
+        backgroundColor: { value: '{colors.purple.80}' },
+        paddingVertical: { value: '{space.small}' },
+        paddingHorizontal: { value: '{space.medium}' },
+        borderRadius: { value: '{radii.small}' },
 
         // Variations
         success: {
-          color: { value: '{colors.black.value}' },
-          backgroundColor: { value: '{colors.yellow.60.value}' },
+          color: { value: '{colors.black}' },
+          backgroundColor: { value: '{colors.yellow.60}' },
         },
 
         // Sizes
         large: {
-          fontSize: { value: '{fontSizes.xxl.value}' },
+          fontSize: { value: '{fontSizes.xxl}' },
         },
       },
     },
@@ -31,10 +31,8 @@ const theme: Theme = {
 
 export const BadgeThemeExample = () => (
   <ThemeProvider theme={theme}>
-    <>
-      <Badge>Default</Badge>
-      <Badge variation="success">Success</Badge>
-      <Badge size="large">Large</Badge>
-    </>
+    <Badge>Default</Badge>
+    <Badge variation="success">Success</Badge>
+    <Badge size="large">Large</Badge>
   </ThemeProvider>
 );

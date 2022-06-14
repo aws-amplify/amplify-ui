@@ -1,9 +1,4 @@
-import {
-  SearchField,
-  ThemeProvider,
-  Theme,
-  defaultDarkModeOverride,
-} from '@aws-amplify/ui-react';
+import { SearchField, ThemeProvider, Theme } from '@aws-amplify/ui-react';
 
 const theme: Theme = {
   name: 'searchfield-theme',
@@ -11,19 +6,19 @@ const theme: Theme = {
     components: {
       searchfield: {
         // color seems to have no effect
-        color: { value: '{colors.blue.40}' },
+        color: { value: '{colors.blue.80}' },
 
         button: {
-          color: { value: '{colors.blue.40}' },
+          color: { value: '{colors.blue.80}' },
           _focus: {
             backgroundColor: {
-              value: '{colors.blue.20}',
+              value: '{colors.blue.60}',
             },
             color: { value: 'white' },
           },
           _hover: {
             backgroundColor: {
-              value: '{colors.blue.40}',
+              value: '{colors.blue.80}',
             },
             color: { value: 'white' },
           },
@@ -31,12 +26,11 @@ const theme: Theme = {
       },
     },
   },
-  overrides: [defaultDarkModeOverride],
 };
 
 export const SearchFieldThemeExample = () => {
   return (
-    <ThemeProvider theme={theme} colorMode="system">
+    <ThemeProvider theme={theme}>
       <SearchField label="search" />
     </ThemeProvider>
   );

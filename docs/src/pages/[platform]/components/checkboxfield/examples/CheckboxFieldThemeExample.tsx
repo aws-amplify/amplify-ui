@@ -6,14 +6,14 @@ const theme: Theme = {
     components: {
       checkbox: {
         button: {
-          color: { value: '{colors.yellow.40.value}' },
+          color: { value: '{colors.yellow.40}' },
           _focus: {
-            outlineColor: { value: '{colors.blue.40.value}' },
-            borderColor: { value: '{colors.red.40.value}' },
+            outlineColor: { value: '{colors.blue.40}' },
+            borderColor: { value: '{colors.red.40}' },
           },
         },
         icon: {
-          backgroundColor: { value: '{colors.brand.secondary.80.value}' },
+          backgroundColor: { value: '{colors.brand.secondary.80}' },
         },
       },
     },

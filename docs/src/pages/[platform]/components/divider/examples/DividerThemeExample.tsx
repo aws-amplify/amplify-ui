@@ -6,16 +6,16 @@ const theme: Theme = {
     components: {
       divider: {
         borderStyle: { value: 'dotted' },
-        borderColor: { value: '{colors.brand.secondary.80.value}' },
-        borderWidth: { value: '{borderWidths.small.value}' },
+        borderColor: { value: '{colors.brand.secondary.80}' },
+        borderWidth: { value: '{borderWidths.small}' },
 
         label: {
-          color: { value: '{colors.white.value}' },
-          backgroundColor: { value: '{colors.brand.secondary.80.value}' },
+          color: { value: '{colors.white}' },
+          backgroundColor: { value: '{colors.brand.secondary.80}' },
         },
 
         large: {
-          borderWidth: { value: '{borderWidths.large.value}' },
+          borderWidth: { value: '{borderWidths.large}' },
         },
       },
     },

@@ -6,19 +6,19 @@ const theme: Theme = {
     components: {
       card: {
         // You can reference other tokens
-        backgroundColor: { value: '{colors.background.success.value}' },
-        borderRadius: { value: '{radii.large.value}' },
-        padding: { value: '{space.xl.value}' },
+        backgroundColor: { value: '{colors.background.success}' },
+        borderRadius: { value: '{radii.large}' },
+        padding: { value: '{space.xl}' },
 
         // Variations
         outlined: {
           // Or use explicit values
           borderWidth: { value: '10px' },
-          backgroundColor: { value: '{colors.background.warning.value}' },
+          backgroundColor: { value: '{colors.background.warning}' },
         },
         elevated: {
-          backgroundColor: { value: '{colors.background.info.value}' },
-          boxShadow: { value: '{shadows.large.value}' },
+          backgroundColor: { value: '{colors.background.info}' },
+          boxShadow: { value: '{shadows.large}' },
         },
       },
     },
@@ -28,7 +28,7 @@ const theme: Theme = {
 export const CardThemeExample = () => {
   return (
     <ThemeProvider theme={theme}>
-      <Flex direction="row">
+      <Flex>
         <Card>
           <Text>Default</Text>
         </Card>

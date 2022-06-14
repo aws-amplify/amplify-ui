@@ -1,4 +1,4 @@
-import { Flex, Button, ThemeProvider, Theme } from '@aws-amplify/ui-react';
+import { Button, Flex, ThemeProvider, Theme } from '@aws-amplify/ui-react';
 
 const theme: Theme = {
   name: 'button-theme',
@@ -12,7 +12,7 @@ const theme: Theme = {
     components: {
       button: {
         // this will affect the font weight of all button variants
-        fontWeight: { value: '{fontWeights.black.value}' },
+        fontWeight: { value: '{fontWeights.black}' },
         // style the primary variation
         primary: {
           backgroundColor: { value: 'rebeccapurple' },

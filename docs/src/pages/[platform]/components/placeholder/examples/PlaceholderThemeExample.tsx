@@ -1,4 +1,4 @@
-import { Theme, Placeholder, ThemeProvider } from '@aws-amplify/ui-react';
+import { Placeholder, ThemeProvider, Theme } from '@aws-amplify/ui-react';
 
 const theme: Theme = {
   name: 'placeholder-theme',
@@ -6,11 +6,11 @@ const theme: Theme = {
     components: {
       placeholder: {
         transitionDuration: { value: '1250ms' },
-        startColor: { value: '{colors.purple.40.value}' },
-        endColor: { value: '{colors.purple.100.value}' },
-        borderRadius: { value: '{radii.large.value}' },
+        startColor: { value: '{colors.purple.40}' },
+        endColor: { value: '{colors.purple.100}' },
+        borderRadius: { value: '{radii.large}' },
         large: {
-          height: { value: '{space.xxxl.value}' },
+          height: { value: '{space.xxxl}' },
         },
       },
     },

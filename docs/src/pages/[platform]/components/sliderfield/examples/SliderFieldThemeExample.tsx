@@ -1,4 +1,4 @@
-import { ThemeProvider, SliderField, Theme } from '@aws-amplify/ui-react';
+import { SliderField, ThemeProvider, Theme } from '@aws-amplify/ui-react';
 
 const theme: Theme = {
   name: 'slider-theme',
@@ -6,12 +6,12 @@ const theme: Theme = {
     components: {
       sliderfield: {
         thumb: {
-          width: { value: '{space.xl.value}' },
-          height: { value: '{space.xl.value}' },
-          backgroundColor: { value: '{colors.blue.40.value}' },
-          borderRadius: { value: '{radii.medium.value}' },
+          width: { value: '{space.xl}' },
+          height: { value: '{space.xl}' },
+          backgroundColor: { value: '{colors.blue.40}' },
+          borderRadius: { value: '{radii.medium}' },
           _hover: {
-            backgroundColor: { value: '{colors.green.40.value}' },
+            backgroundColor: { value: '{colors.green.40}' },
             borderColor: { value: 'orange' },
           },
           _focus: {
@@ -26,12 +26,12 @@ const theme: Theme = {
         },
         track: {
           backgroundColor: {
-            value: '{colors.neutral.80.value}',
+            value: '{colors.neutral.80}',
           },
-          height: { value: '{fontSizes.medium.value}' },
+          height: { value: '{fontSizes.medium}' },
         },
         range: {
-          backgroundColor: { value: '{colors.brand.secondary.80.value}' },
+          backgroundColor: { value: '{colors.brand.secondary.80}' },
         },
       },
     },

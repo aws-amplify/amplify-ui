@@ -10,23 +10,23 @@ const theme: Theme = {
   tokens: {
     components: {
       expander: {
-        backgroundColor: { value: '{colors.brand.primary.60.value}' },
-        borderRadius: { value: '{radii.small.value}' },
+        backgroundColor: { value: '{colors.brand.primary.60}' },
+        borderRadius: { value: '{radii.small}' },
         trigger: {
           minHeight: { value: '5rem' },
           justifyContent: { value: 'center' },
           _hover: {
-            backgroundColor: { value: '{colors.overlay.20.value}' },
+            backgroundColor: { value: '{colors.overlay.20}' },
           },
         },
         content: {
-          paddingInlineStart: { value: '{space.xxl.value}' },
+          paddingInlineStart: { value: '{space.xxl}' },
           text: {
-            color: { value: '{colors.white.value}' },
-            paddingBlockEnd: { value: '{space.large.value}' },
+            color: { value: '{colors.white}' },
+            paddingBlockEnd: { value: '{space.large}' },
           },
           _open: {
-            animationDuration: { value: '{time.short.value}' },
+            animationDuration: { value: '{time.short}' },
           },
         },
       },

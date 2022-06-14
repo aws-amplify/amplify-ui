@@ -6,26 +6,26 @@ const theme: Theme = {
     components: {
       alert: {
         // Default styles
-        backgroundColor: { value: '{colors.teal.80.value}' },
+        backgroundColor: { value: '{colors.teal.80}' },
 
         icon: {
-          size: { value: '{fontSizes.xxxl.value}' },
+          size: { value: '{fontSizes.xxxl}' },
         },
 
         heading: {
-          fontSize: { value: '{fontSizes.large.value}' },
-          fontWeight: { value: '{fontWeights.normal.value}' },
+          fontSize: { value: '{fontSizes.large}' },
+          fontWeight: { value: '{fontWeights.normal}' },
         },
 
         // Variations
         info: {
-          color: { value: '{colors.white.value}' },
-          backgroundColor: { value: '{colors.purple.80.value}' },
+          color: { value: '{colors.white}' },
+          backgroundColor: { value: '{colors.purple.80}' },
         },
 
         success: {
-          color: { value: '{colors.black.value}' },
-          backgroundColor: { value: '{colors.yellow.40.value}' },
+          color: { value: '{colors.black}' },
+          backgroundColor: { value: '{colors.yellow.40}' },
         },
       },
     },

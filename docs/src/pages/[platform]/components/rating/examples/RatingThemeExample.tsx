@@ -1,15 +1,15 @@
-import { Flex, Rating, ThemeProvider, Theme } from '@aws-amplify/ui-react';
+import { Rating, Flex, ThemeProvider, Theme } from '@aws-amplify/ui-react';
 
 const theme: Theme = {
   name: 'rating-theme',
   tokens: {
     components: {
       rating: {
-        filled: { color: { value: '{colors.yellow.60.value}' } },
-        empty: { color: { value: '{colors.neutral.40.value}' } },
-        small: { size: { value: '{fontSizes.xxs.value}' } },
-        default: { size: { value: '{fontSizes.medium.value}' } },
-        large: { size: { value: '{fontSizes.xl.value}' } },
+        filled: { color: { value: '{colors.yellow.60}' } },
+        empty: { color: { value: '{colors.neutral.40}' } },
+        small: { size: { value: '{fontSizes.xxs}' } },
+        default: { size: { value: '{fontSizes.medium}' } },
+        large: { size: { value: '{fontSizes.xl}' } },
       },
     },
   },

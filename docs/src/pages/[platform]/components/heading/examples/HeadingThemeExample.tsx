@@ -8,12 +8,12 @@ const theme: Theme = {
         color: { value: '{colors.blue.80}' },
 
         1: {
-          fontSize: { value: '{fontSizes.xxl.value}' },
-          fontWeight: { value: '{fontWeights.bold.value}' },
+          fontSize: { value: '{fontSizes.xxl}' },
+          fontWeight: { value: '{fontWeights.bold}' },
         },
         6: {
-          fontSize: { value: '{fontSizes.large.value}' },
-          fontWeight: { value: '{fontWeights.normal.value}' },
+          fontSize: { value: '{fontSizes.large}' },
+          fontWeight: { value: '{fontWeights.normal}' },
         },
       },
     },
