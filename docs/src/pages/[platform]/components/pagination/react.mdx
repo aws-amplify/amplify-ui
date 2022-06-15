@@ -1,4 +1,4 @@
-import { Pagination } from '@aws-amplify/ui-react';
+import { Pagination, Link } from '@aws-amplify/ui-react';
 import { PaginationDemo } from './demo.tsx';
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
@@ -84,7 +84,7 @@ It's common to use a paged API where the total number of pages in the dataset is
 
 ## Accessibility
 
-By default, the root node of the Pagination component has a role of `navigation`. Accessible labels are provided for the pagination buttons either via the `aria-label` attribute or by using the [VisuallyHidden](/react/components/visuallyhidden) primitive.
+Accessible labels are provided for the pagination buttons either via the `aria-label` attribute or by using the [VisuallyHidden](/react/components/visuallyhidden) primitive.
 
 Use the following props to customize these labels:
 
@@ -95,6 +95,8 @@ Use the following props to customize these labels:
 - **`currentPageLabel`**: Set the `VisuallyHidden` label for current page (defaults to `Current Page:`). This will be used to construct the label text for current page. e.g, `Current Page: 1` if page `1` is the current page.
 
 - **`pageLabel`**: Set the label for each page button other than the current page (defaults to `Go to page`). This will be used to construct the `aria-label`. e.g, `Go to page 1` for page `1` button.
+
+By default, the root node of the Pagination component is a `<nav>` element. Elements with the navigation role, like `<nav>`, <Link href="https://www.w3.org/WAI/ARIA/apg/practices/landmark-regions/#aria_lh_step3" isExternal>require unique labels if there are multiple on the same page</Link>. Passing an `aria-label` to the Pagination component is one way to accomodate this.
 
 <Example>
   <PaginationAccessibilityExample />
