@@ -545,41 +545,6 @@ export const ComponentText = {
   },
 };
 
-/**
- * @deprecated
- * This is supposed to be used internally and will be removed in the next majoy release.
- */
-export const SharedText = {
-  CountryCodeSelect: {
-    ariaLabel: 'Country code',
-  },
-  ShowPasswordButton: {
-    ariaLabel: {
-      showPassword: 'Show password',
-      hidePassword: 'Hide password',
-    },
-  },
-  Fields: {
-    ariaLabel: {
-      clearField: 'Clear search',
-    },
-  },
-  SearchField: {
-    ariaLabel: {
-      search: 'Search',
-    },
-  },
-  StepperField: {
-    ariaLabel: {
-      IncreaseTo: 'Increase to',
-      DecreaseTo: 'Decrease to',
-    },
-  },
-  Collection: {
-    SearchFieldLabel: 'Search',
-  },
-};
-
 type ComponentNames = keyof typeof ComponentClassObject;
 export type ComponentClasses =
   typeof ComponentClassObject[ComponentNames]['className'];
