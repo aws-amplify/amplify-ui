@@ -1,0 +1,83 @@
+import React from 'react';
+import { CardLink } from '@/components/CardLink';
+import { Grid, Icon, Link } from '@aws-amplify/ui-react';
+import { ColorsIcon, TypographyIcon, SizesIcon } from './icons';
+import { MdOutlineAutoAwesome } from 'react-icons/md';
+
+Amplify UI follows a consistent pattern when defining our default tokens for properties such as color, font size, border radius, and more. In addition to the reference here, you can browse our <Link isExternal href="https://github.com/aws-amplify/amplify-ui/tree/main/packages/ui/src/theme/tokens">default tokens</Link> and their corresponding types on GitHub.
+
+## Explore theme tokens
+
+<Grid 
+  templateColumns="repeat(auto-fill, minmax(18rem, 1fr))"
+  gap="var(--amplify-space-small)"
+  margin="var(--amplify-space-xl) 0">
+  <CardLink 
+    img={<ColorsIcon />}
+    href="/react/theming/default-theme/colors" 
+    title="Colors" 
+    desc="Tokens that define our default color palette" />
+
+  <CardLink 
+    img={<TypographyIcon />}
+    href="/react/theming/default-theme/typography" 
+    title="Typography" 
+    desc="Font families, font sizes, line heights and more" />
+
+  <CardLink 
+    img={<SizesIcon />}
+    href="/react/theming/default-theme/sizes" 
+    title="Sizes" 
+    desc="Tokens for spacing, border widths and radii" />
+</Grid>
+
+## Referencing default theme tokens
+
+The overall structure of the default theme object gives us a clue as to how to reference each token. If we look at the top level of the object, we can see how the tokens are separated by properties:
+
+```typescript file=../../../../../../packages/ui/src/theme/tokens/index.ts#L25-L41
+
+```
+
+If we use `space` as an example, we'd discover its token definition looks similar to the following (shortened for example):
+
+```json
+  space: {
+    xxs: {},
+    xs: {},
+    small: {
+      value: "0.75rem"
+    }
+    medium: {},
+    large: {},
+  }
+```
+
+All of our tokens follow this pattern: a top level namespace that is further defined by a scale, each which has their own unique value. In the case of our space design tokens, that scale is based on a size: small, medium, large, etc. Our [color tokens](/react/theming/default-theme/colors#neutral), on the other hand, are further defined by hue (red, blue, yellow, etc), and then by a numerical scale based on lightness (10-100). 
+
+This structure allows us to reference the small space value as `tokens.space.small` such as in the following example. You can also learn more about [theming](/theming#getting-started) in our getting started guide.
+
+```jsx
+import { useTheme } from '@aws-amplify/ui-react';
+
+const MyComponent = () => {
+  const { tokens } = useTheme();
+  return <View marginBottom={tokens.space.small}>{children}</Text>;
+};
+```
+
+The space token definition also gives us an idea of how the CSS custom properties associated with each token are named. Amplify UI uses <Link isExternal href="https://amzn.github.io/style-dictionary/#/">StyleDictionary</Link> to generate the associated CSS custom properties for each token. For the small space token, this would be `--amplify-space-small` and you can use it in your component:
+
+```jsx
+const MyComponent = () => {
+  return <View marginBottom="var(--amplify-space-small)">{children}</Text>;
+};
+```
+
+Or in your own stylesheet:
+
+```css
+.my-component {
+  margin-bottom: var(--amplify-space-small);
+}
+```

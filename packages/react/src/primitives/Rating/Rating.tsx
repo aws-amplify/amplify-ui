@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
 import { Flex } from '../Flex';
-import { IconStar } from '../Icon';
+import { IconStar } from '../Icon/internal';
 import { isIconFilled, isIconEmpty, isIconMixed } from './utils';
 import { RatingIcon } from './RatingIcon';
 import { RatingMixedIcon } from './RatingMixedIcon';
@@ -80,6 +80,9 @@ const RatingPrimitive: Primitive<RatingProps, typeof Flex> = (
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/rating)
+ */
 export const Rating = React.forwardRef(RatingPrimitive);
 
 Rating.displayName = 'Rating';

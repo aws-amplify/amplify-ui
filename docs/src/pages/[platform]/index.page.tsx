@@ -1,92 +1,37 @@
 import * as React from 'react';
+import dynamic from 'next/dynamic';
 
 import {
-  AmplifyProvider,
+  ThemeProvider,
   Authenticator,
   Button,
   Card,
   Flex,
   Grid,
   Heading,
-  IconChevronRight,
   Image,
   Link,
   Text,
-  TextField,
   ToggleButton,
   ToggleButtonGroup,
   View,
   useTheme,
+  useBreakpointValue,
 } from '@aws-amplify/ui-react';
+import { MdChevronRight } from 'react-icons/md';
 
-import { Copy } from '@/components/Copy';
+import { CopyButton } from '@/components/CopyButton';
 import { Footer } from '@/components/Layout/Footer';
 import { HomeLogo } from '../HomeLogo';
 import { HomePrimitivePreview } from '../HomePrimitivePreview';
-import { Sandpack } from '@codesandbox/sandpack-react';
-import type { SandpackThemeProp } from '@codesandbox/sandpack-react';
 import { theme } from '../../theme';
 import { ThemeButton } from '../ThemeButton';
 import { useCustomRouter } from '@/components/useCustomRouter';
+import { FRAMEWORKS } from '@/data/frameworks';
 
-const code = `import { AmplifyProvider, Button, Card, Text, Heading, Flex, Badge, Image, StepperField, useTheme } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-import { theme } from './theme';
-const Example = () => {
-  const { tokens } = useTheme();
-  return (
-    <Card>
-      <Flex direction="row" alignItems="flex-start">
-        <Image src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=930&q=80"
-          alt="Grey chair" width="8rem"/>
-        <Flex direction="column" gap={tokens.space.xs}>
-          <Flex direction="row">
-            <Badge variation="success">New</Badge>
-          </Flex>
-          <Heading level={3}>
-            Product title
-          </Heading>
-          <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut scelerisque risus in sem dapibus, nec vestibulum metus mattis. Mauris dignissim maximus tellus, in feugiat nibh rhoncus a.</Text>
-          <Flex direction="row" alignItems="center">
-            <Text
-              fontSize={tokens.fontSizes.large}
-              color={tokens.colors.font.secondary}>
-              $199.99
-            </Text>
-            <StepperField
-              label="Stepper"
-              defaultValue={1}
-              min={0}
-              max={10}
-              step={1}
-              labelHidden
-            />
-            <Button variation="primary">Add to cart</Button>
-          </Flex>
-        </Flex>
-      </Flex>
-    </Card>
-  )
-}
-export default function App() {
-  return (
-    <AmplifyProvider theme={theme}>
-      <Example />
-    </AmplifyProvider>
-  )
-}`;
-
-const themeCode = `export const theme = {
-  name: 'my-theme',
-  // customizations
-  // tokens: {
-  //   colors: {
-  //     font: {
-  //       secondary: { value: 'hotpink' }
-  //     }
-  //   }
-  // }
-};`;
+// react-live does not work with SSR so we have to load
+// it dynamically and only in the client
+const HomeEditor = dynamic(() => import('../HomeEditor'), { ssr: false });
 
 const AmpCard = ({ title, description, href }) => (
   <Link isExternal href={href} className="docs-home-amp-product-card">
@@ -103,41 +48,11 @@ const HomePage = ({ colorMode }) => {
   } = useCustomRouter();
   const { tokens } = useTheme();
   const [themeOverride, setThemeOverride] = React.useState('');
-  const sandPackTheme: SandpackThemeProp = {
-    palette: {
-      activeText: `${tokens.colors.font.interactive}`,
-      defaultText: `${tokens.colors.font.secondary}`,
-      // this is also used as the border color in sandpack
-      inactiveText: `${tokens.colors.border.primary}`,
-      activeBackground: `${tokens.colors.overlay[10]}`,
-      defaultBackground: `${tokens.colors.background.primary}`,
-      inputBackground: `${tokens.colors.background.primary}`,
-      accent: `${tokens.colors.border.focus}`,
-      errorBackground: `${tokens.colors.background.error}`,
-      errorForeground: `${tokens.colors.font.error}`,
-    },
-    syntax: {
-      plain: `${tokens.colors.font.primary}`,
-      comment: {
-        color: `${tokens.colors.font.tertiary}`,
-        fontStyle: 'italic',
-      },
-      keyword: `${tokens.colors.red[80]}`,
-      tag: `${tokens.colors.orange[80]}`,
-      punctuation: `${tokens.colors.blue[80]}`,
-      definition: `${tokens.colors.teal[80]}`,
-      property: `${tokens.colors.purple[90]}`,
-      static: `${tokens.colors.pink[90]}`,
-      string: `${tokens.colors.green[90]}`,
-    },
-    typography: {
-      bodyFont:
-        '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
-      monoFont:
-        '"Fira Mono", "DejaVu Sans Mono", Menlo, Consolas, "Liberation Mono", Monaco, "Lucida Console", monospace',
-      fontSize: '16px',
-    },
-  };
+  const showEditor = useBreakpointValue({
+    base: false,
+    medium: true,
+  });
+
   const installScripts = {
     react: `npm i @aws-amplify/ui-${platform} aws-amplify`,
     vue: `npm i @aws-amplify/ui-${platform} aws-amplify`,
@@ -147,7 +62,7 @@ const HomePage = ({ colorMode }) => {
   const frameworkInstallScript = installScripts[platform.toString()];
   return (
     <View data-amplify-theme-override={themeOverride}>
-      <AmplifyProvider theme={theme} colorMode={colorMode}>
+      <ThemeProvider theme={theme} colorMode={colorMode}>
         <View as="section" className="container">
           <h1 className="docs-home-logo">
             <HomeLogo />
@@ -181,17 +96,16 @@ const HomePage = ({ colorMode }) => {
                   href={`/${platform}/getting-started/installation`}
                 >
                   Get started
-                  <IconChevronRight />
+                  <MdChevronRight />
                 </Button>
                 <code className="install-code__container">
                   <p className="install-code__content">
                     {frameworkInstallScript}
                   </p>
-                  <Copy
+                  <CopyButton
                     className="install-code__button"
-                    size=""
+                    copyText={frameworkInstallScript}
                     variation="link"
-                    text={frameworkInstallScript}
                   />
                 </code>
               </Flex>
@@ -202,64 +116,32 @@ const HomePage = ({ colorMode }) => {
               flex="1"
               display={{ base: 'none', large: 'initial' }}
             >
-              <Image
-                alt="React logo"
-                className="docs-home-react"
-                src="/svg/integrations/react.svg"
-              />
-              <Image
-                alt="Angular logo"
-                className="docs-home-angular"
-                src="/svg/integrations/angular.svg"
-              />
-              <Image
-                alt="Vue logo"
-                className="docs-home-vue"
-                src="/svg/integrations/vue.svg"
-              />
-              <Image
-                alt="Flutter logo"
-                className="docs-home-flutter"
-                src="/svg/integrations/flutter.svg"
-              />
+              {FRAMEWORKS.map((framework) => (
+                <Image
+                  key={framework}
+                  alt={`${framework} logo`}
+                  className={`docs-home-${framework}`}
+                  src={`/svg/integrations/${framework}.svg`}
+                />
+              ))}
             </Flex>
           </Flex>
         </View>
-        <View
-          backgroundColor={tokens.colors.background.secondary}
-          padding={tokens.space.large}
-        >
-          <Heading level={2} textAlign="center" margin={tokens.space.large}>
-            Take it for a test drive
-          </Heading>
-          <View className="container">
-            <Card style={{ width: '100%', padding: 0 }} variation="outlined">
-              <Sandpack
-                template="react"
-                files={{
-                  '/App.js': { code: code, active: true },
-                  '/theme.js': { code: themeCode },
-                }}
-                theme={sandPackTheme}
-                options={{
-                  autorun: false,
-                  editorHeight: 500,
-                  showNavigator: true, // this will show a top navigator bar instead of the refresh button
-                  showTabs: true, // you can toggle the tabs on/off manually
-                  showLineNumbers: true, // this is off by default, but you can show line numbers for the editor
-                  wrapContent: true, // also off by default, this wraps the code instead of creating horizontal overflow
-                }}
-                customSetup={{
-                  dependencies: {
-                    '@aws-amplify/ui-react': 'latest',
-                    'aws-amplify': 'latest',
-                  },
-                  entry: '/index.js',
-                }}
-              />
-            </Card>
+        {showEditor ? (
+          <View
+            backgroundColor={tokens.colors.background.secondary}
+            padding={tokens.space.large}
+          >
+            <Heading level={2} textAlign="center" margin={tokens.space.large}>
+              Take it for a test drive
+            </Heading>
+            <View className="container">
+              <Card style={{ width: '100%', padding: 0 }} variation="outlined">
+                <HomeEditor />
+              </Card>
+            </View>
           </View>
-        </View>
+        ) : null}
 
         <View as="section" className="docs-home-section container">
           <Flex
@@ -286,7 +168,7 @@ const HomePage = ({ colorMode }) => {
                 isFullWidth
               >
                 Authenticator
-                <IconChevronRight />
+                <MdChevronRight />
               </Button>
             </Flex>
           </Flex>
@@ -312,7 +194,7 @@ const HomePage = ({ colorMode }) => {
               </Text>
               <Button as="a" size="large" href={`/${platform}/theming/`}>
                 Get started with theming
-                <IconChevronRight />
+                <MdChevronRight />
               </Button>
             </Flex>
             <Flex
@@ -380,7 +262,7 @@ const HomePage = ({ colorMode }) => {
                 href={`/${platform}/components/authenticator`}
               >
                 Get started with components
-                <IconChevronRight />
+                <MdChevronRight />
               </Button>
             </Flex>
           </Flex>
@@ -409,7 +291,7 @@ const HomePage = ({ colorMode }) => {
                   WCAG
                 </Link>{' '}
                 and{' '}
-                <Link isExternal href="https://www.w3.org/TR/wai-aria-1.2/">
+                <Link isExternal href="https://www.w3.org/WAI/ARIA/apg/">
                   WAI-ARIA
                 </Link>{' '}
                 best practices and guidelines such as color contrast, keyboard
@@ -453,7 +335,7 @@ const HomePage = ({ colorMode }) => {
           </Grid>
         </View>
         <Footer />
-      </AmplifyProvider>
+      </ThemeProvider>
     </View>
   );
 };

@@ -1,5 +1,64 @@
 # @aws-amplify/ui
 
+## 3.10.0
+
+### Minor Changes
+
+- [#2021](https://github.com/aws-amplify/amplify-ui/pull/2021) [`6c267aaf8`](https://github.com/aws-amplify/amplify-ui/commit/6c267aaf8b6cb656458e3398cc923e0e259ea9a2) Thanks [@jacoblogan](https://github.com/jacoblogan)! - React: pass isDisabled flag on searchfield onto the search button
+  UI: add design tokens for collection and searchfield
+
+  ### Searchfield Tokens added
+
+  - --amplify-components-searchfield-color
+  - --amplify-components-searchfield-button-color
+  - --amplify-components-searchfield-button-active-background-color
+  - --amplify-components-searchfield-button-active-border-color
+  - --amplify-components-searchfield-button-active-color
+  - --amplify-components-searchfield-button-disabled-background-color
+  - --amplify-components-searchfield-button-disabled-border-color
+  - --amplify-components-searchfield-button-disabled-color
+  - --amplify-components-searchfield-button-focus-background-color
+  - --amplify-components-searchfield-button-focus-border-color
+  - --amplify-components-searchfield-button-focus-color
+  - --amplify-components-searchfield-button-hover-background-color
+  - --amplify-components-searchfield-button-hover-border-color
+  - --amplify-components-searchfield-button-hover-color
+
+  ### Collection tokens added
+
+  - --amplify-components-collection-pagination-current-color
+  - --amplify-components-collection-pagination-current-background-color
+  - --amplify-components-collection-pagination-button-color
+  - --amplify-components-collection-pagination-button-hover-background-color
+  - --amplify-components-collection-pagination-button-hover-color
+  - --amplify-components-collection-pagination-button-disabled-color
+  - --amplify-components-collection-search-input-color
+  - --amplify-components-collection-search-button-color
+  - --amplify-components-collection-search-button-active-background-color
+  - --amplify-components-collection-search-button-active-border-color
+  - --amplify-components-collection-search-button-active-color
+  - --amplify-components-collection-search-button-disabled-background-color
+  - --amplify-components-collection-search-button-disabled-border-color
+  - --amplify-components-collection-search-button-disabled-color
+  - --amplify-components-collection-search-button-focus-background-color
+  - --amplify-components-collection-search-button-focus-border-color
+  - --amplify-components-collection-search-button-focus-color
+  - --amplify-components-collection-search-button-hover-background-color
+  - --amplify-components-collection-search-button-hover-border-color
+  - --amplify-components-collection-search-button-hover-color
+
+## 3.9.2
+
+### Patch Changes
+
+- [#1910](https://github.com/aws-amplify/amplify-ui/pull/1910) [`766bf302c`](https://github.com/aws-amplify/amplify-ui/commit/766bf302c4d594ae92f1506967b6f1858687a41c) Thanks [@wlee221](https://github.com/wlee221)! - refactor(internal): Move `autoSignIn` logic out of `signUp` actor
+
+* [#1910](https://github.com/aws-amplify/amplify-ui/pull/1910) [`766bf302c`](https://github.com/aws-amplify/amplify-ui/commit/766bf302c4d594ae92f1506967b6f1858687a41c) Thanks [@wlee221](https://github.com/wlee221)! - On userpools with sms mfa required, authenticator will now automatically redirect user to sms mfa page after successful sign up.
+
+  Previously, end users needed to sign in again to go to the sms mfa page ([#1660](https://github.com/aws-amplify/amplify-ui/issues/1660)).
+
+- [#1932](https://github.com/aws-amplify/amplify-ui/pull/1932) [`a41ecfbf1`](https://github.com/aws-amplify/amplify-ui/commit/a41ecfbf1e7fc35e20622a6fb514c3bab7404621) Thanks [@zchenwei](https://github.com/zchenwei)! - fix(style): adjust color and border color on ToggleButton to meet 3:1 contrast ratio
+
 ## 3.9.1
 
 ### Patch Changes

@@ -1,20 +1,11 @@
 import * as React from 'react';
 import debounce from 'lodash/debounce';
-import {
-  Icon,
-  Heading,
-  Link,
-  Text,
-  View,
-  useTheme,
-} from '@aws-amplify/ui-react';
-import { SiW3C, SiReact } from 'react-icons/si';
+import { Heading, Link, Text, View, useTheme } from '@aws-amplify/ui-react';
 
-import { Sidebar } from './SecondaryNav';
 import { TableOfContents } from '../TableOfContents';
 import { Footer } from './Footer';
 import { GITHUB_REPO_FILE } from '@/data/links';
-import { DesignTokenIcon } from '@/components/DesignTokenIcon';
+import { DesignTokenIcon, ReactIcon, W3CIcon } from '@/components/Icons';
 
 export default function Page({
   children,
@@ -75,16 +66,12 @@ export default function Page({
   }, []);
 
   return (
-    <div className="docs-main">
-      <Sidebar />
+    <>
       <main className="docs-content">
         <section className="docs-content-body">
           <section className="docs-meta">
             <Heading level={1}>{title}</Heading>
-            <Text
-              fontSize={`${tokens.fontSizes.xl}`}
-              className="docs-description"
-            >
+            <Text fontSize={tokens.fontSizes.xl} className="docs-description">
               {description}
             </Text>
             <View className="docs-component-links">
@@ -94,11 +81,7 @@ export default function Page({
                   href={ariaPattern}
                   isExternal
                 >
-                  <Icon
-                    ariaLabel="W3C"
-                    as={SiW3C}
-                    marginInlineEnd={tokens.space.xs}
-                  />
+                  <W3CIcon ariaLabel="W3C" marginInlineEnd={tokens.space.xs} />
                   ARIA pattern
                 </Link>
               ) : null}
@@ -121,10 +104,9 @@ export default function Page({
                   href={`${GITHUB_REPO_FILE}${reactSource}`}
                   isExternal
                 >
-                  <Icon
+                  <ReactIcon
                     ariaLabel=""
                     aria-hidden="true"
-                    as={SiReact}
                     marginInlineEnd={tokens.space.xs}
                   />
                   React source
@@ -138,9 +120,9 @@ export default function Page({
         <Footer />
       </main>
 
-      {hideToc ? null : (
+      {!hideToc && headings.length ? (
         <TableOfContents title="Contents" headings={headings} />
-      )}
-    </div>
+      ) : null}
+    </>
   );
 }

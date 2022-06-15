@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { isDesignToken } from '@aws-amplify/ui';
 
 import {
   BaseStyleProps,
@@ -133,12 +132,13 @@ export const convertStylePropsToStyleObj: ConvertStylePropsToStyleObj = ({
         nonStyleProps[propKey] = props[propKey];
       } else if (!isEmptyString(props[propKey])) {
         let value = props[propKey];
-        // if styleProp is a DesignToken use its toString()
-        if (isDesignToken(value)) {
-          value = value.toString();
-        } else {
-          value = getValueAtCurrentBreakpoint(value, breakpoint, breakpoints);
-        }
+        value = getValueAtCurrentBreakpoint(
+          value,
+          breakpoint,
+          breakpoints,
+          propKey
+        );
+
         const reactStyleProp = ComponentPropsToStylePropsMap[propKey];
         style = { ...style, [reactStyleProp]: value };
       }

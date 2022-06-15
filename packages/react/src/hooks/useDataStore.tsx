@@ -47,7 +47,7 @@ export function useDataStoreBinding<Model extends PersistentModel>(
         .then<void>((item) => {
           setItems([item]);
         })
-        .catch((error) => {
+        .catch((error: Error) => {
           setError(error);
         })
         .finally(() => {

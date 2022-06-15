@@ -1,21 +1,20 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { classNameModifier } from '../shared/utils';
-import { ComponentClassNames } from '../shared/constants';
+import { useStepper } from './useStepper';
 import { FieldDescription, FieldErrorMessage } from '../Field';
 import { FieldGroup } from '../FieldGroup';
 import { FieldGroupIconButton } from '../FieldGroupIcon';
 import { Flex } from '../Flex';
-import { IconAdd, IconRemove } from '../Icon';
+import { IconAdd, IconRemove } from '../Icon/internal';
 import { Input } from '../Input';
 import { Label } from '../Label';
 import { Primitive } from '../types/view';
-import { SharedText } from '../shared/i18n';
-import { splitPrimitiveProps } from '../shared/styleUtils';
 import { StepperFieldProps } from '../types/stepperField';
+import { classNameModifier } from '../shared/utils';
+import { ComponentClassNames, ComponentText } from '../shared/constants';
+import { splitPrimitiveProps } from '../shared/styleUtils';
 import { useStableId } from '../utils/useStableId';
-import { useStepper } from './useStepper';
 
 export const DECREASE_ICON = 'decrease-icon';
 export const INCREASE_ICON = 'increase-icon';
@@ -35,6 +34,8 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
     isDisabled,
     isReadOnly,
     isRequired,
+    increaseButtonLabel = ComponentText.StepperField.increaseButtonLabel,
+    decreaseButtonLabel = ComponentText.StepperField.decreaseButtonLabel,
     label,
     labelHidden = false,
     onStepChange,
@@ -117,9 +118,7 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
         outerStartComponent={
           <FieldGroupIconButton
             aria-controls={fieldId}
-            ariaLabel={`${SharedText.StepperField.ariaLabel.DecreaseTo} ${
-              value - step
-            }`}
+            ariaLabel={`${decreaseButtonLabel} ${value - step}`}
             className={classNames(
               ComponentClassNames.StepperFieldButtonDecrease,
               classNameModifier(
@@ -138,9 +137,7 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
         outerEndComponent={
           <FieldGroupIconButton
             aria-controls={fieldId}
-            ariaLabel={`${SharedText.StepperField.ariaLabel.IncreaseTo} ${
-              value + step
-            }`}
+            ariaLabel={`${increaseButtonLabel} ${value + step}`}
             className={classNames(
               ComponentClassNames.StepperFieldButtonIncrease,
               classNameModifier(
@@ -182,6 +179,9 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/stepperfield)
+ */
 export const StepperField = React.forwardRef(StepperFieldPrimitive);
 
 StepperField.displayName = 'StepperField';

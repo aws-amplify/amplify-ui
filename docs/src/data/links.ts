@@ -2,6 +2,7 @@ export interface ComponentNavItem {
   href: string;
   label: string;
   body: string;
+  tertiary?: boolean;
 }
 
 const sortByLabel = (a: ComponentNavItem, b: ComponentNavItem) =>
@@ -11,7 +12,7 @@ export const baseComponents: ComponentNavItem[] = [
   {
     href: '/components/view',
     label: 'View',
-    body: `View is a container that contains stuff. View is the most abstract component on top of which all other components live.`,
+    body: `View is the foundational component for Amplify UI primitives. While View renders a <div> by default, it can render any HTML element and supports styling via props.`,
     platforms: ['react'],
   },
   {
@@ -41,7 +42,7 @@ export const baseComponents: ComponentNavItem[] = [
   {
     href: '/components/divider',
     label: 'Divider',
-    body: ``,
+    body: `A Divider creates separations in content. Dividers can help organize content and establish visual rhythm.`,
     platforms: ['react'],
   },
   {
@@ -60,10 +61,22 @@ export const connectedComponents = [
     platforms: ['react', 'vue', 'angular', 'flutter'],
   },
   {
-    href: '/components/chatbot',
-    label: 'Chatbot',
-    body: 'Chatbot automatically renders a complete chat messaging interface that can be used out-of-the-box, or it can be customized using theming support.',
-    platforms: ['react', 'vue', 'angular'],
+    href: '/components/authenticator/configuration',
+    label: 'Configuration',
+    platforms: ['react', 'vue', 'angular', 'flutter'],
+    tertiary: true,
+  },
+  {
+    href: '/components/authenticator/customization',
+    label: 'Customization',
+    platforms: ['react', 'vue', 'angular', 'flutter'],
+    tertiary: true,
+  },
+  {
+    href: '/components/authenticator/headless',
+    label: 'Headless Usage',
+    platforms: ['react', 'vue', 'angular', 'flutter'],
+    tertiary: true,
   },
   {
     href: '/components/geo',
@@ -71,16 +84,15 @@ export const connectedComponents = [
     body: 'Amplify UI Geo provides UI components for maps and location search built on top of Amazon Location Service.',
     platforms: ['react'],
   },
-  {
-    href: '/components/storage',
-    label: 'Storage',
-    body: 'A set of components to help interact with S3 storage.',
-    platforms: ['react', 'vue', 'angular'],
-  },
-].sort(sortByLabel);
+];
 
 export const dataDisplayComponents = [
-  { href: '/components/badge', label: 'Badge', body: ``, platforms: ['react'] },
+  {
+    href: '/components/badge',
+    label: 'Badge',
+    body: `A Badge is a small visual element to denote a status or message about an item. A small, color-coded visual element that contains letters or numbers, that you can use to label, categorize, or organize items.`,
+    platforms: ['react'],
+  },
   {
     href: '/components/rating',
     label: 'Rating',
@@ -111,7 +123,7 @@ export const feedbackComponents: ComponentNavItem[] = [
   {
     href: '/components/loader',
     label: 'Loader',
-    body: ``,
+    body: `Loaders provide a visual cue that an action is either processing or awaiting a result. They are used to help the customer understand the system is working to fulfill a request.`,
     platforms: ['react'],
   },
 ].sort(sortByLabel);
@@ -138,7 +150,7 @@ export const inputComponents = [
   {
     href: '/components/sliderfield',
     label: 'Slider Field',
-    body: ``,
+    body: `Sliders allow users to quickly select a value within a range. They should be used when the upper and lower bounds to the range are invariable.`,
     platforms: ['react'],
   },
   {
@@ -180,7 +192,7 @@ export const inputComponents = [
   {
     href: '/components/checkboxfield',
     label: 'Checkbox Field',
-    body: ``,
+    body: `CheckboxField is used to mark an individual item as selected, or to select multiple items from a list of individual items.`,
     platforms: ['react'],
   },
   {
@@ -192,7 +204,7 @@ export const inputComponents = [
   {
     href: '/components/button',
     label: 'Button',
-    body: ``,
+    body: `The Button primitive is used to trigger an action or event, such as submitting a form, opening a dialog, canceling an action, or performing a delete operation.`,
     platforms: ['react'],
   },
 ].sort(sortByLabel);
@@ -201,13 +213,13 @@ export const layoutComponents = [
   {
     href: '/components/card',
     label: 'Card',
-    body: ``,
+    body: `The Card component can be used to group related pieces of content.`,
     platforms: ['react'],
   },
   {
     href: '/components/collection',
     label: 'Collection',
-    body: ``,
+    body: `A Collection wraps Flex and Grid components, and provides a way to display items in a collection from a data source.`,
     platforms: ['react'],
   },
   {
@@ -236,6 +248,15 @@ export const layoutComponents = [
   },
 ].sort(sortByLabel);
 
+export const utilityComponents = [
+  {
+    href: '/components/visuallyhidden',
+    label: 'Visually Hidden',
+    body: `The Visually Hidden component is used to visually hide content while leaving it available to screen readers.`,
+    platforms: ['react'],
+  },
+].sort(sortByLabel);
+
 export const navigationComponents: ComponentNavItem[] = [
   {
     href: '/components/link',
@@ -257,14 +278,153 @@ export const navigationComponents: ComponentNavItem[] = [
   },
 ].sort(sortByLabel);
 
-export const utilityComponents = [
+export const primitiveComponents = [
   {
-    href: '/components/visuallyhidden',
-    label: 'Visually Hidden',
-    body: `The Visually Hidden component is used to visually hide content while leaving it available to screen readers.`,
+    heading: 'Base',
+    components: baseComponents,
+  },
+  {
+    heading: 'Feedback',
+    components: feedbackComponents,
+  },
+  {
+    heading: 'Navigation',
+    components: navigationComponents,
+  },
+  {
+    heading: 'Inputs',
+    components: inputComponents,
+  },
+  {
+    heading: 'Layout',
+    components: layoutComponents,
+  },
+  {
+    heading: 'Data display',
+    components: dataDisplayComponents,
+  },
+  {
+    heading: 'Utilities',
+    components: utilityComponents,
+  },
+];
+
+export const legacyComponents = [
+  {
+    href: '/components/chatbot',
+    label: 'Chatbot',
+    body: 'Chatbot automatically renders a complete chat messaging interface that can be used out-of-the-box, or it can be customized using theming support.',
+    platforms: ['react', 'vue', 'angular'],
+  },
+  {
+    href: '/components/storage',
+    label: 'Storage',
+    body: 'A set of components to help interact with S3 storage.',
+    platforms: ['react', 'vue', 'angular'],
+  },
+];
+
+export const guides = [
+  {
+    href: '/guides',
+    label: 'Overview',
+  },
+  {
+    href: '/guides/css-in-js',
+    label: 'CSS in JS',
+    platforms: ['react', 'vue', 'angular'],
+  },
+  {
+    href: '/guides/auth-protected',
+    label: 'Protected Routes',
     platforms: ['react'],
   },
-].sort(sortByLabel);
+];
+
+export const gettingStarted = [
+  {
+    href: '/getting-started/introduction',
+    label: 'Introduction',
+  },
+  {
+    href: '/getting-started/installation',
+    label: 'Installation',
+  },
+  {
+    href: '/getting-started/usage',
+    label: 'Usage',
+  },
+  {
+    href: '/getting-started/usage/create-react-app',
+    label: 'Create React App',
+    platforms: ['react'],
+    tertiary: true,
+  },
+  {
+    href: '/getting-started/usage/nextjs',
+    label: 'Next.js',
+    platforms: ['react'],
+    tertiary: true,
+  },
+  {
+    href: '/getting-started/accessibility',
+    label: 'Accessibility',
+  },
+  {
+    href: '/getting-started/migration',
+    label: 'Migration',
+    platforms: ['react', 'vue', 'angular'],
+  },
+  {
+    href: '/getting-started/troubleshooting',
+    label: 'Troubleshooting',
+    platforms: ['react', 'vue', 'angular'],
+  },
+];
+
+export const theming = [
+  {
+    href: '/theming',
+    label: 'Overview',
+  },
+  {
+    href: '/theming/responsive',
+    label: 'Responsive',
+    platforms: ['react'],
+  },
+  {
+    href: '/theming/default-theme',
+    label: 'Default Theme',
+    platforms: ['react', 'vue', 'angular'],
+  },
+  {
+    href: '/theming/default-theme/colors',
+    label: 'Colors',
+    platforms: ['react', 'vue', 'angular'],
+    tertiary: true,
+  },
+  {
+    href: '/theming/default-theme/typography',
+    label: 'Typography',
+    platforms: ['react', 'vue', 'angular'],
+    tertiary: true,
+  },
+  {
+    href: '/theming/default-theme/sizes',
+    label: 'Sizes',
+    platforms: ['react', 'vue', 'angular'],
+    tertiary: true,
+  },
+  {
+    href: '/theming/dark-mode',
+    label: 'Dark mode',
+  },
+  {
+    href: '/theming/css-variables',
+    label: 'CSS variables',
+    platforms: ['react', 'vue', 'angular'],
+  },
+];
 
 export const DISCORD = 'https://discord.gg/amplify';
 export const COMMUNITY = 'https://amplify.aws/community';

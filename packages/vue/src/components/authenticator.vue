@@ -242,6 +242,16 @@ const hasTabs = computed(() => {
     actorState.value?.matches('signIn') || actorState.value?.matches('signUp')
   );
 });
+
+const hasRouteComponent = computed(() => {
+  return !(
+    state.value.matches('authenticated') ||
+    state.value.matches('idle') ||
+    state.value.matches('setup') ||
+    state.value.matches('signOut') ||
+    actorState.value?.matches('autoSignIn')
+  );
+});
 </script>
 
 <template>
@@ -249,7 +259,7 @@ const hasTabs = computed(() => {
     v-bind="$attrs"
     data-amplify-authenticator
     :data-variation="variation"
-    v-if="!state?.matches('authenticated')"
+    v-if="hasRouteComponent"
   >
     <div data-amplify-container>
       <slot name="header"> </slot>

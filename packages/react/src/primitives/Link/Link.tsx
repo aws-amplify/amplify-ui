@@ -24,6 +24,9 @@ const LinkPrimitive: Primitive<LinkProps, 'a'> = (
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/link)
+ */
 export const Link = React.forwardRef(LinkPrimitive);
 
 Link.displayName = 'Link';

@@ -133,8 +133,9 @@ export function createAuthenticatorMachine() {
           on: {
             SIGN_IN: 'signIn',
             'done.invoke.signUpActor': {
-              target: 'signUp.autoSignIn',
+              target: '#authenticator.signIn',
               actions: 'setActorDoneData',
+              cond: 'shouldAutoSignIn',
             },
           },
         },
@@ -293,7 +294,7 @@ export function createAuthenticatorMachine() {
           actorRef: (context, _) => {
             const { services } = context;
             const actor = signInActor({ services }).withContext({
-              authAttributes: context.actorDoneData?.authAttributes,
+              authAttributes: context.actorDoneData?.authAttributes ?? {},
               user: context.user,
               intent: context.actorDoneData?.intent,
               country_code: DEFAULT_COUNTRY_CODE,
@@ -373,6 +374,7 @@ export function createAuthenticatorMachine() {
           event.data?.intent === 'confirmSignUp',
         shouldRedirectToResetPassword: (_, event) =>
           event.data?.intent === 'confirmPasswordReset',
+        shouldAutoSignIn: (_, event) => event.data?.intent === 'autoSignIn',
         shouldSetup: (context) => context.hasSetup === false,
         // other context guards
         hasActor: (context) => !!context.actorRef,

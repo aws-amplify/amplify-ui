@@ -33,9 +33,6 @@ module.exports = {
 
     // TODO remove once the full set of rules can be turned on for the repo
     'src/react-shim.js',
-
-    // TODO remove once the icons have been deprecated for v3
-    'src/primitives/Icon/icons',
   ],
   extends: sharedExtensions,
   plugins: ['react-hooks'],
@@ -69,9 +66,11 @@ module.exports = {
       files: [
         // TODO Uncomment the below lines on an individual basis as the updates to pass linting are completed.
         // If needed, these can be broken down further, e.g. 'src/components/Geo/**/*'
+        'src/components/Geo/**/*',
+        'src/components/ThemeProvider/**/*',
         'src/helpers/**/*',
+        'src/hooks/**/*',
         // 'src/components/**/*',
-        // 'src/hooks/**/*',
         // 'src/primitives/**/*',
       ],
       extends: [

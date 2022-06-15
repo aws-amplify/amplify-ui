@@ -1,23 +1,31 @@
 import * as React from 'react';
 
 import { Button } from '../Button';
-import { ComponentClassNames } from '../shared/constants';
-import { IconVisibility, IconVisibilityOff } from '../Icon';
+import { ComponentClassNames, ComponentText } from '../shared/constants';
+import { IconVisibility, IconVisibilityOff } from '../Icon/internal';
 import { Primitive, ShowPasswordButtonProps } from '../types';
-import { SharedText } from '../shared/i18n';
 
-const ariaLabelText = SharedText.ShowPasswordButton.ariaLabel;
+const ariaLabelText = ComponentText.PasswordField;
 
 const ShowPasswordButtonPrimitive: Primitive<
   ShowPasswordButtonProps,
   typeof Button
-> = ({ fieldType, size, ...rest }, ref) => {
+> = (
+  {
+    fieldType,
+    size,
+    hidePasswordButtonLabel,
+    showPasswordButtonLabel,
+    ...rest
+  },
+  ref
+) => {
   return (
     <Button
       ariaLabel={
         fieldType === 'password'
-          ? ariaLabelText.showPassword
-          : ariaLabelText.hidePassword
+          ? showPasswordButtonLabel || ariaLabelText.showPasswordButtonLabel
+          : hidePasswordButtonLabel || ariaLabelText.hidePasswordButtonLabel
       }
       className={ComponentClassNames.FieldShowPassword}
       ref={ref}

@@ -1,13 +1,15 @@
 import { Tabs, TabItem } from '@aws-amplify/ui-react';
+import { ThemeAlert } from '@/components/ThemeAlert';
 
-Step 1: Wrap your App with `AmplifyProvider`
+<ThemeAlert />
+Step 1: Wrap your App with `ThemeProvider`
 
 ```jsx
-import { AmplifyProvider } from '@aws-amplify/ui-react';
+import { ThemeProvider } from '@aws-amplify/ui-react';
 const App = (
-  <AmplifyProvider>
+  <ThemeProvider>
     <MyApp>/* AmplifyUI */</MyApp>
-  </AmplifyProvider>
+  </ThemeProvider>
 );
 ```
 
@@ -33,7 +35,7 @@ Optional: To extend or override a token in the default theme, create a custom th
 <Tabs>
   <TabItem title="JavaScript">
     ```jsx
-    import { AmplifyProvider, Theme } from '@aws-amplify/ui-react';
+    import { ThemeProvider, Theme } from '@aws-amplify/ui-react';
 
     // Step 1: Create a new Theme with your custom values
     const theme = {
@@ -48,19 +50,19 @@ Optional: To extend or override a token in the default theme, create a custom th
       },
     };
 
-    // Step 2: Pass the new theme to `AmplifyProvider`
+    // Step 2: Pass the new theme to `ThemeProvider`
     // this will apply the theme to all Amplify UI components
     const App = (
-      <AmplifyProvider theme={theme}>
+      <ThemeProvider theme={theme}>
         <MyApp>/* AmplifyUI */</MyApp>
-      </AmplifyProvider>
+      </ThemeProvider>
     );
     ```
 
   </TabItem>
   <TabItem title="TypeScript">
     ```tsx
-    import { AmplifyProvider, Theme } from '@aws-amplify/ui-react';
+    import { ThemeProvider, Theme } from '@aws-amplify/ui-react';
 
     // Step 1: Create a new Theme with your custom values
     const theme: Theme = {
@@ -75,12 +77,12 @@ Optional: To extend or override a token in the default theme, create a custom th
       },
     };
 
-    // Step 2: Pass the new theme to `AmplifyProvider`
+    // Step 2: Pass the new theme to `ThemeProvider`
     // this will apply the theme to all Amplify UI components
     const App = (
-      <AmplifyProvider theme={theme}>
+      <ThemeProvider theme={theme}>
         <MyApp>/* AmplifyUI */</MyApp>
-      </AmplifyProvider>
+      </ThemeProvider>
     );
     ```
 

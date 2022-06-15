@@ -1,11 +1,27 @@
-import { Amplify, Auth } from 'aws-amplify';
+import React, { forwardRef, useEffect, useMemo, useState } from 'react';
 import maplibregl from 'maplibre-gl';
 import { AmplifyMapLibreRequest } from 'maplibre-gl-js-amplify';
-import React, { forwardRef, useEffect, useMemo, useState } from 'react';
 import ReactMapGL from 'react-map-gl';
 import type { MapProps, MapRef, TransformRequestFunction } from 'react-map-gl';
+import { Amplify, Auth } from 'aws-amplify';
 
-export type MapViewProps = Omit<MapProps, 'transformRequest'>;
+// Utility types for missing AmplifyConfig type, only includes Geo related key/values.
+// Note: these types should not be be used outside this file
+type AmplifyGeoOptions = {
+  maps?: { default: string };
+  region: string;
+};
+type AmplifyGeoConfig = {
+  geo?: {
+    amazon_location_service?: AmplifyGeoOptions;
+    AmazonLocationService?: AmplifyGeoOptions;
+  };
+};
+
+interface MapViewProps extends Omit<MapProps, 'mapLib' | 'transformRequest'> {
+  // replace `any` typed MapProps.mapLib
+  mapLib?: typeof maplibregl;
+}
 
 /**
  * The `MapView` component uses [react-map-gl](https://visgl.github.io/react-map-gl/) and
@@ -15,20 +31,22 @@ export type MapViewProps = Omit<MapProps, 'transformRequest'>;
  * [react-map-gl default Map](https://visgl.github.io/react-map-gl/docs/api-reference/map), it accepts the same
  * properties except `transformRequest` which is set by Amplify.
  *
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/geo#mapview)
+ *
  * @example
  * // Basic usage of MapView:
  * function App() {
  *   return <MapView />
  * }
  */
-export const MapView = forwardRef<MapRef, MapViewProps>(
+const MapView = forwardRef<MapRef, MapViewProps>(
   ({ mapLib, mapStyle, style, ...props }, ref) => {
-    const amplifyConfig = Amplify.configure() as any;
+    const amplifyConfig = Amplify.configure() as AmplifyGeoConfig;
     const geoConfig = useMemo(
       () =>
         amplifyConfig.geo?.amazon_location_service ??
         amplifyConfig.geo?.AmazonLocationService ??
-        {},
+        ({} as AmplifyGeoOptions),
       [amplifyConfig]
     );
     const [transformRequest, setTransformRequest] = useState<
@@ -82,3 +100,6 @@ export const MapView = forwardRef<MapRef, MapViewProps>(
     ) : null;
   }
 );
+
+MapView.displayName = 'MapView';
+export { MapView };

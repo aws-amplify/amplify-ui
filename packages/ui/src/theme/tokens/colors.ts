@@ -29,6 +29,7 @@ type BackgroundColors<DesignTokenType = DesignToken<ColorValue>> = {
 
 type BorderColors<DesignTokenType = DesignToken<ColorValue>> = {
   disabled: DesignTokenType;
+  pressed: DesignTokenType;
   focus: DesignTokenType;
   error: DesignTokenType;
 } & OrdinalScale<DesignTokenType>;
@@ -212,7 +213,7 @@ export const colors: Colors = {
     primary: { value: '{colors.neutral.100.value}' },
     secondary: { value: '{colors.neutral.90.value}' },
     tertiary: { value: '{colors.neutral.80.value}' },
-    disabled: { value: '{colors.font.tertiary.value}' },
+    disabled: { value: '{colors.neutral.60.value}' },
     inverse: { value: '{colors.white.value}' },
 
     interactive: { value: '{colors.brand.primary.80.value}' },
@@ -249,6 +250,8 @@ export const colors: Colors = {
     tertiary: { value: '{colors.neutral.20.value}' },
 
     disabled: { value: '{colors.border.tertiary.value}' },
+
+    pressed: { value: '{colors.brand.primary.100.value}' },
     // Focus color is set to 100 to ensure enough contrast for accessibility
     focus: { value: '{colors.brand.primary.100.value}' },
     error: { value: '{colors.red.80.value}' },

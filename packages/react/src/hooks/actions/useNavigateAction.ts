@@ -30,7 +30,9 @@ export const defaultTarget = '_self';
  * Action to instruct user’s browser to change current location
  * @internal
  */
-export const useNavigateAction = (options: UseNavigateActionOptions) => {
+export const useNavigateAction = (
+  options: UseNavigateActionOptions
+): (() => void) => {
   const { type, url, anchor, target } = options;
   const run: NavigateRun = React.useMemo(() => {
     switch (type) {
@@ -48,6 +50,7 @@ export const useNavigateAction = (options: UseNavigateActionOptions) => {
         };
       default:
         return () => {
+          // eslint-disable-next-line no-console
           console.warn(
             'Please provide a valid navigate type. Available types are "url", "anchor" and "reload".'
           );

@@ -90,6 +90,9 @@ const TextAreaFieldPrimitive: Primitive<TextAreaFieldProps, 'textarea'> = (
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/textareafield)
+ */
 export const TextAreaField = React.forwardRef(TextAreaFieldPrimitive);
 
 TextAreaField.displayName = 'TextAreaField';

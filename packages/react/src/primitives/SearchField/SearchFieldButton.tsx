@@ -1,12 +1,11 @@
 import * as React from 'react';
 
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassNames, ComponentText } from '../shared/constants';
 import { FieldGroupIconButton } from '../FieldGroupIcon';
-import { IconSearch } from '../Icon';
+import { IconSearch } from '../Icon/internal';
 import { Primitive, SearchFieldButtonProps } from '../types';
-import { SharedText } from '../shared/i18n';
 
-const ariaLabelText = SharedText.SearchField.ariaLabel.search;
+const ariaLabelText = ComponentText.SearchField.searchButtonLabel;
 
 const SearchFieldButtonPrimitive: Primitive<SearchFieldButtonProps, 'button'> =
   (props, ref) => {

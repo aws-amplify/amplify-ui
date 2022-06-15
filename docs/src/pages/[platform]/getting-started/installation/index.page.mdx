@@ -1,8 +1,7 @@
 ---
 title: Installation
-metaTitle: Installation
-metaDescription: Installation Guide - How to install Amplify UI Packages, Styles, Fonts and Troubleshooting.
-supportedFrameworks: react|angular|vue|flutter
+metaDescription: Installation Guide - How to install Amplify UI Packages, Styles, and Fonts.
+supportedFrameworks: all
 ---
 
 import Link from 'next/link';
@@ -22,8 +21,4 @@ import { Fragment } from '@/components/Fragment';
 
 <Fragment platforms={['web']} useCommonWebContent>
   {({ platform }) => import(`./fonts.${platform}.mdx`)}
-</Fragment>
-
-<Fragment platforms={['react', 'vue', 'angular']}>
-  {({ platform }) => import(`./troubleshooting.${platform}.mdx`)}
 </Fragment>

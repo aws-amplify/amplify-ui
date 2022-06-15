@@ -8,7 +8,7 @@ import { View } from '../View';
 import { Flex } from '../Flex';
 import { Button } from '../Button';
 import { AlertIcon } from './AlertIcon';
-import { IconClose } from '../Icon';
+import { IconClose } from '../Icon/internal';
 import { isFunction } from '../shared/utils';
 
 const AlertPrimitive: Primitive<AlertProps, typeof Flex> = (
@@ -69,6 +69,9 @@ const AlertPrimitive: Primitive<AlertProps, typeof Flex> = (
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/alert)
+ */
 export const Alert = React.forwardRef(AlertPrimitive);
 
 Alert.displayName = 'Alert';

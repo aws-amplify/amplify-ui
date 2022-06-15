@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {
   defaultDarkModeOverride,
-  AmplifyProvider,
+  ThemeProvider,
   Card,
   Text,
   Button,
@@ -14,15 +14,15 @@ export const SystemDarkModeExample = () => {
   };
 
   return (
-    // Note: color mode overrides are scoped to the AmplifyProvider
+    // Note: color mode overrides are scoped to the ThemeProvider
     // if you use multiple providers
-    <AmplifyProvider theme={theme} colorMode="system">
+    <ThemeProvider theme={theme} colorMode="system">
       <Card>
         <Button>Hello</Button>
         <Text variation="primary">Primary text</Text>
         <Text variation="secondary">Secondary text</Text>
         <Text variation="tertiary">Tertiary text</Text>
       </Card>
-    </AmplifyProvider>
+    </ThemeProvider>
   );
 };

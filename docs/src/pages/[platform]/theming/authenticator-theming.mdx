@@ -1,0 +1,88 @@
+import { Fragment } from '@/components/Fragment';
+import { Example, ExampleCode } from '@/components/Example';
+import { Authenticator, Alert } from '@aws-amplify/ui-react';
+import Link from 'next/link';
+import {
+  AuthenticatorButtonClassExample,
+  AuthenticatorClasses,
+} from './examples';
+
+A Theme is a structured collection of design decisions that change the appearance of a UI library. An Amplify UI theme allows application wide visual changes through the use of targeted CSS classes and variables.
+
+<Alert variation="info">
+  For instructions on setting up authenticator and base styling please see{' '}
+  <Link href={`/${props.framework}/components/authenticator#quick-start`}>
+    #quick-start
+  </Link>
+</Alert>
+
+## Classes
+
+You can override the Authenticator's `amplify-*` classes to Theme the authenticator. For example to style all of the buttons in the Authenticator you could target the `amplify-button` class.
+
+<Example className="authenticator-theme-class-example">
+  <AuthenticatorButtonClassExample />
+
+  <ExampleCode>
+
+```css
+.amplify-button[data-variation='link']:hover {
+  background: none;
+  text-decoration: underline;
+}
+```
+
+  </ExampleCode>
+</Example>
+
+To view additional examples of styling the Authenticator using css classes please see our detailed <Link href={`/${props.framework}/components/authenticator/customization#styling`}>Authenticator</Link> documentation
+
+<AuthenticatorClasses />
+
+## Variables
+
+You can overwrite the Authenticator's `--amplify-*` css variables to theme the Authenticator. For example the sign in page of the Authenticator uses the `--amplify-components-button-*` css variables to style the sign in buttons.
+
+<Example className="authenticator-theme-variable-example">
+  <AuthenticatorButtonClassExample />
+
+  <ExampleCode>
+
+```css
+[data-amplify-authenticator] {
+  --amplify-components-button-primary-background-color: var(
+    --amplify-colors-brand-secondary-80
+  );
+  --amplify-components-button-primary-hover-background-color: var(
+    --amplify-colors-brand-secondary-90
+  );
+  --amplify-components-button-primary-focus-background-color: var(
+    --amplify-colors-brand-secondary-90
+  );
+  --amplify-components-button-primary-active-background-color: var(
+    --amplify-colors-brand-secondary-100
+  );
+  --amplify-components-button-link-color: var(
+    --amplify-colors-brand-secondary-80
+  );
+  --amplify-components-button-link-hover-color: var(
+    --amplify-colors-brand-secondary-90
+  );
+  --amplify-components-button-link-focus-color: var(
+    --amplify-colors-brand-secondary-90
+  );
+  --amplify-components-button-link-active-color: var(
+    --amplify-colors-brand-secondary-100
+  );
+  --amplify-components-button-link-active-background-color: transparent;
+  --amplify-components-button-link-focus-background-color: transparent;
+  --amplify-components-button-link-hover-background-color: transparent;
+}
+```
+
+  </ExampleCode>
+</Example>
+
+To view additional examples of styling the Authenticator using css variables please see our detailed <Link href={`/${props.framework}/components/authenticator/customization#styling`}>Authenticator</Link> documentation
+
+A complete list of variables can be found <Link href={`/${props.framework}/theming/css-variables`}>here</Link>

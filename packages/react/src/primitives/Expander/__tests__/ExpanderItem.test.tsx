@@ -47,7 +47,7 @@ describe('ExpanderItem: ', () => {
     expect(trigger).toHaveClass(ComponentClassNames.ExpanderTrigger);
   });
 
-  it('should pass title', async () => {
+  it('should pass string as title', async () => {
     const title = 'item-title';
     render(
       <Expander type="single" defaultValue="item-value">
@@ -59,6 +59,30 @@ describe('ExpanderItem: ', () => {
 
     const header = await screen.findByTestId(EXPANDER_HEADER_TEST_ID);
     expect(header).toHaveTextContent(title);
+  });
+
+  it('should pass custom component as title', async () => {
+    const titleText = 'item-title';
+    const ExpanderTitle = ({ title }) => {
+      return (
+        <div>
+          <span>{title}</span>
+        </div>
+      );
+    };
+    render(
+      <Expander type="single" defaultValue="item-value">
+        <ExpanderItem
+          title={<ExpanderTitle title={titleText} />}
+          value="item-value"
+        >
+          content
+        </ExpanderItem>
+      </Expander>
+    );
+
+    const header = await screen.findByTestId(EXPANDER_HEADER_TEST_ID);
+    expect(header).toHaveTextContent(titleText);
   });
 
   it('should set aria-controls on trigger and have matching id on content', async () => {
