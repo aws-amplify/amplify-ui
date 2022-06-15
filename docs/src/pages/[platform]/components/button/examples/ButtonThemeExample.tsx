@@ -12,12 +12,18 @@ const theme: Theme = {
     components: {
       button: {
         // this will affect the font weight of all button variants
-        fontWeight: { value: '{fontWeights.black}' },
+        fontWeight: { value: '{fontWeights.extrabold}' },
         // style the primary variation
         primary: {
-          backgroundColor: { value: 'rebeccapurple' },
+          backgroundColor: { value: '{colors.blue.60}' },
           _hover: {
-            backgroundColor: { value: 'hotpink' },
+            backgroundColor: { value: '{colors.blue.80}' },
+          },
+          _focus: {
+            backgroundColor: { value: '{colors.blue.80}' },
+          },
+          _active: {
+            backgroundColor: { value: '{colors.blue.90}' },
           },
         },
       },
@@ -28,9 +34,7 @@ const theme: Theme = {
 export const ButtonThemeExample = () => (
   <ThemeProvider theme={theme}>
     <Flex direction="row">
-      <Button>Default</Button>
       <Button variation="primary">Primary</Button>
-      <Button variation="link">Link</Button>
     </Flex>
   </ThemeProvider>
 );
