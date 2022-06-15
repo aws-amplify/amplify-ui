@@ -167,24 +167,56 @@ describe('convertStylePropsToStyleObj: ', () => {
     expect(propStyles['fontWeight']).toBe('var(--amplify-font-weights-bold)');
   });
 
-  it('should handle theme key props', () => {
-    const props: ViewProps = {
-      color: 'red.10',
-      fontWeight: 'bold',
-      padding: 'large',
-      margin: 'xl',
-    };
+  describe('theme key props', () => {
+    it('should handle theme key props', () => {
+      const props: ViewProps = {
+        color: 'red.10',
+        fontWeight: 'bold',
+        padding: 'large',
+        margin: 'xl',
+      };
 
-    const { propStyles } = convertStylePropsToStyleObj({
-      props,
-      style: {},
-      ...defaultStylePropsParams,
+      const { propStyles } = convertStylePropsToStyleObj({
+        props,
+        style: {},
+        ...defaultStylePropsParams,
+      });
+
+      expect(propStyles['color']).toBe('var(--amplify-colors-red-10)');
+      expect(propStyles['fontWeight']).toBe('var(--amplify-font-weights-bold)');
+      expect(propStyles['padding']).toBe('var(--amplify-space-large)');
+      expect(propStyles['margin']).toBe('var(--amplify-space-xl)');
     });
 
-    expect(propStyles['color']).toBe('var(--amplify-colors-red-10)');
-    expect(propStyles['fontWeight']).toBe('var(--amplify-font-weights-bold)');
-    expect(propStyles['padding']).toBe('var(--amplify-space-large)');
-    expect(propStyles['margin']).toBe('var(--amplify-space-xl)');
+    it('should handle shorthand theme key props', () => {
+      const props: ViewProps = {
+        padding: 'large large',
+      };
+
+      const { propStyles } = convertStylePropsToStyleObj({
+        props,
+        style: {},
+        ...defaultStylePropsParams,
+      });
+
+      expect(propStyles['padding']).toBe(
+        'var(--amplify-space-large) var(--amplify-space-large)'
+      );
+    });
+
+    it('should handle mixed shorthand theme key props', () => {
+      const props: ViewProps = {
+        padding: 'large 2px',
+      };
+
+      const { propStyles } = convertStylePropsToStyleObj({
+        props,
+        style: {},
+        ...defaultStylePropsParams,
+      });
+
+      expect(propStyles['padding']).toBe('var(--amplify-space-large) 2px');
+    });
   });
 
   it('should handle design tokens', () => {

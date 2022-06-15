@@ -2,6 +2,7 @@ import { cssNameTransform, defaultTheme, isDesignToken } from '@aws-amplify/ui';
 
 import { ComponentClasses } from './constants';
 import { stylePropsToThemeKeys } from '../types/theme';
+import { get } from 'lodash';
 
 export const strHasLength = (str: unknown): str is string =>
   typeof str === 'string' && str.length > 0;
@@ -203,6 +204,16 @@ export const getCSSVariableIfValueIsThemeKey = <Value>(
 ) => {
   if (typeof value !== 'string') {
     return value;
+  }
+  // For shorthand properties like `padding` which can accept 1, 2, 3, or 4 values
+  // run this function on each value. This would not work on CSS shorthands that
+  // mix types, like border which is a composite of borderWidth, borderStyle, and
+  // borderColor.
+  if (value.includes(' ')) {
+    return value
+      .split(' ')
+      .map((val) => getCSSVariableIfValueIsThemeKey(propKey, val))
+      .join(' ');
   }
   const path = value.split('.');
   let { tokens } = defaultTheme;
