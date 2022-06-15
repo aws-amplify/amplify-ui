@@ -507,7 +507,14 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-radio-button-error-focus-box-shadow: var(--amplify-components-fieldcontrol-error-focus-box-shadow);
         --amplify-components-radio-button-disabled-border-color: var(--amplify-colors-border-disabled);
         --amplify-components-radio-button-disabled-background-color: var(--amplify-colors-background-primary);
+        --amplify-components-radio-label-color: var(--amplify-components-text-color);
         --amplify-components-radio-label-disabled-color: var(--amplify-colors-font-disabled);
+        --amplify-components-radiogroup-button-border-width: var(--amplify-components-radio-button-border-width);
+        --amplify-components-radiogroup-button-border-color: var(--amplify-components-radio-button-border-color);
+        --amplify-components-radiogroup-button-background-color: var(--amplify-components-radio-button-background-color);
+        --amplify-components-radiogroup-button-checked-color: var(--amplify-components-radio-button-checked-color);
+        --amplify-components-radiogroup-button-label-color: var(--amplify-components-radio-label-color);
+        --amplify-components-radiogroup-label-color: var(--amplify-components-field-label-color);
         --amplify-components-rating-large-size: var(--amplify-font-sizes-xxxl);
         --amplify-components-rating-default-size: var(--amplify-font-sizes-xl);
         --amplify-components-rating-small-size: var(--amplify-font-sizes-small);

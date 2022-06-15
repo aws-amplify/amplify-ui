@@ -6,27 +6,22 @@ import {
 } from '@aws-amplify/ui-react';
 
 const theme: Theme = {
-  name: 'radio-theme',
+  name: 'radiogroup-theme',
   tokens: {
-    colors: {
-      border: {
-        // Radio focus state inherits this global focus color
-        focus: { value: '{colors.brand.secondary.80}' },
-      },
-      font: {
-        primary: { value: '{colors.brand.secondary.60}' },
-        secondary: { value: '{colors.brand.secondary.40}' },
-      },
-    },
     components: {
-      radio: {
+      radiogroup: {
+        label: {
+          color: { value: '{colors.brand.secondary.40}' },
+        },
         button: {
           borderWidth: { value: '{borderWidths.small}' },
           borderColor: { value: '{colors.brand.secondary.60}' },
           backgroundColor: { value: '{colors.brand.secondary.10}' },
-          color: { value: '{colors.brand.secondary.10}' },
           _checked: {
             color: { value: '{colors.brand.secondary.80}' },
+          },
+          label: {
+            color: { value: '{colors.brand.secondary.10}' },
           },
         },
       },
