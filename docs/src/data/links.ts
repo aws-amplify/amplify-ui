@@ -401,8 +401,8 @@ export const theming = [
     platforms: ['react', 'vue', 'angular'],
   },
   {
-    href: '/theming/style-attributes',
-    label: 'Style Attributes',
+    href: '/theming/style-props',
+    label: 'Style Props',
     platforms: ['react'],
   },
 ];
