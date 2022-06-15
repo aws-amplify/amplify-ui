@@ -83,7 +83,7 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   >;
   marginBottom?: ResponsiveStyle<SpaceKeys<StyleToken<Property.MarginBottom>>>;
   marginInline?: ResponsiveStyle<
-    SpaceKeys<StyleToken<Property.MarginBlockEnd>>
+    SpaceKeys<StyleToken<Property.MarginInline>>
   >;
   marginInlineEnd?: ResponsiveStyle<
     SpaceKeys<StyleToken<Property.MarginInlineEnd>>
