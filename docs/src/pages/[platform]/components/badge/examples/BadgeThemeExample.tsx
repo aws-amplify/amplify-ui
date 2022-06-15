@@ -1,4 +1,4 @@
-import { Badge, ThemeProvider, Theme } from '@aws-amplify/ui-react';
+import { Badge, ThemeProvider, Theme, Flex } from '@aws-amplify/ui-react';
 
 const theme: Theme = {
   name: 'badge-theme',
@@ -8,8 +8,8 @@ const theme: Theme = {
         // Default styles
         color: { value: '{colors.white}' },
         fontWeight: { value: '{fontWeights.normal}' },
-        fontSize: { value: '{fontSizes.large}' },
-        backgroundColor: { value: '{colors.purple.80}' },
+        fontSize: { value: '{fontSizes.medium}' },
+        backgroundColor: { value: '{colors.blue.80}' },
         paddingVertical: { value: '{space.small}' },
         paddingHorizontal: { value: '{space.medium}' },
         borderRadius: { value: '{radii.small}' },
@@ -17,7 +17,7 @@ const theme: Theme = {
         // Variations
         success: {
           color: { value: '{colors.black}' },
-          backgroundColor: { value: '{colors.yellow.60}' },
+          backgroundColor: { value: '{colors.green.60}' },
         },
 
         // Sizes
@@ -31,8 +31,10 @@ const theme: Theme = {
 
 export const BadgeThemeExample = () => (
   <ThemeProvider theme={theme}>
-    <Badge>Default</Badge>
-    <Badge variation="success">Success</Badge>
-    <Badge size="large">Large</Badge>
+    <Flex alignItems="flex-end">
+      <Badge>Default</Badge>
+      <Badge variation="success">Success</Badge>
+      <Badge size="large">Large</Badge>
+    </Flex>
   </ThemeProvider>
 );
