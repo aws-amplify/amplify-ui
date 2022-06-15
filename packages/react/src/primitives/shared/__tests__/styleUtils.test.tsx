@@ -165,6 +165,7 @@ describe('convertStylePropsToStyleObj: ', () => {
     expect(propStyles['backgroundColor']).toBe('yellow');
     expect(propStyles['color']).toBe('red');
     expect(propStyles['fontWeight']).toBe('var(--amplify-font-weights-bold)');
+    expect(propStyles['padding']).toBe('var(--amplify-space-large)');
   });
 
   describe('theme key props', () => {
@@ -216,6 +217,34 @@ describe('convertStylePropsToStyleObj: ', () => {
       });
 
       expect(propStyles['padding']).toBe('var(--amplify-space-large) 2px');
+    });
+
+    it('should ignore/not change unknown theme keys', () => {
+      const props: ViewProps = {
+        padding: 'foo',
+      };
+
+      const { propStyles } = convertStylePropsToStyleObj({
+        props,
+        style: {},
+        ...defaultStylePropsParams,
+      });
+
+      expect(propStyles['padding']).toBe('foo');
+    });
+
+    it('should gracefully handle unknown nested theme keys', () => {
+      const props: ViewProps = {
+        padding: 'foo.bar',
+      };
+
+      const { propStyles } = convertStylePropsToStyleObj({
+        props,
+        style: {},
+        ...defaultStylePropsParams,
+      });
+
+      expect(propStyles['padding']).toBe('foo.bar');
     });
   });
 
