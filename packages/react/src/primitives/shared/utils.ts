@@ -200,7 +200,7 @@ export const classNameModifierByFlag = (
 export const getCSSVariableIfValueIsThemeKey = <Value>(
   propKey: string,
   value: Value
-) => {
+): Value | string => {
   if (typeof value !== 'string') {
     return value;
   }
@@ -211,7 +211,7 @@ export const getCSSVariableIfValueIsThemeKey = <Value>(
   if (value.includes(' ')) {
     return value
       .split(' ')
-      .map((val) => getCSSVariableIfValueIsThemeKey(propKey, val))
+      .map((val) => getCSSVariableIfValueIsThemeKey<string>(propKey, val))
       .join(' ');
   }
   const path = value.split('.');
