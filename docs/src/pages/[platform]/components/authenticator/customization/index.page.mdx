@@ -1,0 +1,67 @@
+---
+title: Customization
+metaTitle: Customization
+description: Override and customize your Authenticator.
+supportedFrameworks: all
+---
+
+import { Fragment } from '@/components/Fragment';
+
+<Fragment platforms={['flutter']}>
+  {({ platform }) => import(`./customization.routing.${platform}.mdx`)}
+</Fragment>
+
+<Fragment useCommonWebContent platforms={['web']}>
+  {({ platform }) =>
+    import(`./customization.headers-and-footers.${platform}.mdx`)
+  }
+</Fragment>
+
+<Fragment useCommonWebContent platforms={['web']}>
+  {({ platform }) =>
+    import(`./customization.override-function-calls.${platform}.mdx`)
+  }
+</Fragment>
+
+## Internationalization (I18n)
+
+<Fragment useCommonWebContent>
+  {({ platform }) => import(`./customization.i18n.${platform}.mdx`)}
+</Fragment>
+
+## Labels & Text
+
+<Fragment useCommonWebContent>
+  {({ platform }) => import(`./customization.labels-and-text.${platform}.mdx`)}
+</Fragment>
+
+## Sign Up Fields
+
+<Fragment useCommonWebContent>
+  {({ platform }) => import(`./sign-up-fields.${platform}.mdx`)}
+</Fragment>
+
+## Force New Password Fields
+
+The following example customizes the Force New Password screen by:
+
+- Re-using the default Force New Password form fields
+- Appending a custom "Zone Info" text field
+
+<Fragment>
+  {({ platform }) => import(`./force-new-password-fields.${platform}.mdx`)}
+</Fragment>
+
+<Fragment useCommonWebContent platforms={['web']}>
+  {({ platform }) => import(`./formfields/form-fields.${platform}.mdx`)}
+</Fragment>
+
+<Fragment useCommonWebContent>
+  {({ platform }) => import(`./customization.styling.${platform}.mdx`)}
+</Fragment>
+
+<Fragment platforms={['flutter']}>
+  {({ platform }) =>
+    import(`./customization.full-ui-customization.${platform}.mdx`)
+  }
+</Fragment>
