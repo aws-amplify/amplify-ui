@@ -111,7 +111,7 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   paddingBottom?: ResponsiveStyle<
     SpaceKeys<StyleToken<Property.PaddingBottom>>
   >;
-  paddingInline?: ResponsiveStyle<SpaceKeys<StyleToken<Property.Padding>>>;
+  paddingInline?: ResponsiveStyle<SpaceKeys<StyleToken<Property.PaddingInline>>>;
   paddingInlineEnd?: ResponsiveStyle<
     SpaceKeys<StyleToken<Property.PaddingInlineEnd>>
   >;
