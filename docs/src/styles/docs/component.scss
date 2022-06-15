@@ -1,3 +1,5 @@
+@import './variables';
+
 .docs-component-card {
   transition: all var(--amplify-time-medium) ease;
   cursor: pointer;
@@ -10,8 +12,12 @@
 
 .docs-component-links {
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
+  
+  @media (min-width: $breakpoint-small) {
+    flex-direction: row;
+    align-items: center;
+  }
 }
 
 .docs-component-link {

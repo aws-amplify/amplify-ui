@@ -7,6 +7,7 @@ import {
   Button,
   useBreakpointValue,
   CardVariations,
+  ButtonGroup,
 } from '@aws-amplify/ui-react';
 import { CopyButton } from './CopyButton';
 import { StackBlitzIcon } from './Icons';
@@ -53,16 +54,16 @@ export function ExampleCode({ children, reactExport }: ExampleCodeProps) {
       <View className="docs-example__code" ref={ref}>
         {children}
       </View>
-      <Flex
+      <ButtonGroup
         className="docs-example__actions"
-        direction="row"
         justifyContent="flex-end"
+        size="small"
+        variation="link"
+        gap="xs"
       >
         {reactExport ? (
           <Button
-            size="small"
             gap="xs"
-            variation="link"
             onClick={() => {
               openReactStackBlitz({
                 name: reactExport,
@@ -74,8 +75,8 @@ export function ExampleCode({ children, reactExport }: ExampleCodeProps) {
             Open in StackBlitz
           </Button>
         ) : null}
-        <CopyButton copyText={text} size="small" variation="link" />
-      </Flex>
+        <CopyButton copyText={text} />
+      </ButtonGroup>
     </>
   );
 }
