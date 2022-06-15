@@ -1,3 +1,5 @@
+@import './variables';
+
 .docs-description {
   color: var(--amplify-colors-font-secondary);
   font-size: var(--amplify-font-sizes-large);
@@ -14,7 +16,16 @@
 }
 
 .docs-content-body {
-  padding: var(--amplify-space-xxl);
+  padding: var(--amplify-space-medium);
+  
+  @media (min-width: $breakpoint-medium) {
+    padding: var(--amplify-space-xl);
+  }
+  
+  @media (min-width: $breakpoint-large) {
+    padding: var(--amplify-space-xxl);
+  }
+  
   
   & > p {
     margin-bottom: var(--amplify-space-medium);

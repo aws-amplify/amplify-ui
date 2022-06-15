@@ -1,5 +1,5 @@
 import { Alert, Flex, View } from '@aws-amplify/ui-react';
-import { Example, ExampleCode } from '@/components/Example';
+import { Example, ExampleCode, ExamplePreview } from '@/components/Example';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 
 import { AlertDemo } from './demo';
@@ -22,11 +22,11 @@ import {
 Import the Alert component and styles.
 
 <Example>
-  <View>
+  <ExamplePreview>
     <DefaultAlertExample />
-  </View>
+  </ExamplePreview>
   
-  <ExampleCode>
+  <ExampleCode reactName='DefaultAlertExample'>
 
 ```jsx file=./examples/DefaultAlertExample.tsx
 
@@ -44,7 +44,7 @@ Use the `variation` prop to change the Alert variation. Available options are `i
     <AlertVariationsExample />
   </View>
   
-  <ExampleCode name='AlertVariationsExample'>
+  <ExampleCode reactExport='AlertVariationsExample'>
 
 ```jsx file=./examples/AlertVariationsExample.tsx
 
@@ -62,7 +62,7 @@ Use the `heading` prop to pass a heading to the Alert.
     <AlertHeadingExample />
   </View>
   
-  <ExampleCode>
+  <ExampleCode reactExport='AlertHeadingExample'>
 
 ```jsx file=./examples/AlertHeadingExample.tsx
 
