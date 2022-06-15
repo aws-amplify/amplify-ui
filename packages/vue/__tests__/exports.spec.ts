@@ -4,7 +4,7 @@ describe('@aws-amplify/ui-vue', () => {
   describe('exports', () => {
     it('should match snapshot', () => {
       expect(Object.keys(exported)).toMatchInlineSnapshot(`
-        Array [
+        [
           "AmplifyButton",
           "AmplifyCheckBox",
           "AmplifyTextField",

@@ -14,7 +14,14 @@
     "sourceMap": true,
     "baseUrl": ".",
     "resolveJsonModule": true,
-    "types": ["webpack-env", "vite/client", "@types/jest"],
+    "types": [
+      "webpack-env",
+      "vite/client",
+      "@types/jest",
+      "vitest/globals",
+      "node",
+      "jsdom"
+    ],
     "paths": {
       "@/*": ["src/*"]
     },
