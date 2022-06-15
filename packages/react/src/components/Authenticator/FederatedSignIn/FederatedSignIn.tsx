@@ -64,7 +64,7 @@ export function FederatedSignIn(): JSX.Element {
           default:
             // eslint-disable-next-line no-console
             console.error(
-              `Authenicator does not support ${provider}. Please open an issue: https://github.com/aws-amplify/amplify-ui/issues/choose`
+              `Authenticator does not support ${provider}. Please open an issue: https://github.com/aws-amplify/amplify-ui/issues/choose`
             );
         }
       })}
