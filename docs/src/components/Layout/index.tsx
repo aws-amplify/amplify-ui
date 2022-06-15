@@ -118,9 +118,9 @@ export default function Page({
         <Footer />
       </main>
 
-      {!hideToc && headings.length && (
+      {!hideToc && headings.length ? (
         <TableOfContents title="Contents" headings={headings} />
-      )}
+      ) : null}
     </>
   );
 }

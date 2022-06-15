@@ -2,11 +2,6 @@
 
 .docs-example {
   width: 100%;
-  
-  // @media (min-width: $breakpoint-medium) {
-  //   padding: var(--amplify-space-medium);
-  //   border: 1px solid black;
-  // }
 }
 
 .docs-example [data-amplify-authenticator] {
@@ -32,6 +27,12 @@
   
   & > pre {
     margin: 0;
+  }
+}
+
+@media (max-width: $breakpoint-medium) {
+  h2#demo {
+    display: none;
   }
 }
 

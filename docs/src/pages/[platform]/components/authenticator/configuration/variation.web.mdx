@@ -1,0 +1,36 @@
+import { Authenticator } from '@aws-amplify/ui-react';
+import { Example } from '@/components/Example';
+import { Fragment } from '@/components/Fragment';
+import { Tabs, TabItem } from '@aws-amplify/ui-react';
+
+## Variation
+
+The Authenticator has multiple variations to meet the needs of your application.
+
+<Tabs>
+  <TabItem title="default">
+    By default, the Authenticator will render as a centered card within the container:
+
+    <Fragment>
+      {({ platform }) => import(`./variation.default.${platform}.mdx`)}
+    </Fragment>
+
+    <Example>
+      <Authenticator />
+    </Example>
+
+  </TabItem>
+
+  <TabItem title="modal">
+    The `modal` variation overlays the entire screen with the Authenticator:
+
+    <Fragment>
+      {({ platform }) => import(`./variation.modal.${platform}.mdx`)}
+    </Fragment>
+
+    <Example>
+      <Authenticator variation="modal" />
+    </Example>
+
+  </TabItem>
+</Tabs>

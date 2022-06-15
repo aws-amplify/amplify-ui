@@ -1,0 +1,70 @@
+import { Fragment } from '@/components/Fragment';
+import { Tabs, TabItem } from '@aws-amplify/ui-react';
+
+
+<Fragment>
+  {({ platform }) => import(`./advanced/useAuthenticator.${platform}.mdx`)}
+</Fragment>
+
+## Access Auth State
+
+<Fragment>
+  {({ platform }) => import(`./advanced/current-route.${platform}.mdx`)}
+</Fragment>
+
+## Access Authenticated User
+
+<Fragment>
+  {({ platform }) => import(`./advanced/current-user.${platform}.mdx`)}
+</Fragment>
+
+## Trigger Transitions
+
+<Fragment>
+  {({ platform }) => import(`./advanced/trigger-transitions.${platform}.mdx`)}
+</Fragment>
+
+### Example
+
+Here's an example that conditionally renders different components based on current authentication status. Note that this can be extended to support routed application.
+
+<Fragment>
+  {({ platform }) => import(`./advanced/example.${platform}.mdx`)}
+</Fragment>
+
+## Full API
+
+<Fragment>
+  {({ platform }) => import(`./advanced/full-api.${platform}.mdx`)}
+</Fragment>
+
+<Tabs>
+  <TabItem title="Access Contexts">
+
+These are `readonly` contexts that represent the current auth state. Any unapplicable `context` will be `undefined`.
+
+| Name                  | Description                                                                         | Type                                                                                                                                                                  |
+| --------------------- | ----------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `user`                | Current signed in user                                                              | [`CognitoUserAmplify`](https://github.com/aws-amplify/amplify-ui/blob/f9be291e4b89137d7b521bd3e82b4f96ee4323f6/packages/ui/src/types/authMachine.ts#L113-L115)        |
+| `route`               | Name of the auth flow user is in                                                    | `string`                                                                                                                                                              |
+| `error`               | Any error returned from service API call                                            | `string`                                                                                                                                                              |
+| `validationErrors`    | Any form validation errors found. Maps each error message to respective input name. | `Record<string, string>`                                                                                                                                              |
+| `hasValidationErrors` | Whether there are any form validation errors                                        | `boolean`                                                                                                                                                             |
+| `isPending`           | Whether service API call is in progress                                             | `boolean`                                                                                                                                                             |
+| `codeDeliveryDetail`  | Provides detail on where confirm sign up code is sent to.                           | [`CodeDeliveryDetail`](https://github.com/aws-amplify/amplify-js/blob/6c4d4b5fc737652f88dcdfa26bdb02a1defdfa2e/packages/amazon-cognito-identity-js/index.d.ts#L9-L13) |
+
+  </TabItem>
+  <TabItem title="Trigger Transition">
+
+These helper functions trigger transition to another `route`. Note that any invalid transition (e.g. `sign-in` to `authenticated` directly) will be no-op.
+
+| Name                | Description                                                                                                                                                                                                                             | Type                         |
+| ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
+| `toSignIn`          | Transitions to `signIn`. Allowed from `signUp`, `confirmSignUp`, `confirmSignIn`, `setupTOTP`, `resetPassword`, and `confirmResetPassword`                                                                                              | `() => void`                 |
+| `toSignUp`          | Transitions to `signUp`. Allowed from `signIn`.                                                                                                                                                                                         | `() => void`                 |
+| `toResetPassword`   | Transitions to `resetPassword`. Allowed from `signIn`.                                                                                                                                                                                  | `() => void`                 |
+| `toFederatedSignIn` | Transitions to `provider`'s federated sign in page. Supported `provider` values can be found [here](https://github.com/aws-amplify/amplify-ui/blob/96830f6a34a417aa9bc6329c839679bd10da84f0/packages/ui/src/helpers/auth.ts#L104-L109). | `(provider: string) => void` |
+| `skipVerification`  | Skips verification process. Allowed from `verifyUser` and `confirmVerifyUser`                                                                                                                                                           | `() => void`                 |
+
+  </TabItem>
+</Tabs>
