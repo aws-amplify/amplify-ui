@@ -101,7 +101,7 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   opacity?: ResponsiveStyle<OpacityKeys<StyleToken<Property.Opacity>>>;
   overflow?: ResponsiveStyle<StyleToken<Property.Overflow>>;
   padding?: ResponsiveStyle<SpaceKeys<StyleToken<Property.Padding>>>;
-  paddingBlock?: ResponsiveStyle<SpaceKeys<StyleToken<Property.Padding>>>;
+  paddingBlock?: ResponsiveStyle<SpaceKeys<StyleToken<Property.PaddingBlock>>>;
   paddingBlockEnd?: ResponsiveStyle<
     SpaceKeys<StyleToken<Property.PaddingBlockEnd>>
   >;
