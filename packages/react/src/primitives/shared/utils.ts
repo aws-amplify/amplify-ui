@@ -2,7 +2,6 @@ import { cssNameTransform, defaultTheme, isDesignToken } from '@aws-amplify/ui';
 
 import { ComponentClasses } from './constants';
 import { stylePropsToThemeKeys } from '../types/theme';
-import { get } from 'lodash';
 
 export const strHasLength = (str: unknown): str is string =>
   typeof str === 'string' && str.length > 0;
