@@ -1,3 +1,19 @@
 .amplify-selectfield {
   flex-direction: var(--amplify-components-selectfield-flex-direction);
+
+  --amplify-components-fieldcontrol-border-color: var(
+    --amplify-components-selectfield-border-color
+  );
+  --amplify-components-fieldcontrol-color: var(
+    --amplify-components-selectfield-color
+  );
+  --amplify-components-fieldcontrol-font-size: var(
+    --amplify-components-selectfield-font-size
+  );
+  --amplify-components-fieldcontrol-focus-border-color: var(
+    --amplify-components-selectfield-focus-border-color
+  );
+  --amplify-components-field-label-color: var(
+    --amplify-components-selectfield-label-color
+  );
 }

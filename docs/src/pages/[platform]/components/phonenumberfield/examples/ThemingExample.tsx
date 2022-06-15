@@ -4,9 +4,13 @@ const theme: Theme = {
   name: 'phonenumber-theme',
   tokens: {
     components: {
-      fieldcontrol: {
+      phonenumberfield: {
         color: { value: '{colors.blue.60}' },
         fontSize: { value: '{fontSizes.large}' },
+        borderColor: { value: '{colors.red.60}' },
+        _focus: {
+          borderColor: { value: '{colors.red.80}' },
+        },
       },
     },
   },

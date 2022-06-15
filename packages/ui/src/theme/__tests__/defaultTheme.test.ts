@@ -466,6 +466,10 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-passwordfield-button-hover-background-color: var(--amplify-components-button-hover-background-color);
         --amplify-components-passwordfield-button-hover-border-color: var(--amplify-components-button-hover-border-color);
         --amplify-components-passwordfield-button-hover-color: var(--amplify-components-button-hover-color);
+        --amplify-components-phonenumberfield-color: var(--amplify-components-fieldcontrol-color);
+        --amplify-components-phonenumberfield-border-color: var(--amplify-components-fieldcontrol-border-color);
+        --amplify-components-phonenumberfield-font-size: var(--amplify-components-fieldcontrol-font-size);
+        --amplify-components-phonenumberfield-focus-border-color: var(--amplify-components-fieldcontrol-focus-border-color);
         --amplify-components-placeholder-border-radius: var(--amplify-radii-small);
         --amplify-components-placeholder-transition-duration: var(--amplify-time-long);
         --amplify-components-placeholder-start-color: var(--amplify-colors-background-secondary);
@@ -543,7 +547,12 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-select-min-width: 6.5rem;
         --amplify-components-select-small-min-width: 5.5rem;
         --amplify-components-select-large-min-width: 7.5rem;
+        --amplify-components-selectfield-border-color: var(--amplify-components-fieldcontrol-border-color);
+        --amplify-components-selectfield-color: var(--amplify-components-fieldcontrol-color);
         --amplify-components-selectfield-flex-direction: column;
+        --amplify-components-selectfield-font-size: var(--amplify-components-fieldcontrol-font-size);
+        --amplify-components-selectfield-focus-border-color: var(--amplify-components-fieldcontrol-focus-border-color);
+        --amplify-components-selectfield-label-color: var(--amplify-components-field-label-color);
         --amplify-components-sliderfield-padding-block: var(--amplify-space-xs);
         --amplify-components-sliderfield-track-background-color: var(--amplify-colors-background-quaternary);
         --amplify-components-sliderfield-track-border-radius: 9999px;
@@ -674,6 +683,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-text-info-color: var(--amplify-colors-font-info);
         --amplify-components-textfield-color: var(--amplify-components-fieldcontrol-color);
         --amplify-components-textfield-border-color: var(--amplify-components-fieldcontrol-border-color);
+        --amplify-components-textfield-font-size: var(--amplify-components-fieldcontrol-font-size);
         --amplify-components-textfield-focus-border-color: var(--amplify-components-fieldcontrol-focus-border-color);
         --amplify-components-togglebutton-border-color: var(--amplify-colors-border-primary);
         --amplify-components-togglebutton-color: var(--amplify-colors-font-primary);

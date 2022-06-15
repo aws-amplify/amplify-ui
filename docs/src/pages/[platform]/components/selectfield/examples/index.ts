@@ -1,3 +1,4 @@
+import { SelectFieldThemeExample } from './SelectFieldThemeExample';
 export { DefaultSelectFieldExample } from './DefaultSelectFieldExample';
 export { SelectFieldSizeExample } from './SelectFieldSizeExample';
 export { SelectFieldVariationExample } from './SelectFieldVariationExample';
@@ -8,3 +9,4 @@ export { SelectFieldDisabledStateExample } from './SelectFieldDisabledStateExamp
 export { SelectFieldValidationErrorExample } from './SelectFieldValidationErrorExample';
 export { SelectFieldControlledExample } from './SelectFieldControlledExample';
 export { SelectFieldOptionsExample } from './SelectFieldOptionsExample';
+export { SelectFieldThemeExample } from './SelectFieldThemeExample';
