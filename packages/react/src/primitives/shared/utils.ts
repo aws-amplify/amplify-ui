@@ -200,9 +200,19 @@ export const classNameModifierByFlag = (
 export const getCSSVariableIfValueIsThemeKey = <Value>(
   propKey: string,
   value: Value
-) => {
+): Value | string => {
   if (typeof value !== 'string') {
     return value;
+  }
+  // For shorthand properties like `padding` which can accept 1, 2, 3, or 4 values
+  // run this function on each value. This would not work on CSS shorthands that
+  // mix types, like border which is a composite of borderWidth, borderStyle, and
+  // borderColor.
+  if (value.includes(' ')) {
+    return value
+      .split(' ')
+      .map((val) => getCSSVariableIfValueIsThemeKey<string>(propKey, val))
+      .join(' ');
   }
   const path = value.split('.');
   let { tokens } = defaultTheme;
