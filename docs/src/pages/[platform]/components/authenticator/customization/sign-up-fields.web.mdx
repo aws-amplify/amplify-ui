@@ -1,0 +1,60 @@
+import {
+  Authenticator,
+  CheckboxField,
+  useAuthenticator,
+} from '@aws-amplify/ui-react';
+
+import { Example } from '@/components/Example';
+import { Fragment } from '@/components/Fragment';
+
+The following example customizes the Sign Up screen by:
+
+- Re-using the default Sign Up form fields
+- Appending a custom "Terms & Conditions" checkbox with a `validateCustomSignUp` service
+
+**Note**: In the example code below, `preferred_username` is not set as an attribute because it has already been defined through [Zero Configuration](https://ui.docs.amplify.aws/components/authenticator/vue#signupattributes). You may also notice that the `acknowledgement` field is not being sent. This occurs since `acknowledgement` is not a known attribute to Cognito. To assign it as a custom attribute instead, the name field must have the `custom:` prefix.
+
+<Fragment>
+  {({ platform }) => import(`./sign-up-fields.${platform}.mdx`)}
+</Fragment>
+
+<Example>
+  <Authenticator
+    initialState="signUp"
+    loginMechanisms={['email']}
+    signUpAttributes={['preferred_username']}
+    components={{
+      SignUp: {
+        FormFields() {
+          const { validationErrors } = useAuthenticator();
+          return (
+            <>
+              <Authenticator.SignUp.FormFields />
+
+              <CheckboxField
+                errorMessage={validationErrors.acknowledgement}
+                hasError={!!validationErrors.acknowledgement}
+                name="acknowledgement"
+                value="yes"
+                label="I agree with the Terms & Conditions"
+              />
+            </>
+          );
+        },
+      },
+    }}
+    services={{
+      async validateCustomSignUp(formData) {
+        if (!formData.acknowledgement) {
+          return {
+            acknowledgement: 'You must agree to the Terms & Conditions',
+          };
+        }
+      },
+    }}
+
+/>
+
+</Example>
+
+> If you'd like to add an attribute please first consider using the [Sign Up Attributes](configuration#sign-up-attributes) prop. In some instances you may want to add an app-specific attribute. In those cases you can add a new form element to the Sign Up form fields. Be aware the HTML `name` attribute on the new form field must match the name of the Cognito attribute. If the cognito attribute is a [custom attribute](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html) it must have the `custom:` prefix in the HTML attribute name.

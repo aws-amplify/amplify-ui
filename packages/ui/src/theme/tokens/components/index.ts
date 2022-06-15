@@ -38,6 +38,7 @@ import { switchfield, SwitchFieldTokens } from './switchField';
 import { table, TableTokens } from './table';
 import { tabs, TabsTokens } from './tabs';
 import { text, TextTokens } from './text';
+import { textareafield, TextAreaFieldTokens } from './textAreaField';
 import { textfield, TextFieldTokens } from './textField';
 import { togglebutton, ToggleButtonTokens } from './toggleButton';
 import {
@@ -83,6 +84,7 @@ export interface ComponentTokens {
   table: TableTokens;
   tabs: TabsTokens;
   text: TextTokens;
+  textareafield: TextAreaFieldTokens;
   textfield: TextFieldTokens;
   togglebutton: ToggleButtonTokens;
   togglebuttongroup: ToggleButtonGroupTokens;
@@ -126,6 +128,7 @@ export const components: ComponentTokens = {
   table,
   tabs,
   text,
+  textareafield,
   textfield,
   togglebutton,
   togglebuttongroup,
