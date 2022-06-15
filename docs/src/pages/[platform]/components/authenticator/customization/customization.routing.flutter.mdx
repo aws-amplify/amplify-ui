@@ -1,0 +1,24 @@
+## Unauthenticated Routes
+
+Providing a builder value of `Authenticator.builder()` to your MaterialApp will make all routes in your application require authentication. The Authenticator can also be used to protect a subset of routes, and leave other routes unauthenticated.
+
+In the example below, the default route (route A) will not require authentication. When the app launches, WidgetA will show to authenticated and unauthenticated users. Route B returns an AuthenticatedView widget, with a child of WidgetB. This route will require authentication. If an unauthenticated user navigates to this route, they will see the authenticator. As soon as they authenticate, they will see WidgetB.
+
+```dart
+@override
+Widget build(BuildContext context) {
+  return Authenticator(
+    child: MaterialApp(
+      initialRoute: '/routeA',
+      routes: {
+        '/routeA': (BuildContext context) => const WidgetA(),
+        '/routeB': (BuildContext context) {
+          return const AuthenticatedView(
+            child: WidgetB(),
+          );
+        },
+      },
+    ),
+  );
+}
+```

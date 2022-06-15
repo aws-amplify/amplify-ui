@@ -35,7 +35,10 @@ export const Demo = ({
   };
 
   return (
-    <View className="docs-component-demo">
+    <View
+      className="docs-component-demo"
+      display={{ base: 'none', medium: 'block' }}
+    >
       <Flex
         direction={{
           base: 'column',

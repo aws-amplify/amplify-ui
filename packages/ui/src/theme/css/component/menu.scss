@@ -1,3 +1,12 @@
+// Using a ridiculously high z-index so the Radix popover menu
+// will appear above other content when it is NOT in a portal.
+// This is needed so we don't need to do weird stuff in the ThemeProvider
+// to get around the Portal not being part of the ThemeProvider's
+// DOM ancestors.
+[data-radix-popper-content-wrapper] {
+  z-index: 999999;
+}
+
 .amplify-menu-trigger {
   display: flex;
   justify-content: center;

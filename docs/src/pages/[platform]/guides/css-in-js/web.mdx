@@ -8,7 +8,7 @@ There are many CSS In JS libraries out there that give a number of benefits. Amp
 <TabItem title="Styled Components">
 [Styled Components](https://github.com/styled-components/styled-components) allows you to create visual primitives with actual CSS code directly tied to components.
 
-#### Usage
+## Usage
 
 ```jsx
 import * as React from 'react';
@@ -26,11 +26,11 @@ const StyledView = styled(View)`
 </StyledView>;
 ```
 
-#### Interactions
+## Interactions
 
 There are various ways to customize an Amplify component and Styled Components will interact with these customizations in the following ways:
 
-##### Amplify Styling Props
+### Amplify Styling Props
 
 These are styling props that can be used directly on an Amplify component which will affect a single style property. Examples of styling props are `color` or `fontWeight`. These Amplify styling props will take precedence over Styled Component styling.
 
@@ -46,9 +46,9 @@ const StyledView = styled(View)`
 <StyledView color="red">Using Styling props</StyledView>;
 ```
 
-In the example above, the color of the view will be set to `red` because of the Amplify styling prop. [Here]() is a list of all Amplify styling props.
+In the example above, the color of the view will be set to `red` because of the Amplify styling prop.
 
-##### Amplify variation props
+### Amplify variation props
 
 These props change the look and/or behavior of certain Amplify components. Examples include `size` and `variation`.
 
@@ -61,12 +61,12 @@ const StyledButton = styled(Button)`
   color: blue
 `;
 
-<StyledButton variation="primary'>Primary Button</StyledButton>
+<StyledButton variation="primary">Primary Button</StyledButton>
 ```
 
-In the example above, the color of the button will be set to `white`, because the primary variation of the button has a color set to `white` and it takes precedence over the Styled Components styling. A list of Amplify variations can be found on [here]().
+In the example above, the color of the button will be set to `blue`. Although the `primary` variation has a color value of white the Styled Components color value of blue will take precedence over the amplify-ui variation styling.
 
-##### Amplify Custom ClassNames
+### Amplify Custom ClassNames
 
 These are custom classnames added onto Amplify components and can be used with CSS styling rules to modify the look of an Amplify component.
 
@@ -91,7 +91,7 @@ const styledView = styled(View)`
 
 In the example above, the color of the view will be `blue` because the styled component will take precedence over the classname CSS.
 
-##### CSS Root Variable Overrides
+### CSS Root Variable Overrides
 
 Amplify theming provides many CSS variables to customize the look and feel of the entire application. These CSS variables can be used with the `:root` CSS psuedo-class to override all instances of component styling.
 
@@ -121,7 +121,7 @@ In the example above, the button color will be set to `blue` because the Styled 
 <TabItem title="JSS">
 [JSS](https://github.com/cssinjs/jss/tree/master/packages/react-jss) is a library for generating Style Sheets with Javascript.
 
-#### Usage
+## Usage
 
 ```jsx
 import * as React from 'react';
@@ -140,11 +140,11 @@ const classes = useStyles();
 <Text className={classes.styledText}>This is my JSS Text </Text>;
 ```
 
-#### Interactions
+## Interactions
 
 There are various ways to customize an Amplify component and JSS will interact with these customizations in the following ways:
 
-##### Amplify Styling Props
+### Amplify Styling Props
 
 These are styling props that can be used directly on an Amplify component which will affect a single style property. Examples of styling props are `color` or `fontWeight`. These Amplify styling props will take precedence over JSS styling.
 
@@ -166,9 +166,8 @@ const classes = useStyles();
 </Text>;
 ```
 
-In the example above, the color of the view will be set to `red` because of the Amplify styling prop. [Here]() is a list of all Amplify styling props.
-
-##### Amplify variation props
+In the example above, the color of the view will be set to `red` because of the Amplify styling prop.
+### Amplify variation props
 
 These props change the look and/or behavior of certain Amplify components. Examples include `size` and `variation`.
 
@@ -190,9 +189,9 @@ const classes = useStyles();
 </Button>;
 ```
 
-In the example above, the color of the button will be set to `white`, because the primary variation of the button has a color set to `white` and it takes precedence over the JSS styling. A list of Amplify variations can be found on [here]().
+In the example above, the color of the button will be set to `blue`. Although the `primary` variation has a color value of white the JSS color value of blue will take precedence over the amplify-ui variation styling.
 
-##### Amplify Custom ClassNames
+### Amplify Custom ClassNames
 
 These are custom classnames added onto Amplify components and can be used with CSS styling rules to modify the look of an Amplify component.
 
@@ -222,7 +221,7 @@ const classNames = `${classes.styledText} my-styled-text`;
 
 In the example above, the color of the text will be `blue` because the JSS styling will take precedence over the classname CSS.
 
-##### CSS Root Variable Overrides
+### CSS Root Variable Overrides
 
 Amplify theming provides many CSS variables to customize the look and feel of the entire application. These CSS variables can be used at a root level to override all instances of component styling.
 
@@ -256,7 +255,7 @@ In the example above, the button color will be set to `blue` because the JSS sty
 <TabItem title="Emotion">
 [Emotion](https://github.com/emotion-js/emotion) is a library designed for writing css styles with JavaScript.
 
-#### Usage
+## Usage
 
 ```jsx
 /** @jsxImportSource @emotion/react */
@@ -271,11 +270,11 @@ const styles = {
 <Text css={css(styles)}>This is my Emotion Text </Text>;
 ```
 
-#### Interactions
+## Interactions
 
 There are various ways to customize an Amplify component and Emotion will interact with these customizations in the following ways:
 
-##### Amplify Styling Props
+### Amplify Styling Props
 
 These are styling props that can be used directly on an Amplify component which will affect a single style property. Examples of styling props are `color` or `fontWeight`. These Amplify styling props will take precedence over Emotion styling.
 
@@ -293,15 +292,15 @@ const styles = {
 </Text>;
 ```
 
-In the example above, the color of the view will be set to `red` because of the Amplify styling prop. [Here]() is a list of all Amplify styling props.
+In the example above, the color of the view will be set to `red` because of the Amplify styling prop.
 
-##### Amplify variation props
+### Amplify variation props
 
 These props change the look and/or behavior of certain Amplify components. Examples include `size` and `variation`.
 
 ```jsx
 /** @jsxImportSource @emotion/react */
-import { jsx, css } from '@emotion/react';
+import { css } from '@emotion/react';
 import { Button } from '@aws-amplify/ui-react';
 
 const styles = {
@@ -313,15 +312,15 @@ const styles = {
 </Button>;
 ```
 
-In the example above, the color of the button will be set to `white`, because the primary variation of the button has a color set to `white` and it takes precedence over the Emotion styling. A list of Amplify variations can be found on [here]().
+In the example above, the color of the button will be set to `blue`. Although the `primary` variation has a color value of white the Emotion color value of blue will take precedence over the amplify-ui variation styling.
 
-##### Amplify Custom ClassNames
+### Amplify Custom ClassNames
 
 These are custom classnames added onto Amplify components and can be used with CSS styling rules to modify the look of an Amplify component.
 
 ```jsx
 /** @jsxImportSource @emotion/react */
-import { jsx, css } from '@emotion/react';
+import { css } from '@emotion/react';
 import { Text } from '@aws-amplify/ui-react';
 
 const styles = {
@@ -342,7 +341,7 @@ const styles = {
 
 In the example above, the color of the text will be `blue` because the Emotion styling will take precedence over the classname CSS.
 
-##### CSS Root Variable Overrides
+### CSS Root Variable Overrides
 
 Amplify theming provides many CSS variables to customize the look and feel of the entire application. These CSS variables can be used at a root level to override all instances of component styling.
 
@@ -372,7 +371,7 @@ In the example above, the button color will be set to `blue` because the Emotion
 <TabItem title="Aphrodite">
 [Aphrodite](https://github.com/Khan/aphrodite) is a Framework-agnostic CSS-in-JS with support for server-side rendering, browser prefixing, and minimum CSS generation.
 
-#### Usage
+## Usage
 
 ```jsx
 import { StyleSheet, css } from 'aphrodite';
@@ -388,11 +387,11 @@ const styles = StyleSheet.create({
 <Text className={css(styles.blue)}>This is an aphrodite Text component</Text>;
 ```
 
-#### Interactions
+## Interactions
 
 There are various ways to customize an Amplify component and Aphrodite will interact with these customizations in the following ways:
 
-##### Amplify Styling Props
+### Amplify Styling Props
 
 These are styling props that can be used directly on an Amplify component which will affect a single style property. Examples of styling props are `color` or `fontWeight`. Aphrodite will take precedence over these Amplify styling props.
 
@@ -411,9 +410,9 @@ const styles = StyleSheet.create({
 </Text>;
 ```
 
-In the example above, the color of the view will be set to `blue` because of the Aphrodite styling will take precedence. [Here]() is a list of all Amplify styling props.
+In the example above, the color of the view will be set to `blue` because of the Aphrodite styling will take precedence.
 
-##### Amplify variation props
+### Amplify variation props
 
 These props change the look and/or behavior of certain Amplify components. Examples include `size` and `variation`.
 
@@ -432,9 +431,9 @@ const styles = StyleSheet.create({
 </Button>;
 ```
 
-In the example above, the color of the button will be set to `blue`, because the Aphrodite styling will take precedence over the Amplify variation styling. A list of Amplify variations can be found on [here]().
+In the example above, the color of the button will be set to `blue`, because the Aphrodite styling will take precedence over the Amplify variation styling.
 
-##### Amplify Custom ClassNames
+### Amplify Custom ClassNames
 
 These are custom classnames added onto Amplify components and can be used with CSS styling rules to modify the look of an Amplify component.
 
@@ -462,14 +461,14 @@ const classNames = `${css(styles.blue)} my-styled-text`;
 
 In the example above, the color of the text will be `blue` because the Aphrodite styling will take precedence over the classname CSS.
 
-##### CSS Root Variable Overrides
+### CSS Root Variable Overrides
 
 Amplify theming provides many CSS variables to customize the look and feel of the entire application. These CSS variables can be used at a root level to override all instances of component styling.
 
 ```jsx
 /** @jsxImportSource @emotion/react */
 import { StyleSheet, css } from 'aphrodite';
-import { Text } from '@aws-amplify/ui-react';
+import { Button } from '@aws-amplify/ui-react';
 
 const styles = StyleSheet.create({
   blue: {

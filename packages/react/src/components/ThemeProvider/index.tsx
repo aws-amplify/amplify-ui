@@ -24,38 +24,6 @@ export function AmplifyProvider({
     theme: { name, cssText },
   } = value;
 
-  // In order for the theme to apply to Portalled elements like our Menu
-  // we need to put the CSS variables we generate from the theme on the
-  // root element. The CSS selector that contains the CSS variables
-  // uses the data attributes present on the root element, and because
-  // the same data attributes are on a div down the DOM tree, the CSS variables
-  // will apply to both.
-  React.useEffect(() => {
-    if (document && document.documentElement) {
-      // Keep original data attributes to reset on unmount
-      const originalName =
-        document.documentElement.getAttribute('data-amplify-theme') ?? name;
-      const originalColorMode =
-        document.documentElement.getAttribute('data-amplify-color-mode') ||
-        colorMode;
-      document.documentElement.setAttribute('data-amplify-theme', name);
-      document.documentElement.setAttribute(
-        'data-amplify-color-mode',
-        colorMode || originalColorMode
-      );
-
-      return function cleanup() {
-        document.documentElement.setAttribute(
-          'data-amplify-theme',
-          originalName
-        );
-        document.documentElement.setAttribute(
-          'data-amplify-color-mode',
-          originalColorMode
-        );
-      };
-    }
-  }, [name, colorMode]);
   return (
     <AmplifyContext.Provider value={value}>
       {/*
