@@ -26,7 +26,7 @@ for i in {1..3}; do
     echo "[LOG]: Ignoring yarn.lock file"
     yarn install --no-lockfile
   else
-    yarn installl
+    yarn install
   fi
 
   # Check return value and exit early if successful
