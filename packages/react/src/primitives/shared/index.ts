@@ -1,5 +1,1 @@
-export {
-  ComponentClassNames,
-  ComponentClassObject,
-  SharedText,
-} from './constants';
+export { ComponentClassNames, ComponentClassObject } from './constants';
