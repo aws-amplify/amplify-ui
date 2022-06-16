@@ -1,9 +1,8 @@
-import { Fragment } from '@/components/Fragment'; 
 import { Alert, Flex, View } from '@aws-amplify/ui-react';
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 
-import { AlertDemo } from './demo';
+import { AlertDemo } from '../demo';
 import {
   DefaultAlertExample,
   AlertVariationsExample,
@@ -12,7 +11,7 @@ import {
   DismissibleAlertExample,
   OnDismissAlertExample,
   AlertStylePropsExample,
-} from './examples';
+} from '../examples';
 
 ## Demo
 
@@ -29,7 +28,7 @@ Import the Alert component and styles.
   
   <ExampleCode>
 
-```jsx file=./examples/DefaultAlertExample.tsx
+```jsx file=../examples/DefaultAlertExample.tsx
 
 ```
 
@@ -47,7 +46,7 @@ Use the `variation` prop to change the Alert variation. Available options are `i
   
   <ExampleCode>
 
-```jsx file=./examples/AlertVariationsExample.tsx
+```jsx file=../examples/AlertVariationsExample.tsx
 
 ```
 
@@ -65,7 +64,7 @@ Use the `heading` prop to pass a heading to the Alert.
   
   <ExampleCode>
 
-```jsx file=./examples/AlertHeadingExample.tsx
+```jsx file=../examples/AlertHeadingExample.tsx
 
 ```
 
@@ -83,7 +82,7 @@ Use the `hasIcon` prop to change whether the Alert includes an icon. Defaults to
   
   <ExampleCode>
 
-```jsx file=./examples/AlertIconExample.tsx
+```jsx file=../examples/AlertIconExample.tsx
 
 ```
 
@@ -101,7 +100,7 @@ Use the `isDismissible` prop to control whether the user can dismiss the Alert. 
   
   <ExampleCode>
 
-```jsx file=./examples/DismissibleAlertExample.tsx
+```jsx file=../examples/DismissibleAlertExample.tsx
 
 ```
 
@@ -119,7 +118,7 @@ Use the `onDismiss` prop to pass a function that will run when the Alert is dism
   
   <ExampleCode>
 
-```jsx file=./examples/OnDismissAlertExample.tsx
+```jsx file=../examples/OnDismissAlertExample.tsx
 
 ```
 
@@ -252,7 +251,7 @@ _Using style props:_
   
   <ExampleCode>
 
-```jsx file=./examples/AlertStylePropsExample.tsx
+```jsx file=../examples/AlertStylePropsExample.tsx
 
 ```
 
@@ -276,9 +275,3 @@ For Amplify UI, the `alert` ARIA role is not built-in because it depends on your
 However, if you're just displaying some information that isn't critical or time sensitive, then we would not recommend passing in the `alert` role.
 
 For more information, check out the [MDN Documentation](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Alert_Role).
-
-
-<Fragment>
-  {({ platform }) => import('./props-table.mdx')}
-</Fragment>
-

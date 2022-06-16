@@ -130,6 +130,16 @@ module.exports = withNextPluginPreval({
         destination: '/[platform]/:nav',
         permanent: true,
       },
+      // {
+      //   source: component page
+      //   destination: component document page
+      //   permanent: true,
+      // },
+      {
+        source: '/:platform(react|angular|vue|flutter)/components/:component',
+        destination: '/:platform/components/:component/document',
+        permanent: true,
+      },
     ];
   },
 
