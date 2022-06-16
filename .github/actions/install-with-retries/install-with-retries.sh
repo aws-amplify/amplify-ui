@@ -37,3 +37,5 @@ for i in {1..3}; do
   # Sleep 5 seconds before retrying
   sleep 5
 done
+
+exit $return_value
