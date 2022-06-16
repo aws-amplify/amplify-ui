@@ -68,7 +68,7 @@ jobs:
         uses: ./.github/actions/install-with-retries
         with:
           working-directory: ./canary/e2e
-          skip-cypress-binary: steps.restore-cypress-cache.outputs.cache-hit
+          skip-cypress-binary: ${{ steps.restore-cypress-cache.outputs.cache-hit }}
       - name: Cache cypress runner
         if: steps.restore-cypress-cache.outputs.cache-hit != 'true'
         uses: actions/cache@v2
