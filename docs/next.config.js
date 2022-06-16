@@ -137,7 +137,7 @@ module.exports = withNextPluginPreval({
       // },
       {
         source: '/:platform(react|angular|vue|flutter)/components/:component',
-        destination: '/:platform/components/:component/document',
+        destination: '/:platform/components/:component/documentation',
         permanent: true,
       },
     ];
