@@ -51,12 +51,11 @@ export const Header = ({
         alt={platform}
         height="1.5rem"
         width="1.5rem"
-        display="block"
         className="docs-logo-framework"
         src={`/svg/integrations/${platform}.svg`}
       />
 
-      <Flex flex="1" justifyContent="flex-end">
+      <Flex flex="1" justifyContent="flex-end" gap="small">
         {showSearch && (
           <DocSearch
             appId={process.env.DOCSEARCH_DOCS_APP_ID}

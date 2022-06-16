@@ -5,15 +5,16 @@ import {
   Heading,
   Text,
   Link,
-  useTheme,
   View,
   Authenticator,
   useBreakpointValue,
 } from '@aws-amplify/ui-react';
-import { HomeCode } from 'src/pages/[platform]/home/HomeCode';
-import { HomeCTA } from 'src/pages/[platform]/home/HomeCTA';
+import { HomeCode } from './HomeCode';
+import { HomeCTA } from './HomeCTA';
 import { HomeCodeHighlight } from '@/components/CodeHighlight';
 import { useIntersectionObserver } from '@/components/useIntersection';
+import { FlutterAuthenticatorExample } from '@/components/FlutterAuthenticatorExample';
+import { BrowserMock } from './BrowserMock';
 
 // TODO: grab this code from actual examples so we don't need to keep these in sync
 const authenticatorCode = {
@@ -65,24 +66,8 @@ export default function App() {
     </template>
   </authenticator>
 </template>`,
-  flutter: `import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_authenticator/amplify_authenticator.dart';
-import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:flutter/material.dart';
-
-import 'amplifyconfiguration.dart';
-
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
+  flutter: `
+//...
 class _MyAppState extends State<MyApp> {
   @override
   void initState() {
@@ -123,6 +108,13 @@ const languages = {
   flutter: 'dart',
 };
 
+const fileName = {
+  react: 'index.tsx',
+  angular: 'index.html',
+  vue: 'index.vue',
+  flutter: 'main.dart',
+};
+
 export const AuthenticationSection = ({ platform }) => {
   const ref = React.useRef<HTMLDivElement | null>(null);
   const entry = useIntersectionObserver(ref, {
@@ -142,11 +134,22 @@ export const AuthenticationSection = ({ platform }) => {
       className={`docs-home-section fade-in ${isVisible ? 'shown' : ''}`}
     >
       <Flex direction="column">
-        <View className="docs-home-subsection">
+        <Flex direction="column" className="docs-home-subsection--thin">
           <Heading level={2}>
             <strong>Authentication</strong> made easy
           </Heading>
-        </View>
+          <Text className="docs-home-text">
+            Add authentication to your app in under 10 lines of code using the
+            Authenticator component. The Authenticator works seamlessly with the{' '}
+            <Link href="https://docs.amplify.aws/cli/start/install/">
+              Amplify CLI
+            </Link>{' '}
+            to <strong>automatically</strong> work with your backend, no extra
+            configuration needed! Customize every detail of the authentication
+            flow with themes, overrides, or bring your own UI with a headless
+            mode.
+          </Text>
+        </Flex>
 
         <Flex
           direction={{
@@ -157,31 +160,18 @@ export const AuthenticationSection = ({ platform }) => {
           gap="xxl"
           className="docs-home-subsection"
         >
-          <Flex direction="column">
-            <Text className="docs-home-text">
-              Add authentication to your app in under 10 lines of code using the
-              Authenticator component. The Authenticator works seamlessly with
-              the{' '}
-              <Link href="https://docs.amplify.aws/cli/start/install/">
-                Amplify CLI
-              </Link>{' '}
-              to <strong>automatically</strong> work with your backend, no extra
-              configuration needed! Customize every detail of the authentication
-              flow with themes, overrides, or bring your own UI with a headless
-              mode.
-            </Text>
-            <View flex="1" className="docs-home-browser">
-              <View className="docs-home-browser__nav-bar">
-                https://localhost
-              </View>
-              <View className="docs-home-browser__page">
-                <Authenticator />
-              </View>
+          {platform === 'flutter' ? (
+            <View flex="1">
+              <FlutterAuthenticatorExample />
             </View>
-          </Flex>
+          ) : (
+            <BrowserMock flex="1" location="https://localhost">
+              <Authenticator />
+            </BrowserMock>
+          )}
 
           {hiddenOnMobile ? (
-            <HomeCode fileName="index.tsx">
+            <HomeCode flex="1" fileName={fileName[platform]}>
               <HomeCodeHighlight
                 code={authenticatorCode[platform]}
                 language={languages[platform]}

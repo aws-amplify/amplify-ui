@@ -117,17 +117,22 @@
 
 .install-code__content {
   flex: 1;
-  margin: 0 var(--amplify-space-medium);
+  margin-inline-end: var(--amplify-space-medium);
   overflow-x: auto;
   white-space: normal;
   background-color: var(--amplify-colors-background-primary);
-  font-size: var(--amplify-font-sizes-large);
   
-  &::before {
-    content: '$';
-    color: var(--amplify-colors-brand-secondary-40);
-    margin-inline-end: var(--amplify-space-small);
+  
+  @media (min-width: $breakpoint-large) {
+    font-size: var(--amplify-font-sizes-large);
+    &::before {
+      content: '$';
+      color: var(--amplify-colors-brand-secondary-40);
+      margin-inline-end: var(--amplify-space-small);
+    }
   }
+  
+
 }
 
 .install-code__button {
@@ -248,8 +253,12 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: var(--amplify-space-xxl);
+  padding: var(--amplify-space-large);
   padding-top: 6rem;
+  
+  @media (min-width: $breakpoint-medium) {
+    padding: var(--amplify-space-xxl);
+  }
 }
 
 
@@ -592,4 +601,10 @@ pre.scrollable.prism-code {
       padding: var(--amplify-space-large);
     }
   }
+}
+
+
+.docs-home-coming-soon {
+  opacity: 0.25;
+  pointer-events: none;
 }

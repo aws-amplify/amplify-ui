@@ -6,6 +6,7 @@ import { AuthenticationSection } from './home/AuthenticationSection';
 import { ThemingSection } from './home/ThemingSection';
 import { ComingSoonPrimitiveSection } from './home/PrimitiveSection';
 import { AmplifySection } from './home/AmplifySection';
+import { CompatibleSection } from './home/CompatibleSection';
 
 const VueHomePage = ({ colorMode }) => {
   const {
@@ -17,6 +18,7 @@ const VueHomePage = ({ colorMode }) => {
       <AuthenticationSection platform={platform} />
       <ThemingSection platform={platform} colorMode={colorMode} />
       <A11ySection platform={platform} />
+      <CompatibleSection platform={platform} />
       <ComingSoonPrimitiveSection platform={platform} />
       <AmplifySection />
     </>

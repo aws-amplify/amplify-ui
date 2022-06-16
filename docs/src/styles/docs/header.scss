@@ -20,6 +20,7 @@
   padding: var(--amplify-space-small) var(--amplify-space-medium);
   z-index: 100;
   backdrop-filter: blur(10px);
+  gap: var(--amplify-space-small);
 
   @media (max-width: $breakpoint-large) {
     border-bottom: var(--amplify-borders-secondary);
@@ -80,6 +81,10 @@
   @media (min-width: $breakpoint-large) {
     display: none;
   }
+}
+
+.docs-logo-framework {
+  margin-inline-start: calc(-1 * var(--amplify-space-xs));
 }
 
 

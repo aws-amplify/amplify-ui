@@ -26,7 +26,11 @@ export const A11ySection = ({ platform }) => {
       as="section"
       className={`docs-home-section fade-in ${isVisible ? 'shown' : ''}`}
     >
-      <Flex direction="column" className="docs-home-subsection--thin">
+      <Flex
+        direction="column"
+        className="docs-home-subsection--thin"
+        textAlign="center"
+      >
         <Heading level={2}>
           <strong>Accessibility</strong> built-in
         </Heading>
@@ -42,8 +46,7 @@ export const A11ySection = ({ platform }) => {
           <Link isExternal href="https://www.w3.org/WAI/ARIA/apg/">
             WAI-ARIA
           </Link>{' '}
-          best practices and guidelines such as color contrast, keyboard
-          navigation, accessible labels, and focus management.
+          best practices to ensure <em>all</em> users can use your application.
         </Text>
         <Flex
           direction={{
@@ -54,22 +57,22 @@ export const A11ySection = ({ platform }) => {
           <HomeFeatureCard
             title="Color contrast"
             Icon={MdInvertColors}
-            description=""
+            description="All components have AA or higher contrast in both light and dark mode"
           />
           <HomeFeatureCard
             title="Keyboard navigation"
             Icon={MdKeyboard}
-            description=""
+            description="Interactive components support keyboard navigation users would expect"
           />
           <HomeFeatureCard
             title="Focus management"
             Icon={MdSmartButton}
-            description=""
+            description="Focusable components have proper focus states and interactivity"
           />
           <HomeFeatureCard
             title="Accessible labels"
             Icon={MdLabel}
-            description=""
+            description="Form fields and icons have accessible labels, plus there are utilities to help make sure your application is labelled."
           />
         </Flex>
 

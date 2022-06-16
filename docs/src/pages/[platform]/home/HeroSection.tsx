@@ -42,11 +42,14 @@ export const HeroSection = () => {
             }}
           >
             Amplify UI simplifies building accessible, performant, and beautiful
-            applications with cloud-connected and primitive components, theming,
-            and utilities.
+            applications with cloud-connected capabilities, building blocks,
+            theming, and utilities.
           </Text>
           <FrameworkChooser />
-          <Flex direction={{ base: 'column-reverse', medium: 'row' }}>
+          <Flex
+            gap="medium"
+            direction={{ base: 'column-reverse', medium: 'row' }}
+          >
             <Button
               size="large"
               variation="primary"

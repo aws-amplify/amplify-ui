@@ -1,8 +1,6 @@
 import * as React from 'react';
 import dynamic from 'next/dynamic';
-import { MdOutlineWidgets } from 'react-icons/md';
-import { Heading, useBreakpointValue, Text, View } from '@aws-amplify/ui-react';
-import { HomeCTA } from 'src/pages/[platform]/home/HomeCTA';
+import { Heading, View } from '@aws-amplify/ui-react';
 import { useIntersectionObserver } from '@/components/useIntersection';
 
 // react-live does not work with SSR so we have to load
@@ -20,15 +18,15 @@ export const LiveSection = ({ platform, ...rest }) => {
   const isVisible = !!entry?.isIntersecting;
 
   return (
-    <View as="section" className="docs-home-section docs-grid-bg" ref={ref}>
+    <View
+      as="section"
+      className={`docs-home-section docs-grid-bg fade-in ${
+        isVisible ? 'shown' : ''
+      }`}
+      ref={ref}
+    >
       <View className="docs-home-subsection">
-        <Heading
-          level={2}
-          textAlign="center"
-          className={`fade-in ${isVisible ? 'shown' : ''}`}
-        >
-          Still not convinced? Try it out below!
-        </Heading>
+        <Heading level={2}>Still not convinced? Try it out below!</Heading>
       </View>
 
       <View className="docs-home-subsection">

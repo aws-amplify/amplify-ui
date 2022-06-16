@@ -248,7 +248,6 @@ export const ThemeSwitcher = ({ colorMode }) => {
       direction="column"
       alignItems="center"
       className="docs-home-subsection"
-      gap="large"
     >
       <ToggleButtonGroup
         value={theme}

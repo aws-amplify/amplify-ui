@@ -37,6 +37,7 @@ import {
 } from '@aws-amplify/ui-react';
 import { HomeCTA } from 'src/pages/[platform]/home/HomeCTA';
 import { useIntersectionObserver } from '@/components/useIntersection';
+import { upperFirst } from 'lodash';
 
 const Center = ({ children }) => (
   <Flex justifyContent="center" alignItems="center" width="100%" height="100%">
@@ -182,11 +183,15 @@ const Preview = () => {
 export const ComingSoonPrimitiveSection = ({ platform }) => {
   return (
     <View as="section" className="docs-home-section docs-grid-bg centered">
-      <View className="docs-home-container">
+      <Flex direction="column" className="docs-home-subsection--thin">
         <Heading level={2} textAlign="center">
-          {platform} primitive components coming soon!
+          {upperFirst(platform)} primitive components{' '}
+          <strong>coming soon</strong>!
         </Heading>
-      </View>
+        <View className="docs-home-coming-soon">
+          <Preview />
+        </View>
+      </Flex>
     </View>
   );
 };
@@ -211,7 +216,7 @@ export const PrimitiveSection = ({ platform, ...rest }) => {
       <Flex direction="column" gap="large" className="docs-home-subsection">
         <Heading level={2}>
           Speed up development with over <br />
-          <strong>45 production-ready components</strong>
+          <strong>40 production-ready components</strong>
         </Heading>
         <Flex
           direction={{
@@ -225,12 +230,12 @@ export const PrimitiveSection = ({ platform, ...rest }) => {
             <Text className="docs-home-text">
               Amplify UI components are built with plain React and CSS to
               provide a solid foundation for building UIs and design systems.
-              These components are theme-able, composable, reusable. They work
-              well with other UI components or styling frameworks. Interactive
+              These components are theme-able, composable, reusable. They play
+              nicely with other UI components or styling frameworks. Interactive
               components can be controlled and uncontrolled.
             </Text>
           </Flex>
-          <View flex="2">
+          <View flex="1">
             <Preview />
           </View>
         </Flex>

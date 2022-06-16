@@ -43,8 +43,8 @@ export const CompatibleSection = ({ platform }) => {
           />
           <HomeFeatureCard
             Icon={SiTypescript}
-            title="Typescript support"
-            description=""
+            title="Typescript & intellisense"
+            description="Let your IDE do the work for you and make UI development a breeze with strongly typed interfaces and inline documentation."
           />
         </Flex>
         <HomeCTA href={`/${platform}/getting-started/introduction`}>
