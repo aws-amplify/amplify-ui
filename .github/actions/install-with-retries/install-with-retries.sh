@@ -1,20 +1,20 @@
-#!/bin/sh
+#!/bin/bash
 
 # Environment variable inputs:
 #   SKIP_CYPRESS_BINARY (boolean): Skips cypress binary installation if true.
 #   NO_LOCKFILE (boolean): Ignores yarn.lock file if true
 #   WORKING_DIRECTORY (string): Path to run yarn install at
 
-if [ $WORKING_DIRECTORY -n ] then
+if [[ -n "$WORKING_DIRECTORY" ]]; then
   echo "[LOG]: Changing directory to $WORKING_DIRECTORY"
   cd $WORKING_DIRECTORY
 fi
 
-if [ "$SKIP_CYPRESS_BINARY" = "true" ] then
+if [ "$SKIP_CYPRESS_BINARY" = "true" ]; then
   # Skip cypress binary installation if specified
   # https://docs.cypress.io/guides/references/advanced-installation#Environment-variables
   echo "[LOG]: Setting flag to skip cypress binary installation"
-  export CYPRESS_INSTALL_BINARY=0;
+  export CYPRESS_INSTALL_BINARY=0
 fi
 
 for i in {1..3}; do
