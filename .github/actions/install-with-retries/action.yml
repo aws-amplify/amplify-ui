@@ -18,7 +18,7 @@ runs:
   steps:
     - name: Run yarn install
       shell: bash
-      run: ./install-with-retries.sh
+      run: ./.github/actions/install-with-retries/install-with-retries.sh
       env:
         SKIP_CYPRESS_BINARY: ${{ inputs.skip-cypress-binary }}
         NO_LOCKFILE: ${{ inputs.no-lockfile }}
