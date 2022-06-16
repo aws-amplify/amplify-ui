@@ -32,7 +32,7 @@ jobs:
           cache: 'yarn'
       - name: Ignore monorepo postcss.config.js
         run: mv postcss.config.js _postcss.config.js
-      - name: Install e2e packages
+      - name: Install canary package
         uses: ./.github/actions/install-with-retries
         with:
           no-lockfile: true
