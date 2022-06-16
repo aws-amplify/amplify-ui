@@ -16,7 +16,7 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Install cypress with binary
+    - name: Run yarn install
       if: steps.restore-cypress-cache.outputs.cache-hit != 'true'
       shell: bash
       run: ./install-with-retries.sh
