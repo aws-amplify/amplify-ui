@@ -12,7 +12,7 @@ import { PageTabLayout } from "@/components/Layout/PageTabLayout"
 
 <PageTabLayout 
   tabComponents={[{
-    title: "Document", 
+    title: "Documentation", 
     children: <Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
   },
   {
