@@ -29,4 +29,4 @@ runs:
       env:
         SKIP_CYPRESS_BINARY: ${{ inputs.skip-cypress-binary }}
         NO_LOCKFILE: ${{ inputs.no-lockfile }}
-      working-directory: ${{ inputs.working-directory }}
+        WORKING_DIRECTORY: ${{ inputs.working-directory }}

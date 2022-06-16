@@ -1,8 +1,14 @@
 #!/bin/sh
 
-# Env Variale Inputs
-# - SKIP_CYPRESS_BINARY (boolean): Skips cypress binary installation if true.
-# - NO_LOCKFILE (boolean): Ignores yarn.lock file if true
+# Environment variable inputs:
+#   SKIP_CYPRESS_BINARY (boolean): Skips cypress binary installation if true.
+#   NO_LOCKFILE (boolean): Ignores yarn.lock file if true
+#   WORKING_DIRECTORY (string): Path to run yarn install at
+
+if [ $WORKING_DIRECTORY -n ] then
+  echo "[LOG]: Changing directory to $WORKING_DIRECTORY"
+  cd $WORKING_DIRECTORY
+fi
 
 if [ "$SKIP_CYPRESS_BINARY" = "true" ] then
   # Skip cypress binary installation if specified
