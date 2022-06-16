@@ -1,6 +1,10 @@
 #!/bin/sh
 
-if [ "$SKIP_CYPRESS_BINARY" = "true" ]; then
+# Env Variale Inputs
+# - SKIP_CYPRESS_BINARY (boolean): Skips cypress binary installation if true.
+# - NO_LOCKFILE (boolean): Ignores yarn.lock file if true
+
+if [ "$a" = "true" ]; then
   # Skip cypress binary installation if specified
   # https://docs.cypress.io/guides/references/advanced-installation#Environment-variables
   echo "[LOG]: Setting flag to skip cypress binary installation"
