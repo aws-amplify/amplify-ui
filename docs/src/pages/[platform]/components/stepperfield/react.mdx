@@ -9,12 +9,14 @@ import {
   StepperFieldAccessibilityExample,
   StepperFieldSizeExample,
   StepperFieldValidationErrorExample,
+  StepperFieldThemeExample,
 } from './examples';
 import { Example, ExampleCode } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
 import { ComponentClassTable } from '@/components/ComponentClassTable';
 import StandardHTMLAttributes from '@/components/StandardHTMLAttributes.mdx';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
+import { ThemeAlert } from '@/components/ThemeAlert';
 
 ## Demo
 
@@ -153,6 +155,24 @@ Use the `hasError` and `errorMessage` props to mark a StepperField as having an 
 ### Target classes
 
 <ComponentStyleDisplay componentName="StepperField" />
+
+### Theme
+
+<ThemeAlert />
+
+You can customize the appearance of all StepperFields in your application with a [Theme](/theming).
+
+<Example>
+  <StepperFieldThemeExample />
+  
+<ExampleCode>
+
+```tsx file=./examples/StepperFieldThemeExample.tsx
+
+```
+
+</ExampleCode>
+</Example>
 
 ### Global styling
 
