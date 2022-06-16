@@ -13,6 +13,7 @@ for i in {1..3}; do
   echo "===================="
 
   if [ "$NO_LOCKFILE" = "true" ]; then
+    echo "[LOG]: Ignoring yarn.lock file"
     yarn install --no-lockfile
   else
     yarn install
