@@ -1,0 +1,23 @@
+name: 'Install with retries'
+description: 'Runs yarn install with up to 2 retries'
+inputs:
+  skip-cypress-binary:
+    description: 'Whether to skip binary installation for cypress'
+    required: false
+    default: 'true'
+  working-directory:
+    description: 'Path to run `yarn install` at'
+    required: false
+    default: './'
+runs:
+  using: 'composite'
+  steps:
+    - name: Set environment var to skip cypress binary installation if applicable
+      if: ${{ inputs.working-directory == 'true' }}
+      shell: bash
+      run: echo "CYPRESS_INSTALL_BINARY=0" >> $GITHUB_ENV
+    - name: Install cypress with binary
+      if: steps.restore-cypress-cache.outputs.cache-hit != 'true'
+      shell: bash
+      run: for n in {1..3}; do yarn install && break || sleep 5; done
+      working-directory: ${{ inputs.working-directory }}
