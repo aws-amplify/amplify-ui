@@ -1,7 +1,25 @@
 @import './_variables.scss';
 
-.props-table-expander .amplify-expander__content__text {
-  overflow-x: auto;
+.props-table-expander {
+  box-shadow: unset;
+  margin-bottom: 1rem;
+
+  & .amplify-expander__item {
+    box-shadow: unset;
+    border-radius: unset;
+    border-bottom-color: var(--amplify-components-table-data-border-color);
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+  }
+
+  & .amplify-expander__content {
+    padding-inline: unset;
+  }
+
+  & .amplify-expander__content__text {
+    overflow-x: auto;
+    padding-block: unset;
+  }
 }
 
 .props-table {
@@ -11,12 +29,8 @@
     max-width: 20rem;
   }
 
-  .amplify-table__td {
+  &.amplify-table__td {
     padding: 0.5rem;
-  }
-
-  & .amplify-expander__content__text {
-    overflow-x: auto;
   }
 }
 
