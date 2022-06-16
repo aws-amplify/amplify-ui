@@ -146,20 +146,41 @@ export const AuthenticationSection = ({ platform }) => {
           >
             <strong>Authentication</strong> made easy
           </Heading>
-          <Text className="docs-home-description">
-            Add authentication to your app in under 10 lines of code using the
-            Authenticator component. The Authenticator works seamlessly with the{' '}
-            <Link href="https://docs.amplify.aws/cli/start/install/">
-              Amplify CLI
-            </Link>{' '}
-            to <strong>automatically</strong> work with your backend, no extra
-            configuration needed! Customize every detail of the authentication
-            flow with themes, overrides, or bring your own UI with a headless
-            mode.
-          </Text>
         </View>
 
-        <Flex direction="row" padding="xxl" className="docs-grid-bg">
+        <Flex
+          direction="row"
+          alignItems="flex-start"
+          gap="xxl"
+          className="docs-grid-bg container"
+        >
+          <Flex direction="column">
+            <Text className="docs-home-text">
+              Add authentication to your app in under 10 lines of code using the
+              Authenticator component. The Authenticator works seamlessly with
+              the{' '}
+              <Link href="https://docs.amplify.aws/cli/start/install/">
+                Amplify CLI
+              </Link>{' '}
+              to <strong>automatically</strong> work with your backend, no extra
+              configuration needed! Customize every detail of the authentication
+              flow with themes, overrides, or bring your own UI with a headless
+              mode.
+            </Text>
+            <View flex="1" className="docs-home-browser">
+              <Flex
+                direction="row"
+                gap="xxs"
+                className="docs-home-browser__nav-bar"
+              >
+                <View as="span" className="docs-home-browser__close-button" />
+                <View as="span" className="docs-home-browser__min-button" />
+                <View as="span" className="docs-home-browser__max-button" />
+              </Flex>
+              <Authenticator></Authenticator>
+            </View>
+          </Flex>
+
           {hiddenOnMobile ? (
             <HomeCode>
               <HomeCodeHighlight
@@ -169,18 +190,6 @@ export const AuthenticationSection = ({ platform }) => {
               />
             </HomeCode>
           ) : null}
-          <View flex="1" className="docs-home-browser">
-            <Flex
-              direction="row"
-              gap="xxs"
-              className="docs-home-browser__nav-bar"
-            >
-              <View as="span" className="docs-home-browser__close-button" />
-              <View as="span" className="docs-home-browser__min-button" />
-              <View as="span" className="docs-home-browser__max-button" />
-            </Flex>
-            <Authenticator></Authenticator>
-          </View>
         </Flex>
         <HomeCTA href={`/${platform}/components/authenticator`}>
           Get started with the Authenticator

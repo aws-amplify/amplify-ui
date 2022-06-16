@@ -1,10 +1,5 @@
 @import './variables';
 
-.docs-home-description {
-  color: var(--amplify-colors-font-secondary);
-  font-size: var(--amplify-font-sizes-xl);
-}
-
 .docs-home-feature-card {
   border-width: 0;
 }
@@ -71,7 +66,8 @@
   text-align: center;
 }
 
-.docs-home-text {
+.docs-home-text,
+.docs-home-description {
   font-size: var(--amplify-font-sizes-large);
   @media (min-width: $breakpoint-small) {
     font-size: var(--amplify-font-sizes-xl);
@@ -206,7 +202,9 @@
 
 
 .docs-home-h1 {
-  font-size: 5rem;
+  @media (min-width: $breakpoint-large) {
+    font-size: 5rem;
+  }
 }
 
 .docs-hero {
@@ -362,6 +360,10 @@ code.docs-home-code {
 
 .docs-home-figma-graphic {
   position: relative;
+  // display: none;
+  // @media (min-width: $breakpoint-small) {
+  //   display: block;
+  // }
 }
 
 .docs-home-figma-logo {
@@ -386,6 +388,11 @@ code.docs-home-code {
 
 .docs-home-figma-studio {
   padding-top: var(--amplify-space-medium);
+  top: 0;
+}
+
+.docs-home-figma-code {
+  bottom: -2rem;
 }
 
 .docs-home-figma-graphic {
@@ -415,13 +422,6 @@ code.docs-home-code {
   }
 }
 
-.docs-home-figma-code {
-  bottom: -2rem;
-}
-
-.docs-home-figma-studio {
-  top: -2rem;
-}
 
 .docs-home-figma-node {
   position: relative;
@@ -498,10 +498,17 @@ code.docs-home-code {
 
 
 .docs-home-browser {
-  border: var(--amplify-border-widths-small) solid var(--amplify-colors-border-primary);
+  position: relative;
+  border: var(--amplify-border-widths-small) solid var(--amplify-colors-border-secondary);
   border-radius: var(--amplify-radii-small);
   background-color: var(--amplify-colors-background-primary);
+  padding: var(--amplify-space-large);
+  padding-block-start: calc(var(--amplify-space-large) + 0.5rem + (2 * var(--amplify-space-xxs)));
   &__nav-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
     background-color: var(--amplify-colors-background-secondary);
     padding: var(--amplify-space-xxs);
     margin-block-end: var(--amplify-space-medium);

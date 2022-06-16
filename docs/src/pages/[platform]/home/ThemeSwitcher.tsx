@@ -233,6 +233,7 @@ export const ThemeSwitcher = ({ colorMode }) => {
     <Flex
       direction="column"
       alignItems="center"
+      className="container"
       gap={tokens.space.large}
       padding={tokens.space.xl}
     >

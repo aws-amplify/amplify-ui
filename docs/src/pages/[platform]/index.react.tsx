@@ -8,11 +8,18 @@ import { ThemingSection } from './home/ThemingSection';
 import { CompatibleSection } from './home/CompatibleSection';
 import { PrimitiveSection } from './home/PrimitiveSection';
 import { LiveSection } from './home/LiveSection';
+import { AmplifySection } from './home/AmplifySection';
+import { useBreakpointValue } from '@aws-amplify/ui-react';
 
 const ReactHomePage = ({ colorMode }) => {
   const {
     query: { platform = 'react' },
   } = useCustomRouter();
+
+  const showEditor = useBreakpointValue({
+    base: false,
+    medium: true,
+  });
 
   return (
     <>
@@ -22,7 +29,8 @@ const ReactHomePage = ({ colorMode }) => {
       <ThemingSection platform={platform} colorMode={colorMode} />
       <A11ySection platform={platform} />
       <CompatibleSection platform={platform} />
-      <LiveSection platform={platform} />
+      <AmplifySection />
+      {showEditor ? <LiveSection platform={platform} /> : null}
     </>
   );
 };

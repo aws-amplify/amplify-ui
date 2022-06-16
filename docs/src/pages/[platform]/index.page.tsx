@@ -60,8 +60,6 @@ const HomePage = ({ colorMode }) => {
       {pageContent}
 
       {/* Shared content */}
-      <AmplifySection />
-
       <Footer />
     </>
   );

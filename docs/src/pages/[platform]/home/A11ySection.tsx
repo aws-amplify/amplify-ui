@@ -28,7 +28,7 @@ export const A11ySection = ({ platform }) => {
         <Heading level={2} textAlign="center">
           <strong>Accessibility</strong> built-in
         </Heading>
-        <Text className="docs-home-description">
+        <Text className="docs-home-text">
           Amplify UI components follow{' '}
           <Link
             isExternal

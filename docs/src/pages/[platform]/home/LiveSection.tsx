@@ -12,11 +12,6 @@ const HomeEditor = dynamic(() => import('./HomeEditor'), {
 }) as React.FC<any>;
 
 export const LiveSection = ({ platform, ...rest }) => {
-  const showEditor = useBreakpointValue({
-    base: false,
-    medium: true,
-  });
-
   const ref = React.useRef<HTMLDivElement | null>(null);
   const entry = useIntersectionObserver(ref, {
     threshold: 0.125,
@@ -40,11 +35,9 @@ export const LiveSection = ({ platform, ...rest }) => {
         </Heading>
       </View>
 
-      {showEditor ? (
-        <View className="docs-home-section">
-          <HomeEditor />
-        </View>
-      ) : null}
+      <View className="docs-home-section container">
+        <HomeEditor />
+      </View>
     </View>
   );
 };

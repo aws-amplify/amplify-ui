@@ -77,7 +77,7 @@ const HomeEditor = () => {
         }}
         gap="0"
       >
-        <HomeCode className="with-lines" data-editable>
+        <HomeCode data-editable>
           <Alert
             className="docs-home-editor-badge"
             variation="info"

@@ -5,6 +5,7 @@ import { A11ySection } from './home/A11ySection';
 import { AuthenticationSection } from './home/AuthenticationSection';
 import { ThemingSection } from './home/ThemingSection';
 import { ComingSoonPrimitiveSection } from './home/PrimitiveSection';
+import { AmplifySection } from './home/AmplifySection';
 
 const VueHomePage = ({ colorMode }) => {
   const {
@@ -17,6 +18,7 @@ const VueHomePage = ({ colorMode }) => {
       <ThemingSection platform={platform} colorMode={colorMode} />
       <A11ySection platform={platform} />
       <ComingSoonPrimitiveSection platform={platform} />
+      <AmplifySection />
     </>
   );
 };

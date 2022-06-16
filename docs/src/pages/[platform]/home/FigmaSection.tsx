@@ -98,7 +98,7 @@ export const FigmaSection = (props) => {
           alignItems="flex-start"
           flex="1"
         >
-          <Text className="docs-home-description">
+          <Text className="docs-home-text">
             With Amplify Studio you can design components in Figma, bind them to
             your data, and generate production-ready React code. Amplify
             Studio's UI builder makes it easy to build UI that is connected to

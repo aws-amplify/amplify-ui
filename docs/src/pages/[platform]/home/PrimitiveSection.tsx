@@ -1,6 +1,14 @@
 import * as React from 'react';
-import dynamic from 'next/dynamic';
-import { MdOutlineWidgets } from 'react-icons/md';
+import {
+  MdFormatAlignCenter,
+  MdFormatAlignJustify,
+  MdFormatAlignLeft,
+  MdFormatAlignRight,
+  MdFormatBold,
+  MdFormatItalic,
+  MdFormatUnderlined,
+  MdOutlineWidgets,
+} from 'react-icons/md';
 import {
   Heading,
   useBreakpointValue,
@@ -9,15 +17,166 @@ import {
   Grid,
   Card,
   TextField,
+  Flex,
+  Alert,
+  CheckboxField,
+  RadioGroupField,
+  Radio,
+  SliderField,
+  Loader,
+  SearchField,
+  SwitchField,
+  Tabs,
+  TabItem,
+  Badge,
+  ToggleButtonGroup,
+  ToggleButton,
+  Button,
+  Pagination,
+  Placeholder,
 } from '@aws-amplify/ui-react';
 import { HomeCTA } from 'src/pages/[platform]/home/HomeCTA';
 import { useIntersectionObserver } from '@/components/useIntersection';
 
-// react-live does not work with SSR so we have to load
-// it dynamically and only in the client
-const HomeEditor = dynamic(() => import('./HomeEditor'), {
-  ssr: false,
-}) as React.FC<any>;
+const Center = ({ children }) => (
+  <Flex justifyContent="center" alignItems="center" width="100%" height="100%">
+    {children}
+  </Flex>
+);
+
+const Preview = () => {
+  const [exclusiveValue, setExclusiveValue] = React.useState('align-left');
+  const [radioValue, setRadioValue] = React.useState('css');
+  const [currentPageIndex, setCurrentPageIndex] = React.useState(4);
+  const totalPages = 99;
+
+  const handleOnChange = (newPageIndex, prevPageIndex) => {
+    setCurrentPageIndex(newPageIndex);
+  };
+
+  return (
+    <Flex direction="column">
+      <Flex direction={['column', 'column', 'row']}>
+        <Card variation="outlined">
+          <Center>
+            <SwitchField label="switch" labelPosition="end" />
+          </Center>
+        </Card>
+        <Card variation="outlined" flex="1">
+          <Center>
+            <Pagination
+              currentPage={currentPageIndex}
+              totalPages={totalPages}
+              siblingCount={1}
+              onChange={handleOnChange}
+            />
+          </Center>
+        </Card>
+      </Flex>
+      <Flex direction={['column', 'column', 'row']}>
+        <Card variation="outlined" flex="1">
+          <Center>
+            <RadioGroupField
+              label="Language"
+              name="language"
+              value={radioValue}
+              direction="row"
+              gap="small"
+              onChange={(e) => setRadioValue(e.target.value)}
+              labelHidden
+            >
+              <Radio value="html">html</Radio>
+              <Radio value="css">css</Radio>
+              <Radio value="javascript">javascript</Radio>
+            </RadioGroupField>
+          </Center>
+        </Card>
+        <Card variation="outlined" flex="1">
+          <Flex
+            direction="row"
+            justifyContent="center"
+            alignContent="center"
+            height="100%"
+          >
+            <ToggleButtonGroup
+              value={exclusiveValue}
+              isExclusive
+              onChange={(value: string) => setExclusiveValue(value)}
+            >
+              <ToggleButton value="align-left" ariaLabel="align left">
+                <MdFormatAlignLeft />
+              </ToggleButton>
+              <ToggleButton value="align-center" ariaLabel="align center">
+                <MdFormatAlignCenter />
+              </ToggleButton>
+              <ToggleButton value="align-right" ariaLabel="align right">
+                <MdFormatAlignRight />
+              </ToggleButton>
+              <ToggleButton value="align-justify" ariaLabel="align justify">
+                <MdFormatAlignJustify />
+              </ToggleButton>
+            </ToggleButtonGroup>
+          </Flex>
+        </Card>
+      </Flex>
+      <Flex direction={['column', 'column', 'row']}>
+        <Card variation="outlined" flex="2">
+          <Tabs>
+            <TabItem title="Sports"></TabItem>
+
+            <TabItem
+              title={
+                <View>
+                  Donuts{' '}
+                  <Badge size="small" variation="success">
+                    new
+                  </Badge>
+                </View>
+              }
+            ></TabItem>
+          </Tabs>
+        </Card>
+        <Card variation="outlined" flex="1">
+          <Center>
+            <CheckboxField
+              label="Sprinkles"
+              value="Sprinkles"
+              name="topping"
+              defaultChecked
+            />
+          </Center>
+        </Card>
+      </Flex>
+
+      <Flex direction={['column', 'column', 'row']}>
+        <Card variation="outlined" flex="1">
+          <Center>
+            <Button>Button</Button>
+            <Button variation="primary">Button</Button>
+            <Button variation="link">Button</Button>
+          </Center>
+        </Card>
+        <Card variation="outlined" flex="1">
+          <Center>
+            <SliderField
+              label="Slider"
+              labelHidden
+              min={0}
+              max={100}
+              step={1}
+              defaultValue={50}
+            />
+          </Center>
+        </Card>
+        <Card variation="outlined" flex="1">
+          <Center>
+            <SearchField placeholder="Search" label="Search" />
+          </Center>
+        </Card>
+      </Flex>
+    </Flex>
+  );
+};
 
 export const ComingSoonPrimitiveSection = ({ platform }) => {
   return (
@@ -32,11 +191,6 @@ export const ComingSoonPrimitiveSection = ({ platform }) => {
 };
 
 export const PrimitiveSection = ({ platform, ...rest }) => {
-  const showEditor = useBreakpointValue({
-    base: false,
-    medium: true,
-  });
-
   const ref = React.useRef<HTMLDivElement | null>(null);
   const entry = useIntersectionObserver(ref, {
     threshold: 0.125,
@@ -45,48 +199,50 @@ export const PrimitiveSection = ({ platform, ...rest }) => {
   const isVisible = !!entry?.isIntersecting;
 
   return (
-    <View
+    <Flex
+      direction="column"
       as="section"
-      className="docs-home-section docs-grid-bg centered"
+      className="docs-home-section docs-grid-bg"
+      backgroundColor="background.secondary"
       ref={ref}
     >
-      <View className="docs-home-container">
-        <Heading
-          level={2}
-          textAlign="center"
-          className={`fade-in ${isVisible ? 'shown' : ''}`}
-        >
-          Speed up development with over <br />
-          <strong>45 production-ready components</strong>
-        </Heading>
-        <Text className="docs-home-text">
-          Amplify UI components are built with plain React and CSS to provide a
-          solid foundation for building UIs and design systems. These components
-          are themeable, composable, reusable. They work well with other UI
-          components or styling frameworks. Interactive components can be
-          controlled and uncontrolled.
-        </Text>
-      </View>
-
-      <Grid templateColumns="1fr 1fr 1fr 1fr">
-        <Card>
-          <Text fontWeight="bold"></Text>
-          <TextField label="Pizza" />
-        </Card>
-      </Grid>
-
-      {showEditor ? (
-        <View className="docs-home-section">
-          <HomeEditor />
+      <Heading
+        level={2}
+        textAlign="center"
+        className={`fade-in ${isVisible ? 'shown' : ''}`}
+      >
+        Speed up development with over <br />
+        <strong>45 production-ready components</strong>
+      </Heading>
+      <Flex
+        direction={{
+          base: 'column',
+          xl: 'row',
+        }}
+        className="container"
+        alignItems="stretch"
+        overflow="hidden"
+      >
+        <Flex direction="column" flex="1">
+          <Text className="docs-home-text">
+            Amplify UI components are built with plain React and CSS to provide
+            a solid foundation for building UIs and design systems. These
+            components are theme-able, composable, reusable. They work well with
+            other UI components or styling frameworks. Interactive components
+            can be controlled and uncontrolled.
+          </Text>
+        </Flex>
+        <View flex="2">
+          <div style={{ overflow: 'hidden', width: '100%' }}>
+            <Preview />
+          </div>
         </View>
-      ) : null}
+      </Flex>
 
-      <View className="docs-home-container">
-        <HomeCTA href={`/${platform}/components`}>
-          <span>View all components</span>
-          <MdOutlineWidgets />
-        </HomeCTA>
-      </View>
-    </View>
+      <HomeCTA href={`/${platform}/components`}>
+        <span>View all components</span>
+        <MdOutlineWidgets />
+      </HomeCTA>
+    </Flex>
   );
 };
