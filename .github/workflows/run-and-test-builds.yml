@@ -56,9 +56,23 @@ jobs:
       - name: Build example app
         run: yarn build
         working-directory: ./canary/apps/${{ matrix.path }}
-      - name: Install cypress
-        run: for n in {1..3}; do yarn install --no-lockfile && break || sleep 5; done
-        working-directory: ./canary/e2e
+      - name: Restore cypress runner from Cache
+        uses: actions/cache@v2
+        id: restore-cypress-cache
+        with:
+          path: ~/.cache/Cypress
+          key: ${{ runner.os }}-canary-cypress-${{ hashFiles('canary/e2e/yarn.lock') }}
+      - name: Install e2e packages
+        uses: ./.github/actions/install-with-retries
+        with:
+          working-directory: ./canary/e2e
+          skip-cypress-binary: steps.restore-cypress-cache.outputs.cache-hit
+      - name: Cache cypress runner
+        if: steps.restore-cypress-cache.outputs.cache-hit != 'true'
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/Cypress
+          key: ${{ runner.os }}-canary-cypress-${{ hashFiles('canary/e2e/yarn.lock') }}
       - name: Start ${{ matrix.example }} example
         run: yarn start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000
         working-directory: ./canary/apps/${{ matrix.path }}
