@@ -17,7 +17,6 @@ runs:
   using: 'composite'
   steps:
     - name: Run yarn install
-      if: steps.restore-cypress-cache.outputs.cache-hit != 'true'
       shell: bash
       run: ./install-with-retries.sh
       env:
