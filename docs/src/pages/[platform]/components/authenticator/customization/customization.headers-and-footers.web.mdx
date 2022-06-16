@@ -11,6 +11,7 @@ import {
 
 import { Example } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
+import {SocialProviderDemo} from '@/components/SocialProviderDemo' 
 
 ## Headers & Footers
 
@@ -32,9 +33,7 @@ The following example customizes these slots with:
 </Fragment>
 
 <Example>
-  <Authenticator
-    socialProviders={['amazon', 'apple', 'facebook', 'google']}
-    components={{
+  <SocialProviderDemo components={{
       Header() {
         const { tokens } = useTheme();
         return (
@@ -125,8 +124,7 @@ The following example customizes these slots with:
           },
         },
       },
-      /*
-       */
-    }}
+
+  }}/>
   />
 </Example>
