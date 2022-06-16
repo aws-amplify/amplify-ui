@@ -26,10 +26,10 @@ export const HeroSection = () => {
 
   return (
     <View as="section" className="docs-hero">
-      <Flex className="container" justifyContent="center" textAlign="center">
+      <Flex justifyContent="center" textAlign="center">
         <Flex
           direction="column"
-          className="docs-home-container"
+          className="docs-home-subsection--thin"
           justifyContent="stretch"
         >
           <Heading level={1} className="docs-home-h1">
