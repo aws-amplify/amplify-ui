@@ -12,7 +12,11 @@ for i in {1..3}; do
   echo "Attempt $i out of 3:"
   echo "===================="
 
-  yarn install
+  if [ "$NO_LOCKFILE" = "true" ]; then
+    yarn install --no-lockfile
+  else
+    yarn install
+  fi
 
   # Check return value and exit early if successful
   return_value=$?

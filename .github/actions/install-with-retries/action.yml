@@ -9,6 +9,10 @@ inputs:
     description: 'Path to run `yarn install` at'
     required: false
     default: './'
+  no-lockfile:
+    description: 'Whether to bypass yarn.lock file'
+    required: false
+    default: 'false'
 runs:
   using: 'composite'
   steps:
@@ -18,4 +22,5 @@ runs:
       run: ./install-with-retries.sh
       env:
         SKIP_CYPRESS_BINARY: ${{ inputs.skip-cypress-binary }}
+        NO_LOCKFILE: ${{ inputs.no-lockfile }}
       working-directory: ${{ inputs.working-directory }}
