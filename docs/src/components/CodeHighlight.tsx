@@ -20,13 +20,6 @@ export const HomeCodeHighlight = ({
   };
   return (
     <>
-      {withCopy ? (
-        <CopyToClipboard text={code} onCopy={copy}>
-          <Button size="small" disabled={copied} className="copy-button">
-            {copied ? 'Copied!' : 'Copy'}
-          </Button>
-        </CopyToClipboard>
-      ) : null}
       <Highlight
         Prism={defaultProps.Prism}
         code={code}
@@ -65,6 +58,13 @@ export const HomeCodeHighlight = ({
           </View>
         )}
       </Highlight>
+      {withCopy ? (
+        <CopyToClipboard text={code} onCopy={copy}>
+          <Button size="small" variation="link" disabled={copied}>
+            {copied ? 'Copied!' : 'Copy'}
+          </Button>
+        </CopyToClipboard>
+      ) : null}
     </>
   );
 };

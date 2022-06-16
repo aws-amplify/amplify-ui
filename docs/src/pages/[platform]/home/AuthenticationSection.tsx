@@ -132,27 +132,30 @@ export const AuthenticationSection = ({ platform }) => {
   const isVisible = !!entry?.isIntersecting;
   const hiddenOnMobile = useBreakpointValue({
     base: false,
-    large: true,
+    medium: true,
   });
 
   return (
-    <View ref={ref} as="section" className="docs-home-section">
+    <View
+      ref={ref}
+      as="section"
+      className={`docs-home-section fade-in ${isVisible ? 'shown' : ''}`}
+    >
       <Flex direction="column">
-        <View className="docs-home-container">
-          <Heading
-            level={2}
-            textAlign="center"
-            className={`fade-in ${isVisible ? 'shown' : ''}`}
-          >
+        <View className="docs-home-subsection">
+          <Heading level={2}>
             <strong>Authentication</strong> made easy
           </Heading>
         </View>
 
         <Flex
-          direction="row"
-          alignItems="flex-start"
+          direction={{
+            base: 'column',
+            xl: 'row',
+          }}
+          alignItems="center"
           gap="xxl"
-          className="docs-grid-bg container"
+          className="docs-home-subsection"
         >
           <Flex direction="column">
             <Text className="docs-home-text">
@@ -168,21 +171,17 @@ export const AuthenticationSection = ({ platform }) => {
               mode.
             </Text>
             <View flex="1" className="docs-home-browser">
-              <Flex
-                direction="row"
-                gap="xxs"
-                className="docs-home-browser__nav-bar"
-              >
-                <View as="span" className="docs-home-browser__close-button" />
-                <View as="span" className="docs-home-browser__min-button" />
-                <View as="span" className="docs-home-browser__max-button" />
-              </Flex>
-              <Authenticator></Authenticator>
+              <View className="docs-home-browser__nav-bar">
+                https://localhost
+              </View>
+              <View className="docs-home-browser__page">
+                <Authenticator />
+              </View>
             </View>
           </Flex>
 
           {hiddenOnMobile ? (
-            <HomeCode>
+            <HomeCode fileName="index.tsx">
               <HomeCodeHighlight
                 code={authenticatorCode[platform]}
                 language={languages[platform]}

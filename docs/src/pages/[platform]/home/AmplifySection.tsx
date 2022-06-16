@@ -13,6 +13,8 @@ import {
   LibraryIcon,
   CLIIcon,
 } from '@/components/Icons';
+import { useIntersectionObserver } from '@/components/useIntersection';
+import { useRef } from 'react';
 
 const AmpCard = ({ title, description, href, Icon }) => (
   <Flex
@@ -37,17 +39,27 @@ const AmpCard = ({ title, description, href, Icon }) => (
 );
 
 export const AmplifySection = () => {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const entry = useIntersectionObserver(ref, {
+    threshold: 0.125,
+    freezeOnceVisible: true,
+  });
+  const isVisible = !!entry?.isIntersecting;
+
   return (
-    <View as="section" className="docs-home-section">
-      <View className="docs-home-container">
-        <Heading level={2} textAlign="center">
+    <View
+      ref={ref}
+      as="section"
+      className={`docs-home-section fade-in ${isVisible ? 'shown' : ''}`}
+    >
+      <Flex direction="column" className="docs-home-subsection--thin">
+        <Heading level={2}>
           <strong>Integrated</strong> with AWS Amplify
         </Heading>
         <Grid
-          className="container"
+          className="docs-home-subsection--thin"
           templateColumns={{ base: '1fr', medium: '1fr 1fr' }}
           gap="xl"
-          flex="1"
         >
           <AmpCard
             href="https://docs.amplify.aws/lib/q/platform/js/"
@@ -74,7 +86,7 @@ export const AmplifySection = () => {
             description="Visual development environment to accelerate full-stack development."
           />
         </Grid>
-      </View>
+      </Flex>
     </View>
   );
 };

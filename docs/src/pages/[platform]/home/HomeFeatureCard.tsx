@@ -2,7 +2,12 @@ import { Flex, Icon as AmpIcon, Text, View } from '@aws-amplify/ui-react';
 
 export const HomeFeatureCard = ({ title, description, Icon }) => {
   return (
-    <Flex direction="column" flex="1" alignItems="flex-start">
+    <Flex
+      direction="column"
+      flex="1"
+      alignItems="flex-start"
+      textAlign="initial"
+    >
       {Icon ? (
         <View as="span" padding="1rem" backgroundColor="brand.secondary.10">
           <AmpIcon

@@ -1,58 +1,47 @@
-import {
-  Flex,
-  Heading,
-  Icon as AmpIcon,
-  Text,
-  View,
-} from '@aws-amplify/ui-react';
+import { Flex, Heading, View } from '@aws-amplify/ui-react';
 import { SiTypescript } from 'react-icons/si';
-import {
-  MdOutlineFlashOff,
-  MdFlashOff,
-  MdOutlineSupport,
-} from 'react-icons/md';
+import { MdOutlineFlashOff, MdOutlineSupport } from 'react-icons/md';
 
 import { HomeCTA } from './HomeCTA';
-
-const CompatibleCard = ({ title, description, Icon }) => {
-  return (
-    <Flex direction="column" flex="1" alignItems="flex-start">
-      <View as="span" padding="1rem" backgroundColor="brand.secondary.10">
-        <AmpIcon as={Icon} fontSize="xl" color="brand.secondary.60" />
-      </View>
-      <Text fontWeight="semibold" fontSize="large">
-        {title}
-      </Text>
-      <Text>{description}</Text>
-    </Flex>
-  );
-};
+import { HomeFeatureCard } from './HomeFeatureCard';
+import { useIntersectionObserver } from '@/components/useIntersection';
+import { useRef } from 'react';
 
 export const CompatibleSection = ({ platform }) => {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const entry = useIntersectionObserver(ref, {
+    threshold: 0.125,
+    freezeOnceVisible: true,
+  });
+  const isVisible = !!entry?.isIntersecting;
+
   return (
-    <View as="section" className="docs-home-section">
-      <Flex direction="column">
+    <View
+      ref={ref}
+      as="section"
+      className={`docs-home-section fade-in ${isVisible ? 'shown' : ''}`}
+    >
+      <Flex direction="column" className="docs-home-subsection--thin">
         <Heading level={2} textAlign="center">
           <strong>Compatible</strong> with your front-end
         </Heading>
         <Flex
-          className="container"
           direction={{
             base: 'column',
             large: 'row',
           }}
         >
-          <CompatibleCard
+          <HomeFeatureCard
             Icon={MdOutlineSupport}
             title="Escape hatches"
             description="Connected components like the Authenticator have headless, or UI-less, implementations that handle complex state management and leave the UI up to you."
           />
-          <CompatibleCard
+          <HomeFeatureCard
             Icon={MdOutlineFlashOff}
             title="Styling optional"
             description="Don't like our style? Throw it out and use your own! Amplify UI components use plain CSS so you have complete control over the styling."
           />
-          <CompatibleCard
+          <HomeFeatureCard
             Icon={SiTypescript}
             title="Typescript support"
             description=""

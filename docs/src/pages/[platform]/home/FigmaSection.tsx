@@ -70,84 +70,73 @@ export const FigmaSection = (props) => {
   const isVisible = !!entry?.isIntersecting;
 
   return (
-    <Flex
-      direction="column"
-      gap={tokens.space.large}
+    <View
       as="section"
-      className="docs-home-section docs-burst-bg"
+      className={`docs-home-section docs-burst-bg fade-in ${
+        isVisible ? 'shown' : ''
+      }`}
       ref={ref}
     >
-      <Heading
-        level={2}
-        textAlign="center"
-        className={`fade-in ${isVisible ? 'shown' : ''}`}
-      >
-        Build UI <strong>visually</strong> in Figma
-      </Heading>
-      <Flex
-        className="container"
-        direction={{
-          base: 'column',
-          large: 'row',
-        }}
-        gap={tokens.space.large}
-      >
+      <Flex className="docs-home-subsection" direction="column" gap="large">
+        <Heading level={2}>
+          Build UI <strong>visually</strong> in Figma
+        </Heading>
         <Flex
-          gap={tokens.space.large}
-          direction="column"
-          alignItems="flex-start"
-          flex="1"
+          direction={{
+            base: 'column',
+            large: 'row',
+          }}
+          gap="large"
         >
-          <Text className="docs-home-text">
-            With Amplify Studio you can design components in Figma, bind them to
-            your data, and generate production-ready React code. Amplify
-            Studio's UI builder makes it easy to build UI that is connected to
-            your data that is customizable and configurable in your codebase. Go
-            from design to production-ready code in minutes and eliminate the
-            design-development gap.
-          </Text>
-          <HomeCTA href={`/react/getting-started/figma-to-code`}>
-            <span>Learn more about Figma integration</span>
-            <Image height="2rem" alt="" src="/svg/integrations/figma.svg" />
-          </HomeCTA>
-        </Flex>
-        <Flex
-          flex="1"
-          className="docs-home-figma-graphic"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <StudioCard />
-          <Card className="docs-home-figma-studio">
-            <Text fontSize={tokens.fontSizes.xl}>
-              <DataIcon color="font.disabled" />
-              <code>Product</code>
+          <Flex gap="large" direction="column" alignItems="flex-start" flex="1">
+            <Text className="docs-home-text">
+              With Amplify Studio you can design components in Figma, bind them
+              to your data, and generate production-ready React code. Amplify
+              Studio's UI builder makes it easy to build UI that is connected to
+              your data that is customizable and configurable in your codebase.
+              Go from design to production-ready code in minutes and eliminate
+              the design-development gap.
             </Text>
-            <Text className="docs-home-figma-data">
-              <code>Product.image</code>
-            </Text>
-            <Text className="docs-home-figma-data">
-              <code>Product.title</code>
-            </Text>
-            <Text className="docs-home-figma-data">
-              <code>Product.rating</code>
-            </Text>
-            <Text className="docs-home-figma-data">
-              <code>Product.price</code>
-            </Text>
-          </Card>
-
-          <View
-            className="docs-home-figma-code"
-            fontSize={tokens.fontSizes.large}
+            <HomeCTA href={`/react/getting-started/figma-to-code`}>
+              <span>Learn more about Figma integration</span>
+              <Image height="2rem" alt="" src="/svg/integrations/figma.svg" />
+            </HomeCTA>
+          </Flex>
+          <Flex
+            flex="1"
+            className="docs-home-figma-graphic"
+            alignItems="center"
+            justifyContent="center"
           >
-            <HomeCodeHighlight
-              className="docs-home-code"
-              code={`<ProductCard />`}
-            />
-          </View>
+            <StudioCard />
+            <Card className="docs-home-figma-studio">
+              <Text fontSize={tokens.fontSizes.xl}>
+                <DataIcon color="font.disabled" />
+                <code>Product</code>
+              </Text>
+              <Text className="docs-home-figma-data">
+                <code>Product.image</code>
+              </Text>
+              <Text className="docs-home-figma-data">
+                <code>Product.title</code>
+              </Text>
+              <Text className="docs-home-figma-data">
+                <code>Product.rating</code>
+              </Text>
+              <Text className="docs-home-figma-data">
+                <code>Product.price</code>
+              </Text>
+            </Card>
+
+            <View className="docs-home-figma-code">
+              <HomeCodeHighlight
+                className="docs-home-code"
+                code={`<ProductCard />`}
+              />
+            </View>
+          </Flex>
         </Flex>
       </Flex>
-    </Flex>
+    </View>
   );
 };

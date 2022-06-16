@@ -25,6 +25,7 @@ import {
   SearchField,
   useBreakpointValue,
   Image,
+  Authenticator,
 } from '@aws-amplify/ui-react';
 
 import { CgTerminal, CgLinear, CgCopyright } from 'react-icons/cg';
@@ -33,6 +34,7 @@ import themePreval from './themes/index.preval';
 import { useCustomRouter } from '@/components/useCustomRouter';
 import { HomeCode } from './HomeCode';
 import { HomeCodeHighlight } from '../../../components/CodeHighlight';
+import { BrowserMock } from './BrowserMock';
 
 const colorKeys = [10, 20, 40, 60, 80, 90, 100];
 const scale = ['primary', 'secondary', 'tertiary', 'success', 'info', 'error'];
@@ -46,7 +48,7 @@ const Swatch = ({ color }) => (
   />
 );
 
-const Preview = () => {
+const Preview = ({ platform }) => {
   const [exclusiveValue, setExclusiveValue] = React.useState('align-left');
   const { tokens } = useTheme();
   const hideOnMobile = useBreakpointValue({
@@ -59,13 +61,21 @@ const Preview = () => {
     small: false,
   });
 
+  if (platform !== 'react') {
+    return (
+      <Authenticator
+        socialProviders={['amazon', 'apple', 'facebook', 'google']}
+      />
+    );
+  }
+
   return (
     <Grid
       columnGap={tokens.space.small}
       rowGap={tokens.space.small}
       templateColumns={hideOnMobile ? '1fr 1fr 1fr 1fr' : '1fr'}
     >
-      <Card variation="outlined" columnStart="1" columnEnd="4">
+      <Card variation="elevated" columnStart="1" columnEnd="4">
         <Flex direction="column">
           <Alert variation="info" heading="Flash sale!" />
           <Flex direction={isMobile ? 'column' : 'row'}>
@@ -106,7 +116,7 @@ const Preview = () => {
       </Card>
       {hideOnMobile ? (
         <>
-          <Card variation="outlined" columnStart="4" columnEnd="-1">
+          <Card variation="elevated" columnStart="4" columnEnd="-1">
             <Flex direction="column">
               <CheckboxField
                 label="Sprinkles"
@@ -127,7 +137,7 @@ const Preview = () => {
               </RadioGroupField>
             </Flex>
           </Card>
-          <Card variation="outlined" columnStart="1" columnEnd="3">
+          <Card variation="elevated" columnStart="1" columnEnd="3">
             <Flex direction="column">
               <SliderField
                 label="Slider"
@@ -140,7 +150,7 @@ const Preview = () => {
               <SearchField placeholder="Search" label="Search" />
             </Flex>
           </Card>
-          <Card variation="outlined" columnStart="3" columnEnd="-1">
+          <Card variation="elevated" columnStart="3" columnEnd="-1">
             <Flex direction="column">
               <Flex direction="row" gap={tokens.space.xs}>
                 {scale.map((level) => (
@@ -168,7 +178,7 @@ const Preview = () => {
               </Flex>
             </Flex>
           </Card>
-          <Card variation="outlined" columnStart="1" columnEnd="2">
+          <Card variation="elevated" columnStart="1" columnEnd="2">
             <Flex
               justifyContent="center"
               alignItems="center"
@@ -178,7 +188,7 @@ const Preview = () => {
               <SwitchField label="switch" labelPosition="end" />
             </Flex>
           </Card>
-          <Card variation="outlined" columnStart="2" columnEnd="-1">
+          <Card variation="elevated" columnStart="2" columnEnd="-1">
             <Tabs>
               <TabItem title="Sports"></TabItem>
 
@@ -200,9 +210,20 @@ const Preview = () => {
   );
 };
 
+const language = {
+  react: 'jsx',
+  angular: 'css',
+  vue: 'css',
+};
+
+const fileName = {
+  react: 'theme.ts',
+  angular: 'styles.css',
+  vue: 'styles.css',
+};
+
 export const ThemeSwitcher = ({ colorMode }) => {
   const [theme, setTheme] = React.useState('default');
-  const [copied, setCopied] = React.useState(false);
   const {
     query: { platform = 'react' },
   } = useCustomRouter();
@@ -222,20 +243,12 @@ export const ThemeSwitcher = ({ colorMode }) => {
     small: false,
   });
 
-  const copy = () => {
-    setCopied(true);
-    setTimeout(() => {
-      setCopied(false);
-    }, 2000);
-  };
-
   return (
     <Flex
       direction="column"
       alignItems="center"
-      className="container"
-      gap={tokens.space.large}
-      padding={tokens.space.xl}
+      className="docs-home-subsection"
+      gap="large"
     >
       <ToggleButtonGroup
         value={theme}
@@ -269,24 +282,25 @@ export const ThemeSwitcher = ({ colorMode }) => {
           {isMobile ? '' : 'Classic'}
         </ToggleButton>
       </ToggleButtonGroup>
-      <Flex direction="row" width="100%">
+      <Flex direction="row" width="100%" gap="xl">
         {hideOnMobile ? (
-          <HomeCode flex="1" columnStart="2" columnEnd="-1" position="relative">
+          <HomeCode flex="1" fileName={fileName[platform as string]}>
             <HomeCodeHighlight
               withCopy
               withLines
+              className="scrollable"
               code={
                 platform === 'react'
                   ? themePreval[theme].string
                   : themePreval[theme].css
               }
-              language={platform === 'react' ? 'jsx' : 'css'}
+              language={language[platform as string]}
             />
           </HomeCode>
         ) : null}
-        <View flex="1" minWidth="50%">
+        <View flex="1">
           <ThemeProvider theme={themePreval[theme].code} colorMode={colorMode}>
-            <Preview />
+            <Preview platform={platform} />
           </ThemeProvider>
         </View>
       </Flex>

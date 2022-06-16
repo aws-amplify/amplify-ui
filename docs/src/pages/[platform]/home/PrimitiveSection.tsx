@@ -54,15 +54,17 @@ const Preview = () => {
     setCurrentPageIndex(newPageIndex);
   };
 
+  const direction = ['column', 'column', 'row'];
+
   return (
-    <Flex direction="column">
-      <Flex direction={['column', 'column', 'row']}>
-        <Card variation="outlined">
+    <Flex direction="column" width="100%">
+      <Flex direction={direction}>
+        <Card variation="elevated">
           <Center>
             <SwitchField label="switch" labelPosition="end" />
           </Center>
         </Card>
-        <Card variation="outlined" flex="1">
+        <Card variation="elevated" flex="1" display={['none', 'block']}>
           <Center>
             <Pagination
               currentPage={currentPageIndex}
@@ -73,8 +75,8 @@ const Preview = () => {
           </Center>
         </Card>
       </Flex>
-      <Flex direction={['column', 'column', 'row']}>
-        <Card variation="outlined" flex="1">
+      <Flex direction={['column', 'row']}>
+        <Card variation="elevated" flex="1">
           <Center>
             <RadioGroupField
               label="Language"
@@ -91,7 +93,7 @@ const Preview = () => {
             </RadioGroupField>
           </Center>
         </Card>
-        <Card variation="outlined" flex="1">
+        <Card variation="elevated" flex="1">
           <Flex
             direction="row"
             justifyContent="center"
@@ -119,8 +121,8 @@ const Preview = () => {
           </Flex>
         </Card>
       </Flex>
-      <Flex direction={['column', 'column', 'row']}>
-        <Card variation="outlined" flex="2">
+      <Flex direction={direction}>
+        <Card variation="elevated" flex="2">
           <Tabs>
             <TabItem title="Sports"></TabItem>
 
@@ -136,27 +138,21 @@ const Preview = () => {
             ></TabItem>
           </Tabs>
         </Card>
-        <Card variation="outlined" flex="1">
+        <Card variation="elevated" flex="1">
           <Center>
-            <CheckboxField
-              label="Sprinkles"
-              value="Sprinkles"
-              name="topping"
-              defaultChecked
-            />
+            <SearchField placeholder="Search" label="Search" />
           </Center>
         </Card>
       </Flex>
-
-      <Flex direction={['column', 'column', 'row']}>
-        <Card variation="outlined" flex="1">
+      <Flex direction={direction}>
+        <Card variation="elevated" flex="1">
           <Center>
             <Button>Button</Button>
             <Button variation="primary">Button</Button>
             <Button variation="link">Button</Button>
           </Center>
         </Card>
-        <Card variation="outlined" flex="1">
+        <Card variation="elevated" flex="1">
           <Center>
             <SliderField
               label="Slider"
@@ -168,9 +164,14 @@ const Preview = () => {
             />
           </Center>
         </Card>
-        <Card variation="outlined" flex="1">
+        <Card variation="elevated" flex="1">
           <Center>
-            <SearchField placeholder="Search" label="Search" />
+            <CheckboxField
+              label="Sprinkles"
+              value="Sprinkles"
+              name="topping"
+              defaultChecked
+            />
           </Center>
         </Card>
       </Flex>
@@ -199,50 +200,46 @@ export const PrimitiveSection = ({ platform, ...rest }) => {
   const isVisible = !!entry?.isIntersecting;
 
   return (
-    <Flex
-      direction="column"
+    <View
       as="section"
-      className="docs-home-section docs-grid-bg"
-      backgroundColor="background.secondary"
+      className={`docs-home-section docs-grid-bg fade-in ${
+        isVisible ? 'shown' : ''
+      }`}
+      backgroundColor="background.tertiary"
       ref={ref}
     >
-      <Heading
-        level={2}
-        textAlign="center"
-        className={`fade-in ${isVisible ? 'shown' : ''}`}
-      >
-        Speed up development with over <br />
-        <strong>45 production-ready components</strong>
-      </Heading>
-      <Flex
-        direction={{
-          base: 'column',
-          xl: 'row',
-        }}
-        className="container"
-        alignItems="stretch"
-        overflow="hidden"
-      >
-        <Flex direction="column" flex="1">
-          <Text className="docs-home-text">
-            Amplify UI components are built with plain React and CSS to provide
-            a solid foundation for building UIs and design systems. These
-            components are theme-able, composable, reusable. They work well with
-            other UI components or styling frameworks. Interactive components
-            can be controlled and uncontrolled.
-          </Text>
-        </Flex>
-        <View flex="2">
-          <div style={{ overflow: 'hidden', width: '100%' }}>
+      <Flex direction="column" gap="large" className="docs-home-subsection">
+        <Heading level={2}>
+          Speed up development with over <br />
+          <strong>45 production-ready components</strong>
+        </Heading>
+        <Flex
+          direction={{
+            base: 'column',
+            xl: 'row',
+          }}
+          gap="xl"
+          alignItems="stretch"
+        >
+          <Flex direction="column" flex="1">
+            <Text className="docs-home-text">
+              Amplify UI components are built with plain React and CSS to
+              provide a solid foundation for building UIs and design systems.
+              These components are theme-able, composable, reusable. They work
+              well with other UI components or styling frameworks. Interactive
+              components can be controlled and uncontrolled.
+            </Text>
+          </Flex>
+          <View flex="2">
             <Preview />
-          </div>
-        </View>
-      </Flex>
+          </View>
+        </Flex>
 
-      <HomeCTA href={`/${platform}/components`}>
-        <span>View all components</span>
-        <MdOutlineWidgets />
-      </HomeCTA>
-    </Flex>
+        <HomeCTA href={`/${platform}/components`}>
+          <span>View all components</span>
+          <MdOutlineWidgets />
+        </HomeCTA>
+      </Flex>
+    </View>
   );
 };

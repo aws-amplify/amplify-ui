@@ -21,11 +21,13 @@ export const A11ySection = ({ platform }) => {
   const isVisible = !!entry?.isIntersecting;
 
   return (
-    <View ref={ref} as="section" className="docs-home-section">
-      <View
-        className={`docs-home-container fade-in ${isVisible ? 'shown' : ''}`}
-      >
-        <Heading level={2} textAlign="center">
+    <View
+      ref={ref}
+      as="section"
+      className={`docs-home-section fade-in ${isVisible ? 'shown' : ''}`}
+    >
+      <Flex direction="column" className="docs-home-subsection--thin">
+        <Heading level={2}>
           <strong>Accessibility</strong> built-in
         </Heading>
         <Text className="docs-home-text">
@@ -43,9 +45,7 @@ export const A11ySection = ({ platform }) => {
           best practices and guidelines such as color contrast, keyboard
           navigation, accessible labels, and focus management.
         </Text>
-
         <Flex
-          className="container"
           direction={{
             base: 'column',
             large: 'row',
@@ -77,7 +77,7 @@ export const A11ySection = ({ platform }) => {
           <span>View our accessibility guidelines</span>
           <MdAccessibilityNew />
         </HomeCTA>
-      </View>
+      </Flex>
     </View>
   );
 };

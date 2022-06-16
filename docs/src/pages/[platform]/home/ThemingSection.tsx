@@ -13,12 +13,14 @@ export const ThemingSection = ({ colorMode, platform }) => {
   });
   const isVisible = !!entry?.isIntersecting;
   return (
-    <View ref={ref} as="section" className="docs-home-section docs-gradient-bg">
-      <Heading
-        level={2}
-        textAlign="center"
-        className={`fade-in ${isVisible ? 'shown' : ''}`}
-      >
+    <View
+      ref={ref}
+      as="section"
+      className={`docs-home-section docs-gradient-bg fade-in ${
+        isVisible ? 'shown' : ''
+      }`}
+    >
+      <Heading level={2}>
         <strong>Theming</strong> controls to match your brand
       </Heading>
       <ThemeSwitcher colorMode={colorMode} />

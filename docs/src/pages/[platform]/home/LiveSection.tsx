@@ -20,12 +20,8 @@ export const LiveSection = ({ platform, ...rest }) => {
   const isVisible = !!entry?.isIntersecting;
 
   return (
-    <View
-      as="section"
-      className="docs-home-section docs-grid-bg centered"
-      ref={ref}
-    >
-      <View className="docs-home-container">
+    <View as="section" className="docs-home-section docs-grid-bg" ref={ref}>
+      <View className="docs-home-subsection">
         <Heading
           level={2}
           textAlign="center"
@@ -35,7 +31,7 @@ export const LiveSection = ({ platform, ...rest }) => {
         </Heading>
       </View>
 
-      <View className="docs-home-section container">
+      <View className="docs-home-subsection">
         <HomeEditor />
       </View>
     </View>

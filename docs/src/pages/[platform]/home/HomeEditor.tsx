@@ -77,12 +77,7 @@ const HomeEditor = () => {
         }}
         gap="0"
       >
-        <HomeCode data-editable>
-          <Alert
-            className="docs-home-editor-badge"
-            variation="info"
-            heading="Try it out! 👇"
-          ></Alert>
+        <HomeCode maxHeight="80vh" overflow="scroll" flex="1" data-editable>
           <LiveEditor />
         </HomeCode>
         <View flex="1" className="docs-home-preview">

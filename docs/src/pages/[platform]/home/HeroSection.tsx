@@ -27,7 +27,11 @@ export const HeroSection = () => {
   return (
     <View as="section" className="docs-hero">
       <Flex className="container" justifyContent="center" textAlign="center">
-        <Flex direction="column" className="docs-home-container">
+        <Flex
+          direction="column"
+          className="docs-home-container"
+          justifyContent="stretch"
+        >
           <Heading level={1} className="docs-home-h1">
             Build UI <strong>faster</strong>
           </Heading>
