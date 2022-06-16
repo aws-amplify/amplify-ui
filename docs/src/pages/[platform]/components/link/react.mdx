@@ -18,7 +18,7 @@ import {
 
 ## Usage
 
-Import the Link component.
+Import the Link component. Link renders an anchor element `<a>` by default, which accepts an `href` attribute that specifies the Link's destination.
 
 <Example>
   <DefaultLinkExample />
@@ -32,7 +32,7 @@ Import the Link component.
 
 ### External Links
 
-To create a Link which opens in a new tab, use the `isExternal` prop. Under the hood, `isExternal` sets `target="_blank"` and `rel="noopener noreferrer"`. 
+To create a Link which opens in a new tab, use the `isExternal` prop. Under the hood, `isExternal` sets `target="_blank"` and `rel="noopener noreferrer"` on the `<a>` anchor element. 
 
 <Example>
   <ExternalLinkExample />
@@ -117,13 +117,13 @@ You can customize the appearance of all Links in your application with a [Theme]
   </ExampleCode>
 </Example>
 
-### CSS Pseudo Classes
-
-The Link component primarily uses four css pseudo classes. These are `:active`, `:focus`, `:hover`, and `:visited`. Styling the Link component while in one of these states can also be accomplished using the following techniques in conjunction with the appropriate pseudo class selector.
-
 ### Global Styling
 
 To override styling on all Links, you can set the Amplify CSS variables or use the built in `.amplify-link` class.
+
+#### CSS Pseudo-classes
+
+To style the Link component in different states, you can use any of these four CSS Pseudo-classes: `:active`, `:focus`, `:hover` and `:visited`.
 
 <Example>
   <LinkGlobalStylingExample />
@@ -131,17 +131,16 @@ To override styling on all Links, you can set the Amplify CSS variables or use t
     ```css
     /* styles.css */
     [data-amplify-theme] {
-      --amplify-components-link-color: var(--amplify-colors-red-80);
+      --amplify-components-link-color: var(--amplify-colors-purple-80);
+      --amplify-components-link-hover-color: var(--amplify-colors-purple-60);
     }
     /* OR */
     .amplify-link {
-      color: var(--amplify-colors-red-80);
+      color: var(--amplify-colors-purple-80);
     }
-    ```
-  </ExampleCode>
-  <ExampleCode>
-    ```jsx
-    <Link>My Custom Link</Link>;
+    .amplify-link:hover {
+      color: var(--amplify-colors-purple-60);
+    }
     ```
   </ExampleCode>
 </Example>
@@ -158,13 +157,16 @@ _Using a class selector:_
     ```css
     /* styles.css */
     .link-local-styles {
-      color: var(--amplify-colors-red-80);
+      color: var(--amplify-colors-blue-80);
       font-weight: var(--amplify-font-weights-bold);
     }
 
     .link-local-styles:hover {
-      color: var(--amplify-colors-blue-80);
-      font-weight: var(--amplify-font-weights-bold);
+      color: var(--amplify-colors-blue-60);
+    }
+
+    .link-local-styles:active {
+      color: var(--amplify-colors-green-80);
     }
     ```
 
