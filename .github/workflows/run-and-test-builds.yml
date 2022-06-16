@@ -58,6 +58,8 @@ jobs:
       - name: Build example app
         run: yarn build
         working-directory: ./canary/apps/${{ matrix.path }}
+      # This steps attempts to restore cypress runner. It will not create any new
+      # cache entries however, because cypress runner isn't available yet.
       - name: Restore cypress runner from Cache
         uses: actions/cache@v2
         id: restore-cypress-cache
@@ -68,7 +70,12 @@ jobs:
         uses: ./.github/actions/install-with-retries
         with:
           working-directory: ./canary/e2e
+          # If we got a cache hit on cypress runner, then we will skip cypress binary
+          # installation. Otherwise, it will install cypress binary.
           skip-cypress-binary: ${{ steps.restore-cypress-cache.outputs.cache-hit }}
+      # If cypress cache was missed, then we need to create new cache entry and upload it.
+      # At this point, cypress runner should've been installed from the previous installation
+      # step, so we go ahead and update the cache entry.
       - name: Cache cypress runner
         if: steps.restore-cypress-cache.outputs.cache-hit != 'true'
         uses: actions/cache@v2
