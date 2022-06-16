@@ -29,8 +29,9 @@
     max-width: 20rem;
   }
 
-  &.amplify-table__td {
-    padding: 0.5rem;
+  &.amplify-table[data-highlightonhover='true']
+    .amplify-table__row:not(.amplify-table__head *):hover {
+    background-color: unset;
   }
 }
 
@@ -50,6 +51,8 @@
   .props-table {
     & .amplify-table__td {
       display: block;
+      padding: calc(var(--amplify-internal-table-td-padding) / 2)
+        var(--amplify-internal-table-td-padding);
     }
 
     & .amplify-table__head {
