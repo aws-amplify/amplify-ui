@@ -16,13 +16,6 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Run ls
-      shell: bash
-      run: ls
-    - name: Run ls with cwd
-      shell: bash
-      run: ls
-      working-directory: ${{ inputs.working-directory }}
     - name: Run yarn install
       shell: bash
       run: ./.github/actions/install-with-retries/install-with-retries.sh
