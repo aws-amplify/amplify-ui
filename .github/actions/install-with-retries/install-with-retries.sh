@@ -5,7 +5,7 @@
 #   NO_LOCKFILE (boolean): Ignores yarn.lock file if true
 #   WORKING_DIRECTORY (string): Path to run yarn install at
 
-if [[ -n "$WORKING_DIRECTORY" ]]; then
+if [ -n "$WORKING_DIRECTORY" ]; then
   echo "[LOG]: Changing directory to $WORKING_DIRECTORY"
   cd $WORKING_DIRECTORY
 fi
