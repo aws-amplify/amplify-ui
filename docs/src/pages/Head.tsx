@@ -27,7 +27,7 @@ export const Head = () => {
   }
 
   const pageTitle = `${metaTitle ?? title} | ${capitalizeString(
-    platform
+    platform as string
   )} - Amplify UI`;
 
   const homepagePaths = [

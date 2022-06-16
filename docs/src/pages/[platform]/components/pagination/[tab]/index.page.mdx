@@ -1,0 +1,21 @@
+---
+title: Pagination
+description: Pagination provides navigation to allow customers to move between large sets of content that are distributed across multiple pages.
+themeSource: packages/ui/src/theme/tokens/components/pagination.ts
+reactSource: packages/react/src/primitives/Pagination/Pagination.tsx
+supportedFrameworks: react
+---
+
+import { Fragment } from '@/components/Fragment';
+import { PageTabLayout } from "@/components/Layout/PageTabLayout"
+
+<PageTabLayout 
+  tabComponents={[{
+    title: "Document", 
+    children: <Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+  },
+  {
+    title: "Props", 
+    children: <Fragment>{({ platform }) => import('./props-table.mdx')}</Fragment>
+  }]}
+/>

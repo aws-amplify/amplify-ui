@@ -1,0 +1,22 @@
+---
+title: Expander
+description: The Expander primitive enables users to expand or collapse a set of sections.
+ariaPattern: https://www.w3.org/WAI/ARIA/apg/patterns/accordion
+themeSource: packages/ui/src/theme/tokens/components/expander.ts
+reactSource: packages/react/src/primitives/Expander/Expander.tsx
+supportedFrameworks: react
+---
+
+import { Fragment } from '@/components/Fragment';
+import { PageTabLayout } from "@/components/Layout/PageTabLayout"
+
+<PageTabLayout 
+  tabComponents={[{
+    title: "Document", 
+    children: <Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+  },
+  {
+    title: "Props", 
+    children: <Fragment>{({ platform }) => import('./props-table.mdx')}</Fragment>
+  }]}
+/>

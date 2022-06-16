@@ -52,7 +52,7 @@ async function createAllPropsTables() {
       path.join(
         __dirname,
         '../../docs/src/pages/[platform]/components/',
-        `./${componentPageName}/props-table.mdx`
+        `./${componentPageName}/[tab]/props-table.mdx`
       ),
       Output(componentName, expander)
     );

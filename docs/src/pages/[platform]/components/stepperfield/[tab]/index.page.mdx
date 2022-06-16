@@ -1,0 +1,22 @@
+---
+title: StepperField
+description: A StepperField is a number input with buttons to increase or decrease the value.
+ariaPattern: https://www.w3.org/WAI/ARIA/apg/patterns/spinbutton
+themeSource: packages/ui/src/theme/tokens/components/stepperField.ts
+reactSource: packages/react/src/primitives/StepperField/StepperField.tsx
+supportedFrameworks: react
+---
+
+import { Fragment } from '@/components/Fragment';
+import { PageTabLayout } from "@/components/Layout/PageTabLayout"
+
+<PageTabLayout 
+  tabComponents={[{
+    title: "Document", 
+    children: <Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+  },
+  {
+    title: "Props", 
+    children: <Fragment>{({ platform }) => import('./props-table.mdx')}</Fragment>
+  }]}
+/>
