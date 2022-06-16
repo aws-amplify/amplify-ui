@@ -26,7 +26,7 @@ for i in {1..3}; do
     echo "[LOG]: Ignoring yarn.lock file"
     yarn install --no-lockfile
   else
-    yarn install
+    yarn installl
   fi
 
   # Check return value and exit early if successful
@@ -37,3 +37,6 @@ for i in {1..3}; do
   # Sleep 5 seconds before retrying
   sleep 5
 done
+
+# exit 0 if last `yarn install` was successful, non-zero otherwise
+exit $return_value
