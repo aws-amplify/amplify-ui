@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link, LinkProps, Text, useTheme } from '@aws-amplify/ui-react';
+import { Link, LinkProps } from '@aws-amplify/ui-react';
 
 import { Demo } from '@/components/Demo';
 import { LinkPropControls } from './LinkPropControls';
@@ -31,8 +31,6 @@ export const LinkDemo = () => {
   const linkProps = useLinkProps(
     (demoState.get(Link.displayName) as LinkProps) || defaultLinkProps
   );
-
-  const { tokens } = useTheme();
 
   return (
     <Demo
