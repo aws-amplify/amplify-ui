@@ -12,7 +12,7 @@ const IconDone = () => {
 export const DefaultVisuallyHiddenExample = () => {
   return (
     <Button variation="primary">
-      <VisuallyHidden>Donemark</VisuallyHidden>
+      <VisuallyHidden>Mark as complete</VisuallyHidden>
       <IconDone />
     </Button>
   );

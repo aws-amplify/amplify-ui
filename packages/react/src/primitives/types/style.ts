@@ -75,7 +75,8 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
     SpaceKeys<StyleToken<Property.LetterSpacing>>
   >;
   lineHeight?: ResponsiveStyle<LineHeightKeys<StyleToken<Property.LineHeight>>>;
-  margin?: ResponsiveStyle<StyleToken<Property.Margin>>;
+  margin?: ResponsiveStyle<SpaceKeys<StyleToken<Property.Margin>>>;
+  marginBlock?: ResponsiveStyle<SpaceKeys<StyleToken<Property.MarginBlock>>>;
   marginBlockEnd?: ResponsiveStyle<
     SpaceKeys<StyleToken<Property.MarginBlockEnd>>
   >;
@@ -83,6 +84,7 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
     SpaceKeys<StyleToken<Property.MarginBlockStart>>
   >;
   marginBottom?: ResponsiveStyle<SpaceKeys<StyleToken<Property.MarginBottom>>>;
+  marginInline?: ResponsiveStyle<SpaceKeys<StyleToken<Property.MarginInline>>>;
   marginInlineEnd?: ResponsiveStyle<
     SpaceKeys<StyleToken<Property.MarginInlineEnd>>
   >;
@@ -98,7 +100,8 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   minWidth?: ResponsiveStyle<SpaceKeys<StyleToken<Property.MinWidth>>>;
   opacity?: ResponsiveStyle<OpacityKeys<StyleToken<Property.Opacity>>>;
   overflow?: ResponsiveStyle<StyleToken<Property.Overflow>>;
-  padding?: ResponsiveStyle<StyleToken<Property.Padding>>;
+  padding?: ResponsiveStyle<SpaceKeys<StyleToken<Property.Padding>>>;
+  paddingBlock?: ResponsiveStyle<SpaceKeys<StyleToken<Property.PaddingBlock>>>;
   paddingBlockEnd?: ResponsiveStyle<
     SpaceKeys<StyleToken<Property.PaddingBlockEnd>>
   >;
@@ -107,6 +110,9 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   >;
   paddingBottom?: ResponsiveStyle<
     SpaceKeys<StyleToken<Property.PaddingBottom>>
+  >;
+  paddingInline?: ResponsiveStyle<
+    SpaceKeys<StyleToken<Property.PaddingInline>>
   >;
   paddingInlineEnd?: ResponsiveStyle<
     SpaceKeys<StyleToken<Property.PaddingInlineEnd>>
@@ -219,9 +225,11 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   letterSpacing: 'letterSpacing',
   lineHeight: 'lineHeight',
   margin: 'margin',
+  marginBlock: 'marginBlock',
   marginBlockEnd: 'marginBlockEnd',
   marginBlockStart: 'marginBlockStart',
   marginBottom: 'marginBlockEnd',
+  marginInline: 'marginInline',
   marginInlineEnd: 'marginInlineEnd',
   marginInlineStart: 'marginInlineStart',
   marginLeft: 'marginInlineStart',
@@ -237,9 +245,11 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   order: 'order',
   overflow: 'overflow',
   padding: 'padding',
+  paddingBlock: 'paddingBlock',
   paddingBlockEnd: 'paddingBlockEnd',
   paddingBlockStart: 'paddingBlockStart',
   paddingBottom: 'paddingBlockEnd',
+  paddingInline: 'paddingInline',
   paddingInlineEnd: 'paddingInlineEnd',
   paddingInlineStart: 'paddingInlineStart',
   paddingLeft: 'paddingInlineStart',

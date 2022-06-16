@@ -1,7 +1,6 @@
 import { Auth } from '@aws-amplify/auth';
 import { Hub } from '@aws-amplify/core';
-import { renderHook } from '@testing-library/react-hooks';
-import { act } from 'react-dom/test-utils';
+import { act, renderHook } from '@testing-library/react-hooks';
 import { useAuth } from '../useAuth';
 
 jest.mock('@aws-amplify/auth');
