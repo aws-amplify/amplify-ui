@@ -1,0 +1,25 @@
+name: 'Install with retries'
+description: 'Runs yarn install with up to 2 retries'
+inputs:
+  skip-cypress-binary:
+    description: 'Whether to skip binary installation for cypress'
+    required: false
+    default: 'true'
+  working-directory:
+    description: 'Path to run `yarn install` at'
+    required: false
+    default: './'
+  no-lockfile:
+    description: 'Whether to bypass yarn.lock file'
+    required: false
+    default: 'false'
+runs:
+  using: 'composite'
+  steps:
+    - name: Run yarn install
+      shell: bash
+      run: ./.github/actions/install-with-retries/install-with-retries.sh
+      env:
+        SKIP_CYPRESS_BINARY: ${{ inputs.skip-cypress-binary }}
+        NO_LOCKFILE: ${{ inputs.no-lockfile }}
+        WORKING_DIRECTORY: ${{ inputs.working-directory }}
