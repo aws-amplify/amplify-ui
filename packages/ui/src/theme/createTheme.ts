@@ -42,10 +42,10 @@ function setupTokens(obj: any, path = []) {
   } else if (typeof obj === 'object') {
     for (const name in obj) {
       if (obj.hasOwnProperty(name)) {
-        // If we get to this point that means there is a 'dangling' part of the theme object
-        // basically some part of the theme object that is not a design token, which is
-        // anything that is not an object with a value attribute
         if (typeof obj[name] !== 'object') {
+          // If we get to this point that means there is a 'dangling' part of the theme object
+          // basically some part of the theme object that is not a design token, which is
+          // anything that is not an object with a value attribute
           console.warn(
             `Non-design token found when creating the theme at path: ${path.join(
               '.'
