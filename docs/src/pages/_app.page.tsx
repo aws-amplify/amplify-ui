@@ -79,7 +79,7 @@ function MyApp({ Component, pageProps }) {
             setColorMode={handleColorModeChange}
             platform={platform}
           />
-          <div className={`docs-main`}>
+          <main className={`docs-main`}>
             <div
               className={`docs-sidebar-spacer ${
                 expanded ? 'expanded' : 'collapsed'
@@ -91,7 +91,7 @@ function MyApp({ Component, pageProps }) {
               setExpanded={setExpanded}
               colorMode={colorMode}
             />
-          </div>
+          </main>
         </ThemeProvider>
       </div>
       <Script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" />
