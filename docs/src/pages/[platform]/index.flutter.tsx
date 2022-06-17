@@ -12,7 +12,7 @@ const FlutterHomePage = ({ colorMode }) => {
   return (
     <>
       <AuthenticationSection platform={platform} />
-      <AmplifySection />
+      <AmplifySection platform={platform} />
     </>
   );
 };

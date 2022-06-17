@@ -231,7 +231,6 @@ h4:hover>  a .icon-link {
 }
 
 @media (prefers-color-scheme: dark) {
-  [data-amplify-theme='amplify-docs'],
   [data-amplify-theme='amplify-docs'][data-amplify-color-mode="system"] {
     --docs-gradient-color-hsl: 210, 50%, 10%;
   }

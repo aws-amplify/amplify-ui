@@ -9,6 +9,7 @@ import {
   useTheme,
   View,
 } from '@aws-amplify/ui-react';
+import router from 'next/router';
 
 export const HeroSection = () => {
   const { tokens } = useTheme();
@@ -26,10 +27,10 @@ export const HeroSection = () => {
 
   return (
     <View as="section" className="docs-hero">
-      <Flex className="container" justifyContent="center" textAlign="center">
+      <Flex justifyContent="center" textAlign="center">
         <Flex
           direction="column"
-          className="docs-home-container"
+          className="docs-home-subsection--thin"
           justifyContent="stretch"
         >
           <Heading level={1} className="docs-home-h1">
@@ -45,7 +46,7 @@ export const HeroSection = () => {
             applications with cloud-connected capabilities, building blocks,
             theming, and utilities.
           </Text>
-          <FrameworkChooser />
+          <FrameworkChooser disableScroll />
           <Flex
             gap="medium"
             direction={{ base: 'column-reverse', medium: 'row' }}

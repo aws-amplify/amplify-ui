@@ -24,7 +24,7 @@ export const Footer = () => {
           gap="xs"
         >
           <GithubIcon ariaLabel="" />
-          Contribute on Github
+          Contribute on GitHub
         </Button>
         <Button as={Link} variation="link" href={DISCORD} isExternal gap="xs">
           <DiscordIcon ariaLabel="" />

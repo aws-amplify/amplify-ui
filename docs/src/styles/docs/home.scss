@@ -53,20 +53,31 @@
 
 .docs-home-subsection {
   max-width: 100rem;
+  gap: var(--amplify-space-xl);
   margin: var(--amplify-space-large) auto;
   
   &--thin {
     max-width: 60rem;
+    gap: var(--amplify-space-xl);
     margin: var(--amplify-space-large) auto;
+  }
+  
+  @media (min-width: $breakpoint-medium) {
+    gap: var(--amplify-space-xxl);
+    &--thin {
+      gap: var(--amplify-space-xxl);
+    }
   }
 }
 
 .docs-home-cta {
   background-color: var(--amplify-colors-background-primary);
+  // background-image: linear-gradient(30deg, var(--amplify-colors-brand-secondary-60) 0%, var(--amplify-colors-brand-primary-60) 100%);
   box-shadow: var(--amplify-shadows-medium);
   padding-block: var(--amplify-space-medium);
   padding-inline: var(--amplify-space-large);
   gap: var(--amplify-space-small);
+  color: var(--amplify-colors-brand-primary-60);
 }
 
 .docs-home .docs-main {
@@ -91,14 +102,7 @@
   }
 }
 
-.docs-home-container {
-  max-width: 60rem;
-  margin: var(--amplify-space-large) auto;
-  text-align: center;
-}
-
-.docs-home-text,
-.docs-home-description {
+.docs-home-text {
   font-size: var(--amplify-font-sizes-large);
   @media (min-width: $breakpoint-small) {
     font-size: var(--amplify-font-sizes-xl);
@@ -227,11 +231,6 @@
   padding: var(--amplify-space-large);
 }
 
-.docs-home-editor {
-  max-height: 30rem;
-  overflow-y: auto;
-  font-size: var(--amplify-font-sizes-medium);
-}
 
 .npm__react-simple-code-editor__textarea {
   outline: none;
@@ -377,16 +376,15 @@ pre.scrollable.prism-code {
   overflow: auto;
 }
 
-.docs-home-code.prism-code {
-  margin: 0;
-  padding: 0;
-}
-
 .docs-home-code {
   position: relative;
   width: 100%;
   height: 100%;
-
+  
+  &.prism-code {
+    margin: 0;
+    padding: 0;
+  }
   
   &::after,
   &::before {
@@ -418,22 +416,8 @@ pre.scrollable.prism-code {
   }
 }
 
-// .docs-home-code,
-// pre.docs-home-code,
-// code.docs-home-code {
-//   // don't make code samples taller than the screen
-//   max-height: 80vh;
-//   overflow: auto;
-//   margin: 0;
-//   padding: 0;
-// }
-
 .docs-home-figma-graphic {
   position: relative;
-  // display: none;
-  // @media (min-width: $breakpoint-small) {
-  //   display: block;
-  // }
 }
 
 .docs-home-figma-logo {
@@ -488,7 +472,6 @@ pre.scrollable.prism-code {
     text-align: center;
     color: white;
     font-weight: var(--amplify-font-weights-bold);
-    // opacity: 0.75;
   }
 }
 
@@ -545,15 +528,9 @@ pre.scrollable.prism-code {
   }
 }
 
-.docs-home-editor-badge {
-  position: absolute;
-  z-index: 2;
-  top: -2rem;
-  left: 0;
-}
 
 .fade-in {
-  
+  // Only fade things in for people without reduced motion preference
   @media (prefers-reduced-motion: no-preference) {
     opacity: 0;
     transition: all var(--amplify-time-long) ease var(--amplify-time-medium);

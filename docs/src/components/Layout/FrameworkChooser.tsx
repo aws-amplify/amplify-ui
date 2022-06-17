@@ -5,20 +5,30 @@ import { useCustomRouter } from '@/components/useCustomRouter';
 import Link from 'next/link';
 import { FRAMEWORKS } from '@/data/frameworks';
 import metaData from '@/data/pages.preval';
+import { AngularLogo, FlutterLogo, ReactLogo, VueLogo } from '../Logo';
 
 interface FrameworkLinkProps extends FrameworkChooserProps {
   framework: string;
   isDisabled: boolean;
+  test?: boolean;
 }
 
 const platformPath = '[platform]';
+
+const frameworkLogo = {
+  react: <ReactLogo className="docs-framework-img" />,
+  angular: <AngularLogo className="docs-framework-img" />,
+  vue: <VueLogo className="docs-framework-img" />,
+  flutter: <FlutterLogo className="docs-framework-img" />,
+};
 
 const FrameworkLink = ({
   framework,
   onClick,
   isDisabled,
+  disableScroll,
 }: FrameworkLinkProps) => {
-  const { pathname, query } = useCustomRouter();
+  const { pathname, query, push } = useCustomRouter();
   const isCurrent = query.platform === framework;
   const classNames = `docs-framework-link ${isCurrent ? 'current' : ''}`;
   const href = pathname.includes(platformPath)
@@ -30,14 +40,18 @@ const FrameworkLink = ({
       <Button
         size="small"
         className={classNames}
-        onClick={onClick}
+        onClick={(e) => {
+          if (disableScroll) {
+            e.preventDefault();
+            push(href, null, { scroll: false });
+          }
+          if (onClick) {
+            onClick(e);
+          }
+        }}
         isDisabled={isDisabled}
       >
-        <Image
-          alt=""
-          className="docs-framework-img"
-          src={`/svg/integrations/${framework}.svg`}
-        />
+        {frameworkLogo[framework]}
         {capitalize(framework)}
       </Button>
     </Link>
@@ -45,10 +59,14 @@ const FrameworkLink = ({
 };
 
 interface FrameworkChooserProps {
-  onClick?: () => void;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  disableScroll?: boolean;
 }
 
-export const FrameworkChooser = ({ onClick }: FrameworkChooserProps) => {
+export const FrameworkChooser = ({
+  onClick,
+  disableScroll = false,
+}: FrameworkChooserProps) => {
   const { pathname } = useCustomRouter();
 
   const {
@@ -63,6 +81,7 @@ export const FrameworkChooser = ({ onClick }: FrameworkChooserProps) => {
         <FrameworkLink
           key={framework}
           framework={framework}
+          disableScroll={disableScroll}
           onClick={onClick}
           isDisabled={!frameworksOptions.includes(framework)}
         />

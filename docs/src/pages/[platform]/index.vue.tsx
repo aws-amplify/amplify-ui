@@ -20,7 +20,7 @@ const VueHomePage = ({ colorMode }) => {
       <A11ySection platform={platform} />
       <CompatibleSection platform={platform} />
       <ComingSoonPrimitiveSection platform={platform} />
-      <AmplifySection />
+      <AmplifySection platform={platform} />
     </>
   );
 };
