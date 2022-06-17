@@ -4,7 +4,14 @@ import { ViewProps } from './view';
 import { ResponsiveStyle } from './style';
 
 export interface ImageStyleProps {
+  /**
+   *  Sets how the content of an <img> should be resized to fit its container
+   */
   objectFit?: ResponsiveStyle<Property.ObjectFit>;
+
+  /**
+   *  Specifies the alignment of the selected replaced element's contents within the element's box
+   */
   objectPosition?: ResponsiveStyle<Property.ObjectPosition>;
 }
 
