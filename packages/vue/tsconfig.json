@@ -19,8 +19,7 @@
       "vite/client",
       "@types/jest",
       "vitest/globals",
-      "node",
-      "jsdom"
+      "node"
     ],
     "paths": {
       "@/*": ["src/*"]
