@@ -1,11 +1,6 @@
-import {
-  Radio,
-  RadioGroupField,
-  ThemeProvider,
-  Theme,
-} from '@aws-amplify/ui-react';
+import { Radio, RadioGroupField, ThemeProvider } from '@aws-amplify/ui-react';
 
-const theme: Theme = {
+const theme = {
   name: 'radiogroup-theme',
   tokens: {
     components: {
