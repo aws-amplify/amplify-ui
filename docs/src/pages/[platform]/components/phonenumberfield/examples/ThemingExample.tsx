@@ -1,6 +1,6 @@
-import { ThemeProvider, PhoneNumberField, Theme } from '@aws-amplify/ui-react';
+import { ThemeProvider, PhoneNumberField } from '@aws-amplify/ui-react';
 
-const theme: Theme = {
+const theme = {
   name: 'phonenumber-theme',
   tokens: {
     components: {
