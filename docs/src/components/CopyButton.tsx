@@ -3,6 +3,8 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import { Button, ButtonProps } from '@aws-amplify/ui-react';
 
+import { CopyIcon } from './Icons';
+
 interface CopyButtonProps
   extends Pick<ButtonProps, 'className' | 'size' | 'variation'> {
   copyText: string;
@@ -30,8 +32,16 @@ export const CopyButton = ({
         isLoading={copied}
         size={size}
         variation={variation}
+        gap="xs"
       >
-        {copied ? 'Copied!' : 'Copy'}
+        {copied ? (
+          'Copied!'
+        ) : (
+          <>
+            <CopyIcon />
+            Copy
+          </>
+        )}
       </Button>
     </CopyToClipboard>
   );

@@ -72,6 +72,7 @@ export const Demo = ({
             className="example-copy-button"
             copyText={code}
             size="small"
+            variation="link"
           />
           <Highlight Prism={defaultProps.Prism} code={code} language="jsx">
             {({ className, style, tokens, getLineProps, getTokenProps }) => (
