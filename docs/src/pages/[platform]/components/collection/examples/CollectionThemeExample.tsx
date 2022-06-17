@@ -15,28 +15,28 @@ const theme: Theme = {
           current: {
             color: { value: 'white' },
             backgroundColor: {
-              value: '{colors.red.40}',
+              value: '{colors.blue.80}',
             },
           },
           button: {
-            color: { value: '{colors.red.60}' },
+            color: { value: '{colors.blue.60}' },
             _hover: {
               backgroundColor: {
-                value: '{colors.neutral.40}',
+                value: '{colors.blue.10}',
               },
-              color: { value: 'white' },
+              color: { value: '{colors.blue.60}' },
             },
           },
         },
         search: {
           input: {
-            color: { value: '{colors.red.60}' },
+            color: { value: '{colors.blue.60}' },
           },
           button: {
-            color: { value: '{colors.red.60}' },
+            color: { value: '{colors.blue.60}' },
             _focus: {
               backgroundColor: {
-                value: '{colors.red.20}',
+                value: '{colors.blue.60}',
               },
               color: {
                 value: 'white',
@@ -44,7 +44,7 @@ const theme: Theme = {
             },
             _hover: {
               backgroundColor: {
-                value: '{colors.red.40}',
+                value: '{colors.blue.80}',
               },
               color: {
                 value: 'white',

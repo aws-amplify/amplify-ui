@@ -15,16 +15,16 @@ const theme: Theme = {
       table: {
         row: {
           hover: {
-            backgroundColor: { value: '{colors.green.40}' },
+            backgroundColor: { value: '{colors.blue.20}' },
           },
 
           striped: {
-            backgroundColor: { value: '{colors.blue.20}' },
+            backgroundColor: { value: '{colors.blue.10}' },
           },
         },
 
         header: {
-          color: { value: '{colors.brand.secondary.80}' },
+          color: { value: '{colors.blue.80}' },
           fontSize: { value: '{fontSizes.xl}' },
         },
 

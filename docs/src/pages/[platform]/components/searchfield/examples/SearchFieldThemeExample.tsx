@@ -5,9 +5,6 @@ const theme: Theme = {
   tokens: {
     components: {
       searchfield: {
-        // color seems to have no effect
-        color: { value: '{colors.blue.80}' },
-
         button: {
           color: { value: '{colors.blue.80}' },
           _focus: {

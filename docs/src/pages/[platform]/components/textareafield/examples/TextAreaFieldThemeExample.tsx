@@ -5,9 +5,9 @@ const theme: Theme = {
   tokens: {
     components: {
       textareafield: {
-        color: { value: '{colors.brand.secondary.60}' },
+        color: { value: '{colors.blue.90}' },
         _focus: {
-          borderColor: { value: 'red' },
+          borderColor: { value: '{colors.blue.40}' },
         },
       },
     },
