@@ -613,7 +613,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-stepperfield-input-font-size: var(--amplify-components-fieldcontrol-font-size);
         --amplify-components-stepperfield-input-text-align: center;
         --amplify-components-stepperfield-button-color: var(--amplify-components-button-color);
-        --amplify-components-stepperfield-button-background-color: transparent;
+        --amplify-components-stepperfield-button-background-color: var(--amplify-colors-transparent);
         --amplify-components-stepperfield-button-active-color: var(--amplify-components-button-active-color);
         --amplify-components-stepperfield-button-active-background-color: var(--amplify-components-button-active-background-color);
         --amplify-components-stepperfield-button-focus-color: var(--amplify-components-button-focus-color);
