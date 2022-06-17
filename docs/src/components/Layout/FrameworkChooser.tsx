@@ -34,7 +34,7 @@ const FrameworkLink = ({
         isDisabled={isDisabled}
       >
         <Image
-          alt={framework}
+          alt=""
           className="docs-framework-img"
           src={`/svg/integrations/${framework}.svg`}
         />
