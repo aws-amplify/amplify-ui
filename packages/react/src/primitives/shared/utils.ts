@@ -1,7 +1,8 @@
 import { cssNameTransform, defaultTheme, isDesignToken } from '@aws-amplify/ui';
 
-import { ComponentClasses } from './constants';
-import { stylePropsToThemeKeys } from '../types/theme';
+import { ThemeStylePropKey } from '../types/theme';
+import { stylePropsToThemeKeys } from './constants';
+import { ComponentClasses } from './types';
 
 export const strHasLength = (str: unknown): str is string =>
   typeof str === 'string' && str.length > 0;
@@ -9,18 +10,22 @@ export const strHasLength = (str: unknown): str is string =>
 export const isFunction = (fn: unknown): fn is Function =>
   typeof fn === 'function';
 
-export const isEmptyString = (value: unknown) =>
+export const isEmptyString = (value: unknown): boolean =>
   typeof value === 'string' && value.length === 0;
 
-export const isNullOrEmptyString = (value: unknown) =>
+export const isNullOrEmptyString = (value: unknown): boolean =>
   value == null || isEmptyString(value);
+
 /**
  * Create a consecutive integer array from start value to end value.
  * @param start start value
  * @param end end value
  * @returns an integer array with elements from start to end consecutively
  */
-export const getConsecutiveIntArray = (start: number, end: number) => {
+export const getConsecutiveIntArray = (
+  start: number,
+  end: number
+): number[] => {
   const length = end - start + 1;
   return Array.from({ length }, (_, idx) => idx + start);
 };
@@ -36,7 +41,7 @@ export const getConsecutiveIntArray = (start: number, end: number) => {
 export const findChildOverrides = (
   overrides: EscapeHatchProps | null | undefined,
   elementHierarchy: string
-) => {
+): EscapeHatchProps | null => {
   if (!overrides) {
     return null;
   }
@@ -50,7 +55,7 @@ export const findChildOverrides = (
     ...Array.from(filteredOverrides, ([k, v]) => ({
       [k.replace(elementHierarchy, '')]: v,
     }))
-  );
+  ) as EscapeHatchProps;
 };
 
 /**
@@ -64,7 +69,7 @@ export const findChildOverrides = (
 export const getOverrideProps = (
   overrides: EscapeHatchProps | null | undefined,
   elementHierarchy: string
-) => {
+): EscapeHatchProps | null => {
   if (!overrides) {
     return null;
   }
@@ -74,7 +79,7 @@ export const getOverrideProps = (
     .flatMap(([, value]) => Object.entries(value))
     .filter((m) => m?.[0]);
 
-  return Object.fromEntries(componentOverrides);
+  return Object.fromEntries(componentOverrides) as unknown as EscapeHatchProps;
 };
 
 export type EscapeHatchProps = {
@@ -93,10 +98,10 @@ export type Variant = {
  * @param variants list of style variants to select from
  * @param props variant values to select from the list, may include additional props, to tidy up usage upstream
  */
-export function getOverridesFromVariants(
+export function getOverridesFromVariants<T>(
   variants: Variant[],
-  props: { [key: string]: any }
-) {
+  props: { [key: string]: T }
+): { [key: string]: Variant } {
   // Get unique keys from the provided variants
   const variantValueKeys = [
     ...new Set(
@@ -198,7 +203,7 @@ export const classNameModifierByFlag = (
 };
 
 export const getCSSVariableIfValueIsThemeKey = <Value>(
-  propKey: string,
+  propKey: ThemeStylePropKey,
   value: Value
 ): Value | string => {
   if (typeof value !== 'string') {
@@ -215,16 +220,19 @@ export const getCSSVariableIfValueIsThemeKey = <Value>(
       .join(' ');
   }
   const path = value.split('.');
-  let { tokens } = defaultTheme;
-  tokens = tokens[stylePropsToThemeKeys[propKey]];
+  const tokenKey = stylePropsToThemeKeys[propKey];
+
+  let tokenProps = defaultTheme.tokens[tokenKey];
+
   for (let i = 0; i < path.length; i++) {
-    if (tokens) {
-      tokens = tokens[path[i]];
+    if (tokenProps) {
+      // overwrite tokenProps with next nested value of tokenProps
+      tokenProps = tokenProps[path[i]] as typeof tokenProps;
       continue;
     }
     break;
   }
-  return isDesignToken(tokens)
+  return isDesignToken(tokenProps)
     ? `var(--${cssNameTransform({
         path: [stylePropsToThemeKeys[propKey], ...path],
       })})`
