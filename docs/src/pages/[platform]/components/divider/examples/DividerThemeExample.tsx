@@ -6,12 +6,12 @@ const theme: Theme = {
     components: {
       divider: {
         borderStyle: { value: 'dotted' },
-        borderColor: { value: '{colors.brand.secondary.80}' },
+        borderColor: { value: '{colors.blue.80}' },
         borderWidth: { value: '{borderWidths.small}' },
 
         label: {
           color: { value: '{colors.white}' },
-          backgroundColor: { value: '{colors.brand.secondary.80}' },
+          backgroundColor: { value: '{colors.blue.80}' },
         },
 
         large: {

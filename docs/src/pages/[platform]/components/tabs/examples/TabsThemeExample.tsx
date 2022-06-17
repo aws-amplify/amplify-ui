@@ -7,20 +7,20 @@ const theme: Theme = {
       tabs: {
         borderColor: { value: '{colors.neutral.20}' },
         item: {
-          color: { value: 'green' },
+          color: { value: '{colors.blue.80}' },
           fontSize: { value: '{fontSizes.xl}' },
           fontWeight: { value: '{fontWeights.normal}' },
 
           _hover: {
-            color: { value: 'yellow' },
+            color: { value: '{colors.blue.60}' },
           },
           _focus: {
-            color: { value: 'orange' },
+            color: { value: '{colors.blue.60}' },
           },
           _active: {
-            color: { value: 'purple' },
-            borderColor: { value: 'red' },
-            backgroundColor: { value: '{colors.blue.20}' },
+            color: { value: '{colors.blue.80}' },
+            borderColor: { value: '{colors.blue.80}' },
+            backgroundColor: { value: '{colors.blue.10}' },
           },
           _disabled: {
             color: { value: 'gray' },

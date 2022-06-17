@@ -19,12 +19,12 @@ const theme: Theme = {
 
         // Variations
         info: {
-          color: { value: '{colors.white}' },
+          color: { value: 'white' },
           backgroundColor: { value: '{colors.purple.80}' },
         },
 
         success: {
-          color: { value: '{colors.black}' },
+          color: { value: 'black' },
           backgroundColor: { value: '{colors.yellow.40}' },
         },
       },

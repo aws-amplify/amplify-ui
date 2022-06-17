@@ -8,30 +8,30 @@ const theme: Theme = {
         thumb: {
           width: { value: '{space.xl}' },
           height: { value: '{space.xl}' },
-          backgroundColor: { value: '{colors.blue.40}' },
+          backgroundColor: { value: '{colors.neutral.90}' },
           borderRadius: { value: '{radii.medium}' },
           _hover: {
-            backgroundColor: { value: '{colors.green.40}' },
-            borderColor: { value: 'orange' },
+            backgroundColor: { value: '{colors.neutral.80}' },
+            borderColor: { value: '{colors.neutral.90}' },
           },
           _focus: {
-            borderColor: { value: 'red' },
+            borderColor: { value: '{colors.green.80}' },
             boxShadow: {
               value: {
                 spreadRadius: '3px',
-                color: 'yellow',
+                color: '{colors.green.20}',
               },
             },
           },
         },
         track: {
           backgroundColor: {
-            value: '{colors.neutral.80}',
+            value: '{colors.blue.20}',
           },
           height: { value: '{fontSizes.medium}' },
         },
         range: {
-          backgroundColor: { value: '{colors.brand.secondary.80}' },
+          backgroundColor: { value: '{colors.blue.80}' },
         },
       },
     },

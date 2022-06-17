@@ -5,12 +5,12 @@ const theme: Theme = {
   tokens: {
     components: {
       text: {
-        color: { value: '{colors.green.40}' },
+        color: { value: '{colors.green.80}' },
         primary: {
-          color: { value: '{colors.teal.40}' },
+          color: { value: '{colors.teal.80}' },
         },
         warning: {
-          color: { value: '{colors.pink.60}' },
+          color: { value: '{colors.pink.80}' },
         },
       },
     },

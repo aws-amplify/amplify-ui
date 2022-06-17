@@ -10,26 +10,26 @@ const theme: Theme = {
   tokens: {
     components: {
       togglebutton: {
-        borderColor: { value: '{colors.brand.secondary.80}' },
-        color: { value: '{colors.brand.secondary.80}' },
+        borderColor: { value: '{colors.blue.90}' },
+        color: { value: '{colors.blue.90}' },
         _hover: {
-          backgroundColor: { value: 'red' },
+          backgroundColor: { value: '{colors.blue.40}' },
         },
         _focus: {
-          color: { value: 'orange' },
+          color: { value: 'white' },
         },
         _active: {
-          backgroundColor: { value: 'yellow' },
+          backgroundColor: { value: '{colors.blue.60}' },
         },
         _pressed: {
-          backgroundColor: { value: 'green' },
-          color: { value: '{colors.white}' },
+          backgroundColor: { value: '{colors.blue.80}' },
+          color: { value: 'white' },
           _hover: {
             backgroundColor: { value: 'blue' },
           },
         },
         primary: {
-          backgroundColor: { value: '{colors.pink.20}' },
+          backgroundColor: { value: '{colors.teal.20}' },
         },
       },
     },

@@ -10,7 +10,7 @@ const theme: Theme = {
   tokens: {
     components: {
       expander: {
-        backgroundColor: { value: '{colors.brand.primary.60}' },
+        backgroundColor: { value: '{colors.blue.40}' },
         borderRadius: { value: '{radii.small}' },
         trigger: {
           minHeight: { value: '5rem' },
