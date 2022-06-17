@@ -40,7 +40,7 @@ const theme: Theme = {
 
 export const SliderFieldThemeExample = () => {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme} colorMode="light">
       <SliderField label="Themed Slider" defaultValue={50} labelHidden />
     </ThemeProvider>
   );

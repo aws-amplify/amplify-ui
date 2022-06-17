@@ -26,7 +26,7 @@ const theme: Theme = {
 
 export const LinkThemeExample = () => {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme} colorMode="light">
       <Link href="https://ui.docs.amplify.aws/react/components/link" isExternal>
         Themed Link
       </Link>

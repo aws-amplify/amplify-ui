@@ -28,7 +28,7 @@ const theme: Theme = {
 };
 
 export const LoaderThemeExample = () => (
-  <ThemeProvider theme={theme}>
+  <ThemeProvider theme={theme} colorMode="light">
     <Flex direction="column">
       <Loader size="large" />
       <Loader variation="linear" />

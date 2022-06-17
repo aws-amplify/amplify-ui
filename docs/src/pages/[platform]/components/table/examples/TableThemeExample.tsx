@@ -37,7 +37,7 @@ const theme: Theme = {
 };
 
 export const TableThemeExample = () => (
-  <ThemeProvider theme={theme}>
+  <ThemeProvider theme={theme} colorMode="light">
     <Table highlightOnHover variation="striped">
       <TableHead>
         <TableRow>

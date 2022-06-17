@@ -21,7 +21,7 @@ const theme: Theme = {
 };
 
 export const HeadingThemeExample = () => (
-  <ThemeProvider theme={theme}>
+  <ThemeProvider theme={theme} colorMode="light">
     <Flex direction="column">
       <Heading level={1}>Title</Heading>
       <Heading>Default</Heading>

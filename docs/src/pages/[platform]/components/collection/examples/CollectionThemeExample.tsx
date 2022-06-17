@@ -1,7 +1,6 @@
 import {
   Button,
   Collection,
-  defaultDarkModeOverride,
   ThemeProvider,
   Theme,
 } from '@aws-amplify/ui-react';
@@ -56,12 +55,11 @@ const theme: Theme = {
       },
     },
   },
-  overrides: [defaultDarkModeOverride],
 };
 
 export const CollectionThemeExample = () => {
   return (
-    <ThemeProvider theme={theme} colorMode="system">
+    <ThemeProvider theme={theme} colorMode="light">
       <Collection
         type="grid"
         templateColumns="1fr 1fr 1fr"

@@ -34,7 +34,7 @@ const theme: Theme = {
 
 export const TabsThemeExample = () => {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme} colorMode="light">
       <Tabs>
         <TabItem title="Tab 1">Tab 1 Content</TabItem>
         <TabItem title="Tab 2">Tab 2 Content</TabItem>

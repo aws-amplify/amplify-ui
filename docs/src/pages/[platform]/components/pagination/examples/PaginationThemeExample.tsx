@@ -28,7 +28,7 @@ export const PaginationThemeExample = () => {
   const paginationProps = usePagination({ totalPages: 6 });
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme} colorMode="light">
       <Pagination {...paginationProps} />
     </ThemeProvider>
   );

@@ -23,7 +23,7 @@ const theme: Theme = {
 };
 
 export const DividerThemeExample = () => (
-  <ThemeProvider theme={theme}>
+  <ThemeProvider theme={theme} colorMode="light">
     <Flex direction="column" gap="3rem">
       <Divider label="Default" />
       <Divider size="large" label="Large" />

@@ -35,7 +35,7 @@ const theme: Theme = {
 };
 
 export const ExpanderThemeExample = () => (
-  <ThemeProvider theme={theme}>
+  <ThemeProvider theme={theme} colorMode="light">
     <Expander>
       <ExpanderItem title="Check out this themed Expander" value="item1">
         Pretty cool!

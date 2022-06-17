@@ -30,7 +30,7 @@ const theme: Theme = {
 
 export const SearchFieldThemeExample = () => {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme} colorMode="light">
       <SearchField label="search" />
     </ThemeProvider>
   );

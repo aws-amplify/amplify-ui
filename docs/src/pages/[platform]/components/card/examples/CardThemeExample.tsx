@@ -27,7 +27,7 @@ const theme: Theme = {
 
 export const CardThemeExample = () => {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme} colorMode="light">
       <Flex>
         <Card>
           <Text>Default</Text>

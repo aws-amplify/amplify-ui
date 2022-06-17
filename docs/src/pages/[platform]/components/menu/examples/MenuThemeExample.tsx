@@ -1,10 +1,4 @@
-import {
-  ThemeProvider,
-  Menu,
-  MenuItem,
-  Theme,
-  defaultDarkModeOverride,
-} from '@aws-amplify/ui-react';
+import { Menu, MenuItem, ThemeProvider, Theme } from '@aws-amplify/ui-react';
 
 const theme: Theme = {
   name: 'menu-theme',
@@ -20,12 +14,11 @@ const theme: Theme = {
       },
     },
   },
-  overrides: [defaultDarkModeOverride],
 };
 
 export const MenuThemeExample = () => {
   return (
-    <ThemeProvider theme={theme} colorMode="system">
+    <ThemeProvider theme={theme} colorMode="light">
       <Menu>
         <MenuItem>Download</MenuItem>
         <MenuItem>Create a Copy</MenuItem>

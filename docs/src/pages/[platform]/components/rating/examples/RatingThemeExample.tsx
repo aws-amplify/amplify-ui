@@ -16,7 +16,7 @@ const theme: Theme = {
 };
 
 export const RatingThemeExample = () => (
-  <ThemeProvider theme={theme}>
+  <ThemeProvider theme={theme} colorMode="light">
     <Flex direction="column">
       <Rating value={3} size="small" />
       <Rating value={3.5} />

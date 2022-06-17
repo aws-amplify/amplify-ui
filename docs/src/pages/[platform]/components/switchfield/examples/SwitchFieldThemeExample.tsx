@@ -28,7 +28,7 @@ const theme: Theme = {
 };
 
 export const SwitchFieldThemeExample = () => (
-  <ThemeProvider theme={theme}>
+  <ThemeProvider theme={theme} colorMode="light">
     <SwitchField label="Themed Switch" />
   </ThemeProvider>
 );

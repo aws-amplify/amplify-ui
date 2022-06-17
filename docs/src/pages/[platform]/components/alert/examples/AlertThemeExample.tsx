@@ -33,7 +33,7 @@ const theme: Theme = {
 };
 
 export const AlertThemeExample = () => (
-  <ThemeProvider theme={theme}>
+  <ThemeProvider theme={theme} colorMode="light">
     <Flex direction="column">
       <Alert heading="testing123">Hello</Alert>
       <Alert variation="info" heading="Info">

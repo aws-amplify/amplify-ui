@@ -15,7 +15,7 @@ const theme: Theme = {
 };
 
 export const TextAreaFieldThemeExample = () => (
-  <ThemeProvider theme={theme}>
+  <ThemeProvider theme={theme} colorMode="light">
     <TextAreaField label="Name" defaultValue="Default Value" />
   </ThemeProvider>
 );

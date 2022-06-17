@@ -13,7 +13,7 @@ const theme: Theme = {
 };
 
 export const StepperFieldThemeExample = () => (
-  <ThemeProvider theme={theme}>
+  <ThemeProvider theme={theme} colorMode="light">
     <StepperField
       label="Themed stepper"
       defaultValue={0}

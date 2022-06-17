@@ -32,7 +32,7 @@ const theme: Theme = {
 };
 
 export const ButtonThemeExample = () => (
-  <ThemeProvider theme={theme}>
+  <ThemeProvider theme={theme} colorMode="light">
     <Flex direction="row">
       <Button variation="primary">Primary</Button>
     </Flex>

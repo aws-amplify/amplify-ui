@@ -18,7 +18,7 @@ const theme: Theme = {
 };
 
 export const TextThemeExample = () => (
-  <ThemeProvider theme={theme}>
+  <ThemeProvider theme={theme} colorMode="light">
     <Flex>
       <Text>Default</Text>
       <Text variation="primary">Primary</Text>

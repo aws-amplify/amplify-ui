@@ -19,7 +19,7 @@ const theme: Theme = {
 
 export const PlaceholderThemeExample = () => {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme} colorMode="light">
       <Placeholder size="large" />
     </ThemeProvider>
   );

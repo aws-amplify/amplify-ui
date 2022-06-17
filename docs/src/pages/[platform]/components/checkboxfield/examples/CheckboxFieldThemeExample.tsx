@@ -21,7 +21,7 @@ const theme: Theme = {
 };
 
 export const CheckboxFieldThemeExample = () => (
-  <ThemeProvider theme={theme}>
+  <ThemeProvider theme={theme} colorMode="light">
     <CheckboxField label="Subscribe" name="subscribe" value="yes" />
   </ThemeProvider>
 );

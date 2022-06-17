@@ -38,7 +38,7 @@ const theme: Theme = {
 
 export const ToggleButtonThemeExample = () => {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme} colorMode="light">
       <Flex>
         <ToggleButton>Default</ToggleButton>
         <ToggleButton variation="primary">Primary</ToggleButton>

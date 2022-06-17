@@ -34,7 +34,7 @@ const theme: Theme = {
 
 export const PasswordFieldThemeExample = () => {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme} colorMode="light">
       <PasswordField label="Password" />
     </ThemeProvider>
   );

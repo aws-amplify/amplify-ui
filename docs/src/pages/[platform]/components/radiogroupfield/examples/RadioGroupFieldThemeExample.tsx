@@ -37,7 +37,7 @@ const theme: Theme = {
 const options = ['html', 'css', 'javascript'];
 
 export const RadioGroupFieldThemeExample = () => (
-  <ThemeProvider theme={theme}>
+  <ThemeProvider theme={theme} colorMode="light">
     <RadioGroupField label="Language" name="language6" defaultValue="html">
       {options.map((option) => (
         <Radio key={option} value={option}>

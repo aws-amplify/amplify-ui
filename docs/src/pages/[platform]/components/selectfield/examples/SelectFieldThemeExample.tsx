@@ -15,7 +15,7 @@ const theme: Theme = {
 };
 
 export const SelectFieldThemeExample = () => (
-  <ThemeProvider theme={theme}>
+  <ThemeProvider theme={theme} colorMode="light">
     <SelectField label="Fruit">
       <option value="apple">Apple</option>
       <option value="banana">Banana</option>

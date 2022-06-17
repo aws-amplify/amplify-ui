@@ -13,7 +13,7 @@ const theme: Theme = {
 };
 
 export const PhoneNumberFieldThemeExample = () => (
-  <ThemeProvider theme={theme}>
+  <ThemeProvider theme={theme} colorMode="light">
     <PhoneNumberField label="Themed field" defaultCountryCode="+1" />
   </ThemeProvider>
 );

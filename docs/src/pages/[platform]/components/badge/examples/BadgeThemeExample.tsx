@@ -30,7 +30,7 @@ const theme: Theme = {
 };
 
 export const BadgeThemeExample = () => (
-  <ThemeProvider theme={theme}>
+  <ThemeProvider theme={theme} colorMode="light">
     <Flex alignItems="flex-end">
       <Badge>Default</Badge>
       <Badge variation="success">Success</Badge>
