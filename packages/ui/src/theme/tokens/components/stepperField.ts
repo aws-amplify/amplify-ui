@@ -42,7 +42,7 @@ export const stepperfield: StepperFieldTokens = {
   },
   button: {
     color: { value: '{components.button.color}' },
-    backgroundColor: { value: 'transparent' },
+    backgroundColor: { value: '{colors.transparent}' },
     _active: {
       color: { value: '{components.button._active.color}' },
       backgroundColor: { value: '{components.button._active.backgroundColor}' },
