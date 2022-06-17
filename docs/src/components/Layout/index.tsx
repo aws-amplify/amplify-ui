@@ -67,7 +67,7 @@ export default function Page({
 
   return (
     <>
-      <main className="docs-content">
+      <div className="docs-content">
         <section className="docs-content-body">
           <section className="docs-meta">
             <Heading level={1}>{title}</Heading>
@@ -118,7 +118,7 @@ export default function Page({
           {children}
         </section>
         <Footer />
-      </main>
+      </div>
 
       {!hideToc && headings.length ? (
         <TableOfContents title="Contents" headings={headings} />

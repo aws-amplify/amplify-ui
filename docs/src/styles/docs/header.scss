@@ -71,10 +71,11 @@
 
   .docs-home & {
     opacity: 0;
-    display: inline-flex;
+    display: none;
   }
   
   .scrolled .docs-home & {
+    display: inline-flex;
     animation: showOverlay var(--amplify-time-long) forwards;
   }
   
