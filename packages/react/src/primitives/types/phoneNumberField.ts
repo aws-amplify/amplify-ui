@@ -6,31 +6,31 @@ import { TextInputFieldProps } from './textField';
 export interface PhoneNumberFieldProps extends TextInputFieldProps {
   /**
    * @description
-   * Sets a hidden and accessible label for the country or region code selector
+   * Sets a hidden and accessible label for the dial code selector
    */
   countryCodeLabel?: string;
 
   /**
    * @description
-   * Sets the name used when handling form submission for the country or region code selector
+   * Sets the name used when handling form submission for the dial code selector
    */
   countryCodeName?: string;
 
   /**
    * @description
-   * Sets the default country or region code that will be selected on initial render
+   * Sets the default dial code that will be selected on initial render
    */
   defaultCountryCode: string;
 
   /**
    * @description
-   * Accepts an array of dial codes (strings) used as options in the country or region code selector
+   * Accepts an array of dial codes (strings) used as options in the dial code selector
    */
   dialCodeList?: Array<string>;
 
   /**
    * @description
-   * Handles change events for the country or region code selector
+   * Handles change events for the dial code selector
    */
   onCountryCodeChange?: React.ChangeEventHandler<HTMLSelectElement>;
 
