@@ -11,7 +11,7 @@ const theme: Theme = {
     components: {
       radiogroup: {
         label: {
-          color: { value: '{colors.brand.secondary.40}' },
+          color: { value: '{colors.brand.secondary.80}' },
         },
         button: {
           borderWidth: { value: '{borderWidths.small}' },
@@ -21,7 +21,7 @@ const theme: Theme = {
             color: { value: '{colors.brand.secondary.80}' },
           },
           label: {
-            color: { value: '{colors.brand.secondary.10}' },
+            color: { value: '{colors.green.80}' },
           },
         },
       },
