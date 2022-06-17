@@ -35,7 +35,7 @@ export const LinkPropControls: LinkPropControlsInterface = ({
       <TextField
         value={children as string}
         onChange={(event) => setChildren(event.target.value)}
-        label="body"
+        label="children"
       />
       <TextField
         value={color as string}
@@ -49,6 +49,12 @@ export const LinkPropControls: LinkPropControlsInterface = ({
       >
         <option value="none">none</option>
         <option value="underline">underline</option>
+        <option value="underline overline #FF3028">
+          underline overline #FF3028
+        </option>
+        <option value="underline dotted">underline dotted</option>
+        <option value="underline dotted red">underline dotted red</option>
+        <option value="green wavy underline">green wavy underline</option>
       </SelectField>
       <SwitchField
         checked={isExternal}
