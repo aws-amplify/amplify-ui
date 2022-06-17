@@ -8,7 +8,7 @@ import {
 } from '@aws-amplify/ui-react';
 
 export const CustomDarkModeExample = () => {
-  const [colorMode, setColorMode] = React.useState < ColorMode > 'system';
+  const [colorMode, setColorMode] = React.useState('system');
   const theme = {
     name: 'my-theme',
     overrides: [
