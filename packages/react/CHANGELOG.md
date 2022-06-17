@@ -1,5 +1,66 @@
 # @aws-amplify/ui-react
 
+## 3.0.0
+
+### Major Changes
+
+- [#2103](https://github.com/aws-amplify/amplify-ui/pull/2103) [`bb2c98aa6`](https://github.com/aws-amplify/amplify-ui/commit/bb2c98aa663d6bee9a6cefad3b012be1d25bcd94) Thanks [@zchenwei](https://github.com/zchenwei)! - BREAKING CHANGE: remove `ShareText` export
+
+* [#2082](https://github.com/aws-amplify/amplify-ui/pull/2082) [`e79f41839`](https://github.com/aws-amplify/amplify-ui/commit/e79f41839c5a5d32fab24be948a14ca7ccb1cf4d) Thanks [@reesscot](https://github.com/reesscot)! - 🚨BREAKING CHANGE🚨: Built-in icons removed
+
+  We've removed the built-in icons (Icon360, IconSave, etc) from the `@aws-amplify/ui-react` package. This change was made for a few reasons:
+
+  - There are many other React icon libraries that are compatible with Amplify UI components
+  - Removing the icons reduces the overall package size by about 74%.
+  - While in most cases the icons are tree-shaken out of the final app bundle, by removing the icons we ensure smaller bundle sizes for all users.
+
+  We are not removing the `<Icon>` component, which allows customers to easily add SVG icons using the `pathData` prop. A limited set of the icons have been left for internal only use in Amplify UI primitives.
+
+### Minor Changes
+
+- [#2054](https://github.com/aws-amplify/amplify-ui/pull/2054) [`5eedbbed4`](https://github.com/aws-amplify/amplify-ui/commit/5eedbbed4d04fc00a50d37ae3be61522212eb5cb) Thanks [@zchenwei](https://github.com/zchenwei)! - feat: adding colors theme key support in style props
+
+  **_Example code_**
+
+  ```jsx
+  import { View } from '@aws-amplify/ui-react';
+
+  export const Demo = () => {
+    return <View backgroundColor="pink.10" color="red.40" />;
+  };
+  ```
+
+* [#2112](https://github.com/aws-amplify/amplify-ui/pull/2112) [`d458f3639`](https://github.com/aws-amplify/amplify-ui/commit/d458f363927bf456d1f7d543fc6c5a68a0322f4d) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Allow `padding` and `margin` to accept theme keys.
+  Also adding `paddingInline`, `paddingBlock`, `marginInline`, and `marginBlock` style props.
+
+  ```jsx
+    <View padding="large" />
+    <View paddingInline="xl" />
+  ```
+
+- [#2077](https://github.com/aws-amplify/amplify-ui/pull/2077) [`736cfe7cb`](https://github.com/aws-amplify/amplify-ui/commit/736cfe7cb3544bf0ecae5ab2c3b2caf381b497c4) Thanks [@zchenwei](https://github.com/zchenwei)! - feat(style): adding theme key support on more style props(`font-family`, `line-height`, `opacity`, `box-shadow` and `transform`)
+
+* [#2070](https://github.com/aws-amplify/amplify-ui/pull/2070) [`28bf92ddb`](https://github.com/aws-amplify/amplify-ui/commit/28bf92ddbd893a3c2839d5215537f845db46b181) Thanks [@zchenwei](https://github.com/zchenwei)! - feat: adding theme key(`radii`, `space`, `fontSizes`, and `fontWeights`) support for more style props
+
+### Patch Changes
+
+- [#2062](https://github.com/aws-amplify/amplify-ui/pull/2062) [`d7dbdb1eb`](https://github.com/aws-amplify/amplify-ui/commit/d7dbdb1ebdb63718c5c8e223db3d034ec8331760) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui-react): lint components/Geo directory
+
+* [#2102](https://github.com/aws-amplify/amplify-ui/pull/2102) [`a168acdc6`](https://github.com/aws-amplify/amplify-ui/commit/a168acdc69e7e44625b0bbf30a020dc1f7bcde8e) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix: nested theme providers by removing menu's portal.
+  Menu primitive no longer renders in a React Portal which means it properly gets the theme from the nearest ThemeProvider.
+  Removing the document element modifications in the ThemeProvider because it is no longer needed. Now the ThemeProvider is much cleaner!
+
+- [#2060](https://github.com/aws-amplify/amplify-ui/pull/2060) [`6800bf6c3`](https://github.com/aws-amplify/amplify-ui/commit/6800bf6c31ad1b1656e7b799fc0f3853115932e4) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui-react): lint hooks directory
+
+* [#2061](https://github.com/aws-amplify/amplify-ui/pull/2061) [`ff34a6b9c`](https://github.com/aws-amplify/amplify-ui/commit/ff34a6b9c8fb9ccc6f59bf2607cae23ff6939201) Thanks [@reesscot](https://github.com/reesscot)! - fix: build-time error message `Cannot find module "mapbox-gl"` by pinning mapbox-gl to v1.13.2
+
+- [#2067](https://github.com/aws-amplify/amplify-ui/pull/2067) [`c447a53b0`](https://github.com/aws-amplify/amplify-ui/commit/c447a53b08bf3b7b1b30bdd102107a6d76a30fa2) Thanks [@zchenwei](https://github.com/zchenwei)! - fix(docs): fix type error
+
+* [#2063](https://github.com/aws-amplify/amplify-ui/pull/2063) [`f01bf291f`](https://github.com/aws-amplify/amplify-ui/commit/f01bf291f8f74082d45ca96fe58dbce0278486fe) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui-react): lint components/ThemeProvider directory
+
+* Updated dependencies [[`5eedbbed4`](https://github.com/aws-amplify/amplify-ui/commit/5eedbbed4d04fc00a50d37ae3be61522212eb5cb), [`e37b666d9`](https://github.com/aws-amplify/amplify-ui/commit/e37b666d967aa444984f9881e7267c0ea171716a), [`ef790e5fd`](https://github.com/aws-amplify/amplify-ui/commit/ef790e5fd0d6c91311a4db2456f7de10f8fdad7a), [`540b4ce97`](https://github.com/aws-amplify/amplify-ui/commit/540b4ce97a7c68ea3783bc67e8da4cce1d52e706), [`736cfe7cb`](https://github.com/aws-amplify/amplify-ui/commit/736cfe7cb3544bf0ecae5ab2c3b2caf381b497c4), [`d8085741b`](https://github.com/aws-amplify/amplify-ui/commit/d8085741b23175458adba9b3c05e97408aaa6413), [`f6ee1355c`](https://github.com/aws-amplify/amplify-ui/commit/f6ee1355c75ee802c76a34d140c3e052fc0afaeb), [`a168acdc6`](https://github.com/aws-amplify/amplify-ui/commit/a168acdc69e7e44625b0bbf30a020dc1f7bcde8e), [`5f3d3a264`](https://github.com/aws-amplify/amplify-ui/commit/5f3d3a2642401788f1fc79334140c5f3cfc83876), [`28bf92ddb`](https://github.com/aws-amplify/amplify-ui/commit/28bf92ddbd893a3c2839d5215537f845db46b181)]:
+  - @aws-amplify/ui@3.11.0
+
 ## 2.19.1
 
 ### Patch Changes
