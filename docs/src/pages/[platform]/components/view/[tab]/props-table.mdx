@@ -139,16 +139,6 @@ string
     </TableRow>
 
     <TableRow>
-      <TableCell className="props-table__tr-name">ref</TableCell>
-      <TableCell>
-```jsx
-React.Ref<HTMLElement>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
       <TableCell className="props-table__tr-name">size</TableCell>
       <TableCell>
 ```jsx
@@ -205,6 +195,66 @@ FieldVariations
 
 <Expander type="multiple" className="props-table-expander" >
   
+<ExpanderItem title="Attributes" value="Attributes">
+    
+<Table
+  highlightOnHover={true}
+  className="props-table"
+  >
+  <TableHead>
+    <TableRow>
+      <TableCell as="th">Name</TableCell>
+      <TableCell as="th">Type</TableCell>
+      <TableCell as="th">Description</TableCell>
+    </TableRow>
+  </TableHead>
+  <TableBody>
+    
+    <TableRow>
+      <TableCell className="props-table__tr-name">key</TableCell>
+      <TableCell>
+```jsx
+React.Key
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">-</TableCell>
+    </TableRow>
+
+  </TableBody>
+</Table>
+
+</ExpanderItem>
+
+<ExpanderItem title="RefAttributes" value="RefAttributes">
+    
+<Table
+  highlightOnHover={true}
+  className="props-table"
+  >
+  <TableHead>
+    <TableRow>
+      <TableCell as="th">Name</TableCell>
+      <TableCell as="th">Type</TableCell>
+      <TableCell as="th">Description</TableCell>
+    </TableRow>
+  </TableHead>
+  <TableBody>
+    
+    <TableRow>
+      <TableCell className="props-table__tr-name">ref</TableCell>
+      <TableCell>
+```jsx
+React.Ref<HTMLElement>
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">-</TableCell>
+    </TableRow>
+
+  </TableBody>
+</Table>
+
+</ExpanderItem>
+
 </Expander>
 
 
