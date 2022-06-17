@@ -9,6 +9,7 @@ import {
   useTheme,
   View,
 } from '@aws-amplify/ui-react';
+import router from 'next/router';
 
 export const HeroSection = () => {
   const { tokens } = useTheme();
@@ -45,7 +46,7 @@ export const HeroSection = () => {
             applications with cloud-connected capabilities, building blocks,
             theming, and utilities.
           </Text>
-          <FrameworkChooser />
+          <FrameworkChooser disableScroll />
           <Flex
             gap="medium"
             direction={{ base: 'column-reverse', medium: 'row' }}

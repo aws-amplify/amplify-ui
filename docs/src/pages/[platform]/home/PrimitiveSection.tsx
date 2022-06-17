@@ -79,19 +79,9 @@ const Preview = () => {
       <Flex direction={['column', 'row']}>
         <Card variation="elevated" flex="1">
           <Center>
-            <RadioGroupField
-              label="Language"
-              name="language"
-              value={radioValue}
-              direction="row"
-              gap="small"
-              onChange={(e) => setRadioValue(e.target.value)}
-              labelHidden
-            >
-              <Radio value="html">html</Radio>
-              <Radio value="css">css</Radio>
-              <Radio value="javascript">javascript</Radio>
-            </RadioGroupField>
+            <Button>Button</Button>
+            <Button variation="primary">Button</Button>
+            <Button variation="link">Button</Button>
           </Center>
         </Card>
         <Card variation="elevated" flex="1">
@@ -148,9 +138,19 @@ const Preview = () => {
       <Flex direction={direction}>
         <Card variation="elevated" flex="1">
           <Center>
-            <Button>Button</Button>
-            <Button variation="primary">Button</Button>
-            <Button variation="link">Button</Button>
+            <RadioGroupField
+              label="Language"
+              name="language"
+              value={radioValue}
+              direction="row"
+              gap="small"
+              onChange={(e) => setRadioValue(e.target.value)}
+              labelHidden
+            >
+              <Radio value="html">html</Radio>
+              <Radio value="css">css</Radio>
+              <Radio value="javascript">javascript</Radio>
+            </RadioGroupField>
           </Center>
         </Card>
         <Card variation="elevated" flex="1">

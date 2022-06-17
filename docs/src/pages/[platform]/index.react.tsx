@@ -29,7 +29,7 @@ const ReactHomePage = ({ colorMode }) => {
       <ThemingSection platform={platform} colorMode={colorMode} />
       <A11ySection platform={platform} />
       <CompatibleSection platform={platform} />
-      <AmplifySection />
+      <AmplifySection platform={platform} />
       {showEditor ? <LiveSection platform={platform} /> : null}
     </>
   );

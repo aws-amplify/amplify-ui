@@ -38,7 +38,7 @@ const AmpCard = ({ title, description, href, Icon }) => (
   </Flex>
 );
 
-export const AmplifySection = () => {
+export const AmplifySection = ({ platform }) => {
   const ref = useRef<HTMLDivElement | null>(null);
   const entry = useIntersectionObserver(ref, {
     threshold: 0.125,
@@ -59,10 +59,9 @@ export const AmplifySection = () => {
         <Grid
           className="docs-home-subsection--thin"
           templateColumns={{ base: '1fr', medium: '1fr 1fr' }}
-          gap="xl"
         >
           <AmpCard
-            href="https://docs.amplify.aws/lib/q/platform/js/"
+            href={`https://docs.amplify.aws/lib/q/platform/${platform}/`}
             title="Amplify Libraries"
             Icon={LibraryIcon}
             description="Connect app to new or existing AWS services (Cognito, S3, and more)."
@@ -74,7 +73,7 @@ export const AmplifySection = () => {
             description="Configure an app backend with a guided CLI workflow."
           />
           <AmpCard
-            href="https://docs.amplify.aws/console/"
+            href="https://docs.aws.amazon.com/amplify/latest/userguide/getting-started.html"
             title="Amplify Hosting"
             Icon={ServerIcon}
             description="Fully managed web hosting with full-stack CI/CD."

@@ -5,8 +5,8 @@ export const HomeFeatureCard = ({ title, description, Icon }) => {
     <Flex
       direction="column"
       flex="1"
-      alignItems="flex-start"
-      textAlign="initial"
+      alignItems={['center', 'center', 'flex-start']}
+      textAlign={['center', 'center', 'initial']}
     >
       {Icon ? (
         <View as="span" padding="1rem" backgroundColor="brand.secondary.10">
