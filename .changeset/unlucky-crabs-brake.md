@@ -2,4 +2,4 @@
 "@aws-amplify/ui-react": patch
 ---
 
-Add missing descriptions props
+Add missing prop descriptions
