@@ -7,9 +7,9 @@ const theme: Theme = {
       phonenumberfield: {
         color: { value: '{colors.blue.60}' },
         fontSize: { value: '{fontSizes.large}' },
-        borderColor: { value: '{colors.red.60}' },
+        borderColor: { value: '{colors.neutral.80}' },
         _focus: {
-          borderColor: { value: '{colors.red.80}' },
+          borderColor: { value: '{colors.neutral.80}' },
         },
       },
     },
