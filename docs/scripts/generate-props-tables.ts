@@ -163,7 +163,7 @@ function getPropsSortedByCategory(
       [key in 'Main' | 'Base' | 'Layout' | 'Styling']: Category[];
     } = {
       Main: [],
-      Base: ['BaseComponentProps'],
+      Base: ['BaseComponentProps', 'Base'],
       Layout: [
         'CSSLayoutStyleProps',
         'FlexContainerStyleProps',
@@ -259,6 +259,7 @@ function getPropertiesByCategory(
   const specialComponents = {
     view: ['View', 'Input'],
     textfield: ['TextField', 'TextInputField', 'TextArea', 'Input', 'Field'],
+    text: ['Text'],
   };
 
   for (const propertyName in getObjectValueWithCaselessKey(

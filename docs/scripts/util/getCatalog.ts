@@ -148,13 +148,13 @@ function getCatalogComponentProperty(
 
   return {
     name: sanitize(name),
-    type: overwriteType(type, name),
+    type: overwriteType(type, name, componentName),
     description: sanitize(description),
     category: sanitize(category),
     isOptional: property.isOptional(),
   };
 
-  function overwriteType(type, name) {
+  function overwriteType(type, name, componentName) {
     if (name === 'ref' && type === 'React.Ref<T>') {
       type = 'React.Ref<HTMLElement>';
     } else if (name === 'as' && type === 'Element | Props["as"]') {
