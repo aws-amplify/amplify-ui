@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { isDesignToken } from '@aws-amplify/ui';
 
 import {
   BaseStyleProps,
@@ -133,12 +132,13 @@ export const convertStylePropsToStyleObj: ConvertStylePropsToStyleObj = ({
         nonStyleProps[propKey] = props[propKey];
       } else if (!isEmptyString(props[propKey])) {
         let value = props[propKey];
-        // if styleProp is a DesignToken use its toString()
-        if (isDesignToken(value)) {
-          value = value.toString();
-        } else {
-          value = getValueAtCurrentBreakpoint(value, breakpoint, breakpoints);
-        }
+        value = getValueAtCurrentBreakpoint(
+          value,
+          breakpoint,
+          breakpoints,
+          propKey
+        );
+
         const reactStyleProp = ComponentPropsToStylePropsMap[propKey];
         style = { ...style, [reactStyleProp]: value };
       }
@@ -196,9 +196,11 @@ const BaseStylePropsMap: Required<{ [key in keyof BaseStyleProps]: true }> = {
   letterSpacing: true,
   lineHeight: true,
   margin: true,
+  marginBlock: true,
   marginBlockEnd: true,
   marginBlockStart: true,
   marginBottom: true,
+  marginInline: true,
   marginInlineEnd: true,
   marginInlineStart: true,
   marginLeft: true,
@@ -212,9 +214,11 @@ const BaseStylePropsMap: Required<{ [key in keyof BaseStyleProps]: true }> = {
   order: true,
   overflow: true,
   padding: true,
+  paddingBlock: true,
   paddingBlockEnd: true,
   paddingBlockStart: true,
   paddingBottom: true,
+  paddingInline: true,
   paddingInlineEnd: true,
   paddingInlineStart: true,
   paddingLeft: true,

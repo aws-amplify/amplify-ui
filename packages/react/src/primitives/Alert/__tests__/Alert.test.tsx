@@ -118,16 +118,10 @@ describe('Alert: ', () => {
       </Alert>
     );
     const alert = await screen.findByTestId('alertId');
-    expect(
-      alert.style.getPropertyValue(
-        kebabCase(ComponentPropsToStylePropsMap.backgroundColor)
-      )
-    ).toBe('white');
-    expect(
-      alert.style.getPropertyValue(
-        kebabCase(ComponentPropsToStylePropsMap.fontStyle)
-      )
-    ).toBe('italic');
+    expect(alert).toHaveStyle({
+      backgroundColor: 'var(--amplify-colors-white)',
+      fontStyle: 'italic',
+    });
   });
 
   it('can apply a custom className', async () => {

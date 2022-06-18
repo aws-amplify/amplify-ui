@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Button } from '../Button';
 import { ComponentClassNames, ComponentText } from '../shared/constants';
-import { IconVisibility, IconVisibilityOff } from '../Icon';
+import { IconVisibility, IconVisibilityOff } from '../Icon/internal';
 import { Primitive, ShowPasswordButtonProps } from '../types';
 
 const ariaLabelText = ComponentText.PasswordField;

@@ -8,6 +8,7 @@ import {
   EscapeHatchProps,
   classNameModifier,
   classNameModifierByFlag,
+  getCSSVariableIfValueIsThemeKey,
 } from '../utils';
 import { ComponentClassNames } from '../constants';
 
@@ -367,5 +368,19 @@ describe('classNameModifierByFlag', () => {
 
   it('should return null with a false flag value passed in', () => {
     expect(classNameModifierByFlag(myClass, modifier, false)).toEqual(null);
+  });
+});
+
+describe('getCSSVariableIfValueIsThemeKey', () => {
+  it('should return CSS variable if value is a theme key', () => {
+    expect(getCSSVariableIfValueIsThemeKey('backgroundColor', 'red.10')).toBe(
+      'var(--amplify-colors-red-10)'
+    );
+  });
+
+  it('should return value directly if it is not a theme key', () => {
+    expect(getCSSVariableIfValueIsThemeKey('backgroundColor', 'red')).toBe(
+      'red'
+    );
   });
 });
