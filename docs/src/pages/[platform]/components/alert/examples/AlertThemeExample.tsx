@@ -20,7 +20,7 @@ const theme: Theme = {
         // Variations
         info: {
           color: { value: 'white' },
-          backgroundColor: { value: '{colors.purple.80}' },
+          backgroundColor: { value: '{colors.blue.80}' },
         },
 
         success: {

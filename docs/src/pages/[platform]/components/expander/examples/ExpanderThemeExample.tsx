@@ -22,7 +22,7 @@ const theme: Theme = {
         content: {
           paddingInlineStart: { value: '{space.xxl}' },
           text: {
-            color: { value: '{colors.purple.80}' },
+            color: { value: '{colors.blue.80}' },
             paddingBlockEnd: { value: '{space.large}' },
           },
           _open: {

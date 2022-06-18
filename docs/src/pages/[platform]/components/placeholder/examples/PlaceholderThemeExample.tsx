@@ -6,8 +6,8 @@ const theme: Theme = {
     components: {
       placeholder: {
         transitionDuration: { value: '1250ms' },
-        startColor: { value: '{colors.purple.40}' },
-        endColor: { value: '{colors.purple.80}' },
+        startColor: { value: '{colors.blue.40}' },
+        endColor: { value: '{colors.blue.80}' },
         borderRadius: { value: '{radii.large}' },
         large: {
           height: { value: '{space.xxxl}' },

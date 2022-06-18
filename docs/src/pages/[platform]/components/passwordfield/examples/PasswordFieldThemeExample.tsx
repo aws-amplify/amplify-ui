@@ -22,7 +22,7 @@ const theme: Theme = {
       },
       fieldcontrol: {
         borderColor: {
-          value: '{colors.purple.60}',
+          value: '{colors.blue.60}',
         },
         color: {
           value: '{colors.red.80}',
