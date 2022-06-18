@@ -21,6 +21,7 @@ describe('@aws-amplify/ui-react', () => {
           "ComponentClassObject",
           "ComponentPropsToStylePropsMap",
           "ComponentPropsToStylePropsMapKeys",
+          "SharedText",
           "View",
           "useTheme",
           "Alert",
