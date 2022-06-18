@@ -162,10 +162,9 @@ function getPropsSortedByCategory(
       getPropertiesByCategory(componentName);
 
     const allTableCategories: {
-      [key in 'Main' | 'Base' | 'Layout' | 'Styling']: Category[];
+      [key in 'Main' | 'Layout' | 'Styling']: Category[];
     } = {
-      Main: [],
-      Base: ['BaseComponentProps', 'Base'],
+      Main: ['BaseComponentProps', 'Base'],
       Layout: [
         'CSSLayoutStyleProps',
         'FlexContainerStyleProps',
@@ -194,9 +193,10 @@ function getPropsSortedByCategory(
       );
     };
 
-    allTableCategories.Main = Object.keys(propertiesByCategory).filter(
-      isPropMainCategory
-    ) as Category[];
+    allTableCategories.Main = [
+      ...allTableCategories.Main,
+      ...Object.keys(propertiesByCategory).filter(isPropMainCategory),
+    ] as Category[];
 
     return Object.keys(allTableCategories)
       .map((category) => {
@@ -206,13 +206,6 @@ function getPropsSortedByCategory(
               Main: combineCategories(
                 propertiesByCategory,
                 allTableCategories.Main
-              ),
-            };
-          case 'Base':
-            return {
-              Base: combineCategories(
-                propertiesByCategory,
-                allTableCategories.Base
               ),
             };
           case 'Layout':
