@@ -12,7 +12,7 @@ export { MarginAndPaddingStylePropExample } from './MarginAndPaddingExamples';
 export { MarginAndPaddingStyles } from './MarginAndPaddingStyles';
 export { PositionStylePropExample } from './PositionExamples';
 export { PositionStyles } from './PositionStyles';
-export { ShadowStylePropExample } from './ShadowExamples';
+export { ShadowThemeTokenExample } from './ShadowExamples';
 export { ShadowStyles } from './ShadowStyles';
 export { SizeStylePropExample } from './SizeExamples';
 export { SizeStyles } from './SizeStyles';

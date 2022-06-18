@@ -1,6 +1,6 @@
 import { Text, useTheme } from '@aws-amplify/ui-react';
 
-//use any CSS value
+// use any CSS value
 export const TypographyStylePropExample = () => {
   return (
     <Text fontSize="2rem" fontWeight="600" lineHeight="1.5">
@@ -9,7 +9,7 @@ export const TypographyStylePropExample = () => {
   );
 };
 
-//use a design token from the theme object
+// use a design token from the theme object
 export const SizeThemeTokenExample = () => {
   const { tokens } = useTheme();
   return (
@@ -23,7 +23,7 @@ export const SizeThemeTokenExample = () => {
   );
 };
 
-//use a design token name
+// use a design token name
 export const SizeTokenNameExample = () => {
   return (
     <Text fontSize="xxl" fontWeight="semibold" lineHeight="medium">

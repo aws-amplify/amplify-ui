@@ -1,6 +1,6 @@
 import { Grid, Button } from '@aws-amplify/ui-react';
 
-//use any CSS value
+// use any CSS value
 export const GridStylePropExample = () => {
   return (
     <Grid templateColumns="100px 100px 100px" gap="1rem">
