@@ -6,6 +6,7 @@ import {
   AllTypeFileData,
   TypeFileData,
   TypeFileName,
+  TypeData,
 } from '../types/allTypesData';
 import { SyntaxKind } from 'typescript';
 import { sanitize } from './sanitize';
@@ -40,6 +41,28 @@ export const getAllTypesData = () => {
       typeInterface.getProperties().forEach((typeProperty) => {
         setTypeData(typeProperty, typeFileName, typeFileData);
       });
+
+      if (
+        !typeInterface.getProperties().length &&
+        typeInterface.getHeritageClauses().length
+      ) {
+        const typeData: TypeData = new Map();
+        const heritageName = typeInterface.getName();
+        const heritageType = typeInterface
+          .getHeritageClauses()
+          .map((clause) => clause.getText())
+          .join('\n   ');
+        const heritageDescription = typeInterface.getJsDocs().length
+          ? typeInterface.getJsDocs()[0].getText()
+          : '';
+
+        typeData.set('name', sanitize(heritageName));
+        typeData.set('type', heritageType);
+        typeData.set('description', heritageDescription);
+        typeData.set('isOptional', true);
+        typeData.set('category', typeFileName);
+        typeFileData.set(heritageName, typeData);
+      }
     });
 
     allTypeFilesData.set(typeFileName, typeFileData);
@@ -59,7 +82,6 @@ function setTypeData(
   typeFileName: TypeFileName,
   typeFileData: TypeFileData
 ) {
-  type TypeData = Map<string, string | boolean | { description: string }>;
   const typeData: TypeData = new Map();
   const typeJsDocs = typeProp.getJsDocs();
   const typeDescription = typeJsDocs[0]?.getTags().reduce(

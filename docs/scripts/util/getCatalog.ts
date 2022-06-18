@@ -124,7 +124,8 @@ function getCatalogComponentProperty(
   componentName: ComponentName
 ): Property {
   const name = property.getName();
-  const propType = property.getDeclarations()[0].getType();
+  const propDeclaration = property.getDeclarations()[0];
+  const propType = propDeclaration.getType();
   const description = property
     .getJsDocTags()
     .map((tag) => {
@@ -133,9 +134,10 @@ function getCatalogComponentProperty(
       return `${name === 'description' ? '' : `${name}: `}${text}`;
     })
     .join(' ');
-  const category = capitalizeString(
-    getCategory(name, componentName)
-  ) as Category;
+
+  const category = propDeclaration.getAncestors()[0]?.getName
+    ? propDeclaration.getAncestors()[0].getName()
+    : (capitalizeString(getCategory(name, componentName)) as Category);
 
   const type =
     (allTypesData

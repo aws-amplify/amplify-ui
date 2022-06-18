@@ -158,24 +158,24 @@ function getPropsSortedByCategory(
         (category) => category.toLowerCase() === componentPageName
       ) ?? (componentPageName as ComponentName | Lowercase<ComponentName>);
 
+    const isPropMainCategory = (category) =>
+      category.toLowerCase().includes(componentName.toLowerCase());
+
     const allCategories = [
-      componentName,
+      ...Object.keys(propertiesByCategory).filter(isPropMainCategory),
       ...Object.keys(propertiesByCategory)
-        .filter(
-          (category) => ![componentName, 'Style', 'Other'].includes(category) // remove "Style" Category because we've already got the style props page
-        )
+        .filter((category) => !isPropMainCategory(category))
         .sort((a, b) => a.localeCompare(b)),
-      // 'Other',  // 1. No need to show this category to the customers 2. It causes Amplify Hosting build memory leak
-    ] as (Category | 'Other')[];
+    ] as Category[];
 
     return allCategories
       .map(
         (category) =>
           ({
-            [category]:
-              category === componentName
-                ? combineCategories(propertiesByCategory, [category, 'Base'])
-                : getObjectValueWithCaselessKey(propertiesByCategory, category),
+            [category]: getObjectValueWithCaselessKey(
+              propertiesByCategory,
+              category
+            ),
           } as {
             [key in Category]: Properties;
           })
@@ -187,30 +187,18 @@ function getPropsSortedByCategory(
   }
 }
 
-function combineCategories(
-  propertiesByCategory,
-  toBeCombined: (Category | 'Other')[]
-) {
-  return toBeCombined.reduce(
-    (acc, category) => ({
-      ...acc,
-      ...getObjectValueWithCaselessKey(propertiesByCategory, category),
-    }),
-    {}
-  );
-}
-
 function getPropertiesByCategory(
   componentPageName: Lowercase<ComponentName>
 ): PropertiesByCategory {
   let propertiesByCategory: PropertiesByCategory = {} as PropertiesByCategory;
 
   /**
-   * Some special components doesn't have accurate properties generated from getCatalog, so we have to manually point it to AllTypesData as well.
+   * Some special components don't have accurate properties generated from getCatalog, so we have to manually point it to AllTypesData as well in addition to the Catalog.
+   * First element is the component's name
    */
   const specialComponents = {
     view: ['View', 'Input'],
-    textfield: ['TextField', 'Input', 'Field'],
+    textfield: ['TextField', 'TextInputField', 'TextArea', 'Input', 'Field'],
   };
 
   for (const propertyName in getObjectValueWithCaselessKey(
@@ -245,6 +233,7 @@ function getPropertiesFromAllTypeData(sourceTypes: TypeFileName[]) {
   let targetProps: Properties;
 
   sourceTypes.forEach((type) => {
+    if (!allTypesData.get(type)) return;
     for (const [propName, property] of allTypesData.get(type).entries()) {
       targetProps = {
         ...targetProps,

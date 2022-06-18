@@ -52,3 +52,4 @@ export type TypeFileName =
 
 export type TypeFileData = Map<string, Map<string, string | boolean | object>>;
 export type AllTypeFileData = Map<TypeFileName, TypeFileData>;
+export type TypeData = Map<string, string | boolean | { description: string }>;
