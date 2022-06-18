@@ -144,7 +144,7 @@ function getCatalogComponentProperty(
       ?.get(name)
       ?.get('type') as string) ?? propType.getText(); // use type from allTypesData because it has a better-looking format
 
-  const regex = /import\(\".*\.(.*)/;
+  const regex = /import\(\"\/[\w/-]+"\)\./g;
 
   return {
     name: sanitize(name),
@@ -156,7 +156,9 @@ function getCatalogComponentProperty(
 
   function overwriteType(type, name) {
     if (type.includes('import')) {
-      type = type.match(regex)[1];
+      [...type.matchAll(regex)].forEach((match) => {
+        type = type.replace(match, '');
+      });
     } else if (name === 'ref' && type === 'React.Ref<T>') {
       type = 'React.Ref<HTMLElement>';
     } else if (name === 'as' && type === 'Element | Props["as"]') {

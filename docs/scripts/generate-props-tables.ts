@@ -186,7 +186,7 @@ function getPropsSortedByCategory(
         isCurrentComponentProp || (isPropsOrOptions && !isSharedBasicCategory)
       );
     };
-    debugger;
+
     allTableCategories.Main = Object.keys(propertiesByCategory).filter(
       isPropMainCategory
     ) as Category[];
