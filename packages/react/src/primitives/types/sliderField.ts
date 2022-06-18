@@ -73,7 +73,6 @@ export interface SliderFieldProps extends TextInputFieldProps, ViewProps {
    * Sets the SliderField’s initial value on render
    */
   defaultValue?: number;
-  ariaValuetext?: AriaAttributes['aria-valuetext'];
 
   /**
    * @description
