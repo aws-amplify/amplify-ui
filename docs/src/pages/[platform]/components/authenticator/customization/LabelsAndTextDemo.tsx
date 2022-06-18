@@ -5,19 +5,16 @@ import {
   useAuthenticator,
   View,
 } from '@aws-amplify/ui-react';
+
 import { I18n } from 'aws-amplify';
 import * as React from 'react';
 
 type ScreenProps = {
-  Component:
-    | Authenticator.SignIn
-    | Authenticator.SignUp
-    | Authenticator.SetupTOTP;
+  Component: JSX.Element;
 };
 
 function Screen({ Component }: ScreenProps) {
   // Used to render the component when side-effects happen
-  const [version, setVersion] = React.useState(0);
   const { route } = useAuthenticator();
 
   React.useEffect(() => {
@@ -50,8 +47,6 @@ function Screen({ Component }: ScreenProps) {
       // 'Back to Sign In': 'Back to Login', # Already set
     });
 
-    setVersion(version + 1);
-
     return () => {
       I18n.putVocabulariesForLanguage('en', translations['en']);
     };
@@ -67,37 +62,19 @@ function Screen({ Component }: ScreenProps) {
     );
   }
 
-  return <Component key={version} />;
+  return Component;
 }
 
 export function LabelsAndTextDemo({ Component }: ScreenProps) {
-  const OnMachineInit = ({ children }) => {
-    /**
-     * This waits for Authenticator machine to init before its inner components
-     * start consuming machine context.
-     */
-    const { route, _send } = useAuthenticator();
-    React.useEffect(() => {
-      if (route === 'idle') {
-        _send('INIT', { data: {} });
-      }
-    }, []);
-    if (!route || route === 'idle' || route === 'setup') return null;
-
-    return <>{children}</>;
-  };
-
   return (
     <Authenticator.Provider>
-      <OnMachineInit>
-        <View data-amplify-authenticator="">
-          <View data-amplify-container="">
-            <View data-amplify-body>
-              <Screen Component={Component} />
-            </View>
+      <View data-amplify-authenticator="">
+        <View data-amplify-container="">
+          <View data-amplify-body>
+            <Screen Component={Component} />
           </View>
         </View>
-      </OnMachineInit>
+      </View>
     </Authenticator.Provider>
   );
 }
