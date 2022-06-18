@@ -160,18 +160,7 @@ function overwriteType(type, name, componentName) {
     type = 'React.Ref<HTMLElement>';
   } else if (name === 'as' && type === 'Element | Props["as"]') {
     type = 'Element';
-  }
-  // else if (name === 'viewBox' && type.includes('ViewBox')) {
-  //     type = `
-  //     {
-  //       minX?: number;
-  //       minY?: number;
-  //       width?: number;
-  //       height?: number;
-  //     }
-  //     `;
-  //   }
-  else if (type.includes('import')) {
+  } else if (type.includes('import')) {
     [...type.matchAll(regex)].forEach((match) => {
       type = type.replace(match, '');
     });
@@ -179,6 +168,7 @@ function overwriteType(type, name, componentName) {
 
   const definedInTypeFile = [
     ...(allTypeFilesTypeData.get(componentName)?.values() || []),
+    ...allTypeFilesTypeData.get('Base').values(),
   ].find((val) => {
     return (
       val &&
