@@ -43,9 +43,10 @@ async function createAllPropsTables() {
       continue;
     }
 
-    const componentName = Object.keys(
-      propsSortedByCategory[0]
-    )[0] as ComponentName;
+    const componentName = Object.keys(catalog).find(
+      (categoryName) =>
+        categoryName.toLowerCase() === componentPageName.toLowerCase()
+    );
 
     const mainPropsTable = PropsTable(
       Object.values(propsSortedByCategory[0])[0]
@@ -85,7 +86,7 @@ ${tableExpander}
 
 \`*\` indicates required props.
 
-The ${displayName} will accept any of the standard HTML attributes that a HTML element accepts. Standard element attributes can be found in the [MDN Documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Element).
+The ${displayName} component will accept any of the standard HTML attributes that a HTML element accepts. Standard element attributes can be found in the [MDN Documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Element).
 `;
 }
 
