@@ -195,7 +195,7 @@ FieldVariations
 
 <Expander type="multiple" className="props-table-expander" >
   
-<ExpanderItem title="Attributes" value="Attributes">
+<ExpanderItem title="Base" value="Base">
     
 <Table
   highlightOnHover={true}
@@ -210,22 +210,12 @@ FieldVariations
   </TableHead>
   <TableBody>
     
-    <TableRow>
-      <TableCell className="props-table__tr-name">key</TableCell>
-      <TableCell>
-```jsx
-React.Key
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
   </TableBody>
 </Table>
 
 </ExpanderItem>
 
-<ExpanderItem title="RefAttributes" value="RefAttributes">
+<ExpanderItem title="Layout" value="Layout">
     
 <Table
   highlightOnHover={true}
@@ -240,16 +230,26 @@ React.Key
   </TableHead>
   <TableBody>
     
-    <TableRow>
-      <TableCell className="props-table__tr-name">ref</TableCell>
-      <TableCell>
-```jsx
-React.Ref<HTMLElement>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
+  </TableBody>
+</Table>
 
+</ExpanderItem>
+
+<ExpanderItem title="Styling" value="Styling">
+    
+<Table
+  highlightOnHover={true}
+  className="props-table"
+  >
+  <TableHead>
+    <TableRow>
+      <TableCell as="th">Name</TableCell>
+      <TableCell as="th">Type</TableCell>
+      <TableCell as="th">Description</TableCell>
+    </TableRow>
+  </TableHead>
+  <TableBody>
+    
   </TableBody>
 </Table>
 
@@ -260,4 +260,4 @@ React.Ref<HTMLElement>
 
 `*` indicates required props.
 
-The View will accept any of the standard HTML attributes that a HTML element accepts. Standard element attributes can be found in the [MDN Documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Element).
+The Main will accept any of the standard HTML attributes that a HTML element accepts. Standard element attributes can be found in the [MDN Documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Element).

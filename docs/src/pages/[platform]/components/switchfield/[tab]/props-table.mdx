@@ -19,6 +19,36 @@ import { Expander, ExpanderItem, Table, TableBody, TableCell, TableHead, TableRo
   <TableBody>
     
     <TableRow>
+      <TableCell className="props-table__tr-name">ariaLabel</TableCell>
+      <TableCell>
+```jsx
+string
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">-</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">autoComplete</TableCell>
+      <TableCell>
+```jsx
+string
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">Specifies permissions for browser UA to autocomplete field</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">checked</TableCell>
+      <TableCell>
+```jsx
+boolean
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">If checked is provided, this will be a controlled checkbox or radio</TableCell>
+    </TableRow>
+
+    <TableRow>
       <TableCell className="props-table__tr-name">defaultChecked</TableCell>
       <TableCell>
 ```jsx
@@ -26,6 +56,56 @@ boolean
 ```
 </TableCell>
       <TableCell className="props-table__tr-description">Use this to provide a default checked value for an uncontrolled SwitchField</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">defaultValue</TableCell>
+      <TableCell>
+```jsx
+string | number | readonly string[]
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">Use this to provide a default value for an uncontrolled field</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">descriptiveText</TableCell>
+      <TableCell>
+```jsx
+React.ReactNode
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">Provides additional information needed to fill field (e.g. password requirements, etc.)</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">errorMessage</TableCell>
+      <TableCell>
+```jsx
+string
+```
+</TableCell>
+      <TableCell className="props-table__tr-description"> When defined and &#96;hasError&#96; is true, show error message</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">hasError</TableCell>
+      <TableCell>
+```jsx
+boolean
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">Indicates that Field is in error state</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">inputMode</TableCell>
+      <TableCell>
+```jsx
+InputMode
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">Provides hint for virtual keyboard shown</TableCell>
     </TableRow>
 
     <TableRow>
@@ -59,6 +139,26 @@ boolean
     </TableRow>
 
     <TableRow>
+      <TableCell className="props-table__tr-name">isReadOnly</TableCell>
+      <TableCell>
+```jsx
+boolean
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">Determines whether field should be immutable</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">isRequired</TableCell>
+      <TableCell>
+```jsx
+boolean
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">Whether field should be marked required</TableCell>
+    </TableRow>
+
+    <TableRow>
       <TableCell className="props-table__tr-name">label<sup>*</sup></TableCell>
       <TableCell>
 ```jsx
@@ -66,6 +166,16 @@ React.ReactNode
 ```
 </TableCell>
       <TableCell className="props-table__tr-description">Label text for field (required)</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">labelHidden</TableCell>
+      <TableCell>
+```jsx
+boolean
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">Visually hide label (not recommended in most cases)</TableCell>
     </TableRow>
 
     <TableRow>
@@ -99,6 +209,26 @@ React.ChangeEventHandler<HTMLInputElement>
     </TableRow>
 
     <TableRow>
+      <TableCell className="props-table__tr-name">placeholder</TableCell>
+      <TableCell>
+```jsx
+string
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">Placeholder text shown when field is empty Accessibility tip: avoid putting important instructions for filling out the TextField in the placeholder. Use descriptiveText for important instructions</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">role</TableCell>
+      <TableCell>
+```jsx
+React.AriaRole
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">-</TableCell>
+    </TableRow>
+
+    <TableRow>
       <TableCell className="props-table__tr-name">size</TableCell>
       <TableCell>
 ```jsx
@@ -106,6 +236,16 @@ Sizes
 ```
 </TableCell>
       <TableCell className="props-table__tr-description">This prop adjusts the size of the switch component</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">style</TableCell>
+      <TableCell>
+```jsx
+React.CSSProperties
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">-</TableCell>
     </TableRow>
 
     <TableRow>
@@ -139,6 +279,16 @@ Color>
     </TableRow>
 
     <TableRow>
+      <TableCell className="props-table__tr-name">type</TableCell>
+      <TableCell>
+```jsx
+React.HTMLInputTypeAttribute
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">Input field type</TableCell>
+    </TableRow>
+
+    <TableRow>
       <TableCell className="props-table__tr-name">value</TableCell>
       <TableCell>
 ```jsx
@@ -148,6 +298,16 @@ string | number
       <TableCell className="props-table__tr-description">This is the value of the switch input and will be submitted with a form submission</TableCell>
     </TableRow>
 
+    <TableRow>
+      <TableCell className="props-table__tr-name">variation</TableCell>
+      <TableCell>
+```jsx
+"quiet"
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">Variants</TableCell>
+    </TableRow>
+
   </TableBody>
 </Table>
 
@@ -155,577 +315,7 @@ string | number
 
 <Expander type="multiple" className="props-table-expander" >
   
-<ExpanderItem title="AriaAttributes" value="AriaAttributes">
-    
-<Table
-  highlightOnHover={true}
-  className="props-table"
-  >
-  <TableHead>
-    <TableRow>
-      <TableCell as="th">Name</TableCell>
-      <TableCell as="th">Type</TableCell>
-      <TableCell as="th">Description</TableCell>
-    </TableRow>
-  </TableHead>
-  <TableBody>
-    
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-activedescendant</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-atomic</TableCell>
-      <TableCell>
-```jsx
-Booleanish
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-autocomplete</TableCell>
-      <TableCell>
-```jsx
-"list" | "none" | "inline" | "both"
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-busy</TableCell>
-      <TableCell>
-```jsx
-Booleanish
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-checked</TableCell>
-      <TableCell>
-```jsx
-boolean | "true" | "false" | "mixed"
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">see: aria-pressed see: aria-selected.</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-colcount</TableCell>
-      <TableCell>
-```jsx
-number
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">see: aria-colindex.</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-colindex</TableCell>
-      <TableCell>
-```jsx
-number
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">see: aria-colcount see: aria-colspan.</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-colspan</TableCell>
-      <TableCell>
-```jsx
-number
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">see: aria-colindex see: aria-rowspan.</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-controls</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">see: aria-owns.</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-current</TableCell>
-      <TableCell>
-```jsx
-boolean | "time" | "true" | "false" | "page" | "step" | "location" | "date"
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-describedby</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">see: aria-labelledby</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-details</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">see: aria-describedby.</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-disabled</TableCell>
-      <TableCell>
-```jsx
-Booleanish
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">see: aria-hidden see: aria-readonly.</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-dropeffect</TableCell>
-      <TableCell>
-```jsx
-"link" | "none" | "copy" | "execute" | "move" | "popup"
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">deprecated: in ARIA 1.1</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-errormessage</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">see: aria-invalid see: aria-describedby.</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-expanded</TableCell>
-      <TableCell>
-```jsx
-Booleanish
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-flowto</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-grabbed</TableCell>
-      <TableCell>
-```jsx
-Booleanish
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">deprecated: in ARIA 1.1</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-haspopup</TableCell>
-      <TableCell>
-```jsx
-boolean | "dialog" | "menu" | "true" | "false" | "grid" | "listbox" | "tree"
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-hidden</TableCell>
-      <TableCell>
-```jsx
-Booleanish
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">see: aria-disabled.</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-invalid</TableCell>
-      <TableCell>
-```jsx
-boolean | "true" | "false" | "grammar" | "spelling"
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">see: aria-errormessage.</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-keyshortcuts</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-label</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">see: aria-labelledby.</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-labelledby</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">see: aria-describedby.</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-level</TableCell>
-      <TableCell>
-```jsx
-number
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-live</TableCell>
-      <TableCell>
-```jsx
-"off" | "assertive" | "polite"
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-modal</TableCell>
-      <TableCell>
-```jsx
-Booleanish
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-multiline</TableCell>
-      <TableCell>
-```jsx
-Booleanish
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-multiselectable</TableCell>
-      <TableCell>
-```jsx
-Booleanish
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-orientation</TableCell>
-      <TableCell>
-```jsx
-"horizontal" | "vertical"
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-owns</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">see: aria-controls.</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-placeholder</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-posinset</TableCell>
-      <TableCell>
-```jsx
-number
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">see: aria-setsize.</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-pressed</TableCell>
-      <TableCell>
-```jsx
-boolean | "true" | "false" | "mixed"
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">see: aria-checked see: aria-selected.</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-readonly</TableCell>
-      <TableCell>
-```jsx
-Booleanish
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">see: aria-disabled.</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-relevant</TableCell>
-      <TableCell>
-```jsx
-"text" | "additions" | "additions removals" | "additions text" | "all" | "removals" | "removals additions" | "removals text" | "text additions" | "text removals"
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">see: aria-atomic.</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-required</TableCell>
-      <TableCell>
-```jsx
-Booleanish
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-roledescription</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-rowcount</TableCell>
-      <TableCell>
-```jsx
-number
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">see: aria-rowindex.</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-rowindex</TableCell>
-      <TableCell>
-```jsx
-number
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">see: aria-rowcount see: aria-rowspan.</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-rowspan</TableCell>
-      <TableCell>
-```jsx
-number
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">see: aria-rowindex see: aria-colspan.</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-selected</TableCell>
-      <TableCell>
-```jsx
-Booleanish
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">see: aria-checked see: aria-pressed.</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-setsize</TableCell>
-      <TableCell>
-```jsx
-number
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">see: aria-posinset.</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-sort</TableCell>
-      <TableCell>
-```jsx
-"none" | "ascending" | "descending" | "other"
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-valuemax</TableCell>
-      <TableCell>
-```jsx
-number
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-valuemin</TableCell>
-      <TableCell>
-```jsx
-number
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-valuenow</TableCell>
-      <TableCell>
-```jsx
-number
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">see: aria-valuetext.</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">aria-valuetext</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-  </TableBody>
-</Table>
-
-</ExpanderItem>
-
-<ExpanderItem title="AriaProps" value="AriaProps">
-    
-<Table
-  highlightOnHover={true}
-  className="props-table"
-  >
-  <TableHead>
-    <TableRow>
-      <TableCell as="th">Name</TableCell>
-      <TableCell as="th">Type</TableCell>
-      <TableCell as="th">Description</TableCell>
-    </TableRow>
-  </TableHead>
-  <TableBody>
-    
-    <TableRow>
-      <TableCell className="props-table__tr-name">ariaLabel</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">role</TableCell>
-      <TableCell>
-```jsx
-React.AriaRole
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-  </TableBody>
-</Table>
-
-</ExpanderItem>
-
-<ExpanderItem title="Attributes" value="Attributes">
-    
-<Table
-  highlightOnHover={true}
-  className="props-table"
-  >
-  <TableHead>
-    <TableRow>
-      <TableCell as="th">Name</TableCell>
-      <TableCell as="th">Type</TableCell>
-      <TableCell as="th">Description</TableCell>
-    </TableRow>
-  </TableHead>
-  <TableBody>
-    
-    <TableRow>
-      <TableCell className="props-table__tr-name">key</TableCell>
-      <TableCell>
-```jsx
-React.Key
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-  </TableBody>
-</Table>
-
-</ExpanderItem>
-
-<ExpanderItem title="BaseComponentProps" value="BaseComponentProps">
+<ExpanderItem title="Base" value="Base">
     
 <Table
   highlightOnHover={true}
@@ -775,7 +365,247 @@ string
 
 </ExpanderItem>
 
-<ExpanderItem title="BaseStyleProps" value="BaseStyleProps">
+<ExpanderItem title="Layout" value="Layout">
+    
+<Table
+  highlightOnHover={true}
+  className="props-table"
+  >
+  <TableHead>
+    <TableRow>
+      <TableCell as="th">Name</TableCell>
+      <TableCell as="th">Type</TableCell>
+      <TableCell as="th">Description</TableCell>
+    </TableRow>
+  </TableHead>
+  <TableBody>
+    
+    <TableRow>
+      <TableCell className="props-table__tr-name">alignContent</TableCell>
+      <TableCell>
+```jsx
+AlignContent>
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">Sets the distribution of space between and around content items</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">alignItems</TableCell>
+      <TableCell>
+```jsx
+AlignItems>
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">Controls where the Flex/Grid items sit on the cross axis.</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">area</TableCell>
+      <TableCell>
+```jsx
+GridArea>
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">&#96;area&#96; specifies a grid item's size and location within a grid by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the edges of its grid area. see: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-area)</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">basis</TableCell>
+      <TableCell>
+```jsx
+FlexBasis<0 | (string & {})>>
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">Default size of element before remaining space is distributed</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">column</TableCell>
+      <TableCell>
+```jsx
+GridColumn>
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">&#96;column&#96; specifies a grid item's size and location within a grid column by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start and inline-end edge of its grid area. see: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column)</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">columnEnd</TableCell>
+      <TableCell>
+```jsx
+GridColumnEnd>
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">&#96;columnEnd&#96; property specifies a grid item's end position within the grid column by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the block-end edge of its grid area. see: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-end)</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">columnGap</TableCell>
+      <TableCell>
+```jsx
+GridColumnGap<0 | (string & {})>>>>
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">Spacing between Flex/Grid child columns</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">columnSpan</TableCell>
+      <TableCell>
+```jsx
+GridSpanType>
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">&#96;columnSpan&#96; property makes it possible for an element to span across all columns when its value is set to all. see: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/column-span)</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">columnStart</TableCell>
+      <TableCell>
+```jsx
+GridColumnStart>
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">&#96;columnStart&#96; property specifies a grid item's start position within the grid column by contributing a line, a span, or nothing (automatic) to its grid placement. This start position defines the block-start edge of the grid area. see: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-start)</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">direction</TableCell>
+      <TableCell>
+```jsx
+FlexDirection>
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">Sets how flex items are placed in the flex container defining the main axis and the direction (normal or reversed). (maps to flex-direction CSS property)</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">flex</TableCell>
+      <TableCell>
+```jsx
+Flex<0 | (string & {})>>
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">Shorthand for flex grow / shrink / basis</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">gap</TableCell>
+      <TableCell>
+```jsx
+Gap<0 | (string & {})>>>>
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">Spacing between child components. Shorthand for rowGap and columnGap.</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">grow</TableCell>
+      <TableCell>
+```jsx
+FlexGrow>
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">Ability for flex item to grow</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">justifyContent</TableCell>
+      <TableCell>
+```jsx
+JustifyContent>
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">Controls where the Flex/Grid items sit on the main axis.</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">order</TableCell>
+      <TableCell>
+```jsx
+Order>
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">Controls order flex items appear</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">row</TableCell>
+      <TableCell>
+```jsx
+GridRow>
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">&#96;row specifies a grid item's size and location within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start and inline-end edge of its grid area. see: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row)</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">rowEnd</TableCell>
+      <TableCell>
+```jsx
+GridRowEnd>
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">&#96;rowEnd&#96; specifies a grid item's end position within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-end edge of its grid area. see: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-end)</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">rowGap</TableCell>
+      <TableCell>
+```jsx
+RowGap<0 | (string & {})>>>>
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">Spacing between Flex/Grid child rows</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">rowSpan</TableCell>
+      <TableCell>
+```jsx
+GridSpanType>
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">-</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">rowStart</TableCell>
+      <TableCell>
+```jsx
+GridRowStart>
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">&#96;rowStart&#96; property specifies a grid item's start position within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start edge of its grid area. see: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-start)</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">shrink</TableCell>
+      <TableCell>
+```jsx
+FlexShrink>
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">Ability for flex item to shrink</TableCell>
+    </TableRow>
+
+    <TableRow>
+      <TableCell className="props-table__tr-name">wrap</TableCell>
+      <TableCell>
+```jsx
+FlexWrap>
+```
+</TableCell>
+      <TableCell className="props-table__tr-description">The flexWrap property is set on containers and it controls what happens when children overflow the size of the container along the main axis. By default, children are forced into a single line (which can shrink elements). If wrapping is allowed, items are wrapped into multiple lines along the main axis if needed. (maps to flex-wrap CSS property)</TableCell>
+    </TableRow>
+
+  </TableBody>
+</Table>
+
+</ExpanderItem>
+
+<ExpanderItem title="Styling" value="Styling">
     
 <Table
   highlightOnHover={true}
@@ -1345,2539 +1175,9 @@ Width<0 | (string & {})>>>>
 
 </ExpanderItem>
 
-<ExpanderItem title="CSSLayoutStyleProps" value="CSSLayoutStyleProps">
-    
-<Table
-  highlightOnHover={true}
-  className="props-table"
-  >
-  <TableHead>
-    <TableRow>
-      <TableCell as="th">Name</TableCell>
-      <TableCell as="th">Type</TableCell>
-      <TableCell as="th">Description</TableCell>
-    </TableRow>
-  </TableHead>
-  <TableBody>
-    
-    <TableRow>
-      <TableCell className="props-table__tr-name">alignContent</TableCell>
-      <TableCell>
-```jsx
-AlignContent>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">Sets the distribution of space between and around content items</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">alignItems</TableCell>
-      <TableCell>
-```jsx
-AlignItems>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">Controls where the Flex/Grid items sit on the cross axis.</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">columnGap</TableCell>
-      <TableCell>
-```jsx
-GridColumnGap<0 | (string & {})>>>>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">Spacing between Flex/Grid child columns</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">gap</TableCell>
-      <TableCell>
-```jsx
-Gap<0 | (string & {})>>>>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">Spacing between child components. Shorthand for rowGap and columnGap.</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">justifyContent</TableCell>
-      <TableCell>
-```jsx
-JustifyContent>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">Controls where the Flex/Grid items sit on the main axis.</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">rowGap</TableCell>
-      <TableCell>
-```jsx
-RowGap<0 | (string & {})>>>>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">Spacing between Flex/Grid child rows</TableCell>
-    </TableRow>
-
-  </TableBody>
-</Table>
-
-</ExpanderItem>
-
-<ExpanderItem title="DOMAttributes" value="DOMAttributes">
-    
-<Table
-  highlightOnHover={true}
-  className="props-table"
-  >
-  <TableHead>
-    <TableRow>
-      <TableCell as="th">Name</TableCell>
-      <TableCell as="th">Type</TableCell>
-      <TableCell as="th">Description</TableCell>
-    </TableRow>
-  </TableHead>
-  <TableBody>
-    
-    <TableRow>
-      <TableCell className="props-table__tr-name">children</TableCell>
-      <TableCell>
-```jsx
-React.ReactNode
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">dangerouslySetInnerHTML</TableCell>
-      <TableCell>
-```jsx
-{ __html: string; }
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onAbort</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onAbortCapture</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onAnimationEnd</TableCell>
-      <TableCell>
-```jsx
-React.AnimationEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onAnimationEndCapture</TableCell>
-      <TableCell>
-```jsx
-React.AnimationEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onAnimationIteration</TableCell>
-      <TableCell>
-```jsx
-React.AnimationEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onAnimationIterationCapture</TableCell>
-      <TableCell>
-```jsx
-React.AnimationEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onAnimationStart</TableCell>
-      <TableCell>
-```jsx
-React.AnimationEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onAnimationStartCapture</TableCell>
-      <TableCell>
-```jsx
-React.AnimationEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onAuxClick</TableCell>
-      <TableCell>
-```jsx
-React.MouseEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onAuxClickCapture</TableCell>
-      <TableCell>
-```jsx
-React.MouseEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onBeforeInput</TableCell>
-      <TableCell>
-```jsx
-React.FormEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onBeforeInputCapture</TableCell>
-      <TableCell>
-```jsx
-React.FormEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onBlur</TableCell>
-      <TableCell>
-```jsx
-React.FocusEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onBlurCapture</TableCell>
-      <TableCell>
-```jsx
-React.FocusEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onCanPlay</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onCanPlayCapture</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onCanPlayThrough</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onCanPlayThroughCapture</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onChangeCapture</TableCell>
-      <TableCell>
-```jsx
-React.FormEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onClick</TableCell>
-      <TableCell>
-```jsx
-React.MouseEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onClickCapture</TableCell>
-      <TableCell>
-```jsx
-React.MouseEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onCompositionEnd</TableCell>
-      <TableCell>
-```jsx
-React.CompositionEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onCompositionEndCapture</TableCell>
-      <TableCell>
-```jsx
-React.CompositionEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onCompositionStart</TableCell>
-      <TableCell>
-```jsx
-React.CompositionEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onCompositionStartCapture</TableCell>
-      <TableCell>
-```jsx
-React.CompositionEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onCompositionUpdate</TableCell>
-      <TableCell>
-```jsx
-React.CompositionEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onCompositionUpdateCapture</TableCell>
-      <TableCell>
-```jsx
-React.CompositionEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onContextMenu</TableCell>
-      <TableCell>
-```jsx
-React.MouseEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onContextMenuCapture</TableCell>
-      <TableCell>
-```jsx
-React.MouseEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onCopy</TableCell>
-      <TableCell>
-```jsx
-React.ClipboardEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onCopyCapture</TableCell>
-      <TableCell>
-```jsx
-React.ClipboardEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onCut</TableCell>
-      <TableCell>
-```jsx
-React.ClipboardEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onCutCapture</TableCell>
-      <TableCell>
-```jsx
-React.ClipboardEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onDoubleClick</TableCell>
-      <TableCell>
-```jsx
-React.MouseEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onDoubleClickCapture</TableCell>
-      <TableCell>
-```jsx
-React.MouseEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onDrag</TableCell>
-      <TableCell>
-```jsx
-React.DragEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onDragCapture</TableCell>
-      <TableCell>
-```jsx
-React.DragEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onDragEnd</TableCell>
-      <TableCell>
-```jsx
-React.DragEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onDragEndCapture</TableCell>
-      <TableCell>
-```jsx
-React.DragEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onDragEnter</TableCell>
-      <TableCell>
-```jsx
-React.DragEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onDragEnterCapture</TableCell>
-      <TableCell>
-```jsx
-React.DragEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onDragExit</TableCell>
-      <TableCell>
-```jsx
-React.DragEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onDragExitCapture</TableCell>
-      <TableCell>
-```jsx
-React.DragEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onDragLeave</TableCell>
-      <TableCell>
-```jsx
-React.DragEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onDragLeaveCapture</TableCell>
-      <TableCell>
-```jsx
-React.DragEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onDragOver</TableCell>
-      <TableCell>
-```jsx
-React.DragEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onDragOverCapture</TableCell>
-      <TableCell>
-```jsx
-React.DragEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onDragStart</TableCell>
-      <TableCell>
-```jsx
-React.DragEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onDragStartCapture</TableCell>
-      <TableCell>
-```jsx
-React.DragEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onDrop</TableCell>
-      <TableCell>
-```jsx
-React.DragEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onDropCapture</TableCell>
-      <TableCell>
-```jsx
-React.DragEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onDurationChange</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onDurationChangeCapture</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onEmptied</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onEmptiedCapture</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onEncrypted</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onEncryptedCapture</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onEnded</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onEndedCapture</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onError</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onErrorCapture</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onFocus</TableCell>
-      <TableCell>
-```jsx
-React.FocusEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onFocusCapture</TableCell>
-      <TableCell>
-```jsx
-React.FocusEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onGotPointerCapture</TableCell>
-      <TableCell>
-```jsx
-React.PointerEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onGotPointerCaptureCapture</TableCell>
-      <TableCell>
-```jsx
-React.PointerEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onInput</TableCell>
-      <TableCell>
-```jsx
-React.FormEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onInputCapture</TableCell>
-      <TableCell>
-```jsx
-React.FormEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onInvalid</TableCell>
-      <TableCell>
-```jsx
-React.FormEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onInvalidCapture</TableCell>
-      <TableCell>
-```jsx
-React.FormEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onKeyDown</TableCell>
-      <TableCell>
-```jsx
-React.KeyboardEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onKeyDownCapture</TableCell>
-      <TableCell>
-```jsx
-React.KeyboardEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onKeyPress</TableCell>
-      <TableCell>
-```jsx
-React.KeyboardEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">deprecated: </TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onKeyPressCapture</TableCell>
-      <TableCell>
-```jsx
-React.KeyboardEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">deprecated: </TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onKeyUp</TableCell>
-      <TableCell>
-```jsx
-React.KeyboardEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onKeyUpCapture</TableCell>
-      <TableCell>
-```jsx
-React.KeyboardEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onLoad</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onLoadCapture</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onLoadedData</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onLoadedDataCapture</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onLoadedMetadata</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onLoadedMetadataCapture</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onLoadStart</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onLoadStartCapture</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onLostPointerCapture</TableCell>
-      <TableCell>
-```jsx
-React.PointerEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onLostPointerCaptureCapture</TableCell>
-      <TableCell>
-```jsx
-React.PointerEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onMouseDown</TableCell>
-      <TableCell>
-```jsx
-React.MouseEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onMouseDownCapture</TableCell>
-      <TableCell>
-```jsx
-React.MouseEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onMouseEnter</TableCell>
-      <TableCell>
-```jsx
-React.MouseEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onMouseLeave</TableCell>
-      <TableCell>
-```jsx
-React.MouseEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onMouseMove</TableCell>
-      <TableCell>
-```jsx
-React.MouseEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onMouseMoveCapture</TableCell>
-      <TableCell>
-```jsx
-React.MouseEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onMouseOut</TableCell>
-      <TableCell>
-```jsx
-React.MouseEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onMouseOutCapture</TableCell>
-      <TableCell>
-```jsx
-React.MouseEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onMouseOver</TableCell>
-      <TableCell>
-```jsx
-React.MouseEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onMouseOverCapture</TableCell>
-      <TableCell>
-```jsx
-React.MouseEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onMouseUp</TableCell>
-      <TableCell>
-```jsx
-React.MouseEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onMouseUpCapture</TableCell>
-      <TableCell>
-```jsx
-React.MouseEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onPaste</TableCell>
-      <TableCell>
-```jsx
-React.ClipboardEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onPasteCapture</TableCell>
-      <TableCell>
-```jsx
-React.ClipboardEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onPause</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onPauseCapture</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onPlay</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onPlayCapture</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onPlaying</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onPlayingCapture</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onPointerCancel</TableCell>
-      <TableCell>
-```jsx
-React.PointerEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onPointerCancelCapture</TableCell>
-      <TableCell>
-```jsx
-React.PointerEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onPointerDown</TableCell>
-      <TableCell>
-```jsx
-React.PointerEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onPointerDownCapture</TableCell>
-      <TableCell>
-```jsx
-React.PointerEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onPointerEnter</TableCell>
-      <TableCell>
-```jsx
-React.PointerEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onPointerEnterCapture</TableCell>
-      <TableCell>
-```jsx
-React.PointerEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onPointerLeave</TableCell>
-      <TableCell>
-```jsx
-React.PointerEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onPointerLeaveCapture</TableCell>
-      <TableCell>
-```jsx
-React.PointerEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onPointerMove</TableCell>
-      <TableCell>
-```jsx
-React.PointerEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onPointerMoveCapture</TableCell>
-      <TableCell>
-```jsx
-React.PointerEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onPointerOut</TableCell>
-      <TableCell>
-```jsx
-React.PointerEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onPointerOutCapture</TableCell>
-      <TableCell>
-```jsx
-React.PointerEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onPointerOver</TableCell>
-      <TableCell>
-```jsx
-React.PointerEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onPointerOverCapture</TableCell>
-      <TableCell>
-```jsx
-React.PointerEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onPointerUp</TableCell>
-      <TableCell>
-```jsx
-React.PointerEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onPointerUpCapture</TableCell>
-      <TableCell>
-```jsx
-React.PointerEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onProgress</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onProgressCapture</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onRateChange</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onRateChangeCapture</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onReset</TableCell>
-      <TableCell>
-```jsx
-React.FormEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onResetCapture</TableCell>
-      <TableCell>
-```jsx
-React.FormEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onScroll</TableCell>
-      <TableCell>
-```jsx
-React.UIEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onScrollCapture</TableCell>
-      <TableCell>
-```jsx
-React.UIEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onSeeked</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onSeekedCapture</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onSeeking</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onSeekingCapture</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onSelect</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onSelectCapture</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onStalled</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onStalledCapture</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onSubmit</TableCell>
-      <TableCell>
-```jsx
-React.FormEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onSubmitCapture</TableCell>
-      <TableCell>
-```jsx
-React.FormEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onSuspend</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onSuspendCapture</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onTimeUpdate</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onTimeUpdateCapture</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onTouchCancel</TableCell>
-      <TableCell>
-```jsx
-React.TouchEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onTouchCancelCapture</TableCell>
-      <TableCell>
-```jsx
-React.TouchEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onTouchEnd</TableCell>
-      <TableCell>
-```jsx
-React.TouchEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onTouchEndCapture</TableCell>
-      <TableCell>
-```jsx
-React.TouchEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onTouchMove</TableCell>
-      <TableCell>
-```jsx
-React.TouchEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onTouchMoveCapture</TableCell>
-      <TableCell>
-```jsx
-React.TouchEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onTouchStart</TableCell>
-      <TableCell>
-```jsx
-React.TouchEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onTouchStartCapture</TableCell>
-      <TableCell>
-```jsx
-React.TouchEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onTransitionEnd</TableCell>
-      <TableCell>
-```jsx
-React.TransitionEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onTransitionEndCapture</TableCell>
-      <TableCell>
-```jsx
-React.TransitionEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onVolumeChange</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onVolumeChangeCapture</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onWaiting</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onWaitingCapture</TableCell>
-      <TableCell>
-```jsx
-React.ReactEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onWheel</TableCell>
-      <TableCell>
-```jsx
-React.WheelEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">onWheelCapture</TableCell>
-      <TableCell>
-```jsx
-React.WheelEventHandler<T>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-  </TableBody>
-</Table>
-
-</ExpanderItem>
-
-<ExpanderItem title="FieldProps" value="FieldProps">
-    
-<Table
-  highlightOnHover={true}
-  className="props-table"
-  >
-  <TableHead>
-    <TableRow>
-      <TableCell as="th">Name</TableCell>
-      <TableCell as="th">Type</TableCell>
-      <TableCell as="th">Description</TableCell>
-    </TableRow>
-  </TableHead>
-  <TableBody>
-    
-    <TableRow>
-      <TableCell className="props-table__tr-name">descriptiveText</TableCell>
-      <TableCell>
-```jsx
-React.ReactNode
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">Provides additional information needed to fill field (e.g. password requirements, etc.)</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">errorMessage</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description"> When defined and &#96;hasError&#96; is true, show error message</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">labelHidden</TableCell>
-      <TableCell>
-```jsx
-boolean
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">Visually hide label (not recommended in most cases)</TableCell>
-    </TableRow>
-
-  </TableBody>
-</Table>
-
-</ExpanderItem>
-
-<ExpanderItem title="FlexContainerStyleProps" value="FlexContainerStyleProps">
-    
-<Table
-  highlightOnHover={true}
-  className="props-table"
-  >
-  <TableHead>
-    <TableRow>
-      <TableCell as="th">Name</TableCell>
-      <TableCell as="th">Type</TableCell>
-      <TableCell as="th">Description</TableCell>
-    </TableRow>
-  </TableHead>
-  <TableBody>
-    
-    <TableRow>
-      <TableCell className="props-table__tr-name">direction</TableCell>
-      <TableCell>
-```jsx
-FlexDirection>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">Sets how flex items are placed in the flex container defining the main axis and the direction (normal or reversed). (maps to flex-direction CSS property)</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">wrap</TableCell>
-      <TableCell>
-```jsx
-FlexWrap>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">The flexWrap property is set on containers and it controls what happens when children overflow the size of the container along the main axis. By default, children are forced into a single line (which can shrink elements). If wrapping is allowed, items are wrapped into multiple lines along the main axis if needed. (maps to flex-wrap CSS property)</TableCell>
-    </TableRow>
-
-  </TableBody>
-</Table>
-
-</ExpanderItem>
-
-<ExpanderItem title="FlexItemStyleProps" value="FlexItemStyleProps">
-    
-<Table
-  highlightOnHover={true}
-  className="props-table"
-  >
-  <TableHead>
-    <TableRow>
-      <TableCell as="th">Name</TableCell>
-      <TableCell as="th">Type</TableCell>
-      <TableCell as="th">Description</TableCell>
-    </TableRow>
-  </TableHead>
-  <TableBody>
-    
-    <TableRow>
-      <TableCell className="props-table__tr-name">basis</TableCell>
-      <TableCell>
-```jsx
-FlexBasis<0 | (string & {})>>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">Default size of element before remaining space is distributed</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">flex</TableCell>
-      <TableCell>
-```jsx
-Flex<0 | (string & {})>>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">Shorthand for flex grow / shrink / basis</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">grow</TableCell>
-      <TableCell>
-```jsx
-FlexGrow>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">Ability for flex item to grow</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">order</TableCell>
-      <TableCell>
-```jsx
-Order>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">Controls order flex items appear</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">shrink</TableCell>
-      <TableCell>
-```jsx
-FlexShrink>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">Ability for flex item to shrink</TableCell>
-    </TableRow>
-
-  </TableBody>
-</Table>
-
-</ExpanderItem>
-
-<ExpanderItem title="GridItemStyleProps" value="GridItemStyleProps">
-    
-<Table
-  highlightOnHover={true}
-  className="props-table"
-  >
-  <TableHead>
-    <TableRow>
-      <TableCell as="th">Name</TableCell>
-      <TableCell as="th">Type</TableCell>
-      <TableCell as="th">Description</TableCell>
-    </TableRow>
-  </TableHead>
-  <TableBody>
-    
-    <TableRow>
-      <TableCell className="props-table__tr-name">area</TableCell>
-      <TableCell>
-```jsx
-GridArea>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">&#96;area&#96; specifies a grid item's size and location within a grid by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the edges of its grid area. see: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-area)</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">column</TableCell>
-      <TableCell>
-```jsx
-GridColumn>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">&#96;column&#96; specifies a grid item's size and location within a grid column by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start and inline-end edge of its grid area. see: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column)</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">columnEnd</TableCell>
-      <TableCell>
-```jsx
-GridColumnEnd>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">&#96;columnEnd&#96; property specifies a grid item's end position within the grid column by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the block-end edge of its grid area. see: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-end)</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">columnSpan</TableCell>
-      <TableCell>
-```jsx
-GridSpanType>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">&#96;columnSpan&#96; property makes it possible for an element to span across all columns when its value is set to all. see: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/column-span)</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">columnStart</TableCell>
-      <TableCell>
-```jsx
-GridColumnStart>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">&#96;columnStart&#96; property specifies a grid item's start position within the grid column by contributing a line, a span, or nothing (automatic) to its grid placement. This start position defines the block-start edge of the grid area. see: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-start)</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">row</TableCell>
-      <TableCell>
-```jsx
-GridRow>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">&#96;row specifies a grid item's size and location within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start and inline-end edge of its grid area. see: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row)</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">rowEnd</TableCell>
-      <TableCell>
-```jsx
-GridRowEnd>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">&#96;rowEnd&#96; specifies a grid item's end position within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-end edge of its grid area. see: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-end)</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">rowSpan</TableCell>
-      <TableCell>
-```jsx
-GridSpanType>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">rowStart</TableCell>
-      <TableCell>
-```jsx
-GridRowStart>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">&#96;rowStart&#96; property specifies a grid item's start position within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start edge of its grid area. see: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-start)</TableCell>
-    </TableRow>
-
-  </TableBody>
-</Table>
-
-</ExpanderItem>
-
-<ExpanderItem title="HTMLAttributes" value="HTMLAttributes">
-    
-<Table
-  highlightOnHover={true}
-  className="props-table"
-  >
-  <TableHead>
-    <TableRow>
-      <TableCell as="th">Name</TableCell>
-      <TableCell as="th">Type</TableCell>
-      <TableCell as="th">Description</TableCell>
-    </TableRow>
-  </TableHead>
-  <TableBody>
-    
-    <TableRow>
-      <TableCell className="props-table__tr-name">about</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">accessKey</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">autoCapitalize</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">autoCorrect</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">autoSave</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">contentEditable</TableCell>
-      <TableCell>
-```jsx
-Booleanish | "inherit"
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">contextMenu</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">datatype</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">dir</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">draggable</TableCell>
-      <TableCell>
-```jsx
-Booleanish
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">hidden</TableCell>
-      <TableCell>
-```jsx
-boolean
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">inlist</TableCell>
-      <TableCell>
-```jsx
-any
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">is</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">see: https,://html.spec.whatwg.org/multipage/custom-elements.html#attr-is</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">itemID</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">itemProp</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">itemRef</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">itemScope</TableCell>
-      <TableCell>
-```jsx
-boolean
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">itemType</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">lang</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">prefix</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">property</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">radioGroup</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">resource</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">results</TableCell>
-      <TableCell>
-```jsx
-number
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">security</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">slot</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">spellCheck</TableCell>
-      <TableCell>
-```jsx
-Booleanish
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">suppressContentEditableWarning</TableCell>
-      <TableCell>
-```jsx
-boolean
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">suppressHydrationWarning</TableCell>
-      <TableCell>
-```jsx
-boolean
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">tabIndex</TableCell>
-      <TableCell>
-```jsx
-number
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">title</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">translate</TableCell>
-      <TableCell>
-```jsx
-"yes" | "no"
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">typeof</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">unselectable</TableCell>
-      <TableCell>
-```jsx
-"on" | "off"
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">vocab</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-  </TableBody>
-</Table>
-
-</ExpanderItem>
-
-<ExpanderItem title="InputProps" value="InputProps">
-    
-<Table
-  highlightOnHover={true}
-  className="props-table"
-  >
-  <TableHead>
-    <TableRow>
-      <TableCell as="th">Name</TableCell>
-      <TableCell as="th">Type</TableCell>
-      <TableCell as="th">Description</TableCell>
-    </TableRow>
-  </TableHead>
-  <TableBody>
-    
-    <TableRow>
-      <TableCell className="props-table__tr-name">autoComplete</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">Specifies permissions for browser UA to autocomplete field</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">checked</TableCell>
-      <TableCell>
-```jsx
-boolean
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">If checked is provided, this will be a controlled checkbox or radio</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">defaultValue</TableCell>
-      <TableCell>
-```jsx
-string | number | readonly string[]
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">Use this to provide a default value for an uncontrolled field</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">hasError</TableCell>
-      <TableCell>
-```jsx
-boolean
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">Indicates that Field is in error state</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">inputMode</TableCell>
-      <TableCell>
-```jsx
-InputMode
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">Provides hint for virtual keyboard shown</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">isReadOnly</TableCell>
-      <TableCell>
-```jsx
-boolean
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">Determines whether field should be immutable</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">isRequired</TableCell>
-      <TableCell>
-```jsx
-boolean
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">Whether field should be marked required</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">placeholder</TableCell>
-      <TableCell>
-```jsx
-string
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">Placeholder text shown when field is empty Accessibility tip: avoid putting important instructions for filling out the TextField in the placeholder. Use descriptiveText for important instructions</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">type</TableCell>
-      <TableCell>
-```jsx
-React.HTMLInputTypeAttribute
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">Input field type</TableCell>
-    </TableRow>
-
-    <TableRow>
-      <TableCell className="props-table__tr-name">variation</TableCell>
-      <TableCell>
-```jsx
-"quiet"
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">Variants</TableCell>
-    </TableRow>
-
-  </TableBody>
-</Table>
-
-</ExpanderItem>
-
-<ExpanderItem title="RefAttributes" value="RefAttributes">
-    
-<Table
-  highlightOnHover={true}
-  className="props-table"
-  >
-  <TableHead>
-    <TableRow>
-      <TableCell as="th">Name</TableCell>
-      <TableCell as="th">Type</TableCell>
-      <TableCell as="th">Description</TableCell>
-    </TableRow>
-  </TableHead>
-  <TableBody>
-    
-    <TableRow>
-      <TableCell className="props-table__tr-name">ref</TableCell>
-      <TableCell>
-```jsx
-React.Ref<HTMLElement>
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-  </TableBody>
-</Table>
-
-</ExpanderItem>
-
-<ExpanderItem title="ViewProps" value="ViewProps">
-    
-<Table
-  highlightOnHover={true}
-  className="props-table"
-  >
-  <TableHead>
-    <TableRow>
-      <TableCell as="th">Name</TableCell>
-      <TableCell as="th">Type</TableCell>
-      <TableCell as="th">Description</TableCell>
-    </TableRow>
-  </TableHead>
-  <TableBody>
-    
-    <TableRow>
-      <TableCell className="props-table__tr-name">style</TableCell>
-      <TableCell>
-```jsx
-React.CSSProperties
-```
-</TableCell>
-      <TableCell className="props-table__tr-description">-</TableCell>
-    </TableRow>
-
-  </TableBody>
-</Table>
-
-</ExpanderItem>
-
 </Expander>
 
 
 `*` indicates required props.
 
-The SwitchFieldProps will accept any of the standard HTML attributes that a HTML element accepts. Standard element attributes can be found in the [MDN Documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Element).
+The Main will accept any of the standard HTML attributes that a HTML element accepts. Standard element attributes can be found in the [MDN Documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Element).

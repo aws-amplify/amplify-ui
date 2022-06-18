@@ -6,7 +6,6 @@ import { capitalizeString } from '../../src/utils/capitalizeString';
 import {
   ComponentName,
   Category,
-  SharedCategory,
   Property,
   Properties,
   Catalog,
@@ -175,22 +174,9 @@ function isCallableNode(node: Node): node is VariableDeclaration {
  * @name getCategory
  * @description categorize properties by checking if they belong to a certain property group.
  */
-const sharedCategories: SharedCategory[] = [
-  'Base',
-  'Style',
-  'Flex',
-  'Grid',
-  'Responsive',
-];
 function getCategory(propName: string, componentName: ComponentName): Category {
   const preSetCategories = { as: 'Base', ref: 'Base' };
-  return (
-    [componentName, ...sharedCategories].find((component) =>
-      allTypesData.get(component as TypeFileName)?.has(propName)
-    ) ??
-    preSetCategories[propName] ??
-    'other'
-  );
+  return preSetCategories[propName] ?? 'other';
 }
 
-export { getCatalog, sharedCategories };
+export { getCatalog };

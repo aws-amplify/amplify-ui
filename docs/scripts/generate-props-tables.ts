@@ -32,6 +32,7 @@ async function createAllPropsTables() {
       catalog,
       componentPageName
     );
+
     const propsSortedByCategory = getPropsSortedByCategory(
       properties,
       componentPageName
@@ -65,7 +66,7 @@ async function createAllPropsTables() {
 }
 
 type CategoryProperty = { [key in Category]: Properties };
-type SortedPropertiesByCategory = CategoryProperty[];
+type SortedPropertiesByCategory = { [key: string]: Properties }[];
 type PropertiesByCategory = Record<Category, Properties>;
 
 /**
@@ -158,33 +159,87 @@ function getPropsSortedByCategory(
         (category) => category.toLowerCase() === componentPageName
       ) ?? (componentPageName as ComponentName | Lowercase<ComponentName>);
 
-    const isPropMainCategory = (category) =>
-      category.toLowerCase().includes(componentName.toLowerCase());
+    const allTableCategories: {
+      [key in 'Main' | 'Base' | 'Layout' | 'Styling']: Category[];
+    } = {
+      Main: [],
+      Base: ['BaseComponentProps'],
+      Layout: [
+        'CSSLayoutStyleProps',
+        'FlexContainerStyleProps',
+        'FlexItemStyleProps',
+        'GridContainerStyleProps',
+        'GridItemStyleProps',
+      ],
+      Styling: ['BaseStyleProps'],
+    };
 
-    const allCategories = [
-      ...Object.keys(propertiesByCategory).filter(isPropMainCategory),
-      ...Object.keys(propertiesByCategory)
-        .filter((category) => !isPropMainCategory(category))
-        .sort((a, b) => a.localeCompare(b)),
-    ] as Category[];
+    const isPropMainCategory = (category) => {
+      const isCurrentComponentProp = category
+        .toLowerCase()
+        .includes(componentName.toLowerCase());
+      const isPropsOrOptions = category.toLowerCase().match(/props|options/);
+      const isSharedBasicCategory = Object.values(allTableCategories).find(
+        (propArr) => propArr.includes(category)
+      );
+      return (
+        isCurrentComponentProp || (isPropsOrOptions && !isSharedBasicCategory)
+      );
+    };
+    debugger;
+    allTableCategories.Main = Object.keys(propertiesByCategory).filter(
+      isPropMainCategory
+    ) as Category[];
 
-    return allCategories
-      .map(
-        (category) =>
-          ({
-            [category]: getObjectValueWithCaselessKey(
-              propertiesByCategory,
-              category
-            ),
-          } as {
-            [key in Category]: Properties;
-          })
-      )
-      .filter((val) => Object.values(val)[0] && Object.keys(val)[0] !== 'Base');
+    return Object.keys(allTableCategories)
+      .map((category) => {
+        switch (category) {
+          case 'Main':
+            return {
+              Main: combineCategories(
+                propertiesByCategory,
+                allTableCategories.Main
+              ),
+            };
+          case 'Base':
+            return {
+              Base: combineCategories(
+                propertiesByCategory,
+                allTableCategories.Base
+              ),
+            };
+          case 'Layout':
+            return {
+              Layout: combineCategories(
+                propertiesByCategory,
+                allTableCategories.Layout
+              ),
+            };
+          case 'Styling':
+            return {
+              Styling: combineCategories(propertiesByCategory, [
+                'BaseStyleProps',
+              ]),
+            };
+          default:
+            break;
+        }
+      })
+      .filter((val) => Object.values(val)[0]);
   } else {
     console.log(` 🫥  ${componentPageName} doesn't have any type properties.`);
     return null;
   }
+}
+
+function combineCategories(propertiesByCategory, toBeCombined: Category[]) {
+  return toBeCombined.reduce(
+    (acc, category) => ({
+      ...acc,
+      ...getObjectValueWithCaselessKey(propertiesByCategory, category),
+    }),
+    {}
+  );
 }
 
 function getPropertiesByCategory(
