@@ -4,7 +4,6 @@ const theme: Theme = {
   name: 'menu-theme',
   tokens: {
     components: {
-      // Is there a way to theme the menu trigger button?
       menu: {
         backgroundColor: { value: '{colors.blue.20}' },
         borderRadius: { value: '0' },
