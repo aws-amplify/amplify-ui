@@ -155,15 +155,25 @@ function getCatalogComponentProperty(
   };
 
   function overwriteType(type, name) {
-    if (type.includes('import')) {
-      [...type.matchAll(regex)].forEach((match) => {
-        type = type.replace(match, '');
-      });
-    } else if (name === 'ref' && type === 'React.Ref<T>') {
+    if (name === 'ref' && type === 'React.Ref<T>') {
       type = 'React.Ref<HTMLElement>';
     } else if (name === 'as' && type === 'Element | Props["as"]') {
       type = 'Element';
+    } else if (name === 'viewBox' && type.includes('ViewBox')) {
+      type = `
+{
+  minX?: number;
+  minY?: number;
+  width?: number;
+  height?: number;
+}
+`;
+    } else if (type.includes('import')) {
+      [...type.matchAll(regex)].forEach((match) => {
+        type = type.replace(match, '');
+      });
     }
+
     return type;
   }
 }

@@ -13,7 +13,7 @@ import { TypeFileName } from './types/allTypesData';
 
 const catalog = getCatalog();
 const allTypesData = getAllTypesData();
-debugger;
+
 createAllPropsTables();
 
 async function createAllPropsTables() {

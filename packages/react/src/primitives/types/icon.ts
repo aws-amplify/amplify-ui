@@ -50,5 +50,5 @@ export interface IconProps extends ViewProps {
    * Optionally pass an array of path-like objects which
    * the icon will map to <path> elements.
    */
-  paths?: Array<React.SVGAttributes<SVGPathElement>>;
+  paths?: React.SVGAttributes<SVGPathElement>[];
 }
