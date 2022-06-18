@@ -8,7 +8,7 @@ const theme = {
         label: {
           color: { value: '{colors.brand.secondary.80}' },
         },
-        button: {
+        radio: {
           borderWidth: { value: '{borderWidths.small}' },
           borderColor: { value: '{colors.brand.secondary.60}' },
           backgroundColor: { value: '{colors.brand.secondary.10}' },

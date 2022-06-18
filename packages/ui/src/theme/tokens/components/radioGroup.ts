@@ -7,7 +7,7 @@ import {
 } from '../types/designToken';
 
 export interface RadioGroupTokens {
-  button: {
+  radio: {
     borderWidth: DesignToken<BorderWidthValue>;
     borderColor: DesignToken<BorderColorValue>;
     backgroundColor: DesignToken<BackgroundColorValue>;
@@ -24,7 +24,7 @@ export interface RadioGroupTokens {
 }
 
 export const radiogroup: RadioGroupTokens = {
-  button: {
+  radio: {
     borderWidth: { value: '{components.radio.button.borderWidth}' },
     borderColor: { value: '{components.radio.button.borderColor}' },
     backgroundColor: { value: '{components.radio.button.backgroundColor}' },
