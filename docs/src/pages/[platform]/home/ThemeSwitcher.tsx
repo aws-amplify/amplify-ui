@@ -82,7 +82,6 @@ const Preview = ({ platform }) => {
           <Flex direction={isMobile ? 'column' : 'row'}>
             <Image alt="" src="/amplify-placeholder.svg" width="100px" />
             <Flex direction="column">
-              <Text>Hi quality Amplify</Text>
               <ToggleButtonGroup
                 value={exclusiveValue}
                 size="small"
@@ -191,12 +190,12 @@ const Preview = ({ platform }) => {
           </Card>
           <Card variation="elevated" columnStart="2" columnEnd="-1">
             <Tabs>
-              <TabItem title="Sports"></TabItem>
+              <TabItem title="Amplify"></TabItem>
 
               <TabItem
                 title={
                   <View>
-                    Donuts{' '}
+                    Studio{' '}
                     <Badge size="small" variation="success">
                       new
                     </Badge>

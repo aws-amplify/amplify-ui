@@ -32,13 +32,13 @@ export const HomeCodeHighlight = ({
           getLineProps,
           getTokenProps,
         }) => (
-          <View as="pre" className={`${className} ${prismClassName}`}>
-            <View
-              as="code"
-              className={`${className} ${prismClassName} ${
-                withLines ? 'with-lines' : ''
-              }`}
-            >
+          <View
+            as="pre"
+            className={`${className} ${prismClassName} ${
+              withLines ? 'with-lines' : ''
+            }`}
+          >
+            <View as="code" className={`${className} ${prismClassName}`}>
               {tokens.map((line, i) => (
                 <View
                   className="code-line"

@@ -31,21 +31,23 @@ export const CompatibleSection = ({ platform }) => {
             large: 'row',
           }}
         >
-          <HomeFeatureCard
-            Icon={MdOutlineSupport}
-            title="Escape hatches"
-            description="Connected components like the Authenticator have headless, or UI-less, implementations that handle complex state management and leave the UI up to you."
-          />
-          <HomeFeatureCard
-            Icon={MdOutlineFlashOff}
-            title="Styling optional"
-            description="Don't like our style? Throw it out and use your own! Amplify UI components use plain CSS so you have complete control over the styling."
-          />
+          <HomeFeatureCard Icon={MdOutlineSupport} title="Escape hatches">
+            Connected components like the Authenticator have headless, or
+            UI-less, implementations that handle complex state management and
+            leave the UI up to you.
+          </HomeFeatureCard>
+          <HomeFeatureCard Icon={MdOutlineFlashOff} title="Styling optional">
+            Don't like our style? Throw it out and use your own! Amplify UI
+            components use plain CSS so you have complete control over the
+            styling.
+          </HomeFeatureCard>
           <HomeFeatureCard
             Icon={SiTypescript}
-            title="TypeScript & intellisense"
-            description="Let your IDE do the work for you and make UI development a breeze with strongly typed interfaces and inline documentation."
-          />
+            title="TypeScript & IntelliSense"
+          >
+            Let your IDE do the work for you and make UI development a breeze
+            with strongly typed interfaces and inline documentation.
+          </HomeFeatureCard>
         </Flex>
         <HomeCTA href={`/${platform}/getting-started/introduction`}>
           Learn more about Amplify UI's design philosophy

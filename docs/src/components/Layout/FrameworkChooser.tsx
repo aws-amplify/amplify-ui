@@ -5,7 +5,13 @@ import { useCustomRouter } from '@/components/useCustomRouter';
 import Link from 'next/link';
 import { FRAMEWORKS } from '@/data/frameworks';
 import metaData from '@/data/pages.preval';
-import { AngularLogo, FlutterLogo, ReactLogo, VueLogo } from '../Logo';
+import {
+  AngularLogo,
+  FlutterLogo,
+  FrameworkLogo,
+  ReactLogo,
+  VueLogo,
+} from '../Logo';
 
 interface FrameworkLinkProps extends FrameworkChooserProps {
   framework: string;
@@ -14,13 +20,6 @@ interface FrameworkLinkProps extends FrameworkChooserProps {
 }
 
 const platformPath = '[platform]';
-
-const frameworkLogo = {
-  react: <ReactLogo className="docs-framework-img" />,
-  angular: <AngularLogo className="docs-framework-img" />,
-  vue: <VueLogo className="docs-framework-img" />,
-  flutter: <FlutterLogo className="docs-framework-img" />,
-};
 
 const FrameworkLink = ({
   framework,
@@ -51,7 +50,7 @@ const FrameworkLink = ({
         }}
         isDisabled={isDisabled}
       >
-        {frameworkLogo[framework]}
+        <FrameworkLogo framework={framework} className="docs-framework-img" />
         {capitalize(framework)}
       </Button>
     </Link>

@@ -7,34 +7,33 @@ import {
   ContextProps,
 } from 'react-live';
 import * as AUI from '@aws-amplify/ui-react';
-import { Badge, Card } from '@aws-amplify/ui-react';
-import { HomeCode } from 'src/pages/[platform]/home/HomeCode';
+import { HomeCode } from './HomeCode';
 
 const { Flex, View, Alert } = AUI;
 
 const code = `() => {
   const { tokens } = useTheme();
   return (
-    <Card variation="outlined">
+    <Card variation="elevated">
       <Flex direction="row" alignItems="flex-start">
         <Image src="/amplify-placeholder.svg"
           alt="Amplify" width="8rem"/>
-        <Flex direction="column" gap={tokens.space.xs}>
+        <Flex direction="column" gap="xs">
           <Flex direction="row">
             <Badge variation="success">New</Badge>
           </Flex>
-          <Heading level={3}>
+          <Text fontSize="large" fontWeight="semibold">
             Product title
-          </Heading>
+          </Text>
           <Text>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut scelerisque risus in sem dapibus, nec vestibulum metus mattis. Mauris dignissim maximus tellus, in feugiat nibh rhoncus a.
           </Text>
           <Text
-            fontSize={tokens.fontSizes.large}
-            color={tokens.colors.font.secondary}>
+            fontSize="large"
+            color="secondary">
             $199.99
           </Text>
-          <Flex direction='row'>
+          <Flex direction="row">
             <StepperField
               label="Quantity"
               min={0}
@@ -65,25 +64,25 @@ const HomeEditor = () => {
     <LiveProvider
       scope={{ ...AUI }}
       theme={{
-        plain: {},
+        plain: {
+          overflow: 'visible',
+        },
         styles: [],
       }}
       code={code}
     >
-      <Flex
-        direction={{
-          base: 'column-reverse',
-          xl: 'row',
-        }}
-        gap="0"
-      >
-        <HomeCode maxHeight="80vh" overflow="scroll" flex="1" data-editable>
+      <View className="docs-home-editor">
+        {/* <HomeCode maxHeight="80vh" overflow="scroll" flex="1" data-editable> */}
+        <View
+          flex="1"
+          className="docs-home-editor__code-panel with-lines scrollable"
+        >
           <LiveEditor />
-        </HomeCode>
-        <View flex="1" className="docs-home-preview">
+        </View>
+        <View flex="1" className="docs-home-editor__preview-panel">
           <LivePreview />
         </View>
-      </Flex>
+      </View>
       <Error />
     </LiveProvider>
   );

@@ -54,26 +54,21 @@ export const A11ySection = ({ platform }) => {
             large: 'row',
           }}
         >
-          <HomeFeatureCard
-            title="Color contrast"
-            Icon={MdInvertColors}
-            description="All components have AA or higher contrast in both light and dark mode"
-          />
-          <HomeFeatureCard
-            title="Keyboard navigation"
-            Icon={MdKeyboard}
-            description="Interactive components support keyboard navigation users would expect"
-          />
-          <HomeFeatureCard
-            title="Focus management"
-            Icon={MdSmartButton}
-            description="Focusable components have proper focus states and interactivity"
-          />
-          <HomeFeatureCard
-            title="Accessible labels"
-            Icon={MdLabel}
-            description="Form fields and icons have accessible labels, plus there are utilities to help make sure your application is labelled."
-          />
+          <HomeFeatureCard title="Color contrast" Icon={MdInvertColors}>
+            All components have AA or higher contrast in both light and dark
+            mode
+          </HomeFeatureCard>
+          <HomeFeatureCard title="Keyboard navigation" Icon={MdKeyboard}>
+            Interactive components support keyboard navigation users would
+            expect
+          </HomeFeatureCard>
+          <HomeFeatureCard title="Focus management" Icon={MdSmartButton}>
+            Focusable components have proper focus states and interactivity
+          </HomeFeatureCard>
+          <HomeFeatureCard title="Accessible labels" Icon={MdLabel}>
+            Form fields and icons have accessible labels, plus there are
+            utilities to help make sure your application is labelled.
+          </HomeFeatureCard>
         </Flex>
 
         <HomeCTA href={`${platform}/getting-started/accessibility`}>

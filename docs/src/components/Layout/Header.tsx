@@ -17,6 +17,7 @@ import { MenuButton } from './MenuButton';
 import { DISCORD, GITHUB_REPO } from '@/data/links';
 import '@docsearch/css';
 import { DiscordIcon, GithubIcon } from '../Icons';
+import { FrameworkLogo } from '../Logo';
 
 export const Header = ({
   expanded,
@@ -46,13 +47,12 @@ export const Header = ({
       />
 
       <LogoLink platform={platform} />
-
-      <Image
+      <FrameworkLogo
+        framework={platform}
         alt={platform}
         height="1.5rem"
         width="1.5rem"
         className="docs-logo-framework"
-        src={`/svg/integrations/${platform}.svg`}
       />
 
       <Flex flex="1" justifyContent="flex-end" gap="small">
@@ -74,6 +74,7 @@ export const Header = ({
               isExternal
               color="font.tertiary"
               fontSize="medium"
+              title="Discord"
             >
               <VisuallyHidden>Discord</VisuallyHidden>
               <DiscordIcon />
@@ -86,8 +87,9 @@ export const Header = ({
               isExternal
               color="font.tertiary"
               fontSize="medium"
+              title="GitHub"
             >
-              <VisuallyHidden>Github</VisuallyHidden>
+              <VisuallyHidden>GitHub</VisuallyHidden>
               <GithubIcon />
             </Button>
           </View>

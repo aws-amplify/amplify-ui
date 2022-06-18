@@ -6,6 +6,7 @@ import {
   View,
   Flex,
   Icon as AmpIcon,
+  Button,
 } from '@aws-amplify/ui-react';
 import {
   AmplifyIcon,
@@ -15,6 +16,7 @@ import {
 } from '@/components/Icons';
 import { useIntersectionObserver } from '@/components/useIntersection';
 import { useRef } from 'react';
+import { HomeFeatureCard } from './HomeFeatureCard';
 
 const AmpCard = ({ title, description, href, Icon }) => (
   <Flex
@@ -54,9 +56,53 @@ export const AmplifySection = ({ platform }) => {
     >
       <Flex direction="column" className="docs-home-subsection--thin">
         <Heading level={2}>
-          <strong>Integrated</strong> with AWS Amplify
+          Better <strong>together</strong> with AWS Amplify
         </Heading>
-        <Grid
+        {/* <Flex direction="column"> */}
+        <HomeFeatureCard
+          title="Build your application visually in Amplify Studio"
+          Icon={AmplifyIcon}
+        >
+          Deploy and manage your app backend with a GraphQL API, User login,
+          File storage and more in minutes. Start small and build to the full
+          scale of AWS!
+          {platform === 'react'
+            ? 'Build components visually in Figma, bind them to your data, and use them in your codebase.'
+            : ''}
+          <br />
+          <Link href="https://docs.amplify.aws/console/">
+            Learn more about Amplify Studio
+          </Link>
+        </HomeFeatureCard>
+        <HomeFeatureCard
+          title="Connect your UI to your backend easily with Amplify libraries."
+          Icon={LibraryIcon}
+        >
+          Amplify Libraries offer an opinionated and declarative interfaces to
+          easily connect to your backend. The libraries are pluggable and can be
+          extended to use other providers.
+          <br />
+          <Link href={`https://docs.amplify.aws/lib/q/platform/${platform}/`}>
+            Learn more about Amplify Libraries
+          </Link>
+        </HomeFeatureCard>
+        <HomeFeatureCard
+          title="Deploy your front-end in minutes with Amplify Hosting."
+          Icon={ServerIcon}
+        >
+          Fully managed web hosting with full-stack CI/CD. Amplify Hosting has
+          support for common SPA and SSG frameworks like Next.js, Gatsby, and
+          Eleventy.
+          <br />
+          <Link
+            isExternal
+            href="https://docs.aws.amazon.com/amplify/latest/userguide/getting-started.html"
+          >
+            Learn more about Amplify Hosting
+          </Link>
+        </HomeFeatureCard>
+        {/* </Flex> */}
+        {/* <Grid
           className="docs-home-subsection--thin"
           templateColumns={{ base: '1fr', medium: '1fr 1fr' }}
         >
@@ -84,7 +130,7 @@ export const AmplifySection = ({ platform }) => {
             Icon={AmplifyIcon}
             description="Visual development environment to accelerate full-stack development."
           />
-        </Grid>
+        </Grid> */}
       </Flex>
     </View>
   );

@@ -15,6 +15,7 @@ import {
   View,
 } from '@aws-amplify/ui-react';
 import { useIntersectionObserver } from '@/components/useIntersection';
+import { FigmaLogoMono } from '@/components/Logo';
 
 const StudioCard = () => {
   const { tokens } = useTheme();
@@ -35,9 +36,9 @@ const StudioCard = () => {
       <View className="docs-home-figma-node-handles" />
       <Card variation="elevated">
         <Flex direction="column">
-          <View className="docs-home-figma-data">
+          {/* <View className="docs-home-figma-data">
             <Image alt="" src="/amplify-placeholder.svg" width="100%" />
-          </View>
+          </View> */}
           <Text
             className="docs-home-figma-data"
             fontSize={tokens.fontSizes.large}
@@ -97,10 +98,6 @@ export const FigmaSection = (props) => {
               Go from design to production-ready code in minutes and eliminate
               the design-development gap.
             </Text>
-            <HomeCTA href={`/react/getting-started/figma-to-code`}>
-              <span>Learn more about Figma integration</span>
-              <Image height="2rem" alt="" src="/svg/integrations/figma.svg" />
-            </HomeCTA>
           </Flex>
           <Flex
             flex="1"
@@ -114,9 +111,9 @@ export const FigmaSection = (props) => {
                 <DataIcon color="font.disabled" />
                 <code>Product</code>
               </Text>
-              <Text className="docs-home-figma-data">
+              {/* <Text className="docs-home-figma-data">
                 <code>Product.image</code>
-              </Text>
+              </Text> */}
               <Text className="docs-home-figma-data">
                 <code>Product.title</code>
               </Text>
@@ -135,6 +132,17 @@ export const FigmaSection = (props) => {
               />
             </View>
           </Flex>
+        </Flex>
+        <Flex className="docs-home-subsection--thin" direction="column">
+          <Card variation="elevated">
+            <video className="docs-home-video" controls width="100%">
+              <source src="/studio-demo.mp4" type="video/mp4" />
+            </video>
+          </Card>
+          <HomeCTA href={`/react/getting-started/figma-to-code`}>
+            <span>Learn more about Figma integration</span>
+            <FigmaLogoMono height="2rem" alt="" />
+          </HomeCTA>
         </Flex>
       </Flex>
     </View>

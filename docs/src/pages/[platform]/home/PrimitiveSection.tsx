@@ -210,7 +210,7 @@ export const PrimitiveSection = ({ platform, ...rest }) => {
       className={`docs-home-section docs-grid-bg fade-in ${
         isVisible ? 'shown' : ''
       }`}
-      backgroundColor="background.tertiary"
+      backgroundColor="background.secondary"
       ref={ref}
     >
       <Flex direction="column" gap="large" className="docs-home-subsection">

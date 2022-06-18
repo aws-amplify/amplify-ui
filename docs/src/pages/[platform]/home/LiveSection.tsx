@@ -20,13 +20,11 @@ export const LiveSection = ({ platform, ...rest }) => {
   return (
     <View
       as="section"
-      className={`docs-home-section docs-grid-bg fade-in ${
-        isVisible ? 'shown' : ''
-      }`}
+      className={`docs-home-section fade-in ${isVisible ? 'shown' : ''}`}
       ref={ref}
     >
       <View className="docs-home-subsection">
-        <Heading level={2}>Still not convinced? Try it out below!</Heading>
+        <Heading level={2}>Take it for a test drive</Heading>
       </View>
 
       <View className="docs-home-subsection">

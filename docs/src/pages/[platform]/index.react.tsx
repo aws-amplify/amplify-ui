@@ -23,14 +23,14 @@ const ReactHomePage = ({ colorMode }) => {
 
   return (
     <>
-      <FigmaSection />
+      {showEditor ? <LiveSection platform={platform} /> : null}
       <PrimitiveSection platform={platform} />
       <AuthenticationSection platform={platform} />
       <ThemingSection platform={platform} colorMode={colorMode} />
+      <FigmaSection />
+      <AmplifySection platform={platform} />
       <A11ySection platform={platform} />
       <CompatibleSection platform={platform} />
-      <AmplifySection platform={platform} />
-      {showEditor ? <LiveSection platform={platform} /> : null}
     </>
   );
 };

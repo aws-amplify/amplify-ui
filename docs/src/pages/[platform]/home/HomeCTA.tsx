@@ -5,7 +5,13 @@ export const HomeCTA = ({ children, href, ...rest }) => {
   return (
     <Flex justifyContent="center">
       <NextLink href={href} passHref>
-        <Button as="a" size="large" className="docs-home-cta" {...rest}>
+        <Button
+          as="a"
+          size="large"
+          variation="primary"
+          className="docs-home-cta"
+          {...rest}
+        >
           {children}
         </Button>
       </NextLink>
