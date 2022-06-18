@@ -37,14 +37,16 @@
 }
 
 .install-code__content {
-  margin: auto;
+  margin: var(--amplify-space-small);
   overflow-x: auto;
   white-space: normal;
+  &:before {
+    content: '$ ';
+  }
 }
 
 .install-code__button {
-  place-self: end;
-  align-self: center;
+  margin-left: auto;
   // Hiding on smaller screens
   // because there's not enough space
   @media (max-width: 480px) {
