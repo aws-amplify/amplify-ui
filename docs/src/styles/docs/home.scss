@@ -71,14 +71,20 @@
 }
 
 .docs-home-cta {
-  // background-color: var(--amplify-colors-background-primary);
-  // background-color: var(--amplify-colors-brand-primary-60);
-  // background-image: linear-gradient(15deg, var(--amplify-colors-brand-primary-80) 0%, var(--amplify-colors-brand-primary-60) 50%);
   box-shadow: var(--amplify-shadows-medium);
   padding-block: var(--amplify-space-medium);
   padding-inline: var(--amplify-space-xl);
   gap: var(--amplify-space-small);
-  // color: var(--amplify-colors-brand-primary-60);
+  text-align: center;
+  align-items: center;
+  
+
+  
+  @media (max-width: $breakpoint-small) {
+    & > svg {
+      display: none;
+    }
+  }
 }
 
 .docs-home .docs-main {
@@ -624,6 +630,5 @@ pre.scrollable.prism-code {
     border-start-end-radius: var(--amplify-radii-small);
     border-end-end-radius: var(--amplify-radii-small);
     background-color: var(--amplify-colors-background-secondary);
-    // box-shadow: inset 0 0 var(--amplify-space-small) var(--amplify-colors-overlay-20);
   }
 }
