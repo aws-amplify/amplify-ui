@@ -5,11 +5,12 @@ const theme = {
   tokens: {
     components: {
       phonenumberfield: {
+        //these design tokens will apply to both the select and input that are part of the phonenumber field
         color: { value: '{colors.blue.60}' },
         fontSize: { value: '{fontSizes.large}' },
         borderColor: { value: '{colors.neutral.80}' },
         _focus: {
-          borderColor: { value: '{colors.neutral.80}' },
+          borderColor: { value: '{colors.neutral.100}' },
         },
       },
     },
@@ -18,6 +19,10 @@ const theme = {
 
 export const ThemingExample = () => (
   <ThemeProvider theme={theme}>
-    <PhoneNumberField label="Themed field" defaultCountryCode="+1" />
+    <PhoneNumberField
+      label="Themed field"
+      defaultCountryCode="+1"
+      labelHidden={true}
+    />
   </ThemeProvider>
 );
