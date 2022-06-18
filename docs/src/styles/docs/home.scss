@@ -218,13 +218,16 @@
       border-color: var(--amplify-colors-brand-primary-80);
     }
     
-    
-    
     &:hover .docs-framework-img,
     &.current .docs-framework-img {
       filter: grayscale(0%);
-      
     }
+
+    &:focus {
+      border-color: var(--amplify-components-button-active-border-color);
+      box-shadow: var(--amplify-components-button-focus-box-shadow)
+    }
+
   }
   
   .docs-framework-img {
