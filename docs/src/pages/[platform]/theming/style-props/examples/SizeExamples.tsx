@@ -1,11 +1,13 @@
-import { Badge, useTheme } from '@aws-amplify/ui-react';
+import { Card, View, Text, useTheme } from '@aws-amplify/ui-react';
 
 // use any CSS value
 export const SizeStylePropExample = () => {
   return (
-    <Badge variation="info" width="100%" height="2rem">
-      Size Styling Example
-    </Badge>
+    <View backgroundColor="rgb(131, 140, 149)" padding="1rem" fontSize="3rem">
+      <Card width="4.5em" height="4.5rem">
+        <Text fontSize="1rem">Size Styling Example</Text>
+      </Card>
+    </View>
   );
 };
 
@@ -13,21 +15,25 @@ export const SizeStylePropExample = () => {
 export const SizeThemeTokenExample = () => {
   const { tokens } = useTheme();
   return (
-    <Badge
-      variation="info"
-      width={tokens.space.relative.full}
-      height={tokens.space.xl}
+    <View
+      backgroundColor={tokens.colors.neutral[60]}
+      padding={tokens.space.medium}
+      fontSize={tokens.fontSizes.xxxxl}
     >
-      Size Styling Example
-    </Badge>
+      <Card width={tokens.space.relative.xxxl} height={tokens.space.xxxl}>
+        <Text fontSize={tokens.fontSizes.medium}>Size Styling Example</Text>
+      </Card>
+    </View>
   );
 };
 
 // use a design token name
 export const SizeTokenNameExample = () => {
   return (
-    <Badge variation="info" width="relative.full" height="xl">
-      Size Styling Example
-    </Badge>
+    <View backgroundColor="neutral.60" padding="medium" fontSize="xxxxl">
+      <Card width="relative.xxxl" height="xxxl">
+        <Text fontSize="medium">Size Styling Example</Text>
+      </Card>
+    </View>
   );
 };
