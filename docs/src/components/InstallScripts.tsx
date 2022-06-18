@@ -1,19 +1,12 @@
 import { CopyButton } from '@/components/CopyButton';
 import { Tabs, TabItem } from '@aws-amplify/ui-react';
 
-type Framework = 'react' | 'vue' | 'angular' | 'flutter';
-type PackageManager = 'npm' | 'yarn';
+type WebFramework = 'react' | 'vue' | 'angular';
 
 interface TerminalCommandProps {
-  framework: Framework;
-  packageManager: PackageManager;
+  framework: WebFramework;
+  packageManager: 'npm' | 'yarn';
 }
-
-interface InstallScriptsProps {
-  framework: Framework;
-}
-
-const flutterInstallScript = 'flutter pub add amplify_authenticator';
 
 const TerminalCommand = ({
   framework,
@@ -35,8 +28,12 @@ const TerminalCommand = ({
   );
 };
 
+interface InstallScriptsProps {
+  framework: WebFramework;
+}
+
 export const InstallScripts = ({ framework }: InstallScriptsProps) => {
-  return framework !== 'flutter' ? (
+  return (
     <Tabs maxWidth="42rem">
       <TabItem title="npm">
         <TerminalCommand framework={framework} packageManager="npm" />
@@ -45,16 +42,5 @@ export const InstallScripts = ({ framework }: InstallScriptsProps) => {
         <TerminalCommand framework={framework} packageManager="yarn" />
       </TabItem>
     </Tabs>
-  ) : (
-    <code className="install-code__container">
-      <p className="install-code__content install-code__script">
-        {flutterInstallScript}
-      </p>
-      <CopyButton
-        className="install-code__button"
-        copyText={flutterInstallScript}
-        variation="link"
-      />
-    </code>
   );
 };
