@@ -10,7 +10,7 @@ const theme: Theme = {
   tokens: {
     components: {
       expander: {
-        backgroundColor: { value: '{colors.blue.40}' },
+        backgroundColor: { value: '{colors.blue.10}' },
         borderRadius: { value: '{radii.small}' },
         trigger: {
           minHeight: { value: '5rem' },
@@ -22,7 +22,7 @@ const theme: Theme = {
         content: {
           paddingInlineStart: { value: '{space.xxl}' },
           text: {
-            color: { value: '{colors.white}' },
+            color: { value: '{colors.purple.80}' },
             paddingBlockEnd: { value: '{space.large}' },
           },
           _open: {
