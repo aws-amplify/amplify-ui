@@ -7,7 +7,7 @@ const theme: Theme = {
       placeholder: {
         transitionDuration: { value: '1250ms' },
         startColor: { value: '{colors.purple.40}' },
-        endColor: { value: '{colors.purple.100}' },
+        endColor: { value: '{colors.purple.80}' },
         borderRadius: { value: '{radii.large}' },
         large: {
           height: { value: '{space.xxxl}' },
