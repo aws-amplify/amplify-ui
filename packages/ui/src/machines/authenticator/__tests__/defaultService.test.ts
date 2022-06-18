@@ -1,5 +1,6 @@
 import { PasswordSettings } from '../../../types';
 import { defaultServices } from '../defaultServices';
+import { ALLOWED_SPECIAL_CHARACTERS } from '../../../helpers/authenticator/constants';
 
 const { validateFormPassword } = defaultServices;
 
@@ -29,7 +30,7 @@ describe('validateFormPassword', () => {
       touched,
       strictPasswordPolicy
     );
-    expect(result).toBe(null);
+    expect(result).toBeNull();
   });
 
   it('validates as expected with invalid password (has unknown special character) and strict password policy', async () => {
@@ -83,7 +84,7 @@ describe('validateFormPassword', () => {
       touched,
       lenientPasswordPolicy
     );
-    expect(result).toBe(null);
+    expect(result).toBeNull();
   });
 
   it('validates as expected with invalid password and lenient password policy', async () => {
@@ -98,6 +99,18 @@ describe('validateFormPassword', () => {
     });
   });
 
+  it.each(ALLOWED_SPECIAL_CHARACTERS)(
+    'validates usage of a %s character as expected',
+    async (character) => {
+      const password = `password${character}`;
+      const result = await validateFormPassword({ password }, touched, {
+        passwordPolicyMinLength: 4,
+        passwordPolicyCharacters: ['REQUIRES_SYMBOLS'],
+      });
+      expect(result).toBeNull();
+    }
+  );
+
   it('skips validation if inputs are not touched', async () => {
     const password = '';
     const result = await validateFormPassword(
@@ -105,6 +118,6 @@ describe('validateFormPassword', () => {
       untouched,
       strictPasswordPolicy
     );
-    expect(result).toBe(null);
+    expect(result).toBeNull();
   });
 });

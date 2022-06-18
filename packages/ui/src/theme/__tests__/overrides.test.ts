@@ -715,6 +715,9 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-text-warning-color: var(--amplify-colors-font-warning);
         --amplify-components-text-success-color: var(--amplify-colors-font-success);
         --amplify-components-text-info-color: var(--amplify-colors-font-info);
+        --amplify-components-textareafield-color: var(--amplify-components-fieldcontrol-color);
+        --amplify-components-textareafield-border-color: var(--amplify-components-fieldcontrol-border-color);
+        --amplify-components-textareafield-focus-border-color: var(--amplify-components-fieldcontrol-focus-border-color);
         --amplify-components-textfield-color: var(--amplify-components-fieldcontrol-color);
         --amplify-components-textfield-border-color: var(--amplify-components-fieldcontrol-border-color);
         --amplify-components-textfield-font-size: var(--amplify-components-fieldcontrol-font-size);
