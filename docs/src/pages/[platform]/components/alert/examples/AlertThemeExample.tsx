@@ -35,7 +35,7 @@ const theme: Theme = {
 export const AlertThemeExample = () => (
   <ThemeProvider theme={theme} colorMode="light">
     <Flex direction="column">
-      <Alert heading="testing123">Hello</Alert>
+      <Alert heading="Default alert title">Hello</Alert>
       <Alert variation="info" heading="Info">
         Here is some info
       </Alert>
