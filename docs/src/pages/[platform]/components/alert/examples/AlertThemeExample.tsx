@@ -6,7 +6,7 @@ const theme: Theme = {
     components: {
       alert: {
         // Default styles
-        backgroundColor: { value: '{colors.teal.80}' },
+        backgroundColor: { value: '{colors.teal.20}' },
 
         icon: {
           size: { value: '{fontSizes.xxxl}' },
