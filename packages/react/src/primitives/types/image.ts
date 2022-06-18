@@ -4,7 +4,16 @@ import { ViewProps } from './view';
 import { ResponsiveStyle } from './style';
 
 export interface ImageStyleProps {
+  /**
+   * @description
+   *  Sets how the content of an <img> should be resized to fit its container
+   */
   objectFit?: ResponsiveStyle<Property.ObjectFit>;
+
+  /**
+   * @description
+   *  Specifies the alignment of the selected replaced element's contents within the element's box
+   */
   objectPosition?: ResponsiveStyle<Property.ObjectPosition>;
 }
 
@@ -34,11 +43,13 @@ export interface ImageOptions extends ImageStyleProps {
   srcSet?: React.ImgHTMLAttributes<HTMLImageElement>['srcSet'];
 
   /**
+   * @description
    * Handles loading event on image
    */
   onLoad?(event: React.SyntheticEvent<HTMLImageElement, Event>): void;
 
   /**
+   * @description
    * Handles error events on image
    */
   onError?(error: string | React.SyntheticEvent<HTMLImageElement, Event>): void;

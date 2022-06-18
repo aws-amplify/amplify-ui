@@ -50,6 +50,10 @@ export type PrimitivePropsWithRef<
   Props extends ViewProps,
   Element extends ElementType
 > = PrimitiveProps<Props, Element> & {
+  /**
+   * @description
+   * References a DOM element from within a parent component
+   */
   ref?: React.Ref<HTMLElementType<Element>>;
 };
 
@@ -65,6 +69,10 @@ export interface ViewProps
   extends BaseComponentProps,
     BaseStyleProps,
     AriaProps {
+  /**
+   * @description
+   * Changes the type of HTML element rendered
+   */
   as?: ElementType;
 
   isDisabled?: boolean;

@@ -44,5 +44,9 @@ export interface MenuProps extends FlexProps {
 }
 
 export interface MenuItemProps extends ButtonProps {
+  /**
+   * @description
+   * Accepts any number of MenuItem components
+   */
   children?: React.ReactNode;
 }

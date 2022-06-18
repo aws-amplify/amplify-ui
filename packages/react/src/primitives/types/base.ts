@@ -22,7 +22,22 @@ export interface BaseComponentProps {
 }
 
 export interface AriaProps {
+  /**
+   * @description
+   * Defines a string value that labels an interactive element for accessibility
+   */
   ariaLabel?: AriaAttributes['aria-label'];
+
+  /**
+   * @description
+   * Defines the human readable text alternative of `aria-valuenow` for a range widget
+   */
+  ariaValuetext?: AriaAttributes['aria-valuetext'];
+
+  /**
+   * @description
+   * Provides semantic meaning to content, allowing screen readers to support interaction in a way that is consistent with user expectations
+   */
   role?: React.AriaRole;
 }
 

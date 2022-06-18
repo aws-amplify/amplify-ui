@@ -38,7 +38,17 @@ export type TableCellElement = 'td' | 'th';
 
 export interface TableCellProps extends ViewProps {
   as?: TableCellElement;
+
+  /**
+   * @description
+   * Defines the number of columns spanned by a cell within a <table>
+   */
   colspan?: Pick<React.HTMLProps<HTMLTableCellElement>, 'colSpan'>;
+
+  /**
+   * @description
+   * Defines the number of rows spanned by a cell within a <table>
+   */
   rowspan?: Pick<React.HTMLProps<HTMLTableCellElement>, 'rowSpan'>;
 }
 

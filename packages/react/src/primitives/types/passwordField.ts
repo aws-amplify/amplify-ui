@@ -38,6 +38,10 @@ export interface PasswordFieldProps extends TextInputFieldProps {
 export type PasswordFieldType = 'password' | 'text';
 
 export interface ShowPasswordButtonProps extends ButtonProps {
+  /**
+   * @description
+   * Determines whether the input is hidden or displayed. Options include 'password' or 'text'
+   */
   fieldType: PasswordFieldType;
 
   /**
