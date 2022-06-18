@@ -13,7 +13,7 @@ import {
 import { sanitize } from './sanitize';
 import { TypeFileName } from 'scripts/types/allTypesData';
 
-const allTypesData = getAllTypesData();
+const { allTypeFilesInterfaceData, allTypeFilesTypeData } = getAllTypesData();
 
 const project = new Project({
   tsConfigFilePath: path.resolve(
@@ -139,12 +139,10 @@ function getCatalogComponentProperty(
     : (capitalizeString(getCategory(name, componentName)) as Category);
 
   const type =
-    (allTypesData
+    (allTypeFilesInterfaceData
       .get(category as TypeFileName)
       ?.get(name)
-      ?.get('type') as string) ?? propType.getText(); // use type from allTypesData because it has a better-looking format
-
-  const regex = /import\(\"\/[\w/-]+"\)\./g;
+      ?.get('type') as string) ?? propType.getText(); // use type from allTypeFilesInterfaceData because it has a better-looking format
 
   return {
     name: sanitize(name),
@@ -153,29 +151,45 @@ function getCatalogComponentProperty(
     category: sanitize(category),
     isOptional: property.isOptional(),
   };
-
-  function overwriteType(type, name, componentName) {
-    if (name === 'ref' && type === 'React.Ref<T>') {
-      type = 'React.Ref<HTMLElement>';
-    } else if (name === 'as' && type === 'Element | Props["as"]') {
-      type = 'Element';
-    } else if (name === 'viewBox' && type.includes('ViewBox')) {
-      type = `
-{
-  minX?: number;
-  minY?: number;
-  width?: number;
-  height?: number;
 }
-`;
-    } else if (type.includes('import')) {
-      [...type.matchAll(regex)].forEach((match) => {
-        type = type.replace(match, '');
-      });
-    }
 
-    return type;
+function overwriteType(type, name, componentName) {
+  const regex = /import\(\"\/[\w/-]+"\)\./g;
+
+  if (name === 'ref' && type === 'React.Ref<T>') {
+    type = 'React.Ref<HTMLElement>';
+  } else if (name === 'as' && type === 'Element | Props["as"]') {
+    type = 'Element';
   }
+  // else if (name === 'viewBox' && type.includes('ViewBox')) {
+  //     type = `
+  //     {
+  //       minX?: number;
+  //       minY?: number;
+  //       width?: number;
+  //       height?: number;
+  //     }
+  //     `;
+  //   }
+  else if (type.includes('import')) {
+    [...type.matchAll(regex)].forEach((match) => {
+      type = type.replace(match, '');
+    });
+  }
+
+  const definedInTypeFile = [
+    ...(allTypeFilesTypeData.get(componentName)?.values() || []),
+  ].find((val) => {
+    return (
+      val &&
+      type?.toLowerCase().includes(val.get('name').toString().toLowerCase())
+    );
+  });
+  if (definedInTypeFile) {
+    type = definedInTypeFile.get('type');
+  }
+
+  return type;
 }
 
 function isCallableNode(node: Node): node is VariableDeclaration {

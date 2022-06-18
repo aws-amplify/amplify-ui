@@ -12,7 +12,7 @@ import type {
 import { TypeFileName } from './types/allTypesData';
 
 const catalog = getCatalog();
-const allTypesData = getAllTypesData();
+const { allTypeFilesInterfaceData } = getAllTypesData();
 
 createAllPropsTables();
 
@@ -294,8 +294,10 @@ function getPropertiesFromAllTypeData(sourceTypes: TypeFileName[]) {
   let targetProps: Properties;
 
   sourceTypes.forEach((type) => {
-    if (!allTypesData.get(type)) return;
-    for (const [propName, property] of allTypesData.get(type).entries()) {
+    if (!allTypeFilesInterfaceData.get(type)) return;
+    for (const [propName, property] of allTypeFilesInterfaceData
+      .get(type)
+      .entries()) {
       targetProps = {
         ...targetProps,
         [propName]: {

@@ -26,20 +26,28 @@ export const getAllTypesData = () => {
     )
   );
 
-  const allTypeFilesData: AllTypeFileData = new Map();
+  const allTypeFilesInterfaceData: AllTypeFileData = new Map();
+  const allTypeFilesTypeData: AllTypeFileData = new Map();
 
   const allTypeFiles = source.getReferencedSourceFiles();
-  const names = [];
+
   allTypeFiles.forEach((typeFile) => {
     const typeFileName: TypeFileName = capitalizeString(
       typeFile.getBaseName().slice(0, typeFile.getBaseName().indexOf('.ts'))
     ) as TypeFileName;
-    names.push(typeFileName);
-    const typeFileData: TypeFileData = new Map();
+
+    const typeFileInterfaceData: TypeFileData = new Map();
+    const typeFileTypeData: TypeFileData = new Map();
+    const typeAliases = typeFile.getTypeAliases();
+    if (typeAliases) {
+      typeAliases.forEach((typeAlias) => {
+        setTypeData(typeAlias, typeFileName, typeFileTypeData);
+      });
+    }
 
     typeFile.getInterfaces().forEach((typeInterface) => {
       typeInterface.getProperties().forEach((typeProperty) => {
-        setTypeData(typeProperty, typeFileName, typeFileData);
+        setTypeData(typeProperty, typeFileName, typeFileInterfaceData);
       });
 
       if (
@@ -61,16 +69,17 @@ export const getAllTypesData = () => {
         typeData.set('description', heritageDescription);
         typeData.set('isOptional', true);
         typeData.set('category', typeFileName);
-        typeFileData.set(heritageName, typeData);
+        typeFileInterfaceData.set(heritageName, typeData);
       }
     });
 
-    allTypeFilesData.set(typeFileName, typeFileData);
+    allTypeFilesInterfaceData.set(typeFileName, typeFileInterfaceData);
+    allTypeFilesTypeData.set(typeFileName, typeFileTypeData);
 
     fs.writeFileSync(typeFile.getFilePath(), typeFile.getFullText());
   });
 
-  return allTypeFilesData;
+  return { allTypeFilesInterfaceData, allTypeFilesTypeData };
 };
 
 /**

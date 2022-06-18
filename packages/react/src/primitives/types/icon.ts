@@ -3,12 +3,12 @@ import { ViewProps } from './view';
 import { Sizes } from './base';
 import * as React from 'react';
 
-export interface ViewBox {
+export type ViewBox = {
   minX?: number;
   minY?: number;
   width?: number;
   height?: number;
-}
+};
 
 export type IconSize = Sizes;
 
