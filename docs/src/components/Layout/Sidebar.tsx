@@ -42,21 +42,23 @@ const NavLinks = ({
   onClick?: () => void;
 }) => (
   <Collection type="list" items={items} gap="0">
-    {({ href, label }) => (
-      <NavLink key={label} href={href} onClick={onClick}>
+    {({ href, label, tertiary }) => (
+      <NavLink key={label} href={href} tertiary={tertiary} onClick={onClick}>
         {label}
       </NavLink>
     )}
   </Collection>
 );
 
-const NavLink = ({ href, children, onClick, platforms = [] }) => {
+const NavLink = ({ href, children, onClick, tertiary, platforms = [] }) => {
   const {
     query: { platform = 'react' },
     pathname,
   } = useCustomRouter();
   const isCurrent = pathname === `/[platform]${href}`;
-  const classNames = `docs-secondary-nav-link ${isCurrent ? 'current' : ''}`;
+  const classNames = `${
+    tertiary ? 'docs-tertiary-nav-link' : 'docs-secondary-nav-link'
+  } ${isCurrent ? 'current' : ''}`;
 
   if (platforms.length && !platforms.includes(platform)) {
     return null;

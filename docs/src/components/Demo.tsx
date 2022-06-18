@@ -9,6 +9,7 @@ import {
   Button,
   useTheme,
 } from '@aws-amplify/ui-react';
+import { CopyButton } from './CopyButton';
 
 interface DemoProps {
   children: React.ReactNode;
@@ -34,7 +35,10 @@ export const Demo = ({
   };
 
   return (
-    <View className="docs-component-demo">
+    <View
+      className="docs-component-demo"
+      display={{ base: 'none', medium: 'block' }}
+    >
       <Flex
         direction={{
           base: 'column',
@@ -64,15 +68,11 @@ export const Demo = ({
           position="relative"
           backgroundColor={tokens.colors.background.secondary}
         >
-          <CopyToClipboard text={code} onCopy={copy}>
-            <Button
-              size="small"
-              className="example-copy-button"
-              disabled={copied}
-            >
-              {copied ? 'Copied!' : 'Copy'}
-            </Button>
-          </CopyToClipboard>
+          <CopyButton
+            className="example-copy-button"
+            copyText={code}
+            size="small"
+          />
           <Highlight Prism={defaultProps.Prism} code={code} language="jsx">
             {({ className, style, tokens, getLineProps, getTokenProps }) => (
               <pre

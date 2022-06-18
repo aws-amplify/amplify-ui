@@ -2,6 +2,7 @@ export interface ComponentNavItem {
   href: string;
   label: string;
   body: string;
+  tertiary?: boolean;
 }
 
 const sortByLabel = (a: ComponentNavItem, b: ComponentNavItem) =>
@@ -60,12 +61,30 @@ export const connectedComponents = [
     platforms: ['react', 'vue', 'angular', 'flutter'],
   },
   {
+    href: '/components/authenticator/configuration',
+    label: 'Configuration',
+    platforms: ['react', 'vue', 'angular', 'flutter'],
+    tertiary: true,
+  },
+  {
+    href: '/components/authenticator/customization',
+    label: 'Customization',
+    platforms: ['react', 'vue', 'angular', 'flutter'],
+    tertiary: true,
+  },
+  {
+    href: '/components/authenticator/headless',
+    label: 'Headless Usage',
+    platforms: ['react', 'vue', 'angular', 'flutter'],
+    tertiary: true,
+  },
+  {
     href: '/components/geo',
     label: 'Geo',
     body: 'Amplify UI Geo provides UI components for maps and location search built on top of Amazon Location Service.',
     platforms: ['react'],
   },
-].sort(sortByLabel);
+];
 
 export const dataDisplayComponents = [
   {
@@ -324,6 +343,10 @@ export const guides = [
 
 export const gettingStarted = [
   {
+    href: '/getting-started/introduction',
+    label: 'Introduction',
+  },
+  {
     href: '/getting-started/installation',
     label: 'Installation',
   },
@@ -332,12 +355,20 @@ export const gettingStarted = [
     label: 'Usage',
   },
   {
-    href: '/getting-started/create-react-app',
+    href: '/getting-started/usage/create-react-app',
     label: 'Create React App',
+    platforms: ['react'],
+    tertiary: true,
   },
   {
-    href: '/getting-started/nextjs',
+    href: '/getting-started/usage/nextjs',
     label: 'Next.js',
+    platforms: ['react'],
+    tertiary: true,
+  },
+  {
+    href: '/getting-started/accessibility',
+    label: 'Accessibility',
   },
   {
     href: '/getting-started/migration',
@@ -359,7 +390,30 @@ export const theming = [
   {
     href: '/theming/responsive',
     label: 'Responsive',
+    platforms: ['react'],
+  },
+  {
+    href: '/theming/default-theme',
+    label: 'Default Theme',
     platforms: ['react', 'vue', 'angular'],
+  },
+  {
+    href: '/theming/default-theme/colors',
+    label: 'Colors',
+    platforms: ['react', 'vue', 'angular'],
+    tertiary: true,
+  },
+  {
+    href: '/theming/default-theme/typography',
+    label: 'Typography',
+    platforms: ['react', 'vue', 'angular'],
+    tertiary: true,
+  },
+  {
+    href: '/theming/default-theme/sizes',
+    label: 'Sizes',
+    platforms: ['react', 'vue', 'angular'],
+    tertiary: true,
   },
   {
     href: '/theming/dark-mode',

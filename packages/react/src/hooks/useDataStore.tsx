@@ -34,7 +34,7 @@ export const useDataStoreCollection = <M extends PersistentModel>({
       pagination
     ).subscribe(
       (snapshot) => setResult({ items: snapshot.items, isLoading: false }),
-      (error) => setResult({ items: [], error, isLoading: false })
+      (error: Error) => setResult({ items: [], error, isLoading: false })
     );
 
     // Unsubscribe from query updates on unmount

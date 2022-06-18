@@ -1,7 +1,6 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { act, renderHook } from '@testing-library/react-hooks';
 import { useStorageURL } from '../useStorageURL';
 import { S3ProviderGetConfig, Storage } from '@aws-amplify/storage';
-import { act } from 'react-dom/test-utils';
 
 jest.mock('@aws-amplify/storage');
 

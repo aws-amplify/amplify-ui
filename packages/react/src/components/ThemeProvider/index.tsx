@@ -18,48 +18,14 @@ export function AmplifyProvider({
   colorMode,
   theme,
   nonce,
-}: ThemeProviderProps) {
-  const webTheme = createTheme(theme);
-  const { name, cssText } = webTheme;
+}: ThemeProviderProps): JSX.Element {
+  const value = React.useMemo(() => ({ theme: createTheme(theme) }), [theme]);
+  const {
+    theme: { name, cssText },
+  } = value;
 
-  // In order for the theme to apply to Portalled elements like our Menu
-  // we need to put the CSS variables we generate from the theme on the
-  // root element. The CSS selector that contains the CSS variables
-  // uses the data attributes present on the root element, and because
-  // the same data attributes are on a div down the DOM tree, the CSS variables
-  // will apply to both.
-  React.useEffect(() => {
-    if (document && document.documentElement) {
-      // Keep original data attributes to reset on unmount
-      const originalName =
-        document.documentElement.getAttribute('data-amplify-theme') ?? name;
-      const originalColorMode =
-        document.documentElement.getAttribute('data-amplify-color-mode') ||
-        colorMode;
-      document.documentElement.setAttribute('data-amplify-theme', name);
-      document.documentElement.setAttribute(
-        'data-amplify-color-mode',
-        colorMode || originalColorMode
-      );
-
-      return function cleanup() {
-        document.documentElement.setAttribute(
-          'data-amplify-theme',
-          originalName
-        );
-        document.documentElement.setAttribute(
-          'data-amplify-color-mode',
-          originalColorMode
-        );
-      };
-    }
-  }, [name, colorMode]);
   return (
-    <AmplifyContext.Provider
-      value={{
-        theme: webTheme,
-      }}
-    >
+    <AmplifyContext.Provider value={value}>
       {/*
           The data attributes on here as well as the root element allow for nested
           themes to work because CSS variables are inherited, ones closer in the 
@@ -119,6 +85,7 @@ export function AmplifyProvider({
       {typeof theme === 'undefined' || /<\/style/i.test(cssText) ? null : (
         <style
           id={`amplify-theme-${name}`}
+          // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: cssText }}
           nonce={nonce}
         />

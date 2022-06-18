@@ -23,7 +23,7 @@ export const useDataStoreCreateAction = <Model extends PersistentModel>({
   model,
   fields: initialFields,
   schema,
-}: UseDataStoreCreateActionOptions<Model>) => {
+}: UseDataStoreCreateActionOptions<Model>): (() => Promise<void>) => {
   const fields = useTypeCastFields<Model>({
     fields: initialFields,
     modelName: model.name,

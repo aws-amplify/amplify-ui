@@ -99,24 +99,12 @@ describe('Link: ', () => {
       </Link>
     );
     const link = await screen.findByText(linkText);
-    expect(
-      link.style.getPropertyValue(ComponentPropsToStylePropsMap.color)
-    ).toBe('blue');
-    expect(
-      link.style.getPropertyValue(
-        kebabCase(ComponentPropsToStylePropsMap.fontSize)
-      )
-    ).toBe('1.2em');
-    expect(
-      link.style.getPropertyValue(
-        kebabCase(ComponentPropsToStylePropsMap.fontWeight)
-      )
-    ).toBe('bold');
-    expect(
-      link.style.getPropertyValue(
-        kebabCase(ComponentPropsToStylePropsMap.textDecoration)
-      )
-    ).toBe('underline');
+    expect(link).toHaveStyle({
+      color: 'blue',
+      fontSize: '1.2em',
+      fontWeight: 'var(--amplify-font-weights-bold)',
+      textDecoration: 'underline',
+    });
   });
 
   it('can integrate with react-router-dom using the "to" prop', async () => {
