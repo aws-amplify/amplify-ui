@@ -31,6 +31,7 @@ export const StepperFieldThemeExample = () => {
         min={0}
         max={10}
         step={1}
+        labelHidden={true}
       />
     </ThemeProvider>
   );
