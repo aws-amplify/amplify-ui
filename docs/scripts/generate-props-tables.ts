@@ -230,7 +230,7 @@ function getPropsSortedByCategory(
             break;
         }
       })
-      .filter((val) => Object.values(val)[0]);
+      .filter((v) => Object.values(Object.values(v)[0])[0]);
   } else {
     console.log(` 🫥  ${componentPageName} doesn't have any type properties.`);
     return null;
