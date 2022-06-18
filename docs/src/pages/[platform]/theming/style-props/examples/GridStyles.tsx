@@ -16,6 +16,9 @@ export const gridProperties = [
   'rowEnd',
   'rowSpan',
   'rowStart',
+  'gap',
+  'columnGap',
+  'rowGap',
 ];
 
 export const GridStyles = () => {

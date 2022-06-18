@@ -6,6 +6,10 @@ export const flexProperties = [
   'flex',
   'order',
   'grow',
+  'justifyContent',
+  'alignContent',
+  'alignItems',
+  'alignSelf',
   'shrink',
   'basis',
 ];

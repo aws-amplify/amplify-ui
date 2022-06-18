@@ -5,7 +5,6 @@ import {
   TableRow,
   TableCell,
   ComponentPropsToStylePropsMap,
-  stylePropsToThemeKeys,
 } from '@aws-amplify/ui-react';
 
 const convertToKebab = (name) => {
@@ -17,9 +16,8 @@ export const PropertyTable = ({ properties = [] }) => {
     <Table variation="striped">
       <TableHead>
         <TableRow>
-          <TableCell as="th">Property</TableCell>
+          <TableCell as="th">Style Prop</TableCell>
           <TableCell as="th">CSS Property</TableCell>
-          <TableCell as="th">Theme Root</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
@@ -30,7 +28,6 @@ export const PropertyTable = ({ properties = [] }) => {
               <TableCell>
                 {convertToKebab(ComponentPropsToStylePropsMap[property])}
               </TableCell>
-              <TableCell>{stylePropsToThemeKeys[property] || 'none'}</TableCell>
             </TableRow>
           );
         })}

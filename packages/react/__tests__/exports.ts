@@ -17,7 +17,6 @@ describe('@aws-amplify/ui-react', () => {
           "defaultDarkModeOverride",
           "defaultTheme",
           "translations",
-          "stylePropsToThemeKeys",
           "ComponentClassNames",
           "ComponentClassObject",
           "ComponentPropsToStylePropsMap",

@@ -5,7 +5,6 @@ import { borderProperties } from './BorderStyles';
 import { colorProperties } from './ColorStyles';
 import { flexProperties } from './FlexStyles';
 import { gridProperties } from './GridStyles';
-import { layoutProperties } from './LayoutStyles';
 import { marginProperties } from './MarginAndPaddingStyles';
 import { positionProperties } from './PositionStyles';
 import { shadowProperties } from './ShadowStyles';
@@ -18,7 +17,6 @@ const allProperties = [
   ...colorProperties,
   ...flexProperties,
   ...gridProperties,
-  ...layoutProperties,
   ...marginProperties,
   ...positionProperties,
   ...shadowProperties,
