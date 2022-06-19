@@ -10,7 +10,7 @@ export const TypographyStylePropExample = () => {
 };
 
 // use a design token from the theme object
-export const SizeThemeTokenExample = () => {
+export const TypographyThemeTokenExample = () => {
   const { tokens } = useTheme();
   return (
     <Text
@@ -24,7 +24,7 @@ export const SizeThemeTokenExample = () => {
 };
 
 // use a design token name
-export const SizeTokenNameExample = () => {
+export const TypographyTokenNameExample = () => {
   return (
     <Text fontSize="xxl" fontWeight="semibold" lineHeight="medium">
       Typography Styling Example

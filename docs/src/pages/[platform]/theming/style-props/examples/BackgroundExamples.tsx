@@ -3,7 +3,9 @@ import { Card, useTheme } from '@aws-amplify/ui-react';
 // use any CSS value
 export const BackgroundStylePropExample = () => {
   return (
-    <Card backgroundColor="rgb(4, 125, 149)">Background Styling Example</Card>
+    <Card backgroundColor="hsl(190, 95%, 30%)" color="#fff">
+      Background Styling Example
+    </Card>
   );
 };
 
@@ -11,7 +13,10 @@ export const BackgroundStylePropExample = () => {
 export const BackgroundThemeTokenExample = () => {
   const { tokens } = useTheme();
   return (
-    <Card backgroundColor={tokens.colors.brand.primary[40]}>
+    <Card
+      backgroundColor={tokens.colors.brand.primary[80]}
+      color={tokens.colors.white}
+    >
       Background Styling Example
     </Card>
   );
@@ -20,6 +25,8 @@ export const BackgroundThemeTokenExample = () => {
 // use a design token name
 export const BackgroundTokenNameExample = () => {
   return (
-    <Card backgroundColor="brand.primary.40">Background Styling Example</Card>
+    <Card backgroundColor="brand.primary.80" color="white">
+      Background Styling Example
+    </Card>
   );
 };

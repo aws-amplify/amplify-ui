@@ -3,7 +3,7 @@ import { Alert, useTheme } from '@aws-amplify/ui-react';
 // use any CSS value
 export const ColorStylePropExample = () => {
   return (
-    <Alert variation="info" color="rgb(125, 214, 232)">
+    <Alert backgroundColor="#fff" color="hsl(190, 50%, 50%)">
       Color Styling Example
     </Alert>
   );
@@ -13,14 +13,19 @@ export const ColorStylePropExample = () => {
 export const ColorThemeTokenExample = () => {
   const { tokens } = useTheme();
   return (
-    <Alert color={tokens.colors.brand.primary[80]}>Color Styling Example</Alert>
+    <Alert
+      backgroundColor={tokens.colors.white}
+      color={tokens.colors.brand.primary[60]}
+    >
+      Color Styling Example
+    </Alert>
   );
 };
 
 // use a design token name
 export const ColorTokenNameExample = () => {
   return (
-    <Alert variation="info" color="brand.primary.80">
+    <Alert backgroundColor="white" color="brand.primary.60">
       Color Styling Example
     </Alert>
   );
