@@ -9,12 +9,12 @@ import {
   Authenticator,
   useBreakpointValue,
 } from '@aws-amplify/ui-react';
-import { HomeCode } from './HomeCode';
-import { HomeCTA } from './HomeCTA';
+import { HomeCode } from '@/components/home/HomeCode';
+import { HomeCTA } from '@/components/home/HomeCTA';
 import { HomeCodeHighlight } from '@/components/CodeHighlight';
 import { useIntersectionObserver } from '@/components/useIntersection';
 import { FlutterAuthenticatorExample } from '@/components/FlutterAuthenticatorExample';
-import { BrowserMock } from './BrowserMock';
+import { BrowserMock } from '@/components/home/BrowserMock';
 
 // TODO: grab this code from actual examples so we don't need to keep these in sync
 const authenticatorCode = {

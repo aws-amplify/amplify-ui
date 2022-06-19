@@ -1,8 +1,10 @@
 import * as React from 'react';
 
 import { useCustomRouter } from '@/components/useCustomRouter';
-import { AuthenticationSection } from './home/AuthenticationSection';
-import { AmplifySection } from './home/AmplifySection';
+import {
+  AmplifySection,
+  AuthenticationSection,
+} from '@/components/home/sections';
 
 const FlutterHomePage = ({ colorMode }) => {
   const {

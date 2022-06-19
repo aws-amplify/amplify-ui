@@ -9,7 +9,6 @@ import {
   useTheme,
   View,
 } from '@aws-amplify/ui-react';
-import router from 'next/router';
 
 export const HeroSection = () => {
   const { tokens } = useTheme();
@@ -67,7 +66,7 @@ export const HeroSection = () => {
                 className="install-code__button"
                 variation="link"
                 size="large"
-                text={frameworkInstallScript}
+                copyText={frameworkInstallScript}
               />
             </View>
           </Flex>

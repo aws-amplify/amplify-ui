@@ -13,27 +13,6 @@
   radial-gradient(circle closest-side at 42px, #92D148 90%, #FFFFFF00);
 }
 
-.docs-home-feature-card {
-  border-width: 0;
-}
-
-.docs-home-flutter {
-  height: 10rem;
-  padding: 1.4rem 0 0.6rem 0.75rem;
-}
-
-.docs-home-vue {
-  height: 10rem;
-}
-
-.docs-home-react {
-  height: 10rem;
-}
-
-.docs-home-angular {
-  height: 10rem;
-}
-
 .docs-home-section {
   position: relative;
   padding: var(--amplify-space-large);
@@ -87,27 +66,6 @@
   }
 }
 
-.docs-home .docs-main {
-  
-  & .amplify-heading {
-    margin-bottom: var(--amplify-space-large);
-    font-weight: var(--amplify-font-weights-bold);
-    text-align: center;
-    & > strong {
-      position: relative;
-      font-weight: var(--amplify-font-weights-black);
-      &::after {
-        content: '';
-        position: absolute;
-        bottom: calc(-1 * var(--amplify-space-xs)); left: 0; right: 0;
-        height: var(--amplify-space-xs);
-        background-color: var(--amplify-colors-brand-secondary-60);
-        background-image: linear-gradient(90deg, var(--amplify-colors-brand-secondary-40) 0%, var(--amplify-colors-brand-primary-40) 100%);
-        transform: skewX(-15deg);
-      }
-    }
-  }
-}
 
 .docs-home-text {
   font-size: var(--amplify-font-sizes-large);
@@ -116,123 +74,88 @@
   }
 }
 
-.install-code__container {
-  display: flex;
-  flex: 1;
-  background-color: var(--amplify-colors-background-primary);
-  border-radius: var(--amplify-radii-small);
-  align-items: center;
-  box-shadow: var(--amplify-shadows-medium);
-  padding: var(--amplify-space-xs);
-}
 
-.install-code__content {
-  flex: 1;
-  margin-inline-end: var(--amplify-space-medium);
-  overflow-x: auto;
-  white-space: normal;
-  background-color: var(--amplify-colors-background-primary);
-  
-  
-  @media (min-width: $breakpoint-large) {
-    font-size: var(--amplify-font-sizes-large);
-    &::before {
-      content: '$';
-      color: var(--amplify-colors-brand-secondary-40);
-      margin-inline-end: var(--amplify-space-small);
-    }
-  }
-  
+
+.docs-home {
 
 }
 
-.install-code__button {
-  margin-left: auto;
-  // Hiding on smaller screens
-  // because there's not enough space
-  @media (max-width: $breakpoint-small) {
-    display: none;
-  }
-}
-
-.docs-home-amp-product-card {
-  position: relative;
-  transition: transform var(--amplify-time-medium) ease;
-  padding: var(--amplify-space-xl);
-  border-radius: var(--amplify-radii-small);
-  background-color: var(--amplify-colors-brand-secondary-60);
-  background-image: linear-gradient(90deg, var(--amplify-colors-brand-secondary-60) 0%, var(--amplify-colors-brand-primary-60) 100%);
-  color: var(--amplify-colors-font-inverse);
-  text-shadow: 0 0 var(--amplify-font-sizes-medium) var(--amplify-colors-overlay-50);
-  box-shadow: var(--amplify-shadows-medium);
-
-  &:hover {
-    transform: scale(1.05);
-  }
-}
-
-.docs-home-amp-product-card-icon {
-  font-size: var(--amplify-font-sizes-xxl);
-  color: var(--amplify-colors-font-inverse);
-  opacity: 0.5;
-}
-
-.docs-home-amp-product-card-title {
-  font-weight: var(--amplify-font-weights-bold);
-  font-size: var(--amplify-font-sizes-large);
-  color: var(--amplify-colors-font-inverse);
-}
-
-.docs-home-amp-product-card-description {
-  color: var(--amplify-colors-font-secondary);
-  color: var(--amplify-colors-font-inverse);
-}
-
-.docs-home .docs-main {
-  .docs-framework-chooser {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    width: 100%;
-  }
-  
-  .docs-framework-link {
-    flex: 1;
-    flex-direction: column;
-    padding: var(--amplify-space-large);
-    font-size: var(--amplify-font-sizes-xl);
+.docs-home {
+  .install-code__container {
     background-color: var(--amplify-colors-background-primary);
-    opacity: 0.75;
+    border-radius: var(--amplify-radii-small);
     box-shadow: var(--amplify-shadows-medium);
-    border-color: var(--amplify-colors-brand-primary-40);
-    transition: all var(--amplify-time-medium) ease;
-    
-    .docs-framework-img {
-      transition: all var(--amplify-time-medium) ease;
-    }
-    
-    &:hover,
-    &.current {
-      opacity: 1;
-      border-color: var(--amplify-colors-brand-primary-80);
-    }
-    
-    &:hover .docs-framework-img,
-    &.current .docs-framework-img {
-      filter: grayscale(0%);
-    }
-
-    &:focus {
-      border-color: var(--amplify-components-button-active-border-color);
-      box-shadow: var(--amplify-components-button-focus-box-shadow)
-    }
-
+    padding: var(--amplify-space-xs);
   }
   
-  .docs-framework-img {
-    width: var(--amplify-font-sizes-xxxxl);
-    height: var(--amplify-font-sizes-xxxxl);
-    filter: grayscale(100%);
+  .install-code__content {
+    background-color: var(--amplify-colors-background-primary);
+    
+    @media (min-width: $breakpoint-large) {
+      font-size: var(--amplify-font-sizes-large);
+    }
+  }
+  & .docs-main {
+    & .amplify-heading {
+      margin-bottom: var(--amplify-space-large);
+      font-weight: var(--amplify-font-weights-bold);
+      text-align: center;
+      & > strong {
+        position: relative;
+        font-weight: var(--amplify-font-weights-black);
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: calc(-1 * var(--amplify-space-xs)); left: 0; right: 0;
+          height: var(--amplify-space-xs);
+          background-color: var(--amplify-colors-brand-secondary-60);
+          background-image: linear-gradient(90deg, var(--amplify-colors-brand-secondary-40) 0%, var(--amplify-colors-brand-primary-40) 100%);
+          transform: skewX(-15deg);
+        }
+      }
+    }
+    
+    .docs-framework-chooser {
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      width: 100%;
+    }
+    
+    .docs-framework-link {
+      flex: 1;
+      flex-direction: column;
+      padding: var(--amplify-space-large);
+      font-size: var(--amplify-font-sizes-xl);
+      background-color: var(--amplify-colors-background-primary);
+      opacity: 0.75;
+      box-shadow: var(--amplify-shadows-medium);
+      border-color: var(--amplify-colors-brand-primary-40);
+      transition: all var(--amplify-time-medium) ease;
+      
+      .docs-framework-img {
+        width: var(--amplify-font-sizes-xxxxl);
+        height: var(--amplify-font-sizes-xxxxl);
+        filter: grayscale(100%);
+        transition: all var(--amplify-time-medium) ease;
+      }
+      
+      &:hover,
+      &.current {
+        opacity: 1;
+        border-color: var(--amplify-colors-brand-primary-80);
+      }
+      
+      &:hover .docs-framework-img,
+      &.current .docs-framework-img {
+        filter: grayscale(0%);
+      }
+
+      &:focus {
+        border-color: var(--amplify-components-button-active-border-color);
+        box-shadow: var(--amplify-components-button-focus-box-shadow)
+      }
+    }
   }
 }
 
@@ -384,16 +307,6 @@ pre.with-lines,
     }
   }
   
-  &[data-editable]:hover {
-    border-color: var(--amplify-colors-brand-primary-40);
-  }
-  
-  &[data-editable]:focus,
-  &[data-editable]:focus-within {
-    border-color: var(--amplify-colors-brand-primary-60);
-    box-shadow: 0 0 0.5rem var(--amplify-colors-brand-primary-60);
-  }
-  
   & pre.prism-code {
     margin: 0;
     padding: 0;
@@ -516,7 +429,8 @@ pre.scrollable.prism-code {
   left: -.25rem;
   right: -.25rem;
   
-  &::before {
+  &::before,
+  &::after {
     content: '';
     position: absolute;
     width: 0.5rem;
@@ -524,15 +438,10 @@ pre.scrollable.prism-code {
     outline: 2px solid #1ABCFE;
     background: var(--amplify-colors-background-primary);
   }
+  
   &::after {
-    content: '';
-    position: absolute;
     right: 0;
     left: auto;
-    width: 0.5rem;
-    height: 0.5rem;
-    outline: 2px solid #1ABCFE;
-    background: var(--amplify-colors-background-primary);
   }
   
   &:nth-child(2) {
@@ -540,22 +449,6 @@ pre.scrollable.prism-code {
     bottom: .25rem;
   }
 }
-
-
-.fade-in {
-  // Only fade things in for people without reduced motion preference
-  @media (prefers-reduced-motion: no-preference) {
-    opacity: 0;
-    transition: all var(--amplify-time-long) ease var(--amplify-time-medium);
-    transform: translateY(var(--amplify-space-medium));
-    
-    &.shown {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-}
-
 
 .docs-home-browser {
   &__nav-bar {

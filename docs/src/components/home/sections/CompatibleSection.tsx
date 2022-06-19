@@ -2,8 +2,8 @@ import { Flex, Heading, View } from '@aws-amplify/ui-react';
 import { SiTypescript } from 'react-icons/si';
 import { MdOutlineFlashOff, MdOutlineSupport } from 'react-icons/md';
 
-import { HomeCTA } from './HomeCTA';
-import { HomeFeatureCard } from './HomeFeatureCard';
+import { HomeCTA } from '@/components/home/HomeCTA';
+import { HomeFeatureCard } from '@/components/home/HomeFeatureCard';
 import { useIntersectionObserver } from '@/components/useIntersection';
 import { useRef } from 'react';
 

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { MdOutlineAutoAwesome } from 'react-icons/md';
 import { Heading, View, Text, Flex } from '@aws-amplify/ui-react';
-import { ThemeSwitcher } from 'src/pages/[platform]/home/ThemeSwitcher';
-import { HomeCTA } from 'src/pages/[platform]/home/HomeCTA';
+import { ThemeSwitcher } from '@/components/home/ThemeSwitcher';
+import { HomeCTA } from '@/components/home/HomeCTA';
 import { useIntersectionObserver } from '@/components/useIntersection';
 
 export const ThemingSection = ({ colorMode, platform }) => {

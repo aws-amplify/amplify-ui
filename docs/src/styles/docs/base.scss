@@ -250,9 +250,16 @@ h4:hover>  a .icon-link {
   }
 }
 
-.container {
-  max-width: 100em; // 1600px;
-  margin-right: auto;
-  margin-left: auto;
-  overflow: hidden;
+.fade-in {
+  // Only fade things in for people without reduced motion preference
+  @media (prefers-reduced-motion: no-preference) {
+    opacity: 0;
+    transition: all var(--amplify-time-long) ease var(--amplify-time-medium);
+    transform: translateY(var(--amplify-space-medium));
+    
+    &.shown {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
 }

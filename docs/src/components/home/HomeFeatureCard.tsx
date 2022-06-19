@@ -1,8 +1,9 @@
 import { Flex, Icon as AmpIcon, Text, View } from '@aws-amplify/ui-react';
 
-export const HomeFeatureCard = ({ title, Icon, children }) => {
+export const HomeFeatureCard = ({ title, Icon, children, ...rest }) => {
   return (
     <Flex
+      {...rest}
       direction="column"
       flex="1"
       alignItems={['center', 'center', 'flex-start']}

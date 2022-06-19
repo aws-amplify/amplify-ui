@@ -7,7 +7,6 @@ import {
   ContextProps,
 } from 'react-live';
 import * as AUI from '@aws-amplify/ui-react';
-import { HomeCode } from './HomeCode';
 
 const { Flex, View, Alert } = AUI;
 
@@ -72,7 +71,6 @@ const HomeEditor = () => {
       code={code}
     >
       <View className="docs-home-editor">
-        {/* <HomeCode maxHeight="80vh" overflow="scroll" flex="1" data-editable> */}
         <View
           flex="1"
           className="docs-home-editor__code-panel with-lines scrollable"

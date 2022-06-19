@@ -4,26 +4,18 @@ import {
   MdFormatAlignJustify,
   MdFormatAlignLeft,
   MdFormatAlignRight,
-  MdFormatBold,
-  MdFormatItalic,
-  MdFormatUnderlined,
   MdOutlineWidgets,
 } from 'react-icons/md';
 import {
   Heading,
-  useBreakpointValue,
   Text,
   View,
-  Grid,
   Card,
-  TextField,
   Flex,
-  Alert,
   CheckboxField,
   RadioGroupField,
   Radio,
   SliderField,
-  Loader,
   SearchField,
   SwitchField,
   Tabs,
@@ -33,9 +25,8 @@ import {
   ToggleButton,
   Button,
   Pagination,
-  Placeholder,
 } from '@aws-amplify/ui-react';
-import { HomeCTA } from 'src/pages/[platform]/home/HomeCTA';
+import { HomeCTA } from '@/components/home/HomeCTA';
 import { useIntersectionObserver } from '@/components/useIntersection';
 import { upperFirst } from 'lodash';
 

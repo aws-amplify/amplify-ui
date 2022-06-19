@@ -8,8 +8,8 @@ import {
   MdAccessibilityNew,
 } from 'react-icons/md';
 
-import { HomeCTA } from './HomeCTA';
-import { HomeFeatureCard } from './HomeFeatureCard';
+import { HomeCTA } from '../HomeCTA';
+import { HomeFeatureCard } from '../HomeFeatureCard';
 import { useIntersectionObserver } from '@/components/useIntersection';
 
 export const A11ySection = ({ platform }) => {

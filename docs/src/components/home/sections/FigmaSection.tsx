@@ -1,14 +1,13 @@
 import * as React from 'react';
 import { HomeCodeHighlight } from '@/components/CodeHighlight';
 import { DataIcon } from '@/components/Icons';
-import { HomeCTA } from './HomeCTA';
+import { HomeCTA } from '@/components/home/HomeCTA';
 import {
   Button,
   Card,
   Flex,
   Heading,
   Icon,
-  Image,
   Rating,
   Text,
   useTheme,
@@ -36,9 +35,6 @@ const StudioCard = () => {
       <View className="docs-home-figma-node-handles" />
       <Card variation="elevated">
         <Flex direction="column">
-          {/* <View className="docs-home-figma-data">
-            <Image alt="" src="/amplify-placeholder.svg" width="100%" />
-          </View> */}
           <Text
             className="docs-home-figma-data"
             fontSize={tokens.fontSizes.large}

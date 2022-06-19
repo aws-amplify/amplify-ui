@@ -1,15 +1,17 @@
 import * as React from 'react';
+import { useBreakpointValue } from '@aws-amplify/ui-react';
 
 import { useCustomRouter } from '@/components/useCustomRouter';
-import { A11ySection } from './home/A11ySection';
-import { FigmaSection } from './home/FigmaSection';
-import { AuthenticationSection } from './home/AuthenticationSection';
-import { ThemingSection } from './home/ThemingSection';
-import { CompatibleSection } from './home/CompatibleSection';
-import { PrimitiveSection } from './home/PrimitiveSection';
-import { LiveSection } from './home/LiveSection';
-import { AmplifySection } from './home/AmplifySection';
-import { useBreakpointValue } from '@aws-amplify/ui-react';
+import {
+  A11ySection,
+  AmplifySection,
+  AuthenticationSection,
+  CompatibleSection,
+  FigmaSection,
+  LiveSection,
+  PrimitiveSection,
+  ThemingSection,
+} from '@/components/home/sections';
 
 const ReactHomePage = ({ colorMode }) => {
   const {

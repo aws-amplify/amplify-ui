@@ -1,44 +1,8 @@
-import {
-  Grid,
-  Heading,
-  Link,
-  Text,
-  View,
-  Flex,
-  Icon as AmpIcon,
-  Button,
-} from '@aws-amplify/ui-react';
-import {
-  AmplifyIcon,
-  ServerIcon,
-  LibraryIcon,
-  CLIIcon,
-} from '@/components/Icons';
-import { useIntersectionObserver } from '@/components/useIntersection';
 import { useRef } from 'react';
-import { HomeFeatureCard } from './HomeFeatureCard';
-
-const AmpCard = ({ title, description, href, Icon }) => (
-  <Flex
-    as={Link}
-    alignItems="center"
-    isExternal
-    href={href}
-    className="docs-home-amp-product-card"
-  >
-    <Icon
-      aria-label=""
-      as={AmpIcon}
-      className="docs-home-amp-product-card-icon"
-    />
-    <View flex="1">
-      <Text className="docs-home-amp-product-card-title">{title}</Text>
-      <Text className="docs-home-amp-product-card-description">
-        {description}
-      </Text>
-    </View>
-  </Flex>
-);
+import { Heading, Link, View, Flex, Button } from '@aws-amplify/ui-react';
+import { AmplifyIcon, ServerIcon, LibraryIcon } from '@/components/Icons';
+import { useIntersectionObserver } from '@/components/useIntersection';
+import { HomeFeatureCard } from '../HomeFeatureCard';
 
 export const AmplifySection = ({ platform }) => {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -58,7 +22,7 @@ export const AmplifySection = ({ platform }) => {
         <Heading level={2}>
           Better <strong>together</strong> with AWS Amplify
         </Heading>
-        {/* <Flex direction="column"> */}
+
         <HomeFeatureCard
           title="Build your application visually in Amplify Studio"
           Icon={AmplifyIcon}
@@ -67,7 +31,7 @@ export const AmplifySection = ({ platform }) => {
           File storage and more in minutes. Start small and build to the full
           scale of AWS!
           {platform === 'react'
-            ? 'Build components visually in Figma, bind them to your data, and use them in your codebase.'
+            ? ' Build components visually in Figma, bind them to your data, and use them in your codebase.'
             : ''}
           <br />
           <Link href="https://docs.amplify.aws/console/">
@@ -101,36 +65,6 @@ export const AmplifySection = ({ platform }) => {
             Learn more about Amplify Hosting
           </Link>
         </HomeFeatureCard>
-        {/* </Flex> */}
-        {/* <Grid
-          className="docs-home-subsection--thin"
-          templateColumns={{ base: '1fr', medium: '1fr 1fr' }}
-        >
-          <AmpCard
-            href={`https://docs.amplify.aws/lib/q/platform/${platform}/`}
-            title="Amplify Libraries"
-            Icon={LibraryIcon}
-            description="Connect app to new or existing AWS services (Cognito, S3, and more)."
-          />
-          <AmpCard
-            href="https://docs.amplify.aws/cli/"
-            title="Amplify CLI"
-            Icon={CLIIcon}
-            description="Configure an app backend with a guided CLI workflow."
-          />
-          <AmpCard
-            href="https://docs.aws.amazon.com/amplify/latest/userguide/getting-started.html"
-            title="Amplify Hosting"
-            Icon={ServerIcon}
-            description="Fully managed web hosting with full-stack CI/CD."
-          />
-          <AmpCard
-            href="https://docs.amplify.aws/console/"
-            title="Amplify Studio"
-            Icon={AmplifyIcon}
-            description="Visual development environment to accelerate full-stack development."
-          />
-        </Grid> */}
       </Flex>
     </View>
   );
