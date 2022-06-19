@@ -10,6 +10,6 @@ export { RequiredFieldStyledExample } from './RequiredFieldStyledExample';
 export { SizeExample } from './SizeExample';
 export { StatesExample } from './StatesExample';
 export { StylePropsExample } from './StylePropsExample';
-export { ThemingExample } from './ThemingExample';
+export { PhoneNumberFieldThemeExample } from './PhoneNumberFieldThemeExample';
 export { ValidationErrorExample } from './ValidationErrorExample';
 export { VariationExample } from './VariationExample';

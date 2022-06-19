@@ -1,18 +1,24 @@
-import { ThemeProvider, Card, Text, Flex } from '@aws-amplify/ui-react';
+import { Card, Text, Flex, ThemeProvider, Theme } from '@aws-amplify/ui-react';
 
-const cardTheme = {
+const theme: Theme = {
   name: 'card-theme',
   tokens: {
     components: {
       card: {
         // You can reference other tokens
-        backgroundColor: { value: '{colors.background.success.value}' },
+        backgroundColor: { value: '{colors.background.success}' },
+        borderRadius: { value: '{radii.large}' },
+        padding: { value: '{space.xl}' },
+
+        // Variations
         outlined: {
           // Or use explicit values
           borderWidth: { value: '10px' },
+          backgroundColor: { value: '{colors.background.warning}' },
         },
         elevated: {
-          boxShadow: { value: '{shadows.large.value}' },
+          backgroundColor: { value: '{colors.background.info}' },
+          boxShadow: { value: '{shadows.large}' },
         },
       },
     },
@@ -21,16 +27,16 @@ const cardTheme = {
 
 export const CardThemeExample = () => {
   return (
-    <ThemeProvider theme={cardTheme}>
-      <Flex direction="row">
+    <ThemeProvider theme={theme} colorMode="light">
+      <Flex>
         <Card>
-          <Text>Hello</Text>
-        </Card>
-        <Card variation="elevated">
-          <Text>Hello</Text>
+          <Text>Default</Text>
         </Card>
         <Card variation="outlined">
-          <Text>Hello</Text>
+          <Text>Outlined</Text>
+        </Card>
+        <Card variation="elevated">
+          <Text>Elevated</Text>
         </Card>
       </Flex>
     </ThemeProvider>
