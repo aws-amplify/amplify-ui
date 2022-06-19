@@ -11,5 +11,5 @@ export { OverrideStyleClasses } from './OverrideStyleClasses';
 export { PseudoStyles } from './PseudoStyles';
 export { Spacing } from './Spacing';
 export { StyleProps } from './StyleProps';
-export { ThemeExample } from './ThemeExample';
+export { TabsThemeExample } from './TabsThemeExample';
 export { Title } from './Title';
