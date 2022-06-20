@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Tabs, TabItem, View } from '@aws-amplify/ui-react';
 import { useCustomRouter } from '@/components/useCustomRouter';
 
 export const PageTabLayout = ({ tabComponents }) => {
@@ -32,7 +32,7 @@ export const PageTabLayout = ({ tabComponents }) => {
     >
       {tabComponents.map(({ title, children }, idx) => (
         <TabItem key={idx} title={title}>
-          {children}
+          <View className="docs-page-tab">{children}</View>
         </TabItem>
       ))}
     </Tabs>

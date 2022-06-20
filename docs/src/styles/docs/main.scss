@@ -31,3 +31,9 @@
     }
   }
 }
+
+.docs-page-tab {
+  & > * + * {
+    margin-bottom: var(--amplify-space-medium);
+  }
+}
