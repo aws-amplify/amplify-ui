@@ -119,14 +119,14 @@
       flex-direction: row;
       flex-wrap: wrap;
       justify-content: flex-start;
-      width: 100%;
+      // width: 100%;
     }
     
     .docs-framework-link {
       flex: 1;
       flex-direction: column;
       padding: var(--amplify-space-large);
-      font-size: var(--amplify-font-sizes-xl);
+      // font-size: var(--amplify-font-sizes-xl);
       background-color: var(--amplify-colors-background-primary);
       opacity: 0.75;
       box-shadow: var(--amplify-shadows-medium);
@@ -134,8 +134,8 @@
       transition: all var(--amplify-time-medium) ease;
       
       .docs-framework-img {
-        width: var(--amplify-font-sizes-xxxxl);
-        height: var(--amplify-font-sizes-xxxxl);
+        // width: var(--amplify-font-sizes-xxxxl);
+        // height: var(--amplify-font-sizes-xxxxl);
         filter: grayscale(100%);
         transition: all var(--amplify-time-medium) ease;
       }
@@ -192,6 +192,15 @@
   }
 }
 
+.docs-home-hero-card {
+  background-color: var(--amplify-colors-background-primary);
+  padding: var(--amplify-space-medium);
+  box-shadow: var(--amplify-shadows-medium);
+  transition: transform var(--amplify-time-medium) ease;
+  &:hover {
+    transform: scale(1.05);
+  }
+}
 
 .docs-grid-bg {
   background-image: url('/svg/grid.svg'),
@@ -457,16 +466,12 @@ pre.scrollable.prism-code {
   }
   @media (min-width: $breakpoint-small) {
     position: relative;
-    opacity: 0.5;
     border: var(--amplify-border-widths-small) solid var(--amplify-colors-border-primary);
     box-shadow: var(--amplify-shadows-large);
     border-radius: var(--amplify-radii-small);
     background-color: var(--amplify-colors-background-primary);
     padding: 0;
-    transition: opacity var(--amplify-time-medium) ease;
-    &:hover {
-      opacity: 1;
-    }
+
     &::before {
       @include window-buttons();
       top: 1rem;

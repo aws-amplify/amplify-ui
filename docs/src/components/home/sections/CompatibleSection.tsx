@@ -19,9 +19,10 @@ export const CompatibleSection = ({ platform }) => {
     <View
       ref={ref}
       as="section"
+      id="compatible"
       className={`docs-home-section fade-in ${isVisible ? 'shown' : ''}`}
     >
-      <Flex direction="column" className="docs-home-subsection--thin">
+      <Flex direction="column" className="docs-home-subsection">
         <Heading level={2} textAlign="center">
           <strong>Compatible</strong> with your front-end
         </Heading>
@@ -30,6 +31,7 @@ export const CompatibleSection = ({ platform }) => {
             base: 'column',
             large: 'row',
           }}
+          gap="xxl"
         >
           <HomeFeatureCard Icon={MdOutlineSupport} title="Escape hatches">
             Connected components like the Authenticator have headless, or

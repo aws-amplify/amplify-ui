@@ -24,6 +24,7 @@ export const A11ySection = ({ platform }) => {
     <View
       ref={ref}
       as="section"
+      id="accessibility"
       className={`docs-home-section fade-in ${isVisible ? 'shown' : ''}`}
     >
       <Flex
@@ -53,19 +54,37 @@ export const A11ySection = ({ platform }) => {
             base: 'column',
             large: 'row',
           }}
+          wrap="wrap"
+          gap="xxl"
         >
-          <HomeFeatureCard title="Color contrast" Icon={MdInvertColors}>
+          <HomeFeatureCard
+            minWidth="40%"
+            title="Color contrast"
+            Icon={MdInvertColors}
+          >
             All components have AA or higher contrast in both light and dark
             mode
           </HomeFeatureCard>
-          <HomeFeatureCard title="Keyboard navigation" Icon={MdKeyboard}>
+          <HomeFeatureCard
+            minWidth="40%"
+            title="Keyboard navigation"
+            Icon={MdKeyboard}
+          >
             Interactive components support keyboard navigation users would
             expect
           </HomeFeatureCard>
-          <HomeFeatureCard title="Focus management" Icon={MdSmartButton}>
+          <HomeFeatureCard
+            minWidth="40%"
+            title="Focus management"
+            Icon={MdSmartButton}
+          >
             Focusable components have proper focus states and interactivity
           </HomeFeatureCard>
-          <HomeFeatureCard title="Accessible labels" Icon={MdLabel}>
+          <HomeFeatureCard
+            minWidth="40%"
+            title="Accessible labels"
+            Icon={MdLabel}
+          >
             Form fields and icons have accessible labels, plus there are
             utilities to help make sure your application is labelled.
           </HomeFeatureCard>

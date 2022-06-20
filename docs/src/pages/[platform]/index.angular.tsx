@@ -21,8 +21,8 @@ const VueHomePage = ({ colorMode }) => {
       <ThemingSection platform={platform} colorMode={colorMode} />
       <A11ySection platform={platform} />
       <CompatibleSection platform={platform} />
-      <ComingSoonPrimitiveSection platform={platform} />
       <AmplifySection platform={platform} />
+      <ComingSoonPrimitiveSection platform={platform} />
     </>
   );
 };

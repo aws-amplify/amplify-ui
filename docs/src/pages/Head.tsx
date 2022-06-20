@@ -14,6 +14,7 @@ export const Head = () => {
     pathname,
     query: { platform = 'react' },
   } = useCustomRouter();
+
   const asPathname = pathname.replace('[platform]', String(platform));
   const filepath = `/${pathname
     .split('/')
@@ -30,16 +31,19 @@ export const Head = () => {
     platform
   )} - Amplify UI`;
 
-  const homepagePaths = [
-    '/',
-    ...FRAMEWORKS.map((framework) => `/${framework}`),
-  ];
+  const homepagePaths = ['/', '/[platform]'];
 
   return (
     <NextHead>
-      <title>{pageTitle}</title>
-      {homepagePaths.includes(asPath) && (
-        <link rel="canonical" href={process.env.SITE_URL} />
+      {homepagePaths.includes(pathname) ? (
+        <>
+          <title>
+            {metaTitle} on {capitalizeString(platform)}
+          </title>
+          <link rel="canonical" href={process.env.SITE_URL} />
+        </>
+      ) : (
+        <title>{pageTitle}</title>
       )}
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta name="description" content={metaDescription ?? description} />

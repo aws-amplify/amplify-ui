@@ -1,22 +1,15 @@
-import { Flex, Image, Button } from '@aws-amplify/ui-react';
-
+import { Flex, Button } from '@aws-amplify/ui-react';
 import { capitalize } from 'lodash';
-import { useCustomRouter } from '@/components/useCustomRouter';
 import Link from 'next/link';
+
+import { useCustomRouter } from '@/components/useCustomRouter';
 import { FRAMEWORKS } from '@/data/frameworks';
 import metaData from '@/data/pages.preval';
-import {
-  AngularLogo,
-  FlutterLogo,
-  FrameworkLogo,
-  ReactLogo,
-  VueLogo,
-} from '../Logo';
+import { FrameworkLogo } from '@/components/Logo';
 
 interface FrameworkLinkProps extends FrameworkChooserProps {
   framework: string;
   isDisabled: boolean;
-  test?: boolean;
 }
 
 const platformPath = '[platform]';

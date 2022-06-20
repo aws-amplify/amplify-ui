@@ -1,0 +1,10 @@
+---
+title: Figma
+metaTitle: Figma to code
+description: 
+supportedFrameworks: react
+---
+
+import { Fragment } from '@/components/Fragment';
+
+<Fragment>{({ platform }) => import(`./index.${platform}.mdx`)}</Fragment>

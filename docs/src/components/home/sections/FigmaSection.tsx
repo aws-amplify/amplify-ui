@@ -107,9 +107,6 @@ export const FigmaSection = (props) => {
                 <DataIcon color="font.disabled" />
                 <code>Product</code>
               </Text>
-              {/* <Text className="docs-home-figma-data">
-                <code>Product.image</code>
-              </Text> */}
               <Text className="docs-home-figma-data">
                 <code>Product.title</code>
               </Text>
@@ -135,7 +132,7 @@ export const FigmaSection = (props) => {
               <source src="/studio-demo.mp4" type="video/mp4" />
             </video>
           </Card>
-          <HomeCTA href={`/react/getting-started/figma-to-code`}>
+          <HomeCTA href={`/react/getting-started/figma`}>
             <span>Learn more about Figma integration</span>
             <FigmaLogoMono height="2rem" alt="" />
           </HomeCTA>

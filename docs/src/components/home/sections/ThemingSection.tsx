@@ -16,6 +16,7 @@ export const ThemingSection = ({ colorMode, platform }) => {
     <View
       ref={ref}
       as="section"
+      id="themeable"
       className={`docs-home-section docs-gradient-bg fade-in ${
         isVisible ? 'shown' : ''
       }`}

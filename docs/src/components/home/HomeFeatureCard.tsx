@@ -4,7 +4,7 @@ export const HomeFeatureCard = ({ title, Icon, children, ...rest }) => {
   return (
     <Flex
       {...rest}
-      direction="column"
+      direction={['column', 'row']}
       flex="1"
       alignItems={['center', 'center', 'flex-start']}
       textAlign={['center', 'center', 'initial']}
@@ -24,10 +24,12 @@ export const HomeFeatureCard = ({ title, Icon, children, ...rest }) => {
           />
         </View>
       ) : null}
-      <Text fontWeight="semibold" fontSize="large">
-        {title}
-      </Text>
-      <Text>{children}</Text>
+      <View>
+        <Text fontWeight="semibold" fontSize="large">
+          {title}
+        </Text>
+        <Text>{children}</Text>
+      </View>
     </Flex>
   );
 };

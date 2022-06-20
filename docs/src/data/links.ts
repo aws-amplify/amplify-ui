@@ -367,6 +367,10 @@ export const gettingStarted = [
     tertiary: true,
   },
   {
+    href: '/getting-started/figma',
+    label: 'Figma',
+  },
+  {
     href: '/getting-started/accessibility',
     label: 'Accessibility',
   },

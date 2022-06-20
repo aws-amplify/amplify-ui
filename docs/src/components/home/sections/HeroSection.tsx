@@ -1,6 +1,4 @@
-import { CopyButton } from '@/components/CopyButton';
-import { FrameworkChooser } from '@/components/Layout/FrameworkChooser';
-import { useCustomRouter } from '@/components/useCustomRouter';
+import NextLink from 'next/link';
 import {
   Button,
   Flex,
@@ -9,6 +7,18 @@ import {
   useTheme,
   View,
 } from '@aws-amplify/ui-react';
+import {
+  MdOutlineAutoAwesome,
+  MdAccessibilityNew,
+  MdOutlineSupport,
+  MdCode,
+} from 'react-icons/md';
+import { CopyButton } from '@/components/CopyButton';
+import { FrameworkChooser } from '@/components/Layout/FrameworkChooser';
+import { useCustomRouter } from '@/components/useCustomRouter';
+import { HomeFeatureCard } from '../HomeFeatureCard';
+import { FRAMEWORKS } from '@/data/frameworks';
+import { FrameworkLogo } from '@/components/Logo';
 
 export const HeroSection = () => {
   const { tokens } = useTheme();
@@ -42,10 +52,39 @@ export const HeroSection = () => {
             }}
           >
             Amplify UI simplifies building accessible, performant, and beautiful
-            applications with cloud-connected capabilities, building blocks,
+            applications= with cloud-connected capabilities, building blocks,
             theming, and utilities.
           </Text>
-          <FrameworkChooser disableScroll />
+          <Flex direction={['column', 'column', 'row']}>
+            <HomeFeatureCard
+              title="Accessible"
+              as="a"
+              className="docs-home-hero-card"
+              href="#accessibility"
+              Icon={MdAccessibilityNew}
+            >
+              Ensure all users can use your application.
+            </HomeFeatureCard>
+            <HomeFeatureCard
+              title="Themeable"
+              href="#themeable"
+              as="a"
+              className="docs-home-hero-card"
+              Icon={MdOutlineAutoAwesome}
+            >
+              Create your own unique look.
+            </HomeFeatureCard>
+            <HomeFeatureCard
+              title="Compatible"
+              href="#compatible"
+              as="a"
+              className="docs-home-hero-card"
+              Icon={MdCode}
+            >
+              Works well in any tech stack.
+            </HomeFeatureCard>
+          </Flex>
+
           <Flex
             gap="medium"
             direction={{ base: 'column-reverse', medium: 'row' }}
@@ -69,6 +108,20 @@ export const HeroSection = () => {
                 copyText={frameworkInstallScript}
               />
             </View>
+          </Flex>
+
+          <Flex direction="row" justifyContent="center">
+            {FRAMEWORKS.map((framework) => (
+              <NextLink key={framework} href={`/${framework}`} scroll={false}>
+                <a>
+                  <FrameworkLogo
+                    framework={framework}
+                    width="xxl"
+                    height="xxl"
+                  />
+                </a>
+              </NextLink>
+            ))}
           </Flex>
         </Flex>
       </Flex>

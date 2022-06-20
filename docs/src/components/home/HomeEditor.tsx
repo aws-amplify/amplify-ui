@@ -8,7 +8,7 @@ import {
 } from 'react-live';
 import * as AUI from '@aws-amplify/ui-react';
 
-const { Flex, View, Alert } = AUI;
+const { View, Alert } = AUI;
 
 const code = `() => {
   const { tokens } = useTheme();
@@ -24,8 +24,8 @@ const code = `() => {
           <Text fontSize="large" fontWeight="semibold">
             Product title
           </Text>
-          <Text>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut scelerisque risus in sem dapibus, nec vestibulum metus mattis. Mauris dignissim maximus tellus, in feugiat nibh rhoncus a.
+          <Text color="font.tertiary">
+            Product description
           </Text>
           <Text
             fontSize="large"
@@ -38,6 +38,7 @@ const code = `() => {
               min={0}
               max={10}
               step={1}
+              defaultValue={1}
               labelHidden
             />
             <Button variation="primary">Add to cart</Button>

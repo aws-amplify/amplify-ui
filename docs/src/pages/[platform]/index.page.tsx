@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { debounce } from 'lodash';
 
 import { Footer } from '@/components/Layout/Footer';
 import { useCustomRouter } from '@/components/useCustomRouter';
@@ -7,7 +8,6 @@ import ReactHomePage from './index.react';
 import VueHomePage from './index.vue';
 import AngularHomePage from './index.angular';
 import FlutterHomePage from './index.flutter';
-import { debounce } from 'lodash';
 
 const HomePage = ({ colorMode }) => {
   const {
@@ -63,5 +63,9 @@ const HomePage = ({ colorMode }) => {
     </>
   );
 };
+
+const title = 'Testing';
+
+export { title };
 
 export default HomePage;

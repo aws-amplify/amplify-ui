@@ -40,12 +40,7 @@ const colorKeys = [10, 20, 40, 60, 80, 90, 100];
 const scale = ['primary', 'secondary', 'tertiary', 'success', 'info', 'error'];
 
 const Swatch = ({ color }) => (
-  <View
-    height="2rem"
-    flex="1"
-    backgroundColor={color}
-    borderRadius="var(--amplify-radii-medium)"
-  />
+  <View height="2rem" flex="1" backgroundColor={color} borderRadius="medium" />
 );
 
 const Preview = ({ platform }) => {
@@ -71,9 +66,9 @@ const Preview = ({ platform }) => {
 
   return (
     <Grid
-      columnGap={tokens.space.small}
-      rowGap={tokens.space.small}
-      templateColumns={hideOnMobile ? '1fr 1fr 1fr 1fr' : '1fr'}
+      columnGap="small"
+      rowGap="small"
+      templateColumns={isMobile ? '1fr' : '1fr 1fr 1fr 1fr'}
     >
       <Card variation="elevated" columnStart="1" columnEnd="4">
         <Flex direction="column">
@@ -101,10 +96,10 @@ const Preview = ({ platform }) => {
                 </ToggleButton>
               </ToggleButtonGroup>
               <Flex direction="row" alignItems="center">
-                <Text as="span" fontSize={tokens.fontSizes.xl}>
+                <Text as="span" fontSize="xl">
                   $29.99
                 </Text>
-                <Text as="span" color={tokens.colors.font.success}>
+                <Text as="span" color="font.success">
                   20% off
                 </Text>
               </Flex>
@@ -113,7 +108,7 @@ const Preview = ({ platform }) => {
           </Flex>
         </Flex>
       </Card>
-      {hideOnMobile ? (
+      {isMobile ? null : (
         <>
           <Card variation="elevated" columnStart="4" columnEnd="-1">
             <Flex direction="column">
@@ -204,7 +199,7 @@ const Preview = ({ platform }) => {
             </Tabs>
           </Card>
         </>
-      ) : null}
+      )}
     </Grid>
   );
 };

@@ -3,7 +3,6 @@ import { DocSearch } from '@docsearch/react';
 import {
   Button,
   Flex,
-  Image,
   Link,
   View,
   VisuallyHidden,
