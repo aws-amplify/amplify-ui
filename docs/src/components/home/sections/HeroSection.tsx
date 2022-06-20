@@ -113,44 +113,6 @@ export const HeroSection = () => {
             Get started building
             <Icon ariaLabel="" as={MdChevronRight} fontSize="xl" />
           </Button>
-          {/* <Flex
-            gap="medium"
-            direction={{ base: 'column-reverse', medium: 'row' }}
-          >
-            <Button
-              size="large"
-              variation="primary"
-              as="a"
-              href={`/${platform}/getting-started/installation`}
-            >
-              Get started
-            </Button>
-            <View className="install-code__container">
-              <code className="install-code__content">
-                {frameworkInstallScript}
-              </code>
-              <CopyButton
-                className="install-code__button"
-                variation="link"
-                size="large"
-                copyText={frameworkInstallScript}
-              />
-            </View>
-          </Flex> */}
-
-          {/* <Flex direction="row" justifyContent="center">
-            {FRAMEWORKS.map((framework) => (
-              <NextLink key={framework} href={`/${framework}`} scroll={false}>
-                <a>
-                  <FrameworkLogo
-                    framework={framework}
-                    width="xxl"
-                    height="xxl"
-                  />
-                </a>
-              </NextLink>
-            ))}
-          </Flex> */}
         </Flex>
       </Flex>
     </View>

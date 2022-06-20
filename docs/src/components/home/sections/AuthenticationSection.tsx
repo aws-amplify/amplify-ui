@@ -11,7 +11,7 @@ import {
 } from '@aws-amplify/ui-react';
 import { HomeCode } from '@/components/home/HomeCode';
 import { HomeCTA } from '@/components/home/HomeCTA';
-import { HomeCodeHighlight } from '@/components/CodeHighlight';
+import { CodeHighlight } from '@/components/CodeHighlight';
 import { useIntersectionObserver } from '@/components/useIntersection';
 import { FlutterAuthenticatorExample } from '@/components/FlutterAuthenticatorExample';
 import { BrowserMock } from '@/components/home/BrowserMock';
@@ -173,7 +173,7 @@ export const AuthenticationSection = ({ platform }) => {
 
           {hiddenOnMobile ? (
             <HomeCode flex="1" fileName={fileName[platform]}>
-              <HomeCodeHighlight
+              <CodeHighlight
                 code={authenticatorCode[platform]}
                 language={languages[platform]}
                 withLines={true}

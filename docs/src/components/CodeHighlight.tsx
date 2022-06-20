@@ -3,7 +3,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Highlight, { defaultProps, Language } from 'prism-react-renderer';
 import { View, Text, Button } from '@aws-amplify/ui-react';
 
-export const HomeCodeHighlight = ({
+export const CodeHighlight = ({
   className = '',
   code = '',
   language = 'jsx',

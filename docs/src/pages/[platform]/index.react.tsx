@@ -20,7 +20,7 @@ const ReactHomePage = ({ colorMode }) => {
 
   const showEditor = useBreakpointValue({
     base: false,
-    medium: true,
+    large: true,
   });
 
   return (

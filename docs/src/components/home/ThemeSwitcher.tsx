@@ -16,7 +16,6 @@ import {
   TabItem,
   Tabs,
   Alert,
-  useTheme,
   Loader,
   Icon,
   CheckboxField,
@@ -34,7 +33,7 @@ import { CgTerminal, CgLinear, CgCopyright } from 'react-icons/cg';
 import themePreval from './themes/index.preval';
 import { useCustomRouter } from '@/components/useCustomRouter';
 import { HomeCode } from '@/components/home/HomeCode';
-import { HomeCodeHighlight } from '@/components/CodeHighlight';
+import { CodeHighlight } from '@/components/CodeHighlight';
 
 const colorKeys = [10, 20, 40, 60, 80, 90, 100];
 const scale = ['primary', 'secondary', 'tertiary', 'success', 'info', 'error'];
@@ -45,15 +44,10 @@ const Swatch = ({ color }) => (
 
 const Preview = ({ platform }) => {
   const [exclusiveValue, setExclusiveValue] = React.useState('align-left');
-  const { tokens } = useTheme();
-  const hideOnMobile = useBreakpointValue({
-    base: false,
-    medium: true,
-  });
 
   const isMobile = useBreakpointValue({
     base: true,
-    small: false,
+    medium: false,
   });
 
   if (platform !== 'react') {
@@ -146,28 +140,21 @@ const Preview = ({ platform }) => {
           </Card>
           <Card variation="elevated" columnStart="3" columnEnd="-1">
             <Flex direction="column">
-              <Flex direction="row" gap={tokens.space.xs}>
+              <Flex direction="row" gap="xs">
                 {scale.map((level) => (
-                  <Text
-                    key={level}
-                    fontSize={tokens.fontSizes.xl}
-                    color={tokens.colors.font[level]}
-                  >
+                  <Text key={level} fontSize="xl" color={`font.${level}`}>
                     Aa
                   </Text>
                 ))}
               </Flex>
-              <Flex direction="row" gap={tokens.space.xs}>
+              <Flex direction="row" gap="xs">
                 {colorKeys.map((key) => (
-                  <Swatch key={key} color={tokens.colors.brand.primary[key]} />
+                  <Swatch key={key} color={`brand.primary.${key}`} />
                 ))}
               </Flex>
-              <Flex direction="row" gap={tokens.space.xs}>
+              <Flex direction="row" gap="xs">
                 {colorKeys.map((key) => (
-                  <Swatch
-                    key={key}
-                    color={tokens.colors.brand.secondary[key]}
-                  />
+                  <Swatch key={key} color={`brand.secondary.${key}`} />
                 ))}
               </Flex>
             </Flex>
@@ -221,20 +208,10 @@ export const ThemeSwitcher = ({ colorMode }) => {
   const {
     query: { platform = 'react' },
   } = useCustomRouter();
-  const { tokens } = useTheme();
-  const hideOnMobile = useBreakpointValue({
-    base: false,
-    large: true,
-  });
-
-  const isTablet = useBreakpointValue({
-    base: false,
-    medium: true,
-  });
 
   const isMobile = useBreakpointValue({
     base: true,
-    small: false,
+    large: false,
   });
 
   return (
@@ -251,7 +228,7 @@ export const ThemeSwitcher = ({ colorMode }) => {
           setTheme(value as string);
         }}
       >
-        <ToggleButton value="default" gap={tokens.space.xs}>
+        <ToggleButton value="default" gap="xs">
           <Icon
             ariaLabel={isMobile ? 'Default' : ''}
             paths={[
@@ -263,23 +240,23 @@ export const ThemeSwitcher = ({ colorMode }) => {
           />
           {isMobile ? <VisuallyHidden>Default</VisuallyHidden> : 'Default'}
         </ToggleButton>
-        <ToggleButton value="terminal" gap={tokens.space.xs}>
+        <ToggleButton value="terminal" gap="xs">
           <Icon ariaLabel="" as={CgTerminal} />
           {isMobile ? <VisuallyHidden>Terminal</VisuallyHidden> : 'Terminal'}
         </ToggleButton>
-        <ToggleButton value="synthwave" gap={tokens.space.xs}>
+        <ToggleButton value="synthwave" gap="xs">
           <Icon ariaLabel="" as={CgLinear} />
           {isMobile ? <VisuallyHidden>Synthwave</VisuallyHidden> : 'Synthwave'}
         </ToggleButton>
-        <ToggleButton value="classic" gap={tokens.space.xs}>
+        <ToggleButton value="classic" gap="xs">
           <Icon ariaLabel="" as={CgCopyright} />
           {isMobile ? <VisuallyHidden>Classic</VisuallyHidden> : 'Classic'}
         </ToggleButton>
       </ToggleButtonGroup>
       <Flex direction="row" width="100%" gap="xl">
-        {hideOnMobile ? (
+        {isMobile ? null : (
           <HomeCode flex="1" fileName={fileName[platform as string]}>
-            <HomeCodeHighlight
+            <CodeHighlight
               withCopy
               withLines
               className="scrollable"
@@ -291,7 +268,7 @@ export const ThemeSwitcher = ({ colorMode }) => {
               language={language[platform as string]}
             />
           </HomeCode>
-        ) : null}
+        )}
         <View flex="1">
           <ThemeProvider theme={themePreval[theme].code} colorMode={colorMode}>
             <Preview platform={platform} />

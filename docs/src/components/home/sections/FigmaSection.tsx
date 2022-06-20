@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { HomeCodeHighlight } from '@/components/CodeHighlight';
+import { CodeHighlight } from '@/components/CodeHighlight';
 import { DataIcon } from '@/components/Icons';
 import { HomeCTA } from '@/components/home/HomeCTA';
 import {
@@ -120,7 +120,7 @@ export const FigmaSection = (props) => {
             </Card>
 
             <View className="docs-home-figma-code">
-              <HomeCodeHighlight
+              <CodeHighlight
                 className="docs-home-code"
                 code={`<ProductCard />`}
               />
