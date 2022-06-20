@@ -5,6 +5,10 @@ import { FieldVariations } from './field';
 import { ViewProps } from './view';
 
 export interface TextAreaStyleProps {
+  /**
+   * @description
+   * Defines if (and how) an element is resizable by the user
+   */
   resize?: Property.Resize;
 }
 
