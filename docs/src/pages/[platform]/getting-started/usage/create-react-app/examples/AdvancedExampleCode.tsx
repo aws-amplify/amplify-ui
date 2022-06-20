@@ -41,7 +41,7 @@ function App() {
 
   return (
     <View width="100%" maxWidth="50rem" padding={{ base: 0, large: '2rem' }}>
-      <Card variation="elevated">
+      <Card variation="outlined">
         <Flex
           direction={{ base: 'column', large: 'row' }}
           justifyContent="space-evenly"
