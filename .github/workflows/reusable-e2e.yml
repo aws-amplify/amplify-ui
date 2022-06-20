@@ -58,6 +58,7 @@ jobs:
         uses: ./.github/actions/install-with-retries
         with:
           # only install binary if cypress cache missed
+          no-lockfile: true
           skip-cypress-binary: ${{ steps.restore-cypress-cache.outputs.cache-hit }}
       - name: Build ui package
         run: yarn ui build
