@@ -97,7 +97,7 @@ const HomePage = ({ colorMode }) => {
                   Get started
                   <MdChevronRight />
                 </Button>
-                <TerminalCommand terminalCommand={frameworkInstallScript} />
+                <TerminalCommand command={frameworkInstallScript} />
               </Flex>
             </Card>
             <Flex

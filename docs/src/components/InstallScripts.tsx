@@ -6,7 +6,7 @@ type WebFramework = 'react' | 'vue' | 'angular';
 interface TerminalCommandProps {
   framework?: WebFramework;
   packageManager?: 'npm' | 'yarn';
-  terminalCommand?: string;
+  command?: string;
 }
 
 const frameworkInstallScript = (framework, packageManager) =>
@@ -17,25 +17,29 @@ const frameworkInstallScript = (framework, packageManager) =>
 export const TerminalCommand = ({
   framework,
   packageManager,
-  terminalCommand,
+  command,
 }: TerminalCommandProps) => {
-  const command = terminalCommand
-    ? terminalCommand
+  const terminalCommand = command
+    ? command
     : frameworkInstallScript(framework, packageManager);
 
   return (
     <code className="install-code__container">
-      <p className="install-code__content">{command}</p>
+      <p className="install-code__content">{terminalCommand}</p>
       <CopyButton
         className="install-code__button"
-        copyText={command}
+        copyText={terminalCommand}
         variation="link"
       />
     </code>
   );
 };
 
-export const InstallScripts = (framework: WebFramework) => {
+interface InstallScriptsProps {
+  framework: WebFramework;
+}
+
+export const InstallScripts = ({ framework }: InstallScriptsProps) => {
   return (
     <Tabs maxWidth="42rem">
       <TabItem title="npm">
