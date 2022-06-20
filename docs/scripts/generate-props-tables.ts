@@ -176,7 +176,6 @@ function getPropsSortedByCategory(
     };
 
     const isPropMainCategory = (category) => {
-      const customCategory = { link: ['AnchorHTMLAttributes'] };
       const isCurrentComponentProp = category
         .toLowerCase()
         .includes(componentName.toLowerCase());
@@ -184,12 +183,9 @@ function getPropsSortedByCategory(
       const isSharedBasicCategory = Object.values(allTableCategories).find(
         (propArr) => propArr.includes(category)
       );
-      const isCustomCategory =
-        customCategory[componentName.toLowerCase()]?.includes(category);
+
       return (
-        isCurrentComponentProp ||
-        (isPropsOrOptions && !isSharedBasicCategory) ||
-        isCustomCategory
+        isCurrentComponentProp || (isPropsOrOptions && !isSharedBasicCategory)
       );
     };
 
