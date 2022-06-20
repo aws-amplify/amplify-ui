@@ -7,7 +7,7 @@ concurrency:
   cancel-in-progress: true
 
 on:
-  pull_request_target:
+  pull_request:
     branches: [main, ui-svelte/main, ui-geo/main, ui-react@v2]
     types: [opened, synchronize, labeled]
 
