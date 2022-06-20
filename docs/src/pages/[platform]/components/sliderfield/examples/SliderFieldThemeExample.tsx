@@ -1,4 +1,4 @@
-import { ThemeProvider, SliderField, Theme } from '@aws-amplify/ui-react';
+import { SliderField, ThemeProvider, Theme } from '@aws-amplify/ui-react';
 
 const theme: Theme = {
   name: 'slider-theme',
@@ -6,16 +6,32 @@ const theme: Theme = {
     components: {
       sliderfield: {
         thumb: {
-          backgroundColor: { value: '{colors.green.40.value}' },
-          borderRadius: { value: '0' },
+          width: { value: '{space.xl}' },
+          height: { value: '{space.xl}' },
+          backgroundColor: { value: '{colors.neutral.90}' },
+          borderRadius: { value: '{radii.medium}' },
+          _hover: {
+            backgroundColor: { value: '{colors.neutral.80}' },
+            borderColor: { value: '{colors.neutral.90}' },
+          },
+          _focus: {
+            borderColor: { value: '{colors.green.80}' },
+            boxShadow: {
+              value: {
+                spreadRadius: '3px',
+                color: '{colors.green.20}',
+              },
+            },
+          },
         },
         track: {
           backgroundColor: {
-            value: '{colors.neutral.80.value}',
+            value: '{colors.blue.20}',
           },
+          height: { value: '{fontSizes.medium}' },
         },
         range: {
-          backgroundColor: { value: 'blue' },
+          backgroundColor: { value: '{colors.blue.80}' },
         },
       },
     },
@@ -24,8 +40,8 @@ const theme: Theme = {
 
 export const SliderFieldThemeExample = () => {
   return (
-    <ThemeProvider theme={theme}>
-      <SliderField label="Themed Slider" defaultValue={50} />
+    <ThemeProvider theme={theme} colorMode="light">
+      <SliderField label="Themed Slider" defaultValue={50} labelHidden />
     </ThemeProvider>
   );
 };

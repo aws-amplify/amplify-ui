@@ -5,4 +5,4 @@ export { MenuExample } from './menuExample';
 export { MenuItemsExample } from './menuItemsExample';
 export { SizeExample } from './sizeExample';
 export { StylePropsExample } from './stylePropsExample';
-export { ThemeExample } from './themeExample';
+export { MenuThemeExample } from './MenuThemeExample';

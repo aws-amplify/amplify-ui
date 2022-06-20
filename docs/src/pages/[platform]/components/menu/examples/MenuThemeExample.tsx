@@ -1,7 +1,7 @@
-import { ThemeProvider, Menu, MenuItem, Theme } from '@aws-amplify/ui-react';
+import { Menu, MenuItem, ThemeProvider, Theme } from '@aws-amplify/ui-react';
 
 const theme: Theme = {
-  name: 'menu-example-theme',
+  name: 'menu-theme',
   tokens: {
     components: {
       menu: {
@@ -15,9 +15,9 @@ const theme: Theme = {
   },
 };
 
-export const ThemeExample = () => {
+export const MenuThemeExample = () => {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme} colorMode="light">
       <Menu>
         <MenuItem>Download</MenuItem>
         <MenuItem>Create a Copy</MenuItem>
