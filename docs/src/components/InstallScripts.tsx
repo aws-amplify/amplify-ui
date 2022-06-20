@@ -2,14 +2,18 @@ import { CopyButton } from '@/components/CopyButton';
 import { Tabs, TabItem } from '@aws-amplify/ui-react';
 
 type WebFramework = 'react' | 'vue' | 'angular';
+type PackageManager = 'npm' | 'yarn';
 
 interface TerminalCommandProps {
   framework?: WebFramework;
-  packageManager?: 'npm' | 'yarn';
+  packageManager?: PackageManager;
   command?: string;
 }
 
-const frameworkInstallScript = (framework, packageManager) =>
+const frameworkInstallScript = (
+  framework: WebFramework,
+  packageManager: PackageManager
+) =>
   `${
     packageManager === 'npm' ? 'npm i' : 'yarn add'
   } @aws-amplify/ui-${framework} aws-amplify`;
