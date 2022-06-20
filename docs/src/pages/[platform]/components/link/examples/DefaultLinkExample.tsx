@@ -1,5 +1,9 @@
 import { Link } from '@aws-amplify/ui-react';
 
 export const DefaultLinkExample = () => {
-  return <Link>My Link</Link>;
+  return (
+    <Link href="https://ui.docs.amplify.aws/react/components/link">
+      My recursive link
+    </Link>
+  );
 };

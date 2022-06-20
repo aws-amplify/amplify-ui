@@ -1,4 +1,4 @@
-import { ThemeProvider, PhoneNumberField, Theme } from '@aws-amplify/ui-react';
+import { PhoneNumberField, ThemeProvider, Theme } from '@aws-amplify/ui-react';
 
 const theme: Theme = {
   name: 'phonenumber-theme',
@@ -12,8 +12,8 @@ const theme: Theme = {
   },
 };
 
-export const ThemingExample = () => (
-  <ThemeProvider theme={theme}>
+export const PhoneNumberFieldThemeExample = () => (
+  <ThemeProvider theme={theme} colorMode="light">
     <PhoneNumberField label="Themed field" defaultCountryCode="+1" />
   </ThemeProvider>
 );

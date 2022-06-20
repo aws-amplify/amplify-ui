@@ -9,7 +9,7 @@ Amplify UI is an open-source UI library with cloud-connected components that are
 
 ## Angular Documentation
 
-- https://ui.docs.amplify.aws/?platform=angular
+- https://ui.docs.amplify.aws/angular
 
 ## Features 🚀
 

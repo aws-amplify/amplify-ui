@@ -6,4 +6,4 @@ export { ErrorExample } from './ErrorExample';
 export { LabelPositionExample } from './LabelPositionExample';
 export { ReadOnlyExample } from './ReadOnlyExample';
 export { SizeExample } from './SizeExample';
-export { ThemeExample } from './ThemeExample';
+export { RadioGroupFieldThemeExample } from './RadioGroupFieldThemeExample';

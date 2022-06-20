@@ -22,17 +22,15 @@ const theme = {
   },
 };
 
-export const StepperFieldThemeExample = () => {
-  return (
-    <ThemeProvider theme={theme}>
-      <StepperField
-        label="Stepper"
-        defaultValue={0}
-        min={0}
-        max={10}
-        step={1}
-        labelHidden={true}
-      />
-    </ThemeProvider>
-  );
-};
+export const StepperFieldThemeExample = () => (
+  <ThemeProvider theme={theme} colorMode="light">
+    <StepperField
+      label="Themed stepper"
+      defaultValue={0}
+      min={0}
+      max={10}
+      step={1}
+      labelHidden
+    />
+  </ThemeProvider>
+);
