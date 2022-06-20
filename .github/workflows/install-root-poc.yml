@@ -17,5 +17,6 @@ jobs:
         uses: ./.github/actions/install-with-retries
         with:
           skip-cypress-binary: true # publishing doesn't need cypress
-      - name: check cypress binary
-        run: ls ~/.cache/Cypress
+      - name: Confirm cypress binary doesn't get installed
+        run: |
+          [ -d "~/.cache/Cypress" ] && exit 1 || exit 0;
