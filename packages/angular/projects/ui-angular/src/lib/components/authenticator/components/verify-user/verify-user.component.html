@@ -20,7 +20,13 @@
       }}</label>
     </div>
 
-    <button amplify-button variation="primary" fullWidth="true" type="submit">
+    <button
+      amplify-button
+      variation="primary"
+      fullWidth="true"
+      type="submit"
+      [disabled]="authenticator.isPending"
+    >
       {{ verifyText }}
     </button>
 
