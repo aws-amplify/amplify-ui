@@ -1,21 +1,19 @@
-import { ThemeProvider, Card, useTheme, Theme } from '@aws-amplify/ui-react';
+import { ThemeProvider, Card } from '@aws-amplify/ui-react';
 
 export const ThemeExample = () => {
-  const { tokens } = useTheme();
-
-  const theme: Theme = {
+  const theme = {
     name: 'high-contrast',
     tokens: {
       colors: {
         font: {
-          primary: { value: '#000' },
+          primary: { value: '{colors.black}' },
         },
       },
       components: {
         card: {
           outlined: {
-            borderWidth: tokens.borderWidths.large,
-            borderColor: { value: '#000' },
+            borderWidth: { value: '{borderWidths.large}' },
+            borderColor: { value: '{colors.black}' },
           },
         },
       },
