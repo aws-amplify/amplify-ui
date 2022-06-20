@@ -9,6 +9,10 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Amplify UI
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
       - name: Install packages
         uses: ./.github/actions/install-with-retries
         with:
