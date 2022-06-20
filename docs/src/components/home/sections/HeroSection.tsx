@@ -52,7 +52,7 @@ export const HeroSection = () => {
             }}
           >
             Amplify UI simplifies building accessible, performant, and beautiful
-            applications= with cloud-connected capabilities, building blocks,
+            applications with cloud-connected capabilities, building blocks,
             theming, and utilities.
           </Text>
           <Flex direction={['column', 'column', 'row']}>
