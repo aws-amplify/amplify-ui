@@ -109,12 +109,6 @@ export const feedbackComponents: ComponentNavItem[] = [
     platforms: ['react'],
   },
   {
-    href: '/components/pagination',
-    label: 'Pagination',
-    body: `Pagination provides navigation to allow customers to move between large sets of content that are distributed across multiple pages.`,
-    platforms: ['react'],
-  },
-  {
     href: '/components/placeholder',
     label: 'Placeholder',
     body: `The Placeholder component is used to fill out the interface while content is loaded asynchronously.`,
@@ -244,6 +238,12 @@ export const layoutComponents = [
     href: '/components/expander',
     label: 'Expander',
     body: `The Expander primitive enables users to expand or collapse a set of sections.`,
+    platforms: ['react'],
+  },
+  {
+    href: '/components/pagination',
+    label: 'Pagination',
+    body: `Pagination provides navigation to allow customers to move between large sets of content that are distributed across multiple pages.`,
     platforms: ['react'],
   },
 ].sort(sortByLabel);
