@@ -9,7 +9,7 @@ Amplify UI is an open-source UI library with cloud-connected components that are
 
 ## React Documentation
 
-- https://ui.docs.amplify.aws/?platform=react
+- https://ui.docs.amplify.aws/react
 
 ## Features 🚀
 

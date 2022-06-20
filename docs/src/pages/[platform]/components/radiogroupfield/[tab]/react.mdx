@@ -4,7 +4,7 @@ import { RadioGroupFieldDemo } from '../demo';
 import { Example, ExampleCode } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
-import { ThemeAlert } from '@/components/ThemeAlert';
+import ThemeExample from '@/components/ThemeExample.mdx';
 
 import {
   BasicExample,
@@ -15,7 +15,7 @@ import {
   LabelPositionExample,
   ReadOnlyExample,
   SizeExample,
-  ThemeExample,
+  RadioGroupFieldThemeExample,
 } from '../examples';
 
 ## Demo
@@ -142,22 +142,21 @@ Use the `hasError` and `errorMessage` props to mark a RadioGroupField as having 
   </ExampleCode>
 </Example>
 
-## Styling
+## CSS Styling
 
-### Theme
+<ThemeExample component="RadioGroupField" link="radio">
+  <Example>
+    <RadioGroupFieldThemeExample />
+    
+    <ExampleCode>
 
-<ThemeAlert />
-
-<Example>
-  <ThemeExample />
-  <ExampleCode>
-
-    ```jsx file=../examples/ThemeExample.tsx
+    ```tsx file=../examples/RadioGroupFieldThemeExample.tsx
 
     ```
 
-  </ExampleCode>
-</Example>
+    </ExampleCode>
+  </Example>
+</ThemeExample>
 
 ### Target classes
 

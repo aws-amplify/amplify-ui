@@ -5,3 +5,4 @@ export { SpanExample } from './SpanExample';
 export { TableFontSizePropExample } from './TableFontSizePropExample';
 export { TableStylePropExample } from './TableStylePropExample';
 export { VariationExample } from './VariationExample';
+export { TableThemeExample } from './TableThemeExample';
