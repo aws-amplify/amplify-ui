@@ -1,4 +1,4 @@
-import { ThemeProvider, SelectField, Theme } from '@aws-amplify/ui-react';
+import { SelectField, ThemeProvider, Theme } from '@aws-amplify/ui-react';
 
 const theme: Theme = {
   name: 'selectfield-theme',
@@ -20,7 +20,7 @@ const theme: Theme = {
 };
 
 export const SelectFieldThemeExample = () => (
-  <ThemeProvider theme={theme}>
+  <ThemeProvider theme={theme} colorMode="light">
     <SelectField label="Fruit">
       <option value="apple">Apple</option>
       <option value="banana">Banana</option>

@@ -424,6 +424,11 @@ export const theming = [
     label: 'CSS variables',
     platforms: ['react', 'vue', 'angular'],
   },
+  {
+    href: '/theming/style-props',
+    label: 'Style Props',
+    platforms: ['react'],
+  },
 ];
 
 export const DISCORD = 'https://discord.gg/amplify';

@@ -18,7 +18,7 @@ const theme = {
 };
 
 export const ThemingExample = () => (
-  <ThemeProvider theme={theme}>
+  <ThemeProvider theme={theme} colorMode="light">
     <PhoneNumberField
       label="Themed field"
       defaultCountryCode="+1"
