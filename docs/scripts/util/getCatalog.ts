@@ -154,7 +154,7 @@ function getCatalogComponentProperty(
 }
 
 function overwriteType(type, name, componentName) {
-  const regex = /import\(\"\/[\w/-]+"\)\./g;
+  const regex = /import\(\"\/[\w/-_-]+"\)\./g;
 
   if (name === 'ref' && type === 'React.Ref<T>') {
     type = 'React.Ref<HTMLElement>';
