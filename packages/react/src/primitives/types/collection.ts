@@ -44,8 +44,9 @@ export interface CollectionWrapperProps extends BaseStyleProps {
 }
 
 export interface CollectionBaseProps<Item> {
-  /*
-   * Data source. Items to be repeated over the collection.
+  /**
+   * @description
+   * The items from a data source that will be mapped by the Collection component
    */
   items: Array<Item>;
 
