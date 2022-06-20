@@ -6,38 +6,45 @@ export type CollectionType = 'list' | 'grid' | 'table';
 
 export interface CollectionWrapperProps extends BaseStyleProps {
   /**
+   * @description
    * Collection type. This will be used to determine collection wrapper component.
    * @default 'list'
    */
   type?: CollectionType;
 
   /**
+   * @description
    * Enable pagination for collection items
    */
   isPaginated?: boolean;
 
   /**
+   * @description
    * Page size (when pagination is enabled)
    */
   itemsPerPage?: number;
 
   /**
+   * @description
    * Enable collection filtering
    */
   isSearchable?: boolean;
 
   /**
+   * @description
    * Custom search filter (when search is enabled)
    */
   searchFilter?: (item: unknown, searchText: string) => boolean;
 
   /**
+   * @description
    * Search field label
    * @default "Search"
    */
   searchLabel?: string;
 
   /**
+   * @description
    * Search field placeholder
    */
   searchPlaceholder?: string;

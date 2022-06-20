@@ -12,11 +12,13 @@ export interface RadioGroupFieldProps
   value?: string;
   defaultValue?: string;
   /**
+   * @description
    * Handle onChange event
    */
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
 
   /**
+   * @description
    * Position of label in relation to the radio,
    * default is 'start'
    */
