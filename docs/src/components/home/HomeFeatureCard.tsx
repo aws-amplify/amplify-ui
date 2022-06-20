@@ -1,6 +1,17 @@
-import { Flex, Icon as AmpIcon, Text, View } from '@aws-amplify/ui-react';
+import { Flex, Icon, Text, View } from '@aws-amplify/ui-react';
 
-export const HomeFeatureCard = ({ title, Icon, children, ...rest }) => {
+interface HomeFeatureCardProps {
+  title: string;
+  icon?: React.FC<any>;
+  children?: React.ReactNode;
+}
+
+export const HomeFeatureCard = ({
+  title,
+  icon,
+  children,
+  ...rest
+}: HomeFeatureCardProps) => {
   return (
     <Flex
       {...rest}
@@ -9,16 +20,16 @@ export const HomeFeatureCard = ({ title, Icon, children, ...rest }) => {
       alignItems={['center', 'center', 'flex-start']}
       textAlign={['center', 'center', 'initial']}
     >
-      {Icon ? (
+      {icon ? (
         <View
           as="span"
           padding="1rem"
           backgroundColor="brand.secondary.10"
           borderRadius="small"
         >
-          <AmpIcon
+          <Icon
             ariaLabel=""
-            as={Icon}
+            as={icon}
             fontSize="xl"
             color="brand.secondary.60"
           />

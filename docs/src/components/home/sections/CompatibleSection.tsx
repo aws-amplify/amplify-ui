@@ -33,18 +33,18 @@ export const CompatibleSection = ({ platform }) => {
           }}
           gap="xxl"
         >
-          <HomeFeatureCard Icon={MdOutlineSupport} title="Escape hatches">
+          <HomeFeatureCard icon={MdOutlineSupport} title="Escape hatches">
             Connected components like the Authenticator have headless, or
             UI-less, implementations that handle complex state management and
             leave the UI up to you.
           </HomeFeatureCard>
-          <HomeFeatureCard Icon={MdOutlineFlashOff} title="Styling optional">
+          <HomeFeatureCard icon={MdOutlineFlashOff} title="Styling optional">
             Don't like our style? Throw it out and use your own! Amplify UI
             components use plain CSS so you have complete control over the
             styling.
           </HomeFeatureCard>
           <HomeFeatureCard
-            Icon={SiTypescript}
+            icon={SiTypescript}
             title="TypeScript & IntelliSense"
           >
             Let your IDE do the work for you and make UI development a breeze

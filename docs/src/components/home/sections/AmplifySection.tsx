@@ -25,7 +25,7 @@ export const AmplifySection = ({ platform }) => {
 
         <HomeFeatureCard
           title="Build your application visually in Amplify Studio"
-          Icon={AmplifyIcon}
+          icon={AmplifyIcon}
         >
           Deploy and manage your app backend with a GraphQL API, User login,
           File storage and more in minutes. Start small and build to the full
@@ -40,7 +40,7 @@ export const AmplifySection = ({ platform }) => {
         </HomeFeatureCard>
         <HomeFeatureCard
           title="Connect your UI to your backend easily with Amplify libraries."
-          Icon={LibraryIcon}
+          icon={LibraryIcon}
         >
           Amplify Libraries offer an opinionated and declarative interfaces to
           easily connect to your backend. The libraries are pluggable and can be
@@ -52,7 +52,7 @@ export const AmplifySection = ({ platform }) => {
         </HomeFeatureCard>
         <HomeFeatureCard
           title="Deploy your front-end in minutes with Amplify Hosting."
-          Icon={ServerIcon}
+          icon={ServerIcon}
         >
           Fully managed web hosting with full-stack CI/CD. Amplify Hosting has
           support for common SPA and SSG frameworks like Next.js, Gatsby, and

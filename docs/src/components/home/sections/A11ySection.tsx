@@ -60,7 +60,7 @@ export const A11ySection = ({ platform }) => {
           <HomeFeatureCard
             minWidth="40%"
             title="Color contrast"
-            Icon={MdInvertColors}
+            icon={MdInvertColors}
           >
             All components have AA or higher contrast in both light and dark
             mode
@@ -68,7 +68,7 @@ export const A11ySection = ({ platform }) => {
           <HomeFeatureCard
             minWidth="40%"
             title="Keyboard navigation"
-            Icon={MdKeyboard}
+            icon={MdKeyboard}
           >
             Interactive components support keyboard navigation users would
             expect
@@ -76,21 +76,21 @@ export const A11ySection = ({ platform }) => {
           <HomeFeatureCard
             minWidth="40%"
             title="Focus management"
-            Icon={MdSmartButton}
+            icon={MdSmartButton}
           >
             Focusable components have proper focus states and interactivity
           </HomeFeatureCard>
           <HomeFeatureCard
             minWidth="40%"
             title="Accessible labels"
-            Icon={MdLabel}
+            icon={MdLabel}
           >
             Form fields and icons have accessible labels, plus there are
             utilities to help make sure your application is labelled.
           </HomeFeatureCard>
         </Flex>
 
-        <HomeCTA href={`${platform}/getting-started/accessibility`}>
+        <HomeCTA href={`/${platform}/getting-started/accessibility`}>
           <span>View our accessibility guidelines</span>
           <MdAccessibilityNew />
         </HomeCTA>

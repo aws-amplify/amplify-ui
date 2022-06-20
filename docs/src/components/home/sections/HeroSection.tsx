@@ -74,7 +74,7 @@ export const HeroSection = () => {
                 as="a"
                 className="docs-home-hero-card"
                 href="#authentication"
-                Icon={RiCloudWindyLine}
+                icon={RiCloudWindyLine}
               >
                 {/* Connect to the cloud in 30 seconds */}
                 We handle the hard stuff so you can focus on UI
@@ -84,7 +84,7 @@ export const HeroSection = () => {
                 as="a"
                 className="docs-home-hero-card"
                 href="#figma"
-                Icon={RiDragDropLine}
+                icon={RiDragDropLine}
               >
                 Compose in your IDE—or visually with Amplify Studio
               </HomeFeatureCard>
@@ -93,7 +93,7 @@ export const HeroSection = () => {
                 as="a"
                 className="docs-home-hero-card"
                 href="#themeable"
-                Icon={RiPencilRuler2Line}
+                icon={RiPencilRuler2Line}
               >
                 Use plain CSS, design tokens, or with your favorite CSS-in-JS
                 library
@@ -106,17 +106,12 @@ export const HeroSection = () => {
           <Button
             size="large"
             variation="primary"
-            className="docs-home-getting-started"
+            className="docs-home-cta"
             as="a"
             href={`/${platform}/getting-started/installation`}
           >
             Get started building
-            <Icon
-              ariaLabel=""
-              as={MdChevronRight}
-              fontSize="xl"
-              marginInlineStart="small"
-            />
+            <Icon ariaLabel="" as={MdChevronRight} fontSize="xl" />
           </Button>
           {/* <Flex
             gap="medium"

@@ -37,7 +37,7 @@ export const ThemingSection = ({ colorMode, platform }) => {
         </Text>
       </Flex>
       <ThemeSwitcher colorMode={colorMode} />
-      <HomeCTA href={`${platform}/theming`}>
+      <HomeCTA href={`/${platform}/theming`}>
         <span>Learn more about theming</span>
         <MdOutlineAutoAwesome />
       </HomeCTA>

@@ -18,9 +18,8 @@ const FrameworkLink = ({
   framework,
   onClick,
   isDisabled,
-  disableScroll,
 }: FrameworkLinkProps) => {
-  const { pathname, query, push } = useCustomRouter();
+  const { pathname, query } = useCustomRouter();
   const isCurrent = query.platform === framework;
   const classNames = `docs-framework-link ${isCurrent ? 'current' : ''}`;
   const href = pathname.includes(platformPath)
@@ -32,15 +31,7 @@ const FrameworkLink = ({
       <Button
         size="small"
         className={classNames}
-        onClick={(e) => {
-          if (disableScroll) {
-            e.preventDefault();
-            push(href, null, { scroll: false });
-          }
-          if (onClick) {
-            onClick(e);
-          }
-        }}
+        onClick={onClick}
         isDisabled={isDisabled}
       >
         <FrameworkLogo framework={framework} className="docs-framework-img" />
@@ -52,13 +43,9 @@ const FrameworkLink = ({
 
 interface FrameworkChooserProps {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
-  disableScroll?: boolean;
 }
 
-export const FrameworkChooser = ({
-  onClick,
-  disableScroll = false,
-}: FrameworkChooserProps) => {
+export const FrameworkChooser = ({ onClick }: FrameworkChooserProps) => {
   const { pathname } = useCustomRouter();
 
   const {
@@ -73,7 +60,6 @@ export const FrameworkChooser = ({
         <FrameworkLink
           key={framework}
           framework={framework}
-          disableScroll={disableScroll}
           onClick={onClick}
           isDisabled={!frameworksOptions.includes(framework)}
         />
