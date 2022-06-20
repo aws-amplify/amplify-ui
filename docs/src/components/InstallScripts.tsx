@@ -35,11 +35,7 @@ export const TerminalCommand = ({
   );
 };
 
-interface InstallScriptsProps {
-  framework: WebFramework;
-}
-
-export const InstallScripts = ({ framework }: InstallScriptsProps) => {
+export const InstallScripts = (framework: WebFramework) => {
   return (
     <Tabs maxWidth="42rem">
       <TabItem title="npm">
