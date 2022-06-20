@@ -11,6 +11,7 @@ import { useCustomRouter } from '@/components/useCustomRouter';
 import { HomeFeatureCard } from '../HomeFeatureCard';
 import { FRAMEWORKS } from '@/data/frameworks';
 import { FrameworkLogo } from '@/components/Logo';
+import { TerminalCommand } from '@/components/InstallScripts';
 
 export const HeroSection = () => {
   const {
@@ -99,17 +100,9 @@ export const HeroSection = () => {
               </HomeFeatureCard>
             </Flex>
           ) : null}
-          <View className="install-code__container">
-            <code className="install-code__content">
-              {frameworkInstallScript}
-            </code>
-            <CopyButton
-              className="install-code__button"
-              variation="link"
-              size="large"
-              copyText={frameworkInstallScript}
-            />
-          </View>
+
+          <TerminalCommand command={frameworkInstallScript} />
+
           <Button
             size="large"
             variation="primary"

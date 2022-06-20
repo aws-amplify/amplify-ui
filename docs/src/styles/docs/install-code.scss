@@ -11,15 +11,11 @@
   overflow-x: auto;
   white-space: nowrap;
   
-  @media (min-width: $breakpoint-large) {
-    &::before {
-      content: '$';
-      color: var(--amplify-colors-brand-secondary-40);
-      margin-inline-end: var(--amplify-space-small);
-    }
+  &::before {
+    content: '$';
+    color: var(--amplify-colors-brand-secondary-40);
+    margin-inline-end: var(--amplify-space-small);
   }
-  
-
 }
 
 .install-code__button {
