@@ -1,27 +1,18 @@
 import NextLink from 'next/link';
+import { Button, Flex, Heading, Icon, Text, View } from '@aws-amplify/ui-react';
+import { MdChevronRight } from 'react-icons/md';
 import {
-  Button,
-  Flex,
-  Heading,
-  Text,
-  useTheme,
-  View,
-} from '@aws-amplify/ui-react';
-import {
-  MdOutlineAutoAwesome,
-  MdAccessibilityNew,
-  MdOutlineSupport,
-  MdCode,
-} from 'react-icons/md';
+  RiCloudWindyLine,
+  RiDragDropLine,
+  RiPencilRuler2Line,
+} from 'react-icons/ri';
 import { CopyButton } from '@/components/CopyButton';
-import { FrameworkChooser } from '@/components/Layout/FrameworkChooser';
 import { useCustomRouter } from '@/components/useCustomRouter';
 import { HomeFeatureCard } from '../HomeFeatureCard';
 import { FRAMEWORKS } from '@/data/frameworks';
 import { FrameworkLogo } from '@/components/Logo';
 
 export const HeroSection = () => {
-  const { tokens } = useTheme();
   const {
     query: { platform = 'react' },
   } = useCustomRouter();
@@ -40,52 +31,101 @@ export const HeroSection = () => {
         <Flex
           direction="column"
           className="docs-home-subsection--thin"
-          justifyContent="stretch"
+          alignItems="center"
         >
-          <Heading level={1} className="docs-home-h1">
-            Build UI <strong>faster</strong>
+          <Heading level={1} marginBlockEnd="0">
+            Don't just prototype. <br />
+            <strong>Connect your UI to the cloud.</strong>
           </Heading>
           <Text
             fontSize={{
-              base: tokens.fontSizes.large,
-              small: tokens.fontSizes.xl,
+              base: 'large',
+              small: 'xl',
             }}
           >
-            Amplify UI simplifies building accessible, performant, and beautiful
+            Amplify UI is a collection of accessible, themeable, performant
+            React{' '}
+            <View as="span" display="inline-block">
+              (and more!
+              {FRAMEWORKS.map((framework) => (
+                <NextLink key={framework} href={`/${framework}`} scroll={false}>
+                  <a>
+                    <FrameworkLogo
+                      framework={framework}
+                      marginInlineStart="xxs"
+                    />
+                  </a>
+                </NextLink>
+              ))}
+              )
+            </View>{' '}
+            components that can connect directly to the cloud.
+            {/* Visually compose and connect Amplify UI in Amplify Studio or code it up in your favorite IDE! */}
+            {/* Amplify UI simplifies building accessible, performant, and beautiful
             applications with cloud-connected capabilities, building blocks,
-            theming, and utilities.
+            theming, and utilities. */}
+            {/* Create your UI visually and easily connect it to your data to supercharge your front-end development. */}
           </Text>
-          <Flex direction={['column', 'column', 'row']}>
-            <HomeFeatureCard
-              title="Accessible"
-              as="a"
-              className="docs-home-hero-card"
-              href="#accessibility"
-              Icon={MdAccessibilityNew}
-            >
-              Ensure all users can use your application.
-            </HomeFeatureCard>
-            <HomeFeatureCard
-              title="Themeable"
-              href="#themeable"
-              as="a"
-              className="docs-home-hero-card"
-              Icon={MdOutlineAutoAwesome}
-            >
-              Create your own unique look.
-            </HomeFeatureCard>
-            <HomeFeatureCard
-              title="Compatible"
-              href="#compatible"
-              as="a"
-              className="docs-home-hero-card"
-              Icon={MdCode}
-            >
-              Works well in any tech stack.
-            </HomeFeatureCard>
-          </Flex>
-
-          <Flex
+          {platform === 'react' ? (
+            <Flex direction={['column', 'column', 'row']}>
+              <HomeFeatureCard
+                title="Cloud connected"
+                as="a"
+                className="docs-home-hero-card"
+                href="#authentication"
+                Icon={RiCloudWindyLine}
+              >
+                {/* Connect to the cloud in 30 seconds */}
+                We handle the hard stuff so you can focus on UI
+              </HomeFeatureCard>
+              <HomeFeatureCard
+                title="Build visually"
+                as="a"
+                className="docs-home-hero-card"
+                href="#figma"
+                Icon={RiDragDropLine}
+              >
+                Compose in your IDE—or visually with Amplify Studio
+              </HomeFeatureCard>
+              <HomeFeatureCard
+                title="Styling your way"
+                as="a"
+                className="docs-home-hero-card"
+                href="#themeable"
+                Icon={RiPencilRuler2Line}
+              >
+                Use plain CSS, design tokens, or with your favorite CSS-in-JS
+                library
+              </HomeFeatureCard>
+            </Flex>
+          ) : null}
+          <View className="install-code__container">
+            <code className="install-code__content">
+              {frameworkInstallScript}
+            </code>
+            <CopyButton
+              className="install-code__button"
+              variation="link"
+              size="large"
+              copyText={frameworkInstallScript}
+            />
+          </View>
+          <Button
+            size="large"
+            variation="primary"
+            className="docs-home-getting-started"
+            as="a"
+            href={`/${platform}/getting-started/installation`}
+          >
+            Get started building
+            <Icon
+              ariaLabel=""
+              as={MdChevronRight}
+              fontSize="xl"
+              marginInlineStart="small"
+            />
+          </Button>
+          {/* <Flex
             gap="medium"
             direction={{ base: 'column-reverse', medium: 'row' }}
           >
@@ -108,9 +148,9 @@ export const HeroSection = () => {
                 copyText={frameworkInstallScript}
               />
             </View>
-          </Flex>
+          </Flex> */}
 
-          <Flex direction="row" justifyContent="center">
+          {/* <Flex direction="row" justifyContent="center">
             {FRAMEWORKS.map((framework) => (
               <NextLink key={framework} href={`/${framework}`} scroll={false}>
                 <a>
@@ -122,7 +162,7 @@ export const HeroSection = () => {
                 </a>
               </NextLink>
             ))}
-          </Flex>
+          </Flex> */}
         </Flex>
       </Flex>
     </View>

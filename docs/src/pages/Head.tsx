@@ -27,24 +27,18 @@ export const Head = () => {
     throw new Error(`Meta Info missing on ${filepath}`);
   }
 
-  const pageTitle = `${metaTitle ?? title} | ${capitalizeString(
-    platform
-  )} - Amplify UI`;
-
   const homepagePaths = ['/', '/[platform]'];
+
+  const pageTitle = homepagePaths.includes(pathname)
+    ? `${metaTitle} on ${capitalizeString(platform)}`
+    : `${metaTitle ?? title} | ${capitalizeString(platform)} - Amplify UI`;
 
   return (
     <NextHead>
       {homepagePaths.includes(pathname) ? (
-        <>
-          <title>
-            {metaTitle} on {capitalizeString(platform)}
-          </title>
-          <link rel="canonical" href={process.env.SITE_URL} />
-        </>
-      ) : (
-        <title>{pageTitle}</title>
-      )}
+        <link rel="canonical" href={process.env.SITE_URL} />
+      ) : null}
+      <title>{pageTitle}</title>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta name="description" content={metaDescription ?? description} />
 

@@ -131,6 +131,7 @@ export const AuthenticationSection = ({ platform }) => {
     <View
       ref={ref}
       as="section"
+      id="authentication"
       className={`docs-home-section fade-in ${isVisible ? 'shown' : ''}`}
     >
       <Flex direction="column">

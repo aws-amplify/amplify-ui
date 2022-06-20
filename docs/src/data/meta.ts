@@ -16,7 +16,7 @@ export interface MetaInfo {
 export const META_INFO: MetaInfo = {
   '/': {
     frontmatter: {
-      metaTitle: 'Amplify UI - Build UI faster with Amplify',
+      metaTitle: 'Amplify UI - Build UI fast with Amplify',
       metaDescription:
         'Amplify UI simplifies building accessible, performant, and beautiful applications with cloud-connected capabilities, building blocks, theming, and utilities.',
       supportedFrameworks: 'all',
@@ -26,7 +26,7 @@ export const META_INFO: MetaInfo = {
   },
   '/[platform]': {
     frontmatter: {
-      metaTitle: 'Amplify UI - Build UI faster with Amplify',
+      metaTitle: 'Amplify UI - Build UI fast with Amplify',
       metaDescription:
         'Amplify UI simplifies building accessible, performant, and beautiful applications with cloud-connected capabilities, building blocks, theming, and utilities.',
       supportedFrameworks: 'all',

@@ -69,6 +69,7 @@ export const FigmaSection = (props) => {
   return (
     <View
       as="section"
+      id="figma"
       className={`docs-home-section docs-burst-bg fade-in ${
         isVisible ? 'shown' : ''
       }`}

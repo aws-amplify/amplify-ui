@@ -263,3 +263,11 @@ h4:hover>  a .icon-link {
     }
   }
 }
+
+.video {
+  @supports (aspect-ratio: 1) {
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    height: auto;
+  }
+}
