@@ -7,6 +7,7 @@ export interface SelectFieldProps
     FlexContainerStyleProps,
     SelectProps {
   /**
+   * @description
    * List of option values for select dropdown
    */
   options?: string[];

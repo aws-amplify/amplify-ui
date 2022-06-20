@@ -19,6 +19,7 @@ import { ImageStyleProps } from './image';
 import { TextAreaStyleProps } from './textArea';
 
 /**
+ * @description
  * Extract style compatible types (string literal | number | any string)
  */
 export type StyleProp<PropertyType> =
@@ -39,6 +40,7 @@ export interface ResponsiveObject<PropertyType> {
 }
 
 /**
+ * @description
  * Allows a style prop to be the property type
  * or a design token of that property type.
  */
