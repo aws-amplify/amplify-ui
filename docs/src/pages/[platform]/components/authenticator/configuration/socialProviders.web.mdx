@@ -1,6 +1,8 @@
-import { Alert, Authenticator } from '@aws-amplify/ui-react';
+import { Alert } from '@aws-amplify/ui-react';
 import { Example } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
+import {SocialProviderDemo} from "@/components/SocialProviderDemo";
+
 
 <Alert heading="Zero Configuration">
 
@@ -16,7 +18,7 @@ For your [configured social providers](https://docs.amplify.aws/lib/auth/social/
 </Fragment>
 
 <Example>
-  <Authenticator socialProviders={['amazon', 'apple', 'facebook', 'google']} />
+  <SocialProviderDemo/>
 </Example>
 
 _[Step by step video](https://youtu.be/8KwZNn56F78) on setting up social providers._

@@ -4,6 +4,7 @@ export const PaginationAccessibilityExample = () => {
   const paginationProps = usePagination({ totalPages: 5 });
   return (
     <Pagination
+      aria-label="Example pagination"
       pageLabel="Jump to page"
       currentPageLabel="You are on page"
       previousLabel="Back to previous page"

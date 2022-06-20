@@ -1,5 +1,72 @@
 # @aws-amplify/ui
 
+## 3.11.0
+
+### Minor Changes
+
+- [#2085](https://github.com/aws-amplify/amplify-ui/pull/2085) [`e37b666d9`](https://github.com/aws-amplify/amplify-ui/commit/e37b666d967aa444984f9881e7267c0ea171716a) Thanks [@jacoblogan](https://github.com/jacoblogan)! - add design tokens and theme section to textareafield
+
+  ```
+    --amplify-components-textareafield-color
+    --amplify-components-textareafield-border-color
+    --amplify-components-textareafield-focus-border-color
+  ```
+
+* [#2087](https://github.com/aws-amplify/amplify-ui/pull/2087) [`540b4ce97`](https://github.com/aws-amplify/amplify-ui/commit/540b4ce97a7c68ea3783bc67e8da4cce1d52e706) Thanks [@jacoblogan](https://github.com/jacoblogan)! - add design tokens to passwordfield
+
+  ```
+  --amplify-components-passwordfield-color: var(--amplify-components-fieldcontrol-color);
+  --amplify-components-passwordfield-button-color: var(--amplify-components-button-color);
+  --amplify-components-passwordfield-button-active-background-color: var(--amplify-components-button-active-background-color);
+  --amplify-components-passwordfield-button-active-border-color: var(--amplify-components-button-active-border-color);
+  --amplify-components-passwordfield-button-active-color: var(--amplify-components-button-active-color);
+  --amplify-components-passwordfield-button-disabled-background-color: var(--amplify-components-button-disabled-background-color);
+  --amplify-components-passwordfield-button-disabled-border-color: var(--amplify-components-button-disabled-border-color);
+  --amplify-components-passwordfield-button-disabled-color: var(--amplify-components-button-disabled-color);
+  --amplify-components-passwordfield-button-focus-background-color: var(--amplify-components-button-focus-background-color);
+  --amplify-components-passwordfield-button-focus-border-color: var(--amplify-components-button-focus-border-color);
+  --amplify-components-passwordfield-button-focus-color: var(--amplify-components-button-focus-color);
+  --amplify-components-passwordfield-button-hover-background-color: var(--amplify-components-button-hover-background-color);
+  --amplify-components-passwordfield-button-hover-border-color: var(--amplify-components-button-hover-border-color);
+  --amplify-components-passwordfield-button-hover-color: var(--amplify-components-button-hover-color);
+  ```
+
+- [#2086](https://github.com/aws-amplify/amplify-ui/pull/2086) [`f6ee1355c`](https://github.com/aws-amplify/amplify-ui/commit/f6ee1355c75ee802c76a34d140c3e052fc0afaeb) Thanks [@jacoblogan](https://github.com/jacoblogan)! - add textfield design tokens
+
+  ```
+  --amplify-components-textfield-color: var(--amplify-components-fieldcontrol-color);
+  --amplify-components-textfield-border-color: var(--amplify-components-fieldcontrol-border-color);
+  --amplify-components-textfield-focus-border-color: var(--amplify-components-fieldcontrol-focus-border-color);
+  ```
+
+### Patch Changes
+
+- [#2054](https://github.com/aws-amplify/amplify-ui/pull/2054) [`5eedbbed4`](https://github.com/aws-amplify/amplify-ui/commit/5eedbbed4d04fc00a50d37ae3be61522212eb5cb) Thanks [@zchenwei](https://github.com/zchenwei)! - feat: adding colors theme key support in style props
+
+  **_Example code_**
+
+  ```jsx
+  import { View } from '@aws-amplify/ui-react';
+
+  export const Demo = () => {
+    return <View backgroundColor="pink.10" color="red.40" />;
+  };
+  ```
+
+* [#2071](https://github.com/aws-amplify/amplify-ui/pull/2071) [`ef790e5fd`](https://github.com/aws-amplify/amplify-ui/commit/ef790e5fd0d6c91311a4db2456f7de10f8fdad7a) Thanks [@wlee221](https://github.com/wlee221)! - fix(authenticator): explicitly filter special characters allowed by Cognito
+
+- [#2077](https://github.com/aws-amplify/amplify-ui/pull/2077) [`736cfe7cb`](https://github.com/aws-amplify/amplify-ui/commit/736cfe7cb3544bf0ecae5ab2c3b2caf381b497c4) Thanks [@zchenwei](https://github.com/zchenwei)! - feat(style): adding theme key support on more style props(`font-family`, `line-height`, `opacity`, `box-shadow` and `transform`)
+
+* [#2075](https://github.com/aws-amplify/amplify-ui/pull/2075) [`d8085741b`](https://github.com/aws-amplify/amplify-ui/commit/d8085741b23175458adba9b3c05e97408aaa6413) Thanks [@wlee221](https://github.com/wlee221)! - refactor(ui): create shared variable for password special characters
+
+- [#2102](https://github.com/aws-amplify/amplify-ui/pull/2102) [`a168acdc6`](https://github.com/aws-amplify/amplify-ui/commit/a168acdc69e7e44625b0bbf30a020dc1f7bcde8e) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix: nested theme providers by removing menu's portal.
+  Menu primitive no longer renders in a React Portal which means it properly gets the theme from the nearest ThemeProvider.
+  Removing the document element modifications in the ThemeProvider because it is no longer needed. Now the ThemeProvider is much cleaner!
+
+* [#2084](https://github.com/aws-amplify/amplify-ui/pull/2084) [`5f3d3a264`](https://github.com/aws-amplify/amplify-ui/commit/5f3d3a2642401788f1fc79334140c5f3cfc83876) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix: dark mode and disabled button. No longer using pure black and making the disabled button look mor disabled.
+
+- [#2070](https://github.com/aws-amplify/amplify-ui/pull/2070) [`28bf92ddb`](https://github.com/aws-amplify/amplify-ui/commit/28bf92ddbd893a3c2839d5215537f845db46b181) Thanks [@zchenwei](https://github.com/zchenwei)! - feat: adding theme key(`radii`, `space`, `fontSizes`, and `fontWeights`) support for more style props
+
 ## 3.10.0
 
 ### Minor Changes

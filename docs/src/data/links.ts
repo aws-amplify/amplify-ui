@@ -343,6 +343,10 @@ export const guides = [
 
 export const gettingStarted = [
   {
+    href: '/getting-started/introduction',
+    label: 'Introduction',
+  },
+  {
     href: '/getting-started/installation',
     label: 'Installation',
   },
@@ -353,11 +357,13 @@ export const gettingStarted = [
   {
     href: '/getting-started/usage/create-react-app',
     label: 'Create React App',
+    platforms: ['react'],
     tertiary: true,
   },
   {
     href: '/getting-started/usage/nextjs',
     label: 'Next.js',
+    platforms: ['react'],
     tertiary: true,
   },
   {
@@ -417,6 +423,11 @@ export const theming = [
     href: '/theming/css-variables',
     label: 'CSS variables',
     platforms: ['react', 'vue', 'angular'],
+  },
+  {
+    href: '/theming/style-props',
+    label: 'Style Props',
+    platforms: ['react'],
   },
 ];
 
