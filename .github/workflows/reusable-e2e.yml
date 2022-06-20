@@ -53,7 +53,7 @@ jobs:
         id: restore-cypress-cache
         with:
           path: ~/.cache/Cypress
-          key: ${{ runner.os }}-cypress-${{ hashFiles('canary/e2e/yarn.lock') }}
+          key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
       - name: Install packages
         uses: ./.github/actions/install-with-retries
         with:
