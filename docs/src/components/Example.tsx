@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Card, Flex, useTheme } from '@aws-amplify/ui-react';
+import { Card, Flex } from '@aws-amplify/ui-react';
 import { CopyButton } from './CopyButton';
 
 interface ExampleProps {
@@ -9,12 +9,12 @@ interface ExampleProps {
 }
 
 export function Example({ children, className = '' }: ExampleProps) {
-  const { tokens } = useTheme();
   return (
     <Card
       variation="outlined"
       className={`example ${className}`}
-      style={{ marginBottom: `${tokens.space.large}` }}
+      backgroundColor="inherit"
+      marginBottom="space.large"
     >
       <Flex direction="column">{children}</Flex>
     </Card>

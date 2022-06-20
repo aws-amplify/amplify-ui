@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link, LinkProps, Text, useTheme } from '@aws-amplify/ui-react';
+import { Link, LinkProps } from '@aws-amplify/ui-react';
 
 import { Demo } from '@/components/Demo';
 import { LinkPropControls } from './LinkPropControls';
@@ -9,8 +9,9 @@ import { demoState } from '@/utils/demoState';
 const propsToCode = (props: LinkProps) => {
   return (
     '<Link' +
+    '\n href="https://ui.docs.amplify.aws/react/components/link"' +
     (props.color ? `\n color="${props.color}"` : '') +
-    (props.textDecoration
+    (props.textDecoration !== 'none'
       ? `\n textDecoration="${props.textDecoration}"`
       : '') +
     (props.isExternal ? `\n isExternal={${props.isExternal}}` : '') +
@@ -31,29 +32,19 @@ export const LinkDemo = () => {
     (demoState.get(Link.displayName) as LinkProps) || defaultLinkProps
   );
 
-  const { tokens } = useTheme();
-
   return (
     <Demo
       code={propsToCode(linkProps)}
       propControls={<LinkPropControls {...linkProps} />}
     >
-      <>
-        <Link
-          color={linkProps.color}
-          isExternal={linkProps.isExternal}
-          textDecoration={linkProps.textDecoration}
-        >
-          My Demo Link
-        </Link>
-        <Text fontSize={tokens.space.relative.small}>
-          {linkProps.isExternal ? (
-            <>
-              <sup>*</sup>Rel Attribute=noopener noreferrer
-            </>
-          ) : null}
-        </Text>
-      </>
+      <Link
+        href="https://ui.docs.amplify.aws/react/components/link"
+        color={linkProps.color}
+        isExternal={linkProps.isExternal}
+        textDecoration={linkProps.textDecoration}
+      >
+        {linkProps.children}
+      </Link>
     </Demo>
   );
 };
