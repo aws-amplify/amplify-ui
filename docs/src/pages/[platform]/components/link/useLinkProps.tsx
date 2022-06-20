@@ -18,10 +18,18 @@ export const useLinkProps: UseLinkProps = (initialValues) => {
   const [textDecoration, setTextDecoration] = React.useState<
     LinkProps['textDecoration']
   >(initialValues.textDecoration);
+  const [children, setChildren] = React.useState<LinkProps['children']>(
+    initialValues.children
+  );
 
   React.useEffect(() => {
-    demoState.set(Link.displayName, { isExternal, color, textDecoration });
-  }, [isExternal, color, textDecoration]);
+    demoState.set(Link.displayName, {
+      isExternal,
+      color,
+      textDecoration,
+      children,
+    });
+  }, [isExternal, color, textDecoration, children]);
 
   return React.useMemo(
     () => ({
@@ -31,7 +39,8 @@ export const useLinkProps: UseLinkProps = (initialValues) => {
       setColor,
       textDecoration,
       setTextDecoration,
-      children: initialValues.children,
+      children,
+      setChildren,
     }),
     [
       isExternal,
@@ -40,7 +49,8 @@ export const useLinkProps: UseLinkProps = (initialValues) => {
       setColor,
       textDecoration,
       setTextDecoration,
-      initialValues.children,
+      children,
+      setChildren,
     ]
   );
 };

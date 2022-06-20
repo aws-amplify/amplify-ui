@@ -32,9 +32,11 @@ jobs:
           cache: 'yarn'
       - name: Ignore monorepo postcss.config.js
         run: mv postcss.config.js _postcss.config.js
-      - name: Install packages
-        run: for n in {1..3}; do yarn install --no-lockfile && break || sleep 5; done
-        working-directory: ./canary/apps/${{ matrix.path }}
+      - name: Install canary package
+        uses: ./.github/actions/install-with-retries
+        with:
+          no-lockfile: true
+          working-directory: ./canary/apps/${{ matrix.path }}
       - name: Add Amplify CLI
         run: yarn global add @aws-amplify/cli
       - name: Get CLI versions
@@ -56,9 +58,30 @@ jobs:
       - name: Build example app
         run: yarn build
         working-directory: ./canary/apps/${{ matrix.path }}
-      - name: Install cypress
-        run: for n in {1..3}; do yarn install --no-lockfile && break || sleep 5; done
-        working-directory: ./canary/e2e
+      # This steps attempts to restore cypress runner. It will not create any new
+      # cache entries however, because cypress runner isn't available yet.
+      - name: Restore cypress runner from Cache
+        uses: actions/cache@v2
+        id: restore-cypress-cache
+        with:
+          path: ~/.cache/Cypress
+          key: ${{ runner.os }}-canary-cypress-${{ hashFiles('canary/e2e/yarn.lock') }}
+      - name: Install e2e packages
+        uses: ./.github/actions/install-with-retries
+        with:
+          working-directory: ./canary/e2e
+          # If we got a cache hit on cypress runner, then we will skip cypress binary
+          # installation. Otherwise, it will install cypress binary.
+          skip-cypress-binary: ${{ steps.restore-cypress-cache.outputs.cache-hit }}
+      # If cypress cache was missed, then we need to create new cache entry and upload it.
+      # At this point, cypress runner should've been installed from the previous installation
+      # step, so we go ahead and update the cache entry.
+      - name: Cache cypress runner
+        if: steps.restore-cypress-cache.outputs.cache-hit != 'true'
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/Cypress
+          key: ${{ runner.os }}-canary-cypress-${{ hashFiles('canary/e2e/yarn.lock') }}
       - name: Start ${{ matrix.example }} example
         run: yarn start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000
         working-directory: ./canary/apps/${{ matrix.path }}

@@ -2,8 +2,11 @@ import { Link } from '@aws-amplify/ui-react';
 
 export const ExternalLinkExample = () => {
   return (
-    <Link href="https://www.myOtherAwesomeWebsite.com" isExternal={true}>
-      Link To My Awesome Website
+    <Link
+      href="https://ui.docs.amplify.aws/react/components/link"
+      isExternal={true}
+    >
+      This Link will open in new tab
     </Link>
   );
 };
