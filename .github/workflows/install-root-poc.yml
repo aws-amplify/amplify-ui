@@ -1,0 +1,17 @@
+name: Yarn install root POC
+
+on:
+  pull_request:
+    branches: [main, ui-svelte/main, ui-geo/main, ui-react@v2]
+    types: [opened, synchronize, labeled]
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install packages
+        uses: ./.github/actions/install-with-retries
+        with:
+          skip-cypress-binary: true # publishing doesn't need cypress
+      - name: check cypress binary
+        run: ls ~/.cache/Cypress
