@@ -5,7 +5,7 @@ import crypto from 'crypto';
 // This is needed for vitest to get crypto module needed by nanoid
 Object.defineProperty(global.self, 'crypto', {
   value: {
-    getRandomValues: (arr: Array<any>) => crypto.randomBytes(arr.length),
+    getRandomValues: (arr: Array<string>) => crypto.randomBytes(arr.length),
   },
 });
 
