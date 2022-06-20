@@ -19,8 +19,6 @@ import {
   useBreakpointValue,
 } from '@aws-amplify/ui-react';
 import { MdChevronRight } from 'react-icons/md';
-
-import { CopyButton } from '@/components/CopyButton';
 import { Footer } from '@/components/Layout/Footer';
 import { HomeLogo } from '../HomeLogo';
 import { HomePrimitivePreview } from '../HomePrimitivePreview';
@@ -28,6 +26,7 @@ import { theme } from '../../theme';
 import { ThemeButton } from '../ThemeButton';
 import { useCustomRouter } from '@/components/useCustomRouter';
 import { FRAMEWORKS } from '@/data/frameworks';
+import { TerminalCommand } from '@/components/InstallScripts';
 
 // react-live does not work with SSR so we have to load
 // it dynamically and only in the client
@@ -98,16 +97,7 @@ const HomePage = ({ colorMode }) => {
                   Get started
                   <MdChevronRight />
                 </Button>
-                <code className="install-code__container">
-                  <p className="install-code__content">
-                    {frameworkInstallScript}
-                  </p>
-                  <CopyButton
-                    className="install-code__button"
-                    copyText={frameworkInstallScript}
-                    variation="link"
-                  />
-                </code>
+                <TerminalCommand terminalCommand={frameworkInstallScript} />
               </Flex>
             </Card>
             <Flex
