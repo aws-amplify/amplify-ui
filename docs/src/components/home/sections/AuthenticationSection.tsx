@@ -1,5 +1,5 @@
-import * as React from 'react';
-
+import { useRef } from 'react';
+import classNames from 'classnames';
 import {
   Flex,
   Heading,
@@ -9,6 +9,7 @@ import {
   Authenticator,
   useBreakpointValue,
 } from '@aws-amplify/ui-react';
+
 import { HomeCode } from '@/components/home/HomeCode';
 import { HomeCTA } from '@/components/home/HomeCTA';
 import { CodeHighlight } from '@/components/CodeHighlight';
@@ -116,7 +117,7 @@ const fileName = {
 };
 
 export const AuthenticationSection = ({ platform }) => {
-  const ref = React.useRef<HTMLDivElement | null>(null);
+  const ref = useRef<HTMLDivElement | null>(null);
   const entry = useIntersectionObserver(ref, {
     threshold: 0.125,
     freezeOnceVisible: true,
@@ -132,7 +133,11 @@ export const AuthenticationSection = ({ platform }) => {
       ref={ref}
       as="section"
       id="authentication"
-      className={`docs-home-section fade-in ${isVisible ? 'shown' : ''}`}
+      className={classNames(
+        'docs-home-section',
+        'fade-in',
+        isVisible && 'shown'
+      )}
     >
       <Flex direction="column">
         <Flex direction="column" className="docs-home-subsection--thin">
@@ -176,7 +181,7 @@ export const AuthenticationSection = ({ platform }) => {
               <CodeHighlight
                 code={authenticatorCode[platform]}
                 language={languages[platform]}
-                withLines={true}
+                withLines
               />
             </HomeCode>
           ) : null}

@@ -1,4 +1,5 @@
-import * as React from 'react';
+import { useRef } from 'react';
+import classNames from 'classnames';
 import { Heading, Link, Text, Flex, View } from '@aws-amplify/ui-react';
 import {
   MdInvertColors,
@@ -13,7 +14,7 @@ import { HomeFeatureCard } from '../HomeFeatureCard';
 import { useIntersectionObserver } from '@/components/useIntersection';
 
 export const A11ySection = ({ platform }) => {
-  const ref = React.useRef<HTMLDivElement | null>(null);
+  const ref = useRef<HTMLDivElement | null>(null);
   const entry = useIntersectionObserver(ref, {
     threshold: 0.125,
     freezeOnceVisible: true,
@@ -25,7 +26,11 @@ export const A11ySection = ({ platform }) => {
       ref={ref}
       as="section"
       id="accessibility"
-      className={`docs-home-section fade-in ${isVisible ? 'shown' : ''}`}
+      className={classNames(
+        'docs-home-section',
+        'fade-in',
+        isVisible && 'shown'
+      )}
     >
       <Flex
         direction="column"

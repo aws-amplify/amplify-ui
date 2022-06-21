@@ -1,7 +1,5 @@
-import * as React from 'react';
-import { CodeHighlight } from '@/components/CodeHighlight';
-import { DataIcon } from '@/components/Icons';
-import { HomeCTA } from '@/components/home/HomeCTA';
+import { useRef } from 'react';
+import classNames from 'classnames';
 import {
   Button,
   Card,
@@ -10,17 +8,19 @@ import {
   Icon,
   Rating,
   Text,
-  useTheme,
   View,
 } from '@aws-amplify/ui-react';
+
+import { CodeHighlight } from '@/components/CodeHighlight';
+import { DataIcon } from '@/components/Icons';
+import { HomeCTA } from '@/components/home/HomeCTA';
 import { useIntersectionObserver } from '@/components/useIntersection';
 import { FigmaLogoMono } from '@/components/Logo';
 
 const StudioCard = () => {
-  const { tokens } = useTheme();
   return (
-    <View className="docs-home-figma-node">
-      <View className="docs-home-figma-node-label">
+    <View className="docs-home-figma__node">
+      <View className="docs-home-figma__node-label">
         <Icon
           ariaLabel=""
           viewBox={{
@@ -31,22 +31,22 @@ const StudioCard = () => {
         />
         ProductCard
       </View>
-      <View className="docs-home-figma-node-handles" />
-      <View className="docs-home-figma-node-handles" />
+      <View className="docs-home-figma__node-handles" />
+      <View className="docs-home-figma__node-handles" />
       <Card variation="elevated">
         <Flex direction="column">
           <Text
-            className="docs-home-figma-data"
-            fontSize={tokens.fontSizes.large}
-            fontWeight={tokens.fontWeights.bold}
+            className="docs-home-figma__data"
+            fontSize="large"
+            fontWeight="bold"
           >
             AWS Amplify
           </Text>
-          <Rating className="docs-home-figma-data" value={3.5} />
+          <Rating className="docs-home-figma__data" value={3.5} />
           <Text
-            className="docs-home-figma-data"
-            fontSize={tokens.fontSizes.xl}
-            color={tokens.colors.font.tertiary}
+            className="docs-home-figma__data"
+            fontSize="xl"
+            color="font.tertiary"
           >
             $99
           </Text>
@@ -57,9 +57,8 @@ const StudioCard = () => {
   );
 };
 
-export const FigmaSection = (props) => {
-  const { tokens } = useTheme();
-  const ref = React.useRef<HTMLDivElement | null>(null);
+export const FigmaSection = () => {
+  const ref = useRef<HTMLDivElement | null>(null);
   const entry = useIntersectionObserver(ref, {
     threshold: 0.25,
     freezeOnceVisible: true,
@@ -70,9 +69,12 @@ export const FigmaSection = (props) => {
     <View
       as="section"
       id="figma"
-      className={`docs-home-section docs-burst-bg fade-in ${
-        isVisible ? 'shown' : ''
-      }`}
+      className={classNames(
+        'docs-home-section',
+        'docs-burst-bg',
+        'fade-in',
+        isVisible && 'shown'
+      )}
       ref={ref}
     >
       <Flex className="docs-home-subsection" direction="column" gap="large">
@@ -98,28 +100,28 @@ export const FigmaSection = (props) => {
           </Flex>
           <Flex
             flex="1"
-            className="docs-home-figma-graphic"
+            className="docs-home-figma"
             alignItems="center"
             justifyContent="center"
           >
             <StudioCard />
-            <Card className="docs-home-figma-studio">
-              <Text fontSize={tokens.fontSizes.xl}>
+            <Card className="docs-home-figma__studio">
+              <Text fontSize="xl">
                 <DataIcon color="font.disabled" />
                 <code>Product</code>
               </Text>
-              <Text className="docs-home-figma-data">
+              <Text className="docs-home-figma__data">
                 <code>Product.title</code>
               </Text>
-              <Text className="docs-home-figma-data">
+              <Text className="docs-home-figma__data">
                 <code>Product.rating</code>
               </Text>
-              <Text className="docs-home-figma-data">
+              <Text className="docs-home-figma__data">
                 <code>Product.price</code>
               </Text>
             </Card>
 
-            <View className="docs-home-figma-code">
+            <View className="docs-home-figma__code">
               <CodeHighlight
                 className="docs-home-code"
                 code={`<ProductCard />`}
@@ -129,13 +131,13 @@ export const FigmaSection = (props) => {
         </Flex>
         <Flex className="docs-home-subsection--thin" direction="column">
           <Card variation="elevated">
-            <video className="docs-home-video" controls width="100%">
+            <video controls width="100%">
               <source src="/studio-demo.mp4" type="video/mp4" />
             </video>
           </Card>
-          <HomeCTA href={`/react/getting-started/figma`}>
+          <HomeCTA href="/react/getting-started/figma">
             <span>Learn more about Figma integration</span>
-            <FigmaLogoMono height="2rem" alt="" />
+            <FigmaLogoMono alt="" />
           </HomeCTA>
         </Flex>
       </Flex>

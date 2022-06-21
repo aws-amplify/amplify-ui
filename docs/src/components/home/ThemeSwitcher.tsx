@@ -192,7 +192,7 @@ const Preview = ({ platform }) => {
 };
 
 const language = {
-  react: 'jsx',
+  react: 'javascript',
   angular: 'css',
   vue: 'css',
 };
@@ -257,7 +257,6 @@ export const ThemeSwitcher = ({ colorMode }) => {
         {isMobile ? null : (
           <HomeCode flex="1" fileName={fileName[platform as string]}>
             <CodeHighlight
-              withCopy
               withLines
               className="scrollable"
               code={

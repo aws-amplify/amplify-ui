@@ -1,5 +1,6 @@
 import { useRef } from 'react';
-import { Heading, Link, View, Flex, Button } from '@aws-amplify/ui-react';
+import classNames from 'classnames';
+import { Heading, Link, View, Flex } from '@aws-amplify/ui-react';
 import { AmplifyIcon, ServerIcon, LibraryIcon } from '@/components/Icons';
 import { useIntersectionObserver } from '@/components/useIntersection';
 import { HomeFeatureCard } from '../HomeFeatureCard';
@@ -16,8 +17,12 @@ export const AmplifySection = ({ platform }) => {
     <View
       ref={ref}
       as="section"
-      className={`docs-home-section fade-in ${isVisible ? 'shown' : ''}`}
       testId="docs-home-section"
+      className={classNames(
+        'docs-home-section',
+        'fade-in',
+        isVisible && 'shown'
+      )}
     >
       <Flex direction="column" className="docs-home-subsection--thin">
         <Heading level={2}>

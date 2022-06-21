@@ -1,6 +1,6 @@
-import { Flex, Icon, Text, View } from '@aws-amplify/ui-react';
+import { BaseStyleProps, Flex, Icon, Text, View } from '@aws-amplify/ui-react';
 
-interface HomeFeatureCardProps {
+interface HomeFeatureCardProps extends BaseStyleProps {
   title: string;
   icon?: React.FC<any>;
   children?: React.ReactNode;

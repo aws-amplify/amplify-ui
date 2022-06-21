@@ -1,4 +1,5 @@
-import * as React from 'react';
+import { useRef, useState } from 'react';
+import classNames from 'classnames';
 import {
   MdFormatAlignCenter,
   MdFormatAlignJustify,
@@ -37,9 +38,9 @@ const Center = ({ children }) => (
 );
 
 const Preview = () => {
-  const [exclusiveValue, setExclusiveValue] = React.useState('align-left');
-  const [radioValue, setRadioValue] = React.useState('css');
-  const [currentPageIndex, setCurrentPageIndex] = React.useState(4);
+  const [exclusiveValue, setExclusiveValue] = useState('align-left');
+  const [radioValue, setRadioValue] = useState('css');
+  const [currentPageIndex, setCurrentPageIndex] = useState(4);
   const totalPages = 99;
 
   const handleOnChange = (newPageIndex, prevPageIndex) => {
@@ -173,7 +174,7 @@ const Preview = () => {
 
 export const ComingSoonPrimitiveSection = ({ platform }) => {
   return (
-    <View as="section" className="docs-home-section docs-grid-bg centered">
+    <View as="section" className="docs-home-section docs-grid-bg">
       <Flex direction="column" className="docs-home-subsection--thin">
         <Heading level={2} textAlign="center">
           {upperFirst(platform)} primitive components{' '}
@@ -188,7 +189,7 @@ export const ComingSoonPrimitiveSection = ({ platform }) => {
 };
 
 export const PrimitiveSection = ({ platform, ...rest }) => {
-  const ref = React.useRef<HTMLDivElement | null>(null);
+  const ref = useRef<HTMLDivElement | null>(null);
   const entry = useIntersectionObserver(ref, {
     threshold: 0.125,
     freezeOnceVisible: true,
@@ -198,9 +199,12 @@ export const PrimitiveSection = ({ platform, ...rest }) => {
   return (
     <View
       as="section"
-      className={`docs-home-section docs-grid-bg fade-in ${
-        isVisible ? 'shown' : ''
-      }`}
+      className={classNames(
+        'docs-home-section',
+        'docs-grid-bg',
+        'fade-in',
+        isVisible && 'shown'
+      )}
       backgroundColor="background.secondary"
       ref={ref}
     >

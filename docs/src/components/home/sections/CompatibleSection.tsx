@@ -1,4 +1,5 @@
 import { Flex, Heading, View } from '@aws-amplify/ui-react';
+import classNames from 'classnames';
 import { SiTypescript } from 'react-icons/si';
 import { MdOutlineFlashOff, MdOutlineSupport } from 'react-icons/md';
 
@@ -20,7 +21,11 @@ export const CompatibleSection = ({ platform }) => {
       ref={ref}
       as="section"
       id="compatible"
-      className={`docs-home-section fade-in ${isVisible ? 'shown' : ''}`}
+      className={classNames(
+        'docs-home-section',
+        'fade-in',
+        isVisible && 'shown'
+      )}
     >
       <Flex direction="column" className="docs-home-subsection">
         <Heading level={2} textAlign="center">

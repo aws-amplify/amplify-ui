@@ -74,11 +74,6 @@ export const HeroSection = () => {
               )
             </View>{' '}
             components that can connect directly to the cloud.
-            {/* Visually compose and connect Amplify UI in Amplify Studio or code it up in your favorite IDE! */}
-            {/* Amplify UI simplifies building accessible, performant, and beautiful
-            applications with cloud-connected capabilities, building blocks,
-            theming, and utilities. */}
-            {/* Create your UI visually and easily connect it to your data to supercharge your front-end development. */}
           </Text>
           {platform === 'react' ? (
             <Flex direction={['column', 'column', 'row']}>
@@ -127,7 +122,7 @@ export const HeroSection = () => {
               Get started building
               <Icon ariaLabel="" as={MdChevronRight} fontSize="xl" />
             </Button>
-            {showEditor ? (
+            {platform === 'react' && showEditor ? (
               <Button
                 size="large"
                 className="docs-home-cta"

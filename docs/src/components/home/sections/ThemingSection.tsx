@@ -1,4 +1,5 @@
-import * as React from 'react';
+import { useRef } from 'react';
+import classNames from 'classnames';
 import { MdOutlineAutoAwesome } from 'react-icons/md';
 import { Heading, View, Text, Flex } from '@aws-amplify/ui-react';
 import { ThemeSwitcher } from '@/components/home/ThemeSwitcher';
@@ -6,7 +7,7 @@ import { HomeCTA } from '@/components/home/HomeCTA';
 import { useIntersectionObserver } from '@/components/useIntersection';
 
 export const ThemingSection = ({ colorMode, platform }) => {
-  const ref = React.useRef<HTMLDivElement | null>(null);
+  const ref = useRef<HTMLDivElement | null>(null);
   const entry = useIntersectionObserver(ref, {
     threshold: 0.125,
     freezeOnceVisible: true,
@@ -18,9 +19,12 @@ export const ThemingSection = ({ colorMode, platform }) => {
       as="section"
       id="themeable"
       testId="docs-home-section-themable"
-      className={`docs-home-section docs-gradient-bg fade-in ${
-        isVisible ? 'shown' : ''
-      }`}
+      className={classNames(
+        'docs-home-section',
+        'docs-gradient-bg',
+        'fade-in',
+        isVisible && 'shown'
+      )}
     >
       <Flex
         direction="column"

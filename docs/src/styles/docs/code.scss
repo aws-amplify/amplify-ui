@@ -35,7 +35,6 @@ pre[class*='language-'] {
   margin: 0 0 var(--amplify-space-large) 0;
   overflow: auto;
   border-radius: 0;
-  // max-height: 30em;
 }
 
 pre.language-shell code.language-shell::before {
@@ -51,15 +50,20 @@ section > pre[class*='language-'] {
   margin-bottom: var(--amplify-space-medium);
 }
 
+.token.keyword,
+.token.module {
+  color: var(--amplify-colors-purple-80);
+}
+
 .token.comment,
 .token.prolog,
 .token.cdata {
   color: var(--amplify-colors-font-tertiary);
 }
 
-.token.keyword,
+// .token.keyword,
 .token.imports {
-  color: var(--amplify-colors-purple-60);
+  color: var(--amplify-colors-teal-80);
 }
 
 .token.property,
@@ -67,7 +71,7 @@ section > pre[class*='language-'] {
 .token.symbol,
 .token.deleted,
 .token.important {
-  color: var(--amplify-colors-red-60);
+  color: var(--amplify-colors-red-80);
 }
 
 .token.selector,
@@ -78,12 +82,12 @@ section > pre[class*='language-'] {
 .token.regex,
 .token.attr-value,
 .token.attr-value > .token.punctuation {
-  color: var(--amplify-colors-green-60);
+  color: var(--amplify-colors-green-80);
 }
 
 .token.variable,
 .token.function {
-  color: var(--amplify-colors-pink-60);
+  color: var(--amplify-colors-pink-80);
 }
 
 .token.operator {
@@ -101,22 +105,22 @@ section > pre[class*='language-'] {
 /* HTML overrides */
 .token.attr-value > .token.punctuation.attr-equals,
 .token.special-attr > .token.attr-value > .token.value.css {
-  color: var(--amplify-colors-teal-60);
+  color: var(--amplify-colors-teal-80);
 }
 
 /* CSS overrides */
 .language-css {
   & .token.selector {
-    color: var(--amplify-colors-purple-60);
+    color: var(--amplify-colors-purple-80);
   }
   
   & .token.property {
-    color: var(--amplify-colors-teal-60);
+    color: var(--amplify-colors-teal-80);
   }
   
   & .token.function,
   & .token.url > .token.function {
-    color: var(--amplify-colors-teal-60);
+    color: var(--amplify-colors-teal-80);
   }
   
   & .token.url > .token.string.url {
@@ -153,7 +157,7 @@ section > pre[class*='language-'] {
 }
 
 .language-markdown .token.url > .token.content {
-  color: var(--amplify-colors-blue-60);
+  color: var(--amplify-colors-blue-80);
 }
 
 .language-markdown .token.url > .token.url,
@@ -376,17 +380,20 @@ pre > code.diff-highlight .token.token.inserted:not(.prefix) *::selection {
 }
 
 
-.token.class-name,
+.token.class-name {
+  color: var(--amplify-colors-pink-80);
+}
+
 .token.boolean,
 .token.constant,
 .token.number,
 .token.atrule,
 .token.unit {
-  color: var(--amplify-colors-pink-80);
+  color: var(--amplify-colors-blue-80);
 }
 
 .token.attr-name {
-  color: var(--amplify-colors-blue-60);
+  color: var(--amplify-colors-blue-80);
 }
 
 .token.boolean {
@@ -394,7 +401,7 @@ pre > code.diff-highlight .token.token.inserted:not(.prefix) *::selection {
 }
 
 .token.color {
-  color: var(--amplify-colors-teal-60);
+  color: var(--amplify-colors-teal-80);
 }
 
 .sp-tab-button[data-active='true'] {

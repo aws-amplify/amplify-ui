@@ -1,5 +1,6 @@
-import * as React from 'react';
+import { useRef } from 'react';
 import dynamic from 'next/dynamic';
+import classNames from 'classnames';
 import { Heading, View } from '@aws-amplify/ui-react';
 import { useIntersectionObserver } from '@/components/useIntersection';
 
@@ -10,7 +11,7 @@ const HomeEditor = dynamic(() => import('../HomeEditor'), {
 }) as React.FC<any>;
 
 export const LiveSection = ({ platform, ...rest }) => {
-  const ref = React.useRef<HTMLDivElement | null>(null);
+  const ref = useRef<HTMLDivElement | null>(null);
   const entry = useIntersectionObserver(ref, {
     threshold: 0.125,
     freezeOnceVisible: true,
@@ -21,7 +22,11 @@ export const LiveSection = ({ platform, ...rest }) => {
     <View
       as="section"
       id="live"
-      className={`docs-home-section fade-in ${isVisible ? 'shown' : ''}`}
+      className={classNames(
+        'docs-home-section',
+        'fade-in',
+        isVisible && 'shown'
+      )}
       ref={ref}
     >
       <View className="docs-home-subsection">
