@@ -15,25 +15,26 @@
 
 .docs-content-body {
   padding: var(--amplify-space-xxl);
-  
+
   & > * + * {
     margin-bottom: var(--amplify-space-medium);
   }
-  
+
   & > table {
     border-collapse: collapse;
     width: 100%;
-    
+
     & td,
     & th {
-      padding:var(--amplify-space-small) var(--amplify-space-medium);
-      border: var(--amplify-border-widths-small) solid var(--amplify-colors-border-tertiary);
+      padding: var(--amplify-space-small) var(--amplify-space-medium);
+      border: var(--amplify-border-widths-small) solid
+        var(--amplify-colors-border-tertiary);
     }
   }
 }
 
 .docs-page-tab {
   & > * + * {
-    margin-bottom: var(--amplify-space-medium);
+    margin-block-start: var(--amplify-space-medium);
   }
 }
