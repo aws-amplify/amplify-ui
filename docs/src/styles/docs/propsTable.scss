@@ -8,8 +8,8 @@
     box-shadow: unset;
     border-radius: unset;
     border-bottom-color: var(--amplify-components-table-data-border-color);
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
+    border-bottom-style: var(--amplify-components-table-data-border-style);
+    border-bottom-width: var(--amplify-components-table-data-border-color);
   }
 
   & .amplify-expander__content {
