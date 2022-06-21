@@ -50,7 +50,13 @@ const NavLinks = ({
   </Collection>
 );
 
-const NavLink = ({ href, children, onClick, tertiary, platforms = [] }) => {
+const NavLink = ({
+  href,
+  children,
+  onClick,
+  tertiary = false,
+  platforms = [],
+}) => {
   const {
     query: { platform = 'react' },
     pathname,
@@ -130,7 +136,7 @@ const ExpanderTitle = ({ Icon, text }) => {
 // TODO: clean up this logic
 const SecondaryNav = (props) => {
   const { pathname } = useCustomRouter();
-
+  const { platform } = props;
   // Extract section from URL (/section/... => section)
   let section = pathname.split('/')[2];
   // NOTE: Remove this logic when we update the URLs for these sections.
@@ -170,21 +176,27 @@ const SecondaryNav = (props) => {
           </NavLink>
         ))}
       </ExpanderItem>
-      <ExpanderItem
-        title={
-          <ExpanderTitle Icon={MdOutlineWidgets} text="Primitive components" />
-        }
-        value="components"
-      >
-        {primitiveComponents.map(({ heading, components }) => (
-          <NavLinkComponentsSection
-            {...props}
-            key={heading}
-            heading={heading}
-            components={components}
-          />
-        ))}
-      </ExpanderItem>
+      {platform === 'react' ? (
+        <ExpanderItem
+          title={
+            <ExpanderTitle
+              Icon={MdOutlineWidgets}
+              text="Primitive components"
+            />
+          }
+          value="components"
+        >
+          {primitiveComponents.map(({ heading, components }) => (
+            <NavLinkComponentsSection
+              {...props}
+              key={heading}
+              heading={heading}
+              components={components}
+            />
+          ))}
+        </ExpanderItem>
+      ) : null}
+
       <ExpanderItem
         title={<ExpanderTitle Icon={MdWebAssetOff} text="Legacy components" />}
         value="legacy-components"
@@ -241,7 +253,7 @@ export const Sidebar = ({ expanded, setExpanded, platform }) => {
 
           <FrameworkChooser onClick={onClick} />
 
-          <SecondaryNav onClick={onClick} />
+          <SecondaryNav onClick={onClick} platform={platform} />
 
           <Divider size="small" />
 

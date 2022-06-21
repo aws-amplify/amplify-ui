@@ -16,6 +16,7 @@ export interface IconProps extends ViewProps {
   /**
    * @description
    * This defines the shape of the <path> SVG element(the 'd' attribute).
+   * @see [MDN](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/path)
    */
   pathData?: string;
 
@@ -28,6 +29,7 @@ export interface IconProps extends ViewProps {
   /**
    * @description
    * This defines the position and dimension, in user space, of an SVG viewport.
+   * @see [MDN](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox)
    */
   viewBox?: ViewBox;
 
@@ -35,6 +37,7 @@ export interface IconProps extends ViewProps {
    * @description
    * By default this will be "currentColor" to match what is generally expected
    * of icons (they inherit their color from current font color).
+   * @see [MDN](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill)
    */
   fill?: Property.Color;
 

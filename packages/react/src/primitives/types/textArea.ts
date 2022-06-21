@@ -5,6 +5,10 @@ import { FieldVariations } from './field';
 import { ViewProps } from './view';
 
 export interface TextAreaStyleProps {
+  /**
+   * @description
+   * Defines if (and how) an element is resizable by the user
+   */
   resize?: Property.Resize;
 }
 
@@ -12,6 +16,7 @@ export interface TextAreaProps extends TextAreaStyleProps, ViewProps {
   /**
    * @description
    * Specifies permissions for browser UA to autocomplete field
+   * @see [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete)
    */
   autoComplete?: string;
 
@@ -35,7 +40,8 @@ export interface TextAreaProps extends TextAreaStyleProps, ViewProps {
 
   /**
    * @description
-   * Determines whether field should be immutable
+   * @see [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-readonly)
+   * @default false
    */
   isReadOnly?: boolean;
 

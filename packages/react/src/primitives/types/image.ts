@@ -21,12 +21,14 @@ export interface ImageOptions extends ImageStyleProps {
   /**
    * @description
    * Alternative text description of the image (required)
+   * @see [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attr-alt)
    */
   alt: React.ImgHTMLAttributes<HTMLImageElement>['alt'];
 
   /**
    * @description
    * Set of image source sizes
+   * @see [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attr-sizes)
    */
   sizes?: React.ImgHTMLAttributes<HTMLImageElement>['sizes'];
 
@@ -39,6 +41,7 @@ export interface ImageOptions extends ImageStyleProps {
   /**
    * @description
    * Possible image sources for the browser to use
+   * @see [MND](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attr-srcset)
    */
   srcSet?: React.ImgHTMLAttributes<HTMLImageElement>['srcSet'];
 

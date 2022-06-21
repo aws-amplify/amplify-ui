@@ -19,6 +19,7 @@ export interface InputProps extends ViewProps {
   /**
    * @description
    * Specifies permissions for browser UA to autocomplete field
+   * @see [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete)
    */
   autoComplete?: string;
 
@@ -49,6 +50,8 @@ export interface InputProps extends ViewProps {
   /**
    * @description
    * Provides hint for virtual keyboard shown
+   * @see [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inputmode)
+   * @default: "text"
    */
   inputMode?: InputMode;
 
@@ -61,6 +64,8 @@ export interface InputProps extends ViewProps {
   /**
    * @description
    * Determines whether field should be immutable
+   * @see [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-readonly)
+   * @default false
    */
   isReadOnly?: boolean;
 
