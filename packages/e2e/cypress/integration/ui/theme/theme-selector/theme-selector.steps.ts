@@ -2,8 +2,7 @@ import { And } from 'cypress-cucumber-preprocessor/steps';
 import { escapeRegExp } from 'lodash';
 
 And('I change the theme to {string}', (name) => {
-  cy.findByTestId('docs-home-section') // Cypress waits for this component to finish a CSS animation before continuing
-    .findByTestId('docs-home-section-themable')
+  cy.findByTestId('docs-home-section-themable')
     .scrollIntoView() // Scroll into view first, since NextJS lazy loads page
     .findByRole('button', { name: new RegExp(`^${escapeRegExp(name)}$`, 'i') })
     .should('be.visible')
@@ -13,8 +12,7 @@ And('I change the theme to {string}', (name) => {
 And(
   '{string} button has background color {string}',
   (button: string, color: string) => {
-    cy.findByTestId('docs-home-section')
-      .findByTestId('docs-home-section-themable')
+    cy.findByTestId('docs-home-section-themable')
       .scrollIntoView()
       .findByRole('button', {
         name: new RegExp(`^${escapeRegExp(button)}$`, 'i'),
