@@ -28,6 +28,7 @@ export interface FieldProps {
   /**
    * @description
    * Visually hide label (not recommended in most cases)
+   * @default false
    */
   labelHidden?: boolean;
 }

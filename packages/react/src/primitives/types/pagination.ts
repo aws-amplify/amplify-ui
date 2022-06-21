@@ -32,12 +32,14 @@ interface BasePaginationProps {
   /**
    * @description
    * Optionally indicates whether there are more pages after `totalPages`. Can be combined with `totalPages` to enable the next button when reaching the last page.
+   * @default false
    */
   hasMorePages?: boolean;
 
   /**
    * @description
    * Set the invisible label for current page.
+   * @default "Current Page:"
    */
   currentPageLabel?: string;
 
@@ -45,18 +47,21 @@ interface BasePaginationProps {
    * @description
    * Set the label text for each page button other than the current page.
    * It will be used to construct the `aria-label` for each page button. e.g, "Go to page 1" for page 1 button
+   * @default "Go to page"
    */
   pageLabel?: string;
 
   /**
    * @description
    * Set the `aria-label` for the left arrow button.
+   * @default "Go to previous page"
    */
   previousLabel?: string;
 
   /**
    * @description
    * Set the `aria-label` for the right arrow button.
+   * @default "Go to next page"
    */
   nextLabel?: string;
 
@@ -109,6 +114,7 @@ export interface PaginationItemProps
   /**
    * @description
    * The index of current page.
+   * @default "Current Page:"
    */
   currentPage?: number;
 

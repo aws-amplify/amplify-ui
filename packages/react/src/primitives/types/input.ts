@@ -58,6 +58,7 @@ export interface InputProps extends ViewProps {
   /**
    * @description
    *  Determines whether field should be disabled
+   * @default false
    */
   isDisabled?: boolean;
 

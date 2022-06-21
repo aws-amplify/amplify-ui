@@ -35,6 +35,7 @@ export interface TextAreaProps extends TextAreaStyleProps, ViewProps {
   /**
    * @description
    *  Determines whether field should be disabled
+   * @default false
    */
   isDisabled?: boolean;
 

@@ -8,6 +8,7 @@ export interface MenuProps extends FlexProps {
   /**
    * @description
    * Alignment of menu against trigger
+   * @default "start"
    */
   menuAlign?: 'start' | 'center' | 'end';
 
@@ -32,6 +33,8 @@ export interface MenuProps extends FlexProps {
   /**
    * @description
    * Trigger node
+   * @default MenuButton with IconMenu
+   * @note Must forward refs to DOM element
    */
   trigger?: React.ReactNode;
 

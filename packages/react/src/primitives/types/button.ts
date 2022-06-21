@@ -41,12 +41,14 @@ export interface ButtonProps extends ViewProps, FlexContainerStyleProps {
   /**
    * @description
    * Changes the size of the button.
+   * @default "medium"
    */
   size?: ButtonSizes;
 
   /**
    * @description
    * Changes the button type
+   * @default "button"
    */
   type?: ButtonTypes;
 

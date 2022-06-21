@@ -19,12 +19,14 @@ export interface SearchFieldProps extends TextInputFieldProps {
   /**
    * @description
    * Visually hide label
+   * @default true
    */
   labelHidden?: boolean;
 
   /**
    * @description
    * Set the `aria-label` for clear button
+   * @default "Clear search"
    */
   clearButtonLabel?: string;
 

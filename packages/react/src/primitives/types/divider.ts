@@ -8,12 +8,14 @@ export interface DividerOptions {
   /**
    * @description
    * Controls whether the divider is oriented horizontally or vertically.
+   * @default "horizontal"
    */
   orientation?: DividerOrientations;
 
   /**
    * @description
    * Size of the divider (height for a horizontal divider, width for vertical)
+   * @default "small"
    */
   size?: DividerSizes;
 
