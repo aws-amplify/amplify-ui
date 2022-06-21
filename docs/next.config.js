@@ -55,6 +55,18 @@ module.exports = withNextPluginPreval({
       },
     ];
   },
+  async rewrites() {
+    return [
+      /**
+       *  source: component page
+       *  destination: component document page
+       */
+      {
+        source: '/:platform(react|angular|vue|flutter)/components/:component',
+        destination: '/:platform/components/:component/documentation',
+      },
+    ];
+  },
 
   // These redirects are because of the IA change from previous docs
   async redirects() {
@@ -128,15 +140,6 @@ module.exports = withNextPluginPreval({
       {
         source: '/:nav(components|getting-started|guides|theming)',
         destination: '/[platform]/:nav',
-        permanent: true,
-      },
-      /**
-       *  source: component page
-       *  destination: component document page
-       */
-      {
-        source: '/:platform(react|angular|vue|flutter)/components/:component',
-        destination: '/:platform/components/:component/documentation',
         permanent: true,
       },
     ];
