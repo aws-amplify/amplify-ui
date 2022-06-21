@@ -4,7 +4,7 @@ applications:
       phases:
         preBuild:
           commands:
-            - nvm install 16.13
+            - nvm install 16.13 # NodeJS 16.13+ is the latest version that Amplify Hosting supports
             - nvm use 16
             - node -v
             - export FLUTTER_HOME=${HOME}/sdks/flutter

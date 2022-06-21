@@ -54,7 +54,7 @@ type SortedPropertiesByCategory = { [key: string]: Properties }[];
 type PropertiesByCategory = Record<Category, Properties>;
 
 /**
- * @todo After Marketing Launch 2022-06, to update the note under the Props Heading to specify the HTML element's name and MDN link.
+ * @todo After Marketing Launch 2022-06, to update the note under the Props Heading to specify the HTML element's name and MDN link. Ticket: https://app.asana.com/0/1201736086077838/1202477702049308/f
  */
 function Output(displayName, tableAndExpanders) {
   return `
@@ -138,8 +138,7 @@ function createTableAndExpander(
   );
 
   if (!propsSortedByCategory) {
-    console.log(`❗️ Not generating props table for ${componentName}`);
-    return null;
+    throw new Error(`❗️ Not generating props table for ${componentName}`);
   }
 
   const mainPropsTable = PropsTable(Object.values(propsSortedByCategory[0])[0]);
@@ -223,8 +222,7 @@ function getPropsSortedByCategory(
       })
       .filter((v) => Object.values(Object.values(v)[0])[0]);
   } else {
-    console.log(` 🫥  ${componentName} doesn't have any type properties.`);
-    return null;
+    throw new Error(` 🫥  ${componentName} doesn't have any type properties.`);
   }
 }
 

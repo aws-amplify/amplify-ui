@@ -12,9 +12,9 @@
     "build:props-tables": "node --require esbuild-register ./scripts/generate-props-tables.ts",
     "build": "yarn build:props-tables && next build",
     "lint": "next lint",
+    "postbuild": "yarn postbuild:previews && yarn postbuild:sitemap",
     "postbuild:previews": "node --require esbuild-register ./scripts/generate-previews.ts",
     "postbuild:sitemap": "node --require esbuild-register ./scripts/generate-sitemap-robotstxt.ts",
-    "postbuild": "yarn postbuild:previews && yarn postbuild:sitemap",
     "start": "next start",
     "test": "$_ run build"
   },
@@ -68,7 +68,6 @@
     "eslint-config-next": "12.0.4",
     "globby": "^13.1.1",
     "postcss": "^8.2.6",
-    "react-markdown": "^8.0.3",
     "ts-morph": "^15.1.0"
   }
 }
