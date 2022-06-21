@@ -162,7 +162,7 @@ function getPropsSortedByCategory(
       getPropertiesByCategory(componentName);
 
     const allTableCategories: {
-      [key in 'Main' | 'Layout' | 'Styling']: Category[];
+      [key in 'Main' | 'Layout']: Category[];
     } = {
       Main: ['BaseComponentProps', 'Base'],
       Layout: [
@@ -182,9 +182,11 @@ function getPropsSortedByCategory(
       const isSharedBasicCategory = Object.values(allTableCategories).find(
         (propArr) => propArr.includes(category)
       );
+      const isBaseStyleProps = category === 'BaseStyleProps';
 
       return (
-        isCurrentComponentProp || (isPropsOrOptions && !isSharedBasicCategory)
+        isCurrentComponentProp ||
+        (isPropsOrOptions && !isSharedBasicCategory && !isBaseStyleProps)
       );
     };
 
