@@ -17,6 +17,7 @@ export const AmplifySection = ({ platform }) => {
       ref={ref}
       as="section"
       className={`docs-home-section fade-in ${isVisible ? 'shown' : ''}`}
+      testId="docs-home-section"
     >
       <Flex direction="column" className="docs-home-subsection--thin">
         <Heading level={2}>
