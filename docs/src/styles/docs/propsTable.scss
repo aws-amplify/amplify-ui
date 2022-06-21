@@ -29,11 +29,6 @@
     margin: 0;
     padding: 0;
   }
-
-  &.amplify-table[data-highlightonhover='true']
-    .amplify-table__row:not(.amplify-table__head *):hover {
-    background-color: unset;
-  }
 }
 
 @media (max-width: $breakpoint-medium) {

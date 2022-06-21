@@ -111,7 +111,6 @@ ${type}
     );
   return `
 <Table
-  highlightOnHover={true}
   className="props-table"
   >
   <TableHead>
