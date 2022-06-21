@@ -150,8 +150,14 @@
 .docs-home-hero-card {
   background-color: var(--amplify-colors-background-primary);
   padding: var(--amplify-space-medium);
+  gap: var(--amplify-space-xs);
   box-shadow: var(--amplify-shadows-medium);
   transition: transform var(--amplify-time-medium) ease;
+  
+  @media (min-width: $breakpoint-large) {
+    gap: var(--amplify-space-medium);
+  }
+  
   &:hover {
     transform: scale(1.05);
   }

@@ -17,8 +17,8 @@ export const HomeFeatureCard = ({
       {...rest}
       direction={['column', 'row']}
       flex="1"
-      alignItems={['center', 'center', 'flex-start']}
-      textAlign={['center', 'center', 'initial']}
+      alignItems={['center', 'flex-start']}
+      textAlign={['center', 'initial']}
     >
       {icon ? (
         <View

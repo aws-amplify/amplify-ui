@@ -20,6 +20,7 @@ export const LiveSection = ({ platform, ...rest }) => {
   return (
     <View
       as="section"
+      id="live"
       className={`docs-home-section fade-in ${isVisible ? 'shown' : ''}`}
       ref={ref}
     >

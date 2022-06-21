@@ -1,12 +1,20 @@
 import NextLink from 'next/link';
-import { Button, Flex, Heading, Icon, Text, View } from '@aws-amplify/ui-react';
-import { MdChevronRight } from 'react-icons/md';
+import {
+  Button,
+  Flex,
+  Heading,
+  Icon,
+  Text,
+  useBreakpointValue,
+  View,
+} from '@aws-amplify/ui-react';
+import { MdChevronRight, MdArrowDownward } from 'react-icons/md';
 import {
   RiCloudWindyLine,
   RiDragDropLine,
   RiPencilRuler2Line,
 } from 'react-icons/ri';
-import { CopyButton } from '@/components/CopyButton';
+
 import { useCustomRouter } from '@/components/useCustomRouter';
 import { HomeFeatureCard } from '../HomeFeatureCard';
 import { FRAMEWORKS } from '@/data/frameworks';
@@ -17,6 +25,11 @@ export const HeroSection = () => {
   const {
     query: { platform = 'react' },
   } = useCustomRouter();
+
+  const showEditor = useBreakpointValue({
+    base: false,
+    large: true,
+  });
 
   const installScripts = {
     react: `npm i @aws-amplify/ui-${platform} aws-amplify`,
@@ -103,16 +116,29 @@ export const HeroSection = () => {
 
           <TerminalCommand command={frameworkInstallScript} />
 
-          <Button
-            size="large"
-            variation="primary"
-            className="docs-home-cta"
-            as="a"
-            href={`/${platform}/getting-started/installation`}
-          >
-            Get started building
-            <Icon ariaLabel="" as={MdChevronRight} fontSize="xl" />
-          </Button>
+          <Flex direction="row">
+            <Button
+              size="large"
+              variation="primary"
+              className="docs-home-cta"
+              as="a"
+              href={`/${platform}/getting-started/installation`}
+            >
+              Get started building
+              <Icon ariaLabel="" as={MdChevronRight} fontSize="xl" />
+            </Button>
+            {showEditor ? (
+              <Button
+                size="large"
+                className="docs-home-cta"
+                as="a"
+                href="#live"
+              >
+                Or try it out
+                <Icon ariaLabel="" as={MdArrowDownward} fontSize="xl" />
+              </Button>
+            ) : null}
+          </Flex>
         </Flex>
       </Flex>
     </View>
