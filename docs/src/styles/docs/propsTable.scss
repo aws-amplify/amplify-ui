@@ -2,7 +2,7 @@
 
 .props-table-expander {
   box-shadow: unset;
-  margin-bottom: 1rem;
+  margin-bottom: var(--amplify-space-medium);
 
   & .amplify-expander__item {
     box-shadow: unset;
