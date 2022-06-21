@@ -1,4 +1,4 @@
-import { Grid } from '@aws-amplify/ui-react';
+import { View, Grid } from '@aws-amplify/ui-react';
 import { CardLink } from '@/components/CardLink';
 import { Fragment } from '@/components/Fragment';
 import { Example, ExampleCode } from '@/components/Example';
@@ -62,6 +62,7 @@ Amplify UI uses design tokens for the color palette, which makes modifying the t
 
 The example below shows how to use Theming to supply higher contrast text and border styles.
 
+<View backgroundColor="white" color="black">
 <Example>
   <ThemeExample />
   <ExampleCode>
@@ -70,6 +71,7 @@ The example below shows how to use Theming to supply higher contrast text and bo
 ```
   </ExampleCode>
 </Example>
+</View>
 
 <Grid gap="var(--amplify-space-large)" margin="var(--amplify-space-xl) 0" templateColumns={{ base: '1fr', large: '1fr 1fr' }}>
  <CardLink 

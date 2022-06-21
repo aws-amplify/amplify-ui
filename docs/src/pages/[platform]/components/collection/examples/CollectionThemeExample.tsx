@@ -1,39 +1,65 @@
 import {
   Button,
   Collection,
-  defaultDarkModeOverride,
   ThemeProvider,
   Theme,
 } from '@aws-amplify/ui-react';
 import { countries } from 'countries-list';
 
-export const CollectionThemeExample = () => {
-  const theme: Theme = {
-    name: 'collection-theme',
-    tokens: {
-      components: {
-        collection: {
-          search: {
-            button: {
-              color: { value: '{colors.brand.secondary.40}' },
-              _active: {
-                backgroundColor: { value: '{colors.brand.primary.80}' },
+const theme: Theme = {
+  name: 'collection-theme',
+  tokens: {
+    components: {
+      collection: {
+        pagination: {
+          current: {
+            color: { value: 'white' },
+            backgroundColor: {
+              value: '{colors.blue.80}',
+            },
+          },
+          button: {
+            color: { value: '{colors.blue.60}' },
+            _hover: {
+              backgroundColor: {
+                value: '{colors.blue.10}',
               },
-              _focus: {
-                backgroundColor: { value: '{colors.brand.primary.80}' },
+              color: { value: '{colors.blue.60}' },
+            },
+          },
+        },
+        search: {
+          input: {
+            color: { value: '{colors.blue.60}' },
+          },
+          button: {
+            color: { value: '{colors.blue.60}' },
+            _focus: {
+              backgroundColor: {
+                value: '{colors.blue.60}',
               },
-              _hover: {
-                backgroundColor: { value: '{colors.brand.primary.80}' },
+              color: {
+                value: 'white',
+              },
+            },
+            _hover: {
+              backgroundColor: {
+                value: '{colors.blue.80}',
+              },
+              color: {
+                value: 'white',
               },
             },
           },
         },
       },
     },
-    overrides: [defaultDarkModeOverride],
-  };
+  },
+};
+
+export const CollectionThemeExample = () => {
   return (
-    <ThemeProvider theme={theme} colorMode="system">
+    <ThemeProvider theme={theme} colorMode="light">
       <Collection
         type="grid"
         templateColumns="1fr 1fr 1fr"

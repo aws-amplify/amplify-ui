@@ -56,3 +56,7 @@
     right: var(--amplify-space-medium);
   }
 }
+
+.example-styling-demo > .amplify-flex {
+  align-items: flex-start;
+}

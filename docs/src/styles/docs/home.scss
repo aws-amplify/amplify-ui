@@ -33,17 +33,20 @@
 .install-code__container {
   flex-grow: 1;
   display: flex;
+  max-width: 42rem;
 }
 
 .install-code__content {
-  margin: auto;
+  margin: var(--amplify-space-small);
   overflow-x: auto;
   white-space: normal;
+  &:before {
+    content: '$ ';
+  }
 }
 
 .install-code__button {
-  place-self: end;
-  align-self: center;
+  margin-left: auto;
   // Hiding on smaller screens
   // because there's not enough space
   @media (max-width: 480px) {
@@ -84,7 +87,8 @@
 }
 
 .docs-home-editor {
-  border-right: var(--amplify-border-widths-small) solid var(--amplify-colors-border-primary);
+  border-right: var(--amplify-border-widths-small) solid
+    var(--amplify-colors-border-primary);
   max-height: 30rem;
   overflow-y: auto;
   font-size: var(--amplify-font-sizes-medium);

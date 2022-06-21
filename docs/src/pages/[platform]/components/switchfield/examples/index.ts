@@ -13,3 +13,4 @@ export { SwitchFieldThumbColorExample } from './SwitchFieldThumbColorExample';
 export { SwitchFieldTrackCheckedColorExample } from './SwitchFieldTrackCheckedColorExample';
 export { SwitchFieldTrackColorExample } from './SwitchFieldTrackColorExample';
 export { SwitchFieldValueExample } from './SwitchFieldValueExample';
+export { SwitchFieldThemeExample } from './SwitchFieldThemeExample';
