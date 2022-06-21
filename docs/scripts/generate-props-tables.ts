@@ -65,6 +65,8 @@ import { Expander, ExpanderItem, Table, TableBody, TableCell, TableHead, TableRo
 ${tableAndExpanders.join('')}
 \`*\` indicates required props.
 
+Checkout [Style Props](https://dev.ui.docs.amplify.aws/react/theming/style-props) page for all the style properties.
+
 The ${displayName} component will accept any of the standard HTML attributes that a HTML element accepts. Standard element attributes can be found in the [MDN Documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Element).
 `;
 }
@@ -171,7 +173,6 @@ function getPropsSortedByCategory(
         'GridContainerStyleProps',
         'GridItemStyleProps',
       ],
-      Styling: ['BaseStyleProps'],
     };
 
     const isPropMainCategory = (category) => {
