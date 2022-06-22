@@ -50,6 +50,13 @@ export const Provider = ({ children }: { children: React.ReactNode }) => {
 
   const { service: activeService } = value;
 
+  React.useEffect(() => {
+    console.log('Authenticator.Provider', 'has mounted');
+    return () => {
+      console.log('Authenticator.Provider', 'has unmounted');
+    };
+  });
+
   const isListening = React.useRef(false);
   React.useEffect(() => {
     console.log('Authenticator.Provider', 'useEffect', 'start');
