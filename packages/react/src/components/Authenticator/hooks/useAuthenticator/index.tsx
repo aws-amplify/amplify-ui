@@ -52,10 +52,15 @@ export const Provider = ({ children }: { children: React.ReactNode }) => {
 
   const isListening = React.useRef(false);
   React.useEffect(() => {
+    console.log('Authenticator.Provider', 'useEffect', 'start');
     if (isListening.current) return;
 
     isListening.current = true;
-    return listenToAuthHub(activeService);
+    const unsubscribe = listenToAuthHub(activeService);
+    return () => {
+      console.log('Authenticator.Provider', 'useEffect', 'end');
+      unsubscribe();
+    };
   }, [activeService]);
 
   return (
