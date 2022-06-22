@@ -15,7 +15,7 @@ const code = `<Card variation="elevated">
     <Image src="/amplify-placeholder.svg"
       alt="Amplify" width="8rem"/>
     <Flex direction="column" gap="xs">
-      <Flex direction="row">
+      <Flex>
         <Badge variation="success">New</Badge>
       </Flex>
       <Text fontSize="large" fontWeight="semibold">
@@ -29,7 +29,7 @@ const code = `<Card variation="elevated">
         color="secondary">
         $199.99
       </Text>
-      <Flex direction="row">
+      <Flex>
         <StepperField
           label="Quantity"
           min={0}

@@ -218,8 +218,9 @@ export const PrimitiveSection = ({ platform, ...rest }) => {
             <Text className="docs-home-text">
               Amplify UI components are built with plain React and CSS to
               provide a solid foundation for building UIs and design systems.
-              These components are theme-able, composable, reusable. They play
-              nicely with other UI components or styling frameworks.
+              These components are theme-able, responsive, composable, and
+              accessible. They play nicely with other UI components or styling
+              frameworks.
             </Text>
           </Flex>
           <View flex="1">
