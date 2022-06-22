@@ -15,6 +15,7 @@
 
 .docs-home-section {
   position: relative;
+  overflow: hidden;
   padding: var(--amplify-space-large);
   
   @media (min-width: $breakpoint-medium) {

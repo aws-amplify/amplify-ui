@@ -11,7 +11,7 @@ import * as AUI from '@aws-amplify/ui-react';
 const { View, Alert } = AUI;
 
 const code = `<Card variation="elevated">
-  <Flex>
+  <Flex alignItems="flex-start">
     <Image src="/amplify-placeholder.svg"
       alt="Amplify" width="8rem"/>
     <Flex direction="column" gap="xs">
