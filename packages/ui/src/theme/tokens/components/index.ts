@@ -29,6 +29,7 @@ import { passwordfield, PasswordFieldTokens } from './passwordField';
 import { phonenumberfield, PhoneNumberFieldTokens } from './phoneNumberField';
 import { placeholder, PlaceholderTokens } from './placeholder';
 import { radio, RadioTokens } from './radio';
+import { radiogroup, RadioGroupTokens } from './radioGroup';
 import { rating, RatingTokens } from './rating';
 import { searchfield, SearchFieldTokens } from './searchField';
 import { select, SelectTokens } from './select';
@@ -76,6 +77,7 @@ export interface ComponentTokens {
   phonenumberfield: PhoneNumberFieldTokens;
   placeholder: PlaceholderTokens;
   radio: RadioTokens;
+  radiogroup: RadioGroupTokens;
   rating: RatingTokens;
   searchfield: SearchFieldTokens;
   select: SelectTokens;
@@ -121,6 +123,7 @@ export const components: ComponentTokens = {
   phonenumberfield,
   placeholder,
   radio,
+  radiogroup,
   rating,
   searchfield,
   select,
