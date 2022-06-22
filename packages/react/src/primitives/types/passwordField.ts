@@ -26,7 +26,7 @@ export interface PasswordFieldProps extends TextInputFieldProps {
   /**
    * @description
    * Password autocomplete type
-   * See: https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete#values
+   * @See [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete#values)
    * @default "current-password"
    */
   autoComplete?: 'new-password' | 'current-password' | string;
