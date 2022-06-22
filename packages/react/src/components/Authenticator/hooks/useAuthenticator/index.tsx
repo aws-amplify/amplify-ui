@@ -53,6 +53,7 @@ export const Provider = ({ children }: { children: React.ReactNode }) => {
   const isListening = React.useRef(false);
   React.useEffect(() => {
     console.log('Authenticator.Provider', 'useEffect', 'start');
+    console.log('Authenticator.Provider', 'isListening', isListening);
     if (isListening.current) return;
 
     isListening.current = true;
