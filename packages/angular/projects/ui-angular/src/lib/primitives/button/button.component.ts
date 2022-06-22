@@ -7,7 +7,7 @@ import { Component, HostBinding, Input, OnInit } from '@angular/core';
 export class ButtonComponent implements OnInit {
   @Input() type: 'submit' | 'button' = 'button';
   @Input() fullWidth: boolean | string = false;
-  @Input() disabled: boolean | string = false;
+  @Input() isDisabled: boolean | string = false;
   @Input() size: 'small' | 'medium' | 'large' = 'medium';
   @Input() variation: 'primary' | 'default' | 'link' = 'default';
   @Input() fontWeight: 'normal' | 'bold' | 'lighter' = 'normal';
@@ -29,7 +29,7 @@ export class ButtonComponent implements OnInit {
     if (this.fullWidth) {
       className += ` amplify-button--fullwidth`;
     }
-    if (this.disabled) {
+    if (this.isDisabled) {
       className += ` amplify-button--disabled amplify-button--loading`;
     }
 
