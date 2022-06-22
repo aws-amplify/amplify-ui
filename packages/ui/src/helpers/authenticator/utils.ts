@@ -69,8 +69,9 @@ export const listenToAuthHub = (
   service: AuthInterpreter,
   handler: HubHandler = defaultAuthHubHandler
 ) => {
-  console.log('hi hub');
+  console.log('listenToAuthHub', 'is called');
   return Hub.listen('auth', (data) => {
+    console.log('listenToAuthHub', 'data received', data);
     handler(data, service);
   });
 };
