@@ -1,0 +1,28 @@
+.install-code__container {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  padding: var(--amplify-space-xs);
+}
+
+.install-code__content {
+  flex: 1;
+  margin-inline-end: var(--amplify-space-small);
+  overflow-x: auto;
+  white-space: nowrap;
+  
+  &::before {
+    content: '$';
+    color: var(--amplify-colors-brand-secondary-40);
+    margin-inline-end: var(--amplify-space-small);
+  }
+}
+
+.install-code__button {
+  margin-left: auto;
+  // Hiding on smaller screens
+  // because there's not enough space
+  @media (max-width: $breakpoint-small) {
+    display: none;
+  }
+}
