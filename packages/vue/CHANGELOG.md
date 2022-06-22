@@ -1,5 +1,21 @@
 # @aws-amplify/ui-vue
 
+## 2.4.10
+
+### Patch Changes
+
+- Updated dependencies [[`c568b96bc`](https://github.com/aws-amplify/amplify-ui/commit/c568b96bc579b6d1f2783695b1c2f2237d4678b9)]:
+  - @aws-amplify/ui@3.11.1
+
+## 2.4.9
+
+### Patch Changes
+
+- [#2044](https://github.com/aws-amplify/amplify-ui/pull/2044) [`b48d52d46`](https://github.com/aws-amplify/amplify-ui/commit/b48d52d4606a8dfc136818d2dab3080102de8057) Thanks [@wlee221](https://github.com/wlee221)! - Adds aria-describedBy to angular and vue authenticator input fields. This will make error messages accessible.
+
+- Updated dependencies [[`5eedbbed4`](https://github.com/aws-amplify/amplify-ui/commit/5eedbbed4d04fc00a50d37ae3be61522212eb5cb), [`e37b666d9`](https://github.com/aws-amplify/amplify-ui/commit/e37b666d967aa444984f9881e7267c0ea171716a), [`ef790e5fd`](https://github.com/aws-amplify/amplify-ui/commit/ef790e5fd0d6c91311a4db2456f7de10f8fdad7a), [`540b4ce97`](https://github.com/aws-amplify/amplify-ui/commit/540b4ce97a7c68ea3783bc67e8da4cce1d52e706), [`736cfe7cb`](https://github.com/aws-amplify/amplify-ui/commit/736cfe7cb3544bf0ecae5ab2c3b2caf381b497c4), [`d8085741b`](https://github.com/aws-amplify/amplify-ui/commit/d8085741b23175458adba9b3c05e97408aaa6413), [`f6ee1355c`](https://github.com/aws-amplify/amplify-ui/commit/f6ee1355c75ee802c76a34d140c3e052fc0afaeb), [`a168acdc6`](https://github.com/aws-amplify/amplify-ui/commit/a168acdc69e7e44625b0bbf30a020dc1f7bcde8e), [`5f3d3a264`](https://github.com/aws-amplify/amplify-ui/commit/5f3d3a2642401788f1fc79334140c5f3cfc83876), [`28bf92ddb`](https://github.com/aws-amplify/amplify-ui/commit/28bf92ddbd893a3c2839d5215537f845db46b181)]:
+  - @aws-amplify/ui@3.11.0
+
 ## 2.4.8
 
 ### Patch Changes

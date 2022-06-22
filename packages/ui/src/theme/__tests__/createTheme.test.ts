@@ -1,5 +1,10 @@
 import { createTheme } from '../createTheme';
 
+let consoleWarnSpy: jest.SpyInstance;
+afterEach(() => {
+  consoleWarnSpy?.mockRestore();
+});
+
 describe('@aws-amplify/ui', () => {
   describe('createTheme', () => {
     describe('without a base theme', () => {
@@ -65,6 +70,28 @@ describe('@aws-amplify/ui', () => {
         const { tokens } = newTheme;
         expect(tokens.colors.background.secondary.value).toEqual('#ff9900');
         expect(tokens.colors.background.primary.value).toEqual('#bada55');
+      });
+    });
+
+    describe('error handling', () => {
+      it('should warn the user and not do a max-call stack if given an invalid theme object', () => {
+        consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation();
+        const theme = createTheme({
+          name: 'my-theme',
+          tokens: {
+            colors: {
+              background: {
+                //@ts-expect-error
+                primary: '#f90',
+              },
+            },
+          },
+        });
+        expect(theme.tokens.colors.background.primary).toEqual('#f90');
+        expect(console.warn).toHaveBeenCalledTimes(1);
+        expect(console.warn)
+          .toHaveBeenCalledWith(`Non-design token found when creating the theme at path: colors.background.primary
+Did you forget to add '{value:"#f90"}'?`);
       });
     });
   });

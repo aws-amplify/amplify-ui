@@ -4,7 +4,8 @@ import { FieldProps, LabelPositions } from './field';
 
 export interface CheckboxProps extends FlexProps, InputProps {
   /**
-   * The label text
+   * @description
+   * Sets the label text
    */
   label: FieldProps['label'];
 
@@ -26,8 +27,9 @@ export interface CheckboxProps extends FlexProps, InputProps {
   value: string;
 
   /**
-   * Position of label in relation to the checkbox,
-   * default is 'start'
+   * @description
+   * Sets the position of label in relation to the CheckboxField,
+   * @default "start"
    */
   labelPosition?: LabelPositions;
 }
