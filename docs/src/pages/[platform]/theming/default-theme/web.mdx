@@ -1,5 +1,6 @@
 import React from 'react';
 import { CardLink } from '@/components/CardLink';
+import { Fragment } from '@/components/Fragment';
 import { Grid, Icon, Link } from '@aws-amplify/ui-react';
 import { ColorsIcon, TypographyIcon, SizesIcon } from './icons';
 import { MdOutlineAutoAwesome } from 'react-icons/md';
@@ -55,29 +56,4 @@ If we use `space` as an example, we'd discover its token definition looks simila
 
 All of our tokens follow this pattern: a top level namespace that is further defined by a scale, each which has their own unique value. In the case of our space design tokens, that scale is based on a size: small, medium, large, etc. Our [color tokens](/react/theming/default-theme/colors#neutral), on the other hand, are further defined by hue (red, blue, yellow, etc), and then by a numerical scale based on lightness (10-100). 
 
-This structure allows us to reference the small space value as `tokens.space.small` such as in the following example. You can also learn more about [theming](/theming#getting-started) in our getting started guide.
-
-```jsx
-import { useTheme } from '@aws-amplify/ui-react';
-
-const MyComponent = () => {
-  const { tokens } = useTheme();
-  return <View marginBottom={tokens.space.small}>{children}</Text>;
-};
-```
-
-The space token definition also gives us an idea of how the CSS custom properties associated with each token are named. Amplify UI uses <Link isExternal href="https://amzn.github.io/style-dictionary/#/">StyleDictionary</Link> to generate the associated CSS custom properties for each token. For the small space token, this would be `--amplify-space-small` and you can use it in your component:
-
-```jsx
-const MyComponent = () => {
-  return <View marginBottom="var(--amplify-space-small)">{children}</Text>;
-};
-```
-
-Or in your own stylesheet:
-
-```css
-.my-component {
-  margin-bottom: var(--amplify-space-small);
-}
-```
+<Fragment>{({ platform }) => import(`./tokenUsage.${platform}.mdx`)}</Fragment>

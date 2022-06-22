@@ -1,0 +1,15 @@
+import { Fragment } from '@/components/Fragment';
+
+This structure allows us to reference the small space value as `tokens.space.small` such as in the following example. You can also learn more about [theming](/theming#getting-started) in our getting started guide.
+
+```jsx
+import { useTheme } from '@aws-amplify/ui-react';
+
+const MyComponent = () => {
+  const { tokens } = useTheme();
+  return <View marginBottom={tokens.space.small}>{children}</Text>;
+};
+```
+
+<Fragment>{({ platform }) => import(`./cssTokenUsage.mdx`)}</Fragment>
+
