@@ -1,3 +1,4 @@
+import { SelectFieldThemeExample } from './SelectFieldThemeExample';
 export { DefaultSelectFieldExample } from './DefaultSelectFieldExample';
 export { SelectFieldSizeExample } from './SelectFieldSizeExample';
 export { SelectFieldVariationExample } from './SelectFieldVariationExample';

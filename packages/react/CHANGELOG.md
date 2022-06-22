@@ -1,5 +1,18 @@
 # @aws-amplify/ui-react
 
+## 3.0.1
+
+### Patch Changes
+
+- [#2153](https://github.com/aws-amplify/amplify-ui/pull/2153) [`f2001fce5`](https://github.com/aws-amplify/amplify-ui/commit/f2001fce5c726e88f597884cfa7a1c58e0356ef6) Thanks [@joebuono](https://github.com/joebuono)! - docs(fix): Add MDN descriptions and links for BaseStyleProps
+
+* [#2151](https://github.com/aws-amplify/amplify-ui/pull/2151) [`c7b64fc60`](https://github.com/aws-amplify/amplify-ui/commit/c7b64fc60edefae5701fdf37fdb2278ce28d481e) Thanks [@joebuono](https://github.com/joebuono)! - docs(fix): Add missing prop descriptions for `as`, `isDisabled` and `style`
+
+- [#2132](https://github.com/aws-amplify/amplify-ui/pull/2132) [`3ace39ce0`](https://github.com/aws-amplify/amplify-ui/commit/3ace39ce07454a0ef53bc94491dac6183d89da43) Thanks [@joebuono](https://github.com/joebuono)! - Add missing prop descriptions
+
+- Updated dependencies [[`c568b96bc`](https://github.com/aws-amplify/amplify-ui/commit/c568b96bc579b6d1f2783695b1c2f2237d4678b9)]:
+  - @aws-amplify/ui@3.11.1
+
 ## 3.0.0
 
 ### Major Changes
