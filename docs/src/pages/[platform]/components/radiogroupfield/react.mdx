@@ -24,7 +24,11 @@ import {
 
 ## Usage
 
-Import the Radio and RadioGroupField components.
+Import the Radio and RadioGroupField components, and nest the Radio options inside the RadioGroupField. 
+
+RadioGroupField requires both `label` and `name` for accessibility and form submission, respectively. Radio only requires the `value` prop, which will be submitted with form data. 
+
+You also have the option to set a Radio as pre-selected by passing its `value` to the `defaultValue` prop on the RadioGroupField. 
 
 <Example>
   <BasicExample />
@@ -83,6 +87,8 @@ Use the `direction` prop to change the RadioGroupField direction. Available opti
 </Example>
 
 ### Label position
+
+Use the `labelPosition` prop to control where the label is in relation to the Radio. You may pass `labelPosition` to either the RadioGroupField or individual Radios.
 
 <Example>
   <LabelPositionExample />
