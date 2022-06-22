@@ -36,6 +36,7 @@ export const censorPhoneNumber = (val: string): string => {
 export const defaultAuthHubHandler: HubHandler = (data, service) => {
   const { send } = service;
   const state = service.getSnapshot(); // this is just a getter and is not expensive
+  console.log(state.value);
 
   switch (data.payload.event) {
     // TODO: We can add more cases here, according to
@@ -68,6 +69,7 @@ export const listenToAuthHub = (
   service: AuthInterpreter,
   handler: HubHandler = defaultAuthHubHandler
 ) => {
+  console.log('hi hub');
   return Hub.listen('auth', (data) => {
     handler(data, service);
   });
