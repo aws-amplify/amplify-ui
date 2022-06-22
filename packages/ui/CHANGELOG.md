@@ -1,5 +1,25 @@
 # @aws-amplify/ui
 
+## 3.11.1
+
+### Patch Changes
+
+- [#2133](https://github.com/aws-amplify/amplify-ui/pull/2133) [`c568b96bc`](https://github.com/aws-amplify/amplify-ui/commit/c568b96bc579b6d1f2783695b1c2f2237d4678b9) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(ui): Fixes max call stack issue on `createTheme` when passing a theme object with non-design-token nodes.
+
+  ```javascript
+  const theme = createTheme({
+    name: 'my-theme',
+    tokens: {
+      colors: {
+        background: {
+          // this should be primary: { value: '#f90' }
+          primary: '#f90',
+        },
+      },
+    },
+  });
+  ```
+
 ## 3.11.0
 
 ### Minor Changes

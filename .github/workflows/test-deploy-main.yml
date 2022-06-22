@@ -113,8 +113,12 @@ jobs:
         with:
           node-version: lts/*
           cache: 'yarn'
-      - name: Install and build packages
-        run: yarn --frozen-lockfile && yarn build
+      - name: Install packages
+        uses: ./.github/actions/install-with-retries
+        with:
+          skip-cypress-binary: true # publishing doesn't need cypress
+      - name: Build packages
+        run: yarn build
       - name: Add changeset that bumps all public packages
         # There needs to be a changeset for @aws-amplify/ui[-framework] to publish.
         run: cp .github/changeset-presets/bump-versions.md .changeset

@@ -6,10 +6,12 @@ export type BadgeSizes = Sizes;
 
 export interface BadgeProps extends ViewProps {
   /**
+   * @description
    * The variation property will affect the background color of the badge.
    */
   variation?: BadgeVariations;
   /**
+   * @description
    * The size property will affect the font size of the badge.
    */
   size?: BadgeSizes;
