@@ -67,9 +67,7 @@ export default function App() {
     </template>
   </authenticator>
 </template>`,
-  flutter: `
-//...
-class _MyAppState extends State<MyApp> {
+  flutter: `class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
@@ -168,7 +166,7 @@ export const AuthenticationSection = ({ platform }) => {
         >
           {platform === 'flutter' ? (
             <View flex="1">
-              <FlutterAuthenticatorExample />
+              <FlutterAuthenticatorExample id="flutter-authenticator-home" />
             </View>
           ) : (
             <BrowserMock flex="1" location="https://localhost">

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Highlight, { defaultProps, Language } from 'prism-react-renderer';
 import { View, Text, Button } from '@aws-amplify/ui-react';
+import classNames from 'classnames';
 
 export const CodeHighlight = ({
   className = '',
@@ -34,11 +35,13 @@ export const CodeHighlight = ({
         }) => (
           <View
             as="pre"
-            className={`${className} ${prismClassName} ${
-              withLines ? 'with-lines' : ''
-            }`}
+            className={classNames(
+              className,
+              prismClassName,
+              withLines && 'with-lines'
+            )}
           >
-            <View as="code" className={`${className} ${prismClassName}`}>
+            <View as="code" className={classNames(className, prismClassName)}>
               {tokens.map((line, i) => (
                 <View
                   className="code-line"

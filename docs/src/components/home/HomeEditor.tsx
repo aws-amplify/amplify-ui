@@ -76,9 +76,22 @@ const HomeEditor = () => {
           flex="1"
           className="docs-home-editor__code-panel with-lines scrollable"
         >
-          <LiveEditor />
+          <LiveEditor
+            onKeyDown={(e) => {
+              // This makes sure the editor is not a focus trap
+              if (e.keyCode === 9) {
+                // tab key
+                e.preventDefault();
+                e.target.blur();
+              }
+            }}
+          />
         </View>
-        <View flex="1" className="docs-home-editor__preview-panel">
+        <View
+          aria-label="Live preview results"
+          flex="1"
+          className="docs-home-editor__preview-panel"
+        >
           <LivePreview />
         </View>
       </View>

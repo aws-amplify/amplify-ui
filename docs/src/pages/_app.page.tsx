@@ -12,7 +12,7 @@ import { Head } from './Head';
 
 import Prism from 'prism-react-renderer/prism';
 
-(typeof global !== 'undefined' ? global : window).Prism = Prism;
+globalThis.Prism = Prism;
 
 require('prismjs/components/prism-dart');
 
