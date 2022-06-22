@@ -8,7 +8,8 @@ export interface CollectionWrapperProps extends BaseStyleProps {
   /**
    * @description
    * Collection type. This will be used to determine collection wrapper component.
-   * @default 'list'
+   * @default
+   * 'list'
    */
   type?: CollectionType;
 
@@ -39,7 +40,8 @@ export interface CollectionWrapperProps extends BaseStyleProps {
   /**
    * @description
    * Search field label
-   * @default "Search"
+   * @default
+   * "Search"
    */
   searchLabel?: string;
 

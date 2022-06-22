@@ -293,8 +293,12 @@ function getPropertiesFromAllTypeData(sourceTypes: TypeFileName[]) {
           name: String(property.get('name')),
           type: String(property.get('type')),
           description: property.get('description')
-            ? (property.get('description') as { description: string })
-                .description
+            ? Object.entries(property.get('description'))
+                .map(
+                  ([tag, tagText]) =>
+                    `${tag === 'description' ? '' : `${tag}: `}${tagText}`
+                )
+                .join(' ')
             : '',
           category: property.get('category') as Category,
           isOptional: property.get('isOptional') as boolean,

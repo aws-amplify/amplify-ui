@@ -41,7 +41,8 @@ export interface StepperFieldProps extends TextInputFieldProps {
    * @description
    * Set the label text for increase button.
    * This will be used to construct its the `aria-label`. e.g., "Increase to 2" if the current step is 1.
-   * @default "Increase to"
+   * @default
+   * "Increase to"
    */
   increaseButtonLabel?: string;
 
@@ -49,7 +50,8 @@ export interface StepperFieldProps extends TextInputFieldProps {
    * @description
    * Set the label text for decrease button.
    * This will be used to construct its the `aria-label`. e.g., "Decrease to 0" if the current step is 1.
-   * @default "Decrease to"
+   * @default
+   * "Decrease to"
    */
   decreaseButtonLabel?: string;
 

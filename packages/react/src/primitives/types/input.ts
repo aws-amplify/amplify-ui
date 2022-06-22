@@ -18,61 +18,66 @@ export type InputSizes = Sizes;
 export interface InputProps extends ViewProps {
   /**
    * @description
-   * Specifies permissions for browser UA to autocomplete field
-   * @see [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete)
+   * Specifies permissions for browser UA to autocomplete field.
+   * @see
+   * [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete)
    */
   autoComplete?: string;
 
   /**
    * @description
-   * If checked is provided, this will be a controlled checkbox or radio
+   * If checked is provided, this will be a controlled checkbox or radio.
    */
   checked?: boolean;
 
   /**
    * @description
-   * Use this to initialize an uncontrolled checkbox or radio
+   * Use this to initialize an uncontrolled checkbox or radio.
    */
   defaultChecked?: boolean;
 
   /**
    * @description
-   * Use this to provide a default value for an uncontrolled field
+   * Use this to provide a default value for an uncontrolled field.
    */
   defaultValue?: React.AllHTMLAttributes<'input'>['defaultValue'];
 
   /**
    * @description
-   * Indicates that Field is in error state
+   * Indicates that Field is in error state.
    */
   hasError?: boolean;
 
   /**
    * @description
-   * Provides hint for virtual keyboard shown
-   * @see [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inputmode)
-   * @default: "text"
+   * Provides hint for virtual keyboard shown.
+   * @see
+   *[MDN](https:/
+   * "text"
    */
   inputMode?: InputMode;
 
   /**
    * @description
-   *  Determines whether field should be disabled
-   * @default false
+   *  Determines whether field should be disabled.
+   * @default
+   * false
    */
   isDisabled?: boolean;
 
   /**
    * @description
-   * Determines whether field should be immutable
-   * @see [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-readonly)
-   * @default false
+   * Determines whether field should be immutable.
+   * @see
+   *[MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-readonly)
+   * @default
+   * false
    */
   isReadOnly?: boolean;
 
   /**
    * @description
-   * Whether field should be marked required
+   * Whether field should be marked required.
    */
   isRequired?: boolean;
 
@@ -84,10 +89,7 @@ export interface InputProps extends ViewProps {
 
   /**
    * @description
-   * Placeholder text shown when field is empty
-   * Accessibility tip: avoid putting important instructions for
-   * filling out the TextField in the placeholder. Use descriptiveText
-   * for important instructions
+   * Placeholder text shown when field is empty Accessibility tip: avoid putting important instructions for filling out the TextField in the placeholder. Use descriptiveText for important instructions.
    */
   placeholder?: string;
 
@@ -99,19 +101,19 @@ export interface InputProps extends ViewProps {
 
   /**
    * @description
-   * Input field type
+   * Input field type.
    */
   type?: React.HTMLInputTypeAttribute;
 
   /**
    * @description
-   * If value is provided, this will be a controlled field
+   * If value is provided, this will be a controlled field.
    */
   value?: React.AllHTMLAttributes<'input'>['value'];
 
   /**
    * @description
-   * Variants
+   * Variants.
    */
   variation?: FieldVariations;
 }

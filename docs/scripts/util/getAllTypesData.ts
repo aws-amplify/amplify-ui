@@ -93,11 +93,16 @@ function setTypeData(
 ) {
   const typeData: TypeData = new Map();
   const typeJsDocs = typeProp.getJsDocs();
+
   const typeDescription = typeJsDocs[0]?.getTags().reduce(
     (descriptions, tag) => ({
       ...descriptions,
       [tag.getTagName()]: sanitize(
-        tag.getText().replace(`@${tag.getTagName()}\n   * `, '').trim()
+        tag
+          .getText()
+          .replace(`@${tag.getTagName()}\n`, '')
+          .replaceAll('*', '')
+          .trim()
       ),
     }),
     {}

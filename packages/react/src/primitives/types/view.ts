@@ -89,7 +89,8 @@ export interface ViewProps
    * @description
    * Accepts a JavaScript object with camelCased properties rather than a CSS string.
    * This is consistent with the DOM style JavaScript property, is more efficient, and prevents XSS security holes.
-   * @see [React docs](https://reactjs.org/docs/dom-elements.html#style)
+   * @see
+   *[React docs](https://reactjs.org/docs/dom-elements.html#style)
    */
   style?: React.CSSProperties;
 }
