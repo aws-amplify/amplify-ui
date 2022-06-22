@@ -169,12 +169,14 @@ function overwriteType(type, name, componentName) {
   const definedInTypeFile = [
     ...(allTypeFilesTypeData.get(componentName)?.values() || []),
     ...allTypeFilesTypeData.get('Base').values(),
+    ...allTypeFilesTypeData.get('Field').values(),
   ].find((val) => {
     return (
       val &&
       type?.toLowerCase().includes(val.get('name').toString().toLowerCase())
     );
   });
+
   if (definedInTypeFile) {
     type = definedInTypeFile.get('type');
   }
