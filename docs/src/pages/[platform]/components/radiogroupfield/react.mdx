@@ -39,6 +39,8 @@ Import the Radio and RadioGroupField components.
 
 ### Controlled component
 
+To manually control the RadioGroupField state, you can use the `value` and `onChange` props. 
+
 <Example>
   <ControlledExample />
   <ExampleCode>
@@ -49,10 +51,6 @@ Import the Radio and RadioGroupField components.
 
   </ExampleCode>
 </Example>
-
-### Accessibility / Label behavior
-
-<Fragment>{() => import('./../shared/formFieldAccessibility.mdx')}</Fragment>
 
 ### Sizes
 
@@ -142,6 +140,10 @@ Use the `hasError` and `errorMessage` props to mark a RadioGroupField as having 
   </ExampleCode>
 </Example>
 
+### Accessibility / Label behavior
+
+<Fragment>{() => import('./../shared/formFieldAccessibility.mdx')}</Fragment>
+
 ## CSS Styling
 
 <ThemeExample component="RadioGroupField" link="radio">
@@ -168,7 +170,7 @@ To override styling on all Radio buttons, you can set the Amplify CSS variables 
 
 ```css
 /* styles.css */
-:root {
+[data-amplify-theme] {
   --amplify-components-radio-button-border-color: yellow;
   --amplify-components-radio-button-background-color: yellow;
 }
