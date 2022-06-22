@@ -152,7 +152,7 @@ Use the `hasError` and `errorMessage` props to mark a RadioGroupField as having 
 
 ## CSS Styling
 
-<ThemeExample component="RadioGroupField" link="radio">
+<ThemeExample component="RadioGroupField" link="radioGroup">
   <Example>
     <RadioGroupFieldThemeExample />
     
@@ -173,6 +173,23 @@ Use the `hasError` and `errorMessage` props to mark a RadioGroupField as having 
 ### Global styling
 
 To override styling on all Radio buttons, you can set the Amplify CSS variables or use the built-in `.amplify-radio__button` class.
+
+<RadioGroupField
+  label="Colors"
+  name="colors"
+  defaultValue="red"
+  labelHidden
+>
+  <Radio value="red" className="custom-radio">
+    Red
+  </Radio>
+  <Radio value="orange" className="custom-radio">
+    Orange
+  </Radio>
+  <Radio value="yellow" className="custom-radio">
+    Yellow
+  </Radio>
+</RadioGroupField>
 
 ```css
 /* styles.css */
@@ -200,17 +217,23 @@ To replace Radio button styling, unset it:
 
 To override styling on a specific Radio, you can use (in order of increasing specificity): a class selector, data attributes, or style props.
 
-#### Using a class selector
+_Using a class selector:_
 
 <Example>
   <RadioGroupField
-    label="Language"
-    name="example-13"
-    defaultValue="html"
+    label="Colors"
+    name="colors"
+    defaultValue="red"
     labelHidden
   >
-    <Radio value="html" className="custom-radio">
-      {`html`}
+    <Radio value="red" className="custom-radio">
+      Red
+    </Radio>
+    <Radio value="orange" className="custom-radio">
+      Orange
+    </Radio>
+    <Radio value="yellow" className="custom-radio">
+      Yellow
     </Radio>
   </RadioGroupField>
   
@@ -219,15 +242,14 @@ To override styling on a specific Radio, you can use (in order of increasing spe
 ```css
 /* styles.css */
 .custom-radio .amplify-radio__input:checked + .amplify-radio__button {
-  color: white;
-  border-color: crimson;
-  background-color: crimson;
+  background-color: orange;
+  border-color: red;
+  color: yellow;
 }
 ```
 
 ```jsx
 import { Radio, RadioGroupField } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
 
 <RadioGroupField label="Language" name="language" defaultValue="html">
   <Radio value="html" className="custom-radio">
@@ -239,7 +261,7 @@ import '@aws-amplify/ui-react/styles.css';
   </ExampleCode>
 </Example>
 
-#### Using data attributes
+_Using data attributes:_
 
 ```css
 /* styles.css */
