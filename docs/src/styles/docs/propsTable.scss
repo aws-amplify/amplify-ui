@@ -3,6 +3,9 @@
 .props-table-expander {
   box-shadow: unset;
   margin-bottom: var(--amplify-space-medium);
+  & .amplify-expander__trigger {
+    cursor: pointer;
+  }
 
   & .amplify-expander__item {
     box-shadow: unset;
@@ -28,6 +31,10 @@
   & pre[class*='language-'] {
     margin: 0;
     padding: 0;
+  }
+
+  & .amplify-table__td:first-child {
+    font-weight: 600;
   }
 }
 
