@@ -9,24 +9,26 @@ export const PageTabLayout = ({ tabComponents }) => {
     pathname,
     push,
   } = useCustomRouter();
-  const changeURL = (e) =>
+  const tabIndex = tabComponents.findIndex(
+    ({ title }) => title.toLowerCase() === tab
+  );
+  const changeURL = (e) => {
     push(
       {
-        pathname,
+        pathname: e == 0 ? pathname.replace('/[tab]', '') : pathname,
         query: {
           platform,
-          tab: tabComponents[e].title.toLowerCase(),
+          ...(e != 0 && { tab: tabComponents[e].title.toLowerCase() }),
         },
       },
       undefined,
       { shallow: true }
     );
+  };
 
   return (
     <Tabs
-      defaultIndex={
-        tabComponents.findIndex(({ title }) => title.toLowerCase() === tab) || 0
-      }
+      defaultIndex={tabIndex ?? 0}
       justifyContent="flex-start"
       onChange={changeURL}
     >
