@@ -4,11 +4,16 @@ const theme: Theme = {
   name: 'selectfield-theme',
   tokens: {
     components: {
-      select: {
-        // TODO: customize here
-      },
       selectfield: {
-        // TODO: customize here
+        color: { value: '{colors.blue.60}' },
+        fontSize: { value: '{fontSizes.large}' },
+        borderColor: { value: '{colors.red.60}' },
+        _focus: {
+          borderColor: { value: '{colors.red.80}' },
+        },
+        label: {
+          color: { value: '{colors.blue.60}' },
+        },
       },
     },
   },

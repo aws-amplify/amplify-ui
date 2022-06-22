@@ -1,19 +1,28 @@
-import { PhoneNumberField, ThemeProvider, Theme } from '@aws-amplify/ui-react';
+import { ThemeProvider, PhoneNumberField } from '@aws-amplify/ui-react';
 
-const theme: Theme = {
+const theme = {
   name: 'phonenumber-theme',
   tokens: {
     components: {
-      fieldcontrol: {
+      phonenumberfield: {
+        //these design tokens will apply to both the select and input that are part of the phonenumber field
         color: { value: '{colors.blue.60}' },
         fontSize: { value: '{fontSizes.large}' },
+        borderColor: { value: '{colors.neutral.80}' },
+        _focus: {
+          borderColor: { value: '{colors.neutral.100}' },
+        },
       },
     },
   },
 };
 
-export const PhoneNumberFieldThemeExample = () => (
+export const ThemingExample = () => (
   <ThemeProvider theme={theme} colorMode="light">
-    <PhoneNumberField label="Themed field" defaultCountryCode="+1" />
+    <PhoneNumberField
+      label="Themed field"
+      defaultCountryCode="+1"
+      labelHidden={true}
+    />
   </ThemeProvider>
 );

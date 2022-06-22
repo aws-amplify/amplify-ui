@@ -41,8 +41,12 @@ jobs:
         with:
           node-version: lts/*
           cache: 'yarn'
-      - name: Install and build packages
-        run: yarn --frozen-lockfile && yarn build
+      - name: Install packages
+        uses: ./.github/actions/install-with-retries
+        with:
+          skip-cypress-binary: true # publishing doesn't need cypress
+      - name: Build packages
+        run: yarn build
       - name: Bump ui and ui-react packages
         run: cp .github/changeset-presets/bump-react.md .changeset
       - name: Run changeset version to studio tag

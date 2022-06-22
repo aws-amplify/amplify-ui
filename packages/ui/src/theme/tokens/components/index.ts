@@ -26,8 +26,10 @@ import { loader, LoaderTokens } from './loader';
 import { menu, MenuTokens } from './menu';
 import { pagination, PaginationTokens } from './pagination';
 import { passwordfield, PasswordFieldTokens } from './passwordField';
+import { phonenumberfield, PhoneNumberFieldTokens } from './phoneNumberField';
 import { placeholder, PlaceholderTokens } from './placeholder';
 import { radio, RadioTokens } from './radio';
+import { radiogroup, RadioGroupTokens } from './radioGroup';
 import { rating, RatingTokens } from './rating';
 import { searchfield, SearchFieldTokens } from './searchField';
 import { select, SelectTokens } from './select';
@@ -72,8 +74,10 @@ export interface ComponentTokens {
   menu: MenuTokens;
   pagination: PaginationTokens;
   passwordfield: PasswordFieldTokens;
+  phonenumberfield: PhoneNumberFieldTokens;
   placeholder: PlaceholderTokens;
   radio: RadioTokens;
+  radiogroup: RadioGroupTokens;
   rating: RatingTokens;
   searchfield: SearchFieldTokens;
   select: SelectTokens;
@@ -116,8 +120,10 @@ export const components: ComponentTokens = {
   menu,
   pagination,
   passwordfield,
+  phonenumberfield,
   placeholder,
   radio,
+  radiogroup,
   rating,
   searchfield,
   select,

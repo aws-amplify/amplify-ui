@@ -6,6 +6,7 @@
   &--disabled {
     cursor: var(--amplify-components-radio-disabled-cursor);
   }
+  --amplify-components-text-color: var(--amplify-components-radio-label-color);
 }
 
 .amplify-radio__button {
