@@ -47,6 +47,10 @@
   }
 }
 
+:root {
+  --docsearch-primary-color: var(--amplify-colors-brand-primary-60);
+}
+
 html {
   // this enables some alternative styles and contextual characters to the font
   // https://rsms.me/inter/#features
@@ -57,6 +61,7 @@ body {
   padding: 0;
   margin: 0;
   line-height: 1.5;
+  width: 100vw;
 }
 
 a {
@@ -70,7 +75,6 @@ a {
     color: var(--amplify-components-link-hover-color);
   }
   
-  &:focus,
   &:focus-visible {
     outline: none;
     box-shadow: 0 0 0 2px var(--amplify-colors-border-focus);
@@ -143,15 +147,13 @@ h3 {
 h2[id],
 h3[id] {
   position: relative;
-  margin-top: var(--amplify-space-large);
+  margin-top: var(--amplify-space-xl);
   margin-bottom: var(--amplify-space-small);
   // to offset sticky header
   scroll-margin-block-start: 6rem;
 }
 
 h2[id] {
-  margin-top: var(--amplify-space-xxl);
-
   &::before {
     content: '';
     position: absolute;
@@ -159,8 +161,12 @@ h2[id] {
     left: 0;
     width: 5rem;
     border-top: var(--amplify-border-widths-large) solid
-      var(--amplify-colors-border-tertiary);
+      var(--amplify-colors-border-secondary);
   }
+}
+
+h2[id]:not(:first-of-type) {
+  margin-top: var(--amplify-space-xxxl);
 }
 
 h2[id] > a,
@@ -215,13 +221,53 @@ h4:hover>  a .icon-link {
     var(--amplify-colors-border-secondary);
   --amplify-borders-tertiary: var(--amplify-border-widths-small) solid
     var(--amplify-colors-border-tertiary);
-
+    
   /* custom vars */
   --docs-header-height: 4rem;
+  --docs-gradient-color-hsl: 210, 0%, 100%;
+  --docs-callout-bg: var(--amplify-colors-brand-primary-10);
+  --docs-font-mono: 'Source Code Pro', 'Fira Code', 'Fira Mono', ui-monospace,
+  SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+  monospace;
+  --docs-horizontal-padding: var(--amplify-space-medium);
+  
+  @media (min-width: $breakpoint-medium) {
+    --docs-horizontal-padding: var(--amplify-space-xl);
+  }
+
+  @media (min-width: $breakpoint-large) {
+    --docs-horizontal-padding: var(--amplify-space-xxl);
+  }
 }
 
-.container {
-  max-width: 125em; // 2000px;
-  margin-right: auto;
-  margin-left: auto;
+[data-amplify-theme='amplify-docs'][data-amplify-color-mode='dark'] {
+  --docs-gradient-color-hsl: 210, 50%, 10%;
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-amplify-theme='amplify-docs'][data-amplify-color-mode="system"] {
+    --docs-gradient-color-hsl: 210, 50%, 10%;
+  }
+}
+
+.fade-in {
+  // Only fade things in for people without reduced motion preference
+  @media (prefers-reduced-motion: no-preference) {
+    opacity: 0;
+    transition: all var(--amplify-time-long) ease var(--amplify-time-medium);
+    transform: translateY(var(--amplify-space-medium));
+    
+    &.shown {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+}
+
+.video {
+  @supports (aspect-ratio: 1) {
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    height: auto;
+  }
 }
