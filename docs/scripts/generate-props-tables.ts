@@ -164,7 +164,7 @@ function getPropsSortedByCategory(
     const allTableCategories: {
       [key in 'Main' | 'Layout']: Category[];
     } = {
-      Main: ['BaseComponentProps', 'Base'],
+      Main: ['BaseComponentProps'],
       Layout: [
         'CSSLayoutStyleProps',
         'FlexContainerStyleProps',
@@ -183,10 +183,14 @@ function getPropsSortedByCategory(
         (propArr) => propArr.includes(category)
       );
       const isBaseStyleProps = category === 'BaseStyleProps';
+      const isAriaProps = category === 'AriaProps';
 
       return (
         isCurrentComponentProp ||
-        (isPropsOrOptions && !isSharedBasicCategory && !isBaseStyleProps)
+        (isPropsOrOptions &&
+          !isSharedBasicCategory &&
+          !isBaseStyleProps &&
+          !isAriaProps)
       );
     };
 
