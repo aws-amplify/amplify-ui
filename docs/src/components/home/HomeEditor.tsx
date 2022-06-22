@@ -10,44 +10,39 @@ import * as AUI from '@aws-amplify/ui-react';
 
 const { View, Alert } = AUI;
 
-const code = `() => {
-  const { tokens } = useTheme();
-  return (
-    <Card variation="elevated">
-      <Flex direction="row" alignItems="flex-start">
-        <Image src="/amplify-placeholder.svg"
-          alt="Amplify" width="8rem"/>
-        <Flex direction="column" gap="xs">
-          <Flex direction="row">
-            <Badge variation="success">New</Badge>
-          </Flex>
-          <Text fontSize="large" fontWeight="semibold">
-            Product title
-          </Text>
-          <Text color="font.tertiary">
-            Product description
-          </Text>
-          <Text
-            fontSize="large"
-            color="secondary">
-            $199.99
-          </Text>
-          <Flex direction="row">
-            <StepperField
-              label="Quantity"
-              min={0}
-              max={10}
-              step={1}
-              defaultValue={1}
-              labelHidden
-            />
-            <Button variation="primary">Add to cart</Button>
-          </Flex>
-        </Flex>
+const code = `<Card variation="elevated">
+  <Flex>
+    <Image src="/amplify-placeholder.svg"
+      alt="Amplify" width="8rem"/>
+    <Flex direction="column" gap="xs">
+      <Flex direction="row">
+        <Badge variation="success">New</Badge>
       </Flex>
-    </Card>
-  )
-}`;
+      <Text fontSize="large" fontWeight="semibold">
+        Product title
+      </Text>
+      <Text color="font.tertiary">
+        Product description
+      </Text>
+      <Text
+        fontSize="large"
+        color="secondary">
+        $199.99
+      </Text>
+      <Flex direction="row">
+        <StepperField
+          label="Quantity"
+          min={0}
+          max={10}
+          step={1}
+          defaultValue={1}
+          labelHidden
+        />
+        <Button variation="primary">Add to cart</Button>
+      </Flex>
+    </Flex>
+  </Flex>
+</Card>`;
 
 const Error = () => {
   const context: ContextProps = React.useContext(LiveContext);

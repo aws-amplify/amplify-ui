@@ -45,11 +45,11 @@ export const AmplifySection = ({ platform }) => {
           </Link>
         </HomeFeatureCard>
         <HomeFeatureCard
-          title="Connect your UI to your backend easily with Amplify libraries."
+          title="Connect your UI to your backend with Amplify libraries."
           icon={LibraryIcon}
         >
           Amplify Libraries offer an opinionated and declarative interfaces to
-          easily connect to your backend. The libraries are pluggable and can be
+          connect to your backend. The libraries are pluggable and can be
           extended to use other providers.
           <br />
           <Link href={`https://docs.amplify.aws/lib/q/platform/${platform}/`}>

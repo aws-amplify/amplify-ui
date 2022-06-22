@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 
 import {
   Card,
@@ -43,7 +43,7 @@ const Swatch = ({ color }) => (
 );
 
 const Preview = ({ platform }) => {
-  const [exclusiveValue, setExclusiveValue] = React.useState('align-left');
+  const [exclusiveValue, setExclusiveValue] = useState('align-left');
 
   const isMobile = useBreakpointValue({
     base: true,
@@ -115,13 +115,14 @@ const Preview = ({ platform }) => {
               <CheckboxField label="Frosting" value="Frosting" name="topping" />
               <RadioGroupField
                 label="Language"
-                name="language"
+                name="theme-language"
                 defaultValue="css"
+                gap="small"
                 labelHidden
               >
-                <Radio value="html">html</Radio>
-                <Radio value="css">css</Radio>
-                <Radio value="javascript">javascript</Radio>
+                <Radio value="html">HTML</Radio>
+                <Radio value="css">CSS</Radio>
+                <Radio value="javascript">Javascript</Radio>
               </RadioGroupField>
             </Flex>
           </Card>
@@ -204,7 +205,7 @@ const fileName = {
 };
 
 export const ThemeSwitcher = ({ colorMode }) => {
-  const [theme, setTheme] = React.useState('default');
+  const [theme, setTheme] = useState('default');
   const {
     query: { platform = 'react' },
   } = useCustomRouter();

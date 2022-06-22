@@ -17,6 +17,7 @@ globalThis.Prism = Prism;
 require('prismjs/components/prism-dart');
 
 import '../styles/index.scss';
+import classNames from 'classnames';
 
 if (typeof window === 'undefined') {
   // suppress useLayoutEffect warnings when running outside a browser
@@ -79,11 +80,12 @@ function MyApp({ Component, pageProps }) {
             setColorMode={handleColorModeChange}
             platform={platform}
           />
-          <main className={`docs-main`}>
+          <main className="docs-main">
             <div
-              className={`docs-sidebar-spacer ${
+              className={classNames(
+                'docs-sidebar-spacer',
                 expanded ? 'expanded' : 'collapsed'
-              }`}
+              )}
             />
 
             <Component

@@ -26,11 +26,7 @@ export const ThemingSection = ({ colorMode, platform }) => {
         isVisible && 'shown'
       )}
     >
-      <Flex
-        direction="column"
-        className="docs-home-subsection--thin"
-        textAlign="center"
-      >
+      <Flex direction="column" className="docs-home-subsection--thin">
         <Heading level={2}>
           <strong>Theming</strong> controls to match your brand
         </Heading>

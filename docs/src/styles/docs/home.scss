@@ -309,6 +309,9 @@ pre.scrollable.prism-code {
     box-shadow: var(--amplify-shadows-medium);
     position: absolute;
     right: 0;
+    @media (max-width: $breakpoint-small) {
+      right: -5rem;
+    }
   }
   
   &__studio {
@@ -347,6 +350,9 @@ pre.scrollable.prism-code {
     padding: var(--amplify-space-medium);
     min-width: 20rem;
     max-width: 30rem;
+    @media (max-width: $breakpoint-small) {
+      left: -2rem;
+    }
   }
   
   &__node-label {

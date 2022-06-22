@@ -26,6 +26,7 @@ import {
   ToggleButton,
   Button,
   Pagination,
+  usePagination,
 } from '@aws-amplify/ui-react';
 import { HomeCTA } from '@/components/home/HomeCTA';
 import { useIntersectionObserver } from '@/components/useIntersection';
@@ -39,13 +40,11 @@ const Center = ({ children }) => (
 
 const Preview = () => {
   const [exclusiveValue, setExclusiveValue] = useState('align-left');
-  const [radioValue, setRadioValue] = useState('css');
-  const [currentPageIndex, setCurrentPageIndex] = useState(4);
-  const totalPages = 99;
 
-  const handleOnChange = (newPageIndex, prevPageIndex) => {
-    setCurrentPageIndex(newPageIndex);
-  };
+  const paginationProps = usePagination({
+    totalPages: 99,
+    currentPage: 12,
+  });
 
   const direction = ['column', 'column', 'row'];
 
@@ -54,17 +53,12 @@ const Preview = () => {
       <Flex direction={direction}>
         <Card variation="elevated">
           <Center>
-            <SwitchField label="switch" labelPosition="end" />
+            <SwitchField label="Switch" labelPosition="end" />
           </Center>
         </Card>
         <Card variation="elevated" flex="1" display={['none', 'block']}>
           <Center>
-            <Pagination
-              currentPage={currentPageIndex}
-              totalPages={totalPages}
-              siblingCount={1}
-              onChange={handleOnChange}
-            />
+            <Pagination {...paginationProps} />
           </Center>
         </Card>
       </Flex>
@@ -132,15 +126,14 @@ const Preview = () => {
           <Center>
             <RadioGroupField
               label="Language"
-              name="language"
-              value={radioValue}
+              name="primitive-language"
+              defaultValue="css"
               direction="row"
               gap="small"
-              onChange={(e) => setRadioValue(e.target.value)}
               labelHidden
             >
-              <Radio value="html">html</Radio>
-              <Radio value="css">css</Radio>
+              <Radio value="html">HTML</Radio>
+              <Radio value="css">CSS</Radio>
               <Radio value="javascript">javascript</Radio>
             </RadioGroupField>
           </Center>
@@ -226,8 +219,7 @@ export const PrimitiveSection = ({ platform, ...rest }) => {
               Amplify UI components are built with plain React and CSS to
               provide a solid foundation for building UIs and design systems.
               These components are theme-able, composable, reusable. They play
-              nicely with other UI components or styling frameworks. Interactive
-              components can be controlled and uncontrolled.
+              nicely with other UI components or styling frameworks.
             </Text>
           </Flex>
           <View flex="1">
