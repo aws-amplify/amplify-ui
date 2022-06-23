@@ -40,6 +40,7 @@
       "packages/angular/projects/ui-angular"
     ],
     "nohoist": [
+      "**/next",
       "**/@radix-ui",
       "**/@radix-ui/**",
       "**/react",
