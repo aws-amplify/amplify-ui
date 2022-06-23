@@ -52,8 +52,8 @@ export interface InputProps extends ViewProps {
    * @description
    * Provides hint for virtual keyboard shown.
    * @see
-   *[MDN](https:/
-   * "text"
+   * [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inputmode)
+   * @default: "text"
    */
   inputMode?: InputMode;
 
