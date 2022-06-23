@@ -1,8 +1,51 @@
 .amplify-stepperfield {
   flex-direction: var(--amplify-components-stepperfield-flex-direction);
+
+  --amplify-components-fieldcontrol-border-color: var(
+    --amplify-components-stepperfield-border-color
+  );
+  --amplify-components-button-border-color: var(
+    --amplify-components-stepperfield-border-color
+  );
+  --amplify-components-fieldcontrol-color: var(
+    --amplify-components-stepperfield-input-color
+  );
+  --amplify-components-fieldcontrol-font-size: var(
+    --amplify-components-stepperfield-input-font-size
+  );
+  --amplify-components-button-color: var(
+    --amplify-components-stepperfield-button-color
+  );
+  --amplify-components-button-active-color: var(
+    --amplify-components-stepperfield-button-active-color
+  );
+  --amplify-components-button-active-background-color: var(
+    --amplify-components-stepperfield-button-active-background-color
+  );
+  --amplify-components-button-focus-color: var(
+    --amplify-components-stepperfield-button-focus-color
+  );
+  --amplify-components-button-focus-background-color: var(
+    --amplify-components-stepperfield-button-focus-background-color
+  );
+  --amplify-components-button-disabled-color: var(
+    --amplify-components-stepperfield-button-disabled-color
+  );
+  --amplify-components-button-disabled-background-color: var(
+    --amplify-components-stepperfield-button-disabled-background-color
+  );
+  --amplify-components-button-hover-color: var(
+    --amplify-components-stepperfield-button-hover-color
+  );
+  --amplify-components-button-hover-background-color: var(
+    --amplify-components-stepperfield-button-hover-background-color
+  );
 }
 
 .amplify-stepperfield__button--decrease {
+  background-color: var(
+    --amplify-components-stepperfield-button-background-color
+  );
   &[data-invalid='true'] {
     border-inline-end: none;
   }
@@ -14,6 +57,9 @@
 }
 
 .amplify-stepperfield__button--increase {
+  background-color: var(
+    --amplify-components-stepperfield-button-background-color
+  );
   &[data-invalid='true'] {
     border-inline-start: none;
   }

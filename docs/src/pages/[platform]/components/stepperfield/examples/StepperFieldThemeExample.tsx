@@ -1,13 +1,23 @@
-import { StepperField, ThemeProvider, Theme } from '@aws-amplify/ui-react';
+import { StepperField, ThemeProvider } from '@aws-amplify/ui-react';
 
-const theme: Theme = {
-  name: 'stepperfield-theme',
+const theme = {
+  name: 'stepper-theme',
   tokens: {
     components: {
       stepperfield: {
-        // TODO: customize here
+        borderColor: { value: '{colors.brand.secondary.20}' },
+        input: {
+          color: { value: '{colors.brand.primary.80}' },
+          fontSize: { value: '{fontSizes.large}' },
+        },
+        button: {
+          color: { value: '{colors.brand.primary.80}' },
+          backgroundColor: { value: '{colors.neutral.20}' },
+          _disabled: {
+            color: { value: '{colors.brand.primary.80}' },
+          },
+        },
       },
-      // any more subcomponents?
     },
   },
 };
