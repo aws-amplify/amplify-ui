@@ -32,6 +32,13 @@ StyleDictionary.extend({
       files: [
         {
           destination: 'dist/theme.css',
+          // This filter function will remove any design tokens that are marked with a deprecated flag
+          filter: (token) => {
+            if (token.deprecated) {
+              return false;
+            }
+            return true;
+          },
           format: 'css/variables',
           options: {
             selector: CSS_VARIABLE_SCOPE,
