@@ -1,7 +1,7 @@
 // rollup.config.js
 import { defineConfig } from 'rollup';
 import typescript from '@rollup/plugin-typescript';
-// import { terser } from 'rollup-plugin-terser';
+import { terser } from 'rollup-plugin-terser';
 import styles from 'rollup-plugin-styles';
 
 const config = defineConfig([
@@ -15,7 +15,7 @@ const config = defineConfig([
     },
     plugins: [
       typescript({ declarationDir: 'dist/types', sourceMap: false }),
-      // terser(),
+      terser(),
     ],
   },
   // ESM config
@@ -30,7 +30,7 @@ const config = defineConfig([
     },
     plugins: [
       typescript({ outDir: 'dist/esm', declaration: false, sourceMap: false }),
-      // terser(),
+      terser(),
     ],
   },
   // CSS config
