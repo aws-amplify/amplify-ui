@@ -48,7 +48,7 @@ export function FlutterAuthenticatorExample({
           width={{ base: '300px', medium: '400px' }}
           src={src}
           loading="lazy"
-          frameborder="0"
+          frameBorder="0"
         />
       </View>
     </>
@@ -61,10 +61,18 @@ function FlutterAuthenticatorLoader({ id }) {
   const [hasLoaded, setHasLoaded] = React.useState(false);
 
   const onMessage = useCallback((event) => {
-    const data = JSON.parse(event.data);
-    if (data['name'] == 'loaded' && data['id'] == id) {
-      setHasLoaded(true);
-      window.removeEventListener('message', onMessage);
+    try {
+      if (event && event.data) {
+        const data = JSON.parse(event.data);
+        if (data['name'] === 'loaded' && data['id'] === id) {
+          console.log('loaded!');
+          setHasLoaded(true);
+          window.removeEventListener('message', onMessage);
+        }
+      }
+    } catch (error) {
+      // There might be other messages on the window and we don't want to barf
+      // console errors.
     }
   }, []);
 
@@ -76,16 +84,7 @@ function FlutterAuthenticatorLoader({ id }) {
     };
   }, [onMessage]);
 
-  return (
-    <Loader
-      style={{
-        padding: '0 6px',
-        visibility: hasLoaded ? 'hidden' : 'visible',
-      }}
-      variation="linear"
-      size="small"
-    />
-  );
+  return <>{hasLoaded ? null : <Loader variation="linear" size="small" />}</>;
 }
 
 const generateId = () => (Math.random() + 1).toString(36).substring(2);

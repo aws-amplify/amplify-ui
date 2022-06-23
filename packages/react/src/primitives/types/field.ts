@@ -7,24 +7,29 @@ import { TextProps } from './text';
  */
 export interface FieldProps {
   /**
+   * @description
    * Provides additional information needed to fill field
    * (e.g. password requirements, etc.)
    */
   descriptiveText?: React.ReactNode;
 
   /**
+   * @description
    *  When defined and `hasError` is true, show error message
    */
   errorMessage?: string;
 
   /**
+   * @description
    * Label text for field (required)
    */
   label: React.ReactNode;
 
   /**
+   * @description
    * Visually hide label (not recommended in most cases)
-   * @default false
+   * @default
+   * false
    */
   labelHidden?: boolean;
 }

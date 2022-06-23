@@ -11,6 +11,6 @@ export { RefExample } from './refs';
 export { RequiredPasswordFieldExample } from './RequiredPasswordFieldExample';
 export { SignUpFormExample } from './SignUpFormExample';
 export { SizeExample } from './SizeExample';
-export { ThemeExample } from './ThemeExample';
+export { PasswordFieldThemeExample } from './PasswordFieldThemeExample';
 export { ValidationErrorExample } from './ValidationErrorExample';
 export { VariationExample } from './VariationExample';

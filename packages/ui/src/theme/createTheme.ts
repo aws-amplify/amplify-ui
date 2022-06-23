@@ -39,10 +39,23 @@ function setupTokens(obj: any, path = []) {
 
   if (obj.hasOwnProperty('value')) {
     return setupToken(obj, path);
-  } else {
+  } else if (typeof obj === 'object') {
     for (const name in obj) {
       if (obj.hasOwnProperty(name)) {
-        tokens[name] = setupTokens(obj[name], path.concat(name));
+        if (typeof obj[name] !== 'object') {
+          // If we get to this point that means there is a 'dangling' part of the theme object
+          // basically some part of the theme object that is not a design token, which is
+          // anything that is not an object with a value attribute
+          console.warn(
+            `Non-design token found when creating the theme at path: ${path.join(
+              '.'
+            )}.${name}\nDid you forget to add '{value:"${obj[name]}"}'?`
+          );
+          // Keep the users data there just in case
+          tokens[name] = obj[name];
+        } else {
+          tokens[name] = setupTokens(obj[name], path.concat(name));
+        }
       }
     }
   }

@@ -7,3 +7,4 @@ export { CustomTitleComponent } from './CustomTitleComponent';
 export { DefaultExpanderExample } from './DefaultExpanderExample';
 export { ExpandedByDefaultMultipleExpander } from './ExpandedByDefaultMultipleExample';
 export { StylePropsExpander } from './StylePropsExample';
+export { ExpanderThemeExample } from './ExpanderThemeExample';

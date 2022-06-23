@@ -1,0 +1,90 @@
+@import './_variables.scss';
+
+.props-table-expander {
+  box-shadow: unset;
+  margin-bottom: var(--amplify-space-medium);
+  & .amplify-expander__trigger {
+    cursor: pointer;
+  }
+
+  & .amplify-expander__item {
+    box-shadow: unset;
+    border-radius: unset;
+    border-bottom-color: var(--amplify-components-table-data-border-color);
+    border-bottom-style: var(--amplify-components-table-data-border-style);
+    border-bottom-width: var(--amplify-components-table-data-border-color);
+  }
+
+  & .amplify-expander__content {
+    padding-inline: unset;
+  }
+
+  & .amplify-expander__content__text {
+    overflow-x: auto;
+    padding-block: unset;
+  }
+}
+
+.props-table {
+  table-layout: fixed;
+
+  & pre[class*='language-'] {
+    margin: 0;
+    padding: 0;
+  }
+
+  & .amplify-table__td:first-child {
+    font-weight: 600;
+  }
+}
+
+@media (max-width: $breakpoint-medium) {
+  .props-table-expander {
+    & .amplify-expander__content {
+      padding-inline-start: unset;
+      padding-inline-end: unset;
+    }
+
+    & .amplify-expander__content__text {
+      padding-block-start: unset;
+      padding-block-end: unset;
+    }
+  }
+
+  .props-table {
+    & .amplify-table__td {
+      display: block;
+      padding: calc(var(--amplify-internal-table-td-padding) / 2)
+        var(--amplify-internal-table-td-padding);
+    }
+
+    & .amplify-table__head {
+      display: none;
+    }
+
+    & .amplify-table__row {
+      border-color: var(--amplify-components-table-data-border-color);
+      border-style: var(--amplify-components-table-data-border-style);
+      border-width: var(--amplify-components-table-data-border-width) 0;
+      border-radius: var(--amplify-components-card-outlined-border-radius);
+    }
+
+    & pre[class*='language-'] {
+      max-width: 17rem;
+    }
+    & [class*='language-'] {
+      background-color: inherit;
+    }
+
+    & .amplify-table__row:first-child {
+      border: unset;
+    }
+
+    & .amplify-table__td:first-child {
+      border-left-width: inherit;
+    }
+    & .amplify-table__td:last-child {
+      border-right-width: inherit;
+    }
+  }
+}

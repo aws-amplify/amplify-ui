@@ -1,3 +1,33 @@
 .amplify-phonenumberfield select:not(:focus) {
   border-right: none;
 }
+
+.amplify-phonenumberfield {
+  //here we need to override both the selectfield and textfield variables because the phonenumberfield is composed of both of these
+  //the initial value is being pulled from the fieldcontrol values but we cannot set fieldcontrol values here because selectfield and textfield both overwrite those
+  --amplify-components-selectfield-color: var(
+    --amplify-components-phonenumberfield-color
+  );
+  --amplify-components-selectfield-border-color: var(
+    --amplify-components-phonenumberfield-border-color
+  );
+  --amplify-components-selectfield-font-size: var(
+    --amplify-components-phonenumberfield-font-size
+  );
+  --amplify-components-selectfield-focus-border-color: var(
+    --amplify-components-phonenumberfield-focus-border-color
+  );
+
+  --amplify-components-textfield-color: var(
+    --amplify-components-phonenumberfield-color
+  );
+  --amplify-components-textfield-border-color: var(
+    --amplify-components-phonenumberfield-border-color
+  );
+  --amplify-components-textfield-font-size: var(
+    --amplify-components-phonenumberfield-font-size
+  );
+  --amplify-components-textfield-focus-border-color: var(
+    --amplify-components-phonenumberfield-focus-border-color
+  );
+}
