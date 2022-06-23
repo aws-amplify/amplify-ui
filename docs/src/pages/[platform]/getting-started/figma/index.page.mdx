@@ -1,0 +1,10 @@
+---
+title: Figma
+metaTitle: Figma to code
+description: Amplify Studio offers an integration with Figma, allowing you to generate clean React code by importing your Figma design file. 
+supportedFrameworks: react
+---
+
+import { Fragment } from '@/components/Fragment';
+
+<Fragment>{({ platform }) => import(`./index.${platform}.mdx`)}</Fragment>
