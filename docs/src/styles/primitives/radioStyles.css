@@ -1,6 +1,6 @@
-.global-styling .amplify-radio__input {
-  border-color: yellow;
-  background-color: yellow;
+.global-radio-styling .amplify-radio__button {
+  background-color: green;
+  border-color: lightgreen;
 }
 
 .custom-radio .amplify-radio__input:checked + .amplify-radio__button {

@@ -177,30 +177,31 @@ To override styling on all Radio buttons, you can set the Amplify CSS variables 
 <RadioGroupField
   label="Colors"
   name="colors"
-  defaultValue="red"
+  defaultValue="a"
   labelHidden
+  className="global-radio-styling"
 >
-  <Radio value="red" className="custom-radio">
-    Red
+  <Radio value="a">
+    A
   </Radio>
-  <Radio value="orange" className="custom-radio">
-    Orange
+  <Radio value="b">
+    B
   </Radio>
-  <Radio value="yellow" className="custom-radio">
-    Yellow
+  <Radio value="c">
+    C
   </Radio>
 </RadioGroupField>
 
 ```css
 /* styles.css */
 [data-amplify-theme] {
-  --amplify-components-radio-button-border-color: yellow;
-  --amplify-components-radio-button-background-color: yellow;
+  --amplify-components-radio-button-background-color: green;
+  --amplify-components-radio-button-border-color: lightgreen;
 }
 /* OR */
 .amplify-radio__button {
-  border-color: yellow;
-  background-color: yellow;
+  background-color: green;
+  border-color: lightgreen;
 }
 ```
 
