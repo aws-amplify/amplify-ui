@@ -48,6 +48,7 @@ async function createAllPropsTables() {
         RadioGroupField: ['Radio'],
         Tabs: ['TabItem'],
         Table: ['TableBody', 'TableCell', 'TableFoot', 'TableHead', 'TableRow'],
+        ToggleButton: ['ToggleButtonGroup'],
       };
 
     if (componentName in componentsWithChildren) {

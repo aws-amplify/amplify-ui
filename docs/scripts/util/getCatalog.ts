@@ -175,6 +175,7 @@ function overwriteType(type, name, componentName) {
     ...allTypeFilesTypeData.get('Base').values(),
     ...allTypeFilesTypeData.get('Field').values(),
     ...allTypeFilesTypeData.get('Text').values(),
+    ...allTypeFilesTypeData.get('Button').values(),
   ].find((val) => {
     return (
       val &&
