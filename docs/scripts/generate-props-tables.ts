@@ -65,7 +65,7 @@ import { Expander, ExpanderItem, Table, TableBody, TableCell, TableHead, TableRo
 ${tableAndExpanders.join('')}
 \`*\` indicates required props.
 
-Checkout [Style Props](https://dev.ui.docs.amplify.aws/react/theming/style-props) page for all the style properties.
+See [Style Props](https://dev.ui.docs.amplify.aws/react/theming/style-props) for all supported style properties.
 
 The ${displayName} component will accept any of the standard HTML attributes that a HTML element accepts. Standard element attributes can be found in the [MDN Documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Element).
 `;
