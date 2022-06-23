@@ -296,7 +296,11 @@ function getPropertiesFromAllTypeData(sourceTypes: TypeFileName[]) {
             ? Object.entries(property.get('description'))
                 .map(
                   ([tag, tagText]) =>
-                    `${tag === 'description' ? '' : `${tag}: `}${tagText}`
+                    `${
+                      ['description', 'deprecated'].includes(tag)
+                        ? ''
+                        : `${tag}: `
+                    }${tagText}`
                 )
                 .join(' ')
             : '',
