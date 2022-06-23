@@ -59,7 +59,7 @@ export const TablePropControls: TablePropControlsInterface = ({
       <option value="large">large</option>
     </SelectField>
     <SelectField
-      id="variation"
+      id="variationProp"
       name="variation"
       label="variation"
       placeholder="(default)"
