@@ -103,7 +103,7 @@ const NavLinkComponentsSection = ({ heading, components, ...props }) => {
         textTransform="uppercase"
         letterSpacing="0.125em"
         color={tokens.colors.font.tertiary}
-        padding={`${tokens.space.small} ${tokens.space.medium} ${tokens.space.xs} var(--secondary-nav-indent)`}
+        padding={`${tokens.space.large} ${tokens.space.medium} ${tokens.space.xs} var(--secondary-nav-indent)`}
       >
         {heading}
       </Text>

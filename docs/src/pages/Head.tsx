@@ -14,6 +14,7 @@ export const Head = () => {
     pathname,
     query: { platform = 'react' },
   } = useCustomRouter();
+
   const asPathname = pathname.replace('[platform]', String(platform));
   const filepath = `/${pathname
     .split('/')
@@ -26,21 +27,18 @@ export const Head = () => {
     throw new Error(`Meta Info missing on ${filepath}`);
   }
 
-  const pageTitle = `${metaTitle ?? title} | ${capitalizeString(
-    platform as string
-  )} - Amplify UI`;
+  const homepagePaths = ['/', '/[platform]'];
 
-  const homepagePaths = [
-    '/',
-    ...FRAMEWORKS.map((framework) => `/${framework}`),
-  ];
+  const pageTitle = homepagePaths.includes(pathname)
+    ? `${metaTitle} on ${capitalizeString(platform)}`
+    : `${metaTitle ?? title} | ${capitalizeString(platform)} - Amplify UI`;
 
   return (
     <NextHead>
-      <title>{pageTitle}</title>
-      {homepagePaths.includes(asPath) && (
+      {homepagePaths.includes(pathname) ? (
         <link rel="canonical" href={process.env.SITE_URL} />
-      )}
+      ) : null}
+      <title>{pageTitle}</title>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta name="description" content={metaDescription ?? description} />
 
