@@ -41,7 +41,7 @@ export const Provider = ({ children }: { children: React.ReactNode }) => {
    *
    * Leaving this as is for now in the interest of suggested code guideline.
    */
-  const service = useInterpret(createAuthenticatorMachine, { devTools: true });
+  const service = useInterpret(createAuthenticatorMachine);
   const currentProviderVal = { service };
 
   const value = isEmpty(parentProviderVal)
@@ -51,20 +51,7 @@ export const Provider = ({ children }: { children: React.ReactNode }) => {
   const { service: activeService } = value;
 
   React.useEffect(() => {
-    console.log('Authenticator.Provider', 'has mounted');
-    return () => {
-      console.log('Authenticator.Provider', 'has unmounted');
-    };
-  });
-
-  React.useEffect(() => {
-    console.log('Authenticator.Provider', 'useEffect', 'start');
-
-    const unsubscribe = listenToAuthHub(activeService);
-    return () => {
-      console.log('Authenticator.Provider', 'useEffect', 'end');
-      unsubscribe();
-    };
+    return listenToAuthHub(activeService);
   }, [activeService]);
 
   return (
