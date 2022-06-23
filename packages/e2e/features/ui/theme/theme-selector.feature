@@ -8,9 +8,9 @@ Feature: Theme Selector
   Scenario: Change theme to Classic
     Then I see "Theming"
     And I change the theme to "Classic"
-    And "Sign in" button has background color "rgb(4, 52, 149)"
+    And "Add to cart" button has background color "rgb(4, 52, 149)"
 
   Scenario: Change theme to terminal
     Then I see "Theming"
     And I change the theme to "Terminal"
-    And "Sign in" button has background color "rgb(76, 203, 104)"
+    And "Add to cart" button has background color "rgb(76, 203, 104)"
