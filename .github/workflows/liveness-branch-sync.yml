@@ -18,9 +18,9 @@ jobs:
           source_branch: main
           destination_branch: liveness-main
           pr_title: 'Sync branch main to liveness-main'
-          github_token: ${{ secrets.PERSONAL_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Auto approve pull request
         uses: hmarr/auto-approve-action@v2
         with:
           pull-request-number: ${{ steps.open-pr.outputs.pr_number }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.PERSONAL_TOKEN }}
