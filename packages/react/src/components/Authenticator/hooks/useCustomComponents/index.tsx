@@ -9,7 +9,7 @@ export interface ComponentsProviderProps {
 export const CustomComponentsContext =
   React.createContext<ComponentsProviderProps>(null);
 
-export const useCustomComponents = () => {
+export const useCustomComponents = (): ComponentsProviderProps => {
   const context = React.useContext(CustomComponentsContext);
   if (!context) {
     throw new Error(

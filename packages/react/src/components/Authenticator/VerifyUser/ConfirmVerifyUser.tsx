@@ -1,3 +1,4 @@
+import React from 'react';
 import { translate } from '@aws-amplify/ui';
 
 import { Flex } from '../../../primitives/Flex';
@@ -55,7 +56,7 @@ export const ConfirmVerifyUser = ({
   );
 };
 
-ConfirmVerifyUser.Header = () => {
+ConfirmVerifyUser.Header = function Header() {
   return (
     <Heading level={3}>
       {translate('Account recovery requires verified contact information')}
@@ -63,4 +64,6 @@ ConfirmVerifyUser.Header = () => {
   );
 };
 
-ConfirmVerifyUser.Footer = (): JSX.Element => null;
+ConfirmVerifyUser.Footer = function Footer(): JSX.Element {
+  return null;
+};

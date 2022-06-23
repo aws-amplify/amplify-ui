@@ -1,10 +1,11 @@
+import React from 'react';
 import { translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '../hooks/useAuthenticator';
 import { Button } from '../../../primitives/Button';
 import { Flex } from '../../../primitives/Flex';
 
-export const ConfirmSignInFooter = () => {
+export const ConfirmSignInFooter = (): JSX.Element => {
   const { isPending, toSignIn } = useAuthenticator((context) => [
     context.isPending,
     context.toSignIn,
