@@ -1,5 +1,16 @@
 # @aws-amplify/ui-react
 
+## 3.0.2
+
+### Patch Changes
+
+- [#2180](https://github.com/aws-amplify/amplify-ui/pull/2180) [`bb5aecdc3`](https://github.com/aws-amplify/amplify-ui/commit/bb5aecdc359f2e37b8660b5a4585da9b0041a795) Thanks [@joebuono](https://github.com/joebuono)! - docs(fix): Fixed typo in ComponentClassObject for RadioButton
+
+* [#2074](https://github.com/aws-amplify/amplify-ui/pull/2074) [`bc882121a`](https://github.com/aws-amplify/amplify-ui/commit/bc882121a8d0e005099e2827c3bde68d56647100) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui-react): lint components/Authenticator directory
+
+* Updated dependencies [[`ffadbe883`](https://github.com/aws-amplify/amplify-ui/commit/ffadbe8837996fee24477ad5325559904c011150), [`897e55de9`](https://github.com/aws-amplify/amplify-ui/commit/897e55de962672d76cccdb5e13f8e4f180316a9b), [`bc882121a`](https://github.com/aws-amplify/amplify-ui/commit/bc882121a8d0e005099e2827c3bde68d56647100), [`710a6ec43`](https://github.com/aws-amplify/amplify-ui/commit/710a6ec4313f19077f723b75cf804d8508abca77)]:
+  - @aws-amplify/ui@3.12.0
+
 ## 3.0.1
 
 ### Patch Changes
