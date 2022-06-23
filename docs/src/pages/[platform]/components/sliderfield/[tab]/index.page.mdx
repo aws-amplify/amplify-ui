@@ -1,0 +1,22 @@
+---
+title: SliderField
+description: SliderField allows users to select a value within a defined range.
+ariaPattern: https://www.w3.org/WAI/ARIA/apg/patterns/slider
+themeSource: packages/ui/src/theme/tokens/components/sliderField.ts
+reactSource: packages/react/src/primitives/SliderField/SliderField.tsx
+supportedFrameworks: react
+---
+import { Fragment } from '@/components/Fragment';
+import { PageTabLayout } from "@/components/Layout/PageTabLayout"
+
+<PageTabLayout 
+  tabComponents={[{
+    title: "Documentation", 
+    children: <Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+  },
+  {
+    title: "Props", 
+    children: <Fragment>{({ platform }) => import('./props-table.mdx')}</Fragment>
+  }]}
+/>
+        

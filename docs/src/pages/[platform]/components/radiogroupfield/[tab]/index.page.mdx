@@ -1,0 +1,23 @@
+---
+title: RadioGroupField
+description: RadioGroupField allows users to select a single option from a list of mutually exclusive options.
+ariaPattern: https://www.w3.org/WAI/ARIA/apg/patterns/radiobutton
+themeSource: packages/ui/src/theme/tokens/components/radio.ts
+reactSource: packages/react/src/primitives/RadioGroupField/RadioGroupField.tsx
+supportedFrameworks: react
+---
+
+import { Fragment } from '@/components/Fragment';
+import { PageTabLayout } from "@/components/Layout/PageTabLayout"
+
+<PageTabLayout 
+  tabComponents={[{
+    title: "Documentation", 
+    children: <Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+  },
+  {
+    title: "Props", 
+    children: <Fragment>{({ platform }) => import('./props-table.mdx')}</Fragment>
+  }]}
+/>
+        

@@ -15,46 +15,50 @@ export interface TextAreaStyleProps {
 export interface TextAreaProps extends TextAreaStyleProps, ViewProps {
   /**
    * @description
-   * Specifies permissions for browser UA to autocomplete field
-   * @see [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete)
+   * Specifies permissions for browser UA to autocomplete field.
+   * @see
+   *[MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete)
    */
   autoComplete?: string;
 
   /**
    * @description
-   * Use this to provide a default value for an uncontrolled field
+   * Use this to provide a default value for an uncontrolled field.
    */
   defaultValue?: React.AllHTMLAttributes<'textarea'>['defaultValue'];
 
   /**
    * @description
-   * Indicates that Field is in error state
+   * Indicates that Field is in error state.
    */
   hasError?: boolean;
 
   /**
    * @description
-   *  Determines whether field should be disabled
-   * @default false
+   *  Determines whether field should be disabled.
+   * @default
+   * false
    */
   isDisabled?: boolean;
 
   /**
    * @description
-   * @see [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-readonly)
-   * @default false
+   * @see
+   *[MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-readonly)
+   * @default
+   * false
    */
   isReadOnly?: boolean;
 
   /**
    * @description
-   * Whether field should be marked required
+   * Whether field should be marked required.
    */
   isRequired?: boolean;
 
   /**
    * @description
-   * Text contents maximum length
+   * Text contents maximum length.
    */
   maxLength?: number;
 
@@ -69,13 +73,13 @@ export interface TextAreaProps extends TextAreaStyleProps, ViewProps {
    * Placeholder text shown when field is empty
    * Accessibility tip: avoid putting important instructions for
    * filling out the TextField in the placeholder. Use descriptiveText
-   * for important instructions
+   * for important instructions.
    */
   placeholder?: string;
 
   /**
    * @description
-   * Controls height based on number of rows of text to display
+   * Controls height based on number of rows of text to display.
    */
   rows?: number;
 
@@ -87,7 +91,7 @@ export interface TextAreaProps extends TextAreaStyleProps, ViewProps {
 
   /**
    * @description
-   * If value is provided, this will be a controlled field
+   * If value is provided, this will be a controlled field.
    */
   value?: React.AllHTMLAttributes<'textarea'>['value'];
 
