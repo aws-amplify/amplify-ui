@@ -48,7 +48,7 @@ export const TablePropControls: TablePropControlsInterface = ({
       onChange={(e) => setHighlightOnHover(e.target.checked)}
     />
     <SelectField
-      id="size"
+      id="sizeProp"
       name="size"
       label="size"
       placeholder="(default)"
