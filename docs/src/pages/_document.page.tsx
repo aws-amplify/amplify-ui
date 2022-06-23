@@ -51,7 +51,7 @@ const getCSPContent = (context: Readonly<HtmlProps>) => {
     return `default-src 'self';
       style-src 'self' 'unsafe-inline';
       font-src 'self' data:;
-      frame-src 'self' ${ANALYTICS_CSP.all.frame.join(' ')};
+      frame-src 'self' ${ANALYTICS_CSP.all.frame.join(' ')} *.youtube.com;
       img-src 'self' ${ANALYTICS_CSP.all.img.join(' ')};
       connect-src 'self' *.shortbread.aws.dev ${ANALYTICS_CSP.all.connect.join(
         ' '
@@ -67,7 +67,7 @@ const getCSPContent = (context: Readonly<HtmlProps>) => {
     frame-src 'self' ${[
       ...ANALYTICS_CSP.all.frame,
       ...ANALYTICS_CSP.prod.frame,
-    ].join(' ')};
+    ].join(' ')} *.youtube.com;
     img-src 'self' ${[...ANALYTICS_CSP.all.img, ...ANALYTICS_CSP.prod.img].join(
       ' '
     )};

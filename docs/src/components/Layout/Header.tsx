@@ -3,7 +3,6 @@ import { DocSearch } from '@docsearch/react';
 import {
   Button,
   Flex,
-  Image,
   Link,
   View,
   VisuallyHidden,
@@ -17,6 +16,7 @@ import { MenuButton } from './MenuButton';
 import { DISCORD, GITHUB_REPO } from '@/data/links';
 import '@docsearch/css';
 import { DiscordIcon, GithubIcon } from '../Icons';
+import { FrameworkLogo } from '../Logo';
 
 export const Header = ({
   expanded,
@@ -37,7 +37,6 @@ export const Header = ({
 
   return (
     <Flex as="header" className="docs-header">
-      <div className="docs-header-bg" />
       <MenuButton expanded={expanded} setExpanded={setExpanded} />
 
       <Sidebar
@@ -47,16 +46,15 @@ export const Header = ({
       />
 
       <LogoLink platform={platform} />
-
-      <Image
+      <FrameworkLogo
+        framework={platform}
         alt={platform}
         height="1.5rem"
         width="1.5rem"
-        display="block"
-        src={`/svg/integrations/${platform}.svg`}
+        className="docs-logo-framework"
       />
 
-      <Flex flex="1" justifyContent="flex-end">
+      <Flex flex="1" justifyContent="flex-end" gap="small">
         {showSearch && (
           <DocSearch
             appId={process.env.DOCSEARCH_DOCS_APP_ID}
@@ -75,6 +73,7 @@ export const Header = ({
               isExternal
               color="font.tertiary"
               fontSize="medium"
+              title="Discord"
             >
               <VisuallyHidden>Discord</VisuallyHidden>
               <DiscordIcon />
@@ -87,8 +86,9 @@ export const Header = ({
               isExternal
               color="font.tertiary"
               fontSize="medium"
+              title="GitHub"
             >
-              <VisuallyHidden>Github</VisuallyHidden>
+              <VisuallyHidden>GitHub</VisuallyHidden>
               <GithubIcon />
             </Button>
           </View>
