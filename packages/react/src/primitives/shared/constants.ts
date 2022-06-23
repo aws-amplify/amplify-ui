@@ -276,7 +276,7 @@ export const ComponentClassObject = {
   },
   RadioButton: {
     className: 'amplify-radio__button',
-    compoents: ['RadioGroupField', 'Radio'],
+    components: ['RadioGroupField', 'Radio'],
     description: 'Class applied to the displayed radio button',
   },
   RadioInput: {
