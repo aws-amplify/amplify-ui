@@ -41,7 +41,7 @@ const ComponentGridSection = ({ heading, components }) => {
 
   const platformComponents = components.filter((component) => {
     if (component.platforms) {
-      return component.platforms.includes(platform);
+      return component.platforms.includes(platform) && !component.tertiary;
     }
     return true;
   });

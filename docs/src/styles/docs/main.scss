@@ -14,10 +14,20 @@
 }
 
 .docs-content-body {
-  padding: var(--amplify-space-xxl);
+  padding: var(--docs-horizontal-padding);
   
   & > * + * {
-    margin-bottom: var(--amplify-space-medium);
+    margin-top: var(--amplify-space-medium);
+  }
+  
+  // Targeting tabs
+  & > [data-orientation] > [role="tabpanel"] {
+    padding-top: var(--amplify-space-medium);
+    // Don't add top margin to h2's since they already
+    // have top margin
+    & > * + *:not(h2) {
+      margin-top: var(--amplify-space-medium);
+    }
   }
   
   & > table {
