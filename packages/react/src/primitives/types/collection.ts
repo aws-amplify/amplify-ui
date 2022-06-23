@@ -59,7 +59,8 @@ export interface CollectionBaseProps<Item> {
    */
   items: Array<Item>;
 
-  /*
+  /**
+   * @description
    * The component to be repeated
    * Same interface as Array.prototype.map
    */
