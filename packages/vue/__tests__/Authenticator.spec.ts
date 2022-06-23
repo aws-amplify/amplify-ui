@@ -1,4 +1,4 @@
-import Authenticator from '../src/components/Authenticator.vue';
+import Authenticator from '../src/components/authenticator.vue';
 import { components } from '../global-spec';
 import { render } from '@testing-library/vue';
 
