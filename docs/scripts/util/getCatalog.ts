@@ -131,7 +131,9 @@ function getCatalogComponentProperty(
       const name = tag?.getName();
       const text = tag?.getText().map((el) => el.text);
       return `${
-        ['description', 'deprecated'].includes(name) ? '' : `${name}: `
+        ['description', 'deprecated'].includes(name)
+          ? ''
+          : `${capitalizeString(name)}: `
       }${text}`;
     })
     .join(' ');

@@ -10,6 +10,7 @@ import type {
   Properties,
 } from './types/catalog';
 import { TypeFileName } from './types/allTypesData';
+import { capitalizeString } from '@/utils/capitalizeString';
 
 const catalog = getCatalog();
 const { allTypeFilesInterfaceData } = getAllTypesData();
@@ -299,7 +300,7 @@ function getPropertiesFromAllTypeData(sourceTypes: TypeFileName[]) {
                     `${
                       ['description', 'deprecated'].includes(tag)
                         ? ''
-                        : `${tag}: `
+                        : `${capitalizeString(tag)}: `
                     }${tagText}`
                 )
                 .join(' ')
