@@ -255,7 +255,6 @@ function getPropertiesByCategory(
   const specialComponents: { [key in string]: TypeFileName[] } = {
     View: ['View', 'Base', 'Style'],
     TextField: ['TextField', 'TextArea', 'Input', 'Field'],
-    Text: ['Text'],
   };
 
   for (const propertyName in catalog[componentName]) {
