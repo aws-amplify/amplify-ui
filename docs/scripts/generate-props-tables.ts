@@ -14,6 +14,7 @@ import { capitalizeString } from '@/utils/capitalizeString';
 
 const catalog = getCatalog();
 const { allTypeFilesInterfaceData } = getAllTypesData();
+debugger;
 
 createAllPropsTables();
 
@@ -34,9 +35,31 @@ async function createAllPropsTables() {
         categoryName.toLowerCase() === componentPageName.toLowerCase()
     ) as ComponentName;
 
-    const tableAndExpander = createTableAndExpander(catalog, componentName);
+    const mainTableAndExpander = createTableAndExpander(catalog, componentName);
+    const tableAndExpanders = [
+      `\n ## &#60;${componentName}&#62;\n`,
+      mainTableAndExpander,
+    ];
 
-    if (!tableAndExpander) continue;
+    const componentsWithChildren: { [key in ComponentName]?: ComponentName[] } =
+      {
+        Expander: ['ExpanderItem'],
+        Menu: ['MenuButton', 'MenuItem'],
+        RadioGroupField: ['Radio'],
+        Tabs: ['TabItem'],
+        Table: ['TableBody', 'TableCell', 'TableFoot', 'TableHead', 'TableRow'],
+      };
+
+    if (componentName in componentsWithChildren) {
+      componentsWithChildren[componentName].forEach((childName) => {
+        tableAndExpanders.push(
+          `## &#60;${childName}&#62;\n`,
+          createTableAndExpander(catalog, childName)
+        );
+      });
+    }
+
+    if (!mainTableAndExpander) continue;
 
     fs.writeFileSync(
       path.join(
@@ -44,7 +67,7 @@ async function createAllPropsTables() {
         '../../docs/src/pages/[platform]/components/',
         `./${componentPageName}/[tab]/props-table.mdx`
       ),
-      Output(componentName, [tableAndExpander])
+      Output(componentName, tableAndExpanders)
     );
     console.log(`✅ ${componentPageName} Props Tables are updated.`);
   }
