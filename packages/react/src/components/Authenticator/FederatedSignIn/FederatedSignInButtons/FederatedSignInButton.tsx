@@ -1,3 +1,4 @@
+import React from 'react';
 import { FederatedIdentityProviders, SocialProvider } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '../../hooks/useAuthenticator';
@@ -99,7 +100,7 @@ export const FederatedSignInButton = (
   // TODO: Expose federated event sender so `_send` doesn't have to be extracted
   const { _send } = useAuthenticator(() => []);
 
-  const handleClick = (event): void => {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
     event.preventDefault();
 
     _send({

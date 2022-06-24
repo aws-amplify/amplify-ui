@@ -3,12 +3,12 @@ import { ViewProps } from './view';
 import { Sizes } from './base';
 import * as React from 'react';
 
-export interface ViewBox {
+export type ViewBox = {
   minX?: number;
   minY?: number;
   width?: number;
   height?: number;
-}
+};
 
 export type IconSize = Sizes;
 
@@ -16,7 +16,8 @@ export interface IconProps extends ViewProps {
   /**
    * @description
    * This defines the shape of the <path> SVG element(the 'd' attribute).
-   * @see [MDN](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/path)
+   * @see
+   *[MDN](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/path)
    */
   pathData?: string;
 
@@ -29,15 +30,16 @@ export interface IconProps extends ViewProps {
   /**
    * @description
    * This defines the position and dimension, in user space, of an SVG viewport.
-   * @see [MDN](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox)
+   * @see
+   *[MDN](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox)
    */
   viewBox?: ViewBox;
 
   /**
    * @description
-   * By default this will be "currentColor" to match what is generally expected
-   * of icons (they inherit their color from current font color).
-   * @see [MDN](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill)
+   * By default this will be "currentColor" to match what is generally expected of icons (they inherit their color from current font color).
+   * @see
+   *[MDN](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill)
    */
   fill?: Property.Color;
 
@@ -53,5 +55,5 @@ export interface IconProps extends ViewProps {
    * Optionally pass an array of path-like objects which
    * the icon will map to <path> elements.
    */
-  paths?: Array<React.SVGAttributes<SVGPathElement>>;
+  paths?: React.SVGAttributes<SVGPathElement>[];
 }

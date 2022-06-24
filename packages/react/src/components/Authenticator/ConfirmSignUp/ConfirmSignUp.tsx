@@ -1,3 +1,4 @@
+import React from 'react';
 import { translate } from '@aws-amplify/ui';
 
 import { Button } from '../../../primitives/Button';
@@ -11,7 +12,10 @@ import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { FormFields } from '../shared/FormFields';
 import { RouteContainer, RouteProps } from '../RouteContainer';
 
-export function ConfirmSignUp({ className, variation }: RouteProps) {
+export function ConfirmSignUp({
+  className,
+  variation,
+}: RouteProps): JSX.Element {
   const {
     isPending,
     resendCode,
@@ -112,4 +116,6 @@ const DefaultHeader = () => {
 
 ConfirmSignUp.Header = DefaultHeader;
 
-ConfirmSignUp.Footer = (): JSX.Element => null;
+ConfirmSignUp.Footer = function Footer(): JSX.Element {
+  return null;
+};

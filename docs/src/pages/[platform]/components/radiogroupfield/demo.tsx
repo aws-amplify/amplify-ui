@@ -9,6 +9,7 @@ import { Demo } from '@/components/Demo';
 import { RadioGroupFieldPropControls } from './RadioGroupFieldPropControls';
 import { useRadioGroupFieldProps } from './useRadioGroupFieldProps';
 import { demoState } from '@/utils/demoState';
+import { getPropString } from '../utils/getPropString';
 
 const propsToCode = ({
   label,
@@ -20,18 +21,16 @@ const propsToCode = ({
 }: RadioGroupFieldProps) => {
   return (
     `<RadioGroupField` +
-    (label ? `\n  label=${JSON.stringify(label)}` : '') +
-    (name ? `\n  name=${JSON.stringify(name)}` : '') +
+    getPropString(label, 'label') +
+    getPropString(name, 'name') +
+    getPropString(labelPosition, 'labelPosition') +
+    (direction === 'row' ? `\n  direction=${JSON.stringify(direction)}` : '') +
+    getPropString(size, 'size') +
     (isDisabled ? `\n  isDisabled={${isDisabled}}` : '') +
-    (labelPosition
-      ? `\n  labelPosition=${JSON.stringify(labelPosition)}`
-      : '') +
-    (direction ? `\n  direction=${JSON.stringify(direction)}` : '') +
-    (size ? `\n  size=${JSON.stringify(size)}` : '') +
     `\n>` +
-    `\n  <Radio value="html">html</Radio>` +
-    `\n  <Radio value="css">css</Radio>` +
-    `\n  <Radio value="javascript">javascript</Radio>` +
+    `\n  <Radio value="HTML">HTML</Radio>` +
+    `\n  <Radio value="CSS">CSS</Radio>` +
+    `\n  <Radio value="JavaScript">JavaScript</Radio>` +
     `\n</RadioGroupField>`
   );
 };
@@ -39,7 +38,7 @@ const propsToCode = ({
 const defaultRadioGroupFieldProps = {
   label: 'Language',
   name: 'language',
-  defaultValue: 'html',
+  defaultValue: 'HTML',
 };
 
 export const RadioGroupFieldDemo = () => {
@@ -62,9 +61,9 @@ export const RadioGroupFieldDemo = () => {
         direction={props.direction}
         size={props.size}
       >
-        <Radio value="html">html</Radio>
-        <Radio value="css">css</Radio>
-        <Radio value="javascript">javascript</Radio>
+        <Radio value="HTML">HTML</Radio>
+        <Radio value="CSS">CSS</Radio>
+        <Radio value="JavaScript">JavaScript</Radio>
       </RadioGroupField>
     </Demo>
   );
