@@ -1,0 +1,29 @@
+import { Fragment } from '@/components/Fragment';
+
+This structure allows us to reference the small space value as `space.small` using [Style Props](/react/theming/style-props) like in the following example.
+
+```jsx
+import { View } from '@aws-amplify/ui-react';
+
+const MyComponent = () => {
+  return <View marginBottom="space.small">{children}</View>;
+};
+```
+
+Or we can use the design token to [create a custom theme](/react/theming). 
+
+```javascript
+const theme {
+  name: 'custom-theme',
+  tokens: {
+    components: {
+      card: {
+        padding: { value: '{space.small}' },
+      },
+    },
+  },
+};
+```
+
+<Fragment>{({ platform }) => import(`./cssTokenUsage.mdx`)}</Fragment>
+

@@ -12,14 +12,16 @@ export interface PasswordFieldProps extends TextInputFieldProps {
   /**
    * @description
    * Set the `aria-label` for hide password button
-   * @default "Hide password"
+   * @default
+   * "Hide password"
    */
   hidePasswordButtonLabel?: string;
 
   /**
    * @description
    * Set the `aria-label` for show password button
-   * @default "Show password"
+   * @default
+   * "Show password"
    */
   showPasswordButtonLabel?: string;
 
@@ -27,7 +29,8 @@ export interface PasswordFieldProps extends TextInputFieldProps {
    * @description
    * Password autocomplete type
    * @See [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete#values)
-   * @default "current-password"
+   * @default
+   * "current-password"
    */
   autoComplete?: 'new-password' | 'current-password' | string;
 
@@ -50,14 +53,16 @@ export interface ShowPasswordButtonProps extends ButtonProps {
   /**
    * @description
    * Set the `aria-label` for hide password button
-   * @default "Hide password"
+   * @default
+   * "Hide password"
    */
   hidePasswordButtonLabel?: string;
 
   /**
    * @description
    * Set the `aria-label` for show password button
-   * @default "Show password"
+   * @default
+   * "Show password"
    */
   showPasswordButtonLabel?: string;
 }

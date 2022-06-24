@@ -30,7 +30,6 @@ export interface SwitchFieldProps
   /**
    * @description
    * Visually hide the label, but the associated label text will still be required for accessibility.
-   * @default false
    */
   isLabelHidden?: boolean;
 

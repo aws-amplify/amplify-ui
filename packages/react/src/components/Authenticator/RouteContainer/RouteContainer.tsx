@@ -1,3 +1,4 @@
+import React from 'react';
 import { View } from '../../../primitives/View';
 import { useAuthenticator } from '../hooks/useAuthenticator';
 import { useCustomComponents } from '../hooks/useCustomComponents';
@@ -16,7 +17,7 @@ export function RouteContainer({
   children,
   className,
   variation = 'default',
-}: RouteContainerProps) {
+}: RouteContainerProps): JSX.Element {
   const { route } = useAuthenticator(({ route }) => [route]);
 
   const {
