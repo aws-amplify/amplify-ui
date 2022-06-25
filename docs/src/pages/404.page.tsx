@@ -22,11 +22,7 @@ const Custom404 = () => {
   }, []);
 
   return (
-    <View
-      as="section"
-      className="docs-home-section container"
-      textAlign="center"
-    >
+    <View as="section" className="docs-home-section" textAlign="center">
       <Flex direction="column" gap={tokens.space.large} alignItems="center">
         <Heading level={1}>404</Heading>
         <Text fontSize={tokens.fontSizes.large}>

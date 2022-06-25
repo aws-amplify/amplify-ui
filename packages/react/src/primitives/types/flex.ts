@@ -34,7 +34,7 @@ export interface FlexItemStyleProps {
 
   /**
    * @description
-   * Controls order flex items appear
+   * Sets the order to lay out an item in a flex or grid container.
    */
   order?: ResponsiveStyle<Property.Order>;
 

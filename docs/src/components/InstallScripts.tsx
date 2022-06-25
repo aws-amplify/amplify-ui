@@ -45,7 +45,7 @@ interface InstallScriptsProps {
 
 export const InstallScripts = ({ framework }: InstallScriptsProps) => {
   return (
-    <Tabs maxWidth="42rem">
+    <Tabs>
       <TabItem title="npm">
         <TerminalCommand framework={framework} packageManager="npm" />
       </TabItem>

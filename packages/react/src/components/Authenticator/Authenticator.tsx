@@ -53,8 +53,11 @@ export function Authenticator({
   services,
   socialProviders,
   variation,
-}: AuthenticatorProps) {
-  const components = { ...defaultComponents, ...customComponents };
+}: AuthenticatorProps): JSX.Element {
+  const value = React.useMemo(
+    () => ({ components: { ...defaultComponents, ...customComponents } }),
+    [customComponents]
+  );
   const machineProps = {
     initialState,
     loginMechanisms,
@@ -65,7 +68,7 @@ export function Authenticator({
   };
   return (
     <Provider>
-      <CustomComponentsContext.Provider value={{ components }}>
+      <CustomComponentsContext.Provider value={value}>
         <InitMachine {...machineProps}>
           <Router
             className={className}
