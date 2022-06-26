@@ -592,41 +592,10 @@
   dependencies:
     "@aws-amplify/ui-components" "1.7.2"
 
-"@aws-amplify/ui-react@^2.18.1":
-  version "2.20.0"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-amplify/ui-react/-/ui-react-2.20.0.tgz#54d8faf580e667c725b0040bf20abbba11927893"
-  integrity sha512-AkGM/ltpx37Jcc2UjAKYvWpImZI3jG+ZNuULoZ7zdCGPBl6ouF655h131QYgsNqHkZsxKj9tK7wMhMShH7XsmQ==
-  dependencies:
-    "@aws-amplify/ui" "3.10.1"
-    "@aws-amplify/ui-react-v1" "npm:@aws-amplify/ui-react@1.2.9"
-    "@radix-ui/react-accordion" "0.1.6"
-    "@radix-ui/react-dropdown-menu" "0.1.6"
-    "@radix-ui/react-slider" "0.1.4"
-    "@radix-ui/react-tabs" "0.1.5"
-    "@xstate/react" "3.0.0"
-    classnames "2.3.1"
-    deepmerge "4.2.2"
-    lodash "4.17.21"
-    mapbox-gl "npm:empty-npm-package@1.0.0"
-    maplibre-gl "1.15.3"
-    maplibre-gl-js-amplify "1.5.0"
-    qrcode "1.5.0"
-    react-generate-context "1.0.1"
-    react-map-gl "7.0.15"
-
 "@aws-amplify/ui@2.0.5":
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/@aws-amplify/ui/-/ui-2.0.5.tgz#0800938a0bf36ff51922637628b0889017da19f1"
   integrity sha512-atoc/zIJRhgpoSDDKgRxbTSD7D9S4wbOzHUHMqRlcEPRKqRrQPGvd6zCUVSBS0jqdrrw6+UTJbWj7ttWCfE4pQ==
-
-"@aws-amplify/ui@3.10.1":
-  version "3.10.1"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-amplify/ui/-/ui-3.10.1.tgz#faafcdfe6251ac38c66160d0b3ce2a867c6e7aba"
-  integrity sha512-AxwGnTP9oHJj1sIf8+smp3wyKwisbb9PCt8CBsr5rAeO/gkGKXjR4PJKGqtxBi502fQoz2Tn1FlvooMRSuafzA==
-  dependencies:
-    lodash "4.17.21"
-    style-dictionary "3.7.0"
-    xstate "^4.30.6"
 
 "@aws-amplify/xr@3.0.42":
   version "3.0.42"
@@ -15553,11 +15522,6 @@ mapbox-gl@1.13.1:
     supercluster "^7.1.0"
     tinyqueue "^2.0.3"
     vt-pbf "^3.1.1"
-
-"mapbox-gl@npm:empty-npm-package@1.0.0":
-  version "1.0.0"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/empty-npm-package/-/empty-npm-package-1.0.0.tgz#fda29eb6de5efa391f73d578697853af55f6793a"
-  integrity sha512-q4Mq/+XO7UNDdMiPpR/LIBIW1Zl4V0Z6UT9aKGqIAnBCtCb3lvZJM1KbDbdzdC8fKflwflModfjR29Nt0EpcwA==
 
 maplibre-gl-js-amplify@1.5.0:
   version "1.5.0"
