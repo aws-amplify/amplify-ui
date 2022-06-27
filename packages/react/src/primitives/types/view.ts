@@ -40,13 +40,7 @@ export type PrimitiveProps<
   Props extends ViewProps,
   Element extends ElementType
 > = MergeProps<
-  Omit<Props, 'as'> & {
-    /**
-     * @description
-     * Changes the type of HTML element rendered
-     */
-    as?: Element | Props['as'];
-  },
+  Props,
   Omit<ElementProps<Element>, 'ref'> // exclude `ref?: LegacyRef` included in DetailedHTMLProps
 >;
 
