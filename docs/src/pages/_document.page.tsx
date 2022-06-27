@@ -26,6 +26,7 @@ const ANALYTICS_CSP = {
       'https://aws.demdex.net',
       'https://dpm.demdex.net',
       'https://cm.everesttech.net',
+      'https://images.unsplash.com',
     ],
     frame: ['https://aws.demdex.net', 'https://dpm.demdex.net'],
   },
