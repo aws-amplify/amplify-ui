@@ -11,7 +11,8 @@ export interface CheckboxProps extends FlexProps, InputProps {
 
   /**
    * Visually hide label (not recommended in most cases)
-   * @default false
+   * @default
+   * false
    */
   labelHidden?: boolean;
 
@@ -29,7 +30,8 @@ export interface CheckboxProps extends FlexProps, InputProps {
   /**
    * @description
    * Sets the position of label in relation to the CheckboxField,
-   * @default "start"
+   * @default
+   * "start"
    */
   labelPosition?: LabelPositions;
 }

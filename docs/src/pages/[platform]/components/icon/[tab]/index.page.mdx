@@ -1,0 +1,22 @@
+---
+title: Icon
+description: Icon is used to display Scalable Vector Graphics (SVG).
+themeSource: packages/ui/src/theme/tokens/components/icon.ts
+reactSource: packages/react/src/primitives/Icon/Icon.tsx
+supportedFrameworks: react
+---
+
+import { Fragment } from '@/components/Fragment';
+import { PageTabLayout } from "@/components/Layout/PageTabLayout"
+
+<PageTabLayout 
+  tabComponents={[{
+    title: "Documentation", 
+    children: <Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+  },
+  {
+    title: "Props", 
+    children: <Fragment>{({ platform }) => import('./props-table.mdx')}</Fragment>
+  }]}
+/>
+        
