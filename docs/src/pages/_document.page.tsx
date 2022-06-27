@@ -13,6 +13,33 @@ const cspHashOf = (text) => {
   return `sha256-${hash.digest('base64')}`;
 };
 
+const ANALYTICS_CSP = {
+  all: {
+    connect: [
+      'https://amazonwebservices.d2.sc.omtrdc.net',
+      'https://aws.demdex.net',
+      'https://dpm.demdex.net',
+      'https://cm.everesttech.net',
+    ],
+    img: [
+      'https://amazonwebservices.d2.sc.omtrdc.net',
+      'https://aws.demdex.net',
+      'https://dpm.demdex.net',
+      'https://cm.everesttech.net',
+    ],
+    frame: ['https://aws.demdex.net', 'https://dpm.demdex.net'],
+  },
+  prod: {
+    connect: [
+      'https://d2c.aws.amazon.com',
+      'https://vs.aws.amazon.com',
+      'https://a0.awsstatic.com/',
+    ],
+    img: ['https://a0.awsstatic.com/'],
+    frame: [],
+  },
+};
+
 // See: https://github.com/vercel/next.js/blob/master/examples/with-strict-csp/pages/_document.js
 const getCSPContent = (context: Readonly<HtmlProps>) => {
   const cspInlineScriptHash = cspHashOf(
@@ -24,9 +51,11 @@ const getCSPContent = (context: Readonly<HtmlProps>) => {
     return `default-src 'self';
       style-src 'self' 'unsafe-inline';
       font-src 'self' data:;
-      frame-src 'self' *.codesandbox.io;
-      img-src 'self' cm.everesttech.net amazonwebservices.d2.sc.omtrdc.net dpm.demdex.net https://images.unsplash.com;
-      connect-src 'self' *.shortbread.aws.dev amazonwebservices.d2.sc.omtrdc.net dpm.demdex.net https://*.algolia.net https://*.algolianet.com;
+      frame-src 'self' ${ANALYTICS_CSP.all.frame.join(' ')} *.youtube.com;
+      img-src 'self' ${ANALYTICS_CSP.all.img.join(' ')};
+      connect-src 'self' *.shortbread.aws.dev ${ANALYTICS_CSP.all.connect.join(
+        ' '
+      )} https://*.algolia.net https://*.algolianet.com;
       script-src 'unsafe-eval' 'self' '${cspInlineScriptHash}' a0.awsstatic.com;
     `;
   }
@@ -35,9 +64,17 @@ const getCSPContent = (context: Readonly<HtmlProps>) => {
   return `default-src 'self';
     style-src 'self' 'unsafe-inline';
     font-src 'self';
-    frame-src 'self' *.codesandbox.io aws.demdex.net;
-    img-src 'self' cm.everesttech.net amazonwebservices.d2.sc.omtrdc.net dpm.demdex.net https://images.unsplash.com;
-    connect-src 'self' *.shortbread.aws.dev amazonwebservices.d2.sc.omtrdc.net dpm.demdex.net https://*.algolia.net https://*.algolianet.com;
+    frame-src 'self' ${[
+      ...ANALYTICS_CSP.all.frame,
+      ...ANALYTICS_CSP.prod.frame,
+    ].join(' ')} *.youtube.com;
+    img-src 'self' ${[...ANALYTICS_CSP.all.img, ...ANALYTICS_CSP.prod.img].join(
+      ' '
+    )};
+    connect-src 'self' *.shortbread.aws.dev ${[
+      ...ANALYTICS_CSP.all.connect,
+      ...ANALYTICS_CSP.prod.connect,
+    ].join(' ')} https://*.algolia.net https://*.algolianet.com;
     script-src 'unsafe-eval' 'self' '${cspInlineScriptHash}' a0.awsstatic.com;
   `;
 };
