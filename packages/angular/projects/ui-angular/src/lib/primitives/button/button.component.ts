@@ -18,6 +18,10 @@ export class ButtonComponent implements OnInit {
   @HostBinding('attr.data-variation') variationAttr: string;
   @HostBinding('style.font-weight') fontWeightAttr: string;
 
+  @HostBinding('attr.disabled') get getDisabled() {
+    return this.isDisabled ? true : null;
+  }
+
   @HostBinding('class') get classNames() {
     let className = 'amplify-button';
     if (this.variation) {
