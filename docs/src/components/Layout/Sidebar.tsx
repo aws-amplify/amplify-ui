@@ -61,8 +61,8 @@ const NavLink = ({
     query: { platform = 'react' },
     pathname,
   } = useCustomRouter();
-
-  const isCurrent = pathname.includes(href);
+  console.log(pathname, href);
+  const isCurrent = pathname.replace('/[platform]', '') === href;
   const classNames = `${
     tertiary ? 'docs-tertiary-nav-link' : 'docs-secondary-nav-link'
   } ${isCurrent ? 'current' : ''}`;
@@ -139,15 +139,6 @@ const SecondaryNav = (props) => {
   const { platform } = props;
   // Extract section from URL (/section/... => section)
   let section = pathname.split('/')[2];
-  // NOTE: Remove this logic when we update the URLs for these sections.
-  if (section === 'components') {
-    if (pathname.match(/(chatbot|storage)/gi)) {
-      section = 'legacy-components';
-    }
-    if (pathname.match(/(authenticator|geo)/gi)) {
-      section = 'connected-components';
-    }
-  }
   const [value, setValue] = React.useState<string | string[]>([section]);
 
   return (
@@ -164,26 +155,9 @@ const SecondaryNav = (props) => {
           </NavLink>
         ))}
       </ExpanderItem>
-      <ExpanderItem
-        title={
-          <ExpanderTitle Icon={MdOutlinePower} text="Connected components" />
-        }
-        value="connected-components"
-      >
-        {connectedComponents.map(({ label, ...rest }) => (
-          <NavLink key={label} {...rest} onClick={props.onClick}>
-            {label}
-          </NavLink>
-        ))}
-      </ExpanderItem>
       {platform === 'react' ? (
         <ExpanderItem
-          title={
-            <ExpanderTitle
-              Icon={MdOutlineWidgets}
-              text="Primitive components"
-            />
-          }
+          title={<ExpanderTitle Icon={MdOutlineWidgets} text="Components" />}
           value="components"
         >
           {primitiveComponents.map(({ heading, components }) => (
@@ -198,15 +172,34 @@ const SecondaryNav = (props) => {
       ) : null}
 
       <ExpanderItem
-        title={<ExpanderTitle Icon={MdWebAssetOff} text="Legacy components" />}
-        value="legacy-components"
+        title={
+          <ExpanderTitle Icon={MdOutlinePower} text="Connected components" />
+        }
+        value="connected-components"
       >
-        {legacyComponents.map(({ label, ...rest }) => (
+        {connectedComponents.map(({ label, ...rest }) => (
           <NavLink key={label} {...rest} onClick={props.onClick}>
             {label}
           </NavLink>
         ))}
       </ExpanderItem>
+
+      {/* Flutter doesn't have legacy components */}
+      {platform === 'flutter' ? null : (
+        <ExpanderItem
+          title={
+            <ExpanderTitle Icon={MdWebAssetOff} text="Legacy components" />
+          }
+          value="legacy-components"
+        >
+          {legacyComponents.map(({ label, ...rest }) => (
+            <NavLink key={label} {...rest} onClick={props.onClick}>
+              {label}
+            </NavLink>
+          ))}
+        </ExpanderItem>
+      )}
+
       <ExpanderItem
         title={<ExpanderTitle Icon={MdOutlineAutoAwesome} text="Theming" />}
         value="theming"

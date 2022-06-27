@@ -74,6 +74,27 @@ module.exports = withNextPluginPreval({
       // Normalizing URLs
       // these need to come before the generic redirects
       {
+        source:
+          '/:platform(react|angular|vue|flutter)/components/authenticator/:page*',
+        destination: '/:platform/connected-components/authenticator/:page*',
+        permanent: true,
+      },
+      {
+        source: '/:platform(react|angular|vue)/components/geo/:page*',
+        destination: '/:platform/connected-components/geo/:page*',
+        permanent: true,
+      },
+      {
+        source: '/:platform(react|angular|vue)/components/storage',
+        destination: '/:platform/legacy-components/storage',
+        permanent: true,
+      },
+      {
+        source: '/:platform(react|angular|vue)/components/chatbot',
+        destination: '/:platform/legacy-components/chatbot',
+        permanent: true,
+      },
+      {
         source: '/ui/primitives/stepperField',
         destination: '/components/stepperfield',
         permanent: true,
