@@ -74,7 +74,7 @@ export const drawText = (
 export const drawSocialPreview = async (
   title: string,
   description: string | undefined,
-  url: string,
+  text?: string,
   backgroundImage?: Image
 ) => {
   const canvas = createCanvas(PREVIEW_WIDTH, PREVIEW_HEIGHT);
@@ -92,29 +92,29 @@ export const drawSocialPreview = async (
 
   // Draw Preview title
   drawText(context, title, {
-    positionX: 60,
+    positionX: 40,
     positionY: 360,
-    font: 'bold 64pt Inter',
-    fillStyle: '#000',
+    font: 'bold 64pt Inter, Microsoft Sans Serif, sans-serif',
+    fillStyle: '#0D1A26',
     maxWidth: PREVIEW_WIDTH - PREVIEW_MARGIN * 2,
   });
 
   // Draw Preview description
   if (description) {
     drawText(context, description, {
-      positionX: 67,
+      positionX: 40,
       positionY: 420,
-      font: 'light 20pt Inter',
+      font: 'light 20pt Inter, Microsoft Sans Serif, sans-serif',
       fillStyle: PREVIEW_TEXT_COLOR,
       maxWidth: PREVIEW_WIDTH - PREVIEW_MARGIN * 6,
     });
   }
 
   // Draw Preview URL
-  drawText(context, url, {
-    positionX: 67,
+  drawText(context, text, {
+    positionX: 40,
     positionY: 550,
-    font: 'light 20pt Inter',
+    font: 'light 20pt Consolas, monoco, monospace',
     fillStyle: PREVIEW_LINK_COLOR,
     maxWidth: PREVIEW_WIDTH - PREVIEW_MARGIN * 2,
   });
@@ -129,25 +129,40 @@ const writeSocialPreview = async ({
   frontmatter,
 }) => {
   if (allPaths.includes(asHref)) {
-    const { title, metaTitle, description, metaDescription } = frontmatter;
-    const url = process.env.SITE_URL + asHref;
-    const backgroundImage = await loadImage(
-      path.join(__dirname, '../public/preview-background.png')
-    );
-    const canvas = await drawSocialPreview(
-      metaTitle ?? title,
-      metaDescription ?? description,
-      url,
-      backgroundImage
-    );
-
-    const buffer = canvas.toBuffer('image/png');
     const imagePath = getImagePath(asSlug);
-
-    console.info(`Generating social preview: ${asSlug}`);
-
     const filePath = path.resolve(__dirname, '../public' + imagePath);
-    await fs.promises.writeFile(filePath, buffer);
+
+    //
+    if (FRAMEWORKS.includes(asSlug)) {
+      const img = await fs.promises.readFile(
+        path.join(__dirname, `../public/${asSlug}-preview.png`)
+      );
+
+      fs.promises.writeFile(filePath, img);
+    } else {
+      const { title, metaTitle, description, metaDescription } = frontmatter;
+
+      let text = process.env.SITE_URL + asHref;
+
+      if (asHref.includes('/react/components/')) {
+        text = `import { ${title} } from '@aws-amplify/ui-react';`;
+      }
+
+      const backgroundImage = await loadImage(
+        path.join(__dirname, '../public/preview.png')
+      );
+      const canvas = await drawSocialPreview(
+        metaTitle ?? title,
+        metaDescription ?? description,
+        text,
+        backgroundImage
+      );
+
+      const buffer = canvas.toBuffer('image/png');
+
+      console.info(`Generating social preview: ${asSlug}`);
+      await fs.promises.writeFile(filePath, buffer);
+    }
   }
 };
 
