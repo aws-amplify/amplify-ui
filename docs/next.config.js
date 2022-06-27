@@ -150,7 +150,8 @@ module.exports = withNextPluginPreval({
        * destination: add '[platform]' to the the beginning
        */
       {
-        source: '/:nav(components|getting-started|guides|theming)/:page*',
+        source:
+          '/:nav(legacy-components|connected-components|components|getting-started|guides|theming)/:page*',
         destination: '/[platform]/:nav/:page*',
         permanent: true,
       },
@@ -159,7 +160,8 @@ module.exports = withNextPluginPreval({
        * destination: add '[platform]' to the beginning
        */
       {
-        source: '/:nav(components|getting-started|guides|theming)',
+        source:
+          '/:nav(legacy-components|connected-components|components|getting-started|guides|theming)',
         destination: '/[platform]/:nav',
         permanent: true,
       },

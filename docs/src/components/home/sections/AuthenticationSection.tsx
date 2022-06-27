@@ -184,7 +184,7 @@ export const AuthenticationSection = ({ platform }) => {
             </HomeCode>
           ) : null}
         </Flex>
-        <HomeCTA href={`/${platform}/components/authenticator`}>
+        <HomeCTA href={`/${platform}/connected-components/authenticator`}>
           Get started with the Authenticator
         </HomeCTA>
       </Flex>
