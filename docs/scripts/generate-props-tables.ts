@@ -37,7 +37,7 @@ async function createAllPropsTables() {
 
     const mainTableAndExpander = createTableAndExpander(catalog, componentName);
     const tableAndExpanders = [
-      `\n ## &#60;${componentName}&#62;\n`,
+      `\n #### &#60;${componentName}&#62;\n`,
       mainTableAndExpander,
     ];
 
@@ -54,7 +54,7 @@ async function createAllPropsTables() {
     if (componentName in componentsWithChildren) {
       componentsWithChildren[componentName].forEach((childName) => {
         tableAndExpanders.push(
-          `## &#60;${childName}&#62;\n`,
+          `#### &#60;${childName}&#62;\n`,
           createTableAndExpander(catalog, childName)
         );
       });
@@ -90,7 +90,7 @@ import { Expander, ExpanderItem, Link, Table, TableBody, TableCell, TableHead, T
 ${tableAndExpanders.join('')}
 \`*\` indicates required props.
 
-See [Style Props](https://dev.ui.docs.amplify.aws/react/theming/style-props) for all supported style properties.
+See [Style Props](/react/theming/style-props) for all supported style and layout properties.
 
 The ${displayName} component will accept any of the standard HTML attributes that a HTML element accepts. Standard element attributes can be found in the <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element" isExternal={true}>MDN Documentation</Link>.
 `;

@@ -154,19 +154,22 @@ h3[id] {
 }
 
 h2[id] {
-  &::before {
-    content: '';
-    position: absolute;
-    top: -1rem;
-    left: 0;
-    width: 5rem;
-    border-top: var(--amplify-border-widths-large) solid
-      var(--amplify-colors-border-secondary);
+  &:first-of-type {
+    margin-top: 0;
   }
-}
-
-h2[id]:not(:first-of-type) {
-  margin-top: var(--amplify-space-xxxl);
+  &:not(:first-of-type) {
+    margin-top: var(--amplify-space-xxxl);
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: -1rem;
+      left: 0;
+      width: 5rem;
+      border-top: var(--amplify-border-widths-large) solid
+        var(--amplify-colors-border-secondary);
+    }
+  }
 }
 
 h2[id] > a,
