@@ -61,7 +61,6 @@ const NavLink = ({
     query: { platform = 'react' },
     pathname,
   } = useCustomRouter();
-
   const isCurrent = pathname.replace('/[platform]', '') === href;
   const classNames = `${
     tertiary ? 'docs-tertiary-nav-link' : 'docs-secondary-nav-link'
@@ -97,16 +96,18 @@ const NavLinkComponentsSection = ({ heading, components, ...props }) => {
   }
   return (
     <>
-      <Text
-        fontSize={tokens.fontSizes.xs}
-        fontWeight={tokens.fontWeights.semibold}
-        textTransform="uppercase"
-        letterSpacing="0.125em"
-        color={tokens.colors.font.tertiary}
-        padding={`${tokens.space.large} ${tokens.space.medium} ${tokens.space.xs} var(--secondary-nav-indent)`}
-      >
-        {heading}
-      </Text>
+      {heading ? (
+        <Text
+          fontSize={tokens.fontSizes.xs}
+          fontWeight={tokens.fontWeights.semibold}
+          textTransform="uppercase"
+          letterSpacing="0.125em"
+          color={tokens.colors.font.tertiary}
+          padding={`${tokens.space.large} ${tokens.space.medium} ${tokens.space.xs} var(--secondary-nav-indent)`}
+        >
+          {heading}
+        </Text>
+      ) : null}
       <NavLinks {...props} items={platformComponents} />
     </>
   );
