@@ -19,7 +19,7 @@ export class ButtonComponent implements OnInit {
   @HostBinding('style.font-weight') fontWeightAttr: string;
 
   @HostBinding('attr.disabled') get getDisabled() {
-    return this.isDisabled ? true : null;
+    return this.isDisabled ? '' : null;
   }
 
   @HostBinding('class') get classNames() {
