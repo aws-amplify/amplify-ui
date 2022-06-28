@@ -29,7 +29,9 @@ export async function getAllPaths() {
         .replace('/index', '');
 
       return FRAMEWORKS.map((framework) => {
-        const filepath = p.replace('[platform]', framework);
+        const filepath = p
+          .replace('[platform]', framework)
+          .replace('/[tab]', '');
         const supportedFrameworks =
           manifest[p].frontmatter.supportedFrameworks === 'all'
             ? FRAMEWORKS
