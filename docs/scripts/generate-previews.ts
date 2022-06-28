@@ -26,11 +26,6 @@ import { META_INFO } from '../src/data/meta';
 import { SITE_NAME } from '../src/data/general';
 
 try {
-  registerFont(path.join(__dirname, `../public/fonts/Inter-Bold.otf`), {
-    family: 'Inter',
-    weight: 'bold',
-  });
-
   registerFont(path.join(__dirname, `../public/fonts/Inter-Regular.otf`), {
     family: 'Inter',
   });
@@ -69,15 +64,6 @@ export const drawText = (
   let currentLine = '';
   let textMetrics;
 
-  // if (text.includes("\n")) {
-  //   const textLines = text.split("\n");
-  //   textMetrics = context.measureText(textLines[0]);
-  //   console.log(textLines);
-  //   lines.concat([...textLines]);
-  // } else {
-
-  // }
-
   text.split(' ').forEach((word) => {
     textMetrics = context.measureText(currentLine + ' ' + word);
 
@@ -94,7 +80,6 @@ export const drawText = (
 
   // Add last remaining line
   lines.push(currentLine);
-  // console.log(lines);
   // Draw lines
   lines.forEach((line, index) => {
     context.fillText(
@@ -128,7 +113,7 @@ export const drawSocialPreview = async (
   drawText(context, title, {
     positionX: PREVIEW_MARGIN,
     positionY: 360,
-    font: 'bold 64pt Inter, Microsoft Sans Serif, sans-serif',
+    font: '64pt Inter, Microsoft Sans Serif, sans-serif',
     fillStyle: '#0D1A26',
     maxWidth: PREVIEW_WIDTH - PREVIEW_MARGIN * 2,
   });
@@ -148,7 +133,7 @@ export const drawSocialPreview = async (
   drawText(context, text, {
     positionX: PREVIEW_MARGIN,
     positionY: 550,
-    font: '20px SourceCodePro, mono',
+    font: '20pt SourceCodePro, mono',
     fillStyle: PREVIEW_LINK_COLOR,
     maxWidth: PREVIEW_WIDTH - PREVIEW_MARGIN * 2,
   });
