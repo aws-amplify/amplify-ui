@@ -12,10 +12,15 @@ import {
 } from '../constants';
 
 import { LayoutProps } from './types';
+import { useMessage } from '@aws-amplify/ui-react-core';
+import { Content } from '@radix-ui/react-tabs';
 
 export default function MessageLayout({ ...props }: LayoutProps): JSX.Element {
+  console.log('props', props);
+  console.log('usemessage', useMessage);
   const {
     body,
+    container,
     hasButtons,
     hasPrimaryButton,
     hasRenderableImage,
@@ -28,53 +33,54 @@ export default function MessageLayout({ ...props }: LayoutProps): JSX.Element {
     styles,
   } = props;
 
+  console.log('body', body);
+  console.log('hasButtons', hasButtons);
+  console.log('header', header);
+  console.log('image', image);
+  console.log('primaryButton', primaryButton);
+  console.log('styles', styles);
+
   const iconButton = (
     <div
+      // style={containerStyle}
       id={IN_APP_MESSAGING_TEST_ID.CLOSE_BUTTON}
-      style={styles.buttonsContainer}
+      style={styles.iconButton.container[0]}
       onClick={onClose}
     >
       <img src={icons.close} />
-      <button
-        color={styles.iconButton.iconColor}
+      {/* <button
+        // style={styles.b}
+        // color={styles.iconButton.iconColor}
         // size={ICON_BUTTON_SIZE}
         // style="color:red"
         // id={IN_APP_MESSAGING_TEST_ID.CLOSE_BUTTON}
-      />
+      /> */}
     </div>
   );
 
   return (
-    <div
-    // style={styles.container}
-    >
-      <div
-      // style={styles.contentContainer}
-      >
+    <div style={styles.container[0]}>
+      <div style={styles.contentContainer}>
         {iconButton}
         {hasRenderableImage && (
           <div style={styles.imageContainer}>
             <img
               src={image?.src}
-              // style={styles.image}
-              // id={IN_APP_MESSAGING_TEST_ID.IMAGE}
+              style={styles.image[0]}
+              id={IN_APP_MESSAGING_TEST_ID.IMAGE}
             />
           </div>
         )}
         <div
-        // style={styles.textContainer}
+        // style={styles.header[0]}
         >
           {header?.content && (
-            <div
-            // style={styles.header} id={IN_APP_MESSAGING_TEST_ID.HEADER}
-            >
+            <div style={styles.header[0]} id={IN_APP_MESSAGING_TEST_ID.HEADER}>
               {header.content}
             </div>
           )}
           {body?.content && (
-            <div
-            // style={styles.body} id={IN_APP_MESSAGING_TEST_ID.BODY}
-            >
+            <div style={styles.body[0]} id={IN_APP_MESSAGING_TEST_ID.BODY}>
               {body.content}
             </div>
           )}
@@ -82,14 +88,12 @@ export default function MessageLayout({ ...props }: LayoutProps): JSX.Element {
         {iconButton}
       </div>
       {hasButtons && (
-        <div
-        // style={styles.buttonsContainer}
-        >
+        <div style={styles.buttonsContainer}>
           {hasSecondaryButton && (
             <button
               onClick={secondaryButton?.onAction}
-              // style={styles.secondaryButton.container}
-              // id={IN_APP_MESSAGING_TEST_ID.SECONDARY_BUTTON}
+              style={styles.secondaryButton.text[0]}
+              id={IN_APP_MESSAGING_TEST_ID.SECONDARY_BUTTON}
               // style={styles.secondaryButton.text}
             >
               {secondaryButton?.title}
@@ -98,8 +102,8 @@ export default function MessageLayout({ ...props }: LayoutProps): JSX.Element {
           {hasPrimaryButton && (
             <button
               onClick={primaryButton?.onAction}
-              // style={styles.primaryButton.container}
-              // id={IN_APP_MESSAGING_TEST_ID.PRIMARY_BUTTON}
+              style={styles.primaryButton.text[0]}
+              id={IN_APP_MESSAGING_TEST_ID.PRIMARY_BUTTON}
               // textStyle={styles.primaryButton.text}
             >
               {primaryButton?.title}
