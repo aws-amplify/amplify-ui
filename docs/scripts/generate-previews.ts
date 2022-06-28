@@ -92,7 +92,7 @@ export const drawSocialPreview = async (
 
   // Draw Preview title
   drawText(context, title, {
-    positionX: 40,
+    positionX: PREVIEW_MARGIN,
     positionY: 360,
     font: 'bold 64pt Inter, Microsoft Sans Serif, sans-serif',
     fillStyle: '#0D1A26',
@@ -102,7 +102,7 @@ export const drawSocialPreview = async (
   // Draw Preview description
   if (description) {
     drawText(context, description, {
-      positionX: 40,
+      positionX: PREVIEW_MARGIN,
       positionY: 420,
       font: 'light 20pt Inter, Microsoft Sans Serif, sans-serif',
       fillStyle: PREVIEW_TEXT_COLOR,
@@ -112,7 +112,7 @@ export const drawSocialPreview = async (
 
   // Draw Preview URL
   drawText(context, text, {
-    positionX: 40,
+    positionX: PREVIEW_MARGIN,
     positionY: 550,
     font: 'light 20pt Consolas, monoco, monospace',
     fillStyle: PREVIEW_LINK_COLOR,
