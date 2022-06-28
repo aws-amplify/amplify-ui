@@ -26,12 +26,14 @@ import {
   Authenticator,
   InAppMessagingProvider,
   InAppMessageDisplay,
+  Heading,
+  Text,
+  useTheme,
 } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-import { Heading, Text, useTheme } from '@aws-amplify/ui-react';
-
 import awsExports from './aws-exports';
+
 Amplify.configure(awsExports);
 Notifications.configure(awsExports);
 Analytics.configure(awsExports);
@@ -84,7 +86,15 @@ const components = {
 };
 
 const { InAppMessaging } = Notifications;
-const myFirstEvent = { name: 'event' };
+
+// async () => {
+//   return await InAppMessaging.syncMessages();
+// };
+
+const event = { name: '_session.start' };
+console.log(event);
+
+Analytics.record(event);
 
 export default function App() {
   useEffect(() => {
@@ -110,25 +120,6 @@ export default function App() {
             </main>
           )}
         </Authenticator>
-
-        <button
-          onClick={() => {
-            Analytics.record(myFirstEvent);
-          }}
-          title="Record Analytics Event"
-        >
-          record event
-        </button>
-
-        {/* This button has an example of an In-app Messaging event triggering the in-app message.*/}
-        <button
-          onClick={() => {
-            InAppMessaging.dispatchEvent(myFirstEvent);
-          }}
-          title="Send In-App Messaging Event"
-        >
-          send event
-        </button>
 
         <InAppMessageDisplay />
       </InAppMessagingProvider>

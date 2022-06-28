@@ -18,6 +18,7 @@ export default function BannerMessage({
       getStyles(imageDimensions, { position: { ...positionStyle[position] } })
   );
   const { shouldRenderMessage, styles } = messageProps;
+  console.log('shouldRenderMessage', shouldRenderMessage);
 
   if (!shouldRenderMessage) {
     return null;
@@ -28,12 +29,7 @@ export default function BannerMessage({
   return (
     // <div>banner message text</div>
     <MessageWrapper style={wrapper}>
-      <MessageLayout
-        {...props}
-        {...messageProps}
-        orientation="landscape"
-        styles={messageStyles}
-      />
+      <MessageLayout {...props} {...messageProps} styles={messageStyles} />
     </MessageWrapper>
   );
 }
