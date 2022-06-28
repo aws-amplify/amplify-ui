@@ -22,11 +22,11 @@ async function createAllPropsTables() {
   for await (const componentFilepath of globbyStream(
     path.join(
       __dirname,
-      '../../docs/src/pages/[platform]/components/*/[tab]/index.page.mdx'
+      '../../docs/src/pages/[platform]/components/*/index.page.mdx'
     )
   )) {
     const regex =
-      /src\/pages\/\[platform\]\/components\/(\w*)\/\[tab\]\/index\.page\.mdx/;
+      /src\/pages\/\[platform\]\/components\/(\w*)\/index\.page\.mdx/;
     const componentPageName = (componentFilepath as string).match(
       regex
     )[1] as Lowercase<ComponentName>;
@@ -66,7 +66,7 @@ async function createAllPropsTables() {
       path.join(
         __dirname,
         '../../docs/src/pages/[platform]/components/',
-        `./${componentPageName}/[tab]/props-table.mdx`
+        `./${componentPageName}/props-table.mdx`
       ),
       Output(componentName, tableAndExpanders)
     );

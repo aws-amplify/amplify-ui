@@ -61,7 +61,7 @@ const NavLink = ({
     query: { platform = 'react' },
     pathname,
   } = useCustomRouter();
-  console.log(pathname, href);
+
   const isCurrent = pathname.replace('/[platform]', '') === href;
   const classNames = `${
     tertiary ? 'docs-tertiary-nav-link' : 'docs-secondary-nav-link'
