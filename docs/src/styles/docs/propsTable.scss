@@ -99,13 +99,6 @@
       padding: var(--amplify-space-small) 0;
     }
 
-    & pre[class*='language-'] {
-      max-width: 17rem;
-    }
-    & [class*='language-'] {
-      background-color: inherit;
-    }
-
     & .amplify-table__td:first-child {
       border-left-width: inherit;
     }
