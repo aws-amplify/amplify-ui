@@ -3,6 +3,7 @@ import {
   Image,
   loadImage,
   NodeCanvasRenderingContext2D,
+  registerFont,
 } from 'canvas';
 import fs from 'fs';
 import path from 'path';
@@ -23,6 +24,26 @@ import { FRAMEWORKS } from '../src/data/frameworks';
 import { getPagesManifest } from '../src/utils/getPagesManifest';
 import { META_INFO } from '../src/data/meta';
 import { SITE_NAME } from '../src/data/general';
+
+try {
+  registerFont(path.join(__dirname, `../public/fonts/Inter-Bold.otf`), {
+    family: 'Inter',
+    weight: 'bold',
+  });
+
+  registerFont(path.join(__dirname, `../public/fonts/Inter-Regular.otf`), {
+    family: 'Inter',
+  });
+
+  registerFont(
+    path.join(__dirname, `../public/fonts/SourceCodePro-Regular.ttf`),
+    {
+      family: 'SourceCodePro',
+    }
+  );
+} catch (error) {
+  console.log('⚠️ Error loading fonts!');
+}
 
 dotenv.config();
 
@@ -46,9 +67,19 @@ export const drawText = (
   context.fillStyle = options.fillStyle;
 
   let currentLine = '';
+  let textMetrics;
+
+  // if (text.includes("\n")) {
+  //   const textLines = text.split("\n");
+  //   textMetrics = context.measureText(textLines[0]);
+  //   console.log(textLines);
+  //   lines.concat([...textLines]);
+  // } else {
+
+  // }
 
   text.split(' ').forEach((word) => {
-    const textMetrics = context.measureText(currentLine + ' ' + word);
+    textMetrics = context.measureText(currentLine + ' ' + word);
 
     if (textMetrics.width > maxWidth) {
       lines.push(currentLine);
@@ -58,15 +89,18 @@ export const drawText = (
     }
   });
 
+  const lineHeight =
+    (textMetrics.emHeightAscent + textMetrics.emHeightDescent) * 1.25;
+
   // Add last remaining line
   lines.push(currentLine);
-
+  // console.log(lines);
   // Draw lines
   lines.forEach((line, index) => {
     context.fillText(
       line.trim(),
       options.positionX,
-      options.positionY + 35 * index
+      options.positionY + lineHeight * index
     );
   });
 };
@@ -104,9 +138,9 @@ export const drawSocialPreview = async (
     drawText(context, description, {
       positionX: PREVIEW_MARGIN,
       positionY: 420,
-      font: 'light 20pt Inter, Microsoft Sans Serif, sans-serif',
+      font: '20pt Inter, Microsoft Sans Serif, sans-serif',
       fillStyle: PREVIEW_TEXT_COLOR,
-      maxWidth: PREVIEW_WIDTH - PREVIEW_MARGIN * 6,
+      maxWidth: PREVIEW_WIDTH - PREVIEW_MARGIN * 2,
     });
   }
 
@@ -114,7 +148,7 @@ export const drawSocialPreview = async (
   drawText(context, text, {
     positionX: PREVIEW_MARGIN,
     positionY: 550,
-    font: 'light 20pt Consolas, monoco, monospace',
+    font: '20px SourceCodePro, mono',
     fillStyle: PREVIEW_LINK_COLOR,
     maxWidth: PREVIEW_WIDTH - PREVIEW_MARGIN * 2,
   });
@@ -140,12 +174,20 @@ const writeSocialPreview = async ({
 
       fs.promises.writeFile(filePath, img);
     } else {
-      const { title, metaTitle, description, metaDescription } = frontmatter;
+      const {
+        title,
+        metaTitle,
+        description,
+        metaDescription,
+        example = '',
+      } = frontmatter;
 
       let text = process.env.SITE_URL + asHref;
 
+      // For component pages let's do something special
+      // in the future we could
       if (asHref.includes('/react/components/')) {
-        text = `import { ${title} } from '@aws-amplify/ui-react';`;
+        text = `import { ${title} } from '@aws-amplify/ui-react';\n${example}`;
       }
 
       const backgroundImage = await loadImage(
