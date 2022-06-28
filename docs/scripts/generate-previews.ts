@@ -152,7 +152,7 @@ const writeSocialPreview = async ({
     const imagePath = getImagePath(asSlug);
     const filePath = path.resolve(__dirname, '../public' + imagePath);
 
-    //
+    // Special preview images for homepage
     if (FRAMEWORKS.includes(asSlug)) {
       const img = await fs.promises.readFile(
         path.join(__dirname, `../public/${asSlug}-preview.png`)
