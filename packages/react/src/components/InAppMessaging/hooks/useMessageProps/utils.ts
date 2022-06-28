@@ -1,11 +1,11 @@
-import { StyleSheet } from 'react-native';
+// import { StyleSheet } from 'react-native';
 import {
   MessageComponentBaseProps,
   MessageLayout,
   MessagePayloadStyle,
 } from '@aws-amplify/ui-react-core';
 
-import { DEFAULT_CAROUSEL_INDICATOR_SIZE } from '../../../primitives';
+// import { DEFAULT_CAROUSEL_INDICATOR_SIZE } from '../../../primitives';
 import { BUTTON_PRESSED_OPACITY, SPACING_EXTRA_LARGE } from '../../constants';
 
 import {
@@ -17,8 +17,8 @@ import {
 } from './types';
 
 // Carousel page indicator size + margins
-const DEFAULT_CAROUSEL_INDICATOR_PADDING =
-  (DEFAULT_CAROUSEL_INDICATOR_SIZE * 5) / 3;
+// const DEFAULT_CAROUSEL_INDICATOR_PADDING =
+//   (DEFAULT_CAROUSEL_INDICATOR_SIZE * 5) / 3;
 
 /**
  * Parse and assign appropriate button container and text style from style objects params
@@ -136,8 +136,8 @@ export const getContainerAndWrapperStyle = ({
   // in non-banner and landscape modal layouts container backgroundColor values should be applied as
   // wrapper style to ensure that the backgroundColor is applied to the entire screen
   const {
-    backgroundColor: defaultBackgroundColor,
-    ...restContainerDefaultStyle
+    // backgroundColor: defaultBackgroundColor,
+    // ...restContainerDefaultStyle
   } = containerDefaultStyle;
   const {
     backgroundColor: messageBackgroundColor,
@@ -145,24 +145,26 @@ export const getContainerAndWrapperStyle = ({
   } = containerPayloadStyle;
 
   // flatten overrideStyle to access override backgroundColor
-  const {
-    backgroundColor: overrideBackgroundColor,
-    ...restContainerOverrideStyle
-  } = StyleSheet.flatten(containerOverrideStyle);
+  // const {
+  //   backgroundColor: overrideBackgroundColor,
+  //   ...restContainerOverrideStyle
+  // } = StyleSheet.flatten(containerOverrideStyle);
 
   // all non-backgroundColor container override style are applied to the container View
   const container: MessageContainerAndWrapperStyle['container'] = [
-    restContainerDefaultStyle,
+    // restContainerDefaultStyle,
     restContainerPayloadStyle,
-    restContainerOverrideStyle,
+    restContainerPayloadStyle,
+    restContainerPayloadStyle,
+    // restContainerOverrideStyle,
   ];
 
   // use ternaries to prevent passing backgroundColor object with undefined or null value
   const wrapper: MessageContainerAndWrapperStyle['wrapper'] = [
     wrapperDefaultStyle,
-    defaultBackgroundColor ? { backgroundColor: defaultBackgroundColor } : {},
+    // defaultBackgroundColor ? { backgroundColor: defaultBackgroundColor } : {},
     messageBackgroundColor ? { backgroundColor: messageBackgroundColor } : {},
-    overrideBackgroundColor ? { backgroundColor: overrideBackgroundColor } : {},
+    // overrideBackgroundColor ? { backgroundColor: overrideBackgroundColor } : {},
   ];
 
   return { wrapper, container };
@@ -265,7 +267,7 @@ export function getMessageStyles({
       styleProps.container,
       // Add bottom padding for carousel page indicators
       {
-        paddingBottom: SPACING_EXTRA_LARGE + DEFAULT_CAROUSEL_INDICATOR_PADDING,
+        paddingBottom: SPACING_EXTRA_LARGE,
       },
     ];
   }

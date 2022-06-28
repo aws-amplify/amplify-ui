@@ -18,7 +18,9 @@
 //   )
 // }
 
-import { Amplify } from 'aws-amplify';
+import React, { useEffect } from 'react';
+
+import { Amplify, Notifications, Analytics } from 'aws-amplify';
 
 import {
   Authenticator,
@@ -31,6 +33,8 @@ import { Heading, Text, useTheme } from '@aws-amplify/ui-react';
 
 import awsExports from './aws-exports';
 Amplify.configure(awsExports);
+Notifications.configure(awsExports);
+Analytics.configure(awsExports);
 
 const formFields = {
   confirmVerifyUser: {
@@ -79,7 +83,17 @@ const components = {
   },
 };
 
+const { InAppMessaging } = Notifications;
+const myFirstEvent = { name: 'event' };
+
 export default function App() {
+  useEffect(() => {
+    // Messages from your campaigns need to be synced from the backend before they
+    // can be displayed. You can trigger this anywhere in your app. Here we are
+    // syncing just once when this component (your app) renders for the first time.
+    InAppMessaging.syncMessages();
+  }, []);
+
   return (
     <div>
       <h2>Hi</h2>
@@ -96,6 +110,26 @@ export default function App() {
             </main>
           )}
         </Authenticator>
+
+        <button
+          onClick={() => {
+            Analytics.record(myFirstEvent);
+          }}
+          title="Record Analytics Event"
+        >
+          record event
+        </button>
+
+        {/* This button has an example of an In-app Messaging event triggering the in-app message.*/}
+        <button
+          onClick={() => {
+            InAppMessaging.dispatchEvent(myFirstEvent);
+          }}
+          title="Send In-App Messaging Event"
+        >
+          send event
+        </button>
+
         <InAppMessageDisplay />
       </InAppMessagingProvider>
     </div>

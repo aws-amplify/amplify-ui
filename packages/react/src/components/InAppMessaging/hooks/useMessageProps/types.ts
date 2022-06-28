@@ -1,13 +1,13 @@
-import {
-  ColorValue,
-  ImageStyle,
-  StyleProp,
-  TextStyle,
-  ViewStyle,
-} from 'react-native';
+// import {
+//   ColorValue,
+//   ImageStyle,
+//   StyleProp,
+//   TextStyle,
+//   ViewStyle,
+// } from 'react-native';
 import { MessageLayout, MessagePayloadStyle } from '@aws-amplify/ui-react-core';
 
-import { ButtonProps } from '../../../primitives';
+import { ButtonProps } from '../../primitives';
 
 import { ImageDimensions } from '../useMessageImage';
 
@@ -15,18 +15,18 @@ import { ImageDimensions } from '../useMessageImage';
  * Resolved message types
  */
 export interface MessageComponentStyles {
-  body: StyleProp<TextStyle>;
-  buttonsContainer: StyleProp<ViewStyle>;
-  container: StyleProp<ViewStyle>;
-  contentContainer: StyleProp<ViewStyle>;
-  header: StyleProp<TextStyle>;
-  iconButton: { container: StyleProp<ViewStyle>; iconColor?: ColorValue };
-  imageContainer: StyleProp<ViewStyle>;
-  image: StyleProp<ImageStyle>;
+  body: unknown;
+  buttonsContainer: unknown;
+  container: unknown;
+  contentContainer: unknown;
+  header: unknown;
+  iconButton: { container: unknown; iconColor?: string };
+  imageContainer: unknown;
+  image: unknown;
   primaryButton: MessageButtonStyleProps;
   secondaryButton: MessageButtonStyleProps;
-  textContainer: StyleProp<ViewStyle>;
-  wrapper: StyleProp<ViewStyle>;
+  textContainer: unknown;
+  wrapper: unknown;
 }
 
 export type GetDefaultStyle<AdditionalStyle = unknown> = (
@@ -88,18 +88,18 @@ export interface MessageButtonStyleParams {
  * Default Message UI component style props
  */
 export interface MessageDefaultStyle {
-  body: TextStyle;
-  buttonContainer: ViewStyle;
-  buttonsContainer: ViewStyle;
-  buttonText: TextStyle;
-  container: ViewStyle;
-  contentContainer: ViewStyle;
-  header: TextStyle;
-  iconButton: ViewStyle;
-  image: ImageStyle;
-  imageContainer: ViewStyle;
-  textContainer: ViewStyle;
-  wrapper: ViewStyle;
+  body: unknown;
+  buttonContainer: unknown;
+  buttonsContainer: unknown;
+  buttonText: unknown;
+  container: unknown;
+  contentContainer: unknown;
+  header: unknown;
+  iconButton: unknown;
+  image: unknown;
+  imageContainer: unknown;
+  textContainer: unknown;
+  wrapper: unknown;
 }
 
 export interface MessageButtonStyleProps {
@@ -109,23 +109,23 @@ export interface MessageButtonStyleProps {
 
 export interface MessageContainerAndWrapperStyle {
   container: [
-    defaultStyle: StyleProp<ViewStyle>,
-    messageStyle: StyleProp<ViewStyle>,
-    overrideStyle: StyleProp<ViewStyle>
+    defaultStyle: unknown,
+    messageStyle: unknown,
+    overrideStyle: unknown
   ];
-  wrapper: StyleProp<ViewStyle>;
+  wrapper: unknown;
 }
 
 /**
  * Override style props
  */
 export interface MessageOverrideStyle {
-  body?: StyleProp<TextStyle>;
-  closeIconButton?: StyleProp<ViewStyle>;
-  closeIconColor?: ColorValue;
-  container?: StyleProp<ViewStyle>;
-  header?: StyleProp<TextStyle>;
-  image?: StyleProp<ImageStyle>;
+  body?: unknown;
+  closeIconButton?: unknown;
+  closeIconColor?: string;
+  container?: unknown;
+  header?: unknown;
+  image?: unknown;
   primaryButton?: MessageButtonStyleProps;
   secondaryButton?: MessageButtonStyleProps;
 }

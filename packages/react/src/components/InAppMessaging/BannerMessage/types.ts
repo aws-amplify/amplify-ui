@@ -1,4 +1,5 @@
 import { BannerMessageCommonProps } from '@aws-amplify/ui-react-core';
+import { View, Flex } from '../../../primitives';
 
 import { MessageDefaultStyle, MessageOverrideStyle } from '../hooks';
 
@@ -8,7 +9,7 @@ export interface BannerMessageProps
 export interface BannerMessageStyle extends MessageDefaultStyle {}
 
 export interface BannerMessagePositionStyle {
-  bottom: unknown;
-  middle: unknown;
-  top: unknown;
+  bottom: any;
+  middle: any;
+  top: any;
 }

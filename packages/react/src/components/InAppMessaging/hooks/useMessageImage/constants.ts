@@ -1,7 +1,8 @@
-import { Dimensions } from 'react-native';
-
 // as images are not expected to be responsive to orientation changes get screen dimensions at app start
-const SCREEN_DIMENSIONS = Dimensions.get('screen');
+const SCREEN_DIMENSIONS = {
+  width: window.innerWidth,
+  height: window.innerHeight,
+};
 
 // compare screen width and height and assign the lesser of the two as the base screen dimension
 const BASE_SCREEN_DIMENSION =

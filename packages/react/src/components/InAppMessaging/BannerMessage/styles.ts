@@ -33,7 +33,7 @@ export const positionStyle: BannerMessagePositionStyle = {
   },
 };
 
-export const getStyles: GetDefaultStyle<{ position: ViewStyle }> = (
+export const getStyles: GetDefaultStyle<{ position: unknown }> = (
   imageDimensions,
   additionalStyle
 ) => ({
@@ -96,7 +96,7 @@ export const getStyles: GetDefaultStyle<{ position: ViewStyle }> = (
     paddingHorizontal: SPACING_MEDIUM,
   },
   wrapper: {
-    ...additionalStyle?.position,
+    position: 'bottom',
     backgroundColor: 'transparent',
     flex: 1,
   },

@@ -1,4 +1,4 @@
-import { Image } from 'react-native';
+// import { Image } from 'react-native';
 import { ConsoleLogger as Logger } from '@aws-amplify/core';
 import { MessageLayout } from '@aws-amplify/ui-react-core';
 
@@ -25,7 +25,8 @@ export const prefetchNetworkImage = async (
   url: string
 ): Promise<ImageLoadingState> => {
   try {
-    const loaded = await Image.prefetch(url);
+    // const loaded = await Image.prefetch(url);
+    const loaded = true;
     if (loaded) {
       return 'loaded';
     }

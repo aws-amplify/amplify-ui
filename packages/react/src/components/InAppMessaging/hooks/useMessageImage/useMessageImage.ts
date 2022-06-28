@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Image } from 'react-native';
+// import { Image } from 'react-native';
 
 import { ConsoleLogger as Logger } from '@aws-amplify/core';
 import { MessageImage, MessageLayout } from '@aws-amplify/ui-react-core';
@@ -45,25 +45,27 @@ export default function useMessageImage(
     prefetchNetworkImage(src).then((prefetchResult) => {
       if (prefetchResult === 'loaded') {
         // get image size once loaded
-        Image.getSize(
-          src,
-          (imageWidth, imageHeight) => {
-            const { height, width } = getLayoutImageDimensions(
-              imageHeight,
-              imageWidth,
-              layout
-            );
-            imageDimensions.height = height;
-            imageDimensions.width = width;
+        // Image.getSize(
+        //   src,
+        //   (imageWidth, imageHeight) => {
+        //     const { height, width } = getLayoutImageDimensions(
+        //       imageHeight,
+        //       imageWidth,
+        //       layout
+        //     );
+        //     imageDimensions.height = height;
+        //     imageDimensions.width = width;
 
-            setPrefetchStatus(ImagePrefetchStatus.Success);
-          },
-          (error) => {
-            // handle size retrieval error
-            logger.error(`Unable to retrieve size for image: ${error}`);
-            setPrefetchStatus(ImagePrefetchStatus.Failure);
-          }
-        );
+        //     setPrefetchStatus(ImagePrefetchStatus.Success);
+        //   },
+        //   (error) => {
+        //     // handle size retrieval error
+        //     logger.error(`Unable to retrieve size for image: ${error}`);
+        //     setPrefetchStatus(ImagePrefetchStatus.Failure);
+        //   }
+        // );
+
+        setPrefetchStatus(ImagePrefetchStatus.Success);
       } else {
         // handle prefetch failure
         setPrefetchStatus(ImagePrefetchStatus.Failure);
