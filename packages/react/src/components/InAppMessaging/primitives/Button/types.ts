@@ -1,10 +1,11 @@
-// import { PressableProps, StyleProp, TextStyle } from 'react-native';
+import React from 'react';
 
 export interface ButtonProps {
-  style?: unknown;
-  textStyle?: unknown;
+  children?: Array<string>;
+  style?: React.CSSProperties;
+  textStyle?: React.CSSProperties;
 }
 
 export interface ButtonStyles {
-  text: unknown;
+  text: React.CSSProperties;
 }

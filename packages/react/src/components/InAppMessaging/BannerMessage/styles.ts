@@ -20,6 +20,7 @@ import {
   SPACING_SMALL,
 } from '../constants';
 import { BannerMessagePositionStyle } from './types';
+import React from 'react';
 
 export const positionStyle: BannerMessagePositionStyle = {
   bottom: {
@@ -33,7 +34,7 @@ export const positionStyle: BannerMessagePositionStyle = {
   },
 };
 
-export const getStyles: GetDefaultStyle<{ position: unknown }> = (
+export const getStyles: GetDefaultStyle<{ position: React.CSSProperties }> = (
   imageDimensions,
   additionalStyle
 ) => ({
@@ -96,7 +97,8 @@ export const getStyles: GetDefaultStyle<{ position: unknown }> = (
     paddingHorizontal: SPACING_MEDIUM,
   },
   wrapper: {
-    position: 'bottom',
+    display: 'flex',
+    alignSelf: 'top',
     backgroundColor: 'transparent',
     flex: 1,
   },

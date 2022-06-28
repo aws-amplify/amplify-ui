@@ -1,23 +1,3 @@
-// import { Amplify } from 'aws-amplify';
-
-// import '@aws-amplify/ui-react/styles.css';
-
-// import awsExports from './aws-exports';
-// import { InAppMessagingProvider, InAppMessageDisplay } from '@aws-amplify/ui-react';
-
-// Amplify.configure(awsExports);
-
-// export default function InAppMessaging() {
-//   return (
-//     <div>
-//       <h2>Hi</h2>
-//       <InAppMessagingProvider>
-//         <InAppMessageDisplay></InAppMessageDisplay>
-//       </InAppMessagingProvider>
-//     </div>
-//   )
-// }
-
 import React, { useEffect } from 'react';
 
 import { Amplify, Notifications, Analytics } from 'aws-amplify';
@@ -87,10 +67,6 @@ const components = {
 
 const { InAppMessaging } = Notifications;
 
-// async () => {
-//   return await InAppMessaging.syncMessages();
-// };
-
 const event = { name: '_session.start' };
 console.log(event);
 
@@ -105,24 +81,21 @@ export default function App() {
   }, []);
 
   return (
-    <div>
-      <h2>Hi</h2>
-      <InAppMessagingProvider>
-        <Authenticator
-          formFields={formFields}
-          components={components}
-          hideSignUp={true}
-        >
-          {({ signOut, user }) => (
-            <main>
-              <h1>Hello {user.username}</h1>
-              <button onClick={signOut}>Sign out</button>
-            </main>
-          )}
-        </Authenticator>
+    <InAppMessagingProvider>
+      <Authenticator
+        formFields={formFields}
+        components={components}
+        hideSignUp={true}
+      >
+        {({ signOut, user }) => (
+          <main>
+            <h1>Hello {user.username}</h1>
+            <button onClick={signOut}>Sign out</button>
+          </main>
+        )}
+      </Authenticator>
 
-        <InAppMessageDisplay />
-      </InAppMessagingProvider>
-    </div>
+      <InAppMessageDisplay />
+    </InAppMessagingProvider>
   );
 }

@@ -7,7 +7,6 @@ import { MessageLayout } from '../MessageLayout';
 import { getStyles, positionStyle } from './styles';
 import { BannerMessageProps } from './types';
 
-// export default function BannerMessage() {
 export default function BannerMessage({
   position = 'top',
   ...props
@@ -19,6 +18,7 @@ export default function BannerMessage({
   );
   const { shouldRenderMessage, styles } = messageProps;
   console.log('shouldRenderMessage', shouldRenderMessage);
+  console.log('banner message props', props);
 
   if (!shouldRenderMessage) {
     return null;
@@ -27,7 +27,6 @@ export default function BannerMessage({
   const { wrapper, ...messageStyles } = styles!;
 
   return (
-    // <div>banner message text</div>
     <MessageWrapper style={wrapper}>
       <MessageLayout {...props} {...messageProps} styles={messageStyles} />
     </MessageWrapper>
