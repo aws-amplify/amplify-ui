@@ -29,12 +29,20 @@ export default function MessageLayout({ ...props }: LayoutProps): JSX.Element {
   } = props;
 
   const iconButton = (
-    <div>
-      <img src={icons.close} onClick={onClose} />
+    <div
+      id={IN_APP_MESSAGING_TEST_ID.CLOSE_BUTTON}
+      style={styles.buttonsContainer}
+      onClick={onClose}
+    >
+      <img src={icons.close} />
+      <button
+        color={styles.iconButton.iconColor}
+        // size={ICON_BUTTON_SIZE}
+        // style="color:red"
+        // id={IN_APP_MESSAGING_TEST_ID.CLOSE_BUTTON}
+      />
     </div>
   );
-
-  console.log(icons.close);
 
   return (
     <div
