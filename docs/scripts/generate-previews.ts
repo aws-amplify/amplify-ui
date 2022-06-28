@@ -81,9 +81,10 @@ export const drawText = (
   // Add last remaining line
   lines.push(currentLine);
   // Draw lines
-  lines.forEach((line, index) => {
+  // (only take the first 3 lines and add ellipsis if longer)
+  lines.slice(0, 3).forEach((line, index) => {
     context.fillText(
-      line.trim(),
+      line.trim() + (index === 2 ? '...' : ''),
       options.positionX,
       options.positionY + lineHeight * index
     );
@@ -112,7 +113,7 @@ export const drawSocialPreview = async (
   // Draw Preview title
   drawText(context, title, {
     positionX: PREVIEW_MARGIN,
-    positionY: 360,
+    positionY: 300,
     font: '64pt Inter, Microsoft Sans Serif, sans-serif',
     fillStyle: '#0D1A26',
     maxWidth: PREVIEW_WIDTH - PREVIEW_MARGIN * 2,
@@ -122,8 +123,8 @@ export const drawSocialPreview = async (
   if (description) {
     drawText(context, description, {
       positionX: PREVIEW_MARGIN,
-      positionY: 420,
-      font: '20pt Inter, Microsoft Sans Serif, sans-serif',
+      positionY: 360,
+      font: '24pt Inter, Microsoft Sans Serif, sans-serif',
       fillStyle: PREVIEW_TEXT_COLOR,
       maxWidth: PREVIEW_WIDTH - PREVIEW_MARGIN * 2,
     });
@@ -132,8 +133,8 @@ export const drawSocialPreview = async (
   // Draw Preview URL
   drawText(context, text, {
     positionX: PREVIEW_MARGIN,
-    positionY: 550,
-    font: '20pt SourceCodePro, mono',
+    positionY: 520,
+    font: '24pt SourceCodePro, mono',
     fillStyle: PREVIEW_LINK_COLOR,
     maxWidth: PREVIEW_WIDTH - PREVIEW_MARGIN * 2,
   });
@@ -159,20 +160,14 @@ const writeSocialPreview = async ({
 
       fs.promises.writeFile(filePath, img);
     } else {
-      const {
-        title,
-        metaTitle,
-        description,
-        metaDescription,
-        example = '',
-      } = frontmatter;
+      const { title, metaTitle, description, metaDescription } = frontmatter;
 
       let text = process.env.SITE_URL + asHref;
 
       // For component pages let's do something special
-      // in the future we could
+      // in the future we could do a bit more...
       if (asHref.includes('/react/components/')) {
-        text = `import { ${title} } from '@aws-amplify/ui-react';\n${example}`;
+        text = `import { ${title} } from '@aws-amplify/ui-react';`;
       }
 
       const backgroundImage = await loadImage(
