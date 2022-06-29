@@ -1,9 +1,73 @@
+@import 'variables';
+
 .docs-component-styles {
   width: 100%;
-  margin-bottom: var(--amplify-space-large);
   overflow: auto;
-
   pre {
     white-space: pre-wrap;
+  }
+}
+
+.docs-grid-bordered {
+  border: solid var(--amplify-colors-neutral-20);
+  border-width: 1px 0 0 1px;
+  li {
+    list-style: none;
+    padding: var(--amplify-space-small);
+    font-size: var(--amplify-font-sizes-small);
+    border: solid var(--amplify-colors-neutral-20);
+    border-width: 0 1px 1px 0;
+  }
+}
+
+.docs-responsive-table__label {
+  display: none;
+}
+
+@media (max-width: $breakpoint-medium) {
+  .docs-responsive-table {
+    display: block;
+    thead, tr, tbody {
+      display: block;
+    }
+    thead {
+      /* We can't `display: none` a thead or SR won't recognize it */
+      height: 0;
+      overflow: hidden;
+    }
+    td  {
+      padding: 0;
+      display: flex;
+      align-items: stretch;
+      &:not(:last-child) {
+        border-bottom: 1px solid var(--amplify-colors-neutral-20);
+      }
+    }
+    tr {
+      border: 1px solid var(--amplify-colors-neutral-40);
+      margin-block-end: var(--amplify-space-small);
+    }
+  }
+  .docs-responsive-table__label {
+    padding: var(--amplify-space-xxs);
+    background: var(--amplify-colors-neutral-10);
+    flex: 0 0 6rem;
+    display: flex;
+    align-items: center;
+    color: var(--amplify-colors-neutral-80);
+  }
+  .docs-responsive-table__value {
+    display: block;
+    flex: 0 1 auto;
+    max-width: 100%;
+    overflow: auto;
+    padding: var(--amplify-space-xxs);
+  }
+}
+
+/* Hide labels on tiny screens */
+@media (max-width: $breakpoint-small) {
+  .docs-responsive-table__label {
+    display: none;
   }
 }
