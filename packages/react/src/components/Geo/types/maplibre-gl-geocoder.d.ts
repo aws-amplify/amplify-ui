@@ -169,5 +169,25 @@ declare module 'maplibre-gl-geocoder' {
      * If a `bbox` is found the map will fit to the `bbox`.
      */
     zoom?: number;
+    /**
+     * Emitted when the input is cleared
+     */
+    onClear?: Function;
+    /**
+     * Emitted when the geocoder is looking up a query
+     */
+    onLoading?: Function;
+    /**
+     * Fired when the geocoder returns a response
+     */
+    onResults?: Function;
+    /**
+     * Fired when input is set
+     */
+    onResult?: Function;
+    /**
+     * Emitted on error as string
+     */
+    onError?: Function;
   };
 }

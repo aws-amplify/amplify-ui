@@ -17,6 +17,8 @@ const LOCATION_SEARCH_CONTAINER = 'geocoder-container';
 
 type AmplifyLocationSearch = IControl & {
   addTo: (container: string) => void;
+  on: (event: string, fn: Function) => void;
+  off: (event: string, fn: Function) => void;
 };
 
 const LocationSearchControl = ({
@@ -33,18 +35,33 @@ const LocationSearchControl = ({
   return null;
 };
 
-const LocationSearchStandalone = (props: LocationSearchProps) => {
+const LocationSearchStandalone = ({
+  onLoading = () => {},
+  onResult = () => {},
+  onResults = () => {},
+  onClear = () => {},
+  onError = () => {},
+  ...props
+}: LocationSearchProps) => {
   const hasMounted = useRef(false);
 
   useEffect(() => {
     if (!hasMounted.current) {
-      (createAmplifyGeocoder(props) as unknown as AmplifyLocationSearch).addTo(
-        `#${LOCATION_SEARCH_CONTAINER}`
-      );
+      const map = createAmplifyGeocoder(
+        props
+      ) as unknown as AmplifyLocationSearch;
+
+      map.on('result', onResult);
+      map.on('loading', onLoading);
+      map.on('results', onResults);
+      map.on('clear', onClear);
+      map.on('error', onError);
+
+      map.addTo(`#${LOCATION_SEARCH_CONTAINER}`);
 
       hasMounted.current = true;
     }
-  }, [props]);
+  }, [onResult, onLoading, onResults, onClear, onError, props]);
 
   return <div id={LOCATION_SEARCH_CONTAINER} />;
 };
