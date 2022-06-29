@@ -38,7 +38,7 @@ Here's an example that conditionally renders different components based on curre
   {({ platform }) => import(`./advanced/full-api.${platform}.mdx`)}
 </Fragment>
 
-<Tabs>
+<Tabs overflow="scroll">
   <TabItem title="Access Contexts">
 
 These are `readonly` contexts that represent the current auth state. Any unapplicable `context` will be `undefined`.
