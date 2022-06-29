@@ -39,7 +39,7 @@ function InitMachine({
 }
 
 /**
- * [📖 Docs](https://ui.docs.amplify.aws/react/components/authenticator)
+ * [📖 Docs](https://ui.docs.amplify.aws/react/connected-components/authenticator)
  */
 export function Authenticator({
   children,
