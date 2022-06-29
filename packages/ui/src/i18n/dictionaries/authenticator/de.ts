@@ -59,7 +59,10 @@ export const deDict = {
   Verify: 'Verifizieren',
   'Verify Contact': 'Kontakt verifizieren',
   'We Emailed You': 'Email wurde versendet',
-  'Your code is on the way. To log in, enter the code we emailed to': 'Ihr Bestätigungscode ist unterwegs. Um sich einzuloggen geben Sie den Code ein, den wir verschickt haben an',
-  'Your code is on the way. To log in, enter the code we texted to': 'Ihr Bestätigungscode ist unterwegs. Um sich einzuloggen geben Sie den Code ein, den wir verschickt haben an',
-  'It may take a minute to arrive.': 'Es könnte eine Minute dauern, bis der Code eintrifft.',
+  'Your code is on the way. To log in, enter the code we emailed to':
+    'Ihr Bestätigungscode ist unterwegs. Um sich einzuloggen geben Sie den Code ein, den wir verschickt haben an',
+  'Your code is on the way. To log in, enter the code we texted to':
+    'Ihr Bestätigungscode ist unterwegs. Um sich einzuloggen geben Sie den Code ein, den wir verschickt haben an',
+  'It may take a minute to arrive.':
+    'Es könnte eine Minute dauern, bis der Code eintrifft.',
 };
