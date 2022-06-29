@@ -55,12 +55,18 @@ function MyApp({ Component, pageProps }) {
     } else {
       localStorage.removeItem('colorMode');
     }
+    // Algolia search renders in a Portal so we need to do this
+    document.documentElement.setAttribute('data-amplify-color-mode', colorMode);
   };
 
   React.useEffect(() => {
     const colorModePreference = localStorage.getItem('colorMode') as ColorMode;
     if (colorModePreference) {
       setColorMode(colorModePreference);
+      document.documentElement.setAttribute(
+        'data-amplify-color-mode',
+        colorModePreference
+      );
     }
   }, []);
 
