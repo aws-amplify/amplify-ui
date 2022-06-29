@@ -35,6 +35,14 @@ pre[class*='language-'] {
   padding: var(--amplify-space-medium);
   overflow: auto;
   border-radius: 0;
+  // 👇 this is important to get line highlights working when there is horizontal scroll
+  display: flex;
+  text-size-adjust: 100%;
+}
+
+// 👇 this is also important for the above reason
+code[class*='language-'] {
+  flex-grow: 2;
 }
 
 pre.language-shell code.language-shell::before {
