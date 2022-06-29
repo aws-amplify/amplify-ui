@@ -22,7 +22,11 @@ export const ComponentVariableTable = ({ componentName }) => {
   ).sort();
 
   return variableNames.length > 0 ? (
-    <Grid className="docs-grid-bordered" as="ul" templateColumns="30rem 30rem">
+    <Grid
+      className="docs-grid-bordered"
+      as="ul"
+      templateColumns={{ base: '1fr', medium: '1fr 1fr' }}
+    >
       {variableNames.map((name) => {
         return (
           <li key={name}>

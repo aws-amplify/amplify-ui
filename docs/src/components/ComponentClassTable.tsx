@@ -18,7 +18,7 @@ export const ComponentClassTable = ({ componentName }) => {
           value.components.includes(componentName)
         );
       })
-      .map((value: any) => (
+      .map((value: { className: string; description?: string }) => (
         <TableRow key={value.className}>
           <TableCell>
             <span className="docs-responsive-table__label" aria-hidden="true">
