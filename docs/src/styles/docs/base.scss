@@ -234,6 +234,20 @@ h4:hover>  a .icon-link {
   monospace;
   --docs-horizontal-padding: var(--amplify-space-medium);
   
+  // Algolia customizations
+  --docsearch-modal-background: var(--amplify-colors-background-primary);
+  --docsearch-modal-shadow: var(--amplify-shadows-small);
+  --docsearch-footer-background: var(--amplify-colors-background-primary);
+  --docsearch-footer-shadow: none;
+  --docsearch-hit-shadow: none;
+  --docsearch-hit-background: var(--amplify-colors-background-secondary);
+  --docsearch-hit-color: var(--amplify-colors-font-primary);
+  --docsearch-key-gradient: var(--amplify-colors-overlay-10);
+  --docsearch-key-shadow: none;
+  --docsearch-muted-color: var(--amplify-colors-font-tertiary);
+  --docsearch-searchbox-focus-background: transparent;
+  --docsearch-icon-color: var(--amplify-colors-font-disabled);
+  
   @media (min-width: $breakpoint-medium) {
     --docs-horizontal-padding: var(--amplify-space-xl);
   }
