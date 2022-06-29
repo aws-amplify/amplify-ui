@@ -3,7 +3,7 @@ import React from 'react';
 // import { Image, Text, View } from 'react-native';
 
 import icons from '../assets';
-import { Button, IconButton } from '../primitives';
+import { Button, Image, Flex, Text, View } from '../../../primitives';
 
 import {
   ICON_BUTTON_HIT_SLOP,
@@ -17,7 +17,6 @@ import { Content } from '@radix-ui/react-tabs';
 
 export default function MessageLayout({ ...props }: LayoutProps): JSX.Element {
   console.log('props', props);
-  console.log('usemessage', useMessage);
   const {
     body,
     container,
@@ -33,18 +32,11 @@ export default function MessageLayout({ ...props }: LayoutProps): JSX.Element {
     styles,
   } = props;
 
-  console.log('body', body);
-  console.log('hasButtons', hasButtons);
-  console.log('header', header);
-  console.log('image', image);
-  console.log('primaryButton', primaryButton);
-  console.log('styles', styles);
-
   const iconButton = (
     <div
       // style={containerStyle}
       id={IN_APP_MESSAGING_TEST_ID.CLOSE_BUTTON}
-      style={styles.iconButton.container[0]}
+      // style={styles.iconButton.container[0]}
       onClick={onClose}
     >
       <img src={icons.close} />
@@ -59,58 +51,74 @@ export default function MessageLayout({ ...props }: LayoutProps): JSX.Element {
   );
 
   return (
-    <div style={styles.container[0]}>
-      <div style={styles.contentContainer}>
+    <View
+    // style={{...styles.container[0], ...styles.container[1], ...styles.container[2]}}
+    >
+      <View
+      // style={styles.contentContainer}
+      >
         {iconButton}
         {hasRenderableImage && (
-          <div style={styles.imageContainer}>
-            <img
+          <View style={styles.imageContainer}>
+            <Image
               src={image?.src}
-              style={styles.image[0]}
-              id={IN_APP_MESSAGING_TEST_ID.IMAGE}
+              // style={{...styles.image[0], ...styles.image[1]}}
+              testId={IN_APP_MESSAGING_TEST_ID.IMAGE}
+              alt="Close Button"
             />
-          </div>
+          </View>
         )}
-        <div
-        // style={styles.header[0]}
+        <View
+        // style={styles.textContainer}
         >
           {header?.content && (
-            <div style={styles.header[0]} id={IN_APP_MESSAGING_TEST_ID.HEADER}>
+            <Text
+              // style={{...styles.header[0],
+              //         ...styles.header[1],
+              //         ...styles.header[2]}}
+              testId={IN_APP_MESSAGING_TEST_ID.HEADER}
+            >
               {header.content}
-            </div>
+            </Text>
           )}
           {body?.content && (
-            <div style={styles.body[0]} id={IN_APP_MESSAGING_TEST_ID.BODY}>
+            <Text
+              // style={{...styles.body[0],
+              //         ...styles.body[1],
+              //         ...styles.body[2]}}
+              testId={IN_APP_MESSAGING_TEST_ID.BODY}
+            >
               {body.content}
-            </div>
+            </Text>
           )}
-        </div>
-        {iconButton}
-      </div>
+        </View>
+      </View>
       {hasButtons && (
-        <div style={styles.buttonsContainer}>
+        <View>
           {hasSecondaryButton && (
-            <button
+            <Button
               onClick={secondaryButton?.onAction}
-              style={styles.secondaryButton.text[0]}
-              id={IN_APP_MESSAGING_TEST_ID.SECONDARY_BUTTON}
-              // style={styles.secondaryButton.text}
+              // style={{...styles.secondaryButton.text[0],
+              //         ...styles.secondaryButton.text[1],
+              //         ...styles.secondaryButton.text[2]}}
+              testId={IN_APP_MESSAGING_TEST_ID.SECONDARY_BUTTON}
             >
               {secondaryButton?.title}
-            </button>
+            </Button>
           )}
           {hasPrimaryButton && (
-            <button
+            <Button
               onClick={primaryButton?.onAction}
-              style={styles.primaryButton.text[0]}
-              id={IN_APP_MESSAGING_TEST_ID.PRIMARY_BUTTON}
-              // textStyle={styles.primaryButton.text}
+              // style={{...styles.primaryButton.text[0],
+              //   ...styles.primaryButton.text[1],
+              //   ...styles.primaryButton.text[2]}}
+              testId={IN_APP_MESSAGING_TEST_ID.PRIMARY_BUTTON}
             >
               {primaryButton?.title}
-            </button>
+            </Button>
           )}
-        </div>
+        </View>
       )}
-    </div>
+    </View>
   );
 }

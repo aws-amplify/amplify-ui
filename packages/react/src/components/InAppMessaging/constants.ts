@@ -1,5 +1,3 @@
-import { getLineHeight } from './utils';
-
 // color
 export const COLOR_BLACK = '#000';
 export const COLOR_GREY = '#a1a1a1';
@@ -20,9 +18,6 @@ export const BORDER_RADIUS_BASE = 4;
 export const FONT_SIZE_BASE = 16;
 export const FONT_SIZE_LARGE = 18;
 
-export const LINE_HEIGHT_BASE = getLineHeight(FONT_SIZE_BASE);
-export const LINE_HEIGHT_LARGE = getLineHeight(FONT_SIZE_LARGE);
-
 export const FONT_WEIGHT_BASE = '400';
 
 // icon
@@ -41,9 +36,6 @@ export const MESSAGE_SHADOW_RADIUS = 2;
 export const MESSAGE_ELEVATION = 3;
 
 // Message UI Buttons
-
-// default value applied in React Native TouchableOpacity
-export const BUTTON_PRESSED_OPACITY = 0.8;
 
 // Message Component Test IDs
 export const IN_APP_MESSAGING_TEST_ID = {

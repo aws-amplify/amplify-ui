@@ -3,7 +3,6 @@ export {
   MessageComponents,
   MessageStyles,
 } from './InAppMessageDisplay';
-export { BannerMessage } from './BannerMessage';
 export {
   InAppMessagingProvider,
   useInAppMessaging,

@@ -5,6 +5,8 @@ import {
   ModalMessageComponent,
 } from '@aws-amplify/ui-react-core';
 
+// import { BannerMessageProps } from '../BannerMessage';
+
 // TODO: replace these incrementally as they become available
 type BannerStyle = any;
 type CarouselStyle = any;

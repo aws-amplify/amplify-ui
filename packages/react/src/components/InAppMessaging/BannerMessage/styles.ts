@@ -1,4 +1,4 @@
-import { GetDefaultStyle } from '../hooks';
+// import { GetDefaultStyle } from '../hooks';
 import {
   BORDER_RADIUS_BASE,
   COLOR_BLACK,
@@ -7,8 +7,6 @@ import {
   FONT_SIZE_BASE,
   FONT_SIZE_LARGE,
   FONT_WEIGHT_BASE,
-  LINE_HEIGHT_BASE,
-  LINE_HEIGHT_LARGE,
   MESSAGE_ELEVATION,
   MESSAGE_SHADOW_HEIGHT,
   MESSAGE_SHADOW_OPACITY,
@@ -19,29 +17,11 @@ import {
   SPACING_MEDIUM,
   SPACING_SMALL,
 } from '../constants';
-import { BannerMessagePositionStyle } from './types';
-import React from 'react';
 
-export const positionStyle: BannerMessagePositionStyle = {
-  bottom: {
-    justifyContent: 'flex-end',
-  },
-  middle: {
-    justifyContent: 'center',
-  },
-  top: {
-    justifyContent: 'flex-start',
-  },
-};
-
-export const getStyles: GetDefaultStyle<{ position: React.CSSProperties }> = (
-  imageDimensions,
-  additionalStyle
-) => ({
+export const getStyles = (additionalStyle?) => ({
   body: {
     fontSize: FONT_SIZE_BASE,
     fontWeight: FONT_WEIGHT_BASE,
-    lineHeight: LINE_HEIGHT_BASE,
   },
   buttonContainer: {
     backgroundColor: COLOR_LIGHT_GREY,
@@ -58,7 +38,6 @@ export const getStyles: GetDefaultStyle<{ position: React.CSSProperties }> = (
   buttonText: {
     fontSize: FONT_SIZE_BASE,
     fontWeight: FONT_WEIGHT_BASE,
-    lineHeight: LINE_HEIGHT_BASE,
     textAlign: 'center',
   },
   container: {
@@ -72,6 +51,10 @@ export const getStyles: GetDefaultStyle<{ position: React.CSSProperties }> = (
     },
     shadowOpacity: MESSAGE_SHADOW_OPACITY,
     shadowRadius: MESSAGE_SHADOW_RADIUS,
+    width: '33%',
+    position: 'fixed',
+    top: 0,
+    right: 0,
   },
   contentContainer: {
     flexDirection: 'row',
@@ -80,17 +63,20 @@ export const getStyles: GetDefaultStyle<{ position: React.CSSProperties }> = (
   header: {
     fontSize: FONT_SIZE_LARGE,
     fontWeight: FONT_WEIGHT_BASE,
-    lineHeight: LINE_HEIGHT_LARGE,
   },
   iconButton: {
-    alignSelf: 'flex-start',
+    alignSelf: 'flex-end',
     marginLeft: 'auto',
   },
   image: {
-    ...imageDimensions,
+    // ...imageDimensions,
   },
   imageContainer: {
     justifyContent: 'center',
+    width: '10.5%',
+    minWidth: '50px',
+    maxWidth: '100px',
+    padding: '5px',
   },
   textContainer: {
     flex: 1,
