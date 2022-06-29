@@ -52,7 +52,11 @@ export const AmplifySection = ({ platform }) => {
           connect to your backend. The libraries are pluggable and can be
           extended to use other providers.
           <br />
-          <Link href={`https://docs.amplify.aws/lib/q/platform/${platform}/`}>
+          <Link
+            href={`https://docs.amplify.aws/lib/q/platform/${
+              platform !== 'flutter' ? 'js' : platform
+            }/`}
+          >
             Learn more about Amplify Libraries
           </Link>
         </HomeFeatureCard>

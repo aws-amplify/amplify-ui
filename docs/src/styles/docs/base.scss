@@ -154,19 +154,22 @@ h3[id] {
 }
 
 h2[id] {
-  &::before {
-    content: '';
-    position: absolute;
-    top: -1rem;
-    left: 0;
-    width: 5rem;
-    border-top: var(--amplify-border-widths-large) solid
-      var(--amplify-colors-border-secondary);
+  &:first-of-type {
+    margin-top: 0;
   }
-}
-
-h2[id]:not(:first-of-type) {
-  margin-top: var(--amplify-space-xxxl);
+  &:not(:first-of-type) {
+    margin-top: var(--amplify-space-xxxl);
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: -1rem;
+      left: 0;
+      width: 5rem;
+      border-top: var(--amplify-border-widths-large) solid
+        var(--amplify-colors-border-secondary);
+    }
+  }
 }
 
 h2[id] > a,
@@ -230,6 +233,20 @@ h4:hover>  a .icon-link {
   SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
   monospace;
   --docs-horizontal-padding: var(--amplify-space-medium);
+  
+  // Algolia customizations
+  --docsearch-modal-background: var(--amplify-colors-background-primary);
+  --docsearch-modal-shadow: var(--amplify-shadows-small);
+  --docsearch-footer-background: var(--amplify-colors-background-primary);
+  --docsearch-footer-shadow: none;
+  --docsearch-hit-shadow: none;
+  --docsearch-hit-background: var(--amplify-colors-background-secondary);
+  --docsearch-hit-color: var(--amplify-colors-font-primary);
+  --docsearch-key-gradient: var(--amplify-colors-overlay-10);
+  --docsearch-key-shadow: none;
+  --docsearch-muted-color: var(--amplify-colors-font-tertiary);
+  --docsearch-searchbox-focus-background: transparent;
+  --docsearch-icon-color: var(--amplify-colors-font-disabled);
   
   @media (min-width: $breakpoint-medium) {
     --docs-horizontal-padding: var(--amplify-space-xl);

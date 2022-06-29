@@ -26,6 +26,7 @@ const ANALYTICS_CSP = {
       'https://aws.demdex.net',
       'https://dpm.demdex.net',
       'https://cm.everesttech.net',
+      'https://images.unsplash.com',
     ],
     frame: ['https://aws.demdex.net', 'https://dpm.demdex.net'],
   },
@@ -82,7 +83,7 @@ const getCSPContent = (context: Readonly<HtmlProps>) => {
 class MyDocument extends Document {
   render() {
     return (
-      <Html lang="en-us">
+      <Html lang="en-us" data-amplify-theme="amplify-docs">
         <Head>
           <meta
             httpEquiv="Content-Security-Policy"

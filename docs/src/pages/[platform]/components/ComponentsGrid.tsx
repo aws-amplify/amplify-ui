@@ -1,7 +1,14 @@
-import { Card, Flex, Grid, Heading } from '@aws-amplify/ui-react';
+import {
+  Card,
+  Flex,
+  Grid,
+  Heading,
+  Icon,
+  View,
+  Text,
+} from '@aws-amplify/ui-react';
 import {
   baseComponents,
-  connectedComponents,
   dataDisplayComponents,
   feedbackComponents,
   inputComponents,
@@ -23,11 +30,30 @@ const ComponentGrid = ({ components }) => {
       templateColumns={{ base: '1fr', large: '1fr 1fr' }}
       gap="var(--amplify-space-large)"
     >
-      {components.map(({ href, label, body }) => (
+      {components.map(({ href, label, body, icon }) => (
         <Link href={`/${platform}${href}`} key={href} passHref>
-          <Card className="docs-component-card" variation="elevated">
-            <Heading level={4}>{label}</Heading>
-            <div className="docs-component-card-contents">{body}</div>
+          <Card className="docs-component-card">
+            <Flex alignItems="flex-start">
+              {icon ? (
+                <View
+                  as="span"
+                  padding="1rem"
+                  backgroundColor="brand.secondary.10"
+                  borderRadius="small"
+                >
+                  <Icon
+                    ariaLabel=""
+                    as={icon}
+                    fontSize="xl"
+                    color="brand.secondary.60"
+                  />
+                </View>
+              ) : null}
+              <View>
+                <Text fontWeight="bold">{label}</Text>
+                <Text className="docs-component-card-contents">{body}</Text>
+              </View>
+            </Flex>
           </Card>
         </Link>
       ))}
@@ -60,11 +86,6 @@ const ComponentGridSection = ({ heading, components }) => {
 export const ComponentsGrid = () => {
   return (
     <Flex direction="column" gap="var(--amplify-space-large)">
-      <ComponentGridSection
-        heading={'Connected components'}
-        components={connectedComponents}
-      ></ComponentGridSection>
-
       <ComponentGridSection
         heading={'Base components'}
         components={baseComponents}
