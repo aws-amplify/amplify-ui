@@ -63,11 +63,11 @@ function MyApp({ Component, pageProps }) {
     const colorModePreference = localStorage.getItem('colorMode') as ColorMode;
     if (colorModePreference) {
       setColorMode(colorModePreference);
-      document.documentElement.setAttribute(
-        'data-amplify-color-mode',
-        colorModePreference
-      );
     }
+    document.documentElement.setAttribute(
+      'data-amplify-color-mode',
+      colorModePreference || 'system'
+    );
   }, []);
 
   configure();
