@@ -1,0 +1,114 @@
+import { Fragment } from '@/components/Fragment'; 
+import { Flex, Image, ScrollView } from '@aws-amplify/ui-react';
+
+import { ScrollViewDemo } from './demo';
+import {
+  DefaultScrollViewExample,
+  ScrollViewHorizontalExample,
+  ScrollViewStylePropsExample,
+  ScrollViewVerticalExample,
+} from './examples';
+import { Example, ExampleCode } from '@/components/Example';
+import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
+
+## Demo
+
+<ScrollViewDemo />
+
+## Usage
+
+Import the ScrollView component.
+
+<Example>
+  <DefaultScrollViewExample />
+  <ExampleCode>
+    ```jsx file=./examples/DefaultScrollViewExample.tsx
+
+    ```
+
+  </ExampleCode>
+</Example>
+
+### Horizontal overflow
+
+For horizontal scrollbars, set the width of the `ScrollView` smaller than the width of the content.
+
+<Example>
+  <ScrollViewHorizontalExample />
+  <ExampleCode>
+    ```jsx file=./examples/ScrollViewHorizontalExample.tsx
+
+    ```
+
+  </ExampleCode>
+</Example>
+
+### Vertical overflow
+
+For vertical scrollbars, set the height of the `ScrollView` smaller than the height of the content.
+
+<Example>
+  <ScrollViewVerticalExample />
+  <ExampleCode>
+    ```jsx file=./examples/ScrollViewVerticalExample.tsx
+
+    ```
+
+  </ExampleCode>
+</Example>
+
+## CSS Styling
+
+### Target classes
+
+<ComponentStyleDisplay componentName="ScrollView" />
+
+### Local styling
+
+To override styling on a specific View, you can use a class selector or style props.
+
+_Using a class selector:_
+
+<Example>
+  <ScrollView className="my-scrollview">
+    {
+      "Michaelmas term lately over, and the Lord Chancellor sitting in Lincoln's Inn Hall. Implacable November weather. As much mud in the streets as if the waters had but newly retired from the face of the earth."
+    }
+  </ScrollView>
+  <ExampleCode>
+  ```css
+  /* styles.css */
+  .my-scrollview {
+    height: 100px;
+    width: 200px;
+    background-color: var(--amplify-colors-blue-40);
+  }
+  ```
+  </ExampleCode>
+  <ExampleCode>
+    ```jsx
+    import { ScrollView } from '@aws-amplify/ui-react';
+
+    import './styles.css';
+
+    <ScrollView className="my-scrollview">
+      {
+        "Michaelmas term lately over, and the Lord Chancellor sitting in Lincoln's Inn Hall. Implacable November weather. As much mud in the streets as if the waters had but newly retired from the face of the earth."
+      }
+    </ScrollView>
+    ```
+
+  </ExampleCode>
+</Example>
+
+_Using style props:_
+
+<Example>
+  <ScrollViewStylePropsExample />
+  <ExampleCode>
+    ```jsx file=./examples/ScrollViewStylePropsExample.tsx
+
+    ```
+
+  </ExampleCode>
+</Example>
