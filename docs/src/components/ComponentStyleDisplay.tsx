@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { ComponentClassTable } from '@/components/ComponentClassTable';
 import { ComponentVariableTable } from '@/components/ComponentVariableTable';
+import { OverflowGroup } from '@/components/OverflowGroup';
 import {
   Tabs,
   TabItem,
@@ -14,7 +15,7 @@ export const ComponentStyleDisplay = ({ componentName }) => {
   const { tokens } = useTheme();
 
   return (
-    <View className="docs-component-styles">
+    <OverflowGroup>
       <Flex
         direction={{
           base: 'column',
@@ -39,6 +40,6 @@ export const ComponentStyleDisplay = ({ componentName }) => {
           </Tabs>
         </Flex>
       </Flex>
-    </View>
+    </OverflowGroup>
   );
 };
