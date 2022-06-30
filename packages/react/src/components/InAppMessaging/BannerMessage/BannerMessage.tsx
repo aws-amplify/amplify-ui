@@ -16,7 +16,7 @@ export default function BannerMessage({
       ...props.container.style,
     },
     header: {
-      ...props.container.style,
+      ...props.header.style,
     },
     primaryButton: {
       ...props.primaryButton.style,
@@ -26,15 +26,11 @@ export default function BannerMessage({
     },
   };
 
-  const styles = getStyles(overrideStyles);
+  const styles = getStyles(overrideStyles, props.layout);
   const messageProps = useMessageProps(props, styles);
 
-  return (
-    <MessageLayout
-      styles={styles}
-      layout={props.layout}
-      {...props}
-      {...messageProps}
-    />
-  );
+  console.log(messageProps);
+  console.log(props);
+
+  return <MessageLayout {...props} {...messageProps} />;
 }

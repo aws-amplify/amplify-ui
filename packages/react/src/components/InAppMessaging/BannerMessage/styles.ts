@@ -1,42 +1,25 @@
-// import { GetDefaultStyle } from '../hooks';
 import {
-  BORDER_RADIUS_BASE,
-  COLOR_BLACK,
-  COLOR_LIGHT_GREY,
   COLOR_WHITE,
   FONT_SIZE_BASE,
   FONT_SIZE_LARGE,
   FONT_WEIGHT_BASE,
   MESSAGE_ELEVATION,
-  MESSAGE_SHADOW_HEIGHT,
-  MESSAGE_SHADOW_OPACITY,
-  MESSAGE_SHADOW_RADIUS,
-  MESSAGE_SHADOW_WIDTH,
   SPACING_EXTRA_LARGE,
-  SPACING_LARGE,
-  SPACING_MEDIUM,
   SPACING_SMALL,
 } from '../constants';
 
-export const getStyles = (overrideStyles, additionalStyle?) => ({
+export const getStyles = (overrideStyles, layout, additionalStyle?) => ({
   body: {
     fontSize: FONT_SIZE_BASE,
     fontWeight: FONT_WEIGHT_BASE,
-    color: overrideStyles.body.color ? overrideStyles.body.color : 'default',
+    color: overrideStyles.body.color ? overrideStyles.body.color : 'initial',
     textAlign: overrideStyles.body.textAlign
       ? overrideStyles.body.textAlign
-      : 'default',
-  },
-  buttonContainer: {
-    backgroundColor: COLOR_LIGHT_GREY,
-    borderRadius: BORDER_RADIUS_BASE,
-    flex: 1,
-    margin: SPACING_MEDIUM,
-    padding: SPACING_LARGE,
+      : 'initial',
   },
   buttonsContainer: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
     padding: SPACING_SMALL,
   },
   buttonText: {
@@ -50,25 +33,25 @@ export const getStyles = (overrideStyles, additionalStyle?) => ({
       : COLOR_WHITE,
     elevation: MESSAGE_ELEVATION,
     margin: SPACING_EXTRA_LARGE,
-    shadowColor: COLOR_BLACK,
-    shadowOffset: {
-      width: MESSAGE_SHADOW_WIDTH,
-      height: MESSAGE_SHADOW_HEIGHT,
-    },
-    shadowOpacity: MESSAGE_SHADOW_OPACITY,
-    shadowRadius: MESSAGE_SHADOW_RADIUS,
-    width: '33%',
+    boxShadow: '2px 2px 9px 3px rgb(0, 0, 0, .1)',
+    padding: '16px',
     position: 'fixed',
-    top: 0,
     right: 0,
+    top:
+      layout === ('TOP_BANNER' || 'MIDDLE_BANNER')
+        ? layout === 'TOP_BANNER'
+          ? 0
+          : '40%'
+        : 'initial',
+    bottom: layout === 'BOTTOM_BANNER' ? 0 : 'initial',
   },
   contentContainer: {
     flexDirection: 'row',
-    padding: SPACING_LARGE,
+    padding: '0 12px',
   },
   header: {
     fontSize: FONT_SIZE_LARGE,
-    fontWeight: FONT_WEIGHT_BASE,
+    fontWeight: '800',
     color: overrideStyles.header.color
       ? overrideStyles.header.color
       : 'default',
@@ -76,24 +59,24 @@ export const getStyles = (overrideStyles, additionalStyle?) => ({
       ? overrideStyles.header.textAlign
       : 'default',
   },
-  iconButton: {
-    alignSelf: 'flex-end',
-    marginLeft: 'auto',
+  icon: {
+    color: overrideStyles.body.color,
   },
   image: {
-    // ...imageDimensions,
+    objectFit: 'contain',
   },
   imageContainer: {
     justifyContent: 'center',
-    width: '10.5%',
+    width: '15%',
     minWidth: '50px',
     maxWidth: '100px',
     padding: '5px',
   },
   textContainer: {
     flex: 1,
-    paddingHorizontal: SPACING_MEDIUM,
+    margin: '15px 0 15px 15px',
   },
+
   wrapper: {
     display: 'flex',
     alignSelf: 'top',
@@ -101,9 +84,13 @@ export const getStyles = (overrideStyles, additionalStyle?) => ({
     flex: 1,
   },
   primaryButton: {
+    width: '100%',
+    borderStyle: 'none',
     ...overrideStyles.primaryButton,
   },
   secondaryButton: {
+    width: '100%',
+    borderStyle: 'none',
     ...overrideStyles.secondaryButton,
   },
 });
