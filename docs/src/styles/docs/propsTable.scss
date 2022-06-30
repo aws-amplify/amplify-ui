@@ -27,7 +27,7 @@
 
 .docs-prop-table {
   table-layout: fixed;
-  & .amplify-table__th:nth-child(1) { width: 20%; }
+  & .amplify-table__th:nth-child(1) { width: 12rem; }
   & .amplify-table__th:nth-child(2) { width: 30%; }
-  & .amplify-table__th:nth-child(3) { width: 50%; }
+  & .amplify-table__th:nth-child(3) { width: auto; }
 }
