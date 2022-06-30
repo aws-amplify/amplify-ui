@@ -83,7 +83,7 @@ const getCSPContent = (context: Readonly<HtmlProps>) => {
 class MyDocument extends Document {
   render() {
     return (
-      <Html lang="en-us">
+      <Html lang="en-us" data-amplify-theme="amplify-docs">
         <Head>
           <meta
             httpEquiv="Content-Security-Policy"
