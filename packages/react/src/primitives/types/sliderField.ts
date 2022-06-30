@@ -1,4 +1,3 @@
-import { AriaAttributes } from 'react';
 import { Property } from 'csstype';
 
 import { StyleToken } from './style';
