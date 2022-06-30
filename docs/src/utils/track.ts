@@ -1,9 +1,5 @@
 // https://github.com/aws-amplify/docs/blob/main/src/utils/track.ts
 let configured = false;
-let firstPageOfVisit = true;
-let AWSCShortbread;
-let s;
-let AWSMA;
 
 declare global {
   interface Window {
@@ -185,25 +181,6 @@ export const track = (event: Event, data?: Record<string, any>) => {
   }
 };
 
-export const trackCopy = (code: string) => {
-  track(
-    {
-      type: 'click',
-      name: 'CopyCode',
-    },
-    {
-      code,
-    }
-  );
-};
-
-export const trackHomeCodeEdit = () => {
-  track({
-    type: 'click',
-    name: 'HomeCodeEdit',
-  });
-};
-
 export const trackClick = (name: string, data?: Record<string, unknown>) => {
   track(
     {
@@ -214,9 +191,18 @@ export const trackClick = (name: string, data?: Record<string, unknown>) => {
   );
 };
 
-export const trackScroll = (name: string) => {
-  track({
-    type: 'scroll',
-    name: name,
+export const trackScroll = (name: string, data?: Record<string, unknown>) => {
+  track(
+    {
+      type: 'scroll',
+      name: name,
+    },
+    data
+  );
+};
+
+export const trackCopy = (code: string) => {
+  trackClick('CopyCode', {
+    code,
   });
 };

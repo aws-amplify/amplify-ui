@@ -7,7 +7,7 @@ import {
   ContextProps,
 } from 'react-live';
 import * as AUI from '@aws-amplify/ui-react';
-import { trackHomeCodeEdit } from '@/utils/track';
+import { trackClick } from '@/utils/track';
 
 const { View, Alert } = AUI;
 
@@ -82,7 +82,7 @@ const HomeEditor = () => {
                 return;
               }
               if (edited === 1) {
-                trackHomeCodeEdit();
+                trackClick('HomeCodeEdit');
               }
               setEdited(edited + 1);
             }}
