@@ -18,10 +18,14 @@ import {
   SPACING_SMALL,
 } from '../constants';
 
-export const getStyles = (additionalStyle?) => ({
+export const getStyles = (overrideStyles, additionalStyle?) => ({
   body: {
     fontSize: FONT_SIZE_BASE,
     fontWeight: FONT_WEIGHT_BASE,
+    color: overrideStyles.body.color ? overrideStyles.body.color : 'default',
+    textAlign: overrideStyles.body.textAlign
+      ? overrideStyles.body.textAlign
+      : 'default',
   },
   buttonContainer: {
     backgroundColor: COLOR_LIGHT_GREY,
@@ -41,7 +45,9 @@ export const getStyles = (additionalStyle?) => ({
     textAlign: 'center',
   },
   container: {
-    backgroundColor: COLOR_WHITE,
+    backgroundColor: overrideStyles.container.backgroundColor
+      ? overrideStyles.container.backgroundColor
+      : COLOR_WHITE,
     elevation: MESSAGE_ELEVATION,
     margin: SPACING_EXTRA_LARGE,
     shadowColor: COLOR_BLACK,
@@ -63,6 +69,12 @@ export const getStyles = (additionalStyle?) => ({
   header: {
     fontSize: FONT_SIZE_LARGE,
     fontWeight: FONT_WEIGHT_BASE,
+    color: overrideStyles.header.color
+      ? overrideStyles.header.color
+      : 'default',
+    textAlign: overrideStyles.header.textAlign
+      ? overrideStyles.header.textAlign
+      : 'default',
   },
   iconButton: {
     alignSelf: 'flex-end',
@@ -87,5 +99,11 @@ export const getStyles = (additionalStyle?) => ({
     alignSelf: 'top',
     backgroundColor: 'transparent',
     flex: 1,
+  },
+  primaryButton: {
+    ...overrideStyles.primaryButton,
+  },
+  secondaryButton: {
+    ...overrideStyles.secondaryButton,
   },
 });

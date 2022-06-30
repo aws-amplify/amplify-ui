@@ -2,21 +2,36 @@ import { useMessageProps } from '../hooks';
 import { MessageLayout } from '../MessageLayout';
 
 import { getStyles } from './styles';
-// import { BannerMessageProps } from './types';
 
 export default function BannerMessage({
   position = 'top',
   ...props
 }): JSX.Element | null {
-  const defaultStyles = getStyles();
-  console.log('defaultStyyles', defaultStyles);
-  const messageProps = useMessageProps(props, defaultStyles);
+  // get and concat override styles from props
+  const overrideStyles = {
+    body: {
+      ...props.body.style,
+    },
+    container: {
+      ...props.container.style,
+    },
+    header: {
+      ...props.container.style,
+    },
+    primaryButton: {
+      ...props.primaryButton.style,
+    },
+    secondaryButton: {
+      ...props.secondaryButton.style,
+    },
+  };
 
-  console.log('banner message props', props);
+  const styles = getStyles(overrideStyles);
+  const messageProps = useMessageProps(props, styles);
 
   return (
     <MessageLayout
-      styles={defaultStyles}
+      styles={styles}
       layout={props.layout}
       {...props}
       {...messageProps}

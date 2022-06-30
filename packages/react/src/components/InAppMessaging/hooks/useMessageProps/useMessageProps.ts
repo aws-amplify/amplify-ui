@@ -1,8 +1,6 @@
 import isEmpty from 'lodash/isEmpty';
 import { MessageComponentBaseProps } from '@aws-amplify/ui-react-core';
 
-// import { useMessageImage } from '../useMessageImage';
-
 /**
  * Handle common message UI component prop logic including setting of image dimensions,
  * render booleans, and style resolving
@@ -16,10 +14,6 @@ export default function useMessageProps(
 ) {
   const { image, layout, primaryButton, secondaryButton } = props;
 
-  // const { hasRenderableImage, imageDimensions, isImageFetching } =
-  //   useMessageImage(image, layout);
-
-  // const shouldRenderMessage = !isImageFetching;
   const hasPrimaryButton = !isEmpty(primaryButton);
   const hasSecondaryButton = !isEmpty(secondaryButton);
   const hasButtons = hasPrimaryButton || hasSecondaryButton;
