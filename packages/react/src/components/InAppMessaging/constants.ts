@@ -1,10 +1,3 @@
-// color
-export const COLOR_BLACK = '#000';
-export const COLOR_GREY = '#a1a1a1';
-export const COLOR_LIGHT_GREY = '#e8e8e8';
-export const COLOR_LIGHT_GREY_2 = '#d8d8d8';
-export const COLOR_WHITE = '#fff';
-
 // spacing
 export const SPACING_SMALL = 4;
 export const SPACING_MEDIUM = 8;
@@ -22,20 +15,6 @@ export const FONT_WEIGHT_BASE = '400';
 
 // icon
 export const ICON_BUTTON_SIZE = 20;
-export const ICON_BUTTON_HIT_SLOP = 10;
-
-// shadow properties
-
-// iOS shadow values
-export const MESSAGE_SHADOW_HEIGHT = 2;
-export const MESSAGE_SHADOW_WIDTH = 2;
-export const MESSAGE_SHADOW_OPACITY = 0.1;
-export const MESSAGE_SHADOW_RADIUS = 2;
-
-// android shadow values
-export const MESSAGE_ELEVATION = 3;
-
-// Message UI Buttons
 
 // Message Component Test IDs
 export const IN_APP_MESSAGING_TEST_ID = {

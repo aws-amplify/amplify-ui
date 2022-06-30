@@ -1,9 +1,7 @@
 import {
-  COLOR_WHITE,
   FONT_SIZE_BASE,
   FONT_SIZE_LARGE,
   FONT_WEIGHT_BASE,
-  MESSAGE_ELEVATION,
   SPACING_EXTRA_LARGE,
   SPACING_SMALL,
 } from '../constants';
@@ -30,8 +28,7 @@ export const getStyles = (overrideStyles, layout, additionalStyle?) => ({
   container: {
     backgroundColor: overrideStyles.container.backgroundColor
       ? overrideStyles.container.backgroundColor
-      : COLOR_WHITE,
-    elevation: MESSAGE_ELEVATION,
+      : 'white',
     margin: SPACING_EXTRA_LARGE,
     boxShadow: '2px 2px 9px 3px rgb(0, 0, 0, .1)',
     padding: '16px',
