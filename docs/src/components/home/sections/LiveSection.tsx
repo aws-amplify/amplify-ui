@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic';
 import classNames from 'classnames';
 import { Heading, View } from '@aws-amplify/ui-react';
 import { useIntersectionObserver } from '@/components/useIntersection';
+import { trackScroll } from '@/utils/track';
 
 // react-live does not work with SSR so we have to load
 // it dynamically and only in the client
@@ -17,6 +18,9 @@ export const LiveSection = ({ platform, ...rest }) => {
     freezeOnceVisible: true,
   });
   const isVisible = !!entry?.isIntersecting;
+  if (isVisible) {
+    trackScroll('Home#Live');
+  }
 
   return (
     <View

@@ -7,6 +7,7 @@ import { HomeCTA } from '@/components/home/HomeCTA';
 import { HomeFeatureCard } from '@/components/home/HomeFeatureCard';
 import { useIntersectionObserver } from '@/components/useIntersection';
 import { useRef } from 'react';
+import { trackScroll } from '@/utils/track';
 
 export const CompatibleSection = ({ platform }) => {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -15,7 +16,9 @@ export const CompatibleSection = ({ platform }) => {
     freezeOnceVisible: true,
   });
   const isVisible = !!entry?.isIntersecting;
-
+  if (isVisible) {
+    trackScroll('Home#Compatible');
+  }
   return (
     <View
       ref={ref}
