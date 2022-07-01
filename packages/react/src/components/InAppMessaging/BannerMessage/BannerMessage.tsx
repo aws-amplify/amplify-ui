@@ -20,7 +20,6 @@ export default function BannerMessage({
     image,
     layout,
     onClose,
-    onDisplay,
     primaryButton,
     secondaryButton,
   } = props;
