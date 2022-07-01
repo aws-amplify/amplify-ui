@@ -1,25 +1,17 @@
-// ignore_for_file: implementation_imports
-
 import 'dart:async';
 import 'dart:core';
 import 'dart:math';
-import 'package:amplify_auth_cognito/src/CognitoHubEvents/AuthHubEvent.dart';
-import 'package:amplify_auth_cognito/src/CognitoPasswords/CognitoResetPasswordResult.dart';
-import 'package:amplify_auth_cognito/src/CognitoSession/CognitoAuthSession.dart';
-import 'package:amplify_auth_cognito/src/CognitoSignIn/CognitoSignInResult.dart';
-import 'package:amplify_auth_cognito/src/CognitoSignUp/CognitoResendSignUpCodeResult.dart';
-import 'package:amplify_auth_cognito/src/CognitoSignUp/CognitoSignUpResult.dart';
-import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
-
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_auth_cognito/amplify_auth_cognito_stream_controller.dart';
+import 'package:amplify_core/amplify_core.dart';
 export 'package:amplify_auth_cognito/src/types.dart';
-export 'package:amplify_auth_plugin_interface/src/types.dart';
 
-class AmplifyAuthCognitoStub extends AuthPluginInterface {
-  static final Object _token = Object();
+/// A stub of [AmplifyAuthCognito] that creates users in memory.
+class AmplifyAuthCognitoStub extends AuthPluginInterface
+    implements AmplifyPluginInterface {
+  AmplifyAuthCognitoStub() : super();
 
-  AmplifyAuthCognitoStub() : super(token: _token);
-
-  static AuthStreamController streamWrapper = AuthStreamController();
+  static AuthStreamController streamWrapper = _AuthStreamControllerStub();
 
   static set instance(AuthPluginInterface instance) {}
 
@@ -33,25 +25,25 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface {
 
   @override
   Future<SignUpResult> signUp({required SignUpRequest request}) async {
-    await Future.delayed(const Duration(milliseconds: 250));
-    User? user = users[request.username];
+    await Future<void>.delayed(const Duration(milliseconds: 50));
+    _MockUser? user = _users[request.username];
     if (user != null) {
-      throw UsernameExistsException('User already exists.');
+      throw const UsernameExistsException('_MockUser already exists.');
     } else {
-      User newUser = User(
+      _MockUser newUser = _MockUser(
         sub: Random().nextInt(10000).toString(),
         username: request.username,
         password: request.password,
         email: request.options?.userAttributes['email'],
         phoneNumber: request.options?.userAttributes['phone_number'],
       );
-      users[request.username] = newUser;
-      currentUser = newUser;
+      _users[request.username] = newUser;
+      _currentUser = newUser;
       return CognitoSignUpResult(
         isSignUpComplete: false,
         nextStep: AuthNextSignUpStep(
           signUpStep: 'CONFIRM_SIGN_UP_STEP',
-          codeDeliveryDetails: codeDeliveryDetails(newUser),
+          codeDeliveryDetails: _codeDeliveryDetails(newUser),
         ),
       );
     }
@@ -61,9 +53,9 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface {
   Future<SignUpResult> confirmSignUp({
     required ConfirmSignUpRequest request,
   }) async {
-    await Future.delayed(const Duration(milliseconds: 250));
+    await Future<void>.delayed(const Duration(milliseconds: 50));
     if (request.confirmationCode != '123456') {
-      throw CodeMismatchException('Incorrect code. Please try again.');
+      throw const CodeMismatchException('Incorrect code. Please try again.');
     }
     return CognitoSignUpResult(
       isSignUpComplete: true,
@@ -75,70 +67,70 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface {
   Future<ResendSignUpCodeResult> resendSignUpCode({
     required ResendSignUpCodeRequest request,
   }) async {
-    await Future.delayed(const Duration(milliseconds: 250));
-    User? user = users[request.username];
+    await Future<void>.delayed(const Duration(milliseconds: 50));
+    _MockUser? user = _users[request.username];
     if (user == null) {
-      throw UserNotFoundException('User does not exist.');
+      throw const UserNotFoundException('_MockUser does not exist.');
     }
-    return CognitoResendSignUpCodeResult(codeDeliveryDetails(user));
+    return CognitoResendSignUpCodeResult(_codeDeliveryDetails(user));
   }
 
   @override
   Future<SignInResult> signIn({required SignInRequest request}) async {
-    await Future.delayed(const Duration(milliseconds: 250));
-    User? user = users[request.username];
+    await Future<void>.delayed(const Duration(milliseconds: 50));
+    _MockUser? user = _users[request.username];
     if (user == null) {
-      throw UserNotFoundException('User does not exist.');
+      throw const UserNotFoundException('_MockUser does not exist.');
     }
     if (user.password != request.password) {
-      throw NotAuthorizedException('Incorrect username or password.');
+      throw const NotAuthorizedException('Incorrect username or password.');
     }
-    currentUser = user;
+    _currentUser = user;
     return CognitoSignInResult(
-      isSignedIn: isSignedIn(),
+      isSignedIn: _isSignedIn(),
       nextStep: AuthNextSignInStep(signInStep: 'DONE'),
     );
   }
 
   @override
   Future<SignInResult> confirmSignIn({ConfirmSignInRequest? request}) async {
-    await Future.delayed(const Duration(milliseconds: 250));
+    await Future<void>.delayed(const Duration(milliseconds: 50));
     return CognitoSignInResult(
-      isSignedIn: isSignedIn(),
+      isSignedIn: _isSignedIn(),
       nextStep: AuthNextSignInStep(signInStep: 'DONE'),
     );
   }
 
   @override
   Future<SignOutResult> signOut({SignOutRequest? request}) async {
-    currentUser = null;
-    return SignOutResult();
+    _currentUser = null;
+    return const SignOutResult();
   }
 
   @override
   Future<UpdatePasswordResult> updatePassword({
     UpdatePasswordRequest? request,
   }) async {
-    return UpdatePasswordResult();
+    return const UpdatePasswordResult();
   }
 
   @override
   Future<ResetPasswordResult> resetPassword({
     ResetPasswordRequest? request,
   }) async {
-    await Future.delayed(const Duration(milliseconds: 250));
+    await Future<void>.delayed(const Duration(milliseconds: 50));
     if (request == null) {
-      throw InvalidStateException('Missing request');
+      throw const InvalidStateException('Missing request');
     }
-    User? user = users[request.username];
+    _MockUser? user = _users[request.username];
     if (user == null) {
-      throw UserNotFoundException('User does not exist.');
+      throw const UserNotFoundException('_MockUser does not exist.');
     }
     return CognitoResetPasswordResult(
       isPasswordReset: true,
       nextStep: ResetPasswordStep(
         updateStep: 'DONE',
-        codeDeliveryDetails: codeDeliveryDetails(user),
+        codeDeliveryDetails: _codeDeliveryDetails(user),
       ),
     );
   }
@@ -147,36 +139,36 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface {
   Future<UpdatePasswordResult> confirmResetPassword({
     ConfirmResetPasswordRequest? request,
   }) async {
-    await Future.delayed(const Duration(milliseconds: 250));
+    await Future<void>.delayed(const Duration(milliseconds: 50));
     if (request == null) {
-      throw InvalidStateException('Missing request');
+      throw const InvalidStateException('Missing request');
     }
-    User? user = users[request.username];
+    _MockUser? user = _users[request.username];
     if (user == null) {
-      throw UserNotFoundException('User does not exist.');
+      throw const UserNotFoundException('_MockUser does not exist.');
     }
     if (request.confirmationCode != '123456') {
-      throw CodeMismatchException('Incorrect code. Please try again.');
+      throw const CodeMismatchException('Incorrect code. Please try again.');
     }
-    User updatedUser = user.copyWith(password: request.newPassword);
-    users[request.username] = updatedUser;
-    currentUser = updatedUser;
-    return UpdatePasswordResult();
+    _MockUser updatedUser = user.copyWith(password: request.newPassword);
+    _users[request.username] = updatedUser;
+    _currentUser = updatedUser;
+    return const UpdatePasswordResult();
   }
 
   @override
   Future<AuthSession> fetchAuthSession({AuthSessionRequest? request}) async {
-    return CognitoAuthSession(isSignedIn: isSignedIn());
+    return CognitoAuthSession(isSignedIn: _isSignedIn());
   }
 
   @override
   Future<AuthUser> getCurrentUser({AuthUserRequest? request}) async {
-    if (currentUser == null) {
-      throw SignedOutException('There is no user signed in.');
+    if (_currentUser == null) {
+      throw const SignedOutException('There is no user signed in.');
     } else {
       return AuthUser(
-        userId: currentUser!.sub,
-        username: currentUser!.username,
+        userId: _currentUser!.sub,
+        username: _currentUser!.username,
       );
     }
   }
@@ -185,24 +177,24 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface {
   Future<List<AuthUserAttribute>> fetchUserAttributes({
     FetchUserAttributesRequest? request,
   }) async {
-    if (currentUser == null) {
-      throw SignedOutException('There is no user signed in.');
+    if (_currentUser == null) {
+      throw const SignedOutException('There is no user signed in.');
     }
     return [
-      if (currentUser!.email != null) ...[
+      if (_currentUser!.email != null) ...[
         AuthUserAttribute(
           userAttributeKey: CognitoUserAttributeKey.email,
-          value: currentUser!.email!,
+          value: _currentUser!.email!,
         ),
         const AuthUserAttribute(
           userAttributeKey: CognitoUserAttributeKey.emailVerified,
           value: 'true',
         ),
       ],
-      if (currentUser!.phoneNumber != null) ...[
+      if (_currentUser!.phoneNumber != null) ...[
         AuthUserAttribute(
           userAttributeKey: CognitoUserAttributeKey.phoneNumber,
-          value: currentUser!.phoneNumber!,
+          value: _currentUser!.phoneNumber!,
         ),
         const AuthUserAttribute(
           userAttributeKey: CognitoUserAttributeKey.phoneNumberVerified,
@@ -211,16 +203,17 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface {
       ],
       AuthUserAttribute(
         userAttributeKey: const CognitoUserAttributeKey.custom('sub'),
-        value: currentUser!.sub,
+        value: _currentUser!.sub,
       ),
     ];
   }
 
   @override
-  Future<SignInResult> signInWithWebUI(
-      {SignInWithWebUIRequest? request}) async {
-    throw InvalidStateException(
-      'social sign in is not supported in this demo.',
+  Future<SignInResult> signInWithWebUI({
+    SignInWithWebUIRequest? request,
+  }) async {
+    throw const InvalidStateException(
+      'social sign in is not implemented.',
     );
   }
 
@@ -228,14 +221,14 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface {
   Future<UpdateUserAttributeResult> updateUserAttribute({
     UpdateUserAttributeRequest? request,
   }) async {
-    if (currentUser == null) {
-      throw SignedOutException('There is no user signed in.');
+    if (_currentUser == null) {
+      throw const SignedOutException('There is no user signed in.');
     }
     return UpdateUserAttributeResult(
       isUpdated: true,
       nextStep: AuthNextUpdateAttributeStep(
         updateAttributeStep: 'DONE',
-        codeDeliveryDetails: codeDeliveryDetails(currentUser!),
+        codeDeliveryDetails: _codeDeliveryDetails(_currentUser!),
       ),
     );
   }
@@ -252,7 +245,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface {
   Future<ConfirmUserAttributeResult> confirmUserAttribute({
     ConfirmUserAttributeRequest? request,
   }) async {
-    return ConfirmUserAttributeResult();
+    return const ConfirmUserAttributeResult();
   }
 
   @override
@@ -260,44 +253,45 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface {
       resendUserAttributeConfirmationCode({
     ResendUserAttributeConfirmationCodeRequest? request,
   }) async {
-    if (currentUser == null) {
-      throw SignedOutException('There is no user signed in.');
+    if (_currentUser == null) {
+      throw const SignedOutException('There is no user signed in.');
     }
     return ResendUserAttributeConfirmationCodeResult(
-      codeDeliveryDetails: codeDeliveryDetails(currentUser!),
+      codeDeliveryDetails: _codeDeliveryDetails(_currentUser!),
     );
   }
 
   @override
   Future<void> rememberDevice() async {
     throw UnimplementedError(
-      'rememberDevice is not supported in this demo.',
+      'rememberDevice is not implemented.',
     );
   }
 
   @override
   Future<void> forgetDevice([AuthDevice? device]) async {
     throw UnimplementedError(
-      'forgetDevice is not supported in this demo.',
+      'forgetDevice is not implemented.',
     );
   }
 
   @override
   Future<List<AuthDevice>> fetchDevices() async {
     throw UnimplementedError(
-      'fetchDevices is not supported in this demo.',
+      'fetchDevices is not implemented.',
     );
   }
 
   @override
   Future<void> deleteUser() async {
     throw UnimplementedError(
-      'deleteUser is not supported in this demo.',
+      'deleteUser is not implemented.',
     );
   }
 }
 
-class AuthStreamController {
+class _AuthStreamControllerStub extends AuthStreamController {
+  @override
   StreamController<AuthHubEvent> get authStreamController {
     return _authStreamController;
   }
@@ -305,22 +299,18 @@ class AuthStreamController {
 
 StreamController<AuthHubEvent> _authStreamController =
     StreamController<AuthHubEvent>.broadcast(
-  onListen: _onListen,
-  onCancel: _onCancel,
+  onListen: () {},
+  onCancel: () {},
 );
 
-_onListen() {}
-
-_onCancel() {}
-
-class User {
+class _MockUser {
   final String sub;
   final String username;
   final String password;
   final String? email;
   final String? phoneNumber;
 
-  const User({
+  const _MockUser({
     required this.sub,
     required this.username,
     required this.password,
@@ -328,14 +318,14 @@ class User {
     required this.email,
   });
 
-  User copyWith({
+  _MockUser copyWith({
     String? sub,
     String? username,
     String? password,
     String? email,
     String? phoneNumber,
   }) {
-    return User(
+    return _MockUser(
       sub: sub ?? this.sub,
       username: username ?? this.username,
       password: password ?? this.password,
@@ -345,13 +335,12 @@ class User {
   }
 }
 
-Map<String, User> users = {};
+_MockUser? _currentUser;
+Map<String, _MockUser> _users = {};
 
-AuthCodeDeliveryDetails codeDeliveryDetails(User user) =>
+AuthCodeDeliveryDetails _codeDeliveryDetails(_MockUser user) =>
     AuthCodeDeliveryDetails(
       destination: user.email ?? user.phoneNumber ?? 'S****@g***.com',
     );
 
-bool isSignedIn() => currentUser != null;
-User? currentUser;
-List<AuthUserAttribute> userAttributes = [];
+bool _isSignedIn() => _currentUser != null;
