@@ -51,7 +51,7 @@ function useInitMachine(data: AuthenticatorMachineOptions) {
 
 // `AuthenticatorInternal` exists to give access to the context returned via `useAuthenticator`,
 // which allows the `Authenticator` to just return `children` if a user is authenticated.
-// Once the `Provider` is removed from the `Authentcator` component and exported as
+// Once the `Provider` is removed from the `Authenticator` component and exported as
 // `AuthenticatorProvider`, this component should be renamed to `Authenticator`.
 export function AuthenticatorInternal({
   children,
