@@ -44,6 +44,9 @@
 }
 
 .docs-page-tab {
+  h2:first-of-type {
+    margin-top: 0;
+  }
   & > * + * {
     margin-block-start: var(--amplify-space-medium);
   }

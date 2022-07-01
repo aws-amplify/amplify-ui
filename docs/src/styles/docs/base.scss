@@ -152,10 +152,7 @@ h3[id] {
   scroll-margin-block-start: 6rem;
 }
 
-h2[id] {
-  &:first-of-type {
-    margin-top: 0;
-  }
+h2[id]:not(.docs-cardLinkGroup-title) {
   &:not(:first-of-type) {
     margin-top: var(--amplify-space-xxxl);
     

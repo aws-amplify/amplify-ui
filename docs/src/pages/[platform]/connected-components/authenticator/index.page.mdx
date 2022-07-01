@@ -6,6 +6,7 @@ supportedFrameworks: all
 
 import { Fragment } from '@/components/Fragment';
 import { Alert, Tabs, TabItem } from '@aws-amplify/ui-react';
+import { NextSteps } from './NextSteps';
 
 <Fragment useCommonWebContent>
   {({ platform }) => import(`./intro.${platform}.mdx`)}
@@ -20,6 +21,8 @@ import { Alert, Tabs, TabItem } from '@aws-amplify/ui-react';
 <Fragment>
   {({ platform }) => import(`./quick-start-example.${platform}.mdx`)}
 </Fragment>
+
+<NextSteps />
 
 <Fragment useCommonWebContent platforms={['web']}>
   {({ platform }) => import(`./trouble-shooting-alert.${platform}.mdx`)}
