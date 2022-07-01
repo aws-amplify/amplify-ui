@@ -21,18 +21,19 @@
   padding-inline-end: var(--amplify-components-select-padding-inline-end);
   white-space: var(--amplify-components-select-white-space);
 
+  // For Chrome on Windows, fixes darkmode text color
+  option {
+    color: initial;
+  }
+  
   // for Firefox only, to fix background color in darkmode
   @-moz-document url-prefix() {
     option {
       background-color: var(
         --amplify-components-select-option-background-color
       );
+      color: var(--amplify-components-select-option-color);
     }
-  }
-
-  // For Chrome on Windows, fixes darkmode text color
-  option {
-    color: initial;
   }
 
   &--small {
