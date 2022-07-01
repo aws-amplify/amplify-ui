@@ -12,19 +12,21 @@ import { NextSteps } from './NextSteps';
   {({ platform }) => import(`./intro.${platform}.mdx`)}
 </Fragment>
 
-## Quick Start
+## Quick start
 
-<Fragment useCommonWebContent>
-  {({ platform }) => import(`./prerequisite.${platform}.mdx`)}
-</Fragment>
-
-### 1. Pull backend configuration
+### 1. Configure backend
 
 <Fragment useCommonWebContent>
   {({ platform }) => import(`./quick-start-pull.${platform}.mdx`)}
 </Fragment>
 
-### 2. Add the Authenticator
+### 2. Install dependencies
+
+<Fragment useCommonWebContent>
+  {({ platform }) => import(`./quick-start-install.${platform}.mdx`)}
+</Fragment>
+
+### 3. Add the Authenticator
 
 <Fragment useCommonWebContent>
   {({ platform }) => import(`./quick-start-add.${platform}.mdx`)}
