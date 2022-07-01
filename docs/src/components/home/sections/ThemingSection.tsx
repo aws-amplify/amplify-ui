@@ -5,6 +5,7 @@ import { Heading, View, Text, Flex } from '@aws-amplify/ui-react';
 import { ThemeSwitcher } from '@/components/home/ThemeSwitcher';
 import { HomeCTA } from '@/components/home/HomeCTA';
 import { useIntersectionObserver } from '@/components/useIntersection';
+import { trackScroll } from '@/utils/track';
 
 export const ThemingSection = ({ colorMode, platform }) => {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -13,6 +14,9 @@ export const ThemingSection = ({ colorMode, platform }) => {
     freezeOnceVisible: true,
   });
   const isVisible = !!entry?.isIntersecting;
+  if (isVisible) {
+    trackScroll('Home#Theming');
+  }
   return (
     <View
       ref={ref}
