@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { Grid, GridProps, Link, Heading } from '@aws-amplify/ui-react';
+import { Grid, Link, Heading } from '@aws-amplify/ui-react';
 
 interface CardLinkProps {
   href: string;
@@ -35,12 +35,14 @@ export function CardLink({
   );
 }
 
-interface CardLinkGroupProps extends GridProps {
+interface CardLinkGroupProps {
   title?: string;
   // Passing an id to the group attaches it to the title, which
   // will allow it to show in the ToC
   id?: string;
   children: React.ReactNode;
+  templateColumns?: string | object;
+  gap?: string;
 }
 
 export function CardLinkGroup({

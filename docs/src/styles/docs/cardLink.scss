@@ -80,7 +80,6 @@
 
 .docs-cardLink--home {
   @extend %docs-cardLink--branded;
-  border: none;
   box-shadow: var(--amplify-shadows-medium);
   .docs-cardLink-title {
     font-size: var(--amplify-font-sizes-large);

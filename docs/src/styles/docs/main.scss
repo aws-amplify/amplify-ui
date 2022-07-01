@@ -44,10 +44,11 @@
 }
 
 .docs-page-tab {
-  h2:first-of-type {
-    margin-top: 0;
-  }
   & > * + * {
     margin-block-start: var(--amplify-space-medium);
   }
+}
+
+.docs-page-tab h2:first-of-type, .docs-meta + h2 {
+  margin-top: 0;
 }
