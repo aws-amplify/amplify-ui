@@ -138,14 +138,6 @@
   }
 }
 
-.docs-home-hero-card.docs-cardLink {
-  border: none;
-  box-shadow: var(--amplify-shadows-medium);
-  .docs-cardLink-title {
-    font-size: var(--amplify-font-sizes-large);
-  }
-}
-
 .docs-grid-bg {
   background-image: url('/svg/grid.svg'),
     linear-gradient(0deg, hsla(var(--docs-gradient-color-hsl), 1) 0%, hsla(var(--docs-gradient-color-hsl), 0) 35%),

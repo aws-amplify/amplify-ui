@@ -79,31 +79,25 @@ export const HeroSection = () => {
           {platform === 'react' ? (
             <Grid gap="medium" templateColumns={['1fr', '1fr', '1fr 1fr 1fr']}>
               <CardLink
-                variation="branded"
+                variation="home"
                 title="Cloud connected"
                 href="#authentication"
                 icon={<RiCloudWindyLine />}
-                iconAlign="top"
                 desc="We handle the hard stuff so you can focus on UI"
-                className="docs-home-hero-card"
               />
               <CardLink
-                variation="branded"
+                variation="home"
                 title="Build visually"
                 href="#figma"
                 icon={<RiDragDropLine />}
-                iconAlign="top"
                 desc="Compose in your IDE—or visually with Amplify Studio"
-                className="docs-home-hero-card"
               />
               <CardLink
-                variation="branded"
+                variation="home"
                 title="Styling your way"
                 href="#themeable"
                 icon={<RiPencilRuler2Line />}
-                iconAlign="top"
                 desc="Use plain CSS, design tokens, or with your favorite CSS-in-JS library"
-                className="docs-home-hero-card"
               />
             </Grid>
           ) : null}

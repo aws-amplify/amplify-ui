@@ -7,8 +7,7 @@ interface CardLinkProps {
   desc: string;
   icon?: React.ReactNode;
   className?: string;
-  iconAlign?: 'center' | 'top';
-  variation?: 'plain' | 'branded';
+  variation?: 'plain' | 'branded' | 'home';
 }
 
 export function CardLink({
@@ -16,14 +15,12 @@ export function CardLink({
   title,
   desc,
   icon,
-  iconAlign = 'center',
   variation = 'plain',
   className,
 }: CardLinkProps) {
   const classes = classNames(
     `docs-cardLink`,
     `docs-cardLink--${variation}`,
-    `docs-cardLink--icon-${iconAlign}`,
     className
   );
 
@@ -40,6 +37,8 @@ export function CardLink({
 
 interface CardLinkGroupProps extends GridProps {
   title?: string;
+  // Passing an id to the group attaches it to the title, which
+  // will allow it to show in the ToC
   id?: string;
   children: React.ReactNode;
 }
@@ -55,6 +54,15 @@ export function CardLinkGroup({
     <>
       {title ? (
         <Heading id={id} className="docs-cardLinkGroup-title" level={2}>
+          {
+            /* Assuming you added an id for this to show in the ToC,
+             * we'll add the utility hover anchor link here */
+            id ? (
+              <a aria-hidden="true" tabIndex={-1} href={`#${id}`}>
+                <span className="icon icon-link"></span>
+              </a>
+            ) : null
+          }
           {title}
         </Heading>
       ) : null}

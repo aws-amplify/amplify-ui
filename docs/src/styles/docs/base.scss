@@ -152,7 +152,8 @@ h3[id] {
   scroll-margin-block-start: 6rem;
 }
 
-h2[id]:not(.docs-cardLinkGroup-title) {
+// :not[class] because we don't want this applied to custom styled headings (like in CardLinkGroup)
+h2[id]:not([class]) {
   &:not(:first-of-type) {
     margin-top: var(--amplify-space-xxxl);
     
