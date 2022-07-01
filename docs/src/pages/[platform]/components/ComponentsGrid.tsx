@@ -23,7 +23,6 @@ const ComponentGrid = ({ components }) => {
         <CardLink
           variation="branded"
           icon={icon ? <Icon ariaLabel="" as={icon} /> : null}
-          iconAlign="top"
           href={`/${platform}${href}`}
           key={href}
           title={label}
