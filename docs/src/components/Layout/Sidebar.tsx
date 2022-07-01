@@ -161,10 +161,10 @@ const SecondaryNav = (props) => {
           title={<ExpanderTitle Icon={MdOutlineWidgets} text="Components" />}
           value="components"
         >
-          {primitiveComponents.map(({ heading, components }) => (
+          {primitiveComponents.map(({ heading, components }, i) => (
             <NavLinkComponentsSection
               {...props}
-              key={heading}
+              key={heading || i}
               heading={heading}
               components={components}
             />
