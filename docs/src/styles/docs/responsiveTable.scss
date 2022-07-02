@@ -34,10 +34,19 @@ $breakpoint-tableBreak: $breakpoint-large;
   td, th {
     &:first-child {
       border-left: none;
-      padding-left: 0;
     }
     &:last-child {
       border-right: none;
+    }
+  }
+  &:not([data-highlightonhover=true]) {
+    td, th {
+      &:first-child {
+        padding-left: 0;
+      }
+      &:last-child {
+        padding-right: 0;
+      }
     }
   }
   @media (max-width: $breakpoint-tableBreak) {
@@ -47,6 +56,11 @@ $breakpoint-tableBreak: $breakpoint-large;
     }
     tr, th, tbody {
       display: block;
+    }
+    &[data-highlightonhover=true] {
+      .amplify-table__row:not(.amplify-table__head *):hover {
+        background-color: transparent;
+      }
     }
     thead {
       /* We can't `display: none` a thead or SR won't recognize it */
@@ -84,7 +98,6 @@ $breakpoint-tableBreak: $breakpoint-large;
     display: flex;
     align-items: center;
     color: var(--amplify-colors-font-tertiary);
-    // font-weight: var(--amplify-font-weights-bold);
   }
   @media (max-width: $breakpoint-small) {
     display: none;
@@ -92,6 +105,9 @@ $breakpoint-tableBreak: $breakpoint-large;
 }
 
 .docs-responsive-table__value {
+  td:first-child &  {
+    font-weight: var(--amplify-font-weights-bold);
+  }
   @media (max-width: $breakpoint-tableBreak) {
     display: block;
     flex: 0 1 auto;

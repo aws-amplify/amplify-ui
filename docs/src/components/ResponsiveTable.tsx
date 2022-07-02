@@ -4,6 +4,7 @@ import {
   Table,
   TableCell,
   View,
+  ScrollView,
   TableCellProps,
   TableProps,
 } from '@aws-amplify/ui-react';
@@ -19,11 +20,12 @@ export function ResponsiveTableCell({
   children,
   label,
   className,
+  ...rest
 }: ResponsiveTableCellProps) {
   const componentClasses = classNames('docs-responsive-table__cell', className);
 
   return (
-    <TableCell className={componentClasses} as={as}>
+    <TableCell className={componentClasses} as={as} {...rest}>
       <span className="docs-responsive-table__label" aria-hidden="true">
         {label}
       </span>
@@ -63,7 +65,7 @@ export function ResponsiveTable({
   const labelWidthStyle = { '--labelWidth': labelWidth } as React.CSSProperties;
 
   return (
-    <OverflowGroup>
+    <ScrollView tabindex={0} role="group">
       <Table
         size="small"
         style={labelWidthStyle}
@@ -72,6 +74,6 @@ export function ResponsiveTable({
       >
         {children}
       </Table>
-    </OverflowGroup>
+    </ScrollView>
   );
 }
