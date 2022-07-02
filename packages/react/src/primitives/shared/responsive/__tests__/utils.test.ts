@@ -15,23 +15,31 @@ const breakpoints: Breakpoints = {
 
 describe('getValueAtCurrentBreakpoint', () => {
   it('should return string values directly', () => {
-    const result = getValueAtCurrentBreakpoint('20px', 'base', breakpoints);
+    const result = getValueAtCurrentBreakpoint({
+      breakpoint: 'base',
+      breakpoints,
+      values: '20px',
+    });
     expect(result).toBe('20px');
   });
 
   it('should return number values directly', () => {
-    const result = getValueAtCurrentBreakpoint(0, 'base', breakpoints);
+    const result = getValueAtCurrentBreakpoint({
+      breakpoint: 'base',
+      breakpoints,
+      values: 0,
+    });
     expect(result).toBe(0);
   });
 
   it('should return design token toString value directly', () => {
     const { result } = renderHook(() => useTheme());
     const { tokens } = result.current;
-    const value = getValueAtCurrentBreakpoint(
-      tokens.colors.red[10],
-      'base',
-      breakpoints
-    );
+    const value = getValueAtCurrentBreakpoint({
+      breakpoint: 'base',
+      breakpoints,
+      values: tokens.colors.red[10],
+    });
     expect(value).toBe(tokens.colors.red[10].toString());
   });
 
@@ -44,23 +52,27 @@ describe('getValueAtCurrentBreakpoint', () => {
       large: 'red.60',
     };
 
-    const baseResult = getValueAtCurrentBreakpoint(values, 'base', breakpoints);
-    const smallResult = getValueAtCurrentBreakpoint(
-      values,
-      'small',
-      breakpoints
-    );
-    const mediumResult = getValueAtCurrentBreakpoint(
-      values,
-      'medium',
-      breakpoints
-    );
-    const largeResult = getValueAtCurrentBreakpoint(
-      values,
-      'large',
+    const baseResult = getValueAtCurrentBreakpoint({
+      breakpoint: 'base',
       breakpoints,
-      'backgroundColor'
-    );
+      values,
+    });
+    const smallResult = getValueAtCurrentBreakpoint({
+      breakpoint: 'small',
+      breakpoints,
+      values,
+    });
+    const mediumResult = getValueAtCurrentBreakpoint({
+      breakpoint: 'medium',
+      breakpoints,
+      values,
+    });
+    const largeResult = getValueAtCurrentBreakpoint({
+      breakpoint: 'large',
+      breakpoints,
+      propKey: 'backgroundColor',
+      values,
+    });
 
     expect(baseResult).toBe(values.base);
     // "small" breakpoint not specified, so should fallback to "base" value
@@ -74,24 +86,28 @@ describe('getValueAtCurrentBreakpoint', () => {
     const { tokens } = result.current;
     const values = ['pink', tokens.colors.pink[60], 'pink.80'];
 
-    const baseResult = getValueAtCurrentBreakpoint(values, 'base', breakpoints);
-    const smallResult = getValueAtCurrentBreakpoint(
-      values,
-      'small',
-      breakpoints
-    );
-    const mediumResult = getValueAtCurrentBreakpoint(
-      values,
-      'medium',
+    const baseResult = getValueAtCurrentBreakpoint({
+      breakpoint: 'base',
       breakpoints,
-      'backgroundColor'
-    );
-    const largeResult = getValueAtCurrentBreakpoint(
       values,
-      'large',
+    });
+    const smallResult = getValueAtCurrentBreakpoint({
+      breakpoint: 'small',
       breakpoints,
-      'backgroundColor'
-    );
+      values,
+    });
+    const mediumResult = getValueAtCurrentBreakpoint({
+      breakpoint: 'medium',
+      breakpoints,
+      propKey: 'backgroundColor',
+      values,
+    });
+    const largeResult = getValueAtCurrentBreakpoint({
+      breakpoint: 'large',
+      breakpoints,
+      propKey: 'backgroundColor',
+      values,
+    });
     expect(baseResult).toBe(values[0]);
     expect(smallResult).toBe(values[1].toString());
     expect(mediumResult).toBe('var(--amplify-colors-pink-80)');
