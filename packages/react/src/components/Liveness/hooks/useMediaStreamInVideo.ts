@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function useMediaStreamInVideo(
   stream: MediaStream,
   videoConstraints: MediaTrackConstraints

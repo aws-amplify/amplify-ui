@@ -36,7 +36,7 @@ export const INSTRUCTIONS = [
   },
 ];
 
-export const StartLiveness = () => {
+export function StartLiveness(): JSX.Element {
   const { tokens } = useTheme();
   const { flowProps } = useLivenessFlow();
   const [_, send] = useLivenessActor();
@@ -135,4 +135,4 @@ export const StartLiveness = () => {
       </View>
     </Flex>
   );
-};
+}

@@ -12,7 +12,7 @@ const LivenessFlowContext =
 export function LivenessFlowProvider({
   children,
   ...props
-}: React.PropsWithChildren<LivenessFlowContextType>) {
+}: React.PropsWithChildren<LivenessFlowContextType>): JSX.Element {
   return (
     <LivenessFlowContext.Provider value={props}>
       {children}
@@ -20,7 +20,7 @@ export function LivenessFlowProvider({
   );
 }
 
-export function useLivenessFlow() {
+export function useLivenessFlow(): LivenessFlowContextType {
   const props = React.useContext(LivenessFlowContext);
   if (props === undefined) {
     throw new Error(
