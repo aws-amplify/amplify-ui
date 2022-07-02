@@ -159,3 +159,50 @@ export const trackSearchQuery = (
   }
   window.location.assign(suggestion.url);
 };
+
+interface Event {
+  name: string;
+  type: string;
+}
+
+export const track = (event: Event, data?: Record<string, any>) => {
+  try {
+    const opt = {
+      event,
+      data,
+    };
+    globalThis.AWSMA.ready(() => {
+      document.dispatchEvent(
+        new CustomEvent(globalThis.AWSMA.TRIGGER_EVENT, { detail: opt })
+      );
+    });
+  } catch (error) {
+    // don't want to error for analytics events
+  }
+};
+
+export const trackClick = (name: string, data?: Record<string, unknown>) => {
+  track(
+    {
+      type: 'click',
+      name: name,
+    },
+    data
+  );
+};
+
+export const trackScroll = (name: string, data?: Record<string, unknown>) => {
+  track(
+    {
+      type: 'scroll',
+      name: name,
+    },
+    data
+  );
+};
+
+export const trackCopy = (code: string) => {
+  trackClick('CopyCode', {
+    code,
+  });
+};

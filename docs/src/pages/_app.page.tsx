@@ -103,6 +103,11 @@ function MyApp({ Component, pageProps }) {
         </ThemeProvider>
       </div>
       <Script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" />
+      {/* {process.env.NODE_ENV !== 'production' ? (
+        <script src="https://aa0.awsstatic.com/s_code/js/3.0/awshome_s_code.js"></script>
+      ) : (
+        <script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js"></script>
+      )} */}
       <Script src="/scripts/shortbreadv2.js" />
     </>
   );
