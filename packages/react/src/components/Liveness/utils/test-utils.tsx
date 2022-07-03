@@ -1,19 +1,24 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import * as React from 'react';
-import { render, prettyFormat } from '@testing-library/react';
+import { render, RenderResult } from '@testing-library/react';
+import { LivenessInterpreter } from '@aws-amplify/ui';
 
 import { LivenessFlowProvider } from '../providers';
 import { LivenessFlowProps } from '../LivenessFlow';
 
-export function renderWithLivenessProvider(ui: JSX.Element) {
+type RenderWithLivenessLivenessProviderResult = RenderResult & {
+  mockFlowProps: LivenessFlowProps;
+  mockService: LivenessInterpreter;
+};
+
+export function renderWithLivenessProvider(
+  ui: JSX.Element
+): RenderWithLivenessLivenessProviderResult {
   const mockFlowProps: LivenessFlowProps = {
     sessionId: 'sessionId',
     clientActionDocument: 'clientActionDocument',
     onGetLivenessDetection: jest.fn(),
   };
-  const mockService: any = {};
+  const mockService: LivenessInterpreter = {} as LivenessInterpreter;
 
   const Wrapper: React.FC = ({ children }) => (
     <LivenessFlowProvider flowProps={mockFlowProps} service={mockService}>
@@ -30,6 +35,8 @@ export function renderWithLivenessProvider(ui: JSX.Element) {
   };
 }
 
-export function getMockedFunction<T extends (...args: any[]) => any>(fn: T) {
+export function getMockedFunction<T extends (...args: any[]) => any>(
+  fn: T
+): jest.MockedFunction<T> {
   return fn as jest.MockedFunction<T>;
 }
