@@ -1,9 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import maplibregl from 'maplibre-gl';
-import { LocationSearchProps } from 'maplibre-gl-geocoder';
+import { MaplibreGeocoderOptions } from 'maplibre-gl-geocoder';
 import { createAmplifyGeocoder } from 'maplibre-gl-js-amplify';
 import { useControl, useMap } from 'react-map-gl';
 import type { IControl } from 'react-map-gl';
+import noop from 'lodash/noop';
 
 const LOCATION_SEARCH_OPTIONS = {
   maplibregl,
@@ -15,9 +16,33 @@ const LOCATION_SEARCH_OPTIONS = {
 
 const LOCATION_SEARCH_CONTAINER = 'geocoder-container';
 
+interface LocationSearchProps extends MaplibreGeocoderOptions {
+  /**
+   * Emitted when the input is cleared
+   */
+  onClear: () => void;
+  /**
+   * Emitted when the geocoder is looking up a query
+   */
+  onLoading: (query) => void;
+  /**
+   * Fired when the geocoder returns a response
+   */
+  onResults: (results) => void;
+  /**
+   * Fired when input is set
+   */
+  onResult: (result) => void;
+  /**
+   * Emitted on error as string
+   */
+  onError: (error) => void;
+}
+
 type AmplifyLocationSearch = IControl & {
   addTo: (container: string) => void;
   on: (event: string, fn: Function) => void;
+  off: (event: string, fn: Function) => void;
 };
 
 const LocationSearchControl = ({
@@ -35,34 +60,39 @@ const LocationSearchControl = ({
 };
 
 const LocationSearchStandalone = ({
-  onLoading = () => {},
-  onResult = () => {},
-  onResults = () => {},
-  onClear = () => {},
-  onError = () => {},
+  onLoading = noop,
+  onResult = noop,
+  onResults = noop,
+  onClear = noop,
+  onError = noop,
   ...props
 }: LocationSearchProps) => {
-  const hasMounted = useRef(false);
+  const geocoderRef = useRef(null);
 
   useEffect(() => {
-    if (!hasMounted.current) {
-      const map = createAmplifyGeocoder(
-        props
-      ) as unknown as AmplifyLocationSearch;
+    const map = createAmplifyGeocoder(
+      props
+    ) as unknown as AmplifyLocationSearch;
+    geocoderRef.current = map;
 
-      map.addTo(`#${LOCATION_SEARCH_CONTAINER}`);
+    map.addTo(`#${LOCATION_SEARCH_CONTAINER}`);
 
-      map.on('result', onResult);
-      map.on('loading', onLoading);
-      map.on('results', onResults);
-      map.on('clear', onClear);
-      map.on('error', onError);
+    map.on('result', onResult);
+    map.on('loading', onLoading);
+    map.on('results', onResults);
+    map.on('clear', onClear);
+    map.on('error', onError);
 
-      hasMounted.current = true;
-    }
+    return () => {
+      map.off('result', onResult);
+      map.off('loading', onLoading);
+      map.off('results', onResults);
+      map.off('clear', onClear);
+      map.off('error', onError);
+    };
   }, [onResult, onLoading, onResults, onClear, onError, props]);
 
-  return <div id={LOCATION_SEARCH_CONTAINER} />;
+  return <div id={LOCATION_SEARCH_CONTAINER} ref={geocoderRef} />;
 };
 
 /**
