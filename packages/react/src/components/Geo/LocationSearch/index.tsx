@@ -39,10 +39,12 @@ interface LocationSearchProps extends MaplibreGeocoderOptions {
   onError: (error) => void;
 }
 
+type eventTypes = 'clear' | 'loading' | 'result' | 'results' | 'error';
+
 type AmplifyLocationSearch = IControl & {
   addTo: (container: string) => void;
-  on: (event: string, fn: Function) => void;
-  off: (event: string, fn: Function) => void;
+  on: (eventType: eventTypes, callback: (event) => void) => void;
+  off: (eventType: eventTypes, callback: (event) => void) => void;
 };
 
 const LocationSearchControl = ({
