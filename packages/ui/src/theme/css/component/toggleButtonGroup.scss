@@ -7,7 +7,8 @@
 
 .amplify-togglebuttongroup {
   .amplify-togglebutton {
-    &:focus {
+    &:focus,
+    &.amplify-togglebutton--pressed {
       z-index: 2;
     }
     
