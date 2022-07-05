@@ -19,7 +19,7 @@
     "test": "$_ run build"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "3.0.3",
+    "@aws-amplify/ui-react": "3.0.4",
     "@cucumber/gherkin": "^19.0.3",
     "@cucumber/messages": "^16.0.1",
     "@docsearch/react": "3",
@@ -69,8 +69,5 @@
     "globby": "^13.1.1",
     "postcss": "^8.2.6",
     "ts-morph": "^15.1.0"
-  },
-  "resolutions": {
-    "@types/eslint": "8.4.3"
   }
 }

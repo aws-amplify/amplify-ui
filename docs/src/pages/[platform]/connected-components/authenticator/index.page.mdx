@@ -6,21 +6,34 @@ supportedFrameworks: all
 
 import { Fragment } from '@/components/Fragment';
 import { Alert, Tabs, TabItem } from '@aws-amplify/ui-react';
+import { NextSteps } from './NextSteps';
 
 <Fragment useCommonWebContent>
   {({ platform }) => import(`./intro.${platform}.mdx`)}
 </Fragment>
 
-## Quick Start
+## Quick start
+
+### 1. Configure backend
 
 <Fragment useCommonWebContent>
-  {({ platform }) => import(`./quick-start-intro.${platform}.mdx`)}
+  {({ platform }) => import(`./quick-start-pull.${platform}.mdx`)}
 </Fragment>
 
-<Fragment>
-  {({ platform }) => import(`./quick-start-example.${platform}.mdx`)}
+### 2. Install dependencies
+
+<Fragment useCommonWebContent>
+  {({ platform }) => import(`./quick-start-install.${platform}.mdx`)}
+</Fragment>
+
+### 3. Add the Authenticator
+
+<Fragment useCommonWebContent>
+  {({ platform }) => import(`./quick-start-add.${platform}.mdx`)}
 </Fragment>
 
 <Fragment useCommonWebContent platforms={['web']}>
   {({ platform }) => import(`./trouble-shooting-alert.${platform}.mdx`)}
 </Fragment>
+
+<NextSteps />

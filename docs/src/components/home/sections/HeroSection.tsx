@@ -2,6 +2,7 @@ import NextLink from 'next/link';
 import {
   Button,
   Flex,
+  Grid,
   Heading,
   Icon,
   Text,
@@ -16,7 +17,7 @@ import {
 } from 'react-icons/ri';
 
 import { useCustomRouter } from '@/components/useCustomRouter';
-import { HomeFeatureCard } from '../HomeFeatureCard';
+import { CardLink } from '@/components/CardLink';
 import { FRAMEWORKS } from '@/data/frameworks';
 import { FrameworkLogo } from '@/components/Logo';
 import { TerminalCommand } from '@/components/InstallScripts';
@@ -76,37 +77,29 @@ export const HeroSection = () => {
             components that can connect directly to the cloud.
           </Text>
           {platform === 'react' ? (
-            <Flex direction={['column', 'column', 'row']}>
-              <HomeFeatureCard
+            <Grid gap="medium" templateColumns={['1fr', '1fr', '1fr 1fr 1fr']}>
+              <CardLink
+                variation="home"
                 title="Cloud connected"
-                as="a"
-                className="docs-home-hero-card"
                 href="#authentication"
-                icon={RiCloudWindyLine}
-              >
-                {/* Connect to the cloud in 30 seconds */}
-                We handle the hard stuff so you can focus on UI
-              </HomeFeatureCard>
-              <HomeFeatureCard
+                icon={<RiCloudWindyLine />}
+                desc="We handle the hard stuff so you can focus on UI"
+              />
+              <CardLink
+                variation="home"
                 title="Build visually"
-                as="a"
-                className="docs-home-hero-card"
                 href="#figma"
-                icon={RiDragDropLine}
-              >
-                Compose in your IDE—or visually with Amplify Studio
-              </HomeFeatureCard>
-              <HomeFeatureCard
+                icon={<RiDragDropLine />}
+                desc="Compose in your IDE—or visually with Amplify Studio"
+              />
+              <CardLink
+                variation="home"
                 title="Styling your way"
-                as="a"
-                className="docs-home-hero-card"
                 href="#themeable"
-                icon={RiPencilRuler2Line}
-              >
-                Use plain CSS, design tokens, or with your favorite CSS-in-JS
-                library
-              </HomeFeatureCard>
-            </Flex>
+                icon={<RiPencilRuler2Line />}
+                desc="Use plain CSS, design tokens, or with your favorite CSS-in-JS library"
+              />
+            </Grid>
           ) : null}
 
           <TerminalCommand command={frameworkInstallScript} />

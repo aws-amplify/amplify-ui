@@ -31,6 +31,7 @@ import {
 import { HomeCTA } from '@/components/home/HomeCTA';
 import { useIntersectionObserver } from '@/components/useIntersection';
 import { upperFirst } from 'lodash';
+import { trackScroll } from '@/utils/track';
 
 const Center = ({ children }) => (
   <Flex justifyContent="center" alignItems="center" width="100%" height="100%">
@@ -188,6 +189,9 @@ export const PrimitiveSection = ({ platform, ...rest }) => {
     freezeOnceVisible: true,
   });
   const isVisible = !!entry?.isIntersecting;
+  if (isVisible) {
+    trackScroll('Home#Primitive');
+  }
 
   return (
     <View

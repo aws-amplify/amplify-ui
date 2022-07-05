@@ -16,6 +16,7 @@ import { DataIcon } from '@/components/Icons';
 import { HomeCTA } from '@/components/home/HomeCTA';
 import { useIntersectionObserver } from '@/components/useIntersection';
 import { FigmaLogoMono } from '@/components/Logo';
+import { trackScroll } from '@/utils/track';
 
 const StudioCard = () => {
   return (
@@ -64,6 +65,9 @@ export const FigmaSection = () => {
     freezeOnceVisible: true,
   });
   const isVisible = !!entry?.isIntersecting;
+  if (isVisible) {
+    trackScroll('Home#Figma');
+  }
 
   return (
     <View

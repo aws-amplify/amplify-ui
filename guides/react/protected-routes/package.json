@@ -43,8 +43,5 @@
     "customize-cra": "^1.0.0",
     "react-app-rewired": "^2.2.1",
     "serve": "^13.0.2"
-  },
-  "resolutions": {
-    "@types/eslint": "8.4.3"
   }
 }

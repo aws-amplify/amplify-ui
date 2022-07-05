@@ -7,7 +7,13 @@
 
 .amplify-togglebuttongroup {
   .amplify-togglebutton {
+    &:focus,
+    &.amplify-togglebutton--pressed {
+      z-index: 2;
+    }
+    
     &:not(:first-of-type) {
+      margin-inline-start: calc(-1 * var(--amplify-components-button-border-width));
       border-start-start-radius: 0;
       border-end-start-radius: 0;
       // required for Safari 14 and below
@@ -16,11 +22,8 @@
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
       }
-
-      &:not(:focus) {
-        border-inline-start: 1px solid transparent;
-      }
     }
+    
     &:not(:last-of-type) {
       border-start-end-radius: 0;
       border-end-end-radius: 0;
