@@ -31,3 +31,17 @@
   & .amplify-table__th:nth-child(2) { width: 30%; }
   & .amplify-table__th:nth-child(3) { width: auto; }
 }
+
+@media (max-width: $breakpoint-medium) {
+  .props-table-expander {
+    & .amplify-expander__content {
+      padding-inline-start: unset;
+      padding-inline-end: unset;
+    }
+
+    & .amplify-expander__content__text {
+      padding-block-start: unset;
+      padding-block-end: unset;
+    }
+  }
+}
