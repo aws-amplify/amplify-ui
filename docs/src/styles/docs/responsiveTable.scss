@@ -2,11 +2,6 @@
 
 $breakpoint-tableBreak: $breakpoint-large;
 
-.docs-overflowGroup:focus {
-  box-shadow: 0 0 0 6px var(--amplify-colors-background-primary),
-              0 0 0 8px var(--amplify-colors-border-focus);
-}
-
 .docs-grid-bordered {
   border: solid var(--amplify-colors-border-tertiary);
   border-width: var(--amplify-border-widths-small) 0 0 var(--amplify-border-widths-small);
@@ -16,7 +11,6 @@ $breakpoint-tableBreak: $breakpoint-large;
     font-size: var(--amplify-font-sizes-small);
     border: solid var(--amplify-colors-border-tertiary);
     border-width: 0 var(--amplify-border-widths-small) var(--amplify-border-widths-small) 0;
-    min-width: 0;
   }
 }
 

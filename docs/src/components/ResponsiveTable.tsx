@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import {
   Table,
   TableCell,
-  ScrollView,
   TableCellProps,
   TableProps,
 } from '@aws-amplify/ui-react';
@@ -63,15 +62,13 @@ export function ResponsiveTable({
   const labelWidthStyle = { '--labelWidth': labelWidth } as React.CSSProperties;
 
   return (
-    <ScrollView tabIndex={0} role="group" className="docs-overflowGroup">
-      <Table
-        size="small"
-        style={labelWidthStyle}
-        className={componentClasses}
-        {...rest}
-      >
-        {children}
-      </Table>
-    </ScrollView>
+    <Table
+      size="small"
+      style={labelWidthStyle}
+      className={componentClasses}
+      {...rest}
+    >
+      {children}
+    </Table>
   );
 }
