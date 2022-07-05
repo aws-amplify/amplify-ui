@@ -18,7 +18,7 @@
   }
 }
 
-.docs-cardLink-img {
+.docs-cardLink-icon {
   display: flex;
   flex: 0 0 3.5rem;
   border-radius: var(--amplify-radii-small);
@@ -56,7 +56,7 @@
   &:hover {
     box-shadow: var(--amplify-shadows-medium);
   }
-  .docs-cardLink-img {
+  .docs-cardLink-icon {
     padding: var(--amplify-space-medium);
     background: var(--amplify-colors-brand-secondary-10);
     color: var(--amplify-colors-brand-secondary-60);

@@ -26,7 +26,7 @@ export function CardLink({
 
   return (
     <Link href={href} className={classes}>
-      {icon && <div className="docs-cardLink-img">{icon}</div>}
+      {icon && <div className="docs-cardLink-icon">{icon}</div>}
       <div className="docs-cardLink-details">
         <div className="docs-cardLink-title">{title}</div>
         <div className="docs-cardLink-desc">{desc}</div>
