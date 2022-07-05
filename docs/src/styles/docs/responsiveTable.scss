@@ -2,10 +2,9 @@
 
 $breakpoint-tableBreak: $breakpoint-large;
 
-/* Used with <OverflowGroup />  */
-.docs-overflow {
-  width: 100%;
-  overflow: auto;
+.docs-overflowGroup:focus {
+  box-shadow: 0 0 0 6px var(--amplify-colors-background-primary),
+              0 0 0 8px var(--amplify-colors-border-focus);
 }
 
 .docs-grid-bordered {
@@ -17,19 +16,18 @@ $breakpoint-tableBreak: $breakpoint-large;
     font-size: var(--amplify-font-sizes-small);
     border: solid var(--amplify-colors-border-tertiary);
     border-width: 0 var(--amplify-border-widths-small) var(--amplify-border-widths-small) 0;
+    min-width: 0;
   }
 }
 
-.docs-responsive-table {
+.docs-responsiveTable {
   --labelWidth: 6rem;
   line-height: var(--amplify-line-heights-small);
   pre, code {
     margin: 0;
     padding: 0;
     background: none;
-    // max-width: 280px;
     white-space: normal;
-    // word-break: break-word;
   }
   td, th {
     &:first-child {
@@ -89,7 +87,7 @@ $breakpoint-tableBreak: $breakpoint-large;
   }
 }
 
-.docs-responsive-table__label {
+.docs-responsiveTable__label {
   display: none;
   @media (max-width: $breakpoint-tableBreak) {
     padding: var(--amplify-space-xxs);
@@ -104,7 +102,7 @@ $breakpoint-tableBreak: $breakpoint-large;
   }
 }
 
-.docs-responsive-table__value {
+.docs-responsiveTable__value {
   td:first-child &  {
     font-weight: var(--amplify-font-weights-bold);
   }
@@ -115,7 +113,6 @@ $breakpoint-tableBreak: $breakpoint-large;
     overflow: auto;
     padding: var(--amplify-space-xxs);
   }
-  
 }
 
 

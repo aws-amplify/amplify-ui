@@ -3,12 +3,10 @@ import classNames from 'classnames';
 import {
   Table,
   TableCell,
-  View,
   ScrollView,
   TableCellProps,
   TableProps,
 } from '@aws-amplify/ui-react';
-import { OverflowGroup } from './OverflowGroup';
 
 interface ResponsiveTableCellProps extends TableCellProps {
   label: string;
@@ -22,16 +20,23 @@ export function ResponsiveTableCell({
   className,
   ...rest
 }: ResponsiveTableCellProps) {
-  const componentClasses = classNames('docs-responsive-table__cell', className);
+  const componentClasses = classNames('docs-responsiveTable__cell', className);
 
   return (
     <TableCell className={componentClasses} as={as} {...rest}>
-      <span className="docs-responsive-table__label" aria-hidden="true">
+      <span className="docs-responsiveTable__label" aria-hidden="true">
         {label}
       </span>
-      <span className="docs-responsive-table__value">{children}</span>
+      <span className="docs-responsiveTable__value">{children}</span>
     </TableCell>
   );
+}
+
+interface ResponsiveTableProps extends TableProps {
+  children: React.ReactNode;
+
+  /* Width of cell label when table is collapsed */
+  labelWidth?: string;
 }
 
 /**
@@ -47,25 +52,18 @@ export function ResponsiveTableCell({
  *  </TableHead>
  */
 
-interface ResponsiveTableProps extends TableProps {
-  children: React.ReactNode;
-
-  /* Width of cell label when table is collapsed */
-  labelWidth?: string;
-}
-
 export function ResponsiveTable({
   labelWidth = '6rem',
   children,
   className,
   ...rest
 }: ResponsiveTableProps) {
-  const componentClasses = classNames('docs-responsive-table', className);
+  const componentClasses = classNames('docs-responsiveTable', className);
 
   const labelWidthStyle = { '--labelWidth': labelWidth } as React.CSSProperties;
 
   return (
-    <ScrollView tabindex={0} role="group">
+    <ScrollView tabIndex={0} role="group" className="docs-overflowGroup">
       <Table
         size="small"
         style={labelWidthStyle}
