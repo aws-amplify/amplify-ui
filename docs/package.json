@@ -69,8 +69,5 @@
     "globby": "^13.1.1",
     "postcss": "^8.2.6",
     "ts-morph": "^15.1.0"
-  },
-  "resolutions": {
-    "@types/eslint": "8.4.3"
   }
 }
