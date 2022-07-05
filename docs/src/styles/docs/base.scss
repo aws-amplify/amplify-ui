@@ -169,6 +169,11 @@ h2[id]:not([class]) {
   }
 }
 
+h2[id] {
+  margin-top: var(--amplify-space-xl);
+  &:first-child { margin-top: 0; }
+}
+
 h2[id] > a,
 h3[id] > a,
 h4[id] > a {
