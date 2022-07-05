@@ -22,7 +22,7 @@ export const ComponentVariableTable = ({ componentName }) => {
   ).sort();
 
   return variableNames.length > 0 ? (
-    <ScrollView tabIndex={0} className="docs-overflowGroup">
+    <ScrollView tabIndex={0}>
       <Grid
         className="docs-grid-bordered"
         as="ul"
