@@ -17,6 +17,7 @@ export const esDict = {
   'Create Account': 'Crear cuenta',
   'Creating Account': 'Creando cuenta',
   Email: 'Email',
+  'Enter your email': 'Email',
   'Forgot Password': 'Olvidé mi contraseña',
   'Incorrect username or password': 'Nombre de usuario o contraseña incorrecta',
   'Invalid password format': 'Formato de contraseña inválido',
