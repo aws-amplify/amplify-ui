@@ -20,7 +20,7 @@ export const esDict = {
   Email: 'Email',
   'Enter your email': 'Email',
   'Forgot Password': 'Olvidé mi contraseña',
-  'Incorrect username or password.': 'Usuario o contraseña incorrectos',
+  'Incorrect username or password.': 'Nombre de usuario o contraseña incorrecta',
   'Invalid password format': 'Formato de contraseña inválido',
   'Invalid phone number format': 'Formato de número de teléfono inválido',
   'Forgot your password?': '¿Olvidó su contraseña?',
