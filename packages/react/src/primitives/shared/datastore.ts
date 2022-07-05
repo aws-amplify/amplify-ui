@@ -48,11 +48,7 @@ export const createDataStorePredicate = <Model extends PersistentModel>(
 
   return (predicate: ModelPredicate<Model>) => {
     if (isFunction(predicate[field])) {
-      return predicate[field].call(
-        predicate,
-        operator,
-        operand
-      ) as typeof predicate;
+      return predicate[field].call(predicate, operator, operand);
     }
 
     return predicate;
