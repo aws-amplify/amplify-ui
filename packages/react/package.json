@@ -40,7 +40,7 @@
     "prebuild": "rimraf dist",
     "build": "yarn run build:catalog && yarn run build:ts",
     "build:ts": "rollup --config",
-    "build:catalog": "ts-node scripts/generatePrimitivesCatalog.ts",
+    "build:catalog": "node --require esbuild-register scripts/generatePrimitiveCatalog.ts",
     "dev": "tsup --watch",
     "dev:build": "tsup",
     "update:icons": "node scripts/updateIcons.js",
@@ -97,6 +97,7 @@
     "@typescript-eslint/eslint-plugin": "^5.20.0",
     "@typescript-eslint/parser": "^5.20.0",
     "degit": "^2.8.4",
+    "esbuild-register": "^3.3.3",
     "eslint": "^8.13.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
@@ -116,8 +117,7 @@
     "rollup-plugin-terser": "^7.0.2",
     "size-limit": "^7.0.8",
     "ts-jest": "^27.0.3",
-    "ts-morph": "^12.0.0",
-    "ts-node": "^10.2.1"
+    "ts-morph": "^12.0.0"
   },
   "sideEffects": [
     "dist/**/*.css"
