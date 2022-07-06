@@ -7,7 +7,7 @@ import {
   LivenessOvalDetails,
   IlluminationState,
 } from './liveness';
-import { VideoRecorder } from '../../helpers';
+import { VideoRecorder, LivenessStreamProvider } from '../../helpers';
 import { Face, FaceDetection } from './faceDetection';
 
 export interface LivenessContext {
@@ -36,6 +36,7 @@ export interface LivenessContext {
     endFace: Face;
   };
   errorState: LivenessErrorState | null;
+  livenessStreamProvider: LivenessStreamProvider;
 }
 
 export type LivenessEventTypes =

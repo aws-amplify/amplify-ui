@@ -18,7 +18,7 @@ import {
   drawLivenessOvalInCanvas,
   getFaceMatchStateInLivenessOval,
   getRandomLivenessOvalDetails,
-  LivenessPredictionsProvider,
+  LivenessStreamProvider,
   VideoRecorder,
   estimateIllumination,
   recordLivenessAnalyticsEvent,
@@ -51,6 +51,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         endFace: undefined,
       },
       errorState: null,
+      livenessStreamProvider: undefined,
     },
     on: {
       CANCEL: 'userCancel',
@@ -71,7 +72,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           src: 'checkVirtualCameraAndGetStream',
           onDone: {
             target: 'notRecording',
-            actions: ['updateVideoMediaStream'],
+            actions: [
+              'updateVideoMediaStream',
+              'initializeLivenessStreamProvider',
+            ],
           },
           onError: {
             target: 'permissionDenied',
@@ -241,6 +245,11 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           };
         },
       }),
+      initializeLivenessStreamProvider: assign({
+        livenessStreamProvider: (context) => {
+          return new LivenessStreamProvider(context.flowProps.sessionId);
+        },
+      }),
       setDOMAndCameraDetails: assign({
         videoAssociatedParams: (context, event) => ({
           ...context.videoAssociatedParams,
@@ -260,7 +269,11 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           const recorder = new VideoRecorder(
             context.videoAssociatedParams.videoMediaStream
           );
-          recorder.start();
+          recorder.start(100);
+
+          context.livenessStreamProvider.streamLivenessVideo(
+            recorder.videoStream
+          );
 
           return {
             ...context.videoAssociatedParams,
@@ -631,8 +644,14 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             },
           ],
         };
+
+        await context.livenessStreamProvider.sendClientSessionInfoEvent(
+          livenessActionDocument
+        );
+        await context.livenessStreamProvider.closeStream();
+
         // Put liveness video
-        const provider = new LivenessPredictionsProvider();
+        const provider = new LivenessStreamProvider(sessionId);
         await provider.putLivenessVideo({
           sessionId,
           videoBlob,

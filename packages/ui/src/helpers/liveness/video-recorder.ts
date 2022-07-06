@@ -9,6 +9,8 @@ export interface VideoRecorderOptions {
  * Helper wrapper class over the native MediaRecorder.
  */
 export class VideoRecorder {
+  public videoStream: ReadableStream<Blob>;
+
   private _stream: MediaStream;
   private _options: VideoRecorderOptions;
   private _recorder: MediaRecorder;
@@ -28,17 +30,26 @@ export class VideoRecorder {
   }
 
   private _setupCallbacks() {
-    this._recorder.ondataavailable = (e: BlobEvent) => {
-      if (e.data && e.data.size > 0) {
-        this._chunks.push(e.data);
-      }
-    };
+    this.videoStream = new ReadableStream({
+      start: (controller) => {
+        this._recorder.ondataavailable = (e: BlobEvent) => {
+          if (e.data && e.data.size > 0) {
+            this._chunks.push(e.data);
+            controller.enqueue(e.data);
+          }
+        };
 
-    this._recorder.onerror = (e: Event) => {
-      if (this.getState() !== 'stopped') {
-        this.stop();
-      }
-    };
+        this._recorder.onerror = (e: Event) => {
+          if (this.getState() !== 'stopped') {
+            this.stop();
+          }
+        };
+
+        this._recorder.onstop = (e: Event) => {
+          controller.close();
+        };
+      },
+    });
   }
 
   getState(): string {
