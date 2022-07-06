@@ -5,8 +5,6 @@ import {
   TableBody,
   TableHead,
   TableCell,
-  Button,
-  View,
 } from '@aws-amplify/ui-react';
 import { ResponsiveTable, ResponsiveTableCell } from './ResponsiveTable';
 
