@@ -12,10 +12,6 @@
       "import": "./dist/esm/internal.js",
       "require": "./dist/internal.js"
     },
-    "./internal/primitives-catalog": {
-      "import": "./dist/esm/primitives-catalog.js",
-      "default": null
-    },
     "./legacy": {
       "import": "./dist/esm/legacy.js",
       "require": "./dist/legacy.js"
@@ -42,7 +38,7 @@
   ],
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "yarn run build:ts && yarn run build:catalog",
+    "build": "yarn run build:catalog && yarn run build:ts",
     "build:ts": "rollup --config",
     "build:catalog": "ts-node scripts/generatePrimitivesCatalog.ts",
     "dev": "tsup --watch",
