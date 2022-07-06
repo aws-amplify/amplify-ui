@@ -196,8 +196,12 @@ const jsonString = JSON.stringify(catalog, null, 2);
 const exportString = `import { PrimitiveCatalogType } from './types/catalog';
 export const PrimitiveCatalog: PrimitiveCatalogType = ${jsonString};`;
 
-// Generates dist/primitives.js file
-fs.mkdirSync(`${path.resolve(__dirname, '..')}/dist`);
+// Generates dist folder file since it's deleted in `prebuild`
+// NOTE: This line can be removed when we remove primitives.json output
+const distFolderPath = `${path.resolve(__dirname, '..')}/dist`;
+if (!fs.existsSync(distFolderPath)) {
+  fs.mkdirSync(distFolderPath);
+}
 
 const JSONoutputPath = `${path.resolve(__dirname, '..')}/dist/primitives.json`;
 const internalOutputPath = path.resolve(

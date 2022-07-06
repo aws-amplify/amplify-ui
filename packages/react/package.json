@@ -40,7 +40,7 @@
     "prebuild": "rimraf dist",
     "build": "yarn run build:catalog && yarn run build:ts",
     "build:ts": "rollup --config",
-    "build:catalog": "ts scripts/generatePrimitiveCatalog.ts",
+    "build:catalog": "yarn ts scripts/generatePrimitiveCatalog.ts",
     "dev": "tsup --watch",
     "dev:build": "tsup",
     "update:icons": "node scripts/updateIcons.js",
