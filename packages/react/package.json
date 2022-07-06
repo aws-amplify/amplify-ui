@@ -40,7 +40,7 @@
     "prebuild": "rimraf dist",
     "build": "yarn run build:catalog && yarn run build:ts",
     "build:ts": "rollup --config",
-    "build:catalog": "node --require esbuild-register scripts/generatePrimitiveCatalog.ts",
+    "build:catalog": "ts scripts/generatePrimitiveCatalog.ts",
     "dev": "tsup --watch",
     "dev:build": "tsup",
     "update:icons": "node scripts/updateIcons.js",
@@ -52,6 +52,7 @@
     "test:watch": "yarn test:unit:watch",
     "test:unit": "jest",
     "test:unit:watch": "jest --watch",
+    "ts": "node -r esbuild-register",
     "size": "yarn run size-limit"
   },
   "dependencies": {
