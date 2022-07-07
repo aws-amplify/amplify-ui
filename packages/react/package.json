@@ -67,8 +67,8 @@
     "deepmerge": "4.2.2",
     "lodash": "4.17.21",
     "mapbox-gl": "1.13.1",
-    "maplibre-gl": "1.15.3",
-    "maplibre-gl-js-amplify": "1.5.0",
+    "maplibre-gl": "2.1.9",
+    "maplibre-gl-js-amplify": "2.0.0",
     "qrcode": "1.5.0",
     "react-generate-context": "1.0.1",
     "react-map-gl": "7.0.15"
@@ -134,7 +134,7 @@
       "name": "Geo",
       "path": "dist/esm/index.js",
       "import": "{ MapView, LocationSearch }",
-      "limit": "300 kB"
+      "limit": "330 kB"
     }
   ]
 }
