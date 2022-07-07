@@ -152,7 +152,7 @@ describe('Liveness Machine', () => {
     mockedHelpers.BlazeFaceFaceDetection.mockImplementation(
       () => mockBlazeFace
     );
-    mockedHelpers.LivenessPredictionsProvider.mockImplementation(
+    mockedHelpers.LivenessStreamProvider.mockImplementation(
       () => mockLivenessPredictionsProvider
     );
     mockedHelpers.drawLivenessOvalInCanvas.mockImplementation(() => {});
