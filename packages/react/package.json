@@ -134,7 +134,7 @@
       "name": "Geo",
       "path": "dist/esm/index.js",
       "import": "{ MapView, LocationSearch }",
-      "limit": "300 kB"
+      "limit": "330 kB"
     }
   ]
 }
