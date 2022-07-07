@@ -43,11 +43,13 @@ interface CardLinkGroupProps {
   children: React.ReactNode;
   templateColumns?: string | object;
   gap?: string;
+  headingLevel?: 1 | 2 | 3 | 4 | 6;
 }
 
 export function CardLinkGroup({
   title,
   children,
+  headingLevel = 2,
   templateColumns = { base: '1fr', large: '1fr 1fr' },
   id,
   gap = 'large',
@@ -55,7 +57,11 @@ export function CardLinkGroup({
   return (
     <>
       {title ? (
-        <Heading id={id} className="docs-cardLinkGroup-title" level={2}>
+        <Heading
+          id={id}
+          className="docs-cardLinkGroup-title"
+          level={headingLevel}
+        >
           {
             /* Assuming you added an id for this to show in the ToC,
              * we'll add the utility hover anchor link here */
