@@ -16,6 +16,8 @@ export interface LinkOptions {
   isExternal?: boolean;
 
   /**
+   * @deprecated
+   * Please stop using this porp as it will be deprecated soon
    * @description
    * A string representation of the URL path
    */

@@ -4,11 +4,16 @@ import classNames from 'classnames';
 import { ComponentClassNames } from '../shared';
 import { LinkProps, Primitive } from '../types';
 import { View } from '../View';
+import { useDeprecationWarning } from '../../hooks/useDeprecationWarning';
 
 const LinkPrimitive: Primitive<LinkProps, 'a'> = (
   { as = 'a', children, className, isExternal, to, ...rest },
   ref
 ) => {
+  useDeprecationWarning({
+    shouldWarn: to != null,
+    message: `Please stop using 'to' prop as it will be deprecated soon.`,
+  });
   return (
     <View
       as={as}
