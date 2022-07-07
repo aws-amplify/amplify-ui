@@ -1,3 +1,4 @@
 .amplify-input {
   @include amplify-field-control;
+  user-select: text;
 }
