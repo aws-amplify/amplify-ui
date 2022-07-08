@@ -18,7 +18,7 @@
     "angular": "yarn angularcli",
     "angular:install": "yarn angularcli:install",
     "cra": "yarn --cwd apps/react/cra build ",
-    "cra:install": "echo 'NOTE: Testing using npm install instead of yarn' && npm install apps/react/cra install",
+    "cra:install": "echo 'NOTE: Testing using npm install instead of yarn' && npm install --prefix apps/react/cra",
     "cra-ts": "yarn --cwd apps/react/cra-ts build ",
     "cra-ts:install": "yarn --cwd apps/react/cra-ts install",
     "next": "yarn --cwd apps/react/next build ",
