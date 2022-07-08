@@ -7,6 +7,7 @@ import { get, escapeRegExp } from 'lodash';
 
 let language = 'en-US';
 let window = null;
+let stub = null;
 
 /**
  * Given dot delimited paths to a method (e.g. Amplify.Auth.signIn) on window,
@@ -105,10 +106,15 @@ Given(
 
     cy.fixture(fixture).then((result) => {
       console.info('`%s` mocked with %o', path, result);
-      cy.stub(obj, method).returns(result);
+      stub = cy.stub(obj, method);
+      stub.returns(result);
     });
   }
 );
+
+When('Sign in was called with {string}', (username: string) => {
+  expect(stub.calledWith(username, Cypress.env('VALID_PASSWORD'))).to.be.true;
+});
 
 When('I type an invalid password', () => {
   cy.findInputField('Password').type('invalidpass');
