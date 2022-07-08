@@ -4684,10 +4684,10 @@
   resolved "https://registry.yarnpkg.com/@mapbox/whoots-js/-/whoots-js-3.1.0.tgz#497c67a1cef50d1a2459ba60f315e448d2ad87fe"
   integrity sha512-Es6WcD0nO5l+2BOQS4uLfNPYQaNDfbot3X1XUoloz+x0mPDS3eeORZJl06HXjwBG1fOGwCRnzK88LMdxKRrd6Q==
 
-"@maplibre/maplibre-gl-geocoder@^1.3.0":
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/@maplibre/maplibre-gl-geocoder/-/maplibre-gl-geocoder-1.3.1.tgz#d7c8dd27f4e574ef6f556e31dc8ec5e570adec31"
-  integrity sha512-u9ue09xt70ajEZh9+k8aD7AplfObMxBrsO1WWb5ZPXiwyGdfEsW6/BMk8OF7lvtG8r23wm2sp7GTQ8DhGGSVpQ==
+"@maplibre/maplibre-gl-geocoder@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@maplibre/maplibre-gl-geocoder/-/maplibre-gl-geocoder-1.4.0.tgz#13f31550cd17ef94df21042a72b7ea23cd944925"
+  integrity sha512-bUDYTMfYAm5gVYnnpnbWafNTlirNOZ/TIluL56Q5UHzonPQczVzee78tFE350g2rmolUPwFMeBST+BpGeDjSPQ==
   dependencies:
     lodash.debounce "^4.0.6"
     subtag "^0.5.0"
@@ -16425,13 +16425,13 @@ maplibre-gl-draw-circle@^0.0.1:
     "@turf/helpers" "^6.1.4"
     "@turf/length" "^6.0.2"
 
-maplibre-gl-js-amplify@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/maplibre-gl-js-amplify/-/maplibre-gl-js-amplify-2.0.0.tgz#964461c194d787328f9ea5f9d292503d2aff6e59"
-  integrity sha512-UgWwJPUX4CAKuUh1O7gxEgUWaToAbYnzqJPmgn3cZlRjhlcOXYP1lo9KiH3xbIeymau992LxrlYtKQHT+nExqA==
+maplibre-gl-js-amplify@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/maplibre-gl-js-amplify/-/maplibre-gl-js-amplify-2.0.1.tgz#5d9073cdebe02bc62bb4c84951a1f048963b15dd"
+  integrity sha512-uFI17VvzzL2ilmuAA5uCP3JTzs47S04L2/G084yuD6p3R1l/68JAGiD6VXpkpT7Wi30XG8SGrULceMWYGn3jFQ==
   dependencies:
     "@mapbox/mapbox-gl-draw" "^1.3.0"
-    "@maplibre/maplibre-gl-geocoder" "^1.3.0"
+    "@maplibre/maplibre-gl-geocoder" "^1.4.0"
     "@turf/along" "^6.5.0"
     "@turf/circle" "^6.5.0"
     "@turf/distance" "^6.5.0"
