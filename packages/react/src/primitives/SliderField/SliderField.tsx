@@ -29,6 +29,7 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
     emptyTrackColor,
     errorMessage,
     filledTrackColor,
+    formatValue,
     hasError = false,
     id,
     isDisabled,
@@ -77,6 +78,10 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
     [onChange]
   );
 
+  const formattedValue = isFunction(formatValue)
+    ? formatValue(currentValue)
+    : null;
+
   const isVertical = orientation === 'vertical';
   const componentClasses = classNames(
     ComponentClassNames.SliderFieldTrack,
@@ -109,7 +114,9 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
         visuallyHidden={labelHidden}
       >
         <View as="span">{label}</View>
-        {!isValueHidden ? <View as="span">{currentValue}</View> : null}
+        {!isValueHidden
+          ? formattedValue ?? <View as="span">{currentValue}</View>
+          : null}
       </Label>
       <FieldDescription
         id={descriptionId}

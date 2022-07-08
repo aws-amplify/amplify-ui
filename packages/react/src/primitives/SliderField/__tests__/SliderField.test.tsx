@@ -85,13 +85,28 @@ describe('SliderField: ', () => {
 
     it('should display value if isValueHidden is false', async () => {
       render(<SliderField defaultValue={10} label="slider" />);
-      const value = await screen.queryByText('10');
+      const value = screen.queryByText('10');
+      expect(value).toBeInTheDocument();
+    });
+
+    it('should display formatted value if formatValue is provided', async () => {
+      render(
+        <SliderField
+          defaultValue={10}
+          label="slider"
+          formatValue={(value) => {
+            return `${value}%`;
+          }}
+        />
+      );
+
+      const value = await screen.findByText('10%');
       expect(value).toBeInTheDocument();
     });
 
     it('should not display value if isValueHidden is true', async () => {
       render(<SliderField defaultValue={10} label="slider" isValueHidden />);
-      const value = await screen.queryByText('10');
+      const value = screen.queryByText('10');
       expect(value).not.toBeInTheDocument();
     });
   });
@@ -290,7 +305,7 @@ describe('SliderField: ', () => {
         />
       );
 
-      const errorText = await screen.queryByText(errorMessage);
+      const errorText = screen.queryByText(errorMessage);
       expect(errorText).not.toBeInTheDocument();
     });
 
@@ -303,7 +318,7 @@ describe('SliderField: ', () => {
           hasError
         />
       );
-      const errorText = await screen.queryByText(errorMessage);
+      const errorText = screen.queryByText(errorMessage);
       expect(errorText.innerHTML).toContain(errorMessage);
     });
   });
@@ -318,7 +333,7 @@ describe('SliderField: ', () => {
         />
       );
 
-      const descriptiveText = await screen.queryByText('Description');
+      const descriptiveText = screen.queryByText('Description');
       expect(descriptiveText.innerHTML).toContain('Description');
     });
 
