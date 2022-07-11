@@ -1,5 +1,7 @@
 import type { ComponentName } from '../types/catalog';
 
+const baseURL = `https://developer.mozilla.org/en-US/docs/Web/HTML/Element`;
+
 type ComponentNames = Exclude<
   ComponentName,
   | 'ButtonGroup'
@@ -21,7 +23,7 @@ type ComponentNames = Exclude<
 type StandardHTMLAttributes = {
   [key in ComponentNames]: {
     element: string;
-    link?: string;
+    url?: string;
   };
 };
 
@@ -36,147 +38,124 @@ const standardHTMLAttributes: StandardHTMLAttributes = {
     element: 'div',
   },
   Button: {
-    element: '',
-    link: '',
+    element: 'button',
   },
   CheckboxField: {
-    element: '',
-    link: '',
+    element: 'input',
+    url: `${baseURL}/input/checkbox`,
   },
   Collection: {
-    element: '',
-    link: '',
+    element: 'div',
   },
   Divider: {
-    element: '',
-    link: '',
+    element: 'hr',
   },
   Expander: {
-    element: '',
-    link: '',
+    element: 'div',
   },
   Flex: {
-    element: '',
-    link: '',
+    element: 'div',
   },
   Grid: {
-    element: '',
-    link: '',
+    element: 'div',
   },
+  // check this one
   Heading: {
-    element: '',
-    link: '',
+    element: 'h1-h6',
+    url: `${baseURL}/Heading_Elements`,
   },
   Icon: {
-    element: '',
-    link: '',
+    element: 'svg',
+    url: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/svg`,
   },
   Image: {
-    element: '',
-    link: '',
+    element: 'img',
   },
   Link: {
-    element: '',
-    link: '',
+    element: 'a',
   },
   Loader: {
-    element: '',
-    link: '',
+    element: 'svg',
+    url: `https://developer.mozilla.org/en-US/docs/Web/SVG/Element/svg`,
   },
   Menu: {
-    element: '',
-    link: '',
+    element: 'div',
   },
   Pagination: {
-    element: '',
-    link: '',
+    element: 'nav',
   },
   PasswordField: {
-    element: '',
-    link: '',
+    element: 'input',
+    url: `${baseURL}/input/password`,
   },
   PhoneNumberField: {
-    element: '',
-    link: '',
+    element: 'input',
+    url: `${baseURL}/input/tel`,
   },
   Placeholder: {
-    element: '',
-    link: '',
+    element: 'div',
   },
   RadioGroupField: {
-    element: '',
-    link: '',
+    element: 'input',
+    url: `${baseURL}/input/radio`,
   },
   Rating: {
-    element: '',
-    link: '',
+    element: 'div',
   },
   ScrollView: {
-    element: '',
-    link: '',
+    element: 'div',
   },
   SearchField: {
-    element: '',
-    link: '',
+    element: 'input',
+    url: `${baseURL}/input/search`,
   },
   SelectField: {
-    element: '',
-    link: '',
+    element: 'select',
   },
   SliderField: {
-    element: '',
-    link: '',
+    element: 'span',
   },
   StepperField: {
-    element: '',
-    link: '',
+    element: 'input',
+    url: `${baseURL}/input/number`,
   },
   SwitchField: {
-    element: '',
-    link: '',
+    element: 'input',
+    url: `${baseURL}/input/checkbox`,
   },
   Table: {
-    element: '',
-    link: '',
+    element: 'table',
   },
   Tabs: {
-    element: '',
-    link: '',
+    element: 'div',
   },
   Text: {
-    element: '',
-    link: '',
+    element: 'p',
   },
   TextAreaField: {
-    element: '',
-    link: '',
+    element: 'textarea',
   },
   TextField: {
-    element: '',
-    link: '',
+    element: 'textarea',
   },
   ToggleButton: {
-    element: '',
-    link: '',
+    element: 'button',
   },
   View: {
-    element: '',
-    link: '',
+    element: 'div',
   },
   VisuallyHidden: {
-    element: '',
-    link: '',
+    element: 'span',
   },
 };
 
 export const getStandardHTMLAttributes = (displayName: string) => {
   console.log('display name: ', displayName);
 
-  const { element, link } = standardHTMLAttributes[displayName];
+  const { element, url } = standardHTMLAttributes[displayName];
 
   const MDNlink = `<Link href="${
-    link ||
-    `https://developer.mozilla.org/en-US/docs/Web/HTML/Element/${element}`
+    url || `${baseURL}/${element}`
   }" isExternal>MDN Documentation</Link>`;
 
   return `${displayName} will also accept any of the standard HTML attributes that a <code>${element}</code> accepts, which can be found in the ${MDNlink}.`;
