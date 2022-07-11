@@ -59,7 +59,6 @@ const standardHTMLAttributes: StandardHTMLAttributes = {
   Grid: {
     element: 'div',
   },
-  // check this one
   Heading: {
     element: 'h1-h6',
     url: `${baseURL}/Heading_Elements`,
@@ -150,13 +149,11 @@ const standardHTMLAttributes: StandardHTMLAttributes = {
 };
 
 export const getStandardHTMLAttributes = (displayName: string) => {
-  console.log('display name: ', displayName);
-
   const { element, url } = standardHTMLAttributes[displayName];
 
   const MDNlink = `<Link href="${
     url || `${baseURL}/${element}`
   }" isExternal>MDN Documentation</Link>`;
 
-  return `${displayName} will also accept any of the standard HTML attributes that a <code>${element}</code> accepts, which can be found in the ${MDNlink}.`;
+  return `${displayName} will also accept any of the standard HTML attributes that a <code>${element}</code> element accepts, which can be found in the ${MDNlink}.`;
 };
