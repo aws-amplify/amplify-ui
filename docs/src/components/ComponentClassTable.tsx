@@ -2,7 +2,6 @@ import * as React from 'react';
 import {
   Table,
   ComponentClassObject,
-  View,
   TableRow,
   TableBody,
   TableHead,
@@ -19,27 +18,37 @@ export const ComponentClassTable = ({ componentName }) => {
           value.components.includes(componentName)
         );
       })
-      .map((value: any) => (
+      .map((value: { className: string; description?: string }) => (
         <TableRow key={value.className}>
           <TableCell>
-            <code>{value.className}</code>
+            <span className="docs-responsive-table__label" aria-hidden="true">
+              Class
+            </span>
+            <span className="docs-responsive-table__value">
+              <code>{value.className}</code>
+            </span>
           </TableCell>
-          <TableCell>{value.description}</TableCell>
+          <TableCell>
+            <span className="docs-responsive-table__label" aria-hidden="true">
+              Description
+            </span>
+            <span className="docs-responsive-table__value">
+              {value.description}
+            </span>
+          </TableCell>
         </TableRow>
       ));
   }, [componentName]);
 
   return (
-    <View className="docs-css-classes">
-      <Table variation="bordered">
-        <TableHead>
-          <TableRow>
-            <TableCell as="th">Class</TableCell>
-            <TableCell as="th">Description</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>{targetClasses}</TableBody>
-      </Table>
-    </View>
+    <Table variation="bordered" size="small" className="docs-responsive-table">
+      <TableHead>
+        <TableRow>
+          <TableCell as="th">Class</TableCell>
+          <TableCell as="th">Description</TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>{targetClasses}</TableBody>
+    </Table>
   );
 };

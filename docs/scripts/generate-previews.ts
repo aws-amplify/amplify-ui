@@ -3,6 +3,7 @@ import {
   Image,
   loadImage,
   NodeCanvasRenderingContext2D,
+  registerFont,
 } from 'canvas';
 import fs from 'fs';
 import path from 'path';
@@ -23,6 +24,21 @@ import { FRAMEWORKS } from '../src/data/frameworks';
 import { getPagesManifest } from '../src/utils/getPagesManifest';
 import { META_INFO } from '../src/data/meta';
 import { SITE_NAME } from '../src/data/general';
+
+try {
+  registerFont(path.join(__dirname, `../public/fonts/Inter-Regular.otf`), {
+    family: 'Inter',
+  });
+
+  registerFont(
+    path.join(__dirname, `../public/fonts/SourceCodePro-Regular.ttf`),
+    {
+      family: 'SourceCodePro',
+    }
+  );
+} catch (error) {
+  console.log('⚠️ Error loading fonts!');
+}
 
 dotenv.config();
 
@@ -46,9 +62,10 @@ export const drawText = (
   context.fillStyle = options.fillStyle;
 
   let currentLine = '';
+  let textMetrics;
 
   text.split(' ').forEach((word) => {
-    const textMetrics = context.measureText(currentLine + ' ' + word);
+    textMetrics = context.measureText(currentLine + ' ' + word);
 
     if (textMetrics.width > maxWidth) {
       lines.push(currentLine);
@@ -58,15 +75,18 @@ export const drawText = (
     }
   });
 
+  const lineHeight =
+    (textMetrics.emHeightAscent + textMetrics.emHeightDescent) * 1.25;
+
   // Add last remaining line
   lines.push(currentLine);
-
   // Draw lines
-  lines.forEach((line, index) => {
+  // (only take the first 3 lines and add ellipsis if longer)
+  lines.slice(0, 3).forEach((line, index) => {
     context.fillText(
-      line.trim(),
+      line.trim() + (index === 2 ? '...' : ''),
       options.positionX,
-      options.positionY + 35 * index
+      options.positionY + lineHeight * index
     );
   });
 };
@@ -74,7 +94,7 @@ export const drawText = (
 export const drawSocialPreview = async (
   title: string,
   description: string | undefined,
-  url: string,
+  text?: string,
   backgroundImage?: Image
 ) => {
   const canvas = createCanvas(PREVIEW_WIDTH, PREVIEW_HEIGHT);
@@ -92,29 +112,29 @@ export const drawSocialPreview = async (
 
   // Draw Preview title
   drawText(context, title, {
-    positionX: 60,
-    positionY: 360,
-    font: 'bold 64pt Inter',
-    fillStyle: '#000',
+    positionX: PREVIEW_MARGIN,
+    positionY: 300,
+    font: '64pt Inter, Microsoft Sans Serif, sans-serif',
+    fillStyle: '#0D1A26',
     maxWidth: PREVIEW_WIDTH - PREVIEW_MARGIN * 2,
   });
 
   // Draw Preview description
   if (description) {
     drawText(context, description, {
-      positionX: 67,
-      positionY: 420,
-      font: 'light 20pt Inter',
+      positionX: PREVIEW_MARGIN,
+      positionY: 360,
+      font: '24pt Inter, Microsoft Sans Serif, sans-serif',
       fillStyle: PREVIEW_TEXT_COLOR,
-      maxWidth: PREVIEW_WIDTH - PREVIEW_MARGIN * 6,
+      maxWidth: PREVIEW_WIDTH - PREVIEW_MARGIN * 2,
     });
   }
 
   // Draw Preview URL
-  drawText(context, url, {
-    positionX: 67,
-    positionY: 550,
-    font: 'light 20pt Inter',
+  drawText(context, text, {
+    positionX: PREVIEW_MARGIN,
+    positionY: 520,
+    font: '24pt SourceCodePro, mono',
     fillStyle: PREVIEW_LINK_COLOR,
     maxWidth: PREVIEW_WIDTH - PREVIEW_MARGIN * 2,
   });
@@ -129,25 +149,42 @@ const writeSocialPreview = async ({
   frontmatter,
 }) => {
   if (allPaths.includes(asHref)) {
-    const { title, metaTitle, description, metaDescription } = frontmatter;
-    const url = process.env.SITE_URL + asHref;
-    const backgroundImage = await loadImage(
-      path.join(__dirname, '../public/preview-background.png')
-    );
-    const canvas = await drawSocialPreview(
-      metaTitle ?? title,
-      metaDescription ?? description,
-      url,
-      backgroundImage
-    );
-
-    const buffer = canvas.toBuffer('image/png');
     const imagePath = getImagePath(asSlug);
-
-    console.info(`Generating social preview: ${asSlug}`);
-
     const filePath = path.resolve(__dirname, '../public' + imagePath);
-    await fs.promises.writeFile(filePath, buffer);
+
+    // Special preview images for homepage
+    if (FRAMEWORKS.includes(asSlug)) {
+      const img = await fs.promises.readFile(
+        path.join(__dirname, `../public/${asSlug}-preview.png`)
+      );
+
+      fs.promises.writeFile(filePath, img);
+    } else {
+      const { title, metaTitle, description, metaDescription } = frontmatter;
+
+      let text = process.env.SITE_URL + asHref;
+
+      // For component pages let's do something special
+      // in the future we could do a bit more...
+      if (asHref.includes('/react/components/')) {
+        text = `import { ${title} } from '@aws-amplify/ui-react';`;
+      }
+
+      const backgroundImage = await loadImage(
+        path.join(__dirname, '../public/preview.png')
+      );
+      const canvas = await drawSocialPreview(
+        metaTitle ?? title,
+        metaDescription ?? description,
+        text,
+        backgroundImage
+      );
+
+      const buffer = canvas.toBuffer('image/png');
+
+      console.info(`Generating social preview: ${asSlug}`);
+      await fs.promises.writeFile(filePath, buffer);
+    }
   }
 };
 

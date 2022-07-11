@@ -1,5 +1,20 @@
 # @aws-amplify/ui-react
 
+## 3.0.4
+
+### Patch Changes
+
+- [#2228](https://github.com/aws-amplify/amplify-ui/pull/2228) [`60da225f8`](https://github.com/aws-amplify/amplify-ui/commit/60da225f84d51ba51d044c17853558b3514c9f41) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(ui-react): directly return children from Authenticator
+
+## 3.0.3
+
+### Patch Changes
+
+- [#2204](https://github.com/aws-amplify/amplify-ui/pull/2204) [`cd46fde0b`](https://github.com/aws-amplify/amplify-ui/commit/cd46fde0ba966acc1aaa4b054f16c7a2abfcd7f8) Thanks [@zchenwei](https://github.com/zchenwei)! - fix(type): adding enterKeyHint type missing from React 16
+
+- Updated dependencies [[`09d738a0f`](https://github.com/aws-amplify/amplify-ui/commit/09d738a0f9e1a67367b3bdb45bcb9644f20e2600)]:
+  - @aws-amplify/ui@3.12.1
+
 ## 3.0.2
 
 ### Patch Changes

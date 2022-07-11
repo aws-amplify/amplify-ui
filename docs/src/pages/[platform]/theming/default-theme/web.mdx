@@ -1,5 +1,5 @@
 import React from 'react';
-import { CardLink } from '@/components/CardLink';
+import { CardLink, CardLinkGroup } from '@/components/CardLink';
 import { Fragment } from '@/components/Fragment';
 import { Grid, Icon, Link } from '@aws-amplify/ui-react';
 import { ColorsIcon, TypographyIcon, SizesIcon } from './icons';
@@ -7,30 +7,25 @@ import { MdOutlineAutoAwesome } from 'react-icons/md';
 
 Amplify UI follows a consistent pattern when defining our default tokens for properties such as color, font size, border radius, and more. In addition to the reference here, you can browse our <Link isExternal href="https://github.com/aws-amplify/amplify-ui/tree/main/packages/ui/src/theme/tokens">default tokens</Link> and their corresponding types on GitHub.
 
-## Explore theme tokens
-
-<Grid 
-  templateColumns="repeat(auto-fill, minmax(18rem, 1fr))"
-  gap="var(--amplify-space-small)"
-  margin="var(--amplify-space-xl) 0">
+<CardLinkGroup title="Explore theme tokens" id="explore-theme-tokens" templateColumns="repeat(auto-fill, minmax(18rem, 1fr))">
   <CardLink 
-    img={<ColorsIcon />}
+    icon={<ColorsIcon />}
     href="/react/theming/default-theme/colors" 
     title="Colors" 
     desc="Tokens that define our default color palette" />
 
   <CardLink 
-    img={<TypographyIcon />}
+    icon={<TypographyIcon />}
     href="/react/theming/default-theme/typography" 
     title="Typography" 
     desc="Font families, font sizes, line heights and more" />
 
   <CardLink 
-    img={<SizesIcon />}
+    icon={<SizesIcon />}
     href="/react/theming/default-theme/sizes" 
     title="Sizes" 
     desc="Tokens for spacing, border widths and radii" />
-</Grid>
+</CardLinkGroup>
 
 ## Referencing default theme tokens
 

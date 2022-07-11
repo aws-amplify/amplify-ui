@@ -126,7 +126,7 @@ const useAuthenticatorService = () => {
 
   if (!service) {
     throw new Error(
-      'Please ensure you wrap your App with `Authenticator.Provider`.\nSee the `useAuthenticator` section on https://ui.docs.amplify.aws/components/authenticator.'
+      'Please ensure you wrap your App with `Authenticator.Provider`.\nSee the `useAuthenticator` section on https://ui.docs.amplify.aws/connected-components/authenticator.'
     );
   }
 
@@ -134,7 +134,7 @@ const useAuthenticatorService = () => {
 };
 
 /**
- * [📖 Docs](https://ui.docs.amplify.aws/react/components/authenticator/headless#useauthenticator-hook)
+ * [📖 Docs](https://ui.docs.amplify.aws/react/connected-components/authenticator/headless#useauthenticator-hook)
  */
 export const useAuthenticator = (selector?: Selector): UseAuthenticator => {
   const service = useAuthenticatorService();
