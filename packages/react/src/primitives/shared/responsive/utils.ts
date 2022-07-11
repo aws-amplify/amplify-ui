@@ -15,8 +15,8 @@ const getClosestValueByBreakpoint = <Value>({
   propKey: ThemeStylePropKey;
   values: Record<string, Value>;
 }): string | Value => {
-  // Use exact match
-  if (values[breakpoint]) {
+  // Check if breakpoint exists in values
+  if (values[breakpoint] !== undefined) {
     const value = values[breakpoint];
     return isDesignToken(value)
       ? value.toString()
@@ -31,7 +31,8 @@ const getClosestValueByBreakpoint = <Value>({
     breakpointsDesc.indexOf(breakpoint)
   );
   for (const breakpoint of lowerBreakpoints) {
-    if (values[breakpoint]) {
+    // Check if breakpoint exists in values
+    if (values[breakpoint] !== undefined) {
       const value = values[breakpoint];
       return isDesignToken(value)
         ? value.toString()

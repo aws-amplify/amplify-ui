@@ -113,4 +113,17 @@ describe('getValueAtCurrentBreakpoint', () => {
     expect(mediumResult).toBe('var(--amplify-colors-pink-80)');
     expect(largeResult).toBe('var(--amplify-colors-pink-80)');
   });
+
+  it('handles a breakpoint that resolves to a false value from values correctly', () => {
+    const output = getValueAtCurrentBreakpoint({
+      breakpoint: 'base',
+      breakpoints,
+      values: {
+        base: false,
+        medium: true,
+      },
+    });
+
+    expect(output).toBe(false);
+  });
 });
