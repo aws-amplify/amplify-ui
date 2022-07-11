@@ -1,5 +1,11 @@
 # @aws-amplify/ui
 
+## 3.12.1
+
+### Patch Changes
+
+- [#2200](https://github.com/aws-amplify/amplify-ui/pull/2200) [`09d738a0f`](https://github.com/aws-amplify/amplify-ui/commit/09d738a0f9e1a67367b3bdb45bcb9644f20e2600) Thanks [@flogy](https://github.com/flogy)! - Fixed some German authenticator translations
+
 ## 3.12.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { PrimitiveCatalog } from '../src/types/catalog';
+import type { PrimitiveCatalogType } from '../src/types/catalog';
 
 // Jest doesn't support `exports` maps, so we have to reference `dist` directly.
 // See: https://github.com/facebook/jest/issues/9771
@@ -145,6 +145,7 @@ describe('@aws-amplify/ui-react/internal', () => {
           "IconCheckCircleOutline",
           "IconFiberManualRecord",
           "IconHighlightOff",
+          "PrimitiveCatalog",
           "createDataStorePredicate",
           "useAuth",
           "useAuthSignOutAction",
@@ -163,13 +164,13 @@ describe('@aws-amplify/ui-react/internal', () => {
   });
 });
 
-const getCatalogJSON = (): PrimitiveCatalog => {
+const getCatalogJSON = (): PrimitiveCatalogType => {
   try {
     const rawJSON = fs
       .readFileSync(path.join(__dirname, '../dist/primitives.json'))
       .toString();
 
-    return JSON.parse(rawJSON) as PrimitiveCatalog;
+    return JSON.parse(rawJSON) as PrimitiveCatalogType;
   } catch (err) {
     console.error('Error reading primitives catalog JSON file:', err);
   }

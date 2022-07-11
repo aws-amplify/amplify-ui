@@ -5,30 +5,32 @@ import { useCustomRouter } from '@/components/useCustomRouter';
 
 export const PageTabLayout = ({ tabComponents }) => {
   const {
-    query: { tab, platform },
+    query: { tab = '', platform },
     pathname,
     push,
   } = useCustomRouter();
-  const tabIndex = tabComponents.findIndex(
-    ({ title }) => title.toLowerCase() === tab
-  );
-  const changeURL = (e) => {
+
+  const defaultIndex = tab === 'props' ? 1 : 0;
+  const [tabIndex, setTabIndex] = React.useState(defaultIndex);
+
+  const changeURL = (index) => {
     push(
       {
-        pathname: e == 0 ? pathname.replace('/[tab]', '') : pathname,
+        pathname: index == 0 ? pathname.replace('/[tab]', '') : pathname,
         query: {
           platform,
-          ...(e != 0 && { tab: tabComponents[e].title.toLowerCase() }),
+          ...(index != 0 && { tab: tabComponents[index].title.toLowerCase() }),
         },
       },
       undefined,
       { shallow: true }
     );
+    setTabIndex(index);
   };
 
   return (
     <Tabs
-      defaultIndex={tabIndex ?? 0}
+      currentIndex={tabIndex}
       justifyContent="flex-start"
       onChange={changeURL}
     >

@@ -16,6 +16,7 @@ import { CodeHighlight } from '@/components/CodeHighlight';
 import { useIntersectionObserver } from '@/components/useIntersection';
 import { FlutterAuthenticatorExample } from '@/components/FlutterAuthenticatorExample';
 import { BrowserMock } from '@/components/home/BrowserMock';
+import { trackScroll } from '@/utils/track';
 
 // TODO: grab this code from actual examples so we don't need to keep these in sync
 const authenticatorCode = {
@@ -121,6 +122,9 @@ export const AuthenticationSection = ({ platform }) => {
     freezeOnceVisible: true,
   });
   const isVisible = !!entry?.isIntersecting;
+  if (isVisible) {
+    trackScroll('Home#Authentication');
+  }
   const hiddenOnMobile = useBreakpointValue({
     base: false,
     medium: true,
@@ -184,7 +188,7 @@ export const AuthenticationSection = ({ platform }) => {
             </HomeCode>
           ) : null}
         </Flex>
-        <HomeCTA href={`/${platform}/components/authenticator`}>
+        <HomeCTA href={`/${platform}/connected-components/authenticator`}>
           Get started with the Authenticator
         </HomeCTA>
       </Flex>
