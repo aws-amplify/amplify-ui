@@ -113,7 +113,9 @@ Given(
 );
 
 When('Sign in was called with {string}', (username: string) => {
-  expect(stub.calledWith(username, Cypress.env('VALID_PASSWORD'))).to.be.true;
+  let tempStub = stub.calledWith(username, Cypress.env('VALID_PASSWORD'));
+  stub = null;
+  expect(tempStub).to.be.true;
 });
 
 When('I type an invalid password', () => {
