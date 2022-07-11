@@ -1,8 +1,10 @@
 import fs from 'fs';
 import path from 'path';
 import { globbyStream } from 'globby';
+// refactor this to import all from ./util
 import { getCatalog } from './util/getCatalog';
 import { getAllTypesData } from './util/getAllTypesData';
+import { getStandardHTMLAttributes } from './util/getStandardHTMLAttributes';
 import type {
   Catalog,
   Category,
@@ -14,7 +16,7 @@ import { capitalizeString } from '@/utils/capitalizeString';
 
 const catalog = getCatalog();
 const { allTypeFilesInterfaceData } = getAllTypesData();
-debugger;
+// debugger;
 
 createAllPropsTables();
 
@@ -78,9 +80,6 @@ type CategoryProperty = { [key in Category]: Properties };
 type SortedPropertiesByCategory = { [key: string]: Properties }[];
 type PropertiesByCategory = Record<Category, Properties>;
 
-/**
- * @todo After Marketing Launch 2022-06, to update the note under the Props Heading to specify the HTML element's name and MDN link. Ticket: https://app.asana.com/0/1201736086077838/1202477702049308/f
- */
 function Output(displayName, tableAndExpanders) {
   return `
 {/* DO NOT EDIT DIRECTLY */}
@@ -92,7 +91,7 @@ ${tableAndExpanders.join('')}
 
 See [Style Props](/react/theming/style-props) for all supported style and layout properties.
 
-The ${displayName} component will accept any of the standard HTML attributes that a HTML element accepts. Standard element attributes can be found in the <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element" isExternal={true}>MDN Documentation</Link>.
+${getStandardHTMLAttributes(displayName)}
 `;
 }
 
