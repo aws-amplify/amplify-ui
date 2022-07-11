@@ -1,10 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { globbyStream } from 'globby';
-// refactor this to import all from ./util
-import { getCatalog } from './util/getCatalog';
-import { getAllTypesData } from './util/getAllTypesData';
-import { getStandardHTMLAttributes } from './util/getStandardHTMLAttributes';
+import { getCatalog, getAllTypesData, getStandardHTMLAttributes } from './util';
 import type {
   Catalog,
   Category,
@@ -16,7 +13,6 @@ import { capitalizeString } from '@/utils/capitalizeString';
 
 const catalog = getCatalog();
 const { allTypeFilesInterfaceData } = getAllTypesData();
-// debugger;
 
 createAllPropsTables();
 

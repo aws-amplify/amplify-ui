@@ -6,12 +6,17 @@ const standardHTMLAttributes = {
   Alert: {
     element: 'div',
   },
+  Badge: {
+    element: 'span',
+  },
 };
 
 // if this still works, can we change it to a .ts file?
 // const codeSnippet = <code></code>;
 
 export const getStandardHTMLAttributes = (displayName: string) => {
+  console.log('display name: ', displayName);
+
   const { element, link } = standardHTMLAttributes[displayName];
 
   const MDNlink = `<Link href="${
