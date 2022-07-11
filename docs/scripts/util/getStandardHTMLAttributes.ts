@@ -1,18 +1,173 @@
-// include type/interface
-// standard url prefix
-// https://developer.mozilla.org/en-US/docs/Web/HTML/Element/
+import type { ComponentName } from '../types/catalog';
 
-const standardHTMLAttributes = {
+type ComponentNames = Exclude<
+  ComponentName,
+  | 'ButtonGroup'
+  | 'ExpanderItem'
+  | 'FieldGroupIcon'
+  | 'FieldGroupIconButton'
+  | 'MenuButton'
+  | 'MenuItem'
+  | 'Radio'
+  | 'TabItem'
+  | 'ToggleButtonGroup'
+  | 'TableBody'
+  | 'TableCell'
+  | 'TableFoot'
+  | 'TableHead'
+  | 'TableRow'
+>;
+
+type StandardHTMLAttributes = {
+  [key in ComponentNames]: {
+    element: string;
+    link?: string;
+  };
+};
+
+const standardHTMLAttributes: StandardHTMLAttributes = {
   Alert: {
     element: 'div',
   },
   Badge: {
     element: 'span',
   },
+  Card: {
+    element: 'div',
+  },
+  Button: {
+    element: '',
+    link: '',
+  },
+  CheckboxField: {
+    element: '',
+    link: '',
+  },
+  Collection: {
+    element: '',
+    link: '',
+  },
+  Divider: {
+    element: '',
+    link: '',
+  },
+  Expander: {
+    element: '',
+    link: '',
+  },
+  Flex: {
+    element: '',
+    link: '',
+  },
+  Grid: {
+    element: '',
+    link: '',
+  },
+  Heading: {
+    element: '',
+    link: '',
+  },
+  Icon: {
+    element: '',
+    link: '',
+  },
+  Image: {
+    element: '',
+    link: '',
+  },
+  Link: {
+    element: '',
+    link: '',
+  },
+  Loader: {
+    element: '',
+    link: '',
+  },
+  Menu: {
+    element: '',
+    link: '',
+  },
+  Pagination: {
+    element: '',
+    link: '',
+  },
+  PasswordField: {
+    element: '',
+    link: '',
+  },
+  PhoneNumberField: {
+    element: '',
+    link: '',
+  },
+  Placeholder: {
+    element: '',
+    link: '',
+  },
+  RadioGroupField: {
+    element: '',
+    link: '',
+  },
+  Rating: {
+    element: '',
+    link: '',
+  },
+  ScrollView: {
+    element: '',
+    link: '',
+  },
+  SearchField: {
+    element: '',
+    link: '',
+  },
+  SelectField: {
+    element: '',
+    link: '',
+  },
+  SliderField: {
+    element: '',
+    link: '',
+  },
+  StepperField: {
+    element: '',
+    link: '',
+  },
+  SwitchField: {
+    element: '',
+    link: '',
+  },
+  Table: {
+    element: '',
+    link: '',
+  },
+  Tabs: {
+    element: '',
+    link: '',
+  },
+  Text: {
+    element: '',
+    link: '',
+  },
+  TextAreaField: {
+    element: '',
+    link: '',
+  },
+  TextField: {
+    element: '',
+    link: '',
+  },
+  ToggleButton: {
+    element: '',
+    link: '',
+  },
+  View: {
+    element: '',
+    link: '',
+  },
+  VisuallyHidden: {
+    element: '',
+    link: '',
+  },
 };
-
-// if this still works, can we change it to a .ts file?
-// const codeSnippet = <code></code>;
 
 export const getStandardHTMLAttributes = (displayName: string) => {
   console.log('display name: ', displayName);
