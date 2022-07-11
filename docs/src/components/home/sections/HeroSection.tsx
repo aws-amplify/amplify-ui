@@ -49,7 +49,7 @@ export const HeroSection = () => {
           alignItems="center"
         >
           <Heading level={1} marginBlockEnd="0">
-            Don't just prototype. <br />
+            Supercharge your app &mdash; <br />
             <strong>Connect your UI to the cloud.</strong>
           </Heading>
           <Text
