@@ -1,4 +1,6 @@
 dist
+# ignore generated primitive catalog ESM
+src/PrimitiveCatalog.ts 
 
 # ignore jest generated coverage directory
 coverage 
