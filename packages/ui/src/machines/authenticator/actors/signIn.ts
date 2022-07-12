@@ -577,7 +577,8 @@ export function signInActor({ services }: SignInMachineOptions) {
           const { user } = context;
           const { confirmation_code } = context.formValues;
 
-          return Auth.verifyTotpToken(user, confirmation_code);
+          await Auth.verifyTotpToken(user, confirmation_code);
+          return await Auth.currentAuthenticatedUser();
         },
         async federatedSignIn(_, event) {
           const { provider } = event.data;

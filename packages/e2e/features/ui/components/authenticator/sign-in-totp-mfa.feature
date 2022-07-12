@@ -57,4 +57,23 @@ Feature: Sign In with TOTP MFA
     And I click the "Change Password" button
     Then I see "Setup TOTP"
 
-
+  @angular @react @vue
+  Scenario: Successful sign up shows correct email from authenticated user
+    When I click the "Create Account" tab
+    And I type a new "email"
+    And I type my password
+    And I confirm my password
+    And I click the "Create Account" button
+    Then I see "Confirmation Code"
+    And I type a valid confirmation code
+    And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }' with fixture "confirm-sign-up-with-email"
+    # Mocking these two calls is much easier than intercepting 6+ network calls with tokens that are validated & expire within the hour
+    And I mock 'Amplify.Auth.signIn' with fixture "Auth.signIn-mfa-setup"
+    And I mock 'Amplify.Auth.currentAuthenticatedUser' with fixture "Auth.currentAuthenticatedUser-setup-TOTP"
+    And I click the "Confirm" button
+    Then I see "Setup TOTP"
+    Then I see "Code"
+    And I type a valid confirmation code
+    And I mock 'Amplify.Auth.verifyTotpToken' with fixture "Auth.verifyTOTP"
+    And I click the "Confirm" button
+    Then I see "test@example.com"
