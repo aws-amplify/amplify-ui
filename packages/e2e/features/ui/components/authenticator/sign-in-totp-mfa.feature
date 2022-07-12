@@ -67,7 +67,6 @@ Feature: Sign In with TOTP MFA
     Then I see "Confirmation Code"
     And I type a valid confirmation code
     And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }' with fixture "confirm-sign-up-with-email"
-    # Mocking these two calls is much easier than intercepting 6+ network calls with tokens that are validated & expire within the hour
     And I mock 'Amplify.Auth.signIn' with fixture "Auth.signIn-mfa-setup"
     And I mock 'Amplify.Auth.currentAuthenticatedUser' with fixture "Auth.currentAuthenticatedUser-setup-TOTP"
     And I click the "Confirm" button
