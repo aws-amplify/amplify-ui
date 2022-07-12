@@ -49,7 +49,7 @@ export const HeroSection = () => {
           alignItems="center"
         >
           <Heading level={1} marginBlockEnd="0">
-            Don't just prototype. <br />
+            Supercharge your app &mdash; <br />
             <strong>Connect your UI to the cloud.</strong>
           </Heading>
           <Text
@@ -83,7 +83,7 @@ export const HeroSection = () => {
                 title="Cloud connected"
                 href="#authentication"
                 icon={<RiCloudWindyLine />}
-                desc="We handle the hard stuff so you can focus on UI"
+                desc="Focus on your UI and let us take care of the rest"
               />
               <CardLink
                 variation="home"
