@@ -1,9 +1,16 @@
 import { useEffect, useState, useRef } from 'react';
 
+interface UseMediaStreamInVideoResult {
+  videoRef: React.MutableRefObject<HTMLVideoElement>;
+  videoHeight: number;
+  videoWidth: number;
+  streamOffset: number;
+}
+
 export function useMediaStreamInVideo(
   stream: MediaStream,
   videoConstraints: MediaTrackConstraints
-) {
+): UseMediaStreamInVideoResult {
   const height = (videoConstraints.height as ConstrainULongRange).ideal;
   const width = (videoConstraints.width as ConstrainULongRange).ideal;
 

@@ -131,7 +131,7 @@ export const LivenessCameraModule = (
         {isMobileScreen && (
           <View position="absolute" top={10} right={10}>
             <CancelButton
-              isMobileScreen={true}
+              isMobileScreen
               sourceScreen={LIVENESS_EVENT_LIVENESS_CHECK_SCREEN}
             />
           </View>

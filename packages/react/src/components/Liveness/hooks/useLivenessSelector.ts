@@ -11,7 +11,7 @@ export function createLivenessSelector<T>(
   return selector;
 }
 
-export function useLivenessSelector<T>(selector: LivenessSelectorFn<T>) {
+export function useLivenessSelector<T>(selector: LivenessSelectorFn<T>): T {
   const { service } = useLivenessFlow();
   return useSelector(service, selector);
 }
