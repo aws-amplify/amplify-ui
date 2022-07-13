@@ -5,7 +5,7 @@
     let-signOut="signOut"
   >
     <h2>Welcome, {{ user.username }}!</h2>
-    <span>{{ authenticator.user?.email }}</span>
+    <span>{{ authenticator.user?.username }}</span>
     <button (click)="signOut()">Sign Out</button>
   </ng-template>
 </amplify-authenticator>

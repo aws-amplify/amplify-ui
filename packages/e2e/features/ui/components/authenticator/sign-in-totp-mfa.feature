@@ -58,7 +58,7 @@ Feature: Sign In with TOTP MFA
     Then I see "Setup TOTP"
 
   @angular @react @vue
-  Scenario: Successful sign up shows correct email from authenticated user
+  Scenario: Successful sign up shows correct username from authenticated user
     When I click the "Create Account" tab
     And I type a new "email"
     And I type my password
@@ -75,4 +75,4 @@ Feature: Sign In with TOTP MFA
     And I type a valid confirmation code
     And I mock 'Amplify.Auth.verifyTotpToken' with fixture "Auth.verifyTOTP"
     And I click the "Confirm" button
-    Then I see "test@example.com"
+    Then I see "AmplifyUsername"

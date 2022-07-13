@@ -15,7 +15,7 @@ export default function SignInTotpMfa() {
       <Authenticator formFields={formFields}>
         {({ signOut }) => (
           <>
-            <span>{user?.email}</span>
+            <span>{user?.username}</span>
             <button onClick={signOut}>Sign out</button>
           </>
         )}
