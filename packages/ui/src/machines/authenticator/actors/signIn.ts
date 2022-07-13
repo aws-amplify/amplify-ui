@@ -577,8 +577,20 @@ export function signInActor({ services }: SignInMachineOptions) {
           const { user } = context;
           const { confirmation_code } = context.formValues;
 
-          await Auth.verifyTotpToken(user, confirmation_code);
-          return await Auth.currentAuthenticatedUser();
+          const verifyTotp = await Auth.verifyTotpToken(
+            user,
+            confirmation_code
+          );
+          const currentAuth = await Auth.currentAuthenticatedUser();
+          const merged = { ...verifyTotp, ...currentAuth };
+          /**
+           * This should return a user object from `Auth.currentAuthenticatedUser`
+           * However, it used to only returns a `CognitoUserSession` object.
+           * Until the next breaking change we will merge these two results
+           * so exisiting users are not broken, but new users will have the
+           * full user object.
+           */
+          return new Promise((res) => res(merged));
         },
         async federatedSignIn(_, event) {
           const { provider } = event.data;
