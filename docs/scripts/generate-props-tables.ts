@@ -91,9 +91,9 @@ ${tableAndExpanders.join('')}
 
 See [Style Props](/react/theming/style-props) for all supported style and layout properties.
 
-${displayName} will also accept any of the standard HTML attributes that a <code>${
+${displayName} will also accept any of the standard HTML attributes that a <code>\\<${
     htmlElement || 'div'
-  }</code> element accepts, which can be found in the <Link href="${
+  }\\></code> element accepts, which can be found in the <Link href="${
     MDN || 'https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div'
   }" isExternal>MDN Documentation</Link>.
 `;
