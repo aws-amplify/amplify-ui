@@ -26,7 +26,7 @@ export function getFrontmatter(fileData: string) {
   const frontmatter = fileData.split('---')[1].trim().split('\n');
 
   return frontmatter.reduce((acc, line) => {
-    const [key, value] = line.split(' ');
+    const [key, value] = line.split(': ');
     return { ...acc, [key]: value };
   }, {}) as MetaInfo;
 }
