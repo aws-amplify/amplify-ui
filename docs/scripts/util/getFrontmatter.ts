@@ -1,13 +1,32 @@
+import { MetaInfo } from '@/data/meta';
+
+/*
+
+Returns the frontmatter as an object of key/value pairs. For example:
+
+Input (string):
+
+---
+title: Flex
+mdnUrl: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div
+htmlElement: div
+---
+
+Output (object):
+
+{
+  title: 'Flex',
+  mdnUrl: 'https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div',
+  htmlElement: 'div',
+}
+
+*/
+
 export function getFrontmatter(fileData: string) {
-  // get MDN URL
-  const mdn = fileData.indexOf('mdnUrl');
-  const endOfLine1 = fileData.indexOf('\n', mdn);
-  const mdnUrl = fileData.slice(mdn, endOfLine1).split(' ')[1];
+  const frontmatter = fileData.split('---')[1].trim().split('\n');
 
-  // get htmlElement
-  const el = fileData.indexOf('htmlElement');
-  const endOfLine2 = fileData.indexOf('\n', el);
-  const htmlElement = fileData.slice(el, endOfLine2).split(' ')[1];
-
-  return { mdnUrl, htmlElement };
+  return frontmatter.reduce((acc, line) => {
+    const [key, value] = line.split(' ');
+    return { ...acc, [key]: value };
+  }, {}) as MetaInfo;
 }
