@@ -143,7 +143,7 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
   }
 
   // FIXME: remove this function when streaming works
-  public async putLivenessVideo(
+  async putLivenessVideo(
     input: PutLivenessVideoInput
   ): Promise<PutLivenessVideoOutput> {
     const credentials = await Credentials.get();
@@ -156,7 +156,8 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
       region: 'us-east-1',
       credentials,
       customUserAgent: getAmplifyUserAgent(),
-      endpoint: 'https://us-east-1.gamma.reventlov.rekognition.aws.dev/',
+      endpoint:
+        'https://us-east-1.gamma.frontend.reventlov.rekognition.aws.dev/',
       maxRetries: 0, // TODO: revisit once appropriate retry exceptions are added in the service
     });
 
