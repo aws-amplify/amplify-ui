@@ -1,4 +1,4 @@
-export const enDict = {
+export const ruDict = {
   'Account recovery requires verified contact information':
     'Восстановление учетной записи требует проверки контактной информации',
   'Back to Sign In': 'Назад, чтобы войти',
