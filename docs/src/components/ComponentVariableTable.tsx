@@ -1,12 +1,5 @@
 import * as React from 'react';
-import {
-  Table,
-  View,
-  TableRow,
-  TableCell,
-  TableBody,
-  useTheme,
-} from '@aws-amplify/ui-react';
+import { Alert, Grid, useTheme } from '@aws-amplify/ui-react';
 
 function extractClasses(themeObject) {
   if (!themeObject || typeof themeObject !== 'object') return [];
@@ -24,39 +17,25 @@ function extractClasses(themeObject) {
 
 export const ComponentVariableTable = ({ componentName }) => {
   const { tokens } = useTheme();
-  const variableNames = React.useMemo(() => {
-    const variableNames = extractClasses(
-      tokens?.components?.[componentName]
-    ).sort();
-    let tableRows = [];
-    if (variableNames.length) {
-      for (let i = 0; i < variableNames.length / 2; i++) {
-        const variableOne = variableNames[i * 2];
-        const variableTwo = variableNames[i * 2 + 1];
-        tableRows.push(
-          <TableRow key={`${variableOne}-${variableTwo || ''}`}>
-            <TableCell>
-              <code>{variableOne}</code>
-            </TableCell>
-            {variableTwo && (
-              <TableCell>
-                <code>{variableTwo}</code>
-              </TableCell>
-            )}
-          </TableRow>
-        );
-      }
-    } else {
-      return 'No variables available for this component';
-    }
-    return tableRows;
-  }, [componentName]);
+  const variableNames = extractClasses(
+    tokens?.components?.[componentName]
+  ).sort();
 
-  return (
-    <View className="docs-css-variables">
-      <Table variation="bordered">
-        <TableBody>{variableNames}</TableBody>
-      </Table>
-    </View>
+  return variableNames.length > 0 ? (
+    <Grid
+      className="docs-grid-bordered"
+      as="ul"
+      templateColumns={{ base: '1fr', medium: '1fr 1fr' }}
+    >
+      {variableNames.map((name) => {
+        return (
+          <li key={name}>
+            <code>{name}</code>
+          </li>
+        );
+      })}
+    </Grid>
+  ) : (
+    <Alert>No variables available for this component</Alert>
   );
 };

@@ -11,7 +11,7 @@ export async function getRekognitionClient() {
   const rekognitionClient = new RekognitionLiveness({
     region: 'us-east-1',
     credentials,
-    endpoint: 'https://us-east-1.gamma.reventlov.rekognition.aws.dev/',
+    endpoint: 'https://us-east-1.gamma.frontend.reventlov.rekognition.aws.dev/',
   });
 
   return rekognitionClient;
