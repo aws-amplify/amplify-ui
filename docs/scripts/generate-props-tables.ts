@@ -33,9 +33,19 @@ async function createAllPropsTables() {
         categoryName.toLowerCase() === componentPageName.toLowerCase()
     ) as ComponentName;
 
-    const { mdnUrl, htmlElement } = getFrontmatter(
-      fs.readFileSync(componentFilepath, 'utf8')
-    );
+    let mdn, element;
+    try {
+      const fileData = fs.readFileSync(componentFilepath, 'utf8');
+      const { mdnUrl, htmlElement } = getFrontmatter(fileData);
+      mdn = mdnUrl;
+      element = htmlElement;
+    } catch (err) {
+      if (err.code === 'ENOENT') {
+        console.log('File not found!');
+      } else {
+        throw err;
+      }
+    }
 
     const mainTableAndExpander = createTableAndExpander(catalog, componentName);
     const tableAndExpanders = [
@@ -70,7 +80,7 @@ async function createAllPropsTables() {
         '../../docs/src/pages/[platform]/components/',
         `./${componentPageName}/props-table.mdx`
       ),
-      Output(componentName, tableAndExpanders, mdnUrl, htmlElement)
+      Output(componentName, tableAndExpanders, mdn, element)
     );
     console.log(`✅ ${componentPageName} Props Tables are updated.`);
   }
