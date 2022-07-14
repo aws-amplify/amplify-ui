@@ -1,18 +1,19 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { classNameModifierByFlag } from '../shared/utils';
-import { CheckboxProps } from '../types/checkbox';
-import { ComponentClassNames } from '../shared/constants';
 import { Flex } from '../Flex';
-import { IconCheck } from '../Icon/internal';
+import { IconCheck, IconIndeterminate } from '../Icon/internal';
 import { Input } from '../Input';
-import { Primitive } from '../types/view';
-import { splitPrimitiveProps } from '../shared/styleUtils';
 import { Text } from '../Text';
-import { useCheckbox } from './useCheckbox';
 import { VisuallyHidden } from '../VisuallyHidden';
+import { CheckboxProps } from '../types/checkbox';
+import { Primitive } from '../types/view';
 import { useTestId } from '../utils/testUtils';
+import { useStableId } from '../utils/useStableId';
+import { useCheckbox } from './useCheckbox';
+import { ComponentClassNames } from '../shared/constants';
+import { splitPrimitiveProps } from '../shared/styleUtils';
+import { classNameModifierByFlag } from '../shared/utils';
 
 const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
   {
@@ -21,11 +22,11 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
     defaultChecked,
     hasError,
     isDisabled,
+    isIndeterminate,
     label,
     labelHidden,
     labelPosition,
     onChange: onChangeProp,
-    size,
     testId,
     ..._rest
   },
@@ -46,6 +47,14 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
       setDataChecked(checked);
     }
   }, [checked, dataChecked, setDataChecked]);
+
+  const dataId = useStableId();
+  React.useEffect(() => {
+    const input = document.querySelector(
+      `[data-id="${dataId}"]`
+    ) as HTMLInputElement;
+    input.indeterminate = isIndeterminate;
+  }, [dataId, isIndeterminate]);
 
   const buttonTestId = useTestId(testId, ComponentClassNames.CheckboxButton);
   const iconTestId = useTestId(testId, ComponentClassNames.CheckboxIcon);
@@ -82,6 +91,27 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
     )
   );
 
+  const renderedIcon = isIndeterminate ? (
+    <IconIndeterminate
+      className={classNames(
+        iconClasses,
+        classNameModifierByFlag(
+          ComponentClassNames.CheckboxIcon,
+          'indeterminate',
+          isIndeterminate
+        )
+      )}
+      data-testid={iconTestId}
+    />
+  ) : (
+    <IconCheck
+      className={iconClasses}
+      data-checked={dataChecked}
+      data-disabled={isDisabled}
+      data-testid={iconTestId}
+    />
+  );
+
   return (
     <Flex
       as="label"
@@ -104,6 +134,7 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
         <Input
           checked={checked}
           className={ComponentClassNames.CheckboxInput}
+          data-id={dataId}
           defaultChecked={defaultChecked}
           isDisabled={isDisabled}
           onBlur={onBlur}
@@ -136,13 +167,7 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
         data-error={hasError}
         testId={buttonTestId}
       >
-        <IconCheck
-          className={iconClasses}
-          data-checked={dataChecked}
-          data-disabled={isDisabled}
-          data-testid={iconTestId}
-          size={size}
-        />
+        {renderedIcon}
       </Flex>
     </Flex>
   );
