@@ -6,12 +6,14 @@ import path from 'path';
 import vue from '@vitejs/plugin-vue';
 import typescript2 from 'rollup-plugin-typescript2';
 import Components from 'unplugin-vue-components/vite';
+import vueJsx from '@vitejs/plugin-vue-jsx';
 
 const resolvePath = (str: string) => path.resolve(__dirname, str);
 
 export default defineConfig({
   plugins: [
     vue(),
+    vueJsx(),
     Components({
       dirs: ['src/components/primitives'],
       exclude: [/node_modules/],
