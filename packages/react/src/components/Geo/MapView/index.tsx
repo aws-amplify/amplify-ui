@@ -31,7 +31,7 @@ interface MapViewProps extends Omit<MapProps, 'mapLib' | 'transformRequest'> {
  * [react-map-gl default Map](https://visgl.github.io/react-map-gl/docs/api-reference/map), it accepts the same
  * properties except `transformRequest` which is set by Amplify.
  *
- * [📖 Docs](https://ui.docs.amplify.aws/react/components/geo#mapview)
+ * [📖 Docs](https://ui.docs.amplify.aws/react/connected-components/geo#mapview)
  *
  * @example
  * // Basic usage of MapView:

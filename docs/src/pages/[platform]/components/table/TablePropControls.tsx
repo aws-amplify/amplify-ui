@@ -48,7 +48,7 @@ export const TablePropControls: TablePropControlsInterface = ({
       onChange={(e) => setHighlightOnHover(e.target.checked)}
     />
     <SelectField
-      id="size"
+      id="sizeProp"
       name="size"
       label="size"
       placeholder="(default)"
@@ -59,7 +59,7 @@ export const TablePropControls: TablePropControlsInterface = ({
       <option value="large">large</option>
     </SelectField>
     <SelectField
-      id="variation"
+      id="variationProp"
       name="variation"
       label="variation"
       placeholder="(default)"

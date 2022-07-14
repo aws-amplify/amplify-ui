@@ -1,9 +1,72 @@
+@import 'variables';
+
 .docs-component-styles {
   width: 100%;
-  margin-bottom: var(--amplify-space-large);
   overflow: auto;
-
   pre {
     white-space: pre-wrap;
   }
 }
+
+.docs-grid-bordered {
+  border: solid var(--amplify-colors-border-tertiary);
+  border-width: var(--amplify-border-widths-small) 0 0 var(--amplify-border-widths-small);
+  li {
+    list-style: none;
+    padding: var(--amplify-space-small);
+    font-size: var(--amplify-font-sizes-small);
+    border: solid var(--amplify-colors-border-tertiary);
+    border-width: 0 var(--amplify-border-widths-small) var(--amplify-border-widths-small) 0;
+  }
+}
+
+.docs-responsive-table__label {
+  display: none;
+  @media (max-width: $breakpoint-medium) {
+    padding: var(--amplify-space-xxs);
+    background: var(--amplify-colors-neutral-10);
+    flex: 0 0 6rem;
+    display: flex;
+    align-items: center;
+    color: var(--amplify-colors-font-tertiary);
+  }
+  @media (max-width: $breakpoint-small) {
+    display: none;
+  }
+}
+
+@media (max-width: $breakpoint-medium) {
+  .docs-responsive-table {
+    display: block;
+    thead, tr, tbody {
+      display: block;
+    }
+    thead {
+      /* We can't `display: none` a thead or SR won't recognize it */
+      height: 0;
+      overflow: hidden;
+    }
+    td  {
+      padding: 0;
+      display: flex;
+      align-items: stretch;
+      &:not(:last-child) {
+        border-bottom: var(--amplify-border-widths-small) solid var(--amplify-colors-border-tertiary);
+      }
+    }
+    tr {
+      border: var(--amplify-border-widths-small) solid var(--amplify-colors-border-secondary);
+      margin-block-end: var(--amplify-space-small);
+    }
+  }
+
+  .docs-responsive-table__value {
+    display: block;
+    flex: 0 1 auto;
+    max-width: 100%;
+    overflow: auto;
+    padding: var(--amplify-space-xxs);
+  }
+}
+
+

@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   defaultFormFieldOptions,
   censorAllButFirstAndLast,
@@ -46,7 +47,10 @@ const generateRadioGroup = (
   for (const [key, value] of Object.entries(attributes)) {
     const radio = (
       <Radio name="unverifiedAttr" value={key} key={key}>
-        {censorContactInformation(defaultFormFieldOptions[key].label, value)}
+        {censorContactInformation(
+          (defaultFormFieldOptions[key] as { label: ContactMethod }).label,
+          value
+        )}
       </Radio>
     );
 
@@ -82,7 +86,7 @@ export const VerifyUser = ({
   const verificationRadioGroup = (
     <RadioGroupField
       label={translate('Verify Contact')}
-      labelHidden={true}
+      labelHidden
       name="verify_context"
       isDisabled={isPending}
     >
@@ -118,7 +122,7 @@ export const VerifyUser = ({
   );
 };
 
-VerifyUser.Header = () => {
+VerifyUser.Header = function Header(): JSX.Element {
   return (
     <Heading level={3}>
       {translate('Account recovery requires verified contact information')}
@@ -126,4 +130,6 @@ VerifyUser.Header = () => {
   );
 };
 
-VerifyUser.Footer = (): JSX.Element => null;
+VerifyUser.Footer = function Footer(): JSX.Element {
+  return null;
+};
