@@ -1,3 +1,4 @@
+import fs from 'fs';
 import { MetaInfo } from '@/data/meta';
 
 /*
@@ -22,7 +23,22 @@ Output (object):
 
 */
 
-export function getFrontmatter(fileData: string) {
+export function getFrontmatter(componentFilepath: string) {
+  let fileData = '';
+  try {
+    fileData = fs.readFileSync(componentFilepath, 'utf8');
+  } catch (err) {
+    if (err.code === 'ENOENT') {
+      console.log('File not found!');
+    } else {
+      throw err;
+    }
+  }
+
+  if (!fileData) {
+    return {};
+  }
+
   const frontmatter = fileData.split('---')[1].trim().split('\n');
 
   return frontmatter.reduce((acc, line) => {
