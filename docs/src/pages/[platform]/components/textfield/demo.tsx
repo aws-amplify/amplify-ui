@@ -14,19 +14,19 @@ const propsToCode = (props) => {
     getPropString(props.descriptiveText, 'descriptiveText') +
     getPropString(props.placeholder, 'placeholder') +
     getPropString(props.label, 'label') +
-    (props.isLabelHidden ? '\n isLabelHidden' : '') +
-    getPropString(props.label, 'errorMessage') +
-    (props.hasError ? '\n hasError' : '') +
-    (props.isDisabled ? '\n isDisabled' : '') +
-    `/>`
+    (props.labelHidden ? '\n  labelHidden' : '') +
+    getPropString(props.errorMessage, 'errorMessage') +
+    (props.hasError ? '\n  hasError' : '') +
+    (props.isDisabled ? '\n  isDisabled' : '') +
+    `\n/>`
   );
 };
 
 const defaultTextFieldProps: TextFieldProps = {
-  descriptiveText: 'this is descriptive text',
-  placeholder: 'this is the placeholder',
-  label: 'this is the label',
-  errorMessage: 'this is the error message',
+  descriptiveText: 'Enter a valid last name',
+  placeholder: 'Baggins',
+  label: 'Last name',
+  errorMessage: 'There is an error',
 };
 
 export const TextFieldDemo = () => {

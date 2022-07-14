@@ -73,12 +73,13 @@ export const TextFieldPropControls: TextFieldPropControlsInterface = ({
       <SelectField
         label="size"
         value={size}
+        defaultValue="default"
         onChange={(event) =>
           setSize(event.target.value as TextFieldProps['size'])
         }
       >
         <option value="small">small</option>
-        <option value="">default</option>
+        <option value="default">default</option>
         <option value="large">large</option>
       </SelectField>
 
