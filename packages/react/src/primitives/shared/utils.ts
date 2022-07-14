@@ -78,7 +78,7 @@ export const getOverrideProps = (
 };
 
 export type EscapeHatchProps = {
-  [elementHierarchy: string]: Record<string, string>;
+  [elementHierarchy: string]: Record<string, unknown>;
 };
 
 type VariantValues = { [key: string]: string };

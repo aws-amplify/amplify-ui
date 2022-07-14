@@ -15,13 +15,13 @@
 
 .docs-content-body {
   padding: var(--docs-horizontal-padding);
-  
+
   & > * + * {
     margin-top: var(--amplify-space-medium);
   }
-  
+
   // Targeting tabs
-  & > [data-orientation] > [role="tabpanel"] {
+  & > [data-orientation] > [role='tabpanel'] {
     padding-top: var(--amplify-space-medium);
     // Don't add top margin to h2's since they already
     // have top margin
@@ -29,15 +29,22 @@
       margin-top: var(--amplify-space-medium);
     }
   }
-  
+
   & > table {
     border-collapse: collapse;
     width: 100%;
-    
+
     & td,
     & th {
-      padding:var(--amplify-space-small) var(--amplify-space-medium);
-      border: var(--amplify-border-widths-small) solid var(--amplify-colors-border-tertiary);
+      padding: var(--amplify-space-small) var(--amplify-space-medium);
+      border: var(--amplify-border-widths-small) solid
+        var(--amplify-colors-border-tertiary);
     }
+  }
+}
+
+.docs-page-tab {
+  & > * + * {
+    margin-block-start: var(--amplify-space-medium);
   }
 }

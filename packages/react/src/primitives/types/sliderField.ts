@@ -5,6 +5,7 @@ import { TextInputFieldProps } from './textField';
 import { ViewProps } from './view';
 
 type SliderOrientation = 'horizontal' | 'vertical';
+type Direction = 'ltr' | 'rtl';
 
 export interface SliderFieldProps extends TextInputFieldProps, ViewProps {
   /**
@@ -78,4 +79,12 @@ export interface SliderFieldProps extends TextInputFieldProps, ViewProps {
    * Handles changes to the current value when using the SliderField as a controlled component
    */
   onChange?: (value: number) => void;
+
+  /**
+   * @description
+   * sets the direction of the slider.
+   * @see
+   * [Radix docs](https://www.radix-ui.com/docs/primitives/components/slider)
+   */
+  dir?: Direction;
 }

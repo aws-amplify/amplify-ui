@@ -1,0 +1,138 @@
+import { Fragment } from '@/components/Fragment';
+import { Tabs, TabItem, Table, TableHead, TableRow, TableCell, TableBody, View } from '@aws-amplify/ui-react';
+
+
+<Fragment>
+  {({ platform }) => import(`./advanced/useAuthenticator.${platform}.mdx`)}
+</Fragment>
+
+## Access Auth State
+
+<Fragment>
+  {({ platform }) => import(`./advanced/current-route.${platform}.mdx`)}
+</Fragment>
+
+## Access Authenticated User
+
+<Fragment>
+  {({ platform }) => import(`./advanced/current-user.${platform}.mdx`)}
+</Fragment>
+
+## Trigger Transitions
+
+<Fragment>
+  {({ platform }) => import(`./advanced/trigger-transitions.${platform}.mdx`)}
+</Fragment>
+
+### Example
+
+Here's an example that conditionally renders different components based on current authentication status. Note that this can be extended to support routed application.
+
+<Fragment>
+  {({ platform }) => import(`./advanced/example.${platform}.mdx`)}
+</Fragment>
+
+## Full API
+
+<Fragment>
+  {({ platform }) => import(`./advanced/full-api.${platform}.mdx`)}
+</Fragment>
+
+<Tabs overflow="scroll">
+  <TabItem title="Access Contexts">
+
+    These are `readonly` contexts that represent the current auth state. Any unapplicable `context` will be `undefined`.
+
+    <View overflow="scroll">
+      <Table highlightOnHover>
+        <TableHead>
+          <TableRow>
+            <TableCell as="th">Name</TableCell>
+            <TableCell as="th">Description</TableCell>
+            <TableCell as="th">Type</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <TableRow>
+            <TableCell>`user`</TableCell>
+            <TableCell>Current signed in user</TableCell>
+            <TableCell>[`CognitoUserAmplify`](https://github.com/aws-amplify/amplify-ui/blob/f9be291e4b89137d7b521bd3e82b4f96ee4323f6/packages/ui/src/types/authMachine.ts#L113-L115)</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>`route`</TableCell>
+            <TableCell>Name of the auth flow user is in</TableCell>
+            <TableCell>`string`</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>`error`</TableCell>
+            <TableCell>Any error returned from service API call</TableCell>
+            <TableCell>`string`</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>`validationErrors`</TableCell>
+            <TableCell>Any form validation errors found. Maps each error message to respective input name.</TableCell>
+            <TableCell>`Record<string, string>`</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>`hasValidationErrors`</TableCell>
+            <TableCell>Whether there are any form validation errors</TableCell>
+            <TableCell>`boolean`</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>`isPending`</TableCell>
+            <TableCell>Whether service API call is in progress</TableCell>
+            <TableCell>`boolean`</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>`codeDeliveryDetail`</TableCell>
+            <TableCell>Provides detail on where confirm sign up code is sent to.</TableCell>
+            <TableCell>[`CodeDeliveryDetail`](https://github.com/aws-amplify/amplify-js/blob/6c4d4b5fc737652f88dcdfa26bdb02a1defdfa2e/packages/amazon-cognito-identity-js/index.d.ts#L9-L13)</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </View>
+  </TabItem>
+  <TabItem title="Trigger Transition">
+
+These helper functions trigger transition to another `route`. Note that any invalid transition (e.g. `sign-in` to `authenticated` directly) will be no-op.
+
+    <View overflow="scroll">
+      <Table highlightOnHover>
+        <TableHead>
+          <TableRow>
+            <TableCell as="th">Name</TableCell>
+            <TableCell as="th">Description</TableCell>
+            <TableCell as="th">Type</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <TableRow>
+            <TableCell>`toSignIn`</TableCell>
+            <TableCell>Transitions to `signIn`. Allowed from `signUp`, `confirmSignUp`, `confirmSignIn`, `setupTOTP`, `resetPassword`, and `confirmResetPassword`</TableCell>
+            <TableCell>`() => void`</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>`toSignUp`</TableCell>
+            <TableCell>Transitions to `signUp`. Allowed from `signIn`.</TableCell>
+            <TableCell>`() => void`</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>`toResetPassword`</TableCell>
+            <TableCell>Transitions to `resetPassword`. Allowed from `signIn`.</TableCell>
+            <TableCell>`() => void`</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>`toFederatedSignIn`</TableCell>
+            <TableCell>Transitions to `provider`'s federated sign in page. Supported `provider` values can be found [here](https://github.com/aws-amplify/amplify-ui/blob/96830f6a34a417aa9bc6329c839679bd10da84f0/packages/ui/src/helpers/auth.ts#L104-L109).</TableCell>
+            <TableCell>`(provider: string) => void`</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>`skipVerification`</TableCell>
+            <TableCell>Skips verification process. Allowed from `verifyUser` and `confirmVerifyUser`</TableCell>
+            <TableCell>`() => void`</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </View>
+  </TabItem>
+</Tabs>

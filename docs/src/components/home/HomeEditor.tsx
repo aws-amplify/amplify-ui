@@ -7,6 +7,7 @@ import {
   ContextProps,
 } from 'react-live';
 import * as AUI from '@aws-amplify/ui-react';
+import { trackClick } from '@/utils/track';
 
 const { View, Alert } = AUI;
 
@@ -55,6 +56,7 @@ const Error = () => {
 };
 
 const HomeEditor = () => {
+  const [edited, setEdited] = React.useState(0);
   return (
     <LiveProvider
       scope={{ ...AUI }}
@@ -72,6 +74,18 @@ const HomeEditor = () => {
           className="docs-home-editor__code-panel with-lines scrollable"
         >
           <LiveEditor
+            onChange={(e) => {
+              // onChange gets called when it mounts the first time
+              // so we only want to trigger this analytic event
+              // after onChange is called twice
+              if (edited >= 2) {
+                return;
+              }
+              if (edited === 1) {
+                trackClick('HomeCodeEdit');
+              }
+              setEdited(edited + 1);
+            }}
             onKeyDown={(e) => {
               // This makes sure the editor is not a focus trap
               if (e.keyCode === 9) {

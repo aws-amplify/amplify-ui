@@ -61,7 +61,7 @@ const NavLink = ({
     query: { platform = 'react' },
     pathname,
   } = useCustomRouter();
-  const isCurrent = pathname === `/[platform]${href}`;
+  const isCurrent = pathname.replace('/[platform]', '') === href;
   const classNames = `${
     tertiary ? 'docs-tertiary-nav-link' : 'docs-secondary-nav-link'
   } ${isCurrent ? 'current' : ''}`;
@@ -96,16 +96,18 @@ const NavLinkComponentsSection = ({ heading, components, ...props }) => {
   }
   return (
     <>
-      <Text
-        fontSize={tokens.fontSizes.xs}
-        fontWeight={tokens.fontWeights.semibold}
-        textTransform="uppercase"
-        letterSpacing="0.125em"
-        color={tokens.colors.font.tertiary}
-        padding={`${tokens.space.large} ${tokens.space.medium} ${tokens.space.xs} var(--secondary-nav-indent)`}
-      >
-        {heading}
-      </Text>
+      {heading ? (
+        <Text
+          fontSize={tokens.fontSizes.xs}
+          fontWeight={tokens.fontWeights.semibold}
+          textTransform="uppercase"
+          letterSpacing="0.125em"
+          color={tokens.colors.font.tertiary}
+          padding={`${tokens.space.large} ${tokens.space.medium} ${tokens.space.xs} var(--secondary-nav-indent)`}
+        >
+          {heading}
+        </Text>
+      ) : null}
       <NavLinks {...props} items={platformComponents} />
     </>
   );
@@ -138,15 +140,6 @@ const SecondaryNav = (props) => {
   const { platform } = props;
   // Extract section from URL (/section/... => section)
   let section = pathname.split('/')[2];
-  // NOTE: Remove this logic when we update the URLs for these sections.
-  if (section === 'components') {
-    if (pathname.match(/(chatbot|storage)/gi)) {
-      section = 'legacy-components';
-    }
-    if (pathname.match(/(authenticator|geo)/gi)) {
-      section = 'connected-components';
-    }
-  }
   const [value, setValue] = React.useState<string | string[]>([section]);
 
   return (
@@ -163,6 +156,22 @@ const SecondaryNav = (props) => {
           </NavLink>
         ))}
       </ExpanderItem>
+      {platform === 'react' ? (
+        <ExpanderItem
+          title={<ExpanderTitle Icon={MdOutlineWidgets} text="Components" />}
+          value="components"
+        >
+          {primitiveComponents.map(({ heading, components }, i) => (
+            <NavLinkComponentsSection
+              {...props}
+              key={heading || i}
+              heading={heading}
+              components={components}
+            />
+          ))}
+        </ExpanderItem>
+      ) : null}
+
       <ExpanderItem
         title={
           <ExpanderTitle Icon={MdOutlinePower} text="Connected components" />
@@ -175,37 +184,23 @@ const SecondaryNav = (props) => {
           </NavLink>
         ))}
       </ExpanderItem>
-      {platform === 'react' ? (
+
+      {/* Flutter doesn't have legacy components */}
+      {platform === 'flutter' ? null : (
         <ExpanderItem
           title={
-            <ExpanderTitle
-              Icon={MdOutlineWidgets}
-              text="Primitive components"
-            />
+            <ExpanderTitle Icon={MdWebAssetOff} text="Legacy components" />
           }
-          value="components"
+          value="legacy-components"
         >
-          {primitiveComponents.map(({ heading, components }) => (
-            <NavLinkComponentsSection
-              {...props}
-              key={heading}
-              heading={heading}
-              components={components}
-            />
+          {legacyComponents.map(({ label, ...rest }) => (
+            <NavLink key={label} {...rest} onClick={props.onClick}>
+              {label}
+            </NavLink>
           ))}
         </ExpanderItem>
-      ) : null}
+      )}
 
-      <ExpanderItem
-        title={<ExpanderTitle Icon={MdWebAssetOff} text="Legacy components" />}
-        value="legacy-components"
-      >
-        {legacyComponents.map(({ label, ...rest }) => (
-          <NavLink key={label} {...rest} onClick={props.onClick}>
-            {label}
-          </NavLink>
-        ))}
-      </ExpanderItem>
       <ExpanderItem
         title={<ExpanderTitle Icon={MdOutlineAutoAwesome} text="Theming" />}
         value="theming"

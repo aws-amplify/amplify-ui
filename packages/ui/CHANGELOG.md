@@ -1,5 +1,66 @@
 # @aws-amplify/ui
 
+## 3.12.2
+
+### Patch Changes
+
+- [#2273](https://github.com/aws-amplify/amplify-ui/pull/2273) [`90eb39280`](https://github.com/aws-amplify/amplify-ui/commit/90eb392806c7875d2659bd0bb52aa6b68b849ce7) Thanks [@ErikCH](https://github.com/ErikCH)! - Added user-select property to 'text' for the amplify-input and the textArea primitives. This will help Ionic apps that set this property to none. In Webkit/Chromium-based browsers this is inherited and is causing inputs on those browsers to not work correctly.
+
+* [#2269](https://github.com/aws-amplify/amplify-ui/pull/2269) [`3b2d6c2af`](https://github.com/aws-amplify/amplify-ui/commit/3b2d6c2afb51178ed6ba6312c29b368c522e460a) Thanks [@ErikCH](https://github.com/ErikCH)! - Fixed bug that displayed "usernamed undefined" when using a lambda that autoconfirms the user during sign up. The sign up would fail and redirect the user to sign in with the "username undefined" error. The user then would have to sign in again. This patch will now assign the correct credentials during sign up for users that are auto confirmed.
+
+## 3.12.1
+
+### Patch Changes
+
+- [#2200](https://github.com/aws-amplify/amplify-ui/pull/2200) [`09d738a0f`](https://github.com/aws-amplify/amplify-ui/commit/09d738a0f9e1a67367b3bdb45bcb9644f20e2600) Thanks [@flogy](https://github.com/flogy)! - Fixed some German authenticator translations
+
+## 3.12.0
+
+### Minor Changes
+
+- [#2113](https://github.com/aws-amplify/amplify-ui/pull/2113) [`ffadbe883`](https://github.com/aws-amplify/amplify-ui/commit/ffadbe8837996fee24477ad5325559904c011150) Thanks [@jacoblogan](https://github.com/jacoblogan)! - Add Design Tokens to phonenumberfield primitive, which required matching tokens in selectfield and textfield primitives
+
+  ```
+  --amplify-components-phonenumberfield-color
+  --amplify-components-phonenumberfield-border-color
+  --amplify-components-phonenumberfield-font-size
+  --amplify-components-phonenumberfield-focus-border-color
+  ```
+
+* [#2123](https://github.com/aws-amplify/amplify-ui/pull/2123) [`897e55de9`](https://github.com/aws-amplify/amplify-ui/commit/897e55de962672d76cccdb5e13f8e4f180316a9b) Thanks [@jacoblogan](https://github.com/jacoblogan)! - add design tokens and theme section to stepperfield primitive
+
+  ```
+  --amplify-components-stepperfield-border-color
+  --amplify-components-stepperfield-input-color
+  --amplify-components-stepperfield-input-font-size
+  --amplify-components-stepperfield-button-color
+  --amplify-components-stepperfield-button-background-color
+  --amplify-components-stepperfield-button-active-color
+  --amplify-components-stepperfield-button-active-background-color
+  --amplify-components-stepperfield-button-focus-color
+  --amplify-components-stepperfield-button-focus-background-color
+  --amplify-components-stepperfield-button-disabled-color
+  --amplify-components-stepperfield-button-disabled-background-color
+  --amplify-components-stepperfield-button-hover-color
+  --amplify-components-stepperfield-button-hover-background-color
+  ```
+
+- [#2114](https://github.com/aws-amplify/amplify-ui/pull/2114) [`710a6ec43`](https://github.com/aws-amplify/amplify-ui/commit/710a6ec4313f19077f723b75cf804d8508abca77) Thanks [@jacoblogan](https://github.com/jacoblogan)! - add design tokens to radio group
+
+  ```
+  --amplify-components-radio-label-color
+  --amplify-components-radio-label-disabled-color
+  --amplify-components-radiogroup-button-border-width
+  --amplify-components-radiogroup-button-border-color
+  --amplify-components-radiogroup-button-background-color
+  --amplify-components-radiogroup-button-checked-color
+  --amplify-components-radiogroup-button-label-color
+  ```
+
+### Patch Changes
+
+- [#2074](https://github.com/aws-amplify/amplify-ui/pull/2074) [`bc882121a`](https://github.com/aws-amplify/amplify-ui/commit/bc882121a8d0e005099e2827c3bde68d56647100) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui-react): lint components/Authenticator directory
+
 ## 3.11.1
 
 ### Patch Changes

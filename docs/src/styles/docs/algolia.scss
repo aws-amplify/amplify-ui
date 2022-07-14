@@ -52,11 +52,8 @@
   }
 
   .DocSearch-Button-Key {
-    background: var(--amplify-colors-overlay-20);
-    color: inherit;
     height: var(--amplify-font-sizes-medium);
     font-family: var(--docs-font-mono);
-    box-shadow: none;
     padding: 0;
     margin-right: var(--amplify-space-xxs);
     &:last-of-type {
@@ -72,16 +69,10 @@
 
 // Modal
 .DocSearch-Container .DocSearch-Modal {
-  background: var(--amplify-colors-background-secondary);
-  color: var(--amplify-colors-font-primary);
   position: fixed;
 
   @media (min-width: $breakpoint-small) {
     position: relative;
-  }
-
-  .DocSearch-Hit-source {
-    background: var(--amplify-colors-background-secondary);
   }
 
   .DocSearch-Input {
@@ -92,38 +83,18 @@
     outline: revert;
   }
 
-  .DocSearch-MagnifierLabel,
   .DocSearch-Hit-source,
-  .DocSearch-Hits mark,
   .DocSearch-Logo svg {
-    color: var(--amplify-colors-brand-primary-60);
+    color: var(--amplify-colors-font-tertiary);
   }
-
-  .DocSearch-Form {
-    box-shadow: inset 0 0 0 2px var(--amplify-colors-brand-primary-60);
-    background: var(--amplify-colors-background-secondary);
+  
+  .DocSearch-MagnifierLabel {
+    color: var(--amplify-colors-font-disabled);
   }
-
-  .DocSearch-Hit-Container {
-    color: var(--amplify-colors-font-primary);
-  }
-
-  .DocSearch-Hit a {
-    background: var(--amplify-colors-background-primary);
-  }
-
-  .DocSearch-Hit[aria-selected='true'] a {
-    background-color: var(--amplify-colors-brand-primary-60);
-  }
-
-  .DocSearch-Footer {
-    background: var(--amplify-colors-background-primary);
-  }
-
-  .DocSearch-Commands-Key {
-    background: inherit;
-    box-shadow: inset 0 -2px 0 0 #cdcde6, inset 0 0 1px 1px #fff,
-      0 1px 2px 1px var(--amplify-colors-shadow-primary);
+  
+  .DocSearch-Hit {
+    border-radius: var(--amplify-radii-small);
+    padding-block-end: var(--amplify-space-small);
   }
 
   .DocSearch-Cancel {

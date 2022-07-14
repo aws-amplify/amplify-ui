@@ -20,6 +20,14 @@ export interface LinkOptions {
    * A string representation of the URL path
    */
   to?: string;
+
+  /**
+   * @description
+   * a stringifier that returns a string containing the whole URL, and allows the href to be updated.
+   * @see
+   * [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLAnchorElement/href)
+   */
+  href?: string;
 }
 
 export interface LinkProps extends ViewProps, LinkOptions {}
