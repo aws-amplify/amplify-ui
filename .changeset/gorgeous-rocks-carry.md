@@ -47,5 +47,4 @@ export const CheckboxFieldIndeterminateExample = () => {
     </Flex>
   );
 };
-
-```jsx
+```
