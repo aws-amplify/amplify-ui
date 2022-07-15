@@ -8,6 +8,7 @@ import {
   SLIDER_ROOT_TEST_ID,
   SLIDER_TRACK_TEST_ID,
 } from '../SliderField';
+import { Heading } from '../../Heading';
 import {
   testFlexProps,
   expectFlexContainerStyleProps,
@@ -89,7 +90,7 @@ describe('SliderField: ', () => {
       expect(value).toBeInTheDocument();
     });
 
-    it('should display formatted value if formatValue is provided', async () => {
+    it('should display string formatted value if formatValue is provided', async () => {
       render(
         <SliderField
           defaultValue={10}
@@ -102,6 +103,21 @@ describe('SliderField: ', () => {
 
       const value = await screen.findByText('10%');
       expect(value).toBeInTheDocument();
+    });
+
+    it('should display component-based formatted value if formatValue is provided', async () => {
+      render(
+        <SliderField
+          defaultValue={10}
+          label="slider"
+          formatValue={(value) => {
+            return <Heading>{value}</Heading>;
+          }}
+        />
+      );
+
+      const heading = await screen.findByText('10');
+      expect(heading).toHaveClass(ComponentClassNames.Heading);
     });
 
     it('should not display value if isValueHidden is true', async () => {
