@@ -10,7 +10,6 @@ import {
   Heading,
   Collection,
   FlexContainerStyleProps,
-  useTheme,
 } from '@aws-amplify/ui-react';
 
 import { Demo } from '@/components/Demo';
@@ -26,61 +25,78 @@ import {
 const propsToCode = (props) => {
   const filteredProps = filterDemoProps(props);
   return `
+const items = [
+  {
+    title: 'Milford - Room #1',
+    badges: ['Waterfront', 'Verified'],
+  },
+  {
+    title: 'Milford - Room #2',
+    badges: ['Mountain', 'Verified'],
+  },
+];
+
 <Collection
-  type='list'
+  items={items}
+  type="list"
 ${objectEntriesToPropString(Object.entries(filteredProps))}
 >
-  {collectionItems}
+  {(item, index) => (
+    <Card
+      key={index}
+      borderRadius="medium"
+      maxWidth="20rem"
+      variation="outlined"
+    >
+      <Image
+        src="/road-to-milford-new-zealand-800w.jpg"
+        alt="Glittering stream with old log, snowy mountain peaks tower over a green field."
+      />
+      <View padding="xs">
+        <Flex>
+          {item.badges.map((badge) => (
+            <Badge
+              key={badge}
+              backgroundColor={
+                badge === 'Waterfront' ? 'blue.40' 
+                : badge === 'Mountain' ? 'green.40' : 'yellow.40'}
+            >
+              {badge}
+            </Badge>
+          ))}
+        </Flex>
+        <Divider padding="xs" />
+        <Heading padding="medium">{item.title}</Heading>
+        <Button variation="primary" isFullWidth>
+          Book it
+        </Button>
+      </View>
+    </Card>
+  )}
 </Collection>`;
 };
 
+const defaultValues = {
+  direction: 'row',
+  gap: '20px',
+  wrap: 'nowrap',
+};
+
 export const CollectionDemo = () => {
-  const defaultValues = {
-    direction: 'row',
-    gap: '20px',
-    wrap: 'nowrap',
-  };
-
-  const { tokens } = useTheme();
-
   const collectionProps = useCollectionProps(
     demoState.get(Collection.displayName) || defaultValues
   );
   const demoProps = ['alignContent', 'alignItems', 'direction', 'gap', 'wrap'];
   const collectionDemoProps = getDemoProps(collectionProps, demoProps);
 
-  const list = [
+  const items = [
     {
       title: 'Milford - Room #1',
-      imageSrc: '/road-to-milford-new-zealand-800w.jpg',
-      imageAlt:
-        'Glittering stream with old log, snowy mountain peaks tower over a green field.',
-      badges: [
-        {
-          color: 'lightblue',
-          text: 'Waterfront',
-        },
-        {
-          color: 'lightgreen',
-          text: 'Verified',
-        },
-      ],
+      badges: ['Waterfront', 'Verified'],
     },
     {
       title: 'Milford - Room #2',
-      imageSrc: '/road-to-milford-new-zealand-800w.jpg',
-      imageAlt:
-        'Glittering stream with old log, snowy mountain peaks tower over a green field.',
-      badges: [
-        {
-          color: tokens.colors.yellow[60].value,
-          text: 'Mountain',
-        },
-        {
-          color: 'lightgreen',
-          text: 'Verified',
-        },
-      ],
+      badges: ['Mountain', 'Verified'],
     },
   ];
 
@@ -89,12 +105,9 @@ export const CollectionDemo = () => {
       code={propsToCode(collectionDemoProps)}
       propControls={<CollectionPropControls {...collectionProps} />}
     >
-      <View
-        backgroundColor={tokens.colors.background.secondary}
-        padding={tokens.space.medium}
-      >
+      <View backgroundColor="neutral.20" padding="1rem">
         <Collection
-          items={list}
+          items={items}
           type="list"
           direction={
             collectionProps.direction as FlexContainerStyleProps['direction']
@@ -105,24 +118,34 @@ export const CollectionDemo = () => {
           {(item, index) => (
             <Card
               key={index}
+              borderRadius="medium"
               maxWidth="20rem"
               variation="outlined"
-              borderRadius="5px"
             >
-              <Image src={item.imageSrc} alt={item.imageAlt} />
-              <View padding={tokens.space.xs}>
+              <Image
+                src="/road-to-milford-new-zealand-800w.jpg"
+                alt="Glittering stream with old log, snowy mountain peaks tower over a green field."
+              />
+              <View padding="xs">
                 <Flex>
                   {item.badges.map((badge) => (
-                    <Badge key={badge.text} backgroundColor={badge.color}>
-                      {badge.text}
+                    <Badge
+                      key={badge}
+                      backgroundColor={
+                        badge === 'Waterfront'
+                          ? 'blue.40'
+                          : badge === 'Mountain'
+                          ? 'green.40'
+                          : 'yellow.40'
+                      }
+                    >
+                      {badge}
                     </Badge>
                   ))}
                 </Flex>
-                <Divider padding={`${tokens.space.xxxs} 0`} />
-                <Heading level={6} padding={tokens.space.xxxs}>
-                  {item.title}
-                </Heading>
-                <Button isFullWidth={true} variation="primary">
+                <Divider padding="xs" />
+                <Heading padding="medium">{item.title}</Heading>
+                <Button variation="primary" isFullWidth>
                   Book it
                 </Button>
               </View>
