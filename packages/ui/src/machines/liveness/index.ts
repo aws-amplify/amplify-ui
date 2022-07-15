@@ -1,5 +1,6 @@
 import { createMachine, assign, actions } from 'xstate';
 import adapter from 'webrtc-adapter';
+import { LivenessPredictionsProvider } from '../../helpers/liveness/liveness-predictions-provider';
 
 import {
   Face,
@@ -608,7 +609,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         } = context;
 
         const videoBlob = await videoRecorder.getBlob();
-        videoRecorder.destroy();
         const { width, height } = videoMediaStream.getTracks()[0].getSettings();
 
         const flippedInitialFaceLeft =
@@ -645,18 +645,23 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           ],
         };
 
-        await context.livenessStreamProvider.sendClientSessionInfoEvent(
+        context.livenessStreamProvider.sendClientInfo(
+          videoRecorder._recorder,
           livenessActionDocument
         );
-        await context.livenessStreamProvider.closeStream();
 
         // Put liveness video
-        const provider = new LivenessStreamProvider(sessionId);
-        await provider.putLivenessVideo({
-          sessionId,
-          videoBlob,
-          livenessActionDocument: JSON.stringify(livenessActionDocument),
-        });
+        const provider = new LivenessPredictionsProvider();
+        try {
+          await provider.putLivenessVideo({
+            sessionId,
+            videoBlob,
+            livenessActionDocument: JSON.stringify(livenessActionDocument),
+          });
+        } catch (e) {
+          console.log(e);
+        }
+
         const endPutLivenessVideoTime = Date.now();
         recordLivenessAnalyticsEvent(context.flowProps, {
           event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,

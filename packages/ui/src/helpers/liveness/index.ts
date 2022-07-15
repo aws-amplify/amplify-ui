@@ -4,3 +4,4 @@ export * from './support';
 export * from './liveness';
 export * from './liveness-stream-provider';
 export * from './analytics';
+export * from './liveness-predictions-provider';

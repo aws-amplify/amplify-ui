@@ -10,10 +10,10 @@ export interface VideoRecorderOptions {
  */
 export class VideoRecorder {
   public videoStream: ReadableStream<Blob>;
+  public _recorder: MediaRecorder;
 
   private _stream: MediaStream;
   private _options: VideoRecorderOptions;
-  private _recorder: MediaRecorder;
   private _chunks: Blob[];
 
   constructor(stream: MediaStream, options: VideoRecorderOptions = {}) {
@@ -30,6 +30,8 @@ export class VideoRecorder {
   }
 
   private _setupCallbacks() {
+    // Creates a Readablestream of video chunks. Waits to receive a clientSessionInfo event before pushing
+    //  a livenessActionDocument to the ReadableStream and finally closing the ReadableStream
     this.videoStream = new ReadableStream({
       start: (controller) => {
         this._recorder.ondataavailable = (e: BlobEvent) => {
@@ -45,9 +47,13 @@ export class VideoRecorder {
           }
         };
 
-        this._recorder.onstop = (e: Event) => {
-          controller.close();
-        };
+        this._recorder.addEventListener(
+          'clientSesssionInfo',
+          (e: MessageEvent) => {
+            controller.enqueue(e.data.livenessActionDocument);
+            controller.close();
+          }
+        );
       },
     });
   }
