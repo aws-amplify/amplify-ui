@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`withInAppMessaging renders as expected 1`] = `"example"`;
