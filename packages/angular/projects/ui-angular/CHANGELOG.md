@@ -1,5 +1,14 @@
 # @aws-amplify/ui-angular
 
+## 2.4.14
+
+### Patch Changes
+
+- [#2159](https://github.com/aws-amplify/amplify-ui/pull/2159) [`595d30079`](https://github.com/aws-amplify/amplify-ui/commit/595d300790677eb05cd290d2f373042311e1cb8b) Thanks [@SantoshLatpate](https://github.com/SantoshLatpate)! - fix(angular): Disabled submit button when API call status is pending
+
+- Updated dependencies [[`90eb39280`](https://github.com/aws-amplify/amplify-ui/commit/90eb392806c7875d2659bd0bb52aa6b68b849ce7), [`3b2d6c2af`](https://github.com/aws-amplify/amplify-ui/commit/3b2d6c2afb51178ed6ba6312c29b368c522e460a)]:
+  - @aws-amplify/ui@3.12.2
+
 ## 2.4.13
 
 ### Patch Changes
