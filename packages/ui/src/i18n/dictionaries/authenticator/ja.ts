@@ -52,11 +52,11 @@ export const jaDict = {
   'Username cannot be empty': 'ユーザー名は入力必須です',
   Verify: '確認',
   'Verify Contact': '連絡先を確認',
-  'We Emailed You': 'メールを送信しました',
+  'We Emailed You': 'コードを送信しました',
   'Your code is on the way. To log in, enter the code we emailed to':
-    'コードを送信しました。ログインするには、メールに記載されたコードを入力してください',
+    'ログインするには、メールに記載されたコードを入力してください。送信先:',
   'Your code is on the way. To log in, enter the code we texted to':
-    'コードを送信しました。ログインするには、テキストメッセージに記載されたコードを入力してください',
+    'ログインするには、テキストメッセージに記載されたコードを入力してください。送信先:',
   'It may take a minute to arrive.':
     'コードを受信するまで数分かかる場合があります。',
 };
