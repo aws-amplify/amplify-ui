@@ -168,7 +168,7 @@ jobs:
         run: yarn build
         working-directory: ./canary
 
-  trigger-failure-alarm:
+  put-failure-metric:
     # Triggers an alarm if any of builds failed.
     runs-on: ubuntu-latest
     environment: ci
