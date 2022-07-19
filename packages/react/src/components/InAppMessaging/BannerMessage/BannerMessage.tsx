@@ -1,17 +1,16 @@
-import {
-  Heading,
-  Icon,
-  Image,
-  Text,
-  View,
-  Button,
-  Flex,
-} from '@aws-amplify/ui-react';
+import isEmpty from 'lodash/isEmpty';
 
-import '../../../../src/styles.css';
+import { Button } from '../../../primitives/Button';
+import { Flex } from '../../../primitives/Flex';
+import { Heading } from '../../../primitives/Heading';
+import { IconClose } from '../../../primitives/Icon/icons/IconClose';
+import { Image } from '../../../primitives/Image';
+import { Text } from '../../../primitives/Text';
+import { View } from '../../../primitives/View';
 
 export default function BannerMessage({
   position = 'top',
+  alignment = 'right',
   ...props
 }): JSX.Element | null {
   const {
@@ -24,41 +23,61 @@ export default function BannerMessage({
     secondaryButton,
   } = props;
 
-  const hasPrimaryButton = primaryButton.title && primaryButton.title != '';
-  const hasSecondaryButton =
-    secondaryButton.title && secondaryButton.title != '';
+  const bannerPosition = layout.toLowerCase().replace('_', '-');
+  const hasPrimaryButton = !isEmpty(primaryButton);
+  const hasSecondaryButton = !isEmpty(secondaryButton);
 
   return (
-    <Flex className={`container ${layout}`}>
-      <Flex className="contentContainer">
-        <View className="imageContainer">
-          <Image src={image.src} className="image" alt="Message Image" />
-        </View>
-        <Flex className="textContainer">
-          {header?.content && <Heading>{header.content}</Heading>}
-          {body?.content && <Text className="body">{body.content}</Text>}
+    <Flex
+      className={`amplify-in-app-messaging-banner__container amplify-in-app-messaging-banner__${bannerPosition}`}
+    >
+      <Flex className="amplify-in-app-messaging-banner__content-container">
+        {image?.src ? (
+          <View className="amplify-in-app-messaging-banner__image-container">
+            <Image
+              src={image.src}
+              className="amplify-in-app-messaging-banner__image"
+              alt="Message Image"
+            />
+          </View>
+        ) : null}
+        <Flex className="amplify-in-app-messaging-banner__text-container">
+          {header?.content ? <Heading>{header.content}</Heading> : null}
+          {body?.content ? (
+            <Text className="amplify-in-app-messaging-banner__body">
+              {body.content}
+            </Text>
+          ) : null}
         </Flex>
-        <Icon
+        <IconClose
           ariaLabel="Close"
           onClick={onClose}
-          pathData="M6.2253 4.81108C5.83477 4.42056 5.20161 4.42056 4.81108 4.81108C4.42056 5.20161 4.42056 5.83477 4.81108 6.2253L10.5858 12L4.81114 17.7747C4.42062 18.1652 4.42062 18.7984 4.81114 19.1889C5.20167 19.5794 5.83483 19.5794 6.22535 19.1889L12 13.4142L17.7747 19.1889C18.1652 19.5794 18.7984 19.5794 19.1889 19.1889C19.5794 18.7984 19.5794 18.1652 19.1889 17.7747L13.4142 12L19.189 6.2253C19.5795 5.83477 19.5795 5.20161 19.189 4.81108C18.7985 4.42056 18.1653 4.42056 17.7748 4.81108L12 10.5858L6.2253 4.81108Z"
-          className="icon"
+          className="amplify-in-app-messaging-banner__icon"
         />
       </Flex>
-      {(hasPrimaryButton || hasSecondaryButton) && (
-        <Flex direction="row" className="buttonsContainer">
-          {hasSecondaryButton && (
-            <Button onClick={secondaryButton?.onAction} className="button">
-              {secondaryButton?.title}
+      {hasPrimaryButton || hasSecondaryButton ? (
+        <Flex
+          direction="row"
+          className="amplify-in-app-messaging-banner__buttons-container"
+        >
+          {hasSecondaryButton ? (
+            <Button
+              onClick={secondaryButton.onAction}
+              className="amplify-in-app-messaging-banner__button"
+            >
+              {secondaryButton.title}
             </Button>
-          )}
-          {hasPrimaryButton && (
-            <Button onClick={primaryButton?.onAction} className="button">
-              {primaryButton?.title}
+          ) : null}
+          {hasPrimaryButton ? (
+            <Button
+              onClick={primaryButton.onAction}
+              className="amplify-in-app-messaging-banner__button"
+            >
+              {primaryButton.title}
             </Button>
-          )}
+          ) : null}
         </Flex>
-      )}
+      ) : null}
     </Flex>
   );
 }
