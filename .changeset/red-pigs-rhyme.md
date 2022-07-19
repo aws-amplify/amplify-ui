@@ -2,7 +2,7 @@
 "@aws-amplify/ui-react": minor
 ---
 
-feat: adding formatValue to allow customizing the value format
+feat: adding `formatValue` prop on SliderField to allow formatting the value
 
 ***Example***
 

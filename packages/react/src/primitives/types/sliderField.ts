@@ -77,7 +77,7 @@ export interface SliderFieldProps extends TextInputFieldProps, ViewProps {
 
   /**
    * @description
-   * Uses to format how the value gets rendered
+   * Use to format how the value gets rendered
    */
   formatValue?: (value: number) => React.ReactNode;
 
