@@ -168,8 +168,8 @@ jobs:
         run: yarn build
         working-directory: ./canary
 
-  put-failure-metric:
-    # Triggers an alarm if any of builds failed.
+  log-failure-metric:
+    # Send data point 1 to metric RunTimeTestsFailure, if success
     runs-on: ubuntu-latest
     environment: ci
     needs: build
@@ -182,3 +182,18 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
       - run: aws cloudwatch put-metric-data --metric-name publishFailure --namespace GithubCanaryApps --value 1
+
+  log-success-metric:
+    # Send data point 0 to metric RunTimeTestsFailure, if success
+    runs-on: ubuntu-latest
+    environment: ci
+    needs: build
+    if: ${{ success() }}
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      - run: aws cloudwatch put-metric-data --metric-name publishFailure --namespace GithubCanaryApps --value 0
