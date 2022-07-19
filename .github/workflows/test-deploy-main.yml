@@ -172,7 +172,7 @@ jobs:
     # Send data point 1 to metric RunTimeTestsFailure, if success
     runs-on: ubuntu-latest
     environment: ci
-    needs: build
+    needs: build-test
     if: ${{ failure() }}
     steps:
       - name: Configure AWS credentials
@@ -187,7 +187,7 @@ jobs:
     # Send data point 0 to metric RunTimeTestsFailure, if success
     runs-on: ubuntu-latest
     environment: ci
-    needs: build
+    needs: build-test
     if: ${{ success() }}
     steps:
       - name: Configure AWS credentials
