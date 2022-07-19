@@ -1,6 +1,7 @@
 export const esDict = {
   'Account recovery requires verified contact information':
     'La recuperación de la cuenta requiere información de contacto verificada',
+  'An account with the given email already exists.': 'Ya existe una cuenta con el correo ingresado.',
   'Back to Sign In': 'Volver a inicio de sesión',
   'Change Password': 'Cambiar contraseña',
   Changing: 'Cambiando',
@@ -14,10 +15,12 @@ export const esDict = {
   'Confirmation Code': 'Código de confirmación',
   Confirming: 'Confirmando',
   'Create a new account': 'Crear una cuenta nueva',
+  'Create Account': 'Crear cuenta',
   'Creating Account': 'Creando cuenta',
   Email: 'Email',
+  'Enter your email': 'Escriba su Email',
   'Forgot Password': 'Olvidé mi contraseña',
-  'Incorrect username or password': 'Nombre de usuario o contraseña incorrecta',
+  'Incorrect username or password.': 'Nombre de usuario o contraseña incorrecta',
   'Invalid password format': 'Formato de contraseña inválido',
   'Invalid phone number format': 'Formato de número de teléfono inválido',
   'Forgot your password?': '¿Olvidó su contraseña?',
@@ -44,6 +47,10 @@ export const esDict = {
   'Sign in to your account': 'Iniciar sesión en tu cuenta',
   'Sign Out': 'Cerrar sesión',
   'Sign Up': 'Crear cuenta',
+  'Sign Up with Amazon': 'Crear cuenta con Amazon',
+  'Sign Up with Apple': 'Crear cuenta con Apple',
+  'Sign Up with Facebook': 'Crear cuenta con Facebook',
+  'Sign Up with Google': 'Crear cuenta con Google',
   'Signing in': 'Iniciando sesión',
   Skip: 'Omitir',
   Submit: 'Enviar',
@@ -53,4 +60,5 @@ export const esDict = {
   'Username cannot be empty': 'El nombre de usuario no puede estar vacío',
   Verify: 'Verificar',
   'Verify Contact': 'Verificar contacto',
+  'Your passwords must match': 'Las contraseñas deben coincidir'
 };

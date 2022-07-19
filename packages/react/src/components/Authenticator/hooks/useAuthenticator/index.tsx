@@ -106,11 +106,7 @@ export const Provider = ({
 
   const { service: activeService } = value;
 
-  const isListening = React.useRef(false);
   React.useEffect(() => {
-    if (isListening.current) return;
-
-    isListening.current = true;
     return listenToAuthHub(activeService);
   }, [activeService]);
 

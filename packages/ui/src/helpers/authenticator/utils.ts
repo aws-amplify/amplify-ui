@@ -68,9 +68,13 @@ export const listenToAuthHub = (
   service: AuthInterpreter,
   handler: HubHandler = defaultAuthHubHandler
 ) => {
-  return Hub.listen('auth', (data) => {
-    handler(data, service);
-  });
+  return Hub.listen(
+    'auth',
+    (data) => {
+      handler(data, service);
+    },
+    'authenticator-hub-handler'
+  );
 };
 
 export const hasSpecialChars = (password: string) =>

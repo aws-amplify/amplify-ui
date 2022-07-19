@@ -1,5 +1,18 @@
 # @aws-amplify/ui-vue
 
+## 2.4.15
+
+### Patch Changes
+
+- Updated dependencies [[`bde5e7a48`](https://github.com/aws-amplify/amplify-ui/commit/bde5e7a48a144bf76f77b1b747dcc912ce8cec6e), [`74e8c8935`](https://github.com/aws-amplify/amplify-ui/commit/74e8c89354bd551723f62ac2a3b60e5222d92d58)]:
+  - @aws-amplify/ui@3.12.3
+
+## 2.4.14
+
+### Patch Changes
+
+- [#2296](https://github.com/aws-amplify/amplify-ui/pull/2296) [`8659e2f7e`](https://github.com/aws-amplify/amplify-ui/commit/8659e2f7efc986c9ec71cdc245de57fa425b0f5b) Thanks [@ErikCH](https://github.com/ErikCH)! - Vue library had a bug that was causing types to not show correctly. This fix corrects the package.json to point to the correct definition file.
+
 ## 2.4.13
 
 ### Patch Changes
