@@ -114,7 +114,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
                       {
                         cond: 'shouldSkipConfirm',
                         target: 'skipConfirm',
-                        actions: ['setUser'],
+                        actions: ['setUser', 'setCredentials'],
                       },
                       {
                         target: 'resolved',

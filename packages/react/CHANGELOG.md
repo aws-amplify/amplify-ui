@@ -1,5 +1,26 @@
 # @aws-amplify/ui-react
 
+## 3.1.0
+
+### Minor Changes
+
+- [#2262](https://github.com/aws-amplify/amplify-ui/pull/2262) [`a72cacec2`](https://github.com/aws-amplify/amplify-ui/commit/a72cacec20107a4a991683ab02863981ee325de4) Thanks [@hein-j](https://github.com/hein-j)! - Update internal type EscapeHatchProps to accept `unknown`, so that customers can set overrides of any type.
+
+### Patch Changes
+
+- [#2263](https://github.com/aws-amplify/amplify-ui/pull/2263) [`14d35db95`](https://github.com/aws-amplify/amplify-ui/commit/14d35db950c5ae00409ac483a32a0726e8caa2ee) Thanks [@slaymance](https://github.com/slaymance)! - Update to latest version of maplibre-gl-js-amplify to support maplibre-gl v2
+
+* [#2279](https://github.com/aws-amplify/amplify-ui/pull/2279) [`332671d65`](https://github.com/aws-amplify/amplify-ui/commit/332671d6565060285a5f3a0b3b61c528286bd062) Thanks [@thaddmt](https://github.com/thaddmt)! - fix: bump maplibre-gl-js-amplify to fix dependabot and other security related issues
+
+* Updated dependencies [[`90eb39280`](https://github.com/aws-amplify/amplify-ui/commit/90eb392806c7875d2659bd0bb52aa6b68b849ce7), [`3b2d6c2af`](https://github.com/aws-amplify/amplify-ui/commit/3b2d6c2afb51178ed6ba6312c29b368c522e460a)]:
+  - @aws-amplify/ui@3.12.2
+
+## 3.0.4
+
+### Patch Changes
+
+- [#2228](https://github.com/aws-amplify/amplify-ui/pull/2228) [`60da225f8`](https://github.com/aws-amplify/amplify-ui/commit/60da225f84d51ba51d044c17853558b3514c9f41) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(ui-react): directly return children from Authenticator
+
 ## 3.0.3
 
 ### Patch Changes
