@@ -10,8 +10,8 @@ export interface VideoRecorderOptions {
  */
 export class VideoRecorder {
   public videoStream: ReadableStream<Blob>;
-  public _recorder: MediaRecorder;
 
+  private _recorder: MediaRecorder;
   private _stream: MediaStream;
   private _options: VideoRecorderOptions;
   private _chunks: Blob[];
@@ -51,9 +51,12 @@ export class VideoRecorder {
           'clientSesssionInfo',
           (e: MessageEvent) => {
             controller.enqueue(e.data.livenessActionDocument);
-            controller.close();
           }
         );
+
+        this._recorder.addEventListener('endStream', () => {
+          controller.close();
+        });
       },
     });
   }
@@ -86,5 +89,9 @@ export class VideoRecorder {
     this.stop();
     this.clearRecordedData();
     this._recorder = null;
+  }
+
+  dispatch(event: Event): void {
+    this._recorder.dispatchEvent(event);
   }
 }

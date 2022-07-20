@@ -476,7 +476,13 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
       async detectInitialFaceAndDrawOval(context) {
         const {
-          videoAssociatedParams: { videoEl, canvasEl, videoMediaStream },
+          videoAssociatedParams: {
+            videoEl,
+            canvasEl,
+            videoMediaStream,
+            videoRecorder,
+            recordingStartTimestampMs,
+          },
           ovalAssociatedParams: { faceDetector },
           flowProps: { clientActionDocument },
         } = context;
@@ -554,6 +560,35 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           metrics: {
             duration: ovalDrawnTimestamp - faceDetectedTimestamp,
           },
+        });
+
+        // Send client info for initial face position
+        const flippedInitialFaceLeft =
+          width - initialFace.left - initialFace.width;
+        context.livenessStreamProvider.sendClientInfo(videoRecorder, {
+          challenges: [
+            {
+              type: ChallengeType.FACE_MOVEMENT,
+              faceMovementChallenge: {
+                initialFacePosition: {
+                  height: initialFace.height,
+                  width: initialFace.width,
+                  top: initialFace.top,
+                  left: flippedInitialFaceLeft,
+                },
+                targetFacePosition: {
+                  height: ovalDetails.height,
+                  width: ovalDetails.width,
+                  top: ovalDetails.centerY - ovalDetails.height / 2,
+                  left: ovalDetails.centerX - ovalDetails.width / 2,
+                },
+                recordingTimestamps: {
+                  videoStart: recordingStartTimestampMs,
+                  initialFaceDetected: initialFace.timestampMs,
+                },
+              },
+            },
+          ],
         });
 
         return { faceMatchState, ovalDetails, initialFace };
@@ -646,9 +681,11 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         };
 
         context.livenessStreamProvider.sendClientInfo(
-          videoRecorder._recorder,
+          videoRecorder,
           livenessActionDocument
         );
+
+        await context.livenessStreamProvider.endStream(videoRecorder);
 
         // Put liveness video
         const provider = new LivenessPredictionsProvider();

@@ -1,18 +1,7 @@
-import { Credentials, getAmplifyUserAgent } from '@aws-amplify/core';
 import { AmazonAIInterpretPredictionsProvider } from '@aws-amplify/predictions';
-import {
-  EventStreamCodec,
-  Message,
-  TimestampHeaderValue,
-} from '@aws-sdk/eventstream-codec';
-import { fromUtf8, toUtf8 } from '@aws-sdk/util-utf8-node';
 import { Rekognition } from 'aws-sdk-liveness';
-import RekognitionLiveness from 'aws-sdk-liveness/clients/rekognitionliveness';
 import { LivenessActionDocument } from '../../../dist/types/types/liveness/liveness-service-types';
-import {
-  getLivenessClientSessionInfoEvent,
-  getLivenessVideoEvent,
-} from './liveness-event-utils';
+import { VideoRecorder } from './video-recorder';
 export interface StartLivenessStreamInput {
   sessionId: string;
 }
@@ -22,10 +11,10 @@ export interface StartLivenessStreamOutput {
   stream: WebSocket;
 }
 
-const eventStreamCodec = new EventStreamCodec(toUtf8, fromUtf8);
-
 export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider {
   public sessionId: string;
+
+  private _reader: ReadableStreamDefaultReader;
 
   constructor(sessionId: string) {
     super();
@@ -36,12 +25,12 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
   private getAsyncGeneratorFromReadableStream(
     stream: ReadableStream
   ): () => AsyncGenerator<any> {
-    const reader = stream.getReader();
+    const current = this;
+    this._reader = stream.getReader();
     return async function* () {
       while (true) {
-        const { done, value } = await reader.read();
+        const { done, value } = await current._reader.read();
         if (done) {
-          console.log('done');
           return;
         }
 
@@ -81,14 +70,21 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
   }
 
   public sendClientInfo(
-    videoRecorder: MediaRecorder,
+    videoRecorder: VideoRecorder,
     livenessActionDocument: any
   ) {
-    videoRecorder.dispatchEvent(
+    videoRecorder.dispatch(
       new MessageEvent('clientSesssionInfo', {
         data: { livenessActionDocument },
       })
     );
+  }
+
+  public async endStream(videoRecorder: VideoRecorder) {
+    videoRecorder.dispatch(new Event('endStream'));
+
+    await this._reader.closed;
+    return;
   }
 }
 
@@ -98,7 +94,7 @@ function isBlob(obj: any): obj is Blob {
 
 function isLivenessActionDocument(obj: any): obj is LivenessActionDocument {
   return (
-    (obj as LivenessActionDocument).deviceInformation !== undefined &&
+    (obj as LivenessActionDocument).deviceInformation !== undefined ||
     Array.isArray((obj as LivenessActionDocument).challenges)
   );
 }
