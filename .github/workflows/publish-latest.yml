@@ -89,7 +89,7 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   log-failure-metric:
-    # Send data point 1 to metric PublishLatestFailure, if success
+    # Send data point 1 to metric PublishLatestFailure, if failure occurs
     uses: aws-amplify/amplify-ui/.github/workflows/reusable/metric.yml
     with:
       status: ${{ failure() }}
