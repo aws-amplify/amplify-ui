@@ -83,7 +83,7 @@ export const HeroSection = () => {
                 title="Cloud connected"
                 href="#authentication"
                 icon={<RiCloudWindyLine />}
-                desc="We handle the hard stuff so you can focus on UI"
+                desc="Focus on your UI and let us take care of the rest"
               />
               <CardLink
                 variation="home"
