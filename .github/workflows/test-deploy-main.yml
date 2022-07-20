@@ -169,7 +169,7 @@ jobs:
         working-directory: ./canary
 
   log-failure-metric:
-    # Send data point 1 to metric RunTimeTestsFailure, if success
+    # Send data point 1 to metric PublishNextFailure, if success
     runs-on: ubuntu-latest
     environment: ci
     needs: build-test
@@ -181,10 +181,10 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-      - run: aws cloudwatch put-metric-data --metric-name publishFailure --namespace GithubCanaryApps --value 1
+      - run: aws cloudwatch put-metric-data --metric-name PublishNextFailure --namespace GithubCanaryApps --value 1
 
   log-success-metric:
-    # Send data point 0 to metric RunTimeTestsFailure, if success
+    # Send data point 0 to metric PublishNextFailure, if success
     runs-on: ubuntu-latest
     environment: ci
     needs: build-test
@@ -196,4 +196,4 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-      - run: aws cloudwatch put-metric-data --metric-name publishFailure --namespace GithubCanaryApps --value 0
+      - run: aws cloudwatch put-metric-data --metric-name PublishNextFailure --namespace GithubCanaryApps --value 0
