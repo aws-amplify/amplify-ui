@@ -90,7 +90,7 @@ jobs:
 
   log-failure-metric:
     # Send data point 1 to metric PublishLatestFailure, if success
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable/metric.yml
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-metric.yml
     with:
       status: ${{ failure() }}
       metric-name: PublishNPMFailure
@@ -101,7 +101,7 @@ jobs:
 
   log-success-metric:
     # Send data point 0 to metric PublishLatestFailure, if success
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable/metric.yml
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-metric.yml
     with:
       status: ${{ success() }}
       metric-name: PublishNPMFailure

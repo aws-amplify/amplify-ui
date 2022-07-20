@@ -12,7 +12,7 @@ on:
 
 jobs:
   test:
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable/e2e.yml@main
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@main
     with:
       commit: ${{ github.sha }}
       repository: ${{ github.repository }}
@@ -170,7 +170,7 @@ jobs:
 
   log-failure-metric:
     # Send data point 1 to metric PublishNextFailure, if success
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable/metric.yml
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-metric.yml
     with:
       status: ${{ failure() }}
       metric-name: PublishNextFailure
@@ -181,7 +181,7 @@ jobs:
 
   log-success-metric:
     # Send data point 0 to metric PublishNextFailure, if success
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable/metric.yml
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-metric.yml
     with:
       status: ${{ failure() }}
       metric-name: PublishNextFailure
