@@ -3,3 +3,4 @@ export {
   MessageComponents,
   MessageStyles,
 } from './InAppMessageDisplay';
+export { withInAppMessaging } from './withInAppMessaging';
