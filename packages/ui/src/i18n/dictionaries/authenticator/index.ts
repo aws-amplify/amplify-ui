@@ -13,6 +13,7 @@ export { zhDict } from './zh';
 export { svDict } from './sv';
 export { idDict } from './id';
 export { trDict } from './tr';
+export { ruDict } from './ru';
 
 // default text phrases
 export { defaultTexts } from './defaultTexts';
