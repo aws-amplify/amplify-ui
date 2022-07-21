@@ -19,6 +19,12 @@ export interface AlertProps extends FlexProps {
 
   /**
    * @description
+   * Configures the accessible label for the Alert's dismiss button.
+   */
+  dismissButtonLabel?: string;
+
+  /**
+   * @description
    * The onDismiss callback will be called when the user dismisses (closes) the Alert.
    */
   onDismiss?: () => void;

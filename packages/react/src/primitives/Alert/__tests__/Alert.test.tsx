@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import * as React from 'react';
 
 import { Alert } from '../Alert';
-import { ComponentClassNames } from '../../shared/constants';
+import { ComponentClassNames, ComponentText } from '../../shared/constants';
 import { ComponentPropsToStylePropsMap } from '../../types';
 import kebabCase from 'lodash/kebabCase';
 
@@ -109,6 +109,26 @@ describe('Alert: ', () => {
 
     expect(notDismissible.childElementCount).toBe(1);
     expect(isDismissible.childElementCount).toBe(2);
+  });
+
+  it('can configure an accessible label for the dismiss button', async () => {
+    const customDismissButtonLabel = 'Testing 123';
+    render(
+      <div>
+        <Alert isDismissible>Default dismiss button label</Alert>
+        <Alert isDismissible dismissButtonLabel={customDismissButtonLabel}>
+          Custom dismiss button label
+        </Alert>
+      </div>
+    );
+
+    const [defaultLabel, customLabel] = await screen.queryAllByRole('button');
+    expect(defaultLabel.getAttribute('aria-label')).toBe(
+      ComponentText.Alert.dismissButtonLabel
+    );
+    expect(customLabel.getAttribute('aria-label')).toBe(
+      customDismissButtonLabel
+    );
   });
 
   it('can apply styling via props', async () => {
