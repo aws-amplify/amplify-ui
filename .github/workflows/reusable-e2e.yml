@@ -37,6 +37,12 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     steps:
+      - name: Test if secrets are masked 👺
+        uses: ./.github/actions/log-metric
+        with:
+          metric-name: PublishNPMFailure
+          value: 1
+          SITE_URL: ${{ secrets.SITE_URL }}
       - name: Checkout Amplify UI
         uses: actions/checkout@v3
         with:
