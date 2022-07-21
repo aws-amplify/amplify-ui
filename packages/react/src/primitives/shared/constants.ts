@@ -517,6 +517,9 @@ export const ComponentClassObject = {
 
 // For internal use, no need to export
 export const ComponentText = {
+  Alert: {
+    dismissButtonLabel: 'Dismiss alert',
+  },
   Collection: {
     searchButtonLabel: 'Search',
   },
