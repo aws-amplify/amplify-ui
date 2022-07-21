@@ -6,7 +6,7 @@ import awsExports from './aws-exports';
 
 @Component({
   selector: 'amplify-button',
-  templateUrl: 'amplify-button.component.html',
+  templateUrl: 'button.component.html',
 })
 export class AmplifyButtonExampleComponent implements OnInit {
   constructor() {}

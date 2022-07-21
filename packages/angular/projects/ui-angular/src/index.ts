@@ -2,6 +2,8 @@
  * Public API Surface of ui-angular
  */
 
+import { from } from 'rxjs';
+
 /**
  * Modules
  */
@@ -17,7 +19,9 @@ export * from './lib/primitives';
  * Primitive Export
  */
 
-export * from './lib/primitives-poc/amplify-button';
+export * from './lib/primitives-poc/button';
+export * from './lib/primitives-poc/view';
+export * from './lib/primitives-poc/primitive/primitive.module';
 
 /**
  * Helpers

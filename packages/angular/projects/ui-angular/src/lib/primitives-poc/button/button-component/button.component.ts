@@ -9,7 +9,7 @@ import {
 
 @Component({
   selector: 'button[amplify-button-poc]',
-  templateUrl: './amplify-button.component.html',
+  templateUrl: './button.component.html',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

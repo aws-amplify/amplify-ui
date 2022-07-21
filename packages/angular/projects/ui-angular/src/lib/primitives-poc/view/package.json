@@ -1,0 +1,11 @@
+{
+  "ngPackage": {
+    "lib": {
+      "entryFile": "./index.ts"
+    },
+    "whitelistedNonPeerDependencies": [
+      "tslib",
+      "."
+    ]
+  }
+}

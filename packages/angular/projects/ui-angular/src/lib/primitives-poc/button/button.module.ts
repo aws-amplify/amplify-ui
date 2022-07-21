@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { AmplifyButtonComponent } from './amplify-button-component/amplify-button.component';
+import { AmplifyButtonComponent } from './button-component/button.component';
 
 @NgModule({
   declarations: [AmplifyButtonComponent],
