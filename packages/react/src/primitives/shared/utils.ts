@@ -2,7 +2,7 @@ import { cssNameTransform, defaultTheme, isDesignToken } from '@aws-amplify/ui';
 
 import { ThemeStylePropKey } from '../types/theme';
 import { stylePropsToThemeKeys } from './constants';
-import { ComponentClasses } from './types';
+import { ComponentClassName } from './types';
 
 export const strHasLength = (str: unknown): str is string =>
   typeof str === 'string' && str.length > 0;
@@ -180,7 +180,7 @@ type Modifiers = string | number | null;
  * @returns the modified class name or null
  */
 export const classNameModifier = (
-  base: ComponentClasses,
+  base: ComponentClassName,
   modifier: Modifiers
 ): string => {
   return modifier ? `${base}--${modifier}` : null;
@@ -195,7 +195,7 @@ export const classNameModifier = (
  * @returns the modified class name or null
  */
 export const classNameModifierByFlag = (
-  base: ComponentClasses,
+  base: ComponentClassName,
   modifier: Modifiers,
   flag: boolean
 ): string => {
