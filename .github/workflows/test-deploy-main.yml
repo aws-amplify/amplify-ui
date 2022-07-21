@@ -169,31 +169,27 @@ jobs:
         working-directory: ./canary
 
   log-failure-metric:
-    # Send data point 1 to metric RunTimeTestsFailure, if success
+    # Send data point 1 to metric PublishNextFailure, if  it's a failure
     runs-on: ubuntu-latest
     environment: ci
-    needs: build-test
     if: ${{ failure() }}
     steps:
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
+      - name: Log failure data point to metric PublishNextFailure
+        uses: ./.github/actions/log-metric
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
-      - run: aws cloudwatch put-metric-data --metric-name publishFailure --namespace GithubCanaryApps --value 1
+          metric-name: PublishNextFailure
+          value: 1
+          SITE_URL: ${{ secrets.SITE_URL }}
 
   log-success-metric:
-    # Send data point 0 to metric RunTimeTestsFailure, if success
+    # Send data point 0 to metric PublishNextFailure, if  it's a success
     runs-on: ubuntu-latest
     environment: ci
-    needs: build-test
     if: ${{ success() }}
     steps:
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
+      - name: Log success data point to metric PublishNextFailure
+        uses: ./.github/actions/log-metric
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
-      - run: aws cloudwatch put-metric-data --metric-name publishFailure --namespace GithubCanaryApps --value 0
+          metric-name: PublishNextFailure
+          value: 0
+          SITE_URL: ${{ secrets.SITE_URL }}
