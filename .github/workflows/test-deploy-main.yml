@@ -176,6 +176,9 @@ jobs:
     if: ${{ failure() }}
     steps:
       - name: Log failure data point to metric PublishNextFailure
+        # using absolute path here to avoid checking out the repo. Same as other absolute paths in this repo.
+        # Pattern: `{owner}/{repo}/.github/workflows/{filename}@{ref}`.
+        # more: https://docs.github.com/en/actions/using-workflows/reusing-workflows#calling-a-reusable-workflow
         uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
         with:
           metric-name: PublishNextFailure
