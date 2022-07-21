@@ -74,6 +74,30 @@ export function createTheme(
   theme?: Theme,
   baseTheme: BaseTheme = defaultTheme
 ): WebTheme {
+  //Here is where we want to merge duplicate values
+  if (
+    theme?.tokens?.components?.pagination?.button?.hover?.backgroundColor &&
+    !theme?.tokens?.components?.pagination?.button?._hover?.backgroundColor
+  ) {
+    //this isn't what we want to do, but the idea is that for each of these properties that have these inconsistent names we check to see
+    //if the non _ variable is set and if so we move that over to the _ variable
+    theme.tokens.components.pagination.button._hover =
+      theme.tokens.components.pagination.button._hover || {};
+    theme.tokens.components.pagination.button._hover.backgroundColor =
+      theme.tokens.components.pagination.button.hover.backgroundColor;
+
+    /*
+        While this is the general idea of what we might want to do, there are a lot of scenarios that will create issues with this approach
+        1. How do we determine which properties need to be copied over?
+          - we could parse the defaultTheme looking for tokens that have been marked as duplicated but what if a user passes in a custom default theme that isn't extended from our own
+        2. How do we handle collisions?  
+          - If both values are set, the above approach will favor the _ version, this is problematic if a user is starting with the default theme then trying to update the non _ version because
+            the _ version will exist within the theme object and always win out.  What we probably want is something more like the last updated value to win out, but we don't have historical values
+            a reasonably close approximation could be to compare the current value to the default theme value and if it is the same to not count it as updated.
+        
+      */
+  }
+
   // merge theme and baseTheme to get a complete theme
   // deepExtend is an internal Style Dictionary method
   // that performs a deep merge on n objects. We could change
