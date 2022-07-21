@@ -35,7 +35,7 @@ jobs:
             const label = 'run-tests';
             github.issues.removeLabel({ owner, repo, issue_number, name: label });
   test:
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@main
+    uses: 0618/amplify-ui/.github/workflows/reusable-e2e.yml@main
     needs: setup
     with:
       commit: ${{ github.event.pull_request.head.sha }}
