@@ -87,3 +87,31 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  log-failure-metric:
+    # Send data point 1 to metric PublishNPMFailure, if it's a failure
+    runs-on: ubuntu-latest
+    environment: ci
+    if: ${{ failure() }}
+    steps:
+      - name: Log failure data point to metric PublishNPMFailure
+        uses: ./.github/actions/log-metric
+        with:
+          metric-name: PublishNPMFailure
+          value: 1
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+  log-success-metric:
+    # Send data point 0 to metric PublishNPMFailure, if  it's a success
+    runs-on: ubuntu-latest
+    environment: ci
+    if: ${{ success() }}
+    steps:
+      - name: Log success data point to metric PublishNPMFailure
+        uses: ./.github/actions/log-metric
+        with:
+          metric-name: PublishNPMFailure
+          value: 0
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
