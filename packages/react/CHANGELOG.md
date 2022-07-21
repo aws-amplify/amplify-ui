@@ -1,5 +1,52 @@
 # @aws-amplify/ui-react
 
+## 3.2.0
+
+### Minor Changes
+
+- [#2268](https://github.com/aws-amplify/amplify-ui/pull/2268) [`556515238`](https://github.com/aws-amplify/amplify-ui/commit/5565152384e0ff99fe092b3f808a885bbd445541) Thanks [@zchenwei](https://github.com/zchenwei)! - feat: adding `formatValue` prop on SliderField to allow formatting the value
+
+  **_Example_**
+
+  ```jsx
+  export const SliderFieldFormatValueExample = () => {
+    const formatValue = (value: number) => {
+      return `${value}%`;
+    };
+    return (
+      <SliderField
+        label="SliderField with formatted value"
+        defaultValue={50}
+        formatValue={formatValue}
+      />
+    );
+  };
+  ```
+
+### Patch Changes
+
+- [#2265](https://github.com/aws-amplify/amplify-ui/pull/2265) [`44ed11890`](https://github.com/aws-amplify/amplify-ui/commit/44ed11890510206d981e3f67a7261f947168723e) Thanks [@zchenwei](https://github.com/zchenwei)! - chore: add deprecation tag to 'to' prop on Link primitive
+
+* [#2183](https://github.com/aws-amplify/amplify-ui/pull/2183) [`f52ac1060`](https://github.com/aws-amplify/amplify-ui/commit/f52ac1060b6b33086080158f047c89cee2de720e) Thanks [@wlee221](https://github.com/wlee221)! - Ensure hub listener is correctly attached on React 18 Strict Mode.
+
+* Updated dependencies [[`bde5e7a48`](https://github.com/aws-amplify/amplify-ui/commit/bde5e7a48a144bf76f77b1b747dcc912ce8cec6e), [`74e8c8935`](https://github.com/aws-amplify/amplify-ui/commit/74e8c89354bd551723f62ac2a3b60e5222d92d58)]:
+  - @aws-amplify/ui@3.12.3
+
+## 3.1.0
+
+### Minor Changes
+
+- [#2262](https://github.com/aws-amplify/amplify-ui/pull/2262) [`a72cacec2`](https://github.com/aws-amplify/amplify-ui/commit/a72cacec20107a4a991683ab02863981ee325de4) Thanks [@hein-j](https://github.com/hein-j)! - Update internal type EscapeHatchProps to accept `unknown`, so that customers can set overrides of any type.
+
+### Patch Changes
+
+- [#2263](https://github.com/aws-amplify/amplify-ui/pull/2263) [`14d35db95`](https://github.com/aws-amplify/amplify-ui/commit/14d35db950c5ae00409ac483a32a0726e8caa2ee) Thanks [@slaymance](https://github.com/slaymance)! - Update to latest version of maplibre-gl-js-amplify to support maplibre-gl v2
+
+* [#2279](https://github.com/aws-amplify/amplify-ui/pull/2279) [`332671d65`](https://github.com/aws-amplify/amplify-ui/commit/332671d6565060285a5f3a0b3b61c528286bd062) Thanks [@thaddmt](https://github.com/thaddmt)! - fix: bump maplibre-gl-js-amplify to fix dependabot and other security related issues
+
+* Updated dependencies [[`90eb39280`](https://github.com/aws-amplify/amplify-ui/commit/90eb392806c7875d2659bd0bb52aa6b68b849ce7), [`3b2d6c2af`](https://github.com/aws-amplify/amplify-ui/commit/3b2d6c2afb51178ed6ba6312c29b368c522e460a)]:
+  - @aws-amplify/ui@3.12.2
+
 ## 3.0.4
 
 ### Patch Changes

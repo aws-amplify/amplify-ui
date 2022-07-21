@@ -8,6 +8,7 @@ export { TextAreaRowsExample } from './TextAreaRowsExample';
 export { TextAreaSizeExample } from './TextAreaSizeExample';
 export { TextFieldAccessibilityExample } from './TextFieldAccessibilityExample';
 export { TextFieldDescriptiveTextExample } from './TextFieldDescriptiveTextExample';
+export { TextFieldEventHandlersExample } from './TextFieldEventHandlersExample';
 export { TextFieldInnerComponentsExample } from './TextFieldInnerComponentsExample';
 export { TextFieldOuterAndInnerComponentsExample } from './TextFieldOuterAndInnerComponentsExample';
 export { TextFieldOuterComponentsExample } from './TextFieldOuterComponentsExample';

@@ -4,8 +4,13 @@ import { Heading, Link, Text, View, useTheme } from '@aws-amplify/ui-react';
 
 import { TableOfContents } from '../TableOfContents';
 import { Footer } from './Footer';
-import { GITHUB_REPO_FILE } from '@/data/links';
-import { DesignTokenIcon, ReactIcon, W3CIcon } from '@/components/Icons';
+import { GITHUB_REPO, GITHUB_REPO_FILE } from '@/data/links';
+import {
+  DesignTokenIcon,
+  ReactIcon,
+  W3CIcon,
+  GithubIcon,
+} from '@/components/Icons';
 
 export default function Page({
   children,
@@ -113,6 +118,18 @@ export default function Page({
                   React source
                 </Link>
               ) : null}
+              <Link
+                className="docs-component-link"
+                href={`${GITHUB_REPO}issues/new/choose`}
+                isExternal
+              >
+                <GithubIcon
+                  ariaLabel="GitHub"
+                  aria-hidden="true"
+                  marginInlineEnd={tokens.space.xs}
+                />
+                Feedback
+              </Link>
             </View>
           </section>
 
