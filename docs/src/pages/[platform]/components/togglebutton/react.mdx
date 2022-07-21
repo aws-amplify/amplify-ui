@@ -1,8 +1,10 @@
+import { Fragment } from '@/components/Fragment'; 
 import { Flex, ToggleButton } from '@aws-amplify/ui-react';
 
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentClassTable } from '@/components/ComponentClassTable';
 import StandardHTMLAttributes from '@/components/StandardHTMLAttributes.mdx';
+import ThemeExample from '@/components/ThemeExample.mdx';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 import { ToggleButtonDemo } from './demo';
 import {
@@ -15,6 +17,7 @@ import {
   ToggleButtonSizeExample,
   ToggleButtonStylePropsExample,
   ToggleButtonVariationsExample,
+  ToggleButtonThemeExample,
 } from './examples';
 
 ## Demo
@@ -144,6 +147,20 @@ In cases where you need to have at least one option on, you can set the `isSelec
 </StandardHTMLAttributes>
 
 ## CSS Styling
+
+<ThemeExample component="ToggleButton">
+  <Example>
+    <ToggleButtonThemeExample />
+    
+    <ExampleCode>
+
+    ```tsx file=./examples/ToggleButtonThemeExample.tsx
+
+    ```
+
+    </ExampleCode>
+  </Example>
+</ThemeExample>
 
 ### Target classes
 

@@ -1,9 +1,10 @@
+import { Fragment } from '@/components/Fragment'; 
 import { Button, ButtonGroup, Flex, View } from '@aws-amplify/ui-react';
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentClassTable } from '@/components/ComponentClassTable';
 import StandardHTMLAttributes from '@/components/StandardHTMLAttributes.mdx';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
-import { ThemeAlert } from '@/components/ThemeAlert';
+import ThemeExample from '@/components/ThemeExample.mdx';
 
 import { ButtonDemo } from './demo';
 import { IconButtonExample, ButtonThemeExample } from './examples';
@@ -264,27 +265,23 @@ import '@aws-amplify/ui-react/styles.css';
 
 ## Customization
 
+<ThemeExample component="Button">
+  <Example>
+    <ButtonThemeExample />
+    
+    <ExampleCode>
+
+    ```tsx file=./examples/ButtonThemeExample.tsx
+
+    ```
+
+    </ExampleCode>
+  </Example>
+</ThemeExample>
+
 ### Target classes
 
 <ComponentStyleDisplay componentName="Button" />
-
-### Theme
-
-<ThemeAlert />
-
-You can customize the appearance of all Buttons in your application with a [Theme](/theming).
-
-<Example>
-  <ButtonThemeExample />
-  
-<ExampleCode>
-
-```jsx file=./examples/ButtonThemeExample.tsx
-
-```
-
-</ExampleCode>
-</Example>
 
 ### CSS
 
@@ -413,3 +410,4 @@ _Using style props:_
 
 </ExampleCode>
 </Example>
+    

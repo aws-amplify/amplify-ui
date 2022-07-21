@@ -85,6 +85,7 @@ interface RadioButtonDisabledTokens {
 }
 
 interface RadioLabelTokens {
+  color: DesignToken<ColorValue>;
   _disabled: RadioLabelDisabledTokens;
 }
 
@@ -164,6 +165,7 @@ export const radio: RadioTokens = {
   },
 
   label: {
+    color: { value: '{components.text.color.value}' },
     _disabled: {
       color: {
         value: '{colors.font.disabled.value}',

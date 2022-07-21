@@ -7,7 +7,7 @@ import { Fragment } from '@/components/Fragment';
 import { ComponentClassTable } from '@/components/ComponentClassTable';
 import StandardHTMLAttributes from '@/components/StandardHTMLAttributes.mdx';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
-import { ThemeAlert } from '@/components/ThemeAlert';
+import ThemeExample from '@/components/ThemeExample.mdx';
 import {
   AccessibilityExample,
   AutoCompleteExample,
@@ -21,7 +21,7 @@ import {
   SizeExample,
   StatesExample,
   StylePropsExample,
-  ThemingExample,
+  PhoneNumberFieldThemeExample,
   ValidationErrorExample,
   VariationExample,
 } from './examples';
@@ -229,25 +229,23 @@ The following is a contrived example demonstrating use of the `ref` and `country
 
 ## CSS Styling
 
+<ThemeExample component="PhoneNumberField">
+  <Example>
+    <PhoneNumberFieldThemeExample />
+    
+    <ExampleCode>
+
+    ```tsx file=./examples/PhoneNumberFieldThemeExample.tsx
+
+    ```
+
+    </ExampleCode>
+  </Example>
+</ThemeExample>
+
 ### Target classes
 
 <ComponentStyleDisplay componentName="PhoneNumberField" />
-
-### Theme
-
-<ThemeAlert />
-
-You can customize the appearance of all `PhoneNumberField`'s in your application with a [Theme](/theming).
-
-<Example>
-  <ThemingExample />
-  <ExampleCode>
-```jsx file=./examples/ThemingExample.tsx
-
-````
-  </ExampleCode>
-</Example>
-
 
 ### Global styling
 
@@ -260,7 +258,7 @@ and `.amplify-countrycodeselect` class.
 .amplify-countrycodeselect {
   --amplify-components-fieldcontrol-border-color: rebeccapurple;
 }
-````
+```
 
 <Example>
   <PhoneNumberField
@@ -289,7 +287,7 @@ _Using a class selector:_
   <ExampleCode>
 ```jsx file=./examples/ClassNameExample.tsx
 
-````
+```
 
   </ExampleCode>
 </Example>
@@ -304,7 +302,7 @@ This allows us to change the layout of the label and field, while also styling t
   <ExampleCode>
 ```jsx file=./examples/StylePropsExample.tsx
 
-````
+```
 
   </ExampleCode>
 </Example>

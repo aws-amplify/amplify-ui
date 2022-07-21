@@ -1,3 +1,4 @@
+import { Fragment } from '@/components/Fragment'; 
 import { Loader } from '@aws-amplify/ui-react';
 
 import { LoaderDemo } from './demo';
@@ -9,9 +10,11 @@ import {
   LoaderIsPercentageTextHiddenExample,
   LoaderSizesExample,
   LoaderVariationExample,
+  LoaderThemeExample,
 } from './examples';
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
+import ThemeExample from '@/components/ThemeExample.mdx';
 
 ## Demo
 
@@ -114,6 +117,20 @@ The Loader is a SVG image with role set to `img` on the outer `<svg>` element. T
 </Example>
 
 ## CSS Styling
+
+<ThemeExample component="Loader">
+  <Example>
+    <LoaderThemeExample />
+    
+    <ExampleCode>
+
+    ```tsx file=./examples/LoaderThemeExample.tsx
+
+    ```
+
+    </ExampleCode>
+  </Example>
+</ThemeExample>
 
 ### Target classes
 

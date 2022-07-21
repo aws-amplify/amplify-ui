@@ -1,3 +1,4 @@
+import React from 'react';
 import { translate, hasTranslation } from '@aws-amplify/ui';
 
 import { Button } from '../../../primitives/Button';
@@ -11,7 +12,7 @@ import { useFormHandlers } from '../hooks/useFormHandlers';
 import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { FormFields } from '../shared/FormFields';
 
-export function SignIn() {
+export function SignIn(): JSX.Element {
   const { isPending } = useAuthenticator((context) => [context.isPending]);
   const { handleChange, handleSubmit } = useFormHandlers();
 
@@ -45,7 +46,7 @@ export function SignIn() {
 
           <Button
             isDisabled={isPending}
-            isFullWidth={true}
+            isFullWidth
             type="submit"
             variation="primary"
             isLoading={isPending}
@@ -85,4 +86,6 @@ const DefaultFooter = () => {
 };
 
 SignIn.Footer = DefaultFooter;
-SignIn.Header = (): JSX.Element => null;
+SignIn.Header = function Header(): JSX.Element {
+  return null;
+};

@@ -4,9 +4,22 @@ description: SwitchField allows users to toggle an input.
 ariaPattern: https://www.w3.org/WAI/ARIA/apg/patterns/switch
 themeSource: packages/ui/src/theme/tokens/components/switchField.ts
 reactSource: packages/react/src/primitives/SwitchField/SwitchField.tsx
+mdnUrl: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox
+htmlElement: input
 supportedFrameworks: react
 ---
 
 import { Fragment } from '@/components/Fragment';
+import { PageTabLayout } from "@/components/Layout/PageTabLayout"
 
-<Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+<PageTabLayout 
+  tabComponents={[{
+    title: "Documentation", 
+    children: <Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+  },
+  {
+    title: "Props", 
+    children: <Fragment>{({ platform }) => import('./props-table.mdx')}</Fragment>
+  }]}
+/>
+        

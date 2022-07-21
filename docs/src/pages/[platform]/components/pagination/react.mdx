@@ -1,8 +1,8 @@
+import { PaginationDemo } from './demo';
 import { Pagination, Link } from '@aws-amplify/ui-react';
-import { PaginationDemo } from './demo.tsx';
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
-import { ThemeAlert } from '@/components/ThemeAlert';
+import ThemeExample from '@/components/ThemeExample.mdx';
 import {
   ControlledPaginationExample,
   DefaultPaginationExample,
@@ -110,25 +110,24 @@ By default, the root node of the Pagination component is a `<nav>` element. Elem
 
 ## CSS styling
 
-### Target classes
+<ThemeExample component="Pagination">
+  <Example>
+    <PaginationThemeExample />
+    
+    <ExampleCode>
 
-<ComponentStyleDisplay componentName="Pagination" />
-
-### Theme
-
-<ThemeAlert />
-
-You can customize the appearance of all Pagination components in your application with a [Theme](/theming).
-
-<Example>
-  <PaginationThemeExample />
-  <ExampleCode>
     ```tsx file=./examples/PaginationThemeExample.tsx
 
     ```
 
-  </ExampleCode>
-</Example>
+    </ExampleCode>
+  </Example>
+</ThemeExample>
+
+
+### Target classes
+
+<ComponentStyleDisplay componentName="Pagination" />
 
 ### Global styling
 

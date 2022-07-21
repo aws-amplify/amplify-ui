@@ -22,3 +22,14 @@ Feature: Sign Up with Email with Pre Sign Up Lambda Trigger for Auto Confirmatio
     And I mock 'Amplify.Auth.currentAuthenticatedUser' with fixture "Auth.currentAuthenticatedUser-verified-email"
     And I click the "Create Account" button
     Then I see "Sign out"
+
+  @angular @react @vue  
+  Scenario: Sign up with an email & password and verify it was called correctly
+    When I type a new "email" with value 'TEST@example.com'
+    And I type my password
+    And I confirm my password
+    And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email-with-lambda-trigger"
+    And I mock 'Amplify.Auth.signIn' with fixture "sign-up-with-email-with-lambda-trigger"
+    And I click the "Create Account" button
+    And I see "Sign out"
+    Then Sign in was called with 'TEST@example.com'

@@ -4,9 +4,21 @@ description: StepperField allows users to increment or decrement a number input.
 ariaPattern: https://www.w3.org/WAI/ARIA/apg/patterns/spinbutton
 themeSource: packages/ui/src/theme/tokens/components/stepperField.ts
 reactSource: packages/react/src/primitives/StepperField/StepperField.tsx
+mdnUrl: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/number
+htmlElement: input
 supportedFrameworks: react
 ---
 
 import { Fragment } from '@/components/Fragment';
+import { PageTabLayout } from "@/components/Layout/PageTabLayout"
 
-<Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+<PageTabLayout 
+  tabComponents={[{
+    title: "Documentation", 
+    children: <Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+  },
+  {
+    title: "Props", 
+    children: <Fragment>{({ platform }) => import('./props-table.mdx')}</Fragment>
+  }]}
+/>

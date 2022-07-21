@@ -74,8 +74,12 @@ jobs:
         with:
           node-version: lts/*
           cache: 'yarn'
-      - name: Install and build packages
-        run: yarn --frozen-lockfile && yarn build
+      - name: Install packages
+        uses: ./.github/actions/install-with-retries
+        with:
+          skip-cypress-binary: true # publishing doesn't need cypress
+      - name: Build packages
+        run: yarn build
       - name: Publish to @latest
         uses: changesets/action@b98cec97583b917ff1dc6179dd4d230d3e439894
         with:

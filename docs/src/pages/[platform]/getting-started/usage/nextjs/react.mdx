@@ -1,6 +1,7 @@
 import { Tabs, TabItem } from '@aws-amplify/ui-react';
 import { Example, ExampleCode } from '@/components/Example';
 import { BasicShoppingCard, AdvancedShoppingCard } from '../shared';
+import { InstallScripts, TerminalCommand } from '@/components/InstallScripts.tsx';
 
 ## Tutorial
 
@@ -8,43 +9,20 @@ In this brief tutorial, we're going to build a basic shopping card component usi
 
 ### Setup and Installation
 
-First, execute the command below in your terminal. When prompted for the name of your project, type `amplify-ui-demo`. 
+First, execute the command below in your terminal. When prompted for the name of your project, enter `amplify-ui-demo`. 
 
 <Tabs>
-<TabItem title="npm">
-
-```shell
-npx create-next-app@latest
-```
-
-</TabItem>
-<TabItem title="yarn">
-
-```shell
-yarn create next-app
-```
-
-</TabItem>
+  <TabItem title="npm">
+    <TerminalCommand command="npx create-next-app@latest && cd amplify-ui-demo" />
+  </TabItem>
+  <TabItem title="yarn">
+    <TerminalCommand command="yarn create next-app && cd amplify-ui-demo" />
+  </TabItem>
 </Tabs>
 
-If you haven't already, `cd` into the `amplify-ui-demo` folder. Then, install the Amplify UI React package:
+Then, install the Amplify UI React package:
 
-<Tabs>
-<TabItem title="npm">
-
-```shell
-npm install aws-amplify @aws-amplify/ui-react
-```
-
-</TabItem>
-<TabItem title="yarn">
-
-```shell
-yarn add aws-amplify @aws-amplify/ui-react
-```
-
-</TabItem>
-</Tabs>
+<InstallScripts framework="react" />
 
 ### Basic Demo
 

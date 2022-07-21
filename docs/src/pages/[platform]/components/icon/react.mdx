@@ -1,3 +1,4 @@
+import { Fragment } from '@/components/Fragment'; 
 import { Button, Icon, Flex, Text, Alert, Link } from '@aws-amplify/ui-react';
 import { IconDemo } from './demo';
 import { Example, ExampleCode } from '@/components/Example';
@@ -42,9 +43,10 @@ Import the Icon component and styles.
 <Alert variation="warning" heading="Deprecated">
   The built-in icons were removed in version `3.0`. You can use the
   [react-icons](https://react-icons.github.io/react-icons) package or other
-  `import {ICON_NAME} from
-  '@aws-amplify/ui-react';` becomes `import {ICON_NAME} from 'react-icons/md';`
   React icon libraries in its place. 
+
+  `import {ICON_NAME} from '@aws-amplify/ui-react';` => `import {ICON_NAME} from 'react-icons/md';`
+
 </Alert>
 
 ## Custom icon

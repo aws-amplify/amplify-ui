@@ -1,7 +1,18 @@
+import { Fragment } from '@/components/Fragment'; 
+import {
+  Button,
+  Card,
+  Collection,
+  Flex,
+  View,
+  Text,
+  Heading,
+} from '@aws-amplify/ui-react';
+import { countries } from 'countries-list';
 import { CollectionDemo } from './demo';
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
-import { ThemeAlert } from '@/components/ThemeAlert';
+import ThemeExample from '@/components/ThemeExample.mdx';
 import {
   CollectionStylePropExample,
   CollectionThemeExample,
@@ -100,27 +111,23 @@ Collections can also be filtered, adding a `isSearchable` property. Pass a custo
 
 ## Customization
 
+<ThemeExample component="Collection">
+  <Example>
+    <CollectionThemeExample />
+    
+    <ExampleCode>
+
+    ```tsx file=./examples/CollectionThemeExample.tsx
+
+    ```
+
+    </ExampleCode>
+  </Example>
+</ThemeExample>
+
 ### Target classes
 
 <ComponentStyleDisplay componentName="Collection" />
-
-### Theme
-
-<ThemeAlert />
-
-You can customize the appearance of all Collections in your application with a [Theme](/theming).
-
-<Example>
-  <CollectionThemeExample />
-  
-<ExampleCode>
-
-```jsx file=./examples/CollectionThemeExample.tsx
-
-```
-
-</ExampleCode>
-</Example>
 
 ### Global Styling
 
@@ -193,3 +200,4 @@ _Using style props:_
 
   </ExampleCode>
 </Example>
+    

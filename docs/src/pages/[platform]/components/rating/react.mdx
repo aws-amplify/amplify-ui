@@ -1,3 +1,4 @@
+import { Fragment } from '@/components/Fragment'; 
 import { Rating, IconAdd, IconStarBorder } from '@aws-amplify/ui-react';
 
 import {
@@ -13,10 +14,12 @@ import {
   RatingStyleSizeExample,
   RatingSVGExample,
   RatingValueExample,
+  RatingThemeExample,
 } from './examples';
 import { RatingDemo } from './demo';
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
+import ThemeExample from '@/components/ThemeExample.mdx';
 
 ## Demo
 
@@ -143,6 +146,20 @@ A custom empty icon can be used in the Rating component using the `emptyIcon` pr
 </Example>
 
 ## CSS Styling
+
+<ThemeExample component="Rating">
+  <Example>
+    <RatingThemeExample />
+    
+    <ExampleCode>
+
+    ```tsx file=./examples/RatingThemeExample.tsx
+
+    ```
+
+    </ExampleCode>
+  </Example>
+</ThemeExample>
 
 ### Target classes
 

@@ -1,7 +1,7 @@
 import { Alert, Flex, View } from '@aws-amplify/ui-react';
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
-
+import ThemeExample from '@/components/ThemeExample.mdx';
 import { AlertDemo } from './demo';
 import {
   DefaultAlertExample,
@@ -11,6 +11,7 @@ import {
   DismissibleAlertExample,
   OnDismissAlertExample,
   AlertStylePropsExample,
+  AlertThemeExample,
 } from './examples';
 
 ## Demo
@@ -126,6 +127,20 @@ Use the `onDismiss` prop to pass a function that will run when the Alert is dism
 </Example>
 
 ## CSS Styling
+
+<ThemeExample component="Alert">
+  <Example>
+    <AlertThemeExample />
+    
+    <ExampleCode>
+
+    ```tsx file=./examples/AlertThemeExample.tsx
+
+    ```
+
+    </ExampleCode>
+  </Example>
+</ThemeExample>
 
 ### Target classes
 
@@ -275,3 +290,4 @@ For Amplify UI, the `alert` ARIA role is not built-in because it depends on your
 However, if you're just displaying some information that isn't critical or time sensitive, then we would not recommend passing in the `alert` role.
 
 For more information, check out the [MDN Documentation](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Alert_Role).
+    

@@ -52,7 +52,7 @@ const LocationSearchStandalone = (props: LocationSearchProps) => {
 /**
  * The `<LocationSearch>` component provides location search.
  *
- * [📖 Docs](https://ui.docs.amplify.aws/react/components/geo#location-search)
+ * [📖 Docs](https://ui.docs.amplify.aws/react/connected-components/geo#location-search)
  *
  * @example
  * // Used as a map control:
