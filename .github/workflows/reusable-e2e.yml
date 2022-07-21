@@ -38,7 +38,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Test if secrets are masked 👺
-        uses: ./.github/actions/log-metric@main
+        uses: 0618/amplify-ui/.github/actions/log-metric@main
         with:
           metric-name: PublishNPMFailure
           value: 1
@@ -61,7 +61,7 @@ jobs:
           path: ~/.cache/Cypress
           key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
       - name: Install packages
-        uses: ./.github/actions/install-with-retries
+        uses: 0618/amplify-ui/.github/actions/install-with-retries
         with:
           # only install binary if cypress cache missed
           no-lockfile: true
@@ -104,7 +104,7 @@ jobs:
 
     steps:
       - name: Checkout Amplify UI
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           ref: ${{ inputs.commit }}
           repository: ${{ inputs.repository }}
@@ -188,7 +188,7 @@ jobs:
 
     steps:
       - name: Checkout Amplify UI
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           # For `pull_request_target`, we want ref to point to `pull_request.head.ref` because `github.ref`
           # always points to the target branch.
@@ -299,7 +299,7 @@ jobs:
       NODE_ENV: test
     steps:
       - name: Checkout Amplify UI
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           ref: ${{ inputs.commit }}
           repository: ${{ inputs.repository }}

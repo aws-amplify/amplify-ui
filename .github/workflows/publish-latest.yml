@@ -20,7 +20,7 @@ jobs:
           fetch-depth: 0
       - name: Check if repo has unconsumed changesets
         id: has-changesets
-        uses: ./.github/actions/has-changesets
+        uses: 0618/amplify-ui/.github/actions/has-changesets
 
   build-test:
     runs-on: ubuntu-latest
@@ -75,7 +75,7 @@ jobs:
           node-version: lts/*
           cache: 'yarn'
       - name: Install packages
-        uses: ./.github/actions/install-with-retries
+        uses: 0618/amplify-ui/.github/actions/install-with-retries
         with:
           skip-cypress-binary: true # publishing doesn't need cypress
       - name: Build packages
@@ -95,7 +95,7 @@ jobs:
     if: ${{ failure() }}
     steps:
       - name: Log failure data point to metric PublishNPMFailure
-        uses: ./.github/actions/log-metric@main
+        uses: 0618/amplify-ui/.github/actions/log-metric@main
         with:
           metric-name: PublishNPMFailure
           value: 1
@@ -108,7 +108,7 @@ jobs:
     if: ${{ success() }}
     steps:
       - name: Log success data point to metric PublishNPMFailure
-        uses: ./.github/actions/log-metric@main
+        uses: 0618/amplify-ui/.github/actions/log-metric@main
         with:
           metric-name: PublishNPMFailure
           value: 0

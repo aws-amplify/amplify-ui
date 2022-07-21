@@ -45,7 +45,7 @@ jobs:
 
     steps:
       - name: Checkout Amplify UI
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           persist-credentials: false
 
@@ -114,14 +114,14 @@ jobs:
           node-version: lts/*
           cache: 'yarn'
       - name: Install packages
-        uses: ./.github/actions/install-with-retries
+        uses: 0618/amplify-ui/.github/actions/install-with-retries
         with:
           skip-cypress-binary: true # publishing doesn't need cypress
       - name: Build packages
         run: yarn build
       - name: Add changeset that bumps all public packages
         # There needs to be a changeset for @aws-amplify/ui[-framework] to publish.
-        run: cp .github/changeset-presets/bump-versions.md .changeset
+        run: cp 0618/amplify-ui/.github/changeset-presets/bump-versions.md .changeset
       - name: Run changeset version to next tag
         run: yarn version:next
         env:
@@ -175,7 +175,7 @@ jobs:
     if: ${{ failure() }}
     steps:
       - name: Log failure data point to metric PublishNextFailure
-        uses: ./.github/actions/log-metric@main
+        uses: 0618/amplify-ui/.github/actions/log-metric@main
         with:
           metric-name: PublishNextFailure
           value: 1
@@ -188,7 +188,7 @@ jobs:
     if: ${{ success() }}
     steps:
       - name: Log success data point to metric PublishNextFailure
-        uses: ./.github/actions/log-metric@main
+        uses: 0618/amplify-ui/.github/actions/log-metric@main
         with:
           metric-name: PublishNextFailure
           value: 0

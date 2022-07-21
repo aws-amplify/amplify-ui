@@ -42,13 +42,13 @@ jobs:
           node-version: lts/*
           cache: 'yarn'
       - name: Install packages
-        uses: ./.github/actions/install-with-retries
+        uses: 0618/amplify-ui/.github/actions/install-with-retries
         with:
           skip-cypress-binary: true # publishing doesn't need cypress
       - name: Build packages
         run: yarn build
       - name: Bump ui and ui-react packages
-        run: cp .github/changeset-presets/bump-react.md .changeset
+        run: cp 0618/amplify-ui/.github/changeset-presets/bump-react.md .changeset
       - name: Run changeset version to studio tag
         run: yarn version:studio
         env:

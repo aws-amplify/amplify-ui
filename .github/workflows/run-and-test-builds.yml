@@ -33,7 +33,7 @@ jobs:
       - name: Ignore monorepo postcss.config.js
         run: mv postcss.config.js _postcss.config.js
       - name: Install canary package
-        uses: ./.github/actions/install-with-retries
+        uses: 0618/amplify-ui/.github/actions/install-with-retries
         with:
           no-lockfile: true
           working-directory: ./canary/apps/${{ matrix.path }}
@@ -67,7 +67,7 @@ jobs:
           path: ~/.cache/Cypress
           key: ${{ runner.os }}-canary-cypress-${{ hashFiles('canary/e2e/yarn.lock') }}
       - name: Install e2e packages
-        uses: ./.github/actions/install-with-retries
+        uses: 0618/amplify-ui/.github/actions/install-with-retries
         with:
           working-directory: ./canary/e2e
           # If we got a cache hit on cypress runner, then we will skip cypress binary
@@ -103,7 +103,7 @@ jobs:
     if: ${{ failure() }}
     steps:
       - name: Log failure data point to metric RunTimeTestsFailure
-        uses: ./.github/actions/log-metric@main
+        uses: 0618/amplify-ui/.github/actions/log-metric@main
         with:
           metric-name: RunTimeTestsFailure
           value: 1
@@ -116,7 +116,7 @@ jobs:
     if: ${{ success() }}
     steps:
       - name: Log success data point to metric RunTimeTestsFailure
-        uses: ./.github/actions/log-metric@main
+        uses: 0618/amplify-ui/.github/actions/log-metric@main
         with:
           metric-name: RunTimeTestsFailure
           value: 0
