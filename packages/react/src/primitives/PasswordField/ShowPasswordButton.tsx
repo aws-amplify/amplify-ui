@@ -18,7 +18,7 @@ const ShowPasswordButtonPrimitive: Primitive<
 ) => {
   return (
     <Button
-      aria-checked={fieldType === 'password'}
+      aria-checked={fieldType !== 'password'}
       ariaLabel={showPasswordButtonLabel}
       className={ComponentClassNames.FieldShowPassword}
       ref={ref}
