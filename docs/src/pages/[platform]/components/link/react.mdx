@@ -47,7 +47,7 @@ To create a Link which opens in a new tab, use the `isExternal` prop. Under the 
 
 ### Routing Libraries
 
-To use the Link with React routing libraries, pass in routing components to the `as` prop. Below is an example using React Router:
+You can use a Link with any React routing library that supports custom components. Below is an example using Link with React Router v5, in which the Link is passed to the `component` prop as a custom navigation component:
 
 <Example>
   <ExampleCode>
@@ -61,24 +61,6 @@ To use the Link with React routing libraries, pass in routing components to the 
       Route,
     } from 'react-router-dom';
 
-    function App() {
-      return (
-        <Router>
-          <Flex>
-            <Link as={ReactRouterLink} to="/">Home</Link>
-            <Link as={ReactRouterLink} to="/about">About</Link>
-            <Link as={ReactRouterLink} to="/users">Users</Link>
-          </Flex>
-
-          <Routes>
-            <Route path="/about" element={<About />} />
-            <Route path="/users" element={<Users />} />
-            <Route path="/" element={<Home />} />
-          </Routes>
-        </Router>
-      );
-    }
-
     function Home() {
       return <Heading level={2}>Home</Heading>;
     }
@@ -89,6 +71,24 @@ To use the Link with React routing libraries, pass in routing components to the 
 
     function Users() {
       return <Heading level={2}>Users</Heading>;
+    }
+
+    function App() {
+      return (
+        <Router>
+          <Flex>
+            <ReactRouterLink to="/" component={Link}>Home</ReactRouterLink>
+            <ReactRouterLink to="/about" component={Link}>About</ReactRouterLink>
+            <ReactRouterLink to="/users" component={Link}>Users</ReactRouterLink>
+          </Flex>
+
+          <Routes>
+            <Route path="/about" element={<About />} />
+            <Route path="/users" element={<Users />} />
+            <Route path="/" element={<Home />} />
+          </Routes>
+        </Router>
+      );
     }
 
     export default App;

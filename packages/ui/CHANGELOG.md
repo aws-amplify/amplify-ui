@@ -1,5 +1,13 @@
 # @aws-amplify/ui
 
+## 3.12.3
+
+### Patch Changes
+
+- [#2242](https://github.com/aws-amplify/amplify-ui/pull/2242) [`bde5e7a48`](https://github.com/aws-amplify/amplify-ui/commit/bde5e7a48a144bf76f77b1b747dcc912ce8cec6e) Thanks [@pedrodotmc](https://github.com/pedrodotmc)! - Add missing spanish translations
+
+* [#2261](https://github.com/aws-amplify/amplify-ui/pull/2261) [`74e8c8935`](https://github.com/aws-amplify/amplify-ui/commit/74e8c89354bd551723f62ac2a3b60e5222d92d58) Thanks [@retrQJS](https://github.com/retrQJS)! - Added Russian as an option for Authenticator
+
 ## 3.12.2
 
 ### Patch Changes

@@ -1,5 +1,37 @@
 # @aws-amplify/ui-react
 
+## 3.2.0
+
+### Minor Changes
+
+- [#2268](https://github.com/aws-amplify/amplify-ui/pull/2268) [`556515238`](https://github.com/aws-amplify/amplify-ui/commit/5565152384e0ff99fe092b3f808a885bbd445541) Thanks [@zchenwei](https://github.com/zchenwei)! - feat: adding `formatValue` prop on SliderField to allow formatting the value
+
+  **_Example_**
+
+  ```jsx
+  export const SliderFieldFormatValueExample = () => {
+    const formatValue = (value: number) => {
+      return `${value}%`;
+    };
+    return (
+      <SliderField
+        label="SliderField with formatted value"
+        defaultValue={50}
+        formatValue={formatValue}
+      />
+    );
+  };
+  ```
+
+### Patch Changes
+
+- [#2265](https://github.com/aws-amplify/amplify-ui/pull/2265) [`44ed11890`](https://github.com/aws-amplify/amplify-ui/commit/44ed11890510206d981e3f67a7261f947168723e) Thanks [@zchenwei](https://github.com/zchenwei)! - chore: add deprecation tag to 'to' prop on Link primitive
+
+* [#2183](https://github.com/aws-amplify/amplify-ui/pull/2183) [`f52ac1060`](https://github.com/aws-amplify/amplify-ui/commit/f52ac1060b6b33086080158f047c89cee2de720e) Thanks [@wlee221](https://github.com/wlee221)! - Ensure hub listener is correctly attached on React 18 Strict Mode.
+
+* Updated dependencies [[`bde5e7a48`](https://github.com/aws-amplify/amplify-ui/commit/bde5e7a48a144bf76f77b1b747dcc912ce8cec6e), [`74e8c8935`](https://github.com/aws-amplify/amplify-ui/commit/74e8c89354bd551723f62ac2a3b60e5222d92d58)]:
+  - @aws-amplify/ui@3.12.3
+
 ## 3.1.0
 
 ### Minor Changes
