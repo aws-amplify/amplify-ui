@@ -13,12 +13,16 @@ export interface StartLivenessStreamOutput {
 
 export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider {
   public sessionId: string;
+  public videoRecorder: VideoRecorder;
 
   private _reader: ReadableStreamDefaultReader;
+  private _stream: MediaStream;
 
-  constructor(sessionId: string) {
+  constructor(sessionId: string, stream: MediaStream) {
     super();
     this.sessionId = sessionId;
+    this._stream = stream;
+    this.videoRecorder = new VideoRecorder(stream);
   }
 
   // Creates a generator from a stream of video chunks and livenessActionDocuments and yields VideoEvent and ClientEvents
@@ -58,9 +62,10 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
     };
   }
 
-  public async streamLivenessVideo(videoStream: ReadableStream): Promise<any> {
-    const livenessRequestGenerator =
-      this.getAsyncGeneratorFromReadableStream(videoStream)();
+  public async streamLivenessVideo(): Promise<any> {
+    const livenessRequestGenerator = this.getAsyncGeneratorFromReadableStream(
+      this.videoRecorder.videoStream
+    )();
 
     const rekognition = new Rekognition();
     // const response = await rekognition.startLivenessDetection({
@@ -69,19 +74,16 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
     // });
   }
 
-  public sendClientInfo(
-    videoRecorder: VideoRecorder,
-    livenessActionDocument: any
-  ) {
-    videoRecorder.dispatch(
+  public sendClientInfo(livenessActionDocument: any) {
+    this.videoRecorder.dispatch(
       new MessageEvent('clientSesssionInfo', {
         data: { livenessActionDocument },
       })
     );
   }
 
-  public async endStream(videoRecorder: VideoRecorder) {
-    videoRecorder.dispatch(new Event('endStream'));
+  public async endStream() {
+    this.videoRecorder.dispatch(new Event('endStream'));
 
     await this._reader.closed;
     return;
