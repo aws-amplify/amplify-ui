@@ -22,6 +22,7 @@ export * from './lib/primitives';
 export * from './lib/primitives-poc/button';
 export * from './lib/primitives-poc/view';
 export * from './lib/primitives-poc/primitive/primitive.module';
+export * from './lib/primitives-poc/primitive/primitivie-component/primitive.component';
 
 /**
  * Helpers

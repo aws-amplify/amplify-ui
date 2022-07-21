@@ -16,8 +16,8 @@ import {
 import { AmplifyView } from './view';
 
 @Component({
-  selector: 'view',
-  templateUrl: './view.component.html',
+  selector: '[view]',
+  template: '<ng-content></ng-content>',
 })
 export class AmplifyViewComponent {
   @Input() as: string;
@@ -75,21 +75,35 @@ export class AmplifyViewComponent {
     }
   }
 
-  ngAfterContentInit() {
+  ngOnInit() {
     let attributesVal = [{ name: '', value: '' }];
     attributesVal = this.element.nativeElement.attributes;
 
-    let elementValue = this.renderer.createElement(this.as);
-    elementValue.innerHTML = this.element.nativeElement.innerHTML;
-    this.element.nativeElement.innerHTML = '';
     for (let attr of attributesVal) {
       if (attr.name == 'ariaLabel')
-        this.renderer.setStyle(elementValue, 'aria-label', attr.value);
+        this.renderer.setStyle(
+          this.element.nativeElement,
+          'aria-label',
+          attr.value
+        );
       else if (attr.name == 'backgroundColor')
-        this.renderer.setStyle(elementValue, 'background-color', attr.value);
+        this.renderer.setStyle(
+          this.element.nativeElement,
+          'background-color',
+          attr.value
+        );
       else if (attr.name == 'borderRadius')
-        this.renderer.setStyle(elementValue, 'border-radius', attr.value);
-      else this.renderer.setStyle(elementValue, attr.name, attr.value);
+        this.renderer.setStyle(
+          this.element.nativeElement,
+          'border-radius',
+          attr.value
+        );
+      else
+        this.renderer.setStyle(
+          this.element.nativeElement,
+          attr.name,
+          attr.value
+        );
     }
     let className = 'amplify-button';
     const result = {
@@ -106,9 +120,9 @@ export class AmplifyViewComponent {
         data: (className += ` amplify-button--disabled amplify-button--loading`),
       }),
     };
-    this.renderer.setProperty(elementValue, 'class', result.data);
+    this.renderer.setProperty(this.element.nativeElement, 'class', result.data);
 
-    this.renderer.appendChild(this.element.nativeElement, elementValue);
+    //this.renderer.appendChild(this.element.nativeElement, elementValue);
   }
 
   getRandomId() {
