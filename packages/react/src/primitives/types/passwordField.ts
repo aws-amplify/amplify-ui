@@ -52,14 +52,6 @@ export interface ShowPasswordButtonProps extends ButtonProps {
 
   /**
    * @description
-   * Set the `aria-label` for hide password button
-   * @default
-   * "Hide password"
-   */
-  hidePasswordButtonLabel?: string;
-
-  /**
-   * @description
    * Set the `aria-label` for show password button
    * @default
    * "Show password"
