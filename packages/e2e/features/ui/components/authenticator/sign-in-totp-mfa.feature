@@ -57,7 +57,7 @@ Feature: Sign In with TOTP MFA
     And I click the "Change Password" button
     Then I see "Setup TOTP"
 
-  @angular @react @vue
+@angular @react @vue
   Scenario: Successful sign up shows correct username from authenticated user
     When I click the "Create Account" tab
     And I type a new "email"
@@ -68,7 +68,6 @@ Feature: Sign In with TOTP MFA
     And I type a valid confirmation code
     And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }' with fixture "confirm-sign-up-with-email"
     And I mock 'Amplify.Auth.signIn' with fixture "Auth.signIn-mfa-setup"
-    And I mock 'Amplify.Auth.currentAuthenticatedUser' with fixture "Auth.currentAuthenticatedUser-setup-TOTP"
     And I click the "Confirm" button
     Then I see "Setup TOTP"
     Then I see "Code"

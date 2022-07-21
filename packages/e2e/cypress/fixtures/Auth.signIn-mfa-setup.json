@@ -1,5 +1,6 @@
 {
   "challengeName": "MFA_SETUP",
+  "username": "AmplifyUsername",
   "challengeParameters": {
     "MFAS_CAN_SETUP": "[\"SMS_MFA\",\"SOFTWARE_TOKEN_MFA\"]"
   },
