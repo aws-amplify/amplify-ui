@@ -2,6 +2,8 @@
  * Public API Surface of ui-angular
  */
 
+import { from } from 'rxjs';
+
 /**
  * Modules
  */
@@ -12,6 +14,14 @@ export { AmplifyAuthenticatorModule } from './lib/components/authenticator/authe
  */
 export * from './lib/components/authenticator/components';
 export * from './lib/primitives';
+
+/**
+ * Primitive Export
+ */
+
+export * from './lib/primitives-poc/button';
+export * from './lib/primitives-poc/view';
+export * from './lib/primitives-poc/primitive/primitive.module';
 
 /**
  * Helpers

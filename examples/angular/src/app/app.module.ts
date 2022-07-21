@@ -26,6 +26,12 @@ import { SignUpWithPhoneComponent } from 'src/pages/ui/components/authenticator/
 import { SignUpWithUsernameComponent } from 'src/pages/ui/components/authenticator/sign-up-with-username/sign-up-with-username.component';
 import { UseAuthenticatorComponent } from 'src/pages/ui/components/authenticator/useAuthenticator/useAuthenticator.component';
 import { UseAuthenticatorHomeComponent } from 'src/pages/ui/components/authenticator/useAuthenticator/home/useAuthenticatorHome.component';
+import {
+  AmplifyButtonModule,
+  AmplifyViewModule,
+} from '@aws-amplify/ui-angular';
+import { AmplifyButtonExampleComponent } from 'src/pages/ui/primitive-poc/button/button.component';
+import { AmplifyViewExampleComponent } from 'src/pages/ui/primitive-poc/view/view.component';
 
 @NgModule({
   declarations: [
@@ -51,12 +57,16 @@ import { UseAuthenticatorHomeComponent } from 'src/pages/ui/components/authentic
     SignUpWithUsernameComponent,
     UseAuthenticatorComponent,
     UseAuthenticatorHomeComponent,
+    AmplifyButtonExampleComponent,
+    AmplifyViewExampleComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AmplifyAuthenticatorModule,
     HttpClientModule,
+    AmplifyButtonModule,
+    AmplifyViewModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
