@@ -6,6 +6,7 @@ import {
   FlexDirectionValue,
   FlexValue,
   JustifyContentValue,
+  ObjectFitValue,
   PositionValue,
   SpaceValue,
   TransformValue,
@@ -15,6 +16,10 @@ interface BannerButtonTokens {
   backgroundColor: DesignToken<BackgroundColorValue>;
   borderStyle: DesignToken<BorderStyleValue>;
   width: DesignToken<SpaceValue>;
+}
+
+interface BannerButtonsContainerTokens {
+  marginTop: DesignToken<SpaceValue>;
 }
 
 interface BannerContainerTokens {
@@ -30,7 +35,10 @@ interface BannerContainerTokens {
 
 interface BannerContentContainerTokens {
   flexDirection: DesignToken<FlexDirectionValue>;
-  marginBottom: DesignToken<SpaceValue>;
+}
+
+interface BannerImageTokens {
+  objectFit: DesignToken<ObjectFitValue>;
 }
 
 interface BannerImageContainerTokens {
@@ -56,8 +64,10 @@ interface BannerTextContainerTokens {
 
 export interface InAppMessagingBannerTokens {
   button: BannerButtonTokens;
+  buttonsContainer: BannerButtonsContainerTokens;
   bannerContainer: BannerContainerTokens;
   contentContainer: BannerContentContainerTokens;
+  image: BannerImageTokens;
   imageContainer: BannerImageContainerTokens;
   textContainer: BannerTextContainerTokens;
   topBanner: BannerPositionTokens;
@@ -71,6 +81,9 @@ export const inappmessagingbanner: InAppMessagingBannerTokens = {
     borderStyle: { value: 'none' },
     width: { value: '100%' },
   },
+  buttonsContainer: {
+    marginTop: { value: '6px' },
+  },
   bannerContainer: {
     backgroundColor: { value: '{colors.background.primary}' },
     boxShadow: { value: '2px 2px 9px 3px rgb(0, 0, 0, 0.1)' },
@@ -83,7 +96,9 @@ export const inappmessagingbanner: InAppMessagingBannerTokens = {
   },
   contentContainer: {
     flexDirection: { value: 'row' },
-    marginBottom: { value: '6px' },
+  },
+  image: {
+    objectFit: { value: 'contain' },
   },
   imageContainer: {
     justifyContent: { value: 'center' },
@@ -101,16 +116,16 @@ export const inappmessagingbanner: InAppMessagingBannerTokens = {
   topBanner: {
     bottom: { value: 'initial' },
     top: { value: '0' },
-    transform: { value: 'translate(0%, 0%)' },
+    transform: { value: 'translateY(0%)' },
   },
   middleBanner: {
     bottom: { value: 'initial' },
     top: { value: '50%' },
-    transform: { value: 'translate(0%, -50%)' },
+    transform: { value: 'translateY(calc(-50% - 16px))' },
   },
   bottomBanner: {
     bottom: { value: '0' },
     top: { value: 'initial' },
-    transform: { value: 'translate(0%, 0%)' },
+    transform: { value: 'translateY(0%)' },
   },
 };

@@ -3,6 +3,9 @@
   border-style: var(--amplify-components-inappmessagingbanner-button-border-style);
   width: var(--amplify-components-inappmessagingbanner-button-width);
 }
+.amplify-in-app-messaging-banner__buttons-container {
+  margin-top: var(--amplify-components-inappmessagingbanner-buttons-container-margin-top);
+}
 .amplify-in-app-messaging-banner__container {
   background-color: var(--amplify-components-inappmessagingbanner-banner-container-background-color);
   box-shadow: var(--amplify-components-inappmessagingbanner-banner-container-box-shadow);
@@ -12,21 +15,20 @@
   position: var(--amplify-components-inappmessagingbanner-banner-container-position);
   right: var(--amplify-components-inappmessagingbanner-banner-container-right);
   row-gap: var(--amplify-components-inappmessagingbanner-banner-container-row-gap);
-}
-@media only screen and (min-width: 600px) {
-  .amplify-in-app-messaging-banner__container {
-    max-width: 50%;
-    min-width: 400px;
+  @media only screen and (min-width: 600px) {
+      max-width: 50%;
+      min-width: 400px;
   }
-}
-@media only screen and (max-width: 600px) {
-  .amplify-in-app-messaging-banner__container {
-    width: calc(100% - 32px);
+  @media only screen and (max-width: 600px) {
+      width: calc(100% - 32px);
   }
 }
 .amplify-in-app-messaging-banner__content-container {
   flex-direction: var(--amplify-components-inappmessagingbanner-content-container-flex-direction);
   margin-bottom: var(--amplify-components-inappmessagingbanner-content-container-margin-bottom);
+}
+.amplify-in-app-messaging-banner__image {
+  object-fit: var(--amplify-components-inappmessagingbanner-image-object-fit);
 }
 .amplify-in-app-messaging-banner__image-container {
   justify-content: var(--amplify-components-inappmessagingbanner-image-container-justify-content);
@@ -41,18 +43,18 @@
   gap: var(--amplify-components-inappmessagingbanner-text-container-gap);
   justify-content: var(--amplify-components-inappmessagingbanner-text-container-justify-content);
 }
-.amplify-in-app-messaging-banner__top-banner {
+.amplify-in-app-messaging-banner__top {
   bottom: var(--amplify-components-inappmessagingbanner-top-banner-bottom);
   top: var(--amplify-components-inappmessagingbanner-top-banner-top);
   transform: var(--amplify-components-inappmessagingbanner-top-banner-transform);
 }
-.amplify-in-app-messaging-banner__middle-banner {
+.amplify-in-app-messaging-banner__middle {
   bottom: var(--amplify-components-inappmessagingbanner-middle-banner-bottom);
   top: var(--amplify-components-inappmessagingbanner-middle-banner-top);
   transform: var(--amplify-components-inappmessagingbanner-middle-banner-transform);
 
 }
-.amplify-in-app-messaging-banner__bottom-banner {
+.amplify-in-app-messaging-banner__bottom {
   bottom: var(--amplify-components-inappmessagingbanner-bottom-banner-bottom);
   top: var(--amplify-components-inappmessagingbanner-bottom-banner-top);
   transform: var(--amplify-components-inappmessagingbanner-bottom-banner-transform);

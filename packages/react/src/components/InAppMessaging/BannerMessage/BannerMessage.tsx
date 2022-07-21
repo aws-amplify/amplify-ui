@@ -6,10 +6,9 @@ import { Heading } from '../../../primitives/Heading';
 import { IconClose } from '../../../primitives/Icon/icons/IconClose';
 import { Image } from '../../../primitives/Image';
 import { Text } from '../../../primitives/Text';
-import { View } from '../../../primitives/View';
+import { Link } from '../../../primitives/Link';
 
 export default function BannerMessage({
-  position = 'top',
   alignment = 'right',
   ...props
 }): JSX.Element | null {
@@ -17,29 +16,28 @@ export default function BannerMessage({
     body,
     header,
     image,
-    layout,
     onClose,
+    position,
     primaryButton,
     secondaryButton,
   } = props;
 
-  const bannerPosition = layout.toLowerCase().replace('_', '-');
   const hasPrimaryButton = !isEmpty(primaryButton);
   const hasSecondaryButton = !isEmpty(secondaryButton);
 
   return (
     <Flex
-      className={`amplify-in-app-messaging-banner__container amplify-in-app-messaging-banner__${bannerPosition}`}
+      className={`amplify-in-app-messaging-banner__container amplify-in-app-messaging-banner__${position}`}
     >
       <Flex className="amplify-in-app-messaging-banner__content-container">
         {image?.src ? (
-          <View className="amplify-in-app-messaging-banner__image-container">
+          <Flex className="amplify-in-app-messaging-banner__image-container">
             <Image
               src={image.src}
               className="amplify-in-app-messaging-banner__image"
               alt="Message Image"
             />
-          </View>
+          </Flex>
         ) : null}
         <Flex className="amplify-in-app-messaging-banner__text-container">
           {header?.content ? <Heading>{header.content}</Heading> : null}
@@ -49,11 +47,9 @@ export default function BannerMessage({
             </Text>
           ) : null}
         </Flex>
-        <IconClose
-          ariaLabel="Close"
-          onClick={onClose}
-          className="amplify-in-app-messaging-banner__icon"
-        />
+        <Link>
+          <IconClose ariaLabel="Close" onClick={onClose} />
+        </Link>
       </Flex>
       {hasPrimaryButton || hasSecondaryButton ? (
         <Flex
