@@ -2,7 +2,7 @@ import { Breakpoint } from '../primitives/types/responsive';
 import { getValueAtCurrentBreakpoint } from '../primitives/shared/responsive/utils';
 import { useBreakpoint } from '../primitives/shared/responsive/useBreakpoint';
 import { useTheme } from './useTheme';
-import { ThemeStylePropKey } from 'src/primitives/types/theme';
+import { ThemeStylePropKey } from '../primitives/types/theme';
 
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/theming/responsive#usebreakpointvalue)
