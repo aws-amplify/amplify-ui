@@ -95,7 +95,7 @@ jobs:
     if: ${{ failure() }}
     steps:
       - name: Log failure data point to metric PublishNPMFailure
-        uses: ./.github/actions/log-metric
+        uses: ./.github/actions/log-metric@main
         with:
           metric-name: PublishNPMFailure
           value: 1
@@ -108,7 +108,7 @@ jobs:
     if: ${{ success() }}
     steps:
       - name: Log success data point to metric PublishNPMFailure
-        uses: ./.github/actions/log-metric
+        uses: ./.github/actions/log-metric@main
         with:
           metric-name: PublishNPMFailure
           value: 0

@@ -103,7 +103,7 @@ jobs:
     if: ${{ failure() }}
     steps:
       - name: Log failure data point to metric RunTimeTestsFailure
-        uses: ./.github/actions/log-metric
+        uses: ./.github/actions/log-metric@main
         with:
           metric-name: RunTimeTestsFailure
           value: 1
@@ -116,7 +116,7 @@ jobs:
     if: ${{ success() }}
     steps:
       - name: Log success data point to metric RunTimeTestsFailure
-        uses: ./.github/actions/log-metric
+        uses: ./.github/actions/log-metric@main
         with:
           metric-name: RunTimeTestsFailure
           value: 0

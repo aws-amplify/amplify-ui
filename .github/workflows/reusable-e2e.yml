@@ -38,7 +38,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Test if secrets are masked 👺
-        uses: ./.github/actions/log-metric
+        uses: ./.github/actions/log-metric@main
         with:
           metric-name: PublishNPMFailure
           value: 1
