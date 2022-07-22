@@ -10,7 +10,7 @@ import {
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AmplifyPrimitiveBaseComponent {
+export class AmplifyBasePrimitiveComponent {
   @Input() id?: string;
 
   @Input() className?: string;

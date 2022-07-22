@@ -10,7 +10,7 @@ import {
   SimpleChanges,
   ViewEncapsulation,
 } from '@angular/core';
-import { AmplifyPrimitiveBaseComponent } from '../../primitive-base/primitive-base.component';
+import { AmplifyBasePrimitiveComponent } from '../../base-primitive/base-primitive.component';
 
 /** Config file to get all the configuration related the strings and values */
 import { ComponentSettings } from './ComponentSetting';
@@ -21,7 +21,7 @@ import { ComponentSettings } from './ComponentSetting';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AmplifyViewComponent
-  extends AmplifyPrimitiveBaseComponent
+  extends AmplifyBasePrimitiveComponent
   implements OnInit, OnChanges
 {
   /** Input Prop for style changes  */

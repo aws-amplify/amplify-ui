@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { AmplifyPrimitiveBaseComponent } from '../../primitive-base/primitive-base.component';
+import { AmplifyBasePrimitiveComponent } from '../../base-primitive/base-primitive.component';
 
 @Component({
   selector: 'amplify-fields',
   template: '<ng-content></ng-content>',
 })
-export class AmplifyFieldsComponent extends AmplifyPrimitiveBaseComponent {
+export class AmplifyFieldsComponent extends AmplifyBasePrimitiveComponent {
   ngOnInit() {
     // console.log('class name ', this.className);
     let attributesVal = [{ name: '', value: '' }];
