@@ -1,4 +1,5 @@
 import { ConsoleLogger as Logger } from '@aws-amplify/core';
+import isString from 'lodash/isString';
 
 import { MessageAction } from '../types';
 
@@ -20,7 +21,7 @@ const handleMessageAction = ({
   logger.info(`Handle action: ${action}`);
 
   if (action === 'LINK' || action === 'DEEP_LINK') {
-    if (typeof url !== 'string') {
+    if (!isString(url)) {
       logger.warn(`url must be of type string: ${url}`);
       return;
     }
