@@ -1,21 +1,16 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
-  HostBinding,
   Input,
-  OnInit,
-  Renderer2,
   ViewEncapsulation,
 } from '@angular/core';
 
 @Component({
-  selector: 'primitive',
-  template: 'hi ',
+  template: '',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AmplifyPrimitiveComponent {
+export class AmplifyPrimitiveBaseComponent {
   @Input() id?: string;
 
   @Input() className?: string;

@@ -6,6 +6,7 @@ import {
   OnInit,
   ViewEncapsulation,
 } from '@angular/core';
+import { AmplifyPrimitiveBaseComponent } from '../../primitive-base/primitive-base.component';
 
 @Component({
   selector: 'button[amplify-button-poc]',
@@ -13,7 +14,10 @@ import {
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AmplifyButtonComponent implements OnInit {
+export class AmplifyButtonComponent
+  extends AmplifyPrimitiveBaseComponent
+  implements OnInit
+{
   @Input() type: 'submit' | 'button' = 'button';
   @Input() fullWidth: boolean | string = false;
   @Input() isDisabled: boolean | string = false;

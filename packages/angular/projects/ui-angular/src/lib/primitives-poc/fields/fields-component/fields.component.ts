@@ -1,21 +1,11 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Directive,
-  ElementRef,
-  HostBinding,
-  Input,
-  OnInit,
-  Renderer2,
-  ViewEncapsulation,
-} from '@angular/core';
-import { components } from '@aws-amplify/ui/dist/types/theme/tokens/components';
+import { Component } from '@angular/core';
+import { AmplifyPrimitiveBaseComponent } from '../../primitive-base/primitive-base.component';
 
 @Component({
   selector: 'amplify-fields',
   template: '<ng-content></ng-content>',
 })
-export class AmplifyFieldsComponent {
+export class AmplifyFieldsComponent extends AmplifyPrimitiveBaseComponent {
   ngOnInit() {
     // console.log('class name ', this.className);
     let attributesVal = [{ name: '', value: '' }];

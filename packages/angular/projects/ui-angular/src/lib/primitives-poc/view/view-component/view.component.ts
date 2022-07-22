@@ -10,6 +10,7 @@ import {
   SimpleChanges,
   ViewEncapsulation,
 } from '@angular/core';
+import { AmplifyPrimitiveBaseComponent } from '../../primitive-base/primitive-base.component';
 
 /** Config file to get all the configuration related the strings and values */
 import { ComponentSettings } from './ComponentSetting';
@@ -19,7 +20,10 @@ import { ComponentSettings } from './ComponentSetting';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AmplifyViewComponent implements OnInit, OnChanges {
+export class AmplifyViewComponent
+  extends AmplifyPrimitiveBaseComponent
+  implements OnInit, OnChanges
+{
   /** Input Prop for style changes  */
   @Input() type: 'submit' | 'button' = 'button';
   @Input() fullWidth: boolean | string = false;
@@ -37,7 +41,9 @@ export class AmplifyViewComponent implements OnInit, OnChanges {
     return this.isDisabled ? '' : null;
   }
 
-  constructor(private renderer: Renderer2, private element: ElementRef) {}
+  constructor(private renderer: Renderer2, private element: ElementRef) {
+    super();
+  }
 
   /** onchange method to detecte prop changes and update the accordingly */
   ngOnChanges(changes: SimpleChanges): void {
