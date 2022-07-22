@@ -13,16 +13,16 @@ describe('@aws-amplify/ui-react', () => {
     it('should match snapshot', () => {
       expect(Object.keys(exported)).toMatchInlineSnapshot(`
         Array [
+          "createTheme",
+          "defaultDarkModeOverride",
+          "defaultTheme",
+          "translations",
           "ComponentClassNames",
           "ComponentClassObject",
           "ComponentPropsToStylePropsMap",
           "ComponentPropsToStylePropsMapKeys",
           "View",
           "useTheme",
-          "createTheme",
-          "defaultDarkModeOverride",
-          "defaultTheme",
-          "translations",
           "InAppMessagingProvider",
           "useInAppMessaging",
           "Alert",
