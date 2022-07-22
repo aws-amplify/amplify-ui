@@ -7,3 +7,4 @@ export { LocalCollectionClassExample } from './LocalCollectionClassExample';
 export { PaginationCollectionExample } from './PaginationCollectionExample';
 export { SearchCollectionExample } from './SearchCollectionExample';
 export { StylingCollectionExample } from './StylingCollectionExample';
+export { NoResultsFoundPOC } from './NoResultsFoundPOC';

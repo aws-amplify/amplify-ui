@@ -521,6 +521,7 @@ export const ComponentText = {
     dismissButtonLabel: 'Dismiss alert',
   },
   Collection: {
+    noResultsFound: 'No results found',
     searchButtonLabel: 'Search',
   },
   Fields: {

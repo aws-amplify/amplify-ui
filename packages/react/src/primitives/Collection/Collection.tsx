@@ -4,6 +4,7 @@ import * as React from 'react';
 
 import { Flex } from '../Flex';
 import { Grid } from '../Grid';
+import { Text } from '../Text';
 import { Pagination, usePagination } from '../Pagination';
 import { SearchField } from '../SearchField';
 import { ComponentClassNames, ComponentText } from '../shared/constants';
@@ -46,6 +47,7 @@ export const Collection = <Item,>({
   isPaginated,
   items,
   itemsPerPage = DEFAULT_PAGE_SIZE,
+  noResultsFound,
   searchFilter = itemHasText,
   searchLabel = ComponentText.Collection.searchButtonLabel,
   searchPlaceholder,
@@ -109,7 +111,15 @@ export const Collection = <Item,>({
         </Flex>
       ) : null}
 
-      {collection}
+      {items.length ? (
+        collection
+      ) : noResultsFound ? (
+        noResultsFound
+      ) : (
+        <Flex justifyContent="center">
+          <Text>{ComponentText.Collection.noResultsFound}</Text>
+        </Flex>
+      )}
 
       {isPaginated ? (
         <Flex className={ComponentClassNames.CollectionPagination}>
