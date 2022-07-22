@@ -54,7 +54,7 @@ export interface CollectionWrapperProps extends BaseStyleProps {
 
   /**
    * @description
-   * Search field placeholder
+   * Controls what is displayed when no results are found from the Collection search
    */
   noResultsFound?: React.ReactNode;
 }
