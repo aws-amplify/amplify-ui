@@ -5,7 +5,7 @@ import { MessageAction } from '../types';
 
 const logger = new Logger('Notifications.InAppMessaging');
 
-export type HandleMessageLinkAction = (url: string) => Promise<void>;
+export type HandleMessageLinkAction = (url: string) => void | Promise<void>;
 
 interface HandleMessageActionParams {
   action: MessageAction;

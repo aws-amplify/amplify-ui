@@ -6,6 +6,7 @@ import {
   useMessage,
 } from '@aws-amplify/ui-react-core';
 
+import handleMessageLinkAction from './handleMessageLinkAction';
 import { InAppMessageDisplayProps, MessageDefaultComponents } from './types';
 
 // TODO: replace below components incrementally as they become available
@@ -27,11 +28,6 @@ const platformComponents: MessageDefaultComponents = {
   CarouselMessage,
   FullScreenMessage,
   ModalMessage,
-};
-
-// TODO: replace with platform link handler
-const handleMessageLinkAction = () => {
-  return null;
 };
 
 const onMessageAction: OnMessageAction = ({ action, url }) => {
