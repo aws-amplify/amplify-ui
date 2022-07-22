@@ -16,7 +16,7 @@ export const NoResultsFoundCollectionExample = () => {
       itemsPerPage={9}
       noResultsFound={
         <Flex justifyContent="center">
-          <Text color="purple.60" fontSize="2rem">
+          <Text color="purple.80" fontSize="1rem">
             Nothing found, please try again
           </Text>
         </Flex>
