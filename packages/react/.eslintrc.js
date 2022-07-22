@@ -71,7 +71,7 @@ module.exports = {
         'src/components/ThemeProvider/**/*',
         'src/helpers/**/*',
         'src/hooks/**/*',
-        'src/primitives/shared/**/*',
+        'src/primitives/+(shared|utils)/**/*',
         // 'src/components/**/*',
         // 'src/primitives/**/*',
       ],
