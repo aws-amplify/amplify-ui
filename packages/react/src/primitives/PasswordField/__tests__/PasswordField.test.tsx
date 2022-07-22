@@ -82,7 +82,7 @@ describe('PasswordField component', () => {
     const button = await screen.findByRole('switch');
     expect(button).toBeDefined();
     expect(button.getAttribute('aria-label')).toBe(
-      ComponentText.PasswordField.showPasswordButton
+      ComponentText.PasswordField.showPassword
     );
   });
 

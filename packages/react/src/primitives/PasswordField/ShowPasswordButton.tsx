@@ -6,14 +6,14 @@ import { ComponentClassNames, ComponentText } from '../shared/constants';
 import { IconVisibility, IconVisibilityOff } from '../Icon/internal';
 import { Primitive, ShowPasswordButtonProps } from '../types';
 
-const { passwordHidden, passwordShown, showPasswordButton } =
+const { passwordIsHidden, passwordIsShown, showPassword } =
   ComponentText.PasswordField;
 
 const ShowPasswordButtonPrimitive: Primitive<
   ShowPasswordButtonProps,
   typeof Button
 > = (
-  { fieldType, size, showPasswordButtonLabel = showPasswordButton, ...rest },
+  { fieldType, size, showPasswordButtonLabel = showPassword, ...rest },
   ref
 ) => {
   return (
@@ -27,7 +27,7 @@ const ShowPasswordButtonPrimitive: Primitive<
       {...rest}
     >
       <VisuallyHidden aria-live="polite">
-        {fieldType === 'password' ? passwordHidden : passwordShown}
+        {fieldType === 'password' ? passwordIsHidden : passwordIsShown}
       </VisuallyHidden>
       {fieldType === 'password' ? (
         <IconVisibility size={size} />

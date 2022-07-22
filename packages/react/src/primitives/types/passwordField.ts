@@ -10,6 +10,16 @@ export interface PasswordFieldProps extends TextInputFieldProps {
   hideShowPassword?: boolean;
 
   /**
+   * @deprecated
+   * The hidePasswordButtonLabel prop is no longer in use, since the aria-label is now consistent between state changes.
+   * @description
+   * Set the `aria-label` for hide password button
+   * @default
+   * "Hide password"
+   */
+  hidePasswordButtonLabel?: string;
+
+  /**
    * @description
    * Set the `aria-label` for show password button
    * @default
@@ -41,6 +51,16 @@ export interface ShowPasswordButtonProps extends ButtonProps {
    * Determines whether the input is hidden or displayed. Options include 'password' or 'text'
    */
   fieldType: PasswordFieldType;
+
+  /**
+   * @deprecated
+   * The hidePasswordButtonLabel prop is no longer in use, since the aria-label is now consistent between state changes.
+   * @description
+   * Set the `aria-label` for hide password button
+   * @default
+   * "Hide password"
+   */
+  hidePasswordButtonLabel?: string;
 
   /**
    * @description

@@ -673,9 +673,9 @@ export const ComponentText = {
     searchButtonLabel: 'Search',
   },
   PasswordField: {
-    passwordHidden: 'Password is hidden',
-    passwordShown: 'Password is shown',
-    showPasswordButton: 'Show password',
+    passwordIsHidden: 'Password is hidden',
+    passwordIsShown: 'Password is shown',
+    showPassword: 'Show password',
   },
   StepperField: {
     increaseButtonLabel: 'Increase to',
