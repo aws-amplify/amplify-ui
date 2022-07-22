@@ -227,34 +227,6 @@ describe('Collection component', () => {
   });
 
   it('should render default text when no results are found from search', async () => {
-    const searchLabel = 'Search emojis';
-    render(
-      <Collection
-        testId={testList}
-        type="list"
-        items={emojis}
-        searchLabel={searchLabel}
-        isSearchable
-      >
-        {(item, index) => (
-          <div key={index} aria-label={item.title}>
-            {item.emoji}
-          </div>
-        )}
-      </Collection>
-    );
-
-    const searchInput = await screen.findByRole('textbox');
-    const searchText = 'qwerty12345';
-    userEvent.type(searchInput, searchText);
-
-    const noResults = await screen.findByText(
-      ComponentText.Collection.noResultsFound
-    );
-    expect(noResults).toBeDefined();
-  });
-
-  it('should render default text when no results are found from search', async () => {
     render(
       <Collection testId={testList} type="list" items={emojis} isSearchable>
         {(item, index) => (
