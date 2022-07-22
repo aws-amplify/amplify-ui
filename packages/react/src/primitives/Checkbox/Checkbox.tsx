@@ -91,25 +91,29 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
     )
   );
 
-  const renderedIcon = isIndeterminate ? (
-    <IconIndeterminate
-      className={classNames(
-        iconClasses,
-        classNameModifierByFlag(
-          ComponentClassNames.CheckboxIcon,
-          'indeterminate',
-          isIndeterminate
-        )
-      )}
-      data-testid={iconTestId}
-    />
-  ) : (
-    <IconCheck
-      className={iconClasses}
-      data-checked={dataChecked}
-      data-disabled={isDisabled}
-      data-testid={iconTestId}
-    />
+  const renderedIcon = React.useMemo(
+    () =>
+      isIndeterminate ? (
+        <IconIndeterminate
+          className={classNames(
+            iconClasses,
+            classNameModifierByFlag(
+              ComponentClassNames.CheckboxIcon,
+              'indeterminate',
+              isIndeterminate
+            )
+          )}
+          data-testid={iconTestId}
+        />
+      ) : (
+        <IconCheck
+          className={iconClasses}
+          data-checked={dataChecked}
+          data-disabled={isDisabled}
+          data-testid={iconTestId}
+        />
+      ),
+    [dataChecked, iconClasses, iconTestId, isDisabled, isIndeterminate]
   );
 
   return (
