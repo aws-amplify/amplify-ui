@@ -69,7 +69,6 @@ module.exports = {
         'src/components/**/*',
         'src/helpers/**/*',
         'src/hooks/**/*',
-        // 'src/components/**/*',
         // 'src/primitives/**/*',
       ],
       extends: [
