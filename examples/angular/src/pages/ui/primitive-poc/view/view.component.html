@@ -1,6 +1,5 @@
-<Button
-  view
-  isDisabled="true"
+<p
+  amplify-view
   ariaLabel="View example"
   backgroundColor="var(--amplify-colors-white)"
   borderRadius="6px"
@@ -11,7 +10,8 @@
   maxWidth="100%"
   padding="1rem"
   width="20rem"
-  onClick="alert('🏔 What a beautiful <View>! 🔭')"
+  fullWidth="true"
+  (click)="clickbutton()"
 >
-  Amplify Button POC
-</Button>
+  Amplify View POC
+</p>

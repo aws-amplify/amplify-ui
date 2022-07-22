@@ -10,7 +10,12 @@ import awsExports from './aws-exports';
 })
 export class AmplifyViewExampleComponent implements OnInit {
   @Input() buttonName = 'Amplify Button POC ';
+  @Input() flag = true;
   constructor() {}
 
   ngOnInit() {}
+
+  clickbutton() {
+    alert('🏔 What a beautiful <View>! 🔭');
+  }
 }

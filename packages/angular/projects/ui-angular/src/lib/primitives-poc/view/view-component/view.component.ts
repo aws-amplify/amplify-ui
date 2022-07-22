@@ -1,32 +1,27 @@
 import {
-  ChangeDetectionStrategy,
   Component,
-  Directive,
   ElementRef,
-  EventEmitter,
   HostBinding,
   Input,
+  OnChanges,
   OnInit,
-  Output,
   Renderer2,
   SimpleChanges,
-  ViewChild,
-  ViewEncapsulation,
 } from '@angular/core';
-import { AmplifyView } from './view';
 
+/** Config file to get all the configuration related the strings and values */
+import { ComponentSettings } from './ComponentSetting';
 @Component({
-  selector: '[view]',
+  selector: ComponentSettings.COMPONENTNAME,
   template: '<ng-content></ng-content>',
 })
-export class AmplifyViewComponent {
-  @Input() as: string;
+export class AmplifyViewComponent implements OnInit, OnChanges {
+  /** Input Prop for style changes  */
   @Input() type: 'submit' | 'button' = 'button';
   @Input() fullWidth: boolean | string = false;
   @Input() isDisabled: boolean | string = false;
   @Input() size: 'small' | 'medium' | 'large' = 'medium';
   @Input() variation: 'primary' | 'default' | 'link' = 'default';
-  @Input() fontWeight: 'normal' | 'bold' | 'lighter' = 'normal';
 
   @HostBinding('type') typeAttr: string;
   @HostBinding('attr.data-fullwidth') fullWidthAttr: boolean | string;
@@ -34,98 +29,63 @@ export class AmplifyViewComponent {
   @HostBinding('attr.data-variation') variationAttr: string;
   @HostBinding('style.font-weight') fontWeightAttr: string;
 
-  @Output() click = new EventEmitter<any>();
-
-  @HostBinding('class') get classNames() {
-    let className = 'amplify-button';
-    const result = {
-      ...(this.variation && {
-        data: (className += ` amplify-button--${this.variation}`),
-      }),
-      ...(this.size && {
-        data: (className += ` amplify-button--${this.size}`),
-      }),
-      ...(this.fullWidth && {
-        data: (className += ` amplify-button--fullwidth`),
-      }),
-      ...(this.isDisabled && {
-        data: (className += ` amplify-button--disabled amplify-button--loading`),
-      }),
-    };
-    return result.data;
+  @HostBinding('attr.disabled') get getDisabled() {
+    return this.isDisabled ? '' : null;
   }
 
-  onClick($event) {
-    if (this.isDisabled) $event.stopPropagation();
+  constructor(private renderer: Renderer2, private element: ElementRef) {}
 
-    this.click.emit($event);
-  }
-
-  constructor(private renderer: Renderer2, private element: ElementRef) {
-    // super();
-  }
-
+  /** onchange method to detecte prop changes and update the accordingly */
   ngOnChanges(changes: SimpleChanges): void {
     for (const key in changes) {
-      if (
-        key === 'disabled' &&
-        changes[key].currentValue !== changes[key].previousValue
-      ) {
+      if (changes[key].currentValue !== changes[key].previousValue) {
+        /** Set the attribute value if changed */
+        this.renderer.setProperty(
+          this.element.nativeElement,
+          key,
+          changes[key].currentValue
+        );
       }
     }
   }
 
   ngOnInit() {
-    let attributesVal = [{ name: '', value: '' }];
-    attributesVal = this.element.nativeElement.attributes;
+    for (let attr of this.element.nativeElement.attributes) {
+      let propName = attr.name;
 
-    for (let attr of attributesVal) {
-      if (attr.name == 'ariaLabel')
-        this.renderer.setStyle(
-          this.element.nativeElement,
-          'aria-label',
-          attr.value
-        );
-      else if (attr.name == 'backgroundColor')
-        this.renderer.setStyle(
-          this.element.nativeElement,
-          'background-color',
-          attr.value
-        );
-      else if (attr.name == 'borderRadius')
-        this.renderer.setStyle(
-          this.element.nativeElement,
-          'border-radius',
-          attr.value
-        );
-      else
-        this.renderer.setStyle(
-          this.element.nativeElement,
-          attr.name,
-          attr.value
-        );
+      /** update the different name prop value and update accordingly */
+      if (Object.keys(ComponentSettings.PROPMAP).indexOf(attr.name) !== -1) {
+        propName = ComponentSettings.PROPMAP[attr.name];
+      }
+      this.renderer.setStyle(this.element.nativeElement, propName, attr.value);
     }
-    let className = 'amplify-button';
-    const result = {
-      ...(this.variation && {
-        data: (className += ` amplify-button--${this.variation}`),
-      }),
-      ...(this.size && {
-        data: (className += ` amplify-button--${this.size}`),
-      }),
-      ...(this.fullWidth && {
-        data: (className += ` amplify-button--fullwidth`),
-      }),
-      ...(this.isDisabled && {
-        data: (className += ` amplify-button--disabled amplify-button--loading`),
-      }),
-    };
-    this.renderer.setProperty(this.element.nativeElement, 'class', result.data);
 
-    //this.renderer.appendChild(this.element.nativeElement, elementValue);
+    /** Add Css Class related to the button */
+    if (this.element.nativeElement.tagName == 'BUTTON') {
+      this.renderer.addClass(
+        this.element.nativeElement,
+        this.getButtonCSSClass()
+      );
+    }
   }
 
-  getRandomId() {
-    return Math.floor(Math.random() * 6 + 1);
+  /** Get the Css Class according to the input prop */
+  getButtonCSSClass() {
+    let className = ComponentSettings.BUTTON_CLASS_NAME;
+    const result = {
+      ...(this.variation && {
+        data: (className += ` ${ComponentSettings.BUTTON_CLASS_NAME}--${this.variation}`),
+      }),
+      ...(this.size && {
+        data: (className += ` ${ComponentSettings.BUTTON_CLASS_NAME}--${this.size}`),
+      }),
+      ...(this.fullWidth && {
+        data: (className += ` ${ComponentSettings.BUTTON_FULLWIDTH_CLASS_NAME}`),
+      }),
+      ...(this.isDisabled && {
+        data: (className += ` ${ComponentSettings.BUTTON_DISABLE_CLASS_NAME}`),
+      }),
+    };
+    return result.data;
   }
 }
