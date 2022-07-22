@@ -48,7 +48,9 @@
     --amplify-components-stepperfield-button-background-color
   );
   &--disabled {
-    background-color: var(--amplify-colors-background-disabled);
+    background-color: var(
+      --amplify-components-stepperfield-button-disabled-background-color
+    );
   }
   &--quiet {
     border-width: 0 0 var(--amplify-components-button-border-width) 0;
