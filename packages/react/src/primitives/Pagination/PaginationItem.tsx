@@ -60,7 +60,8 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
         <View as="li">
           {page === currentPage ? (
             <Flex
-              as="span"
+              aria-current="true"
+              as="button"
               className={ComponentClassNames.PaginationItemCurrent}
               testId={PAGINATION_CURRENT_TEST_ID}
               {...rest}
