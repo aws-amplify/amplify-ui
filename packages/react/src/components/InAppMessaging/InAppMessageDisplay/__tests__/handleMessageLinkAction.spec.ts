@@ -2,45 +2,59 @@ import { ConsoleLogger as Logger } from '@aws-amplify/core';
 
 import handleMessageLinkAction from '../handleMessageLinkAction';
 
-const validUrl = 'https://ui.docs.amplify.aws/';
-const invalidUrl = 'invalidUrl';
-const invalidUrlWithMalformedProtocol = `${invalidUrl}${validUrl}`;
+const httpProtocol = 'http:';
+const httpsProtocol = 'https:';
+const unsupportedProtocol = 'foobar:';
 
+const path = 'ui.docs.amplify.aws/';
+
+const urlWithHttpProtocol = `${httpProtocol}//${path}`;
+const urlWithHttpsProtocol = `${httpsProtocol}//${path}`;
+
+const urlWithNoProtocol = path;
+const urlWithUnsupportedProtocol = `${unsupportedProtocol}//${path}`;
+
+// chain mockImplementation to turn off console output during tests
 const warnSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
 
 describe('handleMessageLinkAction', () => {
-  const original = { ...window };
+  const original = window.open;
   beforeAll(() => {
     // set window.open to mock function
     window.open = jest.fn();
   });
 
   afterAll(() => {
-    // restore window
-    window = { ...original };
+    // restore window.open
+    window.open = original;
   });
 
   beforeEach(() => {
     jest.resetAllMocks();
   });
 
-  it('handles a valid url', () => {
-    handleMessageLinkAction(validUrl);
-    expect(window.open).toHaveBeenCalledWith(validUrl);
+  it('handles a url with http protocol', () => {
+    handleMessageLinkAction(urlWithHttpProtocol);
+    expect(window.open).toHaveBeenCalledWith(urlWithHttpProtocol);
   });
 
-  it('gracefully handles an invalid url', () => {
-    handleMessageLinkAction(invalidUrl);
+  it('handles a url with https protocol', () => {
+    handleMessageLinkAction(urlWithHttpsProtocol);
+    expect(window.open).toHaveBeenCalledWith(urlWithHttpsProtocol);
+  });
+
+  it('gracefully handles an url with no protocol', () => {
+    handleMessageLinkAction(urlWithNoProtocol);
     expect(warnSpy).toHaveBeenCalledWith(
-      'Unsupported url provided: invalidUrl'
+      `Unsupported url provided: ${urlWithNoProtocol}`
     );
     expect(window.open).not.toHaveBeenCalled();
   });
 
-  it('gracefully handles a malformed url protocol', () => {
-    handleMessageLinkAction(invalidUrlWithMalformedProtocol);
+  it('gracefully handles a url with an unsupported protocol', () => {
+    handleMessageLinkAction(urlWithUnsupportedProtocol);
     expect(warnSpy).toHaveBeenCalledWith(
-      'Unsupported url protocol provided: invalidurlhttps:'
+      `Unsupported url protocol provided: ${unsupportedProtocol}`
     );
     expect(window.open).not.toHaveBeenCalled();
   });

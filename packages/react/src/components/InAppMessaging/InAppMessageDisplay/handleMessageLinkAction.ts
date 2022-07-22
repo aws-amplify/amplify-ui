@@ -3,33 +3,27 @@ import { HandleMessageLinkAction } from '@aws-amplify/ui-react-core';
 
 const logger = new Logger('Notifications.InAppMessaging');
 
-const isValidUrl = (unvalidatedUrl: string): boolean => {
+const handleMessageLinkAction: HandleMessageLinkAction = (input) => {
   let url: URL;
 
   try {
-    url = new URL(unvalidatedUrl);
+    url = new URL(input);
   } catch {
-    logger.warn(`Unsupported url provided: ${unvalidatedUrl}`);
-    return false;
+    logger.warn(`Unsupported url provided: ${input}`);
+    return;
   }
 
-  const isHttpProtocol = url.protocol === 'http:';
-  const isHttpsProtocol = url.protocol === 'https:';
+  const { protocol } = url;
+
+  const isHttpProtocol = protocol === 'http:';
+  const isHttpsProtocol = protocol === 'https:';
 
   if (!(isHttpProtocol || isHttpsProtocol)) {
-    logger.warn(`Unsupported url protocol provided: ${url.protocol}`);
-    return false;
+    logger.warn(`Unsupported url protocol provided: ${protocol}`);
+    return;
   }
 
-  return true;
-};
-
-const handleMessageLinkAction: HandleMessageLinkAction = (url) => {
-  const supported = isValidUrl(url);
-
-  if (supported) {
-    window.open(url);
-  }
+  window.open(input);
 };
 
 export default handleMessageLinkAction;
