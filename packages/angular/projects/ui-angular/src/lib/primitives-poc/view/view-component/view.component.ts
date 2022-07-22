@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   HostBinding,
@@ -7,6 +8,7 @@ import {
   OnInit,
   Renderer2,
   SimpleChanges,
+  ViewEncapsulation,
 } from '@angular/core';
 
 /** Config file to get all the configuration related the strings and values */
@@ -14,6 +16,8 @@ import { ComponentSettings } from './ComponentSetting';
 @Component({
   selector: ComponentSettings.COMPONENTNAME,
   template: '<ng-content></ng-content>',
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AmplifyViewComponent implements OnInit, OnChanges {
   /** Input Prop for style changes  */
