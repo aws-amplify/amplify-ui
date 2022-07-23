@@ -1,4 +1,7 @@
-# This workflow will run unit, e2e, and docs tests on PRs targeted against main, ui-svelte/main, ui-geo/main, and ui-react@v2 branches.
+# Description: This workflow runs unit + e2e tests on PRs targeting `main` and
+#              other protected branches listed below.
+#
+# Triggered by: internal and fork PRs targeting protected branches listed below.
 
 name: Test / PRs
 
