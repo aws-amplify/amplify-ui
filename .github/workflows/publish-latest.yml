@@ -89,29 +89,31 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   log-failure-metric:
-    # Send data point 1 to metric PublishNPMFailure, if it's a failure
+    # Send data point 1 to metric PublishLatestFailure, if it's a failure
     runs-on: ubuntu-latest
     environment: ci
+    needs: publish
     if: ${{ failure() }}
     steps:
-      - name: Log failure data point to metric PublishNPMFailure
-        uses: aws-amplify/amplify-ui/.github/actions/log-metric
+      - name: Log failure data point to metric PublishLatestFailure
+        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
         with:
-          metric-name: PublishNPMFailure
+          metric-name: PublishLatestFailure
           value: 1
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
   log-success-metric:
-    # Send data point 0 to metric PublishNPMFailure, if  it's a success
+    # Send data point 0 to metric PublishLatestFailure, if  it's a success
     runs-on: ubuntu-latest
     environment: ci
+    needs: publish
     if: ${{ success() }}
     steps:
-      - name: Log success data point to metric PublishNPMFailure
-        uses: aws-amplify/amplify-ui/.github/actions/log-metric
+      - name: Log success data point to metric PublishLatestFailure
+        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
         with:
-          metric-name: PublishNPMFailure
+          metric-name: PublishLatestFailure
           value: 0
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

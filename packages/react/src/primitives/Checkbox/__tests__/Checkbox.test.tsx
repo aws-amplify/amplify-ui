@@ -10,7 +10,6 @@ import {
   testFlexProps,
   expectFlexContainerStyleProps,
 } from '../../Flex/__tests__/Flex.test';
-import { useTestId } from '../../utils/testUtils';
 
 describe('Checkbox test suite', () => {
   const basicProps = {
