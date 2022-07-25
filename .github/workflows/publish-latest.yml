@@ -1,4 +1,14 @@
-name: Publish to latest
+# Description: this workflow publishes UI packages to `latest` tag on NPM.
+#
+# Triggered by: whenever "Version Packages" is merged
+
+# If successful, we will publish all updated UI packages to
+#   - https://www.npmjs.com/package/@aws-amplify/ui
+#   - https://www.npmjs.com/package/@aws-amplify/ui-react
+#   - https://www.npmjs.com/package/@aws-amplify/ui-vue
+#   - https://www.npmjs.com/package/@aws-amplify/ui-angular
+
+name: Test and Publish / latest
 
 on:
   push:
@@ -21,6 +31,13 @@ jobs:
       - name: Check if repo has unconsumed changesets
         id: has-changesets
         uses: ./.github/actions/has-changesets
+      # Note: if there are no changesets, that means that either
+      #         (1) "Version Packages" PR was just merged, or
+      #         (2) no commits with changesets have been merged after packages were last published.
+      #
+      #       In either way, we'll attempt to publish the packages. In case of (1), publish will succeed. In
+      #       case of (2), `@changesets/action` will know that UI packages have already published and will
+      #       skip publish.
 
   build-test:
     runs-on: ubuntu-latest

@@ -1,3 +1,8 @@
+# Description: this workflow runs build and simple runtime tests on supported
+#              frameworks and their build systems.
+#
+# Triggered by: it runs every 15 minutes.
+
 name: Run and Test Builds
 
 on:
