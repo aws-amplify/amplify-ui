@@ -1,62 +1,49 @@
 .amplify-in-app-messaging-banner__button {
-  background-color: var(--amplify-components-inappmessagingbanner-button-background-color);
-  border-style: var(--amplify-components-inappmessagingbanner-button-border-style);
-  width: var(--amplify-components-inappmessagingbanner-button-width);
+  background-color: var(--amplify-components-bannermessage-button-background-color);
+  border-style: none;
+  width: var(--amplify-components-bannermessage-button-width);
 }
 .amplify-in-app-messaging-banner__buttons-container {
-  margin-top: var(--amplify-components-inappmessagingbanner-buttons-container-margin-top);
+  margin-top: var(--amplify-components-bannermessage-buttons-container-margin-top);
 }
 .amplify-in-app-messaging-banner__container {
-  background-color: var(--amplify-components-inappmessagingbanner-banner-container-background-color);
-  box-shadow: var(--amplify-components-inappmessagingbanner-banner-container-box-shadow);
-  flex-direction: var(--amplify-components-inappmessagingbanner-banner-container-flex-direction);
-  margin: var(--amplify-components-inappmessagingbanner-banner-container-margin);
-  padding: var(--amplify-components-inappmessagingbanner-banner-container-padding);
-  position: var(--amplify-components-inappmessagingbanner-banner-container-position);
-  right: var(--amplify-components-inappmessagingbanner-banner-container-right);
-  row-gap: var(--amplify-components-inappmessagingbanner-banner-container-row-gap);
-  @media only screen and (min-width: 600px) {
+  background-color: var(--amplify-components-bannermessage-banner-container-background-color);
+  box-shadow: var(--amplify-components-bannermessage-banner-container-box-shadow);
+  flex-direction: column;
+  margin: var(--amplify-components-bannermessage-banner-container-margin);
+  min-width: 400px;
+  padding: var(--amplify-components-bannermessage-banner-container-padding);
+  position: absolute;
+  right: 0;
+  &.xl, &.large, &.medium {
       max-width: 50%;
-      min-width: 400px;
   }
-  @media only screen and (max-width: 600px) {
+  &.base, &.small {
       width: calc(100% - 32px);
   }
 }
 .amplify-in-app-messaging-banner__content-container {
-  flex-direction: var(--amplify-components-inappmessagingbanner-content-container-flex-direction);
-  margin-bottom: var(--amplify-components-inappmessagingbanner-content-container-margin-bottom);
-}
-.amplify-in-app-messaging-banner__image {
-  object-fit: var(--amplify-components-inappmessagingbanner-image-object-fit);
+  flex-direction: row;
 }
 .amplify-in-app-messaging-banner__image-container {
-  justify-content: var(--amplify-components-inappmessagingbanner-image-container-justify-content);
-  min-width: var(--amplify-components-inappmessagingbanner-image-container-min-width);
-  max-width: var(--amplify-components-inappmessagingbanner-image-container-max-width);
-  padding: var(--amplify-components-inappmessagingbanner-image-container-padding);
-  width: var(--amplify-components-inappmessagingbanner-image-container-width);
+  justify-content: 'center';
+  padding: var(--amplify-components-bannermessage-image-container-padding);
+  width: 15%;
 }
 .amplify-in-app-messaging-banner__text-container {
-  flex: var(--amplify-components-inappmessagingbanner-text-container-flex);
-  flex-direction: var(--amplify-components-inappmessagingbanner-text-container-flex-direction);
-  gap: var(--amplify-components-inappmessagingbanner-text-container-gap);
-  justify-content: var(--amplify-components-inappmessagingbanner-text-container-justify-content);
+  flex: 1;
+  flex-direction: column;
+  justify-content: var(--amplify-components-bannermessage-text-container-justify-content);
 }
-.amplify-in-app-messaging-banner__top {
-  bottom: var(--amplify-components-inappmessagingbanner-top-banner-bottom);
-  top: var(--amplify-components-inappmessagingbanner-top-banner-top);
-  transform: var(--amplify-components-inappmessagingbanner-top-banner-transform);
+.amplify-in-app-messaging-banner-top {
+  top: 0;
 }
-.amplify-in-app-messaging-banner__middle {
-  bottom: var(--amplify-components-inappmessagingbanner-middle-banner-bottom);
-  top: var(--amplify-components-inappmessagingbanner-middle-banner-top);
-  transform: var(--amplify-components-inappmessagingbanner-middle-banner-transform);
-
+.amplify-in-app-messaging-banner-middle {
+  bottom: 0;
+  height: fit-content;
+  margin: auto;
+  top: 0;
 }
-.amplify-in-app-messaging-banner__bottom {
-  bottom: var(--amplify-components-inappmessagingbanner-bottom-banner-bottom);
-  top: var(--amplify-components-inappmessagingbanner-bottom-banner-top);
-  transform: var(--amplify-components-inappmessagingbanner-bottom-banner-transform);
-
+.amplify-in-app-messaging-banner-bottom {
+  bottom: 0;
 }

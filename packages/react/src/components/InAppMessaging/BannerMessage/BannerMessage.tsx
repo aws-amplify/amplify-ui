@@ -7,6 +7,7 @@ import { IconClose } from '../../../primitives/Icon/icons/IconClose';
 import { Image } from '../../../primitives/Image';
 import { Text } from '../../../primitives/Text';
 import { Link } from '../../../primitives/Link';
+import { useThemeBreakpoint } from '../../../hooks/useThemeBreakpoint';
 
 export default function BannerMessage({
   alignment = 'right',
@@ -24,10 +25,14 @@ export default function BannerMessage({
 
   const hasPrimaryButton = !isEmpty(primaryButton);
   const hasSecondaryButton = !isEmpty(secondaryButton);
+  const breakpoint = useThemeBreakpoint();
+  console.log(typeof breakpoint);
 
   return (
     <Flex
-      className={`amplify-in-app-messaging-banner__container amplify-in-app-messaging-banner__${position}`}
+      className={`amplify-in-app-messaging-banner__container amplify-in-app-messaging-banner-${position} ${String(
+        breakpoint
+      )}`}
     >
       <Flex className="amplify-in-app-messaging-banner__content-container">
         {image?.src ? (
