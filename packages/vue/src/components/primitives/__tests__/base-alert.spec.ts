@@ -2,7 +2,6 @@ import BaseAlert from '../base-alert.vue';
 import { components } from '../../../../global-spec';
 import { render } from '@testing-library/vue';
 
-import { translations } from '@aws-amplify/ui-vue';
 import { I18n } from 'aws-amplify';
 
 describe('Base Alert', () => {
