@@ -9,10 +9,14 @@ export type UseStableId = (id?: string) => string;
 
 // Create a local version of React.useId which will reference React.useId for React 18
 // and fallback to noop for React 17 and below
-// Note: We `toString()` to prevent bundlers from trying to `import { useId } from 'react';`
+// Note: We use `toString()` to prevent bundlers from trying to `import { useId } from 'react';`
 // since it doesn't exist in React 17 and below (prevents https://github.com/aws-amplify/amplify-ui/issues/1154)
 const useReactId: () => string | (() => undefined) =
-  (React as any)['useId'.toString()] || (() => undefined);
+  // disable eslint below to allow usage of casting React to `any`, which ensures that TS
+  // does not get confused about the existence of `useId` in React 17 and below
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  ((React as any)['useId'.toString()] as () => string) || (() => undefined);
+
 let count = 0;
 
 /**
