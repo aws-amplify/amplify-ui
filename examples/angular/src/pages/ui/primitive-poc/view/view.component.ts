@@ -5,7 +5,7 @@ import { translations } from '@aws-amplify/ui-angular';
 import awsExports from './aws-exports';
 
 @Component({
-  selector: 'amplify-view',
+  selector: 'amplify-view-demo',
   templateUrl: 'view.component.html',
 })
 export class AmplifyViewExampleComponent implements OnInit {
@@ -15,7 +15,8 @@ export class AmplifyViewExampleComponent implements OnInit {
 
   ngOnInit() {}
 
-  clickbutton() {
-    alert('🏔 What a beautiful <View>! 🔭');
+  clickbutton(value: string) {
+    let display = '🏔 What a beautiful <' + value + '>! 🔭';
+    alert(display);
   }
 }

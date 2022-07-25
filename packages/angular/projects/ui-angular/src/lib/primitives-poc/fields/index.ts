@@ -1,2 +1,2 @@
-export * from './fields.module';
-export * from './fields-component/fields.component';
+export * from './form-fields.module';
+export * from './form-fields-component/form-fields.component';
