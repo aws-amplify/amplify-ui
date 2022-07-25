@@ -5,7 +5,12 @@ export const LabelHiddenExample = () => {
   return (
     <Flex>
       <Text paddingTop={tokens.space.small}>🚀</Text>
-      <PasswordField label="Space Rocket Launch Codes" labelHidden={true} />
+      <PasswordField
+        label="Space Rocket Launch Codes"
+        labelHidden={true}
+        passwordIsHiddenLabel="Your password is hidden"
+        passwordIsShownLabel="Your password is shown"
+      />
     </Flex>
   );
 };

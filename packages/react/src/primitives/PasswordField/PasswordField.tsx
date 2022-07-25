@@ -40,6 +40,8 @@ const PasswordFieldPrimitive: Primitive<PasswordFieldProps, 'input'> = (
           <ShowPasswordButton
             fieldType={type}
             onClick={showPasswordOnClick}
+            passwordIsHiddenLabel={passwordIsHiddenLabel}
+            passwordIsShownLabel={passwordIsShownLabel}
             ref={showPasswordButtonRef}
             size={size}
             showPasswordButtonLabel={showPasswordButtonLabel}
