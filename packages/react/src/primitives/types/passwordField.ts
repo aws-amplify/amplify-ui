@@ -21,6 +21,18 @@ export interface PasswordFieldProps extends TextInputFieldProps {
 
   /**
    * @description
+   * WRITE A DESCRIPTION *********23423423423424
+   */
+  passwordIsHiddenLabel?: string;
+
+  /**
+   * @description
+   * WRITE A DESCRIPTION *********23423423423424
+   */
+  passwordIsShownLabel?: string;
+
+  /**
+   * @description
    * Set the `aria-label` for show password button
    * @default
    * "Show password"
@@ -61,6 +73,18 @@ export interface ShowPasswordButtonProps extends ButtonProps {
    * "Hide password"
    */
   hidePasswordButtonLabel?: string;
+
+  /**
+   * @description
+   * WRITE A DESCRIPTION *********23423423423424
+   */
+  passwordIsHiddenLabel?: string;
+
+  /**
+   * @description
+   * WRITE A DESCRIPTION *********23423423423424
+   */
+  passwordIsShownLabel?: string;
 
   /**
    * @description

@@ -72,4 +72,20 @@ describe('ShowPasswordButton component', () => {
     const button = await screen.findByRole('switch');
     expect(button).toHaveAttribute('aria-label', showPasswordButtonLabel);
   });
+
+  it('should be able to customize passwordIsHidden and passwordIsShown labels', async () => {
+    const showPasswordButtonLabel = 'Show my password';
+
+    render(
+      <PasswordField
+        label="Password"
+        name="password"
+        placeholder="Password"
+        showPasswordButtonLabel={showPasswordButtonLabel}
+      />
+    );
+
+    const button = await screen.findByRole('switch');
+    expect(button).toHaveAttribute('aria-label', showPasswordButtonLabel);
+  });
 });

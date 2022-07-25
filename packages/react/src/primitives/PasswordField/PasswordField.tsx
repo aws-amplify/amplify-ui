@@ -12,6 +12,8 @@ const PasswordFieldPrimitive: Primitive<PasswordFieldProps, 'input'> = (
     label,
     className,
     hideShowPassword = false,
+    passwordIsHiddenLabel,
+    passwordIsShownLabel,
     showPasswordButtonLabel,
     showPasswordButtonRef,
     size,

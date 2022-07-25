@@ -13,7 +13,14 @@ const ShowPasswordButtonPrimitive: Primitive<
   ShowPasswordButtonProps,
   typeof Button
 > = (
-  { fieldType, size, showPasswordButtonLabel = showPassword, ...rest },
+  {
+    fieldType,
+    passwordIsHiddenLabel = passwordIsHidden,
+    passwordIsShownLabel = passwordIsShown,
+    showPasswordButtonLabel = showPassword,
+    size,
+    ...rest
+  },
   ref
 ) => {
   return (
@@ -27,7 +34,9 @@ const ShowPasswordButtonPrimitive: Primitive<
       {...rest}
     >
       <VisuallyHidden aria-live="polite">
-        {fieldType === 'password' ? passwordIsHidden : passwordIsShown}
+        {fieldType === 'password'
+          ? passwordIsHiddenLabel
+          : passwordIsShownLabel}
       </VisuallyHidden>
       {fieldType === 'password' ? (
         <IconVisibility size={size} />
