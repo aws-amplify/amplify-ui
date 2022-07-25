@@ -20,7 +20,8 @@
   </div>
   <button
     amplify-button
-    class="amplify-field-group__control"
+    class="amplify-field-group__control amplify-alert__dismiss"
+    [ariaLabel]="dismissAriaLabel"
     variation="link"
     [fullWidth]="false"
     (click)="close()"
