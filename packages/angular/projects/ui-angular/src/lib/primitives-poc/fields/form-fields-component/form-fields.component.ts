@@ -1,4 +1,5 @@
 import { Component, ElementRef, Renderer2 } from '@angular/core';
+import { nanoid } from 'nanoid';
 import { AmplifyBasePrimitiveComponent } from '../../base-primitive/base-primitive.component';
 
 const $COMPONENT_SELECTOR: string = 'amplify-form-fields';
@@ -21,6 +22,6 @@ export class AmplifyFormFieldsComponent extends AmplifyBasePrimitiveComponent {
   }
 
   getRandomId() {
-    return Math.floor(Math.random() * 6 + 1);
+    return nanoid(12);
   }
 }
