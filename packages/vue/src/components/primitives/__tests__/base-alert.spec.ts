@@ -17,14 +17,14 @@ describe('Base Alert', () => {
   });
 
   it('shows correct default accessible label', () => {
-    const { queryAllByRole } = render(BaseAlert, {
+    const { queryByRole } = render(BaseAlert, {
       global: {
         components,
       },
     });
 
-    const [defaultButton] = queryAllByRole('button');
-    expect(defaultButton.getAttribute('aria-label')).toBe('Dismiss alert');
+    const defaultButton = queryByRole('button');
+    expect(defaultButton?.getAttribute('aria-label')).toBe('Dismiss alert');
   });
   it('shows correct default translated label', () => {
     const translatedAriaLabel = 'Translated dismiss alert';
