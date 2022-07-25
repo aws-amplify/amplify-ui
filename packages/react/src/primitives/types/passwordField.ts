@@ -21,13 +21,17 @@ export interface PasswordFieldProps extends TextInputFieldProps {
 
   /**
    * @description
-   * WRITE A DESCRIPTION *********23423423423424
+   * Sets the text read by screen readers when the password is hidden
+   * @default
+   * "Password is hidden"
    */
   passwordIsHiddenLabel?: string;
 
   /**
    * @description
-   * WRITE A DESCRIPTION *********23423423423424
+   * Sets the text read by screen readers when the password is shown
+   * @default
+   * "Password is shown"
    */
   passwordIsShownLabel?: string;
 
@@ -76,13 +80,17 @@ export interface ShowPasswordButtonProps extends ButtonProps {
 
   /**
    * @description
-   * WRITE A DESCRIPTION *********23423423423424
+   * Sets the text read by screen readers when the password is hidden
+   * @default
+   * "Password is hidden"
    */
   passwordIsHiddenLabel?: string;
 
   /**
    * @description
-   * WRITE A DESCRIPTION *********23423423423424
+   * Sets the text read by screen readers when the password is shown
+   * @default
+   * "Password is shown"
    */
   passwordIsShownLabel?: string;
 
