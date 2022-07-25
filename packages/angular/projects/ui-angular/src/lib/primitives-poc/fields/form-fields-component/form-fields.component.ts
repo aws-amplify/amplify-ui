@@ -16,7 +16,7 @@ export class AmplifyFormFieldsComponent extends AmplifyBasePrimitiveComponent {
     const randomId = this.getRandomId();
     let val = 'amplify-' + randomId;
     for (let ele in this.element.nativeElement.children) {
-      this.renderer.setProperty(this.element.nativeElement, 'id', val);
+      this.renderer.setProperty(ele, 'id', val);
     }
   }
 

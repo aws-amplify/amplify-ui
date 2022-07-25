@@ -19,7 +19,7 @@ export class AmplifyButtonComponent
   @Input() fontWeight: 'normal' | 'bold' | 'lighter' = 'normal';
 
   @HostBinding('type') typeAttr: string;
-  @HostBinding('attr.data-fullwidth') fullWidthAttr: boolean | string;
+  @HostBinding('attr.data-fullwidth') fullWidthAttr: boolean;
   @HostBinding('attr.data-size') sizeAttr: string;
   @HostBinding('attr.data-variation') variationAttr: string;
   @HostBinding('style.font-weight') fontWeightAttr: string;
