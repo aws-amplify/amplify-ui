@@ -1,6 +1,12 @@
-# Description: this workflow publishes UI packages to `latest`.
+# Description: this workflow publishes UI packages to `latest` tag on NPM.
 #
 # Triggered by: whenever "Version Packages" is merged
+
+# If successful, we will publish all updated UI packages to
+#   - https://www.npmjs.com/package/@aws-amplify/ui
+#   - https://www.npmjs.com/package/@aws-amplify/ui-react
+#   - https://www.npmjs.com/package/@aws-amplify/ui-vue
+#   - https://www.npmjs.com/package/@aws-amplify/ui-angular
 
 name: Test and Publish / latest
 
