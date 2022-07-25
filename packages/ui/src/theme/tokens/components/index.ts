@@ -21,6 +21,7 @@ import { flex, FlexTokens } from './flex';
 import { heading, HeadingTokens } from './heading';
 import { icon, IconTokens } from './icon';
 import { image, ImageTokens } from './image';
+import { backdrop, BackdropTokens } from './inAppMessaging';
 import { link, LinkTokens } from './link';
 import { loader, LoaderTokens } from './loader';
 import { menu, MenuTokens } from './menu';
@@ -51,6 +52,7 @@ import {
 export interface ComponentTokens {
   alert: AlertTokens;
   authenticator: AuthenticatorTokens;
+  backdrop: BackdropTokens;
   badge: BadgeTokens;
   button: ButtonTokens;
   card: CardTokens;
@@ -69,6 +71,7 @@ export interface ComponentTokens {
   heading: HeadingTokens;
   icon: IconTokens;
   image: ImageTokens;
+  // inAppMessaging: InAppMessagingTokens;
   link: LinkTokens;
   loader: LoaderTokens;
   menu: MenuTokens;
@@ -97,6 +100,7 @@ export interface ComponentTokens {
 export const components: ComponentTokens = {
   alert,
   authenticator,
+  backdrop,
   badge,
   button,
   card,
@@ -115,6 +119,7 @@ export const components: ComponentTokens = {
   heading,
   icon,
   image,
+  // inAppMessaging,
   link,
   loader,
   menu,

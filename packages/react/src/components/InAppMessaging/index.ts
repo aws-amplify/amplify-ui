@@ -1,3 +1,4 @@
+export { Backdrop } from './Backdrop';
 export {
   InAppMessageDisplay,
   MessageComponents,
