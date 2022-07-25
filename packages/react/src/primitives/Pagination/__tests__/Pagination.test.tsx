@@ -331,7 +331,7 @@ describe('Pagination component: ', () => {
       expect(pageItem.nodeName).toBe('BUTTON');
       expect(pageItem).toHaveClass(ComponentClassNames.PaginationItemCurrent);
       const invisibleLabel = await screen.findByText(
-        ComponentText.PaginationItem.currentPageLabel
+        `${ComponentText.PaginationItem.currentPageLabel}:`
       );
       expect(invisibleLabel).toHaveClass(ComponentClassNames.VisuallyHidden);
       expect(pageItem.getAttribute('aria-current')).toBe('true');
