@@ -32,7 +32,7 @@ describe('useMessageImage', () => {
       constructor() {
         setTimeout(() => {
           this.onload();
-        }, 50);
+        }, 0);
       }
     } as unknown as ImageConstructor;
 
@@ -56,7 +56,7 @@ describe('useMessageImage', () => {
       constructor() {
         setTimeout(() => {
           this.onerror();
-        }, 50);
+        }, 0);
       }
     } as unknown as ImageConstructor;
 
@@ -82,7 +82,7 @@ describe('useMessageImage', () => {
       constructor() {
         setTimeout(() => {
           this.onabort();
-        }, 50);
+        }, 0);
       }
     } as unknown as ImageConstructor;
 
