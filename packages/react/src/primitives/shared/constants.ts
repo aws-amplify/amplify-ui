@@ -661,7 +661,7 @@ export const ComponentText = {
     clearButtonLabel: 'Clear input',
   },
   PaginationItem: {
-    currentPageLabel: 'Current Page:',
+    currentPageLabel: 'Page',
     nextLabel: 'Go to next page',
     pageLabel: 'Go to page',
     previousLabel: 'Go to previous page',
