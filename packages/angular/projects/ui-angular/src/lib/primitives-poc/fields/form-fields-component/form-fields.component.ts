@@ -1,22 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, Renderer2 } from '@angular/core';
 import { AmplifyBasePrimitiveComponent } from '../../base-primitive/base-primitive.component';
 
+const $COMPONENT_SELECTOR: string = 'amplify-form-fields';
+
 @Component({
-  selector: 'amplify-form-fields',
+  selector: $COMPONENT_SELECTOR,
   template: '<ng-content></ng-content>',
 })
 export class AmplifyFormFieldsComponent extends AmplifyBasePrimitiveComponent {
+  constructor(private renderer: Renderer2, private element: ElementRef) {
+    super();
+  }
+
   ngOnInit() {
-    // console.log('class name ', this.className);
-    let attributesVal = [{ name: '', value: '' }];
-    // attributesVal = this.element.nativeElement.attributes;
-    // elementValue.innerHTML = this.element.nativeElement.innerHTML;
-    // this.element.nativeElement.innerHTML = '';
-    // for (let attr of attributesVal) {
-    //   this.renderer.setStyle(elementValue, attr.name, attr.value);
-    //   this.renderer.setProperty(elementValue, attr.name, attr.value);
-    //   this.renderer.setAttribute(elementValue, attr.name, attr.value);
-    // }
-    //this.renderer.appendChild(this.element.nativeElement, elementValue);
+    const randomId = this.getRandomId();
+    let val = 'amplify-' + randomId;
+    for (let ele in this.element.nativeElement.children) {
+      this.renderer.setProperty(this.element.nativeElement, 'id', val);
+    }
+  }
+
+  getRandomId() {
+    return Math.floor(Math.random() * 6 + 1);
   }
 }

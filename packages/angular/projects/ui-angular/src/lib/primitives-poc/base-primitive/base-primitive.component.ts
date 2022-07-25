@@ -1,7 +1,9 @@
 import { Component, HostBinding, Input } from '@angular/core';
 
+const $COMPONENT_SELECTOR: string = 'base';
+
 @Component({
-  selector: 'base',
+  selector: $COMPONENT_SELECTOR,
   template: '',
 })
 export class AmplifyBasePrimitiveComponent {

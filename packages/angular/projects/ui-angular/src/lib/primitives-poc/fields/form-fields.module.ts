@@ -8,4 +8,4 @@ import { AmplifyFormFieldsComponent } from './form-fields-component/form-fields.
   imports: [CommonModule],
   exports: [AmplifyFormFieldsComponent],
 })
-export class AmplifyFieldsModule {}
+export class AmplifyFormFieldsModule {}

@@ -29,9 +29,11 @@ import { UseAuthenticatorHomeComponent } from 'src/pages/ui/components/authentic
 import {
   AmplifyButtonModule,
   AmplifyViewModule,
+  AmplifyFormFieldsModule,
 } from '@aws-amplify/ui-angular';
 import { AmplifyButtonExampleComponent } from 'src/pages/ui/primitive-poc/button/button.component';
 import { AmplifyViewExampleComponent } from 'src/pages/ui/primitive-poc/view/view.component';
+import { AmplifyFormFieldExampleComponent } from 'src/pages/ui/primitive-poc/form-field/form-field.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +61,7 @@ import { AmplifyViewExampleComponent } from 'src/pages/ui/primitive-poc/view/vie
     UseAuthenticatorHomeComponent,
     AmplifyButtonExampleComponent,
     AmplifyViewExampleComponent,
+    AmplifyFormFieldExampleComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,6 +70,7 @@ import { AmplifyViewExampleComponent } from 'src/pages/ui/primitive-poc/view/vie
     HttpClientModule,
     AmplifyButtonModule,
     AmplifyViewModule,
+    AmplifyFormFieldsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

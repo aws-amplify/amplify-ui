@@ -7,9 +7,9 @@ import {
 } from '@angular/core';
 import { AmplifyBasePrimitiveComponent } from '../../base-primitive/base-primitive.component';
 
-const $COMPONENT_NAME: string = '[amplify-view]';
+const $COMPONENT_SELECTOR: string = '[amplify-view]';
 @Component({
-  selector: $COMPONENT_NAME,
+  selector: $COMPONENT_SELECTOR,
   template: '<ng-content></ng-content>',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,

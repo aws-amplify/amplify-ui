@@ -1,8 +1,10 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { AmplifyBasePrimitiveComponent } from '../../base-primitive/base-primitive.component';
 
+const $COMPONENT_SELECTOR: string = 'button[amplify-button-poc]';
+
 @Component({
-  selector: 'button[amplify-button-poc]',
+  selector: $COMPONENT_SELECTOR,
   template: '<ng-content></ng-content>',
 })
 export class AmplifyButtonComponent
