@@ -334,7 +334,7 @@ describe('Pagination component: ', () => {
         `${ComponentText.PaginationItem.currentPageLabel}:`
       );
       expect(invisibleLabel).toHaveClass(ComponentClassNames.VisuallyHidden);
-      expect(pageItem.getAttribute('aria-current')).toBe('true');
+      expect(pageItem.getAttribute('aria-current')).toBe('page');
 
       userEvent.click(pageItem);
       expect(mockOnClick).not.toHaveBeenCalled();
