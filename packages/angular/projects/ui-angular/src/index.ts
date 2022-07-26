@@ -14,6 +14,14 @@ export * from './lib/components/authenticator/components';
 export * from './lib/primitives';
 
 /**
+ * Primitive Export
+ */
+
+export * from './lib/primitives-poc/button';
+export * from './lib/primitives-poc/view';
+export * from './lib/primitives-poc/fields';
+
+/**
  * Helpers
  */
 export * from './lib/common';
