@@ -34,7 +34,7 @@ export const getPayloadStyle = ({
  *   1. Payload styles
  *   2. Custom (override) styles
  *
- * @param params message style params and layout
+ @param params message style params
  *
  * @returns message component styles
  */
