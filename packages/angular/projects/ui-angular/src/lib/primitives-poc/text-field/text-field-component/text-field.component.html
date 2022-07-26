@@ -1,0 +1,25 @@
+<ng-content
+  amplify-label
+  select="[amplify-label]"
+  class="amplify-label"
+  [class.amplify-visually-hidden]="labelHidden"
+></ng-content>
+<ng-content
+  select="[amplify-descriptive-text]"
+  class="amplify-field__description"
+  [class.amplify-visually-hidden]="labelHidden"
+></ng-content>
+<ng-content
+  select="input[amplify-input]"
+  [id]="fieldId"
+  [type]="type"
+  [name]="name"
+  [placeholder]="placeholder"
+  [required]="required"
+  [value]="initialValue"
+  [autocomplete]="autocomplete"
+  [attr.disabled]="_disabled()"
+  [attr.aria-invalid]="hasError ? 'true' : 'false'"
+  [attr.aria-describedby]="describedBy"
+></ng-content>
+<ng-content select="[amplify-error]" role="alert"></ng-content>
