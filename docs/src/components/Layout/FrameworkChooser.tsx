@@ -14,6 +14,17 @@ interface FrameworkLinkProps extends FrameworkChooserProps {
 
 const platformPath = '[platform]';
 
+const getFrameworkDisplayName = (framework: string) => {
+  // if framework is more than one word, capitalize all words
+  if (framework?.includes(' ')) {
+    return framework
+      .split(' ')
+      .map((item) => capitalize(item))
+      .join(' ');
+  }
+  return capitalize(framework);
+};
+
 const FrameworkLink = ({
   framework,
   onClick,
@@ -22,6 +33,7 @@ const FrameworkLink = ({
   const { pathname, query } = useCustomRouter();
   const isCurrent = query.platform === framework;
   const classNames = `docs-framework-link ${isCurrent ? 'current' : ''}`;
+  const frameworkDisplayName = getFrameworkDisplayName(framework);
   const href = pathname.includes(platformPath)
     ? pathname.replace(platformPath, framework)
     : `/${framework}`;
@@ -35,7 +47,7 @@ const FrameworkLink = ({
         isDisabled={isDisabled}
       >
         <FrameworkLogo framework={framework} className="docs-framework-img" />
-        {capitalize(framework)}
+        {frameworkDisplayName}
       </Button>
     </Link>
   );

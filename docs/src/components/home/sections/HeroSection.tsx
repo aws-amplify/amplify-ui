@@ -22,6 +22,15 @@ import { FRAMEWORKS } from '@/data/frameworks';
 import { FrameworkLogo } from '@/components/Logo';
 import { TerminalCommand } from '@/components/InstallScripts';
 
+const INSTALL_SCRIPTS = {
+  react: `npm i @aws-amplify/ui-react aws-amplify`,
+  vue: `npm i @aws-amplify/ui-vue aws-amplify`,
+  angular: `npm i @aws-amplify/ui-angular aws-amplify`,
+  flutter: 'flutter pub add amplify_authenticator',
+  // add other deps here
+  'react native': `npm i @aws-amplify/ui-react-native aws-amplify`,
+};
+
 export const HeroSection = () => {
   const {
     query: { platform = 'react' },
@@ -32,13 +41,7 @@ export const HeroSection = () => {
     large: true,
   });
 
-  const installScripts = {
-    react: `npm i @aws-amplify/ui-${platform} aws-amplify`,
-    vue: `npm i @aws-amplify/ui-${platform} aws-amplify`,
-    angular: `npm i @aws-amplify/ui-${platform} aws-amplify`,
-    flutter: 'flutter pub add amplify_authenticator',
-  };
-  const frameworkInstallScript = installScripts[platform.toString()];
+  const frameworkInstallScript = INSTALL_SCRIPTS[platform.toString()];
 
   return (
     <View as="section" className="docs-hero">
