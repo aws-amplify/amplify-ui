@@ -1,3 +1,7 @@
+# Description: this is a reusable workflow that runs unit and e2e tests.
+#
+# See `./test-prs.yml` to see an example usage.
+
 on:
   workflow_call:
     inputs:
