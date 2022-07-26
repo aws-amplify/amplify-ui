@@ -1,10 +1,8 @@
 import { MessagePayloadStyle } from '@aws-amplify/ui-react-core';
-import React from 'react';
-
 // import { ImageDimensions } from '../useMessageImage';
 
 /**
- * Resolved message types
+ * Inline style props for message components. Can be overridden by customer
  */
 export interface MessageComponentStyles {
   body: React.CSSProperties;

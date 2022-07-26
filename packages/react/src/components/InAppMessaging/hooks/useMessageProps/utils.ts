@@ -12,7 +12,6 @@ import { MessageComponentStyles, MessageStyleParams } from './types';
  *
  * @returns message payload-specific styles
  */
-
 export const getPayloadStyle = ({
   body,
   container,
