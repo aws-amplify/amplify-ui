@@ -14,6 +14,7 @@ export const enDict = {
   Confirming: 'Confirming',
   'Create Account': 'Create Account',
   'Creating Account': 'Creating Account',
+  'Dismiss alert': 'Dismiss alert',
   Email: 'Email',
   'Enter your code': 'Enter your code',
   'Enter your username': 'Enter your username',
