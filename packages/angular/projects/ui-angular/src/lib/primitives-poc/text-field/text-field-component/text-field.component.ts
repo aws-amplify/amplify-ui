@@ -58,24 +58,28 @@ export class AmplifyTextFieldsComponent extends AmplifyBasePrimitiveComponent {
   }
 
   ApplyStyle(selectorName, elementValue) {
-    if (selectorName == 'amplify-label') {
-      this.renderer.setAttribute(elementValue, 'for', this.fieldId);
-      this.renderer.addClass(elementValue, 'amplify-label');
-    } else if (selectorName == 'amplify-input') {
-      this.renderer.setAttribute(elementValue, 'id', this.fieldId);
-      this.renderer.addClass(elementValue, 'amplify-input');
+    let classNames = constants[selectorName]['className'];
+    for (let className in classNames) {
+      this.renderer.addClass(elementValue, classNames[className]);
     }
-    if (selectorName == 'amplify-descriptive-text') {
-      this.renderer.addClass(elementValue, 'amplify-field__description');
-      this.renderer.addClass(elementValue, 'amplify-text');
-    }
-    if (selectorName == 'amplify-error') {
-      this.renderer.addClass(elementValue, 'amplify-alert--error');
-      this.renderer.addClass(elementValue, 'amplify-alert');
-      this.renderer.addClass(elementValue, 'amplify-flex');
+    // if (selectorName == 'amplify-label') {
+    //   this.renderer.setAttribute(elementValue, 'for', this.fieldId);
+    //  // this.renderer.addClass(elementValue, 'amplify-label');
+    // } else if (selectorName == 'amplify-input') {
+    //   this.renderer.setAttribute(elementValue, 'id', this.fieldId);
+    //   this.renderer.addClass(elementValue, 'amplify-input');
+    // }
+    // if (selectorName == 'amplify-descriptive-text') {
+    //   this.renderer.addClass(elementValue, 'amplify-field__description');
+    //   this.renderer.addClass(elementValue, 'amplify-text');
+    // }
+    // if (selectorName == 'amplify-error') {
+    //   this.renderer.addClass(elementValue, 'amplify-alert--error');
+    //   this.renderer.addClass(elementValue, 'amplify-alert');
+    //   this.renderer.addClass(elementValue, 'amplify-flex');
 
-      this.renderer.setStyle(elementValue, 'align-items', 'center');
-      this.renderer.setStyle(elementValue, 'justify-content', 'space-between');
-    }
+    //   this.renderer.setStyle(elementValue, 'align-items', 'center');
+    //   this.renderer.setStyle(elementValue, 'justify-content', 'space-between');
+    // }
   }
 }

@@ -1,6 +1,13 @@
 {
+  "amplify-label": { "className": ["amplify-label"] },
+  "amplify-input": { "className": ["amplify-input"] },
+  "amplify-descriptive-text": {
+    "className": ["amplify-field__description", "amplify-text"]
+  },
+  "amplify-error": {
+    "className": ["amplify-alert--error", "amplify-alert", "amplify-flex"]
+  },
   "Field": { "className": "amplify-field" },
-  "amplify-descriptive-text": { "className": "amplify-field__description" },
   "FieldErrorMessage": { "className": "amplify-field__error-message" },
   "FieldGroup": { "className": "amplify-field-group" },
   "FieldGroupControl": { "className": "amplify-field-group__control" },
