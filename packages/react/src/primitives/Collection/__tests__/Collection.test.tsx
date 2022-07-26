@@ -243,12 +243,12 @@ describe('Collection component', () => {
     userEvent.type(searchInput, searchText);
 
     const noResults = await screen.findByText(
-      ComponentText.Collection.noResultsFound
+      ComponentText.Collection.searchNoResultsFound
     );
     expect(noResults).toBeDefined();
   });
 
-  it('should render custom ReactNode using noResultsFound prop', async () => {
+  it('should render custom ReactNode using searchNoResultsFound prop', async () => {
     const customText = 'Nothing found, please try again';
     render(
       <Collection
@@ -256,7 +256,7 @@ describe('Collection component', () => {
         type="list"
         items={emojis}
         isSearchable
-        noResultsFound={
+        searchNoResultsFound={
           <Flex justifyContent="center">
             <Text>{customText}</Text>
           </Flex>

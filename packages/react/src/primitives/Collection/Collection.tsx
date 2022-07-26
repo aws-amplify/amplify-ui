@@ -41,17 +41,17 @@ const GridCollection = <Item,>({
 const renderCollectionOrNoResultsFound = <Item,>(
   collection: JSX.Element,
   items: Item[],
-  noResultsFound: React.ReactNode
+  searchNoResultsFound: React.ReactNode
 ) => {
   if (items.length) {
     return collection;
   }
-  if (noResultsFound) {
-    return noResultsFound;
+  if (searchNoResultsFound) {
+    return searchNoResultsFound;
   }
   return (
     <Flex justifyContent="center">
-      <Text>{ComponentText.Collection.noResultsFound}</Text>
+      <Text>{ComponentText.Collection.searchNoResultsFound}</Text>
     </Flex>
   );
 };
@@ -65,9 +65,9 @@ export const Collection = <Item,>({
   isPaginated,
   items,
   itemsPerPage = DEFAULT_PAGE_SIZE,
-  noResultsFound,
   searchFilter = itemHasText,
   searchLabel = ComponentText.Collection.searchButtonLabel,
+  searchNoResultsFound,
   searchPlaceholder,
   type = 'list',
   testId,
@@ -129,7 +129,11 @@ export const Collection = <Item,>({
         </Flex>
       ) : null}
 
-      {renderCollectionOrNoResultsFound(collection, items, noResultsFound)}
+      {renderCollectionOrNoResultsFound(
+        collection,
+        items,
+        searchNoResultsFound
+      )}
 
       {isPaginated ? (
         <Flex className={ComponentClassNames.CollectionPagination}>

@@ -1,7 +1,7 @@
 import { Collection, Button, Text, Flex } from '@aws-amplify/ui-react';
 import { countries } from 'countries-list';
 
-export const NoResultsFoundCollectionExample = () => {
+export const SearchNoResultsFoundCollectionExample = () => {
   return (
     <Collection
       type="grid"
@@ -14,7 +14,7 @@ export const NoResultsFoundCollectionExample = () => {
       isSearchable
       isPaginated
       itemsPerPage={9}
-      noResultsFound={
+      searchNoResultsFound={
         <Flex justifyContent="center">
           <Text color="purple.80" fontSize="1rem">
             Nothing found, please try again

@@ -4,7 +4,7 @@ export { DefaultCollectionExample } from './DefaultCollectionExample';
 export { GridCollectionExample } from './GridCollectionExample';
 export { ListCollectionExample } from './ListCollectionExample';
 export { LocalCollectionClassExample } from './LocalCollectionClassExample';
-export { NoResultsFoundCollectionExample } from './NoResultsFoundCollectionExample';
 export { PaginationCollectionExample } from './PaginationCollectionExample';
 export { SearchCollectionExample } from './SearchCollectionExample';
+export { SearchNoResultsFoundCollectionExample } from './SearchNoResultsFoundCollectionExample';
 export { StylingCollectionExample } from './StylingCollectionExample';
