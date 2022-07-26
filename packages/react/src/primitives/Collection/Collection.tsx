@@ -38,6 +38,24 @@ const GridCollection = <Item,>({
   <Grid {...rest}>{Array.isArray(items) ? items.map(children) : null}</Grid>
 );
 
+const renderCollectionOrNoResultsFound = <Item,>(
+  collection: JSX.Element,
+  items: Item[],
+  noResultsFound: React.ReactNode
+) => {
+  if (items.length) {
+    return collection;
+  }
+  if (noResultsFound) {
+    return noResultsFound;
+  }
+  return (
+    <Flex justifyContent="center">
+      <Text>{ComponentText.Collection.noResultsFound}</Text>
+    </Flex>
+  );
+};
+
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/collection)
  */
@@ -111,15 +129,7 @@ export const Collection = <Item,>({
         </Flex>
       ) : null}
 
-      {items.length ? (
-        collection
-      ) : noResultsFound ? (
-        noResultsFound
-      ) : (
-        <Flex justifyContent="center">
-          <Text>{ComponentText.Collection.noResultsFound}</Text>
-        </Flex>
-      )}
+      {renderCollectionOrNoResultsFound(collection, items, noResultsFound)}
 
       {isPaginated ? (
         <Flex className={ComponentClassNames.CollectionPagination}>

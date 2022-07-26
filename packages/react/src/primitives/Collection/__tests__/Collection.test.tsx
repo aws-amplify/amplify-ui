@@ -7,7 +7,8 @@ import { Collection } from '../Collection';
 import { Flex } from '../../Flex';
 import { Text } from '../../Text';
 import { ComponentPropsToStylePropsMap } from '../../types';
-import { ComponentClassNames, ComponentText } from '../../shared/constants';
+import { ComponentText } from '../../shared/constants';
+import { ComponentClassName } from '../../shared/types';
 
 const emojis = [
   {
@@ -69,7 +70,7 @@ describe('Collection component', () => {
     const collection = await screen.findByTestId('testList');
     const search = getElementByClassName(
       collection,
-      ComponentClassNames.CollectionSearch as string
+      ComponentClassName.CollectionSearch
     );
 
     expect(search).not.toBe(null);
@@ -95,7 +96,7 @@ describe('Collection component', () => {
     const collection = await screen.findByTestId(testList);
     const pagination = getElementByClassName(
       collection,
-      ComponentClassNames.CollectionPagination as string
+      ComponentClassName.CollectionPagination
     );
 
     expect(pagination).not.toBe(null);
@@ -120,7 +121,7 @@ describe('Collection component', () => {
     const collection = await screen.findByTestId(testList);
     const items = getElementByClassName<HTMLDivElement>(
       collection,
-      ComponentClassNames.CollectionItems as string
+      ComponentClassName.CollectionItems
     );
 
     expect(
@@ -175,7 +176,7 @@ describe('Collection component', () => {
     const collection = await screen.findByTestId(testList);
     const items = getElementByClassName<HTMLDivElement>(
       collection,
-      ComponentClassNames.CollectionItems as string
+      ComponentClassName.CollectionItems
     );
 
     expect(items?.dataset['demo']).toBe('true');
