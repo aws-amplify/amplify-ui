@@ -1,5 +1,30 @@
 # @aws-amplify/ui-react
 
+## 3.2.1
+
+### Patch Changes
+
+- [#2336](https://github.com/aws-amplify/amplify-ui/pull/2336) [`5ffdc40a0`](https://github.com/aws-amplify/amplify-ui/commit/5ffdc40a0ae45c8d1554e53e6b6a085231e6c34c) Thanks [@joebuono](https://github.com/joebuono)! - fix(ui-react): Improve accessibility of Pagination current item button
+
+* [#2303](https://github.com/aws-amplify/amplify-ui/pull/2303) [`d0d01bf44`](https://github.com/aws-amplify/amplify-ui/commit/d0d01bf44cc036d4d69c605b49e160e78527ed10) Thanks [@joebuono](https://github.com/joebuono)! - ui-react(fix): Adds an accessible label for the Alert's dismiss button, which is configurable via the `dismissButtonLabel` prop
+
+  <Alert dismissButtonLabel="Custom dismiss button label" isDismissible>
+    Configure a custom aria label for the dismiss button
+  </Alert>
+
+- [#2323](https://github.com/aws-amplify/amplify-ui/pull/2323) [`2a1cdba15`](https://github.com/aws-amplify/amplify-ui/commit/2a1cdba156a7d5c2fb221b9c6814d90f0e132ddb) Thanks [@joebuono](https://github.com/joebuono)! - ui-react(fix): Update ShowPasswordButton to use role=“switch” and add additional screen reader context
+
+  - Keep consistent aria-label “Show password”
+  - Add a visually hidden aria-live region (polite) that updates based on the ShowPasswordButton checked state
+  - Add `passwordIsHiddenLabel` and `passwordIsShownLabel` props for screen readers
+
+* [#2330](https://github.com/aws-amplify/amplify-ui/pull/2330) [`f067420b9`](https://github.com/aws-amplify/amplify-ui/commit/f067420b9a39807a46bd409dce17f2bcc297218e) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - ui-react(fix): Update StepperField disabled buttons styles, making them easier to see.
+
+- [#2277](https://github.com/aws-amplify/amplify-ui/pull/2277) [`bc63b7c0c`](https://github.com/aws-amplify/amplify-ui/commit/bc63b7c0c036586e899c33484df1d5569ed48d03) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui-react): lint src/primitives/shared
+
+- Updated dependencies [[`8418028a3`](https://github.com/aws-amplify/amplify-ui/commit/8418028a3218ea20ccb2ac949b1e6e33c57239e6), [`f067420b9`](https://github.com/aws-amplify/amplify-ui/commit/f067420b9a39807a46bd409dce17f2bcc297218e), [`d9dd9220c`](https://github.com/aws-amplify/amplify-ui/commit/d9dd9220c367bc476fddb36e89daff75d62e7f31)]:
+  - @aws-amplify/ui@3.12.4
+
 ## 3.2.0
 
 ### Minor Changes
