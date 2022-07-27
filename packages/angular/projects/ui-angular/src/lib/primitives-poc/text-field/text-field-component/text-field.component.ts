@@ -1,4 +1,5 @@
 import {
+  AfterContentInit,
   Component,
   ContentChild,
   ElementRef,
@@ -15,11 +16,10 @@ const $COMPONENT_SELECTOR: string = 'amplify-poc-text-field';
   selector: $COMPONENT_SELECTOR,
   templateUrl: 'text-field.component.html',
 })
-export class AmplifyTextFieldsComponent {
+export class AmplifyTextFieldsComponent implements AfterContentInit {
   @Input() describedBy: string;
 
-  @ContentChild(InputDirective)
-  childInput: InputDirective;
+  @ContentChild(InputDirective) childInput: InputDirective | undefined;
 
   public inputId = '';
 
