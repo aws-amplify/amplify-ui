@@ -37,6 +37,7 @@ describe('@aws-amplify/ui-react', () => {
           "ExpanderItem",
           "FieldGroupIcon",
           "FieldGroupIconButton",
+          "FileUploader",
           "Flex",
           "Geocoder",
           "Grid",
