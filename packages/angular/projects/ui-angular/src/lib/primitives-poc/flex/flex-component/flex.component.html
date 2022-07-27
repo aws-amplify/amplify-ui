@@ -1,0 +1,11 @@
+<div
+  class="amplify-flex"
+  [ngStyle]="{
+    'flex-flow': this.direction + ' ' + this.wrap,
+    'place-content': this.justifyContent + ' ' + this.alignContent,
+    'align-items': this.alignItems,
+    gap: this.gap
+  }"
+>
+  <ng-content></ng-content>
+</div>

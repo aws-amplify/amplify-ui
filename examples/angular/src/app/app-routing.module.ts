@@ -23,6 +23,7 @@ import { UseAuthenticatorHomeComponent } from 'src/pages/ui/components/authentic
 import { AmplifyButtonExampleComponent } from 'src/pages/ui/primitive-poc/button/button.component';
 import { AmplifyViewExampleComponent } from 'src/pages/ui/primitive-poc/view/view.component';
 import { AmplifyFormFieldExampleComponent } from 'src/pages/ui/primitive-poc/form-field/form-field.component';
+import { AmplifyFlexExampleComponent } from 'src/pages/ui/primitive-poc/flex/flex-demp.component';
 
 const routes: Routes = [
   {
@@ -120,6 +121,10 @@ const routes: Routes = [
   {
     path: 'ui/primitive-poc/form-field',
     component: AmplifyFormFieldExampleComponent,
+  },
+  {
+    path: 'ui/primitive-poc/flex',
+    component: AmplifyFlexExampleComponent,
   },
 ];
 
