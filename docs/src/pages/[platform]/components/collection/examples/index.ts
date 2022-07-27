@@ -6,4 +6,5 @@ export { ListCollectionExample } from './ListCollectionExample';
 export { LocalCollectionClassExample } from './LocalCollectionClassExample';
 export { PaginationCollectionExample } from './PaginationCollectionExample';
 export { SearchCollectionExample } from './SearchCollectionExample';
+export { SearchNoResultsFoundCollectionExample } from './SearchNoResultsFoundCollectionExample';
 export { StylingCollectionExample } from './StylingCollectionExample';
