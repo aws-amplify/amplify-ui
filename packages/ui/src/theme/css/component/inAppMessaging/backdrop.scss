@@ -1,0 +1,19 @@
+.amplify-inappmessaging-backdrop {
+  background-color: var(--amplify-colors-overlay-50);
+  inset: 0;
+  position: fixed;
+  z-index: 1000;
+}
+
+.amplify-inappmessaging-backdrop-content-container {
+  align-items: center;
+  inset: 0;
+  justify-content: center;
+  pointer-events: none;
+  position: fixed;
+  z-index: 1001;
+}
+
+.amplify-inappmessaging-backdrop-content {
+  pointer-events: auto;
+}
