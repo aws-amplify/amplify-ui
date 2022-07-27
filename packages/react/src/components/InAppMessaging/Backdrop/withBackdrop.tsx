@@ -15,11 +15,7 @@ export function withBackdrop<Props>(
       <>
         <Backdrop {...options} />
         <Flex className="amplify-inappmessaging-backdrop-content-container">
-          <View
-            aria-modal="true"
-            role="dialog"
-            className="amplify-inappmessaging-backdrop-content"
-          >
+          <View className="amplify-inappmessaging-backdrop-content">
             <Content {...props} />
           </View>
         </Flex>
