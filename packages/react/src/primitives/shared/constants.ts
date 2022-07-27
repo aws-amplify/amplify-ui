@@ -656,6 +656,7 @@ export const ComponentText = {
   },
   Collection: {
     searchButtonLabel: 'Search',
+    searchNoResultsFound: 'No results found',
   },
   Fields: {
     clearButtonLabel: 'Clear input',
