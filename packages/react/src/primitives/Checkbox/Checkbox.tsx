@@ -12,7 +12,7 @@ import { splitPrimitiveProps } from '../shared/styleUtils';
 import { Text } from '../Text';
 import { useCheckbox } from './useCheckbox';
 import { VisuallyHidden } from '../VisuallyHidden';
-import { useTestId } from '../utils/testUtils';
+import { getTestId } from '../utils/testUtils';
 
 const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
   {
@@ -47,9 +47,9 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
     }
   }, [checked, dataChecked, setDataChecked]);
 
-  const buttonTestId = useTestId(testId, ComponentClassNames.CheckboxButton);
-  const iconTestId = useTestId(testId, ComponentClassNames.CheckboxIcon);
-  const labelTestId = useTestId(testId, ComponentClassNames.CheckboxLabel);
+  const buttonTestId = getTestId(testId, ComponentClassNames.CheckboxButton);
+  const iconTestId = getTestId(testId, ComponentClassNames.CheckboxIcon);
+  const labelTestId = getTestId(testId, ComponentClassNames.CheckboxLabel);
   const flexClasses = classNames(
     ComponentClassNames.CheckboxButton,
     classNameModifierByFlag(

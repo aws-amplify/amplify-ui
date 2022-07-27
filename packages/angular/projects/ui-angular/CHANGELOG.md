@@ -1,5 +1,14 @@
 # @aws-amplify/ui-angular
 
+## 2.4.16
+
+### Patch Changes
+
+- [#2339](https://github.com/aws-amplify/amplify-ui/pull/2339) [`12de8fa5b`](https://github.com/aws-amplify/amplify-ui/commit/12de8fa5b4a4ed3786a0ee9db9d3724e226e3698) Thanks [@ErikCH](https://github.com/ErikCH)! - Adds an accessible label for the Alert dismiss button, which is configurable via translation.
+
+- Updated dependencies [[`8418028a3`](https://github.com/aws-amplify/amplify-ui/commit/8418028a3218ea20ccb2ac949b1e6e33c57239e6), [`f067420b9`](https://github.com/aws-amplify/amplify-ui/commit/f067420b9a39807a46bd409dce17f2bcc297218e), [`d9dd9220c`](https://github.com/aws-amplify/amplify-ui/commit/d9dd9220c367bc476fddb36e89daff75d62e7f31)]:
+  - @aws-amplify/ui@3.12.4
+
 ## 2.4.15
 
 ### Patch Changes

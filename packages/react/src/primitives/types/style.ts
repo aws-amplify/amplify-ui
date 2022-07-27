@@ -612,6 +612,7 @@ export type ComponentPropToStyleProp = Required<{
 }>;
 
 /**
+ * @internal May be removed in a future version
  * Maps from component style props to React `style` props
  * Note: Primarily needed to map from component style props that don't match CSS Properties directly
  * such as wrap => flexWrap and direction => flexDirection
@@ -705,6 +706,9 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   wrap: 'flexWrap',
 };
 
+/**
+ * @internal May be removed in a future version
+ */
 export const ComponentPropsToStylePropsMapKeys = Object.keys(
   ComponentPropsToStylePropsMap
 ) as Array<keyof ComponentPropToStyleProp>;
