@@ -1,13 +1,18 @@
 import React from 'react';
 
-import { Flex } from '../../../primitives/Flex';
+import { View } from '../../../primitives/View';
 
 import { BackdropProps } from './types';
 
-export function Backdrop({ children, ...rest }: BackdropProps): JSX.Element {
+export const BACKDROP_TEST_ID = 'inappmessaging-backdrop';
+
+export function Backdrop({ onClick, ...rest }: BackdropProps): JSX.Element {
   return (
-    <Flex className="amplify-inappmessaging-backdrop" {...rest}>
-      {children}
-    </Flex>
+    <View
+      className="amplify-inappmessaging-backdrop"
+      data-testid={BACKDROP_TEST_ID}
+      onClick={onClick}
+      {...rest}
+    />
   );
 }

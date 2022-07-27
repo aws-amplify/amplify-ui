@@ -1,9 +1,8 @@
-import { FlexProps } from '../../../primitives/types';
+import { ViewProps } from '../../../primitives/types';
 
-export interface BackdropProps extends FlexProps {
+export interface BackdropProps extends ViewProps {
   /**
-   * @description
-   * Content of the backdrop
+   * Function called when backdroop is clicked
    */
-  children?: React.ReactNode;
+  onClick?: React.MouseEventHandler<HTMLAnchorElement>;
 }
