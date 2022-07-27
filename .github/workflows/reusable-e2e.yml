@@ -62,7 +62,7 @@ jobs:
         uses: ./.github/actions/install-with-retries
         with:
           # only install binary if cypress cache missed
-          no-lockfile: true
+          no-lockfile: false
           skip-cypress-binary: ${{ steps.restore-cypress-cache.outputs.cache-hit }}
       - name: Build ui package
         run: yarn ui build
@@ -132,7 +132,7 @@ jobs:
 
       - name: Install packages
         if: steps.restore-cache.outputs.cache-hit != 'true'
-        run: yarn --no-lockfile
+        run: yarn
 
       - name: Build ui package
         if: ${{ steps.restore-ui-cache.outputs.cache-hit != 'true' && matrix.package != 'ui' }}
@@ -239,7 +239,7 @@ jobs:
 
       - name: Install packages
         if: steps.restore-cache.outputs.cache-hit != 'true' || steps.restore-cypress-cache.outputs.cache-hit != 'true'
-        run: yarn --no-lockfile
+        run: yarn
 
       - name: Build @aws-amplify/ui package
         if: steps.restore-ui-cache.outputs.cache-hit != 'true'
