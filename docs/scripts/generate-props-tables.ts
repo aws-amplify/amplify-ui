@@ -137,7 +137,7 @@ ${type}
 `
     );
   return `
-<ResponsiveTable className="docs-prop-table" size="small">
+<ResponsiveTable className="docs-prop-table">
   <TableHead>
     <TableRow>
       <TableCell as="th">Name</TableCell>
