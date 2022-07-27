@@ -7,6 +7,6 @@ import { AmplifyTextFieldsComponent } from './text-field-component/text-field.co
 @NgModule({
   declarations: [AmplifyTextFieldsComponent, InputDirective],
   imports: [CommonModule, AmplifyBaseComponentModule],
-  exports: [AmplifyTextFieldsComponent],
+  exports: [AmplifyTextFieldsComponent, InputDirective],
 })
 export class AmplifyTextFieldModule {}
