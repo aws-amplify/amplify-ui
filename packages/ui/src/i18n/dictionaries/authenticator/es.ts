@@ -1,7 +1,8 @@
 export const esDict = {
   'Account recovery requires verified contact information':
     'La recuperación de la cuenta requiere información de contacto verificada',
-  'An account with the given email already exists.': 'Ya existe una cuenta con el correo ingresado.',
+  'An account with the given email already exists.':
+    'Ya existe una cuenta con el correo ingresado.',
   'Back to Sign In': 'Volver a inicio de sesión',
   'Change Password': 'Cambiar contraseña',
   Changing: 'Cambiando',
@@ -20,7 +21,8 @@ export const esDict = {
   Email: 'Email',
   'Enter your email': 'Escriba su Email',
   'Forgot Password': 'Olvidé mi contraseña',
-  'Incorrect username or password.': 'Nombre de usuario o contraseña incorrecta',
+  'Incorrect username or password.':
+    'Nombre de usuario o contraseña incorrecta',
   'Invalid password format': 'Formato de contraseña inválido',
   'Invalid phone number format': 'Formato de número de teléfono inválido',
   'Forgot your password?': '¿Olvidó su contraseña?',
@@ -60,5 +62,5 @@ export const esDict = {
   'Username cannot be empty': 'El nombre de usuario no puede estar vacío',
   Verify: 'Verificar',
   'Verify Contact': 'Verificar contacto',
-  'Your passwords must match': 'Las contraseñas deben coincidir'
+  'Your passwords must match': 'Las contraseñas deben coincidir',
 };
