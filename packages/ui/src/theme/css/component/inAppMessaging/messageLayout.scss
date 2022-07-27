@@ -1,0 +1,88 @@
+.amplify-inappmessaging-messagelayout {
+  background-color: var(--amplify-colors-background-primary);
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 0;
+  max-width: 100%;
+  padding: var(--amplify-space-medium);
+  &__button {
+    width: 100%;
+    border-width: 0;
+    &--dark,
+    &--light {
+      &:active,
+      &:visited {
+        filter: brightness(100%);
+      }
+    }
+    &--dark {
+      &:hover,
+      &:focus {
+        filter: brightness(120%);
+      }
+    }
+    &--light {
+      &:hover,
+      &:focus {
+        filter: brightness(80%);
+      }
+    }
+  }
+  &__close-button {
+    color: var(--amplify-colors-neutral-80);
+    &:active,
+    &:visited {
+      color: var(--amplify-colors-neutral-80);
+    }
+    &:hover,
+    &:focus {
+      color: var(--amplify-colors-neutral-100);
+    }
+  }
+  &__content {
+    flex-grow: 1;
+    &--horizontal {
+      flex-direction: row;
+    }
+    &--vertical {
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
+  &__image-container {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    img {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+      position: absolute;
+    }
+    &--horizontal {
+      max-width: 15%;
+      width: 100%;
+    }
+    &--vertical {
+      height: 100%;
+      max-height: 30%;
+    }
+  }
+  &__text-container {
+    flex-direction: column;
+    gap: var(--amplify-space-xxxs);
+    justify-content: center;
+    &--horizontal {
+      flex-grow: 1;
+    }
+    &--vertical {
+      flex-grow: 0;
+    }
+    h6 {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}
