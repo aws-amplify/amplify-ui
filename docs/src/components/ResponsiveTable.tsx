@@ -43,10 +43,10 @@ interface ResponsiveTableProps extends TableProps {
  * <ResponsiveTable labelWidth="10rem">
  *  <TableHead>
  *    <TableRow>
- *      <TableCell as="th"></TableCell>
+ *      <TableCell as="th">Name</TableCell>
  *    </TableRow>
  *    <TableBody>
- *      <ResponsiveTableCell></ResponsiveTableCell>
+ *      <ResponsiveTableCell label="Name">Item</ResponsiveTableCell>
  *    </TableBody>
  *  </TableHead>
  */
