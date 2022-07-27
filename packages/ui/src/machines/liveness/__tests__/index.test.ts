@@ -1,5 +1,6 @@
 import { interpret } from 'xstate';
 import { LivenessInterpreter } from '@aws-amplify/ui';
+import { setImmediate } from 'timers';
 
 import { livenessMachine, MIN_FACE_MATCH_COUNT } from '../';
 import {

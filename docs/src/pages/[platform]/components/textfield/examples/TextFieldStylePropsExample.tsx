@@ -17,7 +17,6 @@ export const TextFieldStylePropsExample = () => {
       }
       backgroundColor={tokens.colors.background.primary}
       color={tokens.colors.black}
-      width="400px"
     />
   );
 };

@@ -3,10 +3,9 @@ import path from 'path';
 
 import { Node, Project, Symbol, Type, VariableDeclaration } from 'ts-morph';
 import {
-  PrimitiveCatalog,
+  PrimitiveCatalogType,
   PrimitiveCatalogComponentProperties,
   PrimitiveCatalogComponentProperty,
-  PrimitiveCatalogComponentPropertyType,
 } from '../src/types/catalog';
 
 /**
@@ -104,17 +103,17 @@ const getComponentProperties = (type: Type) => {
  */
 const getCatalogComponentProperty = (
   property: Symbol
-): PrimitiveCatalogComponentProperty => {
+): PrimitiveCatalogComponentProperty | undefined => {
   const propType = property.getDeclarations()[0].getType();
 
   if (!propType) {
     return;
   } else if (propType.isBoolean() || propType.isBooleanLiteral()) {
-    return { type: PrimitiveCatalogComponentPropertyType.Boolean };
+    return { type: 'boolean' };
   } else if (propType.isString() || propType.isStringLiteral()) {
-    return { type: PrimitiveCatalogComponentPropertyType.String };
+    return { type: 'string' };
   } else if (propType.isNumber() || propType.isNumberLiteral()) {
-    return { type: PrimitiveCatalogComponentPropertyType.Number };
+    return { type: 'number' };
   } else if (propType.isUnion()) {
     const hasNumber = propType
       .getUnionTypes()
@@ -126,13 +125,13 @@ const getCatalogComponentProperty = (
 
     if (hasNumber) {
       return {
-        type: PrimitiveCatalogComponentPropertyType.Number,
+        type: 'number',
       };
     }
 
     if (hasString) {
       return {
-        type: PrimitiveCatalogComponentPropertyType.String,
+        type: 'string',
       };
     }
   }
@@ -143,7 +142,10 @@ const project = new Project({
 });
 
 const source = project.getSourceFile('src/primitives/components.ts');
-const catalog: PrimitiveCatalog = {};
+const catalog: PrimitiveCatalogType = {};
+if (!source) {
+  throw new Error('Primitives components.ts export file not found');
+}
 
 /**
  * Extract properties from exported React components
@@ -157,10 +159,10 @@ for (const [componentName, [node]] of source.getExportedDeclarations()) {
   } else if (isCallableNode(node)) {
     const [signature] = node.getType().getCallSignatures();
 
-    if (signature && signature.getParameters().length > 0) {
-      properties = getComponentProperties(
-        signature.getParameters()[0].getValueDeclaration().getType()
-      );
+    const signatureParams = signature.getParameters();
+    if (signature && signatureParams[0]) {
+      const type = signatureParams[0].getValueDeclaration()!.getType();
+      properties = getComponentProperties(type);
     }
   }
 
@@ -191,15 +193,22 @@ const jsonString = JSON.stringify(catalog, null, 2);
  * this is being exported under the /internal/primitives-catalog subpath and can be used as
  * import { PrimitiveCatalog } from '@aws-amplify/ui-react/internal/primitives-catalog'
  */
-const exportString = `export const PrimitiveCatalog = ${jsonString};`;
+const exportString = `import { PrimitiveCatalogType } from './types/catalog';
+export const PrimitiveCatalog: PrimitiveCatalogType = ${jsonString};`;
 
-// Generates dist/primitives.js file
-const JSONoutputPath = path.resolve(__dirname, '..', 'dist', 'primitives.json');
+// Generates dist folder file since it's deleted in `prebuild`
+// NOTE: This line can be removed when we remove primitives.json output
+const distFolderPath = `${path.resolve(__dirname, '..')}/dist`;
+if (!fs.existsSync(distFolderPath)) {
+  fs.mkdirSync(distFolderPath);
+}
+
+const JSONoutputPath = `${path.resolve(__dirname, '..')}/dist/primitives.json`;
 const internalOutputPath = path.resolve(
   __dirname,
   '..',
-  'dist/esm',
-  'primitives-catalog.js'
+  'src',
+  'PrimitiveCatalog.ts'
 );
-fs.writeFileSync(JSONoutputPath, jsonString);
-fs.writeFileSync(internalOutputPath, exportString);
+fs.writeFileSync(JSONoutputPath, jsonString, { flag: 'w' });
+fs.writeFileSync(internalOutputPath, exportString, { flag: 'w' });
