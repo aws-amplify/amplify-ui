@@ -1,12 +1,11 @@
-export enum PrimitiveCatalogComponentPropertyType {
-  Boolean = 'boolean',
-  String = 'string',
-  Number = 'number',
-  Any = 'any',
-}
+export type PrimitiveCatalogComponentPropertyType =
+  | 'boolean'
+  | 'string'
+  | 'number';
 
 export type PrimitiveCatalogComponentProperty = {
   type: PrimitiveCatalogComponentPropertyType;
+  priority?: boolean;
 };
 
 export type PrimitiveCatalogComponentProperties = Record<
@@ -18,4 +17,4 @@ export type PrimitiveCatalogComponent = {
   properties: PrimitiveCatalogComponentProperties;
 };
 
-export type PrimitiveCatalog = Record<string, PrimitiveCatalogComponent>;
+export type PrimitiveCatalogType = Record<string, PrimitiveCatalogComponent>;

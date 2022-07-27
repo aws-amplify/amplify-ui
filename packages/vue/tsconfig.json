@@ -5,7 +5,7 @@
     "strict": true,
     "jsx": "preserve",
     "importHelpers": true,
-    "declaration": true,
+    "declaration": false, // this is overriden in the vite.config.ts typescript2 settings
     "moduleResolution": "node",
     "skipLibCheck": true,
     "esModuleInterop": true,

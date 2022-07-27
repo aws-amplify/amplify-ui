@@ -139,6 +139,16 @@ StyleToken<Property.Color>
     </TableRow>
 
     <TableRow>
+      <ResponsiveTableCell label="Name">formatValue</ResponsiveTableCell>
+      <ResponsiveTableCell label="Type">
+```jsx
+(value: number) => React.ReactNode
+```
+</ResponsiveTableCell>
+      <ResponsiveTableCell label="Description">Use to format how the value gets rendered</ResponsiveTableCell>
+    </TableRow>
+
+    <TableRow>
       <ResponsiveTableCell label="Name">hasError</ResponsiveTableCell>
       <ResponsiveTableCell label="Type">
 ```jsx
@@ -689,4 +699,4 @@ ResponsiveStyle<Property.FlexWrap>
 
 See [Style Props](/react/theming/style-props) for all supported style and layout properties.
 
-The SliderField component will accept any of the standard HTML attributes that a HTML element accepts. Standard element attributes can be found in the <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element" isExternal={true}>MDN Documentation</Link>.
+SliderField will also accept any of the standard HTML attributes that a <code>\<span\></code> element accepts, which can be found in the <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span" isExternal>MDN Documentation</Link>.

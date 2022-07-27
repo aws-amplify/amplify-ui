@@ -1,5 +1,31 @@
 # @aws-amplify/ui
 
+## 3.12.4
+
+### Patch Changes
+
+- [#2287](https://github.com/aws-amplify/amplify-ui/pull/2287) [`8418028a3`](https://github.com/aws-amplify/amplify-ui/commit/8418028a3218ea20ccb2ac949b1e6e33c57239e6) Thanks [@ErikCH](https://github.com/ErikCH)! - When first setting up TOTP with MFA the Authenticator is not returning the correct user object. This object did not contain the correct methods, and causes an error if you try to access those methods. This fix will now retrieve the correct user object when a user first sets up MFA TOTP.
+
+* [#2330](https://github.com/aws-amplify/amplify-ui/pull/2330) [`f067420b9`](https://github.com/aws-amplify/amplify-ui/commit/f067420b9a39807a46bd409dce17f2bcc297218e) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - ui-react(fix): Update StepperField disabled buttons styles, making them easier to see.
+
+- [#2304](https://github.com/aws-amplify/amplify-ui/pull/2304) [`d9dd9220c`](https://github.com/aws-amplify/amplify-ui/commit/d9dd9220c367bc476fddb36e89daff75d62e7f31) Thanks [@tmokmss](https://github.com/tmokmss)! - chore: add translation texts for Japanese
+
+## 3.12.3
+
+### Patch Changes
+
+- [#2242](https://github.com/aws-amplify/amplify-ui/pull/2242) [`bde5e7a48`](https://github.com/aws-amplify/amplify-ui/commit/bde5e7a48a144bf76f77b1b747dcc912ce8cec6e) Thanks [@pedrodotmc](https://github.com/pedrodotmc)! - Add missing spanish translations
+
+* [#2261](https://github.com/aws-amplify/amplify-ui/pull/2261) [`74e8c8935`](https://github.com/aws-amplify/amplify-ui/commit/74e8c89354bd551723f62ac2a3b60e5222d92d58) Thanks [@retrQJS](https://github.com/retrQJS)! - Added Russian as an option for Authenticator
+
+## 3.12.2
+
+### Patch Changes
+
+- [#2273](https://github.com/aws-amplify/amplify-ui/pull/2273) [`90eb39280`](https://github.com/aws-amplify/amplify-ui/commit/90eb392806c7875d2659bd0bb52aa6b68b849ce7) Thanks [@ErikCH](https://github.com/ErikCH)! - Added user-select property to 'text' for the amplify-input and the textArea primitives. This will help Ionic apps that set this property to none. In Webkit/Chromium-based browsers this is inherited and is causing inputs on those browsers to not work correctly.
+
+* [#2269](https://github.com/aws-amplify/amplify-ui/pull/2269) [`3b2d6c2af`](https://github.com/aws-amplify/amplify-ui/commit/3b2d6c2afb51178ed6ba6312c29b368c522e460a) Thanks [@ErikCH](https://github.com/ErikCH)! - Fixed bug that displayed "usernamed undefined" when using a lambda that autoconfirms the user during sign up. The sign up would fail and redirect the user to sign in with the "username undefined" error. The user then would have to sign in again. This patch will now assign the correct credentials during sign up for users that are auto confirmed.
+
 ## 3.12.1
 
 ### Patch Changes

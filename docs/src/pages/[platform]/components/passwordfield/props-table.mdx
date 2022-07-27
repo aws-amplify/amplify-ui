@@ -115,7 +115,7 @@ boolean
 string
 ```
 </ResponsiveTableCell>
-      <ResponsiveTableCell label="Description">Set the &#96;aria-label&#96; for hide password button Default: "Hide password"</ResponsiveTableCell>
+      <ResponsiveTableCell label="Description">The hidePasswordButtonLabel prop is no longer in use, since the aria-label is now consistent between state changes. Set the &#96;aria-label&#96; for hide password button Default: "Hide password"</ResponsiveTableCell>
     </TableRow>
 
     <TableRow>
@@ -246,6 +246,26 @@ React.ReactNode
 ```
 </ResponsiveTableCell>
       <ResponsiveTableCell label="Description">Component(s) to show before input</ResponsiveTableCell>
+    </TableRow>
+
+    <TableRow>
+      <ResponsiveTableCell label="Name">passwordIsHiddenLabel</ResponsiveTableCell>
+      <ResponsiveTableCell label="Type">
+```jsx
+string
+```
+</ResponsiveTableCell>
+      <ResponsiveTableCell label="Description">Sets the text read by screen readers when the password is hidden Default: "Password is hidden"</ResponsiveTableCell>
+    </TableRow>
+
+    <TableRow>
+      <ResponsiveTableCell label="Name">passwordIsShownLabel</ResponsiveTableCell>
+      <ResponsiveTableCell label="Type">
+```jsx
+string
+```
+</ResponsiveTableCell>
+      <ResponsiveTableCell label="Description">Sets the text read by screen readers when the password is shown Default: "Password is shown"</ResponsiveTableCell>
     </TableRow>
 
     <TableRow>
@@ -589,4 +609,4 @@ ResponsiveStyle<Property.FlexWrap>
 
 See [Style Props](/react/theming/style-props) for all supported style and layout properties.
 
-The PasswordField component will accept any of the standard HTML attributes that a HTML element accepts. Standard element attributes can be found in the <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element" isExternal={true}>MDN Documentation</Link>.
+PasswordField will also accept any of the standard HTML attributes that a <code>\<input\></code> element accepts, which can be found in the <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/password" isExternal>MDN Documentation</Link>.

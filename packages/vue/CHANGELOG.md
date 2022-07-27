@@ -1,5 +1,36 @@
 # @aws-amplify/ui-vue
 
+## 2.4.16
+
+### Patch Changes
+
+- [#2339](https://github.com/aws-amplify/amplify-ui/pull/2339) [`12de8fa5b`](https://github.com/aws-amplify/amplify-ui/commit/12de8fa5b4a4ed3786a0ee9db9d3724e226e3698) Thanks [@ErikCH](https://github.com/ErikCH)! - Adds an accessible label for the Alert dismiss button, which is configurable via translation.
+
+- Updated dependencies [[`8418028a3`](https://github.com/aws-amplify/amplify-ui/commit/8418028a3218ea20ccb2ac949b1e6e33c57239e6), [`f067420b9`](https://github.com/aws-amplify/amplify-ui/commit/f067420b9a39807a46bd409dce17f2bcc297218e), [`d9dd9220c`](https://github.com/aws-amplify/amplify-ui/commit/d9dd9220c367bc476fddb36e89daff75d62e7f31)]:
+  - @aws-amplify/ui@3.12.4
+
+## 2.4.15
+
+### Patch Changes
+
+- Updated dependencies [[`bde5e7a48`](https://github.com/aws-amplify/amplify-ui/commit/bde5e7a48a144bf76f77b1b747dcc912ce8cec6e), [`74e8c8935`](https://github.com/aws-amplify/amplify-ui/commit/74e8c89354bd551723f62ac2a3b60e5222d92d58)]:
+  - @aws-amplify/ui@3.12.3
+
+## 2.4.14
+
+### Patch Changes
+
+- [#2296](https://github.com/aws-amplify/amplify-ui/pull/2296) [`8659e2f7e`](https://github.com/aws-amplify/amplify-ui/commit/8659e2f7efc986c9ec71cdc245de57fa425b0f5b) Thanks [@ErikCH](https://github.com/ErikCH)! - Vue library had a bug that was causing types to not show correctly. This fix corrects the package.json to point to the correct definition file.
+
+## 2.4.13
+
+### Patch Changes
+
+- [#2184](https://github.com/aws-amplify/amplify-ui/pull/2184) [`a8b77d484`](https://github.com/aws-amplify/amplify-ui/commit/a8b77d4849fe6df85b61c8af23a264d40f799de6) Thanks [@ErikCH](https://github.com/ErikCH)! - Cleaned Vue code. Updated jest to latest. Added in JSX. Updated how editor displays interface in .vue files.
+
+- Updated dependencies [[`90eb39280`](https://github.com/aws-amplify/amplify-ui/commit/90eb392806c7875d2659bd0bb52aa6b68b849ce7), [`3b2d6c2af`](https://github.com/aws-amplify/amplify-ui/commit/3b2d6c2afb51178ed6ba6312c29b368c522e460a)]:
+  - @aws-amplify/ui@3.12.2
+
 ## 2.4.12
 
 ### Patch Changes
