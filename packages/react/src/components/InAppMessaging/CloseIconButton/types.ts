@@ -1,15 +1,9 @@
-import { LinkProps } from '../../../primitives';
+import { ButtonProps } from '../../../primitives';
 
-export interface CloseIconButtonProps extends Omit<LinkProps, 'children'> {
+export interface CloseIconButtonProps extends ButtonProps {
   /**
    * @description
    * Configures the accessible label for the close iconButton
    */
   dismissButtonLabel?: string;
-
-  /**
-   * @description
-   * Function called when close iconButton is clicked
-   */
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }

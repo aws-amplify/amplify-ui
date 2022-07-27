@@ -6,18 +6,18 @@ import { CloseIconButton } from '../CloseIconButton';
 const testId = 'closeIconButtonId';
 
 describe('CloseIconButton component', () => {
-  it('should render', async () => {
+  it('should render', () => {
     render(<CloseIconButton testId={testId} />);
 
-    const closeIconButton = await screen.findByTestId(testId);
-    expect(closeIconButton.nodeName).toBe('A');
+    const closeIconButton = screen.getByTestId(testId);
+    expect(closeIconButton.nodeName).toBe('BUTTON');
   });
 
-  it('can render a classname', async () => {
+  it('can render a classname', () => {
     const className = 'my-close-button';
     render(<CloseIconButton className={className} testId={testId} />);
 
-    const closeIconButton = await screen.findByTestId(testId);
+    const closeIconButton = screen.getByTestId(testId);
     expect(closeIconButton.className).toContain(className);
   });
 });
