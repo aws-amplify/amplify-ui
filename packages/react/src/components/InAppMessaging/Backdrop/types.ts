@@ -2,7 +2,7 @@ import { ViewProps } from '../../../primitives/types';
 
 export interface BackdropProps extends ViewProps {
   /**
-   * Function called when backdroop is clicked
+   * Function called when backdrop is clicked
    */
-  onClick?: React.MouseEventHandler<HTMLAnchorElement>;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
