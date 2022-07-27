@@ -9,9 +9,7 @@ describe('CloseIconButton component', () => {
   it('should render', async () => {
     render(<CloseIconButton testId={testId} />);
 
-    const closeIconButton = (await screen.findByTestId(
-      testId
-    )) as HTMLAnchorElement;
+    const closeIconButton = await screen.findByTestId(testId);
     expect(closeIconButton.nodeName).toBe('A');
   });
 
@@ -19,9 +17,7 @@ describe('CloseIconButton component', () => {
     const className = 'my-close-button';
     render(<CloseIconButton className={className} testId={testId} />);
 
-    const closeIconButton = (await screen.findByTestId(
-      testId
-    )) as HTMLAnchorElement;
+    const closeIconButton = await screen.findByTestId(testId);
     expect(closeIconButton.className).toContain(className);
   });
 });
