@@ -1,6 +1,9 @@
-# This workflow will run unit, e2e, and docs tests on commits to main.
+# Description: This workflow runs unit + e2e tests, then publishes UI packages
+#              to `@next` NPM tag.
+#
+# Triggered by: merge to `main`
 
-name: Test and Publish / main
+name: Test and Publish / next
 
 concurrency:
   group: e2e-${{ github.sha }}

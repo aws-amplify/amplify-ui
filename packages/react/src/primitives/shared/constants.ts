@@ -661,7 +661,7 @@ export const ComponentText = {
     clearButtonLabel: 'Clear input',
   },
   PaginationItem: {
-    currentPageLabel: 'Current Page:',
+    currentPageLabel: 'Page',
     nextLabel: 'Go to next page',
     pageLabel: 'Go to page',
     previousLabel: 'Go to previous page',
@@ -673,8 +673,9 @@ export const ComponentText = {
     searchButtonLabel: 'Search',
   },
   PasswordField: {
-    showPasswordButtonLabel: 'Show password',
-    hidePasswordButtonLabel: 'Hide password',
+    passwordIsHidden: 'Password is hidden',
+    passwordIsShown: 'Password is shown',
+    showPassword: 'Show password',
   },
   StepperField: {
     increaseButtonLabel: 'Increase to',

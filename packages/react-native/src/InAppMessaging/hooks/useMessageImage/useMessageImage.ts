@@ -12,11 +12,10 @@ const logger = new Logger('Notifications.InAppMessaging');
 /**
  * Handles prefetching and dimension setting for message images
  *
- * @param {MessageImage} image - contains image source
- * @param {MessageLayout} layout - message layout
- * @returns {UseMessageImage} message image dimensions and rendering related booleans
+ * @param image contains image source
+ * @param layout message layout
+ * @returns message image dimensions and rendering related booleans
  */
-
 export default function useMessageImage(
   image: MessageImage | undefined,
   layout: MessageLayout

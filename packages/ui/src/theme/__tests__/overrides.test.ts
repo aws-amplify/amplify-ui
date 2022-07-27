@@ -636,7 +636,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-stepperfield-button-focus-color: var(--amplify-components-button-focus-color);
         --amplify-components-stepperfield-button-focus-background-color: var(--amplify-components-button-focus-background-color);
         --amplify-components-stepperfield-button-disabled-color: var(--amplify-components-button-disabled-color);
-        --amplify-components-stepperfield-button-disabled-background-color: var(--amplify-components-button-disabled-background-color);
+        --amplify-components-stepperfield-button-disabled-background-color: var(--amplify-components-fieldcontrol-disabled-background-color);
         --amplify-components-stepperfield-button-hover-color: var(--amplify-components-button-hover-color);
         --amplify-components-stepperfield-button-hover-background-color: var(--amplify-components-button-hover-background-color);
         --amplify-components-switchfield-disabled-opacity: var(--amplify-opacities-60);

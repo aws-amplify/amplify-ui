@@ -1,3 +1,4 @@
+export { useMessageImage } from './useMessageImage';
 export {
   MessageComponentStyles,
   MessageOverrideStyle,

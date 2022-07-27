@@ -1,4 +1,7 @@
-# This workflow will run unit, e2e, and docs tests on commits to main.
+# Description: This workflow runs unit + e2e tests, then publishes UI packages
+#              to `@studio` NPM tag.
+#
+# Triggered by: merge to `studio-release` branch
 
 name: Test and Publish / studio
 
