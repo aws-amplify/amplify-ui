@@ -85,8 +85,7 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
   public async endStream() {
     this.videoRecorder.dispatch(new Event('endStream'));
 
-    await this._reader.closed;
-    return;
+    return this._reader.closed;
   }
 }
 
@@ -99,4 +98,21 @@ function isLivenessActionDocument(obj: any): obj is LivenessActionDocument {
     (obj as LivenessActionDocument).deviceInformation !== undefined ||
     Array.isArray((obj as LivenessActionDocument).challenges)
   );
+}
+
+async function streamLivenessVideoStatic(
+  sessionId: string,
+  videoStream: MediaStream
+): Promise<any> {
+  const provider = new LivenessStreamProvider(sessionId, videoStream);
+
+  provider.videoRecorder.start(100);
+  const { responseStream } = await provider.streamLivenessVideo();
+
+  return {
+    sessionId,
+    responseStream,
+    endStream: provider.endStream,
+    sendClientInfo: provider.sendClientInfo,
+  };
 }
