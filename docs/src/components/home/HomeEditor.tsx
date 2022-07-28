@@ -75,7 +75,7 @@ const HomeEditor = () => {
         >
           <LiveEditor
             onKeyDown={(e) => {
-              // This makes sure the editor is not a focus trap, allowing the customer to 'tab' out of the editor
+              // This makes sure the editor is not a focus trap, allowing customers to 'tab' out of the editor
               if (e.keyCode === 9) {
                 // tab key
                 e.preventDefault();
