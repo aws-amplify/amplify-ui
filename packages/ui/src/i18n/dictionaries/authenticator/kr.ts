@@ -58,7 +58,7 @@ export const krDict: AuthenticatorDictionary = {
   Website: '웹사이트',
 
   // ******* missing strings
-  'Enter your phone number': 'Enter your phone number',
-  'Enter your email': 'Enter your email',
-  'Send Code': 'Send Code',
+  'Enter your phone number': '전화번호 입력',
+  'Enter your email': '이메일 입력',
+  'Send Code': '코드 전송',
 };
