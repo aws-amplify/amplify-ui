@@ -1,4 +1,6 @@
-export const frDict = {
+import { AuthDict } from './types';
+
+export const frDict: AuthDict = {
   'Account recovery requires verified contact information':
     'La récupération du compte nécessite des informations de contact vérifiées',
   'An account with the given email already exists.':
@@ -64,4 +66,20 @@ export const frDict = {
   'Username/client id combination not found.': "L'utilisateur n'existe pas",
   Verify: 'Vérifier',
   'Verify Contact': 'Vérifier le contact',
+
+  // ********* missing strings
+  Changing: 'Changing',
+  Confirming: 'Confirming',
+  'Creating Account': 'Creating Account',
+  'Hide password': 'Hide password',
+  Loading: 'Loading',
+  'New password': 'New password',
+  'Reset your Password': 'Reset your Password',
+  'Send code': 'Send code',
+  Sending: 'Sending',
+  'Setup TOTP': 'Setup TOTP',
+  'Show password': 'Show password',
+  'Signing in': 'Signing in',
+  'Sign In with Apple': 'Sign In with Apple',
+  Submitting: 'Submitting',
 };

@@ -68,7 +68,7 @@ export const deDict: AuthDict = {
   'It may take a minute to arrive.':
     'Es könnte eine Minute dauern, bis der Code eintrifft.',
 
-  // ********** missing types
+  // ********** missing strings
   Changing: 'Changing',
   Confirming: 'Confirming',
   Loading: 'Loading',

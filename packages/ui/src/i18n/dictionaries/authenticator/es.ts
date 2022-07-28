@@ -1,4 +1,6 @@
-export const esDict = {
+import { AuthDict } from './types';
+
+export const esDict: AuthDict = {
   'Account recovery requires verified contact information':
     'La recuperación de la cuenta requiere información de contacto verificada',
   'An account with the given email already exists.':
@@ -63,4 +65,14 @@ export const esDict = {
   Verify: 'Verificar',
   'Verify Contact': 'Verificar contacto',
   'Your passwords must match': 'Las contraseñas deben coincidir',
+
+  // ********** missing strings
+  'Confirm SMS Code': 'Confirm SMS Code',
+  'Enter your code': 'Enter your code',
+  'Enter your username': 'Enter your username',
+  'Enter your phone number': 'Enter your phone number',
+  Loading: 'Loading',
+  'New password': 'New password',
+  'Send code': 'Send code',
+  Submitting: 'Submitting',
 };
