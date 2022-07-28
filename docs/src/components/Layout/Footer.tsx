@@ -50,8 +50,9 @@ export const Footer = () => {
           .
         </Text>
         <Text marginBlockStart="medium">
-          Flutter and the related logo are trademarks of Google LLC. We are not
-          endorsed by or affiliated with Google LLC.
+          <Link href="/media-attribution">
+            Brand, logo and media attribution
+          </Link>
         </Text>
       </View>
     </Flex>
