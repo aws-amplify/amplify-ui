@@ -56,4 +56,9 @@ export const krDict: AuthenticatorDictionary = {
     '계정 복구를 위해 연락처 확인이 필요합니다',
   Verify: '인증',
   Website: '웹사이트',
+
+  // ******* missing strings
+  'Enter your phone number': 'Enter your phone number',
+  'Enter your email': 'Enter your email',
+  'Send Code': 'Send Code',
 };

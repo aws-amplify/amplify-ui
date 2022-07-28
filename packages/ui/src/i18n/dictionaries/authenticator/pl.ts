@@ -57,4 +57,8 @@ export const plDict: AuthenticatorDictionary = {
     'Odzyskanie konta wymaga zweryfikowanych danych kontaktowych',
   Verify: 'Zweryfikuj',
   Website: 'Strona internetowa',
+
+  // ******* missing strings
+  'Enter your phone number': 'Enter your phone number',
+  'Enter your email': 'Enter your email',
 };
