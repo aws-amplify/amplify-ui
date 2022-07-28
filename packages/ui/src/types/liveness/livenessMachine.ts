@@ -35,6 +35,9 @@ export interface LivenessContext {
     startFace: Face;
     endFace: Face;
   };
+  freshnessColorAssociatedParams: {
+    freshnessColorEl: HTMLDivElement;
+  };
   errorState: LivenessErrorState | null;
   livenessStreamProvider: LivenessStreamProvider;
 }

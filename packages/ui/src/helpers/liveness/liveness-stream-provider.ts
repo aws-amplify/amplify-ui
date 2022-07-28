@@ -84,6 +84,7 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
 
   public async endStream() {
     this.videoRecorder.dispatch(new Event('endStream'));
+    this.videoRecorder.stop();
 
     return this._reader.closed;
   }

@@ -37,6 +37,7 @@ export const LivenessCameraModule = (
   const { videoRef, videoHeight, videoWidth, streamOffset } =
     useMediaStreamInVideo(videoStream, videoConstraints);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const freshnessColorRef = useRef<HTMLDivElement | null>(null);
 
   const [countDownRunning, setCountDownRunning] = useState<boolean>(false);
   const [isCameraReady, setIsCameraReady] = useState<boolean>(false);
@@ -51,6 +52,7 @@ export const LivenessCameraModule = (
       data: {
         videoEl: videoRef.current,
         canvasEl: canvasRef.current,
+        freshnessColorEl: freshnessColorRef.current,
       },
     });
   };
@@ -96,6 +98,17 @@ export const LivenessCameraModule = (
     >
       <Flex direction="column" position="relative">
         {!isCameraReady && centeredLoader}
+
+        <View
+          as="div"
+          ref={freshnessColorRef}
+          height={'100vh'}
+          width={'100vw'}
+          position="fixed"
+          top={0}
+          left={0}
+          style={{ pointerEvents: 'none', zIndex: 1 }}
+        />
 
         <video
           ref={videoRef}

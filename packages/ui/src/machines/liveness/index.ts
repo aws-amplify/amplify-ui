@@ -32,6 +32,7 @@ export const MIN_FACE_MATCH_COUNT = 5;
 // timer metrics variables
 let faceDetectedTimestamp: number;
 let ovalDrawnTimestamp: number;
+let freshnessColorFlashedTimestamp: number;
 
 export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
   {
@@ -51,6 +52,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         startFace: undefined,
         endFace: undefined,
       },
+      freshnessColorAssociatedParams: undefined,
       errorState: null,
       livenessStreamProvider: undefined,
     },
@@ -135,7 +137,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           checkMatch: {
             after: {
               0: {
-                target: 'success',
+                target: 'flashFreshnessColors',
                 cond: 'hasFaceMatchedInOvalWithMinCount',
                 actions: 'updateEndFaceMatch',
               },
@@ -147,6 +149,14 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               100: {
                 target: 'ovalMatching',
                 actions: 'resetFaceMatchCountAndStartFace',
+              },
+            },
+          },
+          flashFreshnessColors: {
+            invoke: {
+              src: 'flashColors',
+              onDone: {
+                target: 'success',
               },
             },
           },
@@ -260,6 +270,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           videoEl: event.data?.videoEl,
           canvasEl: event.data?.canvasEl,
         }),
+        freshnessColorAssociatedParams: (context, event) => ({
+          ...context.freshnessColorAssociatedParams,
+          freshnessColorEl: event.data?.freshnessColorEl,
+        }),
       }),
       startRecording: assign({
         videoAssociatedParams: (context) => {
@@ -275,8 +289,14 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           );
           recorder.start(100);
 
-          context.livenessStreamProvider.videoRecorder.start(100);
-          context.livenessStreamProvider.streamLivenessVideo();
+          if (
+            context.livenessStreamProvider.videoRecorder &&
+            context.livenessStreamProvider.videoRecorder.getState() !==
+              'recording'
+          ) {
+            context.livenessStreamProvider.videoRecorder.start(100);
+            context.livenessStreamProvider.streamLivenessVideo();
+          }
 
           return {
             ...context.videoAssociatedParams,
@@ -633,6 +653,29 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
         return { faceMatchState, illuminationState, detectedFace };
       },
+      async flashColors(context) {
+        const {
+          freshnessColorAssociatedParams: { freshnessColorEl },
+        } = context;
+
+        // flash colors on canvas
+        freshnessColorEl.style.backgroundColor = 'red';
+        freshnessColorFlashedTimestamp = Date.now();
+        await new Promise((resolve) =>
+          setTimeout(() => {
+            freshnessColorEl.style.backgroundColor = 'unset';
+
+            recordLivenessAnalyticsEvent(context.flowProps, {
+              event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
+              attributes: { action: 'FlashFreshnessColor', color: 'red' },
+              metrics: {
+                duration: Date.now() - freshnessColorFlashedTimestamp,
+              },
+            });
+            resolve(true);
+          }, 500)
+        );
+      },
       async putLivenessVideo(context) {
         const startPutLivenessVideoTime = Date.now();
         const {
@@ -685,7 +728,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
         context.livenessStreamProvider.sendClientInfo(livenessActionDocument);
 
-        await context.livenessStreamProvider.endStream();
+        context.livenessStreamProvider.endStream();
 
         // Put liveness video
         const provider = new LivenessPredictionsProvider();
