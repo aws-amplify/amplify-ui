@@ -111,6 +111,17 @@ describe('Alert: ', () => {
     expect(isDismissible.childElementCount).toBe(2);
   });
 
+  it('can be used as an aria alert', async () => {
+    render(
+      <Alert role="alert" testId="ariaAlertID">
+        Alert with an aria role
+      </Alert>
+    );
+
+    const alert = await screen.findByTestId('ariaAlertID');
+    expect(alert.getAttribute('role')).toBe('alert');
+  });
+
   it('can configure an accessible label for the dismiss button', async () => {
     const customDismissButtonLabel = 'Testing 123';
     render(
