@@ -22,7 +22,7 @@ permissions:
 
 jobs:
   test:
-    uses: ./.github/workflows/reusable-e2e.yml@main
+    uses: ./.github/workflows/reusable-e2e.yml
     with:
       commit: ${{ github.event.pull_request.head.sha }}
       repository: ${{ github.event.pull_request.head.repo.full_name }}
