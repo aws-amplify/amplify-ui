@@ -2,7 +2,6 @@ import { AuthenticatorDictionary } from './types';
 
 export const krDict: AuthenticatorDictionary = {
   'Back to Sign In': '로그인으로 돌아가기',
-  Birthdate: '생년월일',
   'Change Password': '비밀번호 변경하기',
   Changing: '변경중',
   Code: '코드',
@@ -19,22 +18,14 @@ export const krDict: AuthenticatorDictionary = {
   Email: '이메일',
   'Enter your code': '인증번호를 입력해주세요',
   'Enter your username': '아이디를 입력해주세요',
-  'Family Name': '성',
-  'Given Name': '이름',
-  'Forgot your password?': '비밀번호를 잊으셨나요?',
   'Hide password': '비밀번호 숨기기',
   Loading: '로딩중',
   Username: '아이디',
-  Name: '성함',
-  Nickname: '닉네임',
   'New password': '새 비밀번호',
   Password: '비밀번호',
   'Phone Number': '전화번호',
-  'Preferred Username': '닉네임',
-  Profile: '프로필',
   'Resend Code': '인증번호 재전송',
   'Reset your password': '비밀번호 재설정',
-  'Reset Password': '비밀번호 재설정',
   'Send code': '인증코드 보내기',
   Sending: '전송중',
   'Setup TOTP': 'TOTP 설정하기',
@@ -55,10 +46,21 @@ export const krDict: AuthenticatorDictionary = {
   'Account recovery requires verified contact information':
     '계정 복구를 위해 연락처 확인이 필요합니다',
   Verify: '인증',
-  Website: '웹사이트',
 
   // ******* missing strings
   'Enter your phone number': '전화번호 입력',
   'Enter your email': '이메일 입력',
   'Send Code': '코드 전송',
+
+  // Additional translations added by customers
+  Birthdate: '생년월일',
+  'Family Name': '성',
+  'Given Name': '이름',
+  'Forgot your password?': '비밀번호를 잊으셨나요?',
+  Name: '성함',
+  Nickname: '닉네임',
+  'Preferred Username': '닉네임',
+  Profile: '프로필',
+  'Reset Password': '비밀번호 재설정',
+  Website: '웹사이트',
 };
