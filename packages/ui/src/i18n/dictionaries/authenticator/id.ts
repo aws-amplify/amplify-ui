@@ -1,6 +1,6 @@
-import { AuthDict } from './types';
+import { AuthenticatorDictionary } from './types';
 
-export const idDict: AuthDict = {
+export const idDict: AuthenticatorDictionary = {
   'Account recovery requires verified contact information':
     'Pemulihan akun memerlukan informasi kontak terverifikasi',
   'An account with the given email already exists.':

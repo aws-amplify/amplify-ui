@@ -1,4 +1,4 @@
-type AuthText =
+type AuthenticatorText =
   | 'Account recovery requires verified contact information'
   | 'Back to Sign In'
   | 'Change Password'
@@ -49,6 +49,5 @@ type AuthText =
   | 'Verify Contact';
 
 // Including [key: string] to handle additional translations that customers have added
-export type AuthDict = {
-  [Text in AuthText]: string;
-} & { [key: string]: string };
+export type AuthenticatorDictionary = Record<AuthenticatorText, string> &
+  Record<string, string>;

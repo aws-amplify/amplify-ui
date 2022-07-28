@@ -1,6 +1,6 @@
-import { AuthDict } from './types';
+import { AuthenticatorDictionary } from './types';
 
-export const esDict: AuthDict = {
+export const esDict: AuthenticatorDictionary = {
   'Account recovery requires verified contact information':
     'La recuperación de la cuenta requiere información de contacto verificada',
   'An account with the given email already exists.':

@@ -1,6 +1,6 @@
-import { AuthDict } from './types';
+import { AuthenticatorDictionary } from './types';
 
-export const svDict: AuthDict = {
+export const svDict: AuthenticatorDictionary = {
   'Account recovery requires verified contact information':
     'För att återställa kontot behöver du ett verifierat konto',
   'An account with the given email already exists.':

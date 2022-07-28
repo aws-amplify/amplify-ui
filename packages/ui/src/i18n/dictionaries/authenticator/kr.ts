@@ -1,6 +1,6 @@
-import { AuthDict } from './types';
+import { AuthenticatorDictionary } from './types';
 
-export const krDict: AuthDict = {
+export const krDict: AuthenticatorDictionary = {
   'Back to Sign In': '로그인으로 돌아가기',
   Birthdate: '생년월일',
   'Change Password': '비밀번호 변경하기',

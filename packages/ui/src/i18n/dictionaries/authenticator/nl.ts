@@ -1,6 +1,6 @@
-import { AuthDict } from './types';
+import { AuthenticatorDictionary } from './types';
 
-export const nlDict: AuthDict = {
+export const nlDict: AuthenticatorDictionary = {
   'Back to Sign In': 'Terug naar inloggen',
   'Change Password': 'Wachtwoord wijzigen',
   Changing: 'Wordt aangepast',

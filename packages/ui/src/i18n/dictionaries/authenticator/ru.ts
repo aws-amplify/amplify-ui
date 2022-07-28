@@ -1,6 +1,6 @@
-import { AuthDict } from './types';
+import { AuthenticatorDictionary } from './types';
 
-export const ruDict: AuthDict = {
+export const ruDict: AuthenticatorDictionary = {
   'Account recovery requires verified contact information':
     'Восстановление учетной записи требует проверки контактной информации',
   'Back to Sign In': 'Назад, чтобы войти',

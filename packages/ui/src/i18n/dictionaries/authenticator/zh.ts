@@ -1,6 +1,6 @@
-import { AuthDict } from './types';
+import { AuthenticatorDictionary } from './types';
 
-export const zhDict: AuthDict = {
+export const zhDict: AuthenticatorDictionary = {
   'Account recovery requires verified contact information':
     '账户恢复需要验证过的联系方式',
   'Back to Sign In': '回到登录',

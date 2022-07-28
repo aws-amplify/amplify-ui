@@ -1,6 +1,6 @@
-import { AuthDict } from './types';
+import { AuthenticatorDictionary } from './types';
 
-export const trDict: AuthDict = {
+export const trDict: AuthenticatorDictionary = {
   'Account recovery requires verified contact information':
     'Hesap kurtarma, doğrulanmış iletişim bilgilerini gerektirir',
   'An account with the given email already exists.':

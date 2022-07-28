@@ -1,6 +1,6 @@
-import { AuthDict } from './types';
+import { AuthenticatorDictionary } from './types';
 
-export const plDict: AuthDict = {
+export const plDict: AuthenticatorDictionary = {
   'Back to Sign In': 'Powrót do logowania',
   Birthdate: 'Data urodzenia',
   'Change Password': 'Zmień hasło',

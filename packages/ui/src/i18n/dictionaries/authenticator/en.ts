@@ -1,6 +1,6 @@
-import { AuthDict } from './types';
+import { AuthenticatorDictionary } from './types';
 
-export const enDict: AuthDict = {
+export const enDict: AuthenticatorDictionary = {
   'Account recovery requires verified contact information':
     'Account recovery requires verified contact information',
   'Back to Sign In': 'Back to Sign In',

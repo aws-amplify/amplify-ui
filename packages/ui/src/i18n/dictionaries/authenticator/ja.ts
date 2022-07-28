@@ -1,6 +1,6 @@
-import { AuthDict } from './types';
+import { AuthenticatorDictionary } from './types';
 
-export const jaDict: AuthDict = {
+export const jaDict: AuthenticatorDictionary = {
   'Account recovery requires verified contact information':
     'アカウントの復旧には確認済みの連絡先が必要です',
   'An account with the given email already exists.':
