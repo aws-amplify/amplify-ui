@@ -59,6 +59,6 @@ export const plDict: AuthenticatorDictionary = {
   Website: 'Strona internetowa',
 
   // ******* missing strings
-  'Enter your phone number': 'Enter your phone number',
-  'Enter your email': 'Enter your email',
+  'Enter your phone number': 'Wpisz swój numer telefonu',
+  'Enter your email': 'Wpisz swój adres e-mail',
 };
