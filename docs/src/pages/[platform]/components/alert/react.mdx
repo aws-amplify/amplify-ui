@@ -4,6 +4,7 @@ import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 import ThemeExample from '@/components/ThemeExample.mdx';
 import { AlertDemo } from './demo';
 import {
+  AccessibleAlert,
   DefaultAlertExample,
   AlertVariationsExample,
   AlertHeadingExample,
@@ -75,7 +76,7 @@ Use the `heading` prop to pass a heading to the Alert.
 
 ### Icon
 
-Use the `hasIcon` prop to change whether the Alert includes an icon. Defaults to `true` (includes icon). Use the `iconSize` prop to change the size of the icon. Available options include `small`, (default), and `large`.
+Use the `hasIcon` prop to change whether the Alert includes an icon. Defaults to `true` (includes icon). 
 
 <Example>
   <View>
@@ -276,19 +277,25 @@ _Using style props:_
 
 ## Accessibility
 
-According to [MDN](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Alert_Role): "The `alert` role can be used to tell the user an element has been dynamically updated. Screen readers will instantly start reading out the updated content when the role is added.
+For Amplify UI, the `alert` ARIA role is not built-in because it depends on your use case. According to [MDN](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Alert_Role): "The `alert` role can be used to tell the user an element has been dynamically updated. Screen readers will instantly start reading out the updated content when the role is added.
 
 The most important thing to know about the `alert` role is that it is for dynamic content. It is perfect for situations such as when a user fills out a form and JavaScript is used to add an error message - the alert would immediately read out the message. It should not be used on HTML where the user hasn't interacted with it."
 
-For Amplify UI, the `alert` ARIA role is not built-in because it depends on your use case. For example, if you're using the `error` variation, then you should consider passing in ARIA `role="alert"` as a prop:
+The following example shows an Alert with a `role="alert"` that is dynamically added to the DOM via toggling a button. A screen reader will automatically announce content of the Alert when it appears in the UI.
 
-```jsx
-<Alert role="alert" variation="error">
-  ARIA: alert role
-</Alert>
+<Example>
+  <AccessibleAlert />
+  
+  <ExampleCode>
+
+```jsx file=./examples/AccessibleAlert.tsx
+
 ```
 
-However, if you're just displaying some information that isn't critical or time sensitive, then we would not recommend passing in the `alert` role.
+  </ExampleCode>
+</Example>
+
+If you're just displaying some information that isn't critical or time sensitive, then we would not recommend passing in the `alert` role.
 
 For more information, check out the [MDN Documentation](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Alert_Role).
 

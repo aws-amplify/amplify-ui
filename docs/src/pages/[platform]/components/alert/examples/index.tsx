@@ -1,3 +1,4 @@
+export { AccessibleAlert } from './AccessibleAlert';
 export { AlertHeadingExample } from './AlertHeadingExample';
 export { AlertIconExample } from './AlertIconExample';
 export { AlertStylePropsExample } from './AlertStylePropsExample';
