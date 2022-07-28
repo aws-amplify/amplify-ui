@@ -4,6 +4,7 @@ import { IconPropControls } from './IconPropControls';
 import { useIconProps } from './useIconProps';
 import { Demo } from '@/components/Demo';
 import { demoState } from '@/utils/demoState';
+import { getPropString } from '../utils/getPropString';
 
 const propsToCode = ({
   pathData,
@@ -16,15 +17,15 @@ const propsToCode = ({
   const hasViewBox = viewBox.width || viewBox.height;
   return (
     `<Icon` +
-    (pathData ? `\n  pathData=${JSON.stringify(pathData)}` : '') +
+    getPropString(pathData, 'pathData') +
     (hasViewBox ? `\n  viewBox={{` : '') +
     (viewBox.width ? `\n    width: ${viewBox.width},` : '') +
     (viewBox.height ? `\n    height: ${viewBox.height},` : '') +
     (hasViewBox ? `\n  }}` : '') +
-    (width ? `\n  width=${JSON.stringify(width)}` : '') +
-    (height ? `\n  height=${JSON.stringify(height)}` : '') +
-    (color ? `\n  color=${JSON.stringify(color)}` : '') +
-    (ariaLabel ? `\n  ariaLabel=${JSON.stringify(ariaLabel)}` : '') +
+    getPropString(width, 'width') +
+    getPropString(height, 'height') +
+    getPropString(color, 'color') +
+    getPropString(ariaLabel, 'ariaLabel') +
     `\n/>`
   );
 };
