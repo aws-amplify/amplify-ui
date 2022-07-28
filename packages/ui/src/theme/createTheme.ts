@@ -74,29 +74,52 @@ export function createTheme(
   theme?: Theme,
   baseTheme: BaseTheme = defaultTheme
 ): WebTheme {
-  //Here is where we want to merge duplicate values
-  if (
-    theme?.tokens?.components?.pagination?.button?.hover?.backgroundColor &&
-    !theme?.tokens?.components?.pagination?.button?._hover?.backgroundColor
-  ) {
-    //this isn't what we want to do, but the idea is that for each of these properties that have these inconsistent names we check to see
-    //if the non _ variable is set and if so we move that over to the _ variable
-    theme.tokens.components.pagination.button._hover =
-      theme.tokens.components.pagination.button._hover || {};
-    theme.tokens.components.pagination.button._hover.backgroundColor =
-      theme.tokens.components.pagination.button.hover.backgroundColor;
+  /*
+  - parse the default theme looking for deprecated values
+  - if it the depricated value exists in the theme but the non depricated version does not then set it with the depricated value
+  */
 
-    /*
-        While this is the general idea of what we might want to do, there are a lot of scenarios that will create issues with this approach
-        1. How do we determine which properties need to be copied over?
-          - we could parse the defaultTheme looking for tokens that have been marked as duplicated but what if a user passes in a custom default theme that isn't extended from our own
-        2. How do we handle collisions?  
-          - If both values are set, the above approach will favor the _ version, this is problematic if a user is starting with the default theme then trying to update the non _ version because
-            the _ version will exist within the theme object and always win out.  What we probably want is something more like the last updated value to win out, but we don't have historical values
-            a reasonably close approximation could be to compare the current value to the default theme value and if it is the same to not count it as updated.
-        
-      */
-  }
+  /*
+1. find path to deprecated values in baseTheme
+2. see if values exist in theme that match depricated paths from base
+3. programatically determine undepricated path
+4. see if values in theme exist for undepricated paths
+5. if no value of undepricated exists then replace it with value of depricated
+ */
+  const defaultTokens = baseTheme.tokens || {};
+
+  const traverse = (baseEntry, existingPath) => {
+    let path = [...existingPath];
+    const [key, obj] = baseEntry;
+    if (typeof obj === 'object' && !Array.isArray(obj)) {
+      path.push(key);
+      if (obj.value) {
+        if (obj.deprecated) {
+          return {
+            path: path,
+            value: obj,
+          };
+        }
+        return;
+      } else {
+        const entries = Object.entries(obj);
+        let retValue = [];
+        for (const entry of entries) {
+          let deprecated = traverse(entry, path);
+          if (deprecated) {
+            retValue.push(deprecated);
+          }
+        }
+        if (retValue.length) {
+          return retValue;
+        } else {
+          return;
+        }
+      }
+    }
+  };
+
+  let deprecated = traverse(['tokens', defaultTokens], []);
 
   // merge theme and baseTheme to get a complete theme
   // deepExtend is an internal Style Dictionary method
