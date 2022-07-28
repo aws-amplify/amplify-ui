@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Alert, Grid, useTheme } from '@aws-amplify/ui-react';
+import { Alert, Grid, ScrollView, useTheme } from '@aws-amplify/ui-react';
 
 function extractClasses(themeObject) {
   if (!themeObject || typeof themeObject !== 'object') return [];
@@ -22,19 +22,21 @@ export const ComponentVariableTable = ({ componentName }) => {
   ).sort();
 
   return variableNames.length > 0 ? (
-    <Grid
-      className="docs-grid-bordered"
-      as="ul"
-      templateColumns={{ base: '1fr', medium: '1fr 1fr' }}
-    >
-      {variableNames.map((name) => {
-        return (
-          <li key={name}>
-            <code>{name}</code>
-          </li>
-        );
-      })}
-    </Grid>
+    <ScrollView tabIndex={0}>
+      <Grid
+        className="docs-grid-bordered"
+        as="ul"
+        templateColumns={{ base: '1fr', medium: 'auto auto' }}
+      >
+        {variableNames.map((name) => {
+          return (
+            <li key={name}>
+              <code>{name}</code>
+            </li>
+          );
+        })}
+      </Grid>
+    </ScrollView>
   ) : (
     <Alert>No variables available for this component</Alert>
   );
