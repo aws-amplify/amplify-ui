@@ -2,14 +2,9 @@ import {
   AfterContentInit,
   Component,
   ContentChild,
-  ElementRef,
   Input,
-  Renderer2,
-  ViewChild,
 } from '@angular/core';
-import { nanoid } from 'nanoid';
-import { AmplifyDescriptionTextDirective } from '../../base-primitive';
-import { InputDirective } from './input.directive';
+import { InputDirective } from '../text-field-directives/input.directive';
 
 const $COMPONENT_SELECTOR: string = 'amplify-poc-text-field';
 @Component({
@@ -18,6 +13,8 @@ const $COMPONENT_SELECTOR: string = 'amplify-poc-text-field';
 })
 export class AmplifyTextFieldsComponent implements AfterContentInit {
   @Input() describedBy: string;
+  @Input() labelHidden: boolean = false;
+  @Input() hasError: boolean = false;
 
   @ContentChild(InputDirective) childInput: InputDirective | undefined;
 
@@ -32,5 +29,6 @@ export class AmplifyTextFieldsComponent implements AfterContentInit {
     // note: this is still not dynamic, so we still need a change detction strategy here.
     // this can be implemented later for the purpose of POC.
     this.childInput.ariaDescribedBy = this.describedBy;
+    this.childInput.hasError = this.hasError;
   }
 }

@@ -22,7 +22,6 @@ import { UseAuthenticatorComponent } from 'src/pages/ui/components/authenticator
 import { UseAuthenticatorHomeComponent } from 'src/pages/ui/components/authenticator/useAuthenticator/home/useAuthenticatorHome.component';
 import { AmplifyButtonExampleComponent } from 'src/pages/ui/primitive-poc/button/button.component';
 import { AmplifyViewExampleComponent } from 'src/pages/ui/primitive-poc/view/view.component';
-import { AmplifyFormFieldExampleComponent } from 'src/pages/ui/primitive-poc/form-field/form-field.component';
 import { AmplifyTextFieldExampleComponent } from 'src/pages/ui/primitive-poc/text-field/text-field.component';
 
 const routes: Routes = [
@@ -117,10 +116,6 @@ const routes: Routes = [
   {
     path: 'ui/primitive-poc/view',
     component: AmplifyViewExampleComponent,
-  },
-  {
-    path: 'ui/primitive-poc/form-field',
-    component: AmplifyFormFieldExampleComponent,
   },
   {
     path: 'ui/primitive-poc/text-field',

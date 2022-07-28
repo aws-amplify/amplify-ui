@@ -1,15 +1,18 @@
-<div>
+<div class="amplify-flex amplify-field amplify-textfield">
   <!-- Label -->
-  <label [for]="inputId" class="amplify-label">
+  <label [for]="inputId" *ngIf="!labelHidden">
     <ng-content select="[amplify-label]"> </ng-content>
   </label>
 
   <!-- Description Text -->
-  <ng-content select="[amplify-description-text]"></ng-content>
+  <ng-content
+    select="[amplify-description-text]"
+    *ngIf="!labelHidden"
+  ></ng-content>
 
   <!-- Actual Input -->
   <ng-content select="[amplify-input]"></ng-content>
 
   <!-- Error -->
-  <ng-content select="[amplify-error]"></ng-content>
+  <ng-content select="[amplify-error]" *ngIf="hasError"></ng-content>
 </div>
