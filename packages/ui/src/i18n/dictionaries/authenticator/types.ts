@@ -48,6 +48,6 @@ type AuthenticatorText =
   | 'Verify'
   | 'Verify Contact';
 
-// Including [key: string] to handle additional translations that customers have added
+// Including Record<string, string> to handle additional translations that customers have added
 export type AuthenticatorDictionary = Record<AuthenticatorText, string> &
   Record<string, string>;

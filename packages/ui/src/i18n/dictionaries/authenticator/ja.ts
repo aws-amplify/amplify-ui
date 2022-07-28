@@ -61,4 +61,25 @@ export const jaDict: AuthenticatorDictionary = {
     'ログインするには、テキストメッセージに記載されたコードを入力してください。送信先:',
   'It may take a minute to arrive.':
     'コードを受信するまで数分かかる場合があります。',
+
+  // ******** missing strings
+  Changing: 'Changing',
+  'Confirm SMS Code': 'Confirm SMS Code',
+  'Confirm TOTP Code': 'Confirm TOTP Code',
+  Confirming: 'Confirming',
+  'Creating Account': 'Creating Account',
+  'Enter your code': 'Enter your code',
+  'Enter your phone number': 'Enter your phone number',
+  'Enter your email': 'Enter your email',
+  'Hide password': 'Hide password',
+  Loading: 'Loading',
+  'New password': 'New password',
+  'Reset your Password': 'Reset your Password',
+  'Send code': 'Send code',
+  Sending: 'Sending',
+  'Setup TOTP': 'Setup TOTP',
+  'Show password': 'Show password',
+  'Sign In with Apple': 'Sign In with Apple',
+  'Signing in': 'Signing in',
+  Submitting: 'Submitting',
 };
