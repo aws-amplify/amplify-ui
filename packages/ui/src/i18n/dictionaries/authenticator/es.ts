@@ -67,12 +67,12 @@ export const esDict: AuthenticatorDictionary = {
   'Your passwords must match': 'Las contraseñas deben coincidir',
 
   // ********** missing strings
-  'Confirm SMS Code': 'Confirm SMS Code',
-  'Enter your code': 'Enter your code',
-  'Enter your username': 'Enter your username',
-  'Enter your phone number': 'Enter your phone number',
-  Loading: 'Loading',
-  'New password': 'New password',
-  'Send code': 'Send code',
-  Submitting: 'Submitting',
+  'Confirm SMS Code': 'Confirmar el código de SMS',
+  'Enter your code': 'Ingrese el código',
+  'Enter your username': 'Ingrese el nombre de usuario',
+  'Enter your phone number': 'Ingrese el número de teléfono',
+  Loading: 'Cargando',
+  'New password': 'Nueva contraseña',
+  'Send code': 'Enviar código',
+  Submitting: 'Enviando',
 };
