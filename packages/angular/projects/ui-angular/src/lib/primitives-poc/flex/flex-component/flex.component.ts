@@ -1,13 +1,6 @@
-import {
-  Component,
-  ElementRef,
-  HostBinding,
-  Input,
-  Renderer2,
-} from '@angular/core';
-import { AmplifyBasePrimitiveComponent } from '../../base-primitive';
+import { Component, Input } from '@angular/core';
 
-const $COMPONENT_SELECTOR: string = 'amplify-flex';
+const $COMPONENT_SELECTOR: string = 'amplify-poc-flex';
 
 @Component({
   selector: $COMPONENT_SELECTOR,
