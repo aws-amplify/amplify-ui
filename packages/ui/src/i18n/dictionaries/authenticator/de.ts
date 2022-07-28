@@ -3,70 +3,39 @@ import { AuthenticatorDictionary } from './types';
 export const deDict: AuthenticatorDictionary = {
   'Account recovery requires verified contact information':
     'Zurücksetzen des Account benötigt einen verifizierten Account',
-  'An account with the given email already exists.':
-    'Ein Account mit dieser Email existiert bereits.',
   'Back to Sign In': 'Zurück zur Anmeldung',
   'Change Password': 'Passwort ändern',
   Code: 'Code',
   Confirm: 'Bestätigen',
   'Confirm Password': 'Passwort bestätigen',
-  'Confirm a Code': 'Code bestätigen',
-  'Confirm Sign In': 'Anmeldung bestätigen',
   'Confirm Sign Up': 'Registrierung bestätigen',
   'Confirm SMS Code': 'SMS-Code bestätigen',
   'Confirm TOTP Code': 'TOTP-Code bestätigen',
   'Confirmation Code': 'Bestätigungs-Code',
   'Create a new account': 'Einen neuen Account erstellen',
-  'Create account': 'Hier registrieren',
   'Create Account': 'Account erstellen',
   'Creating Account': 'Account wird erstellt',
   Email: 'Email',
   'Enter your code': 'Geben Sie Ihren Code ein',
-  'Enter your password': 'Geben Sie Ihr Passwort ein',
   'Enter your username': 'Geben Sie Ihren Benutzernamen ein',
   'Enter your phone number': 'Geben Sie Ihre Telefonnummer ein',
   'Enter your email': 'Geben Sie Ihre Email ein',
   'Forgot your password?': 'Passwort vergessen? ',
-  'Forgot Password': 'Passwort vergessen',
   'Hide password': 'Passwort verbergen',
-  'Have an account? ': 'Schon registriert? ',
-  'Incorrect username or password':
-    'Falscher Benutzername oder falsches Passwort',
-  'Invalid password format': 'Ungültiges Passwort-Format',
-  'Invalid phone number format': `Ungültiges Telefonummern-Format. Benutze eine Nummer im Format: +12345678900`,
-  'Lost your code? ': 'Code verloren? ',
-  'New Password': 'Neues Passwort',
-  'No account? ': 'Kein Account? ',
-  or: 'oder',
   Password: 'Passwort',
-  'Password attempts exceeded':
-    'Die maximale Anzahl der fehlerhaften Anmeldeversuche wurde erreicht',
   'Phone Number': 'Telefonnummer',
   'Resend Code': 'Code erneut senden',
-  'Reset password': 'Passwort zurücksetzen',
   'Reset your password': 'Zurücksetzen des Passworts',
   'Send Code': 'Code senden',
   'Send code': 'Code senden',
   'Sign in': 'Anmelden',
   'Sign In': 'Anmelden',
   'Sign in to your account': 'Melden Sie sich mit Ihrem Account an',
-  'Sign Out': 'Abmelden',
-  'Sign Up': 'Registrieren',
   Skip: 'Überspringen',
   Submit: 'Abschicken',
-  'User already exists': 'Dieser Benutzer existiert bereits',
-  'User does not exist': 'Dieser Benutzer existiert nicht',
   Username: 'Benutzername',
-  'Username cannot be empty': 'Benutzername darf nicht leer sein',
   Verify: 'Verifizieren',
   'Verify Contact': 'Kontakt verifizieren',
-  'We Emailed You': 'Email wurde versendet',
-  'Your code is on the way. To log in, enter the code we emailed to':
-    'Ihr Bestätigungscode ist unterwegs. Um sich einzuloggen geben Sie den Code ein, den wir verschickt haben an',
-  'Your code is on the way. To log in, enter the code we texted to':
-    'Ihr Bestätigungscode ist unterwegs. Um sich einzuloggen geben Sie den Code ein, den wir verschickt haben an',
-  'It may take a minute to arrive.':
-    'Es könnte eine Minute dauern, bis der Code eintrifft.',
 
   // ********** missing strings
   Changing: 'Ändern von',
@@ -83,4 +52,37 @@ export const deDict: AuthenticatorDictionary = {
   'Sign In with Google': 'Mit Google anmelden',
   'Signing in': 'Wird angemeldet',
   Submitting: 'Wird gesendet',
+
+  // Additional translations added by customers
+  'An account with the given email already exists.':
+    'Ein Account mit dieser Email existiert bereits.',
+  'Confirm a Code': 'Code bestätigen',
+  'Confirm Sign In': 'Anmeldung bestätigen',
+  'Create account': 'Hier registrieren',
+  'Enter your password': 'Geben Sie Ihr Passwort ein',
+  'Forgot Password': 'Passwort vergessen',
+  'Have an account? ': 'Schon registriert? ',
+  'Incorrect username or password':
+    'Falscher Benutzername oder falsches Passwort',
+  'Invalid password format': 'Ungültiges Passwort-Format',
+  'Invalid phone number format': `Ungültiges Telefonummern-Format. Benutze eine Nummer im Format: +12345678900`,
+  'Lost your code? ': 'Code verloren? ',
+  'New Password': 'Neues Passwort',
+  'No account? ': 'Kein Account? ',
+  or: 'oder',
+  'Password attempts exceeded':
+    'Die maximale Anzahl der fehlerhaften Anmeldeversuche wurde erreicht',
+  'Reset password': 'Passwort zurücksetzen',
+  'Sign Out': 'Abmelden',
+  'Sign Up': 'Registrieren',
+  'User already exists': 'Dieser Benutzer existiert bereits',
+  'User does not exist': 'Dieser Benutzer existiert nicht',
+  'Username cannot be empty': 'Benutzername darf nicht leer sein',
+  'We Emailed You': 'Email wurde versendet',
+  'Your code is on the way. To log in, enter the code we emailed to':
+    'Ihr Bestätigungscode ist unterwegs. Um sich einzuloggen geben Sie den Code ein, den wir verschickt haben an',
+  'Your code is on the way. To log in, enter the code we texted to':
+    'Ihr Bestätigungscode ist unterwegs. Um sich einzuloggen geben Sie den Code ein, den wir verschickt haben an',
+  'It may take a minute to arrive.':
+    'Es könnte eine Minute dauern, bis der Code eintrifft.',
 };
