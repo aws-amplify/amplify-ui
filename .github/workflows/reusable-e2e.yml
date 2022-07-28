@@ -99,6 +99,8 @@ jobs:
           - angular
           - vue
           - react
+          - react-native
+          - react-core
 
     steps:
       - name: Checkout Amplify UI
@@ -137,6 +139,10 @@ jobs:
       - name: Build ui package
         if: ${{ steps.restore-ui-cache.outputs.cache-hit != 'true' && matrix.package != 'ui' }}
         run: yarn ui build
+
+      - name: Build react-core package
+        if: ${{ matrix.package == 'react' || matrix.package == 'react-native' }}
+        run: yarn react-core build
 
       - name: Build ${{ matrix.package }} package
         if: ${{ matrix.package != 'ui' }}
@@ -244,6 +250,10 @@ jobs:
       - name: Build @aws-amplify/ui package
         if: steps.restore-ui-cache.outputs.cache-hit != 'true'
         run: yarn ui build
+
+      - name: Build react-core package
+        if: ${{ matrix.package == 'react' }}
+        run: yarn react-core build
 
       - name: Build ${{ matrix.package }} package
         if: steps.restore-package-cache.outputs.cache-hit != 'true'
