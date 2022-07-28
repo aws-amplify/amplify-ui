@@ -2,7 +2,6 @@ import { AuthenticatorDictionary } from './types';
 
 export const plDict: AuthenticatorDictionary = {
   'Back to Sign In': 'Powrót do logowania',
-  Birthdate: 'Data urodzenia',
   'Change Password': 'Zmień hasło',
   Changing: 'Zmienianie',
   Code: 'Kod',
@@ -19,20 +18,13 @@ export const plDict: AuthenticatorDictionary = {
   Email: 'E-mail',
   'Enter your code': 'Wprowadź swój kod',
   'Enter your username': 'Wprowadź swoją nazwę użytkownika',
-  'Family Name': 'Nazwisko',
-  'Given Name': 'Pierwsze imię',
   'Forgot your password?': 'Zapomniałeś hasła? ',
   'Hide password': 'Ukryj hasło',
   Loading: 'Ładowanie',
   Username: 'Nazwa użytkownika',
-  'Middle Name': 'Drugie imię',
-  Name: 'Imię i nazwisko',
-  Nickname: 'Pseudonim',
   'New password': 'Nowe hasło',
   Password: 'Hasło',
   'Phone Number': 'Numer telefonu',
-  'Preferred Username': 'Preferowana nazwa użytkownika',
-  Profile: 'Profil',
   'Resend Code': 'Wyślij kod ponownie',
   'Reset your password': 'Zresetuj swoje hasło',
   'Send Code': 'Zresetuj hasło',
@@ -56,11 +48,19 @@ export const plDict: AuthenticatorDictionary = {
   'Account recovery requires verified contact information':
     'Odzyskanie konta wymaga zweryfikowanych danych kontaktowych',
   Verify: 'Zweryfikuj',
-  Website: 'Strona internetowa',
 
   // ******* missing strings
   'Enter your phone number': 'Wpisz swój numer telefonu',
   'Enter your email': 'Wpisz swój adres e-mail',
 
   // Additional translations provided by customers
+  Birthdate: 'Data urodzenia',
+  'Family Name': 'Nazwisko',
+  'Given Name': 'Pierwsze imię',
+  'Middle Name': 'Drugie imię',
+  Name: 'Imię i nazwisko',
+  Nickname: 'Pseudonim',
+  'Preferred Username': 'Preferowana nazwa użytkownika',
+  Profile: 'Profil',
+  Website: 'Strona internetowa',
 };
