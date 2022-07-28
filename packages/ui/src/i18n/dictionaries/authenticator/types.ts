@@ -4,11 +4,11 @@ type AuthenticatorText =
   | 'Change Password'
   | 'Changing'
   | 'Code'
-  | 'Confirm'
   | 'Confirm Password'
   | 'Confirm Sign Up'
   | 'Confirm SMS Code'
   | 'Confirm TOTP Code'
+  | 'Confirm'
   | 'Confirmation Code'
   | 'Confirming'
   | 'Create a new account'
@@ -33,21 +33,21 @@ type AuthenticatorText =
   | 'Sending'
   | 'Setup TOTP'
   | 'Show password'
-  | 'Sign in'
-  | 'Sign In'
   | 'Sign in to your account'
   | 'Sign In with Amazon'
   | 'Sign In with Apple'
   | 'Sign In with Facebook'
   | 'Sign In with Google'
+  | 'Sign in'
+  | 'Sign In'
   | 'Signing in'
   | 'Skip'
   | 'Submit'
   | 'Submitting'
   | 'Username'
-  | 'Verify'
-  | 'Verify Contact';
+  | 'Verify Contact'
+  | 'Verify';
 
 // Including Record<string, string> to handle additional translations that customers have added
-export type AuthenticatorDictionary = Record<AuthenticatorText, string>;
-//  & Record<string, string>;
+export type AuthenticatorDictionary = Record<AuthenticatorText, string> &
+  Record<string, string>;
