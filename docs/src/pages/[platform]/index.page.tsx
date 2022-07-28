@@ -4,7 +4,7 @@ import { debounce } from 'lodash';
 import { Footer } from '@/components/Layout/Footer';
 import { useCustomRouter } from '@/components/useCustomRouter';
 import { HeroSection } from '@/components/home/sections';
-import { isDev } from '@/utils/isDev';
+import { isReactNativeEnabled } from '@/utils/featureFlags';
 
 import ReactHomePage from './index.react';
 import ReactNativeHomePage from './index.reactnative';
@@ -49,7 +49,7 @@ const HomePage = ({ colorMode }) => {
       pageContent = <FlutterHomePage colorMode={colorMode} />;
       break;
     case 'react native':
-      pageContent = isDev ? (
+      pageContent = isReactNativeEnabled ? (
         <ReactNativeHomePage colorMode={colorMode} />
       ) : (
         <ReactHomePage colorMode={colorMode} />
