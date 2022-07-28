@@ -22,3 +22,7 @@ import { Fragment } from '@/components/Fragment';
 <Fragment platforms={['web']} useCommonWebContent>
   {({ platform }) => import(`./fonts.${platform}.mdx`)}
 </Fragment>
+
+<Fragment>
+  {({ platform }) => import(`./nextSteps.${platform}.mdx`)}
+</Fragment>

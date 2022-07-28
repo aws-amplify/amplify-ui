@@ -1,23 +1,25 @@
 import { Tabs, TabItem } from '@aws-amplify/ui-react';
 import { Example, ExampleCode } from '@/components/Example';
 import { InstallScripts } from '@/components/InstallScripts.tsx';
+import { CardLink, CardLinkGroup } from '@/components/CardLink';
+import { ReactIcon } from '@/components/Icons';
+import { SiNextdotjs } from 'react-icons/si';
+import { MdOutlineWidgets, MdOutlineAutoAwesome } from 'react-icons/md';
 import {
   ComponentExampleDemo,
   ReactExampleDemo,
   ThemeExampleDemo,
 } from './examples';
 
-## React and Amplify UI
+Amplify UI is designed to integrate seamlessly with the React library so you can get started in no time. 
 
-Amplify UI is designed to integrate seamlessly with the React framework so you can get started in no time. 
-
-### Installation
+## Installation
 
 If you haven't already, install `@aws-amplify/ui-react` with [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/):
 
 <InstallScripts framework="react" />
 
-### Quick start
+## Quick start
 
 Here's all you need to get up and running:
 
@@ -31,7 +33,22 @@ Copy/paste the code above into your React app, start the app, and look at that l
 
 <ReactExampleDemo />
 
-### Components
+<CardLinkGroup id="frameworkGuides" headingLevel="3" title="Looking for framework specific guides?">
+  <CardLink 
+    title="Create React App"
+    desc="Learn how to use Amplify UI components with CRA"
+    href="/react/getting-started/usage/create-react-app"
+    icon={<ReactIcon />}
+  />
+  <CardLink 
+    title="Next.js"
+    desc="Learn how to use Amplify UI components with Next.js"
+    href="/react/getting-started/usage/create-react-app"
+    icon={<SiNextdotjs />}
+  />
+</CardLinkGroup>
+
+## Components
 
 You can use all of Amplify UI's primitive components (e.g., `Button`, `Tabs`, `Flex`) right out-of-the-box. These are the same components we use to build our connected components such as the [Authenticator](/react/connected-components/authenticator). Please refer to each component's [documentation](/react/components/button) to see how they should be imported, configured and styled.
 
@@ -44,7 +61,7 @@ You can use all of Amplify UI's primitive components (e.g., `Button`, `Tabs`, `F
   </ExampleCode>
 </Example>
 
-### Theming
+## Theming
 
 Amplify UI ships with a default [theme](/react/theming) that you can customize to match the look and feel of your project. Remember to load the default styling by importing our CSS at the entry-point to your application (e.g., `src/App.js`).
 
@@ -62,3 +79,19 @@ To learn how to customize the appearance of all components in your application w
 ```
   </ExampleCode>
 </Example>
+
+<CardLinkGroup id="nextSteps" title="Next Steps">
+  <CardLink 
+    title="Browse components"
+    desc="Amplify UI has over 40 components to build with"
+    href="/react/getting-started/usage/create-react-app"
+    icon={<MdOutlineWidgets />}
+  />
+  <CardLink 
+    title="Theming"
+    desc="Learn how to customize the style of your application"
+    href="/react/getting-started/usage/create-react-app"
+    icon={<MdOutlineAutoAwesome />}
+  />
+  
+</CardLinkGroup>
