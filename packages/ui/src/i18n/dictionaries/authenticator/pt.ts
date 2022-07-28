@@ -1,4 +1,6 @@
-export const ptDict = {
+import { AuthDict } from './types';
+
+export const ptDict: AuthDict = {
   'Back to Sign In': 'Voltar para Entrar',
   'Change Password': 'Mudar senha',
   Changing: 'Mudando',

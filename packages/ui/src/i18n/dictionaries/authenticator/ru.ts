@@ -1,4 +1,6 @@
-export const ruDict = {
+import { AuthDict } from './types';
+
+export const ruDict: AuthDict = {
   'Account recovery requires verified contact information':
     'Восстановление учетной записи требует проверки контактной информации',
   'Back to Sign In': 'Назад, чтобы войти',

@@ -1,4 +1,6 @@
-export const itDict = {
+import { AuthDict } from './types';
+
+export const itDict: AuthDict = {
   'Account recovery requires verified contact information':
     "Il ripristino dell'account richiede informazioni di contatto verificate",
   'An account with the given email already exists.':

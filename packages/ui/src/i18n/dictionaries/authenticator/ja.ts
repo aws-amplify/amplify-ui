@@ -1,4 +1,6 @@
-export const jaDict = {
+import { AuthDict } from './types';
+
+export const jaDict: AuthDict = {
   'Account recovery requires verified contact information':
     'アカウントの復旧には確認済みの連絡先が必要です',
   'An account with the given email already exists.':

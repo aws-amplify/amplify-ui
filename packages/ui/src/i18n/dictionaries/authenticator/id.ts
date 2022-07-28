@@ -1,4 +1,6 @@
-export const idDict = {
+import { AuthDict } from './types';
+
+export const idDict: AuthDict = {
   'Account recovery requires verified contact information':
     'Pemulihan akun memerlukan informasi kontak terverifikasi',
   'An account with the given email already exists.':

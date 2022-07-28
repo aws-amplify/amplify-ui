@@ -1,4 +1,6 @@
-export const nlDict = {
+import { AuthDict } from './types';
+
+export const nlDict: AuthDict = {
   'Back to Sign In': 'Terug naar inloggen',
   'Change Password': 'Wachtwoord wijzigen',
   Changing: 'Wordt aangepast',

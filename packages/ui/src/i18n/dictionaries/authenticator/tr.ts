@@ -1,4 +1,6 @@
-export const trDict = {
+import { AuthDict } from './types';
+
+export const trDict: AuthDict = {
   'Account recovery requires verified contact information':
     'Hesap kurtarma, doğrulanmış iletişim bilgilerini gerektirir',
   'An account with the given email already exists.':

@@ -1,4 +1,6 @@
-export const plDict = {
+import { AuthDict } from './types';
+
+export const plDict: AuthDict = {
   'Back to Sign In': 'Powrót do logowania',
   Birthdate: 'Data urodzenia',
   'Change Password': 'Zmień hasło',
