@@ -5,6 +5,7 @@ import { Component, HostBinding, Input, OnInit } from '@angular/core';
   templateUrl: './button.component.html',
 })
 export class ButtonComponent implements OnInit {
+  title = 'Test Check';
   @Input() type: 'submit' | 'button' = 'button';
   @Input() fullWidth: boolean | string = false;
   @Input() isDisabled: boolean | string = false;
