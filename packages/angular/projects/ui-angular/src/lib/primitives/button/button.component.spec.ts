@@ -6,7 +6,7 @@ describe('AppComponent', () => {
   beforeEach(() => {
     fixture = new ButtonComponent();
   });
-  it('App component test', () => {
-    expect(fixture.title).toEqual('Test Check');
+  it('Default type test.', () => {
+    expect(fixture.type).toEqual('button');
   });
 });
