@@ -86,4 +86,16 @@ export const idDict: AuthDict = {
   'Your code is on the way. To log in, enter the code we texted to':
     'Kode anda dalam pengiriman. Untuk masuk, masukkan kode yang kami tuliskan ke',
   'Your passwords must match': 'Kata sandi harus sama',
+
+  // ********* missing strings
+  Changing: 'Changing',
+  'Confirm Sign Up': 'Confirm Sign Up',
+  'Confirm SMS Code': 'Confirm SMS Code',
+  'Confirm TOTP Code': 'Confirm TOTP Code',
+  'Hide password': 'Hide password',
+  Loading: 'Loading',
+  'Reset your Password': 'Reset your Password',
+  'Setup TOTP': 'Setup TOTP',
+  'Show password': 'Show password',
+  'Sign In with Apple': 'Sign In with Apple',
 };
