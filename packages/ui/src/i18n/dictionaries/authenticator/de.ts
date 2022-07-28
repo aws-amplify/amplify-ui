@@ -1,4 +1,6 @@
-export const deDict = {
+import { AuthDict } from './types';
+
+export const deDict: AuthDict = {
   'Account recovery requires verified contact information':
     'Zurücksetzen des Account benötigt einen verifizierten Account',
   'An account with the given email already exists.':
@@ -65,4 +67,20 @@ export const deDict = {
     'Ihr Bestätigungscode ist unterwegs. Um sich einzuloggen geben Sie den Code ein, den wir verschickt haben an',
   'It may take a minute to arrive.':
     'Es könnte eine Minute dauern, bis der Code eintrifft.',
+
+  // ********** missing types
+  Changing: 'Changing',
+  Confirming: 'Confirming',
+  Loading: 'Loading',
+  'New password': 'New password',
+  'Reset your Password': 'Reset your Password',
+  Sending: 'Sending',
+  'Setup TOTP': 'Setup TOTP',
+  'Show password': 'Show password',
+  'Sign In with Amazon': 'Sign In with Amazon',
+  'Sign In with Apple': 'Sign In with Apple',
+  'Sign In with Facebook': 'Sign In with Facebook',
+  'Sign In with Google': 'Sign In with Google',
+  'Signing in': 'Signing in',
+  Submitting: 'Submitting',
 };
