@@ -39,7 +39,7 @@ interface BaseOverride {
  * ```
  */
 interface BreakpointOverride extends BaseOverride {
-  breakpoint: keyof Breakpoints['values'];
+  breakpoint: keyof Breakpoints['values'] | (string & {});
 }
 
 /**
@@ -86,7 +86,7 @@ type ColorMode = 'light' | 'dark';
  * ```
  */
 export interface ColorModeOverride extends BaseOverride {
-  colorMode: ColorMode;
+  colorMode: ColorMode | (string & {});
 }
 
 /**
