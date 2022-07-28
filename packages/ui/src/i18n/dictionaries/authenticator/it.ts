@@ -53,7 +53,7 @@ export const itDict: AuthenticatorDictionary = {
   'Signing in': 'Accesso in corso',
   Submitting: 'Invio in corso',
 
-  // Additional translations added by customers
+  // Additional translations provided by customers
   'An account with the given email already exists.':
     "Questa email è già utilizzata da un'altro account.",
   'Confirm a Code': 'Conferma un codice',

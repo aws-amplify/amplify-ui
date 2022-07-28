@@ -53,7 +53,7 @@ export const esDict: AuthenticatorDictionary = {
   'Send code': 'Enviar código',
   Submitting: 'Enviando',
 
-  // Additional translations added by customers
+  // Additional translations provided by customers
   'An account with the given email already exists.':
     'Ya existe una cuenta con el correo ingresado.',
   'Confirm a Code': 'Confirmar un código',

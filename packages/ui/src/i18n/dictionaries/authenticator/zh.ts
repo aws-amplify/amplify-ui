@@ -65,4 +65,6 @@ export const zhDict: AuthenticatorDictionary = {
   'Create a new account': '创建新账户',
   'Signing in': '正在登录',
   Submitting: '正在提交',
+
+  // Additional translations provided by customers
 };

@@ -53,7 +53,7 @@ export const jaDict: AuthenticatorDictionary = {
   'Signing in': 'サインイン中',
   Submitting: '送信中',
 
-  // Additional translations added by customers
+  // Additional translations provided by customers
   'An account with the given email already exists.':
     '入力されたメールアドレスのアカウントが既に存在します',
   'Confirm a Code': 'コードを確認',

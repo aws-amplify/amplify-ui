@@ -53,7 +53,7 @@ export const frDict: AuthenticatorDictionary = {
   'Sign In with Apple': 'Se connecter avec Apple',
   Submitting: 'Envoi en cours',
 
-  // Additional translations added by customers
+  // Additional translations provided by customers
   'An account with the given email already exists.':
     'Un utilisateur avec cette adresse email existe déjà.',
   Change: 'Modifier',

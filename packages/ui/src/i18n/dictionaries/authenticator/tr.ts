@@ -66,4 +66,6 @@ export const trDict: AuthenticatorDictionary = {
   'Username cannot be empty': 'Kullanıcı adı boş olamaz',
   'Verify Contact': 'Kişiyi Doğrula',
   Verify: 'Doğrula',
+
+  // Additional translations provided by customers
 };

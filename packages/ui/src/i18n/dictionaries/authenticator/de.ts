@@ -53,7 +53,7 @@ export const deDict: AuthenticatorDictionary = {
   'Signing in': 'Wird angemeldet',
   Submitting: 'Wird gesendet',
 
-  // Additional translations added by customers
+  // Additional translations provided by customers
   'An account with the given email already exists.':
     'Ein Account mit dieser Email existiert bereits.',
   'Confirm a Code': 'Code bestätigen',

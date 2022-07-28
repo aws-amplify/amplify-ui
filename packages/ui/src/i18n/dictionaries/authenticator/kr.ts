@@ -52,7 +52,7 @@ export const krDict: AuthenticatorDictionary = {
   'Enter your email': '이메일 입력',
   'Send Code': '코드 전송',
 
-  // Additional translations added by customers
+  // Additional translations provided by customers
   Birthdate: '생년월일',
   'Family Name': '성',
   'Given Name': '이름',

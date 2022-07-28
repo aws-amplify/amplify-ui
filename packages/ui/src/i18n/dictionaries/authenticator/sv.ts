@@ -76,4 +76,6 @@ export const svDict: AuthenticatorDictionary = {
   'Sign In with Google': 'Logga in med Google',
   'Signing in': 'Loggar in',
   Submitting: 'Skickar in',
+
+  // Additional translations provided by customers
 };

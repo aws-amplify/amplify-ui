@@ -53,7 +53,7 @@ export const idDict: AuthenticatorDictionary = {
   'Show password': 'Tampilkan kata sandi',
   'Sign In with Apple': 'Masuk dengan Apple',
 
-  // Additional translations added by customers
+  // Additional translations provided by customers
   'An account with the given email already exists.':
     'Akun dengan email tersebut sudah terdaftar.',
   'Attempt limit exceeded, please try after some time.':
