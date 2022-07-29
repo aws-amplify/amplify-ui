@@ -100,7 +100,7 @@ export const LivenessCameraModule = (
         {!isCameraReady && centeredLoader}
 
         <View
-          as="div"
+          as="canvas"
           ref={freshnessColorRef}
           height={'100vh'}
           width={'100vw'}
@@ -108,6 +108,7 @@ export const LivenessCameraModule = (
           top={0}
           left={0}
           style={{ pointerEvents: 'none', zIndex: 1 }}
+          hidden
         />
 
         <video
@@ -133,6 +134,7 @@ export const LivenessCameraModule = (
               background: 'linear-gradient(transparent 70%, white 100%)',
             },
           })}
+          style={{ zIndex: 2 }}
         />
 
         {isRecording && (

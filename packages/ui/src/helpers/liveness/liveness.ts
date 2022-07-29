@@ -337,3 +337,138 @@ export const LivenessErrorStateStringMap: Record<LivenessErrorState, string> = {
   ),
   [LivenessErrorState.TIMEOUT]: translate<string>('Timeout!'),
 };
+
+export const ColorArr = [
+  'rgb(0, 0, 0)', // black
+  'rgb(255, 255, 255)', // white
+  'rgb(255, 0, 0)', // red
+  'rgb(255, 255, 0)', // yellow
+  'rgb(0, 255, 0)', // lime
+  'rgb(0, 255, 255)', // cyan
+  'rgb(0, 0, 255)', // blue,
+  'rgb(255, 0, 255)', // violet
+];
+
+export function getShortCp2Permutations(colorArr, colorNum = 12) {
+  const randomColorIndices = [0];
+
+  let prevColorIndex = 0;
+  for (let i = 0; i < colorNum - 2; i++) {
+    let randomIndex = Math.floor(Math.random() * (colorArr.length - 1) + 1);
+    while (prevColorIndex === randomIndex) {
+      randomIndex = Math.floor(Math.random() * (colorArr.length - 1) + 1);
+    }
+    randomColorIndices.push(randomIndex);
+    prevColorIndex = randomIndex;
+  }
+  randomColorIndices.splice(6, 0, 0);
+
+  const permutations = [];
+  for (let i = 0; i < colorNum - 1; i++) {
+    permutations.push([randomColorIndices[i], randomColorIndices[i]]);
+    permutations.push([randomColorIndices[i], randomColorIndices[i + 1]]);
+  }
+  permutations.push([randomColorIndices[11], randomColorIndices[11]]);
+
+  return permutations;
+}
+
+interface FillOverlayCanvasFractionalInput {
+  overlayCanvas: HTMLCanvasElement;
+  prevColor: string;
+  nextColor: string;
+  ovalCanvas: HTMLCanvasElement;
+  ovalDetails: any;
+  heightFraction: number;
+}
+
+export function fillOverlayCanvasFractional({
+  overlayCanvas,
+  prevColor,
+  nextColor,
+  ovalCanvas,
+  ovalDetails,
+  heightFraction,
+}: FillOverlayCanvasFractionalInput) {
+  console.log({
+    overlayCanvas,
+    prevColor,
+    nextColor,
+    ovalCanvas,
+    ovalDetails,
+    heightFraction,
+  });
+  const boudingRect = ovalCanvas.getBoundingClientRect();
+  const ovalCanvasX = boudingRect.x;
+  const ovalCanvasY = boudingRect.y;
+
+  const { centerX, centerY, width, height } = ovalDetails;
+
+  const updatedCenterX = centerX + ovalCanvasX;
+  const updatedCenterY = centerY + ovalCanvasY;
+
+  const canvasWidth = overlayCanvas.width;
+  const canvasHeight = overlayCanvas.height;
+  const ctx = overlayCanvas.getContext('2d');
+
+  // Because the canvas is set to to 100% we need to manually set the height for the canvas to use pixel values
+  ctx.canvas.width = window.innerWidth;
+  ctx.canvas.height = window.innerHeight;
+
+  ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+  // fill the complete canvas
+  fillFractionalContext(ctx, prevColor, nextColor, heightFraction);
+
+  // save the current state
+  ctx.save();
+
+  // draw the rectangle path and fill it
+  ctx.beginPath();
+  ctx.rect(ovalCanvasX, ovalCanvasY, ovalCanvas.width, ovalCanvas.height);
+  ctx.clip();
+
+  ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+  ctx.globalAlpha = 0.9;
+  fillFractionalContext(ctx, prevColor, nextColor, heightFraction);
+
+  // // draw the oval path and fill it
+  ctx.beginPath();
+  ctx.ellipse(
+    updatedCenterX,
+    updatedCenterY,
+    width / 2,
+    height / 2,
+    0,
+    0,
+    2 * Math.PI
+  );
+  ctx.clip();
+
+  ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+  ctx.globalAlpha = 0.75;
+  fillFractionalContext(ctx, prevColor, nextColor, heightFraction);
+
+  // restore the state
+  ctx.restore();
+}
+
+function fillFractionalContext(ctx, prevColor, nextColor, fraction) {
+  const canvasWidth = ctx.canvas.width;
+  const canvasHeight = ctx.canvas.height;
+
+  ctx.fillStyle = nextColor;
+  ctx.fillRect(0, 0, canvasWidth, canvasHeight * fraction);
+
+  if (fraction !== 1) {
+    ctx.fillStyle = prevColor;
+    ctx.fillRect(
+      0,
+      canvasHeight * fraction,
+      canvasWidth,
+      canvasHeight * (1 - fraction)
+    );
+  }
+}

@@ -1,6 +1,11 @@
 import { createMachine, assign, actions } from 'xstate';
 import adapter from 'webrtc-adapter';
 import { LivenessPredictionsProvider } from '../../helpers/liveness/liveness-predictions-provider';
+import { fillOverlayCanvasFractional } from '../../helpers/liveness/liveness';
+import {
+  ColorArr,
+  getShortCp2Permutations,
+} from '../../helpers/liveness/liveness';
 
 import {
   Face,
@@ -656,25 +661,58 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       async flashColors(context) {
         const {
           freshnessColorAssociatedParams: { freshnessColorEl },
+          ovalAssociatedParams: { ovalDetails },
+          videoAssociatedParams: { canvasEl },
         } = context;
 
         // flash colors on canvas
-        freshnessColorEl.style.backgroundColor = 'red';
-        freshnessColorFlashedTimestamp = Date.now();
-        await new Promise((resolve) =>
-          setTimeout(() => {
-            freshnessColorEl.style.backgroundColor = 'unset';
+        freshnessColorEl.hidden = false;
 
-            recordLivenessAnalyticsEvent(context.flowProps, {
-              event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
-              attributes: { action: 'FlashFreshnessColor', color: 'red' },
-              metrics: {
-                duration: Date.now() - freshnessColorFlashedTimestamp,
-              },
-            });
-            resolve(true);
-          }, 500)
-        );
+        const recordStartTimestamp = Date.now();
+        return new Promise((resolve) => {
+          const permutationsArr = getShortCp2Permutations(ColorArr);
+
+          let curCount = 0;
+          const IndLightCount = 30;
+          const totalCount = IndLightCount * ColorArr.length;
+          const lightTimestamps = [];
+
+          const timerInterval = setInterval(() => {
+            const colorInd = Math.floor(curCount / IndLightCount);
+
+            if (curCount < totalCount && colorInd < permutationsArr.length) {
+              const [prevColorIdx, currColorIdx] = permutationsArr[colorInd];
+              const hp = (curCount % IndLightCount) / IndLightCount;
+
+              fillOverlayCanvasFractional({
+                overlayCanvas: freshnessColorEl,
+                prevColor: ColorArr[prevColorIdx],
+                nextColor: ColorArr[currColorIdx],
+                ovalCanvas: canvasEl,
+                ovalDetails,
+                heightFraction: hp,
+              });
+
+              if (curCount % IndLightCount === 0) {
+                const ts = Date.now() - recordStartTimestamp;
+                const data = {
+                  timestamp: ts,
+                  light: {
+                    prev_color: ColorArr[prevColorIdx],
+                    curr_color: ColorArr[currColorIdx],
+                  },
+                };
+                lightTimestamps.push(data);
+              }
+
+              curCount += 1;
+            } else {
+              freshnessColorEl.hidden = true;
+              clearInterval(timerInterval);
+              resolve(lightTimestamps);
+            }
+          }, 10);
+        });
       },
       async putLivenessVideo(context) {
         const startPutLivenessVideoTime = Date.now();
