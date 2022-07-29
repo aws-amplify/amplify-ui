@@ -43,7 +43,7 @@ export const AlertIcon: React.FC<AlertIconProps> = ({
     case 'success':
       return (
         <IconCheckCircle
-          aria-hidden="true"
+          aria-hidden={ariaHidden}
           className={ComponentClassNames.AlertIcon}
         />
       );
