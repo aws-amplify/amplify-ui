@@ -29,7 +29,7 @@ export const itDict: AuthenticatorDictionary = {
   Password: 'Password',
   'Phone Number': 'Numero di telefono',
   'Resend Code': 'Rispedisci codice',
-  'Reset your Password': 'Reimposta la password',
+  'Reset your Password': 'Reimposta la tua Password',
   'Reset your password': 'Reimposta la tua password',
   'Send code': 'Invia codice',
   'Send Code': 'Invia codice',
