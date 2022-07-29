@@ -15,8 +15,6 @@
     "@stencil/core",
     "nanoid",
     "qrcode",
-    "xstate",
-    "@angular-builders/jest",
-    "@testing-library/angular"
+    "xstate"
   ]
 }
