@@ -18,18 +18,9 @@ import {
 
 import { useCustomRouter } from '@/components/useCustomRouter';
 import { CardLink } from '@/components/CardLink';
-import { FRAMEWORKS } from '@/data/frameworks';
+import { FRAMEWORKS, FRAMEWORK_INSTALL_SCRIPTS } from '@/data/frameworks';
 import { FrameworkLogo } from '@/components/Logo';
 import { TerminalCommand } from '@/components/InstallScripts';
-
-const INSTALL_SCRIPTS = {
-  react: `npm i @aws-amplify/ui-react aws-amplify`,
-  vue: `npm i @aws-amplify/ui-vue aws-amplify`,
-  angular: `npm i @aws-amplify/ui-angular aws-amplify`,
-  flutter: 'flutter pub add amplify_authenticator',
-  // add other deps here
-  'react native': `npm i @aws-amplify/ui-react-native aws-amplify`,
-};
 
 export const HeroSection = () => {
   const {
@@ -41,7 +32,7 @@ export const HeroSection = () => {
     large: true,
   });
 
-  const frameworkInstallScript = INSTALL_SCRIPTS[platform.toString()];
+  const frameworkInstallScript = FRAMEWORK_INSTALL_SCRIPTS[platform.toString()];
 
   return (
     <View as="section" className="docs-hero">

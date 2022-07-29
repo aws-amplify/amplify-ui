@@ -48,7 +48,7 @@ const HomePage = ({ colorMode }) => {
     case 'flutter':
       pageContent = <FlutterHomePage colorMode={colorMode} />;
       break;
-    case 'react native':
+    case 'react-native':
       pageContent = isReactNativeEnabled ? (
         <ReactNativeHomePage colorMode={colorMode} />
       ) : (

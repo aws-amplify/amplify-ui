@@ -2,7 +2,7 @@ import {
   createCanvas,
   Image,
   loadImage,
-  NodeCanvasRenderingContext2D,
+  CanvasRenderingContext2D,
   registerFont,
 } from 'canvas';
 import fs from 'fs';
@@ -16,6 +16,7 @@ import {
   PREVIEW_TEXT_COLOR,
   PREVIEW_WIDTH,
 } from '../src/data/preview';
+import { isReactNativeEnabled } from '../src/utils/featureFlags';
 import { getContentPaths } from '../src/utils/getContentPaths';
 import { getPageFromSlug } from '../src/utils/getPageFromSlug';
 import { getImagePath } from '../src/utils/previews';
@@ -51,7 +52,7 @@ type DrawTextOptions = {
 };
 
 export const drawText = (
-  context: NodeCanvasRenderingContext2D,
+  context: CanvasRenderingContext2D,
   text: string,
   options: DrawTextOptions
 ) => {
@@ -203,6 +204,11 @@ const main = async () => {
       FRAMEWORKS.forEach(async (framework) => {
         const asHref = filepath.replace('[platform]', framework);
         const asSlug = slug.replace('[platform]', framework);
+
+        // do not generate social preview for React Native until we have an .png
+        if (isReactNativeEnabled && framework === 'reactNative') {
+          return;
+        }
         writeSocialPreview({ asHref, asSlug, allPaths, frontmatter });
       });
     } else {
