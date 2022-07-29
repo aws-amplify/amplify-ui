@@ -21,6 +21,7 @@ import { flex, FlexTokens } from './flex';
 import { heading, HeadingTokens } from './heading';
 import { icon, IconTokens } from './icon';
 import { image, ImageTokens } from './image';
+import { inappmessaging, InAppMessagingTokens } from './inAppMessaging';
 import { link, LinkTokens } from './link';
 import { loader, LoaderTokens } from './loader';
 import { menu, MenuTokens } from './menu';
@@ -69,6 +70,7 @@ export interface ComponentTokens {
   heading: HeadingTokens;
   icon: IconTokens;
   image: ImageTokens;
+  inappmessaging: InAppMessagingTokens;
   link: LinkTokens;
   loader: LoaderTokens;
   menu: MenuTokens;
@@ -115,6 +117,7 @@ export const components: ComponentTokens = {
   heading,
   icon,
   image,
+  inappmessaging,
   link,
   loader,
   menu,

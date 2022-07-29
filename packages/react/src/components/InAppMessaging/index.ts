@@ -1,4 +1,3 @@
-export { MessageLayout } from './MessageLayout';
 export {
   InAppMessageDisplay,
   MessageComponents,

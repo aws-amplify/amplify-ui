@@ -16,6 +16,7 @@ import {
   closeButtonClass,
   CONTENT_TEST_ID,
   contentClass,
+  headerClass,
   IMAGE_CONTAINER_TEST_ID,
   imageContainerClass,
   MESSAGE_LAYOUT_TEST_ID,
@@ -89,7 +90,14 @@ export function MessageLayout({
           data-testid={TEXT_CONTAINER_TEST_ID}
         >
           {header?.content && (
-            <Heading style={styles.header}>{header.content}</Heading>
+            <Heading
+              className={headerClass}
+              isTruncated
+              level={2}
+              style={styles.header}
+            >
+              {header.content}
+            </Heading>
           )}
           {body?.content && <Text style={styles.body}>{body.content}</Text>}
         </Flex>

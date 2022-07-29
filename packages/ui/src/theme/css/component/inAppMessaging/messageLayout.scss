@@ -49,6 +49,10 @@
       justify-content: center;
     }
   }
+  &__header {
+    font-size: var(--amplify-components-inappmessaging-header-font-size);
+    font-weight: var(--amplify-components-inappmessaging-header-font-weight);
+  }
   &__image-container {
     align-items: center;
     display: flex;
@@ -78,11 +82,6 @@
     }
     &--vertical {
       flex-grow: 0;
-    }
-    h6 {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
     }
   }
 }

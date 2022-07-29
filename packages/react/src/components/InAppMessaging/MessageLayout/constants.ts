@@ -5,6 +5,7 @@ export const blockClass = 'amplify-inappmessaging-messagelayout';
 export const buttonClass = `${blockClass}__button`;
 export const closeButtonClass = `${blockClass}__close-button`;
 export const contentClass = `${blockClass}__content`;
+export const headerClass = `${blockClass}__header`;
 export const imageContainerClass = `${blockClass}__image-container`;
 export const textContainerClass = `${blockClass}__text-container`;
 
