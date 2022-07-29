@@ -1,4 +1,4 @@
-import { assign, createMachine, forwardTo, spawn } from 'xstate';
+import { assign, createMachine, forwardTo, send, spawn } from 'xstate';
 import { choose } from 'xstate/lib/actions';
 
 import {
@@ -88,7 +88,17 @@ export function createAuthenticatorMachine() {
             },
             runActor: {
               entry: 'clearActorDoneData',
-              exit: 'stopSignInActor',
+              exit: send(
+                { type: 'STOP' },
+                { to: (context) => context.actorRef }
+              ),
+            },
+            stopActor: {
+              entry: 'stopSignInActor',
+              states: {
+                toSignIn: { always: '#authenticator.signIn' },
+                toResetPassword: { always: '#authenticator.signIn' },
+              },
             },
           },
           on: {

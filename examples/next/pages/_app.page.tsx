@@ -7,6 +7,13 @@ import { Authenticator, AmplifyProvider } from '@aws-amplify/ui-react';
 import { useEffect } from 'react';
 import { MapProvider, useMap } from 'react-map-gl';
 
+import { inspect } from '@xstate/inspect';
+if (typeof window !== 'undefined') {
+  inspect({
+    iframe: false,
+  });
+}
+
 if (typeof window !== 'undefined') {
   window['Amplify'] = Amplify;
   window['Hub'] = Hub;

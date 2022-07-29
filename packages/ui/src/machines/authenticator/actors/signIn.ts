@@ -431,6 +431,10 @@ export function signInActor({ services }: SignInMachineOptions) {
             };
           },
         },
+        stopped: { type: 'final' },
+      },
+      on: {
+        STOP: 'stopped',
       },
     },
     {
