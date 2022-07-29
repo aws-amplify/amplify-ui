@@ -11,14 +11,7 @@ describe('Icon component', () => {
   19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z`;
 
   it('should render <svg> with default attributes', async () => {
-    render(
-      <Icon
-        id={iconTestId}
-        testId={iconTestId}
-        pathData={pathData}
-        ariaLabel="Search"
-      />
-    );
+    render(<Icon id={iconTestId} testId={iconTestId} pathData={pathData} />);
 
     const icon = await screen.findByTestId(iconTestId);
     expect(icon.id).toBe(iconTestId);
@@ -29,7 +22,7 @@ describe('Icon component', () => {
   });
 
   it('should render <path> with provided path data', async () => {
-    render(<Icon testId={iconTestId} pathData={pathData} ariaLabel="Search" />);
+    render(<Icon testId={iconTestId} pathData={pathData} />);
 
     const icon = await screen.findByTestId(iconTestId);
     expect(icon.childNodes.length).toBe(1);
@@ -44,7 +37,6 @@ describe('Icon component', () => {
         testId={iconTestId}
         pathData={pathData}
         className="my-icon-component"
-        ariaLabel="Search"
       />
     );
 
@@ -54,17 +46,17 @@ describe('Icon component', () => {
     expect(icon.classList[1]).toContain('my-icon-component');
   });
 
+  it('should render an ariaLabel for Icon', async () => {
+    render(<Icon testId={iconTestId} pathData={pathData} ariaLabel="Search" />);
+
+    const icon = await screen.findByTestId(iconTestId);
+    expect(icon.getAttribute('aria-label')).toBe('Search');
+  });
+
   it('should forward ref to DOM element', async () => {
     const ref = React.createRef<SVGSVGElement>();
 
-    render(
-      <Icon
-        ref={ref}
-        testId={iconTestId}
-        pathData={pathData}
-        ariaLabel="Search"
-      />
-    );
+    render(<Icon ref={ref} testId={iconTestId} pathData={pathData} />);
 
     await screen.findByTestId(iconTestId);
     expect(ref.current.nodeName).toBe('svg');
@@ -76,7 +68,6 @@ describe('Icon component', () => {
         testId={iconTestId}
         pathData={pathData}
         viewBox={{ minX: 0, minY: 0, width: 100, height: 100 }}
-        ariaLabel="Search"
       />
     );
 
@@ -86,7 +77,7 @@ describe('Icon component', () => {
 
   it('can accept SVG children', async () => {
     render(
-      <Icon testId={iconTestId} ariaLabel="Search">
+      <Icon testId={iconTestId}>
         <path
           role="path"
           opacity="0.5"
@@ -107,7 +98,6 @@ describe('Icon component', () => {
     render(
       <Icon
         testId={iconTestId}
-        ariaLabel="Search"
         paths={[
           {
             d: 'M1 0.5C0.723858 0.5 0.5 0.723858 0.5 1V14C0.5 14.2761 0.723858 14.5 1 14.5H14C14.1148 14.5 14.2262 14.4605 14.3153 14.3881L22.3153 7.88806C22.4322 7.79311 22.5 7.65056 22.5 7.5C22.5 7.34944 22.4322 7.20689 22.3153 7.11194L14.3153 0.611943C14.2262 0.539529 14.1148 0.5 14 0.5H1Z',
