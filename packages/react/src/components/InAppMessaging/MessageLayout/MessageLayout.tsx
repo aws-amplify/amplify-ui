@@ -11,17 +11,17 @@ import {
 } from '../../../primitives';
 import { CloseIconButton } from '../CloseIconButton';
 import {
-  blockClass,
-  buttonClass,
-  closeButtonClass,
+  BLOCK_CLASS,
+  BUTTON_CLASS,
+  CLOSE_BUTTON_CLASS,
+  CONTENT_CLASS,
   CONTENT_TEST_ID,
-  contentClass,
-  headerClass,
+  HEADER_CLASS,
+  IMAGE_CONTAINER_CLASS,
   IMAGE_CONTAINER_TEST_ID,
-  imageContainerClass,
   MESSAGE_LAYOUT_TEST_ID,
+  TEXT_CONTAINER_CLASS,
   TEXT_CONTAINER_TEST_ID,
-  textContainerClass,
 } from './constants';
 import { MessageLayoutProps } from './types';
 import { getButtonModifier } from './utils';
@@ -50,7 +50,7 @@ export function MessageLayout({
   const isHorizontal = orientation === 'horizontal';
   const closeButton = (
     <CloseIconButton
-      className={closeButtonClass}
+      className={CLOSE_BUTTON_CLASS}
       onClick={onClose}
       style={styles.closeIconButton}
     />
@@ -58,20 +58,23 @@ export function MessageLayout({
 
   return (
     <Flex
-      className={blockClass}
+      className={BLOCK_CLASS}
       data-testid={MESSAGE_LAYOUT_TEST_ID}
       style={styles.container}
     >
       {!isHorizontal && <Flex justifyContent="flex-end">{closeButton}</Flex>}
       <Flex
-        className={classNames(contentClass, `${contentClass}--${orientation}`)}
+        className={classNames(
+          CONTENT_CLASS,
+          `${CONTENT_CLASS}--${orientation}`
+        )}
         data-testid={CONTENT_TEST_ID}
       >
         {hasRenderableImage && (
           <Flex
             className={classNames(
-              imageContainerClass,
-              `${imageContainerClass}--${orientation}`
+              IMAGE_CONTAINER_CLASS,
+              `${IMAGE_CONTAINER_CLASS}--${orientation}`
             )}
             data-testid={IMAGE_CONTAINER_TEST_ID}
           >
@@ -84,14 +87,14 @@ export function MessageLayout({
         )}
         <Flex
           className={classNames(
-            textContainerClass,
-            `${textContainerClass}--${orientation}`
+            TEXT_CONTAINER_CLASS,
+            `${TEXT_CONTAINER_CLASS}--${orientation}`
           )}
           data-testid={TEXT_CONTAINER_TEST_ID}
         >
           {header?.content && (
             <Heading
-              className={headerClass}
+              className={HEADER_CLASS}
               isTruncated
               level={2}
               style={styles.header}
@@ -108,8 +111,8 @@ export function MessageLayout({
           {hasSecondaryButton && (
             <Button
               className={classNames(
-                buttonClass,
-                `${buttonClass}--${buttonModifiers.primary}`
+                BUTTON_CLASS,
+                `${BUTTON_CLASS}--${buttonModifiers.primary}`
               )}
               onClick={secondaryButton?.onAction}
               style={styles.secondaryButton}
@@ -120,8 +123,8 @@ export function MessageLayout({
           {hasPrimaryButton && (
             <Button
               className={classNames(
-                buttonClass,
-                `${buttonClass}--${buttonModifiers.secondary}`
+                BUTTON_CLASS,
+                `${BUTTON_CLASS}--${buttonModifiers.secondary}`
               )}
               onClick={primaryButton?.onAction}
               style={styles.primaryButton}

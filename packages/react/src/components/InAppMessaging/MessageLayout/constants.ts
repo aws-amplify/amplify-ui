@@ -1,13 +1,13 @@
 // Base block class for MessageLayout
-export const blockClass = 'amplify-inappmessaging-messagelayout';
+export const BLOCK_CLASS = 'amplify-inappmessaging-messagelayout';
 
 // Element classes for MessageLayout
-export const buttonClass = `${blockClass}__button`;
-export const closeButtonClass = `${blockClass}__close-button`;
-export const contentClass = `${blockClass}__content`;
-export const headerClass = `${blockClass}__header`;
-export const imageContainerClass = `${blockClass}__image-container`;
-export const textContainerClass = `${blockClass}__text-container`;
+export const BUTTON_CLASS = `${BLOCK_CLASS}__button`;
+export const CLOSE_BUTTON_CLASS = `${BLOCK_CLASS}__close-button`;
+export const CONTENT_CLASS = `${BLOCK_CLASS}__content`;
+export const HEADER_CLASS = `${BLOCK_CLASS}__header`;
+export const IMAGE_CONTAINER_CLASS = `${BLOCK_CLASS}__image-container`;
+export const TEXT_CONTAINER_CLASS = `${BLOCK_CLASS}__text-container`;
 
 // Test IDs
 export const CONTENT_TEST_ID = 'inappmessaging-messagelayout-content';

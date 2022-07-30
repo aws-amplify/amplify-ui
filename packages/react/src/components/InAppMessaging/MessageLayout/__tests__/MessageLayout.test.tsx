@@ -3,15 +3,15 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import {
-  blockClass,
-  buttonClass,
+  BLOCK_CLASS,
+  BUTTON_CLASS,
+  CONTENT_CLASS,
   CONTENT_TEST_ID,
-  contentClass,
+  IMAGE_CONTAINER_CLASS,
   IMAGE_CONTAINER_TEST_ID,
-  imageContainerClass,
   MESSAGE_LAYOUT_TEST_ID,
+  TEXT_CONTAINER_CLASS,
   TEXT_CONTAINER_TEST_ID,
-  textContainerClass,
 } from '../constants';
 import { MessageLayout } from '../MessageLayout';
 import { MessageLayoutProps } from '../types';
@@ -78,7 +78,7 @@ describe('MessageLayout component', () => {
     expect(imageContainer).not.toBeInTheDocument();
     expect(messageLayout).toBeInTheDocument();
     expect(textContainer).toBeInTheDocument();
-    expect(messageLayout).toHaveClass(blockClass);
+    expect(messageLayout).toHaveClass(BLOCK_CLASS);
   });
 
   it('should render with an image', () => {
@@ -97,9 +97,9 @@ describe('MessageLayout component', () => {
     const content = screen.getByTestId(CONTENT_TEST_ID);
     const imageContainer = screen.getByTestId(IMAGE_CONTAINER_TEST_ID);
     const textContainer = screen.getByTestId(TEXT_CONTAINER_TEST_ID);
-    expect(content).toHaveClass(`${contentClass}--vertical`);
-    expect(imageContainer).toHaveClass(`${imageContainerClass}--vertical`);
-    expect(textContainer).toHaveClass(`${textContainerClass}--vertical`);
+    expect(content).toHaveClass(`${CONTENT_CLASS}--vertical`);
+    expect(imageContainer).toHaveClass(`${IMAGE_CONTAINER_CLASS}--vertical`);
+    expect(textContainer).toHaveClass(`${TEXT_CONTAINER_CLASS}--vertical`);
   });
 
   it('should allow horizontal orientation', () => {
@@ -114,9 +114,9 @@ describe('MessageLayout component', () => {
     const content = screen.getByTestId(CONTENT_TEST_ID);
     const imageContainer = screen.getByTestId(IMAGE_CONTAINER_TEST_ID);
     const textContainer = screen.getByTestId(TEXT_CONTAINER_TEST_ID);
-    expect(content).toHaveClass(`${contentClass}--horizontal`);
-    expect(imageContainer).toHaveClass(`${imageContainerClass}--horizontal`);
-    expect(textContainer).toHaveClass(`${textContainerClass}--horizontal`);
+    expect(content).toHaveClass(`${CONTENT_CLASS}--horizontal`);
+    expect(imageContainer).toHaveClass(`${IMAGE_CONTAINER_CLASS}--horizontal`);
+    expect(textContainer).toHaveClass(`${TEXT_CONTAINER_CLASS}--horizontal`);
   });
 
   it('should trigger onClose function', () => {
@@ -155,7 +155,7 @@ describe('MessageLayout component', () => {
     render(<MessageLayout {...TEST_PROPS} hasButtons hasPrimaryButton />);
 
     const primaryButton = screen.getByText(PRIMARY_BUTTON);
-    expect(primaryButton).toHaveClass(`${buttonClass}--${modifier}`);
+    expect(primaryButton).toHaveClass(`${BUTTON_CLASS}--${modifier}`);
   });
 
   it('should trigger the button onAction functions', () => {
