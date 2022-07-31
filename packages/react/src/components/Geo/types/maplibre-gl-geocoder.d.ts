@@ -2,7 +2,7 @@ declare module 'maplibre-gl-geocoder' {
   // `LocationSearchProps` is based upon the typing specified by maplibre-gl-geocoder:
   // https://github.com/maplibre/maplibre-gl-geocoder/blob/main/lib/index.js#L11-L66
   // TODO: formalize this type in the `maplibre-gl-geocoder` library
-  export type LocationSearchProps = {
+  export type MaplibreGeocoderOptions = {
     /**
      * A bounding box given as an array in the format `[minX, minY, maxX, maxY]`.
      * Search results will be limited to the bounding box.

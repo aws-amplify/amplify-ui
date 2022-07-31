@@ -1,9 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import maplibregl from 'maplibre-gl';
-import { LocationSearchProps } from 'maplibre-gl-geocoder';
+import { MaplibreGeocoderOptions } from 'maplibre-gl-geocoder';
 import { createAmplifyGeocoder } from 'maplibre-gl-js-amplify';
 import { useControl, useMap } from 'react-map-gl';
 import type { IControl } from 'react-map-gl';
+import noop from 'lodash/noop';
 
 const LOCATION_SEARCH_OPTIONS = {
   maplibregl,
@@ -15,8 +16,35 @@ const LOCATION_SEARCH_OPTIONS = {
 
 const LOCATION_SEARCH_CONTAINER = 'geocoder-container';
 
+interface LocationSearchProps extends MaplibreGeocoderOptions {
+  /**
+   * Emitted when the input is cleared
+   */
+  onClear: () => void;
+  /**
+   * Emitted when the geocoder is looking up a query
+   */
+  onLoading: (query) => void;
+  /**
+   * Fired when the geocoder returns a response
+   */
+  onResults: (results) => void;
+  /**
+   * Fired when input is set
+   */
+  onResult: (result) => void;
+  /**
+   * Emitted on error as string
+   */
+  onError: (error) => void;
+}
+
+type eventTypes = 'clear' | 'loading' | 'result' | 'results' | 'error';
+
 type AmplifyLocationSearch = IControl & {
   addTo: (container: string) => void;
+  on: (eventType: eventTypes, callback: (event) => void) => void;
+  off: (eventType: eventTypes, callback: (event) => void) => void;
 };
 
 const LocationSearchControl = ({
@@ -33,20 +61,40 @@ const LocationSearchControl = ({
   return null;
 };
 
-const LocationSearchStandalone = (props: LocationSearchProps) => {
-  const hasMounted = useRef(false);
+const LocationSearchStandalone = ({
+  onLoading = noop,
+  onResult = noop,
+  onResults = noop,
+  onClear = noop,
+  onError = noop,
+  ...props
+}: LocationSearchProps) => {
+  const geocoderRef = useRef(null);
 
   useEffect(() => {
-    if (!hasMounted.current) {
-      (createAmplifyGeocoder(props) as unknown as AmplifyLocationSearch).addTo(
-        `#${LOCATION_SEARCH_CONTAINER}`
-      );
+    const map = createAmplifyGeocoder(
+      props
+    ) as unknown as AmplifyLocationSearch;
+    geocoderRef.current = map;
 
-      hasMounted.current = true;
-    }
-  }, [props]);
+    map.addTo(`#${LOCATION_SEARCH_CONTAINER}`);
 
-  return <div id={LOCATION_SEARCH_CONTAINER} />;
+    map.on('result', onResult);
+    map.on('loading', onLoading);
+    map.on('results', onResults);
+    map.on('clear', onClear);
+    map.on('error', onError);
+
+    return () => {
+      map.off('result', onResult);
+      map.off('loading', onLoading);
+      map.off('results', onResults);
+      map.off('clear', onClear);
+      map.off('error', onError);
+    };
+  }, [onResult, onLoading, onResults, onClear, onError, props]);
+
+  return <div id={LOCATION_SEARCH_CONTAINER} ref={geocoderRef} />;
 };
 
 /**
