@@ -10,9 +10,7 @@ export const AccessibleAlert = () => {
         Toggle Alert
       </Button>
       {isAlertVisible ? (
-        <Alert variation="error" role="alert">
-          This is an example alert.
-        </Alert>
+        <Alert variation="error">This is an example alert.</Alert>
       ) : null}
     </Flex>
   );

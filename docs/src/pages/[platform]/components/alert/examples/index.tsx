@@ -8,3 +8,4 @@ export { DefaultAlertExample } from './DefaultAlertExample';
 export { DismissButtonLabelExample } from './DismissButtonLabelExample';
 export { DismissibleAlertExample } from './DismissibleAlertExample';
 export { OnDismissAlertExample } from './OnDismissAlertExample';
+export { RoleOverride } from './RoleOverride';
