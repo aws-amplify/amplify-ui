@@ -80,11 +80,20 @@ export const pagination: PaginationTokens = {
     transitionProperty: { value: 'background-color' },
     transitionDuration: { value: '{time.medium.value}' },
     hover: {
-      backgroundColor: { value: '{colors.overlay.10.value}', deprecated: true },
-      color: { value: '{colors.font.primary.value}', deprecated: true },
+      backgroundColor: {
+        value: '{colors.overlay.10.value}',
+        deprecatedStateToken: true,
+      },
+      color: {
+        value: '{colors.font.primary.value}',
+        deprecatedStateToken: true,
+      },
     },
     disabled: {
-      color: { value: '{colors.font.disabled.value}', deprecated: true },
+      color: {
+        value: '{colors.font.disabled.value}',
+        deprecatedStateToken: true,
+      },
     },
     _hover: {
       backgroundColor: { value: '{colors.overlay.10.value}' },

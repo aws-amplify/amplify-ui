@@ -14,15 +14,9 @@ const theme: Theme = {
           backgroundColor: { value: '{colors.brand.secondary.80}' },
         },
         button: {
-          hover: {
-            backgroundColor: { value: 'red' },
-            color: { value: '{colors.brand.secondary.80}' },
-          },
           _hover: {
-            backgroundColor: { value: 'green' },
-            color: {
-              value: '{components.pagination.button.hover.backgroundColor}',
-            },
+            backgroundColor: { value: '{colors.neutral.40}' },
+            color: { value: '{colors.brand.secondary.80}' },
           },
         },
       },

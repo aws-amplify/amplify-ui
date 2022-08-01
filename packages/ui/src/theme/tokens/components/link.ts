@@ -22,17 +22,20 @@ export interface LinkTokens {
 
 export const link: LinkTokens = {
   active: {
-    color: { value: '{colors.font.active.value}', deprecated: true },
+    color: { value: '{colors.font.active.value}', deprecatedStateToken: true },
   },
   color: { value: '{colors.font.interactive.value}' },
   focus: {
-    color: { value: '{colors.font.focus.value}', deprecated: true },
+    color: { value: '{colors.font.focus.value}', deprecatedStateToken: true },
   },
   hover: {
-    color: { value: '{colors.font.hover.value}', deprecated: true },
+    color: { value: '{colors.font.hover.value}', deprecatedStateToken: true },
   },
   visited: {
-    color: { value: '{colors.font.interactive.value}', deprecated: true },
+    color: {
+      value: '{colors.font.interactive.value}',
+      deprecatedStateToken: true,
+    },
   },
   _active: {
     color: { value: '{colors.font.active.value}' },

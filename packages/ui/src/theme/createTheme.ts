@@ -4,7 +4,14 @@ import flattenProperties from 'style-dictionary/lib/utils/flattenProperties';
 
 import { defaultTheme } from './defaultTheme';
 import { Theme, BaseTheme, WebTheme, Override } from './types';
-import { cssValue, cssNameTransform } from './utils';
+import {
+  cssValue,
+  cssNameTransform,
+  pathObject,
+  findDeprecatedStateTokens,
+  pathToValue,
+  STATE_NAMES,
+} from './utils';
 import { WebTokens } from './tokens';
 import { DesignToken, WebDesignToken } from './tokens/types/designToken';
 
@@ -75,51 +82,51 @@ export function createTheme(
   baseTheme: BaseTheme = defaultTheme
 ): WebTheme {
   /*
-  - parse the default theme looking for deprecated values
-  - if it the depricated value exists in the theme but the non depricated version does not then set it with the depricated value
-  */
-
-  /*
 1. find path to deprecated values in baseTheme
 2. see if values exist in theme that match depricated paths from base
-3. programatically determine undepricated path
+3. determine undepricated path
 4. see if values in theme exist for undepricated paths
 5. if no value of undepricated exists then replace it with value of depricated
  */
-  const defaultTokens = baseTheme.tokens || {};
+  if (theme) {
+    let deprecated: pathObject[] = findDeprecatedStateTokens(baseTheme);
 
-  const traverse = (baseEntry, existingPath) => {
-    let path = [...existingPath];
-    const [key, obj] = baseEntry;
-    if (typeof obj === 'object' && !Array.isArray(obj)) {
-      path.push(key);
-      if (obj.value) {
-        if (obj.deprecated) {
-          return {
-            path: path,
-            value: obj,
-          };
+    deprecated.forEach((element: pathObject) => {
+      //look for a deprecated value in the theme
+      const path: string[] = element.path;
+      const deprecatedThemeValue = pathToValue(theme, path);
+
+      //use the deprecated path to generate the new path by replacing any state names with _{state}
+      const targetPath = path.map((pathValue) => {
+        if (STATE_NAMES.includes(pathValue)) {
+          return `_${pathValue}`;
         }
-        return;
-      } else {
-        const entries = Object.entries(obj);
-        let retValue = [];
-        for (const entry of entries) {
-          let deprecated = traverse(entry, path);
-          if (deprecated) {
-            retValue.push(deprecated);
-          }
-        }
-        if (retValue.length) {
-          return retValue;
+        return pathValue;
+      });
+
+      //follow the path to determine if a value already exists within the theme for the non deprecated version
+      let themeValue = theme.tokens || {};
+      targetPath.every((pathValue) => {
+        if (themeValue[pathValue]) {
+          themeValue = themeValue[pathValue];
+          return true;
         } else {
-          return;
+          themeValue = undefined;
+          return false;
         }
-      }
-    }
-  };
+      });
 
-  let deprecated = traverse(['tokens', defaultTokens], []);
+      //if the deprecated value exists and the nondeprecated value does not then copy the deprecated value over to the nondeprecated value
+      if (deprecatedThemeValue && deprecatedThemeValue.value && !themeValue) {
+        let parseTheme = theme.tokens || {};
+        targetPath.forEach((pathValue) => {
+          parseTheme[pathValue] = parseTheme[pathValue] || {};
+          parseTheme = parseTheme[pathValue];
+        });
+        (parseTheme as DesignToken).value = deprecatedThemeValue.value;
+      }
+    });
+  }
 
   // merge theme and baseTheme to get a complete theme
   // deepExtend is an internal Style Dictionary method

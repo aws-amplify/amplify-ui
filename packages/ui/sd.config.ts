@@ -32,9 +32,9 @@ StyleDictionary.extend({
       files: [
         {
           destination: 'dist/theme.css',
-          // This filter function will remove any design tokens that are marked with a deprecated flag
+          // This filter function will remove any design tokens that are marked with a deprecatedStateToken flag
           filter: (token) => {
-            if (token.deprecated) {
+            if (token.deprecatedStateToken) {
               return false;
             }
             return true;

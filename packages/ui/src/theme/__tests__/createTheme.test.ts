@@ -73,6 +73,58 @@ describe('@aws-amplify/ui', () => {
       });
     });
 
+    describe('deprecated state tokens', () => {
+      /*
+        Here we are test that deprecated state tokens are being handled correctly and that is any tokens marked with the deprecatedStateToken
+        flag in the base theme should copy over any values found on the deprecated state token to the conforming version (i.e. copy values from hover to _hover)
+        the exception being if the passed in theme already contains a value in the corresponding design token.
+      */
+      it('should add in conforming versions of the deprecated theme tokens', () => {
+        const newTheme = createTheme({
+          name: 'test-theme',
+          tokens: {
+            components: {
+              pagination: {
+                button: {
+                  hover: {
+                    backgroundColor: { value: '#ff9900' },
+                  },
+                },
+              },
+            },
+          },
+        });
+        const { tokens } = newTheme;
+        expect(
+          tokens.components.pagination.button._hover.backgroundColor.value
+        ).toEqual('#ff9900');
+      });
+
+      it('should keep the passed in _hover value', () => {
+        const newTheme = createTheme({
+          name: 'test-theme',
+          tokens: {
+            components: {
+              pagination: {
+                button: {
+                  hover: {
+                    backgroundColor: { value: '#ff9900' },
+                  },
+                  _hover: {
+                    backgroundColor: { value: '#0099ff' },
+                  },
+                },
+              },
+            },
+          },
+        });
+        const { tokens } = newTheme;
+        expect(
+          tokens.components.pagination.button._hover.backgroundColor.value
+        ).toEqual('#0099ff');
+      });
+    });
+
     describe('error handling', () => {
       it('should warn the user and not do a max-call stack if given an invalid theme object', () => {
         consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation();

@@ -19,10 +19,10 @@ export function isDesignToken(arg: unknown): arg is WebDesignToken {
 export type DesignToken<ValueType = any> = {
   value: ValueType;
   /**
-   * The deprecated flag will mark tokens that should be filtered out of the theme variable output
+   * The deprecatedStateToken flag will mark tokens that should be filtered out of the theme variable output
    * This is being used to create duplicate state entries for those states that are not conforming to our current naming convention i.e. hover vs _hover
    */
-  deprecated?: boolean;
+  deprecatedStateToken?: boolean;
 };
 
 /**
