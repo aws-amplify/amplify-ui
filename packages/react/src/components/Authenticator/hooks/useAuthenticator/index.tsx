@@ -182,6 +182,10 @@ export const useAuthenticator = (selector?: Selector): UseAuthenticator => {
   return {
     ...facade,
     /** @deprecated For internal use only */
+    // The current typing of the Authenticator state machine leads to linting issues due to a
+    // return type of `any`. Because this `_state` is marked as deprecated and will be removed,
+    // turn off linting until stricter typing is added (or `_state` is removed)
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     _state: service.getSnapshot(),
     /** @deprecated For internal use only */
     _send: send,

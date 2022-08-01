@@ -416,6 +416,8 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-image-height: auto;
         --amplify-components-image-object-fit: initial;
         --amplify-components-image-object-position: initial;
+        --amplify-components-inappmessaging-header-font-size: var(--amplify-font-sizes-medium);
+        --amplify-components-inappmessaging-header-font-weight: var(--amplify-font-weights-extrabold);
         --amplify-components-link-active-color: var(--amplify-colors-font-active);
         --amplify-components-link-color: var(--amplify-colors-font-interactive);
         --amplify-components-link-focus-color: var(--amplify-colors-font-focus);
