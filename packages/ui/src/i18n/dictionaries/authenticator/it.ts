@@ -17,6 +17,7 @@ export const itDict: AuthenticatorDictionary = {
   'Create a new account': 'Crea un nuovo account',
   'Create Account': 'Crea Account',
   'Creating Account': 'Creazione account in corso',
+  'Dismiss alert': `Licenziare l'allerta`,
   Email: 'Email',
   'Enter your code': 'Inserisci il tuo codice',
   'Enter your email': 'Inserisci la tua e-mail',

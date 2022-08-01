@@ -17,6 +17,7 @@ export const idDict: AuthenticatorDictionary = {
   'Create a new account': 'Buat akun baru',
   'Create Account': 'Buat Akun',
   'Creating Account': 'Membuat Akun',
+  'Dismiss alert': 'Hentikan pemberitahuan',
   Email: 'Email',
   'Enter your code': 'Masukkan kode anda',
   'Enter your email': 'Masukkan email anda',

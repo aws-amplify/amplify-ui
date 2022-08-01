@@ -17,6 +17,7 @@ export const jaDict: AuthenticatorDictionary = {
   'Create a new account': '新しいアカウントを作る',
   'Create Account': 'アカウントを作る',
   'Creating Account': 'アカウントの作成中',
+  'Dismiss alert': 'アラートを閉じる',
   Email: 'メールアドレス',
   'Enter your code': 'コードを入力',
   'Enter your email': 'メールアドレスを入力',

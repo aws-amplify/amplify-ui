@@ -17,6 +17,7 @@ export const nlDict: AuthenticatorDictionary = {
   'Create a new account': 'Nieuw account aanmaken',
   'Create Account': 'Account aanmaken',
   'Creating Account': 'Account wordt aangemaakt',
+  'Dismiss alert': 'Waarschuwing sluiten',
   Email: 'E-mail',
   'Enter your code': 'Vul je code in',
   'Enter your email': 'Vul je e-mail in',

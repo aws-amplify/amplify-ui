@@ -14,6 +14,7 @@ type AuthenticatorText =
   | 'Create a new account'
   | 'Create Account'
   | 'Creating Account'
+  | 'Dismiss alert'
   | 'Email'
   | 'Enter your code'
   | 'Enter your email'
