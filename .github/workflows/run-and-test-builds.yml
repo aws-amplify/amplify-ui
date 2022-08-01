@@ -23,7 +23,9 @@ jobs:
           - react/cra-ts
           - react/next
           - react/vite
+          - react/vite3
           - vue/vite
+          - vue/vite3
           - vue/vuecli
     steps:
       - name: Checkout Amplify UI

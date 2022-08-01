@@ -44,10 +44,15 @@ Import the Icon component and styles.
   The built-in icons were removed in version `3.0`. You can use the
   [react-icons](https://react-icons.github.io/react-icons) package or other
   React icon libraries in its place. 
-
-  `import {ICON_NAME} from '@aws-amplify/ui-react';` => `import {ICON_NAME} from 'react-icons/md';`
-
 </Alert>
+
+```jsx
+// Removed
+import {ICON_NAME} from '@aws-amplify/ui-react';
+
+// Suggested
+import {ICON_NAME} from 'react-icons/md';`
+```
 
 ## Custom icon
 
@@ -175,7 +180,10 @@ Use the `color` prop to change the Icon color. The fill of the path inside the S
 
 ## Accessibility
 
-Set an `aria-label` attribute for an Icon.
+The Icon component does not require a label by default because there are a number of ways to use an Icon in an accessible way:
+- You can set an `aria-label` attribute on the Icon
+- You can use a `<title></title>` element when passing SVG elements as the child of the Icon
+- You can use the Icon decoratively, when a label would be redundant.
 
 <Example>
   <AccessibilityIconExample />
