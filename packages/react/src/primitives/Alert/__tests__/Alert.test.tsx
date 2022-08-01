@@ -111,15 +111,19 @@ describe('Alert: ', () => {
     expect(isDismissible.childElementCount).toBe(2);
   });
 
-  it('can be used as an aria alert', async () => {
-    render(
-      <Alert role="alert" testId="ariaAlertID">
-        Alert with an aria role
-      </Alert>
+  it('should set aria-hidden to be true on decorative icons', async () => {
+    const { container } = render(
+      <div>
+        <Alert variation="info" isDismissible={true} testId="hasIcon">
+          Has Icon
+        </Alert>
+      </div>
     );
-
-    const alert = await screen.findByTestId('ariaAlertID');
-    expect(alert.getAttribute('role')).toBe('alert');
+    const icons = container.querySelectorAll(`.${ComponentClassNames.Icon}`);
+    expect(icons.length).toEqual(2);
+    icons.forEach((icon) => {
+      expect(icon).toHaveAttribute('aria-hidden', 'true');
+    });
   });
 
   it('can configure an accessible label for the dismiss button', async () => {
