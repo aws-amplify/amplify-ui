@@ -17,6 +17,7 @@ export const svDict: AuthenticatorDictionary = {
   'Create a new account': 'Skapa ett nytt konto',
   'Create Account': 'Skapa konto',
   'Creating Account': 'Skapar konto',
+  'Dismiss alert': 'Avvisa varning',
   Email: 'E-post',
   'Enter your code': 'Skriv din kod',
   'Enter your email': 'Fyll i din e-post',

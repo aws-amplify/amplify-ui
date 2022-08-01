@@ -17,6 +17,7 @@ export const enDict: AuthenticatorDictionary = {
   'Create a new account': 'Create a new account',
   'Create Account': 'Create Account',
   'Creating Account': 'Creating Account',
+  'Dismiss alert': 'Dismiss alert',
   Email: 'Email',
   'Enter your code': 'Enter your code',
   'Enter your email': 'Enter your email',

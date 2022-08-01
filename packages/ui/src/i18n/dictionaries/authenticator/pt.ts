@@ -17,6 +17,7 @@ export const ptDict: AuthenticatorDictionary = {
   'Create a new account': 'Criar uma nova conta',
   'Create Account': 'Criar Conta',
   'Creating Account': 'Criando conta',
+  'Dismiss alert': 'Descartar alerta',
   Email: 'O email',
   'Enter your code': 'Insira seu código',
   'Enter your email': 'Digite seu e-mail',

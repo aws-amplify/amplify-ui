@@ -17,6 +17,7 @@ export const esDict: AuthenticatorDictionary = {
   'Create a new account': 'Crear una cuenta nueva',
   'Create Account': 'Crear cuenta',
   'Creating Account': 'Creando cuenta',
+  'Dismiss alert': 'Descartar alerta',
   Email: 'Email',
   'Enter your code': 'Ingrese el código',
   'Enter your email': 'Escriba su Email',

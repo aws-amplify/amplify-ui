@@ -17,6 +17,7 @@ export const trDict: AuthenticatorDictionary = {
   'Create a new account': 'Yeni bir hesap oluştur',
   'Create Account': 'Hesap Oluştur',
   'Creating Account': 'Hesap Oluşturuluyor',
+  'Dismiss alert': 'Uyarıyı reddet',
   Email: 'E-posta',
   'Enter your code': 'Kodu girin',
   'Enter your email': 'E-posta adresinizi girin',

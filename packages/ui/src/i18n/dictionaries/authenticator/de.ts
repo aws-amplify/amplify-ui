@@ -17,6 +17,7 @@ export const deDict: AuthenticatorDictionary = {
   'Create a new account': 'Einen neuen Account erstellen',
   'Create Account': 'Account erstellen',
   'Creating Account': 'Account wird erstellt',
+  'Dismiss alert': 'Warnung verwerfen',
   Email: 'Email',
   'Enter your code': 'Geben Sie Ihren Code ein',
   'Enter your email': 'Geben Sie Ihre Email ein',

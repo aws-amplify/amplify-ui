@@ -17,6 +17,7 @@ export const ruDict: AuthenticatorDictionary = {
   'Create a new account': 'Создавать новую учетную запись',
   'Create Account': 'Создать учетную запись',
   'Creating Account': 'создание учетная запись',
+  'Dismiss alert': 'Закрыть оповещение',
   Email: 'электронная почта',
   'Enter your code': 'ввести ваш Код',
   'Enter your email': 'ввести ваш электронная почта',

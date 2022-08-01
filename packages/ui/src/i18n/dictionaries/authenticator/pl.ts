@@ -17,6 +17,7 @@ export const plDict: AuthenticatorDictionary = {
   'Create a new account': 'Utwórz nowe konto',
   'Create Account': 'Utwórz konto',
   'Creating Account': 'Tworzenie konta',
+  'Dismiss alert': 'Odrzuć alert',
   Email: 'E-mail',
   'Enter your code': 'Wprowadź swój kod',
   'Enter your email': 'Wpisz swój adres e-mail',

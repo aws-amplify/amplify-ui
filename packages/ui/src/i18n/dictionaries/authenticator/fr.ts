@@ -17,6 +17,7 @@ export const frDict: AuthenticatorDictionary = {
   'Create a new account': 'Créer un nouveau compte',
   'Create Account': 'Créer un compte',
   'Creating Account': `Création d'un compte`,
+  'Dismiss alert': `Supprimer l'alerte`,
   Email: 'Email',
   'Enter your code': 'Saisissez cotre code de confirmation',
   'Enter your email': 'Saisissez votre adresse email',

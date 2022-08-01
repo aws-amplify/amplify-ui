@@ -17,6 +17,7 @@ export const krDict: AuthenticatorDictionary = {
   'Create a new account': '회원가입',
   'Create Account': '회원가입',
   'Creating Account': '회원가입중',
+  'Dismiss alert': '알림 무시',
   Email: '이메일',
   'Enter your code': '인증번호를 입력해주세요',
   'Enter your email': '이메일 입력',
