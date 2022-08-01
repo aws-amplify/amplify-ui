@@ -416,11 +416,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-image-height: auto;
         --amplify-components-image-object-fit: initial;
         --amplify-components-image-object-position: initial;
-        --amplify-components-link-active-color: var(--amplify-colors-font-active);
         --amplify-components-link-color: var(--amplify-colors-font-interactive);
-        --amplify-components-link-focus-color: var(--amplify-colors-font-focus);
-        --amplify-components-link-hover-color: var(--amplify-colors-font-hover);
-        --amplify-components-link-visited-color: var(--amplify-colors-font-interactive);
         --amplify-components-link-active-color: var(--amplify-colors-font-active);
         --amplify-components-link-focus-color: var(--amplify-colors-font-focus);
         --amplify-components-link-hover-color: var(--amplify-colors-font-hover);
@@ -478,9 +474,6 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-pagination-button-padding-inline-end: var(--amplify-space-xxs);
         --amplify-components-pagination-button-transition-property: background-color;
         --amplify-components-pagination-button-transition-duration: var(--amplify-time-medium);
-        --amplify-components-pagination-button-hover-background-color: var(--amplify-colors-overlay-10);
-        --amplify-components-pagination-button-hover-color: var(--amplify-colors-font-primary);
-        --amplify-components-pagination-button-disabled-color: var(--amplify-colors-font-disabled);
         --amplify-components-pagination-button-hover-background-color: var(--amplify-colors-overlay-10);
         --amplify-components-pagination-button-hover-color: var(--amplify-colors-font-primary);
         --amplify-components-pagination-button-disabled-color: var(--amplify-colors-font-disabled);
@@ -675,7 +668,6 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-table-foot-vertical-align: middle;
         --amplify-components-table-row-display: table-row;
         --amplify-components-table-row-vertical-align: middle;
-        --amplify-components-table-row-hover-background-color: var(--amplify-colors-background-tertiary);
         --amplify-components-table-row-hover-background-color: var(--amplify-colors-background-tertiary);
         --amplify-components-table-row-striped-background-color: var(--amplify-colors-background-secondary);
         --amplify-components-table-header-border-color: var(--amplify-colors-border-tertiary);

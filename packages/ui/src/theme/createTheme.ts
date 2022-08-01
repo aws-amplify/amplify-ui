@@ -25,7 +25,7 @@ import { DesignToken, WebDesignToken } from './tokens/types/designToken';
  */
 function setupToken(token: DesignToken, path: Array<string>): WebDesignToken {
   const name = `--${cssNameTransform({ path })}`;
-  const { value } = token;
+  const { value, deprecatedStateToken } = token;
 
   return {
     name,
@@ -33,6 +33,7 @@ function setupToken(token: DesignToken, path: Array<string>): WebDesignToken {
     value: cssValue(token),
     original: value,
     toString: () => `var(${name})`,
+    deprecatedStateToken,
   };
 }
 
@@ -147,6 +148,12 @@ export function createTheme(
   let cssText =
     `[data-amplify-theme="${name}"] {\n` +
     flattenProperties(tokens)
+      .filter((token) => {
+        if (token.deprecatedStateToken) {
+          return false;
+        }
+        return true;
+      })
       .map((token) => `${token.name}: ${token.value};`)
       .join('\n') +
     `\n}\n`;
@@ -162,6 +169,12 @@ export function createTheme(
     overrides = mergedTheme.overrides.map((override) => {
       const tokens = setupTokens(override.tokens);
       const customProperties = flattenProperties(tokens)
+        .filter((token) => {
+          if (token.deprecatedStateToken) {
+            return false;
+          }
+          return true;
+        })
         .map((token) => `${token.name}: ${token.value};`)
         .join('\n');
       // Overrides can have a selector, media query, breakpoint, or color mode
