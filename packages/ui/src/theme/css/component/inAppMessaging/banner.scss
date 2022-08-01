@@ -6,6 +6,9 @@
 .amplify-in-app-messaging-banner__buttons-container {
   margin-top: var(--amplify-components-bannermessage-buttons-container-margin-top);
 }
+.amplify-in-app-messaging-banner__close {
+  align-self: flex-start;
+}
 .amplify-in-app-messaging-banner__container {
   background-color: var(--amplify-components-bannermessage-banner-container-background-color);
   box-shadow: var(--amplify-components-bannermessage-banner-container-box-shadow);
@@ -31,7 +34,7 @@
 .amplify-in-app-messaging-banner__text-container {
   flex: 1;
   flex-direction: column;
-  justify-content: var(--amplify-components-bannermessage-text-container-justify-content);
+  justify-content: center;
 }
 .amplify-in-app-messaging-banner-top {
   top: 0;

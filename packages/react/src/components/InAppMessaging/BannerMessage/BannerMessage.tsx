@@ -1,27 +1,49 @@
-import isEmpty from 'lodash/isEmpty';
-
 import { Button } from '../../../primitives/Button';
 import { Flex } from '../../../primitives/Flex';
 import { Heading } from '../../../primitives/Heading';
-import { IconClose } from '../../../primitives/Icon/icons/IconClose';
 import { Image } from '../../../primitives/Image';
 import { Text } from '../../../primitives/Text';
-import { Link } from '../../../primitives/Link';
+import { CloseIconButton } from '../CloseIconButton';
 import { useThemeBreakpoint } from '../../../hooks/useThemeBreakpoint';
+import { useMessageProps } from '../hooks/useMessageProps';
 
 export default function BannerMessage({
   alignment = 'right',
   body,
+  container,
   header,
   image,
+  layout,
   onClose,
-  position,
+  onDisplay,
+  position = 'top',
   primaryButton,
   secondaryButton,
 }): JSX.Element | null {
-  const hasPrimaryButton = !isEmpty(primaryButton);
-  const hasSecondaryButton = !isEmpty(secondaryButton);
   const breakpoint = useThemeBreakpoint();
+
+  const messageProps = useMessageProps({
+    body,
+    container,
+    header,
+    image,
+    layout,
+    onClose,
+    onDisplay,
+    primaryButton,
+    secondaryButton,
+  });
+
+  const {
+    hasPrimaryButton,
+    hasSecondaryButton,
+    hasRenderableImage,
+    shouldRenderMessage,
+  } = messageProps;
+
+  if (!shouldRenderMessage) {
+    return null;
+  }
 
   return (
     <Flex
@@ -30,7 +52,7 @@ export default function BannerMessage({
       )}`}
     >
       <Flex className="amplify-in-app-messaging-banner__content-container">
-        {image?.src ? (
+        {hasRenderableImage ? (
           <Flex className="amplify-in-app-messaging-banner__image-container">
             <Image
               src={image.src}
@@ -47,9 +69,11 @@ export default function BannerMessage({
             </Text>
           ) : null}
         </Flex>
-        <Link>
-          <IconClose ariaLabel="Close" onClick={onClose} />
-        </Link>
+        <CloseIconButton
+          ariaLabel="Close"
+          className="amplify-in-app-messaging-banner__close"
+          onClick={onClose}
+        />
       </Flex>
       {hasPrimaryButton || hasSecondaryButton ? (
         <Flex
