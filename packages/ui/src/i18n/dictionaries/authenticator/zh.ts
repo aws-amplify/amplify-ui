@@ -17,7 +17,7 @@ export const zhDict: AuthenticatorDictionary = {
   'Create a new account': '创建新账户',
   'Create Account': '创建账户',
   'Creating Account': '正在创建账户',
-  'Dismiss alert': '解除警报',
+  'Dismiss alert': '关闭警报',
   Email: '邮箱',
   'Enter your code': '输入验证码',
   'Enter your email': '输入电子邮件',
