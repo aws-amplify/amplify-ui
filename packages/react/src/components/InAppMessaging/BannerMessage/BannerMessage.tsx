@@ -11,26 +11,21 @@ import { useThemeBreakpoint } from '../../../hooks/useThemeBreakpoint';
 
 export default function BannerMessage({
   alignment = 'right',
-  ...props
+  body,
+  header,
+  image,
+  onClose,
+  position,
+  primaryButton,
+  secondaryButton,
 }): JSX.Element | null {
-  const {
-    body,
-    header,
-    image,
-    onClose,
-    position,
-    primaryButton,
-    secondaryButton,
-  } = props;
-
   const hasPrimaryButton = !isEmpty(primaryButton);
   const hasSecondaryButton = !isEmpty(secondaryButton);
   const breakpoint = useThemeBreakpoint();
-  console.log(typeof breakpoint);
 
   return (
     <Flex
-      className={`amplify-in-app-messaging-banner__container amplify-in-app-messaging-banner-${position} ${String(
+      className={`amplify-in-app-messaging-banner__container amplify-in-app-messaging-banner-${position} amplify-in-app-messaging-banner-${alignment} ${String(
         breakpoint
       )}`}
     >

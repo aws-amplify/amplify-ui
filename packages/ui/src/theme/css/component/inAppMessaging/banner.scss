@@ -11,15 +11,13 @@
   box-shadow: var(--amplify-components-bannermessage-banner-container-box-shadow);
   flex-direction: column;
   margin: var(--amplify-components-bannermessage-banner-container-margin);
-  min-width: 400px;
   padding: var(--amplify-components-bannermessage-banner-container-padding);
   position: absolute;
-  right: 0;
   &.xl, &.large, &.medium {
       max-width: 50%;
   }
   &.base, &.small {
-      width: calc(100% - 32px);
+      width: calc(100% - 2rem);
   }
 }
 .amplify-in-app-messaging-banner__content-container {
@@ -41,9 +39,20 @@
 .amplify-in-app-messaging-banner-middle {
   bottom: 0;
   height: fit-content;
-  margin: auto;
+  margin: auto 1rem;
   top: 0;
 }
 .amplify-in-app-messaging-banner-bottom {
   bottom: 0;
+}
+.amplify-in-app-messaging-banner-right {
+  right: 0;
+}
+.amplify-in-app-messaging-banner-left {
+  left: 0;
+}
+.amplify-in-app-messaging-banner-center {
+  left: 0;
+  margin: 1rem auto;
+  right: 0;
 }
