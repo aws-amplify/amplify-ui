@@ -146,6 +146,24 @@ describe('Alert: ', () => {
     );
   });
 
+  it('renders as an aria alert', async () => {
+    render(<Alert testId="ariaAlertID">Alert with an aria role</Alert>);
+
+    const alert = await screen.findByTestId('ariaAlertID');
+    expect(alert.getAttribute('role')).toBe('alert');
+  });
+
+  it('can allow role override', async () => {
+    render(
+      <Alert role="none" testId="noAlertRole">
+        Alert with role overridden
+      </Alert>
+    );
+
+    const alert = await screen.findByTestId('noAlertRole');
+    expect(alert.getAttribute('role')).toBe('none');
+  });
+
   it('can apply styling via props', async () => {
     render(
       <Alert backgroundColor="white" fontStyle="italic" testId="alertId">
