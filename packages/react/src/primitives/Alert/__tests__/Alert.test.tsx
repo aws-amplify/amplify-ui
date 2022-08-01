@@ -161,7 +161,7 @@ describe('Alert: ', () => {
     );
 
     const alert = await screen.findByTestId('noAlertRole');
-    expect(alert.getAttribute('role')).toBe('none');
+    expect(alert).toHaveAttribute('role', 'none');
   });
 
   it('can apply styling via props', async () => {
