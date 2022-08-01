@@ -149,7 +149,7 @@ describe('Alert: ', () => {
   it('renders as an aria alert', async () => {
     render(<Alert testId="ariaAlertID">Alert with an aria role</Alert>);
 
-    const alert = await screen.findByTestId('ariaAlertID');
+    const alert = await screen.findByRole('alert');
     expect(alert).toBeDefined();
   });
 
