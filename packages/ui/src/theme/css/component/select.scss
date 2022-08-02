@@ -25,7 +25,7 @@
   option {
     color: initial;
   }
-  
+
   // for Firefox only, to fix background color in darkmode
   @-moz-document url-prefix() {
     option {
@@ -33,6 +33,10 @@
         --amplify-components-select-option-background-color
       );
       color: var(--amplify-components-select-option-color);
+
+      &[disabled=''] {
+        color: var(--amplify-components-select-option-disabled-color);
+      }
     }
   }
 
