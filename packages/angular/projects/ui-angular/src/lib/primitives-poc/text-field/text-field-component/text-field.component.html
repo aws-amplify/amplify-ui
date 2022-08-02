@@ -1,13 +1,13 @@
 <div class="amplify-flex amplify-field amplify-textfield">
   <!-- Label -->
-  <label [for]="inputId" *ngIf="!labelHidden">
+  <label [for]="inputId" [class.amplify-visually-hidden]="labelHidden">
     <ng-content select="[amplify-label]"> </ng-content>
   </label>
 
   <!-- Description Text -->
   <ng-content
-    select="[amplify-description-text]"
     *ngIf="!labelHidden"
+    select="[amplify-description-text]"
   ></ng-content>
 
   <!-- Actual Input -->
