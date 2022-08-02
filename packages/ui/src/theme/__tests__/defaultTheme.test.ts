@@ -551,6 +551,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-select-icon-wrapper-pointer-events: none;
         --amplify-components-select-option-background-color: var(--amplify-colors-background-primary);
         --amplify-components-select-option-color: var(--amplify-colors-font-primary);
+        --amplify-components-select-option-disabled-color: var(--amplify-colors-font-disabled);
         --amplify-components-select-white-space: nowrap;
         --amplify-components-select-min-width: 6.5rem;
         --amplify-components-select-small-min-width: 5.5rem;
