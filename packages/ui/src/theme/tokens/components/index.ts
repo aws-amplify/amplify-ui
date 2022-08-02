@@ -1,6 +1,7 @@
 import { AlertTokens, alert } from './alert';
 import { AuthenticatorTokens, authenticator } from './authenticator';
 import { badge, BadgeTokens } from './badge';
+import { bannermessage, BannerMessageTokens } from './inAppMessaging/banner';
 import { button, ButtonTokens } from './button';
 import { card, CardTokens } from './card';
 import { checkbox, CheckboxTokens } from './checkbox';
@@ -53,6 +54,7 @@ export interface ComponentTokens {
   alert: AlertTokens;
   authenticator: AuthenticatorTokens;
   badge: BadgeTokens;
+  bannermessage: BannerMessageTokens;
   button: ButtonTokens;
   card: CardTokens;
   checkbox: CheckboxTokens;
@@ -100,6 +102,7 @@ export const components: ComponentTokens = {
   alert,
   authenticator,
   badge,
+  bannermessage,
   button,
   card,
   checkbox,
