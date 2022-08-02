@@ -38,6 +38,6 @@ export const ComponentVariableTable = ({ componentName }) => {
       </Grid>
     </ScrollView>
   ) : (
-    <Alert>No variables available for this component</Alert>
+    <Alert role="none">No variables available for this component</Alert>
   );
 };
