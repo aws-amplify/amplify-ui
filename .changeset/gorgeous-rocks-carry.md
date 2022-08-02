@@ -1,6 +1,6 @@
 ---
-"@aws-amplify/ui-react": feat
-"@aws-amplify/ui": feat
+"@aws-amplify/ui-react": minor
+"@aws-amplify/ui": minor
 ---
 
 feat: adding indeterminate state checkbox
