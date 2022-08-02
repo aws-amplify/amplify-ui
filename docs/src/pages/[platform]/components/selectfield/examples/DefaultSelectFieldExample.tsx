@@ -5,5 +5,8 @@ export const DefaultSelectFieldExample = () => (
     <option value="apple">Apple</option>
     <option value="banana">Banana</option>
     <option value="orange">Orange</option>
+    <option value="broccoli" disabled>
+      Broccoli
+    </option>
   </SelectField>
 );
