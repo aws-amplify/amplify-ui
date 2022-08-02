@@ -17,7 +17,7 @@ jobs:
           source_repo: aws-amplify/amplify-ui
           source_branch: main
           destination_branch: pr/repo-sync
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.WORKFLOW_PERSONAL_TOKEN }}
       - name: Create pull request
         uses: repo-sync/pull-request@v2
         id: open-pr
