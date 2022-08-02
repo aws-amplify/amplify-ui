@@ -24,6 +24,10 @@
   // For Chrome on Windows, fixes darkmode text color
   option {
     color: initial;
+
+    &[disabled=''] {
+      color: var(--amplify-components-select-option-disabled-color);
+    }
   }
 
   // for Firefox only, to fix background color in darkmode
@@ -33,10 +37,6 @@
         --amplify-components-select-option-background-color
       );
       color: var(--amplify-components-select-option-color);
-
-      &[disabled=''] {
-        color: var(--amplify-components-select-option-disabled-color);
-      }
     }
   }
 
