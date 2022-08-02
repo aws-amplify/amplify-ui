@@ -47,9 +47,7 @@ export default function BannerMessage({
 
   return (
     <Flex
-      className={`amplify-in-app-messaging-banner__container amplify-in-app-messaging-banner-${position} amplify-in-app-messaging-banner-${alignment} ${String(
-        breakpoint
-      )}`}
+      className={`amplify-in-app-messaging-banner__container amplify-in-app-messaging-banner-${position} amplify-in-app-messaging-banner-${alignment} ${breakpoint}`}
     >
       <Flex className="amplify-in-app-messaging-banner__content-container">
         {hasRenderableImage ? (
