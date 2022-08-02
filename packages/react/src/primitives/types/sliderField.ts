@@ -1,10 +1,12 @@
 import { Property } from 'csstype';
+import React from 'react';
 
 import { StyleToken } from './style';
 import { TextInputFieldProps } from './textField';
 import { ViewProps } from './view';
 
 type SliderOrientation = 'horizontal' | 'vertical';
+type Direction = 'ltr' | 'rtl';
 
 export interface SliderFieldProps extends TextInputFieldProps, ViewProps {
   /**
@@ -75,7 +77,21 @@ export interface SliderFieldProps extends TextInputFieldProps, ViewProps {
 
   /**
    * @description
+   * Use to format how the value gets rendered
+   */
+  formatValue?: (value: number) => React.ReactNode;
+
+  /**
+   * @description
    * Handles changes to the current value when using the SliderField as a controlled component
    */
   onChange?: (value: number) => void;
+
+  /**
+   * @description
+   * sets the direction of the slider.
+   * @see
+   * [Radix docs](https://www.radix-ui.com/docs/primitives/components/slider)
+   */
+  dir?: Direction;
 }

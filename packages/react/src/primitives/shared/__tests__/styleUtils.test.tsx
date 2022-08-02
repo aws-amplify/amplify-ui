@@ -66,7 +66,8 @@ describe('convertStylePropsToStyleObj: ', () => {
   it('should ignore undefined, null or empty string style prop values', () => {
     const props: ViewProps = {
       backgroundColor: undefined,
-      color: null,
+      // cast to `undefined` to allow robustness testing
+      color: null as unknown as undefined,
       border: '',
       borderRadius: '6px',
       ariaLabel: 'important section',
@@ -405,7 +406,8 @@ describe('convertGridSpan: ', () => {
 
   it('should return null when passed undefined or null', () => {
     const unDefResult = convertGridSpan(undefined);
-    const nullResult = convertGridSpan(null);
+    // cast to `undefined` to allow robustness testing
+    const nullResult = convertGridSpan(null as unknown as undefined);
     expect(unDefResult).toBe(null);
     expect(nullResult).toBe(null);
   });

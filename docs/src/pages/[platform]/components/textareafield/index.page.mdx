@@ -2,9 +2,21 @@
 title: TextAreaField
 description: TextAreaField allows users to input multiline text content.
 reactSource: packages/react/src/primitives/TextAreaField/TextAreaField.tsx
+mdnUrl: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea
+htmlElement: textarea
 supportedFrameworks: react
 ---
 
 import { Fragment } from '@/components/Fragment';
+import { PageTabLayout } from "@/components/Layout/PageTabLayout"
 
-<Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+<PageTabLayout 
+  tabComponents={[{
+    title: "Documentation", 
+    children: <Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+  },
+  {
+    title: "Props", 
+    children: <Fragment>{({ platform }) => import('./props-table.mdx')}</Fragment>
+  }]}
+/>

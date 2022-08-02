@@ -3,9 +3,21 @@ title: Divider
 description: Divider helps organize content, separate sections and establish visual rhythm.
 themeSource: packages/ui/src/theme/tokens/components/divider.ts
 reactSource: packages/react/src/primitives/Divider/Divider.tsx
+mdnUrl: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/hr
+htmlElement: hr
 supportedFrameworks: react
 ---
 
 import { Fragment } from '@/components/Fragment';
+import { PageTabLayout } from "@/components/Layout/PageTabLayout"
 
-<Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+<PageTabLayout 
+  tabComponents={[{
+    title: "Documentation", 
+    children: <Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+  },
+  {
+    title: "Props", 
+    children: <Fragment>{({ platform }) => import('./props-table.mdx')}</Fragment>
+  }]}
+/> 

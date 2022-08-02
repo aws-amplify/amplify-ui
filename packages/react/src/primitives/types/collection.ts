@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { FlexProps } from './flex';
 import { GridProps } from './grid';
 import { BaseStyleProps } from './style';
@@ -8,7 +9,8 @@ export interface CollectionWrapperProps extends BaseStyleProps {
   /**
    * @description
    * Collection type. This will be used to determine collection wrapper component.
-   * @default 'list'
+   * @default
+   * 'list'
    */
   type?: CollectionType;
 
@@ -39,7 +41,8 @@ export interface CollectionWrapperProps extends BaseStyleProps {
   /**
    * @description
    * Search field label
-   * @default "Search"
+   * @default
+   * "Search"
    */
   searchLabel?: string;
 
@@ -48,6 +51,12 @@ export interface CollectionWrapperProps extends BaseStyleProps {
    * Search field placeholder
    */
   searchPlaceholder?: string;
+
+  /**
+   * @description
+   * Controls what is displayed when no results are found from the Collection search
+   */
+  searchNoResultsFound?: React.ReactNode;
 }
 
 export interface CollectionBaseProps<Item> {
@@ -57,7 +66,8 @@ export interface CollectionBaseProps<Item> {
    */
   items: Array<Item>;
 
-  /*
+  /**
+   * @description
    * The component to be repeated
    * Same interface as Array.prototype.map
    */

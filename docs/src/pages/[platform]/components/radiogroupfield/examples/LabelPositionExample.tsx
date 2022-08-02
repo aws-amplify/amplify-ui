@@ -1,35 +1,31 @@
 import { Radio, RadioGroupField, Flex } from '@aws-amplify/ui-react';
 
 export const LabelPositionExample = () => (
-  <Flex direction="row">
-    <RadioGroupField label="Language" name="language3" defaultValue="html">
-      <Radio value="html">html</Radio>
-      <Radio value="css">css</Radio>
-      <Radio value="javascript">javascript</Radio>
+  <Flex>
+    <RadioGroupField label="Default" name="default" labelHidden>
+      <Radio value="default">Default</Radio>
     </RadioGroupField>
 
     <RadioGroupField
-      label="Language"
-      name="language4"
-      defaultValue="html"
+      label="Start"
+      name="start"
       labelPosition="start"
+      labelHidden
     >
-      <Radio value="html">html</Radio>
-      <Radio value="css">css</Radio>
-      <Radio value="javascript">javascript</Radio>
+      <Radio value="start">Start</Radio>
+    </RadioGroupField>
+
+    <RadioGroupField label="Top" name="top" labelPosition="top" labelHidden>
+      <Radio value="top">Top</Radio>
     </RadioGroupField>
 
     <RadioGroupField
-      label="Language"
-      name="language5"
-      defaultValue="html"
-      labelPosition="start"
+      label="Bottom"
+      name="bottom"
+      labelPosition="bottom"
+      labelHidden
     >
-      <Radio value="html">html</Radio>
-      <Radio value="css" labelPosition="end">
-        css
-      </Radio>
-      <Radio value="javascript">javascript</Radio>
+      <Radio value="bottom">Bottom</Radio>
     </RadioGroupField>
   </Flex>
 );
