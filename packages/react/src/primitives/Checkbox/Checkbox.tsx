@@ -8,7 +8,7 @@ import { Text } from '../Text';
 import { VisuallyHidden } from '../VisuallyHidden';
 import { CheckboxProps } from '../types/checkbox';
 import { Primitive } from '../types/view';
-import { useTestId } from '../utils/testUtils';
+import { getTestId } from '../utils/testUtils';
 import { useStableId } from '../utils/useStableId';
 import { useCheckbox } from './useCheckbox';
 import { ComponentClassNames } from '../shared/constants';
@@ -56,9 +56,9 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
     input.indeterminate = isIndeterminate;
   }, [dataId, isIndeterminate]);
 
-  const buttonTestId = useTestId(testId, ComponentClassNames.CheckboxButton);
-  const iconTestId = useTestId(testId, ComponentClassNames.CheckboxIcon);
-  const labelTestId = useTestId(testId, ComponentClassNames.CheckboxLabel);
+  const buttonTestId = getTestId(testId, ComponentClassNames.CheckboxButton);
+  const iconTestId = getTestId(testId, ComponentClassNames.CheckboxIcon);
+  const labelTestId = getTestId(testId, ComponentClassNames.CheckboxLabel);
   const flexClasses = classNames(
     ComponentClassNames.CheckboxButton,
     classNameModifierByFlag(

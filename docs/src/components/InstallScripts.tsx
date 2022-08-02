@@ -45,12 +45,15 @@ interface InstallScriptsProps {
 }
 
 export const InstallScripts = ({ framework }: InstallScriptsProps) => {
+  const {
+    query: { platform = 'react' },
+  } = useCustomRouter();
+
+  // infer framework from router if framework isn't specified
   if (!framework) {
-    const {
-      query: { platform = 'react' },
-    } = useCustomRouter();
     framework = platform as WebFramework;
   }
+
   return (
     <Tabs>
       <TabItem title="npm">
