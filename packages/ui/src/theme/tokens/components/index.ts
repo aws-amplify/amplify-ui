@@ -1,6 +1,7 @@
 import { AlertTokens, alert } from './alert';
 import { AuthenticatorTokens, authenticator } from './authenticator';
 import { badge, BadgeTokens } from './badge';
+import { bannermessage, BannerMessageTokens } from './inAppMessaging/banner';
 import { button, ButtonTokens } from './button';
 import { card, CardTokens } from './card';
 import { checkbox, CheckboxTokens } from './checkbox';
@@ -21,7 +22,7 @@ import { flex, FlexTokens } from './flex';
 import { heading, HeadingTokens } from './heading';
 import { icon, IconTokens } from './icon';
 import { image, ImageTokens } from './image';
-import { bannermessage, BannerMessageTokens } from './inAppMessaging/banner';
+import { inappmessaging, InAppMessagingTokens } from './inAppMessaging';
 import { link, LinkTokens } from './link';
 import { loader, LoaderTokens } from './loader';
 import { menu, MenuTokens } from './menu';
@@ -53,6 +54,7 @@ export interface ComponentTokens {
   alert: AlertTokens;
   authenticator: AuthenticatorTokens;
   badge: BadgeTokens;
+  bannermessage: BannerMessageTokens;
   button: ButtonTokens;
   card: CardTokens;
   checkbox: CheckboxTokens;
@@ -70,7 +72,7 @@ export interface ComponentTokens {
   heading: HeadingTokens;
   icon: IconTokens;
   image: ImageTokens;
-  bannermessage: BannerMessageTokens;
+  inappmessaging: InAppMessagingTokens;
   link: LinkTokens;
   loader: LoaderTokens;
   menu: MenuTokens;
@@ -100,6 +102,7 @@ export const components: ComponentTokens = {
   alert,
   authenticator,
   badge,
+  bannermessage,
   button,
   card,
   checkbox,
@@ -117,7 +120,7 @@ export const components: ComponentTokens = {
   heading,
   icon,
   image,
-  bannermessage,
+  inappmessaging,
   link,
   loader,
   menu,
