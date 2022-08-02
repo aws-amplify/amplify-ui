@@ -7,6 +7,7 @@ fix(ui-react): Collection searchNoResultsFound
 When no results are returned from searching a Collection, we render the text "No results found" by default
 - Customer also has the option of passing their own `ReactNode` to the new `searchNoResultsFound` prop
 
+```jsx
   <Collection
     isSearchable
     searchNoResultsFound={
@@ -19,3 +20,4 @@ When no results are returned from searching a Collection, we render the text "No
   >
     {collectionItems}
   </Collection>
+```
