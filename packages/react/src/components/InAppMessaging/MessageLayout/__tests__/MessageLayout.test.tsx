@@ -24,8 +24,10 @@ const mockPrimaryButtonOnAction = jest.fn();
 const mockSecondaryButtonOnAction = jest.fn();
 
 const BODY_CONTENT = 'body content';
+const DARK_BACKGROUND_COLOR = 'black';
 const HEADER_CONTENT = 'header content';
 const IMAGE_SRC = 'http://image.url';
+const LIGHT_BACKGROUND_COLOR = 'white';
 const PRIMARY_BUTTON = 'primary button';
 const SECONDARY_BUTTON = 'secondary button';
 const STYLES = {
@@ -34,8 +36,8 @@ const STYLES = {
   container: { backgroundColor: '#003' },
   header: { backgroundColor: '#004' },
   image: { backgroundColor: '#005' },
-  primaryButton: { backgroundColor: '#006' },
-  secondaryButton: { backgroundColor: '#007' },
+  primaryButton: { backgroundColor: DARK_BACKGROUND_COLOR },
+  secondaryButton: { backgroundColor: LIGHT_BACKGROUND_COLOR },
 };
 const TEST_PROPS: MessageLayoutProps = {
   body: { content: BODY_CONTENT },
@@ -150,12 +152,23 @@ describe('MessageLayout component', () => {
     expect(secondaryButton).toBeInTheDocument();
   });
 
-  it.each(['dark', 'light'])('should apply the %s modifier', (modifier) => {
-    (getButtonModifier as jest.Mock).mockReturnValue(modifier);
-    render(<MessageLayout {...TEST_PROPS} hasButtons hasPrimaryButton />);
+  it('should apply the correct button modifiers', () => {
+    (getButtonModifier as jest.Mock).mockImplementation(({ backgroundColor }) =>
+      backgroundColor === DARK_BACKGROUND_COLOR ? 'dark' : 'light'
+    );
+    render(
+      <MessageLayout
+        {...TEST_PROPS}
+        hasButtons
+        hasPrimaryButton
+        hasSecondaryButton
+      />
+    );
 
     const primaryButton = screen.getByText(PRIMARY_BUTTON);
-    expect(primaryButton).toHaveClass(`${BUTTON_CLASS}--${modifier}`);
+    const secondaryButton = screen.getByText(SECONDARY_BUTTON);
+    expect(primaryButton).toHaveClass(`${BUTTON_CLASS}--dark`);
+    expect(secondaryButton).toHaveClass(`${BUTTON_CLASS}--light`);
   });
 
   it('should trigger the button onAction functions', () => {
