@@ -43,7 +43,7 @@ export const CollectionPropControls: CollectionPropControlsInterface = ({
       </SelectField>
 
       <TextField
-        label="Gap"
+        label="gap"
         value={gap as string}
         onChange={(event) => setGap(event.target.value)}
       />
@@ -51,7 +51,7 @@ export const CollectionPropControls: CollectionPropControlsInterface = ({
       <SelectField
         name="wrap"
         id="wrap"
-        label="Wrap"
+        label="wrap"
         value={wrap as string}
         onChange={(event) => setWrap(event.target.value)}
       >

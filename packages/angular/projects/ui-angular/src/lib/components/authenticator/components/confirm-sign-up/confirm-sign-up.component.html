@@ -20,7 +20,13 @@
         route="confirmSignUp"
       ></amplify-base-form-fields>
 
-      <button amplify-button variation="primary" fullWidth="true" type="submit">
+      <button
+        amplify-button
+        variation="primary"
+        fullWidth="true"
+        type="submit"
+        [isDisabled]="authenticator.isPending"
+      >
         {{ confirmText }}
       </button>
       <button

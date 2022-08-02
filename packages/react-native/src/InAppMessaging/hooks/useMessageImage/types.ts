@@ -6,10 +6,9 @@ export type ImageDimensions = {
 export type ImageLoadingState = 'loaded' | 'failed';
 
 export enum ImagePrefetchStatus {
-  Initial = 'INITIAL',
+  Failure = 'FAILURE',
   Fetching = 'FETCHING',
   Success = 'SUCCESS',
-  Failure = 'FAILURE',
 }
 
 export type UseMessageImage = {

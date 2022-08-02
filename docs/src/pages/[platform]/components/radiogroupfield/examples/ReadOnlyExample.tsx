@@ -1,19 +1,14 @@
 import { Radio, RadioGroupField } from '@aws-amplify/ui-react';
 
-const options = ['html', 'css', 'javascript'];
-
 export const ReadOnlyExample = () => (
   <RadioGroupField
-    label="Language"
-    name="example-11"
-    defaultValue="html"
-    labelHidden
+    label="Read-only"
+    name="read-only"
+    defaultValue="love"
     isReadOnly
   >
-    {options.map((option) => (
-      <Radio key={option} value={option}>
-        {option}
-      </Radio>
-    ))}
+    <Radio value="love">I love Amplify UI 😍</Radio>
+    <Radio value="like">I like Amplify UI 👍</Radio>
+    <Radio value="appreciate">I appreciate Amplify UI 🙏</Radio>
   </RadioGroupField>
 );

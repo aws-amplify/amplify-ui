@@ -1,7 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassNames, ComponentText } from '../shared/constants';
 import { classNameModifier } from '../shared/utils';
 import { AlertProps, Primitive } from '../types';
 import { View } from '../View';
@@ -16,6 +16,7 @@ const AlertPrimitive: Primitive<AlertProps, typeof Flex> = (
     buttonRef,
     children,
     className,
+    dismissButtonLabel = ComponentText.Alert.dismissButtonLabel,
     hasIcon = true,
     heading,
     isDismissible = false,
@@ -56,6 +57,7 @@ const AlertPrimitive: Primitive<AlertProps, typeof Flex> = (
         </View>
         {isDismissible && (
           <Button
+            ariaLabel={dismissButtonLabel}
             variation="link"
             className={ComponentClassNames.AlertDismiss}
             onClick={dismissAlert}

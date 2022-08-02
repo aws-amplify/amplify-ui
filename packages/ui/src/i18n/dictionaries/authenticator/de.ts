@@ -23,7 +23,7 @@ export const deDict = {
   'Enter your password': 'Geben Sie Ihr Passwort ein',
   'Enter your username': 'Geben Sie Ihren Benutzernamen ein',
   'Enter your phone number': 'Geben Sie Ihre Telefonnummer ein',
-  'Enter your email': 'Geben Sie ihre Email ein',
+  'Enter your email': 'Geben Sie Ihre Email ein',
   'Forgot your password?': 'Passwort vergessen? ',
   'Forgot Password': 'Passwort vergessen',
   'Hide password': 'Passwort verbergen',
@@ -44,6 +44,7 @@ export const deDict = {
   'Reset password': 'Passwort zurücksetzen',
   'Reset your password': 'Zurücksetzen des Passworts',
   'Send Code': 'Code senden',
+  'Send code': 'Code senden',
   'Sign in': 'Anmelden',
   'Sign In': 'Anmelden',
   'Sign in to your account': 'Melden Sie sich mit Ihrem Account an',
@@ -57,4 +58,11 @@ export const deDict = {
   'Username cannot be empty': 'Benutzername darf nicht leer sein',
   Verify: 'Verifizieren',
   'Verify Contact': 'Kontakt verifizieren',
+  'We Emailed You': 'Email wurde versendet',
+  'Your code is on the way. To log in, enter the code we emailed to':
+    'Ihr Bestätigungscode ist unterwegs. Um sich einzuloggen geben Sie den Code ein, den wir verschickt haben an',
+  'Your code is on the way. To log in, enter the code we texted to':
+    'Ihr Bestätigungscode ist unterwegs. Um sich einzuloggen geben Sie den Code ein, den wir verschickt haben an',
+  'It may take a minute to arrive.':
+    'Es könnte eine Minute dauern, bis der Code eintrifft.',
 };

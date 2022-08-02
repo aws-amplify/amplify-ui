@@ -10,7 +10,14 @@ import { useCustomRouter } from '@/components/useCustomRouter';
 
 import { Head } from './Head';
 
+import Prism from 'prism-react-renderer/prism';
+
+globalThis.Prism = Prism;
+
+require('prismjs/components/prism-dart');
+
 import '../styles/index.scss';
+import classNames from 'classnames';
 
 if (typeof window === 'undefined') {
   // suppress useLayoutEffect warnings when running outside a browser
@@ -48,6 +55,8 @@ function MyApp({ Component, pageProps }) {
     } else {
       localStorage.removeItem('colorMode');
     }
+    // Algolia search renders in a Portal so we need to do this
+    document.documentElement.setAttribute('data-amplify-color-mode', colorMode);
   };
 
   React.useEffect(() => {
@@ -55,6 +64,10 @@ function MyApp({ Component, pageProps }) {
     if (colorModePreference) {
       setColorMode(colorModePreference);
     }
+    document.documentElement.setAttribute(
+      'data-amplify-color-mode',
+      colorModePreference || 'system'
+    );
   }, []);
 
   configure();
@@ -73,11 +86,12 @@ function MyApp({ Component, pageProps }) {
             setColorMode={handleColorModeChange}
             platform={platform}
           />
-          <div className={`docs-main`}>
+          <main className="docs-main">
             <div
-              className={`docs-sidebar-spacer ${
+              className={classNames(
+                'docs-sidebar-spacer',
                 expanded ? 'expanded' : 'collapsed'
-              }`}
+              )}
             />
 
             <Component
@@ -85,10 +99,15 @@ function MyApp({ Component, pageProps }) {
               setExpanded={setExpanded}
               colorMode={colorMode}
             />
-          </div>
+          </main>
         </ThemeProvider>
       </div>
       <Script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" />
+      {/* {process.env.NODE_ENV !== 'production' ? (
+        <script src="https://aa0.awsstatic.com/s_code/js/3.0/awshome_s_code.js"></script>
+      ) : (
+        <script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js"></script>
+      )} */}
       <Script src="/scripts/shortbreadv2.js" />
     </>
   );

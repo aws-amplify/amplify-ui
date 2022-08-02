@@ -1,7 +1,7 @@
 import { ValidationError } from '../validator';
 import { AuthFormData, AuthFormFields } from '../form';
 import { AuthChallengeNames, CognitoUserAmplify } from '../user';
-import { CodeDeliveryDetails } from 'amazon-cognito-identity-js';
+import { CodeDeliveryDetails as CognitoCodeDeliveryDetails } from 'amazon-cognito-identity-js';
 import { LoginMechanism, SignUpAttribute, SocialProvider } from '../attributes';
 import { defaultServices } from '../../../machines/authenticator/defaultServices';
 import { PasswordSettings } from '..';
@@ -41,6 +41,8 @@ export interface AuthContext {
   actorDoneData?: Omit<ActorDoneData, 'user'>; // data returned from actors when they finish and reach their final state
   hasSetup?: boolean;
 }
+
+export interface CodeDeliveryDetails extends CognitoCodeDeliveryDetails {}
 
 /**
  * Base context for all actors that have auth forms associated

@@ -1,3 +1,4 @@
+import React from 'react';
 import { translate } from '@aws-amplify/ui';
 
 import { Button } from '../../../primitives/Button';
@@ -7,7 +8,7 @@ import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { useAuthenticator } from '../hooks/useAuthenticator';
 import { useCustomComponents } from '../hooks/useCustomComponents';
 import { useFormHandlers } from '../hooks/useFormHandlers';
-import { FormFields } from '../shared/FormFields';
+import { FormFields as DefaultFormFields } from '../shared/FormFields';
 import { RouteContainer, RouteProps } from '../RouteContainer';
 
 export const ForceNewPassword = ({
@@ -67,4 +68,6 @@ export const ForceNewPassword = ({
   );
 };
 
-ForceNewPassword.FormFields = () => <FormFields />;
+ForceNewPassword.FormFields = function FormFields() {
+  return <DefaultFormFields />;
+};

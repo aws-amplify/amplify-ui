@@ -416,6 +416,8 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-image-height: auto;
         --amplify-components-image-object-fit: initial;
         --amplify-components-image-object-position: initial;
+        --amplify-components-inappmessaging-header-font-size: var(--amplify-font-sizes-medium);
+        --amplify-components-inappmessaging-header-font-weight: var(--amplify-font-weights-extrabold);
         --amplify-components-link-active-color: var(--amplify-colors-font-active);
         --amplify-components-link-color: var(--amplify-colors-font-interactive);
         --amplify-components-link-focus-color: var(--amplify-colors-font-focus);
@@ -584,6 +586,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-select-icon-wrapper-transform: translateY(-50%);
         --amplify-components-select-icon-wrapper-pointer-events: none;
         --amplify-components-select-option-background-color: var(--amplify-colors-background-primary);
+        --amplify-components-select-option-color: var(--amplify-colors-font-primary);
         --amplify-components-select-white-space: nowrap;
         --amplify-components-select-min-width: 6.5rem;
         --amplify-components-select-small-min-width: 5.5rem;
@@ -635,7 +638,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-stepperfield-button-focus-color: var(--amplify-components-button-focus-color);
         --amplify-components-stepperfield-button-focus-background-color: var(--amplify-components-button-focus-background-color);
         --amplify-components-stepperfield-button-disabled-color: var(--amplify-components-button-disabled-color);
-        --amplify-components-stepperfield-button-disabled-background-color: var(--amplify-components-button-disabled-background-color);
+        --amplify-components-stepperfield-button-disabled-background-color: var(--amplify-components-fieldcontrol-disabled-background-color);
         --amplify-components-stepperfield-button-hover-color: var(--amplify-components-button-hover-color);
         --amplify-components-stepperfield-button-hover-background-color: var(--amplify-components-button-hover-background-color);
         --amplify-components-switchfield-disabled-opacity: var(--amplify-opacities-60);

@@ -1,4 +1,4 @@
-export { InAppMessageDisplay } from './InAppMessaging';
+export { InAppMessageDisplay, withInAppMessaging } from './InAppMessaging';
 export {
   InAppMessagingProvider,
   useInAppMessaging,
