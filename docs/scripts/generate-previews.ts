@@ -2,7 +2,7 @@ import {
   createCanvas,
   Image,
   loadImage,
-  NodeCanvasRenderingContext2D,
+  CanvasRenderingContext2D,
   registerFont,
 } from 'canvas';
 import fs from 'fs';
@@ -51,7 +51,7 @@ type DrawTextOptions = {
 };
 
 export const drawText = (
-  context: NodeCanvasRenderingContext2D,
+  context: CanvasRenderingContext2D,
   text: string,
   options: DrawTextOptions
 ) => {
