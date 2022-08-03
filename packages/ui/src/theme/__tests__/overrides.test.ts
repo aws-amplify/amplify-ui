@@ -641,8 +641,8 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-stepperfield-button-hover-background-color: var(--amplify-components-button-hover-background-color);
         --amplify-components-switchfield-disabled-opacity: var(--amplify-opacities-60);
         --amplify-components-switchfield-focused-shadow: 0px 0px 0px 2px var(--amplify-colors-border-focus);
+        --amplify-components-switchfield-font-size: var(--amplify-font-sizes-medium);
         --amplify-components-switchfield-large-font-size: var(--amplify-font-sizes-large);
-        --amplify-components-switchfield-medium-font-size: var(--amplify-font-sizes-medium);
         --amplify-components-switchfield-small-font-size: var(--amplify-font-sizes-small);
         --amplify-components-switchfield-label-padding: var(--amplify-space-xs);
         --amplify-components-switchfield-thumb-background-color: var(--amplify-colors-background-primary);
