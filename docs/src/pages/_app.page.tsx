@@ -3,7 +3,7 @@ import * as React from 'react';
 import { ThemeProvider, ColorMode, defaultTheme } from '@aws-amplify/ui-react';
 
 import { configure, trackPageVisit } from '@/utils/track';
-import { getStage } from '@/utils/getStage';
+import { IS_PROD_STAGE } from '@/utils/getStage';
 import { Header } from '@/components/Layout/Header';
 import Script from 'next/script';
 import { baseTheme } from '../theme';
@@ -39,7 +39,6 @@ if (typeof window === 'undefined') {
 }
 
 function MyApp({ Component, pageProps }) {
-  const isProd = getStage() === 'prod';
   const [expanded, setExpanded] = React.useState(false);
 
   const {
@@ -72,7 +71,7 @@ function MyApp({ Component, pageProps }) {
     );
   }, []);
 
-  if (isProd) {
+  if (IS_PROD_STAGE) {
     configure();
     trackPageVisit();
   }
@@ -106,7 +105,7 @@ function MyApp({ Component, pageProps }) {
           </main>
         </ThemeProvider>
       </div>
-      {isProd && (
+      {IS_PROD_STAGE && (
         <>
           <Script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" />
           {/* {process.env.NODE_ENV !== 'production' ? (

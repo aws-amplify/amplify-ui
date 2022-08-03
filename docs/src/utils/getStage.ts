@@ -13,3 +13,5 @@ export const getStage = () => {
   }
   return STAGE.LOCAL;
 };
+
+export const IS_PROD_STAGE = getStage() === STAGE.PROD;
