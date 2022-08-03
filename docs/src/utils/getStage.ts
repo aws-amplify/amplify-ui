@@ -1,9 +1,15 @@
+enum STAGE {
+  LOCAL = 'local',
+  DEV = 'dev',
+  PROD = 'prod',
+}
+
 export const getStage = () => {
   const url = process.env.SITE_URL;
   if (url === 'https://ui.docs.amplify.aws') {
-    return 'prod';
+    return STAGE.PROD;
   } else if (url.includes('dev.ui.docs.amplify.aws')) {
-    return 'dev';
+    return STAGE.DEV;
   }
-  return 'test';
+  return STAGE.LOCAL;
 };
