@@ -17,7 +17,7 @@ export class AmplifyTextFieldsComponent implements AfterContentInit {
   @Input() labelHidden: boolean = false;
   @Input() hasError: boolean = false;
 
-  @ContentChild(InputDirective) childInput: InputDirective | undefined;
+  @ContentChild(InputDirective) childInput: InputDirective;
 
   public inputId = '';
 
