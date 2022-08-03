@@ -117,13 +117,23 @@ class _MyAppState extends State<MyApp> {
   ThemeData get theme {
     final theme =
         widget.config.useCustomTheme ? customLightTheme : ThemeData.light();
-    return theme.copyWith(visualDensity: VisualDensity.standard);
+    return widget.config.device == Device.web
+        ? theme
+        : theme.copyWith(
+            // VisualDensity is by default standard on ios/android
+            visualDensity: VisualDensity.standard,
+          );
   }
 
   ThemeData get darkTheme {
     final theme =
         widget.config.useCustomTheme ? customDarkTheme : ThemeData.dark();
-    return theme.copyWith(visualDensity: VisualDensity.standard);
+    return widget.config.device == Device.web
+        ? theme
+        : theme.copyWith(
+            // VisualDensity is by default standard on ios/android
+            visualDensity: VisualDensity.standard,
+          );
   }
 
   @override

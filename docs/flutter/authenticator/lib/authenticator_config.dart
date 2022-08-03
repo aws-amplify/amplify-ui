@@ -200,12 +200,12 @@ enum Device {
   web;
 
   static Device parse(String? value) {
-    switch (value) {
+    switch (value?.toLowerCase()) {
       case 'ios':
         return Device.ios;
       case 'android':
         return Device.android;
-      case 'iPad':
+      case 'ipad':
         return Device.iPad;
       case 'web':
         return Device.web;
@@ -221,7 +221,7 @@ enum Device {
       case Device.android:
         return Devices.android.mediumPhone;
       case Device.iPad:
-        return Devices.ios.iPhone13Mini;
+        return Devices.ios.iPad;
       case Device.web:
         return null;
     }
