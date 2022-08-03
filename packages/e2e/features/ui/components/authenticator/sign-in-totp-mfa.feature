@@ -63,6 +63,7 @@ Feature: Sign In with TOTP MFA
     And I type a new "email"
     And I type my password
     And I confirm my password
+    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"
     And I click the "Create Account" button
     Then I see "Confirmation Code"
     And I type a valid confirmation code
