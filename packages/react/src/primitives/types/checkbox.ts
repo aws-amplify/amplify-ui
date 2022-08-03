@@ -34,4 +34,11 @@ export interface CheckboxProps extends FlexProps, InputProps {
    * "start"
    */
   labelPosition?: LabelPositions;
+
+  /**
+   * @description
+   * Determines whether a checkbox is in indeterminate state
+   * @default false
+   */
+  isIndeterminate?: boolean;
 }

@@ -256,6 +256,9 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-checkbox-icon-checked-opacity: var(--amplify-opacities-100);
         --amplify-components-checkbox-icon-checked-transform: scale(1);
         --amplify-components-checkbox-icon-checked-disabled-background-color: var(--amplify-colors-background-disabled);
+        --amplify-components-checkbox-icon-indeterminate-opacity: var(--amplify-opacities-100);
+        --amplify-components-checkbox-icon-indeterminate-transform: scale(1);
+        --amplify-components-checkbox-icon-indeterminate-disabled-background-color: var(--amplify-colors-background-disabled);
         --amplify-components-checkbox-label-disabled-color: var(--amplify-colors-font-disabled);
         --amplify-components-checkboxfield-align-items: flex-start;
         --amplify-components-checkboxfield-align-content: center;
