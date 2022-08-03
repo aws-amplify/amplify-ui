@@ -46,7 +46,6 @@ export class InputDirective {
     return {
       'amplify-input': true,
       'amplify-field-group__control': true,
-      'amplify-input--quiet': true,
     };
   }
   @HostBinding('id') id = this._id;
