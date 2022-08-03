@@ -31,9 +31,7 @@ const config = defineConfig([
       sourcemap: false,
     },
     plugins: [
-      externals({
-        include: /^@aws-amplify/,
-      }),
+      externals({ include: /^@aws-amplify/ }),
       typescript({ outDir: 'dist/esm', declaration: false, sourceMap: false }),
       terser(),
     ],
