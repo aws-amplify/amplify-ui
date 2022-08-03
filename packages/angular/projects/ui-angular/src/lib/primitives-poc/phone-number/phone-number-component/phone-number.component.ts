@@ -5,6 +5,7 @@ import {
   Input,
   SimpleChanges,
 } from '@angular/core';
+import { countryDialCodes } from '@aws-amplify/ui';
 import { PhoneNumberDirective } from '../phone-number-directive/phone-number.directive';
 
 const $COMPONENT_SELECTOR: string = 'amplify-password-field';
@@ -20,13 +21,15 @@ export class AmplifyPhoneNumberFieldComponent implements AfterContentInit {
   @ContentChild(PhoneNumberDirective) childInput: PhoneNumberDirective;
 
   public inputId = '';
+  public countryCode = countryDialCodes;
+  selectedValue: string = '';
 
   constructor() {}
 
   ngAfterContentInit(): void {
     // getting data from child input
     this.inputId = this.childInput?.id;
-
+    console.log('tets ', countryDialCodes);
     // send data to child input
     // note: this is still not dynamic, so we still need a change detction strategy here.
     // this can be implemented later for the purpose of POC.
