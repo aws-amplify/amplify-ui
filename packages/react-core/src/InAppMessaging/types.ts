@@ -54,11 +54,14 @@ export type BannerMessageLayouts =
 
 export type MessageComponentPosition = 'bottom' | 'middle' | 'top';
 
+export type MessageComponentAlignment = 'left' | 'center' | 'right';
+
 // Banner Message requires a `position` prop
 export interface BannerMessageCommonProps<PlatformStyleProps>
   extends MessageCommonProps<PlatformStyleProps>,
     MessageContentProps {
   position?: MessageComponentPosition;
+  alignment?: MessageComponentAlignment;
 }
 
 // Carousel Message nests content props in its `data` prop

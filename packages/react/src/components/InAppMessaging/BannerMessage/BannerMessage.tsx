@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { Button } from '../../../primitives/Button';
 import { Flex } from '../../../primitives/Flex';
 import { Heading } from '../../../primitives/Heading';
@@ -6,8 +8,9 @@ import { Text } from '../../../primitives/Text';
 import { CloseIconButton } from '../CloseIconButton';
 import { useThemeBreakpoint } from '../../../hooks/useThemeBreakpoint';
 import { useMessageProps } from '../hooks/useMessageProps';
+import { MessageDefaultComponents } from '../InAppMessageDisplay/types';
 
-export default function BannerMessage({
+const BannerMessage: MessageDefaultComponents['BannerMessage'] = ({
   alignment = 'right',
   body,
   container,
@@ -19,7 +22,7 @@ export default function BannerMessage({
   position = 'top',
   primaryButton,
   secondaryButton,
-}): JSX.Element | null {
+}) => {
   const breakpoint = useThemeBreakpoint();
 
   const messageProps = useMessageProps({
@@ -98,4 +101,6 @@ export default function BannerMessage({
       ) : null}
     </Flex>
   );
-}
+};
+
+export default BannerMessage;
