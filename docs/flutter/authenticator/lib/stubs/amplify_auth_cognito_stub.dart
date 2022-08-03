@@ -18,7 +18,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
     await Future<void>.delayed(const Duration(milliseconds: 50));
     _MockUser? user = _users[request.username];
     if (user != null) {
-      throw UsernameExistsException();
+      throw UsernameExistsException(message: 'User name already exists.');
     } else {
       _MockUser newUser = _MockUser(
         sub: Random().nextInt(10000).toString(),
@@ -45,7 +45,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
   }) async {
     await Future<void>.delayed(const Duration(milliseconds: 50));
     if (request.confirmationCode != '123456') {
-      throw CodeMismatchException();
+      throw CodeMismatchException(message: 'Incorrect confirmation code.');
     }
     return const CognitoSignUpResult(
       isSignUpComplete: true,
@@ -60,7 +60,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
     await Future<void>.delayed(const Duration(milliseconds: 50));
     _MockUser? user = _users[request.username];
     if (user == null) {
-      throw UserNotFoundException();
+      throw UserNotFoundException(message: 'User not found.');
     }
     return CognitoResendSignUpCodeResult(_codeDeliveryDetails(user));
   }
@@ -70,7 +70,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
     await Future<void>.delayed(const Duration(milliseconds: 50));
     _MockUser? user = _users[request.username];
     if (user == null) {
-      throw UserNotFoundException();
+      throw UserNotFoundException(message: 'User not found.');
     }
     if (user.password != request.password) {
       throw const NotAuthorizedException('Incorrect username or password.');
@@ -114,7 +114,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
     }
     _MockUser? user = _users[request.username];
     if (user == null) {
-      throw UserNotFoundException();
+      throw UserNotFoundException(message: 'User not found.');
     }
     return CognitoResetPasswordResult(
       isPasswordReset: true,
@@ -135,10 +135,10 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
     }
     _MockUser? user = _users[request.username];
     if (user == null) {
-      throw UserNotFoundException();
+      throw UserNotFoundException(message: 'User not found.');
     }
     if (request.confirmationCode != '123456') {
-      throw CodeMismatchException();
+      throw CodeMismatchException(message: 'Incorrect confirmation code.');
     }
     _MockUser updatedUser = user.copyWith(password: request.newPassword);
     _users[request.username] = updatedUser;
