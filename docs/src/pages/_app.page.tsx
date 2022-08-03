@@ -3,6 +3,7 @@ import * as React from 'react';
 import { ThemeProvider, ColorMode, defaultTheme } from '@aws-amplify/ui-react';
 
 import { configure, trackPageVisit } from '@/utils/track';
+import { getStage } from '@/utils/getStage';
 import { Header } from '@/components/Layout/Header';
 import Script from 'next/script';
 import { baseTheme } from '../theme';
@@ -38,6 +39,7 @@ if (typeof window === 'undefined') {
 }
 
 function MyApp({ Component, pageProps }) {
+  const stage = getStage();
   const [expanded, setExpanded] = React.useState(false);
 
   const {
@@ -70,8 +72,10 @@ function MyApp({ Component, pageProps }) {
     );
   }, []);
 
-  configure();
-  trackPageVisit();
+  if (stage === 'prod') {
+    configure();
+    trackPageVisit();
+  }
 
   return (
     <>
