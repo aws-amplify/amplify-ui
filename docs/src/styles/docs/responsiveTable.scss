@@ -1,0 +1,113 @@
+@import 'variables';
+
+$breakpoint-tableBreak: $breakpoint-large;
+
+.docs-grid-bordered {
+  border: solid var(--amplify-colors-border-tertiary);
+  border-width: var(--amplify-border-widths-small) 0 0 var(--amplify-border-widths-small);
+  li {
+    list-style: none;
+    padding: var(--amplify-space-small);
+    font-size: var(--amplify-font-sizes-small);
+    border: solid var(--amplify-colors-border-tertiary);
+    border-width: 0 var(--amplify-border-widths-small) var(--amplify-border-widths-small) 0;
+  }
+}
+
+.docs-responsiveTable {
+  --labelWidth: 6rem;
+  line-height: var(--amplify-line-heights-small);
+  pre, code {
+    margin: 0;
+    padding: 0;
+    background: none;
+    white-space: normal;
+  }
+  td, th {
+    &:first-child {
+      border-left: none;
+    }
+    &:last-child {
+      border-right: none;
+    }
+  }
+  &:not([data-highlightonhover=true]) {
+    td, th {
+      &:first-child {
+        padding-left: 0;
+      }
+      &:last-child {
+        padding-right: 0;
+      }
+    }
+  }
+  @media (max-width: $breakpoint-tableBreak) {
+    display: block;
+    pre, code {
+      max-width: 100%;
+    }
+    tr, th, tbody {
+      display: block;
+    }
+    &[data-highlightonhover=true] {
+      .amplify-table__row:not(.amplify-table__head *):hover {
+        background-color: transparent;
+      }
+    }
+    thead {
+      /* We can't `display: none` a thead or SR won't recognize it */
+      height: 0;
+      overflow: hidden;
+      tr, th {
+        height: 0;
+        margin: 0;
+        overflow: hidden;
+        border: none;
+      }
+    }
+    td, th  {
+      padding: 0;
+      display: flex;
+      align-items: stretch;
+      &:not(:last-child) {
+        border-bottom: var(--amplify-border-widths-small) solid var(--amplify-colors-border-tertiary);
+      }
+    }
+    tr {
+      border: var(--amplify-border-widths-small) solid var(--amplify-colors-border-secondary);
+      margin-block-end: var(--amplify-space-small);
+    }
+
+  }
+}
+
+.docs-responsiveTable__label {
+  display: none;
+  @media (max-width: $breakpoint-tableBreak) {
+    padding: var(--amplify-space-xxs);
+    background: var(--amplify-colors-neutral-10);
+    flex: 0 0 var(--labelWidth);
+    display: flex;
+    align-items: center;
+    color: var(--amplify-colors-font-tertiary);
+  }
+  @media (max-width: $breakpoint-small) {
+    display: none;
+  }
+}
+
+.docs-responsiveTable__value {
+  td:first-child &  {
+    font-weight: var(--amplify-font-weights-bold);
+  }
+  @media (max-width: $breakpoint-tableBreak) {
+    display: block;
+    flex: 0 1 auto;
+    max-width: 100%;
+    overflow: auto;
+    padding: var(--amplify-space-xxs);
+  }
+}
+
+
+

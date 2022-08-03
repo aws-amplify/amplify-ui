@@ -9,6 +9,7 @@ export { MaxLengthExample } from './MaxLengthExample';
 export { PasswordFieldStyledPropsExample } from './PasswordFieldStyledPropsExample';
 export { RefExample } from './refs';
 export { RequiredPasswordFieldExample } from './RequiredPasswordFieldExample';
+export { ShowPasswordButtonExample } from './ShowPasswordButtonExample';
 export { SignUpFormExample } from './SignUpFormExample';
 export { SizeExample } from './SizeExample';
 export { PasswordFieldThemeExample } from './PasswordFieldThemeExample';
