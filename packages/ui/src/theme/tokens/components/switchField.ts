@@ -32,6 +32,7 @@ interface SwitchFieldThumbTokens {
   borderColor: DesignToken<BorderColorValue>;
   borderRadius: DesignToken<BorderRadiusValue>;
   checked: SwitchFieldThumbCheckedTokens;
+  _checked: SwitchFieldThumbCheckedTokens;
   transition: SwitchFieldThumbTransitionTokens;
   width: DesignToken<SpaceValue>;
 }
@@ -47,6 +48,7 @@ interface SwitchFieldTrackTokens {
   backgroundColor: DesignToken<BackgroundColorValue>;
   borderRadius: DesignToken<BorderRadiusValue>;
   checked: SwitchFieldTrackCheckedTokens;
+  _checked: SwitchFieldTrackCheckedTokens;
   height: DesignToken<SpaceValue>;
   padding: DesignToken<SpaceValue>;
   transition: SwitchFieldTrackTransitionTokens;
@@ -106,6 +108,12 @@ export const switchfield: SwitchFieldTokens = {
     borderColor: { value: '{colors.border.tertiary.value}' },
     borderRadius: { value: '{radii.xxxl.value}' },
     checked: {
+      transform: {
+        value: '{transforms.slideX.medium.value}',
+        deprecatedStateToken: true,
+      },
+    },
+    _checked: {
       transform: { value: '{transforms.slideX.medium.value}' },
     },
     transition: {
@@ -118,6 +126,12 @@ export const switchfield: SwitchFieldTokens = {
     backgroundColor: { value: '{colors.background.quaternary.value}' },
     borderRadius: { value: '{radii.xxxl.value}' },
     checked: {
+      backgroundColor: {
+        value: '{colors.brand.primary.80.value}',
+        deprecatedStateToken: true,
+      },
+    },
+    _checked: {
       backgroundColor: { value: '{colors.brand.primary.80.value}' },
     },
     height: { value: '{space.relative.medium.value}' },

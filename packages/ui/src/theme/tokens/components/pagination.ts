@@ -27,6 +27,8 @@ interface PaginationButtonTokens {
   transitionDuration: DesignToken<TransitionDurationValue>;
   hover: PaginationButtonHoverTokens;
   disabled: PaginationButtonDisabledTokens;
+  _hover: PaginationButtonHoverTokens;
+  _disabled: PaginationButtonDisabledTokens;
 }
 
 export interface PaginationButtonHoverTokens {
@@ -78,10 +80,26 @@ export const pagination: PaginationTokens = {
     transitionProperty: { value: 'background-color' },
     transitionDuration: { value: '{time.medium.value}' },
     hover: {
+      backgroundColor: {
+        value: '{colors.overlay.10.value}',
+        deprecatedStateToken: true,
+      },
+      color: {
+        value: '{colors.font.primary.value}',
+        deprecatedStateToken: true,
+      },
+    },
+    disabled: {
+      color: {
+        value: '{colors.font.disabled.value}',
+        deprecatedStateToken: true,
+      },
+    },
+    _hover: {
       backgroundColor: { value: '{colors.overlay.10.value}' },
       color: { value: '{colors.font.primary.value}' },
     },
-    disabled: {
+    _disabled: {
       color: { value: '{colors.font.disabled.value}' },
     },
   },

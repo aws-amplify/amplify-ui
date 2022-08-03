@@ -23,6 +23,7 @@ interface TableDefaultTokens {
 
 interface TableRowTokens extends TableDefaultTokens {
   hover: TableRowHoverTokens;
+  _hover: TableRowHoverTokens;
   striped: TableRowStripedTokens;
 }
 
@@ -123,6 +124,13 @@ export const table: TableTokens = {
     verticalAlign: { value: 'middle' },
 
     hover: {
+      backgroundColor: {
+        value: '{colors.background.tertiary.value}',
+        deprecatedStateToken: true,
+      },
+    },
+
+    _hover: {
       backgroundColor: { value: '{colors.background.tertiary.value}' },
     },
 
