@@ -287,6 +287,21 @@ jobs:
           USERNAME: ${{ secrets.USERNAME }}
           NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
           VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+
+      - name: upload failure screenshots
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-screenshots
+          path: packages/e2e/cypress/screenshots
+
+      - name: upload failure videos
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-screenshots
+          path: packages/e2e/cypress/videos
+
   docs:
     # Only run docs tests if e2e tests pass
     needs: [setup, unit]
