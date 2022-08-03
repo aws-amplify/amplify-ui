@@ -3,7 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import {
   AmplifyAuthenticatorModule,
-  AmplifyTextFieldModule,
+  AmplifyFlexModule,
 } from '@aws-amplify/ui-angular';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -35,7 +35,7 @@ import {
 } from '@aws-amplify/ui-angular';
 import { AmplifyButtonExampleComponent } from 'src/pages/ui/primitive-poc/button/button.component';
 import { AmplifyViewExampleComponent } from 'src/pages/ui/primitive-poc/view/view.component';
-import { AmplifyTextFieldExampleComponent } from 'src/pages/ui/primitive-poc/text-field/text-field.component';
+import { AmplifyFlexExampleComponent } from 'src/pages/ui/primitive-poc/flex/flex-demp.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +63,7 @@ import { AmplifyTextFieldExampleComponent } from 'src/pages/ui/primitive-poc/tex
     UseAuthenticatorHomeComponent,
     AmplifyButtonExampleComponent,
     AmplifyViewExampleComponent,
-    AmplifyTextFieldExampleComponent,
+    AmplifyFlexExampleComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,7 +72,7 @@ import { AmplifyTextFieldExampleComponent } from 'src/pages/ui/primitive-poc/tex
     HttpClientModule,
     AmplifyButtonModule,
     AmplifyViewModule,
-    AmplifyTextFieldModule,
+    AmplifyFlexModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

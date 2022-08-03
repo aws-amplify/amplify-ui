@@ -1,5 +1,5 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
-import { AmplifyBasePrimitiveComponent } from '../../base-primitive/components/base-primitive.component';
+import { AmplifyBasePrimitiveComponent } from '../../base-primitive/base-primitive.component';
 
 const $COMPONENT_SELECTOR: string = 'button[amplify-button-poc]';
 

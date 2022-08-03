@@ -651,9 +651,6 @@ export const ComponentClassNames: ComponentClassNamesType = {
 
 // For internal use, no need to export
 export const ComponentText = {
-  Alert: {
-    dismissButtonLabel: 'Dismiss alert',
-  },
   Collection: {
     searchButtonLabel: 'Search',
     searchNoResultsFound: 'No results found',
