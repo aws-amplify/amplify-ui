@@ -1,6 +1,9 @@
 /**
+ * 🚨 WARNING:🚨
  * These utils and Types are owned by the Studio UI Builder team
- * When making changing to this file, please consult
+ * and are used during code generation triggered by Amplify CLI.
+ *
+ * When considering making changing to this file, please consult
  * a member from the Studio UI Builder team.
  */
 
