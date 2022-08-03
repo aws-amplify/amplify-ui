@@ -382,6 +382,9 @@ interface FillOverlayCanvasFractionalInput {
   heightFraction: number;
 }
 
+const INITIAL_ALPHA = 0.9;
+const SECONDARY_ALPHA = 0.75;
+
 export function fillOverlayCanvasFractional({
   overlayCanvas,
   prevColor,
@@ -390,14 +393,6 @@ export function fillOverlayCanvasFractional({
   ovalDetails,
   heightFraction,
 }: FillOverlayCanvasFractionalInput) {
-  console.log({
-    overlayCanvas,
-    prevColor,
-    nextColor,
-    ovalCanvas,
-    ovalDetails,
-    heightFraction,
-  });
   const boudingRect = ovalCanvas.getBoundingClientRect();
   const ovalCanvasX = boudingRect.x;
   const ovalCanvasY = boudingRect.y;
@@ -430,7 +425,7 @@ export function fillOverlayCanvasFractional({
 
   ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-  ctx.globalAlpha = 0.9;
+  ctx.globalAlpha = INITIAL_ALPHA;
   fillFractionalContext(ctx, prevColor, nextColor, heightFraction);
 
   // // draw the oval path and fill it
@@ -448,7 +443,7 @@ export function fillOverlayCanvasFractional({
 
   ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-  ctx.globalAlpha = 0.75;
+  ctx.globalAlpha = SECONDARY_ALPHA;
   fillFractionalContext(ctx, prevColor, nextColor, heightFraction);
 
   // restore the state
@@ -471,4 +466,20 @@ function fillFractionalContext(ctx, prevColor, nextColor, fraction) {
       canvasHeight * (1 - fraction)
     );
   }
+}
+
+// If we have been on a flat color for 100 ms then increment the colorPermutationInd
+// Or if we have been downscrolling for more than 300 ms then increment the colorPermutationInd
+export function shouldChangeColorStage(
+  timeSinceLastColorChange: number,
+  colorPermutation: number[],
+  flatDuration: number,
+  scrollingDuration: number
+) {
+  return (
+    (timeSinceLastColorChange >= flatDuration &&
+      colorPermutation[0] === colorPermutation[1]) ||
+    (timeSinceLastColorChange >= scrollingDuration &&
+      colorPermutation[0] !== colorPermutation[1])
+  );
 }

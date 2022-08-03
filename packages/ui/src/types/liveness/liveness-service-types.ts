@@ -35,10 +35,32 @@ export interface RecordingTimestamps {
   faceDetectedInTargetPositionEnd: number;
 }
 
+export enum Color {
+  BLACK = 'rgb(0, 0, 0)', // black
+  WHITE = 'rgb(255, 255, 255)', // white
+  RED = 'rgb(255, 0, 0)', // red
+  YELLOW = 'rgb(255, 255, 0)', // yellow
+  LIME = 'rgb(0, 255, 0)', // lime
+  CYAN = 'rgb(0, 255, 255)', // cyan
+  BLUE = 'rgb(0, 0, 255)', // blue,
+  VIOLET = 'rgb(255, 0, 255)', // violet
+}
+
+export interface ColorSequence {
+  colorTimestampList: ColorTimestamp[];
+}
+
+export interface ColorTimestamp {
+  color: Color;
+  timestamp: number;
+}
+
 export interface FaceMovementServerChallenge {
+  challengeId: string;
   initialFacePosition: BoundingBoxWithSize;
   targetFacePosition: BoundingBoxWithSize;
   recordingTimestamps: RecordingTimestamps;
+  colorSequence: ColorSequence;
 }
 
 export interface ServerChallenge {

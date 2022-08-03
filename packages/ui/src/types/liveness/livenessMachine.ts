@@ -14,6 +14,7 @@ export interface LivenessContext {
   maxFailedAttempts: number;
   failedAttempts: number;
   flowProps: LivenessFlowProps;
+  challengeId: string;
   videoAssociatedParams: {
     videoConstraints: MediaTrackConstraints;
     videoEl: HTMLVideoElement;
