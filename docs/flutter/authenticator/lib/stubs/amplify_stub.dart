@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:amplify_flutter/amplify_flutter.dart';
-export 'package:amplify_flutter/src/amplify_impl.dart';
 
 /// A stub of [Amplify] that holds the config in memory and
 /// does nothing else to register plugins.
@@ -28,7 +27,6 @@ class AmplifyStub extends AmplifyClass {
     try {
       if (plugin is AuthPluginInterface) {
         await Auth.addPlugin(plugin);
-        Hub.addChannel(HubChannel.Auth, plugin.streamController);
       } else {
         throw AmplifyException(
           'The type of plugin ${plugin.runtimeType} is not yet supported.',
