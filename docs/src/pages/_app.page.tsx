@@ -3,6 +3,7 @@ import * as React from 'react';
 import { ThemeProvider, ColorMode, defaultTheme } from '@aws-amplify/ui-react';
 
 import { configure, trackPageVisit } from '@/utils/track';
+import { IS_PROD_STAGE } from '@/utils/getStage';
 import { Header } from '@/components/Layout/Header';
 import Script from 'next/script';
 import { baseTheme } from '../theme';
@@ -70,8 +71,10 @@ function MyApp({ Component, pageProps }) {
     );
   }, []);
 
-  configure();
-  trackPageVisit();
+  if (IS_PROD_STAGE) {
+    configure();
+    trackPageVisit();
+  }
 
   return (
     <>
@@ -102,13 +105,17 @@ function MyApp({ Component, pageProps }) {
           </main>
         </ThemeProvider>
       </div>
-      <Script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" />
-      {/* {process.env.NODE_ENV !== 'production' ? (
+      {IS_PROD_STAGE && (
+        <>
+          <Script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" />
+          {/* {process.env.NODE_ENV !== 'production' ? (
         <script src="https://aa0.awsstatic.com/s_code/js/3.0/awshome_s_code.js"></script>
       ) : (
         <script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js"></script>
       )} */}
-      <Script src="/scripts/shortbreadv2.js" />
+          <Script src="/scripts/shortbreadv2.js" />
+        </>
+      )}
     </>
   );
 }
