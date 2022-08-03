@@ -1,0 +1,34 @@
+{
+  "name": "vite3",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "postbuild": "yarn run size-limit",
+    "preview": "vite preview --port 3000",
+    "start": "vite preview --port 3000"
+  },
+  "dependencies": {
+    "@aws-amplify/ui-react": "latest",
+    "aws-amplify": "latest",
+    "react": "latest",
+    "react-dom": "latest"
+  },
+  "devDependencies": {
+    "@size-limit/preset-app": "^7.0.8",
+    "@types/react": "^18.0.15",
+    "@types/react-dom": "^18.0.6",
+    "@vitejs/plugin-react": "^2.0.0",
+    "size-limit": "^7.0.8",
+    "typescript": "^4.6.4",
+    "vite": "^3.0.0"
+  },
+  "size-limit": [
+    {
+      "path": "dist/assets/index.*.js",
+      "limit": "300 kB"
+    }
+  ]
+}

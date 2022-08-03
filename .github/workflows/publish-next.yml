@@ -1,6 +1,9 @@
-# This workflow will run unit, e2e, and docs tests on commits to main.
+# Description: This workflow runs unit + e2e tests, then publishes UI packages
+#              to `@next` NPM tag.
+#
+# Triggered by: merge to `main`
 
-name: Test and Publish / main
+name: Test and Publish / next
 
 concurrency:
   group: e2e-${{ github.sha }}
@@ -172,10 +175,14 @@ jobs:
     # Send data point 1 to metric PublishNextFailure, if  it's a failure
     runs-on: ubuntu-latest
     environment: ci
+    needs: build-test
     if: ${{ failure() }}
     steps:
       - name: Log failure data point to metric PublishNextFailure
-        uses: ./.github/actions/log-metric
+        # using absolute path here to avoid checking out the repo. Same as other absolute paths in this repo.
+        # Pattern: `{owner}/{repo}/.github/workflows/{filename}@{ref}`.
+        # more: https://docs.github.com/en/actions/using-workflows/reusing-workflows#calling-a-reusable-workflow
+        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
         with:
           metric-name: PublishNextFailure
           value: 1
@@ -186,10 +193,11 @@ jobs:
     # Send data point 0 to metric PublishNextFailure, if  it's a success
     runs-on: ubuntu-latest
     environment: ci
+    needs: build-test
     if: ${{ success() }}
     steps:
       - name: Log success data point to metric PublishNextFailure
-        uses: ./.github/actions/log-metric
+        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
         with:
           metric-name: PublishNextFailure
           value: 0

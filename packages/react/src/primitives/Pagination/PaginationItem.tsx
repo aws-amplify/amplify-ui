@@ -60,16 +60,13 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
         <View as="li">
           {page === currentPage ? (
             <Flex
-              as="span"
+              aria-current="page"
+              as="button"
               className={ComponentClassNames.PaginationItemCurrent}
               testId={PAGINATION_CURRENT_TEST_ID}
               {...rest}
             >
-              {/**
-               * Use markup to indicate the current item of a menu, such as the current page on a website, to improve orientation in the menu.
-               * @link https://www.w3.org/WAI/tutorials/menus/structure/#indicate-the-current-item
-               */}
-              <VisuallyHidden>{currentPageLabel}</VisuallyHidden>
+              <VisuallyHidden>{currentPageLabel}:</VisuallyHidden>
               {page}
             </Flex>
           ) : (

@@ -6,6 +6,7 @@ import {
   HeadingLevelExample,
   HeadingStylePropsExample,
   HeadingThemeExample,
+  TruncatedHeading
 } from './examples';
 import { HeadingDemo } from './demo';
 import { Example, ExampleCode } from '@/components/Example';
@@ -38,6 +39,20 @@ Use the `level` prop to change the heading level (e.g., `h1 - h6`). Default head
   <HeadingLevelExample />
   <ExampleCode>
     ```jsx file=./examples/HeadingLevelExample.tsx
+
+    ```
+
+  </ExampleCode>
+</Example>
+
+### Truncate 
+
+The `isTruncated` prop will render an ellipsis when the Heading text exceeds its allowed width.
+
+<Example>
+  <TruncatedHeading />
+  <ExampleCode>
+    ```jsx file=./examples/TruncatedHeading.tsx
 
     ```
 

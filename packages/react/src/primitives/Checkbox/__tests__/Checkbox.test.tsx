@@ -5,12 +5,11 @@ import userEvent from '@testing-library/user-event';
 import { Checkbox } from '../Checkbox';
 import { CheckboxProps } from '../../types/checkbox';
 import { PrimitiveProps } from '../../types/view';
-import { ComponentClassNames } from '../../shared';
+import { ComponentClassNames } from '../../shared/constants';
 import {
   testFlexProps,
   expectFlexContainerStyleProps,
 } from '../../Flex/__tests__/Flex.test';
-import { useTestId } from '../../utils/testUtils';
 
 describe('Checkbox test suite', () => {
   const basicProps = {
@@ -48,21 +47,34 @@ describe('Checkbox test suite', () => {
           checked={true}
           testId="checked"
         />
+        <Checkbox
+          label="indeterminate"
+          name="indeterminate"
+          value="indeterminate"
+          testId="indeterminate"
+          isIndeterminate
+        />
       </div>
     );
 
     const disabled = await screen.findByTestId('disabled');
-    const error = await screen.findByTestId(`error-amplify-checkbox__button`);
-    const checked = await screen.findByTestId(`checked-amplify-checkbox__icon`);
+    const error = await screen.findByTestId('error-amplify-checkbox__button');
+    const checked = await screen.findByTestId('checked-amplify-checkbox__icon');
+    const indeterminate = await screen.findByTestId(
+      'indeterminate-amplify-checkbox__icon'
+    );
 
-    expect(disabled.classList).toContain(
+    expect(disabled).toHaveClass(
       `${ComponentClassNames['Checkbox']}--disabled`
     );
-    expect(error.classList).toContain(
+    expect(error).toHaveClass(
       `${ComponentClassNames['CheckboxButton']}--error`
     );
-    expect(checked.classList).toContain(
+    expect(checked).toHaveClass(
       `${ComponentClassNames['CheckboxIcon']}--checked`
+    );
+    expect(indeterminate).toHaveClass(
+      `${ComponentClassNames['CheckboxIcon']}--indeterminate`
     );
   });
 
@@ -213,7 +225,6 @@ describe('Checkbox test suite', () => {
       );
       expect(icon).not.toHaveAttribute('data-checked');
       expect(icon).not.toHaveAttribute('data-disabled');
-      // expect(icon).toHaveAttribute('data-size', 'large');
       expect(icon).toHaveClass(ComponentClassNames.CheckboxIcon);
     });
   });
