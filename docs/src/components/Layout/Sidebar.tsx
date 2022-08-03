@@ -30,6 +30,7 @@ import {
 
 import Link from 'next/link';
 import { useCustomRouter } from '@/components/useCustomRouter';
+import { isReactNativeEnabled } from '@/utils/featureFlags';
 import { FrameworkChooser } from './FrameworkChooser';
 import { LogoLink } from './LogoLink';
 import { MenuButton } from './MenuButton';
@@ -247,7 +248,9 @@ export const Sidebar = ({ expanded, setExpanded, platform }) => {
 
           <FrameworkChooser onClick={onClick} />
 
-          <SecondaryNav onClick={onClick} platform={platform} />
+          {isReactNativeEnabled && platform === 'react-native' ? null : (
+            <SecondaryNav onClick={onClick} platform={platform} />
+          )}
 
           <Divider size="small" />
 
