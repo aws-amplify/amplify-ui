@@ -112,7 +112,7 @@ export function MessageLayout({
             <Button
               className={classNames(
                 BUTTON_CLASS,
-                `${BUTTON_CLASS}--${buttonModifiers.primary}`
+                `${BUTTON_CLASS}--${buttonModifiers.secondary}`
               )}
               onClick={secondaryButton?.onAction}
               style={styles.secondaryButton}
@@ -124,7 +124,7 @@ export function MessageLayout({
             <Button
               className={classNames(
                 BUTTON_CLASS,
-                `${BUTTON_CLASS}--${buttonModifiers.secondary}`
+                `${BUTTON_CLASS}--${buttonModifiers.primary}`
               )}
               onClick={primaryButton?.onAction}
               style={styles.primaryButton}

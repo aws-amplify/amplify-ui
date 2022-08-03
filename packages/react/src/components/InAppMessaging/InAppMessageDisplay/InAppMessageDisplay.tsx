@@ -8,11 +8,9 @@ import {
 
 import handleMessageLinkAction from './handleMessageLinkAction';
 import { InAppMessageDisplayProps, MessageDefaultComponents } from './types';
+import { BannerMessage } from '../BannerMessage';
 
 // TODO: replace below components incrementally as they become available
-function BannerMessage<P>(_: P) {
-  return null;
-}
 function CarouselMessage<P>(_: P) {
   return null;
 }
