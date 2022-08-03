@@ -1,5 +1,53 @@
 # @aws-amplify/ui-react
 
+## 3.3.0
+
+### Minor Changes
+
+- [#2333](https://github.com/aws-amplify/amplify-ui/pull/2333) [`48027c8ef`](https://github.com/aws-amplify/amplify-ui/commit/48027c8ef9ad6f0e737902c67af3e7fda96ee3ff) Thanks [@joebuono](https://github.com/joebuono)! - fix(ui-react): Collection searchNoResultsFound
+
+  When no results are returned from searching a Collection, we render the text "No results found" by default
+
+  - Customer also has the option of passing their own `ReactNode` to the new `searchNoResultsFound` prop
+
+  ```jsx
+  <Collection
+    isSearchable
+    searchNoResultsFound={
+      <Flex justifyContent="center">
+        <Text color="purple.80" fontSize="1rem">
+          Nothing found, please try again
+        </Text>
+      </Flex>
+    }
+  >
+    {collectionItems}
+  </Collection>
+  ```
+
+### Patch Changes
+
+- [#2368](https://github.com/aws-amplify/amplify-ui/pull/2368) [`64fa669e2`](https://github.com/aws-amplify/amplify-ui/commit/64fa669e238a3fcdd7714169eaf1677c9d3d4a3a) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - fix(ui-react): Hide decorative alert icons from screen readers.
+
+* [#2363](https://github.com/aws-amplify/amplify-ui/pull/2363) [`07e87534b`](https://github.com/aws-amplify/amplify-ui/commit/07e87534b2cef76bde0bb8d16738d659d4de80e1) Thanks [@hbuchel](https://github.com/hbuchel)! - fix(ui-react): move `role="alert"` to parent element of Alert to allow for role overrides.
+
+  The Alert component currently has the ARIA `alert` role by default. This change allows us to override the role when the `alert` role does not match the use case.
+
+  ```
+  <Alert role="none">This is no longer an ARIA alert</Alert>
+  ```
+
+  Learn more about [using the alert role](https://ui.docs.amplify.aws/react/components/alert#accessibility) on our docs and the [W3's spec for the alert role](https://w3c.github.io/aria/#alert)
+
+- [#2355](https://github.com/aws-amplify/amplify-ui/pull/2355) [`19a7d31c4`](https://github.com/aws-amplify/amplify-ui/commit/19a7d31c406257e642b73060685f133f5655f00c) Thanks [@hbuchel](https://github.com/hbuchel)! - fix(ui-react): ariaLabel is no longer required for Icon component
+
+  Please see the [Icon docs](https://ui.docs.amplify.aws/react/components/icon#accessibility) for various methods of creating accessible Icons.
+
+* [#2371](https://github.com/aws-amplify/amplify-ui/pull/2371) [`adc9ff6e3`](https://github.com/aws-amplify/amplify-ui/commit/adc9ff6e3c7d1408edb7de58c1858ddc4f47d1c7) Thanks [@cshfang](https://github.com/cshfang)! - fix(ui-react): Fixes an issue where the isTruncated prop of the Heading component was not properly applying a truncation.
+
+* Updated dependencies [[`de1c874f2`](https://github.com/aws-amplify/amplify-ui/commit/de1c874f294a3b21cc9d7a97b310d2744d18b065), [`3c468a0f3`](https://github.com/aws-amplify/amplify-ui/commit/3c468a0f34fb8f747b925dd1a66a0f0f0117436a), [`1fcfa3c02`](https://github.com/aws-amplify/amplify-ui/commit/1fcfa3c02dc8eedb2acdc7425be7311f5b1accef), [`adc9ff6e3`](https://github.com/aws-amplify/amplify-ui/commit/adc9ff6e3c7d1408edb7de58c1858ddc4f47d1c7)]:
+  - @aws-amplify/ui@3.12.5
+
 ## 3.2.1
 
 ### Patch Changes
