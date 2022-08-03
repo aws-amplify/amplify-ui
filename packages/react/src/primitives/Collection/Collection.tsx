@@ -4,6 +4,7 @@ import * as React from 'react';
 
 import { Flex } from '../Flex';
 import { Grid } from '../Grid';
+import { Text } from '../Text';
 import { Pagination, usePagination } from '../Pagination';
 import { SearchField } from '../SearchField';
 import { ComponentClassNames, ComponentText } from '../shared/constants';
@@ -37,6 +38,24 @@ const GridCollection = <Item,>({
   <Grid {...rest}>{Array.isArray(items) ? items.map(children) : null}</Grid>
 );
 
+const renderCollectionOrNoResultsFound = <Item,>(
+  collection: JSX.Element,
+  items: Item[],
+  searchNoResultsFound: React.ReactNode
+) => {
+  if (items.length) {
+    return collection;
+  }
+  if (searchNoResultsFound) {
+    return searchNoResultsFound;
+  }
+  return (
+    <Flex justifyContent="center">
+      <Text>{ComponentText.Collection.searchNoResultsFound}</Text>
+    </Flex>
+  );
+};
+
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/collection)
  */
@@ -48,6 +67,7 @@ export const Collection = <Item,>({
   itemsPerPage = DEFAULT_PAGE_SIZE,
   searchFilter = itemHasText,
   searchLabel = ComponentText.Collection.searchButtonLabel,
+  searchNoResultsFound,
   searchPlaceholder,
   type = 'list',
   testId,
@@ -109,7 +129,11 @@ export const Collection = <Item,>({
         </Flex>
       ) : null}
 
-      {collection}
+      {renderCollectionOrNoResultsFound(
+        collection,
+        items,
+        searchNoResultsFound
+      )}
 
       {isPaginated ? (
         <Flex className={ComponentClassNames.CollectionPagination}>

@@ -9,6 +9,7 @@ export * from './IconError';
 export * from './IconExpandMore';
 export * from './IconFiberManualRecord';
 export * from './IconHighlightOff';
+export * from './IconIndeterminate';
 export * from './IconInfo';
 export * from './IconMenu';
 export * from './IconRemove';

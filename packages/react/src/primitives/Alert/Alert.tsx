@@ -45,10 +45,11 @@ const AlertPrimitive: Primitive<AlertProps, typeof Flex> = (
         )}
         data-variation={variation}
         ref={ref}
+        role="alert"
         {...rest}
       >
-        {hasIcon && <AlertIcon variation={variation} />}
-        <View role="alert" flex="1">
+        {hasIcon && <AlertIcon variation={variation} ariaHidden={true} />}
+        <View flex="1">
           {heading && (
             <View className={ComponentClassNames.AlertHeading}>{heading}</View>
           )}
@@ -61,7 +62,7 @@ const AlertPrimitive: Primitive<AlertProps, typeof Flex> = (
             onClick={dismissAlert}
             ref={buttonRef}
           >
-            <IconClose />
+            <IconClose aria-hidden="true" />
           </Button>
         )}
       </Flex>

@@ -8,7 +8,7 @@ supportedFrameworks: all
 import { Fragment } from '@/components/Fragment';
 import { Alert, Tabs, TabItem } from '@aws-amplify/ui-react';
 
-<Alert heading="Wait!">
+<Alert role="none" heading="Wait!">
   Did you follow the [quick start instructions](./) to set up the Authenticator first?
 </Alert>
 
@@ -57,7 +57,7 @@ By default, unauthenticated users are redirected to the Sign In flow. You can ex
 
 ## Sign Up Attributes
 
-<Alert heading="Zero Configuration">
+<Alert role="none" heading="Zero Configuration">
 
 The Authenticator [automatically infers](#zero-configuration) `signUpAttributes` from `amplify pull`,
 but can be explicitly defined as seen below.
