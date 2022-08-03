@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
+import {
+  AmplifyAuthenticatorModule,
+  AmplifyTextFieldModule,
+} from '@aws-amplify/ui-angular';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -26,6 +29,13 @@ import { SignUpWithPhoneComponent } from 'src/pages/ui/components/authenticator/
 import { SignUpWithUsernameComponent } from 'src/pages/ui/components/authenticator/sign-up-with-username/sign-up-with-username.component';
 import { UseAuthenticatorComponent } from 'src/pages/ui/components/authenticator/useAuthenticator/useAuthenticator.component';
 import { UseAuthenticatorHomeComponent } from 'src/pages/ui/components/authenticator/useAuthenticator/home/useAuthenticatorHome.component';
+import {
+  AmplifyButtonModule,
+  AmplifyViewModule,
+} from '@aws-amplify/ui-angular';
+import { AmplifyButtonExampleComponent } from 'src/pages/ui/primitive-poc/button/button.component';
+import { AmplifyViewExampleComponent } from 'src/pages/ui/primitive-poc/view/view.component';
+import { AmplifyTextFieldExampleComponent } from 'src/pages/ui/primitive-poc/text-field/text-field.component';
 
 @NgModule({
   declarations: [
@@ -51,12 +61,18 @@ import { UseAuthenticatorHomeComponent } from 'src/pages/ui/components/authentic
     SignUpWithUsernameComponent,
     UseAuthenticatorComponent,
     UseAuthenticatorHomeComponent,
+    AmplifyButtonExampleComponent,
+    AmplifyViewExampleComponent,
+    AmplifyTextFieldExampleComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AmplifyAuthenticatorModule,
     HttpClientModule,
+    AmplifyButtonModule,
+    AmplifyViewModule,
+    AmplifyTextFieldModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
