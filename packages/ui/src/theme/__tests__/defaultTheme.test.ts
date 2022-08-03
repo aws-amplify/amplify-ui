@@ -222,6 +222,9 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-checkbox-icon-checked-opacity: var(--amplify-opacities-100);
         --amplify-components-checkbox-icon-checked-transform: scale(1);
         --amplify-components-checkbox-icon-checked-disabled-background-color: var(--amplify-colors-background-disabled);
+        --amplify-components-checkbox-icon-indeterminate-opacity: var(--amplify-opacities-100);
+        --amplify-components-checkbox-icon-indeterminate-transform: scale(1);
+        --amplify-components-checkbox-icon-indeterminate-disabled-background-color: var(--amplify-colors-background-disabled);
         --amplify-components-checkbox-label-disabled-color: var(--amplify-colors-font-disabled);
         --amplify-components-checkboxfield-align-items: flex-start;
         --amplify-components-checkboxfield-align-content: center;
@@ -551,6 +554,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-select-icon-wrapper-pointer-events: none;
         --amplify-components-select-option-background-color: var(--amplify-colors-background-primary);
         --amplify-components-select-option-color: var(--amplify-colors-font-primary);
+        --amplify-components-select-option-disabled-color: var(--amplify-colors-font-disabled);
         --amplify-components-select-white-space: nowrap;
         --amplify-components-select-min-width: 6.5rem;
         --amplify-components-select-small-min-width: 5.5rem;
