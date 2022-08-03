@@ -65,6 +65,7 @@ export interface SwitchFieldTokens {
   _disabled: SwitchFieldDisabledTokens;
   _focused: SwitchFieldFocusedTokens;
   large: SwitchFieldSizeTokens;
+  medium: SwitchFieldSizeTokens;
   small: SwitchFieldSizeTokens;
   label: SwitchFieldLabelTokens;
   thumb: SwitchFieldThumbTokens;
@@ -91,6 +92,9 @@ export const switchfield: SwitchFieldTokens = {
   // Sizes
   large: {
     fontSize: { value: '{fontSizes.large.value}' },
+  },
+  medium: {
+    fontSize: { value: '{fontSizes.medium.value}' },
   },
   small: {
     fontSize: { value: '{fontSizes.small.value}' },
