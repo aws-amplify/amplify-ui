@@ -47,6 +47,7 @@
     &--vertical {
       flex-direction: column;
       justify-content: center;
+      overflow-y: auto;
     }
   }
   &__header {
@@ -70,7 +71,8 @@
     }
     &--vertical {
       height: 100%;
-      max-height: 30%;
+      max-height: 40%;
+      min-height: 40%;
     }
   }
   &__text-container {

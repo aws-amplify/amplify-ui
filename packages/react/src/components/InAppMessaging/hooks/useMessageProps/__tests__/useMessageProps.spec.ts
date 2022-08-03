@@ -4,24 +4,24 @@ import {
   MessageComponentBaseProps,
 } from '@aws-amplify/ui-react-core';
 
-// import { useMessageImage } from '../../useMessageImage';
+import { useMessageImage } from '../../useMessageImage';
 import { MessageOverrideStyle } from '../types';
 import useMessageProps from '../useMessageProps';
 
-// jest.mock('../../useMessageImage');
+jest.mock('../../useMessageImage');
 
 type TestComponentProps = MessageComponentBaseProps<MessageOverrideStyle>;
 
-// const mockUseMessageImage = useMessageImage as jest.Mock;
+const mockUseMessageImage = useMessageImage as jest.Mock;
 
 const onDisplay = jest.fn();
 
 describe('useMessageProps', () => {
   beforeEach(() => {
-    // mockUseMessageImage.mockReturnValue({
-    //   hasRenderableImage: false,
-    //   isImageFetching: false,
-    // });
+    mockUseMessageImage.mockReturnValue({
+      hasRenderableImage: false,
+      isImageFetching: false,
+    });
     onDisplay.mockClear();
   });
 
@@ -45,10 +45,10 @@ describe('useMessageProps', () => {
   });
 
   it('behaves as expected when props includes an image', () => {
-    // mockUseMessageImage.mockReturnValue({
-    //   hasRenderableImage: false,
-    //   isImageFetching: true,
-    // });
+    mockUseMessageImage.mockReturnValue({
+      hasRenderableImage: false,
+      isImageFetching: true,
+    });
 
     const props: TestComponentProps = {
       image: { src: 'https://test.png' },
@@ -59,20 +59,20 @@ describe('useMessageProps', () => {
     const { result, rerender } = renderHook(() => useMessageProps(props));
 
     // first render
-    // expect(onDisplay).not.toHaveBeenCalled();
-    // expect(result.current).toEqual({
-    //   hasButtons: false,
-    //   hasPrimaryButton: false,
-    //   hasRenderableImage: false,
-    //   hasSecondaryButton: false,
-    //   shouldRenderMessage: false,
-    //   styles: null,
-    // });
+    expect(onDisplay).not.toHaveBeenCalled();
+    expect(result.current).toEqual({
+      hasButtons: false,
+      hasPrimaryButton: false,
+      hasRenderableImage: false,
+      hasSecondaryButton: false,
+      shouldRenderMessage: false,
+      styles: null,
+    });
 
-    // mockUseMessageImage.mockReturnValue({
-    //   hasRenderableImage: true,
-    //   isImageFetching: false,
-    // });
+    mockUseMessageImage.mockReturnValue({
+      hasRenderableImage: true,
+      isImageFetching: false,
+    });
 
     rerender();
 
@@ -80,8 +80,7 @@ describe('useMessageProps', () => {
     expect(result.current).toEqual({
       hasButtons: false,
       hasPrimaryButton: false,
-      // hasRenderableImage: true,
-      hasRenderableImage: false,
+      hasRenderableImage: true,
       hasSecondaryButton: false,
       shouldRenderMessage: true,
       styles: expect.any(Object) as MessageOverrideStyle,
