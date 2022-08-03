@@ -1,5 +1,4 @@
 import { Component, ContentChild, Input, SimpleChanges } from '@angular/core';
-import { InputDirective } from '../../text-field';
 import { PasswordDirective } from '../password-field-directive/password-field.directive';
 
 const $COMPONENT_SELECTOR: string = 'amplify-password-poc';

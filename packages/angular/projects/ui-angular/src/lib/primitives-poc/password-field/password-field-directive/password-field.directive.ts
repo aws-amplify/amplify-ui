@@ -41,6 +41,7 @@ export class PasswordDirective {
   @HostBinding('attr.type') get getType() {
     return this.showPassword ? 'text' : 'password';
   }
+
   @HostBinding('class.amplify-input--error') hasError = false;
   /** The classes to attach to the element. */
   @HostBinding('class')
