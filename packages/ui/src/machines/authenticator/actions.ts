@@ -1,3 +1,4 @@
+import { send } from 'xstate';
 import { assign, stop } from 'xstate/lib/actions';
 
 import {
@@ -7,8 +8,16 @@ import {
   SignUpContext,
 } from '../../types';
 
+/**
+ * Actor Helpers
+ */
+
 export const stopActor = (machineId: string) => {
   return stop(machineId);
+};
+
+export const cleanActor = (machineId: string) => {
+  return send({ type: 'CLEAN' }, { to: machineId });
 };
 
 /**

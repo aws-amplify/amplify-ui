@@ -7,7 +7,7 @@ import {
   CognitoUserAmplify,
   AuthFormFields,
 } from '../../types';
-import { stopActor } from './actions';
+import { cleanActor, stopActor } from './actions';
 import { resetPasswordActor, signInActor, signOutActor } from './actors';
 import { defaultServices } from './defaultServices';
 import { createSignUpMachine } from './signUp';
@@ -341,13 +341,12 @@ export function createAuthenticatorMachine() {
             return spawn(actor, { name: 'signOutActor' });
           },
         }),
-        cleanSignInActor: send({ type: 'CLEAN' }, { to: 'signInActor' }),
-        cleanSignUpActor: send({ type: 'CLEAN' }, { to: 'signUpActor' }),
-        cleanResetPasswordActor: send(
-          { type: 'CLEAN' },
-          { to: 'resetPasswordActor' }
-        ),
-        cleanSignOutActor: send({ type: 'CLEAN' }, { to: 'cleanSignOutActor' }),
+        // actor cleaners
+        cleanSignInActor: cleanActor('signInActor'),
+        cleanSignUpActor: cleanActor('signUpActor'),
+        cleanResetPasswordActor: cleanActor('resetPasswordActor'),
+        cleanSignOutActor: cleanActor('cleanSignOutActor'),
+        // actor stoppers
         stopSignInActor: stopActor('signInActor'),
         stopSignUpActor: stopActor('signUpActor'),
         stopResetPasswordActor: stopActor('resetPasswordActor'),
