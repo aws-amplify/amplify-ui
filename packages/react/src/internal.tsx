@@ -27,6 +27,6 @@ export {
   getOverridesFromVariants,
   getOverrideProps,
   mergeVariantsAndOverrides,
-} from './primitives/shared/studio';
+} from './studio';
 
 export { PrimitiveCatalog } from './PrimitiveCatalog';
