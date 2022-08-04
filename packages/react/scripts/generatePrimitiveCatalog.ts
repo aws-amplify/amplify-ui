@@ -182,33 +182,19 @@ for (const [componentName, [node]] of source.getExportedDeclarations()) {
 }
 
 /**
- * Generate the JSON string of the PrimitiveCatalog
- * this is being exported under the /primitives.json subpath and can be used as
- * import PrimitiveCatalog from '@aws-amplify/ui-react/primitives.json'
- */
-const jsonString = JSON.stringify(catalog, null, 2);
-
-/**
  * Generate the es module of the PrimitiveCatalog
  * this is being exported under the /internal/primitives-catalog subpath and can be used as
  * import { PrimitiveCatalog } from '@aws-amplify/ui-react/internal/primitives-catalog'
  */
+const primitiveCatalog = JSON.stringify(catalog, null, 2);
 const exportString = `import { PrimitiveCatalogType } from './types/catalog';
-export const PrimitiveCatalog: PrimitiveCatalogType = ${jsonString};`;
+export const PrimitiveCatalog: PrimitiveCatalogType = ${primitiveCatalog};`;
 
-// Generates dist folder file since it's deleted in `prebuild`
-// NOTE: This line can be removed when we remove primitives.json output
-const distFolderPath = `${path.resolve(__dirname, '..')}/dist`;
-if (!fs.existsSync(distFolderPath)) {
-  fs.mkdirSync(distFolderPath);
-}
-
-const JSONoutputPath = `${path.resolve(__dirname, '..')}/dist/primitives.json`;
 const internalOutputPath = path.resolve(
   __dirname,
   '..',
   'src',
   'PrimitiveCatalog.ts'
 );
-fs.writeFileSync(JSONoutputPath, jsonString, { flag: 'w' });
+
 fs.writeFileSync(internalOutputPath, exportString, { flag: 'w' });

@@ -54,7 +54,7 @@ export const stepperfield: StepperFieldTokens = {
     _disabled: {
       color: { value: '{components.button._disabled.color}' },
       backgroundColor: {
-        value: '{components.button._disabled.backgroundColor}',
+        value: '{components.fieldcontrol._disabled.backgroundColor}',
       },
     },
     _hover: {

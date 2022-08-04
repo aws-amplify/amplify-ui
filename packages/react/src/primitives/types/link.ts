@@ -16,6 +16,10 @@ export interface LinkOptions {
   isExternal?: boolean;
 
   /**
+   * @deprecated
+   * The Link component's to prop will soon be deprecated.
+   * Please see the Amplify UI documentation for using the Link component with routing libraries:
+   * https://ui.docs.amplify.aws/react/components/link#routing-libraries
    * @description
    * A string representation of the URL path
    */
