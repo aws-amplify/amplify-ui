@@ -44,7 +44,8 @@
   }
 }
 
-.docs-page-tab {
+.docs-page-tab,
+.docs-props-tab {
   & > * + * {
     margin-block-start: var(--amplify-space-medium);
   }

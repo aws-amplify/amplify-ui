@@ -1,32 +1,27 @@
 import {
   Link,
   Text,
-  Badge,
   Heading,
-  TableCell,
-  TableBody,
-  TableHead,
-  TableRow,
+  View,
+  Expander,
+  ExpanderItem,
 } from '@aws-amplify/ui-react';
-import {
-  ResponsiveTable,
-  ResponsiveTableCell,
-} from '@/components/ResponsiveTable';
+import { PropsTable, Prop } from '@/components/Layout/PropsTable';
+
+interface PropsList {
+  name: string;
+  props: Prop[];
+}
+
+interface PropsLists extends PropsList {
+  utilityProps: PropsList[];
+}
 
 interface PropsDataObject {
   displayName: string;
   htmlElement?: string;
   mdnUrl?: string;
-  propLists: {
-    name: string;
-    props: {
-      name: string;
-      isOptional: boolean;
-      type: string;
-      description?: string;
-    }[];
-    utilityProps: any;
-  }[];
+  propsLists: PropsLists[];
 }
 
 interface PropsTabProps {
@@ -34,10 +29,36 @@ interface PropsTabProps {
 }
 
 export const PropsTab = ({ propsData }: PropsTabProps) => {
-  const { displayName, htmlElement, mdnUrl, propLists } = propsData;
+  const { displayName, htmlElement, mdnUrl, propsLists } = propsData;
+  console.log('propsLists: ', propsLists);
 
   return (
-    <>
+    <View className="docs-props-tab">
+      {propsLists.map((propsList) => {
+        return (
+          <>
+            <Heading level={2} className="amplify-heading--4">
+              {propsList.name}
+            </Heading>
+            <PropsTable props={propsList.props} />
+            <Expander type="multiple" className="docs-props-expander">
+              {propsList.utilityProps.map((utilityPropsList) => {
+                console.log('utilityPropsList: ', utilityPropsList);
+                return (
+                  <ExpanderItem
+                    key={utilityPropsList.name}
+                    value={utilityPropsList.name}
+                    title={`${utilityPropsList.name}`}
+                  >
+                    <PropsTable props={utilityPropsList.props} />
+                  </ExpanderItem>
+                );
+              })}
+            </Expander>
+          </>
+        );
+      })}
+
       <Text>
         See <Link href="/react/theming/style-props">Style Props</Link> for all
         supported style and layout properties.
@@ -57,6 +78,6 @@ export const PropsTab = ({ propsData }: PropsTabProps) => {
         </Link>
         .
       </Text>
-    </>
+    </View>
   );
 };
