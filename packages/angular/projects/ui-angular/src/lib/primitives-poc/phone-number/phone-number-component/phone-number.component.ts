@@ -20,7 +20,7 @@ export class AmplifyPhoneNumberFieldComponent implements AfterContentInit {
   @Input() describedBy: string;
   @Input() labelHidden: boolean = false;
   @Input() hasError: boolean = false;
-  @Input() defaultCountryCode = '+1';
+  @Input() defaultCountryCode: string = '+1';
 
   @ContentChild(PhoneNumberDirective) childInput: PhoneNumberDirective;
 
