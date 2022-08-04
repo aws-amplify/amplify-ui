@@ -748,7 +748,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               }
 
               expectedCallTime += tickRate;
-              setTimeout(foobar, Math.max(0, tickRate - drift));
+              setTimeout(foobar, Math.min(tickRate, tickRate - drift));
             } else {
               freshnessColorEl.hidden = true;
               resolve(true);
