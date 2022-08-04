@@ -206,6 +206,7 @@ export function createAuthenticatorMachine() {
         BLUR: { actions: 'forwardToActor' },
         SUBMIT: { actions: 'forwardToActor' },
         FEDERATED_SIGN_IN: { actions: 'forwardToActor' },
+        AUTO_SIGN_IN: { actions: 'forwardToActor' },
         RESEND: { actions: 'forwardToActor' },
         SIGN_IN: { actions: 'forwardToActor' },
         SKIP: { actions: 'forwardToActor' },
@@ -323,6 +324,12 @@ export function createAuthenticatorMachine() {
               formFields: context.config?.formFields,
               passwordSettings: context.config?.passwordSettings,
             });
+            console.log(
+              'services',
+              services,
+              defaultServices,
+              services.handleSignUp === defaultServices.handleSignUp
+            );
             return spawn(actor, { name: 'signUpActor' });
           },
         }),

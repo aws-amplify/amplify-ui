@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useAuth } from '../composables/useAuth';
+import { inspect } from '@xstate/inspect';
 import {
   ref,
   toRefs,
@@ -77,7 +78,10 @@ const emit = defineEmits([
 ]);
 const machine = createAuthenticatorMachine();
 
-const service = useInterpret(machine);
+inspect({
+  iframe: false,
+});
+const service = useInterpret(machine, { devTools: true });
 let unsubscribeHub: () => void;
 let unsubscribeMachine: () => void;
 

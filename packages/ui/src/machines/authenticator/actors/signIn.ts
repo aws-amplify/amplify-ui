@@ -149,6 +149,15 @@ export function signInActor({ services }: SignInMachineOptions) {
           states: {
             submit: {
               tags: ['pending'],
+              on: {
+                AUTO_SIGN_IN: {
+                  actions: 'setUser',
+                  target: '#signInActor.resolved',
+                },
+              },
+            },
+            checkConds: {
+              tags: ['pending'],
               entry: ['clearError', 'sendUpdate'],
               invoke: {
                 src: 'signIn',

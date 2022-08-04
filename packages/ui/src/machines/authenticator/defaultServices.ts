@@ -18,7 +18,14 @@ export const defaultServices = {
   },
 
   async handleSignUp(formData): Promise<any> {
-    return Auth.signUp(formData);
+    console.log('startin auto signin');
+    return Auth.signUp({
+      ...formData,
+      autoSignIn: {
+        // optional - enables auto sign in after user is confirmed
+        enabled: true,
+      },
+    });
   },
   async handleSignIn({
     username,

@@ -45,6 +45,13 @@ export const defaultAuthHubHandler: HubHandler = (data, service) => {
         send('TOKEN_REFRESH');
       }
       break;
+    case 'autoSignIn':
+      console.log('payload data', data.payload.data);
+      send({ type: 'AUTO_SIGN_IN', data: data.payload.data });
+      break;
+    case 'autoSignIn_failure':
+      console.log('got here', data);
+      break;
     case 'signOut':
     case 'tokenRefresh_failure':
       if (state.matches('authenticated.idle')) {
