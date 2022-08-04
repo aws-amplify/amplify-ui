@@ -2,7 +2,7 @@ name: POC / npm-version
 
 on:
   push:
-    branches: [main]
+    branches: [check-npm-version]
 
 jobs:
   setup:
