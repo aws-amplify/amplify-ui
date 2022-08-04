@@ -46,7 +46,10 @@ const MenuPrimitive: Primitive<MenuProps, 'div'> = (
         </MenuButton>
       )}
     </DropdownMenuTrigger>
-    <DropdownMenuContent align={menuAlign}>
+    <DropdownMenuContent
+      align={menuAlign}
+      className="radix-menu-content-wrapper"
+    >
       <ButtonGroup
         className={classNames(ComponentClassNames.MenuContent, className)}
         ref={ref}
