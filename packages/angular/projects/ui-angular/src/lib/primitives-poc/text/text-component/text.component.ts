@@ -22,6 +22,16 @@ export class AmplifyTextComponent extends AmplifyBasePrimitiveComponent {
     return this.variation ? '' : null;
   }
 
+  /** The classes to attach to the element. */
+  @HostBinding('class')
+  get elementClasses() {
+    let className = 'amplify-text' + this.variation;
+    return {
+      'amplify-input': true,
+      className: true,
+    };
+  }
+
   constructor() {
     super();
   }
