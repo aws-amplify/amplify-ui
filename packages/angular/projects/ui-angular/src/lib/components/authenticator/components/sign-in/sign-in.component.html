@@ -10,7 +10,13 @@
   >
     <legend class="amplify-visually-hidden">Sign in</legend>
     <amplify-base-form-fields route="signIn"></amplify-base-form-fields>
-    <button amplify-button variation="primary" fullWidth="true" type="submit">
+    <button
+      amplify-button
+      variation="primary"
+      fullWidth="true"
+      type="submit"
+      [isDisabled]="authenticator.isPending"
+    >
       {{ signInButtonText }}
     </button>
 

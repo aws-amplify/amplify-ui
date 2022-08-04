@@ -1,3 +1,8 @@
+# Description: this workflow creates or updates the "Version Packages" PR.
+#
+# Triggered by: whenever a commit is merged onto main and there are
+#               new changesets to consume.
+
 name: Version Packages
 
 on:

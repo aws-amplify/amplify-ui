@@ -56,8 +56,5 @@
       "path": "build/static/js/main.*.js",
       "limit": "280 kB"
     }
-  ],
-  "resolutions": {
-    "@types/eslint": "8.4.3"
-  }
+  ]
 }

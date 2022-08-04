@@ -1,8 +1,6 @@
 import { Alert } from '@aws-amplify/ui-react';
 
-For Angular,
-
-1. Register and configure Amplify inside `app.module.ts`
+Register and configure Amplify inside `app.module.ts`
 
 ```ts{3,12}
 import { NgModule } from '@angular/core';
@@ -23,13 +21,13 @@ Amplify.configure(awsconfig);
 export class AppModule {}
 ```
 
-2. Import Authenticator style inside `styles.css`
+Import Authenticator style inside `styles.css`
 
 ```css
 @import '~@aws-amplify/ui-angular/theme.css';
 ```
 
-3. Wrap your template with `amplify-authenticator` inside `app.component.html`
+Wrap your template with `amplify-authenticator` inside `app.component.html`
 
 ```html
 <amplify-authenticator>
@@ -44,7 +42,7 @@ export class AppModule {}
 </amplify-authenticator>
 ```
 
-<Alert variation="info" heading="Angular Authenticator v1">
+<Alert role="none" variation="info" heading="Angular Authenticator v1">
   Looking for a previous version of Authenticator? Checkout the [Authenticator
   v1
   documentation](https://github.com/aws-amplify/amplify-ui/tree/legacy/legacy/amplify-ui-angular).

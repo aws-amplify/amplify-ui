@@ -8,6 +8,7 @@ import {
   SLIDER_ROOT_TEST_ID,
   SLIDER_TRACK_TEST_ID,
 } from '../SliderField';
+import { Heading } from '../../Heading';
 import {
   testFlexProps,
   expectFlexContainerStyleProps,
@@ -85,13 +86,43 @@ describe('SliderField: ', () => {
 
     it('should display value if isValueHidden is false', async () => {
       render(<SliderField defaultValue={10} label="slider" />);
-      const value = await screen.queryByText('10');
+      const value = screen.queryByText('10');
       expect(value).toBeInTheDocument();
+    });
+
+    it('should display string formatted value if formatValue is provided', async () => {
+      render(
+        <SliderField
+          defaultValue={10}
+          label="slider"
+          formatValue={(value) => {
+            return `${value}%`;
+          }}
+        />
+      );
+
+      const value = await screen.findByText('10%');
+      expect(value).toBeInTheDocument();
+    });
+
+    it('should display component-based formatted value if formatValue is provided', async () => {
+      render(
+        <SliderField
+          defaultValue={10}
+          label="slider"
+          formatValue={(value) => {
+            return <Heading>{value}</Heading>;
+          }}
+        />
+      );
+
+      const heading = await screen.findByText('10');
+      expect(heading).toHaveClass(ComponentClassNames.Heading);
     });
 
     it('should not display value if isValueHidden is true', async () => {
       render(<SliderField defaultValue={10} label="slider" isValueHidden />);
-      const value = await screen.queryByText('10');
+      const value = screen.queryByText('10');
       expect(value).not.toBeInTheDocument();
     });
   });
@@ -290,7 +321,7 @@ describe('SliderField: ', () => {
         />
       );
 
-      const errorText = await screen.queryByText(errorMessage);
+      const errorText = screen.queryByText(errorMessage);
       expect(errorText).not.toBeInTheDocument();
     });
 
@@ -303,7 +334,7 @@ describe('SliderField: ', () => {
           hasError
         />
       );
-      const errorText = await screen.queryByText(errorMessage);
+      const errorText = screen.queryByText(errorMessage);
       expect(errorText.innerHTML).toContain(errorMessage);
     });
   });
@@ -318,7 +349,7 @@ describe('SliderField: ', () => {
         />
       );
 
-      const descriptiveText = await screen.queryByText('Description');
+      const descriptiveText = screen.queryByText('Description');
       expect(descriptiveText.innerHTML).toContain('Description');
     });
 

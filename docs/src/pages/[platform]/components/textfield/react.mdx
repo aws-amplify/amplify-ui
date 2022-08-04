@@ -12,6 +12,7 @@ import {
   TextAreaSizeExample,
   TextFieldAccessibilityExample,
   TextFieldDescriptiveTextExample,
+  TextFieldEventHandlersExample,
   TextFieldInnerComponentsExample,
   TextFieldOuterAndInnerComponentsExample,
   TextFieldOuterComponentsExample,
@@ -63,7 +64,7 @@ Import the `TextField` component and styles and provide a `label` for accessibil
 
 ### Sizes
 
-TextField sizes are designed to match styling of other field components such as buttons. There are three sizes: small, (default), and large.
+TextField sizes are designed to match styling of other field components such as Buttons. There are three sizes: small, (default), and large.
 
 <Example>
   <TextFieldSizeExample />
@@ -92,7 +93,7 @@ There are two variation styles available: default and `quiet`.
 
 To render a multi-line `textarea`, set the `isMultiline` prop to `true`.
 
-<Alert variation="warning" heading="Deprecated">
+<Alert role="none" variation="warning" heading="Deprecated">
   Multiline functionality has been moved to{' '}
   <Link href="./textareafield">TextAreaField</Link> and will be removed in the
   next major release. Please use{' '}
@@ -265,12 +266,26 @@ There is no default styling for required fields. Customize the `label` or `descr
 
 ### Validation error styling
 
-Use the `hasError` and `errorMessage` fields to mark a TextField as having an validation error.
+Use the `hasError` and `errorMessage` props to mark a TextField as having a validation error.
 
 <Example>
   <TextFieldValidationErrorExample />
   <ExampleCode>
     ```jsx file=./examples/TextFieldValidationErrorExample.tsx
+
+    ```
+
+  </ExampleCode>
+</Example>
+
+### Event handlers
+
+TextField provides several event handlers: `onSelect`, `onInput`, `onChange`, `onCopy`, `onPaste`, and `onCut`. Open the console to interact with the demo below. 
+
+<Example>
+  <TextFieldEventHandlersExample />
+  <ExampleCode>
+    ```jsx file=./examples/TextFieldEventHandlersExample.tsx
 
     ```
 

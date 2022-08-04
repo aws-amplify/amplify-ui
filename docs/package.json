@@ -19,7 +19,7 @@
     "test": "$_ run build"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "3.0.3",
+    "@aws-amplify/ui-react": "3.3.0",
     "@cucumber/gherkin": "^19.0.3",
     "@cucumber/messages": "^16.0.1",
     "@docsearch/react": "3",
@@ -65,12 +65,10 @@
     "canvas": "^2.9.1",
     "dotenv-safe": "^8.2.0",
     "esbuild-register": "^3.3.2",
-    "eslint-config-next": "12.0.4",
+    "eslint": "^7.32.0",
+    "eslint-config-next": "12.0.10",
     "globby": "^13.1.1",
     "postcss": "^8.2.6",
     "ts-morph": "^15.1.0"
-  },
-  "resolutions": {
-    "@types/eslint": "8.4.3"
   }
 }

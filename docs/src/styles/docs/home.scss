@@ -138,22 +138,6 @@
   }
 }
 
-.docs-home-hero-card {
-  background-color: var(--amplify-colors-background-primary);
-  padding: var(--amplify-space-medium);
-  gap: var(--amplify-space-xs);
-  box-shadow: var(--amplify-shadows-medium);
-  transition: transform var(--amplify-time-medium) ease;
-  
-  @media (min-width: $breakpoint-large) {
-    gap: var(--amplify-space-medium);
-  }
-  
-  &:hover {
-    transform: scale(1.05);
-  }
-}
-
 .docs-grid-bg {
   background-image: url('/svg/grid.svg'),
     linear-gradient(0deg, hsla(var(--docs-gradient-color-hsl), 1) 0%, hsla(var(--docs-gradient-color-hsl), 0) 35%),
