@@ -75,9 +75,7 @@ const DefaultFooter = () => {
     <View data-amplify-footer="">
       <Button
         fontWeight="normal"
-        onClick={() => {
-          toResetPassword();
-        }}
+        onClick={toResetPassword}
         size="small"
         variation="link"
       >
