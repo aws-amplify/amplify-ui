@@ -726,7 +726,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
               // Send clientInfo when a new color starts appears
               if (colorStageIndex !== prevColorStageIndex) {
-                console.log({ timeSinceLastColorChange, drift });
                 prevColorStageIndex = colorStageIndex;
                 livenessStreamProvider.sendClientInfo({
                   challenges: [
