@@ -203,7 +203,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
         stopped: {},
       },
       on: {
-        STOP: 'stopped',
+        CLEAN: 'stopped',
       },
     },
     {

@@ -347,7 +347,7 @@ export function createAuthenticatorMachine() {
             return spawn(actor, { name: 'signOutActor' });
           },
         }),
-        cleanUpSignInActor: send({ type: 'STOP' }, { to: 'signInActor' }),
+        cleanUpSignInActor: send({ type: 'CLEAN' }, { to: 'signInActor' }),
         stopSignInActor: stopActor('signInActor'),
         stopSignUpActor: stopActor('signUpActor'),
         stopResetPasswordActor: stopActor('resetPasswordActor'),
