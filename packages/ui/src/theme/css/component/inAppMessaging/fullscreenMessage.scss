@@ -1,0 +1,13 @@
+.amplify-inappmessaging-fullscreenmessage {
+  height: var(--amplify-components-inappmessaging-dialog-height);
+  min-height: var(--amplify-components-inappmessaging-dialog-min-height);
+  min-width: var(--amplify-components-inappmessaging-dialog-min-width);
+  width: var(--amplify-components-inappmessaging-dialog-width);
+  &--fullscreen {
+    height: auto;
+    inset: 0;
+    position: fixed;
+    width: auto;
+    z-index: 1000;
+  }
+}

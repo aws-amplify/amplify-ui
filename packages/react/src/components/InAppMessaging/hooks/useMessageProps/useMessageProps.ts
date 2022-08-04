@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef } from 'react';
 import isEmpty from 'lodash/isEmpty';
 import { MessageComponentBaseProps } from '@aws-amplify/ui-react-core';
 
-// import { useMessageImage } from '../useMessageImage';
+import { useMessageImage } from '../useMessageImage';
 import { MessageOverrideStyle, UseMessageProps } from './types';
 import { getPayloadStyle, getMessageStyles } from './utils';
 
@@ -18,15 +18,12 @@ import { getPayloadStyle, getMessageStyles } from './utils';
 export default function useMessageProps(
   props: MessageComponentBaseProps<MessageOverrideStyle>
 ): UseMessageProps {
-  const { /*image*/ onDisplay, primaryButton, secondaryButton } = props;
+  const { image, onDisplay, primaryButton, secondaryButton } = props;
   const hasDisplayed = useRef(false);
 
-  // const { hasRenderableImage, imageDimensions, isImageFetching } =
-  //   useMessageImage(image, layout);
+  const { hasRenderableImage, isImageFetching } = useMessageImage(image);
 
-  // const shouldRenderMessage = !isImageFetching;
-  const hasRenderableImage = false;
-  const shouldRenderMessage = true;
+  const shouldRenderMessage = !isImageFetching;
 
   useEffect(() => {
     if (!hasDisplayed.current && shouldRenderMessage) {
