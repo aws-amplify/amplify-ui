@@ -11,7 +11,7 @@ import aws_exports from './aws-exports';
 
 Amplify.configure(aws_exports);
 
-const { authStatus } = toRefs(useAuthenticator());
+const { authStatus, route } = toRefs(useAuthenticator());
 
 const formFields = {
   confirmSignUp: {
@@ -47,6 +47,7 @@ const services = {
 
 <template>
   {{ authStatus }}
+  {{ route }}
   <authenticator :form-fields="formFields" initial-state="signUp">
     <template v-slot="{ user, signOut }">
       <h1>Hello {{ user.username }}!</h1>

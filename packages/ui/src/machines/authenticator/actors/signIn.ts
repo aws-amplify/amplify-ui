@@ -150,10 +150,31 @@ export function signInActor({ services }: SignInMachineOptions) {
             submit: {
               tags: ['pending'],
               on: {
-                AUTO_SIGN_IN: {
-                  actions: 'setUser',
-                  target: '#signInActor.resolved',
-                },
+                AUTO_SIGN_IN: [
+                  {
+                    cond: 'shouldSetupTOTP',
+                    actions: ['setUser', 'setChallengeName'],
+                    target: '#signInActor.setupTOTP',
+                  },
+                  {
+                    cond: 'shouldConfirmSignIn',
+                    actions: ['setUser', 'setChallengeName'],
+                    target: '#signInActor.confirmSignIn',
+                  },
+                  {
+                    cond: 'shouldForceChangePassword',
+                    actions: [
+                      'setUser',
+                      'setChallengeName',
+                      'setRequiredAttributes',
+                    ],
+                    target: '#signInActor.forceNewPassword',
+                  },
+                  {
+                    actions: 'setUser',
+                    target: '#signInActor.resolved',
+                  },
+                ],
               },
             },
             checkConds: {

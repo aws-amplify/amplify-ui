@@ -252,8 +252,7 @@ const hasRouteComponent = computed(() => {
     state.value.matches('authenticated') ||
     state.value.matches('idle') ||
     state.value.matches('setup') ||
-    state.value.matches('signOut') ||
-    actorState.value?.matches('autoSignIn')
+    state.value.matches('signOut')
   );
 });
 </script>
@@ -336,8 +335,12 @@ const hasRouteComponent = computed(() => {
           </sign-up>
         </div>
 
+        {{ actorState?.value }}
         <confirm-sign-up
-          v-if="actorState?.matches('confirmSignUp')"
+          v-if="
+            actorState?.matches('confirmSignUp') ||
+            actorState?.matches('autoSignIn')
+          "
           @confirm-sign-up-submit="onConfirmSignUpSubmitI"
           ref="confirmSignUpComponent"
         >
