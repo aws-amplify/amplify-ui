@@ -43,6 +43,7 @@ export function signInActor({ services }: SignInMachineOptions) {
         init: {
           always: [
             { target: 'autoSignIn', cond: 'shouldAutoSignIn' },
+            { target: 'autoSignIn.manualSignIn', cond: 'shouldManualSignIn' },
             { target: 'signIn' },
           ],
         },
@@ -177,7 +178,7 @@ export function signInActor({ services }: SignInMachineOptions) {
                 ],
               },
             },
-            checkConds: {
+            manualSignIn: {
               tags: ['pending'],
               entry: ['clearError', 'sendUpdate'],
               invoke: {
@@ -501,6 +502,9 @@ export function signInActor({ services }: SignInMachineOptions) {
         },
         shouldAutoSignIn: (context) => {
           return context?.intent === 'autoSignIn';
+        },
+        shouldManualSignIn: (context) => {
+          return context?.intent === 'manualSignIn';
         },
         shouldRedirectToConfirmSignUp: (_, event): boolean => {
           return event.data.code === 'UserNotConfirmedException';

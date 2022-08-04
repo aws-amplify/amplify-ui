@@ -320,16 +320,12 @@ export function createAuthenticatorMachine() {
               touched: {},
               validationError: {},
               loginMechanisms: context.config?.loginMechanisms,
+              defaultServices:
+                services.handleSignUp === defaultServices.handleSignUp,
               socialProviders: context.config?.socialProviders,
               formFields: context.config?.formFields,
               passwordSettings: context.config?.passwordSettings,
             });
-            console.log(
-              'services',
-              services,
-              defaultServices,
-              services.handleSignUp === defaultServices.handleSignUp
-            );
             return spawn(actor, { name: 'signUpActor' });
           },
         }),
@@ -381,7 +377,9 @@ export function createAuthenticatorMachine() {
           event.data?.intent === 'confirmSignUp',
         shouldRedirectToResetPassword: (_, event) =>
           event.data?.intent === 'confirmPasswordReset',
-        shouldAutoSignIn: (_, event) => event.data?.intent === 'autoSignIn',
+        shouldAutoSignIn: (_, event) =>
+          event.data?.intent === 'autoSignIn' ||
+          event.data?.intent === 'manualSignIn',
         shouldSetup: (context) => context.hasSetup === false,
         // other context guards
         hasActor: (context) => !!context.actorRef,
