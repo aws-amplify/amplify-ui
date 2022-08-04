@@ -1,4 +1,11 @@
-import { Alert, Loader, TabItem, Tabs, View } from '@aws-amplify/ui-react';
+import {
+  Alert,
+  Link,
+  Loader,
+  TabItem,
+  Tabs,
+  View,
+} from '@aws-amplify/ui-react';
 import React, { useCallback } from 'react';
 
 export function FlutterAuthenticatorExample({
@@ -35,14 +42,16 @@ export function FlutterAuthenticatorExample({
     };
     var src = `${baseUrl}?${new URLSearchParams(queryParams).toString()}`;
 
-    const size = {
+    const style = {
       ios: {
         height: { base: '600px', medium: '800px' },
         width: { base: '300px', medium: '400px' },
+        paddingTop: '12px',
       },
       android: {
         height: { base: '600px', medium: '800px' },
         width: { base: '315px', medium: '420px' },
+        paddingTop: '12px',
       },
       ipad: {
         height: { base: '1000px' },
@@ -56,12 +65,16 @@ export function FlutterAuthenticatorExample({
     return (
       <>
         <FlutterAuthenticatorLoader id={id} />
-        <View width="100%" textAlign="center">
+        <View
+          width="100%"
+          textAlign="center"
+          style={{ paddingTop: style[device].paddingTop }}
+        >
           <View
             as="iframe"
             key={id}
-            height={size[device].height}
-            width={size[device].width}
+            height={style[device].height}
+            width={style[device].width}
             src={src}
             loading="lazy"
             frameBorder="0"
@@ -72,22 +85,31 @@ export function FlutterAuthenticatorExample({
   };
 
   return (
-    <>
+    <div>
       <Alert variation="info" role="none">
         {
           'The Authenticator demo below uses a mock backend. Any users you create are stored in memory. You can verify accounts that you create with the code "123456".'
         }
       </Alert>
       <Tabs justifyContent="flex-start">
-        <TabItem title="iPhone">{getDeviceView('ios')}</TabItem>
+        <TabItem title="iOS">{getDeviceView('ios')}</TabItem>
         <TabItem title="Android">{getDeviceView('android')}</TabItem>
         {showWeb ? (
           <TabItem title="Web & Desktop (developer preview)">
+            <Alert variation="info" role="none">
+              {
+                'Web and desktop support for the Amplify Flutter Auth category is now in developer preview. See the '
+              }
+              <Link href={'/flutter/getting-started/installation'}>
+                {'installation guide '}
+              </Link>
+              {'for more info.'}
+            </Alert>
             {getDeviceView('web')}
           </TabItem>
         ) : null}
       </Tabs>
-    </>
+    </div>
   );
 }
 
