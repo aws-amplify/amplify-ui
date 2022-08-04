@@ -200,7 +200,9 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
             };
           },
         },
-        stopped: {},
+        stopped: {
+          type: 'final',
+        },
       },
       on: {
         CLEAN: 'stopped',

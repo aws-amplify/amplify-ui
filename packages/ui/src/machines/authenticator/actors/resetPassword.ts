@@ -157,6 +157,10 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
           },
         },
         resolved: { type: 'final' },
+        stopped: { type: 'final' },
+      },
+      on: {
+        CLEAN: 'stopped',
       },
     },
     {

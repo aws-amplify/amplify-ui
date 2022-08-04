@@ -87,7 +87,7 @@ export function createAuthenticatorMachine() {
           states: {
             runActor: {
               entry: 'clearActorDoneData',
-              exit: 'cleanUpSignInActor',
+              exit: 'cleanSignInActor',
             },
           },
           on: {
@@ -112,14 +112,13 @@ export function createAuthenticatorMachine() {
           },
         },
         signUp: {
-          initial: 'spawnActor',
+          initial: 'runActor',
+          entry: 'spawnSignUpActor',
+          exit: 'stopSignUpActor',
           states: {
-            spawnActor: {
-              always: { actions: 'spawnSignUpActor', target: 'runActor' },
-            },
             runActor: {
               entry: 'clearActorDoneData',
-              exit: 'stopSignUpActor',
+              exit: 'cleanSignUpActor',
             },
             autoSignIn: {
               invoke: {
@@ -139,17 +138,13 @@ export function createAuthenticatorMachine() {
           },
         },
         resetPassword: {
-          initial: 'spawnActor',
+          initial: 'runActor',
+          entry: 'spawnResetPasswordActor',
+          exit: 'stopResetPasswordActor',
           states: {
-            spawnActor: {
-              always: {
-                actions: 'spawnResetPasswordActor',
-                target: 'runActor',
-              },
-            },
             runActor: {
               entry: 'clearActorDoneData',
-              exit: 'stopResetPasswordActor',
+              exit: 'cleanResetPasswordActor',
             },
           },
           on: {
@@ -347,7 +342,12 @@ export function createAuthenticatorMachine() {
             return spawn(actor, { name: 'signOutActor' });
           },
         }),
-        cleanUpSignInActor: send({ type: 'CLEAN' }, { to: 'signInActor' }),
+        cleanSignInActor: send({ type: 'CLEAN' }, { to: 'signInActor' }),
+        cleanSignUpActor: send({ type: 'CLEAN' }, { to: 'signUpActor' }),
+        cleanResetPasswordActor: send(
+          { type: 'CLEAN' },
+          { to: 'resetPasswordActor' }
+        ),
         stopSignInActor: stopActor('signInActor'),
         stopSignUpActor: stopActor('signUpActor'),
         stopResetPasswordActor: stopActor('resetPasswordActor'),
