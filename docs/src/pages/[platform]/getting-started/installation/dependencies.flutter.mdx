@@ -1,6 +1,5 @@
-import { Link, Alert, Text, Tabs, TabItem } from '@aws-amplify/ui-react';
-
-You will need to add dependencies for the `amplify_authenticator` to the `pubspec.yaml` file as shown below.
+import { Alert, Link, Text, Tabs, TabItem } from '@aws-amplify/ui-react';
+import { ExampleCode } from '@/components/Example';
 
 <Alert variation="info">
   <Text color="inherit">
@@ -8,22 +7,34 @@ You will need to add dependencies for the `amplify_authenticator` to the `pubspe
   </Text>
 </Alert>
 
+You will need to add dependencies for the `amplify_authenticator` to the `pubspec.yaml` file as shown below.
+
 <Tabs justifyContent="flex-start">
   <TabItem title="Stable (Mobile)">
+    <ExampleCode>
     ```yaml
+      environment:
+        sdk: ">=2.15.0 <3.0.0"
+
       dependencies:
         amplify_flutter: ^0.6.0
         amplify_auth_cognito: ^0.6.0
         amplify_authenticator: ^0.2.0
     ```
+    </ExampleCode>
   </TabItem>
   <TabItem title="Developer Preview (Mobile, Web & Desktop)">
+    <ExampleCode>
     ```yaml
+      environment:
+        sdk: ">=2.17.0 <3.0.0"
+      
       dependencies:
         amplify_flutter: ^1.0.0-0
         amplify_auth_cognito: ^1.0.0-0
         amplify_authenticator: ^1.0.0-0
     ```
+    </ExampleCode>
   </TabItem>
 </Tabs>
 
