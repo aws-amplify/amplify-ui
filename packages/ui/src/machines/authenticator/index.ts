@@ -156,14 +156,13 @@ export function createAuthenticatorMachine() {
           },
         },
         signOut: {
-          initial: 'spawnActor',
+          initial: 'runActor',
+          entry: 'spawnSignOutActor',
+          exit: 'stopSignOutActor',
           states: {
-            spawnActor: {
-              always: { actions: 'spawnSignOutActor', target: 'runActor' },
-            },
             runActor: {
               entry: 'clearActorDoneData',
-              exit: ['stopSignOutActor', 'clearUser'],
+              exit: ['cleanSignOutActor', 'clearUser'],
             },
           },
           on: {
@@ -348,6 +347,7 @@ export function createAuthenticatorMachine() {
           { type: 'CLEAN' },
           { to: 'resetPasswordActor' }
         ),
+        cleanSignOutActor: send({ type: 'CLEAN' }, { to: 'cleanSignOutActor' }),
         stopSignInActor: stopActor('signInActor'),
         stopSignUpActor: stopActor('signUpActor'),
         stopResetPasswordActor: stopActor('resetPasswordActor'),

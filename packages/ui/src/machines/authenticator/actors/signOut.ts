@@ -18,6 +18,10 @@ export const signOutActor = createMachine<SignOutContext, AuthEvent>(
       },
       resolved: { type: 'final' },
       rejected: { type: 'final' },
+      stopped: { type: 'final' },
+    },
+    on: {
+      CLEAN: 'stopped',
     },
   },
   {
