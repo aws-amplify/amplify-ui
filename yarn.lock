@@ -6127,6 +6127,15 @@
     "@types/scheduler" "*"
     csstype "^3.0.2"
 
+"@types/react@17.0.47":
+  version "17.0.47"
+  resolved "https://registry.npmjs.org/@types/react/-/react-17.0.47.tgz#4ee71aaf4c5a9e290e03aa4d0d313c5d666b3b78"
+  integrity sha512-mk0BL8zBinf2ozNr3qPnlu1oyVTYq+4V7WA76RgxUAtf0Em/Wbid38KN6n4abEkvO4xMTBWmnP1FtQzgkEiJoA==
+  dependencies:
+    "@types/prop-types" "*"
+    "@types/scheduler" "*"
+    csstype "^3.0.2"
+
 "@types/react@^17", "@types/react@^17.0.2":
   version "17.0.45"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.45.tgz#9b3d5b661fd26365fefef0e766a1c6c30ccf7b3f"
@@ -8738,9 +8747,9 @@ caniuse-lite@^1.0.0, caniuse-lite@^1.0.30001032, caniuse-lite@^1.0.30001181, can
   integrity sha512-0ZFjnlCaXNOAYcV7i+TtdKBp0L/3XEU2MF/x6Du1lrh+SRX4IfzIVL4HNJg5pB2PmFb8rszIGyOvsZnqqRoc2g==
 
 caniuse-lite@^1.0.30001314:
-  version "1.0.30001366"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001366.tgz#c73352c83830a9eaf2dea0ff71fb4b9a4bbaa89c"
-  integrity sha512-yy7XLWCubDobokgzudpkKux8e0UOOnLHE6mlNJBzT3lZJz6s5atSEzjoL+fsCPkI0G8MP5uVdDx1ur/fXEWkZA==
+  version "1.0.30001373"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001373.tgz#2dc3bc3bfcb5d5a929bec11300883040d7b4b4be"
+  integrity sha512-pJYArGHrPp3TUqQzFYRmP/lwJlj8RCbVe3Gd3eJQkAV8SAC6b19XS9BjMvRdvaS8RMkaTN8ZhoHP6S1y8zzwEQ==
 
 canonical-path@1.0.0:
   version "1.0.0"
@@ -20680,6 +20689,13 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
   dependencies:
     hash-base "^3.0.0"
     inherits "^2.0.1"
+
+rollup-plugin-node-externals@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-node-externals/-/rollup-plugin-node-externals-4.1.1.tgz#81d90eea6f99831a90206df1f0531fdcfc360d7c"
+  integrity sha512-hiGCMTKHVoueaTmtcUv1KR0/dlNBuI9GYzHUlSHQbMd7T7yomYdXCFnBisoBqdZYy61EGAIfz8AvJaWWBho3Pg==
+  dependencies:
+    find-up "^5.0.0"
 
 rollup-plugin-sourcemaps@^0.6.3:
   version "0.6.3"

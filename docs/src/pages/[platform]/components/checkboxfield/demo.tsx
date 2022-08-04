@@ -10,11 +10,13 @@ const propsToCode = ({
   labelPosition,
   size,
   isDisabled,
+  isIndeterminate,
 }: CheckboxFieldProps) => {
   return (
     `<CheckboxField` +
     (label ? `\n  label=${JSON.stringify(label)}` : '') +
     (isDisabled ? `\n  isDisabled={${isDisabled}}` : '') +
+    (isIndeterminate ? `\n  isIndeterminate={${isIndeterminate}}` : '') +
     (labelPosition
       ? `\n  labelPosition=${JSON.stringify(labelPosition)}`
       : '') +
@@ -44,6 +46,7 @@ export const CheckboxDemo = () => {
         name={props.name}
         value={props.value}
         isDisabled={props.isDisabled}
+        isIndeterminate={props.isIndeterminate}
         size={props.size}
         label={props.label}
         labelPosition={props.labelPosition}

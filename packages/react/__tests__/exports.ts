@@ -128,6 +128,7 @@ describe('@aws-amplify/ui-react/internal', () => {
           "IconClose",
           "IconError",
           "IconExpandMore",
+          "IconIndeterminate",
           "IconInfo",
           "IconMenu",
           "IconRemove",
