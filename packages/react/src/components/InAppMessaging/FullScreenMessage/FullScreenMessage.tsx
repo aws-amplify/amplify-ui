@@ -34,6 +34,10 @@ export function FullScreenMessage(
     </Flex>
   );
 
+  if (shouldBeFullScreen) {
+    return <Message />;
+  }
+
   const MessageWithBackdrop = withBackdrop(Message, { onClick });
   return <MessageWithBackdrop />;
 }

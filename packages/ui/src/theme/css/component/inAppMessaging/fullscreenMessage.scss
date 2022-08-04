@@ -4,7 +4,9 @@
   min-width: var(--amplify-components-inappmessaging-dialog-min-width);
   width: var(--amplify-components-inappmessaging-dialog-width);
   &--fullscreen {
-    height: 100vh;
-    width: 100vw;
+    height: auto;
+    inset: 0;
+    position: fixed;
+    width: auto;
   }
 }
