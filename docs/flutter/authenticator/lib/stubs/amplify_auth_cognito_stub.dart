@@ -17,6 +17,10 @@ import 'dart:math';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_core/amplify_core.dart';
 
+/// An added delay to make the mock behave as if network calls
+/// were being used.
+Future<void> _mockDelay() => Future<void>.delayed(Duration(milliseconds: 250));
+
 /// A stub of [AmplifyAuthCognito] that creates users in memory.
 class AmplifyAuthCognitoStub extends AuthPluginInterface
     implements AmplifyPluginInterface {
@@ -29,7 +33,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
 
   @override
   Future<SignUpResult> signUp({required SignUpRequest request}) async {
-    await Future<void>.delayed(const Duration(milliseconds: 50));
+    _mockDelay();
     _MockUser? user = _users[request.username];
     if (user != null) {
       throw UsernameExistsException(message: 'User name already exists.');
@@ -57,7 +61,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
   Future<SignUpResult> confirmSignUp({
     required ConfirmSignUpRequest request,
   }) async {
-    await Future<void>.delayed(const Duration(milliseconds: 50));
+    _mockDelay();
     if (request.confirmationCode != '123456') {
       throw CodeMismatchException(message: 'Incorrect confirmation code.');
     }
@@ -71,7 +75,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
   Future<ResendSignUpCodeResult> resendSignUpCode({
     required ResendSignUpCodeRequest request,
   }) async {
-    await Future<void>.delayed(const Duration(milliseconds: 50));
+    _mockDelay();
     _MockUser? user = _users[request.username];
     if (user == null) {
       throw UserNotFoundException(message: 'User not found.');
@@ -81,7 +85,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
 
   @override
   Future<SignInResult> signIn({required SignInRequest request}) async {
-    await Future<void>.delayed(const Duration(milliseconds: 50));
+    _mockDelay();
     _MockUser? user = _users[request.username];
     if (user == null) {
       throw UserNotFoundException(message: 'User not found.');
@@ -98,7 +102,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
 
   @override
   Future<SignInResult> confirmSignIn({ConfirmSignInRequest? request}) async {
-    await Future<void>.delayed(const Duration(milliseconds: 50));
+    _mockDelay();
     return CognitoSignInResult(
       isSignedIn: _isSignedIn(),
       nextStep: const AuthNextSignInStep(signInStep: 'DONE'),
@@ -122,7 +126,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
   Future<ResetPasswordResult> resetPassword({
     ResetPasswordRequest? request,
   }) async {
-    await Future<void>.delayed(const Duration(milliseconds: 50));
+    _mockDelay();
     if (request == null) {
       throw const InvalidStateException('Missing request');
     }
@@ -143,7 +147,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
   Future<UpdatePasswordResult> confirmResetPassword({
     ConfirmResetPasswordRequest? request,
   }) async {
-    await Future<void>.delayed(const Duration(milliseconds: 50));
+    _mockDelay();
     if (request == null) {
       throw const InvalidStateException('Missing request');
     }
