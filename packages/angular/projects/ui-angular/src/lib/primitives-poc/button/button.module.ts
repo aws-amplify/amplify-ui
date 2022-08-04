@@ -3,9 +3,10 @@ import { NgModule } from '@angular/core';
 
 import { AmplifyButtonComponent } from './button-component/button.component';
 
+let Components: any[] = [AmplifyButtonComponent];
 @NgModule({
-  declarations: [AmplifyButtonComponent],
+  declarations: Components,
   imports: [CommonModule],
-  exports: [AmplifyButtonComponent],
+  exports: Components,
 })
 export class AmplifyButtonModule {}
