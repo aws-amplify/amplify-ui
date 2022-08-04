@@ -11,6 +11,7 @@ supportedFrameworks: react
 
 import { Fragment } from '@/components/Fragment';
 import { PageTabLayout } from "@/components/Layout/PageTabLayout"
+import { PropsTab } from "@/components/Layout/PropsTab";
 
 <PageTabLayout 
   tabComponents={[{
@@ -19,7 +20,7 @@ import { PageTabLayout } from "@/components/Layout/PageTabLayout"
   },
   {
     title: "Props", 
-    children: <Fragment>{({ platform }) => import('./props-table.mdx')}</Fragment>
+    children: <PropsTab />
   }]}
 />
         
