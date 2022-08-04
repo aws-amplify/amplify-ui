@@ -134,7 +134,6 @@ export const LivenessCameraModule = (
               background: 'linear-gradient(transparent 70%, white 100%)',
             },
           })}
-          style={{ zIndex: 2 }}
         />
 
         {isRecording && (

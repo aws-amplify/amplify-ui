@@ -673,23 +673,21 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           videoAssociatedParams: { canvasEl },
         } = context;
 
-        // flash colors on canvas
         freshnessColorEl.hidden = false;
 
-        const recordStartTimestamp = Date.now();
         return new Promise((resolve) => {
-          const permutationsArr = getShortCp2Permutations(ColorArr);
+          const colorStages = getShortCp2Permutations(ColorArr);
 
-          const tickRate = 10; // ms
-          const flatDuration = 100; // ms
-          const scrollingDuration = 300; // ms
+          const tickRate = 10; // ms -- the rate at which we will render/check colors
+          const flatDuration = 100; // ms -- the length of time to show a flat color
+          const scrollingDuration = 300; // ms -- the length of time it should take for a color to scroll down
 
-          let colorPermutationInd = 0; // stage of the color permutation
-          let prevColorPermutationInd = undefined; // previous stage
+          let colorStageIndex = 0; // stage of the color permutation
+          let prevColorStageIndex = undefined; // previous stage
           let timeLastColorIndChanged = Date.now();
           let expectedCallTime = Date.now() + tickRate;
 
-          const foobar = () => {
+          const selfAdjustingInterval = () => {
             const tickStartTime = Date.now();
             const drift = tickStartTime - expectedCallTime;
             const timeSinceLastColorChange =
@@ -700,18 +698,19 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             if (
               shouldChangeColorStage(
                 timeSinceLastColorChange,
-                permutationsArr[colorPermutationInd],
+                colorStages[colorStageIndex],
                 flatDuration,
                 scrollingDuration
               )
             ) {
-              colorPermutationInd += 1;
+              colorStageIndex += 1;
               timeLastColorIndChanged = Date.now();
             }
 
-            if (colorPermutationInd < permutationsArr.length) {
+            // Continue looping until we have completed colorStages
+            if (colorStageIndex < colorStages.length) {
               const [prevColorIdx, scrollingColorIdx] =
-                permutationsArr[colorPermutationInd];
+                colorStages[colorStageIndex];
               const hp = timeSinceLastColorChange / scrollingDuration;
 
               const currentScrollingColor = ColorArr[scrollingColorIdx];
@@ -726,8 +725,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               });
 
               // Send clientInfo when a new color starts appears
-              if (colorPermutationInd !== prevColorPermutationInd) {
-                prevColorPermutationInd = colorPermutationInd;
+              if (colorStageIndex !== prevColorStageIndex) {
+                console.log({ timeSinceLastColorChange, drift });
+                prevColorStageIndex = colorStageIndex;
                 livenessStreamProvider.sendClientInfo({
                   challenges: [
                     {
@@ -748,13 +748,16 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               }
 
               expectedCallTime += tickRate;
-              setTimeout(foobar, Math.min(tickRate, tickRate - drift));
+              setTimeout(
+                selfAdjustingInterval,
+                Math.min(tickRate, tickRate - drift)
+              );
             } else {
               freshnessColorEl.hidden = true;
               resolve(true);
             }
           };
-          setTimeout(foobar, tickRate); // initial call
+          setTimeout(selfAdjustingInterval, tickRate); // initial call
         });
       },
       async putLivenessVideo(context) {

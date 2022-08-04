@@ -428,7 +428,7 @@ export function fillOverlayCanvasFractional({
   ctx.globalAlpha = INITIAL_ALPHA;
   fillFractionalContext(ctx, prevColor, nextColor, heightFraction);
 
-  // // draw the oval path and fill it
+  // draw the oval path and fill it
   ctx.beginPath();
   ctx.ellipse(
     updatedCenterX,
@@ -439,6 +439,10 @@ export function fillOverlayCanvasFractional({
     0,
     2 * Math.PI
   );
+  // add stroke to the oval path
+  ctx.strokeStyle = 'white';
+  ctx.lineWidth = 8;
+  ctx.stroke();
   ctx.clip();
 
   ctx.clearRect(0, 0, canvasWidth, canvasHeight);
