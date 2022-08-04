@@ -24,7 +24,9 @@
           amplify-countrycodeselect
         "
       >
-        <label class="amplify-label amplify-visually-hidden"
+        <label
+          class="amplify-label amplify-visually-hidden"
+          [for]="countryCodeId"
           >Country code</label
         >
         <div class="amplify-select__wrapper">
@@ -33,9 +35,14 @@
             autocomplete="tel-country-code"
             class="amplify-select amplify-field-group__control"
             aria-disabled="false"
-            [(ngModel)]="selectedValue"
+            [id]="countryCodeId"
+            (change)="onCodeChange($event.target.value)"
           >
-            <option *ngFor="let code of countryCode" value="{{ code }}">
+            <option
+              *ngFor="let code of countryCode"
+              value="{{ code }}"
+              [selected]="code === defaultCountryCode"
+            >
               {{ code }}
             </option>
           </select>

@@ -9,15 +9,6 @@ export class PhoneNumberDirective {
   private _id = nanoid(8);
   private _ariaDescribedBy: string = 'test';
   private _hasError: boolean = false;
-  private _countryCode: string = '';
-
-  // @Input() set countryCode(countryCode: string) {
-  //   this._countryCode = countryCode;
-  // }
-
-  // public get countryCode() {
-  //   return this._countryCode;
-  // }
 
   @Input() set isDisabled(isDisabled: boolean) {
     this._isDisabled = isDisabled;
