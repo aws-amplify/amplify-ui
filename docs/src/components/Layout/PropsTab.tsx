@@ -38,46 +38,6 @@ export const PropsTab = ({ propsData }: PropsTabProps) => {
 
   return (
     <>
-      {propLists.map((propList) => {
-        return (
-          <>
-            <Heading level={2} className="amplify-heading--4">
-              {'<'}
-              {propList.name}
-              {'>'}
-            </Heading>
-            <ResponsiveTable>
-              <TableHead>
-                <TableCell>Name</TableCell>
-                <TableCell>Type</TableCell>
-                <TableCell>Description</TableCell>
-              </TableHead>
-              <TableBody>
-                {propList.props.map((prop, index) => {
-                  const { name, isOptional, type, description } = prop;
-                  return (
-                    <TableRow key={`${prop}-${index}`}>
-                      <ResponsiveTableCell label="Name">
-                        {name}
-                      </ResponsiveTableCell>
-                      <ResponsiveTableCell label="Type">
-                        <code>{type}</code>
-                      </ResponsiveTableCell>
-                      <ResponsiveTableCell label="Description">
-                        {!isOptional && (
-                          <Badge variation="info">required</Badge>
-                        )}
-                        {description}
-                      </ResponsiveTableCell>
-                    </TableRow>
-                  );
-                })}
-              </TableBody>
-            </ResponsiveTable>
-          </>
-        );
-      })}
-
       <Text>
         See <Link href="/react/theming/style-props">Style Props</Link> for all
         supported style and layout properties.
