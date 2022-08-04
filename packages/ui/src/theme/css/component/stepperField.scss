@@ -42,31 +42,31 @@
   );
 }
 
-.amplify-stepperfield__button--decrease {
+.amplify-stepperfield__button--decrease,
+.amplify-stepperfield__button--increase {
   background-color: var(
     --amplify-components-stepperfield-button-background-color
   );
-  &[data-invalid='true'] {
-    border-inline-end: none;
+  &--disabled {
+    background-color: var(
+      --amplify-components-stepperfield-button-disabled-background-color
+    );
   }
-
   &--quiet {
     border-width: 0 0 var(--amplify-components-button-border-width) 0;
     border-radius: 0;
   }
 }
 
+.amplify-stepperfield__button--decrease {
+  &[data-invalid='true'] {
+    border-inline-end: none;
+  }
+}
+
 .amplify-stepperfield__button--increase {
-  background-color: var(
-    --amplify-components-stepperfield-button-background-color
-  );
   &[data-invalid='true'] {
     border-inline-start: none;
-  }
-
-  &--quiet {
-    border-width: 0 0 var(--amplify-components-button-border-width) 0;
-    border-radius: 0;
   }
 }
 

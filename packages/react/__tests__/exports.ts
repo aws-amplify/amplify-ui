@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import type { PrimitiveCatalogType } from '../src/types/catalog';
+import { PrimitiveCatalog } from '@aws-amplify/ui-react/internal';
 
 // Jest doesn't support `exports` maps, so we have to reference `dist` directly.
 // See: https://github.com/facebook/jest/issues/9771
@@ -127,6 +128,7 @@ describe('@aws-amplify/ui-react/internal', () => {
           "IconClose",
           "IconError",
           "IconExpandMore",
+          "IconIndeterminate",
           "IconInfo",
           "IconMenu",
           "IconRemove",
@@ -161,24 +163,8 @@ describe('@aws-amplify/ui-react/internal', () => {
   });
 });
 
-const getCatalogJSON = (): PrimitiveCatalogType => {
-  try {
-    const rawJSON = fs
-      .readFileSync(path.join(__dirname, '../dist/primitives.json'))
-      .toString();
-
-    return JSON.parse(rawJSON) as PrimitiveCatalogType;
-  } catch (err) {
-    console.error('Error reading primitives catalog JSON file:', err);
-  }
-
-  return {};
-};
-
 describe('primitive catalog', () => {
-  const catalog = getCatalogJSON();
-
-  it.each(Object.entries(catalog))(
+  it.each(Object.entries(PrimitiveCatalog))(
     'should contain properties for %s primitive',
     (name, primitive) => {
       expect(Object.keys(primitive.properties).length).toBeGreaterThan(0);
@@ -186,7 +172,7 @@ describe('primitive catalog', () => {
   );
 
   it('should match primitives list snapshot', () => {
-    expect(Object.keys(catalog)).toMatchInlineSnapshot(`
+    expect(Object.keys(PrimitiveCatalog)).toMatchInlineSnapshot(`
       Array [
         "Alert",
         "Badge",
