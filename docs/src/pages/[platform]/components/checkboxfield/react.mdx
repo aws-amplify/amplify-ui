@@ -1,5 +1,11 @@
 import { CheckboxField } from '@aws-amplify/ui-react';
-import { ControlledCheckbox, ValueExample, CheckboxFieldThemeExample } from './examples';
+
+import {
+  ControlledCheckbox,
+  ValueExample,
+  CheckboxFieldThemeExample,
+  CheckboxFieldIndeterminateExample
+} from './examples';
 import { CheckboxDemo } from './demo';
 import { Example, ExampleCode } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
@@ -91,6 +97,22 @@ import { CheckboxField } from '@aws-amplify/ui-react';
     isDisabled
   />
 </Example>
+
+#### Indeterminate
+
+In addition to the checked and unchecked states, there is a third state a checkbox can be in: indeterminate. This is a state in which it's impossible to say whether the item is toggled on or off.
+
+  <Example>
+    <CheckboxFieldIndeterminateExample />
+    
+    <ExampleCode>
+
+    ```tsx file=./examples/CheckboxFieldIndeterminateExample.tsx
+
+    ```
+
+    </ExampleCode>
+  </Example>
 
 ### Validation error
 
@@ -204,15 +226,6 @@ To override styling on all Checkbox icons, you can set the Amplify CSS variables
     className="global-class"
   />
 </Example>
-
-To replace Checkbox icon styling, unset it:
-
-```css
-.amplify-checkbox__icon {
-  all: unset;
-  /* Add your styling here*/
-}
-```
 
 ### Local styling
 
