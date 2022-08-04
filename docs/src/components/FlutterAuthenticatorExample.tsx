@@ -8,7 +8,6 @@ export function FlutterAuthenticatorExample({
   includeSocialProviders = false,
   useCustomUI = false,
   useCustomTheme = false,
-  showTablet = true,
   showWeb = true,
   // id is passed to the flutter authenticator.
   // it is used by the authenticator to signal when the authenticator has finished loading.
@@ -82,9 +81,6 @@ export function FlutterAuthenticatorExample({
       <Tabs justifyContent="flex-start">
         <TabItem title="iPhone">{getDeviceView('ios')}</TabItem>
         <TabItem title="Android">{getDeviceView('android')}</TabItem>
-        {showTablet ? (
-          <TabItem title="Tablet">{getDeviceView('ipad')}</TabItem>
-        ) : null}
         {showWeb ? (
           <TabItem title="Web & Desktop (developer preview)">
             {getDeviceView('web')}
