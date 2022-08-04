@@ -3,6 +3,7 @@ import * as React from 'react';
 import { ThemeProvider, ColorMode, defaultTheme } from '@aws-amplify/ui-react';
 
 import { configure, trackPageVisit } from '@/utils/track';
+import { IS_PROD_STAGE } from '@/utils/stage';
 import { Header } from '@/components/Layout/Header';
 import Script from 'next/script';
 import { baseTheme } from '../theme';
@@ -21,9 +22,9 @@ import classNames from 'classnames';
 
 if (typeof window === 'undefined') {
   // suppress useLayoutEffect warnings when running outside a browser
-  // See: https://gist.github.com/gaearon/e7d97cdf38a2907924ea12e4ebdf3c85#gistcomment-3886909
+  // See: https://gist.github.com/gaearon/e7d97cdf38a2907924ea12e4ebdf3c85?permalink_comment_id=4150784#gistcomment-4150784
   // @ts-ignore Cannot assign to 'useLayoutEffect' because it is a read-only property.ts(2540)
-  React.useLayoutEffect = React.useEffect;
+  React.useLayoutEffect = () => {};
 } else {
   console.log(`
   _____           _ _ ___        _____ _____ 
@@ -70,8 +71,12 @@ function MyApp({ Component, pageProps }) {
     );
   }, []);
 
-  configure();
-  trackPageVisit();
+  React.useEffect(() => {
+    if (IS_PROD_STAGE) {
+      configure();
+      trackPageVisit();
+    }
+  }, [pathname]); // only track page visit if path has changed
 
   return (
     <>
@@ -102,13 +107,12 @@ function MyApp({ Component, pageProps }) {
           </main>
         </ThemeProvider>
       </div>
-      <Script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" />
-      {/* {process.env.NODE_ENV !== 'production' ? (
-        <script src="https://aa0.awsstatic.com/s_code/js/3.0/awshome_s_code.js"></script>
-      ) : (
-        <script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js"></script>
-      )} */}
-      <Script src="/scripts/shortbreadv2.js" />
+      {IS_PROD_STAGE && (
+        <>
+          <Script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" />
+          <Script src="/scripts/shortbreadv2.js" />
+        </>
+      )}
     </>
   );
 }
