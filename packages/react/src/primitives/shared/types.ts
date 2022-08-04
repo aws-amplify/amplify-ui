@@ -99,6 +99,7 @@ type ComponentClassNameKey =
   | 'LoaderDeterminate'
   | 'LoaderPercentageText'
   | 'MenuContent'
+  | 'MenuContentWrapper'
   | 'MenuItem'
   | 'MenuTrigger'
   | 'Pagination'
@@ -215,6 +216,7 @@ export enum ComponentClassName {
   LoaderDeterminate = 'amplify-loader--determinate',
   LoaderPercentageText = 'amplify-loader__percentage-text',
   MenuContent = 'amplify-menu-content',
+  MenuContentWrapper = 'amplify-menu-content-wrapper',
   MenuItem = 'amplify-menu-content__item',
   MenuTrigger = 'amplify-menu-trigger',
   Pagination = 'amplify-pagination',
