@@ -42,13 +42,13 @@ export const PropsTable = ({ props }: PropTableProps) => {
                 <code>{type}</code>
               </ResponsiveTableCell>
               <ResponsiveTableCell label="Description">
-                <View marginBottom="xs">
-                  {!isOptional && (
+                {!isOptional && (
+                  <View marginBlockEnd="xs">
                     <Badge variation="info" size="small">
                       required
                     </Badge>
-                  )}
-                </View>
+                  </View>
+                )}
                 {description}
               </ResponsiveTableCell>
             </TableRow>
