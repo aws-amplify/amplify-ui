@@ -13,7 +13,7 @@ export const propsData = {
           isOptional: true,
           type: 'ResponsiveStyle<Property.AlignContent>',
           description:
-            "Sets the distribution of space between and around content items along a flexbox's cross-axis or a grid's block axis. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/align-content)",
+            "Sets the distribution of space between and around content items along a flexbox\\'s cross-axis or a grid\\'s block axis. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/align-content)",
         },
         {
           name: 'alignItems',
@@ -27,7 +27,7 @@ export const propsData = {
           isOptional: true,
           type: 'ResponsiveStyle<StyleToken<Property.AlignSelf>>',
           description:
-            "Overrides a grid or flex item's align-items value. In Grid, it aligns the item inside the grid area. In Flexbox, it aligns the item on the cross axis. See: @see[MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/align-self)",
+            "Overrides a grid or flex item\\'s align-items value. In Grid, it aligns the item inside the grid area. In Flexbox, it aligns the item on the cross axis. See: @see[MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/align-self)",
         },
         {
           name: 'AllStyleProps',
@@ -38,14 +38,14 @@ export const propsData = {
         {
           name: 'ariaLabel',
           isOptional: true,
-          type: "AriaAttributes['aria-label']",
+          type: "AriaAttributes[\\'aria-label\\']",
           description:
             'Defines a string value that labels an interactive element for accessibility',
         },
         {
           name: 'ariaValuetext',
           isOptional: true,
-          type: "AriaAttributes['aria-valuetext']",
+          type: "AriaAttributes[\\'aria-valuetext\\']",
           description:
             'Defines the human readable text alternative of &#96;aria-valuenow&#96; for a range widget',
         },
@@ -80,14 +80,14 @@ export const propsData = {
           isOptional: true,
           type: 'ResponsiveStyle<StyleToken<Property.Border>>',
           description:
-            "Shorthand CSS property that sets an element's border-width, border-style, and border-color. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/border)",
+            "Shorthand CSS property that sets an element\\'s border-width, border-style, and border-color. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/border)",
         },
         {
           name: 'borderRadius',
           isOptional: true,
           type: 'ResponsiveStyle<RadiiKeys<StyleToken<Property.BorderRadius>>>',
           description:
-            "Rounds the corners of an element's outer border edge.     You can set a single radius to make circular corners, or two radii to make elliptical corners. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius)",
+            "Rounds the corners of an element\\'s outer border edge.     You can set a single radius to make circular corners, or two radii to make elliptical corners. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius)",
         },
         {
           name: 'bottom',
@@ -101,7 +101,7 @@ export const propsData = {
           isOptional: true,
           type: 'ResponsiveStyle<BoxShadowKeys<StyleToken<Property.BoxShadow>>>',
           description:
-            "Adds shadow effects around an element's frame. You can set multiple effects separated by commas.     A box shadow is described by X and Y offsets relative to the element, blur and spread radius, and color. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow)",
+            "Adds shadow effects around an element\\'s frame. You can set multiple effects separated by commas.     A box shadow is described by X and Y offsets relative to the element, blur and spread radius, and color. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow)",
         },
         {
           name: 'className',
@@ -114,7 +114,7 @@ export const propsData = {
           isOptional: true,
           type: 'ResponsiveStyle<ColorKeys<StyleToken<Property.Color>>>',
           description:
-            "Sets the foreground color value of an element's text and text decorations, and sets the &#96;currentcolor&#96; value.     &#96;currentcolor&#96; may be used as an indirect value on other properties and is the default for other color properties, such as border-color. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/color)",
+            "Sets the foreground color value of an element\\'s text and text decorations, and sets the &#96;currentcolor&#96; value.     &#96;currentcolor&#96; may be used as an indirect value on other properties and is the default for other color properties, such as border-color. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/color)",
         },
         {
           name: 'columnGap',
@@ -217,7 +217,7 @@ export const propsData = {
           isOptional: true,
           type: 'ResponsiveStyle<LineHeightKeys<StyleToken<Property.LineHeight>>>',
           description:
-            "Sets the height of a line box. It's commonly used to set the distance between lines of text. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/line-height)",
+            "Sets the height of a line box. It\\'s commonly used to set the distance between lines of text. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/line-height)",
         },
         {
           name: 'margin',
@@ -231,21 +231,21 @@ export const propsData = {
           isOptional: true,
           type: 'ResponsiveStyle<SpaceKeys<StyleToken<Property.MarginBlock>>>',
           description:
-            "Shorthand CSS property that defines the logical block start and end margins of an element,     which maps to physical margins depending on the element's writing mode, directionality, and text orientation. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/margin-block)",
+            "Shorthand CSS property that defines the logical block start and end margins of an element,     which maps to physical margins depending on the element\\'s writing mode, directionality, and text orientation. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/margin-block)",
         },
         {
           name: 'marginBlockEnd',
           isOptional: true,
           type: 'ResponsiveStyle<     SpaceKeys<StyleToken<Property.MarginBlockEnd>>   >',
           description:
-            "Defines the logical block end margin of an element,     which maps to a physical margin depending on the element's writing mode, directionality, and text orientation. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/margin-block-end)",
+            "Defines the logical block end margin of an element,     which maps to a physical margin depending on the element\\'s writing mode, directionality, and text orientation. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/margin-block-end)",
         },
         {
           name: 'marginBlockStart',
           isOptional: true,
           type: 'ResponsiveStyle<     SpaceKeys<StyleToken<Property.MarginBlockStart>>   >',
           description:
-            "Defines the logical block start margin of an element,     which maps to a physical margin depending on the element's writing mode, directionality, and text orientation. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/margin-block-start)",
+            "Defines the logical block start margin of an element,     which maps to a physical margin depending on the element\\'s writing mode, directionality, and text orientation. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/margin-block-start)",
         },
         {
           name: 'marginBottom',
@@ -259,21 +259,21 @@ export const propsData = {
           isOptional: true,
           type: 'ResponsiveStyle<SpaceKeys<StyleToken<Property.MarginInline>>>',
           description:
-            "Shorthand CSS property that defines both the logical inline start and end margins of an element,     which maps to physical margins depending on the element's writing mode, directionality, and text orientation. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/margin-inline)",
+            "Shorthand CSS property that defines both the logical inline start and end margins of an element,     which maps to physical margins depending on the element\\'s writing mode, directionality, and text orientation. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/margin-inline)",
         },
         {
           name: 'marginInlineEnd',
           isOptional: true,
           type: 'ResponsiveStyle<     SpaceKeys<StyleToken<Property.MarginInlineEnd>>   >',
           description:
-            "Defines the logical inline end margin of an element,     which maps to a physical margin depending on the element's writing mode, directionality, and text orientation. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/margin-inline-end)",
+            "Defines the logical inline end margin of an element,     which maps to a physical margin depending on the element\\'s writing mode, directionality, and text orientation. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/margin-inline-end)",
         },
         {
           name: 'marginInlineStart',
           isOptional: true,
           type: 'ResponsiveStyle<     SpaceKeys<StyleToken<Property.MarginInlineStart>>   >',
           description:
-            "Defines the logical inline start margin of an element,     which maps to a physical margin depending on the element's writing mode, directionality, and text orientation. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/margin-inline-start)",
+            "Defines the logical inline start margin of an element,     which maps to a physical margin depending on the element\\'s writing mode, directionality, and text orientation. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/margin-inline-start)",
         },
         {
           name: 'marginLeft',
@@ -342,7 +342,7 @@ export const propsData = {
           isOptional: true,
           type: 'ResponsiveStyle<StyleToken<Property.Overflow>>',
           description:
-            "Shorthand CSS property that sets the desired behavior for an element's overflow     — i.e. when an element's content is too big to fit in its block formatting context — in both directions. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/overflow)",
+            "Shorthand CSS property that sets the desired behavior for an element\\'s overflow     — i.e. when an element\\'s content is too big to fit in its block formatting context — in both directions. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/overflow)",
         },
         {
           name: 'padding',
@@ -356,21 +356,21 @@ export const propsData = {
           isOptional: true,
           type: 'ResponsiveStyle<SpaceKeys<StyleToken<Property.PaddingBlock>>>',
           description:
-            "Shorthand CSS property that defines the logical block start and end padding of an element,     which maps to physical padding properties depending on the element's writing mode, directionality, and text orientation. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/padding-block)",
+            "Shorthand CSS property that defines the logical block start and end padding of an element,     which maps to physical padding properties depending on the element\\'s writing mode, directionality, and text orientation. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/padding-block)",
         },
         {
           name: 'paddingBlockEnd',
           isOptional: true,
           type: 'ResponsiveStyle<     SpaceKeys<StyleToken<Property.PaddingBlockEnd>>   >',
           description:
-            "Defines the logical block end padding of an element,     which maps to a physical padding depending on the element's writing mode, directionality, and text orientation. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/padding-block-end)",
+            "Defines the logical block end padding of an element,     which maps to a physical padding depending on the element\\'s writing mode, directionality, and text orientation. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/padding-block-end)",
         },
         {
           name: 'paddingBlockStart',
           isOptional: true,
           type: 'ResponsiveStyle<     SpaceKeys<StyleToken<Property.PaddingBlockStart>>   >',
           description:
-            "Defines the logical block start padding of an element,     which maps to a physical padding depending on the element's writing mode, directionality, and text orientation. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/padding-block-start)",
+            "Defines the logical block start padding of an element,     which maps to a physical padding depending on the element\\'s writing mode, directionality, and text orientation. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/padding-block-start)",
         },
         {
           name: 'paddingBottom',
@@ -384,21 +384,21 @@ export const propsData = {
           isOptional: true,
           type: 'ResponsiveStyle<     SpaceKeys<StyleToken<Property.PaddingInline>>   >',
           description:
-            "Shorthand CSS property that defines the logical inline start and end padding of an element,     which maps to physical padding properties depending on the element's writing mode, directionality, and text orientation. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/padding-inline)",
+            "Shorthand CSS property that defines the logical inline start and end padding of an element,     which maps to physical padding properties depending on the element\\'s writing mode, directionality, and text orientation. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/padding-inline)",
         },
         {
           name: 'paddingInlineEnd',
           isOptional: true,
           type: 'ResponsiveStyle<     SpaceKeys<StyleToken<Property.PaddingInlineEnd>>   >',
           description:
-            "Defines the logical inline end padding of an element,     which maps to a physical padding depending on the element's writing mode, directionality, and text orientation. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/padding-inline-end)",
+            "Defines the logical inline end padding of an element,     which maps to a physical padding depending on the element\\'s writing mode, directionality, and text orientation. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/padding-inline-end)",
         },
         {
           name: 'paddingInlineStart',
           isOptional: true,
           type: 'ResponsiveStyle<     SpaceKeys<StyleToken<Property.PaddingInlineStart>>   >',
           description:
-            "Defines the logical inline start padding of an element,     which maps to a physical padding depending on the element's writing mode, directionality, and text orientation. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/padding-inline-start)",
+            "Defines the logical inline start padding of an element,     which maps to a physical padding depending on the element\\'s writing mode, directionality, and text orientation. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/padding-inline-start)",
         },
         {
           name: 'paddingLeft',
@@ -488,7 +488,7 @@ export const propsData = {
           isOptional: true,
           type: 'ResponsiveStyle<StyleToken<Property.TextTransform>>',
           description:
-            "Specifies how to capitalize an element's text. It can be used to make text     appear in all-uppercase or all-lowercase, or with each word capitalized. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/text-transform)",
+            "Specifies how to capitalize an element\\'s text. It can be used to make text     appear in all-uppercase or all-lowercase, or with each word capitalized. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/text-transform)",
         },
         {
           name: 'top',
@@ -509,7 +509,7 @@ export const propsData = {
           isOptional: true,
           type: 'ResponsiveStyle<StyleToken<Property.TransformOrigin>>',
           description:
-            "Sets the origin for an element's transformations. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/transform-origin)",
+            "Sets the origin for an element\\'s transformations. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/transform-origin)",
         },
         {
           name: 'whiteSpace',
@@ -523,7 +523,7 @@ export const propsData = {
           isOptional: true,
           type: 'ResponsiveStyle<SpaceKeys<StyleToken<Property.Width>>>',
           description:
-            "Sets an element's width. By default, it sets the width of the content area,     but if box-sizing is set to border-box, it sets the width of the border area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/width)",
+            "Sets an element\\'s width. By default, it sets the width of the content area,     but if box-sizing is set to border-box, it sets the width of the border area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/width)",
         },
         {
           name: 'xl',

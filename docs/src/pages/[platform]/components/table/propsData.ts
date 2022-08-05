@@ -56,9 +56,9 @@ export const propsData = {
         {
           name: 'size',
           isOptional: true,
-          type: "'small' | 'large'",
+          type: "\\'small\\' | \\'large\\'",
           description:
-            "Affects font size and padding. Default is in between 'small' and 'large'.",
+            "Affects font size and padding. Default is in between \\'small\\' and \\'large\\'.",
         },
         {
           name: 'style',
@@ -83,7 +83,7 @@ export const propsData = {
         {
           name: 'variation',
           isOptional: true,
-          type: "'bordered' | 'striped'",
+          type: "\\'bordered\\' | \\'striped\\'",
           description:
             'Sets a supported style variation. Default is no specific variation.',
         },
@@ -97,7 +97,7 @@ export const propsData = {
               isOptional: true,
               type: 'ResponsiveStyle<Property.GridArea>',
               description:
-                "Specifies a grid item's size and location within a grid by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the edges of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-area)",
+                "Specifies a grid item\\'s size and location within a grid by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the edges of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-area)",
             },
             {
               name: 'basis',
@@ -111,14 +111,14 @@ export const propsData = {
               isOptional: true,
               type: 'ResponsiveStyle<Property.GridColumn>',
               description:
-                "Specifies a grid item's size and location within a grid column by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start and inline-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column)",
+                "Specifies a grid item\\'s size and location within a grid column by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start and inline-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column)",
             },
             {
               name: 'columnEnd',
               isOptional: true,
               type: 'ResponsiveStyle<Property.GridColumnEnd>',
               description:
-                "Specifies a grid item's end position within the grid column by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the block-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-end)",
+                "Specifies a grid item\\'s end position within the grid column by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the block-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-end)",
             },
             {
               name: 'columnSpan',
@@ -132,7 +132,7 @@ export const propsData = {
               isOptional: true,
               type: 'ResponsiveStyle<Property.GridColumnStart>',
               description:
-                "Specifies a grid item's start position within the grid column by contributing a line, a span, or nothing (automatic) to its grid placement. This start position defines the block-start edge of the grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-start)",
+                "Specifies a grid item\\'s start position within the grid column by contributing a line, a span, or nothing (automatic) to its grid placement. This start position defines the block-start edge of the grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-start)",
             },
             {
               name: 'flex',
@@ -158,14 +158,14 @@ export const propsData = {
               isOptional: true,
               type: 'ResponsiveStyle<Property.GridRow>',
               description:
-                "Specifies a grid item's size and location within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start and inline-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row)",
+                "Specifies a grid item\\'s size and location within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start and inline-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row)",
             },
             {
               name: 'rowEnd',
               isOptional: true,
               type: 'ResponsiveStyle<Property.GridRowEnd>',
               description:
-                "Specifies a grid item's end position within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-end)",
+                "Specifies a grid item\\'s end position within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-end)",
             },
             {
               name: 'rowSpan',
@@ -178,7 +178,7 @@ export const propsData = {
               isOptional: true,
               type: 'ResponsiveStyle<Property.GridRowStart>',
               description:
-                "Specifies a grid item's start position within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-start)",
+                "Specifies a grid item\\'s start position within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-start)",
             },
             {
               name: 'shrink',
@@ -236,7 +236,7 @@ export const propsData = {
               isOptional: true,
               type: 'ResponsiveStyle<Property.GridArea>',
               description:
-                "Specifies a grid item's size and location within a grid by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the edges of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-area)",
+                "Specifies a grid item\\'s size and location within a grid by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the edges of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-area)",
             },
             {
               name: 'basis',
@@ -250,14 +250,14 @@ export const propsData = {
               isOptional: true,
               type: 'ResponsiveStyle<Property.GridColumn>',
               description:
-                "Specifies a grid item's size and location within a grid column by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start and inline-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column)",
+                "Specifies a grid item\\'s size and location within a grid column by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start and inline-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column)",
             },
             {
               name: 'columnEnd',
               isOptional: true,
               type: 'ResponsiveStyle<Property.GridColumnEnd>',
               description:
-                "Specifies a grid item's end position within the grid column by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the block-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-end)",
+                "Specifies a grid item\\'s end position within the grid column by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the block-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-end)",
             },
             {
               name: 'columnSpan',
@@ -271,7 +271,7 @@ export const propsData = {
               isOptional: true,
               type: 'ResponsiveStyle<Property.GridColumnStart>',
               description:
-                "Specifies a grid item's start position within the grid column by contributing a line, a span, or nothing (automatic) to its grid placement. This start position defines the block-start edge of the grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-start)",
+                "Specifies a grid item\\'s start position within the grid column by contributing a line, a span, or nothing (automatic) to its grid placement. This start position defines the block-start edge of the grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-start)",
             },
             {
               name: 'flex',
@@ -297,14 +297,14 @@ export const propsData = {
               isOptional: true,
               type: 'ResponsiveStyle<Property.GridRow>',
               description:
-                "Specifies a grid item's size and location within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start and inline-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row)",
+                "Specifies a grid item\\'s size and location within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start and inline-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row)",
             },
             {
               name: 'rowEnd',
               isOptional: true,
               type: 'ResponsiveStyle<Property.GridRowEnd>',
               description:
-                "Specifies a grid item's end position within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-end)",
+                "Specifies a grid item\\'s end position within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-end)",
             },
             {
               name: 'rowSpan',
@@ -317,7 +317,7 @@ export const propsData = {
               isOptional: true,
               type: 'ResponsiveStyle<Property.GridRowStart>',
               description:
-                "Specifies a grid item's start position within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-start)",
+                "Specifies a grid item\\'s start position within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-start)",
             },
             {
               name: 'shrink',
@@ -329,7 +329,6 @@ export const propsData = {
         },
       ],
     },
-    ,
     {
       name: 'TableCell',
       props: [
@@ -342,7 +341,7 @@ export const propsData = {
         {
           name: 'colspan',
           isOptional: true,
-          type: 'Pick<React.HTMLProps<HTMLTableCellElement>, "colSpan">',
+          type: 'Pick<React.HTMLProps<HTMLTableCellElement>, \\"colSpan\\">',
           description:
             'Defines the number of columns spanned by a cell within a &#60;table&#62;',
         },
@@ -362,7 +361,7 @@ export const propsData = {
         {
           name: 'rowspan',
           isOptional: true,
-          type: 'Pick<React.HTMLProps<HTMLTableCellElement>, "rowSpan">',
+          type: 'Pick<React.HTMLProps<HTMLTableCellElement>, \\"rowSpan\\">',
           description:
             'Defines the number of rows spanned by a cell within a &#60;table&#62;',
         },
@@ -390,7 +389,7 @@ export const propsData = {
               isOptional: true,
               type: 'ResponsiveStyle<Property.GridArea>',
               description:
-                "Specifies a grid item's size and location within a grid by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the edges of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-area)",
+                "Specifies a grid item\\'s size and location within a grid by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the edges of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-area)",
             },
             {
               name: 'basis',
@@ -404,14 +403,14 @@ export const propsData = {
               isOptional: true,
               type: 'ResponsiveStyle<Property.GridColumn>',
               description:
-                "Specifies a grid item's size and location within a grid column by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start and inline-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column)",
+                "Specifies a grid item\\'s size and location within a grid column by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start and inline-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column)",
             },
             {
               name: 'columnEnd',
               isOptional: true,
               type: 'ResponsiveStyle<Property.GridColumnEnd>',
               description:
-                "Specifies a grid item's end position within the grid column by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the block-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-end)",
+                "Specifies a grid item\\'s end position within the grid column by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the block-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-end)",
             },
             {
               name: 'columnSpan',
@@ -425,7 +424,7 @@ export const propsData = {
               isOptional: true,
               type: 'ResponsiveStyle<Property.GridColumnStart>',
               description:
-                "Specifies a grid item's start position within the grid column by contributing a line, a span, or nothing (automatic) to its grid placement. This start position defines the block-start edge of the grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-start)",
+                "Specifies a grid item\\'s start position within the grid column by contributing a line, a span, or nothing (automatic) to its grid placement. This start position defines the block-start edge of the grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-start)",
             },
             {
               name: 'flex',
@@ -451,14 +450,14 @@ export const propsData = {
               isOptional: true,
               type: 'ResponsiveStyle<Property.GridRow>',
               description:
-                "Specifies a grid item's size and location within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start and inline-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row)",
+                "Specifies a grid item\\'s size and location within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start and inline-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row)",
             },
             {
               name: 'rowEnd',
               isOptional: true,
               type: 'ResponsiveStyle<Property.GridRowEnd>',
               description:
-                "Specifies a grid item's end position within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-end)",
+                "Specifies a grid item\\'s end position within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-end)",
             },
             {
               name: 'rowSpan',
@@ -471,7 +470,7 @@ export const propsData = {
               isOptional: true,
               type: 'ResponsiveStyle<Property.GridRowStart>',
               description:
-                "Specifies a grid item's start position within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-start)",
+                "Specifies a grid item\\'s start position within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-start)",
             },
             {
               name: 'shrink',
@@ -483,7 +482,6 @@ export const propsData = {
         },
       ],
     },
-    ,
     {
       name: 'TableFoot',
       props: [
@@ -530,7 +528,7 @@ export const propsData = {
               isOptional: true,
               type: 'ResponsiveStyle<Property.GridArea>',
               description:
-                "Specifies a grid item's size and location within a grid by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the edges of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-area)",
+                "Specifies a grid item\\'s size and location within a grid by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the edges of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-area)",
             },
             {
               name: 'basis',
@@ -544,14 +542,14 @@ export const propsData = {
               isOptional: true,
               type: 'ResponsiveStyle<Property.GridColumn>',
               description:
-                "Specifies a grid item's size and location within a grid column by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start and inline-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column)",
+                "Specifies a grid item\\'s size and location within a grid column by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start and inline-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column)",
             },
             {
               name: 'columnEnd',
               isOptional: true,
               type: 'ResponsiveStyle<Property.GridColumnEnd>',
               description:
-                "Specifies a grid item's end position within the grid column by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the block-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-end)",
+                "Specifies a grid item\\'s end position within the grid column by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the block-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-end)",
             },
             {
               name: 'columnSpan',
@@ -565,7 +563,7 @@ export const propsData = {
               isOptional: true,
               type: 'ResponsiveStyle<Property.GridColumnStart>',
               description:
-                "Specifies a grid item's start position within the grid column by contributing a line, a span, or nothing (automatic) to its grid placement. This start position defines the block-start edge of the grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-start)",
+                "Specifies a grid item\\'s start position within the grid column by contributing a line, a span, or nothing (automatic) to its grid placement. This start position defines the block-start edge of the grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-start)",
             },
             {
               name: 'flex',
@@ -591,14 +589,14 @@ export const propsData = {
               isOptional: true,
               type: 'ResponsiveStyle<Property.GridRow>',
               description:
-                "Specifies a grid item's size and location within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start and inline-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row)",
+                "Specifies a grid item\\'s size and location within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start and inline-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row)",
             },
             {
               name: 'rowEnd',
               isOptional: true,
               type: 'ResponsiveStyle<Property.GridRowEnd>',
               description:
-                "Specifies a grid item's end position within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-end)",
+                "Specifies a grid item\\'s end position within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-end)",
             },
             {
               name: 'rowSpan',
@@ -611,7 +609,7 @@ export const propsData = {
               isOptional: true,
               type: 'ResponsiveStyle<Property.GridRowStart>',
               description:
-                "Specifies a grid item's start position within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-start)",
+                "Specifies a grid item\\'s start position within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-start)",
             },
             {
               name: 'shrink',
@@ -623,7 +621,6 @@ export const propsData = {
         },
       ],
     },
-    ,
     {
       name: 'TableHead',
       props: [
@@ -670,7 +667,7 @@ export const propsData = {
               isOptional: true,
               type: 'ResponsiveStyle<Property.GridArea>',
               description:
-                "Specifies a grid item's size and location within a grid by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the edges of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-area)",
+                "Specifies a grid item\\'s size and location within a grid by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the edges of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-area)",
             },
             {
               name: 'basis',
@@ -684,14 +681,14 @@ export const propsData = {
               isOptional: true,
               type: 'ResponsiveStyle<Property.GridColumn>',
               description:
-                "Specifies a grid item's size and location within a grid column by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start and inline-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column)",
+                "Specifies a grid item\\'s size and location within a grid column by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start and inline-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column)",
             },
             {
               name: 'columnEnd',
               isOptional: true,
               type: 'ResponsiveStyle<Property.GridColumnEnd>',
               description:
-                "Specifies a grid item's end position within the grid column by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the block-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-end)",
+                "Specifies a grid item\\'s end position within the grid column by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the block-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-end)",
             },
             {
               name: 'columnSpan',
@@ -705,7 +702,7 @@ export const propsData = {
               isOptional: true,
               type: 'ResponsiveStyle<Property.GridColumnStart>',
               description:
-                "Specifies a grid item's start position within the grid column by contributing a line, a span, or nothing (automatic) to its grid placement. This start position defines the block-start edge of the grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-start)",
+                "Specifies a grid item\\'s start position within the grid column by contributing a line, a span, or nothing (automatic) to its grid placement. This start position defines the block-start edge of the grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-start)",
             },
             {
               name: 'flex',
@@ -731,14 +728,14 @@ export const propsData = {
               isOptional: true,
               type: 'ResponsiveStyle<Property.GridRow>',
               description:
-                "Specifies a grid item's size and location within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start and inline-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row)",
+                "Specifies a grid item\\'s size and location within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start and inline-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row)",
             },
             {
               name: 'rowEnd',
               isOptional: true,
               type: 'ResponsiveStyle<Property.GridRowEnd>',
               description:
-                "Specifies a grid item's end position within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-end)",
+                "Specifies a grid item\\'s end position within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-end)",
             },
             {
               name: 'rowSpan',
@@ -751,7 +748,7 @@ export const propsData = {
               isOptional: true,
               type: 'ResponsiveStyle<Property.GridRowStart>',
               description:
-                "Specifies a grid item's start position within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-start)",
+                "Specifies a grid item\\'s start position within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-start)",
             },
             {
               name: 'shrink',
@@ -763,7 +760,6 @@ export const propsData = {
         },
       ],
     },
-    ,
     {
       name: 'TableRow',
       props: [
@@ -810,7 +806,7 @@ export const propsData = {
               isOptional: true,
               type: 'ResponsiveStyle<Property.GridArea>',
               description:
-                "Specifies a grid item's size and location within a grid by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the edges of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-area)",
+                "Specifies a grid item\\'s size and location within a grid by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the edges of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-area)",
             },
             {
               name: 'basis',
@@ -824,14 +820,14 @@ export const propsData = {
               isOptional: true,
               type: 'ResponsiveStyle<Property.GridColumn>',
               description:
-                "Specifies a grid item's size and location within a grid column by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start and inline-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column)",
+                "Specifies a grid item\\'s size and location within a grid column by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start and inline-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column)",
             },
             {
               name: 'columnEnd',
               isOptional: true,
               type: 'ResponsiveStyle<Property.GridColumnEnd>',
               description:
-                "Specifies a grid item's end position within the grid column by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the block-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-end)",
+                "Specifies a grid item\\'s end position within the grid column by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the block-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-end)",
             },
             {
               name: 'columnSpan',
@@ -845,7 +841,7 @@ export const propsData = {
               isOptional: true,
               type: 'ResponsiveStyle<Property.GridColumnStart>',
               description:
-                "Specifies a grid item's start position within the grid column by contributing a line, a span, or nothing (automatic) to its grid placement. This start position defines the block-start edge of the grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-start)",
+                "Specifies a grid item\\'s start position within the grid column by contributing a line, a span, or nothing (automatic) to its grid placement. This start position defines the block-start edge of the grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-start)",
             },
             {
               name: 'flex',
@@ -871,14 +867,14 @@ export const propsData = {
               isOptional: true,
               type: 'ResponsiveStyle<Property.GridRow>',
               description:
-                "Specifies a grid item's size and location within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start and inline-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row)",
+                "Specifies a grid item\\'s size and location within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start and inline-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row)",
             },
             {
               name: 'rowEnd',
               isOptional: true,
               type: 'ResponsiveStyle<Property.GridRowEnd>',
               description:
-                "Specifies a grid item's end position within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-end)",
+                "Specifies a grid item\\'s end position within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-end edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-end)",
             },
             {
               name: 'rowSpan',
@@ -891,7 +887,7 @@ export const propsData = {
               isOptional: true,
               type: 'ResponsiveStyle<Property.GridRowStart>',
               description:
-                "Specifies a grid item's start position within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-start)",
+                "Specifies a grid item\\'s start position within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start edge of its grid area. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-start)",
             },
             {
               name: 'shrink',
