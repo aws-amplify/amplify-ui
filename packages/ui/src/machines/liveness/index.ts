@@ -1,6 +1,5 @@
 import { createMachine, assign, actions } from 'xstate';
 import adapter from 'webrtc-adapter';
-import { LivenessPredictionsProvider } from '../../helpers/liveness/liveness-predictions-provider';
 import {
   fillOverlayCanvasFractional,
   shouldChangeColorStage,
@@ -28,6 +27,7 @@ import {
   getFaceMatchStateInLivenessOval,
   getRandomLivenessOvalDetails,
   LivenessStreamProvider,
+  LivenessPredictionsProvider,
   VideoRecorder,
   estimateIllumination,
   recordLivenessAnalyticsEvent,
@@ -168,6 +168,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               src: 'flashColors',
               onDone: {
                 target: 'success',
+                actions: 'setFreshnessColorsSuccess',
               },
             },
           },
@@ -317,6 +318,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         },
       }),
       stopRecording: (context) => {
+        console.log('stopREcording');
         recordLivenessAnalyticsEvent(context.flowProps, {
           event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
           attributes: { action: 'Success' },
@@ -379,6 +381,12 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       clearErrorState: assign({
         errorState: (_) => null,
       }),
+      setFreshnessColorsSuccess: assign({
+        freshnessColorAssociatedParams: (context) => ({
+          ...context.freshnessColorAssociatedParams,
+          freshnessColorsShown: true,
+        }),
+      }),
 
       // timeouts
       sendTimeoutAfterOvalDrawingDelay: actions.send(
@@ -421,6 +429,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         context.flowProps.onUserTimeout?.();
       },
       callSuccessCallback: (context) => {
+        console.log('CHECKING');
         context.flowProps.onSuccess?.();
       },
       callErrorCallback: (context, event) => {
@@ -675,7 +684,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
         freshnessColorEl.hidden = false;
 
-        return new Promise((resolve) => {
+        await new Promise((resolve) => {
           const colorStages = getShortCp2Permutations(ColorArr);
 
           const tickRate = 10; // ms -- the rate at which we will render/check colors
@@ -686,8 +695,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           let prevColorStageIndex = undefined; // previous stage
           let timeLastColorIndChanged = Date.now();
           let expectedCallTime = Date.now() + tickRate;
+          let count = 0;
 
           const selfAdjustingInterval = () => {
+            count += 1;
             const tickStartTime = Date.now();
             const drift = tickStartTime - expectedCallTime;
             const timeSinceLastColorChange =
@@ -753,6 +764,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               );
             } else {
               freshnessColorEl.hidden = true;
+              console.log(count);
               resolve(true);
             }
           };
