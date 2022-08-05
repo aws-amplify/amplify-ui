@@ -24,7 +24,6 @@
   },
   "files": [
     "dist",
-    "dist/esm/node_modules",
     "LICENSE"
   ],
   "scripts": {
@@ -43,7 +42,8 @@
   "dependencies": {
     "lodash": "4.17.21",
     "style-dictionary": "3.7.0",
-    "xstate": "^4.30.6"
+    "xstate": "^4.30.6",
+    "tslib": "2.4.0"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "^8.3.1",
@@ -63,7 +63,6 @@
     "sass": "^1.35.2",
     "ts-jest": "^27.0.3",
     "ts-node": "^10.2.1",
-    "tslib": "^2.3.0",
     "type-fest": "^2.3.4"
   },
   "peerDependencies": {

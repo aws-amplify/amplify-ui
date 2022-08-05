@@ -31,7 +31,6 @@
   },
   "files": [
     "dist",
-    "dist/esm/node_modules",
     "legacy",
     "internal",
     "LICENSE"
@@ -71,7 +70,8 @@
     "maplibre-gl-js-amplify": "2.0.2",
     "qrcode": "1.5.0",
     "react-generate-context": "1.0.1",
-    "react-map-gl": "7.0.15"
+    "react-map-gl": "7.0.15",
+    "tslib": "2.4.0"
   },
   "peerDependencies": {
     "aws-amplify": "3.x.x || 4.x.x",
