@@ -3,20 +3,17 @@ import { render, screen } from '@testing-library/react';
 
 import { useBreakpointValue } from '../../../../hooks/useBreakpointValue';
 import { useMessageProps } from '../../hooks';
-import { BLOCK_CLASS } from '../constants';
-import { FullScreenMessage } from '../FullScreenMessage';
-import { FullScreenMessageProps } from '../types';
+import { DIALOG_CLASS } from '../constants';
+import { ModalMessage } from '../ModalMessage';
+import { ModalMessageProps } from '../types';
 
 jest.mock('../../../../hooks/useBreakpointValue');
-jest.mock('../../Backdrop', () => ({
-  withBackdrop: (Component) => (props) => <Component {...props} />,
-}));
 jest.mock('../../hooks/');
 jest.mock('../../MessageLayout', () => ({
   MessageLayout: () => 'MessageLayout',
 }));
 
-const TEST_PROPS: FullScreenMessageProps = { layout: 'FULL_SCREEN' };
+const TEST_PROPS: ModalMessageProps = { layout: 'MODAL' };
 
 const mockUseMessageProps = useMessageProps as jest.Mock;
 const mockUseBreakpointValue = useBreakpointValue as jest.Mock;
@@ -31,19 +28,19 @@ describe('FullScreenMessage component', () => {
   });
 
   it('should render', () => {
-    render(<FullScreenMessage {...TEST_PROPS} />);
+    render(<ModalMessage {...TEST_PROPS} />);
 
-    const fullScreenMessage = screen.queryByRole('dialog');
-    expect(fullScreenMessage).toBeInTheDocument();
-    expect(fullScreenMessage).toHaveClass(BLOCK_CLASS);
+    const modalMessage = screen.queryByRole('dialog');
+    expect(modalMessage).toBeInTheDocument();
+    expect(modalMessage).toHaveClass(DIALOG_CLASS);
   });
 
-  it('should render with fullscreen modifier', () => {
+  it('should render with full-width modifier', () => {
     mockUseBreakpointValue.mockReturnValue(true);
-    render(<FullScreenMessage {...TEST_PROPS} />);
+    render(<ModalMessage {...TEST_PROPS} />);
 
-    const fullScreenMessage = screen.getByRole('dialog');
-    expect(fullScreenMessage).toHaveClass(`${BLOCK_CLASS}--fullscreen`);
+    const modalMessage = screen.getByRole('dialog');
+    expect(modalMessage).toHaveClass(`${DIALOG_CLASS}--full-width`);
   });
 
   it('returns null when not ready to be rendered', () => {
@@ -51,9 +48,9 @@ describe('FullScreenMessage component', () => {
       shouldRenderMessage: false,
     });
 
-    render(<FullScreenMessage {...TEST_PROPS} />);
+    render(<ModalMessage {...TEST_PROPS} />);
 
-    const fullScreenMessage = screen.queryByRole('dialog');
-    expect(fullScreenMessage).not.toBeInTheDocument();
+    const modalMessage = screen.queryByRole('dialog');
+    expect(modalMessage).not.toBeInTheDocument();
   });
 });

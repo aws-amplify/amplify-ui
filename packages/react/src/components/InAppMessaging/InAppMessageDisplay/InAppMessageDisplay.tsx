@@ -6,17 +6,15 @@ import {
   useMessage,
 } from '@aws-amplify/ui-react-core';
 
+import { BannerMessage } from '../BannerMessage';
 import { FullScreenMessage } from '../FullScreenMessage';
+import { ModalMessage } from '../ModalMessage';
 
 import handleMessageLinkAction from './handleMessageLinkAction';
 import { InAppMessageDisplayProps, MessageDefaultComponents } from './types';
-import { BannerMessage } from '../BannerMessage';
 
 // TODO: replace below components incrementally as they become available
 function CarouselMessage<P>(_: P) {
-  return null;
-}
-function ModalMessage<P>(_: P) {
   return null;
 }
 
