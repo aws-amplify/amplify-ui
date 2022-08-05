@@ -128,15 +128,17 @@ function isDesignToken(
  */
 export function pathToValue(theme: Theme, pathArray: string[]): DesignToken {
   let themeValue: DesignToken | PartialObjectDeep<Tokens> = theme.tokens || {};
-  pathArray.every((pathValue) => {
-    if (themeValue[pathValue]) {
-      themeValue = themeValue[pathValue];
-      return true;
-    } else {
-      themeValue = undefined;
-      return false;
-    }
-  });
+  if (Array.isArray(pathArray)) {
+    pathArray.every((pathValue) => {
+      if (themeValue[pathValue]) {
+        themeValue = themeValue[pathValue];
+        return true;
+      } else {
+        themeValue = undefined;
+        return false;
+      }
+    });
+  }
   if (isDesignToken(themeValue)) {
     return themeValue;
   }
