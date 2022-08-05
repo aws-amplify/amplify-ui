@@ -1,0 +1,81 @@
+<div class="amplify-flex amplify-field amplify-textfield">
+  <!-- Label -->
+  <label [for]="inputId" [class.amplify-visually-hidden]="labelHidden">
+    <ng-content select="[amplify-label]"> </ng-content>
+  </label>
+
+  <!-- Description Text -->
+  <ng-content
+    *ngIf="!labelHidden"
+    select="[amplify-description-text]"
+  ></ng-content>
+
+  <!-- Actual Input -->
+  <div
+    class="amplify-flex amplify-field-group amplify-field-group--horizontal"
+    data-orientation="horizontal"
+  >
+    <div class="amplify-field-group__outer-start">
+      <div
+        class="
+          amplify-flex
+          amplify-field
+          amplify-selectfield
+          amplify-countrycodeselect
+        "
+      >
+        <label
+          class="amplify-label amplify-visually-hidden"
+          [for]="countryCodeId"
+          >Country code</label
+        >
+        <div class="amplify-select__wrapper">
+          <select
+            aria-invalid="false"
+            autocomplete="tel-country-code"
+            class="amplify-select amplify-field-group__control"
+            aria-disabled="false"
+            [id]="countryCodeId"
+            (change)="onCodeChange($event.target.value)"
+          >
+            <option
+              *ngFor="let code of countryCode"
+              value="{{ code }}"
+              [selected]="code === defaultCountryCode"
+            >
+              {{ code }}
+            </option>
+          </select>
+          <div class="amplify-flex amplify-select__icon-wrapper">
+            <span class="amplify-icon" style="width: 1em; height: 1em"
+              ><svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M16.59 8.58984L12 13.1698L7.41 8.58984L6 9.99984L12 15.9998L18 9.99984L16.59 8.58984Z"
+                  fill="currentColor"
+                ></path>
+              </svg>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="
+        amplify-field-group__field-wrapper
+        amplify-field-group__field-wrapper--horizontal
+      "
+      data-orientation="horizontal"
+    >
+      <ng-content select="[amplify-phone-number]"></ng-content>
+    </div>
+  </div>
+
+  <!-- Error -->
+  <ng-content select="[amplify-error]" *ngIf="hasError"></ng-content>
+</div>
