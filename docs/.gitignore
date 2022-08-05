@@ -16,6 +16,9 @@
 /build
 /public/previews
 
+# docs data
+/docs/src/data/props/*.ts
+
 # sitemap
 /public/robots.txt
 /public/sitemap.xml

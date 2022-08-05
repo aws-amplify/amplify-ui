@@ -61,8 +61,8 @@ async function createAllPropsLists() {
     fs.writeFileSync(
       path.join(
         __dirname,
-        '../../docs/src/pages/[platform]/components/',
-        `./${componentPageName}/propsData.ts`
+        '../../docs/src/data/props/',
+        `${componentPageName}.ts`
       ),
       Output(componentName, propsLists, mdnUrl, htmlElement)
     );
