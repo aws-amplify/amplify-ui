@@ -1,19 +1,39 @@
+import { Alert, Link, Text, Tabs, TabItem } from '@aws-amplify/ui-react';
 import { ExampleCode } from '@/components/Example';
+
+<Alert variation="info">
+  <Text color="inherit">
+    Web and desktop support for the Amplify Flutter Auth category is now in developer preview! See the [Auth category documentation](https://docs.amplify.aws/lib/auth/getting-started/q/platform/flutter/) for more information about getting started.
+  </Text>
+</Alert>
 
 Add [amplify_authenticator](https://pub.dev/packages/amplify_authenticator), [amplify_flutter](https://pub.dev/packages/amplify_flutter), and [amplify_auth_cognito](https://pub.dev/packages/amplify_auth_cognito) packages as a dependencies.
 
-<ExampleCode>
+<Tabs justifyContent="flex-start">
+  <TabItem title="Stable (Mobile)">
+    <ExampleCode>
+    ```yaml
+      environment:
+        sdk: ">=2.15.0 <3.0.0"
 
-```yaml
-environment:
-  sdk: ">=2.15.0 <3.0.0"
+      dependencies:
+        amplify_flutter: ^0.6.0
+        amplify_auth_cognito: ^0.6.0
+        amplify_authenticator: ^0.2.0
+    ```
+    </ExampleCode>
+  </TabItem>
+  <TabItem title="Developer Preview (Mobile, Web & Desktop)">
+    <ExampleCode>
+    ```yaml
+      environment:
+        sdk: ">=2.17.0 <3.0.0"
 
-dependencies:
-  flutter:
-    sdk: flutter
-  amplify_flutter: ^0.6.0
-  amplify_auth_cognito: ^0.6.0
-  amplify_authenticator: ^0.6.0
-```
-
-</ExampleCode>
+      dependencies:
+        amplify_flutter: ^1.0.0-0
+        amplify_auth_cognito: ^1.0.0-0
+        amplify_authenticator: ^1.0.0-0
+    ```
+    </ExampleCode>
+  </TabItem>
+</Tabs>
