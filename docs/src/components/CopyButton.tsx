@@ -2,6 +2,7 @@ import * as React from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import { Button, ButtonProps } from '@aws-amplify/ui-react';
+import { trackCopy } from '@/utils/track';
 
 interface CopyButtonProps
   extends Pick<ButtonProps, 'className' | 'size' | 'variation'> {
@@ -21,6 +22,7 @@ export const CopyButton = ({
     setTimeout(() => {
       setCopied(false);
     }, 2000);
+    trackCopy(copyText);
   };
 
   return (

@@ -1,12 +1,25 @@
 ---
 title: Table
-description: The Table primitive provides users with a styled and customizable table element.
+description: Table displays tabular data using the HTML <table> element and related elements.
 ariaPattern: https://www.w3.org/WAI/ARIA/apg/patterns/table
 themeSource: packages/ui/src/theme/tokens/components/table.ts
 reactSource: packages/react/src/primitives/Table/Table.tsx
+mdnUrl: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/table
+htmlElement: table
 supportedFrameworks: react
 ---
 
 import { Fragment } from '@/components/Fragment';
+import { PageTabLayout } from "@/components/Layout/PageTabLayout"
 
-<Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+<PageTabLayout 
+  tabComponents={[{
+    title: "Documentation", 
+    children: <Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+  },
+  {
+    title: "Props", 
+    children: <Fragment>{({ platform }) => import('./props-table.mdx')}</Fragment>
+  }]}
+/>
+        

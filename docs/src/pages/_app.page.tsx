@@ -3,6 +3,7 @@ import * as React from 'react';
 import { ThemeProvider, ColorMode, defaultTheme } from '@aws-amplify/ui-react';
 
 import { configure, trackPageVisit } from '@/utils/track';
+import { IS_PROD_STAGE } from '@/utils/stage';
 import { Header } from '@/components/Layout/Header';
 import Script from 'next/script';
 import { baseTheme } from '../theme';
@@ -10,13 +11,20 @@ import { useCustomRouter } from '@/components/useCustomRouter';
 
 import { Head } from './Head';
 
+import Prism from 'prism-react-renderer/prism';
+
+globalThis.Prism = Prism;
+
+require('prismjs/components/prism-dart');
+
 import '../styles/index.scss';
+import classNames from 'classnames';
 
 if (typeof window === 'undefined') {
   // suppress useLayoutEffect warnings when running outside a browser
-  // See: https://gist.github.com/gaearon/e7d97cdf38a2907924ea12e4ebdf3c85#gistcomment-3886909
+  // See: https://gist.github.com/gaearon/e7d97cdf38a2907924ea12e4ebdf3c85?permalink_comment_id=4150784#gistcomment-4150784
   // @ts-ignore Cannot assign to 'useLayoutEffect' because it is a read-only property.ts(2540)
-  React.useLayoutEffect = React.useEffect;
+  React.useLayoutEffect = () => {};
 } else {
   console.log(`
   _____           _ _ ___        _____ _____ 
@@ -48,6 +56,8 @@ function MyApp({ Component, pageProps }) {
     } else {
       localStorage.removeItem('colorMode');
     }
+    // Algolia search renders in a Portal so we need to do this
+    document.documentElement.setAttribute('data-amplify-color-mode', colorMode);
   };
 
   React.useEffect(() => {
@@ -55,10 +65,18 @@ function MyApp({ Component, pageProps }) {
     if (colorModePreference) {
       setColorMode(colorModePreference);
     }
+    document.documentElement.setAttribute(
+      'data-amplify-color-mode',
+      colorModePreference || 'system'
+    );
   }, []);
 
-  configure();
-  trackPageVisit();
+  React.useEffect(() => {
+    if (IS_PROD_STAGE) {
+      configure();
+      trackPageVisit();
+    }
+  }, [pathname]); // only track page visit if path has changed
 
   return (
     <>
@@ -73,11 +91,12 @@ function MyApp({ Component, pageProps }) {
             setColorMode={handleColorModeChange}
             platform={platform}
           />
-          <div className={`docs-main`}>
+          <main className="docs-main">
             <div
-              className={`docs-sidebar-spacer ${
+              className={classNames(
+                'docs-sidebar-spacer',
                 expanded ? 'expanded' : 'collapsed'
-              }`}
+              )}
             />
 
             <Component
@@ -85,11 +104,15 @@ function MyApp({ Component, pageProps }) {
               setExpanded={setExpanded}
               colorMode={colorMode}
             />
-          </div>
+          </main>
         </ThemeProvider>
       </div>
-      <Script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" />
-      <Script src="/scripts/shortbreadv2.js" />
+      {IS_PROD_STAGE && (
+        <>
+          <Script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" />
+          <Script src="/scripts/shortbreadv2.js" />
+        </>
+      )}
     </>
   );
 }

@@ -13,7 +13,7 @@ import { Fragment } from '@/components/Fragment';
 import { ComponentClassTable } from '@/components/ComponentClassTable';
 import StandardHTMLAttributes from '@/components/StandardHTMLAttributes.mdx';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
-import { ThemeAlert } from '@/components/ThemeAlert';
+import ThemeExample from '@/components/ThemeExample.mdx';
 import {
   ChangePasswordFormExample,
   DefaultPasswordFieldExample,
@@ -24,11 +24,12 @@ import {
   LoginFormExample,
   MaxLengthExample,
   PasswordFieldStyledPropsExample,
+  PasswordFieldThemeExample,
   RefExample,
   RequiredPasswordFieldExample,
+  ShowPasswordButtonExample,
   SignUpFormExample,
   SizeExample,
-  ThemeExample,
   ValidationErrorExample,
   VariationExample,
 } from './examples';
@@ -122,6 +123,27 @@ _Change password example: `current-password` and `new-password`_
   <ExampleCode>
 
 ```jsx file=./examples/LabelHiddenExample.tsx
+
+```
+
+  </ExampleCode>
+</Example>
+
+#### ShowPasswordButton
+
+The ShowPasswordButton renders a `<button>` element with `role="switch"`. Its `aria-checked` attribute is set to `false` when the password is hidden, and `true` when the password is shown. 
+
+There are several optional props for customizing the accessibility of the ShowPasswordButton:
+
+- `showPasswordButtonLabel`: Sets the `aria-label` for the ShowPasswordButton (defaults to `"Show password"`)
+- `passwordIsHiddenLabel`: Sets the text read by screen readers when the password is hidden (defaults to `"Password is hidden"`)
+- `passwordIsShownLabel`: Sets the text read by screen readers when the password is shown (defaults to `"Password is shown"`)
+
+<Example>
+  <ShowPasswordButtonExample />
+  <ExampleCode>
+
+```jsx file=./examples/ShowPasswordButtonExample.tsx
 
 ```
 
@@ -250,26 +272,23 @@ The following is an example demonstrating use of the `ref` and `showPasswordButt
 
 ## CSS Styling
 
+<ThemeExample component="PasswordField">
+  <Example>
+    <PasswordFieldThemeExample />
+    
+    <ExampleCode>
+
+    ```tsx file=./examples/PasswordFieldThemeExample.tsx
+
+    ```
+
+    </ExampleCode>
+  </Example>
+</ThemeExample>
+
 ### Target classes
 
 <ComponentStyleDisplay componentName="PasswordField" />
-
-### Theme
-
-<ThemeAlert />
-
-You can customize the appearance of all PasswordField components in your application with a [Theme](/theming).
-
-<Example>
-  <ThemeExample />
-  <ExampleCode>
-
-```jsx file=./examples/ThemeExample.tsx
-
-```
-
-  </ExampleCode>
-</Example>
 
 ### Global styling
 
@@ -335,3 +354,4 @@ Flex styling props will be applied to the PasswordField wrapping Flex component,
 
   </ExampleCode>
 </Example>
+ 

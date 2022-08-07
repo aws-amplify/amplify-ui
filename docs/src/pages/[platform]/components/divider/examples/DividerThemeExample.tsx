@@ -1,29 +1,32 @@
-import { Flex, Text, Divider, ThemeProvider } from '@aws-amplify/ui-react';
+import { Divider, Flex, ThemeProvider, Theme } from '@aws-amplify/ui-react';
 
-const theme = {
+const theme: Theme = {
   name: 'divider-theme',
   tokens: {
-    borderWidths: {
-      // This will affect the large divider and other components that reference this
-      large: { value: '20px' },
-    },
     components: {
       divider: {
         borderStyle: { value: 'dotted' },
-        // You can reference other theme tokens:
-        borderColor: { value: '{colors.brand.secondary.80.value}' },
+        borderColor: { value: '{colors.blue.80}' },
+        borderWidth: { value: '{borderWidths.small}' },
+
+        label: {
+          color: { value: '{colors.white}' },
+          backgroundColor: { value: '{colors.blue.80}' },
+        },
+
+        large: {
+          borderWidth: { value: '{borderWidths.large}' },
+        },
       },
     },
   },
 };
 
 export const DividerThemeExample = () => (
-  <ThemeProvider theme={theme}>
-    <Flex direction="column">
-      <Text>Before</Text>
-      <Divider />
-      <Text>After</Text>
-      <Divider size="large" />
+  <ThemeProvider theme={theme} colorMode="light">
+    <Flex direction="column" gap="3rem">
+      <Divider label="Default" />
+      <Divider size="large" label="Large" />
     </Flex>
   </ThemeProvider>
 );

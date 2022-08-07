@@ -1,25 +1,23 @@
-import * as React from 'react';
-export const useTestId = (testId: string, component: string) => {
-  const newTestId = React.useMemo(
-    () => (testId && component ? `${testId}-${component}` : undefined),
-    [testId, component]
-  );
-  return newTestId;
-};
+export const getTestId = (testId: string, component: string): string =>
+  testId && component ? `${testId}-${component}` : undefined;
 
-export const errorMessageWrapper = (fn: () => void, message: string) => {
+export const errorMessageWrapper = (
+  fn: () => void,
+  message: string
+): void | Error => {
   try {
     fn();
   } catch (error) {
     // Formatting below is intentional
     // and displays below Jest error message
-    error.message += `
+    (error as Error).message += `
 
 -- Custom Error Message --
 ${message}
 
 `;
+    // eslint-disable-next-line no-console
     console.error(error);
-    throw new Error(error);
+    throw new Error((error as Error).message);
   }
 };

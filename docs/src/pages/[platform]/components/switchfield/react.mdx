@@ -16,11 +16,13 @@ import {
   SwitchFieldTrackCheckedColorExample,
   SwitchFieldTrackColorExample,
   SwitchFieldValueExample,
+  SwitchFieldThemeExample,
 } from './examples';
-import { SwitchDemo, SwitchExample, ChangeExample } from './demo.tsx';
+import { SwitchDemo, SwitchExample, ChangeExample } from './demo';
 import { Example, ExampleCode } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
+import ThemeExample from '@/components/ThemeExample.mdx';
 
 ## Demo
 
@@ -229,6 +231,20 @@ The `onChange` property is a callback `function` that will be called with a chan
 </Example>
 
 ## CSS Styling
+
+<ThemeExample component="SwitchField">
+  <Example>
+    <SwitchFieldThemeExample />
+    
+    <ExampleCode>
+
+    ```tsx file=./examples/SwitchFieldThemeExample.tsx
+
+    ```
+
+    </ExampleCode>
+  </Example>
+</ThemeExample>
 
 ### Target classes
 

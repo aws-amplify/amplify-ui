@@ -11,7 +11,7 @@ import { Input } from '../Input';
 import { Label } from '../Label';
 import { Primitive } from '../types/view';
 import { StepperFieldProps } from '../types/stepperField';
-import { classNameModifier } from '../shared/utils';
+import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import { ComponentClassNames, ComponentText } from '../shared/constants';
 import { splitPrimitiveProps } from '../shared/styleUtils';
 import { useStableId } from '../utils/useStableId';
@@ -124,6 +124,11 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
               classNameModifier(
                 ComponentClassNames.StepperFieldButtonDecrease,
                 variation
+              ),
+              classNameModifierByFlag(
+                ComponentClassNames.StepperFieldButtonDecrease,
+                'disabled',
+                shouldDisableDecreaseButton
               )
             )}
             data-invalid={hasError}
@@ -143,6 +148,11 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
               classNameModifier(
                 ComponentClassNames.StepperFieldButtonIncrease,
                 variation
+              ),
+              classNameModifierByFlag(
+                ComponentClassNames.StepperFieldButtonIncrease,
+                'disabled',
+                shouldDisableIncreaseButton
               )
             )}
             data-invalid={hasError}

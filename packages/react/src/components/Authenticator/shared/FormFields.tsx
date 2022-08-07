@@ -5,7 +5,7 @@ import { FormFieldComponents, getSortedFormFields } from '@aws-amplify/ui';
 import { FormField, FormFieldProps } from './FormField';
 import { useAuthenticator } from '../hooks/useAuthenticator';
 
-export function FormFields() {
+export function FormFields(): JSX.Element {
   // TODO remove _state
   const { _state, route } = useAuthenticator(({ route }) => [route]);
 

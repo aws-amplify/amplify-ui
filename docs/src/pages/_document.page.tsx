@@ -1,11 +1,10 @@
 import crypto from 'crypto';
 import type { HtmlProps } from 'next/dist/shared/lib/utils';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
+import { ANALYTICS_CSP } from '@/data/csp';
+import { IS_DEV, IS_PROD } from '@/utils/environment';
 
-const favicon =
-  process.env.NODE_ENV === 'development'
-    ? '/svg/favicon-dev.svg'
-    : '/svg/favicon.svg';
+const favicon = IS_DEV ? '/svg/favicon-dev.svg' : '/svg/favicon.svg';
 
 const cspHashOf = (text) => {
   const hash = crypto.createHash('sha256');
@@ -20,14 +19,18 @@ const getCSPContent = (context: Readonly<HtmlProps>) => {
   );
 
   // Dev environment
-  if (process.env.NODE_ENV !== 'production') {
+  if (!IS_PROD) {
     return `default-src 'self';
       style-src 'self' 'unsafe-inline';
       font-src 'self' data:;
-      frame-src 'self' *.codesandbox.io;
-      img-src 'self' cm.everesttech.net amazonwebservices.d2.sc.omtrdc.net dpm.demdex.net https://images.unsplash.com;
-      connect-src 'self' *.shortbread.aws.dev amazonwebservices.d2.sc.omtrdc.net dpm.demdex.net https://*.algolia.net https://*.algolianet.com;
-      script-src 'unsafe-eval' 'self' '${cspInlineScriptHash}' a0.awsstatic.com;
+      frame-src 'self' ${ANALYTICS_CSP.all.frame.join(' ')} *.youtube.com;
+      img-src 'self' ${ANALYTICS_CSP.all.img.join(' ')};
+      connect-src 'self' *.shortbread.aws.dev ${ANALYTICS_CSP.all.connect.join(
+        ' '
+      )} https://*.algolia.net https://*.algolianet.com;
+      script-src 'unsafe-eval' 'self' '${cspInlineScriptHash}' ${ANALYTICS_CSP.all.script.join(
+      ' '
+    )};
     `;
   }
 
@@ -35,22 +38,33 @@ const getCSPContent = (context: Readonly<HtmlProps>) => {
   return `default-src 'self';
     style-src 'self' 'unsafe-inline';
     font-src 'self';
-    frame-src 'self' *.codesandbox.io aws.demdex.net;
-    img-src 'self' cm.everesttech.net amazonwebservices.d2.sc.omtrdc.net dpm.demdex.net https://images.unsplash.com;
-    connect-src 'self' *.shortbread.aws.dev amazonwebservices.d2.sc.omtrdc.net dpm.demdex.net https://*.algolia.net https://*.algolianet.com;
-    script-src 'unsafe-eval' 'self' '${cspInlineScriptHash}' a0.awsstatic.com;
+    frame-src 'self' ${[
+      ...ANALYTICS_CSP.all.frame,
+      ...ANALYTICS_CSP.prod.frame,
+    ].join(' ')} *.youtube.com;
+    img-src 'self' ${[...ANALYTICS_CSP.all.img, ...ANALYTICS_CSP.prod.img].join(
+      ' '
+    )};
+    connect-src 'self' *.shortbread.aws.dev ${[
+      ...ANALYTICS_CSP.all.connect,
+      ...ANALYTICS_CSP.prod.connect,
+    ].join(' ')} https://*.algolia.net https://*.algolianet.com;
+    script-src 'unsafe-eval' 'self' '${cspInlineScriptHash}' ${ANALYTICS_CSP.all.script.join(
+    ' '
+  )};
   `;
 };
 
 class MyDocument extends Document {
   render() {
     return (
-      <Html lang="en-us">
+      <Html lang="en-us" data-amplify-theme="amplify-docs">
         <Head>
           <meta
             httpEquiv="Content-Security-Policy"
             content={getCSPContent(this.props)}
           />
+
           <link rel="icon" type="image/svg+xml" href={favicon} />
         </Head>
         <body>

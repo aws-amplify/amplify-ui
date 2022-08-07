@@ -1,12 +1,17 @@
+import { Fragment } from '@/components/Fragment'; 
 import { Badge, View } from '@aws-amplify/ui-react';
-import { BadgeDemo } from './demo';
+
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
+import ThemeExample from '@/components/ThemeExample.mdx';
+
+import { BadgeDemo } from './demo';
 import {
   DefaultBadgeExample,
   BadgeVariationExample,
   BadgeSizeExample,
   BadgeStyleProps,
+  BadgeThemeExample,
 } from './examples';
 
 ## Demo
@@ -67,7 +72,22 @@ Use the `size` prop to change the Badge size. Available options are `small`, `la
   </ExampleCode>
 </Example>
 
-## Styling
+## CSS Styling
+
+<ThemeExample component="Badge">
+  <Example>
+    <BadgeThemeExample />
+    
+    <ExampleCode>
+
+    ```tsx file=./examples/BadgeThemeExample.tsx
+
+    ```
+
+    </ExampleCode>
+  </Example>
+</ThemeExample>
+
 
 ### Target classes
 
@@ -176,3 +196,4 @@ _Using style props:_
 
   </ExampleCode>
 </Example>
+    

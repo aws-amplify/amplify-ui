@@ -1,13 +1,17 @@
+import { Fragment } from '@/components/Fragment'; 
 import { Heading } from '@aws-amplify/ui-react';
 
 import {
   DefaultHeadingExample,
   HeadingLevelExample,
   HeadingStylePropsExample,
+  HeadingThemeExample,
+  TruncatedHeading
 } from './examples';
 import { HeadingDemo } from './demo';
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
+import ThemeExample from '@/components/ThemeExample.mdx';
 
 ## Demo
 
@@ -41,7 +45,35 @@ Use the `level` prop to change the heading level (e.g., `h1 - h6`). Default head
   </ExampleCode>
 </Example>
 
+### Truncate 
+
+The `isTruncated` prop will render an ellipsis when the Heading text exceeds its allowed width.
+
+<Example>
+  <TruncatedHeading />
+  <ExampleCode>
+    ```jsx file=./examples/TruncatedHeading.tsx
+
+    ```
+
+  </ExampleCode>
+</Example>
+
 ## CSS Styling
+
+<ThemeExample component="Heading">
+  <Example>
+    <HeadingThemeExample />
+    
+    <ExampleCode>
+
+    ```tsx file=./examples/HeadingThemeExample.tsx
+
+    ```
+
+    </ExampleCode>
+  </Example>
+</ThemeExample>
 
 ### Target classes
 
