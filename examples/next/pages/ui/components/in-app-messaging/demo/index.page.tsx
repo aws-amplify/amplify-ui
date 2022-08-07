@@ -12,20 +12,18 @@ import {
   Radio,
   RadioGroupField,
   ThemeProvider,
-  useInAppMessaging,
   useTheme,
 } from '@aws-amplify/ui-react';
 
-import { getInAppMessage, GetInAppMessageParams, LAYOUTS } from './utils';
+import { ACTIONS, LAYOUTS, ORIENTATIONS, useInAppDemo } from './utils';
 
 import '@aws-amplify/ui-react/styles.css';
 
-function DemoCheckbox({ checked, label, isDisabled = false, onChange }) {
+function DemoCheckbox({ label, onChange, ...rest }) {
   return (
     <CheckboxField
-      checked={checked}
+      {...rest}
       label={label}
-      isDisabled={isDisabled}
       name={label}
       onChange={() => {
         onChange((prev) => !prev);
@@ -41,24 +39,15 @@ function DemoDivider() {
   );
 }
 
-function RadioGroup({
-  data,
-  direction = '',
-  label,
-  isDisabled = false,
-  onChange,
-  value,
-}) {
+function DemoRadioGroup({ data, label, onChange, ...rest }) {
   return (
     <RadioGroupField
-      direction={direction}
-      isDisabled={isDisabled}
+      {...rest}
       label={label}
       name={label}
       onChange={(e) => {
         onChange(e.target.value);
       }}
-      value={value}
     >
       {data.map((item) => (
         <Radio key={`${label}:${item}`} value={item}>
@@ -71,46 +60,20 @@ function RadioGroup({
 
 function Content({ colorMode, setColorMode }) {
   const theme = useTheme();
-  const { displayMessage } = useInAppMessaging();
 
-  const [layout, setLayout] =
-    useState<GetInAppMessageParams['layout']>('TOP_BANNER');
-
-  const [hasHeader, setHasHeader] =
-    useState<GetInAppMessageParams['hasHeader']>(true);
-  const [hasMessage, setHasMessage] =
-    useState<GetInAppMessageParams['hasMessage']>(true);
-
-  const [hasImage, setHasImage] =
-    useState<GetInAppMessageParams['hasImage']>(true);
-  const [imageOrientation, setImageOrientation] =
-    useState<GetInAppMessageParams['imageOrientation']>('landscape');
-
-  const [hasPrimaryButton, setHasPrimaryButton] =
-    useState<GetInAppMessageParams['hasPrimaryButton']>(true);
-  const [primaryButtonAction, setPrimaryButtonAction] =
-    useState<GetInAppMessageParams['primaryButtonAction']>('LINK');
-
-  const [hasSecondaryButton, setHasSecondaryButton] =
-    useState<GetInAppMessageParams['hasSecondaryButton']>(true);
-  const [secondaryButtonAction, setSecondaryButtonAction] =
-    useState<GetInAppMessageParams['secondaryButtonAction']>('CLOSE');
-
-  const onClick = () => {
-    const message = getInAppMessage({
-      hasHeader,
-      hasImage,
-      hasMessage,
-      hasPrimaryButton,
-      hasSecondaryButton: !hasPrimaryButton ? false : hasSecondaryButton,
-      imageOrientation,
-      layout,
-      primaryButtonAction,
-      secondaryButtonAction,
-    });
-    displayMessage(message);
-  };
-
+  const {
+    displayDemoMessage,
+    handleAction,
+    hasHeader,
+    hasImage,
+    hasMessage,
+    hasPrimaryButton,
+    hasSecondaryButton,
+    imageOrientation,
+    layout,
+    primaryButtonAction,
+    secondaryButtonAction,
+  } = useInAppDemo();
   return (
     <View backgroundColor={theme.tokens.colors.background.primary}>
       <div
@@ -123,10 +86,11 @@ function Content({ colorMode, setColorMode }) {
         <Heading level={5} margin="medium">
           Configure Local Message
         </Heading>
-        <RadioGroup
+        <DemoRadioGroup
           data={['dark', 'light']}
           direction="row"
           label="Color Mode"
+          marginBottom="medium"
           onChange={setColorMode}
           value={colorMode}
         />
@@ -137,36 +101,36 @@ function Content({ colorMode, setColorMode }) {
           }}
         >
           <View marginLeft="small" marginRight="small">
-            <RadioGroup
+            <DemoRadioGroup
               data={LAYOUTS}
               label="Layout"
-              onChange={setLayout}
+              onChange={handleAction('setLayout')}
               value={layout}
             />
             <DemoDivider />
             <DemoCheckbox
               checked={hasHeader}
               label="Has Header"
-              onChange={setHasHeader}
+              onChange={handleAction('setHasHeader')}
             />
             <DemoDivider />
             <DemoCheckbox
               checked={hasMessage}
               label="Has Message"
-              onChange={setHasMessage}
+              onChange={handleAction('setHasMessage')}
             />
             <DemoDivider />
             <DemoCheckbox
               checked={hasImage}
               label="Has Image"
-              onChange={setHasImage}
+              onChange={handleAction('setHasImage')}
             />
             <DemoDivider />
-            <RadioGroup
-              data={['landscape', 'portrait']}
+            <DemoRadioGroup
+              data={ORIENTATIONS}
               isDisabled={!hasImage}
               label="Image Orientation"
-              onChange={setImageOrientation}
+              onChange={handleAction('setImageOrientation')}
               value={imageOrientation}
             />
           </View>
@@ -174,14 +138,14 @@ function Content({ colorMode, setColorMode }) {
             <DemoCheckbox
               checked={hasPrimaryButton}
               label="Has Primary Button"
-              onChange={setHasPrimaryButton}
+              onChange={handleAction('setHasPrimaryButton')}
             />
             <DemoDivider />
-            <RadioGroup
-              data={['CLOSE', 'DEEP_LINK', 'LINK']}
+            <DemoRadioGroup
+              data={ACTIONS}
               isDisabled={!hasPrimaryButton}
               label="Primary Button Action"
-              onChange={setPrimaryButtonAction}
+              onChange={handleAction('setPrimaryButtonAction')}
               value={primaryButtonAction}
             />
             <DemoDivider />
@@ -189,21 +153,21 @@ function Content({ colorMode, setColorMode }) {
               checked={hasSecondaryButton}
               isDisabled={!hasPrimaryButton}
               label="Has Secondary Button"
-              onChange={setHasSecondaryButton}
+              onChange={handleAction('setHasSecondaryButton')}
             />
             <DemoDivider />
-            <RadioGroup
-              data={['CLOSE', 'DEEP_LINK', 'LINK']}
+            <DemoRadioGroup
+              data={ACTIONS}
               isDisabled={!hasPrimaryButton || !hasSecondaryButton}
               label="Secondary Button Action"
-              onChange={setSecondaryButtonAction}
+              onChange={handleAction('setSecondaryButtonAction')}
               value={secondaryButtonAction}
             />
             <DemoDivider />
           </View>
         </div>
-        <Button margin="medium" onClick={onClick}>
-          Display In-App Message
+        <Button margin="medium" onClick={displayDemoMessage}>
+          Display Demo Message
         </Button>
       </div>
     </View>
