@@ -318,7 +318,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         },
       }),
       stopRecording: (context) => {
-        console.log('stopREcording');
         recordLivenessAnalyticsEvent(context.flowProps, {
           event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
           attributes: { action: 'Success' },
@@ -429,7 +428,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         context.flowProps.onUserTimeout?.();
       },
       callSuccessCallback: (context) => {
-        console.log('CHECKING');
         context.flowProps.onSuccess?.();
       },
       callErrorCallback: (context, event) => {
@@ -695,10 +693,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           let prevColorStageIndex = undefined; // previous stage
           let timeLastColorIndChanged = Date.now();
           let expectedCallTime = Date.now() + tickRate;
-          let count = 0;
 
           const selfAdjustingInterval = () => {
-            count += 1;
             const tickStartTime = Date.now();
             const drift = tickStartTime - expectedCallTime;
             const timeSinceLastColorChange =
@@ -764,7 +760,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               );
             } else {
               freshnessColorEl.hidden = true;
-              console.log(count);
               resolve(true);
             }
           };
