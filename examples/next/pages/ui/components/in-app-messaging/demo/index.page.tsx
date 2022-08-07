@@ -88,7 +88,7 @@ function Content({ colorMode, setColorMode }) {
         }}
       >
         <Heading level={5} margin="medium">
-          Configure Local Message
+          Configure Demo Message
         </Heading>
         <DemoRadioGroup
           data={['dark', 'light']}
