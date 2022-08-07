@@ -33,8 +33,6 @@ jobs:
       DOCSEARCH_DOCS_INDEX_NAME: ${{ secrets.DOCSEARCH_DOCS_INDEX_NAME }}
 
   guides:
-    # Only run guides if test is done
-    needs: test
     runs-on: ubuntu-latest
     environment: ci
     env:
@@ -105,7 +103,7 @@ jobs:
           VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
 
   publish:
-    needs: guides
+    needs: [test, guides]
     runs-on: ubuntu-latest
     environment: deployment
     steps:

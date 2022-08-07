@@ -25,7 +25,7 @@ export interface IconProps extends ViewProps {
    * @description
    * This is used to define a string that labels the current element.
    */
-  ariaLabel: string;
+  ariaLabel?: string;
 
   /**
    * @description

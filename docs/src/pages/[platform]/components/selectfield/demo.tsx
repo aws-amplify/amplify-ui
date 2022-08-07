@@ -33,7 +33,11 @@ const propsToCode = (selectFieldProps) => {
     (selectFieldProps.isDisabled
       ? `\n  isDisabled={${JSON.stringify(selectFieldProps.isDisabled)}}`
       : '') +
-    `\n/>`
+    `\n>` +
+    `\n  <option value="apple">Apple</option>
+  <option value="banana">Banana</option>
+  <option value="orange">Orange</option>` +
+    `\n</SelectField>`
   );
 };
 

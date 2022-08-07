@@ -4,7 +4,10 @@ import { debounce } from 'lodash';
 import { Footer } from '@/components/Layout/Footer';
 import { useCustomRouter } from '@/components/useCustomRouter';
 import { HeroSection } from '@/components/home/sections';
+import { isReactNativeEnabled } from '@/utils/featureFlags';
+
 import ReactHomePage from './index.react';
+import ReactNativeHomePage from './index.reactnative';
 import VueHomePage from './index.vue';
 import AngularHomePage from './index.angular';
 import FlutterHomePage from './index.flutter';
@@ -44,6 +47,13 @@ const HomePage = ({ colorMode }) => {
       break;
     case 'flutter':
       pageContent = <FlutterHomePage colorMode={colorMode} />;
+      break;
+    case 'react-native':
+      pageContent = isReactNativeEnabled ? (
+        <ReactNativeHomePage colorMode={colorMode} />
+      ) : (
+        <ReactHomePage colorMode={colorMode} />
+      );
       break;
     default:
       pageContent = <ReactHomePage colorMode={colorMode} />;
