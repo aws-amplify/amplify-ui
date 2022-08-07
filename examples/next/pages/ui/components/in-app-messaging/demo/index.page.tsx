@@ -3,7 +3,7 @@ import {
   Button,
   defaultDarkModeOverride,
   ColorMode,
-  Divider as BaseDivider,
+  Divider,
   Heading,
   InAppMessageDisplay,
   InAppMessagingProvider,
@@ -20,80 +20,49 @@ import { getInAppMessage, GetInAppMessageParams, LAYOUTS } from './utils';
 
 import '@aws-amplify/ui-react/styles.css';
 
-const Divider = () => (
-  <BaseDivider
-    marginBottom="small"
-    marginTop="small"
-    orientation="horizontal"
-  />
-);
-
-function LayoutRadioGroup({ layout, setLayout }) {
+function DemoCheckbox({ checked, label, isDisabled = false, onChange }) {
   return (
-    <RadioGroupField
-      label="Layout"
-      name="Layout"
-      onChange={(e) => {
-        setLayout(e.target.value as GetInAppMessageParams['layout']);
+    <CheckboxField
+      checked={checked}
+      label={label}
+      isDisabled={isDisabled}
+      name={label}
+      onChange={() => {
+        onChange((prev) => !prev);
       }}
-      value={layout}
-    >
-      {LAYOUTS.map((layout) => (
-        <Radio key={layout} value={layout}>
-          {layout}
-        </Radio>
-      ))}
-    </RadioGroupField>
+      value=""
+    />
   );
 }
 
-function ImageOrientationRadioGroup({
-  imageOrientation,
-  isDisabled,
-  setImageOrientation,
-}) {
+function DemoDivider() {
   return (
-    <RadioGroupField
-      isDisabled={isDisabled}
-      label="Image Orientation"
-      name="Image Orientation"
-      onChange={(e) => {
-        setImageOrientation(
-          e.target.value as GetInAppMessageParams['imageOrientation']
-        );
-      }}
-      value={imageOrientation}
-    >
-      {(
-        ['landscape', 'portrait'] as GetInAppMessageParams['imageOrientation'][]
-      ).map((orientation) => (
-        <Radio key={orientation} value={orientation}>
-          {orientation}
-        </Radio>
-      ))}
-    </RadioGroupField>
+    <Divider marginBottom="small" marginTop="small" orientation="horizontal" />
   );
 }
 
-function ButtonActionRadioGroup({
-  isDisabled,
-  buttonAction,
-  setButtonAction,
-  type,
+function RadioGroup({
+  data,
+  direction = '',
+  label,
+  isDisabled = false,
+  onChange,
+  value,
 }) {
   return (
     <RadioGroupField
+      direction={direction}
       isDisabled={isDisabled}
-      label={`${type} Button Action`}
-      name={`${type} Button Action`}
+      label={label}
+      name={label}
       onChange={(e) => {
-        setButtonAction(e.target.value);
+        onChange(e.target.value);
       }}
-      value={buttonAction}
+      value={value}
     >
-      {['CLOSE', 'DEEP_LINK', 'LINK'].map((action) => (
-        <Radio key={`${type}:${action}`} value={action}>
-          {action}
+      {data.map((item) => (
+        <Radio key={`${label}:${item}`} value={item}>
+          {item}
         </Radio>
       ))}
     </RadioGroupField>
@@ -154,23 +123,13 @@ function Content({ colorMode, setColorMode }) {
         <Heading level={5} margin="medium">
           Configure Local Message
         </Heading>
-        <RadioGroupField
+        <RadioGroup
+          data={['dark', 'light']}
           direction="row"
           label="Color Mode"
-          marginBottom="medium"
-          name="Color Mode"
-          onChange={(e) => {
-            setColorMode(e.target.value as ColorMode);
-          }}
+          onChange={setColorMode}
           value={colorMode}
-        >
-          {['dark', 'light'].map((mode) => (
-            <Radio key={mode} value={mode}>
-              {mode}
-            </Radio>
-          ))}
-        </RadioGroupField>
-
+        />
         <div
           style={{
             display: 'flex',
@@ -178,80 +137,69 @@ function Content({ colorMode, setColorMode }) {
           }}
         >
           <View marginLeft="small" marginRight="small">
-            <LayoutRadioGroup layout={layout} setLayout={setLayout} />
-            <Divider />
-            <CheckboxField
+            <RadioGroup
+              data={LAYOUTS}
+              label="Layout"
+              onChange={setLayout}
+              value={layout}
+            />
+            <DemoDivider />
+            <DemoCheckbox
               checked={hasHeader}
               label="Has Header"
-              name="Has Header"
-              value=""
-              onChange={() => {
-                setHasHeader((prev) => !prev);
-              }}
+              onChange={setHasHeader}
             />
-            <Divider />
-            <CheckboxField
+            <DemoDivider />
+            <DemoCheckbox
               checked={hasMessage}
               label="Has Message"
-              name="Has Message"
-              value=""
-              onChange={() => {
-                setHasMessage((prev) => !prev);
-              }}
+              onChange={setHasMessage}
             />
-            <Divider />
-            <CheckboxField
+            <DemoDivider />
+            <DemoCheckbox
               checked={hasImage}
               label="Has Image"
-              name="Has Image"
-              value=""
-              onChange={() => {
-                setHasImage((prev) => !prev);
-              }}
+              onChange={setHasImage}
             />
-            <Divider />
-            <ImageOrientationRadioGroup
-              imageOrientation={imageOrientation}
+            <DemoDivider />
+            <RadioGroup
+              data={['landscape', 'portrait']}
               isDisabled={!hasImage}
-              setImageOrientation={setImageOrientation}
+              label="Image Orientation"
+              onChange={setImageOrientation}
+              value={imageOrientation}
             />
           </View>
           <View marginLeft="small" marginRight="small">
-            <CheckboxField
+            <DemoCheckbox
               checked={hasPrimaryButton}
               label="Has Primary Button"
-              name="Has Primary Button"
-              value=""
-              onChange={() => {
-                setHasPrimaryButton((prev) => !prev);
-              }}
+              onChange={setHasPrimaryButton}
             />
-            <Divider />
-            <ButtonActionRadioGroup
-              buttonAction={primaryButtonAction}
+            <DemoDivider />
+            <RadioGroup
+              data={['CLOSE', 'DEEP_LINK', 'LINK']}
               isDisabled={!hasPrimaryButton}
-              setButtonAction={setPrimaryButtonAction}
-              type="Primary"
+              label="Primary Button Action"
+              onChange={setPrimaryButtonAction}
+              value={primaryButtonAction}
             />
-            <Divider />
-            <CheckboxField
+            <DemoDivider />
+            <DemoCheckbox
               checked={hasSecondaryButton}
               isDisabled={!hasPrimaryButton}
               label="Has Secondary Button"
-              name="Has Secondary Button"
-              value=""
-              onChange={() => {
-                setHasSecondaryButton((prev) => !prev);
-              }}
+              onChange={setHasSecondaryButton}
             />
-            <Divider />
-            <ButtonActionRadioGroup
-              buttonAction={secondaryButtonAction}
+            <DemoDivider />
+            <RadioGroup
+              data={['CLOSE', 'DEEP_LINK', 'LINK']}
               isDisabled={!hasPrimaryButton || !hasSecondaryButton}
-              setButtonAction={setSecondaryButtonAction}
-              type="Secondary"
+              label="Secondary Button Action"
+              onChange={setSecondaryButtonAction}
+              value={secondaryButtonAction}
             />
-            <Divider />
+            <DemoDivider />
           </View>
         </div>
         <Button margin="medium" onClick={onClick}>
@@ -271,7 +219,6 @@ export default function App() {
     >
       <InAppMessagingProvider>
         <InAppMessageDisplay />
-
         <Content colorMode={colorMode} setColorMode={setColorMode} />
       </InAppMessagingProvider>
     </ThemeProvider>
