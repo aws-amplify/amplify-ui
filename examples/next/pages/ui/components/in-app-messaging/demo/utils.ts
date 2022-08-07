@@ -59,16 +59,8 @@ export function getInAppMessage({
     id: layout,
     content: [
       {
-        header: hasHeader
-          ? {
-              content: 'Example Header',
-            }
-          : undefined,
-        body: hasMessage
-          ? {
-              content: 'Example Body',
-            }
-          : undefined,
+        header: hasHeader ? { content: 'Example Header' } : undefined,
+        body: hasMessage ? { content: 'Example Body' } : undefined,
         image: hasImage
           ? {
               src:

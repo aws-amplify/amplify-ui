@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import {
   Button,
+  defaultDarkModeOverride,
+  ColorMode,
   Divider as BaseDivider,
   Heading,
   InAppMessageDisplay,
@@ -9,7 +11,9 @@ import {
   View,
   Radio,
   RadioGroupField,
+  ThemeProvider,
   useInAppMessaging,
+  useTheme,
 } from '@aws-amplify/ui-react';
 
 import { getInAppMessage, GetInAppMessageParams, LAYOUTS } from './utils';
@@ -96,7 +100,8 @@ function ButtonActionRadioGroup({
   );
 }
 
-function Content() {
+function Content({ colorMode, setColorMode }) {
+  const theme = useTheme();
   const { displayMessage } = useInAppMessaging();
 
   const [layout, setLayout] =
@@ -138,7 +143,7 @@ function Content() {
   };
 
   return (
-    <>
+    <View backgroundColor={theme.tokens.colors.background.primary}>
       <div
         style={{
           alignItems: 'center',
@@ -146,9 +151,26 @@ function Content() {
           flexDirection: 'column',
         }}
       >
-        <Heading level={5} marginBottom="medium">
+        <Heading level={5} margin="medium">
           Configure Local Message
         </Heading>
+        <RadioGroupField
+          direction="row"
+          label="Color Mode"
+          marginBottom="medium"
+          name="Color Mode"
+          onChange={(e) => {
+            setColorMode(e.target.value as ColorMode);
+          }}
+          value={colorMode}
+        >
+          {['dark', 'light'].map((mode) => (
+            <Radio key={mode} value={mode}>
+              {mode}
+            </Radio>
+          ))}
+        </RadioGroupField>
+
         <div
           style={{
             display: 'flex',
@@ -232,19 +254,26 @@ function Content() {
             <Divider />
           </View>
         </div>
-        <Button marginTop="medium" onClick={onClick}>
+        <Button margin="medium" onClick={onClick}>
           Display In-App Message
         </Button>
       </div>
-    </>
+    </View>
   );
 }
 
 export default function App() {
+  const [colorMode, setColorMode] = useState<ColorMode>('dark');
   return (
-    <InAppMessagingProvider>
-      <InAppMessageDisplay />
-      <Content />
-    </InAppMessagingProvider>
+    <ThemeProvider
+      colorMode={colorMode}
+      theme={{ overrides: [defaultDarkModeOverride], name: 'dark' }}
+    >
+      <InAppMessagingProvider>
+        <InAppMessageDisplay />
+
+        <Content colorMode={colorMode} setColorMode={setColorMode} />
+      </InAppMessagingProvider>
+    </ThemeProvider>
   );
 }
