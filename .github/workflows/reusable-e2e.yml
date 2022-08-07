@@ -297,60 +297,60 @@ jobs:
           USERNAME: ${{ secrets.USERNAME }}
           NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
           VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
-  # docs:
-  #   # Only run docs tests if e2e tests pass
-  #   needs: [setup, unit]
-  #   runs-on: ubuntu-latest
-  #   environment: ci
-  #   env:
-  #     NODE_ENV: test
-  #   steps:
-  #     - name: Checkout Amplify UI
-  #       uses: actions/checkout@v2
-  #       with:
-  #         ref: ${{ inputs.commit }}
-  #         repository: ${{ inputs.repository }}
-  #         persist-credentials: false
+  docs:
+    # Only run docs tests if e2e tests pass
+    needs: [setup, unit]
+    runs-on: ubuntu-latest
+    environment: ci
+    env:
+      NODE_ENV: test
+    steps:
+      - name: Checkout Amplify UI
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ inputs.commit }}
+          repository: ${{ inputs.repository }}
+          persist-credentials: false
 
-  #     - name: Setup Node.js LTS
-  #       uses: actions/setup-node@v2
-  #       with:
-  #         node-version: lts/*
-  #         cache: 'yarn'
+      - name: Setup Node.js LTS
+        uses: actions/setup-node@v2
+        with:
+          node-version: lts/*
+          cache: 'yarn'
 
-  #     - name: Restore cypress runner Cache
-  #       uses: actions/cache@v2
-  #       id: restore-cypress-cache
-  #       with:
-  #         path: ~/.cache/Cypress
-  #         key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
+      - name: Restore cypress runner Cache
+        uses: actions/cache@v2
+        id: restore-cypress-cache
+        with:
+          path: ~/.cache/Cypress
+          key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
 
-  #     - name: Install packages
-  #       run: yarn install
+      - name: Install packages
+        run: yarn install
 
-  #     - name: Build ui package
-  #       run: yarn ui build
+      - name: Build ui package
+        run: yarn ui build
 
-  #     - name: Build react package
-  #       run: yarn react build
+      - name: Build react package
+        run: yarn react build
 
-  #     - name: Build docs package
-  #       run: yarn docs build
-  #       env:
-  #         SITE_URL: ${{ secrets.SITE_URL }}
-  #         DOCSEARCH_DOCS_APP_ID: ${{ secrets.DOCSEARCH_DOCS_APP_ID }}
-  #         DOCSEARCH_DOCS_API_KEY: ${{ secrets.DOCSEARCH_DOCS_API_KEY }}
-  #         DOCSEARCH_DOCS_INDEX_NAME: ${{ secrets.DOCSEARCH_DOCS_INDEX_NAME }}
+      - name: Build docs package
+        run: yarn docs build
+        env:
+          SITE_URL: ${{ secrets.SITE_URL }}
+          DOCSEARCH_DOCS_APP_ID: ${{ secrets.DOCSEARCH_DOCS_APP_ID }}
+          DOCSEARCH_DOCS_API_KEY: ${{ secrets.DOCSEARCH_DOCS_API_KEY }}
+          DOCSEARCH_DOCS_INDEX_NAME: ${{ secrets.DOCSEARCH_DOCS_INDEX_NAME }}
 
-  #     - name: Start docs site
-  #       run: yarn docs start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000
+      - name: Start docs site
+        run: yarn docs start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000
 
-  #     - name: Run E2E tests against docs
-  #       run: yarn workspace e2e test:theme
-  #       env:
-  #         # Env values for testing flows
-  #         DOMAIN: ${{ secrets.DOMAIN }}
-  #         PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
-  #         USERNAME: ${{ secrets.USERNAME }}
-  #         NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
-  #         VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+      - name: Run E2E tests against docs
+        run: yarn workspace e2e test:theme
+        env:
+          # Env values for testing flows
+          DOMAIN: ${{ secrets.DOMAIN }}
+          PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+          USERNAME: ${{ secrets.USERNAME }}
+          NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
+          VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
