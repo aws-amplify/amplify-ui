@@ -77,6 +77,7 @@ function Content({ colorMode, setColorMode }) {
     primaryButtonAction,
     secondaryButtonAction,
   } = useInAppDemo();
+
   return (
     <View backgroundColor={theme.tokens.colors.background.primary}>
       <div
