@@ -2,11 +2,9 @@ import crypto from 'crypto';
 import type { HtmlProps } from 'next/dist/shared/lib/utils';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { ANALYTICS_CSP } from '@/data/csp';
+import { IS_DEV, IS_PROD } from '@/utils/environment';
 
-const favicon =
-  process.env.NODE_ENV === 'development'
-    ? '/svg/favicon-dev.svg'
-    : '/svg/favicon.svg';
+const favicon = IS_DEV ? '/svg/favicon-dev.svg' : '/svg/favicon.svg';
 
 const cspHashOf = (text) => {
   const hash = crypto.createHash('sha256');
@@ -21,7 +19,7 @@ const getCSPContent = (context: Readonly<HtmlProps>) => {
   );
 
   // Dev environment
-  if (process.env.NODE_ENV !== 'production') {
+  if (!IS_PROD) {
     return `default-src 'self';
       style-src 'self' 'unsafe-inline';
       font-src 'self' data:;

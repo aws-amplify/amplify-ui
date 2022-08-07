@@ -1,3 +1,4 @@
+export { AccessibleAlert } from './AccessibleAlert';
 export { AlertHeadingExample } from './AlertHeadingExample';
 export { AlertIconExample } from './AlertIconExample';
 export { AlertStylePropsExample } from './AlertStylePropsExample';
@@ -7,3 +8,4 @@ export { DefaultAlertExample } from './DefaultAlertExample';
 export { DismissButtonLabelExample } from './DismissButtonLabelExample';
 export { DismissibleAlertExample } from './DismissibleAlertExample';
 export { OnDismissAlertExample } from './OnDismissAlertExample';
+export { RoleOverride } from './RoleOverride';

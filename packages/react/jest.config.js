@@ -1,14 +1,24 @@
 module.exports = {
-  preset: 'ts-jest',
+  collectCoverage: true,
+  collectCoverageFrom: ['<rootDir>/src/**/*.(ts|tsx)'],
+  // ignore coverage for top level "export", PrimitiveCatalog, and style files
+  coveragePathIgnorePatterns: [
+    '<rootDir>/src/(index|internal|legacy|PrimitiveCatalog|styles).(ts|tsx)',
+  ],
+  coverageThreshold: {
+    global: {
+      branches: 71,
+      functions: 60,
+      lines: 79,
+      statements: 79,
+    },
+  },
+  globals: { 'ts-jest': { tsconfig: 'tsconfig.json' } },
   moduleNameMapper: {
     '^react$': '<rootDir>/node_modules/react',
   },
-  testEnvironment: 'jsdom',
-  setupFilesAfterEnv: ['./jest.setup.ts'],
   modulePathIgnorePatterns: ['<rootDir>/dist/'],
-  globals: {
-    'ts-jest': {
-      tsconfig: 'tsconfig.json',
-    },
-  },
+  preset: 'ts-jest',
+  setupFilesAfterEnv: ['./jest.setup.ts'],
+  testEnvironment: 'jsdom',
 };
