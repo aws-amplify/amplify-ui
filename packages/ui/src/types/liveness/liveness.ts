@@ -3,17 +3,17 @@
  */
 export interface LivenessFlowProps {
   /**
-   * The sessionId as returned by StartLivenessDetection API
+   * The sessionId as returned by CreateStreamingLivenessSession API
    */
   sessionId: string;
 
   /**
-   * The clientActionDocument as returned by StartLivenessDetection API
+   * The sessionInformation as returned by CreateStreamingLivenessSession API
    */
-  clientActionDocument: string;
+  sessionInformation: string;
 
   /**
-   * Callback called when the API request to Liveness for GetLivenessDetection
+   * Callback called when the API request to Liveness for GetStreamingLivenessSessionResults
    * is to be made. This callback is required to be passed to
    * proxy the call to Liveness through their backend to encapsulate business
    * logic on confidence scores and not expose the score on client

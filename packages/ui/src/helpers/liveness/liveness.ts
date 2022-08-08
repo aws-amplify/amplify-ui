@@ -6,7 +6,7 @@ import {
   BoundingBox,
   LivenessErrorState,
 } from '../../types';
-import { ClientActionDocument } from '../../types/liveness/liveness-service-types';
+import { SessionInformation } from '../../types/liveness/liveness-service-types';
 import { translate } from '../../i18n';
 
 /**
@@ -42,24 +42,15 @@ function getIntersectionOverUnion(
 }
 
 /**
- * Accepts clientActionDocument as string and return the 3 attributes
+ * Accepts sessionInformation as string and returns the 3 attributes
  * width: number;
  * centerX: number;
  * centerY: number;
  */
-export function getRandomScalingAttributes(clientActionDocumentStr: string) {
-  const clientActionDocument: ClientActionDocument = JSON.parse(
-    clientActionDocumentStr
-  );
-  if (
-    clientActionDocument.challenges.length === 0 ||
-    clientActionDocument.challenges.length > 1
-  ) {
-    throw new Error('Invalid clientActionDocument');
-  }
-
+export function getRandomScalingAttributes(sessionInformationStr: string) {
+  const sessionInfo: SessionInformation = JSON.parse(sessionInformationStr);
   const ovalScaleFactors =
-    clientActionDocument.challenges[0].faceMovementChallenge.ovalScaleFactors;
+    sessionInfo.challenge.faceMovementAndLightChallenge.ovalScaleFactors;
 
   return {
     centerX: ovalScaleFactors.centerX,
@@ -76,12 +67,12 @@ export function getRandomLivenessOvalDetails({
   width,
   height,
   initialFace,
-  clientActionDocument,
+  sessionInformation,
 }: {
   width: number;
   height: number;
   initialFace: Face;
-  clientActionDocument: string;
+  sessionInformation: string;
 }): LivenessOvalDetails {
   const videoHeight = height;
   let videoWidth = width;
@@ -107,7 +98,7 @@ export function getRandomLivenessOvalDetails({
   const maxOvalCenterY = (3 * videoHeight) / 5;
 
   const randomScalingAttributes =
-    getRandomScalingAttributes(clientActionDocument);
+    getRandomScalingAttributes(sessionInformation);
 
   const ovalCenterX = getScaledValueFromRandomSeed(
     randomScalingAttributes.centerX,

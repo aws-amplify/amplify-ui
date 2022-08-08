@@ -8,17 +8,17 @@ export function useLiveness() {
   const [getLivenessResponse, setGetLivenessResponse] = useState(null);
 
   const {
-    data: startLivenessApiData,
-    error: startLivenessApiError,
-    isValidating: startLivenessApiLoading,
+    data: createLivenessSessionApiData,
+    error: createLivenessSessionApiError,
+    isValidating: createLivenessSessionApiLoading,
     mutate,
   } = useSWR(
-    'StartLiveness',
-    () => API.post('SampleBackend', '/liveness/start', {}),
+    'CreateStreamingLivenessSession',
+    () => API.post('SampleBackend', '/liveness/create', {}),
     { revalidateOnFocus: false }
   );
 
-  const handleStartLiveness = () => {
+  const handleCreateLivenessSession = () => {
     setLivenessActive(true);
   };
 
@@ -56,14 +56,14 @@ export function useLiveness() {
   return {
     isLivenessActive,
     getLivenessResponse,
-    handleStartLiveness,
+    handleCreateLivenessSession,
     handleExit,
     handleUserExit,
     handleSuccess,
     handleGetLivenessDetection,
     stopLiveness,
-    startLivenessApiData,
-    startLivenessApiError,
-    startLivenessApiLoading,
+    createLivenessSessionApiData,
+    createLivenessSessionApiError,
+    createLivenessSessionApiLoading,
   };
 }
