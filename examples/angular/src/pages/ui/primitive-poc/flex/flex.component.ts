@@ -2,6 +2,6 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'amplify-flex-demo',
-  templateUrl: 'flex-demo.component.html',
+  templateUrl: 'flex.component.html',
 })
 export class AmplifyFlexExampleComponent {}
