@@ -1,19 +1,18 @@
 import { Component, ContentChild, Input, SimpleChanges } from '@angular/core';
 import { PasswordDirective } from '../password-field-directive/password-field.directive';
 import { ComponentConstants } from '../constants';
-import { InputDirective } from '../../text-field';
 const $COMPONENT_SELECTOR: string = 'amplify-password-poc';
 @Component({
   selector: $COMPONENT_SELECTOR,
   templateUrl: 'password-field.component.html',
 })
-export class AmplifyPasswordFieldComponent extends InputDirective {
+export class AmplifyPasswordFieldComponent {
   @Input() describedBy: string;
   @Input() labelHidden: boolean = false;
   @Input() hasError: boolean = false;
 
   passwordIconStr: string = 'Password is hidden';
-  showPasswordval: boolean = false;
+  showPasswordVal: boolean = false;
   iconpath: string = ComponentConstants.showIconPath;
 
   @ContentChild(PasswordDirective) childInput: PasswordDirective;
@@ -50,7 +49,7 @@ export class AmplifyPasswordFieldComponent extends InputDirective {
 
   togglePassword(): void {
     this.childInput.showPassword = !this.childInput.showPassword;
-    this.showPasswordval = this.childInput.showPassword;
+    this.showPasswordVal = this.childInput.showPassword;
     this.passwordIconStr = this.childInput.showPassword
       ? 'Password is shown'
       : 'Password is hidden';
