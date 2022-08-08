@@ -33,11 +33,13 @@ import { UseAuthenticatorHomeComponent } from 'src/pages/ui/components/authentic
 import {
   AmplifyButtonModule,
   AmplifyViewModule,
+  AmplifyFlexModule,
 } from '@aws-amplify/ui-angular';
 import { AmplifyButtonExampleComponent } from 'src/pages/ui/primitive-poc/button/button.component';
 import { AmplifyViewExampleComponent } from 'src/pages/ui/primitive-poc/view/view.component';
 import { AmplifyTextFieldExampleComponent } from 'src/pages/ui/primitive-poc/text-field/text-field.component';
 import { AmplifyPasswordFieldExampleComponent } from 'src/pages/ui/primitive-poc/password-field/password-field.component';
+import { AmplifyFlexExampleComponent } from 'src/pages/ui/primitive-poc/flex/flex.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +69,7 @@ import { AmplifyPasswordFieldExampleComponent } from 'src/pages/ui/primitive-poc
     AmplifyViewExampleComponent,
     AmplifyTextFieldExampleComponent,
     AmplifyPasswordFieldExampleComponent,
+    AmplifyFlexExampleComponent,
   ],
   imports: [
     BrowserModule,
@@ -77,6 +80,7 @@ import { AmplifyPasswordFieldExampleComponent } from 'src/pages/ui/primitive-poc
     AmplifyViewModule,
     AmplifyTextFieldModule,
     AmplifyPasswordFieldModule,
+    AmplifyFlexModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

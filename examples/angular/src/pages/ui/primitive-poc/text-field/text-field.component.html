@@ -7,36 +7,9 @@
   <input amplify-input placeholder="Baggins" />
   <p amplify-error>There is an error</p>
 </amplify-poc-text-field>
-<br />
-<br />
-<br />
-<br />
+<div style="margin-top: 100px"></div>
 
-<amplify-poc-text-field hasError="true" describedBy="custom-aria-describedBy">
-  <p amplify-label>Enter Label</p>
-  <p amplify-description-text>Enter Description</p>
-  <input amplify-input placeholder="Baggins" isDisabled="true" />
-  <p amplify-error>There is an error</p>
-</amplify-poc-text-field>
-
-<br />
-<br />
-<br />
-<br />
-
-<amplify-poc-text-field hasError="true" describedBy="custom-aria-describedBy">
-  <p amplify-label>Enter Label</p>
-  <p amplify-description-text>Enter Description</p>
-  <input amplify-input placeholder="Baggins" isReadonly="true" />
-  <p amplify-error>There is an error</p>
-</amplify-poc-text-field>
-
-<br />
-<br />
-<br />
-<br />
-
-<amplify-poc-text-field hasError="true" describedBy="custom-aria-describedBy">
+<amplify-poc-text-field [hasError]="true" describedBy="custom-aria-describedBy">
   <p amplify-label>Enter Label</p>
   <p amplify-description-text>Enter Description</p>
   <input amplify-input placeholder="Baggins" />

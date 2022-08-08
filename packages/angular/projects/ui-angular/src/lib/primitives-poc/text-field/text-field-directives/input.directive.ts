@@ -8,6 +8,7 @@ const $Directive_Selector = '[amplify-input]';
 export class InputDirective {
   private _id = nanoid(8);
   private _ariaDescribedBy: string = 'test';
+  private _hasError: boolean = false;
 
   @Input() set isDisabled(isDisabled: boolean) {
     this._isDisabled = isDisabled;
@@ -29,14 +30,22 @@ export class InputDirective {
   @HostBinding('attr.aria-describedBy') get useAriaDescribedBy() {
     return this.ariaDescribedBy ? this.ariaDescribedBy : '';
   }
-  @HostBinding('class.amplify-input--error') hasError = false;
+
+  public set hasError(hasError: boolean) {
+    this._hasError = hasError;
+  }
+  public get hasError() {
+    return this._hasError;
+  }
+  @HostBinding('class.amplify-input--error') get gethasError() {
+    return this.hasError;
+  }
   /** The classes to attach to the element. */
   @HostBinding('class')
   get elementClasses() {
     return {
       'amplify-input': true,
       'amplify-field-group__control': true,
-      'amplify-input--quiet': true,
     };
   }
   @HostBinding('id') id = this._id;

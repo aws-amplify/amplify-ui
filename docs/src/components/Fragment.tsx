@@ -58,7 +58,7 @@ export const Fragment = ({
       loading({ error, isLoading }) {
         if (error) {
           return (
-            <Alert variation="warning">
+            <Alert role="none" variation="warning">
               {error.message.includes('Cannot find module') ? (
                 <>Content missing for {platform}.</>
               ) : (
