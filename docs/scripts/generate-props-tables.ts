@@ -123,14 +123,6 @@ function createPropsList(
   return propList;
 }
 
-function formatString(string: string) {
-  const formattedString = string
-    .replace(/\n/g, ' ')
-    .replace(/'/g, "\\'")
-    .replace(/"/g, '\\"');
-  return formattedString;
-}
-
 /**
  * Creates an array of prop items
  * Example:
@@ -155,8 +147,8 @@ function getPropItems(properties: Properties) {
       props.push({
         name,
         isOptional,
-        type: formatString(type),
-        description: formatString(description),
+        type: `${type}`,
+        description: `${description}`,
       });
     });
 

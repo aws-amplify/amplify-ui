@@ -10,6 +10,7 @@ import {
   ResponsiveTable,
   ResponsiveTableCell,
 } from '@/components/ResponsiveTable';
+import { CodeHighlight } from '@/components/CodeHighlight';
 
 export type Prop = {
   name: string;
@@ -39,7 +40,7 @@ export const PropsTable = ({ props }: PropTableProps) => {
             <TableRow key={`${prop}-${index}`}>
               <ResponsiveTableCell label="Name">{name}</ResponsiveTableCell>
               <ResponsiveTableCell label="Type">
-                <code>{type}</code>
+                <CodeHighlight code={type} language="typescript" />
               </ResponsiveTableCell>
               <ResponsiveTableCell label="Description">
                 {!isOptional && (
