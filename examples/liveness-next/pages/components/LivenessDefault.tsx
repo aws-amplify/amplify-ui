@@ -6,28 +6,28 @@ import { GetLivenessResultCard } from './GetLivenessResultCard';
 export default function LivenessDefault() {
   const {
     getLivenessResponse,
-    startLivenessApiError,
-    startLivenessApiData,
-    startLivenessApiLoading,
+    createLivenessSessionApiError,
+    createLivenessSessionApiData,
+    createLivenessSessionApiLoading,
     handleGetLivenessDetection,
     stopLiveness,
   } = useLiveness();
 
-  if (startLivenessApiError) {
+  if (createLivenessSessionApiError) {
     return <div>Some error occured...</div>;
   }
 
   return (
     <div style={{ marginTop: '1rem' }}>
-      {startLivenessApiLoading ? (
+      {createLivenessSessionApiLoading ? (
         'Loading...'
       ) : (
         <div>
-          <SessionIdAlert sessionId={startLivenessApiData.sessionId} />
+          <SessionIdAlert sessionId={createLivenessSessionApiData.sessionId} />
 
           <LivenessFlow
-            sessionId={startLivenessApiData.sessionId}
-            clientActionDocument={startLivenessApiData.clientActionDocument}
+            sessionId={createLivenessSessionApiData.sessionId}
+            sessionInformation={createLivenessSessionApiData.sessionInformation}
             onGetLivenessDetection={handleGetLivenessDetection}
             onExit={stopLiveness}
             enableAnalytics={true}

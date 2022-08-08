@@ -43,8 +43,8 @@ describe('Liveness Machine', () => {
 
   const mockFlowProps: LivenessFlowProps = {
     sessionId: 'some-sessionId',
-    clientActionDocument:
-      '{"ovalScaleFactor":{"width":0.99128836,"centerX":0.6928889,"centerY":0.35304242}}',
+    sessionInformation:
+      '{"challenge":{"faceMovementAndLightChallenge":{"ovalScaleFactors":{"width":0.24718577,"centerX":0.98700607,"centerY":0.7975547}}}}',
     onGetLivenessDetection: jest.fn(),
     onError: jest.fn(),
     onExit: jest.fn(),

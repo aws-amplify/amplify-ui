@@ -8,17 +8,16 @@ export interface OvalScaleFactors {
   centerY: number;
 }
 
-export interface FaceMovementClientChallenge {
+export interface FaceMovementAndLightChallenge {
   ovalScaleFactors: OvalScaleFactors;
 }
 
 export interface ClientChallenge {
-  type: ChallengeType;
-  faceMovementChallenge: FaceMovementClientChallenge;
+  faceMovementAndLightChallenge: FaceMovementAndLightChallenge;
 }
 
-export interface ClientActionDocument {
-  challenges: ClientChallenge[];
+export interface SessionInformation {
+  challenge: ClientChallenge;
 }
 
 export interface BoundingBoxWithSize {
