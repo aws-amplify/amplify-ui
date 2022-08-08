@@ -23,6 +23,7 @@ export function createAuthenticatorMachine() {
     {
       id: 'authenticator',
       initial: 'idle',
+      predictableActionArguments: true,
       context: {
         user: undefined,
         config: {},
