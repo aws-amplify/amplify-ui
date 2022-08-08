@@ -24,6 +24,7 @@ import { AmplifyButtonExampleComponent } from 'src/pages/ui/primitive-poc/button
 import { AmplifyViewExampleComponent } from 'src/pages/ui/primitive-poc/view/view.component';
 import { AmplifyTextFieldExampleComponent } from 'src/pages/ui/primitive-poc/text-field/text-field.component';
 import { AmplifyFlexExampleComponent } from 'src/pages/ui/primitive-poc/flex/flex.component';
+import { AmplifyIconExampleComponent } from 'src/pages/ui/primitive-poc/icon/icon.component';
 
 const routes: Routes = [
   {
@@ -125,6 +126,10 @@ const routes: Routes = [
   {
     path: 'ui/primitive-poc/flex',
     component: AmplifyFlexExampleComponent,
+  },
+  {
+    path: 'ui/primitive-poc/icon',
+    component: AmplifyIconExampleComponent,
   },
 ];
 
