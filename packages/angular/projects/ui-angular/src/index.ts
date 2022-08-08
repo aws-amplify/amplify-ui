@@ -21,6 +21,7 @@ export * from './lib/primitives-poc/button';
 export * from './lib/primitives-poc/view';
 export * from './lib/primitives-poc/text-field';
 export * from './lib/primitives-poc/phone-number';
+export * from './lib/primitives-poc/flex';
 
 /**
  * Helpers
