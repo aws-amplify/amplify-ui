@@ -5,10 +5,13 @@ import {
   ModalMessageComponent,
 } from '@aws-amplify/ui-react-core';
 
+import { BannerMessageProps } from '../BannerMessage';
+import { FullScreenMessageProps } from '../FullScreenMessage';
+
 // TODO: replace these incrementally as they become available
-type BannerStyle = any;
+type BannerStyle = BannerMessageProps['style'];
 type CarouselStyle = any;
-type FullScreenStyle = any;
+type FullScreenStyle = FullScreenMessageProps['style'];
 type ModalStyle = any;
 
 export interface MessageDefaultComponents {
