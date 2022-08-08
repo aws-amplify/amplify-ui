@@ -1,5 +1,17 @@
 # @aws-amplify/ui
 
+## 3.12.5
+
+### Patch Changes
+
+- [#2343](https://github.com/aws-amplify/amplify-ui/pull/2343) [`de1c874f2`](https://github.com/aws-amplify/amplify-ui/commit/de1c874f294a3b21cc9d7a97b310d2744d18b065) Thanks [@ErikCH](https://github.com/ErikCH)! - Added 'Dismiss alert' to the set of dictionary keys for the authenticator
+
+* [#2367](https://github.com/aws-amplify/amplify-ui/pull/2367) [`3c468a0f3`](https://github.com/aws-amplify/amplify-ui/commit/3c468a0f34fb8f747b925dd1a66a0f0f0117436a) Thanks [@joebuono](https://github.com/joebuono)! - fix(ui): Add missing Authenticator translations for all available languages
+
+- [#2347](https://github.com/aws-amplify/amplify-ui/pull/2347) [`1fcfa3c02`](https://github.com/aws-amplify/amplify-ui/commit/1fcfa3c02dc8eedb2acdc7425be7311f5b1accef) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - fix(ui-react): Fixes an issue where TextAreaField does not show line breaks properly in Firefox.
+
+* [#2371](https://github.com/aws-amplify/amplify-ui/pull/2371) [`adc9ff6e3`](https://github.com/aws-amplify/amplify-ui/commit/adc9ff6e3c7d1408edb7de58c1858ddc4f47d1c7) Thanks [@cshfang](https://github.com/cshfang)! - fix(ui-react): Fixes an issue where the isTruncated prop of the Heading component was not properly applying a truncation.
+
 ## 3.12.4
 
 ### Patch Changes

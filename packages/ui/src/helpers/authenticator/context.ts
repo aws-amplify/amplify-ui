@@ -4,12 +4,10 @@
 import includes from 'lodash/includes';
 
 import {
-  LoginMechanism,
   LoginMechanismArray,
   AuthContext,
   AuthMachineState,
 } from '../../types';
-import { defaultFormFieldOptions } from './constants';
 
 export const getPrimaryAlias = (state: AuthMachineState) => {
   const loginMechanisms = state?.context.config?.loginMechanisms;
