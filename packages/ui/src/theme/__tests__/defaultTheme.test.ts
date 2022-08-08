@@ -529,6 +529,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-rating-empty-color: var(--amplify-colors-background-tertiary);
         --amplify-components-searchfield-color: var(--amplify-components-fieldcontrol-color);
         --amplify-components-searchfield-button-color: var(--amplify-components-button-color);
+        --amplify-components-searchfield-button-background-color: var(--amplify-colors-background-primary);
         --amplify-components-searchfield-button-active-background-color: var(--amplify-components-button-active-background-color);
         --amplify-components-searchfield-button-active-border-color: var(--amplify-components-button-active-border-color);
         --amplify-components-searchfield-button-active-color: var(--amplify-components-button-active-color);
