@@ -11,7 +11,7 @@ on:
 
 jobs:
   test:
-    uses: ./.github/workflows/reusable-e2e.yml
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@in-app-messaging/main
     with:
       commit: ${{ github.sha }}
       repository: ${{ github.repository }}
