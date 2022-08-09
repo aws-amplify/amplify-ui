@@ -14,14 +14,15 @@ const $COMPONENT_SELECTOR: string = '[amplify-text-poc]';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
+
+/** Base primitive for property binding */
 export class AmplifyTextComponent extends AmplifyBasePrimitiveComponent {
   /** Input Prop for style changes  */
 
-  @Input() variation: boolean = false;
+  @Input() variation: string = 'primary';
   @HostBinding('data-variation') get getVariation() {
     return this.variation ? '' : null;
   }
-
   /** The classes to attach to the element. */
   @HostBinding('class')
   get elementClasses() {
@@ -29,9 +30,5 @@ export class AmplifyTextComponent extends AmplifyBasePrimitiveComponent {
       'amplify-text': true,
       [`amplify-text--${this.variation}`]: true,
     };
-  }
-
-  constructor() {
-    super();
   }
 }
