@@ -5,7 +5,7 @@ import {
   Input,
   ViewEncapsulation,
 } from '@angular/core';
-import { AmplifyBasePrimitiveComponent } from '../../base-primitive/base-primitive.component';
+import { AmplifyBasePrimitiveComponent } from '../../base-primitive/components/base-primitive.component';
 
 const $COMPONENT_SELECTOR: string = '[amplify-text-poc]';
 @Component({
