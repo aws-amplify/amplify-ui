@@ -1,10 +1,11 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
+import { Greeting } from '@env';
 
 const App = () => {
   return (
     <View style={style.container}>
-      <Text>Hello World!</Text>
+      <Text>{Greeting}</Text>
     </View>
   );
 };
