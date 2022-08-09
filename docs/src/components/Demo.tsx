@@ -43,13 +43,8 @@ export const Demo = ({
             {children}
           </View>
           <Divider
-            label="Props"
             margin="20px 0 0"
-            border={`2px solid ${tokens.colors.brand.primary[80]}`}
-            style={{
-              '--amplify-components-divider-label-color':
-                tokens.colors.brand.primary[80],
-            }}
+            border={`2px solid ${tokens.colors.border.secondary}`}
           />
           {propControls && (
             <View padding={`${tokens.space.medium} 0`}>{propControls}</View>
