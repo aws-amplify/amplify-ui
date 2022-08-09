@@ -67,10 +67,9 @@
     }
     &--horizontal {
       max-width: 15%;
-      width: 100%;
+      min-width: 15%;
     }
     &--vertical {
-      height: 100%;
       max-height: 40%;
       min-height: 40%;
     }

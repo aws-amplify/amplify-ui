@@ -5,6 +5,11 @@ import {
   SpaceValue,
 } from '../types/designToken';
 
+interface BannerTokens {
+  height: DesignToken<SpaceValue>;
+  width: DesignToken<SpaceValue>;
+}
+
 interface DialogTokens {
   height: DesignToken<SpaceValue>;
   minHeight: DesignToken<SpaceValue>;
@@ -18,11 +23,16 @@ interface HeaderTokens {
 }
 
 export interface InAppMessagingTokens {
+  banner: BannerTokens;
   dialog: DialogTokens;
   header: HeaderTokens;
 }
 
 export const inappmessaging: InAppMessagingTokens = {
+  banner: {
+    height: { value: '100px ' },
+    width: { value: '400px ' },
+  },
   dialog: {
     height: { value: '50vh' },
     minHeight: { value: '400px' },
