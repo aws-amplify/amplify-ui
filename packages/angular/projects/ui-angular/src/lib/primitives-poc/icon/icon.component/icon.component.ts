@@ -18,9 +18,13 @@ export class AmplifyIconComponent extends AmplifyBasePrimitiveComponent {
   /** Input Prop for style changes  */
 
   @Input() pathData: string;
-  @Input() viewBox: { width: number; height: number };
-  get getViewBox() {
-    return '0 0 24 24';
+  @Input() viewBoxValue: string = '';
+
+  public _viewBox: string = '';
+  @Input()
+  public set viewBox(viewBox: string) {
+    let viewBoxObj = JSON.parse(viewBox);
+    this._viewBox = ' 0 0 ' + viewBoxObj.width + ' ' + viewBoxObj.height;
   }
 
   constructor() {

@@ -1,9 +1,10 @@
-<div style="overflow: auto; padding: 5px">
-  <svg
-    aria-label="search"
-    class="amplify-icon icon-demo-search"
-    viewBox="0 0 24 24"
-  >
-    <path [attr.d]="pathData" fill="currentColor"></path>
-  </svg>
-</div>
+<svg
+  [attr.aria-label]="ariaLabel"
+  class="amplify-icon"
+  [attr.viewBox]="_viewBox"
+  [style.width]="width"
+  [style.height]="height"
+  [style.color]="color"
+>
+  <path [attr.d]="pathData" fill="currentColor"></path>
+</svg>
