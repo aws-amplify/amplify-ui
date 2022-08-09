@@ -19,7 +19,7 @@ import {
 } from '../../types';
 import {
   ChallengeType,
-  LivenessActionDocument,
+  ClientSessionInformationEvent,
 } from '../../types/liveness/liveness-service-types';
 import {
   BlazeFaceFaceDetection,
@@ -163,7 +163,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             },
           },
           flashFreshnessColors: {
-            entry: ['cancelOvalMatchTimeout'],
             invoke: {
               src: 'flashColors',
               onDone: {
@@ -173,7 +172,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             },
           },
           success: {
-            entry: ['stopRecording'],
+            entry: ['stopRecording', 'cancelOvalMatchTimeout'],
             type: 'final',
           },
         },
@@ -399,7 +398,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       sendTimeoutAfterOvalMatchDelay: actions.send(
         { type: 'TIMEOUT' },
         {
-          delay: 5000,
+          delay: 7000,
           id: 'ovalMatchTimeout',
         }
       ),
@@ -705,7 +704,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             if (
               shouldChangeColorStage(
                 timeSinceLastColorChange,
-                colorStages[colorStageIndex],
+                colorStages[colorStageIndex][0],
+                colorStages[colorStageIndex][1],
                 flatDuration,
                 scrollingDuration
               )
@@ -785,40 +785,37 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
         const flippedInitialFaceLeft =
           width - initialFace.left - initialFace.width;
-        const livenessActionDocument: LivenessActionDocument = {
+        const livenessActionDocument: ClientSessionInformationEvent = {
           deviceInformation: {
             videoHeight: height,
             videoWidth: width,
           },
-          challenges: [
-            {
-              type: ChallengeType.FACE_MOVEMENT,
-              faceMovementChallenge: {
-                challengeId,
-                initialFacePosition: {
-                  height: initialFace.height,
-                  width: initialFace.width,
-                  top: initialFace.top,
-                  left: flippedInitialFaceLeft,
-                },
-                targetFacePosition: {
-                  height: ovalDetails.height,
-                  width: ovalDetails.width,
-                  top: ovalDetails.centerY - ovalDetails.height / 2,
-                  left: ovalDetails.centerX - ovalDetails.width / 2,
-                },
-                recordingTimestamps: {
-                  videoStart: recordingStartTimestampMs,
-                  initialFaceDetected: initialFace.timestampMs,
-                  faceDetectedInTargetPositionStart: startFace.timestampMs,
-                  faceDetectedInTargetPositionEnd: endFace.timestampMs,
-                },
-                colorSequence: {
-                  colorTimestampList: [],
-                },
+          challenge: {
+            faceMovementAndLightChallenge: {
+              challengeId,
+              initialFacePosition: {
+                height: initialFace.height,
+                width: initialFace.width,
+                top: initialFace.top,
+                left: flippedInitialFaceLeft,
+              },
+              targetFacePosition: {
+                height: ovalDetails.height,
+                width: ovalDetails.width,
+                top: ovalDetails.centerY - ovalDetails.height / 2,
+                left: ovalDetails.centerX - ovalDetails.width / 2,
+              },
+              recordingTimestamps: {
+                videoStart: recordingStartTimestampMs,
+                initialFaceDetected: initialFace.timestampMs,
+                faceDetectedInTargetPositionStart: startFace.timestampMs,
+                faceDetectedInTargetPositionEnd: endFace.timestampMs,
+              },
+              colorSequence: {
+                colorTimestampList: [],
               },
             },
-          ],
+          },
         };
 
         context.livenessStreamProvider.sendClientInfo(livenessActionDocument);

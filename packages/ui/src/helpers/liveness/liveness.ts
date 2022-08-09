@@ -476,14 +476,15 @@ function fillFractionalContext(ctx, prevColor, nextColor, fraction) {
 // Or if we have been downscrolling for more than 300 ms then increment the colorPermutationInd
 export function shouldChangeColorStage(
   timeSinceLastColorChange: number,
-  colorPermutation: number[],
+  prevColor: string,
+  scrollingColor: string,
   flatDuration: number,
   scrollingDuration: number
 ) {
   return (
     (timeSinceLastColorChange >= flatDuration &&
-      colorPermutation[0] === colorPermutation[1]) ||
+      prevColor === scrollingColor) ||
     (timeSinceLastColorChange >= scrollingDuration &&
-      colorPermutation[0] !== colorPermutation[1])
+      prevColor !== scrollingColor)
   );
 }

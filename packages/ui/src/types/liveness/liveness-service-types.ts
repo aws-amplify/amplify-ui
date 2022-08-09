@@ -46,6 +46,17 @@ export enum Color {
   VIOLET = 'rgb(255, 0, 255)', // violet
 }
 
+export enum FreshnessColor {
+  BLACK = 'rgb_0_0_0',
+  BLUE = 'rgb_0_0_255',
+  CYAN = 'rgb_0_255_255',
+  LIME = 'rgb_0_255_0',
+  RED = 'rgb_255_0_0',
+  VIOLET = 'rgb_255_0_255',
+  WHITE = 'rgb_255_255_255',
+  YELLOW = 'rgb_255_255_0',
+}
+
 export interface ColorSequence {
   colorTimestampList: ColorTimestamp[];
 }
@@ -55,7 +66,7 @@ export interface ColorTimestamp {
   timestamp: number;
 }
 
-export interface FaceMovementServerChallenge {
+export interface FaceMovementAndLightChallenge {
   challengeId: string;
   initialFacePosition: BoundingBoxWithSize;
   targetFacePosition: BoundingBoxWithSize;
@@ -64,8 +75,7 @@ export interface FaceMovementServerChallenge {
 }
 
 export interface ServerChallenge {
-  type: ChallengeType;
-  faceMovementChallenge: FaceMovementServerChallenge;
+  faceMovementAndLightChallenge: FaceMovementAndLightChallenge;
 }
 
 export interface DeviceInformation {
@@ -73,7 +83,7 @@ export interface DeviceInformation {
   videoWidth: number;
 }
 
-export interface LivenessActionDocument {
+export interface ClientSessionInformationEvent {
   deviceInformation: DeviceInformation;
-  challenges: ServerChallenge[];
+  challenge: ServerChallenge;
 }
