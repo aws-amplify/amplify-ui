@@ -3,6 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import {
   AmplifyAuthenticatorModule,
+  AmplifyTextModule,
   AmplifyPasswordFieldModule,
   AmplifyTextFieldModule,
 } from '@aws-amplify/ui-angular';
@@ -37,6 +38,7 @@ import {
 } from '@aws-amplify/ui-angular';
 import { AmplifyButtonExampleComponent } from 'src/pages/ui/primitive-poc/button/button.component';
 import { AmplifyViewExampleComponent } from 'src/pages/ui/primitive-poc/view/view.component';
+import { AmplifyTextExampleComponent } from 'src/pages/ui/primitive-poc/text/text.component';
 import { AmplifyTextFieldExampleComponent } from 'src/pages/ui/primitive-poc/text-field/text-field.component';
 import { AmplifyPasswordFieldExampleComponent } from 'src/pages/ui/primitive-poc/password-field/password-field.component';
 import { AmplifyFlexExampleComponent } from 'src/pages/ui/primitive-poc/flex/flex.component';
@@ -70,6 +72,7 @@ import { AmplifyFlexExampleComponent } from 'src/pages/ui/primitive-poc/flex/fle
     AmplifyTextFieldExampleComponent,
     AmplifyPasswordFieldExampleComponent,
     AmplifyFlexExampleComponent,
+    AmplifyTextExampleComponent,
   ],
   imports: [
     BrowserModule,
@@ -81,6 +84,7 @@ import { AmplifyFlexExampleComponent } from 'src/pages/ui/primitive-poc/flex/fle
     AmplifyTextFieldModule,
     AmplifyPasswordFieldModule,
     AmplifyFlexModule,
+    AmplifyTextModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
