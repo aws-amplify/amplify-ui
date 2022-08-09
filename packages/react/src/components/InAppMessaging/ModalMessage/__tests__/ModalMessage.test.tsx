@@ -18,7 +18,7 @@ const TEST_PROPS: ModalMessageProps = { layout: 'MODAL' };
 const mockUseMessageProps = useMessageProps as jest.Mock;
 const mockUseBreakpointValue = useBreakpointValue as jest.Mock;
 
-describe('FullScreenMessage component', () => {
+describe('ModalMessage component', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     mockUseMessageProps.mockReturnValue({
