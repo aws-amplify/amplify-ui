@@ -1,6 +1,13 @@
 import { createMachine, assign, actions } from 'xstate';
 import adapter from 'webrtc-adapter';
-import { LivenessPredictionsProvider } from '../../helpers/liveness/liveness-predictions-provider';
+import {
+  fillOverlayCanvasFractional,
+  shouldChangeColorStage,
+} from '../../helpers/liveness/liveness';
+import {
+  ColorArr,
+  getShortCp2Permutations,
+} from '../../helpers/liveness/liveness';
 
 import {
   Face,
@@ -12,7 +19,7 @@ import {
 } from '../../types';
 import {
   ChallengeType,
-  LivenessActionDocument,
+  ClientSessionInformationEvent,
 } from '../../types/liveness/liveness-service-types';
 import {
   BlazeFaceFaceDetection,
@@ -20,24 +27,28 @@ import {
   getFaceMatchStateInLivenessOval,
   getRandomLivenessOvalDetails,
   LivenessStreamProvider,
+  LivenessPredictionsProvider,
   VideoRecorder,
   estimateIllumination,
   recordLivenessAnalyticsEvent,
   LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
   isCameraDeviceVirtual,
 } from '../../helpers';
+import { v4 } from 'uuid';
 
 export const MIN_FACE_MATCH_COUNT = 5;
 
 // timer metrics variables
 let faceDetectedTimestamp: number;
 let ovalDrawnTimestamp: number;
+let freshnessColorFlashedTimestamp: number;
 
 export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
   {
     id: 'livenessMachine',
     initial: 'start',
     context: {
+      challengeId: v4(),
       maxFailedAttempts: 3,
       failedAttempts: 0,
       flowProps: undefined,
@@ -51,6 +62,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         startFace: undefined,
         endFace: undefined,
       },
+      freshnessColorAssociatedParams: undefined,
       errorState: null,
       livenessStreamProvider: undefined,
     },
@@ -135,7 +147,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           checkMatch: {
             after: {
               0: {
-                target: 'success',
+                target: 'flashFreshnessColors',
                 cond: 'hasFaceMatchedInOvalWithMinCount',
                 actions: 'updateEndFaceMatch',
               },
@@ -147,6 +159,15 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               100: {
                 target: 'ovalMatching',
                 actions: 'resetFaceMatchCountAndStartFace',
+              },
+            },
+          },
+          flashFreshnessColors: {
+            invoke: {
+              src: 'flashColors',
+              onDone: {
+                target: 'success',
+                actions: 'setFreshnessColorsSuccess',
               },
             },
           },
@@ -260,6 +281,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           videoEl: event.data?.videoEl,
           canvasEl: event.data?.canvasEl,
         }),
+        freshnessColorAssociatedParams: (context, event) => ({
+          ...context.freshnessColorAssociatedParams,
+          freshnessColorEl: event.data?.freshnessColorEl,
+        }),
       }),
       startRecording: assign({
         videoAssociatedParams: (context) => {
@@ -275,8 +300,14 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           );
           recorder.start(100);
 
-          context.livenessStreamProvider.videoRecorder.start(100);
-          context.livenessStreamProvider.streamLivenessVideo();
+          if (
+            context.livenessStreamProvider.videoRecorder &&
+            context.livenessStreamProvider.videoRecorder.getState() !==
+              'recording'
+          ) {
+            context.livenessStreamProvider.videoRecorder.start(100);
+            context.livenessStreamProvider.streamLivenessVideo();
+          }
 
           return {
             ...context.videoAssociatedParams,
@@ -348,6 +379,12 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       clearErrorState: assign({
         errorState: (_) => null,
       }),
+      setFreshnessColorsSuccess: assign({
+        freshnessColorAssociatedParams: (context) => ({
+          ...context.freshnessColorAssociatedParams,
+          freshnessColorsShown: true,
+        }),
+      }),
 
       // timeouts
       sendTimeoutAfterOvalDrawingDelay: actions.send(
@@ -361,7 +398,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       sendTimeoutAfterOvalMatchDelay: actions.send(
         { type: 'TIMEOUT' },
         {
-          delay: 5000,
+          delay: 7000,
           id: 'ovalMatchTimeout',
         }
       ),
@@ -633,9 +670,106 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
         return { faceMatchState, illuminationState, detectedFace };
       },
+      async flashColors(context) {
+        const {
+          challengeId,
+          livenessStreamProvider,
+          freshnessColorAssociatedParams: { freshnessColorEl },
+          ovalAssociatedParams: { ovalDetails },
+          videoAssociatedParams: { canvasEl },
+        } = context;
+
+        freshnessColorEl.hidden = false;
+
+        await new Promise((resolve) => {
+          const colorStages = getShortCp2Permutations(ColorArr);
+
+          const tickRate = 10; // ms -- the rate at which we will render/check colors
+          const flatDuration = 100; // ms -- the length of time to show a flat color
+          const scrollingDuration = 300; // ms -- the length of time it should take for a color to scroll down
+
+          let colorStageIndex = 0; // stage of the color permutation
+          let prevColorStageIndex = undefined; // previous stage
+          let timeLastColorIndChanged = Date.now();
+          let expectedCallTime = Date.now() + tickRate;
+
+          const selfAdjustingInterval = () => {
+            const tickStartTime = Date.now();
+            const drift = tickStartTime - expectedCallTime;
+            const timeSinceLastColorChange =
+              tickStartTime - timeLastColorIndChanged;
+
+            // Every 10 ms tick we will check if we have reached the threshold for showing a color
+            // If we have we will increment the color stage
+            if (
+              shouldChangeColorStage(
+                timeSinceLastColorChange,
+                colorStages[colorStageIndex][0],
+                colorStages[colorStageIndex][1],
+                flatDuration,
+                scrollingDuration
+              )
+            ) {
+              colorStageIndex += 1;
+              timeLastColorIndChanged = Date.now();
+            }
+
+            // Continue looping until we have completed colorStages
+            if (colorStageIndex < colorStages.length) {
+              const [prevColorIdx, scrollingColorIdx] =
+                colorStages[colorStageIndex];
+              const hp = timeSinceLastColorChange / scrollingDuration;
+
+              const currentScrollingColor = ColorArr[scrollingColorIdx];
+
+              fillOverlayCanvasFractional({
+                overlayCanvas: freshnessColorEl,
+                prevColor: ColorArr[prevColorIdx],
+                nextColor: currentScrollingColor,
+                ovalCanvas: canvasEl,
+                ovalDetails,
+                heightFraction: hp,
+              });
+
+              // Send clientInfo when a new color starts appears
+              if (colorStageIndex !== prevColorStageIndex) {
+                prevColorStageIndex = colorStageIndex;
+                livenessStreamProvider.sendClientInfo({
+                  challenges: [
+                    {
+                      challengeId,
+                      faceMovementChallenge: {
+                        colorSequence: {
+                          colorTimestampList: [
+                            {
+                              color: currentScrollingColor,
+                              tickStartTime,
+                            },
+                          ],
+                        },
+                      },
+                    },
+                  ],
+                });
+              }
+
+              expectedCallTime += tickRate;
+              setTimeout(
+                selfAdjustingInterval,
+                Math.min(tickRate, tickRate - drift)
+              );
+            } else {
+              freshnessColorEl.hidden = true;
+              resolve(true);
+            }
+          };
+          setTimeout(selfAdjustingInterval, tickRate); // initial call
+        });
+      },
       async putLivenessVideo(context) {
         const startPutLivenessVideoTime = Date.now();
         const {
+          challengeId,
           flowProps: { sessionId, onGetLivenessDetection },
           videoAssociatedParams: {
             videoRecorder,
@@ -651,41 +785,42 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
         const flippedInitialFaceLeft =
           width - initialFace.left - initialFace.width;
-        const livenessActionDocument: LivenessActionDocument = {
+        const livenessActionDocument: ClientSessionInformationEvent = {
           deviceInformation: {
             videoHeight: height,
             videoWidth: width,
           },
-          challenges: [
-            {
-              type: ChallengeType.FACE_MOVEMENT,
-              faceMovementChallenge: {
-                initialFacePosition: {
-                  height: initialFace.height,
-                  width: initialFace.width,
-                  top: initialFace.top,
-                  left: flippedInitialFaceLeft,
-                },
-                targetFacePosition: {
-                  height: ovalDetails.height,
-                  width: ovalDetails.width,
-                  top: ovalDetails.centerY - ovalDetails.height / 2,
-                  left: ovalDetails.centerX - ovalDetails.width / 2,
-                },
-                recordingTimestamps: {
-                  videoStart: recordingStartTimestampMs,
-                  initialFaceDetected: initialFace.timestampMs,
-                  faceDetectedInTargetPositionStart: startFace.timestampMs,
-                  faceDetectedInTargetPositionEnd: endFace.timestampMs,
-                },
+          challenge: {
+            faceMovementAndLightChallenge: {
+              challengeId,
+              initialFacePosition: {
+                height: initialFace.height,
+                width: initialFace.width,
+                top: initialFace.top,
+                left: flippedInitialFaceLeft,
+              },
+              targetFacePosition: {
+                height: ovalDetails.height,
+                width: ovalDetails.width,
+                top: ovalDetails.centerY - ovalDetails.height / 2,
+                left: ovalDetails.centerX - ovalDetails.width / 2,
+              },
+              recordingTimestamps: {
+                videoStart: recordingStartTimestampMs,
+                initialFaceDetected: initialFace.timestampMs,
+                faceDetectedInTargetPositionStart: startFace.timestampMs,
+                faceDetectedInTargetPositionEnd: endFace.timestampMs,
+              },
+              colorSequence: {
+                colorTimestampList: [],
               },
             },
-          ],
+          },
         };
 
         context.livenessStreamProvider.sendClientInfo(livenessActionDocument);
 
-        await context.livenessStreamProvider.endStream();
+        context.livenessStreamProvider.endStream();
 
         // Put liveness video
         const provider = new LivenessPredictionsProvider();

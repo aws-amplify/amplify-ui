@@ -14,6 +14,7 @@ export interface LivenessContext {
   maxFailedAttempts: number;
   failedAttempts: number;
   flowProps: LivenessFlowProps;
+  challengeId: string;
   videoAssociatedParams: {
     videoConstraints: MediaTrackConstraints;
     videoEl: HTMLVideoElement;
@@ -34,6 +35,10 @@ export interface LivenessContext {
     currentDetectedFace: Face;
     startFace: Face;
     endFace: Face;
+  };
+  freshnessColorAssociatedParams: {
+    freshnessColorEl: HTMLCanvasElement;
+    freshnessColorsShown: boolean;
   };
   errorState: LivenessErrorState | null;
   livenessStreamProvider: LivenessStreamProvider;
