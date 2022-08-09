@@ -19,7 +19,14 @@ const $COMPONENT_SELECTOR: string = '[amplify-text-poc]';
 export class AmplifyTextComponent extends AmplifyBasePrimitiveComponent {
   /** Input Prop for style changes  */
 
-  @Input() variation: string = 'primary';
+  @Input() variation:
+    | 'primary'
+    | 'secondary'
+    | 'tertiary'
+    | 'error'
+    | 'warning'
+    | 'info'
+    | 'success' = 'primary';
   @HostBinding('data-variation') get getVariation() {
     return this.variation ? '' : null;
   }
