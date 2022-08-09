@@ -16,7 +16,7 @@ jest.mock('../../MessageLayout', () => ({
   MessageLayout: () => 'MessageLayout',
 }));
 
-const TEST_PROPS: FullScreenMessageProps = { layout: 'TOP_BANNER' };
+const TEST_PROPS: FullScreenMessageProps = { layout: 'FULL_SCREEN' };
 
 const mockUseMessageProps = useMessageProps as jest.Mock;
 const mockUseBreakpointValue = useBreakpointValue as jest.Mock;
