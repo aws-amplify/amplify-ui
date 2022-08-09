@@ -1,12 +1,12 @@
+import { render, screen, fireEvent } from '@testing-library/angular';
 import { CheckboxComponent } from './checkbox.component';
 
 describe('CheckboxComponent', () => {
-  let fixture: CheckboxComponent;
+  test('should render counter', async () => {
+    await render(CheckboxComponent, {
+      componentProperties: { isChecked: true },
+    });
 
-  beforeEach(() => {
-    fixture = new CheckboxComponent();
-  });
-  it('Default checkbox behaviour -> ', () => {
-    expect(fixture.isChecked).toEqual(false);
+    //expect(screen.getByText(false)).toBeInTheDocument()
   });
 });
