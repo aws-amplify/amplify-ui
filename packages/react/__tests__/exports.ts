@@ -2,9 +2,9 @@ import { PrimitiveCatalog } from '@aws-amplify/ui-react/internal';
 
 // Jest doesn't support `exports` maps, so we have to reference `dist` directly.
 // See: https://github.com/facebook/jest/issues/9771
-import * as exported from '../dist';
-import * as legacy from '../dist/legacy';
-import * as internal from '../dist/internal';
+import * as exported from '../src';
+import * as legacy from '../src/legacy';
+import * as internal from '../src/internal';
 
 describe('@aws-amplify/ui-react', () => {
   describe('exports', () => {
@@ -92,7 +92,7 @@ describe('@aws-amplify/ui-react', () => {
 describe('@aws-amplify/ui-react/legacy', () => {
   describe('exports', () => {
     it('should match snapshot', () => {
-      expect(Object.keys(legacy)).toMatchInlineSnapshot(`
+      expect(Object.keys(legacy).sort()).toMatchInlineSnapshot(`
         Array [
           "AmplifyAuthenticator",
           "AmplifyChatbot",
@@ -115,16 +115,19 @@ describe('@aws-amplify/ui-react/legacy', () => {
 describe('@aws-amplify/ui-react/internal', () => {
   describe('exports', () => {
     it('should match snapshot', () => {
-      expect(Object.keys(internal)).toMatchInlineSnapshot(`
+      expect(Object.keys(internal).sort()).toMatchInlineSnapshot(`
         Array [
           "IconAdd",
           "IconCheck",
           "IconCheckCircle",
+          "IconCheckCircleOutline",
           "IconChevronLeft",
           "IconChevronRight",
           "IconClose",
           "IconError",
           "IconExpandMore",
+          "IconFiberManualRecord",
+          "IconHighlightOff",
           "IconIndeterminate",
           "IconInfo",
           "IconMenu",
@@ -134,9 +137,6 @@ describe('@aws-amplify/ui-react/internal', () => {
           "IconVisibility",
           "IconVisibilityOff",
           "IconWarning",
-          "IconCheckCircleOutline",
-          "IconFiberManualRecord",
-          "IconHighlightOff",
           "PrimitiveCatalog",
           "createDataStorePredicate",
           "findChildOverrides",
@@ -169,7 +169,7 @@ describe('primitive catalog', () => {
   );
 
   it('should match primitives list snapshot', () => {
-    expect(Object.keys(PrimitiveCatalog)).toMatchInlineSnapshot(`
+    expect(Object.keys(PrimitiveCatalog).sort()).toMatchInlineSnapshot(`
       Array [
         "Alert",
         "Badge",
@@ -206,8 +206,14 @@ describe('primitive catalog', () => {
         "SliderField",
         "StepperField",
         "SwitchField",
-        "Tabs",
         "TabItem",
+        "Table",
+        "TableBody",
+        "TableCell",
+        "TableFoot",
+        "TableHead",
+        "TableRow",
+        "Tabs",
         "Text",
         "TextAreaField",
         "TextField",
@@ -215,12 +221,6 @@ describe('primitive catalog', () => {
         "ToggleButtonGroup",
         "View",
         "VisuallyHidden",
-        "Table",
-        "TableBody",
-        "TableCell",
-        "TableFoot",
-        "TableHead",
-        "TableRow",
       ]
     `);
   });
