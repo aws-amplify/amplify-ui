@@ -9,82 +9,9 @@ import * as internal from '../src/internal';
 describe('@aws-amplify/ui-react', () => {
   describe('exports', () => {
     it('should match snapshot', () => {
-      expect(Object.keys(exported).sort()).toMatchInlineSnapshot(`
-        Array [
-          "Alert",
-          "AmplifyProvider",
-          "Authenticator",
-          "Badge",
-          "Button",
-          "ButtonGroup",
-          "Card",
-          "CheckboxField",
-          "Collection",
-          "ComponentClassNames",
-          "ComponentClassObject",
-          "ComponentPropsToStylePropsMap",
-          "ComponentPropsToStylePropsMapKeys",
-          "Divider",
-          "Expander",
-          "ExpanderItem",
-          "FieldGroupIcon",
-          "FieldGroupIconButton",
-          "Flex",
-          "Geocoder",
-          "Grid",
-          "Heading",
-          "Icon",
-          "Image",
-          "Link",
-          "Loader",
-          "LocationSearch",
-          "MapView",
-          "Menu",
-          "MenuButton",
-          "MenuItem",
-          "Pagination",
-          "PasswordField",
-          "PhoneNumberField",
-          "Placeholder",
-          "Radio",
-          "RadioGroupField",
-          "Rating",
-          "ScrollView",
-          "SearchField",
-          "SelectField",
-          "SliderField",
-          "StepperField",
-          "SwitchField",
-          "TabItem",
-          "Table",
-          "TableBody",
-          "TableCell",
-          "TableFoot",
-          "TableHead",
-          "TableRow",
-          "Tabs",
-          "Text",
-          "TextAreaField",
-          "TextField",
-          "ThemeProvider",
-          "ToggleButton",
-          "ToggleButtonGroup",
-          "View",
-          "VisuallyHidden",
-          "components",
-          "createTheme",
-          "defaultDarkModeOverride",
-          "defaultTheme",
-          "primitives",
-          "translations",
-          "useAmplify",
-          "useAuthenticator",
-          "useBreakpointValue",
-          "usePagination",
-          "useTheme",
-          "withAuthenticator",
-        ]
-      `);
+      const sortedExports = Object.keys(exported).sort();
+
+      expect(sortedExports).toMatchSnapshot();
     });
   });
 });
@@ -92,22 +19,9 @@ describe('@aws-amplify/ui-react', () => {
 describe('@aws-amplify/ui-react/legacy', () => {
   describe('exports', () => {
     it('should match snapshot', () => {
-      expect(Object.keys(legacy).sort()).toMatchInlineSnapshot(`
-        Array [
-          "AmplifyAuthenticator",
-          "AmplifyChatbot",
-          "AmplifyPhotoPicker",
-          "AmplifyPicker",
-          "AmplifyS3Album",
-          "AmplifyS3Image",
-          "AmplifyS3ImagePicker",
-          "AmplifyS3Text",
-          "AmplifyS3TextPicker",
-          "AmplifySignIn",
-          "AmplifySignOut",
-          "withAuthenticator",
-        ]
-      `);
+      const sortedLegacyExports = Object.keys(legacy).sort();
+
+      expect(sortedLegacyExports).toMatchSnapshot();
     });
   });
 });
@@ -115,47 +29,9 @@ describe('@aws-amplify/ui-react/legacy', () => {
 describe('@aws-amplify/ui-react/internal', () => {
   describe('exports', () => {
     it('should match snapshot', () => {
-      expect(Object.keys(internal).sort()).toMatchInlineSnapshot(`
-        Array [
-          "IconAdd",
-          "IconCheck",
-          "IconCheckCircle",
-          "IconCheckCircleOutline",
-          "IconChevronLeft",
-          "IconChevronRight",
-          "IconClose",
-          "IconError",
-          "IconExpandMore",
-          "IconFiberManualRecord",
-          "IconHighlightOff",
-          "IconIndeterminate",
-          "IconInfo",
-          "IconMenu",
-          "IconRemove",
-          "IconSearch",
-          "IconStar",
-          "IconVisibility",
-          "IconVisibilityOff",
-          "IconWarning",
-          "PrimitiveCatalog",
-          "createDataStorePredicate",
-          "findChildOverrides",
-          "getOverrideProps",
-          "getOverridesFromVariants",
-          "mergeVariantsAndOverrides",
-          "useAuth",
-          "useAuthSignOutAction",
-          "useDataStoreBinding",
-          "useDataStoreCollection",
-          "useDataStoreCreateAction",
-          "useDataStoreDeleteAction",
-          "useDataStoreItem",
-          "useDataStoreUpdateAction",
-          "useNavigateAction",
-          "useStateMutationAction",
-          "useStorageURL",
-        ]
-      `);
+      const sortedInternalExports = Object.keys(internal).sort();
+
+      expect(sortedInternalExports).toMatchSnapshot();
     });
   });
 });
@@ -169,59 +45,8 @@ describe('primitive catalog', () => {
   );
 
   it('should match primitives list snapshot', () => {
-    expect(Object.keys(PrimitiveCatalog).sort()).toMatchInlineSnapshot(`
-      Array [
-        "Alert",
-        "Badge",
-        "Button",
-        "ButtonGroup",
-        "Card",
-        "CheckboxField",
-        "Collection",
-        "Divider",
-        "Expander",
-        "ExpanderItem",
-        "FieldGroupIcon",
-        "FieldGroupIconButton",
-        "Flex",
-        "Grid",
-        "Heading",
-        "Icon",
-        "Image",
-        "Link",
-        "Loader",
-        "Menu",
-        "MenuButton",
-        "MenuItem",
-        "Pagination",
-        "PasswordField",
-        "PhoneNumberField",
-        "Placeholder",
-        "Radio",
-        "RadioGroupField",
-        "Rating",
-        "ScrollView",
-        "SearchField",
-        "SelectField",
-        "SliderField",
-        "StepperField",
-        "SwitchField",
-        "TabItem",
-        "Table",
-        "TableBody",
-        "TableCell",
-        "TableFoot",
-        "TableHead",
-        "TableRow",
-        "Tabs",
-        "Text",
-        "TextAreaField",
-        "TextField",
-        "ToggleButton",
-        "ToggleButtonGroup",
-        "View",
-        "VisuallyHidden",
-      ]
-    `);
+    const sortedPrimitiveCatalogExports = Object.keys(PrimitiveCatalog).sort();
+
+    expect(sortedPrimitiveCatalogExports).toMatchSnapshot();
   });
 });
