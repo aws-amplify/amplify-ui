@@ -1,6 +1,3 @@
-import fs from 'fs';
-import path from 'path';
-import type { PrimitiveCatalogType } from '../src/types/catalog';
 import { PrimitiveCatalog } from '@aws-amplify/ui-react/internal';
 
 // Jest doesn't support `exports` maps, so we have to reference `dist` directly.
@@ -12,18 +9,8 @@ import * as internal from '../dist/internal';
 describe('@aws-amplify/ui-react', () => {
   describe('exports', () => {
     it('should match snapshot', () => {
-      expect(Object.keys(exported)).toMatchInlineSnapshot(`
+      expect(Object.keys(exported).sort()).toMatchInlineSnapshot(`
         Array [
-          "createTheme",
-          "defaultDarkModeOverride",
-          "defaultTheme",
-          "translations",
-          "ComponentClassNames",
-          "ComponentClassObject",
-          "ComponentPropsToStylePropsMap",
-          "ComponentPropsToStylePropsMapKeys",
-          "View",
-          "useTheme",
           "Alert",
           "AmplifyProvider",
           "Authenticator",
@@ -33,6 +20,10 @@ describe('@aws-amplify/ui-react', () => {
           "Card",
           "CheckboxField",
           "Collection",
+          "ComponentClassNames",
+          "ComponentClassObject",
+          "ComponentPropsToStylePropsMap",
+          "ComponentPropsToStylePropsMapKeys",
           "Divider",
           "Expander",
           "ExpanderItem",
@@ -78,13 +69,19 @@ describe('@aws-amplify/ui-react', () => {
           "ThemeProvider",
           "ToggleButton",
           "ToggleButtonGroup",
+          "View",
           "VisuallyHidden",
           "components",
+          "createTheme",
+          "defaultDarkModeOverride",
+          "defaultTheme",
           "primitives",
+          "translations",
           "useAmplify",
           "useAuthenticator",
           "useBreakpointValue",
           "usePagination",
+          "useTheme",
           "withAuthenticator",
         ]
       `);
