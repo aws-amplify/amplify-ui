@@ -64,6 +64,7 @@ interface SwitchFieldTrackCheckedTokens {
 }
 
 export interface SwitchFieldTokens {
+  fontSize: DesignToken<FontSizeValue>;
   _disabled: SwitchFieldDisabledTokens;
   _focused: SwitchFieldFocusedTokens;
   large: SwitchFieldSizeTokens;
@@ -91,6 +92,7 @@ export const switchfield: SwitchFieldTokens = {
   },
 
   // Sizes
+  fontSize: { value: '{fontSizes.medium.value}' },
   large: {
     fontSize: { value: '{fontSizes.large.value}' },
   },

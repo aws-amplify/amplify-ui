@@ -256,6 +256,9 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-checkbox-icon-checked-opacity: var(--amplify-opacities-100);
         --amplify-components-checkbox-icon-checked-transform: scale(1);
         --amplify-components-checkbox-icon-checked-disabled-background-color: var(--amplify-colors-background-disabled);
+        --amplify-components-checkbox-icon-indeterminate-opacity: var(--amplify-opacities-100);
+        --amplify-components-checkbox-icon-indeterminate-transform: scale(1);
+        --amplify-components-checkbox-icon-indeterminate-disabled-background-color: var(--amplify-colors-background-disabled);
         --amplify-components-checkbox-label-disabled-color: var(--amplify-colors-font-disabled);
         --amplify-components-checkboxfield-align-items: flex-start;
         --amplify-components-checkboxfield-align-content: center;
@@ -560,6 +563,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-rating-empty-color: var(--amplify-colors-background-tertiary);
         --amplify-components-searchfield-color: var(--amplify-components-fieldcontrol-color);
         --amplify-components-searchfield-button-color: var(--amplify-components-button-color);
+        --amplify-components-searchfield-button-background-color: var(--amplify-colors-background-primary);
         --amplify-components-searchfield-button-active-background-color: var(--amplify-components-button-active-background-color);
         --amplify-components-searchfield-button-active-border-color: var(--amplify-components-button-active-border-color);
         --amplify-components-searchfield-button-active-color: var(--amplify-components-button-active-color);
@@ -585,6 +589,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-select-icon-wrapper-pointer-events: none;
         --amplify-components-select-option-background-color: var(--amplify-colors-background-primary);
         --amplify-components-select-option-color: var(--amplify-colors-font-primary);
+        --amplify-components-select-option-disabled-color: var(--amplify-colors-font-disabled);
         --amplify-components-select-white-space: nowrap;
         --amplify-components-select-min-width: 6.5rem;
         --amplify-components-select-small-min-width: 5.5rem;
@@ -641,6 +646,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-stepperfield-button-hover-background-color: var(--amplify-components-button-hover-background-color);
         --amplify-components-switchfield-disabled-opacity: var(--amplify-opacities-60);
         --amplify-components-switchfield-focused-shadow: 0px 0px 0px 2px var(--amplify-colors-border-focus);
+        --amplify-components-switchfield-font-size: var(--amplify-font-sizes-medium);
         --amplify-components-switchfield-large-font-size: var(--amplify-font-sizes-large);
         --amplify-components-switchfield-small-font-size: var(--amplify-font-sizes-small);
         --amplify-components-switchfield-label-padding: var(--amplify-space-xs);
