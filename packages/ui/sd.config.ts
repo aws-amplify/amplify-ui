@@ -34,10 +34,7 @@ StyleDictionary.extend({
           destination: 'dist/theme.css',
           // This filter function will remove any design tokens that are marked with a deprecatedStateToken flag
           filter: (token) => {
-            if (token.deprecatedStateToken) {
-              return false;
-            }
-            return true;
+            return !token.deprecatedStateToken;
           },
           format: 'css/variables',
           options: {

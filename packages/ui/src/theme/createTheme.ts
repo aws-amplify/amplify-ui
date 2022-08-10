@@ -117,7 +117,7 @@ export function createTheme(
         }
       });
 
-      //if the deprecated value exists and the nondeprecated value does not then copy the deprecated value over to the nondeprecated value
+      //if the deprecated value exists and the non-deprecated value does not then copy the deprecated value over to the non-deprecated value
       if (deprecatedThemeValue && deprecatedThemeValue.value && !themeValue) {
         let parseTheme = theme.tokens || {};
         targetPath.forEach((pathValue) => {
@@ -170,10 +170,7 @@ export function createTheme(
       const tokens = setupTokens(override.tokens);
       const customProperties = flattenProperties(tokens)
         .filter((token) => {
-          if (token.deprecatedStateToken) {
-            return false;
-          }
-          return true;
+          return !token.deprecatedStateToken;
         })
         .map((token) => `${token.name}: ${token.value};`)
         .join('\n');
