@@ -1,3 +1,3 @@
 declare module '@env' {
-  export const Greeting: string;
+  export const GREETING: string;
 }

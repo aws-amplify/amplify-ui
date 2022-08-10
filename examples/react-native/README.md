@@ -99,6 +99,16 @@ To include an Amplify UI package as a dependency add it to the `dependencies` fi
 
 > Only internal packages within the _packages_ directory are resolved in _metro.config.js_
 
+## Adding env variables
+
+Create `.env` file locally (see `.env.sample`) Android add your variable then also add it to `types/env.d.ts` to appease typescript.
+
+To use your env variable:
+
+```
+import { YOUR_ENV_VAR_HERE } from '@env';
+```
+
 ## Troubleshooting
 
 ### Cleaning the Metro Cache
