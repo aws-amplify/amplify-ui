@@ -84,10 +84,10 @@ export function createTheme(
 ): WebTheme {
   /*
 1. find path to deprecated values in baseTheme
-2. see if values exist in theme that match depricated paths from base
-3. determine undepricated path
-4. see if values in theme exist for undepricated paths
-5. if no value of undepricated exists then replace it with value of depricated
+2. see if values exist in theme that match deprecated paths from base
+3. determine non-deprecated path
+4. see if values in theme exist for non-deprecated paths
+5. if no value of non-deprecated exists then replace it with value of deprecated
  */
   if (theme) {
     let deprecated: pathObject[] = findDeprecatedStateTokens(baseTheme);
