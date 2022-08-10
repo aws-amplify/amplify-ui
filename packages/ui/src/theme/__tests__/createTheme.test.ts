@@ -101,6 +101,7 @@ describe('@aws-amplify/ui', () => {
       });
 
       it('should keep the passed in _hover value', () => {
+        // what is being tested here is that if both hover and _hover are passed in, then _hover will keep its value and not be overwritten by hover.
         const newTheme = createTheme({
           name: 'test-theme',
           tokens: {
@@ -122,6 +123,9 @@ describe('@aws-amplify/ui', () => {
         expect(
           tokens.components.pagination.button._hover.backgroundColor.value
         ).toEqual('#0099ff');
+        expect(
+          tokens.components.pagination.button.hover.backgroundColor.value
+        ).toEqual('#ff9900');
       });
     });
 

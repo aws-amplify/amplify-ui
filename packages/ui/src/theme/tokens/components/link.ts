@@ -21,10 +21,10 @@ export interface LinkTokens {
 }
 
 export const link: LinkTokens = {
+  color: { value: '{colors.font.interactive.value}' },
   active: {
     color: { value: '{colors.font.active.value}', deprecatedStateToken: true },
   },
-  color: { value: '{colors.font.interactive.value}' },
   focus: {
     color: { value: '{colors.font.focus.value}', deprecatedStateToken: true },
   },
