@@ -1,9 +1,8 @@
 import { Flex, Button } from '@aws-amplify/ui-react';
-import { capitalize } from 'lodash';
 import Link from 'next/link';
 
 import { useCustomRouter } from '@/components/useCustomRouter';
-import { FRAMEWORKS } from '@/data/frameworks';
+import { FRAMEWORKS, FRAMEWORK_DISPLAY_NAMES } from '@/data/frameworks';
 import metaData from '@/data/pages.preval';
 import { FrameworkLogo } from '@/components/Logo';
 
@@ -35,7 +34,7 @@ const FrameworkLink = ({
         isDisabled={isDisabled}
       >
         <FrameworkLogo framework={framework} className="docs-framework-img" />
-        {capitalize(framework)}
+        {FRAMEWORK_DISPLAY_NAMES[framework]}
       </Button>
     </Link>
   );

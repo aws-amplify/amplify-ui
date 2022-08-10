@@ -107,7 +107,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: ui.docs.amplify.aws
+Host: ${isProd ? 'ui.docs.amplify.aws' : 'dev.ui.docs.amplify.aws'}
 
 # Sitemaps
 Sitemap: ${process.env.SITE_URL ?? 'https://ui.docs.amplify.aws'}/sitemap.xml

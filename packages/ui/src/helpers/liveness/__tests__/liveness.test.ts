@@ -5,76 +5,29 @@ import {
   isCameraDeviceVirtual,
 } from '../liveness';
 import { Face, FaceMatchState, LivenessOvalDetails } from '../../../types';
-import {
-  ChallengeType,
-  ClientActionDocument,
-} from '../../../types/liveness/liveness-service-types';
+import { SessionInformation } from '../../../types/liveness/liveness-service-types';
 
 describe('Liveness Helper', () => {
   describe('getRandomScalingAttributes', () => {
-    it('should parse clientActionDocumnet and return oval scaling attributes', () => {
-      const testClientActionJSON: ClientActionDocument = {
-        challenges: [
-          {
-            type: ChallengeType.FACE_MOVEMENT,
-            faceMovementChallenge: {
-              ovalScaleFactors: {
-                width: 0.76,
-                centerX: 0.65,
-                centerY: 0.66,
-              },
+    it('should parse sessionInformation and return oval scaling attributes', () => {
+      const testSessionInfoJSON: SessionInformation = {
+        challenge: {
+          faceMovementAndLightChallenge: {
+            ovalScaleFactors: {
+              width: 0.76,
+              centerX: 0.65,
+              centerY: 0.66,
             },
           },
-        ],
+        },
       };
       const randomScalingAttributes = getRandomScalingAttributes(
-        JSON.stringify(testClientActionJSON)
+        JSON.stringify(testSessionInfoJSON)
       );
 
       expect(randomScalingAttributes.centerX).toBe(0.65);
       expect(randomScalingAttributes.centerY).toBe(0.66);
       expect(randomScalingAttributes.width).toBe(0.76);
-    });
-
-    it('should throw if challeng list is empty', () => {
-      const testClientActionJSON: ClientActionDocument = {
-        challenges: [],
-      };
-
-      expect(() => {
-        getRandomScalingAttributes(JSON.stringify(testClientActionJSON));
-      }).toThrow();
-    });
-
-    it('should throw if challeng list has more than one element', () => {
-      const testClientActionJSON: ClientActionDocument = {
-        challenges: [
-          {
-            type: ChallengeType.FACE_MOVEMENT,
-            faceMovementChallenge: {
-              ovalScaleFactors: {
-                width: 0.76,
-                centerX: 0.65,
-                centerY: 0.66,
-              },
-            },
-          },
-          {
-            type: ChallengeType.FACE_MOVEMENT,
-            faceMovementChallenge: {
-              ovalScaleFactors: {
-                width: 0.76,
-                centerX: 0.65,
-                centerY: 0.66,
-              },
-            },
-          },
-        ],
-      };
-
-      expect(() => {
-        getRandomScalingAttributes(JSON.stringify(testClientActionJSON));
-      }).toThrow();
     });
   });
 
@@ -86,20 +39,17 @@ describe('Liveness Helper', () => {
       left: 256.78488,
       timestampMs: Date.now(),
     };
-    const clientActionDocument = JSON.stringify({
-      challenges: [
-        {
-          type: ChallengeType.FACE_MOVEMENT,
-          faceMovementChallenge: {
-            ovalScaleFactors: {
-              width: 0.2751161,
-              centerX: 0.04077655,
-              centerY: 0.9716218,
-            },
+    const sessionInformation = JSON.stringify({
+      challenge: {
+        faceMovementAndLightChallenge: {
+          ovalScaleFactors: {
+            width: 0.2751161,
+            centerX: 0.04077655,
+            centerY: 0.9716218,
           },
         },
-      ],
-    } as ClientActionDocument);
+      },
+    } as SessionInformation);
 
     it('should return the correct oval details in landscape', () => {
       const width = 640;
@@ -116,7 +66,7 @@ describe('Liveness Helper', () => {
         width,
         height,
         initialFace,
-        clientActionDocument,
+        sessionInformation,
       });
 
       expect(actualOvalDetails).toEqual(expectedOvalDetails);
@@ -137,7 +87,7 @@ describe('Liveness Helper', () => {
         width,
         height,
         initialFace,
-        clientActionDocument,
+        sessionInformation,
       });
 
       expect(actualOvalDetails).toEqual(expectedOvalDetails);

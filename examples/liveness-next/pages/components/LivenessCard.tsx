@@ -7,16 +7,16 @@ export default function LivenessCard() {
   const {
     isLivenessActive,
     getLivenessResponse,
-    startLivenessApiError,
-    startLivenessApiData,
-    startLivenessApiLoading,
+    createLivenessSessionApiError,
+    createLivenessSessionApiData,
+    createLivenessSessionApiLoading,
     handleGetLivenessDetection,
-    handleStartLiveness,
+    handleCreateLivenessSession,
     handleUserExit,
     handleExit,
   } = useLiveness();
 
-  if (startLivenessApiError) {
+  if (createLivenessSessionApiError) {
     return <div>Some error occured...</div>;
   }
 
@@ -29,12 +29,14 @@ export default function LivenessCard() {
           justifyContent="center"
           gap={0}
         >
-          <SessionIdAlert sessionId={startLivenessApiData.sessionId} />
+          <SessionIdAlert sessionId={createLivenessSessionApiData.sessionId} />
 
           <Card variation="elevated" width={600} maxWidth="100%">
             <LivenessFlow
-              sessionId={startLivenessApiData.sessionId}
-              clientActionDocument={startLivenessApiData.clientActionDocument}
+              sessionId={createLivenessSessionApiData.sessionId}
+              sessionInformation={
+                createLivenessSessionApiData.sessionInformation
+              }
               onGetLivenessDetection={handleGetLivenessDetection}
               active={isLivenessActive}
               onExit={handleExit}
@@ -48,10 +50,10 @@ export default function LivenessCard() {
       ) : (
         <Button
           variation="primary"
-          onClick={handleStartLiveness}
-          disabled={startLivenessApiLoading}
+          onClick={handleCreateLivenessSession}
+          disabled={createLivenessSessionApiLoading}
         >
-          {startLivenessApiLoading ? 'Loading...' : 'Start Liveness'}
+          {createLivenessSessionApiLoading ? 'Loading...' : 'Start Liveness'}
         </Button>
       )}
     </div>

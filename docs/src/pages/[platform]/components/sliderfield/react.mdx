@@ -5,6 +5,7 @@ import {
   DefaultSliderFieldExample,
   ControlledSliderFieldExample,
   SliderFieldBasicsExample,
+  SliderFieldFormatValueExample,
   SliderFieldOrientationExample,
   SliderFieldAriaExample,
   SliderFieldIconsExample,
@@ -135,6 +136,19 @@ To add icons on either side of the SliderField, you may use the `outerStartCompo
   </ExampleCode>
 </Example>
 
+### Format value
+To format how the `value` is displayed, you can pass in a render function to `formatValue` prop.
+
+<Example>
+  <SliderFieldFormatValueExample />
+  <ExampleCode>
+  ```jsx file=./examples/SliderFieldFormatValueExample.tsx
+
+  ```
+
+  </ExampleCode>
+</Example>
+
 ### Validation error
 
 To validate the SliderField input, use the `hasError` and `errorMessage` props.
@@ -187,15 +201,6 @@ To override styling on all SliderField components, you can set the Amplify CSS v
   --amplify-components-sliderfield-range-background-color: var(
     --amplify-colors-orange-60
   );
-}
-```
-
-To replace SliderField styling, unset it:
-
-```css
-.amplify-sliderfield {
-  all: unset;
-  /* Add your styling here*/
 }
 ```
 

@@ -1,4 +1,5 @@
 import { Property } from 'csstype';
+import React from 'react';
 
 import { StyleToken } from './style';
 import { TextInputFieldProps } from './textField';
@@ -73,6 +74,12 @@ export interface SliderFieldProps extends TextInputFieldProps, ViewProps {
    * Sets the SliderField’s initial value on render
    */
   defaultValue?: number;
+
+  /**
+   * @description
+   * Use to format how the value gets rendered
+   */
+  formatValue?: (value: number) => React.ReactNode;
 
   /**
    * @description

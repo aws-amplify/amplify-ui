@@ -11,18 +11,42 @@ import {
 
 interface AlertIconProps {
   variation: AlertVariations;
+  ariaHidden?: boolean;
 }
 
-export const AlertIcon: React.FC<AlertIconProps> = ({ variation }) => {
+export const AlertIcon: React.FC<AlertIconProps> = ({
+  variation,
+  ariaHidden,
+}) => {
   switch (variation) {
     case 'info':
-      return <IconInfo className={ComponentClassNames.AlertIcon} />;
+      return (
+        <IconInfo
+          aria-hidden={ariaHidden}
+          className={ComponentClassNames.AlertIcon}
+        />
+      );
     case 'error':
-      return <IconError className={ComponentClassNames.AlertIcon} />;
+      return (
+        <IconError
+          aria-hidden={ariaHidden}
+          className={ComponentClassNames.AlertIcon}
+        />
+      );
     case 'warning':
-      return <IconWarning className={ComponentClassNames.AlertIcon} />;
+      return (
+        <IconWarning
+          aria-hidden={ariaHidden}
+          className={ComponentClassNames.AlertIcon}
+        />
+      );
     case 'success':
-      return <IconCheckCircle className={ComponentClassNames.AlertIcon} />;
+      return (
+        <IconCheckCircle
+          aria-hidden={ariaHidden}
+          className={ComponentClassNames.AlertIcon}
+        />
+      );
     default:
       return null;
   }

@@ -343,11 +343,7 @@ export function signInActor({ services }: SignInMachineOptions) {
               invoke: {
                 src: 'verifyTotpToken',
                 onDone: {
-                  actions: [
-                    'setUser',
-                    'clearChallengeName',
-                    'clearRequiredAttributes',
-                  ],
+                  actions: ['clearChallengeName', 'clearRequiredAttributes'],
                   target: '#signInActor.resolved',
                 },
                 onError: {

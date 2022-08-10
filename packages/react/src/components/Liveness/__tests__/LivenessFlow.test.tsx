@@ -9,7 +9,7 @@ jest.mock('../../../styles.css', () => ({}));
 describe('LivenessFlow', () => {
   const defaultProps: LivenessFlowProps = {
     sessionId: 'sessionId',
-    clientActionDocument: 'clientActionDocument',
+    sessionInformation: 'sessionInformation',
     onGetLivenessDetection: async () => {
       return { isLive: true };
     },
