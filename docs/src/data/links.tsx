@@ -126,7 +126,7 @@ export const connectedComponents = [
   {
     href: '/connected-components/authenticator/headless',
     label: 'Headless Usage',
-    platforms: ['react', 'vue', 'angular', 'flutter'],
+    platforms: ['react', 'vue', 'angular'],
     tertiary: true,
   },
   {
