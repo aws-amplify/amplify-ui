@@ -22,10 +22,6 @@ export function BannerMessage(props: BannerMessageProps): JSX.Element | null {
   const { alignment = 'right', position = 'top' } = props;
   const isCenterMiddle = alignment === 'center' && position === 'middle';
 
-  if (!shouldRenderMessage) {
-    return null;
-  }
-
   return (
     <Flex
       className={classNames(BLOCK_CLASS, {
