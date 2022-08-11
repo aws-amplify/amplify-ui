@@ -30,7 +30,11 @@ const DialCodeSelectPrimitive: Primitive<DialCodeSelectProps, 'select'> = (
         */
       aria-disabled={isReadOnly}
       autoComplete="tel-country-code"
-      className={classNames(ComponentClassNames.CountryCodeSelect, className)}
+      className={classNames(
+        ComponentClassNames.CountryCodeSelect,
+        ComponentClassNames.DialCodeSelect,
+        className
+      )}
       labelHidden={true}
       ref={ref}
       {...props}
