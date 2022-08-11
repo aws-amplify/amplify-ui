@@ -2,6 +2,8 @@
 
 ---
 
+Just some random code change to trigger PR checks.
+
 # Amplify UI
 
 [![GitHub](https://img.shields.io/github/license/aws-amplify/amplify-ui)](LICENSE)
