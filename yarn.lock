@@ -6464,6 +6464,11 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-native-dotenv@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@types/react-native-dotenv/-/react-native-dotenv-0.2.0.tgz#32c58422a422c1adf68acce363ed791314d5a8e7"
+  integrity sha512-ZxX+dU/yoQc0jTk+/NWttkiuXceJyN5FpOSqDl0WynN5GDzxwH7OMruQ47qcY8llo2RD3irjvzJ9BwC8gDiq0A==
+
 "@types/react-native@^0.67.3", "@types/react-native@^0.67.6":
   version "0.67.12"
   resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.67.12.tgz#bcb55fcdc1fa8136face21aeef5ba0728b7cdd6e"
@@ -21078,6 +21083,13 @@ react-native-codegen@^0.0.17:
     flow-parser "^0.121.0"
     jscodeshift "^0.13.1"
     nullthrows "^1.1.1"
+
+react-native-dotenv@^3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-dotenv/-/react-native-dotenv-3.4.0.tgz#697a3d119ab929c5977081e3bb7f6306b2209249"
+  integrity sha512-Z/pvS0QGSDHcxnUmJ/uHLgC1/DZL/UpKSOHp3mCKyV3vQd385CBahrEBca8pD3eabrsDjg8xO0uRxnRG3s1lbw==
+  dependencies:
+    dotenv "^16.0.0"
 
 react-native-get-random-values@^1.4.0:
   version "1.8.0"
