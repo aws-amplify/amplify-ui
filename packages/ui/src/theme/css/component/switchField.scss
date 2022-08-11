@@ -1,5 +1,6 @@
 .amplify-switchfield {
   display: inline-block;
+  font-size: var(--amplify-components-switchfield-font-size);
   &--small {
     font-size: var(--amplify-components-switchfield-small-font-size);
   }

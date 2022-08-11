@@ -4,6 +4,9 @@
   );
   &__search {
     color: var(--amplify-components-searchfield-button-color);
+    background-color: var(
+      --amplify-components-searchfield-button-background-color
+    );
     &:active {
       background-color: var(
         --amplify-components-button-active-background-color
