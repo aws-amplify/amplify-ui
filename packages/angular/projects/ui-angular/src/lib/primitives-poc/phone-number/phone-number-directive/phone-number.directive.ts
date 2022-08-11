@@ -1,7 +1,7 @@
 import { Directive, HostBinding, Input } from '@angular/core';
 import { nanoid } from 'nanoid';
 
-const $Directive_Selector = '[amplify-phone-number]';
+const $Directive_Selector = '[amplify-phone-number-input]';
 @Directive({
   selector: $Directive_Selector,
 })

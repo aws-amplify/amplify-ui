@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   templateUrl: 'phone-number.component.html',
 })
 export class AmplifyPhoneNumberFieldExampleComponent {
-  onCountryCodeChange(value: string) {
-    alert(' Selected value : ' + value);
-  }
+  /** This method will fire if we select the country code
+   * and give the selected country code. */
+  onCountryCodeChange(value: string) {}
 }

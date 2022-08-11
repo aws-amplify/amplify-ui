@@ -11,7 +11,7 @@ import { countryDialCodes } from '@aws-amplify/ui';
 import { nanoid } from 'nanoid';
 import { PhoneNumberDirective } from '../phone-number-directive/phone-number.directive';
 
-const $COMPONENT_SELECTOR: string = 'amplify-password-field';
+const $COMPONENT_SELECTOR: string = 'amplify-phone-number-field-poc';
 @Component({
   selector: $COMPONENT_SELECTOR,
   templateUrl: 'phone-number.component.html',

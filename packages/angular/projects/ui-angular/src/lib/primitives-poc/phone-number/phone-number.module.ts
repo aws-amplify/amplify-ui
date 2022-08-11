@@ -3,10 +3,7 @@ import { NgModule } from '@angular/core';
 import { AmplifyPhoneNumberFieldComponent } from './phone-number-component/phone-number.component';
 import { PhoneNumberDirective } from './phone-number-directive/phone-number.directive';
 
-let Components: any[] = [
-  AmplifyPhoneNumberFieldComponent,
-  PhoneNumberDirective,
-];
+const Components = [AmplifyPhoneNumberFieldComponent, PhoneNumberDirective];
 @NgModule({
   declarations: Components,
   imports: [CommonModule],
