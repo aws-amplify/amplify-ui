@@ -29,7 +29,7 @@ describe('PhoneNumberField primitive', () => {
         name: /phone number/i,
       }),
       $countryCodeSelector: await screen.findByRole('combobox', {
-        name: /country code/i,
+        name: /dial code/i,
       }),
     };
   };
@@ -185,8 +185,6 @@ describe('PhoneNumberField primitive', () => {
     const button = container.getElementsByTagName('button')[0];
     userEvent.click(button);
     expect(console.log).toHaveBeenCalledWith('+40 1234567');
-
-    console.log = originalLog;
   });
 
   describe('Using Dial Code', () => {
