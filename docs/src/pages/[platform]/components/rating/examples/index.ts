@@ -10,3 +10,4 @@ export { RatingStyleColorExample } from './RatingStyleColorExample';
 export { RatingStyleSizeExample } from './RatingStyleSizeExample';
 export { RatingSVGExample } from './RatingSVGExample';
 export { RatingValueExample } from './RatingValueExample';
+export { RatingThemeExample } from './RatingThemeExample';

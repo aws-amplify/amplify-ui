@@ -1,12 +1,25 @@
 ---
 title: Menu
-description: Menu provides an accessible, interactive menu for selecting actions within an application. Dropdown menu is collision-aware and will automatically change location based on available space.
+description: Menu provides a way for users to navigate and select actions within an application.
 ariaPattern: https://www.w3.org/WAI/ARIA/apg/patterns/menubutton/
 themeSource: packages/ui/src/theme/tokens/components/menu.ts
 reactSource: packages/react/src/primitives/Menu/Menu.tsx
+mdnUrl: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div
+htmlElement: div
 supportedFrameworks: react
 ---
 
 import { Fragment } from '@/components/Fragment';
+import { PageTabLayout } from "@/components/Layout/PageTabLayout"
 
-<Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+<PageTabLayout 
+  tabComponents={[{
+    title: "Documentation", 
+    children: <Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+  },
+  {
+    title: "Props", 
+    children: <Fragment>{({ platform }) => import('./props-table.mdx')}</Fragment>
+  }]}
+/>
+        

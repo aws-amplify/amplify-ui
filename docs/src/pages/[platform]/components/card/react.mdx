@@ -1,3 +1,4 @@
+import { Fragment } from '@/components/Fragment'; 
 import {
   Card,
   View,
@@ -8,9 +9,9 @@ import {
 } from '@aws-amplify/ui-react';
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
-import { ThemeAlert } from '@/components/ThemeAlert';
+import ThemeExample from '@/components/ThemeExample.mdx';
 
-import { CardDemo } from './demo.tsx';
+import { CardDemo } from './demo';
 import {
   DefaultCardExample,
   CardThemeExample,
@@ -72,25 +73,23 @@ The Card component renders as a `div` by default. You can change the HTML elemen
 
 ## Customization
 
+<ThemeExample component="Card">
+  <Example>
+    <CardThemeExample />
+    
+    <ExampleCode>
+
+    ```tsx file=./examples/CardThemeExample.tsx
+
+    ```
+
+    </ExampleCode>
+  </Example>
+</ThemeExample>
+
 ### Target classes
 
 <ComponentStyleDisplay componentName="Card" />
-
-### Theme
-
-<ThemeAlert />
-
-<Example>
-  <CardThemeExample />
-  
-  <ExampleCode>
-
-```jsx file=./examples/CardThemeExample.tsx
-
-```
-
-  </ExampleCode>
-</Example>
 
 ### CSS
 

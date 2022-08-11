@@ -1,6 +1,6 @@
-import { Flex, Button, ThemeProvider } from '@aws-amplify/ui-react';
+import { Button, Flex, ThemeProvider, Theme } from '@aws-amplify/ui-react';
 
-const theme = {
+const theme: Theme = {
   name: 'button-theme',
   tokens: {
     colors: {
@@ -12,12 +12,18 @@ const theme = {
     components: {
       button: {
         // this will affect the font weight of all button variants
-        fontWeight: { value: '{fontWeights.black.value}' },
+        fontWeight: { value: '{fontWeights.extrabold}' },
         // style the primary variation
         primary: {
-          backgroundColor: { value: 'rebeccapurple' },
+          backgroundColor: { value: '{colors.blue.60}' },
           _hover: {
-            backgroundColor: { value: 'hotpink' },
+            backgroundColor: { value: '{colors.blue.80}' },
+          },
+          _focus: {
+            backgroundColor: { value: '{colors.blue.80}' },
+          },
+          _active: {
+            backgroundColor: { value: '{colors.blue.90}' },
           },
         },
       },
@@ -26,11 +32,9 @@ const theme = {
 };
 
 export const ButtonThemeExample = () => (
-  <ThemeProvider theme={theme}>
+  <ThemeProvider theme={theme} colorMode="light">
     <Flex direction="row">
-      <Button>Default</Button>
       <Button variation="primary">Primary</Button>
-      <Button variation="link">Link</Button>
     </Flex>
   </ThemeProvider>
 );

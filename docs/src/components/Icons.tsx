@@ -1,6 +1,13 @@
 import { Icon } from '@aws-amplify/ui-react';
 import { SiGithub, SiDiscord, SiW3C, SiReact } from 'react-icons/si';
 import { MdCopyAll } from 'react-icons/md';
+import { VscServer, VscLibrary, VscBrowser } from 'react-icons/vsc';
+import { DiTerminal } from 'react-icons/di';
+
+const vscViewbox = {
+  width: 16,
+  height: 16,
+};
 
 export const ReactIcon = ({ ariaLabel = '', ...rest }) => (
   <Icon {...rest} ariaLabel={ariaLabel} as={SiReact} />
@@ -16,6 +23,18 @@ export const DiscordIcon = ({ ariaLabel = '', ...rest }) => (
 
 export const GithubIcon = ({ ariaLabel = '', ...rest }) => (
   <Icon {...rest} ariaLabel={ariaLabel} as={SiGithub} />
+);
+
+export const LibraryIcon = ({ ariaLabel = '', ...rest }) => (
+  <Icon {...rest} ariaLabel={ariaLabel} as={VscLibrary} viewBox={vscViewbox} />
+);
+
+export const ServerIcon = ({ ariaLabel = '', ...rest }) => (
+  <Icon {...rest} ariaLabel={ariaLabel} as={VscServer} viewBox={vscViewbox} />
+);
+
+export const CLIIcon = ({ ariaLabel = '', ...rest }) => (
+  <Icon {...rest} ariaLabel={ariaLabel} as={DiTerminal} />
 );
 
 export const DesignTokenIcon = ({ ariaLabel = '', ...rest }) => (
@@ -44,3 +63,20 @@ export const StackBlitzIcon = (props) => (
 );
 
 export const CopyIcon = (props) => <Icon {...props} as={MdCopyAll} />;
+
+export const AmplifyIcon = ({ ariaLabel = '', ...rest }) => (
+  <Icon
+    ariaLabel={ariaLabel}
+    {...rest}
+    paths={[
+      {
+        d: 'M5.22274 17.8571H11.9827L13.7143 20.9048H13.6655H0L4.8154 12.5604L6.83337 9.06616L8.56591 12.0683L5.22274 17.8571ZM7.74389 7.48595L9.40738 4.60353L18.8218 20.9047H15.4878L7.74389 7.48595ZM10.3333 3H13.6628L24 20.9048H20.6662L10.3333 3Z',
+        fillRule: 'evenodd',
+      },
+    ]}
+  />
+);
+
+export const DataIcon = ({ ariaLabel = '', ...rest }) => (
+  <Icon {...rest} ariaLabel={ariaLabel} as={VscBrowser} viewBox={vscViewbox} />
+);

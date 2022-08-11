@@ -1,11 +1,24 @@
 ---
 title: Loader
-description: Loaders provide a visual cue that an action is either processing or awaiting a result. They are used to help the customer understand the system is working to fulfill a request.
+description: Loader provides a visual cue to the user that the system is processing, awaiting a result or working to fulfill a request.
 themeSource: packages/ui/src/theme/tokens/components/loader.ts
 reactSource: packages/react/src/primitives/Loader/Loader.tsx
+mdnUrl: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/svg
+htmlElement: svg
 supportedFrameworks: react
 ---
 
 import { Fragment } from '@/components/Fragment';
+import { PageTabLayout } from "@/components/Layout/PageTabLayout"
 
-<Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+<PageTabLayout 
+  tabComponents={[{
+    title: "Documentation", 
+    children: <Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+  },
+  {
+    title: "Props", 
+    children: <Fragment>{({ platform }) => import('./props-table.mdx')}</Fragment>
+  }]}
+/>
+        

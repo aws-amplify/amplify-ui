@@ -14,6 +14,7 @@ module.exports = withNextPluginPreval({
     DOCSEARCH_DOCS_APP_ID: process.env.DOCSEARCH_DOCS_APP_ID,
     DOCSEARCH_DOCS_API_KEY: process.env.DOCSEARCH_DOCS_API_KEY,
     DOCSEARCH_DOCS_INDEX_NAME: process.env.DOCSEARCH_DOCS_INDEX_NAME,
+    FF_REACT_NATIVE: process.env.FF_REACT_NATIVE,
   },
   // Differentiate pages with frontmatter & layout vs. normal MD(X)
   pageExtensions: ['page.mdx', 'page.tsx'],
@@ -61,6 +62,27 @@ module.exports = withNextPluginPreval({
     return [
       // Normalizing URLs
       // these need to come before the generic redirects
+      {
+        source:
+          '/:platform(react|angular|vue|flutter)/components/authenticator/:page*',
+        destination: '/:platform/connected-components/authenticator/:page*',
+        permanent: true,
+      },
+      {
+        source: '/:platform(react|angular|vue)/components/geo/:page*',
+        destination: '/:platform/connected-components/geo/:page*',
+        permanent: true,
+      },
+      {
+        source: '/:platform(react|angular|vue)/components/storage',
+        destination: '/:platform/legacy-components/storage',
+        permanent: true,
+      },
+      {
+        source: '/:platform(react|angular|vue)/components/chatbot',
+        destination: '/:platform/legacy-components/chatbot',
+        permanent: true,
+      },
       {
         source: '/ui/primitives/stepperField',
         destination: '/components/stepperfield',
@@ -117,7 +139,8 @@ module.exports = withNextPluginPreval({
        * destination: add '[platform]' to the the beginning
        */
       {
-        source: '/:nav(components|getting-started|guides|theming)/:page*',
+        source:
+          '/:nav(legacy-components|connected-components|components|getting-started|guides|theming)/:page*',
         destination: '/[platform]/:nav/:page*',
         permanent: true,
       },
@@ -126,7 +149,8 @@ module.exports = withNextPluginPreval({
        * destination: add '[platform]' to the beginning
        */
       {
-        source: '/:nav(components|getting-started|guides|theming)',
+        source:
+          '/:nav(legacy-components|connected-components|components|getting-started|guides|theming)',
         destination: '/[platform]/:nav',
         permanent: true,
       },

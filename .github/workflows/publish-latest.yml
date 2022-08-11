@@ -1,4 +1,14 @@
-name: Publish to latest
+# Description: this workflow publishes UI packages to `latest` tag on NPM.
+#
+# Triggered by: whenever "Version Packages" is merged
+
+# If successful, we will publish all updated UI packages to
+#   - https://www.npmjs.com/package/@aws-amplify/ui
+#   - https://www.npmjs.com/package/@aws-amplify/ui-react
+#   - https://www.npmjs.com/package/@aws-amplify/ui-vue
+#   - https://www.npmjs.com/package/@aws-amplify/ui-angular
+
+name: Test and Publish / latest
 
 on:
   push:
@@ -21,6 +31,13 @@ jobs:
       - name: Check if repo has unconsumed changesets
         id: has-changesets
         uses: ./.github/actions/has-changesets
+      # Note: if there are no changesets, that means that either
+      #         (1) "Version Packages" PR was just merged, or
+      #         (2) no commits with changesets have been merged after packages were last published.
+      #
+      #       In either way, we'll attempt to publish the packages. In case of (1), publish will succeed. In
+      #       case of (2), `@changesets/action` will know that UI packages have already published and will
+      #       skip publish.
 
   build-test:
     runs-on: ubuntu-latest
@@ -74,8 +91,12 @@ jobs:
         with:
           node-version: lts/*
           cache: 'yarn'
-      - name: Install and build packages
-        run: yarn --frozen-lockfile && yarn build
+      - name: Install packages
+        uses: ./.github/actions/install-with-retries
+        with:
+          skip-cypress-binary: true # publishing doesn't need cypress
+      - name: Build packages
+        run: yarn build
       - name: Publish to @latest
         uses: changesets/action@b98cec97583b917ff1dc6179dd4d230d3e439894
         with:
@@ -83,3 +104,33 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  log-failure-metric:
+    # Send data point 1 to metric PublishLatestFailure, if it's a failure
+    runs-on: ubuntu-latest
+    environment: ci
+    needs: publish
+    if: ${{ failure() }}
+    steps:
+      - name: Log failure data point to metric PublishLatestFailure
+        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
+        with:
+          metric-name: PublishLatestFailure
+          value: 1
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+  log-success-metric:
+    # Send data point 0 to metric PublishLatestFailure, if  it's a success
+    runs-on: ubuntu-latest
+    environment: ci
+    needs: publish
+    if: ${{ success() }}
+    steps:
+      - name: Log success data point to metric PublishLatestFailure
+        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
+        with:
+          metric-name: PublishLatestFailure
+          value: 0
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

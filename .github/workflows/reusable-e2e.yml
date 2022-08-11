@@ -1,3 +1,7 @@
+# Description: this is a reusable workflow that runs unit and e2e tests.
+#
+# See `./test-prs.yml` to see an example usage.
+
 on:
   workflow_call:
     inputs:
@@ -48,11 +52,22 @@ jobs:
         with:
           node-version: lts/*
           cache: 'yarn'
+      - name: Restore cypress runner from Cache
+        uses: actions/cache@v2
+        id: restore-cypress-cache
+        with:
+          path: ~/.cache/Cypress
+          key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
       - name: Install packages
-        run: yarn --no-lockfile
+        uses: ./.github/actions/install-with-retries
+        with:
+          # only install binary if cypress cache missed
+          skip-cypress-binary: ${{ steps.restore-cypress-cache.outputs.cache-hit }}
       - name: Build ui package
         run: yarn ui build
       - name: Cache cypress runner
+        # create new cypress cache entry only if cypress cache missed and we installed a new one.
+        if: steps.restore-cypress-cache.outputs.cache-hit != 'true'
         uses: actions/cache@v2
         with:
           path: ~/.cache/Cypress
@@ -116,7 +131,7 @@ jobs:
 
       - name: Install packages
         if: steps.restore-cache.outputs.cache-hit != 'true'
-        run: yarn --no-lockfile
+        uses: ./.github/actions/install-with-retries
 
       - name: Build ui package
         if: ${{ steps.restore-ui-cache.outputs.cache-hit != 'true' && matrix.package != 'ui' }}
@@ -223,7 +238,7 @@ jobs:
 
       - name: Install packages
         if: steps.restore-cache.outputs.cache-hit != 'true' || steps.restore-cypress-cache.outputs.cache-hit != 'true'
-        run: yarn --no-lockfile
+        uses: ./.github/actions/install-with-retries
 
       - name: Build @aws-amplify/ui package
         if: steps.restore-ui-cache.outputs.cache-hit != 'true'

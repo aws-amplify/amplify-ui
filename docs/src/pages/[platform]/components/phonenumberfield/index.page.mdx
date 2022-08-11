@@ -1,10 +1,23 @@
 ---
 title: PhoneNumberField
-description: The PhoneNumberField form primitive can be used allow users to input a phone number.
+description: PhoneNumberField allows users to input phone numbers.
 reactSource: packages/react/src/primitives/PhoneNumberField/PhoneNumberField.tsx
+mdnUrl: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/tel
+htmlElement: input
 supportedFrameworks: react
 ---
 
 import { Fragment } from '@/components/Fragment';
+import { PageTabLayout } from "@/components/Layout/PageTabLayout"
 
-<Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+<PageTabLayout 
+  tabComponents={[{
+    title: "Documentation", 
+    children: <Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+  },
+  {
+    title: "Props", 
+    children: <Fragment>{({ platform }) => import('./props-table.mdx')}</Fragment>
+  }]}
+/>
+        

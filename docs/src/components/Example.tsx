@@ -1,14 +1,6 @@
 import * as React from 'react';
 
-import {
-  View,
-  Flex,
-  useTheme,
-  Button,
-  useBreakpointValue,
-  CardVariations,
-  ButtonGroup,
-} from '@aws-amplify/ui-react';
+import { View, Button, ButtonGroup } from '@aws-amplify/ui-react';
 import { CopyButton } from './CopyButton';
 import { StackBlitzIcon } from './Icons';
 import { openReactStackBlitz } from '@/utils/openInStackblitz';

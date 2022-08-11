@@ -1,3 +1,4 @@
+import { Fragment } from '@/components/Fragment'; 
 import { Menu, MenuItem, View } from '@aws-amplify/ui-react';
 
 import { MenuDemo } from './demo';
@@ -9,12 +10,12 @@ import {
   MenuItemsExample,
   SizeExample,
   StylePropsExample,
-  ThemeExample,
+  MenuThemeExample,
 } from './examples/';
 
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
-import { ThemeAlert } from '@/components/ThemeAlert';
+import ThemeExample from '@/components/ThemeExample.mdx';
 
 ## Demo
 
@@ -105,31 +106,23 @@ Create a controlled `Menu` using the `isOpen` and `onOpenChange` props.
 
 ## CSS Styling
 
+<ThemeExample component="Menu">
+  <Example>
+    <MenuThemeExample />
+    
+    <ExampleCode>
+
+    ```tsx file=./examples/MenuThemeExample.tsx
+
+    ```
+
+    </ExampleCode>
+  </Example>
+</ThemeExample>
+
 ### Target classes
 
 <ComponentStyleDisplay componentName="Menu" />
-
-### Theme
-
-<ThemeAlert />
-
-You can customize the appearance of all Menus in your application with a [Theme](/theming).
-
-<Example>
-  <View width="4rem">
-    <Menu className="theming-menu">
-      <MenuItem>Download</MenuItem>
-      <MenuItem>Create a Copy</MenuItem>
-      <MenuItem>Mark as Draft</MenuItem>
-    </Menu>
-  </View>
-</Example>
-
-<ExampleCode>
-```tsx file=./examples/themeExample.tsx
-
-````
-</ExampleCode>
 
 ### Global styling
 
@@ -146,7 +139,7 @@ To override styling on all Menus, you can set the Amplify CSS variables with the
   );
   --amplify-components-button-color: var(--amplify-colors-brand-secondary-90);
 }
-````
+```
 
 ```jsx
 import { Menu, MenuItem } from '@aws-amplify/ui-react';
@@ -267,4 +260,3 @@ _Using style props:_
 ```
   </ExampleCode>
 </Example>
-```

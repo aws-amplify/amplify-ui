@@ -1,10 +1,10 @@
-import { Flex, Image, Button, useTheme } from '@aws-amplify/ui-react';
-
-import { capitalize } from 'lodash';
-import { useCustomRouter } from '@/components/useCustomRouter';
+import { Flex, Button } from '@aws-amplify/ui-react';
 import Link from 'next/link';
-import { FRAMEWORKS } from '@/data/frameworks';
+
+import { useCustomRouter } from '@/components/useCustomRouter';
+import { FRAMEWORKS, FRAMEWORK_DISPLAY_NAMES } from '@/data/frameworks';
 import metaData from '@/data/pages.preval';
+import { FrameworkLogo } from '@/components/Logo';
 
 interface FrameworkLinkProps extends FrameworkChooserProps {
   framework: string;
@@ -33,26 +33,20 @@ const FrameworkLink = ({
         onClick={onClick}
         isDisabled={isDisabled}
       >
-        <Image
-          alt={framework}
-          height="1.25rem"
-          width="1.25rem"
-          display="block"
-          src={`/svg/integrations/${framework}.svg`}
-        />
-        {capitalize(framework)}
+        <FrameworkLogo framework={framework} className="docs-framework-img" />
+        {FRAMEWORK_DISPLAY_NAMES[framework]}
       </Button>
     </Link>
   );
 };
 
 interface FrameworkChooserProps {
-  onClick: () => void;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 export const FrameworkChooser = ({ onClick }: FrameworkChooserProps) => {
   const { pathname } = useCustomRouter();
-  const { tokens } = useTheme();
+
   const {
     frontmatter: { supportedFrameworks = 'react' },
   } = metaData[pathname];
@@ -60,7 +54,7 @@ export const FrameworkChooser = ({ onClick }: FrameworkChooserProps) => {
     supportedFrameworks === 'all' ? FRAMEWORKS : supportedFrameworks.split('|');
 
   return (
-    <Flex direction="column" gap={tokens.space.xs}>
+    <Flex className="docs-framework-chooser">
       {FRAMEWORKS.map((framework) => (
         <FrameworkLink
           key={framework}

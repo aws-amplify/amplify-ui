@@ -3,6 +3,11 @@
  * Based on Atom's One Light theme: https://github.com/atom/atom/tree/master/packages/one-light-syntax
  */
 
+
+.docs-home code.prism-code {
+  font-size: inherit;
+}
+ 
 code[class*='language-'],
 pre[class*='language-'] {
   background: var(--amplify-colors-background-secondary);
@@ -28,10 +33,16 @@ pre[class*='language-'] *::selection {
 /* Code blocks */
 pre[class*='language-'] {
   padding: var(--amplify-space-medium);
-  margin: 0 0 var(--amplify-space-large) 0;
   overflow: auto;
   border-radius: 0;
-  max-height: 30em;
+  // 👇 this is important to get line highlights working when there is horizontal scroll
+  display: flex;
+  text-size-adjust: 100%;
+}
+
+// 👇 this is also important for the above reason
+code[class*='language-'] {
+  flex-grow: 2;
 }
 
 pre.language-shell code.language-shell::before {
@@ -47,18 +58,20 @@ section > pre[class*='language-'] {
   margin-bottom: var(--amplify-space-medium);
 }
 
+.token.keyword,
+.token.module {
+  color: var(--amplify-colors-purple-80);
+}
+
 .token.comment,
 .token.prolog,
 .token.cdata {
   color: var(--amplify-colors-font-tertiary);
 }
 
-.token.keyword {
-  color: var(--amplify-colors-purple-80);
-}
-
+// .token.keyword,
 .token.imports {
-  color: var(--amplify-colors-purple-80);
+  color: var(--amplify-colors-teal-80);
 }
 
 .token.property,
@@ -66,7 +79,7 @@ section > pre[class*='language-'] {
 .token.symbol,
 .token.deleted,
 .token.important {
-  color: var(--amplify-colors-yellow-90);
+  color: var(--amplify-colors-red-80);
 }
 
 .token.selector,
@@ -82,7 +95,7 @@ section > pre[class*='language-'] {
 
 .token.variable,
 .token.function {
-  color: var(--amplify-colors-purple-80);
+  color: var(--amplify-colors-pink-80);
 }
 
 .token.operator {
@@ -119,12 +132,12 @@ section > pre[class*='language-'] {
   }
   
   & .token.url > .token.string.url {
-    color: var(--amplify-colors-green-90);
+    color: var(--amplify-colors-green-80);
   }
   
   & .token.important,
   & .token.atrule .token.rule {
-    color: var(--amplify-colors-pink-90);
+    color: var(--amplify-colors-pink-80);
   }
 }
 
@@ -132,7 +145,7 @@ section > pre[class*='language-'] {
   .token.template-string
   > .token.interpolation
   > .token.interpolation-punctuation.punctuation {
-  color: var(--amplify-colors-red-90);
+  color: var(--amplify-colors-red-80);
 }
 
 /* JSON overrides */
@@ -141,7 +154,7 @@ section > pre[class*='language-'] {
 }
 
 .language-json .token.null.keyword {
-  color: var(--amplify-colors-orange-90);
+  color: var(--amplify-colors-orange-80);
 }
 
 /* MD overrides */
@@ -152,7 +165,7 @@ section > pre[class*='language-'] {
 }
 
 .language-markdown .token.url > .token.content {
-  color: var(--amplify-colors-blue-90);
+  color: var(--amplify-colors-blue-80);
 }
 
 .language-markdown .token.url > .token.url,
@@ -375,13 +388,16 @@ pre > code.diff-highlight .token.token.inserted:not(.prefix) *::selection {
 }
 
 
-.token.class-name,
+.token.class-name {
+  color: var(--amplify-colors-pink-80);
+}
+
 .token.boolean,
 .token.constant,
 .token.number,
 .token.atrule,
 .token.unit {
-  color: var(--amplify-colors-pink-80);
+  color: var(--amplify-colors-blue-80);
 }
 
 .token.attr-name {
@@ -389,6 +405,10 @@ pre > code.diff-highlight .token.token.inserted:not(.prefix) *::selection {
 }
 
 .token.boolean {
+  color: var(--amplify-colors-teal-80);
+}
+
+.token.color {
   color: var(--amplify-colors-teal-80);
 }
 
@@ -425,5 +445,5 @@ pre > code.diff-highlight .token.token.inserted:not(.prefix) *::selection {
   margin-left: calc(var(--amplify-space-medium) * -1);
   margin-right: calc(var(--amplify-space-medium) * -1);
   padding-left: var(--amplify-space-medium);
-  background-color: var(--amplify-colors-yellow-10);
+  background-color: hsla(190, 95%, 50%, 0.125);
 }

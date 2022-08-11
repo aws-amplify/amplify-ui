@@ -1,23 +1,19 @@
 import * as React from 'react';
 import { Radio, RadioGroupField } from '@aws-amplify/ui-react';
 
-const options = ['html', 'css', 'javascript'];
-
 export const ControlledExample = () => {
-  const [value, setValue] = React.useState('html');
+  const [value, setValue] = React.useState('apple');
+
   return (
     <RadioGroupField
-      label="Language"
-      name="example-2"
+      label="Fruit"
+      name="fruit"
       value={value}
       onChange={(e) => setValue(e.target.value)}
-      labelHidden
     >
-      {options.map((option) => (
-        <Radio key={option} value={option}>
-          {option}
-        </Radio>
-      ))}
+      <Radio value="apple">🍎</Radio>
+      <Radio value="banana">🍌</Radio>
+      <Radio value="carrot">🥕</Radio>
     </RadioGroupField>
   );
 };

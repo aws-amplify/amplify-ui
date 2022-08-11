@@ -328,12 +328,13 @@ describe('Pagination component: ', () => {
         />
       );
       const pageItem = await screen.findByText('1');
-      expect(pageItem.nodeName).toBe('SPAN');
+      expect(pageItem.nodeName).toBe('BUTTON');
       expect(pageItem).toHaveClass(ComponentClassNames.PaginationItemCurrent);
       const invisibleLabel = await screen.findByText(
-        ComponentText.PaginationItem.currentPageLabel
+        `${ComponentText.PaginationItem.currentPageLabel}:`
       );
       expect(invisibleLabel).toHaveClass(ComponentClassNames.VisuallyHidden);
+      expect(pageItem.getAttribute('aria-current')).toBe('page');
 
       userEvent.click(pageItem);
       expect(mockOnClick).not.toHaveBeenCalled();
@@ -353,6 +354,7 @@ describe('Pagination component: ', () => {
       );
       expect(previous.nodeName).toBe('BUTTON');
       expect(previous).not.toBeDisabled();
+      expect(previous.getAttribute('aria-current')).toBe(null);
       userEvent.click(previous);
       expect(mockOnClick).toHaveBeenCalledTimes(1);
       expect(mockOnClick).toHaveBeenCalledWith();
@@ -367,12 +369,14 @@ describe('Pagination component: ', () => {
           onClick={mockOnClick}
         />
       );
-      const previous = await screen.findByLabelText(
+      const next = await screen.findByLabelText(
         ComponentText.PaginationItem.nextLabel
       );
-      expect(previous.nodeName).toBe('BUTTON');
-      expect(previous).not.toBeDisabled();
-      userEvent.click(previous);
+      expect(next.nodeName).toBe('BUTTON');
+      expect(next).not.toBeDisabled();
+      expect(next.getAttribute('aria-current')).toBe(null);
+
+      userEvent.click(next);
       expect(mockOnClick).toHaveBeenCalledTimes(1);
       expect(mockOnClick).toHaveBeenCalledWith();
     });

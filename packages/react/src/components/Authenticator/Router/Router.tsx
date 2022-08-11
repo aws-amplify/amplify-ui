@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useMemo } from 'react';
 
 import { useAuthenticator } from '../hooks/useAuthenticator';
 import { ConfirmSignUp } from '../ConfirmSignUp';
@@ -11,13 +11,19 @@ import { ConfirmResetPassword, ResetPassword } from '../ResetPassword';
 import { isSignInOrSignUpRoute } from '../utils';
 import { RouterProps } from './types';
 
-const getRouteComponent = (route: string) => {
+type RouteComponent = (props: Omit<RouterProps, 'children'>) => JSX.Element;
+
+function RenderNothing(): JSX.Element {
+  return null;
+}
+
+const getRouteComponent = (route: string): RouteComponent => {
   switch (route) {
     case 'authenticated':
     case 'idle':
     case 'setup':
     case 'autoSignIn':
-      return () => null;
+      return RenderNothing;
     case 'confirmSignUp':
       return ConfirmSignUp;
     case 'confirmSignIn':
@@ -38,49 +44,21 @@ const getRouteComponent = (route: string) => {
     case 'confirmVerifyUser':
       return ConfirmVerifyUser;
     default:
+      // eslint-disable-next-line no-console
       console.warn(
         `Unhandled Authenticator route - please open an issue: ${route}`
       );
-      return () => null;
+      return RenderNothing;
   }
 };
 
-export function useRouterChildren(
-  children: RouterProps['children']
-): (props?: Omit<RouterProps, 'children'>) => JSX.Element {
-  const { route, signOut, user } = useAuthenticator(
-    ({ route, signOut, user }) => [route, signOut, user]
-  );
-
-  return React.useMemo(() => {
-    const isUnauthenticatedRoute = !(
-      route === 'authenticated' || route === 'signOut'
-    );
-
-    if (isUnauthenticatedRoute) {
-      return getRouteComponent(route);
-    }
-
-    // `Authenticator` might not have user defined `children` for non SPA use cases.
-    if (!children) {
-      return () => null;
-    }
-
-    return () =>
-      typeof children === 'function'
-        ? children({ signOut, user }) // children is a render prop
-        : children;
-  }, [children, route, signOut, user]);
-}
-
 export function Router({
-  children,
   className,
   hideSignUp,
   variation,
-}: RouterProps) {
+}: RouterProps): JSX.Element {
   const { route } = useAuthenticator(({ route }) => [route]);
-  const RouterChildren = useRouterChildren(children);
+  const RouterChildren = useMemo(() => getRouteComponent(route), [route]);
 
   return (
     <RouterChildren
