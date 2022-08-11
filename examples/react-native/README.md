@@ -87,6 +87,7 @@ yarn react-native-example dev
 ## Storybook
 
 ### With Storybook Server
+
 Will serve a web interface that allows switching between components (stories) and controlling multiple simulators/emulators.
 
 First boot Storybook Server:
@@ -127,6 +128,42 @@ To include an Amplify UI package as a dependency add it to the `dependencies` fi
 ```
 
 > Only internal packages within the _packages_ directory are resolved in _metro.config.js_
+
+## Using env variables
+
+Add a local _.env_ file, then copy/paste the contents of _.env.sample_ inside, updating the values as needed:
+
+```sh
+# .env
+GREETING='Hello World!'
+```
+
+### Adding `env` variables
+
+Add your variable name to _.env_ (and _.env.sample_ if committing) and to _./types/env.d.ts_ to appease typescript:
+
+```sh
+# .env
+GREETING='Hello World!'
+MY_ENV_VARIABLE=FOO
+```
+
+```ts
+// ./types/env.d.ts
+declare module '@env' {
+  export const GREETING: string;
+  export const MY_ENV_VARIABLE: string;
+}
+```
+
+To use your newly added env variable:
+
+```ts
+// *.tsx
+import { MY_ENV_VARIABLE } from '@env';
+```
+
+If the example app is not picking up changes to the values in _.env_ close Metro and reset the cache (see troubleshooting section).
 
 ## Troubleshooting
 
