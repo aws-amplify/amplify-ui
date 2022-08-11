@@ -27,6 +27,7 @@ Array [
   "Icon",
   "Image",
   "Link",
+  "LivenessFlow",
   "Loader",
   "LocationSearch",
   "MapView",
