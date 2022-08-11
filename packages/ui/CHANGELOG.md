@@ -1,5 +1,98 @@
 # @aws-amplify/ui
 
+## 3.13.0
+
+### Minor Changes
+
+- [#2300](https://github.com/aws-amplify/amplify-ui/pull/2300) [`eae79ae15`](https://github.com/aws-amplify/amplify-ui/commit/eae79ae1529b9a920d704cb12e92addb352d0c40) Thanks [@zchenwei](https://github.com/zchenwei)! - feat: adding indeterminate state checkbox
+
+  Users can create an indeterminate `CheckboxField` by setting `isIndeterminate` prop to `true`.
+
+  **_Example_**
+
+  ```jsx
+  import * as React from 'react';
+
+  import { CheckboxField, Flex, View } from '@aws-amplify/ui-react';
+
+  export const CheckboxFieldIndeterminateExample = () => {
+    const [checkedItems, setCheckedItems] = React.useState([false, false]);
+    const checkedItemsRef = React.useRef(null);
+    const allChecked = checkedItems.every(Boolean);
+    const isIndeterminate = checkedItems.some(Boolean) && !allChecked;
+
+    if (isIndeterminate) {
+      checkedItemsRef.current = [...checkedItems];
+    }
+    const handleAllPetsChange = () => {
+      if (isIndeterminate) {
+        setCheckedItems([true, true]);
+      } else if (allChecked) {
+        setCheckedItems([false, false]);
+      } else if (checkedItemsRef.current) {
+        setCheckedItems(checkedItemsRef.current);
+      } else {
+        setCheckedItems([true, true]);
+      }
+    };
+
+    const handleCatChange = (e) => {
+      const newCheckedItems = [e.target.checked, checkedItems[1]];
+      if (!newCheckedItems.some(Boolean) || newCheckedItems.every(Boolean)) {
+        checkedItemsRef.current = null;
+      }
+      setCheckedItems(newCheckedItems);
+    };
+
+    const handleDogChange = (e) => {
+      const newCheckedItems = [checkedItems[0], e.target.checked];
+      if (!newCheckedItems.some(Boolean) || newCheckedItems.every(Boolean)) {
+        checkedItemsRef.current = null;
+      }
+      setCheckedItems(newCheckedItems);
+    };
+
+    return (
+      <Flex direction="column" gap="0">
+        <CheckboxField
+          name="all-pets"
+          label="All Pets"
+          value="allPets"
+          checked={allChecked}
+          isIndeterminate={isIndeterminate}
+          onChange={handleAllPetsChange}
+        />
+        <View paddingLeft="25px">
+          <CheckboxField
+            name="cat"
+            label="Cat"
+            value="cat"
+            checked={checkedItems[0]}
+            onChange={handleCatChange}
+          />
+          <CheckboxField
+            name="dog"
+            label="Dog"
+            value="dog"
+            checked={checkedItems[1]}
+            onChange={handleDogChange}
+          />
+        </View>
+      </Flex>
+    );
+  };
+  ```
+
+### Patch Changes
+
+- [#2432](https://github.com/aws-amplify/amplify-ui/pull/2432) [`b3e6a97e8`](https://github.com/aws-amplify/amplify-ui/commit/b3e6a97e8e17f6b822af0387e3c543c50aea7c64) Thanks [@wlee221](https://github.com/wlee221)! - Bump xstate to ^4.33.0. This will resolve "No implementation found" warnings.
+
+* [#2431](https://github.com/aws-amplify/amplify-ui/pull/2431) [`1cfa1a054`](https://github.com/aws-amplify/amplify-ui/commit/1cfa1a054451a75738f4011c4200c34208285b5b) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - This change adds a base background color for the SearchField component's button.
+
+- [#2398](https://github.com/aws-amplify/amplify-ui/pull/2398) [`e25bc4269`](https://github.com/aws-amplify/amplify-ui/commit/e25bc42693cc4fa1cdcf7ad2fe7034ff44fbb18e) Thanks [@zchenwei](https://github.com/zchenwei)! - fix: add missing token for default font size for SwitchField
+
+* [#2386](https://github.com/aws-amplify/amplify-ui/pull/2386) [`1f358d8fa`](https://github.com/aws-amplify/amplify-ui/commit/1f358d8fa18367020d0c41b74dcce1ba73974376) Thanks [@joebuono](https://github.com/joebuono)! - fix(ui): Apply styling to disabled SelectField options in Firefox
+
 ## 3.12.5
 
 ### Patch Changes
