@@ -48,6 +48,9 @@ export const Instruction: React.FC<InstructionProps> = (props) => {
   const isUploading = state.matches('uploading');
   const isCheckSuccessful = state.matches('checkSucceeded');
   const isCheckFailed = state.matches('checkFailed');
+  const isFlashFreshnessColorError = state.matches(
+    'recording.flashFreshnessColorError'
+  );
 
   const getInstructionContent = () => {
     if (errorState || isCheckFailed) {
@@ -106,6 +109,10 @@ export const Instruction: React.FC<InstructionProps> = (props) => {
 
     if (illuminationState && illuminationState !== IlluminationState.NORMAL) {
       return IlluminationStateStringMap[illuminationState];
+    }
+
+    if (isFlashFreshnessColorError) {
+      return 'Please keep face in the thing while doing the thing';
     }
 
     return FaceMatchStateStringMap[faceMatchState];

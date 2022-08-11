@@ -1,6 +1,6 @@
+import { ClientSessionInformation } from '@/types/liveness/liveness-service-types';
 import { AmazonAIInterpretPredictionsProvider } from '@aws-amplify/predictions';
 import { Rekognition } from 'aws-sdk-liveness';
-import { LivenessActionDocument } from '../../../dist/types/types/liveness/liveness-service-types';
 import { VideoRecorder } from './video-recorder';
 export interface StartLivenessStreamInput {
   sessionId: string;
@@ -52,7 +52,7 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
           yield {
             ClientSessionInformationEvent: {
               DeviceInformation: value.deviceInformation,
-              Challenge: value.challenges[0],
+              Challenge: value.challenge,
             },
           };
         } else {
@@ -63,6 +63,7 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
   }
 
   public async streamLivenessVideo(): Promise<any> {
+    this.videoRecorder.start(100);
     const livenessRequestGenerator = this.getAsyncGeneratorFromReadableStream(
       this.videoRecorder.videoStream
     )();
@@ -83,7 +84,8 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
   }
 
   public async endStream() {
-    this.videoRecorder.dispatch(new Event('endStream'));
+    console.log('endstream');
+    // this.videoRecorder.dispatch(new Event('endStream'));
     this.videoRecorder.stop();
 
     return this._reader.closed;
@@ -94,10 +96,10 @@ function isBlob(obj: any): obj is Blob {
   return (obj as Blob).arrayBuffer !== undefined;
 }
 
-function isLivenessActionDocument(obj: any): obj is LivenessActionDocument {
+function isLivenessActionDocument(obj: any): obj is ClientSessionInformation {
   return (
-    (obj as LivenessActionDocument).deviceInformation !== undefined ||
-    Array.isArray((obj as LivenessActionDocument).challenges)
+    (obj as ClientSessionInformation).deviceInformation !== undefined ||
+    (obj as ClientSessionInformation).challenge !== undefined
   );
 }
 

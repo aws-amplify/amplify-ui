@@ -8,12 +8,12 @@ export interface OvalScaleFactors {
   centerY: number;
 }
 
-export interface FaceMovementAndLightChallenge {
+export interface ClientFaceMovementAndLightChallenge {
   ovalScaleFactors: OvalScaleFactors;
 }
 
 export interface ClientChallenge {
-  faceMovementAndLightChallenge: FaceMovementAndLightChallenge;
+  faceMovementAndLightChallenge: ClientFaceMovementAndLightChallenge;
 }
 
 export interface SessionInformation {
@@ -65,7 +65,7 @@ export interface ColorTimestamp {
   timestamp: number;
 }
 
-export interface FaceMovementAndLightChallenge {
+export interface ServerFaceMovementAndLightChallenge {
   challengeId: string;
   initialFacePosition: BoundingBoxWithSize;
   targetFacePosition: BoundingBoxWithSize;
@@ -74,7 +74,7 @@ export interface FaceMovementAndLightChallenge {
 }
 
 export interface ServerChallenge {
-  faceMovementAndLightChallenge: FaceMovementAndLightChallenge;
+  faceMovementAndLightChallenge: ServerFaceMovementAndLightChallenge;
 }
 
 export interface DeviceInformation {

@@ -41,7 +41,7 @@ export const MIN_FACE_MATCH_COUNT = 5;
 // timer metrics variables
 let faceDetectedTimestamp: number;
 let ovalDrawnTimestamp: number;
-let freshnessColorFlashedTimestamp: number;
+let freshnessTimeoutId: NodeJS.Timeout;
 
 export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
   {
@@ -135,7 +135,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             },
           },
           ovalMatching: {
-            entry: 'cancelOvalDrawingTimeout',
+            entry: ['cancelOvalDrawingTimeout', 'resetFreshness'],
             invoke: {
               src: 'detectFaceAndMatchOval',
               onDone: {
@@ -163,16 +163,28 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             },
           },
           flashFreshnessColors: {
+            entry: ['cancelOvalMatchTimeout'],
             invoke: {
               src: 'flashColors',
               onDone: {
                 target: 'success',
                 actions: 'setFreshnessColorsSuccess',
               },
+              onError: {
+                target: 'flashFreshnessColorError',
+              },
+            },
+          },
+          flashFreshnessColorError: {
+            entry: ['resetFreshness'],
+            after: {
+              5000: {
+                target: 'ovalMatching',
+              },
             },
           },
           success: {
-            entry: ['stopRecording', 'cancelOvalMatchTimeout'],
+            entry: ['stopRecording'],
             type: 'final',
           },
         },
@@ -294,24 +306,16 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             metrics: { count: 1 },
           });
 
-          context.videoAssociatedParams.videoRecorder?.destroy();
-          const recorder = new VideoRecorder(
-            context.videoAssociatedParams.videoMediaStream
-          );
-          recorder.start(100);
-
           if (
             context.livenessStreamProvider.videoRecorder &&
             context.livenessStreamProvider.videoRecorder.getState() !==
               'recording'
           ) {
-            context.livenessStreamProvider.videoRecorder.start(100);
             context.livenessStreamProvider.streamLivenessVideo();
           }
 
           return {
             ...context.videoAssociatedParams,
-            videoRecorder: recorder,
             recordingStartTimestampMs: Date.now(),
           };
         },
@@ -322,9 +326,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           attributes: { action: 'Success' },
           metrics: { count: 1 },
         });
-
-        context.videoAssociatedParams.videoRecorder.stop();
-        context.livenessStreamProvider.videoRecorder.stop();
       },
       updateOvalAndFaceDetailsPostDraw: assign({
         ovalAssociatedParams: (context, event) => ({
@@ -385,6 +386,15 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           freshnessColorsShown: true,
         }),
       }),
+      resetFreshness: (context) => {
+        const {
+          freshnessColorAssociatedParams: { freshnessColorEl },
+        } = context;
+        freshnessColorEl.hidden = true;
+        if (freshnessTimeoutId) {
+          clearTimeout(freshnessTimeoutId);
+        }
+      },
 
       // timeouts
       sendTimeoutAfterOvalDrawingDelay: actions.send(
@@ -520,7 +530,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             videoEl,
             canvasEl,
             videoMediaStream,
-            videoRecorder,
             recordingStartTimestampMs,
           },
           ovalAssociatedParams: { faceDetector },
@@ -675,13 +684,13 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           challengeId,
           livenessStreamProvider,
           freshnessColorAssociatedParams: { freshnessColorEl },
-          ovalAssociatedParams: { ovalDetails },
-          videoAssociatedParams: { canvasEl },
+          ovalAssociatedParams: { faceDetector, ovalDetails },
+          videoAssociatedParams: { canvasEl, videoEl },
         } = context;
 
         freshnessColorEl.hidden = false;
 
-        await new Promise((resolve) => {
+        await new Promise((resolve, reject) => {
           const colorStages = getShortCp2Permutations(ColorArr);
 
           const tickRate = 10; // ms -- the rate at which we will render/check colors
@@ -693,11 +702,46 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           let timeLastColorIndChanged = Date.now();
           let expectedCallTime = Date.now() + tickRate;
 
-          const selfAdjustingInterval = () => {
+          const selfAdjustingInterval = async () => {
             const tickStartTime = Date.now();
             const drift = tickStartTime - expectedCallTime;
             const timeSinceLastColorChange =
               tickStartTime - timeLastColorIndChanged;
+
+            // Check that face is still in the oval
+            const detectedFaces = await faceDetector.detectFaces(videoEl);
+            let faceMatchState: FaceMatchState;
+            let detectedFace: Face;
+            let illuminationState: IlluminationState;
+
+            switch (detectedFaces.length) {
+              case 0: {
+                //no face detected;
+                faceMatchState = FaceMatchState.CANT_IDENTIFY;
+                illuminationState = estimateIllumination(videoEl);
+                reject('no face detected');
+                return;
+              }
+              case 1: {
+                //exactly one face detected, match face with oval;
+                detectedFace = detectedFaces[0];
+                faceMatchState = getFaceMatchStateInLivenessOval(
+                  detectedFace,
+                  ovalDetails
+                );
+                if (faceMatchState !== FaceMatchState.MATCHED) {
+                  reject('face not in oval');
+                  return;
+                }
+                break;
+              }
+              default: {
+                //more than one face detected ;
+                faceMatchState = FaceMatchState.TOO_MANY;
+                reject('too many faces detected');
+                return;
+              }
+            }
 
             // Every 10 ms tick we will check if we have reached the threshold for showing a color
             // If we have we will increment the color stage
@@ -754,7 +798,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               }
 
               expectedCallTime += tickRate;
-              setTimeout(
+              freshnessTimeoutId = setTimeout(
                 selfAdjustingInterval,
                 Math.min(tickRate, tickRate - drift)
               );
@@ -763,24 +807,22 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               resolve(true);
             }
           };
-          setTimeout(selfAdjustingInterval, tickRate); // initial call
+          freshnessTimeoutId = setTimeout(selfAdjustingInterval, tickRate); // initial call
         });
       },
       async putLivenessVideo(context) {
-        const startPutLivenessVideoTime = Date.now();
         const {
           challengeId,
           flowProps: { sessionId, onGetLivenessDetection },
           videoAssociatedParams: {
-            videoRecorder,
             videoMediaStream,
             recordingStartTimestampMs,
           },
           ovalAssociatedParams: { initialFace, ovalDetails },
           faceMatchAssociatedParams: { startFace, endFace },
+          livenessStreamProvider,
         } = context;
 
-        const videoBlob = await videoRecorder.getBlob();
         const { width, height } = videoMediaStream.getTracks()[0].getSettings();
 
         const flippedInitialFaceLeft =
@@ -818,28 +860,17 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           },
         };
 
-        context.livenessStreamProvider.sendClientInfo(livenessActionDocument);
+        await livenessStreamProvider.videoRecorder.getBlob(); // fixme: waits for the video queue to flush before moving ending stream
+        livenessStreamProvider.sendClientInfo(livenessActionDocument);
 
-        context.livenessStreamProvider.endStream();
+        livenessStreamProvider.endStream();
 
-        // Put liveness video
-        const provider = new LivenessPredictionsProvider();
-        try {
-          await provider.putLivenessVideo({
-            sessionId,
-            videoBlob,
-            livenessActionDocument: JSON.stringify(livenessActionDocument),
-          });
-        } catch (e) {
-          console.log(e);
-        }
-
-        const endPutLivenessVideoTime = Date.now();
+        const endStreamLivenessVideoTime = Date.now();
         recordLivenessAnalyticsEvent(context.flowProps, {
           event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
-          attributes: { action: 'putLivenessVideo' },
+          attributes: { action: 'streamLivenessVideo' },
           metrics: {
-            duration: endPutLivenessVideoTime - startPutLivenessVideoTime,
+            duration: endStreamLivenessVideoTime - recordingStartTimestampMs,
           },
         });
 
@@ -849,7 +880,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
           attributes: { action: 'getLivenessDetection' },
           metrics: {
-            duration: Date.now() - endPutLivenessVideoTime,
+            duration: Date.now() - endStreamLivenessVideoTime,
           },
         });
 
