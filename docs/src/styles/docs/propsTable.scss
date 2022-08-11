@@ -3,6 +3,7 @@
 .docs-props-expander {
   box-shadow: unset;
   margin-bottom: var(--amplify-space-medium);
+  margin-top: 0;
   .amplify-expander__trigger {
     cursor: pointer;
     flex-direction: row-reverse;
@@ -14,7 +15,7 @@
       color: var(--amplify-colors-font-hover);
       background: none;
     }
-    &[data-state="open"] {
+    &[data-state='open'] {
       .amplify-expander__icon {
         transform: rotate(0deg);
       }
@@ -24,7 +25,7 @@
     margin-inline-end: var(--amplify-space-xs);
     transform: rotate(-90deg);
   }
-  
+
   .amplify-expander__item {
     box-shadow: unset;
     border-radius: unset;
@@ -42,9 +43,15 @@
 
 .docs-prop-table {
   table-layout: fixed;
-  .amplify-table__th:nth-child(1) { width: 12rem; }
-  .amplify-table__th:nth-child(2) { width: 30%; }
-  .amplify-table__th:nth-child(3) { width: auto; }
+  .amplify-table__th:nth-child(1) {
+    width: 12rem;
+  }
+  .amplify-table__th:nth-child(2) {
+    width: 30%;
+  }
+  .amplify-table__th:nth-child(3) {
+    width: auto;
+  }
 }
 
 @media (max-width: $breakpoint-medium) {

@@ -91,6 +91,13 @@ export const propsData = {
             'Sets the Boolean &#96;disabled&#96; HTML attribute, which, when present, makes the element not mutable, focusable, or even submitted with the form',
         },
         {
+          name: 'isIndeterminate',
+          isOptional: true,
+          type: 'boolean',
+          description:
+            'Determines whether a checkbox is in indeterminate state Default: false',
+        },
+        {
           name: 'isReadOnly',
           isOptional: true,
           type: 'boolean',
