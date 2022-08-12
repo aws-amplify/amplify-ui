@@ -1,0 +1,51 @@
+# Description: this is a reusable workflow that publishes Amplify UI packages
+#              to specificed NPM dist-tag.
+
+on:
+  workflow_call:
+    inputs:
+      dist-tag:
+        # npm dist-tag to publish to
+        required: true
+        type: string
+    secrets:
+      NPM_TOKEN:
+        # npm token used for publishing
+        required: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: deployment
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+      - name: Setup Node.js LTS
+        uses: actions/setup-node@v2
+        with:
+          node-version: lts/*
+          cache: 'yarn'
+      - name: Install packages
+        uses: ./.github/actions/install-with-retries
+        with:
+          skip-cypress-binary: true # publishing doesn't need cypress
+      - name: Build packages
+        run: yarn build
+      - name: Add changeset that bumps all public packages
+        # There needs to be a changeset for @aws-amplify/ui[-framework] to publish.
+        run: cp .github/changeset-presets/bump-versions.md .changeset
+      - name: Run changeset version to dist tag
+        run: yarn changeset version --snapshot "$DIST_TAG"-$(git rev-parse --short=7 HEAD) && yarn angular build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DIST_TAG: ${{ inputs.dist-tag }}
+      - name: Create .npmrc
+        run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Publish to dist tag
+        run: yarn changeset publish --tag "$DIST_TAG"
+        env:
+          DIST_TAG: ${{ inputs.dist-tag }}
