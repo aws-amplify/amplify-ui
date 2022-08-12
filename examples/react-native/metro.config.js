@@ -95,7 +95,12 @@ config.resolver.blockList = [
 
 // point to the example app react-native dep
 config.resolver.extraNodeModules = {
+  react: path.resolve(__dirname, 'node_modules/react'),
   'react-native': path.resolve(__dirname, 'node_modules/react-native'),
+  'react-native-safe-area-context': path.resolve(
+    __dirname,
+    'node_modules/react-native-safe-area-context'
+  ),
 };
 
 // base transform values included by `react-native init`
