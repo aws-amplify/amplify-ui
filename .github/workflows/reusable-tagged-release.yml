@@ -19,7 +19,7 @@ jobs:
     environment: deployment
     steps:
       - name: Skip workflow if tag is invalid dist-tag
-        if: ${{ inputs.dist-tag === '' || inputs.dist-tag === 'latest' }}
+        if: ${{ inputs.dist-tag == '' || inputs.dist-tag == 'latest' }}
         run: exit 1
       - name: Checkout repo
         uses: actions/checkout@v3
