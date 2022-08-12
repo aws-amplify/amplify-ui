@@ -28,22 +28,22 @@ jobs:
         with:
           node-version: lts/*
           cache: 'yarn'
-      # - name: Install packages
-      #   uses: ./.github/actions/install-with-retries
-      #   with:
-      #     skip-cypress-binary: true # publishing doesn't need cypress
-      # - name: Build packages
-      #   run: yarn build
+      - name: Install packages
+        uses: ./.github/actions/install-with-retries
+        with:
+          skip-cypress-binary: true # publishing doesn't need cypress
+      - name: Build packages
+        run: yarn build
       - name: Add changeset that bumps all public packages
         # There needs to be a changeset for @aws-amplify/ui[-framework] to publish.
         run: cp .github/changeset-presets/bump-versions.md .changeset
       - name: Run changeset version to next tag
-        run: echo "yarn changeset version --snapshot ${{ inputs.dist-tag }}-$(git rev-parse --short=7 HEAD) && yarn angular build"
+        run: yarn changeset version --snapshot ${{ inputs.dist-tag }}-$(git rev-parse --short=7 HEAD) && yarn angular build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # - name: Create .npmrc
-      #   run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
-      #   env:
-      #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Create .npmrc
+        run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish to next tag
-        run: echo "yarn changeset publish --tag ${{ inputs.dist-tag }}"
+        run: yarn changeset publish --tag ${{ inputs.dist-tag }}
