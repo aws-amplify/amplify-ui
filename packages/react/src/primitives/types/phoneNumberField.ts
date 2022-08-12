@@ -3,7 +3,7 @@ import * as React from 'react';
 import { SelectFieldProps } from './selectField';
 import { TextInputFieldProps } from './textField';
 
-export interface PhoneNumberFieldProps
+interface PartialPhoneNumberField
   extends TextInputFieldProps,
     CountryCodeFieldProps {
   /**
@@ -17,12 +17,6 @@ export interface PhoneNumberFieldProps
    * Sets the name used when handling form submission for the dial code selector
    */
   dialCodeName?: string;
-
-  /**
-   * @description
-   * Sets the default dial code that will be selected on initial render
-   */
-  defaultDialCode?: string;
 
   /**
    * @description
@@ -68,14 +62,6 @@ interface CountryCodeFieldProps {
 
   /**
    * @description
-   * Sets the default dial code that will be selected on initial render
-   * @deprecated
-   * To be removed with next major version release, please use defaultDialCode
-   */
-  defaultCountryCode?: string;
-
-  /**
-   * @description
    * Handles change events for the dial code selector
    * @deprecated
    * To be removed with next major version release, please use onDialCodeChange
@@ -90,6 +76,40 @@ interface CountryCodeFieldProps {
    */
   countryCodeRef?: React.Ref<HTMLSelectElement>;
 }
+
+interface CountryCodeRequired extends PartialPhoneNumberField {
+  /**
+   * @description
+   * Sets the default dial code that will be selected on initial render
+   * @deprecated
+   * To be removed with next major version release, please use defaultDialCode
+   */
+  defaultCountryCode: string;
+
+  /**
+   * @description
+   * Sets the default dial code that will be selected on initial render
+   */
+  defaultDialCode?: string;
+}
+
+interface DialCodeRequired extends PartialPhoneNumberField {
+  /**
+   * @description
+   * Sets the default dial code that will be selected on initial render
+   * @deprecated
+   * To be removed with next major version release, please use defaultDialCode
+   */
+  defaultCountryCode?: string;
+
+  /**
+   * @description
+   * Sets the default dial code that will be selected on initial render
+   */
+  defaultDialCode: string;
+}
+
+export type PhoneNumberFieldProps = CountryCodeRequired | DialCodeRequired;
 
 export interface DialCodeSelectProps extends SelectFieldProps {
   defaultValue: string;
