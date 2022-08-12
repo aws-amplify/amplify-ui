@@ -82,7 +82,7 @@ export interface DeviceInformation {
   videoWidth: number;
 }
 
-export interface ClientSessionInformationEvent {
+export interface ClientSessionInformation {
   deviceInformation: DeviceInformation;
   challenge: ServerChallenge;
 }

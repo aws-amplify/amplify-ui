@@ -112,7 +112,7 @@ export const Instruction: React.FC<InstructionProps> = (props) => {
     }
 
     if (isFlashFreshnessColorError) {
-      return 'Please keep face in the thing while doing the thing';
+      return 'Please keep face in oval while colors and scrolling';
     }
 
     return FaceMatchStateStringMap[faceMatchState];

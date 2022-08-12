@@ -19,7 +19,7 @@ import {
 } from '../../types';
 import {
   ChallengeType,
-  ClientSessionInformationEvent,
+  ClientSessionInformation,
 } from '../../types/liveness/liveness-service-types';
 import {
   BlazeFaceFaceDetection,
@@ -42,6 +42,7 @@ export const MIN_FACE_MATCH_COUNT = 5;
 let faceDetectedTimestamp: number;
 let ovalDrawnTimestamp: number;
 let freshnessTimeoutId: NodeJS.Timeout;
+let matchFaceInOvalIntervalId: NodeJS.Timeout;
 
 export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
   {
@@ -394,6 +395,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         if (freshnessTimeoutId) {
           clearTimeout(freshnessTimeoutId);
         }
+        if (matchFaceInOvalIntervalId) {
+          clearInterval(matchFaceInOvalIntervalId);
+        }
       },
 
       // timeouts
@@ -408,7 +412,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       sendTimeoutAfterOvalMatchDelay: actions.send(
         { type: 'TIMEOUT' },
         {
-          delay: 7000,
+          delay: 5000,
           id: 'ovalMatchTimeout',
         }
       ),
@@ -696,18 +700,15 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           const tickRate = 10; // ms -- the rate at which we will render/check colors
           const flatDuration = 100; // ms -- the length of time to show a flat color
           const scrollingDuration = 300; // ms -- the length of time it should take for a color to scroll down
+          const faceMatchTimeout = 1000; // ms -- length of time before freshness will reset
 
           let colorStageIndex = 0; // stage of the color permutation
           let prevColorStageIndex = undefined; // previous stage
           let timeLastColorIndChanged = Date.now();
           let expectedCallTime = Date.now() + tickRate;
+          let timeFaceMatched;
 
-          const selfAdjustingInterval = async () => {
-            const tickStartTime = Date.now();
-            const drift = tickStartTime - expectedCallTime;
-            const timeSinceLastColorChange =
-              tickStartTime - timeLastColorIndChanged;
-
+          matchFaceInOvalIntervalId = setInterval(async () => {
             // Check that face is still in the oval
             const detectedFaces = await faceDetector.detectFaces(videoEl);
             let faceMatchState: FaceMatchState;
@@ -719,8 +720,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
                 //no face detected;
                 faceMatchState = FaceMatchState.CANT_IDENTIFY;
                 illuminationState = estimateIllumination(videoEl);
-                reject('no face detected');
-                return;
+                break;
               }
               case 1: {
                 //exactly one face detected, match face with oval;
@@ -729,19 +729,30 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
                   detectedFace,
                   ovalDetails
                 );
-                if (faceMatchState !== FaceMatchState.MATCHED) {
-                  reject('face not in oval');
-                  return;
-                }
                 break;
               }
               default: {
                 //more than one face detected ;
                 faceMatchState = FaceMatchState.TOO_MANY;
-                reject('too many faces detected');
-                return;
+                break;
               }
             }
+
+            if (faceMatchState === FaceMatchState.MATCHED) {
+              timeFaceMatched = Date.now();
+            } else {
+              const timeSinceLastFaceMatch = Date.now() - timeFaceMatched;
+              if (timeSinceLastFaceMatch > faceMatchTimeout) {
+                reject();
+              }
+            }
+          }, 100);
+
+          const selfAdjustingInterval = () => {
+            const tickStartTime = Date.now();
+            const drift = tickStartTime - expectedCallTime;
+            const timeSinceLastColorChange =
+              tickStartTime - timeLastColorIndChanged;
 
             // Every 10 ms tick we will check if we have reached the threshold for showing a color
             // If we have we will increment the color stage
@@ -804,6 +815,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               );
             } else {
               freshnessColorEl.hidden = true;
+              clearInterval(matchFaceInOvalIntervalId);
               resolve(true);
             }
           };
@@ -827,7 +839,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
         const flippedInitialFaceLeft =
           width - initialFace.left - initialFace.width;
-        const livenessActionDocument: ClientSessionInformationEvent = {
+        const livenessActionDocument: ClientSessionInformation = {
           deviceInformation: {
             videoHeight: height,
             videoWidth: width,
