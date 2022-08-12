@@ -30,7 +30,7 @@ export interface InAppMessagingTokens {
 
 export const inappmessaging: InAppMessagingTokens = {
   banner: {
-    height: { value: '100px ' },
+    height: { value: '150px ' },
     width: { value: '400px ' },
   },
   dialog: {

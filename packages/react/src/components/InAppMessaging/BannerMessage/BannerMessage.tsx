@@ -36,6 +36,7 @@ export function BannerMessage(props: BannerMessageProps): JSX.Element | null {
         {...props}
         {...messageProps}
         orientation="horizontal"
+        buttonSize="small"
         styles={styles}
       />
     </Flex>

@@ -28,6 +28,7 @@ import { getButtonModifier } from './utils';
 
 export function MessageLayout({
   body,
+  buttonSize,
   hasButtons,
   hasPrimaryButton,
   hasRenderableImage,
@@ -107,7 +108,7 @@ export function MessageLayout({
         {isHorizontal && <Flex alignItems="flex-start">{closeButton}</Flex>}
       </Flex>
       {hasButtons && (
-        <ButtonGroup>
+        <ButtonGroup size={buttonSize}>
           {hasSecondaryButton && (
             <Button
               className={classNames(
