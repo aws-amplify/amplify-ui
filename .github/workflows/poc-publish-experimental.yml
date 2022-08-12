@@ -4,7 +4,7 @@ on:
 
 jobs:
   release:
-    uses: ./github/workflows/reusable-tagged-release.yml
+    uses: ./.github/workflows/reusable-tagged-release.yml
     with:
       dist-tag: experimental
     secrets:
