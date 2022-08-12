@@ -17,7 +17,7 @@ Feature: Sign Up with Phone
 
   @angular @react @vue 
   Scenario: Sign up with valid phone number & password
-    When I select my country code with status "UNCONFIRMED"
+    When I select my dial code with status "UNCONFIRMED"
     And I type my "phone number" with status "UNCONFIRMED"
     And I type my password
     And I confirm my password

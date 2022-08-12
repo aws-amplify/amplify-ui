@@ -8,7 +8,7 @@ Feature: Sign In with SMS MFA
 
   @angular @react @vue
   Scenario: Sign in with with sms mfa and check mocked name attribute
-    When I select my country code with status "CONFIRMED"
+    When I select my dial code with status "CONFIRMED"
     And I type my "phone number" with status "CONFIRMED"
     And I type my password
     And I click the "Sign in" button
@@ -23,7 +23,7 @@ Feature: Sign In with SMS MFA
 
   @angular @react @vue
   Scenario: Sign in using a valid phone number and SMS MFA
-    When I select my country code with status "CONFIRMED"
+    When I select my dial code with status "CONFIRMED"
     And I type my "phone number" with status "CONFIRMED"
     And I type my password
     And I click the "Sign in" button
@@ -32,7 +32,7 @@ Feature: Sign In with SMS MFA
 
   @angular @react @vue
   Scenario: Redirect to sign in page
-    When I select my country code with status "CONFIRMED"
+    When I select my dial code with status "CONFIRMED"
     And I type my "phone number" with status "CONFIRMED"
     And I type my password
     And I click the "Sign in" button
@@ -41,7 +41,7 @@ Feature: Sign In with SMS MFA
 
   @angular @react @vue
   Scenario: Incorrect SMS code with translated text
-    When I select my country code with status "CONFIRMED"
+    When I select my dial code with status "CONFIRMED"
     And I type my "phone number" with status "CONFIRMED"
     And I type my password
     And I click the "Sign in" button
@@ -51,7 +51,7 @@ Feature: Sign In with SMS MFA
     
   @angular @react @vue
   Scenario: Sign in with unknown credentials
-    When I select my country code with status "UNKNOWN"
+    When I select my dial code with status "UNKNOWN"
     And I type my "phone number" with status "UNKNOWN"
     And I type my password
     And I click the "Sign in" button
@@ -60,7 +60,7 @@ Feature: Sign In with SMS MFA
 @angular @react @vue
 Scenario: Sign in with force change password with sms mfa
   Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "force-change-password"
-  When I select my country code with status "FORCE_CHANGE_PASSWORD"
+  When I select my dial code with status "FORCE_CHANGE_PASSWORD"
   And I type my "phone number" with status "CONFIRMED"
   And I type my password
   And I click the "Sign in" button

@@ -4,9 +4,9 @@
 
 import { When } from 'cypress-cucumber-preprocessor/steps';
 
-When('I select my country code with status {string}', (status: string) => {
+When('I select my dial code with status {string}', (status: string) => {
   const countryCodeSelect = cy.findByRole('combobox', {
-    name: /country code/i,
+    name: /dial code/i,
   });
   if (countryCodeSelect) {
     const countryCode =
