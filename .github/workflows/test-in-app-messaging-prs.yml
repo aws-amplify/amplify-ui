@@ -14,10 +14,7 @@ concurrency:
 
 on:
   pull_request_target:
-    branches: [
-        in-app-messaging/main
-        in-app-messaging/release,
-      ]
+    branches: [in-app-messaging/main, in-app-messaging/release]
     types: [opened, synchronize, labeled]
 
 permissions:
