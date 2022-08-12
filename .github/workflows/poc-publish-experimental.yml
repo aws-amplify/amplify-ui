@@ -1,0 +1,11 @@
+on:
+  pull_request:
+    branches: [llbc/tagged-release/demo-run]
+
+jobs:
+  release:
+    uses: ./github/workflows/reusable-tagged-release.yml
+    with:
+      dist-tag: experimental
+    secrets:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
