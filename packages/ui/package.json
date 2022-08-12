@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui",
-  "version": "3.12.5",
+  "version": "3.13.0",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "exports": {
@@ -42,7 +42,7 @@
   "dependencies": {
     "lodash": "4.17.21",
     "style-dictionary": "3.7.0",
-    "xstate": "^4.30.6",
+    "xstate": "^4.33.0",
     "tslib": "2.4.0"
   },
   "devDependencies": {
