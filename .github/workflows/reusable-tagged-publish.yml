@@ -46,4 +46,4 @@ jobs:
       #   env:
       #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish to next tag
-        run: echo "yarn changeset publish --tag ${{ inputs.dist-tag }}""
+        run: echo "yarn changeset publish --tag ${{ inputs.dist-tag }}"
