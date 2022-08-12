@@ -419,8 +419,8 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-image-height: auto;
         --amplify-components-image-object-fit: initial;
         --amplify-components-image-object-position: initial;
-        --amplify-components-inappmessaging-banner-height: 100px ;
-        --amplify-components-inappmessaging-banner-width: 400px ;
+        --amplify-components-inappmessaging-banner-height: 100px;
+        --amplify-components-inappmessaging-banner-width: 400px;
         --amplify-components-inappmessaging-dialog-height: 50vh;
         --amplify-components-inappmessaging-dialog-min-height: 400px;
         --amplify-components-inappmessaging-dialog-min-width: 400px;
