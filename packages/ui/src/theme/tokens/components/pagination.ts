@@ -25,8 +25,16 @@ interface PaginationButtonTokens {
   paddingInlineEnd: DesignToken<SpaceValue>;
   transitionProperty: DesignToken<TransitionPropertyValue>;
   transitionDuration: DesignToken<TransitionDurationValue>;
-  hover: PaginationButtonHoverTokens;
-  disabled: PaginationButtonDisabledTokens;
+  /**
+   * @deprecated to be removed in the next major version please use _hover
+   */
+  hover?: PaginationButtonHoverTokens;
+  /**
+   * @deprecated to be removed in the next major version please use _disabled
+   */
+  disabled?: PaginationButtonDisabledTokens;
+  _hover: PaginationButtonHoverTokens;
+  _disabled: PaginationButtonDisabledTokens;
 }
 
 export interface PaginationButtonHoverTokens {
@@ -77,11 +85,11 @@ export const pagination: PaginationTokens = {
     paddingInlineEnd: { value: '{space.xxs.value}' },
     transitionProperty: { value: 'background-color' },
     transitionDuration: { value: '{time.medium.value}' },
-    hover: {
+    _hover: {
       backgroundColor: { value: '{colors.overlay.10.value}' },
       color: { value: '{colors.font.primary.value}' },
     },
-    disabled: {
+    _disabled: {
       color: { value: '{colors.font.disabled.value}' },
     },
   },

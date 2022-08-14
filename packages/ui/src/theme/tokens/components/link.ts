@@ -9,25 +9,41 @@ interface LinkSizeTokens {
 }
 
 export interface LinkTokens {
-  active: LinkStateTokens;
+  /**
+   * @deprecated to be removed in the next major version please use _active
+   */
+  active?: LinkStateTokens;
   color: DesignToken<ColorValue>;
-  focus: LinkStateTokens;
-  hover: LinkStateTokens;
-  visited: LinkStateTokens;
+  /**
+   * @deprecated to be removed in the next major version please use _focus
+   */
+  focus?: LinkStateTokens;
+  /**
+   * @deprecated to be removed in the next major version please use _hover
+   */
+  hover?: LinkStateTokens;
+  /**
+   * @deprecated to be removed in the next major version please use _visited
+   */
+  visited?: LinkStateTokens;
+  _active: LinkStateTokens;
+  _focus: LinkStateTokens;
+  _hover: LinkStateTokens;
+  _visited: LinkStateTokens;
 }
 
 export const link: LinkTokens = {
-  active: {
+  _active: {
     color: { value: '{colors.font.active.value}' },
   },
   color: { value: '{colors.font.interactive.value}' },
-  focus: {
+  _focus: {
     color: { value: '{colors.font.focus.value}' },
   },
-  hover: {
+  _hover: {
     color: { value: '{colors.font.hover.value}' },
   },
-  visited: {
+  _visited: {
     color: { value: '{colors.font.interactive.value}' },
   },
 };

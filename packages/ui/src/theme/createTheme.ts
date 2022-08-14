@@ -63,6 +63,20 @@ function setupTokens(obj: any, path = []) {
   return tokens;
 }
 
+function removeDeprecated(tokens: any[]) {
+  const DUPLICATED_TOKENS = {};
+  let retVal = [];
+  const duplicates = {};
+  tokens.forEach((token) => {
+    const { name } = token;
+    if (!DUPLICATED_TOKENS[name]) {
+      retVal.push(token);
+    } else {
+      // dedupe the token and insert it under the correct path
+    }
+  });
+}
+
 /**
  * This will be used like `const myTheme = createTheme({})`
  * `myTheme` can then be passed to a Provider or the generated CSS

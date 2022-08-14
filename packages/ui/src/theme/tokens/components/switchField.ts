@@ -31,7 +31,11 @@ interface SwitchFieldThumbTokens {
   backgroundColor: DesignToken<BackgroundColorValue>;
   borderColor: DesignToken<BorderColorValue>;
   borderRadius: DesignToken<BorderRadiusValue>;
-  checked: SwitchFieldThumbCheckedTokens;
+  /**
+   * @deprecated to be removed in the next major version please use _checked
+   */
+  checked?: SwitchFieldThumbCheckedTokens;
+  _checked: SwitchFieldThumbCheckedTokens;
   transition: SwitchFieldThumbTransitionTokens;
   width: DesignToken<SpaceValue>;
 }
@@ -46,7 +50,11 @@ interface SwitchFieldThumbCheckedTokens {
 interface SwitchFieldTrackTokens {
   backgroundColor: DesignToken<BackgroundColorValue>;
   borderRadius: DesignToken<BorderRadiusValue>;
-  checked: SwitchFieldTrackCheckedTokens;
+  /**
+   * @deprecated to be removed in the next major version please use _checked
+   */
+  checked?: SwitchFieldTrackCheckedTokens;
+  _checked: SwitchFieldTrackCheckedTokens;
   height: DesignToken<SpaceValue>;
   padding: DesignToken<SpaceValue>;
   transition: SwitchFieldTrackTransitionTokens;
@@ -107,7 +115,7 @@ export const switchfield: SwitchFieldTokens = {
     backgroundColor: { value: '{colors.background.primary.value}' },
     borderColor: { value: '{colors.border.tertiary.value}' },
     borderRadius: { value: '{radii.xxxl.value}' },
-    checked: {
+    _checked: {
       transform: { value: '{transforms.slideX.medium.value}' },
     },
     transition: {
@@ -119,7 +127,7 @@ export const switchfield: SwitchFieldTokens = {
   track: {
     backgroundColor: { value: '{colors.background.quaternary.value}' },
     borderRadius: { value: '{radii.xxxl.value}' },
-    checked: {
+    _checked: {
       backgroundColor: { value: '{colors.brand.primary.80.value}' },
     },
     height: { value: '{space.relative.medium.value}' },
