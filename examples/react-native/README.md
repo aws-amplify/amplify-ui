@@ -86,29 +86,31 @@ yarn react-native-example dev
 
 ## Storybook
 
-First boot Storybook Server, which will serve a web interface that allows switching between components (stories) and controlling multiple simulators/emulators:
+1. With Storybook Server - which will serve a web interface that allows switching between components (stories) and controlling multiple simulators/emulators.
+
+First boot Storybook Server:
 
 ```bash
 # terminal 1
 yarn run react-native-example storybook
 ```
 
-From a second terminal run ios simulator, android emulator or both:
+From a second terminal run iOS simulator, Android emulator or both (requires app to be installed):
 
 ```bash
 # terminal 2
-
-# ios simulator
-yarn run react-native-example ios
-
-# android emulator
-yarn run react-native-example android
-
-# both
 yarn run react-native-example dev
 ```
 
-Refresh the Storybook web interface.
+Refresh the Storybook web interface to load all the stories.
+
+1. On simulator only
+
+```bash
+yarn run react-native-example dev
+```
+
+In the Storybook app switch between `Navigator` and `Preview` tabs to select components/stories.
 
 ## Running Integration Tests - TODO
 

@@ -1,9 +1,9 @@
+import React from 'react';
+import { Text } from 'react-native';
 import { action } from '@storybook/addon-actions';
 import { text } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react-native';
-import React from 'react';
-import { Text } from 'react-native';
-import { Button } from '@aws-amplify/ui-react-native';
+import { Button } from '@aws-amplify/ui-react-native/dist/primitives';
 
 storiesOf('Button', module)
   .add('with text', () => (
