@@ -4,10 +4,6 @@ import { act, create, ReactTestRenderer } from 'react-test-renderer';
 
 import CarouselPageIndicator from '../CarouselPageIndicator';
 
-jest.mock('react-native-safe-area-context', () => ({
-  SafeAreaView: 'SafeAreaView',
-}));
-
 describe('CarouselPageIndicator', () => {
   let carouselPageIndicator: ReactTestRenderer;
 

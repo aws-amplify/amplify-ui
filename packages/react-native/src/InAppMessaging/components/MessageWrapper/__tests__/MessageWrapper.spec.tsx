@@ -4,11 +4,6 @@ import { Text } from 'react-native';
 
 import MessageWrapper from '../MessageWrapper';
 
-jest.mock('react-native-safe-area-context', () => ({
-  SafeAreaProvider: 'SafeAreaProvider',
-  SafeAreaView: 'SafeAreaView',
-}));
-
 const Children = () => <Text>Children</Text>;
 
 describe('MessageWrapper', () => {
