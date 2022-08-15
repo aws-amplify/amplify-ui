@@ -35,7 +35,7 @@ interface SwitchFieldThumbTokens {
    * @deprecated to be removed in the next major version please use _checked
    */
   checked?: SwitchFieldThumbCheckedTokens;
-  _checked: SwitchFieldThumbCheckedTokens;
+  _checked?: SwitchFieldThumbCheckedTokens;
   transition: SwitchFieldThumbTransitionTokens;
   width: DesignToken<SpaceValue>;
 }
@@ -54,7 +54,7 @@ interface SwitchFieldTrackTokens {
    * @deprecated to be removed in the next major version please use _checked
    */
   checked?: SwitchFieldTrackCheckedTokens;
-  _checked: SwitchFieldTrackCheckedTokens;
+  _checked?: SwitchFieldTrackCheckedTokens;
   height: DesignToken<SpaceValue>;
   padding: DesignToken<SpaceValue>;
   transition: SwitchFieldTrackTransitionTokens;
@@ -79,6 +79,18 @@ export interface SwitchFieldTokens {
   thumb: SwitchFieldThumbTokens;
   track: SwitchFieldTrackTokens;
 }
+
+export const DEPRECATED_SWITCHFIELD_TOKENS = [
+  {
+    tokenName: '--amplify-components-switchfield-thumb-checked-transform',
+    path: 'components.switchfield.thumb._checked.transform',
+  },
+  {
+    tokenName:
+      '--amplify-components-switchfield-track-checked-background-color',
+    path: 'components.switchfield.track._checked.backgroundColor',
+  },
+];
 
 export const switchfield: SwitchFieldTokens = {
   // States
@@ -115,7 +127,7 @@ export const switchfield: SwitchFieldTokens = {
     backgroundColor: { value: '{colors.background.primary.value}' },
     borderColor: { value: '{colors.border.tertiary.value}' },
     borderRadius: { value: '{radii.xxxl.value}' },
-    _checked: {
+    checked: {
       transform: { value: '{transforms.slideX.medium.value}' },
     },
     transition: {
@@ -127,7 +139,7 @@ export const switchfield: SwitchFieldTokens = {
   track: {
     backgroundColor: { value: '{colors.background.quaternary.value}' },
     borderRadius: { value: '{radii.xxxl.value}' },
-    _checked: {
+    checked: {
       backgroundColor: { value: '{colors.brand.primary.80.value}' },
     },
     height: { value: '{space.relative.medium.value}' },

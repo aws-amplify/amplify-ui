@@ -31,6 +31,180 @@ describe('@aws-amplify/ui', () => {
           'var(--amplify-colors-background-primary)'
         );
       });
+
+      it('should filter out deprecated pagination design tokens', () => {
+        const theme = {
+          name: 'test',
+          tokens: {
+            components: {
+              pagination: {
+                button: {
+                  _hover: {
+                    backgroundColor: {
+                      value: 'red',
+                    },
+                    color: {
+                      value: 'blue',
+                    },
+                  },
+                  _disabled: {
+                    color: {
+                      value: 'grey',
+                    },
+                  },
+                },
+              },
+            },
+          },
+        };
+        const { cssText, tokens } = createTheme(theme);
+        expect(cssText).toContain(
+          `--amplify-components-pagination-button-hover-background-color: ${tokens.components.pagination.button._hover?.backgroundColor.value}`
+        );
+        expect(cssText).not.toContain(
+          `--amplify-components-pagination-button-hover-background-color: ${tokens.components.pagination.button.hover?.backgroundColor.value}`
+        );
+
+        expect(cssText).toContain(
+          `--amplify-components-pagination-button-hover-color: ${tokens.components.pagination.button._hover?.color.value}`
+        );
+        expect(cssText).not.toContain(
+          `--amplify-components-pagination-button-hover-color: ${tokens.components.pagination.button.hover?.color.value}`
+        );
+
+        expect(cssText).toContain(
+          `--amplify-components-pagination-button-disabled-color: ${tokens.components.pagination.button._disabled?.color.value}`
+        );
+        expect(cssText).not.toContain(
+          `--amplify-components-pagination-button-disabled-color: ${tokens.components.pagination.button.disabled?.color.value}`
+        );
+      });
+
+      it('should filter out the deprecated link tokens', () => {
+        const theme = {
+          name: 'test',
+          tokens: {
+            components: {
+              link: {
+                _active: {
+                  color: {
+                    value: 'red',
+                  },
+                },
+                _focus: {
+                  color: {
+                    value: 'white',
+                  },
+                },
+                _hover: {
+                  color: {
+                    value: 'green',
+                  },
+                },
+                _visited: {
+                  color: {
+                    value: 'blue',
+                  },
+                },
+              },
+            },
+          },
+        };
+        const { cssText, tokens } = createTheme(theme);
+        expect(cssText).toContain(
+          `--amplify-components-link-active-color: ${tokens.components.link._active?.color.value}`
+        );
+        expect(cssText).not.toContain(
+          `--amplify-components-link-active-color: ${tokens.components.link.active?.color.value}`
+        );
+
+        expect(cssText).toContain(
+          `--amplify-components-link-focus-color: ${tokens.components.link._focus?.color.value}`
+        );
+        expect(cssText).not.toContain(
+          `--amplify-components-link-focus-color: ${tokens.components.link.focus?.color.value}`
+        );
+
+        expect(cssText).toContain(
+          `--amplify-components-link-hover-color: ${tokens.components.link._hover?.color.value}`
+        );
+        expect(cssText).not.toContain(
+          `--amplify-components-link-hover-color: ${tokens.components.link.hover?.color.value}`
+        );
+
+        expect(cssText).toContain(
+          `--amplify-components-link-visited-color: ${tokens.components.link._visited?.color.value}`
+        );
+        expect(cssText).not.toContain(
+          `--amplify-components-link-visited-color: ${tokens.components.link.visited?.color.value}`
+        );
+      });
+
+      it('should filter out the deprecated switchfield tokens', () => {
+        const theme = {
+          name: 'test',
+          tokens: {
+            components: {
+              switchfield: {
+                thumb: {
+                  _checked: {
+                    transform: {
+                      value: '{transforms.slideX.small.value}',
+                    },
+                  },
+                },
+                track: {
+                  _checked: {
+                    backgroundColor: {
+                      value: 'red',
+                    },
+                  },
+                },
+              },
+            },
+          },
+        };
+        const { cssText, tokens } = createTheme(theme);
+        expect(cssText).toContain(
+          `--amplify-components-switchfield-thumb-checked-transform: ${tokens.components.switchfield.thumb._checked?.transform.value}`
+        );
+        expect(cssText).not.toContain(
+          `--amplify-components-switchfield-thumb-checked-transform: ${tokens.components.switchfield.thumb.checked?.transform.value}`
+        );
+
+        expect(cssText).toContain(
+          `--amplify-components-switchfield-track-checked-background-color: ${tokens.components.switchfield.track._checked?.backgroundColor.value}`
+        );
+        expect(cssText).not.toContain(
+          `--amplify-components-switchfield-track-checked-background-color: ${tokens.components.switchfield.track.checked?.backgroundColor.value}`
+        );
+      });
+
+      it('should filter out the deprecated table tokens', () => {
+        const theme = {
+          name: 'test',
+          tokens: {
+            components: {
+              table: {
+                row: {
+                  _hover: {
+                    backgroundColor: {
+                      value: 'red',
+                    },
+                  },
+                },
+              },
+            },
+          },
+        };
+        const { cssText, tokens } = createTheme(theme);
+        expect(cssText).toContain(
+          `--amplify-components-table-row-hover-background-color: ${tokens.components.table.row._hover?.backgroundColor.value}`
+        );
+        expect(cssText).not.toContain(
+          `--amplify-components-table-row-hover-background-color: ${tokens.components.table.row.hover?.backgroundColor.value}`
+        );
+      });
     });
 
     describe('with a theme and without a base theme', () => {

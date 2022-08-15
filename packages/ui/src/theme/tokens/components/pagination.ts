@@ -33,8 +33,8 @@ interface PaginationButtonTokens {
    * @deprecated to be removed in the next major version please use _disabled
    */
   disabled?: PaginationButtonDisabledTokens;
-  _hover: PaginationButtonHoverTokens;
-  _disabled: PaginationButtonDisabledTokens;
+  _hover?: PaginationButtonHoverTokens;
+  _disabled?: PaginationButtonDisabledTokens;
 }
 
 export interface PaginationButtonHoverTokens {
@@ -71,6 +71,21 @@ export interface PaginationTokens {
   itemShared: PaginationItemSharedTokens;
 }
 
+export const DEPRECATED_PAGINATION_TOKENS = [
+  {
+    tokenName: '--amplify-components-pagination-button-hover-background-color',
+    path: 'components.pagination.button._hover.backgroundColor',
+  },
+  {
+    tokenName: '--amplify-components-pagination-button-hover-color',
+    path: 'components.pagination.button._hover.color',
+  },
+  {
+    tokenName: '--amplify-components-pagination-button-disabled-color',
+    path: 'components.pagination.button._disabled.color',
+  },
+];
+
 export const pagination: PaginationTokens = {
   current: {
     alignItems: { value: 'center' },
@@ -85,11 +100,11 @@ export const pagination: PaginationTokens = {
     paddingInlineEnd: { value: '{space.xxs.value}' },
     transitionProperty: { value: 'background-color' },
     transitionDuration: { value: '{time.medium.value}' },
-    _hover: {
+    hover: {
       backgroundColor: { value: '{colors.overlay.10.value}' },
       color: { value: '{colors.font.primary.value}' },
     },
-    _disabled: {
+    disabled: {
       color: { value: '{colors.font.disabled.value}' },
     },
   },

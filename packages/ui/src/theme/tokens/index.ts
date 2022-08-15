@@ -78,3 +78,5 @@ export const tokens: Tokens = {
   time,
   transforms,
 };
+
+export { DEPRECATED_TOKENS } from './components';

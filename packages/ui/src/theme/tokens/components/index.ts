@@ -21,10 +21,14 @@ import { flex, FlexTokens } from './flex';
 import { heading, HeadingTokens } from './heading';
 import { icon, IconTokens } from './icon';
 import { image, ImageTokens } from './image';
-import { link, LinkTokens } from './link';
+import { link, LinkTokens, DEPRECATED_LINK_TOKENS } from './link';
 import { loader, LoaderTokens } from './loader';
 import { menu, MenuTokens } from './menu';
-import { pagination, PaginationTokens } from './pagination';
+import {
+  pagination,
+  PaginationTokens,
+  DEPRECATED_PAGINATION_TOKENS,
+} from './pagination';
 import { passwordfield, PasswordFieldTokens } from './passwordField';
 import { phonenumberfield, PhoneNumberFieldTokens } from './phoneNumberField';
 import { placeholder, PlaceholderTokens } from './placeholder';
@@ -36,8 +40,12 @@ import { select, SelectTokens } from './select';
 import { selectfield, SelectFieldTokens } from './selectField';
 import { sliderfield, SliderFieldTokens } from './sliderField';
 import { stepperfield, StepperFieldTokens } from './stepperField';
-import { switchfield, SwitchFieldTokens } from './switchField';
-import { table, TableTokens } from './table';
+import {
+  switchfield,
+  SwitchFieldTokens,
+  DEPRECATED_SWITCHFIELD_TOKENS,
+} from './switchField';
+import { table, TableTokens, DEPRECATED_TABLE_TOKENS } from './table';
 import { tabs, TabsTokens } from './tabs';
 import { text, TextTokens } from './text';
 import { textareafield, TextAreaFieldTokens } from './textAreaField';
@@ -139,3 +147,10 @@ export const components: ComponentTokens = {
   togglebutton,
   togglebuttongroup,
 };
+
+export const DEPRECATED_TOKENS = [
+  ...DEPRECATED_LINK_TOKENS,
+  ...DEPRECATED_PAGINATION_TOKENS,
+  ...DEPRECATED_SWITCHFIELD_TOKENS,
+  ...DEPRECATED_TABLE_TOKENS,
+];

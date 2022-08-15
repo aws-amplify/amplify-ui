@@ -26,7 +26,7 @@ interface TableRowTokens extends TableDefaultTokens {
    * @deprecated to be removed in the next major version please use _hover
    */
   hover?: TableRowHoverTokens;
-  _hover: TableRowHoverTokens;
+  _hover?: TableRowHoverTokens;
   striped: TableRowStripedTokens;
 }
 
@@ -87,6 +87,13 @@ export interface TableTokens {
   caption: TableCaptionTokens;
 }
 
+export const DEPRECATED_TABLE_TOKENS = [
+  {
+    tokenName: '--amplify-components-table-row-hover-background-color',
+    path: 'components.table.row._hover.backgroundColor',
+  },
+];
+
 export const table: TableTokens = {
   /**
    * Default table styles
@@ -126,7 +133,7 @@ export const table: TableTokens = {
     display: { value: 'table-row' },
     verticalAlign: { value: 'middle' },
 
-    _hover: {
+    hover: {
       backgroundColor: { value: '{colors.background.tertiary.value}' },
     },
 

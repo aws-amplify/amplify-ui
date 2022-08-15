@@ -5,7 +5,7 @@ import flattenProperties from 'style-dictionary/lib/utils/flattenProperties';
 import { defaultTheme } from './defaultTheme';
 import { Theme, BaseTheme, WebTheme, Override } from './types';
 import { cssValue, cssNameTransform } from './utils';
-import { WebTokens } from './tokens';
+import { WebTokens, DEPRECATED_TOKENS } from './tokens';
 import { DesignToken, WebDesignToken } from './tokens/types/designToken';
 
 /**
@@ -64,17 +64,20 @@ function setupTokens(obj: any, path = []) {
 }
 
 function removeDeprecated(tokens: any[]) {
-  const DUPLICATED_TOKENS = {};
-  let retVal = [];
-  const duplicates = {};
-  tokens.forEach((token) => {
-    const { name } = token;
-    if (!DUPLICATED_TOKENS[name]) {
-      retVal.push(token);
-    } else {
-      // dedupe the token and insert it under the correct path
+  let tokenList = tokens;
+  DEPRECATED_TOKENS.forEach((duplicateToken) => {
+    const filteredTokens = tokenList.filter(
+      (token) => duplicateToken.tokenName === token.name
+    );
+    if (filteredTokens.length >= 2) {
+      tokenList = tokenList.filter(
+        (token) =>
+          duplicateToken.tokenName !== token.name ||
+          duplicateToken.path === token.path.join('.')
+      );
     }
   });
+  return tokenList;
 }
 
 /**
@@ -106,7 +109,7 @@ export function createTheme(
   // that creates an array of all tokens.
   let cssText =
     `[data-amplify-theme="${name}"] {\n` +
-    flattenProperties(tokens)
+    removeDeprecated(flattenProperties(tokens))
       .map((token) => `${token.name}: ${token.value};`)
       .join('\n') +
     `\n}\n`;
@@ -121,7 +124,7 @@ export function createTheme(
   if (mergedTheme.overrides) {
     overrides = mergedTheme.overrides.map((override) => {
       const tokens = setupTokens(override.tokens);
-      const customProperties = flattenProperties(tokens)
+      const customProperties = removeDeprecated(flattenProperties(tokens))
         .map((token) => `${token.name}: ${token.value};`)
         .join('\n');
       // Overrides can have a selector, media query, breakpoint, or color mode
