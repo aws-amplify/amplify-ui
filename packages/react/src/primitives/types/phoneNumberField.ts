@@ -3,7 +3,7 @@ import * as React from 'react';
 import { SelectFieldProps } from './selectField';
 import { TextInputFieldProps } from './textField';
 
-interface PartialPhoneNumberField
+interface optionalPhoneNumberFieldProps
   extends TextInputFieldProps,
     CountryCodeFieldProps {
   /**
@@ -77,7 +77,7 @@ interface CountryCodeFieldProps {
   countryCodeRef?: React.Ref<HTMLSelectElement>;
 }
 
-interface CountryCodeRequired extends PartialPhoneNumberField {
+interface CountryCodeRequired extends optionalPhoneNumberFieldProps {
   /**
    * @description
    * Sets the default dial code that will be selected on initial render
@@ -93,7 +93,7 @@ interface CountryCodeRequired extends PartialPhoneNumberField {
   defaultDialCode?: string;
 }
 
-interface DialCodeRequired extends PartialPhoneNumberField {
+interface DialCodeRequired extends optionalPhoneNumberFieldProps {
   /**
    * @description
    * Sets the default dial code that will be selected on initial render

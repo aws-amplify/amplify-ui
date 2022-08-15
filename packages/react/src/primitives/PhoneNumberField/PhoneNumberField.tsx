@@ -13,11 +13,14 @@ const PhoneNumberFieldPrimitive: Primitive<PhoneNumberFieldProps, 'input'> = (
     autoComplete = 'tel-national',
     className,
     countryCodeName,
-    dialCodeName,
     countryCodeLabel = ComponentText.PhoneNumberField.dialCodeLabel,
-    dialCodeLabel = ComponentText.PhoneNumberField.dialCodeLabel,
+    countryCodeRef,
     defaultCountryCode,
     defaultDialCode,
+    dialCodeLabel = ComponentText.PhoneNumberField.dialCodeLabel,
+    dialCodeList,
+    dialCodeName,
+    dialCodeRef,
     hasError,
     isDisabled,
     isReadOnly,
@@ -27,24 +30,19 @@ const PhoneNumberFieldPrimitive: Primitive<PhoneNumberFieldProps, 'input'> = (
     size,
     type,
     variation,
-    countryCodeRef,
-    dialCodeRef,
-    dialCodeList,
     ...rest
   },
   ref
 ) => {
-  /**
-   * Merge all dial/country code values in preparation of countryCode values being removed preferring dial code values
-   */
-  dialCodeName = dialCodeName || countryCodeName;
-  dialCodeLabel = dialCodeLabel || countryCodeLabel;
-  defaultDialCode = defaultDialCode || defaultCountryCode;
-  onDialCodeChange = onDialCodeChange || onCountryCodeChange;
-  dialCodeRef = dialCodeRef || countryCodeRef;
+  // Merge all dial/country code values in preparation of countryCode values being removed preferring dial code values
+  const codeName = dialCodeName || countryCodeName;
+  const codeLabel = dialCodeLabel || countryCodeLabel;
+  const defaultCode = defaultDialCode || defaultCountryCode;
+  const onCodeChange = onDialCodeChange || onCountryCodeChange;
+  const codeRef = dialCodeRef || countryCodeRef;
 
   const deprecationMessage =
-    'PhoneNumberField countryCodeName, countryCodeLabel, defaultCountryCode, onCountryCodeChange, and countryCodeRef prop will be deprecated in next major release of @aws-amplify/ui-react. Please use dialCodeName, dialCodeLabel, defaultDialCode, onDialCodeChange, and dialCodeRef instead.';
+    'The PhoneNumberField component props: countryCodeName, countryCodeLabel, defaultCountryCode, onCountryCodeChange, and countryCodeRef props are deprecated and will be removed in the next major release of @aws-amplify/ui-react. Please update to dialCodeName, dialCodeLabel, defaultDialCode, onDialCodeChange, and dialCodeRef respectively.';
   const shouldWarn =
     countryCodeName ||
     countryCodeLabel !== ComponentText.PhoneNumberField.dialCodeLabel ||
@@ -61,16 +59,16 @@ const PhoneNumberFieldPrimitive: Primitive<PhoneNumberFieldProps, 'input'> = (
     <TextField
       outerStartComponent={
         <CountryCodeSelect
-          defaultValue={defaultDialCode}
+          defaultValue={defaultCode}
           dialCodeList={dialCodeList}
           className={className}
           hasError={hasError}
           isDisabled={isDisabled}
           isReadOnly={isReadOnly}
-          label={dialCodeLabel}
-          name={dialCodeName}
-          onChange={onDialCodeChange}
-          ref={dialCodeRef}
+          label={codeLabel}
+          name={codeName}
+          onChange={onCodeChange}
+          ref={codeRef}
           size={size}
           variation={variation}
         />

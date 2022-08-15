@@ -47,7 +47,7 @@ which will auto-populate the dial code select field.
 ### Dial Code Select Properties
 
 <Alert variation="info">All `countryCode` fields are being deprecated in favor of the new `dialCode` fields.  If you still have instances of `defaultCountryCode`,
-`countryCodeList`, `countryCodeName`, `countryCodeLabel`, and `onCountryCodeChange` then please update these to the new `dialCode` props listed below</Alert>
+`countryCodeList`, `countryCodeName`, `countryCodeLabel`, and `onCountryCodeChange` then please update these to the new `dialCode` props listed below.</Alert>
 
 The dial code selector can be customized by setting several properties when using the `PhoneNumberField` primitive. The custom
 properties specific to the dial code selector are the following:
@@ -57,6 +57,8 @@ properties specific to the dial code selector are the following:
 - `dialCodeName`: A name used when handling form submission for the dial code selector
 - `dialCodeLabel`: A hidden accessible label for the dial code selector
 - `onDialCodeChange`: A custom change handler for the dial code selector
+
+* If both `defaultDialCode`, `dialCodeList`, `dialCodeName`, `dialCodeLabel`, and `onDialCodeChange` and the corresponding `countryCode` prop are provided, then the value in the `dialCode` prop will be preferred.
 
 <Example>
   <DialCodeSelectExample />
