@@ -86,7 +86,8 @@ yarn react-native-example dev
 
 ## Storybook
 
-1. With Storybook Server - which will serve a web interface that allows switching between components (stories) and controlling multiple simulators/emulators.
+### With Storybook Server
+Will serve a web interface that allows switching between components (stories) and controlling multiple simulators/emulators.
 
 First boot Storybook Server:
 
