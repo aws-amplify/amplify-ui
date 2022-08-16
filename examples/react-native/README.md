@@ -105,7 +105,7 @@ yarn run react-native-example dev
 
 Refresh the Storybook web interface to load all the stories.
 
-1. On simulator only
+### On iOS simulator/Android emulator only
 
 ```bash
 yarn run react-native-example dev
