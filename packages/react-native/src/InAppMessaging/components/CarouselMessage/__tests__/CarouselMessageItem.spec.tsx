@@ -6,9 +6,6 @@ import { useMessageImage } from '../../../hooks/useMessageImage';
 
 import CarouselMessageItem from '../CarouselMessageItem';
 
-jest.mock('react-native-safe-area-context', () => ({
-  SafeAreaView: 'SafeAreaView',
-}));
 jest.mock('../../../../hooks');
 jest.mock('../../../hooks/useMessageImage');
 jest.mock('../../MessageLayout', () => ({ MessageLayout: 'MessageLayout' }));
