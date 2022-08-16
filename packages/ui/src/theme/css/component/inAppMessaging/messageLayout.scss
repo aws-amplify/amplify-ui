@@ -53,10 +53,7 @@
   &__header {
     font-size: var(--amplify-components-inappmessaging-header-font-size);
     font-weight: var(--amplify-components-inappmessaging-header-font-weight);
-    min-height: calc(
-      var(--amplify-components-inappmessaging-header-font-size) *
-        var(--amplify-components-heading-line-height)
-    );
+    flex-shrink: 0;
   }
   &__image-container {
     align-items: center;
