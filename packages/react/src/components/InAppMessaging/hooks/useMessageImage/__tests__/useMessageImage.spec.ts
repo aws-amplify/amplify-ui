@@ -28,7 +28,7 @@ describe('useMessageImage', () => {
   it('handles loading an image in the happy path as expected', async () => {
     // set Image to mock succesful load
     global.Image = class {
-      onload = jest.fn();
+      onload;
       constructor() {
         setTimeout(() => {
           this.onload();
@@ -52,7 +52,7 @@ describe('useMessageImage', () => {
   it('handles an image load error event as expected', async () => {
     // set Image to mock error
     global.Image = class {
-      onerror = jest.fn();
+      onerror;
       constructor() {
         setTimeout(() => {
           this.onerror();
@@ -78,7 +78,7 @@ describe('useMessageImage', () => {
   it('handles an image load abort event as expected', async () => {
     // set Image to mock abort
     global.Image = class {
-      onabort = jest.fn();
+      onabort;
       constructor() {
         setTimeout(() => {
           this.onabort();
@@ -101,7 +101,14 @@ describe('useMessageImage', () => {
     expect(result.current.isImageFetching).toBe(false);
   });
 
-  it('handles an undefined argument as expected', () => {
+  it('handles an undefined argument as expected', async () => {
+    global.Image = class {
+      constructor() {
+        // false assertion to test that image constructor was never even called
+        expect(false).toBe(true);
+      }
+    } as unknown as ImageConstructor;
+
     const { result } = renderHook(() => useMessageImage(undefined));
 
     expect(result.current.hasRenderableImage).toBe(false);
