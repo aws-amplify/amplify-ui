@@ -4,7 +4,7 @@ import StorybookUIRoot from './storybook';
 import { name as appName } from './app.json';
 
 //TODO: replace with env var
-const isStorybook = true;
+const isStorybook = false;
 
 AppRegistry.registerComponent(appName, () =>
   isStorybook ? StorybookUIRoot : App
