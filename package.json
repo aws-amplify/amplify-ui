@@ -42,6 +42,7 @@
       "**/@radix-ui",
       "**/@radix-ui/**",
       "**/react",
+      "**/react-dom",
       "**/react-map-gl",
       "**/react-native",
       "**/react-native/**",
