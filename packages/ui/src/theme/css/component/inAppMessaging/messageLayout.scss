@@ -51,9 +51,9 @@
     }
   }
   &__header {
+    flex-shrink: 0;
     font-size: var(--amplify-components-inappmessaging-header-font-size);
     font-weight: var(--amplify-components-inappmessaging-header-font-weight);
-    flex-shrink: 0;
   }
   &__image-container {
     align-items: center;
