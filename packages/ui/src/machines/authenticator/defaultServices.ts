@@ -22,7 +22,6 @@ export const defaultServices = {
     return Auth.signUp({
       ...formData,
       autoSignIn: {
-        // optional - enables auto sign in after user is confirmed
         enabled: true,
       },
     });

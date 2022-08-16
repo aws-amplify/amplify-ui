@@ -78,10 +78,10 @@ const emit = defineEmits([
 ]);
 const machine = createAuthenticatorMachine();
 
-inspect({
-  iframe: false,
-});
-const service = useInterpret(machine, { devTools: true });
+// inspect({
+//   iframe: false,
+// });
+const service = useInterpret(machine, { devTools: false });
 let unsubscribeHub: () => void;
 let unsubscribeMachine: () => void;
 
@@ -335,7 +335,6 @@ const hasRouteComponent = computed(() => {
           </sign-up>
         </div>
 
-        {{ actorState?.value }}
         <confirm-sign-up
           v-if="
             actorState?.matches('confirmSignUp') ||
