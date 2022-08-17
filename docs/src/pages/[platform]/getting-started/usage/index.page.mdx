@@ -6,4 +6,15 @@ supportedFrameworks: react|angular|vue
 
 import { Fragment } from '@/components/Fragment';
 
+export async function getStaticPaths() {
+  return {
+    paths: ['react', 'angular', 'vue'].map(platform => ({ params: { platform } })),
+    fallback: false,
+  }
+}
+
+export async function getStaticProps() {
+  return { props: {} }
+}
+
 <Fragment>{({ platform }) => import(`./usage.${platform}.mdx`)}</Fragment>

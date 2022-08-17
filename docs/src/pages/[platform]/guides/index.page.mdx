@@ -7,6 +7,17 @@ supportedFrameworks: react
 
 import { Fragment } from '@/components/Fragment';
 
+export async function getStaticPaths() {
+  return {
+    paths: { params: { platform: 'react' } },
+    fallback: false,
+  }
+}
+
+export async function getStaticProps() {
+  return { props: {} }
+}
+
 <Fragment useCommonWebContent>
   {({ platform }) => import(`./guide.${platform}.mdx`)}
 </Fragment>

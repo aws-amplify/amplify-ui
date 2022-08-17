@@ -6,5 +6,17 @@ supportedFrameworks: all
 ---
 
 import { ComponentsGrid } from './ComponentsGrid';
+import { FRAMEWORKS } from '@/data/frameworks';
+
+export async function getStaticPaths() {
+  return {
+    paths: FRAMEWORKS.map(platform => ({ params: { platform } })),
+    fallback: false,
+  }
+}
+
+export async function getStaticProps() {
+  return { props: {} }
+}
 
 <ComponentsGrid />

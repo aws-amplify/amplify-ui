@@ -7,6 +7,18 @@ supportedFrameworks: all
 import { Fragment } from '@/components/Fragment';
 import { Alert, Tabs, TabItem } from '@aws-amplify/ui-react';
 import { NextSteps } from './NextSteps';
+import { FRAMEWORKS } from '@/data/frameworks';
+
+export async function getStaticPaths() {
+  return {
+    paths: FRAMEWORKS.map(platform => ({ params: { platform } })),
+    fallback: false,
+  }
+}
+
+export async function getStaticProps() {
+  return { props: {} }
+}
 
 <Fragment useCommonWebContent>
   {({ platform }) => import(`./intro.${platform}.mdx`)}

@@ -11,6 +11,18 @@ import ReactNativeHomePage from './index.reactnative';
 import VueHomePage from './index.vue';
 import AngularHomePage from './index.angular';
 import FlutterHomePage from './index.flutter';
+import { FRAMEWORKS } from '@/data/frameworks';
+
+export async function getStaticPaths() {
+  return {
+    paths: FRAMEWORKS.map((platform) => ({ params: { platform } })),
+    fallback: false,
+  };
+}
+
+export async function getStaticProps() {
+  return { props: {} };
+}
 
 const HomePage = ({ colorMode }) => {
   const {

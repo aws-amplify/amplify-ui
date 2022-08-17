@@ -6,6 +6,16 @@ supportedFrameworks: react|angular|vue
 ---
 
 import { Fragment } from '@/components/Fragment';
+export async function getStaticPaths() {
+  return {
+    paths: ['react', 'angular', 'vue'].map(platform => ({ params: { platform } })),
+    fallback: false,
+  }
+}
+
+export async function getStaticProps() {
+  return { props: {} }
+}
 
 <Fragment useCommonWebContent platforms={['web', 'flutter']}>
   {({ platform }) => import(`./headless-usage.${platform}.mdx`)}
