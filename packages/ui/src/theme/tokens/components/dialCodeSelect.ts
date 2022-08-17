@@ -1,8 +1,8 @@
 import { DesignToken, SpaceValue } from '../types/designToken';
-export interface CountryCodeSelectTokens {
+export interface DialCodeSelectTokens {
   height: DesignToken<SpaceValue>;
 }
-export const countrycodeselect: CountryCodeSelectTokens = {
+export const dialcodeselect: DialCodeSelectTokens = {
   height: {
     value: '{space.relative.full.value}',
   },
