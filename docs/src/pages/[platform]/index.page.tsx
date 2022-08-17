@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { debounce } from 'lodash';
+import { useRouter } from 'next/router';
 
 import { Footer } from '@/components/Layout/Footer';
-import { useCustomRouter } from '@/components/useCustomRouter';
 import { HeroSection } from '@/components/home/sections';
 import { isReactNativeEnabled } from '@/utils/featureFlags';
 
@@ -27,7 +27,7 @@ export async function getStaticProps() {
 const HomePage = ({ colorMode }) => {
   const {
     query: { platform = 'react' },
-  } = useCustomRouter();
+  } = useRouter();
 
   const handleScroll = debounce((e) => {
     const bodyScroll = e.target.documentElement.scrollTop;
