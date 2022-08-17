@@ -2,7 +2,7 @@
   background-color: var(--amplify-colors-background-primary);
   flex-direction: column;
   flex-grow: 1;
-  gap: 0;
+  gap: var(--amplify-space-xxxs);
   max-width: 100%;
   padding: var(--amplify-space-medium);
   &__button {
@@ -41,16 +41,17 @@
   }
   &__content {
     flex-grow: 1;
+    overflow: hidden;
     &--horizontal {
       flex-direction: row;
     }
     &--vertical {
       flex-direction: column;
       justify-content: center;
-      overflow-y: auto;
     }
   }
   &__header {
+    flex-shrink: 0;
     font-size: var(--amplify-components-inappmessaging-header-font-size);
     font-weight: var(--amplify-components-inappmessaging-header-font-weight);
   }
@@ -67,18 +68,17 @@
     }
     &--horizontal {
       max-width: 15%;
-      width: 100%;
+      min-width: 15%;
     }
     &--vertical {
-      height: 100%;
       max-height: 40%;
       min-height: 40%;
     }
   }
   &__text-container {
     flex-direction: column;
+    overflow-y: auto;
     gap: var(--amplify-space-xxxs);
-    justify-content: center;
     &--horizontal {
       flex-grow: 1;
     }
