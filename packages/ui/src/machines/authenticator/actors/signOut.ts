@@ -5,8 +5,9 @@ import { Auth } from 'aws-amplify';
 
 export const signOutActor = createMachine<SignOutContext, AuthEvent>(
   {
-    initial: 'pending',
     id: 'signOutActor',
+    initial: 'pending',
+    predictableActionArguments: true,
     states: {
       pending: {
         tags: ['pending'],
