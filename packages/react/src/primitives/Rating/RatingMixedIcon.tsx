@@ -21,7 +21,11 @@ export const RatingMixedIcon: React.FC<RatingMixedIconProps> = ({
 }) => {
   const widthPercentage = `${(value % 1) * 100}%`;
   return (
-    <View as="span" className="amplify-rating-icon-container">
+    <View
+      as="span"
+      className="amplify-rating-icon-container"
+      aria-hidden="true"
+    >
       <View as="span" className="amplify-rating-label">
         <View
           as="span"
