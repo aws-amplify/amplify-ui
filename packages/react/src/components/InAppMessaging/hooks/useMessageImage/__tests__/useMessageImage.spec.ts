@@ -101,7 +101,7 @@ describe('useMessageImage', () => {
     expect(result.current.isImageFetching).toBe(false);
   });
 
-  it('handles an undefined argument as expected', async () => {
+  it('handles an undefined argument as expected', () => {
     global.Image = class {
       constructor() {
         // false assertion to test that image constructor was never even called
