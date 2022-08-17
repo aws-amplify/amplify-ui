@@ -25,6 +25,7 @@ import { AmplifyViewExampleComponent } from 'src/pages/ui/primitive-poc/view/vie
 import { AmplifyTextExampleComponent } from 'src/pages/ui/primitive-poc/text/text.component';
 import { AmplifyTextFieldExampleComponent } from 'src/pages/ui/primitive-poc/text-field/text-field.component';
 import { AmplifyPhoneNumberFieldExampleComponent } from 'src/pages/ui/primitive-poc/phone-number/phone-number.component';
+import { AmplifyHeadingExampleComponent } from 'src/pages/ui/primitive-poc/heading/heading.component';
 import { AmplifyPasswordFieldExampleComponent } from 'src/pages/ui/primitive-poc/password-field/password-field.component';
 import { AmplifyFlexExampleComponent } from 'src/pages/ui/primitive-poc/flex/flex.component';
 
@@ -128,6 +129,10 @@ const routes: Routes = [
   {
     path: 'ui/primitive-poc/phone-number',
     component: AmplifyPhoneNumberFieldExampleComponent,
+  },
+  {
+    path: 'ui/primitive-poc/heading',
+    component: AmplifyHeadingExampleComponent,
   },
   {
     path: 'ui/primitive-poc/password-field',
