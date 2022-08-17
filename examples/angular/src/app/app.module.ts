@@ -3,8 +3,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import {
   AmplifyAuthenticatorModule,
+  AmplifyTextModule,
+  AmplifyPasswordFieldModule,
   AmplifyTextFieldModule,
   AmplifyIconModule,
+  AmplifyHeadingModule,
 } from '@aws-amplify/ui-angular';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -37,7 +40,10 @@ import {
 } from '@aws-amplify/ui-angular';
 import { AmplifyButtonExampleComponent } from 'src/pages/ui/primitive-poc/button/button.component';
 import { AmplifyViewExampleComponent } from 'src/pages/ui/primitive-poc/view/view.component';
+import { AmplifyTextExampleComponent } from 'src/pages/ui/primitive-poc/text/text.component';
 import { AmplifyTextFieldExampleComponent } from 'src/pages/ui/primitive-poc/text-field/text-field.component';
+import { AmplifyHeadingExampleComponent } from 'src/pages/ui/primitive-poc/heading/heading.component';
+import { AmplifyPasswordFieldExampleComponent } from 'src/pages/ui/primitive-poc/password-field/password-field.component';
 import { AmplifyFlexExampleComponent } from 'src/pages/ui/primitive-poc/flex/flex.component';
 import { AmplifyIconExampleComponent } from 'src/pages/ui/primitive-poc/icon/icon.component';
 
@@ -68,8 +74,11 @@ import { AmplifyIconExampleComponent } from 'src/pages/ui/primitive-poc/icon/ico
     AmplifyButtonExampleComponent,
     AmplifyViewExampleComponent,
     AmplifyTextFieldExampleComponent,
+    AmplifyHeadingExampleComponent,
+    AmplifyPasswordFieldExampleComponent,
     AmplifyFlexExampleComponent,
     AmplifyIconExampleComponent,
+    AmplifyTextExampleComponent,
   ],
   imports: [
     BrowserModule,
@@ -79,8 +88,11 @@ import { AmplifyIconExampleComponent } from 'src/pages/ui/primitive-poc/icon/ico
     AmplifyButtonModule,
     AmplifyViewModule,
     AmplifyTextFieldModule,
+    AmplifyHeadingModule,
+    AmplifyPasswordFieldModule,
     AmplifyFlexModule,
     AmplifyIconModule,
+    AmplifyTextModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
