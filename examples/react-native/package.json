@@ -11,8 +11,7 @@
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "prestorybook": "rnstl",
-    "storybook": "start-storybook -p 7007",
-    "build-storybook": "build-storybook"
+    "storybook": "start-storybook -p 7007"
   },
   "dependencies": {
     "@aws-amplify/ui": "*",
@@ -34,7 +33,6 @@
     "@storybook/addon-ondevice-actions": "^5.3.23",
     "@storybook/addon-ondevice-knobs": "^5.3.26",
     "@storybook/react-native": "^5.3.25",
-    "@storybook/react-native-server": "^5.3.23",
     "@types/jest": "^26.0.23",
     "@types/react-native": "^0.67.3",
     "@types/react-test-renderer": "^17.0.1",
