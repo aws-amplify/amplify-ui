@@ -24154,7 +24154,7 @@ prettier@^1.19.1:
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.19.1.tgz#f7d7f5ff8a9cd872a7be4ca142095956a60797cb"
   integrity sha512-s7PoyDv/II1ObgQunCbB9PdLmUcBZcnWOcxDh7O0N/UwDEsHyqkW+Qh28jW+mVuCdx7gLB0BotYI1Y6uI9iyew==
 
-prettier@^2.0.2, prettier@^2.0.5:
+prettier@^2.0.2:
   version "2.7.1"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.7.1.tgz#e235806850d057f97bb08368a4f7d899f7760c64"
   integrity sha512-ujppO+MkdPqoVINuDFDRLClm7D78qbDt0/NR+wp5FqEZOoTNAjPHWj17QRhu7geIHJfcNhRk1XVQmF8Bp3ye+g==
@@ -25020,16 +25020,6 @@ react-native-safe-area-context@^4.2.5:
   version "4.3.1"
   resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-4.3.1.tgz#5cf97b25b395e0d09bc1f828920cd7da0d792ade"
   integrity sha512-cEr7fknJCToTrSyDCVNg0GRdRMhyLeQa2NZwVCuzEQcWedOw/59ExomjmzCE4rxrKXs6OJbyfNtFRNyewDaHuA==
-
-react-native-storybook-loader@^2.0.5:
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/react-native-storybook-loader/-/react-native-storybook-loader-2.0.5.tgz#9c446a4235ac4f0d45b4f6419f2da9a9c4355255"
-  integrity sha512-9zO0kMv5DYLXJQ1vcjRrxGxsXucA9qiJV/IYtSXnb7gW39qYF93ZXgQRPQ7TKCwSlXMWsju/LXI2GpDtLx4b/Q==
-  dependencies:
-    find-up "^4.1.0"
-    glob "^7.1.1"
-    prettier "^2.0.5"
-    yargs "^15.4.1"
 
 react-native-swipe-gestures@^1.0.4:
   version "1.0.5"
