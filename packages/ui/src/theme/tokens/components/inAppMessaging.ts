@@ -1,4 +1,6 @@
 import {
+  BorderRadiusValue,
+  ColorValue,
   DesignToken,
   FontSizeValue,
   FontWeightValue,
@@ -8,6 +10,11 @@ import {
 interface BannerTokens {
   height: DesignToken<SpaceValue>;
   width: DesignToken<SpaceValue>;
+}
+interface ButtonTokens {
+  backgroundColor: DesignToken<ColorValue>;
+  borderRadius: DesignToken<BorderRadiusValue>;
+  color: DesignToken<ColorValue>;
 }
 
 interface DialogTokens {
@@ -24,6 +31,7 @@ interface HeaderTokens {
 
 export interface InAppMessagingTokens {
   banner: BannerTokens;
+  button: ButtonTokens;
   dialog: DialogTokens;
   header: HeaderTokens;
 }
@@ -32,6 +40,11 @@ export const inappmessaging: InAppMessagingTokens = {
   banner: {
     height: { value: '150px ' },
     width: { value: '400px ' },
+  },
+  button: {
+    backgroundColor: { value: '#e8e8e8' },
+    borderRadius: { value: '5px' },
+    color: { value: 'black' },
   },
   dialog: {
     height: { value: '50vh' },

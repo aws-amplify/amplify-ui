@@ -6,6 +6,8 @@ import {
   useMessage,
 } from '@aws-amplify/ui-react-core';
 
+import { ThemeProvider } from '../../ThemeProvider';
+
 import { BannerMessage } from '../BannerMessage';
 import { FullScreenMessage } from '../FullScreenMessage';
 import { ModalMessage } from '../ModalMessage';
@@ -47,5 +49,12 @@ export default function InAppMessageDisplay({
     styles,
   });
 
-  return <Component {...props} />;
+  // There is currently no way to pass In-App Message payload variants so we
+  // will fix the theme around In-App Messaging components to always assume
+  // light mode
+  return (
+    <ThemeProvider colorMode="light">
+      <Component {...props} />
+    </ThemeProvider>
+  );
 }

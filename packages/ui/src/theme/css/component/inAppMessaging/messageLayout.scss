@@ -6,8 +6,21 @@
   max-width: 100%;
   padding: var(--amplify-space-medium);
   &__button {
-    width: 100%;
     border-width: 0;
+    width: 100%;
+    &,
+    &:active,
+    &:visited,
+    &:hover,
+    &:focus {
+      background-color: var(
+        --amplify-components-inappmessaging-button-background-color
+      );
+      border-radius: var(
+        --amplify-components-inappmessaging-button-border-radius
+      );
+      color: var(--amplify-components-inappmessaging-button-color);
+    }
     &--dark,
     &--light {
       &:active,
