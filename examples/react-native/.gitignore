@@ -59,6 +59,3 @@ buck-out/
 # Ruby / CocoaPods
 /ios/Pods/
 /vendor/bundle/
-
-# Storybook
-# /storybook/storyLoader.js
