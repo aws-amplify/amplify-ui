@@ -3,7 +3,7 @@ import { getStorybookUI, configure } from '@storybook/react-native';
 import noop from 'lodash/noop';
 import { loadStories } from './storyLoader';
 
-// only initialize storbook resources when initStorybook is true
+// only initialize storybook resources when initStorybook is true
 export function setupStorybook(initStorybook: boolean) {
   if (initStorybook) {
     configure(() => {
