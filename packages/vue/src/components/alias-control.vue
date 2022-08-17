@@ -71,7 +71,7 @@ const randomPhone = Math.floor(Math.random() * 999999);
               :id="'amplify-field-' + randomPhone"
               autocomplete="tel-country-code"
               aria-label="country code"
-              name="country_code"
+              name="dial_code"
               :options="dialCodeList"
               :select-value="dialCode"
             >
