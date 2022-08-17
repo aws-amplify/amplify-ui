@@ -7,6 +7,8 @@ export interface HeadingProps extends TextProps {
   level?: HeadingLevel;
 }
 
-export interface HeadingStyles {
+export type HeadingStyles = {
   text: TextStyle;
-}
+} & {
+  [key in HeadingLevel]: TextStyle;
+};
