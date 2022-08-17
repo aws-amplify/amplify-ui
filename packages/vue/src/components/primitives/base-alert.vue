@@ -22,6 +22,7 @@ function close() {
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="amplify-icon"
+        aria-hidden="true"
         viewBox="0 0 24 24"
         fill="currentColor"
       >
@@ -42,6 +43,7 @@ function close() {
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="amplify-icon"
+        aria-hidden="true"
         viewBox="0 0 24 24"
         fill="currentColor"
       >

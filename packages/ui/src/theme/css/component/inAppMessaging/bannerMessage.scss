@@ -1,0 +1,38 @@
+.amplify-inappmessaging-bannermessage {
+  box-shadow: var(--amplify-shadows-medium);
+  height: var(--amplify-components-inappmessaging-banner-height);
+  margin: var(--amplify-space-small);
+  max-width: 50%;
+  position: fixed;
+  width: var(--amplify-components-inappmessaging-banner-width);
+  &--top {
+    top: 0;
+  }
+  &--middle {
+    bottom: 0;
+    margin: auto var(--amplify-space-small);
+    top: 0;
+  }
+  &--bottom {
+    bottom: 0;
+  }
+  &--left {
+    left: 0;
+  }
+  &--center {
+    left: 0;
+    margin: var(--amplify-space-small) auto;
+    right: 0;
+  }
+  &--right {
+    right: 0;
+  }
+  &--center-middle {
+    inset: 0;
+    margin: auto;
+  }
+  &--full-width {
+    max-width: initial;
+    width: calc(100% - (2 * var(--amplify-space-small)));
+  }
+}

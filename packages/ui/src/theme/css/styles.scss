@@ -85,7 +85,6 @@ select {
 @import './component/expander.scss';
 @import './component/field.scss';
 @import './component/fieldGroup.scss';
-@import './component/inAppMessaging/banner.scss';
 @import './component/menu.scss';
 @import './component/pagination.scss';
 @import './component/passwordField.scss';
@@ -108,6 +107,7 @@ select {
 @import './component/toggleButtonGroup.scss';
 // In-App Messaging components
 @import './component/inAppMessaging/backdrop.scss';
+@import './component/inAppMessaging/bannerMessage.scss';
 @import './component/inAppMessaging/fullScreenMessage.scss';
 @import './component/inAppMessaging/messageLayout.scss';
 @import './component/inAppMessaging/modalMessage.scss';

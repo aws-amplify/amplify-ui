@@ -78,14 +78,6 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-badge-large-font-size: var(--amplify-font-sizes-medium);
         --amplify-components-badge-large-padding-vertical: var(--amplify-space-small);
         --amplify-components-badge-large-padding-horizontal: var(--amplify-space-medium);
-        --amplify-components-bannermessage-button-background-color: var(--amplify-colors-background-tertiary);
-        --amplify-components-bannermessage-button-width: var(--amplify-space-relative-full);
-        --amplify-components-bannermessage-buttons-container-margin-top: var(--amplify-space-xs);
-        --amplify-components-bannermessage-banner-container-background-color: var(--amplify-colors-background-primary);
-        --amplify-components-bannermessage-banner-container-box-shadow: var(--amplify-shadows-medium);
-        --amplify-components-bannermessage-banner-container-margin: var(--amplify-space-medium);
-        --amplify-components-bannermessage-banner-container-padding: var(--amplify-space-small);
-        --amplify-components-bannermessage-image-container-padding: var(--amplify-space-xs);
         --amplify-components-button-font-weight: var(--amplify-font-weights-bold);
         --amplify-components-button-transition-duration: var(--amplify-components-fieldcontrol-transition-duration);
         --amplify-components-button-font-size: var(--amplify-components-fieldcontrol-font-size);
@@ -393,6 +385,8 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-image-height: auto;
         --amplify-components-image-object-fit: initial;
         --amplify-components-image-object-position: initial;
+        --amplify-components-inappmessaging-banner-height: 150px ;
+        --amplify-components-inappmessaging-banner-width: 400px ;
         --amplify-components-inappmessaging-dialog-height: 50vh;
         --amplify-components-inappmessaging-dialog-min-height: 400px;
         --amplify-components-inappmessaging-dialog-min-width: 400px;
@@ -543,6 +537,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-rating-empty-color: var(--amplify-colors-background-tertiary);
         --amplify-components-searchfield-color: var(--amplify-components-fieldcontrol-color);
         --amplify-components-searchfield-button-color: var(--amplify-components-button-color);
+        --amplify-components-searchfield-button-background-color: var(--amplify-colors-background-primary);
         --amplify-components-searchfield-button-active-background-color: var(--amplify-components-button-active-background-color);
         --amplify-components-searchfield-button-active-border-color: var(--amplify-components-button-active-border-color);
         --amplify-components-searchfield-button-active-color: var(--amplify-components-button-active-color);
