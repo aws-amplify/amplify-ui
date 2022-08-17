@@ -1,2 +1,2 @@
-export { default as BannerMessage } from './BannerMessage';
+export { BannerMessage } from './BannerMessage';
 export { BannerMessageProps } from './types';
