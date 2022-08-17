@@ -13,11 +13,11 @@ const PhoneNumberFieldPrimitive: Primitive<PhoneNumberFieldProps, 'input'> = (
     autoComplete = 'tel-national',
     className,
     countryCodeName,
-    countryCodeLabel = ComponentText.PhoneNumberField.dialCodeLabel,
+    countryCodeLabel = ComponentText.PhoneNumberField.countryCodeLabel,
     countryCodeRef,
     defaultCountryCode,
     defaultDialCode,
-    dialCodeLabel = ComponentText.PhoneNumberField.dialCodeLabel,
+    dialCodeLabel = ComponentText.PhoneNumberField.countryCodeLabel,
     dialCodeList,
     dialCodeName,
     dialCodeRef,
@@ -45,7 +45,7 @@ const PhoneNumberFieldPrimitive: Primitive<PhoneNumberFieldProps, 'input'> = (
     'The PhoneNumberField component props: countryCodeName, countryCodeLabel, defaultCountryCode, onCountryCodeChange, and countryCodeRef props are deprecated and will be removed in the next major release of @aws-amplify/ui-react. Please update to dialCodeName, dialCodeLabel, defaultDialCode, onDialCodeChange, and dialCodeRef respectively.';
   const shouldWarn =
     countryCodeName ||
-    countryCodeLabel !== ComponentText.PhoneNumberField.dialCodeLabel ||
+    countryCodeLabel !== ComponentText.PhoneNumberField.countryCodeLabel ||
     defaultCountryCode ||
     onCountryCodeChange ||
     countryCodeRef;

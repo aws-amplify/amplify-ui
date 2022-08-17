@@ -10,7 +10,7 @@ Feature: Sign up with SMS MFA
 
   @angular @react @vue
   Scenario: Successful sign up redirects user to sms mfa route
-    When I select my dial code with status "UNCONFIRMED"
+    When I select my country code with status "UNCONFIRMED"
     And I type my "phone number" with status "UNCONFIRMED"
     And I type my password
     And I confirm my password

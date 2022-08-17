@@ -675,7 +675,7 @@ export const ComponentText = {
     previousLabel: 'Go to previous page',
   },
   PhoneNumberField: {
-    dialCodeLabel: 'Dial code',
+    countryCodeLabel: 'Country code',
   },
   SearchField: {
     searchButtonLabel: 'Search',

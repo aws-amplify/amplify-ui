@@ -11,9 +11,9 @@ Feature: Sign In with Phone Number
     Given I'm running the example "ui/components/authenticator/sign-in-with-phone"
 
   @angular @react @vue
-  Scenario: Reset Password with valid phone with dial code
+  Scenario: Reset Password with valid phone with country code
     When I click the "Forgot your password?" button
-    When I select my dial code with status "CONFIRMED"
+    When I select my country code with status "CONFIRMED"
     And I type my "phone number" with status "CONFIRMED"
     And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ForgotPassword" } }' with fixture "reset-password"
     And I click the "Send code" button
@@ -29,24 +29,24 @@ Feature: Sign In with Phone Number
     Then I see "Sign In"
 
   @angular @react @vue
-  Scenario: Sign in and replace default dial code
+  Scenario: Sign in and replace default country code
     Then I see "Sign In"
-    Then the 'Dial code' select drop down is '+82'
+    Then the 'Country code' select drop down is '+82'
 
   @angular @react @vue
-  Scenario: Sign up and replace default dial code
+  Scenario: Sign up and replace default country code
     When I click the "Create Account" tab
-    Then the 'Dial code' select drop down is '+227'
+    Then the 'Country code' select drop down is '+227'
 
   @angular @react @vue
-  Scenario: Sign up and replace dial code list
+  Scenario: Sign up and replace country code list
     When I click the "Create Account" tab
-    Then the 'Dial code' select drop down should have a length of '5'
-    Then the 'Dial code' select drop down is '+227'
+    Then the 'Country code' select drop down should have a length of '5'
+    Then the 'Country code' select drop down is '+227'
 
   @angular @react @vue
   Scenario: Sign in with unknown credentials
-    When I select my dial code with status "UNKNOWN"
+    When I select my country code with status "UNKNOWN"
     And I type my "phone number" with status "UNKNOWN"
     And I type my password
     And I click the "Sign in" button
@@ -54,7 +54,7 @@ Feature: Sign In with Phone Number
 
   @angular @react @vue
   Scenario: Sign in with unknown credentials
-    When I select my dial code with status "UNKNOWN"
+    When I select my country code with status "UNKNOWN"
     And I type my "phone number" with status "UNKNOWN"
     And I type my password
     And I click the "Sign in" button
@@ -62,7 +62,7 @@ Feature: Sign In with Phone Number
 
   @angular @react @vue
   Scenario: Sign in with unconfirmed credentials
-    When I select my dial code with status "UNCONFIRMED"
+    When I select my country code with status "UNCONFIRMED"
     And I type my "phone number" with status "UNCONFIRMED"
     And I type my password
     And I click the "Sign in" button
@@ -70,14 +70,14 @@ Feature: Sign In with Phone Number
 
   @angular @react @vue
   Scenario: Sign in with confirmed credentials
-    When I select my dial code with status "CONFIRMED"
+    When I select my country code with status "CONFIRMED"
     And I type my "phone number" with status "CONFIRMED"
     And I type my password
     And I click the "Sign in" button
     Then I see "Sign out"
 
   @angular @react @vue
-  Scenario: Sign in with confirmed credentials and don't select dial code
+  Scenario: Sign in with confirmed credentials and don't select country code
     When I type my "phone number" with status "CONFIRMED"
     And I type my password
     And I click the "Sign in" button
@@ -85,7 +85,7 @@ Feature: Sign In with Phone Number
 
   @angular @react @vue
   Scenario: Sign in with confirmed credentials then sign out
-    When I select my dial code with status "CONFIRMED"
+    When I select my country code with status "CONFIRMED"
     And I type my "phone number" with status "CONFIRMED"
     And I type my password
     And I click the "Sign in" button
