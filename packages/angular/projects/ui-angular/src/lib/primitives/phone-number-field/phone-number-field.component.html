@@ -13,13 +13,17 @@
   <div class="amplify-field-group__outer-start">
     <div
       class="
-        amplify-flex amplify-field amplify-selectfield amplify-countrycodeselect
+        amplify-flex
+        amplify-field
+        amplify-selectfield
+        amplify-countrycodeselect
+        amplify-dialcodeselect
       "
       style="flex-direction: column"
     >
       <amplify-form-select
-        name="dial_code"
-        label="Country Code"
+        name="country_code"
+        label="Dial Code"
         [id]="selectFieldId"
         [items]="countryDialCodesValues"
         [defaultValue]="defaultCountryCode"
