@@ -9,11 +9,17 @@ import {
   cssNameTransform,
   cssValue,
 } from './src/theme/utils';
+import { ReactNativeTransforms } from './src/theme/platforms/react-native';
+import { RNFormat } from './src/theme/platforms/react-native';
 
 const CSS_VARIABLE_SCOPE = ':root, [data-amplify-theme]';
 
+// TODO: move cssNameTransform and cssValue to a new home - WebTransforms under src/theme/platforms/web
 StyleDictionary.extend({
   tokens: defaultTheme.tokens,
+  format: {
+    RNFormat,
+  },
   transform: {
     cssNameTransform: {
       type: 'name',
@@ -24,6 +30,7 @@ StyleDictionary.extend({
       transitive: true,
       transformer: cssValue,
     },
+    ...ReactNativeTransforms,
   },
   platforms: {
     css: {
@@ -37,6 +44,26 @@ StyleDictionary.extend({
             selector: CSS_VARIABLE_SCOPE,
             outputReferences: true,
           },
+        },
+      ],
+    },
+    reactNative: {
+      transforms: [
+        'RNFontWeight',
+        'RNFontSize',
+        'RNBorderRadius',
+        'RNBorderWidth',
+        'RNSpace',
+        'RNOpacity',
+        'RNTime',
+        'RNShadow',
+      ],
+      files: [
+        {
+          destination: 'dist/react-native/theme.js',
+          format: 'RNFormat',
+          filter: (token) =>
+            !token.path.some((p) => ['hover', 'focus'].includes(p)),
         },
       ],
     },
