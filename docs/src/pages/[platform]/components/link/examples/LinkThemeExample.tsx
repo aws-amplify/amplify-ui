@@ -5,13 +5,13 @@ const theme: Theme = {
   tokens: {
     components: {
       link: {
-        focus: {
+        _focus: {
           color: { value: '{colors.blue.40}' },
         },
-        hover: {
+        _hover: {
           color: { value: '{colors.blue.60}' },
         },
-        visited: {
+        _visited: {
           color: { value: '{colors.blue.80}' },
         },
       },

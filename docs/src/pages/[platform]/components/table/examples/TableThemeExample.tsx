@@ -14,7 +14,7 @@ const theme: Theme = {
     components: {
       table: {
         row: {
-          hover: {
+          _hover: {
             backgroundColor: { value: '{colors.blue.20}' },
           },
 

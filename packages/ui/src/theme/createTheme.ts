@@ -63,7 +63,13 @@ function setupTokens(obj: any, path = []) {
   return tokens;
 }
 
-function removeDeprecated(tokens: any[]) {
+/**
+ * This function takes in an array of WebDesignTokens and filters out the duplicate WebDesignTokens
+ * that are defined in the DEPRECATED_TOKENS list.
+ * @param tokens
+ * @returns WebDesignTokens[]
+ */
+function removeDeprecated(tokens: WebDesignToken[]): WebDesignToken[] {
   let tokenList = tokens;
   DEPRECATED_TOKENS.forEach((duplicateToken) => {
     const filteredTokens = tokenList.filter(

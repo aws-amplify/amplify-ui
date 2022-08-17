@@ -14,7 +14,7 @@ const theme: Theme = {
           backgroundColor: { value: '{colors.brand.secondary.80}' },
         },
         button: {
-          hover: {
+          _hover: {
             backgroundColor: { value: '{colors.neutral.40}' },
             color: { value: '{colors.brand.secondary.80}' },
           },
