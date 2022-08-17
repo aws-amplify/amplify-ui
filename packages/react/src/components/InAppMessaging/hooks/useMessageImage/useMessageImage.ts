@@ -29,6 +29,10 @@ export default function useMessageImage(
   const hasRenderableImage = prefetchStatus === ImagePrefetchStatus.Success;
 
   useEffect(() => {
+    if (!shouldPrefetch) {
+      return;
+    }
+
     const img = new Image();
 
     img.onload = () => {
@@ -46,7 +50,7 @@ export default function useMessageImage(
     };
 
     img.src = src;
-  }, [src]);
+  }, [shouldPrefetch, src]);
 
   return { hasRenderableImage, isImageFetching };
 }
