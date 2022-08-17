@@ -29,7 +29,7 @@ describe('PhoneNumberField primitive', () => {
         name: /phone number/i,
       }),
       $countryCodeSelector: await screen.findByRole('combobox', {
-        name: /dial code/i,
+        name: /country code/i,
       }),
     };
   };
@@ -191,12 +191,14 @@ describe('PhoneNumberField primitive', () => {
     const dialCodeSetup = async ({
       defaultDialCode = '+1',
       label = 'Phone Number',
+      dialCodeLabel = 'dial code',
       ...rest
     }: Partial<typeof PhoneNumberField['defaultProps']>) => {
       render(
         <PhoneNumberField
           defaultDialCode={defaultDialCode}
           label={label}
+          dialCodeLabel={dialCodeLabel}
           {...rest}
         />
       );
