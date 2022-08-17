@@ -5,13 +5,12 @@
   "scripts": {
     "android": "react-native run-android",
     "clean": "rimraf node_modules",
+    "dev": "react-native start",
     "ios": "react-native run-ios",
     "ios:pod-install": "pod install --project-directory=./ios",
-    "dev": "react-native start",
-    "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "prestorybook": "rnstl",
-    "storybook": "start-storybook -p 7007"
+    "storybook": "start-storybook -p 7007",
+    "test": "jest"
   },
   "dependencies": {
     "@aws-amplify/ui": "*",
@@ -33,6 +32,7 @@
     "@storybook/addon-ondevice-actions": "^5.3.23",
     "@storybook/addon-ondevice-knobs": "^5.3.26",
     "@storybook/react-native": "^5.3.25",
+    "@storybook/react-native-server": "^5.3.23",
     "@types/jest": "^26.0.23",
     "@types/react-native": "^0.67.3",
     "@types/react-test-renderer": "^17.0.1",
