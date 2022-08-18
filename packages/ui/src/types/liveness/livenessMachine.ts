@@ -38,6 +38,7 @@ export interface LivenessContext {
   };
   freshnessColorAssociatedParams: {
     freshnessColorEl: HTMLCanvasElement;
+    freshnessColors: string[];
     freshnessColorsShown: boolean;
   };
   errorState: LivenessErrorState | null;

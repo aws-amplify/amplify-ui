@@ -2,11 +2,9 @@ import { createMachine, assign, actions } from 'xstate';
 import adapter from 'webrtc-adapter';
 import {
   fillOverlayCanvasFractional,
+  getFreshnessColorsFromSessionInformation,
+  getRandomIndex,
   shouldChangeColorStage,
-} from '../../helpers/liveness/liveness';
-import {
-  ColorArr,
-  getShortCp2Permutations,
 } from '../../helpers/liveness/liveness';
 
 import {
@@ -44,7 +42,6 @@ let ovalDrawnTimestamp: number;
 let freshnessTimeoutId: NodeJS.Timeout;
 
 // Freshness constants
-const colorStages = getShortCp2Permutations(ColorArr);
 const tickRate = 10; // ms -- the rate at which we will render/check colors
 const flatDuration = 100; // ms -- the length of time to show a flat color
 const scrollingDuration = 300; // ms -- the length of time it should take for a color to scroll down
@@ -54,6 +51,8 @@ const faceMatchTimeout = 1000; // ms -- length of time before freshness will res
 // Freshness loop variables
 let colorStageIndex: number;
 let prevColorStageIndex: number;
+let currColorIndex: number;
+let scrollingColorIndex: number;
 let timeLastColorIndChanged: number;
 let expectedCallTime: number;
 let timeFaceMatched: number;
@@ -81,6 +80,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       freshnessColorAssociatedParams: {
         freshnessColorEl: undefined,
+        freshnessColors: [],
         freshnessColorsShown: false,
       },
       errorState: null,
@@ -423,14 +423,30 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           clearTimeout(freshnessTimeoutId);
         }
       },
-      setupFlashFreshnessColors: () => {
-        colorStageIndex = 0;
-        prevColorStageIndex = undefined;
-        timeLastColorIndChanged = Date.now();
-        expectedCallTime = Date.now() + tickRate;
-        drift = 0;
-        timeLastFaceMatchChecked = Date.now();
-      },
+      setupFlashFreshnessColors: assign({
+        freshnessColorAssociatedParams: (context) => {
+          const {
+            flowProps: { sessionInformation },
+          } = context;
+          const freshnessColors =
+            getFreshnessColorsFromSessionInformation(sessionInformation);
+
+          colorStageIndex = 0;
+          currColorIndex = Math.floor(
+            Math.random() * (freshnessColors.length - 1) + 1
+          );
+          scrollingColorIndex = currColorIndex;
+          timeLastColorIndChanged = Date.now();
+          expectedCallTime = Date.now() + tickRate;
+          drift = 0;
+          timeLastFaceMatchChecked = Date.now();
+
+          return {
+            ...context.freshnessColorAssociatedParams,
+            freshnessColors,
+          };
+        },
+      }),
 
       // timeouts
       sendTimeoutAfterOvalDrawingDelay: actions.send(
@@ -723,6 +739,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           livenessStreamProvider,
           freshnessColorAssociatedParams: {
             freshnessColorEl,
+            freshnessColors,
             freshnessColorsShown,
           },
           ovalAssociatedParams: { faceDetector, ovalDetails },
@@ -747,13 +764,21 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             if (
               shouldChangeColorStage(
                 timeSinceLastColorChange,
-                colorStages[colorStageIndex][0],
-                colorStages[colorStageIndex][1],
+                freshnessColors[currColorIndex],
+                freshnessColors[scrollingColorIndex],
                 flatDuration,
                 scrollingDuration
               )
             ) {
               colorStageIndex += 1;
+              const prev = currColorIndex;
+              currColorIndex = scrollingColorIndex;
+              if (prev === scrollingColorIndex) {
+                scrollingColorIndex = getRandomIndex(
+                  freshnessColors.length,
+                  prev
+                );
+              }
               timeLastColorIndChanged = Date.now();
             }
 
@@ -799,17 +824,16 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             }
 
             // Continue looping until we have completed colorStages
-            if (colorStageIndex < colorStages.length) {
-              const [prevColorIdx, scrollingColorIdx] =
-                colorStages[colorStageIndex];
+            if (colorStageIndex < 24) {
               const hp = timeSinceLastColorChange / scrollingDuration;
 
-              const currentScrollingColor = ColorArr[scrollingColorIdx];
+              const scrollingColor = freshnessColors[scrollingColorIndex];
+              const currentColor = freshnessColors[currColorIndex];
 
               fillOverlayCanvasFractional({
                 overlayCanvas: freshnessColorEl,
-                prevColor: ColorArr[prevColorIdx],
-                nextColor: currentScrollingColor,
+                prevColor: currentColor,
+                nextColor: scrollingColor,
                 ovalCanvas: canvasEl,
                 ovalDetails,
                 heightFraction: hp,
@@ -826,7 +850,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
                         colorSequence: {
                           colorTimestampList: [
                             {
-                              color: currentScrollingColor,
+                              color: scrollingColor,
                               tickStartTime,
                             },
                           ],

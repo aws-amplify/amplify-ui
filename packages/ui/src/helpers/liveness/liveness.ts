@@ -329,39 +329,26 @@ export const LivenessErrorStateStringMap: Record<LivenessErrorState, string> = {
   [LivenessErrorState.TIMEOUT]: translate<string>('Timeout!'),
 };
 
-export const ColorArr = [
-  'rgb(0, 0, 0)', // black
-  'rgb(255, 255, 255)', // white
-  'rgb(255, 0, 0)', // red
-  'rgb(255, 255, 0)', // yellow
-  'rgb(0, 255, 0)', // lime
-  'rgb(0, 255, 255)', // cyan
-  'rgb(0, 0, 255)', // blue,
-  'rgb(255, 0, 255)', // violet
+export const NewColorArr = [
+  'rgb_0_0_0', // black
+  'rgb_255_255_255', // white
+  'rgb_255_0_0', // red
+  'rgb_255_255_0', // yellow
+  'rgb_0_255_0', // lime
+  'rgb_0_255_255', // cyan
+  'rgb_0_0_255', // blue,
+  'rgb_255_0_255', // violet
 ];
 
-export function getShortCp2Permutations(colorArr, colorNum = 12) {
-  const randomColorIndices = [0];
-
-  let prevColorIndex = 0;
-  for (let i = 0; i < colorNum - 2; i++) {
-    let randomIndex = Math.floor(Math.random() * (colorArr.length - 1) + 1);
-    while (prevColorIndex === randomIndex) {
-      randomIndex = Math.floor(Math.random() * (colorArr.length - 1) + 1);
-    }
-    randomColorIndices.push(randomIndex);
-    prevColorIndex = randomIndex;
-  }
-  randomColorIndices.splice(6, 0, 0);
-
-  const permutations = [];
-  for (let i = 0; i < colorNum - 1; i++) {
-    permutations.push([randomColorIndices[i], randomColorIndices[i]]);
-    permutations.push([randomColorIndices[i], randomColorIndices[i + 1]]);
-  }
-  permutations.push([randomColorIndices[11], randomColorIndices[11]]);
-
-  return permutations;
+export enum FreshnessColor {
+  BLACK = 'rgb_0_0_0',
+  BLUE = 'rgb_0_0_255',
+  CYAN = 'rgb_0_255_255',
+  LIME = 'rgb_0_255_0',
+  RED = 'rgb_255_0_0',
+  VIOLET = 'rgb_255_0_255',
+  WHITE = 'rgb_255_255_255',
+  YELLOW = 'rgb_255_255_0',
 }
 
 interface FillOverlayCanvasFractionalInput {
@@ -478,4 +465,25 @@ export function shouldChangeColorStage(
     (timeSinceLastColorChange >= scrollingDuration &&
       prevColor !== scrollingColor)
   );
+}
+
+export function getFreshnessColorsFromSessionInformation(
+  sessionInformation: string
+) {
+  // FIXME: Get the initial color array from the sessionInformation
+  // convert rgb_0_0_0 to rgb(0,0,0)
+  const freshnessColors = NewColorArr.map((colorString) => {
+    return colorString.replace('_', '(').replaceAll('_', ',').concat(')');
+  });
+
+  return freshnessColors;
+}
+
+export function getRandomIndex(length: number, prevIndex?: number) {
+  let randomIndex = Math.floor(Math.random() * (length - 1) + 1);
+  while (prevIndex === randomIndex) {
+    randomIndex = Math.floor(Math.random() * (length - 1) + 1);
+  }
+
+  return randomIndex;
 }
