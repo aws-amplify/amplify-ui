@@ -1,9 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import {
-  InAppMessageDisplay,
-  withInAppMessaging,
-} from '@aws-amplify/ui-react-native';
+import { withInAppMessaging } from '@aws-amplify/ui-react-native';
 
 const App = () => {
   return (
