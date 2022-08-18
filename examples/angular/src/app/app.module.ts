@@ -6,6 +6,7 @@ import {
   AmplifyTextModule,
   AmplifyPasswordFieldModule,
   AmplifyTextFieldModule,
+  AmplifyIconModule,
   AmplifyPhoneNumberModule,
   AmplifyHeadingModule,
 } from '@aws-amplify/ui-angular';
@@ -46,6 +47,7 @@ import { AmplifyPhoneNumberFieldExampleComponent } from 'src/pages/ui/primitive-
 import { AmplifyHeadingExampleComponent } from 'src/pages/ui/primitive-poc/heading/heading.component';
 import { AmplifyPasswordFieldExampleComponent } from 'src/pages/ui/primitive-poc/password-field/password-field.component';
 import { AmplifyFlexExampleComponent } from 'src/pages/ui/primitive-poc/flex/flex.component';
+import { AmplifyIconExampleComponent } from 'src/pages/ui/primitive-poc/icon/icon.component';
 
 @NgModule({
   declarations: [
@@ -78,6 +80,7 @@ import { AmplifyFlexExampleComponent } from 'src/pages/ui/primitive-poc/flex/fle
     AmplifyHeadingExampleComponent,
     AmplifyPasswordFieldExampleComponent,
     AmplifyFlexExampleComponent,
+    AmplifyIconExampleComponent,
     AmplifyTextExampleComponent,
   ],
   imports: [
@@ -92,6 +95,7 @@ import { AmplifyFlexExampleComponent } from 'src/pages/ui/primitive-poc/flex/fle
     AmplifyHeadingModule,
     AmplifyPasswordFieldModule,
     AmplifyFlexModule,
+    AmplifyIconModule,
     AmplifyTextModule,
   ],
   providers: [],

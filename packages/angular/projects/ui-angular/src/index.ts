@@ -21,6 +21,7 @@ export * from './lib/primitives-poc/button';
 export * from './lib/primitives-poc/view';
 export * from './lib/primitives-poc/phone-number';
 export * from './lib/primitives-poc/flex';
+export * from './lib/primitives-poc/icon';
 export * from './lib/primitives-poc/heading';
 export * from './lib/primitives-poc/password-field';
 export * from './lib/primitives-poc/text';
