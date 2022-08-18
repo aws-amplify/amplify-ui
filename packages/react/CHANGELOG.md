@@ -1,13 +1,5 @@
 # @aws-amplify/ui-react
 
-## 3.4.1
-
-### Patch Changes
-
-- [#2450](https://github.com/aws-amplify/amplify-ui/pull/2450) [`ed41e28d1`](https://github.com/aws-amplify/amplify-ui/commit/ed41e28d1abb689f7c74d9f13b9da96a21806973) Thanks [@thaddmt](https://github.com/thaddmt)! - Fix location search bug
-
-* [#2469](https://github.com/aws-amplify/amplify-ui/pull/2469) [`322bc2ce7`](https://github.com/aws-amplify/amplify-ui/commit/322bc2ce7e8edd92b098c8f2dd65af3c99184c35) Thanks [@hbuchel](https://github.com/hbuchel)! - fix(react): hide svg icon images in a11y tree in Rating component so redundant text is not announced
-
 ## 3.4.0
 
 ### Minor Changes
