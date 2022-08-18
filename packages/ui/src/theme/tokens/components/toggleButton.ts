@@ -13,11 +13,11 @@ interface ToggleButtonStateTokens {
   color: DesignToken<ColorValue>;
 }
 interface ToggleButtonHoverTokens
-  extends Omit<ToggleButtonStateTokens, 'borderColor' | 'color'> {}
+  extends Pick<ToggleButtonStateTokens, 'backgroundColor'> {}
 interface ToggleButtonActiveTokens
-  extends Omit<ToggleButtonStateTokens, 'borderColor' | 'color'> {}
+  extends Pick<ToggleButtonStateTokens, 'backgroundColor'> {}
 interface ToggleButtonFocusTokens
-  extends Omit<ToggleButtonStateTokens, 'backgroundColor'> {}
+  extends Pick<ToggleButtonStateTokens, 'borderColor' | 'color'> {}
 
 interface ToggleButtonDisabledTokens extends ToggleButtonStateTokens {}
 
@@ -52,16 +52,16 @@ interface ToggleButtonPrimaryFocusTokens
   extends ToggleButtonPrimaryStateTokens {}
 
 interface ToggleButtonPrimaryHoverTokens
-  extends Omit<ToggleButtonPrimaryStateTokens, 'borderColor' | 'boxShadow'> {}
+  extends Pick<ToggleButtonPrimaryStateTokens, 'backgroundColor' | 'color'> {}
 
 interface ToggleButtonPrimaryDisabledTokens
-  extends Omit<ToggleButtonPrimaryStateTokens, 'boxShadow'> {}
-
-interface ToggleButtonPrimaryDisabledTokens
-  extends Omit<
+  extends Pick<
     ToggleButtonPrimaryStateTokens,
-    'borderColor' | 'backgroundColor' | 'boxShadow'
+    'backgroundColor' | 'borderColor' | 'color'
   > {}
+
+interface ToggleButtonPrimaryDisabledTokens
+  extends Pick<ToggleButtonPrimaryStateTokens, 'color'> {}
 
 interface ToggleButtonPrimaryPressedTokens
   extends ToggleButtonPrimaryStateTokens,
@@ -78,7 +78,10 @@ interface ToggleButtonPrimaryPressedStateTokens {
 }
 
 interface TogglButtonPrimaryPressedFocusTokens
-  extends Omit<ToggleButtonPrimaryPressedStateTokens, 'boxShadow'> {}
+  extends Pick<
+    ToggleButtonPrimaryPressedStateTokens,
+    'backgroundColor' | 'borderColor' | 'color'
+  > {}
 
 interface TogglButtonPrimaryPressedHoverTokens
   extends ToggleButtonPrimaryPressedStateTokens {}
