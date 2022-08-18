@@ -5,7 +5,7 @@ import { Component, Input, OnInit } from '@angular/core';
   templateUrl: 'icon.component.html',
 })
 export class AmplifyIconExampleComponent {
-  viewstate: { width: string; height: string } = {
+  viewstate = {
     width: '20',
     height: '20',
   };

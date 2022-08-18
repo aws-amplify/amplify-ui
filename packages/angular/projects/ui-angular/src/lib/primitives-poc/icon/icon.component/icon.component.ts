@@ -5,6 +5,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { AmplifyBasePrimitiveComponent } from '../../base-primitive/components/base-primitive.component';
+import { viewstate } from './type';
 
 const $COMPONENT_SELECTOR: string = 'amplify-icon';
 @Component({
@@ -20,8 +21,8 @@ export class AmplifyIconComponent extends AmplifyBasePrimitiveComponent {
 
   public _viewBox: string = '';
   @Input()
-  public set viewBox(viewBox: { width: string; height: string }) {
-    this._viewBox = ' 0 0 ' + viewBox.width + ' ' + viewBox.height;
+  public set viewBox(viewBox: viewstate) {
+    this._viewBox = `0 0  ${viewBox.width} ${viewBox.height}`;
   }
 
   constructor() {
