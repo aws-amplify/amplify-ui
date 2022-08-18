@@ -8,7 +8,7 @@ supportedFrameworks: react
 import { Fragment } from '@/components/Fragment';
 export async function getStaticPaths() {
   return {
-    paths: { params: { platform: 'react' } },
+    paths: [{ params: { platform: 'react' } }],
     fallback: false,
   }
 }

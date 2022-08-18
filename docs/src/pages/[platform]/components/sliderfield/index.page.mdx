@@ -12,7 +12,7 @@ import { Fragment } from '@/components/Fragment';
 import { PageTabLayout } from '@/components/Layout/PageTabLayout';
 export async function getStaticPaths() {
   return {
-    paths: { params: { platform: 'react' } },
+    paths: [{ params: { platform: 'react' } }],
     fallback: false,
   }
 }

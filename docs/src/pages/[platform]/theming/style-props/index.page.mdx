@@ -32,7 +32,7 @@ import {
 
 export async function getStaticPaths() {
   return {
-    paths: { params: { platform: 'react' } },
+    paths: [{ params: { platform: 'react' } }],
     fallback: false,
   }
 }
