@@ -1,4 +1,4 @@
-export interface viewstate {
+export interface Viewstate {
   width: number;
   height: number;
 }
