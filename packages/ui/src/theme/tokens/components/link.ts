@@ -8,9 +8,8 @@ interface LinkSizeTokens {
   fontSize: DesignToken<FontSizeValue>;
 }
 
-export interface LinkTokens {
+export interface LinkTokens extends LinkStateTokens {
   active: LinkStateTokens;
-  color: DesignToken<ColorValue>;
   focus: LinkStateTokens;
   hover: LinkStateTokens;
   visited: LinkStateTokens;
