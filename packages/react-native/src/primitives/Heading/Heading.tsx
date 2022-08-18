@@ -3,13 +3,18 @@ import { Text } from 'react-native';
 import { styles } from './styles';
 import { HeadingProps } from './types';
 
-// add isTruncated prop?
 export default function Heading({
   children,
   headingStyle,
   level = 6,
+  truncated = false,
 }: HeadingProps): JSX.Element {
   return (
-    <Text style={[styles.text, styles[level], headingStyle]}>{children}</Text>
+    <Text
+      numberOfLines={+truncated}
+      style={[styles.text, styles[level], headingStyle]}
+    >
+      {children}
+    </Text>
   );
 }

@@ -10,11 +10,24 @@ storiesOf('Heading', module)
     </Screen>
   ))
   .add('Heading Test', () => <Heading>This is a heading!</Heading>)
-  .add('level prop', () => (
-    <Heading level={1}>This should be a large level 1 heading</Heading>
+  .add('level', () => (
+    <>
+      <Heading level={1}>Heading level 1</Heading>
+      <Heading level={2}>Heading level 2</Heading>
+      <Heading level={3}>Heading level 3</Heading>
+      <Heading level={4}>Heading level 4</Heading>
+      <Heading level={5}>Heading level 5</Heading>
+      <Heading level={6}>Heading level 6</Heading>
+      <Heading>Default heading (level 6)</Heading>
+    </>
   ))
   .add('truncated', () => (
-    <Heading level={1}>
-      Really long heading that should be truncated with an ellipsis
-    </Heading>
+    <>
+      <Heading level={1} truncated>
+        Really long heading that SHOULD be truncated with an ellipsis
+      </Heading>
+      <Heading level={1}>
+        Really long heading that should NOT be truncated with an ellipsis
+      </Heading>
+    </>
   ));
