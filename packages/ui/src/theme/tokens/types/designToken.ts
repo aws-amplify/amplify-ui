@@ -43,6 +43,17 @@ export type WebDesignToken<ValueType = any> = {
   toString(): string;
 } & DesignToken<ValueType>;
 
+export type ReplacementStateToken = {
+  /**
+   * Name of the deprecated design token
+   */
+  tokenName: string;
+  /**
+   * String path to the replacement token
+   */
+  path: string;
+};
+
 export type AnimationDurationValue = string;
 export type AnimationTimingFunctionValue = string;
 export type AlignItemsValue = string;

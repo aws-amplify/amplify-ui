@@ -6,6 +6,7 @@ import {
   DesignToken,
   FontSizeValue,
   JustifyContentValue,
+  ReplacementStateToken,
   SpaceValue,
   TransitionDurationValue,
   TransitionPropertyValue,
@@ -71,7 +72,7 @@ export interface PaginationTokens {
   itemShared: PaginationItemSharedTokens;
 }
 
-export const DEPRECATED_PAGINATION_TOKENS = [
+export const DEPRECATED_PAGINATION_TOKENS: ReplacementStateToken[] = [
   {
     tokenName: '--amplify-components-pagination-button-hover-background-color',
     path: 'components.pagination.button._hover.backgroundColor',

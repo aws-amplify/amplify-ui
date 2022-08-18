@@ -5,6 +5,7 @@ import {
   DesignToken,
   FontSizeValue,
   OpacityValue,
+  ReplacementStateToken,
   ShadowValue,
   SpaceValue,
   TransformValue,
@@ -80,7 +81,7 @@ export interface SwitchFieldTokens {
   track: SwitchFieldTrackTokens;
 }
 
-export const DEPRECATED_SWITCHFIELD_TOKENS = [
+export const DEPRECATED_SWITCHFIELD_TOKENS: ReplacementStateToken[] = [
   {
     tokenName: '--amplify-components-switchfield-thumb-checked-transform',
     path: 'components.switchfield.thumb._checked.transform',

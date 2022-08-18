@@ -1,4 +1,9 @@
-import { ColorValue, DesignToken, FontSizeValue } from '../types/designToken';
+import {
+  ColorValue,
+  DesignToken,
+  FontSizeValue,
+  ReplacementStateToken,
+} from '../types/designToken';
 
 interface LinkStateTokens {
   color: DesignToken<ColorValue>;
@@ -32,7 +37,7 @@ export interface LinkTokens {
   _visited?: LinkStateTokens;
 }
 
-export const DEPRECATED_LINK_TOKENS = [
+export const DEPRECATED_LINK_TOKENS: ReplacementStateToken[] = [
   {
     tokenName: '--amplify-components-link-active-color',
     path: 'components.link._active.color',

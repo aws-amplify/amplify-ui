@@ -10,6 +10,7 @@ import {
   DisplayValue,
   FontSizeValue,
   FontWeightValue,
+  ReplacementStateToken,
   SpaceValue,
   TextAlignValue,
   VerticalAlignValue,
@@ -87,7 +88,7 @@ export interface TableTokens {
   caption: TableCaptionTokens;
 }
 
-export const DEPRECATED_TABLE_TOKENS = [
+export const DEPRECATED_TABLE_TOKENS: ReplacementStateToken[] = [
   {
     tokenName: '--amplify-components-table-row-hover-background-color',
     path: 'components.table.row._hover.backgroundColor',
