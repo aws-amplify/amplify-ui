@@ -1,0 +1,147 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Heading renders six different Heading levels 1`] = `
+Array [
+  <Text
+    numberOfLines={0}
+    style={
+      Array [
+        Object {
+          "color": "black",
+        },
+        Object {
+          "fontSize": 56,
+          "fontWeight": "100",
+        },
+        undefined,
+      ]
+    }
+  >
+    Heading level 1
+  </Text>,
+  <Text
+    numberOfLines={0}
+    style={
+      Array [
+        Object {
+          "color": "black",
+        },
+        Object {
+          "fontSize": 44,
+          "fontWeight": "200",
+        },
+        undefined,
+      ]
+    }
+  >
+    Heading level 2
+  </Text>,
+  <Text
+    numberOfLines={0}
+    style={
+      Array [
+        Object {
+          "color": "black",
+        },
+        Object {
+          "fontSize": 34,
+          "fontWeight": "300",
+        },
+        undefined,
+      ]
+    }
+  >
+    Heading level 3
+  </Text>,
+  <Text
+    numberOfLines={0}
+    style={
+      Array [
+        Object {
+          "color": "black",
+        },
+        Object {
+          "fontSize": 26,
+          "fontWeight": "500",
+        },
+        undefined,
+      ]
+    }
+  >
+    Heading level 4
+  </Text>,
+  <Text
+    numberOfLines={0}
+    style={
+      Array [
+        Object {
+          "color": "black",
+        },
+        Object {
+          "fontSize": 20,
+          "fontWeight": "700",
+        },
+        undefined,
+      ]
+    }
+  >
+    Heading level 5
+  </Text>,
+  <Text
+    numberOfLines={0}
+    style={
+      Array [
+        Object {
+          "color": "black",
+        },
+        Object {
+          "fontSize": 16,
+          "fontWeight": "900",
+        },
+        undefined,
+      ]
+    }
+  >
+    Heading level 6
+  </Text>,
+]
+`;
+
+exports[`Heading truncates long Headings with an ellipsis 1`] = `
+Array [
+  <Text
+    numberOfLines={1}
+    style={
+      Array [
+        Object {
+          "color": "black",
+        },
+        Object {
+          "fontSize": 16,
+          "fontWeight": "900",
+        },
+        undefined,
+      ]
+    }
+  >
+    Really long heading that should be truncated with an ellipsis
+  </Text>,
+  <Text
+    numberOfLines={0}
+    style={
+      Array [
+        Object {
+          "color": "black",
+        },
+        Object {
+          "fontSize": 16,
+          "fontWeight": "900",
+        },
+        undefined,
+      ]
+    }
+  >
+    Really long heading that should NOT be truncated with an ellipsis
+  </Text>,
+]
+`;
