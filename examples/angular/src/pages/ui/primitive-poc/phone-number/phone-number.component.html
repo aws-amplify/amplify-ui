@@ -1,0 +1,22 @@
+<amplify-phone-number-field-poc
+  labelHidden="true"
+  describedBy="custom-aria-describedBy"
+>
+  <p amplify-label>Last name</p>
+  <p amplify-description-text>Enter Description</p>
+  <input amplify-phone-number-input placeholder="234-567-8910" />
+  <p amplify-error>There is an error</p>
+</amplify-phone-number-field-poc>
+<div style="margin-top: 100px"></div>
+
+<amplify-phone-number-field-poc
+  [hasError]="true"
+  describedBy="custom-aria-describedBy"
+  defaultCountryCode="+7"
+  (countryCodeChange)="onCountryCodeChange($event)"
+>
+  <p amplify-label>Enter Label</p>
+  <p amplify-description-text>Enter Description</p>
+  <input amplify-phone-number-input placeholder="234-567-8910" />
+  <p amplify-error>There is an error</p>
+</amplify-phone-number-field-poc>
