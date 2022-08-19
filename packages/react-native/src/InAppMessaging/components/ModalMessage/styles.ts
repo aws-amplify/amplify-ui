@@ -75,6 +75,7 @@ const commonStyles: Omit<
   },
   wrapper: {
     flex: 1,
+    justifyContent: 'center',
   },
 };
 
@@ -97,10 +98,6 @@ export const getPortraitStyles = (
     image: { ...imageDimensions },
     textContainer: {
       marginTop: SPACING_LARGE,
-    },
-    wrapper: {
-      ...commonStyles.wrapper,
-      backgroundColor: 'transparent',
     },
   });
 
