@@ -1,5 +1,11 @@
 # @aws-amplify/ui
 
+## 3.13.1
+
+### Patch Changes
+
+- [#2468](https://github.com/aws-amplify/amplify-ui/pull/2468) [`665c42641`](https://github.com/aws-amplify/amplify-ui/commit/665c42641ad869437137a339c746f55fbc9c27c8) Thanks [@wlee221](https://github.com/wlee221)! - Set `predictableActionArguments` to true in Authenticator state machine. This is an internal change only.
+
 ## 3.13.0
 
 ### Minor Changes
