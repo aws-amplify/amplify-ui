@@ -31,7 +31,6 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
     {
       id: 'signUpActor',
       initial: 'init',
-      predictableActionArguments: true,
       states: {
         init: {
           always: [
