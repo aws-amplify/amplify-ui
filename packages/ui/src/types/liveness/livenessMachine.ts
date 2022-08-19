@@ -7,7 +7,11 @@ import {
   LivenessOvalDetails,
   IlluminationState,
 } from './liveness';
-import { VideoRecorder, LivenessStreamProvider } from '../../helpers';
+import {
+  VideoRecorder,
+  LivenessStreamProvider,
+  FreshnessColorDisplay,
+} from '../../helpers';
 import { Face, FaceDetection } from './faceDetection';
 
 export interface LivenessContext {
@@ -39,7 +43,8 @@ export interface LivenessContext {
   freshnessColorAssociatedParams: {
     freshnessColorEl: HTMLCanvasElement;
     freshnessColors: string[];
-    freshnessColorsShown: boolean;
+    freshnessColorsComplete: boolean;
+    freshnessColorDisplay: FreshnessColorDisplay;
   };
   errorState: LivenessErrorState | null;
   livenessStreamProvider: LivenessStreamProvider;

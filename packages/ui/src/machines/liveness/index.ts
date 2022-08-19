@@ -2,6 +2,7 @@ import { createMachine, assign, actions } from 'xstate';
 import adapter from 'webrtc-adapter';
 import {
   fillOverlayCanvasFractional,
+  getFaceMatchState,
   getFreshnessColorsFromSessionInformation,
   getRandomIndex,
   shouldChangeColorStage,
@@ -31,6 +32,7 @@ import {
   recordLivenessAnalyticsEvent,
   LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
   isCameraDeviceVirtual,
+  FreshnessColorDisplay,
 } from '../../helpers';
 import { v4 } from 'uuid';
 
@@ -40,24 +42,6 @@ export const MIN_FACE_MATCH_COUNT = 5;
 let faceDetectedTimestamp: number;
 let ovalDrawnTimestamp: number;
 let freshnessTimeoutId: NodeJS.Timeout;
-
-// Freshness constants
-const tickRate = 10; // ms -- the rate at which we will render/check colors
-const flatDuration = 100; // ms -- the length of time to show a flat color
-const scrollingDuration = 300; // ms -- the length of time it should take for a color to scroll down
-const faceMatchCheckRate = 100; // ms -- the rate at which we will check for faceMatch during freshness
-const faceMatchTimeout = 1000; // ms -- length of time before freshness will reset
-
-// Freshness loop variables
-let colorStageIndex: number;
-let prevColorStageIndex: number;
-let currColorIndex: number;
-let scrollingColorIndex: number;
-let timeLastColorIndChanged: number;
-let expectedCallTime: number;
-let timeFaceMatched: number;
-let drift: number;
-let timeLastFaceMatchChecked: number;
 
 export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
   {
@@ -81,7 +65,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       freshnessColorAssociatedParams: {
         freshnessColorEl: undefined,
         freshnessColors: [],
-        freshnessColorsShown: false,
+        freshnessColorsComplete: false,
+        freshnessColorDisplay: undefined,
       },
       errorState: null,
       livenessStreamProvider: undefined,
@@ -410,7 +395,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         freshnessColorAssociatedParams: (context, event) => {
           return {
             ...context.freshnessColorAssociatedParams,
-            freshnessColorsShown: event.data.freshnessColorsShown,
+            freshnessColorsComplete: event.data.freshnessColorsComplete,
           };
         },
       }),
@@ -430,20 +415,15 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           } = context;
           const freshnessColors =
             getFreshnessColorsFromSessionInformation(sessionInformation);
-
-          colorStageIndex = 0;
-          currColorIndex = Math.floor(
-            Math.random() * (freshnessColors.length - 1) + 1
+          const freshnessColorDisplay = new FreshnessColorDisplay(
+            context,
+            freshnessColors
           );
-          scrollingColorIndex = currColorIndex;
-          timeLastColorIndChanged = Date.now();
-          expectedCallTime = Date.now() + tickRate;
-          drift = 0;
-          timeLastFaceMatchChecked = Date.now();
 
           return {
             ...context.freshnessColorAssociatedParams,
             freshnessColors,
+            freshnessColorDisplay,
           };
         },
       }),
@@ -531,7 +511,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       hasLivenessCheckSucceeded: (_, __, meta) => meta.state.event.data.isLive,
       hasFreshnessColorShown: (context) =>
-        context.freshnessColorAssociatedParams.freshnessColorsShown,
+        context.freshnessColorAssociatedParams.freshnessColorsComplete,
     },
     services: {
       async checkVirtualCameraAndGetStream(context) {
@@ -735,146 +715,19 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       async flashColors(context) {
         const {
-          challengeId,
-          livenessStreamProvider,
           freshnessColorAssociatedParams: {
-            freshnessColorEl,
-            freshnessColors,
-            freshnessColorsShown,
+            freshnessColorsComplete,
+            freshnessColorDisplay,
           },
-          ovalAssociatedParams: { faceDetector, ovalDetails },
-          videoAssociatedParams: { canvasEl, videoEl },
         } = context;
 
-        if (freshnessColorsShown) {
+        if (freshnessColorsComplete) {
           return;
         }
 
-        freshnessColorEl.hidden = false;
+        const completed = await freshnessColorDisplay.displayColorTick();
 
-        const response = await new Promise((resolve, reject) => {
-          const selfAdjustingInterval = async () => {
-            const tickStartTime = Date.now();
-            drift = tickStartTime - expectedCallTime;
-            const timeSinceLastColorChange =
-              tickStartTime - timeLastColorIndChanged;
-
-            // Every 10 ms tick we will check if we have reached the threshold for showing a color
-            // If we have we will increment the color stage
-            if (
-              shouldChangeColorStage(
-                timeSinceLastColorChange,
-                freshnessColors[currColorIndex],
-                freshnessColors[scrollingColorIndex],
-                flatDuration,
-                scrollingDuration
-              )
-            ) {
-              colorStageIndex += 1;
-              const prev = currColorIndex;
-              currColorIndex = scrollingColorIndex;
-              if (prev === scrollingColorIndex) {
-                scrollingColorIndex = getRandomIndex(
-                  freshnessColors.length,
-                  prev
-                );
-              }
-              timeLastColorIndChanged = Date.now();
-            }
-
-            // Every 100 ms we  will check if the face is still in the oval
-            const timeSinceLastFaceMatchCheck =
-              Date.now() - timeLastFaceMatchChecked;
-            if (timeSinceLastFaceMatchCheck > faceMatchCheckRate) {
-              const detectedFaces = await faceDetector.detectFaces(videoEl);
-              let faceMatchState: FaceMatchState;
-              let detectedFace: Face;
-
-              switch (detectedFaces.length) {
-                case 0: {
-                  //no face detected;
-                  faceMatchState = FaceMatchState.CANT_IDENTIFY;
-                  break;
-                }
-                case 1: {
-                  //exactly one face detected, match face with oval;
-                  detectedFace = detectedFaces[0];
-                  faceMatchState = getFaceMatchStateInLivenessOval(
-                    detectedFace,
-                    ovalDetails
-                  );
-                  break;
-                }
-                default: {
-                  //more than one face detected ;
-                  faceMatchState = FaceMatchState.TOO_MANY;
-                  break;
-                }
-              }
-
-              timeLastFaceMatchChecked = Date.now();
-              if (faceMatchState === FaceMatchState.MATCHED) {
-                timeFaceMatched = Date.now();
-              } else {
-                const timeSinceLastFaceMatch = Date.now() - timeFaceMatched;
-                if (timeSinceLastFaceMatch > faceMatchTimeout) {
-                  reject();
-                }
-              }
-            }
-
-            // Continue looping until we have completed colorStages
-            if (colorStageIndex < 24) {
-              const hp = timeSinceLastColorChange / scrollingDuration;
-
-              const scrollingColor = freshnessColors[scrollingColorIndex];
-              const currentColor = freshnessColors[currColorIndex];
-
-              fillOverlayCanvasFractional({
-                overlayCanvas: freshnessColorEl,
-                prevColor: currentColor,
-                nextColor: scrollingColor,
-                ovalCanvas: canvasEl,
-                ovalDetails,
-                heightFraction: hp,
-              });
-
-              // Send clientInfo when a new color starts appears
-              if (colorStageIndex !== prevColorStageIndex) {
-                prevColorStageIndex = colorStageIndex;
-                livenessStreamProvider.sendClientInfo({
-                  challenges: [
-                    {
-                      challengeId,
-                      faceMovementChallenge: {
-                        colorSequence: {
-                          colorTimestampList: [
-                            {
-                              color: scrollingColor,
-                              tickStartTime,
-                            },
-                          ],
-                        },
-                      },
-                    },
-                  ],
-                });
-              }
-
-              expectedCallTime += tickRate;
-              resolve(false);
-            } else {
-              freshnessColorEl.hidden = true;
-              resolve(true);
-            }
-          };
-          freshnessTimeoutId = setTimeout(
-            selfAdjustingInterval,
-            Math.min(tickRate, tickRate - drift)
-          );
-        });
-
-        return { freshnessColorsShown: response };
+        return { freshnessColorsComplete: completed };
       },
       async putLivenessVideo(context) {
         const {

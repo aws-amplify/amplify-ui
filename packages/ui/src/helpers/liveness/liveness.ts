@@ -8,6 +8,7 @@ import {
 } from '../../types';
 import { SessionInformation } from '../../types/liveness/liveness-service-types';
 import { translate } from '../../i18n';
+import { FaceDetection } from '../../types/liveness/faceDetection';
 
 /**
  * Returns the random number between min and max
@@ -486,4 +487,38 @@ export function getRandomIndex(length: number, prevIndex?: number) {
   }
 
   return randomIndex;
+}
+
+export async function getFaceMatchState(
+  faceDetector: FaceDetection,
+  videoEl: HTMLVideoElement,
+  ovalDetails: LivenessOvalDetails
+) {
+  const detectedFaces = await faceDetector.detectFaces(videoEl);
+  let faceMatchState: FaceMatchState;
+  let detectedFace: Face;
+
+  switch (detectedFaces.length) {
+    case 0: {
+      //no face detected;
+      faceMatchState = FaceMatchState.CANT_IDENTIFY;
+      break;
+    }
+    case 1: {
+      //exactly one face detected, match face with oval;
+      detectedFace = detectedFaces[0];
+      faceMatchState = getFaceMatchStateInLivenessOval(
+        detectedFace,
+        ovalDetails
+      );
+      break;
+    }
+    default: {
+      //more than one face detected ;
+      faceMatchState = FaceMatchState.TOO_MANY;
+      break;
+    }
+  }
+
+  return faceMatchState;
 }
