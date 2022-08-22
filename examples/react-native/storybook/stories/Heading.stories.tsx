@@ -9,8 +9,8 @@ storiesOf('Heading', module)
       <Story />
     </Screen>
   ))
-  .add('Heading Test', () => <Heading>This is a heading!</Heading>)
-  .add('level', () => (
+  .add('Default Heading', () => <Heading>This is a heading!</Heading>)
+  .add('level prop', () => (
     <>
       <Heading level={1}>Heading level 1</Heading>
       <Heading level={2}>Heading level 2</Heading>
@@ -21,7 +21,7 @@ storiesOf('Heading', module)
       <Heading>Default heading (level 6)</Heading>
     </>
   ))
-  .add('truncated', () => (
+  .add('truncated prop', () => (
     <>
       <Heading level={1} truncated>
         Really long heading that SHOULD be truncated with an ellipsis
@@ -30,4 +30,7 @@ storiesOf('Heading', module)
         Really long heading that should NOT be truncated with an ellipsis
       </Heading>
     </>
+  ))
+  .add('headingStyle prop', () => (
+    <Heading headingStyle={{ color: 'red' }}>This should be red</Heading>
   ));

@@ -1,7 +1,7 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import Heading from '../Heading';
-import { Text } from 'react-native';
+import { Text, TextStyle } from 'react-native';
 
 const title = 'Test Heading';
 
@@ -46,5 +46,20 @@ describe('Heading', () => {
     expect(headings.toJSON()).toMatchSnapshot();
     expect(truncated.props.numberOfLines).toBe(1);
     expect(notTruncated.props.numberOfLines).toBe(0);
+  });
+
+  it('applies style props', () => {
+    const customStyle = { color: 'red' };
+
+    const styledHeading = TestRenderer.create(
+      <Heading headingStyle={customStyle}>{title}</Heading>
+    );
+
+    const styleProps = styledHeading.root.findByType(Text).props
+      .style as TextStyle[];
+
+    expect(styledHeading.toJSON()).toMatchSnapshot();
+    expect(styledHeading.root.props.headingStyle).toBe(customStyle);
+    expect(styleProps[styleProps.length - 1]).toBe(customStyle);
   });
 });

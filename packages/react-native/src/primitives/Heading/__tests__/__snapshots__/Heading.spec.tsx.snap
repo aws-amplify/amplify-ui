@@ -1,5 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Heading applies style props 1`] = `
+<Text
+  numberOfLines={0}
+  style={
+    Array [
+      Object {
+        "color": "black",
+      },
+      Object {
+        "fontSize": 16,
+        "fontWeight": "900",
+      },
+      Object {
+        "color": "red",
+      },
+    ]
+  }
+>
+  Test Heading
+</Text>
+`;
+
 exports[`Heading renders six different Heading levels 1`] = `
 Array [
   <Text
