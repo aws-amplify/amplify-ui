@@ -3,12 +3,17 @@
 exports[`InAppMessageDisplay renders the expected component in the happy path 1`] = `
 <body>
   <div>
-    <div>
-      <p
-        class="amplify-text"
-      >
-        TEST_COMPONENT
-      </p>
+    <div
+      data-amplify-color-mode="light"
+      data-amplify-theme="default-theme"
+    >
+      <div>
+        <p
+          class="amplify-text"
+        >
+          TEST_COMPONENT
+        </p>
+      </div>
     </div>
   </div>
 </body>
