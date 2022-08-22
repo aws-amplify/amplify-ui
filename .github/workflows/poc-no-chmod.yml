@@ -1,0 +1,44 @@
+# Description: This workflow runs unit + e2e tests on PRs targeting `main` and
+#              other protected branches listed below.
+#
+# Triggered by:
+#   (1) Internal PRs: contirubutor pushes a commit to PRs targeting protected branches.
+#   (2) Fork PRs: maintainer adds "run-test" label to PRs targeting protected branches.
+
+name: Test / PRs
+
+concurrency:
+  group: e2e-${{ github.event.pull_request.id }}
+  cancel-in-progress: true
+
+on:
+  pull_request:
+    branches: [main, ui-svelte/main, ui-geo/main, ui-react@v2, studio-release]
+    types: [opened, synchronize, labeled]
+
+permissions:
+  pull-requests: write # used to remove label
+  # other permissions are defaulted to "none"
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Amplify UI
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.commit }}
+          repository: ${{ inputs.repository }}
+          persist-credentials: false
+      - name: Pull down AWS environments on canary/
+        run: yarn pull
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        working-directory: ./canary
+      - name: Pull down AWS environments on environments/
+        run: yarn pull
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          working-directory: ./environments
