@@ -79,7 +79,8 @@ function removeDuplicateStateTokens(
     const filteredTokens = tokenList.filter(
       (token) => duplicateToken.tokenName === token.name
     );
-    // If two tokens are found with the same
+    // If two tokens are found from the list of DUPLICATE_STATE_TOKENS that contain the same name, then any of them that don't
+    // match the path found in DUPLICATE_STATE_TOKENS will be filtered out
     if (filteredTokens.length >= 2) {
       tokenList = tokenList.filter(
         (token) =>
