@@ -22,15 +22,14 @@ jobs:
           ref: ${{ inputs.commit }}
           repository: ${{ inputs.repository }}
           persist-credentials: false
+      - name: Pull down AWS environments on environments/
+        run: yarn environments pull
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       - name: Pull down AWS environments on canary/
         run: yarn pull
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         working-directory: ./canary
-      - name: Pull down AWS environments on environments/
-        run: yarn pull
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          working-directory: ./environments
