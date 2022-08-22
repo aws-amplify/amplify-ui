@@ -37,7 +37,7 @@ export interface LinkTokens {
   _visited?: LinkStateTokens;
 }
 
-export const DEPRECATED_LINK_TOKENS: ReplacementStateToken[] = [
+export const DUPLICATE_LINK_STATES: ReplacementStateToken[] = [
   {
     tokenName: '--amplify-components-link-active-color',
     path: 'components.link._active.color',

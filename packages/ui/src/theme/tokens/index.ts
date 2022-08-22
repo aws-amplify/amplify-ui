@@ -79,4 +79,4 @@ export const tokens: Tokens = {
   transforms,
 };
 
-export { DEPRECATED_TOKENS } from './components';
+export { DUPLICATE_STATE_TOKENS } from './components';

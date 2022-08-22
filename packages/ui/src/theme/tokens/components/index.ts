@@ -21,13 +21,13 @@ import { flex, FlexTokens } from './flex';
 import { heading, HeadingTokens } from './heading';
 import { icon, IconTokens } from './icon';
 import { image, ImageTokens } from './image';
-import { link, LinkTokens, DEPRECATED_LINK_TOKENS } from './link';
+import { link, LinkTokens, DUPLICATE_LINK_STATES } from './link';
 import { loader, LoaderTokens } from './loader';
 import { menu, MenuTokens } from './menu';
 import {
   pagination,
   PaginationTokens,
-  DEPRECATED_PAGINATION_TOKENS,
+  DUPLICATE_PAGINATION_STATES,
 } from './pagination';
 import { passwordfield, PasswordFieldTokens } from './passwordField';
 import { phonenumberfield, PhoneNumberFieldTokens } from './phoneNumberField';
@@ -43,9 +43,9 @@ import { stepperfield, StepperFieldTokens } from './stepperField';
 import {
   switchfield,
   SwitchFieldTokens,
-  DEPRECATED_SWITCHFIELD_TOKENS,
+  DUPLICATE_SWITCHFIELD_STATES,
 } from './switchField';
-import { table, TableTokens, DEPRECATED_TABLE_TOKENS } from './table';
+import { table, TableTokens, DUPLICATE_TABLE_STATES } from './table';
 import { tabs, TabsTokens } from './tabs';
 import { text, TextTokens } from './text';
 import { textareafield, TextAreaFieldTokens } from './textAreaField';
@@ -148,9 +148,9 @@ export const components: ComponentTokens = {
   togglebuttongroup,
 };
 
-export const DEPRECATED_TOKENS = [
-  ...DEPRECATED_LINK_TOKENS,
-  ...DEPRECATED_PAGINATION_TOKENS,
-  ...DEPRECATED_SWITCHFIELD_TOKENS,
-  ...DEPRECATED_TABLE_TOKENS,
+export const DUPLICATE_STATE_TOKENS = [
+  ...DUPLICATE_LINK_STATES,
+  ...DUPLICATE_PAGINATION_STATES,
+  ...DUPLICATE_SWITCHFIELD_STATES,
+  ...DUPLICATE_TABLE_STATES,
 ];

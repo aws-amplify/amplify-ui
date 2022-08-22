@@ -72,7 +72,7 @@ export interface PaginationTokens {
   itemShared: PaginationItemSharedTokens;
 }
 
-export const DEPRECATED_PAGINATION_TOKENS: ReplacementStateToken[] = [
+export const DUPLICATE_PAGINATION_STATES: ReplacementStateToken[] = [
   {
     tokenName: '--amplify-components-pagination-button-hover-background-color',
     path: 'components.pagination.button._hover.backgroundColor',

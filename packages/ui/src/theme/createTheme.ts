@@ -5,7 +5,7 @@ import flattenProperties from 'style-dictionary/lib/utils/flattenProperties';
 import { defaultTheme } from './defaultTheme';
 import { Theme, BaseTheme, WebTheme, Override } from './types';
 import { cssValue, cssNameTransform } from './utils';
-import { WebTokens, DEPRECATED_TOKENS } from './tokens';
+import { WebTokens, DUPLICATE_STATE_TOKENS } from './tokens';
 import { DesignToken, WebDesignToken } from './tokens/types/designToken';
 
 /**
@@ -65,16 +65,21 @@ function setupTokens(obj: any, path = []) {
 
 /**
  * This function takes in an array of WebDesignTokens and filters out the duplicate WebDesignTokens
- * that are defined in the DEPRECATED_TOKENS list.
+ * that are defined in the DUPLICATE_STATE_TOKENS list. This is designed to remove the duplicate tokens
+ * that were created due to inconsistent naming.  This should be removed when the tokens are removed in the
+ * next major version release.
  * @param tokens
  * @returns WebDesignTokens[]
  */
-function removeDeprecated(tokens: WebDesignToken[]): WebDesignToken[] {
+function removeDuplicateStateTokens(
+  tokens: WebDesignToken[]
+): WebDesignToken[] {
   let tokenList = tokens;
-  DEPRECATED_TOKENS.forEach((duplicateToken) => {
+  DUPLICATE_STATE_TOKENS.forEach((duplicateToken) => {
     const filteredTokens = tokenList.filter(
       (token) => duplicateToken.tokenName === token.name
     );
+    // If two tokens are found with the same
     if (filteredTokens.length >= 2) {
       tokenList = tokenList.filter(
         (token) =>
@@ -115,7 +120,7 @@ export function createTheme(
   // that creates an array of all tokens.
   let cssText =
     `[data-amplify-theme="${name}"] {\n` +
-    removeDeprecated(flattenProperties(tokens))
+    removeDuplicateStateTokens(flattenProperties(tokens))
       .map((token) => `${token.name}: ${token.value};`)
       .join('\n') +
     `\n}\n`;
@@ -130,7 +135,9 @@ export function createTheme(
   if (mergedTheme.overrides) {
     overrides = mergedTheme.overrides.map((override) => {
       const tokens = setupTokens(override.tokens);
-      const customProperties = removeDeprecated(flattenProperties(tokens))
+      const customProperties = removeDuplicateStateTokens(
+        flattenProperties(tokens)
+      )
         .map((token) => `${token.name}: ${token.value};`)
         .join('\n');
       // Overrides can have a selector, media query, breakpoint, or color mode

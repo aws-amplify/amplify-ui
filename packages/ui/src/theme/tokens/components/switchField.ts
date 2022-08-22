@@ -81,7 +81,7 @@ export interface SwitchFieldTokens {
   track: SwitchFieldTrackTokens;
 }
 
-export const DEPRECATED_SWITCHFIELD_TOKENS: ReplacementStateToken[] = [
+export const DUPLICATE_SWITCHFIELD_STATES: ReplacementStateToken[] = [
   {
     tokenName: '--amplify-components-switchfield-thumb-checked-transform',
     path: 'components.switchfield.thumb._checked.transform',

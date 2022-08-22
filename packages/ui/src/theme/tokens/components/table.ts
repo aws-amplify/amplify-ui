@@ -88,7 +88,7 @@ export interface TableTokens {
   caption: TableCaptionTokens;
 }
 
-export const DEPRECATED_TABLE_TOKENS: ReplacementStateToken[] = [
+export const DUPLICATE_TABLE_STATES: ReplacementStateToken[] = [
   {
     tokenName: '--amplify-components-table-row-hover-background-color',
     path: 'components.table.row._hover.backgroundColor',
