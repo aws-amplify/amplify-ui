@@ -25,7 +25,6 @@ const { InAppMessaging } = Notifications;
 export default function useMessage<PlatformStyleProps>({
   components,
   onMessageAction,
-  styles,
 }: UseMessageParams<PlatformStyleProps>): UseMessage<PlatformStyleProps> {
   const { clearMessage, message } = useInAppMessaging();
   const { BannerMessage, CarouselMessage, FullScreenMessage, ModalMessage } =
@@ -73,7 +72,6 @@ export default function useMessage<PlatformStyleProps>({
         onClose,
         onDisplay,
         position: getPositionProp(layout),
-        style: styles?.bannerMessage,
       };
       return { Component: BannerMessage, props };
     }
@@ -85,7 +83,6 @@ export default function useMessage<PlatformStyleProps>({
         layout,
         onClose,
         onDisplay,
-        style: styles?.carouselMessage,
       };
       return { Component: CarouselMessage, props };
     }
@@ -95,7 +92,6 @@ export default function useMessage<PlatformStyleProps>({
         layout,
         onClose,
         onDisplay,
-        style: styles?.fullScreenMessage,
       };
       return { Component: FullScreenMessage, props };
     }
@@ -105,7 +101,6 @@ export default function useMessage<PlatformStyleProps>({
         layout,
         onClose,
         onDisplay,
-        style: styles?.modalMessage,
       };
       return { Component: ModalMessage, props };
     }

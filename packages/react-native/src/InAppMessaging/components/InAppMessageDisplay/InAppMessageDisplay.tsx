@@ -27,7 +27,6 @@ const onMessageAction: OnMessageAction = ({ action, url }) => {
 
 function InAppMessageDisplay({
   components: overrideComponents,
-  styles,
 }: InAppMessageDisplayProps): JSX.Element | null {
   const components = React.useMemo(
     () => ({ ...platformComponents, ...overrideComponents }),
@@ -36,10 +35,14 @@ function InAppMessageDisplay({
   const { Component, props } = useMessage({
     components,
     onMessageAction,
-    styles,
   });
 
   return <Component {...props} />;
 }
+
+InAppMessageDisplay.BannerMessage = BannerMessage;
+InAppMessageDisplay.CarouselMessage = CarouselMessage;
+InAppMessageDisplay.FullScreenMessage = FullScreenMessage;
+InAppMessageDisplay.ModalMessage = ModalMessage;
 
 export default InAppMessageDisplay;

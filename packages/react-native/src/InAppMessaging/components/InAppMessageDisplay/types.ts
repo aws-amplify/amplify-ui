@@ -24,21 +24,9 @@ export interface MessageDefaultComponents {
 
 export interface MessageComponents extends Partial<MessageDefaultComponents> {}
 
-export interface MessageStyles {
-  bannerMessage?: BannerStyle;
-  carouselMessage?: CarouselStyle;
-  fullScreenMessage?: FullScreenStyle;
-  modalMessage?: ModalStyle;
-}
-
 export interface InAppMessageDisplayProps {
   /**
    * Message override UI components
    */
   components?: MessageComponents;
-
-  /**
-   *  Message override styles
-   */
-  styles?: MessageStyles;
 }
