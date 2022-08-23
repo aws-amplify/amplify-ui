@@ -2,18 +2,6 @@
 set -e
 IFS='|'
 
-# CLI input
-WORKING_DIRECTORY=$1;
-echo $WORKING_DIRECTORY;
-
-if [ -n "$WORKING_DIRECTORY" ]; then
-  echo "[LOG]: Changing directory to $WORKING_DIRECTORY"
-  cd $WORKING_DIRECTORY
-else
-  echo "Usage: ./pull-environments <auth/geo/datastore>"
-  exit 1;
-fi
-
 dirs=""
 # Pull the backend for each environment
 for dir in ./*/ ; do
