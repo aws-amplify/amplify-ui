@@ -4,7 +4,6 @@ import { HeadingStyles } from './types';
 export const styles: HeadingStyles = StyleSheet.create({
   text: {
     color: 'black',
-    // lineHeight: 1,
   },
   // these values are completely arbitrary for now
   1: { fontSize: 56, fontWeight: '100' },

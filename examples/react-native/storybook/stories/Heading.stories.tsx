@@ -9,7 +9,7 @@ storiesOf('Heading', module)
       <Story />
     </Screen>
   ))
-  .add('Default Heading', () => <Heading>This is a heading!</Heading>)
+  .add('Default Heading', () => <Heading>Default Heading</Heading>)
   .add('level prop', () => (
     <>
       <Heading level={1}>Heading level 1</Heading>

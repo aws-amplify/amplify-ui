@@ -1,15 +1,15 @@
-import { StyleProp, TextProps, TextStyle } from 'react-native';
+import { TextProps, TextStyle } from 'react-native';
 
-export type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
+type Level = 1 | 2 | 3 | 4 | 5 | 6;
 
 export interface HeadingProps extends TextProps {
-  headingStyle?: StyleProp<TextStyle>;
-  level?: HeadingLevel;
+  headingStyle?: TextStyle;
+  level?: Level;
   truncated?: boolean;
 }
 
 export type HeadingStyles = {
   text: TextStyle;
 } & {
-  [key in HeadingLevel]: TextStyle;
+  [key in Level]: TextStyle;
 };
