@@ -37,9 +37,8 @@ export type SignInMachineOptions = {
 export function signInActor({ services }: SignInMachineOptions) {
   return createMachine<SignInContext, AuthEvent>(
     {
-      id: 'signInActor',
       initial: 'init',
-      predictableActionArguments: true,
+      id: 'signInActor',
       states: {
         init: {
           always: [
