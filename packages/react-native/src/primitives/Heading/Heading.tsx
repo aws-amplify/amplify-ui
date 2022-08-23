@@ -11,6 +11,7 @@ export default function Heading({
 }: HeadingProps): JSX.Element {
   return (
     <Text
+      accessibilityRole="header"
       numberOfLines={truncated ? 1 : 0}
       style={[styles.text, styles[level], headingStyle]}
     >
