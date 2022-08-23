@@ -28,7 +28,6 @@ export class SetupTotpComponent implements OnInit {
   public backToSignInText = translate('Back to Sign In');
   public confirmText = translate('Confirm');
   public sortedFormFields: FormFieldsArray;
-  public formOverrides: FormFields;
 
   constructor(public authenticator: AuthenticatorService) {}
 
@@ -44,14 +43,13 @@ export class SetupTotpComponent implements OnInit {
     // TODO: This should be handled in core.
     const state = this.authenticator.authState;
     const actorContext = getActorContext(state) as SignInContext;
-    const { user } = actorContext;
+    const { user, formFields } = actorContext;
+    const { totpIssuer = 'AWSCognito', totpUsername = user.username } =
+      formFields?.setupTOTP?.QR ?? {};
     try {
       this.secretKey = await Auth.setupTOTP(user);
-      const issuer = this.formOverrides?.['QR']?.totpIssuer ?? 'AWSCognito';
-      const username =
-        this.formOverrides?.['QR']?.totpUsername ?? user.username;
       const totpCode = encodeURI(
-        `otpauth://totp/${issuer}:${username}?secret=${this.secretKey}&issuer=${issuer}`
+        `otpauth://totp/${totpIssuer}:${totpUsername}?secret=${this.secretKey}&issuer=${totpIssuer}`
       );
 
       logger.info('totp code was generated:', totpCode);
