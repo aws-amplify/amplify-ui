@@ -4,11 +4,10 @@ metaDescription: CSS Variables used in Amplify UI. You can override these values
 supportedFrameworks: react|angular|vue
 ---
 
+import { getCustomStaticPath } from "@/utils/getCustomStaticPath";
+
 export async function getStaticPaths() {
-  return {
-    paths: ['react', 'angular', 'vue'].map(platform => ({ params: { platform } })),
-    fallback: false,
-  }
+  return getCustomStaticPath(['react', 'angular', 'vue'])
 }
 
 export async function getStaticProps() {

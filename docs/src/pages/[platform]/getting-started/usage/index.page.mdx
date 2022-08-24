@@ -5,12 +5,10 @@ supportedFrameworks: react|angular|vue
 ---
 
 import { Fragment } from '@/components/Fragment';
+import { getCustomStaticPath } from "@/utils/getCustomStaticPath";
 
 export async function getStaticPaths() {
-  return {
-    paths: ['react', 'angular', 'vue'].map(platform => ({ params: { platform } })),
-    fallback: false,
-  }
+  return getCustomStaticPath(['react', 'angular', 'vue'])
 }
 
 export async function getStaticProps() {

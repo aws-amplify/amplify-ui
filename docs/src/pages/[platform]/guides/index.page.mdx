@@ -7,11 +7,10 @@ supportedFrameworks: react
 
 import { Fragment } from '@/components/Fragment';
 
+import { getCustomStaticPath } from "@/utils/getCustomStaticPath";
+
 export async function getStaticPaths() {
-  return {
-    paths: [{ params: { platform: 'react' } }],
-    fallback: false,
-  }
+  return getCustomStaticPath(["react"])
 }
 
 export async function getStaticProps() {
