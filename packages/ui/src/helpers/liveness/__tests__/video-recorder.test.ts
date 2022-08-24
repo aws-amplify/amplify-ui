@@ -6,6 +6,7 @@ const mockMediaRecorder = {
   onerror: jest.fn(),
   state: '',
   stop: jest.fn(),
+  addEventListener: jest.fn(),
 };
 
 describe('VideoRecorder', () => {

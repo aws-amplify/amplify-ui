@@ -58,8 +58,8 @@ export class FreshnessColorDisplay {
   private async displayNextColorTick(resolve, reject) {
     const {
       freshnessColorAssociatedParams: { freshnessColorEl },
-      ovalAssociatedParams: { faceDetector, ovalDetails },
-      videoAssociatedParams: { canvasEl, videoEl },
+      ovalAssociatedParams: { ovalDetails },
+      videoAssociatedParams: { canvasEl },
     } = this.context;
 
     const tickStartTime = Date.now();

@@ -30,6 +30,7 @@ describe('Liveness Machine', () => {
     stop: jest.fn(),
     getBlob: jest.fn(),
     destroy: jest.fn(),
+    getState: () => 'idle',
   };
   const mockBlazeFace: any = {
     modelLoadingPromise: Promise.resolve(),
@@ -44,7 +45,10 @@ describe('Liveness Machine', () => {
     sendClientInfo: jest.fn(),
     endStream: jest.fn(),
     streamLivenessVideo: jest.fn(),
-    videoRecorder: { getState: jest.fn(), start: jest.fn(), stop: jest.fn() },
+    videoRecorder: mockVideoRecorder,
+  };
+  const mockFreshnessColorDisplay: any = {
+    displayColorTick: () => true,
   };
 
   const mockFlowProps: LivenessFlowProps = {
@@ -176,6 +180,10 @@ describe('Liveness Machine', () => {
     );
     mockedHelpers.getFaceMatchStateInLivenessOval.mockImplementation(
       () => FaceMatchState.MATCHED
+    );
+
+    mockedHelpers.FreshnessColorDisplay.mockImplementation(
+      () => mockFreshnessColorDisplay
     );
 
     mockBlazeFace.detectFaces.mockResolvedValue([mockFace]);
@@ -321,12 +329,11 @@ describe('Liveness Machine', () => {
         mockVideoMediaStream
       );
       expect(
-        service.state.context.videoAssociatedParams.videoRecorder
-      ).toBeDefined();
-      expect(
         service.state.context.videoAssociatedParams.recordingStartTimestampMs
       ).toBeDefined();
-      expect(mockVideoRecorder.start).toHaveBeenCalledTimes(1);
+      expect(
+        service.state.context.livenessStreamProvider.streamLivenessVideo
+      ).toHaveBeenCalledTimes(1);
       expect(service.state.context.errorState).toBeNull();
 
       jest.advanceTimersToNextTimer();
@@ -425,9 +432,7 @@ describe('Liveness Machine', () => {
       jest.advanceTimersToNextTimer(); // ovalMatching
       await flushPromises(); // checkMatch
       await advanceMinFaceMatches(); // detectFaceAndMatchOval
-
-      jest.advanceTimersToNextTimer(450); // flashFreshnessColors -- has 450 setTimeout loops at minimum
-      await flushPromises(); // pending
+      await flushPromises(); // flashFreshnessColors
 
       expect(service.state.value).toEqual('checkSucceeded');
       expect(
@@ -439,9 +444,8 @@ describe('Liveness Machine', () => {
       expect(service.state.context.faceMatchAssociatedParams.endFace).toBe(
         mockFace
       );
-      expect(mockVideoRecorder.stop).toHaveBeenCalledTimes(1);
       expect(mockLivenessStreamProvider.sendClientInfo).toHaveBeenCalledTimes(
-        25
+        2
       );
     });
 
@@ -480,16 +484,10 @@ describe('Liveness Machine', () => {
       await flushPromises();
       expect(service.state.value).toEqual('checkSucceeded');
       expect(mockVideoRecorder.getBlob).toHaveBeenCalledTimes(1);
-      expect(mockVideoRecorder.destroy).toHaveBeenCalledTimes(1);
       expect(mockFlowProps.onSuccess).toHaveBeenCalledTimes(1);
-      expect(
-        mockLivenessPredictionsProvider.putLivenessVideo
-      ).toHaveBeenCalledWith({
-        livenessActionDocument:
-          '{"deviceInformation":{"videoHeight":480,"videoWidth":640},"challenges":[{"type":"FACE_MOVEMENT","faceMovementChallenge":{"initialFacePosition":{"height":100,"width":100,"top":200,"left":390},"targetFacePosition":{"height":100,"width":100,"top":0,"left":0},"recordingTimestamps":{"videoStart":1640995200000,"initialFaceDetected":1640995200000,"faceDetectedInTargetPositionStart":1640995200000,"faceDetectedInTargetPositionEnd":1640995200000}}}]}',
-        sessionId: 'some-sessionId',
-        videoBlob: undefined,
-      });
+      expect(mockLivenessStreamProvider.sendClientInfo).toHaveBeenCalledTimes(
+        2
+      );
     });
 
     it('should reach checkFailed state after putLivenessVideo success and check fail', async () => {

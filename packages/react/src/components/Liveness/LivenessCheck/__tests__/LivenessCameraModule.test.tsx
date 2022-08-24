@@ -101,6 +101,7 @@ describe('LivenessCameraModule', () => {
       type: 'START_RECORDING',
       data: {
         videoEl: expect.any(HTMLVideoElement),
+        freshnessColorEl: expect.any(HTMLCanvasElement),
         canvasEl: expect.any(HTMLCanvasElement),
       },
     });

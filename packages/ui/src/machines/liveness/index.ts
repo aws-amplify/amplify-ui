@@ -725,7 +725,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           return;
         }
 
+        // console.log('before');
         const completed = await freshnessColorDisplay.displayColorTick();
+        // console.log('after');
 
         return { freshnessColorsComplete: completed };
       },
