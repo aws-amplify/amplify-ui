@@ -21,7 +21,7 @@ export interface FragmentProps {
    * Note: if this is true, platforms={['web']} should be used to enable web content instead of platforms={['react', 'vue', 'angular']}
    */
   useCommonWebContent?: boolean;
-  children: ({ platform: string }) => LoaderComponent;
+  children: ({ platform }: { platform: string }) => LoaderComponent;
 }
 
 const shouldRenderFragment = (
@@ -58,7 +58,7 @@ export const Fragment = ({
       loading({ error, isLoading }) {
         if (error) {
           return (
-            <Alert variation="warning">
+            <Alert role="none" variation="warning">
               {error.message.includes('Cannot find module') ? (
                 <>Content missing for {platform}.</>
               ) : (

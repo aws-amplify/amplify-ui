@@ -1,5 +1,149 @@
 # @aws-amplify/ui-react
 
+## 3.4.1
+
+### Patch Changes
+
+- [#2450](https://github.com/aws-amplify/amplify-ui/pull/2450) [`ed41e28d1`](https://github.com/aws-amplify/amplify-ui/commit/ed41e28d1abb689f7c74d9f13b9da96a21806973) Thanks [@thaddmt](https://github.com/thaddmt)! - Fix location search bug
+
+* [#2469](https://github.com/aws-amplify/amplify-ui/pull/2469) [`322bc2ce7`](https://github.com/aws-amplify/amplify-ui/commit/322bc2ce7e8edd92b098c8f2dd65af3c99184c35) Thanks [@hbuchel](https://github.com/hbuchel)! - fix(react): hide svg icon images in a11y tree in Rating component so redundant text is not announced
+
+## 3.4.0
+
+### Minor Changes
+
+- [#2300](https://github.com/aws-amplify/amplify-ui/pull/2300) [`eae79ae15`](https://github.com/aws-amplify/amplify-ui/commit/eae79ae1529b9a920d704cb12e92addb352d0c40) Thanks [@zchenwei](https://github.com/zchenwei)! - feat: adding indeterminate state checkbox
+
+  Users can create an indeterminate `CheckboxField` by setting `isIndeterminate` prop to `true`.
+
+  **_Example_**
+
+  ```jsx
+  import * as React from 'react';
+
+  import { CheckboxField, Flex, View } from '@aws-amplify/ui-react';
+
+  export const CheckboxFieldIndeterminateExample = () => {
+    const [checkedItems, setCheckedItems] = React.useState([false, false]);
+    const checkedItemsRef = React.useRef(null);
+    const allChecked = checkedItems.every(Boolean);
+    const isIndeterminate = checkedItems.some(Boolean) && !allChecked;
+
+    if (isIndeterminate) {
+      checkedItemsRef.current = [...checkedItems];
+    }
+    const handleAllPetsChange = () => {
+      if (isIndeterminate) {
+        setCheckedItems([true, true]);
+      } else if (allChecked) {
+        setCheckedItems([false, false]);
+      } else if (checkedItemsRef.current) {
+        setCheckedItems(checkedItemsRef.current);
+      } else {
+        setCheckedItems([true, true]);
+      }
+    };
+
+    const handleCatChange = (e) => {
+      const newCheckedItems = [e.target.checked, checkedItems[1]];
+      if (!newCheckedItems.some(Boolean) || newCheckedItems.every(Boolean)) {
+        checkedItemsRef.current = null;
+      }
+      setCheckedItems(newCheckedItems);
+    };
+
+    const handleDogChange = (e) => {
+      const newCheckedItems = [checkedItems[0], e.target.checked];
+      if (!newCheckedItems.some(Boolean) || newCheckedItems.every(Boolean)) {
+        checkedItemsRef.current = null;
+      }
+      setCheckedItems(newCheckedItems);
+    };
+
+    return (
+      <Flex direction="column" gap="0">
+        <CheckboxField
+          name="all-pets"
+          label="All Pets"
+          value="allPets"
+          checked={allChecked}
+          isIndeterminate={isIndeterminate}
+          onChange={handleAllPetsChange}
+        />
+        <View paddingLeft="25px">
+          <CheckboxField
+            name="cat"
+            label="Cat"
+            value="cat"
+            checked={checkedItems[0]}
+            onChange={handleCatChange}
+          />
+          <CheckboxField
+            name="dog"
+            label="Dog"
+            value="dog"
+            checked={checkedItems[1]}
+            onChange={handleDogChange}
+          />
+        </View>
+      </Flex>
+    );
+  };
+  ```
+
+### Patch Changes
+
+- Updated dependencies [[`b3e6a97e8`](https://github.com/aws-amplify/amplify-ui/commit/b3e6a97e8e17f6b822af0387e3c543c50aea7c64), [`1cfa1a054`](https://github.com/aws-amplify/amplify-ui/commit/1cfa1a054451a75738f4011c4200c34208285b5b), [`eae79ae15`](https://github.com/aws-amplify/amplify-ui/commit/eae79ae1529b9a920d704cb12e92addb352d0c40), [`e25bc4269`](https://github.com/aws-amplify/amplify-ui/commit/e25bc42693cc4fa1cdcf7ad2fe7034ff44fbb18e), [`1f358d8fa`](https://github.com/aws-amplify/amplify-ui/commit/1f358d8fa18367020d0c41b74dcce1ba73974376)]:
+  - @aws-amplify/ui@3.13.0
+
+## 3.3.0
+
+### Minor Changes
+
+- [#2333](https://github.com/aws-amplify/amplify-ui/pull/2333) [`48027c8ef`](https://github.com/aws-amplify/amplify-ui/commit/48027c8ef9ad6f0e737902c67af3e7fda96ee3ff) Thanks [@joebuono](https://github.com/joebuono)! - fix(ui-react): Collection searchNoResultsFound
+
+  When no results are returned from searching a Collection, we render the text "No results found" by default
+
+  - Customer also has the option of passing their own `ReactNode` to the new `searchNoResultsFound` prop
+
+  ```jsx
+  <Collection
+    isSearchable
+    searchNoResultsFound={
+      <Flex justifyContent="center">
+        <Text color="purple.80" fontSize="1rem">
+          Nothing found, please try again
+        </Text>
+      </Flex>
+    }
+  >
+    {collectionItems}
+  </Collection>
+  ```
+
+### Patch Changes
+
+- [#2368](https://github.com/aws-amplify/amplify-ui/pull/2368) [`64fa669e2`](https://github.com/aws-amplify/amplify-ui/commit/64fa669e238a3fcdd7714169eaf1677c9d3d4a3a) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - fix(ui-react): Hide decorative alert icons from screen readers.
+
+* [#2363](https://github.com/aws-amplify/amplify-ui/pull/2363) [`07e87534b`](https://github.com/aws-amplify/amplify-ui/commit/07e87534b2cef76bde0bb8d16738d659d4de80e1) Thanks [@hbuchel](https://github.com/hbuchel)! - fix(ui-react): move `role="alert"` to parent element of Alert to allow for role overrides.
+
+  The Alert component currently has the ARIA `alert` role by default. This change allows us to override the role when the `alert` role does not match the use case.
+
+  ```
+  <Alert role="none">This is no longer an ARIA alert</Alert>
+  ```
+
+  Learn more about [using the alert role](https://ui.docs.amplify.aws/react/components/alert#accessibility) on our docs and the [W3's spec for the alert role](https://w3c.github.io/aria/#alert)
+
+- [#2355](https://github.com/aws-amplify/amplify-ui/pull/2355) [`19a7d31c4`](https://github.com/aws-amplify/amplify-ui/commit/19a7d31c406257e642b73060685f133f5655f00c) Thanks [@hbuchel](https://github.com/hbuchel)! - fix(ui-react): ariaLabel is no longer required for Icon component
+
+  Please see the [Icon docs](https://ui.docs.amplify.aws/react/components/icon#accessibility) for various methods of creating accessible Icons.
+
+* [#2371](https://github.com/aws-amplify/amplify-ui/pull/2371) [`adc9ff6e3`](https://github.com/aws-amplify/amplify-ui/commit/adc9ff6e3c7d1408edb7de58c1858ddc4f47d1c7) Thanks [@cshfang](https://github.com/cshfang)! - fix(ui-react): Fixes an issue where the isTruncated prop of the Heading component was not properly applying a truncation.
+
+* Updated dependencies [[`de1c874f2`](https://github.com/aws-amplify/amplify-ui/commit/de1c874f294a3b21cc9d7a97b310d2744d18b065), [`3c468a0f3`](https://github.com/aws-amplify/amplify-ui/commit/3c468a0f34fb8f747b925dd1a66a0f0f0117436a), [`1fcfa3c02`](https://github.com/aws-amplify/amplify-ui/commit/1fcfa3c02dc8eedb2acdc7425be7311f5b1accef), [`adc9ff6e3`](https://github.com/aws-amplify/amplify-ui/commit/adc9ff6e3c7d1408edb7de58c1858ddc4f47d1c7)]:
+  - @aws-amplify/ui@3.12.5
+
 ## 3.2.1
 
 ### Patch Changes

@@ -110,6 +110,17 @@
       --amplify-components-checkbox-icon-checked-disabled-background-color
     );
   }
+
+  &--indeterminate {
+    opacity: var(--amplify-components-checkbox-icon-indeterminate-opacity);
+    transform: var(--amplify-components-checkbox-icon-indeterminate-transform);
+
+    // changes disabled state background-color when indeterminate
+    --amplify-internal-checkbox-icon-disabled-background-color: var(
+      --amplify-components-checkbox-icon-indeterminate-disabled-background-color
+    );
+  }
+
   &--disabled {
     background-color: var(
       --amplify-internal-checkbox-icon-disabled-background-color

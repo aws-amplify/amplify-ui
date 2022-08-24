@@ -1,5 +1,21 @@
 # @aws-amplify/ui-angular
 
+## 2.4.18
+
+### Patch Changes
+
+- [#2419](https://github.com/aws-amplify/amplify-ui/pull/2419) [`8def8dc6a`](https://github.com/aws-amplify/amplify-ui/commit/8def8dc6ab8cf2448f110b0a9d4309b43a561541) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - Hide decorative alert icons from screen readers.
+
+- Updated dependencies [[`b3e6a97e8`](https://github.com/aws-amplify/amplify-ui/commit/b3e6a97e8e17f6b822af0387e3c543c50aea7c64), [`1cfa1a054`](https://github.com/aws-amplify/amplify-ui/commit/1cfa1a054451a75738f4011c4200c34208285b5b), [`eae79ae15`](https://github.com/aws-amplify/amplify-ui/commit/eae79ae1529b9a920d704cb12e92addb352d0c40), [`e25bc4269`](https://github.com/aws-amplify/amplify-ui/commit/e25bc42693cc4fa1cdcf7ad2fe7034ff44fbb18e), [`1f358d8fa`](https://github.com/aws-amplify/amplify-ui/commit/1f358d8fa18367020d0c41b74dcce1ba73974376)]:
+  - @aws-amplify/ui@3.13.0
+
+## 2.4.17
+
+### Patch Changes
+
+- Updated dependencies [[`de1c874f2`](https://github.com/aws-amplify/amplify-ui/commit/de1c874f294a3b21cc9d7a97b310d2744d18b065), [`3c468a0f3`](https://github.com/aws-amplify/amplify-ui/commit/3c468a0f34fb8f747b925dd1a66a0f0f0117436a), [`1fcfa3c02`](https://github.com/aws-amplify/amplify-ui/commit/1fcfa3c02dc8eedb2acdc7425be7311f5b1accef), [`adc9ff6e3`](https://github.com/aws-amplify/amplify-ui/commit/adc9ff6e3c7d1408edb7de58c1858ddc4f47d1c7)]:
+  - @aws-amplify/ui@3.12.5
+
 ## 2.4.16
 
 ### Patch Changes
