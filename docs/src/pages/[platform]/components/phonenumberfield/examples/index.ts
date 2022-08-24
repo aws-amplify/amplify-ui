@@ -1,7 +1,7 @@
 export { AccessibilityExample } from './AccessibilityExample';
 export { AutoCompleteExample } from './AutoCompleteExample';
 export { ClassNameExample } from './ClassNameExample';
-export { CountryCodeSelectExample } from './CountryCodeSelectExample';
+export { DialCodeSelectExample } from './DialCodeSelectExample';
 export { DefaultPhoneNumberFieldExample } from './DefaultPhoneNumberFieldExample';
 export { DescriptiveTextExample } from './DescriptiveTextExample';
 export { RefsExample } from './RefsExample';
