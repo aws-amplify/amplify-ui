@@ -88,6 +88,7 @@ export interface TableTokens {
   caption: TableCaptionTokens;
 }
 
+// To be removed in the next major version release
 export const DUPLICATE_TABLE_STATES: ReplacementStateToken[] = [
   {
     tokenName: '--amplify-components-table-row-hover-background-color',
@@ -135,6 +136,7 @@ export const table: TableTokens = {
     verticalAlign: { value: 'middle' },
 
     hover: {
+      // To be changed in the next major release to _hover
       backgroundColor: { value: '{colors.background.tertiary.value}' },
     },
 

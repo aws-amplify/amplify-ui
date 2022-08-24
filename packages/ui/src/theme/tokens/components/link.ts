@@ -37,6 +37,7 @@ export interface LinkTokens {
   _visited?: LinkStateTokens;
 }
 
+// To be removed in the next major version release
 export const DUPLICATE_LINK_STATES: ReplacementStateToken[] = [
   {
     tokenName: '--amplify-components-link-active-color',
@@ -58,16 +59,20 @@ export const DUPLICATE_LINK_STATES: ReplacementStateToken[] = [
 
 export const link: LinkTokens = {
   active: {
+    // To be changed in the next major release to _active
     color: { value: '{colors.font.active.value}' },
   },
   color: { value: '{colors.font.interactive.value}' },
   focus: {
+    // To be changed in the next major release to _focus
     color: { value: '{colors.font.focus.value}' },
   },
   hover: {
+    // To be changed in the next major release to _hover
     color: { value: '{colors.font.hover.value}' },
   },
   visited: {
+    // To be changed in the next major release to _visited
     color: { value: '{colors.font.interactive.value}' },
   },
 };

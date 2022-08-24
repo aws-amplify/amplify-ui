@@ -58,25 +58,26 @@ describe('@aws-amplify/ui', () => {
           },
         };
         const { cssText, tokens } = createTheme(theme);
+        const buttonTokens = tokens.components.pagination.button;
         expect(cssText).toContain(
-          `--amplify-components-pagination-button-hover-background-color: ${tokens.components.pagination.button._hover?.backgroundColor.value}`
+          `--amplify-components-pagination-button-hover-background-color: ${buttonTokens._hover?.backgroundColor.value}`
         );
         expect(cssText).not.toContain(
-          `--amplify-components-pagination-button-hover-background-color: ${tokens.components.pagination.button.hover?.backgroundColor.value}`
+          `--amplify-components-pagination-button-hover-background-color: ${buttonTokens.hover?.backgroundColor.value}`
         );
 
         expect(cssText).toContain(
-          `--amplify-components-pagination-button-hover-color: ${tokens.components.pagination.button._hover?.color.value}`
+          `--amplify-components-pagination-button-hover-color: ${buttonTokens._hover?.color.value}`
         );
         expect(cssText).not.toContain(
-          `--amplify-components-pagination-button-hover-color: ${tokens.components.pagination.button.hover?.color.value}`
+          `--amplify-components-pagination-button-hover-color: ${buttonTokens.hover?.color.value}`
         );
 
         expect(cssText).toContain(
-          `--amplify-components-pagination-button-disabled-color: ${tokens.components.pagination.button._disabled?.color.value}`
+          `--amplify-components-pagination-button-disabled-color: ${buttonTokens._disabled?.color.value}`
         );
         expect(cssText).not.toContain(
-          `--amplify-components-pagination-button-disabled-color: ${tokens.components.pagination.button.disabled?.color.value}`
+          `--amplify-components-pagination-button-disabled-color: ${buttonTokens.disabled?.color.value}`
         );
       });
 
@@ -111,32 +112,33 @@ describe('@aws-amplify/ui', () => {
           },
         };
         const { cssText, tokens } = createTheme(theme);
+        const linkTokens = tokens.components.link;
         expect(cssText).toContain(
-          `--amplify-components-link-active-color: ${tokens.components.link._active?.color.value}`
+          `--amplify-components-link-active-color: ${linkTokens._active?.color.value}`
         );
         expect(cssText).not.toContain(
-          `--amplify-components-link-active-color: ${tokens.components.link.active?.color.value}`
+          `--amplify-components-link-active-color: ${linkTokens.active?.color.value}`
         );
 
         expect(cssText).toContain(
-          `--amplify-components-link-focus-color: ${tokens.components.link._focus?.color.value}`
+          `--amplify-components-link-focus-color: ${linkTokens._focus?.color.value}`
         );
         expect(cssText).not.toContain(
-          `--amplify-components-link-focus-color: ${tokens.components.link.focus?.color.value}`
+          `--amplify-components-link-focus-color: ${linkTokens.focus?.color.value}`
         );
 
         expect(cssText).toContain(
-          `--amplify-components-link-hover-color: ${tokens.components.link._hover?.color.value}`
+          `--amplify-components-link-hover-color: ${linkTokens._hover?.color.value}`
         );
         expect(cssText).not.toContain(
-          `--amplify-components-link-hover-color: ${tokens.components.link.hover?.color.value}`
+          `--amplify-components-link-hover-color: ${linkTokens.hover?.color.value}`
         );
 
         expect(cssText).toContain(
-          `--amplify-components-link-visited-color: ${tokens.components.link._visited?.color.value}`
+          `--amplify-components-link-visited-color: ${linkTokens._visited?.color.value}`
         );
         expect(cssText).not.toContain(
-          `--amplify-components-link-visited-color: ${tokens.components.link.visited?.color.value}`
+          `--amplify-components-link-visited-color: ${linkTokens.visited?.color.value}`
         );
       });
 
@@ -165,18 +167,19 @@ describe('@aws-amplify/ui', () => {
           },
         };
         const { cssText, tokens } = createTheme(theme);
+        const switchFieldTokens = tokens.components.switchfield;
         expect(cssText).toContain(
-          `--amplify-components-switchfield-thumb-checked-transform: ${tokens.components.switchfield.thumb._checked?.transform.value}`
+          `--amplify-components-switchfield-thumb-checked-transform: ${switchFieldTokens.thumb._checked?.transform.value}`
         );
         expect(cssText).not.toContain(
-          `--amplify-components-switchfield-thumb-checked-transform: ${tokens.components.switchfield.thumb.checked?.transform.value}`
+          `--amplify-components-switchfield-thumb-checked-transform: ${switchFieldTokens.thumb.checked?.transform.value}`
         );
 
         expect(cssText).toContain(
-          `--amplify-components-switchfield-track-checked-background-color: ${tokens.components.switchfield.track._checked?.backgroundColor.value}`
+          `--amplify-components-switchfield-track-checked-background-color: ${switchFieldTokens.track._checked?.backgroundColor.value}`
         );
         expect(cssText).not.toContain(
-          `--amplify-components-switchfield-track-checked-background-color: ${tokens.components.switchfield.track.checked?.backgroundColor.value}`
+          `--amplify-components-switchfield-track-checked-background-color: ${switchFieldTokens.track.checked?.backgroundColor.value}`
         );
       });
 
@@ -198,11 +201,12 @@ describe('@aws-amplify/ui', () => {
           },
         };
         const { cssText, tokens } = createTheme(theme);
+        const tableRowTokens = tokens.components.table.row;
         expect(cssText).toContain(
-          `--amplify-components-table-row-hover-background-color: ${tokens.components.table.row._hover?.backgroundColor.value}`
+          `--amplify-components-table-row-hover-background-color: ${tableRowTokens._hover?.backgroundColor.value}`
         );
         expect(cssText).not.toContain(
-          `--amplify-components-table-row-hover-background-color: ${tokens.components.table.row.hover?.backgroundColor.value}`
+          `--amplify-components-table-row-hover-background-color: ${tableRowTokens.hover?.backgroundColor.value}`
         );
       });
     });

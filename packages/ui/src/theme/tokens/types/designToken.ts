@@ -43,9 +43,10 @@ export type WebDesignToken<ValueType = any> = {
   toString(): string;
 } & DesignToken<ValueType>;
 
+// To be removed in the next major version release
 export type ReplacementStateToken = {
   /**
-   * Name of the deprecated design token
+   * Name of the duplicate design token
    */
   tokenName: string;
   /**

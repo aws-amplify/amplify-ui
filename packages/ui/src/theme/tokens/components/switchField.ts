@@ -81,6 +81,7 @@ export interface SwitchFieldTokens {
   track: SwitchFieldTrackTokens;
 }
 
+// To be removed in the next major version release
 export const DUPLICATE_SWITCHFIELD_STATES: ReplacementStateToken[] = [
   {
     tokenName: '--amplify-components-switchfield-thumb-checked-transform',
@@ -129,6 +130,7 @@ export const switchfield: SwitchFieldTokens = {
     borderColor: { value: '{colors.border.tertiary.value}' },
     borderRadius: { value: '{radii.xxxl.value}' },
     checked: {
+      // To be changed in the next major release to _checked
       transform: { value: '{transforms.slideX.medium.value}' },
     },
     transition: {
@@ -141,6 +143,7 @@ export const switchfield: SwitchFieldTokens = {
     backgroundColor: { value: '{colors.background.quaternary.value}' },
     borderRadius: { value: '{radii.xxxl.value}' },
     checked: {
+      // To be changed in the next major release to _checked
       backgroundColor: { value: '{colors.brand.primary.80.value}' },
     },
     height: { value: '{space.relative.medium.value}' },

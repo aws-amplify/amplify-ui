@@ -72,6 +72,7 @@ export interface PaginationTokens {
   itemShared: PaginationItemSharedTokens;
 }
 
+// To be removed in the next major version release
 export const DUPLICATE_PAGINATION_STATES: ReplacementStateToken[] = [
   {
     tokenName: '--amplify-components-pagination-button-hover-background-color',
@@ -102,10 +103,12 @@ export const pagination: PaginationTokens = {
     transitionProperty: { value: 'background-color' },
     transitionDuration: { value: '{time.medium.value}' },
     hover: {
+      // To be changed in the next major release to _hover
       backgroundColor: { value: '{colors.overlay.10.value}' },
       color: { value: '{colors.font.primary.value}' },
     },
     disabled: {
+      // To be changed in the next major release to _disabled
       color: { value: '{colors.font.disabled.value}' },
     },
   },
