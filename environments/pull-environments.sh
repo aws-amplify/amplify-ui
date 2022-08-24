@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/bin/bash
+# using bin/bash for macOS and Linux compatibility
 set -e
 IFS='|'
 
@@ -30,5 +31,7 @@ fi
 # source: https://stackoverflow.com/a/24112741
 shell_path="$(dirname "${BASH_SOURCE[0]}")" # under normal use, this points to `../`
 
-echo $dirs | xargs -P $numParallelTasks -I {} sh -c ""$shell_path"/pull-environment.sh {}"
+# Pull environments in parallel
+# Note that printf is used because echo dosn't handle `\n` by default in bash.
+printf $dirs | xargs -P $numParallelTasks -I {} sh -c ""$shell_path"/pull-environment.sh {}";
 
