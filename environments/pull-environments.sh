@@ -31,6 +31,9 @@ fi
 # adapted from: https://stackoverflow.com/a/24112741
 shell_path="$(dirname "${BASH_SOURCE[0]}")" # under normal use, this points to `../`
 
-# Use printf instead of echo because echo does not print newline by default. 
+# Pulls environments in parallel.
+# (1) printf prints out the directory separated by `\n`s. Note that printf is used 
+#     instead of echo because echo doesn't handle `\n` by default in bash.
+# (2) xargs accept the directory list and starts calling environments in parallel.
 printf $dirs | xargs -P $numParallelTasks -I {} sh -c ""$shell_path"/pull-environment.sh {}";
 
