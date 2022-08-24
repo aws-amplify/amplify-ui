@@ -55,7 +55,7 @@ string
 string
 ```
 </ResponsiveTableCell>
-      <ResponsiveTableCell label="Description">Sets a hidden and accessible label for the dial code selector</ResponsiveTableCell>
+      <ResponsiveTableCell label="Description">Sets a hidden and accessible label for the dial code selector To be removed with next major version release, please use dialCodeLabel</ResponsiveTableCell>
     </TableRow>
 
     <TableRow>
@@ -65,7 +65,7 @@ string
 string
 ```
 </ResponsiveTableCell>
-      <ResponsiveTableCell label="Description">Sets the name used when handling form submission for the dial code selector</ResponsiveTableCell>
+      <ResponsiveTableCell label="Description">Sets the name used when handling form submission for the dial code selector To be removed with next major version release, please use dialCodeName</ResponsiveTableCell>
     </TableRow>
 
     <TableRow>
@@ -75,7 +75,7 @@ string
 React.Ref<HTMLSelectElement>
 ```
 </ResponsiveTableCell>
-      <ResponsiveTableCell label="Description">Forwarded ref for access to Country Code select DOM element</ResponsiveTableCell>
+      <ResponsiveTableCell label="Description">Forwarded ref for access to Country Code select DOM element To be removed with next major version release, please use dialCodeRef</ResponsiveTableCell>
     </TableRow>
 
     <TableRow>
@@ -89,7 +89,17 @@ boolean
     </TableRow>
 
     <TableRow>
-      <ResponsiveTableCell label="Name">defaultCountryCode<sup>*</sup></ResponsiveTableCell>
+      <ResponsiveTableCell label="Name">defaultCountryCode</ResponsiveTableCell>
+      <ResponsiveTableCell label="Type">
+```jsx
+string
+```
+</ResponsiveTableCell>
+      <ResponsiveTableCell label="Description">Sets the default dial code that will be selected on initial render To be removed with next major version release, please use defaultDialCode</ResponsiveTableCell>
+    </TableRow>
+
+    <TableRow>
+      <ResponsiveTableCell label="Name">defaultDialCode</ResponsiveTableCell>
       <ResponsiveTableCell label="Type">
 ```jsx
 string
@@ -119,6 +129,16 @@ React.ReactNode
     </TableRow>
 
     <TableRow>
+      <ResponsiveTableCell label="Name">dialCodeLabel</ResponsiveTableCell>
+      <ResponsiveTableCell label="Type">
+```jsx
+string
+```
+</ResponsiveTableCell>
+      <ResponsiveTableCell label="Description">Sets a hidden and accessible label for the dial code selector</ResponsiveTableCell>
+    </TableRow>
+
+    <TableRow>
       <ResponsiveTableCell label="Name">dialCodeList</ResponsiveTableCell>
       <ResponsiveTableCell label="Type">
 ```jsx
@@ -126,6 +146,26 @@ string[]
 ```
 </ResponsiveTableCell>
       <ResponsiveTableCell label="Description">Accepts an array of dial codes (strings) used as options in the dial code selector</ResponsiveTableCell>
+    </TableRow>
+
+    <TableRow>
+      <ResponsiveTableCell label="Name">dialCodeName</ResponsiveTableCell>
+      <ResponsiveTableCell label="Type">
+```jsx
+string
+```
+</ResponsiveTableCell>
+      <ResponsiveTableCell label="Description">Sets the name used when handling form submission for the dial code selector</ResponsiveTableCell>
+    </TableRow>
+
+    <TableRow>
+      <ResponsiveTableCell label="Name">dialCodeRef</ResponsiveTableCell>
+      <ResponsiveTableCell label="Type">
+```jsx
+React.Ref<HTMLSelectElement>
+```
+</ResponsiveTableCell>
+      <ResponsiveTableCell label="Description">Forwarded ref for access to Dial Code select DOM element</ResponsiveTableCell>
     </TableRow>
 
     <TableRow>
@@ -260,6 +300,16 @@ string
 
     <TableRow>
       <ResponsiveTableCell label="Name">onCountryCodeChange</ResponsiveTableCell>
+      <ResponsiveTableCell label="Type">
+```jsx
+React.ChangeEventHandler<HTMLSelectElement>
+```
+</ResponsiveTableCell>
+      <ResponsiveTableCell label="Description">Handles change events for the dial code selector To be removed with next major version release, please use onDialCodeChange</ResponsiveTableCell>
+    </TableRow>
+
+    <TableRow>
+      <ResponsiveTableCell label="Name">onDialCodeChange</ResponsiveTableCell>
       <ResponsiveTableCell label="Type">
 ```jsx
 React.ChangeEventHandler<HTMLSelectElement>
