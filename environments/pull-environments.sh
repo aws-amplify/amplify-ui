@@ -29,6 +29,7 @@ fi
 #
 # source: https://stackoverflow.com/a/24112741
 shell_path="$(dirname "${BASH_SOURCE[0]}")" # under normal use, this points to `../`
+echo "$shell_path"
 
 echo $dirs | xargs -P $numParallelTasks -I {} sh -c ""$shell_path"/pull-environment.sh {}"
 
