@@ -26,12 +26,12 @@ fi
 # (1) bash_source[0] contains the filename of this shell relative to cwd
 #     (e.g. `../pull-environments.sh`)
 # (2) dirname gets rid of filename and returns the relative path to the 
-#     directory this shell is in (e.g. ..)
+#     directory is in (e.g. ..)
 #
-# adapted from: https://stackoverflow.com/a/24112741
+# source: https://stackoverflow.com/a/24112741
 shell_path="$(dirname "${BASH_SOURCE[0]}")" # under normal use, this points to `../`
 
-# Pulls environments in parallel
+# Pull environments in parallel
 # Note that printf is used because echo dosn't handle `\n` by default in bash.
 printf $dirs | xargs -P $numParallelTasks -I {} sh -c ""$shell_path"/pull-environment.sh {}";
 
