@@ -5,7 +5,7 @@
     "build": "yarn --cwd ../../ build",
     "dev": "yarn --cwd ../../ dev",
     "lint": "yarn --cwd ../../ lint",
-    "test": "jest",
+    "test": "yarn --cwd ../../ test",
     "generate:css": "npx tailwindcss -i ./styles/component.tailwind.css -o ./styles/component.css"
   },
   "license": "Apache-2.0",
@@ -28,11 +28,5 @@
   },
   "publishConfig": {
     "directory": "../../dist/ui-angular"
-  },
-  "jest": {
-    "preset": "jest-preset-angular",
-    "setupFilesAfterEnv": [
-      "<rootDir>/src/setup.jest.ts"
-    ]
   }
 }
