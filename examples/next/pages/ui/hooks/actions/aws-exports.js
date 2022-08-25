@@ -1,2 +1,2 @@
-import awsExports from '@environments/action-hooks/src/aws-exports';
+import awsExports from '@environments/datastore/action-hooks/src/aws-exports';
 export default awsExports;
