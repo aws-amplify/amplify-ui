@@ -7,10 +7,7 @@ import { checkbox, CheckboxTokens } from './checkbox';
 import { checkboxfield, CheckboxFieldTokens } from './checkboxField';
 import { collection, CollectionTokens } from './collection';
 import { copy, CopyTokens } from './copy';
-import {
-  countrycodeselect,
-  CountryCodeSelectTokens,
-} from './countryCodeSelect';
+import { dialcodeselect, DialCodeSelectTokens } from './dialCodeSelect';
 import { divider, DividerTokens } from './divider';
 import { expander, ExpanderTokens } from './expander';
 import { field, FieldTokens } from './field';
@@ -59,7 +56,7 @@ export interface ComponentTokens {
   checkboxfield: CheckboxFieldTokens;
   collection: CollectionTokens;
   copy: CopyTokens;
-  countrycodeselect: CountryCodeSelectTokens;
+  countrycodeselect: DialCodeSelectTokens;
   divider: DividerTokens;
   expander: ExpanderTokens;
   field: FieldTokens;
@@ -106,7 +103,7 @@ export const components: ComponentTokens = {
   checkboxfield,
   collection,
   copy,
-  countrycodeselect,
+  countrycodeselect: dialcodeselect, // This to be renamed to dialcodeselect in the next major version
   divider,
   expander,
   field,
