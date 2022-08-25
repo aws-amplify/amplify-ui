@@ -3,12 +3,12 @@ import * as React from 'react';
 
 export const RefsExample = () => {
   const inputRef = React.useRef(null);
-  const dialCodeRef = React.useRef(null);
+  const countryCodeRef = React.useRef(null);
 
   const [inputRefValue, setInputRefValue] = React.useState('');
 
   const onBlur = () => {
-    dialCodeRef.current.focus();
+    countryCodeRef.current.focus();
     setInputRefValue(inputRef.current.value);
   };
 
@@ -16,9 +16,9 @@ export const RefsExample = () => {
     <Flex direction="column">
       <PhoneNumberField
         ref={inputRef}
-        dialCodeRef={dialCodeRef}
+        countryCodeRef={countryCodeRef}
         label="Phone number"
-        defaultDialCode="+1"
+        defaultCountryCode="+1"
         onBlur={onBlur}
       />
       <Text>`inputRef` value: {inputRefValue}</Text>

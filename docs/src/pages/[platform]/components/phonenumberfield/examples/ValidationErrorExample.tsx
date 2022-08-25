@@ -2,7 +2,7 @@ import { PhoneNumberField } from '@aws-amplify/ui-react';
 
 export const ValidationErrorExample = () => (
   <PhoneNumberField
-    defaultDialCode="+1"
+    defaultCountryCode="+1"
     label="Phone number"
     defaultValue="1234"
     hasError={true}

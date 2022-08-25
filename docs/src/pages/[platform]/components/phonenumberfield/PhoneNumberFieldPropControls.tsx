@@ -40,8 +40,8 @@ export interface PhoneNumberFieldPropControlsProps
   setValue: (
     value: React.SetStateAction<PhoneNumberFieldProps['value']>
   ) => void;
-  setDefaultDialCode: (
-    value: React.SetStateAction<PhoneNumberFieldProps['defaultDialCode']>
+  setDefaultCountryCode: (
+    value: React.SetStateAction<PhoneNumberFieldProps['defaultCountryCode']>
   ) => void;
 }
 

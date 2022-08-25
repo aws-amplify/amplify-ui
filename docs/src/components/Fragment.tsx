@@ -21,7 +21,7 @@ export interface FragmentProps {
    * Note: if this is true, platforms={['web']} should be used to enable web content instead of platforms={['react', 'vue', 'angular']}
    */
   useCommonWebContent?: boolean;
-  children: ({ platform }: { platform: string }) => LoaderComponent;
+  children: ({ platform: string }) => LoaderComponent;
 }
 
 const shouldRenderFragment = (

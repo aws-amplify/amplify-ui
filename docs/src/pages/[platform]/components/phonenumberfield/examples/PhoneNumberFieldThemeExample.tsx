@@ -21,7 +21,7 @@ export const PhoneNumberFieldThemeExample = () => (
   <ThemeProvider theme={theme} colorMode="light">
     <PhoneNumberField
       label="Themed field"
-      defaultDialCode="+1"
+      defaultCountryCode="+1"
       labelHidden={true}
     />
   </ThemeProvider>

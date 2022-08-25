@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { PhoneNumberField, Alert } from '@aws-amplify/ui-react';
+import { PhoneNumberField } from '@aws-amplify/ui-react';
 import { PhoneNumberFieldDemo } from './demo';
 import { Example, ExampleCode } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
@@ -11,7 +11,7 @@ import ThemeExample from '@/components/ThemeExample.mdx';
 import {
   AccessibilityExample,
   AutoCompleteExample,
-  DialCodeSelectExample,
+  CountryCodeSelectExample,
   ClassNameExample,
   DefaultPhoneNumberFieldExample,
   DescriptiveTextExample,
@@ -32,8 +32,8 @@ import {
 
 ## Usage
 
-Import the `PhoneNumberField` component and provide a `label` for accessibility/usability as well as a `defaultDialCode`
-which will auto-populate the dial code select field.
+Import the `PhoneNumberField` component and provide a `label` for accessibility/usability as well as a `defaultCountryCode`
+which will auto-populate the country or region code select field.
 
 <Example>
   <DefaultPhoneNumberFieldExample />
@@ -44,26 +44,21 @@ which will auto-populate the dial code select field.
   </ExampleCode>
 </Example>
 
-### Dial Code Select Properties
+### Country or Region Code Select Properties
 
-<Alert variation="info"  role="none">All `countryCode` fields are being deprecated in favor of the new `dialCode` fields.  If you still have instances of `defaultCountryCode`,
-`countryCodeList`, `countryCodeName`, `countryCodeLabel`, and `onCountryCodeChange` then please update these to the new `dialCode` props listed below.</Alert>
+The country or region code selector can be customized by setting several properties when using the `PhoneNumberField` primitive. The custom
+properties specific to the country or region code selector are the following:
 
-The dial code selector can be customized by setting several properties when using the `PhoneNumberField` primitive. The custom
-properties specific to the dial code selector are the following:
-
-- `defaultDialCode` (_required_): The default dial code that will be selected upon render
-- `dialCodeList`: An array of dial codes (strings) used as options in the dial code selector
-- `dialCodeName`: A name used when handling form submission for the dial code selector
-- `dialCodeLabel`: A hidden accessible label for the dial code selector
-- `onDialCodeChange`: A custom change handler for the dial code selector
-
-* If both `defaultDialCode`, `dialCodeList`, `dialCodeName`, `dialCodeLabel`, and `onDialCodeChange` and the corresponding `countryCode` prop are provided, then the value in the `dialCode` prop will be preferred.
+- `defaultCountryCode` (_required_): The default country or region code that will be selected upon render
+- `dialCodeList`: An array of dial codes (strings) used as options in the country or region code selector
+- `countryCodeName`: A name used when handling form submission for the country or region code selector
+- `countryCodeLabel`: A hidden accessible label for the country or region code selector
+- `onCountryCodeChange`: A custom change handler for the country or region code selector
 
 <Example>
-  <DialCodeSelectExample />
+  <CountryCodeSelectExample />
   <ExampleCode>
-```jsx file=./examples/DialCodeSelectExample.tsx
+```jsx file=./examples/CountryCodeSelectExample.tsx
 
 ````
 
@@ -73,7 +68,7 @@ properties specific to the dial code selector are the following:
 ### Autocomplete - supporting password managers
 
 Use the `autoComplete` prop to tell the browser how to populate the `PhoneNumberField`. By default, the `PhoneNumberField` primitive uses `tel-national`
-as the `autoComplete` property for the text field and `tel-country-code` as the `autoComplete` property for the dial code selector.
+as the `autoComplete` property for the text field and `tel-country-code` as the `autoComplete` property for the country or region code selector.
 
 If the `PhoneNumberField` primitive is intended to be used in a form that is compatible with most password managers, the `autoComplete` property should
 be set to `username` (see [Password Form Styles that Chromium Understands](https://www.chromium.org/developers/design-documents/form-styles-that-chromium-understands)).
@@ -203,9 +198,9 @@ Use the `hasError` and `errorMessage` fields to mark a `PhoneNumberField` as hav
 
 <Fragment>{() => import('./../shared/forwardRefAlert.mdx')}</Fragment>
 
-The standard `ref` prop will forward to the underlying `input` element, and the `dialCodeRef` prop forwards to the dial code `select` element.
+The standard `ref` prop will forward to the underlying `input` element, and the `countryCodeRef` prop forwards to the country or region code `select` element.
 
-The following is a contrived example demonstrating use of the `ref` and `dialCodeRef` props:
+The following is a contrived example demonstrating use of the `ref` and `countryCodeRef` props:
 
 <Example>
   <RefsExample />
@@ -255,19 +250,19 @@ The following is a contrived example demonstrating use of the `ref` and `dialCod
 ### Global styling
 
 To override styling on all `PhoneNumberField` primitives, you can set the Amplify CSS variables with the built-in `.amplify-phonenumberfield`
-and `.amplify-dialcodeselect` class.
+and `.amplify-countrycodeselect` class.
 
 ```css
 /* styles.css */
 .amplify-phonenumberfield,
-.amplify-dialcodeselect {
+.amplify-countrycodeselect {
   --amplify-components-fieldcontrol-border-color: rebeccapurple;
 }
 ```
 
 <Example>
   <PhoneNumberField
-    defaultDialCode="+1"
+    defaultCountryCode="+1"
     label="Globally styled field"
     className="globally-styled-textfield"
   />
