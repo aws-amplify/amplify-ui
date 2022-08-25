@@ -3,12 +3,12 @@ import { PhoneNumberField, Text } from '@aws-amplify/ui-react';
 export const DescriptiveTextExample = () => (
   <>
     <PhoneNumberField
-      defaultDialCode="+1"
+      defaultCountryCode="+1"
       label="Phone Number"
       descriptiveText="This is basic descriptive text"
     />
     <PhoneNumberField
-      defaultDialCode="+1"
+      defaultCountryCode="+1"
       label="Phone Number"
       descriptiveText={
         <Text

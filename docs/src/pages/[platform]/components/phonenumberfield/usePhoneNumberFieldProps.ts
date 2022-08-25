@@ -44,9 +44,9 @@ export const usePhoneNumberFieldProps: UsePhoneNumberFieldProps = (
   const [value, setValue] = React.useState<PhoneNumberFieldProps['value']>(
     initialValues.value
   );
-  const [defaultDialCode, setDefaultDialCode] = React.useState<
-    PhoneNumberFieldProps['defaultDialCode']
-  >(initialValues.defaultDialCode);
+  const [defaultCountryCode, setDefaultCountryCode] = React.useState<
+    PhoneNumberFieldProps['defaultCountryCode']
+  >(initialValues.defaultCountryCode);
 
   React.useEffect(() => {
     demoState.set(PhoneNumberField.displayName, {
@@ -61,7 +61,7 @@ export const usePhoneNumberFieldProps: UsePhoneNumberFieldProps = (
       isDisabled,
       isReadOnly,
       value,
-      defaultDialCode,
+      defaultCountryCode,
     });
   }, [
     label,
@@ -75,7 +75,7 @@ export const usePhoneNumberFieldProps: UsePhoneNumberFieldProps = (
     isDisabled,
     isReadOnly,
     value,
-    defaultDialCode,
+    defaultCountryCode,
   ]);
 
   return React.useMemo(
@@ -102,8 +102,8 @@ export const usePhoneNumberFieldProps: UsePhoneNumberFieldProps = (
       setIsReadOnly,
       value,
       setValue,
-      defaultDialCode,
-      setDefaultDialCode,
+      defaultCountryCode,
+      setDefaultCountryCode,
     }),
     [
       label,
@@ -128,8 +128,8 @@ export const usePhoneNumberFieldProps: UsePhoneNumberFieldProps = (
       setIsReadOnly,
       value,
       setValue,
-      defaultDialCode,
-      setDefaultDialCode,
+      defaultCountryCode,
+      setDefaultCountryCode,
     ]
   );
 };
