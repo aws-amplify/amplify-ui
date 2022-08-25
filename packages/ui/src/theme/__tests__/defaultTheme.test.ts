@@ -18,6 +18,52 @@ describe('@aws-amplify/ui', () => {
       }).not.toThrow();
     });
 
+    describe('accessible tokens', () => {
+      const crawlTokens = (
+        tokens,
+        searchKey,
+        expectedKey,
+        path: string[] = []
+      ) => {
+        if (tokens.hasOwnProperty('value')) {
+          return;
+        } else if (typeof tokens === 'object') {
+          for (const name in tokens) {
+            if (tokens.hasOwnProperty(name)) {
+              if (name === searchKey && !tokens[expectedKey]) {
+                const errorString = `${path.join(
+                  '.'
+                )} contains ${searchKey} but is missing ${expectedKey}`;
+                expect(errorString).not.toBeDefined();
+              }
+              if (typeof tokens[name] === 'object') {
+                crawlTokens(
+                  tokens[name],
+                  searchKey,
+                  expectedKey,
+                  path.concat(name)
+                );
+              }
+            }
+          }
+        }
+      };
+
+      it('should contain text contrast tokens', () => {
+        const { components } = defaultTheme.tokens;
+        const textContrastKey = 'color';
+        const textContrastTestKey = 'backgroundColor';
+        crawlTokens(components, textContrastKey, textContrastTestKey);
+      });
+
+      it('should contain border contrast tokens', () => {
+        const { components } = defaultTheme.tokens;
+        const textContrastKey = 'borderColor';
+        const textContrastTestKey = 'backgroundColor';
+        crawlTokens(components, textContrastKey, textContrastTestKey);
+      });
+    });
+
     it('should match snapshot', () => {
       expect(createTheme().cssText).toMatchInlineSnapshot(`
         "[data-amplify-theme=\\"default-theme\\"] {
