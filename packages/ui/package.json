@@ -40,8 +40,6 @@
     "test": "jest"
   },
   "dependencies": {
-    "@aws-sdk/eventstream-codec": "^3.119.0",
-    "@aws-sdk/util-utf8-node": "^3.109.0",
     "@tensorflow-models/blazeface": "0.0.7",
     "@tensorflow/tfjs-backend-cpu": "3.11.0",
     "@tensorflow/tfjs-backend-wasm": "3.11.0",

@@ -1,5 +1,3 @@
-import { EventStreamCodec } from '@aws-sdk/eventstream-codec';
-import { toUtf8, fromUtf8 } from '@aws-sdk/util-utf8-node';
 import WS from 'jest-websocket-mock';
 import { getLivenessVideoEvent } from '../liveness-event-utils';
 import { LivenessStreamProvider } from '../liveness-stream-provider';
@@ -8,7 +6,6 @@ import { VideoRecorder } from '../video-recorder';
 jest.mock('../video-recorder');
 
 let SWITCH = false;
-const eventStreamCodec = new EventStreamCodec(toUtf8, fromUtf8);
 
 describe('LivenessStreamProvider', () => {
   const mockNavigatorMediaDevices: any = {
