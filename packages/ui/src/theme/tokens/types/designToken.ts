@@ -101,3 +101,8 @@ export type TransitionTimingFunctionValue = string;
 export type VerticalAlignValue = string;
 export type WhiteSpaceValue = string;
 export type WordBreakValue = string;
+
+export interface BorderContrast {
+  backgroundColor: DesignToken<BackgroundColorValue>;
+  borderColor: DesignToken<BorderColorValue>;
+}

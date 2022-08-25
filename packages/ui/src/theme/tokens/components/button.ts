@@ -2,6 +2,7 @@ import {
   AlignItemsValue,
   BackgroundColorValue,
   BorderColorValue,
+  BorderContrast,
   BorderRadiusValue,
   BorderStyleValue,
   BorderWidthValue,
@@ -73,7 +74,7 @@ interface ButtonSizeTokens {
   paddingInlineStart: DesignToken<SpaceValue>;
   paddingInlineEnd: DesignToken<SpaceValue>;
 }
-export interface ButtonTokens {
+export interface ButtonTokens extends BorderContrast {
   fontWeight: DesignToken<FontWeightValue>;
   transitionDuration: DesignToken<TransitionDurationValue>;
   fontSize: DesignToken<FontSizeValue>;
@@ -82,7 +83,6 @@ export interface ButtonTokens {
   paddingBlockEnd: DesignToken<SpaceValue>;
   paddingInlineStart: DesignToken<SpaceValue>;
   paddingInlineEnd: DesignToken<SpaceValue>;
-  borderColor: DesignToken<BorderColorValue>;
   borderWidth: DesignToken<BorderWidthValue>;
   borderStyle: DesignToken<BorderStyleValue>;
   borderRadius: DesignToken<BorderRadiusValue>;
@@ -128,6 +128,7 @@ export const button: ButtonTokens = {
   borderStyle: { value: '{components.fieldcontrol.borderStyle.value}' },
   borderRadius: { value: '{components.fieldcontrol.borderRadius.value}' },
   color: { value: '{colors.font.primary.value}' },
+  backgroundColor: { value: 'transparent' },
 
   _hover: {
     color: { value: '{colors.font.focus.value}' },
