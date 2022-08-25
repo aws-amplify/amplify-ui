@@ -17,9 +17,7 @@ export async function getStaticPaths() {
   return getCustomStaticPath(["react"])
 }
 
-/*
- * `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing"
-*/
+{/*  `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" */}
 
 export async function getStaticProps() {
   return { props: {} }
