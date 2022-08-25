@@ -1,2 +1,2 @@
-import awsExports from '@environments/auth-with-phone-number/src/aws-exports';
+import awsExports from '@environments/auth/auth-with-phone-number/src/aws-exports';
 export default awsExports;
