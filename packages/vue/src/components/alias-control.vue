@@ -55,7 +55,7 @@ const randomPhone = Math.floor(Math.random() * 999999);
       <base-wrapper class="amplify-field-group__outer-start">
         <!--select drop down-->
         <base-wrapper
-          class="amplify-flex amplify-field amplify-selectfield amplify-countrycodeselect amplify-authenticator__column"
+          class="amplify-flex amplify-field amplify-selectfield amplify-countrycodeselect amplify-dialcodeselect amplify-authenticator__column"
           v-if="type === 'tel'"
         >
           <base-label
