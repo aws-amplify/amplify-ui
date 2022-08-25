@@ -1,1 +1,1 @@
-export type AmplifyDependentResourcesAttributes = {};
+export type AmplifyDependentResourcesAttributes = {}
