@@ -7,13 +7,9 @@
 
 name: Test / PRs
 
-concurrency:
-  group: e2e-${{ github.event.pull_request.id }}
-  cancel-in-progress: true
-
 on:
-  pull_request_target:
-    branches: [main, ui-svelte/main, ui-geo/main, ui-react@v2, studio-release]
+  pull_request:
+    branches: [main]
     types: [opened, synchronize, labeled]
 
 permissions:
@@ -21,27 +17,8 @@ permissions:
   # other permissions are defaulted to "none"
 
 jobs:
-  setup:
-    runs-on: ubuntu-latest
-    # We run tests only if it's:
-    #   1) pull request not from a fork (ie. internal PR), or
-    #   2) pull request from a fork (ie. external PR) that was added "run-tests" label
-    if: |
-      (github.event.pull_request.head.repo.full_name == github.repository) ||
-      (github.event.action == 'labeled' && github.event.label.name == 'run-tests')
-    steps:
-      - name: Remove run-tests label, if applicable
-        if: always() && github.event.label.name == 'run-tests'
-        uses: actions/github-script@0.3.0
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const { issue: { number: issue_number }, repo: { owner, repo } } = context;
-            const label = 'run-tests';
-            github.issues.removeLabel({ owner, repo, issue_number, name: label });
   test:
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@main
-    needs: setup
+    uses: ./.github/workflows/reusable-e2e.yml
     with:
       commit: ${{ github.event.pull_request.head.sha }}
       repository: ${{ github.event.pull_request.head.repo.full_name }}
