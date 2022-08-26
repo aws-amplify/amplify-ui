@@ -40,6 +40,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@aws-sdk/client-rekognitionstreaming": "^3.153.12",
     "@tensorflow-models/blazeface": "0.0.7",
     "@tensorflow/tfjs-backend-cpu": "3.11.0",
     "@tensorflow/tfjs-backend-wasm": "3.11.0",

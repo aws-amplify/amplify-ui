@@ -1,14 +1,29 @@
 import { ClientSessionInformation } from '@/types/liveness/liveness-service-types';
+import { Credentials } from '@aws-amplify/core';
 import { AmazonAIInterpretPredictionsProvider } from '@aws-amplify/predictions';
+import {
+  LivenessRequestStream,
+  RekognitionStreamingClient,
+  StartStreamingLivenessSessionCommand,
+} from '@aws-sdk/client-rekognitionstreaming';
 import { Rekognition } from 'aws-sdk-liveness';
 import { VideoRecorder } from './video-recorder';
 export interface StartLivenessStreamInput {
   sessionId: string;
 }
-
 export interface StartLivenessStreamOutput {
   sessionId: string;
   stream: WebSocket;
+}
+
+const ENDPOINT =
+  'https://us-east-1.gamma.streaming.reventlov.rekognition.aws.dev';
+const REGION = 'us-east-1';
+
+export interface Credentials {
+  accessKeyId: string;
+  secretAccessKey: string;
+  sessionToken: string;
 }
 
 export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider {
@@ -17,12 +32,29 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
 
   private _reader: ReadableStreamDefaultReader;
   private _stream: MediaStream;
+  private _client: RekognitionStreamingClient;
+  private _initPromise: Promise<void>;
 
   constructor(sessionId: string, stream: MediaStream) {
     super();
     this.sessionId = sessionId;
     this._stream = stream;
     this.videoRecorder = new VideoRecorder(stream);
+    this._initPromise = this.init();
+  }
+
+  private async init() {
+    const credentials = await Credentials.get();
+
+    if (!credentials) {
+      throw new Error('No credentials');
+    }
+
+    this._client = new RekognitionStreamingClient({
+      credentials,
+      endpoint: ENDPOINT,
+      region: REGION,
+    });
   }
 
   // Creates a generator from a stream of video chunks and livenessActionDocuments and yields VideoEvent and ClientEvents
@@ -63,16 +95,22 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
   }
 
   public async streamLivenessVideo(): Promise<any> {
+    await this._initPromise;
     this.videoRecorder.start(100);
     const livenessRequestGenerator = this.getAsyncGeneratorFromReadableStream(
       this.videoRecorder.videoStream
     )();
 
-    const rekognition = new Rekognition();
-    // const response = await rekognition.startLivenessDetection({
-    //   SessionId: this.sessionId,
-    //   LivenessRequestStream: livenessRequestGenerator,
-    // });
+    const response = await this._client.send(
+      new StartStreamingLivenessSessionCommand({
+        SessionId: this.sessionId,
+        LivenessRequestStream: livenessRequestGenerator,
+      })
+    );
+
+    for await (const event of response.LivenessResponseStream) {
+      console.log(event);
+    }
   }
 
   public sendClientInfo(livenessActionDocument: any) {

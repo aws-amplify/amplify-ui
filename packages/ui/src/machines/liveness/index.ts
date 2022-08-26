@@ -1,12 +1,5 @@
 import { createMachine, assign, actions } from 'xstate';
-import adapter from 'webrtc-adapter';
-import {
-  fillOverlayCanvasFractional,
-  getFaceMatchState,
-  getFreshnessColorsFromSessionInformation,
-  getRandomIndex,
-  shouldChangeColorStage,
-} from '../../helpers/liveness/liveness';
+import { getFreshnessColorsFromSessionInformation } from '../../helpers/liveness/liveness';
 
 import {
   Face,
@@ -26,8 +19,6 @@ import {
   getFaceMatchStateInLivenessOval,
   getRandomLivenessOvalDetails,
   LivenessStreamProvider,
-  LivenessPredictionsProvider,
-  VideoRecorder,
   estimateIllumination,
   recordLivenessAnalyticsEvent,
   LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
