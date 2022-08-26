@@ -8,9 +8,10 @@ supportedFrameworks: all
 import { ComponentsGrid } from './ComponentsGrid';
 import { FRAMEWORKS } from '@/data/frameworks';
 import { getCustomStaticPath } from "@/utils/getCustomStaticPath";
+import metaData from '@/data/pages.preval';
 
 export async function getStaticPaths() {
-  return getCustomStaticPath(FRAMEWORKS);
+  return getCustomStaticPath(metaData["/[platform]/components"].frontmatter.supportedFrameworks);
 }
 
 {/*  `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" */}

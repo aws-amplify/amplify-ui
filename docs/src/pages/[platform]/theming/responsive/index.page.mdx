@@ -6,9 +6,10 @@ supportedFrameworks: react|angular|vue
 
 import { Fragment } from '@/components/Fragment';
 import { getCustomStaticPath } from "@/utils/getCustomStaticPath";
+import metaData from '@/data/pages.preval';
 
 export async function getStaticPaths() {
-  return getCustomStaticPath(['react', 'angular', 'vue'])
+  return getCustomStaticPath(metaData["/[platform]/theming/responsive"].frontmatter.supportedFrameworks);
 }
 
 {/*  `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" */}
