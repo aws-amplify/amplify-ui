@@ -39,8 +39,8 @@ export function FormField({
         <PhoneNumberField
           {...props}
           name={name}
-          defaultCountryCode={dialCode}
-          countryCodeName="country_code"
+          defaultDialCode={dialCode}
+          dialCodeName="country_code"
           autoComplete={autoComplete}
           hasError={hasError}
           aria-describedby={ariaDescribedBy}
