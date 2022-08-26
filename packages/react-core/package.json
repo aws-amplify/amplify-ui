@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
-  "react-native": "src/index.ts",
+  "react-native": "dist/index.js",
   "exports": {
     ".": {
       "import": "./dist/esm/index.js",
