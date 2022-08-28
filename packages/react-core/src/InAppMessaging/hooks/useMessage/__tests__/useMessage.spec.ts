@@ -13,7 +13,8 @@ import {
 } from '../../../types';
 import { UseMessageParams } from '../types';
 
-import useMessage, { EMPTY_PROPS } from '../useMessage';
+import { EMPTY_PROPS } from '../useMessage';
+import { useMessage } from '..';
 
 const notifyMessageInteractionSpy = jest.spyOn(
   Notifications.InAppMessaging,
