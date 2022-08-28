@@ -1,9 +1,11 @@
 .amplify-switchfield {
   display: inline-block;
-  &[data-size='small'] {
+  font-size: var(--amplify-components-switchfield-font-size);
+  &--small {
     font-size: var(--amplify-components-switchfield-small-font-size);
   }
-  &[data-size='large'] {
+
+  &--large {
     font-size: var(--amplify-components-switchfield-large-font-size);
   }
 }
@@ -11,16 +13,16 @@
 .amplify-switch__wrapper {
   display: inline-flex;
   align-items: center;
-  &[data-label-position='start'] {
+  &--start {
     flex-direction: row;
   }
-  &[data-label-position='end'] {
+  &--end {
     flex-direction: row-reverse;
   }
-  &[data-label-position='top'] {
+  &--top {
     flex-direction: column;
   }
-  &[data-label-position='bottom'] {
+  &--bottom {
     flex-direction: column-reverse;
   }
 }
@@ -36,21 +38,27 @@
   transition-duration: var(
     --amplify-components-switchfield-track-transition-duration
   );
-  background-color: var(--amplify-components-switchfield-track-background-color);
-  &[data-checked='true'] {
-    background-color: var(--amplify-components-switchfield-track-checked-background-color);
+  background-color: var(
+    --amplify-components-switchfield-track-background-color
+  );
+  &--checked {
+    background-color: var(
+      --amplify-components-switchfield-track-checked-background-color
+    );
   }
-  &[data-disabled='true'] {
+  &--disabled {
     opacity: var(--amplify-components-switchfield-disabled-opacity);
     cursor: not-allowed;
   }
-  &[data-focused='true'] {
+  &--focused {
     box-shadow: var(--amplify-components-switchfield-focused-shadow);
   }
 }
 
 .amplify-switch-thumb {
-  background-color: var(--amplify-components-switchfield-thumb-background-color);
+  background-color: var(
+    --amplify-components-switchfield-thumb-background-color
+  );
   transition-duration: var(
     --amplify-components-switchfield-thumb-transition-duration
   );
@@ -59,10 +67,10 @@
   height: var(--amplify-components-switchfield-thumb-width);
   border-color: var(--amplify-components-switchfield-thumb-border-color);
   overflow-wrap: break-word;
-  &[data-checked='true'] {
+  &--checked {
     transform: var(--amplify-components-switchfield-thumb-checked-transform);
   }
-  &[data-disabled='true'] {
+  &--disabled {
     cursor: not-allowed;
   }
 }

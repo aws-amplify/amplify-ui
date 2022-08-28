@@ -1,8 +1,4 @@
-.docs-main p:not([class*='amplify']) {
-  margin-bottom: var(--amplify-space-medium);
-}
-
-.docs-main .docs-description {
+.docs-description {
   color: var(--amplify-colors-font-secondary);
   font-size: var(--amplify-font-sizes-large);
   padding-top: var(--amplify-space-medium);
@@ -18,20 +14,38 @@
 }
 
 .docs-content-body {
-  padding: var(--amplify-space-xxl);
-  
-  & table {
+  padding: var(--docs-horizontal-padding);
+
+  & > * + * {
+    margin-top: var(--amplify-space-medium);
+  }
+
+  // Targeting tabs
+  & > [data-orientation] > [role='tabpanel'] {
+    padding-top: var(--amplify-space-medium);
+    // Don't add top margin to h2's since they already
+    // have top margin
+    & > * + *:not(h2) {
+      margin-top: var(--amplify-space-medium);
+    }
+  }
+
+  // MDX/markdown generated table styles
+  & > table:not(.docs-responsiveTable) {
     border-collapse: collapse;
     width: 100%;
-  }
-  
-  & td,
-  & th {
-    padding:var(--amplify-space-small) var(--amplify-space-medium);
-    border: var(--amplify-border-widths-small) solid var(--amplify-colors-border-tertiary);
+
+    & td,
+    & th {
+      padding: var(--amplify-space-small) var(--amplify-space-medium);
+      border: var(--amplify-border-widths-small) solid
+        var(--amplify-colors-border-tertiary);
+    }
   }
 }
 
-.docs-main blockquote > p {
-  margin: 0;
+.docs-page-tab {
+  & > * + * {
+    margin-block-start: var(--amplify-space-medium);
+  }
 }

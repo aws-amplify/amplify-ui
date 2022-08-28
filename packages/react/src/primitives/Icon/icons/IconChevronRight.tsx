@@ -1,8 +1,12 @@
 import classNames from 'classnames';
+import * as React from 'react';
 
 import { ComponentClassNames } from '../../shared';
 import { View } from '../../View';
 
+/**
+ * @internal For internal Amplify UI use only. May be removed in a future release.
+ */
 export const IconChevronRight = (props) => {
   const { className, ...rest } = props;
 

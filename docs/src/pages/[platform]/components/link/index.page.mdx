@@ -1,0 +1,25 @@
+---
+title: Link
+description: Link renders an anchor element <a> by default and is primarily used for navigation.
+ariaPattern: https://www.w3.org/WAI/ARIA/apg/patterns/link
+themeSource: packages/ui/src/theme/tokens/components/link.ts
+reactSource: packages/react/src/primitives/Link/Link.tsx
+mdnUrl: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a
+htmlElement: a
+supportedFrameworks: react
+---
+
+import { Fragment } from '@/components/Fragment';
+import { PageTabLayout } from "@/components/Layout/PageTabLayout"
+
+<PageTabLayout 
+  tabComponents={[{
+    title: "Documentation", 
+    children: <Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+  },
+  {
+    title: "Props", 
+    children: <Fragment>{({ platform }) => import('./props-table.mdx')}</Fragment>
+  }]}
+/>
+        

@@ -1,4 +1,23 @@
 .amplify-radiogroupfield {
   flex-direction: column;
   align-items: flex-start;
+
+  --amplify-components-field-label-color: var(
+    --amplify-components-radiogroup-label-color
+  );
+  --amplify-components-radio-button-border-width: var(
+    --amplify-components-radiogroup-radio-border-width
+  );
+  --amplify-components-radio-button-border-color: var(
+    --amplify-components-radiogroup-radio-border-color
+  );
+  --amplify-components-radio-button-background-color: var(
+    --amplify-components-radiogroup-radio-background-color
+  );
+  --amplify-components-radio-label-color: var(
+    --amplify-components-radiogroup-radio-label-color
+  );
+  --amplify-components-radio-button-checked-color: var(
+    --amplify-components-radiogroup-radio-checked-color
+  );
 }

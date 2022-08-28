@@ -1,0 +1,144 @@
+import { Alert, Tabs, TabItem } from '@aws-amplify/ui-react';
+
+## Webpack 5+
+
+Follow the instructions below to if you are using Webpack 5:
+
+<Alert role="none" variation="info">
+*Note:*
+Polyfill is only required for Webpack 5+. In this version Node.js global variable shims required by the `aws-amplify` package were removed, which results in the following error message:
+
+```
+Uncaught ReferenceError: process is not defined
+```
+
+Webpack 4 already includes this polyfill.
+
+</Alert>
+
+1. Add
+   [node-polyfill-webpack-plugin](https://www.npmjs.com/package/node-polyfill-webpack-plugin)
+   as dev dependency:
+
+<Tabs>
+<TabItem title="npm">
+
+```shell
+npm install node-polyfill-webpack-plugin -D
+```
+
+</TabItem>
+<TabItem title="yarn">
+
+```shell
+yarn add node-polyfill-webpack-plugin -D
+```
+
+</TabItem>
+</Tabs>
+
+2. Add the plugin to your `webpack.config.js` plugins list:\_
+
+```js
+  plugins: [
+    new NodePolyfillPlugin(), // Polyfill Node.js globals (e.g. global, process, etc)
+  ],
+```
+
+## Vite
+
+When working with a [Vite](https://vitejs.dev) project you must make a few modifications. Please follow the steps below.
+
+**1.** Add the following script tag to the `index.html` file at the bottom of the `<body>` tag.
+
+```html
+...
+  <script>
+    window.global = window;
+    window.process = {
+      env: { DEBUG: undefined },
+    };
+    var exports = {};
+  </script>
+</body>
+```
+
+**2.** Update the `vite.config.ts` and add in a resolve object inside the `defineConfig({})` as seen below.
+
+```js
+...
+export default defineConfig({
+  plugins: [react()],
+  resolve: {
+      alias: [
+      {
+        find: './runtimeConfig',
+        replacement: './runtimeConfig.browser',
+      },
+    ]
+  }
+})
+```
+
+**3.** Update the `tsconfig.json` file and add `skipLibCheck: true` under `compilerOptions`.
+
+```js
+...
+  "compilerOptions": {
+    "skipLibCheck": true,
+...
+```
+
+## Create React App
+
+When using [Geo components](../../connected-components/geo) and Create React App v5, users may experience the following error when rendering the `<MapView>` component in a production build:
+```bash
+Uncaught ReferenceError: g is not defined
+```
+The error is related to this [maplibre-gl issue](https://github.com/maplibre/maplibre-gl-js/issues/1011#issuecomment-1073112585) and surfaces due to the dropped support for Internet Explorer in `maplibre-gl` v2. To correct this error, you'll need to adjust your browser target for production to exclude Internet Explorer:
+
+**1.** In your `package.json` file of your Create React App, adjust the `browserslist.production` block from:
+```json
+"browserslist": {
+  "production": [
+    ">0.2%",
+    "not dead",
+    "not op_mini all"
+  ],
+  ...
+}
+```
+to the following:
+```json
+"browserslist": {
+  "production": [
+    "defaults",
+    "not ie 11"
+  ],
+  ...
+}
+```
+**2.** Rebuild your production application using `npx run build`.
+
+**3.** Run your production build using a tool like [serve](https://www.npmjs.com/package/serve) (`serve -s build`) and verify the `<MapView>` component renders without error.
+
+## Jest
+
+As of v2.15.0 of `@aws-amplify/ui-react` which included the release of Geo components, users of the Jest testing framework may run into the following error when attempting to run tests:
+
+```
+window.URL.createObjectURL is not a function
+```
+
+Please follow the steps below to resolve this issue.
+
+**1.** Navigate to or create a [Jest setup file](https://jestjs.io/docs/configuration#setupfilesafterenv-array) for your project.
+**2.** Add the following code to polyfill the unrecognized function in your Jest setup file:
+
+```js
+if (typeof window.URL.createObjectURL === 'undefined') {
+  window.URL.createObjectURL = jest.fn();
+}
+```
+
+This is a known problem when using the `jsdom` library (a dependency of Jest) with a package that uses an unrecognized function. See [this issue](https://github.com/jsdom/jsdom/issues/1721).

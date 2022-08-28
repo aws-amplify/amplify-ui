@@ -1,0 +1,23 @@
+---
+title: Badge
+description: Badge is a color-coded element used to display a status or message about an item.
+themeSource: packages/ui/src/theme/tokens/components/badge.ts
+reactSource: packages/react/src/primitives/Badge/Badge.tsx
+mdnUrl: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span
+htmlElement: span
+supportedFrameworks: react
+---
+
+import { Fragment } from '@/components/Fragment';
+import { PageTabLayout } from "@/components/Layout/PageTabLayout"
+
+<PageTabLayout 
+  tabComponents={[{
+    title: "Documentation", 
+    children: <Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+  },
+  {
+    title: "Props", 
+    children: <Fragment>{({ platform }) => import('./props-table.mdx')}</Fragment>
+  }]}
+/>

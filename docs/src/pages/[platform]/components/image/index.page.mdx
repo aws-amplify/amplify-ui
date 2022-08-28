@@ -1,0 +1,23 @@
+---
+title: Image
+description: Image is used to display responsive images.
+themeSource: packages/ui/src/theme/tokens/components/image.ts
+reactSource: packages/react/src/primitives/Image/Image.tsx
+mdnUrl: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img
+htmlElement: img
+supportedFrameworks: react
+---
+
+import { Fragment } from '@/components/Fragment';
+import { PageTabLayout } from "@/components/Layout/PageTabLayout"
+
+<PageTabLayout 
+  tabComponents={[{
+    title: "Documentation", 
+    children: <Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+  },
+  {
+    title: "Props", 
+    children: <Fragment>{({ platform }) => import('./props-table.mdx')}</Fragment>
+  }]}
+/>

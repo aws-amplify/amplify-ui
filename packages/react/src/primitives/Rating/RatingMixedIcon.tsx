@@ -1,11 +1,14 @@
+import * as React from 'react';
 import classNames from 'classnames';
-import { View } from '../View';
 import { Property } from 'csstype';
 
+import { View } from '../View';
+import { StyleToken } from '../types/style';
+
 interface RatingMixedIconProps {
-  emptyColor: Property.Color;
+  emptyColor: StyleToken<Property.Color>;
   emptyIcon: JSX.Element;
-  fillColor: Property.Color;
+  fillColor: StyleToken<Property.Color>;
   fillIcon: JSX.Element;
   value: number;
 }
@@ -19,7 +22,11 @@ export const RatingMixedIcon: React.FC<RatingMixedIconProps> = ({
 }) => {
   const widthPercentage = `${(value % 1) * 100}%`;
   return (
-    <View as="span" className="amplify-rating-icon-container">
+    <View
+      as="span"
+      className="amplify-rating-icon-container"
+      aria-hidden="true"
+    >
       <View as="span" className="amplify-rating-label">
         <View
           as="span"

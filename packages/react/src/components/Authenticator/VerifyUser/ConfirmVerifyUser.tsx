@@ -1,3 +1,4 @@
+import React from 'react';
 import { translate } from '@aws-amplify/ui';
 
 import { Flex } from '../../../primitives/Flex';
@@ -8,8 +9,12 @@ import { useFormHandlers } from '../hooks/useFormHandlers';
 import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { TwoButtonSubmitFooter } from '../shared/TwoButtonSubmitFooter';
 import { FormFields } from '../shared/FormFields';
+import { RouteContainer, RouteProps } from '../RouteContainer';
 
-export const ConfirmVerifyUser = (): JSX.Element => {
+export const ConfirmVerifyUser = ({
+  className,
+  variation,
+}: RouteProps): JSX.Element => {
   const { isPending } = useAuthenticator((context) => [context.isPending]);
   const { handleChange, handleSubmit } = useFormHandlers();
 
@@ -23,37 +28,35 @@ export const ConfirmVerifyUser = (): JSX.Element => {
   } = useCustomComponents();
 
   return (
-    <form
-      data-amplify-form=""
-      data-amplify-authenticator-confirmverifyuser=""
-      method="post"
-      onChange={handleChange}
-      onSubmit={handleSubmit}
-    >
-      <fieldset
-        style={{ display: 'flex', flexDirection: 'column' }}
-        className="amplify-flex"
-        disabled={isPending}
+    <RouteContainer className={className} variation={variation}>
+      <form
+        data-amplify-form=""
+        data-amplify-authenticator-confirmverifyuser=""
+        method="post"
+        onChange={handleChange}
+        onSubmit={handleSubmit}
       >
-        <Header />
+        <Flex as="fieldset" direction="column" isDisabled={isPending}>
+          <Header />
 
-        <Flex direction="column">
-          <FormFields route="confirmVerifyUser" />
+          <Flex direction="column">
+            <FormFields />
+          </Flex>
+
+          <RemoteErrorMessage />
+
+          <TwoButtonSubmitFooter
+            cancelButtonText={translate('Skip')}
+            cancelButtonSendType="SKIP"
+          />
+          <Footer />
         </Flex>
-
-        <RemoteErrorMessage />
-
-        <TwoButtonSubmitFooter
-          cancelButtonText={translate('Skip')}
-          cancelButtonSendType="SKIP"
-        />
-        <Footer />
-      </fieldset>
-    </form>
+      </form>
+    </RouteContainer>
   );
 };
 
-ConfirmVerifyUser.Header = () => {
+ConfirmVerifyUser.Header = function Header() {
   return (
     <Heading level={3}>
       {translate('Account recovery requires verified contact information')}
@@ -61,4 +64,6 @@ ConfirmVerifyUser.Header = () => {
   );
 };
 
-ConfirmVerifyUser.Footer = (): JSX.Element => null;
+ConfirmVerifyUser.Footer = function Footer(): JSX.Element {
+  return null;
+};

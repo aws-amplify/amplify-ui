@@ -41,7 +41,10 @@ export function signInActor({ services }: SignInMachineOptions) {
       id: 'signInActor',
       states: {
         init: {
-          always: [{ target: 'signIn' }],
+          always: [
+            { target: 'autoSignIn', cond: 'shouldAutoSignIn' },
+            { target: 'signIn' },
+          ],
         },
         signIn: {
           initial: 'edit',
@@ -139,6 +142,62 @@ export function signInActor({ services }: SignInMachineOptions) {
             },
             resolved: { always: '#signInActor.resolved' },
             rejected: { always: '#signInActor.rejected' },
+          },
+        },
+        autoSignIn: {
+          initial: 'submit',
+          states: {
+            submit: {
+              tags: ['pending'],
+              entry: ['clearError', 'sendUpdate'],
+              invoke: {
+                src: 'signIn',
+                onDone: [
+                  {
+                    cond: 'shouldSetupTOTP',
+                    actions: ['setUser', 'setChallengeName'],
+                    target: '#signInActor.setupTOTP',
+                  },
+                  {
+                    cond: 'shouldConfirmSignIn',
+                    actions: ['setUser', 'setChallengeName'],
+                    target: '#signInActor.confirmSignIn',
+                  },
+                  {
+                    cond: 'shouldForceChangePassword',
+                    actions: [
+                      'setUser',
+                      'setChallengeName',
+                      'setRequiredAttributes',
+                    ],
+                    target: '#signInActor.forceNewPassword',
+                  },
+                  {
+                    actions: 'setUser',
+                    target: '#signInActor.resolved',
+                  },
+                ],
+                onError: [
+                  {
+                    cond: 'shouldRedirectToConfirmSignUp',
+                    actions: ['setCredentials', 'setConfirmSignUpIntent'],
+                    target: '#signInActor.rejected',
+                  },
+                  {
+                    cond: 'shouldRedirectToConfirmResetPassword',
+                    actions: [
+                      'setUsernameAuthAttributes',
+                      'setConfirmResetPasswordIntent',
+                    ],
+                    target: '#signInActor.rejected',
+                  },
+                  {
+                    actions: 'setRemoteError',
+                    target: '#signInActor.signIn',
+                  },
+                ],
+              },
+            },
           },
         },
         confirmSignIn: {
@@ -284,11 +343,7 @@ export function signInActor({ services }: SignInMachineOptions) {
               invoke: {
                 src: 'verifyTotpToken',
                 onDone: {
-                  actions: [
-                    'setUser',
-                    'clearChallengeName',
-                    'clearRequiredAttributes',
-                  ],
+                  actions: ['clearChallengeName', 'clearRequiredAttributes'],
                   target: '#signInActor.resolved',
                 },
                 onError: {
@@ -414,6 +469,9 @@ export function signInActor({ services }: SignInMachineOptions) {
 
           return validChallengeNames.includes(challengeName);
         },
+        shouldAutoSignIn: (context) => {
+          return context?.intent === 'autoSignIn';
+        },
         shouldRedirectToConfirmSignUp: (_, event): boolean => {
           return event.data.code === 'UserNotConfirmedException';
         },
@@ -438,7 +496,15 @@ export function signInActor({ services }: SignInMachineOptions) {
       },
       services: {
         async signIn(context) {
-          const { username, password } = context.formValues;
+          /**
+           * `authAttributes` are any username/password combo we remembered in
+           * memory. This is used in autoSignIn flow usually to pass username/pw
+           * from `confirmSignUp`.
+           */
+          const { authAttributes = {}, formValues = {} } = context;
+
+          const credentials = { ...authAttributes, ...formValues };
+          const { username, password } = credentials;
 
           return await services.handleSignIn({
             username,

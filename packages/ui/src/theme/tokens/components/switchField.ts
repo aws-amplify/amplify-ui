@@ -62,6 +62,7 @@ interface SwitchFieldTrackCheckedTokens {
 }
 
 export interface SwitchFieldTokens {
+  fontSize: DesignToken<FontSizeValue>;
   _disabled: SwitchFieldDisabledTokens;
   _focused: SwitchFieldFocusedTokens;
   large: SwitchFieldSizeTokens;
@@ -89,6 +90,7 @@ export const switchfield: SwitchFieldTokens = {
   },
 
   // Sizes
+  fontSize: { value: '{fontSizes.medium.value}' },
   large: {
     fontSize: { value: '{fontSizes.large.value}' },
   },
@@ -115,10 +117,10 @@ export const switchfield: SwitchFieldTokens = {
   },
 
   track: {
-    backgroundColor: { value: '{colors.background.tertiary.value}' },
+    backgroundColor: { value: '{colors.background.quaternary.value}' },
     borderRadius: { value: '{radii.xxxl.value}' },
     checked: {
-      backgroundColor: { value: '{colors.brand.primary.60.value}' },
+      backgroundColor: { value: '{colors.brand.primary.80.value}' },
     },
     height: { value: '{space.relative.medium.value}' },
     padding: { value: '{outlineWidths.medium.value}' },

@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { FormFieldOptions, getErrors } from '@aws-amplify/ui';
 
 import { PasswordField } from '../../../primitives/PasswordField';
@@ -5,67 +6,73 @@ import { PhoneNumberField } from '../../../primitives/PhoneNumberField';
 import { TextField } from '../../../primitives/TextField';
 import { useAuthenticator } from '../hooks/useAuthenticator';
 import { ValidationErrors } from './ValidationErrors';
+import { useStableId } from '../../../primitives/utils/useStableId';
 
-export interface FormFieldProps {
+export interface FormFieldProps extends Omit<FormFieldOptions, 'label'> {
+  // label is a required prop for the UI field components used in FormField
+  label: string;
   name: string;
-  formFieldOptions: FormFieldOptions;
 }
-export function FormField({ name, formFieldOptions }: FormFieldProps) {
-  const { validationErrors } = useAuthenticator((context) => [
-    context.validationErrors,
-  ]);
-  const { type } = formFieldOptions;
 
-  const errors = getErrors(validationErrors[name]);
+export function FormField({
+  autocomplete: autoComplete,
+  dialCode,
+  name,
+  type,
+  ...props
+}: FormFieldProps): JSX.Element {
+  const { validationErrors } = useAuthenticator(({ validationErrors }) => [
+    validationErrors,
+  ]);
+
+  const errors = React.useMemo(
+    () => getErrors(validationErrors[name]),
+    [name, validationErrors]
+  );
   const hasError = errors?.length > 0;
+  const errorId = useStableId();
+  const ariaDescribedBy = hasError ? errorId : undefined;
 
   if (type === 'tel') {
     return (
       <>
         <PhoneNumberField
+          {...props}
           name={name}
-          label={formFieldOptions.label}
-          placeholder={formFieldOptions.placeholder}
-          defaultCountryCode={formFieldOptions.dialCode}
-          countryCodeName="country_code"
-          dialCodeList={formFieldOptions.dialCodeList}
-          autoComplete={formFieldOptions.autocomplete}
-          isRequired={formFieldOptions.isRequired}
-          labelHidden={formFieldOptions.labelHidden}
+          defaultDialCode={dialCode}
+          dialCodeName="country_code"
+          autoComplete={autoComplete}
           hasError={hasError}
+          aria-describedby={ariaDescribedBy}
         />
-        <ValidationErrors errors={errors} />
+        <ValidationErrors errors={errors} id={errorId} />
       </>
     );
   } else if (type === 'password') {
     return (
       <>
         <PasswordField
+          {...props}
           name={name}
-          label={formFieldOptions.label}
-          autoComplete={formFieldOptions.autocomplete}
-          placeholder={formFieldOptions.placeholder}
-          isRequired={formFieldOptions.isRequired}
-          labelHidden={formFieldOptions.labelHidden}
+          autoComplete={autoComplete}
           hasError={hasError}
+          aria-describedby={ariaDescribedBy}
         />
-        <ValidationErrors errors={errors} />
+        <ValidationErrors errors={errors} id={errorId} />
       </>
     );
   } else {
     return (
       <>
         <TextField
+          {...props}
           name={name}
-          label={formFieldOptions.label}
-          placeholder={formFieldOptions.placeholder}
-          autoComplete={formFieldOptions.autocomplete}
-          isRequired={formFieldOptions.isRequired}
-          labelHidden={formFieldOptions.labelHidden}
+          autoComplete={autoComplete}
           hasError={hasError}
           type={type}
+          aria-describedby={ariaDescribedBy}
         />
-        <ValidationErrors errors={errors} />
+        <ValidationErrors errors={errors} id={errorId} />
       </>
     );
   }

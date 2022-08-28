@@ -1,10 +1,5 @@
-import {
-  AuthChallengeNames,
-  getActorState,
-  SignInContext,
-  SignInState,
-  translate,
-} from '@aws-amplify/ui';
+import React from 'react';
+import { AuthChallengeNames, getActorState, translate } from '@aws-amplify/ui';
 
 import { Flex } from '../../../primitives/Flex';
 import { Heading } from '../../../primitives/Heading';
@@ -14,8 +9,12 @@ import { useFormHandlers } from '../hooks/useFormHandlers';
 import { FormFields } from '../shared/FormFields';
 import { ConfirmSignInFooter } from '../shared/ConfirmSignInFooter';
 import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
+import { RouteContainer, RouteProps } from '../RouteContainer';
 
-export const ConfirmSignIn = (): JSX.Element => {
+export const ConfirmSignIn = ({
+  className,
+  variation,
+}: RouteProps): JSX.Element => {
   const { isPending } = useAuthenticator((context) => [context.isPending]);
   const { handleChange, handleSubmit } = useFormHandlers();
 
@@ -29,38 +28,36 @@ export const ConfirmSignIn = (): JSX.Element => {
   } = useCustomComponents();
 
   return (
-    <form
-      data-amplify-form=""
-      data-amplify-authenticator-confirmsignin=""
-      method="post"
-      onChange={handleChange}
-      onSubmit={handleSubmit}
-    >
-      <fieldset
-        style={{ display: 'flex', flexDirection: 'column' }}
-        className="amplify-flex"
-        disabled={isPending}
+    <RouteContainer className={className} variation={variation}>
+      <form
+        data-amplify-form=""
+        data-amplify-authenticator-confirmsignin=""
+        method="post"
+        onChange={handleChange}
+        onSubmit={handleSubmit}
       >
-        <Header />
+        <Flex as="fieldset" direction="column" isDisabled={isPending}>
+          <Header />
 
-        <Flex direction="column">
-          <FormFields route="confirmSignIn" />
-          <RemoteErrorMessage />
+          <Flex direction="column">
+            <FormFields />
+            <RemoteErrorMessage />
+          </Flex>
+
+          <ConfirmSignInFooter />
+          <Footer />
         </Flex>
-
-        <ConfirmSignInFooter />
-        <Footer />
-      </fieldset>
-    </form>
+      </form>
+    </RouteContainer>
   );
 };
 
 function Header() {
   // TODO: expose challengeName
   const { _state } = useAuthenticator();
-  const actorState = getActorState(_state) as SignInState;
+  const actorState = getActorState(_state);
 
-  const { challengeName } = actorState.context as SignInContext;
+  const { challengeName } = actorState.context;
   let headerText: string;
 
   switch (challengeName) {
@@ -82,4 +79,6 @@ function Header() {
 }
 
 ConfirmSignIn.Header = Header;
-ConfirmSignIn.Footer = (): JSX.Element => null;
+ConfirmSignIn.Footer = function Footer(): JSX.Element {
+  return null;
+};

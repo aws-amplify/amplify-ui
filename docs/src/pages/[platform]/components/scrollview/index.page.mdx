@@ -1,0 +1,23 @@
+---
+title: ScrollView
+description: ScrollView allows content to be scrollable.
+reactSource: packages/react/src/primitives/ScrollView/ScrollView.tsx
+mdnUrl: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div
+htmlElement: div
+supportedFrameworks: react
+---
+
+import { Fragment } from '@/components/Fragment';
+import { PageTabLayout } from "@/components/Layout/PageTabLayout"
+
+<PageTabLayout 
+  tabComponents={[{
+    title: "Documentation", 
+    children: <Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+  },
+  {
+    title: "Props", 
+    children: <Fragment>{({ platform }) => import('./props-table.mdx')}</Fragment>
+  }]}
+/>
+        

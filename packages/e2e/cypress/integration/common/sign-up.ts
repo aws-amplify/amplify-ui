@@ -13,6 +13,10 @@ When('I confirm my password', () => {
     .wait(100);
 });
 
+When('I confirm my short password', () => {
+  cy.findInputField('Confirm Password').type('inv').blur().wait(100);
+});
+
 Then('I see {string} as an input field', (name: string) => {
   cy.findByRole('textbox', { name }).should('exist');
 });

@@ -12,6 +12,9 @@ const PasswordFieldPrimitive: Primitive<PasswordFieldProps, 'input'> = (
     label,
     className,
     hideShowPassword = false,
+    passwordIsHiddenLabel,
+    passwordIsShownLabel,
+    showPasswordButtonLabel,
     showPasswordButtonRef,
     size,
     ...rest
@@ -37,8 +40,11 @@ const PasswordFieldPrimitive: Primitive<PasswordFieldProps, 'input'> = (
           <ShowPasswordButton
             fieldType={type}
             onClick={showPasswordOnClick}
+            passwordIsHiddenLabel={passwordIsHiddenLabel}
+            passwordIsShownLabel={passwordIsShownLabel}
             ref={showPasswordButtonRef}
             size={size}
+            showPasswordButtonLabel={showPasswordButtonLabel}
           />
         )
       }
@@ -52,6 +58,9 @@ const PasswordFieldPrimitive: Primitive<PasswordFieldProps, 'input'> = (
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/passwordfield)
+ */
 export const PasswordField = React.forwardRef(PasswordFieldPrimitive);
 
 PasswordField.displayName = 'PasswordField';

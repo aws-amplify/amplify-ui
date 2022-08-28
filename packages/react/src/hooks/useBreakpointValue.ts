@@ -2,11 +2,16 @@ import { Breakpoint } from '../primitives/types/responsive';
 import { getValueAtCurrentBreakpoint } from '../primitives/shared/responsive/utils';
 import { useBreakpoint } from '../primitives/shared/responsive/useBreakpoint';
 import { useTheme } from './useTheme';
+import { ThemeStylePropKey } from '../primitives/types/theme';
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/theming/responsive#usebreakpointvalue)
+ */
 export function useBreakpointValue<T>(
   values: Record<string, T> | T[],
-  defaultBreakpoint?: Breakpoint
-): T | null {
+  defaultBreakpoint?: Breakpoint,
+  propKey?: string
+): T | string {
   const {
     breakpoints: { values: breakpoints },
   } = useTheme();
@@ -16,5 +21,10 @@ export function useBreakpointValue<T>(
     defaultBreakpoint,
   });
 
-  return getValueAtCurrentBreakpoint(values, breakpoint, breakpoints);
+  return getValueAtCurrentBreakpoint({
+    breakpoint,
+    breakpoints,
+    propKey: propKey as ThemeStylePropKey,
+    values,
+  });
 }

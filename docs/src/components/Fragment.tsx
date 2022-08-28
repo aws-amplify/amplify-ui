@@ -1,9 +1,10 @@
-import dynamic, { LoaderComponent } from 'next/dynamic';
-import { useRouter } from 'next/router';
-import { isArray } from 'lodash';
 import * as React from 'react';
 
-import { Placeholder, Flex, Link, Alert } from '@aws-amplify/ui-react';
+import { Alert, Flex, Link, Placeholder } from '@aws-amplify/ui-react';
+import dynamic, { LoaderComponent } from 'next/dynamic';
+
+import { isArray } from 'lodash';
+import { useCustomRouter } from '@/components/useCustomRouter';
 
 export default function Example() {
   return;
@@ -20,7 +21,7 @@ export interface FragmentProps {
    * Note: if this is true, platforms={['web']} should be used to enable web content instead of platforms={['react', 'vue', 'angular']}
    */
   useCommonWebContent?: boolean;
-  children: ({ platform: string }) => LoaderComponent;
+  children: ({ platform }: { platform: string }) => LoaderComponent;
 }
 
 const shouldRenderFragment = (
@@ -45,7 +46,7 @@ export const Fragment = ({
   platforms,
   useCommonWebContent,
 }: FragmentProps) => {
-  const { query } = useRouter();
+  const { query } = useCustomRouter();
   const framework = (query.platform as string) ?? 'react';
   const platform = getPlatform(framework, useCommonWebContent);
   const Component = React.useMemo(() => {
@@ -57,7 +58,7 @@ export const Fragment = ({
       loading({ error, isLoading }) {
         if (error) {
           return (
-            <Alert variation="warning">
+            <Alert role="none" variation="warning">
               {error.message.includes('Cannot find module') ? (
                 <>Content missing for {platform}.</>
               ) : (

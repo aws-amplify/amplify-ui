@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { toRefs } from 'vue';
 interface PropsInterface {
   label: string;
   name: string;
@@ -9,7 +10,19 @@ interface PropsInterface {
   dialCode?: string;
   dialCodeList?: Array<string>;
   type?: string;
+  hasError?: boolean;
+  describedBy?: string;
 }
+
+const props = withDefaults(defineProps<PropsInterface>(), {
+  label: 'Username',
+  name: 'username',
+  placeholder: '',
+  autocomplete: '',
+  labelHidden: false,
+  required: true,
+  type: 'text',
+});
 
 const {
   label,
@@ -20,25 +33,15 @@ const {
   required,
   dialCode,
   dialCodeList,
-} = withDefaults(defineProps<PropsInterface>(), {
-  label: 'Username',
-  name: 'username',
-  placeholder: '',
-  autocomplete: '',
-  labelHidden: false,
-  required: true,
-  type: 'text',
-});
+} = toRefs(props);
+
 const random = Math.floor(Math.random() * 999999);
 const randomPhone = Math.floor(Math.random() * 999999);
 </script>
 
 <template>
   <base-wrapper
-    class="
-      amplify-flex amplify-field amplify-textfield amplify-phonenumberfield
-    "
-    style="flex-direction: column"
+    class="amplify-flex amplify-field amplify-textfield amplify-phonenumberfield amplify-authenticator__column"
   >
     <base-label
       :for="'amplify-field-' + random"
@@ -52,13 +55,7 @@ const randomPhone = Math.floor(Math.random() * 999999);
       <base-wrapper class="amplify-field-group__outer-start">
         <!--select drop down-->
         <base-wrapper
-          class="
-            amplify-flex
-            amplify-field
-            amplify-selectfield
-            amplify-countrycodeselect
-          "
-          style="flex-direction: column"
+          class="amplify-flex amplify-field amplify-selectfield amplify-countrycodeselect amplify-dialcodeselect amplify-authenticator__column"
           v-if="type === 'tel'"
         >
           <base-label
@@ -80,15 +77,14 @@ const randomPhone = Math.floor(Math.random() * 999999);
             >
             </base-select>
             <base-wrapper
-              class="amplify-flex amplify-select__icon-wrapper"
-              style="align-items: center; justify-content: center"
+              class="amplify-flex amplify-select__icon-wrapper amplify-authenticator__icon-wrapper"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 data-size="large"
                 fill="currentColor"
                 viewBox="0 0 24 24"
-                class="amplify-icon"
+                class="amplify-icon amplify-icon--large"
               >
                 <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path>
               </svg>
@@ -100,13 +96,14 @@ const randomPhone = Math.floor(Math.random() * 999999);
         <!--Phone input-->
         <base-input
           class="amplify-input amplify-field-group__control"
-          aria-invalid="false"
           :id="'amplify-field-' + random"
           :autocomplete="autocomplete"
           :name="name"
           :required="required ?? true"
           :type="type"
           :placeholder="placeholder"
+          :aria-invalid="hasError"
+          :aria-describedBy="describedBy"
         ></base-input>
       </base-wrapper>
     </base-wrapper>

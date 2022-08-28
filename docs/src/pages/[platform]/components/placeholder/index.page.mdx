@@ -1,0 +1,23 @@
+---
+title: Placeholder
+description: Placeholder can be used to fill out an interface while the content is loading.
+themeSource: packages/ui/src/theme/tokens/components/placeholder.ts
+reactSource: packages/react/src/primitives/Placeholder/Placeholder.tsx
+mdnUrl: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div
+htmlElement: div
+supportedFrameworks: react
+---
+
+import { Fragment } from '@/components/Fragment';
+import { PageTabLayout } from "@/components/Layout/PageTabLayout"
+
+<PageTabLayout 
+  tabComponents={[{
+    title: "Documentation", 
+    children: <Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+  },
+  {
+    title: "Props", 
+    children: <Fragment>{({ platform }) => import('./props-table.mdx')}</Fragment>
+  }]}
+/>

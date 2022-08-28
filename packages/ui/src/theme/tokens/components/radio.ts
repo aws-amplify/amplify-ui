@@ -85,6 +85,7 @@ interface RadioButtonDisabledTokens {
 }
 
 interface RadioLabelTokens {
+  color: DesignToken<ColorValue>;
   _disabled: RadioLabelDisabledTokens;
 }
 
@@ -116,8 +117,8 @@ export const radio: RadioTokens = {
     borderStyle: { value: 'solid' },
     borderRadius: { value: '50%' },
     borderColor: { value: '{colors.border.primary.value}' },
-    color: { value: '{colors.white.value}' },
-    backgroundColor: { value: '{colors.white.value}' },
+    color: { value: '{colors.background.primary.value}' },
+    backgroundColor: { value: '{colors.background.primary.value}' },
     transitionProperty: { value: 'all' },
     transitionDuration: { value: '{time.medium.value}' },
     outlineColor: { value: '{colors.transparent.value}' },
@@ -164,6 +165,7 @@ export const radio: RadioTokens = {
   },
 
   label: {
+    color: { value: '{components.text.color.value}' },
     _disabled: {
       color: {
         value: '{colors.font.disabled.value}',

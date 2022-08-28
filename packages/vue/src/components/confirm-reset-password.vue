@@ -3,9 +3,7 @@ import { computed, ComputedRef, useAttrs, defineEmits } from 'vue';
 import { createSharedComposable } from '@vueuse/core';
 
 import {
-  getActorContext,
   getActorState,
-  ResetPasswordContext,
   ResetPasswordState,
   translate,
   getFormDataFromEvent,
@@ -25,10 +23,6 @@ const emit = defineEmits(['confirmResetPasswordSubmit', 'backToSignInClicked']);
 const actorState: ComputedRef<ResetPasswordState> = computed(() =>
   getActorState(state.value)
 ) as ComputedRef<ResetPasswordState>;
-
-const actorContext = computed(() =>
-  getActorContext(state.value)
-) as ComputedRef<ResetPasswordContext>;
 
 // Computed Properties
 const resendCodeText = computed(() => translate('Resend Code'));
@@ -57,7 +51,7 @@ const onLostYourCodeClicked = (): void => {
 };
 
 const onInput = (e: Event) => {
-  const { name, value } = <HTMLInputElement>e.target;
+  const { name, value } = e.target as HTMLInputElement;
   send({
     type: 'CHANGE',
     data: { name, value },
@@ -65,7 +59,7 @@ const onInput = (e: Event) => {
 };
 
 function onBlur(e: Event) {
-  const { name } = <HTMLInputElement>e.target;
+  const { name } = e.target as HTMLInputElement;
   props.updateBlur({ name });
 }
 </script>
@@ -80,8 +74,7 @@ function onBlur(e: Event) {
         @submit.prevent="onConfirmResetPasswordSubmit"
       >
         <base-field-set
-          class="amplify-flex"
-          style="flex-direction: column"
+          class="amplify-flex amplify-authenticator__column"
           :disabled="actorState.matches('confirmResetPassword.pending')"
         >
           <slot name="header">
@@ -90,30 +83,28 @@ function onBlur(e: Event) {
             </base-heading>
           </slot>
 
-          <base-wrapper class="amplify-flex" style="flex-direction: column">
+          <base-wrapper class="amplify-flex amplify-authenticator__column">
             <base-form-fields route="confirmResetPassword"></base-form-fields>
           </base-wrapper>
-          <base-footer class="amplify-flex" style="flex-direction: column">
+          <base-footer class="amplify-flex amplify-authenticator__column">
             <base-alert v-if="actorState?.context?.remoteError">
               {{ translate(actorState?.context?.remoteError) }}
             </base-alert>
             <amplify-button
-              class="amplify-field-group__control"
-              data-fullwidth="false"
-              data-variation="primary"
+              class="amplify-field-group__control amplify-authenticator__font"
+              :variation="'primary'"
+              :fullwidth="false"
               type="submit"
-              style="font-weight: normal"
               :disabled="actorState.matches('confirmResetPassword.pending')"
               >{{ confirmResetPasswordText }}</amplify-button
             >
             <amplify-button
-              class="amplify-field-group__control"
-              data-fullwidth="false"
-              data-size="small"
-              data-variation="link"
+              class="amplify-field-group__control amplify-authenticator__font"
+              :variation="'link'"
+              :fullwidth="false"
+              :size="'small'"
               type="button"
               @click.prevent="onLostYourCodeClicked"
-              style="font-weight: normal"
             >
               {{ resendCodeText }}
             </amplify-button>

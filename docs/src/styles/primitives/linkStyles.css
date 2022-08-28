@@ -1,14 +1,20 @@
-.custom-link {
-  color: red;
-  font-weight: bold;
+.link-global-styles {
+  color: var(--amplify-colors-purple-80);
 }
 
-.custom-link:hover {
-  color: blue;
-  font-weight: bold;
+.link-global-styles:hover {
+  color: var(--amplify-colors-purple-60);
 }
 
-.custom-link:focus {
-  color: green;
-  font-weight: bold;
+.link-local-styles {
+  color: var(--amplify-colors-blue-80);
+  font-weight: var(--amplify-font-weights-bold);
+}
+
+.link-local-styles:hover {
+  color: var(--amplify-colors-blue-60);
+}
+
+.link-local-styles:active {
+  color: var(--amplify-colors-green-80);
 }

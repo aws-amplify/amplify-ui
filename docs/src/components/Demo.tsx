@@ -1,18 +1,11 @@
 import * as React from 'react';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Highlight, { defaultProps } from 'prism-react-renderer';
-import {
-  Tabs,
-  TabItem,
-  Flex,
-  View,
-  Button,
-  useTheme,
-} from '@aws-amplify/ui-react';
+import { Divider, Flex, View, useTheme } from '@aws-amplify/ui-react';
+import { CopyButton } from './CopyButton';
 
 interface DemoProps {
   children: React.ReactNode;
-  propControls: React.ReactNode;
+  propControls?: React.ReactNode;
   themeControls?: React.ReactNode;
   code: string;
 }
@@ -34,7 +27,10 @@ export const Demo = ({
   };
 
   return (
-    <View className="docs-component-demo">
+    <View
+      className="docs-component-demo"
+      display={{ base: 'none', medium: 'block' }}
+    >
       <Flex
         direction={{
           base: 'column',
@@ -43,29 +39,28 @@ export const Demo = ({
         alignItems="stretch"
       >
         <Flex direction="column" flex="1">
-          <View>{children}</View>
-          <Tabs>
-            <TabItem title="Props">
-              <View padding={`${tokens.space.medium} 0`}>{propControls}</View>
-            </TabItem>
-            {themeControls ?? <TabItem title="Theme">{themeControls}</TabItem>}
-          </Tabs>
+          <View overflow="auto" padding="5px">
+            {children}
+          </View>
+          <Divider
+            margin="20px 0 0"
+            border={`2px solid ${tokens.colors.border.secondary}`}
+          />
+          {propControls && (
+            <View padding={`${tokens.space.medium} 0`}>{propControls}</View>
+          )}
         </Flex>
         <View
           flex="1"
-          maxWidth="50%"
+          overflow="auto"
           position="relative"
           backgroundColor={tokens.colors.background.secondary}
         >
-          <CopyToClipboard text={code} onCopy={copy}>
-            <Button
-              size="small"
-              className="example-copy-button"
-              disabled={copied}
-            >
-              {copied ? 'Copied!' : 'Copy'}
-            </Button>
-          </CopyToClipboard>
+          <CopyButton
+            className="example-copy-button"
+            copyText={code}
+            size="small"
+          />
           <Highlight Prism={defaultProps.Prism} code={code} language="jsx">
             {({ className, style, tokens, getLineProps, getTokenProps }) => (
               <pre

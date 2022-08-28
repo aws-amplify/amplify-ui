@@ -1,20 +1,16 @@
 import * as React from 'react';
 import debounce from 'lodash/debounce';
-import {
-  Icon,
-  Heading,
-  Link,
-  Text,
-  View,
-  useTheme,
-} from '@aws-amplify/ui-react';
-import { SiW3C, SiReact } from 'react-icons/si';
+import { Heading, Link, Text, View, useTheme } from '@aws-amplify/ui-react';
 
-import { Sidebar } from './SecondaryNav';
 import { TableOfContents } from '../TableOfContents';
 import { Footer } from './Footer';
-import { GITHUB_REPO_FILE } from '@/data/links';
-import { DesignTokenIcon } from '@/components/DesignTokenIcon';
+import { GITHUB_REPO, GITHUB_REPO_FILE } from '@/data/links';
+import {
+  DesignTokenIcon,
+  ReactIcon,
+  W3CIcon,
+  GithubIcon,
+} from '@/components/Icons';
 
 export default function Page({
   children,
@@ -75,18 +71,15 @@ export default function Page({
   }, []);
 
   return (
-    <div className="docs-main">
-      <Sidebar />
-      <main className="docs-content">
+    <>
+      <div className="docs-content">
         <section className="docs-content-body">
           <section className="docs-meta">
             <Heading level={1}>{title}</Heading>
-            <Text
-              fontSize={`${tokens.fontSizes.xl}`}
-              className="docs-description"
-            >
-              {description}
-            </Text>
+            {description ? (
+              <Text className="docs-description">{description}</Text>
+            ) : null}
+
             <View className="docs-component-links">
               {ariaPattern ? (
                 <Link
@@ -94,11 +87,7 @@ export default function Page({
                   href={ariaPattern}
                   isExternal
                 >
-                  <Icon
-                    ariaLabel=""
-                    as={SiW3C}
-                    marginInlineEnd={tokens.space.xs}
-                  />
+                  <W3CIcon ariaLabel="W3C" marginInlineEnd={tokens.space.xs} />
                   ARIA pattern
                 </Link>
               ) : null}
@@ -121,25 +110,37 @@ export default function Page({
                   href={`${GITHUB_REPO_FILE}${reactSource}`}
                   isExternal
                 >
-                  <Icon
+                  <ReactIcon
                     ariaLabel=""
-                    as={SiReact}
+                    aria-hidden="true"
                     marginInlineEnd={tokens.space.xs}
                   />
                   React source
                 </Link>
               ) : null}
+              <Link
+                className="docs-component-link"
+                href={`${GITHUB_REPO}issues/new/choose`}
+                isExternal
+              >
+                <GithubIcon
+                  ariaLabel="GitHub"
+                  aria-hidden="true"
+                  marginInlineEnd={tokens.space.xs}
+                />
+                Feedback
+              </Link>
             </View>
           </section>
 
           {children}
         </section>
         <Footer />
-      </main>
+      </div>
 
-      {hideToc ? null : (
+      {!hideToc && headings.length ? (
         <TableOfContents title="Contents" headings={headings} />
-      )}
-    </div>
+      ) : null}
+    </>
   );
 }

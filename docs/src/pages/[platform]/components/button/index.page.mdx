@@ -1,0 +1,25 @@
+---
+title: Button
+description: Button allows users to perform actions.
+ariaPattern: https://www.w3.org/WAI/ARIA/apg/patterns/button
+themeSource: packages/ui/src/theme/tokens/components/button.ts
+reactSource: packages/react/src/primitives/Button/Button.tsx
+mdnUrl: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button
+htmlElement: button
+supportedFrameworks: react
+---
+
+import { Fragment } from '@/components/Fragment';
+import { PageTabLayout } from "@/components/Layout/PageTabLayout"
+
+<PageTabLayout 
+  tabComponents={[{
+    title: "Documentation", 
+    children: <Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+  },
+  {
+    title: "Props", 
+    children: <Fragment>{({ platform }) => import('./props-table.mdx')}</Fragment>
+  }]}
+/>
+        

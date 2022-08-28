@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import * as React from 'react';
 
 import { Alert } from '../Alert';
-import { ComponentClassNames } from '../../shared/constants';
+import { ComponentClassNames, ComponentText } from '../../shared/constants';
 import { ComponentPropsToStylePropsMap } from '../../types';
 import kebabCase from 'lodash/kebabCase';
 
@@ -33,9 +33,17 @@ describe('Alert: ', () => {
     const defaultAlert = await screen.findByTestId('default');
 
     expect(info.dataset['variation']).toBe('info');
+    expect(info.classList).toContain(`${ComponentClassNames['Alert']}--info`);
     expect(error.dataset['variation']).toBe('error');
+    expect(error.classList).toContain(`${ComponentClassNames['Alert']}--error`);
     expect(warning.dataset['variation']).toBe('warning');
+    expect(warning.classList).toContain(
+      `${ComponentClassNames['Alert']}--warning`
+    );
     expect(success.dataset['variation']).toBe('success');
+    expect(success.classList).toContain(
+      `${ComponentClassNames['Alert']}--success`
+    );
     expect(defaultAlert.dataset['variation']).toBe(undefined);
   });
 
@@ -103,6 +111,59 @@ describe('Alert: ', () => {
     expect(isDismissible.childElementCount).toBe(2);
   });
 
+  it('should set aria-hidden to be true on decorative icons', async () => {
+    const { container } = render(
+      <div>
+        <Alert variation="info" isDismissible={true} testId="hasIcon">
+          Has Icon
+        </Alert>
+      </div>
+    );
+    const icons = container.querySelectorAll(`.${ComponentClassNames.Icon}`);
+    expect(icons.length).toEqual(2);
+    icons.forEach((icon) => {
+      expect(icon).toHaveAttribute('aria-hidden', 'true');
+    });
+  });
+
+  it('can configure an accessible label for the dismiss button', async () => {
+    const customDismissButtonLabel = 'Testing 123';
+    render(
+      <div>
+        <Alert isDismissible>Default dismiss button label</Alert>
+        <Alert isDismissible dismissButtonLabel={customDismissButtonLabel}>
+          Custom dismiss button label
+        </Alert>
+      </div>
+    );
+
+    const [defaultLabel, customLabel] = await screen.queryAllByRole('button');
+    expect(defaultLabel.getAttribute('aria-label')).toBe(
+      ComponentText.Alert.dismissButtonLabel
+    );
+    expect(customLabel.getAttribute('aria-label')).toBe(
+      customDismissButtonLabel
+    );
+  });
+
+  it('renders as an aria alert', async () => {
+    render(<Alert testId="ariaAlertID">Alert with an aria role</Alert>);
+
+    const alert = await screen.findByRole('alert');
+    expect(alert).toBeDefined();
+  });
+
+  it('can allow role override', async () => {
+    render(
+      <Alert role="none" testId="noAlertRole">
+        Alert with role overridden
+      </Alert>
+    );
+
+    const alert = await screen.findByTestId('noAlertRole');
+    expect(alert).toHaveAttribute('role', 'none');
+  });
+
   it('can apply styling via props', async () => {
     render(
       <Alert backgroundColor="white" fontStyle="italic" testId="alertId">
@@ -110,16 +171,10 @@ describe('Alert: ', () => {
       </Alert>
     );
     const alert = await screen.findByTestId('alertId');
-    expect(
-      alert.style.getPropertyValue(
-        kebabCase(ComponentPropsToStylePropsMap.backgroundColor)
-      )
-    ).toBe('white');
-    expect(
-      alert.style.getPropertyValue(
-        kebabCase(ComponentPropsToStylePropsMap.fontStyle)
-      )
-    ).toBe('italic');
+    expect(alert).toHaveStyle({
+      backgroundColor: 'var(--amplify-colors-white)',
+      fontStyle: 'italic',
+    });
   });
 
   it('can apply a custom className', async () => {
@@ -135,7 +190,7 @@ describe('Alert: ', () => {
     expect(alert.dataset['demo']).toBe('true');
   });
 
-  describe.only('Forward ref: ', () => {
+  describe('Forward ref: ', () => {
     it('should forward ref to container DOM element', async () => {
       const testId = 'alert';
       const ref = React.createRef<HTMLDivElement>();

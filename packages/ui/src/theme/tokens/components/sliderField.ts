@@ -52,6 +52,7 @@ interface SliderFieldThumbHoverTokens {
 }
 
 interface SliderFieldThumbFocusTokens {
+  borderColor: DesignToken<BorderColorValue>;
   boxShadow: DesignToken<BoxShadowValue>;
 }
 
@@ -83,7 +84,7 @@ export const sliderfield: SliderFieldTokens = {
 
   // The track is the thin background of the slider
   track: {
-    backgroundColor: { value: '{colors.background.tertiary.value}' },
+    backgroundColor: { value: '{colors.background.quaternary.value}' },
     borderRadius: { value: '9999px' },
     height: { value: '0.375rem' },
     minWidth: { value: '10rem' },
@@ -105,7 +106,7 @@ export const sliderfield: SliderFieldTokens = {
     backgroundColor: { value: '{colors.background.primary.value}' },
     boxShadow: { value: '{shadows.small.value}' },
     borderRadius: { value: '50%' },
-    borderWidth: { value: '{borderWidths.small.value}' },
+    borderWidth: { value: '{borderWidths.medium.value}' },
     borderColor: { value: '{colors.border.primary.value}' },
     borderStyle: { value: 'solid' },
     _disabled: {
@@ -118,12 +119,13 @@ export const sliderfield: SliderFieldTokens = {
       borderColor: { value: '{colors.border.focus.value}' },
     },
     _focus: {
+      borderColor: { value: '{colors.border.focus.value}' },
       boxShadow: {
         value: {
           offsetX: '0',
           offsetY: '0',
           blurRadius: '0',
-          spreadRadius: '3px',
+          spreadRadius: '2px',
           color: '{colors.border.focus.value}',
         },
       },

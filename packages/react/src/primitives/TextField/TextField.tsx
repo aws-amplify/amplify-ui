@@ -1,6 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
 import { splitPrimitiveProps } from '../shared/styleUtils';
 import { FieldDescription, FieldErrorMessage } from '../Field';
@@ -41,6 +42,7 @@ const TextFieldPrimitive = <Multiline extends boolean>(
     type, // remove from rest to prevent passing as DOM attribute to textarea
     size,
     testId,
+    variation,
 
     bottom, // @TODO: remove custom destructuring for 3.0 release
     height, // @TODO: remove custom destructuring for 3.0 release
@@ -78,6 +80,7 @@ const TextFieldPrimitive = <Multiline extends boolean>(
         ref={isTextAreaRef(props, ref) ? ref : undefined}
         rows={rows ?? DEFAULT_ROW_COUNT}
         size={size}
+        variation={variation}
         {...baseStyleProps}
         {...rest}
       />
@@ -92,6 +95,7 @@ const TextFieldPrimitive = <Multiline extends boolean>(
         ref={isInputRef(props, ref) ? ref : undefined}
         size={size}
         type={type}
+        variation={variation}
         {...baseStyleProps}
         {...rest}
       />
@@ -102,6 +106,7 @@ const TextFieldPrimitive = <Multiline extends boolean>(
     <Flex
       className={classNames(
         ComponentClassNames.Field,
+        classNameModifier(ComponentClassNames.Field, size),
         ComponentClassNames.TextField,
         className
       )}
@@ -130,6 +135,7 @@ const TextFieldPrimitive = <Multiline extends boolean>(
         outerEndComponent={outerEndComponent}
         innerStartComponent={innerStartComponent}
         innerEndComponent={innerEndComponent}
+        variation={variation}
       >
         {control}
       </FieldGroup>
@@ -138,6 +144,9 @@ const TextFieldPrimitive = <Multiline extends boolean>(
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/textfield)
+ */
 export const TextField = React.forwardRef(TextFieldPrimitive) as <
   Multiline extends boolean
 >(

@@ -27,7 +27,6 @@ export class AuthenticatorService implements OnDestroy {
   private _authService: AuthInterpreter;
   private _sendEventAliases: ReturnType<typeof getSendEventAliases>;
   private _machineSubscription: Subscription;
-  private _hubSubscription: ReturnType<typeof listenToAuthHub>;
   private _facade: ReturnType<typeof getServiceContextFacade>;
 
   constructor() {
@@ -40,14 +39,12 @@ export class AuthenticatorService implements OnDestroy {
       this._facade = getServiceContextFacade(state);
     });
 
-    this._hubSubscription = listenToAuthHub(authService.send);
     this._sendEventAliases = getSendEventAliases(authService.send);
     this._authService = authService;
   }
 
   ngOnDestroy(): void {
     if (this._machineSubscription) this._machineSubscription.unsubscribe();
-    if (this._hubSubscription) this._hubSubscription();
   }
 
   /**
@@ -68,6 +65,10 @@ export class AuthenticatorService implements OnDestroy {
 
   public get route() {
     return this._facade?.route;
+  }
+
+  public get authStatus() {
+    return this._facade?.authStatus;
   }
 
   public get user() {

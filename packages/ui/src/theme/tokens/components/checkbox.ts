@@ -72,6 +72,13 @@ interface IconCheckedToken {
   transform: DesignToken<TransformValue>;
   _disabled: IconCheckedDisabled;
 }
+
+interface IconIndeterminateToken {
+  opacity: DesignToken<OpacityValue>;
+  transform: DesignToken<TransformValue>;
+  _disabled: IconCheckedDisabled;
+}
+
 interface IconToken {
   backgroundColor: DesignToken<BackgroundColorValue>;
   borderRadius: DesignToken<BorderRadiusValue>;
@@ -81,6 +88,7 @@ interface IconToken {
   transitionDuration: DesignToken<TransitionDurationValue>;
   transitionTimingFunction: DesignToken<TransitionTimingFunctionValue>;
   _checked: IconCheckedToken;
+  _indeterminate: IconIndeterminateToken;
 }
 interface LabelDisabledToken {
   color: DesignToken<ColorValue>;
@@ -109,7 +117,7 @@ export const checkbox: CheckboxTokens = {
     position: { value: 'relative' },
     alignItems: { value: 'center' },
     justifyContent: { value: 'center' },
-    color: { value: '{colors.white.value}' },
+    color: { value: '{colors.font.inverse.value}' },
     before: {
       width: { value: '100%' },
       height: { value: '100%' },
@@ -162,6 +170,13 @@ export const checkbox: CheckboxTokens = {
     transitionDuration: { value: '{time.short.value}' },
     transitionTimingFunction: { value: 'ease-in-out' },
     _checked: {
+      opacity: { value: '{opacities.100.value}' },
+      transform: { value: 'scale(1)' },
+      _disabled: {
+        backgroundColor: { value: '{colors.background.disabled.value}' },
+      },
+    },
+    _indeterminate: {
       opacity: { value: '{opacities.100.value}' },
       transform: { value: 'scale(1)' },
       _disabled: {

@@ -1,10 +1,8 @@
 import * as React from 'react';
-import kebabCase from 'lodash/kebabCase';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { ComponentClassNames } from '../../shared';
-import { ComponentPropsToStylePropsMap } from '../../types';
 import { Link } from '../Link';
 import { Text } from '../../Text/Text';
 import { Flex } from '../../Flex';
@@ -99,24 +97,12 @@ describe('Link: ', () => {
       </Link>
     );
     const link = await screen.findByText(linkText);
-    expect(
-      link.style.getPropertyValue(ComponentPropsToStylePropsMap.color)
-    ).toBe('blue');
-    expect(
-      link.style.getPropertyValue(
-        kebabCase(ComponentPropsToStylePropsMap.fontSize)
-      )
-    ).toBe('1.2em');
-    expect(
-      link.style.getPropertyValue(
-        kebabCase(ComponentPropsToStylePropsMap.fontWeight)
-      )
-    ).toBe('bold');
-    expect(
-      link.style.getPropertyValue(
-        kebabCase(ComponentPropsToStylePropsMap.textDecoration)
-      )
-    ).toBe('underline');
+    expect(link).toHaveStyle({
+      color: 'blue',
+      fontSize: '1.2em',
+      fontWeight: 'var(--amplify-font-weights-bold)',
+      textDecoration: 'underline',
+    });
   });
 
   it('can integrate with react-router-dom using the "to" prop', async () => {
@@ -128,5 +114,12 @@ describe('Link: ', () => {
     userEvent.click(screen.getByText(/about/i), leftClick);
 
     expect(screen.getByText(/you are on the about page/i)).toBeInTheDocument();
+  });
+
+  it('should call console.warn if "to" prop is used', async () => {
+    const spyWarn = jest.spyOn(console, 'warn');
+    render(<Link to="/test">Test</Link>);
+    expect(spyWarn).toHaveBeenCalled();
+    spyWarn.mockRestore();
   });
 });

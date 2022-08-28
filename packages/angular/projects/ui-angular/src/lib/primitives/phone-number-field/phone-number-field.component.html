@@ -13,7 +13,11 @@
   <div class="amplify-field-group__outer-start">
     <div
       class="
-        amplify-flex amplify-field amplify-selectfield amplify-countrycodeselect
+        amplify-flex
+        amplify-field
+        amplify-selectfield
+        amplify-countrycodeselect
+        amplify-dialcodeselect
       "
       style="flex-direction: column"
     >
@@ -35,7 +39,9 @@
     [placeholder]="placeholder"
     [required]="required"
     [value]="initialValue"
-    [attr.disabled]="disabled ? '' : null"
     [autocomplete]="autocomplete"
+    [attr.disabled]="disabled ? '' : null"
+    [attr.aria-invalid]="hasError ? 'true' : 'false'"
+    [attr.aria-describedby]="describedBy"
   />
 </div>

@@ -1,3 +1,4 @@
+import React from 'react';
 import { translate } from '@aws-amplify/ui';
 
 import { Flex } from '../../../primitives/Flex';
@@ -8,8 +9,12 @@ import { useFormHandlers } from '../hooks/useFormHandlers';
 import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { TwoButtonSubmitFooter } from '../shared/TwoButtonSubmitFooter';
 import { FormFields } from '../shared/FormFields';
+import { RouteContainer, RouteProps } from '../RouteContainer';
 
-export const ResetPassword = (): JSX.Element => {
+export const ResetPassword = ({
+  className,
+  variation,
+}: RouteProps): JSX.Element => {
   const { isPending } = useAuthenticator((context) => [context.isPending]);
   const { handleChange, handleSubmit } = useFormHandlers();
 
@@ -23,44 +28,44 @@ export const ResetPassword = (): JSX.Element => {
   } = useCustomComponents();
 
   return (
-    <form
-      data-amplify-form=""
-      data-amplify-authenticator-resetpassword=""
-      method="post"
-      onChange={handleChange}
-      onSubmit={handleSubmit}
-    >
-      <fieldset
-        style={{ display: 'flex', flexDirection: 'column' }}
-        className="amplify-flex"
-        disabled={isPending}
+    <RouteContainer className={className} variation={variation}>
+      <form
+        data-amplify-form=""
+        data-amplify-authenticator-resetpassword=""
+        method="post"
+        onChange={handleChange}
+        onSubmit={handleSubmit}
       >
-        <Header />
+        <Flex as="fieldset" direction="column" isDisabled={isPending}>
+          <Header />
 
-        <Flex direction="column">
-          <FormFields route="resetPassword" />
+          <Flex direction="column">
+            <FormFields />
+          </Flex>
+
+          <RemoteErrorMessage />
+          <TwoButtonSubmitFooter
+            cancelButtonText={translate('Back to Sign In')}
+            cancelButtonSendType="SIGN_IN"
+            submitButtonText={
+              isPending ? (
+                <>{translate('Sending')}&hellip;</>
+              ) : (
+                <>{translate('Send code')}</>
+              )
+            }
+          />
+          <Footer />
         </Flex>
-
-        <RemoteErrorMessage />
-        <TwoButtonSubmitFooter
-          cancelButtonText={translate('Back to Sign In')}
-          cancelButtonSendType="SIGN_IN"
-          submitButtonText={
-            isPending ? (
-              <>{translate('Sending')}&hellip;</>
-            ) : (
-              <>{translate('Send code')}</>
-            )
-          }
-        />
-        <Footer />
-      </fieldset>
-    </form>
+      </form>
+    </RouteContainer>
   );
 };
 
-ResetPassword.Header = () => {
+ResetPassword.Header = function Header(): JSX.Element {
   return <Heading level={3}>{translate('Reset your password')}</Heading>;
 };
 
-ResetPassword.Footer = (): JSX.Element => null;
+ResetPassword.Footer = function Footer(): JSX.Element {
+  return null;
+};

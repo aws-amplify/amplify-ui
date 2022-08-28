@@ -1,6 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
 import { Flex } from '../Flex';
 import { Input } from '../Input';
@@ -41,10 +42,37 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, typeof Flex> = (
 
   const fieldId = useStableId(id);
   const LabelType = isLabelHidden ? VisuallyHidden : View;
+  const wrapperClasses = classNames(
+    ComponentClassNames.SwitchTrack,
+    classNameModifierByFlag(ComponentClassNames.SwitchTrack, 'checked', isOn),
+    classNameModifierByFlag(
+      ComponentClassNames.SwitchTrack,
+      'disabled',
+      isDisabled
+    ),
+    classNameModifierByFlag(
+      ComponentClassNames.SwitchTrack,
+      'focused',
+      isFocused
+    )
+  );
+  const componentClasses = classNames(
+    ComponentClassNames.SwitchThumb,
+    classNameModifierByFlag(ComponentClassNames.SwitchThumb, 'checked', isOn),
+    classNameModifierByFlag(
+      ComponentClassNames.SwitchThumb,
+      'disabled',
+      isDisabled
+    )
+  );
 
   return (
     <Flex
-      className={classNames(ComponentClassNames.SwitchField, className)}
+      className={classNames(
+        ComponentClassNames.SwitchField,
+        classNameModifier(ComponentClassNames.SwitchField, size),
+        className
+      )}
       data-size={size}
       data-label-position={labelPosition}
       ref={ref}
@@ -70,7 +98,10 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, typeof Flex> = (
       </VisuallyHidden>
       <Label
         htmlFor={fieldId}
-        className={ComponentClassNames.SwitchWrapper}
+        className={classNames(
+          ComponentClassNames.SwitchWrapper,
+          classNameModifier(ComponentClassNames.SwitchWrapper, labelPosition)
+        )}
         data-label-position={labelPosition}
       >
         <LabelType as="span" className={ComponentClassNames.SwitchLabel}>
@@ -78,7 +109,7 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, typeof Flex> = (
         </LabelType>
         <View
           as="span"
-          className={ComponentClassNames.SwitchTrack}
+          className={wrapperClasses}
           data-checked={isOn}
           data-disabled={isDisabled}
           data-focused={isFocused}
@@ -86,7 +117,7 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, typeof Flex> = (
         >
           <View
             as="span"
-            className={ComponentClassNames.SwitchThumb}
+            className={componentClasses}
             data-checked={isOn}
             data-disabled={isDisabled}
             backgroundColor={thumbColor}
@@ -97,6 +128,9 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, typeof Flex> = (
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/switchfield)
+ */
 export const SwitchField = React.forwardRef(SwitchFieldPrimitive);
 
 SwitchField.displayName = 'SwitchField';

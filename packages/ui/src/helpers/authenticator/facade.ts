@@ -61,6 +61,8 @@ export const getServiceContextFacade = (state: AuthMachineState) => {
   const hasValidationErrors = Object.keys(validationErrors).length > 0;
   const isPending =
     state.hasTag('pending') || getActorState(state)?.hasTag('pending');
+
+  // Any additional idle states added beyond (idle, setup) should be updated inside the authStatus below as well
   const route = (() => {
     switch (true) {
       case state.matches('idle'):
@@ -71,6 +73,8 @@ export const getServiceContextFacade = (state: AuthMachineState) => {
         return 'signOut';
       case state.matches('authenticated'):
         return 'authenticated';
+      case actorState?.matches('autoSignIn'):
+        return 'autoSignIn';
       case actorState?.matches('confirmSignUp'):
         return 'confirmSignUp';
       case actorState?.matches('confirmSignIn'):
@@ -100,11 +104,26 @@ export const getServiceContextFacade = (state: AuthMachineState) => {
     }
   })();
 
+  // Auth status represents the current state of the auth flow
+  // The `configuring` state is used to indicate when the xState machine is loading
+  const authStatus = ((route) => {
+    switch (route) {
+      case 'idle':
+      case 'setup':
+        return 'configuring';
+      case 'authenticated':
+        return 'authenticated';
+      default:
+        return 'unauthenticated';
+    }
+  })(route);
+
   return {
     error,
     hasValidationErrors,
     isPending,
     route,
+    authStatus,
     user,
     validationErrors,
     codeDeliveryDetails,

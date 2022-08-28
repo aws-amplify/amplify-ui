@@ -1,13 +1,14 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { ComponentClassNames } from '../shared/constants';
+import { ComponentClassNames, ComponentText } from '../shared/constants';
+import { classNameModifier } from '../shared/utils';
 import { AlertProps, Primitive } from '../types';
 import { View } from '../View';
 import { Flex } from '../Flex';
 import { Button } from '../Button';
 import { AlertIcon } from './AlertIcon';
-import { IconClose } from '../Icon';
+import { IconClose } from '../Icon/internal';
 import { isFunction } from '../shared/utils';
 
 const AlertPrimitive: Primitive<AlertProps, typeof Flex> = (
@@ -15,6 +16,7 @@ const AlertPrimitive: Primitive<AlertProps, typeof Flex> = (
     buttonRef,
     children,
     className,
+    dismissButtonLabel = ComponentText.Alert.dismissButtonLabel,
     hasIcon = true,
     heading,
     isDismissible = false,
@@ -37,13 +39,18 @@ const AlertPrimitive: Primitive<AlertProps, typeof Flex> = (
   return (
     !dismissed && (
       <Flex
-        className={classNames(ComponentClassNames.Alert, className)}
+        className={classNames(
+          ComponentClassNames.Alert,
+          className,
+          classNameModifier(ComponentClassNames.Alert, variation)
+        )}
         data-variation={variation}
         ref={ref}
+        role="alert"
         {...rest}
       >
-        {hasIcon && <AlertIcon variation={variation} />}
-        <View role="alert" flex="1">
+        {hasIcon && <AlertIcon variation={variation} ariaHidden={true} />}
+        <View flex="1">
           {heading && (
             <View className={ComponentClassNames.AlertHeading}>{heading}</View>
           )}
@@ -51,12 +58,13 @@ const AlertPrimitive: Primitive<AlertProps, typeof Flex> = (
         </View>
         {isDismissible && (
           <Button
+            ariaLabel={dismissButtonLabel}
             variation="link"
             className={ComponentClassNames.AlertDismiss}
             onClick={dismissAlert}
             ref={buttonRef}
           >
-            <IconClose />
+            <IconClose aria-hidden="true" />
           </Button>
         )}
       </Flex>
@@ -64,6 +72,9 @@ const AlertPrimitive: Primitive<AlertProps, typeof Flex> = (
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/alert)
+ */
 export const Alert = React.forwardRef(AlertPrimitive);
 
 Alert.displayName = 'Alert';

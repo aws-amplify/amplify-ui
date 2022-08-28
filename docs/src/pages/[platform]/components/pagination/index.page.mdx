@@ -1,0 +1,23 @@
+---
+title: Pagination
+description: Pagination allows users to navigate large sets of data.
+themeSource: packages/ui/src/theme/tokens/components/pagination.ts
+reactSource: packages/react/src/primitives/Pagination/Pagination.tsx
+mdnUrl: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/nav
+htmlElement: nav
+supportedFrameworks: react
+---
+
+import { Fragment } from '@/components/Fragment';
+import { PageTabLayout } from "@/components/Layout/PageTabLayout"
+
+<PageTabLayout 
+  tabComponents={[{
+    title: "Documentation", 
+    children: <Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+  },
+  {
+    title: "Props", 
+    children: <Fragment>{({ platform }) => import('./props-table.mdx')}</Fragment>
+  }]}
+/>

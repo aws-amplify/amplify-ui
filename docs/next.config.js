@@ -8,7 +8,14 @@ const BRANCH = gitHead === 'HEAD' ? 'main' : gitHead;
 const withNextPluginPreval = require('next-plugin-preval/config')();
 
 module.exports = withNextPluginPreval({
-  env: { BRANCH },
+  env: {
+    BRANCH,
+    SITE_URL: process.env.SITE_URL,
+    DOCSEARCH_DOCS_APP_ID: process.env.DOCSEARCH_DOCS_APP_ID,
+    DOCSEARCH_DOCS_API_KEY: process.env.DOCSEARCH_DOCS_API_KEY,
+    DOCSEARCH_DOCS_INDEX_NAME: process.env.DOCSEARCH_DOCS_INDEX_NAME,
+    FF_REACT_NATIVE: process.env.FF_REACT_NATIVE,
+  },
   // Differentiate pages with frontmatter & layout vs. normal MD(X)
   pageExtensions: ['page.mdx', 'page.tsx'],
 
@@ -56,50 +63,96 @@ module.exports = withNextPluginPreval({
       // Normalizing URLs
       // these need to come before the generic redirects
       {
+        source:
+          '/:platform(react|angular|vue|flutter)/components/authenticator/:page*',
+        destination: '/:platform/connected-components/authenticator/:page*',
+        permanent: true,
+      },
+      {
+        source: '/:platform(react|angular|vue)/components/geo/:page*',
+        destination: '/:platform/connected-components/geo/:page*',
+        permanent: true,
+      },
+      {
+        source: '/:platform(react|angular|vue)/components/storage',
+        destination: '/:platform/legacy-components/storage',
+        permanent: true,
+      },
+      {
+        source: '/:platform(react|angular|vue)/components/chatbot',
+        destination: '/:platform/legacy-components/chatbot',
+        permanent: true,
+      },
+      {
         source: '/ui/primitives/stepperField',
         destination: '/components/stepperfield',
-        permanent: false,
+        permanent: true,
       },
       {
         source: '/ui/primitives/toggleButton',
         destination: '/components/togglebutton',
-        permanent: false,
+        permanent: true,
       },
       {
         source: '/ui/primitives/visuallyHidden',
         destination: '/components/visuallyhidden',
-        permanent: false,
+        permanent: true,
       },
+      /*
+       * source: /ui/theme/alternativeStyling and theming/alternative-styling
+       * destination: '/guides/css-in-js'
+       */
       {
-        source: '/ui/theme/alternativeStyling',
-        destination: '/theming/alternative-styling',
-        permanent: false,
+        source:
+          '/:page(ui/theme/alternativeStyling|theming/alternative-styling)',
+        destination: '/guides/css-in-js',
+        permanent: true,
       },
       // Generic redirects from old IA
       {
         source: '/ui',
         destination: '/',
-        permanent: false,
+        permanent: true,
       },
       {
         source: '/ui/components/:page*',
         destination: '/components/:page*',
-        permanent: false,
+        permanent: true,
       },
       {
         source: '/ui/getting-started/:page*',
         destination: '/getting-started/:page*',
-        permanent: false,
+        permanent: true,
       },
       {
         source: '/ui/primitives/:page*',
         destination: '/components/:page*',
-        permanent: false,
+        permanent: true,
       },
       {
         source: '/ui/theme/:page*',
         destination: '/theming/:page*',
-        permanent: false,
+        permanent: true,
+      },
+      /**
+       * source: a url has one of the folder's names (components, getting-started, guides, theming)
+       * destination: add '[platform]' to the the beginning
+       */
+      {
+        source:
+          '/:nav(legacy-components|connected-components|components|getting-started|guides|theming)/:page*',
+        destination: '/[platform]/:nav/:page*',
+        permanent: true,
+      },
+      /**
+       * source: a url points one of the folder's names (components, getting-started, guides, theming)'s index file
+       * destination: add '[platform]' to the beginning
+       */
+      {
+        source:
+          '/:nav(legacy-components|connected-components|components|getting-started|guides|theming)',
+        destination: '/[platform]/:nav',
+        permanent: true,
       },
     ];
   },
@@ -177,16 +230,12 @@ module.exports = withNextPluginPreval({
       ],
     });
 
-    config.module.rules.push({
-      test: /\.json5?$/i,
-      loader: 'json5-loader',
-      options: {
-        // TypeError: Cannot read property 'split' of undefined
-        // ../node_modules/axios/lib/helpers/validator.js (15:0)
-        esModule: false,
-      },
-      type: 'javascript/auto',
-    });
+    // resolve react and react-dom from project node_modules
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      react: path.resolve(__dirname, 'node_modules/react'),
+      'react-dom': path.resolve(__dirname, 'node_modules/react-dom'),
+    };
 
     return config;
   },

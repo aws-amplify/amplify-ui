@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   defaultFormFieldOptions,
   censorAllButFirstAndLast,
@@ -8,6 +9,7 @@ import {
   translate,
 } from '@aws-amplify/ui';
 
+import { Flex } from '../../../primitives/Flex';
 import { Heading } from '../../../primitives/Heading';
 import { Radio } from '../../../primitives/Radio';
 import { RadioGroupField } from '../../../primitives/RadioGroupField';
@@ -16,6 +18,7 @@ import { useCustomComponents } from '../hooks/useCustomComponents';
 import { useFormHandlers } from '../hooks/useFormHandlers';
 import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { TwoButtonSubmitFooter } from '../shared/TwoButtonSubmitFooter';
+import { RouteContainer, RouteProps } from '../RouteContainer';
 
 const censorContactInformation = (
   type: ContactMethod,
@@ -44,7 +47,10 @@ const generateRadioGroup = (
   for (const [key, value] of Object.entries(attributes)) {
     const radio = (
       <Radio name="unverifiedAttr" value={key} key={key}>
-        {censorContactInformation(defaultFormFieldOptions[key].label, value)}
+        {censorContactInformation(
+          (defaultFormFieldOptions[key] as { label: ContactMethod }).label,
+          value
+        )}
       </Radio>
     );
 
@@ -54,7 +60,10 @@ const generateRadioGroup = (
   return radioButtons;
 };
 
-export const VerifyUser = (): JSX.Element => {
+export const VerifyUser = ({
+  className,
+  variation,
+}: RouteProps): JSX.Element => {
   const {
     components: {
       VerifyUser: { Header = VerifyUser.Header, Footer = VerifyUser.Footer },
@@ -77,7 +86,7 @@ export const VerifyUser = (): JSX.Element => {
   const verificationRadioGroup = (
     <RadioGroupField
       label={translate('Verify Contact')}
-      labelHidden={true}
+      labelHidden
       name="verify_context"
       isDisabled={isPending}
     >
@@ -86,36 +95,34 @@ export const VerifyUser = (): JSX.Element => {
   );
 
   return (
-    <form
-      data-amplify-form=""
-      data-amplify-authenticator-verifyuser=""
-      method="post"
-      onChange={handleChange}
-      onSubmit={handleSubmit}
-    >
-      <fieldset
-        style={{ display: 'flex', flexDirection: 'column' }}
-        className="amplify-flex"
-        disabled={isPending}
+    <RouteContainer className={className} variation={variation}>
+      <form
+        data-amplify-form=""
+        data-amplify-authenticator-verifyuser=""
+        method="post"
+        onChange={handleChange}
+        onSubmit={handleSubmit}
       >
-        <Header />
+        <Flex as="fieldset" direction="column" isDisabled={isPending}>
+          <Header />
 
-        {verificationRadioGroup}
+          {verificationRadioGroup}
 
-        <RemoteErrorMessage />
+          <RemoteErrorMessage />
 
-        <TwoButtonSubmitFooter
-          cancelButtonText={translate('Skip')}
-          cancelButtonSendType="SKIP"
-          submitButtonText={footerSubmitText}
-        />
-        <Footer />
-      </fieldset>
-    </form>
+          <TwoButtonSubmitFooter
+            cancelButtonText={translate('Skip')}
+            cancelButtonSendType="SKIP"
+            submitButtonText={footerSubmitText}
+          />
+          <Footer />
+        </Flex>
+      </form>
+    </RouteContainer>
   );
 };
 
-VerifyUser.Header = () => {
+VerifyUser.Header = function Header(): JSX.Element {
   return (
     <Heading level={3}>
       {translate('Account recovery requires verified contact information')}
@@ -123,4 +130,6 @@ VerifyUser.Header = () => {
   );
 };
 
-VerifyUser.Footer = (): JSX.Element => null;
+VerifyUser.Footer = function Footer(): JSX.Element {
+  return null;
+};

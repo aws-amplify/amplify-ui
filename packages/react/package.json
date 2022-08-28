@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react",
-  "version": "2.15.3",
+  "version": "3.4.1",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "exports": {
@@ -11,10 +11,6 @@
     "./internal": {
       "import": "./dist/esm/internal.js",
       "require": "./dist/internal.js"
-    },
-    "./internal/primitives-catalog": {
-      "import": "./dist/esm/primitives-catalog.js",
-      "default": null
     },
     "./legacy": {
       "import": "./dist/esm/legacy.js",
@@ -41,38 +37,41 @@
   ],
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "yarn run build:ts && yarn run build:catalog",
+    "build": "yarn run build:catalog && yarn run build:ts",
     "build:ts": "rollup --config",
-    "build:catalog": "ts-node scripts/generatePrimitivesCatalog.ts",
+    "build:catalog": "yarn ts scripts/generatePrimitiveCatalog.ts",
     "dev": "tsup --watch",
     "dev:build": "tsup",
     "update:icons": "node scripts/updateIcons.js",
     "build:icons": "yarn run clean:icons && node scripts/generateIcons.js",
     "clean": "rimraf dist node_modules",
     "clean:icons": "rimraf ./src/primitives/Icon/icons",
-    "lint": "tsc --noEmit && yarn eslint ./src --ext .js,.ts,.tsx",
+    "lint": "tsc --noEmit --project tsconfig.dev.json && yarn eslint ./src --ext .js,.ts,.tsx",
     "test": "yarn test:unit",
     "test:watch": "yarn test:unit:watch",
     "test:unit": "jest",
-    "test:unit:watch": "jest --watch"
+    "test:unit:watch": "jest --watch",
+    "ts": "node -r esbuild-register",
+    "size": "yarn run size-limit"
   },
   "dependencies": {
-    "@aws-amplify/ui": "3.6.3",
+    "@aws-amplify/ui": "3.13.0",
     "@aws-amplify/ui-react-v1": "npm:@aws-amplify/ui-react@1.2.9",
     "@radix-ui/react-accordion": "0.1.6",
     "@radix-ui/react-dropdown-menu": "0.1.6",
     "@radix-ui/react-slider": "0.1.4",
     "@radix-ui/react-tabs": "0.1.5",
-    "@xstate/react": "1.6.3",
+    "@xstate/react": "3.0.0",
     "classnames": "2.3.1",
     "deepmerge": "4.2.2",
     "lodash": "4.17.21",
-    "mapbox-gl": "npm:empty-npm-package@1.0.0",
-    "maplibre-gl": "1.15.2",
-    "maplibre-gl-js-amplify": "1.5.0",
+    "mapbox-gl": "1.13.1",
+    "maplibre-gl": "2.1.9",
+    "maplibre-gl-js-amplify": "2.0.4",
     "qrcode": "1.5.0",
     "react-generate-context": "1.0.1",
-    "react-map-gl": "7.0.10"
+    "react-map-gl": "7.0.15",
+    "tslib": "2.4.0"
   },
   "peerDependencies": {
     "aws-amplify": "3.x.x || 4.x.x",
@@ -86,6 +85,7 @@
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "^8.3.1",
+    "@size-limit/preset-big-lib": "^7.0.8",
     "@svgr/core": "^5.5.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
@@ -93,24 +93,49 @@
     "@testing-library/user-event": "^13.2.1",
     "@types/jest": "^26.0.23",
     "@types/qrcode": "^1.4.2",
+    "@types/react": "^17.0.2",
     "@types/testing-library__jest-dom": "^5.14.1",
-    "@typescript-eslint/eslint-plugin": "^5.6.0",
-    "@typescript-eslint/parser": "^5.6.0",
+    "@typescript-eslint/eslint-plugin": "^5.20.0",
+    "@typescript-eslint/parser": "^5.20.0",
     "degit": "^2.8.4",
-    "eslint": "^8.4.1",
-    "eslint-plugin-react-hooks": "^4.3.0",
+    "esbuild-register": "^3.3.3",
+    "eslint": "^8.13.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jest": "^26.1.4",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.29.4",
+    "eslint-plugin-react-hooks": "^4.4.0",
     "jest": "^27.0.4",
     "jest-matchmedia-mock": "^1.1.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "react-router-dom": "^6.2.1",
     "rimraf": "^3.0.2",
     "rollup": "^2.70.0",
+    "rollup-plugin-node-externals": "^4.1.1",
     "rollup-plugin-styles": "^4.0.0",
     "rollup-plugin-terser": "^7.0.2",
+    "size-limit": "^7.0.8",
     "ts-jest": "^27.0.3",
-    "ts-morph": "^12.0.0",
-    "ts-node": "^10.2.1"
+    "ts-morph": "^12.0.0"
   },
   "sideEffects": [
     "dist/**/*.css"
+  ],
+  "size-limit": [
+    {
+      "name": "Authenticator",
+      "path": "dist/esm/index.js",
+      "import": "{ Authenticator }",
+      "limit": "100 kB"
+    },
+    {
+      "name": "Geo",
+      "path": "dist/esm/index.js",
+      "import": "{ MapView, LocationSearch }",
+      "limit": "330 kB"
+    }
   ]
 }

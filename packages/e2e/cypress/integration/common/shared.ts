@@ -7,6 +7,29 @@ import { get, escapeRegExp } from 'lodash';
 
 let language = 'en-US';
 let window = null;
+let stub = null;
+
+/**
+ * Given dot delimited paths to a method (e.g. Amplify.Auth.signIn) on window,
+ * returns the object that holds the method (Amplify.Auth) and the method (signIn).
+ *
+ * Used for mocking and spying Amplify methods.
+ */
+const getMethodFromWindow = (path: string) => {
+  const paths = path.split('.');
+  const method = paths.pop();
+  const obj = get(window, paths);
+
+  if (!window) {
+    throw new Error('window has not been set in the Cypress tests');
+  }
+
+  if (!obj || !method) {
+    throw new Error(`Could not find "${path}" on the window`);
+  }
+
+  return { obj, method };
+};
 
 Given("I'm running the example {string}", (example: string) => {
   cy.visit(example, {
@@ -79,27 +102,28 @@ Given(
 Given(
   'I mock {string} with fixture {string}',
   (path: string, fixture: string) => {
-    let paths = path.split('.');
-    const method = paths.pop();
-    const obj = get(window, paths);
-
-    if (!window) {
-      throw new Error(`window has not been set in the Cypress tests`);
-    }
-
-    if (!obj || !method) {
-      throw new Error(`Could not find "${path}" on the window`);
-    }
+    const { obj, method } = getMethodFromWindow(path);
 
     cy.fixture(fixture).then((result) => {
       console.info('`%s` mocked with %o', path, result);
-      cy.stub(obj, method).returns(result);
+      stub = cy.stub(obj, method);
+      stub.returns(result);
     });
   }
 );
 
+When('Sign in was called with {string}', (username: string) => {
+  let tempStub = stub.calledWith(username, Cypress.env('VALID_PASSWORD'));
+  stub = null;
+  expect(tempStub).to.be.true;
+});
+
 When('I type an invalid password', () => {
   cy.findInputField('Password').type('invalidpass');
+});
+
+When('I type a short password', () => {
+  cy.findInputField('Password').type('inv');
 });
 
 When('I type an invalid wrong complexity password', () => {
@@ -135,7 +159,7 @@ When('I click the {string} button', (name: string) => {
 Then('I see the {string} button', (name: string) => {
   cy.findByRole('button', {
     name: new RegExp(`^${escapeRegExp(name)}$`, 'i'),
-  }).should('be.visible');
+  }).should('exist');
 });
 
 When('I click the {string} checkbox', (label: string) => {
@@ -289,4 +313,53 @@ When('I see {string} as the {string} input', (custom, order) => {
   cy.get('input').eq(order).should('have.attr', 'placeholder', custom);
 
   // cy.findByLabelText(custom).type(Cypress.env('VALID_PASSWORD'));
+});
+
+When('I mock {string} event', (eventName: string) => {
+  if (!window) {
+    throw new Error('window has not been set in the Cypress tests');
+  }
+
+  const Hub = window['Hub'];
+  if (!Hub) {
+    throw new Error('Hub is not available on the window.');
+  }
+
+  Hub.dispatch('auth', { event: eventName });
+});
+
+Given('I spy {string} method', (path) => {
+  const { obj, method } = getMethodFromWindow(path);
+  cy.spy(obj, method).as(path);
+});
+
+Then('{string} method is called', (path) => {
+  cy.get(`@${path}`).should('have.been.calledOnce');
+});
+
+When('I type a valid code', () => {
+  /**
+   * Confirmation code differs on React/Vue vs Angular. Testing for both for
+   * now, but we can look to make them consistent on next major release.
+   */
+  const regex = new RegExp(`^(confirmation )?code( *)?`, 'i');
+  cy.findByRole('spinbutton', { name: regex }).type('1234');
+});
+
+Then('I will be redirected to the confirm forgot password page', () => {
+  cy.findInputField('New Password').should('exist');
+});
+
+When('I type my new password', () => {
+  cy.findInputField('New Password').type(Cypress.env('VALID_PASSWORD'));
+});
+
+Then('I click the submit button', () => {
+  /**
+   * Submit button text differs on React/Vue vs Angular. Testing for both for
+   * now, but we can look to make them consistent on next major release.
+   */
+  cy.findByRole('button', {
+    name: new RegExp(`^((submit)|(send code))$`, 'i'),
+  }).click();
 });

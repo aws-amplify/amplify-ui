@@ -4,10 +4,10 @@ import * as React from 'react';
 
 import { Flex } from '../Flex';
 import { Grid } from '../Grid';
+import { Text } from '../Text';
 import { Pagination, usePagination } from '../Pagination';
 import { SearchField } from '../SearchField';
-import { ComponentClassNames } from '../shared/constants';
-import { SharedText } from '../shared/i18n';
+import { ComponentClassNames, ComponentText } from '../shared/constants';
 import { strHasLength } from '../shared/utils';
 import {
   CollectionProps,
@@ -38,6 +38,27 @@ const GridCollection = <Item,>({
   <Grid {...rest}>{Array.isArray(items) ? items.map(children) : null}</Grid>
 );
 
+const renderCollectionOrNoResultsFound = <Item,>(
+  collection: JSX.Element,
+  items: Item[],
+  searchNoResultsFound: React.ReactNode
+) => {
+  if (items.length) {
+    return collection;
+  }
+  if (searchNoResultsFound) {
+    return searchNoResultsFound;
+  }
+  return (
+    <Flex justifyContent="center">
+      <Text>{ComponentText.Collection.searchNoResultsFound}</Text>
+    </Flex>
+  );
+};
+
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/collection)
+ */
 export const Collection = <Item,>({
   className,
   isSearchable,
@@ -45,6 +66,8 @@ export const Collection = <Item,>({
   items,
   itemsPerPage = DEFAULT_PAGE_SIZE,
   searchFilter = itemHasText,
+  searchLabel = ComponentText.Collection.searchButtonLabel,
+  searchNoResultsFound,
   searchPlaceholder,
   type = 'list',
   testId,
@@ -98,7 +121,7 @@ export const Collection = <Item,>({
       {isSearchable ? (
         <Flex className={ComponentClassNames.CollectionSearch}>
           <SearchField
-            label={SharedText.Collection.SearchFieldLabel}
+            label={searchLabel}
             placeholder={searchPlaceholder}
             onChange={(e) => onSearch(e.target.value)}
             onClear={() => setSearchText('')}
@@ -106,7 +129,11 @@ export const Collection = <Item,>({
         </Flex>
       ) : null}
 
-      {collection}
+      {renderCollectionOrNoResultsFound(
+        collection,
+        items,
+        searchNoResultsFound
+      )}
 
       {isPaginated ? (
         <Flex className={ComponentClassNames.CollectionPagination}>

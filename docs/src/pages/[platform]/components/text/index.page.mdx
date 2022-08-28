@@ -1,0 +1,23 @@
+---
+title: Text
+description: Text is used to display text in an interface, and renders a <p> element by default.
+themeSource: packages/ui/src/theme/tokens/components/text.ts
+reactSource: packages/react/src/primitives/Text/Text.tsx
+mdnUrl: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p
+htmlElement: p
+supportedFrameworks: react
+---
+
+import { Fragment } from '@/components/Fragment';
+import { PageTabLayout } from "@/components/Layout/PageTabLayout"
+
+<PageTabLayout 
+  tabComponents={[{
+    title: "Documentation", 
+    children: <Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+  },
+  {
+    title: "Props", 
+    children: <Fragment>{({ platform }) => import('./props-table.mdx')}</Fragment>
+  }]}
+/>

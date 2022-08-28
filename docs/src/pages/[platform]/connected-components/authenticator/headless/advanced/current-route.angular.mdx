@@ -1,0 +1,55 @@
+You can use `AuthenticatorService` to access `route` string that represents the current `authState`. They can be one of:
+
+- `idle`
+- `setup`
+- `signIn`
+- `signUp`
+- `confirmSignIn`
+- `confirmSignUp`
+- `setupTOTP`
+- `forceNewPassword`
+- `resetPassword`
+- `confirmResetPassword`
+- `verifyUser`
+- `confirmVerifyUser`
+- `signOut`
+- `authenticated`
+
+```html
+<!-- Only render this if there's an authenticated user -->
+<ng-container *ngIf="authenticator.route === 'authenticated'">
+  Welcome back!
+</ng-container>
+
+<!-- Render sign-in screen otherwise with authenticator -->
+<ng-container *ngIf="authenticator.route !== 'authenticated'">
+  <amplify-authenticator></amplify-authenticator>
+</ng-container>
+```
+
+### Authentication Check
+
+If you just need to check if you're authenticated or not, you can use the more straightforward `AuthenticatorService` to access the `authStatus` string. The `authStatus` string can represent the following states:
+
+- `configuring`
+- `authenticated`
+- `unauthenticated`
+
+> The `configuring` state only occurs when the `Authenticator` is first loading.
+
+```html
+<!-- Render loading if authStatus is still configuring  -->
+<ng-container *ngIf="authenticator.authStatus === 'configuring'">
+  Loading...
+</ng-container>
+
+<!-- Only render this if there's an authenticated user -->
+<ng-container *ngIf="authenticator.authStatus === 'authenticated'">
+  Welcome back!
+</ng-container>
+
+<!-- Render sign-in screen otherwise with authenticator -->
+<ng-container *ngIf="authenticator.authStatus !== 'authenticated'">
+  <amplify-authenticator></amplify-authenticator>
+</ng-container>
+```

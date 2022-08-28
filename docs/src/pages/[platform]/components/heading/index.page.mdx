@@ -1,0 +1,23 @@
+---
+title: Heading
+description: Heading renders semantic section heading text representing six levels.
+themeSource: packages/ui/src/theme/tokens/components/heading.ts
+reactSource: packages/react/src/primitives/Heading/Heading.tsx
+mdnUrl: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements
+htmlElement: h1-h6
+supportedFrameworks: react
+---
+
+import { Fragment } from '@/components/Fragment';
+import { PageTabLayout } from "@/components/Layout/PageTabLayout"
+
+<PageTabLayout 
+  tabComponents={[{
+    title: "Documentation", 
+    children: <Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+  },
+  {
+    title: "Props", 
+    children: <Fragment>{({ platform }) => import('./props-table.mdx')}</Fragment>
+  }]}
+/>  

@@ -1,10 +1,14 @@
+import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import kebabCase from 'lodash/kebabCase';
 
 import { Collection } from '../Collection';
+import { Flex } from '../../Flex';
+import { Text } from '../../Text';
 import { ComponentPropsToStylePropsMap } from '../../types';
-import { ComponentClassNames } from '../../shared/constants';
+import { ComponentText } from '../../shared/constants';
+import { ComponentClassName } from '../../shared/types';
 
 const emojis = [
   {
@@ -66,7 +70,7 @@ describe('Collection component', () => {
     const collection = await screen.findByTestId('testList');
     const search = getElementByClassName(
       collection,
-      ComponentClassNames.CollectionSearch
+      ComponentClassName.CollectionSearch
     );
 
     expect(search).not.toBe(null);
@@ -92,7 +96,7 @@ describe('Collection component', () => {
     const collection = await screen.findByTestId(testList);
     const pagination = getElementByClassName(
       collection,
-      ComponentClassNames.CollectionPagination
+      ComponentClassName.CollectionPagination
     );
 
     expect(pagination).not.toBe(null);
@@ -117,16 +121,16 @@ describe('Collection component', () => {
     const collection = await screen.findByTestId(testList);
     const items = getElementByClassName<HTMLDivElement>(
       collection,
-      ComponentClassNames.CollectionItems
+      ComponentClassName.CollectionItems
     );
 
     expect(
-      items.style.getPropertyValue(
+      items?.style.getPropertyValue(
         kebabCase(ComponentPropsToStylePropsMap.direction)
       )
     ).toBe('column');
 
-    expect(items.children[0].getAttribute('aria-label')).toBe('LOL');
+    expect(items?.children[0].getAttribute('aria-label')).toBe('LOL');
   });
 
   it('should not throw when items is not an array', () => {
@@ -172,10 +176,10 @@ describe('Collection component', () => {
     const collection = await screen.findByTestId(testList);
     const items = getElementByClassName<HTMLDivElement>(
       collection,
-      ComponentClassNames.CollectionItems
+      ComponentClassName.CollectionItems
     );
 
-    expect(items.dataset['demo']).toBe('true');
+    expect(items?.dataset['demo']).toBe('true');
   });
 
   it('should not break the search functionality when items contain null values', async () => {
@@ -199,5 +203,78 @@ describe('Collection component', () => {
     const text = 'Yosemite National Park';
     userEvent.type(searchInput, text);
     expect(searchInput).toHaveValue(text);
+  });
+
+  it('should be able to customize search field label', async () => {
+    const searchLabel = 'Search emojis';
+    render(
+      <Collection
+        testId={testList}
+        type="list"
+        items={emojis}
+        searchLabel={searchLabel}
+        isSearchable
+      >
+        {(item, index) => (
+          <div key={index} aria-label={item.title}>
+            {item.emoji}
+          </div>
+        )}
+      </Collection>
+    );
+
+    const searchControl = await screen.findByLabelText(searchLabel);
+    expect(searchControl).toBeDefined();
+  });
+
+  it('should render default text when no results are found from search', async () => {
+    render(
+      <Collection testId={testList} type="list" items={emojis} isSearchable>
+        {(item, index) => (
+          <div key={index} aria-label={item.title}>
+            {item.emoji}
+          </div>
+        )}
+      </Collection>
+    );
+
+    const searchInput = await screen.findByRole('textbox');
+    const searchText = 'qwerty12345';
+    userEvent.type(searchInput, searchText);
+
+    const noResults = await screen.findByText(
+      ComponentText.Collection.searchNoResultsFound
+    );
+    expect(noResults).toBeDefined();
+  });
+
+  it('should render custom ReactNode using searchNoResultsFound prop', async () => {
+    const customText = 'Nothing found, please try again';
+    render(
+      <Collection
+        testId={testList}
+        type="list"
+        items={emojis}
+        isSearchable
+        searchNoResultsFound={
+          <Flex justifyContent="center">
+            <Text>{customText}</Text>
+          </Flex>
+        }
+      >
+        {(item, index) => (
+          <div key={index} aria-label={item.title}>
+            {item.emoji}
+          </div>
+        )}
+      </Collection>
+    );
+
+    const searchInput = await screen.findByRole('textbox');
+    const searchText = 'qwerty12345';
+    userEvent.type(searchInput, searchText);
+
+    const noResults = await screen.findByText(customText);
+    expect(noResults).toBeDefined();
   });
 });

@@ -1,0 +1,387 @@
+import { Alert, Link, TextField } from '@aws-amplify/ui-react';
+
+import { TextFieldDemo } from './demo';
+import {
+  DefaultRequiredTextFieldExample,
+  DefaultTextAreaExample,
+  DefaultTextFieldExample,
+  RequiredTextFieldExample,
+  TextAreaMaxLengthExample,
+  TextAreaResizableExample,
+  TextAreaRowsExample,
+  TextAreaSizeExample,
+  TextFieldAccessibilityExample,
+  TextFieldDescriptiveTextExample,
+  TextFieldEventHandlersExample,
+  TextFieldInnerComponentsExample,
+  TextFieldOuterAndInnerComponentsExample,
+  TextFieldOuterComponentsExample,
+  TextFieldSizeExample,
+  TextFieldStatesExample,
+  TextFieldStylePropsExample,
+  TextFieldThemeExample,
+  TextFieldValidationErrorExample,
+  TextFieldVariationExample,
+} from './examples';
+import { Example, ExampleCode } from '@/components/Example';
+import { Fragment } from '@/components/Fragment';
+import { ComponentClassTable } from '@/components/ComponentClassTable';
+import StandardHTMLAttributes from '@/components/StandardHTMLAttributes.mdx';
+import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
+import ThemeExample from '@/components/ThemeExample.mdx';
+
+## Demo
+
+<TextFieldDemo />
+
+## Usage
+
+Import the `TextField` component and styles and provide a `label` for accessibility/usability.
+
+<Example>
+  <DefaultTextFieldExample />
+  <ExampleCode>
+    ```jsx file=./examples/DefaultTextFieldExample.tsx
+
+    ```
+
+</ExampleCode>
+</Example>
+
+### Accessibility / Label behavior
+
+<Fragment>{() => import('./../shared/formFieldAccessibility.mdx')}</Fragment>
+
+<Example>
+  <TextFieldAccessibilityExample />
+  <ExampleCode>
+    ```jsx file=./examples/TextFieldAccessibilityExample.tsx 
+    
+    ```
+
+  </ExampleCode>
+</Example>
+
+### Sizes
+
+TextField sizes are designed to match styling of other field components such as Buttons. There are three sizes: small, (default), and large.
+
+<Example>
+  <TextFieldSizeExample />
+  <ExampleCode>
+    ```jsx file=./examples/TextFieldSizeExample.tsx
+
+    ```
+
+  </ExampleCode>
+</Example>
+
+### Variations
+
+There are two variation styles available: default and `quiet`.
+
+<Example>
+  <TextFieldVariationExample />
+  <ExampleCode>
+  ```jsx file=./examples/TextFieldVariationExample.tsx
+  ```
+  </ExampleCode>
+
+</Example>
+
+### Multiline textarea
+
+To render a multi-line `textarea`, set the `isMultiline` prop to `true`.
+
+<Alert role="none" variation="warning" heading="Deprecated">
+  Multiline functionality has been moved to{' '}
+  <Link href="./textareafield">TextAreaField</Link> and will be removed in the
+  next major release. Please use{' '}
+  <Link href="./textareafield">TextAreaField</Link> instead of TextField for
+  multiline text fields.
+</Alert>
+
+<Example>
+  <DefaultTextAreaExample />
+  <ExampleCode>
+    ```jsx file=./examples/DefaultTextAreaExample.tsx
+    
+    ```
+
+  </ExampleCode>
+</Example>
+
+#### Resizeable
+
+For a resizeable multiline field, use `resize` prop. Common values are `horizontal`, `vertical`, `both`. See [MDN resize docs](https://developer.mozilla.org/en-US/docs/Web/CSS/resize) for supported values.
+
+<Example>
+  <TextAreaResizableExample />
+  <ExampleCode>
+    ```jsx file=./examples/TextAreaResizableExample.tsx
+
+    ```
+
+  </ExampleCode>
+</Example>
+
+#### Size
+
+To change the general size, use the `size` prop. Available options are `small`, none (default), and `large`.
+
+<Example>
+  <TextAreaSizeExample />
+  <ExampleCode>
+    ```jsx file=./examples/TextAreaSizeExample.tsx
+
+    ```
+
+  </ExampleCode>
+</Example>
+
+#### Rows
+
+To change the number of rows of text displayed, use the `rows` prop with desired number.
+
+<Example>
+  <TextAreaRowsExample />
+  <ExampleCode>
+    ```jsx file=./examples/TextAreaRowsExample.tsx
+
+    ```
+
+  </ExampleCode>
+</Example>
+
+#### Maximum length
+
+To enforce a maximum length of multiline text, use the `maxLength` prop.
+
+<Example>
+  <TextAreaMaxLengthExample />
+  <ExampleCode>
+    ```jsx file=./examples/TextAreaMaxLengthExample.tsx
+
+    ```
+
+  </ExampleCode>
+</Example>
+
+### Outer components
+
+Compose field components such as `Button` and `Select` at the start or end of an TextField input using the `outerStartComponent` or `outerEndComponent` props.
+
+<Example>
+  <TextFieldOuterComponentsExample />
+  <ExampleCode>
+    ```jsx file=./examples/TextFieldOuterComponentsExample.tsx
+
+    ```
+
+  </ExampleCode>
+</Example>
+
+### Inner components (icons)
+
+Compose `FieldGroupIcon` or `FieldGroupIconButton` components inside TextField input using innerStartComponent and innerEndComponent.
+To create an interactive icon button, use the `FieldGroupIconButton` component. To add an icon that's not interactive, use `FieldGroupIcon` component.
+
+Note: When clicked, `FieldGroupIcon` will focus the field, whereas the `FieldGroupIconButton` will trigger its `onClick` event.
+
+<Example>
+  <TextFieldInnerComponentsExample />
+  <ExampleCode>
+    ```jsx file=./examples/TextFieldInnerComponentsExample.tsx
+
+    ```
+
+  </ExampleCode>
+</Example>
+
+_You can also both inner and outer components together_
+
+<Example>
+  <TextFieldOuterAndInnerComponentsExample />
+  <ExampleCode>
+    ```jsx file=./examples/TextFieldOuterAndInnerComponentsExample.tsx
+
+    ```
+
+  </ExampleCode>
+</Example>
+
+### Descriptive text
+
+To provide additional descriptive text of requirements of the field, use the `descriptiveText` field:
+
+<Example>
+  <TextFieldDescriptiveTextExample />
+  <ExampleCode>
+    ```jsx file=./examples/TextFieldDescriptiveTextExample.tsx
+
+    ```
+
+  </ExampleCode>
+</Example>
+
+### States
+
+The available TextField states include `isDisabled` and `isReadonly`. A disabled field will be not be focusable not mutable and will not be submitted with form data. A readonly field cannot be edited by the user.
+
+<Example>
+  <TextFieldStatesExample />
+  <ExampleCode>
+    ```jsx file=./examples/TextFieldStatesExample.tsx
+
+    ```
+
+  </ExampleCode>
+</Example>
+
+### Required fields
+
+Use the `isRequired` prop to specify a required field.
+
+<Example>
+  <DefaultRequiredTextFieldExample />
+  <ExampleCode>
+    ```jsx file=./examples/DefaultRequiredTextFieldExample.tsx
+
+    ```
+
+  </ExampleCode>
+</Example>
+
+There is no default styling for required fields. Customize the `label` or `descriptiveText` to instruct the form user of the required field.
+
+<Example>
+  <RequiredTextFieldExample />
+  <ExampleCode>
+    ```jsx file=./examples/RequiredTextFieldExample.tsx
+
+    ```
+
+  </ExampleCode>
+</Example>
+
+### Validation error styling
+
+Use the `hasError` and `errorMessage` props to mark a TextField as having a validation error.
+
+<Example>
+  <TextFieldValidationErrorExample />
+  <ExampleCode>
+    ```jsx file=./examples/TextFieldValidationErrorExample.tsx
+
+    ```
+
+  </ExampleCode>
+</Example>
+
+### Event handlers
+
+TextField provides several event handlers: `onSelect`, `onInput`, `onChange`, `onCopy`, `onPaste`, and `onCut`. Open the console to interact with the demo below. 
+
+<Example>
+  <TextFieldEventHandlersExample />
+  <ExampleCode>
+    ```jsx file=./examples/TextFieldEventHandlersExample.tsx
+
+    ```
+
+  </ExampleCode>
+</Example>
+
+<StandardHTMLAttributes component="TextField" link="input" element="<input>">
+  <Example>
+    <TextField
+      label="Name"
+      placeholder="Galadriel"
+      name="name"
+    />
+
+    <ExampleCode>
+
+    ```jsx
+    <TextField
+      label="Name"
+      placeholder="Galadriel"
+      name="name"
+    />
+    ```
+
+    </ExampleCode>
+
+  </Example>
+</StandardHTMLAttributes>
+
+## CSS Styling
+
+<ThemeExample component="TextField">
+  <Example>
+    <TextFieldThemeExample />
+    
+    <ExampleCode>
+
+    ```tsx file=./examples/TextFieldThemeExample.tsx
+
+    ```
+
+    </ExampleCode>
+  </Example>
+</ThemeExample>
+
+### Target classes
+
+<ComponentStyleDisplay componentName="TextField" />
+
+### Global styling
+
+To override styling on all TextField primitives, you can set the Amplify CSS variables with the built-in `.amplify-textfield` class.
+
+<Example>
+  <TextField
+    label="Globally styled field"
+    className="globally-styled-textfield"
+  />
+  <ExampleCode>
+    ```css
+    /* styles.css */
+    .amplify-textfield {
+      --amplify-components-fieldcontrol-border-color: rebeccapurple;
+    }
+    ```
+  </ExampleCode>
+</Example>
+
+### Local styling
+
+To override styling on a specific TextField, you can use a class selector or style props.
+
+_Using a class selector:_
+
+<Example>
+  <TextField className="custom-textfield-class" label="Square field" />
+  <ExampleCode>
+    ```css
+    /* styles.css */
+    .custom-textfield-class .amplify-input {
+      border-radius: 0;
+    }
+    ```
+  </ExampleCode>
+</Example>
+
+_Using style props:_
+
+Flex styling props will be applied to the TextField wrapping Flex component, whereas other style props will be applied to the field. This allows us to change the layout of the label and field, while also styling the input field.
+
+<Example>
+  <TextFieldStylePropsExample />
+  <ExampleCode>
+    ```jsx file=./examples/TextFieldStylePropsExample.tsx
+
+    ```
+
+  </ExampleCode>
+</Example>

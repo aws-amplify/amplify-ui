@@ -29,6 +29,7 @@ type BackgroundColors<DesignTokenType = DesignToken<ColorValue>> = {
 
 type BorderColors<DesignTokenType = DesignToken<ColorValue>> = {
   disabled: DesignTokenType;
+  pressed: DesignTokenType;
   focus: DesignTokenType;
   error: DesignTokenType;
 } & OrdinalScale<DesignTokenType>;
@@ -181,7 +182,7 @@ export const colors: Colors = {
     10: { value: 'hsl(210, 5%, 98%)' },
     20: { value: 'hsl(210, 5%, 94%)' },
     40: { value: 'hsl(210, 5%, 87%)' },
-    60: { value: 'hsl(210, 6%, 70%)' },
+    60: { value: 'hsl(210, 8%, 55%)' },
     80: { value: 'hsl(210, 10%, 40%)' },
     90: { value: 'hsl(210, 25%, 25%)' },
     100: { value: 'hsl(210, 50%, 10%)' },
@@ -212,7 +213,7 @@ export const colors: Colors = {
     primary: { value: '{colors.neutral.100.value}' },
     secondary: { value: '{colors.neutral.90.value}' },
     tertiary: { value: '{colors.neutral.80.value}' },
-    disabled: { value: '{colors.font.tertiary.value}' },
+    disabled: { value: '{colors.neutral.60.value}' },
     inverse: { value: '{colors.white.value}' },
 
     interactive: { value: '{colors.brand.primary.80.value}' },
@@ -234,6 +235,7 @@ export const colors: Colors = {
     primary: { value: '{colors.white.value}' },
     secondary: { value: '{colors.neutral.10.value}' },
     tertiary: { value: '{colors.neutral.20.value}' },
+    quaternary: { value: '{colors.neutral.60.value}' },
     disabled: { value: '{colors.background.tertiary.value}' },
 
     info: { value: '{colors.blue.20.value}' },
@@ -248,6 +250,8 @@ export const colors: Colors = {
     tertiary: { value: '{colors.neutral.20.value}' },
 
     disabled: { value: '{colors.border.tertiary.value}' },
+
+    pressed: { value: '{colors.brand.primary.100.value}' },
     // Focus color is set to 100 to ensure enough contrast for accessibility
     focus: { value: '{colors.brand.primary.100.value}' },
     error: { value: '{colors.red.80.value}' },

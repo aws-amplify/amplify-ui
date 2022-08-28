@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 import { Checkbox } from '../Checkbox';
 import { CheckboxProps } from '../../types/checkbox';
 import { PrimitiveProps } from '../../types/view';
-import { ComponentClassNames } from '../../shared';
+import { ComponentClassNames } from '../../shared/constants';
 import {
   testFlexProps,
   expectFlexContainerStyleProps,
@@ -22,6 +22,61 @@ describe('Checkbox test suite', () => {
   const getCheckbox = (props: PrimitiveProps<CheckboxProps, 'input'>) => {
     return <Checkbox {...props} />;
   };
+
+  it('should render checkbox states', async () => {
+    render(
+      <div>
+        <Checkbox
+          label="disabled"
+          name="disabled"
+          value="disabled"
+          isDisabled={true}
+          testId="disabled"
+        />
+        <Checkbox
+          label="error"
+          name="error"
+          value="error"
+          hasError={true}
+          testId="error"
+        />
+        <Checkbox
+          label="checked"
+          name="checked"
+          value="checked"
+          checked={true}
+          testId="checked"
+        />
+        <Checkbox
+          label="indeterminate"
+          name="indeterminate"
+          value="indeterminate"
+          testId="indeterminate"
+          isIndeterminate
+        />
+      </div>
+    );
+
+    const disabled = await screen.findByTestId('disabled');
+    const error = await screen.findByTestId('error-amplify-checkbox__button');
+    const checked = await screen.findByTestId('checked-amplify-checkbox__icon');
+    const indeterminate = await screen.findByTestId(
+      'indeterminate-amplify-checkbox__icon'
+    );
+
+    expect(disabled).toHaveClass(
+      `${ComponentClassNames['Checkbox']}--disabled`
+    );
+    expect(error).toHaveClass(
+      `${ComponentClassNames['CheckboxButton']}--error`
+    );
+    expect(checked).toHaveClass(
+      `${ComponentClassNames['CheckboxIcon']}--checked`
+    );
+    expect(indeterminate).toHaveClass(
+      `${ComponentClassNames['CheckboxIcon']}--indeterminate`
+    );
+  });
 
   it('should render basic props correctly', async () => {
     render(getCheckbox({ ...basicProps }));
@@ -170,7 +225,6 @@ describe('Checkbox test suite', () => {
       );
       expect(icon).not.toHaveAttribute('data-checked');
       expect(icon).not.toHaveAttribute('data-disabled');
-      // expect(icon).toHaveAttribute('data-size', 'large');
       expect(icon).toHaveClass(ComponentClassNames.CheckboxIcon);
     });
   });

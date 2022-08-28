@@ -16,7 +16,7 @@ import {
   TransitionDurationValue,
 } from '../types/designToken';
 
-interface StateTokens {
+export interface StateTokens {
   color: DesignToken<ColorValue>;
   backgroundColor: DesignToken<BackgroundColorValue>;
   borderColor: DesignToken<BorderColorValue>;
