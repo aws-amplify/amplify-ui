@@ -8,6 +8,14 @@
       "import": "./dist/esm/index.js",
       "require": "./dist/index.js"
     },
+    "./authenticator": {
+      "import": "./dist/esm/authenticator.js",
+      "require": "./dist/authenticator.js"
+    },
+    "./geo": {
+      "import": "./dist/esm/geo.js",
+      "require": "./dist/geo.js"
+    },
     "./internal": {
       "import": "./dist/esm/internal.js",
       "require": "./dist/internal.js"
@@ -17,6 +25,10 @@
       "require": "./dist/legacy.js"
     },
     "./styles.css": "./dist/styles.css",
+    "./primitive-components": {
+      "import": "./dist/esm/primitive-components.js",
+      "require": "./dist/primitive-components.js"
+    },
     "./primitives.json": "./dist/primitives.json"
   },
   "browser": {
