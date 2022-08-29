@@ -1,3 +1,4 @@
+import * as React from 'react';
 import classNames from 'classnames';
 import { Property } from 'csstype';
 

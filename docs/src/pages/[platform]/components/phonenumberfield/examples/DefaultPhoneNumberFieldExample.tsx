@@ -1,5 +1,5 @@
 import { PhoneNumberField } from '@aws-amplify/ui-react';
 
 export const DefaultPhoneNumberFieldExample = () => (
-  <PhoneNumberField label="Phone Number" defaultCountryCode="+1" />
+  <PhoneNumberField label="Phone Number" defaultDialCode="+1" />
 );
