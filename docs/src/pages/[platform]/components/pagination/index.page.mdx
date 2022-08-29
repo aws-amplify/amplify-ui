@@ -13,7 +13,7 @@ import { PageTabLayout } from '@/components/Layout/PageTabLayout';
 import metaData from '@/data/pages.preval';
 
 export async function getStaticPaths() {
-  return getCustomStaticPath([metaData["/[platform]/components/pagination"].frontmatter.supportedFrameworks]);
+  return getCustomStaticPath(metaData["/[platform]/components/pagination"].frontmatter.supportedFrameworks);
 }
 
 {/*  `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" */}
