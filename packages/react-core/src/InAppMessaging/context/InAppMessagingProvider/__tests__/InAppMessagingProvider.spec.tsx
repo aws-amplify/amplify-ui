@@ -6,7 +6,7 @@ import { RenderNothing } from '../../../../components';
 
 import { useInAppMessaging } from '../../../hooks/useInAppMessaging';
 import { InAppMessagingContextType } from '../..';
-import InAppMessagingProvider from '../InAppMessagingProvider';
+import { InAppMessagingProvider } from '..';
 
 jest.mock('@aws-amplify/notifications', () => ({
   ...jest.requireActual('@aws-amplify/notifications'),

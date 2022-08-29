@@ -1,2 +1,2 @@
-export { useInAppMessaging } from './useInAppMessaging';
-export { useMessage } from './useMessage';
+export * from './useInAppMessaging';
+export * from './useMessage';

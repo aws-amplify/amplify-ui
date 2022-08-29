@@ -2,7 +2,7 @@ import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import { RenderNothing } from '../../../../components';
 
-import useInAppMessaging from '../useInAppMessaging';
+import { useInAppMessaging } from '..';
 
 const TestComponent = () => {
   const props = useInAppMessaging();

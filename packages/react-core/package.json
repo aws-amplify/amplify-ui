@@ -25,8 +25,8 @@
     "build:esm": "tsc --project tsconfig.esm.json",
     "dev": "yarn build:esm --watch",
     "lint": "tsc --noEmit && eslint src",
-    "test": "jest",
-    "test:coverage": "yarn test --coverage"
+    "test": "jest --coverage",
+    "test:watch": "yarn test --watch"
   },
   "peerDependencies": {
     "aws-amplify": "in-app-messaging",
