@@ -1,5 +1,11 @@
 # @aws-amplify/ui
 
+## 3.13.1
+
+### Patch Changes
+
+- [#2514](https://github.com/aws-amplify/amplify-ui/pull/2514) [`b60fec2c4`](https://github.com/aws-amplify/amplify-ui/commit/b60fec2c451b31946f893efbf23710c7631db122) Thanks [@zchenwei](https://github.com/zchenwei)! - chore: add indeterminate icon svg
+
 ## 3.13.0
 
 ### Minor Changes
