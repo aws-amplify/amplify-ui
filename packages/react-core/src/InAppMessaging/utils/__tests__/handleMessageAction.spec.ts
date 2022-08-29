@@ -2,7 +2,7 @@ import { ConsoleLogger as Logger } from '@aws-amplify/core';
 
 import { MessageAction } from '../../types';
 
-import handleMessageAction from '../handleMessageAction';
+import { handleMessageAction } from '..';
 
 // use empty mockImplementation to turn off console output
 const infoSpy = jest.spyOn(Logger.prototype, 'info').mockImplementation();

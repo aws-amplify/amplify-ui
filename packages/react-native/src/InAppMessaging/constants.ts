@@ -24,6 +24,7 @@ export const LINE_HEIGHT_BASE = getLineHeight(FONT_SIZE_BASE);
 export const LINE_HEIGHT_LARGE = getLineHeight(FONT_SIZE_LARGE);
 
 export const FONT_WEIGHT_BASE = '400';
+export const FONT_WEIGHT_BOLD = '600';
 
 // icon
 export const ICON_BUTTON_SIZE = 20;

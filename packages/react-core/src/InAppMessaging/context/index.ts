@@ -1,5 +1,2 @@
-export {
-  InAppMessagingContext,
-  InAppMessagingContextType,
-} from './InAppMessagingContext';
-export { InAppMessagingProvider } from './InAppMessagingProvider';
+export * from './InAppMessagingContext';
+export * from './InAppMessagingProvider';
