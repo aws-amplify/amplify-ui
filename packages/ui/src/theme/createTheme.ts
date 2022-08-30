@@ -1,3 +1,4 @@
+import { ReplacementStateToken } from './tokens/types/designToken';
 // Internal Style Dictionary methods
 import deepExtend from 'style-dictionary/lib/utils/deepExtend';
 import flattenProperties from 'style-dictionary/lib/utils/flattenProperties';
@@ -75,19 +76,30 @@ function removeDuplicateStateTokens(
   tokens: WebDesignToken[]
 ): WebDesignToken[] {
   let tokenList = tokens;
-  DUPLICATE_STATE_TOKENS.forEach((duplicateToken) => {
-    const filteredTokens = tokenList.filter(
-      (token) => duplicateToken.tokenName === token.name
-    );
-    // If two tokens are found from the list of DUPLICATE_STATE_TOKENS that contain the same name, then any of them that don't
-    // match the path found in DUPLICATE_STATE_TOKENS will be filtered out
-    if (filteredTokens.length >= 2) {
-      tokenList = tokenList.filter(
-        (token) =>
-          duplicateToken.tokenName !== token.name ||
-          duplicateToken.path === token.path.join('.')
-      );
+  // creating an key/value object of duplicateTokenName/duplicateTokenPath for faster lookups
+  const duplicateKeys = DUPLICATE_STATE_TOKENS.reduce(
+    (prev, current: ReplacementStateToken) => {
+      prev[current.tokenName] = current.path;
+      return prev;
+    },
+    {}
+  );
+
+  let duplicateTokenCount = {};
+  // iterate over the full tokenList a single time and count up all the instances of each duplicate token
+  tokenList.forEach((token) => {
+    if (duplicateKeys[token.name]) {
+      duplicateTokenCount[token.name] =
+        (duplicateTokenCount[token.name] ?? 0) + 1;
     }
+  });
+
+  // filter out the duplicate tokens that appear more than once in our token list
+  tokenList = tokenList.filter((token) => {
+    if (duplicateTokenCount[token.name] >= 2) {
+      return token.path.join('.') === duplicateKeys[token.name];
+    }
+    return true;
   });
   return tokenList;
 }
