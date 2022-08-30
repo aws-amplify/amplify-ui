@@ -82,17 +82,12 @@ export interface SwitchFieldTokens {
 }
 
 // To be removed in the next major version release
-export const DUPLICATE_SWITCHFIELD_STATES: ReplacementStateToken[] = [
-  {
-    tokenName: '--amplify-components-switchfield-thumb-checked-transform',
-    path: 'components.switchfield.thumb._checked.transform',
-  },
-  {
-    tokenName:
-      '--amplify-components-switchfield-track-checked-background-color',
-    path: 'components.switchfield.track._checked.backgroundColor',
-  },
-];
+export const DUPLICATE_SWITCHFIELD_STATES = {
+  '--amplify-components-switchfield-thumb-checked-transform':
+    'components.switchfield.thumb._checked.transform',
+  '--amplify-components-switchfield-track-checked-background-color':
+    'components.switchfield.track._checked.backgroundColor',
+};
 
 export const switchfield: SwitchFieldTokens = {
   // States

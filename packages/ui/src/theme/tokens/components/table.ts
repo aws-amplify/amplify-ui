@@ -89,12 +89,10 @@ export interface TableTokens {
 }
 
 // To be removed in the next major version release
-export const DUPLICATE_TABLE_STATES: ReplacementStateToken[] = [
-  {
-    tokenName: '--amplify-components-table-row-hover-background-color',
-    path: 'components.table.row._hover.backgroundColor',
-  },
-];
+export const DUPLICATE_TABLE_STATES = {
+  '--amplify-components-table-row-hover-background-color':
+    'components.table.row._hover.backgroundColor',
+};
 
 export const table: TableTokens = {
   /**

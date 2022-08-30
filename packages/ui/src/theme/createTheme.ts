@@ -76,19 +76,11 @@ function removeDuplicateStateTokens(
   tokens: WebDesignToken[]
 ): WebDesignToken[] {
   let tokenList = tokens;
-  // creating an key/value object of duplicateTokenName/duplicateTokenPath for faster lookups
-  const duplicateKeys = DUPLICATE_STATE_TOKENS.reduce(
-    (prev, current: ReplacementStateToken) => {
-      prev[current.tokenName] = current.path;
-      return prev;
-    },
-    {}
-  );
 
   let duplicateTokenCount = {};
   // iterate over the full tokenList a single time and count up all the instances of each duplicate token
   tokenList.forEach((token) => {
-    if (duplicateKeys[token.name]) {
+    if (DUPLICATE_STATE_TOKENS[token.name]) {
       duplicateTokenCount[token.name] =
         (duplicateTokenCount[token.name] ?? 0) + 1;
     }
@@ -97,7 +89,7 @@ function removeDuplicateStateTokens(
   // filter out the duplicate tokens that appear more than once in our token list
   tokenList = tokenList.filter((token) => {
     if (duplicateTokenCount[token.name] >= 2) {
-      return token.path.join('.') === duplicateKeys[token.name];
+      return token.path.join('.') === DUPLICATE_STATE_TOKENS[token.name];
     }
     return true;
   });

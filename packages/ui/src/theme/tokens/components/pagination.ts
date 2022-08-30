@@ -73,20 +73,14 @@ export interface PaginationTokens {
 }
 
 // To be removed in the next major version release
-export const DUPLICATE_PAGINATION_STATES: ReplacementStateToken[] = [
-  {
-    tokenName: '--amplify-components-pagination-button-hover-background-color',
-    path: 'components.pagination.button._hover.backgroundColor',
-  },
-  {
-    tokenName: '--amplify-components-pagination-button-hover-color',
-    path: 'components.pagination.button._hover.color',
-  },
-  {
-    tokenName: '--amplify-components-pagination-button-disabled-color',
-    path: 'components.pagination.button._disabled.color',
-  },
-];
+export const DUPLICATE_PAGINATION_STATES = {
+  '--amplify-components-pagination-button-hover-background-color':
+    'components.pagination.button._hover.backgroundColor',
+  '--amplify-components-pagination-button-hover-color':
+    'components.pagination.button._hover.color',
+  '--amplify-components-pagination-button-disabled-color':
+    'components.pagination.button._disabled.color',
+};
 
 export const pagination: PaginationTokens = {
   current: {

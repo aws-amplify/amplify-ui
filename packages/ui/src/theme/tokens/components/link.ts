@@ -38,24 +38,12 @@ export interface LinkTokens {
 }
 
 // To be removed in the next major version release
-export const DUPLICATE_LINK_STATES: ReplacementStateToken[] = [
-  {
-    tokenName: '--amplify-components-link-active-color',
-    path: 'components.link._active.color',
-  },
-  {
-    tokenName: '--amplify-components-link-focus-color',
-    path: 'components.link._focus.color',
-  },
-  {
-    tokenName: '--amplify-components-link-hover-color',
-    path: 'components.link._hover.color',
-  },
-  {
-    tokenName: '--amplify-components-link-visited-color',
-    path: 'components.link._visited.color',
-  },
-];
+export const DUPLICATE_LINK_STATES = {
+  '--amplify-components-link-active-color': 'components.link._active.color',
+  '--amplify-components-link-focus-color': 'components.link._focus.color',
+  '--amplify-components-link-hover-color': 'components.link._hover.color',
+  '--amplify-components-link-visited-color': 'components.link._visited.color',
+};
 
 export const link: LinkTokens = {
   active: {
