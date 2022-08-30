@@ -114,20 +114,18 @@ export const getSendEventAliases = (
 export const getServiceContextFacade = (
   state: AuthMachineState
 ): AuthenticatorServiceContextFacade => {
-  const user = state.context?.user;
   const actorState = getActorState(state);
   const actorContext = (getActorContext(state) ?? {}) as ActorContextWithForms;
   const {
     challengeName,
     codeDeliveryDetails,
     remoteError: error,
-    validationError,
+    user,
+    validationError: validationErrors,
   } = actorContext;
 
-  const validationErrors = { ...validationError };
   const hasValidationErrors = Object.keys(validationErrors).length > 0;
-  const isPending =
-    state.hasTag('pending') || getActorState(state)?.hasTag('pending');
+  const isPending = state.hasTag('pending') || actorState?.hasTag('pending');
 
   // Any additional idle states added beyond (idle, setup) should be updated inside the authStatus below as well
   const route = (() => {
