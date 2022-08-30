@@ -1,12 +1,18 @@
 import { ButtonComponent } from './button.component';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 
-describe('AppComponent', () => {
-  let fixture: ButtonComponent;
+describe('ButtonComponent', () => {
+  let fixture: ComponentFixture<ButtonComponent>;
+  let component: ButtonComponent;
 
-  beforeEach(() => {
-    fixture = new ButtonComponent();
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [ButtonComponent],
+    }).compileComponents();
+    fixture = TestBed.createComponent(ButtonComponent);
+    component = fixture.componentInstance;
   });
   it('Default type test.', () => {
-    expect(fixture.type).toEqual('button');
+    expect(component.type).toEqual('button');
   });
 });
