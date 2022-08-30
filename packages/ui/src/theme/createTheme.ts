@@ -1,4 +1,3 @@
-import { ReplacementStateToken } from './tokens/types/designToken';
 // Internal Style Dictionary methods
 import deepExtend from 'style-dictionary/lib/utils/deepExtend';
 import flattenProperties from 'style-dictionary/lib/utils/flattenProperties';

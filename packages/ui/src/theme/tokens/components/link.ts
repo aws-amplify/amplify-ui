@@ -1,9 +1,4 @@
-import {
-  ColorValue,
-  DesignToken,
-  FontSizeValue,
-  ReplacementStateToken,
-} from '../types/designToken';
+import { ColorValue, DesignToken, FontSizeValue } from '../types/designToken';
 
 interface LinkStateTokens {
   color: DesignToken<ColorValue>;

@@ -6,7 +6,6 @@ import {
   DesignToken,
   FontSizeValue,
   JustifyContentValue,
-  ReplacementStateToken,
   SpaceValue,
   TransitionDurationValue,
   TransitionPropertyValue,

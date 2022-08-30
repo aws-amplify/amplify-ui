@@ -43,18 +43,6 @@ export type WebDesignToken<ValueType = any> = {
   toString(): string;
 } & DesignToken<ValueType>;
 
-// To be removed in the next major version release
-export type ReplacementStateToken = {
-  /**
-   * Name of the duplicate design token
-   */
-  tokenName: string;
-  /**
-   * String path to the replacement token
-   */
-  path: string;
-};
-
 export type AnimationDurationValue = string;
 export type AnimationTimingFunctionValue = string;
 export type AlignItemsValue = string;

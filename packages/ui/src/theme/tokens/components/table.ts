@@ -10,7 +10,6 @@ import {
   DisplayValue,
   FontSizeValue,
   FontWeightValue,
-  ReplacementStateToken,
   SpaceValue,
   TextAlignValue,
   VerticalAlignValue,

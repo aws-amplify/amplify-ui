@@ -5,7 +5,6 @@ import {
   DesignToken,
   FontSizeValue,
   OpacityValue,
-  ReplacementStateToken,
   ShadowValue,
   SpaceValue,
   TransformValue,
