@@ -9,4 +9,5 @@ export {
   AuthenticatorRoute,
   AuthenticatorSendEventAliases,
   AuthenticatorServiceContextFacade,
+  AuthenticatorServiceFacade,
 } from './types';

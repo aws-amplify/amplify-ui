@@ -17,6 +17,7 @@ import { getActorContext, getActorState } from './actor';
 import {
   AuthenticatorSendEventAliases,
   AuthenticatorServiceContextFacade,
+  AuthenticatorServiceFacade,
 } from './types';
 
 /**
@@ -150,7 +151,7 @@ export const getServiceFacade = ({
 }: {
   send: Sender<AuthEvent>;
   state: AuthMachineState;
-}) => {
+}): AuthenticatorServiceFacade => {
   const sendEventAliases = getSendEventAliases(send);
   const serviceContext = getServiceContextFacade(state);
 

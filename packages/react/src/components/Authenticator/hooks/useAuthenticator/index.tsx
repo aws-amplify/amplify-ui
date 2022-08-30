@@ -7,10 +7,9 @@ import {
   createAuthenticatorMachine,
   getSendEventAliases,
   getServiceContextFacade,
-  getServiceFacade,
   listenToAuthHub,
   AuthenticatorSendEventAliases,
-  AuthenticatorServiceContextFacade,
+  AuthenticatorServiceFacade,
 } from '@aws-amplify/ui';
 import { useSelector, useInterpret } from '@xstate/react';
 import isEmpty from 'lodash/isEmpty';
@@ -25,7 +24,7 @@ export type AuthenticatorContextValue = {
  * These are the "facades" that we provide, which contains contexts respective
  * to current authenticator state.
  */
-export type AuthenticatorContext = ReturnType<typeof getServiceFacade>;
+export type AuthenticatorContext = AuthenticatorServiceFacade;
 
 /**
  * These are internal xstate helpers to we share with `useAuthenticator`.
@@ -45,9 +44,7 @@ export type InternalAuthenticatorContext = {
  */
 export type Selector = (context: AuthenticatorContext) => Array<any>;
 
-export interface UseAuthenticator
-  extends AuthenticatorSendEventAliases,
-    AuthenticatorServiceContextFacade {
+export interface UseAuthenticator extends AuthenticatorServiceFacade {
   /** @deprecated For internal use only */
   _send: InternalAuthenticatorContext['_send'];
   /** @deprecated For internal use only */
@@ -82,9 +79,10 @@ export const Provider = ({
    * Leaving this as is for now in the interest of suggested code guideline.
    */
   const service = useInterpret(createAuthenticatorMachine);
-  const value = React.useMemo(() => {
-    return isEmpty(parentProviderVal) ? { service } : parentProviderVal;
-  }, [parentProviderVal, service]);
+  const value = React.useMemo(
+    () => (isEmpty(parentProviderVal) ? { service } : parentProviderVal),
+    [parentProviderVal, service]
+  );
 
   const { service: activeService } = value;
 
@@ -120,12 +118,12 @@ export const useAuthenticator = (selector?: Selector): UseAuthenticator => {
   const { send } = service;
 
   // send aliases are static and thus can be memoized
-  const sendAliases = React.useMemo<ReturnType<typeof getSendEventAliases>>(
+  const sendAliases = React.useMemo<AuthenticatorSendEventAliases>(
     () => getSendEventAliases(send),
     [send]
   );
 
-  const getFacade = (state: AuthMachineState) => {
+  const getFacade = (state: AuthMachineState): AuthenticatorServiceFacade => {
     return { ...sendAliases, ...getServiceContextFacade(state) };
   };
 
@@ -142,8 +140,8 @@ export const useAuthenticator = (selector?: Selector): UseAuthenticator => {
    * re-render. Does a deep equality check.
    */
   const comparator = (
-    prevFacade: ReturnType<typeof getFacade>,
-    nextFacade: ReturnType<typeof getFacade>
+    prevFacade: AuthenticatorServiceFacade,
+    nextFacade: AuthenticatorServiceFacade
   ) => {
     if (!selector) return false;
 

@@ -1,6 +1,9 @@
+import { Sender } from 'xstate';
 import {
   AuthChallengeNames,
+  AuthEvent,
   AuthEventData,
+  AuthMachineState,
   CodeDeliveryDetails,
   CognitoUserAmplify,
 } from '../../types';
@@ -56,3 +59,7 @@ export interface AuthenticatorServiceContextFacade {
   user: CognitoUserAmplify;
   validationErrors: AuthenticatorValidationErrors;
 }
+
+export interface AuthenticatorServiceFacade
+  extends AuthenticatorSendEventAliases,
+    AuthenticatorServiceContextFacade {}
