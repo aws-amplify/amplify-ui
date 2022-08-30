@@ -1,5 +1,24 @@
 # @aws-amplify/ui-vue
 
+## 2.4.19
+
+### Patch Changes
+
+- [#2459](https://github.com/aws-amplify/amplify-ui/pull/2459) [`8350d36e2`](https://github.com/aws-amplify/amplify-ui/commit/8350d36e217587e06632ea5704d8c51e70559edc) Thanks [@jacoblogan](https://github.com/jacoblogan)! - Angular: Add `amplify-dialcodeselect` class which contains the previous countrycodeselect styles
+  Vue: Add `amplify-dialcodeselect` class which contains the previous countrycodeselect styles
+  React: Added 'dialCode' versions of all 'countryCode' props so that users can begin migrating away from the deprecated `countryCode`.
+
+  ```
+  countryCodeLabel => dialCodeLabel
+  countryCodeName => dialCodeName
+  onCountryCodeChange => onDialCodeChange
+  countryCodeRef => dialCodeRef
+  defaultCountryCode => defaultDialCode
+  ```
+
+- Updated dependencies [[`b60fec2c4`](https://github.com/aws-amplify/amplify-ui/commit/b60fec2c451b31946f893efbf23710c7631db122)]:
+  - @aws-amplify/ui@3.13.1
+
 ## 2.4.18
 
 ### Patch Changes
