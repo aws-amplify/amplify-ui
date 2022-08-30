@@ -72,6 +72,5 @@
         "stringifyContentPathRegex": "\\.(html|svg)$"
       }
     }
-  },
-  "dependencies": {}
+  }
 }
