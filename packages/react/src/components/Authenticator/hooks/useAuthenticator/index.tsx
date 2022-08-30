@@ -5,10 +5,8 @@ import {
   AuthMachineSend,
   AuthMachineState,
   createAuthenticatorMachine,
-  getSendEventAliases,
-  getServiceContextFacade,
+  getServiceFacade,
   listenToAuthHub,
-  AuthenticatorSendEventAliases,
   AuthenticatorServiceFacade,
 } from '@aws-amplify/ui';
 import { useSelector, useInterpret } from '@xstate/react';
@@ -117,15 +115,10 @@ export const useAuthenticator = (selector?: Selector): UseAuthenticator => {
 
   const { send } = service;
 
-  // send aliases are static and thus can be memoized
-  const sendAliases = React.useMemo<AuthenticatorSendEventAliases>(
-    () => getSendEventAliases(send),
+  const getFacade = React.useCallback(
+    (state: AuthMachineState) => ({ ...getServiceFacade({ send, state }) }),
     [send]
   );
-
-  const getFacade = (state: AuthMachineState): AuthenticatorServiceFacade => {
-    return { ...sendAliases, ...getServiceContextFacade(state) };
-  };
 
   /**
    * For `useSelector`'s selector argument, we transform `state` into
