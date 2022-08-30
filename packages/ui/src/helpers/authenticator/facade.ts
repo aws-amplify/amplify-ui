@@ -20,7 +20,7 @@ import {
 
 import { getActorContext, getActorState } from './actor';
 
-export type AuthenticatorRoute =
+type AuthenticatorRoute =
   | 'authenticated'
   | 'autoSignIn'
   | 'confirmResetPassword'
@@ -40,7 +40,7 @@ export type AuthenticatorRoute =
 type AuthenticatorValidationErrors = ValidationError;
 type AuthStatus = 'configuring' | 'authenticated' | 'unauthenticated';
 
-export interface AuthenticatorServiceContextFacade {
+interface AuthenticatorServiceContextFacade {
   authStatus: AuthStatus;
   challengeName: AuthChallengeNames;
   codeDeliveryDetails: CodeDeliveryDetails;
@@ -64,7 +64,7 @@ type SendEventAlias =
   | 'toSignUp'
   | 'skipVerification';
 
-export type AuthenticatorSendEventAliases = Record<
+type AuthenticatorSendEventAliases = Record<
   SendEventAlias,
   (data?: AuthEventData) => void
 >;
