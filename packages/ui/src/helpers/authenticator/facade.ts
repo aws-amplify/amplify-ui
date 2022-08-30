@@ -8,17 +8,70 @@ import { Sender } from 'xstate';
 
 import {
   ActorContextWithForms,
+  AuthChallengeNames,
   AuthEvent,
   AuthEventData,
   AuthEventTypes,
   AuthMachineState,
+  CodeDeliveryDetails,
+  CognitoUserAmplify,
+  ValidationError,
 } from '../../types';
+
 import { getActorContext, getActorState } from './actor';
-import {
-  AuthenticatorSendEventAliases,
-  AuthenticatorServiceContextFacade,
-  AuthenticatorServiceFacade,
-} from './types';
+
+export type AuthenticatorRoute =
+  | 'authenticated'
+  | 'autoSignIn'
+  | 'confirmResetPassword'
+  | 'confirmSignIn'
+  | 'confirmSignUp'
+  | 'confirmVerifyUser'
+  | 'forceNewPassword'
+  | 'idle'
+  | 'resetPassword'
+  | 'setup'
+  | 'signOut'
+  | 'setupTOTP'
+  | 'signIn'
+  | 'signUp'
+  | 'verifyUser';
+
+type AuthenticatorValidationErrors = ValidationError;
+type AuthStatus = 'configuring' | 'authenticated' | 'unauthenticated';
+
+export interface AuthenticatorServiceContextFacade {
+  authStatus: AuthStatus;
+  challengeName: AuthChallengeNames;
+  codeDeliveryDetails: CodeDeliveryDetails;
+  error: string;
+  hasValidationErrors: boolean;
+  isPending: boolean;
+  route: AuthenticatorRoute;
+  user: CognitoUserAmplify;
+  validationErrors: AuthenticatorValidationErrors;
+}
+
+type SendEventAlias =
+  | 'resendCode'
+  | 'signOut'
+  | 'submitForm'
+  | 'updateForm'
+  | 'updateBlur'
+  | 'toFederatedSignIn'
+  | 'toResetPassword'
+  | 'toSignIn'
+  | 'toSignUp'
+  | 'skipVerification';
+
+export type AuthenticatorSendEventAliases = Record<
+  SendEventAlias,
+  (data?: AuthEventData) => void
+>;
+
+export interface AuthenticatorServiceFacade
+  extends AuthenticatorSendEventAliases,
+    AuthenticatorServiceContextFacade {}
 
 /**
  * Creates public facing auth helpers that abstracts out xstate implementation
