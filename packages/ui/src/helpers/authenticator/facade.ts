@@ -14,6 +14,10 @@ import {
   AuthMachineState,
 } from '../../types';
 import { getActorContext, getActorState } from './actor';
+import {
+  AuthenticatorSendEventAliases,
+  AuthenticatorServiceContextFacade,
+} from './types';
 
 /**
  * Creates public facing auth helpers that abstracts out xstate implementation
@@ -26,7 +30,9 @@ import { getActorContext, getActorState } from './actor';
  * submit({ username, password})
  * ```
  */
-export const getSendEventAliases = (send: Sender<AuthEvent>) => {
+export const getSendEventAliases = (
+  send: Sender<AuthEvent>
+): AuthenticatorSendEventAliases => {
   const sendToMachine = (type: AuthEventTypes) => {
     // TODO If these were created during the creation of the machine & provider,
     // then invalid transitions could be caught via https://xstate.js.org/docs/guides/states.html#state-can-event
@@ -48,16 +54,23 @@ export const getSendEventAliases = (send: Sender<AuthEvent>) => {
     toSignIn: sendToMachine('SIGN_IN'),
     toSignUp: sendToMachine('SIGN_UP'),
     skipVerification: sendToMachine('SKIP'),
-  } as const;
+  };
 };
 
-export const getServiceContextFacade = (state: AuthMachineState) => {
+export const getServiceContextFacade = (
+  state: AuthMachineState
+): AuthenticatorServiceContextFacade => {
   const user = state.context?.user;
   const actorState = getActorState(state);
-  const actorContext = getActorContext(state) as ActorContextWithForms;
-  const error = actorContext?.remoteError;
-  const validationErrors = { ...actorContext?.validationError };
-  const codeDeliveryDetails = actorContext?.codeDeliveryDetails;
+  const actorContext = (getActorContext(state) ?? {}) as ActorContextWithForms;
+  const {
+    challengeName,
+    codeDeliveryDetails,
+    remoteError: error,
+    validationError,
+  } = actorContext;
+
+  const validationErrors = { ...validationError };
   const hasValidationErrors = Object.keys(validationErrors).length > 0;
   const isPending =
     state.hasTag('pending') || getActorState(state)?.hasTag('pending');
@@ -119,18 +132,25 @@ export const getServiceContextFacade = (state: AuthMachineState) => {
   })(route);
 
   return {
+    authStatus,
+    challengeName,
+    codeDeliveryDetails,
     error,
     hasValidationErrors,
     isPending,
     route,
-    authStatus,
     user,
     validationErrors,
-    codeDeliveryDetails,
   };
 };
 
-export const getServiceFacade = ({ send, state }) => {
+export const getServiceFacade = ({
+  send,
+  state,
+}: {
+  send: Sender<AuthEvent>;
+  state: AuthMachineState;
+}) => {
   const sendEventAliases = getSendEventAliases(send);
   const serviceContext = getServiceContextFacade(state);
 

@@ -1,17 +1,16 @@
 import * as React from 'react';
 
 import {
-  AuthEventData,
   AuthInterpreter,
   AuthMachineSend,
   AuthMachineState,
-  CodeDeliveryDetails,
-  CognitoUserAmplify,
   createAuthenticatorMachine,
   getSendEventAliases,
   getServiceContextFacade,
   getServiceFacade,
   listenToAuthHub,
+  AuthenticatorSendEventAliases,
+  AuthenticatorServiceContextFacade,
 } from '@aws-amplify/ui';
 import { useSelector, useInterpret } from '@xstate/react';
 import isEmpty from 'lodash/isEmpty';
@@ -46,31 +45,14 @@ export type InternalAuthenticatorContext = {
  */
 export type Selector = (context: AuthenticatorContext) => Array<any>;
 
-export type UseAuthenticator = {
+export interface UseAuthenticator
+  extends AuthenticatorSendEventAliases,
+    AuthenticatorServiceContextFacade {
   /** @deprecated For internal use only */
   _send: InternalAuthenticatorContext['_send'];
   /** @deprecated For internal use only */
   _state: InternalAuthenticatorContext['_state'];
-
-  error: string;
-  hasValidationErrors: boolean;
-  isPending: boolean;
-  route: string;
-  authStatus: string;
-  user: CognitoUserAmplify;
-  validationErrors: { [key: string]: string | string[] };
-  codeDeliveryDetails: CodeDeliveryDetails;
-  resendCode: (data?: AuthEventData) => void;
-  signOut: (data?: AuthEventData) => void;
-  submitForm: (data?: AuthEventData) => void;
-  updateForm: (data?: AuthEventData) => void;
-  updateBlur: (data?: AuthEventData) => void;
-  toFederatedSignIn: (data?: AuthEventData) => void;
-  toResetPassword: (data?: AuthEventData) => void;
-  toSignIn: (data?: AuthEventData) => void;
-  toSignUp: (data?: AuthEventData) => void;
-  skipVerification: (data?: AuthEventData) => void;
-};
+}
 
 /**
  * AuthenticatorContext serves static reference to the auth machine service.

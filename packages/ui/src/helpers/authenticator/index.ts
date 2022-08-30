@@ -5,3 +5,8 @@ export * from './constants';
 export * from './form';
 export * from './utils';
 export * from './formFields';
+export {
+  AuthenticatorRoute,
+  AuthenticatorSendEventAliases,
+  AuthenticatorServiceContextFacade,
+} from './types';
