@@ -42,7 +42,6 @@ type AuthStatus = 'configuring' | 'authenticated' | 'unauthenticated';
 
 interface AuthenticatorServiceContextFacade {
   authStatus: AuthStatus;
-  challengeName: AuthChallengeNames;
   codeDeliveryDetails: CodeDeliveryDetails;
   error: string;
   hasValidationErrors: boolean;
@@ -117,7 +116,6 @@ export const getServiceContextFacade = (
   const actorState = getActorState(state);
   const actorContext = (getActorContext(state) ?? {}) as ActorContextWithForms;
   const {
-    challengeName,
     codeDeliveryDetails,
     remoteError: error,
     validationError: validationErrors,
@@ -188,7 +186,6 @@ export const getServiceContextFacade = (
 
   return {
     authStatus,
-    challengeName,
     codeDeliveryDetails,
     error,
     hasValidationErrors,
