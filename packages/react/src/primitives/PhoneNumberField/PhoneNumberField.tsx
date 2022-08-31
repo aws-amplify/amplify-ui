@@ -13,35 +13,47 @@ const PhoneNumberFieldPrimitive: Primitive<PhoneNumberFieldProps, 'input'> = (
     className,
     countryCodeName,
     countryCodeLabel = ComponentText.PhoneNumberField.countryCodeLabel,
+    countryCodeRef,
     defaultCountryCode,
+    defaultDialCode,
+    dialCodeLabel = ComponentText.PhoneNumberField.countryCodeLabel,
+    dialCodeList,
+    dialCodeName,
+    dialCodeRef,
     hasError,
     isDisabled,
     isReadOnly,
     onCountryCodeChange,
+    onDialCodeChange,
     onInput,
     size,
     type,
     variation,
-    countryCodeRef,
-    dialCodeList,
     ...rest
   },
   ref
 ) => {
+  // Merge all dial/country code values in preparation of countryCode values being removed preferring dial code values
+  const codeName = dialCodeName || countryCodeName;
+  const codeLabel = dialCodeLabel || countryCodeLabel;
+  const defaultCode = defaultDialCode || defaultCountryCode;
+  const onCodeChange = onDialCodeChange || onCountryCodeChange;
+  const codeRef = dialCodeRef || countryCodeRef;
+
   return (
     <TextField
       outerStartComponent={
         <CountryCodeSelect
-          defaultValue={defaultCountryCode}
+          defaultValue={defaultCode}
           dialCodeList={dialCodeList}
           className={className}
           hasError={hasError}
           isDisabled={isDisabled}
           isReadOnly={isReadOnly}
-          label={countryCodeLabel}
-          name={countryCodeName}
-          onChange={onCountryCodeChange}
-          ref={countryCodeRef}
+          label={codeLabel}
+          name={codeName}
+          onChange={onCodeChange}
+          ref={codeRef}
           size={size}
           variation={variation}
         />
