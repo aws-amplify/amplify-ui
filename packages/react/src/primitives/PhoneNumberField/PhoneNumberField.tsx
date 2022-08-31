@@ -6,7 +6,6 @@ import { CountryCodeSelect } from './CountryCodeSelect';
 import { PhoneNumberFieldProps, Primitive } from '../types';
 import { ComponentText } from '../shared/constants';
 import { TextField } from '../TextField';
-import { useDeprecationWarning } from '../../hooks/useDeprecationWarning';
 
 const PhoneNumberFieldPrimitive: Primitive<PhoneNumberFieldProps, 'input'> = (
   {
@@ -40,20 +39,6 @@ const PhoneNumberFieldPrimitive: Primitive<PhoneNumberFieldProps, 'input'> = (
   const defaultCode = defaultDialCode || defaultCountryCode;
   const onCodeChange = onDialCodeChange || onCountryCodeChange;
   const codeRef = dialCodeRef || countryCodeRef;
-
-  const deprecationMessage =
-    'The PhoneNumberField component props: countryCodeName, countryCodeLabel, defaultCountryCode, onCountryCodeChange, and countryCodeRef props are deprecated and will be removed in the next major release of @aws-amplify/ui-react. Please update to dialCodeName, dialCodeLabel, defaultDialCode, onDialCodeChange, and dialCodeRef respectively.';
-  const shouldWarn =
-    countryCodeName ||
-    countryCodeLabel !== ComponentText.PhoneNumberField.countryCodeLabel ||
-    defaultCountryCode ||
-    onCountryCodeChange ||
-    countryCodeRef;
-
-  useDeprecationWarning({
-    shouldWarn: !!shouldWarn,
-    message: deprecationMessage,
-  });
 
   return (
     <TextField
