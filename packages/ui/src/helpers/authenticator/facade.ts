@@ -122,7 +122,7 @@ export const getServiceContextFacade = (
 
   // check for user in actorContext prior to state context. actorContext is more "up to date",
   // but is not available on all states
-  const { user } = actorContext ?? state.context;
+  const user = actorContext?.user ?? state.context?.user;
 
   const hasValidationErrors =
     validationErrors && Object.keys(validationErrors).length > 0;
