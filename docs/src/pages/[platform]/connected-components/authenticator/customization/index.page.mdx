@@ -8,10 +8,9 @@ supportedFrameworks: all
 import { Fragment } from '@/components/Fragment';
 import { FRAMEWORKS } from '@/data/frameworks';
 import { getCustomStaticPath } from "@/utils/getCustomStaticPath";
-import metaData from '@/data/pages.preval';
 
 export async function getStaticPaths() {
-  return getCustomStaticPath(metaData["/[platform]/connected-components/authenticator/customization"].frontmatter.supportedFrameworks);
+  return getCustomStaticPath(frontmatter.supportedFrameworks);
 }
 
 {/*  `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" */}

@@ -8,10 +8,9 @@ import { Fragment } from '@/components/Fragment';
 
 import { getCustomStaticPath } from "@/utils/getCustomStaticPath";
 
-import metaData from '@/data/pages.preval';
 
 export async function getStaticPaths() {
-  return getCustomStaticPath(metaData["/[platform]/guides/auth-protected"].frontmatter.supportedFrameworks);
+  return getCustomStaticPath(frontmatter.supportedFrameworks);
 }
 
 {/*  `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" */}
