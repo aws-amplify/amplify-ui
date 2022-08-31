@@ -3,6 +3,7 @@ import { Credentials } from '@aws-amplify/core';
 import { AmazonAIInterpretPredictionsProvider } from '@aws-amplify/predictions';
 import {
   LivenessRequestStream,
+  LivenessResponseStream,
   RekognitionStreamingClient,
   StartStreamingLivenessSessionCommand,
 } from '@aws-sdk/client-rekognitionstreaming';
@@ -29,6 +30,7 @@ export interface Credentials {
 export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider {
   public sessionId: string;
   public videoRecorder: VideoRecorder;
+  public responseStream: AsyncIterable<LivenessResponseStream>;
 
   private _reader: ReadableStreamDefaultReader;
   private _stream: MediaStream;
@@ -94,23 +96,26 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
     };
   }
 
-  public async streamLivenessVideo(): Promise<any> {
+  public async startLivenessVideoConnection(): Promise<
+    AsyncIterable<LivenessResponseStream>
+  > {
     await this._initPromise;
-    this.videoRecorder.start(100);
     const livenessRequestGenerator = this.getAsyncGeneratorFromReadableStream(
       this.videoRecorder.videoStream
     )();
 
     const response = await this._client.send(
       new StartStreamingLivenessSessionCommand({
+        ClientSDKVersion: '1.0',
         SessionId: this.sessionId,
         LivenessRequestStream: livenessRequestGenerator,
       })
     );
+    return response.LivenessResponseStream;
+  }
 
-    for await (const event of response.LivenessResponseStream) {
-      console.log(event);
-    }
+  public async startRecordingLivenessVideo(): Promise<any> {
+    this.videoRecorder.start(100);
   }
 
   public sendClientInfo(livenessActionDocument: any) {
@@ -141,19 +146,19 @@ function isLivenessActionDocument(obj: any): obj is ClientSessionInformation {
   );
 }
 
-async function streamLivenessVideoStatic(
-  sessionId: string,
-  videoStream: MediaStream
-): Promise<any> {
-  const provider = new LivenessStreamProvider(sessionId, videoStream);
+// async function streamLivenessVideoStatic(
+//   sessionId: string,
+//   videoStream: MediaStream
+// ): Promise<any> {
+//   const provider = new LivenessStreamProvider(sessionId, videoStream);
 
-  provider.videoRecorder.start(100);
-  const { responseStream } = await provider.streamLivenessVideo();
+//   provider.videoRecorder.start(100);
+//   const { responseStream } = await provider.streamLivenessVideo();
 
-  return {
-    sessionId,
-    responseStream,
-    endStream: provider.endStream,
-    sendClientInfo: provider.sendClientInfo,
-  };
-}
+//   return {
+//     sessionId,
+//     responseStream,
+//     endStream: provider.endStream,
+//     sendClientInfo: provider.sendClientInfo,
+//   };
+// }
