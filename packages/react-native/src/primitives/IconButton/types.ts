@@ -3,6 +3,7 @@ import {
   ImageSourcePropType,
   ImageStyle,
   PressableProps,
+  StyleProp,
 } from 'react-native';
 
 export interface IconButtonStyles {
@@ -11,17 +12,22 @@ export interface IconButtonStyles {
 
 export interface IconButtonProps extends PressableProps {
   /**
-   * color to be applied to the icon
+   * Color to be applied to the icon
    */
   color?: ColorValue;
 
   /**
-   * icon source, only supports images at this time
+   * Icon style properties
+   */
+  iconStyle?: StyleProp<ImageStyle>;
+
+  /**
+   * Icon source, only supports images at this time
    */
   source: ImageSourcePropType;
 
   /**
-   * icon size
+   * Icon size
    */
   size?: number;
 }

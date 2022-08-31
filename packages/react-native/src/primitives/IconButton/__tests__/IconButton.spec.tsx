@@ -10,4 +10,14 @@ describe('IconButton', () => {
     const iconButton = TestRenderer.create(<IconButton source={source} />);
     expect(iconButton.toJSON()).toMatchSnapshot();
   });
+
+  it('renders as expected with custom icon style', () => {
+    const iconButton = TestRenderer.create(
+      <IconButton
+        iconStyle={{ backgroundColor: 'antiquewhite' }}
+        source={source}
+      />
+    );
+    expect(iconButton.toJSON()).toMatchSnapshot();
+  });
 });

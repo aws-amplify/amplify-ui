@@ -6,15 +6,16 @@ import { IconButtonProps } from './types';
 
 export default function IconButton({
   color,
+  iconStyle,
   source,
   size = 16,
-  ...pressableProps
+  ...rest
 }: IconButtonProps): JSX.Element {
   const { icon } = useMemo(() => getStyles(color, size), [color, size]);
 
   return (
-    <Pressable {...pressableProps}>
-      <Image source={source} style={icon} />
+    <Pressable {...rest}>
+      <Image source={source} style={[icon, iconStyle]} />
     </Pressable>
   );
 }

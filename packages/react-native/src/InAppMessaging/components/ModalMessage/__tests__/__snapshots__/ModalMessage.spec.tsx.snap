@@ -72,16 +72,19 @@ exports[`ModalMessage renders a message as expected with an image 1`] = `
         <Image
           source={
             Object {
-              "testUri": "../../../src/assets/close.png",
+              "testUri": "../../../src/assets/icons/close.png",
             }
           }
           style={
-            Object {
-              "height": 20,
-              "resizeMode": "contain",
-              "tintColor": undefined,
-              "width": 20,
-            }
+            Array [
+              Object {
+                "height": 20,
+                "resizeMode": "contain",
+                "tintColor": undefined,
+                "width": 20,
+              },
+              undefined,
+            ]
           }
         />
       </View>
@@ -207,16 +210,19 @@ exports[`ModalMessage renders as expected in landscape mode 1`] = `
         <Image
           source={
             Object {
-              "testUri": "../../../src/assets/close.png",
+              "testUri": "../../../src/assets/icons/close.png",
             }
           }
           style={
-            Object {
-              "height": 20,
-              "resizeMode": "contain",
-              "tintColor": undefined,
-              "width": 20,
-            }
+            Array [
+              Object {
+                "height": 20,
+                "resizeMode": "contain",
+                "tintColor": undefined,
+                "width": 20,
+              },
+              undefined,
+            ]
           }
         />
       </View>
@@ -297,16 +303,19 @@ exports[`ModalMessage renders as expected in portrait mode 1`] = `
         <Image
           source={
             Object {
-              "testUri": "../../../src/assets/close.png",
+              "testUri": "../../../src/assets/icons/close.png",
             }
           }
           style={
-            Object {
-              "height": 20,
-              "resizeMode": "contain",
-              "tintColor": undefined,
-              "width": 20,
-            }
+            Array [
+              Object {
+                "height": 20,
+                "resizeMode": "contain",
+                "tintColor": undefined,
+                "width": 20,
+              },
+              undefined,
+            ]
           }
         />
       </View>

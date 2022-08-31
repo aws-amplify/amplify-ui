@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Image, Text, View } from 'react-native';
 
-import icons from '../../../assets';
+import { icons } from '../../../assets';
 import { Button, IconButton } from '../../../primitives';
 
 import {
