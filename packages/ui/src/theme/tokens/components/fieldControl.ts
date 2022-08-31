@@ -1,6 +1,7 @@
 import {
   BackgroundColorValue,
   BorderColorValue,
+  BorderContrast,
   BorderRadiusValue,
   BorderStyleValue,
   BorderValue,
@@ -27,8 +28,7 @@ interface FieldControlSizeTokens {
   paddingInlineEnd: DesignToken<SpaceValue>;
 }
 
-interface FieldControlFocusTokens {
-  borderColor: DesignToken<BorderColorValue>;
+interface FieldControlFocusTokens extends BorderContrast {
   boxShadow: DesignToken<BoxShadowValue>;
 }
 
@@ -39,8 +39,7 @@ interface FieldControlDisabledTokens {
   backgroundColor: DesignToken<BackgroundColorValue>;
 }
 
-interface FieldControlErrorTokens {
-  borderColor: DesignToken<BorderColorValue>;
+interface FieldControlErrorTokens extends BorderContrast {
   _focus: FieldControlErrorFocusTokens;
 }
 
@@ -73,9 +72,8 @@ interface FieldControlQuietErrorFocusTokens {
   boxShadow: DesignToken<BoxShadowValue>;
 }
 
-export interface FieldControlTokens {
+export interface FieldControlTokens extends BorderContrast {
   borderStyle: DesignToken<BorderStyleValue>;
-  borderColor: DesignToken<BorderColorValue>;
   borderWidth: DesignToken<BorderWidthValue>;
   borderRadius: DesignToken<BorderRadiusValue>;
   color: DesignToken<ColorValue>;
@@ -101,6 +99,7 @@ export interface FieldControlTokens {
 }
 
 export const fieldcontrol: FieldControlTokens = {
+  backgroundColor: { value: 'transparent' },
   borderStyle: { value: 'solid' },
   borderColor: { value: '{colors.border.primary.value}' },
   borderWidth: { value: '{borderWidths.small.value}' },
@@ -202,6 +201,7 @@ export const fieldcontrol: FieldControlTokens = {
     // * Contrast between focused and unfocused states has a ratio of 3:1
     //
     // IMPORTANT: Must recalibrate if `colors.border.primary` or `colors.focus` are changed
+    backgroundColor: { value: 'transparent' },
     borderColor: { value: '{colors.border.focus.value}' },
     boxShadow: {
       value: {
@@ -220,6 +220,7 @@ export const fieldcontrol: FieldControlTokens = {
     backgroundColor: { value: '{colors.background.disabled.value}' },
   },
   _error: {
+    backgroundColor: { value: 'transparent' },
     borderColor: { value: '{colors.border.error.value}' },
     _focus: {
       boxShadow: {

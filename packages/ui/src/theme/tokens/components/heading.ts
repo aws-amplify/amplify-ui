@@ -4,6 +4,7 @@ import {
   FontSizeValue,
   FontWeightValue,
   LineHeightValue,
+  TextContrast,
 } from '../types/designToken';
 
 interface HeadingLevelTokens {
@@ -11,8 +12,7 @@ interface HeadingLevelTokens {
   fontWeight: DesignToken<FontWeightValue>;
 }
 
-export interface HeadingTokens {
-  color: DesignToken<ColorValue>;
+export interface HeadingTokens extends TextContrast {
   lineHeight: DesignToken<LineHeightValue>;
   1: HeadingLevelTokens;
   2: HeadingLevelTokens;
@@ -23,6 +23,7 @@ export interface HeadingTokens {
 }
 
 export const heading: HeadingTokens = {
+  backgroundColor: { value: 'transparent' },
   color: { value: '{colors.font.primary.value}' },
   lineHeight: { value: '{lineHeights.small.value}' },
 

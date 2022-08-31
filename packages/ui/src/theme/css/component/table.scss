@@ -82,6 +82,7 @@
   }
 
   &__caption {
+    background-color: var(--amplify-components-table-caption-background-color);
     caption-side: var(--amplify-components-table-caption-caption-side);
     color: var(--amplify-components-table-caption-color);
     display: var(--amplify-components-table-caption-display);
@@ -111,6 +112,7 @@
   }
 
   &__th {
+    background-color: var(--amplify-components-table-header-background-color);
     border-color: var(--amplify-components-table-header-border-color);
     border-style: var(--amplify-components-table-header-border-style);
     border-width: var(--amplify-internal-table-th-border-width);
@@ -129,6 +131,7 @@
   }
 
   &__td {
+    background-color: var(--amplify-components-table-data-background-color);
     border-color: var(--amplify-components-table-data-border-color);
     border-style: var(--amplify-components-table-data-border-style);
     border-width: var(--amplify-internal-table-td-border-width);

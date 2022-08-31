@@ -106,3 +106,8 @@ export interface BorderContrast {
   backgroundColor: DesignToken<BackgroundColorValue>;
   borderColor: DesignToken<BorderColorValue>;
 }
+
+export interface TextContrast {
+  backgroundColor: DesignToken<BackgroundColorValue>;
+  color: DesignToken<ColorValue>;
+}

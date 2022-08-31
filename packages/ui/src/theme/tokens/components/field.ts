@@ -3,6 +3,7 @@ import {
   DesignToken,
   FontSizeValue,
   GapValue,
+  TextContrast,
 } from '../types/designToken';
 
 interface FieldSizeTokens {
@@ -10,9 +11,7 @@ interface FieldSizeTokens {
   fontSize: DesignToken<FontSizeValue>;
 }
 
-interface FieldLabelTokens {
-  color: DesignToken<ColorValue>;
-}
+interface FieldLabelTokens extends TextContrast {}
 
 export interface FieldTokens {
   gap: DesignToken<GapValue>;
@@ -38,6 +37,7 @@ export const field: FieldTokens = {
   },
 
   label: {
+    backgroundColor: { value: 'transparent' },
     color: { value: '{colors.font.secondary.value}' },
   },
 };

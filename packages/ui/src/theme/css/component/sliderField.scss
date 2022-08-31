@@ -146,6 +146,9 @@
     );
   }
   &:focus {
+    background-color: var(
+      --amplify-components-sliderfield-thumb-focus-background-color
+    );
     border-color: var(
       --amplify-components-sliderfield-thumb-focus-border-color
     );

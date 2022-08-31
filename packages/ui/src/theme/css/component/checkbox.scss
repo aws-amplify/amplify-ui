@@ -14,6 +14,9 @@
   justify-content: var(--amplify-components-checkbox-button-justify-content);
   color: var(--amplify-components-checkbox-button-color);
   //these internal css variables are used to update the values that are influenced by multiple modified states
+  --amplify-internal-checkbox_button-focused-before-background-color: var(
+    --amplify-components-checkbox-button-focus-background-color
+  );
   --amplify-internal-checkbox_button-focused-before-border-color: var(
     --amplify-components-checkbox-button-focus-border-color
   );
@@ -28,6 +31,9 @@
     box-sizing: border-box;
     width: var(--amplify-components-checkbox-button-before-width);
     height: var(--amplify-components-checkbox-button-before-height);
+    background-color: var(
+      --amplify-components-checkbox-button-before-background-color
+    );
     border-width: var(--amplify-components-checkbox-button-before-border-width);
     border-radius: var(
       --amplify-components-checkbox-button-before-border-radius
@@ -51,6 +57,9 @@
         --amplify-components-checkbox-button-focus-outline-offset
       );
 
+      background-color: var(
+        --amplify-internal-checkbox_button-focused-before-background-color
+      );
       border-color: var(
         --amplify-internal-checkbox_button-focused-before-border-color
       );
@@ -62,11 +71,17 @@
 
   &--error {
     &::before {
+      background-color: var(
+        --amplify-components-checkbox-button-error-background-color
+      );
       border-color: var(
         --amplify-components-checkbox-button-error-border-color
       );
     }
     // Note: this resets the value of focused state border-color style when an error occurs
+    --amplify-internal-checkbox_button-focused-before-background-color: var(
+      --amplify-components-checkbox-button-error-focus-background-color
+    );
     --amplify-internal-checkbox_button-focused-before-border-color: var(
       --amplify-components-checkbox-button-error-focus-border-color
     );
@@ -76,6 +91,9 @@
   }
 
   &--disabled::before {
+    background-color: var(
+      --amplify-components-checkbox-button-disabled-background-color
+    );
     border-color: var(
       --amplify-components-checkbox-button-disabled-border-color
     );
@@ -83,7 +101,7 @@
 }
 
 .amplify-checkbox__icon {
-  background-color: var(--amplify-components-checkbox-icon-background-color);
+  background-color: var(--amplify-components-checkbox-button-background-color);
   opacity: var(--amplify-components-checkbox-icon-opacity);
   transform: var(--amplify-components-checkbox-icon-transform);
   border-radius: var(--amplify-components-checkbox-icon-border-radius);
@@ -129,5 +147,8 @@
 }
 
 .amplify-checkbox__label[data-disabled='true'] {
+  background-color: var(
+    --amplify-components-checkbox-label-disabled-background-color
+  );
   color: var(--amplify-components-checkbox-label-disabled-color);
 }

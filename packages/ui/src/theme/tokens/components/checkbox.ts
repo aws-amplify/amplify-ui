@@ -2,6 +2,7 @@ import {
   AlignItemsValue,
   BackgroundColorValue,
   BorderColorValue,
+  BorderContrast,
   BorderRadiusValue,
   BorderStyleValue,
   BorderWidthValue,
@@ -17,6 +18,7 @@ import {
   OutlineWidthValue,
   PositionValue,
   SpaceValue,
+  TextContrast,
   TransformValue,
   TransitionDurationValue,
   TransitionPropertyValue,
@@ -27,34 +29,28 @@ interface DisableToken {
   cursor: DesignToken<CursorValue>;
 }
 
-interface ButtonDisabledToken {
-  borderColor: DesignToken<BorderColorValue>;
-}
-interface ButtonErrorFocusToken {
-  borderColor: DesignToken<BorderColorValue>;
+interface ButtonDisabledToken extends BorderContrast {}
+interface ButtonErrorFocusToken extends BorderContrast {
   boxShadow: DesignToken<BoxShadowValue>;
 }
-interface ButtonErrorToken {
-  borderColor: DesignToken<BorderColorValue>;
+interface ButtonErrorToken extends BorderContrast {
   _focus: ButtonErrorFocusToken;
 }
-interface ButtonFocusToken {
+interface ButtonFocusToken extends BorderContrast {
   outlineColor: DesignToken<OutlineColorValue>;
   outlineStyle: DesignToken<OutlineStyleValue>;
   outlineWidth: DesignToken<OutlineWidthValue>;
   outlineOffset: DesignToken<OutlineOffsetValue>;
-  borderColor: DesignToken<BorderColorValue>;
   boxShadow: DesignToken<BoxShadowValue>;
 }
-interface BeforeToken {
+interface BeforeToken extends BorderContrast {
   width: DesignToken<SpaceValue>;
   height: DesignToken<SpaceValue>;
   borderWidth: DesignToken<BorderWidthValue>;
   borderRadius: DesignToken<BorderRadiusValue>;
   borderStyle: DesignToken<BorderStyleValue>;
-  borderColor: DesignToken<BorderColorValue>;
 }
-interface ButtonToken {
+interface ButtonToken extends TextContrast {
   position: DesignToken<PositionValue>;
   alignItems: DesignToken<AlignItemsValue>;
   justifyContent: DesignToken<JustifyContentValue>;
@@ -90,9 +86,7 @@ interface IconToken {
   _checked: IconCheckedToken;
   _indeterminate: IconIndeterminateToken;
 }
-interface LabelDisabledToken {
-  color: DesignToken<ColorValue>;
-}
+interface LabelDisabledToken extends TextContrast {}
 interface LabelToken {
   _disabled: LabelDisabledToken;
 }
@@ -117,10 +111,14 @@ export const checkbox: CheckboxTokens = {
     position: { value: 'relative' },
     alignItems: { value: 'center' },
     justifyContent: { value: 'center' },
+    backgroundColor: {
+      value: '{components.checkbox.icon.backgroundColor.value}',
+    },
     color: { value: '{colors.font.inverse.value}' },
     before: {
       width: { value: '100%' },
       height: { value: '100%' },
+      backgroundColor: { value: 'transparent' },
       borderWidth: { value: '{borderWidths.medium.value}' },
       borderRadius: { value: '20%' },
       borderStyle: { value: 'solid' },
@@ -131,6 +129,7 @@ export const checkbox: CheckboxTokens = {
       outlineStyle: { value: 'solid' },
       outlineWidth: { value: '{outlineWidths.medium.value}' },
       outlineOffset: { value: '{outlineOffsets.medium.value}' },
+      backgroundColor: { value: 'transparent' },
       borderColor: { value: '{colors.transparent.value}' },
       boxShadow: {
         value: {
@@ -143,11 +142,14 @@ export const checkbox: CheckboxTokens = {
       },
     },
     _disabled: {
+      backgroundColor: { value: 'transparent' },
       borderColor: { value: '{colors.border.disabled.value}' },
     },
     _error: {
+      backgroundColor: { value: 'transparent' },
       borderColor: { value: '{colors.border.error.value}' },
       _focus: {
+        backgroundColor: { value: 'transparent' },
         borderColor: { value: '{colors.transparent.value}' },
         boxShadow: {
           value: {
@@ -186,6 +188,7 @@ export const checkbox: CheckboxTokens = {
   },
   label: {
     _disabled: {
+      backgroundColor: { value: 'transparent' },
       color: { value: '{colors.font.disabled.value}' },
     },
   },

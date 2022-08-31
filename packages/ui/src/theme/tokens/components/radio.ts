@@ -2,6 +2,7 @@ import {
   AlignItemsValue,
   BackgroundColorValue,
   BorderColorValue,
+  BorderContrast,
   BorderRadiusValue,
   BorderStyleValue,
   BorderWidthValue,
@@ -17,6 +18,7 @@ import {
   OutlineStyleValue,
   OutlineWidthValue,
   SpaceValue,
+  TextContrast,
   TransitionDurationValue,
   TransitionPropertyValue,
 } from '../types/designToken';
@@ -57,21 +59,16 @@ interface RadioButtonSizeTokens {
   height: DesignToken<SpaceValue>;
 }
 
-interface RadioButtonCheckedTokens {
-  color: DesignToken<ColorValue>;
+interface RadioButtonCheckedTokens extends TextContrast {
   _disabled: RadioButtonCheckedDisabledTokens;
 }
-interface RadioButtonCheckedDisabledTokens {
-  color: DesignToken<ColorValue>;
-}
+interface RadioButtonCheckedDisabledTokens extends TextContrast {}
 
-interface RadioButtonFocusTokens {
-  borderColor: DesignToken<BorderColorValue>;
+interface RadioButtonFocusTokens extends BorderContrast {
   boxShadow: DesignToken<BoxShadowValue>;
 }
 
-interface RadioButtonErrorTokens {
-  borderColor: DesignToken<BorderColorValue>;
+interface RadioButtonErrorTokens extends BorderContrast {
   _focus: RadioButtonErrorFocusTokens;
 }
 
@@ -84,14 +81,11 @@ interface RadioButtonDisabledTokens {
   backgroundColor: DesignToken<BackgroundColorValue>;
 }
 
-interface RadioLabelTokens {
-  color: DesignToken<ColorValue>;
+interface RadioLabelTokens extends TextContrast {
   _disabled: RadioLabelDisabledTokens;
 }
 
-interface RadioLabelDisabledTokens {
-  color: DesignToken<ColorValue>;
-}
+interface RadioLabelDisabledTokens extends TextContrast {}
 
 export interface RadioTokens {
   alignItems: DesignToken<AlignItemsValue>;
@@ -138,18 +132,24 @@ export const radio: RadioTokens = {
     },
 
     _checked: {
+      backgroundColor: { value: 'transparent' },
       color: {
         value: '{colors.brand.primary.80.value}',
       },
-      _disabled: { color: { value: '{colors.background.disabled.value}' } },
+      _disabled: {
+        backgroundColor: { value: 'transparent' },
+        color: { value: '{colors.background.disabled.value}' },
+      },
     },
 
     _focus: {
+      backgroundColor: { value: 'transparent' },
       borderColor: { value: '{colors.border.focus.value}' },
       boxShadow: { value: '{components.fieldcontrol._focus.boxShadow.value}' },
     },
 
     _error: {
+      backgroundColor: { value: 'transparent' },
       borderColor: { value: '{colors.border.error.value}' },
       _focus: {
         boxShadow: {
@@ -165,8 +165,10 @@ export const radio: RadioTokens = {
   },
 
   label: {
+    backgroundColor: { value: 'transparent' },
     color: { value: '{components.text.color.value}' },
     _disabled: {
+      backgroundColor: { value: 'transparent' },
       color: {
         value: '{colors.font.disabled.value}',
       },

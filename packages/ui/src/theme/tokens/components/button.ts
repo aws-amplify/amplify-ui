@@ -27,8 +27,7 @@ interface StateWithShadowTokens extends StateTokens {
   boxShadow: DesignToken<BoxShadowValue>;
 }
 
-interface MenuStateDisabledTokens
-  extends Omit<StateTokens, 'borderColor' | 'backgroundColor'> {}
+interface MenuStateDisabledTokens extends Omit<StateTokens, 'borderColor'> {}
 
 interface MenuStateTokens extends Omit<StateTokens, 'borderColor'> {}
 
@@ -123,12 +122,12 @@ export const button: ButtonTokens = {
   paddingInlineEnd: {
     value: '{components.fieldcontrol.paddingInlineEnd.value}',
   },
+  backgroundColor: { value: 'transparent' },
   borderColor: { value: '{components.fieldcontrol.borderColor.value}' },
   borderWidth: { value: '{components.fieldcontrol.borderWidth.value}' },
   borderStyle: { value: '{components.fieldcontrol.borderStyle.value}' },
   borderRadius: { value: '{components.fieldcontrol.borderRadius.value}' },
   color: { value: '{colors.font.primary.value}' },
-  backgroundColor: { value: 'transparent' },
 
   _hover: {
     color: { value: '{colors.font.focus.value}' },
@@ -212,6 +211,7 @@ export const button: ButtonTokens = {
       backgroundColor: { value: '{colors.brand.primary.90.value}' },
     },
     _disabled: {
+      backgroundColor: { value: 'transparent' },
       color: { value: '{colors.font.disabled.value}' },
     },
   },

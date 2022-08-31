@@ -8,6 +8,9 @@
     --amplify-components-pagination-current-background-color: var(
       --amplify-components-collection-pagination-current-background-color
     );
+    --amplify-components-pagination-button-background-color: var(
+      --amplify-components-collection-pagination-button-background-color;
+    );
     --amplify-components-pagination-button-color: var(
       --amplify-components-collection-pagination-button-color
     );
@@ -17,6 +20,9 @@
     --amplify-components-pagination-button-hover-background-color: var(
       --amplify-components-collection-pagination-button-hover-background-color
     );
+    --amplify-components-pagination-button-disabled-background-color: var(
+      --amplify-components-collection-pagination-button-disabled-background-color
+    );
     --amplify-components-pagination-button-disabled-color: var(
       --amplify-components-collection-pagination-button-disabled-color
     );
@@ -24,8 +30,14 @@
   &-search {
     flex-direction: row;
     justify-content: center;
+    --amplify-components-searchfield-input-background-color: var(
+      --amplify-components-collection-search-input-background-color
+    );
     --amplify-components-searchfield-input-color: var(
       --amplify-components-collection-search-input-color
+    );
+    --amplify-components-searchfield-button-background-color: var(
+      --amplify-components-collection-search-button-background-color
     );
     --amplify-components-searchfield-button-color: var(
       --amplify-components-collection-search-button-color

@@ -46,11 +46,17 @@
   }
 
   &:hover {
+    background-color: var(
+      --amplify-components-tabs-item-hover-background-color
+    );
     color: var(--amplify-components-tabs-item-hover-color);
     cursor: pointer;
   }
 
   &:focus {
+    background-color: var(
+      --amplify-components-tabs-item-focus-background-color
+    );
     color: var(--amplify-components-tabs-item-focus-color);
   }
 

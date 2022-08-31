@@ -7,6 +7,7 @@ import {
   FontSizeValue,
   JustifyContentValue,
   SpaceValue,
+  TextContrast,
   TransitionDurationValue,
   TransitionPropertyValue,
 } from '../types/designToken';
@@ -19,8 +20,7 @@ interface PaginationCurrentTokens {
   backgroundColor: DesignToken<BackgroundColorValue>;
 }
 
-interface PaginationButtonTokens {
-  color: DesignToken<ColorValue>;
+interface PaginationButtonTokens extends TextContrast {
   paddingInlineStart: DesignToken<SpaceValue>;
   paddingInlineEnd: DesignToken<SpaceValue>;
   transitionProperty: DesignToken<TransitionPropertyValue>;
@@ -33,9 +33,7 @@ export interface PaginationButtonHoverTokens {
   backgroundColor: DesignToken<BackgroundColorValue>;
   color: DesignToken<ColorValue>;
 }
-export interface PaginationButtonDisabledTokens {
-  color: DesignToken<ColorValue>;
-}
+export interface PaginationButtonDisabledTokens extends TextContrast {}
 
 interface PaginationEllipsisTokens {
   alignItems: DesignToken<AlignItemsValue>;
@@ -72,6 +70,7 @@ export const pagination: PaginationTokens = {
     backgroundColor: { value: '{colors.overlay.40.value}' },
   },
   button: {
+    backgroundColor: { value: 'transparent' },
     color: { value: '{colors.font.primary.value}' },
     paddingInlineStart: { value: '{space.xxs.value}' },
     paddingInlineEnd: { value: '{space.xxs.value}' },
@@ -82,6 +81,7 @@ export const pagination: PaginationTokens = {
       color: { value: '{colors.font.primary.value}' },
     },
     disabled: {
+      backgroundColor: { value: 'transparent' },
       color: { value: '{colors.font.disabled.value}' },
     },
   },

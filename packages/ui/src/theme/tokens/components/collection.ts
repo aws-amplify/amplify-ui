@@ -7,31 +7,33 @@ import {
   BackgroundColorValue,
   ColorValue,
   DesignToken,
+  TextContrast,
 } from '../types/designToken';
+
+interface CollectionPaginationButtonTokens extends TextContrast {
+  _hover: PaginationButtonHoverTokens;
+  _disabled: PaginationButtonDisabledTokens;
+}
 
 interface PaginationTokens {
   current: {
     color: DesignToken<ColorValue>;
     backgroundColor: DesignToken<BackgroundColorValue>;
   };
-  button: {
-    color: DesignToken<ColorValue>;
-    _hover: PaginationButtonHoverTokens;
-    _disabled: PaginationButtonDisabledTokens;
-  };
+  button: CollectionPaginationButtonTokens;
 }
 
+interface CollectionSearchInputTokens extends TextContrast {}
+
+interface CollectionSearchButtonTokens extends TextContrast {
+  _active: StateTokens;
+  _disabled: StateTokens;
+  _focus: StateTokens;
+  _hover: StateTokens;
+}
 export interface SearchTokens {
-  input: {
-    color: DesignToken<ColorValue>;
-  };
-  button: {
-    color: DesignToken<ColorValue>;
-    _active: StateTokens;
-    _disabled: StateTokens;
-    _focus: StateTokens;
-    _hover: StateTokens;
-  };
+  input: CollectionSearchInputTokens;
+  button: CollectionSearchButtonTokens;
 }
 
 export interface CollectionTokens {
@@ -50,6 +52,7 @@ export const collection: CollectionTokens = {
       },
     },
     button: {
+      backgroundColor: { value: 'transparent' },
       color: { value: '{components.pagination.button.color}' },
       _hover: {
         backgroundColor: {
@@ -58,15 +61,18 @@ export const collection: CollectionTokens = {
         color: { value: '{components.pagination.button.hover.color}' },
       },
       _disabled: {
+        backgroundColor: { value: 'transparent' },
         color: { value: '{components.pagination.button.disabled.color}' },
       },
     },
   },
   search: {
     input: {
+      backgroundColor: { value: 'transparent' },
       color: { value: '{components.searchfield.color}' },
     },
     button: {
+      backgroundColor: { value: 'transparent' },
       color: { value: '{components.searchfield.button.color}' },
       _active: {
         backgroundColor: {

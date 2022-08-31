@@ -1,6 +1,7 @@
 import {
   BackgroundColorValue,
   BorderColorValue,
+  BorderContrast,
   BorderStyleValue,
   BorderWidthValue,
   ColorValue,
@@ -21,9 +22,8 @@ interface DividerLabelTokens {
   backgroundColor: DesignToken<BackgroundColorValue>;
 }
 
-export interface DividerTokens {
+export interface DividerTokens extends BorderContrast {
   borderStyle: DesignToken<BorderStyleValue>;
-  borderColor: DesignToken<BorderColorValue>;
   borderWidth: DesignToken<BorderWidthValue>;
   label: DividerLabelTokens;
   small: DividerSizeTokens;
@@ -34,6 +34,7 @@ export interface DividerTokens {
 export const divider: DividerTokens = {
   borderStyle: { value: 'solid' },
   borderColor: { value: '{colors.border.primary.value}' },
+  backgroundColor: { value: 'transparent' },
   borderWidth: { value: '{borderWidths.medium.value}' },
 
   label: {

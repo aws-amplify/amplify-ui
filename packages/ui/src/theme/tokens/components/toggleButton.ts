@@ -1,10 +1,12 @@
 import {
   BackgroundColorValue,
   BorderColorValue,
+  BorderContrast,
   BorderWidthValue,
   BoxShadowValue,
   ColorValue,
   DesignToken,
+  TextContrast,
 } from '../types/designToken';
 
 interface ToggleButtonHoverTokens {
@@ -13,10 +15,7 @@ interface ToggleButtonHoverTokens {
 interface ToggleButtonActiveTokens {
   backgroundColor: DesignToken<BackgroundColorValue>;
 }
-interface ToggleButtonFocusTokens {
-  borderColor: DesignToken<BorderColorValue>;
-  color: DesignToken<ColorValue>;
-}
+interface ToggleButtonFocusTokens extends BorderContrast, TextContrast {}
 
 interface ToggleButtonDisabledTokens {
   backgroundColor: DesignToken<BackgroundColorValue>;
@@ -58,10 +57,6 @@ interface ToggleButtonPrimaryHoverTokens {
 interface ToggleButtonPrimaryDisabledTokens {
   borderColor: DesignToken<BorderColorValue>;
   backgroundColor: DesignToken<BackgroundColorValue>;
-  color: DesignToken<ColorValue>;
-}
-
-interface ToggleButtonPrimaryDisabledTokens {
   color: DesignToken<ColorValue>;
 }
 
@@ -125,9 +120,7 @@ interface ToggleButtonLinkPressedHoverTokens {
   backgroundColor: DesignToken<BackgroundColorValue>;
 }
 
-export interface ToggleButtonTokens {
-  borderColor: DesignToken<BorderColorValue>;
-  color: DesignToken<ColorValue>;
+export interface ToggleButtonTokens extends BorderContrast, TextContrast {
   _hover: ToggleButtonHoverTokens;
   _focus: ToggleButtonFocusTokens;
   _active: ToggleButtonActiveTokens;
@@ -138,12 +131,14 @@ export interface ToggleButtonTokens {
 }
 
 export const togglebutton: ToggleButtonTokens = {
+  backgroundColor: { value: 'initial' },
   borderColor: { value: '{colors.border.primary.value}' },
   color: { value: '{colors.font.primary.value}' },
   _hover: {
     backgroundColor: { value: '{colors.overlay.10.value}' },
   },
   _focus: {
+    backgroundColor: { value: 'transparent' },
     borderColor: { value: '{colors.border.focus.value}' },
     color: { value: '{colors.font.primary.value}' },
   },

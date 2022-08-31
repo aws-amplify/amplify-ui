@@ -1,14 +1,19 @@
-import { ColorValue, DesignToken, SpaceValue } from '../types/designToken';
+import {
+  ColorValue,
+  DesignToken,
+  SpaceValue,
+  TextContrast,
+} from '../types/designToken';
 
 interface RatingSizeTokens {
   size: DesignToken<SpaceValue>;
 }
 
-interface RatingFilledTokens {
+interface RatingFilledTokens extends TextContrast {
   color: DesignToken<ColorValue>;
 }
 
-interface RatingEmptyTokens {
+interface RatingEmptyTokens extends TextContrast {
   color: DesignToken<ColorValue>;
 }
 
@@ -23,6 +28,12 @@ export const rating: RatingTokens = {
   large: { size: { value: '{fontSizes.xxxl.value}' } },
   default: { size: { value: '{fontSizes.xl.value}' } },
   small: { size: { value: '{fontSizes.small.value}' } },
-  filled: { color: { value: '{colors.brand.secondary.80.value}' } },
-  empty: { color: { value: '{colors.background.tertiary.value}' } },
+  filled: {
+    backgroundColor: { value: 'transparent' },
+    color: { value: '{colors.brand.secondary.80.value}' },
+  },
+  empty: {
+    backgroundColor: { value: 'transparent' },
+    color: { value: '{colors.background.tertiary.value}' },
+  },
 };

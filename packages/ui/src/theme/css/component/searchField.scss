@@ -1,6 +1,9 @@
 .amplify-searchfield {
+  --amplify-components-fieldcontrol-background-color: var(
+    --amplify-components-searchfield-background-color
+  );
   --amplify-components-fieldcontrol-color: var(
-    --amplify-components-searchfield-input-color
+    --amplify-components-searchfield-color
   );
   &__search {
     color: var(--amplify-components-searchfield-button-color);

@@ -2,6 +2,9 @@
   flex-direction: column;
   align-items: flex-start;
 
+  --amplify-components-field-label-background-color: var(
+    --amplify-components-radiogroup-label-background-color
+  );
   --amplify-components-field-label-color: var(
     --amplify-components-radiogroup-label-color
   );
@@ -14,8 +17,14 @@
   --amplify-components-radio-button-background-color: var(
     --amplify-components-radiogroup-radio-background-color
   );
+  --amplify-components-radio-label-background-color: var(
+    --amplify-components-radiogroup-radio-label-background-color
+  );
   --amplify-components-radio-label-color: var(
     --amplify-components-radiogroup-radio-label-color
+  );
+  --amplify-components-radio-button-checked-background-color: var(
+    --amplify-components-radiogroup-radio-checked-background-color
   );
   --amplify-components-radio-button-checked-color: var(
     --amplify-components-radiogroup-radio-checked-color

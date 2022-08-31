@@ -10,6 +10,7 @@ import {
   GapValue,
   SpaceValue,
   TextAlignValue,
+  TextContrast,
   TransitionDurationValue,
 } from '../types/designToken';
 
@@ -31,13 +32,9 @@ interface TabsItemTokens {
   _disabled: TabsItemDisabledTokens;
 }
 
-interface TabsItemHoverTokens {
-  color: DesignToken<ColorValue>;
-}
+interface TabsItemHoverTokens extends TextContrast {}
 
-interface TabsItemFocusTokens {
-  color: DesignToken<ColorValue>;
-}
+interface TabsItemFocusTokens extends TextContrast {}
 
 interface TabsItemActiveTokens {
   color: DesignToken<ColorValue>;
@@ -81,9 +78,11 @@ export const tabs: TabsTokens = {
     transitionDuration: { value: '{time.medium.value}' },
 
     _hover: {
+      backgroundColor: { value: 'transparent' },
       color: { value: '{colors.font.hover.value}' },
     },
     _focus: {
+      backgroundColor: { value: 'transparent' },
       color: { value: '{colors.font.focus.value}' },
     },
     _active: {

@@ -120,6 +120,9 @@
 
 .amplify-expander__content__text {
   display: block;
+  background-color: var(
+    --amplify-components-expander-content-text-background-color
+  );
   color: var(--amplify-components-expander-content-text-color);
   padding-block-start: var(
     --amplify-components-expander-content-text-padding-block-start

@@ -2,24 +2,24 @@ import {
   DesignToken,
   FlexDirectionValue,
   ColorValue,
-  BorderColorValue,
+  BorderContrast,
   FontSizeValue,
+  TextContrast,
 } from '../types/designToken';
 
-export interface SelectFieldTokens {
+interface SelectFieldFocusTokens extends BorderContrast {}
+
+interface SelectFieldLabelTokens extends TextContrast {}
+export interface SelectFieldTokens extends BorderContrast {
   flexDirection: DesignToken<FlexDirectionValue>;
   color: DesignToken<ColorValue>;
-  borderColor: DesignToken<BorderColorValue>;
   fontSize: DesignToken<FontSizeValue>;
-  _focus: {
-    borderColor: DesignToken<BorderColorValue>;
-  };
-  label: {
-    color: DesignToken<ColorValue>;
-  };
+  _focus: SelectFieldFocusTokens;
+  label: SelectFieldLabelTokens;
 }
 
 export const selectfield: SelectFieldTokens = {
+  backgroundColor: { value: 'transparent' },
   borderColor: { value: '{components.fieldcontrol.borderColor}' },
   color: { value: '{components.fieldcontrol.color}' },
   flexDirection: {
@@ -27,9 +27,11 @@ export const selectfield: SelectFieldTokens = {
   },
   fontSize: { value: '{components.fieldcontrol.fontSize}' },
   _focus: {
+    backgroundColor: { value: 'transparent' },
     borderColor: { value: '{components.fieldcontrol._focus.borderColor}' },
   },
   label: {
+    backgroundColor: { value: 'transparent' },
     color: { value: '{components.field.label.color}' },
   },
 };

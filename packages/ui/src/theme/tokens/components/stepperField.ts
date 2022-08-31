@@ -4,22 +4,18 @@ import {
   FontSizeValue,
   FlexDirectionValue,
   TextAlignValue,
-  BorderColorValue,
+  TextContrast,
+  BorderContrast,
 } from '../types/designToken';
 
-interface StepperFieldInputTokens {
+interface StepperFieldInputTokens extends TextContrast {
   textAlign: DesignToken<TextAlignValue>;
-  color: DesignToken<ColorValue>;
   fontSize: DesignToken<FontSizeValue>;
 }
 
-interface ButtonStateColorTokens {
-  color: DesignToken<ColorValue>;
-  backgroundColor: DesignToken<ColorValue>;
-}
+interface ButtonStateColorTokens extends TextContrast {}
 
-export interface StepperFieldTokens {
-  borderColor: DesignToken<BorderColorValue>;
+export interface StepperFieldTokens extends BorderContrast {
   flexDirection: DesignToken<FlexDirectionValue>;
   input: StepperFieldInputTokens;
   button: {
@@ -33,9 +29,11 @@ export interface StepperFieldTokens {
 }
 
 export const stepperfield: StepperFieldTokens = {
+  backgroundColor: { value: 'transparent' },
   borderColor: { value: '{components.fieldcontrol.borderColor}' },
   flexDirection: { value: 'column' },
   input: {
+    backgroundColor: { value: 'transparent' },
     color: { value: '{components.fieldcontrol.color}' },
     fontSize: { value: '{components.fieldcontrol.fontSize}' },
     textAlign: { value: 'center' },

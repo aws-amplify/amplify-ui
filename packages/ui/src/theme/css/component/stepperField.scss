@@ -1,11 +1,17 @@
 .amplify-stepperfield {
   flex-direction: var(--amplify-components-stepperfield-flex-direction);
 
+  --amplify-components-button-background-color: var(
+    --amplify-components-stepperfield-background-color
+  );
   --amplify-components-fieldcontrol-border-color: var(
     --amplify-components-stepperfield-border-color
   );
   --amplify-components-button-border-color: var(
     --amplify-components-stepperfield-border-color
+  );
+  --amplify-components-fieldcontrol-background-color: var(
+    --amplify-components-stepperfield-input-background-color
   );
   --amplify-components-fieldcontrol-color: var(
     --amplify-components-stepperfield-input-color

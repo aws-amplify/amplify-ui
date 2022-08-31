@@ -1,5 +1,8 @@
 .amplify-textfield {
   flex-direction: column;
+  --amplify-components-fieldcontrol-background-color: var(
+    --amplify-components-textfield-background-color
+  );
   --amplify-components-fieldcontrol-color: var(
     --amplify-components-textfield-color
   );
@@ -8,6 +11,9 @@
   );
   --amplify-components-fieldcontrol-font-size: var(
     --amplify-components-textfield-font-size
+  );
+  --amplify-components-fieldcontrol-focus-background-color: var(
+    --amplify-components-textfield-focus-background-color
   );
   --amplify-components-fieldcontrol-focus-border-color: var(
     --amplify-components-textfield-focus-border-color

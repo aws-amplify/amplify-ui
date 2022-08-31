@@ -24,6 +24,7 @@
 [data-amplify-copy-tooltip] {
   visibility: hidden;
   position: absolute;
+  background-color: var(--amplify-components-copy-tool-tip-background-color);
   bottom: var(--amplify-components-copy-tool-tip-bottom);
   color: var(--amplify-components-copy-tool-tip-color);
 }

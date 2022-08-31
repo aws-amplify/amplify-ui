@@ -3,15 +3,14 @@ import {
   ColorValue,
   FontStyleValue,
   FontSizeValue,
+  TextContrast,
 } from '../types/designToken';
 
-interface FieldMessagesErrorTokens {
-  color: DesignToken<ColorValue>;
+interface FieldMessagesErrorTokens extends TextContrast {
   fontSize: DesignToken<FontSizeValue>;
 }
 
-interface FieldMessagesDescriptionTokens {
-  color: DesignToken<ColorValue>;
+interface FieldMessagesDescriptionTokens extends TextContrast {
   fontStyle: DesignToken<FontStyleValue>;
   fontSize: DesignToken<FontSizeValue>;
 }
@@ -23,10 +22,12 @@ export interface FieldMessagesTokens {
 
 export const fieldmessages: FieldMessagesTokens = {
   error: {
+    backgroundColor: { value: 'transparent' },
     color: { value: '{colors.font.error.value}' },
     fontSize: { value: '{fontSizes.small.value}' },
   },
   description: {
+    backgroundColor: { value: 'transparent' },
     color: { value: '{colors.font.secondary.value}' },
     fontStyle: { value: 'italic' },
     fontSize: { value: '{fontSizes.small.value}' },

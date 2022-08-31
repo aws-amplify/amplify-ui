@@ -3,6 +3,7 @@ import {
   DesignToken,
   FontSizeValue,
   SpaceValue,
+  TextContrast,
 } from '../types/designToken';
 
 interface CopySVGFillTokens {
@@ -13,9 +14,8 @@ interface CopySVGTokens {
   path: CopySVGFillTokens;
 }
 
-interface CopyToolTipTokens {
+interface CopyToolTipTokens extends TextContrast {
   bottom: DesignToken<SpaceValue>;
-  color: DesignToken<ColorValue>;
   fontSize: DesignToken<FontSizeValue>;
 }
 
@@ -38,6 +38,7 @@ export const copy: CopyTokens = {
     },
   },
   toolTip: {
+    backgroundColor: { value: 'transparent' },
     bottom: { value: '{space.large}' },
     color: { value: '{colors.teal.100}' },
     fontSize: { value: '{fontSizes.xxs}' },

@@ -1,6 +1,8 @@
 .amplify-togglebutton {
   //these internal css variables are used to update the values that are influenced by multiple modified states
-  --amplify-internal-togglebutton-background-color: initial;
+  --amplify-internal-togglebutton-background-color: var(
+    --amplify-components-togglebutton-background-color
+  );
   --amplify-internal-togglebutton-border-color: var(
     --amplify-components-togglebutton-border-color
   );

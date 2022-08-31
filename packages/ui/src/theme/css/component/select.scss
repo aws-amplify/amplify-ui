@@ -26,6 +26,9 @@
     color: initial;
 
     &[disabled=''] {
+      background-color: var(
+        --amplify-components-select-option-disabled-background-color
+      );
       color: var(--amplify-components-select-option-disabled-color);
     }
   }

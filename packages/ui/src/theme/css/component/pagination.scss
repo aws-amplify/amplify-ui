@@ -21,6 +21,9 @@
     align-items: center;
     justify-content: center;
     font-weight: initial;
+    background-color: var(
+      --amplify-components-pagination-button-background-color
+    );
     color: var(--amplify-components-pagination-button-color);
     padding-inline-start: var(
       --amplify-components-pagination-button-padding-inline-start
@@ -43,6 +46,9 @@
       );
     }
     &--disabled {
+      background-color: var(
+        --amplify-components-pagination-button-disabled-background-color
+      );
       color: var(--amplify-components-pagination-button-disabled-color);
       pointer-events: none;
     }

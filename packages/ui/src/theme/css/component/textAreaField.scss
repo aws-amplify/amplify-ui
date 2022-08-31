@@ -1,5 +1,8 @@
 .amplify-textareafield {
   flex-direction: column;
+  --amplify-components-fieldcontrol-background-color: var(
+    --amplify-components-textareafield-background-color
+  );
   --amplify-components-fieldcontrol-color: var(
     --amplify-components-textareafield-color
   );

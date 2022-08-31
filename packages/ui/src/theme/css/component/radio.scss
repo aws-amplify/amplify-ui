@@ -6,6 +6,9 @@
   &--disabled {
     cursor: var(--amplify-components-radio-disabled-cursor);
   }
+  --amplify-components-text-background-color: var(
+    --amplify-components-radio-label-background-color
+  );
   --amplify-components-text-color: var(--amplify-components-radio-label-color);
 }
 
@@ -58,20 +61,32 @@
 }
 
 .amplify-radio__input:checked + .amplify-radio__button {
+  background-color: var(
+    --amplify-components-radio-button-checked-background-color
+  );
   color: var(--amplify-components-radio-button-checked-color);
 }
 
 // checked and disabled state can coexist though data will not be submitted
 .amplify-radio__input:checked:disabled + .amplify-radio__button {
+  background-color: var(
+    --amplify-components-radio-button-checked-disabled-background-color
+  );
   color: var(--amplify-components-radio-button-checked-disabled-color);
 }
 
 .amplify-radio__input:focus + .amplify-radio__button {
+  background-color: var(
+    --amplify-components-radio-button-focus-background-color
+  );
   border-color: var(--amplify-components-radio-button-focus-border-color);
   box-shadow: var(--amplify-components-radio-button-focus-box-shadow);
 }
 
 .amplify-radio__input[aria-invalid='true'] + .amplify-radio__button {
+  background-color: var(
+    --amplify-components-radio-button-error-background-color
+  );
   border-color: var(--amplify-components-radio-button-error-border-color);
 }
 
@@ -87,5 +102,8 @@
 }
 
 .amplify-radio__label[data-disabled='true'] {
+  background-color: var(
+    --amplify-components-radio-label-disabled-background-color
+  );
   color: var(--amplify-components-radio-label-disabled-color);
 }

@@ -1,6 +1,7 @@
 .amplify-text {
-  display: block;
+  background-color: var(--amplify-components-text-background-color);
   color: var(--amplify-components-text-color);
+  display: block;
 
   @at-root b#{&},
     em#{&},
@@ -18,30 +19,37 @@
     white-space: nowrap;
   }
   &--primary {
+    background-color: var(--amplify-components-text-primary-background-color);
     color: var(--amplify-components-text-primary-color);
   }
 
   &--secondary {
+    background-color: var(--amplify-components-text-secondary-background-color);
     color: var(--amplify-components-text-secondary-color);
   }
 
   &--tertiary {
+    background-color: var(--amplify-components-text-tertiary-background-color);
     color: var(--amplify-components-text-tertiary-color);
   }
 
   &--error {
+    background-color: var(--amplify-components-text-error-background-color);
     color: var(--amplify-components-text-error-color);
   }
 
   &--info {
+    background-color: var(--amplify-components-text-info-background-color);
     color: var(--amplify-components-text-info-color);
   }
 
   &--success {
+    background-color: var(--amplify-components-text-success-background-color);
     color: var(--amplify-components-text-success-color);
   }
 
   &--warning {
+    background-color: var(--amplify-components-text-warning-background-color);
     color: var(--amplify-components-text-warning-color);
   }
 }

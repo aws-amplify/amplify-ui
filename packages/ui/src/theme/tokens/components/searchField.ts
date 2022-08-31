@@ -2,6 +2,7 @@ import {
   BackgroundColorValue,
   ColorValue,
   DesignToken,
+  TextContrast,
 } from '../types/designToken';
 import { StateTokens } from './button';
 
@@ -14,12 +15,12 @@ interface SearchTokens {
   _hover: StateTokens;
 }
 
-export interface SearchFieldTokens {
-  color: DesignToken<ColorValue>;
+export interface SearchFieldTokens extends TextContrast {
   button: SearchTokens;
 }
 
 export const searchfield: SearchFieldTokens = {
+  backgroundColor: { value: 'transparent' },
   color: { value: '{components.fieldcontrol.color.value}' },
   button: {
     color: { value: '{components.button.color.value}' },

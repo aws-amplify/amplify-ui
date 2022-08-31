@@ -9,6 +9,7 @@ import {
   PointerEventsValue,
   PositionValue,
   SpaceValue,
+  TextContrast,
   TransformValue,
   WhiteSpaceValue,
 } from '../types/designToken';
@@ -29,12 +30,11 @@ interface SelectIconWrapperTokens {
   pointerEvents: DesignToken<PointerEventsValue>;
 }
 
+interface SelectOptionDisabledTokens extends TextContrast {}
 interface SelectOptionTokens {
   backgroundColor: DesignToken<BackgroundColorValue>;
   color: DesignToken<ColorValue>;
-  _disabled: {
-    color: DesignToken<ColorValue>;
-  };
+  _disabled: SelectOptionDisabledTokens;
 }
 
 interface SelectSizeTokens {
@@ -74,6 +74,7 @@ export const select: SelectTokens = {
     backgroundColor: { value: '{colors.background.primary.value}' },
     color: { value: '{colors.font.primary.value}' },
     _disabled: {
+      backgroundColor: { value: 'transparent' },
       color: { value: '{colors.font.disabled.value}' },
     },
   },

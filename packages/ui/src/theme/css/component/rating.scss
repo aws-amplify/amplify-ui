@@ -49,9 +49,11 @@
 }
 
 .amplify-rating-icon-filled {
+  background-color: var(--amplify-components-rating-filled-background-color);
   color: var(--amplify-components-rating-filled-color);
 }
 
 .amplify-rating-icon-empty {
+  background-color: var(--amplify-components-rating-empty-background-color);
   color: var(--amplify-components-rating-empty-color);
 }

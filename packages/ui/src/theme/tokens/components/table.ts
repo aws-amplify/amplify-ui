@@ -2,6 +2,7 @@ import {
   BackgroundColorValue,
   BorderCollapseValue,
   BorderColorValue,
+  BorderContrast,
   BorderStyleValue,
   BorderWidthValue,
   CaptionSideValue,
@@ -12,6 +13,7 @@ import {
   FontWeightValue,
   SpaceValue,
   TextAlignValue,
+  TextContrast,
   VerticalAlignValue,
   WordBreakValue,
 } from '../types/designToken';
@@ -34,7 +36,7 @@ interface TableRowStripedTokens {
   backgroundColor: DesignToken<BackgroundColorValue>;
 }
 
-interface TableCellTokens extends TableDefaultTokens {
+interface TableCellTokens extends TableDefaultTokens, BorderContrast {
   borderColor: DesignToken<BorderColorValue>;
   borderStyle: DesignToken<BorderStyleValue>;
   borderWidth: DesignToken<BorderWidthValue>;
@@ -55,9 +57,8 @@ interface TableCellSizeTokens {
   padding: DesignToken<SpaceValue>;
 }
 
-interface TableCaptionTokens {
+interface TableCaptionTokens extends TextContrast {
   captionSide: DesignToken<CaptionSideValue>;
-  color: DesignToken<ColorValue>;
   display: DesignToken<DisplayValue>;
   fontSize: DesignToken<FontSizeValue>;
   textAlign: DesignToken<TextAlignValue>;
@@ -135,6 +136,7 @@ export const table: TableTokens = {
    * Default table header cell styles
    */
   header: {
+    backgroundColor: { value: 'transparent' },
     borderColor: { value: '{colors.border.tertiary.value}' },
     borderStyle: { value: 'solid' },
     borderWidth: { value: '{borderWidths.small.value}' },
@@ -160,6 +162,7 @@ export const table: TableTokens = {
    * Default table data cell styles
    */
   data: {
+    backgroundColor: { value: 'transparent' },
     borderColor: { value: '{colors.border.tertiary.value}' },
     borderStyle: { value: 'solid' },
     borderWidth: { value: '{borderWidths.small.value}' },
@@ -185,6 +188,7 @@ export const table: TableTokens = {
    * Default table caption styles
    */
   caption: {
+    backgroundColor: { value: 'transparent' },
     captionSide: { value: 'bottom' },
     color: { value: '{colors.font.primary.value}' },
     display: { value: 'table-caption' },

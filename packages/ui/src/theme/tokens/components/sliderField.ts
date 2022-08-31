@@ -1,6 +1,7 @@
 import {
   BackgroundColorValue,
   BorderColorValue,
+  BorderContrast,
   BorderRadiusValue,
   BorderStyleValue,
   BorderWidthValue,
@@ -51,8 +52,7 @@ interface SliderFieldThumbHoverTokens {
   borderColor: DesignToken<BorderColorValue>;
 }
 
-interface SliderFieldThumbFocusTokens {
-  borderColor: DesignToken<BorderColorValue>;
+interface SliderFieldThumbFocusTokens extends BorderContrast {
   boxShadow: DesignToken<BoxShadowValue>;
 }
 
@@ -119,6 +119,7 @@ export const sliderfield: SliderFieldTokens = {
       borderColor: { value: '{colors.border.focus.value}' },
     },
     _focus: {
+      backgroundColor: { value: 'transparent' },
       borderColor: { value: '{colors.border.focus.value}' },
       boxShadow: {
         value: {

@@ -5,12 +5,12 @@ import {
   BackgroundColorValue,
   BorderRadiusValue,
   BoxShadowValue,
-  ColorValue,
   DesignToken,
   DisplayValue,
   JustifyContentValue,
   RadiusValue,
   SpaceValue,
+  TextContrast,
   TransitionDurationValue,
   TransitionTimingFunctionValue,
 } from '../types/designToken';
@@ -58,8 +58,7 @@ interface ExpanderContentTokens {
   _closed: ExpanderContentClosedTokens;
 }
 
-interface ExpanderContentTextTokens {
-  color: DesignToken<ColorValue>;
+interface ExpanderContentTextTokens extends TextContrast {
   paddingBlockStart: DesignToken<SpaceValue>;
   paddingBlockEnd: DesignToken<SpaceValue>;
 }
@@ -149,6 +148,7 @@ export const expander: ExpanderTokens = {
     paddingInlineStart: { value: '{space.large.value}' },
     paddingInlineEnd: { value: '{space.large.value}' },
     text: {
+      backgroundColor: { value: 'transparent' },
       color: { value: '{colors.font.secondary.value}' },
       paddingBlockStart: { value: '{space.medium.value}' },
       paddingBlockEnd: { value: '{space.medium.value}' },

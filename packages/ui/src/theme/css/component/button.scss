@@ -4,6 +4,7 @@
 
 .amplify-button {
   align-items: center;
+  background-color: var(--amplify-components-button-background-color);
   border-color: var(--amplify-components-button-border-color);
   border-radius: var(--amplify-components-button-border-radius);
   border-style: var(--amplify-components-button-border-style);
@@ -96,6 +97,9 @@
 
     --amplify-internal-button-disabled-color: var(
       --amplify-components-button-menu-disabled-color
+    );
+    --amplify-internal-button-disabled-background-color: var(
+      --amplify-components-button-menu-disabled-background-color
     );
   }
 

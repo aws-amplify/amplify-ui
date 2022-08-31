@@ -1,16 +1,9 @@
-import { ColorValue, DesignToken, FontSizeValue } from '../types/designToken';
+import { ColorValue, DesignToken, TextContrast } from '../types/designToken';
 
-interface LinkStateTokens {
-  color: DesignToken<ColorValue>;
-}
+interface LinkStateTokens extends TextContrast {}
 
-interface LinkSizeTokens {
-  fontSize: DesignToken<FontSizeValue>;
-}
-
-export interface LinkTokens {
+export interface LinkTokens extends TextContrast {
   active: LinkStateTokens;
-  color: DesignToken<ColorValue>;
   focus: LinkStateTokens;
   hover: LinkStateTokens;
   visited: LinkStateTokens;
@@ -18,16 +11,21 @@ export interface LinkTokens {
 
 export const link: LinkTokens = {
   active: {
+    backgroundColor: { value: 'transparent' },
     color: { value: '{colors.font.active.value}' },
   },
+  backgroundColor: { value: 'transparent' },
   color: { value: '{colors.font.interactive.value}' },
   focus: {
+    backgroundColor: { value: 'transparent' },
     color: { value: '{colors.font.focus.value}' },
   },
   hover: {
+    backgroundColor: { value: 'transparent' },
     color: { value: '{colors.font.hover.value}' },
   },
   visited: {
+    backgroundColor: { value: 'transparent' },
     color: { value: '{colors.font.interactive.value}' },
   },
 };

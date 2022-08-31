@@ -58,7 +58,7 @@ export interface AuthenticatorTokens {
   footer: AuthenticatorFooterTokens;
   form: AuthenticatorFormTokens;
   state: AuthenticatorStateTokens;
-  orContainer: AuthenticatorOrContainerTokens;
+  // orContainer: AuthenticatorOrContainerTokens;
 }
 
 export const authenticator: AuthenticatorTokens = {
@@ -91,10 +91,10 @@ export const authenticator: AuthenticatorTokens = {
       backgroundColor: { value: '{colors.background.secondary.value}' },
     },
   },
-  orContainer: {
-    color: { value: '{colors.neutral.80.value}' },
-    orLine: {
-      backgroundColor: { value: '{colors.background.primary.value}' },
-    },
-  },
+  // orContainer: {
+  //   color: { value: '{colors.neutral.80.value}' },
+  //   orLine: {
+  //     backgroundColor: { value: '{colors.background.primary.value}' },
+  //   },
+  // },
 };
