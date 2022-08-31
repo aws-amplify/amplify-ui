@@ -86,13 +86,8 @@ function removeDuplicateStateTokens(
   });
 
   // filter out the duplicate tokens that appear more than once in our token list
-  tokenList = tokenList.filter((token) => {
-    if (duplicateTokenCount[token.name] >= 2) {
-      return token.path.join('.') === DUPLICATE_STATE_TOKENS[token.name];
-    }
-    return true;
-  });
-  return tokenList;
+  return tokenList.filter((token) => duplicateTokenCount[token.name] < 2 || token.path.join('.') === DUPLICATE_STATE_TOKENS[token.name];
+  );
 }
 
 /**
