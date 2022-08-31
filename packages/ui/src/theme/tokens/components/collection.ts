@@ -52,7 +52,9 @@ export const collection: CollectionTokens = {
       },
     },
     button: {
-      backgroundColor: { value: 'transparent' },
+      backgroundColor: {
+        value: '{components.pagination.button.backgroundColor}',
+      },
       color: { value: '{components.pagination.button.color}' },
       _hover: {
         backgroundColor: {
@@ -61,18 +63,24 @@ export const collection: CollectionTokens = {
         color: { value: '{components.pagination.button.hover.color}' },
       },
       _disabled: {
-        backgroundColor: { value: 'transparent' },
+        backgroundColor: {
+          value: '{components.pagination.button.disabled.backgroundColor}',
+        },
         color: { value: '{components.pagination.button.disabled.color}' },
       },
     },
   },
   search: {
     input: {
-      backgroundColor: { value: 'transparent' },
+      backgroundColor: {
+        value: '{components.searchfield.input.backgroundColor}',
+      },
       color: { value: '{components.searchfield.color}' },
     },
     button: {
-      backgroundColor: { value: 'transparent' },
+      backgroundColor: {
+        value: '{components.searchfield.button.backgroundColor}',
+      },
       color: { value: '{components.searchfield.button.color}' },
       _active: {
         backgroundColor: {

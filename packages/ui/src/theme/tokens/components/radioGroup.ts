@@ -2,7 +2,6 @@ import {
   BackgroundColorValue,
   BorderColorValue,
   BorderWidthValue,
-  ColorValue,
   DesignToken,
   TextContrast,
 } from '../types/designToken';
@@ -27,16 +26,18 @@ export const radiogroup: RadioGroupTokens = {
     borderColor: { value: '{components.radio.button.borderColor}' },
     backgroundColor: { value: '{components.radio.button.backgroundColor}' },
     _checked: {
-      backgroundColor: { value: 'transparent' },
+      backgroundColor: {
+        value: '{components.radio.button.checked.backgroundColor}',
+      },
       color: { value: '{components.radio.button._checked.color}' },
     },
     label: {
-      backgroundColor: { value: 'transparent' },
+      backgroundColor: { value: '{components.radio.label.backgroundColor}' },
       color: { value: '{components.radio.label.color}' },
     },
   },
   label: {
-    backgroundColor: { value: 'transparent' },
+    backgroundColor: { value: '{components.field.label.backgroundColor}' },
     color: { value: '{components.field.label.color}' },
   },
 };

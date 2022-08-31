@@ -15,11 +15,13 @@ export interface PhoneNumberFieldTokens extends BorderContrast {
 
 export const phonenumberfield: PhoneNumberFieldTokens = {
   color: { value: '{components.fieldcontrol.color}' },
-  backgroundColor: { value: 'transparent' },
+  backgroundColor: { value: '{components.selectfield.backgroundColor}' },
   borderColor: { value: '{components.fieldcontrol.borderColor}' },
   fontSize: { value: '{components.fieldcontrol.fontSize}' },
   _focus: {
-    backgroundColor: { value: 'transparent' },
+    backgroundColor: {
+      value: '{components.selectfield.focus.backgroundColor}',
+    },
     borderColor: { value: '{components.fieldcontrol._focus.borderColor}' },
   },
 };

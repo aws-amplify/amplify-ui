@@ -15,10 +15,10 @@ export interface PasswordFieldTokens extends TextContrast {
 }
 
 export const passwordfield: PasswordFieldTokens = {
-  backgroundColor: { value: 'transparent' },
+  backgroundColor: { value: '{components.fieldcontrol.backgroundColor}' },
   color: { value: '{components.fieldcontrol.color.value}' },
   button: {
-    backgroundColor: { value: 'transparent' },
+    backgroundColor: { value: '{components.button.backgroundColor}' },
     color: { value: '{components.button.color.value}' },
     _active: {
       backgroundColor: {

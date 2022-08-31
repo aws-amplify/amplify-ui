@@ -19,7 +19,7 @@ export interface SelectFieldTokens extends BorderContrast {
 }
 
 export const selectfield: SelectFieldTokens = {
-  backgroundColor: { value: 'transparent' },
+  backgroundColor: { value: '{components.fieldcontrol.backgroundColor}' },
   borderColor: { value: '{components.fieldcontrol.borderColor}' },
   color: { value: '{components.fieldcontrol.color}' },
   flexDirection: {
@@ -27,11 +27,13 @@ export const selectfield: SelectFieldTokens = {
   },
   fontSize: { value: '{components.fieldcontrol.fontSize}' },
   _focus: {
-    backgroundColor: { value: 'transparent' },
+    backgroundColor: {
+      value: '{components.fieldcontrol.focus.backgroundColor}',
+    },
     borderColor: { value: '{components.fieldcontrol._focus.borderColor}' },
   },
   label: {
-    backgroundColor: { value: 'transparent' },
+    backgroundColor: { value: '{components.field.label.backgroundColor}' },
     color: { value: '{components.field.label.color}' },
   },
 };

@@ -165,7 +165,7 @@ export const radio: RadioTokens = {
   },
 
   label: {
-    backgroundColor: { value: 'transparent' },
+    backgroundColor: { value: '{components.text.backgroundColor}' },
     color: { value: '{components.text.color.value}' },
     _disabled: {
       backgroundColor: { value: 'transparent' },
