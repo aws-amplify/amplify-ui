@@ -26,7 +26,7 @@ import {
   FreshnessColorDisplay,
 } from '../../helpers';
 import { v4 } from 'uuid';
-import { isClientSesssionInformationEvent } from '../../helpers/liveness/liveness-event-utils';
+import { isServerSesssionInformationEvent } from '../../helpers/liveness/liveness-event-utils';
 
 export const MIN_FACE_MATCH_COUNT = 5;
 
@@ -871,7 +871,7 @@ const responseStreamActor = async (callback) => {
     },
   };
   for await (const event of asyncIterable) {
-    if (isClientSesssionInformationEvent(event)) {
+    if (isServerSesssionInformationEvent(event)) {
       callback({
         type: 'SET_SESSION_INFO',
         data: { sessionInfo: event.SessionInformation },
