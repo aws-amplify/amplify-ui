@@ -74,19 +74,20 @@ function setupTokens(obj: any, path = []) {
 function removeDuplicateStateTokens(
   tokens: WebDesignToken[]
 ): WebDesignToken[] {
-  let tokenList = tokens;
-
   let duplicateTokenCount = {};
-  // iterate over the full tokenList a single time and count up all the instances of each duplicate token
-  tokenList.forEach((token) => {
+  // iterate over the full list of tokens a single time and count up all the instances of each duplicate token
+  tokens.forEach((token) => {
     if (DUPLICATE_STATE_TOKENS[token.name]) {
       duplicateTokenCount[token.name] =
         (duplicateTokenCount[token.name] ?? 0) + 1;
     }
   });
 
-  // filter out the duplicate tokens that appear more than once in our token list
-  return tokenList.filter((token) => duplicateTokenCount[token.name] < 2 || token.path.join('.') === DUPLICATE_STATE_TOKENS[token.name];
+  // filter out the duplicate tokens that appear more than once in our list of tokens
+  return tokens.filter(
+    (token) =>
+      duplicateTokenCount[token.name] < 2 ||
+      token.path.join('.') === DUPLICATE_STATE_TOKENS[token.name]
   );
 }
 
