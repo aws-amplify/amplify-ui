@@ -14,8 +14,7 @@
     "module": "es2020",
     "esModuleInterop": true,
     "paths": {},
-    "lib": ["dom", "es2019", "dom.iterable"],
-    "types": ["jest"]
+    "lib": ["dom", "es2019", "dom.iterable"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false

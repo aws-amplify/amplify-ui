@@ -5,8 +5,8 @@ import {
   FormFieldsArray,
   getActorContext,
   getFormDataFromEvent,
-  SignInContext,
   getTotpCode,
+  SignInContext,
 } from '@aws-amplify/ui';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 import { translate } from '@aws-amplify/ui';
@@ -43,7 +43,7 @@ export class SetupTotpComponent implements OnInit {
     // TODO: This should be handled in core.
     const state = this.authenticator.authState;
     const actorContext = getActorContext(state) as SignInContext;
-    const { user, formFields, country_code } = actorContext;
+    const { user, formFields } = actorContext;
     const { totpIssuer = 'AWSCognito', totpUsername = user?.username } =
       formFields?.setupTOTP?.QR ?? {};
     try {

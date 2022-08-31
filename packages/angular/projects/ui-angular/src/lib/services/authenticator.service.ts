@@ -34,11 +34,9 @@ export class AuthenticatorService implements OnDestroy {
 
     const authService = interpret(machine).start();
 
-    this._machineSubscription = authService.subscribe((state) => {
-      this._authState = state as unknown as AuthMachineState;
-      this._facade = getServiceContextFacade(
-        state as unknown as AuthMachineState
-      );
+    this._machineSubscription = authService.subscribe((state: unknown) => {
+      this._authState = state as AuthMachineState;
+      this._facade = getServiceContextFacade(state as AuthMachineState);
     });
 
     this._sendEventAliases = getSendEventAliases(authService.send);

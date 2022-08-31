@@ -47,7 +47,7 @@ export const SetupTOTP = ({
   const actorState = getActorState(_state) as SignInState;
 
   const { formFields, user } = actorState.context;
-  const { totpIssuer = 'AWSCognito', totpUsername = user.username } =
+  const { totpIssuer = 'AWSCognito', totpUsername = user?.username } =
     formFields?.setupTOTP?.QR ?? {};
 
   const generateQRCode = React.useCallback(

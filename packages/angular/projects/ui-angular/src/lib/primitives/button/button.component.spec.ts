@@ -12,7 +12,7 @@ describe('ButtonComponent', () => {
     fixture = TestBed.createComponent(ButtonComponent);
     component = fixture.componentInstance;
   });
-  it('Default type test.', () => {
+  it('has a default input type button', () => {
     expect(component.type).toEqual('button');
   });
 });

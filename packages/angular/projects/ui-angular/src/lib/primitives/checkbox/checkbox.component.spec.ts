@@ -6,7 +6,7 @@ describe('CheckboxComponent', () => {
   beforeEach(() => {
     fixture = new CheckboxComponent();
   });
-  it('Default checkbox behaviour -> ', () => {
+  it('has a default isChecked value of false', () => {
     expect(fixture.isChecked).toEqual(false);
   });
 });

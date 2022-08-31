@@ -32,8 +32,6 @@ describe('SetupTotpComponent', () => {
   beforeEach(async () => {
     jest.resetAllMocks();
 
-    setupTOTPSpy.mockResolvedValue(SECRET_KEY);
-
     const mockAuthenticatorService = {
       _state: {},
       isPending: false,
@@ -65,11 +63,12 @@ describe('SetupTotpComponent', () => {
     fixture = TestBed.createComponent(SetupTotpComponent);
     component = fixture.componentInstance;
   });
-  it('it works', () => {
+  it('successfully mounts', () => {
     expect(fixture).toBeTruthy();
   });
 
   it('validate generateQR Code generates correct code', async () => {
+    setupTOTPSpy.mockResolvedValue(SECRET_KEY);
     const defaultTotpCode = getTotpCode(
       DEFAULT_TOTP_ISSUER,
       mockUser.username,
@@ -87,7 +86,7 @@ describe('SetupTotpComponent', () => {
   });
 
   describe('QR Tests', () => {
-    it('handles customTotpIssuer with spaces', async () => {
+    it('handles customTotpIssuer with spaces', () => {
       const customTotpIssuer = 'customTOTPIssuer spaces';
       const customTotpUsername = 'customTotpUsername';
       const SECRET_KEY = 'secretKey';
