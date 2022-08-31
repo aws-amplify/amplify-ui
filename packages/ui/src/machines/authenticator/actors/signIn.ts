@@ -2,7 +2,7 @@ import { Auth } from 'aws-amplify';
 import get from 'lodash/get';
 import isEmpty from 'lodash/isEmpty';
 import { createMachine, sendUpdate } from 'xstate';
-import { AuthChallengeNames, AuthEvent, SignInContext } from '../../../types';
+import { AuthEvent, SignInContext } from '../../../types';
 import { runValidators } from '../../../validators';
 import {
   clearAttributeToVerify,
@@ -462,10 +462,7 @@ export function signInActor({ services }: SignInMachineOptions) {
       guards: {
         shouldConfirmSignIn: (_, event): boolean => {
           const challengeName = get(event, 'data.challengeName');
-          const validChallengeNames = [
-            AuthChallengeNames.SMS_MFA,
-            AuthChallengeNames.SOFTWARE_TOKEN_MFA,
-          ];
+          const validChallengeNames = ['SMS_MFA', 'SOFTWARE_TOKEN_MFA'];
 
           return validChallengeNames.includes(challengeName);
         },
@@ -481,12 +478,12 @@ export function signInActor({ services }: SignInMachineOptions) {
         shouldSetupTOTP: (_, event): boolean => {
           const challengeName = get(event, 'data.challengeName');
 
-          return challengeName === AuthChallengeNames.MFA_SETUP;
+          return challengeName === 'MFA_SETUP';
         },
         shouldForceChangePassword: (_, event): boolean => {
           const challengeName = get(event, 'data.challengeName');
 
-          return challengeName === AuthChallengeNames.NEW_PASSWORD_REQUIRED;
+          return challengeName === 'NEW_PASSWORD_REQUIRED';
         },
         shouldRequestVerification: (_, event): boolean => {
           const { unverified, verified } = event.data;
@@ -517,8 +514,8 @@ export function signInActor({ services }: SignInMachineOptions) {
 
           let mfaType;
           if (
-            challengeName === AuthChallengeNames.SMS_MFA ||
-            challengeName === AuthChallengeNames.SOFTWARE_TOKEN_MFA
+            challengeName === 'SMS_MFA' ||
+            challengeName === 'SOFTWARE_TOKEN_MFA'
           ) {
             mfaType = challengeName;
           }

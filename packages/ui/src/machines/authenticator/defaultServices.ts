@@ -1,12 +1,7 @@
 import { Amplify, Auth } from 'aws-amplify';
 import { hasSpecialChars } from '../../helpers';
 
-import {
-  AuthChallengeNames,
-  PasswordSettings,
-  SignInResult,
-  ValidatorResult,
-} from '../../types';
+import { PasswordSettings, SignInResult, ValidatorResult } from '../../types';
 
 export const defaultServices = {
   async getAmplifyConfig() {
@@ -36,7 +31,7 @@ export const defaultServices = {
   }: {
     user: any;
     code: string;
-    mfaType: AuthChallengeNames.SMS_MFA | AuthChallengeNames.SOFTWARE_TOKEN_MFA;
+    mfaType: 'SMS_MFA' | 'SOFTWARE_TOKEN_MFA';
   }): Promise<any> {
     return Auth.confirmSignIn(user, code, mfaType);
   },
