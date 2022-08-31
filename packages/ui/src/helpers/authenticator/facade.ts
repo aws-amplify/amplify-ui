@@ -121,9 +121,10 @@ export const getServiceContextFacade = (
     validationError: validationErrors,
   } = actorContext;
 
-  // check for user in actor context prior to state context. Actor context is more "up to date",
+  // check for user in actorContext prior to state context. actorContext is more "up to date",
   // but is not available on all states
-  const user = actorContext?.user ?? state.context.user;
+  const { user } = actorContext ?? state.context;
+
   const hasValidationErrors =
     validationErrors && Object.keys(validationErrors).length > 0;
   const isPending = state.hasTag('pending') || actorState?.hasTag('pending');
