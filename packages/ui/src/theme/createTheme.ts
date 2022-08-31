@@ -86,6 +86,7 @@ function removeDuplicateStateTokens(
   // filter out the duplicate tokens that appear more than once in our list of tokens
   return tokens.filter(
     (token) =>
+      !duplicateTokenCount[token.name] ||
       duplicateTokenCount[token.name] < 2 ||
       token.path.join('.') === DUPLICATE_STATE_TOKENS[token.name]
   );
@@ -118,12 +119,11 @@ export function createTheme(
 
   // flattenProperties is another internal Style Dictionary function
   // that creates an array of all tokens.
-  let cssText =
-    `[data-amplify-theme="${name}"] {\n` +
-    removeDuplicateStateTokens(flattenProperties(tokens))
-      .map((token) => `${token.name}: ${token.value};`)
-      .join('\n') +
-    `\n}\n`;
+  let cssText = `[data-amplify-theme="${name}"] {\n${removeDuplicateStateTokens(
+    flattenProperties(tokens)
+  )
+    .map((token) => `${token.name}: ${token.value};`)
+    .join('\n')}\n}\n`;
 
   let overrides: Array<Override> = [];
 
