@@ -8,7 +8,6 @@ import { Sender } from 'xstate';
 
 import {
   ActorContextWithForms,
-  AuthChallengeNames,
   AuthEvent,
   AuthEventData,
   AuthEventTypes,
