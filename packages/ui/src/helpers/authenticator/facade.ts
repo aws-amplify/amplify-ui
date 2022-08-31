@@ -124,7 +124,8 @@ export const getServiceContextFacade = (
     validationError: validationErrors,
   } = actorContext;
 
-  const hasValidationErrors = Object.keys(validationErrors).length > 0;
+  const hasValidationErrors =
+    validationErrors && Object.keys(validationErrors).length > 0;
   const isPending = state.hasTag('pending') || actorState?.hasTag('pending');
 
   // Any additional idle states added beyond (idle, setup) should be updated inside the authStatus below as well
