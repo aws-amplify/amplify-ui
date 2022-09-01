@@ -2,7 +2,12 @@ import { Auth } from 'aws-amplify';
 import get from 'lodash/get';
 import isEmpty from 'lodash/isEmpty';
 import { createMachine, sendUpdate } from 'xstate';
-import { AuthEvent, SignInContext } from '../../../types';
+import {
+  AuthChallengeName,
+  AuthEvent,
+  CognitoUserAmplify,
+  SignInContext,
+} from '../../../types';
 import { runValidators } from '../../../validators';
 import {
   clearAttributeToVerify,
@@ -33,6 +38,22 @@ import { defaultServices } from '../defaultServices';
 export type SignInMachineOptions = {
   services?: Partial<typeof defaultServices>;
 };
+
+const MFA_CHALLENGE_NAMES: AuthChallengeName[] = [
+  'SMS_MFA',
+  'SOFTWARE_TOKEN_MFA',
+];
+
+const getChallengeName = (event: AuthEvent): AuthChallengeName =>
+  get(event, 'data.challengeName');
+
+const isExpectedChallengeName = (
+  challengeName: AuthChallengeName,
+  expectedChallengeName: AuthChallengeName
+) => challengeName === expectedChallengeName;
+
+const isMfaChallengeName = (challengeName: AuthChallengeName) =>
+  MFA_CHALLENGE_NAMES.includes(challengeName);
 
 export function signInActor({ services }: SignInMachineOptions) {
   return createMachine<SignInContext, AuthEvent>(
@@ -461,10 +482,7 @@ export function signInActor({ services }: SignInMachineOptions) {
       },
       guards: {
         shouldConfirmSignIn: (_, event): boolean => {
-          const challengeName = get(event, 'data.challengeName');
-          const validChallengeNames = ['SMS_MFA', 'SOFTWARE_TOKEN_MFA'];
-
-          return validChallengeNames.includes(challengeName);
+          return isMfaChallengeName(getChallengeName(event));
         },
         shouldAutoSignIn: (context) => {
           return context?.intent === 'autoSignIn';
@@ -476,14 +494,13 @@ export function signInActor({ services }: SignInMachineOptions) {
           return event.data.code === 'PasswordResetRequiredException';
         },
         shouldSetupTOTP: (_, event): boolean => {
-          const challengeName = get(event, 'data.challengeName');
-
-          return challengeName === 'MFA_SETUP';
+          return isExpectedChallengeName(getChallengeName(event), 'MFA_SETUP');
         },
         shouldForceChangePassword: (_, event): boolean => {
-          const challengeName = get(event, 'data.challengeName');
-
-          return challengeName === 'NEW_PASSWORD_REQUIRED';
+          return isExpectedChallengeName(
+            getChallengeName(event),
+            'NEW_PASSWORD_REQUIRED'
+          );
         },
         shouldRequestVerification: (_, event): boolean => {
           const { unverified, verified } = event.data;
@@ -508,22 +525,18 @@ export function signInActor({ services }: SignInMachineOptions) {
             password,
           });
         },
-        async confirmSignIn(context, event) {
+        async confirmSignIn(context) {
           const { challengeName, user } = context;
           const { confirmation_code: code } = context.formValues;
 
-          let mfaType;
-          if (
-            challengeName === 'SMS_MFA' ||
-            challengeName === 'SOFTWARE_TOKEN_MFA'
-          ) {
-            mfaType = challengeName;
-          }
+          const mfaType = isMfaChallengeName(challengeName)
+            ? challengeName
+            : undefined;
 
           await services.handleConfirmSignIn({ user, code, mfaType });
           return await Auth.currentAuthenticatedUser();
         },
-        async forceNewPassword(context, event) {
+        async forceNewPassword(context) {
           const { user, formValues } = context;
           let {
             password,
@@ -542,7 +555,7 @@ export function signInActor({ services }: SignInMachineOptions) {
 
           try {
             // complete forceNewPassword flow and get updated CognitoUser
-            const newUser = await Auth.completeNewPassword(
+            const newUser: CognitoUserAmplify = await Auth.completeNewPassword(
               user,
               password,
               rest
@@ -566,9 +579,9 @@ export function signInActor({ services }: SignInMachineOptions) {
             return Promise.reject(err);
           }
         },
-        async verifyTotpToken(context, event) {
-          const { user } = context;
-          const { confirmation_code } = context.formValues;
+        async verifyTotpToken(context) {
+          const { formValues, user } = context;
+          const { confirmation_code } = formValues;
 
           return Auth.verifyTotpToken(user, confirmation_code);
         },
@@ -577,13 +590,13 @@ export function signInActor({ services }: SignInMachineOptions) {
 
           return await Auth.federatedSignIn({ provider });
         },
-        async checkVerifiedContact(context, event) {
+        async checkVerifiedContact(context) {
           const { user } = context;
           const result = await Auth.verifiedContact(user);
 
           return result;
         },
-        async verifyUser(context, event) {
+        async verifyUser(context) {
           const { unverifiedAttr } = context.formValues;
           const result = await Auth.verifyCurrentUserAttribute(unverifiedAttr);
 
@@ -591,7 +604,7 @@ export function signInActor({ services }: SignInMachineOptions) {
 
           return result;
         },
-        async confirmVerifyUser(context, event) {
+        async confirmVerifyUser(context) {
           const { attributeToVerify } = context;
           const { confirmation_code } = context.formValues;
 
@@ -600,7 +613,7 @@ export function signInActor({ services }: SignInMachineOptions) {
             confirmation_code
           );
         },
-        async validateFields(context, event) {
+        async validateFields(context) {
           return runValidators(
             context.formValues,
             context.touched,
