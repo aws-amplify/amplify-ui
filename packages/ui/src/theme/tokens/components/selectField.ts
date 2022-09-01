@@ -10,9 +10,8 @@ import {
 interface SelectFieldFocusTokens extends BorderContrast {}
 
 interface SelectFieldLabelTokens extends TextContrast {}
-export interface SelectFieldTokens extends BorderContrast {
+export interface SelectFieldTokens extends BorderContrast, TextContrast {
   flexDirection: DesignToken<FlexDirectionValue>;
-  color: DesignToken<ColorValue>;
   fontSize: DesignToken<FontSizeValue>;
   _focus: SelectFieldFocusTokens;
   label: SelectFieldLabelTokens;

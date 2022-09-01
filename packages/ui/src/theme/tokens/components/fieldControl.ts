@@ -17,6 +17,7 @@ import {
   OutlineStyleValue,
   OutlineWidthValue,
   SpaceValue,
+  TextContrast,
   TransitionDurationValue,
 } from '../types/designToken';
 
@@ -32,11 +33,9 @@ interface FieldControlFocusTokens extends BorderContrast {
   boxShadow: DesignToken<BoxShadowValue>;
 }
 
-interface FieldControlDisabledTokens {
+interface FieldControlDisabledTokens extends BorderContrast {
   color: DesignToken<ColorValue>;
   cursor: DesignToken<CursorValue>;
-  borderColor: DesignToken<BorderColorValue>;
-  backgroundColor: DesignToken<BackgroundColorValue>;
 }
 
 interface FieldControlErrorTokens extends BorderContrast {
@@ -72,11 +71,10 @@ interface FieldControlQuietErrorFocusTokens {
   boxShadow: DesignToken<BoxShadowValue>;
 }
 
-export interface FieldControlTokens extends BorderContrast {
+export interface FieldControlTokens extends BorderContrast, TextContrast {
   borderStyle: DesignToken<BorderStyleValue>;
   borderWidth: DesignToken<BorderWidthValue>;
   borderRadius: DesignToken<BorderRadiusValue>;
-  color: DesignToken<ColorValue>;
   paddingBlockStart: DesignToken<SpaceValue>;
   paddingBlockEnd: DesignToken<SpaceValue>;
   paddingInlineStart: DesignToken<SpaceValue>;

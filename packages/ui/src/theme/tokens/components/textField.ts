@@ -1,19 +1,13 @@
 import {
-  ColorValue,
   DesignToken,
-  BorderColorValue,
   BorderContrast,
   FontSizeValue,
   TextContrast,
 } from '../types/designToken';
 
-interface TextFieldStateToken extends BorderContrast {
-  borderColor: DesignToken<BorderColorValue>;
-}
+interface TextFieldStateToken extends BorderContrast {}
 
 export interface TextFieldTokens extends BorderContrast, TextContrast {
-  color: DesignToken<ColorValue>;
-  borderColor: DesignToken<BorderColorValue>;
   fontSize: DesignToken<FontSizeValue>;
   _focus: TextFieldStateToken;
 }

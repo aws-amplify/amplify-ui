@@ -1,5 +1,4 @@
 import {
-  ColorValue,
   DesignToken,
   FontSizeValue,
   FontWeightValue,

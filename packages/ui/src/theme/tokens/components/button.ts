@@ -1,7 +1,6 @@
 import {
   AlignItemsValue,
   BackgroundColorValue,
-  BorderColorValue,
   BorderContrast,
   BorderRadiusValue,
   BorderStyleValue,
@@ -14,14 +13,11 @@ import {
   JustifyContentValue,
   LineHeightValue,
   SpaceValue,
+  TextContrast,
   TransitionDurationValue,
 } from '../types/designToken';
 
-export interface StateTokens {
-  color: DesignToken<ColorValue>;
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  borderColor: DesignToken<BorderColorValue>;
-}
+export interface StateTokens extends BorderContrast, TextContrast {}
 
 interface StateWithShadowTokens extends StateTokens {
   boxShadow: DesignToken<BoxShadowValue>;
@@ -31,12 +27,9 @@ interface MenuStateDisabledTokens extends Omit<StateTokens, 'borderColor'> {}
 
 interface MenuStateTokens extends Omit<StateTokens, 'borderColor'> {}
 
-interface PrimaryVariationTokens {
+interface PrimaryVariationTokens extends BorderContrast, TextContrast {
   borderWidth: DesignToken<BorderWidthValue>;
   borderStyle: DesignToken<BorderStyleValue>;
-  borderColor: DesignToken<BorderColorValue>;
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  color: DesignToken<ColorValue>;
   _disabled: StateTokens;
   _loading: StateTokens;
   _hover: StateTokens;
@@ -54,11 +47,8 @@ interface MenuVariationTokens {
   _disabled: MenuStateDisabledTokens;
 }
 
-interface LinkVariationTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  borderColor: DesignToken<BorderColorValue>;
+interface LinkVariationTokens extends BorderContrast, TextContrast {
   borderWidth: DesignToken<BorderWidthValue>;
-  color: DesignToken<ColorValue>;
   _hover: StateTokens;
   _focus: StateWithShadowTokens;
   _active: StateTokens;

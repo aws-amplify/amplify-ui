@@ -1,6 +1,7 @@
 import {
   BackgroundColorValue,
   BorderColorValue,
+  BorderContrast,
   BorderRadiusValue,
   BorderStyleValue,
   BorderWidthValue,
@@ -22,12 +23,10 @@ interface MenuItemTokens {
   paddingInlineEnd: DesignToken<SpaceValue>;
 }
 
-export interface MenuTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
+export interface MenuTokens extends BorderContrast {
   borderRadius: DesignToken<BorderRadiusValue>;
   borderWidth: DesignToken<BorderWidthValue>;
   borderStyle: DesignToken<BorderStyleValue>;
-  borderColor: DesignToken<BorderColorValue>;
   boxShadow: DesignToken<BoxShadowValue>;
   flexDirection: DesignToken<FlexDirectionValue>;
   gap: DesignToken<GapValue>;

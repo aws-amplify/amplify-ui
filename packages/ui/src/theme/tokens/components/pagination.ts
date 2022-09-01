@@ -12,12 +12,10 @@ import {
   TransitionPropertyValue,
 } from '../types/designToken';
 
-interface PaginationCurrentTokens {
+interface PaginationCurrentTokens extends TextContrast {
   alignItems: DesignToken<AlignItemsValue>;
   justifyContent: DesignToken<JustifyContentValue>;
-  color: DesignToken<ColorValue>;
   fontSize: DesignToken<FontSizeValue>;
-  backgroundColor: DesignToken<BackgroundColorValue>;
 }
 
 interface PaginationButtonTokens extends TextContrast {
@@ -29,10 +27,7 @@ interface PaginationButtonTokens extends TextContrast {
   disabled: PaginationButtonDisabledTokens;
 }
 
-export interface PaginationButtonHoverTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  color: DesignToken<ColorValue>;
-}
+export interface PaginationButtonHoverTokens extends TextContrast {}
 export interface PaginationButtonDisabledTokens extends TextContrast {}
 
 interface PaginationEllipsisTokens {

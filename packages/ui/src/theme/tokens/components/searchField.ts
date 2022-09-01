@@ -6,9 +6,7 @@ import {
 } from '../types/designToken';
 import { StateTokens } from './button';
 
-interface SearchTokens {
-  color: DesignToken<ColorValue>;
-  backgroundColor: DesignToken<BackgroundColorValue>;
+interface SearchTokens extends TextContrast {
   _active: StateTokens;
   _disabled: StateTokens;
   _focus: StateTokens;

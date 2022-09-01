@@ -2,7 +2,6 @@ import { ColorValue, DesignToken, TextContrast } from '../types/designToken';
 import { StateTokens } from './button';
 
 interface ButtonTokens extends TextContrast {
-  color: DesignToken<ColorValue>;
   _active: StateTokens;
   _disabled: StateTokens;
   _focus: StateTokens;
@@ -10,7 +9,6 @@ interface ButtonTokens extends TextContrast {
 }
 
 export interface PasswordFieldTokens extends TextContrast {
-  color: DesignToken<ColorValue>;
   button: ButtonTokens;
 }
 

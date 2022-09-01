@@ -1,9 +1,7 @@
 import {
-  BackgroundColorValue,
-  BorderColorValue,
+  BorderContrast,
   BorderStyleValue,
   BorderWidthValue,
-  ColorValue,
   DesignToken,
   FontSizeValue,
   FontWeightValue,
@@ -14,12 +12,9 @@ import {
   TransitionDurationValue,
 } from '../types/designToken';
 
-interface TabsItemTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  borderColor: DesignToken<BorderColorValue>;
+interface TabsItemTokens extends BorderContrast, TextContrast {
   borderStyle: DesignToken<BorderStyleValue>;
   borderWidth: DesignToken<BorderWidthValue>;
-  color: DesignToken<ColorValue>;
   fontSize: DesignToken<FontSizeValue>;
   fontWeight: DesignToken<FontWeightValue>;
   paddingVertical: DesignToken<SpaceValue>;
@@ -36,21 +31,11 @@ interface TabsItemHoverTokens extends TextContrast {}
 
 interface TabsItemFocusTokens extends TextContrast {}
 
-interface TabsItemActiveTokens {
-  color: DesignToken<ColorValue>;
-  borderColor: DesignToken<BorderColorValue>;
-  backgroundColor: DesignToken<BackgroundColorValue>;
-}
+interface TabsItemActiveTokens extends BorderContrast, TextContrast {}
 
-interface TabsItemDisabledTokens {
-  color: DesignToken<ColorValue>;
-  borderColor: DesignToken<BorderColorValue>;
-  backgroundColor: DesignToken<BackgroundColorValue>;
-}
+interface TabsItemDisabledTokens extends BorderContrast, TextContrast {}
 
-export interface TabsTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  borderColor: DesignToken<BorderColorValue>;
+export interface TabsTokens extends BorderContrast {
   borderStyle: DesignToken<BorderStyleValue>;
   borderWidth: DesignToken<BorderWidthValue>;
   gap: DesignToken<GapValue>;

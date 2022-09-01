@@ -3,11 +3,11 @@ import {
   DesignToken,
   BorderContrast,
   FontSizeValue,
+  TextContrast,
 } from '../types/designToken';
 
 interface PhoneNumberFieldFocusTokens extends BorderContrast {}
-export interface PhoneNumberFieldTokens extends BorderContrast {
-  color: DesignToken<ColorValue>;
+export interface PhoneNumberFieldTokens extends BorderContrast, TextContrast {
   fontSize: DesignToken<FontSizeValue>;
   _focus: PhoneNumberFieldFocusTokens;
 }

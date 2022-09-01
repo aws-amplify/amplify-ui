@@ -1,9 +1,8 @@
-import { ColorValue, DesignToken, TextContrast } from '../types/designToken';
+import { TextContrast } from '../types/designToken';
 
 interface TextVariationTokens extends TextContrast {}
 
 export interface TextTokens extends TextContrast {
-  color: DesignToken<ColorValue>;
   primary: TextVariationTokens;
   secondary: TextVariationTokens;
   tertiary: TextVariationTokens;

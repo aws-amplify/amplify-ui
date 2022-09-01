@@ -1,10 +1,8 @@
 import {
   BackgroundColorValue,
-  BorderColorValue,
   BorderContrast,
   BorderWidthValue,
   BoxShadowValue,
-  ColorValue,
   DesignToken,
   TextContrast,
 } from '../types/designToken';
@@ -17,16 +15,9 @@ interface ToggleButtonActiveTokens {
 }
 interface ToggleButtonFocusTokens extends BorderContrast, TextContrast {}
 
-interface ToggleButtonDisabledTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  borderColor: DesignToken<BorderColorValue>;
-  color: DesignToken<ColorValue>;
-}
+interface ToggleButtonDisabledTokens extends BorderContrast, TextContrast {}
 
-interface ToggleButtonPressedTokens {
-  borderColor: DesignToken<BorderColorValue>;
-  color: DesignToken<ColorValue>;
-  backgroundColor: DesignToken<BackgroundColorValue>;
+interface ToggleButtonPressedTokens extends BorderContrast, TextContrast {
   _hover: ToggleButtonPressedHoverTokens;
 }
 
@@ -42,83 +33,52 @@ interface ToggleButtonPrimaryTokens {
   _disabled: ToggleButtonPrimaryDisabledTokens;
   _pressed: ToggleButtonPrimaryPressedTokens;
 }
-interface ToggleButtonPrimaryFocusTokens {
-  borderColor: DesignToken<BorderColorValue>;
-  backgroundColor: DesignToken<BackgroundColorValue>;
+interface ToggleButtonPrimaryFocusTokens extends BorderContrast, TextContrast {
   boxShadow: DesignToken<BoxShadowValue>;
-  color: DesignToken<ColorValue>;
 }
 
-interface ToggleButtonPrimaryHoverTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  color: DesignToken<ColorValue>;
-}
+interface ToggleButtonPrimaryHoverTokens extends TextContrast {}
 
-interface ToggleButtonPrimaryDisabledTokens {
-  borderColor: DesignToken<BorderColorValue>;
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  color: DesignToken<ColorValue>;
-}
+interface ToggleButtonPrimaryDisabledTokens
+  extends BorderContrast,
+    TextContrast {}
 
-interface ToggleButtonPrimaryPressedTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  borderColor: DesignToken<BorderColorValue>;
-  color: DesignToken<ColorValue>;
+interface ToggleButtonPrimaryPressedTokens
+  extends BorderContrast,
+    TextContrast {
   _focus: TogglButtonPrimaryPressedFocusTokens;
   _hover: TogglButtonPrimaryPressedHoverTokens;
 }
 
-interface TogglButtonPrimaryPressedFocusTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  borderColor: DesignToken<BorderColorValue>;
-  color: DesignToken<ColorValue>;
-}
-interface TogglButtonPrimaryPressedHoverTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  borderColor: DesignToken<BorderColorValue>;
+interface TogglButtonPrimaryPressedFocusTokens
+  extends BorderContrast,
+    TextContrast {}
+interface TogglButtonPrimaryPressedHoverTokens
+  extends BorderContrast,
+    TextContrast {
   boxShadow: DesignToken<BoxShadowValue>;
-  color: DesignToken<ColorValue>;
 }
 
-interface ToggleButtonLinkTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  color: DesignToken<ColorValue>;
+interface ToggleButtonLinkTokens extends TextContrast {
   _hover: ToggleButtonLinkHoverTokens;
   _focus: ToggleButtonLinkFocusTokens;
   _disabled: ToggleButtonLinkDisabledTokens;
   _pressed: ToggleButtonLinkPressedTokens;
 }
-interface ToggleButtonLinkHoverTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  color: DesignToken<ColorValue>;
-}
+interface ToggleButtonLinkHoverTokens extends TextContrast {}
 
-interface ToggleButtonLinkFocusTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  color: DesignToken<ColorValue>;
-}
+interface ToggleButtonLinkFocusTokens extends TextContrast {}
 
-interface ToggleButtonLinkDisabledTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  color: DesignToken<ColorValue>;
-}
+interface ToggleButtonLinkDisabledTokens extends TextContrast {}
 
-interface ToggleButtonLinkPressedTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  color: DesignToken<ColorValue>;
+interface ToggleButtonLinkPressedTokens extends TextContrast {
   _focus: ToggleButtonLinkPressedFocusTokens;
   _hover: ToggleButtonLinkPressedHoverTokens;
 }
 
-interface ToggleButtonLinkPressedFocusTokens {
-  color: DesignToken<ColorValue>;
-  backgroundColor: DesignToken<BackgroundColorValue>;
-}
+interface ToggleButtonLinkPressedFocusTokens extends TextContrast {}
 
-interface ToggleButtonLinkPressedHoverTokens {
-  color: DesignToken<ColorValue>;
-  backgroundColor: DesignToken<BackgroundColorValue>;
-}
+interface ToggleButtonLinkPressedHoverTokens extends TextContrast {}
 
 export interface ToggleButtonTokens extends BorderContrast, TextContrast {
   _hover: ToggleButtonHoverTokens;

@@ -8,12 +8,10 @@ import {
   RadiusValue,
   SpaceValue,
   TextAlignValue,
+  TextContrast,
 } from '../types/designToken';
 
-interface BadgeVariationTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  color: DesignToken<ColorValue>;
-}
+interface BadgeVariationTokens extends TextContrast {}
 
 interface BadgeSizeTokens {
   fontSize: DesignToken<FontSizeValue>;
@@ -21,10 +19,8 @@ interface BadgeSizeTokens {
   paddingVertical: DesignToken<SpaceValue>;
 }
 
-export interface BadgeTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
+export interface BadgeTokens extends TextContrast {
   borderRadius: DesignToken<RadiusValue>;
-  color: DesignToken<ColorValue>;
   error: BadgeVariationTokens;
   fontSize: DesignToken<FontSizeValue>;
   fontWeight: DesignToken<FontWeightValue>;

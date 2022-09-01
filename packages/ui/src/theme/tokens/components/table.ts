@@ -1,12 +1,10 @@
 import {
   BackgroundColorValue,
   BorderCollapseValue,
-  BorderColorValue,
   BorderContrast,
   BorderStyleValue,
   BorderWidthValue,
   CaptionSideValue,
-  ColorValue,
   DesignToken,
   DisplayValue,
   FontSizeValue,
@@ -36,11 +34,12 @@ interface TableRowStripedTokens {
   backgroundColor: DesignToken<BackgroundColorValue>;
 }
 
-interface TableCellTokens extends TableDefaultTokens, BorderContrast {
-  borderColor: DesignToken<BorderColorValue>;
+interface TableCellTokens
+  extends TableDefaultTokens,
+    BorderContrast,
+    TextContrast {
   borderStyle: DesignToken<BorderStyleValue>;
   borderWidth: DesignToken<BorderWidthValue>;
-  color: DesignToken<ColorValue>;
   fontSize: DesignToken<FontSizeValue>;
   fontWeight: DesignToken<FontWeightValue>;
   padding: DesignToken<SpaceValue>;

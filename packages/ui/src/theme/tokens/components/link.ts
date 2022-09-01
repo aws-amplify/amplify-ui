@@ -1,4 +1,4 @@
-import { ColorValue, DesignToken, TextContrast } from '../types/designToken';
+import { TextContrast } from '../types/designToken';
 
 interface LinkStateTokens extends TextContrast {}
 

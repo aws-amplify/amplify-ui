@@ -7,12 +7,10 @@ import {
   FontWeightValue,
   JustifyContentValue,
   SpaceValue,
+  TextContrast,
 } from '../types/designToken';
 
-interface AlertVariationTokens {
-  color: DesignToken<ColorValue>;
-  backgroundColor: DesignToken<BackgroundColorValue>;
-}
+interface AlertVariationTokens extends TextContrast {}
 
 interface AlertIconTokens {
   size: DesignToken<FontSizeValue>;
@@ -23,11 +21,9 @@ interface AlertHeadingTokens {
   fontWeight: DesignToken<FontWeightValue>;
 }
 
-export interface AlertTokens {
+export interface AlertTokens extends TextContrast {
   alignItems: DesignToken<AlignItemsValue>;
   justifyContent: DesignToken<JustifyContentValue>;
-  color: DesignToken<ColorValue>;
-  backgroundColor: DesignToken<BackgroundColorValue>;
   paddingBlock: DesignToken<SpaceValue>;
   paddingInline: DesignToken<SpaceValue>;
   icon: AlertIconTokens;

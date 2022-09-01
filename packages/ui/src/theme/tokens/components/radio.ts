@@ -1,14 +1,11 @@
 import {
   AlignItemsValue,
-  BackgroundColorValue,
-  BorderColorValue,
   BorderContrast,
   BorderRadiusValue,
   BorderStyleValue,
   BorderWidthValue,
   BoxShadowValue,
   BoxSizingValue,
-  ColorValue,
   CursorValue,
   DesignToken,
   GapValue,
@@ -27,7 +24,7 @@ interface RadioDisabledTokens {
   cursor: DesignToken<CursorValue>;
 }
 
-interface RadioButtonTokens {
+interface RadioButtonTokens extends BorderContrast, TextContrast {
   alignItems: DesignToken<AlignItemsValue>;
   justifyContent: DesignToken<JustifyContentValue>;
   width: DesignToken<SpaceValue>;
@@ -36,9 +33,6 @@ interface RadioButtonTokens {
   borderWidth: DesignToken<BorderWidthValue>;
   borderStyle: DesignToken<BorderStyleValue>;
   borderRadius: DesignToken<BorderRadiusValue>;
-  borderColor: DesignToken<BorderColorValue>;
-  color: DesignToken<ColorValue>;
-  backgroundColor: DesignToken<BackgroundColorValue>;
   transitionProperty: DesignToken<TransitionPropertyValue>;
   transitionDuration: DesignToken<TransitionDurationValue>;
   outlineColor: DesignToken<OutlineColorValue>;
@@ -76,10 +70,7 @@ interface RadioButtonErrorFocusTokens {
   boxShadow: DesignToken<BoxShadowValue>;
 }
 
-interface RadioButtonDisabledTokens {
-  borderColor: DesignToken<BorderColorValue>;
-  backgroundColor: DesignToken<BackgroundColorValue>;
-}
+interface RadioButtonDisabledTokens extends BorderContrast {}
 
 interface RadioLabelTokens extends TextContrast {
   _disabled: RadioLabelDisabledTokens;

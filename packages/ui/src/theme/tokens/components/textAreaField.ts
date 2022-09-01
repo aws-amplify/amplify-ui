@@ -1,10 +1,4 @@
-import {
-  ColorValue,
-  DesignToken,
-  BorderColorValue,
-  BorderContrast,
-  TextContrast,
-} from '../types/designToken';
+import { BorderContrast, TextContrast } from '../types/designToken';
 
 interface TextAreaFieldStateToken extends BorderContrast {}
 

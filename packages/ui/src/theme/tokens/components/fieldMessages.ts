@@ -1,6 +1,5 @@
 import {
   DesignToken,
-  ColorValue,
   FontStyleValue,
   FontSizeValue,
   TextContrast,

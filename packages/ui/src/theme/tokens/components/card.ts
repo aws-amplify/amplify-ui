@@ -1,6 +1,5 @@
 import {
-  BackgroundColorValue,
-  BorderColorValue,
+  BorderContrast,
   BorderRadiusValue,
   BorderStyleValue,
   BorderWidthValue,
@@ -9,12 +8,10 @@ import {
   SpaceValue,
 } from '../types/designToken';
 
-interface CardVariationTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
+interface CardVariationTokens extends BorderContrast {
   borderRadius: DesignToken<BorderRadiusValue>;
   borderWidth: DesignToken<BorderWidthValue>;
   borderStyle: DesignToken<BorderStyleValue>;
-  borderColor: DesignToken<BorderColorValue>;
   boxShadow: DesignToken<BoxShadowValue>;
 }
 
