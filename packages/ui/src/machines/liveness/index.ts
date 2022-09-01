@@ -1,5 +1,8 @@
 import { createMachine, assign, actions, send, spawn } from 'xstate';
-import { getFreshnessColorsFromSessionInformation } from '../../helpers/liveness/liveness';
+import {
+  getFreshnessColorsFromSessionInformation,
+  getRandomScalingAttributes,
+} from '../../helpers/liveness/liveness';
 
 import {
   Face,
@@ -27,6 +30,7 @@ import {
 } from '../../helpers';
 import { v4 } from 'uuid';
 import { isServerSesssionInformationEvent } from '../../helpers/liveness/liveness-event-utils';
+import { getRandomScalingAttributesStr } from '../../helpers/liveness/liveness';
 
 export const MIN_FACE_MATCH_COUNT = 5;
 
@@ -36,6 +40,7 @@ let ovalDrawnTimestamp: number;
 let freshnessTimeoutId: NodeJS.Timeout;
 
 let responseStream = undefined;
+let ovalDetailsFromProps = undefined;
 
 export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
   {
@@ -46,7 +51,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       maxFailedAttempts: 3,
       failedAttempts: 0,
       flowProps: undefined,
-      sessionInformation: undefined,
+      serverSessionInformation: undefined,
       videoAssociatedParams: undefined,
       ovalAssociatedParams: undefined,
       faceMatchAssociatedParams: {
@@ -326,7 +331,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             metrics: { count: 1 },
           });
 
-          if (!context.sessionInformation) {
+          if (!context.serverSessionInformation) {
             throw new Error(
               'Session information was not received from response stream'
             );
@@ -406,7 +411,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         errorState: (_) => null,
       }),
       updateSessionInfo: assign({
-        sessionInformation: (_, event) => {
+        serverSessionInformation: (_, event) => {
           return event.data.sessionInfo;
         },
       }),
@@ -429,11 +434,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       setupFlashFreshnessColors: assign({
         freshnessColorAssociatedParams: (context) => {
-          const {
-            flowProps: { sessionInformation },
-          } = context;
-          const freshnessColors =
-            getFreshnessColorsFromSessionInformation(sessionInformation);
+          const { serverSessionInformation } = context;
+          const freshnessColors = getFreshnessColorsFromSessionInformation(
+            serverSessionInformation
+          );
           const freshnessColorDisplay = new FreshnessColorDisplay(
             context,
             freshnessColors
@@ -582,6 +586,11 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           context.videoAssociatedParams.videoMediaStream
         );
 
+        // FIXME: setting this to mimic response from responsestream
+        ovalDetailsFromProps = getRandomScalingAttributesStr(
+          context.flowProps.sessionInformation
+        );
+
         responseStream =
           await livenessStreamProvider.startLivenessVideoConnection();
         return { livenessStreamProvider };
@@ -595,7 +604,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             recordingStartTimestampMs,
           },
           ovalAssociatedParams: { faceDetector },
-          flowProps: { sessionInformation },
+          serverSessionInformation,
         } = context;
 
         // initialize models
@@ -657,7 +666,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           width,
           height,
           initialFace,
-          sessionInformation,
+          sessionInformation: serverSessionInformation,
         });
 
         // draw oval on canvas
@@ -852,9 +861,9 @@ const responseStreamActor = async (callback) => {
                 Challenge: {
                   FaceMovementAndLightChallenge: {
                     OvalScaleFactors: {
-                      Width: 0.03534782,
-                      CenterX: 0.86087984,
-                      CenterY: 0.8648628,
+                      Width: ovalDetailsFromProps.width,
+                      CenterX: ovalDetailsFromProps.centerX,
+                      CenterY: ovalDetailsFromProps.centerY,
                     },
                   },
                 },

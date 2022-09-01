@@ -13,12 +13,13 @@ import {
   FreshnessColorDisplay,
 } from '../../helpers';
 import { Face, FaceDetection } from './faceDetection';
+import { SessionInformation } from '@aws-sdk/client-rekognitionstreaming';
 
 export interface LivenessContext {
   maxFailedAttempts: number;
   failedAttempts: number;
   flowProps: LivenessFlowProps;
-  sessionInformation: string;
+  serverSessionInformation: SessionInformation;
   challengeId: string;
   videoAssociatedParams: {
     videoConstraints: MediaTrackConstraints;

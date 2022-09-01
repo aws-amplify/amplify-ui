@@ -6,9 +6,9 @@ import {
   BoundingBox,
   LivenessErrorState,
 } from '../../types';
-import { SessionInformation } from '../../types/liveness/liveness-service-types';
 import { translate } from '../../i18n';
 import { FaceDetection } from '../../types/liveness/faceDetection';
+import { SessionInformation } from '@aws-sdk/client-rekognitionstreaming';
 
 /**
  * Returns the random number between min and max
@@ -48,8 +48,8 @@ function getIntersectionOverUnion(
  * centerX: number;
  * centerY: number;
  */
-export function getRandomScalingAttributes(sessionInformationStr: string) {
-  const sessionInfo: SessionInformation = JSON.parse(sessionInformationStr);
+export function getRandomScalingAttributesStr(sessionInformationStr: string) {
+  const sessionInfo = JSON.parse(sessionInformationStr);
   const ovalScaleFactors =
     sessionInfo.challenge.faceMovementAndLightChallenge.ovalScaleFactors;
 
@@ -57,6 +57,25 @@ export function getRandomScalingAttributes(sessionInformationStr: string) {
     centerX: ovalScaleFactors.centerX,
     centerY: ovalScaleFactors.centerY,
     width: ovalScaleFactors.width,
+  };
+}
+
+/**
+ * Accepts sessionInformation and returns the 3 attributes
+ * width: number;
+ * centerX: number;
+ * centerY: number;
+ */
+export function getRandomScalingAttributes(
+  sessionInformation: SessionInformation
+) {
+  const ovalScaleFactors =
+    sessionInformation.Challenge.FaceMovementAndLightChallenge.OvalScaleFactors;
+
+  return {
+    centerX: ovalScaleFactors.CenterX,
+    centerY: ovalScaleFactors.CenterY,
+    width: ovalScaleFactors.Width,
   };
 }
 
@@ -73,7 +92,7 @@ export function getRandomLivenessOvalDetails({
   width: number;
   height: number;
   initialFace: Face;
-  sessionInformation: string;
+  sessionInformation: SessionInformation;
 }): LivenessOvalDetails {
   const videoHeight = height;
   let videoWidth = width;
@@ -469,7 +488,7 @@ export function shouldChangeColorStage(
 }
 
 export function getFreshnessColorsFromSessionInformation(
-  sessionInformation: string
+  sessionInformation: SessionInformation
 ) {
   // FIXME: Get the initial color array from the sessionInformation
   // convert rgb_0_0_0 to rgb(0,0,0)
