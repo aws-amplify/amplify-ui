@@ -1,27 +1,15 @@
-import { Amplify} from 'aws-amplify';
-
-const awsExports = {
-  aws_user_pools_id: 'xx-xxxx-x_xxxxx', // (optional) -  Amazon Cognito User Pool ID
-  aws_user_pools_web_client_id: 'xxxxxxxxxxxxxx', // (optional) - Amazon Cognito App Client ID (App client secret needs to be disabled)
-};
-Amplify.configure(awsExports)
-
-let signUpPassword = "";
+let signUpPassword = '';
 const verifiedUsers = new Map();
-const fixed_username = "amplify-ui";
-const fixed_password = "connected-components";
+const FIXED_USERNAME = 'test';
+const FIXED_PASSWORD = 'password';
 
 export const mockServices = {
   async getAmplifyConfig() {
     return {};
   },
   async handleSignUp(formData) {
-    if(verifiedUsers.has(formData.username)) {
-      return Promise.reject(new Error("User already exists!"))
-    } else {
-      signUpPassword = formData.password;
-      return {};
-    }
+    signUpPassword = formData.password;
+    return {};
   },
   async checkVerifiedContact() {
     return { verified: {}, unverified: {} };
@@ -32,33 +20,34 @@ export const mockServices = {
   }: {
     username: string;
     password: string;
-  }): Promise<any> {
-    if ((verifiedUsers.get(username).password === password) ||
-        (username === fixed_username && password === fixed_password)) {
+  }) {
+    if (
+      verifiedUsers.get(username).password === password ||
+      (username === FIXED_USERNAME && password === FIXED_PASSWORD)
+    ) {
       return Promise.resolve(verifiedUsers.get(username));
     } else {
-      return Promise.reject(new Error("Invalid username or password"));
+      return Promise.reject(new Error('Invalid username or password'));
     }
   },
   async handleConfirmSignUp({
     username,
-    code
+    code,
   }: {
     username: string;
     code: string;
   }) {
     if (code === '123456') {
-      verifiedUsers.set(username, {username : username, password : signUpPassword});
+      verifiedUsers.set(username, {
+        username: username,
+        password: signUpPassword,
+      });
       return Promise.resolve(verifiedUsers.get(username));
     } else {
-      return Promise.reject(new Error("Invalid Verification Code"));
+      return Promise.reject(new Error('Invalid Verification Code'));
     }
   },
-  async handleResendConfirmationCode({
-    username
-  }: {
-    username: string
-  }): Promise<any> {
+  async handleResendConfirmationCode({ username }: { username: string }) {
     return {};
   },
   async handleForgotPasswordSubmit({
@@ -69,19 +58,19 @@ export const mockServices = {
     username: string;
     code: string;
     password: string;
-  }): Promise<any> {
-      if(code === "123456") {
-        verifiedUsers.set(username,{username: username, password: password});
-        return Promise.resolve();
-      } else {
-        return Promise.reject(new Error("Invalid Verification Code"));
-      }
-  },
-  async handleForgotPassword(formData): Promise<any> {
-    if((verifiedUsers.has(formData)) || formData === fixed_username) {
+  }) {
+    if (code === '123456') {
+      verifiedUsers.set(username, { username: username, password: password });
       return Promise.resolve();
     } else {
-      return Promise.reject(new Error("User does not exist!"))
+      return Promise.reject(new Error('Invalid Verification Code'));
+    }
+  },
+  async handleForgotPassword(formData): Promise<any> {
+    if (verifiedUsers.has(formData) || formData === FIXED_USERNAME) {
+      return Promise.resolve();
+    } else {
+      return Promise.reject(new Error('User does not exist!'));
     }
   },
 };
