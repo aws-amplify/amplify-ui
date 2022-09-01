@@ -1,5 +1,4 @@
 ---
-"amplify-ui-angular-mono": patch
 "@aws-amplify/ui-react": patch
 "@aws-amplify/ui": patch
 "@aws-amplify/ui-vue": patch
