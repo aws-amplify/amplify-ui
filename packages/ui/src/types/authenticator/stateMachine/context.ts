@@ -51,7 +51,7 @@ interface BaseFormContext {
   /** Any user attributes set that needs to persist between states */
   authAttributes?: Record<string, any>;
   /** Current challengeName issued by Cognnito */
-  challengeName?: string;
+  challengeName?: AuthChallengeNames;
   /** Required attributes for form submission */
   requiredAttributes?: Array<string>;
   /** Maps each input name to tis value */
@@ -98,7 +98,7 @@ export interface ResetPasswordContext extends BaseFormContext {
 
 export interface SignOutContext {
   authAttributes?: Record<string, any>;
-  challengeName?: string;
+  challengeName?: AuthChallengeNames;
   unverifiedAttributes?: Record<string, string>;
   user?: CognitoUserAmplify;
   formFields?: AuthFormFields;
