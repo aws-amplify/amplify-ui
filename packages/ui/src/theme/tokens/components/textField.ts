@@ -19,12 +19,14 @@ export interface TextFieldTokens extends BorderContrast, TextContrast {
 }
 
 export const textfield: TextFieldTokens = {
-  backgroundColor: { value: 'transparent' },
+  backgroundColor: { value: '{components.fieldcontrol.backgroundColor}' },
   color: { value: '{components.fieldcontrol.color.value}' },
   borderColor: { value: '{components.fieldcontrol.borderColor.value}' },
   fontSize: { value: '{components.fieldcontrol.fontSize.value}' },
   _focus: {
-    backgroundColor: { value: 'transparent' },
+    backgroundColor: {
+      value: '{components.fieldcontrol._focus.backgroundColor}',
+    },
     borderColor: {
       value: '{components.fieldcontrol._focus.borderColor.value}',
     },

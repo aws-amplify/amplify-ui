@@ -15,36 +15,36 @@ export interface TextTokens extends TextContrast {
 
 export const text: TextTokens = {
   // default styles
-  backgroundColor: { value: 'transparent' },
+  backgroundColor: { value: '{colors.transparent}' },
   color: { value: '{colors.font.primary.value}' },
 
   // variations
   primary: {
-    backgroundColor: { value: 'transparent' },
+    backgroundColor: { value: '{colors.transparent}' },
     color: { value: '{colors.font.primary.value}' },
   },
   secondary: {
-    backgroundColor: { value: 'transparent' },
+    backgroundColor: { value: '{colors.transparent}' },
     color: { value: '{colors.font.secondary.value}' },
   },
   tertiary: {
-    backgroundColor: { value: 'transparent' },
+    backgroundColor: { value: '{colors.transparent}' },
     color: { value: '{colors.font.tertiary.value}' },
   },
   error: {
-    backgroundColor: { value: 'transparent' },
+    backgroundColor: { value: '{colors.transparent}' },
     color: { value: '{colors.font.error.value}' },
   },
   warning: {
-    backgroundColor: { value: 'transparent' },
+    backgroundColor: { value: '{colors.transparent}' },
     color: { value: '{colors.font.warning.value}' },
   },
   success: {
-    backgroundColor: { value: 'transparent' },
+    backgroundColor: { value: '{colors.transparent}' },
     color: { value: '{colors.font.success.value}' },
   },
   info: {
-    backgroundColor: { value: 'transparent' },
+    backgroundColor: { value: '{colors.transparent}' },
     color: { value: '{colors.font.info.value}' },
   },
 };

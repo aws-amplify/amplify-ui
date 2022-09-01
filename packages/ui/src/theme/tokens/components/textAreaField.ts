@@ -13,11 +13,13 @@ export interface TextAreaFieldTokens extends BorderContrast, TextContrast {
 }
 
 export const textareafield: TextAreaFieldTokens = {
-  backgroundColor: { value: 'transparent' },
+  backgroundColor: { value: '{components.fieldcontrol.backgroundColor}' },
   color: { value: '{components.fieldcontrol.color.value}' },
   borderColor: { value: '{components.fieldcontrol.borderColor.value}' },
   _focus: {
-    backgroundColor: { value: 'transparent' },
+    backgroundColor: {
+      value: '{components.fieldcontrol._focus.backgroundColor}',
+    },
     borderColor: {
       value: '{components.fieldcontrol._focus.borderColor.value}',
     },

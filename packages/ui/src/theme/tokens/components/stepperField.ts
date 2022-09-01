@@ -29,11 +29,11 @@ export interface StepperFieldTokens extends BorderContrast {
 }
 
 export const stepperfield: StepperFieldTokens = {
-  backgroundColor: { value: 'transparent' },
+  backgroundColor: { value: '{components.button.backgroundColor}' },
   borderColor: { value: '{components.fieldcontrol.borderColor}' },
   flexDirection: { value: 'column' },
   input: {
-    backgroundColor: { value: 'transparent' },
+    backgroundColor: { value: '{components.fieldcontrol.backgroundColor}' },
     color: { value: '{components.fieldcontrol.color}' },
     fontSize: { value: '{components.fieldcontrol.fontSize}' },
     textAlign: { value: 'center' },

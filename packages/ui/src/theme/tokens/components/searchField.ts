@@ -20,7 +20,7 @@ export interface SearchFieldTokens extends TextContrast {
 }
 
 export const searchfield: SearchFieldTokens = {
-  backgroundColor: { value: 'transparent' },
+  backgroundColor: { value: '{components.fieldcontrol.backgroundColor}' },
   color: { value: '{components.fieldcontrol.color.value}' },
   button: {
     color: { value: '{components.button.color.value}' },

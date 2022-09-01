@@ -1,7 +1,6 @@
 import {
   ColorValue,
   DesignToken,
-  BorderColorValue,
   BorderContrast,
   FontSizeValue,
 } from '../types/designToken';

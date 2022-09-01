@@ -131,14 +131,14 @@ export interface ToggleButtonTokens extends BorderContrast, TextContrast {
 }
 
 export const togglebutton: ToggleButtonTokens = {
-  backgroundColor: { value: 'initial' },
+  backgroundColor: { value: '{colors.transparent}' },
   borderColor: { value: '{colors.border.primary.value}' },
   color: { value: '{colors.font.primary.value}' },
   _hover: {
     backgroundColor: { value: '{colors.overlay.10.value}' },
   },
   _focus: {
-    backgroundColor: { value: 'transparent' },
+    backgroundColor: { value: '{colors.transparent}' },
     borderColor: { value: '{colors.border.focus.value}' },
     color: { value: '{colors.font.primary.value}' },
   },
