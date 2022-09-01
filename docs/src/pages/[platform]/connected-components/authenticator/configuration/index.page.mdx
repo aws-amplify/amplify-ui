@@ -7,6 +7,18 @@ supportedFrameworks: all
 
 import { Fragment } from '@/components/Fragment';
 import { Alert, Tabs, TabItem } from '@aws-amplify/ui-react';
+import { FRAMEWORKS } from '@/data/frameworks';
+import { getCustomStaticPath } from "@/utils/getCustomStaticPath";
+
+export async function getStaticPaths() {
+  return getCustomStaticPath(frontmatter.supportedFrameworks);
+}
+
+{/*  `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" */}
+
+export async function getStaticProps() {
+  return { props: {} }
+}
 
 <Alert role="none" heading="Wait!">
   Did you follow the [quick start instructions](./) to set up the Authenticator first?

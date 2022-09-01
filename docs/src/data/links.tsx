@@ -457,6 +457,7 @@ export const gettingStarted = [
   },
   {
     href: '/getting-started/figma',
+    platforms: ['react'],
     label: 'Figma',
   },
   {
