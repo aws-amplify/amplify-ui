@@ -58,14 +58,14 @@ export interface TabsTokens {
 }
 
 export const tabs: TabsTokens = {
-  backgroundColor: { value: 'transparent' },
+  backgroundColor: { value: '{colors.transparent}' },
   borderColor: { value: '{colors.border.secondary.value}' },
   borderStyle: { value: 'solid' },
   borderWidth: { value: '{borderWidths.medium.value}' },
   gap: { value: '0' },
 
   item: {
-    backgroundColor: { value: 'transparent' },
+    backgroundColor: { value: '{colors.transparent}' },
     borderColor: { value: '{colors.border.secondary.value}' },
     borderStyle: { value: 'solid' },
     borderWidth: { value: '{borderWidths.medium.value}' },
@@ -78,21 +78,21 @@ export const tabs: TabsTokens = {
     transitionDuration: { value: '{time.medium.value}' },
 
     _hover: {
-      backgroundColor: { value: 'transparent' },
+      backgroundColor: { value: '{colors.transparent}' },
       color: { value: '{colors.font.hover.value}' },
     },
     _focus: {
-      backgroundColor: { value: 'transparent' },
+      backgroundColor: { value: '{colors.transparent}' },
       color: { value: '{colors.font.focus.value}' },
     },
     _active: {
       color: { value: '{colors.font.interactive.value}' },
       borderColor: { value: '{colors.font.interactive.value}' },
-      backgroundColor: { value: 'transparent' },
+      backgroundColor: { value: '{colors.transparent}' },
     },
     _disabled: {
       color: { value: '{colors.font.disabled.value}' },
-      backgroundColor: { value: 'transparent' },
+      backgroundColor: { value: '{colors.transparent}' },
       borderColor: { value: '{colors.border.tertiary.value}' },
     },
   },

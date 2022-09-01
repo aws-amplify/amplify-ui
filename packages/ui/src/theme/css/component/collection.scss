@@ -30,10 +30,10 @@
   &-search {
     flex-direction: row;
     justify-content: center;
-    --amplify-components-searchfield-input-background-color: var(
+    --amplify-components-searchfield-background-color: var(
       --amplify-components-collection-search-input-background-color
     );
-    --amplify-components-searchfield-input-color: var(
+    --amplify-components-searchfield-color: var(
       --amplify-components-collection-search-input-color
     );
     --amplify-components-searchfield-button-background-color: var(

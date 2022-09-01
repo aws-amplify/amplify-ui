@@ -28,7 +28,7 @@ export const selectfield: SelectFieldTokens = {
   fontSize: { value: '{components.fieldcontrol.fontSize}' },
   _focus: {
     backgroundColor: {
-      value: '{components.fieldcontrol.focus.backgroundColor}',
+      value: '{components.fieldcontrol._focus.backgroundColor}',
     },
     borderColor: { value: '{components.fieldcontrol._focus.borderColor}' },
   },

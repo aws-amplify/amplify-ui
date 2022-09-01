@@ -74,7 +74,7 @@ export const select: SelectTokens = {
     backgroundColor: { value: '{colors.background.primary.value}' },
     color: { value: '{colors.font.primary.value}' },
     _disabled: {
-      backgroundColor: { value: 'transparent' },
+      backgroundColor: { value: '{colors.transparent}' },
       color: { value: '{colors.font.disabled.value}' },
     },
   },

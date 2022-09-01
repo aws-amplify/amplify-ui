@@ -29,7 +29,7 @@ export const card: CardTokens = {
   borderRadius: { value: '{radii.xs.value}' },
   borderWidth: { value: '0' },
   borderStyle: { value: 'solid' },
-  borderColor: { value: 'transparent' },
+  borderColor: { value: '{colors.transparent}' },
   boxShadow: { value: 'none' },
   padding: { value: '{space.medium.value}' },
 
@@ -47,7 +47,7 @@ export const card: CardTokens = {
     borderRadius: { value: '{radii.xs.value}' },
     borderWidth: { value: '0' },
     borderStyle: { value: 'solid' },
-    borderColor: { value: 'transparent' },
+    borderColor: { value: '{colors.transparent}' },
     boxShadow: { value: '{shadows.medium.value}' },
   },
 };

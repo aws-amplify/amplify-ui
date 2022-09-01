@@ -27,7 +27,7 @@ export const radiogroup: RadioGroupTokens = {
     backgroundColor: { value: '{components.radio.button.backgroundColor}' },
     _checked: {
       backgroundColor: {
-        value: '{components.radio.button.checked.backgroundColor}',
+        value: '{components.radio.button._checked.backgroundColor}',
       },
       color: { value: '{components.radio.button._checked.color}' },
     },

@@ -23,7 +23,7 @@ export interface HeadingTokens extends TextContrast {
 }
 
 export const heading: HeadingTokens = {
-  backgroundColor: { value: 'transparent' },
+  backgroundColor: { value: '{colors.transparent}' },
   color: { value: '{colors.font.primary.value}' },
   lineHeight: { value: '{lineHeights.small.value}' },
 

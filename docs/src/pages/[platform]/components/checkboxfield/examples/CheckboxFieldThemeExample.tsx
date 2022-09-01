@@ -1,4 +1,9 @@
-import { CheckboxField, ThemeProvider, Theme } from '@aws-amplify/ui-react';
+import {
+  CheckboxField,
+  ThemeProvider,
+  Theme,
+  createTheme,
+} from '@aws-amplify/ui-react';
 
 const theme: Theme = {
   name: 'checkbox-theme',
@@ -19,6 +24,51 @@ const theme: Theme = {
     },
   },
 };
+
+const override: any = {
+  name: 'test-theme',
+  tokens: {},
+  overrides: [
+    {
+      mediaQuery: 'prefers-color-scheme: dark',
+      tokens: {
+        colors: {
+          background: {
+            primary: { value: '#000' },
+          },
+        },
+      },
+    },
+    {
+      breakpoint: 'small',
+      tokens: {
+        space: {
+          medium: { value: '0.5rem' },
+        },
+      },
+    },
+    {
+      breakpoint: 'large',
+      tokens: {
+        space: {
+          medium: { value: '2.5rem' },
+        },
+      },
+    },
+    {
+      selector: '.disco-theme',
+      tokens: {
+        colors: {
+          background: {
+            primary: { value: 'pink' },
+          },
+        },
+      },
+    },
+  ],
+};
+
+console.log(createTheme(override).cssText);
 
 export const CheckboxFieldThemeExample = () => (
   <ThemeProvider theme={theme} colorMode="light">

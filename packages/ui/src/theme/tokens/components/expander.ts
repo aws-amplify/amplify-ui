@@ -148,7 +148,7 @@ export const expander: ExpanderTokens = {
     paddingInlineStart: { value: '{space.large.value}' },
     paddingInlineEnd: { value: '{space.large.value}' },
     text: {
-      backgroundColor: { value: 'transparent' },
+      backgroundColor: { value: '{colors.transparent}' },
       color: { value: '{colors.font.secondary.value}' },
       paddingBlockStart: { value: '{space.medium.value}' },
       paddingBlockEnd: { value: '{space.medium.value}' },

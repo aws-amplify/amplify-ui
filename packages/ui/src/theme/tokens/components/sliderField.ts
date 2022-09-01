@@ -111,7 +111,7 @@ export const sliderfield: SliderFieldTokens = {
     borderStyle: { value: 'solid' },
     _disabled: {
       backgroundColor: { value: '{colors.background.disabled.value}' },
-      borderColor: { value: 'transparent' },
+      borderColor: { value: '{colors.transparent}' },
       boxShadow: { value: 'none' },
     },
     _hover: {
@@ -119,7 +119,7 @@ export const sliderfield: SliderFieldTokens = {
       borderColor: { value: '{colors.border.focus.value}' },
     },
     _focus: {
-      backgroundColor: { value: 'transparent' },
+      backgroundColor: { value: '{colors.transparent}' },
       borderColor: { value: '{colors.border.focus.value}' },
       boxShadow: {
         value: {

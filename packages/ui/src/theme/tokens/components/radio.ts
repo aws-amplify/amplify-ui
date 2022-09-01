@@ -132,24 +132,24 @@ export const radio: RadioTokens = {
     },
 
     _checked: {
-      backgroundColor: { value: 'transparent' },
+      backgroundColor: { value: '{colors.transparent}' },
       color: {
         value: '{colors.brand.primary.80.value}',
       },
       _disabled: {
-        backgroundColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.transparent}' },
         color: { value: '{colors.background.disabled.value}' },
       },
     },
 
     _focus: {
-      backgroundColor: { value: 'transparent' },
+      backgroundColor: { value: '{colors.transparent}' },
       borderColor: { value: '{colors.border.focus.value}' },
       boxShadow: { value: '{components.fieldcontrol._focus.boxShadow.value}' },
     },
 
     _error: {
-      backgroundColor: { value: 'transparent' },
+      backgroundColor: { value: '{colors.transparent}' },
       borderColor: { value: '{colors.border.error.value}' },
       _focus: {
         boxShadow: {
@@ -168,7 +168,7 @@ export const radio: RadioTokens = {
     backgroundColor: { value: '{components.text.backgroundColor}' },
     color: { value: '{components.text.color.value}' },
     _disabled: {
-      backgroundColor: { value: 'transparent' },
+      backgroundColor: { value: '{colors.transparent}' },
       color: {
         value: '{colors.font.disabled.value}',
       },

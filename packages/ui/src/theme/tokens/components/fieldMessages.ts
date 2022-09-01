@@ -22,12 +22,12 @@ export interface FieldMessagesTokens {
 
 export const fieldmessages: FieldMessagesTokens = {
   error: {
-    backgroundColor: { value: 'transparent' },
+    backgroundColor: { value: '{colors.transparent}' },
     color: { value: '{colors.font.error.value}' },
     fontSize: { value: '{fontSizes.small.value}' },
   },
   description: {
-    backgroundColor: { value: 'transparent' },
+    backgroundColor: { value: '{colors.transparent}' },
     color: { value: '{colors.font.secondary.value}' },
     fontStyle: { value: 'italic' },
     fontSize: { value: '{fontSizes.small.value}' },

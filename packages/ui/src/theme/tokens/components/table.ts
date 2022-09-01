@@ -136,7 +136,7 @@ export const table: TableTokens = {
    * Default table header cell styles
    */
   header: {
-    backgroundColor: { value: 'transparent' },
+    backgroundColor: { value: '{colors.transparent}' },
     borderColor: { value: '{colors.border.tertiary.value}' },
     borderStyle: { value: 'solid' },
     borderWidth: { value: '{borderWidths.small.value}' },
@@ -162,7 +162,7 @@ export const table: TableTokens = {
    * Default table data cell styles
    */
   data: {
-    backgroundColor: { value: 'transparent' },
+    backgroundColor: { value: '{colors.transparent}' },
     borderColor: { value: '{colors.border.tertiary.value}' },
     borderStyle: { value: 'solid' },
     borderWidth: { value: '{borderWidths.small.value}' },
@@ -188,7 +188,7 @@ export const table: TableTokens = {
    * Default table caption styles
    */
   caption: {
-    backgroundColor: { value: 'transparent' },
+    backgroundColor: { value: '{colors.transparent}' },
     captionSide: { value: 'bottom' },
     color: { value: '{colors.font.primary.value}' },
     display: { value: 'table-caption' },

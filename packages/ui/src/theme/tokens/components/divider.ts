@@ -34,7 +34,7 @@ export interface DividerTokens extends BorderContrast {
 export const divider: DividerTokens = {
   borderStyle: { value: 'solid' },
   borderColor: { value: '{colors.border.primary.value}' },
-  backgroundColor: { value: 'transparent' },
+  backgroundColor: { value: '{colors.transparent}' },
   borderWidth: { value: '{borderWidths.medium.value}' },
 
   label: {

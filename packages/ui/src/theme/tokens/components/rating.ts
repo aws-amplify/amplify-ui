@@ -29,11 +29,11 @@ export const rating: RatingTokens = {
   default: { size: { value: '{fontSizes.xl.value}' } },
   small: { size: { value: '{fontSizes.small.value}' } },
   filled: {
-    backgroundColor: { value: 'transparent' },
+    backgroundColor: { value: '{colors.transparent}' },
     color: { value: '{colors.brand.secondary.80.value}' },
   },
   empty: {
-    backgroundColor: { value: 'transparent' },
+    backgroundColor: { value: '{colors.transparent}' },
     color: { value: '{colors.background.tertiary.value}' },
   },
 };

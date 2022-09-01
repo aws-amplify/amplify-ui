@@ -37,7 +37,7 @@ export const field: FieldTokens = {
   },
 
   label: {
-    backgroundColor: { value: 'transparent' },
+    backgroundColor: { value: '{colors.transparent}' },
     color: { value: '{colors.font.secondary.value}' },
   },
 };

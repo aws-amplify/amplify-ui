@@ -70,7 +70,7 @@ export const pagination: PaginationTokens = {
     backgroundColor: { value: '{colors.overlay.40.value}' },
   },
   button: {
-    backgroundColor: { value: 'transparent' },
+    backgroundColor: { value: '{colors.transparent}' },
     color: { value: '{colors.font.primary.value}' },
     paddingInlineStart: { value: '{space.xxs.value}' },
     paddingInlineEnd: { value: '{space.xxs.value}' },
@@ -81,7 +81,7 @@ export const pagination: PaginationTokens = {
       color: { value: '{colors.font.primary.value}' },
     },
     disabled: {
-      backgroundColor: { value: 'transparent' },
+      backgroundColor: { value: '{colors.transparent}' },
       color: { value: '{colors.font.disabled.value}' },
     },
   },

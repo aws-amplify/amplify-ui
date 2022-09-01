@@ -19,7 +19,7 @@ export const phonenumberfield: PhoneNumberFieldTokens = {
   fontSize: { value: '{components.fieldcontrol.fontSize}' },
   _focus: {
     backgroundColor: {
-      value: '{components.selectfield.focus.backgroundColor}',
+      value: '{components.selectfield._focus.backgroundColor}',
     },
     borderColor: { value: '{components.fieldcontrol._focus.borderColor}' },
   },

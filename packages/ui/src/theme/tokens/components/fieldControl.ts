@@ -99,7 +99,7 @@ export interface FieldControlTokens extends BorderContrast {
 }
 
 export const fieldcontrol: FieldControlTokens = {
-  backgroundColor: { value: 'transparent' },
+  backgroundColor: { value: '{colors.transparent}' },
   borderStyle: { value: 'solid' },
   borderColor: { value: '{colors.border.primary.value}' },
   borderWidth: { value: '{borderWidths.small.value}' },
@@ -201,7 +201,7 @@ export const fieldcontrol: FieldControlTokens = {
     // * Contrast between focused and unfocused states has a ratio of 3:1
     //
     // IMPORTANT: Must recalibrate if `colors.border.primary` or `colors.focus` are changed
-    backgroundColor: { value: 'transparent' },
+    backgroundColor: { value: '{colors.transparent}' },
     borderColor: { value: '{colors.border.focus.value}' },
     boxShadow: {
       value: {
@@ -220,7 +220,7 @@ export const fieldcontrol: FieldControlTokens = {
     backgroundColor: { value: '{colors.background.disabled.value}' },
   },
   _error: {
-    backgroundColor: { value: 'transparent' },
+    backgroundColor: { value: '{colors.transparent}' },
     borderColor: { value: '{colors.border.error.value}' },
     _focus: {
       boxShadow: {

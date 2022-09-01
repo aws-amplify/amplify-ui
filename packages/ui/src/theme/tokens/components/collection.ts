@@ -73,7 +73,7 @@ export const collection: CollectionTokens = {
   search: {
     input: {
       backgroundColor: {
-        value: '{components.searchfield.input.backgroundColor}',
+        value: '{components.searchfield.backgroundColor}',
       },
       color: { value: '{components.searchfield.color}' },
     },

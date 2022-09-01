@@ -11,21 +11,21 @@ export interface LinkTokens extends TextContrast {
 
 export const link: LinkTokens = {
   active: {
-    backgroundColor: { value: 'transparent' },
+    backgroundColor: { value: '{colors.transparent}' },
     color: { value: '{colors.font.active.value}' },
   },
-  backgroundColor: { value: 'transparent' },
+  backgroundColor: { value: '{colors.transparent}' },
   color: { value: '{colors.font.interactive.value}' },
   focus: {
-    backgroundColor: { value: 'transparent' },
+    backgroundColor: { value: '{colors.transparent}' },
     color: { value: '{colors.font.focus.value}' },
   },
   hover: {
-    backgroundColor: { value: 'transparent' },
+    backgroundColor: { value: '{colors.transparent}' },
     color: { value: '{colors.font.hover.value}' },
   },
   visited: {
-    backgroundColor: { value: 'transparent' },
+    backgroundColor: { value: '{colors.transparent}' },
     color: { value: '{colors.font.interactive.value}' },
   },
 };

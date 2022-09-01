@@ -117,7 +117,7 @@ export const checkbox: CheckboxTokens = {
     before: {
       width: { value: '100%' },
       height: { value: '100%' },
-      backgroundColor: { value: 'transparent' },
+      backgroundColor: { value: '{colors.transparent}' },
       borderWidth: { value: '{borderWidths.medium.value}' },
       borderRadius: { value: '20%' },
       borderStyle: { value: 'solid' },
@@ -128,7 +128,7 @@ export const checkbox: CheckboxTokens = {
       outlineStyle: { value: 'solid' },
       outlineWidth: { value: '{outlineWidths.medium.value}' },
       outlineOffset: { value: '{outlineOffsets.medium.value}' },
-      backgroundColor: { value: 'transparent' },
+      backgroundColor: { value: '{colors.transparent}' },
       borderColor: { value: '{colors.transparent.value}' },
       boxShadow: {
         value: {
@@ -141,15 +141,15 @@ export const checkbox: CheckboxTokens = {
       },
     },
     _disabled: {
-      backgroundColor: { value: 'transparent' },
+      backgroundColor: { value: '{colors.transparent}' },
       borderColor: { value: '{colors.border.disabled.value}' },
     },
     _error: {
-      backgroundColor: { value: 'transparent' },
+      backgroundColor: { value: '{colors.transparent}' },
       borderColor: { value: '{colors.border.error.value}' },
       _focus: {
-        backgroundColor: { value: 'transparent' },
-        borderColor: { value: '{colors.transparent.value}' },
+        backgroundColor: { value: '{colors.transparent}' },
+        borderColor: { value: '{colors.transparent}' },
         boxShadow: {
           value: {
             offsetX: '0px',
@@ -187,7 +187,7 @@ export const checkbox: CheckboxTokens = {
   },
   label: {
     _disabled: {
-      backgroundColor: { value: 'transparent' },
+      backgroundColor: { value: '{colors.transparent}' },
       color: { value: '{colors.font.disabled.value}' },
     },
   },
