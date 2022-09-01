@@ -2,7 +2,12 @@
 /// <reference types="cypress" />
 /// <reference types="../../support/commands" />
 
-import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import {
+  And,
+  Given,
+  Then,
+  When,
+} from '@badeball/cypress-cucumber-preprocessor';
 import { get, escapeRegExp } from 'lodash';
 
 let language = 'en-US';
