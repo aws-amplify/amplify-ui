@@ -1,5 +1,32 @@
 # @aws-amplify/ui-react
 
+## 3.5.0
+
+### Minor Changes
+
+- [#2459](https://github.com/aws-amplify/amplify-ui/pull/2459) [`8350d36e2`](https://github.com/aws-amplify/amplify-ui/commit/8350d36e217587e06632ea5704d8c51e70559edc) Thanks [@jacoblogan](https://github.com/jacoblogan)! - Angular: Add `amplify-dialcodeselect` class which contains the previous countrycodeselect styles
+  Vue: Add `amplify-dialcodeselect` class which contains the previous countrycodeselect styles
+  React: Added 'dialCode' versions of all 'countryCode' props so that users can begin migrating away from the deprecated `countryCode`.
+
+  ```
+  countryCodeLabel => dialCodeLabel
+  countryCodeName => dialCodeName
+  onCountryCodeChange => onDialCodeChange
+  countryCodeRef => dialCodeRef
+  defaultCountryCode => defaultDialCode
+  ```
+
+### Patch Changes
+
+- [#2528](https://github.com/aws-amplify/amplify-ui/pull/2528) [`73c546fe8`](https://github.com/aws-amplify/amplify-ui/commit/73c546fe8023ffb5961eaca024ea0586e3dfba38) Thanks [@jacoblogan](https://github.com/jacoblogan)! - remove deprecation console warning from countryCode prop usage
+
+* [#2519](https://github.com/aws-amplify/amplify-ui/pull/2519) [`83f0f1e6b`](https://github.com/aws-amplify/amplify-ui/commit/83f0f1e6b1666ca4661b8f94384f015f3a67e15d) Thanks [@jacoblogan](https://github.com/jacoblogan)! - update authenticator to use the new dial code props
+
+- [#2513](https://github.com/aws-amplify/amplify-ui/pull/2513) [`0dd3e1698`](https://github.com/aws-amplify/amplify-ui/commit/0dd3e169827f6ce90412e1a061f5d1f5d36814e0) Thanks [@zchenwei](https://github.com/zchenwei)! - fix: update to use the old JSX transform to support app running on React prior to 16.14.0 where the new JSX transform does not get backported
+
+- Updated dependencies [[`b60fec2c4`](https://github.com/aws-amplify/amplify-ui/commit/b60fec2c451b31946f893efbf23710c7631db122)]:
+  - @aws-amplify/ui@3.13.1
+
 ## 3.4.1
 
 ### Patch Changes
