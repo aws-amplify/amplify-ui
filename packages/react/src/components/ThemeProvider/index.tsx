@@ -1,14 +1,17 @@
 import * as React from 'react';
+import { DirectionProvider } from '@radix-ui/react-direction';
 
 import { createTheme, Theme } from '@aws-amplify/ui';
 
 import { AmplifyContext } from './AmplifyContext';
 
 export type ColorMode = 'system' | 'light' | 'dark';
+type Direction = 'ltr' | 'rtl';
 
 interface ThemeProviderProps {
   children: React.ReactNode;
   colorMode?: ColorMode;
+  dir?: Direction;
   theme?: Theme;
   nonce?: string;
 }
@@ -17,6 +20,7 @@ export function AmplifyProvider({
   children,
   colorMode,
   theme,
+  dir = 'ltr',
   nonce,
 }: ThemeProviderProps): JSX.Element {
   const value = React.useMemo(() => ({ theme: createTheme(theme) }), [theme]);
@@ -26,23 +30,24 @@ export function AmplifyProvider({
 
   return (
     <AmplifyContext.Provider value={value}>
-      {/*
+      <DirectionProvider dir={dir}>
+        {/*
           The data attributes on here as well as the root element allow for nested
           themes to work because CSS variables are inherited, ones closer in the 
           ancestor tree will override further ones. So the CSS variables added to this
           DOM node through the same selector will take precedence.
         */}
-      <div data-amplify-theme={name} data-amplify-color-mode={colorMode}>
-        {children}
-      </div>
-      {/*
+        <div data-amplify-theme={name} data-amplify-color-mode={colorMode}>
+          {children}
+        </div>
+        {/*
           Only inject theme CSS variables if given a theme.
           The CSS file users import already has the default theme variables in it.
           This will allow users to use the provider and theme with CSS variables
           without having to worry about specificity issues because this stylesheet
           will likely come after a user's defined CSS.
         */}
-      {/*
+        {/*
           Q: Why are we using dangerouslySetInnerHTML?
           A: We need to directly inject the theme's CSS string into the <style> tag without typical HTML escaping. 
              For example, JSX would escape characters meaningful in CSS such as ', ", < and >, thus breaking the CSS. 
@@ -82,14 +87,15 @@ export function AmplifyProvider({
              Therefore, by only rendering CSS text which does not include a closing '</style>' tag, 
              we ensure that the browser will correctly interpret all the text as CSS. 
         */}
-      {typeof theme === 'undefined' || /<\/style/i.test(cssText) ? null : (
-        <style
-          id={`amplify-theme-${name}`}
-          // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={{ __html: cssText }}
-          nonce={nonce}
-        />
-      )}
+        {typeof theme === 'undefined' || /<\/style/i.test(cssText) ? null : (
+          <style
+            id={`amplify-theme-${name}`}
+            // eslint-disable-next-line react/no-danger
+            dangerouslySetInnerHTML={{ __html: cssText }}
+            nonce={nonce}
+          />
+        )}
+      </DirectionProvider>
     </AmplifyContext.Provider>
   );
 }
