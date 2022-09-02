@@ -2,7 +2,6 @@ import { ClientSessionInformation } from '@/types/liveness/liveness-service-type
 import { Credentials } from '@aws-amplify/core';
 import { AmazonAIInterpretPredictionsProvider } from '@aws-amplify/predictions';
 import {
-  LivenessRequestStream,
   LivenessResponseStream,
   RekognitionStreamingClient,
   StartStreamingLivenessSessionCommand,
@@ -35,14 +34,14 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
   private _reader: ReadableStreamDefaultReader;
   private _stream: MediaStream;
   private _client: RekognitionStreamingClient;
-  private _initPromise: Promise<void>;
+  private initPromise: Promise<void>;
 
   constructor(sessionId: string, stream: MediaStream) {
     super();
     this.sessionId = sessionId;
     this._stream = stream;
     this.videoRecorder = new VideoRecorder(stream);
-    this._initPromise = this.init();
+    this.initPromise = this.init();
   }
 
   private async init() {
@@ -57,6 +56,8 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
       endpoint: ENDPOINT,
       region: REGION,
     });
+
+    this.responseStream = await this.startLivenessVideoConnection();
   }
 
   // Creates a generator from a stream of video chunks and livenessActionDocuments and yields VideoEvent and ClientEvents
@@ -96,10 +97,9 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
     };
   }
 
-  public async startLivenessVideoConnection(): Promise<
+  private async startLivenessVideoConnection(): Promise<
     AsyncIterable<LivenessResponseStream>
   > {
-    await this._initPromise;
     const livenessRequestGenerator = this.getAsyncGeneratorFromReadableStream(
       this.videoRecorder.videoStream
     )();
@@ -114,7 +114,14 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
     return response.LivenessResponseStream;
   }
 
-  public async startRecordingLivenessVideo(): Promise<any> {
+  public async getResponseStream(): Promise<
+    AsyncIterable<LivenessResponseStream>
+  > {
+    await this.initPromise;
+    return this.responseStream;
+  }
+
+  public async startRecordingLivenessVideo(): Promise<void> {
     this.videoRecorder.start(100);
   }
 

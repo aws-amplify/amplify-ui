@@ -591,8 +591,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           context.flowProps.sessionInformation
         );
 
-        responseStream =
-          await livenessStreamProvider.startLivenessVideoConnection();
+        responseStream = await livenessStreamProvider.getResponseStream();
         return { livenessStreamProvider };
       },
       async detectInitialFaceAndDrawOval(context) {
