@@ -12,7 +12,7 @@ export interface FederatedSignInButtonProps {
   text: string;
 }
 
-export const AppleIcon = (): JSX.Element => {
+const AppleIcon = (): JSX.Element => {
   return (
     <svg
       aria-label="Apple icon"
@@ -29,7 +29,7 @@ export const AppleIcon = (): JSX.Element => {
   );
 };
 
-export const GoogleIcon = (): JSX.Element => {
+const GoogleIcon = (): JSX.Element => {
   return (
     <svg
       aria-label="Google icon"
@@ -58,7 +58,7 @@ export const GoogleIcon = (): JSX.Element => {
   );
 };
 
-export const FacebookIcon = (): JSX.Element => {
+const FacebookIcon = (): JSX.Element => {
   return (
     <Icon
       className="federated-sign-in-icon"
@@ -70,7 +70,7 @@ export const FacebookIcon = (): JSX.Element => {
   );
 };
 
-export const AmazonIcon = (): JSX.Element => {
+const AmazonIcon = (): JSX.Element => {
   return (
     <svg
       aria-label="Amazon icon"

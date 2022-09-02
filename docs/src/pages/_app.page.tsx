@@ -9,6 +9,7 @@ import { Header } from '@/components/Layout/Header';
 import Script from 'next/script';
 import { baseTheme } from '../theme';
 import { useCustomRouter } from '@/components/useCustomRouter';
+import { awsExports } from '../aws-exports.js';
 
 import { Head } from './Head';
 
@@ -39,15 +40,6 @@ if (typeof window === 'undefined') {
   window['theme'] = defaultTheme;
 }
 
-/**
- * The following awsExports object contains fake user pool id and web client id values
- * which do not translate to any actual aws user information. The purpose of this awsExports
- * object is to mock Amplify.configure() and remove the Auth config erros from the console.
- */
-const awsExports = {
-  aws_user_pools_id: 'xx-xxxx-x_xxxxx', // (optional) -  Amazon Cognito User Pool ID
-  aws_user_pools_web_client_id: 'xxxxxxxxxxxxxx', // (optional) - Amazon Cognito App Client ID (App client secret needs to be disabled)
-};
 Amplify.configure(awsExports);
 
 function MyApp({ Component, pageProps }) {

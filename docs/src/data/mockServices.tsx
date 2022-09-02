@@ -1,7 +1,9 @@
-let signUpPassword = '';
-const verifiedUsers = new Map();
 const FIXED_USERNAME = 'test';
 const FIXED_PASSWORD = 'password';
+const FIXED_VERIFICATION_CODE = '123456';
+
+const verifiedUsers = new Map();
+let signUpPassword = ''; //used to track the sign up password for the confirmSignUp() flow
 
 export const mockServices = {
   async getAmplifyConfig() {
@@ -27,7 +29,7 @@ export const mockServices = {
     ) {
       return Promise.resolve(verifiedUsers.get(username));
     } else {
-      return Promise.reject(new Error('Invalid username or password'));
+      return Promise.reject(new Error('User does not exist.'));
     }
   },
   async handleConfirmSignUp({
@@ -37,14 +39,14 @@ export const mockServices = {
     username: string;
     code: string;
   }) {
-    if (code === '123456') {
-      verifiedUsers.set(username, {
-        username: username,
-        password: signUpPassword,
-      });
+    if (code === FIXED_VERIFICATION_CODE) {
+      const input = { username, password: signUpPassword };
+      verifiedUsers.set(username, input);
       return Promise.resolve(verifiedUsers.get(username));
     } else {
-      return Promise.reject(new Error('Invalid Verification Code'));
+      return Promise.reject(
+        new Error('Invalid verification code provided, please try again.')
+      );
     }
   },
   async handleResendConfirmationCode({ username }: { username: string }) {
@@ -59,18 +61,22 @@ export const mockServices = {
     code: string;
     password: string;
   }) {
-    if (code === '123456') {
+    if (code === FIXED_VERIFICATION_CODE) {
       verifiedUsers.set(username, { username, password });
       return Promise.resolve();
     } else {
-      return Promise.reject(new Error('Invalid Verification Code'));
+      return Promise.reject(
+        new Error('Invalid verification code provided, please try again.')
+      );
     }
   },
   async handleForgotPassword(formData): Promise<any> {
     if (verifiedUsers.has(formData) || formData === FIXED_USERNAME) {
       return Promise.resolve();
     } else {
-      return Promise.reject(new Error('User does not exist!'));
+      return Promise.reject(
+        new Error('Username/client id combination not found.')
+      );
     }
   },
 };
