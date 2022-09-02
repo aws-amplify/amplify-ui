@@ -8,7 +8,11 @@ import {
 } from '../../types';
 import { translate } from '../../i18n';
 import { FaceDetection } from '../../types/liveness/faceDetection';
-import { SessionInformation } from '@aws-sdk/client-rekognitionstreaming';
+import { ClientFreshnessColorSequence } from '../../types/liveness/liveness-service-types';
+import {
+  ColorSequence,
+  SessionInformation,
+} from '@aws-sdk/client-rekognitionstreaming';
 
 /**
  * Returns the random number between min and max
@@ -349,15 +353,63 @@ export const LivenessErrorStateStringMap: Record<LivenessErrorState, string> = {
   [LivenessErrorState.TIMEOUT]: translate<string>('Timeout!'),
 };
 
-export const NewColorArr = [
-  'rgb_0_0_0', // black
-  'rgb_255_255_255', // white
-  'rgb_255_0_0', // red
-  'rgb_255_255_0', // yellow
-  'rgb_0_255_0', // lime
-  'rgb_0_255_255', // cyan
-  'rgb_0_0_255', // blue,
-  'rgb_255_0_255', // violet
+export const MOCK_COLOR_SEQUENCES: ColorSequence[] = [
+  {
+    FreshnessColor: {
+      RGB: [0, 0, 0], // black
+    },
+    DownscrollDuration: 300,
+    FlatDisplayDuration: 100,
+  },
+  {
+    FreshnessColor: {
+      RGB: [255, 255, 255], // white
+    },
+    DownscrollDuration: 300,
+    FlatDisplayDuration: 100,
+  },
+  {
+    FreshnessColor: {
+      RGB: [255, 0, 0], // red
+    },
+    DownscrollDuration: 300,
+    FlatDisplayDuration: 100,
+  },
+  {
+    FreshnessColor: {
+      RGB: [255, 255, 0], // yellow
+    },
+    DownscrollDuration: 300,
+    FlatDisplayDuration: 100,
+  },
+  {
+    FreshnessColor: {
+      RGB: [0, 255, 0], // lime
+    },
+    DownscrollDuration: 300,
+    FlatDisplayDuration: 100,
+  },
+  {
+    FreshnessColor: {
+      RGB: [0, 255, 255], // cyan
+    },
+    DownscrollDuration: 300,
+    FlatDisplayDuration: 100,
+  },
+  {
+    FreshnessColor: {
+      RGB: [0, 0, 255], // blue,
+    },
+    DownscrollDuration: 300,
+    FlatDisplayDuration: 100,
+  },
+  {
+    FreshnessColor: {
+      RGB: [255, 0, 255], // violet
+    },
+    DownscrollDuration: 300,
+    FlatDisplayDuration: 100,
+  },
 ];
 
 export enum FreshnessColor {
@@ -487,16 +539,22 @@ export function shouldChangeColorStage(
   );
 }
 
-export function getFreshnessColorsFromSessionInformation(
+export function getColorsSequencesFromSessionInformation(
   sessionInformation: SessionInformation
-) {
-  // FIXME: Get the initial color array from the sessionInformation
-  // convert rgb_0_0_0 to rgb(0,0,0)
-  const freshnessColors = NewColorArr.map((colorString) => {
-    return colorString.replace('_', '(').replaceAll('_', ',').concat(')');
-  });
+): ClientFreshnessColorSequence[] {
+  // FIXME: Get the initial color sequences from the sessionInformation
+  const colorSequences: ClientFreshnessColorSequence[] =
+    MOCK_COLOR_SEQUENCES.map((colorSequence) => {
+      const colorArray = colorSequence.FreshnessColor.RGB;
+      const color = `rgb(${colorArray[0]},${colorArray[1]},${colorArray[2]})`;
+      return {
+        color,
+        downscrollDuration: colorSequence.DownscrollDuration,
+        flatDisplayDuration: colorSequence.FlatDisplayDuration,
+      };
+    });
 
-  return freshnessColors;
+  return colorSequences;
 }
 
 export function getRandomIndex(length: number, prevIndex?: number) {

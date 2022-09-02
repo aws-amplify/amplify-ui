@@ -1,6 +1,6 @@
 import { FreshnessColorDisplay } from '../freshness-color-display';
-import { mockContext } from '../liveness-test-helpers';
-import { getFreshnessColorsFromSessionInformation } from '../liveness';
+import { mockContext, mockSessionInformation } from '../liveness-test-helpers';
+import { getColorsSequencesFromSessionInformation } from '../liveness';
 
 const mockMediaRecorder = {
   start: jest.fn(),
@@ -34,7 +34,7 @@ describe('FreshnessColorDisplay', () => {
     const context = mockContext();
     const display = new FreshnessColorDisplay(
       context,
-      getFreshnessColorsFromSessionInformation('any')
+      getColorsSequencesFromSessionInformation(mockSessionInformation)
     );
 
     const response = await display.displayColorTick();
@@ -54,7 +54,7 @@ describe('FreshnessColorDisplay', () => {
     const context = mockContext();
     const display = new FreshnessColorDisplay(
       context,
-      getFreshnessColorsFromSessionInformation('any')
+      getColorsSequencesFromSessionInformation(mockSessionInformation)
     );
 
     (display as any).colorStageIndex = 25; // mock going through all stages

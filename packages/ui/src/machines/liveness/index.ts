@@ -1,6 +1,6 @@
 import { createMachine, assign, actions, send, spawn } from 'xstate';
 import {
-  getFreshnessColorsFromSessionInformation,
+  getColorsSequencesFromSessionInformation,
   getRandomScalingAttributes,
 } from '../../helpers/liveness/liveness';
 
@@ -435,7 +435,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       setupFlashFreshnessColors: assign({
         freshnessColorAssociatedParams: (context) => {
           const { serverSessionInformation } = context;
-          const freshnessColors = getFreshnessColorsFromSessionInformation(
+          const freshnessColors = getColorsSequencesFromSessionInformation(
             serverSessionInformation
           );
           const freshnessColorDisplay = new FreshnessColorDisplay(
@@ -445,7 +445,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
           return {
             ...context.freshnessColorAssociatedParams,
-            freshnessColors,
             freshnessColorDisplay,
           };
         },
