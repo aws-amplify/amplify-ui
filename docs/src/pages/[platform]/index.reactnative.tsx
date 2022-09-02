@@ -1,13 +1,11 @@
 import * as React from 'react';
-import { useBreakpointValue } from '@aws-amplify/ui-react';
-
-import { useCustomRouter } from '@/components/useCustomRouter';
+import { useRouter } from 'next/router';
 import { AmplifySection, CompatibleSection } from '@/components/home/sections';
 
 export default function ReactNativeHomePage({ colorMode }) {
   const {
     query: { platform = 'react' },
-  } = useCustomRouter();
+  } = useRouter();
 
   return (
     <>
