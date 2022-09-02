@@ -10,18 +10,33 @@ type Direction = 'ltr' | 'rtl';
 
 interface ThemeProviderProps {
   children: React.ReactNode;
+  /**
+   * Changes the color mode applied to the theme
+   */
   colorMode?: ColorMode;
-  dir?: Direction;
-  theme?: Theme;
+  /**
+   * Controls the language direction in the app
+   * @default: 'ltr'
+   */
+  direction?: Direction;
+  /**
+   * Provide a server generated nonce which matches your CSP `style-src` rule.
+   * This will be attached to the generated <style> tag.
+   * @see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/style-src
+   */
   nonce?: string;
+  /**
+   * Custom theme
+   */
+  theme?: Theme;
 }
 
 export function AmplifyProvider({
   children,
   colorMode,
-  theme,
-  dir = 'ltr',
+  direction = 'ltr',
   nonce,
+  theme,
 }: ThemeProviderProps): JSX.Element {
   const value = React.useMemo(() => ({ theme: createTheme(theme) }), [theme]);
   const {
@@ -30,7 +45,7 @@ export function AmplifyProvider({
 
   return (
     <AmplifyContext.Provider value={value}>
-      <DirectionProvider dir={dir}>
+      <DirectionProvider dir={direction}>
         {/*
           The data attributes on here as well as the root element allow for nested
           themes to work because CSS variables are inherited, ones closer in the 
