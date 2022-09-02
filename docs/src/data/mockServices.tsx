@@ -60,7 +60,7 @@ export const mockServices = {
     password: string;
   }) {
     if (code === '123456') {
-      verifiedUsers.set(username, { username: username, password: password });
+      verifiedUsers.set(username, { username, password });
       return Promise.resolve();
     } else {
       return Promise.reject(new Error('Invalid Verification Code'));

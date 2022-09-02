@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import { Amplify } from 'aws-amplify';
-
 import { ThemeProvider, ColorMode, defaultTheme } from '@aws-amplify/ui-react';
 
 import { configure, trackPageVisit } from '@/utils/track';

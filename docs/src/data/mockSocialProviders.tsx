@@ -89,8 +89,8 @@ export const mockComponents = {
   SignIn: {
     Header() {
       return (
-        <Flex direction={'column'} paddingLeft={'2rem'} paddingRight={'2rem'}>
-          <Flex direction="column" paddingTop={'2rem'} paddingBottom={'1rem'}>
+        <Flex direction="column" paddingLeft="2rem" paddingRight="2rem">
+          <Flex direction="column" paddingTop="2rem" paddingBottom="1rem">
             <Button
               className="federated-sign-in-button"
               fontWeight="normal"
@@ -132,8 +132,8 @@ export const mockComponents = {
   SignUp: {
     Header() {
       return (
-        <Flex direction={'column'} paddingLeft={'2rem'} paddingRight={'2rem'}>
-          <Flex direction="column" paddingTop={'2rem'} paddingBottom={'1rem'}>
+        <Flex direction="column" paddingLeft="2rem" paddingRight="2rem">
+          <Flex direction="column" paddingTop="2rem" paddingBottom="1rem">
             <Button
               className="federated-sign-up-button"
               fontWeight="normal"
