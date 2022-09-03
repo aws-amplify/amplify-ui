@@ -103,7 +103,7 @@
     --amplify-colors-background-tertiary
   );
 
-  height: 100vh;
+  height: calc(100vh - var(--docs-dev-center-nav-height));
   width: var(--width);
   overflow-y: auto;
   position: absolute;
