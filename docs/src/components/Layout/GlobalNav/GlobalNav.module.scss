@@ -1,0 +1,128 @@
+@font-face {
+  font-family: Amazon Ember;
+  src: url(./fonts/AmazonEmber_W_Lt.woff2) format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Amazon Ember;
+  src: url(./fonts/AmazonEmber_W_Rg.woff2) format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+.navbar {
+  box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.04);
+  border-bottom: 1px solid #d5dbdb;
+  background-color: white;
+  position: sticky;
+  top: 0px;
+  z-index: 200;
+  font-family: 'Amazon Ember';
+}
+
+.dev-center-logo {
+  color: #232f3e;
+  font-size: 1.25rem;
+  white-space: nowrap;
+}
+
+.nav-container {
+  display: flex;
+  height: 80px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mobile-nav-container {
+  display: flex;
+  height: 80px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 18px;
+}
+
+.mobile-nav-menu-container {
+  z-index: 1000;
+  background-color: white;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-bottom: 1px solid #d5dbdb;
+}
+
+.mobile-nav-icons-container {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+
+  svg {
+    display: block;
+    margin: auto;
+  }
+}
+
+.mobile-nav-menu-items {
+  border-top: 1px solid #d5dbdb;
+  border-bottom: 1px solid #d5dbdb;
+  height: 48px;
+  width: 100%;
+}
+
+.nav-menu-item {
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  font-size: 1rem;
+  text-decoration: none;
+  color: #545b64;
+  font-family: 'Amazon Ember';
+  cursor: pointer;
+
+  white-space: nowrap;
+
+  &:hover {
+    color: black;
+    background-color: white !important;
+  }
+}
+
+.back-nav-button {
+  border-top: 1px solid #d5dbdb;
+  border-bottom: 1px solid #d5dbdb;
+
+  // Set color for back chevron icon
+  color: #545b64;
+
+  p {
+    color: #545b64;
+  }
+
+  &:hover {
+    color: black;
+    border: 1px solid #d5dbdb;
+    background-color: white !important;
+
+    p {
+      color: black;
+    }
+  }
+}
+
+.current-nav-menu-item {
+  border-top: 2px solid transparent;
+  border-bottom: 2px solid #ff9900;
+}
+
+.icon-link-hover {
+  &:hover {
+    color: black;
+  }
+}
