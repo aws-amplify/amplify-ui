@@ -237,12 +237,7 @@ export const Sidebar = ({ expanded, setExpanded, platform }) => {
       <div className="docs-sidebar-overlay" onClick={onClick} />
       <div className="docs-sidebar-inner">
         <Flex direction="column" className="docs-sidebar-nav">
-          <Flex
-            direction="row"
-            alignItems="center"
-            justifyContent="space-between"
-          >
-            <LogoLink platform={platform} onClick={onClick} />
+          <Flex direction="row" alignItems="center" justifyContent="flex-end">
             <MenuButton expanded={expanded} setExpanded={setExpanded} />
           </Flex>
 

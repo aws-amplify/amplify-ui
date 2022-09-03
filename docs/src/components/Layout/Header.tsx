@@ -45,7 +45,6 @@ export const Header = ({
         platform={platform}
       />
 
-      <LogoLink platform={platform} />
       <FrameworkLogo
         framework={platform}
         alt={platform}
@@ -65,19 +64,6 @@ export const Header = ({
         <ColorModeSwitcher colorMode={colorMode} setColorMode={setColorMode} />
         {hiddenOnMobile ? (
           <View>
-            <Button
-              variation="link"
-              size="small"
-              as={Link}
-              href={DISCORD}
-              isExternal
-              color="font.tertiary"
-              fontSize="medium"
-              title="Discord"
-            >
-              <VisuallyHidden>Discord</VisuallyHidden>
-              <DiscordIcon />
-            </Button>
             <Button
               variation="link"
               size="small"
