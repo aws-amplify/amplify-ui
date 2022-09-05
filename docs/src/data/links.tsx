@@ -417,6 +417,7 @@ export const guides = [
   {
     href: '/guides',
     label: 'Overview',
+    platforms: ['react'],
   },
   {
     href: '/guides/css-in-js',
@@ -442,6 +443,7 @@ export const gettingStarted = [
   {
     href: '/getting-started/usage',
     label: 'Usage',
+    platforms: ['react', 'vue', 'angular'],
   },
   {
     href: '/getting-started/usage/create-react-app',
@@ -463,6 +465,7 @@ export const gettingStarted = [
   {
     href: '/getting-started/accessibility',
     label: 'Accessibility',
+    platforms: ['react', 'vue', 'angular'],
   },
   {
     href: '/getting-started/migration',
