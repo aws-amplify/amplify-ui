@@ -129,8 +129,8 @@ export function GlobalNav({
 
   return isMobileState ? (
     <NavMobileContext.Provider value={value}>
-      <nav className={styles.navbar}>
-        <View className={styles['mobile-nav-container']} padding="0px 32px">
+      <nav className={styles.navbar} aria-label="Amplify Dev Center Global">
+        <View className={styles['mobile-nav-container']} padding="0px 20px">
           <Flex columnGap="8px" alignItems="center">
             <Icon
               ariaLabel="Amplify Dev Center logo"
@@ -147,6 +147,8 @@ export function GlobalNav({
             </Text>
           </Flex>
           <Button
+            aria-expanded={!isCollapsed}
+            aria-controls="mobile-nav-links"
             border="none"
             onClick={() => {
               setIsCollapsed(!isCollapsed);
@@ -165,7 +167,7 @@ export function GlobalNav({
         {isCollapsed ? (
           <></>
         ) : (
-          <>
+          <View id="mobile-nav-links">
             {showGlobalNav ? (
               <View className={styles['mobile-nav-menu-container']}>
                 {links
@@ -216,7 +218,7 @@ export function GlobalNav({
                   borderRadius="0px"
                   columnGap="9px"
                   className={`${styles['back-nav-button']}`}
-                  ariaLabel={`Back to nav button`}
+                  ariaLabel={`Back to all Amplify sites`}
                 >
                   <VisuallyHidden>Learn</VisuallyHidden>
                   <Icon
@@ -230,14 +232,13 @@ export function GlobalNav({
                 {secondaryNavMobile}
               </Flex>
             )}
-          </>
+          </View>
         )}
       </nav>
       {isCollapsed ? (
         <></>
       ) : (
         <View
-          ariaLabel="Nav bar overlay"
           height="100vh"
           width="100vw"
           position="fixed"
@@ -270,7 +271,7 @@ export function GlobalNav({
         }}
         style={{
           overflowY: 'scroll',
-          borderBottom: '1px solid #d5dbdb',
+          borderBottom: hasSecondaryNav ? '1px solid #d5dbdb' : '',
         }}
       >
         <Flex
