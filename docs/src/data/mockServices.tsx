@@ -5,6 +5,10 @@ const FIXED_VERIFICATION_CODE = '123456';
 const verifiedUsers = new Map();
 let signUpPassword = ''; //used to track the sign up password for the confirmSignUp() flow
 
+const checkFixedCredentials = (username, password) => {
+  return username === FIXED_USERNAME && password === FIXED_PASSWORD;
+};
+
 export const mockServices = {
   async getAmplifyConfig() {
     return {};
@@ -23,9 +27,11 @@ export const mockServices = {
     username: string;
     password: string;
   }) {
-    if (
-      verifiedUsers.get(username).password === password ||
-      (username === FIXED_USERNAME && password === FIXED_PASSWORD)
+    if (checkFixedCredentials(username, password)) {
+      return {};
+    } else if (
+      verifiedUsers.has(username) &&
+      verifiedUsers.get(username).password === password
     ) {
       return Promise.resolve(verifiedUsers.get(username));
     } else {
