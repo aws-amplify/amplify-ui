@@ -1,4 +1,5 @@
 import NextLink from 'next/link';
+import { useRouter } from 'next/router';
 import {
   Button,
   Flex,
@@ -16,29 +17,22 @@ import {
   RiPencilRuler2Line,
 } from 'react-icons/ri';
 
-import { useCustomRouter } from '@/components/useCustomRouter';
 import { CardLink } from '@/components/CardLink';
-import { FRAMEWORKS } from '@/data/frameworks';
+import { FRAMEWORKS, FRAMEWORK_INSTALL_SCRIPTS } from '@/data/frameworks';
 import { FrameworkLogo } from '@/components/Logo';
 import { TerminalCommand } from '@/components/InstallScripts';
 
 export const HeroSection = () => {
   const {
     query: { platform = 'react' },
-  } = useCustomRouter();
+  } = useRouter();
 
   const showEditor = useBreakpointValue({
     base: false,
     large: true,
   });
 
-  const installScripts = {
-    react: `npm i @aws-amplify/ui-${platform} aws-amplify`,
-    vue: `npm i @aws-amplify/ui-${platform} aws-amplify`,
-    angular: `npm i @aws-amplify/ui-${platform} aws-amplify`,
-    flutter: 'flutter pub add amplify_authenticator',
-  };
-  const frameworkInstallScript = installScripts[platform.toString()];
+  const frameworkInstallScript = FRAMEWORK_INSTALL_SCRIPTS[platform.toString()];
 
   return (
     <View as="section" className="docs-hero">
@@ -49,8 +43,9 @@ export const HeroSection = () => {
           alignItems="center"
         >
           <Heading level={1} marginBlockEnd="0">
-            Supercharge your app &mdash; <br />
-            <strong>Connect your UI to the cloud.</strong>
+            Themeable, accessible components
+            <br />
+            <strong>Ready to connect to the cloud</strong>
           </Heading>
           <Text
             fontSize={{

@@ -1,3 +1,42 @@
-```js{3,10-34} file=../../../../../../../../examples/next/pages/ui/components/authenticator/useAuthenticator/index.page.tsx#L1-L34
+```js{9,13}
+import { Amplify } from 'aws-amplify';
+import '@aws-amplify/ui-react/styles.css';
+import {
+  Authenticator,
+  View,
+  Button,
+  useAuthenticator,
+} from '@aws-amplify/ui-react';
+
+import awsExports from './aws-exports';
+Amplify.configure(awsExports);
+
+export default function App() {
+  const components = {
+    SignIn: {
+      Footer() {
+        const { toResetPassword } = useAuthenticator();
+        return (
+          <View textAlign="center">
+            <Button fontWeight="normal" onClick={toResetPassword} size="small">
+              Custom Reset Password
+            </Button>
+          </View>
+        );
+      },
+    },
+  };
+
+  return (
+    <Authenticator components={components}>
+      {({ signOut, user }) => (
+        <main>
+          <h1>Hello {user.username}</h1>
+          <button onClick={signOut}>Sign out</button>
+        </main>
+      )}
+    </Authenticator>
+  );
+}
 
 ```

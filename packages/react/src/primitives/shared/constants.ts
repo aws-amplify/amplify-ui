@@ -115,7 +115,13 @@ export const ComponentClassObject: ComponentClassNameItems = {
     className: ComponentClassName.CountryCodeSelect,
     components: ['PhoneNumberField'],
     description:
-      'Class applied to the Country Code Select within the PhoneNumberField primitive',
+      'Class applied to the Dial Code Select within the PhoneNumberField primitive',
+  },
+  DialCodeSelect: {
+    className: ComponentClassName.DialCodeSelect,
+    components: ['PhoneNumberField'],
+    description:
+      'Class applied to the Dial Code Select within the PhoneNumberField primitive',
   },
   Divider: {
     className: ComponentClassName.Divider,
@@ -551,6 +557,7 @@ export const ComponentClassNames: ComponentClassNamesType = {
   CollectionSearch: ComponentClassObject.CollectionSearch.className,
   CollectionPagination: ComponentClassObject.CollectionPagination.className,
   CountryCodeSelect: ComponentClassObject.CountryCodeSelect.className,
+  DialCodeSelect: ComponentClassObject.DialCodeSelect.className,
   Divider: ComponentClassObject.Divider.className,
   DividerLabel: ComponentClassObject.DividerLabel.className,
   Expander: ComponentClassObject.Expander.className,
@@ -656,12 +663,13 @@ export const ComponentText = {
   },
   Collection: {
     searchButtonLabel: 'Search',
+    searchNoResultsFound: 'No results found',
   },
   Fields: {
     clearButtonLabel: 'Clear input',
   },
   PaginationItem: {
-    currentPageLabel: 'Current Page:',
+    currentPageLabel: 'Page',
     nextLabel: 'Go to next page',
     pageLabel: 'Go to page',
     previousLabel: 'Go to previous page',
@@ -673,8 +681,9 @@ export const ComponentText = {
     searchButtonLabel: 'Search',
   },
   PasswordField: {
-    showPasswordButtonLabel: 'Show password',
-    hidePasswordButtonLabel: 'Hide password',
+    passwordIsHidden: 'Password is hidden',
+    passwordIsShown: 'Password is shown',
+    showPassword: 'Show password',
   },
   StepperField: {
     increaseButtonLabel: 'Increase to',

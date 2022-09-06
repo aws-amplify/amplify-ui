@@ -1,5 +1,126 @@
 # @aws-amplify/ui
 
+## 3.13.1
+
+### Patch Changes
+
+- [#2514](https://github.com/aws-amplify/amplify-ui/pull/2514) [`b60fec2c4`](https://github.com/aws-amplify/amplify-ui/commit/b60fec2c451b31946f893efbf23710c7631db122) Thanks [@zchenwei](https://github.com/zchenwei)! - chore: add indeterminate icon svg
+
+## 3.13.0
+
+### Minor Changes
+
+- [#2300](https://github.com/aws-amplify/amplify-ui/pull/2300) [`eae79ae15`](https://github.com/aws-amplify/amplify-ui/commit/eae79ae1529b9a920d704cb12e92addb352d0c40) Thanks [@zchenwei](https://github.com/zchenwei)! - feat: adding indeterminate state checkbox
+
+  Users can create an indeterminate `CheckboxField` by setting `isIndeterminate` prop to `true`.
+
+  **_Example_**
+
+  ```jsx
+  import * as React from 'react';
+
+  import { CheckboxField, Flex, View } from '@aws-amplify/ui-react';
+
+  export const CheckboxFieldIndeterminateExample = () => {
+    const [checkedItems, setCheckedItems] = React.useState([false, false]);
+    const checkedItemsRef = React.useRef(null);
+    const allChecked = checkedItems.every(Boolean);
+    const isIndeterminate = checkedItems.some(Boolean) && !allChecked;
+
+    if (isIndeterminate) {
+      checkedItemsRef.current = [...checkedItems];
+    }
+    const handleAllPetsChange = () => {
+      if (isIndeterminate) {
+        setCheckedItems([true, true]);
+      } else if (allChecked) {
+        setCheckedItems([false, false]);
+      } else if (checkedItemsRef.current) {
+        setCheckedItems(checkedItemsRef.current);
+      } else {
+        setCheckedItems([true, true]);
+      }
+    };
+
+    const handleCatChange = (e) => {
+      const newCheckedItems = [e.target.checked, checkedItems[1]];
+      if (!newCheckedItems.some(Boolean) || newCheckedItems.every(Boolean)) {
+        checkedItemsRef.current = null;
+      }
+      setCheckedItems(newCheckedItems);
+    };
+
+    const handleDogChange = (e) => {
+      const newCheckedItems = [checkedItems[0], e.target.checked];
+      if (!newCheckedItems.some(Boolean) || newCheckedItems.every(Boolean)) {
+        checkedItemsRef.current = null;
+      }
+      setCheckedItems(newCheckedItems);
+    };
+
+    return (
+      <Flex direction="column" gap="0">
+        <CheckboxField
+          name="all-pets"
+          label="All Pets"
+          value="allPets"
+          checked={allChecked}
+          isIndeterminate={isIndeterminate}
+          onChange={handleAllPetsChange}
+        />
+        <View paddingLeft="25px">
+          <CheckboxField
+            name="cat"
+            label="Cat"
+            value="cat"
+            checked={checkedItems[0]}
+            onChange={handleCatChange}
+          />
+          <CheckboxField
+            name="dog"
+            label="Dog"
+            value="dog"
+            checked={checkedItems[1]}
+            onChange={handleDogChange}
+          />
+        </View>
+      </Flex>
+    );
+  };
+  ```
+
+### Patch Changes
+
+- [#2432](https://github.com/aws-amplify/amplify-ui/pull/2432) [`b3e6a97e8`](https://github.com/aws-amplify/amplify-ui/commit/b3e6a97e8e17f6b822af0387e3c543c50aea7c64) Thanks [@wlee221](https://github.com/wlee221)! - Bump xstate to ^4.33.0. This will resolve "No implementation found" warnings.
+
+* [#2431](https://github.com/aws-amplify/amplify-ui/pull/2431) [`1cfa1a054`](https://github.com/aws-amplify/amplify-ui/commit/1cfa1a054451a75738f4011c4200c34208285b5b) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - This change adds a base background color for the SearchField component's button.
+
+- [#2398](https://github.com/aws-amplify/amplify-ui/pull/2398) [`e25bc4269`](https://github.com/aws-amplify/amplify-ui/commit/e25bc42693cc4fa1cdcf7ad2fe7034ff44fbb18e) Thanks [@zchenwei](https://github.com/zchenwei)! - fix: add missing token for default font size for SwitchField
+
+* [#2386](https://github.com/aws-amplify/amplify-ui/pull/2386) [`1f358d8fa`](https://github.com/aws-amplify/amplify-ui/commit/1f358d8fa18367020d0c41b74dcce1ba73974376) Thanks [@joebuono](https://github.com/joebuono)! - fix(ui): Apply styling to disabled SelectField options in Firefox
+
+## 3.12.5
+
+### Patch Changes
+
+- [#2343](https://github.com/aws-amplify/amplify-ui/pull/2343) [`de1c874f2`](https://github.com/aws-amplify/amplify-ui/commit/de1c874f294a3b21cc9d7a97b310d2744d18b065) Thanks [@ErikCH](https://github.com/ErikCH)! - Added 'Dismiss alert' to the set of dictionary keys for the authenticator
+
+* [#2367](https://github.com/aws-amplify/amplify-ui/pull/2367) [`3c468a0f3`](https://github.com/aws-amplify/amplify-ui/commit/3c468a0f34fb8f747b925dd1a66a0f0f0117436a) Thanks [@joebuono](https://github.com/joebuono)! - fix(ui): Add missing Authenticator translations for all available languages
+
+- [#2347](https://github.com/aws-amplify/amplify-ui/pull/2347) [`1fcfa3c02`](https://github.com/aws-amplify/amplify-ui/commit/1fcfa3c02dc8eedb2acdc7425be7311f5b1accef) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - fix(ui-react): Fixes an issue where TextAreaField does not show line breaks properly in Firefox.
+
+* [#2371](https://github.com/aws-amplify/amplify-ui/pull/2371) [`adc9ff6e3`](https://github.com/aws-amplify/amplify-ui/commit/adc9ff6e3c7d1408edb7de58c1858ddc4f47d1c7) Thanks [@cshfang](https://github.com/cshfang)! - fix(ui-react): Fixes an issue where the isTruncated prop of the Heading component was not properly applying a truncation.
+
+## 3.12.4
+
+### Patch Changes
+
+- [#2287](https://github.com/aws-amplify/amplify-ui/pull/2287) [`8418028a3`](https://github.com/aws-amplify/amplify-ui/commit/8418028a3218ea20ccb2ac949b1e6e33c57239e6) Thanks [@ErikCH](https://github.com/ErikCH)! - When first setting up TOTP with MFA the Authenticator is not returning the correct user object. This object did not contain the correct methods, and causes an error if you try to access those methods. This fix will now retrieve the correct user object when a user first sets up MFA TOTP.
+
+* [#2330](https://github.com/aws-amplify/amplify-ui/pull/2330) [`f067420b9`](https://github.com/aws-amplify/amplify-ui/commit/f067420b9a39807a46bd409dce17f2bcc297218e) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - ui-react(fix): Update StepperField disabled buttons styles, making them easier to see.
+
+- [#2304](https://github.com/aws-amplify/amplify-ui/pull/2304) [`d9dd9220c`](https://github.com/aws-amplify/amplify-ui/commit/d9dd9220c367bc476fddb36e89daff75d62e7f31) Thanks [@tmokmss](https://github.com/tmokmss)! - chore: add translation texts for Japanese
+
 ## 3.12.3
 
 ### Patch Changes

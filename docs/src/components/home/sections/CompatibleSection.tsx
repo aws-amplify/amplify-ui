@@ -47,8 +47,8 @@ export const CompatibleSection = ({ platform }) => {
             leave the UI up to you.
           </HomeFeatureCard>
           <HomeFeatureCard icon={MdOutlineFlashOff} title="Styling optional">
-            Don't like our style? Throw it out and use your own! Amplify UI
-            components use plain CSS so you have complete control over the
+            Don&lsquo;t like our style? Throw it out and use your own! Amplify
+            UI components use plain CSS so you have complete control over the
             styling.
           </HomeFeatureCard>
           <HomeFeatureCard
@@ -60,7 +60,7 @@ export const CompatibleSection = ({ platform }) => {
           </HomeFeatureCard>
         </Flex>
         <HomeCTA href={`/${platform}/getting-started/introduction`}>
-          Learn more about Amplify UI's design philosophy
+          Learn more about Amplify UI&lsquo;s design philosophy
         </HomeCTA>
       </Flex>
     </View>

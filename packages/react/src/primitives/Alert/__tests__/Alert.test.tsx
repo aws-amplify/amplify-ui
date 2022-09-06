@@ -111,6 +111,21 @@ describe('Alert: ', () => {
     expect(isDismissible.childElementCount).toBe(2);
   });
 
+  it('should set aria-hidden to be true on decorative icons', async () => {
+    const { container } = render(
+      <div>
+        <Alert variation="info" isDismissible={true} testId="hasIcon">
+          Has Icon
+        </Alert>
+      </div>
+    );
+    const icons = container.querySelectorAll(`.${ComponentClassNames.Icon}`);
+    expect(icons.length).toEqual(2);
+    icons.forEach((icon) => {
+      expect(icon).toHaveAttribute('aria-hidden', 'true');
+    });
+  });
+
   it('can configure an accessible label for the dismiss button', async () => {
     const customDismissButtonLabel = 'Testing 123';
     render(
@@ -129,6 +144,24 @@ describe('Alert: ', () => {
     expect(customLabel.getAttribute('aria-label')).toBe(
       customDismissButtonLabel
     );
+  });
+
+  it('renders as an aria alert', async () => {
+    render(<Alert testId="ariaAlertID">Alert with an aria role</Alert>);
+
+    const alert = await screen.findByRole('alert');
+    expect(alert).toBeDefined();
+  });
+
+  it('can allow role override', async () => {
+    render(
+      <Alert role="none" testId="noAlertRole">
+        Alert with role overridden
+      </Alert>
+    );
+
+    const alert = await screen.findByTestId('noAlertRole');
+    expect(alert).toHaveAttribute('role', 'none');
   });
 
   it('can apply styling via props', async () => {

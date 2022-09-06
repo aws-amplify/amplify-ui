@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useBreakpointValue } from '@aws-amplify/ui-react';
+import { useRouter } from 'next/router';
 
-import { useCustomRouter } from '@/components/useCustomRouter';
 import {
   A11ySection,
   AmplifySection,
@@ -16,7 +16,7 @@ import {
 const ReactHomePage = ({ colorMode }) => {
   const {
     query: { platform = 'react' },
-  } = useCustomRouter();
+  } = useRouter();
 
   const showEditor = useBreakpointValue({
     base: false,

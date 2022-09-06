@@ -7,7 +7,7 @@ import { CheckboxFieldProps, Primitive } from '../types';
 import { ComponentClassNames } from '../shared';
 import { FieldErrorMessage } from '../Field';
 import { Flex } from '../Flex';
-import { useTestId } from '../utils/testUtils';
+import { getTestId } from '../utils/testUtils';
 
 const CheckboxFieldPrimitive: Primitive<CheckboxFieldProps, 'input'> = (
   {
@@ -22,7 +22,7 @@ const CheckboxFieldPrimitive: Primitive<CheckboxFieldProps, 'input'> = (
   },
   ref
 ) => {
-  const checkboxTestId = useTestId(testId, ComponentClassNames.Checkbox);
+  const checkboxTestId = getTestId(testId, ComponentClassNames.Checkbox);
   return (
     <Flex
       className={classNames(

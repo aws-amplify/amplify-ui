@@ -30,7 +30,8 @@
     }
   }
 
-  & > table {
+  // MDX/markdown generated table styles
+  & > table:not(.docs-responsiveTable) {
     border-collapse: collapse;
     width: 100%;
 
