@@ -75,10 +75,5 @@
   },
   "peerDependencies": {
     "aws-amplify": "^4.2.2"
-  },
-  "workspaces": {
-    "nohoist": [
-      "rollup"
-    ]
   }
 }
