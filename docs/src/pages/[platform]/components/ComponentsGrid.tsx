@@ -1,4 +1,5 @@
-import { Flex, Grid, Heading, Icon } from '@aws-amplify/ui-react';
+import { useRouter } from 'next/router';
+import { Flex, Heading, Icon } from '@aws-amplify/ui-react';
 import {
   baseComponents,
   dataDisplayComponents,
@@ -9,13 +10,12 @@ import {
   utilityComponents,
 } from '@/data/links';
 
-import { useCustomRouter } from '@/components/useCustomRouter';
 import { CardLink, CardLinkGroup } from '@/components/CardLink';
 
 const ComponentGrid = ({ components }) => {
   const {
     query: { platform = 'react' },
-  } = useCustomRouter();
+  } = useRouter();
 
   return (
     <CardLinkGroup>
@@ -34,7 +34,7 @@ const ComponentGrid = ({ components }) => {
 };
 
 const ComponentGridSection = ({ heading, components }) => {
-  const { query } = useCustomRouter();
+  const { query } = useRouter();
   const { platform = 'react' } = query;
 
   const platformComponents = components.filter((component) => {

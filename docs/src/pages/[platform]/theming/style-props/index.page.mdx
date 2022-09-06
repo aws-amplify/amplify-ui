@@ -30,6 +30,18 @@ import {
   OtherStyles,
 } from './examples';
 
+import { getCustomStaticPath } from "@/utils/getCustomStaticPath";
+
+export async function getStaticPaths() {
+  return getCustomStaticPath(frontmatter.supportedFrameworks);
+}
+
+{/*  `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" */}
+
+export async function getStaticProps() {
+  return { props: {} }
+}
+
 These style props are available on Amplify UI primitive components and can be used to modify the corresponding styles. This allows users to quickly make style adjustments without having to go through CSS or add a theme object. Style props override any conflicting CSS style sheet or theme styling.
 
 There are three ways of passing style props to a component:
