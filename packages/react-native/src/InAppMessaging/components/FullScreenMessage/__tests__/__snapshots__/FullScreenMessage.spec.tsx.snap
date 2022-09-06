@@ -52,7 +52,7 @@ exports[`FullScreenMessage renders as expected in landscape mode 1`] = `
         "header": Array [
           Object {
             "fontSize": 18,
-            "fontWeight": "400",
+            "fontWeight": "600",
             "lineHeight": 27,
           },
           Object {},
@@ -170,7 +170,7 @@ exports[`FullScreenMessage renders as expected in portrait mode 1`] = `
         "header": Array [
           Object {
             "fontSize": 18,
-            "fontWeight": "400",
+            "fontWeight": "600",
             "lineHeight": 27,
           },
           Object {},

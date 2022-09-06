@@ -1,15 +1,11 @@
 import React from 'react';
 import { InAppMessagingProvider } from '@aws-amplify/ui-react-core';
 
-import {
-  InAppMessageDisplay,
-  MessageComponents,
-  MessageStyles,
-} from '../InAppMessageDisplay';
+import { InAppMessageDisplay, MessageComponents } from '../InAppMessageDisplay';
 
 export default function withInAppMessaging<Props>(
   Component: (props: Props) => JSX.Element,
-  options?: { components?: MessageComponents; styles?: MessageStyles }
+  options?: { components?: MessageComponents }
 ): (props: Props) => JSX.Element {
   return function WrappedWithInAppMessaging(props: Props) {
     return (

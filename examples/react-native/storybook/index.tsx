@@ -1,11 +1,17 @@
-import { Platform } from 'react-native';
+import { LogBox, Platform } from 'react-native';
 import { getStorybookUI, configure } from '@storybook/react-native';
 import noop from 'lodash/noop';
 import { loadStories } from './storyLoader';
 
+const STORYBOOK_REQUIRE_CYCLE_PREFIX =
+  'Require cycle: node_modules/core-js/internals/microtask.js';
+
 // only initialize storybook resources when initStorybook is true
 export function setupStorybook(initStorybook: boolean) {
   if (initStorybook) {
+    // Turn off the require cycle LogBox warning storybook triggers from within getStorybookUI
+    // This should be removed once Storybook is upgraded to v6: https://github.com/storybookjs/react-native/issues/240
+    LogBox.ignoreLogs([STORYBOOK_REQUIRE_CYCLE_PREFIX]);
     configure(() => {
       loadStories();
     }, module);

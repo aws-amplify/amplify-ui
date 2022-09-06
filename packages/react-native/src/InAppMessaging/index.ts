@@ -1,6 +1,14 @@
 export {
+  InAppMessagingProvider,
+  useInAppMessaging,
+} from '@aws-amplify/ui-react-core';
+
+export {
+  BannerMessageProps,
+  CarouselMessageProps,
+  FullScreenMessageProps,
+  ModalMessageProps,
   InAppMessageDisplay,
   MessageComponents,
-  MessageStyles,
   withInAppMessaging,
 } from './components';

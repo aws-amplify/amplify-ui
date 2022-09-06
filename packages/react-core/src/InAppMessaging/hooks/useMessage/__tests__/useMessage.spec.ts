@@ -13,7 +13,8 @@ import {
 } from '../../../types';
 import { UseMessageParams } from '../types';
 
-import useMessage, { EMPTY_PROPS } from '../useMessage';
+import { EMPTY_PROPS } from '../useMessage';
+import { useMessage } from '..';
 
 const notifyMessageInteractionSpy = jest.spyOn(
   Notifications.InAppMessaging,
@@ -40,13 +41,6 @@ const carouselMessage: Partial<Message> = {
   id: 'carousel',
   content: [{ header }, { header: { content: 'header two' } }],
   layout: 'CAROUSEL',
-};
-const style = { backgroundColor: 'fuschia' };
-const styles = {
-  bannerMessage: style,
-  carouselMessage: style,
-  fullScreenMessage: style,
-  modalMessage: style,
 };
 
 function BannerMessage() {
@@ -98,7 +92,6 @@ describe('useMessage', () => {
           layout,
           onClose: expect.any(Function) as TestMessageProps['onClose'],
           onDisplay: expect.any(Function) as TestMessageProps['onDisplay'],
-          style: undefined,
         })
       );
     }
@@ -119,7 +112,6 @@ describe('useMessage', () => {
         layout: 'CAROUSEL',
         onClose: expect.any(Function) as TestMessageProps['onClose'],
         onDisplay: expect.any(Function) as TestMessageProps['onDisplay'],
-        style: undefined,
       })
     );
   });
@@ -146,24 +138,6 @@ describe('useMessage', () => {
         onDisplay: expect.any(Function) as TestMessageProps['onDisplay'],
       })
     );
-  });
-
-  it.each([
-    'BOTTOM_BANNER',
-    'CAROUSEL',
-    'FULL_SCREEN',
-    'MIDDLE_BANNER',
-    'TOP_BANNER',
-    'MODAL',
-  ])('handles custom style props for a %s layout', (layout) => {
-    mockUseInAppMessaging.mockReturnValueOnce({
-      components,
-      message: { ...baseMessage, layout },
-    });
-
-    const { props } = useMessage({ components, onMessageAction, styles });
-
-    expect(props.style).toBe(style);
   });
 
   it('returns the expected values of Component and props when message is null', () => {

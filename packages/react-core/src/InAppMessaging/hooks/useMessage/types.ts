@@ -17,17 +17,9 @@ interface Components<PlatformStyleProps> {
   ModalMessage: ModalMessageComponent<PlatformStyleProps>;
 }
 
-interface Styles<PlatformStyleProps> {
-  bannerMessage?: PlatformStyleProps;
-  carouselMessage?: PlatformStyleProps;
-  fullScreenMessage?: PlatformStyleProps;
-  modalMessage?: PlatformStyleProps;
-}
-
 export interface UseMessageParams<PlatformStyleProps> {
   components: Components<PlatformStyleProps>;
   onMessageAction: OnMessageAction;
-  styles?: Styles<PlatformStyleProps>;
 }
 
 type MessageComponent<PlatformStyleProps> =

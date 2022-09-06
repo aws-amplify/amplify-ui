@@ -35,9 +35,8 @@ const onMessageAction: OnMessageAction = ({ action, url }) => {
   });
 };
 
-export default function InAppMessageDisplay({
+function InAppMessageDisplay({
   components: overrideComponents,
-  styles,
 }: InAppMessageDisplayProps): JSX.Element {
   const components = React.useMemo(
     () => ({ ...platformComponents, ...overrideComponents }),
@@ -46,7 +45,6 @@ export default function InAppMessageDisplay({
   const { Component, props } = useMessage({
     components,
     onMessageAction,
-    styles,
   });
 
   // There is currently no way to pass In-App Message payload variants so we
@@ -58,3 +56,10 @@ export default function InAppMessageDisplay({
     </ThemeProvider>
   );
 }
+
+InAppMessageDisplay.BannerMessage = BannerMessage;
+InAppMessageDisplay.CarouselMessage = CarouselMessage;
+InAppMessageDisplay.FullScreenMessage = FullScreenMessage;
+InAppMessageDisplay.ModalMessage = ModalMessage;
+
+export default InAppMessageDisplay;

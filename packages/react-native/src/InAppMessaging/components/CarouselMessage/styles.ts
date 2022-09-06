@@ -8,6 +8,7 @@ import {
   FONT_SIZE_BASE,
   FONT_SIZE_LARGE,
   FONT_WEIGHT_BASE,
+  FONT_WEIGHT_BOLD,
   LINE_HEIGHT_BASE,
   LINE_HEIGHT_LARGE,
   SPACING_EXTRA_LARGE,
@@ -67,7 +68,7 @@ const commonStyles: Omit<CarouselMessageStyle, 'image'> = {
   },
   header: {
     fontSize: FONT_SIZE_LARGE,
-    fontWeight: FONT_WEIGHT_BASE,
+    fontWeight: FONT_WEIGHT_BOLD,
     lineHeight: LINE_HEIGHT_LARGE,
   },
   iconButton: {
