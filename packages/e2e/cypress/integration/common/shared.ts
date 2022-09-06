@@ -147,7 +147,6 @@ const typeInInputHandler = (field: string, value: string) => {
   cy.findInputField(field).type(value);
 };
 When('I type a new {string} with value {string}', typeInInputHandler);
-And('I type a new {string} with value {string}', typeInInputHandler);
 
 When('I click the {string} tab', (label: string) => {
   cy.findByRole('tab', {
