@@ -56,6 +56,12 @@ export enum FreshnessColor {
   YELLOW = 'rgb_255_255_0',
 }
 
+export interface ClientFreshnessColorSequence {
+  color: string;
+  downscrollDuration: number;
+  flatDisplayDuration: number;
+}
+
 export interface ColorSequence {
   colorTimestampList: ColorTimestamp[];
 }

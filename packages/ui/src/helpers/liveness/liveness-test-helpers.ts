@@ -1,4 +1,8 @@
 import {
+  ColorSequence,
+  SessionInformation,
+} from '@aws-sdk/client-rekognitionstreaming';
+import {
   FaceMatchState,
   Face,
   LivenessOvalDetails,
@@ -107,4 +111,77 @@ export const mockContext = (): LivenessContext => {
     errorState: null,
     livenessStreamProvider: mockLivenessStreamProvider,
   };
+};
+
+export const MOCK_COLOR_SEQUENCES: ColorSequence[] = [
+  {
+    FreshnessColor: {
+      RGB: [0, 0, 0], // black
+    },
+    DownscrollDuration: 300,
+    FlatDisplayDuration: 100,
+  },
+  {
+    FreshnessColor: {
+      RGB: [255, 255, 255], // white
+    },
+    DownscrollDuration: 300,
+    FlatDisplayDuration: 100,
+  },
+  {
+    FreshnessColor: {
+      RGB: [255, 0, 0], // red
+    },
+    DownscrollDuration: 300,
+    FlatDisplayDuration: 100,
+  },
+  {
+    FreshnessColor: {
+      RGB: [255, 255, 0], // yellow
+    },
+    DownscrollDuration: 300,
+    FlatDisplayDuration: 100,
+  },
+  {
+    FreshnessColor: {
+      RGB: [0, 255, 0], // lime
+    },
+    DownscrollDuration: 300,
+    FlatDisplayDuration: 100,
+  },
+  {
+    FreshnessColor: {
+      RGB: [0, 255, 255], // cyan
+    },
+    DownscrollDuration: 300,
+    FlatDisplayDuration: 100,
+  },
+  {
+    FreshnessColor: {
+      RGB: [0, 0, 255], // blue,
+    },
+    DownscrollDuration: 300,
+    FlatDisplayDuration: 100,
+  },
+  {
+    FreshnessColor: {
+      RGB: [255, 0, 255], // violet
+    },
+    DownscrollDuration: 300,
+    FlatDisplayDuration: 100,
+  },
+];
+
+export const mockSessionInformation: SessionInformation = {
+  Challenge: {
+    FaceMovementAndLightChallenge: {
+      OvalScaleFactors: {
+        Width: 1,
+        CenterX: 2,
+        CenterY: 3,
+      },
+      LightChallengeType: 'SEQUENTIAL',
+      ColorSequences: MOCK_COLOR_SEQUENCES,
+    },
+  },
 };
