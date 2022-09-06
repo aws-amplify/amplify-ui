@@ -21,7 +21,14 @@
   position: sticky;
   top: 0px;
   z-index: 200;
-  font-family: 'Amazon Ember';
+
+  a,
+  p,
+  span {
+    font-family: 'Amazon Ember' !important;
+    -webkit-font-smoothing: auto !important;
+    -moz-osx-font-smoothing: auto !important;
+  }
 }
 
 .dev-center-logo {
@@ -81,9 +88,10 @@
   height: 100%;
   font-size: 1rem;
   text-decoration: none;
-  color: #545b64;
+  color: #545b64 !important;
   font-family: 'Amazon Ember';
   cursor: pointer;
+  font-weight: 400;
 
   white-space: nowrap;
 

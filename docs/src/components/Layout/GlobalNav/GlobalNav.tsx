@@ -271,7 +271,9 @@ export function GlobalNav({
         }}
         style={{
           overflowY: 'scroll',
-          borderBottom: hasSecondaryNav ? '1px solid #d5dbdb' : '',
+          borderBottom: hasSecondaryNav
+            ? '1px solid #d5dbdb'
+            : '1px solid transparent',
         }}
       >
         <Flex
