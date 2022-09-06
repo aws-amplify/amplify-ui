@@ -62,7 +62,6 @@ type ComponentClassNameKey =
   | 'CollectionItems'
   | 'CollectionSearch'
   | 'CollectionPagination'
-  | 'CountryCodeSelect'
   | 'DialCodeSelect'
   | 'Divider'
   | 'DividerLabel'
@@ -179,7 +178,6 @@ export enum ComponentClassName {
   CollectionItems = 'amplify-collection-items',
   CollectionSearch = 'amplify-collection-search',
   CollectionPagination = 'amplify-collection-pagination',
-  CountryCodeSelect = 'amplify-countrycodeselect',
   DialCodeSelect = 'amplify-dialcodeselect',
   Divider = 'amplify-divider',
   DividerLabel = 'amplify-divider--label',

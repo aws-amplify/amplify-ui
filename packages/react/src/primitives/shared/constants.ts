@@ -111,12 +111,6 @@ export const ComponentClassObject: ComponentClassNameItems = {
     description:
       'Class applied to the element that wraps the pagination component in a collection',
   },
-  CountryCodeSelect: {
-    className: ComponentClassName.CountryCodeSelect,
-    components: ['PhoneNumberField'],
-    description:
-      'Class applied to the Dial Code Select within the PhoneNumberField primitive',
-  },
   DialCodeSelect: {
     className: ComponentClassName.DialCodeSelect,
     components: ['PhoneNumberField'],
@@ -556,7 +550,6 @@ export const ComponentClassNames: ComponentClassNamesType = {
   CollectionItems: ComponentClassObject.CollectionItems.className,
   CollectionSearch: ComponentClassObject.CollectionSearch.className,
   CollectionPagination: ComponentClassObject.CollectionPagination.className,
-  CountryCodeSelect: ComponentClassObject.CountryCodeSelect.className,
   DialCodeSelect: ComponentClassObject.DialCodeSelect.className,
   Divider: ComponentClassObject.Divider.className,
   DividerLabel: ComponentClassObject.DividerLabel.className,
@@ -675,7 +668,7 @@ export const ComponentText = {
     previousLabel: 'Go to previous page',
   },
   PhoneNumberField: {
-    countryCodeLabel: 'Country code',
+    dialCodeLabel: 'Dial code',
   },
   SearchField: {
     searchButtonLabel: 'Search',

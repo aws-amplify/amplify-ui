@@ -46,9 +46,6 @@ which will auto-populate the dial code select field.
 
 ### Dial Code Select Properties
 
-<Alert variation="info"  role="none">All `countryCode` fields are being deprecated in favor of the new `dialCode` fields.  If you still have instances of `defaultCountryCode`,
-`countryCodeList`, `countryCodeName`, `countryCodeLabel`, and `onCountryCodeChange` then please update these to the new `dialCode` props listed below.</Alert>
-
 The dial code selector can be customized by setting several properties when using the `PhoneNumberField` primitive. The custom
 properties specific to the dial code selector are the following:
 
@@ -57,8 +54,6 @@ properties specific to the dial code selector are the following:
 - `dialCodeName`: A name used when handling form submission for the dial code selector
 - `dialCodeLabel`: A hidden accessible label for the dial code selector
 - `onDialCodeChange`: A custom change handler for the dial code selector
-
-* If both `defaultDialCode`, `dialCodeList`, `dialCodeName`, `dialCodeLabel`, and `onDialCodeChange` and the corresponding `countryCode` prop are provided, then the value in the `dialCode` prop will be preferred.
 
 <Example>
   <DialCodeSelectExample />
@@ -73,7 +68,7 @@ properties specific to the dial code selector are the following:
 ### Autocomplete - supporting password managers
 
 Use the `autoComplete` prop to tell the browser how to populate the `PhoneNumberField`. By default, the `PhoneNumberField` primitive uses `tel-national`
-as the `autoComplete` property for the text field and `tel-country-code` as the `autoComplete` property for the dial code selector.
+as the `autoComplete` property for the text field and `tel-dial-code` as the `autoComplete` property for the dial code selector.
 
 If the `PhoneNumberField` primitive is intended to be used in a form that is compatible with most password managers, the `autoComplete` property should
 be set to `username` (see [Password Form Styles that Chromium Understands](https://www.chromium.org/developers/design-documents/form-styles-that-chromium-understands)).

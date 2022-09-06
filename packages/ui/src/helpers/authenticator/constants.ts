@@ -3,7 +3,7 @@
  */
 
 import { DefaultFormFieldOptions } from '../../types';
-import { countryDialCodes } from '../../i18n';
+import { dialCodes } from '../../i18n';
 
 export const defaultFormFieldOptions: DefaultFormFieldOptions = {
   birthdate: {
@@ -93,7 +93,7 @@ export const defaultFormFieldOptions: DefaultFormFieldOptions = {
     type: 'tel',
     autocomplete: 'tel',
     dialCode: '+1',
-    dialCodeList: countryDialCodes,
+    dialCodeList: dialCodes,
     isRequired: true,
   },
   preferred_username: {

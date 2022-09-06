@@ -1,2 +1,2 @@
-export * from './country-dial-codes';
+export * from './dial-codes';
 export * from './translations';

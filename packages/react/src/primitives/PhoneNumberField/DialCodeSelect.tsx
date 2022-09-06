@@ -1,6 +1,6 @@
 import * as React from 'react';
 import classNames from 'classnames';
-import { countryDialCodes } from '@aws-amplify/ui';
+import { dialCodes } from '@aws-amplify/ui';
 
 import { ComponentClassNames } from '../shared/constants';
 import { DialCodeSelectProps, Primitive } from '../types';
@@ -10,7 +10,7 @@ const DialCodeSelectPrimitive: Primitive<DialCodeSelectProps, 'select'> = (
   { className, dialCodeList, isReadOnly, ...props },
   ref
 ) => {
-  const dialList = dialCodeList ?? countryDialCodes;
+  const dialList = dialCodeList ?? dialCodes;
   const dialCodeOptions = React.useMemo(
     () =>
       dialList.map((dialCode) => (
@@ -29,12 +29,8 @@ const DialCodeSelectPrimitive: Primitive<DialCodeSelectProps, 'select'> = (
           so that a screen reader will announce something to the user about the interactivity of the options list ( https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/readonly)
         */
       aria-disabled={isReadOnly}
-      autoComplete="tel-country-code"
-      className={classNames(
-        ComponentClassNames.CountryCodeSelect,
-        ComponentClassNames.DialCodeSelect,
-        className
-      )}
+      autoComplete="tel-dial-code"
+      className={classNames(ComponentClassNames.DialCodeSelect, className)}
       labelHidden={true}
       ref={ref}
       {...props}
@@ -44,6 +40,6 @@ const DialCodeSelectPrimitive: Primitive<DialCodeSelectProps, 'select'> = (
   );
 };
 
-export const CountryCodeSelect = React.forwardRef(DialCodeSelectPrimitive);
+export const DialCodeSelect = React.forwardRef(DialCodeSelectPrimitive);
 
-CountryCodeSelect.displayName = 'CountryCodeSelect';
+DialCodeSelect.displayName = 'DialCodeSelect';

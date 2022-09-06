@@ -256,7 +256,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-copy-tool-tip-bottom: var(--amplify-space-large);
         --amplify-components-copy-tool-tip-color: var(--amplify-colors-teal-100);
         --amplify-components-copy-tool-tip-font-size: var(--amplify-font-sizes-xxs);
-        --amplify-components-countrycodeselect-height: var(--amplify-space-relative-full);
+        --amplify-components-dialcodeselect-height: var(--amplify-space-relative-full);
         --amplify-components-divider-border-style: solid;
         --amplify-components-divider-border-color: var(--amplify-colors-border-primary);
         --amplify-components-divider-border-width: var(--amplify-border-widths-medium);

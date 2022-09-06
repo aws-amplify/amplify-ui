@@ -1,35 +1,35 @@
 import * as React from 'react';
 
 import { render, screen } from '@testing-library/react';
-import { countryDialCodes } from '@aws-amplify/ui';
+import { dialCodes } from '@aws-amplify/ui';
 
-import { CountryCodeSelect } from '../CountryCodeSelect';
+import { DialCodeSelect } from '../DialCodeSelect';
 import { ComponentClassNames } from '../../shared/constants';
 
-describe('CountryCodeSelect', () => {
+describe('DialCodeSelect', () => {
   const setup = async ({
     defaultValue = '+1',
-    label = 'Country Code',
+    label = 'Dial Code',
     ...rest
-  }: Partial<typeof CountryCodeSelect['defaultProps']>) => {
+  }: Partial<typeof DialCodeSelect['defaultProps']>) => {
     render(
-      <CountryCodeSelect label={label} defaultValue={defaultValue} {...rest} />
+      <DialCodeSelect label={label} defaultValue={defaultValue} {...rest} />
     );
 
     return {
-      $countryCodeSelector: await screen.findByRole('combobox'),
+      $dialCodeSelector: await screen.findByRole('combobox'),
     };
   };
 
-  it('should render all country codes as options', async () => {
+  it('should render all dial codes as options', async () => {
     await setup({});
-    const $countryCodeOptions = await screen.findAllByRole('option');
-    const countryCodeOptions = $countryCodeOptions.map(
-      ($countryCodeOption) => $countryCodeOption.textContent
+    const $dialCodeOptions = await screen.findAllByRole('option');
+    const dialCodeOptions = $dialCodeOptions.map(
+      ($dialCodeOption) => $dialCodeOption.textContent
     );
 
-    expect(countryCodeOptions).toMatchInlineSnapshot(
-      countryDialCodes,
+    expect(dialCodeOptions).toMatchInlineSnapshot(
+      dialCodes,
       `
       Array [
         "+1",
@@ -243,30 +243,25 @@ describe('CountryCodeSelect', () => {
     );
   });
 
-  it('should have "tel-country-code" as the default autocomplete attribute', async () => {
-    const { $countryCodeSelector } = await setup({});
+  it('should have "tel-dial-code" as the default autocomplete attribute', async () => {
+    const { $dialCodeSelector } = await setup({});
 
-    expect($countryCodeSelector).toHaveAttribute(
-      'autocomplete',
-      'tel-country-code'
-    );
+    expect($dialCodeSelector).toHaveAttribute('autocomplete', 'tel-dial-code');
   });
 
-  it('should render classname for CountryCodeSelect', async () => {
+  it('should render classname for DialCodeSelect', async () => {
     const className = 'test-class-name';
-    const testId = 'CountryCodeSelectTestId';
+    const testId = 'DialCodeSelectTestId';
     await setup({ className, testId });
-    const $countryCodeSelect = await screen.findByTestId(testId);
+    const $dialCodeSelect = await screen.findByTestId(testId);
 
-    expect($countryCodeSelect).toHaveClass(className);
-    expect($countryCodeSelect).toHaveClass(
-      ComponentClassNames.CountryCodeSelect
-    );
+    expect($dialCodeSelect).toHaveClass(className);
+    expect($dialCodeSelect).toHaveClass(ComponentClassNames.DialCodeSelect);
   });
 
   it('should forward ref to DOM element', async () => {
     const ref = React.createRef<HTMLSelectElement>();
-    const testId = 'CountryCodeSelectTestId';
+    const testId = 'DialCodeSelectTestId';
     await setup({ testId, ref });
 
     await screen.findByTestId(testId);

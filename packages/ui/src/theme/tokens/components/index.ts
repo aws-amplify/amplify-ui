@@ -55,7 +55,7 @@ export interface ComponentTokens {
   checkboxfield: CheckboxFieldTokens;
   collection: CollectionTokens;
   copy: CopyTokens;
-  countrycodeselect: DialCodeSelectTokens;
+  dialcodeselect: DialCodeSelectTokens;
   divider: DividerTokens;
   expander: ExpanderTokens;
   field: FieldTokens;
@@ -101,7 +101,7 @@ export const components: ComponentTokens = {
   checkboxfield,
   collection,
   copy,
-  countrycodeselect: dialcodeselect, // This to be renamed to dialcodeselect in the next major version
+  dialcodeselect: dialcodeselect,
   divider,
   expander,
   field,
