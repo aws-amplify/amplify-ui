@@ -80,7 +80,12 @@ export class FreshnessColorDisplay {
       if (timeSinceLastColorChange >= colorSequence.flatDisplayDuration) {
         this.isScrolling = true;
         this.timeLastFlatOrScrollChange = Date.now();
-        this.sendColorStartTime(tickStartTime, nextColorSequence.color);
+        this.sendColorStartTime(
+          tickStartTime,
+          nextColorSequence.color,
+          colorSequence.color,
+          this.colorStageIndex + 1
+        );
       }
     } else {
       if (timeSinceLastColorChange >= nextColorSequence.downscrollDuration) {
@@ -92,7 +97,7 @@ export class FreshnessColorDisplay {
 
     // Every 10 ms tick we will update the colors displayed
     if (this.colorStageIndex < this.freshnessColorsSequence.length - 1) {
-      const hp =
+      const heightFraction =
         timeSinceLastColorChange /
         (this.isScrolling
           ? nextColorSequence.downscrollDuration
@@ -109,7 +114,7 @@ export class FreshnessColorDisplay {
         nextColor,
         ovalCanvas: canvasEl,
         ovalDetails,
-        heightFraction: hp,
+        heightFraction,
       });
 
       this.expectedCallTime += TICK_RATE;
@@ -148,24 +153,23 @@ export class FreshnessColorDisplay {
     }
   }
 
-  private sendColorStartTime(tickStartTime: number, color: string) {
+  private sendColorStartTime(
+    tickStartTime: number,
+    nextColor: string,
+    prevColor: string,
+    nextColorIndex: number
+  ) {
     const { livenessStreamProvider, challengeId } = this.context;
     livenessStreamProvider.sendClientInfo({
-      challenges: [
-        {
-          challengeId,
-          faceMovementChallenge: {
-            colorSequence: {
-              colorTimestampList: [
-                {
-                  color,
-                  tickStartTime,
-                },
-              ],
-            },
-          },
+      Challenge: {
+        ChallengeId: challengeId,
+        ColorDisplayed: {
+          CurrentColor: nextColor,
+          PreviousColor: prevColor,
+          SequenceNumber: nextColorIndex,
+          CurrentColorStartTimestamp: tickStartTime,
         },
-      ],
+      },
     });
   }
 }
