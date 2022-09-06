@@ -24056,20 +24056,20 @@ vue-router@4:
   dependencies:
     "@vue/devtools-api" "^6.1.4"
 
-vue-tsc@0.40.10:
-  version "0.40.10"
-  resolved "https://registry.yarnpkg.com/vue-tsc/-/vue-tsc-0.40.10.tgz#398cf83a5da07d8987b7dd0d13b6b549cf8de2e9"
-  integrity sha512-ZHxeHdMTT0mDTpj24FJeMYyvJWGV1/v6hjsoIQxxNYMMQjxxOvVRAX8yNhhbRwbVa/2H9Y/e6kcP/MjgSofuKg==
-  dependencies:
-    "@volar/vue-language-core" "0.40.10"
-    "@volar/vue-typescript" "0.40.10"
-
 vue-tsc@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/vue-tsc/-/vue-tsc-0.3.0.tgz#3b3872bf4f1d2e4409b57adbd826032e253db406"
   integrity sha512-zaDRZBxwRIz1XjhNP92FqugG71st6BUMnA2EwPeXrAyzbEYVRz6TezNFceYl3QYqqN8CtaxbqUhaQEDj/ntoCA==
   dependencies:
     vscode-vue-languageservice "^0.27.0"
+
+vue-tsc@~0.40.10:
+  version "0.40.10"
+  resolved "https://registry.yarnpkg.com/vue-tsc/-/vue-tsc-0.40.10.tgz#398cf83a5da07d8987b7dd0d13b6b549cf8de2e9"
+  integrity sha512-ZHxeHdMTT0mDTpj24FJeMYyvJWGV1/v6hjsoIQxxNYMMQjxxOvVRAX8yNhhbRwbVa/2H9Y/e6kcP/MjgSofuKg==
+  dependencies:
+    "@volar/vue-language-core" "0.40.10"
+    "@volar/vue-typescript" "0.40.10"
 
 vue@^3.0.5:
   version "3.2.38"
