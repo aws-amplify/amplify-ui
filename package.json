@@ -63,7 +63,6 @@
     "**/@angular-devkit/build-angular/terser": "5.14.2",
     "trim": "^0.0.3",
     "vscode-vue-languageservice": "0.27.26",
-    "rollup": "~2.77.3",
     "ws": "^7.4.6"
   },
   "devDependencies": {
