@@ -5,15 +5,17 @@ import { HeadingProps } from './types';
 
 export default function Heading({
   children,
-  headingStyle,
   level = 6,
-  truncated = false,
+  numberOfLines,
+  style,
+  ...rest
 }: HeadingProps): JSX.Element {
   return (
     <Text
       accessibilityRole="header"
-      numberOfLines={truncated ? 1 : 0}
-      style={[styles.text, styles[level], headingStyle]}
+      numberOfLines={numberOfLines}
+      style={[styles.text, styles[level], style]}
+      {...rest}
     >
       {children}
     </Text>

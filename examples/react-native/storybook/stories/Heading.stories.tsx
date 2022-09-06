@@ -2,6 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react-native';
 import { Heading } from '@aws-amplify/ui-react-native/dist/primitives';
 import { Screen } from '../ui';
+import { StyleSheet } from 'react-native';
 
 storiesOf('Heading', module)
   .addDecorator((Story: any) => (
@@ -9,8 +10,8 @@ storiesOf('Heading', module)
       <Story />
     </Screen>
   ))
-  .add('Default Heading', () => <Heading>Default Heading</Heading>)
-  .add('level prop', () => (
+  .add('default', () => <Heading>Default Heading</Heading>)
+  .add('level', () => (
     <>
       <Heading level={1}>Heading level 1</Heading>
       <Heading level={2}>Heading level 2</Heading>
@@ -21,9 +22,9 @@ storiesOf('Heading', module)
       <Heading>Default heading (level 6)</Heading>
     </>
   ))
-  .add('truncated prop', () => (
+  .add('numberOfLines', () => (
     <>
-      <Heading level={1} truncated>
+      <Heading level={1} numberOfLines={1}>
         Really long heading that SHOULD be truncated with an ellipsis
       </Heading>
       <Heading level={1}>
@@ -31,6 +32,13 @@ storiesOf('Heading', module)
       </Heading>
     </>
   ))
-  .add('headingStyle prop', () => (
-    <Heading headingStyle={{ color: 'red' }}>This should be red</Heading>
+  .add('style', () => (
+    <Heading style={styles.redText}>This should be red</Heading>
   ));
+// should be able to accept arbitrary props through the rest parameters (like selectable and other TextProps)
+
+const styles = StyleSheet.create({
+  redText: {
+    color: 'red',
+  },
+});
