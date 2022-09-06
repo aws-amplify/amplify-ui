@@ -80,14 +80,6 @@ export interface SwitchFieldTokens {
   track: SwitchFieldTrackTokens;
 }
 
-// To be removed in the next major version release
-export const DUPLICATE_SWITCHFIELD_STATES = {
-  '--amplify-components-switchfield-thumb-checked-transform':
-    'components.switchfield.thumb._checked.transform',
-  '--amplify-components-switchfield-track-checked-background-color':
-    'components.switchfield.track._checked.backgroundColor',
-};
-
 export const switchfield: SwitchFieldTokens = {
   // States
   _disabled: {

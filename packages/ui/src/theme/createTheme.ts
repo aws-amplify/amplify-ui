@@ -5,7 +5,8 @@ import flattenProperties from 'style-dictionary/lib/utils/flattenProperties';
 import { defaultTheme } from './defaultTheme';
 import { Theme, BaseTheme, WebTheme, Override } from './types';
 import { cssValue, cssNameTransform } from './utils';
-import { WebTokens, DUPLICATE_STATE_TOKENS } from './tokens';
+import { removeDuplicateStateTokens } from './duplicationUtils';
+import { WebTokens } from './tokens';
 import { DesignToken, WebDesignToken } from './tokens/types/designToken';
 
 /**
@@ -61,35 +62,6 @@ function setupTokens(obj: any, path = []) {
   }
 
   return tokens;
-}
-
-/**
- * This function takes in an array of WebDesignTokens and filters out the duplicate WebDesignTokens
- * that are defined in the DUPLICATE_STATE_TOKENS list. This is designed to remove the duplicate tokens
- * that were created due to inconsistent naming.  This should be removed when the tokens are removed in the
- * next major version release.
- * @param tokens
- * @returns WebDesignTokens[]
- */
-function removeDuplicateStateTokens(
-  tokens: WebDesignToken[]
-): WebDesignToken[] {
-  let duplicateTokenCount = {};
-  // iterate over the full list of tokens a single time and count up all the instances of each duplicate token
-  tokens.forEach((token) => {
-    if (DUPLICATE_STATE_TOKENS[token.name]) {
-      duplicateTokenCount[token.name] =
-        (duplicateTokenCount[token.name] ?? 0) + 1;
-    }
-  });
-
-  // filter out the duplicate tokens that appear more than once in our list of tokens
-  return tokens.filter(
-    (token) =>
-      !duplicateTokenCount[token.name] ||
-      duplicateTokenCount[token.name] < 2 ||
-      token.path.join('.') === DUPLICATE_STATE_TOKENS[token.name]
-  );
 }
 
 /**

@@ -71,16 +71,6 @@ export interface PaginationTokens {
   itemShared: PaginationItemSharedTokens;
 }
 
-// To be removed in the next major version release
-export const DUPLICATE_PAGINATION_STATES = {
-  '--amplify-components-pagination-button-hover-background-color':
-    'components.pagination.button._hover.backgroundColor',
-  '--amplify-components-pagination-button-hover-color':
-    'components.pagination.button._hover.color',
-  '--amplify-components-pagination-button-disabled-color':
-    'components.pagination.button._disabled.color',
-};
-
 export const pagination: PaginationTokens = {
   current: {
     alignItems: { value: 'center' },

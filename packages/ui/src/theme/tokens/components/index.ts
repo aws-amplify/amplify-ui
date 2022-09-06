@@ -18,14 +18,10 @@ import { flex, FlexTokens } from './flex';
 import { heading, HeadingTokens } from './heading';
 import { icon, IconTokens } from './icon';
 import { image, ImageTokens } from './image';
-import { link, LinkTokens, DUPLICATE_LINK_STATES } from './link';
+import { link, LinkTokens } from './link';
 import { loader, LoaderTokens } from './loader';
 import { menu, MenuTokens } from './menu';
-import {
-  pagination,
-  PaginationTokens,
-  DUPLICATE_PAGINATION_STATES,
-} from './pagination';
+import { pagination, PaginationTokens } from './pagination';
 import { passwordfield, PasswordFieldTokens } from './passwordField';
 import { phonenumberfield, PhoneNumberFieldTokens } from './phoneNumberField';
 import { placeholder, PlaceholderTokens } from './placeholder';
@@ -37,12 +33,8 @@ import { select, SelectTokens } from './select';
 import { selectfield, SelectFieldTokens } from './selectField';
 import { sliderfield, SliderFieldTokens } from './sliderField';
 import { stepperfield, StepperFieldTokens } from './stepperField';
-import {
-  switchfield,
-  SwitchFieldTokens,
-  DUPLICATE_SWITCHFIELD_STATES,
-} from './switchField';
-import { table, TableTokens, DUPLICATE_TABLE_STATES } from './table';
+import { switchfield, SwitchFieldTokens } from './switchField';
+import { table, TableTokens } from './table';
 import { tabs, TabsTokens } from './tabs';
 import { text, TextTokens } from './text';
 import { textareafield, TextAreaFieldTokens } from './textAreaField';
@@ -144,11 +136,3 @@ export const components: ComponentTokens = {
   togglebutton,
   togglebuttongroup,
 };
-
-export const DUPLICATE_STATE_TOKENS = Object.assign(
-  {},
-  DUPLICATE_LINK_STATES,
-  DUPLICATE_PAGINATION_STATES,
-  DUPLICATE_SWITCHFIELD_STATES,
-  DUPLICATE_TABLE_STATES
-);

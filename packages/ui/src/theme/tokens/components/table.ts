@@ -87,12 +87,6 @@ export interface TableTokens {
   caption: TableCaptionTokens;
 }
 
-// To be removed in the next major version release
-export const DUPLICATE_TABLE_STATES = {
-  '--amplify-components-table-row-hover-background-color':
-    'components.table.row._hover.backgroundColor',
-};
-
 export const table: TableTokens = {
   /**
    * Default table styles

@@ -78,5 +78,3 @@ export const tokens: Tokens = {
   time,
   transforms,
 };
-
-export { DUPLICATE_STATE_TOKENS } from './components';
