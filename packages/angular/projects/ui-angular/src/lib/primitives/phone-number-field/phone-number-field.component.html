@@ -16,17 +16,17 @@
         amplify-flex
         amplify-field
         amplify-selectfield
-        amplify-countrycodeselect
+        amplify-dialcodeselect
         amplify-dialcodeselect
       "
       style="flex-direction: column"
     >
       <amplify-form-select
-        name="country_code"
-        label="Country Code"
+        name="dial_code"
+        label="Dial Code"
         [id]="selectFieldId"
-        [items]="countryDialCodesValues"
-        [defaultValue]="defaultCountryCode"
+        [items]="dialCodesValues"
+        [defaultValue]="defaultDialCode"
       ></amplify-form-select>
     </div>
   </div>

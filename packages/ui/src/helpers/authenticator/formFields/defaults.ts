@@ -20,12 +20,12 @@ const getDefaultFormField = (
   state: AuthMachineState,
   fieldName: keyof typeof defaultFormFieldOptions
 ) => {
-  const { country_code } = getActorContext(state) as ActorContextWithForms;
+  const { dial_code } = getActorContext(state) as ActorContextWithForms;
   let options: FormFieldOptions = defaultFormFieldOptions[fieldName];
   const { type } = options;
 
   if (type === 'tel') {
-    options = { ...options, dialCode: country_code };
+    options = { ...options, dialCode: dial_code };
   }
 
   return options;

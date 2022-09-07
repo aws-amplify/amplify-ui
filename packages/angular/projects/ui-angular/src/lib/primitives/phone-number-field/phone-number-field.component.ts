@@ -1,6 +1,6 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { nanoid } from 'nanoid';
-import { countryDialCodes } from '@aws-amplify/ui';
+import { dialCodes } from '@aws-amplify/ui';
 
 @Component({
   selector: 'amplify-phone-number-field',
@@ -9,7 +9,7 @@ import { countryDialCodes } from '@aws-amplify/ui';
 export class PhoneNumberFieldComponent implements OnInit {
   @Input() autocomplete = 'new-password';
   @Input() disabled = false;
-  @Input() defaultCountryCode: string;
+  @Input() defaultDialCode: string;
   @Input() selectFieldId: string = `amplify-field-${nanoid(12)}`;
   @Input() textFieldId: string = `amplify-field-${nanoid(12)}`;
   @Input() initialValue = '';
@@ -25,9 +25,9 @@ export class PhoneNumberFieldComponent implements OnInit {
 
   @HostBinding('style.display') display = 'contents';
 
-  public countryDialCodesValues: Array<string>;
+  public dialCodesValues: Array<string>;
 
   ngOnInit(): void {
-    this.countryDialCodesValues = this.dialCodeList ?? countryDialCodes;
+    this.dialCodesValues = this.dialCodeList ?? dialCodes;
   }
 }

@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import {
   translate,
-  countryDialCodes,
+  dialCodes,
   FormFieldOptions,
   getErrors,
 } from '@aws-amplify/ui';
@@ -16,8 +16,8 @@ export class FormFieldComponent {
   @Input() name: string; // name of the input field
   @Input() formField: FormFieldOptions; // form field options for this field
 
-  public defaultCountryCodeValue: string;
-  public countryDialCodesValue = countryDialCodes;
+  public defaultDialCodeValue: string;
+  public dialCodesValue = dialCodes;
   public errorId = nanoid(12);
 
   constructor(private authenticator: AuthenticatorService) {}

@@ -40,7 +40,7 @@ export function FormField({
           {...props}
           name={name}
           defaultDialCode={dialCode}
-          dialCodeName="country_code"
+          dialCodeName="dial_code"
           autoComplete={autoComplete}
           hasError={hasError}
           aria-describedby={ariaDescribedBy}

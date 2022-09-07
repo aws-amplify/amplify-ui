@@ -107,10 +107,10 @@ export const setUser = assign({
 export const setUsername = assign({
   username: (context: ActorContextWithForms, _) => {
     let {
-      formValues: { username, country_code },
+      formValues: { username, dial_code },
     } = context;
-    if (country_code) {
-      username = `${country_code}${username}`;
+    if (dial_code) {
+      username = `${dial_code}${username}`;
     }
     return username;
   },
@@ -156,7 +156,7 @@ export const handleBlur = assign({
 
 /**
  * This action occurs on the entry to a state where a form submit action
- * occurs. It combines the phone_number and country_code form values, parses
+ * occurs. It combines the phone_number and dial_code form values, parses
  * the result, and updates the form values with the full phone number which is
  * the required format by Cognito for form submission.
  */
@@ -167,18 +167,18 @@ export const parsePhoneNumber = assign({
     if (!context.formValues.phone_number && primaryAlias !== 'phone_number')
       return context.formValues;
 
-    const { formValues, country_code: defaultCountryCode } = context;
+    const { formValues, dial_code: defaultDialCode } = context;
     const phoneAlias = formValues.phone_number ? 'phone_number' : 'username';
 
-    const parsedPhoneNumber = `${
-      formValues.country_code ?? defaultCountryCode
-    }${formValues[phoneAlias]}`.replace(/[^A-Z0-9+]/gi, '');
+    const parsedPhoneNumber = `${formValues.dial_code ?? defaultDialCode}${
+      formValues[phoneAlias]
+    }`.replace(/[^A-Z0-9+]/gi, '');
 
     const updatedFormValues = {
       ...formValues,
       [phoneAlias]: parsedPhoneNumber,
     };
-    delete updatedFormValues.country_code;
+    delete updatedFormValues.dial_code;
 
     return updatedFormValues;
   },

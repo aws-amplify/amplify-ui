@@ -12,7 +12,7 @@ import { resetPasswordActor, signInActor, signOutActor } from './actors';
 import { defaultServices } from './defaultServices';
 import { createSignUpMachine } from './signUp';
 
-const DEFAULT_COUNTRY_CODE = '+1';
+const DEFAULT_DIAL_CODE = '+1';
 
 export type AuthenticatorMachineOptions = AuthContext['config'] & {
   services?: AuthContext['services'];
@@ -297,7 +297,7 @@ export function createAuthenticatorMachine() {
               authAttributes: context.actorDoneData?.authAttributes ?? {},
               user: context.user,
               intent: context.actorDoneData?.intent,
-              country_code: DEFAULT_COUNTRY_CODE,
+              dial_code: DEFAULT_DIAL_CODE,
               formValues: {},
               touched: {},
               validationError: {},
@@ -313,7 +313,7 @@ export function createAuthenticatorMachine() {
             const { services } = context;
             const actor = createSignUpMachine({ services }).withContext({
               authAttributes: context.actorDoneData?.authAttributes ?? {},
-              country_code: DEFAULT_COUNTRY_CODE,
+              dial_code: DEFAULT_DIAL_CODE,
               intent: context.actorDoneData?.intent,
               formValues: {},
               touched: {},

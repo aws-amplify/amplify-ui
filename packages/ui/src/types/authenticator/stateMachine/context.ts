@@ -70,8 +70,8 @@ interface BaseFormContext {
   passwordSettings?: PasswordSettings;
   /** Denotes where a confirmation code has been sent to */
   codeDeliveryDetails?: CodeDeliveryDetails;
-  /** Default country code for all phone number fields. */
-  country_code?: string; // TODO: this one should be customizable as well
+  /** Default dial code for all phone number fields. */
+  dial_code?: string; // TODO: this one should be customizable as well
 }
 
 // Actor context types

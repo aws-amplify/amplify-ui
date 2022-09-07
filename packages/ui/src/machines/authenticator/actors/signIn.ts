@@ -538,19 +538,16 @@ export function signInActor({ services }: SignInMachineOptions) {
         },
         async forceNewPassword(context) {
           const { user, formValues } = context;
-          let {
-            password,
-            confirm_password,
-            phone_number,
-            country_code,
-            ...rest
-          } = formValues;
+          let { password, confirm_password, phone_number, dial_code, ...rest } =
+            formValues;
 
-          let phoneNumberWithCountryCode;
+          let phoneNumberWithDialCode;
           if (phone_number) {
-            phoneNumberWithCountryCode =
-              `${country_code}${phone_number}`.replace(/[^A-Z0-9+]/gi, '');
-            rest = { ...rest, phone_number: phoneNumberWithCountryCode };
+            phoneNumberWithDialCode = `${dial_code}${phone_number}`.replace(
+              /[^A-Z0-9+]/gi,
+              ''
+            );
+            rest = { ...rest, phone_number: phoneNumberWithDialCode };
           }
 
           try {

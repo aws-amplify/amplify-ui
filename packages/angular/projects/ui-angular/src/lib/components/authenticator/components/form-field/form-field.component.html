@@ -1,10 +1,10 @@
 <div class="amplify-flex amplify-field amplify-authenticator__column">
-  <!-- Country code field -->
+  <!-- Dial code field -->
   <amplify-phone-number-field
     *ngIf="isPhoneField()"
     [name]="name"
     [label]="formField.label"
-    [defaultCountryCode]="formField.dialCode"
+    [defaultDialCode]="formField.dialCode"
     [dialCodeList]="formField.dialCodeList"
     [placeholder]="formField.placeholder"
     [required]="formField.isRequired"

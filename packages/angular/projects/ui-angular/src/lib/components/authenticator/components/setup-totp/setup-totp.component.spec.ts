@@ -13,7 +13,7 @@ import { getTotpCode } from '@aws-amplify/ui';
 
 const mockUser = { username: 'username' };
 const mockContext = {
-  country_code: '100',
+  dial_code: '100',
   formFields: { setupTOTP: { QR: null } },
   user: mockUser,
 };
