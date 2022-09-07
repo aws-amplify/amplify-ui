@@ -1,0 +1,14 @@
+[data-amplify-file-uploader] {
+  border-width: 2px;
+  display: flex;
+  width: 21rem;
+  padding: 32px;
+  border-radius: 4px;
+  justify-content: center;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+[data-amplify-file-uploader].inside-drag-area {
+  opacity: 0.4;
+}
