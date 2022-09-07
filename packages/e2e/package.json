@@ -14,6 +14,7 @@
     "test:guides": "cypress run --spec 'features/ui/guides/*.feature'"
   },
   "cypress-cucumber-preprocessor": {
+    "filterSpecs": true,
     "stepDefinitions": [
       "cypress/integration/ui/[filepath]/*.steps.ts",
       "cypress/integration/common/*.ts"
