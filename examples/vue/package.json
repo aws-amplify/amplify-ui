@@ -21,6 +21,6 @@
     "rimraf": "^3.0.2",
     "vite": "^2.9.9",
     "vite-plugin-pages": "^0.25.0",
-    "vue-tsc": "^0.3.0"
+    "vue-tsc": "~0.40.10"
   }
 }
