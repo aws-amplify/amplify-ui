@@ -1,3 +1,4 @@
+import { ActorRef } from 'xstate';
 import {
   ColorSequence,
   SessionInformation,
@@ -64,11 +65,19 @@ export const mockOvalDetails: LivenessOvalDetails = {
 export const mockLivenessStreamProvider: any = {
   sendClientInfo: jest.fn(),
   endStream: jest.fn(),
-  streamLivenessVideo: jest.fn(),
+  getResponseStream: jest.fn(),
+  startRecordingLivenessVideo: jest.fn(),
   videoRecorder: mockVideoRecorder,
 };
 export const mockFreshnessColorDisplay: any = {
   displayColorTick: () => true,
+};
+export const mockResponseStreamActorRef: ActorRef<any> = {
+  send: jest.fn(),
+  id: 'mockactor',
+  getSnapshot: jest.fn(),
+  subscribe: jest.fn(),
+  [Symbol.observable]: jest.fn(),
 };
 
 export const mockContext = (): LivenessContext => {
@@ -110,8 +119,8 @@ export const mockContext = (): LivenessContext => {
     },
     errorState: null,
     livenessStreamProvider: mockLivenessStreamProvider,
-    serverSessionInformation: undefined,
-    responseStreamActorRef: undefined,
+    serverSessionInformation: mockSessionInformation,
+    responseStreamActorRef: mockResponseStreamActorRef,
   };
 };
 

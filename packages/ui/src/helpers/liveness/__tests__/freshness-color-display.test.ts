@@ -1,5 +1,9 @@
 import { FreshnessColorDisplay } from '../freshness-color-display';
-import { mockContext, mockSessionInformation } from '../liveness-test-helpers';
+import {
+  mockContext,
+  mockSessionInformation,
+  MOCK_COLOR_SEQUENCES,
+} from '../liveness-test-helpers';
 import { getColorsSequencesFromSessionInformation } from '../liveness';
 
 const mockMediaRecorder = {
@@ -57,7 +61,7 @@ describe('FreshnessColorDisplay', () => {
       getColorsSequencesFromSessionInformation(mockSessionInformation)
     );
 
-    (display as any).colorStageIndex = 7; // mock going through all stages
+    (display as any).colorStageIndex = MOCK_COLOR_SEQUENCES.length - 1; // mock going through all stages
     const response = await display.displayColorTick();
     expect(response).toBe(true);
 

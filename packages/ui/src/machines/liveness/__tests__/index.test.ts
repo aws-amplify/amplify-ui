@@ -12,6 +12,10 @@ import {
   IlluminationState,
 } from '../../../types';
 import * as helpers from '../../../helpers';
+import {
+  mockLivenessStreamProvider,
+  mockVideoRecorder,
+} from '../../../helpers/liveness/liveness-test-helpers';
 
 jest.useFakeTimers();
 jest.mock('../../../helpers');
@@ -25,13 +29,6 @@ describe('Liveness Machine', () => {
     getUserMedia: jest.fn(),
     enumerateDevices: jest.fn(),
   };
-  const mockVideoRecorder: any = {
-    start: jest.fn(),
-    stop: jest.fn(),
-    getBlob: jest.fn(),
-    destroy: jest.fn(),
-    getState: () => 'idle',
-  };
   const mockBlazeFace: any = {
     modelLoadingPromise: Promise.resolve(),
     triggerModelLoading: jest.fn(),
@@ -40,12 +37,6 @@ describe('Liveness Machine', () => {
   };
   const mockLivenessPredictionsProvider: any = {
     putLivenessVideo: jest.fn(),
-  };
-  const mockLivenessStreamProvider: any = {
-    sendClientInfo: jest.fn(),
-    endStream: jest.fn(),
-    streamLivenessVideo: jest.fn(),
-    videoRecorder: mockVideoRecorder,
   };
   const mockFreshnessColorDisplay: any = {
     displayColorTick: () => true,
@@ -332,7 +323,7 @@ describe('Liveness Machine', () => {
         service.state.context.videoAssociatedParams.recordingStartTimestampMs
       ).toBeDefined();
       expect(
-        service.state.context.livenessStreamProvider.streamLivenessVideo
+        service.state.context.livenessStreamProvider.getResponseStream
       ).toHaveBeenCalledTimes(1);
       expect(service.state.context.errorState).toBeNull();
 

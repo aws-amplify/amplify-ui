@@ -1,9 +1,25 @@
-import WS from 'jest-websocket-mock';
-import { getLivenessVideoEvent } from '../liveness-event-utils';
+import Amplify from '@aws-amplify/core';
+import {
+  RekognitionStreamingClient,
+  StartStreamingLivenessSessionCommand,
+} from '@aws-sdk/client-rekognitionstreaming';
 import { LivenessStreamProvider } from '../liveness-stream-provider';
 import { VideoRecorder } from '../video-recorder';
 
 jest.mock('../video-recorder');
+jest.mock('@aws-sdk/client-rekognitionstreaming');
+jest.mock('@aws-amplify/core');
+const mockGet = jest.fn().mockImplementation(() => {
+  return {
+    accessKeyId: 'accessKeyId',
+    sessionToken: 'sessionTokenId',
+    secretAccessKey: 'secretAccessKey',
+    identityId: 'identityId',
+    authenticated: true,
+    expiration: new Date(),
+  };
+});
+Amplify.Credentials.get = mockGet;
 
 let SWITCH = false;
 
@@ -37,6 +53,7 @@ describe('LivenessStreamProvider', () => {
     stop: jest.fn(),
     getBlob: jest.fn(),
     destroy: jest.fn(),
+    dispatch: jest.fn(),
     videoStream: mockReadableStream,
   };
   const mockCameraDevice: MediaDeviceInfo = {
@@ -58,23 +75,17 @@ describe('LivenessStreamProvider', () => {
     ],
   } as MediaStream;
 
-  let server: WS;
-
-  beforeEach(() => {
-    server = new WS('ws://localhost:3001/StartStreamingLivenessSession');
-
-    server.on('message', (message) => {
-      console.log(message);
-    });
-  });
-
-  afterEach(() => {
-    // create a WS instance, listening on port 1234 on localhost
-    WS.clean();
-  });
-
   beforeEach(() => {
     (VideoRecorder as jest.Mock).mockImplementation(() => mockVideoRecorder);
+    (RekognitionStreamingClient as jest.Mock).mockImplementation(() => {
+      return {
+        send: jest.fn().mockImplementation(() => {
+          return {
+            LivenessResponseStream: 'mockResponseStream',
+          };
+        }),
+      };
+    });
   });
 
   describe('constructor', () => {
@@ -86,19 +97,26 @@ describe('LivenessStreamProvider', () => {
     });
   });
 
-  describe('streamLivenessVideo', () => {
+  describe('getResponseStream', () => {
+    test('happy case', async () => {
+      const provider = new LivenessStreamProvider(
+        'sessionId',
+        mockVideoMediaStream
+      );
+      expect(await provider.getResponseStream()).toBeDefined();
+    });
+  });
+
+  describe('sendClientInfo', () => {
     test('happy case', async () => {
       const provider = new LivenessStreamProvider(
         'sessionId',
         mockVideoMediaStream
       );
       const recorder = new VideoRecorder(mockVideoMediaStream);
-      const outputStream = await provider.streamLivenessVideo();
+      await provider.sendClientInfo('foobar');
 
-      const blob = new Blob(['foobar']);
-      const buffer = await blob.arrayBuffer();
-
-      // FIXME: add tests that mock out startLivenessDetection
+      expect(mockVideoRecorder.dispatch).toHaveBeenCalledTimes(1);
     });
   });
 });
