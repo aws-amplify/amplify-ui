@@ -6,6 +6,7 @@ import {
 } from '@aws-amplify/ui-react-native/dist/primitives';
 import { Screen } from '../ui';
 import { StyleSheet } from 'react-native';
+
 const levels: HeadingProps['level'][] = [1, 2, 3, 4, 5, 6];
 
 storiesOf('Heading', module)
