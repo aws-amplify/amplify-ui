@@ -5,13 +5,13 @@
   "private": true,
   "scripts": {
     "clean": "rimraf node_modules",
-    "dev": "TZ=UTC cypress open",
-    "test:examples": "TZ=UTC cypress run --spec features/ui/hooks/*.features,features/ui/components/**/*.features",
-    "test:authenticator": "TZ=UTC cypress run --spec features/ui/components/authenticator/*.features",
-    "test:hooks": "TZ=UTC cypress run --spec features/ui/hooks/*.features",
-    "test:geo": "TZ=UTC cypress run --spec features/ui/components/geo/*.features",
-    "test:theme": "TZ=UTC cypress run --spec features/ui/theme/*.features",
-    "test:guides": "TZ=UTC cypress run --spec features/ui/guides/*.feature"
+    "dev": "cypress open",
+    "test:examples": "cypress run --spec 'features/ui/hooks/*.feature','features/ui/components/**/*.feature'",
+    "test:authenticator": "cypress run --spec 'features/ui/components/authenticator/*.feature'",
+    "test:hooks": "cypress run --spec 'features/ui/hooks/*.feature'",
+    "test:geo": "cypress run --spec 'features/ui/components/geo/*.feature'",
+    "test:theme": "cypress run --spec 'features/ui/theme/*.feature'",
+    "test:guides": "cypress run --spec 'features/ui/guides/*.feature'"
   },
   "cypress-cucumber-preprocessor": {
     "stepDefinitions": [
