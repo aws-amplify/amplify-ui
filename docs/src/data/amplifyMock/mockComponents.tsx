@@ -85,7 +85,7 @@ const AmazonIcon = (): JSX.Element => {
  * mockComponents is an object containing the override header function calls for
  * the authenticator.
  */
-export const mockComponents = {
+const mockComponents = {
   SignIn: {
     Header() {
       return (

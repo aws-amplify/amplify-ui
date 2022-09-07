@@ -3,13 +3,15 @@ const FIXED_PASSWORD = 'password';
 const FIXED_VERIFICATION_CODE = '123456';
 
 const verifiedUsers = new Map();
-let signUpPassword = ''; //used to track the sign up password for the confirmSignUp() flow
+
+// used to track the sign up password for the confirmSignUp() flow
+let signUpPassword = '';
 
 const checkFixedCredentials = (username, password) => {
   return username === FIXED_USERNAME && password === FIXED_PASSWORD;
 };
 
-export const mockServices = {
+const mockServices = {
   async getAmplifyConfig() {
     return {};
   },
@@ -86,5 +88,4 @@ export const mockServices = {
     }
   },
 };
-
 export default mockServices;

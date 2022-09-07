@@ -9,7 +9,7 @@ import { Header } from '@/components/Layout/Header';
 import Script from 'next/script';
 import { baseTheme } from '../theme';
 import { useCustomRouter } from '@/components/useCustomRouter';
-import { awsExports } from '../aws-exports.js';
+import { awsExports } from '../data/amplifyMock/index.js';
 
 import { Head } from './Head';
 
