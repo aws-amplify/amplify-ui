@@ -6,6 +6,7 @@ import {
 } from '@aws-amplify/ui-react-native/dist/primitives';
 import { Screen } from '../ui';
 import { StyleSheet } from 'react-native';
+const levels: HeadingProps['level'][] = [1, 2, 3, 4, 5, 6];
 
 storiesOf('Heading', module)
   .addDecorator((Story: any) => (
@@ -16,11 +17,8 @@ storiesOf('Heading', module)
   .add('default', () => <Heading>Default Heading</Heading>)
   .add('level', () => (
     <>
-      {[1, 2, 3, 4, 5, 6].map((level) => (
-        <Heading
-          level={level as HeadingProps['level']}
-          key={level}
-        >{`Heading level ${level}`}</Heading>
+      {levels.map((level) => (
+        <Heading level={level} key={level}>{`Heading level ${level}`}</Heading>
       ))}
     </>
   ))
