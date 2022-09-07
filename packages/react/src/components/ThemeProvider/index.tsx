@@ -6,7 +6,7 @@ import { createTheme, Theme } from '@aws-amplify/ui';
 import { AmplifyContext } from './AmplifyContext';
 
 export type ColorMode = 'system' | 'light' | 'dark';
-type Direction = 'ltr' | 'rtl';
+export type Direction = 'ltr' | 'rtl';
 
 interface ThemeProviderProps {
   children: React.ReactNode;
@@ -52,7 +52,11 @@ export function AmplifyProvider({
           ancestor tree will override further ones. So the CSS variables added to this
           DOM node through the same selector will take precedence.
         */}
-        <div data-amplify-theme={name} data-amplify-color-mode={colorMode}>
+        <div
+          data-amplify-theme={name}
+          data-amplify-color-mode={colorMode}
+          dir={direction}
+        >
           {children}
         </div>
         {/*
