@@ -7,7 +7,6 @@ import {
   MdWebAssetOff,
   MdOutlineArticle,
   MdOutlinePower,
-  MdOpenInNew,
 } from 'react-icons/md';
 import {
   Text,
@@ -16,8 +15,6 @@ import {
   Expander,
   ExpanderItem,
   useTheme,
-  Divider,
-  Link as ALink,
 } from '@aws-amplify/ui-react';
 import {
   ComponentNavItem,
@@ -32,7 +29,6 @@ import {
 import Link from 'next/link';
 import { isReactNativeEnabled } from '@/utils/featureFlags';
 import { FrameworkChooser } from './FrameworkChooser';
-import { LogoLink } from './LogoLink';
 import { MenuButton } from './MenuButton';
 
 const NavLinks = ({
@@ -246,15 +242,6 @@ export const Sidebar = ({ expanded, setExpanded, platform }) => {
           {isReactNativeEnabled && platform === 'react-native' ? null : (
             <SecondaryNav onClick={onClick} platform={platform} />
           )}
-
-          <Divider size="small" />
-
-          <ALink href="https://docs.amplify.aws" isExternal>
-            <Flex as="span" direction="row" alignItems="center">
-              Amplify Docs
-              <MdOpenInNew />
-            </Flex>
-          </ALink>
         </Flex>
       </div>
     </nav>
