@@ -32,7 +32,7 @@ describe('Heading', () => {
   it('truncates long Headings with an ellipsis', () => {
     const headings = TestRenderer.create(
       <>
-        <Heading truncated>
+        <Heading numberOfLines={1}>
           Really long heading that should be truncated with an ellipsis
         </Heading>
         <Heading>
@@ -45,21 +45,21 @@ describe('Heading', () => {
 
     expect(headings.toJSON()).toMatchSnapshot();
     expect(truncated.props.numberOfLines).toBe(1);
-    expect(notTruncated.props.numberOfLines).toBe(0);
+    expect(notTruncated.props.numberOfLines).toBe(undefined);
   });
 
   it('applies style props', () => {
     const customStyle = { color: 'red' };
 
     const styledHeading = TestRenderer.create(
-      <Heading headingStyle={customStyle}>{title}</Heading>
+      <Heading style={customStyle}>{title}</Heading>
     );
 
     const styleProps = styledHeading.root.findByType(Text).props
       .style as TextStyle[];
 
     expect(styledHeading.toJSON()).toMatchSnapshot();
-    expect(styledHeading.root.props.headingStyle).toBe(customStyle);
+    expect(styledHeading.root.props.style).toBe(customStyle);
     expect(styleProps[styleProps.length - 1]).toBe(customStyle);
   });
 });

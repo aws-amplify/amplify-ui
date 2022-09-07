@@ -35,7 +35,6 @@ storiesOf('Heading', module)
   .add('style', () => (
     <Heading style={styles.redText}>This should be red</Heading>
   ));
-// should be able to accept arbitrary props through the rest parameters (like selectable and other TextProps)
 
 const styles = StyleSheet.create({
   redText: {

@@ -2,7 +2,7 @@
 
 exports[`Heading applies style props 1`] = `
 <Text
-  numberOfLines={0}
+  accessibilityRole="header"
   style={
     Array [
       Object {
@@ -25,7 +25,7 @@ exports[`Heading applies style props 1`] = `
 exports[`Heading renders six different Heading levels 1`] = `
 Array [
   <Text
-    numberOfLines={0}
+    accessibilityRole="header"
     style={
       Array [
         Object {
@@ -42,7 +42,7 @@ Array [
     Heading level 1
   </Text>,
   <Text
-    numberOfLines={0}
+    accessibilityRole="header"
     style={
       Array [
         Object {
@@ -59,7 +59,7 @@ Array [
     Heading level 2
   </Text>,
   <Text
-    numberOfLines={0}
+    accessibilityRole="header"
     style={
       Array [
         Object {
@@ -76,7 +76,7 @@ Array [
     Heading level 3
   </Text>,
   <Text
-    numberOfLines={0}
+    accessibilityRole="header"
     style={
       Array [
         Object {
@@ -93,7 +93,7 @@ Array [
     Heading level 4
   </Text>,
   <Text
-    numberOfLines={0}
+    accessibilityRole="header"
     style={
       Array [
         Object {
@@ -110,7 +110,7 @@ Array [
     Heading level 5
   </Text>,
   <Text
-    numberOfLines={0}
+    accessibilityRole="header"
     style={
       Array [
         Object {
@@ -132,6 +132,7 @@ Array [
 exports[`Heading truncates long Headings with an ellipsis 1`] = `
 Array [
   <Text
+    accessibilityRole="header"
     numberOfLines={1}
     style={
       Array [
@@ -149,7 +150,7 @@ Array [
     Really long heading that should be truncated with an ellipsis
   </Text>,
   <Text
-    numberOfLines={0}
+    accessibilityRole="header"
     style={
       Array [
         Object {
