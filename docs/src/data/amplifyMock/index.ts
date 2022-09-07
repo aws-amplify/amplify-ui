@@ -1,3 +1,3 @@
-export * from './mockComponents';
-export * from './mockServices';
-export * from './mockAwsExports';
+export * from './components';
+export * from './services';
+export * from './exports';

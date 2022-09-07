@@ -11,7 +11,7 @@ const checkFixedCredentials = (username, password) => {
   return username === FIXED_USERNAME && password === FIXED_PASSWORD;
 };
 
-const mockServices = {
+export const mockServices = {
   async getAmplifyConfig() {
     return {};
   },
@@ -88,4 +88,3 @@ const mockServices = {
     }
   },
 };
-export default mockServices;
