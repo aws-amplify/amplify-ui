@@ -1,10 +1,10 @@
 import * as React from 'react';
 
 import { SelectFieldProps } from './selectField';
-import { TextInputFieldProps } from './textField';
+import { TextFieldProps } from './textField';
 
 interface optionalPhoneNumberFieldProps
-  extends TextInputFieldProps,
+  extends TextFieldProps,
     CountryCodeFieldProps {
   /**
    * @description

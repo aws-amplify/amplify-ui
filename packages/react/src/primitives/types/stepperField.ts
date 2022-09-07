@@ -1,6 +1,6 @@
-import { TextInputFieldProps } from '../types/textField';
+import { TextFieldProps } from '../types/textField';
 
-export interface StepperFieldProps extends TextInputFieldProps {
+export interface StepperFieldProps extends TextFieldProps {
   /**
    * @description
    * <input> elements of type number are used to let the user enter a number. They include built-in validation to reject non-numerical entries.

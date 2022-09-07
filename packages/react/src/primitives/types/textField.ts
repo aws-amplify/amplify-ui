@@ -3,7 +3,6 @@ import * as React from 'react';
 import { FlexContainerStyleProps } from './flex';
 import { InputProps } from './input';
 import { FieldProps } from './field';
-import { TextAreaProps } from './textArea';
 
 export interface TextFieldOptions extends FieldProps, FlexContainerStyleProps {
   /**
@@ -32,25 +31,9 @@ export interface TextFieldOptions extends FieldProps, FlexContainerStyleProps {
 
   /**
    * @description
-   * Input field type (only applies when isMultiline = false)
+   * Input field type
    */
   type?: InputProps['type'];
 }
 
-export interface TextInputFieldProps extends TextFieldOptions, InputProps {}
-
-export interface TextAreaFieldMultilineProps
-  extends TextFieldOptions,
-    TextAreaProps {}
-
-export type TextFieldProps<Multiline extends boolean = false> =
-  (Multiline extends true
-    ? TextAreaFieldMultilineProps
-    : TextInputFieldProps) & {
-    /**
-     * @deprecated
-     * Multiline functionality has been moved to TextAreaField and will be removed in next major release.
-     * Please use TextAreaField instead of TextField for multiline text fields.
-     */
-    isMultiline?: Multiline;
-  };
+export interface TextFieldProps extends TextFieldOptions, InputProps {}

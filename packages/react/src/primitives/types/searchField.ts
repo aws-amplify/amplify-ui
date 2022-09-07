@@ -1,9 +1,9 @@
 import * as React from 'react';
 
 import { FieldGroupIconButtonProps } from './fieldGroupIcon';
-import { TextInputFieldProps } from './textField';
+import { TextFieldProps } from './textField';
 
-export interface SearchFieldProps extends TextInputFieldProps {
+export interface SearchFieldProps extends TextFieldProps {
   /**
    * @description
    * Handle submission of search field input

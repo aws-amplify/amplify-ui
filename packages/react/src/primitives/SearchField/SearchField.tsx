@@ -44,7 +44,6 @@ const SearchFieldPrimitive: Primitive<SearchFieldProps, 'input'> = (
         />
       }
       isDisabled={isDisabled}
-      isMultiline={false}
       name={name}
       onInput={onInput}
       onKeyDown={onKeyDown}
