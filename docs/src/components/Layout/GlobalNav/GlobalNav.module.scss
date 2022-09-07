@@ -96,7 +96,7 @@
   white-space: nowrap;
 
   &:hover {
-    color: black;
+    color: black !important;
     background-color: white !important;
   }
 }
