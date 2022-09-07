@@ -42,7 +42,7 @@ jobs:
       matrix:
         include:
           - path: ./guides/react/protected-routes
-            tags: '@guides and not (@skip or @todo-guides)'
+            tags: '@guides and not @todo-guides'
 
     steps:
       - name: Checkout Amplify UI
