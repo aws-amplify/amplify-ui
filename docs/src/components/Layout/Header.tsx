@@ -11,11 +11,10 @@ import {
 
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { Sidebar } from './Sidebar';
-import { LogoLink } from './LogoLink';
 import { MenuButton } from './MenuButton';
-import { DISCORD, GITHUB_REPO } from '@/data/links';
+import { GITHUB_REPO } from '@/data/links';
 import '@docsearch/css';
-import { DiscordIcon, GithubIcon } from '../Icons';
+import { GithubIcon } from '../Icons';
 import { FrameworkLogo } from '../Logo';
 
 export const Header = ({
