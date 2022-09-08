@@ -471,6 +471,11 @@ export const gettingStarted: ComponentNavItem[] = [
     platforms: ['react', 'vue', 'angular'],
   },
   {
+    href: '/getting-started/internationalization',
+    label: 'Internationalization (i18n)',
+    platforms: ['react'],
+  },
+  {
     href: '/getting-started/migration',
     label: 'Migration',
     platforms: ['react', 'vue', 'angular'],
