@@ -2,6 +2,7 @@
 
 exports[`Label applies style props 1`] = `
 <Text
+  accessibilityRole="text"
   style={
     Array [
       Object {
@@ -21,6 +22,7 @@ exports[`Label applies style props 1`] = `
 
 exports[`Label renders a default Label 1`] = `
 <Text
+  accessibilityRole="text"
   style={
     Array [
       Object {
