@@ -2,8 +2,8 @@ import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import Label from '../Label';
 
-describe('Heading', () => {
-  it('renders a level 6 Heading by default', () => {
+describe('Label', () => {
+  it('renders a default Label', () => {
     const defaultLabel = TestRenderer.create(<Label>Default Label</Label>);
 
     expect(defaultLabel.toJSON()).toMatchSnapshot();
