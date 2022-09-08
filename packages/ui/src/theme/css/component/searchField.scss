@@ -7,6 +7,7 @@
     background-color: var(
       --amplify-components-searchfield-button-background-color
     );
+    border-color: var(--amplify-components-searchfield-button-border-color);
     &:active {
       background-color: var(
         --amplify-components-button-active-background-color

@@ -1,5 +1,6 @@
 .amplify-radio {
   align-items: var(--amplify-components-radio-align-items);
+  cursor: var(--amplify-components-radio-cursor);
   justify-content: var(--amplify-components-radio-justify-content);
   gap: inherit;
   flex-direction: row-reverse;
@@ -11,6 +12,7 @@
 
 .amplify-radio__button {
   align-items: var(--amplify-components-radio-button-align-items);
+  box-shadow: var(--amplify-components-radio-button-box-shadow);
   justify-content: var(--amplify-components-radio-button-justify-content);
   padding: var(--amplify-components-radio-button-padding);
   box-sizing: var(--amplify-components-radio-button-box-sizing);
@@ -73,6 +75,7 @@
 
 .amplify-radio__input[aria-invalid='true'] + .amplify-radio__button {
   border-color: var(--amplify-components-radio-button-error-border-color);
+  box-shadow: var(--amplify-components-radio-button-error-box-shadow);
 }
 
 .amplify-radio__input[aria-invalid='true']:focus + .amplify-radio__button {

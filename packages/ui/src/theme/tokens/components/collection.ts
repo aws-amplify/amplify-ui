@@ -5,6 +5,7 @@ import {
 import { StateTokens } from './button';
 import {
   BackgroundColorValue,
+  BorderColorValue,
   ColorValue,
   DesignToken,
 } from '../types/designToken';
@@ -15,6 +16,7 @@ interface PaginationTokens {
     backgroundColor: DesignToken<BackgroundColorValue>;
   };
   button: {
+    backgroundColor: DesignToken<ColorValue>;
     color: DesignToken<ColorValue>;
     _hover: PaginationButtonHoverTokens;
     _disabled: PaginationButtonDisabledTokens;
@@ -26,6 +28,8 @@ export interface SearchTokens {
     color: DesignToken<ColorValue>;
   };
   button: {
+    backgroundColor: DesignToken<BackgroundColorValue>;
+    borderColor: DesignToken<BorderColorValue>;
     color: DesignToken<ColorValue>;
     _active: StateTokens;
     _disabled: StateTokens;
@@ -50,6 +54,9 @@ export const collection: CollectionTokens = {
       },
     },
     button: {
+      backgroundColor: {
+        value: '{components.pagination.button.backgroundColor}',
+      },
       color: { value: '{components.pagination.button.color}' },
       _hover: {
         backgroundColor: {
@@ -67,6 +74,10 @@ export const collection: CollectionTokens = {
       color: { value: '{components.searchfield.color}' },
     },
     button: {
+      backgroundColor: {
+        value: '{components.searchfield.button.backgroundColor}',
+      },
+      borderColor: { value: '{components.searchfield.button.borderColor}' },
       color: { value: '{components.searchfield.button.color}' },
       _active: {
         backgroundColor: {

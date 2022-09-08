@@ -36,6 +36,7 @@ interface PrimaryVariationTokens {
   borderStyle: DesignToken<BorderStyleValue>;
   borderColor: DesignToken<BorderColorValue>;
   backgroundColor: DesignToken<BackgroundColorValue>;
+  boxShadow: DesignToken<BoxShadowValue>;
   color: DesignToken<ColorValue>;
   _disabled: StateTokens;
   _loading: StateTokens;
@@ -47,6 +48,7 @@ interface PrimaryVariationTokens {
 interface MenuVariationTokens {
   borderWidth: DesignToken<BorderWidthValue>;
   backgroundColor: DesignToken<BackgroundColorValue>;
+  color: DesignToken<ColorValue>;
   justifyContent: DesignToken<JustifyContentValue>;
   _hover: MenuStateTokens;
   _focus: MenuStateTokens;
@@ -58,6 +60,7 @@ interface LinkVariationTokens {
   backgroundColor: DesignToken<BackgroundColorValue>;
   borderColor: DesignToken<BorderColorValue>;
   borderWidth: DesignToken<BorderWidthValue>;
+  boxShadow: DesignToken<BoxShadowValue>;
   color: DesignToken<ColorValue>;
   _hover: StateTokens;
   _focus: StateWithShadowTokens;
@@ -82,10 +85,12 @@ export interface ButtonTokens {
   paddingBlockEnd: DesignToken<SpaceValue>;
   paddingInlineStart: DesignToken<SpaceValue>;
   paddingInlineEnd: DesignToken<SpaceValue>;
+  backgroundColor: DesignToken<BackgroundColorValue>;
   borderColor: DesignToken<BorderColorValue>;
   borderWidth: DesignToken<BorderWidthValue>;
   borderStyle: DesignToken<BorderStyleValue>;
   borderRadius: DesignToken<BorderRadiusValue>;
+  boxShadow: DesignToken<BoxShadowValue>;
   color: DesignToken<ColorValue>;
   _hover: StateTokens;
   _focus: StateWithShadowTokens;
@@ -123,10 +128,12 @@ export const button: ButtonTokens = {
   paddingInlineEnd: {
     value: '{components.fieldcontrol.paddingInlineEnd.value}',
   },
+  backgroundColor: { value: '{colors.transparent}' },
   borderColor: { value: '{components.fieldcontrol.borderColor.value}' },
   borderWidth: { value: '{components.fieldcontrol.borderWidth.value}' },
   borderStyle: { value: '{components.fieldcontrol.borderStyle.value}' },
   borderRadius: { value: '{components.fieldcontrol.borderRadius.value}' },
+  boxShadow: { value: 'none' },
   color: { value: '{colors.font.primary.value}' },
 
   _hover: {
@@ -161,6 +168,7 @@ export const button: ButtonTokens = {
     borderColor: { value: 'transparent' },
     borderWidth: { value: '{borderWidths.small.value}' },
     borderStyle: { value: 'solid' },
+    boxShadow: { value: '{components.button.boxShadow}' },
     backgroundColor: { value: '{colors.brand.primary.80.value}' },
     color: { value: '{colors.font.inverse.value}' },
     _disabled: {
@@ -194,6 +202,7 @@ export const button: ButtonTokens = {
   menu: {
     borderWidth: { value: '{space.zero.value}' },
     backgroundColor: { value: 'transparent' },
+    color: { value: '{components.button.color}' },
     justifyContent: { value: 'start' },
     // Focus and hover styles are identical for menu variation
     // because for Menu primitive, menu items are forced to be focused even
@@ -219,6 +228,7 @@ export const button: ButtonTokens = {
     backgroundColor: { value: 'transparent' },
     borderColor: { value: 'transparent' },
     borderWidth: { value: '{space.zero.value}' },
+    boxShadow: { value: '{components.button.boxShadow}' },
     color: { value: '{colors.font.interactive.value}' },
     _hover: {
       borderColor: { value: 'transparent' },

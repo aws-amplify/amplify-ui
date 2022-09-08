@@ -36,6 +36,7 @@ interface ButtonErrorFocusToken {
 }
 interface ButtonErrorToken {
   borderColor: DesignToken<BorderColorValue>;
+  boxShadow: DesignToken<BoxShadowValue>;
   _focus: ButtonErrorFocusToken;
 }
 interface ButtonFocusToken {
@@ -60,6 +61,12 @@ interface ButtonToken {
   justifyContent: DesignToken<JustifyContentValue>;
   color: DesignToken<ColorValue>;
   before: BeforeToken;
+  outlineColor: DesignToken<OutlineColorValue>;
+  outlineStyle: DesignToken<OutlineStyleValue>;
+  outlineWidth: DesignToken<OutlineWidthValue>;
+  outlineOffset: DesignToken<OutlineOffsetValue>;
+  borderColor: DesignToken<BorderColorValue>;
+  boxShadow: DesignToken<BoxShadowValue>;
   _focus: ButtonFocusToken;
   _disabled: ButtonDisabledToken;
   _error: ButtonErrorToken;
@@ -68,12 +75,14 @@ interface IconCheckedDisabled {
   backgroundColor: DesignToken<BackgroundColorValue>;
 }
 interface IconCheckedToken {
+  backgroundColor: DesignToken<BackgroundColorValue>;
   opacity: DesignToken<OpacityValue>;
   transform: DesignToken<TransformValue>;
   _disabled: IconCheckedDisabled;
 }
 
 interface IconIndeterminateToken {
+  backgroundColor: DesignToken<BackgroundColorValue>;
   opacity: DesignToken<OpacityValue>;
   transform: DesignToken<TransformValue>;
   _disabled: IconCheckedDisabled;
@@ -94,6 +103,7 @@ interface LabelDisabledToken {
   color: DesignToken<ColorValue>;
 }
 interface LabelToken {
+  color: DesignToken<ColorValue>;
   _disabled: LabelDisabledToken;
 }
 export interface CheckboxTokens {
@@ -126,6 +136,12 @@ export const checkbox: CheckboxTokens = {
       borderStyle: { value: 'solid' },
       borderColor: { value: '{colors.border.primary.value}' },
     },
+    outlineColor: { value: 'currentcolor' },
+    outlineStyle: { value: 'none' },
+    outlineWidth: { value: 'medium' },
+    outlineOffset: { value: '0' },
+    borderColor: { value: 'currentColor' },
+    boxShadow: { value: 'none' },
     _focus: {
       outlineColor: { value: '{colors.transparent.value}' },
       outlineStyle: { value: 'solid' },
@@ -147,6 +163,7 @@ export const checkbox: CheckboxTokens = {
     },
     _error: {
       borderColor: { value: '{colors.border.error.value}' },
+      boxShadow: { value: '{components.checkbox.button.boxShadow}' },
       _focus: {
         borderColor: { value: '{colors.transparent.value}' },
         boxShadow: {
@@ -170,6 +187,7 @@ export const checkbox: CheckboxTokens = {
     transitionDuration: { value: '{time.short.value}' },
     transitionTimingFunction: { value: 'ease-in-out' },
     _checked: {
+      backgroundColor: { value: '{components.checkbox.icon.backgroundColor}' },
       opacity: { value: '{opacities.100.value}' },
       transform: { value: 'scale(1)' },
       _disabled: {
@@ -177,6 +195,7 @@ export const checkbox: CheckboxTokens = {
       },
     },
     _indeterminate: {
+      backgroundColor: { value: '{components.checkbox.icon.backgroundColor}' },
       opacity: { value: '{opacities.100.value}' },
       transform: { value: 'scale(1)' },
       _disabled: {
@@ -185,6 +204,7 @@ export const checkbox: CheckboxTokens = {
     },
   },
   label: {
+    color: { value: '{components.text.color}' },
     _disabled: {
       color: { value: '{colors.font.disabled.value}' },
     },

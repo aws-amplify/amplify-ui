@@ -9,10 +9,16 @@
 }
 
 .amplify-checkbox__button {
-  position: var(--amplify-components-checkbox-button-position);
   align-items: var(--amplify-components-checkbox-button-align-items);
-  justify-content: var(--amplify-components-checkbox-button-justify-content);
+  border-color: var(--amplify-internal-checkbox_button-border-color);
+  box-shadow: var(--amplify-internal-checkbox_button-box-shadow);
   color: var(--amplify-components-checkbox-button-color);
+  justify-content: var(--amplify-components-checkbox-button-justify-content);
+  outline-color: var(--amplify-components-checkbox-button-outline-color);
+  outline-offset: var(--amplify-components-checkbox-button-outline-offset);
+  outline-style: var(--amplify-components-checkbox-button-outline-style);
+  outline-width: var(--amplify-components-checkbox-button-outline-width);
+  position: var(--amplify-components-checkbox-button-position);
   //these internal css variables are used to update the values that are influenced by multiple modified states
   --amplify-internal-checkbox_button-focused-before-border-color: var(
     --amplify-components-checkbox-button-focus-border-color
@@ -61,6 +67,7 @@
   }
 
   &--error {
+    box-shadow: var(--amplify-components-checkbox-button-error-box-shadow);
     &::before {
       border-color: var(
         --amplify-components-checkbox-button-error-border-color
@@ -102,6 +109,9 @@
   );
 
   &--checked {
+    background-color: var(
+      --amplify-components-checkbox-icon-checked-background-color
+    );
     opacity: var(--amplify-components-checkbox-icon-checked-opacity);
     transform: var(--amplify-components-checkbox-icon-checked-transform);
 
@@ -112,6 +122,9 @@
   }
 
   &--indeterminate {
+    background-color: var(
+      --amplify-components-checkbox-icon-indeterminate-background-color
+    );
     opacity: var(--amplify-components-checkbox-icon-indeterminate-opacity);
     transform: var(--amplify-components-checkbox-icon-indeterminate-transform);
 
@@ -128,6 +141,9 @@
   }
 }
 
-.amplify-checkbox__label[data-disabled='true'] {
-  color: var(--amplify-components-checkbox-label-disabled-color);
+.amplify-checkbox__label {
+  color: var(--amplify-components-checkbox-label-color);
+  &[data-disabled='true'] {
+    color: var(--amplify-components-checkbox-label-disabled-color);
+  }
 }

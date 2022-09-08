@@ -38,6 +38,7 @@ interface ExpanderHeaderTokens {
 }
 
 interface ExpanderTriggerTokens {
+  backgroundColor: DesignToken<BackgroundColorValue>;
   minHeight: DesignToken<SpaceValue>;
   paddingInlineStart: DesignToken<SpaceValue>;
   paddingInlineEnd: DesignToken<SpaceValue>;
@@ -51,6 +52,8 @@ interface ExpanderTriggerHoverTokens {
 }
 
 interface ExpanderContentTokens {
+  animationDuration: DesignToken<AnimationDurationValue>;
+  animationTimingFunction: DesignToken<AnimationTimingFunctionValue>;
   paddingInlineStart: DesignToken<SpaceValue>;
   paddingInlineEnd: DesignToken<SpaceValue>;
   text: ExpanderContentTextTokens;
@@ -136,6 +139,7 @@ export const expander: ExpanderTokens = {
     },
   },
   trigger: {
+    backgroundColor: { value: '{components.expander.backgroundColor}' },
     minHeight: { value: '3rem' },
     paddingInlineStart: { value: '{space.large.value}' },
     paddingInlineEnd: { value: '{space.large.value}' },
@@ -148,6 +152,8 @@ export const expander: ExpanderTokens = {
   content: {
     paddingInlineStart: { value: '{space.large.value}' },
     paddingInlineEnd: { value: '{space.large.value}' },
+    animationDuration: { value: '0' },
+    animationTimingFunction: { value: 'ease' },
     text: {
       color: { value: '{colors.font.secondary.value}' },
       paddingBlockStart: { value: '{space.medium.value}' },

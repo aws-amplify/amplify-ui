@@ -69,6 +69,7 @@
 }
 
 .amplify-expander__trigger {
+  background-color: var(--amplify-components-expander-trigger-background-color);
   flex: 1;
   display: flex;
   min-height: var(--amplify-components-expander-trigger-min-height);
@@ -89,6 +90,12 @@
 }
 
 .amplify-expander__content {
+  animation-duration: var(
+    --amplify-components-expander-content-animation-duration
+  );
+  animation-timing-function: var(
+    --amplify-components-expander-content-animation-timing-function
+  );
   display: block;
   padding-inline-start: var(
     --amplify-components-expander-content-padding-inline-start

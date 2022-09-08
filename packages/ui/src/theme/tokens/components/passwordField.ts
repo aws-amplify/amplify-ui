@@ -1,7 +1,14 @@
-import { ColorValue, DesignToken } from '../types/designToken';
+import {
+  BackgroundColorValue,
+  BorderColorValue,
+  ColorValue,
+  DesignToken,
+} from '../types/designToken';
 import { StateTokens } from './button';
 
 interface ButtonTokens {
+  backgroundColor: DesignToken<BackgroundColorValue>;
+  borderColor: DesignToken<BorderColorValue>;
   color: DesignToken<ColorValue>;
   _active: StateTokens;
   _disabled: StateTokens;
@@ -17,6 +24,8 @@ export interface PasswordFieldTokens {
 export const passwordfield: PasswordFieldTokens = {
   color: { value: '{components.fieldcontrol.color.value}' },
   button: {
+    backgroundColor: { value: '{components.button.backgroundColor}' },
+    borderColor: { value: '{components.button.borderColor}' },
     color: { value: '{components.button.color.value}' },
     _active: {
       backgroundColor: {

@@ -1,6 +1,9 @@
 @mixin amplify-field-control {
+  background-color: var(--amplify-components-fieldcontrol-background-color);
+  box-shadow: var(--amplify-components-fieldcontrol-box-shadow);
   box-sizing: border-box;
   color: var(--amplify-components-fieldcontrol-color);
+  cursor: var(--amplify-components-fieldcontrol-cursor);
   font-size: var(--amplify-components-fieldcontrol-font-size);
   line-height: var(--amplify-components-fieldcontrol-line-height);
   padding-block-start: var(
@@ -65,6 +68,7 @@
   // Error styling
   &--error {
     border-color: var(--amplify-components-fieldcontrol-error-border-color);
+    box-shadow: var(--amplify-components-fieldcontrol-error-box-shadow);
     &:focus {
       border-color: var(--amplify-components-fieldcontrol-error-border-color);
       box-shadow: var(--amplify-components-fieldcontrol-error-focus-box-shadow);
@@ -83,6 +87,9 @@
 
   // variation styles
   &--quiet {
+    border-block-end-color: var(
+      --amplify-components-fieldcontrol-quiet-border-block-end-color
+    );
     border-block-start: var(
       --amplify-components-fieldcontrol-quiet-border-block-start
     );
@@ -93,6 +100,7 @@
       --amplify-components-fieldcontrol-quiet-border-inline-end
     );
     border-radius: var(--amplify-components-fieldcontrol-quiet-border-radius);
+    box-shadow: var(--amplify-components-fieldcontrol-quiet-box-shadow);
     &:focus {
       border-block-end-color: var(
         --amplify-components-fieldcontrol-quiet-focus-border-block-end-color
@@ -103,6 +111,7 @@
       border-block-end-color: var(
         --amplify-components-fieldcontrol-quiet-error-border-block-end-color
       );
+      box-shadow: var(--amplify-components-fieldcontrol-quiet-error-box-shadow);
       &:focus {
         box-shadow: var(
           --amplify-components-fieldcontrol-quiet-error-focus-box-shadow

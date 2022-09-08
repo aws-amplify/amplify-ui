@@ -27,6 +27,7 @@ interface RadioDisabledTokens {
 
 interface RadioButtonTokens {
   alignItems: DesignToken<AlignItemsValue>;
+  boxShadow: DesignToken<BoxShadowValue>;
   justifyContent: DesignToken<JustifyContentValue>;
   width: DesignToken<SpaceValue>;
   height: DesignToken<SpaceValue>;
@@ -72,6 +73,7 @@ interface RadioButtonFocusTokens {
 
 interface RadioButtonErrorTokens {
   borderColor: DesignToken<BorderColorValue>;
+  boxShadow: DesignToken<BoxShadowValue>;
   _focus: RadioButtonErrorFocusTokens;
 }
 
@@ -95,6 +97,7 @@ interface RadioLabelDisabledTokens {
 
 export interface RadioTokens {
   alignItems: DesignToken<AlignItemsValue>;
+  cursor: DesignToken<CursorValue>;
   justifyContent: DesignToken<JustifyContentValue>;
   gap: DesignToken<GapValue>;
   _disabled: RadioDisabledTokens;
@@ -104,11 +107,13 @@ export interface RadioTokens {
 
 export const radio: RadioTokens = {
   alignItems: { value: 'center' },
+  cursor: { value: 'auto' },
   justifyContent: { value: 'flex-start' },
   gap: { value: 'inherit' },
   _disabled: { cursor: { value: 'not-allowed' } },
   button: {
     alignItems: { value: 'center' },
+    boxShadow: { value: '{components.button.boxShadow}' },
     justifyContent: { value: 'center' },
     width: { value: '{fontSizes.medium.value}' },
     height: { value: '{fontSizes.medium.value}' },
@@ -151,6 +156,7 @@ export const radio: RadioTokens = {
 
     _error: {
       borderColor: { value: '{colors.border.error.value}' },
+      boxShadow: { value: '{components.radio.button.boxShadow}' },
       _focus: {
         boxShadow: {
           value: '{components.fieldcontrol._error._focus.boxShadow.value}',

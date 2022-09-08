@@ -11,6 +11,7 @@ export interface RadioGroupTokens {
     borderWidth: DesignToken<BorderWidthValue>;
     borderColor: DesignToken<BorderColorValue>;
     backgroundColor: DesignToken<BackgroundColorValue>;
+    color: DesignToken<ColorValue>;
     _checked: {
       color: DesignToken<ColorValue>;
     };
@@ -28,6 +29,7 @@ export const radiogroup: RadioGroupTokens = {
     borderWidth: { value: '{components.radio.button.borderWidth}' },
     borderColor: { value: '{components.radio.button.borderColor}' },
     backgroundColor: { value: '{components.radio.button.backgroundColor}' },
+    color: { value: '{components.radio.button.color}' },
     _checked: {
       color: { value: '{components.radio.button._checked.color}' },
     },

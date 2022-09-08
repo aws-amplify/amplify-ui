@@ -37,7 +37,10 @@ interface ToggleButtonPressedHoverTokens {
 
 interface ToggleButtonPrimaryTokens {
   backgroundColor: DesignToken<BackgroundColorValue>;
+  borderColor: DesignToken<BorderColorValue>;
   borderWidth: DesignToken<BorderWidthValue>;
+  boxShadow: DesignToken<BoxShadowValue>;
+  color: DesignToken<ColorValue>;
   _focus: ToggleButtonPrimaryFocusTokens;
   _hover: ToggleButtonPrimaryHoverTokens;
   _disabled: ToggleButtonPrimaryDisabledTokens;
@@ -68,6 +71,7 @@ interface ToggleButtonPrimaryDisabledTokens {
 interface ToggleButtonPrimaryPressedTokens {
   backgroundColor: DesignToken<BackgroundColorValue>;
   borderColor: DesignToken<BorderColorValue>;
+  boxShadow: DesignToken<BoxShadowValue>;
   color: DesignToken<ColorValue>;
   _focus: TogglButtonPrimaryPressedFocusTokens;
   _hover: TogglButtonPrimaryPressedHoverTokens;
@@ -126,6 +130,7 @@ interface ToggleButtonLinkPressedHoverTokens {
 }
 
 export interface ToggleButtonTokens {
+  backgroundColor: DesignToken<BackgroundColorValue>;
   borderColor: DesignToken<BorderColorValue>;
   color: DesignToken<ColorValue>;
   _hover: ToggleButtonHoverTokens;
@@ -138,6 +143,7 @@ export interface ToggleButtonTokens {
 }
 
 export const togglebutton: ToggleButtonTokens = {
+  backgroundColor: { value: '{components.button.backgroundColor}' },
   borderColor: { value: '{colors.border.primary.value}' },
   color: { value: '{colors.font.primary.value}' },
   _hover: {
@@ -165,7 +171,10 @@ export const togglebutton: ToggleButtonTokens = {
   },
   primary: {
     backgroundColor: { value: '{colors.transparent.value}' },
+    borderColor: { value: '{components.togglebutton.borderColor}' },
     borderWidth: { value: '{borderWidths.small.value}' },
+    boxShadow: { value: '{components.button.boxShadow}' },
+    color: { value: '{components.togglebutton.color}' },
     _focus: {
       borderColor: { value: '{colors.border.focus.value}' },
       backgroundColor: { value: '{colors.transparent.value}' },
@@ -184,6 +193,7 @@ export const togglebutton: ToggleButtonTokens = {
     _pressed: {
       backgroundColor: { value: '{colors.brand.primary.80.value}' },
       borderColor: { value: '{colors.brand.primary.80.value}' },
+      boxShadow: { value: '{components.togglebutton.primary.boxShadow}' },
       color: { value: '{colors.background.primary.value}' },
       _focus: {
         backgroundColor: {

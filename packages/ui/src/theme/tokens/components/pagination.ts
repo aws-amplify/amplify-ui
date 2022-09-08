@@ -20,6 +20,7 @@ interface PaginationCurrentTokens {
 }
 
 interface PaginationButtonTokens {
+  backgroundColor: DesignToken<BackgroundColorValue>;
   color: DesignToken<ColorValue>;
   paddingInlineStart: DesignToken<SpaceValue>;
   paddingInlineEnd: DesignToken<SpaceValue>;
@@ -72,6 +73,7 @@ export const pagination: PaginationTokens = {
     backgroundColor: { value: '{colors.overlay.40.value}' },
   },
   button: {
+    backgroundColor: { value: '{components.button.backgroundColor}' },
     color: { value: '{colors.font.primary.value}' },
     paddingInlineStart: { value: '{space.xxs.value}' },
     paddingInlineEnd: { value: '{space.xxs.value}' },

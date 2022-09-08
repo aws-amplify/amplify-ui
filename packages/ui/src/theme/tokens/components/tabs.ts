@@ -32,10 +32,14 @@ interface TabsItemTokens {
 }
 
 interface TabsItemHoverTokens {
+  backgroundColor: DesignToken<BackgroundColorValue>;
+  borderColor: DesignToken<BorderColorValue>;
   color: DesignToken<ColorValue>;
 }
 
 interface TabsItemFocusTokens {
+  backgroundColor: DesignToken<BackgroundColorValue>;
+  borderColor: DesignToken<BorderColorValue>;
   color: DesignToken<ColorValue>;
 }
 
@@ -81,9 +85,13 @@ export const tabs: TabsTokens = {
     transitionDuration: { value: '{time.medium.value}' },
 
     _hover: {
+      backgroundColor: { value: '{components.tabs.item.backgroundColor}' },
+      borderColor: { value: '{components.tabs.item.borderColor}' },
       color: { value: '{colors.font.hover.value}' },
     },
     _focus: {
+      backgroundColor: { value: '{components.tabs.item.backgroundColor}' },
+      borderColor: { value: '{components.tabs.item.borderColor}' },
       color: { value: '{colors.font.focus.value}' },
     },
     _active: {

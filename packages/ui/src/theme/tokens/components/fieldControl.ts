@@ -41,6 +41,7 @@ interface FieldControlDisabledTokens {
 
 interface FieldControlErrorTokens {
   borderColor: DesignToken<BorderColorValue>;
+  boxShadow: DesignToken<BoxShadowValue>;
   _focus: FieldControlErrorFocusTokens;
 }
 
@@ -51,10 +52,12 @@ interface FieldControlErrorFocusTokens {
 interface FieldControlQuietTokens {
   borderStyle: DesignToken<BorderStyleValue>;
   borderBlockEnd: DesignToken<BorderValue>;
+  borderBlockEndColor: DesignToken<ColorValue>;
   borderInlineStart: DesignToken<BorderValue>;
   borderInlineEnd: DesignToken<BorderValue>;
   borderBlockStart: DesignToken<BorderValue>;
   borderRadius: DesignToken<BorderRadiusValue>;
+  boxShadow: DesignToken<BoxShadowValue>;
   _focus: FieldControlQuietFocusTokens;
   _error: FieldControlQuietErrorTokens;
 }
@@ -66,6 +69,7 @@ interface FieldControlQuietFocusTokens {
 
 interface FieldControlQuietErrorTokens {
   borderBlockEndColor: DesignToken<ColorValue>;
+  boxShadow: DesignToken<BoxShadowValue>;
   _focus: FieldControlQuietErrorFocusTokens;
 }
 
@@ -74,11 +78,14 @@ interface FieldControlQuietErrorFocusTokens {
 }
 
 export interface FieldControlTokens {
+  backgroundColor: DesignToken<BackgroundColorValue>;
   borderStyle: DesignToken<BorderStyleValue>;
   borderColor: DesignToken<BorderColorValue>;
   borderWidth: DesignToken<BorderWidthValue>;
   borderRadius: DesignToken<BorderRadiusValue>;
+  boxShadow: DesignToken<BoxShadowValue>;
   color: DesignToken<ColorValue>;
+  cursor: DesignToken<CursorValue>;
   paddingBlockStart: DesignToken<SpaceValue>;
   paddingBlockEnd: DesignToken<SpaceValue>;
   paddingInlineStart: DesignToken<SpaceValue>;
@@ -101,11 +108,14 @@ export interface FieldControlTokens {
 }
 
 export const fieldcontrol: FieldControlTokens = {
+  backgroundColor: { value: 'transparent' },
   borderStyle: { value: 'solid' },
   borderColor: { value: '{colors.border.primary.value}' },
   borderWidth: { value: '{borderWidths.small.value}' },
   borderRadius: { value: '{radii.small.value}' },
+  boxShadow: { value: 'none' },
   color: { value: '{colors.font.primary.value}' },
+  cursor: { value: 'auto' },
   paddingBlockStart: {
     value: '{space.xs.value}',
   },
@@ -160,13 +170,16 @@ export const fieldcontrol: FieldControlTokens = {
 
   quiet: {
     borderStyle: { value: 'none' },
+    borderBlockEndColor: { value: '{colors.border.primary.value}' },
     borderBlockEnd: {
-      value: '{borderWidths.small.value} solid {colors.border.primary.value}',
+      value:
+        '{borderWidths.small.value} solid {components.fieldcontrol.quiet.borderBlockEndColor}',
     },
     borderInlineStart: { value: 'none' },
     borderInlineEnd: { value: 'none' },
     borderBlockStart: { value: 'none' },
     borderRadius: { value: '0' },
+    boxShadow: { value: '{components.fieldcontrol.boxShadow}' },
     _focus: {
       borderBlockEndColor: { value: '{colors.border.focus.value}' },
       boxShadow: {
@@ -180,6 +193,7 @@ export const fieldcontrol: FieldControlTokens = {
     },
     _error: {
       borderBlockEndColor: { value: '{colors.border.error.value}' },
+      boxShadow: { value: '{components.fieldcontrol.quiet.boxShadow}' },
       _focus: {
         boxShadow: {
           value: {
@@ -221,6 +235,7 @@ export const fieldcontrol: FieldControlTokens = {
   },
   _error: {
     borderColor: { value: '{colors.border.error.value}' },
+    boxShadow: { value: '{components.fieldcontrol.boxShadow}' },
     _focus: {
       boxShadow: {
         value: {

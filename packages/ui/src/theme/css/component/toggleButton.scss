@@ -1,6 +1,8 @@
 .amplify-togglebutton {
   //these internal css variables are used to update the values that are influenced by multiple modified states
-  --amplify-internal-togglebutton-background-color: initial;
+  --amplify-internal-togglebutton-background-color: var(
+    --amplify-components-togglebutton-background-color
+  );
   --amplify-internal-togglebutton-border-color: var(
     --amplify-components-togglebutton-border-color
   );
@@ -116,19 +118,20 @@
       --amplify-internal-togglebutton-primary-background-color
     );
     --amplify-internal-togglebutton-primary-border-color: var(
-      --amplify-components-togglebutton-border-color
+      --amplify-components-togglebutton-primary-border-color
     );
     --amplify-internal-togglebutton-border-color: var(
       --amplify-internal-togglebutton-primary-border-color
     );
     --amplify-internal-togglebutton-primary-color: var(
-      --amplify-components-togglebutton-color
+      --amplify-components-togglebutton-primary-color
     );
     --amplify-internal-togglebutton-color: var(
       --amplify-internal-togglebutton-primary-color
     );
 
     border-width: var(--amplify-components-togglebutton-primary-border-width);
+    box-shadow: var(--amplify-components-togglebutton-primary-box-shadow);
 
     //these variables are being made so that the primary pressed state can overwrite them
     --amplify-internal-togglebutton-primary-focus-background-color: var(
@@ -214,6 +217,10 @@
     );
     --amplify-internal-togglebutton-primary-color: var(
       --amplify-components-togglebutton-primary-pressed-color
+    );
+
+    box-shadow: var(
+      --amplify-components-togglebutton-primary-pressed-box-shadow
     );
 
     // pressed focus overwrites

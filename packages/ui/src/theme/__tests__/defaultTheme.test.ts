@@ -3,6 +3,42 @@ import { defaultTheme, createTheme } from '../';
 
 describe('@aws-amplify/ui', () => {
   describe('defaultTheme', () => {
+    describe('Matching State tokens', () => {
+      const crawlTokens = (tokens, path: string[] = []) => {
+        if (tokens.hasOwnProperty('value')) {
+          return;
+        } else if (typeof tokens === 'object') {
+          for (const name in tokens) {
+            if (tokens.hasOwnProperty(name)) {
+              // Look to see if the current name is a state token (starts with _)
+              if (name.startsWith('_')) {
+                const stateTokenNames = Object.keys(tokens[name]).filter(
+                  (stateTokenName) => !stateTokenName.startsWith('_') // Filter out states of states
+                );
+                stateTokenNames.forEach((stateTokenName) => {
+                  if (!tokens[stateTokenName]) {
+                    const errorString = `${path.join(
+                      '.'
+                    )} is missing ${stateTokenName} which is found in its ${name} state`;
+                    expect(errorString).not.toBeDefined();
+                  }
+                });
+              }
+
+              if (typeof tokens[name] === 'object') {
+                crawlTokens(tokens[name], path.concat(name));
+              }
+            }
+          }
+        }
+      };
+
+      it('should have all tokens available on the base that are available on each state', () => {
+        const { components } = defaultTheme.tokens;
+        crawlTokens(components);
+      });
+    });
+
     it('all references should resolve', () => {
       expect(() => {
         StyleDictionary.extend({
@@ -86,10 +122,12 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-button-padding-block-end: var(--amplify-components-fieldcontrol-padding-block-end);
         --amplify-components-button-padding-inline-start: var(--amplify-components-fieldcontrol-padding-inline-start);
         --amplify-components-button-padding-inline-end: var(--amplify-components-fieldcontrol-padding-inline-end);
+        --amplify-components-button-background-color: var(--amplify-colors-transparent);
         --amplify-components-button-border-color: var(--amplify-components-fieldcontrol-border-color);
         --amplify-components-button-border-width: var(--amplify-components-fieldcontrol-border-width);
         --amplify-components-button-border-style: var(--amplify-components-fieldcontrol-border-style);
         --amplify-components-button-border-radius: var(--amplify-components-fieldcontrol-border-radius);
+        --amplify-components-button-box-shadow: none;
         --amplify-components-button-color: var(--amplify-colors-font-primary);
         --amplify-components-button-hover-color: var(--amplify-colors-font-focus);
         --amplify-components-button-hover-background-color: var(--amplify-colors-brand-primary-10);
@@ -110,6 +148,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-button-primary-border-color: transparent;
         --amplify-components-button-primary-border-width: var(--amplify-border-widths-small);
         --amplify-components-button-primary-border-style: solid;
+        --amplify-components-button-primary-box-shadow: var(--amplify-components-button-box-shadow);
         --amplify-components-button-primary-background-color: var(--amplify-colors-brand-primary-80);
         --amplify-components-button-primary-color: var(--amplify-colors-font-inverse);
         --amplify-components-button-primary-disabled-border-color: transparent;
@@ -130,6 +169,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-button-primary-active-color: var(--amplify-colors-font-inverse);
         --amplify-components-button-menu-border-width: var(--amplify-space-zero);
         --amplify-components-button-menu-background-color: transparent;
+        --amplify-components-button-menu-color: var(--amplify-components-button-color);
         --amplify-components-button-menu-justify-content: start;
         --amplify-components-button-menu-hover-color: var(--amplify-colors-font-inverse);
         --amplify-components-button-menu-hover-background-color: var(--amplify-colors-brand-primary-80);
@@ -141,6 +181,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-button-link-background-color: transparent;
         --amplify-components-button-link-border-color: transparent;
         --amplify-components-button-link-border-width: var(--amplify-space-zero);
+        --amplify-components-button-link-box-shadow: var(--amplify-components-button-box-shadow);
         --amplify-components-button-link-color: var(--amplify-colors-font-interactive);
         --amplify-components-button-link-hover-border-color: transparent;
         --amplify-components-button-link-hover-background-color: var(--amplify-colors-brand-primary-10);
@@ -202,6 +243,12 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-checkbox-button-before-border-radius: 20%;
         --amplify-components-checkbox-button-before-border-style: solid;
         --amplify-components-checkbox-button-before-border-color: var(--amplify-colors-border-primary);
+        --amplify-components-checkbox-button-outline-color: currentcolor;
+        --amplify-components-checkbox-button-outline-style: none;
+        --amplify-components-checkbox-button-outline-width: medium;
+        --amplify-components-checkbox-button-outline-offset: 0;
+        --amplify-components-checkbox-button-border-color: currentColor;
+        --amplify-components-checkbox-button-box-shadow: none;
         --amplify-components-checkbox-button-focus-outline-color: var(--amplify-colors-transparent);
         --amplify-components-checkbox-button-focus-outline-style: solid;
         --amplify-components-checkbox-button-focus-outline-width: var(--amplify-outline-widths-medium);
@@ -210,6 +257,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-checkbox-button-focus-box-shadow: 0px 0px 0px 2px var(--amplify-colors-border-focus);
         --amplify-components-checkbox-button-disabled-border-color: var(--amplify-colors-border-disabled);
         --amplify-components-checkbox-button-error-border-color: var(--amplify-colors-border-error);
+        --amplify-components-checkbox-button-error-box-shadow: var(--amplify-components-checkbox-button-box-shadow);
         --amplify-components-checkbox-button-error-focus-border-color: var(--amplify-colors-transparent);
         --amplify-components-checkbox-button-error-focus-box-shadow: 0px 0px 0px 2px var(--amplify-colors-border-error);
         --amplify-components-checkbox-icon-background-color: var(--amplify-colors-brand-primary-80);
@@ -219,12 +267,15 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-checkbox-icon-transition-property: all;
         --amplify-components-checkbox-icon-transition-duration: var(--amplify-time-short);
         --amplify-components-checkbox-icon-transition-timing-function: ease-in-out;
+        --amplify-components-checkbox-icon-checked-background-color: var(--amplify-components-checkbox-icon-background-color);
         --amplify-components-checkbox-icon-checked-opacity: var(--amplify-opacities-100);
         --amplify-components-checkbox-icon-checked-transform: scale(1);
         --amplify-components-checkbox-icon-checked-disabled-background-color: var(--amplify-colors-background-disabled);
+        --amplify-components-checkbox-icon-indeterminate-background-color: var(--amplify-components-checkbox-icon-background-color);
         --amplify-components-checkbox-icon-indeterminate-opacity: var(--amplify-opacities-100);
         --amplify-components-checkbox-icon-indeterminate-transform: scale(1);
         --amplify-components-checkbox-icon-indeterminate-disabled-background-color: var(--amplify-colors-background-disabled);
+        --amplify-components-checkbox-label-color: var(--amplify-components-text-color);
         --amplify-components-checkbox-label-disabled-color: var(--amplify-colors-font-disabled);
         --amplify-components-checkboxfield-align-items: flex-start;
         --amplify-components-checkboxfield-align-content: center;
@@ -232,11 +283,14 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-checkboxfield-justify-content: center;
         --amplify-components-collection-pagination-current-color: var(--amplify-components-pagination-current-color);
         --amplify-components-collection-pagination-current-background-color: var(--amplify-components-pagination-current-background-color);
+        --amplify-components-collection-pagination-button-background-color: var(--amplify-components-pagination-button-background-color);
         --amplify-components-collection-pagination-button-color: var(--amplify-components-pagination-button-color);
         --amplify-components-collection-pagination-button-hover-background-color: var(--amplify-components-pagination-button-hover-background-color);
         --amplify-components-collection-pagination-button-hover-color: var(--amplify-components-pagination-button-hover-color);
         --amplify-components-collection-pagination-button-disabled-color: var(--amplify-components-pagination-button-disabled-color);
         --amplify-components-collection-search-input-color: var(--amplify-components-searchfield-color);
+        --amplify-components-collection-search-button-background-color: var(--amplify-components-searchfield-button-background-color);
+        --amplify-components-collection-search-button-border-color: var(--amplify-components-searchfield-button-border-color);
         --amplify-components-collection-search-button-color: var(--amplify-components-searchfield-button-color);
         --amplify-components-collection-search-button-active-background-color: var(--amplify-components-searchfield-button-active-background-color);
         --amplify-components-collection-search-button-active-border-color: var(--amplify-components-searchfield-button-active-border-color);
@@ -284,6 +338,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-expander-item-border-end-end-radius: var(--amplify-radii-medium);
         --amplify-components-expander-item-focus-box-shadow: 0 0 0 2px var(--amplify-colors-border-focus);
         --amplify-components-expander-header-box-shadow: 0 1px 0  var(--amplify-colors-overlay-20);
+        --amplify-components-expander-trigger-background-color: var(--amplify-components-expander-background-color);
         --amplify-components-expander-trigger-min-height: 3rem;
         --amplify-components-expander-trigger-padding-inline-start: var(--amplify-space-large);
         --amplify-components-expander-trigger-padding-inline-end: var(--amplify-space-large);
@@ -292,6 +347,8 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-expander-trigger-hover-background-color: var(--amplify-colors-overlay-10);
         --amplify-components-expander-content-padding-inline-start: var(--amplify-space-large);
         --amplify-components-expander-content-padding-inline-end: var(--amplify-space-large);
+        --amplify-components-expander-content-animation-duration: 0;
+        --amplify-components-expander-content-animation-timing-function: ease;
         --amplify-components-expander-content-text-color: var(--amplify-colors-font-secondary);
         --amplify-components-expander-content-text-padding-block-start: var(--amplify-space-medium);
         --amplify-components-expander-content-text-padding-block-end: var(--amplify-space-medium);
@@ -308,11 +365,14 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-field-large-gap: var(--amplify-space-small);
         --amplify-components-field-large-font-size: var(--amplify-font-sizes-large);
         --amplify-components-field-label-color: var(--amplify-colors-font-secondary);
+        --amplify-components-fieldcontrol-background-color: transparent;
         --amplify-components-fieldcontrol-border-style: solid;
         --amplify-components-fieldcontrol-border-color: var(--amplify-colors-border-primary);
         --amplify-components-fieldcontrol-border-width: var(--amplify-border-widths-small);
         --amplify-components-fieldcontrol-border-radius: var(--amplify-radii-small);
+        --amplify-components-fieldcontrol-box-shadow: none;
         --amplify-components-fieldcontrol-color: var(--amplify-colors-font-primary);
+        --amplify-components-fieldcontrol-cursor: auto;
         --amplify-components-fieldcontrol-padding-block-start: var(--amplify-space-xs);
         --amplify-components-fieldcontrol-padding-block-end: var(--amplify-space-xs);
         --amplify-components-fieldcontrol-padding-inline-start: var(--amplify-space-medium);
@@ -335,14 +395,17 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-fieldcontrol-large-padding-inline-start: var(--amplify-space-medium);
         --amplify-components-fieldcontrol-large-padding-inline-end: var(--amplify-space-medium);
         --amplify-components-fieldcontrol-quiet-border-style: none;
-        --amplify-components-fieldcontrol-quiet-border-block-end: var(--amplify-border-widths-small-solid-colors-border-primary-value);
+        --amplify-components-fieldcontrol-quiet-border-block-end-color: var(--amplify-colors-border-primary);
+        --amplify-components-fieldcontrol-quiet-border-block-end: var(--amplify-border-widths-small-solid-components-fieldcontrol-quiet-border-block-end-color);
         --amplify-components-fieldcontrol-quiet-border-inline-start: none;
         --amplify-components-fieldcontrol-quiet-border-inline-end: none;
         --amplify-components-fieldcontrol-quiet-border-block-start: none;
         --amplify-components-fieldcontrol-quiet-border-radius: 0;
+        --amplify-components-fieldcontrol-quiet-box-shadow: var(--amplify-components-fieldcontrol-box-shadow);
         --amplify-components-fieldcontrol-quiet-focus-border-block-end-color: var(--amplify-colors-border-focus);
         --amplify-components-fieldcontrol-quiet-focus-box-shadow: 0px 1px 0px  var(--amplify-colors-border-focus);
         --amplify-components-fieldcontrol-quiet-error-border-block-end-color: var(--amplify-colors-border-error);
+        --amplify-components-fieldcontrol-quiet-error-box-shadow: var(--amplify-components-fieldcontrol-quiet-box-shadow);
         --amplify-components-fieldcontrol-quiet-error-focus-box-shadow: 0px 1px 0px  var(--amplify-colors-border-error);
         --amplify-components-fieldcontrol-focus-border-color: var(--amplify-colors-border-focus);
         --amplify-components-fieldcontrol-focus-box-shadow: 0px 0px 0px 1px var(--amplify-colors-border-focus);
@@ -351,6 +414,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-fieldcontrol-disabled-border-color: var(--amplify-colors-transparent);
         --amplify-components-fieldcontrol-disabled-background-color: var(--amplify-colors-background-disabled);
         --amplify-components-fieldcontrol-error-border-color: var(--amplify-colors-border-error);
+        --amplify-components-fieldcontrol-error-box-shadow: var(--amplify-components-fieldcontrol-box-shadow);
         --amplify-components-fieldcontrol-error-focus-box-shadow: 0px 0px 0px 1px var(--amplify-colors-border-error);
         --amplify-components-fieldgroup-gap: var(--amplify-space-zero);
         --amplify-components-fieldgroup-vertical-align-items: center;
@@ -438,6 +502,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-pagination-current-color: var(--amplify-colors-font-inverse);
         --amplify-components-pagination-current-font-size: var(--amplify-font-sizes-small);
         --amplify-components-pagination-current-background-color: var(--amplify-colors-overlay-40);
+        --amplify-components-pagination-button-background-color: var(--amplify-components-button-background-color);
         --amplify-components-pagination-button-color: var(--amplify-colors-font-primary);
         --amplify-components-pagination-button-padding-inline-start: var(--amplify-space-xxs);
         --amplify-components-pagination-button-padding-inline-end: var(--amplify-space-xxs);
@@ -456,6 +521,8 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-pagination-item-shared-min-width: var(--amplify-font-sizes-xxl);
         --amplify-components-pagination-item-shared-border-radius: var(--amplify-font-sizes-medium);
         --amplify-components-passwordfield-color: var(--amplify-components-fieldcontrol-color);
+        --amplify-components-passwordfield-button-background-color: var(--amplify-components-button-background-color);
+        --amplify-components-passwordfield-button-border-color: var(--amplify-components-button-border-color);
         --amplify-components-passwordfield-button-color: var(--amplify-components-button-color);
         --amplify-components-passwordfield-button-active-background-color: var(--amplify-components-button-active-background-color);
         --amplify-components-passwordfield-button-active-border-color: var(--amplify-components-button-active-border-color);
@@ -481,10 +548,12 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-placeholder-default-height: var(--amplify-space-medium);
         --amplify-components-placeholder-large-height: var(--amplify-space-large);
         --amplify-components-radio-align-items: center;
+        --amplify-components-radio-cursor: auto;
         --amplify-components-radio-justify-content: flex-start;
         --amplify-components-radio-gap: inherit;
         --amplify-components-radio-disabled-cursor: not-allowed;
         --amplify-components-radio-button-align-items: center;
+        --amplify-components-radio-button-box-shadow: var(--amplify-components-button-box-shadow);
         --amplify-components-radio-button-justify-content: center;
         --amplify-components-radio-button-width: var(--amplify-font-sizes-medium);
         --amplify-components-radio-button-height: var(--amplify-font-sizes-medium);
@@ -511,6 +580,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-radio-button-focus-border-color: var(--amplify-colors-border-focus);
         --amplify-components-radio-button-focus-box-shadow: var(--amplify-components-fieldcontrol-focus-box-shadow);
         --amplify-components-radio-button-error-border-color: var(--amplify-colors-border-error);
+        --amplify-components-radio-button-error-box-shadow: var(--amplify-components-radio-button-box-shadow);
         --amplify-components-radio-button-error-focus-box-shadow: var(--amplify-components-fieldcontrol-error-focus-box-shadow);
         --amplify-components-radio-button-disabled-border-color: var(--amplify-colors-border-disabled);
         --amplify-components-radio-button-disabled-background-color: var(--amplify-colors-background-primary);
@@ -519,6 +589,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-radiogroup-radio-border-width: var(--amplify-components-radio-button-border-width);
         --amplify-components-radiogroup-radio-border-color: var(--amplify-components-radio-button-border-color);
         --amplify-components-radiogroup-radio-background-color: var(--amplify-components-radio-button-background-color);
+        --amplify-components-radiogroup-radio-color: var(--amplify-components-radio-button-color);
         --amplify-components-radiogroup-radio-checked-color: var(--amplify-components-radio-button-checked-color);
         --amplify-components-radiogroup-radio-label-color: var(--amplify-components-radio-label-color);
         --amplify-components-radiogroup-label-color: var(--amplify-components-field-label-color);
@@ -530,6 +601,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-searchfield-color: var(--amplify-components-fieldcontrol-color);
         --amplify-components-searchfield-button-color: var(--amplify-components-button-color);
         --amplify-components-searchfield-button-background-color: var(--amplify-colors-background-primary);
+        --amplify-components-searchfield-button-border-color: var(--amplify-components-button-border-color);
         --amplify-components-searchfield-button-active-background-color: var(--amplify-components-button-active-background-color);
         --amplify-components-searchfield-button-active-border-color: var(--amplify-components-button-active-border-color);
         --amplify-components-searchfield-button-active-color: var(--amplify-components-button-active-color);
@@ -610,6 +682,8 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-stepperfield-button-disabled-background-color: var(--amplify-components-fieldcontrol-disabled-background-color);
         --amplify-components-stepperfield-button-hover-color: var(--amplify-components-button-hover-color);
         --amplify-components-stepperfield-button-hover-background-color: var(--amplify-components-button-hover-background-color);
+        --amplify-components-switchfield-opacity: 1;
+        --amplify-components-switchfield-shadow: none;
         --amplify-components-switchfield-disabled-opacity: var(--amplify-opacities-60);
         --amplify-components-switchfield-focused-shadow: 0px 0px 0px 2px var(--amplify-colors-border-focus);
         --amplify-components-switchfield-font-size: var(--amplify-font-sizes-medium);
@@ -692,7 +766,11 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-tabs-item-padding-horizontal: var(--amplify-space-medium);
         --amplify-components-tabs-item-text-align: center;
         --amplify-components-tabs-item-transition-duration: var(--amplify-time-medium);
+        --amplify-components-tabs-item-hover-background-color: var(--amplify-components-tabs-item-background-color);
+        --amplify-components-tabs-item-hover-border-color: var(--amplify-components-tabs-item-border-color);
         --amplify-components-tabs-item-hover-color: var(--amplify-colors-font-hover);
+        --amplify-components-tabs-item-focus-background-color: var(--amplify-components-tabs-item-background-color);
+        --amplify-components-tabs-item-focus-border-color: var(--amplify-components-tabs-item-border-color);
         --amplify-components-tabs-item-focus-color: var(--amplify-colors-font-focus);
         --amplify-components-tabs-item-active-color: var(--amplify-colors-font-interactive);
         --amplify-components-tabs-item-active-border-color: var(--amplify-colors-font-interactive);
@@ -715,6 +793,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-textfield-border-color: var(--amplify-components-fieldcontrol-border-color);
         --amplify-components-textfield-font-size: var(--amplify-components-fieldcontrol-font-size);
         --amplify-components-textfield-focus-border-color: var(--amplify-components-fieldcontrol-focus-border-color);
+        --amplify-components-togglebutton-background-color: var(--amplify-components-button-background-color);
         --amplify-components-togglebutton-border-color: var(--amplify-colors-border-primary);
         --amplify-components-togglebutton-color: var(--amplify-colors-font-primary);
         --amplify-components-togglebutton-hover-background-color: var(--amplify-colors-overlay-10);
@@ -729,7 +808,10 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-togglebutton-pressed-background-color: var(--amplify-colors-overlay-20);
         --amplify-components-togglebutton-pressed-hover-background-color: var(--amplify-colors-overlay-30);
         --amplify-components-togglebutton-primary-background-color: var(--amplify-colors-transparent);
+        --amplify-components-togglebutton-primary-border-color: var(--amplify-components-togglebutton-border-color);
         --amplify-components-togglebutton-primary-border-width: var(--amplify-border-widths-small);
+        --amplify-components-togglebutton-primary-box-shadow: var(--amplify-components-button-box-shadow);
+        --amplify-components-togglebutton-primary-color: var(--amplify-components-togglebutton-color);
         --amplify-components-togglebutton-primary-focus-border-color: var(--amplify-colors-border-focus);
         --amplify-components-togglebutton-primary-focus-background-color: var(--amplify-colors-transparent);
         --amplify-components-togglebutton-primary-focus-box-shadow: var(--amplify-components-fieldcontrol-focus-box-shadow);
@@ -741,6 +823,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-togglebutton-primary-disabled-color: var(--amplify-colors-font-disabled);
         --amplify-components-togglebutton-primary-pressed-background-color: var(--amplify-colors-brand-primary-80);
         --amplify-components-togglebutton-primary-pressed-border-color: var(--amplify-colors-brand-primary-80);
+        --amplify-components-togglebutton-primary-pressed-box-shadow: var(--amplify-components-togglebutton-primary-box-shadow);
         --amplify-components-togglebutton-primary-pressed-color: var(--amplify-colors-background-primary);
         --amplify-components-togglebutton-primary-pressed-focus-background-color: var(--amplify-colors-border-focus);
         --amplify-components-togglebutton-primary-pressed-focus-border-color: var(--amplify-colors-border-focus);

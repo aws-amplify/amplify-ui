@@ -62,6 +62,8 @@ interface SwitchFieldTrackCheckedTokens {
 }
 
 export interface SwitchFieldTokens {
+  opacity: DesignToken<OpacityValue>;
+  shadow: DesignToken<ShadowValue>;
   fontSize: DesignToken<FontSizeValue>;
   _disabled: SwitchFieldDisabledTokens;
   _focused: SwitchFieldFocusedTokens;
@@ -73,6 +75,8 @@ export interface SwitchFieldTokens {
 }
 
 export const switchfield: SwitchFieldTokens = {
+  opacity: { value: '1' },
+  shadow: { value: 'none' },
   // States
   _disabled: {
     opacity: { value: '{opacities.60.value}' },
