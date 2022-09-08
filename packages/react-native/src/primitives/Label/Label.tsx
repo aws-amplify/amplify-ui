@@ -1,8 +1,7 @@
 import React from 'react';
 import { Text } from 'react-native';
-
-import { styles } from './styles';
 import { LabelProps } from './types';
+import { styles } from './styles';
 
 export default function Label({
   children,
