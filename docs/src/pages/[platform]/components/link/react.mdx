@@ -1,8 +1,9 @@
+import { Fragment } from '@/components/Fragment'; 
 import { Link as AmplifyLink } from '@aws-amplify/ui-react';
 
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
-import { ThemeAlert } from '@/components/ThemeAlert';
+import ThemeExample from '@/components/ThemeExample.mdx';
 import { LinkDemo } from './demo';
 import {
   DefaultLinkExample,
@@ -18,7 +19,7 @@ import {
 
 ## Usage
 
-Import the Link component.
+Import the Link component. Link renders an anchor element `<a>` by default, which accepts an `href` attribute that specifies the Link's destination.
 
 <Example>
   <DefaultLinkExample />
@@ -30,9 +31,9 @@ Import the Link component.
   </ExampleCode>
 </Example>
 
-## External Links
+### External Links
 
-External Links should use the `isExternal` prop to add the appropriate rel attribute to the created anchor tag. The `isExternal` prop will also set `target="_blank"` when set to true.
+To create a Link which opens in a new tab, use the `isExternal` prop. Under the hood, `isExternal` sets `target="_blank"` and `rel="noopener noreferrer"` on the `<a>` anchor element. 
 
 <Example>
   <ExternalLinkExample />
@@ -44,70 +45,84 @@ External Links should use the `isExternal` prop to add the appropriate rel attri
   </ExampleCode>
 </Example>
 
-## Routing Libraries
+### Routing Libraries
 
-The Link component can be used with react routing libraries by passing in routing components to the `as` prop on a Link
+You can use a Link with any React routing library that supports custom components. Below is an example using Link with React Router v5, in which the Link is passed to the `component` prop as a custom navigation component:
 
 <Example>
   <ExampleCode>
     ```jsx
-    import { Link } from '@aws-amplify/ui-react';
+    import { Link, Flex, Heading } from '@aws-amplify/ui-react';
+
     import {
       BrowserRouter as Router,
       Link as ReactRouterLink,
+      Routes,
+      Route,
     } from 'react-router-dom';
 
-    /* React Router Example */
-    <Router>
-      <Link as={ReactRouterLink} to="/home">
-        Home
-      </Link>
-    </Router>;
+    function Home() {
+      return <Heading level={2}>Home</Heading>;
+    }
+
+    function About() {
+      return <Heading level={2}>About</Heading>;
+    }
+
+    function Users() {
+      return <Heading level={2}>Users</Heading>;
+    }
+
+    function App() {
+      return (
+        <Router>
+          <Flex>
+            <ReactRouterLink to="/" component={Link}>Home</ReactRouterLink>
+            <ReactRouterLink to="/about" component={Link}>About</ReactRouterLink>
+            <ReactRouterLink to="/users" component={Link}>Users</ReactRouterLink>
+          </Flex>
+
+          <Routes>
+            <Route path="/about" element={<About />} />
+            <Route path="/users" element={<Users />} />
+            <Route path="/" element={<Home />} />
+          </Routes>
+        </Router>
+      );
+    }
+
+    export default App;
     ```
-
-  </ExampleCode>
-  <ExampleCode>
-    ```jsx
-    import { Link } from '@aws-amplify/ui-react';
-    import { Link as ReachLink } from '@reach/router';
-
-    <Link as={ReachLink} to="/home">
-      Home
-    </Link>;
-    ```
-
   </ExampleCode>
 </Example>
 
-## Customization
+## CSS Styling
+
+<ThemeExample component="Link">
+  <Example>
+    <LinkThemeExample />
+    
+    <ExampleCode>
+
+    ```tsx file=./examples/LinkThemeExample.tsx
+
+    ```
+
+    </ExampleCode>
+  </Example>
+</ThemeExample>
 
 ### Target classes
 
 <ComponentStyleDisplay componentName="Link" />
 
-### Theme
-
-<ThemeAlert />
-
-You can customize the appearance of all Links in your application with a [Theme](/theming).
-
-<Example>
-  <LinkThemeExample />
-  <ExampleCode>
-    ```jsx file=./examples/LinkThemeExample.tsx
-
-    ```
-
-  </ExampleCode>
-</Example>
-
-### CSS Pseudo Classes
-
-The Link component primarily uses four css pseudo classes. These are `:active`, `:focus`, `:hover`, and `:visited`. Styling the Link component while in one of these states can also be accomplished using the following techniques in conjunction with the appropriate pseudo class selector.
-
 ### Global Styling
 
 To override styling on all Links, you can set the Amplify CSS variables or use the built in `.amplify-link` class.
+
+#### CSS Pseudo-classes
+
+To style the Link component in different states, you can use any of these four CSS Pseudo-classes: `:active`, `:focus`, `:hover` and `:visited`.
 
 <Example>
   <LinkGlobalStylingExample />
@@ -115,17 +130,16 @@ To override styling on all Links, you can set the Amplify CSS variables or use t
     ```css
     /* styles.css */
     [data-amplify-theme] {
-      --amplify-components-link-color: var(--amplify-colors-red-80);
+      --amplify-components-link-color: var(--amplify-colors-purple-80);
+      --amplify-components-link-hover-color: var(--amplify-colors-purple-60);
     }
     /* OR */
     .amplify-link {
-      color: var(--amplify-colors-red-80);
+      color: var(--amplify-colors-purple-80);
     }
-    ```
-  </ExampleCode>
-  <ExampleCode>
-    ```jsx
-    <Link>My Custom Link</Link>;
+    .amplify-link:hover {
+      color: var(--amplify-colors-purple-60);
+    }
     ```
   </ExampleCode>
 </Example>
@@ -142,13 +156,16 @@ _Using a class selector:_
     ```css
     /* styles.css */
     .link-local-styles {
-      color: var(--amplify-colors-red-80);
+      color: var(--amplify-colors-blue-80);
       font-weight: var(--amplify-font-weights-bold);
     }
 
     .link-local-styles:hover {
-      color: var(--amplify-colors-blue-80);
-      font-weight: var(--amplify-font-weights-bold);
+      color: var(--amplify-colors-blue-60);
+    }
+
+    .link-local-styles:active {
+      color: var(--amplify-colors-green-80);
     }
     ```
 

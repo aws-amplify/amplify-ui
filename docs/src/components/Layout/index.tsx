@@ -4,8 +4,13 @@ import { Heading, Link, Text, View, useTheme } from '@aws-amplify/ui-react';
 
 import { TableOfContents } from '../TableOfContents';
 import { Footer } from './Footer';
-import { GITHUB_REPO_FILE } from '@/data/links';
-import { DesignTokenIcon, ReactIcon, W3CIcon } from '@/components/Icons';
+import { GITHUB_REPO, GITHUB_REPO_FILE } from '@/data/links';
+import {
+  DesignTokenIcon,
+  ReactIcon,
+  W3CIcon,
+  GithubIcon,
+} from '@/components/Icons';
 
 export default function Page({
   children,
@@ -67,13 +72,14 @@ export default function Page({
 
   return (
     <>
-      <main className="docs-content">
+      <div className="docs-content">
         <section className="docs-content-body">
           <section className="docs-meta">
             <Heading level={1}>{title}</Heading>
-            <Text fontSize={tokens.fontSizes.xl} className="docs-description">
-              {description}
-            </Text>
+            {description ? (
+              <Text className="docs-description">{description}</Text>
+            ) : null}
+
             <View className="docs-component-links">
               {ariaPattern ? (
                 <Link
@@ -112,13 +118,25 @@ export default function Page({
                   React source
                 </Link>
               ) : null}
+              <Link
+                className="docs-component-link"
+                href={`${GITHUB_REPO}issues/new/choose`}
+                isExternal
+              >
+                <GithubIcon
+                  ariaLabel="GitHub"
+                  aria-hidden="true"
+                  marginInlineEnd={tokens.space.xs}
+                />
+                Feedback
+              </Link>
             </View>
           </section>
 
           {children}
         </section>
         <Footer />
-      </main>
+      </div>
 
       {!hideToc && headings.length ? (
         <TableOfContents title="Contents" headings={headings} />

@@ -9,7 +9,7 @@ Amplify UI is an open-source UI library with cloud-connected components that are
 
 ## Vue Documentation
 
-- https://ui.docs.amplify.aws/?platform=vue
+- https://ui.docs.amplify.aws/vue
 
 ## Features 🚀
 

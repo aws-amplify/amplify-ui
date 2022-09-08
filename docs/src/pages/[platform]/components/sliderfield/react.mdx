@@ -5,6 +5,7 @@ import {
   DefaultSliderFieldExample,
   ControlledSliderFieldExample,
   SliderFieldBasicsExample,
+  SliderFieldFormatValueExample,
   SliderFieldOrientationExample,
   SliderFieldAriaExample,
   SliderFieldIconsExample,
@@ -18,7 +19,7 @@ import {
 import { Example, ExampleCode } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
-import { ThemeAlert } from '@/components/ThemeAlert';
+import ThemeExample from '@/components/ThemeExample.mdx';
 
 ## Demo
 
@@ -135,6 +136,19 @@ To add icons on either side of the SliderField, you may use the `outerStartCompo
   </ExampleCode>
 </Example>
 
+### Format value
+To format how the `value` is displayed, you can pass in a render function to `formatValue` prop.
+
+<Example>
+  <SliderFieldFormatValueExample />
+  <ExampleCode>
+  ```jsx file=./examples/SliderFieldFormatValueExample.tsx
+
+  ```
+
+  </ExampleCode>
+</Example>
+
 ### Validation error
 
 To validate the SliderField input, use the `hasError` and `errorMessage` props.
@@ -151,25 +165,23 @@ To validate the SliderField input, use the `hasError` and `errorMessage` props.
 
 ## CSS Styling
 
+<ThemeExample component="SliderField">
+  <Example>
+    <SliderFieldThemeExample />
+    
+    <ExampleCode>
+
+    ```tsx file=./examples/SliderFieldThemeExample.tsx
+
+    ```
+
+    </ExampleCode>
+  </Example>
+</ThemeExample>
+
 ### Target classes
 
 <ComponentStyleDisplay componentName="SliderField" />
-
-### Theme
-
-<ThemeAlert />
-
-You can customize the appearance of all SliderField components in your application with a [Theme](/theming).
-
-<Example>
-  <SliderFieldThemeExample />
-  <ExampleCode>
-```jsx file=./examples/SliderFieldThemeExample.tsx
-
-````
-
-  </ExampleCode>
-</Example>
 
 ### Global styling
 
@@ -189,15 +201,6 @@ To override styling on all SliderField components, you can set the Amplify CSS v
   --amplify-components-sliderfield-range-background-color: var(
     --amplify-colors-orange-60
   );
-}
-```
-
-To replace SliderField styling, unset it:
-
-```css
-.amplify-sliderfield {
-  all: unset;
-  /* Add your styling here*/
 }
 ```
 
@@ -254,5 +257,3 @@ There are several props you can use to style different parts of the SliderField:
 
   </ExampleCode>
 </Example>
-
-```

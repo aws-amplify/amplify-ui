@@ -1,5 +1,292 @@
 # @aws-amplify/ui
 
+## 3.13.2
+
+### Patch Changes
+
+- [#2544](https://github.com/aws-amplify/amplify-ui/pull/2544) [`35dae2a3d`](https://github.com/aws-amplify/amplify-ui/commit/35dae2a3d7ec392c60a7302e3673e59a0e42b7aa) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(rwa): convert AuthChallengeNames enum to string union
+
+* [#2538](https://github.com/aws-amplify/amplify-ui/pull/2538) [`4a4b5c93d`](https://github.com/aws-amplify/amplify-ui/commit/4a4b5c93d37b66c845cbf20dac1e09e6e7931610) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(rwa): update user lookup in getServiceFacade, authenticator util typing and useAuthenticator updates
+
+- [#2539](https://github.com/aws-amplify/amplify-ui/pull/2539) [`ba9818fb7`](https://github.com/aws-amplify/amplify-ui/commit/ba9818fb7acc727eaf7968aad8ff4dd1ab36327b) Thanks [@ErikCH](https://github.com/ErikCH)! - Fixed bug in Angular Authenticator that caused the Setup TOTP page to not show the correct totpIssuer and totpUsername in the QR code when overwritten by formFields. Refactored and added in Jest tests for Angular.
+
+## 3.13.1
+
+### Patch Changes
+
+- [#2514](https://github.com/aws-amplify/amplify-ui/pull/2514) [`b60fec2c4`](https://github.com/aws-amplify/amplify-ui/commit/b60fec2c451b31946f893efbf23710c7631db122) Thanks [@zchenwei](https://github.com/zchenwei)! - chore: add indeterminate icon svg
+
+## 3.13.0
+
+### Minor Changes
+
+- [#2300](https://github.com/aws-amplify/amplify-ui/pull/2300) [`eae79ae15`](https://github.com/aws-amplify/amplify-ui/commit/eae79ae1529b9a920d704cb12e92addb352d0c40) Thanks [@zchenwei](https://github.com/zchenwei)! - feat: adding indeterminate state checkbox
+
+  Users can create an indeterminate `CheckboxField` by setting `isIndeterminate` prop to `true`.
+
+  **_Example_**
+
+  ```jsx
+  import * as React from 'react';
+
+  import { CheckboxField, Flex, View } from '@aws-amplify/ui-react';
+
+  export const CheckboxFieldIndeterminateExample = () => {
+    const [checkedItems, setCheckedItems] = React.useState([false, false]);
+    const checkedItemsRef = React.useRef(null);
+    const allChecked = checkedItems.every(Boolean);
+    const isIndeterminate = checkedItems.some(Boolean) && !allChecked;
+
+    if (isIndeterminate) {
+      checkedItemsRef.current = [...checkedItems];
+    }
+    const handleAllPetsChange = () => {
+      if (isIndeterminate) {
+        setCheckedItems([true, true]);
+      } else if (allChecked) {
+        setCheckedItems([false, false]);
+      } else if (checkedItemsRef.current) {
+        setCheckedItems(checkedItemsRef.current);
+      } else {
+        setCheckedItems([true, true]);
+      }
+    };
+
+    const handleCatChange = (e) => {
+      const newCheckedItems = [e.target.checked, checkedItems[1]];
+      if (!newCheckedItems.some(Boolean) || newCheckedItems.every(Boolean)) {
+        checkedItemsRef.current = null;
+      }
+      setCheckedItems(newCheckedItems);
+    };
+
+    const handleDogChange = (e) => {
+      const newCheckedItems = [checkedItems[0], e.target.checked];
+      if (!newCheckedItems.some(Boolean) || newCheckedItems.every(Boolean)) {
+        checkedItemsRef.current = null;
+      }
+      setCheckedItems(newCheckedItems);
+    };
+
+    return (
+      <Flex direction="column" gap="0">
+        <CheckboxField
+          name="all-pets"
+          label="All Pets"
+          value="allPets"
+          checked={allChecked}
+          isIndeterminate={isIndeterminate}
+          onChange={handleAllPetsChange}
+        />
+        <View paddingLeft="25px">
+          <CheckboxField
+            name="cat"
+            label="Cat"
+            value="cat"
+            checked={checkedItems[0]}
+            onChange={handleCatChange}
+          />
+          <CheckboxField
+            name="dog"
+            label="Dog"
+            value="dog"
+            checked={checkedItems[1]}
+            onChange={handleDogChange}
+          />
+        </View>
+      </Flex>
+    );
+  };
+  ```
+
+### Patch Changes
+
+- [#2432](https://github.com/aws-amplify/amplify-ui/pull/2432) [`b3e6a97e8`](https://github.com/aws-amplify/amplify-ui/commit/b3e6a97e8e17f6b822af0387e3c543c50aea7c64) Thanks [@wlee221](https://github.com/wlee221)! - Bump xstate to ^4.33.0. This will resolve "No implementation found" warnings.
+
+* [#2431](https://github.com/aws-amplify/amplify-ui/pull/2431) [`1cfa1a054`](https://github.com/aws-amplify/amplify-ui/commit/1cfa1a054451a75738f4011c4200c34208285b5b) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - This change adds a base background color for the SearchField component's button.
+
+- [#2398](https://github.com/aws-amplify/amplify-ui/pull/2398) [`e25bc4269`](https://github.com/aws-amplify/amplify-ui/commit/e25bc42693cc4fa1cdcf7ad2fe7034ff44fbb18e) Thanks [@zchenwei](https://github.com/zchenwei)! - fix: add missing token for default font size for SwitchField
+
+* [#2386](https://github.com/aws-amplify/amplify-ui/pull/2386) [`1f358d8fa`](https://github.com/aws-amplify/amplify-ui/commit/1f358d8fa18367020d0c41b74dcce1ba73974376) Thanks [@joebuono](https://github.com/joebuono)! - fix(ui): Apply styling to disabled SelectField options in Firefox
+
+## 3.12.5
+
+### Patch Changes
+
+- [#2343](https://github.com/aws-amplify/amplify-ui/pull/2343) [`de1c874f2`](https://github.com/aws-amplify/amplify-ui/commit/de1c874f294a3b21cc9d7a97b310d2744d18b065) Thanks [@ErikCH](https://github.com/ErikCH)! - Added 'Dismiss alert' to the set of dictionary keys for the authenticator
+
+* [#2367](https://github.com/aws-amplify/amplify-ui/pull/2367) [`3c468a0f3`](https://github.com/aws-amplify/amplify-ui/commit/3c468a0f34fb8f747b925dd1a66a0f0f0117436a) Thanks [@joebuono](https://github.com/joebuono)! - fix(ui): Add missing Authenticator translations for all available languages
+
+- [#2347](https://github.com/aws-amplify/amplify-ui/pull/2347) [`1fcfa3c02`](https://github.com/aws-amplify/amplify-ui/commit/1fcfa3c02dc8eedb2acdc7425be7311f5b1accef) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - fix(ui-react): Fixes an issue where TextAreaField does not show line breaks properly in Firefox.
+
+* [#2371](https://github.com/aws-amplify/amplify-ui/pull/2371) [`adc9ff6e3`](https://github.com/aws-amplify/amplify-ui/commit/adc9ff6e3c7d1408edb7de58c1858ddc4f47d1c7) Thanks [@cshfang](https://github.com/cshfang)! - fix(ui-react): Fixes an issue where the isTruncated prop of the Heading component was not properly applying a truncation.
+
+## 3.12.4
+
+### Patch Changes
+
+- [#2287](https://github.com/aws-amplify/amplify-ui/pull/2287) [`8418028a3`](https://github.com/aws-amplify/amplify-ui/commit/8418028a3218ea20ccb2ac949b1e6e33c57239e6) Thanks [@ErikCH](https://github.com/ErikCH)! - When first setting up TOTP with MFA the Authenticator is not returning the correct user object. This object did not contain the correct methods, and causes an error if you try to access those methods. This fix will now retrieve the correct user object when a user first sets up MFA TOTP.
+
+* [#2330](https://github.com/aws-amplify/amplify-ui/pull/2330) [`f067420b9`](https://github.com/aws-amplify/amplify-ui/commit/f067420b9a39807a46bd409dce17f2bcc297218e) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - ui-react(fix): Update StepperField disabled buttons styles, making them easier to see.
+
+- [#2304](https://github.com/aws-amplify/amplify-ui/pull/2304) [`d9dd9220c`](https://github.com/aws-amplify/amplify-ui/commit/d9dd9220c367bc476fddb36e89daff75d62e7f31) Thanks [@tmokmss](https://github.com/tmokmss)! - chore: add translation texts for Japanese
+
+## 3.12.3
+
+### Patch Changes
+
+- [#2242](https://github.com/aws-amplify/amplify-ui/pull/2242) [`bde5e7a48`](https://github.com/aws-amplify/amplify-ui/commit/bde5e7a48a144bf76f77b1b747dcc912ce8cec6e) Thanks [@pedrodotmc](https://github.com/pedrodotmc)! - Add missing spanish translations
+
+* [#2261](https://github.com/aws-amplify/amplify-ui/pull/2261) [`74e8c8935`](https://github.com/aws-amplify/amplify-ui/commit/74e8c89354bd551723f62ac2a3b60e5222d92d58) Thanks [@retrQJS](https://github.com/retrQJS)! - Added Russian as an option for Authenticator
+
+## 3.12.2
+
+### Patch Changes
+
+- [#2273](https://github.com/aws-amplify/amplify-ui/pull/2273) [`90eb39280`](https://github.com/aws-amplify/amplify-ui/commit/90eb392806c7875d2659bd0bb52aa6b68b849ce7) Thanks [@ErikCH](https://github.com/ErikCH)! - Added user-select property to 'text' for the amplify-input and the textArea primitives. This will help Ionic apps that set this property to none. In Webkit/Chromium-based browsers this is inherited and is causing inputs on those browsers to not work correctly.
+
+* [#2269](https://github.com/aws-amplify/amplify-ui/pull/2269) [`3b2d6c2af`](https://github.com/aws-amplify/amplify-ui/commit/3b2d6c2afb51178ed6ba6312c29b368c522e460a) Thanks [@ErikCH](https://github.com/ErikCH)! - Fixed bug that displayed "usernamed undefined" when using a lambda that autoconfirms the user during sign up. The sign up would fail and redirect the user to sign in with the "username undefined" error. The user then would have to sign in again. This patch will now assign the correct credentials during sign up for users that are auto confirmed.
+
+## 3.12.1
+
+### Patch Changes
+
+- [#2200](https://github.com/aws-amplify/amplify-ui/pull/2200) [`09d738a0f`](https://github.com/aws-amplify/amplify-ui/commit/09d738a0f9e1a67367b3bdb45bcb9644f20e2600) Thanks [@flogy](https://github.com/flogy)! - Fixed some German authenticator translations
+
+## 3.12.0
+
+### Minor Changes
+
+- [#2113](https://github.com/aws-amplify/amplify-ui/pull/2113) [`ffadbe883`](https://github.com/aws-amplify/amplify-ui/commit/ffadbe8837996fee24477ad5325559904c011150) Thanks [@jacoblogan](https://github.com/jacoblogan)! - Add Design Tokens to phonenumberfield primitive, which required matching tokens in selectfield and textfield primitives
+
+  ```
+  --amplify-components-phonenumberfield-color
+  --amplify-components-phonenumberfield-border-color
+  --amplify-components-phonenumberfield-font-size
+  --amplify-components-phonenumberfield-focus-border-color
+  ```
+
+* [#2123](https://github.com/aws-amplify/amplify-ui/pull/2123) [`897e55de9`](https://github.com/aws-amplify/amplify-ui/commit/897e55de962672d76cccdb5e13f8e4f180316a9b) Thanks [@jacoblogan](https://github.com/jacoblogan)! - add design tokens and theme section to stepperfield primitive
+
+  ```
+  --amplify-components-stepperfield-border-color
+  --amplify-components-stepperfield-input-color
+  --amplify-components-stepperfield-input-font-size
+  --amplify-components-stepperfield-button-color
+  --amplify-components-stepperfield-button-background-color
+  --amplify-components-stepperfield-button-active-color
+  --amplify-components-stepperfield-button-active-background-color
+  --amplify-components-stepperfield-button-focus-color
+  --amplify-components-stepperfield-button-focus-background-color
+  --amplify-components-stepperfield-button-disabled-color
+  --amplify-components-stepperfield-button-disabled-background-color
+  --amplify-components-stepperfield-button-hover-color
+  --amplify-components-stepperfield-button-hover-background-color
+  ```
+
+- [#2114](https://github.com/aws-amplify/amplify-ui/pull/2114) [`710a6ec43`](https://github.com/aws-amplify/amplify-ui/commit/710a6ec4313f19077f723b75cf804d8508abca77) Thanks [@jacoblogan](https://github.com/jacoblogan)! - add design tokens to radio group
+
+  ```
+  --amplify-components-radio-label-color
+  --amplify-components-radio-label-disabled-color
+  --amplify-components-radiogroup-button-border-width
+  --amplify-components-radiogroup-button-border-color
+  --amplify-components-radiogroup-button-background-color
+  --amplify-components-radiogroup-button-checked-color
+  --amplify-components-radiogroup-button-label-color
+  ```
+
+### Patch Changes
+
+- [#2074](https://github.com/aws-amplify/amplify-ui/pull/2074) [`bc882121a`](https://github.com/aws-amplify/amplify-ui/commit/bc882121a8d0e005099e2827c3bde68d56647100) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui-react): lint components/Authenticator directory
+
+## 3.11.1
+
+### Patch Changes
+
+- [#2133](https://github.com/aws-amplify/amplify-ui/pull/2133) [`c568b96bc`](https://github.com/aws-amplify/amplify-ui/commit/c568b96bc579b6d1f2783695b1c2f2237d4678b9) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(ui): Fixes max call stack issue on `createTheme` when passing a theme object with non-design-token nodes.
+
+  ```javascript
+  const theme = createTheme({
+    name: 'my-theme',
+    tokens: {
+      colors: {
+        background: {
+          // this should be primary: { value: '#f90' }
+          primary: '#f90',
+        },
+      },
+    },
+  });
+  ```
+
+## 3.11.0
+
+### Minor Changes
+
+- [#2085](https://github.com/aws-amplify/amplify-ui/pull/2085) [`e37b666d9`](https://github.com/aws-amplify/amplify-ui/commit/e37b666d967aa444984f9881e7267c0ea171716a) Thanks [@jacoblogan](https://github.com/jacoblogan)! - add design tokens and theme section to textareafield
+
+  ```
+    --amplify-components-textareafield-color
+    --amplify-components-textareafield-border-color
+    --amplify-components-textareafield-focus-border-color
+  ```
+
+* [#2087](https://github.com/aws-amplify/amplify-ui/pull/2087) [`540b4ce97`](https://github.com/aws-amplify/amplify-ui/commit/540b4ce97a7c68ea3783bc67e8da4cce1d52e706) Thanks [@jacoblogan](https://github.com/jacoblogan)! - add design tokens to passwordfield
+
+  ```
+  --amplify-components-passwordfield-color: var(--amplify-components-fieldcontrol-color);
+  --amplify-components-passwordfield-button-color: var(--amplify-components-button-color);
+  --amplify-components-passwordfield-button-active-background-color: var(--amplify-components-button-active-background-color);
+  --amplify-components-passwordfield-button-active-border-color: var(--amplify-components-button-active-border-color);
+  --amplify-components-passwordfield-button-active-color: var(--amplify-components-button-active-color);
+  --amplify-components-passwordfield-button-disabled-background-color: var(--amplify-components-button-disabled-background-color);
+  --amplify-components-passwordfield-button-disabled-border-color: var(--amplify-components-button-disabled-border-color);
+  --amplify-components-passwordfield-button-disabled-color: var(--amplify-components-button-disabled-color);
+  --amplify-components-passwordfield-button-focus-background-color: var(--amplify-components-button-focus-background-color);
+  --amplify-components-passwordfield-button-focus-border-color: var(--amplify-components-button-focus-border-color);
+  --amplify-components-passwordfield-button-focus-color: var(--amplify-components-button-focus-color);
+  --amplify-components-passwordfield-button-hover-background-color: var(--amplify-components-button-hover-background-color);
+  --amplify-components-passwordfield-button-hover-border-color: var(--amplify-components-button-hover-border-color);
+  --amplify-components-passwordfield-button-hover-color: var(--amplify-components-button-hover-color);
+  ```
+
+- [#2086](https://github.com/aws-amplify/amplify-ui/pull/2086) [`f6ee1355c`](https://github.com/aws-amplify/amplify-ui/commit/f6ee1355c75ee802c76a34d140c3e052fc0afaeb) Thanks [@jacoblogan](https://github.com/jacoblogan)! - add textfield design tokens
+
+  ```
+  --amplify-components-textfield-color: var(--amplify-components-fieldcontrol-color);
+  --amplify-components-textfield-border-color: var(--amplify-components-fieldcontrol-border-color);
+  --amplify-components-textfield-focus-border-color: var(--amplify-components-fieldcontrol-focus-border-color);
+  ```
+
+### Patch Changes
+
+- [#2054](https://github.com/aws-amplify/amplify-ui/pull/2054) [`5eedbbed4`](https://github.com/aws-amplify/amplify-ui/commit/5eedbbed4d04fc00a50d37ae3be61522212eb5cb) Thanks [@zchenwei](https://github.com/zchenwei)! - feat: adding colors theme key support in style props
+
+  **_Example code_**
+
+  ```jsx
+  import { View } from '@aws-amplify/ui-react';
+
+  export const Demo = () => {
+    return <View backgroundColor="pink.10" color="red.40" />;
+  };
+  ```
+
+* [#2071](https://github.com/aws-amplify/amplify-ui/pull/2071) [`ef790e5fd`](https://github.com/aws-amplify/amplify-ui/commit/ef790e5fd0d6c91311a4db2456f7de10f8fdad7a) Thanks [@wlee221](https://github.com/wlee221)! - fix(authenticator): explicitly filter special characters allowed by Cognito
+
+- [#2077](https://github.com/aws-amplify/amplify-ui/pull/2077) [`736cfe7cb`](https://github.com/aws-amplify/amplify-ui/commit/736cfe7cb3544bf0ecae5ab2c3b2caf381b497c4) Thanks [@zchenwei](https://github.com/zchenwei)! - feat(style): adding theme key support on more style props(`font-family`, `line-height`, `opacity`, `box-shadow` and `transform`)
+
+* [#2075](https://github.com/aws-amplify/amplify-ui/pull/2075) [`d8085741b`](https://github.com/aws-amplify/amplify-ui/commit/d8085741b23175458adba9b3c05e97408aaa6413) Thanks [@wlee221](https://github.com/wlee221)! - refactor(ui): create shared variable for password special characters
+
+- [#2102](https://github.com/aws-amplify/amplify-ui/pull/2102) [`a168acdc6`](https://github.com/aws-amplify/amplify-ui/commit/a168acdc69e7e44625b0bbf30a020dc1f7bcde8e) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix: nested theme providers by removing menu's portal.
+  Menu primitive no longer renders in a React Portal which means it properly gets the theme from the nearest ThemeProvider.
+  Removing the document element modifications in the ThemeProvider because it is no longer needed. Now the ThemeProvider is much cleaner!
+
+* [#2084](https://github.com/aws-amplify/amplify-ui/pull/2084) [`5f3d3a264`](https://github.com/aws-amplify/amplify-ui/commit/5f3d3a2642401788f1fc79334140c5f3cfc83876) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix: dark mode and disabled button. No longer using pure black and making the disabled button look mor disabled.
+
+- [#2070](https://github.com/aws-amplify/amplify-ui/pull/2070) [`28bf92ddb`](https://github.com/aws-amplify/amplify-ui/commit/28bf92ddbd893a3c2839d5215537f845db46b181) Thanks [@zchenwei](https://github.com/zchenwei)! - feat: adding theme key(`radii`, `space`, `fontSizes`, and `fontWeights`) support for more style props
+
 ## 3.10.0
 
 ### Minor Changes

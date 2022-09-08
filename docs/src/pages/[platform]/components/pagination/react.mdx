@@ -1,8 +1,8 @@
-import { Pagination } from '@aws-amplify/ui-react';
-import { PaginationDemo } from './demo.tsx';
+import { PaginationDemo } from './demo';
+import { Pagination, Link } from '@aws-amplify/ui-react';
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
-import { ThemeAlert } from '@/components/ThemeAlert';
+import ThemeExample from '@/components/ThemeExample.mdx';
 import {
   ControlledPaginationExample,
   DefaultPaginationExample,
@@ -84,15 +84,19 @@ It's common to use a paged API where the total number of pages in the dataset is
 
 ## Accessibility
 
-By default, the root node of the Pagination component has a role of `navigation`. The previous-page button `<` has `aria-label="Go to previous page"` by default, and likewise, the next-page button `>` has `aria-label=Go to next page`. The current page is labelled by an invisible text [`Current Page:`](https://www.w3.org/WAI/tutorials/menus/structure/#indicate-the-current-item) in conjunction with the current page number (e.g, `Current Page: 1` if page `1` is the current page). Other pages by default have `aria-label=Go to page X`, where `X` is the number of the page. To customize these labels:
+Accessible labels are provided for the Pagination buttons either via the `aria-label` attribute or by using the [VisuallyHidden](/react/components/visuallyhidden) primitive.
 
-- `previousLabel`: Set the `aria-label` for the left arrow button `<` (defaults to `Go to previous page`)
+Use the following props to customize these labels:
 
-- `nextLabel`: Set the `aria-label` for the right arrow button `>` (defaults to `Go to next page`)
+- **`previousLabel`**: Set the `aria-label` for the previous page button (defaults to `Go to previous page`)
 
-- `currentPageLabel`: Set the invisible label for current page (defaults to `Current Page:`). It will be used to construct the label text for current page. e.g, `Current Page: 1` if page `1` is the current page.
+- **`nextLabel`**: Set the `aria-label` for the next page button (defaults to `Go to next page`)
 
-- `pageLabel`: Set the label for each page button other than the current page (defaults to `Go to page`). It will be used to construct the `aria-label`. e.g, `Go to page 1` for page `1` button.
+- **`currentPageLabel`**: Set the `VisuallyHidden` label for current page (defaults to `Page`). This will be used to construct the label text for current page. e.g, `Page: 1` if page `1` is the current page.
+
+- **`pageLabel`**: Set the label for each page button other than the current page (defaults to `Go to page`). This will be used to construct the `aria-label`. e.g, `Go to page 1` for page `1` button.
+
+By default, the root node of the Pagination component is a `<nav>` element. Elements with the navigation role, like `<nav>`, <Link href="https://www.w3.org/WAI/ARIA/apg/practices/landmark-regions/#aria_lh_step3" isExternal>require unique labels if there are multiple on the same page</Link>. Passing an `aria-label` to the Pagination component is one way to accomodate this.
 
 <Example>
   <PaginationAccessibilityExample />
@@ -106,25 +110,24 @@ By default, the root node of the Pagination component has a role of `navigation`
 
 ## CSS styling
 
-### Target classes
+<ThemeExample component="Pagination">
+  <Example>
+    <PaginationThemeExample />
+    
+    <ExampleCode>
 
-<ComponentStyleDisplay componentName="Pagination" />
-
-### Theme
-
-<ThemeAlert />
-
-You can customize the appearance of all Pagination components in your application with a [Theme](/theming).
-
-<Example>
-  <PaginationThemeExample />
-  <ExampleCode>
     ```tsx file=./examples/PaginationThemeExample.tsx
 
     ```
 
-  </ExampleCode>
-</Example>
+    </ExampleCode>
+  </Example>
+</ThemeExample>
+
+
+### Target classes
+
+<ComponentStyleDisplay componentName="Pagination" />
 
 ### Global styling
 

@@ -1,3 +1,4 @@
+import { Fragment } from '@/components/Fragment'; 
 import { Placeholder } from '@aws-amplify/ui-react';
 
 import { PlaceholderDemo } from './demo';
@@ -10,7 +11,7 @@ import {
 } from './examples';
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
-import { ThemeAlert } from '@/components/ThemeAlert';
+import ThemeExample from '@/components/ThemeExample.mdx';
 
 ## Demo
 
@@ -60,25 +61,23 @@ Use the `size` prop to change the Placeholder size. Available options are `small
 
 ## Customization
 
-### Target classes
+<ThemeExample component="Placeholder">
+  <Example>
+    <PlaceholderThemeExample />
+    
+    <ExampleCode>
 
-<ComponentStyleDisplay componentName="Placeholder" />
-
-### Theme
-
-<ThemeAlert />
-
-You can customize the appearance of all Placeholders in your application with a [Theme](/theming).
-
-<Example>
-  <PlaceholderThemeExample />
-  <ExampleCode>
-    ```jsx file=./examples/PlaceholderThemeExample.tsx
+    ```tsx file=./examples/PlaceholderThemeExample.tsx
 
     ```
 
-  </ExampleCode>
-</Example>
+    </ExampleCode>
+  </Example>
+</ThemeExample>
+
+### Target classes
+
+<ComponentStyleDisplay componentName="Placeholder" />
 
 ### Global styling
 

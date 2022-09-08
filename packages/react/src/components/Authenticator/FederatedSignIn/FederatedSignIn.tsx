@@ -1,11 +1,12 @@
+import React from 'react';
 import { FederatedIdentityProviders, translate } from '@aws-amplify/ui';
 
-import { useAuthenticator } from '../hooks/useAuthenticator';
 import { Divider } from '../../../primitives/Divider';
 import { Flex } from '../../../primitives/Flex';
+import { useAuthenticator } from '../hooks/useAuthenticator';
 import { FederatedSignInButton } from './FederatedSignInButtons';
 
-export function FederatedSignIn() {
+export function FederatedSignIn(): JSX.Element {
   // TODO: expose `socialProviders`
   const { _state, route } = useAuthenticator((context) => [context.route]);
   const { socialProviders = [] } = _state.context.config;
@@ -61,8 +62,9 @@ export function FederatedSignIn() {
               />
             );
           default:
+            // eslint-disable-next-line no-console
             console.error(
-              `Authenicator does not support ${provider}. Please open an issue: https://github.com/aws-amplify/amplify-ui/issues/choose`
+              `Authenticator does not support ${provider}. Please open an issue: https://github.com/aws-amplify/amplify-ui/issues/choose`
             );
         }
       })}

@@ -17,7 +17,11 @@ export const RatingIcon: React.FC<RatingIconProps> = ({
   className,
 }) => {
   return (
-    <View as="span" className="amplify-rating-icon-container">
+    <View
+      as="span"
+      className="amplify-rating-icon-container"
+      aria-hidden="true"
+    >
       <View as="span" className={classNames(className)} color={fill}>
         {icon}
       </View>

@@ -68,10 +68,23 @@ export const listenToAuthHub = (
   service: AuthInterpreter,
   handler: HubHandler = defaultAuthHubHandler
 ) => {
-  return Hub.listen('auth', (data) => {
-    handler(data, service);
-  });
+  return Hub.listen(
+    'auth',
+    (data) => {
+      handler(data, service);
+    },
+    'authenticator-hub-handler'
+  );
 };
 
 export const hasSpecialChars = (password: string) =>
   ALLOWED_SPECIAL_CHARACTERS.some((char) => password.includes(char));
+
+export const getTotpCode = (
+  issuer: string,
+  username: string,
+  secret: string
+): string =>
+  encodeURI(
+    `otpauth://totp/${issuer}:${username}?secret=${secret}&issuer=${issuer}`
+  );

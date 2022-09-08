@@ -1,6 +1,7 @@
 import {
   AlignItemsValue,
   BackgroundColorValue,
+  ColorValue,
   CursorValue,
   DesignToken,
   DisplayValue,
@@ -30,6 +31,10 @@ interface SelectIconWrapperTokens {
 
 interface SelectOptionTokens {
   backgroundColor: DesignToken<BackgroundColorValue>;
+  color: DesignToken<ColorValue>;
+  _disabled: {
+    color: DesignToken<ColorValue>;
+  };
 }
 
 interface SelectSizeTokens {
@@ -67,6 +72,10 @@ export const select: SelectTokens = {
   // for Firefox only, to fix background color in darkmode
   option: {
     backgroundColor: { value: '{colors.background.primary.value}' },
+    color: { value: '{colors.font.primary.value}' },
+    _disabled: {
+      color: { value: '{colors.font.disabled.value}' },
+    },
   },
   whiteSpace: { value: 'nowrap' },
   minWidth: { value: '6.5rem' },

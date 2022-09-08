@@ -1,8 +1,9 @@
+import { Fragment } from '@/components/Fragment'; 
 import { Text } from '@aws-amplify/ui-react';
 import { TextDemo, TextStylingSample } from './demo';
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
-import { ThemeAlert } from '@/components/ThemeAlert';
+import ThemeExample from '@/components/ThemeExample.mdx';
 import {
   DefaultTextExample,
   GlobalStylingExample,
@@ -58,6 +59,20 @@ The `isTruncated` prop will render an ellipsis when the text exceeds the defined
 </Example>
 
 ## CSS Styling
+
+<ThemeExample component="Text">
+  <Example>
+    <TextThemeExample />
+    
+    <ExampleCode>
+
+    ```tsx file=./examples/TextThemeExample.tsx
+
+    ```
+
+    </ExampleCode>
+  </Example>
+</ThemeExample>
 
 ### Target classes
 
@@ -119,20 +134,6 @@ _Using style props:_
   <LocalStylingExample />
   <ExampleCode>
     ```jsx file=./examples/LocalStyling.tsx
-
-    ```
-
-  </ExampleCode>
-</Example>
-
-### Theme
-
-<ThemeAlert />
-
-<Example>
-  <TextThemeExample />
-  <ExampleCode>
-    ```jsx file=./examples/TextTheme.tsx
 
     ```
 

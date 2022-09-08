@@ -1,7 +1,7 @@
-import { Card, Flex, Grid, Heading } from '@aws-amplify/ui-react';
+import { useRouter } from 'next/router';
+import { Flex, Heading, Icon } from '@aws-amplify/ui-react';
 import {
   baseComponents,
-  connectedComponents,
   dataDisplayComponents,
   feedbackComponents,
   inputComponents,
@@ -10,38 +10,36 @@ import {
   utilityComponents,
 } from '@/data/links';
 
-import Link from 'next/link';
-import { useCustomRouter } from '@/components/useCustomRouter';
+import { CardLink, CardLinkGroup } from '@/components/CardLink';
 
 const ComponentGrid = ({ components }) => {
   const {
     query: { platform = 'react' },
-  } = useCustomRouter();
+  } = useRouter();
 
   return (
-    <Grid
-      templateColumns={{ base: '1fr', large: '1fr 1fr' }}
-      gap="var(--amplify-space-large)"
-    >
-      {components.map(({ href, label, body }) => (
-        <Link href={`/${platform}${href}`} key={href} passHref>
-          <Card className="docs-component-card" variation="elevated">
-            <Heading level={4}>{label}</Heading>
-            <div className="docs-component-card-contents">{body}</div>
-          </Card>
-        </Link>
+    <CardLinkGroup>
+      {components.map(({ href, label, body, icon }) => (
+        <CardLink
+          variation="branded"
+          icon={icon ? <Icon ariaLabel="" as={icon} /> : null}
+          href={`/${platform}${href}`}
+          key={href}
+          title={label}
+          desc={body}
+        />
       ))}
-    </Grid>
+    </CardLinkGroup>
   );
 };
 
 const ComponentGridSection = ({ heading, components }) => {
-  const { query } = useCustomRouter();
+  const { query } = useRouter();
   const { platform = 'react' } = query;
 
   const platformComponents = components.filter((component) => {
     if (component.platforms) {
-      return component.platforms.includes(platform);
+      return component.platforms.includes(platform) && !component.tertiary;
     }
     return true;
   });
@@ -60,11 +58,6 @@ const ComponentGridSection = ({ heading, components }) => {
 export const ComponentsGrid = () => {
   return (
     <Flex direction="column" gap="var(--amplify-space-large)">
-      <ComponentGridSection
-        heading={'Connected components'}
-        components={connectedComponents}
-      ></ComponentGridSection>
-
       <ComponentGridSection
         heading={'Base components'}
         components={baseComponents}

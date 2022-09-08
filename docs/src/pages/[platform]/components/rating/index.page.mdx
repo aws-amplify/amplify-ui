@@ -1,11 +1,36 @@
 ---
 title: Rating
-description: The Rating component displays a read-only star rating of a product or service.
+description: Rating displays a read-only star rating of a product or service.
 themeSource: packages/ui/src/theme/tokens/components/rating.ts
 reactSource: packages/react/src/primitives/Rating/Rating.tsx
+mdnUrl: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div
+htmlElement: div
 supportedFrameworks: react
 ---
 
 import { Fragment } from '@/components/Fragment';
+import { PageTabLayout } from '@/components/Layout/PageTabLayout';
 
-<Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+import { getCustomStaticPath } from "@/utils/getCustomStaticPath";
+
+export async function getStaticPaths() {
+  return getCustomStaticPath(frontmatter.supportedFrameworks);
+}
+
+{/*  `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" */}
+
+export async function getStaticProps() {
+  return { props: {} }
+}
+
+<PageTabLayout 
+  tabComponents={[{
+    title: "Documentation", 
+    children: <Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+  },
+  {
+    title: "Props", 
+    children: <Fragment>{({ platform }) => import('./props-table.mdx')}</Fragment>
+  }]}
+/>
+        

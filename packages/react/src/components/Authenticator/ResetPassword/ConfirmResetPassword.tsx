@@ -1,3 +1,4 @@
+import React from 'react';
 import { translate } from '@aws-amplify/ui';
 
 import { Flex } from '../../../primitives/Flex';
@@ -55,10 +56,12 @@ export const ConfirmResetPassword = ({
   );
 };
 
-ConfirmResetPassword.Header = () => {
+ConfirmResetPassword.Header = function Header(): JSX.Element {
   const headerText = translate('Reset your password');
 
   return <Heading level={3}>{headerText}</Heading>;
 };
 
-ConfirmResetPassword.Footer = (): JSX.Element => null;
+ConfirmResetPassword.Footer = function Footer(): JSX.Element {
+  return null;
+};

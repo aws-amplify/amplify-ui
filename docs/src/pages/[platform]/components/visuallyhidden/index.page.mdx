@@ -1,10 +1,33 @@
 ---
 title: VisuallyHidden
-description: The VisuallyHidden primitive is used to visually hide content while leaving it available for screen readers
+description: VisuallyHidden is used to visually hide content while leaving it available for screen readers.
 reactSource: packages/react/src/primitives/VisuallyHidden/VisuallyHidden.tsx
+mdnUrl: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span
+htmlElement: span
 supportedFrameworks: react
 ---
 
 import { Fragment } from '@/components/Fragment';
+import { PageTabLayout } from "@/components/Layout/PageTabLayout"
+import { getCustomStaticPath } from "@/utils/getCustomStaticPath";
 
-<Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+export async function getStaticPaths() {
+  return getCustomStaticPath(frontmatter.supportedFrameworks);
+}
+
+{/*  `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" */}
+
+export async function getStaticProps() {
+  return { props: {} }
+}
+
+<PageTabLayout 
+  tabComponents={[{
+    title: "Documentation", 
+    children: <Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+  },
+  {
+    title: "Props", 
+    children: <Fragment>{({ platform }) => import('./props-table.mdx')}</Fragment>
+  }]}
+/>

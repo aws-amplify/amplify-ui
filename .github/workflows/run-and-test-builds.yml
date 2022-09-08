@@ -1,3 +1,8 @@
+# Description: this workflow runs build and simple runtime tests on supported
+#              frameworks and their build systems.
+#
+# Triggered by: it runs every 15 minutes.
+
 name: Run and Test Builds
 
 on:
@@ -18,7 +23,9 @@ jobs:
           - react/cra-ts
           - react/next
           - react/vite
+          - react/vite3
           - vue/vite
+          - vue/vite3
           - vue/vuecli
     steps:
       - name: Checkout Amplify UI
@@ -32,9 +39,11 @@ jobs:
           cache: 'yarn'
       - name: Ignore monorepo postcss.config.js
         run: mv postcss.config.js _postcss.config.js
-      - name: Install packages
-        run: for n in {1..3}; do yarn install --no-lockfile && break || sleep 5; done
-        working-directory: ./canary/apps/${{ matrix.path }}
+      - name: Install canary package
+        uses: ./.github/actions/install-with-retries
+        with:
+          no-lockfile: true
+          working-directory: ./canary/apps/${{ matrix.path }}
       - name: Add Amplify CLI
         run: yarn global add @aws-amplify/cli
       - name: Get CLI versions
@@ -56,9 +65,30 @@ jobs:
       - name: Build example app
         run: yarn build
         working-directory: ./canary/apps/${{ matrix.path }}
-      - name: Install cypress
-        run: for n in {1..3}; do yarn install --no-lockfile && break || sleep 5; done
-        working-directory: ./canary/e2e
+      # This steps attempts to restore cypress runner. It will not create any new
+      # cache entries however, because cypress runner isn't available yet.
+      - name: Restore cypress runner from Cache
+        uses: actions/cache@v2
+        id: restore-cypress-cache
+        with:
+          path: ~/.cache/Cypress
+          key: ${{ runner.os }}-canary-cypress-${{ hashFiles('canary/e2e/yarn.lock') }}
+      - name: Install e2e packages
+        uses: ./.github/actions/install-with-retries
+        with:
+          working-directory: ./canary/e2e
+          # If we got a cache hit on cypress runner, then we will skip cypress binary
+          # installation. Otherwise, it will install cypress binary.
+          skip-cypress-binary: ${{ steps.restore-cypress-cache.outputs.cache-hit }}
+      # If cypress cache was missed, then we need to create new cache entry and upload it.
+      # At this point, cypress runner should've been installed from the previous installation
+      # step, so we go ahead and update the cache entry.
+      - name: Cache cypress runner
+        if: steps.restore-cypress-cache.outputs.cache-hit != 'true'
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/Cypress
+          key: ${{ runner.os }}-canary-cypress-${{ hashFiles('canary/e2e/yarn.lock') }}
       - name: Start ${{ matrix.example }} example
         run: yarn start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000
         working-directory: ./canary/apps/${{ matrix.path }}
@@ -73,32 +103,32 @@ jobs:
           NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
           VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
 
-  trigger-failure-alarm:
-    # Triggers an alarm if any of builds failed.
+  log-failure-metric:
+    # Send data point 1 to metricRunTimeTestsFailure, if it's a failure
     runs-on: ubuntu-latest
     environment: ci
     needs: build
     if: ${{ failure() }}
     steps:
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
+      - name: Log failure data point to metric RunTimeTestsFailure
+        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
-      - run: aws cloudwatch put-metric-data --metric-name RunTimeTestsFailure --namespace GithubCanaryApps --value 1
+          metric-name: RunTimeTestsFailure
+          value: 1
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-  trigger-sucess-alarm:
-    # Triggers an alarm if all the builds succeed
+  log-success-metric:
+    # Send data point 0 to metric RunTimeTestsFailure, if  it's a success
     runs-on: ubuntu-latest
     environment: ci
     needs: build
     if: ${{ success() }}
     steps:
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
+      - name: Log success data point to metric RunTimeTestsFailure
+        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
-      - run: aws cloudwatch put-metric-data --metric-name RunTimeTestsFailure --namespace GithubCanaryApps --value 0
+          metric-name: RunTimeTestsFailure
+          value: 0
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

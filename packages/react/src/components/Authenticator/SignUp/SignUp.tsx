@@ -1,3 +1,4 @@
+import React from 'react';
 import { translate } from '@aws-amplify/ui';
 
 import { Button } from '../../../primitives/Button';
@@ -8,9 +9,9 @@ import { useAuthenticator } from '../hooks/useAuthenticator';
 import { useCustomComponents } from '../hooks/useCustomComponents';
 import { useFormHandlers } from '../hooks/useFormHandlers';
 import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
-import { FormFields } from '../shared/FormFields';
+import { FormFields as DefaultFormFields } from '../shared/FormFields';
 
-export function SignUp() {
+export function SignUp(): JSX.Element {
   const { hasValidationErrors, isPending } = useAuthenticator((context) => [
     context.hasValidationErrors,
     context.isPending,
@@ -49,7 +50,7 @@ export function SignUp() {
 
           <Button
             isDisabled={hasValidationErrors || isPending}
-            isFullWidth={true}
+            isFullWidth
             type="submit"
             variation="primary"
             isLoading={isPending}
@@ -65,6 +66,12 @@ export function SignUp() {
   );
 }
 
-SignUp.Header = (): JSX.Element => null;
-SignUp.FormFields = () => <FormFields />;
-SignUp.Footer = (): JSX.Element => null;
+SignUp.Header = function Header(): JSX.Element {
+  return null;
+};
+SignUp.FormFields = function FormFields() {
+  return <DefaultFormFields />;
+};
+SignUp.Footer = function Footer(): JSX.Element {
+  return null;
+};

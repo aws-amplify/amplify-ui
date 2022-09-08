@@ -1,10 +1,5 @@
-import {
-  AuthChallengeNames,
-  getActorState,
-  SignInContext,
-  SignInState,
-  translate,
-} from '@aws-amplify/ui';
+import React from 'react';
+import { getActorState, translate } from '@aws-amplify/ui';
 
 import { Flex } from '../../../primitives/Flex';
 import { Heading } from '../../../primitives/Heading';
@@ -60,16 +55,16 @@ export const ConfirmSignIn = ({
 function Header() {
   // TODO: expose challengeName
   const { _state } = useAuthenticator();
-  const actorState = getActorState(_state) as SignInState;
+  const actorState = getActorState(_state);
 
-  const { challengeName } = actorState.context as SignInContext;
+  const { challengeName } = actorState.context;
   let headerText: string;
 
   switch (challengeName) {
-    case AuthChallengeNames.SMS_MFA:
+    case 'SMS_MFA':
       headerText = translate('Confirm SMS Code');
       break;
-    case AuthChallengeNames.SOFTWARE_TOKEN_MFA:
+    case 'SOFTWARE_TOKEN_MFA':
       headerText = translate('Confirm TOTP Code');
       break;
     default:
@@ -84,4 +79,6 @@ function Header() {
 }
 
 ConfirmSignIn.Header = Header;
-ConfirmSignIn.Footer = (): JSX.Element => null;
+ConfirmSignIn.Footer = function Footer(): JSX.Element {
+  return null;
+};

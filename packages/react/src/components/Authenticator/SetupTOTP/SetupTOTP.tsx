@@ -7,6 +7,7 @@ import {
   getActorState,
   SignInState,
   translate,
+  getTotpCode,
 } from '@aws-amplify/ui';
 
 import { Flex } from '../../../primitives/Flex';
@@ -20,11 +21,6 @@ import { FormFields } from '../shared/FormFields';
 import { RouteContainer, RouteProps } from '../RouteContainer';
 
 const logger = new Logger('SetupTOTP-logger');
-
-export const getTotpCode = (issuer: string, username: string, secret: string) =>
-  encodeURI(
-    `otpauth://totp/${issuer}:${username}?secret=${secret}&issuer=${issuer}`
-  );
 
 export const SetupTOTP = ({
   className,
@@ -51,7 +47,7 @@ export const SetupTOTP = ({
   const actorState = getActorState(_state) as SignInState;
 
   const { formFields, user } = actorState.context;
-  const { totpIssuer = 'AWSCognito', totpUsername = user.username } =
+  const { totpIssuer = 'AWSCognito', totpUsername = user?.username } =
     formFields?.setupTOTP?.QR ?? {};
 
   const generateQRCode = React.useCallback(
@@ -134,8 +130,10 @@ export const SetupTOTP = ({
   );
 };
 
-SetupTOTP.Header = () => {
+SetupTOTP.Header = function Header(): JSX.Element {
   return <Heading level={3}>{translate('Setup TOTP')}</Heading>;
 };
 
-SetupTOTP.Footer = (): JSX.Element => null;
+SetupTOTP.Footer = function Footer(): JSX.Element {
+  return null;
+};

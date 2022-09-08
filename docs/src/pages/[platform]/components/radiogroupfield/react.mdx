@@ -4,7 +4,7 @@ import { RadioGroupFieldDemo } from './demo';
 import { Example, ExampleCode } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
-import { ThemeAlert } from '@/components/ThemeAlert';
+import ThemeExample from '@/components/ThemeExample.mdx';
 
 import {
   BasicExample,
@@ -15,7 +15,7 @@ import {
   LabelPositionExample,
   ReadOnlyExample,
   SizeExample,
-  ThemeExample,
+  RadioGroupFieldThemeExample,
 } from './examples';
 
 ## Demo
@@ -24,7 +24,11 @@ import {
 
 ## Usage
 
-Import the Radio and RadioGroupField components.
+Import the Radio and RadioGroupField components, and nest the Radio options inside the RadioGroupField. 
+
+RadioGroupField requires both `label` and `name` for accessibility and form submission, respectively. Radio only requires the `value` prop, which will be submitted with form data. 
+
+You also have the option to set a Radio as pre-selected by passing its `value` to the `defaultValue` prop on the RadioGroupField. 
 
 <Example>
   <BasicExample />
@@ -39,6 +43,8 @@ Import the Radio and RadioGroupField components.
 
 ### Controlled component
 
+To manually control the RadioGroupField state, you can use the `value` and `onChange` props. 
+
 <Example>
   <ControlledExample />
   <ExampleCode>
@@ -49,10 +55,6 @@ Import the Radio and RadioGroupField components.
 
   </ExampleCode>
 </Example>
-
-### Accessibility / Label behavior
-
-<Fragment>{() => import('./../shared/formFieldAccessibility.mdx')}</Fragment>
 
 ### Sizes
 
@@ -71,7 +73,7 @@ Use the `size` prop to change the RadioGroupField size. Available options are `s
 
 ### Direction
 
-Use the `direction` prop to change the RadioGroupField size. Available options are `row`, and `column` (default).
+Use the `direction` prop to change the RadioGroupField direction. Available options are `row` and `column` (default).
 
 <Example>
   <DirectionExample />
@@ -85,6 +87,8 @@ Use the `direction` prop to change the RadioGroupField size. Available options a
 </Example>
 
 ### Label position
+
+Use the `labelPosition` prop to control where the label is in relation to the Radio. You may pass `labelPosition` to either the RadioGroupField or individual Radios.
 
 <Example>
   <LabelPositionExample />
@@ -129,7 +133,7 @@ The available RadioGroupField states include `isDisabled` and `isReadonly`. A di
 
 ### Validation error
 
-Use the `hasError` and `errorMessage` props to mark a RadioGroupField as having an validation error.
+Use the `hasError` and `errorMessage` props to mark a RadioGroupField as having a validation error.
 
 <Example>
   <ErrorExample />
@@ -142,22 +146,25 @@ Use the `hasError` and `errorMessage` props to mark a RadioGroupField as having 
   </ExampleCode>
 </Example>
 
-## Styling
+### Accessibility / Label behavior
 
-### Theme
+<Fragment>{() => import('./../shared/formFieldAccessibility.mdx')}</Fragment>
 
-<ThemeAlert />
+## CSS Styling
 
-<Example>
-  <ThemeExample />
-  <ExampleCode>
+<ThemeExample component="RadioGroupField" link="radioGroup">
+  <Example>
+    <RadioGroupFieldThemeExample />
+    
+    <ExampleCode>
 
-    ```jsx file=./examples/ThemeExample.tsx
+    ```tsx file=./examples/RadioGroupFieldThemeExample.tsx
 
     ```
 
-  </ExampleCode>
-</Example>
+    </ExampleCode>
+  </Example>
+</ThemeExample>
 
 ### Target classes
 
@@ -167,16 +174,34 @@ Use the `hasError` and `errorMessage` props to mark a RadioGroupField as having 
 
 To override styling on all Radio buttons, you can set the Amplify CSS variables or use the built-in `.amplify-radio__button` class.
 
+<RadioGroupField
+  label="Colors"
+  name="colors"
+  defaultValue="a"
+  labelHidden
+  className="global-radio-styling"
+>
+  <Radio value="a">
+    A
+  </Radio>
+  <Radio value="b">
+    B
+  </Radio>
+  <Radio value="c">
+    C
+  </Radio>
+</RadioGroupField>
+
 ```css
 /* styles.css */
-:root {
-  --amplify-components-radio-button-border-color: yellow;
-  --amplify-components-radio-button-background-color: yellow;
+[data-amplify-theme] {
+  --amplify-components-radio-button-background-color: green;
+  --amplify-components-radio-button-border-color: lightgreen;
 }
 /* OR */
 .amplify-radio__button {
-  border-color: yellow;
-  background-color: yellow;
+  background-color: green;
+  border-color: lightgreen;
 }
 ```
 
@@ -193,17 +218,23 @@ To replace Radio button styling, unset it:
 
 To override styling on a specific Radio, you can use (in order of increasing specificity): a class selector, data attributes, or style props.
 
-#### Using a class selector
+_Using a class selector:_
 
 <Example>
   <RadioGroupField
-    label="Language"
-    name="example-13"
-    defaultValue="html"
+    label="Colors"
+    name="colors"
+    defaultValue="red"
     labelHidden
   >
-    <Radio value="html" className="custom-radio">
-      {`html`}
+    <Radio value="red" className="custom-radio">
+      Red
+    </Radio>
+    <Radio value="orange" className="custom-radio">
+      Orange
+    </Radio>
+    <Radio value="yellow" className="custom-radio">
+      Yellow
     </Radio>
   </RadioGroupField>
   
@@ -212,15 +243,14 @@ To override styling on a specific Radio, you can use (in order of increasing spe
 ```css
 /* styles.css */
 .custom-radio .amplify-radio__input:checked + .amplify-radio__button {
-  color: white;
-  border-color: crimson;
-  background-color: crimson;
+  background-color: orange;
+  border-color: red;
+  color: yellow;
 }
 ```
 
 ```jsx
 import { Radio, RadioGroupField } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
 
 <RadioGroupField label="Language" name="language" defaultValue="html">
   <Radio value="html" className="custom-radio">
@@ -232,7 +262,7 @@ import '@aws-amplify/ui-react/styles.css';
   </ExampleCode>
 </Example>
 
-#### Using data attributes
+_Using data attributes:_
 
 ```css
 /* styles.css */

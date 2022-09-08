@@ -1,11 +1,34 @@
 ---
 title: Heading
-description: A Heading primitive is used for semantic section heading text representing six levels.
+description: Heading renders semantic section heading text representing six levels.
 themeSource: packages/ui/src/theme/tokens/components/heading.ts
 reactSource: packages/react/src/primitives/Heading/Heading.tsx
+mdnUrl: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements
+htmlElement: h1-h6
 supportedFrameworks: react
 ---
 
 import { Fragment } from '@/components/Fragment';
+import { PageTabLayout } from '@/components/Layout/PageTabLayout';
+import { getCustomStaticPath } from "@/utils/getCustomStaticPath";
 
-<Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+export async function getStaticPaths() {
+  return getCustomStaticPath(frontmatter.supportedFrameworks);
+}
+
+{/*  `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" */}
+
+export async function getStaticProps() {
+  return { props: {} }
+}
+
+<PageTabLayout 
+  tabComponents={[{
+    title: "Documentation", 
+    children: <Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+  },
+  {
+    title: "Props", 
+    children: <Fragment>{({ platform }) => import('./props-table.mdx')}</Fragment>
+  }]}
+/>  

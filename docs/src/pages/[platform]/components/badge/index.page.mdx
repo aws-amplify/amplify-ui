@@ -1,11 +1,34 @@
 ---
 title: Badge
-description: A Badge is a small visual element to denote a status or message about an item. A small, color-coded visual element that contains letters or numbers, that you can use to label, categorize, or organize items.
+description: Badge is a color-coded element used to display a status or message about an item.
 themeSource: packages/ui/src/theme/tokens/components/badge.ts
 reactSource: packages/react/src/primitives/Badge/Badge.tsx
+mdnUrl: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span
+htmlElement: span
 supportedFrameworks: react
 ---
 
 import { Fragment } from '@/components/Fragment';
+import { PageTabLayout } from '@/components/Layout/PageTabLayout';
+import { getCustomStaticPath } from "@/utils/getCustomStaticPath";
 
-<Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+export async function getStaticPaths() {
+  return getCustomStaticPath(frontmatter.supportedFrameworks);
+}
+
+{/*  `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" */}
+
+export async function getStaticProps() {
+  return { props: {} }
+}
+
+<PageTabLayout 
+  tabComponents={[{
+    title: "Documentation", 
+    children: <Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+  },
+  {
+    title: "Props", 
+    children: <Fragment>{({ platform }) => import('./props-table.mdx')}</Fragment>
+  }]}
+/>

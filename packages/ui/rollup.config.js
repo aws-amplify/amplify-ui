@@ -1,7 +1,8 @@
 // rollup.config.js
 import { defineConfig } from 'rollup';
-import typescript from '@rollup/plugin-typescript';
 import { terser } from 'rollup-plugin-terser';
+import typescript from '@rollup/plugin-typescript';
+import externals from 'rollup-plugin-node-externals';
 
 const config = defineConfig([
   // CJS config
@@ -12,8 +13,8 @@ const config = defineConfig([
       format: 'cjs',
       sourcemap: false,
     },
-    external: (id) => /style-dictionary/.test(id),
     plugins: [
+      externals(),
       typescript({ declarationDir: 'dist/types', sourceMap: false }),
       terser(),
     ],
@@ -28,8 +29,8 @@ const config = defineConfig([
       preserveModulesRoot: 'src',
       sourcemap: false,
     },
-    external: (id) => /style-dictionary/.test(id),
     plugins: [
+      externals(),
       typescript({
         outDir: 'dist/esm',
         declaration: false,

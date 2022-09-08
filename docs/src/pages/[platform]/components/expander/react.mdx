@@ -1,3 +1,4 @@
+import { Fragment } from '@/components/Fragment'; 
 import { Expander, ExpanderItem, View } from '@aws-amplify/ui-react';
 
 import {
@@ -10,10 +11,12 @@ import {
   DefaultExpanderExample,
   ExpandedByDefaultMultipleExpander,
   StylePropsExpander,
+  ExpanderThemeExample,
 } from './examples';
 import { ExpanderDemo } from './demo';
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
+import ThemeExample from '@/components/ThemeExample.mdx';
 
 ## Demo
 
@@ -144,6 +147,20 @@ For more control over the layout or styling of the expander item header, pass a 
 
 
 ## CSS Styling
+
+<ThemeExample component="Expander">
+  <Example>
+    <ExpanderThemeExample />
+    
+    <ExampleCode>
+
+    ```tsx file=./examples/ExpanderThemeExample.tsx
+
+    ```
+
+    </ExampleCode>
+  </Example>
+</ThemeExample>
 
 ### Target classes
 

@@ -1,7 +1,7 @@
 export { AccessibilityExample } from './AccessibilityExample';
 export { AutoCompleteExample } from './AutoCompleteExample';
 export { ClassNameExample } from './ClassNameExample';
-export { CountryCodeSelectExample } from './CountryCodeSelectExample';
+export { DialCodeSelectExample } from './DialCodeSelectExample';
 export { DefaultPhoneNumberFieldExample } from './DefaultPhoneNumberFieldExample';
 export { DescriptiveTextExample } from './DescriptiveTextExample';
 export { RefsExample } from './RefsExample';
@@ -10,6 +10,6 @@ export { RequiredFieldStyledExample } from './RequiredFieldStyledExample';
 export { SizeExample } from './SizeExample';
 export { StatesExample } from './StatesExample';
 export { StylePropsExample } from './StylePropsExample';
-export { ThemingExample } from './ThemingExample';
+export { PhoneNumberFieldThemeExample } from './PhoneNumberFieldThemeExample';
 export { ValidationErrorExample } from './ValidationErrorExample';
 export { VariationExample } from './VariationExample';

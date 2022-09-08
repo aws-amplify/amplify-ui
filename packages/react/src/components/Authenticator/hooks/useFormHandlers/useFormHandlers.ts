@@ -3,7 +3,11 @@ import { useCallback } from 'react';
 import { getFormDataFromEvent } from '../../../../helpers/utils';
 import { useAuthenticator } from '../useAuthenticator';
 
-export function useFormHandlers() {
+export function useFormHandlers(): {
+  handleBlur: (event: React.FocusEvent<HTMLFormElement>) => void;
+  handleChange: (event: React.ChangeEvent<HTMLFormElement>) => void;
+  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+} {
   const { submitForm, updateBlur, updateForm } = useAuthenticator((context) => [
     context.submitForm,
     context.updateBlur,
@@ -24,7 +28,10 @@ export function useFormHandlers() {
       target: { checked, name, type, value },
     }: React.ChangeEvent<HTMLFormElement>) => {
       const isUncheckedCheckbox = type === 'checkbox' && !checked;
-      updateForm({ name, value: isUncheckedCheckbox ? undefined : value });
+      updateForm({
+        name,
+        value: isUncheckedCheckbox ? undefined : (value as string),
+      });
     },
     [updateForm]
   );

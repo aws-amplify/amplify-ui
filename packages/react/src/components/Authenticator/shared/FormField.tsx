@@ -20,7 +20,7 @@ export function FormField({
   name,
   type,
   ...props
-}: FormFieldProps) {
+}: FormFieldProps): JSX.Element {
   const { validationErrors } = useAuthenticator(({ validationErrors }) => [
     validationErrors,
   ]);
@@ -39,8 +39,8 @@ export function FormField({
         <PhoneNumberField
           {...props}
           name={name}
-          defaultCountryCode={dialCode}
-          countryCodeName="country_code"
+          defaultDialCode={dialCode}
+          dialCodeName="country_code"
           autoComplete={autoComplete}
           hasError={hasError}
           aria-describedby={ariaDescribedBy}

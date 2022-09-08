@@ -2,11 +2,12 @@
 /// <reference types="cypress" />
 /// <reference types="../../support/commands" />
 
-import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 import { get, escapeRegExp } from 'lodash';
 
 let language = 'en-US';
 let window = null;
+let stub = null;
 
 /**
  * Given dot delimited paths to a method (e.g. Amplify.Auth.signIn) on window,
@@ -105,10 +106,17 @@ Given(
 
     cy.fixture(fixture).then((result) => {
       console.info('`%s` mocked with %o', path, result);
-      cy.stub(obj, method).returns(result);
+      stub = cy.stub(obj, method);
+      stub.returns(result);
     });
   }
 );
+
+When('Sign in was called with {string}', (username: string) => {
+  let tempStub = stub.calledWith(username, Cypress.env('VALID_PASSWORD'));
+  stub = null;
+  expect(tempStub).to.be.true;
+});
 
 When('I type an invalid password', () => {
   cy.findInputField('Password').type('invalidpass');
@@ -134,7 +142,6 @@ const typeInInputHandler = (field: string, value: string) => {
   cy.findInputField(field).type(value);
 };
 When('I type a new {string} with value {string}', typeInInputHandler);
-And('I type a new {string} with value {string}', typeInInputHandler);
 
 When('I click the {string} tab', (label: string) => {
   cy.findByRole('tab', {
