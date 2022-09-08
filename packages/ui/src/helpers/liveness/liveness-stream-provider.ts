@@ -152,20 +152,3 @@ function isLivenessActionDocument(obj: any): obj is ClientSessionInformation {
     (obj as ClientSessionInformation).challenge !== undefined
   );
 }
-
-// async function streamLivenessVideoStatic(
-//   sessionId: string,
-//   videoStream: MediaStream
-// ): Promise<any> {
-//   const provider = new LivenessStreamProvider(sessionId, videoStream);
-
-//   provider.videoRecorder.start(100);
-//   const { responseStream } = await provider.streamLivenessVideo();
-
-//   return {
-//     sessionId,
-//     responseStream,
-//     endStream: provider.endStream,
-//     sendClientInfo: provider.sendClientInfo,
-//   };
-// }

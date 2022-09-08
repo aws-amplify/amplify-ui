@@ -522,23 +522,6 @@ function fillFractionalContext(ctx, prevColor, nextColor, fraction) {
   }
 }
 
-// If we have been on a flat color for 100 ms then increment the colorPermutationInd
-// Or if we have been downscrolling for more than 300 ms then increment the colorPermutationInd
-export function shouldChangeColorStage(
-  timeSinceLastColorChange: number,
-  prevColor: string,
-  scrollingColor: string,
-  flatDuration: number,
-  scrollingDuration: number
-) {
-  return (
-    (timeSinceLastColorChange >= flatDuration &&
-      prevColor === scrollingColor) ||
-    (timeSinceLastColorChange >= scrollingDuration &&
-      prevColor !== scrollingColor)
-  );
-}
-
 export function getColorsSequencesFromSessionInformation(
   sessionInformation: SessionInformation
 ): ClientFreshnessColorSequence[] {
@@ -557,13 +540,10 @@ export function getColorsSequencesFromSessionInformation(
   return colorSequences;
 }
 
-export function getRandomIndex(length: number, prevIndex?: number) {
-  let randomIndex = Math.floor(Math.random() * (length - 1) + 1);
-  while (prevIndex === randomIndex) {
-    randomIndex = Math.floor(Math.random() * (length - 1) + 1);
-  }
-
-  return randomIndex;
+export function getRGBArrayFromColorString(colorStr: string) {
+  return colorStr
+    .slice(colorStr.indexOf('(') + 1, colorStr.indexOf(')'))
+    .split(', ');
 }
 
 export async function getFaceMatchState(

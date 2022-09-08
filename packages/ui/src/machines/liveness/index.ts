@@ -1,8 +1,5 @@
 import { createMachine, assign, actions, send, spawn } from 'xstate';
-import {
-  getColorsSequencesFromSessionInformation,
-  getRandomScalingAttributes,
-} from '../../helpers/liveness/liveness';
+import { getColorsSequencesFromSessionInformation } from '../../helpers/liveness/liveness';
 
 import {
   Face,
@@ -31,6 +28,7 @@ import {
 import { v4 } from 'uuid';
 import { isServerSesssionInformationEvent } from '../../helpers/liveness/liveness-event-utils';
 import { getRandomScalingAttributesStr } from '../../helpers/liveness/liveness';
+import { LivenessResponseStream } from '@aws-sdk/client-rekognitionstreaming';
 
 export const MIN_FACE_MATCH_COUNT = 5;
 
@@ -39,7 +37,7 @@ let faceDetectedTimestamp: number;
 let ovalDrawnTimestamp: number;
 let freshnessTimeoutId: NodeJS.Timeout;
 
-let responseStream = undefined;
+let responseStream: Promise<AsyncIterable<LivenessResponseStream>> = undefined;
 let ovalDetailsFromProps = undefined;
 
 export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
@@ -590,7 +588,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           context.flowProps.sessionInformation
         );
 
-        responseStream = await livenessStreamProvider.getResponseStream();
+        responseStream = livenessStreamProvider.getResponseStream();
         return { livenessStreamProvider };
       },
       async detectInitialFaceAndDrawOval(context) {
@@ -845,6 +843,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 );
 
 const responseStreamActor = async (callback) => {
+  await responseStream;
   // FIXME: hard coded response stream for now
   const asyncIterable = {
     [Symbol.asyncIterator]() {

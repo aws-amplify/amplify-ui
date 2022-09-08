@@ -1,8 +1,7 @@
 import {
   fillOverlayCanvasFractional,
   getFaceMatchState,
-  getRandomIndex,
-  shouldChangeColorStage,
+  getRGBArrayFromColorString,
 } from './liveness';
 import { LivenessContext } from '../../types/liveness/livenessMachine';
 import { FaceMatchState } from '../../types/liveness/liveness';
@@ -164,8 +163,8 @@ export class FreshnessColorDisplay {
       Challenge: {
         ChallengeId: challengeId,
         ColorDisplayed: {
-          CurrentColor: nextColor,
-          PreviousColor: prevColor,
+          CurrentColor: { RGB: getRGBArrayFromColorString(nextColor) },
+          PreviousColor: { RGB: getRGBArrayFromColorString(prevColor) },
           SequenceNumber: nextColorIndex,
           CurrentColorStartTimestamp: tickStartTime,
         },
