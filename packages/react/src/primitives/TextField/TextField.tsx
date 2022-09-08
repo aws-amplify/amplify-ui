@@ -8,9 +8,8 @@ import { FieldGroup } from '../FieldGroup';
 import { Flex } from '../Flex';
 import { Input } from '../Input';
 import { Label } from '../Label';
-import { Primitive } from '../types';
 import { splitPrimitiveProps } from '../shared/styleUtils';
-import { TextFieldProps } from '../types';
+import { Primitive, TextFieldProps } from '../types';
 import { useStableId } from '../utils/useStableId';
 
 const TextFieldPrimitive: Primitive<TextFieldProps, 'input'> = (props, ref) => {
