@@ -1,6 +1,6 @@
 import { CopyButton } from '@/components/CopyButton';
 import { Tabs, TabItem } from '@aws-amplify/ui-react';
-import { useCustomRouter } from './useCustomRouter';
+import { useRouter } from 'next/router';
 
 type WebFramework = 'react' | 'vue' | 'angular';
 type PackageManager = 'npm' | 'yarn';
@@ -47,7 +47,7 @@ interface InstallScriptsProps {
 export const InstallScripts = ({ framework }: InstallScriptsProps) => {
   const {
     query: { platform = 'react' },
-  } = useCustomRouter();
+  } = useRouter();
 
   // infer framework from router if framework isn't specified
   if (!framework) {

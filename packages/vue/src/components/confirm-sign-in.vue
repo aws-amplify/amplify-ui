@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {
-  AuthChallengeNames,
   getActorState,
   getFormDataFromEvent,
   SignInState,
@@ -27,7 +26,7 @@ const challengeName = actorState.value.context.challengeName;
 
 let mfaType = 'SMS';
 
-if (challengeName === AuthChallengeNames.SOFTWARE_TOKEN_MFA) {
+if (challengeName === 'SOFTWARE_TOKEN_MFA') {
   mfaType = 'TOTP';
 }
 const confirmSignInHeading = `Confirm ${mfaType} Code`;
