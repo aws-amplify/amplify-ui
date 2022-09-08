@@ -244,7 +244,7 @@ export const ComponentClassObject: ComponentClassNameItems = {
   MenuContentWrapper: {
     className: ComponentClassName.MenuContentWrapper,
     components: ['Menu'],
-    description: 'Menu content container wrapper',
+    description: 'Menu content wrapper',
   },
   MenuItem: {
     className: ComponentClassName.MenuItem,

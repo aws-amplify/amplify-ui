@@ -83,7 +83,7 @@ function MyApp({ Component, pageProps }) {
       <Head />
 
       <div className={isHomepage ? `docs-home` : ''}>
-        <ThemeProvider theme={baseTheme} colorMode={colorMode}>
+        <ThemeProvider theme={baseTheme} colorMode={colorMode} direction="rtl">
           <Header
             expanded={expanded}
             setExpanded={setExpanded}

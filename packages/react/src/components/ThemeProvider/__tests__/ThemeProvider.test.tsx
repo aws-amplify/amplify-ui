@@ -34,6 +34,32 @@ describe('ThemeProvider', () => {
     );
   });
 
+  it('takes direction prop and sets dir', () => {
+    const { debug, container } = render(
+      <ThemeProvider direction="rtl">
+        <App />
+      </ThemeProvider>
+    );
+
+    expect(container.querySelector(`[data-amplify-theme]`)).toHaveAttribute(
+      'dir',
+      'rtl'
+    );
+  });
+
+  it('takes the colorMode prop and sets [data-amplify-color-mode]', () => {
+    const { debug, container } = render(
+      <ThemeProvider colorMode="light">
+        <App />
+      </ThemeProvider>
+    );
+
+    expect(container.querySelector(`[data-amplify-theme]`)).toHaveAttribute(
+      'data-amplify-color-mode',
+      'light'
+    );
+  });
+
   it('filters out XSS attacks which attempt to escape the CSS context', async () => {
     const name = 'maliciousTheme';
     const xss = `</style><script>alert('XSS')</script>`;
