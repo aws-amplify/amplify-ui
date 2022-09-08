@@ -1,6 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
 import { FieldDescription, FieldErrorMessage } from '../Field';
 import { FieldGroup } from '../FieldGroup';
@@ -11,7 +12,6 @@ import { Primitive } from '../types';
 import { splitPrimitiveProps } from '../shared/styleUtils';
 import { TextFieldProps } from '../types';
 import { useStableId } from '../utils/useStableId';
-import { classNameModifier } from '../shared/utils';
 
 const TextFieldPrimitive: Primitive<TextFieldProps, 'input'> = (props, ref) => {
   const {
@@ -28,6 +28,7 @@ const TextFieldPrimitive: Primitive<TextFieldProps, 'input'> = (props, ref) => {
     outerStartComponent,
     size,
     testId,
+    variation,
 
     bottom, // @TODO: remove custom destructuring for 4.0 release
     height, // @TODO: remove custom destructuring for 4.0 release
@@ -81,6 +82,7 @@ const TextFieldPrimitive: Primitive<TextFieldProps, 'input'> = (props, ref) => {
         outerEndComponent={outerEndComponent}
         innerStartComponent={innerStartComponent}
         innerEndComponent={innerEndComponent}
+        variation={variation}
       >
         <Input
           aria-describedby={ariaDescribedBy}
@@ -88,6 +90,7 @@ const TextFieldPrimitive: Primitive<TextFieldProps, 'input'> = (props, ref) => {
           id={fieldId}
           ref={ref}
           size={size}
+          variation={variation}
           {...baseStyleProps}
           {...rest}
         />
@@ -97,6 +100,9 @@ const TextFieldPrimitive: Primitive<TextFieldProps, 'input'> = (props, ref) => {
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/textfield)
+ */
 export const TextField = React.forwardRef(TextFieldPrimitive);
 
-TextFieldPrimitive.displayName = 'TextField';
+TextField.displayName = 'TextField';
