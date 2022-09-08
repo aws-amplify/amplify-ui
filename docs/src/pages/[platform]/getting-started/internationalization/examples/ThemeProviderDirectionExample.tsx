@@ -23,7 +23,7 @@ export const ThemeProviderDirectionExample = () => {
           hasIcon={true}
           heading="Right to Left"
         >
-          <Text color="neutral.80">
+          <Text>
             هذه الفقرة باللغة العربية ، لذا يجب الانتقال من اليمين إلى اليسار.
           </Text>
         </Alert>
