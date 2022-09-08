@@ -1,4 +1,4 @@
-import { Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { Then, When } from '@badeball/cypress-cucumber-preprocessor';
 
 When('I type an invalid SMS code', () => {
   cy.findInputField('Code *').type('0000');

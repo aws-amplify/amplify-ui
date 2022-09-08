@@ -1,13 +1,7 @@
-import { CognitoUser } from 'amazon-cognito-identity-js';
+import { ChallengeName, CognitoUser } from 'amazon-cognito-identity-js';
 
-/** Enum of known challenge names */
-export enum AuthChallengeNames {
-  SMS_MFA = 'SMS_MFA',
-  SOFTWARE_TOKEN_MFA = 'SOFTWARE_TOKEN_MFA',
-  NEW_PASSWORD_REQUIRED = 'NEW_PASSWORD_REQUIRED',
-  RESET_REQUIRED = 'RESET_REQUIRED',
-  MFA_SETUP = 'MFA_SETUP',
-}
+/** Known challenge names */
+export type AuthChallengeName = ChallengeName;
 
 /** Contact destinations that we can send user confirmation code to */
 export type ContactMethod = 'Email' | 'Phone Number';

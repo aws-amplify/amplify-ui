@@ -48,6 +48,7 @@
       "**/react-native/**",
       "**/react-native-safe-area-context",
       "**/react-native-safe-area-context/**",
+      "**/rollup",
       "**/use-sync-external-store",
       "**/use-isomorphic-layout-effect",
       "**/use-isomorphic-layout-effect/**"
