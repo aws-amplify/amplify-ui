@@ -14,10 +14,17 @@
   font-display: swap;
 }
 
+.add-variables {
+  --amplify-colors-font-primary: #232f3e;
+  --amplify-colors-font-tertiary: #545b64;
+  --amplify-colors-background-primary: white;
+  --amplify-colors-font-hover: #000;
+}
+
 .navbar {
   box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.04);
   border-bottom: 1px solid #d5dbdb;
-  background-color: white;
+  background-color: var(--amplify-colors-background-primary);
   position: sticky;
   top: 0px;
   z-index: 200;
@@ -32,7 +39,7 @@
 }
 
 .dev-center-logo {
-  color: #232f3e;
+  color: var(--amplify-colors-font-primary);
   font-size: 1.25rem;
   white-space: nowrap;
 }
@@ -54,7 +61,7 @@
 
 .mobile-nav-menu-container {
   z-index: 1000;
-  background-color: white;
+  background-color: var(--amplify-colors-background-primary);
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -88,7 +95,7 @@
   height: 100%;
   font-size: 1rem;
   text-decoration: none;
-  color: #545b64 !important;
+  color: var(--amplify-colors-font-tertiary);
   font-family: 'Amazon Ember';
   cursor: pointer;
   font-weight: 400;
@@ -96,8 +103,7 @@
   white-space: nowrap;
 
   &:hover {
-    color: black !important;
-    background-color: white !important;
+    color: var(--amplify-colors-font-hover) !important;
   }
 }
 
@@ -106,10 +112,10 @@
   border-bottom: 1px solid #d5dbdb;
 
   // Set color for back chevron icon
-  color: #545b64;
+  color: var(--amplify-colors-font-tertiary);
 
   p {
-    color: #545b64;
+    color: var(--amplify-colors-font-tertiary);
   }
 
   &:hover {
@@ -118,7 +124,7 @@
     background-color: white !important;
 
     p {
-      color: black;
+      color: blck;
     }
   }
 }
@@ -130,6 +136,14 @@
 
 .icon-link-hover {
   &:hover {
-    color: black;
+    color: var(--amplify-colors-font-hover);
+  }
+}
+
+.external-icon {
+  color: var(--amplify-colors-font-primary);
+
+  &:hover {
+    color: var(--amplify-colors-font-hover);
   }
 }

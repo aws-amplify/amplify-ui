@@ -1,12 +1,13 @@
 import { Icon, Flex } from '@aws-amplify/ui-react';
 import { useState } from 'react';
+import styles from '../GlobalNav.module.scss';
 
 export function ExternalLink({ children }: { children: any }) {
   const [isHovered, setIsHovered] = useState(false);
 
   const externalIcon = (
     <Icon
-      color={isHovered ? 'black' : '#545B64'}
+      className={styles['external-icon']}
       ariaLabel="External link icon"
       width="18"
       height="18"
@@ -14,7 +15,7 @@ export function ExternalLink({ children }: { children: any }) {
       paths={[
         {
           d: 'M9.79505 1.59277L16.3138 1.59278M16.3138 1.59278L16.3138 8.11155M16.3138 1.59278L9.79504 8.11156',
-          stroke: isHovered ? 'black' : '#545B64',
+          stroke: '#545B64',
           strokeWidth: '1.5',
           strokeLinecap: 'round',
         },

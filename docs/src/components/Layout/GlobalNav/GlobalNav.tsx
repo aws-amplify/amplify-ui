@@ -51,6 +51,12 @@ export function GlobalNav({
   secondaryNavDesktop,
   secondaryNavMobile,
 }: NavProps) {
+  const themeableSites = {
+    'UI Library': true,
+  };
+
+  const themeClass = themeableSites[currentSite] ? '' : 'add-variables';
+
   let hasSecondaryNav = false;
 
   if (secondaryNavDesktop && secondaryNavMobile) {
@@ -129,7 +135,10 @@ export function GlobalNav({
 
   return isMobileState ? (
     <NavMobileContext.Provider value={value}>
-      <nav className={styles.navbar} aria-label="Amplify Dev Center Global">
+      <nav
+        className={`${styles.navbar} ${themeClass}`}
+        aria-label="Amplify Dev Center Global"
+      >
         <View className={styles['mobile-nav-container']} padding="0px 20px">
           <Flex columnGap="8px" alignItems="center">
             <Icon
@@ -253,7 +262,7 @@ export function GlobalNav({
   ) : (
     <nav
       id="main-nav"
-      className={`${styles.navbar}`}
+      className={`${styles.navbar} ${themeClass}`}
       aria-label="Amplify Dev Center Global"
     >
       <Flex
