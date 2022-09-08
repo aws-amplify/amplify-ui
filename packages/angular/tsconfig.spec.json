@@ -1,0 +1,16 @@
+/**
+ * Adapted from
+ * https://github.com/thymikee/jest-preset-angular/blob/daae90924f2346e1d9caa0da1f4b23d9b6434611/examples/example-app-monorepo/tsconfig.spec.json
+ */
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/spec",
+    "module": "commonjs",
+    "types": ["jest"],
+    "esModuleInterop": true,
+    "emitDecoratorMetadata": true
+  },
+  "files": ["src/polyfills.ts", "src/setup.jest.ts"],
+  "include": ["src/lib/**/**/*.spec.ts", "**/*.d.ts"]
+}

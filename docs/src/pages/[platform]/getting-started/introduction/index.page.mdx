@@ -5,6 +5,18 @@ supportedFrameworks: all
 ---
 
 import { Alert } from '@aws-amplify/ui-react';
+import { FRAMEWORKS } from '@/data/frameworks';
+import { getCustomStaticPath } from "@/utils/getCustomStaticPath";
+
+export async function getStaticPaths() {
+  return getCustomStaticPath(frontmatter.supportedFrameworks);
+}
+
+{/*  `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" */}
+
+export async function getStaticProps() {
+  return { props: {} }
+}
 
 Amplify UI is an open-source UI library that brings the simplicity and extensibility of AWS Amplify to UI development. It consists of connected components that simplify complex workflows like authentication and dynamic data, primitive components that form the building blocks of a UI, and themes to make Amplify UI fit any brand. **Extensibility and customization** are at the forefront of Amplify UI allowing easy integration into any application regardless of the front-end tech stack. 
 
