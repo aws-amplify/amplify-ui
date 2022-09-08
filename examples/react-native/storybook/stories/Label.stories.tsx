@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react-native';
-import { Label } from '@aws-amplify/ui-react-native/dist/primitives';
+import { Label } from '../../src/ui';
 import { StyleSheet } from 'react-native';
 
 storiesOf('Label', module)

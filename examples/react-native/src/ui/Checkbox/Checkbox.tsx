@@ -7,9 +7,11 @@ import {
 } from 'react-native';
 
 import { icons } from '../../assets';
-import { IconButton } from '@aws-amplify/ui-react-native/dist/primitives';
+import {
+  IconButton,
+  Label,
+} from '@aws-amplify/ui-react-native/dist/primitives';
 
-import { Label } from '../Label';
 import { CheckboxProps, CheckboxStyle } from './types';
 
 const styles: CheckboxStyle = {

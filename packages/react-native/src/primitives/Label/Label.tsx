@@ -9,7 +9,7 @@ export default function Label({
   ...rest
 }: LabelProps): JSX.Element {
   return (
-    <Text {...rest} style={[styles.label, style]}>
+    <Text {...rest} accessibilityRole="text" style={[styles.label, style]}>
       {children}
     </Text>
   );
