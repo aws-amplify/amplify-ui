@@ -1,15 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import React from 'react';
 import { Card } from 'src/primitives';
-import { FileUploaderInputProps } from '../FileUploader/types';
-import { FileUploaderButton } from '../FileUploaderButton';
-import { getFileName, uploadFile } from '../shared/utils';
+import { FileUploaderTransferProps } from '../FileUploader/types';
 
 export function FileUploaderDrop({
-  multiple,
-  accept,
-  fileName,
-}: FileUploaderInputProps): JSX.Element {
+  setFiles,
+  setShowPreviewer,
+  children,
+}: FileUploaderTransferProps): JSX.Element {
   // https://www.smashingmagazine.com/2020/02/html-drag-drop-api-react/
   const reducer = (
     state,
@@ -66,12 +64,8 @@ export function FileUploaderDrop({
     e.stopPropagation();
     const files = [...e.dataTransfer.files];
     if (files && files.length > 0) {
-      (async () => {
-        for (let i = 0; i < files.length; i++) {
-          const uploadFileName = getFileName(fileName, files[i], i);
-          await uploadFile(files[i], uploadFileName);
-        }
-      })();
+      setFiles(files);
+      setShowPreviewer(true);
 
       dispatch({ type: 'SET_DROP_DEPTH', dropDepth: 0 });
       dispatch({ type: 'SET_IN_DROP_ZONE', inDropZone: false });
@@ -91,12 +85,7 @@ export function FileUploaderDrop({
       onDragEnter={(e) => handleDragEnter(e)}
       onDragLeave={(e) => handleDragLeave(e)}
     >
-      <FileUploaderButton
-        multiple={multiple}
-        accept={accept}
-        fileName={fileName}
-      />{' '}
-      or drag file{multiple ? 's' : ''} here
+      {children}
     </Card>
   );
 }

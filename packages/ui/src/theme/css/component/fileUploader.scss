@@ -1,12 +1,22 @@
 [data-amplify-file-uploader] {
   border-width: 2px;
   display: flex;
-  width: 21rem;
+  width: 22rem;
   padding: 32px;
   border-radius: 4px;
   justify-content: center;
   align-items: center;
   gap: 1.2rem;
+}
+
+[data-amplify-file-previewer] {
+  border: 1px solid;
+  border-radius: 3px;
+  width: 25rem;
+  height: 21rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 [data-amplify-file-uploader].inside-drag-area {
