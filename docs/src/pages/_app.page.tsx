@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { Amplify } from 'aws-amplify';
 import { ThemeProvider, ColorMode, defaultTheme } from '@aws-amplify/ui-react';
 
 import { configure, trackPageVisit } from '@/utils/track';
@@ -8,6 +9,7 @@ import { Header } from '@/components/Layout/Header';
 import Script from 'next/script';
 import { baseTheme } from '../theme';
 import { useCustomRouter } from '@/components/useCustomRouter';
+import { awsExports } from '../data/amplifyMock';
 
 import { Head } from './Head';
 
@@ -37,6 +39,8 @@ if (typeof window === 'undefined') {
  `);
   window['theme'] = defaultTheme;
 }
+
+Amplify.configure(awsExports);
 
 function MyApp({ Component, pageProps }) {
   const [expanded, setExpanded] = React.useState(false);
