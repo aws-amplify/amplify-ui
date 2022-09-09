@@ -3,7 +3,7 @@ import { InAppMessagingProvider } from '@aws-amplify/ui-react-core';
 
 import { InAppMessageDisplay, MessageComponents } from '../InAppMessageDisplay';
 
-export default function withInAppMessaging<Props>(
+export default function withInAppMessaging<Props extends object>(
   Component: (props: Props) => JSX.Element,
   options?: { components?: MessageComponents }
 ): (props: Props) => JSX.Element {

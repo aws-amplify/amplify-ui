@@ -1,9 +1,9 @@
+import { useRouter } from 'next/router';
 import { CardLink, CardLinkGroup } from '@/components/CardLink';
 import { MdOutlineAutoAwesome, MdTune, MdFlipToFront } from 'react-icons/md';
-import { useCustomRouter } from '@/components/useCustomRouter';
 
 export function NextSteps() {
-  const { platform } = useCustomRouter().query;
+  const { platform } = useRouter().query;
 
   return (
     <CardLinkGroup title="Next steps" id="next-steps">

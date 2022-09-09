@@ -1,4 +1,4 @@
-import { Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { Then, When } from '@badeball/cypress-cucumber-preprocessor';
 
 When('I search for {string}', (searchTerm: string) => {
   cy.intercept(/.*places.*/).as('searchResults');
