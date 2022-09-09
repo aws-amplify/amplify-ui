@@ -582,8 +582,7 @@ export function signInActor({ services }: SignInMachineOptions) {
         },
         async checkVerifiedContact(context, event) {
           const { user } = context;
-          const result = await Auth.verifiedContact(user);
-
+          const result = await services.checkVerifiedContact(user);
           return result;
         },
         async verifyUser(context, event) {

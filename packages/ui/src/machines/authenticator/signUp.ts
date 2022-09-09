@@ -257,8 +257,8 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
           const { user, authAttributes } = context;
           const username =
             get(user, 'username') || get(authAttributes, 'username');
-
-          return Auth.resendSignUp(username);
+          const result = await services.handleResendConfirmationCode(username);
+          return result;
         },
         async federatedSignIn(_, event) {
           const { provider } = event.data;

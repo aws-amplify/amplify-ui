@@ -40,6 +40,11 @@ export const defaultServices = {
   }): Promise<any> {
     return Auth.confirmSignIn(user, code, mfaType);
   },
+  /** @deprecated For internal use only */
+  async checkVerifiedContact(user) {
+    const result = Auth.verifiedContact(user);
+    return result;
+  },
   async handleConfirmSignUp({
     username,
     code,
@@ -48,6 +53,14 @@ export const defaultServices = {
     code: string;
   }): Promise<any> {
     return await Auth.confirmSignUp(username, code);
+  },
+  /** @deprecated For internal use only */
+  async handleResendConfirmationCode({
+    username,
+  }: {
+    username: string;
+  }): Promise<any> {
+    return Auth.resendSignUp(username);
   },
   async handleForgotPasswordSubmit({
     username,
