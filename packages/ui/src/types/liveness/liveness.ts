@@ -66,6 +66,11 @@ export interface LivenessFlowProps {
    * @default false
    */
   enableAnalytics?: boolean;
+
+  /**
+   * Optional parameter for the disabling the Start/Get Ready Screen, default: false
+   */
+  disableStartScreen?: boolean;
 }
 
 /**

@@ -3,13 +3,17 @@ import { useActor, useInterpret } from '@xstate/react';
 import {
   livenessMachine,
   LivenessFlowProps as LivenessFlowPropsFromUi,
+  recordLivenessAnalyticsEvent,
+  LIVENESS_EVENT_GET_READY_SCREEN,
 } from '@aws-amplify/ui';
 
 import { useControllable } from '../../hooks/useControllable';
 import { LivenessFlowProvider } from './providers';
 import { StartLiveness } from './StartLiveness';
 import { LivenessCheck } from './LivenessCheck';
-import { View } from '../../primitives';
+import { View, Flex } from '../../primitives';
+import { getVideoConstraints } from './StartLiveness/helpers';
+import { useThemeBreakpoint } from '../../hooks/useThemeBreakpoint';
 
 export interface LivenessFlowProps extends LivenessFlowPropsFromUi {}
 
@@ -18,7 +22,10 @@ export const LivenessFlow: React.FC<LivenessFlowProps> = (props) => {
     active: activeFromProps,
     onExit: onExitFromProps,
     onUserCancel: onUserCancelFromProps,
+    disableStartScreen = false,
   } = props;
+  const currElementRef = React.useRef<HTMLDivElement>(null);
+  const breakpoint = useThemeBreakpoint();
 
   const [active, setActive] = useControllable({
     controlledValue: activeFromProps,
@@ -55,13 +62,45 @@ export const LivenessFlow: React.FC<LivenessFlowProps> = (props) => {
       },
     },
   });
-  const [state] = useActor(service);
+
+  const [state, send] = useActor(service);
   const isStartView = state.matches('start') || state.matches('userCancel');
+
+  const beginLivenessCheck = React.useCallback(() => {
+    recordLivenessAnalyticsEvent(props, {
+      event: LIVENESS_EVENT_GET_READY_SCREEN,
+      attributes: { action: 'BeginLivenessCheck' },
+      metrics: { count: 1 },
+    });
+
+    const isMobileScreen = breakpoint === 'base';
+    const videoConstraints = getVideoConstraints(
+      isMobileScreen,
+      currElementRef.current.clientWidth
+    );
+
+    send({
+      type: 'BEGIN',
+      data: { videoConstraints },
+    });
+  }, [send, breakpoint, props]);
+
+  React.useLayoutEffect(() => {
+    if (disableStartScreen && active) {
+      beginLivenessCheck();
+    }
+  }, [beginLivenessCheck, disableStartScreen, active]);
 
   return active ? (
     <View data-amplify-liveness-flow="" data-testid="liveness-flow">
       <LivenessFlowProvider flowProps={props} service={service}>
-        {isStartView ? <StartLiveness /> : <LivenessCheck />}
+        <Flex direction="column" ref={currElementRef}>
+          {isStartView ? (
+            <StartLiveness beginLivenessCheck={beginLivenessCheck} />
+          ) : (
+            <LivenessCheck />
+          )}
+        </Flex>
       </LivenessFlowProvider>
     </View>
   ) : null;
