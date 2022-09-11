@@ -14,18 +14,28 @@ export function getFileName(
   return fileName;
 }
 
-export async function uploadFile(
-  file: File,
-  fileName: string,
-  level: StorageAccessLevel = 'private'
-): Promise<void> {
+export async function uploadFile({
+  file,
+  fileName,
+  level = 'private',
+  setPercentage,
+}: {
+  file: File;
+  fileName: string;
+  level: StorageAccessLevel;
+  setPercentage: (percentage: number) => void;
+}): Promise<void> {
   // eslint-disable-next-line no-console
   console.log('running put', fileName, file);
   const s = await Storage.put(fileName, file, {
     level,
     progressCallback(progress: { loaded: number; total: number }) {
+      const percentage = Math.floor((progress.loaded / progress.total) * 100);
+      setPercentage(percentage);
       // eslint-disable-next-line no-console
-      console.log(`Uploaded: ${progress.loaded}/${progress.total}`);
+      console.log(
+        `Uploaded: ${progress.loaded}/${progress.total} ${percentage}`
+      );
     },
   });
 

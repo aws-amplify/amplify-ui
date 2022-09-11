@@ -24,7 +24,6 @@ export default function FileUploaderEmail() {
 
       <FileUploader
         level="public"
-        accept={['image/png']}
         multiple={true}
         variation={variation ? 'drop' : 'button'}
       />

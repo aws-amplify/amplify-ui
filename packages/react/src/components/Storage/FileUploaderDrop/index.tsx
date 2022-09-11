@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-import React from 'react';
+import React, { useState } from 'react';
 import { Card } from 'src/primitives';
 import { FileUploaderTransferProps } from '../FileUploader/types';
 
@@ -8,30 +8,8 @@ export function FileUploaderDrop({
   setShowPreviewer,
   children,
 }: FileUploaderTransferProps): JSX.Element {
+  const [inDropZone, setInDropZone] = useState(false);
   // https://www.smashingmagazine.com/2020/02/html-drag-drop-api-react/
-  const reducer = (
-    state,
-    action: {
-      type: string;
-      dropDepth?: number;
-      inDropZone?: boolean;
-      files?: File[];
-    }
-  ): any => {
-    switch (action.type) {
-      case 'SET_DROP_DEPTH':
-        return { ...state, dropDepth: action.dropDepth };
-      case 'SET_IN_DROP_ZONE':
-        return { ...state, inDropZone: action.inDropZone };
-      default:
-        return state;
-    }
-  };
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unused-vars
-  const [data, dispatch] = React.useReducer(reducer, {
-    dropDepth: 0,
-    inDropZone: false,
-  });
 
   const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
     e.dataTransfer.clearData();
@@ -40,24 +18,17 @@ export function FileUploaderDrop({
   const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/restrict-plus-operands, @typescript-eslint/no-unsafe-member-access
-    dispatch({ type: 'SET_DROP_DEPTH', dropDepth: data.dropDepth + 1 });
   };
   const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/restrict-plus-operands, @typescript-eslint/no-unsafe-member-access
-    dispatch({ type: 'SET_DROP_DEPTH', dropDepth: data.dropDepth - 1 });
-    // eslint-disable-next-line no-console, @typescript-eslint/no-unsafe-member-access
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/restrict-plus-operands, @typescript-eslint/no-unsafe-member-access
-    dispatch({ type: 'SET_IN_DROP_ZONE', inDropZone: false });
+    setInDropZone(false);
   };
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
-
+    setInDropZone(true);
     e.dataTransfer.dropEffect = 'copy';
-    dispatch({ type: 'SET_IN_DROP_ZONE', inDropZone: true });
   };
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -66,17 +37,15 @@ export function FileUploaderDrop({
     if (files && files.length > 0) {
       setFiles(files);
       setShowPreviewer(true);
-
-      dispatch({ type: 'SET_DROP_DEPTH', dropDepth: 0 });
-      dispatch({ type: 'SET_IN_DROP_ZONE', inDropZone: false });
     }
+    setInDropZone(false);
   };
   return (
     <Card
       data-amplify-file-uploader
       className={
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        data.inDropZone ? 'inside-drag-area' : ''
+        inDropZone ? 'inside-drag-area' : ''
       }
       border={'dashed rgb(7,115,152)'}
       onDrop={(e) => handleDrop(e)}

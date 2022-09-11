@@ -1,6 +1,6 @@
 /** File Previewer */
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Flex } from 'src/primitives';
 import { Card } from 'src/primitives/Card';
 import { View } from 'src/primitives/View';
@@ -14,11 +14,17 @@ export function FilePreviewer({
   fileName,
   level,
 }: FilePreviewerProps): JSX.Element {
+  const [percentage, setPercentage] = useState(0);
   function upload() {
     (async () => {
       for (let i = 0; i < files.length; i++) {
         const uploadFileName = getFileName(files[i], fileName, i);
-        await uploadFile(files[i], uploadFileName, level);
+        await uploadFile({
+          file: files[i],
+          fileName: uploadFileName,
+          level,
+          setPercentage,
+        });
       }
     })();
   }
@@ -58,7 +64,11 @@ export function FilePreviewer({
         }}
       >
         {files.map((file, index) => (
-          <FileTracker key={index} name={file.name}></FileTracker>
+          <FileTracker
+            percentage={percentage}
+            key={index}
+            name={file.name}
+          ></FileTracker>
         ))}
       </View>
       <View

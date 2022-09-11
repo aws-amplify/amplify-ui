@@ -22,3 +22,11 @@
 [data-amplify-file-uploader].inside-drag-area {
   opacity: 0.4;
 }
+
+.loader {
+  --amplify-components-loader-linear-stroke-linecap: round;
+  --amplify-components-loader-linear-stroke-width: 5px;
+  position: absolute;
+  bottom: -7px;
+  right: 0;
+}
