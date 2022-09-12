@@ -14,10 +14,8 @@ import {
 } from '../hooks';
 import { useTheme } from '../../../hooks';
 import { Flex, Loader, View } from '../../../primitives';
-import {
-  IconCheckCircleOutline,
-  IconHighlightOff,
-} from '../../../primitives/Icon/icons';
+import { IconCheckCircleOutline } from '../../../primitives/Icon/icons';
+import { AlertIcon } from '../../../primitives/Alert/AlertIcon';
 
 export const selectErrorState = createLivenessSelector(
   (state) => state.context.errorState
@@ -61,7 +59,7 @@ export const Instruction: React.FC<InstructionProps> = (props) => {
           }
           alignItems="center"
         >
-          <IconHighlightOff size="large" viewBox="0 0 20 20" />
+          <AlertIcon variation="error" />
           <View as="span">
             {errorState && LivenessErrorStateStringMap[errorState]}
             {isCheckFailed && translate('Check failed! Please try again.')}
@@ -80,7 +78,7 @@ export const Instruction: React.FC<InstructionProps> = (props) => {
       return (
         <Flex gap={`${tokens.space.xxs}`} alignItems="center">
           <Loader />
-          <View as="span">{translate('Authenticating...')}</View>
+          <View as="span">{translate('Authenticating')}</View>
         </Flex>
       );
     }
