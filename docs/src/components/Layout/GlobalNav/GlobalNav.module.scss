@@ -38,6 +38,17 @@
   }
 
   --dev-center-nav-height: 60px;
+  --amplify-colors-font-hover: #000;
+}
+
+[data-amplify-theme='amplify-docs'][data-amplify-color-mode='dark'] .navbar {
+  --amplify-colors-font-hover: inherit;
+}
+
+[data-amplify-theme='amplify-docs'][data-amplify-color-mode='system'] .navbar {
+  @media (prefers-color-scheme: dark) {
+    --amplify-colors-font-hover: inherit;
+  }
 }
 
 .dev-center-logo {
