@@ -53,6 +53,7 @@
     }
   ],
   "overrides": {
-    "caniuse-lite": "1.0.30001393"
+    "caniuse-lite": "1.0.30001393",
+    "autoprefixer": "10.4.8"
   }
 }
