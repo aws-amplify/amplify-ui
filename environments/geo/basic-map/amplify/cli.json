@@ -9,7 +9,9 @@
       "secondarykeyasgsi": true,
       "skipoverridemutationinputtypes": true,
       "transformerversion": 1,
-      "suppressschemamigrationprompt": true
+      "suppressschemamigrationprompt": true,
+      "securityEnhancementNotification": false,
+      "showfieldauthnotification": false
     },
     "frontend-ios": {
       "enablexcodeintegration": true
