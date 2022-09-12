@@ -8047,7 +8047,7 @@ available-typed-arrays@^1.0.5:
   resolved "https://registry.yarnpkg.com/available-typed-arrays/-/available-typed-arrays-1.0.5.tgz#92f95616501069d07d10edb2fc37d3e1c65123b7"
   integrity sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==
 
-aws-amplify@4.3.34, aws-amplify@latest:
+aws-amplify@latest:
   version "4.3.34"
   resolved "https://registry.yarnpkg.com/aws-amplify/-/aws-amplify-4.3.34.tgz#61aed7f808bfade0e0728d46cca81ae5766c2d41"
   integrity sha512-ASt0vlrZtOuNECFrJtD/LxFX7/SVBpUFlZFJ9vXysmnOg0YBfR5G37DBCnj6cX+oNKBpg3rn2ZHg40zr//NSPA==
