@@ -24,3 +24,5 @@ export function recordLivenessAnalyticsEvent(
 
 export const LIVENESS_EVENT_GET_READY_SCREEN = 'GetReadyScreen';
 export const LIVENESS_EVENT_LIVENESS_CHECK_SCREEN = 'LivenessCheckScreen';
+export const LIVENESS_EVENT_DISABLED_GET_READY_SCREEN =
+  'DisabledGetReadyScreen';

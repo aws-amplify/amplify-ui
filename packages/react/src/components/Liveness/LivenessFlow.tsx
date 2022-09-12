@@ -4,7 +4,7 @@ import {
   livenessMachine,
   LivenessFlowProps as LivenessFlowPropsFromUi,
   recordLivenessAnalyticsEvent,
-  LIVENESS_EVENT_GET_READY_SCREEN,
+  LIVENESS_EVENT_DISABLED_GET_READY_SCREEN,
 } from '@aws-amplify/ui';
 
 import { useControllable } from '../../hooks/useControllable';
@@ -68,7 +68,7 @@ export const LivenessFlow: React.FC<LivenessFlowProps> = (props) => {
 
   const beginLivenessCheck = React.useCallback(() => {
     recordLivenessAnalyticsEvent(props, {
-      event: LIVENESS_EVENT_GET_READY_SCREEN,
+      event: LIVENESS_EVENT_DISABLED_GET_READY_SCREEN,
       attributes: { action: 'BeginLivenessCheck' },
       metrics: { count: 1 },
     });
@@ -87,9 +87,15 @@ export const LivenessFlow: React.FC<LivenessFlowProps> = (props) => {
 
   React.useLayoutEffect(() => {
     if (disableStartScreen && active) {
+      recordLivenessAnalyticsEvent(props, {
+        event: LIVENESS_EVENT_DISABLED_GET_READY_SCREEN,
+        attributes: { action: 'AttemptLiveness' },
+        metrics: { count: 1 },
+      });
+
       beginLivenessCheck();
     }
-  }, [beginLivenessCheck, disableStartScreen, active]);
+  }, [beginLivenessCheck, disableStartScreen, active, props]);
 
   return active ? (
     <View data-amplify-liveness-flow="" data-testid="liveness-flow">
