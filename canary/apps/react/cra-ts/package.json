@@ -56,8 +56,5 @@
       "path": "build/static/js/main.*.js",
       "limit": "280 kB"
     }
-  ],
-  "resolutions": {
-    "caniuse-lite": "1.0.30001393"
-  }
+  ]
 }

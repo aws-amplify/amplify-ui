@@ -42,8 +42,5 @@
     "> 1%",
     "last 2 versions",
     "not dead"
-  ],
-  "resolutions": {
-    "caniuse-lite": "1.0.30001393"
-  }
+  ]
 }
