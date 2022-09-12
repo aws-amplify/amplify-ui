@@ -14,7 +14,6 @@ import {
 } from '../hooks';
 import { useTheme } from '../../../hooks';
 import { Flex, Loader, View } from '../../../primitives';
-import { IconCheckCircleOutline } from '../../../primitives/Icon/icons';
 import { AlertIcon } from '../../../primitives/Alert/AlertIcon';
 
 export const selectErrorState = createLivenessSelector(
@@ -94,9 +93,9 @@ export const Instruction: React.FC<InstructionProps> = (props) => {
           }
           alignItems="center"
         >
-          <IconCheckCircleOutline size="large" viewBox="0 0 20 20" />
+          <AlertIcon variation="success" />
           <View as="span" style={{ whiteSpace: 'nowrap' }}>
-            {translate('Check succeeded!')}
+            {translate('Success!')}
           </View>
         </Flex>
       );
