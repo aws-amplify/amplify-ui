@@ -10,12 +10,14 @@ export function NavMenuLink({
   hasSecondaryNav = false,
   customKey,
   isMobile = false,
+  themeClass,
 }: {
   navMenuItem: NavMenuItem;
   currentMenuItem: string;
   hasSecondaryNav?: boolean;
   customKey?: string;
   isMobile?: boolean;
+  themeClass: string;
 }) {
   const { setShowGlobalNav } = useContext(NavMobileContext);
 
@@ -45,7 +47,7 @@ export function NavMenuLink({
           border="none"
           borderRadius="0"
           padding="12px"
-          className={`${styles['nav-menu-item']}`}
+          className={styles['secondary-nav-button']}
           {...(customKey ? { key: customKey } : {})}
           onClick={() => setShowGlobalNav(false)}
           ariaLabel={`Show ${linkContent} nav bar`}
@@ -54,7 +56,7 @@ export function NavMenuLink({
         </Button>
       ) : (
         <a
-          className={`${styles['nav-menu-item']}`}
+          className={`${styles['nav-menu-item']} ${styles[themeClass]}`}
           {...(customKey ? { key: customKey } : {})}
           href={navMenuItem.url}
         >
@@ -68,7 +70,7 @@ export function NavMenuLink({
             navMenuItem.label === currentMenuItem
               ? styles['current-nav-menu-item']
               : ''
-          }`}
+          } ${styles[themeClass]}`}
           {...(customKey ? { key: customKey } : {})}
           href={navMenuItem.url}
         >
@@ -81,7 +83,7 @@ export function NavMenuLink({
       <a
         target="_blank"
         rel="noopener noreferrer"
-        className={styles['nav-menu-item']}
+        className={`${styles['nav-menu-item']} ${styles[themeClass]}`}
         {...(customKey ? { key: customKey } : {})}
         href={navMenuItem.url}
       >

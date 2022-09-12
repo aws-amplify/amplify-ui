@@ -1,23 +1,14 @@
-@font-face {
-  font-family: Amazon Ember;
-  src: url(./fonts/AmazonEmber_W_Lt.woff2) format('woff2');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: Amazon Ember;
-  src: url(./fonts/AmazonEmber_W_Rg.woff2) format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
+.add-variables {
+  --amplify-colors-font-primary: #232f3e;
+  --amplify-colors-font-tertiary: #545b64;
+  --amplify-colors-background-primary: white;
+  --amplify-colors-font-hover: #000;
 }
 
 .navbar {
   box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.04);
   border-bottom: 1px solid #d5dbdb;
-  background-color: white;
+  background-color: var(--amplify-colors-background-primary);
   position: sticky;
   top: 0px;
   z-index: 200;
@@ -25,36 +16,55 @@
   a,
   p,
   span {
-    font-family: 'Amazon Ember' !important;
+    font-family: 'Amazon Ember', 'Georgia' !important;
     -webkit-font-smoothing: auto !important;
     -moz-osx-font-smoothing: auto !important;
+  }
+
+  --dev-center-nav-height: 60px;
+  --amplify-colors-font-hover: #000;
+}
+
+[data-amplify-theme='amplify-docs'][data-amplify-color-mode='dark'] .navbar {
+  --amplify-colors-font-hover: inherit;
+}
+
+[data-amplify-theme='amplify-docs'][data-amplify-color-mode='system'] .navbar {
+  @media (prefers-color-scheme: dark) {
+    --amplify-colors-font-hover: inherit;
   }
 }
 
 .dev-center-logo {
-  color: #232f3e;
+  color: var(--amplify-colors-font-primary);
   font-size: 1.25rem;
   white-space: nowrap;
 }
 
 .nav-container {
   display: flex;
-  height: 80px;
+  height: var(--dev-center-nav-height);
   align-items: center;
   justify-content: space-between;
 }
 
 .mobile-nav-container {
   display: flex;
-  height: 80px;
+  height: var(--dev-center-nav-height);
   align-items: center;
   justify-content: space-between;
   padding: 0px 18px;
 }
 
+.nav-links-container {
+  height: var(--dev-center-nav-height);
+  align-items: center;
+  justify-content: space-between;
+}
+
 .mobile-nav-menu-container {
   z-index: 1000;
-  background-color: white;
+  background-color: var(--amplify-colors-background-primary);
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -88,28 +98,36 @@
   height: 100%;
   font-size: 1rem;
   text-decoration: none;
-  color: #545b64 !important;
+  color: var(--amplify-colors-font-tertiary) !important;
   font-family: 'Amazon Ember';
   cursor: pointer;
   font-weight: 400;
 
   white-space: nowrap;
 
-  &:hover {
-    color: black !important;
-    background-color: white !important;
+  &:hover,
+  &:focus {
+    color: var(--amplify-colors-font-hover) !important;
+
+    .custom-path-stroke {
+      stroke: var(--amplify-colors-font-hover) !important;
+    }
+  }
+
+  .custom-path-stroke {
+    stroke: var(--amplify-colors-font-tertiary);
   }
 }
 
-.back-nav-button {
+.secondary-nav-button {
   border-top: 1px solid #d5dbdb;
   border-bottom: 1px solid #d5dbdb;
 
   // Set color for back chevron icon
-  color: #545b64;
+  color: var(--amplify-colors-font-tertiary);
 
   p {
-    color: #545b64;
+    color: var(--amplify-colors-font-tertiary);
   }
 
   &:hover {
@@ -130,6 +148,10 @@
 
 .icon-link-hover {
   &:hover {
-    color: black;
+    color: var(--amplify-colors-font-hover);
   }
+}
+
+.chevron-icon {
+  fill: var(--amplify-colors-font-tertiary);
 }
