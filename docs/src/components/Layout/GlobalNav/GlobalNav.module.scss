@@ -103,7 +103,7 @@
   height: 100%;
   font-size: 1rem;
   text-decoration: none;
-  color: var(--amplify-colors-font-tertiary);
+  color: var(--amplify-colors-font-tertiary) !important;
   font-family: 'Amazon Ember';
   cursor: pointer;
   font-weight: 400;
@@ -112,10 +112,10 @@
 
   &:hover,
   &:focus {
-    color: var(--amplify-colors-font-hover);
+    color: var(--amplify-colors-font-hover) !important;
 
     .custom-path-stroke {
-      stroke: var(--amplify-colors-font-hover);
+      stroke: var(--amplify-colors-font-hover) !important;
     }
   }
 
