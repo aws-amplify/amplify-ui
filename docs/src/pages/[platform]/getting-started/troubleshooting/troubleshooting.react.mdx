@@ -89,6 +89,39 @@ export default defineConfig({
 ...
 ```
 
+## Create React App
+
+When using [Geo components](../../connected-components/geo) and Create React App v5, users may experience the following error when rendering the `<MapView>` component in a production build:
+```bash
+Uncaught ReferenceError: g is not defined
+```
+The error is related to this [maplibre-gl issue](https://github.com/maplibre/maplibre-gl-js/issues/1011#issuecomment-1073112585) and surfaces due to the dropped support for Internet Explorer in `maplibre-gl` v2. To correct this error, you'll need to adjust your browser target for production to exclude Internet Explorer:
+
+**1.** In your `package.json` file of your Create React App, adjust the `browserslist.production` block from:
+```json
+"browserslist": {
+  "production": [
+    ">0.2%",
+    "not dead",
+    "not op_mini all"
+  ],
+  ...
+}
+```
+to the following:
+```json
+"browserslist": {
+  "production": [
+    "defaults",
+    "not ie 11"
+  ],
+  ...
+}
+```
+**2.** Rebuild your production application using `npx run build`.
+
+**3.** Run your production build using a tool like [serve](https://www.npmjs.com/package/serve) (`serve -s build`) and verify the `<MapView>` component renders without error.
+
 ## Jest
 
 As of v2.15.0 of `@aws-amplify/ui-react` which included the release of Geo components, users of the Jest testing framework may run into the following error when attempting to run tests:
@@ -100,6 +133,7 @@ window.URL.createObjectURL is not a function
 Please follow the steps below to resolve this issue.
 
 **1.** Navigate to or create a [Jest setup file](https://jestjs.io/docs/configuration#setupfilesafterenv-array) for your project.
+
 **2.** Add the following code to polyfill the unrecognized function in your Jest setup file:
 
 ```js

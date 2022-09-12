@@ -13,7 +13,15 @@ concurrency:
 
 on:
   pull_request_target:
-    branches: [main, ui-svelte/main, ui-geo/main, ui-react@v2, studio-release]
+    branches:
+      [
+        main,
+        ui-svelte/main,
+        ui-geo/main,
+        ui-react@v2,
+        studio-release,
+        next-release/main,
+      ]
     types: [opened, synchronize, labeled]
 
 permissions:

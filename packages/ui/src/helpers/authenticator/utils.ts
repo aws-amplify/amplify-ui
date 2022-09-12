@@ -79,3 +79,12 @@ export const listenToAuthHub = (
 
 export const hasSpecialChars = (password: string) =>
   ALLOWED_SPECIAL_CHARACTERS.some((char) => password.includes(char));
+
+export const getTotpCode = (
+  issuer: string,
+  username: string,
+  secret: string
+): string =>
+  encodeURI(
+    `otpauth://totp/${issuer}:${username}?secret=${secret}&issuer=${issuer}`
+  );

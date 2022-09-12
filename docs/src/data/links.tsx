@@ -1,6 +1,6 @@
+import { IconType } from 'react-icons/lib';
 import {
   MdFormatSize,
-  MdOutlineCheckBox,
   MdTextFormat,
   MdOutlineImage,
   MdInsertEmoticon,
@@ -12,8 +12,6 @@ import {
   MdWarning,
   MdNotes,
   MdInput,
-  MdArrowDropDown,
-  MdArrowDropDownCircle,
   MdAddBox,
   MdSearch,
   MdPassword,
@@ -28,7 +26,6 @@ import {
   MdExpand,
   MdTableChart,
   MdMoreHoriz,
-  MdHideSource,
   MdLink,
   MdMenu,
   MdTab,
@@ -37,7 +34,6 @@ import {
   MdDisabledVisible,
   MdRefresh,
   MdTune,
-  MdSystemUpdate,
   MdSystemUpdateAlt,
   MdCheckCircle,
 } from 'react-icons/md';
@@ -45,8 +41,10 @@ import {
 export interface ComponentNavItem {
   href: string;
   label: string;
-  body: string;
+  body?: string;
+  platforms: string[];
   tertiary?: boolean;
+  icon?: IconType;
 }
 
 const sortByLabel = (a: ComponentNavItem, b: ComponentNavItem) =>
@@ -104,7 +102,7 @@ export const baseComponents: ComponentNavItem[] = [
   },
 ].sort(sortByLabel);
 
-export const connectedComponents = [
+export const connectedComponents: ComponentNavItem[] = [
   {
     href: '/connected-components/authenticator',
     label: 'Authenticator',
@@ -137,7 +135,7 @@ export const connectedComponents = [
   },
 ];
 
-export const dataDisplayComponents = [
+export const dataDisplayComponents: ComponentNavItem[] = [
   {
     href: '/components/badge',
     label: 'Badge',
@@ -178,7 +176,7 @@ export const feedbackComponents: ComponentNavItem[] = [
   },
 ].sort(sortByLabel);
 
-export const inputComponents = [
+export const inputComponents: ComponentNavItem[] = [
   {
     href: '/components/textareafield',
     label: 'TextArea Field',
@@ -272,7 +270,7 @@ export const inputComponents = [
   },
 ].sort(sortByLabel);
 
-export const layoutComponents = [
+export const layoutComponents: ComponentNavItem[] = [
   {
     href: '/components/card',
     label: 'Card',
@@ -324,7 +322,7 @@ export const layoutComponents = [
   },
 ].sort(sortByLabel);
 
-export const utilityComponents = [
+export const utilityComponents: ComponentNavItem[] = [
   {
     href: '/components/visuallyhidden',
     label: 'Visually Hidden',
@@ -358,7 +356,10 @@ export const navigationComponents: ComponentNavItem[] = [
   },
 ].sort(sortByLabel);
 
-export const primitiveComponents = [
+export const primitiveComponents: {
+  heading?: string;
+  components: ComponentNavItem[];
+}[] = [
   {
     components: [
       {
@@ -398,7 +399,7 @@ export const primitiveComponents = [
   },
 ];
 
-export const legacyComponents = [
+export const legacyComponents: ComponentNavItem[] = [
   {
     href: '/legacy-components/chatbot',
     label: 'Chatbot',
@@ -413,10 +414,11 @@ export const legacyComponents = [
   },
 ];
 
-export const guides = [
+export const guides: ComponentNavItem[] = [
   {
     href: '/guides',
     label: 'Overview',
+    platforms: ['react'],
   },
   {
     href: '/guides/css-in-js',
@@ -430,18 +432,21 @@ export const guides = [
   },
 ];
 
-export const gettingStarted = [
+export const gettingStarted: ComponentNavItem[] = [
   {
     href: '/getting-started/introduction',
     label: 'Introduction',
+    platforms: ['react', 'vue', 'angular', 'flutter'],
   },
   {
     href: '/getting-started/installation',
     label: 'Installation',
+    platforms: ['react', 'vue', 'angular', 'flutter'],
   },
   {
     href: '/getting-started/usage',
     label: 'Usage',
+    platforms: ['react', 'vue', 'angular'],
   },
   {
     href: '/getting-started/usage/create-react-app',
@@ -457,11 +462,13 @@ export const gettingStarted = [
   },
   {
     href: '/getting-started/figma',
+    platforms: ['react'],
     label: 'Figma',
   },
   {
     href: '/getting-started/accessibility',
     label: 'Accessibility',
+    platforms: ['react', 'vue', 'angular'],
   },
   {
     href: '/getting-started/migration',
@@ -475,10 +482,11 @@ export const gettingStarted = [
   },
 ];
 
-export const theming = [
+export const theming: ComponentNavItem[] = [
   {
     href: '/theming',
     label: 'Overview',
+    platforms: ['react', 'vue', 'angular', 'flutter'],
   },
   {
     href: '/theming/responsive',
@@ -511,6 +519,7 @@ export const theming = [
   {
     href: '/theming/dark-mode',
     label: 'Dark mode',
+    platforms: ['react', 'vue', 'angular', 'flutter'],
   },
   {
     href: '/theming/css-variables',

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { debounce } from 'lodash';
+import { useRouter } from 'next/router';
 
 import { Footer } from '@/components/Layout/Footer';
-import { useCustomRouter } from '@/components/useCustomRouter';
 import { HeroSection } from '@/components/home/sections';
 import { isReactNativeEnabled } from '@/utils/featureFlags';
 
@@ -11,11 +11,25 @@ import ReactNativeHomePage from './index.reactnative';
 import VueHomePage from './index.vue';
 import AngularHomePage from './index.angular';
 import FlutterHomePage from './index.flutter';
+import { FRAMEWORKS } from '@/data/frameworks';
+import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
+
+export async function getStaticPaths() {
+  return getCustomStaticPath(FRAMEWORKS);
+}
+
+/*
+ * `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing"
+ */
+
+export async function getStaticProps() {
+  return { props: {} };
+}
 
 const HomePage = ({ colorMode }) => {
   const {
     query: { platform = 'react' },
-  } = useCustomRouter();
+  } = useRouter();
 
   const handleScroll = debounce((e) => {
     const bodyScroll = e.target.documentElement.scrollTop;
