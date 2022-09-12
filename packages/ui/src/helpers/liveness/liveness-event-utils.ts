@@ -1,41 +1,37 @@
-import { Message } from '@aws-sdk/eventstream-codec';
+import {
+  FaceMovementAndLightServerChallenge,
+  OvalScaleFactors,
+  ServerChallenge,
+  ServerSessionInformationEvent,
+  SessionInformation,
+} from '@aws-sdk/client-rekognitionstreaming';
 
-export function getLivenessVideoEvent(buffer: Uint8Array): Message {
-  return {
-    headers: {
-      ':message-type': {
-        type: 'string',
-        value: 'event',
-      },
-      ':event-type': {
-        type: 'string',
-        value: 'VideoEvent',
-      },
-      ':content-type': {
-        type: 'string',
-        value: 'application/octet-stream',
-      },
-    },
-    body: buffer,
-  };
-}
+export const isServerSesssionInformationEvent = (
+  event: any
+): event is ServerSessionInformationEvent => {
+  return isSessionInformation(event?.SessionInformation);
+};
 
-export function getLivenessClientSessionInfoEvent(buffer: Uint8Array): Message {
-  return {
-    headers: {
-      ':message-type': {
-        type: 'string',
-        value: 'event',
-      },
-      ':event-type': {
-        type: 'string',
-        value: 'ClientSessionInformationEvent',
-      },
-      ':content-type': {
-        type: 'string',
-        value: 'application/json',
-      },
-    },
-    body: buffer,
-  };
-}
+export const isSessionInformation = (
+  object: any
+): object is SessionInformation => {
+  return isServerChallenge(object?.Challenge);
+};
+
+export const isServerChallenge = (object: any): object is ServerChallenge => {
+  return isFaceMovementAndLightChallenge(object?.FaceMovementAndLightChallenge);
+};
+
+export const isFaceMovementAndLightChallenge = (
+  object: any
+): object is FaceMovementAndLightServerChallenge => {
+  return isOvalScaleFactors(object?.OvalScaleFactors);
+};
+
+export const isOvalScaleFactors = (object: any): object is OvalScaleFactors => {
+  return (
+    typeof object.Width === 'number' &&
+    typeof object.CenterX === 'number' &&
+    typeof object.CenterY === 'number'
+  );
+};

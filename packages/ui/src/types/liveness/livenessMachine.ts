@@ -1,4 +1,4 @@
-import { Interpreter, State } from 'xstate';
+import { ActorRef, Interpreter, State } from 'xstate';
 
 import {
   LivenessFlowProps,
@@ -13,11 +13,13 @@ import {
   FreshnessColorDisplay,
 } from '../../helpers';
 import { Face, FaceDetection } from './faceDetection';
+import { SessionInformation } from '@aws-sdk/client-rekognitionstreaming';
 
 export interface LivenessContext {
   maxFailedAttempts: number;
   failedAttempts: number;
   flowProps: LivenessFlowProps;
+  serverSessionInformation: SessionInformation;
   challengeId: string;
   videoAssociatedParams: {
     videoConstraints: MediaTrackConstraints;
@@ -48,6 +50,7 @@ export interface LivenessContext {
   };
   errorState: LivenessErrorState | null;
   livenessStreamProvider: LivenessStreamProvider;
+  responseStreamActorRef: ActorRef<any>;
 }
 
 export type LivenessEventTypes =
@@ -55,7 +58,8 @@ export type LivenessEventTypes =
   | 'START_RECORDING'
   | 'TIMEOUT'
   | 'ERROR'
-  | 'CANCEL';
+  | 'CANCEL'
+  | 'SET_SESSION_INFO';
 
 export type LivenessEventData = Record<PropertyKey, any>; // TODO: this should be typed further
 
