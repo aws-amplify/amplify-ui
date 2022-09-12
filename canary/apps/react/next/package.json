@@ -26,5 +26,8 @@
       "path": ".next/static/**/*.js",
       "limit": "350 kB"
     }
-  ]
+  ],
+  "resolutions": {
+    "caniuse-lite": "1.0.30001393"
+  }
 }
