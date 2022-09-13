@@ -83,7 +83,11 @@ export function StartLiveness(): JSX.Element {
   };
 
   return (
-    <Flex direction="column" ref={currElementRef}>
+    <Flex
+      direction="column"
+      ref={currElementRef}
+      padding={'var(--amplify-space-medium)'}
+    >
       <Heading level={3}>{translate('How it works')}</Heading>
       <Collection
         type="list"

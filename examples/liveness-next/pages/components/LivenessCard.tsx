@@ -31,7 +31,12 @@ export default function LivenessCard() {
         >
           <SessionIdAlert sessionId={createLivenessSessionApiData.sessionId} />
 
-          <Card variation="elevated" width={600} maxWidth="100%">
+          <Card
+            variation="elevated"
+            width={600}
+            maxWidth="100%"
+            padding="unset"
+          >
             <LivenessFlow
               sessionId={createLivenessSessionApiData.sessionId}
               sessionInformation={

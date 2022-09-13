@@ -82,7 +82,7 @@ describe('Instruction', () => {
     errorState = LivenessErrorState.RUNTIME_ERROR;
     mockStateMatchesAndSelectors();
 
-    renderWithLivenessProvider(<Instruction isMobileScreen={false} />);
+    renderWithLivenessProvider(<Instruction />);
 
     expect(
       screen.getByText(
@@ -95,7 +95,7 @@ describe('Instruction', () => {
     isCheckFailed = true;
     mockStateMatchesAndSelectors();
 
-    renderWithLivenessProvider(<Instruction isMobileScreen={false} />);
+    renderWithLivenessProvider(<Instruction />);
 
     expect(
       screen.getByText('Check failed! Please try again.')
@@ -106,7 +106,7 @@ describe('Instruction', () => {
     isNotRecording = true;
     mockStateMatchesAndSelectors();
 
-    renderWithLivenessProvider(<Instruction isMobileScreen={false} />);
+    renderWithLivenessProvider(<Instruction />);
 
     expect(
       screen.getByText(
@@ -119,7 +119,7 @@ describe('Instruction', () => {
     isUploading = true;
     mockStateMatchesAndSelectors();
 
-    renderWithLivenessProvider(<Instruction isMobileScreen={false} />);
+    renderWithLivenessProvider(<Instruction />);
 
     expect(screen.getByText('Authenticating')).toBeInTheDocument();
   });
@@ -128,7 +128,7 @@ describe('Instruction', () => {
     isCheckSuccessful = true;
     mockStateMatchesAndSelectors();
 
-    renderWithLivenessProvider(<Instruction isMobileScreen={false} />);
+    renderWithLivenessProvider(<Instruction />);
 
     expect(screen.getByText('Success!')).toBeInTheDocument();
   });
@@ -137,7 +137,7 @@ describe('Instruction', () => {
     illuminationState = IlluminationState.DARK;
     mockStateMatchesAndSelectors();
 
-    renderWithLivenessProvider(<Instruction isMobileScreen={false} />);
+    renderWithLivenessProvider(<Instruction />);
 
     expect(
       screen.getByText(IlluminationStateStringMap[IlluminationState.DARK])
@@ -148,7 +148,7 @@ describe('Instruction', () => {
     illuminationState = IlluminationState.NORMAL;
     mockStateMatchesAndSelectors();
 
-    renderWithLivenessProvider(<Instruction isMobileScreen={false} />);
+    renderWithLivenessProvider(<Instruction />);
 
     expect(
       screen.queryByText(IlluminationStateStringMap[IlluminationState.NORMAL])
@@ -159,7 +159,7 @@ describe('Instruction', () => {
     faceMatchState = FaceMatchState.TOO_CLOSE;
     mockStateMatchesAndSelectors();
 
-    renderWithLivenessProvider(<Instruction isMobileScreen={false} />);
+    renderWithLivenessProvider(<Instruction />);
 
     expect(
       screen.getByText(FaceMatchStateStringMap[FaceMatchState.TOO_CLOSE])
