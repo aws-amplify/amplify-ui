@@ -33,4 +33,4 @@ PROVIDERS="{\
 
 cd $1
 
-echo y | yarn pull --amplify $AMPLIFY --frontend $FRONTEND --providers $PROVIDERS --headless
+echo y | yarn pull --amplify $AMPLIFY --frontend $FRONTEND --providers $PROVIDERS
