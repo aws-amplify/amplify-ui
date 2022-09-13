@@ -7,7 +7,7 @@
     "install": "yarn react:install && yarn vue:install && yarn angular:install",
     "pull": "./environments/pull-environments.sh",
     "script:install": "yarn --cwd script",
-    "setup:next": "rm ../postcss.config.js && yarn script:install && yarn updatePackage",
+    "setup:next": "yarn script:install && yarn updatePackage",
     "test": "yarn --cwd e2e test",
     "updatePackage": "node script/changeCanaryPackageVersion.mjs",
     "cypress:install": "yarn --cwd e2e install",
