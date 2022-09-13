@@ -5,7 +5,7 @@
 #   (1) Internal PRs: contirubutor pushes a commit to PRs targeting protected branches.
 #   (2) Fork PRs: maintainer adds "run-test" label to PRs targeting protected branches.
 
-name: POC / Test / PRs
+name: POC / Split environments
 
 concurrency:
   group: e2e-${{ github.event.pull_request.id }}
@@ -22,21 +22,26 @@ permissions:
 
 jobs:
   test:
-    uses: ./.github/workflows/reusable-e2e.yml
-    with:
-      commit: ${{ github.event.pull_request.head.sha }}
-      repository: ${{ github.event.pull_request.head.repo.full_name }}
-    secrets:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      AWS_ACCESS_KEY_ID_GEO: ${{ secrets.AWS_ACCESS_KEY_ID_GEO }}
-      AWS_SECRET_ACCESS_KEY_GEO: ${{ secrets.AWS_SECRET_ACCESS_KEY_GEO }}
-      DOMAIN: ${{ secrets.DOMAIN }}
-      PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
-      USERNAME: ${{ secrets.USERNAME }}
-      NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
-      VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
-      SITE_URL: ${{ secrets.SITE_URL }}
-      DOCSEARCH_DOCS_APP_ID: ${{ secrets.DOCSEARCH_DOCS_APP_ID }}
-      DOCSEARCH_DOCS_API_KEY: ${{ secrets.DOCSEARCH_DOCS_API_KEY }}
-      DOCSEARCH_DOCS_INDEX_NAME: ${{ secrets.DOCSEARCH_DOCS_INDEX_NAME }}
+    runs-on: ubuntu-latest
+    environment: ci
+    steps:
+      - name: Pull down Auth AWS environments, on cache miss
+        # if: steps.environments-cache.outputs.cache-hit != 'true'
+        run: yarn environments auth pull
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Pull down Geo AWS environments, on cache miss
+        # if: steps.environments-cache.outputs.cache-hit != 'true'
+        run: yarn environments geo pull
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_GEO }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_GEO }}
+
+      - name: Pull down Datastore AWS environments, on cache miss
+        # if: steps.environments-cache.outputs.cache-hit != 'true'
+        run: yarn environments datastore pull
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
