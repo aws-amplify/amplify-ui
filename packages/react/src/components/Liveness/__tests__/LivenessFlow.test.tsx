@@ -1,8 +1,12 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { useActor } from '@xstate/react';
 
 import { LivenessFlow, LivenessFlowProps } from '..';
+import { getMockedFunction } from '../utils/test-utils';
+import { getVideoConstraints } from '../StartLiveness/helpers';
+import { useMediaStreamInVideo, useLivenessActor } from '../hooks';
 
 jest.mock('../../../styles.css', () => ({}));
 
@@ -18,6 +22,10 @@ describe('LivenessFlow', () => {
   const livenessFlowCheckTestId = 'liveness-flow-check';
   const cancelButtonName = 'Cancel';
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('should render the flow by default without active props', () => {
     render(<LivenessFlow {...defaultProps} />);
     expect(screen.getByTestId(livenessFlowTestId)).toBeInTheDocument();
@@ -32,14 +40,6 @@ describe('LivenessFlow', () => {
     rerender(
       <LivenessFlow {...defaultProps} active={false} onExit={() => {}} />
     );
-    expect(screen.queryByTestId(livenessFlowTestId)).not.toBeInTheDocument();
-  });
-
-  it('should render nothin on user cancel', () => {
-    render(<LivenessFlow {...defaultProps} />);
-    expect(screen.getByTestId(livenessFlowTestId)).toBeInTheDocument();
-
-    userEvent.click(screen.getByRole('button', { name: cancelButtonName }));
     expect(screen.queryByTestId(livenessFlowTestId)).not.toBeInTheDocument();
   });
 
@@ -77,11 +77,6 @@ describe('LivenessFlow', () => {
     userEvent.click(screen.getByRole('button', { name: cancelButtonName }));
     expect(onUserCancel).toHaveBeenCalledTimes(1);
     expect(onExit).not.toHaveBeenCalled();
-  });
-
-  it('should skip the GetReady screen if we pass in the prop disableStartScreen', () => {
-    render(<LivenessFlow {...defaultProps} disableStartScreen={true} />);
-    expect(screen.getByTestId(livenessFlowCheckTestId)).toBeInTheDocument();
   });
 
   it('should NOT show the check screen if disableStartScreen is true and active is false', () => {
