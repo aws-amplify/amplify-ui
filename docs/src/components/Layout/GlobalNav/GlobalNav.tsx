@@ -86,8 +86,6 @@ export function GlobalNav({
   const navLinksContainerRef = useRef<HTMLDivElement>(null);
   const navLinksRightRef = useRef<HTMLDivElement>(null);
 
-  const navLinksLeftRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     const handleWindowSizeChange = () => {
       setCurrentWindowInnerWidth(window.innerWidth);
@@ -98,8 +96,6 @@ export function GlobalNav({
         const navLinksRightBCR =
           navLinksRightRef.current.getBoundingClientRect();
 
-        console.log('navLinksRightBCR.right ', navLinksRightBCR.right);
-        console.log('navLinksContainerBCR.right ', navLinksContainerBCR.right);
         if (navLinksRightBCR.right > navLinksContainerBCR.right) {
           setIsMobileState(true);
           setMobileNavBreakpoint(window.innerWidth);
@@ -115,19 +111,11 @@ export function GlobalNav({
   }, []);
 
   useLayoutEffect(() => {
-    if (
-      navLinksContainerRef.current &&
-      navLinksRightRef.current &&
-      navLinksLeftRef.current
-    ) {
+    if (navLinksContainerRef.current && navLinksRightRef.current) {
       const navLinksContainerBCR =
         navLinksContainerRef.current.getBoundingClientRect();
       const navLinksRightBCR = navLinksRightRef.current.getBoundingClientRect();
 
-      const navLinksLeftBCR = navLinksLeftRef.current.getBoundingClientRect();
-
-      console.log('navLinksRightBCR.right ', navLinksRightBCR.right);
-      console.log('navLinksContainerBCR.right ', navLinksContainerBCR.right);
       if (navLinksRightBCR.right >= navLinksContainerBCR.right) {
         setIsMobileState(true);
         setMobileNavBreakpoint(window.innerWidth);
@@ -296,7 +284,6 @@ export function GlobalNav({
         }}
       >
         <Flex
-          ref={navLinksLeftRef}
           columnStart="1"
           height="100%"
           columnGap="16px"
