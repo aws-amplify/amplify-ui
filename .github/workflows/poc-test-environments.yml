@@ -30,4 +30,11 @@ jobs:
         with:
           node-version: lts/*
           cache: 'yarn'
-      # TODO: add yarn environments <category> pull incrementally
+      - name: Add Amplify CLI
+        run: yarn global add @aws-amplify/cli
+
+      - name: Pull down Geo AWS environments, on cache miss
+        run: yarn environments geo pull
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_GEO }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_GEO }}
