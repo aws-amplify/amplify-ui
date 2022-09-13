@@ -29,6 +29,13 @@ jobs:
         uses: actions/checkout@v2
         with:
           persist-credentials: false
+      - name: Setup Node.js LTS
+        uses: actions/setup-node@v2
+        with:
+          node-version: lts/*
+          cache: 'yarn'
+      - name: Add Amplify CLI
+        run: yarn global add @aws-amplify/cli
       - name: Pull down Auth AWS environments, on cache miss
         # if: steps.environments-cache.outputs.cache-hit != 'true'
         run: yarn environments auth pull
