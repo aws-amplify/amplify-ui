@@ -114,7 +114,7 @@ export function GlobalNav({
     };
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (
       navLinksContainerRef.current &&
       navLinksRightRef.current &&
