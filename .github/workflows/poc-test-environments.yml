@@ -25,6 +25,10 @@ jobs:
     runs-on: ubuntu-latest
     environment: ci
     steps:
+      - name: Checkout Amplify UI
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
       - name: Pull down Auth AWS environments, on cache miss
         # if: steps.environments-cache.outputs.cache-hit != 'true'
         run: yarn environments auth pull
