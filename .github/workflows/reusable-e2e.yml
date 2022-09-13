@@ -14,15 +14,9 @@ on:
         required: true
         type: string
     secrets:
-      # TODO: remove this once environments are fully split
       AWS_ACCESS_KEY_ID:
         required: true
-      # TODO: remove this once environments are fully split
       AWS_SECRET_ACCESS_KEY:
-        required: true
-      AWS_ACCESS_KEY_ID_GEO:
-        required: true
-      AWS_SECRET_ACCESS_KEY_GEO:
         required: true
       DOMAIN:
         required: true
@@ -279,8 +273,8 @@ jobs:
         if: steps.environments-cache.outputs.cache-hit != 'true'
         run: yarn environments geo pull
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_GEO }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_GEO }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: Pull down Datastore AWS environments, on cache miss
         if: steps.environments-cache.outputs.cache-hit != 'true'
