@@ -292,9 +292,7 @@ export function GlobalNav({
         className={styles['nav-links-container']}
         padding="0px 32px"
         style={{
-          borderBottom: hasSecondaryNav
-            ? '1px solid #d5dbdb'
-            : '1px solid transparent',
+          borderBottom: hasSecondaryNav ? '1px solid #d5dbdb' : 'none',
         }}
       >
         <Flex
