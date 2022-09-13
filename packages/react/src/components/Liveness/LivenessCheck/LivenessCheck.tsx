@@ -20,7 +20,11 @@ export const LivenessCheck: React.FC = () => {
   const isPermissionDenied = state.matches('permissionDenied');
 
   return (
-    <Flex direction="column" position="relative">
+    <Flex
+      direction="column"
+      position="relative"
+      data-testid="liveness-flow-check"
+    >
       {!isMobileScreen && (
         <Heading level={3}>{translate('Liveness check')}</Heading>
       )}

@@ -20,6 +20,14 @@ const mockGetVideoConstraints = getMockedFunction(getVideoConstraints);
 describe('StartLiveness', () => {
   const mockActorState: any = {};
   const mockActorSend = jest.fn();
+  const mockBeginCheck = () => {
+    mockActorSend({
+      type: 'BEGIN',
+      data: {
+        videoConstraints: {},
+      },
+    });
+  };
 
   const beginCheckBtnName = 'Begin check';
 
@@ -32,7 +40,9 @@ describe('StartLiveness', () => {
   });
 
   it('should render the StartLiveness component and content appropriately', () => {
-    renderWithLivenessProvider(<StartLiveness />);
+    renderWithLivenessProvider(
+      <StartLiveness beginLivenessCheck={mockBeginCheck} />
+    );
 
     expect(screen.getByText('How it works')).toBeInTheDocument();
     expect(screen.getByText(/Legal desclaimer/)).toBeInTheDocument();
@@ -48,11 +58,13 @@ describe('StartLiveness', () => {
     expect(screen.getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
   });
 
-  it('should call the send method on begin check', () => {
+  it('should call the begin handler on begin check', () => {
     const mockVideoConstraints = {};
     mockGetVideoConstraints.mockReturnValue(mockVideoConstraints);
 
-    renderWithLivenessProvider(<StartLiveness />);
+    renderWithLivenessProvider(
+      <StartLiveness beginLivenessCheck={mockBeginCheck} />
+    );
 
     userEvent.click(screen.getByRole('button', { name: beginCheckBtnName }));
 
