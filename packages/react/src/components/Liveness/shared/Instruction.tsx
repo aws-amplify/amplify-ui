@@ -14,7 +14,7 @@ import {
 } from '../hooks';
 import { useTheme } from '../../../hooks';
 import { Flex, Loader, View } from '../../../primitives';
-import { AlertIcon } from '../../../primitives/Alert/AlertIcon';
+import { LivenessAlertIcon } from './LivenessAlertIcon';
 
 export const selectErrorState = createLivenessSelector(
   (state) => state.context.errorState
@@ -58,7 +58,7 @@ export const Instruction: React.FC<InstructionProps> = (props) => {
           }
           alignItems="center"
         >
-          <AlertIcon variation="error" />
+          <LivenessAlertIcon variation="error" />
           <View as="span">
             {errorState && LivenessErrorStateStringMap[errorState]}
             {isCheckFailed && translate('Check failed! Please try again.')}
@@ -93,7 +93,7 @@ export const Instruction: React.FC<InstructionProps> = (props) => {
           }
           alignItems="center"
         >
-          <AlertIcon variation="success" />
+          <LivenessAlertIcon variation="success" />
           <View as="span" style={{ whiteSpace: 'nowrap' }}>
             {translate('Success!')}
           </View>
