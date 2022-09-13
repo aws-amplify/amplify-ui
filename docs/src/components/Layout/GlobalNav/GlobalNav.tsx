@@ -124,8 +124,6 @@ export function GlobalNav({
   }, []);
 
   useLayoutEffect(() => {
-    console.log('currentWindowInnerWidth ', currentWindowInnerWidth);
-    console.log('mobileNavBreakpoint ', mobileNavBreakpoint);
     if (currentWindowInnerWidth > mobileNavBreakpoint) {
       setIsMobileState(false);
     }
