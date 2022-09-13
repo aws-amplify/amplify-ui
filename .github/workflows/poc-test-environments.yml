@@ -1,9 +1,5 @@
-# Description: This workflow runs unit + e2e tests on PRs targeting `main` and
-#              other protected branches listed below.
-#
-# Triggered by:
-#   (1) Internal PRs: contirubutor pushes a commit to PRs targeting protected branches.
-#   (2) Fork PRs: maintainer adds "run-test" label to PRs targeting protected branches.
+# Description: This workflow tests environments split changes for POC purposes.
+#              It will be reverted before changes are merged onto `main`.
 
 name: POC / Split environments
 
@@ -34,25 +30,4 @@ jobs:
         with:
           node-version: lts/*
           cache: 'yarn'
-      - name: Add Amplify CLI
-        run: yarn global add @aws-amplify/cli
-      # - name: Pull down Auth AWS environments, on cache miss
-      #   # if: steps.environments-cache.outputs.cache-hit != 'true'
-      #   run: yarn environments auth pull
-      #   env:
-      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
-      - name: Pull down Geo AWS environments, on cache miss
-        # if: steps.environments-cache.outputs.cache-hit != 'true'
-        run: yarn environments geo pull
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_GEO }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_GEO }}
-
-      # - name: Pull down Datastore AWS environments, on cache miss
-      #   # if: steps.environments-cache.outputs.cache-hit != 'true'
-      #   run: yarn environments datastore pull
-      #   env:
-      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      # TODO: add yarn environments <category> pull incrementally
