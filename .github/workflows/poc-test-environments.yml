@@ -36,21 +36,19 @@ jobs:
           cache: 'yarn'
       - name: Add Amplify CLI
         run: yarn global add @aws-amplify/cli
-      - name: Pull down Auth AWS environments, on cache miss
-        # if: steps.environments-cache.outputs.cache-hit != 'true'
-        run: yarn environments auth pull
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
-      # TODO:
-
-      # - name: Pull down Geo AWS environments, on cache miss
+      # - name: Pull down Auth AWS environments, on cache miss
       #   # if: steps.environments-cache.outputs.cache-hit != 'true'
-      #   run: yarn environments geo pull
+      #   run: yarn environments auth pull
       #   env:
-      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_GEO }}
-      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_GEO }}
+      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Pull down Geo AWS environments, on cache miss
+        # if: steps.environments-cache.outputs.cache-hit != 'true'
+        run: yarn environments geo pull
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_GEO }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_GEO }}
 
       # - name: Pull down Datastore AWS environments, on cache miss
       #   # if: steps.environments-cache.outputs.cache-hit != 'true'
