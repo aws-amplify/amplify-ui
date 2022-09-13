@@ -15,6 +15,7 @@ describe('LivenessFlow', () => {
     },
   };
   const livenessFlowTestId = 'liveness-flow';
+  const livenessFlowCheckTestId = 'liveness-flow-check';
   const cancelButtonName = 'Cancel';
 
   it('should render the flow by default without active props', () => {
@@ -76,5 +77,23 @@ describe('LivenessFlow', () => {
     userEvent.click(screen.getByRole('button', { name: cancelButtonName }));
     expect(onUserCancel).toHaveBeenCalledTimes(1);
     expect(onExit).not.toHaveBeenCalled();
+  });
+
+  it('should skip the GetReady screen if we pass in the prop disableStartScreen', () => {
+    render(<LivenessFlow {...defaultProps} disableStartScreen={true} />);
+    expect(screen.getByTestId(livenessFlowCheckTestId)).toBeInTheDocument();
+  });
+
+  it('should NOT show the check screen if disableStartScreen is true and active is false', () => {
+    render(
+      <LivenessFlow
+        {...defaultProps}
+        disableStartScreen={true}
+        active={false}
+      />
+    );
+    expect(
+      screen.queryByTestId(livenessFlowCheckTestId)
+    ).not.toBeInTheDocument();
   });
 });

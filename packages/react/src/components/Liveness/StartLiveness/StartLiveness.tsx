@@ -6,11 +6,8 @@ import {
 } from '@aws-amplify/ui';
 
 import { useTheme } from '../../../hooks';
-import { useThemeBreakpoint } from '../../../hooks/useThemeBreakpoint';
 import { CancelButton, DescriptionBullet } from '../shared';
 import { useLivenessFlow } from '../providers';
-import { useLivenessActor } from '../hooks';
-import { getVideoConstraints } from './helpers';
 import {
   Flex,
   Heading,
@@ -36,14 +33,14 @@ export const INSTRUCTIONS = [
   },
 ];
 
-export function StartLiveness(): JSX.Element {
+export interface StartLivenessProps {
+  beginLivenessCheck: () => void;
+}
+
+export function StartLiveness(props: StartLivenessProps): JSX.Element {
+  const { beginLivenessCheck } = props;
   const { tokens } = useTheme();
   const { flowProps } = useLivenessFlow();
-  const [_, send] = useLivenessActor();
-
-  const breakpoint = useThemeBreakpoint();
-  const isMobileScreen = breakpoint === 'base';
-  const currElementRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
     recordLivenessAnalyticsEvent(flowProps, {
@@ -64,30 +61,8 @@ export function StartLiveness(): JSX.Element {
     };
   }, [flowProps]);
 
-  const handleBeginCheck = () => {
-    recordLivenessAnalyticsEvent(flowProps, {
-      event: LIVENESS_EVENT_GET_READY_SCREEN,
-      attributes: { action: 'BeginLivenessCheck' },
-      metrics: { count: 1 },
-    });
-
-    const videoConstraints = getVideoConstraints(
-      isMobileScreen,
-      currElementRef.current.clientWidth
-    );
-
-    send({
-      type: 'BEGIN',
-      data: { videoConstraints },
-    });
-  };
-
   return (
-    <Flex
-      direction="column"
-      ref={currElementRef}
-      padding={'var(--amplify-space-medium)'}
-    >
+    <Flex direction="column" padding={'var(--amplify-space-medium)'}>
       <Heading level={3}>{translate('How it works')}</Heading>
       <Collection
         type="list"
@@ -110,7 +85,7 @@ export function StartLiveness(): JSX.Element {
       >
         <CancelButton sourceScreen={LIVENESS_EVENT_GET_READY_SCREEN} />
 
-        <Button variation="primary" type="button" onClick={handleBeginCheck}>
+        <Button variation="primary" type="button" onClick={beginLivenessCheck}>
           {translate('Begin check')}
         </Button>
       </Flex>

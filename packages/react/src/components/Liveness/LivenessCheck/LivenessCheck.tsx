@@ -19,7 +19,11 @@ export const LivenessCheck: React.FC = () => {
   const isPermissionDenied = state.matches('permissionDenied');
 
   return (
-    <Flex direction="column" position="relative">
+    <Flex
+      direction="column"
+      position="relative"
+      data-testid="liveness-flow-check"
+    >
       {!isPermissionDenied ? (
         <LivenessCameraModule isMobileScreen={isMobileScreen} />
       ) : (
