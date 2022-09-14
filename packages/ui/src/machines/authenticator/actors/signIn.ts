@@ -582,8 +582,7 @@ export function signInActor({ services }: SignInMachineOptions) {
         },
         async checkVerifiedContact(context, event) {
           const { user } = context;
-          const result = await services.checkVerifiedContact(user);
-          return result;
+          return services.checkVerifiedContact(user);
         },
         async verifyUser(context, event) {
           const { unverifiedAttr } = context.formValues;

@@ -55,11 +55,7 @@ export const defaultServices = {
     return await Auth.confirmSignUp(username, code);
   },
   /** @deprecated For internal use only */
-  async handleResendConfirmationCode({
-    username,
-  }: {
-    username: string;
-  }): Promise<any> {
+  async handleResendConfirmationCode({ username }: { username: string }) {
     return Auth.resendSignUp(username);
   },
   async handleForgotPasswordSubmit({
