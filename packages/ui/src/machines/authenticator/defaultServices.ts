@@ -40,7 +40,7 @@ export const defaultServices = {
   }): Promise<any> {
     return Auth.confirmSignIn(user, code, mfaType);
   },
-  /** @deprecated For internal use only */
+  /** @internal For internal use only */
   async checkVerifiedContact(user) {
     const result = Auth.verifiedContact(user);
     return result;
@@ -54,8 +54,8 @@ export const defaultServices = {
   }): Promise<any> {
     return await Auth.confirmSignUp(username, code);
   },
-  /** @deprecated For internal use only */
-  async handleResendConfirmationCode({ username }: { username: string }) {
+  /** @internal For internal use only */
+  async handleResendConfirmationCode(username) {
     return Auth.resendSignUp(username);
   },
   async handleForgotPasswordSubmit({
