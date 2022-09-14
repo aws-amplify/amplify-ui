@@ -350,7 +350,7 @@ export const LivenessErrorStateStringMap: Record<LivenessErrorState, string> = {
   [LivenessErrorState.RUNTIME_ERROR]: translate(
     'Liveness encountered an error. Please try again.'
   ),
-  [LivenessErrorState.TIMEOUT]: translate<string>('Timeout!'),
+  [LivenessErrorState.TIMEOUT]: translate<string>('Timeout'),
 };
 
 export const MOCK_COLOR_SEQUENCES: ColorSequence[] = [

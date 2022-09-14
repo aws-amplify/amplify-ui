@@ -121,7 +121,7 @@ describe('Instruction', () => {
 
     renderWithLivenessProvider(<Instruction isMobileScreen={false} />);
 
-    expect(screen.getByText('Authenticating...')).toBeInTheDocument();
+    expect(screen.getByText('Authenticating')).toBeInTheDocument();
   });
 
   it('should render check succeeded state if present', () => {
@@ -130,7 +130,7 @@ describe('Instruction', () => {
 
     renderWithLivenessProvider(<Instruction isMobileScreen={false} />);
 
-    expect(screen.getByText('Check succeeded!')).toBeInTheDocument();
+    expect(screen.getByText('Success!')).toBeInTheDocument();
   });
 
   it('should render illumination state if present', () => {
