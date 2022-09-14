@@ -2,10 +2,10 @@ import { Component, HostBinding, OnInit } from '@angular/core';
 import QRCode from 'qrcode';
 import { Auth, Logger } from 'aws-amplify';
 import {
-  FormFields,
   FormFieldsArray,
   getActorContext,
   getFormDataFromEvent,
+  getTotpCode,
   SignInContext,
 } from '@aws-amplify/ui';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
@@ -28,12 +28,11 @@ export class SetupTotpComponent implements OnInit {
   public backToSignInText = translate('Back to Sign In');
   public confirmText = translate('Confirm');
   public sortedFormFields: FormFieldsArray;
-  public formOverrides: FormFields;
 
   constructor(public authenticator: AuthenticatorService) {}
 
-  ngOnInit(): void {
-    this.generateQRCode();
+  async ngOnInit(): Promise<void> {
+    await this.generateQRCode();
   }
 
   public get context() {
@@ -44,15 +43,12 @@ export class SetupTotpComponent implements OnInit {
     // TODO: This should be handled in core.
     const state = this.authenticator.authState;
     const actorContext = getActorContext(state) as SignInContext;
-    const { user } = actorContext;
+    const { user, formFields } = actorContext;
+    const { totpIssuer = 'AWSCognito', totpUsername = user?.username } =
+      formFields?.setupTOTP?.QR ?? {};
     try {
       this.secretKey = await Auth.setupTOTP(user);
-      const issuer = this.formOverrides?.['QR']?.totpIssuer ?? 'AWSCognito';
-      const username =
-        this.formOverrides?.['QR']?.totpUsername ?? user.username;
-      const totpCode = encodeURI(
-        `otpauth://totp/${issuer}:${username}?secret=${this.secretKey}&issuer=${issuer}`
-      );
+      const totpCode = getTotpCode(totpIssuer, totpUsername, this.secretKey);
 
       logger.info('totp code was generated:', totpCode);
       this.qrCodeSource = await QRCode.toDataURL(totpCode);

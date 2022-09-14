@@ -1,4 +1,4 @@
-import { Then } from 'cypress-cucumber-preprocessor/steps';
+import { Then } from '@badeball/cypress-cucumber-preprocessor';
 
 Then('I should see the Force Change Password screen', () => {
   cy.findByRole('document').contains(new RegExp('Change Password', 'i'));
