@@ -57,7 +57,7 @@ describe('FreshnessColorDisplay', () => {
       getColorsSequencesFromSessionInformation(mockSessionInformation)
     );
 
-    (display as any).colorStageIndex = 25; // mock going through all stages
+    (display as any).colorStageIndex = 7; // mock going through all stages
     const response = await display.displayColorTick();
     expect(response).toBe(true);
 

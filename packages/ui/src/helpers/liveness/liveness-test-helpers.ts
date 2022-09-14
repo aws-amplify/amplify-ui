@@ -110,6 +110,8 @@ export const mockContext = (): LivenessContext => {
     },
     errorState: null,
     livenessStreamProvider: mockLivenessStreamProvider,
+    serverSessionInformation: undefined,
+    responseStreamActorRef: undefined,
   };
 };
 
