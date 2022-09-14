@@ -26,7 +26,7 @@ const FrameworkLink = ({
     : `/${framework}`;
 
   return (
-    <Link href={href} passHref>
+    <Link href={isDisabled ? '' : href} passHref>
       <Button
         size="small"
         className={classNames}

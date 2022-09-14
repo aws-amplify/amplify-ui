@@ -40,12 +40,14 @@
       "**/@radix-ui/**",
       "**/react",
       "**/react-map-gl",
+      "**/rollup",
       "**/use-sync-external-store",
       "**/use-isomorphic-layout-effect",
       "**/use-isomorphic-layout-effect/**"
     ]
   },
   "resolutions": {
+    "@types/react": "17.0.47",
     "ansi-regex": "5.0.1",
     "ansi-html": "0.0.8",
     "async": "^3.2.2",
