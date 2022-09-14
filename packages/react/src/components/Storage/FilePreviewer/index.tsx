@@ -1,12 +1,13 @@
 /** File Previewer */
 
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Button, Flex } from 'src/primitives';
 import { Card } from 'src/primitives/Card';
 import { View } from 'src/primitives/View';
 import { FileTracker } from '../FileTracker';
 import { FilePreviewerProps } from '../FileUploader/types';
 import { getFileName, uploadFile } from '../shared/utils';
+import { UploadTask } from '@aws-amplify/storage';
 
 export function FilePreviewer({
   files,
@@ -14,19 +15,26 @@ export function FilePreviewer({
   fileName,
   level,
 }: FilePreviewerProps): JSX.Element {
-  const [percentage, setPercentage] = useState(0);
+  const [percentage, setPercentage] = useState<number[]>([]);
+  const [uploadTasks, setUploadTasks] = useState<UploadTask[]>([]);
+  const filesRef = useRef([]);
   function upload() {
-    (async () => {
-      for (let i = 0; i < files.length; i++) {
-        const uploadFileName = getFileName(files[i], fileName, i);
-        await uploadFile({
-          file: files[i],
-          fileName: uploadFileName,
-          level,
-          setPercentage,
-        });
-      }
-    })();
+    const uploadTasksTemp = [];
+    for (let i = 0; i < files.length; i++) {
+      const uploadFileName = getFileName(files[i], fileName, i);
+      const uploadTask = uploadFile({
+        file: files[i],
+        fileName: uploadFileName,
+        level,
+        setPercentage,
+        percentage: filesRef.current,
+        index: i,
+      });
+      uploadTasksTemp.push(uploadTask);
+
+      setPercentage(filesRef.current);
+    }
+    setUploadTasks(uploadTasksTemp);
   }
   // eslint-disable-next-line no-console
   console.log(files);
@@ -65,9 +73,10 @@ export function FilePreviewer({
       >
         {files.map((file, index) => (
           <FileTracker
-            percentage={percentage}
+            percentage={percentage[index] ?? 0}
             key={index}
-            name={file.name}
+            file={file}
+            uploadTask={uploadTasks[index]}
           ></FileTracker>
         ))}
       </View>

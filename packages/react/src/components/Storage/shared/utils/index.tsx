@@ -1,6 +1,6 @@
 import { FileName } from '../../FileUploader/types';
 import { Storage } from 'aws-amplify';
-import { StorageAccessLevel } from '@aws-amplify/storage';
+import { StorageAccessLevel, UploadTask } from '@aws-amplify/storage';
 
 export function getFileName(
   file: File,
@@ -14,31 +14,40 @@ export function getFileName(
   return fileName;
 }
 
-export async function uploadFile({
+export function uploadFile({
   file,
   fileName,
   level = 'private',
   setPercentage,
+  percentage,
+  index,
 }: {
   file: File;
   fileName: string;
   level: StorageAccessLevel;
-  setPercentage: (percentage: number) => void;
-}): Promise<void> {
+  setPercentage: (percentage: Array<number>) => void;
+  percentage: Array<number>;
+  index: number;
+}): UploadTask {
   // eslint-disable-next-line no-console
   console.log('running put', fileName, file);
-  const s = await Storage.put(fileName, file, {
+  return Storage.put(fileName, file, {
     level,
+    resumable: true,
     progressCallback(progress: { loaded: number; total: number }) {
-      const percentage = Math.floor((progress.loaded / progress.total) * 100);
-      setPercentage(percentage);
+      const singlePercentage = Math.floor(
+        (progress.loaded / progress.total) * 100
+      );
+      percentage[index] = singlePercentage;
+      // eslint-disable-next-line no-console
+      console.log('poercentage', percentage);
+      const addPercentage = [...percentage, singlePercentage];
+
+      setPercentage(addPercentage);
       // eslint-disable-next-line no-console
       console.log(
-        `Uploaded: ${progress.loaded}/${progress.total} ${percentage}`
+        `Uploaded: ${progress.loaded}/${progress.total} ${singlePercentage} ${fileName}`
       );
     },
   });
-
-  // eslint-disable-next-line no-console
-  console.warn('s', s);
 }
