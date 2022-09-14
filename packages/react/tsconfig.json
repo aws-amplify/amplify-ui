@@ -4,7 +4,7 @@
     "baseUrl": ".",
     "declaration": true,
     "esModuleInterop": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "rootDir": "./src",
     "outDir": "./dist",
     "importHelpers": true,
