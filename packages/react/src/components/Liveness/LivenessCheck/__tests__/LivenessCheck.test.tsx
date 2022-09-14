@@ -37,10 +37,8 @@ describe('LivenessCheck', () => {
 
     renderWithLivenessProvider(<LivenessCheck />);
 
-    expect(screen.getByText('Liveness check')).toBeInTheDocument();
     expect(screen.getByText('No camera detected')).toBeInTheDocument();
     expect(screen.queryByText('LivenessCameraModule')).not.toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
   });
 
   it('should render the component content on mobile with permissionDenied false', () => {
@@ -49,11 +47,7 @@ describe('LivenessCheck', () => {
 
     renderWithLivenessProvider(<LivenessCheck />);
 
-    expect(screen.queryByText('Liveness check')).not.toBeInTheDocument();
     expect(screen.queryByText('No camera detected')).not.toBeInTheDocument();
     expect(screen.getByText('LivenessCameraModule')).toBeInTheDocument();
-    expect(
-      screen.queryByRole('button', { name: 'Cancel' })
-    ).not.toBeInTheDocument();
   });
 });

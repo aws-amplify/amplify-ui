@@ -62,7 +62,7 @@ export function StartLiveness(props: StartLivenessProps): JSX.Element {
   }, [flowProps]);
 
   return (
-    <>
+    <Flex direction="column" padding={'var(--amplify-space-medium)'}>
       <Heading level={3}>{translate('How it works')}</Heading>
       <Collection
         type="list"
@@ -112,6 +112,6 @@ export function StartLiveness(props: StartLivenessProps): JSX.Element {
           )}
         </Text>
       </View>
-    </>
+    </Flex>
   );
 }

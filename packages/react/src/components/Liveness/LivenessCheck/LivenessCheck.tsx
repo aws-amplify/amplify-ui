@@ -8,8 +8,7 @@ import { useTheme } from '../../../hooks';
 import { useThemeBreakpoint } from '../../../hooks/useThemeBreakpoint';
 import { LivenessCameraModule } from './LivenessCameraModule';
 import { useLivenessActor } from '../hooks';
-import { CancelButton } from '../shared';
-import { Text, Flex, Heading, Divider } from '../../../primitives';
+import { Text, Flex } from '../../../primitives';
 
 export const LivenessCheck: React.FC = () => {
   const { tokens } = useTheme();
@@ -25,9 +24,6 @@ export const LivenessCheck: React.FC = () => {
       position="relative"
       data-testid="liveness-flow-check"
     >
-      {!isMobileScreen && (
-        <Heading level={3}>{translate('Liveness check')}</Heading>
-      )}
       {!isPermissionDenied ? (
         <LivenessCameraModule isMobileScreen={isMobileScreen} />
       ) : (
@@ -53,12 +49,6 @@ export const LivenessCheck: React.FC = () => {
               "Camera access is needed in order to function. Check your browser settings to ensure that you've enabled camera access."
             )}
           </Text>
-        </Flex>
-      )}
-      {!isMobileScreen && (
-        <Flex direction="column" alignItems="flex-end">
-          <Divider />
-          <CancelButton sourceScreen={LIVENESS_EVENT_LIVENESS_CHECK_SCREEN} />
         </Flex>
       )}
     </Flex>
