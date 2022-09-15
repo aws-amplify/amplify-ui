@@ -5,8 +5,8 @@ export function ChevronIcon({ rotateDeg }: { rotateDeg?: string }) {
   return (
     <Icon
       className={styles['chevron-icon']}
-      width="20"
-      height="18"
+      width="10"
+      height="9"
       viewBox={{ minX: 2, minY: -1.5, width: 11, height: 12 }}
       ariaLabel="Icon"
       fr={undefined}

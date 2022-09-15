@@ -158,7 +158,9 @@ export function GlobalNav({
             />
             <Text className={styles['dev-center-logo']}>
               <span style={{ fontWeight: '400' }}>Amplify</span>{' '}
-              <span style={{ fontWeight: '300' }}>{currentSite}</span>
+              <span style={{ fontWeight: '300' }}>Dev Center </span>
+              <ChevronIcon rotateDeg="270" />
+              <span style={{ fontWeight: '300' }}> {currentSite}</span>
             </Text>
           </Flex>
           <Button

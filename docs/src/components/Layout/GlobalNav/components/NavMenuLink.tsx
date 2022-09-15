@@ -1,4 +1,4 @@
-import { Button } from '@aws-amplify/ui-react';
+import { Button, Text } from '@aws-amplify/ui-react';
 import { useContext } from 'react';
 import styles from '../GlobalNav.module.scss';
 import { IconLink, ExternalLink } from '.';
@@ -47,7 +47,7 @@ export function NavMenuLink({
           border="none"
           borderRadius="0"
           padding="12px"
-          className={styles['secondary-nav-button']}
+          className={`${styles['secondary-nav-button']}`}
           {...(customKey ? { key: customKey } : {})}
           onClick={() => setShowGlobalNav(false)}
           ariaLabel={`Show ${linkContent} nav bar`}
@@ -60,7 +60,17 @@ export function NavMenuLink({
           {...(customKey ? { key: customKey } : {})}
           href={navMenuItem.url}
         >
-          {linkContent}
+          <Text
+            as="span"
+            padding="2px 10px"
+            className={
+              navMenuItem.label === currentMenuItem
+                ? styles['current-nav-menu-item']
+                : ''
+            }
+          >
+            {linkContent}
+          </Text>
         </a>
       );
     } else {
