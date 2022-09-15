@@ -11,7 +11,6 @@ interface BaseFileProps {
   multiple?: boolean;
 }
 export interface FileUploaderTransferProps extends BaseFileProps {
-  setFiles: (file: SetFileType) => void;
   children?: React.ReactNode;
 }
 
@@ -30,8 +29,6 @@ export interface FileUploaderProps extends BaseFileProps {
 }
 
 export interface FilePreviewerProps {
-  files: SetFileType;
-  setShowPreviewer: SetShowPreviewer;
   fileName: FileName;
   level: LevelInfo;
 }

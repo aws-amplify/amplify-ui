@@ -8,10 +8,8 @@ export function FileUploaderButton({
   multiple,
   accept,
   fileName,
-  setFiles,
-}: // setShowPreviewer,
-FileUploaderTransferProps): JSX.Element {
-  const { setShowPreviewer } = useFileUploader();
+}: FileUploaderTransferProps): JSX.Element {
+  const { setShowPreviewer, setFiles } = useFileUploader();
   const hiddenInput = React.useRef<HTMLInputElement>();
   function handleClick() {
     hiddenInput.current.click();

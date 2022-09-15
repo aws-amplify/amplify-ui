@@ -31,28 +31,18 @@ export function FileUploader({
 }: FileUploaderProps): JSX.Element {
   // eslint-disable-next-line no-console
   console.log('file', FileUploaderDrop);
-  // const [showPreviewer, setShowPreviewer] = useState(false);
-  const [files, setFiles] = useState<SetFileType>();
 
   function Router(): JSX.Element {
     const { FileUploaderDrop = Router.FileUploaderDrop } =
       useCustomComponents();
-    const { showPreviewer, setShowPreviewer } = useFileUploader();
+    const { showPreviewer } = useFileUploader();
     const commonProps = {
       accept,
       fileName,
       multiple,
-      setFiles,
     };
     if (showPreviewer) {
-      return (
-        <FilePreviewer
-          files={files}
-          setShowPreviewer={setShowPreviewer}
-          fileName={fileName}
-          level={level}
-        />
-      );
+      return <FilePreviewer fileName={fileName} level={level} />;
     } else if (variation === 'button') {
       return <FileUploaderButton {...commonProps} />;
     } else {

@@ -28,11 +28,11 @@ export default function FileUploaderEmail() {
         </View>
 
         <FileUploader
-          components={{
-            FileUploaderDrop() {
-              return <h1>hi</h1>;
-            },
-          }}
+          // components={{
+          //   FileUploaderDrop() {
+          //     return <h1>hi</h1>;
+          //   },
+          // }}
           level="public"
           multiple={true}
           variation={variation ? 'drop' : 'button'}
