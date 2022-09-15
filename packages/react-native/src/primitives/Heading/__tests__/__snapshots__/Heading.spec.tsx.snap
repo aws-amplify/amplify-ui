@@ -1,0 +1,150 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Heading applies style props 1`] = `
+<Text
+  accessibilityRole="header"
+  style={
+    Array [
+      Object {
+        "color": "black",
+      },
+      Object {
+        "fontSize": 16,
+        "fontWeight": "900",
+        "lineHeight": 24,
+      },
+      Object {
+        "color": "red",
+      },
+    ]
+  }
+>
+  Test Heading
+</Text>
+`;
+
+exports[`Heading renders a level 1 Heading as expected 1`] = `
+<Text
+  accessibilityRole="header"
+  style={
+    Array [
+      Object {
+        "color": "black",
+      },
+      Object {
+        "fontSize": 56,
+        "fontWeight": "100",
+        "lineHeight": 84,
+      },
+      undefined,
+    ]
+  }
+>
+  Heading level 1
+</Text>
+`;
+
+exports[`Heading renders a level 2 Heading as expected 1`] = `
+<Text
+  accessibilityRole="header"
+  style={
+    Array [
+      Object {
+        "color": "black",
+      },
+      Object {
+        "fontSize": 44,
+        "fontWeight": "200",
+        "lineHeight": 66,
+      },
+      undefined,
+    ]
+  }
+>
+  Heading level 2
+</Text>
+`;
+
+exports[`Heading renders a level 3 Heading as expected 1`] = `
+<Text
+  accessibilityRole="header"
+  style={
+    Array [
+      Object {
+        "color": "black",
+      },
+      Object {
+        "fontSize": 34,
+        "fontWeight": "300",
+        "lineHeight": 51,
+      },
+      undefined,
+    ]
+  }
+>
+  Heading level 3
+</Text>
+`;
+
+exports[`Heading renders a level 4 Heading as expected 1`] = `
+<Text
+  accessibilityRole="header"
+  style={
+    Array [
+      Object {
+        "color": "black",
+      },
+      Object {
+        "fontSize": 26,
+        "fontWeight": "500",
+        "lineHeight": 39,
+      },
+      undefined,
+    ]
+  }
+>
+  Heading level 4
+</Text>
+`;
+
+exports[`Heading renders a level 5 Heading as expected 1`] = `
+<Text
+  accessibilityRole="header"
+  style={
+    Array [
+      Object {
+        "color": "black",
+      },
+      Object {
+        "fontSize": 20,
+        "fontWeight": "700",
+        "lineHeight": 30,
+      },
+      undefined,
+    ]
+  }
+>
+  Heading level 5
+</Text>
+`;
+
+exports[`Heading renders a level 6 Heading as expected 1`] = `
+<Text
+  accessibilityRole="header"
+  style={
+    Array [
+      Object {
+        "color": "black",
+      },
+      Object {
+        "fontSize": 16,
+        "fontWeight": "900",
+        "lineHeight": 24,
+      },
+      undefined,
+    ]
+  }
+>
+  Heading level 6
+</Text>
+`;
