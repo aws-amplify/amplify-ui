@@ -1,5 +1,5 @@
 import { PartialDeep } from 'type-fest';
-import { Tokens, WebTokens } from './tokens';
+import { ReactNativeTokens, Tokens, WebTokens } from './tokens';
 import { Breakpoints } from './breakpoints';
 
 export * from './tokens/types/designToken';
@@ -128,4 +128,12 @@ export interface BaseTheme extends Theme {
 export interface WebTheme extends BaseTheme {
   tokens: WebTokens;
   cssText: string;
+}
+
+/**
+ * ReactNativeTheme is a fully built theme
+ * to be used in React Native.
+ */
+export interface ReactNativeTheme extends BaseTheme {
+  tokens: ReactNativeTokens;
 }

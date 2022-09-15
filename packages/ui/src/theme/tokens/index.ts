@@ -61,6 +61,28 @@ export interface WebTokens extends Tokens {
   transform: WebTransforms;
 }
 
+/**
+ * The fully setup theme tokens. It has the same shape as Tokens
+ * but each token has added fields.
+ */
+export interface ReactNativeTokens {
+  components: ComponentTokens;
+  borderWidths: BorderWidths;
+  colors: Colors;
+  fonts: Fonts;
+  fontSizes: FontSizes;
+  fontWeights: FontWeights;
+  lineHeights: LineHeights;
+  opacities: Opacities;
+  outlineOffsets: OutlineOffsets;
+  outlineWidths: OutlineWidths;
+  radii: Radii;
+  shadows: Shadows;
+  space: Space;
+  time: Time;
+  transforms: WebTransforms;
+}
+
 export const tokens: Tokens = {
   components,
   borderWidths,

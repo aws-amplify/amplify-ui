@@ -2,6 +2,7 @@ import {
   DesignToken,
   WebDesignToken,
   TransformValue,
+  ReactNativeDesignToken,
 } from './types/designToken';
 
 export type Transforms = {
@@ -15,6 +16,12 @@ export type Transforms = {
 export type WebTransforms = {
   slideX: {
     [Property in keyof Transforms['slideX']]: WebDesignToken<TransformValue>;
+  };
+};
+
+export type ReactNativeTransforms = {
+  slideX: {
+    [Property in keyof Transforms['slideX']]: ReactNativeDesignToken<TransformValue>;
   };
 };
 

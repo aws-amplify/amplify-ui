@@ -3,9 +3,15 @@ import deepExtend from 'style-dictionary/lib/utils/deepExtend';
 import flattenProperties from 'style-dictionary/lib/utils/flattenProperties';
 
 import { defaultTheme } from './defaultTheme';
-import { Theme, BaseTheme, WebTheme, Override } from './types';
+import {
+  Theme,
+  BaseTheme,
+  WebTheme,
+  Override,
+  ReactNativeTheme,
+} from './types';
 import { cssValue, cssNameTransform } from './utils';
-import { WebTokens } from './tokens';
+import { ReactNativeTokens, WebTokens } from './tokens';
 import { DesignToken, WebDesignToken } from './tokens/types/designToken';
 
 /**
@@ -158,5 +164,48 @@ export function createTheme(
     // This also allows RN to dynamically switch themes in a
     // provider.
     overrides,
+  };
+}
+
+/**
+ * This will be used like `const myTheme = createReactNativeTheme({})`
+ * `myTheme` can then be passed to a Provider
+ * const myTheme = createReactNativeTheme({})
+ * const myOtherTheme = createReactNativeTheme({}, myTheme);
+ */
+export function createReactNativeTheme(
+  theme?: Theme,
+  baseTheme: BaseTheme = defaultTheme
+): ReactNativeTheme {
+  // merge theme and baseTheme to get a complete theme
+  // deepExtend is an internal Style Dictionary method
+  // that performs a deep merge on n objects. We could change
+  // this to another 3p deep merge solution too.
+  const mergedTheme: BaseTheme = deepExtend([{}, baseTheme, theme]);
+
+  // Setting up the tokens. This is similar to what Style Dictionary
+  // does.
+  // TODO: setupReactNativeTokens method
+  const tokens = setupTokens(mergedTheme.tokens) as ReactNativeTokens; // Setting the type here because setupTokens is recursive
+
+  const { breakpoints, name } = mergedTheme;
+
+  let overrides: Array<Override> = [];
+
+  if (mergedTheme.overrides) {
+    overrides = mergedTheme.overrides.map((override) => {
+      const tokens = setupTokens(override.tokens);
+      return {
+        ...override,
+        tokens,
+      };
+    });
+  }
+
+  return {
+    tokens,
+    breakpoints,
+    name,
+    ...overrides,
   };
 }

@@ -14,8 +14,9 @@ function minifyDictionary(obj) {
     return obj.value;
   } else {
     for (var name in obj) {
+      // exclude component specific design tokens
       // eslint-disable-next-line no-prototype-builtins
-      if (obj.hasOwnProperty(name)) {
+      if (name !== 'components' && obj.hasOwnProperty(name)) {
         toRet[name] = minifyDictionary(obj[name]);
       }
     }

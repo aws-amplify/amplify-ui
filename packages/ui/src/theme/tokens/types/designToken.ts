@@ -43,6 +43,24 @@ export type WebDesignToken<ValueType = any> = {
   toString(): string;
 } & DesignToken<ValueType>;
 
+/**
+ * A fully setup design token ready to be used in mobile platform.
+ */
+export type ReactNativeDesignToken<ValueType = any> = {
+  /**
+   * Name of the design token
+   */
+  name: string;
+  /**
+   * Object path of the design token. Used for constructing the name
+   */
+  path: Array<string>;
+  /**
+   * Original (unresolved, untransformed) value of the design token
+   */
+  original: ValueType;
+} & DesignToken<ValueType>;
+
 export type AnimationDurationValue = string;
 export type AnimationTimingFunctionValue = string;
 export type AlignItemsValue = string;

@@ -60,7 +60,7 @@ StyleDictionary.extend({
       ],
       files: [
         {
-          destination: 'dist/react-native/theme.js',
+          destination: 'dist/react-native/theme.ts',
           format: 'RNFormat',
           filter: (token) =>
             !token.path.some((p) => ['hover', 'focus'].includes(p)),
