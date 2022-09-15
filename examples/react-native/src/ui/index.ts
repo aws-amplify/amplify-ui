@@ -9,6 +9,4 @@ export * from '@aws-amplify/ui-react-native/dist/primitives';
  * e.g. have full type documentation, controlled vs uncontrolled handling, stories, touch feedback,
  * accessibility props, unit tests, etc
  */
-export * from './Checkbox';
-export * from './Radio';
 export * from './RadioGroup';
