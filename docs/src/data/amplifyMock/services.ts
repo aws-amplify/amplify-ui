@@ -10,26 +10,13 @@ const verifiedUsers = new Map();
 let signUpPassword = '';
 
 const checkFixedCredentials = (username, password) => {
-  let user = '';
-  if (username.length === 14) {
-    if (username.substring(4) === FIXED_PHONE) {
-      user = username.substring(4);
-    }
-  } else if (username.length === 13) {
-    if (username.substring(3) === FIXED_PHONE) {
-      user = username.substring(3);
-    }
-  } else if (username.length === 12) {
-    if (username.substring(2) === FIXED_PHONE) {
-      user = username.substring(2);
-    }
-  } else if (username.length === 10) {
-    user = username;
-  }
+  const checkPhone = (username) => {
+    return username.substring(username.length - 10);
+  };
   return (
     (username === FIXED_USERNAME ||
       username === FIXED_EMAIL ||
-      user === FIXED_PHONE) &&
+      checkPhone(username) === FIXED_PHONE) &&
     password === FIXED_PASSWORD
   );
 };
