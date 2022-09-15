@@ -14,7 +14,7 @@ import {
 } from '../hooks';
 import { useTheme } from '../../../hooks';
 import { Flex, Loader, View } from '../../../primitives';
-import { AlertIcon } from '../../../primitives/Alert/AlertIcon';
+import { LivenessAlertIcon } from './LivenessAlertIcon';
 
 export const selectErrorState = createLivenessSelector(
   (state) => state.context.errorState
@@ -26,13 +26,9 @@ export const selectIlluminationState = createLivenessSelector(
   (state) => state.context.faceMatchAssociatedParams.illuminationState
 );
 
-export interface InstructionProps {
-  isMobileScreen: boolean;
-}
+export interface InstructionProps {}
 
-export const Instruction: React.FC<InstructionProps> = (props) => {
-  const { isMobileScreen } = props;
-
+export const Instruction: React.FC<InstructionProps> = () => {
   const { tokens } = useTheme();
   const [state] = useLivenessActor();
 
@@ -54,14 +50,10 @@ export const Instruction: React.FC<InstructionProps> = (props) => {
       return (
         <Flex
           gap={`${tokens.space.xs}`}
-          color={
-            isMobileScreen
-              ? `${tokens.colors.red[40]}`
-              : `${tokens.colors.red[60]}`
-          }
+          color={`${tokens.colors.red[40]}`}
           alignItems="center"
         >
-          <AlertIcon variation="error" />
+          <LivenessAlertIcon variation="error" />
           <View as="span">
             {errorState && LivenessErrorStateStringMap[errorState]}
             {isCheckFailed && translate('Check failed! Please try again.')}
@@ -89,14 +81,10 @@ export const Instruction: React.FC<InstructionProps> = (props) => {
       return (
         <Flex
           gap={`${tokens.space.xs}`}
-          color={
-            isMobileScreen
-              ? `${tokens.colors.green[40]}`
-              : `${tokens.colors.green[60]}`
-          }
+          color={`${tokens.colors.green[40]}`}
           alignItems="center"
         >
-          <AlertIcon variation="success" />
+          <LivenessAlertIcon variation="success" />
           <View as="span" style={{ whiteSpace: 'nowrap' }}>
             {translate('Success!')}
           </View>
@@ -118,21 +106,11 @@ export const Instruction: React.FC<InstructionProps> = (props) => {
   return (
     <Flex
       borderRadius={`${tokens.radii.medium}`}
-      backgroundColor={{
-        base: `${tokens.colors.black}`,
-        medium: `${tokens.colors.transparent}`,
-      }}
+      backgroundColor={`${tokens.colors.white}`}
       padding={`${tokens.space.small}`}
       margin={`0 ${tokens.space.medium}`}
     >
-      <View
-        color={{
-          base: `${tokens.colors.white}`,
-          medium: `${tokens.colors.black}`,
-        }}
-      >
-        {getInstructionContent()}
-      </View>
+      <View color={`${tokens.colors.black}`}>{getInstructionContent()}</View>
     </Flex>
   );
 };

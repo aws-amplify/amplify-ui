@@ -17,7 +17,6 @@ permissions:
 jobs:
   version:
     runs-on: ubuntu-latest
-    environment: deployment
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3

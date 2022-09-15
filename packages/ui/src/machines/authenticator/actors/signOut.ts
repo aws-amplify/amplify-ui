@@ -7,6 +7,7 @@ export const signOutActor = createMachine<SignOutContext, AuthEvent>(
   {
     initial: 'pending',
     id: 'signOutActor',
+    predictableActionArguments: true,
     states: {
       pending: {
         tags: ['pending'],

@@ -1,8 +1,12 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { useActor } from '@xstate/react';
 
 import { LivenessFlow, LivenessFlowProps } from '..';
+import { getMockedFunction } from '../utils/test-utils';
+import { getVideoConstraints } from '../StartLiveness/helpers';
+import { useMediaStreamInVideo, useLivenessActor } from '../hooks';
 
 jest.mock('../../../styles.css', () => ({}));
 
@@ -18,6 +22,10 @@ describe('LivenessFlow', () => {
   const livenessFlowCheckTestId = 'liveness-flow-check';
   const cancelButtonName = 'Cancel';
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('should render the flow by default without active props', () => {
     render(<LivenessFlow {...defaultProps} />);
     expect(screen.getByTestId(livenessFlowTestId)).toBeInTheDocument();
@@ -25,21 +33,13 @@ describe('LivenessFlow', () => {
 
   it('should respect the value of controllable active prop for rendering', () => {
     const { rerender } = render(
-      <LivenessFlow {...defaultProps} active onExit={() => {}} />
+      <LivenessFlow {...defaultProps} active onExit={() => { }} />
     );
     expect(screen.getByTestId(livenessFlowTestId)).toBeInTheDocument();
 
     rerender(
-      <LivenessFlow {...defaultProps} active={false} onExit={() => {}} />
+      <LivenessFlow {...defaultProps} active={false} onExit={() => { }} />
     );
-    expect(screen.queryByTestId(livenessFlowTestId)).not.toBeInTheDocument();
-  });
-
-  it('should render nothin on user cancel', () => {
-    render(<LivenessFlow {...defaultProps} />);
-    expect(screen.getByTestId(livenessFlowTestId)).toBeInTheDocument();
-
-    userEvent.click(screen.getByRole('button', { name: cancelButtonName }));
     expect(screen.queryByTestId(livenessFlowTestId)).not.toBeInTheDocument();
   });
 

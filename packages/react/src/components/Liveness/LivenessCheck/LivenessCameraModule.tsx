@@ -142,23 +142,21 @@ export const LivenessCameraModule = (
           </View>
         )}
 
-        {isMobileScreen && (
-          <View position="absolute" top={10} right={10}>
-            <CancelButton
-              isMobileScreen
-              sourceScreen={LIVENESS_EVENT_LIVENESS_CHECK_SCREEN}
-            />
-          </View>
-        )}
+        <View position="absolute" top={10} right={10}>
+          <CancelButton
+            isMobileScreen
+            sourceScreen={LIVENESS_EVENT_LIVENESS_CHECK_SCREEN}
+          />
+        </View>
       </Flex>
       {countDownRunning && (
         <Flex
           direction="column"
           alignItems="center"
-          position={isMobileScreen ? 'absolute' : 'relative'}
+          position={'absolute'}
           bottom={isMobileScreen ? streamOffset + 10 : 10}
         >
-          <Instruction isMobileScreen={isMobileScreen} />
+          <Instruction />
 
           {isNotRecording && (
             <CountdownCircleTimer

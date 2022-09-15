@@ -8,15 +8,15 @@ Feature: Navigate action hooks
 
   @react
   Scenario: Navigation anchor action works correctly
-    When I click the "hash" button
+    When I click the "Go to #notes" button
     Then My url contains "#notes"
 
   @react
   Scenario: Navigation reload action works correctly
-    When I click the "reload" button
+    When I click the "Reload" button
     Then My page should be reloaded
 
   @react
   Scenario: Navigation location change action works correctly
-    When I click the "locationChange" button
+    When I click the "Go to amazon.com" button
     Then My url contains "ui/hooks/actions?pageChange"

@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui",
-  "version": "3.13.1",
+  "version": "3.13.2",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "exports": {
@@ -53,7 +53,7 @@
     "tslib": "2.4.0",
     "uuid": "^8.3.2",
     "webrtc-adapter": "^8.1.0",
-    "xstate": "^4.33.0"
+    "xstate": "^4.33.6"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "^8.3.1",

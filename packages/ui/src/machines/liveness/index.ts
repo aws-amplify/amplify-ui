@@ -44,6 +44,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
   {
     id: 'livenessMachine',
     initial: 'start',
+    predictableActionArguments: true,
     context: {
       challengeId: v4(),
       maxFailedAttempts: 3,
