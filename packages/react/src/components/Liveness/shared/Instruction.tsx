@@ -38,6 +38,7 @@ export const Instruction: React.FC<InstructionProps> = () => {
   const illuminationState = useLivenessSelector(selectIlluminationState);
 
   const isNotRecording = state.matches('notRecording');
+  const isWaitingForSessionInfo = state.matches('waitForSessionInfo');
   const isUploading = state.matches('uploading');
   const isCheckSuccessful = state.matches('checkSucceeded');
   const isCheckFailed = state.matches('checkFailed');
@@ -65,6 +66,15 @@ export const Instruction: React.FC<InstructionProps> = () => {
     if (isNotRecording) {
       return translate(
         'When recording begins, move your face inside the frame that appears.'
+      );
+    }
+
+    if (isWaitingForSessionInfo) {
+      return (
+        <Flex gap={`${tokens.space.xxs}`} alignItems="center">
+          <Loader />
+          <View as="span">{translate('Waiting for connection...')}</View>
+        </Flex>
       );
     }
 

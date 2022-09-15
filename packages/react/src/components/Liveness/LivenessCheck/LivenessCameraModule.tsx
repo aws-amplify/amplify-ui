@@ -149,6 +149,7 @@ export const LivenessCameraModule = (
           />
         </View>
       </Flex>
+
       {countDownRunning && (
         <Flex
           direction="column"
