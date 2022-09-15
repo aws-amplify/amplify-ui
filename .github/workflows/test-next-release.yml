@@ -10,7 +10,7 @@ on:
 
 jobs:
   test:
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@next-release/main
+    uses: slaymance/amplify-ui/.github/workflows/reusable-e2e.yml@next-release/main
     with:
       commit: ${{ github.sha }}
       repository: ${{ github.repository }}
