@@ -1,3 +1,5 @@
+import { ComponentsProviderProps } from '../hooks';
+
 export type FileName = string | Array<string>;
 export type SetShowPreviewer = (show: boolean) => void;
 type LevelInfo = 'public' | 'protected' | 'private';
@@ -10,11 +12,11 @@ interface BaseFileProps {
 }
 export interface FileUploaderTransferProps extends BaseFileProps {
   setFiles: (file: SetFileType) => void;
-  setShowPreviewer: SetShowPreviewer;
   children?: React.ReactNode;
 }
 
 export interface FileUploaderProps extends BaseFileProps {
+  components?: ComponentsProviderProps;
   level: LevelInfo;
   maxFiles?: number;
   maxMultipleSize?: number;

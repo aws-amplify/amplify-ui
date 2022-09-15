@@ -20,7 +20,7 @@ export function FilePreviewer({
   const filesRef = useRef([]);
   function upload() {
     const uploadTasksTemp = [];
-    for (let i = 0; i < files.length; i++) {
+    for (let i = 0; i < files?.length; i++) {
       const uploadFileName = getFileName(files[i], fileName, i);
       const uploadTask = uploadFile({
         file: files[i],
@@ -46,7 +46,7 @@ export function FilePreviewer({
         color="#067398"
       >
         <View>Add more</View>
-        <View>{files.length} selected</View>
+        <View>{files?.length} selected</View>
         <View
           as={'button'}
           style={{
@@ -71,7 +71,7 @@ export function FilePreviewer({
           padding: '0 0.8rem',
         }}
       >
-        {files.map((file, index) => (
+        {files?.map((file, index) => (
           <FileTracker
             percentage={percentage[index] ?? 0}
             key={index}

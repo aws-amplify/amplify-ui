@@ -2,9 +2,12 @@
 import React, { useState } from 'react';
 import { FileUploaderProps, SetFileType } from './types';
 import { FileUploaderButton } from '../FileUploaderButton';
-import { FileUploaderDrop } from '../FileUploaderDrop';
 import { FilePreviewer } from '../FilePreviewer';
 import { View } from 'src/primitives';
+import { CustomComponentsContext, useCustomComponents } from '../hooks/';
+import { defaultComponents } from '../hooks/defaultComponents';
+import { FileUploaderDrop } from '../FileUploaderDrop';
+import { Provider, useFileUploader } from '../hooks/useFileUploader';
 
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/connected-components/storage)
@@ -14,6 +17,7 @@ export function FileUploader({
   accept,
   fileName,
   level,
+  components: customComponents,
   maxFiles,
   maxMultipleSize,
   maxSize,
@@ -25,18 +29,21 @@ export function FileUploader({
   showPreview = false,
   variation = 'button',
 }: FileUploaderProps): JSX.Element {
-  const [showPreviewer, setShowPreviewer] = useState(false);
+  // eslint-disable-next-line no-console
+  console.log('file', FileUploaderDrop);
+  // const [showPreviewer, setShowPreviewer] = useState(false);
   const [files, setFiles] = useState<SetFileType>();
 
-  const commonProps = {
-    accept,
-    fileName,
-    multiple,
-    setFiles,
-    setShowPreviewer,
-  };
-
   function Router(): JSX.Element {
+    const { FileUploaderDrop = Router.FileUploaderDrop } =
+      useCustomComponents();
+    const { showPreviewer, setShowPreviewer } = useFileUploader();
+    const commonProps = {
+      accept,
+      fileName,
+      multiple,
+      setFiles,
+    };
     if (showPreviewer) {
       return (
         <FilePreviewer
@@ -58,5 +65,20 @@ export function FileUploader({
     }
   }
 
-  return <Router />;
+  Router.FileUploaderDrop = FileUploaderDrop;
+
+  const value = React.useMemo(
+    () => ({ ...defaultComponents, ...customComponents }),
+    [customComponents]
+  );
+
+  return (
+    <Provider>
+      <CustomComponentsContext.Provider value={value}>
+        <Router />
+      </CustomComponentsContext.Provider>
+    </Provider>
+  );
 }
+
+FileUploader.Provider = Provider;
