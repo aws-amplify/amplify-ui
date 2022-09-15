@@ -115,7 +115,16 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       notRecording: {
         on: {
-          START_RECORDING: 'recording',
+          START_RECORDING: 'waitForSessionInfo',
+        },
+      },
+      waitForSessionInfo: {
+        after: {
+          0: {
+            target: 'recording',
+            cond: 'hasServerSessionInfo',
+          },
+          100: { target: 'waitForSessionInfo' },
         },
       },
       recording: {
@@ -533,6 +542,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       hasLivenessCheckSucceeded: (_, __, meta) => meta.state.event.data.isLive,
       hasFreshnessColorShown: (context) =>
         context.freshnessColorAssociatedParams.freshnessColorsComplete,
+      hasServerSessionInfo: (context) =>
+        context.serverSessionInformation !== undefined,
     },
     services: {
       async checkVirtualCameraAndGetStream(context) {
@@ -844,44 +855,14 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 );
 
 const responseStreamActor = async (callback) => {
-  await responseStream;
-  // FIXME: hard coded response stream for now
-  const asyncIterable = {
-    [Symbol.asyncIterator]() {
-      let i = 0;
-      return {
-        next() {
-          const done = i === 1;
-          i++;
-          return Promise.resolve({
-            value: {
-              SessionInformation: {
-                Challenge: {
-                  FaceMovementAndLightChallenge: {
-                    OvalScaleFactors: {
-                      Width: ovalDetailsFromProps.width,
-                      CenterX: ovalDetailsFromProps.centerX,
-                      CenterY: ovalDetailsFromProps.centerY,
-                    },
-                  },
-                },
-              },
-            },
-            done,
-          });
-        },
-        return() {
-          // This will be reached if the consumer called 'break' or 'return' early in the loop.
-          return { done: true };
-        },
-      };
-    },
-  };
-  for await (const event of asyncIterable) {
+  const stream = await responseStream;
+  for await (const event of stream) {
     if (isServerSesssionInformationEvent(event)) {
       callback({
         type: 'SET_SESSION_INFO',
-        data: { sessionInfo: event.SessionInformation },
+        data: {
+          sessionInfo: event.ServerSessionInformationEvent.SessionInformation,
+        },
       });
     }
   }
