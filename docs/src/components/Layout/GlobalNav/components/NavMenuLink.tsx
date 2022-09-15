@@ -47,7 +47,7 @@ export function NavMenuLink({
           border="none"
           borderRadius="0"
           padding="12px"
-          className={`${styles['secondary-nav-button']}`}
+          className={styles['secondary-nav-button']}
           {...(customKey ? { key: customKey } : {})}
           onClick={() => setShowGlobalNav(false)}
           ariaLabel={`Show ${linkContent} nav bar`}
