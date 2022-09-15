@@ -18,6 +18,9 @@ export const selectVideoConstraints = createLivenessSelector(
 export const selectVideoStream = createLivenessSelector(
   (state) => state.context.videoAssociatedParams?.videoMediaStream
 );
+export const isServerSessionInformationLoaded = createLivenessSelector(
+  (state) => !!state.context.serverSessionInformation
+);
 
 export interface LivenessCameraModuleProps {
   isMobileScreen: boolean;
@@ -149,6 +152,7 @@ export const LivenessCameraModule = (
           />
         </View>
       </Flex>
+
       {countDownRunning && (
         <Flex
           direction="column"
@@ -156,6 +160,19 @@ export const LivenessCameraModule = (
           position={'absolute'}
           bottom={isMobileScreen ? streamOffset + 10 : 10}
         >
+          {!isServerSessionInformationLoaded && (
+            <Flex
+              gap={`${tokens.space.xxs}`}
+              backgroundColor={`${tokens.colors.white}`}
+              padding={`${tokens.space.small}`}
+              margin={`0 ${tokens.space.medium}`}
+              alignItems={'center'}
+              borderRadius={`${tokens.radii.medium}`}
+            >
+              <Loader />
+              <View as="span">{'Waiting for connection...'}</View>
+            </Flex>
+          )}
           <Instruction />
 
           {isNotRecording && (
