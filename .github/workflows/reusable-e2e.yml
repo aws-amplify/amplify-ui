@@ -162,6 +162,7 @@ jobs:
     needs: [setup, unit]
     runs-on: ubuntu-latest
     environment: ci
+    container: cypress/browsers:node18.6.0-chrome105-ff104
     env:
       NODE_ENV: test
 
