@@ -11,12 +11,12 @@ let signUpPassword = '';
 
 const checkFixedCredentials = (username, password) => {
   const checkPhone = (username) => {
-    return username.substring(username.length - 10);
+    return username.substring(username.length - 10) === FIXED_PHONE;
   };
   return (
     (username === FIXED_USERNAME ||
       username === FIXED_EMAIL ||
-      checkPhone(username) === FIXED_PHONE) &&
+      checkPhone(username)) &&
     password === FIXED_PASSWORD
   );
 };
