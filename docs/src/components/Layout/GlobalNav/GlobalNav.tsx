@@ -145,7 +145,7 @@ export function GlobalNav({
         className={`${styles.navbar} ${themeClass}`}
         aria-label="Amplify Dev Center Global"
       >
-        <View className={styles['mobile-nav-container']} padding="0px 20px">
+        <View className={styles['mobile-nav-container']} padding="0px 32px">
           <Flex columnGap="8px" alignItems="center">
             <Icon
               ariaLabel="Amplify Dev Center logo"
@@ -158,7 +158,13 @@ export function GlobalNav({
             />
             <Text className={styles['dev-center-logo']}>
               <span style={{ fontWeight: '400' }}>Amplify</span>{' '}
-              <span style={{ fontWeight: '300' }}>{currentSite}</span>
+              <span style={{ fontWeight: '300' }}>Dev Center</span>
+              {isMobileState ? (
+                <>
+                  <ChevronIcon rotateDeg="-90" />
+                  <span style={{ fontWeight: '300' }}>{currentSite}</span>
+                </>
+              ) : null}
             </Text>
           </Flex>
           <Button
@@ -173,9 +179,9 @@ export function GlobalNav({
               {isCollapsed ? 'Open menu' : 'Close menu'}
             </VisuallyHidden>
             {isCollapsed ? (
-              <ChevronIcon rotateDeg="0" />
+              <ChevronIcon rotateDeg="0" width="20px" height="20px" />
             ) : (
-              <ChevronIcon rotateDeg="180" />
+              <ChevronIcon rotateDeg="180" width="20px" height="20px" />
             )}
           </Button>
         </View>
@@ -303,6 +309,12 @@ export function GlobalNav({
             <Text className={styles['dev-center-logo']}>
               <span style={{ fontWeight: '400' }}>Amplify</span>{' '}
               <span style={{ fontWeight: '300' }}>Dev Center</span>
+              {isMobileState ? (
+                <>
+                  <ChevronIcon rotateDeg="-90" />
+                  <span style={{ fontWeight: '300' }}>{currentSite}</span>
+                </>
+              ) : null}
             </Text>
           </Flex>
           {leftLinks.map((link) => (

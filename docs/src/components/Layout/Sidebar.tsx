@@ -15,6 +15,7 @@ import {
   Expander,
   ExpanderItem,
   useTheme,
+  useBreakpointValue,
 } from '@aws-amplify/ui-react';
 import {
   ComponentNavItem,
@@ -29,6 +30,7 @@ import {
 import Link from 'next/link';
 import { isReactNativeEnabled } from '@/utils/featureFlags';
 import { FrameworkChooser } from './FrameworkChooser';
+import { LogoLink } from './LogoLink';
 import { MenuButton } from './MenuButton';
 
 const NavLinks = ({
@@ -224,6 +226,10 @@ const SecondaryNav = (props) => {
 
 export const Sidebar = ({ expanded, setExpanded, platform }) => {
   const onClick = () => setExpanded(false);
+  const hiddenOnDesktop = useBreakpointValue({
+    base: true,
+    large: false,
+  });
   return (
     <nav
       aria-label="Main navigation"
@@ -233,9 +239,16 @@ export const Sidebar = ({ expanded, setExpanded, platform }) => {
       <div className="docs-sidebar-overlay" onClick={onClick} />
       <div className="docs-sidebar-inner">
         <Flex direction="column" className="docs-sidebar-nav">
-          <Flex direction="row" alignItems="center" justifyContent="flex-end">
-            <MenuButton expanded={expanded} setExpanded={setExpanded} />
-          </Flex>
+          {hiddenOnDesktop ? (
+            <Flex
+              direction="row"
+              alignItems="center"
+              justifyContent="space-between"
+            >
+              <LogoLink platform={platform} onClick={onClick} />
+              <MenuButton expanded={expanded} setExpanded={setExpanded} />
+            </Flex>
+          ) : null}
 
           <FrameworkChooser onClick={onClick} />
 

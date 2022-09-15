@@ -14,56 +14,61 @@
   position: sticky;
   top: var(--docs-dev-center-nav-height);
   width: 100%;
+  height: var(--docs-header-height);
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding-block: var(--amplify-space-small);
-  padding-inline: var(--docs-horizontal-padding);
+  padding-inline: var(--amplify-space-xl);
   z-index: 100;
-  backdrop-filter: blur(10px);
+  // backdrop-filter: blur(10px);
   gap: var(--amplify-space-small);
-
+  border-bottom: var(--amplify-borders-secondary);
+  background-color: var(--amplify-colors-background-primary);
+  box-shadow: var(--amplify-shadows-small);
+  
   @media (max-width: $breakpoint-large) {
-    border-bottom: var(--amplify-borders-secondary);
-    box-shadow: var(--amplify-shadows-small);
-
     .color-switcher .amplify-button {
       padding-inline: var(--amplify-space-relative-xxs);
     }
   }
 
   transition: all var(--amplify-time-medium) ease;
-
+  
   .docs-home & {
-    backdrop-filter: none;
+    // backdrop-filter: none;
+    border-bottom: none;
+    box-shadow: none;
+    background-color: transparent;
   }
-
+  
   .scrolled .docs-home & {
     border-bottom: var(--amplify-borders-secondary);
     box-shadow: var(--amplify-shadows-small);
-    backdrop-filter: blur(10px);
-  }
-
-  &::before {
-    content: '';
-    z-index: -1;
     background-color: var(--amplify-colors-background-primary);
-    opacity: 0.75;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    transition: all var(--amplify-time-medium) ease;
-
-    .docs-home & {
-      background-color: transparent;
-    }
-
-    .scrolled .docs-home & {
-      background-color: var(--amplify-colors-background-primary);
-    }
+    // backdrop-filter: blur(10px);
   }
+  
+  // &::before {
+  //   content: '';
+  //   z-index: -1;
+  //   background-color: var(--amplify-colors-background-primary);
+  //   opacity: 0.75;
+  //   position: absolute;
+  //   top: 0;
+  //   right: 0;
+  //   bottom: 0;
+  //   left: 0;
+  //   transition: all var(--amplify-time-medium) ease;
+    
+  //   .docs-home & {
+  //     background-color: transparent;
+  //   }
+    
+  //   .scrolled .docs-home & {
+  //     background-color: var(--amplify-colors-background-primary);
+  //   }
+  // }
 }
 
 .docs-header > .docs-logo-link,
@@ -74,25 +79,25 @@
     opacity: 0;
     display: none;
   }
-
+  
   .scrolled .docs-home & {
     display: inline-flex;
     animation: showOverlay var(--amplify-time-long) forwards;
   }
+}
 
+.docs-header .docs-logo-framework {
+  margin-inline-start: calc(-1 * var(--amplify-space-xs));
   @media (min-width: $breakpoint-large) {
     display: none;
   }
-}
-
-.docs-logo-framework {
-  margin-inline-start: calc(-1 * var(--amplify-space-xs));
 }
 
 // The same menu button is used in the sidebar and header
 // we want to hide it in certain scenarios so it can't be tabbed to
 .docs-header-menu-button {
   border: none;
+  margin-inline-start: calc(-1 * var(--amplify-components-button-small-padding-inline-start));
 
   @media (min-width: $breakpoint-large) {
     display: none;
@@ -101,6 +106,12 @@
     }
   }
 
+  // .docs-sidebar & {
+  //   position: absolute;
+  //   top: 0;
+  //   left: 100%;
+  // }
+  
   &.close {
     .docs-header > & {
       display: none;
@@ -122,6 +133,10 @@
   // because the logo is text in the SVG with descenders (p,y),
   // this is to make the baseline of the logo text line up
   top: 0.125rem;
+  
+  .docs-hero & {
+    height: var(--amplify-font-sizes-xxxl);
+  }
 }
 
 .docs-logo-link:hover {

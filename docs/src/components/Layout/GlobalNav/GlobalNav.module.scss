@@ -6,8 +6,9 @@
 }
 
 .navbar {
-  box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.04);
-  border-bottom: 1px solid #d5dbdb;
+  // box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.04);
+  height: var(--dev-center-nav-height);
+  border-bottom: 1px solid var(--amplify-colors-border-secondary);
   background-color: var(--amplify-colors-background-primary);
   position: sticky;
   top: 0px;
@@ -39,6 +40,10 @@
   color: var(--amplify-colors-font-primary);
   font-size: 1.25rem;
   white-space: nowrap;
+  display: inline-flex;
+  direction: row;
+  align-items: center;
+  gap: 8px;
 }
 
 .nav-container {
@@ -57,7 +62,7 @@
 }
 
 .nav-links-container {
-  height: var(--dev-center-nav-height);
+  height: 100%;
   align-items: center;
   justify-content: space-between;
 }
@@ -98,11 +103,11 @@
   height: 100%;
   font-size: 1rem;
   text-decoration: none;
-  color: var(--amplify-colors-font-tertiary) !important;
+  color: var(--amplify-colors-font-tertiary);
   font-family: 'Amazon Ember';
   cursor: pointer;
   font-weight: 400;
-
+  margin-bottom: -1px;
   white-space: nowrap;
 
   &:hover,
@@ -143,7 +148,8 @@
 
 .current-nav-menu-item {
   border-top: 2px solid transparent;
-  border-bottom: 2px solid #ff9900;
+  border-bottom: 2px solid var(--amplify-components-tabs-item-active-border-color);
+  color: var(--amplify-components-tabs-item-active-color);
 }
 
 .icon-link-hover {

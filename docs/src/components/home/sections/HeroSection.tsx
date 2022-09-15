@@ -21,6 +21,7 @@ import { CardLink } from '@/components/CardLink';
 import { FRAMEWORKS, FRAMEWORK_INSTALL_SCRIPTS } from '@/data/frameworks';
 import { FrameworkLogo } from '@/components/Logo';
 import { TerminalCommand } from '@/components/InstallScripts';
+import { Logo } from '@/components/Logo';
 
 export const HeroSection = () => {
   const {
@@ -42,6 +43,7 @@ export const HeroSection = () => {
           className="docs-home-subsection--thin"
           alignItems="center"
         >
+          <Logo />
           <Heading level={1} marginBlockEnd="0">
             Themeable, accessible components
             <br />

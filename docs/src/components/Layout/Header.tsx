@@ -11,6 +11,7 @@ import {
 
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { Sidebar } from './Sidebar';
+import { LogoLink } from './LogoLink';
 import { MenuButton } from './MenuButton';
 import { GITHUB_REPO } from '@/data/links';
 import '@docsearch/css';
@@ -35,15 +36,10 @@ export const Header = ({
   }, [showSearch]);
 
   return (
-    <Flex as="header" className="docs-header">
+    <View as="header" className="docs-header">
       <MenuButton expanded={expanded} setExpanded={setExpanded} />
 
-      <Sidebar
-        expanded={expanded}
-        setExpanded={setExpanded}
-        platform={platform}
-      />
-
+      <LogoLink platform={platform} />
       <FrameworkLogo
         framework={platform}
         alt={platform}
@@ -70,7 +66,7 @@ export const Header = ({
               href={GITHUB_REPO}
               isExternal
               color="font.tertiary"
-              fontSize="medium"
+              fontSize="large"
               title="GitHub"
             >
               <VisuallyHidden>GitHub</VisuallyHidden>
@@ -79,6 +75,11 @@ export const Header = ({
           </View>
         ) : null}
       </Flex>
-    </Flex>
+      <Sidebar
+        expanded={expanded}
+        setExpanded={setExpanded}
+        platform={platform}
+      />
+    </View>
   );
 };
