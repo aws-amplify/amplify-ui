@@ -15,6 +15,8 @@ import { View, Flex } from '../../primitives';
 import { getVideoConstraints } from './StartLiveness/helpers';
 import { useThemeBreakpoint } from '../../hooks/useThemeBreakpoint';
 
+const DETECTOR_CLASS_NAME = 'liveness-detector';
+
 export interface LivenessFlowProps extends LivenessFlowPropsFromUi {}
 
 export const LivenessFlow: React.FC<LivenessFlowProps> = (props) => {
@@ -98,7 +100,11 @@ export const LivenessFlow: React.FC<LivenessFlowProps> = (props) => {
   }, [beginLivenessCheck, disableStartScreen, active, props]);
 
   return active ? (
-    <View data-amplify-liveness-flow="" data-testid="liveness-flow">
+    <View
+      data-amplify-liveness-detector=""
+      className={DETECTOR_CLASS_NAME}
+      data-testid={DETECTOR_CLASS_NAME}
+    >
       <LivenessFlowProvider flowProps={props} service={service}>
         <Flex direction="column" ref={currElementRef}>
           {isStartView ? (
