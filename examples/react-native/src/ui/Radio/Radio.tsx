@@ -3,9 +3,11 @@ import { View, ViewStyle } from 'react-native';
 
 import { icons } from '../../assets';
 
-import { IconButton } from '@aws-amplify/ui-react-native/dist/primitives';
+import {
+  IconButton,
+  Label,
+} from '@aws-amplify/ui-react-native/dist/primitives';
 
-import { Label } from '../Label';
 import { RadioProps } from './types';
 
 export default function Radio<T>({
