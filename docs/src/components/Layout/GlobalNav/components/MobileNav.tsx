@@ -38,7 +38,7 @@ export function MobileNav({
           <NavMenuLink navMenuItem={link} currentMenuItem={currentSite} />
         </View>
       ));
-  }, [allLinks]);
+  }, [allLinks, currentSite]);
 
   const mobileLinks: JSX.Element[] = useMemo(() => {
     return allLinks
@@ -54,7 +54,7 @@ export function MobileNav({
           />
         </View>
       ));
-  }, [allLinks]);
+  }, [allLinks, currentSite, hasSecondaryNav]);
 
   const chevronRotation = isCollapsed ? '0' : '180';
 
