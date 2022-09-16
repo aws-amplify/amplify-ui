@@ -1,3 +1,4 @@
+// This class is added to the sites that aren't using the Amplify UI theme provider and is creating the variables that are being used in dark mode of Amplify UI
 .add-variables {
   --amplify-colors-font-primary: #232f3e;
   --amplify-colors-font-tertiary: #545b64;
@@ -7,7 +8,7 @@
 
 .navbar {
   box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.04);
-  border-bottom: 1px solid #d5dbdb;
+  border-bottom: 1px solid var(--navbar-border-color);
   background-color: var(--amplify-colors-background-primary);
   position: sticky;
   top: 0px;
@@ -21,6 +22,11 @@
     -moz-osx-font-smoothing: auto !important;
   }
 
+  // Top level navbar element, create all of the variables that will be used throughout the unified navbar
+  --navbar-border-color: #d5dbdb;
+  --navbar-current-property-color: #ff9900;
+  --secondary-nav-hover-color: black;
+  --secondary-nav-hover-background-color: white;
   --dev-center-nav-height: 60px;
   --amplify-colors-font-hover: #000;
 }
@@ -53,7 +59,6 @@
   height: var(--dev-center-nav-height);
   align-items: center;
   justify-content: space-between;
-  padding: 0px 18px;
 }
 
 .nav-links-container {
@@ -69,7 +74,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  border-bottom: 1px solid #d5dbdb;
+  border-bottom: 1px solid var(--navbar-border-color);
 }
 
 .mobile-nav-icons-container {
@@ -86,7 +91,7 @@
 }
 
 .mobile-nav-menu-items {
-  border-top: 1px solid #d5dbdb;
+  border-top: 1px solid var(--navbar-border-color);
   height: 48px;
   width: 100%;
 }
@@ -120,8 +125,8 @@
 }
 
 .secondary-nav-button {
-  border-top: 1px solid #d5dbdb;
-  border-bottom: 1px solid #d5dbdb;
+  border-top: 1px solid var(--navbar-border-color);
+  border-bottom: 1px solid var(--navbar-border-color);
 
   // Set color for back chevron icon
   color: var(--amplify-colors-font-tertiary);
@@ -131,9 +136,9 @@
   }
 
   &:hover {
-    color: black;
-    border: 1px solid #d5dbdb;
-    background-color: white !important;
+    color: var(--secondary-nav-hover-color);
+    border: 1px solid var(--navbar-border-color);
+    background-color: var(--secondary-nav-hover-background-color) !important;
 
     p {
       color: black;
@@ -143,7 +148,8 @@
 
 .current-nav-menu-item {
   border-top: 2px solid transparent;
-  border-bottom: 2px solid #ff9900;
+  border-bottom: 2px solid var(--navbar-current-property-color);
+  margin-bottom: -1px;
 }
 
 .icon-link-hover {

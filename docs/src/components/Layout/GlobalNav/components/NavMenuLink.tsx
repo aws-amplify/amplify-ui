@@ -1,65 +1,38 @@
-import { Button, Text } from '@aws-amplify/ui-react';
-import { useContext } from 'react';
+import { Button, Text, Link } from '@aws-amplify/ui-react';
+import { Dispatch, SetStateAction } from 'react';
 import styles from '../GlobalNav.module.scss';
 import { IconLink, ExternalLink } from '.';
-import { NavMenuItem, NavMobileContext } from '../GlobalNav';
+import { NavMenuItem } from '../GlobalNav';
+import { ShowSecondaryNav } from './secondary-nav-components';
 
 export function NavMenuLink({
   navMenuItem,
   currentMenuItem = '',
   hasSecondaryNav = false,
-  customKey,
   isMobile = false,
-  themeClass,
+  setShowGlobalNav,
 }: {
   navMenuItem: NavMenuItem;
   currentMenuItem: string;
   hasSecondaryNav?: boolean;
-  customKey?: string;
   isMobile?: boolean;
-  themeClass: string;
+  setShowGlobalNav?: Dispatch<SetStateAction<boolean>>;
 }) {
-  const { setShowGlobalNav } = useContext(NavMobileContext);
-
-  let linkContent;
-
-  switch (navMenuItem.type) {
-    case 'EXTERNAL':
-      linkContent = <ExternalLink>{navMenuItem.label}</ExternalLink>;
-      break;
-    case 'ICON':
-      linkContent = (
-        <IconLink iconType={navMenuItem.icon ? navMenuItem.icon : ''} />
-      );
-      break;
-    default:
-      linkContent = navMenuItem.label;
-      break;
-  }
+  const label: string = navMenuItem.label;
+  const linkContent: JSX.Element =
+    navMenuItem.type === 'EXTERNAL' ? (
+      <ExternalLink>{label}</ExternalLink>
+    ) : (
+      <IconLink iconType={navMenuItem.icon ? navMenuItem.icon : ''} />
+    );
+  const showSecondaryNav = hasSecondaryNav && label === currentMenuItem;
 
   if (navMenuItem.type === 'DEFAULT') {
     if (isMobile) {
-      return hasSecondaryNav && navMenuItem.label === currentMenuItem ? (
-        <Button
-          justifyContent="flex-start"
-          isFullWidth={true}
-          fontWeight="400"
-          border="none"
-          borderRadius="0"
-          padding="12px"
-          className={styles['secondary-nav-button']}
-          {...(customKey ? { key: customKey } : {})}
-          onClick={() => setShowGlobalNav(false)}
-          ariaLabel={`Show ${linkContent} nav bar`}
-        >
-          {linkContent}
-        </Button>
+      return showSecondaryNav ? (
+        <ShowSecondaryNav label={label} setShowGlobalNav={setShowGlobalNav} />
       ) : (
-        <a
-          className={`${styles['nav-menu-item']} ${styles[themeClass]}`}
-          {...(customKey ? { key: customKey } : {})}
-          href={navMenuItem.url}
-        >
+        <Link className={styles['nav-menu-item']} href={navMenuItem.url}>
           <Text
             as="span"
             padding="2px 10px"
@@ -69,36 +42,36 @@ export function NavMenuLink({
                 : ''
             }
           >
-            {linkContent}
+            {label}
           </Text>
-        </a>
+        </Link>
       );
     } else {
       return (
-        <a
+        <Link
           className={`${styles['nav-menu-item']} ${
             navMenuItem.label === currentMenuItem
               ? styles['current-nav-menu-item']
               : ''
-          } ${styles[themeClass]}`}
-          {...(customKey ? { key: customKey } : {})}
+          }`}
           href={navMenuItem.url}
         >
-          {linkContent}
-        </a>
+          {label}
+        </Link>
       );
     }
   } else {
     return (
-      <a
+      <Link
         target="_blank"
         rel="noopener noreferrer"
-        className={`${styles['nav-menu-item']} ${styles[themeClass]}`}
-        {...(customKey ? { key: customKey } : {})}
+        className={styles['nav-menu-item']}
         href={navMenuItem.url}
       >
-        {linkContent}
-      </a>
+        <Text as="span" padding="2px 10px">
+          {linkContent}
+        </Text>
+      </Link>
     );
   }
 }

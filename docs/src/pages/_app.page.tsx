@@ -20,7 +20,7 @@ require('prismjs/components/prism-dart');
 import '../styles/index.scss';
 import classNames from 'classnames';
 import { GlobalNav, NavMenuItem } from '@/components/Layout/GlobalNav';
-import { NAV_LINKS } from '@/data/globalnav';
+import { LEFT_NAV_LINKS, RIGHT_NAV_LINKS } from '@/data/globalnav';
 
 if (typeof window === 'undefined') {
   // suppress useLayoutEffect warnings when running outside a browser
@@ -87,7 +87,8 @@ function MyApp({ Component, pageProps }) {
       <div className={isHomepage ? `docs-home` : ''}>
         <ThemeProvider theme={baseTheme} colorMode={colorMode}>
           <GlobalNav
-            links={NAV_LINKS as NavMenuItem[]}
+            rightLinks={RIGHT_NAV_LINKS as NavMenuItem[]}
+            leftLinks={LEFT_NAV_LINKS as NavMenuItem[]}
             currentSite="UI Library"
           />
           <Header
