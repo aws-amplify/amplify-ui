@@ -10,7 +10,7 @@ import { LivenessCameraModule } from './LivenessCameraModule';
 import { useLivenessActor } from '../hooks';
 import { Text, Flex } from '../../../primitives';
 
-export const CHECK_CLASS_NAME = 'liveness-detector-check';
+const CHECK_CLASS_NAME = 'liveness-detector-check';
 
 export const LivenessCheck: React.FC = () => {
   const { tokens } = useTheme();

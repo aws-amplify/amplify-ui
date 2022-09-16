@@ -33,7 +33,7 @@ export const INSTRUCTIONS = [
   },
 ];
 
-export const START_CLASS_NAME = 'liveness-detector-start';
+const START_CLASS_NAME = 'liveness-detector-start';
 
 export interface StartLivenessProps {
   beginLivenessCheck: () => void;

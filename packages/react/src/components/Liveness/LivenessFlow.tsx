@@ -15,7 +15,7 @@ import { View, Flex } from '../../primitives';
 import { getVideoConstraints } from './StartLiveness/helpers';
 import { useThemeBreakpoint } from '../../hooks/useThemeBreakpoint';
 
-export const DETECTOR_CLASS_NAME = 'liveness-detector';
+const DETECTOR_CLASS_NAME = 'liveness-detector';
 
 export interface LivenessFlowProps extends LivenessFlowPropsFromUi {}
 
