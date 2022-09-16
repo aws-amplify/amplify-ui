@@ -108,11 +108,7 @@ export function MobileNav({
         <></>
       ) : (
         <View
-          height="100vh"
-          width="100vw"
-          position="fixed"
-          top="0"
-          style={{ backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 150 }}
+          className={styles['background-overlay']}
           onClick={() => {
             setIsCollapsed(true);
           }}
