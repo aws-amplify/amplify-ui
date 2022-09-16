@@ -1,4 +1,4 @@
-import { Button, Text, Link } from '@aws-amplify/ui-react';
+import { Text, Link } from '@aws-amplify/ui-react';
 import { Dispatch, SetStateAction } from 'react';
 import styles from '../GlobalNav.module.scss';
 import { IconLink, ExternalLink } from '.';
@@ -21,9 +21,19 @@ export function NavMenuLink({
   const label: string = navMenuItem.label;
   const linkContent: JSX.Element =
     navMenuItem.type === 'EXTERNAL' ? (
-      <ExternalLink>{label}</ExternalLink>
+      <Text as="span" color="inherit" padding="2px 10px">
+        <ExternalLink>{label}</ExternalLink>
+      </Text>
     ) : (
-      <IconLink iconType={navMenuItem.icon ? navMenuItem.icon : ''} />
+      <Text
+        as="span"
+        color="inherit"
+        marginLeft="auto"
+        marginRight="auto"
+        padding="2px 10px"
+      >
+        <IconLink iconType={navMenuItem.icon ? navMenuItem.icon : ''} />
+      </Text>
     );
   const showSecondaryNav = hasSecondaryNav && label === currentMenuItem;
 
@@ -36,6 +46,7 @@ export function NavMenuLink({
           <Text
             as="span"
             padding="2px 10px"
+            color="inherit"
             className={
               navMenuItem.label === currentMenuItem
                 ? styles['current-nav-menu-item']
@@ -63,14 +74,11 @@ export function NavMenuLink({
   } else {
     return (
       <Link
-        target="_blank"
-        rel="noopener noreferrer"
+        isExternal={true}
         className={styles['nav-menu-item']}
         href={navMenuItem.url}
       >
-        <Text as="span" padding="2px 10px">
-          {linkContent}
-        </Text>
+        {linkContent}
       </Link>
     );
   }
