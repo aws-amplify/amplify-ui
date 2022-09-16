@@ -50,6 +50,7 @@ export function MobileNav({
             currentMenuItem={currentSite}
             hasSecondaryNav={hasSecondaryNav}
             isMobile={true}
+            setShowGlobalNav={setShowGlobalNav}
           />
         </View>
       ));
