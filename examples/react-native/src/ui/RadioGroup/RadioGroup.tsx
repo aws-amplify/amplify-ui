@@ -1,7 +1,7 @@
 import React, { Children, cloneElement, isValidElement, useMemo } from 'react';
 import { View, ViewStyle } from 'react-native';
 
-import { Label } from '../Label';
+import { Label } from '@aws-amplify/ui-react-native/dist/primitives';
 import { RadioProps } from '../Radio';
 
 import { RadioGroupProps } from './types';
