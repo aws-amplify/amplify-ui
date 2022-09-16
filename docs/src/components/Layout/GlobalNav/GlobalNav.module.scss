@@ -1,3 +1,4 @@
+// This class is added to the sites that aren't using the Amplify UI theme provider and is creating the variables that are being used in dark mode of Amplify UI
 .add-variables {
   --amplify-colors-font-primary: #232f3e;
   --amplify-colors-font-tertiary: #545b64;
@@ -6,9 +7,8 @@
 }
 
 .navbar {
-  // box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.04);
-  height: var(--dev-center-nav-height);
-  border-bottom: 1px solid var(--amplify-colors-border-secondary);
+  box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.04);
+  border-bottom: 1px solid var(--navbar-border-color);
   background-color: var(--amplify-colors-background-primary);
   position: sticky;
   top: 0px;
@@ -22,6 +22,11 @@
     -moz-osx-font-smoothing: auto !important;
   }
 
+  // Top level navbar element, create all of the variables that will be used throughout the unified navbar
+  --navbar-border-color: #d5dbdb;
+  --navbar-current-property-color: #ff9900;
+  --secondary-nav-hover-color: black;
+  --secondary-nav-hover-background-color: white;
   --dev-center-nav-height: 60px;
   --amplify-colors-font-hover: #000;
 }
@@ -40,10 +45,6 @@
   color: var(--amplify-colors-font-primary);
   font-size: 1.25rem;
   white-space: nowrap;
-  display: inline-flex;
-  direction: row;
-  align-items: center;
-  gap: 8px;
 }
 
 .nav-container {
@@ -58,11 +59,10 @@
   height: var(--dev-center-nav-height);
   align-items: center;
   justify-content: space-between;
-  padding: 0px 18px;
 }
 
 .nav-links-container {
-  height: 100%;
+  height: var(--dev-center-nav-height);
   align-items: center;
   justify-content: space-between;
 }
@@ -74,7 +74,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  border-bottom: 1px solid #d5dbdb;
+  border-bottom: 1px solid var(--navbar-border-color);
 }
 
 .mobile-nav-icons-container {
@@ -91,7 +91,7 @@
 }
 
 .mobile-nav-menu-items {
-  border-top: 1px solid #d5dbdb;
+  border-top: 1px solid var(--navbar-border-color);
   height: 48px;
   width: 100%;
 }
@@ -103,11 +103,11 @@
   height: 100%;
   font-size: 1rem;
   text-decoration: none;
-  color: var(--amplify-colors-font-tertiary);
+  color: var(--amplify-colors-font-tertiary) !important;
   font-family: 'Amazon Ember';
   cursor: pointer;
   font-weight: 400;
-  margin-bottom: -1px;
+
   white-space: nowrap;
 
   &:hover,
@@ -125,8 +125,8 @@
 }
 
 .secondary-nav-button {
-  border-top: 1px solid #d5dbdb;
-  border-bottom: 1px solid #d5dbdb;
+  border-top: 1px solid var(--navbar-border-color);
+  border-bottom: 1px solid var(--navbar-border-color);
 
   // Set color for back chevron icon
   color: var(--amplify-colors-font-tertiary);
@@ -136,9 +136,9 @@
   }
 
   &:hover {
-    color: black;
-    border: 1px solid #d5dbdb;
-    background-color: white !important;
+    color: var(--secondary-nav-hover-color);
+    border: 1px solid var(--navbar-border-color);
+    background-color: var(--secondary-nav-hover-background-color) !important;
 
     p {
       color: black;
@@ -148,8 +148,8 @@
 
 .current-nav-menu-item {
   border-top: 2px solid transparent;
-  border-bottom: 2px solid var(--amplify-components-tabs-item-active-border-color);
-  color: var(--amplify-components-tabs-item-active-color);
+  border-bottom: 2px solid var(--navbar-current-property-color);
+  margin-bottom: -1px;
 }
 
 .icon-link-hover {
@@ -160,4 +160,15 @@
 
 .chevron-icon {
   fill: var(--amplify-colors-font-tertiary);
+}
+
+.background-overlay {
+  background-color: var(--amplify-colors-overlay-40);
+  z-index: 150;
+  height: calc(100vh - var(--dev-center-nav-height));
+  width: 100vw;
+  position: fixed;
+
+  /* Hide the background overlay underneath the navbar by an arbitrary amount */
+  top: calc(var(--dev-center-nav-height) * 4);
 }

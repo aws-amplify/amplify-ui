@@ -1,26 +1,17 @@
 import { Icon } from '@aws-amplify/ui-react';
 import styles from '../../GlobalNav.module.scss';
 
-export function ChevronIcon({
-  rotateDeg,
-  ...rest
-}: { rotateDeg?: string } & unknown) {
+export function ChevronIcon({ rotateDeg }: { rotateDeg?: string }) {
   return (
     <Icon
-      // className={styles['chevron-icon']}
-      // width="20"
-      // height="18"
-      viewBox={{ minX: 0, minY: 0, width: 24, height: 24 }}
+      className={styles['chevron-icon']}
+      width="10px"
+      height="9px"
+      viewBox={{ minX: 2, minY: -1.5, width: 11, height: 12 }}
       ariaLabel="Icon"
-      {...rest}
       style={{ transform: `rotate(${rotateDeg}deg)` }}
     >
-      <polyline
-        points="6 9 12 15 18 9"
-        fill="none"
-        strokeWidth="2"
-        stroke="currentColor"
-      />
+      <path d="M14.12 0.0599976L8 6.16667L1.88 0.0599976L0 1.94L8 9.94L16 1.94L14.12 0.0599976Z" />
     </Icon>
   );
 }
