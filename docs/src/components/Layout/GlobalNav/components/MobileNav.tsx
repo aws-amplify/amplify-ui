@@ -74,6 +74,7 @@ export function MobileNav({
           aria-expanded={!isCollapsed}
           aria-controls="mobile-nav-links"
           border="none"
+          height="30px"
           onClick={() => {
             setIsCollapsed(!isCollapsed);
           }}
