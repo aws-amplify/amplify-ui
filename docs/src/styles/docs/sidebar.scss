@@ -38,7 +38,7 @@
   // desktop
   @media (min-width: $breakpoint-large) {
     flex-shrink: 0;
-    width: 20rem;
+    width: var(--docs-sidebar-width);
     position: relative;
 
     .docs-home & {
@@ -74,10 +74,10 @@
 
 .docs-sidebar-inner {
   // For mobile screens, take up 90% width
-  --width: 90vw;
+  --docs-sidebar-width: 90vw;
   // Tablet and up use a fixed width
   @media (min-width: $breakpoint-small) {
-    --width: 20rem;
+    --docs-sidebar-width: 22rem;
   }
 
   // This is to get the secondary link text lined up with the primary nav item
@@ -104,28 +104,33 @@
   );
 
   height: calc(100vh - var(--docs-dev-center-nav-height));
-  width: var(--width);
+  width: var(--docs-sidebar-width);
   overflow-y: auto;
   position: absolute;
   top: 0;
   left: 0;
-  padding: var(--amplify-space-medium);
+  padding: var(--amplify-space-medium) var(--amplify-space-xl);
   border-right: var(--amplify-border-widths-small) solid
-    var(--amplify-colors-border-primary);
+    var(--amplify-colors-border-secondary);
   box-shadow: var(--amplify-shadows-medium);
   background-color: var(--amplify-colors-background-primary);
   z-index: 99999;
-  transform: translateX(calc(-1 * var(--width)));
+  transform: translateX(calc(-1 * var(--docs-sidebar-width)));
 
   .expanded > & {
     animation: showSidebar var(--amplify-time-long) forwards;
   }
 
   @media (min-width: $breakpoint-large) {
+    margin-top: 1px;
+    top: 100%;
+    height: calc(100vh - var(--docs-dev-center-nav-height) - var(--docs-header-height));
     transform: translateX(0);
-    width: var(--width);
+    width: var(--docs-sidebar-width);
     .docs-home & {
+      top: 0;
       transform: translateX(-100%);
+      height: calc(100vh - var(--docs-dev-center-nav-height));
     }
 
     .expanded > & {

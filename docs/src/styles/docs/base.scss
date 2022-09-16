@@ -27,21 +27,21 @@
     url('/fonts/Inter-Regular.woff?v=3.19') format('woff');
 }
 
-@font-face {
-  font-family: 'Amazon Ember';
-  src: url('/fonts/AmazonEmber_W_Lt.woff2') format('woff2');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
+// @font-face {
+//   font-family: 'Amazon Ember';
+//   src: url('/fonts/AmazonEmber_W_Lt.woff2') format('woff2');
+//   font-weight: 300;
+//   font-style: normal;
+//   font-display: swap;
+// }
 
-@font-face {
-  font-family: 'Amazon Ember';
-  src: url('/fonts/AmazonEmber_W_Rg.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
+// @font-face {
+//   font-family: 'Amazon Ember';
+//   src: url('/fonts/AmazonEmber_W_Rg.woff2') format('woff2');
+//   font-weight: 400;
+//   font-style: normal;
+//   font-display: swap;
+// }
 
 @media screen and (prefers-reduced-motion: no-preference) {
   html {
@@ -254,6 +254,7 @@ h4:hover > a .icon-link {
     SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
     monospace;
   --docs-horizontal-padding: var(--amplify-space-medium);
+  --docs-sidebar-width: 22rem;
 
   // Algolia customizations
   --docsearch-modal-background: var(--amplify-colors-background-primary);
