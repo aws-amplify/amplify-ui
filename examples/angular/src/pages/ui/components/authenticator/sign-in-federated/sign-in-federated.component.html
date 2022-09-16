@@ -1,4 +1,6 @@
-<amplify-authenticator>
+<amplify-authenticator
+  [socialProviders]="['amazon', 'apple', 'facebook', 'google']"
+>
   <ng-template
     amplifySlot="authenticated"
     let-user="user"
