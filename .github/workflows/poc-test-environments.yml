@@ -20,6 +20,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
     environment: ci
+    env:
+      NODE_ENV: test
     steps:
       - name: Checkout Amplify UI
         uses: actions/checkout@v2
