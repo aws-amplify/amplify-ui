@@ -44,7 +44,7 @@ export function GlobalNav({
   const BEST_BREAKPOINT_GUESS = 1200;
   // This class will be added onto the sites that aren't using an Amplify UI theme provider, this will let those using a ThemeProvider use the variables
   // provided and the sites not using a ThemeProvider will have the needed variables added on
-  const themeClass = themeableSites[currentSite] ? '' : 'add-variables';
+  const themeClass = themeableSites[currentSite] ? '' : 'use-ui-theme';
 
   let hasSecondaryNav = !!(secondaryNavDesktop && secondaryNavMobile);
 
