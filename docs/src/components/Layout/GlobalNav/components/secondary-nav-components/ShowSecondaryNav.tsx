@@ -18,7 +18,7 @@ export function ShowSecondaryNav({
       fontWeight="400"
       border="none"
       borderRadius="0"
-      padding="12px"
+      padding="12px 22px"
       className={styles['secondary-nav-button']}
       onClick={() => setShowGlobalNav(false)}
       ariaLabel={`Show ${label} nav bar`}

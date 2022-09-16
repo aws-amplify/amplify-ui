@@ -22,7 +22,7 @@ export function MobileSecondaryNav({
       direction="column"
       width="100%"
       backgroundColor="white"
-      style={{ zIndex: 100 }}
+      style={{ zIndex: 200 }}
       rowGap="0px"
     >
       <Button
