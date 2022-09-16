@@ -5,17 +5,11 @@ import '@aws-amplify/ui-react/styles.css';
 
 import awsExports from './aws-exports';
 Amplify.configure(awsExports);
-
-function App({ signOut }) {
-  return <button onClick={signOut}>Sign out</button>;
-}
-
 export default function AuthenticatorWithFederation() {
   return (
-    <Authenticator>
-      {({ signOut, user }) => (
+    <Authenticator socialProviders={['amazon', 'apple', 'facebook', 'google']}>
+      {({ signOut }) => (
         <>
-          Hello {user.attributes?.name}
           <button onClick={signOut}>Sign out</button>
         </>
       )}
