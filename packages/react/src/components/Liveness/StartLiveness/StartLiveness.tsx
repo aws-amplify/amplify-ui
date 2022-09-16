@@ -33,6 +33,8 @@ export const INSTRUCTIONS = [
   },
 ];
 
+const START_CLASS_NAME = 'liveness-detector-start';
+
 export interface StartLivenessProps {
   beginLivenessCheck: () => void;
 }
@@ -62,7 +64,13 @@ export function StartLiveness(props: StartLivenessProps): JSX.Element {
   }, [flowProps]);
 
   return (
-    <Flex direction="column" padding={'var(--amplify-space-medium)'}>
+    <Flex
+      direction="column"
+      padding={'var(--amplify-space-medium)'}
+      data-amplify-liveness-detector-start=""
+      className={START_CLASS_NAME}
+      data-testid={START_CLASS_NAME}
+    >
       <Heading level={3}>{translate('How it works')}</Heading>
       <Collection
         type="list"

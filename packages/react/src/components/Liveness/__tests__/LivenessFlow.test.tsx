@@ -18,8 +18,8 @@ describe('LivenessFlow', () => {
       return { isLive: true };
     },
   };
-  const livenessFlowTestId = 'liveness-flow';
-  const livenessFlowCheckTestId = 'liveness-flow-check';
+  const livenessFlowTestId = 'liveness-detector';
+  const livenessFlowCheckTestId = 'liveness-detector-check';
   const cancelButtonName = 'Cancel';
 
   afterEach(() => {
