@@ -161,3 +161,14 @@
 .chevron-icon {
   fill: var(--amplify-colors-font-tertiary);
 }
+
+.background-overlay {
+  background-color: var(--amplify-colors-overlay-40);
+  z-index: 150;
+  height: calc(100vh - var(--dev-center-nav-height));
+  width: 100vw;
+  position: fixed;
+
+  /* Hide the background overlay underneath the navbar by an arbitrary amount */
+  top: calc(var(--dev-center-nav-height) * 4);
+}
