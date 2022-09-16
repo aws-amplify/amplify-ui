@@ -13,5 +13,5 @@ export interface RadioProps<T> extends ViewProps {
   onChange?: (value?: T) => void;
   size?: number;
   selected?: boolean;
-  value: T;
+  // value: T;
 }
