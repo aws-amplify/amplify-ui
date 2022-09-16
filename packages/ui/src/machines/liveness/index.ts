@@ -119,6 +119,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         },
       },
       waitForSessionInfo: {
+        entry: ['setDOMAndCameraDetails'],
         after: {
           0: {
             target: 'recording',
@@ -129,7 +130,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       recording: {
         entry: [
-          'setDOMAndCameraDetails',
           'startRecording',
           'clearErrorState',
           'sendTimeoutAfterOvalDrawingDelay',
@@ -542,8 +542,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       hasLivenessCheckSucceeded: (_, __, meta) => meta.state.event.data.isLive,
       hasFreshnessColorShown: (context) =>
         context.freshnessColorAssociatedParams.freshnessColorsComplete,
-      hasServerSessionInfo: (context) =>
-        context.serverSessionInformation !== undefined,
+      hasServerSessionInfo: (context) => {
+        return context.serverSessionInformation !== undefined;
+      },
     },
     services: {
       async checkVirtualCameraAndGetStream(context) {
@@ -593,11 +594,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         const livenessStreamProvider = new LivenessStreamProvider(
           context.flowProps.sessionId,
           context.videoAssociatedParams.videoMediaStream
-        );
-
-        // FIXME: setting this to mimic response from responsestream
-        ovalDetailsFromProps = getRandomScalingAttributesStr(
-          context.flowProps.sessionInformation
         );
 
         responseStream = livenessStreamProvider.getResponseStream();
@@ -857,6 +853,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 const responseStreamActor = async (callback) => {
   const stream = await responseStream;
   for await (const event of stream) {
+    console.log(event);
     if (isServerSesssionInformationEvent(event)) {
       callback({
         type: 'SET_SESSION_INFO',

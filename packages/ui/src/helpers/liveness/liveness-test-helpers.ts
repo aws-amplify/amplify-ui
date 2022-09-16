@@ -87,7 +87,6 @@ export const mockContext = (): LivenessContext => {
     failedAttempts: 0,
     flowProps: {
       sessionId: 'foobar',
-      sessionInformation: 'foobar',
       onGetLivenessDetection: jest.fn(),
     },
     videoAssociatedParams: {

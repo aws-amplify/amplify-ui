@@ -27,7 +27,6 @@ export default function LivenessDefault() {
 
           <LivenessFlow
             sessionId={createLivenessSessionApiData.sessionId}
-            sessionInformation={createLivenessSessionApiData.sessionInformation}
             onGetLivenessDetection={handleGetLivenessDetection}
             onExit={stopLiveness}
             enableAnalytics={true}

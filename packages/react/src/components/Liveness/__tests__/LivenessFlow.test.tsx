@@ -13,7 +13,6 @@ jest.mock('../../../styles.css', () => ({}));
 describe('LivenessFlow', () => {
   const defaultProps: LivenessFlowProps = {
     sessionId: 'sessionId',
-    sessionInformation: 'sessionInformation',
     onGetLivenessDetection: async () => {
       return { isLive: true };
     },
@@ -33,12 +32,12 @@ describe('LivenessFlow', () => {
 
   it('should respect the value of controllable active prop for rendering', () => {
     const { rerender } = render(
-      <LivenessFlow {...defaultProps} active onExit={() => { }} />
+      <LivenessFlow {...defaultProps} active onExit={() => {}} />
     );
     expect(screen.getByTestId(livenessFlowTestId)).toBeInTheDocument();
 
     rerender(
-      <LivenessFlow {...defaultProps} active={false} onExit={() => { }} />
+      <LivenessFlow {...defaultProps} active={false} onExit={() => {}} />
     );
     expect(screen.queryByTestId(livenessFlowTestId)).not.toBeInTheDocument();
   });

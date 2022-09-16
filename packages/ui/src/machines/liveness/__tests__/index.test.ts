@@ -14,6 +14,7 @@ import {
 import * as helpers from '../../../helpers';
 import {
   mockLivenessStreamProvider,
+  mockSessionInformation,
   mockVideoRecorder,
 } from '../../../helpers/liveness/liveness-test-helpers';
 
@@ -44,8 +45,6 @@ describe('Liveness Machine', () => {
 
   const mockFlowProps: LivenessFlowProps = {
     sessionId: 'some-sessionId',
-    sessionInformation:
-      '{"challenge":{"faceMovementAndLightChallenge":{"ovalScaleFactors":{"width":0.24718577,"centerX":0.98700607,"centerY":0.7975547}}}}',
     onGetLivenessDetection: jest.fn(),
     onError: jest.fn(),
     onExit: jest.fn(),
@@ -122,6 +121,13 @@ describe('Liveness Machine', () => {
         freshnessColorEl: mockFreshnessColorEl,
       },
     });
+    service.send({
+      type: 'SET_SESSION_INFO',
+      data: {
+        sessionInfo: mockSessionInformation,
+      },
+    });
+    jest.advanceTimersToNextTimer(); // waitForSessionInformation
   }
 
   async function advanceMinFaceMatches() {
@@ -300,6 +306,13 @@ describe('Liveness Machine', () => {
       await flushPromises(); // notRecording
 
       service.send({ type: 'START_RECORDING' });
+      service.send({
+        type: 'SET_SESSION_INFO',
+        data: {
+          sessionInfo: mockSessionInformation,
+        },
+      });
+      jest.advanceTimersToNextTimer(); // waitForSessionInformation
 
       expect(service.state.value).toEqual({ recording: 'ovalDrawing' });
     });

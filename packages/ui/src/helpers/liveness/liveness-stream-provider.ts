@@ -16,8 +16,7 @@ export interface StartLivenessStreamOutput {
   stream: WebSocket;
 }
 
-const ENDPOINT =
-  'https://us-east-1.gamma.streaming.reventlov.rekognition.aws.dev';
+const ENDPOINT = 'ws://alankrp.aka.corp.amazon.com:8082';
 const REGION = 'us-east-1';
 
 export interface Credentials {

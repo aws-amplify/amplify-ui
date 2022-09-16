@@ -9,7 +9,7 @@ import {
 export const isServerSesssionInformationEvent = (
   event: any
 ): event is ServerSessionInformationEvent => {
-  return isSessionInformation(event?.SessionInformation);
+  return !!event?.ServerSessionInformationEvent;
 };
 
 export const isSessionInformation = (
