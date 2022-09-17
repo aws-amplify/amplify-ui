@@ -28,8 +28,8 @@ export const LivenessCheck: React.FC = () => {
         <LivenessCameraModule isMobileScreen={isMobileScreen} />
       ) : (
         <Flex
-          backgroundColor={`${tokens.colors.black}`}
-          color={`${tokens.colors.white}`}
+          backgroundColor={`${tokens.colors.background.primary}`}
+          color={`${tokens.colors.font.primary}`}
           direction="column"
           textAlign="center"
           alignItems="center"
