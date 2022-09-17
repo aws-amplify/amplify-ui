@@ -29,7 +29,7 @@ export const RIGHT_NAV_LINKS = [
     placement: 'RIGHT',
     icon: 'twitter',
   },
-].sort((a, b) => a.order - b.order);
+];
 
 export const LEFT_NAV_LINKS = [
   {
@@ -67,4 +67,4 @@ export const LEFT_NAV_LINKS = [
     order: 5,
     placement: 'LEFT',
   },
-].sort((a, b) => a.order - b.order);
+];
