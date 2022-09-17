@@ -4,17 +4,23 @@ import styles from './GlobalNav.module.scss';
 import { NavMenuLink } from './components/NavMenuLink';
 import { MobileNav } from './components/MobileNav';
 import { AmplifyLogo } from './components/icons';
+import { NavMenuIconType } from './components/IconLink';
+
+export enum NavMenuItemType {
+  DEFAULT = 'DEFAULT',
+  EXTERNAL = 'EXTERNAL',
+  ICON = 'ICON',
+}
 
 export interface NavMenuItem {
-  type: 'DEFAULT' | 'EXTERNAL' | 'ICON';
+  type: NavMenuItemType;
   label: string;
   url: string;
   order: number;
-  placement: 'LEFT' | 'RIGHT';
-  icon?: string;
+  icon?: NavMenuIconType | string;
 }
 
-interface NavProps {
+export interface NavProps {
   leftLinks: NavMenuItem[];
   rightLinks: NavMenuItem[];
   currentSite: string;
