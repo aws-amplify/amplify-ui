@@ -3,7 +3,7 @@
   "name": "docs",
   "version": "0.0.1",
   "scripts": {
-    "dev": "next dev -p 5000",
+    "dev": "next dev -p 5001",
     "preflutter:build": "yarn flutter:clean",
     "flutter:build": "(cd flutter/authenticator && flutter build web)",
     "postflutter:build": "yarn flutter:copy",
@@ -19,7 +19,7 @@
     "test": "$_ run build"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "3.5.1",
+    "@aws-amplify/ui-react": "3.5.2",
     "@cucumber/gherkin": "^19.0.3",
     "@cucumber/messages": "^16.0.1",
     "@docsearch/react": "3",

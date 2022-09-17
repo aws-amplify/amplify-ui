@@ -1,5 +1,14 @@
 # @aws-amplify/ui-react
 
+## 3.5.2
+
+### Patch Changes
+
+- [#2586](https://github.com/aws-amplify/amplify-ui/pull/2586) [`6eb393d70`](https://github.com/aws-amplify/amplify-ui/commit/6eb393d70a9442b11233844ca1bfcf70146d52e7) Thanks [@calebpollman](https://github.com/calebpollman)! - increase flexibility of `withAuthenticator` typing
+
+- Updated dependencies [[`e2429807b`](https://github.com/aws-amplify/amplify-ui/commit/e2429807bcc13b7c2dfe2c2947be8e790eea4d9d)]:
+  - @aws-amplify/ui@3.13.3
+
 ## 3.5.1
 
 ### Patch Changes
