@@ -3,7 +3,7 @@ import { useState, useLayoutEffect, useRef, useEffect, useMemo } from 'react';
 import styles from './GlobalNav.module.scss';
 import { NavMenuLink } from './components/NavMenuLink';
 import { MobileNav } from './components/MobileNav';
-import { DevCenterLogo } from './components/icons';
+import { AmplifyLogo } from './components/icons';
 
 export interface NavMenuItem {
   type: 'DEFAULT' | 'EXTERNAL' | 'ICON';
@@ -132,7 +132,7 @@ export function GlobalNav({
             >
               {/* Left side of nav bar */}
               <Flex height="100%" columnGap="8px" alignItems="center">
-                <DevCenterLogo />
+                <AmplifyLogo />
                 <Text className={styles['dev-center-logo']}>
                   <span style={{ fontWeight: '400' }}>Amplify</span>{' '}
                   <span style={{ fontWeight: '300' }}>Dev Center</span>

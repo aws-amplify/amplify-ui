@@ -1,6 +1,6 @@
 import { Icon } from '@aws-amplify/ui-react';
 
-export function DevCenterLogo() {
+export function AmplifyLogo() {
   return (
     <Icon
       ariaLabel="Amplify Dev Center logo"

@@ -26,6 +26,6 @@ export function IconLink({ iconType }: { iconType: string }) {
         />
       );
     default:
-      return <></>;
+      return null;
   }
 }
