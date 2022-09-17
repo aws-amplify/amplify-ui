@@ -3,7 +3,7 @@ import styles from '../GlobalNav.module.scss';
 
 export function ExternalLink({ children }: { children: any }) {
   return (
-    <Flex alignItems="center" columnGap="10.67px">
+    <Flex alignItems="center" columnGap="10px">
       {children}
       <Icon
         ariaLabel="External link icon"
