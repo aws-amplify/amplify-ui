@@ -17,7 +17,7 @@
   a,
   p,
   span {
-    font-family: 'Amazon Ember' !important;
+    font-family: 'Amazon Ember';
     -webkit-font-smoothing: auto !important;
     -moz-osx-font-smoothing: auto !important;
   }
@@ -105,7 +105,6 @@
   text-decoration: none;
   color: var(--amplify-colors-font-tertiary) !important;
   font-family: 'Amazon Ember';
-  cursor: pointer;
   font-weight: 400;
 
   white-space: nowrap;
@@ -115,7 +114,7 @@
     color: var(--amplify-colors-font-hover) !important;
 
     .custom-path-stroke {
-      stroke: var(--amplify-colors-font-hover) !important;
+      stroke: var(--amplify-colors-font-hover);
     }
   }
 
@@ -138,10 +137,12 @@
   &:hover {
     color: var(--secondary-nav-hover-color);
     border: 1px solid var(--navbar-border-color);
+
+    /* Override the button's background color */
     background-color: var(--secondary-nav-hover-background-color) !important;
 
     p {
-      color: black;
+      color: var(--amplify-colors-font-hover);
     }
   }
 }
