@@ -40,31 +40,28 @@ done
 [ -z "$region" ] && region="us-east-2"        # default to us-east-2
 [ -z "$include" ] && include="\./[a-zA-Z\-]*" # default to all folders in cwd
 
-# Check OS, as `find` implementation is slightly different between OS.
+# Check OS, because `find` implementation is slightly different between OS.
 uname="$(uname)"
-# find takes primary flag, and then secondary flag:
-#   `find [PRIMARY_FLAG] [PATH] [SECONDARY_FLAG]`
-# We'll assign the right flag that corresponds to the right OS.
-primaryFlag=""
-secondaryFlag=""
 
 # find has different syntax to allow extended regex on Linux vs MacOS.
+# findFlags will be assigned to the right flag for the correspondingOS.
+findFlags=""
+
 if [[ "$uname" == "Darwin" ]]; then
-  # On macOS, we do `find -E . [...]`, ie. only has primary Flag
-  primaryFlag="-E"
-  # space padding is added because find is really picky on spaces around flags.
+  # On macOS, we do `find -E . -type d [...]`
+  findFlags="-E . -type d"
 elif [[ "$uname" == "Linux" ]]; then
-  # On Linux, we do `find . -regextype posix-extended`, ie. only has secondary flag.
-  secondartyFlag="-regextype posix-extended"
+  # On Linux, we do `find . -regextype posix-extended  -type d`
+  findFlags=". -regextype posix-extended"
 else
   echo "ERROR: unknown os: "$uname". Please open an issue with this log."
 fi
 
 regexMatch=""
 if ! [ -z "$exclude" ]; then
-  regexMatch=$(find "$primaryFlag" . $secondaryFlag -regex "$include" -not -regex "$exclude")
+  regexMatch=$(find $findFlags -regex "$include" -not -regex "$exclude")
 else
-  regexMatch=$(find "$primaryFlag" . $secondaryFlag -regex "$include")
+  regexMatch=$(find $findFlags -regex "$include")
 fi
 
 if [ -z "$regexMatch" ]; then
