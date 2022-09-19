@@ -1,4 +1,10 @@
-import { ImageStyle, StyleProp, TextStyle, ViewProps } from 'react-native';
+import {
+  ImageStyle,
+  StyleProp,
+  TextStyle,
+  ViewProps,
+  ViewStyle,
+} from 'react-native';
 
 import { IconButtonProps } from '..';
 
@@ -14,4 +20,9 @@ export interface RadioProps<T> extends ViewProps {
   size?: number;
   selected?: boolean;
   // value: T;
+}
+
+export interface RadioStyles {
+  inner: ViewStyle;
+  outer: ViewStyle;
 }

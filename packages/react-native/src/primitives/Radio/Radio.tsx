@@ -1,11 +1,12 @@
-import React, { useMemo } from 'react';
-import { View, ViewStyle } from 'react-native';
+import React, { useMemo, useState } from 'react';
+import { TouchableWithoutFeedback, View, ViewStyle } from 'react-native';
 
 // import { icons } from '../../assets';
 
-import { Button, Label } from '../index';
+import { Label } from '../index';
 
 import { RadioProps } from './types';
+import { styles } from './styles';
 
 export default function Radio<T>({
   // buttonStyle,
@@ -20,6 +21,12 @@ export default function Radio<T>({
   // value,
   ...rest
 }: RadioProps<T>): JSX.Element {
+  const [pressed, setPressed] = useState(false);
+
+  const handleOnPress = () => {
+    setPressed(!pressed);
+  };
+
   const labelPrecedesIcon =
     labelPosition === 'start' || labelPosition === 'top';
 
@@ -44,7 +51,12 @@ export default function Radio<T>({
       {label && labelPrecedesIcon ? (
         <Label style={labelStyle}>{label}</Label>
       ) : null}
-      <Button>Hello world</Button>
+      <TouchableWithoutFeedback onPress={handleOnPress}>
+        <View style={[styles.outer]}>
+          {pressed ? <View style={[styles.inner]} /> : null}
+        </View>
+      </TouchableWithoutFeedback>
+      {/* <Button>Hello world</Button> */}
       {/* <IconButton
         disabled={disabled}
         onPress={handleOnChange}
