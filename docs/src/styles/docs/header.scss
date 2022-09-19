@@ -21,6 +21,7 @@
   padding-inline: var(--amplify-space-large);
   z-index: 100;
   gap: var(--amplify-space-small);
+  background-color: var(--amplify-colors-background-primary);
 
   @media (max-width: $breakpoint-large) {
     border-bottom: var(--amplify-borders-secondary);
@@ -32,27 +33,6 @@
   .scrolled .docs-home & {
     border-bottom: var(--amplify-borders-secondary);
     box-shadow: var(--amplify-shadows-small);
-  }
-  
-  &::before {
-    content: '';
-    z-index: -1;
-    background-color: var(--amplify-colors-background-primary);
-    opacity: 0.75;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    transition: all var(--amplify-time-medium) ease;
-    
-    .docs-home & {
-      background-color: transparent;
-    }
-    
-    .scrolled .docs-home & {
-      background-color: var(--amplify-colors-background-primary);
-    }
   }
 }
 

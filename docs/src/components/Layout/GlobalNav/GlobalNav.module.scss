@@ -104,7 +104,7 @@
   height: 100%;
   font-size: var(--amplify-font-sizes-small);
   text-decoration: none;
-  color: var(--amplify-colors-neutral-20) !important;
+  color: var(--amplify-colors-neutral-40) !important;
   font-family: 'Amazon Ember';
   font-weight: 400;
 
@@ -112,7 +112,7 @@
 
   &:hover,
   &:focus {
-    color: var(--amplify-colors-neutral-20) !important;
+    color: var(--amplify-colors-neutral-10) !important;
 
     .custom-path-stroke {
       stroke: var(--amplify-colors-neutral-10);
@@ -120,7 +120,7 @@
   }
 
   .custom-path-stroke {
-    stroke: var(--amplify-colors-neutral-20);
+    stroke: var(--amplify-colors-neutral-40);
   }
 }
 
@@ -151,7 +151,7 @@
 .current-nav-menu-item {
   border-top: 2px solid transparent;
   border-bottom: 2px solid var(--navbar-current-property-color);
-  color: var(--amplify-colors-neutral-10);
+  color: var(--amplify-colors-neutral-10) !important;
 }
 
 .icon-link-hover {
@@ -161,7 +161,7 @@
 }
 
 .chevron-icon {
-  fill: var(--amplify-colors-neutral-20);
+  fill: var(--amplify-colors-neutral-40);
 }
 
 .background-overlay {
