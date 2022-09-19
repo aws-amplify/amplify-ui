@@ -6,7 +6,7 @@ dirs=""
 # Get Options from CLI
 
 # Options:
-#  -r (region): Specifies aws region to pull environments from. Defaults to us-east-2.
+#  -r (region): AWS region to pull environments from. Defaults to us-east-2.
 #  -i (include): Regex pattern that matches environment folders to pull from.
 #  -e (exclude): Regex pattern that matches environment folders to ignore.
 # If both -i and -e are specified, it'll match all dirs that match -i but not -e.
