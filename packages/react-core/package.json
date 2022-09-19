@@ -1,7 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-core",
   "version": "0.0.1",
-  "private": true,
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "exports": {
@@ -25,9 +24,11 @@
     "build:esm": "tsc --project tsconfig.esm.json",
     "dev": "yarn build:esm --watch",
     "lint": "tsc --noEmit && eslint src",
-    "test": "jest"
+    "test": "jest --coverage",
+    "test:watch": "yarn test --watch"
   },
   "peerDependencies": {
+    "aws-amplify": "3.x.x || 4.x.x",
     "react": ">= 16.8.0",
     "react-dom": ">= 16.8.0"
   },
