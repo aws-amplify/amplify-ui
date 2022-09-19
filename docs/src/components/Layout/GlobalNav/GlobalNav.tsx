@@ -62,7 +62,7 @@ export function GlobalNav({
     <View
       id="main-nav"
       className={`${styles.navbar} ${styles[themeClass]}`}
-      aria-label="Amplify Dev Center Global"
+      aria-label="Amplify Dev Center - External links to additional Amplify resources"
       as="nav"
     >
       {isMobileState ? (

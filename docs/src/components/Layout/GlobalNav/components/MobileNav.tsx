@@ -80,7 +80,7 @@ export function MobileNav({
           }}
         >
           <VisuallyHidden>
-            {isCollapsed ? 'Open menu' : 'Close menu'}
+            {isCollapsed ? 'Open Dev Center menu' : 'Close Dev Center menu'}
           </VisuallyHidden>
           <ChevronIcon rotateDeg={chevronRotation} />
         </Button>
