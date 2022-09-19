@@ -2,12 +2,12 @@
 import React from 'react';
 import { Card } from 'src/primitives';
 import { FileUploaderTransferProps } from '../FileUploader/types';
-import { useFileUploader } from '../hooks/useFileUploader';
 
 export function FileUploaderDrop({
   children,
+  inDropZone,
+  getDropEvents,
 }: FileUploaderTransferProps): JSX.Element {
-  const { inDropZone, getDropEvents } = useFileUploader();
   // https://www.smashingmagazine.com/2020/02/html-drag-drop-api-react/
 
   return (

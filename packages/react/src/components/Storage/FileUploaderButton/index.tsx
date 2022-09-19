@@ -1,15 +1,14 @@
 import React from 'react';
 import { Button } from 'src/primitives/Button';
 import { FileUploaderTransferProps } from '../FileUploader/types';
-import { useFileUploader } from '../hooks/useFileUploader';
-// import { getFileName, uploadFile } from '../shared/utils';
 
 export function FileUploaderButton({
   multiple,
   accept,
   fileName,
+  setShowPreviewer,
+  setFiles,
 }: FileUploaderTransferProps): JSX.Element {
-  const { setShowPreviewer, setFiles } = useFileUploader();
   const hiddenInput = React.useRef<HTMLInputElement>();
   function handleClick() {
     hiddenInput.current.click();

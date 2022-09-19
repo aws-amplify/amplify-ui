@@ -1,11 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState } from 'react';
+import React from 'react';
 import { FileUploaderProps, SetFileType } from './types';
 import { FileUploaderButton } from '../FileUploaderButton';
 import { FilePreviewer } from '../FilePreviewer';
 import { View } from 'src/primitives';
-import { CustomComponentsContext, useCustomComponents } from '../hooks/';
-import { defaultComponents } from '../hooks/defaultComponents';
 import { FileUploaderDrop } from '../FileUploaderDrop';
 import { Provider, useFileUploader } from '../hooks/useFileUploader';
 
@@ -17,7 +15,7 @@ export function FileUploader({
   accept,
   fileName,
   level,
-  components: customComponents,
+  components: customComponents = {},
   maxFiles,
   maxMultipleSize,
   maxSize,
@@ -29,25 +27,38 @@ export function FileUploader({
   showPreview = false,
   variation = 'button',
 }: FileUploaderProps): JSX.Element {
-  // eslint-disable-next-line no-console
-  console.log('file', FileUploaderDrop);
-
   function Router(): JSX.Element {
-    const { FileUploaderDrop = Router.FileUploaderDrop } =
-      useCustomComponents();
-    const { showPreviewer } = useFileUploader();
+    const { FileUploaderDrop = FileUploader.FileUploaderDrop } =
+      customComponents;
+    const {
+      files,
+      getDropEvents,
+      inDropZone,
+      setFiles,
+      setShowPreviewer,
+      showPreviewer,
+    } = useFileUploader();
     const commonProps = {
       accept,
       fileName,
       multiple,
+      setFiles,
+      setShowPreviewer,
     };
     if (showPreviewer) {
-      return <FilePreviewer fileName={fileName} level={level} />;
+      return (
+        <FilePreviewer
+          fileName={fileName}
+          files={files}
+          level={level}
+          setShowPreviewer={setShowPreviewer}
+        />
+      );
     } else if (variation === 'button') {
       return <FileUploaderButton {...commonProps} />;
     } else {
       return (
-        <FileUploaderDrop {...commonProps}>
+        <FileUploaderDrop getDropEvents={getDropEvents} inDropZone={inDropZone}>
           <FileUploaderButton {...commonProps} />
           <View as="span">or drag file{multiple ? 's' : ''} here</View>
         </FileUploaderDrop>
@@ -55,20 +66,12 @@ export function FileUploader({
     }
   }
 
-  Router.FileUploaderDrop = FileUploaderDrop;
-
-  const value = React.useMemo(
-    () => ({ ...defaultComponents, ...customComponents }),
-    [customComponents]
-  );
-
   return (
     <Provider>
-      <CustomComponentsContext.Provider value={value}>
-        <Router />
-      </CustomComponentsContext.Provider>
+      <Router />
     </Provider>
   );
 }
 
+FileUploader.FileUploaderDrop = FileUploaderDrop;
 FileUploader.Provider = Provider;

@@ -8,15 +8,15 @@ import { FileTracker } from '../FileTracker';
 import { FilePreviewerProps } from '../FileUploader/types';
 import { getFileName, uploadFile } from '../shared/utils';
 import { UploadTask } from '@aws-amplify/storage';
-import { useFileUploader } from '../hooks/useFileUploader';
 
 export function FilePreviewer({
   fileName,
   level,
+  setShowPreviewer,
+  files,
 }: FilePreviewerProps): JSX.Element {
   const [percentage, setPercentage] = useState<number[]>([]);
   const [uploadTasks, setUploadTasks] = useState<UploadTask[]>([]);
-  const { setShowPreviewer, files } = useFileUploader();
   const filesRef = useRef([]);
   function upload() {
     const uploadTasksTemp = [];

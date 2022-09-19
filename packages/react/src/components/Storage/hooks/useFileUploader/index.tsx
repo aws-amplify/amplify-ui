@@ -1,14 +1,8 @@
 import isEmpty from 'lodash/isEmpty';
 import React, { useMemo, useState } from 'react';
 import { SetFileType } from '../../FileUploader/types';
+import { DropZoneInterface } from '../../FileUploader/types';
 
-interface DropZoneInterface {
-  onDragStart: (e: React.DragEvent<HTMLDivElement>) => void;
-  onDragEnter: (e: React.DragEvent<HTMLDivElement>) => void;
-  onDragLeave: (e: React.DragEvent<HTMLDivElement>) => void;
-  onDrop: (e: React.DragEvent<HTMLDivElement>) => void;
-  onDragOver: (e: React.DragEvent<HTMLDivElement>) => void;
-}
 interface FileContextInterface {
   showPreviewer?: boolean;
   setShowPreviewer?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -109,7 +103,7 @@ export const useFileUploader = (): FileContextInterface => {
 
   if (!service) {
     throw new Error(
-      'Please ensure you wrap your App with `Authenticator.Provider`.\nSee the `useAuthenticator` section on https://ui.docs.amplify.aws/connected-components/authenticator.'
+      'Please ensure you wrap your App with `FileUploader.Provider`.\nSee the `useAuthenticator` section on https://ui.docs.amplify.aws/connected-components/authenticator.'
     );
   }
 
