@@ -36,8 +36,6 @@ while getopts ':r:i:e:' OPTION; do
 
 done
 
-find -regextype help
-
 # Apply defaults
 [ -z "$region" ] && region="us-east-2"        # default to us-east-2
 [ -z "$include" ] && include="\./[a-zA-Z\-]*" # default to all folders in cwd
@@ -57,9 +55,11 @@ fi
 
 regexMatch=""
 if ! [ -z "$exclude" ]; then
-  regexMatch=$(find . "$regexTypeFlag" -type d -regex "$include" -not -regex "$exclude")
+  echo "$include"
+  regexMatch=$(find . -regextype posix-extended -type d -regex "$include" -not -regex "$exclude")
 else
-  regexMatch=$(find . "$regexTypeFlag" -type d -regex "$include")
+  echo "find -E . -type d -regex "$include""
+  regexMatch=$(find . -regextype posix-extended -type d -regex "$include")
 fi
 
 if [ -z "$regexMatch" ]; then
