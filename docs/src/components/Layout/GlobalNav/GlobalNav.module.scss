@@ -7,9 +7,7 @@
 }
 
 .navbar {
-  box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.04);
-  border-bottom: 1px solid var(--navbar-border-color);
-  background-color: var(--amplify-colors-background-primary);
+  background-color: var(--amplify-colors-neutral-90);
   position: sticky;
   top: 0px;
   z-index: 200;
@@ -23,12 +21,12 @@
   }
 
   // Top level navbar element, create all of the variables that will be used throughout the unified navbar
-  --navbar-border-color: #d5dbdb;
+  --navbar-border-color: var(--amplify-colors-neutral-80);
   --navbar-current-property-color: #ff9900;
   --secondary-nav-hover-color: black;
   --secondary-nav-hover-background-color: white;
-  --dev-center-nav-height: 60px;
-  --amplify-colors-font-hover: #000;
+  --dev-center-nav-height: 3rem;
+  --amplify-colors-font-hover: var(--amplify-colors-neutral-10);
 }
 
 [data-amplify-theme='amplify-docs'][data-amplify-color-mode='dark'] .navbar {
@@ -42,8 +40,8 @@
 }
 
 .dev-center-logo {
-  color: var(--amplify-colors-font-primary);
-  font-size: 1.25rem;
+  color: var(--amplify-colors-neutral-10);
+  font-size: 1rem;
   white-space: nowrap;
 }
 
@@ -69,12 +67,11 @@
 
 .mobile-nav-menu-container {
   z-index: 1000;
-  background-color: var(--amplify-colors-background-primary);
+  background-color: var(--amplify-colors-neutral-90);
   position: absolute;
   display: flex;
   flex-direction: column;
   width: 100%;
-  border-bottom: 1px solid var(--navbar-border-color);
 }
 
 .mobile-nav-icons-container {
@@ -92,18 +89,19 @@
 
 .mobile-nav-menu-items {
   border-top: 1px solid var(--navbar-border-color);
-  height: 48px;
+  padding-inline: var(--amplify-space-small);
+  height: var(--dev-center-nav-height);
   width: 100%;
 }
 
 .nav-menu-item {
-  padding: 12px;
+  padding: 0 var(--amplify-space-xs);
   display: flex;
   align-items: center;
   height: 100%;
-  font-size: 1rem;
+  font-size: var(--amplify-font-sizes-small);
   text-decoration: none;
-  color: var(--amplify-colors-font-tertiary) !important;
+  color: var(--amplify-colors-neutral-20) !important;
   font-family: 'Amazon Ember';
   font-weight: 400;
 
@@ -111,15 +109,15 @@
 
   &:hover,
   &:focus {
-    color: var(--amplify-colors-font-hover) !important;
+    color: var(--amplify-colors-neutral-20) !important;
 
     .custom-path-stroke {
-      stroke: var(--amplify-colors-font-hover);
+      stroke: var(--amplify-colors-neutral-10);
     }
   }
 
   .custom-path-stroke {
-    stroke: var(--amplify-colors-font-tertiary);
+    stroke: var(--amplify-colors-neutral-20);
   }
 }
 
@@ -150,7 +148,7 @@
 .current-nav-menu-item {
   border-top: 2px solid transparent;
   border-bottom: 2px solid var(--navbar-current-property-color);
-  margin-bottom: -1px;
+  color: var(--amplify-colors-neutral-10);
 }
 
 .icon-link-hover {
@@ -160,7 +158,7 @@
 }
 
 .chevron-icon {
-  fill: var(--amplify-colors-font-tertiary);
+  fill: var(--amplify-colors-neutral-20);
 }
 
 .background-overlay {

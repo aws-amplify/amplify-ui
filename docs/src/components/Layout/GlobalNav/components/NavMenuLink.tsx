@@ -21,17 +21,11 @@ export function NavMenuLink({
   const label: string = navMenuItem.label;
   const linkContent: JSX.Element =
     navMenuItem.type === 'EXTERNAL' ? (
-      <Text as="span" color="inherit" padding="2px 10px">
+      <Text as="span" color="inherit">
         <ExternalLink>{label}</ExternalLink>
       </Text>
     ) : (
-      <Text
-        as="span"
-        color="inherit"
-        marginLeft="auto"
-        marginRight="auto"
-        padding="2px 10px"
-      >
+      <Text as="span" color="inherit" marginInline="auto">
         <IconLink iconType={navMenuItem.icon ? navMenuItem.icon : ''} />
       </Text>
     );
@@ -45,7 +39,6 @@ export function NavMenuLink({
         <Link className={styles['nav-menu-item']} href={navMenuItem.url}>
           <Text
             as="span"
-            padding="2px 10px"
             color="inherit"
             className={
               navMenuItem.label === currentMenuItem
