@@ -73,7 +73,6 @@ fi
 # source: https://stackoverflow.com/a/24112741
 shell_path="$(dirname "${BASH_SOURCE[0]}")" # under normal use, this points to `../`
 
-printf $dirs
 # Pull environments in parallel
 # Note that printf is used because echo dosn't handle `\n` by default in bash.
 printf $dirs | xargs -P $numParallelTasks -I {} sh -c ""$shell_path"/pull-environment.sh {} "$region""
