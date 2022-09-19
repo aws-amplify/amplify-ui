@@ -77,7 +77,7 @@ jobs:
 
   publish:
     runs-on: ubuntu-latest
-    environment: ci
+    environment: deployment
     needs: build-test
     if: ${{ needs.setup.outputs.has-changesets != 'true' }}
     steps:

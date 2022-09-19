@@ -167,21 +167,21 @@ jobs:
 
     strategy:
       # Run each examples (e.g. `next-example`) which uses a library (e.g. `@aws-amplify/ui-react`)
-      # BUT, Exclude `@skip` tests in `main` and exclude `@todo-${{ package }}` tests in PRs
+      # BUT, Exclude `@todo-${{ package }}` tests in PRs
       # See: https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#using-environment-variables-in-a-matrix
       matrix:
         include:
           - example: angular
             package: angular
-            tags: '@angular and not (@skip or @todo-angular)'
+            tags: '@angular and not @todo-angular'
 
           - example: next
             package: react
-            tags: '@react and not (@skip or @todo-react)'
+            tags: '@react and not @todo-react'
 
           - example: vue
             package: vue
-            tags: '@vue and not (@skip or @todo-vue)'
+            tags: '@vue and not @todo-vue'
 
     steps:
       - name: Checkout Amplify UI
