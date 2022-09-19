@@ -24,7 +24,7 @@
   --navbar-border-color: var(--amplify-colors-neutral-80);
   --navbar-current-property-color: #ff9900;
   --secondary-nav-hover-color: black;
-  --secondary-nav-hover-background-color: white;
+  --secondary-nav-hover-background-color: var(--amplify-colors-neutral-90);
   --dev-center-nav-height: 3rem;
   --amplify-colors-font-hover: var(--amplify-colors-neutral-10);
 }
@@ -125,16 +125,17 @@
 }
 
 .secondary-nav-button {
-  border-top: 1px solid var(--navbar-border-color);
-  border-bottom: 1px solid var(--navbar-border-color);
+  border: 1px var(--navbar-border-color);
+  border-style: solid none;
 
   // Set color for back chevron icon
-  color: var(--amplify-colors-font-tertiary);
+  color: var(--amplify-colors-neutral-20);
 
   p {
-    color: var(--amplify-colors-font-tertiary);
+    color: var(--amplify-colors-neutral-20);
   }
 
+  &:focus,
   &:hover {
     color: var(--secondary-nav-hover-color);
     border: 1px solid var(--navbar-border-color);
@@ -173,4 +174,10 @@
 
   /* Hide the background overlay underneath the navbar by an arbitrary amount */
   top: calc(var(--dev-center-nav-height) * 4);
+}
+
+.secondary-nav-mobile {
+  z-index: 200;
+  background-color: var(--amplify-colors-neutral-90);
+  color: var(--amplify-colors-neutral-20);
 }
