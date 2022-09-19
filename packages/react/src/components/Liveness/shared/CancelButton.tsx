@@ -38,8 +38,8 @@ export const CancelButton: React.FC<CancelButtonProps> = (props) => {
     <Button
       variation="link"
       onClick={handleClick}
-      backgroundColor={`${tokens.colors.black}`}
-      color={`${tokens.colors.white}`}
+      backgroundColor={`${tokens.colors.background.primary}`}
+      color={`${tokens.colors.font.primary}`}
       borderRadius="100%"
       height="50px"
     >
