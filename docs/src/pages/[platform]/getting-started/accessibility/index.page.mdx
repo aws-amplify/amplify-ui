@@ -6,5 +6,16 @@ supportedFrameworks: react|angular|vue
 ---
 
 import { Fragment } from '@/components/Fragment';
+import { getCustomStaticPath } from "@/utils/getCustomStaticPath";
+
+export async function getStaticPaths() {
+  return getCustomStaticPath(frontmatter.supportedFrameworks);
+}
+
+{/*  `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" */}
+
+export async function getStaticProps() {
+  return { props: {} }
+}
 
 <Fragment>{({ platform }) => import(`./accessibility.${platform}.mdx`)}</Fragment>

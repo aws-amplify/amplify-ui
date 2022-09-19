@@ -1,6 +1,6 @@
 import { ValidationError } from '../validator';
 import { AuthFormData, AuthFormFields } from '../form';
-import { AuthChallengeNames, CognitoUserAmplify } from '../user';
+import { AuthChallengeName, CognitoUserAmplify } from '../user';
 import { CodeDeliveryDetails as CognitoCodeDeliveryDetails } from 'amazon-cognito-identity-js';
 import { LoginMechanism, SignUpAttribute, SocialProvider } from '../attributes';
 import { defaultServices } from '../../../machines/authenticator/defaultServices';
@@ -37,7 +37,7 @@ export interface AuthContext {
   username?: string;
   password?: string;
   code?: string;
-  mfaType?: AuthChallengeNames.SMS_MFA | AuthChallengeNames.SOFTWARE_TOKEN_MFA;
+  mfaType?: 'SMS_MFA' | 'SOFTWARE_TOKEN_MFA';
   actorDoneData?: Omit<ActorDoneData, 'user'>; // data returned from actors when they finish and reach their final state
   hasSetup?: boolean;
 }
@@ -51,7 +51,7 @@ interface BaseFormContext {
   /** Any user attributes set that needs to persist between states */
   authAttributes?: Record<string, any>;
   /** Current challengeName issued by Cognnito */
-  challengeName?: string;
+  challengeName?: AuthChallengeName;
   /** Required attributes for form submission */
   requiredAttributes?: Array<string>;
   /** Maps each input name to tis value */
@@ -98,7 +98,7 @@ export interface ResetPasswordContext extends BaseFormContext {
 
 export interface SignOutContext {
   authAttributes?: Record<string, any>;
-  challengeName?: string;
+  challengeName?: AuthChallengeName;
   unverifiedAttributes?: Record<string, string>;
   user?: CognitoUserAmplify;
   formFields?: AuthFormFields;

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useRouter } from 'next/router';
 
 import { ThemeProvider, ColorMode, defaultTheme } from '@aws-amplify/ui-react';
 
@@ -7,7 +8,6 @@ import { IS_PROD_STAGE } from '@/utils/stage';
 import { Header } from '@/components/Layout/Header';
 import Script from 'next/script';
 import { baseTheme } from '../theme';
-import { useCustomRouter } from '@/components/useCustomRouter';
 
 import { Head } from './Head';
 
@@ -44,7 +44,7 @@ function MyApp({ Component, pageProps }) {
   const {
     pathname,
     query: { platform = 'react' },
-  } = useCustomRouter();
+  } = useRouter();
 
   const isHomepage = pathname === '/' || pathname === '/[platform]';
 
