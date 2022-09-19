@@ -17,7 +17,7 @@ describe('CancelButton', () => {
   const mockActorState: any = {};
   const mockActorSend = jest.fn();
 
-  const cancelBtnName = 'Cancel';
+  const cancelBtnName = 'Cancel Liveness check';
 
   beforeEach(() => {
     mockUseLivenessActor.mockReturnValue([mockActorState, mockActorSend]);
@@ -36,9 +36,7 @@ describe('CancelButton', () => {
   });
 
   it('should render the component content appropriately on mobile', () => {
-    renderWithLivenessProvider(
-      <CancelButton sourceScreen="screen" isMobileScreen={true} />
-    );
+    renderWithLivenessProvider(<CancelButton sourceScreen="screen" />);
 
     expect(screen.getByTestId('close-icon')).toBeInTheDocument();
   });
