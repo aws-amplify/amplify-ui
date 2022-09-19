@@ -43,25 +43,29 @@ done
 # Check OS, because `find` implementation is slightly different between OS.
 uname="$(uname)"
 
-# find has different syntax to allow extended regex on Linux vs MacOS.
-# findFlags will be assigned to the right flag for the correspondingOS.
-findFlags=""
-
-if [[ "$uname" == "Darwin" ]]; then
-  # On macOS, we do `find -E . -type d [...]`
-  findFlags="-E . -type d"
-elif [[ "$uname" == "Linux" ]]; then
-  # On Linux, we do `find . -regextype posix-extended  -type d`
-  findFlags=". -regextype posix-extended"
-else
-  echo "ERROR: unknown os: "$uname". Please open an issue with this log."
+# We only support macOS and Linux.
+# TODO: We should rewrite this script in node.js for better cross-os support.
+if [[ "$uname" != "Darwin" && "$uname" != 'Linux' ]]; then
+  echo "ERROR: Unknown os: "$uname""
+  exit 1
 fi
 
 regexMatch=""
-if ! [ -z "$exclude" ]; then
-  regexMatch=$(find $findFlags -regex "$include" -not -regex "$exclude")
+if [[ "$uname" == "Darwin" ]]; then
+  # on MacOS
+  if [ -z "$exclude" ]; then
+    echo "find -E . -regex "$include""
+    regexMatch=$(find -E . -regex "$include")
+  else
+    regexMatch=$(find -E . -regex "$include" -not -regex "$exclude")
+  fi
 else
-  regexMatch=$(find $findFlags -regex "$include")
+  # on Linux
+  if [ -z "$exclude" ]; then
+    regexMatch=$(find . -regextype posix-extended -regex "$include")
+  else
+    regexMatch=$(find . -regextype posix-extended -regex "$include" -not -regex "$exclude")
+  fi
 fi
 
 if [ -z "$regexMatch" ]; then
