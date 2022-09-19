@@ -20,7 +20,6 @@
   padding-block: var(--amplify-space-small);
   padding-inline: var(--amplify-space-large);
   z-index: 100;
-  backdrop-filter: blur(10px);
   gap: var(--amplify-space-small);
 
   @media (max-width: $breakpoint-large) {
@@ -30,14 +29,9 @@
 
   transition: all var(--amplify-time-medium) ease;
   
-  .docs-home & {
-    backdrop-filter: none;
-  }
-  
   .scrolled .docs-home & {
     border-bottom: var(--amplify-borders-secondary);
     box-shadow: var(--amplify-shadows-small);
-    backdrop-filter: blur(10px);
   }
   
   &::before {

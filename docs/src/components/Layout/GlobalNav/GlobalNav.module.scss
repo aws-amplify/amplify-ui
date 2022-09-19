@@ -55,7 +55,7 @@
 .mobile-nav-container {
   display: flex;
   height: var(--dev-center-nav-height);
-  align-items: center;
+  align-items: stretch;
   justify-content: space-between;
 }
 
@@ -63,6 +63,9 @@
   height: var(--dev-center-nav-height);
   align-items: center;
   justify-content: space-between;
+  align-items: stretch;
+  padding-block: 0;
+  padding-inline: var(--amplify-space-large);
 }
 
 .mobile-nav-menu-container {
