@@ -24,7 +24,6 @@ while getopts ':r:i:e:' OPTION; do
   i)
     include=$OPTARG
     ;;
-
   e)
     exclude="$OPTARG"
     ;;
@@ -39,16 +38,28 @@ done
 
 find -regextype help
 
-uname
-
+# Apply defaults
 [ -z "$region" ] && region="us-east-2"        # default to us-east-2
 [ -z "$include" ] && include="\./[a-zA-Z\-]*" # default to all folders in cwd
 
+# Check OS, and assign right flag to use for `find` exec/
+uname="$(uname)"
+regexTypeFlag="" # this flag should indicate the regex type.
+
+# find has different flag spec on Linux vs MacOS.
+if [[ "$uname" == "Darwin" ]]; then
+  regexTypeFlag="-E" # Extended regex type flag
+elif [[ "$uname" == "Linux" ]]; then
+  regexTypeFlag="-regextype posix-extended"
+else
+  echo "ERROR: unknown os: "$uname". Please open an issue with this log."
+fi
+
 regexMatch=""
 if ! [ -z "$exclude" ]; then
-  regexMatch=$(find . -type d -regex "$include" -not -regex "$exclude")
+  regexMatch=$(find . "$regexTypeFlag" -type d -regex "$include" -not -regex "$exclude")
 else
-  regexMatch=$(find . -type d -regex "$include")
+  regexMatch=$(find . "$regexTypeFlag" -type d -regex "$include")
 fi
 
 if [ -z "$regexMatch" ]; then
