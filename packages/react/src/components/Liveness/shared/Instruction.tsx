@@ -47,7 +47,7 @@ export const Instruction: React.FC<InstructionProps> = () => {
       return (
         <Flex
           gap={`${tokens.space.xs}`}
-          color={`${tokens.colors.red[40]}`}
+          color={`${tokens.colors.red[80]}`}
           alignItems="center"
         >
           <LivenessAlertIcon variation="error" />
@@ -78,7 +78,7 @@ export const Instruction: React.FC<InstructionProps> = () => {
       return (
         <Flex
           gap={`${tokens.space.xs}`}
-          color={`${tokens.colors.green[40]}`}
+          color={`${tokens.colors.green[80]}`}
           alignItems="center"
         >
           <LivenessAlertIcon variation="success" />
@@ -99,11 +99,13 @@ export const Instruction: React.FC<InstructionProps> = () => {
   return (
     <Flex
       borderRadius={`${tokens.radii.medium}`}
-      backgroundColor={`${tokens.colors.white}`}
+      backgroundColor={`${tokens.colors.background.primary}`}
       padding={`${tokens.space.small}`}
       margin={`0 ${tokens.space.medium}`}
     >
-      <View color={`${tokens.colors.black}`}>{getInstructionContent()}</View>
+      <View color={`${tokens.colors.font.primary}`}>
+        {getInstructionContent()}
+      </View>
     </Flex>
   );
 };
