@@ -34,6 +34,5 @@ PROVIDERS="{\
 \"awscloudformation\":$AWSCLOUDFORMATIONCONFIG}"
 
 cd $dir
-echo $region
 
 echo y | yarn pull --amplify $AMPLIFY --frontend $FRONTEND --providers $PROVIDERS
