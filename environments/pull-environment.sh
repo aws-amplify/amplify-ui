@@ -3,8 +3,8 @@ set -e
 IFS='|'
 
 # Get args
-dir=$1;
-region=$2;
+dir=$1
+region=$2
 
 # In development, AWS_PROFILE should be set. In CI, it's not.
 [ "$AWS_PROFILE" ] && useProfile="true" || useProfile="false"
