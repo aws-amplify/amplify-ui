@@ -6,7 +6,7 @@ IFS='|'
 dir=$1
 region=$2
 
-echo find -regextype help
+find -regextype help
 
 # In development, AWS_PROFILE should be set. In CI, it's not.
 [ "$AWS_PROFILE" ] && useProfile="true" || useProfile="false"
