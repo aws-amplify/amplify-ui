@@ -39,6 +39,8 @@ done
 
 find -regextype help
 
+uname
+
 [ -z "$region" ] && region="us-east-2"        # default to us-east-2
 [ -z "$include" ] && include="\./[a-zA-Z\-]*" # default to all folders in cwd
 
