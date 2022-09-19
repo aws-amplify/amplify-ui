@@ -11,12 +11,16 @@ type RenderWithLivenessLivenessProviderResult = RenderResult & {
 };
 
 export function renderWithLivenessProvider(
-  ui: JSX.Element
+  ui: JSX.Element,
+  onUserCancel?: (event?: CustomEvent) => void,
+  onExit?: () => void
 ): RenderWithLivenessLivenessProviderResult {
   const mockFlowProps: LivenessFlowProps = {
     sessionId: 'sessionId',
     sessionInformation: 'sessionInformation',
     onGetLivenessDetection: jest.fn(),
+    onUserCancel,
+    onExit,
   };
   const mockService: LivenessInterpreter = {} as LivenessInterpreter;
 

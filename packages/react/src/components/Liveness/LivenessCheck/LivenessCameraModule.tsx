@@ -129,10 +129,7 @@ export const LivenessCameraModule = (
         )}
 
         <View position="absolute" top={10} right={10}>
-          <CancelButton
-            isMobileScreen
-            sourceScreen={LIVENESS_EVENT_LIVENESS_CHECK_SCREEN}
-          />
+          <CancelButton sourceScreen={LIVENESS_EVENT_LIVENESS_CHECK_SCREEN} />
         </View>
       </Flex>
       {countDownRunning && (
