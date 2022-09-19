@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { screen, waitFor } from '@testing-library/react';
 import { when, resetAllWhenMocks } from 'jest-when';
-import userEvent from '@testing-library/user-event';
 
 import {
   renderWithLivenessProvider,
@@ -20,13 +19,12 @@ import {
 
 jest.mock('../../hooks');
 jest.mock('../../hooks/useLivenessSelector');
-// jest.mock('../../shared/CancelButton');
+jest.mock('../../shared/CancelButton');
 jest.mock('../../shared/Instruction');
 
 const mockUseLivenessActor = getMockedFunction(useLivenessActor);
 const mockUseLivenessSelector = getMockedFunction(useLivenessSelector);
 const mockUseMediaStreamInVideo = getMockedFunction(useMediaStreamInVideo);
-const cancelButtonName = 'Cancel Liveness check';
 
 describe('LivenessCameraModule', () => {
   const mockActorState: any = {
@@ -56,11 +54,6 @@ describe('LivenessCameraModule', () => {
       videoHeight: 100,
       videoWidth: 100,
       streamOffset: 20,
-    });
-
-    // Fixes Warning: unstable_flushDiscreteUpdates
-    Object.defineProperty(HTMLMediaElement.prototype, 'muted', {
-      set: jest.fn(),
     });
   });
 
@@ -94,7 +87,7 @@ describe('LivenessCameraModule', () => {
     expect(screen.getByTestId('centered-loader')).toBeInTheDocument();
     expect(videoEl).toBeInTheDocument();
     expect(
-      screen.getByRole('button', { name: cancelButtonName })
+      screen.getByRole('button', { name: 'Cancel Liveness check' })
     ).toBeInTheDocument();
 
     videoEl.dispatchEvent(new Event('canplay'));
@@ -144,43 +137,5 @@ describe('LivenessCameraModule', () => {
 
     expect(actualConstraints).toEqual(expectedConstraints);
     expect(actualStream).toEqual(expectedStream);
-  });
-
-  it('should call the onUserCancel and onExit props on user cancel', () => {
-    const onUserCancel = jest.fn();
-    const onExit = jest.fn();
-
-    isRecording = true;
-    mockStateMatchesAndSelectors();
-
-    renderWithLivenessProvider(
-      <LivenessCameraModule isMobileScreen={false} />,
-      onUserCancel,
-      onExit
-    );
-
-    userEvent.click(screen.getByRole('button', { name: cancelButtonName }));
-    expect(onUserCancel).toHaveBeenCalledTimes(1);
-    expect(onExit).toHaveBeenCalledTimes(1);
-  });
-
-  it('should not call onExit prop if the default is prevented in onUserCancel', () => {
-    const onUserCancel = jest.fn((event: CustomEvent) => {
-      event.preventDefault();
-    });
-    const onExit = jest.fn();
-
-    isRecording = true;
-    mockStateMatchesAndSelectors();
-
-    renderWithLivenessProvider(
-      <LivenessCameraModule isMobileScreen={false} />,
-      onUserCancel,
-      onExit
-    );
-
-    userEvent.click(screen.getByRole('button', { name: cancelButtonName }));
-    expect(onUserCancel).toHaveBeenCalledTimes(1);
-    expect(onExit).not.toHaveBeenCalled();
   });
 });

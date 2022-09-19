@@ -43,6 +43,47 @@ describe('LivenessFlow', () => {
     expect(screen.queryByTestId(livenessFlowTestId)).not.toBeInTheDocument();
   });
 
+  /**
+   * TODO: Update these to work with new disableStartScreenProp
+   * since we've removed the Cancel button on the start screen
+   * 
+  it('should call the onUserCancel and onExit props on user cancel', () => {
+    const onUserCancel = jest.fn();
+    const onExit = jest.fn();
+
+    render(
+      <LivenessFlow
+        {...defaultProps}
+        onUserCancel={onUserCancel}
+        onExit={onExit}
+      />
+    );
+
+    userEvent.click(screen.getByRole('button', { name: cancelButtonName }));
+    expect(onUserCancel).toHaveBeenCalledTimes(1);
+    expect(onExit).toHaveBeenCalledTimes(1);
+  });
+
+  it('should not call onExit prop if the default is prevented in onUserCancel', () => {
+    const onUserCancel = jest.fn((event: CustomEvent) => {
+      event.preventDefault();
+    });
+    const onExit = jest.fn();
+
+    render(
+      <LivenessFlow
+        {...defaultProps}
+        onUserCancel={onUserCancel}
+        onExit={onExit}
+      />
+    );
+
+    userEvent.click(screen.getByRole('button', { name: cancelButtonName }));
+    expect(onUserCancel).toHaveBeenCalledTimes(1);
+    expect(onExit).not.toHaveBeenCalled();
+  });
+  */
+
   it('should NOT show the check screen if disableStartScreen is true and active is false', () => {
     render(
       <LivenessFlow
