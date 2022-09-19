@@ -40,26 +40,31 @@ done
 [ -z "$region" ] && region="us-east-2"        # default to us-east-2
 [ -z "$include" ] && include="\./[a-zA-Z\-]*" # default to all folders in cwd
 
-# Check OS, and assign right flag to use for `find` exec/
+# Check OS, as `find` implementation is slightly different between OS.
 uname="$(uname)"
-regexTypeFlag="" # this flag should indicate the regex type.
+# find takes primary flag, and then secondary flag:
+#   `find [PRIMARY_FLAG] [PATH] [SECONDARY_FLAG]`
+# We'll assign the right flag that corresponds to the right OS.
+primaryFlag=""
+secondaryFlag=""
 
-# find has different flag spec on Linux vs MacOS.
+# find has different syntax to allow extended regex on Linux vs MacOS.
 if [[ "$uname" == "Darwin" ]]; then
-  regexTypeFlag="-E" # Extended regex type flag
+  # On macOS, we do `find -E . [...]`, ie. only has primary Flag
+  primaryFlag="-E"
+  # space padding is added because find is really picky on spaces around flags.
 elif [[ "$uname" == "Linux" ]]; then
-  regexTypeFlag="-regextype posix-extended"
+  # On Linux, we do `find . -regextype posix-extended`, ie. only has secondary flag.
+  secondartyFlag="-regextype posix-extended"
 else
   echo "ERROR: unknown os: "$uname". Please open an issue with this log."
 fi
 
 regexMatch=""
 if ! [ -z "$exclude" ]; then
-  echo "$include"
-  regexMatch=$(find . -regextype posix-extended -type d -regex "$include" -not -regex "$exclude")
+  regexMatch=$(find "$primaryFlag" . $secondaryFlag -regex "$include" -not -regex "$exclude")
 else
-  echo "find -E . -type d -regex "$include""
-  regexMatch=$(find . -regextype posix-extended -type d -regex "$include")
+  regexMatch=$(find "$primaryFlag" . $secondaryFlag -regex "$include")
 fi
 
 if [ -z "$regexMatch" ]; then
