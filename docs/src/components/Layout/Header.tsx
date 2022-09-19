@@ -36,8 +36,14 @@ export const Header = ({
   }, [showSearch]);
 
   return (
-    <View as="header" className="docs-header">
+    <Flex as="header" className="docs-header">
       <MenuButton expanded={expanded} setExpanded={setExpanded} />
+
+      <Sidebar
+        expanded={expanded}
+        setExpanded={setExpanded}
+        platform={platform}
+      />
 
       <LogoLink platform={platform} />
       <FrameworkLogo
@@ -75,11 +81,6 @@ export const Header = ({
           </View>
         ) : null}
       </Flex>
-      <Sidebar
-        expanded={expanded}
-        setExpanded={setExpanded}
-        platform={platform}
-      />
-    </View>
+    </Flex>
   );
 };

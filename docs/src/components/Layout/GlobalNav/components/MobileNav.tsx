@@ -60,8 +60,8 @@ export function MobileNav({
 
   return (
     <>
-      <View className={styles['mobile-nav-container']} padding="0px 20px">
-        <Flex columnGap="8px" alignItems="center">
+      <View className={styles['mobile-nav-container']} padding="0 large">
+        <Flex gap="xs" alignItems="center">
           <AmplifyLogo />
           <Text className={styles['dev-center-logo']}>
             <span style={{ fontWeight: '400' }}>Amplify</span>{' '}
@@ -74,8 +74,7 @@ export function MobileNav({
           aria-expanded={!isCollapsed}
           aria-controls="mobile-nav-links"
           border="none"
-          height="30px"
-          width="30px"
+          backgroundColor="transparent"
           onClick={() => {
             setIsCollapsed(!isCollapsed);
           }}
