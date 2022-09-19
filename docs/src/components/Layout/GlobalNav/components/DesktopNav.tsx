@@ -29,10 +29,8 @@ export function DesktopNav({
       <Flex
         ref={navLinksContainerRef}
         className={styles['nav-links-container']}
-        padding="0 large"
-        alignItems="stretch"
       >
-        <Flex height="100%" gap="medium" alignItems="stretch" id="left-nav">
+        <Flex height="100%" gap="medium" id="left-nav">
           <Flex gap="xs" alignItems="center">
             <AmplifyLogo />
             <Text className={styles['dev-center-logo']}>
