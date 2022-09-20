@@ -17,7 +17,7 @@ const WORKSPACE_NODE_MODULES_PATH = path.resolve(
   '../../node_modules'
 );
 
-const config = { resolver: {}, transformer: {} };
+const config = { resolver: {}, transformer: {}, server: {} };
 
 const dependencies = {
   ...EXAMPLE_APP_PACKAGE_JSON.dependencies,
@@ -110,5 +110,27 @@ config.transformer.getTransformOptions = async () => ({
     inlineRequires: true,
   },
 });
+
+/**
+ * Below workaround is needed because assets resolutions don't work for Android in monorepo
+ * Ref:
+ * https://github.com/react-native-community/cli/issues/1238
+ * https://github.com/facebook/metro/issues/290#issuecomment-543746458
+ */
+config.transformer.publicPath = '/assets/dir1/dir2/dir3';
+config.server.enhanceMiddleware = (middleware) => {
+  return (req, res, next) => {
+    if (req.url.startsWith('/assets/dir1/dir2/dir3')) {
+      req.url = req.url.replace('/assets/dir1/dir2/dir3', '/assets');
+    } else if (req.url.startsWith('/assets/dir1/dir2')) {
+      req.url = req.url.replace('/assets/dir1/dir2', '/assets/..');
+    } else if (req.url.startsWith('/assets/dir1')) {
+      req.url = req.url.replace('/assets/dir1', '/assets/../..');
+    } else if (req.url.startsWith('/assets')) {
+      req.url = req.url.replace('/assets', '/assets/../../..');
+    }
+    return middleware(req, res, next);
+  };
+};
 
 module.exports = config;

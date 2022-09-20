@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import {
   PressableStateCallbackType,
   StyleProp,
@@ -7,11 +7,8 @@ import {
 } from 'react-native';
 
 import { icons } from '../../assets';
-import {
-  IconButton,
-  Label,
-} from '@aws-amplify/ui-react-native/dist/primitives';
-
+import { IconButton } from '../IconButton';
+import { Label } from '../Label';
 import { CheckboxProps, CheckboxStyle } from './types';
 
 const styles: CheckboxStyle = {
@@ -34,12 +31,14 @@ export default function Checkbox<T>({
   value,
   ...rest
 }: CheckboxProps<T>): JSX.Element {
+  const [pressed, setPressed] = useState(selected ?? false);
   const labelPrecedesIcon =
     labelPosition === 'start' || labelPosition === 'top';
 
   const handleOnChange = useCallback(() => {
     onChange?.(value);
-  }, [onChange, value]);
+    setPressed(!pressed);
+  }, [onChange, value, pressed]);
 
   const containerStyle: ViewStyle = useMemo(
     () => ({
@@ -72,14 +71,17 @@ export default function Checkbox<T>({
       {label && labelPrecedesIcon ? (
         <Label style={labelStyle}>{label}</Label>
       ) : null}
+
       <IconButton
         {...rest}
+        accessibilityRole={'checkbox'}
         disabled={disabled}
         onPress={handleOnChange}
-        source={selected ? icons.checkboxFilled : icons.checkboxOutline}
+        source={pressed ? icons.checkboxFilled : icons.checkboxOutline}
         size={size}
         style={iconButtonStyle}
       />
+
       {label && !labelPrecedesIcon ? (
         <Label style={labelStyle}>{label}</Label>
       ) : null}

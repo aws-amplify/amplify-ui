@@ -5,11 +5,6 @@ import { Label } from '@aws-amplify/ui-react-native/dist/primitives';
 import { Screen } from '../ui';
 
 storiesOf('Label', module)
-  .addDecorator((Story: any) => (
-    <Screen>
-      <Story />
-    </Screen>
-  ))
   .add('default Label', () => <Label>Default Label</Label>)
   .add('style', () => <Label style={styles.redText}>This should be red</Label>);
 

@@ -1,11 +1,11 @@
 import { StyleProp, ViewStyle } from 'react-native';
 
-import { IconButtonProps } from '@aws-amplify/ui-react-native/src/primitives/IconButton';
+import { IconButtonProps } from '../IconButton';
 
 import { LabelProps } from '../Label';
 
 export interface CheckboxProps<T>
-  extends Omit<IconButtonProps, 'source' | 'style'> {
+  extends Omit<IconButtonProps, 'source' | 'style' | 'accessibilityRole'> {
   buttonStyle?: IconButtonProps['style'];
   label?: string;
   labelPosition?: 'start' | 'end' | 'top' | 'bottom';

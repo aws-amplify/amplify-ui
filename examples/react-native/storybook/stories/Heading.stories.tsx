@@ -10,11 +10,6 @@ import { StyleSheet } from 'react-native';
 const levels: HeadingProps['level'][] = [1, 2, 3, 4, 5, 6];
 
 storiesOf('Heading', module)
-  .addDecorator((Story: any) => (
-    <Screen>
-      <Story />
-    </Screen>
-  ))
   .add('default', () => <Heading>Default Heading</Heading>)
   .add('level', () => (
     <>

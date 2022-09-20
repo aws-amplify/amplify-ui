@@ -2,7 +2,8 @@ import React from 'react';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 
 import { withInAppMessaging } from '@aws-amplify/ui-react-native';
-import { Button, Checkbox, Radio, RadioGroup } from '../../../ui';
+import { Checkbox } from '@aws-amplify/ui-react-native/dist/primitives';
+import { Button, Radio, RadioGroup } from '../../../ui';
 import { useInAppDemo, ACTIONS, LAYOUTS, ORIENTATIONS } from './utils';
 
 function DemoDivider() {
