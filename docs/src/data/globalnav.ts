@@ -28,14 +28,14 @@ export const RIGHT_NAV_LINKS = [
 ];
 
 export const LEFT_NAV_LINKS = [
-  // Sandbox and contribute haven't implemented the
-  // global nav yet, removing them from it for now.
-  // {
-  //   type: 'DEFAULT',
-  //   label: 'Sandbox',
-  //   url: 'https://sandbox.amplifyapp.com/',
-  //   order: 1,
-  // },
+  /* Uncomment after Sandbox launch START
+  {
+    type: 'DEFAULT',
+    label: 'Sandbox',
+    url: 'https://sandbox.amplifyapp.com/',
+    order: 1,
+  },
+  Uncomment after Sandbox launch END */
   {
     type: 'DEFAULT',
     label: 'Docs',
@@ -54,10 +54,12 @@ export const LEFT_NAV_LINKS = [
     url: 'https://ui.docs.amplify.aws/',
     order: 4,
   },
-  // {
-  //   type: 'DEFAULT',
-  //   label: 'Contribute',
-  //   url: 'https://www.contributetoamplify.com/',
-  //   order: 5,
-  // },
+  /* Uncomment after Contribute launch START
+  {
+    type: 'DEFAULT',
+    label: 'Contribute',
+    url: 'https://www.contributetoamplify.com/',
+    order: 5,
+  },
+  Uncomment after Contribute launch END */
 ];

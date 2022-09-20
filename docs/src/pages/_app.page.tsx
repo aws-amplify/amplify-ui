@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { useRouter } from 'next/router';
+import Script from 'next/script';
 
 import { ThemeProvider, ColorMode, defaultTheme } from '@aws-amplify/ui-react';
 
 import { configure, trackPageVisit } from '@/utils/track';
 import { IS_PROD_STAGE } from '@/utils/stage';
 import { Header } from '@/components/Layout/Header';
-import Script from 'next/script';
+import { isGlobalNavEnabled } from '@/utils/featureFlags';
 import { baseTheme } from '../theme';
 
 import { Head } from './Head';
@@ -86,14 +87,16 @@ function MyApp({ Component, pageProps }) {
 
       <div className={isHomepage ? `docs-home` : ''}>
         <ThemeProvider theme={baseTheme} colorMode={colorMode}>
-          {/* Remove this conditional post-launch */}
-          {process.env.NEXT_PUBLIC_SHOW_GLOBAL_NAV ? (
-            <GlobalNav
-              rightLinks={RIGHT_NAV_LINKS as NavMenuItem[]}
-              leftLinks={LEFT_NAV_LINKS as NavMenuItem[]}
-              currentSite="UI Library"
-            />
-          ) : null}
+          {
+            /* Remove after Global Nav launch START */
+            isGlobalNavEnabled /* Remove after Global Nav launch END */ ? (
+              <GlobalNav
+                rightLinks={RIGHT_NAV_LINKS as NavMenuItem[]}
+                leftLinks={LEFT_NAV_LINKS as NavMenuItem[]}
+                currentSite="UI Library"
+              /> /* Remove after Global Nav launch START */
+            ) : null /* Remove after Global Nav launch END */
+          }
 
           <Header
             expanded={expanded}
