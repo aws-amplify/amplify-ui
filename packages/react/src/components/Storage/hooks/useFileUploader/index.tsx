@@ -1,4 +1,3 @@
-import isEmpty from 'lodash/isEmpty';
 import React, { useMemo, useState } from 'react';
 import { SetFileType } from '../../FileUploader/types';
 import { DropZoneInterface } from '../../FileUploader/types';
@@ -13,15 +12,16 @@ interface FileContextInterface {
   getDropEvents?: DropZoneInterface;
 }
 
-export const FileUploaderContext: React.Context<FileContextInterface> =
-  React.createContext({});
+export const useFileUploader = (): FileContextInterface => {
+  // export const FileUploaderContext: React.Context<FileContextInterface> =
+  //   React.createContext({});
 
-export const Provider = ({
-  children,
-}: {
-  children: React.ReactNode;
-}): JSX.Element => {
-  const parentProviderVal = React.useContext(FileUploaderContext);
+  // export const Provider = ({
+  //   children,
+  // }: {
+  //   children: React.ReactNode;
+  // }): JSX.Element => {
+  // const parentProviderVal = React.useContext(FileUploaderContext);
   const [showPreviewer, setShowPreviewer] = useState(false);
   const [files, setFiles] = useState<SetFileType>();
 
@@ -67,20 +67,7 @@ export const Provider = ({
   }, []);
 
   const value = React.useMemo(
-    () =>
-      isEmpty(parentProviderVal)
-        ? {
-            showPreviewer,
-            setShowPreviewer,
-            files,
-            setFiles,
-            getDropEvents,
-            inDropZone,
-            setInDropZone,
-          }
-        : parentProviderVal,
-    [
-      parentProviderVal,
+    (): FileContextInterface => ({
       showPreviewer,
       setShowPreviewer,
       files,
@@ -88,24 +75,25 @@ export const Provider = ({
       getDropEvents,
       inDropZone,
       setInDropZone,
-    ]
+    }),
+    [files, getDropEvents, inDropZone, showPreviewer]
   );
 
-  return (
-    <FileUploaderContext.Provider value={value}>
-      {children}
-    </FileUploaderContext.Provider>
-  );
-};
+  // return (
+  //   <FileUploaderContext.Provider value={value}>
+  //     {children}
+  //   </FileUploaderContext.Provider>
+  // );
+  // };
 
-export const useFileUploader = (): FileContextInterface => {
-  const service: FileContextInterface = React.useContext(FileUploaderContext);
+  // const service: FileContextInterface = React.useContext(FileUploaderContext);
 
-  if (!service) {
-    throw new Error(
-      'Please ensure you wrap your App with `FileUploader.Provider`.\nSee the `useAuthenticator` section on https://ui.docs.amplify.aws/connected-components/authenticator.'
-    );
-  }
+  // if (!service) {
+  //   throw new Error(
+  //     'Please ensure you wrap your App with `FileUploader.Provider`.\nSee the `useAuthenticator` section on https://ui.docs.amplify.aws/connected-components/authenticator.'
+  //   );
+  // }
 
-  return service;
+  // return service;
+  return value;
 };

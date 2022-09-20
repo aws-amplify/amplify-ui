@@ -36,6 +36,18 @@ export function FilePreviewer({
     }
     setUploadTasks(uploadTasksTemp);
   }
+
+  // function pauseResumeUpload(pause, uploadTask, setPause): void {
+  //   // eslint-disable-next-line no-console
+  //   // console.log('pausing upload for', file.name);
+  //   if (pause) {
+  //     uploadTask.resume();
+  //   } else {
+  //     uploadTask.pause();
+  //   }
+  //   setPause(!pause);
+  // }
+
   // eslint-disable-next-line no-console
   console.log(files);
   return (

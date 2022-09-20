@@ -5,7 +5,7 @@ import { FileUploaderButton } from '../FileUploaderButton';
 import { FilePreviewer } from '../FilePreviewer';
 import { View } from 'src/primitives';
 import { FileUploaderDrop } from '../FileUploaderDrop';
-import { Provider, useFileUploader } from '../hooks/useFileUploader';
+import { useFileUploader } from '../hooks/useFileUploader';
 
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/connected-components/storage)
@@ -66,12 +66,7 @@ export function FileUploader({
     }
   }
 
-  return (
-    <Provider>
-      <Router />
-    </Provider>
-  );
+  return <Router />;
 }
 
 FileUploader.FileUploaderDrop = FileUploaderDrop;
-FileUploader.Provider = Provider;

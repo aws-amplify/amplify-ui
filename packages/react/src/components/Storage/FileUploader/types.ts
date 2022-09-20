@@ -46,5 +46,5 @@ export interface DropZoneInterface {
 }
 
 export interface ComponentsProviderProps {
-  FileUploaderDrop?: React.ComponentType;
+  FileUploaderDrop?: React.ComponentType<FileUploaderTransferProps>;
 }
