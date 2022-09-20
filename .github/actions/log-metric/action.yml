@@ -13,6 +13,9 @@ inputs:
   AWS_SECRET_ACCESS_KEY:
     description: 'target AWS account credentials'
     required: true
+  AWS_REGION:
+    description: 'target AWS account region'
+    required: true
 runs:
   using: 'composite'
   steps:
@@ -21,6 +24,6 @@ runs:
       with:
         aws-access-key-id: ${{ inputs.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ inputs.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1
+        aws-region: ${{ inputs.AWS_REGION }}
     - shell: bash
       run: aws cloudwatch put-metric-data --metric-name ${{ inputs.metric-name }} --namespace GithubCanaryApps --value ${{ inputs.value }}
