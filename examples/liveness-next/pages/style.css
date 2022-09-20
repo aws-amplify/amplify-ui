@@ -1,0 +1,14 @@
+html,
+body,
+#__next,
+[data-amplify-theme] {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+[data-amplify-theme] {
+  background-color: var(--amplify-colors-background-primary);
+}
