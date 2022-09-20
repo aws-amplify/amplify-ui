@@ -87,11 +87,11 @@ export function StartLiveness(props: StartLivenessProps): JSX.Element {
           </Button>
         </Flex>
 
-        <View>
-          <Text as="span" fontSize="xs" fontWeight="bold" color="font.tertiary">
+        <View fontSize="xs" color="font.tertiary">
+          <Text as="span" fontWeight="bold">
             {translate<string>('Legal desclaimer: ')}
           </Text>
-          <Text as="span" fontSize="xs" color="font.tertiary">
+          <Text as="span">
             {translate<string>(
               'By using this service, you provide your express, informed, written release and consent for this app and Amazon Web Services to collect, use and store your biometric data.'
             )}
