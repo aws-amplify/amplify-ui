@@ -147,7 +147,7 @@ jobs:
 
   log-failure-metric-prod:
     # to be deprecated once log-failure-metric is up
-    # Send data point 1 to metric PublishNextFailure in prod us-east-1, if  it's a failure
+    # Send data point 1 to metric PublishNextFailure in prod us-east-1, if it's a failure
     runs-on: ubuntu-latest
     environment: ci
     needs: build-test
@@ -183,7 +183,7 @@ jobs:
           AWS_REGION: us-east-1
 
   log-metric:
-    # Send data point to metric PublishNextFailure in github-workflows@ us-east-2, if  it's a failure
+    # Send data point to metric PublishNextFailure in github-workflows@ us-east-2, if it's a failure
     runs-on: ubuntu-latest
     environment: ci
     needs: build-test
