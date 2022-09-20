@@ -124,7 +124,7 @@ jobs:
 
   log-success-metric-prod:
     # to be deprecated once log-success-metric is up
-    # Send data point 0 to metric PublishLatestFailure in prod us-east-1, if  it's a success
+    # Send data point 0 to metric PublishLatestFailure in prod us-east-1, if it's a success
     runs-on: ubuntu-latest
     environment: ci
     needs: publish
@@ -156,7 +156,7 @@ jobs:
           AWS_REGION: us-east-2
 
   log-success-metric:
-    # Send data point 0 to metric PublishLatestFailure in github-workflows@ us-east-2, if  it's a success
+    # Send data point 0 to metric PublishLatestFailure in github-workflows@ us-east-2, if it's a success
     runs-on: ubuntu-latest
     environment: ci
     needs: publish
