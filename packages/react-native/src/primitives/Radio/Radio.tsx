@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { TouchableWithoutFeedback, View, ViewStyle } from 'react-native';
 
 // import { icons } from '../../assets';
@@ -14,22 +14,26 @@ export default function Radio<T>({
   label,
   labelPosition = 'end',
   labelStyle,
-  // onChange,
-  // selected,
+  onChange,
+  selected,
   // size,
   style,
   // value,
   ...rest
 }: RadioProps<T>): JSX.Element {
-  const [pressed, setPressed] = useState(false);
+  // const [pressed, setPressed] = useState(false);
 
-  const handleOnPress = () => {
-    setPressed(!pressed);
-  };
+  // const handleOnPress = () => {
+  //   setPressed(!pressed);
+  // };
 
   const labelPrecedesIcon =
     labelPosition === 'start' || labelPosition === 'top';
 
+  // placeholder
+  const handleOnChange = () => {
+    onChange?.();
+  };
   // const handleOnChange = useCallback(() => {
   //   onChange?.(value);
   // }, [onChange, value]);
@@ -51,21 +55,11 @@ export default function Radio<T>({
       {label && labelPrecedesIcon ? (
         <Label style={labelStyle}>{label}</Label>
       ) : null}
-      <TouchableWithoutFeedback onPress={handleOnPress}>
+      <TouchableWithoutFeedback onPress={handleOnChange}>
         <View style={[styles.outer]}>
-          {pressed ? <View style={[styles.inner]} /> : null}
+          {selected ? <View style={[styles.inner]} /> : null}
         </View>
       </TouchableWithoutFeedback>
-      {/* <Button>Hello world</Button> */}
-      {/* <IconButton
-        disabled={disabled}
-        onPress={handleOnChange}
-        source={
-          selected ? icons.radioButtonChecked : icons.radioButtonUnchecked
-        }
-        size={size}
-        style={buttonStyle}
-      /> */}
       {label && !labelPrecedesIcon ? (
         <Label style={labelStyle}>{label}</Label>
       ) : null}
