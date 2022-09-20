@@ -52,7 +52,7 @@ fi
 
 regexMatch=""
 if [[ "$uname" == "Darwin" ]]; then
-  # on MacOS
+  # macOS has find syntax `find -E . [...]`.
   if [ -z "$exclude" ]; then
     echo "find -E . -regex "$include""
     regexMatch=$(find -E . -regex "$include")
@@ -60,7 +60,7 @@ if [[ "$uname" == "Darwin" ]]; then
     regexMatch=$(find -E . -regex "$include" -not -regex "$exclude")
   fi
 else
-  # on Linux
+  # Linux has find syntax `find -E . [...]`.
   if [ -z "$exclude" ]; then
     regexMatch=$(find . -regextype posix-extended -regex "$include")
   else
@@ -84,10 +84,10 @@ for dir in $regexMatch; do
 done
 
 # max number of parallel tasks at a time
-numParallelTasks=8 # Future improvement: could set this to # of logical cores in localdevice
+numParallelTasks=1 # Future improvement: could set this to # of logical cores in localdevice
 
 if [ "$NODE_ENV" = "test" ]; then
-  numParallelTasks=1 # GitHub actions has trouble handling parallel executions
+  numParallelTasks=8 # GitHub actions has trouble handling parallel executions
 fi
 
 # Get the path to this shell file relative to cwd
