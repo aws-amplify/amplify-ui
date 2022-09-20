@@ -13,9 +13,9 @@ import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { Sidebar } from './Sidebar';
 import { LogoLink } from './LogoLink';
 import { MenuButton } from './MenuButton';
-import { DISCORD, GITHUB_REPO } from '@/data/links';
+import { GITHUB_REPO } from '@/data/links';
 import '@docsearch/css';
-import { DiscordIcon, GithubIcon } from '../Icons';
+import { GithubIcon } from '../Icons';
 import { FrameworkLogo } from '../Logo';
 
 export const Header = ({
@@ -69,23 +69,10 @@ export const Header = ({
               variation="link"
               size="small"
               as={Link}
-              href={DISCORD}
-              isExternal
-              color="font.tertiary"
-              fontSize="medium"
-              title="Discord"
-            >
-              <VisuallyHidden>Discord</VisuallyHidden>
-              <DiscordIcon />
-            </Button>
-            <Button
-              variation="link"
-              size="small"
-              as={Link}
               href={GITHUB_REPO}
               isExternal
               color="font.tertiary"
-              fontSize="medium"
+              fontSize="large"
               title="GitHub"
             >
               <VisuallyHidden>GitHub</VisuallyHidden>
