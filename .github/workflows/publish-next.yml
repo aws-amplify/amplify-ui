@@ -182,12 +182,11 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: us-east-1
 
-  log-failure-metric:
-    # Send data point 1 to metric PublishNextFailure in github-workflows@ us-east-2, if  it's a failure
+  log-metric:
+    # Send data point to metric PublishNextFailure in github-workflows@ us-east-2, if  it's a failure
     runs-on: ubuntu-latest
     environment: ci
     needs: build-test
-    if: ${{ failure() }}
     steps:
       - name: Log failure data point to metric PublishNextFailure
         # using absolute path here to avoid checking out the repo. Same as other absolute paths in this repo.
@@ -196,23 +195,7 @@ jobs:
         uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
         with:
           metric-name: PublishNextFailure
-          value: 1
-          AWS_ACCESS_KEY_ID: ${{ secrets.METRIC_LOGGER_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.METRIC_LOGGER_SECRET_ACCESS_KEY }}
-          AWS_REGION: us-east-2
-
-  log-success-metric:
-    # Send data point 0 to metric PublishNextFailure in github-workflows@ us-east-2, if it's a success
-    runs-on: ubuntu-latest
-    environment: ci
-    needs: build-test
-    if: ${{ success() }}
-    steps:
-      - name: Log success data point to metric PublishNextFailure
-        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
-        with:
-          metric-name: PublishNextFailure
-          value: 0
+          value: ${{ failure() && 1 || 0 }} # if failure, log 1; otherwise, log 0. ref: https://github.com/actions/runner/issues/409#issuecomment-727565588
           AWS_ACCESS_KEY_ID: ${{ secrets.METRIC_LOGGER_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.METRIC_LOGGER_SECRET_ACCESS_KEY }}
           AWS_REGION: us-east-2
