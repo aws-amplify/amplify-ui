@@ -23,7 +23,17 @@ yarn add aws-amplify @aws-amplify/ui-react@4.x
 
 ### Update and usage
 
-The following breaking changes where introduced in `@aws-amplify/ui-react` major version `4.0`:
+The following breaking changes were introduced in `@aws-amplify/ui-react` major version `4.0`:
+
+#### 1. We removed the `isMultiline` prop from `TextField`.
+
+Replace any `TextField` components using the `isMultiline` prop with the `TextAreaField` component.
+
+```diff
+- <TextField
+-  isMultiline
++ <TextAreaField
+```
 
 #### 2. Support for text directionality moved to ThemeProvider
 
@@ -65,7 +75,7 @@ yarn add aws-amplify @aws-amplify/ui-react@3.x
 
 ### Update and usage
 
-The following breaking changes where introduced in `@aws-amplify/ui-react` major version `3.0`:
+The following breaking changes were introduced in `@aws-amplify/ui-react` major version `3.0`:
 
 #### 1. We removed the built-in icons (Icon360, IconSave, etc).
 
