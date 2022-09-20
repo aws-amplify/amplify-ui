@@ -13,7 +13,7 @@ import {
   AuthEventTypes,
   AuthMachineState,
   CodeDeliveryDetails,
-  CognitoUserAmplify,
+  AmplifyUser,
   ValidationError,
 } from '../../types';
 
@@ -46,7 +46,7 @@ interface AuthenticatorServiceContextFacade {
   hasValidationErrors: boolean;
   isPending: boolean;
   route: AuthenticatorRoute;
-  user: CognitoUserAmplify;
+  user: AmplifyUser;
   validationErrors: AuthenticatorValidationErrors;
 }
 
