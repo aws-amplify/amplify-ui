@@ -84,10 +84,10 @@ for dir in $regexMatch; do
 done
 
 # max number of parallel tasks at a time
-numParallelTasks=1 # Future improvement: could set this to # of logical cores in localdevice
+numParallelTasks=8 # Future improvement: could set this to # of logical cores in localdevice
 
 if [ "$NODE_ENV" = "test" ]; then
-  numParallelTasks=8 # GitHub actions has trouble handling parallel executions
+  numParallelTasks=1 # GitHub actions has trouble handling parallel executions
 fi
 
 # Get the path to this shell file relative to cwd
