@@ -86,11 +86,15 @@ function MyApp({ Component, pageProps }) {
 
       <div className={isHomepage ? `docs-home` : ''}>
         <ThemeProvider theme={baseTheme} colorMode={colorMode}>
-          <GlobalNav
-            rightLinks={RIGHT_NAV_LINKS as NavMenuItem[]}
-            leftLinks={LEFT_NAV_LINKS as NavMenuItem[]}
-            currentSite="UI Library"
-          />
+          {/* Remove this conditional post-launch */}
+          {process.env.NEXT_PUBLIC_SHOW_GLOBAL_NAV ? (
+            <GlobalNav
+              rightLinks={RIGHT_NAV_LINKS as NavMenuItem[]}
+              leftLinks={LEFT_NAV_LINKS as NavMenuItem[]}
+              currentSite="UI Library"
+            />
+          ) : null}
+
           <Header
             expanded={expanded}
             setExpanded={setExpanded}
