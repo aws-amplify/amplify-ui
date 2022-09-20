@@ -16,7 +16,7 @@ export default function Radio<T>({
   labelStyle,
   onChange,
   selected,
-  // size,
+  size,
   style,
   // value,
   ...rest
@@ -56,8 +56,12 @@ export default function Radio<T>({
         <Label style={labelStyle}>{label}</Label>
       ) : null}
       <TouchableWithoutFeedback onPress={handleOnChange}>
-        <View style={[styles.outer]}>
-          {selected ? <View style={[styles.inner]} /> : null}
+        <View style={[styles.outer, ...(size ? [styles.outer[size]] : [])]}>
+          {selected ? (
+            <View
+              style={[styles.inner, ...(size ? [styles.inner[size]] : [])]}
+            />
+          ) : null}
         </View>
       </TouchableWithoutFeedback>
       {label && !labelPrecedesIcon ? (

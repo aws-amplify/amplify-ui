@@ -20,10 +20,22 @@ export interface RadioProps<T> extends ViewProps {
   onChange?: (value?: T) => void;
   size?: 'small' | 'large';
   selected?: boolean;
-  value: T;
+  // does value need to be required?
+  value?: T;
+}
+
+interface RadioSize {
+  height: ViewStyle['height'];
+  width: ViewStyle['width'];
+  borderRadius: ViewStyle['borderRadius'];
+}
+
+interface RadioSizes {
+  large: RadioSize;
+  small: RadioSize;
 }
 
 export interface RadioStyles {
-  inner: ViewStyle;
-  outer: ViewStyle;
+  inner: ViewStyle & RadioSizes;
+  outer: ViewStyle & RadioSizes;
 }

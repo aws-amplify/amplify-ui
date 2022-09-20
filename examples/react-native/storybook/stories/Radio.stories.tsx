@@ -21,6 +21,9 @@ storiesOf('Radio', module)
       <Radio label="bottom" labelPosition="bottom" />
     </>
   ))
+  .add('labelStyle', () => (
+    <Radio label="This should be red" labelStyle={styles.redText} />
+  ))
   .add('selected', () => (
     <>
       <Radio selected={true} label="selected" />
@@ -35,8 +38,15 @@ storiesOf('Radio', module)
       <Radio label="not disabled and not selected" />
     </>
   ))
-  .add('labelStyle', () => (
-    <Radio label="This should be red" labelStyle={styles.redText} />
+  .add('size', () => (
+    <>
+      <Radio size="small" label="small" />
+      <Radio size="small" selected label="small selected" />
+      <Radio label="default" />
+      <Radio selected label="default selected" />
+      <Radio size="large" label="large" />
+      <Radio size="large" selected label="large selected" />
+    </>
   ));
 
 const styles = StyleSheet.create({
