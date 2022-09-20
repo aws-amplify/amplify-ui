@@ -21,6 +21,7 @@ export interface FileUploaderProps extends BaseFileProps {
   level: LevelInfo;
   maxFiles?: number;
   maxMultipleSize?: number;
+  isPreviewerVisible?: boolean;
   maxSize?: number;
   onChange?: () => void;
   onError?: () => void;

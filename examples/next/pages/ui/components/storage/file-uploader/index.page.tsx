@@ -20,11 +20,12 @@ function CustomUploaderDrop({ getDropEvents, inDropZone }) {
 
 export default function FileUploaderEmail() {
   const [variation, setVariation] = useState(false);
-  const { showPreviewer, setShowPreviewer } = useFileUploader();
+  // const { showPreviewer, setShowPreviewer } = useFileUploader();
+  const [showPreviewer, setShowPreviewer] = useState(false);
 
   return (
     <>
-      <Button onClick={() => setShowPreviewer(true)}>Press me</Button>
+      <Button onClick={() => setShowPreviewer(!showPreviewer)}>Press me</Button>
       <View>
         <SwitchField
           isDisabled={false}
@@ -36,6 +37,7 @@ export default function FileUploaderEmail() {
       </View>
 
       <FileUploader
+        isPreviewerVisible={showPreviewer}
         components={{
           FileUploaderDrop: CustomUploaderDrop,
         }}

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FileUploaderProps, SetFileType } from './types';
 import { FileUploaderButton } from '../FileUploaderButton';
 import { FilePreviewer } from '../FilePreviewer';
@@ -14,6 +14,7 @@ import { useFileUploader } from '../hooks/useFileUploader';
 export function FileUploader({
   accept,
   fileName,
+  isPreviewerVisible,
   level,
   components: customComponents = {},
   maxFiles,
@@ -45,6 +46,11 @@ export function FileUploader({
       setFiles,
       setShowPreviewer,
     };
+
+    useEffect(() => {
+      setShowPreviewer(isPreviewerVisible);
+    }, [setShowPreviewer]);
+
     if (showPreviewer) {
       return (
         <FilePreviewer

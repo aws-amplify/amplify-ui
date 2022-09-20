@@ -4,7 +4,7 @@ import React, { useRef, useState } from 'react';
 import { Button, Flex } from 'src/primitives';
 import { Card } from 'src/primitives/Card';
 import { View } from 'src/primitives/View';
-import { FileTracker } from '../FileTracker';
+import { FileTracker, SetPause } from '../FileTracker';
 import { FilePreviewerProps } from '../FileUploader/types';
 import { getFileName, uploadFile } from '../shared/utils';
 import { UploadTask } from '@aws-amplify/storage';
@@ -37,16 +37,20 @@ export function FilePreviewer({
     setUploadTasks(uploadTasksTemp);
   }
 
-  // function pauseResumeUpload(pause, uploadTask, setPause): void {
-  //   // eslint-disable-next-line no-console
-  //   // console.log('pausing upload for', file.name);
-  //   if (pause) {
-  //     uploadTask.resume();
-  //   } else {
-  //     uploadTask.pause();
-  //   }
-  //   setPause(!pause);
-  // }
+  function pauseResumeUpload(
+    uploadTask: UploadTask
+  ): (boolean, SetPause) => void {
+    // eslint-disable-next-line no-console
+    // console.log('pausing upload for', file.name);
+    return function (pause: boolean, setPause: SetPause) {
+      if (pause) {
+        uploadTask.resume();
+      } else {
+        uploadTask.pause();
+      }
+      setPause(!pause);
+    };
+  }
 
   // eslint-disable-next-line no-console
   console.log(files);
@@ -88,7 +92,8 @@ export function FilePreviewer({
             percentage={percentage[index] ?? 0}
             key={index}
             file={file}
-            uploadTask={uploadTasks[index]}
+            // uploadTask={uploadTasks[index]}
+            pauseResumeUpload={pauseResumeUpload(uploadTasks[index])}
           ></FileTracker>
         ))}
       </View>

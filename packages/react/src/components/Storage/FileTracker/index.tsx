@@ -1,29 +1,20 @@
 import React, { useState } from 'react';
 import { Loader, View } from 'src/primitives';
-import { Storage } from 'aws-amplify';
-import { UploadTask } from '@aws-amplify/storage';
+// import { Storage } from 'aws-amplify';
+// import { UploadTask } from '@aws-amplify/storage';
 
+export type SetPause = React.Dispatch<React.SetStateAction<boolean>>;
 export function FileTracker({
   file,
   percentage,
-  uploadTask,
+  pauseResumeUpload,
 }: {
   file: File;
   percentage: number;
-  uploadTask: UploadTask;
+  pauseResumeUpload: (boolean, SetPause) => void;
 }): JSX.Element {
   const [pause, setPause] = useState(false);
 
-  function pauseResumeUpload(): void {
-    // eslint-disable-next-line no-console
-    console.log('pausing upload for', file.name);
-    if (pause) {
-      uploadTask.resume();
-    } else {
-      uploadTask.pause();
-    }
-    setPause(!pause);
-  }
   return (
     <View style={{ display: 'flex', flexDirection: 'column' }}>
       <View
@@ -58,7 +49,7 @@ export function FileTracker({
               <View style={{ display: 'flex', alignItems: 'center' }}>
                 {!pause ? (
                   <svg
-                    onClick={pauseResumeUpload}
+                    onClick={() => pauseResumeUpload(pause, setPause)}
                     stroke="currentColor"
                     fill="currentColor"
                     strokeWidth="0"
@@ -73,7 +64,7 @@ export function FileTracker({
                   </svg>
                 ) : (
                   <svg
-                    onClick={pauseResumeUpload}
+                    onClick={() => pauseResumeUpload(pause, setPause)}
                     stroke="currentColor"
                     fill="currentColor"
                     strokeWidth="0"
@@ -87,7 +78,7 @@ export function FileTracker({
                 )}
               </View>
             )}
-            <View onClick={() => Storage.cancel(uploadTask)}>X</View>
+            {/* <View onClick={() => Storage.cancel(uploadTask)}>X</View> */}
           </View>
         </View>
         <View style={{ fontSize: '10px', color: 'gray' }}>
