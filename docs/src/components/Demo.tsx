@@ -1,14 +1,6 @@
 import * as React from 'react';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Highlight, { defaultProps } from 'prism-react-renderer';
-import {
-  Tabs,
-  TabItem,
-  Flex,
-  View,
-  Button,
-  useTheme,
-} from '@aws-amplify/ui-react';
+import { Divider, Flex, View, useTheme } from '@aws-amplify/ui-react';
 import { CopyButton } from './CopyButton';
 
 interface DemoProps {
@@ -50,16 +42,12 @@ export const Demo = ({
           <View overflow="auto" padding="5px">
             {children}
           </View>
+          <Divider
+            margin="20px 0 0"
+            border={`2px solid ${tokens.colors.border.secondary}`}
+          />
           {propControls && (
-            <Tabs>
-              <TabItem title="Props">
-                <View padding={`${tokens.space.medium} 0`}>{propControls}</View>
-              </TabItem>
-              {/* Temporarily removing the Theme tab until we figure out a way 
-                to let customers dynamically edit a theme object in the demos 
-            */}
-              {/* {themeControls ? <TabItem title="Theme">{themeControls}</TabItem> : null} */}
-            </Tabs>
+            <View padding={`${tokens.space.medium} 0`}>{propControls}</View>
           )}
         </Flex>
         <View

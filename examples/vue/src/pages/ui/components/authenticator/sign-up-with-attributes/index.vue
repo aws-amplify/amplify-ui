@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Amplify from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
 import {
   Authenticator,
   AuthenticatorForceNewPasswordFormFields,

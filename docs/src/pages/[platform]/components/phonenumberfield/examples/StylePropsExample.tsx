@@ -5,7 +5,7 @@ export const StylePropsExample = () => {
 
   return (
     <PhoneNumberField
-      defaultCountryCode="+1"
+      defaultDialCode="+1"
       label={
         <Text fontWeight="bold" fontSize={tokens.fontSizes.large}>
           Phone Number:

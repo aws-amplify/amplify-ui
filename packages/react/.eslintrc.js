@@ -70,6 +70,7 @@ module.exports = {
         'src/helpers/**/*',
         'src/hooks/**/*',
         'src/primitives/+(shared|utils)/**/*',
+        'src/studio',
         // 'src/primitives/**/*',
       ],
       extends: [

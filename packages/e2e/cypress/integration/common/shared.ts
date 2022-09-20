@@ -2,7 +2,7 @@
 /// <reference types="cypress" />
 /// <reference types="../../support/commands" />
 
-import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 import { get, escapeRegExp } from 'lodash';
 
 let language = 'en-US';
@@ -142,7 +142,6 @@ const typeInInputHandler = (field: string, value: string) => {
   cy.findInputField(field).type(value);
 };
 When('I type a new {string} with value {string}', typeInInputHandler);
-And('I type a new {string} with value {string}', typeInInputHandler);
 
 When('I click the {string} tab', (label: string) => {
   cy.findByRole('tab', {

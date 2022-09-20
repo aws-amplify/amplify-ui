@@ -25,15 +25,17 @@ Then set values to the variables.
 
 ### Creating a Page
 
-Page paths mirror their URLs. For example, `/components/authenticator` is located at [/src/pages/[platform]/components/authenticator/index.page.mdx](src/pages/[platform]/components/authenticator/index.page.mdx).
+Page paths mirror their URLs. For example, `/react/connected-components/authenticator` is located at [docs/src/pages/[platform]/connected-components/authenticator/index.page.mdx](src/pages/[platform]/components/authenticator/index.page.mdx).
 
-Component & primitive pages are located at `src/pages/ui/components/*/index.page.mdx` and `src/pages/ui/primitives/*/index.page.mdx`, respectively.
+Primitive component pages are located at `src/pages/[platform]/components/*/index.page.mdx`, respectively.
 
 At a minimum, all `.page.mdx` files require the following basic frontmatter:
 
 ```md
 ---
-title: My Title
+title: Alert
+description: Alert displays a brief message in a way that attracts the user’s attention without interrupting their task.
+supportedFrameworks: react
 ---
 
 Content goes here...

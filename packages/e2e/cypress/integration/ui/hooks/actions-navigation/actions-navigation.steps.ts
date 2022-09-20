@@ -1,11 +1,7 @@
-import { Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { Then } from '@badeball/cypress-cucumber-preprocessor';
 
 Then('the page contains {string} section', (search: string) => {
   cy.findByRole('document').contains(search);
-});
-
-When('I click the {string} button', (testId: string) => {
-  cy.findByTestId(testId).click();
 });
 
 Then('My url contains {string}', (pathSearch: string) => {

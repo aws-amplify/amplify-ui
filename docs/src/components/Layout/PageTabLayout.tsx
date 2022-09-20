@@ -1,14 +1,14 @@
 import * as React from 'react';
+import { useRouter } from 'next/router';
 
 import { Tabs, TabItem, View } from '@aws-amplify/ui-react';
-import { useCustomRouter } from '@/components/useCustomRouter';
 
 export const PageTabLayout = ({ tabComponents }) => {
   const {
     query: { tab = '', platform },
     pathname,
     push,
-  } = useCustomRouter();
+  } = useRouter();
 
   const defaultIndex = tab === 'props' ? 1 : 0;
   const [tabIndex, setTabIndex] = React.useState(defaultIndex);

@@ -167,21 +167,21 @@ jobs:
 
     strategy:
       # Run each examples (e.g. `next-example`) which uses a library (e.g. `@aws-amplify/ui-react`)
-      # BUT, Exclude `@skip` tests in `main` and exclude `@todo-${{ package }}` tests in PRs
+      # BUT, Exclude `@todo-${{ package }}` tests in PRs
       # See: https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#using-environment-variables-in-a-matrix
       matrix:
         include:
           - example: angular
             package: angular
-            tags: '@angular and not (@skip or @todo-angular)'
+            tags: '@angular and not @todo-angular'
 
           - example: next
             package: react
-            tags: '@react and not (@skip or @todo-react)'
+            tags: '@react and not @todo-react'
 
           - example: vue
             package: vue
-            tags: '@vue and not (@skip or @todo-vue)'
+            tags: '@vue and not @todo-vue'
 
     steps:
       - name: Checkout Amplify UI
@@ -262,9 +262,23 @@ jobs:
           path: environments/**/aws-exports.js
           key: ${{ runner.os }}-environments-${{ steps.cli-version.outputs.version }}-${{ hashFiles('environments/**/amplify/**') }}
 
-      - name: Pull down AWS environments on cache miss
+      - name: Pull down Auth AWS environments, on cache miss
         if: steps.environments-cache.outputs.cache-hit != 'true'
-        run: yarn environments pull
+        run: yarn environments auth pull
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Pull down Geo AWS environments, on cache miss
+        if: steps.environments-cache.outputs.cache-hit != 'true'
+        run: yarn environments geo pull
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Pull down Datastore AWS environments, on cache miss
+        if: steps.environments-cache.outputs.cache-hit != 'true'
+        run: yarn environments datastore pull
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

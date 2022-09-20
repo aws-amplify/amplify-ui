@@ -8,6 +8,7 @@ const iconNames = [];
 
 const template = ({ iconName, source }) => {
   return `import classNames from 'classnames';
+  import * as React from 'react';
 
   import { ComponentClassNames } from '../../shared';
   import { View } from '../../View';

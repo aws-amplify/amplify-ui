@@ -1,6 +1,5 @@
 import { PasswordSettings } from '.';
 import { AuthFormData } from './form';
-import { AuthChallengeNames } from './user';
 
 /**
  * Maps each input to its validation error, if any
@@ -22,9 +21,3 @@ export type Validator = (
   touchData?: AuthFormData,
   passwordSettings?: PasswordSettings
 ) => ValidatorResult | Promise<ValidatorResult>;
-
-export type SignInTypes = (
-  user: string,
-  code: string,
-  mfaType: AuthChallengeNames.SMS_MFA | AuthChallengeNames.SOFTWARE_TOKEN_MFA
-) => SignInResult | Promise<SignInResult>;

@@ -2,7 +2,7 @@ import { Amplify, Auth } from 'aws-amplify';
 import { hasSpecialChars } from '../../helpers';
 
 import {
-  AuthChallengeNames,
+  AuthChallengeName,
   PasswordSettings,
   SignInResult,
   ValidatorResult,
@@ -42,9 +42,14 @@ export const defaultServices = {
   }: {
     user: any;
     code: string;
-    mfaType: AuthChallengeNames.SMS_MFA | AuthChallengeNames.SOFTWARE_TOKEN_MFA;
+    mfaType: AuthChallengeName;
   }): Promise<any> {
-    return Auth.confirmSignIn(user, code, mfaType);
+    return Auth.confirmSignIn(
+      user,
+      code,
+      // cast due to restrictive typing of Auth.confirmSignIn
+      mfaType as 'SMS_MFA' | 'SOFTWARE_TOKEN_MFA'
+    );
   },
   async handleConfirmSignUp({
     username,

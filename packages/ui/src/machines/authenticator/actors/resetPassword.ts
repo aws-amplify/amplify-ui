@@ -25,6 +25,7 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
     {
       id: 'resetPasswordActor',
       initial: 'init',
+      predictableActionArguments: true,
       states: {
         init: {
           always: [

@@ -1,144 +1,29 @@
+// Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'dart:convert';
+// ignore: avoid_web_libraries_in_flutter
 import 'dart:html';
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:confetti/confetti.dart';
 import 'package:device_preview/device_preview.dart';
+import 'package:flutter_authenticator_example/authenticator_config.dart';
 import 'package:flutter_authenticator_example/stubs/amplify_auth_cognito_stub.dart';
 import 'package:flutter_authenticator_example/stubs/amplify_stub.dart';
 import 'package:flutter/material.dart';
-
-// configuration values for the Demo such as theme and initial step
-class AuthenticatorConfig {
-  final String id;
-  final ThemeMode themeMode;
-  final AuthenticatorStep initialStep;
-  final String config;
-  final List<SignUpFormField> signUpAttributes;
-  final bool useCustomUI;
-  final bool useCustomTheme;
-  AuthenticatorConfig({
-    this.id = '',
-    this.themeMode = ThemeMode.light,
-    this.initialStep = AuthenticatorStep.signIn,
-    String? config,
-    this.signUpAttributes = const [],
-    this.useCustomUI = false,
-    this.useCustomTheme = false,
-  }) : config = config ?? buildConfig();
-
-  static AuthenticatorConfig fromMap(Map<String, String?> map) {
-    return AuthenticatorConfig(
-      id: map['id'] ?? '',
-      themeMode: _parseThemeMode(map['themeMode']),
-      initialStep: _parseAuthenticatorStep(map['initialStep']),
-      config: buildConfig(
-          usernameAttribute: map['usernameAttribute'] ?? 'USERNAME',
-          includeSocialProviders: map['includeSocialProviders'] == 'true'),
-      signUpAttributes: _parseSignUpAttributes(map['signUpAttributes']),
-      useCustomUI: map['useCustomUI'] == 'true',
-      useCustomTheme: map['useCustomTheme'] == 'true',
-    );
-  }
-
-  static ThemeMode _parseThemeMode(String? value) {
-    switch (value) {
-      case 'dark':
-        return ThemeMode.dark;
-      case 'light':
-        return ThemeMode.light;
-      case 'system':
-        return ThemeMode.system;
-      default:
-        return ThemeMode.dark;
-    }
-  }
-
-  static AuthenticatorStep _parseAuthenticatorStep(String? value) {
-    switch (value) {
-      case 'signIn':
-        return AuthenticatorStep.signIn;
-      case 'signUp':
-        return AuthenticatorStep.signUp;
-      case 'resetPassword':
-        return AuthenticatorStep.resetPassword;
-      case 'onboarding':
-        return AuthenticatorStep.onboarding;
-      default:
-        return AuthenticatorStep.signIn;
-    }
-  }
-
-  static List<SignUpFormField> _parseSignUpAttributes(String? value) {
-    final signUpFields = value?.split(',') ?? [];
-    return signUpFields
-        .map((field) {
-          switch (field) {
-            case 'username':
-              return SignUpFormField.username();
-            case 'password':
-              return SignUpFormField.password();
-            case 'password_confirmation':
-              return SignUpFormField.passwordConfirmation();
-            case 'email':
-              return SignUpFormField.email();
-            case 'email-required':
-              return SignUpFormField.email(required: true);
-            case 'phone_number':
-              return SignUpFormField.phoneNumber();
-            case 'family_name':
-              return SignUpFormField.familyName();
-            case 'given_name':
-              return SignUpFormField.givenName();
-            case 'middle_name':
-              return SignUpFormField.middleName();
-            case 'name':
-              return SignUpFormField.name();
-            case 'nickname':
-              return SignUpFormField.nickname();
-            case 'preferred_username':
-              return SignUpFormField.preferredUsername();
-            case 'address':
-              return SignUpFormField.address();
-            case 'birthdate':
-              return SignUpFormField.birthdate();
-            case 'gender':
-              return SignUpFormField.gender();
-            case 'website':
-              return SignUpFormField.custom(
-                key: Key(field),
-                required: true,
-                validator: ((value) {
-                  if (value == null || value.isEmpty) {
-                    return 'You must provide a website';
-                  }
-                  if (!value.contains('example.com')) {
-                    return 'Your website must be have a domain of example.com';
-                  }
-                  return null;
-                }),
-                title: 'Website',
-                attributeKey: CognitoUserAttributeKey.website,
-              );
-            case 'bio':
-              return SignUpFormField.custom(
-                key: Key(field),
-                title: 'Bio',
-                attributeKey: CognitoUserAttributeKey.custom(field),
-              );
-            default:
-              return SignUpFormField.custom(
-                key: Key(field),
-                title: field,
-                attributeKey: CognitoUserAttributeKey.custom(field),
-              );
-          }
-        })
-        .whereType<SignUpFormField>()
-        .toList();
-  }
-}
 
 void main() {
   runApp(const FlutterAuthenticatorPreview());
@@ -156,15 +41,35 @@ class FlutterAuthenticatorPreview extends StatefulWidget {
 
 class _FlutterAuthenticatorPreviewState
     extends State<FlutterAuthenticatorPreview> {
+  AuthenticatorConfig _config = AuthenticatorConfig();
+  @override
+  void initState() {
+    super.initState();
+    _setAuthenticatorConfig();
+  }
+
+  void _setAuthenticatorConfig() {
+    final newConfig = AuthenticatorConfig.fromMap(Uri.base.queryParameters);
+    setState(() {
+      _config = newConfig;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    final deviceInfo = _config.device.toDeviceInfo();
+    if (deviceInfo == null) {
+      return MyApp(config: _config);
+    }
     return MaterialApp(
       home: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           DeviceFrame(
-            screen: const MyApp(),
-            device: Devices.ios.iPhone13,
+            screen: MyApp(
+              config: _config,
+            ),
+            device: deviceInfo,
           ),
         ],
       ),
@@ -175,26 +80,20 @@ class _FlutterAuthenticatorPreviewState
 class MyApp extends StatefulWidget {
   const MyApp({
     Key? key,
+    required this.config,
   }) : super(key: key);
+
+  final AuthenticatorConfig config;
 
   @override
   _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  AuthenticatorConfig _authenticatorConfig = AuthenticatorConfig();
   @override
   void initState() {
     super.initState();
-    _setAuthenticatorConfig();
     _configureAmplify();
-  }
-
-  void _setAuthenticatorConfig() {
-    final newConfig = AuthenticatorConfig.fromMap(Uri.base.queryParameters);
-    setState(() {
-      _authenticatorConfig = newConfig;
-    });
   }
 
   Future<void> _configureAmplify() async {
@@ -204,10 +103,10 @@ class _MyAppState extends State<MyApp> {
       // add the auth plugin stub
       await Amplify.addPlugin(AmplifyAuthCognitoStub());
       // configure amplify
-      await Amplify.configure(_authenticatorConfig.config);
+      await Amplify.configure(widget.config.amplifyConfig);
       final message = {
         'name': 'loaded',
-        'id': _authenticatorConfig.id,
+        'id': widget.config.id,
       };
       window.parent?.postMessage(jsonEncode(message), "*");
     } on Exception catch (e) {
@@ -216,30 +115,37 @@ class _MyAppState extends State<MyApp> {
   }
 
   ThemeData get theme {
-    final theme = _authenticatorConfig.useCustomTheme
-        ? customLightTheme
-        : ThemeData.light();
-    return theme.copyWith(visualDensity: VisualDensity.standard);
+    final theme =
+        widget.config.useCustomTheme ? customLightTheme : ThemeData.light();
+    return widget.config.device == Device.web
+        ? theme
+        : theme.copyWith(
+            // VisualDensity is by default standard on ios/android
+            visualDensity: VisualDensity.standard,
+          );
   }
 
   ThemeData get darkTheme {
-    final theme = _authenticatorConfig.useCustomTheme
-        ? customDarkTheme
-        : ThemeData.dark();
-    return theme.copyWith(visualDensity: VisualDensity.standard);
+    final theme =
+        widget.config.useCustomTheme ? customDarkTheme : ThemeData.dark();
+    return widget.config.device == Device.web
+        ? theme
+        : theme.copyWith(
+            // VisualDensity is by default standard on ios/android
+            visualDensity: VisualDensity.standard,
+          );
   }
 
   @override
   Widget build(BuildContext context) {
     return Authenticator(
-      authenticatorBuilder:
-          _authenticatorConfig.useCustomUI ? customBuilder : null,
-      signUpForm: _authenticatorConfig.signUpAttributes.isNotEmpty
+      authenticatorBuilder: widget.config.useCustomUI ? customBuilder : null,
+      signUpForm: widget.config.signUpAttributes.isNotEmpty
           ? SignUpForm.custom(
-              fields: _authenticatorConfig.signUpAttributes,
+              fields: widget.config.signUpAttributes,
             )
           : null,
-      initialStep: _authenticatorConfig.initialStep,
+      initialStep: widget.config.initialStep,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         useInheritedMediaQuery: true,
@@ -247,7 +153,7 @@ class _MyAppState extends State<MyApp> {
         builder: Authenticator.builder(),
         theme: theme,
         darkTheme: darkTheme,
-        themeMode: _authenticatorConfig.themeMode,
+        themeMode: widget.config.themeMode,
         home: const HomeWidget(),
       ),
     );
@@ -307,46 +213,6 @@ class _HomeWidgetState extends State<HomeWidget> {
       ],
     );
   }
-}
-
-String buildConfig({
-  String? usernameAttribute = 'USERNAME',
-  bool includeSocialProviders = false,
-}) {
-  usernameAttribute = usernameAttribute?.toUpperCase();
-  Map<String, dynamic> config = {
-    "UserAgent": "aws-amplify-cli/2.0",
-    "Version": "1.0",
-    "auth": {
-      "plugins": {
-        "awsCognitoAuthPlugin": {
-          "Auth": {
-            "Default": {
-              "authenticationFlowType": "USER_SRP_AUTH",
-              "socialProviders": includeSocialProviders
-                  ? ['AMAZON', 'APPLE', 'FACEBOOK', 'GOOGLE']
-                  : [],
-              "usernameAttributes":
-                  usernameAttribute == 'USERNAME' ? [] : [usernameAttribute],
-              "signupAttributes": usernameAttribute == 'USERNAME'
-                  ? ['EMAIL']
-                  : [usernameAttribute],
-              "passwordProtectionSettings": {
-                "passwordPolicyMinLength": 6,
-                "passwordPolicyCharacters": []
-              },
-              "mfaConfiguration": "OFF",
-              "mfaTypes": ["SMS"],
-              "verificationMechanisms": usernameAttribute == 'USERNAME'
-                  ? ['EMAIL']
-                  : [usernameAttribute],
-            }
-          }
-        }
-      }
-    }
-  };
-  return jsonEncode(config);
 }
 
 Widget? customBuilder(BuildContext context, AuthenticatorState state) {

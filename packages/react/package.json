@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react",
-  "version": "3.3.0",
+  "version": "3.5.2",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "exports": {
@@ -31,7 +31,6 @@
   },
   "files": [
     "dist",
-    "dist/esm/node_modules",
     "legacy",
     "internal",
     "LICENSE"
@@ -56,7 +55,7 @@
     "size": "yarn run size-limit"
   },
   "dependencies": {
-    "@aws-amplify/ui": "3.12.5",
+    "@aws-amplify/ui": "3.13.3",
     "@aws-amplify/ui-react-v1": "npm:@aws-amplify/ui-react@1.2.9",
     "@radix-ui/react-accordion": "0.1.6",
     "@radix-ui/react-dropdown-menu": "0.1.6",
@@ -68,10 +67,11 @@
     "lodash": "4.17.21",
     "mapbox-gl": "1.13.1",
     "maplibre-gl": "2.1.9",
-    "maplibre-gl-js-amplify": "2.0.2",
+    "maplibre-gl-js-amplify": "2.0.4",
     "qrcode": "1.5.0",
     "react-generate-context": "1.0.1",
-    "react-map-gl": "7.0.15"
+    "react-map-gl": "7.0.15",
+    "tslib": "2.4.0"
   },
   "peerDependencies": {
     "aws-amplify": "3.x.x || 4.x.x",
@@ -114,6 +114,7 @@
     "react-router-dom": "^6.2.1",
     "rimraf": "^3.0.2",
     "rollup": "^2.70.0",
+    "rollup-plugin-node-externals": "^4.1.1",
     "rollup-plugin-styles": "^4.0.0",
     "rollup-plugin-terser": "^7.0.2",
     "size-limit": "^7.0.8",

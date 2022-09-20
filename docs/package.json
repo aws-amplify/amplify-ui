@@ -3,7 +3,7 @@
   "name": "docs",
   "version": "0.0.1",
   "scripts": {
-    "dev": "next dev -p 5000",
+    "dev": "next dev -p 5001",
     "preflutter:build": "yarn flutter:clean",
     "flutter:build": "(cd flutter/authenticator && flutter build web)",
     "postflutter:build": "yarn flutter:copy",
@@ -19,7 +19,7 @@
     "test": "$_ run build"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "3.3.0",
+    "@aws-amplify/ui-react": "3.5.2",
     "@cucumber/gherkin": "^19.0.3",
     "@cucumber/messages": "^16.0.1",
     "@docsearch/react": "3",
@@ -60,7 +60,7 @@
   "devDependencies": {
     "@types/lodash": "^4.14.170",
     "@types/node": "^14.14.31",
-    "@types/react": "^17.0.2",
+    "@types/react": "17.0.47",
     "autoprefixer": "^10.2.4",
     "canvas": "^2.9.1",
     "dotenv-safe": "^8.2.0",

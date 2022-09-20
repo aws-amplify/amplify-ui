@@ -1,5 +1,5 @@
 import React from 'react';
-import { AuthChallengeNames, getActorState, translate } from '@aws-amplify/ui';
+import { getActorState, translate } from '@aws-amplify/ui';
 
 import { Flex } from '../../../primitives/Flex';
 import { Heading } from '../../../primitives/Heading';
@@ -61,10 +61,10 @@ function Header() {
   let headerText: string;
 
   switch (challengeName) {
-    case AuthChallengeNames.SMS_MFA:
+    case 'SMS_MFA':
       headerText = translate('Confirm SMS Code');
       break;
-    case AuthChallengeNames.SOFTWARE_TOKEN_MFA:
+    case 'SOFTWARE_TOKEN_MFA':
       headerText = translate('Confirm TOTP Code');
       break;
     default:

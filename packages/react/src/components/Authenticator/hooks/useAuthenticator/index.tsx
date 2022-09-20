@@ -1,17 +1,13 @@
 import * as React from 'react';
 
 import {
-  AuthEventData,
   AuthInterpreter,
   AuthMachineSend,
   AuthMachineState,
-  CodeDeliveryDetails,
-  CognitoUserAmplify,
   createAuthenticatorMachine,
-  getSendEventAliases,
-  getServiceContextFacade,
   getServiceFacade,
   listenToAuthHub,
+  AuthenticatorServiceFacade,
 } from '@aws-amplify/ui';
 import { useSelector, useInterpret } from '@xstate/react';
 import isEmpty from 'lodash/isEmpty';
@@ -26,7 +22,7 @@ export type AuthenticatorContextValue = {
  * These are the "facades" that we provide, which contains contexts respective
  * to current authenticator state.
  */
-export type AuthenticatorContext = ReturnType<typeof getServiceFacade>;
+export type AuthenticatorContext = AuthenticatorServiceFacade;
 
 /**
  * These are internal xstate helpers to we share with `useAuthenticator`.
@@ -46,31 +42,12 @@ export type InternalAuthenticatorContext = {
  */
 export type Selector = (context: AuthenticatorContext) => Array<any>;
 
-export type UseAuthenticator = {
+export interface UseAuthenticator extends AuthenticatorServiceFacade {
   /** @deprecated For internal use only */
   _send: InternalAuthenticatorContext['_send'];
   /** @deprecated For internal use only */
   _state: InternalAuthenticatorContext['_state'];
-
-  error: string;
-  hasValidationErrors: boolean;
-  isPending: boolean;
-  route: string;
-  authStatus: string;
-  user: CognitoUserAmplify;
-  validationErrors: { [key: string]: string | string[] };
-  codeDeliveryDetails: CodeDeliveryDetails;
-  resendCode: (data?: AuthEventData) => void;
-  signOut: (data?: AuthEventData) => void;
-  submitForm: (data?: AuthEventData) => void;
-  updateForm: (data?: AuthEventData) => void;
-  updateBlur: (data?: AuthEventData) => void;
-  toFederatedSignIn: (data?: AuthEventData) => void;
-  toResetPassword: (data?: AuthEventData) => void;
-  toSignIn: (data?: AuthEventData) => void;
-  toSignUp: (data?: AuthEventData) => void;
-  skipVerification: (data?: AuthEventData) => void;
-};
+}
 
 /**
  * AuthenticatorContext serves static reference to the auth machine service.
@@ -100,9 +77,10 @@ export const Provider = ({
    * Leaving this as is for now in the interest of suggested code guideline.
    */
   const service = useInterpret(createAuthenticatorMachine);
-  const value = React.useMemo(() => {
-    return isEmpty(parentProviderVal) ? { service } : parentProviderVal;
-  }, [parentProviderVal, service]);
+  const value = React.useMemo(
+    () => (isEmpty(parentProviderVal) ? { service } : parentProviderVal),
+    [parentProviderVal, service]
+  );
 
   const { service: activeService } = value;
 
@@ -137,15 +115,10 @@ export const useAuthenticator = (selector?: Selector): UseAuthenticator => {
 
   const { send } = service;
 
-  // send aliases are static and thus can be memoized
-  const sendAliases = React.useMemo<ReturnType<typeof getSendEventAliases>>(
-    () => getSendEventAliases(send),
+  const getFacade = React.useCallback(
+    (state: AuthMachineState) => ({ ...getServiceFacade({ send, state }) }),
     [send]
   );
-
-  const getFacade = (state: AuthMachineState) => {
-    return { ...sendAliases, ...getServiceContextFacade(state) };
-  };
 
   /**
    * For `useSelector`'s selector argument, we transform `state` into
@@ -160,8 +133,8 @@ export const useAuthenticator = (selector?: Selector): UseAuthenticator => {
    * re-render. Does a deep equality check.
    */
   const comparator = (
-    prevFacade: ReturnType<typeof getFacade>,
-    nextFacade: ReturnType<typeof getFacade>
+    prevFacade: AuthenticatorServiceFacade,
+    nextFacade: AuthenticatorServiceFacade
   ) => {
     if (!selector) return false;
 

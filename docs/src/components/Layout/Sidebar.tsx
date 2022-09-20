@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useRouter } from 'next/router';
 import {
   MdOutlineChecklist,
   MdOutlineWidgets,
@@ -6,7 +7,6 @@ import {
   MdWebAssetOff,
   MdOutlineArticle,
   MdOutlinePower,
-  MdOpenInNew,
 } from 'react-icons/md';
 import {
   Text,
@@ -15,8 +15,6 @@ import {
   Expander,
   ExpanderItem,
   useTheme,
-  Divider,
-  Link as ALink,
 } from '@aws-amplify/ui-react';
 import {
   ComponentNavItem,
@@ -29,7 +27,6 @@ import {
 } from '../../data/links';
 
 import Link from 'next/link';
-import { useCustomRouter } from '@/components/useCustomRouter';
 import { isReactNativeEnabled } from '@/utils/featureFlags';
 import { FrameworkChooser } from './FrameworkChooser';
 import { LogoLink } from './LogoLink';
@@ -61,7 +58,7 @@ const NavLink = ({
   const {
     query: { platform = 'react' },
     pathname,
-  } = useCustomRouter();
+  } = useRouter();
   const isCurrent = pathname.replace('/[platform]', '') === href;
   const classNames = `${
     tertiary ? 'docs-tertiary-nav-link' : 'docs-secondary-nav-link'
@@ -81,7 +78,7 @@ const NavLink = ({
 };
 
 const NavLinkComponentsSection = ({ heading, components, ...props }) => {
-  const { query } = useCustomRouter();
+  const { query } = useRouter();
   const { tokens } = useTheme();
   const { platform = 'react' } = query;
 
@@ -137,7 +134,7 @@ const ExpanderTitle = ({ Icon, text }) => {
 
 // TODO: clean up this logic
 const SecondaryNav = (props) => {
-  const { pathname } = useCustomRouter();
+  const { pathname } = useRouter();
   const { platform } = props;
   // Extract section from URL (/section/... => section)
   let section = pathname.split('/')[2];
@@ -251,15 +248,6 @@ export const Sidebar = ({ expanded, setExpanded, platform }) => {
           {isReactNativeEnabled && platform === 'react-native' ? null : (
             <SecondaryNav onClick={onClick} platform={platform} />
           )}
-
-          <Divider size="small" />
-
-          <ALink href="https://docs.amplify.aws" isExternal>
-            <Flex as="span" direction="row" alignItems="center">
-              Amplify Docs
-              <MdOpenInNew />
-            </Flex>
-          </ALink>
         </Flex>
       </div>
     </nav>

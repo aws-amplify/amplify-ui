@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "name": "environments-auth",
+  "version": "0.0.1",
+  "scripts": {
+    "pull": "../pull-environments.sh"
+  }
+}

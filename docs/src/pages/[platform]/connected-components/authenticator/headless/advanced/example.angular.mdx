@@ -1,4 +1,4 @@
-_app.component.ts_
+_use-authenticator.component.ts_
 
 ```ts
 import { Component } from '@angular/core';
@@ -8,18 +8,43 @@ import { AuthenticatorService } from '@aws-amplify/ui-angular';
 import awsExports from './aws-exports';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: 'app.component.html',
+  selector: 'use-authenticator',
+  templateUrl: 'useAuthenticator.component.html',
 })
 export class UseAuthenticatorComponent {
   constructor(public authenticator: AuthenticatorService) {
     Amplify.configure(awsExports);
   }
 }
+
 ```
 
-_app.component.html_
+_use-authenticator.component.html_
 
-```js file=../../../../../../../../examples/angular/src/pages/ui/components/authenticator/useAuthenticator/useAuthenticator.component.html#L1-L8
 
+```html{4-6} 
+<amplify-authenticator>
+  <ng-template amplifySlot="sign-in-footer">
+    <div style="text-align: center">
+      <button
+        (click)="authenticator.toResetPassword()"
+        class="amplify-button amplify-field-group__control"
+        data-fullwidth="false"
+        data-size="small"
+        type="button"
+        style="font-weight: normal"
+      >
+        Reset Password
+      </button>
+    </div>
+  </ng-template>
+  <ng-template
+    amplifySlot="authenticated"
+    let-user="user"
+    let-signOut="signOut"
+  >
+    <h2>Welcome, {{ user.username }}!</h2>
+    <button (click)="signOut()">Sign Out</button>
+  </ng-template>
+</amplify-authenticator>
 ```

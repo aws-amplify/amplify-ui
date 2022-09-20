@@ -12,8 +12,64 @@ import {
   AuthEventData,
   AuthEventTypes,
   AuthMachineState,
+  CodeDeliveryDetails,
+  CognitoUserAmplify,
+  ValidationError,
 } from '../../types';
+
 import { getActorContext, getActorState } from './actor';
+
+type AuthenticatorRoute =
+  | 'authenticated'
+  | 'autoSignIn'
+  | 'confirmResetPassword'
+  | 'confirmSignIn'
+  | 'confirmSignUp'
+  | 'confirmVerifyUser'
+  | 'forceNewPassword'
+  | 'idle'
+  | 'resetPassword'
+  | 'setup'
+  | 'signOut'
+  | 'setupTOTP'
+  | 'signIn'
+  | 'signUp'
+  | 'verifyUser';
+
+type AuthenticatorValidationErrors = ValidationError;
+type AuthStatus = 'configuring' | 'authenticated' | 'unauthenticated';
+
+interface AuthenticatorServiceContextFacade {
+  authStatus: AuthStatus;
+  codeDeliveryDetails: CodeDeliveryDetails;
+  error: string;
+  hasValidationErrors: boolean;
+  isPending: boolean;
+  route: AuthenticatorRoute;
+  user: CognitoUserAmplify;
+  validationErrors: AuthenticatorValidationErrors;
+}
+
+type SendEventAlias =
+  | 'resendCode'
+  | 'signOut'
+  | 'submitForm'
+  | 'updateForm'
+  | 'updateBlur'
+  | 'toFederatedSignIn'
+  | 'toResetPassword'
+  | 'toSignIn'
+  | 'toSignUp'
+  | 'skipVerification';
+
+type AuthenticatorSendEventAliases = Record<
+  SendEventAlias,
+  (data?: AuthEventData) => void
+>;
+
+export interface AuthenticatorServiceFacade
+  extends AuthenticatorSendEventAliases,
+    AuthenticatorServiceContextFacade {}
 
 /**
  * Creates public facing auth helpers that abstracts out xstate implementation
@@ -26,7 +82,9 @@ import { getActorContext, getActorState } from './actor';
  * submit({ username, password})
  * ```
  */
-export const getSendEventAliases = (send: Sender<AuthEvent>) => {
+export const getSendEventAliases = (
+  send: Sender<AuthEvent>
+): AuthenticatorSendEventAliases => {
   const sendToMachine = (type: AuthEventTypes) => {
     // TODO If these were created during the creation of the machine & provider,
     // then invalid transitions could be caught via https://xstate.js.org/docs/guides/states.html#state-can-event
@@ -48,19 +106,27 @@ export const getSendEventAliases = (send: Sender<AuthEvent>) => {
     toSignIn: sendToMachine('SIGN_IN'),
     toSignUp: sendToMachine('SIGN_UP'),
     skipVerification: sendToMachine('SKIP'),
-  } as const;
+  };
 };
 
-export const getServiceContextFacade = (state: AuthMachineState) => {
-  const user = state.context?.user;
+export const getServiceContextFacade = (
+  state: AuthMachineState
+): AuthenticatorServiceContextFacade => {
   const actorState = getActorState(state);
-  const actorContext = getActorContext(state) as ActorContextWithForms;
-  const error = actorContext?.remoteError;
-  const validationErrors = { ...actorContext?.validationError };
-  const codeDeliveryDetails = actorContext?.codeDeliveryDetails;
-  const hasValidationErrors = Object.keys(validationErrors).length > 0;
-  const isPending =
-    state.hasTag('pending') || getActorState(state)?.hasTag('pending');
+  const actorContext = (getActorContext(state) ?? {}) as ActorContextWithForms;
+  const {
+    codeDeliveryDetails,
+    remoteError: error,
+    validationError: validationErrors,
+  } = actorContext;
+
+  // check for user in actorContext prior to state context. actorContext is more "up to date",
+  // but is not available on all states
+  const user = actorContext?.user ?? state.context?.user;
+
+  const hasValidationErrors =
+    validationErrors && Object.keys(validationErrors).length > 0;
+  const isPending = state.hasTag('pending') || actorState?.hasTag('pending');
 
   // Any additional idle states added beyond (idle, setup) should be updated inside the authStatus below as well
   const route = (() => {
@@ -119,18 +185,24 @@ export const getServiceContextFacade = (state: AuthMachineState) => {
   })(route);
 
   return {
+    authStatus,
+    codeDeliveryDetails,
     error,
     hasValidationErrors,
     isPending,
     route,
-    authStatus,
     user,
     validationErrors,
-    codeDeliveryDetails,
   };
 };
 
-export const getServiceFacade = ({ send, state }) => {
+export const getServiceFacade = ({
+  send,
+  state,
+}: {
+  send: Sender<AuthEvent>;
+  state: AuthMachineState;
+}): AuthenticatorServiceFacade => {
   const sendEventAliases = getSendEventAliases(send);
   const serviceContext = getServiceContextFacade(state);
 

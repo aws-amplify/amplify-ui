@@ -1,11 +1,10 @@
 /**
  * This file contains helpers that generate default formFields for each screen
  */
-import {
-  defaultFormFieldOptions,
-  getPrimaryAlias,
-  isAuthFieldWithDefaults,
-} from '..';
+import { getActorContext, getActorState } from '../actor';
+import { defaultFormFieldOptions } from '../constants';
+import { getPrimaryAlias } from '../context';
+import { isAuthFieldWithDefaults } from '../form';
 import {
   ActorContextWithForms,
   AuthMachineState,
@@ -15,7 +14,6 @@ import {
   SignInState,
   SignInContext,
 } from '../../../types';
-import { getActorContext, getActorState } from '../actor';
 
 /** Helper function that gets the default formField for given field name */
 const getDefaultFormField = (

@@ -10,7 +10,18 @@ supportedFrameworks: react
 ---
 
 import { Fragment } from '@/components/Fragment';
-import { PageTabLayout } from "@/components/Layout/PageTabLayout"
+import { PageTabLayout } from '@/components/Layout/PageTabLayout';
+import { getCustomStaticPath } from "@/utils/getCustomStaticPath";
+
+export async function getStaticPaths() {
+  return getCustomStaticPath(frontmatter.supportedFrameworks);
+}
+
+{/*  `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" */}
+
+export async function getStaticProps() {
+  return { props: {} }
+}
 
 <PageTabLayout 
   tabComponents={[{

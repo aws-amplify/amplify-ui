@@ -1,8 +1,13 @@
-import { ColorValue, DesignToken } from '../types/designToken';
+import {
+  BackgroundColorValue,
+  ColorValue,
+  DesignToken,
+} from '../types/designToken';
 import { StateTokens } from './button';
 
 interface SearchTokens {
   color: DesignToken<ColorValue>;
+  backgroundColor: DesignToken<BackgroundColorValue>;
   _active: StateTokens;
   _disabled: StateTokens;
   _focus: StateTokens;
@@ -18,6 +23,7 @@ export const searchfield: SearchFieldTokens = {
   color: { value: '{components.fieldcontrol.color.value}' },
   button: {
     color: { value: '{components.button.color.value}' },
+    backgroundColor: { value: '{colors.background.primary.value}' },
     _active: {
       backgroundColor: {
         value: '{components.button._active.backgroundColor.value}',

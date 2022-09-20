@@ -27,7 +27,7 @@ import { Tabs, TabItem, Table, TableHead, TableRow, TableCell, TableBody, View }
 
 ### Example
 
-Here's an example that conditionally renders different components based on current authentication status. Note that this can be extended to support routed application.
+Here's an example that uses the `toResetPassword` trigger transition, to create a custom button. Note that example uses the [Footer "slot" override](../authenticator/customization#headers--footers).
 
 <Fragment>
   {({ platform }) => import(`./advanced/example.${platform}.mdx`)}

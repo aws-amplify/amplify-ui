@@ -3,7 +3,8 @@ import { act, render } from '@testing-library/react';
 import QRCode from 'qrcode';
 import { Auth } from 'aws-amplify';
 
-import { getTotpCode, SetupTOTP } from '../SetupTOTP';
+import { SetupTOTP } from '../SetupTOTP';
+import { getTotpCode } from '@aws-amplify/ui';
 
 jest.mock('../../hooks/useFormHandlers', () => ({
   useFormHandlers: () => ({ handleChange: jest.fn(), handleSubmit: jest.fn() }),

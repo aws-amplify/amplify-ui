@@ -1,9 +1,8 @@
 import NextHead from 'next/head';
+import { useRouter } from 'next/router';
 import { capitalizeString } from '@/utils/capitalizeString';
-import { useCustomRouter } from '@/components/useCustomRouter';
 import metaData from '@/data/pages.preval';
 import { PREVIEW_HEIGHT, PREVIEW_WIDTH } from '@/data/preview';
-import { FRAMEWORKS } from '@/data/frameworks';
 import { SITE_NAME, TWITTER_HANDLE } from '@/data/general';
 
 import { getImagePath } from '@/utils/previews';
@@ -13,7 +12,7 @@ export const Head = () => {
     asPath,
     pathname,
     query: { platform = 'react' },
-  } = useCustomRouter();
+  } = useRouter();
 
   const asPathname = pathname.replace('[platform]', String(platform));
   const filepath = `/${pathname

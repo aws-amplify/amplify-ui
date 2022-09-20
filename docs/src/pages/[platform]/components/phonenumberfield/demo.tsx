@@ -9,7 +9,7 @@ import { getPropString } from '../utils/getPropString';
 const propsToCode = (props) => {
   return (
     `<PhoneNumberField` +
-    `\n  defaultCountryCode="${props.defaultCountryCode}"` +
+    `\n  defaultDialCode="${props.defaultDialCode}"` +
     `\n  label="${props.label}"` +
     (props.labelHidden ? `\n  labelHidden` : '') +
     getPropString(props.descriptiveText, 'descriptiveText') +
@@ -25,7 +25,7 @@ const propsToCode = (props) => {
 };
 
 const defaultPhoneNumberFieldProps: PhoneNumberFieldProps = {
-  defaultCountryCode: '+1',
+  defaultDialCode: '+1',
   label: 'Phone number',
   value: '',
   descriptiveText: 'Please enter your phone number',
@@ -51,9 +51,9 @@ export const PhoneNumberFieldDemo = () => {
       <PhoneNumberField
         value={phoneNumberFieldProps.value}
         onChange={(event) => phoneNumberFieldProps.setValue(event.target.value)}
-        defaultCountryCode={phoneNumberFieldProps.defaultCountryCode}
-        onCountryCodeChange={(event) =>
-          phoneNumberFieldProps.setDefaultCountryCode(event.target.value)
+        defaultDialCode={phoneNumberFieldProps.defaultDialCode}
+        onDialCodeChange={(event) =>
+          phoneNumberFieldProps.setDefaultDialCode(event.target.value)
         }
         label={phoneNumberFieldProps.label}
         labelHidden={phoneNumberFieldProps.labelHidden}

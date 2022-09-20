@@ -1,6 +1,6 @@
 import { Example } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
-import { Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Alert, Tabs, TabItem } from '@aws-amplify/ui-react';
 
 Amplify UI Geo is powered by
 [Geo APIs](https://docs.amplify.aws/lib/geo/getting-started/q/platform/js/) and
@@ -28,6 +28,13 @@ additional configuration.
 <Fragment platforms={['react']}>
   {({ platform }) => import(`./fragments/map-quick-start.${platform}.mdx`)}
 </Fragment>
+
+<Alert role="none" variation="info">
+  If the map isn't taking up the entire screen, try resetting your browser's default CSS body margins:
+  <Fragment platforms={['react']}>
+    {({ platform }) => import(`./fragments/margin-reset.${platform}.mdx`)}
+  </Fragment>
+</Alert>
 
 ### Setting Initial Viewport
 

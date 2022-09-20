@@ -20,7 +20,8 @@ on:
         ui-geo/main,
         ui-react@v2,
         studio-release,
-        in-app-messaging/release,
+        next-release/main,
+        rwa/main,
       ]
     types: [opened, synchronize, labeled]
 
