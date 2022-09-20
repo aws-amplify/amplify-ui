@@ -65,7 +65,6 @@ export function signInActor({ services }: SignInMachineOptions) {
         init: {
           always: [
             { target: 'autoSignIn', cond: 'shouldAutoSignIn' },
-            { target: 'autoSignIn.manualSignIn', cond: 'shouldManualSignIn' },
             { target: 'signIn' },
           ],
         },
@@ -196,57 +195,6 @@ export function signInActor({ services }: SignInMachineOptions) {
                   {
                     actions: 'setUser',
                     target: '#signInActor.resolved',
-                  },
-                ],
-              },
-            },
-            manualSignIn: {
-              tags: ['pending'],
-              entry: ['clearError', 'sendUpdate'],
-              invoke: {
-                src: 'signIn',
-                onDone: [
-                  {
-                    cond: 'shouldSetupTOTP',
-                    actions: ['setUser', 'setChallengeName'],
-                    target: '#signInActor.setupTOTP',
-                  },
-                  {
-                    cond: 'shouldConfirmSignIn',
-                    actions: ['setUser', 'setChallengeName'],
-                    target: '#signInActor.confirmSignIn',
-                  },
-                  {
-                    cond: 'shouldForceChangePassword',
-                    actions: [
-                      'setUser',
-                      'setChallengeName',
-                      'setRequiredAttributes',
-                    ],
-                    target: '#signInActor.forceNewPassword',
-                  },
-                  {
-                    actions: 'setUser',
-                    target: '#signInActor.resolved',
-                  },
-                ],
-                onError: [
-                  {
-                    cond: 'shouldRedirectToConfirmSignUp',
-                    actions: ['setCredentials', 'setConfirmSignUpIntent'],
-                    target: '#signInActor.rejected',
-                  },
-                  {
-                    cond: 'shouldRedirectToConfirmResetPassword',
-                    actions: [
-                      'setUsernameAuthAttributes',
-                      'setConfirmResetPasswordIntent',
-                    ],
-                    target: '#signInActor.rejected',
-                  },
-                  {
-                    actions: 'setRemoteError',
-                    target: '#signInActor.signIn',
                   },
                 ],
               },
@@ -518,9 +466,6 @@ export function signInActor({ services }: SignInMachineOptions) {
         },
         shouldAutoSignIn: (context) => {
           return context?.intent === 'autoSignIn';
-        },
-        shouldManualSignIn: (context) => {
-          return context?.intent === 'manualSignIn';
         },
         shouldRedirectToConfirmSignUp: (_, event): boolean => {
           return event.data.code === 'UserNotConfirmedException';

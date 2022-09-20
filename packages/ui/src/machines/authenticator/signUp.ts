@@ -20,7 +20,7 @@ import {
   setUser,
   handleSubmit,
 } from './actions';
-import { defaultServices } from './defaultServices';
+import { defaultServices, signUp } from './defaultServices';
 
 export type SignUpMachineOptions = {
   services?: Partial<typeof defaultServices>;
@@ -242,12 +242,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
         setCodeDeliveryDetails,
         setUser,
         sendUpdate: sendUpdate(), // sendUpdate is a HOC
-        setAutoSignInIntent: assign({
-          intent: (context, _) => {
-            const { defaultServices } = context;
-            return defaultServices ? 'autoSignIn' : 'manualSignIn';
-          },
-        }),
+        setAutoSignInIntent: assign({ intent: (_) => 'autoSignIn' }),
       },
       services: {
         async confirmSignUp(context, event) {
@@ -305,11 +300,14 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
             }
           });
 
-          return await services.handleSignUp({
-            username,
-            password,
-            attributes,
-          });
+          return await services.handleSignUp(
+            {
+              username,
+              password,
+              attributes,
+            },
+            signUp
+          );
         },
         async validateSignUp(context, event) {
           // This needs to exist in the machine to reference new `services`

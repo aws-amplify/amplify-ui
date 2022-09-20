@@ -72,8 +72,6 @@ interface BaseFormContext {
   codeDeliveryDetails?: CodeDeliveryDetails;
   /** Default country code for all phone number fields. */
   country_code?: string; // TODO: this one should be customizable as well
-  /** Default service check */
-  defaultServices?: boolean;
 }
 
 // Actor context types

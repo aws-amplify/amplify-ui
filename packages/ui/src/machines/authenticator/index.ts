@@ -321,8 +321,6 @@ export function createAuthenticatorMachine() {
               touched: {},
               validationError: {},
               loginMechanisms: context.config?.loginMechanisms,
-              defaultServices:
-                services.handleSignUp === defaultServices.handleSignUp,
               socialProviders: context.config?.socialProviders,
               formFields: context.config?.formFields,
               passwordSettings: context.config?.passwordSettings,
@@ -378,9 +376,7 @@ export function createAuthenticatorMachine() {
           event.data?.intent === 'confirmSignUp',
         shouldRedirectToResetPassword: (_, event) =>
           event.data?.intent === 'confirmPasswordReset',
-        shouldAutoSignIn: (_, event) =>
-          event.data?.intent === 'autoSignIn' ||
-          event.data?.intent === 'manualSignIn',
+        shouldAutoSignIn: (_, event) => event.data?.intent === 'autoSignIn',
         shouldSetup: (context) => context.hasSetup === false,
         // other context guards
         hasActor: (context) => !!context.actorRef,

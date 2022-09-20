@@ -7,6 +7,17 @@ import {
   SignInResult,
   ValidatorResult,
 } from '../../types';
+export function signUp(username, password, attributes) {
+  return Auth.signUp({
+    username,
+    password,
+    attributes,
+    autoSignIn: {
+      // added to every request
+      enabled: true,
+    },
+  });
+}
 
 export const defaultServices = {
   async getAmplifyConfig() {
@@ -17,14 +28,8 @@ export const defaultServices = {
     return Auth.currentAuthenticatedUser();
   },
 
-  async handleSignUp(formData): Promise<any> {
-    console.log('startin auto signin');
-    return Auth.signUp({
-      ...formData,
-      autoSignIn: {
-        enabled: true,
-      },
-    });
+  async handleSignUp({ username, password, attributes }, signUp): Promise<any> {
+    return signUp(username, password, attributes);
   },
   async handleSignIn({
     username,

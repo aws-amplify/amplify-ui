@@ -78,10 +78,10 @@ const emit = defineEmits([
 ]);
 const machine = createAuthenticatorMachine();
 
-// inspect({
-//   iframe: false,
-// });
-const service = useInterpret(machine, { devTools: false });
+inspect({
+  iframe: false,
+});
+const service = useInterpret(machine, { devTools: true });
 let unsubscribeHub: () => void;
 let unsubscribeMachine: () => void;
 
