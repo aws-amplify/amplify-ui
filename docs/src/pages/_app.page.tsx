@@ -7,7 +7,9 @@ import { ThemeProvider, ColorMode, defaultTheme } from '@aws-amplify/ui-react';
 import { configure, trackPageVisit } from '@/utils/track';
 import { IS_PROD_STAGE } from '@/utils/stage';
 import { Header } from '@/components/Layout/Header';
+/* Remove after Global Nav launch START */
 import { isGlobalNavEnabled } from '@/utils/featureFlags';
+/* Remove after Global Nav launch END */
 import { baseTheme } from '../theme';
 
 import { Head } from './Head';
@@ -89,7 +91,7 @@ function MyApp({ Component, pageProps }) {
         <ThemeProvider theme={baseTheme} colorMode={colorMode}>
           {
             /* Remove after Global Nav launch START */
-            isGlobalNavEnabled ? (  /* Remove after Global Nav launch END */
+            isGlobalNavEnabled /* Remove after Global Nav launch END */ ? (
               <GlobalNav
                 rightLinks={RIGHT_NAV_LINKS as NavMenuItem[]}
                 leftLinks={LEFT_NAV_LINKS as NavMenuItem[]}
