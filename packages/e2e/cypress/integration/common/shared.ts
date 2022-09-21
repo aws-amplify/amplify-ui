@@ -324,7 +324,7 @@ When('I mock {string} event', (eventName: string) => {
     throw new Error('Hub is not available on the window.');
   }
 
-  Hub.dispatch('auth', { event: eventName });
+  Hub.dispatch('auth', { event: eventName, data: {} });
 });
 
 Given('I spy {string} method', (path) => {

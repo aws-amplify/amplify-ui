@@ -23,5 +23,6 @@ Feature: Sign up with SMS MFA
     And I mock 'Amplify.Auth.signIn' with fixture "Auth.signIn-sms-mfa"
     And I mock 'Amplify.Auth.currentAuthenticatedUser' with fixture "Auth.currentAuthenticatedUser-verified-email"
     And I click the "Confirm" button
+    And I mock "autoSignIn" event
     Then I see "Confirm SMS Code"
     

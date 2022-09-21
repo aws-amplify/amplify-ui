@@ -20,11 +20,13 @@ Feature: Sign In with TOTP MFA
     And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }' with fixture "confirm-sign-up-with-email"
     And I mock 'Hub.listen' with fixture "Auth.signIn-mfa-setup"
     And I click the "Confirm" button
+    And I mock "autoSignIn" event
     Then I see "Setup TOTP"
     Then I see "Code"
     And I type a valid confirmation code
     And I mock 'Amplify.Auth.verifyTotpToken' with fixture "Auth.verifyTOTP"
     And I click the "Confirm" button
+    And I mock "autoSignIn" event
     Then I see "AmplifyUsername"
 
 
@@ -51,6 +53,7 @@ Feature: Sign In with TOTP MFA
     And I click the "Sign In" button
     And I enter an invalid confirmation code
     And I click the "Confirm" button
+    And I mock "autoSignIn" event
     Then I see 'Code mismatch'
 
   @angular @react @vue
@@ -93,9 +96,11 @@ Feature: Sign In with TOTP MFA
     And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }' with fixture "confirm-sign-up-with-email"
     And I mock 'Amplify.Auth.signIn' with fixture "Auth.signIn-mfa-setup"
     And I click the "Confirm" button
+    And I mock "autoSignIn" event
     Then I see "Setup TOTP"
     Then I see "Code"
     And I type a valid confirmation code
     And I mock 'Amplify.Auth.verifyTotpToken' with fixture "Auth.verifyTOTP"
     And I click the "Confirm" button
+    And I mock "autoSignIn" event
     Then I see "AmplifyUsername"

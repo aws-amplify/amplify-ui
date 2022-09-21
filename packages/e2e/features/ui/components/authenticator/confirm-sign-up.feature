@@ -45,6 +45,7 @@ Feature: Confirm Sign Up
     And I mock 'Amplify.Auth.signIn' with fixture "Auth.signIn-verified-email"
     And I mock 'Amplify.Auth.currentAuthenticatedUser' with fixture "Auth.currentAuthenticatedUser-verified-email"
     And I click the "Confirm" button
+    And I mock "autoSignIn" event
     Then I see "Sign out"
   
   @angular @react @vue 
@@ -59,6 +60,7 @@ Feature: Confirm Sign Up
     And I mock 'Amplify.Auth.signIn' with fixture "Auth.signIn-verified-email"
     And I mock 'Amplify.Auth.currentAuthenticatedUser' with fixture "Auth.currentAuthenticatedUser-verified-email"
     And I click the "Resend Code" button
+    And I mock "autoSignIn" event
     Then I see "Sign out"
 
   @angular @react @vue
