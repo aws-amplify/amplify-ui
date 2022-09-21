@@ -145,11 +145,21 @@ jobs:
     environment: ci
     needs: publish
     steps:
-      - name: Log data point to metric PublishLatestFailure
+      - name: Log failure data point to metric PublishLatestFailure
+        if: ${{ failure() }}
         uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
         with:
           metric-name: PublishLatestFailure
-          value: ${{ failure() && 1 || 0 }} # if failure, log 1; otherwise, log 0. ref: https://github.com/actions/runner/issues/409#issuecomment-727565588
-          AWS_ACCESS_KEY_ID: ${{ secrets.METRIC_LOGGER_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.METRIC_LOGGER_SECRET_ACCESS_KEY }}
+          value: 1
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_METRIC_LOGGER }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_METRIC_LOGGER }}
+          AWS_REGION: us-east-2
+      - name: Log success data point to metric PublishLatestFailure
+        if: ${{ success() }}
+        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
+        with:
+          metric-name: PublishLatestFailure
+          value: 0
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_METRIC_LOGGER }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_METRIC_LOGGER }}
           AWS_REGION: us-east-2
