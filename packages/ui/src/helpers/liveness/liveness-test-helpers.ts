@@ -65,6 +65,7 @@ export const mockOvalDetails: LivenessOvalDetails = {
 export const mockLivenessStreamProvider: any = {
   sendClientInfo: jest.fn(),
   endStream: jest.fn(),
+  stopVideo: jest.fn(),
   getResponseStream: jest.fn(),
   startRecordingLivenessVideo: jest.fn(),
   videoRecorder: mockVideoRecorder,

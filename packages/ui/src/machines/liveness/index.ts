@@ -26,9 +26,16 @@ import {
   FreshnessColorDisplay,
 } from '../../helpers';
 import { v4 } from 'uuid';
-import { isServerSesssionInformationEvent } from '../../helpers/liveness/liveness-event-utils';
+import {
+  isServerSesssionInformationEvent,
+  isDisconnectionEvent,
+} from '../../helpers/liveness/liveness-event-utils';
 import { getRandomScalingAttributesStr } from '../../helpers/liveness/liveness';
-import { LivenessResponseStream } from '@aws-sdk/client-rekognitionstreaming';
+import { DeviceInformation } from '../../../dist/types/types/liveness/liveness-service-types';
+import {
+  ClientSessionInformationEvent,
+  LivenessResponseStream,
+} from '@aws-sdk/client-rekognitionstreaming';
 
 export const MIN_FACE_MATCH_COUNT = 5;
 
@@ -70,6 +77,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       errorState: null,
       livenessStreamProvider: undefined,
       responseStreamActorRef: undefined,
+      shouldDisconnect: false,
     },
     on: {
       CANCEL: 'userCancel',
@@ -80,6 +88,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       SET_SESSION_INFO: {
         internal: true,
         actions: 'updateSessionInfo',
+      },
+      DISCONNECT_EVENT: {
+        internal: true,
+        actions: 'updateShouldDisconnect',
       },
     },
     states: {
@@ -228,7 +240,26 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         states: {
           pending: {
             invoke: {
-              src: 'putLivenessVideo',
+              src: 'stopVideo',
+              onDone: 'waitForDisconnectEvent',
+              onError: {
+                target: '#livenessMachine.error',
+                actions: 'updateErrorStateForRuntime',
+              },
+            },
+          },
+          waitForDisconnectEvent: {
+            after: {
+              0: {
+                target: 'getLivenessResult',
+                cond: 'getShouldDisconnect',
+              },
+              100: { target: 'waitForDisconnectEvent' },
+            },
+          },
+          getLivenessResult: {
+            invoke: {
+              src: 'getLiveness',
               onDone: 'checking',
               onError: {
                 target: '#livenessMachine.error',
@@ -423,6 +454,11 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           return event.data.sessionInfo;
         },
       }),
+      updateShouldDisconnect: assign({
+        shouldDisconnect: () => {
+          return true;
+        },
+      }),
       updateFreshnessDetails: assign({
         freshnessColorAssociatedParams: (context, event) => {
           return {
@@ -545,6 +581,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       hasServerSessionInfo: (context) => {
         return context.serverSessionInformation !== undefined;
       },
+      getShouldDisconnect: (context) => {
+        console.log('should we');
+        return !!context.shouldDisconnect;
+      },
     },
     services: {
       async checkVirtualCameraAndGetStream(context) {
@@ -601,6 +641,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       async detectInitialFaceAndDrawOval(context) {
         const {
+          challengeId,
           videoAssociatedParams: {
             videoEl,
             canvasEl,
@@ -690,29 +731,21 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         const flippedInitialFaceLeft =
           width - initialFace.left - initialFace.width;
         context.livenessStreamProvider.sendClientInfo({
-          challenges: [
-            {
-              type: ChallengeType.FACE_MOVEMENT,
-              faceMovementChallenge: {
-                initialFacePosition: {
-                  height: initialFace.height,
-                  width: initialFace.width,
-                  top: initialFace.top,
-                  left: flippedInitialFaceLeft,
-                },
-                targetFacePosition: {
-                  height: ovalDetails.height,
-                  width: ovalDetails.width,
-                  top: ovalDetails.centerY - ovalDetails.height / 2,
-                  left: ovalDetails.centerX - ovalDetails.width / 2,
-                },
-                recordingTimestamps: {
-                  videoStart: recordingStartTimestampMs,
-                  initialFaceDetected: initialFace.timestampMs,
+          DeviceInformation: undefined,
+          Challenge: {
+            FaceMovementAndLightChallenge: {
+              ChallengeId: challengeId,
+              InitialFace: {
+                InitialFaceDetectedTimestamp: initialFace.timestampMs,
+                BoundingBox: {
+                  Height: initialFace.height,
+                  Width: initialFace.width,
+                  Top: initialFace.top,
+                  Left: flippedInitialFaceLeft,
                 },
               },
             },
-          ],
+          },
         });
 
         return { faceMatchState, ovalDetails, initialFace };
@@ -770,10 +803,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
         return { freshnessColorsComplete: completed };
       },
-      async putLivenessVideo(context) {
+      async stopVideo(context) {
         const {
           challengeId,
-          flowProps: { sessionId, onGetLivenessDetection },
           videoAssociatedParams: {
             videoMediaStream,
             recordingStartTimestampMs,
@@ -787,52 +819,59 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
         const flippedInitialFaceLeft =
           width - initialFace.left - initialFace.width;
-        const livenessActionDocument: ClientSessionInformation = {
-          deviceInformation: {
-            videoHeight: height,
-            videoWidth: width,
+        const livenessActionDocument: ClientSessionInformationEvent = {
+          DeviceInformation: {
+            ClientSDKVersion: '1.0.0',
+            VideoHeight: height,
+            VideoWidth: width,
           },
-          challenge: {
-            faceMovementAndLightChallenge: {
-              challengeId,
-              initialFacePosition: {
-                height: initialFace.height,
-                width: initialFace.width,
-                top: initialFace.top,
-                left: flippedInitialFaceLeft,
+          Challenge: {
+            FaceMovementAndLightChallenge: {
+              ChallengeId: challengeId,
+              InitialFace: {
+                InitialFaceDetectedTimestamp: initialFace.timestampMs,
+                BoundingBox: {
+                  Height: initialFace.height,
+                  Width: initialFace.width,
+                  Top: initialFace.top,
+                  Left: flippedInitialFaceLeft,
+                },
               },
-              targetFacePosition: {
-                height: ovalDetails.height,
-                width: ovalDetails.width,
-                top: ovalDetails.centerY - ovalDetails.height / 2,
-                left: ovalDetails.centerX - ovalDetails.width / 2,
-              },
-              recordingTimestamps: {
-                videoStart: recordingStartTimestampMs,
-                initialFaceDetected: initialFace.timestampMs,
-                faceDetectedInTargetPositionStart: startFace.timestampMs,
-                faceDetectedInTargetPositionEnd: endFace.timestampMs,
-              },
-              colorSequence: {
-                colorTimestampList: [],
+              TargetFace: {
+                FaceDetectedInTargetPositionStartTimestamp:
+                  startFace.timestampMs,
+                FaceDetectedInTargetPositionEndTimestamp: endFace.timestampMs,
+                BoundingBox: {
+                  Height: ovalDetails.height,
+                  Width: ovalDetails.width,
+                  Top: ovalDetails.centerY - ovalDetails.height / 2,
+                  Left: ovalDetails.centerX - ovalDetails.width / 2,
+                },
               },
             },
           },
         };
 
-        await livenessStreamProvider.videoRecorder.getBlob(); // fixme: waits for the video queue to flush before moving ending stream
         livenessStreamProvider.sendClientInfo(livenessActionDocument);
+        await livenessStreamProvider.videoRecorder.getBlob(); // fixme: waits for the video queue to flush before moving ending stream
 
-        livenessStreamProvider.endStream();
+        livenessStreamProvider.stopVideo();
+        console.log('jere');
 
         const endStreamLivenessVideoTime = Date.now();
         recordLivenessAnalyticsEvent(context.flowProps, {
           event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
-          attributes: { action: 'streamLivenessVideo' },
+          attributes: { action: 'streamLivenessVideoEnd' },
           metrics: {
             duration: endStreamLivenessVideoTime - recordingStartTimestampMs,
           },
         });
+      },
+      async getLiveness(context) {
+        const {
+          flowProps: { sessionId, onGetLivenessDetection },
+        } = context;
+        console.log('getetetetet');
 
         // Get liveness result
         const { isLive } = await onGetLivenessDetection(sessionId);
@@ -840,7 +879,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
           attributes: { action: 'getLivenessDetection' },
           metrics: {
-            duration: Date.now() - endStreamLivenessVideoTime,
+            duration: Date.now(),
           },
         });
 
@@ -861,6 +900,8 @@ const responseStreamActor = async (callback) => {
           sessionInfo: event.ServerSessionInformationEvent.SessionInformation,
         },
       });
+    } else if (isDisconnectionEvent(event)) {
+      callback({ type: 'DISCONNECT_EVENT' });
     }
   }
 };

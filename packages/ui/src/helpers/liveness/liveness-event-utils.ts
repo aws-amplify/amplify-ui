@@ -1,4 +1,5 @@
 import {
+  DisconnectionEvent,
   FaceMovementAndLightServerChallenge,
   OvalScaleFactors,
   ServerChallenge,
@@ -34,4 +35,10 @@ export const isOvalScaleFactors = (object: any): object is OvalScaleFactors => {
     typeof object.CenterX === 'number' &&
     typeof object.CenterY === 'number'
   );
+};
+
+export const isDisconnectionEvent = (
+  event: any
+): event is DisconnectionEvent => {
+  return !!event?.DisconnectionEvent;
 };

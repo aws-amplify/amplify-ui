@@ -51,6 +51,7 @@ export interface LivenessContext {
   errorState: LivenessErrorState | null;
   livenessStreamProvider: LivenessStreamProvider;
   responseStreamActorRef: ActorRef<any>;
+  shouldDisconnect: boolean | undefined;
 }
 
 export type LivenessEventTypes =
@@ -59,7 +60,8 @@ export type LivenessEventTypes =
   | 'TIMEOUT'
   | 'ERROR'
   | 'CANCEL'
-  | 'SET_SESSION_INFO';
+  | 'SET_SESSION_INFO'
+  | 'DISCONNECT_EVENT';
 
 export type LivenessEventData = Record<PropertyKey, any>; // TODO: this should be typed further
 

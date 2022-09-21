@@ -9,7 +9,7 @@ export interface VideoRecorderOptions {
  * Helper wrapper class over the native MediaRecorder.
  */
 export class VideoRecorder {
-  public videoStream: ReadableStream<Blob>;
+  public videoStream: ReadableStream<Blob | string>;
 
   private _recorder: MediaRecorder;
   private _stream: MediaStream;
@@ -50,9 +50,13 @@ export class VideoRecorder {
         this._recorder.addEventListener(
           'clientSesssionInfo',
           (e: MessageEvent) => {
-            controller.enqueue(e.data.livenessActionDocument);
+            controller.enqueue(e.data.clientInfo);
           }
         );
+
+        this._recorder.addEventListener('stopVideo', () => {
+          controller.enqueue('stopVideo');
+        });
 
         this._recorder.addEventListener('endStream', () => {
           controller.close();
@@ -79,6 +83,10 @@ export class VideoRecorder {
     if (this.getState() === 'recording') {
       this._recorder.stop();
     }
+  }
+
+  pause(): void {
+    this._recorder.pause();
   }
 
   clearRecordedData(): void {

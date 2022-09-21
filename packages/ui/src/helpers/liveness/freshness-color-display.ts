@@ -160,13 +160,16 @@ export class FreshnessColorDisplay {
   ) {
     const { livenessStreamProvider, challengeId } = this.context;
     livenessStreamProvider.sendClientInfo({
+      DeviceInformation: undefined,
       Challenge: {
-        ChallengeId: challengeId,
-        ColorDisplayed: {
-          CurrentColor: { RGB: getRGBArrayFromColorString(nextColor) },
-          PreviousColor: { RGB: getRGBArrayFromColorString(prevColor) },
-          SequenceNumber: nextColorIndex,
-          CurrentColorStartTimestamp: tickStartTime,
+        FaceMovementAndLightChallenge: {
+          ChallengeId: challengeId,
+          ColorDisplayed: {
+            CurrentColor: { RGB: getRGBArrayFromColorString(nextColor) },
+            PreviousColor: { RGB: getRGBArrayFromColorString(prevColor) },
+            SequenceNumber: nextColorIndex,
+            CurrentColorStartTimestamp: tickStartTime,
+          },
         },
       },
     });

@@ -540,10 +540,11 @@ export function getColorsSequencesFromSessionInformation(
   return colorSequences;
 }
 
-export function getRGBArrayFromColorString(colorStr: string) {
+export function getRGBArrayFromColorString(colorStr: string): number[] {
   return colorStr
     .slice(colorStr.indexOf('(') + 1, colorStr.indexOf(')'))
-    .split(', ');
+    .split(', ')
+    .map((str) => parseInt(str));
 }
 
 export async function getFaceMatchState(
