@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react
 
+## 3.5.4
+
+### Patch Changes
+
+- [#2623](https://github.com/aws-amplify/amplify-ui/pull/2623) [`8afed9306`](https://github.com/aws-amplify/amplify-ui/commit/8afed9306e2e7acc6ce42b20b9a9af2dd70f0ef1) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(ui-react): fix withAuthenticator signOut function typing
+
 ## 3.5.3
 
 ### Patch Changes
