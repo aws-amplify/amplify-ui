@@ -30,6 +30,7 @@ export function createAuthenticatorMachine() {
         actorRef: undefined,
         hasSetup: false,
       },
+      predictableActionArguments: true,
       states: {
         // See: https://xstate.js.org/docs/guides/communication.html#invoking-promises
         idle: {

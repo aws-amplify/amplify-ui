@@ -60,6 +60,7 @@ export function signInActor({ services }: SignInMachineOptions) {
     {
       initial: 'init',
       id: 'signInActor',
+      predictableActionArguments: true,
       states: {
         init: {
           always: [
