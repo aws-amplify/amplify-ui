@@ -94,9 +94,8 @@ Feature: Sign In with TOTP MFA
     Then I see "Confirmation Code"
     And I type a valid confirmation code
     And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }' with fixture "confirm-sign-up-with-email"
-    And I mock 'Amplify.Auth.signIn' with fixture "Auth.signIn-mfa-setup"
     And I click the "Confirm" button
-    And I mock "autoSignIn" event
+    And I mock "autoSignIn" event with fixture "Auth.signIn-mfa-setup"
     Then I see "Setup TOTP"
     Then I see "Code"
     And I type a valid confirmation code

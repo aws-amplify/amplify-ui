@@ -4,7 +4,6 @@
 
 import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 import { get, escapeRegExp } from 'lodash';
-import { readFile } from 'fs/promises';
 
 let language = 'en-US';
 let window = null;
@@ -108,6 +107,7 @@ Given(
     cy.fixture(fixture).then((result) => {
       console.info('`%s` mocked with %o', path, result);
       stub = cy.stub(obj, method);
+      console.log('stub', stub);
       stub.returns(result);
     });
   }
@@ -115,6 +115,7 @@ Given(
 
 When('Sign in was called with {string}', (username: string) => {
   let tempStub = stub.calledWith(username, Cypress.env('VALID_PASSWORD'));
+  console.log('tempStub', username);
   stub = null;
   expect(tempStub).to.be.true;
 });
@@ -340,11 +341,9 @@ When(
       throw new Error('Hub is not available on the window.');
     }
 
-    const path = '../../fixtures/';
-    const file = await readFile(`${path}${fixture}.json`, 'utf8');
-    const data = JSON.parse(file);
-
-    Hub.dispatch('auth', { event: eventName, data });
+    cy.fixture(fixture).then((data) => {
+      Hub.dispatch('auth', { event: eventName, data });
+    });
   }
 );
 

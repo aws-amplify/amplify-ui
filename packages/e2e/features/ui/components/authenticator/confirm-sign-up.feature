@@ -41,8 +41,6 @@ Feature: Confirm Sign Up
     And I see "Confirmation Code"
     And I type a valid confirmation code
     And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }' with fixture "confirm-sign-up-with-email"
-    # Mocking these two calls is much easier than intercepting 6+ network calls with tokens that are validated & expire within the hour
-    And I mock 'Amplify.Auth.signIn' with fixture "Auth.signIn-verified-email"
     And I mock 'Amplify.Auth.currentAuthenticatedUser' with fixture "Auth.currentAuthenticatedUser-verified-email"
     And I click the "Confirm" button
     And I mock "autoSignIn" event
@@ -55,9 +53,7 @@ Feature: Confirm Sign Up
     And I confirm my password
     And I click the "Create Account" button
     Then I see "Confirmation Code"
-    # Mocking these two calls is much easier than intercepting 6+ network calls with tokens that are validated & expire within the hour
     And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ResendConfirmationCode" } }' with error fixture "user-already-confirmed-error"
-    And I mock 'Amplify.Auth.signIn' with fixture "Auth.signIn-verified-email"
     And I mock 'Amplify.Auth.currentAuthenticatedUser' with fixture "Auth.currentAuthenticatedUser-verified-email"
     And I click the "Resend Code" button
     And I mock "autoSignIn" event
