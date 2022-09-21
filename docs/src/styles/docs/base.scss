@@ -246,9 +246,10 @@ h4:hover > a .icon-link {
     var(--amplify-colors-border-tertiary);
 
   /* custom vars */
-  // Setting dev center nav height to 0 by default, if the dev center nav
-  // is shown, this variable will change. Change this to 3rem post-launch
+  --docs-dev-center-nav-height: 3rem;
+  /* Remove after Global Nav launch START */
   --docs-dev-center-nav-height: 0rem;
+  /* Remove after Global Nav launch END */
   --docs-header-height: 4rem;
   --docs-gradient-color-hsl: 210, 0%, 100%;
   --docs-callout-bg: var(--amplify-colors-brand-primary-10);
