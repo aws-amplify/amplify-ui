@@ -98,6 +98,7 @@ jobs:
           - angular
           - vue
           - react
+          - react-core
 
     steps:
       - name: Checkout Amplify UI
