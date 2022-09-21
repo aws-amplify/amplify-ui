@@ -19,24 +19,12 @@ export interface LivenessFlowProps {
    * logic on confidence scores and not expose the score on client
    *
    */
-  onGetLivenessDetection: (
-    sessionId: string
-  ) => Promise<GetLivenessDetectionCallbackResponse>;
-
-  /**
-   * Prop to mark the flow as active in controlled mode
-   */
-  active?: boolean;
-
-  /**
-   * Callback called when the flow is being exited
-   */
-  onExit?: () => void;
+  onGetLivenessDetection: (sessionId: string) => Promise<GetLivenessResult>;
 
   /**
    * Callback called when the user denies any required permissions
    */
-  onUserPermissionDeined?: () => void;
+  onUserPermissionDenied?: (error: Error) => void;
 
   /**
    * Callback called when the flow times out after retry attempts
@@ -76,7 +64,7 @@ export interface LivenessFlowProps {
 /**
  * The object to be returned as part of the onGetLivenessDetection callback
  */
-export interface GetLivenessDetectionCallbackResponse {
+export interface GetLivenessResult {
   isLive: boolean;
 }
 

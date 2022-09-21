@@ -29,7 +29,6 @@ export default function LivenessDefault() {
             sessionId={createLivenessSessionApiData.sessionId}
             sessionInformation={createLivenessSessionApiData.sessionInformation}
             onGetLivenessDetection={handleGetLivenessDetection}
-            onExit={stopLiveness}
             enableAnalytics={true}
           />
 

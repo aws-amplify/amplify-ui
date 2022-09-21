@@ -26,21 +26,9 @@ describe('LivenessFlow', () => {
     jest.clearAllMocks();
   });
 
-  it('should render the flow by default without active props', () => {
+  it('should render the flow by default', () => {
     render(<LivenessFlow {...defaultProps} />);
     expect(screen.getByTestId(livenessFlowTestId)).toBeInTheDocument();
-  });
-
-  it('should respect the value of controllable active prop for rendering', () => {
-    const { rerender } = render(
-      <LivenessFlow {...defaultProps} active onExit={() => {}} />
-    );
-    expect(screen.getByTestId(livenessFlowTestId)).toBeInTheDocument();
-
-    rerender(
-      <LivenessFlow {...defaultProps} active={false} onExit={() => {}} />
-    );
-    expect(screen.queryByTestId(livenessFlowTestId)).not.toBeInTheDocument();
   });
 
   /**
@@ -85,15 +73,7 @@ describe('LivenessFlow', () => {
   */
 
   it('should NOT show the check screen if disableStartScreen is true and active is false', () => {
-    render(
-      <LivenessFlow
-        {...defaultProps}
-        disableStartScreen={true}
-        active={false}
-      />
-    );
-    expect(
-      screen.queryByTestId(livenessFlowCheckTestId)
-    ).not.toBeInTheDocument();
+    render(<LivenessFlow {...defaultProps} disableStartScreen={true} />);
+    expect(screen.queryByTestId(livenessFlowCheckTestId)).toBeInTheDocument();
   });
 });
