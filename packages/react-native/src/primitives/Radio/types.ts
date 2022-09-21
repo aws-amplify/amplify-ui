@@ -1,6 +1,6 @@
 import { StyleProp, TextStyle, ViewProps, ViewStyle } from 'react-native';
 
-export interface RadioProps<T> extends ViewProps {
+export interface RadioProps<T> extends Omit<ViewProps, 'accessibilityRole'> {
   buttonStyle?: StyleProp<TextStyle>;
   // direction can be a prop on RadioGroupField
   // direction?: 'horizontal' | 'vertical';

@@ -52,7 +52,10 @@ export default function Radio<T>({
         <Label style={labelStyle}>{label}</Label>
       ) : null}
       <Pressable onPress={handleOnChange} hitSlop={5}>
-        <View style={[styles.radio, ...(size ? [styles.radio[size]] : [])]}>
+        <View
+          accessibilityRole="radio"
+          style={[styles.radio, ...(size ? [styles.radio[size]] : [])]}
+        >
           {selected ? (
             <View
               style={[
