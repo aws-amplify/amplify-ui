@@ -35,7 +35,12 @@ interface RadioSizes {
   small: RadioSize;
 }
 
+interface DisabledState {
+  opacity: ViewStyle['opacity'];
+}
+
 export interface RadioStyles {
   inner: ViewStyle & RadioSizes;
   outer: ViewStyle & RadioSizes;
+  _disabled: DisabledState;
 }

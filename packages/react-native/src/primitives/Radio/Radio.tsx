@@ -1,7 +1,5 @@
-import React, { useMemo } from 'react';
-import { TouchableWithoutFeedback, View, ViewStyle } from 'react-native';
-
-// import { icons } from '../../assets';
+import React, { useCallback, useMemo } from 'react';
+import { Pressable, View, ViewStyle } from 'react-native';
 
 import { Label } from '../index';
 
@@ -18,44 +16,40 @@ export default function Radio<T>({
   selected,
   size,
   style,
-  // value,
+  value,
   ...rest
 }: RadioProps<T>): JSX.Element {
-  // const [pressed, setPressed] = useState(false);
-
-  // const handleOnPress = () => {
-  //   setPressed(!pressed);
-  // };
-
-  const labelPrecedesIcon =
+  const labelPrecedesButton =
     labelPosition === 'start' || labelPosition === 'top';
 
-  // placeholder
-  const handleOnChange = () => {
-    onChange?.();
-  };
-  // const handleOnChange = useCallback(() => {
-  //   onChange?.(value);
-  // }, [onChange, value]);
+  const handleOnChange = useCallback(() => {
+    if (!disabled) {
+      onChange?.(value);
+    }
+  }, [onChange, value, disabled]);
 
   const containerStyle: ViewStyle = useMemo(
     () => ({
+      // move alignItems into styles
       alignItems: 'center',
       flexDirection:
         labelPosition === 'bottom' || labelPosition === 'top'
           ? 'column'
           : 'row',
-      opacity: disabled ? 0.6 : 1,
+      // opacity: disabled ? 0.6 : 1,
     }),
-    [disabled, labelPosition]
+    [labelPosition]
   );
 
   return (
-    <View {...rest} style={[containerStyle, style]}>
-      {label && labelPrecedesIcon ? (
+    <View
+      {...rest}
+      style={[containerStyle, disabled ? [styles._disabled] : [], style]}
+    >
+      {label && labelPrecedesButton ? (
         <Label style={labelStyle}>{label}</Label>
       ) : null}
-      <TouchableWithoutFeedback onPress={handleOnChange}>
+      <Pressable onPress={handleOnChange} hitSlop={5}>
         <View style={[styles.outer, ...(size ? [styles.outer[size]] : [])]}>
           {selected ? (
             <View
@@ -63,8 +57,8 @@ export default function Radio<T>({
             />
           ) : null}
         </View>
-      </TouchableWithoutFeedback>
-      {label && !labelPrecedesIcon ? (
+      </Pressable>
+      {label && !labelPrecedesButton ? (
         <Label style={labelStyle}>{label}</Label>
       ) : null}
     </View>

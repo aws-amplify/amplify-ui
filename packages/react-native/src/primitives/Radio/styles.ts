@@ -43,6 +43,9 @@ export const styles: RadioStyles = StyleSheet.create({
       borderRadius: 10,
     },
   },
+  _disabled: {
+    opacity: 0.6,
+  },
   // focused: {
   //   borderWidth: 30,
   //   borderColor: '#15404d',
