@@ -1,8 +1,5 @@
 import * as React from 'react';
-import {
-  AuthenticatorMachineOptions,
-  CognitoUserAmplify,
-} from '@aws-amplify/ui';
+import { AuthenticatorMachineOptions, AmplifyUser } from '@aws-amplify/ui';
 
 import {
   Provider,
@@ -29,7 +26,7 @@ export type AuthenticatorProps = Partial<
         | React.ReactNode
         | ((props: {
             signOut?: UseAuthenticator['signOut'];
-            user?: CognitoUserAmplify;
+            user?: AmplifyUser;
           }) => JSX.Element);
     }
 >;
