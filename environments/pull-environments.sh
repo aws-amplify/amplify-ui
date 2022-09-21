@@ -54,7 +54,6 @@ regexMatch=""
 if [[ "$uname" == "Darwin" ]]; then
   # macOS has find syntax `find -E . [...]`.
   if [ -z "$exclude" ]; then
-    echo "find -E . -regex "$include""
     regexMatch=$(find -E . -regex "$include")
   else
     regexMatch=$(find -E . -regex "$include" -not -regex "$exclude")
