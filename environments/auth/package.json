@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "pull": "../pull-environments.sh -r us-east-1",
-    "pull:phone": "../pull-environments.sh -r us-east-1 -i \"\\./auth-with-((phone-and-sms-mfa)|(phone-number)|(totp-and-sms-mfa))\"",
-    "pull:non-phone": "../pull-environments.sh -r us-east-1 -e \"\\./auth-with-((phone-and-sms-mfa)|(phone-number)|(totp-and-sms-mfa))\""
+    "pull:phone": "yarn pull -i \"\\./auth-with-((phone-and-sms-mfa)|(phone-number)|(totp-and-sms-mfa))\"",
+    "pull:non-phone": "yarn pull -e \"\\./auth-with-((phone-and-sms-mfa)|(phone-number)|(totp-and-sms-mfa))\""
   }
 }
