@@ -6,11 +6,9 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import { IconButtonProps } from '..';
-
 export interface RadioProps<T> extends ViewProps {
-  buttonStyle?: IconButtonProps['style'];
-  // direction can be a prop on RadioGroup
+  buttonStyle?: StyleProp<TextStyle>;
+  // direction can be a prop on RadioGroupField
   // direction?: 'horizontal' | 'vertical';
   disabled?: boolean;
   iconStyle?: StyleProp<ImageStyle>;
@@ -20,8 +18,7 @@ export interface RadioProps<T> extends ViewProps {
   onChange?: (value?: T) => void;
   size?: 'small' | 'large';
   selected?: boolean;
-  // does value need to be required?
-  value?: T;
+  value: T;
 }
 
 interface RadioSize {
@@ -40,7 +37,8 @@ interface DisabledState {
 }
 
 export interface RadioStyles {
-  inner: ViewStyle & RadioSizes;
-  outer: ViewStyle & RadioSizes;
+  container: ViewStyle;
+  radio: ViewStyle & RadioSizes;
+  radioButton: ViewStyle & RadioSizes;
   _disabled: DisabledState;
 }

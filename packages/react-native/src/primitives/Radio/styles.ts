@@ -3,7 +3,10 @@ import { StyleSheet } from 'react-native';
 import { RadioStyles } from './types';
 
 export const styles: RadioStyles = StyleSheet.create({
-  outer: {
+  container: {
+    alignItems: 'center',
+  },
+  radio: {
     height: 30,
     width: 30,
     borderRadius: 30,
@@ -25,7 +28,7 @@ export const styles: RadioStyles = StyleSheet.create({
       borderRadius: 20,
     },
   },
-  inner: {
+  radioButton: {
     backgroundColor: '#317d95',
     height: 15,
     width: 15,
@@ -46,10 +49,4 @@ export const styles: RadioStyles = StyleSheet.create({
   _disabled: {
     opacity: 0.6,
   },
-  // focused: {
-  //   borderWidth: 30,
-  //   borderColor: '#15404d',
-  //   outlineColor: 'red',
-  //   outlineWidth: 4,
-  // },
 });
