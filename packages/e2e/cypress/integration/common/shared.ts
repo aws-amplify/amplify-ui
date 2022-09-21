@@ -4,6 +4,7 @@
 
 import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 import { get, escapeRegExp } from 'lodash';
+import { readFile } from 'fs/promises';
 
 let language = 'en-US';
 let window = null;
@@ -326,6 +327,26 @@ When('I mock {string} event', (eventName: string) => {
 
   Hub.dispatch('auth', { event: eventName, data: {} });
 });
+
+When(
+  'I mock {string} event with fixture {string}',
+  async (eventName: string, fixture: string) => {
+    if (!window) {
+      throw new Error('window has not been set in the Cypress tests');
+    }
+
+    const Hub = window['Hub'];
+    if (!Hub) {
+      throw new Error('Hub is not available on the window.');
+    }
+
+    const path = '../../fixtures/';
+    const file = await readFile(`${path}${fixture}.json`, 'utf8');
+    const data = JSON.parse(file);
+
+    Hub.dispatch('auth', { event: eventName, data });
+  }
+);
 
 Given('I spy {string} method', (path) => {
   const { obj, method } = getMethodFromWindow(path);
