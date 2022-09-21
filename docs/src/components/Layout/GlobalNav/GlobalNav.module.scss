@@ -1,0 +1,183 @@
+// This class is added to the sites that aren't using the Amplify UI theme provider and is creating the variables that are being used in dark mode of Amplify UI
+.use-ui-theme {
+  --amplify-colors-font-primary: #232f3e;
+  --amplify-colors-font-tertiary: #545b64;
+  --amplify-colors-background-primary: white;
+  --amplify-colors-font-hover: #000;
+}
+
+.navbar {
+  background-color: var(--amplify-colors-neutral-90);
+  position: sticky;
+  top: 0px;
+  z-index: 200;
+
+  a,
+  p,
+  span {
+    font-family: 'Amazon Ember';
+    -webkit-font-smoothing: auto !important;
+    -moz-osx-font-smoothing: auto !important;
+  }
+
+  // Top level navbar element, create all of the variables that will be used throughout the unified navbar
+  --navbar-border-color: var(--amplify-colors-neutral-80);
+  --navbar-current-property-color: #ff9900;
+  --secondary-nav-hover-color: black;
+  --secondary-nav-hover-background-color: var(--amplify-colors-neutral-90);
+  --dev-center-nav-height: 3rem;
+  --amplify-colors-font-hover: var(--amplify-colors-neutral-10);
+}
+
+[data-amplify-theme='amplify-docs'][data-amplify-color-mode='dark'] .navbar {
+  --amplify-colors-font-hover: inherit;
+}
+
+[data-amplify-theme='amplify-docs'][data-amplify-color-mode='system'] .navbar {
+  @media (prefers-color-scheme: dark) {
+    --amplify-colors-font-hover: inherit;
+  }
+}
+
+.dev-center-logo {
+  color: var(--amplify-colors-neutral-10);
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
+.nav-container {
+  display: flex;
+  height: var(--dev-center-nav-height);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mobile-nav-container {
+  display: flex;
+  height: var(--dev-center-nav-height);
+  align-items: stretch;
+  justify-content: space-between;
+}
+
+.nav-links-container {
+  height: var(--dev-center-nav-height);
+  align-items: center;
+  justify-content: space-between;
+  align-items: stretch;
+  padding-block: 0;
+  padding-inline: var(--amplify-space-large);
+}
+
+.mobile-nav-menu-container {
+  z-index: 1000;
+  background-color: var(--amplify-colors-neutral-90);
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.mobile-nav-icons-container {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+
+  svg {
+    display: block;
+    margin: auto;
+  }
+}
+
+.mobile-nav-menu-items {
+  border-top: 1px solid var(--navbar-border-color);
+  padding-inline: var(--amplify-space-small);
+  height: var(--dev-center-nav-height);
+  width: 100%;
+}
+
+.nav-menu-item {
+  padding: 0 var(--amplify-space-xs);
+  display: flex;
+  align-items: center;
+  height: 100%;
+  font-size: var(--amplify-font-sizes-small);
+  text-decoration: none;
+  color: var(--amplify-colors-neutral-40) !important;
+  font-family: 'Amazon Ember';
+  font-weight: 400;
+
+  white-space: nowrap;
+
+  &:hover,
+  &:focus {
+    color: var(--amplify-colors-neutral-10) !important;
+
+    .custom-path-stroke {
+      stroke: var(--amplify-colors-neutral-10);
+    }
+  }
+
+  .custom-path-stroke {
+    stroke: var(--amplify-colors-neutral-40);
+  }
+}
+
+.secondary-nav-button {
+  border: 1px var(--navbar-border-color);
+  border-style: solid none;
+
+  // Set color for back chevron icon
+  color: var(--amplify-colors-neutral-20);
+
+  p {
+    color: var(--amplify-colors-neutral-20);
+  }
+
+  &:focus,
+  &:hover {
+    color: var(--secondary-nav-hover-color);
+    border: 1px solid var(--navbar-border-color);
+
+    /* Override the button's background color */
+    background-color: var(--secondary-nav-hover-background-color) !important;
+
+    p {
+      color: var(--amplify-colors-font-hover);
+    }
+  }
+}
+
+.current-nav-menu-item {
+  border-top: 2px solid transparent;
+  border-bottom: 2px solid var(--navbar-current-property-color);
+  color: var(--amplify-colors-neutral-10) !important;
+}
+
+.icon-link-hover {
+  &:hover {
+    color: var(--amplify-colors-font-hover);
+  }
+}
+
+.chevron-icon {
+  fill: var(--amplify-colors-neutral-40);
+}
+
+.background-overlay {
+  background-color: var(--amplify-colors-overlay-40);
+  z-index: 150;
+  height: calc(100vh - var(--dev-center-nav-height));
+  width: 100vw;
+  position: fixed;
+
+  /* Hide the background overlay underneath the navbar by an arbitrary amount */
+  top: calc(var(--dev-center-nav-height) * 4);
+}
+
+.secondary-nav-mobile {
+  z-index: 200;
+  background-color: var(--amplify-colors-neutral-90);
+  color: var(--amplify-colors-neutral-20);
+}

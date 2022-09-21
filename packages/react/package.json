@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react",
-  "version": "3.5.2",
+  "version": "3.5.4",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "exports": {
@@ -55,7 +55,7 @@
     "size": "yarn run size-limit"
   },
   "dependencies": {
-    "@aws-amplify/ui": "3.13.3",
+    "@aws-amplify/ui": "3.13.4",
     "@aws-amplify/ui-react-v1": "npm:@aws-amplify/ui-react@1.2.9",
     "@radix-ui/react-accordion": "0.1.6",
     "@radix-ui/react-dropdown-menu": "0.1.6",
