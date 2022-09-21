@@ -9,8 +9,39 @@ import { getVideoConstraints } from '../StartLiveness/helpers';
 import { useMediaStreamInVideo, useLivenessActor } from '../hooks';
 
 jest.mock('../../../styles.css', () => ({}));
+jest.mock('@xstate/react');
+jest.mock('../StartLiveness/helpers');
+jest.mock('../hooks');
+
+const mockUseActor = getMockedFunction(useActor);
+const mockUseLivenessActor = getMockedFunction(useLivenessActor);
+const mockGetVideoConstraints = getMockedFunction(getVideoConstraints);
+const mockUseMediaStreamInVideo = getMockedFunction(useMediaStreamInVideo);
+const mockMatches = jest.fn().mockImplementation(() => {
+  return true;
+});
 
 describe('LivenessFlow', () => {
+  const mockActorState: any = {
+    matches: mockMatches,
+  };
+  const mockActorSend = jest.fn();
+
+  mockUseActor.mockReturnValue([mockActorState, mockActorSend]);
+  mockUseLivenessActor.mockReturnValue([mockActorState, mockActorSend]);
+  mockUseMediaStreamInVideo.mockReturnValue({
+    videoRef: { current: document.createElement('video') },
+    videoHeight: 100,
+    videoWidth: 100,
+    streamOffset: 20,
+  });
+
+  const mockVideoConstraints = {};
+  mockGetVideoConstraints.mockReturnValue(mockVideoConstraints);
+  mockMatches.mockImplementation(() => {
+    return false;
+  });
+
   const defaultProps: LivenessFlowProps = {
     sessionId: 'sessionId',
     sessionInformation: 'sessionInformation',
@@ -20,7 +51,6 @@ describe('LivenessFlow', () => {
   };
   const livenessFlowTestId = 'liveness-detector';
   const livenessFlowCheckTestId = 'liveness-detector-check';
-  const cancelButtonName = 'Cancel';
 
   afterEach(() => {
     jest.clearAllMocks();
@@ -72,7 +102,7 @@ describe('LivenessFlow', () => {
   });
   */
 
-  it('should NOT show the check screen if disableStartScreen is true and active is false', () => {
+  it('should show the check screen if disableStartScreen is true', () => {
     render(<LivenessFlow {...defaultProps} disableStartScreen={true} />);
     expect(screen.queryByTestId(livenessFlowCheckTestId)).toBeInTheDocument();
   });
