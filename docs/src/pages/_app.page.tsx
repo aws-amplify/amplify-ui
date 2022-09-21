@@ -89,7 +89,7 @@ function MyApp({ Component, pageProps }) {
         <ThemeProvider theme={baseTheme} colorMode={colorMode}>
           {
             /* Remove after Global Nav launch START */
-            isGlobalNavEnabled /* Remove after Global Nav launch END */ ? (
+            isGlobalNavEnabled ? (  /* Remove after Global Nav launch END */
               <GlobalNav
                 rightLinks={RIGHT_NAV_LINKS as NavMenuItem[]}
                 leftLinks={LEFT_NAV_LINKS as NavMenuItem[]}
