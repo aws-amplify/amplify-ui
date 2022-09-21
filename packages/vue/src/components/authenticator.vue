@@ -17,7 +17,7 @@ import {
   AuthenticatorMachineOptions,
   createAuthenticatorMachine,
   translate,
-  CognitoUserAmplify,
+  AmplifyUser,
   SocialProvider,
   listenToAuthHub,
   AuthFormFields,
@@ -222,7 +222,7 @@ const onConfirmVerifyUserSubmitI = (e: Event) => {
  * Update service facade when context updates
  */
 
-const user: Ref<CognitoUserAmplify | null> = ref(null);
+const user: Ref<AmplifyUser | null> = ref(null);
 const signOut = ref();
 
 watch(
