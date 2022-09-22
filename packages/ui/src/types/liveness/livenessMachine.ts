@@ -52,6 +52,7 @@ export interface LivenessContext {
   livenessStreamProvider: LivenessStreamProvider;
   responseStreamActorRef: ActorRef<any>;
   shouldDisconnect: boolean | undefined;
+  faceMatchStateBeforeStart: FaceMatchState;
 }
 
 export type LivenessEventTypes =
@@ -61,7 +62,8 @@ export type LivenessEventTypes =
   | 'ERROR'
   | 'CANCEL'
   | 'SET_SESSION_INFO'
-  | 'DISCONNECT_EVENT';
+  | 'DISCONNECT_EVENT'
+  | 'SET_DOM_AND_CAMERA_DETAILS';
 
 export type LivenessEventData = Record<PropertyKey, any>; // TODO: this should be typed further
 

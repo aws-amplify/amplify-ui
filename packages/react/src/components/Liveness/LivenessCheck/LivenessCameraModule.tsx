@@ -46,15 +46,21 @@ export const LivenessCameraModule = (
   const isNotRecording = state.matches('notRecording');
   const isRecording = state.matches('recording');
 
+  React.useLayoutEffect(() => {
+    if (isCameraReady) {
+      send({
+        type: 'SET_DOM_AND_CAMERA_DETAILS',
+        data: {
+          videoEl: videoRef.current,
+          canvasEl: canvasRef.current,
+          freshnessColorEl: freshnessColorRef.current,
+        },
+      });
+    }
+  }, [send, videoRef, isCameraReady]);
+
   const timerCompleteHandler = () => {
-    send({
-      type: 'START_RECORDING',
-      data: {
-        videoEl: videoRef.current,
-        canvasEl: canvasRef.current,
-        freshnessColorEl: freshnessColorRef.current,
-      },
-    });
+    send({ type: 'START_RECORDING' });
   };
 
   const handleMediaPlay = () => {

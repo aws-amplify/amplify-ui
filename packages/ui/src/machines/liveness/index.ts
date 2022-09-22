@@ -1,5 +1,8 @@
 import { createMachine, assign, actions, send, spawn } from 'xstate';
-import { getColorsSequencesFromSessionInformation } from '../../helpers/liveness/liveness';
+import {
+  getColorsSequencesFromSessionInformation,
+  getFaceMatchState,
+} from '../../helpers/liveness/liveness';
 
 import {
   Face,
@@ -9,10 +12,6 @@ import {
   LivenessErrorState,
   IlluminationState,
 } from '../../types';
-import {
-  ChallengeType,
-  ClientSessionInformation,
-} from '../../types/liveness/liveness-service-types';
 import {
   BlazeFaceFaceDetection,
   drawLivenessOvalInCanvas,
@@ -30,8 +29,6 @@ import {
   isServerSesssionInformationEvent,
   isDisconnectionEvent,
 } from '../../helpers/liveness/liveness-event-utils';
-import { getRandomScalingAttributesStr } from '../../helpers/liveness/liveness';
-import { DeviceInformation } from '../../../dist/types/types/liveness/liveness-service-types';
 import {
   ClientSessionInformationEvent,
   LivenessResponseStream,
@@ -42,10 +39,8 @@ export const MIN_FACE_MATCH_COUNT = 5;
 // timer metrics variables
 let faceDetectedTimestamp: number;
 let ovalDrawnTimestamp: number;
-let freshnessTimeoutId: NodeJS.Timeout;
 
 let responseStream: Promise<AsyncIterable<LivenessResponseStream>> = undefined;
-let ovalDetailsFromProps = undefined;
 
 export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
   {
@@ -54,7 +49,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
     predictableActionArguments: true,
     context: {
       challengeId: v4(),
-      maxFailedAttempts: 3,
+      maxFailedAttempts: 0, // Set to 0 for now as we are now allowing front end based retries for streaming
       failedAttempts: 0,
       flowProps: undefined,
       serverSessionInformation: undefined,
@@ -78,6 +73,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       livenessStreamProvider: undefined,
       responseStreamActorRef: undefined,
       shouldDisconnect: false,
+      faceMatchStateBeforeStart: undefined,
     },
     on: {
       CANCEL: 'userCancel',
@@ -93,6 +89,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         internal: true,
         actions: 'updateShouldDisconnect',
       },
+      SET_DOM_AND_CAMERA_DETAILS: {
+        actions: 'setDOMAndCameraDetails',
+      },
     },
     states: {
       start: {
@@ -105,12 +104,40 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         invoke: {
           src: 'checkVirtualCameraAndGetStream',
           onDone: {
-            target: 'initializeLivenessStream',
+            target: 'waitForDOMAndCameraDetails',
             actions: ['updateVideoMediaStream'],
           },
           onError: {
             target: 'permissionDenied',
           },
+        },
+      },
+      waitForDOMAndCameraDetails: {
+        after: {
+          0: {
+            target: 'detectFaceBeforeStart',
+            cond: 'hasDOMAndCameraDetails',
+          },
+          // setting this to check every 100 ms sometimes caused detectFaceBeforeStart to be called twice
+          500: { target: 'waitForDOMAndCameraDetails' },
+        },
+      },
+      detectFaceBeforeStart: {
+        invoke: {
+          src: 'detectFace',
+          onDone: {
+            target: 'checkFaceDetectedBeforeStart',
+            actions: ['updateFaceMatchBeforeStartDetails'],
+          },
+        },
+      },
+      checkFaceDetectedBeforeStart: {
+        after: {
+          0: {
+            target: 'initializeLivenessStream',
+            cond: 'hasSingleFaceBeforeStart',
+          },
+          100: { target: 'detectFaceBeforeStart' },
         },
       },
       initializeLivenessStream: {
@@ -131,7 +158,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         },
       },
       waitForSessionInfo: {
-        entry: ['setDOMAndCameraDetails'],
         after: {
           0: {
             target: 'recording',
@@ -174,7 +200,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             },
           },
           ovalMatching: {
-            entry: ['cancelOvalDrawingTimeout', 'resetFreshness'],
+            entry: ['cancelOvalDrawingTimeout'],
             invoke: {
               src: 'detectFaceAndMatchOval',
               onDone: {
@@ -221,12 +247,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             },
           },
           flashFreshnessColorError: {
-            entry: ['resetFreshness'],
-            after: {
-              5000: {
-                target: 'ovalMatching',
-              },
-            },
+            entry: ['updateErrorStateForFreshnessTimeout'],
+            always: [{ target: '#livenessMachine.timeout' }],
           },
           success: {
             entry: ['stopRecording'],
@@ -352,11 +374,13 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         },
       }),
       setDOMAndCameraDetails: assign({
-        videoAssociatedParams: (context, event) => ({
-          ...context.videoAssociatedParams,
-          videoEl: event.data?.videoEl,
-          canvasEl: event.data?.canvasEl,
-        }),
+        videoAssociatedParams: (context, event) => {
+          return {
+            ...context.videoAssociatedParams,
+            videoEl: event.data?.videoEl,
+            canvasEl: event.data?.canvasEl,
+          };
+        },
         freshnessColorAssociatedParams: (context, event) => ({
           ...context.freshnessColorAssociatedParams,
           freshnessColorEl: event.data?.freshnessColorEl,
@@ -396,6 +420,11 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           metrics: { count: 1 },
         });
       },
+      updateFaceMatchBeforeStartDetails: assign({
+        faceMatchStateBeforeStart: (_, event) => {
+          return event.data.faceMatchState;
+        },
+      }),
       updateOvalAndFaceDetailsPostDraw: assign({
         ovalAssociatedParams: (context, event) => ({
           ...context.ovalAssociatedParams,
@@ -467,15 +496,15 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           };
         },
       }),
-      resetFreshness: (context) => {
-        const {
-          freshnessColorAssociatedParams: { freshnessColorEl },
-        } = context;
-        freshnessColorEl.hidden = true;
-        if (freshnessTimeoutId) {
-          clearTimeout(freshnessTimeoutId);
-        }
-      },
+      updateErrorStateForFreshnessTimeout: assign({
+        errorState: (context) => {
+          const {
+            freshnessColorAssociatedParams: { freshnessColorEl },
+          } = context;
+          freshnessColorEl.hidden = true;
+          return LivenessErrorState.FRESHNESS_TIMEOUT;
+        },
+      }),
       setupFlashFreshnessColors: assign({
         freshnessColorAssociatedParams: (context) => {
           const { serverSessionInformation } = context;
@@ -525,12 +554,14 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       callUserCancelCallback: (context) => {
         context.flowProps.onUserCancel?.();
       },
-      callUserTimeoutCallback: (context) => {
+      callUserTimeoutCallback: async (context) => {
         recordLivenessAnalyticsEvent(context.flowProps, {
           event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
           attributes: { action: 'FailedWithTimeout' },
           metrics: { count: 1 },
         });
+        await context.livenessStreamProvider.stopVideo();
+        context.livenessStreamProvider.endStream();
 
         context.flowProps.onUserTimeout?.();
       },
@@ -575,14 +606,25 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           FaceMatchState.FACE_IDENTIFIED
         );
       },
+      hasSingleFaceBeforeStart: (context) => {
+        return (
+          context.faceMatchStateBeforeStart === FaceMatchState.FACE_IDENTIFIED
+        );
+      },
       hasLivenessCheckSucceeded: (_, __, meta) => meta.state.event.data.isLive,
       hasFreshnessColorShown: (context) =>
         context.freshnessColorAssociatedParams.freshnessColorsComplete,
       hasServerSessionInfo: (context) => {
         return context.serverSessionInformation !== undefined;
       },
+      hasDOMAndCameraDetails: (context) => {
+        return (
+          context.videoAssociatedParams.videoEl !== undefined &&
+          context.videoAssociatedParams.canvasEl !== undefined &&
+          context.freshnessColorAssociatedParams.freshnessColorEl !== undefined
+        );
+      },
       getShouldDisconnect: (context) => {
-        console.log('should we');
         return !!context.shouldDisconnect;
       },
     },
@@ -639,6 +681,24 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         responseStream = livenessStreamProvider.getResponseStream();
         return { livenessStreamProvider };
       },
+      async detectFace(context) {
+        const {
+          videoAssociatedParams: { videoEl },
+          ovalAssociatedParams: { faceDetector },
+        } = context;
+
+        // initialize models
+        try {
+          await faceDetector.modelLoadingPromise;
+        } catch (err) {
+          console.log({ err });
+        }
+
+        // detect face
+        const faceMatchState = await getFaceMatchState(faceDetector, videoEl);
+
+        return { faceMatchState };
+      },
       async detectInitialFaceAndDrawOval(context) {
         const {
           challengeId,
@@ -648,6 +708,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             videoMediaStream,
             recordingStartTimestampMs,
           },
+          faceMatchAssociatedParams: { startFace },
           ovalAssociatedParams: { faceDetector },
           serverSessionInformation,
         } = context;
@@ -731,10 +792,15 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         const flippedInitialFaceLeft =
           width - initialFace.left - initialFace.width;
         context.livenessStreamProvider.sendClientInfo({
-          DeviceInformation: undefined,
+          DeviceInformation: {
+            ClientSDKVersion: '1.0.0',
+            VideoHeight: height,
+            VideoWidth: width,
+          },
           Challenge: {
             FaceMovementAndLightChallenge: {
               ChallengeId: challengeId,
+              VideoStartTimestamp: recordingStartTimestampMs,
               InitialFace: {
                 InitialFaceDetectedTimestamp: initialFace.timestampMs,
                 BoundingBox: {
@@ -853,10 +919,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         };
 
         livenessStreamProvider.sendClientInfo(livenessActionDocument);
-        await livenessStreamProvider.videoRecorder.getBlob(); // fixme: waits for the video queue to flush before moving ending stream
 
-        livenessStreamProvider.stopVideo();
-        console.log('jere');
+        await livenessStreamProvider.stopVideo();
 
         const endStreamLivenessVideoTime = Date.now();
         recordLivenessAnalyticsEvent(context.flowProps, {
@@ -870,8 +934,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       async getLiveness(context) {
         const {
           flowProps: { sessionId, onGetLivenessDetection },
+          livenessStreamProvider,
         } = context;
-        console.log('getetetetet');
+
+        livenessStreamProvider.endStream();
 
         // Get liveness result
         const { isLive } = await onGetLivenessDetection(sessionId);

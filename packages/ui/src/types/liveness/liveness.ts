@@ -124,4 +124,5 @@ export enum FaceMatchState {
 export enum LivenessErrorState {
   TIMEOUT = 'TIMEOUT',
   RUNTIME_ERROR = 'RUNTIME_ERROR',
+  FRESHNESS_TIMEOUT = 'FRESHNESS_TIMEOUT',
 }

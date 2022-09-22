@@ -75,7 +75,6 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
         // Video chunks blobs should be sent as video events
         if (value === 'stopVideo') {
           // sending an empty video chunk signals that we have ended sending video
-          console.log('asdf');
           yield {
             VideoEvent: {
               VideoChunk: [],
@@ -88,6 +87,7 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
           yield {
             VideoEvent: {
               VideoChunk: chunk,
+              TimestampMillis: Date.now(),
             },
           };
         } else if (isClientSessionInformationEvent(value)) {
@@ -138,9 +138,9 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
     );
   }
 
-  public stopVideo() {
+  public async stopVideo() {
     this.videoRecorder.dispatch(new Event('stopVideo'));
-    this.videoRecorder.stop();
+    await this.videoRecorder.stop();
   }
 
   public async endStream() {

@@ -37,14 +37,14 @@ export const Instruction: React.FC<InstructionProps> = () => {
   const faceMatchState = useLivenessSelector(selectFaceMatchState);
   const illuminationState = useLivenessSelector(selectIlluminationState);
 
+  const isCheckFaceDetectedBeforeStart = state.matches(
+    'checkFaceDetectedBeforeStart'
+  );
   const isNotRecording = state.matches('notRecording');
   const isWaitingForSessionInfo = state.matches('waitForSessionInfo');
   const isUploading = state.matches('uploading');
   const isCheckSuccessful = state.matches('checkSucceeded');
   const isCheckFailed = state.matches('checkFailed');
-  const isFlashFreshnessColorError = state.matches(
-    'recording.flashFreshnessColorError'
-  );
 
   const getInstructionContent = () => {
     if (errorState || isCheckFailed) {
@@ -60,6 +60,12 @@ export const Instruction: React.FC<InstructionProps> = () => {
             {isCheckFailed && translate('Check failed! Please try again.')}
           </View>
         </Flex>
+      );
+    }
+
+    if (isCheckFaceDetectedBeforeStart) {
+      return translate(
+        'Please move face into camera view to begin your session.'
       );
     }
 
@@ -104,10 +110,6 @@ export const Instruction: React.FC<InstructionProps> = () => {
 
     if (illuminationState && illuminationState !== IlluminationState.NORMAL) {
       return IlluminationStateStringMap[illuminationState];
-    }
-
-    if (isFlashFreshnessColorError) {
-      return 'Please keep face in oval while colors and scrolling';
     }
 
     return FaceMatchStateStringMap[faceMatchState];
