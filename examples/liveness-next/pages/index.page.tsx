@@ -1,11 +1,20 @@
 import dynamic from 'next/dynamic';
-import { AmplifyProvider, Tabs, TabItem } from '@aws-amplify/ui-react';
+import React from 'react';
+import {
+  defaultDarkModeOverride,
+  ThemeProvider,
+  Card,
+  Grid,
+} from '@aws-amplify/ui-react';
+import type { Theme, ColorMode } from '@aws-amplify/ui-react';
 import { Amplify } from 'aws-amplify';
 import awsExports from '@environments/liveness/src/aws-exports';
 import '@aws-amplify/ui-react/styles.css';
+import './style.css';
 
 import LivenessCard from './components/LivenessCard';
 import LivenessDefault from './components/LivenessDefault';
+import NavBar from './components/NavBar';
 
 Amplify.configure({
   ...awsExports,
@@ -25,18 +34,21 @@ Amplify.configure({
 });
 
 const App = () => {
-  return (
-    <AmplifyProvider>
-      <Tabs spacing="equal">
-        <TabItem title="Card View">
-          <LivenessCard />
-        </TabItem>
+  const [colorMode, setColorMode] = React.useState<ColorMode>('system');
+  const theme: Theme = {
+    name: 'liveness-theme',
+    overrides: [defaultDarkModeOverride],
+  };
 
-        <TabItem title="Default View">
+  return (
+    <ThemeProvider theme={theme} colorMode={colorMode}>
+      <Grid height="100%" templateRows="auto 1fr">
+        <NavBar colorMode={colorMode} setColorMode={setColorMode}></NavBar>
+        <Card>
           <LivenessDefault />
-        </TabItem>
-      </Tabs>
-    </AmplifyProvider>
+        </Card>
+      </Grid>
+    </ThemeProvider>
   );
 };
 
