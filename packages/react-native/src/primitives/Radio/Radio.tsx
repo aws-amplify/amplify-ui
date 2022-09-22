@@ -3,8 +3,8 @@ import { Pressable, View } from 'react-native';
 
 import { Label } from '../index';
 
-import { FLEX_DIRECTIONS, RadioProps } from './types';
 import { styles } from './styles';
+import { FLEX_DIRECTIONS, RadioProps } from './types';
 
 export default function Radio<T>({
   buttonStyle,
@@ -14,7 +14,7 @@ export default function Radio<T>({
   labelStyle,
   onChange,
   selected,
-  size,
+  size = 'medium',
   style,
   value,
   ...rest
@@ -28,32 +28,32 @@ export default function Radio<T>({
   const flexDirection = FLEX_DIRECTIONS[labelPosition];
 
   return (
-    <View
+    <Pressable
       {...rest}
+      // hitSlop will be platform-specific, and it partially depends on
+      // how much spacing the RadioGroupField applies
+      hitSlop={5}
+      onPress={handleOnChange}
       style={[
         styles.container,
         { flexDirection },
-        ...(disabled ? [styles._disabled] : []),
+        disabled ? [styles._disabled] : undefined,
         style,
       ]}
     >
-      <Pressable onPress={handleOnChange} hitSlop={5}>
+      <Pressable onPress={handleOnChange}>
         <View
           accessibilityRole="radio"
-          style={[styles.radio, size ? [styles.radio[size]] : undefined]}
+          style={[styles.radio, styles.radio[size]]}
         >
           {selected ? (
             <View
-              style={[
-                styles.radioButton,
-                size ? [styles.radio[size]] : undefined,
-                buttonStyle,
-              ]}
+              style={[styles.radioButton, styles.radio[size], buttonStyle]}
             />
           ) : null}
         </View>
       </Pressable>
       {label ? <Label style={labelStyle}>{label}</Label> : null}
-    </View>
+    </Pressable>
   );
 }
