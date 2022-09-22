@@ -74,8 +74,18 @@ export class FreshnessColorDisplay {
 
     // Every 10 ms tick we will check if we have reached the threshold for show a flat color
     //  If we have then we will start scrolling the next color
-    //  If we have we have reached the threshold for a scrolling color then increment the index
+    //  If we have we have reached the threshold for a scrolling color then increment the index and show a flat color
     if (!this.isScrolling) {
+      // Send a colorStart time only for the first tick of the first color
+      if (this.colorStageIndex === 0 && timeSinceLastColorChange < 20) {
+        this.sendColorStartTime(
+          tickStartTime,
+          colorSequence.color,
+          colorSequence.color,
+          this.colorStageIndex
+        );
+      }
+
       if (timeSinceLastColorChange >= colorSequence.flatDisplayDuration) {
         this.isScrolling = true;
         this.timeLastFlatOrScrollChange = Date.now();
@@ -91,6 +101,12 @@ export class FreshnessColorDisplay {
         this.isScrolling = false;
         this.colorStageIndex += 1;
         this.timeLastFlatOrScrollChange = Date.now();
+        this.sendColorStartTime(
+          tickStartTime,
+          nextColorSequence.color,
+          nextColorSequence.color,
+          this.colorStageIndex
+        );
       }
     }
 

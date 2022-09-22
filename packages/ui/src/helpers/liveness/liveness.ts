@@ -525,9 +525,10 @@ function fillFractionalContext(ctx, prevColor, nextColor, fraction) {
 export function getColorsSequencesFromSessionInformation(
   sessionInformation: SessionInformation
 ): ClientFreshnessColorSequence[] {
-  // FIXME: Get the initial color sequences from the sessionInformation
+  const colorSequenceFromSessionInfo =
+    sessionInformation.Challenge.FaceMovementAndLightChallenge.ColorSequences;
   const colorSequences: ClientFreshnessColorSequence[] =
-    MOCK_COLOR_SEQUENCES.map((colorSequence) => {
+    colorSequenceFromSessionInfo.map((colorSequence) => {
       const colorArray = colorSequence.FreshnessColor.RGB;
       const color = `rgb(${colorArray[0]},${colorArray[1]},${colorArray[2]})`;
       return {
@@ -543,7 +544,7 @@ export function getColorsSequencesFromSessionInformation(
 export function getRGBArrayFromColorString(colorStr: string): number[] {
   return colorStr
     .slice(colorStr.indexOf('(') + 1, colorStr.indexOf(')'))
-    .split(', ')
+    .split(',')
     .map((str) => parseInt(str));
 }
 
