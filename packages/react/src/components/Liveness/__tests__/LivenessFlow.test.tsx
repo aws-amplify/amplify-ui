@@ -9,8 +9,39 @@ import { getVideoConstraints } from '../StartLiveness/helpers';
 import { useMediaStreamInVideo, useLivenessActor } from '../hooks';
 
 jest.mock('../../../styles.css', () => ({}));
+jest.mock('@xstate/react');
+jest.mock('../StartLiveness/helpers');
+jest.mock('../hooks');
+
+const mockUseActor = getMockedFunction(useActor);
+const mockUseLivenessActor = getMockedFunction(useLivenessActor);
+const mockGetVideoConstraints = getMockedFunction(getVideoConstraints);
+const mockUseMediaStreamInVideo = getMockedFunction(useMediaStreamInVideo);
+const mockMatches = jest.fn().mockImplementation(() => {
+  return true;
+});
 
 describe('LivenessFlow', () => {
+  const mockActorState: any = {
+    matches: mockMatches,
+  };
+  const mockActorSend = jest.fn();
+
+  mockUseActor.mockReturnValue([mockActorState, mockActorSend]);
+  mockUseLivenessActor.mockReturnValue([mockActorState, mockActorSend]);
+  mockUseMediaStreamInVideo.mockReturnValue({
+    videoRef: { current: document.createElement('video') },
+    videoHeight: 100,
+    videoWidth: 100,
+    streamOffset: 20,
+  });
+
+  const mockVideoConstraints = {};
+  mockGetVideoConstraints.mockReturnValue(mockVideoConstraints);
+  mockMatches.mockImplementation(() => {
+    return false;
+  });
+
   const defaultProps: LivenessFlowProps = {
     sessionId: 'sessionId',
     sessionInformation: 'sessionInformation',
@@ -20,27 +51,14 @@ describe('LivenessFlow', () => {
   };
   const livenessFlowTestId = 'liveness-detector';
   const livenessFlowCheckTestId = 'liveness-detector-check';
-  const cancelButtonName = 'Cancel';
 
   afterEach(() => {
     jest.clearAllMocks();
   });
 
-  it('should render the flow by default without active props', () => {
+  it('should render the flow by default', () => {
     render(<LivenessFlow {...defaultProps} />);
     expect(screen.getByTestId(livenessFlowTestId)).toBeInTheDocument();
-  });
-
-  it('should respect the value of controllable active prop for rendering', () => {
-    const { rerender } = render(
-      <LivenessFlow {...defaultProps} active onExit={() => {}} />
-    );
-    expect(screen.getByTestId(livenessFlowTestId)).toBeInTheDocument();
-
-    rerender(
-      <LivenessFlow {...defaultProps} active={false} onExit={() => {}} />
-    );
-    expect(screen.queryByTestId(livenessFlowTestId)).not.toBeInTheDocument();
   });
 
   /**
@@ -84,16 +102,8 @@ describe('LivenessFlow', () => {
   });
   */
 
-  it('should NOT show the check screen if disableStartScreen is true and active is false', () => {
-    render(
-      <LivenessFlow
-        {...defaultProps}
-        disableStartScreen={true}
-        active={false}
-      />
-    );
-    expect(
-      screen.queryByTestId(livenessFlowCheckTestId)
-    ).not.toBeInTheDocument();
+  it('should show the check screen if disableStartScreen is true', () => {
+    render(<LivenessFlow {...defaultProps} disableStartScreen={true} />);
+    expect(screen.queryByTestId(livenessFlowCheckTestId)).toBeInTheDocument();
   });
 });

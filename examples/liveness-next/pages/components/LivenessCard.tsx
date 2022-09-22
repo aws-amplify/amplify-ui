@@ -43,8 +43,6 @@ export default function LivenessCard() {
                 createLivenessSessionApiData.sessionInformation
               }
               onGetLivenessDetection={handleGetLivenessDetection}
-              active={isLivenessActive}
-              onExit={handleExit}
               onUserCancel={handleUserExit}
               enableAnalytics={true}
             />

@@ -7,7 +7,6 @@ import {
   LIVENESS_EVENT_DISABLED_GET_READY_SCREEN,
 } from '@aws-amplify/ui';
 
-import { useControllable } from '../../hooks/useControllable';
 import { LivenessFlowProvider } from './providers';
 import { StartLiveness } from './StartLiveness';
 import { LivenessCheck } from './LivenessCheck';
@@ -20,38 +19,14 @@ const DETECTOR_CLASS_NAME = 'liveness-detector';
 export interface LivenessFlowProps extends LivenessFlowPropsFromUi {}
 
 export const LivenessFlow: React.FC<LivenessFlowProps> = (props) => {
-  const {
-    active: activeFromProps,
-    onExit: onExitFromProps,
-    onUserCancel: onUserCancelFromProps,
-    disableStartScreen = false,
-  } = props;
+  const { onUserCancel: onUserCancelFromProps, disableStartScreen = false } =
+    props;
   const currElementRef = React.useRef<HTMLDivElement>(null);
   const breakpoint = useThemeBreakpoint();
-
-  const [active, setActive] = useControllable({
-    controlledValue: activeFromProps,
-    handler: onExitFromProps,
-    defaultValue: true,
-    propertyDescription: {
-      componentName: 'LivenessFlow',
-      controlledProp: 'active',
-      changeHandler: 'onExit',
-    },
-  });
-
-  const onExit = () => {
-    setActive(false);
-    onExitFromProps?.();
-  };
 
   const onUserCancel = () => {
     const event = new CustomEvent('userCancel', { cancelable: true });
     onUserCancelFromProps?.(event);
-
-    if (!event.defaultPrevented) {
-      onExit();
-    }
   };
 
   const service = useInterpret(livenessMachine, {
@@ -59,7 +34,6 @@ export const LivenessFlow: React.FC<LivenessFlowProps> = (props) => {
     context: {
       flowProps: {
         ...props,
-        onExit,
         onUserCancel,
       },
     },
@@ -88,7 +62,7 @@ export const LivenessFlow: React.FC<LivenessFlowProps> = (props) => {
   }, [send, breakpoint, props]);
 
   React.useLayoutEffect(() => {
-    if (disableStartScreen && active) {
+    if (disableStartScreen) {
       recordLivenessAnalyticsEvent(props, {
         event: LIVENESS_EVENT_DISABLED_GET_READY_SCREEN,
         attributes: { action: 'AttemptLiveness' },
@@ -97,9 +71,9 @@ export const LivenessFlow: React.FC<LivenessFlowProps> = (props) => {
 
       beginLivenessCheck();
     }
-  }, [beginLivenessCheck, disableStartScreen, active, props]);
+  }, [beginLivenessCheck, disableStartScreen, props]);
 
-  return active ? (
+  return (
     <View
       data-amplify-liveness-detector=""
       className={DETECTOR_CLASS_NAME}
@@ -115,5 +89,5 @@ export const LivenessFlow: React.FC<LivenessFlowProps> = (props) => {
         </Flex>
       </LivenessFlowProvider>
     </View>
-  ) : null;
+  );
 };
