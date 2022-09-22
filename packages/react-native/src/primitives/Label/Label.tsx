@@ -6,10 +6,15 @@ import { styles } from './styles';
 export default function Label({
   children,
   style,
+  accessibilityRole = 'text',
   ...rest
 }: LabelProps): JSX.Element {
   return (
-    <Text {...rest} accessibilityRole="text" style={[styles.label, style]}>
+    <Text
+      {...rest}
+      accessibilityRole={accessibilityRole}
+      style={[styles.label, style]}
+    >
       {children}
     </Text>
   );

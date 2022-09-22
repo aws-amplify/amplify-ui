@@ -23,6 +23,7 @@ export default function Checkbox<T>({
   size,
   style,
   value,
+  accessibilityRole = 'checkbox',
   ...rest
 }: CheckboxProps<T>): JSX.Element {
   const [pressed, setPressed] = useState(selected ?? false);
@@ -67,7 +68,7 @@ export default function Checkbox<T>({
     <View style={[containerStyle, style]}>
       <IconButton
         {...rest}
-        accessibilityRole={'checkbox'}
+        accessibilityRole={accessibilityRole}
         disabled={disabled}
         onPress={handleOnChange}
         source={pressed ? icons.checkboxFilled : icons.checkboxOutline}

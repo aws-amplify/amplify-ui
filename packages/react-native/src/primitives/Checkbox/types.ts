@@ -5,7 +5,7 @@ import { IconButtonProps } from '../IconButton';
 import { LabelProps } from '../Label';
 
 export interface CheckboxProps<T>
-  extends Omit<IconButtonProps, 'source' | 'style' | 'accessibilityRole'> {
+  extends Omit<IconButtonProps, 'source' | 'style'> {
   buttonStyle?: IconButtonProps['style'];
   label?: string;
   labelPosition?: LabelPosition;

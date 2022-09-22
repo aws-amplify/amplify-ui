@@ -184,3 +184,63 @@ exports[`Checkbox renders as expected when selected is true 1`] = `
   </View>
 </View>
 `;
+
+exports[`Checkbox renders as expected with accessibilityRole 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "opacity": 1,
+        "padding": 4,
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    accessibilityRole="none"
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "justifyContent": "center",
+        },
+        undefined,
+      ]
+    }
+  >
+    <Image
+      source={
+        Object {
+          "testUri": "../../../src/assets/icons/checkboxOutline.png",
+        }
+      }
+      style={
+        Array [
+          Object {
+            "height": 16,
+            "resizeMode": "contain",
+            "tintColor": undefined,
+            "width": 16,
+          },
+          undefined,
+        ]
+      }
+    />
+  </View>
+</View>
+`;

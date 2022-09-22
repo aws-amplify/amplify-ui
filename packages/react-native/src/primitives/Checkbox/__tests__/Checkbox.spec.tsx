@@ -24,6 +24,13 @@ describe('Checkbox', () => {
     expect(checkbox.toJSON()).toMatchSnapshot();
   });
 
+  it('renders as expected with accessibilityRole', () => {
+    const checkbox = create(
+      <Checkbox value="" onChange={onChange} accessibilityRole={'none'} />
+    );
+    expect(checkbox.toJSON()).toMatchSnapshot();
+  });
+
   it('calls the expected handler when selected', () => {
     const { getByRole } = render(<Checkbox value="" onChange={onChange} />);
     const checkbox = getByRole('checkbox');
