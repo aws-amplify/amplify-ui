@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { storiesOf } from '@storybook/react-native';
 import { Label } from '@aws-amplify/ui-react-native/dist/primitives';
-import { Screen } from '../ui';
 
 storiesOf('Label', module)
   .add('default Label', () => <Label>Default Label</Label>)
