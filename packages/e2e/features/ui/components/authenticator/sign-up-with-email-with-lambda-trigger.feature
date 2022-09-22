@@ -42,5 +42,4 @@ Feature: Sign Up with Email with Pre Sign Up Lambda Trigger for Auto Confirmatio
     And I click the "Create Account" button
     And I mock "autoSignIn" event with fixture "sign-up-with-email-with-lambda-trigger"
     And I see "Sign out"
-    And I see "Sign out"
     And I see "TEST@example.com"

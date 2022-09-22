@@ -107,7 +107,6 @@ Given(
     cy.fixture(fixture).then((result) => {
       console.info('`%s` mocked with %o', path, result);
       stub = cy.stub(obj, method);
-      console.log('stub', stub);
       stub.returns(result);
     });
   }
@@ -115,7 +114,6 @@ Given(
 
 When('Sign in was called with {string}', (username: string) => {
   let tempStub = stub.calledWith(username, Cypress.env('VALID_PASSWORD'));
-  console.log('tempStub', username);
   stub = null;
   expect(tempStub).to.be.true;
 });

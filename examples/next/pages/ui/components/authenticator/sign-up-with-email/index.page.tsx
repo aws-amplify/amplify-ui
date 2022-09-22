@@ -30,9 +30,12 @@ I18n.putVocabulariesForLanguage('en', {
 });
 
 export default function AuthenticatorWithEmail() {
-  const { authStatus } = useAuthenticator((context) => [context.authStatus]);
+  const { authStatus, route } = useAuthenticator((context) => [
+    context.authStatus,
+    context.route,
+  ]);
   const services = {
-    async handleSignUp(formData) {
+    async handleSignUp(formData, signUp) {
       let { username, password, attributes } = formData;
       // custom username
       username = username.toLowerCase();
@@ -48,11 +51,8 @@ export default function AuthenticatorWithEmail() {
   return (
     <>
       <View>{authStatus}</View>
-      <Authenticator
-        formFields={formFields}
-        services={services}
-        initialState="signUp"
-      >
+      <View>{route}</View>
+      <Authenticator formFields={formFields} initialState="signUp">
         {({ signOut }) => <button onClick={signOut}>Sign out</button>}
       </Authenticator>
     </>

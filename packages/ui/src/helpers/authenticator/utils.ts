@@ -47,7 +47,9 @@ export const defaultAuthHubHandler: HubHandler = (data, service) => {
       }
       break;
     case 'autoSignIn':
-      send({ type: 'AUTO_SIGN_IN', data: data.payload.data });
+      if (!state.matches('authenticated')) {
+        send({ type: 'AUTO_SIGN_IN', data: data.payload.data });
+      }
       break;
     case 'autoSignIn_failure':
       break;

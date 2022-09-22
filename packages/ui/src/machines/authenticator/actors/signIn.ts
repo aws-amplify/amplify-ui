@@ -170,7 +170,7 @@ export function signInActor({ services }: SignInMachineOptions) {
           initial: 'submit',
           states: {
             submit: {
-              tags: ['pending'],
+              entry: 'sendUpdate',
               on: {
                 AUTO_SIGN_IN: [
                   {
@@ -199,6 +199,8 @@ export function signInActor({ services }: SignInMachineOptions) {
                 ],
               },
             },
+            resolved: { always: '#signInActor.resolved' },
+            rejected: { always: '#signInActor.rejected' },
           },
         },
         confirmSignIn: {

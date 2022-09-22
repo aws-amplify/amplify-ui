@@ -13,7 +13,6 @@ export function signUp(username, password, attributes) {
     password,
     attributes,
     autoSignIn: {
-      // added to every request
       enabled: true,
     },
   });

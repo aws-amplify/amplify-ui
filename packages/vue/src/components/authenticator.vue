@@ -251,8 +251,7 @@ const hasRouteComponent = computed(() => {
   return !(
     state.value.matches('authenticated') ||
     state.value.matches('idle') ||
-    state.value.matches('setup') ||
-    state.value.matches('signOut')
+    state.value.matches('setup')
   );
 });
 </script>
