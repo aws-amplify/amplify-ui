@@ -107,8 +107,6 @@
   overflow-y: auto;
   position: fixed;
   top: var(--docs-dev-center-nav-height);
-  // top: 0;
-  // bottom: 0;
   left: 0;
   padding: var(--amplify-space-medium) var(--amplify-space-large);
   border-right: var(--amplify-border-widths-small) solid
@@ -135,13 +133,6 @@
     }
   }
 }
-
-// FF 
-// @-moz-document url-prefix() {
-//   .docs-sidebar-inner {
-//     top: var(--docs-dev-center-nav-height);
-//   }
-// }
 
 .docs-sidebar-nav {
   & .amplify-expander__content {
