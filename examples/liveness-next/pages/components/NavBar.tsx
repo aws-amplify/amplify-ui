@@ -61,6 +61,7 @@ export default function NavBar({
           top="0"
           height="100%"
           width="100%"
+          class="liveness-example-nav"
         >
           <Card width="280px" height="100%">
             <Flex direction="column" alignItems="end">
