@@ -85,11 +85,26 @@ export function createAuthenticatorMachine() {
           initial: 'spawnActor',
           states: {
             spawnActor: {
-              always: { actions: 'spawnSignInActor', target: 'runActor' },
+              always: [
+                {
+                  actions: 'spawnSignInActor',
+                  target: 'autoSignIn',
+                  cond: 'shouldAutoSignIn',
+                },
+                { actions: 'spawnSignInActor', target: 'runActor' },
+              ],
             },
             runActor: {
               entry: 'clearActorDoneData',
               exit: 'stopSignInActor',
+            },
+            autoSignIn: {
+              always: [
+                {
+                  target: '#authenticator.authenticated',
+                  actions: 'setActorDoneData',
+                },
+              ],
             },
           },
           on: {
@@ -376,7 +391,13 @@ export function createAuthenticatorMachine() {
           event.data?.intent === 'confirmSignUp',
         shouldRedirectToResetPassword: (_, event) =>
           event.data?.intent === 'confirmPasswordReset',
-        shouldAutoSignIn: (_, event) => event.data?.intent === 'autoSignIn',
+        shouldAutoSignIn: (context, event) => {
+          console.log('checking auto sign in ', event, context);
+          return (
+            event.data?.intent === 'autoSignIn' ||
+            context.actorDoneData?.intent === 'autoSignIn'
+          );
+        },
         shouldSetup: (context) => context.hasSetup === false,
         // other context guards
         hasActor: (context) => !!context.actorRef,

@@ -101,7 +101,10 @@ export const setUnverifiedAttributes = assign({
 });
 
 export const setUser = assign({
-  user: (_, event: AuthEvent) => event.data.user || event.data,
+  user: (_, event: AuthEvent) => {
+    console.log('event', event);
+    return event.data.user || event.data;
+  },
 });
 
 export const setUsername = assign({

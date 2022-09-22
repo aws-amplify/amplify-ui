@@ -2,6 +2,7 @@ import { Auth } from 'aws-amplify';
 import get from 'lodash/get';
 import isEmpty from 'lodash/isEmpty';
 import { createMachine, sendUpdate } from 'xstate';
+import { sendParent } from 'xstate/lib/actions';
 import {
   AuthChallengeName,
   AuthEvent,
@@ -33,6 +34,7 @@ import {
   setUser,
   setUsernameAuthAttributes,
 } from '../actions';
+
 import { defaultServices } from '../defaultServices';
 
 export type SignInMachineOptions = {
@@ -167,10 +169,11 @@ export function signInActor({ services }: SignInMachineOptions) {
           },
         },
         autoSignIn: {
-          initial: 'submit',
+          initial: 'edit',
           states: {
-            submit: {
-              entry: 'sendUpdate',
+            edit: {
+              tags: ['pending'],
+              entry: ['clearError', 'sendUpdate'],
               on: {
                 AUTO_SIGN_IN: [
                   {
@@ -198,6 +201,34 @@ export function signInActor({ services }: SignInMachineOptions) {
                   },
                 ],
               },
+            },
+            submit: {
+              entry: ['sendUpdate'],
+              always: [
+                {
+                  cond: 'shouldSetupTOTP',
+                  actions: ['setUser', 'setChallengeName'],
+                  target: '#signInActor.setupTOTP',
+                },
+                {
+                  cond: 'shouldConfirmSignIn',
+                  actions: ['setUser', 'setChallengeName'],
+                  target: '#signInActor.confirmSignIn',
+                },
+                {
+                  cond: 'shouldForceChangePassword',
+                  actions: [
+                    'setUser',
+                    'setChallengeName',
+                    'setRequiredAttributes',
+                  ],
+                  target: '#signInActor.forceNewPassword',
+                },
+                {
+                  actions: 'setUser',
+                  target: '#signInActor.resolved',
+                },
+              ],
             },
             resolved: { always: '#signInActor.resolved' },
             rejected: { always: '#signInActor.rejected' },
@@ -421,9 +452,12 @@ export function signInActor({ services }: SignInMachineOptions) {
         },
         resolved: {
           type: 'final',
-          data: (context) => ({
-            user: context.user,
-          }),
+          data: (context) => {
+            console.log('in final here', context);
+            return {
+              user: context.user,
+            };
+          },
         },
         rejected: {
           type: 'final',
