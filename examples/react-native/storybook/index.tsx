@@ -5,6 +5,7 @@ import {
   configure,
   addDecorator,
 } from '@storybook/react-native';
+import { withKnobs } from '@storybook/addon-knobs';
 import noop from 'lodash/noop';
 import { loadStories } from './storyLoader';
 import { Screen } from './ui/Screen';
@@ -23,6 +24,7 @@ export function setupStorybook(initStorybook: boolean) {
     }, module);
 
     // add decorators
+    addDecorator(withKnobs);
     addDecorator((Story: any) => (
       <Screen>
         <Story />

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { storiesOf } from '@storybook/react-native';
+import { select } from '@storybook/addon-knobs';
 import { Checkbox } from '@aws-amplify/ui-react-native/dist/primitives';
 
 const StatefulCheckbox = ({ ...props }: any) => {
@@ -12,6 +13,15 @@ const StatefulCheckbox = ({ ...props }: any) => {
 };
 storiesOf('Checkbox', module)
   .add('default', () => <StatefulCheckbox />)
-  .add('with Label', () => <StatefulCheckbox label="Label" />)
+  .add('with Label', () => (
+    <StatefulCheckbox
+      label="Label"
+      labelPosition={select(
+        'LabelPosition',
+        ['start', 'end', 'top', 'bottom'],
+        'end'
+      )}
+    />
+  ))
   .add('selected', () => <StatefulCheckbox selected />)
   .add('disabled', () => <StatefulCheckbox label="Disabled" disabled />);

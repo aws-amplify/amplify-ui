@@ -8,7 +8,7 @@ export interface CheckboxProps<T>
   extends Omit<IconButtonProps, 'source' | 'style' | 'accessibilityRole'> {
   buttonStyle?: IconButtonProps['style'];
   label?: string;
-  labelPosition?: 'start' | 'end' | 'top' | 'bottom';
+  labelPosition?: LabelPosition;
   labelStyle?: LabelProps['style'];
   onChange: (value: T) => void;
   selected?: boolean;
@@ -19,3 +19,5 @@ export interface CheckboxProps<T>
 export interface CheckboxStyle {
   container: ViewStyle;
 }
+
+export type LabelPosition = 'start' | 'end' | 'top' | 'bottom';

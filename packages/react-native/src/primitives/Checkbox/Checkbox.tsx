@@ -7,16 +7,10 @@ import {
 } from 'react-native';
 
 import { icons } from '../../assets';
+import { styles } from './styles';
 import { IconButton } from '../IconButton';
 import { Label } from '../Label';
-import { CheckboxProps, CheckboxStyle } from './types';
-
-const styles: CheckboxStyle = {
-  container: {
-    alignItems: 'center',
-    padding: 4,
-  },
-};
+import { CheckboxProps, LabelPosition } from './types';
 
 export default function Checkbox<T>({
   buttonStyle,
@@ -32,25 +26,26 @@ export default function Checkbox<T>({
   ...rest
 }: CheckboxProps<T>): JSX.Element {
   const [pressed, setPressed] = useState(selected ?? false);
-  const labelPrecedesIcon =
-    labelPosition === 'start' || labelPosition === 'top';
 
   const handleOnChange = useCallback(() => {
     onChange?.(value);
     setPressed(!pressed);
   }, [onChange, value, pressed]);
 
-  const containerStyle: ViewStyle = useMemo(
-    () => ({
+  const containerStyle: ViewStyle = useMemo(() => {
+    const FLEX_DIRECTIONS: Record<LabelPosition, ViewStyle['flexDirection']> = {
+      start: 'row-reverse',
+      end: 'row',
+      top: 'column-reverse',
+      bottom: 'column',
+    };
+
+    return {
       ...styles.container,
-      flexDirection:
-        labelPosition === 'bottom' || labelPosition === 'top'
-          ? 'column'
-          : 'row',
+      flexDirection: FLEX_DIRECTIONS[labelPosition],
       opacity: disabled ? 0.6 : 1,
-    }),
-    [disabled, labelPosition]
-  );
+    };
+  }, [disabled, labelPosition]);
 
   const iconButtonStyle = useCallback(
     ({ pressed }: PressableStateCallbackType): StyleProp<ViewStyle> => {
@@ -66,12 +61,10 @@ export default function Checkbox<T>({
     [buttonStyle]
   );
 
+  // TODO: replace View with Pressable and IconButton with icon once Icon primitive is added
+
   return (
     <View style={[containerStyle, style]}>
-      {label && labelPrecedesIcon ? (
-        <Label style={labelStyle}>{label}</Label>
-      ) : null}
-
       <IconButton
         {...rest}
         accessibilityRole={'checkbox'}
@@ -81,10 +74,7 @@ export default function Checkbox<T>({
         size={size}
         style={iconButtonStyle}
       />
-
-      {label && !labelPrecedesIcon ? (
-        <Label style={labelStyle}>{label}</Label>
-      ) : null}
+      {label ? <Label style={labelStyle}>{label}</Label> : null}
     </View>
   );
 }
