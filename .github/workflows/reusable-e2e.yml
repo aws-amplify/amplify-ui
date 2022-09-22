@@ -138,6 +138,10 @@ jobs:
         if: ${{ steps.restore-ui-cache.outputs.cache-hit != 'true' && matrix.package != 'ui' }}
         run: yarn ui build
 
+      - name: Build react-core package
+        if: ${{ matrix.package == 'react' || matrix.package == 'react-native' }}
+        run: yarn react-core build
+
       - name: Build ${{ matrix.package }} package
         if: ${{ matrix.package != 'ui' }}
         run: yarn ${{ matrix.package }} build
@@ -245,6 +249,10 @@ jobs:
         if: steps.restore-ui-cache.outputs.cache-hit != 'true'
         run: yarn ui build
 
+      - name: Build react-core package
+        if: ${{ matrix.package == 'react' }}
+        run: yarn react-core build
+
       - name: Build ${{ matrix.package }} package
         if: steps.restore-package-cache.outputs.cache-hit != 'true'
         run: yarn ${{ matrix.package }} build
@@ -335,6 +343,9 @@ jobs:
 
       - name: Build ui package
         run: yarn ui build
+
+      - name: Build react-core package
+        run: yarn react-core build
 
       - name: Build react package
         run: yarn react build
