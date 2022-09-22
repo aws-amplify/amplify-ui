@@ -1,15 +1,25 @@
 import { StyleProp, TextStyle, ViewProps, ViewStyle } from 'react-native';
 
+export type LabelPosition = 'start' | 'end' | 'top' | 'bottom';
+
+export const FLEX_DIRECTIONS: Record<
+  LabelPosition,
+  ViewStyle['flexDirection']
+> = {
+  start: 'row-reverse',
+  end: 'row',
+  top: 'column-reverse',
+  bottom: 'column',
+};
+
 export interface RadioProps<T> extends Omit<ViewProps, 'accessibilityRole'> {
   buttonStyle?: StyleProp<TextStyle>;
-  // direction can be a prop on RadioGroupField
-  // direction?: 'horizontal' | 'vertical';
   disabled?: boolean;
   label?: string;
-  labelPosition?: 'start' | 'end' | 'top' | 'bottom';
+  labelPosition?: LabelPosition;
   labelStyle?: StyleProp<TextStyle>;
   onChange?: (value?: T) => void;
-  size?: 'small' | 'large';
+  size?: 'small' | 'medium' | 'large';
   selected?: boolean;
   value: T;
 }

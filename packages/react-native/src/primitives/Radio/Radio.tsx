@@ -1,9 +1,9 @@
-import React, { useCallback, useMemo } from 'react';
-import { Pressable, View, ViewStyle } from 'react-native';
+import React, { useCallback } from 'react';
+import { Pressable, View } from 'react-native';
 
 import { Label } from '../index';
 
-import { RadioProps } from './types';
+import { FLEX_DIRECTIONS, RadioProps } from './types';
 import { styles } from './styles';
 
 export default function Radio<T>({
@@ -25,51 +25,35 @@ export default function Radio<T>({
     }
   }, [onChange, value, disabled]);
 
-  const containerDirection: ViewStyle = useMemo(
-    () => ({
-      flexDirection:
-        labelPosition === 'bottom' || labelPosition === 'top'
-          ? 'column'
-          : 'row',
-    }),
-    [labelPosition]
-  );
-
-  const labelPrecedesButton =
-    labelPosition === 'start' || labelPosition === 'top';
+  const flexDirection = FLEX_DIRECTIONS[labelPosition];
 
   return (
     <View
       {...rest}
       style={[
         styles.container,
-        containerDirection,
+        { flexDirection },
         ...(disabled ? [styles._disabled] : []),
         style,
       ]}
     >
-      {label && labelPrecedesButton ? (
-        <Label style={labelStyle}>{label}</Label>
-      ) : null}
       <Pressable onPress={handleOnChange} hitSlop={5}>
         <View
           accessibilityRole="radio"
-          style={[styles.radio, ...(size ? [styles.radio[size]] : [])]}
+          style={[styles.radio, size ? [styles.radio[size]] : undefined]}
         >
           {selected ? (
             <View
               style={[
                 styles.radioButton,
-                ...(size ? [styles.radioButton[size]] : []),
+                size ? [styles.radio[size]] : undefined,
                 buttonStyle,
               ]}
             />
           ) : null}
         </View>
       </Pressable>
-      {label && !labelPrecedesButton ? (
-        <Label style={labelStyle}>{label}</Label>
-      ) : null}
+      {label ? <Label style={labelStyle}>{label}</Label> : null}
     </View>
   );
 }
