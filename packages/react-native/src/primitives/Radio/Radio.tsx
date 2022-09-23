@@ -40,7 +40,7 @@ export default function Radio<T>({
       style={[
         styles.container,
         { flexDirection },
-        disabled ? [styles._disabled] : undefined,
+        disabled ? styles.disabled : undefined,
         style,
       ]}
     >

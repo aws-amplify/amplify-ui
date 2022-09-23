@@ -7,45 +7,38 @@ export const styles: RadioStyles = StyleSheet.create({
     alignItems: 'center',
   },
 
+  disabled: {
+    opacity: 0.6,
+  },
+
   radioButtonContainer: {
-    borderRadius: 999,
     alignItems: 'center',
-    justifyContent: 'center',
     borderColor: '#838c95',
+    borderRadius: 999,
+    justifyContent: 'center',
   },
 
   radioButton: {
-    borderRadius: 999,
     backgroundColor: '#317d95',
+    borderRadius: 999,
   },
 
-  // sizes for outer container
+  // radioButtonContainer sizes
   large: {
+    borderWidth: 4,
     height: 40,
     width: 40,
-    // borderRadius: 20,
-    borderWidth: 4,
-    // padding: 8,
   },
 
   medium: {
+    borderWidth: 3,
     height: 30,
     width: 30,
-    // borderRadius: 15,
-    borderWidth: 3,
-    // padding: 4,
   },
 
   small: {
+    borderWidth: 2,
     height: 20,
     width: 20,
-    // borderRadius: 10,
-    borderWidth: 2,
-    // padding: 4,
-  },
-
-  // remove underscore
-  _disabled: {
-    opacity: 0.6,
   },
 });

@@ -27,11 +27,9 @@ export interface RadioProps<T> extends ViewProps {
 }
 
 export interface RadioSize {
-  // borderRadius: number;
+  borderWidth?: number;
   height: number;
   width: number;
-  borderWidth?: ViewStyle['borderWidth'];
-  padding?: ViewStyle['padding'];
 }
 
 interface RadioSizes {
@@ -40,13 +38,9 @@ interface RadioSizes {
   small: RadioSize;
 }
 
-interface DisabledState {
-  opacity: ViewStyle['opacity'];
-}
-
 export interface RadioStyles extends RadioSizes {
   container: ViewStyle;
+  disabled: ViewStyle;
   radioButton: ViewStyle;
   radioButtonContainer: ViewStyle;
-  _disabled: DisabledState;
 }
