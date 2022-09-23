@@ -47,10 +47,9 @@ describe('Liveness Machine', () => {
       '{"challenge":{"faceMovementAndLightChallenge":{"ovalScaleFactors":{"width":0.24718577,"centerX":0.98700607,"centerY":0.7975547}}}}',
     onGetLivenessDetection: jest.fn(),
     onError: jest.fn(),
-    onExit: jest.fn(),
     onSuccess: jest.fn(),
     onUserCancel: jest.fn(),
-    onUserPermissionDeined: jest.fn(),
+    onUserPermissionDenied: jest.fn(),
     onUserTimeout: jest.fn(),
   };
 
