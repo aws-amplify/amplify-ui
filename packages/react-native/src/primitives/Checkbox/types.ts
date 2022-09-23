@@ -3,6 +3,7 @@ import { StyleProp, ViewStyle } from 'react-native';
 import { IconButtonProps } from '../IconButton';
 
 import { LabelProps } from '../Label';
+import { LabelPosition } from '../types';
 
 export interface CheckboxProps<T>
   extends Omit<IconButtonProps, 'source' | 'style'> {
@@ -19,5 +20,3 @@ export interface CheckboxProps<T>
 export interface CheckboxStyle {
   container: ViewStyle;
 }
-
-export type LabelPosition = 'start' | 'end' | 'top' | 'bottom';

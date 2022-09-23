@@ -2,6 +2,24 @@
 
 exports[`Checkbox renders as expected when disabled 1`] = `
 <View
+  accessibilityRole="checkbox"
+  accessibilityState={
+    Object {
+      "disabled": true,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
   style={
     Array [
       Object {
@@ -15,7 +33,6 @@ exports[`Checkbox renders as expected when disabled 1`] = `
   }
 >
   <View
-    accessibilityRole="checkbox"
     accessibilityState={
       Object {
         "disabled": true,
@@ -67,6 +84,19 @@ exports[`Checkbox renders as expected when disabled 1`] = `
 
 exports[`Checkbox renders as expected when selected is false 1`] = `
 <View
+  accessibilityRole="checkbox"
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
   style={
     Array [
       Object {
@@ -80,7 +110,11 @@ exports[`Checkbox renders as expected when selected is false 1`] = `
   }
 >
   <View
-    accessibilityRole="checkbox"
+    accessibilityState={
+      Object {
+        "disabled": true,
+      }
+    }
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -127,6 +161,19 @@ exports[`Checkbox renders as expected when selected is false 1`] = `
 
 exports[`Checkbox renders as expected when selected is true 1`] = `
 <View
+  accessibilityRole="checkbox"
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
   style={
     Array [
       Object {
@@ -140,7 +187,11 @@ exports[`Checkbox renders as expected when selected is true 1`] = `
   }
 >
   <View
-    accessibilityRole="checkbox"
+    accessibilityState={
+      Object {
+        "disabled": true,
+      }
+    }
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -187,6 +238,19 @@ exports[`Checkbox renders as expected when selected is true 1`] = `
 
 exports[`Checkbox renders as expected with accessibilityRole 1`] = `
 <View
+  accessibilityRole="none"
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
   style={
     Array [
       Object {
@@ -200,7 +264,11 @@ exports[`Checkbox renders as expected with accessibilityRole 1`] = `
   }
 >
   <View
-    accessibilityRole="none"
+    accessibilityState={
+      Object {
+        "disabled": true,
+      }
+    }
     accessible={true}
     collapsable={false}
     focusable={true}

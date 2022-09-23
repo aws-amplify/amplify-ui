@@ -4,9 +4,9 @@ import { LabelProps } from './types';
 import { styles } from './styles';
 
 export default function Label({
+  accessibilityRole = 'text',
   children,
   style,
-  accessibilityRole = 'text',
   ...rest
 }: LabelProps): JSX.Element {
   return (

@@ -1,8 +1,8 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import {
+  Pressable,
   PressableStateCallbackType,
   StyleProp,
-  View,
   ViewStyle,
 } from 'react-native';
 
@@ -10,9 +10,11 @@ import { icons } from '../../assets';
 import { styles } from './styles';
 import { IconButton } from '../IconButton';
 import { Label } from '../Label';
-import { CheckboxProps, LabelPosition } from './types';
+import { CheckboxProps } from './types';
+import { FLEX_DIRECTIONS } from '../types';
 
 export default function Checkbox<T>({
+  accessibilityRole = 'checkbox',
   buttonStyle,
   disabled,
   label,
@@ -23,7 +25,6 @@ export default function Checkbox<T>({
   size,
   style,
   value,
-  accessibilityRole = 'checkbox',
   ...rest
 }: CheckboxProps<T>): JSX.Element {
   const [pressed, setPressed] = useState(selected ?? false);
@@ -33,20 +34,14 @@ export default function Checkbox<T>({
     setPressed(!pressed);
   }, [onChange, value, pressed]);
 
-  const containerStyle: ViewStyle = useMemo(() => {
-    const FLEX_DIRECTIONS: Record<LabelPosition, ViewStyle['flexDirection']> = {
-      start: 'row-reverse',
-      end: 'row',
-      top: 'column-reverse',
-      bottom: 'column',
-    };
-
-    return {
+  const containerStyle: ViewStyle = useMemo(
+    () => ({
       ...styles.container,
       flexDirection: FLEX_DIRECTIONS[labelPosition],
       opacity: disabled ? 0.6 : 1,
-    };
-  }, [disabled, labelPosition]);
+    }),
+    [disabled, labelPosition]
+  );
 
   const iconButtonStyle = useCallback(
     ({ pressed }: PressableStateCallbackType): StyleProp<ViewStyle> => {
@@ -62,20 +57,23 @@ export default function Checkbox<T>({
     [buttonStyle]
   );
 
-  // TODO: replace View with Pressable and IconButton with icon once Icon primitive is added
+  // TODO: replace IconButton with icon once Icon primitive is added
 
   return (
-    <View style={[containerStyle, style]}>
+    <Pressable
+      accessibilityRole={accessibilityRole}
+      disabled={disabled}
+      onPress={handleOnChange}
+      style={[containerStyle, style]}
+    >
       <IconButton
         {...rest}
-        accessibilityRole={accessibilityRole}
-        disabled={disabled}
-        onPress={handleOnChange}
+        disabled
         source={pressed ? icons.checkboxFilled : icons.checkboxOutline}
         size={size}
         style={iconButtonStyle}
       />
       {label ? <Label style={labelStyle}>{label}</Label> : null}
-    </View>
+    </Pressable>
   );
 }
