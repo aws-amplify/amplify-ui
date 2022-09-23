@@ -104,35 +104,11 @@ jobs:
 
   publish:
     needs: [test, guides]
-    runs-on: ubuntu-latest
-    environment: deployment
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-      - name: Setup Node.js LTS
-        uses: actions/setup-node@v2
-        with:
-          node-version: lts/*
-          cache: 'yarn'
-      - name: Install packages
-        uses: ./.github/actions/install-with-retries
-        with:
-          skip-cypress-binary: true # publishing doesn't need cypress
-      - name: Build packages
-        run: yarn build
-      - name: Add changeset that bumps all public packages
-        # There needs to be a changeset for @aws-amplify/ui[-framework] to publish.
-        run: cp .github/changeset-presets/bump-versions.md .changeset
-      - name: Run changeset version to next tag
-        run: yarn version:next
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Create .npmrc
-        run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Publish to next tag
-        run: yarn publish:next
+    uses: ./.github/workflows/reusable-tagged-publish.yml
+    with:
+      dist-tag: next
+    secrets:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   build-test:
     needs: publish
@@ -169,8 +145,9 @@ jobs:
         run: yarn build
         working-directory: ./canary
 
-  log-failure-metric:
-    # Send data point 1 to metric PublishNextFailure, if  it's a failure
+  log-failure-metric-prod:
+    # to be deprecated once log-failure-metric is up
+    # Send data point 1 to metric PublishNextFailure in prod us-east-1, if it's a failure
     runs-on: ubuntu-latest
     environment: ci
     needs: build-test
@@ -186,9 +163,11 @@ jobs:
           value: 1
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: us-east-1
 
-  log-success-metric:
-    # Send data point 0 to metric PublishNextFailure, if  it's a success
+  log-success-metric-prod:
+    # to be deprecated once log-success-metric is up
+    # Send data point 0 to metric PublishNextFailure in prod us-east-1, if it's a success
     runs-on: ubuntu-latest
     environment: ci
     needs: build-test
@@ -201,3 +180,29 @@ jobs:
           value: 0
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: us-east-1
+
+  log-metric:
+    # Send data point to metric PublishNextFailure in github-workflows@ us-east-2, if it's a failure
+    runs-on: ubuntu-latest
+    environment: ci
+    needs: build-test
+    steps:
+      - name: Log failure data point to metric PublishNextFailure
+        if: ${{ failure() }}
+        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
+        with:
+          metric-name: PublishNextFailure
+          value: 1
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_METRIC_LOGGER }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_METRIC_LOGGER }}
+          AWS_REGION: us-east-2
+      - name: Log success data point to metric PublishNextFailure
+        if: ${{ success() }}
+        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
+        with:
+          metric-name: PublishNextFailure
+          value: 0
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_METRIC_LOGGER }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_METRIC_LOGGER }}
+          AWS_REGION: us-east-2

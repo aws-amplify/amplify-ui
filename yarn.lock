@@ -7102,6 +7102,13 @@
     "@babel/runtime" "^7.12.5"
     react-error-boundary "^3.1.0"
 
+"@testing-library/react-native@^11.1.0":
+  version "11.1.0"
+  resolved "https://registry.yarnpkg.com/@testing-library/react-native/-/react-native-11.1.0.tgz#50aaa9c026e4beb02c07607fb0db5f4478cdd625"
+  integrity sha512-syVlE9fM0tZF4MmEE09R4BoGRH6lMNAbozuluGjS2HT8rXt3unRXb8GwpLmT+xCTq9+1lnQiXobTJm8/w12Zbg==
+  dependencies:
+    pretty-format "^29.0.3"
+
 "@testing-library/react@^12.0.0":
   version "12.1.5"
   resolved "https://registry.yarnpkg.com/@testing-library/react/-/react-12.1.5.tgz#bb248f72f02a5ac9d949dea07279095fa577963b"
@@ -22490,6 +22497,15 @@ pretty-format@^29.0.0, pretty-format@^29.0.2:
     ansi-styles "^5.0.0"
     react-is "^18.0.0"
 
+pretty-format@^29.0.3:
+  version "29.0.3"
+  resolved "https://registry.yarnpkg.com/pretty-format/-/pretty-format-29.0.3.tgz#23d5f8cabc9cbf209a77d49409d093d61166a811"
+  integrity sha512-cHudsvQr1K5vNVLbvYF/nv3Qy/F/BcEKxGuIeMiVMRHxPOO1RxXooP8g/ZrwAp7Dx+KdMZoOc7NxLHhMrP2f9Q==
+  dependencies:
+    "@jest/schemas" "^29.0.0"
+    ansi-styles "^5.0.0"
+    react-is "^18.0.0"
+
 pretty-hrtime@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/pretty-hrtime/-/pretty-hrtime-1.0.3.tgz#b7e3ea42435a4c9b2759d99e0f201eb195802ee1"
@@ -28476,10 +28492,15 @@ xmldoc@^1.1.2:
   dependencies:
     sax "^1.2.4"
 
-xstate@^4.30.6, xstate@^4.33.0:
+xstate@^4.30.6:
   version "4.33.5"
   resolved "https://registry.yarnpkg.com/xstate/-/xstate-4.33.5.tgz#eafd193827b173901fac0d99e61bb4e5add6c7c8"
   integrity sha512-C8WGBeQC+dNMp4MmQX359BUkJCv2VPAH/CGRnhtgri5JZ7wVEX7fsbfcqznAgnKyD0m9Hd3cGhg/wuzIjnfT4A==
+
+xstate@^4.33.6:
+  version "4.33.6"
+  resolved "https://registry.npmjs.org/xstate/-/xstate-4.33.6.tgz#9e23f78879af106f1de853aba7acb2bc3b1eb950"
+  integrity sha512-A5R4fsVKADWogK2a43ssu8Fz1AF077SfrKP1ZNyDBD8lNa/l4zfR//Luofp5GSWehOQr36Jp0k2z7b+sH2ivyg==
 
 xtend@^4.0.0, xtend@^4.0.1, xtend@^4.0.2, xtend@~4.0.1:
   version "4.0.2"

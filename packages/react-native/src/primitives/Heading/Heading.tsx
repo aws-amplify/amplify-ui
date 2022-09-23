@@ -4,6 +4,7 @@ import { styles } from './styles';
 import { HeadingProps } from './types';
 
 export default function Heading({
+  accessibilityRole = 'header',
   children,
   level = 6,
   style,
@@ -12,7 +13,7 @@ export default function Heading({
   return (
     <Text
       {...rest}
-      accessibilityRole="header"
+      accessibilityRole={accessibilityRole}
       style={[styles.text, styles[level], style]}
     >
       {children}

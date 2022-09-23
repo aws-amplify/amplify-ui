@@ -4,7 +4,7 @@ import { choose } from 'xstate/lib/actions';
 import {
   AuthContext,
   AuthEvent,
-  CognitoUserAmplify,
+  AmplifyUser,
   AuthFormFields,
 } from '../../types';
 import { stopActor } from './actions';
@@ -30,6 +30,7 @@ export function createAuthenticatorMachine() {
         actorRef: undefined,
         hasSetup: false,
       },
+      predictableActionArguments: true,
       states: {
         // See: https://xstate.js.org/docs/guides/communication.html#invoking-promises
         idle: {
@@ -220,7 +221,7 @@ export function createAuthenticatorMachine() {
           },
         ]),
         setUser: assign({
-          user: (_, event) => event.data as CognitoUserAmplify,
+          user: (_, event) => event.data as AmplifyUser,
         }),
         setActorDoneData: assign({
           actorDoneData: (_, event) => ({
