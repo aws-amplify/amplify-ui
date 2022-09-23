@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { translate, recordLivenessAnalyticsEvent } from '@aws-amplify/ui';
 
-import { useTheme } from '../../../hooks';
 import { useLivenessActor } from '../hooks';
 import { useLivenessFlow } from '../providers';
 import { Button } from '../../../primitives';
@@ -14,7 +13,6 @@ export interface CancelButtonProps {
 export const CancelButton: React.FC<CancelButtonProps> = (props) => {
   const { sourceScreen } = props;
 
-  const { tokens } = useTheme();
   const { flowProps } = useLivenessFlow();
   const [state, send] = useLivenessActor();
   const isFinalState = state.done;
@@ -37,10 +35,8 @@ export const CancelButton: React.FC<CancelButtonProps> = (props) => {
     <Button
       variation="link"
       onClick={handleClick}
-      backgroundColor={`${tokens.colors.background.primary}`}
-      color={`${tokens.colors.font.primary}`}
-      borderRadius="100%"
-      height="50px"
+      size="large"
+      backgroundColor="background.primary"
       aria-label={translate('Cancel Liveness check')}
     >
       <IconClose aria-hidden="true" size="large" data-testid="close-icon" />
