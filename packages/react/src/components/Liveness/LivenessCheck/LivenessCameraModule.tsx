@@ -149,10 +149,7 @@ export const LivenessCameraModule = (
         )}
 
         <View position="absolute" top={10} right={10}>
-          <CancelButton
-            isMobileScreen
-            sourceScreen={LIVENESS_EVENT_LIVENESS_CHECK_SCREEN}
-          />
+          <CancelButton sourceScreen={LIVENESS_EVENT_LIVENESS_CHECK_SCREEN} />
         </View>
       </Flex>
 
@@ -166,26 +163,31 @@ export const LivenessCameraModule = (
           <Instruction />
 
           {isNotRecording && (
-            <CountdownCircleTimer
-              isPlaying={isNotRecording}
-              size={85}
-              strokeWidth={8}
-              duration={3}
-              rotation="counterclockwise"
-              // TODO:: using hardcoded colors for now since it requires hex value
-              colors={'#000000'}
-              trailColor={'#909090'}
-              onComplete={timerCompleteHandler}
+            <View
+              backgroundColor={`${tokens.colors.background.primary}`}
+              borderRadius={'100%'}
             >
-              {({ remainingTime }) => (
-                <Text
-                  fontSize={`${tokens.fontSizes.xxxl}`}
-                  fontWeight={`${tokens.fontWeights.bold}`}
-                >
-                  {remainingTime}
-                </Text>
-              )}
-            </CountdownCircleTimer>
+              <CountdownCircleTimer
+                isPlaying={isNotRecording}
+                size={85}
+                strokeWidth={8}
+                duration={3}
+                rotation="counterclockwise"
+                // FIXME: colors is hard coded because it only allows a hex value
+                colors={'#005566'}
+                trailColor={`${tokens.colors.background.primary}`}
+                onComplete={timerCompleteHandler}
+              >
+                {({ remainingTime }) => (
+                  <Text
+                    fontSize={`${tokens.fontSizes.xxxl}`}
+                    fontWeight={`${tokens.fontWeights.bold}`}
+                  >
+                    {remainingTime}
+                  </Text>
+                )}
+              </CountdownCircleTimer>
+            </View>
           )}
         </Flex>
       )}

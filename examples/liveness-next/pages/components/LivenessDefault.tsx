@@ -1,4 +1,4 @@
-import { LivenessFlow } from '@aws-amplify/ui-react';
+import { LivenessFlow, View, Flex } from '@aws-amplify/ui-react';
 import { useLiveness } from './useLiveness';
 import { SessionIdAlert } from './SessionIdAlert';
 import { GetLivenessResultCard } from './GetLivenessResultCard';
@@ -18,23 +18,22 @@ export default function LivenessDefault() {
   }
 
   return (
-    <div style={{ marginTop: '1rem' }}>
+    <View maxWidth="640px" margin="0 auto">
       {createLivenessSessionApiLoading ? (
         'Loading...'
       ) : (
-        <div>
+        <Flex direction="column">
           <SessionIdAlert sessionId={createLivenessSessionApiData.sessionId} />
 
           <LivenessFlow
             sessionId={createLivenessSessionApiData.sessionId}
             onGetLivenessDetection={handleGetLivenessDetection}
-            onExit={stopLiveness}
             enableAnalytics={true}
           />
 
           <GetLivenessResultCard getLivenessResponse={getLivenessResponse} />
-        </div>
+        </Flex>
       )}
-    </div>
+    </View>
   );
 }

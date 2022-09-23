@@ -6,16 +6,15 @@ import {
 } from '@aws-amplify/ui';
 
 import { useTheme } from '../../../hooks';
-import { CancelButton, DescriptionBullet } from '../shared';
+import { DescriptionBullet } from '../shared';
 import { useLivenessFlow } from '../providers';
 import {
   Flex,
-  Heading,
   Button,
   Collection,
-  Divider,
   Text,
   View,
+  Card,
 } from '../../../primitives';
 
 export const INSTRUCTIONS = [
@@ -32,6 +31,8 @@ export const INSTRUCTIONS = [
     ),
   },
 ];
+
+const START_CLASS_NAME = 'liveness-detector-start';
 
 export interface StartLivenessProps {
   beginLivenessCheck: () => void;
@@ -62,56 +63,56 @@ export function StartLiveness(props: StartLivenessProps): JSX.Element {
   }, [flowProps]);
 
   return (
-    <Flex direction="column" padding={'var(--amplify-space-medium)'}>
-      <Heading level={3}>{translate('How it works')}</Heading>
-      <Collection
-        type="list"
-        items={INSTRUCTIONS}
-        gap={`${tokens.space.large}`}
-      >
-        {(item, index) => (
-          <DescriptionBullet
-            key={item.title}
-            index={index + 1}
-            title={item.title}
-            desc={item.desc}
-          />
-        )}
-      </Collection>
-      <Divider />
-      <Flex
-        direction={{ base: 'column-reverse', medium: 'row' }}
-        justifyContent="flex-end"
-      >
-        <CancelButton sourceScreen={LIVENESS_EVENT_GET_READY_SCREEN} />
-
-        <Button variation="primary" type="button" onClick={beginLivenessCheck}>
-          {translate('Begin check')}
-        </Button>
-      </Flex>
-
-      <View
-        textAlign={{ medium: 'end' }}
-        style={{ marginTop: `calc(-1 * ${tokens.space.small})` }}
-      >
-        <Text
-          as="span"
-          fontSize={`${tokens.fontSizes.xs}`}
-          fontWeight={`${tokens.fontWeights.bold}`}
-          color={`${tokens.colors.font.tertiary}`}
+    <Card
+      data-amplify-liveness-detector-start=""
+      className={START_CLASS_NAME}
+      data-testid={START_CLASS_NAME}
+    >
+      <Flex direction="column">
+        <Collection
+          type="list"
+          items={INSTRUCTIONS}
+          gap={`${tokens.space.large}`}
         >
-          {translate<string>('Legal desclaimer: ')}
-        </Text>
-        <Text
-          as="span"
-          fontSize={`${tokens.fontSizes.xs}`}
-          color={`${tokens.colors.font.tertiary}`}
-        >
-          {translate<string>(
-            'By using this service, you provide your express, informed, written release and consent for this app and Amazon Web Services to collect, use and store your biometric data.'
+          {(item, index) => (
+            <DescriptionBullet
+              key={item.title}
+              index={index + 1}
+              title={item.title}
+              desc={item.desc}
+            />
           )}
-        </Text>
-      </View>
-    </Flex>
+        </Collection>
+        <Flex justifyContent="center">
+          <Button
+            variation="primary"
+            type="button"
+            onClick={beginLivenessCheck}
+          >
+            {translate('Begin check')}
+          </Button>
+        </Flex>
+
+        <View>
+          <Text
+            as="span"
+            fontSize={`${tokens.fontSizes.xs}`}
+            fontWeight={`${tokens.fontWeights.bold}`}
+            color={`${tokens.colors.font.tertiary}`}
+          >
+            {translate<string>('Legal desclaimer: ')}
+          </Text>
+          <Text
+            as="span"
+            fontSize={`${tokens.fontSizes.xs}`}
+            color={`${tokens.colors.font.tertiary}`}
+          >
+            {translate<string>(
+              'By using this service, you provide your express, informed, written release and consent for this app and Amazon Web Services to collect, use and store your biometric data.'
+            )}
+          </Text>
+        </View>
+      </Flex>
+    </Card>
   );
 }

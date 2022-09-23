@@ -44,7 +44,6 @@ describe('StartLiveness', () => {
       <StartLiveness beginLivenessCheck={mockBeginCheck} />
     );
 
-    expect(screen.getByText('How it works')).toBeInTheDocument();
     expect(screen.getByText(/Legal desclaimer/)).toBeInTheDocument();
 
     INSTRUCTIONS.forEach(({ title, desc }) => {
@@ -55,7 +54,6 @@ describe('StartLiveness', () => {
     expect(
       screen.getByRole('button', { name: beginCheckBtnName })
     ).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
   });
 
   it('should call the begin handler on begin check', () => {

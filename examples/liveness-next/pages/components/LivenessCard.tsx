@@ -1,4 +1,4 @@
-import { LivenessFlow, Button, Card, Flex } from '@aws-amplify/ui-react';
+import { LivenessFlow, Button, Card, Flex, View } from '@aws-amplify/ui-react';
 import { useLiveness } from './useLiveness';
 import { SessionIdAlert } from './SessionIdAlert';
 import { GetLivenessResultCard } from './GetLivenessResultCard';
@@ -21,7 +21,7 @@ export default function LivenessCard() {
   }
 
   return (
-    <div style={{ marginTop: '1rem' }}>
+    <View marginBlockStart="large">
       {isLivenessActive ? (
         <Flex
           direction="column"
@@ -40,8 +40,6 @@ export default function LivenessCard() {
             <LivenessFlow
               sessionId={createLivenessSessionApiData.sessionId}
               onGetLivenessDetection={handleGetLivenessDetection}
-              active={isLivenessActive}
-              onExit={handleExit}
               onUserCancel={handleUserExit}
               enableAnalytics={true}
             />
@@ -58,6 +56,6 @@ export default function LivenessCard() {
           {createLivenessSessionApiLoading ? 'Loading...' : 'Start Liveness'}
         </Button>
       )}
-    </div>
+    </View>
   );
 }

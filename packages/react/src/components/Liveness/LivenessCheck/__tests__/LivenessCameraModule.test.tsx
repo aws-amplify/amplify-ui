@@ -86,7 +86,9 @@ describe('LivenessCameraModule', () => {
 
     expect(screen.getByTestId('centered-loader')).toBeInTheDocument();
     expect(videoEl).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'Cancel Liveness check' })
+    ).toBeInTheDocument();
 
     videoEl.dispatchEvent(new Event('canplay'));
 

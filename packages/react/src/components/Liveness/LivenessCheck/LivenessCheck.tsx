@@ -10,6 +10,8 @@ import { LivenessCameraModule } from './LivenessCameraModule';
 import { useLivenessActor } from '../hooks';
 import { Text, Flex } from '../../../primitives';
 
+const CHECK_CLASS_NAME = 'liveness-detector-check';
+
 export const LivenessCheck: React.FC = () => {
   const { tokens } = useTheme();
   const breakpoint = useThemeBreakpoint();
@@ -22,14 +24,16 @@ export const LivenessCheck: React.FC = () => {
     <Flex
       direction="column"
       position="relative"
-      data-testid="liveness-flow-check"
+      data-amplify-liveness-detector-check=""
+      data-testid={CHECK_CLASS_NAME}
+      className={CHECK_CLASS_NAME}
     >
       {!isPermissionDenied ? (
         <LivenessCameraModule isMobileScreen={isMobileScreen} />
       ) : (
         <Flex
-          backgroundColor={`${tokens.colors.black}`}
-          color={`${tokens.colors.white}`}
+          backgroundColor={`${tokens.colors.background.primary}`}
+          color={`${tokens.colors.font.primary}`}
           direction="column"
           textAlign="center"
           alignItems="center"

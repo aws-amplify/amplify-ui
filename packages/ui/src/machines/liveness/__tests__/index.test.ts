@@ -47,10 +47,9 @@ describe('Liveness Machine', () => {
     sessionId: 'some-sessionId',
     onGetLivenessDetection: jest.fn(),
     onError: jest.fn(),
-    onExit: jest.fn(),
     onSuccess: jest.fn(),
     onUserCancel: jest.fn(),
-    onUserPermissionDeined: jest.fn(),
+    onUserPermissionDenied: jest.fn(),
     onUserTimeout: jest.fn(),
   };
 
