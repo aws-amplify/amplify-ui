@@ -43,9 +43,8 @@ export default function LivenessDefault({ disableStartScreen = false }) {
             sessionId={createLivenessSessionApiData.sessionId}
             sessionInformation={createLivenessSessionApiData.sessionInformation}
             onGetLivenessDetection={handleGetLivenessDetection}
-            onExit={stopLiveness}
-            disableStartScreen={disableStartScreen}
             enableAnalytics={true}
+            disableStartScreen={disableStartScreen}
           />
 
           <GetLivenessResultCard getLivenessResponse={getLivenessResponse} />

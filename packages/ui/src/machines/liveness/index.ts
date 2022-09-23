@@ -359,7 +359,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           metrics: { count: 1 },
         });
 
-        context.flowProps.onUserPermissionDeined?.();
+        context.flowProps.onUserPermissionDenied?.(
+          new Error('No available cameras found')
+        );
       },
       callUserCancelCallback: (context) => {
         context.flowProps.onUserCancel?.();
