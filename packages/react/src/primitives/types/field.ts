@@ -1,7 +1,7 @@
 import { FieldGroupIconButtonProps } from './fieldGroupIcon';
 import { InputProps } from './input';
 import { TextProps } from './text';
-import { AllStyleProps, BaseStyleProps } from './style';
+import { BaseStyleProps } from './style';
 
 /**
  * Shared type across all field types
