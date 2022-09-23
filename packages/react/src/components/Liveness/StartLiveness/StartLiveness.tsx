@@ -5,6 +5,7 @@ import {
   LIVENESS_EVENT_GET_READY_SCREEN,
 } from '@aws-amplify/ui';
 
+import { useTheme } from '../../../hooks';
 import { DescriptionBullet } from '../shared';
 import { useLivenessFlow } from '../providers';
 import {
@@ -39,6 +40,7 @@ export interface StartLivenessProps {
 
 export function StartLiveness(props: StartLivenessProps): JSX.Element {
   const { beginLivenessCheck } = props;
+  const { tokens } = useTheme();
   const { flowProps } = useLivenessFlow();
 
   React.useEffect(() => {
@@ -67,7 +69,11 @@ export function StartLiveness(props: StartLivenessProps): JSX.Element {
       data-testid={START_CLASS_NAME}
     >
       <Flex direction="column">
-        <Collection type="list" items={INSTRUCTIONS}>
+        <Collection
+          type="list"
+          items={INSTRUCTIONS}
+          gap={`${tokens.space.large}`}
+        >
           {(item, index) => (
             <DescriptionBullet
               key={item.title}
@@ -87,11 +93,20 @@ export function StartLiveness(props: StartLivenessProps): JSX.Element {
           </Button>
         </Flex>
 
-        <View fontSize="xs">
-          <Text as="span" color="font.tertiary" fontWeight="bold">
+        <View>
+          <Text
+            as="span"
+            fontSize={`${tokens.fontSizes.xs}`}
+            fontWeight={`${tokens.fontWeights.bold}`}
+            color={`${tokens.colors.font.tertiary}`}
+          >
             {translate<string>('Legal desclaimer: ')}
           </Text>
-          <Text as="span" color="font.tertiary">
+          <Text
+            as="span"
+            fontSize={`${tokens.fontSizes.xs}`}
+            color={`${tokens.colors.font.tertiary}`}
+          >
             {translate<string>(
               'By using this service, you provide your express, informed, written release and consent for this app and Amazon Web Services to collect, use and store your biometric data.'
             )}

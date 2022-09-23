@@ -123,12 +123,12 @@ export const LivenessCameraModule = (
         />
 
         {isRecording && (
-          <View position="absolute" top="medium" left="medium">
+          <View position="absolute" top={10} left={10}>
             <RecordingIcon />
           </View>
         )}
 
-        <View position="absolute" top="medium" right="medium">
+        <View position="absolute" top={10} right={10}>
           <CancelButton sourceScreen={LIVENESS_EVENT_LIVENESS_CHECK_SCREEN} />
         </View>
       </Flex>
@@ -137,22 +137,14 @@ export const LivenessCameraModule = (
           direction="column"
           alignItems="center"
           position={'absolute'}
-          bottom={
-            isMobileScreen
-              ? `calc(${streamOffset} + var(--amplify-space-medium))`
-              : `var(--amplify-space-medium)`
-          }
+          bottom={isMobileScreen ? streamOffset + 10 : 10}
         >
           <Instruction />
 
           {isNotRecording && (
             <View
-              backgroundColor="background.primary"
-              borderRadius="100%"
-              style={{
-                'border-style': 'solid',
-                'border-width': '5px',
-              }}
+              backgroundColor={`${tokens.colors.background.primary}`}
+              borderRadius={'100%'}
             >
               <CountdownCircleTimer
                 isPlaying={isNotRecording}
@@ -161,12 +153,15 @@ export const LivenessCameraModule = (
                 duration={3}
                 rotation="counterclockwise"
                 // FIXME: colors is hard coded because it only allows a hex value
-                colors="#40aabf"
+                colors={'#005566'}
                 trailColor={`${tokens.colors.background.primary}`}
                 onComplete={timerCompleteHandler}
               >
                 {({ remainingTime }) => (
-                  <Text fontSize="xxxl" fontWeight="bold">
+                  <Text
+                    fontSize={`${tokens.fontSizes.xxxl}`}
+                    fontWeight={`${tokens.fontWeights.bold}`}
+                  >
                     {remainingTime}
                   </Text>
                 )}
