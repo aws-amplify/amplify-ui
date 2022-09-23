@@ -1,15 +1,15 @@
 import { CheckboxField } from '@aws-amplify/ui-react';
 
 import {
-  ControlledCheckbox,
-  ValueExample,
-  CheckboxFieldThemeExample,
-  CheckboxFieldIndeterminateExample,
-  CheckboxFieldWithErrorExample,
+  CheckboxFieldControlledExample,
   CheckboxFieldDisabledExample,
-  DefaultCheckboxFieldExample,
-  CheckboxFieldSizesExample,
+  CheckboxFieldIndeterminateExample,
   CheckboxFieldLabelHiddenExample,
+  CheckboxFieldSizesExample,
+  CheckboxFieldThemeExample,
+  CheckboxFieldValueExample,
+  CheckboxFieldWithErrorExample,
+  DefaultCheckboxFieldExample,
 } from './examples';
 import { CheckboxDemo } from './demo';
 import { Example, ExampleCode } from '@/components/Example';
@@ -43,11 +43,11 @@ Import the CheckboxField primitive.
 ### Controlled component
 
 <Example>
-  <ControlledCheckbox />
+  <CheckboxFieldControlledExample />
   
   <ExampleCode>
     
-```tsx file=./examples/controlledExample.tsx
+```tsx file=./examples/CheckboxFieldControlledExample.tsx
 
 ```
     
@@ -77,10 +77,10 @@ The value associated with the checkbox name in form data, used when submitting a
 
 
 <Example>
-  <ValueExample />
+  <CheckboxFieldValueExample />
   <ExampleCode>
     
-```tsx file=./examples/valueExample.tsx
+```tsx file=./examples/CheckboxFieldValueExample.tsx
 
 ```
     
