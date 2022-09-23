@@ -118,7 +118,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             target: 'detectFaceBeforeStart',
             cond: 'hasDOMAndCameraDetails',
           },
-          // setting this to check every 100 ms sometimes caused detectFaceBeforeStart to be called twice
+          // setting this to check every 500 ms sometimes caused detectFaceBeforeStart to be called twice
           500: { target: 'waitForDOMAndCameraDetails' },
         },
       },
