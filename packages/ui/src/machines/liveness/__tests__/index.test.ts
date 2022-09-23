@@ -571,6 +571,18 @@ describe('Liveness Machine', () => {
       );
     });
 
+    it('should reach timeout state if disconnect event never arrives', async () => {
+      Date.now = jest.fn(() => testTimestampMs);
+
+      await transitionToUploading(service);
+      await flushPromises(); // stopVideo
+      jest.advanceTimersToNextTimer(30000); // waitForDisconnect
+      expect(service.state.value).toEqual('timeout');
+      expect(service.state.context.errorState).toBe(LivenessErrorState.TIMEOUT);
+      await flushPromises();
+      expect(mockFlowProps.onUserTimeout).toHaveBeenCalledTimes(1);
+    });
+
     it('should reach checkSucceeded state after getLivenessResult', async () => {
       Date.now = jest.fn(() => testTimestampMs);
       (mockFlowProps.onGetLivenessDetection as jest.Mock).mockResolvedValue({

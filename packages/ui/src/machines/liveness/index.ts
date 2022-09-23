@@ -261,6 +261,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         initial: 'pending',
         states: {
           pending: {
+            entry: ['sendTimeoutAfterWaitingForDisconnect'],
             invoke: {
               src: 'stopVideo',
               onDone: 'waitForDisconnectEvent',
@@ -280,6 +281,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             },
           },
           getLivenessResult: {
+            entry: ['cancelWaitForDisconnectTimeout'],
             invoke: {
               src: 'getLiveness',
               onDone: 'checking',
@@ -325,6 +327,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       userCancel: {
         entry: 'callUserCancelCallback',
+        // always: [{ target: 'start' }],
         type: 'final',
       },
     },
@@ -540,6 +543,16 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         }
       ),
       cancelOvalMatchTimeout: actions.cancel('ovalMatchTimeout'),
+      sendTimeoutAfterWaitingForDisconnect: actions.send(
+        { type: 'TIMEOUT' },
+        {
+          delay: 20000,
+          id: 'waitForDisconnectTimeout',
+        }
+      ),
+      cancelWaitForDisconnectTimeout: actions.cancel(
+        'waitForDisconnectTimeout'
+      ),
 
       // callbacks
       callUserPermissionDeniedCallback: (context) => {
@@ -562,8 +575,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           attributes: { action: 'FailedWithTimeout' },
           metrics: { count: 1 },
         });
-        await context.livenessStreamProvider.stopVideo();
-        context.livenessStreamProvider.endStream();
+        await context.livenessStreamProvider.endStream();
 
         context.flowProps.onUserTimeout?.();
       },
