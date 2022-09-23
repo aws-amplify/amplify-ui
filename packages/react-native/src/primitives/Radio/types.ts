@@ -14,7 +14,7 @@ export const FLEX_DIRECTIONS: Record<
   bottom: 'column',
 };
 
-export interface RadioProps<T> extends Omit<ViewProps, 'accessibilityRole'> {
+export interface RadioProps<T> extends ViewProps {
   buttonStyle?: StyleProp<TextStyle>;
   disabled?: boolean;
   label?: string;
@@ -27,13 +27,16 @@ export interface RadioProps<T> extends Omit<ViewProps, 'accessibilityRole'> {
 }
 
 export interface RadioSize {
-  borderRadius: number;
+  // borderRadius: number;
   height: number;
   width: number;
+  borderWidth?: ViewStyle['borderWidth'];
+  padding?: ViewStyle['padding'];
 }
 
 interface RadioSizes {
   large: RadioSize;
+  medium: RadioSize;
   small: RadioSize;
 }
 
@@ -41,12 +44,9 @@ interface DisabledState {
   opacity: ViewStyle['opacity'];
 }
 
-export interface RadioStyles {
+export interface RadioStyles extends RadioSizes {
   container: ViewStyle;
-  radio: ViewStyle & RadioSizes;
-  radioButton: ViewStyle & RadioSizes;
-  large: RadioSize;
-  medium: RadioSize;
-  small: RadioSize;
+  radioButton: ViewStyle;
+  radioButtonContainer: ViewStyle;
   _disabled: DisabledState;
 }

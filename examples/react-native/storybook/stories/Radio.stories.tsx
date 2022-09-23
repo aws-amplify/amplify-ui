@@ -49,6 +49,10 @@ storiesOf('Radio', module)
       <Radio selected label="default selected" value="option4" />
       <Radio size="large" label="large" value="option5" />
       <Radio size="large" selected label="large selected" value="option6" />
+      <Radio size={60} label="custom-big" value="option7" />
+      <Radio size={60} selected label="custom-big selected" value="option8" />
+      <Radio size={10} label="custom-tiny" value="option9" />
+      <Radio size={10} selected label="custom-tiny selected" value="option10" />
     </>
   ))
   .add('buttonStyle', () => (

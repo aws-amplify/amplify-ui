@@ -5,8 +5,10 @@ import { Label } from '../index';
 
 import { styles } from './styles';
 import { FLEX_DIRECTIONS, RadioProps } from './types';
+import { getRadioButtonStyles } from './getRadioButtonStyles';
 
 export default function Radio<T>({
+  accessibilityRole = 'radio',
   buttonStyle,
   disabled,
   label,
@@ -30,6 +32,7 @@ export default function Radio<T>({
   return (
     <Pressable
       {...rest}
+      accessibilityRole={accessibilityRole}
       // hitSlop will be platform-specific, and it partially depends on
       // how much spacing the RadioGroupField applies
       hitSlop={5}
@@ -41,18 +44,22 @@ export default function Radio<T>({
         style,
       ]}
     >
-      <Pressable onPress={handleOnChange}>
-        <View
-          accessibilityRole="radio"
-          style={[styles.radio, styles.radio[size]]}
-        >
-          {selected ? (
-            <View
-              style={[styles.radioButton, styles.radio[size], buttonStyle]}
-            />
-          ) : null}
-        </View>
-      </Pressable>
+      <View
+        style={[
+          styles.radioButtonContainer,
+          getRadioButtonStyles('radioButtonContainer', size),
+        ]}
+      >
+        {selected ? (
+          <View
+            style={[
+              styles.radioButton,
+              getRadioButtonStyles('radioButton', size),
+              buttonStyle,
+            ]}
+          />
+        ) : null}
+      </View>
       {label ? <Label style={labelStyle}>{label}</Label> : null}
     </Pressable>
   );
