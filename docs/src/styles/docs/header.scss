@@ -9,6 +9,11 @@
   }
 }
 
+/* Remove after Global Nav launch START */
+#main-nav + .docs-header {
+  --docs-dev-center-nav-height: 3rem;
+}
+/* Remove after Global Nav launch END */
 .docs-header {
   display: flex;
   position: sticky;
