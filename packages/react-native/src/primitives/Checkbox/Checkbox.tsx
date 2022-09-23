@@ -1,27 +1,20 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import {
+  Pressable,
   PressableStateCallbackType,
   StyleProp,
-  View,
   ViewStyle,
 } from 'react-native';
 
 import { icons } from '../../assets';
-import {
-  IconButton,
-  Label,
-} from '@aws-amplify/ui-react-native/dist/primitives';
-
-import { CheckboxProps, CheckboxStyle } from './types';
-
-const styles: CheckboxStyle = {
-  container: {
-    alignItems: 'center',
-    padding: 4,
-  },
-};
+import { styles } from './styles';
+import { IconButton } from '../IconButton';
+import { Label } from '../Label';
+import { CheckboxProps } from './types';
+import { getFlexDirectionFromLabelPosition } from '../Label/utils';
 
 export default function Checkbox<T>({
+  accessibilityRole = 'checkbox',
   buttonStyle,
   disabled,
   label,
@@ -34,20 +27,17 @@ export default function Checkbox<T>({
   value,
   ...rest
 }: CheckboxProps<T>): JSX.Element {
-  const labelPrecedesIcon =
-    labelPosition === 'start' || labelPosition === 'top';
+  const [checked, setChecked] = useState(selected ?? false);
 
   const handleOnChange = useCallback(() => {
     onChange?.(value);
-  }, [onChange, value]);
+    setChecked(!checked);
+  }, [onChange, value, checked]);
 
   const containerStyle: ViewStyle = useMemo(
     () => ({
       ...styles.container,
-      flexDirection:
-        labelPosition === 'bottom' || labelPosition === 'top'
-          ? 'column'
-          : 'row',
+      flexDirection: getFlexDirectionFromLabelPosition(labelPosition),
       opacity: disabled ? 0.6 : 1,
     }),
     [disabled, labelPosition]
@@ -67,22 +57,23 @@ export default function Checkbox<T>({
     [buttonStyle]
   );
 
+  // TODO: replace IconButton with icon once Icon primitive is added
+
   return (
-    <View style={[containerStyle, style]}>
-      {label && labelPrecedesIcon ? (
-        <Label style={labelStyle}>{label}</Label>
-      ) : null}
+    <Pressable
+      accessibilityRole={accessibilityRole}
+      disabled={disabled}
+      onPress={handleOnChange}
+      style={[containerStyle, style]}
+    >
       <IconButton
         {...rest}
-        disabled={disabled}
-        onPress={handleOnChange}
-        source={selected ? icons.checkboxFilled : icons.checkboxOutline}
+        disabled
+        source={checked ? icons.checkboxFilled : icons.checkboxOutline}
         size={size}
         style={iconButtonStyle}
       />
-      {label && !labelPrecedesIcon ? (
-        <Label style={labelStyle}>{label}</Label>
-      ) : null}
-    </View>
+      {label ? <Label style={labelStyle}>{label}</Label> : null}
+    </Pressable>
   );
 }

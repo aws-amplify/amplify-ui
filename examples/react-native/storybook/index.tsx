@@ -1,7 +1,14 @@
+import React from 'react';
 import { LogBox, Platform } from 'react-native';
-import { getStorybookUI, configure } from '@storybook/react-native';
+import {
+  getStorybookUI,
+  configure,
+  addDecorator,
+} from '@storybook/react-native';
+import { withKnobs } from '@storybook/addon-knobs';
 import noop from 'lodash/noop';
 import { loadStories } from './storyLoader';
+import { Screen } from './ui/Screen';
 
 const STORYBOOK_REQUIRE_CYCLE_PREFIX =
   'Require cycle: node_modules/core-js/internals/microtask.js';
@@ -15,6 +22,14 @@ export function setupStorybook(initStorybook: boolean) {
     configure(() => {
       loadStories();
     }, module);
+
+    // add decorators
+    addDecorator(withKnobs);
+    addDecorator((Story: any) => (
+      <Screen>
+        <Story />
+      </Screen>
+    ));
   }
 
   // Refer to https://github.com/storybookjs/react-native/tree/master/app/react-native#getstorybookui-options
