@@ -1,4 +1,11 @@
-import { LivenessFlow, View, Flex, Loader, Icon } from '@aws-amplify/ui-react';
+import {
+  LivenessFlow,
+  View,
+  Flex,
+  Loader,
+  Icon,
+  Text,
+} from '@aws-amplify/ui-react';
 import { useLiveness } from './useLiveness';
 import { SessionIdAlert } from './SessionIdAlert';
 import { GetLivenessResultCard } from './GetLivenessResultCard';
@@ -23,10 +30,15 @@ export default function LivenessDefault({ disableStartScreen = false }) {
     <View maxWidth="640px" margin="0 auto">
       {createLivenessSessionApiLoading ? (
         <Flex justifyContent="center" alignItems="center">
-          <Loader /> Loading...
+          <Loader /> <Text as="span">Loading...</Text>
         </Flex>
       ) : (
-        <Flex direction="column" gap="xl">
+        <Flex
+          direction="column"
+          gap="xl"
+          position="relative"
+          style={{ zIndex: '2' }}
+        >
           <SessionIdAlert sessionId={createLivenessSessionApiData.sessionId} />
 
           <Icon
