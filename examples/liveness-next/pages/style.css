@@ -12,3 +12,7 @@ body {
 [data-amplify-theme] {
   background-color: var(--amplify-colors-background-primary);
 }
+
+.liveness-example-nav {
+  z-index: 1;
+}

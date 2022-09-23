@@ -4,8 +4,8 @@ import React from 'react';
 import { Amplify } from 'aws-amplify';
 import awsExports from '@environments/liveness/src/aws-exports';
 
-import LivenessDefault from './components/LivenessDefault';
-import Layout from './components/Layout';
+import LivenessDefault from '../components/LivenessDefault';
+import Layout from '../components/Layout';
 
 Amplify.configure({
   ...awsExports,
@@ -27,7 +27,7 @@ Amplify.configure({
 const App = () => {
   return (
     <Layout>
-      <LivenessDefault />
+      <LivenessDefault disableStartScreen={true} />
     </Layout>
   );
 };

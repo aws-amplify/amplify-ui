@@ -1,9 +1,18 @@
-import { LivenessFlow, View, Flex } from '@aws-amplify/ui-react';
+import {
+  LivenessFlow,
+  View,
+  Flex,
+  Loader,
+  Icon,
+  Text,
+} from '@aws-amplify/ui-react';
 import { useLiveness } from './useLiveness';
 import { SessionIdAlert } from './SessionIdAlert';
 import { GetLivenessResultCard } from './GetLivenessResultCard';
 
-export default function LivenessDefault() {
+import LivenessLogo from './LivenessLogo';
+
+export default function LivenessDefault({ disableStartScreen = false }) {
   const {
     getLivenessResponse,
     createLivenessSessionApiError,
@@ -20,16 +29,34 @@ export default function LivenessDefault() {
   return (
     <View maxWidth="640px" margin="0 auto">
       {createLivenessSessionApiLoading ? (
-        'Loading...'
+        <Flex justifyContent="center" alignItems="center">
+          <Loader /> <Text as="span">Loading...</Text>
+        </Flex>
       ) : (
-        <Flex direction="column">
+        <Flex
+          direction="column"
+          gap="xl"
+          position="relative"
+          style={{ zIndex: '2' }}
+        >
           <SessionIdAlert sessionId={createLivenessSessionApiData.sessionId} />
+
+          <Icon
+            ariaLabel="Amplify UI Liveness"
+            margin="0 auto"
+            width="160"
+            height="52"
+            viewBox={{ width: 160, height: 52 }}
+          >
+            <LivenessLogo />
+          </Icon>
 
           <LivenessFlow
             sessionId={createLivenessSessionApiData.sessionId}
             sessionInformation={createLivenessSessionApiData.sessionInformation}
             onGetLivenessDetection={handleGetLivenessDetection}
             enableAnalytics={true}
+            disableStartScreen={disableStartScreen}
           />
 
           <GetLivenessResultCard getLivenessResponse={getLivenessResponse} />
