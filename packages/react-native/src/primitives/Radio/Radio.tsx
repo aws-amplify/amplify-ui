@@ -1,20 +1,22 @@
-import React, { useCallback } from 'react';
-import { Pressable, View } from 'react-native';
+import React, { useCallback, useMemo } from 'react';
+import { Pressable, View, ViewStyle } from 'react-native';
 
 import { Label } from '../index';
+import { getFlexDirectionFromLabelPosition } from '../Label/utils';
 
 import { styles } from './styles';
-import { FLEX_DIRECTIONS, RadioProps } from './types';
+import { RadioProps } from './types';
 import { getRadioButtonStyles } from './getRadioButtonStyles';
 
 export default function Radio<T>({
   accessibilityRole = 'radio',
-  buttonStyle,
   disabled,
   label,
   labelPosition = 'end',
   labelStyle,
   onChange,
+  radioButtonContainerStyle,
+  radioButtonStyle,
   selected,
   size = 'medium',
   style,
@@ -27,27 +29,30 @@ export default function Radio<T>({
     }
   }, [onChange, value, disabled]);
 
-  const flexDirection = FLEX_DIRECTIONS[labelPosition];
+  const containerStyle: ViewStyle = useMemo(
+    () => ({
+      ...styles.container,
+      flexDirection: getFlexDirectionFromLabelPosition(labelPosition),
+      ...(disabled && styles.disabled),
+    }),
+    [disabled, labelPosition]
+  );
 
   return (
     <Pressable
       {...rest}
       accessibilityRole={accessibilityRole}
-      // hitSlop will be platform-specific, and it partially depends on
-      // how much spacing the RadioGroupField applies
+      // hitSlop will be platform-specific,
+      // and partially depends on how much spacing the RadioGroupField will apply
       hitSlop={5}
       onPress={handleOnChange}
-      style={[
-        styles.container,
-        { flexDirection },
-        disabled ? styles.disabled : undefined,
-        style,
-      ]}
+      style={[containerStyle, style]}
     >
       <View
         style={[
           styles.radioButtonContainer,
           getRadioButtonStyles('radioButtonContainer', size),
+          radioButtonContainerStyle,
         ]}
       >
         {selected ? (
@@ -55,7 +60,7 @@ export default function Radio<T>({
             style={[
               styles.radioButton,
               getRadioButtonStyles('radioButton', size),
-              buttonStyle,
+              radioButtonStyle,
             ]}
           />
         ) : null}

@@ -1,26 +1,18 @@
 import { StyleProp, TextStyle, ViewProps, ViewStyle } from 'react-native';
 
-// These types should live elsewhere
-export type LabelPosition = 'start' | 'end' | 'top' | 'bottom';
+import { LabelPosition } from '../Label/types';
+
+// This type should live elsewhere
 export type Sizes = 'small' | 'medium' | 'large';
 
-export const FLEX_DIRECTIONS: Record<
-  LabelPosition,
-  ViewStyle['flexDirection']
-> = {
-  start: 'row-reverse',
-  end: 'row',
-  top: 'column-reverse',
-  bottom: 'column',
-};
-
 export interface RadioProps<T> extends ViewProps {
-  buttonStyle?: StyleProp<TextStyle>;
   disabled?: boolean;
   label?: string;
   labelPosition?: LabelPosition;
   labelStyle?: StyleProp<TextStyle>;
   onChange?: (value?: T) => void;
+  radioButtonContainerStyle?: StyleProp<ViewStyle>;
+  radioButtonStyle?: StyleProp<ViewStyle>;
   size?: number | Sizes;
   selected?: boolean;
   value: T;

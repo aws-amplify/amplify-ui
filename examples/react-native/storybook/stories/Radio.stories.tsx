@@ -55,11 +55,12 @@ storiesOf('Radio', module)
       <Radio size={10} selected label="custom-tiny selected" value="option10" />
     </>
   ))
-  .add('buttonStyle', () => (
+  .add('styles', () => (
     <Radio
       selected
-      label="Green button"
-      buttonStyle={styles.greenButton}
+      label="Green button, blue border"
+      radioButtonStyle={styles.greenButton}
+      radioButtonContainerStyle={styles.thickBlueBorder}
       value="green"
     />
   ));
@@ -70,5 +71,9 @@ const styles = StyleSheet.create({
   },
   greenButton: {
     backgroundColor: 'green',
+  },
+  thickBlueBorder: {
+    borderColor: 'blue',
+    borderWidth: 5,
   },
 });
