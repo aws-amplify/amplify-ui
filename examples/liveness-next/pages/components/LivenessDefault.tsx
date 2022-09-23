@@ -54,6 +54,7 @@ export default function LivenessDefault({ disableStartScreen = false }) {
           <LivenessFlow
             sessionId={createLivenessSessionApiData.sessionId}
             sessionInformation={createLivenessSessionApiData.sessionInformation}
+            onUserCancel={stopLiveness}
             onGetLivenessDetection={handleGetLivenessDetection}
             enableAnalytics={true}
             disableStartScreen={disableStartScreen}
