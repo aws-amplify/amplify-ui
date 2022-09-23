@@ -149,10 +149,7 @@ export const LivenessCameraModule = (
             <View
               backgroundColor="background.primary"
               borderRadius="100%"
-              style={{
-                'border-style': 'solid',
-                'border-width': '5px',
-              }}
+              padding="8px"
             >
               <CountdownCircleTimer
                 isPlaying={isNotRecording}
