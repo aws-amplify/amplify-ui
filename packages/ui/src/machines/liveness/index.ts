@@ -49,7 +49,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
     predictableActionArguments: true,
     context: {
       challengeId: v4(),
-      maxFailedAttempts: 0, // Set to 0 for now as we are now allowing front end based retries for streaming
+      maxFailedAttempts: 0, // Set to 0 for now as we are not allowing front end based retries for streaming
       failedAttempts: 0,
       flowProps: undefined,
       serverSessionInformation: undefined,
