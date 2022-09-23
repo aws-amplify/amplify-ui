@@ -21,8 +21,17 @@ export interface CognitoAttributes {
   [key: string]: string;
 }
 
-/** Cognito User Interface */
-export interface CognitoUserAmplify extends CognitoUser {
+/**
+ * Amplify User Interface
+ */
+export interface AmplifyUser extends CognitoUser {
   username?: string;
   attributes?: CognitoAttributes;
 }
+
+/**
+ * @deprecated please use `AmplifyUser`
+ *
+ * Cognito User Interface
+ */
+export interface CognitoUserAmplify extends AmplifyUser {}

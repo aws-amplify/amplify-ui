@@ -3,10 +3,10 @@
 
 @keyframes showSidebar {
   0% {
-    transform: translate(-100%);
+    transform: translateX(-100%);
   }
   100% {
-    transform: translate(0);
+    transform: translateX(0);
   }
 }
 
@@ -102,13 +102,13 @@
   --amplify-components-expander-trigger-hover-background-color: var(--amplify-colors-background-tertiary);
 
 
-  height: 100vh;
+  height: calc(100vh - var(--docs-dev-center-nav-height));
   width: var(--width);
   overflow-y: auto;
   position: fixed;
-  top: 0;
+  top: var(--docs-dev-center-nav-height);
   left: 0;
-  padding: var(--amplify-space-medium);
+  padding: var(--amplify-space-medium) var(--amplify-space-large);
   border-right: var(--amplify-border-widths-small) solid
     var(--amplify-colors-border-primary);
   box-shadow: var(--amplify-shadows-medium);
