@@ -136,25 +136,25 @@ jobs:
           AWS_REGION: us-east-1
 
   log-metric:
-    # Send data point to metric RunAndTestBuildsFailure in github-workflows@ us-east-2, if it's a failure
+    # Send data point to metric BuildAndRuntimeTestFailure in github-workflows@ us-east-2, if it's a failure
     runs-on: ubuntu-latest
     environment: ci
     needs: build
     steps:
-      - name: Log failure data point to metric RunAndTestBuildsFailure
+      - name: Log failure data point to metric BuildAndRuntimeTestFailure
         if: ${{ failure() }}
         uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
         with:
-          metric-name: RunAndTestBuildsFailure
+          metric-name: BuildAndRuntimeTestFailure
           value: 1
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_METRIC_LOGGER }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_METRIC_LOGGER }}
           AWS_REGION: us-east-2
-      - name: Log success data point to metric RunAndTestBuildsFailure
+      - name: Log success data point to metric BuildAndRuntimeTestFailure
         if: ${{ success() }}
         uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
         with:
-          metric-name: RunAndTestBuildsFailure
+          metric-name: BuildAndRuntimeTestFailure
           value: 0
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_METRIC_LOGGER }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_METRIC_LOGGER }}
