@@ -21,7 +21,6 @@ on:
         ui-react@v2,
         studio-release,
         next-release/main,
-        rwa/main,
       ]
     types: [opened, synchronize, labeled]
 
