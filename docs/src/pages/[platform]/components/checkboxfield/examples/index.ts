@@ -1,4 +1,9 @@
+export { CheckboxFieldDisabledExample } from './CheckboxFieldDisabledExample';
 export { CheckboxFieldIndeterminateExample } from './CheckboxFieldIndeterminateExample';
+export { CheckboxFieldThemeExample } from './CheckboxFieldThemeExample';
+export { CheckboxFieldWithErrorExample } from './CheckboxFieldWithErrorExample';
 export { ControlledCheckbox } from './controlledExample';
 export { ValueExample } from './valueExample';
-export { CheckboxFieldThemeExample } from './CheckboxFieldThemeExample';
+export { DefaultCheckboxFieldExample } from './DefaultCheckboxFieldExample';
+export { CheckboxFieldSizesExample } from './CheckboxFieldSizesExample';
+export { CheckboxFieldLabelHiddenExample } from './CheckboxFieldLabelHiddenExample';

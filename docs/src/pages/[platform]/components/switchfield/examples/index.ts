@@ -14,3 +14,4 @@ export { SwitchFieldTrackCheckedColorExample } from './SwitchFieldTrackCheckedCo
 export { SwitchFieldTrackColorExample } from './SwitchFieldTrackColorExample';
 export { SwitchFieldValueExample } from './SwitchFieldValueExample';
 export { SwitchFieldThemeExample } from './SwitchFieldThemeExample';
+export { SwitchFieldErrorExample } from './SwitchFieldErrorExample';
