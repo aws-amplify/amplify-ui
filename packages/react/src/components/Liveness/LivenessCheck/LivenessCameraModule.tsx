@@ -143,12 +143,12 @@ export const LivenessCameraModule = (
         />
 
         {isRecording && (
-          <View position="absolute" top={10} left={10}>
+          <View position="absolute" top="medium" left="medium">
             <RecordingIcon />
           </View>
         )}
 
-        <View position="absolute" top={10} right={10}>
+        <View position="absolute" top="medium" right="medium">
           <CancelButton sourceScreen={LIVENESS_EVENT_LIVENESS_CHECK_SCREEN} />
         </View>
       </Flex>
@@ -158,14 +158,19 @@ export const LivenessCameraModule = (
           direction="column"
           alignItems="center"
           position={'absolute'}
-          bottom={isMobileScreen ? streamOffset + 10 : 10}
+          bottom={
+            isMobileScreen
+              ? `calc(${streamOffset} + var(--amplify-space-medium))`
+              : `var(--amplify-space-medium)`
+          }
         >
           <Instruction />
 
           {isNotRecording && (
             <View
-              backgroundColor={`${tokens.colors.background.primary}`}
-              borderRadius={'100%'}
+              backgroundColor="background.primary"
+              borderRadius="100%"
+              padding="8px"
             >
               <CountdownCircleTimer
                 isPlaying={isNotRecording}
@@ -174,15 +179,12 @@ export const LivenessCameraModule = (
                 duration={3}
                 rotation="counterclockwise"
                 // FIXME: colors is hard coded because it only allows a hex value
-                colors={'#005566'}
+                colors="#40aabf"
                 trailColor={`${tokens.colors.background.primary}`}
                 onComplete={timerCompleteHandler}
               >
                 {({ remainingTime }) => (
-                  <Text
-                    fontSize={`${tokens.fontSizes.xxxl}`}
-                    fontWeight={`${tokens.fontWeights.bold}`}
-                  >
+                  <Text fontSize="xxxl" fontWeight="bold">
                     {remainingTime}
                   </Text>
                 )}
