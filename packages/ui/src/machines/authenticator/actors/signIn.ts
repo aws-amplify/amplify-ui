@@ -453,7 +453,8 @@ export function signInActor({ services }: SignInMachineOptions) {
         resolved: {
           type: 'final',
           data: (context) => {
-            console.log('in final here', context);
+            console.log('in final here123', context);
+            // sendParent('AUTO_SIGN_IN_TEST');
             return {
               user: context.user,
             };
@@ -501,6 +502,7 @@ export function signInActor({ services }: SignInMachineOptions) {
           return isMfaChallengeName(getChallengeName(event));
         },
         shouldAutoSignIn: (context) => {
+          console.log('in the actor shouldautosignin', context);
           return context?.intent === 'autoSignIn';
         },
         shouldRedirectToConfirmSignUp: (_, event): boolean => {
@@ -510,6 +512,7 @@ export function signInActor({ services }: SignInMachineOptions) {
           return event.data.code === 'PasswordResetRequiredException';
         },
         shouldSetupTOTP: (_, event): boolean => {
+          console.log('got back event', event, getChallengeName(event));
           return isExpectedChallengeName(getChallengeName(event), 'MFA_SETUP');
         },
         shouldForceChangePassword: (_, event): boolean => {

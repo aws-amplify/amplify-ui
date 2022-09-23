@@ -85,31 +85,17 @@ export function createAuthenticatorMachine() {
           initial: 'spawnActor',
           states: {
             spawnActor: {
-              always: [
-                {
-                  actions: 'spawnSignInActor',
-                  target: 'autoSignIn',
-                  cond: 'shouldAutoSignIn',
-                },
-                { actions: 'spawnSignInActor', target: 'runActor' },
-              ],
+              always: [{ actions: 'spawnSignInActor', target: 'runActor' }],
             },
             runActor: {
               entry: 'clearActorDoneData',
               exit: 'stopSignInActor',
             },
-            autoSignIn: {
-              always: [
-                {
-                  target: '#authenticator.authenticated',
-                  actions: 'setActorDoneData',
-                },
-              ],
-            },
           },
           on: {
             SIGN_UP: 'signUp',
             RESET_PASSWORD: 'resetPassword',
+            AUTO_SIGN_IN_TEST: 'authenticated',
             'done.invoke.signInActor': [
               {
                 target: 'signUp',
@@ -365,7 +351,10 @@ export function createAuthenticatorMachine() {
             return spawn(actor, { name: 'signOutActor' });
           },
         }),
-        stopSignInActor: stopActor('signInActor'),
+        stopSignInActor: () => {
+          console.log('stopping actor');
+          return stopActor('signInActor');
+        },
         stopSignUpActor: stopActor('signUpActor'),
         stopResetPasswordActor: stopActor('resetPasswordActor'),
         stopSignOutActor: stopActor('signOutActor'),
@@ -403,7 +392,10 @@ export function createAuthenticatorMachine() {
         hasActor: (context) => !!context.actorRef,
       },
       services: {
-        getCurrentUser: (context, _) => context.services.getCurrentUser(),
+        getCurrentUser: (context, _) => {
+          console.log('checking user', context);
+          return context.services.getCurrentUser();
+        },
         getAmplifyConfig: (context, _) => context.services.getAmplifyConfig(),
       },
     }
