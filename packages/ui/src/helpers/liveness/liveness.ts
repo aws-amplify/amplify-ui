@@ -351,6 +351,9 @@ export const LivenessErrorStateStringMap: Record<LivenessErrorState, string> = {
     'Liveness encountered an error. Please try again.'
   ),
   [LivenessErrorState.TIMEOUT]: translate<string>('Timeout'),
+  [LivenessErrorState.FRESHNESS_TIMEOUT]: translate<string>(
+    'Keep face in oval while colors are flashing. Please try again.'
+  ),
 };
 
 export const MOCK_COLOR_SEQUENCES: ColorSequence[] = [
@@ -550,7 +553,7 @@ export function getRGBArrayFromColorString(colorStr: string): number[] {
 export async function getFaceMatchState(
   faceDetector: FaceDetection,
   videoEl: HTMLVideoElement,
-  ovalDetails: LivenessOvalDetails
+  ovalDetails?: LivenessOvalDetails
 ) {
   const detectedFaces = await faceDetector.detectFaces(videoEl);
   let faceMatchState: FaceMatchState;
@@ -565,10 +568,9 @@ export async function getFaceMatchState(
     case 1: {
       //exactly one face detected, match face with oval;
       detectedFace = detectedFaces[0];
-      faceMatchState = getFaceMatchStateInLivenessOval(
-        detectedFace,
-        ovalDetails
-      );
+      faceMatchState = ovalDetails
+        ? getFaceMatchStateInLivenessOval(detectedFace, ovalDetails)
+        : FaceMatchState.FACE_IDENTIFIED;
       break;
     }
     default: {

@@ -5,6 +5,7 @@ import {
 } from '@aws-sdk/client-rekognitionstreaming';
 import { LivenessStreamProvider } from '../liveness-stream-provider';
 import { VideoRecorder } from '../video-recorder';
+import { mockClientSessionInformationEvent } from '../liveness-test-helpers';
 
 jest.mock('../video-recorder');
 jest.mock('@aws-sdk/client-rekognitionstreaming');
@@ -114,7 +115,7 @@ describe('LivenessStreamProvider', () => {
         mockVideoMediaStream
       );
       const recorder = new VideoRecorder(mockVideoMediaStream);
-      await provider.sendClientInfo('foobar');
+      await provider.sendClientInfo(mockClientSessionInformationEvent);
 
       expect(mockVideoRecorder.dispatch).toHaveBeenCalledTimes(1);
     });

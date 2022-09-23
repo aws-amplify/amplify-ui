@@ -1,4 +1,5 @@
 import { ActorRef } from 'xstate';
+import { ClientSessionInformationEvent } from '@aws-sdk/client-rekognitionstreaming';
 import {
   ColorSequence,
   SessionInformation,
@@ -121,6 +122,8 @@ export const mockContext = (): LivenessContext => {
     livenessStreamProvider: mockLivenessStreamProvider,
     serverSessionInformation: mockSessionInformation,
     responseStreamActorRef: mockResponseStreamActorRef,
+    shouldDisconnect: false,
+    faceMatchStateBeforeStart: FaceMatchState.MATCHED,
   };
 };
 
@@ -196,3 +199,19 @@ export const mockSessionInformation: SessionInformation = {
     },
   },
 };
+
+export const mockClientSessionInformationEvent: ClientSessionInformationEvent =
+  {
+    DeviceInformation: undefined,
+    Challenge: {
+      FaceMovementAndLightChallenge: {
+        ChallengeId: 'challengeId',
+        ColorDisplayed: {
+          CurrentColor: { RGB: [0, 0, 0] },
+          PreviousColor: { RGB: [0, 0, 0] },
+          SequenceNumber: 1,
+          CurrentColorStartTimestamp: Date.now(),
+        },
+      },
+    },
+  };

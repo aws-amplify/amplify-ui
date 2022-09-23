@@ -98,7 +98,7 @@ describe('LivenessCameraModule', () => {
       timeout: 5000,
     });
     expect(mockActorSend).toHaveBeenCalledWith({
-      type: 'START_RECORDING',
+      type: 'SET_DOM_AND_CAMERA_DETAILS',
       data: {
         videoEl: expect.any(HTMLVideoElement),
         freshnessColorEl: expect.any(HTMLCanvasElement),
