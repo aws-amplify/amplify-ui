@@ -11,7 +11,7 @@ import { styles } from './styles';
 import { IconButton } from '../IconButton';
 import { Label } from '../Label';
 import { CheckboxProps } from './types';
-import { FLEX_DIRECTIONS } from '../types';
+import { getFlexDirectionFromLabelPosition } from '../Label/utils';
 
 export default function Checkbox<T>({
   accessibilityRole = 'checkbox',
@@ -27,17 +27,17 @@ export default function Checkbox<T>({
   value,
   ...rest
 }: CheckboxProps<T>): JSX.Element {
-  const [pressed, setPressed] = useState(selected ?? false);
+  const [checked, setChecked] = useState(selected ?? false);
 
   const handleOnChange = useCallback(() => {
     onChange?.(value);
-    setPressed(!pressed);
-  }, [onChange, value, pressed]);
+    setChecked(!checked);
+  }, [onChange, value, checked]);
 
   const containerStyle: ViewStyle = useMemo(
     () => ({
       ...styles.container,
-      flexDirection: FLEX_DIRECTIONS[labelPosition],
+      flexDirection: getFlexDirectionFromLabelPosition(labelPosition),
       opacity: disabled ? 0.6 : 1,
     }),
     [disabled, labelPosition]
@@ -69,7 +69,7 @@ export default function Checkbox<T>({
       <IconButton
         {...rest}
         disabled
-        source={pressed ? icons.checkboxFilled : icons.checkboxOutline}
+        source={checked ? icons.checkboxFilled : icons.checkboxOutline}
         size={size}
         style={iconButtonStyle}
       />

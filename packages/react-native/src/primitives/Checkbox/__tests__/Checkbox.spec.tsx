@@ -1,5 +1,4 @@
 import React from 'react';
-import { create } from 'react-test-renderer';
 import { fireEvent, render } from '@testing-library/react-native';
 import Checkbox from '../Checkbox';
 
@@ -12,23 +11,25 @@ describe('Checkbox', () => {
 
   [true, false].forEach((value) => {
     it(`renders as expected when selected is ${value}`, () => {
-      const checkbox = create(
+      const { toJSON } = render(
         <Checkbox selected={value} value={value} onChange={onChange} />
       );
-      expect(checkbox.toJSON()).toMatchSnapshot();
+      expect(toJSON()).toMatchSnapshot();
     });
   });
 
   it('renders as expected when disabled', () => {
-    const checkbox = create(<Checkbox disabled value="" onChange={onChange} />);
-    expect(checkbox.toJSON()).toMatchSnapshot();
+    const { toJSON } = render(
+      <Checkbox disabled value="" onChange={onChange} />
+    );
+    expect(toJSON()).toMatchSnapshot();
   });
 
   it('renders as expected with accessibilityRole', () => {
-    const checkbox = create(
+    const { toJSON } = render(
       <Checkbox value="" onChange={onChange} accessibilityRole={'none'} />
     );
-    expect(checkbox.toJSON()).toMatchSnapshot();
+    expect(toJSON()).toMatchSnapshot();
   });
 
   it('calls the expected handler when selected', () => {

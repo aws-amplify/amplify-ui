@@ -3,7 +3,7 @@ import { StyleProp, ViewStyle } from 'react-native';
 import { IconButtonProps } from '../IconButton';
 
 import { LabelProps } from '../Label';
-import { LabelPosition } from '../types';
+import { LabelPosition } from '../Label/types';
 
 export interface CheckboxProps<T>
   extends Omit<IconButtonProps, 'source' | 'style'> {
