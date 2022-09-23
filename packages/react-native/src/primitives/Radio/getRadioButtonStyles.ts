@@ -1,5 +1,18 @@
 /**
- * Expain the utility of this function
+ * These utility functions are used to apply styles to
+ * the two nested View's comprising the Radio button:
+ *   - The outer <View> is named 'radioButtonContainer'
+ *   - The inner <View> is named 'radioButton'
+ *
+ * Additionally, since the `size` prop can be a number or a string union of
+ * 'small' | 'medium' | 'large', there are a few conditions to account for:
+ *
+ * If a customer passes a string ('small' | 'medium' | 'large') to the `size` prop,
+ * then we return the respective dimensions as defined in the `styles` object for the 'radioButtonContainer',
+ * and calculate the dimensions of the inner 'radioButton' based on the outer 'radioButtonContainer' size.
+ *
+ * If a customer passes a number to the `size` prop, then we simply calculate the dimensions
+ * for both the 'radioButton' and 'radioButtonContainer' based on that number.
  */
 
 import { RadioSize, Sizes } from './types';
