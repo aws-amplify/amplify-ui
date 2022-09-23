@@ -71,7 +71,7 @@ export default function NavBar({
                 </Icon>
               </Button>
 
-              <Link href="/liveness-next-example">Home</Link>
+              <Link href="/liveness-next-example">With Start Screen</Link>
 
               <Link href="/liveness-next-example/disable-start-screen">
                 Disable Start Screen

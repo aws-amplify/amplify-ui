@@ -22,9 +22,9 @@ export default function LivenessDefault({ disableStartScreen = false }) {
   return (
     <View maxWidth="640px" margin="0 auto">
       {createLivenessSessionApiLoading ? (
-        <div>
+        <Flex justifyContent="center" alignItems="center">
           <Loader /> Loading...
-        </div>
+        </Flex>
       ) : (
         <Flex direction="column" gap="xl">
           <SessionIdAlert sessionId={createLivenessSessionApiData.sessionId} />
