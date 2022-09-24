@@ -76,6 +76,7 @@ export const Provider = ({
    *
    * Leaving this as is for now in the interest of suggested code guideline.
    */
+
   const service = useInterpret(createAuthenticatorMachine);
   const value = React.useMemo(
     () => (isEmpty(parentProviderVal) ? { service } : parentProviderVal),

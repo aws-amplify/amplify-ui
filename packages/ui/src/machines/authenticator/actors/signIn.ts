@@ -33,6 +33,7 @@ import {
   setUser,
   setUsernameAuthAttributes,
 } from '../actions';
+
 import { defaultServices } from '../defaultServices';
 
 export type SignInMachineOptions = {
@@ -167,14 +168,13 @@ export function signInActor({ services }: SignInMachineOptions) {
           },
         },
         autoSignIn: {
-          initial: 'submit',
+          initial: 'edit',
           states: {
-            submit: {
+            edit: {
               tags: ['pending'],
               entry: ['clearError', 'sendUpdate'],
-              invoke: {
-                src: 'signIn',
-                onDone: [
+              on: {
+                AUTO_SIGN_IN: [
                   {
                     cond: 'shouldSetupTOTP',
                     actions: ['setUser', 'setChallengeName'],
@@ -199,11 +199,11 @@ export function signInActor({ services }: SignInMachineOptions) {
                     target: '#signInActor.resolved',
                   },
                 ],
-                onError: [
+                AUTO_SIGN_IN_FAILURE: [
                   {
                     cond: 'shouldRedirectToConfirmSignUp',
                     actions: ['setCredentials', 'setConfirmSignUpIntent'],
-                    target: '#signInActor.rejected',
+                    target: 'rejected',
                   },
                   {
                     cond: 'shouldRedirectToConfirmResetPassword',
@@ -211,15 +211,17 @@ export function signInActor({ services }: SignInMachineOptions) {
                       'setUsernameAuthAttributes',
                       'setConfirmResetPasswordIntent',
                     ],
-                    target: '#signInActor.rejected',
+                    target: 'rejected',
                   },
                   {
                     actions: 'setRemoteError',
-                    target: '#signInActor.signIn',
+                    target: 'edit',
                   },
                 ],
               },
             },
+            resolved: { always: '#signInActor.resolved' },
+            rejected: { always: '#signInActor.rejected' },
           },
         },
         confirmSignIn: {
@@ -440,9 +442,7 @@ export function signInActor({ services }: SignInMachineOptions) {
         },
         resolved: {
           type: 'final',
-          data: (context) => ({
-            user: context.user,
-          }),
+          data: (context) => ({ user: context.user }),
         },
         rejected: {
           type: 'final',

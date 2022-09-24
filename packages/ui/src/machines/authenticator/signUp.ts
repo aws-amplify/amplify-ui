@@ -20,6 +20,7 @@ import {
   setUser,
   handleSubmit,
 } from './actions';
+import { signUp } from './defaultAuthServices';
 import { defaultServices } from './defaultServices';
 
 export type SignUpMachineOptions = {
@@ -300,11 +301,14 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
             }
           });
 
-          return await services.handleSignUp({
-            username,
-            password,
-            attributes,
-          });
+          return await services.handleSignUp(
+            {
+              username,
+              password,
+              attributes,
+            },
+            signUp
+          );
         },
         async validateSignUp(context, event) {
           // This needs to exist in the machine to reference new `services`

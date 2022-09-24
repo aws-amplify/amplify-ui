@@ -17,8 +17,8 @@ export const defaultServices = {
     return Auth.currentAuthenticatedUser();
   },
 
-  async handleSignUp(formData): Promise<any> {
-    return Auth.signUp(formData);
+  async handleSignUp({ username, password, attributes }, signUp): Promise<any> {
+    return signUp(username, password, attributes);
   },
   async handleSignIn({
     username,

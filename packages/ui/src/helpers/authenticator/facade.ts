@@ -161,6 +161,8 @@ export const getServiceContextFacade = (
         return 'verifyUser';
       case actorState?.matches('confirmVerifyUser'):
         return 'confirmVerifyUser';
+      case state.matches('signIn.runActor'):
+        return 'autoSignIn';
       default:
         console.debug(
           'Cannot infer `route` from Authenticator state:',

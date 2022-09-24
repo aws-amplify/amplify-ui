@@ -23,6 +23,21 @@ Feature: Hub Events
     Then I see "Sign out"
     When I mock "tokenRefresh_failure" event
     Then I see "Sign in"
+
+  @angular @react @vue
+  Scenario: autoSignIn signs in the user after sign up
+    When I click the "Create Account" tab 
+    And I type a new "email"
+    And I type my password
+    And I confirm my password
+    And I click the "Create Account" button
+    And I see "Confirmation Code"
+    And I type a valid confirmation code
+    And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }' with fixture "confirm-sign-up-with-email"
+    And I mock 'Amplify.Auth.currentAuthenticatedUser' with fixture "Auth.currentAuthenticatedUser-verified-email"
+    And I click the "Confirm" button
+    And I mock "autoSignIn" event
+    Then I see "Sign out"
     
   @angular @react @vue
   Scenario: Successful token refresh calls currentAuthenticatedUser

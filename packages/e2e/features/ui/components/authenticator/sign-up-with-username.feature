@@ -28,7 +28,7 @@ Feature: Sign Up with Username
     Then I see "Your code is on the way"
     And I see "Confirmation Code"
 
-  @angular @react @vue
+ @angular @react @vue
   Scenario: Username field autocompletes username
     Then "Username" field autocompletes "username"
 
