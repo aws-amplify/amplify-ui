@@ -200,35 +200,26 @@ export function signInActor({ services }: SignInMachineOptions) {
                     target: '#signInActor.resolved',
                   },
                 ],
+                AUTO_SIGN_IN_FAILURE: [
+                  {
+                    cond: 'shouldRedirectToConfirmSignUp',
+                    actions: ['setCredentials', 'setConfirmSignUpIntent'],
+                    target: 'rejected',
+                  },
+                  {
+                    cond: 'shouldRedirectToConfirmResetPassword',
+                    actions: [
+                      'setUsernameAuthAttributes',
+                      'setConfirmResetPasswordIntent',
+                    ],
+                    target: 'rejected',
+                  },
+                  {
+                    actions: 'setRemoteError',
+                    target: 'edit',
+                  },
+                ],
               },
-            },
-            submit: {
-              entry: ['sendUpdate'],
-              always: [
-                {
-                  cond: 'shouldSetupTOTP',
-                  actions: ['setUser', 'setChallengeName'],
-                  target: '#signInActor.setupTOTP',
-                },
-                {
-                  cond: 'shouldConfirmSignIn',
-                  actions: ['setUser', 'setChallengeName'],
-                  target: '#signInActor.confirmSignIn',
-                },
-                {
-                  cond: 'shouldForceChangePassword',
-                  actions: [
-                    'setUser',
-                    'setChallengeName',
-                    'setRequiredAttributes',
-                  ],
-                  target: '#signInActor.forceNewPassword',
-                },
-                {
-                  actions: 'setUser',
-                  target: '#signInActor.resolved',
-                },
-              ],
             },
             resolved: { always: '#signInActor.resolved' },
             rejected: { always: '#signInActor.rejected' },
@@ -453,8 +444,6 @@ export function signInActor({ services }: SignInMachineOptions) {
         resolved: {
           type: 'final',
           data: (context) => {
-            console.log('in final here123', context);
-            // sendParent('AUTO_SIGN_IN_TEST');
             return {
               user: context.user,
             };
@@ -502,7 +491,6 @@ export function signInActor({ services }: SignInMachineOptions) {
           return isMfaChallengeName(getChallengeName(event));
         },
         shouldAutoSignIn: (context) => {
-          console.log('in the actor shouldautosignin', context);
           return context?.intent === 'autoSignIn';
         },
         shouldRedirectToConfirmSignUp: (_, event): boolean => {
@@ -512,7 +500,6 @@ export function signInActor({ services }: SignInMachineOptions) {
           return event.data.code === 'PasswordResetRequiredException';
         },
         shouldSetupTOTP: (_, event): boolean => {
-          console.log('got back event', event, getChallengeName(event));
           return isExpectedChallengeName(getChallengeName(event), 'MFA_SETUP');
         },
         shouldForceChangePassword: (_, event): boolean => {

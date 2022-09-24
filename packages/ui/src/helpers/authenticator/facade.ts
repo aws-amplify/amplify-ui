@@ -29,7 +29,6 @@ type AuthenticatorRoute =
   | 'forceNewPassword'
   | 'idle'
   | 'resetPassword'
-  | 'runActor'
   | 'setup'
   | 'signOut'
   | 'setupTOTP'
@@ -163,7 +162,7 @@ export const getServiceContextFacade = (
       case actorState?.matches('confirmVerifyUser'):
         return 'confirmVerifyUser';
       case state.matches('signIn.runActor'):
-        return 'runActor';
+        return 'autoSignIn';
       default:
         console.debug(
           'Cannot infer `route` from Authenticator state:',

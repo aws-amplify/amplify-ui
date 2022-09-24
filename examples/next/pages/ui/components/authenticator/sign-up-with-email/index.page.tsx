@@ -52,7 +52,11 @@ export default function AuthenticatorWithEmail() {
     <>
       <View>{authStatus}</View>
       <View>{route}</View>
-      <Authenticator formFields={formFields} initialState="signUp">
+      <Authenticator
+        services={services}
+        formFields={formFields}
+        initialState="signUp"
+      >
         {({ signOut }) => <button onClick={signOut}>Sign out</button>}
       </Authenticator>
     </>

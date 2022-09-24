@@ -2,6 +2,8 @@
   "UserConfirmed": true,
   "UserSub": "••••••-••••-••••-••••-•••••••••••••",
   "user": {
-    "username": "TEST@example.com"
+    "attributes": {
+      "email": "TEST@example.com"
+    }
   }
 }

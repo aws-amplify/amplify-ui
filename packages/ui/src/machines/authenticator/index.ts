@@ -95,7 +95,6 @@ export function createAuthenticatorMachine() {
           on: {
             SIGN_UP: 'signUp',
             RESET_PASSWORD: 'resetPassword',
-            AUTO_SIGN_IN_TEST: 'authenticated',
             'done.invoke.signInActor': [
               {
                 target: 'signUp',
@@ -352,7 +351,6 @@ export function createAuthenticatorMachine() {
           },
         }),
         stopSignInActor: () => {
-          console.log('stopping actor');
           return stopActor('signInActor');
         },
         stopSignUpActor: stopActor('signUpActor'),
@@ -381,7 +379,6 @@ export function createAuthenticatorMachine() {
         shouldRedirectToResetPassword: (_, event) =>
           event.data?.intent === 'confirmPasswordReset',
         shouldAutoSignIn: (context, event) => {
-          console.log('checking auto sign in ', event, context);
           return (
             event.data?.intent === 'autoSignIn' ||
             context.actorDoneData?.intent === 'autoSignIn'
@@ -393,7 +390,6 @@ export function createAuthenticatorMachine() {
       },
       services: {
         getCurrentUser: (context, _) => {
-          console.log('checking user', context);
           return context.services.getCurrentUser();
         },
         getAmplifyConfig: (context, _) => context.services.getAmplifyConfig(),

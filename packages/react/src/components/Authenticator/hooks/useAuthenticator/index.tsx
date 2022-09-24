@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-import { inspect } from '@xstate/inspect';
 import {
   AuthInterpreter,
   AuthMachineSend,
@@ -78,13 +77,7 @@ export const Provider = ({
    * Leaving this as is for now in the interest of suggested code guideline.
    */
 
-  if (typeof window !== 'undefined') {
-    inspect({
-      iframe: false,
-      /* options */
-    });
-  }
-  const service = useInterpret(createAuthenticatorMachine, { devTools: true });
+  const service = useInterpret(createAuthenticatorMachine);
   const value = React.useMemo(
     () => (isEmpty(parentProviderVal) ? { service } : parentProviderVal),
     [parentProviderVal, service]
