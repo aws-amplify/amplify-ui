@@ -41,9 +41,9 @@ Feature: Confirm Sign Up
     And I see "Confirmation Code"
     And I type a valid confirmation code
     And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }' with fixture "confirm-sign-up-with-email"
-    And I mock 'Amplify.Auth.currentAuthenticatedUser' with fixture "Auth.currentAuthenticatedUser-verified-email"
     And I click the "Confirm" button
     And I mock "autoSignIn" event
+    And I mock 'Amplify.Auth.currentAuthenticatedUser' with fixture "Auth.currentAuthenticatedUser-verified-email"
     Then I see "Sign out"
   
   @angular @react @vue 
@@ -54,9 +54,9 @@ Feature: Confirm Sign Up
     And I click the "Create Account" button
     Then I see "Confirmation Code"
     And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ResendConfirmationCode" } }' with error fixture "user-already-confirmed-error"
-    And I mock 'Amplify.Auth.currentAuthenticatedUser' with fixture "Auth.currentAuthenticatedUser-verified-email"
     And I click the "Resend Code" button
     And I mock "autoSignIn" event
+    And I mock 'Amplify.Auth.currentAuthenticatedUser' with fixture "Auth.currentAuthenticatedUser-verified-email"
     Then I see "Sign out"
 
   @angular @react @vue
