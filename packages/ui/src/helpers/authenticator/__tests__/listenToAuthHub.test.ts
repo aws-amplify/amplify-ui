@@ -18,10 +18,12 @@ const unauthenticatedStateMachine = {
 };
 
 const sendSpy = jest.spyOn(authenticatedStateMachine, 'send');
+const unAuthSendSpy = jest.spyOn(unauthenticatedStateMachine, 'send');
 
 describe('listenToAuthHub', () => {
   beforeEach(() => {
     sendSpy.mockClear();
+    unAuthSendSpy.mockClear();
   });
 
   it('responds to token refresh event when state is authenticated', () => {
@@ -74,6 +76,30 @@ describe('listenToAuthHub', () => {
 
     Hub.dispatch('auth', { event: 'tokenRefresh_failure' });
     expect(sendSpy).not.toHaveBeenCalled();
+
+    unsubscribe();
+  });
+  it('ignores autoSignIn event when state is authenticated', () => {
+    const unsubscribe = listenToAuthHub(authenticatedStateMachine as any);
+
+    Hub.dispatch('auth', { event: 'autoSignIn' });
+    expect(unAuthSendSpy).not.toBeCalledWith();
+
+    unsubscribe();
+  });
+  it('responds to autoSignIn event when state is unauthenticated', () => {
+    const unsubscribe = listenToAuthHub(unauthenticatedStateMachine as any);
+
+    Hub.dispatch('auth', { event: 'autoSignIn' });
+    expect(unAuthSendSpy).toBeCalledWith({ type: 'AUTO_SIGN_IN' });
+
+    unsubscribe();
+  });
+  it('responds to autoSignIn_failure event', () => {
+    const unsubscribe = listenToAuthHub(unauthenticatedStateMachine as any);
+
+    Hub.dispatch('auth', { event: 'autoSignIn_failure' });
+    expect(unAuthSendSpy).toBeCalledWith({ type: 'AUTO_SIGN_IN_FAILURE' });
 
     unsubscribe();
   });
