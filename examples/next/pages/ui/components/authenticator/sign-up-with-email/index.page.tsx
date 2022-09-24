@@ -30,7 +30,7 @@ I18n.putVocabulariesForLanguage('en', {
 });
 
 export default function AuthenticatorWithEmail() {
-  const { authStatus, route } = useAuthenticator((context) => [
+  const { authStatus } = useAuthenticator((context) => [
     context.authStatus,
     context.route,
   ]);
@@ -51,7 +51,6 @@ export default function AuthenticatorWithEmail() {
   return (
     <>
       <View>{authStatus}</View>
-      <View>{route}</View>
       <Authenticator
         services={services}
         formFields={formFields}

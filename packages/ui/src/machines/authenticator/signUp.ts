@@ -20,7 +20,8 @@ import {
   setUser,
   handleSubmit,
 } from './actions';
-import { defaultServices, signUp } from './defaultServices';
+import { signUp } from './defaultAuthServices';
+import { defaultServices } from './defaultServices';
 
 export type SignUpMachineOptions = {
   services?: Partial<typeof defaultServices>;

@@ -53,7 +53,6 @@
     "async": "^3.2.2",
     "cssnano-simple": "3.0.2",
     "cssnano-preset-simple": "4.0.0",
-    "aws-amplify": "^4.3.27-auto-sign-in.11",
     "eventsource": "~2.0.2",
     "fs-extra": "^10.0.0",
     "glob-parent": "^6.0.2",

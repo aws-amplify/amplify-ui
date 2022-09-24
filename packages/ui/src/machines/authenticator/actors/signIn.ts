@@ -2,7 +2,6 @@ import { Auth } from 'aws-amplify';
 import get from 'lodash/get';
 import isEmpty from 'lodash/isEmpty';
 import { createMachine, sendUpdate } from 'xstate';
-import { sendParent } from 'xstate/lib/actions';
 import {
   AuthChallengeName,
   AuthEvent,
@@ -443,11 +442,7 @@ export function signInActor({ services }: SignInMachineOptions) {
         },
         resolved: {
           type: 'final',
-          data: (context) => {
-            return {
-              user: context.user,
-            };
-          },
+          data: (context) => ({ user: context.user }),
         },
         rejected: {
           type: 'final',

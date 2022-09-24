@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useAuth } from '../composables/useAuth';
-import { inspect } from '@xstate/inspect';
 import {
   ref,
   toRefs,
@@ -78,10 +77,7 @@ const emit = defineEmits([
 ]);
 const machine = createAuthenticatorMachine();
 
-// inspect({
-//   iframe: false,
-// });
-const service = useInterpret(machine, { devTools: true });
+const service = useInterpret(machine);
 let unsubscribeHub: () => void;
 let unsubscribeMachine: () => void;
 
@@ -251,7 +247,9 @@ const hasRouteComponent = computed(() => {
   return !(
     state.value.matches('authenticated') ||
     state.value.matches('idle') ||
-    state.value.matches('setup')
+    state.value.matches('setup') ||
+    state.value.matches('signOut') ||
+    actorState.value?.matches('autoSignIn')
   );
 });
 </script>
@@ -335,10 +333,7 @@ const hasRouteComponent = computed(() => {
         </div>
 
         <confirm-sign-up
-          v-if="
-            actorState?.matches('confirmSignUp') ||
-            actorState?.matches('autoSignIn')
-          "
+          v-if="actorState?.matches('confirmSignUp')"
           @confirm-sign-up-submit="onConfirmSignUpSubmitI"
           ref="confirmSignUpComponent"
         >

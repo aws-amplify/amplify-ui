@@ -85,7 +85,7 @@ export function createAuthenticatorMachine() {
           initial: 'spawnActor',
           states: {
             spawnActor: {
-              always: [{ actions: 'spawnSignInActor', target: 'runActor' }],
+              always: { actions: 'spawnSignInActor', target: 'runActor' },
             },
             runActor: {
               entry: 'clearActorDoneData',
@@ -350,9 +350,7 @@ export function createAuthenticatorMachine() {
             return spawn(actor, { name: 'signOutActor' });
           },
         }),
-        stopSignInActor: () => {
-          return stopActor('signInActor');
-        },
+        stopSignInActor: stopActor('signInActor'),
         stopSignUpActor: stopActor('signUpActor'),
         stopResetPasswordActor: stopActor('resetPasswordActor'),
         stopSignOutActor: stopActor('signOutActor'),
@@ -389,9 +387,7 @@ export function createAuthenticatorMachine() {
         hasActor: (context) => !!context.actorRef,
       },
       services: {
-        getCurrentUser: (context, _) => {
-          return context.services.getCurrentUser();
-        },
+        getCurrentUser: (context, _) => context.services.getCurrentUser(),
         getAmplifyConfig: (context, _) => context.services.getAmplifyConfig(),
       },
     }
