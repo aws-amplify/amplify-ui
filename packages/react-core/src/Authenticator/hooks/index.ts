@@ -1,1 +1,1 @@
-export { useAuthenticator, UseAuthenticator } from './useAuthenticator';
+export * from './useAuthenticator';

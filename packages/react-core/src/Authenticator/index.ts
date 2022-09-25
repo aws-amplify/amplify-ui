@@ -1,2 +1,2 @@
-export { AuthenticatorProvider } from './context';
-export { useAuthenticator, UseAuthenticator } from './hooks';
+export * from './context';
+export * from './hooks';

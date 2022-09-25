@@ -9,6 +9,7 @@ import {
  * to current authenticator state.
  */
 type AuthenticatorMachineContext = AuthenticatorServiceFacade;
+type AuthenticatorContextKey = keyof AuthenticatorMachineContext;
 
 /**
  * Inspired from https://xstate.js.org/docs/packages/xstate-react/#useselector-actor-selector-compare-getsnapshot.
@@ -16,10 +17,9 @@ type AuthenticatorMachineContext = AuthenticatorServiceFacade;
  * Selector accepts current facade values and returns an array of
  * desired value(s) that should trigger re-render.
  */
-type UseAuthenticatorSelectorKey = keyof AuthenticatorMachineContext;
 export type Selector = (
   context: AuthenticatorMachineContext
-) => AuthenticatorMachineContext[UseAuthenticatorSelectorKey][];
+) => AuthenticatorMachineContext[AuthenticatorContextKey][];
 
 /**
  * These are internal xstate helpers to we share with `useAuthenticator`.
@@ -37,3 +37,8 @@ export interface UseAuthenticator extends AuthenticatorServiceFacade {
   /** @deprecated For internal use only */
   _state: InternalAuthenticatorContext['_state'];
 }
+
+export type Comparator = (
+  currentFacade: AuthenticatorServiceFacade,
+  nextFacade: AuthenticatorServiceFacade
+) => boolean;

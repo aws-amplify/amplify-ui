@@ -33,10 +33,8 @@ export default function AuthenticatorProvider({
   const { service: activeService } = value;
 
   useEffect(() => {
-    if (activeService) {
-      const unsubscribe = listenToAuthHub(activeService);
-      return unsubscribe;
-    }
+    const unsubscribe = listenToAuthHub(activeService);
+    return unsubscribe;
   }, [activeService]);
 
   return (

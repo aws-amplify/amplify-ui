@@ -5,7 +5,7 @@ import { AuthInterpreter } from '@aws-amplify/ui';
 /**
  * Authenticator React.Context type
  */
-type AuthenticatorContextType = { service?: AuthInterpreter };
+type AuthenticatorContextType = { service: AuthInterpreter };
 
 /**
  * AuthenticatorContext serves static reference to the auth machine service.

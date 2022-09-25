@@ -1,8 +1,11 @@
+import React from 'react';
 import { render } from '@testing-library/react';
-import * as React from 'react';
 import { Hub } from 'aws-amplify';
 
 import { AuthenticatorProvider } from '..';
+
+// mock `aws-amplify` to prevent logging auth errors during test runs
+jest.mock('aws-amplify');
 
 const hubListenSpy = jest.spyOn(Hub, 'listen');
 
