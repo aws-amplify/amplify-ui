@@ -34,8 +34,8 @@ Feature: Hub Events
     And I see "Confirmation Code"
     And I type a valid confirmation code
     And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }' with fixture "confirm-sign-up-with-email"
-    And I mock 'Amplify.Auth.currentAuthenticatedUser' with fixture "Auth.currentAuthenticatedUser-verified-email"
     And I click the "Confirm" button
+    And I mock "autoSignIn" event
     And I mock "autoSignIn" event
     Then I see "Sign out"
     
