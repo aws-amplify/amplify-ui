@@ -35,8 +35,7 @@ Feature: Hub Events
     And I type a valid confirmation code
     And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }' with fixture "confirm-sign-up-with-email"
     And I click the "Confirm" button
-    And I mock "autoSignIn" event
-    And I mock "autoSignIn" event
+    And I mock "autoSignIn" event with fixture  "Auth.currentAuthenticatedUser-verified-email"
     Then I see "Sign out"
     
   @angular @react @vue

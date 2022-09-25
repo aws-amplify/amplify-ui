@@ -1,4 +1,4 @@
-Feature: Sign In with TOTP MFA
+tFeature: Sign In with TOTP MFA
 
   If your backend has TOTP MFA required, Authenticator will redirect end users to 
   TOTP confirmation screen when they try to sign in.
@@ -25,10 +25,8 @@ Feature: Sign In with TOTP MFA
     And I type a valid confirmation code
     And I mock 'Amplify.Auth.verifyTotpToken' with fixture "Auth.verifyTOTP"
     And I click the "Confirm" button
-    And I mock "autoSignIn" event
+    And I mock "autoSignIn" event with fixture "Auth.verifyTOTP"
     Then I see "AmplifyUsername"
-
-
 
   @angular @react @vue
   Scenario: Sign in with valid credentials that have not set up TOTP MFA
@@ -81,24 +79,3 @@ Feature: Sign In with TOTP MFA
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "force-change-password-mfa-setup"
     And I click the "Change Password" button
     Then I see "Setup TOTP"
-
-@angular @react @vue
-  Scenario: Successful sign up shows correct username from authenticated user
-    When I click the "Create Account" tab
-    And I type a new "email"
-    And I type my password
-    And I confirm my password
-    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"
-    And I click the "Create Account" button
-    Then I see "Confirmation Code"
-    And I type a valid confirmation code
-    And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }' with fixture "confirm-sign-up-with-email"
-    And I click the "Confirm" button
-    And I mock "autoSignIn" event with fixture "Auth.signIn-mfa-setup"
-    Then I see "Setup TOTP"
-    Then I see "Code"
-    And I type a valid confirmation code
-    And I mock 'Amplify.Auth.verifyTotpToken' with fixture "Auth.verifyTOTP"
-    And I click the "Confirm" button
-    And I mock "autoSignIn" event
-    Then I see "AmplifyUsername"
