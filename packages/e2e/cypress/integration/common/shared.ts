@@ -152,9 +152,7 @@ When('I click the {string} tab', (label: string) => {
 When('I click the {string} button', (name: string) => {
   cy.findByRole('button', {
     name: new RegExp(`^${escapeRegExp(name)}$`, 'i'),
-  })
-    .click()
-    .wait(100);
+  }).click();
 });
 
 Then('I see the {string} button', (name: string) => {
@@ -341,9 +339,11 @@ When(
       throw new Error('Hub is not available on the window.');
     }
 
-    cy.fixture(fixture).then((data) => {
-      Hub.dispatch('auth', { event: eventName, data });
-    });
+    cy.wait(300)
+      .fixture(fixture)
+      .then((data) => {
+        Hub.dispatch('auth', { event: eventName, data });
+      });
   }
 );
 
