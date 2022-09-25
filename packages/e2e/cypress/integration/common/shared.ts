@@ -152,7 +152,9 @@ When('I click the {string} tab', (label: string) => {
 When('I click the {string} button', (name: string) => {
   cy.findByRole('button', {
     name: new RegExp(`^${escapeRegExp(name)}$`, 'i'),
-  }).click();
+  })
+    .click()
+    .wait(100);
 });
 
 Then('I see the {string} button', (name: string) => {

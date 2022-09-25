@@ -1,4 +1,4 @@
-tFeature: Sign In with TOTP MFA
+Feature: Sign In with TOTP MFA
 
   If your backend has TOTP MFA required, Authenticator will redirect end users to 
   TOTP confirmation screen when they try to sign in.
