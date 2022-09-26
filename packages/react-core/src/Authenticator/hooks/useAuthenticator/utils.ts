@@ -2,8 +2,8 @@ import { areEmptyArrays, areEmptyObjects } from '../../../utils';
 import { Comparator, Selector } from './types';
 
 /**
- * Does a shallow comparison of each array value, plus a value
- * equality check for empty objects and arrays.
+ * Does an ordering and shallow comparison of each array value,
+ * plus a value equality check for empty objects and arrays.
  */
 export function areSelectorDepsEqual<T>(
   currentDeps: T[],
