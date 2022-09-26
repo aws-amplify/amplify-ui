@@ -28,7 +28,7 @@
     "test:watch": "yarn test --watch"
   },
   "dependencies": {
-    "@aws-amplify/ui": "3.13.3",
+    "@aws-amplify/ui": "3.13.4",
     "@xstate/react": "3.0.0"
   },
   "peerDependencies": {
