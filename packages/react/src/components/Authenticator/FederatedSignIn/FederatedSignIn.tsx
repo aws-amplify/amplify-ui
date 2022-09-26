@@ -3,7 +3,7 @@ import { FederatedIdentityProviders, translate } from '@aws-amplify/ui';
 
 import { Divider } from '../../../primitives/Divider';
 import { Flex } from '../../../primitives/Flex';
-import { useAuthenticator } from '../hooks/useAuthenticator';
+import { useAuthenticator } from '@aws-amplify/ui-react-core';
 import { FederatedSignInButton } from './FederatedSignInButtons';
 
 export function FederatedSignIn(): JSX.Element {
