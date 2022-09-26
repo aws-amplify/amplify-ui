@@ -17,6 +17,6 @@ jobs:
       - name: Run yarn install on sample app
         run: yarn install
         working-directory: ./canary/apps/react-native/canarytest
-      - name: Run iOS on sample app
-        run: yarn ios
+      - name: Run sample app on Android
+        run: yarn android
         working-directory: ./canary/apps/react-native/canarytest
