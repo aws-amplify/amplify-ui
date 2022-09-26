@@ -8,7 +8,6 @@ module.exports = {
     '!<rootDir>/src/index.ts',
   ],
   coverageThreshold: {
-    // temp setting these to zero
     global: {
       branches: 90,
       functions: 90,
