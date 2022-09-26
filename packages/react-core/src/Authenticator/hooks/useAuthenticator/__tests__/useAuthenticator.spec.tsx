@@ -61,12 +61,15 @@ describe('useAuthenticator', () => {
     });
   });
 
-  it('calls getComparator with the selector argument', () => {
+  it('calls getComparator with the selector argument', async () => {
     const mockSelector = jest.fn();
 
-    renderHook(() => useAuthenticator(mockSelector), {
-      wrapper: Wrapper,
-    });
+    const { waitForNextUpdate } = renderHook(
+      () => useAuthenticator(mockSelector),
+      { wrapper: Wrapper }
+    );
+
+    await waitForNextUpdate();
 
     expect(getComparatorSpy).toHaveBeenLastCalledWith(mockSelector);
   });
