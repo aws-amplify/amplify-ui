@@ -52,7 +52,13 @@ For customers with applications using right to left directionality, the example 
 ```
 Also see: [Internationalization](react/getting-started/internationalization)
 
-#### 3. Added `inputStyles` prop to Field primitives
+#### 3. Legacy Authenticator exports removed
+
+If you are still importing the version 1.x of the Authenticator using the `/legacy/` path, please update to the current version. Exports removed include:
+
+`AmplifyAuthenticator`, `AmplifySignIn`, `AmplifySignOut`, `withAuthenticator`
+
+#### 4. Added `inputStyles` prop to Field primitives
 
 Before 4.0, Field components like TextField would try to intelligently apply certain style props onto the wrapper element and some on the input element. We felt this was a little too opaque to users, but we still want to allow you to style the input element directly. We added an `inputStyles` prop to Field components so you can apply style props direclty on the input (or textarea or select) as well as on the wrapper element. 
 

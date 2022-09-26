@@ -121,7 +121,6 @@ Array [
 
 exports[`@aws-amplify/ui-react/legacy exports should match snapshot 1`] = `
 Array [
-  "AmplifyAuthenticator",
   "AmplifyChatbot",
   "AmplifyPhotoPicker",
   "AmplifyPicker",
@@ -130,9 +129,6 @@ Array [
   "AmplifyS3ImagePicker",
   "AmplifyS3Text",
   "AmplifyS3TextPicker",
-  "AmplifySignIn",
-  "AmplifySignOut",
-  "withAuthenticator",
 ]
 `;
 
