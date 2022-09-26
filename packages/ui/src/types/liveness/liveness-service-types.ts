@@ -8,12 +8,12 @@ export interface OvalScaleFactors {
   centerY: number;
 }
 
-export interface FaceMovementAndLightChallenge {
+export interface ClientFaceMovementAndLightChallenge {
   ovalScaleFactors: OvalScaleFactors;
 }
 
 export interface ClientChallenge {
-  faceMovementAndLightChallenge: FaceMovementAndLightChallenge;
+  faceMovementAndLightChallenge: ClientFaceMovementAndLightChallenge;
 }
 
 export interface SessionInformation {
@@ -34,15 +34,53 @@ export interface RecordingTimestamps {
   faceDetectedInTargetPositionEnd: number;
 }
 
-export interface FaceMovementServerChallenge {
+export enum Color {
+  BLACK = 'rgb(0, 0, 0)', // black
+  WHITE = 'rgb(255, 255, 255)', // white
+  RED = 'rgb(255, 0, 0)', // red
+  YELLOW = 'rgb(255, 255, 0)', // yellow
+  LIME = 'rgb(0, 255, 0)', // lime
+  CYAN = 'rgb(0, 255, 255)', // cyan
+  BLUE = 'rgb(0, 0, 255)', // blue,
+  VIOLET = 'rgb(255, 0, 255)', // violet
+}
+
+export enum FreshnessColor {
+  BLACK = 'rgb_0_0_0',
+  BLUE = 'rgb_0_0_255',
+  CYAN = 'rgb_0_255_255',
+  LIME = 'rgb_0_255_0',
+  RED = 'rgb_255_0_0',
+  VIOLET = 'rgb_255_0_255',
+  WHITE = 'rgb_255_255_255',
+  YELLOW = 'rgb_255_255_0',
+}
+
+export interface ClientFreshnessColorSequence {
+  color: string;
+  downscrollDuration: number;
+  flatDisplayDuration: number;
+}
+
+export interface ColorSequence {
+  colorTimestampList: ColorTimestamp[];
+}
+
+export interface ColorTimestamp {
+  color: Color;
+  timestamp: number;
+}
+
+export interface ServerFaceMovementAndLightChallenge {
+  challengeId: string;
   initialFacePosition: BoundingBoxWithSize;
   targetFacePosition: BoundingBoxWithSize;
   recordingTimestamps: RecordingTimestamps;
+  colorSequence: ColorSequence;
 }
 
 export interface ServerChallenge {
-  type: ChallengeType;
-  faceMovementChallenge: FaceMovementServerChallenge;
+  faceMovementAndLightChallenge: ServerFaceMovementAndLightChallenge;
 }
 
 export interface DeviceInformation {
@@ -50,7 +88,7 @@ export interface DeviceInformation {
   videoWidth: number;
 }
 
-export interface LivenessActionDocument {
+export interface ClientSessionInformation {
   deviceInformation: DeviceInformation;
-  challenges: ServerChallenge[];
+  challenge: ServerChallenge;
 }

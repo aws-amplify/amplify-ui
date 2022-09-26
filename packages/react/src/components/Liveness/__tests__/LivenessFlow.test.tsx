@@ -44,7 +44,6 @@ describe('LivenessFlow', () => {
 
   const defaultProps: LivenessFlowProps = {
     sessionId: 'sessionId',
-    sessionInformation: 'sessionInformation',
     onGetLivenessDetection: async () => {
       return { isLive: true };
     },

@@ -1,4 +1,4 @@
-import { Interpreter, State } from 'xstate';
+import { ActorRef, Interpreter, State } from 'xstate';
 
 import {
   LivenessFlowProps,
@@ -7,13 +7,20 @@ import {
   LivenessOvalDetails,
   IlluminationState,
 } from './liveness';
-import { VideoRecorder } from '../../helpers';
+import {
+  VideoRecorder,
+  LivenessStreamProvider,
+  FreshnessColorDisplay,
+} from '../../helpers';
 import { Face, FaceDetection } from './faceDetection';
+import { SessionInformation } from '@aws-sdk/client-rekognitionstreaming';
 
 export interface LivenessContext {
   maxFailedAttempts: number;
   failedAttempts: number;
   flowProps: LivenessFlowProps;
+  serverSessionInformation: SessionInformation;
+  challengeId: string;
   videoAssociatedParams: {
     videoConstraints: MediaTrackConstraints;
     videoEl: HTMLVideoElement;
@@ -35,7 +42,17 @@ export interface LivenessContext {
     startFace: Face;
     endFace: Face;
   };
+  freshnessColorAssociatedParams: {
+    freshnessColorEl: HTMLCanvasElement;
+    freshnessColors: string[];
+    freshnessColorsComplete: boolean;
+    freshnessColorDisplay: FreshnessColorDisplay;
+  };
   errorState: LivenessErrorState | null;
+  livenessStreamProvider: LivenessStreamProvider;
+  responseStreamActorRef: ActorRef<any>;
+  shouldDisconnect: boolean | undefined;
+  faceMatchStateBeforeStart: FaceMatchState;
 }
 
 export type LivenessEventTypes =
@@ -43,7 +60,10 @@ export type LivenessEventTypes =
   | 'START_RECORDING'
   | 'TIMEOUT'
   | 'ERROR'
-  | 'CANCEL';
+  | 'CANCEL'
+  | 'SET_SESSION_INFO'
+  | 'DISCONNECT_EVENT'
+  | 'SET_DOM_AND_CAMERA_DETAILS';
 
 export type LivenessEventData = Record<PropertyKey, any>; // TODO: this should be typed further
 

@@ -39,9 +39,6 @@ export default function LivenessCard() {
           >
             <LivenessFlow
               sessionId={createLivenessSessionApiData.sessionId}
-              sessionInformation={
-                createLivenessSessionApiData.sessionInformation
-              }
               onGetLivenessDetection={handleGetLivenessDetection}
               onUserCancel={handleUserExit}
               enableAnalytics={true}

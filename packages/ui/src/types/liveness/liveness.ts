@@ -8,11 +8,6 @@ export interface LivenessFlowProps {
   sessionId: string;
 
   /**
-   * The sessionInformation as returned by CreateStreamingLivenessSession API
-   */
-  sessionInformation: string;
-
-  /**
    * Callback called when the API request to Liveness for GetStreamingLivenessSessionResults
    * is to be made. This callback is required to be passed to
    * proxy the call to Liveness through their backend to encapsulate business
@@ -117,4 +112,5 @@ export enum FaceMatchState {
 export enum LivenessErrorState {
   TIMEOUT = 'TIMEOUT',
   RUNTIME_ERROR = 'RUNTIME_ERROR',
+  FRESHNESS_TIMEOUT = 'FRESHNESS_TIMEOUT',
 }

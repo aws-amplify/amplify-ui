@@ -6,6 +6,7 @@ const mockMediaRecorder = {
   onerror: jest.fn(),
   state: '',
   stop: jest.fn(),
+  addEventListener: jest.fn(),
 };
 
 describe('VideoRecorder', () => {
@@ -34,7 +35,7 @@ describe('VideoRecorder', () => {
     expect(mockMediaRecorder.start).toHaveBeenCalledTimes(1);
   });
 
-  it('should stop the recording on stop', () => {
+  it('should stop the recording on stop', async () => {
     mockMediaRecorder.state = 'recording';
 
     const videoRecorder = new VideoRecorder(stream);
@@ -49,13 +50,5 @@ describe('VideoRecorder', () => {
 
     mockMediaRecorder.state = 'recording';
     expect(videoRecorder.getState()).toBe('recording');
-  });
-
-  it('should return blob from the recorded chunks', async () => {
-    const videoRecorder = new VideoRecorder(stream);
-    const blob = await videoRecorder.getBlob();
-
-    expect(blob).toBeTruthy();
-    expect(blob).toBeInstanceOf(Blob);
   });
 });

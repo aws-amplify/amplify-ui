@@ -6,8 +6,13 @@ import {
   BoundingBox,
   LivenessErrorState,
 } from '../../types';
-import { SessionInformation } from '../../types/liveness/liveness-service-types';
 import { translate } from '../../i18n';
+import { FaceDetection } from '../../types/liveness/faceDetection';
+import { ClientFreshnessColorSequence } from '../../types/liveness/liveness-service-types';
+import {
+  ColorSequence,
+  SessionInformation,
+} from '@aws-sdk/client-rekognitionstreaming';
 
 /**
  * Returns the random number between min and max
@@ -47,8 +52,8 @@ function getIntersectionOverUnion(
  * centerX: number;
  * centerY: number;
  */
-export function getRandomScalingAttributes(sessionInformationStr: string) {
-  const sessionInfo: SessionInformation = JSON.parse(sessionInformationStr);
+export function getRandomScalingAttributesStr(sessionInformationStr: string) {
+  const sessionInfo = JSON.parse(sessionInformationStr);
   const ovalScaleFactors =
     sessionInfo.challenge.faceMovementAndLightChallenge.ovalScaleFactors;
 
@@ -56,6 +61,25 @@ export function getRandomScalingAttributes(sessionInformationStr: string) {
     centerX: ovalScaleFactors.centerX,
     centerY: ovalScaleFactors.centerY,
     width: ovalScaleFactors.width,
+  };
+}
+
+/**
+ * Accepts sessionInformation and returns the 3 attributes
+ * width: number;
+ * centerX: number;
+ * centerY: number;
+ */
+export function getRandomScalingAttributes(
+  sessionInformation: SessionInformation
+) {
+  const ovalScaleFactors =
+    sessionInformation.Challenge.FaceMovementAndLightChallenge.OvalScaleFactors;
+
+  return {
+    centerX: ovalScaleFactors.CenterX,
+    centerY: ovalScaleFactors.CenterY,
+    width: ovalScaleFactors.Width,
   };
 }
 
@@ -72,7 +96,7 @@ export function getRandomLivenessOvalDetails({
   width: number;
   height: number;
   initialFace: Face;
-  sessionInformation: string;
+  sessionInformation: SessionInformation;
 }): LivenessOvalDetails {
   const videoHeight = height;
   let videoWidth = width;
@@ -327,4 +351,235 @@ export const LivenessErrorStateStringMap: Record<LivenessErrorState, string> = {
     'Liveness encountered an error. Please try again.'
   ),
   [LivenessErrorState.TIMEOUT]: translate<string>('Timeout'),
+  [LivenessErrorState.FRESHNESS_TIMEOUT]: translate<string>(
+    'Keep face in oval while colors are flashing. Please try again.'
+  ),
 };
+
+export const MOCK_COLOR_SEQUENCES: ColorSequence[] = [
+  {
+    FreshnessColor: {
+      RGB: [0, 0, 0], // black
+    },
+    DownscrollDuration: 300,
+    FlatDisplayDuration: 100,
+  },
+  {
+    FreshnessColor: {
+      RGB: [255, 255, 255], // white
+    },
+    DownscrollDuration: 300,
+    FlatDisplayDuration: 100,
+  },
+  {
+    FreshnessColor: {
+      RGB: [255, 0, 0], // red
+    },
+    DownscrollDuration: 300,
+    FlatDisplayDuration: 100,
+  },
+  {
+    FreshnessColor: {
+      RGB: [255, 255, 0], // yellow
+    },
+    DownscrollDuration: 300,
+    FlatDisplayDuration: 100,
+  },
+  {
+    FreshnessColor: {
+      RGB: [0, 255, 0], // lime
+    },
+    DownscrollDuration: 300,
+    FlatDisplayDuration: 100,
+  },
+  {
+    FreshnessColor: {
+      RGB: [0, 255, 255], // cyan
+    },
+    DownscrollDuration: 300,
+    FlatDisplayDuration: 100,
+  },
+  {
+    FreshnessColor: {
+      RGB: [0, 0, 255], // blue,
+    },
+    DownscrollDuration: 300,
+    FlatDisplayDuration: 100,
+  },
+  {
+    FreshnessColor: {
+      RGB: [255, 0, 255], // violet
+    },
+    DownscrollDuration: 300,
+    FlatDisplayDuration: 100,
+  },
+];
+
+export enum FreshnessColor {
+  BLACK = 'rgb_0_0_0',
+  BLUE = 'rgb_0_0_255',
+  CYAN = 'rgb_0_255_255',
+  LIME = 'rgb_0_255_0',
+  RED = 'rgb_255_0_0',
+  VIOLET = 'rgb_255_0_255',
+  WHITE = 'rgb_255_255_255',
+  YELLOW = 'rgb_255_255_0',
+}
+
+interface FillOverlayCanvasFractionalInput {
+  overlayCanvas: HTMLCanvasElement;
+  prevColor: string;
+  nextColor: string;
+  ovalCanvas: HTMLCanvasElement;
+  ovalDetails: any;
+  heightFraction: number;
+}
+
+const INITIAL_ALPHA = 0.9;
+const SECONDARY_ALPHA = 0.75;
+
+export function fillOverlayCanvasFractional({
+  overlayCanvas,
+  prevColor,
+  nextColor,
+  ovalCanvas,
+  ovalDetails,
+  heightFraction,
+}: FillOverlayCanvasFractionalInput) {
+  const boudingRect = ovalCanvas.getBoundingClientRect();
+  const ovalCanvasX = boudingRect.x;
+  const ovalCanvasY = boudingRect.y;
+
+  const { centerX, centerY, width, height } = ovalDetails;
+
+  const updatedCenterX = centerX + ovalCanvasX;
+  const updatedCenterY = centerY + ovalCanvasY;
+
+  const canvasWidth = overlayCanvas.width;
+  const canvasHeight = overlayCanvas.height;
+  const ctx = overlayCanvas.getContext('2d');
+
+  // Because the canvas is set to to 100% we need to manually set the height for the canvas to use pixel values
+  ctx.canvas.width = window.innerWidth;
+  ctx.canvas.height = window.innerHeight;
+
+  ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+  // fill the complete canvas
+  fillFractionalContext(ctx, prevColor, nextColor, heightFraction);
+
+  // save the current state
+  ctx.save();
+
+  // draw the rectangle path and fill it
+  ctx.beginPath();
+  ctx.rect(ovalCanvasX, ovalCanvasY, ovalCanvas.width, ovalCanvas.height);
+  ctx.clip();
+
+  ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+  ctx.globalAlpha = INITIAL_ALPHA;
+  fillFractionalContext(ctx, prevColor, nextColor, heightFraction);
+
+  // draw the oval path and fill it
+  ctx.beginPath();
+  ctx.ellipse(
+    updatedCenterX,
+    updatedCenterY,
+    width / 2,
+    height / 2,
+    0,
+    0,
+    2 * Math.PI
+  );
+  // add stroke to the oval path
+  ctx.strokeStyle = 'white';
+  ctx.lineWidth = 8;
+  ctx.stroke();
+  ctx.clip();
+
+  ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+  ctx.globalAlpha = SECONDARY_ALPHA;
+  fillFractionalContext(ctx, prevColor, nextColor, heightFraction);
+
+  // restore the state
+  ctx.restore();
+}
+
+function fillFractionalContext(ctx, prevColor, nextColor, fraction) {
+  const canvasWidth = ctx.canvas.width;
+  const canvasHeight = ctx.canvas.height;
+
+  ctx.fillStyle = nextColor;
+  ctx.fillRect(0, 0, canvasWidth, canvasHeight * fraction);
+
+  if (fraction !== 1) {
+    ctx.fillStyle = prevColor;
+    ctx.fillRect(
+      0,
+      canvasHeight * fraction,
+      canvasWidth,
+      canvasHeight * (1 - fraction)
+    );
+  }
+}
+
+export function getColorsSequencesFromSessionInformation(
+  sessionInformation: SessionInformation
+): ClientFreshnessColorSequence[] {
+  const colorSequenceFromSessionInfo =
+    sessionInformation.Challenge.FaceMovementAndLightChallenge.ColorSequences;
+  const colorSequences: ClientFreshnessColorSequence[] =
+    colorSequenceFromSessionInfo.map((colorSequence) => {
+      const colorArray = colorSequence.FreshnessColor.RGB;
+      const color = `rgb(${colorArray[0]},${colorArray[1]},${colorArray[2]})`;
+      return {
+        color,
+        downscrollDuration: colorSequence.DownscrollDuration,
+        flatDisplayDuration: colorSequence.FlatDisplayDuration,
+      };
+    });
+
+  return colorSequences;
+}
+
+export function getRGBArrayFromColorString(colorStr: string): number[] {
+  return colorStr
+    .slice(colorStr.indexOf('(') + 1, colorStr.indexOf(')'))
+    .split(',')
+    .map((str) => parseInt(str));
+}
+
+export async function getFaceMatchState(
+  faceDetector: FaceDetection,
+  videoEl: HTMLVideoElement,
+  ovalDetails?: LivenessOvalDetails
+) {
+  const detectedFaces = await faceDetector.detectFaces(videoEl);
+  let faceMatchState: FaceMatchState;
+  let detectedFace: Face;
+
+  switch (detectedFaces.length) {
+    case 0: {
+      //no face detected;
+      faceMatchState = FaceMatchState.CANT_IDENTIFY;
+      break;
+    }
+    case 1: {
+      //exactly one face detected, match face with oval;
+      detectedFace = detectedFaces[0];
+      faceMatchState = ovalDetails
+        ? getFaceMatchStateInLivenessOval(detectedFace, ovalDetails)
+        : FaceMatchState.FACE_IDENTIFIED;
+      break;
+    }
+    default: {
+      //more than one face detected ;
+      faceMatchState = FaceMatchState.TOO_MANY;
+      break;
+    }
+  }
+
+  return faceMatchState;
+}

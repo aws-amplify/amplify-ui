@@ -5,29 +5,18 @@ import {
   isCameraDeviceVirtual,
 } from '../liveness';
 import { Face, FaceMatchState, LivenessOvalDetails } from '../../../types';
-import { SessionInformation } from '../../../types/liveness/liveness-service-types';
+import { mockSessionInformation } from '../liveness-test-helpers';
 
 describe('Liveness Helper', () => {
   describe('getRandomScalingAttributes', () => {
     it('should parse sessionInformation and return oval scaling attributes', () => {
-      const testSessionInfoJSON: SessionInformation = {
-        challenge: {
-          faceMovementAndLightChallenge: {
-            ovalScaleFactors: {
-              width: 0.76,
-              centerX: 0.65,
-              centerY: 0.66,
-            },
-          },
-        },
-      };
       const randomScalingAttributes = getRandomScalingAttributes(
-        JSON.stringify(testSessionInfoJSON)
+        mockSessionInformation
       );
 
-      expect(randomScalingAttributes.centerX).toBe(0.65);
-      expect(randomScalingAttributes.centerY).toBe(0.66);
-      expect(randomScalingAttributes.width).toBe(0.76);
+      expect(randomScalingAttributes.centerX).toBe(2);
+      expect(randomScalingAttributes.centerY).toBe(3);
+      expect(randomScalingAttributes.width).toBe(1);
     });
   });
 
@@ -39,34 +28,23 @@ describe('Liveness Helper', () => {
       left: 256.78488,
       timestampMs: Date.now(),
     };
-    const sessionInformation = JSON.stringify({
-      challenge: {
-        faceMovementAndLightChallenge: {
-          ovalScaleFactors: {
-            width: 0.2751161,
-            centerX: 0.04077655,
-            centerY: 0.9716218,
-          },
-        },
-      },
-    } as SessionInformation);
 
     it('should return the correct oval details in landscape', () => {
       const width = 640;
       const height = 480;
 
       const expectedOvalDetails: LivenessOvalDetails = {
-        height: 429,
-        width: 265,
-        centerX: 286,
-        centerY: 285,
+        height: 524,
+        width: 324,
+        centerX: 428,
+        centerY: 480,
       };
 
       const actualOvalDetails = getRandomLivenessOvalDetails({
         width,
         height,
         initialFace,
-        sessionInformation,
+        sessionInformation: mockSessionInformation,
       });
 
       expect(actualOvalDetails).toEqual(expectedOvalDetails);
@@ -77,17 +55,17 @@ describe('Liveness Helper', () => {
       const height = 640;
 
       const expectedOvalDetails: LivenessOvalDetails = {
-        height: 508,
-        width: 314,
-        centerX: 195,
-        centerY: 380,
+        height: 621,
+        width: 384,
+        centerX: 384,
+        centerY: 640,
       };
 
       const actualOvalDetails = getRandomLivenessOvalDetails({
         width,
         height,
         initialFace,
-        sessionInformation,
+        sessionInformation: mockSessionInformation,
       });
 
       expect(actualOvalDetails).toEqual(expectedOvalDetails);

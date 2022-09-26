@@ -37,6 +37,7 @@ export const LivenessCameraModule = (
   const { videoRef, videoHeight, videoWidth, streamOffset } =
     useMediaStreamInVideo(videoStream, videoConstraints);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const freshnessColorRef = useRef<HTMLDivElement | null>(null);
 
   const [countDownRunning, setCountDownRunning] = useState<boolean>(false);
   const [isCameraReady, setIsCameraReady] = useState<boolean>(false);
@@ -45,14 +46,21 @@ export const LivenessCameraModule = (
   const isNotRecording = state.matches('notRecording');
   const isRecording = state.matches('recording');
 
+  React.useLayoutEffect(() => {
+    if (isCameraReady) {
+      send({
+        type: 'SET_DOM_AND_CAMERA_DETAILS',
+        data: {
+          videoEl: videoRef.current,
+          canvasEl: canvasRef.current,
+          freshnessColorEl: freshnessColorRef.current,
+        },
+      });
+    }
+  }, [send, videoRef, isCameraReady]);
+
   const timerCompleteHandler = () => {
-    send({
-      type: 'START_RECORDING',
-      data: {
-        videoEl: videoRef.current,
-        canvasEl: canvasRef.current,
-      },
-    });
+    send({ type: 'START_RECORDING' });
   };
 
   const handleMediaPlay = () => {
@@ -97,6 +105,18 @@ export const LivenessCameraModule = (
       <Flex direction="column" position="relative">
         {!isCameraReady && centeredLoader}
 
+        <View
+          as="canvas"
+          ref={freshnessColorRef}
+          height={'100vh'}
+          width={'100vw'}
+          position="fixed"
+          top={0}
+          left={0}
+          style={{ pointerEvents: 'none', zIndex: 1 }}
+          hidden
+        />
+
         <video
           ref={videoRef}
           muted
@@ -132,6 +152,7 @@ export const LivenessCameraModule = (
           <CancelButton sourceScreen={LIVENESS_EVENT_LIVENESS_CHECK_SCREEN} />
         </View>
       </Flex>
+
       {countDownRunning && (
         <Flex
           direction="column"

@@ -37,7 +37,11 @@ export const Instruction: React.FC<InstructionProps> = () => {
   const faceMatchState = useLivenessSelector(selectFaceMatchState);
   const illuminationState = useLivenessSelector(selectIlluminationState);
 
+  const isCheckFaceDetectedBeforeStart = state.matches(
+    'checkFaceDetectedBeforeStart'
+  );
   const isNotRecording = state.matches('notRecording');
+  const isWaitingForSessionInfo = state.matches('waitForSessionInfo');
   const isUploading = state.matches('uploading');
   const isCheckSuccessful = state.matches('checkSucceeded');
   const isCheckFailed = state.matches('checkFailed');
@@ -59,9 +63,24 @@ export const Instruction: React.FC<InstructionProps> = () => {
       );
     }
 
+    if (isCheckFaceDetectedBeforeStart) {
+      return translate(
+        'Please move face into camera view to begin your session.'
+      );
+    }
+
     if (isNotRecording) {
       return translate(
         'When recording begins, move your face inside the frame that appears.'
+      );
+    }
+
+    if (isWaitingForSessionInfo) {
+      return (
+        <Flex gap={`${tokens.space.xxs}`} alignItems="center">
+          <Loader />
+          <View as="span">{translate('Waiting for connection...')}</View>
+        </Flex>
       );
     }
 
