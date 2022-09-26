@@ -1,9 +1,9 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
 import Radio from '../Radio';
-import { Sizes } from '../types';
+import { Size } from '../types';
 
-const sizes: Sizes[] = ['small', 'medium', 'large'];
+const sizes: Size[] = ['small', 'medium', 'large'];
 
 const onChange = jest.fn();
 
@@ -12,18 +12,16 @@ describe('Radio', () => {
     onChange.mockClear();
   });
 
-  [true, false].forEach((value) => {
-    it(`renders as expected when selected is ${value}`, () => {
-      const { toJSON } = render(
-        <Radio
-          selected={value}
-          value={value}
-          label={`${value}`}
-          onChange={onChange}
-        />
-      );
-      expect(toJSON()).toMatchSnapshot();
-    });
+  it.each([true, false])('renders as expected when selected is %s', (value) => {
+    const { toJSON } = render(
+      <Radio
+        selected={value}
+        value={value}
+        label={`${value}`}
+        onChange={onChange}
+      />
+    );
+    expect(toJSON()).toMatchSnapshot();
   });
 
   it('calls the expected handler when selected', () => {
@@ -33,13 +31,11 @@ describe('Radio', () => {
     expect(onChange).toHaveBeenCalledTimes(1);
   });
 
-  sizes.forEach((value) => {
-    it(`renders as expected when size is ${value}`, () => {
-      const { toJSON } = render(
-        <Radio size={value} value={value} label={value} selected />
-      );
-      expect(toJSON()).toMatchSnapshot();
-    });
+  it.each(sizes)('renders as expected when size is %s', (value) => {
+    const { toJSON } = render(
+      <Radio size={value} value={value} label={`${value}`} selected />
+    );
+    expect(toJSON()).toMatchSnapshot();
   });
 
   it('renders as expected when passing a number to the size prop', () => {

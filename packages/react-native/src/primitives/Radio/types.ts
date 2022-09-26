@@ -1,11 +1,10 @@
-import { StyleProp, TextStyle, ViewProps, ViewStyle } from 'react-native';
+import { PressableProps, StyleProp, TextStyle, ViewStyle } from 'react-native';
 
 import { LabelPosition } from '../Label/types';
 
-// This type should live elsewhere
-export type Sizes = 'small' | 'medium' | 'large';
+export type Size = number | 'small' | 'medium' | 'large';
 
-export interface RadioProps<T> extends ViewProps {
+export interface RadioProps<T> extends PressableProps {
   disabled?: boolean;
   label?: string;
   labelPosition?: LabelPosition;
@@ -13,7 +12,7 @@ export interface RadioProps<T> extends ViewProps {
   onChange?: (value?: T) => void;
   radioButtonContainerStyle?: StyleProp<ViewStyle>;
   radioButtonStyle?: StyleProp<ViewStyle>;
-  size?: number | Sizes;
+  size?: number | Size;
   selected?: boolean;
   value: T;
 }

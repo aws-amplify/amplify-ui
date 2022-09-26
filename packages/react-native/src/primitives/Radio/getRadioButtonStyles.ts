@@ -12,7 +12,7 @@
  * for both the 'radioButton' and 'radioButtonContainer' based on that number.
  */
 
-import { RadioSize, Sizes } from './types';
+import { RadioSize, Size } from './types';
 import { styles } from './styles';
 
 type RadioButtonLevel = 'radioButton' | 'radioButtonContainer';
@@ -31,7 +31,7 @@ const getRadioButtonDimensions = (level: RadioButtonLevel, size: number) => {
 
 export const getRadioButtonStyles = (
   level: RadioButtonLevel,
-  size: number | Sizes
+  size: Size
 ): RadioSize => {
   if (typeof size !== 'number') {
     if (level === 'radioButtonContainer') {

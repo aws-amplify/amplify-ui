@@ -1,7 +1,13 @@
 import React, { useCallback, useMemo } from 'react';
-import { Pressable, View, ViewStyle } from 'react-native';
+import {
+  Pressable,
+  PressableStateCallbackType,
+  StyleProp,
+  View,
+  ViewStyle,
+} from 'react-native';
 
-import { Label } from '../index';
+import { Label } from '../Label';
 import { getFlexDirectionFromLabelPosition } from '../Label/utils';
 
 import { styles } from './styles';
@@ -38,6 +44,15 @@ export default function Radio<T>({
     [disabled, labelPosition]
   );
 
+  const radioStyle = useCallback(
+    ({ pressed }: PressableStateCallbackType): StyleProp<ViewStyle> => {
+      const pressedStateStyle =
+        typeof style === 'function' ? style({ pressed }) : style;
+      return [pressedStateStyle];
+    },
+    [style]
+  );
+
   return (
     <Pressable
       {...rest}
@@ -46,7 +61,7 @@ export default function Radio<T>({
       // and partially depends on how much spacing the RadioGroupField will apply
       hitSlop={5}
       onPress={handleOnChange}
-      style={[containerStyle, style]}
+      style={[containerStyle, radioStyle]}
     >
       <View
         style={[
