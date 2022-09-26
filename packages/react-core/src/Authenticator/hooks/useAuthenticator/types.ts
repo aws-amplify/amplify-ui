@@ -21,11 +21,7 @@ export type Selector = (
   context: AuthenticatorMachineContext
 ) => AuthenticatorMachineContext[AuthenticatorMachineContextKey][];
 
-/**
- * These are internal xstate helpers to we share with `useAuthenticator`.
- *
- * TODO(breaking?): remove these internal contexts
- */
+// TODO(breaking): remove these from usage in the UI layer
 type InternalAuthenticatorContext = {
   _state: AuthMachineState;
   _send: AuthMachineSend;
