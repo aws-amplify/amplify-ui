@@ -3,7 +3,7 @@
 #
 # Triggered by: it runs every 15 minutes.
 
-name: Run and Test Builds
+name: Build and Runtime Test
 
 on:
   schedule:
