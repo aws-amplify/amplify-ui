@@ -11,17 +11,17 @@ export const styles: RadioStyles = StyleSheet.create({
   disabled: {
     opacity: 0.6,
   },
-  radioButton: {
-    backgroundColor: '#317d95',
-    borderRadius: ROUNDED_BORDER_RADIUS,
-  },
-  radioButtonContainer: {
+  radioContainer: {
     alignItems: 'center',
     borderColor: '#838c95',
     borderRadius: ROUNDED_BORDER_RADIUS,
     justifyContent: 'center',
   },
-  // radioButtonContainer sizes
+  radioDot: {
+    backgroundColor: '#317d95',
+    borderRadius: ROUNDED_BORDER_RADIUS,
+  },
+  // radioContainer sizes
   large: {
     borderWidth: 4,
     height: 40,

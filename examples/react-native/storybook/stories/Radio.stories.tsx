@@ -59,8 +59,8 @@ storiesOf('Radio', module)
     <Radio
       selected
       label="Green button, blue border"
-      radioButtonStyle={styles.greenButton}
-      radioButtonContainerStyle={styles.thickBlueBorder}
+      radioDotStyle={styles.greenButton}
+      radioContainerStyle={styles.thickBlueBorder}
       value="green"
     />
   ));

@@ -12,7 +12,7 @@ import { getFlexDirectionFromLabelPosition } from '../Label/utils';
 
 import { styles } from './styles';
 import { RadioProps } from './types';
-import { getRadioButtonStyles } from './getRadioButtonStyles';
+import { getRadioButtonStyles } from './getRadioStyles';
 
 export default function Radio<T>({
   accessibilityRole = 'radio',
@@ -21,8 +21,8 @@ export default function Radio<T>({
   labelPosition = 'end',
   labelStyle,
   onChange,
-  radioButtonContainerStyle,
-  radioButtonStyle,
+  radioContainerStyle,
+  radioDotStyle,
   selected,
   size = 'medium',
   style,
@@ -48,9 +48,9 @@ export default function Radio<T>({
     ({ pressed }: PressableStateCallbackType): StyleProp<ViewStyle> => {
       const pressedStateStyle =
         typeof style === 'function' ? style({ pressed }) : style;
-      return [pressedStateStyle];
+      return [containerStyle, pressedStateStyle];
     },
-    [style]
+    [containerStyle, style]
   );
 
   return (
@@ -61,21 +61,21 @@ export default function Radio<T>({
       // and partially depends on how much spacing the RadioGroupField will apply
       hitSlop={5}
       onPress={handleOnChange}
-      style={[containerStyle, radioStyle]}
+      style={radioStyle}
     >
       <View
         style={[
-          styles.radioButtonContainer,
-          getRadioButtonStyles('radioButtonContainer', size),
-          radioButtonContainerStyle,
+          styles.radioContainer,
+          getRadioButtonStyles('radioContainer', size),
+          radioContainerStyle,
         ]}
       >
         {selected ? (
           <View
             style={[
-              styles.radioButton,
-              getRadioButtonStyles('radioButton', size),
-              radioButtonStyle,
+              styles.radioDot,
+              getRadioButtonStyles('radioDot', size),
+              radioDotStyle,
             ]}
           />
         ) : null}

@@ -10,8 +10,8 @@ export interface RadioProps<T> extends PressableProps {
   labelPosition?: LabelPosition;
   labelStyle?: StyleProp<TextStyle>;
   onChange?: (value?: T) => void;
-  radioButtonContainerStyle?: StyleProp<ViewStyle>;
-  radioButtonStyle?: StyleProp<ViewStyle>;
+  radioContainerStyle?: StyleProp<ViewStyle>;
+  radioDotStyle?: StyleProp<ViewStyle>;
   size?: number | Size;
   selected?: boolean;
   value: T;
@@ -32,6 +32,6 @@ interface RadioSizes {
 export interface RadioStyles extends RadioSizes {
   container: ViewStyle;
   disabled: ViewStyle;
-  radioButton: ViewStyle;
-  radioButtonContainer: ViewStyle;
+  radioContainer: ViewStyle;
+  radioDot: ViewStyle;
 }
