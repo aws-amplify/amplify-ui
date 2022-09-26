@@ -18,11 +18,6 @@ export default function AuthenticatorProvider({
    * TODO(BREAKING): enforce only one provider in App tree
    */
   const parentProviderVal = useContext(AuthenticatorContext);
-
-  /**
-   * Ideally, `useInterpret` shouldn't even be run if `parentProviderVal` is
-   * not empty. But conditionally running `useInterpret` breaks rules of hooks.
-   */
   const service = useInterpret(createAuthenticatorMachine);
 
   const value = useMemo(

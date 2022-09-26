@@ -9,7 +9,7 @@ import {
  * to current authenticator state.
  */
 type AuthenticatorMachineContext = AuthenticatorServiceFacade;
-type AuthenticatorContextKey = keyof AuthenticatorMachineContext;
+type AuthenticatorMachineContextKey = keyof AuthenticatorMachineContext;
 
 /**
  * Inspired from https://xstate.js.org/docs/packages/xstate-react/#useselector-actor-selector-compare-getsnapshot.
@@ -19,7 +19,7 @@ type AuthenticatorContextKey = keyof AuthenticatorMachineContext;
  */
 export type Selector = (
   context: AuthenticatorMachineContext
-) => AuthenticatorMachineContext[AuthenticatorContextKey][];
+) => AuthenticatorMachineContext[AuthenticatorMachineContextKey][];
 
 /**
  * These are internal xstate helpers to we share with `useAuthenticator`.
