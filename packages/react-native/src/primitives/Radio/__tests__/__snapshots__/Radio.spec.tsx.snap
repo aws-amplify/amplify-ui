@@ -6,14 +6,6 @@ exports[`Radio renders as expected when disabled 1`] = `
   accessible={true}
   collapsable={false}
   focusable={true}
-  hitSlop={
-    Object {
-      "bottom": 5,
-      "left": 5,
-      "right": 5,
-      "top": 5,
-    }
-  }
   onBlur={[Function]}
   onClick={[Function]}
   onFocus={[Function]}
@@ -39,12 +31,12 @@ exports[`Radio renders as expected when disabled 1`] = `
       Array [
         Object {
           "alignItems": "center",
-          "borderColor": "#838c95",
+          "borderColor": "#317d95",
           "borderRadius": 999,
+          "borderWidth": 1,
           "justifyContent": "center",
         },
         Object {
-          "borderWidth": 3,
           "height": 30,
           "width": 30,
         },
@@ -76,14 +68,6 @@ exports[`Radio renders as expected when passing a number to the size prop 1`] = 
   accessible={true}
   collapsable={false}
   focusable={true}
-  hitSlop={
-    Object {
-      "bottom": 5,
-      "left": 5,
-      "right": 5,
-      "top": 5,
-    }
-  }
   onBlur={[Function]}
   onClick={[Function]}
   onFocus={[Function]}
@@ -108,12 +92,13 @@ exports[`Radio renders as expected when passing a number to the size prop 1`] = 
       Array [
         Object {
           "alignItems": "center",
-          "borderColor": "#838c95",
+          "borderColor": "#317d95",
           "borderRadius": 999,
+          "borderWidth": 1,
           "justifyContent": "center",
         },
         Object {
-          "borderWidth": 4,
+          "borderWidth": 1,
           "height": 40,
           "width": 40,
         },
@@ -161,14 +146,6 @@ exports[`Radio renders as expected when selected is false 1`] = `
   accessible={true}
   collapsable={false}
   focusable={true}
-  hitSlop={
-    Object {
-      "bottom": 5,
-      "left": 5,
-      "right": 5,
-      "top": 5,
-    }
-  }
   onBlur={[Function]}
   onClick={[Function]}
   onFocus={[Function]}
@@ -193,12 +170,12 @@ exports[`Radio renders as expected when selected is false 1`] = `
       Array [
         Object {
           "alignItems": "center",
-          "borderColor": "#838c95",
+          "borderColor": "#317d95",
           "borderRadius": 999,
+          "borderWidth": 1,
           "justifyContent": "center",
         },
         Object {
-          "borderWidth": 3,
           "height": 30,
           "width": 30,
         },
@@ -230,14 +207,6 @@ exports[`Radio renders as expected when selected is true 1`] = `
   accessible={true}
   collapsable={false}
   focusable={true}
-  hitSlop={
-    Object {
-      "bottom": 5,
-      "left": 5,
-      "right": 5,
-      "top": 5,
-    }
-  }
   onBlur={[Function]}
   onClick={[Function]}
   onFocus={[Function]}
@@ -262,12 +231,12 @@ exports[`Radio renders as expected when selected is true 1`] = `
       Array [
         Object {
           "alignItems": "center",
-          "borderColor": "#838c95",
+          "borderColor": "#317d95",
           "borderRadius": 999,
+          "borderWidth": 1,
           "justifyContent": "center",
         },
         Object {
-          "borderWidth": 3,
           "height": 30,
           "width": 30,
         },
@@ -315,14 +284,6 @@ exports[`Radio renders as expected when size is large 1`] = `
   accessible={true}
   collapsable={false}
   focusable={true}
-  hitSlop={
-    Object {
-      "bottom": 5,
-      "left": 5,
-      "right": 5,
-      "top": 5,
-    }
-  }
   onBlur={[Function]}
   onClick={[Function]}
   onFocus={[Function]}
@@ -347,12 +308,12 @@ exports[`Radio renders as expected when size is large 1`] = `
       Array [
         Object {
           "alignItems": "center",
-          "borderColor": "#838c95",
+          "borderColor": "#317d95",
           "borderRadius": 999,
+          "borderWidth": 1,
           "justifyContent": "center",
         },
         Object {
-          "borderWidth": 4,
           "height": 40,
           "width": 40,
         },
@@ -400,14 +361,6 @@ exports[`Radio renders as expected when size is medium 1`] = `
   accessible={true}
   collapsable={false}
   focusable={true}
-  hitSlop={
-    Object {
-      "bottom": 5,
-      "left": 5,
-      "right": 5,
-      "top": 5,
-    }
-  }
   onBlur={[Function]}
   onClick={[Function]}
   onFocus={[Function]}
@@ -432,12 +385,12 @@ exports[`Radio renders as expected when size is medium 1`] = `
       Array [
         Object {
           "alignItems": "center",
-          "borderColor": "#838c95",
+          "borderColor": "#317d95",
           "borderRadius": 999,
+          "borderWidth": 1,
           "justifyContent": "center",
         },
         Object {
-          "borderWidth": 3,
           "height": 30,
           "width": 30,
         },
@@ -485,14 +438,6 @@ exports[`Radio renders as expected when size is small 1`] = `
   accessible={true}
   collapsable={false}
   focusable={true}
-  hitSlop={
-    Object {
-      "bottom": 5,
-      "left": 5,
-      "right": 5,
-      "top": 5,
-    }
-  }
   onBlur={[Function]}
   onClick={[Function]}
   onFocus={[Function]}
@@ -517,12 +462,12 @@ exports[`Radio renders as expected when size is small 1`] = `
       Array [
         Object {
           "alignItems": "center",
-          "borderColor": "#838c95",
+          "borderColor": "#317d95",
           "borderRadius": 999,
+          "borderWidth": 1,
           "justifyContent": "center",
         },
         Object {
-          "borderWidth": 2,
           "height": 20,
           "width": 20,
         },
@@ -570,14 +515,6 @@ exports[`Radio renders as expected with accessibilityRole 1`] = `
   accessible={true}
   collapsable={false}
   focusable={true}
-  hitSlop={
-    Object {
-      "bottom": 5,
-      "left": 5,
-      "right": 5,
-      "top": 5,
-    }
-  }
   onBlur={[Function]}
   onClick={[Function]}
   onFocus={[Function]}
@@ -602,12 +539,12 @@ exports[`Radio renders as expected with accessibilityRole 1`] = `
       Array [
         Object {
           "alignItems": "center",
-          "borderColor": "#838c95",
+          "borderColor": "#317d95",
           "borderRadius": 999,
+          "borderWidth": 1,
           "justifyContent": "center",
         },
         Object {
-          "borderWidth": 3,
           "height": 30,
           "width": 30,
         },
