@@ -11,6 +11,7 @@ import {
   AuthEvent,
   AuthEventData,
   AuthEventTypes,
+  AuthFormFields,
   AuthMachineState,
   CodeDeliveryDetails,
   AmplifyUser,
@@ -44,6 +45,7 @@ interface AuthenticatorServiceContextFacade {
   authStatus: AuthStatus;
   codeDeliveryDetails: CodeDeliveryDetails;
   error: string;
+  formFields: AuthFormFields;
   hasValidationErrors: boolean;
   isPending: boolean;
   route: AuthenticatorRoute;
@@ -117,6 +119,7 @@ export const getServiceContextFacade = (
   const actorContext = (getActorContext(state) ?? {}) as ActorContextWithForms;
   const {
     codeDeliveryDetails,
+    formFields,
     remoteError: error,
     validationError: validationErrors,
   } = actorContext;
@@ -193,6 +196,7 @@ export const getServiceContextFacade = (
     authStatus,
     codeDeliveryDetails,
     error,
+    formFields,
     hasValidationErrors,
     isPending,
     route,

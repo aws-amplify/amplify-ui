@@ -2,12 +2,7 @@ import QRCode from 'qrcode';
 import * as React from 'react';
 
 import { Logger } from 'aws-amplify';
-import {
-  getActorState,
-  SignInState,
-  translate,
-  getTotpCode,
-} from '@aws-amplify/ui';
+import { getTotpCodeURL, translate } from '@aws-amplify/ui';
 
 import { Flex } from '../../../primitives/Flex';
 import { Heading } from '../../../primitives/Heading';
@@ -25,10 +20,10 @@ export const SetupTOTP = ({
   className,
   variation,
 }: RouteProps): JSX.Element => {
-  // TODO: handle `formOverrides` outside `useAuthenticator`
-  const { _state, isPending, getTotpSecretCode } = useAuthenticator(
+  const { formFields, getTotpSecretCode, isPending, user } = useAuthenticator(
     (context) => [context.isPending]
   );
+
   const { handleChange, handleSubmit } = useFormHandlers();
 
   const {
@@ -42,10 +37,6 @@ export const SetupTOTP = ({
   const [copyTextLabel, setCopyTextLabel] = React.useState<string>('COPY');
   const [secretKey, setSecretKey] = React.useState<string>('');
 
-  // `user` hasn't been set on the top-level state yet, so it's only available from the signIn actor
-  const actorState = getActorState(_state) as SignInState;
-
-  const { formFields, user } = actorState.context;
   const { totpIssuer = 'AWSCognito', totpUsername = user?.username } =
     formFields?.setupTOTP?.QR ?? {};
 
@@ -53,7 +44,7 @@ export const SetupTOTP = ({
     try {
       const newSecretKey = await getTotpSecretCode();
       setSecretKey(newSecretKey);
-      const totpCode = getTotpCode(totpIssuer, totpUsername, newSecretKey);
+      const totpCode = getTotpCodeURL(totpIssuer, totpUsername, newSecretKey);
       const qrCodeImageSource = await QRCode.toDataURL(totpCode);
 
       setQrCode(qrCodeImageSource);
@@ -67,7 +58,7 @@ export const SetupTOTP = ({
   React.useEffect(() => {
     if (!user) return;
 
-    generateQRCode(user);
+    generateQRCode();
   }, [generateQRCode, user]);
 
   const copyText = (): void => {
