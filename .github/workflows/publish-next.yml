@@ -190,7 +190,6 @@ jobs:
     if: ${{ failure() }}
     steps:
       - name: Log failure data point to metric PublishNextFailure
-        if: ${{ failure() }}
         uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
         with:
           metric-name: PublishNextFailure
@@ -207,7 +206,6 @@ jobs:
     if: ${{ success() }}
     steps:
       - name: Log success data point to metric PublishNextFailure
-        if: ${{ success() }}
         uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
         with:
           metric-name: PublishNextFailure
