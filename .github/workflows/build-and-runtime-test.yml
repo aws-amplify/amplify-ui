@@ -3,7 +3,7 @@
 #
 # Triggered by: it runs every 15 minutes.
 
-name: Run and Test Builds
+name: Build and Runtime Test
 
 on:
   schedule:
@@ -135,14 +135,14 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: us-east-1
 
-  log-metric:
-    # Send data point to metric BuildAndRuntimeTestFailure in github-workflows@ us-east-2, if it's a failure
+  log-failure-metric:
+    # Send a failure data point to metric BuildAndRuntimeTestFailure in github-workflows@ us-east-2, if it's a failure
     runs-on: ubuntu-latest
     environment: ci
     needs: build
+    if: ${{ failure() }}
     steps:
       - name: Log failure data point to metric BuildAndRuntimeTestFailure
-        if: ${{ failure() }}
         uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
         with:
           metric-name: BuildAndRuntimeTestFailure
@@ -150,8 +150,15 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_METRIC_LOGGER }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_METRIC_LOGGER }}
           AWS_REGION: us-east-2
+
+  log-success-metric:
+    # Send a success data point to metric BuildAndRuntimeTestFailure in github-workflows@ us-east-2, if it's a success
+    runs-on: ubuntu-latest
+    environment: ci
+    needs: build
+    if: ${{ success() }}
+    steps:
       - name: Log success data point to metric BuildAndRuntimeTestFailure
-        if: ${{ success() }}
         uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
         with:
           metric-name: BuildAndRuntimeTestFailure
