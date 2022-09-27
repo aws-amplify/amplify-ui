@@ -14,13 +14,19 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
-      - name: Use Node.js v16
-        uses: actions/setup-node@v1
+
+      - name: run tests
+        uses: reactivecircus/android-emulator-runner@v2
         with:
-          node-version: 16.x
-      - name: Run yarn install on sample app
-        run: yarn install
-        working-directory: ./canary/apps/react-native/canarytest
-      - name: Build Android apk (debug)
-        run: ./gradlew assembleDebug -Dorg.gradle.logging.level=info
-        working-directory: ./canary/apps/react-native/canarytest
+          api-level: 29
+          script: ./gradlew connectedCheck
+      # - name: Use Node.js v16
+      #   uses: actions/setup-node@v1
+      #   with:
+      #     node-version: 16.x
+      # - name: Run yarn install on sample app
+      #   run: yarn install
+      #   working-directory: ./canary/apps/react-native/canarytest
+      # - name: Build Android apk (debug)
+      #   run: ./gradlew assembleDebug -Dorg.gradle.logging.level=info
+      #   working-directory: ./canary/apps/react-native/canarytest
