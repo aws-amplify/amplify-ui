@@ -15,11 +15,21 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: run tests
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 29
-          script: ./gradlew connectedCheck
+      - uses: sparkfabrik/ios-build-action@v2.0.0
+    with:
+      build-pods: true
+      pods-path: 'ios/Podfile'
+      configuration: Debug
+      export-method: app-store
+      workspace-path: ./canary/apps/react-native/canarytest/ios/canarytest.xcworkspace
+      project-path: ./canary/apps/react-native/canarytest/ios/canarytest.xcodeproj
+
+      # - name: run tests
+      #   uses: reactivecircus/android-emulator-runner@v2
+      #   with:
+      #     api-level: 29
+      #     script: ./gradlew connectedCheck
+
       # - name: Use Node.js v16
       #   uses: actions/setup-node@v1
       #   with:
