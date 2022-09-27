@@ -14,10 +14,10 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
-      - name: Use Node.js v16
-        uses: actions/setup-node@v1
+      - name: Setup Node.js LTS
+        uses: actions/setup-node@v2
         with:
-        node-version: 16.x
+          node-version: lts/*
       - name: Run yarn install on sample app
         run: yarn install
         working-directory: ./canary/apps/react-native/canarytest
