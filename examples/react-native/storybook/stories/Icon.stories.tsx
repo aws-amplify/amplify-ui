@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { storiesOf } from '@storybook/react-native';
 import { Icon } from '@aws-amplify/ui-react-native/dist/primitives';
 import { icons } from '@aws-amplify/ui-react-native/dist/assets';
@@ -9,7 +9,7 @@ const source = icons.close;
 const StatefulAnimatedIcon = () => {
   const spinValue = new Animated.Value(0);
 
-  React.useEffect(() => {
+  useEffect(() => {
     Animated.loop(
       Animated.sequence([
         Animated.delay(500),

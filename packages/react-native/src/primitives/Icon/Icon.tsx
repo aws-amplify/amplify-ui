@@ -5,8 +5,8 @@ import { getStyles } from './styles';
 import { IconProps } from './types';
 
 export default function Icon({
+  animated,
   color,
-  animated = false,
   size,
   style,
   ...rest
@@ -14,9 +14,7 @@ export default function Icon({
   const { icon } = useMemo(() => getStyles(color, size), [color, size]);
 
   if (animated) {
-    return (
-      <Animated.Image {...rest} style={[icon, { tintColor: color }, style]} />
-    );
+    return <Animated.Image {...rest} style={[icon, style]} />;
   }
   return <Image {...rest} style={[icon, style]} />;
 }
