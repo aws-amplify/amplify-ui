@@ -1,6 +1,6 @@
-# Description: This is a POC for running the React Native canaries
+# Description: This is a POC for running the React Native canary for Android
 
-name: POC / React Native Canary
+name: POC / RN Canary - Android
 
 on:
   pull_request:
