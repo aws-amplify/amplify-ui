@@ -22,10 +22,9 @@ jobs:
         working-directory: ./canary/apps/react-native/canarytest
       - name: Setup Xcode
         run: xcode-select -p
-      - name: Install pods
-      - run: pod install
+      - name: Install pod dependencies
+        run: pod install
         working-directory: ./canary/apps/react-native/canarytest/ios
-        name: Install pod dependencies
       - name: Build iOS (debug)
         run: "xcodebuild \
           -workspace ./canary/apps/react-native/canarytest/ios/canarytest.xcworkspace \
