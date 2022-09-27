@@ -20,13 +20,15 @@ jobs:
       - name: Run yarn install on sample app
         run: yarn install
         working-directory: ./canary/apps/react-native/canarytest
-      - run: xcode-select -p
+      - name: Setup Xcode
+        run: xcode-select -p
+      - name: Install pods
       - run: pod install
-        working-directory: ios
+        working-directory: ./canary/apps/react-native/canarytest/ios
         name: Install pod dependencies
       - name: Build iOS (debug)
         run: "xcodebuild \
-          -workspace ios/canarytest.xcworkspace \
+          -workspace ./canary/apps/react-native/canarytest/ios/canarytest.xcworkspace \
           -scheme canarytest \
           clean archive \
           -sdk iphoneos \
