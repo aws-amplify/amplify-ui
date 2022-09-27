@@ -2691,8 +2691,8 @@
 
 "@aws-sdk/middleware-stack@3.178.0", "@aws-sdk/middleware-stack@^3.161.4-liveness":
   version "3.178.0"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/middleware-stack/-/middleware-stack-3.178.0.tgz#42e92ef9aaa3c1fdaca159ac6c24c37629dd4aee"
-  integrity sha512-ELYM5Imhlcz2zT1Z4OjVZwO564KvI4L9dMBxuUgO0fwommzjWqxR03yaRGhpGwpCP64d0Op5Koc/RKq5V92Wbw==
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/middleware-stack/-/middleware-stack-3.178.0.tgz#a38a5193e3fcaa1860dbf6c5366ae9cc48c8cd85"
+  integrity sha512-p9nrAbNvAF7FTX/Ov6q7F58nl4DIDp+LV7zUI4uiuLxyHufFbSMPVelGlyBsZVbnQfYVJya7x2GZVcQLBIuYsg==
   dependencies:
     tslib "^2.3.1"
 
