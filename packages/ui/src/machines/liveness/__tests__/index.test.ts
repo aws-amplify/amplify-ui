@@ -462,6 +462,31 @@ describe('Liveness Machine', () => {
       expect(mockFlowProps.onError).toHaveBeenCalledWith(error);
     });
 
+    it('should reach checkFaceDetected state and send client sessionInformation', async () => {
+      await transitionToRecording(service);
+      await flushPromises();
+      expect(service.state.value).toEqual({ recording: 'checkFaceDetected' });
+      expect(
+        expect(mockLivenessStreamProvider.sendClientInfo).toHaveBeenCalledTimes(
+          1
+        )
+      );
+      const clientInfo =
+        mockLivenessStreamProvider.sendClientInfo.mock.calls[0][0];
+
+      expect(
+        expect(
+          clientInfo.Challenge.FaceMovementAndLightChallenge.InitialFace
+            .BoundingBox
+        ).toStrictEqual({
+          Height: 0.20833333333333334,
+          Left: 0.609375,
+          Top: 0.4166666666666667,
+          Width: 0.15625,
+        })
+      );
+    });
+
     it('should reach flashFreshnessColors state after detectFaceAndMatchOval success', async () => {
       await transitionToRecording(service);
       await flushPromises(); // checkFaceDetected

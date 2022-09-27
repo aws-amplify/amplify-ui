@@ -583,3 +583,26 @@ export async function getFaceMatchState(
 
   return faceMatchState;
 }
+
+export function getBoundingBox({
+  deviceHeight,
+  deviceWidth,
+  height,
+  width,
+  top,
+  left,
+}: {
+  deviceHeight: number;
+  deviceWidth: number;
+  height: number;
+  width: number;
+  top: number;
+  left: number;
+}) {
+  return {
+    Height: height / deviceHeight,
+    Width: width / deviceWidth,
+    Top: top / deviceHeight,
+    Left: left / deviceWidth,
+  };
+}

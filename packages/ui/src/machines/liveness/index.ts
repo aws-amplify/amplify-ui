@@ -2,6 +2,7 @@ import { createMachine, assign, actions, send, spawn } from 'xstate';
 import {
   getColorsSequencesFromSessionInformation,
   getFaceMatchState,
+  getBoundingBox,
 } from '../../helpers/liveness/liveness';
 
 import {
@@ -817,12 +818,14 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               VideoStartTimestamp: recordingStartTimestampMs,
               InitialFace: {
                 InitialFaceDetectedTimestamp: initialFace.timestampMs,
-                BoundingBox: {
-                  Height: initialFace.height,
-                  Width: initialFace.width,
-                  Top: initialFace.top,
-                  Left: flippedInitialFaceLeft,
-                },
+                BoundingBox: getBoundingBox({
+                  deviceHeight: height,
+                  deviceWidth: width,
+                  height: initialFace.height,
+                  width: initialFace.width,
+                  top: initialFace.top,
+                  left: flippedInitialFaceLeft,
+                }),
               },
             },
           },
@@ -910,23 +913,27 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               ChallengeId: challengeId,
               InitialFace: {
                 InitialFaceDetectedTimestamp: initialFace.timestampMs,
-                BoundingBox: {
-                  Height: initialFace.height,
-                  Width: initialFace.width,
-                  Top: initialFace.top,
-                  Left: flippedInitialFaceLeft,
-                },
+                BoundingBox: getBoundingBox({
+                  deviceHeight: height,
+                  deviceWidth: width,
+                  height: initialFace.height,
+                  width: initialFace.width,
+                  top: initialFace.top,
+                  left: flippedInitialFaceLeft,
+                }),
               },
               TargetFace: {
                 FaceDetectedInTargetPositionStartTimestamp:
                   startFace.timestampMs,
                 FaceDetectedInTargetPositionEndTimestamp: endFace.timestampMs,
-                BoundingBox: {
-                  Height: ovalDetails.height,
-                  Width: ovalDetails.width,
-                  Top: ovalDetails.centerY - ovalDetails.height / 2,
-                  Left: ovalDetails.centerX - ovalDetails.width / 2,
-                },
+                BoundingBox: getBoundingBox({
+                  deviceHeight: height,
+                  deviceWidth: width,
+                  height: ovalDetails.height,
+                  width: ovalDetails.width,
+                  top: ovalDetails.centerY - ovalDetails.height / 2,
+                  left: ovalDetails.centerX - ovalDetails.width / 2,
+                }),
               },
             },
           },
