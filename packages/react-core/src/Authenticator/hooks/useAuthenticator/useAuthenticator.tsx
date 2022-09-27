@@ -6,7 +6,7 @@ import { AuthenticatorContext } from '../../context';
 
 import { USE_AUTHENTICATOR_ERROR } from './constants';
 import { Selector, UseAuthenticator } from './types';
-import { getComparator } from './utils';
+import { getComparator, getTotpSecretCodeCallback } from './utils';
 
 const defaultComparator = () => false;
 
@@ -34,8 +34,12 @@ export default function useAuthenticator(
 
   const facade = useSelector(service, xstateSelector, comparator);
 
+  const getTotpSecretCode = getTotpSecretCodeCallback(facade.user);
+
   return {
     ...facade,
+    getTotpSecretCode,
+
     /** @deprecated For internal use only */
     // _state: service.getSnapshot(),
     /** @deprecated For internal use only */

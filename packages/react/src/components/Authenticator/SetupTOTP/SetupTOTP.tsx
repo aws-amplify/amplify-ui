@@ -1,9 +1,8 @@
 import QRCode from 'qrcode';
 import * as React from 'react';
 
-import { Auth, Logger } from 'aws-amplify';
+import { Logger } from 'aws-amplify';
 import {
-  AmplifyUser,
   getActorState,
   SignInState,
   translate,
@@ -27,9 +26,9 @@ export const SetupTOTP = ({
   variation,
 }: RouteProps): JSX.Element => {
   // TODO: handle `formOverrides` outside `useAuthenticator`
-  const { _state, isPending } = useAuthenticator((context) => [
-    context.isPending,
-  ]);
+  const { _state, isPending, getTotpSecretCode } = useAuthenticator(
+    (context) => [context.isPending]
+  );
   const { handleChange, handleSubmit } = useFormHandlers();
 
   const {
@@ -50,23 +49,20 @@ export const SetupTOTP = ({
   const { totpIssuer = 'AWSCognito', totpUsername = user?.username } =
     formFields?.setupTOTP?.QR ?? {};
 
-  const generateQRCode = React.useCallback(
-    async (currentUser: AmplifyUser): Promise<void> => {
-      try {
-        const newSecretKey = await Auth.setupTOTP(currentUser);
-        setSecretKey(newSecretKey);
-        const totpCode = getTotpCode(totpIssuer, totpUsername, newSecretKey);
-        const qrCodeImageSource = await QRCode.toDataURL(totpCode);
+  const generateQRCode = React.useCallback(async (): Promise<void> => {
+    try {
+      const newSecretKey = await getTotpSecretCode();
+      setSecretKey(newSecretKey);
+      const totpCode = getTotpCode(totpIssuer, totpUsername, newSecretKey);
+      const qrCodeImageSource = await QRCode.toDataURL(totpCode);
 
-        setQrCode(qrCodeImageSource);
-      } catch (error) {
-        logger.error(error);
-      } finally {
-        setIsLoading(false);
-      }
-    },
-    [totpIssuer, totpUsername]
-  );
+      setQrCode(qrCodeImageSource);
+    } catch (error) {
+      logger.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [getTotpSecretCode, totpIssuer, totpUsername]);
 
   React.useEffect(() => {
     if (!user) return;

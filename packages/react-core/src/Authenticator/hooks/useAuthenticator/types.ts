@@ -29,6 +29,8 @@ type InternalAuthenticatorContext = {
 
 export interface UseAuthenticator
   extends Omit<AuthenticatorServiceFacade, 'toFederatedSignIn'> {
+  getTotpSecretCode: () => Promise<string>;
+
   /**
    * @deprecated `toFederatedSignIn` will be removed in a future major version release of `@aws-amplify/ui-react`
    */

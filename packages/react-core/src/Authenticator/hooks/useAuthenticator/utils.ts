@@ -1,3 +1,6 @@
+import { Auth } from 'aws-amplify';
+import { AmplifyUser } from '@aws-amplify/ui';
+
 import { areEmptyArrays, areEmptyObjects } from '../../../utils';
 import { Comparator, Selector } from './types';
 
@@ -34,4 +37,9 @@ export const getComparator =
 
     // Shallow compare the array values
     return areSelectorDepsEqual(currentSelectorDeps, nextSelectorDeps);
+  };
+
+export const getTotpSecretCodeCallback = (currentUser: AmplifyUser) =>
+  async function getTotpSecretCode(): Promise<string> {
+    return await Auth.setupTOTP(currentUser);
   };
