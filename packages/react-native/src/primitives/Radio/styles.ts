@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native';
 
 import { RadioStyles } from './types';
 
+const AMPLIFY_BLUE = '#317d95';
 const ROUNDED_BORDER_RADIUS: number = 999;
 
 export const styles: RadioStyles = StyleSheet.create({
@@ -13,27 +14,25 @@ export const styles: RadioStyles = StyleSheet.create({
   },
   radioContainer: {
     alignItems: 'center',
-    borderColor: '#838c95',
+    borderColor: AMPLIFY_BLUE,
     borderRadius: ROUNDED_BORDER_RADIUS,
+    borderWidth: 1,
     justifyContent: 'center',
   },
   radioDot: {
-    backgroundColor: '#317d95',
+    backgroundColor: AMPLIFY_BLUE,
     borderRadius: ROUNDED_BORDER_RADIUS,
   },
   // radioContainer sizes
   large: {
-    borderWidth: 4,
     height: 40,
     width: 40,
   },
   medium: {
-    borderWidth: 3,
     height: 30,
     width: 30,
   },
   small: {
-    borderWidth: 2,
     height: 20,
     width: 20,
   },

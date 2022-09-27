@@ -57,9 +57,6 @@ export default function Radio<T>({
     <Pressable
       {...rest}
       accessibilityRole={accessibilityRole}
-      // hitSlop will be platform-specific,
-      // and partially depends on how much spacing the RadioGroupField will apply
-      hitSlop={5}
       onPress={handleOnChange}
       style={radioStyle}
     >

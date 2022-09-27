@@ -24,7 +24,7 @@ const getRadioButtonDimensions = (level: RadioButtonLevel, size: number) => {
     height: adjustedSize,
     width: adjustedSize,
     ...(level === 'radioContainer' && {
-      borderWidth: adjustedSize * 0.1,
+      borderWidth: 1,
     }),
   };
 };
