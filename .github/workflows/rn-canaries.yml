@@ -24,3 +24,6 @@ jobs:
       - name: Build Android apk (debug)
         run: ./gradlew assembleDebug -Dorg.gradle.logging.level=info
         working-directory: ./canary/apps/react-native/canarytest/android
+      - name: Run Android
+        run: yarn android
+        working-directory: ./canary/apps/react-native/canarytest
