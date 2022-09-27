@@ -14,14 +14,13 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
+      - name: Use Node.js v16
+        uses: actions/setup-node@v1
+        with:
+        node-version: 16.x
       - name: Run yarn install on sample app
         run: yarn install
         working-directory: ./canary/apps/react-native/canarytest
-      - name: Build iOS
-        uses: sparkfabrik/ios-build-action@v2.0.0
-        with:build-pods: true
-        pods-path: 'ios/Podfile'
-        configuration: Debug
-        workspace-path: ./canary/apps/react-native/canarytest/ios/canarytest.xcworkspace
-        project-path: ./canary/apps/react-native/canarytest/ios/canarytest.xcodeproj
-        working-directory: ./canary/apps/react-native/canarytest
+      - name: Build Android apk (debug)
+        run: ./gradlew assembleDebug -Dorg.gradle.logging.level=info
+        working-directory: ./canary/apps/react-native/canarytest/android
