@@ -1,13 +1,11 @@
 import { StyleProp, ViewStyle } from 'react-native';
-
-import { IconButtonProps } from '../IconButton';
-
+import { IconProps } from '../Icon/types';
 import { LabelProps } from '../Label';
 import { LabelPosition } from '../Label/types';
 
-export interface CheckboxProps<T>
-  extends Omit<IconButtonProps, 'source' | 'style'> {
-  buttonStyle?: IconButtonProps['style'];
+export interface CheckboxProps<T> extends Omit<IconProps, 'source' | 'style'> {
+  disabled?: boolean;
+  iconStyle?: IconProps['style'];
   label?: string;
   labelPosition?: LabelPosition;
   labelStyle?: LabelProps['style'];

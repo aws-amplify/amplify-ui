@@ -32,53 +32,24 @@ exports[`Checkbox renders as expected when disabled 1`] = `
     ]
   }
 >
-  <View
-    accessibilityState={
+  <Image
+    source={
       Object {
-        "disabled": true,
+        "testUri": "../../../src/assets/icons/checkboxOutline.png",
       }
     }
-    accessible={true}
-    collapsable={false}
-    focusable={true}
-    onBlur={[Function]}
-    onClick={[Function]}
-    onFocus={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
     style={
       Array [
         Object {
-          "alignItems": "center",
-          "justifyContent": "center",
+          "height": undefined,
+          "resizeMode": "contain",
+          "tintColor": undefined,
+          "width": undefined,
         },
         undefined,
       ]
     }
-  >
-    <Image
-      source={
-        Object {
-          "testUri": "../../../src/assets/icons/checkboxOutline.png",
-        }
-      }
-      style={
-        Array [
-          Object {
-            "height": 16,
-            "resizeMode": "contain",
-            "tintColor": undefined,
-            "width": 16,
-          },
-          undefined,
-        ]
-      }
-    />
-  </View>
+  />
 </View>
 `;
 
@@ -109,53 +80,24 @@ exports[`Checkbox renders as expected when selected is false 1`] = `
     ]
   }
 >
-  <View
-    accessibilityState={
+  <Image
+    source={
       Object {
-        "disabled": true,
+        "testUri": "../../../src/assets/icons/checkboxOutline.png",
       }
     }
-    accessible={true}
-    collapsable={false}
-    focusable={true}
-    onBlur={[Function]}
-    onClick={[Function]}
-    onFocus={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
     style={
       Array [
         Object {
-          "alignItems": "center",
-          "justifyContent": "center",
+          "height": undefined,
+          "resizeMode": "contain",
+          "tintColor": undefined,
+          "width": undefined,
         },
         undefined,
       ]
     }
-  >
-    <Image
-      source={
-        Object {
-          "testUri": "../../../src/assets/icons/checkboxOutline.png",
-        }
-      }
-      style={
-        Array [
-          Object {
-            "height": 16,
-            "resizeMode": "contain",
-            "tintColor": undefined,
-            "width": 16,
-          },
-          undefined,
-        ]
-      }
-    />
-  </View>
+  />
 </View>
 `;
 
@@ -186,53 +128,24 @@ exports[`Checkbox renders as expected when selected is true 1`] = `
     ]
   }
 >
-  <View
-    accessibilityState={
+  <Image
+    source={
       Object {
-        "disabled": true,
+        "testUri": "../../../src/assets/icons/checkboxFilled.png",
       }
     }
-    accessible={true}
-    collapsable={false}
-    focusable={true}
-    onBlur={[Function]}
-    onClick={[Function]}
-    onFocus={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
     style={
       Array [
         Object {
-          "alignItems": "center",
-          "justifyContent": "center",
+          "height": undefined,
+          "resizeMode": "contain",
+          "tintColor": undefined,
+          "width": undefined,
         },
         undefined,
       ]
     }
-  >
-    <Image
-      source={
-        Object {
-          "testUri": "../../../src/assets/icons/checkboxFilled.png",
-        }
-      }
-      style={
-        Array [
-          Object {
-            "height": 16,
-            "resizeMode": "contain",
-            "tintColor": undefined,
-            "width": 16,
-          },
-          undefined,
-        ]
-      }
-    />
-  </View>
+  />
 </View>
 `;
 
@@ -263,52 +176,23 @@ exports[`Checkbox renders as expected with accessibilityRole 1`] = `
     ]
   }
 >
-  <View
-    accessibilityState={
+  <Image
+    source={
       Object {
-        "disabled": true,
+        "testUri": "../../../src/assets/icons/checkboxOutline.png",
       }
     }
-    accessible={true}
-    collapsable={false}
-    focusable={true}
-    onBlur={[Function]}
-    onClick={[Function]}
-    onFocus={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
     style={
       Array [
         Object {
-          "alignItems": "center",
-          "justifyContent": "center",
+          "height": undefined,
+          "resizeMode": "contain",
+          "tintColor": undefined,
+          "width": undefined,
         },
         undefined,
       ]
     }
-  >
-    <Image
-      source={
-        Object {
-          "testUri": "../../../src/assets/icons/checkboxOutline.png",
-        }
-      }
-      style={
-        Array [
-          Object {
-            "height": 16,
-            "resizeMode": "contain",
-            "tintColor": undefined,
-            "width": 16,
-          },
-          undefined,
-        ]
-      }
-    />
-  </View>
+  />
 </View>
 `;
