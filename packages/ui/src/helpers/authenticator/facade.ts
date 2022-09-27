@@ -15,6 +15,7 @@ import {
   CodeDeliveryDetails,
   AmplifyUser,
   ValidationError,
+  SocialProvider,
 } from '../../types';
 
 import { getActorContext, getActorState } from './actor';
@@ -46,6 +47,7 @@ interface AuthenticatorServiceContextFacade {
   hasValidationErrors: boolean;
   isPending: boolean;
   route: AuthenticatorRoute;
+  socialProviders: SocialProvider[];
   user: AmplifyUser;
   validationErrors: AuthenticatorValidationErrors;
 }
@@ -112,7 +114,6 @@ export const getSendEventAliases = (
 export const getServiceContextFacade = (
   state: AuthMachineState
 ): AuthenticatorServiceContextFacade => {
-  const actorState = getActorState(state);
   const actorContext = (getActorContext(state) ?? {}) as ActorContextWithForms;
   const {
     codeDeliveryDetails,
@@ -120,12 +121,16 @@ export const getServiceContextFacade = (
     validationError: validationErrors,
   } = actorContext;
 
+  const { socialProviders } = state.context?.config ?? {};
+
   // check for user in actorContext prior to state context. actorContext is more "up to date",
   // but is not available on all states
   const user = actorContext?.user ?? state.context?.user;
 
   const hasValidationErrors =
     validationErrors && Object.keys(validationErrors).length > 0;
+
+  const actorState = getActorState(state);
   const isPending = state.hasTag('pending') || actorState?.hasTag('pending');
 
   // Any additional idle states added beyond (idle, setup) should be updated inside the authStatus below as well
@@ -191,6 +196,7 @@ export const getServiceContextFacade = (
     hasValidationErrors,
     isPending,
     route,
+    socialProviders,
     user,
     validationErrors,
   };

@@ -36,7 +36,7 @@ export interface UseAuthenticator
   /** @deprecated For internal use only */
   _send: InternalAuthenticatorContext['_send'];
   /** @deprecated For internal use only */
-  _state: InternalAuthenticatorContext['_state'];
+  // _state: InternalAuthenticatorContext['_state'];
 }
 
 export type Comparator = (

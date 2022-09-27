@@ -37,7 +37,7 @@ export default function useAuthenticator(
   return {
     ...facade,
     /** @deprecated For internal use only */
-    _state: service.getSnapshot(),
+    // _state: service.getSnapshot(),
     /** @deprecated For internal use only */
     _send: send,
   };
