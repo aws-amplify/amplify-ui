@@ -16,33 +16,21 @@ export const RIGHT_NAV_LINKS = [
 export const LEFT_NAV_LINKS = [
   {
     type: 'DEFAULT',
-    label: 'Sandbox',
-    url: 'https://sandbox.amplifyapp.com/',
-    order: 1,
-  },
-  {
-    type: 'DEFAULT',
     label: 'Docs',
     url: 'https://docs.amplify.aws/',
-    order: 2,
+    order: 1,
   },
   {
     type: 'DEFAULT',
     label: 'Learn',
     url: 'https://amplify.aws/learn',
-    order: 3,
+    order: 2,
   },
   {
     type: 'DEFAULT',
     label: 'UI Library',
     url: 'https://ui.docs.amplify.aws/',
-    order: 4,
-  },
-  {
-    type: 'DEFAULT',
-    label: 'Contribute',
-    url: 'https://www.contributetoamplify.com/',
-    order: 5,
+    order: 3,
   },
 ];
 

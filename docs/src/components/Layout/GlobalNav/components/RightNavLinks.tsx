@@ -25,12 +25,8 @@ export function RightNavLinks({
       }`}
     >
       {rightLinks.map((link) => (
-        <View className={styles['mobile-border']}>
-          <NavMenuLink
-            navMenuItem={link}
-            currentMenuItem={currentSite}
-            key={link.order}
-          />
+        <View className={styles['mobile-border']} key={link.order}>
+          <NavMenuLink navMenuItem={link} currentMenuItem={currentSite} />
         </View>
       ))}
       <SocialNavLinks socialLinks={socialLinks} currentSite={currentSite} />
