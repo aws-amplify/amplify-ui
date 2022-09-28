@@ -98,7 +98,6 @@ exports[`Radio renders as expected when passing a number to the size prop 1`] = 
           "justifyContent": "center",
         },
         Object {
-          "borderWidth": 1,
           "height": 40,
           "width": 40,
         },
