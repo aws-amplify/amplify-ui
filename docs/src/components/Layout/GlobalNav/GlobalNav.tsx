@@ -43,11 +43,12 @@ export function GlobalNav({
   // provided and the sites not using a ThemeProvider will have the needed variables added on
   const themeClass = themeableSites[currentSite] ? '' : 'use-ui-theme';
 
-
   const [isCollapsed, setIsCollapsed] = useState(true);
 
   return (
-    <View className={`${styles['navbar']} ${styles[themeClass]}`}>
+    <View
+      className={`${styles['navbar']} ${themeClass ? styles[themeClass] : ''}`}
+    >
       <View className={isCollapsed ? '' : styles['background-overlay']}>
         <Flex className={styles['nav-links-container']}>
           <Flex
