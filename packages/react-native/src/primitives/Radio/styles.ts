@@ -25,15 +25,15 @@ export const styles: RadioStyles = StyleSheet.create({
   },
   // radioContainer sizes
   large: {
-    height: 40,
-    width: 40,
+    height: 24,
+    width: 24,
   },
   medium: {
-    height: 30,
-    width: 30,
-  },
-  small: {
     height: 20,
     width: 20,
+  },
+  small: {
+    height: 16,
+    width: 16,
   },
 });
