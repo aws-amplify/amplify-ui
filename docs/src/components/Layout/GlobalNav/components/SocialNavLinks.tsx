@@ -1,4 +1,4 @@
-import { Flex } from '@aws-amplify/ui-react';
+import { Flex, View } from '@aws-amplify/ui-react';
 import styles from '../GlobalNav.module.scss';
 import { NavMenuLink } from './NavMenuLink';
 import { NavMenuItem } from '../GlobalNav';
@@ -15,11 +15,9 @@ export function SocialNavLinks({
   return (
     <Flex className={`${styles['mobile-border']} ${styles['social-links']}`}>
       {socialLinks.map((link) => (
-        <NavMenuLink
-          navMenuItem={link}
-          currentMenuItem={currentSite}
-          key={link.order}
-        />
+        <View key={link.order}>
+          <NavMenuLink navMenuItem={link} currentMenuItem={currentSite} />
+        </View>
       ))}
     </Flex>
   );

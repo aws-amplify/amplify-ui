@@ -27,6 +27,7 @@
   --secondary-nav-hover-background-color: var(--amplify-colors-neutral-90);
   --dev-center-nav-height: 3rem;
   --amplify-colors-font-hover: var(--amplify-colors-neutral-10);
+  --navbar-mobile-nav-padding: 12px;
 }
 
 [data-amplify-theme='amplify-docs'][data-amplify-color-mode='dark'] .navbar {
@@ -71,7 +72,6 @@
 }
 
 .nav-menu-item {
-  padding: 0 var(--amplify-space-xs);
   display: flex;
   align-items: center;
   height: 100%;
@@ -123,7 +123,7 @@
 }
 
 .mobile-border {
-  padding: 12px;
+  padding: var(--navbar-mobile-nav-padding) var(--amplify-space-large);
   border-top: 1px solid var(--navbar-border-color);
 }
 
@@ -138,6 +138,20 @@
 
 .social-links {
   justify-content: space-around;
+  column-gap: 0px;
+  padding: 0px;
+
+  // Make the social links cover their whole flex area
+  div {
+    height: 100%;
+    width: 100%;
+    border-right: 1px solid var(--navbar-border-color);
+    padding: var(--navbar-mobile-nav-padding);
+
+    &:last-child {
+      border: none;
+    }
+  }
 }
 
 .desktop-only {
@@ -147,6 +161,10 @@
 @media (min-width: 975px) {
   .social-links {
     justify-content: normal;
+
+    div {
+      border: none;
+    }
   }
 
   .background-overlay {
