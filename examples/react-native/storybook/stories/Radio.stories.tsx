@@ -2,25 +2,16 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { storiesOf } from '@storybook/react-native';
 import { Radio } from '@aws-amplify/ui-react-native/dist/primitives';
-import { select } from '@storybook/addon-knobs';
 
 storiesOf('Radio', module)
   .add('default', () => <Radio label="Default" value="default" />)
   .add('label', () => (
     <>
       <Radio label="Default" value="default" />
-      <Radio
-        value="positions"
-        labelPosition={select(
-          'LabelPosition',
-          ['start', 'end', 'top', 'bottom'],
-          'end'
-        )}
-      />
-      {/* <Radio label="Start" labelPosition="start" value="start" />
+      <Radio label="Start" labelPosition="start" value="start" />
       <Radio label="End" labelPosition="end" value="end" />
       <Radio label="Top" labelPosition="top" value="top" />
-      <Radio label="Bottom" labelPosition="bottom" value="bottom" /> */}
+      <Radio label="Bottom" labelPosition="bottom" value="bottom" />
     </>
   ))
   .add('labelStyle', () => (
