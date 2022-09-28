@@ -1,0 +1,60 @@
+# Description: This workflow runs unit + e2e tests on PRs targeting
+#   - `rwa/main`
+#   - `rwa/release`
+#
+# Triggered by:
+#   (1) Internal PRs: maintainer pushes a commit to PRs targeting those branches.
+#   (2) Fork PRs: maintainer adds "run-test" label to PRs targeting those branches.
+
+name: Test / RWA / PRs
+
+concurrency:
+  group: e2e-${{ github.event.pull_request.id }}
+  cancel-in-progress: true
+
+on:
+  pull_request_target:
+    branches: [rwa/main, rwa/release]
+    types: [opened, synchronize, labeled]
+
+permissions:
+  pull-requests: write # used to remove label
+  # other permissions are defaulted to "none"
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    # We run tests only if it's:
+    #   1) pull request not from a fork (ie. internal PR), or
+    #   2) pull request from a fork (ie. external PR) that was added "run-tests" label
+    if: |
+      (github.event.pull_request.head.repo.full_name == github.repository) ||
+      (github.event.action == 'labeled' && github.event.label.name == 'run-tests')
+    steps:
+      - name: Remove run-tests label, if applicable
+        if: always() && github.event.label.name == 'run-tests'
+        uses: actions/github-script@0.3.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { issue: { number: issue_number }, repo: { owner, repo } } = context;
+            const label = 'run-tests';
+            github.issues.removeLabel({ owner, repo, issue_number, name: label });
+  test:
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@rwa/main
+    needs: setup
+    with:
+      commit: ${{ github.event.pull_request.head.sha }}
+      repository: ${{ github.event.pull_request.head.repo.full_name }}
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      DOMAIN: ${{ secrets.DOMAIN }}
+      PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+      USERNAME: ${{ secrets.USERNAME }}
+      NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
+      VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+      SITE_URL: ${{ secrets.SITE_URL }}
+      DOCSEARCH_DOCS_APP_ID: ${{ secrets.DOCSEARCH_DOCS_APP_ID }}
+      DOCSEARCH_DOCS_API_KEY: ${{ secrets.DOCSEARCH_DOCS_API_KEY }}
+      DOCSEARCH_DOCS_INDEX_NAME: ${{ secrets.DOCSEARCH_DOCS_INDEX_NAME }}
