@@ -17,6 +17,7 @@
     "lib": ["dom", "es2019", "dom.iterable"]
   },
   "angularCompilerOptions": {
+    "compilationMode": "partial",
     "enableI18nLegacyMessageIdFormat": false
   }
 }
