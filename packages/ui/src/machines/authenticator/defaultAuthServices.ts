@@ -15,7 +15,6 @@ export function signIn(username, password) {
 }
 
 export function confirmSignIn(user, code, mfaType) {
-  console.log('here i am', user, code, mfaType);
   return Auth.confirmSignIn(
     user,
     code,
