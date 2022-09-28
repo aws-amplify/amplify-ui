@@ -7,7 +7,8 @@ name: PoC Build and Runtime Test
 
 on:
   pull_request:
-    - branches: [main]
+    branches:
+      - main
 
 jobs:
   build:
