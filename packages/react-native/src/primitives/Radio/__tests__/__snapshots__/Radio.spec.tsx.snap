@@ -113,8 +113,8 @@ exports[`Radio renders as expected when passing a number to the size prop 1`] = 
             "borderRadius": 999,
           },
           Object {
-            "height": 30,
-            "width": 30,
+            "height": 20,
+            "width": 20,
           },
           undefined,
         ]
