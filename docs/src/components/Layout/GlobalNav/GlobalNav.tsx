@@ -23,6 +23,7 @@ export interface NavMenuItem {
 export interface NavProps {
   leftLinks: NavMenuItem[];
   rightLinks: NavMenuItem[];
+
   socialLinks: NavMenuItem[];
   currentSite: string;
 }
@@ -31,6 +32,7 @@ export function GlobalNav({
   currentSite,
   leftLinks,
   rightLinks,
+
   socialLinks,
 }: NavProps) {
   const themeableSites: any = {
@@ -40,6 +42,7 @@ export function GlobalNav({
   // This class will be added onto the sites that aren't using an Amplify UI theme provider, this will let those using a ThemeProvider use the variables
   // provided and the sites not using a ThemeProvider will have the needed variables added on
   const themeClass = themeableSites[currentSite] ? '' : 'use-ui-theme';
+
 
   const [isCollapsed, setIsCollapsed] = useState(true);
 
