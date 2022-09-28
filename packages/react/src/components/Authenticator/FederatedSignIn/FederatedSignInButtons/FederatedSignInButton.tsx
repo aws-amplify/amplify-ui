@@ -1,7 +1,7 @@
 import React from 'react';
 import { FederatedIdentityProviders, SocialProvider } from '@aws-amplify/ui';
 
-import { useAuthenticator } from '../../hooks/useAuthenticator';
+import { useAuthenticator } from '@aws-amplify/ui-react-core';
 import { Button } from '../../../../primitives/Button';
 import { Icon } from '../../../../primitives/Icon';
 import { Text } from '../../../../primitives/Text';

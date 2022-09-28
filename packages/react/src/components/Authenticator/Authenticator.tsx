@@ -2,10 +2,10 @@ import * as React from 'react';
 import { AuthenticatorMachineOptions, AmplifyUser } from '@aws-amplify/ui';
 
 import {
-  Provider,
+  AuthenticatorProvider as Provider,
   useAuthenticator,
   UseAuthenticator,
-} from './hooks/useAuthenticator';
+} from '@aws-amplify/ui-react-core';
 import {
   CustomComponentsContext,
   ComponentsProviderProps,
