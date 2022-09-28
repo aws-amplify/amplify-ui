@@ -11,20 +11,6 @@ export const RIGHT_NAV_LINKS = [
     url: 'https://aws.amazon.com/amplify/',
     order: 7,
   },
-  {
-    type: 'ICON',
-    label: 'Discord',
-    url: 'https://discord.com/invite/amplify',
-    order: 8,
-    icon: 'DISCORD',
-  },
-  {
-    type: 'ICON',
-    label: 'Twitter',
-    url: 'https://twitter.com/AWSAmplify',
-    order: 9,
-    icon: 'TWITTER',
-  },
 ];
 
 export const LEFT_NAV_LINKS = [
@@ -57,5 +43,22 @@ export const LEFT_NAV_LINKS = [
     label: 'Contribute',
     url: 'https://www.contributetoamplify.com/',
     order: 5,
+  },
+];
+
+export const SOCIAL_LINKS = [
+  {
+    type: 'ICON',
+    label: 'Discord',
+    url: 'https://discord.com/invite/amplify',
+    order: 8,
+    icon: 'DISCORD',
+  },
+  {
+    type: 'ICON',
+    label: 'Twitter',
+    url: 'https://twitter.com/AWSAmplify',
+    order: 9,
+    icon: 'TWITTER',
   },
 ];

@@ -1,5 +1,5 @@
 import { Icon, Flex } from '@aws-amplify/ui-react';
-import styles from '../GlobalNav.module.scss';
+import styles from '../../GlobalNav.module.scss';
 
 export function ExternalLink({ children }: { children: any }) {
   return (

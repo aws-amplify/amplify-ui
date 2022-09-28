@@ -1,5 +1,5 @@
 import { Icon } from '@aws-amplify/ui-react';
-import styles from '../GlobalNav.module.scss';
+import styles from '../../GlobalNav.module.scss';
 
 export enum NavMenuIconType {
   TWITTER = 'TWITTER',
