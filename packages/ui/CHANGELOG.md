@@ -1,5 +1,11 @@
 # @aws-amplify/ui
 
+## 3.13.4
+
+### Patch Changes
+
+- [#2616](https://github.com/aws-amplify/amplify-ui/pull/2616) [`83bcc0844`](https://github.com/aws-amplify/amplify-ui/commit/83bcc0844eb1049ab49ff4f79280605ef31230d6) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui-react, ui): expose Authenticator types, add AmplifyUser interface
+
 ## 3.13.3
 
 ### Patch Changes

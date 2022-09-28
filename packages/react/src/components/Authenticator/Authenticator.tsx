@@ -18,16 +18,14 @@ import { ForceNewPassword } from './ForceNewPassword';
 import { ResetPassword } from './ResetPassword';
 import { defaultComponents } from './hooks/useCustomComponents/defaultComponents';
 
+export type SignOut = UseAuthenticator['signOut'];
 export type AuthenticatorProps = Partial<
   AuthenticatorMachineOptions &
     ComponentsProviderProps &
     RouterProps & {
       children:
         | React.ReactNode
-        | ((props: {
-            signOut?: UseAuthenticator['signOut'];
-            user?: AmplifyUser;
-          }) => JSX.Element);
+        | ((props: { signOut?: SignOut; user?: AmplifyUser }) => JSX.Element);
     }
 >;
 
