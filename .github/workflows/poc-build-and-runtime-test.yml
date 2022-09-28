@@ -1,0 +1,102 @@
+# Description: this workflow runs build and simple runtime tests on supported
+#              frameworks and their build systems.
+#
+# Triggered by: it runs every 15 minutes.
+
+name: PoC Build and Runtime Test
+
+on:
+  pull_request:
+    - branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: ci
+    strategy:
+      fail-fast: false
+      matrix:
+        # Paths for each example app we want to test build on
+        path:
+          - angular/angularcli
+          - react/cra
+          - react/cra-ts
+          - react/next
+          - react/vite
+          - react/vite3
+          - vue/vite
+          - vue/vite3
+          - vue/vuecli
+    steps:
+      - name: Checkout Amplify UI
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+      - name: Setup Node.js LTS
+        uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+          cache: 'yarn'
+      - name: Install canary package
+        uses: ./.github/actions/install-with-retries
+        with:
+          no-lockfile: true
+          working-directory: ./canary/apps/${{ matrix.path }}
+      - name: Add Amplify CLI
+        run: yarn global add @aws-amplify/cli
+      - name: Get CLI versions
+        id: cli-version
+        run: echo "::set-output name=version::$(amplify --version)"
+      - name: Create or restore environments cache
+        id: environments-cache
+        uses: actions/cache@v2
+        with:
+          path: canary/environments/**/aws-exports.js
+          key: ${{ runner.os }}-canary-environments-${{ steps.cli-version.outputs.version }}-${{ hashFiles('canary/environments/**/amplify/**') }}
+      - name: Pull down AWS environments
+        if: steps.environments-cache.outputs.cache-hit != 'true'
+        run: yarn pull
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        working-directory: ./canary
+      - name: Build example app
+        run: yarn build
+        working-directory: ./canary/apps/${{ matrix.path }}
+      # This steps attempts to restore cypress runner. It will not create any new
+      # cache entries however, because cypress runner isn't available yet.
+      - name: Restore cypress runner from Cache
+        uses: actions/cache@v2
+        id: restore-cypress-cache
+        with:
+          path: ~/.cache/Cypress
+          key: ${{ runner.os }}-canary-cypress-${{ hashFiles('canary/e2e/yarn.lock') }}
+      - name: Install e2e packages
+        uses: ./.github/actions/install-with-retries
+        with:
+          working-directory: ./canary/e2e
+          # If we got a cache hit on cypress runner, then we will skip cypress binary
+          # installation. Otherwise, it will install cypress binary.
+          skip-cypress-binary: ${{ steps.restore-cypress-cache.outputs.cache-hit }}
+      # If cypress cache was missed, then we need to create new cache entry and upload it.
+      # At this point, cypress runner should've been installed from the previous installation
+      # step, so we go ahead and update the cache entry.
+      - name: Cache cypress runner
+        if: steps.restore-cypress-cache.outputs.cache-hit != 'true'
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/Cypress
+          key: ${{ runner.os }}-canary-cypress-${{ hashFiles('canary/e2e/yarn.lock') }}
+      - name: Start ${{ matrix.example }} example
+        run: yarn start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000
+        working-directory: ./canary/apps/${{ matrix.path }}
+      - name: Run E2E tests against ${{ matrix.example }} example
+        run: yarn test
+        working-directory: ./canary
+        env:
+          # Env values for testing flows
+          DOMAIN: ${{ secrets.DOMAIN }}
+          PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+          USERNAME: ${{ secrets.USERNAME }}
+          NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
+          VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
