@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { Fragment } from '@/components/Fragment';
 import { ResponsiveTable, ResponsiveTableCell } from '@/components/ResponsiveTable';
 import { Tabs, TabItem, Table, TableHead, TableRow, TableCell, TableBody, View } from '@aws-amplify/ui-react';
@@ -121,11 +122,9 @@ These helper functions trigger transition to another `route`. Note that any inva
           <ResponsiveTableCell label="Description">Transitions to `resetPassword`. Allowed from `signIn`.</ResponsiveTableCell>
           <ResponsiveTableCell label="Type">`() => void`</ResponsiveTableCell>
         </TableRow>
-        <TableRow>
-          <ResponsiveTableCell label="Name">`toFederatedSignIn`</ResponsiveTableCell>
-          <ResponsiveTableCell label="Description">Transitions to `provider`'s federated sign in page. Supported `provider` values can be found [here](https://github.com/aws-amplify/amplify-ui/blob/96830f6a34a417aa9bc6329c839679bd10da84f0/packages/ui/src/helpers/auth.ts#L104-L109).</ResponsiveTableCell>
-          <ResponsiveTableCell label="Type">`(provider: string) => void`</ResponsiveTableCell>
-        </TableRow>
+        <Fragment>
+          {({ platform }) => platform === 'angular' || platform === 'vue' ? import(`./advanced/to-federated-sign-in.mdx`) : Promise.resolve(() => null)}
+        </Fragment>
         <TableRow>
           <ResponsiveTableCell label="Name">`skipVerification`</ResponsiveTableCell>
           <ResponsiveTableCell label="Description">Skips verification process. Allowed from `verifyUser` and `confirmVerifyUser`</ResponsiveTableCell>
