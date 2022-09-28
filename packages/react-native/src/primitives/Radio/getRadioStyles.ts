@@ -15,9 +15,9 @@
 import { RadioSize, Size } from './types';
 import { styles } from './styles';
 
-type RadioButtonLevel = 'radioContainer' | 'radioDot';
+type RadioLevel = 'radioContainer' | 'radioDot';
 
-const getRadioButtonDimensions = (level: RadioButtonLevel, size: number) => {
+const getRadioDimensions = (level: RadioLevel, size: number) => {
   const adjustedSize = level === 'radioDot' ? Math.floor(size / 2) : size;
 
   return {
@@ -29,16 +29,13 @@ const getRadioButtonDimensions = (level: RadioButtonLevel, size: number) => {
   };
 };
 
-export const getRadioButtonStyles = (
-  level: RadioButtonLevel,
-  size: Size
-): RadioSize => {
+export const getRadioStyles = (level: RadioLevel, size: Size): RadioSize => {
   if (typeof size !== 'number') {
     if (level === 'radioContainer') {
       return styles[size];
     }
-    return getRadioButtonDimensions(level, styles[size].height);
+    return getRadioDimensions(level, styles[size].height);
   }
 
-  return getRadioButtonDimensions(level, size);
+  return getRadioDimensions(level, size);
 };

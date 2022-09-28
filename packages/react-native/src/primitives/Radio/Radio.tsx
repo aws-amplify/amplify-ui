@@ -12,7 +12,7 @@ import { getFlexDirectionFromLabelPosition } from '../Label/utils';
 
 import { styles } from './styles';
 import { RadioProps } from './types';
-import { getRadioButtonStyles } from './getRadioStyles';
+import { getRadioStyles } from './getRadioStyles';
 
 export default function Radio<T>({
   accessibilityRole = 'radio',
@@ -60,7 +60,7 @@ export default function Radio<T>({
       <View
         style={[
           styles.radioContainer,
-          getRadioButtonStyles('radioContainer', size),
+          getRadioStyles('radioContainer', size),
           radioContainerStyle,
         ]}
       >
@@ -68,7 +68,7 @@ export default function Radio<T>({
           <View
             style={[
               styles.radioDot,
-              getRadioButtonStyles('radioDot', size),
+              getRadioStyles('radioDot', size),
               radioDotStyle,
             ]}
           />
