@@ -3,7 +3,7 @@
 #
 # Triggered by: it runs every 15 minutes.
 
-name: Run and Test Builds
+name: Build and Runtime Test
 
 on:
   schedule:
@@ -101,8 +101,9 @@ jobs:
           NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
           VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
 
-  log-failure-metric:
-    # Send data point 1 to metricRunTimeTestsFailure, if it's a failure
+  log-failure-metric-prod:
+    # to be deprecated once log-failure-metric is up
+    # Send data point 1 to metric RunTimeTestsFailure in prod us-east-1, if it's a failure
     runs-on: ubuntu-latest
     environment: ci
     needs: build
@@ -115,9 +116,11 @@ jobs:
           value: 1
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: us-east-1
 
-  log-success-metric:
-    # Send data point 0 to metric RunTimeTestsFailure, if  it's a success
+  log-success-metric-prod:
+    # to be deprecated once log-success-metric is up
+    # Send data point 0 to metric RunTimeTestsFailure in prod us-east-1, if it's a success
     runs-on: ubuntu-latest
     environment: ci
     needs: build
@@ -130,3 +133,36 @@ jobs:
           value: 0
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: us-east-1
+
+  log-failure-metric:
+    # Send a failure data point to metric BuildAndRuntimeTestFailure in github-workflows@ us-east-2, if it's a failure
+    runs-on: ubuntu-latest
+    environment: ci
+    needs: build
+    if: ${{ failure() }}
+    steps:
+      - name: Log failure data point to metric BuildAndRuntimeTestFailure
+        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
+        with:
+          metric-name: BuildAndRuntimeTestFailure
+          value: 1
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_METRIC_LOGGER }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_METRIC_LOGGER }}
+          AWS_REGION: us-east-2
+
+  log-success-metric:
+    # Send a success data point to metric BuildAndRuntimeTestFailure in github-workflows@ us-east-2, if it's a success
+    runs-on: ubuntu-latest
+    environment: ci
+    needs: build
+    if: ${{ success() }}
+    steps:
+      - name: Log success data point to metric BuildAndRuntimeTestFailure
+        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
+        with:
+          metric-name: BuildAndRuntimeTestFailure
+          value: 0
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_METRIC_LOGGER }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_METRIC_LOGGER }}
+          AWS_REGION: us-east-2

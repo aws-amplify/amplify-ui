@@ -53,7 +53,14 @@ For customers with applications using right to left directionality, the example 
 Also see: [Internationalization](react/getting-started/internationalization)
 
 
-#### 3. Update any override function calls
+
+#### 3. Legacy Authenticator exports removed
+
+If you are still importing the version 1.x of the Authenticator using the `/legacy/` path, please update to the current version. Exports removed include:
+
+`AmplifyAuthenticator`, `AmplifySignIn`, `AmplifySignOut`, `withAuthenticator`
+
+#### 4. Update any override function calls
 
 Update the override function calls with the updated function signatures. Rather then returning an `Auth.*` object you must now return the function callback passed in the `handle*` signature.
 
@@ -73,6 +80,7 @@ Update the override function calls with the updated function signatures. Rather 
 }
 
 ```
+
 
 ## 2.x to 3.x
 

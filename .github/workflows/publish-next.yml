@@ -145,8 +145,9 @@ jobs:
         run: yarn build
         working-directory: ./canary
 
-  log-failure-metric:
-    # Send data point 1 to metric PublishNextFailure, if  it's a failure
+  log-failure-metric-prod:
+    # to be deprecated once log-failure-metric is up
+    # Send data point 1 to metric PublishNextFailure in prod us-east-1, if it's a failure
     runs-on: ubuntu-latest
     environment: ci
     needs: build-test
@@ -162,9 +163,11 @@ jobs:
           value: 1
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: us-east-1
 
-  log-success-metric:
-    # Send data point 0 to metric PublishNextFailure, if  it's a success
+  log-success-metric-prod:
+    # to be deprecated once log-success-metric is up
+    # Send data point 0 to metric PublishNextFailure in prod us-east-1, if it's a success
     runs-on: ubuntu-latest
     environment: ci
     needs: build-test
@@ -177,3 +180,36 @@ jobs:
           value: 0
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: us-east-1
+
+  log-failure-metric:
+    # Send a failure data point to metric PublishNextFailure in github-workflows@ us-east-2, if it's a failure
+    runs-on: ubuntu-latest
+    environment: ci
+    needs: build-test
+    if: ${{ failure() }}
+    steps:
+      - name: Log failure data point to metric PublishNextFailure
+        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
+        with:
+          metric-name: PublishNextFailure
+          value: 1
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_METRIC_LOGGER }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_METRIC_LOGGER }}
+          AWS_REGION: us-east-2
+
+  log-success-metric:
+    # Send a success data point to metric PublishNextFailure in github-workflows@ us-east-2, if it's a success
+    runs-on: ubuntu-latest
+    environment: ci
+    needs: build-test
+    if: ${{ success() }}
+    steps:
+      - name: Log success data point to metric PublishNextFailure
+        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
+        with:
+          metric-name: PublishNextFailure
+          value: 0
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_METRIC_LOGGER }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_METRIC_LOGGER }}
+          AWS_REGION: us-east-2
