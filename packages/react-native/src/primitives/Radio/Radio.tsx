@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import {
   Pressable,
   PressableStateCallbackType,
@@ -12,7 +12,7 @@ import { getFlexDirectionFromLabelPosition } from '../Label/utils';
 
 import { styles } from './styles';
 import { RadioProps } from './types';
-import { getRadioStyles } from './getRadioStyles';
+import { getRadioDimensions } from './getRadioDimensions';
 
 export default function Radio<T>({
   accessibilityRole = 'radio',
@@ -50,6 +50,11 @@ export default function Radio<T>({
     [disabled, labelPosition, style]
   );
 
+  const { radioContainerSize, radioDotSize } = useMemo(
+    () => getRadioDimensions(size),
+    [size]
+  );
+
   return (
     <Pressable
       {...rest}
@@ -58,20 +63,10 @@ export default function Radio<T>({
       style={radioStyle}
     >
       <View
-        style={[
-          styles.radioContainer,
-          getRadioStyles('radioContainer', size),
-          radioContainerStyle,
-        ]}
+        style={[styles.radioContainer, radioContainerSize, radioContainerStyle]}
       >
         {selected ? (
-          <View
-            style={[
-              styles.radioDot,
-              getRadioStyles('radioDot', size),
-              radioDotStyle,
-            ]}
-          />
+          <View style={[styles.radioDot, radioDotSize, radioDotStyle]} />
         ) : null}
       </View>
       {label ? <Label style={labelStyle}>{label}</Label> : null}

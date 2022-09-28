@@ -18,15 +18,17 @@ export interface RadioProps<T> extends PressableProps {
 }
 
 export interface RadioSize {
-  borderWidth?: number;
   height: number;
   width: number;
 }
 
-interface RadioSizes {
-  large: RadioSize;
-  medium: RadioSize;
-  small: RadioSize;
+export interface RadioSizes {
+  radioContainerLarge: RadioSize;
+  radioContainerMedium: RadioSize;
+  radioContainerSmall: RadioSize;
+  radioDotLarge: RadioSize;
+  radioDotMedium: RadioSize;
+  radioDotSmall: RadioSize;
 }
 
 export interface RadioStyles extends RadioSizes {

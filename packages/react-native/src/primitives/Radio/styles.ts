@@ -23,17 +23,28 @@ export const styles: RadioStyles = StyleSheet.create({
     backgroundColor: AMPLIFY_BLUE,
     borderRadius: ROUNDED_BORDER_RADIUS,
   },
-  // radioContainer sizes
-  large: {
+  radioContainerLarge: {
     height: 24,
     width: 24,
   },
-  medium: {
+  radioContainerMedium: {
     height: 20,
     width: 20,
   },
-  small: {
+  radioContainerSmall: {
     height: 16,
     width: 16,
+  },
+  radioDotLarge: {
+    height: 12,
+    width: 12,
+  },
+  radioDotMedium: {
+    height: 10,
+    width: 10,
+  },
+  radioDotSmall: {
+    height: 8,
+    width: 8,
   },
 });

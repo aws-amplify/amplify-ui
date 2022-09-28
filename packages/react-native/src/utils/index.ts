@@ -4,3 +4,6 @@ const LINE_HEIGHT_MULTIPLIER = 1.5;
 
 export const getLineHeight = (fontSize: number): number =>
   fontSize * LINE_HEIGHT_MULTIPLIER;
+
+export const capitalize = (str: string): string =>
+  str.charAt(0).toUpperCase() + str.slice(1);
