@@ -28,6 +28,7 @@
   --dev-center-nav-height: 3rem;
   --amplify-colors-font-hover: var(--amplify-colors-neutral-10);
   --navbar-mobile-nav-padding: 12px;
+  --nav-links-spacing: 20px;
 }
 
 [data-amplify-theme='amplify-docs'][data-amplify-color-mode='dark'] .navbar {
@@ -193,12 +194,12 @@
   .nav-links-container {
     flex-direction: row;
     height: var(--dev-center-nav-height);
-    gap: var(--amplify-space-medium);
+    gap: var(--nav-links-spacing);
     & .left-nav-links,
     .right-nav-links {
       flex-direction: row;
       align-items: center;
-      gap: var(--amplify-space-medium);
+      gap: var(--nav-links-spacing);
     }
   }
 
