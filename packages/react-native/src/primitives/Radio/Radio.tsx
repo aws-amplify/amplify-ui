@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback } from 'react';
 import {
   Pressable,
   PressableStateCallbackType,
@@ -35,22 +35,19 @@ export default function Radio<T>({
     }
   }, [onChange, value, disabled]);
 
-  const containerStyle: ViewStyle = useMemo(
-    () => ({
-      ...styles.container,
-      flexDirection: getFlexDirectionFromLabelPosition(labelPosition),
-      ...(disabled && styles.disabled),
-    }),
-    [disabled, labelPosition]
-  );
-
   const radioStyle = useCallback(
     ({ pressed }: PressableStateCallbackType): StyleProp<ViewStyle> => {
+      const containerStyle: ViewStyle = {
+        ...styles.container,
+        flexDirection: getFlexDirectionFromLabelPosition(labelPosition),
+        ...(disabled && styles.disabled),
+      };
+
       const pressedStateStyle =
         typeof style === 'function' ? style({ pressed }) : style;
       return [containerStyle, pressedStateStyle];
     },
-    [containerStyle, style]
+    [disabled, labelPosition, style]
   );
 
   return (
