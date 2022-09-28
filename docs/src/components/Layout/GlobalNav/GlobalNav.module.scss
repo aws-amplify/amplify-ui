@@ -43,7 +43,7 @@
 
 .dev-center-logo {
   color: var(--amplify-colors-neutral-10);
-  font-size: 1rem;
+  font-size: var(--amplify-font-sizes-large);
   white-space: nowrap;
 }
 
@@ -77,7 +77,7 @@
   align-items: center;
   height: 100%;
   width: 100%;
-  font-size: var(--amplify-font-sizes-small);
+  font-size: var(--amplify-font-sizes-medium);
   text-decoration: none;
   color: var(--amplify-colors-neutral-40) !important;
   font-family: 'Amazon Ember';
@@ -212,6 +212,6 @@
   }
 
   .navbar {
-    padding-inline: var(--amplify-space-large);
+    padding-inline: var(--amplify-space-xl);
   }
 }
