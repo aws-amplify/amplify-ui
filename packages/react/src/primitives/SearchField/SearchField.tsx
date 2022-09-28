@@ -17,6 +17,16 @@ const SearchFieldPrimitive: Primitive<SearchFieldProps, 'input'> = (
     clearButtonLabel,
     labelHidden = true,
     name = 'q',
+    defaultValue = '',
+    value,
+    isLoading,
+    hasSearchButton,
+    hasSearchIcon,
+    suggestionsMenu,
+    renderSuggestion,
+    filterSuggestion,
+    onSuggestionSelect,
+    onChange,
     onSubmit,
     onClear,
     searchButtonRef,
@@ -25,8 +35,21 @@ const SearchFieldPrimitive: Primitive<SearchFieldProps, 'input'> = (
   },
   ref
 ) => {
-  const { value, onClearHandler, onInput, onKeyDown, onClick, composedRefs } =
-    useSearchField({ onSubmit, onClear, externalRef: ref });
+  const {
+    composedValue,
+    onClearHandler,
+    onInput,
+    onKeyDown,
+    onClick,
+    composedRefs,
+  } = useSearchField({
+    defaultValue,
+    value,
+    onChange,
+    onSubmit,
+    onClear,
+    externalRef: ref,
+  });
 
   return (
     <TextField
@@ -37,7 +60,7 @@ const SearchFieldPrimitive: Primitive<SearchFieldProps, 'input'> = (
         <FieldClearButton
           ariaLabel={clearButtonLabel}
           excludeFromTabOrder={true}
-          isVisible={strHasLength(value)}
+          isVisible={strHasLength(composedValue)}
           onClick={onClearHandler}
           size={size}
           variation="link"
@@ -58,7 +81,7 @@ const SearchFieldPrimitive: Primitive<SearchFieldProps, 'input'> = (
       }
       ref={composedRefs}
       size={size}
-      value={value}
+      value={composedValue}
       {...rest}
     />
   );

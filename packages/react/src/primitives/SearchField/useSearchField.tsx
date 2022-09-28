@@ -9,21 +9,28 @@ const ENTER_KEY = 'Enter';
 const DEFAULT_KEYS = new Set([ESCAPE_KEY, ENTER_KEY]);
 
 export const useSearchField = ({
+  defaultValue,
+  value,
+  onChange,
   onSubmit,
   onClear,
   externalRef,
 }: UseSearchFieldProps) => {
-  const [value, setValue] = React.useState<string>('');
+  const isControlled = value !== undefined;
+  const [internalValue, setInternalValue] =
+    React.useState<string>(defaultValue);
+  const composedValue = isControlled ? value : internalValue;
+
   const internalRef = React.useRef<HTMLInputElement>(null);
   const composedRefs = useComposeRefsCallback({ externalRef, internalRef });
 
   const onClearHandler = React.useCallback(() => {
-    setValue('');
+    setInternalValue('');
     internalRef?.current?.focus();
     if (isFunction(onClear)) {
       onClear();
     }
-  }, [setValue, onClear]);
+  }, [onClear]);
 
   const onSubmitHandler = React.useCallback(
     (value: string) => {
@@ -47,25 +54,28 @@ export const useSearchField = ({
       if (key === ESCAPE_KEY) {
         onClearHandler();
       } else if (key === ENTER_KEY) {
-        onSubmitHandler(value);
+        onSubmitHandler(composedValue);
       }
     },
-    [value, onClearHandler, onSubmitHandler]
+    [composedValue, onClearHandler, onSubmitHandler]
   );
 
   const onInput = React.useCallback(
     (event) => {
-      setValue(event.target.value);
+      setInternalValue(event.target.value);
+      if (isFunction(onChange)) {
+        onChange(event);
+      }
     },
-    [setValue]
+    [onChange]
   );
 
   const onClick = React.useCallback(() => {
-    onSubmitHandler(value);
-  }, [onSubmitHandler, value]);
+    onSubmitHandler(composedValue);
+  }, [onSubmitHandler, composedValue]);
 
   return {
-    value,
+    composedValue,
     onClearHandler,
     onKeyDown,
     onInput,
