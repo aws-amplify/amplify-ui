@@ -38,7 +38,7 @@ describe('areSelectorDepsEqual', () => {
 });
 
 describe('getComparator', () => {
-  it('returns a camporator that compares arrays', () => {
+  it('returns a comparator that compares arrays', () => {
     const comparator = getComparator(({ route }) => [route]);
 
     expect(comparator).toEqual(expect.any(Function));
