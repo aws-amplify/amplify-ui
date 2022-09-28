@@ -20,6 +20,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
     environment: ci
+    env:
+      NODE_ENV: test
     steps:
       - name: Checkout Amplify UI
         uses: actions/checkout@v2
@@ -55,5 +57,5 @@ jobs:
       - name: Pull all auth environments except phone
         run: yarn environments auth pull:non-phone
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_AUTH }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_AUTH }}
