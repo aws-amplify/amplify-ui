@@ -1,3 +1,9 @@
+import { ViewStyle } from 'react-native';
+
+import { capitalize } from '../../utils';
+
+import { RadioStyles, Size } from './types';
+
 /**
  * These utility functions are used to apply styles to
  * the two nested View's comprising the Radio:
@@ -12,22 +18,13 @@
  * (e.g., 'small' => { radioContainerSmall, radioDotSmall } )
  */
 
-import { RadioSize, RadioSizes, Size } from './types';
-import { styles } from './styles';
-import { ViewStyle } from 'react-native';
-import { capitalize } from '../../utils';
-
-type RadioLevel = 'radioContainer' | 'radioDot';
-
-const getRadioSize = (level: RadioLevel, size: Size): RadioSize => {
-  const sizeKey = (level + capitalize(`${size}`)) as keyof RadioSizes;
-
-  return styles[sizeKey];
-};
-
 export const getRadioDimensions = (
-  size: Size
-): { radioContainerSize: ViewStyle; radioDotSize: ViewStyle } => {
+  size: Size,
+  styles: RadioStyles
+): {
+  radioContainerSize: ViewStyle;
+  radioDotSize: ViewStyle;
+} => {
   if (typeof size === 'number') {
     return {
       radioContainerSize: { height: size, width: size },
@@ -35,8 +32,9 @@ export const getRadioDimensions = (
     };
   }
 
+  const sizeKey = capitalize(size); // 'small' => 'Small'
   return {
-    radioContainerSize: getRadioSize('radioContainer', size),
-    radioDotSize: getRadioSize('radioDot', size),
+    radioContainerSize: styles[`radioContainer${sizeKey}`] as ViewStyle,
+    radioDotSize: styles[`radioDot${sizeKey}`] as ViewStyle,
   };
 };

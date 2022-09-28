@@ -35,7 +35,7 @@ export default function Radio<T>({
     }
   }, [onChange, value, disabled]);
 
-  const radioStyle = useCallback(
+  const containerStyle = useCallback(
     ({ pressed }: PressableStateCallbackType): StyleProp<ViewStyle> => {
       const containerStyle: ViewStyle = {
         ...styles.container,
@@ -51,7 +51,7 @@ export default function Radio<T>({
   );
 
   const { radioContainerSize, radioDotSize } = useMemo(
-    () => getRadioDimensions(size),
+    () => getRadioDimensions(size, styles),
     [size]
   );
 
@@ -60,7 +60,7 @@ export default function Radio<T>({
       {...rest}
       accessibilityRole={accessibilityRole}
       onPress={handleOnChange}
-      style={radioStyle}
+      style={containerStyle}
     >
       <View
         style={[styles.radioContainer, radioContainerSize, radioContainerStyle]}
