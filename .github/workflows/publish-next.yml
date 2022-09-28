@@ -182,14 +182,14 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: us-east-1
 
-  log-metric:
-    # Send data point to metric PublishNextFailure in github-workflows@ us-east-2, if it's a failure
+  log-failure-metric:
+    # Send a failure data point to metric PublishNextFailure in github-workflows@ us-east-2, if it's a failure
     runs-on: ubuntu-latest
     environment: ci
     needs: build-test
+    if: ${{ failure() }}
     steps:
       - name: Log failure data point to metric PublishNextFailure
-        if: ${{ failure() }}
         uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
         with:
           metric-name: PublishNextFailure
@@ -197,8 +197,15 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_METRIC_LOGGER }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_METRIC_LOGGER }}
           AWS_REGION: us-east-2
+
+  log-success-metric:
+    # Send a success data point to metric PublishNextFailure in github-workflows@ us-east-2, if it's a success
+    runs-on: ubuntu-latest
+    environment: ci
+    needs: build-test
+    if: ${{ success() }}
+    steps:
       - name: Log success data point to metric PublishNextFailure
-        if: ${{ success() }}
         uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
         with:
           metric-name: PublishNextFailure

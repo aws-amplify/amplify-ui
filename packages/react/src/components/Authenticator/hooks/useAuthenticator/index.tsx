@@ -42,7 +42,12 @@ export type InternalAuthenticatorContext = {
  */
 export type Selector = (context: AuthenticatorContext) => Array<any>;
 
-export interface UseAuthenticator extends AuthenticatorServiceFacade {
+export interface UseAuthenticator
+  extends Omit<AuthenticatorServiceFacade, 'toFederatedSignIn'> {
+  /**
+   * @deprecated `toFederatedSignIn` will be removed in a future major version release of `@aws-amplify/ui-react`
+   */
+  toFederatedSignIn: AuthenticatorServiceFacade['toFederatedSignIn'];
   /** @deprecated For internal use only */
   _send: InternalAuthenticatorContext['_send'];
   /** @deprecated For internal use only */
