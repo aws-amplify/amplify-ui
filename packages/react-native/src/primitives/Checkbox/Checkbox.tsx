@@ -40,13 +40,13 @@ export default function Checkbox<T>({
 
   return (
     <Pressable
+      {...rest}
       accessibilityRole={accessibilityRole}
       disabled={disabled}
       onPress={handleOnChange}
       style={[containerStyle, style]}
     >
       <Icon
-        {...rest}
         source={checked ? icons.checkboxFilled : icons.checkboxOutline}
         size={size}
         style={iconStyle}
