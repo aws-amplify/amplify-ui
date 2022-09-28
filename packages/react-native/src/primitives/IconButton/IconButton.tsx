@@ -1,7 +1,7 @@
-import React, { useMemo } from 'react';
-import { Image, Pressable } from 'react-native';
+import React from 'react';
+import { Pressable } from 'react-native';
+import { Icon } from '../Icon';
 
-import { getStyles } from './styles';
 import { IconButtonProps } from './types';
 
 export default function IconButton({
@@ -11,11 +11,9 @@ export default function IconButton({
   size = 16,
   ...rest
 }: IconButtonProps): JSX.Element {
-  const { icon } = useMemo(() => getStyles(color, size), [color, size]);
-
   return (
     <Pressable {...rest}>
-      <Image source={source} style={[icon, iconStyle]} />
+      <Icon color={color} size={size} source={source} style={iconStyle} />
     </Pressable>
   );
 }
