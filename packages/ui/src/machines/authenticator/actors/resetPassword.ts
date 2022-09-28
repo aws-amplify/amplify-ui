@@ -14,6 +14,7 @@ import {
   setRemoteError,
   setUsername,
 } from '../actions';
+import { forgotPassword, forgotPasswordSubmit } from '../defaultAuthServices';
 import { defaultServices } from '../defaultServices';
 
 export type ResetPasswordMachineOptions = {
@@ -186,17 +187,20 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
         async resetPassword(context) {
           const { username } = context;
 
-          return services.handleForgotPassword(username);
+          return services.handleForgotPassword({ username }, forgotPassword);
         },
         async confirmResetPassword(context) {
           const { username } = context;
           const { confirmation_code: code, password } = context.formValues;
 
-          return services.handleForgotPasswordSubmit({
-            username,
-            code,
-            password,
-          });
+          return services.handleForgotPasswordSubmit(
+            {
+              username,
+              code,
+              password,
+            },
+            forgotPasswordSubmit
+          );
         },
         async validateFields(context, event) {
           return runValidators(

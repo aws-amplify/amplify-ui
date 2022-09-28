@@ -37,14 +37,11 @@ export default function AuthenticatorWithEmail() {
   const services = {
     async handleSignUp(formData, signUp) {
       let { username, password, attributes } = formData;
+      console.log('formData', formData);
       // custom username
       username = username.toLowerCase();
       attributes.email = attributes.email.toLowerCase();
-      return Auth.signUp({
-        username,
-        password,
-        attributes,
-      });
+      return signUp(username, password, attributes);
     },
   };
 

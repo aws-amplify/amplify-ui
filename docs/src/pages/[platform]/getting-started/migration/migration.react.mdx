@@ -52,6 +52,28 @@ For customers with applications using right to left directionality, the example 
 ```
 Also see: [Internationalization](react/getting-started/internationalization)
 
+
+#### 3. Update any override function calls
+
+Update the override function calls with the updated function signatures. Rather then returning an `Auth.*` object you must now return the function callback passed in the `handle*` signature.
+
+```diff
+- async handleSignUp(formData) {
++ async handleSignUp(formData, signUp) {
+  let { username, password, attributes } = formData;
+  // custom username
+  username = username.toLowerCase();
+  attributes.email = attributes.email.toLowerCase();
+-  return Auth.signUp({
+-    username,
+-    password,
+-    attributes,
+-  })
++  return signUp(username, password, attributes)
+}
+
+```
+
 ## 2.x to 3.x
 
 ### Installation

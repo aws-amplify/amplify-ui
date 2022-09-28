@@ -33,6 +33,7 @@ import {
   setUser,
   setUsernameAuthAttributes,
 } from '../actions';
+import { confirmSignIn, signIn } from '../defaultAuthServices';
 
 import { defaultServices } from '../defaultServices';
 
@@ -521,10 +522,13 @@ export function signInActor({ services }: SignInMachineOptions) {
           const credentials = { ...authAttributes, ...formValues };
           const { username, password } = credentials;
 
-          return await services.handleSignIn({
-            username,
-            password,
-          });
+          return await services.handleSignIn(
+            {
+              username,
+              password,
+            },
+            signIn
+          );
         },
         async confirmSignIn(context) {
           const { challengeName, user } = context;
@@ -534,7 +538,10 @@ export function signInActor({ services }: SignInMachineOptions) {
             ? challengeName
             : undefined;
 
-          await services.handleConfirmSignIn({ user, code, mfaType });
+          await services.handleConfirmSignIn(
+            { user, code, mfaType },
+            confirmSignIn
+          );
           return await Auth.currentAuthenticatedUser();
         },
         async forceNewPassword(context) {

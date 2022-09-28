@@ -20,7 +20,7 @@ import {
   setUser,
   handleSubmit,
 } from './actions';
-import { signUp } from './defaultAuthServices';
+import { confirmSignUp, signUp } from './defaultAuthServices';
 import { defaultServices } from './defaultServices';
 
 export type SignUpMachineOptions = {
@@ -253,7 +253,10 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
           const username =
             get(user, 'username') || get(authAttributes, 'username');
 
-          return await services.handleConfirmSignUp({ username, code });
+          return await services.handleConfirmSignUp(
+            { username, code },
+            confirmSignUp
+          );
         },
         async resendConfirmationCode(context, event) {
           const { user, authAttributes } = context;
