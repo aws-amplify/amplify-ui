@@ -12,7 +12,7 @@ export interface RadioProps<T> extends PressableProps {
   onChange?: (value?: T) => void;
   radioContainerStyle?: StyleProp<ViewStyle>;
   radioDotStyle?: StyleProp<ViewStyle>;
-  size?: number | Size;
+  size?: Size;
   selected?: boolean;
   value: T;
 }
