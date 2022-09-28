@@ -22,6 +22,7 @@
 
   // Top level navbar element, create all of the variables that will be used throughout the unified navbar
   --navbar-border-color: var(--amplify-colors-neutral-80);
+  --navbar-padding-inline: var(--amplify-space-xl);
   --navbar-current-property-color: #ff9900;
   --secondary-nav-hover-color: black;
   --secondary-nav-hover-background-color: var(--amplify-colors-neutral-90);
@@ -124,12 +125,12 @@
 }
 
 .mobile-border {
-  padding: var(--navbar-mobile-nav-padding) var(--amplify-space-large);
+  padding: var(--navbar-mobile-nav-padding) var(--navbar-padding-inline);
   border-top: 1px solid var(--navbar-border-color);
 }
 
 .logo-container {
-  padding-inline: var(--amplify-space-large);
+  padding-inline: var(--navbar-padding-inline);
   height: var(--dev-center-nav-height);
 }
 
@@ -139,7 +140,7 @@
 
 .social-links {
   justify-content: space-around;
-  column-gap: 0px;
+  column-gap: var(--nav-links-spacing);
   padding: 0px;
 
   // Make the social links cover their whole flex area
@@ -147,7 +148,7 @@
     height: 100%;
     width: 100%;
     border-right: 1px solid var(--navbar-border-color);
-    padding: var(--navbar-mobile-nav-padding);
+    padding: var(--navbar-mobile-nav-padding) 0px;
 
     &:last-child {
       border: none;
@@ -212,6 +213,6 @@
   }
 
   .navbar {
-    padding-inline: var(--amplify-space-xl);
+    padding-inline: var(--navbar-padding-inline);
   }
 }
