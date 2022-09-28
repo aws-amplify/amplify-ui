@@ -75,6 +75,7 @@
   display: flex;
   align-items: center;
   height: 100%;
+  width: 100%;
   font-size: var(--amplify-font-sizes-small);
   text-decoration: none;
   color: var(--amplify-colors-neutral-40) !important;
@@ -117,7 +118,8 @@
 }
 
 .icon-link {
-  margin-inline: unset;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .mobile-border {
