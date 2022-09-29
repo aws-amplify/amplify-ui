@@ -49,6 +49,10 @@
 }
 
 .nav-links-container {
+  z-index: 200;
+  width: 100%;
+  position: absolute;
+  top: 0;
   align-items: center;
   justify-content: space-between;
   align-items: stretch;
@@ -193,6 +197,7 @@
   }
 
   .nav-links-container {
+    position: inherit;
     flex-direction: row;
     height: var(--dev-center-nav-height);
     gap: var(--nav-links-spacing);

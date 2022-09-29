@@ -49,33 +49,33 @@ export function GlobalNav({
     <View
       className={`${styles['navbar']} ${themeClass ? styles[themeClass] : ''}`}
     >
-      <View className={isCollapsed ? '' : styles['background-overlay']}>
-        <Flex className={styles['nav-links-container']}>
-          <Flex
-            height="100%"
-            id="left-nav"
-            className={styles['left-nav-links']}
-          >
-            <AmplifyNavLink
-              currentSite={currentSite}
-              isCollapsed={isCollapsed}
-              setIsCollapsed={setIsCollapsed}
-            />
-
-            <LeftNavLinks
-              isCollapsed={isCollapsed}
-              leftLinks={leftLinks}
-              currentSite={currentSite}
-            />
-          </Flex>
-          <RightNavLinks
-            rightLinks={rightLinks}
-            socialLinks={socialLinks}
+      <Flex className={styles['nav-links-container']}>
+        <Flex height="100%" id="left-nav" className={styles['left-nav-links']}>
+          <AmplifyNavLink
             currentSite={currentSite}
             isCollapsed={isCollapsed}
+            setIsCollapsed={setIsCollapsed}
+          />
+
+          <LeftNavLinks
+            isCollapsed={isCollapsed}
+            leftLinks={leftLinks}
+            currentSite={currentSite}
           />
         </Flex>
-      </View>
+        <RightNavLinks
+          rightLinks={rightLinks}
+          socialLinks={socialLinks}
+          currentSite={currentSite}
+          isCollapsed={isCollapsed}
+        />
+      </Flex>
+      <View
+        className={isCollapsed ? '' : styles['background-overlay']}
+        onClick={() => {
+          setIsCollapsed(true);
+        }}
+      ></View>
     </View>
   );
 }
