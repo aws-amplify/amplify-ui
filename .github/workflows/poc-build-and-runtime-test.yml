@@ -47,14 +47,14 @@ jobs:
       - name: Get CLI versions
         id: cli-version
         run: echo "::set-output name=version::$(amplify --version)"
-      - name: Create or restore environments cache
-        id: environments-cache
-        uses: actions/cache@v2
-        with:
-          path: canary/environments/**/aws-exports.js
-          key: ${{ runner.os }}-canary-environments-${{ steps.cli-version.outputs.version }}-${{ hashFiles('canary/environments/**/amplify/**') }}
+      # - name: Create or restore environments cache
+      #   id: environments-cache
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: canary/environments/**/aws-exports.js
+      #     key: ${{ runner.os }}-canary-environments-${{ steps.cli-version.outputs.version }}-${{ hashFiles('canary/environments/**/amplify/**') }}
       - name: Pull down AWS environments
-        if: steps.environments-cache.outputs.cache-hit != 'true'
+        # if: steps.environments-cache.outputs.cache-hit != 'true'
         run: yarn pull
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_AUTH }}

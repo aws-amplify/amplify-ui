@@ -267,16 +267,16 @@ jobs:
         id: cli-version
         run: echo "::set-output name=version::$(amplify --version)"
 
-      - name: Create or restore environments cache
-        id: environments-cache
-        uses: actions/cache@v2
-        with:
-          path: environments/**/aws-exports.js
-          key: ${{ runner.os }}-environments-${{ steps.cli-version.outputs.version }}-${{ hashFiles('environments/**/amplify/**') }}
+      # - name: Create or restore environments cache
+      #   id: environments-cache
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: environments/**/aws-exports.js
+      #     key: ${{ runner.os }}-environments-${{ steps.cli-version.outputs.version }}-${{ hashFiles('environments/**/amplify/**') }}
 
       # Pulling phone environments from original account,
       - name: Pull down Auth Phone AWS environments, on cache miss
-        if: steps.environments-cache.outputs.cache-hit != 'true'
+        # if: steps.environments-cache.outputs.cache-hit != 'true'
         run: yarn environments auth:phone pull
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
