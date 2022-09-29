@@ -1,5 +1,9 @@
 name: POC / Split Environments / E2E
 
+concurrency:
+  group: poc-e2e-${{ github.event.pull_request.id }}
+  cancel-in-progress: true
+
 on:
   pull_request:
     branches: [split-environments/main]
