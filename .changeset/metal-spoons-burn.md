@@ -1,5 +1,5 @@
 ---
-"@aws-amplify/ui-react-core": minor
+"@aws-amplify/ui-react-core": major
 "@aws-amplify/ui-react": patch
 ---
 
