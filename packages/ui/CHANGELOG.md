@@ -1,5 +1,17 @@
 # @aws-amplify/ui
 
+## 3.13.4
+
+### Patch Changes
+
+- [#2616](https://github.com/aws-amplify/amplify-ui/pull/2616) [`83bcc0844`](https://github.com/aws-amplify/amplify-ui/commit/83bcc0844eb1049ab49ff4f79280605ef31230d6) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui-react, ui): expose Authenticator types, add AmplifyUser interface
+
+## 3.13.3
+
+### Patch Changes
+
+- [#2569](https://github.com/aws-amplify/amplify-ui/pull/2569) [`e2429807b`](https://github.com/aws-amplify/amplify-ui/commit/e2429807bcc13b7c2dfe2c2947be8e790eea4d9d) Thanks [@wlee221](https://github.com/wlee221)! - Set `predictableActionArguments` to true in Authenticator state machine. This is an internal change only.
+
 ## 3.13.2
 
 ### Patch Changes

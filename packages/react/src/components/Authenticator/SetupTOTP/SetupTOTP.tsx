@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import { Auth, Logger } from 'aws-amplify';
 import {
-  CognitoUserAmplify,
+  AmplifyUser,
   getActorState,
   SignInState,
   translate,
@@ -51,7 +51,7 @@ export const SetupTOTP = ({
     formFields?.setupTOTP?.QR ?? {};
 
   const generateQRCode = React.useCallback(
-    async (currentUser: CognitoUserAmplify): Promise<void> => {
+    async (currentUser: AmplifyUser): Promise<void> => {
       try {
         const newSecretKey = await Auth.setupTOTP(currentUser);
         setSecretKey(newSecretKey);
