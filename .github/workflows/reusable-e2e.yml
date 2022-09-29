@@ -276,15 +276,15 @@ jobs:
 
       # Pulling phone environments from original account,
       - name: Pull down Auth Phone AWS environments, on cache miss
-        # if: steps.environments-cache.outputs.cache-hit != 'true'
-        run: yarn environments auth:phone pull
+        if: steps.environments-cache.outputs.cache-hit != 'true'
+        run: yarn environments auth pull:phone
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: Pull down Auth AWS environments, on cache miss
         if: steps.environments-cache.outputs.cache-hit != 'true'
-        run: yarn environments auth:non-phone pull
+        run: yarn environments auth pull:non-phone
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_AUTH }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_AUTH }}
