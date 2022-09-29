@@ -10,7 +10,7 @@ jest.mock('../../hooks/useFormHandlers', () => ({
   useFormHandlers: () => ({ handleChange: jest.fn(), handleSubmit: jest.fn() }),
 }));
 
-jest.mock('../../hooks/useAuthenticator', () => ({
+jest.mock('@aws-amplify/ui-react-core', () => ({
   useAuthenticator: () => ({ _state: {}, isPending: false }),
 }));
 
@@ -27,7 +27,15 @@ jest.mock('../../hooks/useCustomComponents', () => ({
 jest.mock('../../shared/FormFields', () => ({ FormFields: () => null }));
 
 const mockUser = { username: 'username' };
-const mockContext = { formFields: { setupTOTP: { QR: null } }, user: mockUser };
+const mockContext = {
+  formFields: {
+    setupTOTP: {
+      // cast to allow usage of `null` in non-override totp tests
+      QR: null as unknown as { totpIssuer: string; totpUsername: string },
+    },
+  },
+  user: mockUser,
+};
 jest.mock('@aws-amplify/ui', () => ({
   ...(jest.requireActual('@aws-amplify/ui') as {}),
   getActorState: () => ({ context: mockContext }),
