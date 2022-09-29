@@ -38,7 +38,14 @@ export class SignUpWithEmailComponent implements OnInit {
   }
 
   services = {
-    async handleSignUp(formData: Record<string, any>, signUp) {
+    async handleSignUp(
+      formData: Record<string, any>,
+      signUp: (
+        username: string,
+        password: string,
+        attributes: Record<string, any>
+      ) => Promise<any>
+    ) {
       let { username, password, attributes } = formData;
       // custom username
       username = username.toLowerCase();
