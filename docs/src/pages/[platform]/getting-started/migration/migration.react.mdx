@@ -9,13 +9,13 @@ Install the 4.x version of the `@aws-amplify/ui-react` library.
 <TabItem title="npm">
 
 ```shell
-npm install aws-amplify @aws-amplify/ui-react@4.x
+npm install aws-amplify@latest @aws-amplify/ui-react@4.x
 ```
 
 </TabItem>
 <TabItem title="yarn">
 ```shell
-yarn add aws-amplify @aws-amplify/ui-react@4.x
+yarn add aws-amplify@latest @aws-amplify/ui-react@4.x
 ```
 
 </TabItem>
@@ -53,7 +53,6 @@ For customers with applications using right to left directionality, the example 
 Also see: [Internationalization](react/getting-started/internationalization)
 
 
-
 #### 3. Legacy Authenticator exports removed
 
 If you are still importing the version 1.x of the Authenticator using the `/legacy/` path, please update to the current version. Exports removed include:
@@ -80,6 +79,27 @@ Update the override function calls with the updated function signatures. Rather 
 }
 
 ```
+#### 5. Update to the latest version of the `aws-amplify` library.
+
+Update to the latest version of the `aws-amplify` library. You will need at least version `^4.3.29`. 
+
+<Tabs>
+<TabItem title="npm">
+
+```shell
+npm install aws-amplify@latest
+```
+
+</TabItem>
+<TabItem title="yarn">
+```shell
+yarn add aws-amplify@latest
+```
+
+</TabItem>
+</Tabs>
+
+
 
 
 ## 2.x to 3.x
