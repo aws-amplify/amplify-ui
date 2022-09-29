@@ -9,60 +9,35 @@
   }
 }
 
+/* Remove after Global Nav launch START */
+#main-nav + .docs-header {
+  --docs-dev-center-nav-height: 3rem;
+}
+/* Remove after Global Nav launch END */
 .docs-header {
   display: flex;
   position: sticky;
-  top: 0;
+  top: var(--docs-dev-center-nav-height);
   width: 100%;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding-block: var(--amplify-space-small);
-  padding-inline: var(--docs-horizontal-padding);
+  padding-inline: var(--amplify-space-large);
   z-index: 100;
-  backdrop-filter: blur(10px);
   gap: var(--amplify-space-small);
+  background-color: var(--amplify-colors-background-primary);
 
   @media (max-width: $breakpoint-large) {
     border-bottom: var(--amplify-borders-secondary);
     box-shadow: var(--amplify-shadows-small);
-
-    .color-switcher .amplify-button {
-      padding-inline: var(--amplify-space-relative-xxs);
-    }
   }
 
   transition: all var(--amplify-time-medium) ease;
   
-  .docs-home & {
-    backdrop-filter: none;
-  }
-  
   .scrolled .docs-home & {
     border-bottom: var(--amplify-borders-secondary);
     box-shadow: var(--amplify-shadows-small);
-    backdrop-filter: blur(10px);
-  }
-  
-  &::before {
-    content: '';
-    z-index: -1;
-    background-color: var(--amplify-colors-background-primary);
-    opacity: 0.75;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    transition: all var(--amplify-time-medium) ease;
-    
-    .docs-home & {
-      background-color: transparent;
-    }
-    
-    .scrolled .docs-home & {
-      background-color: var(--amplify-colors-background-primary);
-    }
   }
 }
 
@@ -94,6 +69,7 @@
 // we want to hide it in certain scenarios so it can't be tabbed to
 .docs-header-menu-button {
   border: none;
+  margin-inline-start: calc(-1 * var(--amplify-components-button-small-padding-inline-start));
   
   @media (min-width: $breakpoint-large) {
     display: none;

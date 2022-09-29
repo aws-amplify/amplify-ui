@@ -97,23 +97,22 @@ Amplify.configure(awsExports);
 
 ```
 
-## Breaking changes
+### Authenticator breaking changes (1.x to 2.x)
 
-The latest version of the `Authenticator` component has several differences from earlier versions. It's recommended that you look over the
-[Components](../components) section to get an idea of the new changes. However, here are a few of the major changes that you'll need to look out for.
+The latest version of the `Authenticator` component has several differences from earlier versions. Here are a few of the major changes that you'll need to look out for.
 
-### Slots
+#### Slots
 
 All the slot locations have changed with the latest version of the `Authenticator`. To get a
 sense of the changes please check out the [Headers and Footers](../connected-components/authenticator/customization#headers--footers) section.
 
-### Form Fields
+#### Form Fields
 
 The latest version of the `Authenticator` has a different format for the `formFields` prop. It also no long accepts
 `inputProps` nor `hint`. Instead it's recommended that you use the [Headers and Footers Slots](../connected-components/authenticator/customization#headers--footers) or use the
 [Sign Up Fields customization](../connected-components/authenticator/customization#sign-up-fields). For more information on form field customizations
 please see the [Form Field Customization](../connected-components/authenticator/customization#form-field-customization) section.
 
-### CSS Styling
+#### CSS Styling
 
 The latest version of the `Authenticator` has a completely different set of CSS variables. Please look over the [Amplify CSS Variables](../connected-components/authenticator/customization#styling) section for more information.
