@@ -17,23 +17,16 @@ export interface RadioProps<T> extends PressableProps {
   value: T;
 }
 
-export interface RadioSize {
-  height: number;
-  width: number;
-}
-
-export interface RadioSizes {
-  radioContainerLarge: RadioSize;
-  radioContainerMedium: RadioSize;
-  radioContainerSmall: RadioSize;
-  radioDotLarge: RadioSize;
-  radioDotMedium: RadioSize;
-  radioDotSmall: RadioSize;
-}
-
-export interface RadioStyles extends RadioSizes {
+export type RadioDimensions = Pick<ViewStyle, 'height' | 'width'>;
+export interface RadioStyles {
   container: ViewStyle;
   disabled: ViewStyle;
   radioContainer: ViewStyle;
+  radioContainerLarge: RadioDimensions;
+  radioContainerMedium: RadioDimensions;
+  radioContainerSmall: RadioDimensions;
   radioDot: ViewStyle;
+  radioDotLarge: RadioDimensions;
+  radioDotMedium: RadioDimensions;
+  radioDotSmall: RadioDimensions;
 }

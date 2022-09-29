@@ -1,8 +1,6 @@
-import { ViewStyle } from 'react-native';
-
 import { capitalize } from '../../utils';
 
-import { RadioStyles, Size } from './types';
+import { RadioDimensions, RadioStyles, Size } from './types';
 
 /**
  * These utility functions are used to apply styles to
@@ -22,8 +20,8 @@ export const getRadioDimensions = (
   size: Size,
   styles: RadioStyles
 ): {
-  radioContainerSize: ViewStyle;
-  radioDotSize: ViewStyle;
+  radioContainerSize: RadioDimensions;
+  radioDotSize: RadioDimensions;
 } => {
   if (typeof size === 'number') {
     return {
@@ -32,9 +30,9 @@ export const getRadioDimensions = (
     };
   }
 
-  const sizeKey = capitalize(size); // 'small' => 'Small'
+  const sizeKey = capitalize(size);
   return {
-    radioContainerSize: styles[`radioContainer${sizeKey}`] as ViewStyle,
-    radioDotSize: styles[`radioDot${sizeKey}`] as ViewStyle,
+    radioContainerSize: styles[`radioContainer${sizeKey}`],
+    radioDotSize: styles[`radioDot${sizeKey}`],
   };
 };
