@@ -56,6 +56,7 @@
   },
   "dependencies": {
     "@aws-amplify/ui": "3.13.4",
+    "@aws-amplify/ui-react-core": "0.0.1",
     "@aws-amplify/ui-react-v1": "npm:@aws-amplify/ui-react@1.2.9",
     "@radix-ui/react-accordion": "0.1.6",
     "@radix-ui/react-dropdown-menu": "0.1.6",
