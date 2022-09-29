@@ -262,26 +262,34 @@ jobs:
           path: environments/**/aws-exports.js
           key: ${{ runner.os }}-environments-${{ steps.cli-version.outputs.version }}-${{ hashFiles('environments/**/amplify/**') }}
 
-      - name: Pull down Auth AWS environments, on cache miss
+      # Pulling phone environments from original account, until TFN is fully migrated.
+      - name: Pull down Auth Phone AWS environments, on cache miss
         if: steps.environments-cache.outputs.cache-hit != 'true'
-        run: yarn environments auth pull
+        run: yarn environments auth:phone pull
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Pull down Auth AWS environments, on cache miss
+        if: steps.environments-cache.outputs.cache-hit != 'true'
+        run: yarn environments auth:non-phone pull
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_AUTH }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_AUTH }}
 
       - name: Pull down Geo AWS environments, on cache miss
         if: steps.environments-cache.outputs.cache-hit != 'true'
         run: yarn environments geo pull
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_GEO }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_GEO }}
 
       - name: Pull down Datastore AWS environments, on cache miss
         if: steps.environments-cache.outputs.cache-hit != 'true'
         run: yarn environments datastore pull
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_DATASTORE }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_DATASTORE }}
 
       - name: Build ${{ matrix.example }} example
         run: yarn workspace ${{ matrix.example }}-example build
