@@ -1,0 +1,49 @@
+# Description: this is a reusable workflow that runs unit and e2e tests.
+#
+# See `./test-prs.yml` to see an example usage.
+
+on:
+  workflow_call:
+    inputs:
+      dist-tag:
+        # commit to run tests against
+        required: true
+        type: string
+    secrets:
+      NPM_TOKEN:
+        required: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: deployment
+    steps:
+      - name: fail this workflow if dist-tag is invalid
+        if: ${{ inputs.dist-tag == '' || inputs.dist-tag == 'latest' }}
+        run: exit 1
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Setup Node.js LTS
+        uses: actions/setup-node@v2
+        with:
+          node-version: lts/*
+          cache: 'yarn'
+      - name: Install packages
+        uses: ./.github/actions/install-with-retries
+        with:
+          skip-cypress-binary: true # publishing doesn't need cypress
+      - name: Build packages
+        run: yarn build
+      - name: Add changeset that bumps all public packages
+        # There needs to be a changeset for @aws-amplify/ui[-framework] to publish.
+        run: cp .github/changeset-presets/bump-versions.md .changeset
+      - name: Run changeset version to next tag
+        run: yarn changeset version --snapshot ${{ inputs.dist-tag }}-$(git rev-parse --short=7 HEAD) && yarn angular build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create .npmrc
+        run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Publish to next tag
+        run: yarn changeset publish --tag ${{ inputs.dist-tag }}

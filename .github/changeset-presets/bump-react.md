@@ -5,4 +5,4 @@
 '@aws-amplify/ui-react-native': patch
 ---
 
-Version bump for ui and ui-react packages
+Version bump for ui, ui-react, ui-react-native and ui-react-core packages

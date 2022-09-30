@@ -5,7 +5,7 @@ import { Button } from '../../../primitives/Button';
 import { Flex } from '../../../primitives/Flex';
 import { View } from '../../../primitives/View';
 import { FederatedSignIn } from '../FederatedSignIn';
-import { useAuthenticator } from '../hooks/useAuthenticator';
+import { useAuthenticator } from '@aws-amplify/ui-react-core';
 import { useCustomComponents } from '../hooks/useCustomComponents';
 import { useFormHandlers } from '../hooks/useFormHandlers';
 import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
