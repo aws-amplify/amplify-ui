@@ -3,16 +3,14 @@ import * as React from 'react';
 
 import { defaultFormFieldOptions } from '@aws-amplify/ui';
 import { FormField, FormFieldProps } from '../FormField';
-import * as UseAuthenticatorModule from '../../hooks/useAuthenticator';
+import * as UIReactCore from '@aws-amplify/ui-react-core';
 import * as UseStableIdModule from '../../../../primitives/utils/useStableId';
 
-jest.mock('../../hooks/useAuthenticator');
+jest.mock('@aws-amplify/ui-react-core');
+
 const useStableIdSpy = jest.spyOn(UseStableIdModule, 'useStableId');
 
-const useAuthenticatorSpy = jest.spyOn(
-  UseAuthenticatorModule,
-  'useAuthenticator'
-);
+const useAuthenticatorSpy = jest.spyOn(UIReactCore, 'useAuthenticator');
 
 const ERROR_MESSAGE = 'Username cannot be empty.';
 
