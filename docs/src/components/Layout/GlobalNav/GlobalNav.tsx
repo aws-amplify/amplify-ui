@@ -47,7 +47,9 @@ export function GlobalNav({
 
   return (
     <View
+      as="nav"
       className={`${styles['navbar']} ${themeClass ? styles[themeClass] : ''}`}
+      aria-label="Amplify Dev Center - External links to additional Amplify resources"
     >
       <Flex className={styles['nav-links-container']}>
         <Flex height="100%" id="left-nav" className={styles['left-nav-links']}>
