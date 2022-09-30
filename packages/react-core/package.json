@@ -33,15 +33,15 @@
   },
   "peerDependencies": {
     "aws-amplify": "3.x.x || 4.x.x",
-    "react": ">= 16.8.0",
-    "react-dom": ">= 16.8.0"
+    "react": ">= 16.14.0",
+    "react-dom": ">= 16.14.0"
   },
   "devDependencies": {
     "@testing-library/react": "^12.0.0",
     "@testing-library/react-hooks": "^7.0.2",
     "@types/jest": "^26.0.23",
-    "@types/react": "^17.0.2",
-    "@types/react-dom": "^17.0.13",
+    "@types/react": "16.14.0",
+    "@types/react-dom": "16.9.0",
     "@types/react-native": "^0.63.45",
     "@types/react-test-renderer": "^17.0.1",
     "@typescript-eslint/eslint-plugin": "^5.6.0",
@@ -55,8 +55,8 @@
     "eslint-plugin-react-hooks": "^4.3.0",
     "jest": "^27.0.4",
     "prettier": "2.4.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "react": "16.14.0",
+    "react-dom": "16.14.0",
     "react-test-renderer": "^17.0.2",
     "rimraf": "^3.0.2",
     "ts-jest": "^27.1.3",
