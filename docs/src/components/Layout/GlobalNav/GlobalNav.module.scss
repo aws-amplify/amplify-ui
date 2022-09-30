@@ -69,11 +69,14 @@
 }
 
 .nav-expander {
-  &:focus,
-  :hover,
+  &:hover,
   :active {
     border: none;
     box-shadow: none;
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 2px var(--amplify-colors-neutral-10);
   }
 }
 
@@ -90,13 +93,16 @@
 
   white-space: nowrap;
 
-  &:hover,
-  &:focus {
+  &:hover {
     color: var(--amplify-colors-neutral-10) !important;
 
     .custom-path-stroke {
       stroke: var(--amplify-colors-neutral-10);
     }
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 2px var(--amplify-colors-neutral-10);
   }
 
   .custom-path-stroke {
