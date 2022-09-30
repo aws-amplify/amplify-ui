@@ -20,7 +20,7 @@
   "scripts": {
     "clean": "rimraf dist node_modules",
     "prebuild": "rimraf dist",
-    "build": "yarn build:cjs && yarn build:esm",
+    "build": "rollup --config",
     "build:cjs": "tsc --project tsconfig.cjs.json",
     "build:esm": "tsc --project tsconfig.esm.json",
     "dev": "yarn build:esm --watch",
@@ -30,7 +30,8 @@
   },
   "dependencies": {
     "@aws-amplify/ui": "3.13.4",
-    "@xstate/react": "3.0.0"
+    "@xstate/react": "3.0.0",
+    "lodash": "4.17.21"
   },
   "peerDependencies": {
     "aws-amplify": "in-app-messaging",
@@ -38,6 +39,8 @@
     "react-dom": ">= 16.8.0"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^22.0.1",
+    "@rollup/plugin-typescript": "^8.3.1",
     "@testing-library/react": "^12.0.0",
     "@testing-library/react-hooks": "^7.0.2",
     "@types/jest": "^26.0.23",
@@ -60,8 +63,11 @@
     "react-dom": "^17.0.2",
     "react-test-renderer": "^17.0.2",
     "rimraf": "^3.0.2",
+    "rollup": "^2.70.0",
+    "rollup-plugin-node-externals": "^4.1.1",
     "ts-jest": "^27.1.3",
     "ts-node": "^10.2.1",
     "typescript": "^4.3.2"
-  }
+  },
+  "sideEffects": false
 }
