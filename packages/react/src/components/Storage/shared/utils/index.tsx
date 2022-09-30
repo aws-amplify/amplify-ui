@@ -29,6 +29,7 @@ export function uploadFile({
   percentage: Array<number>;
   index: number;
 }): UploadTask {
+  // todo add content type
   // eslint-disable-next-line no-console
   console.log('running put', fileName, file);
   return Storage.put(fileName, file, {
