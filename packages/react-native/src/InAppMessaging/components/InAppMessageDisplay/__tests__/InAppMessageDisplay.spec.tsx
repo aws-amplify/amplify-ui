@@ -5,8 +5,6 @@ import { useMessage } from '@aws-amplify/ui-react-core';
 
 import InAppMessageDisplay from '../InAppMessageDisplay';
 
-// mock amplify core to turn off browser related Logger warning during tests
-jest.mock('@aws-amplify/core');
 jest.mock('@aws-amplify/ui-react-core');
 
 const mockUseMessage = useMessage as jest.Mock;
