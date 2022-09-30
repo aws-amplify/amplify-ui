@@ -26,7 +26,7 @@ function DemoRadioGroup({ data, ...rest }: any) {
   return (
     <RadioGroup {...rest} labelStyle={[styles.radioGroupLabel, styles.label]}>
       {data.map((item: string) => (
-        <Radio key={item} label={item} size="small" value={item} />
+        <Radio key={item} label={item} size={20} value={item} />
       ))}
     </RadioGroup>
   );

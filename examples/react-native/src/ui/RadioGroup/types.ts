@@ -1,7 +1,6 @@
-import { RadioProps } from '@aws-amplify/ui-react-native/dist/primitives';
+import { RadioProps } from '../Radio';
 
 export interface RadioGroupProps<T>
   extends Omit<RadioProps<T>, 'buttonStyle' | 'iconStyle' | 'selected'> {
   defaultValue?: T;
-  direction?: 'vertical' | 'horizontal';
 }
