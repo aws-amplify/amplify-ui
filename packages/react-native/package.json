@@ -46,6 +46,7 @@
     "@aws-amplify/ui-react-core": "0.0.1"
   },
   "peerDependencies": {
+    "aws-amplify": "in-app-messaging",
     "react": ">= 16.8.0",
     "react-native": ">= 0.63.4",
     "react-native-safe-area-context": ">= 4.2.5"
