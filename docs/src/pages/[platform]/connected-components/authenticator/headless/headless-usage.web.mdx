@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { Fragment } from '@/components/Fragment';
 import { ResponsiveTable, ResponsiveTableCell } from '@/components/ResponsiveTable';
 import { Tabs, TabItem, Table, TableHead, TableRow, TableCell, TableBody, View } from '@aws-amplify/ui-react';
@@ -56,7 +57,7 @@ Here's an example that uses the `toResetPassword` trigger transition, to create 
         <TableRow>
           <ResponsiveTableCell label="Name">`user`</ResponsiveTableCell>
           <ResponsiveTableCell label="Description">Current signed in user</ResponsiveTableCell>
-          <ResponsiveTableCell label="Type">[`CognitoUserAmplify`](https://github.com/aws-amplify/amplify-ui/blob/f9be291e4b89137d7b521bd3e82b4f96ee4323f6/packages/ui/src/types/authMachine.ts#L113-L115)</ResponsiveTableCell>
+          <ResponsiveTableCell label="Type">`AmplifyUser`</ResponsiveTableCell>
         </TableRow>
         <TableRow>
           <ResponsiveTableCell label="Name">`route`</ResponsiveTableCell>
@@ -86,7 +87,7 @@ Here's an example that uses the `toResetPassword` trigger transition, to create 
         <TableRow>
           <ResponsiveTableCell label="Name">`codeDeliveryDetail`</ResponsiveTableCell>
           <ResponsiveTableCell label="Description">Provides detail on where confirm sign up code is sent to.</ResponsiveTableCell>
-          <ResponsiveTableCell label="Type">[`CodeDeliveryDetail`](https://github.com/aws-amplify/amplify-js/blob/6c4d4b5fc737652f88dcdfa26bdb02a1defdfa2e/packages/amazon-cognito-identity-js/index.d.ts#L9-L13)</ResponsiveTableCell>
+          <ResponsiveTableCell label="Type">`CodeDeliveryDetail`</ResponsiveTableCell>
         </TableRow>
       </TableBody>
     </ResponsiveTable>
@@ -121,11 +122,9 @@ These helper functions trigger transition to another `route`. Note that any inva
           <ResponsiveTableCell label="Description">Transitions to `resetPassword`. Allowed from `signIn`.</ResponsiveTableCell>
           <ResponsiveTableCell label="Type">`() => void`</ResponsiveTableCell>
         </TableRow>
-        <TableRow>
-          <ResponsiveTableCell label="Name">`toFederatedSignIn`</ResponsiveTableCell>
-          <ResponsiveTableCell label="Description">Transitions to `provider`'s federated sign in page. Supported `provider` values can be found [here](https://github.com/aws-amplify/amplify-ui/blob/96830f6a34a417aa9bc6329c839679bd10da84f0/packages/ui/src/helpers/auth.ts#L104-L109).</ResponsiveTableCell>
-          <ResponsiveTableCell label="Type">`(provider: string) => void`</ResponsiveTableCell>
-        </TableRow>
+        <Fragment>
+          {({ platform }) => platform === 'angular' || platform === 'vue' ? import(`./advanced/to-federated-sign-in.mdx`) : Promise.resolve(() => null)}
+        </Fragment>
         <TableRow>
           <ResponsiveTableCell label="Name">`skipVerification`</ResponsiveTableCell>
           <ResponsiveTableCell label="Description">Skips verification process. Allowed from `verifyUser` and `confirmVerifyUser`</ResponsiveTableCell>

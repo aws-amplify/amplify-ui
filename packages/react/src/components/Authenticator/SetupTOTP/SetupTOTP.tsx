@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import { Auth, Logger } from 'aws-amplify';
 import {
-  CognitoUserAmplify,
+  AmplifyUser,
   getActorState,
   SignInState,
   translate,
@@ -12,7 +12,7 @@ import {
 
 import { Flex } from '../../../primitives/Flex';
 import { Heading } from '../../../primitives/Heading';
-import { useAuthenticator } from '../hooks/useAuthenticator';
+import { useAuthenticator } from '@aws-amplify/ui-react-core';
 import { useCustomComponents } from '../hooks/useCustomComponents';
 import { useFormHandlers } from '../hooks/useFormHandlers';
 import { ConfirmSignInFooter } from '../shared/ConfirmSignInFooter';
@@ -51,7 +51,7 @@ export const SetupTOTP = ({
     formFields?.setupTOTP?.QR ?? {};
 
   const generateQRCode = React.useCallback(
-    async (currentUser: CognitoUserAmplify): Promise<void> => {
+    async (currentUser: AmplifyUser): Promise<void> => {
       try {
         const newSecretKey = await Auth.setupTOTP(currentUser);
         setSecretKey(newSecretKey);
