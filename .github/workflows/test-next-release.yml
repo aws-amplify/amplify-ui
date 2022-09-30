@@ -1,0 +1,28 @@
+# Description: This workflow runs unit + e2e tests
+#
+# Triggered by: merge to `next-release/main` branch
+
+name: Test / next-release
+
+on:
+  push:
+    branches: [next-release/main]
+
+jobs:
+  test:
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@next-release/main
+    with:
+      commit: ${{ github.sha }}
+      repository: ${{ github.repository }}
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      DOMAIN: ${{ secrets.DOMAIN }}
+      PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+      USERNAME: ${{ secrets.USERNAME }}
+      NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
+      VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+      SITE_URL: ${{ secrets.SITE_URL }}
+      DOCSEARCH_DOCS_APP_ID: ${{ secrets.DOCSEARCH_DOCS_APP_ID }}
+      DOCSEARCH_DOCS_API_KEY: ${{ secrets.DOCSEARCH_DOCS_API_KEY }}
+      DOCSEARCH_DOCS_INDEX_NAME: ${{ secrets.DOCSEARCH_DOCS_INDEX_NAME }}

@@ -1,4 +1,10 @@
 export {
+  AuthenticatorProvider,
+  useAuthenticator,
+  UseAuthenticator,
+} from './Authenticator';
+
+export {
   BannerMessageCommonProps,
   BannerMessageComponent,
   CarouselMessageCommonProps,

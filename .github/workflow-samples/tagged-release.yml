@@ -1,0 +1,42 @@
+# Description: This workflow runs unit + e2e tests, then publishes UI packages
+#              to a custom dist NPM tag of your choice. This is intened to run 
+#              on release branches (e.g. `in-app-messaging/release`).
+#
+# Triggered by: This runs whenever you push a commit to the specified release branch.
+#
+# To use: replace <BRANCH> with your release branch name. Replace <TAG> with 
+#         your NPM tag name.
+
+name: Test and Publish / <BRANCH>
+
+on:
+  push:
+    branches: [<BRANCH>]
+
+jobs:
+  # You can skip tests based on your use case. 
+  test:
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@<BRANCH>
+    with:
+      commit: ${{ github.sha }}
+      repository: ${{ github.repository }}
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      DOMAIN: ${{ secrets.DOMAIN }}
+      PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+      USERNAME: ${{ secrets.USERNAME }}
+      NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
+      VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+      SITE_URL: ${{ secrets.SITE_URL }}
+      DOCSEARCH_DOCS_APP_ID: ${{ secrets.DOCSEARCH_DOCS_APP_ID }}
+      DOCSEARCH_DOCS_API_KEY: ${{ secrets.DOCSEARCH_DOCS_API_KEY }}
+      DOCSEARCH_DOCS_INDEX_NAME: ${{ secrets.DOCSEARCH_DOCS_INDEX_NAME }}
+
+  publish:
+    needs: test
+    uses: ./.github/workflows/reusable-tagged-publish.yml
+    with:
+      dist-tag: <TAG>
+    secrets:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

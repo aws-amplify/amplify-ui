@@ -5,7 +5,7 @@ import { createMachine, sendUpdate } from 'xstate';
 import {
   AuthChallengeName,
   AuthEvent,
-  CognitoUserAmplify,
+  AmplifyUser,
   SignInContext,
 } from '../../../types';
 import { runValidators } from '../../../validators';
@@ -60,6 +60,7 @@ export function signInActor({ services }: SignInMachineOptions) {
     {
       initial: 'init',
       id: 'signInActor',
+      predictableActionArguments: true,
       states: {
         init: {
           always: [
@@ -555,7 +556,7 @@ export function signInActor({ services }: SignInMachineOptions) {
 
           try {
             // complete forceNewPassword flow and get updated CognitoUser
-            const newUser: CognitoUserAmplify = await Auth.completeNewPassword(
+            const newUser: AmplifyUser = await Auth.completeNewPassword(
               user,
               password,
               rest
