@@ -8,14 +8,10 @@ import {
 } from '@aws-amplify/ui';
 
 import { areEmptyArrays, areEmptyObjects } from '../../../utils';
+import { AuthenticatorLegacyFields } from '../types';
+import { isComponentRouteKey } from '../utils';
 
-import { COMPONENT_ROUTE_KEYS } from './constants';
-import {
-  AuthenticatorRouteComponentKey,
-  AuthenticatorLegacyFields,
-  Comparator,
-  Selector,
-} from './types';
+import { Comparator, Selector } from './types';
 
 export const defaultComparator = (): false => false;
 
@@ -58,11 +54,6 @@ export const getTotpSecretCodeCallback = (user: AmplifyUser) =>
   async function getTotpSecretCode(): Promise<string> {
     return await Auth.setupTOTP(user);
   };
-
-export const isComponentRouteKey = (
-  route: AuthenticatorRoute
-): route is AuthenticatorRouteComponentKey =>
-  COMPONENT_ROUTE_KEYS.some((componentRoute) => componentRoute === route);
 
 const flattenFormFields = (
   fields: FormFieldsArray

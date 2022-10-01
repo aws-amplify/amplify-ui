@@ -2,7 +2,10 @@
 
 exports[`@aws-amplify/ui-react-core exports should match snapshot 1`] = `
 Array [
+  "AuthenticatorContext",
   "AuthenticatorProvider",
+  "resolveAuthenticatorComponents",
   "useAuthenticator",
+  "useAuthenticatorRoute",
 ]
 `;

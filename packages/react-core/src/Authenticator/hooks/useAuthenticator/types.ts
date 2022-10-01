@@ -1,29 +1,10 @@
+import { AuthMachineSend, AuthMachineState } from '@aws-amplify/ui';
+
 import {
-  AuthMachineSend,
-  AuthMachineState,
-  AuthenticatorServiceFacade,
-  LegacyFormFieldOptions,
-} from '@aws-amplify/ui';
-
-/**
- * These are the "facades" that we provide, which contains contexts respective
- * to current authenticator state.
- */
-type AuthenticatorMachineContext = AuthenticatorServiceFacade;
-type AuthenticatorMachineContextKey = keyof AuthenticatorMachineContext;
-
-export type AuthenticatorRouteComponentKey =
-  | 'signIn'
-  | 'signUp'
-  | 'forceNewPassword'
-  | 'confirmResetPassword'
-  | 'confirmSignIn'
-  | 'confirmSignUp'
-  | 'confirmVerifyUser'
-  | 'resetPassword'
-  | 'setupTOTP';
-
-export type AuthenticatorLegacyFields = LegacyFormFieldOptions[];
+  AuthenticatorLegacyFields,
+  AuthenticatorMachineContext,
+  AuthenticatorMachineContextKey,
+} from '../types';
 
 /**
  * Inspired from https://xstate.js.org/docs/packages/xstate-react/#useselector-actor-selector-compare-getsnapshot.
@@ -41,7 +22,7 @@ type InternalAuthenticatorContext = {
   _send: AuthMachineSend;
 };
 
-export interface UseAuthenticator extends AuthenticatorServiceFacade {
+export interface UseAuthenticator extends AuthenticatorMachineContext {
   getTotpSecretCode: () => Promise<string>;
 
   /** @deprecated For internal use only */
@@ -53,6 +34,6 @@ export interface UseAuthenticator extends AuthenticatorServiceFacade {
 }
 
 export type Comparator = (
-  currentFacade: AuthenticatorServiceFacade,
-  nextFacade: AuthenticatorServiceFacade
+  currentMachineContext: AuthenticatorMachineContext,
+  nextMachineContext: AuthenticatorMachineContext
 ) => boolean;
