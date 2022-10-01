@@ -6,7 +6,7 @@
     "entryFile": "src/index.ts",
     "umdModuleIds": {
       "xstate": "xstate",
-      "aws-amplify": "in-app-messaging"
+      "aws-amplify": "aws-amplify"
     }
   },
   "allowedNonPeerDependencies": [

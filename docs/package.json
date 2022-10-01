@@ -28,7 +28,7 @@
     "@mdx-js/react": "^2.1.0",
     "@moxy/next-compile-node-modules": "^2.1.1",
     "@xstate/inspect": "^0.4.1",
-    "aws-amplify": "in-app-messaging",
+    "aws-amplify": "3.x.x || 4.x.x",
     "classnames": "^2.3.1",
     "countries-list": "^2.6.1",
     "dotenv": "^16.0.0",
