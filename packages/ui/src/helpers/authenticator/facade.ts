@@ -17,11 +17,12 @@ import {
   AmplifyUser,
   ValidationError,
   SocialProvider,
+  UnverifiedAttributes,
 } from '../../types';
 
 import { getActorContext, getActorState } from './actor';
 
-type AuthenticatorRoute =
+export type AuthenticatorRoute =
   | 'authenticated'
   | 'autoSignIn'
   | 'confirmResetPassword'
@@ -50,6 +51,7 @@ interface AuthenticatorServiceContextFacade {
   isPending: boolean;
   route: AuthenticatorRoute;
   socialProviders: SocialProvider[];
+  unverifiedAttributes: UnverifiedAttributes;
   user: AmplifyUser;
   validationErrors: AuthenticatorValidationErrors;
 }
@@ -122,6 +124,7 @@ export const getServiceContextFacade = (
     formFields,
     remoteError: error,
     validationError: validationErrors,
+    unverifiedAttributes,
   } = actorContext;
 
   const { socialProviders } = state.context?.config ?? {};
@@ -201,6 +204,7 @@ export const getServiceContextFacade = (
     isPending,
     route,
     socialProviders,
+    unverifiedAttributes,
     user,
     validationErrors,
   };

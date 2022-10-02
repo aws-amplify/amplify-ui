@@ -41,7 +41,7 @@ export default function useAuthenticator(
     getTotpSecretCode,
 
     /** @deprecated For internal use only */
-    // _state: service.getSnapshot(),
+    _state: service.getSnapshot(),
     /** @deprecated For internal use only */
     _send: send,
   };

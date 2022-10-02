@@ -4,9 +4,8 @@ import {
   censorAllButFirstAndLast,
   censorPhoneNumber,
   ContactMethod,
-  getActorContext,
-  SignInContext,
   translate,
+  UnverifiedAttributes,
 } from '@aws-amplify/ui';
 
 import { Flex } from '../../../primitives/Flex';
@@ -40,24 +39,16 @@ const censorContactInformation = (
 };
 
 const generateRadioGroup = (
-  attributes: Record<string, string>
+  attributes: UnverifiedAttributes
 ): JSX.Element[] => {
-  const radioButtons: JSX.Element[] = [];
-
-  for (const [key, value] of Object.entries(attributes)) {
-    const radio = (
-      <Radio name="unverifiedAttr" value={key} key={key}>
-        {censorContactInformation(
-          (defaultFormFieldOptions[key] as { label: ContactMethod }).label,
-          value
-        )}
-      </Radio>
-    );
-
-    radioButtons.push(radio);
-  }
-
-  return radioButtons;
+  return Object.entries(attributes).map(([key, value]: [string, string]) => (
+    <Radio name="unverifiedAttr" value={key} key={key}>
+      {censorContactInformation(
+        (defaultFormFieldOptions[key] as { label: ContactMethod }).label,
+        value
+      )}
+    </Radio>
+  ));
 };
 
 export const VerifyUser = ({
@@ -71,11 +62,10 @@ export const VerifyUser = ({
   } = useCustomComponents();
 
   // TODO: expose unverifiedAttributes from `useAuthenticator`
-  const { _state, isPending } = useAuthenticator((context) => [
-    context.isPending,
-  ]);
+  const { isPending, unverifiedAttributes } = useAuthenticator(
+    ({ isPending, unverifiedAttributes }) => [isPending, unverifiedAttributes]
+  );
   const { handleChange, handleSubmit } = useFormHandlers();
-  const context = getActorContext(_state) as SignInContext;
 
   const footerSubmitText = isPending ? (
     <>Verifying&hellip;</>
@@ -90,7 +80,7 @@ export const VerifyUser = ({
       name="verify_context"
       isDisabled={isPending}
     >
-      {generateRadioGroup(context.unverifiedAttributes)}
+      {generateRadioGroup(unverifiedAttributes)}
     </RadioGroupField>
   );
 

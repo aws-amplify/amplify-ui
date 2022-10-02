@@ -20,7 +20,7 @@ export const SetupTOTP = ({
   className,
   variation,
 }: RouteProps): JSX.Element => {
-  const { formFields, getTotpSecretCode, isPending, user } = useAuthenticator(
+  const { fields, getTotpSecretCode, isPending, user } = useAuthenticator(
     (context) => [context.isPending]
   );
 
@@ -38,7 +38,7 @@ export const SetupTOTP = ({
   const [secretKey, setSecretKey] = React.useState<string>('');
 
   const { totpIssuer = 'AWSCognito', totpUsername = user?.username } =
-    formFields?.setupTOTP?.QR ?? {};
+    fields?.setupTOTP?.QR ?? {};
 
   const generateQRCode = React.useCallback(async (): Promise<void> => {
     try {
