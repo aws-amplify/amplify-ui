@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useSelector } from '@xstate/react';
 import {
   AuthMachineState,
@@ -45,9 +45,13 @@ export default function useAuthenticator(
 
   const serviceSnapshot = service.getSnapshot();
 
-  const fields = isComponentRouteKey(route)
-    ? getSortedFormFields(route, serviceSnapshot as AuthMachineState)
-    : [];
+  const fields = useMemo(
+    () =>
+      isComponentRouteKey(route)
+        ? getSortedFormFields(route, serviceSnapshot as AuthMachineState)
+        : [],
+    [route, serviceSnapshot]
+  );
 
   return {
     ...rest,

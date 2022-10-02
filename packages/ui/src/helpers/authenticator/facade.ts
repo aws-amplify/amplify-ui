@@ -57,6 +57,7 @@ interface AuthenticatorServiceContextFacade {
 }
 
 type SendEventAlias =
+  | 'initializeMachine'
   | 'resendCode'
   | 'signOut'
   | 'submitForm'
@@ -98,6 +99,7 @@ export const getSendEventAliases = (
   };
 
   return {
+    initializeMachine: sendToMachine('INIT'),
     resendCode: sendToMachine('RESEND'),
     signOut: sendToMachine('SIGN_OUT'),
     submitForm: sendToMachine('SUBMIT'),

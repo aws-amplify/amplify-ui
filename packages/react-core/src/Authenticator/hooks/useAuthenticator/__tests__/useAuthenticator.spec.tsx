@@ -32,7 +32,7 @@ describe('useAuthenticator', () => {
     await waitForNextUpdate();
 
     expect(result.current).toStrictEqual({
-      _send: expect.any(Function) as UseAuthenticator['_send'],
+      // _send: expect.any(Function) as UseAuthenticator['_send'],
       // _state: expect.any(Object) as UseAuthenticator['_state'],
       authStatus: 'authenticated',
       codeDeliveryDetails: undefined,
