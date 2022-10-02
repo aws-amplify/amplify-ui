@@ -39,7 +39,7 @@ export interface CognitoUserAmplify extends AmplifyUser {}
 /**
  * Cognito user contact methods that have not been verified as valid
  */
-export interface UnverifiedAttributes {
+export interface UnverifiedContactMethods {
   email?: string;
   phone_number?: string;
 }

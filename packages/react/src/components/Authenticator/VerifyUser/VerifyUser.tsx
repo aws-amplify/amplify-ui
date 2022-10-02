@@ -5,7 +5,7 @@ import {
   censorPhoneNumber,
   ContactMethod,
   translate,
-  UnverifiedAttributes,
+  UnverifiedContactMethods,
 } from '@aws-amplify/ui';
 
 import { Flex } from '../../../primitives/Flex';
@@ -39,7 +39,7 @@ const censorContactInformation = (
 };
 
 const generateRadioGroup = (
-  attributes: UnverifiedAttributes
+  attributes: UnverifiedContactMethods
 ): JSX.Element[] => {
   return Object.entries(attributes).map(([key, value]: [string, string]) => (
     <Radio name="unverifiedAttr" value={key} key={key}>
@@ -61,9 +61,11 @@ export const VerifyUser = ({
     },
   } = useCustomComponents();
 
-  // TODO: expose unverifiedAttributes from `useAuthenticator`
-  const { isPending, unverifiedAttributes } = useAuthenticator(
-    ({ isPending, unverifiedAttributes }) => [isPending, unverifiedAttributes]
+  const { isPending, unverifiedContactMethods } = useAuthenticator(
+    ({ isPending, unverifiedContactMethods }) => [
+      isPending,
+      unverifiedContactMethods,
+    ]
   );
   const { handleChange, handleSubmit } = useFormHandlers();
 
@@ -80,7 +82,7 @@ export const VerifyUser = ({
       name="verify_context"
       isDisabled={isPending}
     >
-      {generateRadioGroup(unverifiedAttributes)}
+      {generateRadioGroup(unverifiedContactMethods)}
     </RadioGroupField>
   );
 

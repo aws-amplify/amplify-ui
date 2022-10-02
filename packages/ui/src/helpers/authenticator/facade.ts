@@ -17,7 +17,7 @@ import {
   AmplifyUser,
   ValidationError,
   SocialProvider,
-  UnverifiedAttributes,
+  UnverifiedContactMethods,
 } from '../../types';
 
 import { getActorContext, getActorState } from './actor';
@@ -51,7 +51,7 @@ interface AuthenticatorServiceContextFacade {
   isPending: boolean;
   route: AuthenticatorRoute;
   socialProviders: SocialProvider[];
-  unverifiedAttributes: UnverifiedAttributes;
+  unverifiedContactMethods: UnverifiedContactMethods;
   user: AmplifyUser;
   validationErrors: AuthenticatorValidationErrors;
 }
@@ -124,7 +124,7 @@ export const getServiceContextFacade = (
     formFields,
     remoteError: error,
     validationError: validationErrors,
-    unverifiedAttributes,
+    unverifiedContactMethods,
   } = actorContext;
 
   const { socialProviders } = state.context?.config ?? {};
@@ -204,7 +204,7 @@ export const getServiceContextFacade = (
     isPending,
     route,
     socialProviders,
-    unverifiedAttributes,
+    unverifiedContactMethods,
     user,
     validationErrors,
   };
