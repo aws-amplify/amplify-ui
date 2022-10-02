@@ -1,14 +1,21 @@
 import React, { useCallback } from 'react';
 import { useSelector } from '@xstate/react';
-import { AuthMachineState, getServiceFacade } from '@aws-amplify/ui';
+import {
+  AuthMachineState,
+  getServiceFacade,
+  getSortedFormFields,
+} from '@aws-amplify/ui';
 
 import { AuthenticatorContext } from '../../context';
 
 import { USE_AUTHENTICATOR_ERROR } from './constants';
 import { Selector, UseAuthenticator } from './types';
-import { getComparator, getTotpSecretCodeCallback } from './utils';
-
-const defaultComparator = () => false;
+import {
+  defaultComparator,
+  getComparator,
+  getTotpSecretCodeCallback,
+  isComponentRouteKey,
+} from './utils';
 
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/connected-components/authenticator/headless#useauthenticator-hook)
@@ -34,14 +41,22 @@ export default function useAuthenticator(
 
   const facade = useSelector(service, xstateSelector, comparator);
 
-  const getTotpSecretCode = getTotpSecretCodeCallback(facade.user);
+  const { route, user, ...rest } = facade;
+
+  const serviceSnapshot = service.getSnapshot();
+
+  const fields = isComponentRouteKey(route)
+    ? getSortedFormFields(route, serviceSnapshot as AuthMachineState)
+    : [];
 
   return {
-    ...facade,
-    getTotpSecretCode,
-
+    ...rest,
+    fields,
+    getTotpSecretCode: getTotpSecretCodeCallback(user),
+    route,
+    user,
     /** @deprecated For internal use only */
-    _state: service.getSnapshot(),
+    _state: serviceSnapshot,
     /** @deprecated For internal use only */
     _send: send,
   };

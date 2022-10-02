@@ -25,7 +25,7 @@ const actorState: ComputedRef<SignInState> = computed(
   () => getActorState(state.value) as SignInState
 );
 
-const unverifiedAttributes = actorState.value.context.unverifiedAttributes;
+const unverifiedContactMethods = actorState.value.context.unverifiedContactMethods;
 
 // Computed Properties
 const verifyHeading = computed(() =>
@@ -102,7 +102,7 @@ const onSkipClicked = (): void => {
                 class="amplify-flex amplify-radio"
                 data-amplify-verify-label
                 id="verify"
-                v-for="(value, key) in unverifiedAttributes"
+                v-for="(value, key) in unverifiedContactMethods"
                 :key="value"
               >
                 <base-input

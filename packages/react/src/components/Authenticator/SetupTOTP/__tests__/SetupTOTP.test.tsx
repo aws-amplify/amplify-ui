@@ -66,12 +66,10 @@ describe('SetupTOTP', () => {
 
     (useAuthenticator as jest.Mock).mockReturnValue({
       isPending: false,
-      formFields: {
-        setupTOTP: {
-          QR: {
-            totpIssuer: customTotpIssuer,
-            totpUsername: customTotpUsername,
-          },
+      fields: {
+        QR: {
+          totpIssuer: customTotpIssuer,
+          totpUsername: customTotpUsername,
         },
       },
       getTotpSecretCode: mockGetTotpSecretCode,

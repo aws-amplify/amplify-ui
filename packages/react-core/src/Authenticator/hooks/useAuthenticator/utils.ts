@@ -1,8 +1,22 @@
 import { Auth } from 'aws-amplify';
-import { AmplifyUser } from '@aws-amplify/ui';
+import { AmplifyUser, AuthenticatorRoute } from '@aws-amplify/ui';
 
 import { areEmptyArrays, areEmptyObjects } from '../../../utils';
-import { Comparator, Selector } from './types';
+import { AuthenticatorRouteComponentKey, Comparator, Selector } from './types';
+
+const COMPONENENT_ROUTE_KEYS = [
+  'signIn',
+  'signUp',
+  'forceNewPassword',
+  'confirmResetPassword',
+  'confirmSignIn',
+  'confirmSignUp',
+  'confirmVerifyUser',
+  'resetPassword',
+  'setupTOTP',
+];
+
+export const defaultComparator = (): false => false;
 
 /**
  * Does an ordering and shallow comparison of each array value,
@@ -39,7 +53,12 @@ export const getComparator =
     return areSelectorDepsEqual(currentSelectorDeps, nextSelectorDeps);
   };
 
-export const getTotpSecretCodeCallback = (currentUser: AmplifyUser) =>
+export const getTotpSecretCodeCallback = (user: AmplifyUser) =>
   async function getTotpSecretCode(): Promise<string> {
-    return await Auth.setupTOTP(currentUser);
+    return await Auth.setupTOTP(user);
   };
+
+export const isComponentRouteKey = (
+  route: AuthenticatorRoute
+): route is AuthenticatorRouteComponentKey =>
+  COMPONENENT_ROUTE_KEYS.some((componentRoute) => componentRoute === route);
