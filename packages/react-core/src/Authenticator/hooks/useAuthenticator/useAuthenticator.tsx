@@ -1,10 +1,6 @@
 import React, { useCallback } from 'react';
 import { useSelector } from '@xstate/react';
-import {
-  AuthMachineState,
-  getServiceFacade,
-  getSortedFormFields,
-} from '@aws-amplify/ui';
+import { AuthMachineState, getServiceFacade } from '@aws-amplify/ui';
 
 import { AuthenticatorContext } from '../../context';
 
@@ -15,7 +11,6 @@ import {
   getComparator,
   getLegacyFields,
   getTotpSecretCodeCallback,
-  isComponentRouteKey,
 } from './utils';
 
 /**
