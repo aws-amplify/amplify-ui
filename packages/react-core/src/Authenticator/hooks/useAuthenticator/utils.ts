@@ -1,20 +1,20 @@
 import { Auth } from 'aws-amplify';
-import { AmplifyUser, AuthenticatorRoute } from '@aws-amplify/ui';
+import {
+  AmplifyUser,
+  AuthenticatorRoute,
+  AuthMachineState,
+  getSortedFormFields,
+} from '@aws-amplify/ui';
 
 import { areEmptyArrays, areEmptyObjects } from '../../../utils';
-import { AuthenticatorRouteComponentKey, Comparator, Selector } from './types';
 
-const COMPONENENT_ROUTE_KEYS = [
-  'signIn',
-  'signUp',
-  'forceNewPassword',
-  'confirmResetPassword',
-  'confirmSignIn',
-  'confirmSignUp',
-  'confirmVerifyUser',
-  'resetPassword',
-  'setupTOTP',
-];
+import { COMPONENT_ROUTE_KEYS } from './constants';
+import {
+  AuthenticatorRouteComponentKey,
+  AuthenticatorFields,
+  Comparator,
+  Selector,
+} from './types';
 
 export const defaultComparator = (): false => false;
 
@@ -61,4 +61,13 @@ export const getTotpSecretCodeCallback = (user: AmplifyUser) =>
 export const isComponentRouteKey = (
   route: AuthenticatorRoute
 ): route is AuthenticatorRouteComponentKey =>
-  COMPONENENT_ROUTE_KEYS.some((componentRoute) => componentRoute === route);
+  COMPONENT_ROUTE_KEYS.some((componentRoute) => componentRoute === route);
+
+/**
+ * Retrieves legacy form field values from state machine for routes that have fields
+ */
+export const getLegacyFields = (
+  route: AuthenticatorRoute,
+  state: AuthMachineState
+): AuthenticatorFields =>
+  isComponentRouteKey(route) ? getSortedFormFields(route, state) : [];

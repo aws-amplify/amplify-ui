@@ -1,15 +1,21 @@
 import React from 'react';
 import { renderHook } from '@testing-library/react-hooks';
-import * as utils from '../utils';
+import { AuthenticatorServiceFacade } from '@aws-amplify/ui';
 
 import { AuthenticatorProvider } from '../../../context';
 import { USE_AUTHENTICATOR_ERROR } from '../constants';
-import { useAuthenticator, UseAuthenticator } from '..';
+import * as utils from '../utils';
+import { useAuthenticator } from '..';
+
+// test setup
+jest.mock('@xstate/react', () => ({
+  ...jest.requireActual('@xstate/react'),
+  useSelector: jest.fn((service: AuthenticatorServiceFacade) => service),
+}));
 
 // mock `aws-amplify` to prevent logging auth errors during test runs
 jest.mock('aws-amplify');
 
-// test setup
 jest.mock('../utils');
 const getComparatorSpy = jest.spyOn(utils, 'getComparator');
 
@@ -24,52 +30,18 @@ describe('useAuthenticator', () => {
     expect(result.error?.message).toBe(USE_AUTHENTICATOR_ERROR);
   });
 
-  it('returns the expected values', async () => {
-    const { result, waitForNextUpdate } = renderHook(useAuthenticator, {
+  it('returns the expected values', () => {
+    const { result } = renderHook(useAuthenticator, {
       wrapper: Wrapper,
     });
 
-    await waitForNextUpdate();
-
-    expect(result.current).toStrictEqual({
-      // _send: expect.any(Function) as UseAuthenticator['_send'],
-      // _state: expect.any(Object) as UseAuthenticator['_state'],
-      authStatus: 'authenticated',
-      codeDeliveryDetails: undefined,
-      error: undefined,
-      hasValidationErrors: undefined,
-      isPending: undefined,
-      resendCode: expect.any(Function) as UseAuthenticator['resendCode'],
-      route: 'authenticated',
-      signOut: expect.any(Function) as UseAuthenticator['signOut'],
-      skipVerification: expect.any(
-        Function
-      ) as UseAuthenticator['skipVerification'],
-      submitForm: expect.any(Function) as UseAuthenticator['submitForm'],
-      toFederatedSignIn: expect.any(
-        Function
-      ) as UseAuthenticator['toFederatedSignIn'],
-      toResetPassword: expect.any(
-        Function
-      ) as UseAuthenticator['toResetPassword'],
-      toSignIn: expect.any(Function) as UseAuthenticator['toSignIn'],
-      toSignUp: expect.any(Function) as UseAuthenticator['toSignUp'],
-      updateBlur: expect.any(Function) as UseAuthenticator['updateBlur'],
-      updateForm: expect.any(Function) as UseAuthenticator['updateForm'],
-      user: undefined,
-      validationErrors: undefined,
-    });
+    expect(result.current).toMatchSnapshot();
   });
 
-  it('calls getComparator with the selector argument', async () => {
+  it('calls getComparator with the selector argument', () => {
     const mockSelector = jest.fn();
 
-    const { waitForNextUpdate } = renderHook(
-      () => useAuthenticator(mockSelector),
-      { wrapper: Wrapper }
-    );
-
-    await waitForNextUpdate();
+    renderHook(() => useAuthenticator(mockSelector), { wrapper: Wrapper });
 
     expect(getComparatorSpy).toHaveBeenLastCalledWith(mockSelector);
   });

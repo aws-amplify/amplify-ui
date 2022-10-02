@@ -2,7 +2,7 @@ import {
   AuthMachineSend,
   AuthMachineState,
   AuthenticatorServiceFacade,
-  FormFieldsArray as AuthenticatorFields,
+  FormFieldsArray,
 } from '@aws-amplify/ui';
 
 /**
@@ -22,6 +22,8 @@ export type AuthenticatorRouteComponentKey =
   | 'confirmVerifyUser'
   | 'resetPassword'
   | 'setupTOTP';
+
+export type AuthenticatorFields = FormFieldsArray;
 
 /**
  * Inspired from https://xstate.js.org/docs/packages/xstate-react/#useselector-actor-selector-compare-getsnapshot.

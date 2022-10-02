@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback } from 'react';
 import { useSelector } from '@xstate/react';
 import {
   AuthMachineState,
@@ -13,6 +13,7 @@ import { Selector, UseAuthenticator } from './types';
 import {
   defaultComparator,
   getComparator,
+  getLegacyFields,
   getTotpSecretCodeCallback,
   isComponentRouteKey,
 } from './utils';
@@ -43,15 +44,11 @@ export default function useAuthenticator(
 
   const { route, user, ...rest } = facade;
 
+  // do not memoize output. `service.getSnapshot` reference remains stable preventing
+  // `fields` from updating with current form state on value changes
   const serviceSnapshot = service.getSnapshot();
 
-  const fields = useMemo(
-    () =>
-      isComponentRouteKey(route)
-        ? getSortedFormFields(route, serviceSnapshot as AuthMachineState)
-        : [],
-    [route, serviceSnapshot]
-  );
+  const fields = getLegacyFields(route, serviceSnapshot as AuthMachineState);
 
   return {
     ...rest,
