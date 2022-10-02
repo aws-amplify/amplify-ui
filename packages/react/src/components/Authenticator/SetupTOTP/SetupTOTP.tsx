@@ -57,10 +57,10 @@ export const SetupTOTP = ({
   }, [getTotpSecretCode, totpIssuer, totpUsername]);
 
   React.useEffect(() => {
-    if (!user) return;
-
-    generateQRCode();
-  }, [generateQRCode, user]);
+    if (!qrCode) {
+      generateQRCode();
+    }
+  }, [generateQRCode, qrCode]);
 
   const copyText = (): void => {
     navigator.clipboard.writeText(secretKey);
