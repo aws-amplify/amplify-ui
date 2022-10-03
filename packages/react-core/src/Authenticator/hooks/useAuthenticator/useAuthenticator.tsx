@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useSelector } from '@xstate/react';
 import { AuthMachineState, getServiceFacade } from '@aws-amplify/ui';
 
@@ -43,15 +43,19 @@ export default function useAuthenticator(
   // `fields` from updating with current form state on value changes
   const serviceSnapshot = service.getSnapshot();
 
-  // legacy `formFields` values
-  const fields = getLegacyFields(route, serviceSnapshot as AuthMachineState);
+  // legacy `formFields` values required until form state is removed from state machine
+  const fields = useMemo(
+    () => getLegacyFields(route, serviceSnapshot as AuthMachineState),
+    [route, serviceSnapshot]
+  );
 
   return {
     ...rest,
-    fields,
     getTotpSecretCode: getTotpSecretCodeCallback(user),
     route,
     user,
+    /** @deprecated For internal use only */
+    fields,
     /** @deprecated For internal use only */
     _state: serviceSnapshot,
     /** @deprecated For internal use only */

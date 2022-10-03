@@ -3,6 +3,7 @@ import {
   AmplifyUser,
   AuthenticatorRoute,
   AuthMachineState,
+  FormFieldsArray,
   getSortedFormFields,
 } from '@aws-amplify/ui';
 
@@ -11,7 +12,7 @@ import { areEmptyArrays, areEmptyObjects } from '../../../utils';
 import { COMPONENT_ROUTE_KEYS } from './constants';
 import {
   AuthenticatorRouteComponentKey,
-  AuthenticatorFields,
+  AuthenticatorLegacyFields,
   Comparator,
   Selector,
 } from './types';
@@ -63,11 +64,18 @@ export const isComponentRouteKey = (
 ): route is AuthenticatorRouteComponentKey =>
   COMPONENT_ROUTE_KEYS.some((componentRoute) => componentRoute === route);
 
+const flattenFormFields = (
+  fields: FormFieldsArray
+): AuthenticatorLegacyFields =>
+  fields.flatMap(([name, options]) => ({ name, ...options }));
+
 /**
  * Retrieves legacy form field values from state machine for routes that have fields
  */
 export const getLegacyFields = (
   route: AuthenticatorRoute,
   state: AuthMachineState
-): AuthenticatorFields =>
-  isComponentRouteKey(route) ? getSortedFormFields(route, state) : [];
+): AuthenticatorLegacyFields =>
+  isComponentRouteKey(route)
+    ? flattenFormFields(getSortedFormFields(route, state))
+    : [];

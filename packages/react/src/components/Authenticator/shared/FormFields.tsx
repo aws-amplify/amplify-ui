@@ -7,12 +7,11 @@ export function FormFields(): JSX.Element {
   const { fields } = useAuthenticator(({ route }) => [route]);
 
   const formFields = React.useRef(
-    fields.flatMap(([name, options], index) => (
+    fields.map((field, index) => (
       <FormField
         // use index for key, field order is static
         key={index}
-        name={name}
-        {...(options as Omit<FormFieldProps, 'name'>)}
+        {...(field as FormFieldProps)}
       />
     ))
   ).current;

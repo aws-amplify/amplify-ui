@@ -21,7 +21,7 @@ import {
 const setupTOTPSpy = jest.spyOn(Auth, 'setupTOTP').mockImplementation();
 const getSortedFormFieldsSpy = jest
   .spyOn(UIModule, 'getSortedFormFields')
-  .mockImplementation();
+  .mockImplementation(() => [['name', { required: true }]]);
 
 describe('areSelectorDepsEqual', () => {
   it('returns false when dep arrays have different lengths', () => {

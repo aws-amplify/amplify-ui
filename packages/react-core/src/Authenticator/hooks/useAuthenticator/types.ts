@@ -2,7 +2,7 @@ import {
   AuthMachineSend,
   AuthMachineState,
   AuthenticatorServiceFacade,
-  FormFieldsArray,
+  LegacyFormFieldOptions,
 } from '@aws-amplify/ui';
 
 /**
@@ -23,7 +23,7 @@ export type AuthenticatorRouteComponentKey =
   | 'resetPassword'
   | 'setupTOTP';
 
-export type AuthenticatorFields = FormFieldsArray;
+export type AuthenticatorLegacyFields = LegacyFormFieldOptions[];
 
 /**
  * Inspired from https://xstate.js.org/docs/packages/xstate-react/#useselector-actor-selector-compare-getsnapshot.
@@ -41,11 +41,11 @@ type InternalAuthenticatorContext = {
   _send: AuthMachineSend;
 };
 
-export interface UseAuthenticator
-  extends Omit<AuthenticatorServiceFacade, 'formFields'> {
-  fields: AuthenticatorFields;
+export interface UseAuthenticator extends AuthenticatorServiceFacade {
   getTotpSecretCode: () => Promise<string>;
 
+  /** @deprecated For internal use only */
+  fields: AuthenticatorLegacyFields;
   /** @deprecated For internal use only */
   _send: InternalAuthenticatorContext['_send'];
   /** @deprecated For internal use only */
