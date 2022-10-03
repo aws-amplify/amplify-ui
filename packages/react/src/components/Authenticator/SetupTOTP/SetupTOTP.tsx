@@ -16,6 +16,8 @@ import { RouteContainer, RouteProps } from '../RouteContainer';
 
 const logger = new Logger('SetupTOTP-logger');
 
+type LegacyQRFields = { QR?: { totpIssuer?: string; totpUsername?: string } };
+
 export const SetupTOTP = ({
   className,
   variation,
@@ -38,8 +40,7 @@ export const SetupTOTP = ({
   const [secretKey, setSecretKey] = React.useState<string>('');
 
   const { totpIssuer = 'AWSCognito', totpUsername = user?.username } =
-    (fields as { QR?: { totpIssuer?: string; totpUsername?: string } })?.QR ??
-    {};
+    (fields as LegacyQRFields)?.QR ?? {};
 
   const generateQRCode = React.useCallback(async (): Promise<void> => {
     try {
