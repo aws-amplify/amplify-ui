@@ -48,7 +48,7 @@ jobs:
           repository: ${{ inputs.repository }}
           persist-credentials: false
       - name: Setup Node.js LTS
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: lts/*
           cache: 'yarn'
@@ -98,6 +98,7 @@ jobs:
           - angular
           - vue
           - react
+          - react-core
 
     steps:
       - name: Checkout Amplify UI
@@ -108,7 +109,7 @@ jobs:
           persist-credentials: false
 
       - name: Setup Node.js LTS
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: lts/*
           cache: 'yarn'
@@ -136,6 +137,10 @@ jobs:
       - name: Build ui package
         if: ${{ steps.restore-ui-cache.outputs.cache-hit != 'true' && matrix.package != 'ui' }}
         run: yarn ui build
+
+      - name: Build react-core package
+        if: ${{ matrix.package == 'react' || matrix.package == 'react-native' }}
+        run: yarn react-core build
 
       - name: Build ${{ matrix.package }} package
         if: ${{ matrix.package != 'ui' }}
@@ -201,7 +206,7 @@ jobs:
           key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}
 
       - name: Setup Node.js LTS
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: lts/*
           cache: 'yarn'
@@ -243,6 +248,10 @@ jobs:
       - name: Build @aws-amplify/ui package
         if: steps.restore-ui-cache.outputs.cache-hit != 'true'
         run: yarn ui build
+
+      - name: Build react-core package
+        if: ${{ matrix.package == 'react' }}
+        run: yarn react-core build
 
       - name: Build ${{ matrix.package }} package
         if: steps.restore-package-cache.outputs.cache-hit != 'true'
@@ -317,7 +326,7 @@ jobs:
           persist-credentials: false
 
       - name: Setup Node.js LTS
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: lts/*
           cache: 'yarn'
@@ -334,6 +343,9 @@ jobs:
 
       - name: Build ui package
         run: yarn ui build
+
+      - name: Build react-core package
+        run: yarn react-core build
 
       - name: Build react package
         run: yarn react build
