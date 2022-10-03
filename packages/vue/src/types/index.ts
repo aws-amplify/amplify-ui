@@ -31,9 +31,6 @@ export interface PrimitiveSlotReturnType {
   mySlots: Readonly<InternalSlots>;
 }
 
-/**
- * @deprecated will be removed in a future version of `@aws-amplify/ui-vue`
- */
 export interface VerifyUserSetupReturnTypes {
   onVerifyUserSubmit: (e: Event) => void;
   onSkipClicked: () => void;
