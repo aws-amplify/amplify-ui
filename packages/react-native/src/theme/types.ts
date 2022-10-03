@@ -1,11 +1,12 @@
-import { Colors } from '@aws-amplify/ui/dist/types/theme/tokens/colors';
-import { FontSizes } from '@aws-amplify/ui/dist/types/theme/tokens/fontSizes';
-import { Space } from '@aws-amplify/ui/dist/types/theme/tokens/space';
 import { ButtonStyles } from '../primitives/Button';
+import { Tokens } from './tokens';
 
 type Override = Omit<Theme, 'overrides'>;
 
+export type ColorMode = 'light' | 'dark' | 'system';
+
 export interface Theme {
+  colorMode?: ColorMode;
   /**
    * The name of the theme.
    */
@@ -16,16 +17,6 @@ export interface Theme {
    * light and dark mode.
    */
   overrides?: Array<Override>;
-}
-
-interface BaseTokens {
-  colors: Colors;
-  fontSizes: FontSizes;
-  space: Space;
-}
-
-export interface Tokens extends BaseTokens {
-  components: ComponentStyles;
 }
 
 export interface ComponentStyles {
