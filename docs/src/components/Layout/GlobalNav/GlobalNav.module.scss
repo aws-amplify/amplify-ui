@@ -1,3 +1,5 @@
+$breakpoint-small: 480px;
+
 // This class is added to the sites that aren't using the Amplify UI theme provider and is creating the variables that are being used in dark mode of Amplify UI
 .use-ui-theme {
   --amplify-colors-font-primary: #232f3e;
@@ -226,5 +228,11 @@
 
   .navbar {
     padding-inline: var(--navbar-padding-inline);
+  }
+}
+
+@media (max-width: $breakpoint-small) {
+  .dev-center-logo {
+    font-size: 1.1rem;
   }
 }
