@@ -42,7 +42,7 @@ type InternalAuthenticatorContext = {
 };
 
 export interface UseAuthenticator
-  extends Omit<AuthenticatorServiceFacade, 'formFields' | 'toFederatedSignIn'> {
+  extends Omit<AuthenticatorServiceFacade, 'formFields'> {
   fields: AuthenticatorFields;
   getTotpSecretCode: () => Promise<string>;
 
@@ -50,10 +50,6 @@ export interface UseAuthenticator
    * @deprecated `formFields` will be removed in a future major version release of `@aws-amplify/ui-react`
    */
   formFields: AuthenticatorServiceFacade['formFields'];
-  /**
-   * @deprecated `toFederatedSignIn` will be removed in a future major version release of `@aws-amplify/ui-react`
-   */
-  toFederatedSignIn: AuthenticatorServiceFacade['toFederatedSignIn'];
   /** @deprecated For internal use only */
   _send: InternalAuthenticatorContext['_send'];
   /** @deprecated For internal use only */
