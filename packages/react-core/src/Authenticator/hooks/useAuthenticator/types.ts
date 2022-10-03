@@ -46,10 +46,6 @@ export interface UseAuthenticator
   fields: AuthenticatorFields;
   getTotpSecretCode: () => Promise<string>;
 
-  /**
-   * @deprecated `formFields` will be removed in a future major version release of `@aws-amplify/ui-react`
-   */
-  formFields: AuthenticatorServiceFacade['formFields'];
   /** @deprecated For internal use only */
   _send: InternalAuthenticatorContext['_send'];
   /** @deprecated For internal use only */

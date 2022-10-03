@@ -43,6 +43,7 @@ export default function useAuthenticator(
   // `fields` from updating with current form state on value changes
   const serviceSnapshot = service.getSnapshot();
 
+  // legacy `formFields` values
   const fields = getLegacyFields(route, serviceSnapshot as AuthMachineState);
 
   return {
