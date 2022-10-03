@@ -27,6 +27,22 @@
     url('/fonts/Inter-Regular.woff?v=3.19') format('woff');
 }
 
+@font-face {
+  font-family: 'Amazon Ember';
+  src: url('/fonts/AmazonEmber_W_Lt.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Amazon Ember';
+  src: url('/fonts/AmazonEmber_W_Rg.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @media screen and (prefers-reduced-motion: no-preference) {
   html {
     scroll-behavior: smooth;
@@ -73,7 +89,7 @@ a {
   &:focus {
     color: var(--amplify-components-link-hover-color);
   }
-  
+
   &:focus-visible {
     outline: none;
     box-shadow: 0 0 0 2px var(--amplify-colors-border-focus);
@@ -156,7 +172,7 @@ h3[id] {
 h2[id]:not([class]) {
   &:not(:first-of-type) {
     margin-top: var(--amplify-space-xxxl);
-    
+
     &::before {
       content: '';
       position: absolute;
@@ -171,7 +187,9 @@ h2[id]:not([class]) {
 
 h2[id] {
   margin-top: var(--amplify-space-xl);
-  &:first-child { margin-top: 0; }
+  &:first-child {
+    margin-top: 0;
+  }
 }
 
 h2[id] > a,
@@ -191,7 +209,7 @@ h4[id] {
   scroll-margin-block-start: 6rem;
   > a {
     left: -1rem;
-    top: -.1rem;
+    top: -0.1rem;
     .icon-link {
       font-size: 1.2em;
     }
@@ -211,7 +229,7 @@ h4[id] {
 
 h2:hover > a .icon-link,
 h3:hover > a .icon-link,
-h4:hover>  a .icon-link {
+h4:hover > a .icon-link {
   opacity: 1;
 }
 
@@ -226,16 +244,21 @@ h4:hover>  a .icon-link {
     var(--amplify-colors-border-secondary);
   --amplify-borders-tertiary: var(--amplify-border-widths-small) solid
     var(--amplify-colors-border-tertiary);
-    
+
   /* custom vars */
+  --docs-dev-center-nav-height: 3rem;
+  /* Remove after Global Nav launch START */
+  --docs-dev-center-nav-height: 0rem;
+  /* Remove after Global Nav launch END */
   --docs-header-height: 4rem;
   --docs-gradient-color-hsl: 210, 0%, 100%;
   --docs-callout-bg: var(--amplify-colors-brand-primary-10);
   --docs-font-mono: 'Source Code Pro', 'Fira Code', 'Fira Mono', ui-monospace,
-  SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
-  monospace;
+    SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+    monospace;
   --docs-horizontal-padding: var(--amplify-space-medium);
-  
+  --docs-sidebar-width: 22rem;
+
   // Algolia customizations
   --docsearch-modal-background: var(--amplify-colors-background-primary);
   --docsearch-modal-shadow: var(--amplify-shadows-small);
@@ -249,7 +272,7 @@ h4:hover>  a .icon-link {
   --docsearch-muted-color: var(--amplify-colors-font-tertiary);
   --docsearch-searchbox-focus-background: transparent;
   --docsearch-icon-color: var(--amplify-colors-font-disabled);
-  
+
   @media (min-width: $breakpoint-medium) {
     --docs-horizontal-padding: var(--amplify-space-xl);
   }
@@ -264,7 +287,7 @@ h4:hover>  a .icon-link {
 }
 
 @media (prefers-color-scheme: dark) {
-  [data-amplify-theme='amplify-docs'][data-amplify-color-mode="system"] {
+  [data-amplify-theme='amplify-docs'][data-amplify-color-mode='system'] {
     --docs-gradient-color-hsl: 210, 50%, 10%;
   }
 }
@@ -275,7 +298,7 @@ h4:hover>  a .icon-link {
     opacity: 0;
     transition: all var(--amplify-time-long) ease var(--amplify-time-medium);
     transform: translateY(var(--amplify-space-medium));
-    
+
     &.shown {
       opacity: 1;
       transform: translateX(0);

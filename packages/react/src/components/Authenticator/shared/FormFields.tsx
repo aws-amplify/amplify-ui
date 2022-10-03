@@ -3,7 +3,7 @@ import * as React from 'react';
 import { FormFieldComponents, getSortedFormFields } from '@aws-amplify/ui';
 
 import { FormField, FormFieldProps } from './FormField';
-import { useAuthenticator } from '../hooks/useAuthenticator';
+import { useAuthenticator } from '@aws-amplify/ui-react-core';
 
 export function FormFields(): JSX.Element {
   // TODO remove _state

@@ -1,14 +1,11 @@
 import * as React from 'react';
-import {
-  AuthenticatorMachineOptions,
-  CognitoUserAmplify,
-} from '@aws-amplify/ui';
+import { AuthenticatorMachineOptions, AmplifyUser } from '@aws-amplify/ui';
 
 import {
-  Provider,
+  AuthenticatorProvider as Provider,
   useAuthenticator,
   UseAuthenticator,
-} from './hooks/useAuthenticator';
+} from '@aws-amplify/ui-react-core';
 import {
   CustomComponentsContext,
   ComponentsProviderProps,
@@ -21,16 +18,14 @@ import { ForceNewPassword } from './ForceNewPassword';
 import { ResetPassword } from './ResetPassword';
 import { defaultComponents } from './hooks/useCustomComponents/defaultComponents';
 
+export type SignOut = UseAuthenticator['signOut'];
 export type AuthenticatorProps = Partial<
   AuthenticatorMachineOptions &
     ComponentsProviderProps &
     RouterProps & {
       children:
         | React.ReactNode
-        | ((props: {
-            signOut?: UseAuthenticator['signOut'];
-            user?: CognitoUserAmplify;
-          }) => JSX.Element);
+        | ((props: { signOut?: SignOut; user?: AmplifyUser }) => JSX.Element);
     }
 >;
 

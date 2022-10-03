@@ -24,9 +24,11 @@
 .docs-toc-inner {
   position: sticky;
   width: 16rem;
-  height: calc(100vh - var(--docs-header-height));
+  height: calc(
+    100vh - var(--docs-header-height) - var(--docs-dev-center-nav-height)
+  );
   flex-shrink: 0;
-  top: var(--docs-header-height);
+  top: calc(var(--docs-header-height) + var(--docs-dev-center-nav-height));
   right: 0;
   padding: var(--amplify-space-medium);
 }
