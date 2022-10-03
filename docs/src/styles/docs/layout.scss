@@ -3,9 +3,14 @@
   flex-direction: row;
   min-width: 0;
   flex: 1 0 auto;
-  
+
   .docs-home & {
     display: block;
+  }
+
+  // Could this width be an environment variable?
+  @media (max-width: 975px) {
+    margin-top: var(--docs-dev-center-nav-height);
   }
 }
 
@@ -21,13 +26,14 @@
   max-width: 60rem;
   margin: 0 auto;
   text-align: center;
-  
+
   &::before {
     content: '';
     position: absolute;
     top: calc(var(--amplify-space-medium) * -1);
     left: 25%;
     width: 50%;
-    border-top: var(--amplify-border-widths-large) solid var(--amplify-colors-border-tertiary);
+    border-top: var(--amplify-border-widths-large) solid
+      var(--amplify-colors-border-tertiary);
   }
 }
