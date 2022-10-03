@@ -84,22 +84,4 @@ describe('SetupTotpComponent', () => {
     expect(toDataURLSpy).toHaveBeenCalledTimes(1);
     expect(toDataURLSpy).toHaveBeenCalledWith(defaultTotpCode);
   });
-
-  describe('QR Tests', () => {
-    it('handles customTotpIssuer with spaces', () => {
-      const customTotpIssuer = 'customTOTPIssuer spaces';
-      const customTotpUsername = 'customTotpUsername';
-      const SECRET_KEY = 'secretKey';
-
-      const customTotpCode = getTotpCodeURL(
-        customTotpIssuer,
-        customTotpUsername,
-        SECRET_KEY
-      );
-
-      expect(customTotpCode).toBe(
-        'otpauth://totp/customTOTPIssuer%20spaces:customTotpUsername?secret=secretKey&issuer=customTOTPIssuer%20spaces'
-      );
-    });
-  });
 });
