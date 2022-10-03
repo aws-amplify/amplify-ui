@@ -25,7 +25,7 @@ const actorState: ComputedRef<SignInState> = computed(
   () => getActorState(state.value) as SignInState
 );
 
-const unverifiedContactMethods = actorState.value.context.unverifiedContactMethods;
+const { unverifiedContactMethods } = actorState.value.context;
 
 // Computed Properties
 const verifyHeading = computed(() =>
@@ -80,10 +80,7 @@ const onSkipClicked = (): void => {
             </base-heading>
           </slot>
           <base-wrapper
-            class="
-              amplify-flex amplify-field amplify-radiogroupfield
-              amplify-authenticator__column
-            "
+            class="amplify-flex amplify-field amplify-radiogroupfield amplify-authenticator__column"
           >
             <base-label
               class="amplify-visually-hidden amplify-label"
@@ -92,10 +89,7 @@ const onSkipClicked = (): void => {
               {{ verifyContactText }}
             </base-label>
             <base-wrapper
-              class="
-                amplify-flex amplify-field amplify-radiogroupfield
-                amplify-authenticator__column
-              "
+              class="amplify-flex amplify-field amplify-radiogroupfield amplify-authenticator__column"
               aria-labelledby="amplify-field-493c"
             >
               <base-label
@@ -106,12 +100,7 @@ const onSkipClicked = (): void => {
                 :key="value"
               >
                 <base-input
-                  class="
-                    amplify-input
-                    amplify-field-group__control
-                    amplify-visually-hidden
-                    amplify-radio__input
-                  "
+                  class="amplify-input amplify-field-group__control amplify-visually-hidden amplify-radio__input"
                   aria-invalid="false"
                   data-amplify-verify-input
                   id="verify"

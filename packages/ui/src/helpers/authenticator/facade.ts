@@ -122,8 +122,8 @@ export const getServiceContextFacade = (
   const {
     codeDeliveryDetails,
     remoteError: error,
-    validationError: validationErrors,
     unverifiedContactMethods,
+    validationError: validationErrors,
   } = actorContext;
 
   const { socialProviders } = state.context?.config ?? {};
