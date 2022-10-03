@@ -1,4 +1,10 @@
-import { Flex, Text, Button, VisuallyHidden } from '@aws-amplify/ui-react';
+import {
+  Flex,
+  Text,
+  Button,
+  View,
+  VisuallyHidden,
+} from '@aws-amplify/ui-react';
 import styles from '../GlobalNav.module.scss';
 import { AmplifyLogo, ChevronIcon } from './icons';
 
@@ -9,12 +15,16 @@ export function AmplifyNavLink({ currentSite, isCollapsed, setIsCollapsed }) {
       <Flex gap="xs" alignItems="center" direction="row">
         <AmplifyLogo />
         <Text className={styles['dev-center-logo']}>
-          <span style={{ fontWeight: '400' }}>Amplify</span>{' '}
-          <span style={{ fontWeight: '300' }}>Dev Center</span>
-          <span className={styles['mobile-only']}>
+          <View as="span" style={{ fontWeight: '400' }}>
+            Amplify
+          </View>{' '}
+          <View as="span" style={{ fontWeight: '300' }}>
+            Dev Center
+          </View>
+          <View as="span" className={styles['mobile-only']}>
             {' '}
             <ChevronIcon rotateDeg="270" /> {currentSite}
-          </span>
+          </View>
         </Text>
       </Flex>
 
