@@ -17,6 +17,8 @@ export default function RadioGroup<T>({
   value,
 }: // ...rest
 RadioGroupProps<T>): JSX.Element {
+  // only handle controlled component (don't think about uncontrolled component yet)
+
   const childContainerStyle: ViewStyle = useMemo(
     () => ({ flexDirection: direction === 'horizontal' ? 'row' : 'column' }),
     [direction]
