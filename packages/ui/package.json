@@ -68,7 +68,7 @@
     "type-fest": "^2.3.4"
   },
   "peerDependencies": {
-    "aws-amplify": "in-app-messaging"
+    "aws-amplify": "3.x.x || 4.x.x"
   },
   "sideEffects": [
     "dist/**/*.css"
