@@ -76,7 +76,7 @@
     "tslib": "2.4.0"
   },
   "peerDependencies": {
-    "aws-amplify": "in-app-messaging",
+    "aws-amplify": "3.x.x || 4.x.x",
     "react": ">= 16.8.0",
     "react-dom": ">= 16.8.0"
   },

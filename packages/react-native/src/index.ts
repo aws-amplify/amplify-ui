@@ -1,1 +1,1 @@
-export * from './InAppMessaging';
+export const hello = 'world';

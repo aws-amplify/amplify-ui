@@ -1,9 +1,8 @@
 import React from 'react';
-
-import { Demo as InAppDemo } from '../features/InAppMessaging';
+import { Text } from 'react-native';
 
 const App = () => {
-  return <InAppDemo />;
+  return <Text>Nothing to see here!</Text>;
 };
 
 export default App;
