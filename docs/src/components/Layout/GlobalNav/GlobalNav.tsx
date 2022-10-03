@@ -23,7 +23,6 @@ export interface NavMenuItem {
 export interface NavProps {
   leftLinks: NavMenuItem[];
   rightLinks: NavMenuItem[];
-
   socialLinks: NavMenuItem[];
   currentSite: string;
 }
@@ -32,7 +31,6 @@ export function GlobalNav({
   currentSite,
   leftLinks,
   rightLinks,
-
   socialLinks,
 }: NavProps) {
   const themeableSites: any = {

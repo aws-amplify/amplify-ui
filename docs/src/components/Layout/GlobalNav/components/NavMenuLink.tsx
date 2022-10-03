@@ -21,7 +21,6 @@ export function NavMenuLink({
         <ExternalLink>{label}</ExternalLink>
       </Text>
     ) : (
-
       <Text as="span" color="inherit" className={styles['icon-link']}>
         <IconLink iconType={navMenuItem.icon ? navMenuItem.icon : ''} />
       </Text>
