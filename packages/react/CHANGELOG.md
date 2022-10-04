@@ -1,5 +1,16 @@
 # @aws-amplify/ui-react
 
+## 3.5.5
+
+### Patch Changes
+
+- [#2659](https://github.com/aws-amplify/amplify-ui/pull/2659) [`477a00593`](https://github.com/aws-amplify/amplify-ui/commit/477a005935f242b49e776d42054810bc5d115857) Thanks [@calebpollman](https://github.com/calebpollman)! - feat(ui-react-core): merge ui-react-core in to main
+
+- [#2674](https://github.com/aws-amplify/amplify-ui/pull/2674) [`c43f51484`](https://github.com/aws-amplify/amplify-ui/commit/c43f514843085196fc70cee57a61cb9b5e652c74) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui-react): add deprecation message to Expander onChange prop
+
+- Updated dependencies [[`477a00593`](https://github.com/aws-amplify/amplify-ui/commit/477a005935f242b49e776d42054810bc5d115857)]:
+  - @aws-amplify/ui-react-core@1.0.0
+
 ## 3.5.4
 
 ### Patch Changes
