@@ -1,0 +1,107 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useAuthenticator returns the expected values 1`] = `
+Object {
+  "_send": [Function],
+  "_state": Object {
+    "_event": Object {
+      "$$type": "scxml",
+      "data": Object {
+        "type": "xstate.init",
+      },
+      "name": "xstate.init",
+      "type": "external",
+    },
+    "_sessionid": "x:0",
+    "actions": Array [
+      Object {
+        "activity": Object {
+          "id": "authenticator.idle:invocation[0]",
+          "src": Object {
+            "toString": [Function],
+            "type": "getCurrentUser",
+          },
+          "type": "xstate.invoke",
+        },
+        "exec": undefined,
+        "type": "xstate.start",
+      },
+    ],
+    "activities": Object {
+      "authenticator.idle:invocation[0]": Object {
+        "activity": Object {
+          "id": "authenticator.idle:invocation[0]",
+          "src": Object {
+            "toString": [Function],
+            "type": "getCurrentUser",
+          },
+          "type": "xstate.invoke",
+        },
+        "exec": undefined,
+        "type": "xstate.start",
+      },
+    },
+    "changed": undefined,
+    "children": Object {
+      "authenticator.idle:invocation[0]": Object {
+        "id": "authenticator.idle:invocation[0]",
+      },
+    },
+    "context": Object {
+      "actorRef": undefined,
+      "config": Object {},
+      "hasSetup": false,
+      "services": Object {
+        "getAmplifyConfig": [Function],
+        "getCurrentUser": [Function],
+        "handleConfirmSignIn": [Function],
+        "handleConfirmSignUp": [Function],
+        "handleForgotPassword": [Function],
+        "handleForgotPasswordSubmit": [Function],
+        "handleSignIn": [Function],
+        "handleSignUp": [Function],
+        "validateConfirmPassword": [Function],
+        "validateCustomSignUp": [Function],
+        "validateFormPassword": [Function],
+        "validatePreferredUsername": [Function],
+      },
+      "user": undefined,
+    },
+    "done": false,
+    "event": Object {
+      "type": "xstate.init",
+    },
+    "events": Array [],
+    "history": undefined,
+    "historyValue": undefined,
+    "matches": [Function],
+    "meta": Object {},
+    "tags": Array [],
+    "toStrings": [Function],
+    "value": "idle",
+  },
+  "authStatus": "authenticated",
+  "codeDeliveryDetails": Object {},
+  "error": undefined,
+  "fields": undefined,
+  "getTotpSecretCode": undefined,
+  "hasValidationErrors": false,
+  "initializeMachine": [Function],
+  "isPending": false,
+  "resendCode": [Function],
+  "route": "idle",
+  "signOut": [Function],
+  "skipVerification": [Function],
+  "socialProviders": Array [],
+  "submitForm": [Function],
+  "toFederatedSignIn": [Function],
+  "toResetPassword": [Function],
+  "toSignIn": [Function],
+  "toSignUp": [Function],
+  "unverifiedContactMethods": Array [],
+  "updateBlur": [Function],
+  "updateForm": [Function],
+  "user": Object {},
+  "validationErrors": undefined,
+}
+`;

@@ -81,25 +81,25 @@ export interface SignInContext extends BaseFormContext {
   formFields?: AuthFormFields;
   attributeToVerify?: string;
   redirectIntent?: string;
-  unverifiedAttributes?: Record<string, string>;
+  unverifiedContactMethods?: Record<string, string>;
 }
 export interface SignUpContext extends BaseFormContext {
   loginMechanisms: Required<AuthContext>['config']['loginMechanisms'];
   socialProviders: Required<AuthContext>['config']['socialProviders'];
   formFields: AuthFormFields;
-  unverifiedAttributes?: Record<string, string>;
+  unverifiedContactMethods?: Record<string, string>;
 }
 
 export interface ResetPasswordContext extends BaseFormContext {
   username?: string;
-  unverifiedAttributes?: Record<string, string>;
+  unverifiedContactMethods?: Record<string, string>;
   formFields?: AuthFormFields;
 }
 
 export interface SignOutContext {
   authAttributes?: Record<string, any>;
   challengeName?: AuthChallengeName;
-  unverifiedAttributes?: Record<string, string>;
+  unverifiedContactMethods?: Record<string, string>;
   user?: AmplifyUser;
   formFields?: AuthFormFields;
 }
