@@ -2008,7 +2008,17 @@
     "@aws-sdk/types" "3.47.1"
     tslib "^2.3.0"
 
-"@aws-sdk/eventstream-codec@3.171.0", "@aws-sdk/eventstream-codec@3.178.0", "@aws-sdk/eventstream-codec@^3.161.4-liveness":
+"@aws-sdk/eventstream-codec@3.171.0":
+  version "3.171.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/eventstream-codec/-/eventstream-codec-3.171.0.tgz#4f8a9537a5b9633f95cc03b367400d7c7b860f8f"
+  integrity sha512-3lCnPlydbZ/R6fAD+4xLX8Ua+kFGUzsPcgLP0lH5LO39jtnN1wEQj5fWM139Re9LuD0NoEBhC0AuROIM6CbzVA==
+  dependencies:
+    "@aws-crypto/crc32" "2.0.0"
+    "@aws-sdk/types" "3.171.0"
+    "@aws-sdk/util-hex-encoding" "3.170.0"
+    tslib "^2.3.1"
+
+"@aws-sdk/eventstream-codec@3.178.0", "@aws-sdk/eventstream-codec@^3.161.4-liveness":
   version "3.178.0"
   resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/eventstream-codec/-/eventstream-codec-3.178.0.tgz#46b007a652354a0f78b54a9940166c3447458d0c"
   integrity sha512-80A8mECFvT6w6NWVknUOfP4BXwaxwwpomPlCawo1Z86omFkw2ST56Ha/Ti1EpbaPXta46cPsFk3WqjmAVlw9FA==
@@ -2018,7 +2028,16 @@
     "@aws-sdk/util-hex-encoding" "^3.178.0"
     tslib "^2.3.1"
 
-"@aws-sdk/eventstream-handler-node@3.171.0", "@aws-sdk/eventstream-handler-node@^3.161.4-liveness":
+"@aws-sdk/eventstream-handler-node@3.171.0":
+  version "3.171.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/eventstream-handler-node/-/eventstream-handler-node-3.171.0.tgz#2ff8a91a9e15e99327fabaf7bdbea69e2fd9c849"
+  integrity sha512-hEmTnvjfoT/li3mUpn/JpH8ZHJA97U4efE40YvX1y5gpBfi7g4Hg+9PFpacCfreAfuciIKMokNiCn3txWdUO1w==
+  dependencies:
+    "@aws-sdk/eventstream-codec" "3.171.0"
+    "@aws-sdk/types" "3.171.0"
+    tslib "^2.3.1"
+
+"@aws-sdk/eventstream-handler-node@^3.161.4-liveness":
   version "3.161.4-liveness"
   resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/eventstream-handler-node/-/eventstream-handler-node-3.161.4-liveness.tgz#bdeb2aebf5cd40f401727ac57ec08cf728886737"
   integrity sha512-7wNL6gOLYUe9BXIr1Q0aq4iQUBGKc3movooIxNtkAiSIUwJJaXadRh210P9cAFREs0y1ap8VdeyuAzMpePAcow==
@@ -2367,7 +2386,16 @@
     "@aws-sdk/types" "3.6.1"
     tslib "^1.8.0"
 
-"@aws-sdk/middleware-eventstream@3.171.0", "@aws-sdk/middleware-eventstream@^3.161.4-liveness":
+"@aws-sdk/middleware-eventstream@3.171.0":
+  version "3.171.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/middleware-eventstream/-/middleware-eventstream-3.171.0.tgz#92b7920a28fd872913ca84767337f9c35dc470c5"
+  integrity sha512-UDLp/1kMtUTlsdLnCzUF8mAMF7sD4Yk0Xavz1Q4v4Tsu58eGLnSovgRUiCGpwihTrd7fyLWZs+lJ1CdV3k+UmQ==
+  dependencies:
+    "@aws-sdk/protocol-http" "3.171.0"
+    "@aws-sdk/types" "3.171.0"
+    tslib "^2.3.1"
+
+"@aws-sdk/middleware-eventstream@^3.161.4-liveness":
   version "3.161.4-liveness"
   resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/middleware-eventstream/-/middleware-eventstream-3.161.4-liveness.tgz#77a052ae618cef4a08cff6ece73621be71359148"
   integrity sha512-aulJoCDvE0SNHC/cGST+SEkdpMSSm19np4BRkrSD3KpaGoN9hK+vykw/z0t1ngyb6mDXeXbeBS0ZUcwUC7YlWw==
