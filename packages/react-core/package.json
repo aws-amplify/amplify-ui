@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-core",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "exports": {
@@ -28,7 +28,7 @@
     "test:watch": "yarn test --watch"
   },
   "dependencies": {
-    "@aws-amplify/ui": "3.13.4",
+    "@aws-amplify/ui": "3.14.0",
     "@xstate/react": "3.0.0"
   },
   "peerDependencies": {
