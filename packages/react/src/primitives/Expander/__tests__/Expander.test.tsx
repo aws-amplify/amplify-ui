@@ -30,7 +30,7 @@ describe('Expander: ', () => {
     ({ value: initialValue, ...rest }, ref) => {
       const [value, setValue] = React.useState(initialValue);
       return (
-        <Expander value={value} onChange={setValue} ref={ref} {...rest}>
+        <Expander value={value} onValueChange={setValue} ref={ref} {...rest}>
           <ExpanderItem title="Section 1 title" value="item-1">
             content 1
           </ExpanderItem>
