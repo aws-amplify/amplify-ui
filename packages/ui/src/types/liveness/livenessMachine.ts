@@ -18,7 +18,7 @@ import { SessionInformation } from '@aws-sdk/client-rekognitionstreaming';
 export interface LivenessContext {
   maxFailedAttempts: number;
   failedAttempts: number;
-  flowProps: FaceLivenessDetectorProps;
+  componentProps: FaceLivenessDetectorProps;
   serverSessionInformation: SessionInformation;
   challengeId: string;
   videoAssociatedParams: {

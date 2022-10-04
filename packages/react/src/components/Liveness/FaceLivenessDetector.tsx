@@ -35,7 +35,7 @@ export const FaceLivenessDetector: React.FC<FaceLivenessDetectorProps> = (
   const service = useInterpret(livenessMachine, {
     devTools: process.env.NODE_ENV === 'development',
     context: {
-      flowProps: {
+      componentProps: {
         ...props,
         onUserCancel,
       },
@@ -82,7 +82,7 @@ export const FaceLivenessDetector: React.FC<FaceLivenessDetectorProps> = (
       className={DETECTOR_CLASS_NAME}
       data-testid={DETECTOR_CLASS_NAME}
     >
-      <FaceLivenessDetectorProvider flowProps={props} service={service}>
+      <FaceLivenessDetectorProvider componentProps={props} service={service}>
         <Flex direction="column" ref={currElementRef}>
           {isStartView ? (
             <StartLiveness beginLivenessCheck={beginLivenessCheck} />

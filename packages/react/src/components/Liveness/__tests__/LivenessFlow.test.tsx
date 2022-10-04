@@ -48,8 +48,8 @@ describe('FaceLivenessDetector', () => {
       return { isLive: true };
     },
   };
-  const livenessFlowTestId = 'liveness-detector';
-  const livenessFlowCheckTestId = 'liveness-detector-check';
+  const livenessTestId = 'liveness-detector';
+  const livenessCheckTestId = 'liveness-detector-check';
 
   afterEach(() => {
     jest.clearAllMocks();
@@ -57,7 +57,7 @@ describe('FaceLivenessDetector', () => {
 
   it('should render the flow by default', () => {
     render(<FaceLivenessDetector {...defaultProps} />);
-    expect(screen.getByTestId(livenessFlowTestId)).toBeInTheDocument();
+    expect(screen.getByTestId(livenessTestId)).toBeInTheDocument();
   });
 
   /**
@@ -105,6 +105,6 @@ describe('FaceLivenessDetector', () => {
     render(
       <FaceLivenessDetector {...defaultProps} disableStartScreen={true} />
     );
-    expect(screen.queryByTestId(livenessFlowCheckTestId)).toBeInTheDocument();
+    expect(screen.queryByTestId(livenessCheckTestId)).toBeInTheDocument();
   });
 });

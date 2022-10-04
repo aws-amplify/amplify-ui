@@ -8,7 +8,9 @@ import { useLivenessActor } from '../useLivenessActor';
 jest.mock('@xstate/react');
 jest.mock('../../providers');
 
-const mockedUseLivenessFlow = getMockedFunction(useFaceLivenessDetector);
+const mockedUseFaceLivenessDetector = getMockedFunction(
+  useFaceLivenessDetector
+);
 const mockedUseActor = getMockedFunction(useActor);
 
 describe('useLivenessActor', () => {
@@ -20,13 +22,13 @@ describe('useLivenessActor', () => {
     const service = {};
     const actor = {};
 
-    mockedUseLivenessFlow.mockReturnValue({ service } as any);
+    mockedUseFaceLivenessDetector.mockReturnValue({ service } as any);
     mockedUseActor.mockReturnValue(actor as any);
 
     const { result } = renderHook(() => useLivenessActor());
 
     expect(result.current).toBe(actor);
-    expect(mockedUseLivenessFlow).toHaveBeenCalledTimes(1);
+    expect(mockedUseFaceLivenessDetector).toHaveBeenCalledTimes(1);
     expect(mockedUseActor).toHaveBeenCalledWith(service);
   });
 });

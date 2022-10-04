@@ -14,7 +14,10 @@ const TestComponent: React.FC = () => {
 describe('FaceLivenessDetectorProvider', () => {
   const renderTestComponent = () =>
     render(
-      <FaceLivenessDetectorProvider flowProps={undefined} service={undefined}>
+      <FaceLivenessDetectorProvider
+        componentProps={undefined}
+        service={undefined}
+      >
         <TestComponent />
       </FaceLivenessDetectorProvider>
     );

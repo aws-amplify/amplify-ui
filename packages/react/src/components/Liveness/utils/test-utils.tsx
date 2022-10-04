@@ -6,14 +6,14 @@ import { FaceLivenessDetectorProvider } from '../providers';
 import { FaceLivenessDetectorProps } from '../FaceLivenessDetector';
 
 type RenderWithLivenessLivenessProviderResult = RenderResult & {
-  mockFlowProps: FaceLivenessDetectorProps;
+  mockcomponentProps: FaceLivenessDetectorProps;
   mockService: LivenessInterpreter;
 };
 
 export function renderWithLivenessProvider(
   ui: JSX.Element
 ): RenderWithLivenessLivenessProviderResult {
-  const mockFlowProps: FaceLivenessDetectorProps = {
+  const mockcomponentProps: FaceLivenessDetectorProps = {
     sessionId: 'sessionId',
     onGetLivenessDetection: jest.fn(),
   };
@@ -21,7 +21,7 @@ export function renderWithLivenessProvider(
 
   const Wrapper: React.FC = ({ children }) => (
     <FaceLivenessDetectorProvider
-      flowProps={mockFlowProps}
+      componentProps={mockcomponentProps}
       service={mockService}
     >
       {children}
@@ -32,7 +32,7 @@ export function renderWithLivenessProvider(
 
   return {
     ...renderResults,
-    mockFlowProps,
+    mockcomponentProps,
     mockService,
   };
 }

@@ -5,7 +5,7 @@ import {
 } from '@aws-amplify/ui';
 
 interface FaceLivenessDetectorContextType {
-  flowProps: FaceLivenessDetectorProps;
+  componentProps: FaceLivenessDetectorProps;
   service: LivenessInterpreter;
 }
 

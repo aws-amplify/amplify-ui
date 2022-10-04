@@ -13,12 +13,12 @@ export interface CancelButtonProps {
 export const CancelButton: React.FC<CancelButtonProps> = (props) => {
   const { sourceScreen } = props;
 
-  const { flowProps } = useFaceLivenessDetector();
+  const { componentProps } = useFaceLivenessDetector();
   const [state, send] = useLivenessActor();
   const isFinalState = state.done;
 
   const handleClick = () => {
-    recordLivenessAnalyticsEvent(flowProps, {
+    recordLivenessAnalyticsEvent(componentProps, {
       event: sourceScreen,
       attributes: { action: 'Cancelled' },
       metrics: { count: 1 },
