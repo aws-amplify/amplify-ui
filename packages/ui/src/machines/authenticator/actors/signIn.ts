@@ -16,7 +16,7 @@ import {
   clearError,
   clearFormValues,
   clearTouched,
-  clearUnverifiedContactMethods,
+  clearUnverifiedAttributes,
   clearValidationError,
   handleInput,
   handleSubmit,
@@ -29,7 +29,7 @@ import {
   setFieldErrors,
   setRemoteError,
   setRequiredAttributes,
-  setUnverifiedContactMethods,
+  setUnverifiedAttributes,
   setUser,
   setUsernameAuthAttributes,
 } from '../actions';
@@ -150,7 +150,7 @@ export function signInActor({ services }: SignInMachineOptions) {
                   {
                     cond: 'shouldRequestVerification',
                     target: '#signInActor.verifyUser',
-                    actions: 'setUnverifiedContactMethods',
+                    actions: 'setUnverifiedAttributes',
                   },
                   {
                     target: 'resolved',
@@ -409,7 +409,7 @@ export function signInActor({ services }: SignInMachineOptions) {
           exit: [
             'clearFormValues',
             'clearError',
-            'clearUnverifiedContactMethods',
+            'clearUnverifiedAttributes',
             'clearAttributeToVerify',
             'clearTouched',
           ],
@@ -463,7 +463,7 @@ export function signInActor({ services }: SignInMachineOptions) {
         clearError,
         clearFormValues,
         clearTouched,
-        clearUnverifiedContactMethods,
+        clearUnverifiedAttributes,
         clearValidationError,
         handleInput,
         handleSubmit,
@@ -476,7 +476,7 @@ export function signInActor({ services }: SignInMachineOptions) {
         setCredentials,
         setFieldErrors,
         setRemoteError,
-        setUnverifiedContactMethods,
+        setUnverifiedAttributes,
         setUser,
         setUsernameAuthAttributes,
         sendUpdate: sendUpdate(), // sendUpdate is a HOC

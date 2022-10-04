@@ -31,16 +31,17 @@ export type AuthenticatorProps = Partial<
 
 // Utility hook that sends init event to the parent provider
 function useInitMachine(data: AuthenticatorMachineOptions) {
-  const { route, initializeMachine } = useAuthenticator(({ route }) => [route]);
+  // TODO: `INIT` event should be removed so that `_send` doesn't need to be extracted
+  const { _send, route } = useAuthenticator(({ route }) => [route]);
 
   const hasInitialized = React.useRef(false);
   React.useEffect(() => {
     if (!hasInitialized.current && route === 'setup') {
-      initializeMachine(data);
+      _send({ type: 'INIT', data });
 
       hasInitialized.current = true;
     }
-  }, [initializeMachine, route, data]);
+  }, [_send, route, data]);
 }
 
 // `AuthenticatorInternal` exists to give access to the context returned via `useAuthenticator`,

@@ -15,13 +15,11 @@ import {
   CodeDeliveryDetails,
   AmplifyUser,
   ValidationError,
-  SocialProvider,
-  UnverifiedContactMethods,
 } from '../../types';
 
 import { getActorContext, getActorState } from './actor';
 
-export type AuthenticatorRoute =
+type AuthenticatorRoute =
   | 'authenticated'
   | 'autoSignIn'
   | 'confirmResetPassword'
@@ -48,14 +46,11 @@ interface AuthenticatorServiceContextFacade {
   hasValidationErrors: boolean;
   isPending: boolean;
   route: AuthenticatorRoute;
-  socialProviders: SocialProvider[];
-  unverifiedContactMethods: UnverifiedContactMethods;
   user: AmplifyUser;
   validationErrors: AuthenticatorValidationErrors;
 }
 
 type SendEventAlias =
-  | 'initializeMachine'
   | 'resendCode'
   | 'signOut'
   | 'submitForm'
@@ -97,7 +92,6 @@ export const getSendEventAliases = (
   };
 
   return {
-    initializeMachine: sendToMachine('INIT'),
     resendCode: sendToMachine('RESEND'),
     signOut: sendToMachine('SIGN_OUT'),
     submitForm: sendToMachine('SUBMIT'),
@@ -118,15 +112,13 @@ export const getSendEventAliases = (
 export const getServiceContextFacade = (
   state: AuthMachineState
 ): AuthenticatorServiceContextFacade => {
+  const actorState = getActorState(state);
   const actorContext = (getActorContext(state) ?? {}) as ActorContextWithForms;
   const {
     codeDeliveryDetails,
     remoteError: error,
-    unverifiedContactMethods,
     validationError: validationErrors,
   } = actorContext;
-
-  const { socialProviders } = state.context?.config ?? {};
 
   // check for user in actorContext prior to state context. actorContext is more "up to date",
   // but is not available on all states
@@ -134,8 +126,6 @@ export const getServiceContextFacade = (
 
   const hasValidationErrors =
     validationErrors && Object.keys(validationErrors).length > 0;
-
-  const actorState = getActorState(state);
   const isPending = state.hasTag('pending') || actorState?.hasTag('pending');
 
   // Any additional idle states added beyond (idle, setup) should be updated inside the authStatus below as well
@@ -201,8 +191,6 @@ export const getServiceContextFacade = (
     hasValidationErrors,
     isPending,
     route,
-    socialProviders,
-    unverifiedContactMethods,
     user,
     validationErrors,
   };

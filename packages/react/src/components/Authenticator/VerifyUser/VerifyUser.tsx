@@ -4,8 +4,9 @@ import {
   censorAllButFirstAndLast,
   censorPhoneNumber,
   ContactMethod,
+  getActorContext,
+  SignInContext,
   translate,
-  UnverifiedContactMethods,
 } from '@aws-amplify/ui';
 
 import { Flex } from '../../../primitives/Flex';
@@ -39,16 +40,24 @@ const censorContactInformation = (
 };
 
 const generateRadioGroup = (
-  attributes: UnverifiedContactMethods
+  attributes: Record<string, string>
 ): JSX.Element[] => {
-  return Object.entries(attributes).map(([key, value]: [string, string]) => (
-    <Radio name="unverifiedAttr" value={key} key={key}>
-      {censorContactInformation(
-        (defaultFormFieldOptions[key] as { label: ContactMethod }).label,
-        value
-      )}
-    </Radio>
-  ));
+  const radioButtons: JSX.Element[] = [];
+
+  for (const [key, value] of Object.entries(attributes)) {
+    const radio = (
+      <Radio name="unverifiedAttr" value={key} key={key}>
+        {censorContactInformation(
+          (defaultFormFieldOptions[key] as { label: ContactMethod }).label,
+          value
+        )}
+      </Radio>
+    );
+
+    radioButtons.push(radio);
+  }
+
+  return radioButtons;
 };
 
 export const VerifyUser = ({
@@ -61,13 +70,12 @@ export const VerifyUser = ({
     },
   } = useCustomComponents();
 
-  const { isPending, unverifiedContactMethods } = useAuthenticator(
-    ({ isPending, unverifiedContactMethods }) => [
-      isPending,
-      unverifiedContactMethods,
-    ]
-  );
+  // TODO: expose unverifiedAttributes from `useAuthenticator`
+  const { _state, isPending } = useAuthenticator((context) => [
+    context.isPending,
+  ]);
   const { handleChange, handleSubmit } = useFormHandlers();
+  const context = getActorContext(_state) as SignInContext;
 
   const footerSubmitText = isPending ? (
     <>Verifying&hellip;</>
@@ -82,7 +90,7 @@ export const VerifyUser = ({
       name="verify_context"
       isDisabled={isPending}
     >
-      {generateRadioGroup(unverifiedContactMethods)}
+      {generateRadioGroup(context.unverifiedAttributes)}
     </RadioGroupField>
   );
 

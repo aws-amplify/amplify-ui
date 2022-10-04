@@ -48,7 +48,7 @@ jobs:
           repository: ${{ inputs.repository }}
           persist-credentials: false
       - name: Setup Node.js LTS
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
           node-version: lts/*
           cache: 'yarn'
@@ -109,7 +109,7 @@ jobs:
           persist-credentials: false
 
       - name: Setup Node.js LTS
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
           node-version: lts/*
           cache: 'yarn'
@@ -206,7 +206,7 @@ jobs:
           key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}
 
       - name: Setup Node.js LTS
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
           node-version: lts/*
           cache: 'yarn'
@@ -326,7 +326,7 @@ jobs:
           persist-credentials: false
 
       - name: Setup Node.js LTS
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
           node-version: lts/*
           cache: 'yarn'

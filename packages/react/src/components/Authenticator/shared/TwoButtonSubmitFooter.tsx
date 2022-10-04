@@ -16,24 +16,9 @@ export const TwoButtonSubmitFooter = (
 ): JSX.Element => {
   const { cancelButtonSendType, cancelButtonText, submitButtonText } = props;
 
-  const { isPending, resendCode, skipVerification, toSignIn } =
-    useAuthenticator((context) => [context.isPending]);
-
-  const onClick = () => {
-    switch (cancelButtonSendType) {
-      case 'SKIP':
-        skipVerification();
-        break;
-      case 'RESEND':
-        resendCode();
-        break;
-      case 'SIGN_IN':
-        toSignIn();
-        break;
-      default:
-        return;
-    }
-  };
+  const { _send, isPending } = useAuthenticator((context) => [
+    context.isPending,
+  ]);
 
   const defaultSubmitText = isPending ? (
     <>{translate('Submitting')}&hellip;</>
@@ -54,7 +39,7 @@ export const TwoButtonSubmitFooter = (
       </Button>
 
       <Button
-        onClick={onClick}
+        onClick={() => _send({ type: cancelButtonSendType })}
         type="button"
         variation="link"
         fontWeight="normal"
