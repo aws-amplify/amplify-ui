@@ -97,18 +97,12 @@ export const FederatedSignInButton = (
   props: FederatedSignInButtonProps
 ): JSX.Element => {
   const { icon, provider, text } = props;
-  // TODO: Expose federated event sender so `_send` doesn't have to be extracted
-  const { _send } = useAuthenticator(() => []);
+  const { toFederatedSignIn } = useAuthenticator();
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
     event.preventDefault();
 
-    _send({
-      type: 'FEDERATED_SIGN_IN',
-      data: {
-        provider,
-      },
-    });
+    toFederatedSignIn({ data: { provider } });
   };
 
   let iconComponent;

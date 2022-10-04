@@ -66,6 +66,10 @@ export interface FormFieldOptions {
   autocomplete?: string;
 }
 
+export interface LegacyFormFieldOptions extends FormFieldOptions {
+  name: string;
+}
+
 /** Default formField values for each supported auth field */
 export type DefaultFormFieldOptions = Record<
   AuthFieldsWithDefaults,

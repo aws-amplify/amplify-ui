@@ -9,7 +9,7 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import QRCode from 'qrcode';
 import { Auth } from 'aws-amplify';
 import { MockComponent } from 'ng-mocks';
-import { getTotpCode } from '@aws-amplify/ui';
+import { getTotpCodeURL } from '@aws-amplify/ui';
 
 const mockUser = { username: 'username' };
 const mockContext = {
@@ -69,7 +69,7 @@ describe('SetupTotpComponent', () => {
 
   it('validate generateQR Code generates correct code', async () => {
     setupTOTPSpy.mockResolvedValue(SECRET_KEY);
-    const defaultTotpCode = getTotpCode(
+    const defaultTotpCode = getTotpCodeURL(
       DEFAULT_TOTP_ISSUER,
       mockUser.username,
       SECRET_KEY
@@ -83,23 +83,5 @@ describe('SetupTotpComponent', () => {
 
     expect(toDataURLSpy).toHaveBeenCalledTimes(1);
     expect(toDataURLSpy).toHaveBeenCalledWith(defaultTotpCode);
-  });
-
-  describe('QR Tests', () => {
-    it('handles customTotpIssuer with spaces', () => {
-      const customTotpIssuer = 'customTOTPIssuer spaces';
-      const customTotpUsername = 'customTotpUsername';
-      const SECRET_KEY = 'secretKey';
-
-      const customTotpCode = getTotpCode(
-        customTotpIssuer,
-        customTotpUsername,
-        SECRET_KEY
-      );
-
-      expect(customTotpCode).toBe(
-        'otpauth://totp/customTOTPIssuer%20spaces:customTotpUsername?secret=secretKey&issuer=customTOTPIssuer%20spaces'
-      );
-    });
   });
 });
