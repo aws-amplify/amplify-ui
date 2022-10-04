@@ -10,7 +10,7 @@ import { Direction } from '../types';
 const directions: Direction[] = ['vertical', 'horizontal'];
 const sizes: Size[] = ['small', 'medium', 'large'];
 
-const StatefulRadioGroup = ({ ...props }: any) => {
+const ControlledRadioGroup = ({ ...props }: any) => {
   const [value, setValue] = useState('option-1');
   const onChange = (nextValue: string) => {
     setValue(nextValue);
@@ -33,32 +33,22 @@ describe('RadioGroup', () => {
   });
 
   it('renders default RadioGroup as expected', () => {
-    const { toJSON } = render(<StatefulRadioGroup />);
+    const { toJSON } = render(<ControlledRadioGroup />);
     expect(toJSON()).toMatchSnapshot();
   });
 
   it.each(directions)('renders as expected when size is %s', (value) => {
-    const { toJSON } = render(<StatefulRadioGroup direction={value} />);
+    const { toJSON } = render(<ControlledRadioGroup direction={value} />);
     expect(toJSON()).toMatchSnapshot();
   });
 
   it.each(sizes)('renders as expected when size is %s', (value) => {
-    const { toJSON } = render(<StatefulRadioGroup size={value} />);
+    const { toJSON } = render(<ControlledRadioGroup size={value} />);
     expect(toJSON()).toMatchSnapshot();
   });
 
   it('renders as expected when disabled', () => {
-    const { toJSON } = render(<StatefulRadioGroup disabled />);
+    const { toJSON } = render(<ControlledRadioGroup disabled />);
     expect(toJSON()).toMatchSnapshot();
   });
 });
-
-/*
-
-defaultValue
-
-selected changes
-
-Radio overrides
-
-*/

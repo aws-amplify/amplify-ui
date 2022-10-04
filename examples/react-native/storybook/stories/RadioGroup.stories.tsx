@@ -6,7 +6,7 @@ import {
   RadioGroup,
 } from '@aws-amplify/ui-react-native/dist/primitives';
 
-const StatefulRadioGroup = ({ ...props }: any) => {
+const ControlledRadioGroup = ({ ...props }: any) => {
   const [value, setValue] = useState(props.value);
   const onChange = (nextValue: string) => {
     setValue(nextValue);
@@ -46,24 +46,24 @@ const CustomRadioGroup = ({ ...props }: any) => {
 };
 
 storiesOf('RadioGroup', module)
-  .add('default', () => <StatefulRadioGroup label="Basic RadioGroup" />)
+  .add('default', () => <ControlledRadioGroup label="Basic RadioGroup" />)
   .add('defaultValue', () => (
-    <StatefulRadioGroup label="Default value" defaultValue="option-2" />
+    <ControlledRadioGroup label="Default value" defaultValue="option-2" />
   ))
   .add('direction', () => (
-    <StatefulRadioGroup label="Horizontal" direction="horizontal" />
+    <ControlledRadioGroup label="Horizontal" direction="horizontal" />
   ))
   .add('disabled', () => (
-    <StatefulRadioGroup label="All options should be disabled" disabled />
+    <ControlledRadioGroup label="All options should be disabled" disabled />
   ))
   .add('labelStyle', () => (
-    <StatefulRadioGroup
+    <ControlledRadioGroup
       label="This should be red"
       labelStyle={styles.redText}
     />
   ))
   .add('size', () => (
-    <StatefulRadioGroup label="Radios should be small" size="small" />
+    <ControlledRadioGroup label="Radios should be small" size="small" />
   ))
   .add('Radio overrides', () => <CustomRadioGroup label="Custom overrides" />);
 
