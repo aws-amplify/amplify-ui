@@ -8,19 +8,15 @@
       <h3 class="amplify-heading amplify-heading--3">{{ this.headerText }}</h3>
     </amplify-slot>
 
-    <div
-      *ngFor="
-        let unverifiedContactMethod of unverifiedContactMethods | keyvalue
-      "
-    >
+    <div *ngFor="let unverifiedAttribute of unverifiedAttributes | keyvalue">
       <input
         name="unverifiedAttr"
         type="radio"
-        [value]="unverifiedContactMethod.key"
+        [value]="unverifiedAttribute.key"
         [id]="labelId"
       />
       <label [for]="labelId">{{
-        getLabelForAttr(unverifiedContactMethod.key)
+        getLabelForAttr(unverifiedAttribute.key)
       }}</label>
     </div>
 

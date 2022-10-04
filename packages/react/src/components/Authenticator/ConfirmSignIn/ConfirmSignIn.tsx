@@ -1,5 +1,5 @@
 import React from 'react';
-import { translate } from '@aws-amplify/ui';
+import { getActorState, translate } from '@aws-amplify/ui';
 
 import { Flex } from '../../../primitives/Flex';
 import { Heading } from '../../../primitives/Heading';
@@ -53,9 +53,11 @@ export const ConfirmSignIn = ({
 };
 
 function Header() {
-  const { user } = useAuthenticator();
+  // TODO: expose challengeName
+  const { _state } = useAuthenticator();
+  const actorState = getActorState(_state);
 
-  const { challengeName } = user;
+  const { challengeName } = actorState.context;
   let headerText: string;
 
   switch (challengeName) {

@@ -7,9 +7,9 @@ import { useAuthenticator } from '@aws-amplify/ui-react-core';
 import { FederatedSignInButton } from './FederatedSignInButtons';
 
 export function FederatedSignIn(): JSX.Element {
-  const { route, socialProviders } = useAuthenticator(
-    ({ route, socialProviders }) => [route, socialProviders]
-  );
+  // TODO: expose `socialProviders`
+  const { _state, route } = useAuthenticator((context) => [context.route]);
+  const { socialProviders = [] } = _state.context.config;
 
   if (socialProviders.length === 0) {
     return null;

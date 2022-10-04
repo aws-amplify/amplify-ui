@@ -67,7 +67,7 @@ export class AuthenticatorComponent
       formFields,
     } = this;
 
-    const { authService, initializeMachine } = this.authenticator;
+    const { authService } = this.authenticator;
 
     this.unsubscribeHub = listenToAuthHub(authService, (data, service) => {
       defaultAuthHubHandler(data, service);
@@ -110,13 +110,16 @@ export class AuthenticatorComponent
       }
 
       if (!this.hasInitialized && route === 'setup') {
-        initializeMachine({
-          initialState,
-          loginMechanisms,
-          services,
-          signUpAttributes,
-          socialProviders,
-          formFields,
+        this.authenticator.send({
+          type: 'INIT',
+          data: {
+            initialState,
+            loginMechanisms,
+            services,
+            signUpAttributes,
+            socialProviders,
+            formFields,
+          },
         });
 
         this.hasInitialized = true;
