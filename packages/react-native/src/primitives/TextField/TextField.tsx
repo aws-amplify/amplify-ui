@@ -1,39 +1,45 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { TextInput, View, ViewStyle } from 'react-native';
 import { Label } from '../Label';
 
 import { styles } from './styles';
 import { TextFieldProps } from './types';
-import { getFlexDirectionFromLabelPosition } from '../Label/utils';
 
 export default function TextField({
+  accessibilityLabel,
+  containerStyle,
   disabled,
+  error,
+  errorMessage,
+  errorMessageStyle,
   label,
-  labelPosition = 'end',
   labelStyle,
-  style,
+  password,
+  textStyle,
+  type = 'default',
   ...rest
 }: TextFieldProps): JSX.Element {
-  const [value, setValue] = useState('');
-
-  const containerStyle: ViewStyle = useMemo(
+  const inputContainerStyle: ViewStyle = useMemo(
     () => ({
       ...styles.container,
-      flexDirection: getFlexDirectionFromLabelPosition(labelPosition),
       ...(disabled && styles.disabled),
     }),
-    [disabled, labelPosition]
+    [disabled]
   );
 
   return (
-    <View style={[containerStyle, style]}>
+    <View style={[inputContainerStyle, containerStyle]}>
+      {label ? <Label style={labelStyle}>{label}</Label> : null}
       <TextInput
+        accessible
+        accessibilityLabel={accessibilityLabel ?? label}
+        style={[styles.text, textStyle]}
         editable={!disabled}
-        value={value}
-        onChangeText={(text) => setValue(text)}
+        secureTextEntry={password}
+        keyboardType={type}
         {...rest}
       />
-      {label ? <Label style={labelStyle}>{label}</Label> : null}
+      {error ? <Label style={errorMessageStyle}>{errorMessage}</Label> : null}
     </View>
   );
 }

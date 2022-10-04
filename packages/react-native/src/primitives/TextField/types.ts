@@ -1,5 +1,11 @@
-import { StyleProp, TextInputProps, TextStyle, ViewStyle } from 'react-native';
-import { LabelPosition, LabelProps } from '../Label/types';
+import {
+  KeyboardTypeOptions,
+  StyleProp,
+  TextInputProps,
+  TextStyle,
+  ViewStyle,
+} from 'react-native';
+import { LabelProps } from '../Label/types';
 
 export interface TextFieldProps extends TextInputProps {
   /**
@@ -16,30 +22,6 @@ export interface TextFieldProps extends TextInputProps {
 
   /**
    * @description
-   * Styling for TextField component
-   */
-  textStyle?: StyleProp<TextStyle>;
-
-  /**
-   * @description
-   * Label text for field
-   */
-  label?: string;
-
-  /**
-   * @description
-   * Position for TextField label
-   */
-  labelPosition?: LabelPosition;
-
-  /**
-   * @description
-   * Styling for TextField label
-   */
-  labelStyle?: LabelProps['style'];
-
-  /**
-   * @description
    * Indicates whether the TextField component has an error
    */
   error?: boolean;
@@ -49,6 +31,42 @@ export interface TextFieldProps extends TextInputProps {
    *  When defined and `error` is true, show error message
    */
   errorMessage?: string;
+
+  /**
+   * @description
+   *  Styling for error message
+   */
+  errorMessageStyle?: StyleProp<TextStyle>;
+
+  /**
+   * @description
+   * Label text for field
+   */
+  label?: string;
+
+  /**
+   * @description
+   * Styling for TextField label
+   */
+  labelStyle?: LabelProps['style'];
+
+  /**
+   * @description
+   * Indicates whether to mask the text
+   */
+  password?: boolean;
+
+  /**
+   * @description
+   * Styling for TextField component
+   */
+  textStyle?: StyleProp<TextStyle>;
+
+  /**
+   * @description
+   * Determines which keyboard to open: default or phone number.
+   */
+  type?: Extract<KeyboardTypeOptions, 'default' | 'phone-pad'>;
 }
 
 export interface TextFieldStyles {
