@@ -25,7 +25,7 @@ export class VerifyUserComponent implements OnInit {
     'Account recovery requires verified contact information'
   );
 
-  public unverifiedAttributes = {};
+  public unverifiedContactMethods = {};
   public labelId = nanoid(12);
 
   // translated texts
@@ -38,7 +38,7 @@ export class VerifyUserComponent implements OnInit {
     const actorState = getActorState(
       this.authenticator.authState
     ) as SignInState;
-    this.unverifiedAttributes = actorState.context.unverifiedAttributes;
+    this.unverifiedContactMethods = actorState.context.unverifiedContactMethods;
   }
 
   public get context() {

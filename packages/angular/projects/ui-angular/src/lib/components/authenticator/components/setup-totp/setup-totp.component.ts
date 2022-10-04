@@ -5,7 +5,7 @@ import {
   FormFieldsArray,
   getActorContext,
   getFormDataFromEvent,
-  getTotpCode,
+  getTotpCodeURL,
   SignInContext,
 } from '@aws-amplify/ui';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
@@ -48,7 +48,7 @@ export class SetupTotpComponent implements OnInit {
       formFields?.setupTOTP?.QR ?? {};
     try {
       this.secretKey = await Auth.setupTOTP(user);
-      const totpCode = getTotpCode(totpIssuer, totpUsername, this.secretKey);
+      const totpCode = getTotpCodeURL(totpIssuer, totpUsername, this.secretKey);
 
       logger.info('totp code was generated:', totpCode);
       this.qrCodeSource = await QRCode.toDataURL(totpCode);
