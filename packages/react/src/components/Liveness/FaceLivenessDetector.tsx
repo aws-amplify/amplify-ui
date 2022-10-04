@@ -2,12 +2,12 @@ import * as React from 'react';
 import { useActor, useInterpret } from '@xstate/react';
 import {
   livenessMachine,
-  LivenessFlowProps as LivenessFlowPropsFromUi,
+  FaceLivenessDetectorProps as FaceLivenessDetectorPropsFromUi,
   recordLivenessAnalyticsEvent,
   LIVENESS_EVENT_DISABLED_GET_READY_SCREEN,
 } from '@aws-amplify/ui';
 
-import { LivenessFlowProvider } from './providers';
+import { FaceLivenessDetectorProvider } from './providers';
 import { StartLiveness } from './StartLiveness';
 import { LivenessCheck } from './LivenessCheck';
 import { View, Flex } from '../../primitives';
@@ -16,9 +16,12 @@ import { useThemeBreakpoint } from '../../hooks/useThemeBreakpoint';
 
 const DETECTOR_CLASS_NAME = 'liveness-detector';
 
-export interface LivenessFlowProps extends LivenessFlowPropsFromUi {}
+export interface FaceLivenessDetectorProps
+  extends FaceLivenessDetectorPropsFromUi {}
 
-export const LivenessFlow: React.FC<LivenessFlowProps> = (props) => {
+export const FaceLivenessDetector: React.FC<FaceLivenessDetectorProps> = (
+  props
+) => {
   const { onUserCancel: onUserCancelFromProps, disableStartScreen = false } =
     props;
   const currElementRef = React.useRef<HTMLDivElement>(null);
@@ -79,7 +82,7 @@ export const LivenessFlow: React.FC<LivenessFlowProps> = (props) => {
       className={DETECTOR_CLASS_NAME}
       data-testid={DETECTOR_CLASS_NAME}
     >
-      <LivenessFlowProvider flowProps={props} service={service}>
+      <FaceLivenessDetectorProvider flowProps={props} service={service}>
         <Flex direction="column" ref={currElementRef}>
           {isStartView ? (
             <StartLiveness beginLivenessCheck={beginLivenessCheck} />
@@ -87,7 +90,7 @@ export const LivenessFlow: React.FC<LivenessFlowProps> = (props) => {
             <LivenessCheck />
           )}
         </Flex>
-      </LivenessFlowProvider>
+      </FaceLivenessDetectorProvider>
     </View>
   );
 };

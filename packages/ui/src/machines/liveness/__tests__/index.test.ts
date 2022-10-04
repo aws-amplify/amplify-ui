@@ -4,7 +4,7 @@ import { setImmediate } from 'timers';
 
 import { livenessMachine, MIN_FACE_MATCH_COUNT } from '../';
 import {
-  LivenessFlowProps,
+  FaceLivenessDetectorProps,
   FaceMatchState,
   Face,
   LivenessErrorState,
@@ -43,7 +43,7 @@ describe('Liveness Machine', () => {
     displayColorTick: () => true,
   };
 
-  const mockFlowProps: LivenessFlowProps = {
+  const mockFlowProps: FaceLivenessDetectorProps = {
     sessionId: 'some-sessionId',
     onGetLivenessDetection: jest.fn(),
     onError: jest.fn(),

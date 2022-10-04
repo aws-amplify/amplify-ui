@@ -2,27 +2,30 @@ import * as React from 'react';
 import { render, RenderResult } from '@testing-library/react';
 import { LivenessInterpreter } from '@aws-amplify/ui';
 
-import { LivenessFlowProvider } from '../providers';
-import { LivenessFlowProps } from '../LivenessFlow';
+import { FaceLivenessDetectorProvider } from '../providers';
+import { FaceLivenessDetectorProps } from '../FaceLivenessDetector';
 
 type RenderWithLivenessLivenessProviderResult = RenderResult & {
-  mockFlowProps: LivenessFlowProps;
+  mockFlowProps: FaceLivenessDetectorProps;
   mockService: LivenessInterpreter;
 };
 
 export function renderWithLivenessProvider(
   ui: JSX.Element
 ): RenderWithLivenessLivenessProviderResult {
-  const mockFlowProps: LivenessFlowProps = {
+  const mockFlowProps: FaceLivenessDetectorProps = {
     sessionId: 'sessionId',
     onGetLivenessDetection: jest.fn(),
   };
   const mockService: LivenessInterpreter = {} as LivenessInterpreter;
 
   const Wrapper: React.FC = ({ children }) => (
-    <LivenessFlowProvider flowProps={mockFlowProps} service={mockService}>
+    <FaceLivenessDetectorProvider
+      flowProps={mockFlowProps}
+      service={mockService}
+    >
       {children}
-    </LivenessFlowProvider>
+    </FaceLivenessDetectorProvider>
   );
 
   const renderResults = render(ui, { wrapper: Wrapper });

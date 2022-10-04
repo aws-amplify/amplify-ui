@@ -2,13 +2,13 @@ import { renderHook } from '@testing-library/react-hooks';
 import { useSelector } from '@xstate/react';
 
 import { getMockedFunction } from '../../utils/test-utils';
-import { useLivenessFlow } from '../../providers';
+import { useFaceLivenessDetector } from '../../providers';
 import { useLivenessSelector } from '../useLivenessSelector';
 
 jest.mock('@xstate/react');
 jest.mock('../../providers');
 
-const mockedUseLivenessFlow = getMockedFunction(useLivenessFlow);
+const mockedUseLivenessFlow = getMockedFunction(useFaceLivenessDetector);
 const mockedUseSelector = getMockedFunction(useSelector);
 
 describe('useLivenessSelector', () => {

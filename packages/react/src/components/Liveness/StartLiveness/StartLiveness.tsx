@@ -6,7 +6,7 @@ import {
 } from '@aws-amplify/ui';
 
 import { DescriptionBullet } from '../shared';
-import { useLivenessFlow } from '../providers';
+import { useFaceLivenessDetector } from '../providers';
 import {
   Flex,
   Button,
@@ -39,7 +39,7 @@ export interface StartLivenessProps {
 
 export function StartLiveness(props: StartLivenessProps): JSX.Element {
   const { beginLivenessCheck } = props;
-  const { flowProps } = useLivenessFlow();
+  const { flowProps } = useFaceLivenessDetector();
 
   React.useEffect(() => {
     recordLivenessAnalyticsEvent(flowProps, {

@@ -1,7 +1,7 @@
 import { useSelector } from '@xstate/react';
 import { LivenessMachineState } from '@aws-amplify/ui';
 
-import { useLivenessFlow } from '../providers';
+import { useFaceLivenessDetector } from '../providers';
 
 export type LivenessSelectorFn<T> = (state: LivenessMachineState) => T;
 
@@ -12,6 +12,6 @@ export function createLivenessSelector<T>(
 }
 
 export function useLivenessSelector<T>(selector: LivenessSelectorFn<T>): T {
-  const { service } = useLivenessFlow();
+  const { service } = useFaceLivenessDetector();
   return useSelector(service, selector);
 }

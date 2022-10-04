@@ -1,5 +1,5 @@
 import {
-  LivenessFlow,
+  FaceLivenessDetector,
   View,
   Flex,
   Loader,
@@ -51,7 +51,7 @@ export default function LivenessDefault({ disableStartScreen = false }) {
             <LivenessLogo />
           </Icon>
 
-          <LivenessFlow
+          <FaceLivenessDetector
             sessionId={createLivenessSessionApiData.sessionId}
             onUserCancel={stopLiveness}
             onGetLivenessDetection={handleGetLivenessDetection}

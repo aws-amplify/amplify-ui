@@ -1,4 +1,4 @@
-import { LivenessFlowProps } from '../../types';
+import { FaceLivenessDetectorProps } from '../../types';
 import { AnalyticsEventOptions, recordAnalyticsEvent } from '../shared';
 
 /**
@@ -7,7 +7,7 @@ import { AnalyticsEventOptions, recordAnalyticsEvent } from '../shared';
  * @param options
  */
 export function recordLivenessAnalyticsEvent(
-  flowProps: LivenessFlowProps,
+  flowProps: FaceLivenessDetectorProps,
   options: AnalyticsEventOptions
 ) {
   if (flowProps.enableAnalytics) {
