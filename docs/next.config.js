@@ -15,9 +15,6 @@ module.exports = withNextPluginPreval({
     DOCSEARCH_DOCS_API_KEY: process.env.DOCSEARCH_DOCS_API_KEY,
     DOCSEARCH_DOCS_INDEX_NAME: process.env.DOCSEARCH_DOCS_INDEX_NAME,
     FF_REACT_NATIVE: process.env.FF_REACT_NATIVE,
-    /* Remove after Global Nav launch START */
-    FF_SHOW_GLOBAL_NAV: process.env.FF_SHOW_GLOBAL_NAV,
-    /* Remove after Global Nav launch END */
   },
   // Differentiate pages with frontmatter & layout vs. normal MD(X)
   pageExtensions: ['page.mdx', 'page.tsx'],
