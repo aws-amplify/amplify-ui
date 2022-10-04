@@ -9,6 +9,7 @@ import { styles } from './styles';
 import { RadioGroupProps } from './types';
 
 export default function RadioGroup<T>({
+  accessibilityRole = 'radiogroup',
   children,
   defaultValue,
   direction = 'vertical',
@@ -37,7 +38,7 @@ export default function RadioGroup<T>({
 
   return (
     <View {...rest} style={containerStyle}>
-      <View style={childContainerStyle}>
+      <View accessibilityRole={accessibilityRole} style={childContainerStyle}>
         {Children.map(children, (child) => {
           if (isValidElement<RadioProps<T>>(child)) {
             const {

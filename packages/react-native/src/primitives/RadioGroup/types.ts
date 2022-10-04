@@ -6,6 +6,7 @@ export type Direction = 'vertical' | 'horizontal';
 export interface RadioGroupProps<T>
   extends Pick<
     RadioProps<T>,
+    | 'accessibilityRole'
     | 'disabled'
     | 'label'
     | 'labelPosition'
