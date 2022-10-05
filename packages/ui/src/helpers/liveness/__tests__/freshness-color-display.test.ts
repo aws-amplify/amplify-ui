@@ -105,10 +105,10 @@ describe('FreshnessColorDisplay', () => {
 
     (display as any).timeLastFlatOrScrollChange = Date.now() - 310; // mock scrolling the second color for 300ms
     (display as any).isScrolling = true; // mock set to scrolling
-    (display as any).colorStageIndex = 1; // mock set to the second color
+    (display as any).stageIndex = 0; // mock set to the second color
     const response = await display.displayColorTick();
     expect(response).toBe(false);
-    expect((display as any).colorStageIndex).toStrictEqual(2);
+    expect((display as any).stageIndex).toStrictEqual(1);
 
     const clientSessionInfo = (
       context.livenessStreamProvider.sendClientInfo as jest.Mock
@@ -119,21 +119,22 @@ describe('FreshnessColorDisplay', () => {
     expect(
       clientSessionInfo.Challenge.FaceMovementAndLightChallenge.ColorDisplayed
         .CurrentColor.RGB
-    ).toStrictEqual([255, 0, 0]);
+    ).toStrictEqual([255, 255, 255]);
     expect(
       clientSessionInfo.Challenge.FaceMovementAndLightChallenge.ColorDisplayed
         .PreviousColor.RGB
-    ).toStrictEqual([255, 0, 0]);
+    ).toStrictEqual([255, 255, 255]);
   });
 
-  it('can display freshness colors, returns true when all stages are complete', async () => {
+  it.only('can display freshness colors, returns true when all stages are complete', async () => {
     const context = mockContext();
     const display = new FreshnessColorDisplay(
       context,
       getColorsSequencesFromSessionInformation(mockSessionInformation)
     );
 
-    (display as any).colorStageIndex = MOCK_COLOR_SEQUENCES.length - 1; // mock going through all stages
+    (display as any).stageIndex = (MOCK_COLOR_SEQUENCES.length - 1) * 2; // mock going through all stages
+    (display as any).currColorIndex = 9; // mock going through all stages
     const response = await display.displayColorTick();
     expect(response).toBe(true);
 
