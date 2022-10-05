@@ -6,7 +6,7 @@ export const styles: TextFieldStyles = StyleSheet.create({
   container: {
     alignItems: 'flex-start',
   },
-  text: {
+  input: {
     fontSize: 16,
     borderColor: 'black',
     borderWidth: 1,
