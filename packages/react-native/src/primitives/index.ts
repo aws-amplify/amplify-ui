@@ -1,6 +1,7 @@
 export * from './Button';
 export * from './Carousel';
 export * from './Checkbox';
+export * from './ErrorMessage';
 export * from './Heading';
 export * from './Icon';
 export * from './IconButton';
