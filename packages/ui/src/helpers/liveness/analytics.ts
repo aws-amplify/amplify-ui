@@ -1,20 +1,20 @@
-import { LivenessFlowProps } from '../../types';
+import { FaceLivenessDetectorProps } from '../../types';
 import { AnalyticsEventOptions, recordAnalyticsEvent } from '../shared';
 
 /**
  * Conditionally records a Liveness event with some default attribute(s)
- * @param flowProps
+ * @param componentProps
  * @param options
  */
 export function recordLivenessAnalyticsEvent(
-  flowProps: LivenessFlowProps,
+  componentProps: FaceLivenessDetectorProps,
   options: AnalyticsEventOptions
 ) {
-  if (flowProps.enableAnalytics) {
+  if (componentProps.enableAnalytics) {
     recordAnalyticsEvent({
       event: options.event,
       attributes: {
-        sessionId: flowProps.sessionId,
+        sessionId: componentProps.sessionId,
         ...options.attributes,
       },
       metrics: options.metrics,

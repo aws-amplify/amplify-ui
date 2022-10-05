@@ -6,7 +6,7 @@ import {
 } from '@aws-amplify/ui';
 
 import { DescriptionBullet } from '../shared';
-import { useLivenessFlow } from '../providers';
+import { useFaceLivenessDetector } from '../providers';
 import {
   Flex,
   Button,
@@ -39,10 +39,10 @@ export interface StartLivenessProps {
 
 export function StartLiveness(props: StartLivenessProps): JSX.Element {
   const { beginLivenessCheck } = props;
-  const { flowProps } = useLivenessFlow();
+  const { componentProps } = useFaceLivenessDetector();
 
   React.useEffect(() => {
-    recordLivenessAnalyticsEvent(flowProps, {
+    recordLivenessAnalyticsEvent(componentProps, {
       event: LIVENESS_EVENT_GET_READY_SCREEN,
       attributes: { action: 'AttemptLiveness' },
       metrics: { count: 1 },
@@ -50,7 +50,7 @@ export function StartLiveness(props: StartLivenessProps): JSX.Element {
     const pageLoadTime = Date.now();
 
     return () => {
-      recordLivenessAnalyticsEvent(flowProps, {
+      recordLivenessAnalyticsEvent(componentProps, {
         event: LIVENESS_EVENT_GET_READY_SCREEN,
         attributes: { action: 'TimeSpent' },
         metrics: {
@@ -58,7 +58,7 @@ export function StartLiveness(props: StartLivenessProps): JSX.Element {
         },
       });
     };
-  }, [flowProps]);
+  }, [componentProps]);
 
   return (
     <Card

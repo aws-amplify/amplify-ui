@@ -4,7 +4,7 @@ import { setImmediate } from 'timers';
 
 import { livenessMachine, MIN_FACE_MATCH_COUNT } from '../';
 import {
-  LivenessFlowProps,
+  FaceLivenessDetectorProps,
   FaceMatchState,
   Face,
   LivenessErrorState,
@@ -43,7 +43,7 @@ describe('Liveness Machine', () => {
     displayColorTick: () => true,
   };
 
-  const mockFlowProps: LivenessFlowProps = {
+  const mockcomponentProps: FaceLivenessDetectorProps = {
     sessionId: 'some-sessionId',
     onGetLivenessDetection: jest.fn(),
     onError: jest.fn(),
@@ -95,7 +95,7 @@ describe('Liveness Machine', () => {
 
   const machine = livenessMachine.withContext({
     ...livenessMachine.context,
-    flowProps: mockFlowProps,
+    componentProps: mockcomponentProps,
     maxFailedAttempts: 1,
   });
 
@@ -214,7 +214,7 @@ describe('Liveness Machine', () => {
     service.send('CANCEL');
 
     expect(service.state.value).toBe('userCancel');
-    expect(mockFlowProps.onUserCancel).toHaveBeenCalledTimes(1);
+    expect(mockcomponentProps.onUserCancel).toHaveBeenCalledTimes(1);
   });
 
   it('should reach cameraCheck state on BEGIN from start', () => {
@@ -393,7 +393,7 @@ describe('Liveness Machine', () => {
       expect(service.state.value).toEqual('timeout');
       expect(service.state.context.errorState).toBe(LivenessErrorState.TIMEOUT);
       await flushPromises();
-      expect(mockFlowProps.onUserTimeout).toHaveBeenCalledTimes(1);
+      expect(mockcomponentProps.onUserTimeout).toHaveBeenCalledTimes(1);
     });
 
     it('should reach ovalMatching state after detectInitialFaceAndDrawOval success and respect ovalMatchingTimeout', async () => {
@@ -418,7 +418,7 @@ describe('Liveness Machine', () => {
       expect(service.state.value).toEqual('timeout');
       expect(service.state.context.errorState).toBe(LivenessErrorState.TIMEOUT);
       await flushPromises();
-      expect(mockFlowProps.onUserTimeout).toHaveBeenCalledTimes(1);
+      expect(mockcomponentProps.onUserTimeout).toHaveBeenCalledTimes(1);
     });
 
     it('should reach checkFaceDetected again if no face is detected', async () => {
@@ -458,8 +458,8 @@ describe('Liveness Machine', () => {
       expect(service.state.context.errorState).toBe(
         LivenessErrorState.RUNTIME_ERROR
       );
-      expect(mockFlowProps.onError).toHaveBeenCalledTimes(1);
-      expect(mockFlowProps.onError).toHaveBeenCalledWith(error);
+      expect(mockcomponentProps.onError).toHaveBeenCalledTimes(1);
+      expect(mockcomponentProps.onError).toHaveBeenCalledWith(error);
     });
 
     it('should reach checkFaceDetected state and send client sessionInformation', async () => {
@@ -559,7 +559,9 @@ describe('Liveness Machine', () => {
   describe('uploading', () => {
     it('should reach waitForDisconnectEvent state after stopping video', async () => {
       Date.now = jest.fn(() => testTimestampMs);
-      (mockFlowProps.onGetLivenessDetection as jest.Mock).mockResolvedValue({
+      (
+        mockcomponentProps.onGetLivenessDetection as jest.Mock
+      ).mockResolvedValue({
         isLive: true,
       });
 
@@ -577,7 +579,9 @@ describe('Liveness Machine', () => {
 
     it('should reach getLivenessResult state after receiving disconnect event', async () => {
       Date.now = jest.fn(() => testTimestampMs);
-      (mockFlowProps.onGetLivenessDetection as jest.Mock).mockResolvedValue({
+      (
+        mockcomponentProps.onGetLivenessDetection as jest.Mock
+      ).mockResolvedValue({
         isLive: true,
       });
 
@@ -605,12 +609,14 @@ describe('Liveness Machine', () => {
       expect(service.state.value).toEqual('timeout');
       expect(service.state.context.errorState).toBe(LivenessErrorState.TIMEOUT);
       await flushPromises();
-      expect(mockFlowProps.onUserTimeout).toHaveBeenCalledTimes(1);
+      expect(mockcomponentProps.onUserTimeout).toHaveBeenCalledTimes(1);
     });
 
     it('should reach checkSucceeded state after getLivenessResult', async () => {
       Date.now = jest.fn(() => testTimestampMs);
-      (mockFlowProps.onGetLivenessDetection as jest.Mock).mockResolvedValue({
+      (
+        mockcomponentProps.onGetLivenessDetection as jest.Mock
+      ).mockResolvedValue({
         isLive: true,
       });
 
@@ -627,12 +633,14 @@ describe('Liveness Machine', () => {
         2
       );
       expect(
-        mockFlowProps.onGetLivenessDetection as jest.Mock
+        mockcomponentProps.onGetLivenessDetection as jest.Mock
       ).toHaveBeenCalledTimes(1);
     });
 
     it('should reach checkFailed state after getLivenessResult returns false', async () => {
-      (mockFlowProps.onGetLivenessDetection as jest.Mock).mockResolvedValue({
+      (
+        mockcomponentProps.onGetLivenessDetection as jest.Mock
+      ).mockResolvedValue({
         isLive: false,
       });
 
@@ -645,15 +653,15 @@ describe('Liveness Machine', () => {
 
       expect(service.state.value).toEqual('checkFailed');
       expect(
-        mockFlowProps.onGetLivenessDetection as jest.Mock
+        mockcomponentProps.onGetLivenessDetection as jest.Mock
       ).toHaveBeenCalledTimes(1);
     });
 
     it('should reach error state after getLiveness returns error', async () => {
       const error = new Error('another-error');
-      (mockFlowProps.onGetLivenessDetection as jest.Mock).mockRejectedValue(
-        error
-      );
+      (
+        mockcomponentProps.onGetLivenessDetection as jest.Mock
+      ).mockRejectedValue(error);
 
       await transitionToUploading(service);
 
@@ -666,8 +674,8 @@ describe('Liveness Machine', () => {
       expect(service.state.context.errorState).toBe(
         LivenessErrorState.RUNTIME_ERROR
       );
-      expect(mockFlowProps.onError).toHaveBeenCalledTimes(1);
-      expect(mockFlowProps.onError).toHaveBeenCalledWith(error);
+      expect(mockcomponentProps.onError).toHaveBeenCalledTimes(1);
+      expect(mockcomponentProps.onError).toHaveBeenCalledWith(error);
     });
   });
 });

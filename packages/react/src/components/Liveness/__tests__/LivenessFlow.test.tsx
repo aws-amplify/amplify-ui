@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useActor } from '@xstate/react';
 
-import { LivenessFlow, LivenessFlowProps } from '..';
+import { FaceLivenessDetector, FaceLivenessDetectorProps } from '..';
 import { getMockedFunction } from '../utils/test-utils';
 import { getVideoConstraints } from '../StartLiveness/helpers';
 import { useMediaStreamInVideo, useLivenessActor } from '../hooks';
@@ -21,7 +21,7 @@ const mockMatches = jest.fn().mockImplementation(() => {
   return true;
 });
 
-describe('LivenessFlow', () => {
+describe('FaceLivenessDetector', () => {
   const mockActorState: any = {
     matches: mockMatches,
   };
@@ -42,22 +42,22 @@ describe('LivenessFlow', () => {
     return false;
   });
 
-  const defaultProps: LivenessFlowProps = {
+  const defaultProps: FaceLivenessDetectorProps = {
     sessionId: 'sessionId',
     onGetLivenessDetection: async () => {
       return { isLive: true };
     },
   };
-  const livenessFlowTestId = 'liveness-detector';
-  const livenessFlowCheckTestId = 'liveness-detector-check';
+  const livenessTestId = 'liveness-detector';
+  const livenessCheckTestId = 'liveness-detector-check';
 
   afterEach(() => {
     jest.clearAllMocks();
   });
 
   it('should render the flow by default', () => {
-    render(<LivenessFlow {...defaultProps} />);
-    expect(screen.getByTestId(livenessFlowTestId)).toBeInTheDocument();
+    render(<FaceLivenessDetector {...defaultProps} />);
+    expect(screen.getByTestId(livenessTestId)).toBeInTheDocument();
   });
 
   /**
@@ -102,7 +102,9 @@ describe('LivenessFlow', () => {
   */
 
   it('should show the check screen if disableStartScreen is true', () => {
-    render(<LivenessFlow {...defaultProps} disableStartScreen={true} />);
-    expect(screen.queryByTestId(livenessFlowCheckTestId)).toBeInTheDocument();
+    render(
+      <FaceLivenessDetector {...defaultProps} disableStartScreen={true} />
+    );
+    expect(screen.queryByTestId(livenessCheckTestId)).toBeInTheDocument();
   });
 });

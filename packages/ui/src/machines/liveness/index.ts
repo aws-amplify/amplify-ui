@@ -52,7 +52,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       challengeId: v4(),
       maxFailedAttempts: 0, // Set to 0 for now as we are not allowing front end based retries for streaming
       failedAttempts: 0,
-      flowProps: undefined,
+      componentProps: undefined,
       serverSessionInformation: undefined,
       videoAssociatedParams: undefined,
       ovalAssociatedParams: undefined,
@@ -340,7 +340,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       }),
       updateFailedAttempts: assign({
         failedAttempts: (context) => {
-          recordLivenessAnalyticsEvent(context.flowProps, {
+          recordLivenessAnalyticsEvent(context.componentProps, {
             event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
             attributes: { action: 'Timeout' },
             metrics: { count: 1 },
@@ -392,7 +392,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       }),
       startRecording: assign({
         videoAssociatedParams: (context) => {
-          recordLivenessAnalyticsEvent(context.flowProps, {
+          recordLivenessAnalyticsEvent(context.componentProps, {
             event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
             attributes: { action: 'AttemptLivenessCheck' },
             metrics: { count: 1 },
@@ -418,7 +418,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         },
       }),
       stopRecording: (context) => {
-        recordLivenessAnalyticsEvent(context.flowProps, {
+        recordLivenessAnalyticsEvent(context.componentProps, {
           event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
           attributes: { action: 'Success' },
           metrics: { count: 1 },
@@ -557,34 +557,34 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
       // callbacks
       callUserPermissionDeniedCallback: (context) => {
-        recordLivenessAnalyticsEvent(context.flowProps, {
+        recordLivenessAnalyticsEvent(context.componentProps, {
           event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
           attributes: { action: 'PermissionDenied' },
           metrics: { count: 1 },
         });
 
-        context.flowProps.onUserPermissionDenied?.(
+        context.componentProps.onUserPermissionDenied?.(
           new Error('No available cameras found')
         );
       },
       callUserCancelCallback: (context) => {
-        context.flowProps.onUserCancel?.();
+        context.componentProps.onUserCancel?.();
       },
       callUserTimeoutCallback: async (context) => {
-        recordLivenessAnalyticsEvent(context.flowProps, {
+        recordLivenessAnalyticsEvent(context.componentProps, {
           event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
           attributes: { action: 'FailedWithTimeout' },
           metrics: { count: 1 },
         });
         await context.livenessStreamProvider.endStream();
 
-        context.flowProps.onUserTimeout?.();
+        context.componentProps.onUserTimeout?.();
       },
       callSuccessCallback: (context) => {
-        context.flowProps.onSuccess?.();
+        context.componentProps.onSuccess?.();
       },
       callErrorCallback: (context, event) => {
-        context.flowProps.onError?.(event.data as Error);
+        context.componentProps.onError?.(event.data as Error);
       },
     },
     guards: {
@@ -598,7 +598,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           faceMatchCount >= MIN_FACE_MATCH_COUNT;
 
         if (hasMatched) {
-          recordLivenessAnalyticsEvent(context.flowProps, {
+          recordLivenessAnalyticsEvent(context.componentProps, {
             event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
             attributes: { action: 'FaceMatched' },
             metrics: {
@@ -658,7 +658,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           .filter((device) => !isCameraDeviceVirtual(device));
 
         if (!realVideoDevices.length) {
-          recordLivenessAnalyticsEvent(context.flowProps, {
+          recordLivenessAnalyticsEvent(context.componentProps, {
             event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
             attributes: { action: 'NoRealDeviceFound' },
             metrics: { count: 1 },
@@ -689,7 +689,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       async openLivenessStreamConnection(context) {
         const livenessStreamProvider = new LivenessStreamProvider(
-          context.flowProps.sessionId,
+          context.componentProps.sessionId,
           context.videoAssociatedParams.videoMediaStream
         );
 
@@ -745,7 +745,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         switch (detectedFaces.length) {
           case 0: {
             // no face detected;
-            recordLivenessAnalyticsEvent(context.flowProps, {
+            recordLivenessAnalyticsEvent(context.componentProps, {
               event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
               attributes: { action: 'NoFaceDetected' },
               metrics: { count: 1 },
@@ -758,7 +758,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           case 1: {
             //exactly one face detected;
             faceDetectedTimestamp = Date.now();
-            recordLivenessAnalyticsEvent(context.flowProps, {
+            recordLivenessAnalyticsEvent(context.componentProps, {
               event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
               attributes: { action: 'FaceDetected' },
               metrics: {
@@ -795,7 +795,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         canvasEl.height = height;
         drawLivenessOvalInCanvas(canvasEl, ovalDetails);
         ovalDrawnTimestamp = Date.now();
-        recordLivenessAnalyticsEvent(context.flowProps, {
+        recordLivenessAnalyticsEvent(context.componentProps, {
           event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
           attributes: { action: 'RenderOval' },
           metrics: {
@@ -944,7 +944,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         await livenessStreamProvider.stopVideo();
 
         const endStreamLivenessVideoTime = Date.now();
-        recordLivenessAnalyticsEvent(context.flowProps, {
+        recordLivenessAnalyticsEvent(context.componentProps, {
           event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
           attributes: { action: 'streamLivenessVideoEnd' },
           metrics: {
@@ -954,7 +954,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       async getLiveness(context) {
         const {
-          flowProps: { sessionId, onGetLivenessDetection },
+          componentProps: { sessionId, onGetLivenessDetection },
           livenessStreamProvider,
         } = context;
 
@@ -962,7 +962,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
         // Get liveness result
         const { isLive } = await onGetLivenessDetection(sessionId);
-        recordLivenessAnalyticsEvent(context.flowProps, {
+        recordLivenessAnalyticsEvent(context.componentProps, {
           event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
           attributes: { action: 'getLivenessDetection' },
           metrics: {

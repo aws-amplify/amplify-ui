@@ -1,7 +1,7 @@
 import { ActorRef, Interpreter, State } from 'xstate';
 
 import {
-  LivenessFlowProps,
+  FaceLivenessDetectorProps,
   FaceMatchState,
   LivenessErrorState,
   LivenessOvalDetails,
@@ -18,7 +18,7 @@ import { SessionInformation } from '@aws-sdk/client-rekognitionstreaming';
 export interface LivenessContext {
   maxFailedAttempts: number;
   failedAttempts: number;
-  flowProps: LivenessFlowProps;
+  componentProps: FaceLivenessDetectorProps;
   serverSessionInformation: SessionInformation;
   challengeId: string;
   videoAssociatedParams: {

@@ -1,19 +1,25 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 
-import { LivenessFlowProvider, useLivenessFlow } from '../LivenessFlowProvider';
+import {
+  FaceLivenessDetectorProvider,
+  useFaceLivenessDetector,
+} from '../FaceLivenessDetectorProvider';
 
 const TestComponent: React.FC = () => {
-  useLivenessFlow();
+  useFaceLivenessDetector();
   return <div>Some component</div>;
 };
 
-describe('LivenessFlowProvider', () => {
+describe('FaceLivenessDetectorProvider', () => {
   const renderTestComponent = () =>
     render(
-      <LivenessFlowProvider flowProps={undefined} service={undefined}>
+      <FaceLivenessDetectorProvider
+        componentProps={undefined}
+        service={undefined}
+      >
         <TestComponent />
-      </LivenessFlowProvider>
+      </FaceLivenessDetectorProvider>
     );
 
   it('should render by default', () => {
