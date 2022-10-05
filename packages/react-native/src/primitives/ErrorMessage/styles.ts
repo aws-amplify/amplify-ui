@@ -4,36 +4,26 @@ import { ErrorMessageStyles } from './types';
 
 export const styles: ErrorMessageStyles = StyleSheet.create({
   container: {
-    width: '75%',
-    height: 40,
+    alignItems: 'center',
     backgroundColor: '#f5bcbc',
-    justifyContent: 'space-between',
-    alignItems: 'center',
     flexDirection: 'row',
+    height: 50,
+    justifyContent: 'space-between',
+    width: '75%',
   },
-  // dismissButtonContainer and errorIconContainer can be combined into one overlapping style
-  dismissButtonContainer: {
-    flex: 1,
-    backgroundColor: 'blue',
+  iconContainer: {
     alignItems: 'center',
-    justifyContent: 'center',
-    height: '100%',
-  },
-  errorIconContainer: {
     flex: 1,
-    backgroundColor: 'green',
-    alignItems: 'center',
-    justifyContent: 'center',
     height: '100%',
+    justifyContent: 'center',
   },
   text: {
-    color: 'yellow',
+    fontSize: 14,
   },
   textContainer: {
-    flex: 4,
-    justifyContent: 'center',
     alignItems: 'flex-start',
-    backgroundColor: 'purple',
+    flex: 4,
     height: '100%',
+    justifyContent: 'center',
   },
 });
