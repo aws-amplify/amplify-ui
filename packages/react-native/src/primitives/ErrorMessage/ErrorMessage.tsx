@@ -8,6 +8,9 @@ import { IconButton } from '../IconButton';
 import { ErrorMessageProps } from './types';
 import { styles } from './styles';
 
+export const CLOSE_BUTTON_TEST_ID =
+  'authenticator--error-message--close-button';
+
 export default function ErrorMessage({
   children,
   labelStyle,
@@ -25,7 +28,7 @@ export default function ErrorMessage({
           size={20}
           source={icons.close}
           style={styles.icon}
-          testID="rn-amplify-errorMessage-dismissButton"
+          testID={CLOSE_BUTTON_TEST_ID}
         />
       ) : null}
     </View>

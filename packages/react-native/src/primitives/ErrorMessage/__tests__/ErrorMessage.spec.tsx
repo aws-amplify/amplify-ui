@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { fireEvent, render } from '@testing-library/react-native';
-import ErrorMessage from '../ErrorMessage';
 import { Text, View } from 'react-native';
+import { fireEvent, render } from '@testing-library/react-native';
+
+import { CLOSE_BUTTON_TEST_ID } from '../ErrorMessage';
+import ErrorMessage from '../ErrorMessage';
 
 const OnDismissExample = ({
   customOnDismiss,
@@ -34,7 +36,7 @@ describe('ErrorMessage', () => {
       <ErrorMessage>Default ErrorMessage</ErrorMessage>
     );
     expect(toJSON()).toMatchSnapshot();
-    expect(queryByTestId('rn-amplify-errorMessage-dismissButton')).toBeFalsy();
+    expect(queryByTestId(CLOSE_BUTTON_TEST_ID)).toBeFalsy();
   });
 
   it('handles an onDismiss callback', () => {
@@ -43,7 +45,7 @@ describe('ErrorMessage', () => {
       <OnDismissExample customOnDismiss={customOnDismiss} />
     );
 
-    const dismissButton = getByTestId('rn-amplify-errorMessage-dismissButton');
+    const dismissButton = getByTestId(CLOSE_BUTTON_TEST_ID);
     fireEvent.press(dismissButton);
 
     expect(customOnDismiss).toHaveBeenCalledTimes(1);
