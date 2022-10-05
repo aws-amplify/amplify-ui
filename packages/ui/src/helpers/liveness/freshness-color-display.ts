@@ -15,16 +15,17 @@ export class FreshnessColorDisplay {
   private freshnessColorsSequence: ClientFreshnessColorSequence[]; // Array of color sequence from Rekognition
   private context: LivenessContext;
 
-  private stageIndex: number; // current stage of color scrolling (black flat, red scrolling)
-  private currColorIndex: number; // current stage of color scrolling (black flat, red scrolling)
-  private colorSequence: ClientFreshnessColorSequence; // current stage of color scrolling (black flat, red scrolling)
-  private nextColorSequence: ClientFreshnessColorSequence; // current stage of color scrolling (black flat, red scrolling)
+  private stageIndex: number; // current stage of color scrolling (black flat, red scrolling, etc)
+  private currColorIndex: number; // current index of the colorSequence array that we are in
+  private currColorSequence: ClientFreshnessColorSequence; // the current color sequence used for flat display and the prev color when scrolling
+  private nextColorSequence: ClientFreshnessColorSequence; // the next color, during flat display curr === next and during scroll it is the next indexed color
   private isScrolling: boolean;
   private timeLastFlatOrScrollChange: number;
   private expectedCallTime: number; // the next time the self adjusting interval is expected to be called
   private drift: number; // the last time difference between the actual call time and expected call time
   private timeFaceMatched: number;
   private timeLastFaceMatchChecked: number;
+  private isFirstTick: boolean;
 
   constructor(
     context: LivenessContext,
@@ -37,15 +38,15 @@ export class FreshnessColorDisplay {
 
   private init(): void {
     this.stageIndex = 0;
-    this.currColorIndex = Math.floor(this.stageIndex / 2);
-    this.colorSequence = this.freshnessColorsSequence[this.currColorIndex];
-    this.nextColorSequence =
-      this.freshnessColorsSequence[this.stageIndex - this.currColorIndex];
+    this.currColorIndex = 0;
+    this.currColorSequence = this.freshnessColorsSequence[0];
+    this.nextColorSequence = this.freshnessColorsSequence[0];
     this.isScrolling = false;
     this.timeLastFlatOrScrollChange = Date.now();
     this.expectedCallTime = Date.now() + TICK_RATE;
     this.drift = 0;
     this.timeLastFaceMatchChecked = Date.now();
+    this.isFirstTick = true;
   }
 
   public async displayColorTick(): Promise<any> {
@@ -79,23 +80,26 @@ export class FreshnessColorDisplay {
     //  If we have we have reached the threshold for a scrolling color then increment the index and show a flat color
     if (!this.isScrolling) {
       // Send a colorStart time only for the first tick of the first color
-      if (this.stageIndex === 0 && timeSinceLastColorChange < 20) {
+      if (this.isFirstTick) {
+        this.isFirstTick = false;
         this.sendColorStartTime(
           tickStartTime,
-          this.colorSequence.color,
-          this.colorSequence.color,
+          this.currColorSequence.color,
+          this.currColorSequence.color,
           this.stageIndex
         );
       }
 
-      if (timeSinceLastColorChange >= this.colorSequence.flatDisplayDuration) {
+      if (
+        timeSinceLastColorChange >= this.currColorSequence.flatDisplayDuration
+      ) {
         this.isScrolling = true;
         this.incrementStageIndex();
         this.timeLastFlatOrScrollChange = Date.now();
         this.sendColorStartTime(
           tickStartTime,
           this.nextColorSequence.color,
-          this.colorSequence.color,
+          this.currColorSequence.color,
           this.stageIndex
         );
       }
@@ -121,11 +125,11 @@ export class FreshnessColorDisplay {
         timeSinceLastColorChange /
         (this.isScrolling
           ? this.nextColorSequence.downscrollDuration
-          : this.colorSequence.flatDisplayDuration);
+          : this.currColorSequence.flatDisplayDuration);
 
       fillOverlayCanvasFractional({
         overlayCanvas: freshnessColorEl,
-        prevColor: this.colorSequence.color,
+        prevColor: this.currColorSequence.color,
         nextColor: this.nextColorSequence.color,
         ovalCanvas: canvasEl,
         ovalDetails,
@@ -150,7 +154,7 @@ export class FreshnessColorDisplay {
   private incrementStageIndex() {
     this.stageIndex += 1;
     this.currColorIndex = Math.floor(this.stageIndex / 2);
-    this.colorSequence = this.freshnessColorsSequence[this.currColorIndex];
+    this.currColorSequence = this.freshnessColorsSequence[this.currColorIndex];
     this.nextColorSequence =
       this.freshnessColorsSequence[this.stageIndex - this.currColorIndex];
   }
