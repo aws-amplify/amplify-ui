@@ -4,7 +4,9 @@ import TextField from '../TextField';
 
 const placeHolderText = 'Placeholder';
 const labelText = 'Label';
+const testID = 'textField';
 const defaultProps = {
+  testID: testID,
   label: labelText,
   placeholder: placeHolderText,
 };
@@ -61,21 +63,21 @@ describe('TextField', () => {
   });
 
   it('renders as expected as password field', async () => {
-    const { toJSON, findAllByRole, getByPlaceholderText } = render(
+    const { toJSON, findAllByRole, getByTestId } = render(
       <TextField {...defaultProps} secureTextEntry />
     );
     expect(toJSON()).toMatchSnapshot();
 
     expect(await findAllByRole('text')).toHaveLength(1);
-    const textInput = getByPlaceholderText(placeHolderText);
+    const textInput = getByTestId(testID);
     expect(textInput.props.secureTextEntry).toBeTruthy();
   });
 
   it('does nothing when disabled', () => {
-    const { getByPlaceholderText } = render(
+    const { getByTestId } = render(
       <TextField {...defaultProps} disabled onChangeText={onChangeText} />
     );
-    const textInput = getByPlaceholderText(placeHolderText);
+    const textInput = getByTestId(testID);
     fireEvent.press(textInput);
     expect(onChangeText).not.toHaveBeenCalled();
   });

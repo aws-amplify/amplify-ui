@@ -50,6 +50,7 @@ exports[`TextField doesn't render the errorMessage if error prop is false 1`] = 
         undefined,
       ]
     }
+    testID="textField"
   />
 </View>
 `;
@@ -104,6 +105,7 @@ exports[`TextField renders as expected 1`] = `
         undefined,
       ]
     }
+    testID="textField"
   />
 </View>
 `;
@@ -159,6 +161,7 @@ exports[`TextField renders as expected as password field 1`] = `
         undefined,
       ]
     }
+    testID="textField"
   />
 </View>
 `;
@@ -214,6 +217,7 @@ exports[`TextField renders as expected when disabled 1`] = `
         undefined,
       ]
     }
+    testID="textField"
   />
 </View>
 `;
@@ -268,6 +272,7 @@ exports[`TextField renders as expected with error message 1`] = `
         undefined,
       ]
     }
+    testID="textField"
   />
   <Text
     accessibilityRole="text"
