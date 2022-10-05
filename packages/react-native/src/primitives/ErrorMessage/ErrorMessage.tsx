@@ -9,33 +9,37 @@ import { IconButton } from '../IconButton';
 export default function Label({
   accessibilityRole = 'alert',
   children,
-  // style,
+  onDismiss,
+  style,
   ...rest
-}: ErrorMessageProps): JSX.Element {
+}: ErrorMessageProps): JSX.Element | null {
   const [dismissed, setDismissed] = useState<boolean>(false);
 
-  return (
-    <View style={styles.container}>
+  const dismissErrorMessage = React.useCallback(() => {
+    setDismissed(!dismissed);
+
+    if (typeof onDismiss === 'function') {
+      onDismiss();
+    }
+  }, [dismissed, setDismissed, onDismiss]);
+
+  return dismissed ? null : (
+    <View
+      {...rest}
+      accessibilityRole={accessibilityRole}
+      style={[styles.container, style]}
+    >
       <View style={styles.errorIconContainer}>
         <Icon source={icons.error} size={20} />
       </View>
-      {/* ErrorIcon */}
       <View style={styles.textContainer}>
-        <Text
-          {...rest}
-          accessibilityRole={accessibilityRole}
-          style={styles.text}
-        >
-          {children}
-          {dismissed ? 'dismissed' : 'not dismissed'}
-        </Text>
+        <Text style={styles.text}>{children}</Text>
       </View>
-      {/* Dismiss IconButton */}
       <View style={styles.dismissButtonContainer}>
         <IconButton
           source={icons.close}
           size={20}
-          onPress={() => setDismissed(!dismissed)}
+          onPress={dismissErrorMessage}
         />
       </View>
     </View>

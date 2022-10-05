@@ -1,6 +1,8 @@
 import { TextProps, TextStyle, ViewStyle } from 'react-native';
 
-export interface ErrorMessageProps extends TextProps {}
+export interface ErrorMessageProps extends TextProps {
+  onDismiss?: () => void;
+}
 /*
 
   text: TextStyle;
