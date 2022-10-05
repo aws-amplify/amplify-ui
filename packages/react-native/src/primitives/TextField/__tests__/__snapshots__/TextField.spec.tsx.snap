@@ -32,7 +32,14 @@ exports[`TextField doesn't render the errorMessage if error prop is false 1`] = 
     placeholder="Placeholder"
     style={
       Array [
-        undefined,
+        Object {
+          "borderColor": "black",
+          "borderRadius": 4,
+          "borderWidth": 1,
+          "fontSize": 16,
+          "padding": 8,
+          "width": "100%",
+        },
         undefined,
       ]
     }
@@ -72,7 +79,14 @@ exports[`TextField renders as expected 1`] = `
     placeholder="Placeholder"
     style={
       Array [
-        undefined,
+        Object {
+          "borderColor": "black",
+          "borderRadius": 4,
+          "borderWidth": 1,
+          "fontSize": 16,
+          "padding": 8,
+          "width": "100%",
+        },
         undefined,
       ]
     }
@@ -113,7 +127,14 @@ exports[`TextField renders as expected as password field 1`] = `
     secureTextEntry={true}
     style={
       Array [
-        undefined,
+        Object {
+          "borderColor": "black",
+          "borderRadius": 4,
+          "borderWidth": 1,
+          "fontSize": 16,
+          "padding": 8,
+          "width": "100%",
+        },
         undefined,
       ]
     }
@@ -154,7 +175,14 @@ exports[`TextField renders as expected when disabled 1`] = `
     placeholder="Placeholder"
     style={
       Array [
-        undefined,
+        Object {
+          "borderColor": "black",
+          "borderRadius": 4,
+          "borderWidth": 1,
+          "fontSize": 16,
+          "padding": 8,
+          "width": "100%",
+        },
         undefined,
       ]
     }
@@ -194,7 +222,14 @@ exports[`TextField renders as expected with error message 1`] = `
     placeholder="Placeholder"
     style={
       Array [
-        undefined,
+        Object {
+          "borderColor": "black",
+          "borderRadius": 4,
+          "borderWidth": 1,
+          "fontSize": 16,
+          "padding": 8,
+          "width": "100%",
+        },
         undefined,
       ]
     }
