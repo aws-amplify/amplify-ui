@@ -7,23 +7,15 @@ export const styles: ErrorMessageStyles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#f5bcbc',
     flexDirection: 'row',
-    height: 50,
-    justifyContent: 'space-between',
-    width: '75%',
+    paddingHorizontal: 4,
+    paddingVertical: 16,
+    width: '100%',
   },
-  iconContainer: {
-    alignItems: 'center',
+  icon: {
+    margin: 4,
+  },
+  label: {
     flex: 1,
-    height: '100%',
-    justifyContent: 'center',
-  },
-  text: {
-    fontSize: 14,
-  },
-  textContainer: {
-    alignItems: 'flex-start',
-    flex: 4,
-    height: '100%',
-    justifyContent: 'center',
+    paddingHorizontal: 4,
   },
 });

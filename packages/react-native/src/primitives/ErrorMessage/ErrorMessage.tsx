@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Text, View } from 'react-native';
 
 import { icons } from '../../assets';
@@ -8,44 +8,26 @@ import { IconButton } from '../IconButton';
 import { ErrorMessageProps } from './types';
 import { styles } from './styles';
 
-export default function Label({
-  accessibilityRole = 'alert',
+export default function ErrorMessage({
   children,
+  labelStyle,
   onDismiss,
   style,
-  textStyle,
   ...rest
-}: ErrorMessageProps): JSX.Element | null {
-  const [dismissed, setDismissed] = useState<boolean>(false);
-
-  const dismissErrorMessage = React.useCallback(() => {
-    setDismissed(!dismissed);
-
-    if (typeof onDismiss === 'function') {
-      onDismiss();
-    }
-  }, [dismissed, setDismissed, onDismiss]);
-
-  return dismissed ? null : (
-    <View
-      {...rest}
-      accessibilityRole={accessibilityRole}
-      style={[styles.container, style]}
-    >
-      <View style={styles.iconContainer}>
-        <Icon source={icons.error} size={20} />
-      </View>
-      <View style={styles.textContainer}>
-        <Text style={[styles.text, textStyle]}>{children}</Text>
-      </View>
-      <View style={styles.iconContainer}>
+}: ErrorMessageProps): JSX.Element {
+  return (
+    <View {...rest} accessibilityRole="alert" style={[styles.container, style]}>
+      <Icon size={20} source={icons.error} style={styles.icon} />
+      <Text style={[styles.label, labelStyle]}>{children}</Text>
+      {onDismiss ? (
         <IconButton
-          source={icons.close}
+          onPress={onDismiss}
           size={20}
-          onPress={dismissErrorMessage}
+          source={icons.close}
+          style={styles.icon}
           testID="dismissButton"
         />
-      </View>
+      ) : null}
     </View>
   );
 }

@@ -1,13 +1,18 @@
-import { StyleProp, TextProps, TextStyle, ViewStyle } from 'react-native';
+import {
+  ImageStyle,
+  StyleProp,
+  TextProps,
+  TextStyle,
+  ViewStyle,
+} from 'react-native';
 
 export interface ErrorMessageProps extends TextProps {
+  labelStyle?: StyleProp<TextStyle>;
   onDismiss?: () => void;
-  textStyle?: StyleProp<TextStyle>;
 }
 
 export interface ErrorMessageStyles {
   container: ViewStyle;
-  iconContainer: ViewStyle;
-  text: TextStyle;
-  textContainer: ViewStyle;
+  icon: StyleProp<ImageStyle>;
+  label: TextStyle;
 }
