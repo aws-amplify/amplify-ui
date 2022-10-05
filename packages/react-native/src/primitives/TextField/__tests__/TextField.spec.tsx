@@ -22,6 +22,7 @@ describe('TextField', () => {
     const textInput = getByPlaceholderText(placeHolderText);
     expect(textInput.props.editable).toBeTruthy();
     expect(textInput.props.secureTextEntry).toBeFalsy();
+    expect(textInput.parent?.props.accessible).toBeTruthy();
     const label = getByText(labelText);
     expect(label).not.toBeNull();
   });
@@ -33,6 +34,10 @@ describe('TextField', () => {
     expect(toJSON()).toMatchSnapshot();
     const textInput = getByPlaceholderText(placeHolderText);
     expect(textInput.props.editable).toBeFalsy();
+    expect(textInput.parent?.props.accessibilityState).toHaveProperty(
+      'disabled',
+      true
+    );
   });
 
   it('renders as expected with error message', async () => {

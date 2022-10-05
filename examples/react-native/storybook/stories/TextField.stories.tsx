@@ -33,7 +33,7 @@ storiesOf('TextField', module)
     <TextField
       containerStyle={styles.container}
       label="Phone"
-      type="phone-pad"
+      keyboardType="phone-pad"
     />
   ))
   .add('with error', () => (

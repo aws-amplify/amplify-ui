@@ -6,7 +6,10 @@ import { styles } from './styles';
 import { TextFieldProps } from './types';
 
 export default function TextField({
+  accessible = true,
   accessibilityLabel,
+  accessibilityRole,
+  accessibilityState,
   containerStyle,
   disabled,
   error,
@@ -26,11 +29,17 @@ export default function TextField({
   );
 
   return (
-    <View style={[inputContainerStyle, containerStyle]}>
+    <View
+      accessible={accessible}
+      accessibilityLabel={accessibilityLabel ?? label}
+      accessibilityRole={accessibilityRole}
+      accessibilityState={{ disabled, ...accessibilityState }}
+      style={[inputContainerStyle, containerStyle]}
+    >
       {label ? <Label style={labelStyle}>{label}</Label> : null}
       <TextInput
         {...rest}
-        accessibilityLabel={accessibilityLabel ?? label}
+        accessible={accessible}
         editable={!disabled}
         style={[styles.input, inputStyle]}
       />

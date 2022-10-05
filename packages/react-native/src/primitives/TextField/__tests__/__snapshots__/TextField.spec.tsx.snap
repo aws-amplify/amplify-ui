@@ -2,6 +2,13 @@
 
 exports[`TextField doesn't render the errorMessage if error prop is false 1`] = `
 <View
+  accessibilityLabel="Label"
+  accessibilityState={
+    Object {
+      "disabled": undefined,
+    }
+  }
+  accessible={true}
   style={
     Array [
       Object {
@@ -27,7 +34,7 @@ exports[`TextField doesn't render the errorMessage if error prop is false 1`] = 
     Label
   </Text>
   <TextInput
-    accessibilityLabel="Label"
+    accessible={true}
     editable={true}
     placeholder="Placeholder"
     style={
@@ -49,6 +56,13 @@ exports[`TextField doesn't render the errorMessage if error prop is false 1`] = 
 
 exports[`TextField renders as expected 1`] = `
 <View
+  accessibilityLabel="Label"
+  accessibilityState={
+    Object {
+      "disabled": undefined,
+    }
+  }
+  accessible={true}
   style={
     Array [
       Object {
@@ -74,7 +88,7 @@ exports[`TextField renders as expected 1`] = `
     Label
   </Text>
   <TextInput
-    accessibilityLabel="Label"
+    accessible={true}
     editable={true}
     placeholder="Placeholder"
     style={
@@ -96,6 +110,13 @@ exports[`TextField renders as expected 1`] = `
 
 exports[`TextField renders as expected as password field 1`] = `
 <View
+  accessibilityLabel="Label"
+  accessibilityState={
+    Object {
+      "disabled": undefined,
+    }
+  }
+  accessible={true}
   style={
     Array [
       Object {
@@ -121,7 +142,7 @@ exports[`TextField renders as expected as password field 1`] = `
     Label
   </Text>
   <TextInput
-    accessibilityLabel="Label"
+    accessible={true}
     editable={true}
     placeholder="Placeholder"
     secureTextEntry={true}
@@ -144,6 +165,13 @@ exports[`TextField renders as expected as password field 1`] = `
 
 exports[`TextField renders as expected when disabled 1`] = `
 <View
+  accessibilityLabel="Label"
+  accessibilityState={
+    Object {
+      "disabled": true,
+    }
+  }
+  accessible={true}
   style={
     Array [
       Object {
@@ -170,7 +198,7 @@ exports[`TextField renders as expected when disabled 1`] = `
     Label
   </Text>
   <TextInput
-    accessibilityLabel="Label"
+    accessible={true}
     editable={false}
     placeholder="Placeholder"
     style={
@@ -192,6 +220,13 @@ exports[`TextField renders as expected when disabled 1`] = `
 
 exports[`TextField renders as expected with error message 1`] = `
 <View
+  accessibilityLabel="Label"
+  accessibilityState={
+    Object {
+      "disabled": undefined,
+    }
+  }
+  accessible={true}
   style={
     Array [
       Object {
@@ -217,7 +252,7 @@ exports[`TextField renders as expected with error message 1`] = `
     Label
   </Text>
   <TextInput
-    accessibilityLabel="Label"
+    accessible={true}
     editable={true}
     placeholder="Placeholder"
     style={
