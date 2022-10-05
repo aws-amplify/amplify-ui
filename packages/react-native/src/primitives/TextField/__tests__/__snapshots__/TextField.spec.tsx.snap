@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TextField doesn't render the errorMessage is error prop is false 1`] = `
+exports[`TextField doesn't render the errorMessage if error prop is false 1`] = `
 <View
   style={
     Array [
@@ -28,20 +28,11 @@ exports[`TextField doesn't render the errorMessage is error prop is false 1`] = 
   </Text>
   <TextInput
     accessibilityLabel="Label"
-    accessible={true}
     editable={true}
-    keyboardType="default"
     placeholder="Placeholder"
     style={
       Array [
-        Object {
-          "borderColor": "black",
-          "borderRadius": 4,
-          "borderWidth": 1,
-          "fontSize": 16,
-          "padding": 8,
-          "width": "100%",
-        },
+        undefined,
         undefined,
       ]
     }
@@ -77,20 +68,11 @@ exports[`TextField renders as expected 1`] = `
   </Text>
   <TextInput
     accessibilityLabel="Label"
-    accessible={true}
     editable={true}
-    keyboardType="default"
     placeholder="Placeholder"
     style={
       Array [
-        Object {
-          "borderColor": "black",
-          "borderRadius": 4,
-          "borderWidth": 1,
-          "fontSize": 16,
-          "padding": 8,
-          "width": "100%",
-        },
+        undefined,
         undefined,
       ]
     }
@@ -126,21 +108,12 @@ exports[`TextField renders as expected as password field 1`] = `
   </Text>
   <TextInput
     accessibilityLabel="Label"
-    accessible={true}
     editable={true}
-    keyboardType="default"
     placeholder="Placeholder"
     secureTextEntry={true}
     style={
       Array [
-        Object {
-          "borderColor": "black",
-          "borderRadius": 4,
-          "borderWidth": 1,
-          "fontSize": 16,
-          "padding": 8,
-          "width": "100%",
-        },
+        undefined,
         undefined,
       ]
     }
@@ -177,20 +150,11 @@ exports[`TextField renders as expected when disabled 1`] = `
   </Text>
   <TextInput
     accessibilityLabel="Label"
-    accessible={true}
     editable={false}
-    keyboardType="default"
     placeholder="Placeholder"
     style={
       Array [
-        Object {
-          "borderColor": "black",
-          "borderRadius": 4,
-          "borderWidth": 1,
-          "fontSize": 16,
-          "padding": 8,
-          "width": "100%",
-        },
+        undefined,
         undefined,
       ]
     }
@@ -226,20 +190,11 @@ exports[`TextField renders as expected with error message 1`] = `
   </Text>
   <TextInput
     accessibilityLabel="Label"
-    accessible={true}
     editable={true}
-    keyboardType="default"
     placeholder="Placeholder"
     style={
       Array [
-        Object {
-          "borderColor": "black",
-          "borderRadius": 4,
-          "borderWidth": 1,
-          "fontSize": 16,
-          "padding": 8,
-          "width": "100%",
-        },
+        undefined,
         undefined,
       ]
     }

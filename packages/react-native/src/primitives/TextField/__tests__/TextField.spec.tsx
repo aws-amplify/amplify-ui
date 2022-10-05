@@ -57,7 +57,7 @@ describe('TextField', () => {
 
   it('renders as expected as password field', async () => {
     const { toJSON, findAllByRole, getByPlaceholderText } = render(
-      <TextField {...defaultProps} password />
+      <TextField {...defaultProps} secureTextEntry />
     );
     expect(toJSON()).toMatchSnapshot();
 

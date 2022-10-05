@@ -1,16 +1,10 @@
-import {
-  KeyboardTypeOptions,
-  StyleProp,
-  TextInputProps,
-  TextStyle,
-  ViewStyle,
-} from 'react-native';
+import { StyleProp, TextInputProps, TextStyle, ViewStyle } from 'react-native';
 import { LabelProps } from '../Label/types';
 
-export interface TextFieldProps extends TextInputProps {
+export interface TextFieldProps extends Omit<TextInputProps, 'editable'> {
   /**
    * @description
-   * styling for TextField container
+   * Styling for TextField container
    */
   containerStyle?: StyleProp<ViewStyle>;
 
@@ -46,31 +40,19 @@ export interface TextFieldProps extends TextInputProps {
 
   /**
    * @description
-   * Styling for TextField label
+   * Styling for the label
    */
   labelStyle?: LabelProps['style'];
 
   /**
    * @description
-   * Indicates whether to mask the text
+   * Styling for the input
    */
-  password?: boolean;
-
-  /**
-   * @description
-   * Styling for TextField component
-   */
-  textStyle?: StyleProp<TextStyle>;
-
-  /**
-   * @description
-   * Determines which keyboard to open: default or phone number.
-   */
-  type?: Extract<KeyboardTypeOptions, 'default' | 'phone-pad'>;
+  inputStyle?: StyleProp<TextStyle>;
 }
 
 export interface TextFieldStyles {
   container: ViewStyle;
-  text: TextStyle;
+  input: TextStyle;
   disabled: ViewStyle;
 }

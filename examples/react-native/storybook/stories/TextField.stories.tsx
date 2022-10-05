@@ -23,7 +23,11 @@ storiesOf('TextField', module)
     <TextField containerStyle={styles.container} label="Test" />
   ))
   .add('password', () => (
-    <TextField containerStyle={styles.container} label="Password" password />
+    <TextField
+      containerStyle={styles.container}
+      label="Password"
+      secureTextEntry
+    />
   ))
   .add('phone', () => (
     <TextField

@@ -14,9 +14,7 @@ export default function TextField({
   errorMessageStyle,
   label,
   labelStyle,
-  password,
-  textStyle,
-  type = 'default',
+  inputStyle,
   ...rest
 }: TextFieldProps): JSX.Element {
   const inputContainerStyle: ViewStyle = useMemo(
@@ -31,13 +29,10 @@ export default function TextField({
     <View style={[inputContainerStyle, containerStyle]}>
       {label ? <Label style={labelStyle}>{label}</Label> : null}
       <TextInput
-        accessible
-        accessibilityLabel={accessibilityLabel ?? label}
-        style={[styles.text, textStyle]}
-        editable={!disabled}
-        secureTextEntry={password}
-        keyboardType={type}
         {...rest}
+        accessibilityLabel={accessibilityLabel ?? label}
+        editable={!disabled}
+        style={[styles.input, inputStyle]}
       />
       {error ? <Label style={errorMessageStyle}>{errorMessage}</Label> : null}
     </View>
