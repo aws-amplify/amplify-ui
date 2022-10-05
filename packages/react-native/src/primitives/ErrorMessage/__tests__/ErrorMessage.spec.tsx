@@ -1,34 +1,52 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
 import ErrorMessage from '../ErrorMessage';
+import { Text, View } from 'react-native';
+
+const OnDismissExample = ({
+  customOnDismiss,
+}: {
+  customOnDismiss: jest.Mock<any, any>;
+}) => {
+  const [dismissed, setDismissed] = useState(false);
+
+  const handleOnDismiss = () => {
+    customOnDismiss();
+    setDismissed(!dismissed);
+  };
+
+  return (
+    <View>
+      {dismissed ? (
+        <Text>ErrorMessage dismissed</Text>
+      ) : (
+        <ErrorMessage onDismiss={handleOnDismiss}>
+          Test onDismiss handler
+        </ErrorMessage>
+      )}
+    </View>
+  );
+};
 
 describe('ErrorMessage', () => {
   it('renders default ErrorMessage as expected', () => {
-    const { toJSON } = render(
+    const { toJSON, queryByTestId } = render(
       <ErrorMessage>Default ErrorMessage</ErrorMessage>
     );
     expect(toJSON()).toMatchSnapshot();
+    expect(queryByTestId('rn-amplify-errorMessage-dismissButton')).toBeFalsy();
   });
 
   it('handles an onDismiss callback', () => {
     const customOnDismiss = jest.fn();
     const { queryByRole, getByTestId } = render(
-      <ErrorMessage onDismiss={customOnDismiss}>
-        Test onDismiss handler
-      </ErrorMessage>
+      <OnDismissExample customOnDismiss={customOnDismiss} />
     );
 
-    const dismissButton = getByTestId('dismissButton');
+    const dismissButton = getByTestId('rn-amplify-errorMessage-dismissButton');
     fireEvent.press(dismissButton);
+
     expect(customOnDismiss).toHaveBeenCalledTimes(1);
-
     expect(queryByRole('alert')).toBeFalsy();
-  });
-
-  it('renders as expected with accessibilityRole', () => {
-    const { toJSON } = render(
-      <ErrorMessage accessibilityRole="none"></ErrorMessage>
-    );
-    expect(toJSON()).toMatchSnapshot();
   });
 });

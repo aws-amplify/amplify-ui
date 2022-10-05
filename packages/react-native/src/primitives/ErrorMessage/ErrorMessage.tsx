@@ -25,7 +25,7 @@ export default function ErrorMessage({
           size={20}
           source={icons.close}
           style={styles.icon}
-          testID="dismissButton"
+          testID="rn-amplify-errorMessage-dismissButton"
         />
       ) : null}
     </View>
