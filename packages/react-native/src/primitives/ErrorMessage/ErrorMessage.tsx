@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, View } from 'react-native';
 import { ErrorMessageProps } from './types';
 import { styles } from './styles';
 import { Icon } from '../Icon';
 import { icons } from '../../assets';
+import { IconButton } from '../IconButton';
 
 export default function Label({
   accessibilityRole = 'alert',
@@ -11,11 +12,12 @@ export default function Label({
   // style,
   ...rest
 }: ErrorMessageProps): JSX.Element {
+  const [dismissed, setDismissed] = useState<boolean>(false);
+
   return (
     <View style={styles.container}>
       <View style={styles.errorIconContainer}>
-        {/* <Icon source={icons.error} size={20} /> */}
-        <Text>!</Text>
+        <Icon source={icons.error} size={20} />
       </View>
       {/* ErrorIcon */}
       <View style={styles.textContainer}>
@@ -25,11 +27,16 @@ export default function Label({
           style={styles.text}
         >
           {children}
+          {dismissed ? 'dismissed' : 'not dismissed'}
         </Text>
       </View>
       {/* Dismiss IconButton */}
       <View style={styles.dismissButtonContainer}>
-        <Icon source={icons.close} size={20} />
+        <IconButton
+          source={icons.close}
+          size={20}
+          onPress={() => setDismissed(!dismissed)}
+        />
       </View>
     </View>
   );
