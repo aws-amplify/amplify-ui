@@ -13,6 +13,7 @@ export default function Label({
   children,
   onDismiss,
   style,
+  textStyle,
   ...rest
 }: ErrorMessageProps): JSX.Element | null {
   const [dismissed, setDismissed] = useState<boolean>(false);
@@ -35,7 +36,7 @@ export default function Label({
         <Icon source={icons.error} size={20} />
       </View>
       <View style={styles.textContainer}>
-        <Text style={styles.text}>{children}</Text>
+        <Text style={[styles.text, textStyle]}>{children}</Text>
       </View>
       <View style={styles.iconContainer}>
         <IconButton
