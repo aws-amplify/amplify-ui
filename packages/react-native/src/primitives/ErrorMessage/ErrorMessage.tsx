@@ -2,6 +2,8 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import { ErrorMessageProps } from './types';
 import { styles } from './styles';
+import { Icon } from '../Icon';
+import { icons } from '../../assets';
 
 export default function Label({
   accessibilityRole = 'alert',
@@ -12,6 +14,7 @@ export default function Label({
   return (
     <View style={styles.container}>
       <View style={styles.errorIconContainer}>
+        {/* <Icon source={icons.error} size={20} /> */}
         <Text>!</Text>
       </View>
       {/* ErrorIcon */}
@@ -26,7 +29,7 @@ export default function Label({
       </View>
       {/* Dismiss IconButton */}
       <View style={styles.dismissButtonContainer}>
-        <Text>X</Text>
+        <Icon source={icons.close} size={20} />
       </View>
     </View>
   );
