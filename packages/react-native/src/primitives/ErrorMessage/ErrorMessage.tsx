@@ -43,6 +43,7 @@ export default function Label({
           source={icons.close}
           size={20}
           onPress={dismissErrorMessage}
+          testID="dismissButton"
         />
       </View>
     </View>
