@@ -21,7 +21,7 @@ export async function getStaticProps() {
 }
 
 <Fragment useCommonWebContent>
-  {({ platform }) => import(`./intro.${platform}.mdx`)}
+  {({ platform }) => platform !== 'react-native' ? import(`./intro.${platform}.mdx`) : Promise.resolve(() => null)}
 </Fragment>
 
 ## Quick start
@@ -29,19 +29,19 @@ export async function getStaticProps() {
 ### 1. Configure backend
 
 <Fragment useCommonWebContent>
-  {({ platform }) => import(`./quick-start-pull.${platform}.mdx`)}
+  {({ platform }) => platform !== 'react-native' ? import(`./quick-start-pull.${platform}.mdx`) : Promise.resolve(() => null)}
 </Fragment>
 
 ### 2. Install dependencies
 
 <Fragment useCommonWebContent>
-  {({ platform }) => import(`./quick-start-install.${platform}.mdx`)}
+  {({ platform }) => platform !== 'react-native' ? import(`./quick-start-install.${platform}.mdx`) : Promise.resolve(() => null)}
 </Fragment>
 
 ### 3. Add the Authenticator
 
 <Fragment useCommonWebContent>
-  {({ platform }) => import(`./quick-start-add.${platform}.mdx`)}
+  {({ platform }) => platform !== 'react-native' ? import(`./quick-start-add.${platform}.mdx`) : Promise.resolve(() => null)}
 </Fragment>
 
 <Fragment useCommonWebContent platforms={['web']}>

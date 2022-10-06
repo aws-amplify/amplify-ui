@@ -38,19 +38,19 @@ export async function getStaticProps() {
 ## Internationalization (I18n)
 
 <Fragment useCommonWebContent>
-  {({ platform }) => import(`./customization.i18n.${platform}.mdx`)}
+  {({ platform }) => platform !== 'react-native' ? import(`./customization.i18n.${platform}.mdx`) : Promise.resolve(() => null)}
 </Fragment>
 
 ## Labels & Text
 
 <Fragment useCommonWebContent>
-  {({ platform }) => import(`./customization.labels-and-text.${platform}.mdx`)}
+  {({ platform }) => platform !== 'react-native' ? import(`./customization.labels-and-text.${platform}.mdx`) : Promise.resolve(() => null)}
 </Fragment>
 
 ## Sign Up Fields
 
 <Fragment useCommonWebContent>
-  {({ platform }) => import(`./sign-up-fields.${platform}.mdx`)}
+  {({ platform }) => platform !== 'react-native' ? import(`./sign-up-fields.${platform}.mdx`) : Promise.resolve(() => null)}
 </Fragment>
 
 ## Force New Password Fields
@@ -61,7 +61,7 @@ The following example customizes the Force New Password screen by:
 - Appending a custom "Zone Info" text field
 
 <Fragment>
-  {({ platform }) => import(`./force-new-password-fields.${platform}.mdx`)}
+  {({ platform }) => platform !== 'react-native' ? import(`./force-new-password-fields.${platform}.mdx`) : Promise.resolve(() => null)}
 </Fragment>
 
 <Fragment useCommonWebContent platforms={['web']}>
@@ -69,7 +69,7 @@ The following example customizes the Force New Password screen by:
 </Fragment>
 
 <Fragment useCommonWebContent>
-  {({ platform }) => import(`./customization.styling.${platform}.mdx`)}
+  {({ platform }) => platform !== 'react-native' ? import(`./customization.styling.${platform}.mdx`) : Promise.resolve(() => null)}
 </Fragment>
 
 <Fragment platforms={['flutter']}>

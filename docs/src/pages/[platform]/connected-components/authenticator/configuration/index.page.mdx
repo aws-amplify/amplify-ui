@@ -31,11 +31,13 @@ By default, unauthenticated users are redirected to the Sign In flow. You can ex
 <Tabs>
   <TabItem title="Sign In">
     <Fragment>
-      {({ platform }) => import(`./initialState.signIn.${platform}.mdx`)}
+      {({ platform }) => 
+        platform !== 'react-native' ? import(`./initialState.signIn.${platform}.mdx`) : Promise.resolve(() => null)
+      }
     </Fragment>
     <Fragment useCommonWebContent>
       {({ platform }) =>
-        import(`./initialState.signIn.example.${platform}.mdx`)
+        platform !== 'react-native' ? import(`./initialState.signIn.example.${platform}.mdx`) : Promise.resolve(() => null)
       }
     </Fragment>
   </TabItem>
@@ -45,7 +47,7 @@ By default, unauthenticated users are redirected to the Sign In flow. You can ex
     </Fragment>
     <Fragment useCommonWebContent>
       {({ platform }) =>
-        import(`./initialState.signUp.example.${platform}.mdx`)
+        platform !== 'react-native' ? import(`./initialState.signUp.example.${platform}.mdx`) : Promise.resolve(() => null)
       }
     </Fragment>
   </TabItem>
@@ -55,7 +57,7 @@ By default, unauthenticated users are redirected to the Sign In flow. You can ex
     </Fragment>
     <Fragment useCommonWebContent>
       {({ platform }) =>
-        import(`./initialState.resetPassword.example.${platform}.mdx`)
+        platform !== 'react-native' ? import(`./initialState.resetPassword.example.${platform}.mdx`) : Promise.resolve(() => null)
       }
     </Fragment>
   </TabItem>
@@ -64,7 +66,7 @@ By default, unauthenticated users are redirected to the Sign In flow. You can ex
 ## Login Mechanisms
 
 <Fragment useCommonWebContent>
-  {({ platform }) => import(`./loginMechanisms.${platform}.mdx`)}
+  {({ platform }) => platform !== 'react-native' ? import(`./loginMechanisms.${platform}.mdx`) : Promise.resolve(() => null)}
 </Fragment>
 
 ## Sign Up Attributes
@@ -84,11 +86,11 @@ with the exception of `address`, `gender`, `locale`, `picture`, `updated_at`, an
     By default, the Authenticator will still require any attributes required for
     verification, such as `email`, _even if `signUpAttributes` is empty_:
     <Fragment>
-      {({ platform }) => import(`./signUpAttributes.default.${platform}.mdx`)}
+      {({ platform }) => platform !== 'react-native' ? import(`./signUpAttributes.default.${platform}.mdx`) : Promise.resolve(() => null)}
     </Fragment>
     <Fragment useCommonWebContent>
       {({ platform }) =>
-        import(`./signUpAttributes.default.example.${platform}.mdx`)
+        platform !== 'react-native' ? import(`./signUpAttributes.default.example.${platform}.mdx`) : Promise.resolve(() => null)
       }
     </Fragment>
   </TabItem>
@@ -98,7 +100,7 @@ with the exception of `address`, `gender`, `locale`, `picture`, `updated_at`, an
     </Fragment>
     <Fragment useCommonWebContent>
       {({ platform }) =>
-        import(`./signUpAttributes.all.example.${platform}.mdx`)
+        platform !== 'react-native' ? import(`./signUpAttributes.all.example.${platform}.mdx`) : Promise.resolve(() => null)
       }
     </Fragment>
   </TabItem>
@@ -107,7 +109,7 @@ with the exception of `address`, `gender`, `locale`, `picture`, `updated_at`, an
 ## Social Providers
 
 <Fragment useCommonWebContent>
-  {({ platform }) => import(`./socialProviders.${platform}.mdx`)}
+  {({ platform }) => platform !== 'react-native' ? import(`./socialProviders.${platform}.mdx`) : Promise.resolve(() => null)}
 </Fragment>
 
 <Fragment useCommonWebContent platforms={['web']}>

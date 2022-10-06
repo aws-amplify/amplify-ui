@@ -21,5 +21,5 @@ export async function getStaticProps() {
 }
 
 <Fragment useCommonWebContent>
-  {({ platform }) => import(`./guide.${platform}.mdx`)}
+  {({ platform }) => platform !== 'react-native' ? import(`./guide.${platform}.mdx`) : Promise.resolve(() => null)}
 </Fragment>

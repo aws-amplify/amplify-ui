@@ -18,4 +18,4 @@ export async function getStaticProps() {
   return { props: {} }
 }
 
-<Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+<Fragment>{({ platform }) => platform !== 'react-native' ? import(`./${platform}.mdx`) : Promise.resolve(() => null)}</Fragment>
