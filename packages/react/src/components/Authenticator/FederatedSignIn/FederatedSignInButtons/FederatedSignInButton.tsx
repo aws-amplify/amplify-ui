@@ -102,7 +102,7 @@ export const FederatedSignInButton = (
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
     event.preventDefault();
 
-    toFederatedSignIn({ data: { provider } });
+    toFederatedSignIn({ provider });
   };
 
   let iconComponent;
