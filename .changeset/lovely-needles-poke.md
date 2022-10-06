@@ -3,4 +3,4 @@
 '@aws-amplify/ui-react-core': major
 ---
 
-Remove useAuthenticator internal variables \_state and \_send
+Remove useAuthenticator internal variables `_state` and `_send` (See #2685)
