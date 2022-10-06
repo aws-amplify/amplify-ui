@@ -22,7 +22,7 @@ const ControlledRadioGroup = ({ ...props }: any) => {
 };
 
 const CustomRadioGroup = ({ ...props }: any) => {
-  const [value, setValue] = useState<string>('green');
+  const [value, setValue] = useState('green');
   const onChange = (nextValue: string) => {
     setValue(nextValue);
   };
@@ -47,11 +47,14 @@ const CustomRadioGroup = ({ ...props }: any) => {
 
 storiesOf('RadioGroup', module)
   .add('default', () => <ControlledRadioGroup label="Basic RadioGroup" />)
-  .add('defaultValue', () => (
-    <ControlledRadioGroup label="Default value" defaultValue="option-2" />
+  .add('controlled', () => (
+    <ControlledRadioGroup label="Defaults to Option 2" value="option-2" />
   ))
   .add('direction', () => (
-    <ControlledRadioGroup label="Horizontal" direction="horizontal" />
+    <>
+      <ControlledRadioGroup label="Horizontal" direction="horizontal" />
+      <ControlledRadioGroup label="Vertical" direction="vertical" />
+    </>
   ))
   .add('disabled', () => (
     <ControlledRadioGroup label="All options should be disabled" disabled />
