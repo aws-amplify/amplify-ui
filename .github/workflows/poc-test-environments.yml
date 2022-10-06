@@ -9,7 +9,7 @@ concurrency:
 
 on:
   pull_request:
-    branches: [split-environments/main]
+    branches: [split-environments/main, split-environments/update-workflows]
     types: [opened, synchronize, labeled]
 
 permissions:
