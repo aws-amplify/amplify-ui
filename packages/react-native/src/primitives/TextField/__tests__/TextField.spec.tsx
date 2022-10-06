@@ -23,7 +23,7 @@ describe('TextField', () => {
     expect(await findAllByRole('text')).toHaveLength(1);
     const textInput = getByTestId(testID);
     expect(textInput.props.editable).toBe(true);
-    expect(textInput.props.secureTextEntry).toBeFalsy();
+    expect(textInput.props.secureTextEntry).toBe(undefined);
     expect(textInput.props.accessible).toBe(true);
     const label = getByText(labelText);
     expect(label).not.toBeNull();
@@ -35,7 +35,7 @@ describe('TextField', () => {
     );
     expect(toJSON()).toMatchSnapshot();
     const textInput = getByPlaceholderText(placeHolderText);
-    expect(textInput.props.editable).toBeFalsy();
+    expect(textInput.props.editable).toBe(false);
     expect(textInput.parent?.props.accessibilityState).toHaveProperty(
       'disabled',
       true
@@ -59,7 +59,16 @@ describe('TextField', () => {
       <TextField {...defaultProps} errorMessage={message} />
     );
     expect(toJSON()).toMatchSnapshot();
-    expect(queryByText(message)).toBeFalsy();
+    expect(queryByText(message)).toBeNull();
+  });
+
+  it(`doesn't render the errorMessage if errorMessage prop is undefined`, () => {
+    const message = 'Error message';
+    const { toJSON, queryByText } = render(
+      <TextField {...defaultProps} error />
+    );
+    expect(toJSON()).toMatchSnapshot();
+    expect(queryByText(message)).toBeNull();
   });
 
   it('renders as expected as password field', async () => {

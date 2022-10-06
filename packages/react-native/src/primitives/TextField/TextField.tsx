@@ -43,7 +43,9 @@ export default function TextField({
         editable={!disabled}
         style={[styles.input, inputStyle]}
       />
-      {error ? <Label style={errorMessageStyle}>{errorMessage}</Label> : null}
+      {error && errorMessage ? (
+        <Label style={errorMessageStyle}>{errorMessage}</Label>
+      ) : null}
     </View>
   );
 }
