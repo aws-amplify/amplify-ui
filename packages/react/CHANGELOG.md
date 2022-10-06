@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react
 
+## 3.5.7
+
+### Patch Changes
+
+- [#2697](https://github.com/aws-amplify/amplify-ui/pull/2697) [`d1e40ad5a`](https://github.com/aws-amplify/amplify-ui/commit/d1e40ad5a82e7d4e6cfdb59a673fdaee8538e3b0) Thanks [@dehli](https://github.com/dehli)! - fix `federatedSignIn` bug
+
 ## 3.5.6
 
 ### Patch Changes
