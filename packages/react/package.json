@@ -72,7 +72,8 @@
     "qrcode": "1.5.0",
     "react-generate-context": "1.0.1",
     "react-map-gl": "7.0.15",
-    "tslib": "2.4.0"
+    "tslib": "2.4.0",
+    "xstate": "^4.33.6"
   },
   "peerDependencies": {
     "aws-amplify": "3.x.x || 4.x.x",
