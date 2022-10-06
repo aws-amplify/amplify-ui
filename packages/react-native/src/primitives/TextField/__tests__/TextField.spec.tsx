@@ -4,7 +4,7 @@ import TextField from '../TextField';
 
 const placeHolderText = 'Placeholder';
 const labelText = 'Label';
-const testID = 'textField';
+const testID = 'textInput';
 const defaultProps = {
   testID: testID,
   label: labelText,
@@ -15,16 +15,16 @@ const onChangeText = jest.fn();
 
 describe('TextField', () => {
   it('renders as expected', async () => {
-    const { toJSON, findAllByRole, getByPlaceholderText, getByText } = render(
+    const { toJSON, findAllByRole, getByTestId, getByText } = render(
       <TextField {...defaultProps} />
     );
     expect(toJSON()).toMatchSnapshot();
 
     expect(await findAllByRole('text')).toHaveLength(1);
-    const textInput = getByPlaceholderText(placeHolderText);
-    expect(textInput.props.editable).toBeTruthy();
+    const textInput = getByTestId(testID);
+    expect(textInput.props.editable).toBe(true);
     expect(textInput.props.secureTextEntry).toBeFalsy();
-    expect(textInput.parent?.props.accessible).toBeTruthy();
+    expect(textInput.props.accessible).toBe(true);
     const label = getByText(labelText);
     expect(label).not.toBeNull();
   });
@@ -36,7 +36,8 @@ describe('TextField', () => {
     expect(toJSON()).toMatchSnapshot();
     const textInput = getByPlaceholderText(placeHolderText);
     expect(textInput.props.editable).toBeFalsy();
-    expect(textInput.parent?.props.accessibilityState).toHaveProperty(
+    expect(textInput.parent).not.toBeNull();
+    expect(textInput.parent.props.accessibilityState).toHaveProperty(
       'disabled',
       true
     );
@@ -70,7 +71,7 @@ describe('TextField', () => {
 
     expect(await findAllByRole('text')).toHaveLength(1);
     const textInput = getByTestId(testID);
-    expect(textInput.props.secureTextEntry).toBeTruthy();
+    expect(textInput.props.secureTextEntry).toBe(true);
   });
 
   it('does nothing when disabled', () => {

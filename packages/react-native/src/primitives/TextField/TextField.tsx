@@ -6,18 +6,18 @@ import { styles } from './styles';
 import { TextFieldProps } from './types';
 
 export default function TextField({
-  accessible = true,
   accessibilityLabel,
   accessibilityRole,
   accessibilityState,
+  accessible = true,
   containerStyle,
   disabled,
   error,
   errorMessage,
   errorMessageStyle,
+  inputStyle,
   label,
   labelStyle,
-  inputStyle,
   ...rest
 }: TextFieldProps): JSX.Element {
   const inputContainerStyle: ViewStyle = useMemo(
