@@ -11,7 +11,6 @@ import { RadioGroupProps } from './types';
 export default function RadioGroup<T>({
   accessibilityRole = 'radiogroup',
   children,
-  defaultValue,
   direction = 'vertical',
   disabled,
   label,
@@ -25,7 +24,7 @@ export default function RadioGroup<T>({
 }: RadioGroupProps<T>): JSX.Element {
   const containerStyle: ViewStyle = useMemo(
     () => ({
-      ...style,
+      style,
       flexDirection: getFlexDirectionFromLabelPosition(labelPosition),
     }),
     [labelPosition, style]
@@ -48,8 +47,7 @@ export default function RadioGroup<T>({
             } = child.props;
             const isChildDisabled =
               typeof childDisabled === 'boolean' ? childDisabled : disabled;
-            const isChildSelected =
-              childValue === value || (!value && childValue === defaultValue);
+            const isChildSelected = childValue === value;
 
             return cloneElement<RadioProps<T>>(child, {
               disabled: isChildDisabled,

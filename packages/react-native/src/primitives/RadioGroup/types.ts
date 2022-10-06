@@ -1,4 +1,4 @@
-import { TextStyle, ViewStyle, ViewProps } from 'react-native';
+import { TextStyle, ViewProps } from 'react-native';
 import { RadioProps } from '../Radio';
 
 export type Direction = 'vertical' | 'horizontal';
@@ -17,9 +17,7 @@ export interface RadioGroupProps<T>
     >,
     ViewProps {
   children: React.ReactElement<RadioProps<T>>[];
-  defaultValue?: T;
   direction?: Direction;
-  style?: ViewStyle;
 }
 
 export interface RadioGroupStyles {
