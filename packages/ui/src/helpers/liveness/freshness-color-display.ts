@@ -15,13 +15,17 @@ export class FreshnessColorDisplay {
   private freshnessColorsSequence: ClientFreshnessColorSequence[]; // Array of color sequence from Rekognition
   private context: LivenessContext;
 
-  private colorStageIndex: number; // current stage of color scrolling (black flat, red scrolling)
+  private stageIndex: number; // current stage of color scrolling (black flat, red scrolling, etc)
+  private currColorIndex: number; // current index of the colorSequence array that we are in
+  private currColorSequence: ClientFreshnessColorSequence; // the current color sequence used for flat display and the prev color when scrolling
+  private nextColorSequence: ClientFreshnessColorSequence; // the next color, during flat display curr === next and during scroll it is the next indexed color
   private isScrolling: boolean;
   private timeLastFlatOrScrollChange: number;
   private expectedCallTime: number; // the next time the self adjusting interval is expected to be called
   private drift: number; // the last time difference between the actual call time and expected call time
   private timeFaceMatched: number;
   private timeLastFaceMatchChecked: number;
+  private isFirstTick: boolean;
 
   constructor(
     context: LivenessContext,
@@ -29,17 +33,20 @@ export class FreshnessColorDisplay {
   ) {
     this.context = context;
     this.freshnessColorsSequence = freshnessColorsSequence;
-
     this.init();
   }
 
   private init(): void {
-    this.colorStageIndex = 0;
+    this.stageIndex = 0;
+    this.currColorIndex = 0;
+    this.currColorSequence = this.freshnessColorsSequence[0];
+    this.nextColorSequence = this.freshnessColorsSequence[0];
     this.isScrolling = false;
     this.timeLastFlatOrScrollChange = Date.now();
     this.expectedCallTime = Date.now() + TICK_RATE;
     this.drift = 0;
     this.timeLastFaceMatchChecked = Date.now();
+    this.isFirstTick = true;
   }
 
   public async displayColorTick(): Promise<any> {
@@ -68,65 +75,62 @@ export class FreshnessColorDisplay {
     // This helper function only runs every 100ms
     await this.matchFaceInOval(reject);
 
-    const colorSequence = this.freshnessColorsSequence[this.colorStageIndex];
-    const nextColorSequence =
-      this.freshnessColorsSequence[this.colorStageIndex + 1];
-
     // Every 10 ms tick we will check if we have reached the threshold for show a flat color
     //  If we have then we will start scrolling the next color
     //  If we have we have reached the threshold for a scrolling color then increment the index and show a flat color
     if (!this.isScrolling) {
       // Send a colorStart time only for the first tick of the first color
-      if (this.colorStageIndex === 0 && timeSinceLastColorChange < 20) {
+      if (this.isFirstTick) {
+        this.isFirstTick = false;
         this.sendColorStartTime(
           tickStartTime,
-          colorSequence.color,
-          colorSequence.color,
-          this.colorStageIndex
+          this.currColorSequence.color,
+          this.currColorSequence.color,
+          this.stageIndex
         );
       }
 
-      if (timeSinceLastColorChange >= colorSequence.flatDisplayDuration) {
+      if (
+        timeSinceLastColorChange >= this.currColorSequence.flatDisplayDuration
+      ) {
         this.isScrolling = true;
+        this.incrementStageIndex();
         this.timeLastFlatOrScrollChange = Date.now();
         this.sendColorStartTime(
           tickStartTime,
-          nextColorSequence.color,
-          colorSequence.color,
-          this.colorStageIndex + 1
+          this.nextColorSequence.color,
+          this.currColorSequence.color,
+          this.stageIndex
         );
       }
     } else {
-      if (timeSinceLastColorChange >= nextColorSequence.downscrollDuration) {
+      if (
+        timeSinceLastColorChange >= this.nextColorSequence.downscrollDuration
+      ) {
         this.isScrolling = false;
-        this.colorStageIndex += 1;
+        this.incrementStageIndex();
         this.timeLastFlatOrScrollChange = Date.now();
         this.sendColorStartTime(
           tickStartTime,
-          nextColorSequence.color,
-          nextColorSequence.color,
-          this.colorStageIndex
+          this.nextColorSequence.color,
+          this.nextColorSequence.color,
+          this.stageIndex
         );
       }
     }
 
     // Every 10 ms tick we will update the colors displayed
-    if (this.colorStageIndex < this.freshnessColorsSequence.length - 1) {
+    if (this.currColorIndex < this.freshnessColorsSequence.length - 1) {
       const heightFraction =
         timeSinceLastColorChange /
         (this.isScrolling
-          ? nextColorSequence.downscrollDuration
-          : colorSequence.flatDisplayDuration);
-
-      const prevColor = colorSequence.color;
-      const nextColor = this.isScrolling
-        ? nextColorSequence.color
-        : colorSequence.color;
+          ? this.nextColorSequence.downscrollDuration
+          : this.currColorSequence.flatDisplayDuration);
 
       fillOverlayCanvasFractional({
         overlayCanvas: freshnessColorEl,
-        prevColor,
-        nextColor,
+        prevColor: this.currColorSequence.color,
+        nextColor: this.nextColorSequence.color,
         ovalCanvas: canvasEl,
         ovalDetails,
         heightFraction,
@@ -138,6 +142,21 @@ export class FreshnessColorDisplay {
       freshnessColorEl.hidden = true;
       resolve(true);
     }
+  }
+
+  // flat stage even, scroll stage odd
+  // 0 curr = 0, next = 0
+  // 1 curr = 0, next = 1
+  // 2 curr = 1, next = 1
+  // 3 curr = 1, next = 2
+  // 4 curr = 2, next = 2
+  // 5 curr = 2, next = 3
+  private incrementStageIndex() {
+    this.stageIndex += 1;
+    this.currColorIndex = Math.floor(this.stageIndex / 2);
+    this.currColorSequence = this.freshnessColorsSequence[this.currColorIndex];
+    this.nextColorSequence =
+      this.freshnessColorsSequence[this.stageIndex - this.currColorIndex];
   }
 
   // Every 100 ms we  will check if the face is still in the oval

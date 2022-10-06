@@ -1,4 +1,10 @@
-import { LivenessFlow, Button, Card, Flex, View } from '@aws-amplify/ui-react';
+import {
+  FaceLivenessDetector,
+  Button,
+  Card,
+  Flex,
+  View,
+} from '@aws-amplify/ui-react';
 import { useLiveness } from './useLiveness';
 import { SessionIdAlert } from './SessionIdAlert';
 import { GetLivenessResultCard } from './GetLivenessResultCard';
@@ -37,7 +43,7 @@ export default function LivenessCard() {
             maxWidth="100%"
             padding="unset"
           >
-            <LivenessFlow
+            <FaceLivenessDetector
               sessionId={createLivenessSessionApiData.sessionId}
               onGetLivenessDetection={handleGetLivenessDetection}
               onUserCancel={handleUserExit}

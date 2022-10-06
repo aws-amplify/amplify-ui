@@ -1,1 +1,1 @@
-export * from './LivenessFlowProvider';
+export * from './FaceLivenessDetectorProvider';

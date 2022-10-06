@@ -87,7 +87,7 @@ export const mockContext = (): LivenessContext => {
     challengeId: 'foobar',
     maxFailedAttempts: 3,
     failedAttempts: 0,
-    flowProps: {
+    componentProps: {
       sessionId: 'foobar',
       onGetLivenessDetection: jest.fn(),
     },

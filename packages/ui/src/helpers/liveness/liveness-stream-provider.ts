@@ -16,8 +16,9 @@ export interface StartLivenessStreamOutput {
 }
 
 const ENDPOINT =
+  process.env.NEXT_PUBLIC_STREAMING_API_URL ||
   'wss://streaming-rekognition-gamma.us-east-1.amazonaws.com:443';
-const REGION = 'us-east-1';
+const REGION = process.env.NEXT_PUBLIC_BACKEND_API_REGION || 'us-east-1';
 
 export interface Credentials {
   accessKeyId: string;

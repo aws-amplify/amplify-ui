@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { LivenessFlowProps } from '@aws-amplify/ui-react';
+import { FaceLivenessDetectorProps } from '@aws-amplify/ui-react';
 import { API } from 'aws-amplify';
 import useSWR from 'swr';
 
@@ -42,7 +42,7 @@ export function useLiveness() {
     mutate();
   };
 
-  const handleGetLivenessDetection: LivenessFlowProps['onGetLivenessDetection'] =
+  const handleGetLivenessDetection: FaceLivenessDetectorProps['onGetLivenessDetection'] =
     async (sessionId) => {
       const response = await API.get(
         'SampleBackend',

@@ -1,7 +1,7 @@
 /**
- * The props for the LivenessFlow
+ * The props for the FaceLivenessDetector
  */
-export interface LivenessFlowProps {
+export interface FaceLivenessDetectorProps {
   /**
    * The sessionId as returned by CreateStreamingLivenessSession API
    */
