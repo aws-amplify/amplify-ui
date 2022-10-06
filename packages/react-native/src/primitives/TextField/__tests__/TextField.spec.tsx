@@ -23,7 +23,7 @@ describe('TextField', () => {
     expect(await findAllByRole('text')).toHaveLength(1);
     const textInput = getByTestId(testID);
     expect(textInput.props.editable).toBe(true);
-    expect(textInput.props.secureTextEntry).toBe(undefined);
+    expect(textInput.props.secureTextEntry).toBeUndefined();
     expect(textInput.props.accessible).toBe(true);
     const label = getByText(labelText);
     expect(label).not.toBeNull();
