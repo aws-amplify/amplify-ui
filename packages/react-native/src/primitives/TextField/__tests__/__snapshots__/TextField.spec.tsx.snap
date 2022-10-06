@@ -1,0 +1,348 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TextField doesn't render the errorMessage if error prop is false 1`] = `
+<View
+  accessibilityLabel="Label"
+  accessibilityState={
+    Object {
+      "disabled": undefined,
+    }
+  }
+  accessible={true}
+  style={
+    Array [
+      Object {
+        "alignItems": "flex-start",
+      },
+      undefined,
+    ]
+  }
+>
+  <Text
+    accessibilityRole="text"
+    style={
+      Array [
+        Object {
+          "fontSize": 16,
+          "marginHorizontal": 4,
+          "marginVertical": 2,
+        },
+        undefined,
+      ]
+    }
+  >
+    Label
+  </Text>
+  <TextInput
+    accessible={true}
+    editable={true}
+    placeholder="Placeholder"
+    style={
+      Array [
+        Object {
+          "borderColor": "black",
+          "borderRadius": 4,
+          "borderWidth": 1,
+          "fontSize": 16,
+          "padding": 8,
+          "width": "100%",
+        },
+        undefined,
+      ]
+    }
+    testID="textInput"
+  />
+</View>
+`;
+
+exports[`TextField doesn't render the errorMessage if errorMessage prop is undefined 1`] = `
+<View
+  accessibilityLabel="Label"
+  accessibilityState={
+    Object {
+      "disabled": undefined,
+    }
+  }
+  accessible={true}
+  style={
+    Array [
+      Object {
+        "alignItems": "flex-start",
+      },
+      undefined,
+    ]
+  }
+>
+  <Text
+    accessibilityRole="text"
+    style={
+      Array [
+        Object {
+          "fontSize": 16,
+          "marginHorizontal": 4,
+          "marginVertical": 2,
+        },
+        undefined,
+      ]
+    }
+  >
+    Label
+  </Text>
+  <TextInput
+    accessible={true}
+    editable={true}
+    placeholder="Placeholder"
+    style={
+      Array [
+        Object {
+          "borderColor": "black",
+          "borderRadius": 4,
+          "borderWidth": 1,
+          "fontSize": 16,
+          "padding": 8,
+          "width": "100%",
+        },
+        undefined,
+      ]
+    }
+    testID="textInput"
+  />
+</View>
+`;
+
+exports[`TextField renders as expected 1`] = `
+<View
+  accessibilityLabel="Label"
+  accessibilityState={
+    Object {
+      "disabled": undefined,
+    }
+  }
+  accessible={true}
+  style={
+    Array [
+      Object {
+        "alignItems": "flex-start",
+      },
+      undefined,
+    ]
+  }
+>
+  <Text
+    accessibilityRole="text"
+    style={
+      Array [
+        Object {
+          "fontSize": 16,
+          "marginHorizontal": 4,
+          "marginVertical": 2,
+        },
+        undefined,
+      ]
+    }
+  >
+    Label
+  </Text>
+  <TextInput
+    accessible={true}
+    editable={true}
+    placeholder="Placeholder"
+    style={
+      Array [
+        Object {
+          "borderColor": "black",
+          "borderRadius": 4,
+          "borderWidth": 1,
+          "fontSize": 16,
+          "padding": 8,
+          "width": "100%",
+        },
+        undefined,
+      ]
+    }
+    testID="textInput"
+  />
+</View>
+`;
+
+exports[`TextField renders as expected as password field 1`] = `
+<View
+  accessibilityLabel="Label"
+  accessibilityState={
+    Object {
+      "disabled": undefined,
+    }
+  }
+  accessible={true}
+  style={
+    Array [
+      Object {
+        "alignItems": "flex-start",
+      },
+      undefined,
+    ]
+  }
+>
+  <Text
+    accessibilityRole="text"
+    style={
+      Array [
+        Object {
+          "fontSize": 16,
+          "marginHorizontal": 4,
+          "marginVertical": 2,
+        },
+        undefined,
+      ]
+    }
+  >
+    Label
+  </Text>
+  <TextInput
+    accessible={true}
+    editable={true}
+    placeholder="Placeholder"
+    secureTextEntry={true}
+    style={
+      Array [
+        Object {
+          "borderColor": "black",
+          "borderRadius": 4,
+          "borderWidth": 1,
+          "fontSize": 16,
+          "padding": 8,
+          "width": "100%",
+        },
+        undefined,
+      ]
+    }
+    testID="textInput"
+  />
+</View>
+`;
+
+exports[`TextField renders as expected when disabled 1`] = `
+<View
+  accessibilityLabel="Label"
+  accessibilityState={
+    Object {
+      "disabled": true,
+    }
+  }
+  accessible={true}
+  style={
+    Array [
+      Object {
+        "alignItems": "flex-start",
+        "opacity": 0.6,
+      },
+      undefined,
+    ]
+  }
+>
+  <Text
+    accessibilityRole="text"
+    style={
+      Array [
+        Object {
+          "fontSize": 16,
+          "marginHorizontal": 4,
+          "marginVertical": 2,
+        },
+        undefined,
+      ]
+    }
+  >
+    Label
+  </Text>
+  <TextInput
+    accessible={true}
+    editable={false}
+    placeholder="Placeholder"
+    style={
+      Array [
+        Object {
+          "borderColor": "black",
+          "borderRadius": 4,
+          "borderWidth": 1,
+          "fontSize": 16,
+          "padding": 8,
+          "width": "100%",
+        },
+        undefined,
+      ]
+    }
+    testID="textInput"
+  />
+</View>
+`;
+
+exports[`TextField renders as expected with error message 1`] = `
+<View
+  accessibilityLabel="Label"
+  accessibilityState={
+    Object {
+      "disabled": undefined,
+    }
+  }
+  accessible={true}
+  style={
+    Array [
+      Object {
+        "alignItems": "flex-start",
+      },
+      undefined,
+    ]
+  }
+>
+  <Text
+    accessibilityRole="text"
+    style={
+      Array [
+        Object {
+          "fontSize": 16,
+          "marginHorizontal": 4,
+          "marginVertical": 2,
+        },
+        undefined,
+      ]
+    }
+  >
+    Label
+  </Text>
+  <TextInput
+    accessible={true}
+    editable={true}
+    placeholder="Placeholder"
+    style={
+      Array [
+        Object {
+          "borderColor": "black",
+          "borderRadius": 4,
+          "borderWidth": 1,
+          "fontSize": 16,
+          "padding": 8,
+          "width": "100%",
+        },
+        undefined,
+      ]
+    }
+    testID="textInput"
+  />
+  <Text
+    accessibilityRole="text"
+    style={
+      Array [
+        Object {
+          "fontSize": 16,
+          "marginHorizontal": 4,
+          "marginVertical": 2,
+        },
+        undefined,
+      ]
+    }
+  >
+    Error message
+  </Text>
+</View>
+`;
