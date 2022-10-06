@@ -36,8 +36,7 @@ describe('TextField', () => {
     expect(toJSON()).toMatchSnapshot();
     const textInput = getByPlaceholderText(placeHolderText);
     expect(textInput.props.editable).toBeFalsy();
-    expect(textInput.parent).not.toBeNull();
-    expect(textInput.parent.props.accessibilityState).toHaveProperty(
+    expect(textInput.parent?.props.accessibilityState).toHaveProperty(
       'disabled',
       true
     );
