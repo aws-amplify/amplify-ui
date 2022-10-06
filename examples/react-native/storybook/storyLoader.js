@@ -6,6 +6,7 @@ function loadStories() {
   require('./stories/Label.stories');
   require('./stories/Radio.stories');
   require('./stories/RadioGroup.stories');
+  require('./stories/TextField.stories');
 }
 
 const stories = [
@@ -16,6 +17,7 @@ const stories = [
   './stories/Label.stories',
   './stories/Radio.stories',
   './stories/RadioGroup.stories',
+  './stories/TextField.stories',
 ];
 
 module.exports = {
