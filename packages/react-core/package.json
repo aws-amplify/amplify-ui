@@ -34,7 +34,13 @@
   "peerDependencies": {
     "aws-amplify": "3.x.x || 4.x.x",
     "react": ">= 16.8.0",
-    "react-dom": ">= 16.8.0"
+    "react-dom": ">= 16.8.0",
+    "xstate": "^4.33.6"
+  },
+  "peerDependenciesMeta": {
+    "xstate": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@testing-library/react": "^12.0.0",
