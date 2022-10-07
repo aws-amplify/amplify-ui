@@ -7,7 +7,7 @@ import awsExports from './aws-exports';
 Amplify.configure(awsExports);
 export default function AuthenticatorWithFederation() {
   return (
-    <Authenticator socialProviders={['amazon', 'apple', 'facebook', 'google']}>
+    <Authenticator>
       {({ signOut }) => (
         <>
           <button onClick={signOut}>Sign out</button>
