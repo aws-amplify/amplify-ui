@@ -2,8 +2,11 @@ import * as React from 'react';
 
 import { FieldGroupIconButtonProps } from './fieldGroupIcon';
 import { TextInputFieldProps } from './textField';
+import { ViewProps } from './view';
 
-interface Suggestion {
+type FilteringType = 'auto' | 'none';
+
+export interface Suggestion {
   /**
    * @description
    * Unique id for a suggestion
@@ -19,7 +22,7 @@ interface Suggestion {
   [key: string]: string;
 }
 
-interface SuggestionsMenu {
+interface SuggestionsMenu extends ViewProps {
   /**
    * @description
    * This is a slot to label a list of search suggestions
@@ -44,6 +47,16 @@ interface SuggestionsMenu {
    * This is a slot to indicate no matching suggestions found
    */
   Empty?: React.ReactNode;
+}
+
+export interface HighlightMatchProps extends ViewProps {
+  children: string;
+
+  query: string;
+}
+
+export interface SearchFieldSuggestionProps extends ViewProps {
+  children: React.ReactNode;
 }
 
 export interface SearchFieldProps extends TextInputFieldProps {
@@ -92,18 +105,25 @@ export interface SearchFieldProps extends TextInputFieldProps {
    */
   value?: string;
 
-  /**
-   * @description
-   * Used to customize the rendering of a suggestion inside the li element
-   */
-  renderSuggestion?: (suggestion: Suggestion, value: string) => React.ReactNode;
+  // /**
+  //  * @description
+  //  * Used to customize the filtering of suggestions.
+  //  * Default filter uses the input text to do substring matching against the suggestion `label`
+  //  */
+  // filterSuggestion?: (suggestion: Suggestion, value: string) => boolean;
 
   /**
    * @description
    * Used to customize the filtering of suggestions.
    * Default filter uses the input text to do substring matching against the suggestion `label`
    */
-  filterSuggestion?: (suggestion: Suggestion, value: string) => boolean;
+  filteringType?: FilteringType;
+
+  /**
+   * @description
+   * Used to customize the rendering of a suggestion inside the li element
+   */
+  renderSuggestion?: (suggestion: Suggestion, value: string) => React.ReactNode;
 
   /**
    * @description
@@ -115,7 +135,7 @@ export interface SearchFieldProps extends TextInputFieldProps {
    * @description
    * Triggered when input text changes
    */
-  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  onInput?: React.FormEventHandler<HTMLInputElement>;
 
   /**
    * @description

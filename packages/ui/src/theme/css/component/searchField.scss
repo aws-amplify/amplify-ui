@@ -1,3 +1,14 @@
+%space-shared {
+  padding-block-end: 8px;
+  padding-block-start: 8px;
+  padding-inline-start: 10px;
+  padding-inline-end: 10px;
+}
+
+.amplify-searchfield-wrapper {
+  position: relative;
+}
+
 .amplify-searchfield {
   --amplify-components-fieldcontrol-color: var(
     --amplify-components-searchfield-input-color
@@ -40,6 +51,77 @@
         --amplify-components-searchfield-button-hover-border-color
       );
       color: var(--amplify-components-searchfield-button-hover-color);
+    }
+  }
+}
+
+.amplify-searchfield-menu {
+  position: absolute;
+  z-index: 9999;
+
+  width: 100%;
+  // max-height: ;
+  margin-top: 5px;
+  background-color: var(--amplify-colors-white);
+  border-block-start: 1px solid var(--amplify-colors-border-primary);
+  border-block-end: 1px solid var(--amplify-colors-border-primary);
+  border-inline-end: 1px solid var(--amplify-colors-border-primary);
+  border-inline-start: 1px solid var(--amplify-colors-border-primary);
+
+  border-end-end-radius: var(--amplify-components-fieldcontrol-border-radius);
+  border-end-start-radius: var(--amplify-components-fieldcontrol-border-radius);
+  border-start-end-radius: var(--amplify-components-fieldcontrol-border-radius);
+  border-start-start-radius: var(
+    --amplify-components-fieldcontrol-border-radius
+  );
+  // required for Safari 14 and below
+  // see: https://caniuse.com/mdn-css_properties_border-end-end-radius
+  @supports not (border-end-end-radius: 0) {
+    border-bottom-left-radius: var(
+      --amplify-components-fieldcontrol-border-radius
+    );
+    border-bottom-right-radius: var(
+      --amplify-components-fieldcontrol-border-radius
+    );
+    border-top-left-radius: var(
+      --amplify-components-fieldcontrol-border-radius
+    );
+    border-top-right-radius: var(
+      --amplify-components-fieldcontrol-border-radius
+    );
+  }
+
+  &__suggestions {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__header,
+  &__footer,
+  &__empty {
+    @extend %space-shared;
+  }
+
+  &__loading {
+    @extend %space-shared;
+
+    align-items: center;
+    gap: 5px;
+  }
+
+  &__suggestion {
+    cursor: pointer;
+    padding-block-end: 8px;
+    padding-block-start: 8px;
+    padding-inline-start: 10px;
+    padding-inline-end: 10px;
+    transition-property: background-color, color;
+    transition-timing-function: ease;
+    transition-duration: var(--amplify-time-short);
+
+    &--active {
+      color: var(--amplify-colors-white);
+      background-color: var(--amplify-colors-brand-primary-80);
     }
   }
 }

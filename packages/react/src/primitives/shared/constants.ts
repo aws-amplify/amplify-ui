@@ -344,6 +344,46 @@ export const ComponentClassObject: ComponentClassNameItems = {
     components: ['SearchField'],
     description: 'Class applied to the search button',
   },
+  SearchFieldMenu: {
+    className: ComponentClassName.SearchFieldMenu,
+    components: ['SearchField'],
+    description: 'Top level element that wraps the dropdown menu',
+  },
+  SearchFieldMenuEmpty: {
+    className: ComponentClassName.SearchFieldMenuEmpty,
+    components: ['SearchField'],
+    description: 'Class applied to the menu slot of no result found',
+  },
+  SearchFieldMenuFooter: {
+    className: ComponentClassName.SearchFieldMenuFooter,
+    components: ['SearchField'],
+    description: 'Class applied to menu footer',
+  },
+  SearchFieldMenuHeader: {
+    className: ComponentClassName.SearchFieldMenuHeader,
+    components: ['SearchField'],
+    description: 'Class applied to menu header',
+  },
+  SearchFieldMenuLoading: {
+    className: ComponentClassName.SearchFieldMenuLoading,
+    components: ['SearchField'],
+    description: 'Class applied to the menu slot of loading',
+  },
+  SearchFieldMenuSuggestion: {
+    className: ComponentClassName.SearchFieldMenuSuggestion,
+    components: ['SearchField'],
+    description: 'Class applied to each search suggestion',
+  },
+  SearchFieldMenuSuggestions: {
+    className: ComponentClassName.SearchFieldMenuSuggestions,
+    components: ['SearchField'],
+    description: 'Class applied to the container of search suggestions',
+  },
+  SearchFieldWrapper: {
+    className: ComponentClassName.SearchFieldWrapper,
+    components: ['SearchField'],
+    description: 'Top level element that wraps the SearchField primitive',
+  },
   Select: {
     className: ComponentClassName.Select,
     components: ['Select', 'SelectField'],
@@ -615,6 +655,16 @@ export const ComponentClassNames: ComponentClassNamesType = {
   SearchField: ComponentClassObject.SearchField.className,
   SearchFieldClear: ComponentClassObject.SearchFieldClear.className,
   SearchFieldSearch: ComponentClassObject.SearchFieldSearch.className,
+  SearchFieldMenu: ComponentClassObject.SearchFieldMenu.className,
+  SearchFieldMenuEmpty: ComponentClassObject.SearchFieldMenuEmpty.className,
+  SearchFieldMenuFooter: ComponentClassObject.SearchFieldMenuFooter.className,
+  SearchFieldMenuHeader: ComponentClassObject.SearchFieldMenuHeader.className,
+  SearchFieldMenuLoading: ComponentClassObject.SearchFieldMenuLoading.className,
+  SearchFieldMenuSuggestion:
+    ComponentClassObject.SearchFieldMenuSuggestion.className,
+  SearchFieldMenuSuggestions:
+    ComponentClassObject.SearchFieldMenuSuggestions.className,
+  SearchFieldWrapper: ComponentClassObject.SearchFieldWrapper.className,
   Select: ComponentClassObject.Select.className,
   SelectField: ComponentClassObject.SelectField.className,
   SelectWrapper: ComponentClassObject.SelectWrapper.className,
