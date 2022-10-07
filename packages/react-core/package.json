@@ -29,7 +29,8 @@
   },
   "dependencies": {
     "@aws-amplify/ui": "3.14.0",
-    "@xstate/react": "3.0.1"
+    "@xstate/react": "3.0.1",
+    "xstate": "^4.33.6"
   },
   "peerDependencies": {
     "aws-amplify": "3.x.x || 4.x.x",

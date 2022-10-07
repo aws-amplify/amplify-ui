@@ -599,6 +599,14 @@
     qrcode "^1.4.4"
     uuid "^8.2.0"
 
+"@aws-amplify/ui-react-core@file:../../Desktop/aws-amplify-ui-react-core-v1.0.1.tgz":
+  version "1.0.1"
+  resolved "file:../../Desktop/aws-amplify-ui-react-core-v1.0.1.tgz#58f6b9bd5f17013dabedf5ed8f056089430b3a8c"
+  dependencies:
+    "@aws-amplify/ui" "file:../../Desktop/aws-amplify-ui-v3.14.0.tgz"
+    "@xstate/react" "3.0.0"
+    xstate "^4.33.6"
+
 "@aws-amplify/ui-react-v1@npm:@aws-amplify/ui-react@1.2.9":
   version "1.2.9"
   resolved "https://registry.yarnpkg.com/@aws-amplify/ui-react/-/ui-react-1.2.9.tgz#bcaa93f021afc801f9d8e6aa98558128b2cb173f"
@@ -610,6 +618,14 @@
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/@aws-amplify/ui/-/ui-2.0.5.tgz#0800938a0bf36ff51922637628b0889017da19f1"
   integrity sha512-atoc/zIJRhgpoSDDKgRxbTSD7D9S4wbOzHUHMqRlcEPRKqRrQPGvd6zCUVSBS0jqdrrw6+UTJbWj7ttWCfE4pQ==
+
+"@aws-amplify/ui@file:../../Desktop/aws-amplify-ui-v3.14.0.tgz":
+  version "3.14.0"
+  resolved "file:../../Desktop/aws-amplify-ui-v3.14.0.tgz#6157cf12da0d75f2438e02e384cff3f760288923"
+  dependencies:
+    lodash "4.17.21"
+    style-dictionary "3.7.0"
+    tslib "2.4.0"
 
 "@aws-amplify/xr@3.0.52":
   version "3.0.52"
@@ -7640,6 +7656,14 @@
   dependencies:
     fast-safe-stringify "^2.0.7"
 
+"@xstate/react@3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@xstate/react/-/react-3.0.0.tgz#888d9a6f128c70b632c18ad55f1f851f6ab092ba"
+  integrity sha512-KHSCfwtb8gZ7QH2luihvmKYI+0lcdHQOmGNRUxUEs4zVgaJCyd8csCEmwPsudpliLdUmyxX2pzUBojFkINpotw==
+  dependencies:
+    use-isomorphic-layout-effect "^1.0.0"
+    use-sync-external-store "^1.0.0"
+
 "@xstate/react@3.0.1":
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/@xstate/react/-/react-3.0.1.tgz#937eeb5d5d61734ab756ca40146f84a6fe977095"
@@ -7648,10 +7672,10 @@
     use-isomorphic-layout-effect "^1.0.0"
     use-sync-external-store "^1.0.0"
 
-"@xstate/vue@2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@xstate/vue/-/vue-2.0.0.tgz#bb95f91600c5fad2e8a72f872cb8f69b3b154e10"
-  integrity sha512-JlrJ3d+I6rZCcFBuu3O4GP+mGJfd11O9o69wRedzPMqZ+hxcMRBsih9L5kKnJHcU9CTmdJTT172oxTaYF7thzA==
+"@xstate/vue@0.8.1":
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/@xstate/vue/-/vue-0.8.1.tgz#96a144fe72eb6bccb8be98c7192bbed1b26ed3ff"
+  integrity sha512-m4Ejd08eUHzlTD7P6aGscwpjeHRXVZQ5iVyv5RxYi5WKoFqOMeurO2dxvI8QDfTxF27NqODj30LWYsMzZZ9lsg==
 
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
