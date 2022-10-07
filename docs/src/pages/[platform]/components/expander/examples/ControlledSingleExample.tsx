@@ -5,7 +5,7 @@ import { Expander, ExpanderItem } from '@aws-amplify/ui-react';
 export const ControlledSingleExpander = () => {
   const [value, setValue] = React.useState<string | string[]>();
   return (
-    <Expander type="single" value={value} onChange={setValue}>
+    <Expander type="single" value={value} onValueChange={setValue}>
       <ExpanderItem
         title="What do you call a deer with no eyes?"
         value="joke-1"
