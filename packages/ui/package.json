@@ -10,8 +10,7 @@
     },
     "./package.json": "./package.json",
     "./styles.css": "./dist/styles.css",
-    "./theme.css": "./dist/theme.css",
-    "./theme.ts": "./dist/react-native/theme.ts"
+    "./theme.css": "./dist/theme.css"
   },
   "browser": {
     "./styles.css": "./dist/styles.css",

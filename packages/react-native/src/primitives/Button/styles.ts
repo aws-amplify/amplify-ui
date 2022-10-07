@@ -1,6 +1,8 @@
-import { StyleSheet } from 'react-native';
+import { Theme } from '../../theme';
 import { ButtonStyles } from './types';
 
-export const styles: ButtonStyles = StyleSheet.create({
-  text: { alignSelf: 'center' },
-});
+export const styles = (theme: Theme): ButtonStyles => {
+  return {
+    text: { alignSelf: theme.tokens?.components.button.text.alignSelf },
+  };
+};

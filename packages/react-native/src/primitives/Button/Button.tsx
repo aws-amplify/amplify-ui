@@ -1,21 +1,25 @@
 import React from 'react';
 import { Pressable, Text } from 'react-native';
+import { withTheme } from '../../theme';
 
 import { styles } from './styles';
-import { ButtonProps } from './types';
+import { ButtonProps, ButtonStyles } from './types';
 
-export default function Button({
+function Button({
   children,
   textStyle,
+  themedStyle,
   ...pressableProps
 }: ButtonProps): JSX.Element {
   return (
     <Pressable {...pressableProps}>
       {typeof children === 'string' ? (
-        <Text style={[styles.text, textStyle]}>{children}</Text>
+        <Text style={[themedStyle.text, textStyle]}>{children}</Text>
       ) : (
         children
       )}
     </Pressable>
   );
 }
+
+export default withTheme<ButtonStyles, ButtonProps>(Button, styles);

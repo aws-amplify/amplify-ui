@@ -4,6 +4,19 @@ import { action } from '@storybook/addon-actions';
 import { text } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react-native';
 import { Button } from '@aws-amplify/ui-react-native/dist/primitives';
+import { ThemeProvider } from '@aws-amplify/ui-react-native/dist/ThemeProvider';
+
+const ThemedButton = () => {
+  const theme = {
+    name: 'my-theme',
+  };
+
+  return (
+    <ThemeProvider theme={theme}>
+      <Button>Themed button</Button>
+    </ThemeProvider>
+  );
+};
 
 storiesOf('Button', module)
   .add('with text', () => (
@@ -16,4 +29,5 @@ storiesOf('Button', module)
       <Text>😀 😎 👍 💯</Text>
     </Button>
   ))
-  .add('disabled', () => <Button disabled>Disabled Button</Button>);
+  .add('disabled', () => <Button disabled>Disabled Button</Button>)
+  .add('with theme', () => <ThemedButton />);

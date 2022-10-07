@@ -9,15 +9,11 @@ import {
   cssNameTransform,
   cssValue,
 } from './src/theme/utils';
-import { RNFormat, ReactNativeTransforms } from './src/theme/react-native';
 
 const CSS_VARIABLE_SCOPE = ':root, [data-amplify-theme]';
 
 StyleDictionary.extend({
   tokens: defaultTheme.tokens,
-  format: {
-    RNFormat,
-  },
   transform: {
     cssNameTransform: {
       type: 'name',
@@ -28,7 +24,6 @@ StyleDictionary.extend({
       transitive: true,
       transformer: cssValue,
     },
-    ...ReactNativeTransforms,
   },
   platforms: {
     css: {
@@ -42,22 +37,6 @@ StyleDictionary.extend({
             selector: CSS_VARIABLE_SCOPE,
             outputReferences: true,
           },
-        },
-      ],
-    },
-    reactNative: {
-      transforms: [
-        'RNFontWeight',
-        'RNFontSize',
-        'RNRadius',
-        'RNSpace',
-        'RNOpacity',
-        'RNTime',
-      ],
-      files: [
-        {
-          destination: 'dist/react-native/theme.ts',
-          format: 'RNFormat',
         },
       ],
     },
