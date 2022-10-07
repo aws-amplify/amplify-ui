@@ -9,6 +9,22 @@ import { ThemeProvider } from '@aws-amplify/ui-react-native/dist/ThemeProvider';
 const ThemedButton = () => {
   const theme = {
     name: 'my-theme',
+    tokens: {
+      colors: 'blue',
+      components: {
+        button: {
+          container: {
+            padding: 10,
+            borderColor: 'black',
+            borderWidth: 1,
+            borderRadius: 5,
+          },
+          text: {
+            color: 'green',
+          },
+        },
+      },
+    },
   };
 
   return (

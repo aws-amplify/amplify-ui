@@ -1,10 +1,11 @@
-import { PressableProps, StyleProp, StyleSheet, TextStyle } from 'react-native';
+import { PressableProps, StyleProp, TextStyle, ViewStyle } from 'react-native';
 
 export interface ButtonProps extends PressableProps {
+  containerStyle?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
-  themedStyle: StyleSheet.NamedStyles<ButtonStyles>;
 }
 
 export interface ButtonStyles {
+  container: ViewStyle;
   text: TextStyle;
 }
