@@ -62,7 +62,6 @@
     "@radix-ui/react-dropdown-menu": "0.1.6",
     "@radix-ui/react-slider": "0.1.4",
     "@radix-ui/react-tabs": "0.1.5",
-    "@xstate/react": "3.0.0",
     "classnames": "2.3.1",
     "deepmerge": "4.2.2",
     "lodash": "4.17.21",
