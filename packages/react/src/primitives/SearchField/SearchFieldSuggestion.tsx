@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import { View } from '../View';
 import { ComponentClassNames } from '../shared/constants';
-import { Primitive, SearchFieldSuggestionProps } from '../types';
+import type { Primitive, SearchFieldSuggestionProps } from '../types';
 
 export const SearchFieldSuggestion: Primitive<
   SearchFieldSuggestionProps,

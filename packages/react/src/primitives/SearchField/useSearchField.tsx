@@ -15,10 +15,13 @@ export const useSearchField = ({
   value,
   suggestions,
   filteringType,
+  onBlur,
+  onClear,
+  onClick,
+  onFocus,
   onInput,
   onSubmit,
   onSuggestionSelect,
-  onClear,
   externalRef,
 }: UseSearchFieldProps) => {
   const isControlled = value !== undefined;
@@ -62,7 +65,45 @@ export const useSearchField = ({
     [onSubmit]
   );
 
-  const onKeyDown: React.KeyboardEventHandler<HTMLInputElement> =
+  const onSearchButtonClick = React.useCallback(() => {
+    onSubmitHandler(composedValue);
+  }, [onSubmitHandler, composedValue]);
+
+  const handleOnBlur: React.FocusEventHandler<HTMLInputElement> = (event) => {
+    setIsMenuOpen(false);
+    setActiveIdx(-1);
+    if (isFunction(onBlur)) {
+      onBlur(event);
+    }
+  };
+
+  const handleOnClick: React.MouseEventHandler<HTMLInputElement> = (event) => {
+    setIsMenuOpen(true);
+    if (isFunction(onClick)) {
+      onClick(event);
+    }
+  };
+
+  const handleOnFocus: React.FocusEventHandler<HTMLInputElement> = (event) => {
+    setIsMenuOpen(true);
+    if (isFunction(onFocus)) {
+      onFocus(event);
+    }
+  };
+
+  const handleOnInput = React.useCallback(
+    (event) => {
+      setActiveIdx(-1);
+      setIsMenuOpen(true);
+      setInternalValue(event.target.value);
+      if (isFunction(onInput)) {
+        onInput(event);
+      }
+    },
+    [onInput]
+  );
+
+  const handleOnKeyDown: React.KeyboardEventHandler<HTMLInputElement> =
     React.useCallback(
       (event) => {
         const { key } = event;
@@ -137,22 +178,6 @@ export const useSearchField = ({
       ]
     );
 
-  const handleOnInput = React.useCallback(
-    (event) => {
-      setActiveIdx(-1);
-      setIsMenuOpen(true);
-      setInternalValue(event.target.value);
-      if (isFunction(onInput)) {
-        onInput(event);
-      }
-    },
-    [onInput]
-  );
-
-  const onSearchButtonClick = React.useCallback(() => {
-    onSubmitHandler(composedValue);
-  }, [onSubmitHandler, composedValue]);
-
   return {
     activeIdx,
     filteredSuggestions,
@@ -163,8 +188,11 @@ export const useSearchField = ({
     setIsMenuOpen,
     setInternalValue,
     onClearHandler,
-    onKeyDown,
+    handleOnBlur,
+    handleOnClick,
+    handleOnFocus,
     handleOnInput,
+    handleOnKeyDown,
     onSearchButtonClick,
     composedRefs,
   };

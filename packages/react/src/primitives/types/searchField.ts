@@ -4,7 +4,17 @@ import { FieldGroupIconButtonProps } from './fieldGroupIcon';
 import { TextInputFieldProps } from './textField';
 import { ViewProps } from './view';
 
-type FilteringType = 'auto' | 'none';
+type FilteringType = 'auto' | 'manual' | 'none';
+
+export interface SearchFieldComboboxProps {
+  role: React.AriaRole;
+  'aria-activedescendant': React.AriaAttributes['aria-activedescendant'];
+  'aria-autocomplete': React.AriaAttributes['aria-autocomplete'];
+  'aria-controls': React.AriaAttributes['aria-controls'];
+  'aria-expanded': React.AriaAttributes['aria-expanded'];
+  'aria-haspopup': React.AriaAttributes['aria-haspopup'];
+  'aria-owns': React.AriaAttributes['aria-owns'];
+}
 
 export interface Suggestion {
   /**
@@ -22,7 +32,7 @@ export interface Suggestion {
   [key: string]: string;
 }
 
-interface SuggestionsMenu extends ViewProps {
+interface SuggestionMenu extends ViewProps {
   /**
    * @description
    * This is a slot to label a list of search suggestions
@@ -59,6 +69,104 @@ export interface SearchFieldSuggestionProps extends ViewProps {
   children: React.ReactNode;
 }
 
+export interface SearchFieldSuggestionMenuProps extends ViewProps {
+  /**
+   * @description
+   * Active suggestion index
+   */
+  activeIdx: number;
+
+  /**
+   * @description
+   * Active suggestion id
+   */
+  activeSuggestionId: string;
+
+  /**
+   * @description
+   * Determines how filtering is applied to the list of suggestions.
+   *
+   * Note: Manual filtering will disable match highlighting.
+   * @default 'auto'
+   */
+  filteringType: FilteringType;
+
+  /**
+   * @description
+   * Used to indicate if it is controlled component
+   * @default false
+   */
+  isControlled: boolean;
+
+  /**
+   * @description
+   * Used to indicate if the menu is in loading state
+   * @default false
+   */
+  isLoading: boolean;
+
+  /**
+   * @description
+   * Used to indicate if the menu is open
+   * @default false
+   */
+  isOpen: boolean;
+
+  /**
+   * @description
+   * Triggered when a suggestion is selected
+   */
+  onSuggestionSelect: (suggestion: Suggestion) => void;
+
+  /**
+   * @description
+   * Used to customize the rendering of a suggestion inside the li element
+   */
+  renderSuggestion: (suggestion: Suggestion, value: string) => React.ReactNode;
+
+  /**
+   * @description
+   * Set current active suggestion index
+   */
+  setActiveIdx: React.Dispatch<React.SetStateAction<number>>;
+
+  /**
+   * @description
+   * Set the menu open state
+   */
+  setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
+
+  /**
+   * @description
+   * Set text input value when it is uncontrolled
+   */
+  setInternalValue: React.Dispatch<React.SetStateAction<string>>;
+
+  /**
+   * @description
+   * Base id use to construct id for each suggestion
+   */
+  suggestionBaseId: string;
+
+  /**
+   * @description
+   * A list of suggestions
+   */
+  suggestions: Array<Suggestion>;
+
+  /**
+   * @description
+   * A colleciton of slots to customize the dropdown of suggestions
+   */
+  suggestionMenu: SuggestionMenu;
+
+  /**
+   * @description
+   * Current text input value
+   */
+  value: string;
+}
+
 export interface SearchFieldProps extends TextInputFieldProps {
   /**
    * @description
@@ -70,11 +178,11 @@ export interface SearchFieldProps extends TextInputFieldProps {
    * @description
    * A colleciton of slots to customize the dropdown of suggestions
    */
-  suggestionsMenu?: SuggestionsMenu;
+  suggestionMenu?: SuggestionMenu;
 
   /**
    * @description
-   * Used to indicate the search field is in loading state
+   * Used to indicate if the search field is in loading state
    * @default false
    */
   isLoading?: boolean;
@@ -89,7 +197,7 @@ export interface SearchFieldProps extends TextInputFieldProps {
   /**
    * @description
    * Used to determine whether to render a search icon on the left when there is no search button
-   * @default true
+   * @default false
    */
   hasSearchIcon?: boolean;
 
@@ -114,8 +222,16 @@ export interface SearchFieldProps extends TextInputFieldProps {
 
   /**
    * @description
-   * Used to customize the filtering of suggestions.
-   * Default filter uses the input text to do substring matching against the suggestion `label`
+   * Determines how filtering is applied to the list of suggestions.
+   *
+   * 'auto' - The component will automatically filter suggestions based on text input
+   *
+   * 'manual' - User customizes filtering logic by setting up `onInput` event listener and update provided suggestions accordingly
+   *
+   * 'none' - Do not filter suggestions
+   *
+   * Note: Manual filtering will disable match highlighting.
+   * @default 'auto'
    */
   filteringType?: FilteringType;
 
@@ -127,9 +243,27 @@ export interface SearchFieldProps extends TextInputFieldProps {
 
   /**
    * @description
-   * Triggered when a suggestion is selected
+   * Triggered when search field is blur
    */
-  onSuggestionSelect?: (suggestion: Suggestion) => void;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
+
+  /**
+   * @description
+   * Triggered when search field is cleared
+   */
+  onClear?: () => void;
+
+  /**
+   * @description
+   * Triggered when search field is clicked
+   */
+  onClick?: React.MouseEventHandler<HTMLInputElement>;
+
+  /**
+   * @description
+   * Triggered when search field is clicked
+   */
+  onFocus?: React.FocusEventHandler<HTMLInputElement>;
 
   /**
    * @description
@@ -145,9 +279,9 @@ export interface SearchFieldProps extends TextInputFieldProps {
 
   /**
    * @description
-   * Triggered when search field is cleared
+   * Triggered when a suggestion is selected
    */
-  onClear?: () => void;
+  onSuggestionSelect?: (suggestion: Suggestion) => void;
 
   /**
    * @description
