@@ -200,6 +200,79 @@ export const mockSessionInformation: SessionInformation = {
   },
 };
 
+export const MOCK_NO_FLAT_COLOR_SEQUENCES: ColorSequence[] = [
+  {
+    FreshnessColor: {
+      RGB: [0, 0, 0], // black
+    },
+    DownscrollDuration: 300,
+    FlatDisplayDuration: 0,
+  },
+  {
+    FreshnessColor: {
+      RGB: [255, 255, 255], // white
+    },
+    DownscrollDuration: 300,
+    FlatDisplayDuration: 0,
+  },
+  {
+    FreshnessColor: {
+      RGB: [255, 0, 0], // red
+    },
+    DownscrollDuration: 300,
+    FlatDisplayDuration: 0,
+  },
+  {
+    FreshnessColor: {
+      RGB: [255, 255, 0], // yellow
+    },
+    DownscrollDuration: 300,
+    FlatDisplayDuration: 0,
+  },
+  {
+    FreshnessColor: {
+      RGB: [0, 255, 0], // lime
+    },
+    DownscrollDuration: 300,
+    FlatDisplayDuration: 0,
+  },
+  {
+    FreshnessColor: {
+      RGB: [0, 255, 255], // cyan
+    },
+    DownscrollDuration: 300,
+    FlatDisplayDuration: 0,
+  },
+  {
+    FreshnessColor: {
+      RGB: [0, 0, 255], // blue,
+    },
+    DownscrollDuration: 300,
+    FlatDisplayDuration: 0,
+  },
+  {
+    FreshnessColor: {
+      RGB: [255, 0, 255], // violet
+    },
+    DownscrollDuration: 300,
+    FlatDisplayDuration: 0,
+  },
+];
+
+export const mockSessionInformationNoFlatColors: SessionInformation = {
+  Challenge: {
+    FaceMovementAndLightChallenge: {
+      OvalScaleFactors: {
+        Width: 1,
+        CenterX: 2,
+        CenterY: 3,
+      },
+      LightChallengeType: 'SEQUENTIAL',
+      ColorSequences: MOCK_NO_FLAT_COLOR_SEQUENCES,
+    },
+  },
+};
+
 export const mockClientSessionInformationEvent: ClientSessionInformationEvent =
   {
     DeviceInformation: undefined,
