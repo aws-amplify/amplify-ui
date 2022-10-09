@@ -69,27 +69,39 @@ export const useSearchField = ({
     onSubmitHandler(composedValue);
   }, [onSubmitHandler, composedValue]);
 
-  const handleOnBlur: React.FocusEventHandler<HTMLInputElement> = (event) => {
-    setIsMenuOpen(false);
-    setActiveIdx(-1);
-    if (isFunction(onBlur)) {
-      onBlur(event);
-    }
-  };
+  const handleOnBlur: React.FocusEventHandler<HTMLInputElement> =
+    React.useCallback(
+      (event) => {
+        setIsMenuOpen(false);
+        setActiveIdx(-1);
+        if (isFunction(onBlur)) {
+          onBlur(event);
+        }
+      },
+      [onBlur]
+    );
 
-  const handleOnClick: React.MouseEventHandler<HTMLInputElement> = (event) => {
-    setIsMenuOpen(true);
-    if (isFunction(onClick)) {
-      onClick(event);
-    }
-  };
+  const handleOnClick: React.MouseEventHandler<HTMLInputElement> =
+    React.useCallback(
+      (event) => {
+        setIsMenuOpen(true);
+        if (isFunction(onClick)) {
+          onClick(event);
+        }
+      },
+      [onClick]
+    );
 
-  const handleOnFocus: React.FocusEventHandler<HTMLInputElement> = (event) => {
-    setIsMenuOpen(true);
-    if (isFunction(onFocus)) {
-      onFocus(event);
-    }
-  };
+  const handleOnFocus: React.FocusEventHandler<HTMLInputElement> =
+    React.useCallback(
+      (event) => {
+        setIsMenuOpen(true);
+        if (isFunction(onFocus)) {
+          onFocus(event);
+        }
+      },
+      [onFocus]
+    );
 
   const handleOnInput = React.useCallback(
     (event) => {

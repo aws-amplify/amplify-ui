@@ -1,8 +1,16 @@
-%space-shared {
-  padding-block-end: 8px;
-  padding-block-start: 8px;
-  padding-inline-start: 10px;
-  padding-inline-end: 10px;
+%menu-space-shared {
+  padding-block-end: var(
+    --amplify-components-searchfield-menu-space-shared-padding-block-end
+  );
+  padding-block-start: var(
+    --amplify-components-searchfield-menu-space-shared-padding-block-start
+  );
+  padding-inline-end: var(
+    --amplify-components-searchfield-menu-space-shared-padding-inline-end
+  );
+  padding-inline-start: var(
+    --amplify-components-searchfield-menu-space-shared-padding-inline-start
+  );
 }
 
 .amplify-searchfield-wrapper {
@@ -59,69 +67,58 @@
   position: absolute;
   z-index: 9999;
 
-  width: 100%;
-  // max-height: ;
-  margin-top: 5px;
-  background-color: var(--amplify-colors-white);
-  border-block-start: 1px solid var(--amplify-colors-border-primary);
-  border-block-end: 1px solid var(--amplify-colors-border-primary);
-  border-inline-end: 1px solid var(--amplify-colors-border-primary);
-  border-inline-start: 1px solid var(--amplify-colors-border-primary);
-
-  border-end-end-radius: var(--amplify-components-fieldcontrol-border-radius);
-  border-end-start-radius: var(--amplify-components-fieldcontrol-border-radius);
-  border-start-end-radius: var(--amplify-components-fieldcontrol-border-radius);
-  border-start-start-radius: var(
-    --amplify-components-fieldcontrol-border-radius
-  );
-  // required for Safari 14 and below
-  // see: https://caniuse.com/mdn-css_properties_border-end-end-radius
-  @supports not (border-end-end-radius: 0) {
-    border-bottom-left-radius: var(
-      --amplify-components-fieldcontrol-border-radius
-    );
-    border-bottom-right-radius: var(
-      --amplify-components-fieldcontrol-border-radius
-    );
-    border-top-left-radius: var(
-      --amplify-components-fieldcontrol-border-radius
-    );
-    border-top-right-radius: var(
-      --amplify-components-fieldcontrol-border-radius
-    );
-  }
+  width: var(--amplify-components-searchfield-menu-width);
+  max-height: var(--amplify-components-searchfield-menu-max-height);
+  margin-top: var(--amplify-components-searchfield-menu-margin-top);
+  background-color: var(--amplify-components-searchfield-menu-background-color);
+  border-color: var(--amplify-components-searchfield-menu-border-color);
+  border-width: var(--amplify-components-searchfield-menu-border-width);
+  border-style: var(--amplify-components-searchfield-menu-border-style);
+  border-radius: var(--amplify-components-searchfield-menu-border-radius);
 
   &__suggestions {
-    display: flex;
-    flex-direction: column;
+    display: var(--amplify-components-searchfield-menu-suggestions-display);
+    flex-direction: var(
+      --amplify-components-searchfield-menu-suggestions-flex-direction
+    );
   }
 
   &__header,
   &__footer,
   &__empty {
-    @extend %space-shared;
+    @extend %menu-space-shared;
   }
 
   &__loading {
-    @extend %space-shared;
+    @extend %menu-space-shared;
 
-    align-items: center;
-    gap: 5px;
+    align-items: var(--amplify-components-searchfield-menu-loading-align-items);
+    gap: var(--amplify-components-searchfield-menu-loading-gap);
   }
 
   &__suggestion {
-    cursor: pointer;
-    padding-block-end: 8px;
-    padding-block-start: 8px;
-    padding-inline-start: 10px;
-    padding-inline-end: 10px;
-    transition-property: background-color, color;
-    transition-timing-function: ease;
-    transition-duration: var(--amplify-time-short);
+    @extend %menu-space-shared;
+
+    background-color: var(
+      --amplify-components-searchfield-menu-suggestion-background-color
+    );
+    color: var(--amplify-components-searchfield-menu-suggestion-color);
+    cursor: var(--amplify-components-searchfield-menu-suggestion-cursor);
+    transition-duration: var(
+      --amplify-components-searchfield-menu-suggestion-transition-duration
+    );
+    transition-property: var(
+      --amplify-components-searchfield-menu-suggestion-transition-property
+    );
+    transition-timing-function: var(
+      --amplify-components-searchfield-menu-suggestion-transition-timing-function
+    );
 
     &--active {
-      color: var(--amplify-colors-white);
-      background-color: var(--amplify-colors-brand-primary-80);
+      background-color: var(
+        --amplify-components-searchfield-menu-suggestion-active-background-color
+      );
+      color: var(--amplify-components-searchfield-menu-suggestion-active-color);
     }
   }
 }

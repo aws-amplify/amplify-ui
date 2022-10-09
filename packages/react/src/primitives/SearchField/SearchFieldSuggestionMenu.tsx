@@ -47,7 +47,7 @@ export const SearchFieldSuggestionMenu: Primitive<
   const menuContainerId = useStableId();
   const { Header, Footer, Loading, Empty, ariaLabel } = suggestionMenu;
 
-  const SuggestionMenuHeader = () => {
+  const SuggestionMenuHeader = React.useCallback(() => {
     return (
       Header && (
         <Flex className={ComponentClassNames.SearchFieldMenuHeader}>
@@ -55,9 +55,9 @@ export const SearchFieldSuggestionMenu: Primitive<
         </Flex>
       )
     );
-  };
+  }, [Header]);
 
-  const SuggestionMenuFooter = () => {
+  const SuggestionMenuFooter = React.useCallback(() => {
     return (
       Footer && (
         <Flex className={ComponentClassNames.SearchFieldMenuFooter}>
@@ -65,28 +65,36 @@ export const SearchFieldSuggestionMenu: Primitive<
         </Flex>
       )
     );
-  };
+  }, [Footer]);
 
-  const SuggestionMenuLoading = () =>
-    Loading ? (
-      <Flex>{Loading}</Flex>
-    ) : (
-      <Flex className={ComponentClassNames.SearchFieldMenuLoading}>
-        <Loader />
-        Loading suggestions...
-      </Flex>
-    );
+  const SuggestionMenuLoading = React.useCallback(
+    () =>
+      Loading ? (
+        <Flex>{Loading}</Flex>
+      ) : (
+        <Flex className={ComponentClassNames.SearchFieldMenuLoading}>
+          <Loader />
+          Loading suggestions...
+        </Flex>
+      ),
+    [Loading]
+  );
 
-  const NoSuggestions = () =>
-    Empty ? (
-      <Flex className={ComponentClassNames.SearchFieldMenuEmpty}>{Empty}</Flex>
-    ) : (
-      <Flex className={ComponentClassNames.SearchFieldMenuEmpty}>
-        No suggestions found
-      </Flex>
-    );
+  const NoSuggestions = React.useCallback(
+    () =>
+      Empty ? (
+        <Flex className={ComponentClassNames.SearchFieldMenuEmpty}>
+          {Empty}
+        </Flex>
+      ) : (
+        <Flex className={ComponentClassNames.SearchFieldMenuEmpty}>
+          No suggestions found
+        </Flex>
+      ),
+    [Empty]
+  );
 
-  const Suggestions = () => {
+  const Suggestions = React.useCallback(() => {
     return suggestions.length > 0 ? (
       <ScrollView
         as="ul"
@@ -151,21 +159,42 @@ export const SearchFieldSuggestionMenu: Primitive<
     ) : (
       <NoSuggestions />
     );
-  };
+  }, [
+    NoSuggestions,
+    activeIdx,
+    ariaLabel,
+    filteringType,
+    id,
+    isControlled,
+    onSuggestionSelect,
+    renderSuggestion,
+    setActiveIdx,
+    setInternalValue,
+    setIsMenuOpen,
+    suggestionBaseId,
+    suggestions,
+    value,
+  ]);
 
   React.useEffect(() => {
     const menuContainerElement = document.getElementById(menuContainerId);
     if (menuContainerElement && isOpen) {
-      const { top, bottom, height } =
-        menuContainerElement.getBoundingClientRect();
+      const { top, bottom } = menuContainerElement.getBoundingClientRect();
 
       if (top < 0 || bottom > document.documentElement.clientHeight) {
         window.scrollTo({
-          top: document.documentElement.clientHeight - height + 50,
+          top:
+            bottom -
+            document.documentElement.clientHeight +
+            window.scrollY +
+            20,
+          behavior: 'smooth',
         });
       }
     }
+  }, [isOpen, menuContainerId]);
 
+  React.useEffect(() => {
     const activeSuggestionElement = document.getElementById(activeSuggestionId);
     if (activeSuggestionElement) {
       activeSuggestionElement.scrollIntoView({
@@ -173,7 +202,7 @@ export const SearchFieldSuggestionMenu: Primitive<
         block: 'nearest',
       });
     }
-  }, [activeSuggestionId, isOpen, menuContainerId, suggestionBaseId]);
+  }, [activeSuggestionId, suggestionBaseId]);
 
   return (
     <ScrollView
