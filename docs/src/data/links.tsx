@@ -518,7 +518,7 @@ export const theming: ComponentNavItem[] = [
   },
   {
     href: '/theming/theme-provider',
-    label: 'ThemeProvider API',
+    label: 'ThemeProvider',
     platforms: ['react'],
   },
   {
