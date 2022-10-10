@@ -32,8 +32,6 @@ export const UncontrolledAutocompleteExample = () => {
       label="Uncontrolled autocomplete"
       placeholder="Search..."
       suggestions={suggestions}
-      hasSearchIcon
-      hasSearchButton={false}
     />
   );
 };
