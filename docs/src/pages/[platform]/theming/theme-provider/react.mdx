@@ -1,45 +1,45 @@
-Explanation of ThemeProvider
+import { Example, ExampleCode } from '@/components/Example';
+
+import { BasicExample } from './examples';
 
 ## Usage
 
-Import the `ThemeProvider` and wrap your app with it:
+Import the `ThemeProvider` and wrap your application with it:
 
 ```jsx
 import { ThemeProvider } from '@aws-amplify/ui-react';
 
 export const App = (
   <ThemeProvider>
-    <MyApp>/* AmplifyUI */</MyApp>
+    <YourApplication />
   </ThemeProvider>
 );
 ```
 
-Use the theme to style components
+Use the [default theme](./default-theme) to style the components in your app:
 
-```jsx
-// Option 1: Use the theme through component variations
-import { Text } from '@aws-amplify/ui-react';
-const MyComponent = ({ children }) => {
-  return <Text variation="primary">{children}</Text>;
-};
+<Example>
+  <BasicExample />
 
-// Option 2: Get the theme object through the useTheme hook and style components with it
-import { Text, useTheme } from '@aws-amplify/ui-react';
-const MyComponent = ({ children }) => {
-  const { tokens } = useTheme();
-  return <Text color={tokens.colors.font.tertiary}>{children}</Text>;
-};
-```
+  <ExampleCode>
+    ```tsx file=./examples/BasicExample.tsx
+    ```
+    
+  </ExampleCode>
+</Example>
 
 ### theme
 
-Testing 123
+To create and use your own custom theme, you may pass a [theme object](https://ui.docs.amplify.aws/react/theming#theme-object) to the `theme` prop on the `ThemeProvider`. 
+
+- [Theming overview](./theming)
+- [Demonstration](./default-theme/colors) of how to use the `theme` prop
 
 ### colorMode
 
 The `ThemeProvider` accepts a `colorMode` prop which can be `light`, `dark`, or `system`.
 
-See the [Dark mode](./dark-mode) documentation for more detailed demonstration of how to use the `colorMode` prop. 
+See the [Dark mode documentation](./dark-mode) for a detailed explanation of how to use the `colorMode` prop. 
 
 ### nonce
 
