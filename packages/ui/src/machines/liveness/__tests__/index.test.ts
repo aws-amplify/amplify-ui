@@ -462,6 +462,26 @@ describe('Liveness Machine', () => {
       expect(mockcomponentProps.onError).toHaveBeenCalledWith(error);
     });
 
+    it('should reach error state after receiving a server error from the websocket stream', async () => {
+      await transitionToRecording(service);
+
+      const errorData = {
+        Code: 1,
+        Message: 'error',
+      };
+      service.send({
+        type: 'SERVER_ERROR',
+        data: errorData,
+      });
+      jest.advanceTimersToNextTimer();
+      expect(service.state.value).toEqual('error');
+      expect(service.state.context.errorState).toBe(
+        LivenessErrorState.SERVER_ERROR
+      );
+      expect(mockcomponentProps.onError).toHaveBeenCalledTimes(1);
+      expect(mockcomponentProps.onError).toHaveBeenCalledWith(errorData);
+    });
+
     it('should reach checkFaceDetected state and send client sessionInformation', async () => {
       await transitionToRecording(service);
       await flushPromises();

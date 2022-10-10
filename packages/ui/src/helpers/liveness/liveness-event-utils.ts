@@ -1,15 +1,17 @@
 import {
   DisconnectionEvent,
   FaceMovementAndLightServerChallenge,
+  LivenessResponseStream,
   OvalScaleFactors,
   ServerChallenge,
   ServerSessionInformationEvent,
   SessionInformation,
+  ValidationException,
 } from '@aws-sdk/client-rekognitionstreaming';
 
 export const isServerSesssionInformationEvent = (
   event: any
-): event is ServerSessionInformationEvent => {
+): event is LivenessResponseStream.ServerSessionInformationEventMember => {
   return !!event?.ServerSessionInformationEvent;
 };
 
@@ -39,6 +41,30 @@ export const isOvalScaleFactors = (object: any): object is OvalScaleFactors => {
 
 export const isDisconnectionEvent = (
   event: any
-): event is DisconnectionEvent => {
+): event is LivenessResponseStream.DisconnectionEventMember => {
   return !!event?.DisconnectionEvent;
+};
+
+export const isValidationExceptionEvent = (
+  event: any
+): event is LivenessResponseStream.ValidationExceptionMember => {
+  return !!event?.ValidationException;
+};
+
+export const isInternalServerExceptionEvent = (
+  event: any
+): event is LivenessResponseStream.InternalServerExceptionMember => {
+  return !!event?.InternalServerException;
+};
+
+export const isThrottlingExceptionEvent = (
+  event: any
+): event is LivenessResponseStream.ThrottlingExceptionMember => {
+  return !!event?.ThrottlingException;
+};
+
+export const isServiceQuotaExceededExceptionEvent = (
+  event: any
+): event is LivenessResponseStream.ServiceQuotaExceededExceptionMember => {
+  return !!event?.ServiceQuotaExceededException;
 };
