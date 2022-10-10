@@ -49,12 +49,16 @@ export const useSearchField = ({
   }, [composedValue, filteringType, suggestions]);
 
   const onClearHandler = React.useCallback(() => {
-    setInternalValue('');
+    if (!isControlled) {
+      setInternalValue('');
+    }
+
     internalRef?.current?.focus();
+
     if (isFunction(onClear)) {
       onClear();
     }
-  }, [onClear]);
+  }, [isControlled, onClear]);
 
   const onSubmitHandler = React.useCallback(
     (value: string) => {
@@ -107,12 +111,14 @@ export const useSearchField = ({
     (event) => {
       setActiveIdx(-1);
       setIsMenuOpen(true);
-      setInternalValue(event.target.value);
+      if (!isControlled) {
+        setInternalValue(event.target.value);
+      }
       if (isFunction(onInput)) {
         onInput(event);
       }
     },
-    [onInput]
+    [isControlled, onInput]
   );
 
   const handleOnKeyDown: React.KeyboardEventHandler<HTMLInputElement> =

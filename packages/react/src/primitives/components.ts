@@ -24,7 +24,7 @@ export { Radio } from './Radio';
 export { RadioGroupField } from './RadioGroupField';
 export { Rating } from './Rating';
 export { ScrollView } from './ScrollView';
-export { SearchField } from './SearchField';
+export { HighlightMatch, SearchField } from './SearchField';
 export { SelectField } from './SelectField';
 export { SliderField } from './SliderField';
 export { StepperField } from './StepperField';

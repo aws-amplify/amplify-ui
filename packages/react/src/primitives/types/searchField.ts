@@ -213,13 +213,6 @@ export interface SearchFieldProps extends TextInputFieldProps {
    */
   value?: string;
 
-  // /**
-  //  * @description
-  //  * Used to customize the filtering of suggestions.
-  //  * Default filter uses the input text to do substring matching against the suggestion `label`
-  //  */
-  // filterSuggestion?: (suggestion: Suggestion, value: string) => boolean;
-
   /**
    * @description
    * Determines how filtering is applied to the list of suggestions.

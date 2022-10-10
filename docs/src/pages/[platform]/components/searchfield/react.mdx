@@ -8,12 +8,14 @@ import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 import ThemeExample from '@/components/ThemeExample.mdx';
 import { SearchFieldDemo } from './demo';
 import {
+  ControlledAutocompleteExample,
   DefaultSearchFieldExample,
   PlaceholderSearchFieldExample,
   RefExample,
   SearchFieldStyledPropsExample,
   SearchFieldThemeExample,
   SizeSearchFieldExample,
+  UncontrolledAutocompleteExample,
   VariationSearchFieldExample,
 } from './examples';
 
@@ -43,6 +45,35 @@ Import the `SearchField` primitive, and provide a `label` for accessibility/usab
 </Example>
 
 **Note**: The clear text (x) button will show after user has entered text.
+
+### Autocomplete
+
+To enable autocomplete, simply provide a `suggestions` prop
+
+#### Uncontrolled autocomplete
+<Example>
+  <UncontrolledAutocompleteExample />
+  <ExampleCode>
+    ```tsx file=./examples/UncontrolledAutocompleteExample.tsx
+
+    ```
+  </ExampleCode>
+</Example>
+
+#### Controlled autocomplete
+<Example>
+  <ControlledAutocompleteExample />
+  <ExampleCode>
+    ```tsx file=./examples/ControlledAutocompleteExample.tsx
+
+    ```
+  </ExampleCode>
+</Example>
+
+**Note**: When you use autocomplete in a controlled way, you are also responbile to setup `onClear` and `onSuggestionSelect` event listeners
+other than the `onChange` since the input value is under your control.
+
+#### 
 
 ### Accessibility / Label behavior
 

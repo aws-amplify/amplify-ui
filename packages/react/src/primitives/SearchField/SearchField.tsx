@@ -31,7 +31,7 @@ const SearchFieldPrimitive: Primitive<SearchFieldProps, 'input'> = (
     suggestions,
     isLoading,
     hasSearchButton = true,
-    hasSearchIcon,
+    hasSearchIcon = false,
     suggestionMenu,
     filteringType = 'auto',
     renderSuggestion,
