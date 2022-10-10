@@ -90,76 +90,45 @@ export function getRandomScalingAttributes(
 export function getRandomLivenessOvalDetails({
   width,
   height,
-  initialFace,
   sessionInformation,
 }: {
   width: number;
   height: number;
-  initialFace: Face;
   sessionInformation: SessionInformation;
 }): LivenessOvalDetails {
   const videoHeight = height;
   let videoWidth = width;
-  let ovalWidthOffset = 0;
-  let ovalWidthMinProportion = 0.3;
-  let ovalWidthMaxProportion = 0.8;
-  let ovalThresholdMultiplier = 0.5;
-
-  // if the video is landscape, convert to portrait
-  if (width > height) {
-    videoWidth = height ** 2 / width;
-    ovalWidthOffset = (width ** 2 - height ** 2) / (2 * width);
-    ovalWidthMinProportion = 0.4;
-    ovalWidthMaxProportion = 0.9;
-    ovalThresholdMultiplier =
-      (ovalWidthMinProportion + ovalWidthMaxProportion) / 2;
-  }
-
-  // center of oval
-  const minOvalCenterX = (2 * videoWidth) / 5 + ovalWidthOffset;
-  const maxOvalCenterX = (3 * videoWidth) / 5 + ovalWidthOffset;
-  const minOvalCenterY = (2 * videoHeight) / 5;
-  const maxOvalCenterY = (3 * videoHeight) / 5;
-
   const randomScalingAttributes =
     getRandomScalingAttributes(sessionInformation);
 
-  const ovalCenterX = getScaledValueFromRandomSeed(
+  const ovalRatio = randomScalingAttributes.width * 0.05 + 0.775;
+
+  const minOvalCenterX = Math.floor((7 * width) / 16);
+  const maxOvalCenterX = Math.floor((9 * width) / 16);
+  const minOvalCenterY = Math.floor((7 * height) / 16);
+  const maxOvalCenterY = Math.floor((9 * height) / 16);
+
+  const centerX = getScaledValueFromRandomSeed(
     randomScalingAttributes.centerX,
     minOvalCenterX,
     maxOvalCenterX
   );
-  const ovalCenterY = getScaledValueFromRandomSeed(
+  const centerY = getScaledValueFromRandomSeed(
     randomScalingAttributes.centerY,
     minOvalCenterY,
     maxOvalCenterY
   );
 
-  // dimensions of oval
-  const GOLDEN_RATIO = 1.618;
-
-  const minOvalWidth = videoWidth * ovalWidthMinProportion;
-  const maxOvalWidth = videoWidth * ovalWidthMaxProportion;
-
-  const ovalThreshold = videoWidth * ovalThresholdMultiplier;
-  const faceWidthHeight = (initialFace.width + initialFace.height) / 2;
-
-  let ovalWidth: number;
-  if (faceWidthHeight > ovalThreshold) {
-    ovalWidth =
-      minOvalWidth *
-      getScaledValueFromRandomSeed(randomScalingAttributes.width, 1, 4 / 3);
-  } else {
-    ovalWidth =
-      maxOvalWidth *
-      getScaledValueFromRandomSeed(randomScalingAttributes.width, 3 / 4, 1);
+  if (width > height) {
+    videoWidth = (3 / 4) * videoHeight;
   }
 
-  const ovalHeight = GOLDEN_RATIO * ovalWidth;
+  const ovalWidth = ovalRatio * videoWidth;
+  const ovalHeight = 1.618 * ovalWidth;
 
   return {
-    centerX: Math.floor(ovalCenterX),
-    centerY: Math.floor(ovalCenterY),
+    centerX: Math.floor(centerX),
+    centerY: Math.floor(centerY),
     width: Math.floor(ovalWidth),
     height: Math.floor(ovalHeight),
   };

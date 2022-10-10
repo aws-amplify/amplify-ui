@@ -786,7 +786,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         const ovalDetails = getRandomLivenessOvalDetails({
           width,
           height,
-          initialFace,
           sessionInformation: serverSessionInformation,
         });
 
