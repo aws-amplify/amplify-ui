@@ -350,6 +350,9 @@ export const LivenessErrorStateStringMap: Record<LivenessErrorState, string> = {
   [LivenessErrorState.RUNTIME_ERROR]: translate(
     'Liveness encountered an error. Please try again.'
   ),
+  [LivenessErrorState.SERVER_ERROR]: translate(
+    'Liveness encountered an error. Please try again.'
+  ),
   [LivenessErrorState.TIMEOUT]: translate<string>('Timeout'),
   [LivenessErrorState.FRESHNESS_TIMEOUT]: translate<string>(
     'Keep face in oval while colors are flashing. Please try again.'
