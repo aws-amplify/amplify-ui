@@ -44,6 +44,7 @@ export const MIN_FACE_MATCH_COUNT = 5;
 // timer metrics variables
 let faceDetectedTimestamp: number;
 let ovalDrawnTimestamp: number;
+let streamConnectionOpenTimestamp: number;
 
 let responseStream: Promise<AsyncIterable<LivenessResponseStream>> = undefined;
 
@@ -495,12 +496,28 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         errorState: (_) => null,
       }),
       updateSessionInfo: assign({
-        serverSessionInformation: (_, event) => {
+        serverSessionInformation: (context, event) => {
+          recordLivenessAnalyticsEvent(context.componentProps, {
+            event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
+            attributes: { action: 'receivedSessionInfoEvent' },
+            metrics: {
+              duration: streamConnectionOpenTimestamp - Date.now(),
+            },
+          });
+
           return event.data.sessionInfo;
         },
       }),
       updateShouldDisconnect: assign({
-        shouldDisconnect: () => {
+        shouldDisconnect: (context) => {
+          recordLivenessAnalyticsEvent(context.componentProps, {
+            event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
+            attributes: { action: 'receivedDisconnectEvent' },
+            metrics: {
+              duration: streamConnectionOpenTimestamp - Date.now(),
+            },
+          });
+
           return true;
         },
       }),
@@ -704,6 +721,15 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           context.componentProps.sessionId,
           context.videoAssociatedParams.videoMediaStream
         );
+
+        streamConnectionOpenTimestamp = Date.now();
+        recordLivenessAnalyticsEvent(context.componentProps, {
+          event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
+          attributes: { action: 'openLivenessStreamConnection' },
+          metrics: {
+            count: 1,
+          },
+        });
 
         responseStream = livenessStreamProvider.getResponseStream();
         return { livenessStreamProvider };
@@ -990,7 +1016,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 const responseStreamActor = async (callback) => {
   const stream = await responseStream;
   for await (const event of stream) {
-    console.log(event);
     if (isServerSesssionInformationEvent(event)) {
       callback({
         type: 'SET_SESSION_INFO',
