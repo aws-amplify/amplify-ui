@@ -84,7 +84,7 @@ describe('RadioGroup', () => {
     expect(onChangeMock).not.toHaveBeenCalled();
   });
 
-  it.each(directions)('renders as expected when size is %s', (value) => {
+  it.each(directions)('renders as expected when direction is %s', (value) => {
     const { toJSON } = render(<ControlledRadioGroup direction={value} />);
     expect(toJSON()).toMatchSnapshot();
   });
