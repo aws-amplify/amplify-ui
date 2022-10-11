@@ -27,6 +27,10 @@ import {
 } from '../../helpers';
 import { v4 } from 'uuid';
 import {
+  isThrottlingExceptionEvent,
+  isServiceQuotaExceededExceptionEvent,
+  isValidationExceptionEvent,
+  isInternalServerExceptionEvent,
   isServerSesssionInformationEvent,
   isDisconnectionEvent,
 } from '../../helpers/liveness/liveness-event-utils';
@@ -92,6 +96,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       SET_DOM_AND_CAMERA_DETAILS: {
         actions: 'setDOMAndCameraDetails',
+      },
+      SERVER_ERROR: {
+        target: 'error',
+        actions: 'updateErrorStateForServer',
       },
     },
     states: {
@@ -321,6 +329,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       error: {
         entry: 'callErrorCallback',
+        type: 'final',
       },
       checkFailed: {},
       checkSucceeded: {
@@ -478,6 +487,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       }),
       updateErrorStateForRuntime: assign({
         errorState: (_) => LivenessErrorState.RUNTIME_ERROR,
+      }),
+      updateErrorStateForServer: assign({
+        errorState: (_) => LivenessErrorState.SERVER_ERROR,
       }),
       clearErrorState: assign({
         errorState: (_) => null,
@@ -988,6 +1000,26 @@ const responseStreamActor = async (callback) => {
       });
     } else if (isDisconnectionEvent(event)) {
       callback({ type: 'DISCONNECT_EVENT' });
+    } else if (isValidationExceptionEvent(event)) {
+      callback({
+        type: 'SERVER_ERROR',
+        data: { ...event.ValidationException },
+      });
+    } else if (isInternalServerExceptionEvent(event)) {
+      callback({
+        type: 'SERVER_ERROR',
+        data: { ...event.InternalServerException },
+      });
+    } else if (isThrottlingExceptionEvent(event)) {
+      callback({
+        type: 'SERVER_ERROR',
+        data: { ...event.ThrottlingException },
+      });
+    } else if (isServiceQuotaExceededExceptionEvent(event)) {
+      callback({
+        type: 'SERVER_ERROR',
+        data: { ...event.ServiceQuotaExceededException },
+      });
     }
   }
 };
