@@ -30,13 +30,11 @@ const SUPPORTED_PROVIDERS_PROPS: SupportedProvider[] = [
   },
 ];
 
-const useAuthenticatorMock = {
-  toFederatedSignIn: jest.fn(),
-};
+const toFederatedSignIn = jest.fn();
 
-jest
-  .spyOn(ReactCoreModule, 'useAuthenticator')
-  .mockImplementation(() => useAuthenticatorMock as any);
+jest.spyOn(ReactCoreModule, 'useAuthenticator').mockReturnValue({
+  toFederatedSignIn,
+} as any);
 
 describe('FederatedSignInButton', () => {
   beforeAll(() => {
@@ -64,7 +62,6 @@ describe('FederatedSignInButton', () => {
     const button = await screen.findByRole('button');
 
     fireEvent.click(button);
-    const { toFederatedSignIn } = useAuthenticatorMock;
 
     expect(toFederatedSignIn).toHaveBeenCalledTimes(1);
     expect(toFederatedSignIn).toHaveBeenCalledWith({
