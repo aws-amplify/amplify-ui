@@ -83,7 +83,7 @@ export const PhoneNumberFieldPropControls: PhoneNumberFieldPropControlsInterface
         />
         <SwitchField
           label="labelHidden"
-          defaultChecked={labelHidden}
+          isChecked={labelHidden}
           labelPosition="end"
           onChange={(event) => {
             setLabelHidden(
@@ -144,7 +144,7 @@ export const PhoneNumberFieldPropControls: PhoneNumberFieldPropControlsInterface
         />
         <SwitchField
           label="hasError"
-          defaultChecked={hasError}
+          isChecked={hasError}
           labelPosition="end"
           onChange={(event) => {
             setHasError(
@@ -154,7 +154,7 @@ export const PhoneNumberFieldPropControls: PhoneNumberFieldPropControlsInterface
         />
         <SwitchField
           label="isDisabled"
-          defaultChecked={isDisabled}
+          isChecked={isDisabled}
           labelPosition="end"
           onChange={(event) => {
             setIsDisabled(
@@ -164,7 +164,7 @@ export const PhoneNumberFieldPropControls: PhoneNumberFieldPropControlsInterface
         />
         <SwitchField
           label="isReadOnly"
-          defaultChecked={isReadOnly}
+          isChecked={isReadOnly}
           labelPosition="end"
           onChange={(event) => {
             setIsReadOnly(
