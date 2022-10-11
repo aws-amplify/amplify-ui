@@ -1,5 +1,23 @@
+import { Auth } from 'aws-amplify';
+import {
+  AmplifyUser,
+  AuthenticatorRoute,
+  AuthMachineState,
+  FormFieldsArray,
+  getSortedFormFields,
+} from '@aws-amplify/ui';
+
 import { areEmptyArrays, areEmptyObjects } from '../../../utils';
-import { Comparator, Selector } from './types';
+
+import { COMPONENT_ROUTE_KEYS } from './constants';
+import {
+  AuthenticatorRouteComponentKey,
+  AuthenticatorLegacyFields,
+  Comparator,
+  Selector,
+} from './types';
+
+export const defaultComparator = (): false => false;
 
 /**
  * Does an ordering and shallow comparison of each array value,
@@ -35,3 +53,29 @@ export const getComparator =
     // Shallow compare the array values
     return areSelectorDepsEqual(currentSelectorDeps, nextSelectorDeps);
   };
+
+export const getTotpSecretCodeCallback = (user: AmplifyUser) =>
+  async function getTotpSecretCode(): Promise<string> {
+    return await Auth.setupTOTP(user);
+  };
+
+export const isComponentRouteKey = (
+  route: AuthenticatorRoute
+): route is AuthenticatorRouteComponentKey =>
+  COMPONENT_ROUTE_KEYS.some((componentRoute) => componentRoute === route);
+
+const flattenFormFields = (
+  fields: FormFieldsArray
+): AuthenticatorLegacyFields =>
+  fields.flatMap(([name, options]) => ({ name, ...options }));
+
+/**
+ * Retrieves legacy form field values from state machine for routes that have fields
+ */
+export const getLegacyFields = (
+  route: AuthenticatorRoute,
+  state: AuthMachineState
+): AuthenticatorLegacyFields =>
+  isComponentRouteKey(route)
+    ? flattenFormFields(getSortedFormFields(route, state))
+    : [];
