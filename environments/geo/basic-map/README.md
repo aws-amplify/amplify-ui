@@ -39,11 +39,5 @@ Name the application and select desired options.
 External contributors can re-create this backend by running:
 
 ```shell
-amplify pull
-```
-
-Internal (Amplify UI team) contributors can use this backend directly by running the following command from this environment's directory:
-
-```shell
-yarn pull
+amplify init
 ```
