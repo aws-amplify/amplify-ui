@@ -2,7 +2,7 @@
 title: Configuration
 metaTitle: Configuration
 description: How to setup and configure your Authenticator component.
-supportedFrameworks: all
+supportedFrameworks: react|angular|vue|flutter
 ---
 
 import { Fragment } from '@/components/Fragment';
@@ -31,13 +31,11 @@ By default, unauthenticated users are redirected to the Sign In flow. You can ex
 <Tabs>
   <TabItem title="Sign In">
     <Fragment>
-      {({ platform }) => 
-        platform !== 'react-native' ? import(`./initialState.signIn.${platform}.mdx`) : Promise.resolve(() => null)
-      }
+      {({ platform }) => import(`./initialState.signIn.${platform}.mdx`)}
     </Fragment>
     <Fragment useCommonWebContent>
       {({ platform }) =>
-        platform !== 'react-native' ? import(`./initialState.signIn.example.${platform}.mdx`) : Promise.resolve(() => null)
+        import(`./initialState.signIn.example.${platform}.mdx`)
       }
     </Fragment>
   </TabItem>
@@ -47,7 +45,7 @@ By default, unauthenticated users are redirected to the Sign In flow. You can ex
     </Fragment>
     <Fragment useCommonWebContent>
       {({ platform }) =>
-        platform !== 'react-native' ? import(`./initialState.signUp.example.${platform}.mdx`) : Promise.resolve(() => null)
+        import(`./initialState.signUp.example.${platform}.mdx`)
       }
     </Fragment>
   </TabItem>
@@ -57,7 +55,7 @@ By default, unauthenticated users are redirected to the Sign In flow. You can ex
     </Fragment>
     <Fragment useCommonWebContent>
       {({ platform }) =>
-        platform !== 'react-native' ? import(`./initialState.resetPassword.example.${platform}.mdx`) : Promise.resolve(() => null)
+        import(`./initialState.resetPassword.example.${platform}.mdx`)
       }
     </Fragment>
   </TabItem>
@@ -66,7 +64,7 @@ By default, unauthenticated users are redirected to the Sign In flow. You can ex
 ## Login Mechanisms
 
 <Fragment useCommonWebContent>
-  {({ platform }) => platform !== 'react-native' ? import(`./loginMechanisms.${platform}.mdx`) : Promise.resolve(() => null)}
+  {({ platform }) => import(`./loginMechanisms.${platform}.mdx`)}
 </Fragment>
 
 ## Sign Up Attributes
@@ -86,11 +84,11 @@ with the exception of `address`, `gender`, `locale`, `picture`, `updated_at`, an
     By default, the Authenticator will still require any attributes required for
     verification, such as `email`, _even if `signUpAttributes` is empty_:
     <Fragment>
-      {({ platform }) => platform !== 'react-native' ? import(`./signUpAttributes.default.${platform}.mdx`) : Promise.resolve(() => null)}
+      {({ platform }) => import(`./signUpAttributes.default.${platform}.mdx`)}
     </Fragment>
     <Fragment useCommonWebContent>
       {({ platform }) =>
-        platform !== 'react-native' ? import(`./signUpAttributes.default.example.${platform}.mdx`) : Promise.resolve(() => null)
+        import(`./signUpAttributes.default.example.${platform}.mdx`)
       }
     </Fragment>
   </TabItem>
@@ -100,7 +98,7 @@ with the exception of `address`, `gender`, `locale`, `picture`, `updated_at`, an
     </Fragment>
     <Fragment useCommonWebContent>
       {({ platform }) =>
-        platform !== 'react-native' ? import(`./signUpAttributes.all.example.${platform}.mdx`) : Promise.resolve(() => null)
+        import(`./signUpAttributes.all.example.${platform}.mdx`)
       }
     </Fragment>
   </TabItem>
@@ -109,7 +107,7 @@ with the exception of `address`, `gender`, `locale`, `picture`, `updated_at`, an
 ## Social Providers
 
 <Fragment useCommonWebContent>
-  {({ platform }) => platform !== 'react-native' ? import(`./socialProviders.${platform}.mdx`) : Promise.resolve(() => null)}
+  {({ platform }) => import(`./socialProviders.${platform}.mdx`)}
 </Fragment>
 
 <Fragment useCommonWebContent platforms={['web']}>

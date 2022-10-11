@@ -20,5 +20,5 @@ export async function getStaticProps() {
 }
 
 <Fragment useCommonWebContent>
-  {({ platform }) => platform !== 'react-native' ? import(`./theming.${platform}.mdx`) : Promise.resolve(() => null)}
+  {({ platform }) => import(`./theming.${platform}.mdx`)}
 </Fragment>

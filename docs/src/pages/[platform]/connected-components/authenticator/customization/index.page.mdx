@@ -2,7 +2,7 @@
 title: Customization
 metaTitle: Customization
 description: Override and customize your Authenticator.
-supportedFrameworks: all
+supportedFrameworks: react|angular|vue|flutter
 ---
 
 import { Fragment } from '@/components/Fragment';
@@ -38,19 +38,19 @@ export async function getStaticProps() {
 ## Internationalization (I18n)
 
 <Fragment useCommonWebContent>
-  {({ platform }) => platform !== 'react-native' ? import(`./customization.i18n.${platform}.mdx`) : Promise.resolve(() => null)}
+  {({ platform }) => import(`./customization.i18n.${platform}.mdx`)}
 </Fragment>
 
 ## Labels & Text
 
 <Fragment useCommonWebContent>
-  {({ platform }) => platform !== 'react-native' ? import(`./customization.labels-and-text.${platform}.mdx`) : Promise.resolve(() => null)}
+  {({ platform }) => import(`./customization.labels-and-text.${platform}.mdx`)}
 </Fragment>
 
 ## Sign Up Fields
 
 <Fragment useCommonWebContent>
-  {({ platform }) => platform !== 'react-native' ? import(`./sign-up-fields.${platform}.mdx`) : Promise.resolve(() => null)}
+  {({ platform }) => import(`./sign-up-fields.${platform}.mdx`)}
 </Fragment>
 
 ## Force New Password Fields
@@ -61,7 +61,7 @@ The following example customizes the Force New Password screen by:
 - Appending a custom "Zone Info" text field
 
 <Fragment>
-  {({ platform }) => platform !== 'react-native' ? import(`./force-new-password-fields.${platform}.mdx`) : Promise.resolve(() => null)}
+  {({ platform }) => import(`./force-new-password-fields.${platform}.mdx`)}
 </Fragment>
 
 <Fragment useCommonWebContent platforms={['web']}>
@@ -69,7 +69,7 @@ The following example customizes the Force New Password screen by:
 </Fragment>
 
 <Fragment useCommonWebContent>
-  {({ platform }) => platform !== 'react-native' ? import(`./customization.styling.${platform}.mdx`) : Promise.resolve(() => null)}
+  {({ platform }) => import(`./customization.styling.${platform}.mdx`)}
 </Fragment>
 
 <Fragment platforms={['flutter']}>
