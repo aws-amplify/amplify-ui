@@ -1,5 +1,30 @@
 # @aws-amplify/ui-react
 
+## 3.5.7
+
+### Patch Changes
+
+- [#2697](https://github.com/aws-amplify/amplify-ui/pull/2697) [`d1e40ad5a`](https://github.com/aws-amplify/amplify-ui/commit/d1e40ad5a82e7d4e6cfdb59a673fdaee8538e3b0) Thanks [@dehli](https://github.com/dehli)! - fix `federatedSignIn` bug
+
+## 3.5.6
+
+### Patch Changes
+
+- Updated dependencies [[`42143228f`](https://github.com/aws-amplify/amplify-ui/commit/42143228fd8e99500e05fee34cee3f8067189c4e)]:
+  - @aws-amplify/ui@3.14.0
+  - @aws-amplify/ui-react-core@1.0.1
+
+## 3.5.5
+
+### Patch Changes
+
+- [#2659](https://github.com/aws-amplify/amplify-ui/pull/2659) [`477a00593`](https://github.com/aws-amplify/amplify-ui/commit/477a005935f242b49e776d42054810bc5d115857) Thanks [@calebpollman](https://github.com/calebpollman)! - feat(ui-react-core): merge ui-react-core in to main
+
+- [#2674](https://github.com/aws-amplify/amplify-ui/pull/2674) [`c43f51484`](https://github.com/aws-amplify/amplify-ui/commit/c43f514843085196fc70cee57a61cb9b5e652c74) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui-react): add deprecation message to Expander onChange prop
+
+- Updated dependencies [[`477a00593`](https://github.com/aws-amplify/amplify-ui/commit/477a005935f242b49e776d42054810bc5d115857)]:
+  - @aws-amplify/ui-react-core@1.0.0
+
 ## 3.5.4
 
 ### Patch Changes

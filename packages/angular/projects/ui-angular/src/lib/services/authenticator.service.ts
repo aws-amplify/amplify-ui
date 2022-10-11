@@ -8,7 +8,6 @@ import {
   createAuthenticatorMachine,
   getSendEventAliases,
   getServiceContextFacade,
-  listenToAuthHub,
 } from '@aws-amplify/ui';
 import { Event, interpret, Subscription } from 'xstate';
 import { AuthSubscriptionCallback } from '../common';
@@ -86,6 +85,10 @@ export class AuthenticatorService implements OnDestroy {
   /**
    * Service facades
    */
+
+  public get initializeMachine() {
+    return this._sendEventAliases.initializeMachine;
+  }
 
   public get updateForm() {
     return this._sendEventAliases.updateForm;
