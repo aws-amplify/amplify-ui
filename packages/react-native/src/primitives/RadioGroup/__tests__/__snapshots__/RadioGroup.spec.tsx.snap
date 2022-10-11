@@ -3,10 +3,12 @@
 exports[`RadioGroup renders as expected when size is horizontal 1`] = `
 <View
   style={
-    Object {
-      "flexDirection": "column-reverse",
-      "style": undefined,
-    }
+    Array [
+      Object {
+        "flexDirection": "column-reverse",
+      },
+      undefined,
+    ]
   }
 >
   <View
@@ -214,10 +216,12 @@ exports[`RadioGroup renders as expected when size is horizontal 1`] = `
 exports[`RadioGroup renders as expected when size is large 1`] = `
 <View
   style={
-    Object {
-      "flexDirection": "column-reverse",
-      "style": undefined,
-    }
+    Array [
+      Object {
+        "flexDirection": "column-reverse",
+      },
+      undefined,
+    ]
   }
 >
   <View
@@ -425,10 +429,12 @@ exports[`RadioGroup renders as expected when size is large 1`] = `
 exports[`RadioGroup renders as expected when size is medium 1`] = `
 <View
   style={
-    Object {
-      "flexDirection": "column-reverse",
-      "style": undefined,
-    }
+    Array [
+      Object {
+        "flexDirection": "column-reverse",
+      },
+      undefined,
+    ]
   }
 >
   <View
@@ -636,10 +642,12 @@ exports[`RadioGroup renders as expected when size is medium 1`] = `
 exports[`RadioGroup renders as expected when size is small 1`] = `
 <View
   style={
-    Object {
-      "flexDirection": "column-reverse",
-      "style": undefined,
-    }
+    Array [
+      Object {
+        "flexDirection": "column-reverse",
+      },
+      undefined,
+    ]
   }
 >
   <View
@@ -847,10 +855,12 @@ exports[`RadioGroup renders as expected when size is small 1`] = `
 exports[`RadioGroup renders as expected when size is vertical 1`] = `
 <View
   style={
-    Object {
-      "flexDirection": "column-reverse",
-      "style": undefined,
-    }
+    Array [
+      Object {
+        "flexDirection": "column-reverse",
+      },
+      undefined,
+    ]
   }
 >
   <View
@@ -1058,10 +1068,12 @@ exports[`RadioGroup renders as expected when size is vertical 1`] = `
 exports[`RadioGroup renders default RadioGroup as expected 1`] = `
 <View
   style={
-    Object {
-      "flexDirection": "column-reverse",
-      "style": undefined,
-    }
+    Array [
+      Object {
+        "flexDirection": "column-reverse",
+      },
+      undefined,
+    ]
   }
 >
   <View
