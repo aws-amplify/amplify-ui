@@ -2,6 +2,8 @@ import * as React from 'react';
 import { Root } from '@radix-ui/react-accordion';
 import classNames from 'classnames';
 
+import { useDeprecationWarning } from '../../hooks/useDeprecationWarning';
+
 import { ComponentClassNames } from '../shared/constants';
 import { ExpanderProps } from '../types/expander';
 import { Primitive } from '../types/view';
@@ -14,7 +16,6 @@ const ExpanderPrimitive: Primitive<ExpanderProps, typeof Root> = (
     defaultValue,
     isCollapsible,
     onChange,
-    // It is not in use but remove it from rest to avoid type errors
     onValueChange,
     testId,
     type = 'single',
@@ -26,13 +27,21 @@ const ExpanderPrimitive: Primitive<ExpanderProps, typeof Root> = (
   // Throw away baseStyleProps and flexContainerStyleProps since they won't work on Root element
   const { rest } = splitPrimitiveProps(_rest);
 
+  const handleValueChange = onValueChange ?? onChange;
+
+  useDeprecationWarning({
+    shouldWarn: !!onChange,
+    message:
+      'Expander `onChange` prop will be deprecated in the next major release of @aws-amplify/ui-react. Please replace usage with `onValueChange`.',
+  });
+
   const expander =
     type === 'multiple' ? (
       <Root
         className={classNames(ComponentClassNames.Expander, className)}
         data-testid={testId}
         defaultValue={defaultValue as string[]}
-        onValueChange={onChange}
+        onValueChange={handleValueChange as (value?: string[]) => void}
         ref={ref}
         type={type}
         value={value as string[]}
@@ -46,7 +55,7 @@ const ExpanderPrimitive: Primitive<ExpanderProps, typeof Root> = (
         collapsible={isCollapsible}
         data-testid={testId}
         defaultValue={defaultValue as string}
-        onValueChange={onChange}
+        onValueChange={handleValueChange as (value?: string) => void}
         ref={ref}
         type={type}
         value={value as string}
