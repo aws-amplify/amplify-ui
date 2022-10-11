@@ -49,7 +49,7 @@ export const HeadingPropControls: HeadingPropControlsInterface = ({
       </SelectField>
       <SwitchField
         label="isTruncated"
-        defaultChecked={isTruncated}
+        isChecked={isTruncated}
         labelPosition="end"
         onChange={(event) => setIsTruncated(event.target.checked)}
       />

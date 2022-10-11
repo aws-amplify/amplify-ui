@@ -111,7 +111,7 @@ export const TextFieldPropControls: TextFieldPropControlsInterface = ({
 
       <SwitchField
         label="labelHidden"
-        defaultChecked={labelHidden}
+        isChecked={labelHidden}
         labelPosition="end"
         onChange={(event) => {
           setLabelHidden(event.target.checked as TextFieldProps['labelHidden']);
@@ -128,7 +128,7 @@ export const TextFieldPropControls: TextFieldPropControlsInterface = ({
 
       <SwitchField
         label="hasError"
-        defaultChecked={hasError}
+        isChecked={hasError}
         labelPosition="end"
         onChange={(event) => {
           setHasError(event.target.checked as TextFieldProps['hasError']);
@@ -137,7 +137,7 @@ export const TextFieldPropControls: TextFieldPropControlsInterface = ({
 
       <SwitchField
         label="isDisabled"
-        defaultChecked={isDisabled}
+        isChecked={isDisabled}
         labelPosition="end"
         onChange={(event) => {
           setIsDisabled(event.target.checked as TextFieldProps['isDisabled']);

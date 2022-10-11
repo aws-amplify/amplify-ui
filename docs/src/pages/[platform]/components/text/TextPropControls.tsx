@@ -104,7 +104,7 @@ export const TextPropControls: TextPropControlsInterface = ({
       />
       <SwitchField
         label="isTruncated"
-        defaultChecked={isTruncated}
+        isChecked={isTruncated}
         labelPosition="end"
         onChange={(event) => setIsTruncated(event.target.checked)}
       />
