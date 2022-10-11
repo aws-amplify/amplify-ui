@@ -291,7 +291,7 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-      - name: Pull down Auth AWS environments, on cache miss
+      - name: Pull down Auth non-phone AWS environments, on cache miss
         if: steps.environments-cache.outputs.cache-hit != 'true'
         run: yarn environments auth pull:non-phone
         env:
