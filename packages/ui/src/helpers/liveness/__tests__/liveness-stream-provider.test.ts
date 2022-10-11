@@ -49,6 +49,25 @@ describe('LivenessStreamProvider', () => {
       };
     },
   } as unknown as ReadableStream<Blob>;
+  const mockReadableStreamWithEmptyChunks = {
+    getReader: () => {
+      return {
+        read: () => {
+          return {
+            then: (success) => {
+              if (SWITCH) {
+                const blob = new Blob([]);
+                return success({ done: true, value: blob });
+              } else {
+                SWITCH = true;
+                return success({ done: false, value: [] });
+              }
+            },
+          };
+        },
+      };
+    },
+  } as unknown as ReadableStream<Blob>;
   const mockVideoRecorder: any = {
     start: jest.fn(),
     stop: jest.fn(),
@@ -87,6 +106,7 @@ describe('LivenessStreamProvider', () => {
         }),
       };
     });
+    SWITCH = false;
   });
 
   describe('constructor', () => {
@@ -108,13 +128,57 @@ describe('LivenessStreamProvider', () => {
     });
   });
 
+  describe('startLivenessVideoConnection', () => {
+    test('happy case', async () => {
+      const provider = new LivenessStreamProvider(
+        'sessionId',
+        mockVideoMediaStream
+      );
+      await provider.startRecordingLivenessVideo();
+      expect(mockVideoRecorder.start).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('getAsyncGeneratorFromReadableStream', () => {
+    test('yield video chunk events', async () => {
+      const provider = new LivenessStreamProvider(
+        'sessionId',
+        mockVideoMediaStream
+      );
+      const requestStream = (
+        provider as any
+      ).getAsyncGeneratorFromReadableStream(mockReadableStream)();
+      const yieldedEvents: any[] = [];
+      for await (const event of requestStream) {
+        yieldedEvents.push(event);
+      }
+      expect(yieldedEvents.length).toBe(1);
+    });
+
+    test('does not yield empty video chunks', async () => {
+      const provider = new LivenessStreamProvider(
+        'sessionId',
+        mockVideoMediaStream
+      );
+      const requestStream = (
+        provider as any
+      ).getAsyncGeneratorFromReadableStream(
+        mockReadableStreamWithEmptyChunks
+      )();
+      const yieldedEvents: any[] = [];
+      for await (const event of requestStream) {
+        yieldedEvents.push(event);
+      }
+      expect(yieldedEvents.length).toBe(0);
+    });
+  });
+
   describe('sendClientInfo', () => {
     test('happy case', async () => {
       const provider = new LivenessStreamProvider(
         'sessionId',
         mockVideoMediaStream
       );
-      const recorder = new VideoRecorder(mockVideoMediaStream);
       await provider.sendClientInfo(mockClientSessionInformationEvent);
 
       expect(mockVideoRecorder.dispatch).toHaveBeenCalledTimes(1);

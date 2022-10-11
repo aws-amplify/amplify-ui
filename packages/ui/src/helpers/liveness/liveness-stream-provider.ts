@@ -85,12 +85,14 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
         } else if (isBlob(value)) {
           const buffer = await value.arrayBuffer();
           var chunk = new Uint8Array(buffer);
-          yield {
-            VideoEvent: {
-              VideoChunk: chunk,
-              TimestampMillis: Date.now(),
-            },
-          };
+          if (chunk.length > 0) {
+            yield {
+              VideoEvent: {
+                VideoChunk: chunk,
+                TimestampMillis: Date.now(),
+              },
+            };
+          }
         } else if (isClientSessionInformationEvent(value)) {
           yield {
             ClientSessionInformationEvent: {
