@@ -1,34 +1,49 @@
 import React, { Children, cloneElement, isValidElement, useMemo } from 'react';
 import { View, ViewStyle } from 'react-native';
 
-import { Label } from '@aws-amplify/ui-react-native/dist/primitives';
-import { RadioProps } from '@aws-amplify/ui-react-native/dist/primitives';
+import { Label } from '../Label';
+import { getFlexDirectionFromLabelPosition } from '../Label/utils';
+import { RadioProps } from '../Radio';
 
+import { styles } from './styles';
 import { RadioGroupProps } from './types';
 
 export default function RadioGroup<T>({
+  accessibilityRole = 'radiogroup',
   children,
   direction = 'vertical',
   disabled,
   label,
+  labelPosition = 'top',
   labelStyle,
   onChange,
+  size,
   style,
   value,
   ...rest
 }: RadioGroupProps<T>): JSX.Element {
+  const containerStyle: ViewStyle = useMemo(
+    () => ({
+      flexDirection: getFlexDirectionFromLabelPosition(labelPosition),
+    }),
+    [labelPosition]
+  );
+
   const childContainerStyle: ViewStyle = useMemo(
     () => ({ flexDirection: direction === 'horizontal' ? 'row' : 'column' }),
     [direction]
   );
 
   return (
-    <View {...rest} style={style}>
-      {label ? <Label style={labelStyle}>{label}</Label> : null}
-      <View style={childContainerStyle}>
+    <View {...rest} style={[containerStyle, style]}>
+      <View accessibilityRole={accessibilityRole} style={childContainerStyle}>
         {Children.map(children, (child) => {
           if (isValidElement<RadioProps<T>>(child)) {
-            const { disabled: childDisabled, value: childValue } = child.props;
+            const {
+              disabled: childDisabled,
+              value: childValue,
+              size: childSize,
+            } = child.props;
             const isChildDisabled =
               typeof childDisabled === 'boolean' ? childDisabled : disabled;
             const isChildSelected = childValue === value;
@@ -37,10 +52,12 @@ export default function RadioGroup<T>({
               disabled: isChildDisabled,
               onChange,
               selected: isChildSelected,
+              size: childSize ?? size,
             });
           }
         })}
       </View>
+      {label ? <Label style={[styles.label, labelStyle]}>{label}</Label> : null}
     </View>
   );
 }
