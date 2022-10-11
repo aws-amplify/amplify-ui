@@ -1,8 +1,10 @@
 import * as React from 'react';
-import { Heading, HeadingLevel, HeadingProps } from '@aws-amplify/ui-react';
+import { Heading, HeadingLevel } from '@aws-amplify/ui-react';
 
 import { HeadingPropControls } from './HeadingPropControls';
 import { Demo } from '@/components/Demo';
+import { useHeadingProps } from './useHeadingProps';
+import { demoState } from '@/utils/demoState';
 
 const propsToCode = (
   level: HeadingLevel,
@@ -16,10 +18,13 @@ const propsToCode = (
    ${value}
 </Heading>`;
 };
+
+const defaultHeadingProps = {};
+
 export const HeadingDemo = () => {
-  const [level, setLevel] = React.useState<HeadingLevel>(6);
-  const [isTruncated, setIsTruncated] = React.useState<boolean>(false);
-  const [value, setValue] = React.useState<string>('Hello World!');
+  const { level, setLevel, isTruncated, setIsTruncated, value, setValue } =
+    useHeadingProps(demoState.get(Heading.displayName) || defaultHeadingProps);
+
   return (
     <Demo
       code={propsToCode(level, isTruncated, value)}
