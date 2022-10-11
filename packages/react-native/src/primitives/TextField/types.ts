@@ -49,10 +49,17 @@ export interface TextFieldProps extends Omit<TextInputProps, 'editable'> {
    * Styling for the input
    */
   inputStyle?: StyleProp<TextStyle>;
+
+  /**
+   * @description
+   * Component(s) to show after input
+   */
+  outerEndComponent?: React.ReactNode;
 }
 
 export interface TextFieldStyles {
   container: ViewStyle;
   input: TextStyle;
+  inputContainer: ViewStyle;
   disabled: ViewStyle;
 }

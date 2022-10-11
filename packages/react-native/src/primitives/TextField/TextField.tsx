@@ -18,6 +18,7 @@ export default function TextField({
   inputStyle,
   label,
   labelStyle,
+  outerEndComponent,
   ...rest
 }: TextFieldProps): JSX.Element {
   const inputContainerStyle: ViewStyle = useMemo(
@@ -37,12 +38,15 @@ export default function TextField({
       style={[inputContainerStyle, containerStyle]}
     >
       {label ? <Label style={labelStyle}>{label}</Label> : null}
-      <TextInput
-        {...rest}
-        accessible={accessible}
-        editable={!disabled}
-        style={[styles.input, inputStyle]}
-      />
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={[styles.input, inputStyle]}
+          {...rest}
+          accessible={accessible}
+          editable={!disabled}
+        />
+        {outerEndComponent && <View>{outerEndComponent}</View>}
+      </View>
       {error && errorMessage ? (
         <Label style={errorMessageStyle}>{errorMessage}</Label>
       ) : null}

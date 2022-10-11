@@ -33,25 +33,36 @@ exports[`TextField doesn't render the errorMessage if error prop is false 1`] = 
   >
     Label
   </Text>
-  <TextInput
-    accessible={true}
-    editable={true}
-    placeholder="Placeholder"
+  <View
     style={
-      Array [
-        Object {
-          "borderColor": "black",
-          "borderRadius": 4,
-          "borderWidth": 1,
-          "fontSize": 16,
-          "padding": 8,
-          "width": "100%",
-        },
-        undefined,
-      ]
+      Object {
+        "alignItems": "center",
+        "borderColor": "black",
+        "borderRadius": 4,
+        "borderWidth": 1,
+        "flexDirection": "row",
+        "padding": 8,
+        "width": "100%",
+      }
     }
-    testID="textInput"
-  />
+  >
+    <TextInput
+      accessible={true}
+      editable={true}
+      placeholder="Placeholder"
+      style={
+        Array [
+          Object {
+            "flexGrow": 1,
+            "fontSize": 16,
+            "padding": 0,
+          },
+          undefined,
+        ]
+      }
+      testID="textInput"
+    />
+  </View>
 </View>
 `;
 
@@ -88,25 +99,36 @@ exports[`TextField doesn't render the errorMessage if errorMessage prop is undef
   >
     Label
   </Text>
-  <TextInput
-    accessible={true}
-    editable={true}
-    placeholder="Placeholder"
+  <View
     style={
-      Array [
-        Object {
-          "borderColor": "black",
-          "borderRadius": 4,
-          "borderWidth": 1,
-          "fontSize": 16,
-          "padding": 8,
-          "width": "100%",
-        },
-        undefined,
-      ]
+      Object {
+        "alignItems": "center",
+        "borderColor": "black",
+        "borderRadius": 4,
+        "borderWidth": 1,
+        "flexDirection": "row",
+        "padding": 8,
+        "width": "100%",
+      }
     }
-    testID="textInput"
-  />
+  >
+    <TextInput
+      accessible={true}
+      editable={true}
+      placeholder="Placeholder"
+      style={
+        Array [
+          Object {
+            "flexGrow": 1,
+            "fontSize": 16,
+            "padding": 0,
+          },
+          undefined,
+        ]
+      }
+      testID="textInput"
+    />
+  </View>
 </View>
 `;
 
@@ -143,25 +165,36 @@ exports[`TextField renders as expected 1`] = `
   >
     Label
   </Text>
-  <TextInput
-    accessible={true}
-    editable={true}
-    placeholder="Placeholder"
+  <View
     style={
-      Array [
-        Object {
-          "borderColor": "black",
-          "borderRadius": 4,
-          "borderWidth": 1,
-          "fontSize": 16,
-          "padding": 8,
-          "width": "100%",
-        },
-        undefined,
-      ]
+      Object {
+        "alignItems": "center",
+        "borderColor": "black",
+        "borderRadius": 4,
+        "borderWidth": 1,
+        "flexDirection": "row",
+        "padding": 8,
+        "width": "100%",
+      }
     }
-    testID="textInput"
-  />
+  >
+    <TextInput
+      accessible={true}
+      editable={true}
+      placeholder="Placeholder"
+      style={
+        Array [
+          Object {
+            "flexGrow": 1,
+            "fontSize": 16,
+            "padding": 0,
+          },
+          undefined,
+        ]
+      }
+      testID="textInput"
+    />
+  </View>
 </View>
 `;
 
@@ -198,26 +231,37 @@ exports[`TextField renders as expected as password field 1`] = `
   >
     Label
   </Text>
-  <TextInput
-    accessible={true}
-    editable={true}
-    placeholder="Placeholder"
-    secureTextEntry={true}
+  <View
     style={
-      Array [
-        Object {
-          "borderColor": "black",
-          "borderRadius": 4,
-          "borderWidth": 1,
-          "fontSize": 16,
-          "padding": 8,
-          "width": "100%",
-        },
-        undefined,
-      ]
+      Object {
+        "alignItems": "center",
+        "borderColor": "black",
+        "borderRadius": 4,
+        "borderWidth": 1,
+        "flexDirection": "row",
+        "padding": 8,
+        "width": "100%",
+      }
     }
-    testID="textInput"
-  />
+  >
+    <TextInput
+      accessible={true}
+      editable={true}
+      placeholder="Placeholder"
+      secureTextEntry={true}
+      style={
+        Array [
+          Object {
+            "flexGrow": 1,
+            "fontSize": 16,
+            "padding": 0,
+          },
+          undefined,
+        ]
+      }
+      testID="textInput"
+    />
+  </View>
 </View>
 `;
 
@@ -255,25 +299,36 @@ exports[`TextField renders as expected when disabled 1`] = `
   >
     Label
   </Text>
-  <TextInput
-    accessible={true}
-    editable={false}
-    placeholder="Placeholder"
+  <View
     style={
-      Array [
-        Object {
-          "borderColor": "black",
-          "borderRadius": 4,
-          "borderWidth": 1,
-          "fontSize": 16,
-          "padding": 8,
-          "width": "100%",
-        },
-        undefined,
-      ]
+      Object {
+        "alignItems": "center",
+        "borderColor": "black",
+        "borderRadius": 4,
+        "borderWidth": 1,
+        "flexDirection": "row",
+        "padding": 8,
+        "width": "100%",
+      }
     }
-    testID="textInput"
-  />
+  >
+    <TextInput
+      accessible={true}
+      editable={false}
+      placeholder="Placeholder"
+      style={
+        Array [
+          Object {
+            "flexGrow": 1,
+            "fontSize": 16,
+            "padding": 0,
+          },
+          undefined,
+        ]
+      }
+      testID="textInput"
+    />
+  </View>
 </View>
 `;
 
@@ -310,25 +365,36 @@ exports[`TextField renders as expected with error message 1`] = `
   >
     Label
   </Text>
-  <TextInput
-    accessible={true}
-    editable={true}
-    placeholder="Placeholder"
+  <View
     style={
-      Array [
-        Object {
-          "borderColor": "black",
-          "borderRadius": 4,
-          "borderWidth": 1,
-          "fontSize": 16,
-          "padding": 8,
-          "width": "100%",
-        },
-        undefined,
-      ]
+      Object {
+        "alignItems": "center",
+        "borderColor": "black",
+        "borderRadius": 4,
+        "borderWidth": 1,
+        "flexDirection": "row",
+        "padding": 8,
+        "width": "100%",
+      }
     }
-    testID="textInput"
-  />
+  >
+    <TextInput
+      accessible={true}
+      editable={true}
+      placeholder="Placeholder"
+      style={
+        Array [
+          Object {
+            "flexGrow": 1,
+            "fontSize": 16,
+            "padding": 0,
+          },
+          undefined,
+        ]
+      }
+      testID="textInput"
+    />
+  </View>
   <Text
     accessibilityRole="text"
     style={

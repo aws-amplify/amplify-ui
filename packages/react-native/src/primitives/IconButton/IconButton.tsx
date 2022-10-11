@@ -5,6 +5,7 @@ import { Icon } from '../Icon';
 import { IconButtonProps } from './types';
 
 export default function IconButton({
+  accessibilityRole = 'button',
   color,
   iconStyle,
   source,
@@ -12,7 +13,7 @@ export default function IconButton({
   ...rest
 }: IconButtonProps): JSX.Element {
   return (
-    <Pressable {...rest}>
+    <Pressable {...rest} accessibilityRole={accessibilityRole}>
       <Icon color={color} size={size} source={source} style={iconStyle} />
     </Pressable>
   );

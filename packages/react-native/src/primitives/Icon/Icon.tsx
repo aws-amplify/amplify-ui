@@ -5,6 +5,7 @@ import { getStyles } from './styles';
 import { IconProps } from './types';
 
 export default function Icon({
+  accessibilityRole = 'image',
   animated,
   color,
   size,
@@ -14,7 +15,19 @@ export default function Icon({
   const { icon } = useMemo(() => getStyles(color, size), [color, size]);
 
   if (animated) {
-    return <Animated.Image {...rest} style={[icon, style]} />;
+    return (
+      <Animated.Image
+        {...rest}
+        accessibilityRole={accessibilityRole}
+        style={[icon, style]}
+      />
+    );
   }
-  return <Image {...rest} style={[icon, style]} />;
+  return (
+    <Image
+      {...rest}
+      accessibilityRole={accessibilityRole}
+      style={[icon, style]}
+    />
+  );
 }

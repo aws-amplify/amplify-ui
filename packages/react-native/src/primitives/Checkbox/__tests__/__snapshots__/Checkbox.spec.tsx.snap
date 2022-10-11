@@ -33,6 +33,7 @@ exports[`Checkbox renders as expected when disabled 1`] = `
   }
 >
   <Image
+    accessibilityRole="image"
     source={
       Object {
         "testUri": "../../../src/assets/icons/checkboxOutline.png",
@@ -81,6 +82,7 @@ exports[`Checkbox renders as expected when selected is false 1`] = `
   }
 >
   <Image
+    accessibilityRole="image"
     source={
       Object {
         "testUri": "../../../src/assets/icons/checkboxOutline.png",
@@ -129,6 +131,7 @@ exports[`Checkbox renders as expected when selected is true 1`] = `
   }
 >
   <Image
+    accessibilityRole="image"
     source={
       Object {
         "testUri": "../../../src/assets/icons/checkboxFilled.png",
@@ -177,6 +180,7 @@ exports[`Checkbox renders as expected with accessibilityRole 1`] = `
   }
 >
   <Image
+    accessibilityRole="image"
     source={
       Object {
         "testUri": "../../../src/assets/icons/checkboxOutline.png",
