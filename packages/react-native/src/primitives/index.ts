@@ -7,4 +7,5 @@ export * from './Icon';
 export * from './IconButton';
 export * from './Label';
 export * from './Radio';
+export * from './RadioGroup';
 export * from './TextField';
