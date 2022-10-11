@@ -33,6 +33,7 @@ export const CancelButton: React.FC<CancelButtonProps> = (props) => {
 
   return (
     <Button
+      autoFocus
       variation="link"
       onClick={handleClick}
       size="large"
