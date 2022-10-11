@@ -54,8 +54,8 @@ export interface SearchFieldTokens {
         color: DesignToken<ColorValue>;
       };
     };
-    loading: {
-      alignItem: DesignToken<AlignItemsValue>;
+    _loading: {
+      alignItems: DesignToken<AlignItemsValue>;
       gap: DesignToken<SpaceValue>;
     };
     spaceShared: {
@@ -128,7 +128,10 @@ export const searchfield: SearchFieldTokens = {
         color: { value: '{colors.white}' },
       },
     },
-    loading: { alignItem: { value: 'center' }, gap: { value: '{space.xxxs}' } },
+    _loading: {
+      alignItems: { value: 'center' },
+      gap: { value: '{space.xxxs}' },
+    },
     spaceShared: {
       paddingBlockEnd: { value: '{space.xs}' },
       paddingBlockStart: { value: '{space.xs}' },
