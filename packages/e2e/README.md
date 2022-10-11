@@ -114,7 +114,7 @@ For our e2e tests, we use a specific pattern for test user creation in our vario
 
    - `username`: `.env.USERNAME`+FORCE_CHANGE_PASSWORD
    - `email`: `.env.USERNAME`+FORCE_CHANGE_PASSWORD@`.env.DOMAIN`
-   - `phone`: +1`.env.PHONE_NUMBER`
+   - `phone`: +30`.env.PHONE_NUMBER`
 
 3. Fill out a temporary password of your choice and click `Create user`
 4. Find your new user in the users list, click them, select `edit`, and mark all aliases as `Verified`
