@@ -34,16 +34,15 @@ describe('Liveness Helper', () => {
       const height = 480;
 
       const expectedOvalDetails: LivenessOvalDetails = {
-        height: 524,
-        width: 324,
-        centerX: 428,
-        centerY: 480,
+        height: 480,
+        width: 297,
+        centerX: 440,
+        centerY: 390,
       };
 
       const actualOvalDetails = getRandomLivenessOvalDetails({
         width,
         height,
-        initialFace,
         sessionInformation: mockSessionInformation,
       });
 
@@ -55,16 +54,15 @@ describe('Liveness Helper', () => {
       const height = 640;
 
       const expectedOvalDetails: LivenessOvalDetails = {
-        height: 621,
-        width: 384,
-        centerX: 384,
-        centerY: 640,
+        height: 640,
+        width: 396,
+        centerX: 330,
+        centerY: 520,
       };
 
       const actualOvalDetails = getRandomLivenessOvalDetails({
         width,
         height,
-        initialFace,
         sessionInformation: mockSessionInformation,
       });
 
