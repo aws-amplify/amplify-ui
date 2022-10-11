@@ -1,4 +1,5 @@
-import type {
+import React from 'react';
+import {
   InAppMessage,
   InAppMessageAction,
   InAppMessageButton,
@@ -83,15 +84,14 @@ export interface MessagePayloadStyle {
   secondaryButton?: MessageStyle;
 }
 
-export type BannerMessageComponent<PlatformStyleProps> = (
-  props: BannerMessageCommonProps<PlatformStyleProps>
-) => JSX.Element | null;
-export type CarouselMessageComponent<PlatformStyleProps> = (
-  props: CarouselMessageCommonProps<PlatformStyleProps>
-) => JSX.Element | null;
-export type FullScreenMessageComponent<PlatformStyleProps> = (
-  props: FullScreenMessageCommonProps<PlatformStyleProps>
-) => JSX.Element | null;
-export type ModalMessageComponent<PlatformStyleProps> = (
-  props: ModalMessageCommonProps<PlatformStyleProps>
-) => JSX.Element | null;
+export type BannerMessageComponent<PlatformStyleProps> = React.ComponentType<
+  BannerMessageCommonProps<PlatformStyleProps>
+>;
+export type CarouselMessageComponent<PlatformStyleProps> = React.ComponentType<
+  CarouselMessageCommonProps<PlatformStyleProps>
+>;
+export type FullScreenMessageComponent<PlatformStyleProps> =
+  React.ComponentType<FullScreenMessageCommonProps<PlatformStyleProps>>;
+export type ModalMessageComponent<PlatformStyleProps> = React.ComponentType<
+  ModalMessageCommonProps<PlatformStyleProps>
+>;
