@@ -1,9 +1,9 @@
 import React from 'react';
-import { getActorState, translate } from '@aws-amplify/ui';
+import { translate } from '@aws-amplify/ui';
 
 import { Flex } from '../../../primitives/Flex';
 import { Heading } from '../../../primitives/Heading';
-import { useAuthenticator } from '../hooks/useAuthenticator';
+import { useAuthenticator } from '@aws-amplify/ui-react-core';
 import { useCustomComponents } from '../hooks/useCustomComponents';
 import { useFormHandlers } from '../hooks/useFormHandlers';
 import { FormFields } from '../shared/FormFields';
@@ -53,11 +53,9 @@ export const ConfirmSignIn = ({
 };
 
 function Header() {
-  // TODO: expose challengeName
-  const { _state } = useAuthenticator();
-  const actorState = getActorState(_state);
+  const { user } = useAuthenticator();
 
-  const { challengeName } = actorState.context;
+  const { challengeName } = user;
   let headerText: string;
 
   switch (challengeName) {
