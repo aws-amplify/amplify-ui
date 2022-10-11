@@ -32,7 +32,7 @@ export const HeadingPropControls: HeadingPropControlsInterface = ({
       <TextField
         label="Displayed Text"
         onChange={(event) => setValue(event.target.value)}
-        defaultValue={value}
+        value={value}
       ></TextField>
       <SelectField
         name="level"
