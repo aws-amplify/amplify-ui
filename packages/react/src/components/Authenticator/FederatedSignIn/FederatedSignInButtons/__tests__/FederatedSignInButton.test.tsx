@@ -34,7 +34,7 @@ const toFederatedSignIn = jest.fn();
 
 jest.spyOn(ReactCoreModule, 'useAuthenticator').mockReturnValue({
   toFederatedSignIn,
-} as any);
+} as unknown as ReactCoreModule.UseAuthenticator);
 
 describe('FederatedSignInButton', () => {
   beforeAll(() => {
