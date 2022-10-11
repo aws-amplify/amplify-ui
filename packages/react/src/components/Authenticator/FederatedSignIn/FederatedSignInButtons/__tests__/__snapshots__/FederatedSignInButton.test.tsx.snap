@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FederatedSignInButton renders as expected with Facebook provider 1`] = `
+exports[`FederatedSignInButton renders as expected with { provider: 'Facebook', text: 'Sign In with Facebook' } provider 1`] = `
 <div>
   <button
     class="amplify-button amplify-field-group__control federated-sign-in-button"
@@ -11,13 +11,13 @@ exports[`FederatedSignInButton renders as expected with Facebook provider 1`] = 
     <span
       class="amplify-text"
     >
-      Sign in with Facebook
+      Sign In with Facebook
     </span>
   </button>
 </div>
 `;
 
-exports[`FederatedSignInButton renders as expected with Google provider 1`] = `
+exports[`FederatedSignInButton renders as expected with { provider: 'Google', text: 'Sign In with Google' } provider 1`] = `
 <div>
   <button
     class="amplify-button amplify-field-group__control federated-sign-in-button"
@@ -28,13 +28,13 @@ exports[`FederatedSignInButton renders as expected with Google provider 1`] = `
     <span
       class="amplify-text"
     >
-      Sign in with Google
+      Sign In with Google
     </span>
   </button>
 </div>
 `;
 
-exports[`FederatedSignInButton renders as expected with LoginWithAmazon provider 1`] = `
+exports[`FederatedSignInButton renders as expected with { provider: 'LoginWithAmazon', text: 'Sign In with Amazon' } provider 1`] = `
 <div>
   <button
     class="amplify-button amplify-field-group__control federated-sign-in-button"
@@ -45,13 +45,13 @@ exports[`FederatedSignInButton renders as expected with LoginWithAmazon provider
     <span
       class="amplify-text"
     >
-      Sign in with LoginWithAmazon
+      Sign In with Amazon
     </span>
   </button>
 </div>
 `;
 
-exports[`FederatedSignInButton renders as expected with SignInWithApple provider 1`] = `
+exports[`FederatedSignInButton renders as expected with { provider: 'SignInWithApple', text: 'Sign In with Apple' } provider 1`] = `
 <div>
   <button
     class="amplify-button amplify-field-group__control federated-sign-in-button"
@@ -62,7 +62,7 @@ exports[`FederatedSignInButton renders as expected with SignInWithApple provider
     <span
       class="amplify-text"
     >
-      Sign in with SignInWithApple
+      Sign In with Apple
     </span>
   </button>
 </div>

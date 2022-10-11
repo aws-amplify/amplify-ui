@@ -6,11 +6,28 @@ import * as ReactCoreModule from '@aws-amplify/ui-react-core';
 
 import { FederatedSignInButton } from '../FederatedSignInButton';
 
-const SUPPORTED_PROVIDERS = [
-  FederatedIdentityProviders.Amazon,
-  FederatedIdentityProviders.Apple,
-  FederatedIdentityProviders.Facebook,
-  FederatedIdentityProviders.Google,
+interface SupportedProvider {
+  provider: FederatedIdentityProviders;
+  text: string;
+}
+
+const SUPPORTED_PROVIDERS_PROPS: SupportedProvider[] = [
+  {
+    provider: FederatedIdentityProviders.Amazon,
+    text: 'Sign In with Amazon',
+  },
+  {
+    provider: FederatedIdentityProviders.Apple,
+    text: 'Sign In with Apple',
+  },
+  {
+    provider: FederatedIdentityProviders.Facebook,
+    text: 'Sign In with Facebook',
+  },
+  {
+    provider: FederatedIdentityProviders.Google,
+    text: 'Sign In with Google',
+  },
 ];
 
 const useAuthenticatorMock = {
@@ -26,14 +43,11 @@ describe('FederatedSignInButton', () => {
     jest.clearAllMocks();
   });
 
-  it.each(SUPPORTED_PROVIDERS)(
+  it.each(SUPPORTED_PROVIDERS_PROPS)(
     'renders as expected with %s provider',
-    (provider) => {
+    (providerProps) => {
       const { container } = render(
-        <FederatedSignInButton
-          provider={provider}
-          text={`Sign in with ${provider}`}
-        />
+        <FederatedSignInButton {...providerProps} />
       );
       expect(container).toMatchSnapshot();
     }
