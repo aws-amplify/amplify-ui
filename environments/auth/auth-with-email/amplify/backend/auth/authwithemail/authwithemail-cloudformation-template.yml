@@ -391,4 +391,4 @@ Outputs:
         - appSecret
     Condition: ShouldOutputAppClientSecrets
 Description: >-
-  {"createdOn":"Mac","createdBy":"Amplify","createdWith":"8.3.1","stackType":"auth-Cognito","metadata":{}}
+  {"createdOn":"Mac","createdBy":"Amplify","createdWith":"10.0.0","stackType":"auth-Cognito","metadata":{}}
