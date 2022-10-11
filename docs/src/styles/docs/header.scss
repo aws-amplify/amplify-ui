@@ -9,11 +9,6 @@
   }
 }
 
-/* Remove after Global Nav launch START */
-#main-nav + .docs-header {
-  --docs-dev-center-nav-height: 3rem;
-}
-/* Remove after Global Nav launch END */
 .docs-header {
   display: flex;
   position: sticky;
@@ -34,7 +29,7 @@
   }
 
   transition: all var(--amplify-time-medium) ease;
-  
+
   .scrolled .docs-home & {
     border-bottom: var(--amplify-borders-secondary);
     box-shadow: var(--amplify-shadows-small);
@@ -49,12 +44,12 @@
     opacity: 0;
     display: none;
   }
-  
+
   .scrolled .docs-home & {
     display: inline-flex;
     animation: showOverlay var(--amplify-time-long) forwards;
   }
-  
+
   @media (min-width: $breakpoint-large) {
     display: none;
   }
@@ -64,13 +59,14 @@
   margin-inline-start: calc(-1 * var(--amplify-space-xs));
 }
 
-
 // The same menu button is used in the sidebar and header
 // we want to hide it in certain scenarios so it can't be tabbed to
 .docs-header-menu-button {
   border: none;
-  margin-inline-start: calc(-1 * var(--amplify-components-button-small-padding-inline-start));
-  
+  margin-inline-start: calc(
+    -1 * var(--amplify-components-button-small-padding-inline-start)
+  );
+
   @media (min-width: $breakpoint-large) {
     display: none;
     .docs-home & {

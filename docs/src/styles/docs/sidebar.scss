@@ -1,6 +1,5 @@
 @import './_variables.scss';
 
-
 @keyframes showSidebar {
   0% {
     transform: translateX(-100%);
@@ -21,7 +20,7 @@
 
 .docs-sidebar {
   display: block;
-  
+
   &.collapsed {
     display: none;
     @media (min-width: $breakpoint-large) {
@@ -35,20 +34,18 @@
 
 .docs-sidebar-spacer {
   width: 0;
-  
+
   // desktop
   @media (min-width: $breakpoint-large) {
     flex-shrink: 0;
     width: 20rem;
     position: relative;
-    
+
     .docs-home & {
       width: 0;
     }
   }
 }
-
-
 
 .docs-sidebar-overlay {
   position: fixed;
@@ -56,25 +53,24 @@
   left: 0;
   opacity: 0;
   background-color: var(--amplify-colors-overlay-40);
-  
+
   .expanded > & {
     width: 100vw;
     height: 100vh;
     opacity: 1;
     animation: showOverlay var(--amplify-time-long) forwards;
   }
-  
+
   @media (min-width: $breakpoint-large) {
     .expanded > & {
       display: none;
     }
-    
+
     .docs-home .expanded > & {
       display: block;
     }
   }
 }
-
 
 .docs-sidebar-inner {
   // For mobile screens, take up 90% width
@@ -83,24 +79,29 @@
   @media (min-width: $breakpoint-small) {
     --width: 20rem;
   }
-  
+
   // This is to get the secondary link text lined up with the primary nav item
   --secondary-nav-indent: calc(1.25rem + var(--amplify-space-small) * 2);
-  --tertiary-nav-indent:  calc(var(--secondary-nav-indent) + var(--amplify-space-medium));
-  
+  --tertiary-nav-indent: calc(
+    var(--secondary-nav-indent) + var(--amplify-space-medium)
+  );
+
   // Custom expander styles
   --amplify-components-expander-box-shadow: none;
   --amplify-components-expander-item-box-shadow: none;
   --amplify-components-expander-header-box-shadow: none;
   --amplify-components-expander-trigger-padding-inline-start: 0;
-  --amplify-components-expander-trigger-padding-inline-end: var(--amplify-space-xs);
+  --amplify-components-expander-trigger-padding-inline-end: var(
+    --amplify-space-xs
+  );
   --amplify-components-expander-trigger-min-height: 0;
   --amplify-components-expander-item-border-start-start-radius: 0;
   --amplify-components-expander-item-border-start-end-radius: 0;
   --amplify-components-expander-item-border-end-start-radius: 0;
   --amplify-components-expander-item-border-end-end-radius: 0;
-  --amplify-components-expander-trigger-hover-background-color: var(--amplify-colors-background-tertiary);
-
+  --amplify-components-expander-trigger-hover-background-color: var(
+    --amplify-colors-background-tertiary
+  );
 
   height: calc(100vh - var(--docs-dev-center-nav-height));
   width: var(--width);
@@ -115,18 +116,18 @@
   background-color: var(--amplify-colors-background-primary);
   z-index: 99999;
   transform: translateX(calc(-1 * var(--width)));
-  
+
   .expanded > & {
     animation: showSidebar var(--amplify-time-long) forwards;
   }
-  
+
   @media (min-width: $breakpoint-large) {
     transform: translateX(0);
     width: var(--width);
     .docs-home & {
       transform: translateX(-100%);
     }
-    
+
     .expanded > & {
       transform: translateX(0);
       width: var(--width);
@@ -138,14 +139,14 @@
   & .amplify-expander__content {
     padding-inline: 0;
   }
-  
+
   & .amplify-expander__content__text {
     padding-block: 0;
   }
 }
 
-
-.docs-secondary-nav-link, .docs-tertiary-nav-link  {
+.docs-secondary-nav-link,
+.docs-tertiary-nav-link {
   display: block;
   padding: var(--amplify-space-xs) var(--amplify-space-small);
   font-size: var(--amplify-font-sizes-small);
@@ -156,7 +157,7 @@
     color: var(--amplify-colors-font-hover);
     background-color: var(--amplify-colors-brand-primary-10);
   }
-  
+
   &:active {
     background-color: var(--amplify-colors-brand-primary-20);
   }
@@ -174,7 +175,7 @@
   @media (min-width: $breakpoint-large) {
     display: none;
   }
-  
+
   .docs-home & {
     display: inline-flex;
   }
