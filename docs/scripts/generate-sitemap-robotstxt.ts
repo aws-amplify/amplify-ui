@@ -97,15 +97,18 @@ function generateRobotsTxt() {
         : 'non-Prod. Googlebot is disallowed.'
     }...`
   );
+
+  const allowTxt = `# *
+User-agent: *
+Allow: /
+`;
+
   const disallowTxt = `# *
-User-agent: Googlebot
+User-agent: *
 Disallow: /
 `;
 
-  const txt = `${isProd ? '' : disallowTxt}
-User-agent: *
-Allow: /
-
+  const txt = `${isProd ? allowTxt : disallowTxt}
 # Host
 Host: ${isProd ? 'ui.docs.amplify.aws' : 'dev.ui.docs.amplify.aws'}
 

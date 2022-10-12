@@ -68,7 +68,7 @@ export const AlertPropControls: AlertPropControlsInterface = ({
 
       <SwitchField
         label="isDismissable"
-        defaultChecked={isDismissible}
+        isChecked={isDismissible}
         labelPosition="end"
         onChange={(event) => {
           setIsDismissible(event.target.checked as AlertProps['isDismissible']);
@@ -77,7 +77,7 @@ export const AlertPropControls: AlertPropControlsInterface = ({
 
       <SwitchField
         label="hasIcon"
-        defaultChecked={hasIcon}
+        isChecked={hasIcon}
         labelPosition="end"
         onChange={(event) =>
           setHasIcon(event.target.checked as AlertProps['hasIcon'])
