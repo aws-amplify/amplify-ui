@@ -28,10 +28,15 @@ export interface ExpanderProps extends ViewProps {
   type?: ExpanderType;
 
   /**
+   * @deprecated replace usage with `onValueChange`
+   */
+  onChange?: (value?: string | string[]) => void;
+
+  /**
    * @description
    * Event handler called when the expanded state of an item changes
    */
-  onChange?: (value?: string | string[]) => void;
+  onValueChange?: (value?: string | string[]) => void;
 }
 
 export interface ExpanderItemProps extends ViewProps {

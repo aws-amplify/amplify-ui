@@ -1,5 +1,11 @@
 # @aws-amplify/ui
 
+## 3.14.0
+
+### Minor Changes
+
+- [#2690](https://github.com/aws-amplify/amplify-ui/pull/2690) [`42143228f`](https://github.com/aws-amplify/amplify-ui/commit/42143228fd8e99500e05fee34cee3f8067189c4e) Thanks [@calebpollman](https://github.com/calebpollman)! - Bump @aws-amplify/ui minor version
+
 ## 3.13.4
 
 ### Patch Changes
