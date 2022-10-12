@@ -29,21 +29,22 @@ The following breaking changes were introduced in `@aws-amplify/ui-vue` major ve
 
 #### 1. Update any override function calls
 
-Update the override function calls with the updated function signatures. Rather then returning an `Auth.*` object you must now return the function callback passed in the `handle*` signature.
+Update the override function call to include the `autSignIn` set to enabled. This must be included if you are overriding `Auth.signUp`.
 
 ```diff
-- async handleSignUp(formData) {
-+ async handleSignUp(formData, signUp) {
+ async handleSignUp(formData) {
   let { username, password, attributes } = formData;
   // custom username
   username = username.toLowerCase();
   attributes.email = attributes.email.toLowerCase();
--  return Auth.signUp({
--    username,
--    password,
--    attributes,
--  })
-+  return signUp(username, password, attributes)
+  return Auth.signUp({
+    username,
+    password,
+    attributes,
++   autoSignIn: {
++     enabled: true
++   }
+  })
 }
 
 ```
