@@ -64,7 +64,7 @@ const PropControls = (props) => {
 
       <SwitchField
         label="isFullWidth"
-        defaultChecked={props.fullWidth}
+        isChecked={props.fullWidth}
         labelPosition="end"
         onChange={(event) => {
           props.setFullWidth(
@@ -75,7 +75,7 @@ const PropControls = (props) => {
 
       <SwitchField
         label="isDisabled"
-        defaultChecked={props.disabled}
+        isChecked={props.disabled}
         labelPosition="end"
         onChange={(event) => {
           props.setDisabled(event.target.checked as ButtonProps['isDisabled']);
@@ -84,7 +84,7 @@ const PropControls = (props) => {
 
       <SwitchField
         label="isLoading"
-        defaultChecked={props.loading}
+        isChecked={props.loading}
         labelPosition="end"
         onChange={(event) => {
           props.setLoading(event.target.checked as ButtonProps['isLoading']);

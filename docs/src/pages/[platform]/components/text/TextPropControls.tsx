@@ -71,7 +71,7 @@ export const TextPropControls: TextPropControlsInterface = ({
       <TextField
         label="Displayed Text"
         onChange={(event) => setValue(event.target.value)}
-        defaultValue={value}
+        value={value}
       ></TextField>
       <SelectField
         name="variation"
@@ -104,7 +104,7 @@ export const TextPropControls: TextPropControlsInterface = ({
       />
       <SwitchField
         label="isTruncated"
-        defaultChecked={isTruncated}
+        isChecked={isTruncated}
         labelPosition="end"
         onChange={(event) => setIsTruncated(event.target.checked)}
       />
