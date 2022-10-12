@@ -6,6 +6,9 @@ export interface TabsProps extends ViewProps {
   // only accepts Tab components as children
   children: React.ReactElement<TabProps>[];
 
+  // for uncontrolled component
+  defaultIndex?: number;
+
   // should this be required until Tabs can also be an uncontrolled component?
   selectedIndex?: number;
 

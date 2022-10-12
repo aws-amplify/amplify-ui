@@ -13,17 +13,37 @@ const ControlledTabs = () => {
   return (
     <Tabs onChange={onChange} selectedIndex={index} style={styles.container}>
       <Tab title="Sign In">
-        <Text>Option 1 content</Text>
+        <Text>Sign in content</Text>
       </Tab>
       <Tab title="Create Account">
-        <Text>Option 2 content</Text>
+        <Text>Create account content</Text>
       </Tab>
     </Tabs>
   );
 };
 
-storiesOf('Tabs', module).add('default Tabs', () => <ControlledTabs />);
-// .add('style', () => <Tabs style={styles.redText}>This should be red</Tabs>);
+storiesOf('Tabs', module)
+  .add('default Tabs', () => (
+    <Tabs>
+      <Tab title="Tab 1">
+        <Text>Tab 1 content panel</Text>
+      </Tab>
+      <Tab title="Tab 2">
+        <Text>Tab 2 content panel</Text>
+      </Tab>
+    </Tabs>
+  ))
+  .add('controlled Tabs', () => <ControlledTabs />)
+  .add('defaultIndex', () => (
+    <Tabs defaultIndex={1}>
+      <Tab title="Tab 1">
+        <Text>Tab 1 should not be selected by default</Text>
+      </Tab>
+      <Tab title="Tab 2">
+        <Text>Tab 2 should be selected by default</Text>
+      </Tab>
+    </Tabs>
+  ));
 
 const styles = StyleSheet.create({
   container: { width: '90%' },
