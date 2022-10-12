@@ -135,11 +135,6 @@ export const LivenessCameraModule = (
           width={videoWidth}
           position="absolute"
           top={0}
-          {...(isMobileScreen && {
-            style: {
-              background: 'linear-gradient(transparent 70%, white 100%)',
-            },
-          })}
         />
 
         {isRecording && (
