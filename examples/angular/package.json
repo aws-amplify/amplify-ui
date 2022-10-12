@@ -13,7 +13,7 @@
   },
   "private": true,
   "dependencies": {
-    "aws-amplify": "in-app-messaging",
+    "aws-amplify": "next",
     "@angular/animations": "~11.2.14",
     "@angular/common": "~11.2.14",
     "@angular/compiler": "~11.2.14",

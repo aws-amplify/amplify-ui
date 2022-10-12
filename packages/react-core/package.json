@@ -34,7 +34,7 @@
     "lodash": "4.17.21"
   },
   "peerDependencies": {
-    "aws-amplify": "in-app-messaging",
+    "aws-amplify": "next",
     "react": ">= 16.8.0",
     "react-dom": ">= 16.8.0"
   },
