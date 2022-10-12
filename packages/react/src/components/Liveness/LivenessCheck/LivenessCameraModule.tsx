@@ -153,6 +153,7 @@ export const LivenessCameraModule = (
           direction="column"
           alignItems="center"
           position={'absolute'}
+          width="100%"
           bottom={
             isMobileScreen
               ? `calc(${streamOffset} + var(--amplify-space-medium))`
