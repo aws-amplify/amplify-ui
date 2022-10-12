@@ -4,10 +4,10 @@ import { useRouter } from 'next/router';
 
 import { Footer } from '@/components/Layout/Footer';
 import { HeroSection } from '@/components/home/sections';
-import { isReactNativeEnabled } from '@/utils/featureFlags';
+import { IS_REACT_NATIVE_ENABLED } from '@/utils/featureFlags';
 
 import ReactHomePage from './index.react';
-import ReactNativeHomePage from './index.reactnative';
+import ReactNativeHomePage from './index.react-native';
 import VueHomePage from './index.vue';
 import AngularHomePage from './index.angular';
 import FlutterHomePage from './index.flutter';
@@ -63,7 +63,7 @@ const HomePage = ({ colorMode }) => {
       pageContent = <FlutterHomePage colorMode={colorMode} />;
       break;
     case 'react-native':
-      pageContent = isReactNativeEnabled ? (
+      pageContent = IS_REACT_NATIVE_ENABLED ? (
         <ReactNativeHomePage colorMode={colorMode} />
       ) : (
         <ReactHomePage colorMode={colorMode} />

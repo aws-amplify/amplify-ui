@@ -68,7 +68,7 @@ export const PaginationPropControls: PaginationPropControlsInterface = ({
 
       <SwitchField
         label="Has More Pages"
-        defaultChecked={hasMorePages}
+        isChecked={hasMorePages}
         labelPosition="end"
         onChange={(event) =>
           setHasMorePages(
