@@ -38,19 +38,19 @@ export class SignUpWithEmailComponent implements OnInit {
   }
 
   services = {
-    async handleSignUp(
-      formData: Record<string, any>,
-      signUp: (
-        username: string,
-        password: string,
-        attributes: Record<string, any>
-      ) => Promise<any>
-    ) {
+    async handleSignUp(formData: Record<string, any>) {
       let { username, password, attributes } = formData;
       // custom username
       username = username.toLowerCase();
       attributes.email = attributes.email.toLowerCase();
-      return signUp(username, password, attributes);
+      return Auth.signUp({
+        username,
+        password,
+        attributes,
+        autoSignIn: {
+          enabled: true,
+        },
+      });
     },
   };
 }

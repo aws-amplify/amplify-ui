@@ -31,12 +31,19 @@ I18n.putVocabulariesForLanguage('en', {
 });
 
 const services = {
-  async handleSignUp(formData, signUp) {
+  async handleSignUp(formData) {
     let { username, password, attributes } = formData;
     // custom username
     username = username.toLowerCase();
     attributes.email = attributes.email.toLowerCase();
-    return signUp(username, password, attributes);
+    return Auth.signUp({
+      username,
+      password,
+      attributes,
+      autoSignIn: {
+        enabled: true,
+      },
+    });
   },
 };
 </script>

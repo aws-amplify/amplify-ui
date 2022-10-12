@@ -187,20 +187,17 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
         async resetPassword(context) {
           const { username } = context;
 
-          return services.handleForgotPassword({ username }, forgotPassword);
+          return services.handleForgotPassword(username);
         },
         async confirmResetPassword(context) {
           const { username } = context;
           const { confirmation_code: code, password } = context.formValues;
 
-          return services.handleForgotPasswordSubmit(
-            {
-              username,
-              code,
-              password,
-            },
-            forgotPasswordSubmit
-          );
+          return services.handleForgotPasswordSubmit({
+            username,
+            code,
+            password,
+          });
         },
         async validateFields(context, event) {
           return runValidators(

@@ -522,13 +522,10 @@ export function signInActor({ services }: SignInMachineOptions) {
           const credentials = { ...authAttributes, ...formValues };
           const { username, password } = credentials;
 
-          return await services.handleSignIn(
-            {
-              username,
-              password,
-            },
-            signIn
-          );
+          return await services.handleSignIn({
+            username,
+            password,
+          });
         },
         async confirmSignIn(context) {
           const { challengeName, user } = context;
@@ -538,10 +535,7 @@ export function signInActor({ services }: SignInMachineOptions) {
             ? challengeName
             : undefined;
 
-          await services.handleConfirmSignIn(
-            { user, code, mfaType },
-            confirmSignIn
-          );
+          await services.handleConfirmSignIn({ user, code, mfaType });
           return await Auth.currentAuthenticatedUser();
         },
         async forceNewPassword(context) {

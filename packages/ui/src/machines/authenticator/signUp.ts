@@ -253,10 +253,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
           const username =
             get(user, 'username') || get(authAttributes, 'username');
 
-          return await services.handleConfirmSignUp(
-            { username, code },
-            confirmSignUp
-          );
+          return await services.handleConfirmSignUp({ username, code });
         },
         async resendConfirmationCode(context, event) {
           const { user, authAttributes } = context;
@@ -304,14 +301,11 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
             }
           });
 
-          return await services.handleSignUp(
-            {
-              username,
-              password,
-              attributes,
-            },
-            signUp
-          );
+          return await services.handleSignUp({
+            username,
+            password,
+            attributes,
+          });
         },
         async validateSignUp(context, event) {
           // This needs to exist in the machine to reference new `services`

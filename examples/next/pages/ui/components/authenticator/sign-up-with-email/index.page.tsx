@@ -35,12 +35,19 @@ export default function AuthenticatorWithEmail() {
     context.route,
   ]);
   const services = {
-    async handleSignUp(formData, signUp) {
+    async handleSignUp(formData) {
       let { username, password, attributes } = formData;
       // custom username
       username = username.toLowerCase();
       attributes.email = attributes.email.toLowerCase();
-      return signUp(username, password, attributes);
+      return Auth.signUp({
+        username,
+        password,
+        attributes,
+        autoSignIn: {
+          enabled: true,
+        },
+      });
     },
   };
 
@@ -48,9 +55,9 @@ export default function AuthenticatorWithEmail() {
     <>
       <View>{authStatus}</View>
       <Authenticator
-        services={services}
         formFields={formFields}
         initialState="signUp"
+        services={services}
       >
         {({ signOut }) => <button onClick={signOut}>Sign out</button>}
       </Authenticator>

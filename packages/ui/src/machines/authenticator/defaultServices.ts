@@ -17,71 +17,56 @@ export const defaultServices = {
     return Auth.currentAuthenticatedUser();
   },
 
-  async handleSignUp({ username, password, attributes }, signUp): Promise<any> {
-    return signUp(username, password, attributes);
+  async handleSignUp(formData): Promise<any> {
+    return Auth.signUp(formData);
   },
-  async handleSignIn(
-    {
-      username,
-      password,
-    }: {
-      username: string;
-      password: string;
-    },
-    signIn
-  ): Promise<any> {
-    return signIn(username, password);
+  async handleSignIn({
+    username,
+    password,
+  }: {
+    username: string;
+    password: string;
+  }): Promise<any> {
+    return Auth.signIn(username, password);
   },
-  async handleConfirmSignIn(
-    {
-      user,
-      code,
-      mfaType,
-    }: {
-      user: any;
-      code: string;
-      mfaType: AuthChallengeName;
-    },
-    confirmSignIn
-  ): Promise<any> {
-    return confirmSignIn(
+  async handleConfirmSignIn({
+    user,
+    code,
+    mfaType,
+  }: {
+    user: any;
+    code: string;
+    mfaType: AuthChallengeName;
+  }): Promise<any> {
+    return Auth.confirmSignIn(
       user,
       code,
       // cast due to restrictive typing of Auth.confirmSignIn
       mfaType as 'SMS_MFA' | 'SOFTWARE_TOKEN_MFA'
     );
   },
-  async handleConfirmSignUp(
-    {
-      username,
-      code,
-    }: {
-      username: string;
-      code: string;
-    },
-    confirmSignUp
-  ): Promise<any> {
-    return await confirmSignUp(username, code);
+  async handleConfirmSignUp({
+    username,
+    code,
+  }: {
+    username: string;
+    code: string;
+  }): Promise<any> {
+    return await Auth.confirmSignUp(username, code);
   },
-  async handleForgotPasswordSubmit(
-    {
-      username,
-      code,
-      password,
-    }: {
-      username: string;
-      code: string;
-      password: string;
-    },
-    forgotPasswordSubmit
-  ): Promise<SignInResult> {
-    return forgotPasswordSubmit(username, code, password);
+  async handleForgotPasswordSubmit({
+    username,
+    code,
+    password,
+  }: {
+    username: string;
+    code: string;
+    password: string;
+  }): Promise<SignInResult> {
+    return Auth.forgotPasswordSubmit(username, code, password);
   },
-  async handleForgotPassword(
-    { username }: { username: string },
-    forgotPassword
-  ): Promise<any> {
-    return forgotPassword(username);
+  async handleForgotPassword(formData): Promise<any> {
+    return Auth.forgotPassword(formData);
   },
 
   // Validation hooks for overriding
