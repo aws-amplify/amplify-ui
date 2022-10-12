@@ -1,16 +1,9 @@
-import {
-  Component,
-  HostBinding,
-  OnInit,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, HostBinding, ViewEncapsulation } from '@angular/core';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 import {
   translate,
-  hasTranslation,
   getFormDataFromEvent,
   FormFieldsArray,
-  getSortedFormFields,
 } from '@aws-amplify/ui';
 
 @Component({
@@ -23,9 +16,7 @@ export class SignInComponent {
 
   // translated phrases
   // Support backwards compatibility for legacy key with trailing space
-  public forgotPasswordText = !hasTranslation('Forgot your password? ')
-    ? translate('Forgot your password?')
-    : translate('Forgot your password? ');
+  public forgotPasswordText = translate('Forgot your password?');
   public signInButtonText = translate('Sign in');
   public sortedFormFields: FormFieldsArray;
 

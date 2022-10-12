@@ -1,5 +1,5 @@
 import React from 'react';
-import { translate, hasTranslation } from '@aws-amplify/ui';
+import { translate } from '@aws-amplify/ui';
 
 import { Button } from '../../../primitives/Button';
 import { Flex } from '../../../primitives/Flex';
@@ -66,10 +66,7 @@ const DefaultFooter = () => {
     context.toResetPassword,
   ]);
 
-  // Support backwards compatibility for legacy key with trailing space
-  const forgotPasswordText = !hasTranslation('Forgot your password? ')
-    ? translate('Forgot your password?')
-    : translate('Forgot your password? ');
+  const forgotPasswordText = translate('Forgot your password?');
 
   return (
     <View data-amplify-footer="">

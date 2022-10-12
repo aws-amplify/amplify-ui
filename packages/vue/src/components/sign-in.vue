@@ -5,7 +5,6 @@ import { createSharedComposable } from '@vueuse/core';
 import {
   getActorState,
   getFormDataFromEvent,
-  hasTranslation,
   SignInState,
   translate,
 } from '@aws-amplify/ui';
@@ -27,10 +26,7 @@ const emit = defineEmits([
 ]);
 
 const forgotYourPasswordLink = computed(() =>
-  // Support backwards compatibility for legacy key with trailing space
-  !hasTranslation('Forgot your password? ')
-    ? translate('Forgot your password?')
-    : translate('Forgot your password? ')
+  translate('Forgot your password?')
 );
 
 const signInButtonText = computed(() => translate('Sign in'));
