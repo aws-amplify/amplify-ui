@@ -16,7 +16,7 @@ const { error, isPending } = toRefs(useAuthShared());
 // Computed Properties
 const backSignInText = computed(() => translate('Back to Sign In'));
 const resetPasswordHeading = computed(() => translate('Reset your password'));
-const resetPasswordText = computed(() => translate('Send Code'));
+const resetPasswordText = computed(() => translate('Send code'));
 
 // Methods
 const onResetPasswordSubmit = (e: Event): void => {

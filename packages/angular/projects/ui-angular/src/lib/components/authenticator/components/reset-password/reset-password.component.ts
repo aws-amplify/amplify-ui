@@ -15,7 +15,7 @@ export class ResetPasswordComponent {
   @Input() public headerText = translate('Reset your password');
 
   // translated texts
-  public sendCodeText = translate('Send Code');
+  public sendCodeText = translate('Send code');
   public backToSignInText = translate('Back to Sign In');
   public sortedFormFields: FormFieldsArray;
 
