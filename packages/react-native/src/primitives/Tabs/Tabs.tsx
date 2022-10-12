@@ -1,7 +1,7 @@
 import React, { Children, isValidElement } from 'react';
 import { View } from 'react-native';
 import { TabProps, TabsProps } from './types';
-// import { styles } from './styles';
+import { styles } from './styles';
 import { Button } from '../Button';
 
 // The Tab is just a convenient API
@@ -39,15 +39,20 @@ TabsProps): JSX.Element {
   const { tabs, panels } = tabUtil(children);
 
   return (
-    <View>
-      <View>
+    <View style={styles.container}>
+      <View style={styles.tabsContainer}>
         {tabs.map((tab, index) => {
-          // for styling purposes
-          // const isSelected = index === selectedIndex;
+          const selectedStyles =
+            index === selectedIndex ? styles.selected : undefined;
 
           // this could just be cloneElement, and add key and onPress props (maybe style too, and disabled)
           return (
-            <Button key={index} onPress={() => onChange?.(index)}>
+            <Button
+              key={index}
+              onPress={() => onChange?.(index)}
+              style={[styles.tab, selectedStyles]}
+              textStyle={[styles.tabText, selectedStyles]}
+            >
               {tab}
             </Button>
           );

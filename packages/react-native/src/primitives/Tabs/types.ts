@@ -1,4 +1,4 @@
-import { ViewProps, TextStyle } from 'react-native';
+import { TextStyle, ViewProps, ViewStyle } from 'react-native';
 
 export interface TabsProps extends ViewProps {
   // only accepts Tab components as children
@@ -20,5 +20,9 @@ export interface TabProps extends ViewProps {
 }
 
 export interface TabsStyles {
-  label: TextStyle;
+  container: ViewStyle;
+  tabsContainer: ViewStyle;
+  tab: ViewStyle;
+  tabText: TextStyle;
+  selected: ViewStyle;
 }

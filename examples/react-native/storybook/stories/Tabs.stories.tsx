@@ -11,11 +11,12 @@ const ControlledTabs = () => {
   };
 
   return (
+    // make it look like a mock Authenticator!
     <Tabs onChange={onChange} selectedIndex={index}>
-      <Tab title="One">
+      <Tab title="Sign In">
         <Text>Option 1 content</Text>
       </Tab>
-      <Tab title="Two">
+      <Tab title="Create Account">
         <Text>Option 2 content</Text>
       </Tab>
     </Tabs>
