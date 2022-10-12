@@ -1,64 +1,49 @@
-import React, { Children, isValidElement } from 'react';
+import React, { Children, cloneElement, isValidElement, useMemo } from 'react';
 import { View } from 'react-native';
-import { TabProps, TabsProps } from './types';
-import { styles } from './styles';
+
 import { Button } from '../Button';
 
-// The Tab is just a convenient API
-export const Tab = ({ title, ...rest }: TabProps): JSX.Element => {
-  // selected and disabled styles
-  // if this is a Button, then we should just cloneElement later
-  return <Button {...rest}>{title}</Button>;
-};
+import { styles } from './styles';
+import { TabProps, TabsProps } from './types';
 
-// here, we're just grabbing the title and children from the Tab
-const tabUtil = (children: TabsProps['children']) => {
-  const tabs: string[] = [];
-  const panels: React.ReactNode[] = [];
-
-  // refactor to use reduce
-  Children.forEach(children, (child) => {
-    if (isValidElement<TabProps>(child)) {
-      const { title, children } = child.props;
-      tabs.push(title);
-      panels.push(children);
-    }
-  });
-
-  return { tabs, panels };
-};
+export const Tab = ({ title, ...rest }: TabProps): JSX.Element => (
+  <Button {...rest} accessibilityRole="tab">
+    {title}
+  </Button>
+);
 
 export default function Tabs({
-  // accessibilityRole = 'text',
   children,
   onChange,
   selectedIndex = 0,
   style,
   ...rest
 }: TabsProps): JSX.Element {
-  const { tabs, panels } = tabUtil(children);
+  const contentPanels: React.ReactNode[] = useMemo(() => {
+    return Children.map(children, (child) => {
+      if (isValidElement<TabProps>(child)) {
+        return child.props.children;
+      }
+    });
+  }, [children]);
 
   return (
     <View {...rest} style={[styles.container, style]}>
-      <View style={styles.tabsContainer}>
-        {tabs.map((tab, index) => {
+      <View accessibilityRole="tablist" style={styles.tabList}>
+        {Children.map(children, (child, index) => {
           const selectedStyles =
             index === selectedIndex ? styles.selected : undefined;
 
-          // this could just be cloneElement, and add key and onPress props (maybe style too, and disabled)
-          return (
-            <Button
-              key={index}
-              onPress={() => onChange?.(index)}
-              style={[styles.tab, selectedStyles]}
-              textStyle={[styles.tabText, selectedStyles]}
-            >
-              {tab}
-            </Button>
-          );
+          // Also include disabled prop
+          return cloneElement<TabProps>(child, {
+            key: index,
+            onPress: () => onChange?.(index),
+            style: [styles.tab, selectedStyles],
+            textStyle: [styles.tabText, selectedStyles],
+          });
         })}
       </View>
-      {panels[selectedIndex]}
+      {contentPanels[selectedIndex]}
     </View>
   );
 }

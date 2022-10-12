@@ -6,24 +6,24 @@ const SELECTED_COLOR = '#047d95';
 
 export const styles: TabsStyles = StyleSheet.create({
   container: { width: '100%' },
-  tabsContainer: {
+  tabList: {
     flexDirection: 'row',
   },
   tab: {
     backgroundColor: '#fafafa',
-    padding: 10,
-    flexBasis: '50%',
-    borderTopWidth: 3,
     borderTopColor: '#dcdee0',
+    borderTopWidth: 3,
+    flexBasis: '50%',
+    padding: 10,
   },
   tabText: {
+    color: '#304050',
     fontSize: 18,
     fontWeight: '800',
-    color: '#304050',
   },
   selected: {
+    backgroundColor: '#fff',
     borderTopColor: SELECTED_COLOR,
     color: SELECTED_COLOR,
-    backgroundColor: '#fff',
   },
 });

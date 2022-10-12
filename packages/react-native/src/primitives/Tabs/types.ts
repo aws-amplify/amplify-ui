@@ -1,4 +1,5 @@
 import { TextStyle, ViewProps, ViewStyle } from 'react-native';
+import { ButtonProps } from '../Button';
 
 export interface TabsProps extends ViewProps {
   // only accepts Tab components as children
@@ -16,13 +17,13 @@ export interface TabsProps extends ViewProps {
   indicatorPosition?: 'top' | 'bottom';
 }
 
-export interface TabProps extends ViewProps {
+export interface TabProps extends ButtonProps {
   title: string;
 }
 
 export interface TabsStyles {
   container: ViewStyle;
-  tabsContainer: ViewStyle;
+  tabList: ViewStyle;
   tab: ViewStyle;
   tabText: TextStyle;
   selected: ViewStyle;
