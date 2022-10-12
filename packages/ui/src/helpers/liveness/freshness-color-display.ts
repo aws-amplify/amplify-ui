@@ -77,7 +77,7 @@ export class FreshnessColorDisplay {
     freshnessColorEl.hidden = false;
 
     // This helper function only runs every 100ms
-    await this.matchFaceInOval(reject);
+    // await this.matchFaceInOval(reject);
 
     // Send a colorStart time only for the first tick of the first color
     if (this.isFirstTick) {

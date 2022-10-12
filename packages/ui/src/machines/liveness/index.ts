@@ -251,9 +251,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
                   actions: 'updateFreshnessDetails',
                 },
               ],
-              onError: {
-                target: 'flashFreshnessColorError',
-              },
+              // onError: {
+              //   target: 'flashFreshnessColorError',
+              // },
             },
           },
           flashFreshnessColorError: {
