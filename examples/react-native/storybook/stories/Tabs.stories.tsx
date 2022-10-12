@@ -43,7 +43,31 @@ storiesOf('Tabs', module)
         <Text>Tab 2 should be selected by default</Text>
       </Tab>
     </Tabs>
+  ))
+  .add('disabled', () => (
+    <Tabs>
+      <Tab title="Tab 1">
+        <Text>Tab 2 should not be selectable</Text>
+      </Tab>
+      <Tab title="Tab 2" disabled>
+        <Text>This content should not be viewable</Text>
+      </Tab>
+    </Tabs>
+  ))
+  .add('multiple', () => (
+    <Tabs>
+      <Tab title="Tab 1">
+        <Text>Tab 1 content</Text>
+      </Tab>
+      <Tab title="Tab 2">
+        <Text>Tab 2 content</Text>
+      </Tab>
+      <Tab title="Tab 3">
+        <Text>Tab 3 content</Text>
+      </Tab>
+    </Tabs>
   ));
+// styles?
 
 const styles = StyleSheet.create({
   container: { width: '90%' },

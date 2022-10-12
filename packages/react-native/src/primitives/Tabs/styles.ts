@@ -13,7 +13,8 @@ export const styles: TabsStyles = StyleSheet.create({
     backgroundColor: '#fafafa',
     borderTopColor: '#dcdee0',
     borderTopWidth: 3,
-    flexBasis: '50%',
+    flexBasis: 0,
+    flexGrow: 1,
     padding: 10,
   },
   tabText: {
