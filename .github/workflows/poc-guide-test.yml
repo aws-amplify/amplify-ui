@@ -2,7 +2,12 @@ name: POC / Split Environments / guides
 
 on:
   pull_request:
-    branches: [split-environments/main, split-environments/update-workflows]
+    branches:
+      [
+        split-environments/main,
+        split-environments/update-workflows,
+        split-environments/e2e-fix,
+      ]
 
 concurrency:
   group: poc-guide-${{ github.event.pull_request.id }}
