@@ -1,4 +1,4 @@
-import { ButtonStyles } from '../../../primitives';
+import { ButtonStyles } from './types';
 
 export const button: ButtonStyles = {
   container: {},

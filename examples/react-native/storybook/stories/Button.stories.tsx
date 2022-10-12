@@ -1,38 +1,29 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { StyleProp, Text, TextStyle, ViewStyle } from 'react-native';
 import { action } from '@storybook/addon-actions';
 import { text } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react-native';
 import { Button } from '@aws-amplify/ui-react-native/dist/primitives';
 import { ThemeProvider } from '@aws-amplify/ui-react-native/dist/ThemeProvider';
+import { Theme } from '@aws-amplify/ui-react-native/dist/theme';
 
-const ThemedButton = () => {
-  const theme = {
-    name: 'my-theme',
-    tokens: {
-      colors: 'blue',
-      components: {
-        button: {
-          container: {
-            padding: 10,
-            borderColor: 'black',
-            borderWidth: 1,
-            borderRadius: 5,
-          },
-          text: {
-            color: 'green',
-          },
+const customTheme: Theme = {
+  name: 'my-theme',
+  tokens: {
+    components: {
+      button: {
+        container: {
+          borderColor: 'green',
+        },
+        text: {
+          color: 'green',
         },
       },
     },
-  };
-
-  return (
-    <ThemeProvider theme={theme}>
-      <Button>Themed button</Button>
-    </ThemeProvider>
-  );
+  },
 };
+const buttonStyleOverride: StyleProp<ViewStyle> = { borderColor: 'darkRed' };
+const textStyleOverride: StyleProp<TextStyle> = { color: 'red' };
 
 storiesOf('Button', module)
   .add('with text', () => (
@@ -46,4 +37,20 @@ storiesOf('Button', module)
     </Button>
   ))
   .add('disabled', () => <Button disabled>Disabled Button</Button>)
-  .add('with theme', () => <ThemedButton />);
+  .add('style override', () => (
+    <ThemeProvider>
+      <Button style={buttonStyleOverride} textStyle={textStyleOverride}>
+        Themed button
+      </Button>
+    </ThemeProvider>
+  ))
+  .add('default theme', () => (
+    <ThemeProvider>
+      <Button>Themed button</Button>
+    </ThemeProvider>
+  ))
+  .add('custom theme', () => (
+    <ThemeProvider theme={customTheme}>
+      <Button>Themed button</Button>
+    </ThemeProvider>
+  ));

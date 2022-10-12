@@ -2,7 +2,7 @@
 import deepExtend from 'style-dictionary/lib/utils/deepExtend';
 
 import { defaultTheme } from './defaultTheme';
-import { ColorMode, Theme } from './types';
+import { ColorMode, Theme, ReactNativeTheme } from './types';
 
 /**
  * This will be used like `const myTheme = createReactNativeTheme({})`
@@ -13,12 +13,17 @@ import { ColorMode, Theme } from './types';
 export const createReactNativeTheme = (
   theme?: Theme,
   colorMode?: ColorMode
-): Theme => {
+): ReactNativeTheme => {
   // merge theme and defaultTheme to get a complete theme
   // deepExtend is an internal Style Dictionary method
   // that performs a deep merge on n objects.
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
-  const mergedTheme: Theme = deepExtend([{}, defaultTheme, theme]);
+  // TODO: type definitions for deepExtend and remove below line
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+  const mergedTheme: ReactNativeTheme = deepExtend([
+    {},
+    defaultTheme,
+    theme,
+  ]) as ReactNativeTheme;
 
   const { name, tokens, overrides } = mergedTheme;
 

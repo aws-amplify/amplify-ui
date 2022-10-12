@@ -2,6 +2,7 @@
 
 exports[`Button renders as expected with a component passed as children 1`] = `
 <View
+  accessibilityRole="button"
   accessible={true}
   collapsable={false}
   focusable={true}
@@ -14,15 +15,29 @@ exports[`Button renders as expected with a component passed as children 1`] = `
   onResponderTerminate={[Function]}
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
+  style={
+    Array [
+      Object {
+        "borderRadius": 4,
+        "borderWidth": 1,
+        "padding": 8,
+      },
+      Object {
+        "borderColor": "hsl(190, 100%, 15%)",
+      },
+      undefined,
+    ]
+  }
 >
   <Text>
-    A preesable button
+    A pressable button
   </Text>
 </View>
 `;
 
 exports[`Button renders as expected with a string passed as children 1`] = `
 <View
+  accessibilityRole="button"
   accessible={true}
   collapsable={false}
   focusable={true}
@@ -35,6 +50,19 @@ exports[`Button renders as expected with a string passed as children 1`] = `
   onResponderTerminate={[Function]}
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
+  style={
+    Array [
+      Object {
+        "borderRadius": 4,
+        "borderWidth": 1,
+        "padding": 8,
+      },
+      Object {
+        "borderColor": "hsl(190, 100%, 15%)",
+      },
+      undefined,
+    ]
+  }
 >
   <Text
     style={
@@ -42,11 +70,14 @@ exports[`Button renders as expected with a string passed as children 1`] = `
         Object {
           "alignSelf": "center",
         },
+        Object {
+          "color": "hsl(190, 100%, 15%)",
+        },
         undefined,
       ]
     }
   >
-    A preesable button
+    A pressable button
   </Text>
 </View>
 `;
