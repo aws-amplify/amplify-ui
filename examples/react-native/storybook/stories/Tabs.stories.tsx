@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { storiesOf } from '@storybook/react-native';
 import { Tab, Tabs } from '@aws-amplify/ui-react-native/dist/primitives';
 import { Text } from 'react-native';
@@ -11,8 +11,7 @@ const ControlledTabs = () => {
   };
 
   return (
-    // make it look like a mock Authenticator!
-    <Tabs onChange={onChange} selectedIndex={index}>
+    <Tabs onChange={onChange} selectedIndex={index} style={styles.container}>
       <Tab title="Sign In">
         <Text>Option 1 content</Text>
       </Tab>
@@ -26,8 +25,11 @@ const ControlledTabs = () => {
 storiesOf('Tabs', module).add('default Tabs', () => <ControlledTabs />);
 // .add('style', () => <Tabs style={styles.redText}>This should be red</Tabs>);
 
-// const styles = StyleSheet.create({
-//   redText: {
-//     color: 'red',
-//   },
-// });
+const styles = StyleSheet.create({
+  container: { width: '90%' },
+  // button: {
+  //   backgroundColor: '#317d95',
+  //   color: 'white',
+  //   width: '80%',
+  // },
+});

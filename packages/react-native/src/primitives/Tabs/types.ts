@@ -10,6 +10,7 @@ export interface TabsProps extends ViewProps {
   // should this be required until Tabs can also be an uncontrolled component?
   onChange?: (index: number) => void; // to update the selectedIndex
 
+  // relative spacing could be accomplished through flexGrow: 1
   spacing?: 'equal' | 'relative';
 
   indicatorPosition?: 'top' | 'bottom';

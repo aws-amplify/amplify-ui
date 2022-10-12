@@ -33,13 +33,13 @@ export default function Tabs({
   children,
   onChange,
   selectedIndex = 0,
-}: // style,
-// ...rest
-TabsProps): JSX.Element {
+  style,
+  ...rest
+}: TabsProps): JSX.Element {
   const { tabs, panels } = tabUtil(children);
 
   return (
-    <View style={styles.container}>
+    <View {...rest} style={[styles.container, style]}>
       <View style={styles.tabsContainer}>
         {tabs.map((tab, index) => {
           const selectedStyles =
