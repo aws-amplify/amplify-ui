@@ -1,10 +1,10 @@
-import { View } from '@aws-amplify/ui-react';
-import { useRef, useMemo } from 'react';
+import { View, Flex } from '@aws-amplify/ui-react';
+import { useState } from 'react';
 import styles from './GlobalNav.module.scss';
-import { MobileNav } from './components/MobileNav';
-import { NavMenuIconType } from './components/IconLink';
-import { DesktopNav } from './components/DesktopNav';
-import { useNavLinksCollision } from './hooks/useNavLinksCollision';
+import { NavMenuIconType } from './components/icons/IconLink';
+import { RightNavLinks } from './components/RightNavLinks';
+import { AmplifyNavLink } from './components/AmplifyNavLink';
+import { LeftNavLinks } from './components/LeftNavLinks';
 
 export enum NavMenuItemType {
   DEFAULT = 'DEFAULT',
@@ -23,17 +23,15 @@ export interface NavMenuItem {
 export interface NavProps {
   leftLinks: NavMenuItem[];
   rightLinks: NavMenuItem[];
+  socialLinks: NavMenuItem[];
   currentSite: string;
-  secondaryNavDesktop?: JSX.Element;
-  secondaryNavMobile?: JSX.Element;
 }
 
 export function GlobalNav({
   currentSite,
   leftLinks,
   rightLinks,
-  secondaryNavDesktop,
-  secondaryNavMobile,
+  socialLinks,
 }: NavProps) {
   const themeableSites: any = {
     'UI Library': true,
@@ -43,46 +41,41 @@ export function GlobalNav({
   // provided and the sites not using a ThemeProvider will have the needed variables added on
   const themeClass = themeableSites[currentSite] ? '' : 'use-ui-theme';
 
-  let hasSecondaryNav =
-    secondaryNavDesktop && secondaryNavMobile ? true : false;
-
-  const navLinksContainerRef = useRef<HTMLDivElement>(null);
-  const navLinksRightRef = useRef<HTMLDivElement>(null);
-
-  const allLinks = useMemo(() => {
-    return [...leftLinks, ...rightLinks];
-  }, [leftLinks, rightLinks]);
-
-  const isMobileState = useNavLinksCollision(
-    navLinksContainerRef,
-    navLinksRightRef
-  );
+  const [isCollapsed, setIsCollapsed] = useState(true);
 
   return (
     <View
-      id="main-nav"
-      className={`${styles.navbar} ${styles[themeClass]}`}
-      aria-label="Amplify Dev Center - External links to additional Amplify resources"
       as="nav"
+      className={`${styles['navbar']} ${themeClass ? styles[themeClass] : ''}`}
+      aria-label="Amplify Dev Center - External links to additional Amplify resources"
     >
-      {isMobileState ? (
-        <MobileNav
-          allLinks={allLinks}
-          hasSecondaryNav={hasSecondaryNav}
-          currentSite={currentSite}
-          secondaryNavMobile={secondaryNavMobile}
-        />
-      ) : (
-        <DesktopNav
-          currentSite={currentSite}
-          leftLinks={leftLinks}
+      <Flex className={styles['nav-links-container']}>
+        <Flex height="100%" id="left-nav" className={styles['left-nav-links']}>
+          <AmplifyNavLink
+            currentSite={currentSite}
+            isCollapsed={isCollapsed}
+            setIsCollapsed={setIsCollapsed}
+          />
+
+          <LeftNavLinks
+            isCollapsed={isCollapsed}
+            leftLinks={leftLinks}
+            currentSite={currentSite}
+          />
+        </Flex>
+        <RightNavLinks
           rightLinks={rightLinks}
-          navLinksContainerRef={navLinksContainerRef}
-          navLinksRightRef={navLinksRightRef}
-          hasSecondaryNav={hasSecondaryNav}
-          secondaryNavDesktop={secondaryNavDesktop}
+          socialLinks={socialLinks}
+          currentSite={currentSite}
+          isCollapsed={isCollapsed}
         />
-      )}
+      </Flex>
+      <View
+        className={isCollapsed ? '' : styles['background-overlay']}
+        onClick={() => {
+          setIsCollapsed(true);
+        }}
+      ></View>
     </View>
   );
 }

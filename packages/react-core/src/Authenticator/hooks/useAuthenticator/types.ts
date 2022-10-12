@@ -1,7 +1,6 @@
 import {
-  AuthMachineSend,
-  AuthMachineState,
   AuthenticatorServiceFacade,
+  LegacyFormFieldOptions,
 } from '@aws-amplify/ui';
 
 /**
@@ -10,6 +9,19 @@ import {
  */
 type AuthenticatorMachineContext = AuthenticatorServiceFacade;
 type AuthenticatorMachineContextKey = keyof AuthenticatorMachineContext;
+
+export type AuthenticatorRouteComponentKey =
+  | 'signIn'
+  | 'signUp'
+  | 'forceNewPassword'
+  | 'confirmResetPassword'
+  | 'confirmSignIn'
+  | 'confirmSignUp'
+  | 'confirmVerifyUser'
+  | 'resetPassword'
+  | 'setupTOTP';
+
+export type AuthenticatorLegacyFields = LegacyFormFieldOptions[];
 
 /**
  * Inspired from https://xstate.js.org/docs/packages/xstate-react/#useselector-actor-selector-compare-getsnapshot.
@@ -21,22 +33,11 @@ export type Selector = (
   context: AuthenticatorMachineContext
 ) => AuthenticatorMachineContext[AuthenticatorMachineContextKey][];
 
-// TODO(breaking): remove these from usage in the UI layer
-type InternalAuthenticatorContext = {
-  _state: AuthMachineState;
-  _send: AuthMachineSend;
-};
+export interface UseAuthenticator extends AuthenticatorServiceFacade {
+  getTotpSecretCode: () => Promise<string>;
 
-export interface UseAuthenticator
-  extends Omit<AuthenticatorServiceFacade, 'toFederatedSignIn'> {
-  /**
-   * @deprecated `toFederatedSignIn` will be removed in a future major version release of `@aws-amplify/ui-react`
-   */
-  toFederatedSignIn: AuthenticatorServiceFacade['toFederatedSignIn'];
   /** @deprecated For internal use only */
-  _send: InternalAuthenticatorContext['_send'];
-  /** @deprecated For internal use only */
-  _state: InternalAuthenticatorContext['_state'];
+  fields: AuthenticatorLegacyFields;
 }
 
 export type Comparator = (
