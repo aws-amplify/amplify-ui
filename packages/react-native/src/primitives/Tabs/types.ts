@@ -3,27 +3,40 @@ import { TextStyle, ViewProps, ViewStyle } from 'react-native';
 import { ButtonProps } from '../Button';
 
 export interface TabsProps extends ViewProps {
-  // only accepts Tab components as children
+  /**
+   * @description
+   * The Tabs component only accepts Tab components as children.
+   */
   children: React.ReactElement<TabProps>[];
 
-  // for uncontrolled component
+  /**
+   * @description
+   * Controls which Tab's content is initially displayed when using Tabs as an
+   * uncontrolled component. Defaults to index 0 (the first Tab).
+   */
   defaultIndex?: number;
 
-  // should this be required until Tabs can also be an uncontrolled component?
+  /**
+   * @description
+   * The controlled index of the currently selected Tab. This should be
+   * used in tandem with `onChange` to use Tabs as a controlled component.
+   */
   selectedIndex?: number;
 
-  // should this be required until Tabs can also be an uncontrolled component?
-  onChange?: (index: number) => void; // to update the selectedIndex
-
-  // we can add this prop later
-  // relative spacing could be accomplished through flexGrow: 1
-  spacing?: 'equal' | 'relative';
-
-  // we can add this prop later
-  indicatorPosition?: 'top' | 'bottom';
+  /**
+   * @description
+   * For controlled usage, use the `onChange` event to listen to when a Tab is
+   * clicked and update the `selectedIndex` accordingly. The index of the Tab
+   * clicked is passed to `onChange`.
+   */
+  onChange?: (index: number) => void;
 }
 
 export interface TabProps extends ButtonProps {
+  /**
+   * @description
+   * Sets the title corresponding with each Tab's content panel.
+   */
   title: string;
 }
 
