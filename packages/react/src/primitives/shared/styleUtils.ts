@@ -172,7 +172,6 @@ interface SplitProps<PrimitiveProps> {
  * on Field primitives so we can apply style props on the wrapper element and
  * the rest on the input.
  * @param props this should be a destructured `rest` from the component's props
- * @returns SplitProps
  */
 export const splitPrimitiveProps = <PrimitiveProps>(
   props: PrimitiveProps
