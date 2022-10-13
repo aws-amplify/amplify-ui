@@ -59,7 +59,7 @@ If you are still importing the version 1.x of the Authenticator using the `/lega
 
 `AmplifyAuthenticator`, `AmplifySignIn`, `AmplifySignOut`, `withAuthenticator`
 
-#### 4. Update any override function calls
+#### 4. Update the handleSignUp function override call
 
 Update the override function call to include the `autSignIn` set to enabled. This must be included if you are overriding `Auth.signUp`.
 
@@ -76,7 +76,7 @@ Update the override function call to include the `autSignIn` set to enabled. Thi
 +   autoSignIn: {
 +     enabled: true
 +   }
-  })
+  });
 }
 
 ```

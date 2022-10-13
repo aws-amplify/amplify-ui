@@ -25,7 +25,7 @@ yarn add aws-amplify @aws-amplify/ui-angular@3.x
 
 The following breaking changes were introduced in `@aws-amplify/ui-angular` major version `3.0`:
 
-#### 1. Update any handleSignUp override function calls
+#### 1. Update the handleSignUp function override call
 
 Update the override function call to include the `autSignIn` set to enabled. This must be included if you are overriding `Auth.signUp`.
 
@@ -42,7 +42,7 @@ Update the override function call to include the `autSignIn` set to enabled. Thi
 +   autoSignIn: {
 +     enabled: true
 +   }
-  })
+  });
 }
 
 ```
