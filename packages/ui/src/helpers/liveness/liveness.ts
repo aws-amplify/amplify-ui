@@ -225,15 +225,9 @@ export function getFaceMatchStateInLivenessOval(
     Math.abs(maxOvalY - maxFaceY) < ovalMatchHeightThreshold
   ) {
     faceMatchState = FaceMatchState.MATCHED;
-  } else if (
-    minOvalX - minFaceX > faceDetectionWidthThreshold &&
-    maxOvalX - maxFaceX > faceDetectionWidthThreshold
-  ) {
+  } else if (minOvalX > minFaceX && maxOvalX > maxFaceX) {
     faceMatchState = FaceMatchState.TOO_LEFT;
-  } else if (
-    minFaceX - minOvalX > faceDetectionWidthThreshold &&
-    maxFaceX - maxOvalX > faceDetectionWidthThreshold
-  ) {
+  } else if (minFaceX > minOvalX && maxFaceX > maxOvalX) {
     faceMatchState = FaceMatchState.TOO_RIGHT;
   } else if (
     minOvalY - minFaceY > faceDetectionHeightThreshold ||
