@@ -37,6 +37,7 @@ import {
   MdSystemUpdateAlt,
   MdCheckCircle,
 } from 'react-icons/md';
+import { IS_REACT_NATIVE_ENABLED } from '@/utils/featureFlags';
 
 export interface ComponentNavItem {
   href: string;
@@ -436,17 +437,23 @@ export const gettingStarted: ComponentNavItem[] = [
   {
     href: '/getting-started/introduction',
     label: 'Introduction',
-    platforms: ['react', 'vue', 'angular', 'flutter'],
+    platforms: IS_REACT_NATIVE_ENABLED
+      ? ['react', 'vue', 'angular', 'flutter', 'react-native']
+      : ['react', 'vue', 'angular', 'flutter'],
   },
   {
     href: '/getting-started/installation',
     label: 'Installation',
-    platforms: ['react', 'vue', 'angular', 'flutter'],
+    platforms: IS_REACT_NATIVE_ENABLED
+      ? ['react', 'vue', 'angular', 'flutter', 'react-native']
+      : ['react', 'vue', 'angular', 'flutter'],
   },
   {
     href: '/getting-started/usage',
     label: 'Usage',
-    platforms: ['react', 'vue', 'angular'],
+    platforms: IS_REACT_NATIVE_ENABLED
+      ? ['react', 'vue', 'angular', 'react-native']
+      : ['react', 'vue', 'angular'],
   },
   {
     href: '/getting-started/usage/create-react-app',
