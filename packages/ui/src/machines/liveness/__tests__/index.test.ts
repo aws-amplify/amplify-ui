@@ -209,9 +209,10 @@ describe('Liveness Machine', () => {
     expect(service.state.value).toBe('start');
   });
 
-  it('should reach userCancel state on CANCEL', () => {
+  it('should reach userCancel state on CANCEL', async () => {
     service.start();
     service.send('CANCEL');
+    await flushPromises();
 
     expect(service.state.value).toBe('userCancel');
     expect(mockcomponentProps.onUserCancel).toHaveBeenCalledTimes(1);
@@ -473,6 +474,7 @@ describe('Liveness Machine', () => {
         type: 'SERVER_ERROR',
         data: errorData,
       });
+      await flushPromises();
       jest.advanceTimersToNextTimer();
       expect(service.state.value).toEqual('error');
       expect(service.state.context.errorState).toBe(
