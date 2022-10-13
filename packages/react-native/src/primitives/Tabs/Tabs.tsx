@@ -1,24 +1,21 @@
-import React, {
-  Children,
-  cloneElement,
-  isValidElement,
-  useMemo,
-  useState,
-} from 'react';
+import React, { Children, cloneElement, useMemo, useState } from 'react';
 import { View } from 'react-native';
 
+import { childIsValidComponent } from '../../utils';
 import { Button } from '../Button';
 
 import { styles } from './styles';
 import { TabProps, TabsProps } from './types';
 
-export const Tab = ({ title, ...rest }: TabProps): JSX.Element => (
-  <Button {...rest} accessibilityRole="tab">
-    {title}
-  </Button>
-);
+export function Tab({ title, ...rest }: TabProps): JSX.Element {
+  return (
+    <Button {...rest} accessibilityRole="tab">
+      {title}
+    </Button>
+  );
+}
 
-export default function Tabs({
+export function Tabs({
   children,
   defaultIndex,
   onChange,
@@ -39,7 +36,7 @@ export default function Tabs({
 
   const contentPanels: React.ReactNode[] = useMemo(() => {
     return Children.map(children, (child) => {
-      if (isValidElement<TabProps>(child)) {
+      if (childIsValidComponent(child, Tab)) {
         return child.props.children;
       }
     });
@@ -49,15 +46,17 @@ export default function Tabs({
     <View {...rest} style={[styles.container, style]}>
       <View accessibilityRole="tablist" style={styles.tabList}>
         {Children.map(children, (child, index) => {
-          const selectedStyles =
-            index === currentIndex ? styles.selected : undefined;
+          if (childIsValidComponent(child, Tab)) {
+            const selectedStyles =
+              index === currentIndex ? styles.selected : undefined;
 
-          return cloneElement<TabProps>(child, {
-            key: index,
-            onPress: () => handleOnChange(index),
-            style: [styles.tab, tabStyle, selectedStyles],
-            textStyle: [styles.tabText, textStyle, selectedStyles],
-          });
+            return cloneElement<TabProps>(child, {
+              key: index,
+              onPress: () => handleOnChange(index),
+              style: [styles.tab, tabStyle, selectedStyles],
+              textStyle: [styles.tabText, textStyle, selectedStyles],
+            });
+          }
         })}
       </View>
       {contentPanels[currentIndex]}
