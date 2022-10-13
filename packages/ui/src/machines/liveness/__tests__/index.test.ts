@@ -209,9 +209,10 @@ describe('Liveness Machine', () => {
     expect(service.state.value).toBe('start');
   });
 
-  it('should reach userCancel state on CANCEL', () => {
+  it('should reach userCancel state on CANCEL', async () => {
     service.start();
     service.send('CANCEL');
+    await flushPromises();
 
     expect(service.state.value).toBe('userCancel');
     expect(mockcomponentProps.onUserCancel).toHaveBeenCalledTimes(1);
@@ -460,6 +461,27 @@ describe('Liveness Machine', () => {
       );
       expect(mockcomponentProps.onError).toHaveBeenCalledTimes(1);
       expect(mockcomponentProps.onError).toHaveBeenCalledWith(error);
+    });
+
+    it('should reach error state after receiving a server error from the websocket stream', async () => {
+      await transitionToRecording(service);
+
+      const errorData = {
+        Code: 1,
+        Message: 'error',
+      };
+      service.send({
+        type: 'SERVER_ERROR',
+        data: errorData,
+      });
+      await flushPromises();
+      jest.advanceTimersToNextTimer();
+      expect(service.state.value).toEqual('error');
+      expect(service.state.context.errorState).toBe(
+        LivenessErrorState.SERVER_ERROR
+      );
+      expect(mockcomponentProps.onError).toHaveBeenCalledTimes(1);
+      expect(mockcomponentProps.onError).toHaveBeenCalledWith(errorData);
     });
 
     it('should reach checkFaceDetected state and send client sessionInformation', async () => {

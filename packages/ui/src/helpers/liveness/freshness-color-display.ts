@@ -25,8 +25,6 @@ export class FreshnessColorDisplay {
   private currColorSequence: ClientFreshnessColorSequence; // the current color sequence used for flat display and the prev color when scrolling
   private prevColorSequence: ClientFreshnessColorSequence; // the prev color, during flat display curr === prev and during scroll it is the prev indexed color
   private timeLastFlatOrScrollChange: number;
-  private expectedCallTime: number; // the next time the self adjusting interval is expected to be called
-  private drift: number; // the last time difference between the actual call time and expected call time
   private timeFaceMatched: number;
   private timeLastFaceMatchChecked: number;
   private isFirstTick: boolean;
@@ -47,8 +45,6 @@ export class FreshnessColorDisplay {
     this.prevColorSequence = this.freshnessColorsSequence[0];
     this.stage = COLOR_STAGE.FLAT;
     this.timeLastFlatOrScrollChange = Date.now();
-    this.expectedCallTime = Date.now() + TICK_RATE;
-    this.drift = 0;
     this.timeLastFaceMatchChecked = Date.now();
     this.isFirstTick = true;
   }
@@ -57,7 +53,7 @@ export class FreshnessColorDisplay {
     return new Promise((resolve, reject) => {
       setTimeout(
         () => this.displayNextColorTick(resolve, reject),
-        Math.min(TICK_RATE, TICK_RATE - this.drift)
+        Math.min(TICK_RATE)
       );
     });
   }
@@ -70,14 +66,13 @@ export class FreshnessColorDisplay {
     } = this.context;
 
     const tickStartTime = Date.now();
-    this.drift = tickStartTime - this.expectedCallTime;
     const timeSinceLastColorChange =
       tickStartTime - this.timeLastFlatOrScrollChange;
 
     freshnessColorEl.hidden = false;
 
     // This helper function only runs every 100ms
-    await this.matchFaceInOval(reject);
+    // await this.matchFaceInOval(reject);
 
     // Send a colorStart time only for the first tick of the first color
     if (this.isFirstTick) {
@@ -118,7 +113,6 @@ export class FreshnessColorDisplay {
         heightFraction,
       });
 
-      this.expectedCallTime += TICK_RATE;
       resolve(false);
     } else {
       freshnessColorEl.hidden = true;

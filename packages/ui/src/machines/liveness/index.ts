@@ -27,6 +27,10 @@ import {
 } from '../../helpers';
 import { v4 } from 'uuid';
 import {
+  isThrottlingExceptionEvent,
+  isServiceQuotaExceededExceptionEvent,
+  isValidationExceptionEvent,
+  isInternalServerExceptionEvent,
   isServerSesssionInformationEvent,
   isDisconnectionEvent,
 } from '../../helpers/liveness/liveness-event-utils';
@@ -40,6 +44,7 @@ export const MIN_FACE_MATCH_COUNT = 5;
 // timer metrics variables
 let faceDetectedTimestamp: number;
 let ovalDrawnTimestamp: number;
+let streamConnectionOpenTimestamp: number;
 
 let responseStream: Promise<AsyncIterable<LivenessResponseStream>> = undefined;
 
@@ -92,6 +97,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       SET_DOM_AND_CAMERA_DETAILS: {
         actions: 'setDOMAndCameraDetails',
+      },
+      SERVER_ERROR: {
+        target: 'error',
+        actions: 'updateErrorStateForServer',
       },
     },
     states: {
@@ -242,9 +251,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
                   actions: 'updateFreshnessDetails',
                 },
               ],
-              onError: {
-                target: 'flashFreshnessColorError',
-              },
+              // onError: {
+              //   target: 'flashFreshnessColorError',
+              // },
             },
           },
           flashFreshnessColorError: {
@@ -321,6 +330,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       error: {
         entry: 'callErrorCallback',
+        type: 'final',
       },
       checkFailed: {},
       checkSucceeded: {
@@ -479,16 +489,35 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       updateErrorStateForRuntime: assign({
         errorState: (_) => LivenessErrorState.RUNTIME_ERROR,
       }),
+      updateErrorStateForServer: assign({
+        errorState: (_) => LivenessErrorState.SERVER_ERROR,
+      }),
       clearErrorState: assign({
         errorState: (_) => null,
       }),
       updateSessionInfo: assign({
-        serverSessionInformation: (_, event) => {
+        serverSessionInformation: (context, event) => {
+          recordLivenessAnalyticsEvent(context.componentProps, {
+            event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
+            attributes: { action: 'receivedSessionInfoEvent' },
+            metrics: {
+              duration: streamConnectionOpenTimestamp - Date.now(),
+            },
+          });
+
           return event.data.sessionInfo;
         },
       }),
       updateShouldDisconnect: assign({
-        shouldDisconnect: () => {
+        shouldDisconnect: (context) => {
+          recordLivenessAnalyticsEvent(context.componentProps, {
+            event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
+            attributes: { action: 'receivedDisconnectEvent' },
+            metrics: {
+              duration: streamConnectionOpenTimestamp - Date.now(),
+            },
+          });
+
           return true;
         },
       }),
@@ -567,7 +596,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           new Error('No available cameras found')
         );
       },
-      callUserCancelCallback: (context) => {
+      callUserCancelCallback: async (context) => {
+        await context.livenessStreamProvider?.endStream();
+
         context.componentProps.onUserCancel?.();
       },
       callUserTimeoutCallback: async (context) => {
@@ -576,14 +607,16 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           attributes: { action: 'FailedWithTimeout' },
           metrics: { count: 1 },
         });
-        await context.livenessStreamProvider.endStream();
+        await context.livenessStreamProvider?.endStream();
 
         context.componentProps.onUserTimeout?.();
       },
       callSuccessCallback: (context) => {
         context.componentProps.onSuccess?.();
       },
-      callErrorCallback: (context, event) => {
+      callErrorCallback: async (context, event) => {
+        await context.livenessStreamProvider?.endStream();
+
         context.componentProps.onError?.(event.data as Error);
       },
     },
@@ -693,6 +726,15 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           context.videoAssociatedParams.videoMediaStream
         );
 
+        streamConnectionOpenTimestamp = Date.now();
+        recordLivenessAnalyticsEvent(context.componentProps, {
+          event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
+          attributes: { action: 'openLivenessStreamConnection' },
+          metrics: {
+            count: 1,
+          },
+        });
+
         responseStream = livenessStreamProvider.getResponseStream();
         return { livenessStreamProvider };
       },
@@ -786,7 +828,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         const ovalDetails = getRandomLivenessOvalDetails({
           width,
           height,
-          initialFace,
           sessionInformation: serverSessionInformation,
         });
 
@@ -979,7 +1020,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 const responseStreamActor = async (callback) => {
   const stream = await responseStream;
   for await (const event of stream) {
-    console.log(event);
     if (isServerSesssionInformationEvent(event)) {
       callback({
         type: 'SET_SESSION_INFO',
@@ -989,6 +1029,26 @@ const responseStreamActor = async (callback) => {
       });
     } else if (isDisconnectionEvent(event)) {
       callback({ type: 'DISCONNECT_EVENT' });
+    } else if (isValidationExceptionEvent(event)) {
+      callback({
+        type: 'SERVER_ERROR',
+        data: { ...event.ValidationException },
+      });
+    } else if (isInternalServerExceptionEvent(event)) {
+      callback({
+        type: 'SERVER_ERROR',
+        data: { ...event.InternalServerException },
+      });
+    } else if (isThrottlingExceptionEvent(event)) {
+      callback({
+        type: 'SERVER_ERROR',
+        data: { ...event.ThrottlingException },
+      });
+    } else if (isServiceQuotaExceededExceptionEvent(event)) {
+      callback({
+        type: 'SERVER_ERROR',
+        data: { ...event.ServiceQuotaExceededException },
+      });
     }
   }
 };
