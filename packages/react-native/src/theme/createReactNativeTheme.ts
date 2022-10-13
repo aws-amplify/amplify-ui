@@ -17,14 +17,11 @@ export const createReactNativeTheme = (
   // merge theme and defaultTheme to get a complete theme
   // deepExtend is an internal Style Dictionary method
   // that performs a deep merge on n objects.
-  // TODO: type definitions for deepExtend and remove below line
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
   const mergedTheme: ReactNativeTheme = deepExtend([
     {},
     defaultTheme,
     theme,
   ]) as ReactNativeTheme;
-
   const { name, tokens, overrides } = mergedTheme;
 
   return {
