@@ -1,17 +1,21 @@
 import React, { useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { storiesOf } from '@storybook/react-native';
 import { Tab, Tabs } from '@aws-amplify/ui-react-native/dist/primitives';
 import { Text } from 'react-native';
 
 const ControlledTabs = () => {
   const [index, setIndex] = useState(0);
-  const onChange = (nextIndex: number) => {
+  const onChangeHandler = (nextIndex: number) => {
     setIndex(nextIndex);
   };
 
   return (
-    <Tabs onChange={onChange} selectedIndex={index} style={styles.container}>
+    <Tabs
+      onChange={onChangeHandler}
+      selectedIndex={index}
+      style={styles.container}
+    >
       <Tab title="Sign In">
         <Text>Sign in content</Text>
       </Tab>
@@ -31,6 +35,9 @@ storiesOf('Tabs', module)
       <Tab title="Tab 2">
         <Text>Tab 2 content panel</Text>
       </Tab>
+      <View>
+        <Text>Bogus town</Text>
+      </View>
     </Tabs>
   ))
   .add('controlled Tabs', () => <ControlledTabs />)
