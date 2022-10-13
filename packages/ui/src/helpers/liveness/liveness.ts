@@ -119,7 +119,7 @@ export function getRandomLivenessOvalDetails({
     maxOvalCenterY
   );
 
-  if (width > height) {
+  if (width >= height) {
     videoWidth = (3 / 4) * videoHeight;
   }
 
