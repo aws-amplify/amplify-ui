@@ -131,7 +131,7 @@ export const switchfield: SwitchFieldTokens = {
     width: { value: '{space.relative.xl.value}' },
 
     _error: {
-      backgroundColor: { value: '{colors.backgroundColor.error.value}' },
+      backgroundColor: { value: '{colors.background.error.value}' },
     },
   },
 };
