@@ -66,14 +66,34 @@ storiesOf('Tabs', module)
         <Text>Tab 3 content</Text>
       </Tab>
     </Tabs>
+  ))
+  .add('styles', () => (
+    <Tabs
+      style={[styles.container, styles.styledContainer]}
+      tabStyle={styles.tabStyle}
+      textStyle={styles.textStyle}
+    >
+      <Tab title="Tab 1">
+        <Text>Tab 1 content panel</Text>
+      </Tab>
+      <Tab title="Tab 2">
+        <Text>Tab 2 content panel</Text>
+      </Tab>
+    </Tabs>
   ));
-// styles?
 
 const styles = StyleSheet.create({
   container: { width: '90%' },
-  // button: {
-  //   backgroundColor: '#317d95',
-  //   color: 'white',
-  //   width: '80%',
-  // },
+  styledContainer: {
+    borderColor: 'gray',
+    borderWidth: StyleSheet.hairlineWidth,
+  },
+  tabStyle: {
+    backgroundColor: 'lavender',
+    borderTopColor: 'rebeccapurple',
+  },
+  textStyle: {
+    color: 'gray',
+    fontWeight: '500',
+  },
 });

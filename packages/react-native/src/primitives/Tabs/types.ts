@@ -1,4 +1,4 @@
-import { TextStyle, ViewProps, ViewStyle } from 'react-native';
+import { StyleProp, TextStyle, ViewProps, ViewStyle } from 'react-native';
 
 import { ButtonProps } from '../Button';
 
@@ -30,6 +30,18 @@ export interface TabsProps extends ViewProps {
    * clicked is passed to `onChange`.
    */
   onChange?: (index: number) => void;
+
+  /**
+   * @description
+   * Styling for each Tab
+   */
+  tabStyle?: StyleProp<ViewStyle>;
+
+  /**
+   * @description
+   * Styling for each Tab's text (title)
+   */
+  textStyle?: StyleProp<TextStyle>;
 }
 
 export interface TabProps extends ButtonProps {

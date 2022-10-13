@@ -24,6 +24,8 @@ export default function Tabs({
   onChange,
   selectedIndex = 0,
   style,
+  tabStyle,
+  textStyle,
   ...rest
 }: TabsProps): JSX.Element {
   const [currentIndex, setCurrentIndex] = useState(
@@ -53,8 +55,8 @@ export default function Tabs({
           return cloneElement<TabProps>(child, {
             key: index,
             onPress: () => handleOnChange(index),
-            style: [styles.tab, selectedStyles],
-            textStyle: [styles.tabText, selectedStyles],
+            style: [styles.tab, tabStyle, selectedStyles],
+            textStyle: [styles.tabText, textStyle, selectedStyles],
           });
         })}
       </View>
