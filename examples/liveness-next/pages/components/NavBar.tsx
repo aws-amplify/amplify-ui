@@ -18,7 +18,7 @@ export default function NavBar({
 }) {
   return (
     <View position="relative">
-      <View inert={navOpen ? '' : null}>
+      <View>
         <Card>
           <Flex maxWidth="640px" margin="0 auto">
             <Button onClick={handleNav}>

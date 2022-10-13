@@ -29,7 +29,7 @@ export default function Layout({ children }) {
           colorMode={colorMode}
           setColorMode={setColorMode}
         ></NavBar>
-        <Card inert={navOpen ? '' : null}>{children}</Card>
+        <Card>{children}</Card>
       </Grid>
     </ThemeProvider>
   );
