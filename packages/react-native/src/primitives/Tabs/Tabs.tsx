@@ -50,7 +50,6 @@ export default function Tabs({
           const selectedStyles =
             index === currentIndex ? styles.selected : undefined;
 
-          // Also include disabled prop
           return cloneElement<TabProps>(child, {
             key: index,
             onPress: () => handleOnChange(index),

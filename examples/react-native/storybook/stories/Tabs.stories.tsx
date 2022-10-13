@@ -23,7 +23,7 @@ const ControlledTabs = () => {
 };
 
 storiesOf('Tabs', module)
-  .add('default Tabs', () => (
+  .add('default', () => (
     <Tabs>
       <Tab title="Tab 1">
         <Text>Tab 1 content panel</Text>
