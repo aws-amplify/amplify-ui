@@ -596,7 +596,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           new Error('No available cameras found')
         );
       },
-      callUserCancelCallback: (context) => {
+      callUserCancelCallback: async (context) => {
+        await context.livenessStreamProvider?.endStream();
+
         context.componentProps.onUserCancel?.();
       },
       callUserTimeoutCallback: async (context) => {
@@ -605,14 +607,16 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           attributes: { action: 'FailedWithTimeout' },
           metrics: { count: 1 },
         });
-        await context.livenessStreamProvider.endStream();
+        await context.livenessStreamProvider?.endStream();
 
         context.componentProps.onUserTimeout?.();
       },
       callSuccessCallback: (context) => {
         context.componentProps.onSuccess?.();
       },
-      callErrorCallback: (context, event) => {
+      callErrorCallback: async (context, event) => {
+        await context.livenessStreamProvider?.endStream();
+
         context.componentProps.onError?.(event.data as Error);
       },
     },
