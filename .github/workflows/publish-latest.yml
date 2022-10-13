@@ -62,8 +62,8 @@ jobs:
         if: steps.environments-cache.outputs.cache-hit != 'true'
         run: yarn pull
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_AUTH }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_AUTH }}
         working-directory: ./canary
       - name: Setup canary apps against @next
         run: yarn setup:next

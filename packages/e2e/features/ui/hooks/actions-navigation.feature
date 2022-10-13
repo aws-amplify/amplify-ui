@@ -19,4 +19,4 @@ Feature: Navigate action hooks
   @react
   Scenario: Navigation location change action works correctly
     When I click the "Go to amazon.com" button
-    Then My url contains "ui/hooks/actions?pageChange"
+    Then My url contains "ui/hooks/actions/?pageChange"
