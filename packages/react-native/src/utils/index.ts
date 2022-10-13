@@ -1,7 +1,6 @@
-// as a safeguard against known React Native lineHeight issues, e.g. https://github.com/facebook/react-native/issues/29507
-
 import React, { isValidElement, ReactChild } from 'react';
 
+// as a safeguard against known React Native lineHeight issues, e.g. https://github.com/facebook/react-native/issues/29507
 // use a value of 1.5 as the default line height multiplier
 const LINE_HEIGHT_MULTIPLIER = 1.5;
 
