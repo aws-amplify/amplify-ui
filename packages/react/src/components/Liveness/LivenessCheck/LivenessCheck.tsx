@@ -8,7 +8,8 @@ import { useTheme } from '../../../hooks';
 import { useThemeBreakpoint } from '../../../hooks/useThemeBreakpoint';
 import { LivenessCameraModule } from './LivenessCameraModule';
 import { useLivenessActor } from '../hooks';
-import { Text, Flex } from '../../../primitives';
+import { Text, Flex, View } from '../../../primitives';
+import { CancelButton } from '../shared/CancelButton';
 
 const CHECK_CLASS_NAME = 'liveness-detector-check';
 
@@ -53,6 +54,9 @@ export const LivenessCheck: React.FC = () => {
               "Camera access is needed in order to function. Check your browser settings to ensure that you've enabled camera access."
             )}
           </Text>
+          <View position="absolute" top="medium" right="medium">
+            <CancelButton sourceScreen={LIVENESS_EVENT_LIVENESS_CHECK_SCREEN} />
+          </View>
         </Flex>
       )}
     </Flex>
