@@ -23,7 +23,7 @@ export const CheckboxFieldWithErrorExample = () => {
         value="yes"
         checked={checked}
         hasError={hasError}
-        errorMessage={`Please agree to the terms and conditions`}
+        errorMessage="Please agree to the terms and conditions"
         onChange={(e) => setChecked(e.target.checked)}
       />
       <Button type="submit">Submit</Button>
