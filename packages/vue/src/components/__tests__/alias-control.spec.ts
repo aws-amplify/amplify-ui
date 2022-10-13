@@ -3,7 +3,7 @@ import { components } from '../../../global-spec';
 import { render, screen } from '@testing-library/vue';
 
 describe('AliasControl', () => {
-  it('renders a label with the default class', async () => {
+  it('renders a label with default class', async () => {
     render(AliasControl, {
       global: {
         components,
@@ -35,7 +35,7 @@ describe('AliasControl', () => {
     expect(label).toHaveClass('amplify-visually-hidden');
   });
 
-  it('renders text field with default classnames and attributes', async () => {
+  it('renders text field with default class and attributes', async () => {
     render(AliasControl, {
       global: {
         components,
