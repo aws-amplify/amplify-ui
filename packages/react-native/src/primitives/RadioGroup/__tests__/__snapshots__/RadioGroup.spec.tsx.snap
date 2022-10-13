@@ -209,6 +209,65 @@ exports[`RadioGroup renders as expected when direction is horizontal 1`] = `
         Option 3
       </Text>
     </View>
+    <View
+      accessibilityRole="radio"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "opacity": 0.6,
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "borderColor": "#317d95",
+              "borderRadius": 999,
+              "borderWidth": 2,
+              "justifyContent": "center",
+            },
+            Object {
+              "height": 20,
+              "width": 20,
+            },
+            undefined,
+          ]
+        }
+      />
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 16,
+              "marginHorizontal": 4,
+              "marginVertical": 2,
+            },
+            undefined,
+          ]
+        }
+      >
+        Option 4
+      </Text>
+    </View>
   </View>
 </View>
 `;
@@ -420,6 +479,65 @@ exports[`RadioGroup renders as expected when direction is vertical 1`] = `
         }
       >
         Option 3
+      </Text>
+    </View>
+    <View
+      accessibilityRole="radio"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "opacity": 0.6,
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "borderColor": "#317d95",
+              "borderRadius": 999,
+              "borderWidth": 2,
+              "justifyContent": "center",
+            },
+            Object {
+              "height": 20,
+              "width": 20,
+            },
+            undefined,
+          ]
+        }
+      />
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 16,
+              "marginHorizontal": 4,
+              "marginVertical": 2,
+            },
+            undefined,
+          ]
+        }
+      >
+        Option 4
       </Text>
     </View>
   </View>
@@ -635,6 +753,65 @@ exports[`RadioGroup renders as expected when size is large 1`] = `
         Option 3
       </Text>
     </View>
+    <View
+      accessibilityRole="radio"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "opacity": 0.6,
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "borderColor": "#317d95",
+              "borderRadius": 999,
+              "borderWidth": 2,
+              "justifyContent": "center",
+            },
+            Object {
+              "height": 24,
+              "width": 24,
+            },
+            undefined,
+          ]
+        }
+      />
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 16,
+              "marginHorizontal": 4,
+              "marginVertical": 2,
+            },
+            undefined,
+          ]
+        }
+      >
+        Option 4
+      </Text>
+    </View>
   </View>
 </View>
 `;
@@ -846,6 +1023,65 @@ exports[`RadioGroup renders as expected when size is medium 1`] = `
         }
       >
         Option 3
+      </Text>
+    </View>
+    <View
+      accessibilityRole="radio"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "opacity": 0.6,
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "borderColor": "#317d95",
+              "borderRadius": 999,
+              "borderWidth": 2,
+              "justifyContent": "center",
+            },
+            Object {
+              "height": 20,
+              "width": 20,
+            },
+            undefined,
+          ]
+        }
+      />
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 16,
+              "marginHorizontal": 4,
+              "marginVertical": 2,
+            },
+            undefined,
+          ]
+        }
+      >
+        Option 4
       </Text>
     </View>
   </View>
@@ -1061,6 +1297,65 @@ exports[`RadioGroup renders as expected when size is small 1`] = `
         Option 3
       </Text>
     </View>
+    <View
+      accessibilityRole="radio"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "opacity": 0.6,
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "borderColor": "#317d95",
+              "borderRadius": 999,
+              "borderWidth": 2,
+              "justifyContent": "center",
+            },
+            Object {
+              "height": 16,
+              "width": 16,
+            },
+            undefined,
+          ]
+        }
+      />
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 16,
+              "marginHorizontal": 4,
+              "marginVertical": 2,
+            },
+            undefined,
+          ]
+        }
+      >
+        Option 4
+      </Text>
+    </View>
   </View>
 </View>
 `;
@@ -1272,6 +1567,65 @@ exports[`RadioGroup renders default RadioGroup as expected 1`] = `
         }
       >
         Option 3
+      </Text>
+    </View>
+    <View
+      accessibilityRole="radio"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "opacity": 0.6,
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "borderColor": "#317d95",
+              "borderRadius": 999,
+              "borderWidth": 2,
+              "justifyContent": "center",
+            },
+            Object {
+              "height": 20,
+              "width": 20,
+            },
+            undefined,
+          ]
+        }
+      />
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 16,
+              "marginHorizontal": 4,
+              "marginVertical": 2,
+            },
+            undefined,
+          ]
+        }
+      >
+        Option 4
       </Text>
     </View>
   </View>
