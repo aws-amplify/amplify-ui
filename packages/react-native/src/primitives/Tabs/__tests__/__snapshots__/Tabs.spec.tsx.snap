@@ -1,0 +1,135 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tabs renders default Tabs as expected 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "width": "100%",
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    accessibilityRole="tablist"
+    style={
+      Object {
+        "flexDirection": "row",
+      }
+    }
+  >
+    <View
+      accessibilityRole="tab"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#fafafa",
+            "borderTopColor": "#dcdee0",
+            "borderTopWidth": 3,
+            "flexBasis": 0,
+            "flexGrow": 1,
+            "padding": 10,
+          },
+          undefined,
+          Object {
+            "backgroundColor": "#fff",
+            "borderTopColor": "#047d95",
+            "color": "#047d95",
+          },
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "alignSelf": "center",
+            },
+            Array [
+              Object {
+                "color": "#304050",
+                "fontSize": 18,
+                "fontWeight": "800",
+              },
+              undefined,
+              Object {
+                "backgroundColor": "#fff",
+                "borderTopColor": "#047d95",
+                "color": "#047d95",
+              },
+            ],
+          ]
+        }
+      >
+        Tab 1
+      </Text>
+    </View>
+    <View
+      accessibilityRole="tab"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#fafafa",
+            "borderTopColor": "#dcdee0",
+            "borderTopWidth": 3,
+            "flexBasis": 0,
+            "flexGrow": 1,
+            "padding": 10,
+          },
+          undefined,
+          undefined,
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "alignSelf": "center",
+            },
+            Array [
+              Object {
+                "color": "#304050",
+                "fontSize": 18,
+                "fontWeight": "800",
+              },
+              undefined,
+              undefined,
+            ],
+          ]
+        }
+      >
+        Tab 2
+      </Text>
+    </View>
+  </View>
+  <Text>
+    Tab 1 content panel
+  </Text>
+</View>
+`;
