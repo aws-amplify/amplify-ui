@@ -18,7 +18,7 @@ export default function NavBar({
 }) {
   return (
     <View position="relative">
-      <View inert={navOpen ? '' : null}>
+      <View>
         <Card>
           <Flex maxWidth="640px" margin="0 auto">
             <Button onClick={handleNav}>
@@ -61,7 +61,7 @@ export default function NavBar({
           top="0"
           height="100%"
           width="100%"
-          class="liveness-example-nav"
+          className="liveness-example-nav"
         >
           <Card width="280px" height="100%">
             <Flex direction="column" alignItems="end">
