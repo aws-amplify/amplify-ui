@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react",
-  "version": "3.5.2",
+  "version": "3.5.7",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "exports": {
@@ -55,7 +55,8 @@
     "size": "yarn run size-limit"
   },
   "dependencies": {
-    "@aws-amplify/ui": "3.13.3",
+    "@aws-amplify/ui": "3.14.0",
+    "@aws-amplify/ui-react-core": "1.0.1",
     "@aws-amplify/ui-react-v1": "npm:@aws-amplify/ui-react@1.2.9",
     "@radix-ui/react-accordion": "^1.0.0",
     "@radix-ui/react-direction": "^1.0.0",
@@ -75,7 +76,7 @@
     "tslib": "2.4.0"
   },
   "peerDependencies": {
-    "aws-amplify": "3.x.x || 4.x.x",
+    "aws-amplify": "next",
     "react": ">= 16.8.0",
     "react-dom": ">= 16.8.0"
   },

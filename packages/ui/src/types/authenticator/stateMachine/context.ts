@@ -1,6 +1,10 @@
 import { ValidationError } from '../validator';
 import { AuthFormData, AuthFormFields } from '../form';
-import { AuthChallengeName, AmplifyUser } from '../user';
+import {
+  AuthChallengeName,
+  AmplifyUser,
+  UnverifiedContactMethods,
+} from '../user';
 import { CodeDeliveryDetails as CognitoCodeDeliveryDetails } from 'amazon-cognito-identity-js';
 import { LoginMechanism, SignUpAttribute, SocialProvider } from '../attributes';
 import { defaultServices } from '../../../machines/authenticator/defaultServices';
@@ -81,25 +85,25 @@ export interface SignInContext extends BaseFormContext {
   formFields?: AuthFormFields;
   attributeToVerify?: string;
   redirectIntent?: string;
-  unverifiedAttributes?: Record<string, string>;
+  unverifiedContactMethods?: UnverifiedContactMethods;
 }
 export interface SignUpContext extends BaseFormContext {
   loginMechanisms: Required<AuthContext>['config']['loginMechanisms'];
   socialProviders: Required<AuthContext>['config']['socialProviders'];
   formFields: AuthFormFields;
-  unverifiedAttributes?: Record<string, string>;
+  unverifiedContactMethods?: UnverifiedContactMethods;
 }
 
 export interface ResetPasswordContext extends BaseFormContext {
   username?: string;
-  unverifiedAttributes?: Record<string, string>;
+  unverifiedContactMethods?: UnverifiedContactMethods;
   formFields?: AuthFormFields;
 }
 
 export interface SignOutContext {
   authAttributes?: Record<string, any>;
   challengeName?: AuthChallengeName;
-  unverifiedAttributes?: Record<string, string>;
+  unverifiedContactMethods?: UnverifiedContactMethods;
   user?: AmplifyUser;
   formFields?: AuthFormFields;
 }

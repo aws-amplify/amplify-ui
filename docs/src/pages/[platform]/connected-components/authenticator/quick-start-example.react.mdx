@@ -5,20 +5,54 @@ You can use the `Authenticator` component directly, or wrap your app in `withAut
 
 <Tabs>
   <TabItem title="Authenticator">
+    ```js{3-4,11-12} file=../../../../../../examples/next/pages/ui/components/authenticator/sign-in-with-username/index.page.tsx
 
-```js{3-4,11-12} file=../../../../../../examples/next/pages/ui/components/authenticator/sign-in-with-username/index.page.tsx
-
-```
-
+    ```
   </TabItem>
   <TabItem title="withAuthenticator">
 
-The `withAuthenticator` automatically sets the [`variation`](#variation) to `modal`.
+`withAuthenticator` defaults the `variation` prop to `modal`.
+  <Tabs>
+    <TabItem title="Javascript">
+    ```jsx
+    import { Amplify } from 'aws-amplify';
 
-```js{3-4,9,18} file=../../../../../../examples/next/pages/ui/components/authenticator/withAuthenticator/index.page.tsx
+    import { withAuthenticator } from '@aws-amplify/ui-react';
+    import '@aws-amplify/ui-react/styles.css';
 
-```
+    import awsExports from './aws-exports';
+    Amplify.configure(awsExports);
 
+    function App({ isPassedToWithAuthenticator, signOut, user }) {
+      if (!isPassedToWithAuthenticator) {
+        throw new Error(`isPassedToWithAuthenticator was not provided`);
+      }
+
+      return (
+        <>
+          <h1>Hello {user.username}</h1>
+          <button onClick={signOut}>Sign out</button>
+        </>
+      );
+    }
+
+    export default withAuthenticator(App);
+
+    export async function getStaticProps() {
+      return {
+        props: {
+          isPassedToWithAuthenticator: true,
+        },
+      };
+    }
+    ```
+    </TabItem>
+    <TabItem title="TypeScript">
+      ```js{3-4,9,18} file=../../../../../../examples/next/pages/ui/components/authenticator/withAuthenticator/index.page.tsx
+
+      ```
+    </TabItem>
+  </Tabs>
   </TabItem>
 </Tabs>
 

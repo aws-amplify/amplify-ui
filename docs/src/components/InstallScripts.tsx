@@ -1,23 +1,35 @@
 import { CopyButton } from '@/components/CopyButton';
 import { Tabs, TabItem } from '@aws-amplify/ui-react';
 import { useRouter } from 'next/router';
+import { Framework, REACT_NATIVE_DEPENDENCIES } from '../data/frameworks';
 
-type WebFramework = 'react' | 'vue' | 'angular';
 type PackageManager = 'npm' | 'yarn';
 
 interface TerminalCommandProps {
-  framework?: WebFramework;
+  framework?: Framework;
   packageManager?: PackageManager;
   command?: string;
 }
 
+// require exact versions for React Native
+const EXACT_VERSIONS_FLAG = '-E';
+
 const frameworkInstallScript = (
-  framework: WebFramework,
+  framework: Framework,
   packageManager: PackageManager
-) =>
-  `${
+) => {
+  const isReactNative = framework === 'react-native';
+
+  const packageManagerPrefix = `${
     packageManager === 'npm' ? 'npm i' : 'yarn add'
-  } @aws-amplify/ui-${framework} aws-amplify`;
+  } ${isReactNative ? EXACT_VERSIONS_FLAG : ''}`;
+
+  const extraDependencies = `${
+    isReactNative ? ` ${REACT_NATIVE_DEPENDENCIES}` : ''
+  }`;
+
+  return `${packageManagerPrefix} @aws-amplify/ui-${framework} aws-amplify${extraDependencies}`;
+};
 
 export const TerminalCommand = ({
   framework,
@@ -41,7 +53,7 @@ export const TerminalCommand = ({
 };
 
 interface InstallScriptsProps {
-  framework?: WebFramework;
+  framework?: Framework;
 }
 
 export const InstallScripts = ({ framework }: InstallScriptsProps) => {
@@ -51,7 +63,7 @@ export const InstallScripts = ({ framework }: InstallScriptsProps) => {
 
   // infer framework from router if framework isn't specified
   if (!framework) {
-    framework = platform as WebFramework;
+    framework = platform as Framework;
   }
 
   return (
