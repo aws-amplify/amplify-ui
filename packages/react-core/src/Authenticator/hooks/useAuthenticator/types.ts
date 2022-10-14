@@ -4,6 +4,7 @@ import {
   AuthenticatorLegacyFields,
   AuthenticatorMachineContext,
   AuthenticatorMachineContextKey,
+  GetTotpSecretCode,
 } from '../types';
 
 /**
@@ -23,7 +24,7 @@ type InternalAuthenticatorContext = {
 };
 
 export interface UseAuthenticator extends AuthenticatorMachineContext {
-  getTotpSecretCode: () => Promise<string>;
+  getTotpSecretCode: GetTotpSecretCode;
 
   /** @deprecated For internal use only */
   fields: AuthenticatorLegacyFields;

@@ -38,6 +38,8 @@ export type AuthenticatorRouteComponentName =
   | 'SignUp'
   | 'VerifyUser';
 
+export type GetTotpSecretCode = () => Promise<string>;
+
 export interface HeaderProps {
   children?: React.ReactNode;
 }
@@ -76,21 +78,6 @@ interface CommonRouteProps extends ComponentSlots {
   isPending: AuthenticatorMachineContext['isPending'];
 }
 
-export interface ConfirmSignInCommonProps extends CommonRouteProps {
-  challengeName: AuthChallengeName;
-  toSignIn: AuthenticatorMachineContext['toSignIn'];
-}
-
-export interface ConfirmSignUpCommonProps extends CommonRouteProps {
-  codeDeliveryDetails: AuthenticatorMachineContext['codeDeliveryDetails'];
-  resendCode: AuthenticatorMachineContext['resendCode'];
-}
-
-export interface SetupTOTPCommonProps extends CommonRouteProps {
-  totpIssuer: string;
-  totpUsername: string;
-}
-
 export interface CommonConfirmResetPasswordProps extends CommonRouteProps {
   onCancel: () => void;
   validationErrors: AuthenticatorMachineContext['validationErrors'];
@@ -121,6 +108,7 @@ export interface CommonResetPasswordProps extends CommonRouteProps {
 }
 
 export interface CommonSetupTOTPProps extends CommonRouteProps {
+  getTotpSecretCode: GetTotpSecretCode;
   totpIssuer: string;
   totpUsername: string;
 }

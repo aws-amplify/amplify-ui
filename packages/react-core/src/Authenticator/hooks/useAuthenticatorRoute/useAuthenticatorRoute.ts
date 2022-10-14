@@ -1,10 +1,12 @@
-import { useMemo } from 'react';
-
-import { RenderNothing } from '../../../components';
 import { useAuthenticator } from '../useAuthenticator';
 
 import { UseAuthenticatorRoute, UseAuthenticatorRouteParams } from './types';
-import { getRouteSelector } from './utils';
+import {
+  getRouteSelector,
+  resolveConfirmSignIn,
+  resolveDefault,
+  resolveSetupTOTP,
+} from './utils';
 
 export default function useAuthenticatorRoute<PlatformProps>(
   params: UseAuthenticatorRouteParams<PlatformProps>
@@ -15,46 +17,29 @@ export default function useAuthenticatorRoute<PlatformProps>(
 export default function useAuthenticatorRoute<PlatformProps>({
   components,
 }: UseAuthenticatorRouteParams<PlatformProps>): UseAuthenticatorRoute<PlatformProps> {
-  const { fields, route } = useAuthenticator(({ route }) => [route]);
+  const { route } = useAuthenticator(({ route }) => [route]);
 
-  const routeSelector = useMemo(() => getRouteSelector(route), [route]);
+  // do not memo, all functions returned by getRouteSelector retain references between renders
+  const routeSelector = getRouteSelector(route);
+
+  // `useAuthenticator` exposes both state machine (example: `toSignIn`) and non-state machine
+  // props (example: `getTotpSecretCode`). `routeSelector` specifies which state machine props
+  // should be returned for a specific route.
+  // Only state machine props specified by the current `routeSelector` will have their current value
+  // returned by `useAuthenticator`, non-machine props returned will always be the current value
   const routeSelectorProps = useAuthenticator(routeSelector);
 
-  const { error, isPending, toSignIn, user } = routeSelectorProps;
   const { ConfirmSignIn, SetupTOTP } = components;
 
   switch (route) {
     case 'confirmSignIn': {
-      const props = {
-        challengeName: user.challengeName!,
-        error,
-        fields,
-        Footer: ConfirmSignIn.Footer,
-        FormFields: ConfirmSignIn.FormFields,
-        Header: ConfirmSignIn.Header,
-        isPending,
-        toSignIn,
-      };
-      return { Component: ConfirmSignIn, props };
+      return resolveConfirmSignIn(ConfirmSignIn, routeSelectorProps);
     }
     case 'setupTOTP': {
-      const props = {
-        error,
-        fields,
-        Footer: SetupTOTP.Footer,
-        FormFields: SetupTOTP.FormFields,
-        Header: SetupTOTP.Header,
-        isPending,
-        totpUsername: user.username!,
-        totpIssuer: 'AWSCognito',
-      };
-      return { Component: SetupTOTP, props };
+      return resolveSetupTOTP(SetupTOTP, routeSelectorProps);
     }
     default: {
-      return {
-        Component: RenderNothing,
-        props: {},
-      } as UseAuthenticatorRoute<PlatformProps>;
+      return resolveDefault();
     }
   }
 }
