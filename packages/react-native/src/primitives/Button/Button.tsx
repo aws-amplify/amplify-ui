@@ -1,13 +1,14 @@
 import React from 'react';
-import { Pressable, Text, ViewStyle } from 'react-native';
+import { Pressable, Text } from 'react-native';
 
-import { useTheme } from '../../hooks';
+import { usePressableStyles, useTheme } from '../../hooks';
 import { baseStyles, getThemedStyles } from './styles';
 import { ButtonProps } from './types';
 
 export default function Button({
   accessibilityRole = 'button',
   children,
+  disabled,
   style,
   textStyle,
   ...pressableProps
@@ -15,16 +16,18 @@ export default function Button({
   const theme = useTheme();
   const themedButtonStyle = getThemedStyles(theme);
 
-  //TODO: complete theming [with states and variants] and handle style prop being either a callback function or a ViewStyle
+  const containerStyle = usePressableStyles({
+    disabled: disabled,
+    disabledStyle: { ...baseStyles.disabled, ...themedButtonStyle.disabled },
+    style: style,
+    themedStyle: { ...baseStyles.container, ...themedButtonStyle.container },
+  });
 
   return (
     <Pressable
       accessibilityRole={accessibilityRole}
-      style={[
-        baseStyles.container,
-        themedButtonStyle.container,
-        style as ViewStyle,
-      ]}
+      disabled={disabled}
+      style={containerStyle}
       {...pressableProps}
     >
       {typeof children === 'string' ? (

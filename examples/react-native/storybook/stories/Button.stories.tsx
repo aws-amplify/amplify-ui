@@ -22,8 +22,8 @@ const customTheme: Theme = {
     },
   },
 };
-const buttonStyleOverride: StyleProp<ViewStyle> = { borderColor: 'darkRed' };
-const textStyleOverride: StyleProp<TextStyle> = { color: 'red' };
+const buttonStyleOverride: StyleProp<ViewStyle> = { borderColor: 'purple' };
+const textStyleOverride: StyleProp<TextStyle> = { color: 'purple' };
 
 storiesOf('Button', module)
   .add('with text', () => (

@@ -16,5 +16,6 @@ export interface ButtonProps extends Omit<PressableProps, 'style'> {
 
 export interface ButtonStyles {
   container: ViewStyle;
+  disabled: ViewStyle;
   text: TextStyle;
 }

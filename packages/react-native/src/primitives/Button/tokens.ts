@@ -10,7 +10,9 @@ interface ButtonContainerToken {
 
 export interface ButtonTokens {
   container: ButtonContainerToken;
+  disabled: ButtonContainerToken;
   text: ButtonTextToken;
+  disabledText: ButtonTextToken;
 }
 
 export const button: ButtonTokens = {
@@ -19,5 +21,11 @@ export const button: ButtonTokens = {
   },
   text: {
     color: '{colors.brand.primary[100]}',
+  },
+  disabled: {
+    backgroundColor: '{colors.brand.primary[20]}',
+  },
+  disabledText: {
+    color: '{colors.brand.primary[20]}',
   },
 };

@@ -1,5 +1,56 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Button renders as expected when disabled 1`] = `
+<View
+  accessibilityRole="button"
+  accessibilityState={
+    Object {
+      "disabled": true,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Array [
+      Object {
+        "backgroundColor": "hsl(190, 75%, 85%)",
+        "borderRadius": 4,
+        "borderWidth": 1,
+        "opacity": 0.8,
+        "padding": 8,
+      },
+      undefined,
+    ]
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "alignSelf": "center",
+        },
+        Object {
+          "color": "hsl(190, 100%, 15%)",
+        },
+        undefined,
+      ]
+    }
+  >
+    A pressable button
+  </Text>
+</View>
+`;
+
 exports[`Button renders as expected with a component passed as children 1`] = `
 <View
   accessibilityRole="button"
@@ -18,12 +69,10 @@ exports[`Button renders as expected with a component passed as children 1`] = `
   style={
     Array [
       Object {
+        "backgroundColor": "hsl(190, 75%, 95%)",
         "borderRadius": 4,
         "borderWidth": 1,
         "padding": 8,
-      },
-      Object {
-        "backgroundColor": "hsl(190, 75%, 95%)",
       },
       undefined,
     ]
@@ -53,12 +102,10 @@ exports[`Button renders as expected with a string passed as children 1`] = `
   style={
     Array [
       Object {
+        "backgroundColor": "hsl(190, 75%, 95%)",
         "borderRadius": 4,
         "borderWidth": 1,
         "padding": 8,
-      },
-      Object {
-        "backgroundColor": "hsl(190, 75%, 95%)",
       },
       undefined,
     ]
