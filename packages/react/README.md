@@ -1,3 +1,6 @@
+![](https://img.shields.io/npm/dw/@aws-amplify/ui-react?label=Download&logo=Amplify&style=flat)
+![](https://img.shields.io/npm/v/@aws-amplify/ui-react/latest)
+
 # Amplify UI
 
 Amplify UI is an open-source UI library with cloud-connected components that are endlessly customizable, accessible, and can integrate into _any_ application. Amplify UI consists of:
