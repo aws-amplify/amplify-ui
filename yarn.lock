@@ -599,14 +599,6 @@
     qrcode "^1.4.4"
     uuid "^8.2.0"
 
-"@aws-amplify/ui-react-core@file:../../Desktop/aws-amplify-ui-react-core-v1.0.1.tgz":
-  version "1.0.1"
-  resolved "file:../../Desktop/aws-amplify-ui-react-core-v1.0.1.tgz#58f6b9bd5f17013dabedf5ed8f056089430b3a8c"
-  dependencies:
-    "@aws-amplify/ui" "file:../../Desktop/aws-amplify-ui-v3.14.0.tgz"
-    "@xstate/react" "3.0.0"
-    xstate "^4.33.6"
-
 "@aws-amplify/ui-react-v1@npm:@aws-amplify/ui-react@1.2.9":
   version "1.2.9"
   resolved "https://registry.yarnpkg.com/@aws-amplify/ui-react/-/ui-react-1.2.9.tgz#bcaa93f021afc801f9d8e6aa98558128b2cb173f"
@@ -618,14 +610,6 @@
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/@aws-amplify/ui/-/ui-2.0.5.tgz#0800938a0bf36ff51922637628b0889017da19f1"
   integrity sha512-atoc/zIJRhgpoSDDKgRxbTSD7D9S4wbOzHUHMqRlcEPRKqRrQPGvd6zCUVSBS0jqdrrw6+UTJbWj7ttWCfE4pQ==
-
-"@aws-amplify/ui@file:../../Desktop/aws-amplify-ui-v3.14.0.tgz":
-  version "3.14.0"
-  resolved "file:../../Desktop/aws-amplify-ui-v3.14.0.tgz#6157cf12da0d75f2438e02e384cff3f760288923"
-  dependencies:
-    lodash "4.17.21"
-    style-dictionary "3.7.0"
-    tslib "2.4.0"
 
 "@aws-amplify/xr@3.0.52":
   version "3.0.52"
@@ -7655,14 +7639,6 @@
   integrity sha512-tcGBUCVymP8ij0K2fXZckrwrQkmNJL1DgQAM0eSILQKb8iBDN3GeqhYkNCS4HP29EzF2TZL0+k74FPWKaU9Fhw==
   dependencies:
     fast-safe-stringify "^2.0.7"
-
-"@xstate/react@3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@xstate/react/-/react-3.0.0.tgz#888d9a6f128c70b632c18ad55f1f851f6ab092ba"
-  integrity sha512-KHSCfwtb8gZ7QH2luihvmKYI+0lcdHQOmGNRUxUEs4zVgaJCyd8csCEmwPsudpliLdUmyxX2pzUBojFkINpotw==
-  dependencies:
-    use-isomorphic-layout-effect "^1.0.0"
-    use-sync-external-store "^1.0.0"
 
 "@xstate/react@3.0.1":
   version "3.0.1"
