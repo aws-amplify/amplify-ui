@@ -1,8 +1,16 @@
 // Internal Style Dictionary methods
 import deepExtend from 'style-dictionary/lib/utils/deepExtend';
+import get from 'lodash/get';
+import mapValues from 'lodash/mapValues';
 
 import { defaultTheme } from './defaultTheme';
 import { ColorMode, Theme, ReactNativeTheme } from './types';
+import { Tokens } from './tokens';
+
+const mapValuesDeep = (v: object | string, callback: Function): object =>
+  typeof v == 'object'
+    ? mapValues(v, (v) => mapValuesDeep(v, callback))
+    : (callback(v) as object);
 
 /**
  * This will be used like `const myTheme = createReactNativeTheme({})`
@@ -22,7 +30,16 @@ export const createReactNativeTheme = (
     defaultTheme,
     theme,
   ]) as ReactNativeTheme;
-  const { name, tokens, overrides } = mergedTheme;
+  const { name, overrides } = mergedTheme;
+
+  // Setting up the tokens.
+  // At the end of this, each token should have a raw value
+  // All references to tokens will be replaced
+  const tokens = mapValuesDeep(mergedTheme.tokens, (value: string) => {
+    return typeof value == 'string' && value.includes('.')
+      ? (get(mergedTheme.tokens, value) as string)
+      : value;
+  }) as Tokens;
 
   return {
     colorMode,

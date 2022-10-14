@@ -44,7 +44,8 @@
   },
   "dependencies": {
     "@aws-amplify/ui": "3.7.0",
-    "@aws-amplify/ui-react-core": "0.0.1"
+    "@aws-amplify/ui-react-core": "0.0.1",
+    "lodash": "4.17.21"
   },
   "peerDependencies": {
     "aws-amplify": "3.x.x || 4.x.x",
