@@ -1,7 +1,10 @@
-import { TextInputProps } from 'react-native';
+import { StyleProp, TextInputProps, ViewStyle } from 'react-native';
 
 import { AuthFormData } from '@aws-amplify/ui';
-import { AuthenticatorComponentDefaults } from '@aws-amplify/ui-react-core';
+import {
+  DefaultConfirmSignInComponent,
+  DefaultSetupTOTPComponent,
+} from '@aws-amplify/ui-react-core';
 
 export interface FormHandlers {
   onBlur: TextInputProps['onBlur'];
@@ -9,13 +12,21 @@ export interface FormHandlers {
   onSubmit: (data: AuthFormData) => null;
 }
 
-interface ConfirmSignInStyle {}
-interface SetupTOTPStyle {}
+interface ConfirmSignInStyle {
+  container?: StyleProp<ViewStyle>;
+}
+interface SetupTOTPStyle {
+  container?: StyleProp<ViewStyle>;
+}
 
-export type ConfirmSignInComponent = AuthenticatorComponentDefaults<
-  FormHandlers & { style?: ConfirmSignInStyle }
->['ConfirmSignIn'];
+interface PlatformProps<Style> extends FormHandlers {
+  style?: Style;
+}
 
-export type SetupTOTPComponent = AuthenticatorComponentDefaults<
-  FormHandlers & { style?: SetupTOTPStyle }
->['SetupTOTP'];
+export type ConfirmSignInComponent = DefaultConfirmSignInComponent<
+  PlatformProps<ConfirmSignInStyle>
+>;
+
+export type SetupTOTPComponent = DefaultSetupTOTPComponent<
+  PlatformProps<SetupTOTPStyle>
+>;
