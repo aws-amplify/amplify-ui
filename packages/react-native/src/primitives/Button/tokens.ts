@@ -15,9 +15,9 @@ export interface ButtonTokens {
 
 export const button: ButtonTokens = {
   container: {
-    backgroundColor: 'colors.brand.primary[10]',
+    backgroundColor: '{colors.brand.primary[10]}',
   },
   text: {
-    color: 'colors.brand.primary[100]',
+    color: '{colors.brand.primary[100]}',
   },
 };

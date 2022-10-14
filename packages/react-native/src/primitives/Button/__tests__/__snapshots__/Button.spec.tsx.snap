@@ -23,7 +23,7 @@ exports[`Button renders as expected with a component passed as children 1`] = `
         "padding": 8,
       },
       Object {
-        "borderColor": "hsl(190, 100%, 15%)",
+        "backgroundColor": "hsl(190, 75%, 95%)",
       },
       undefined,
     ]
@@ -58,7 +58,7 @@ exports[`Button renders as expected with a string passed as children 1`] = `
         "padding": 8,
       },
       Object {
-        "borderColor": "hsl(190, 100%, 15%)",
+        "backgroundColor": "hsl(190, 75%, 95%)",
       },
       undefined,
     ]

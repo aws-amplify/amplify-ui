@@ -36,8 +36,11 @@ export const createReactNativeTheme = (
   // At the end of this, each token should have a raw value
   // All references to tokens will be replaced
   const tokens = mapValuesDeep(mergedTheme.tokens, (value: string) => {
-    return typeof value == 'string' && value.includes('.')
-      ? (get(mergedTheme.tokens, value) as string)
+    return typeof value == 'string' && value.startsWith('{')
+      ? (get(
+          mergedTheme.tokens,
+          value.substring(1, value.length - 2) // remove { }
+        ) as string)
       : value;
   }) as Tokens;
 
