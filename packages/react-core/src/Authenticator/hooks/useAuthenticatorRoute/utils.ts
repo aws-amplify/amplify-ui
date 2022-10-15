@@ -40,6 +40,7 @@ const routeSelectors: Record<AuthenticatorRouteComponentKey, RouteSelector> = {
   confirmSignUp: defaultSelector,
   confirmVerifyUser: defaultSelector,
   resetPassword: defaultSelector,
+  verifyUser: defaultSelector,
 };
 
 export const getRouteSelector = (route: AuthenticatorRoute): RouteSelector =>
