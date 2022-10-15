@@ -28,16 +28,7 @@ export type AuthenticatorMachineContext = AuthenticatorServiceFacade;
 export type AuthenticatorMachineContextKey = keyof AuthenticatorMachineContext;
 
 export type AuthenticatorRouteComponentName =
-  | 'ConfirmResetPassword'
-  | 'ConfirmSignIn'
-  | 'ConfirmSignUp'
-  | 'ConfirmVerifyUser'
-  | 'ForceNewPassword'
-  | 'ResetPassword'
-  | 'SetupTOTP'
-  | 'SignIn'
-  | 'SignUp'
-  | 'VerifyUser';
+  Capitalize<AuthenticatorRouteComponentKey>;
 
 export type GetTotpSecretCode = () => Promise<string>;
 
