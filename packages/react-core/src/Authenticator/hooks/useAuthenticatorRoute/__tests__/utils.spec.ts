@@ -20,7 +20,7 @@ import {
 type PropsResolver = (
   Component: DefaultComponent,
   selectedProps: UseAuthenticator
-) => UseAuthenticatorRoute;
+) => UseAuthenticatorRoute<{}, AuthenticatorRouteComponentName>;
 
 const {
   codeDeliveryDetails,

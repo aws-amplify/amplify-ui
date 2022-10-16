@@ -1,7 +1,10 @@
 import { AuthenticatorRoute } from '@aws-amplify/ui';
 
 import { RenderNothing } from '../../../components';
-import { AuthenticatorMachineContextKey } from '../types';
+import {
+  AuthenticatorMachineContextKey,
+  AuthenticatorRouteComponentName,
+} from '../types';
 
 import {
   UseAuthenticator,
@@ -67,11 +70,12 @@ export function resolveSetupTOTP<PlatformProps = {}>(
   };
 }
 
-export function resolveDefault<
-  PlatformProps = {}
->(): UseAuthenticatorRoute<PlatformProps> {
+export function resolveDefault<PlatformProps = {}>(): UseAuthenticatorRoute<
+  PlatformProps,
+  AuthenticatorRouteComponentName
+> {
   return {
     Component: RenderNothing,
     props: {},
-  } as UseAuthenticatorRoute<PlatformProps>;
+  } as UseAuthenticatorRoute<PlatformProps, AuthenticatorRouteComponentName>;
 }

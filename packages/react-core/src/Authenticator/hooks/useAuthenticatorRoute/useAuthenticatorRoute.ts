@@ -1,3 +1,4 @@
+import { AuthenticatorRouteComponentName } from '../types';
 import { useAuthenticator } from '../useAuthenticator';
 
 import { UseAuthenticatorRoute, UseAuthenticatorRouteParams } from './types';
@@ -10,13 +11,19 @@ import {
 
 export default function useAuthenticatorRoute<PlatformProps>(
   params: UseAuthenticatorRouteParams<PlatformProps>
+): UseAuthenticatorRoute<PlatformProps, 'ResetPassword'>;
+export default function useAuthenticatorRoute<PlatformProps>(
+  params: UseAuthenticatorRouteParams<PlatformProps>
 ): UseAuthenticatorRoute<PlatformProps, 'ConfirmSignIn'>;
 export default function useAuthenticatorRoute<PlatformProps>(
   params: UseAuthenticatorRouteParams<PlatformProps>
 ): UseAuthenticatorRoute<PlatformProps, 'SetupTOTP'>;
 export default function useAuthenticatorRoute<PlatformProps>({
   components,
-}: UseAuthenticatorRouteParams<PlatformProps>): UseAuthenticatorRoute<PlatformProps> {
+}: UseAuthenticatorRouteParams<PlatformProps>): UseAuthenticatorRoute<
+  PlatformProps,
+  AuthenticatorRouteComponentName
+> {
   const { route } = useAuthenticator(({ route }) => [route]);
 
   // do not memo, all functions returned by getRouteSelector retain references between renders

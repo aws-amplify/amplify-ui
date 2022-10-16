@@ -37,8 +37,8 @@ interface Props {
 }
 
 export type UseAuthenticatorRoute<
-  PlatformProps = {},
-  ComponentName extends AuthenticatorRouteComponentName | unknown = unknown
+  PlatformProps,
+  ComponentName extends AuthenticatorRouteComponentName
 > = ComponentName extends AuthenticatorRouteComponentName
   ? {
       Component: Defaults<PlatformProps>[ComponentName];
