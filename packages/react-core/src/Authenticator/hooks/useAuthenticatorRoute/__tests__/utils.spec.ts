@@ -1,14 +1,13 @@
 import { AuthenticatorRoute } from '@aws-amplify/ui';
 import { RenderNothing } from '../../../../components';
-import {
-  AuthenticatorLegacyFields,
-  AuthenticatorMachineContext,
-  AuthenticatorRouteComponentName,
-  DefaultComponent,
-} from '../../types';
+import { AuthenticatorRouteComponentName, DefaultComponent } from '../../types';
 import { UseAuthenticator } from '../../useAuthenticator/types';
 
 import { DEFAULTS } from '../../__mock__/components';
+import {
+  mockMachineContext,
+  mockUseAuthenticatorOutput,
+} from '../../useAuthenticator/__mock__/useAuthenticator';
 import { UseAuthenticatorRoute } from '../types';
 
 import {
@@ -23,40 +22,25 @@ type PropsResolver = (
   selectedProps: UseAuthenticator
 ) => UseAuthenticatorRoute;
 
-const challengeName = 'CUSTOM_CHALLENGE';
-const codeDeliveryDetails = {};
-const error = 'error';
-const fields = [] as AuthenticatorLegacyFields;
-const getTotpSecretCode = jest.fn();
-const isPending = false;
-const resendCode = jest.fn();
-const toSignIn = jest.fn();
-const toSignUp = jest.fn();
-const totpIssuer = 'AWSCognito';
-const username = 'Charles';
-const validationErrors = {};
-
-const user = {
-  challengeName,
-  username,
-} as AuthenticatorMachineContext['user'];
-
-const machineContext: AuthenticatorMachineContext = {
+const {
   codeDeliveryDetails,
   error,
   fields,
+  getTotpSecretCode,
   isPending,
   resendCode,
   toSignIn,
   toSignUp,
   user,
   validationErrors,
-} as unknown as AuthenticatorMachineContext;
+} = mockUseAuthenticatorOutput;
 
-const useAuthenticatorOutput: UseAuthenticator = {
-  ...machineContext,
-  getTotpSecretCode,
-} as unknown as UseAuthenticator;
+const totpIssuer = 'AWSCognito';
+const { challengeName, username } = user;
+
+const machineContext = mockMachineContext;
+
+const useAuthenticatorOutput = mockUseAuthenticatorOutput;
 
 describe('getRouteSelector', () => {
   it.each([
