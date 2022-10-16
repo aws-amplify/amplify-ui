@@ -18,7 +18,7 @@ import {
   resolveSetupTOTP,
 } from '../utils';
 
-type Resolver = (
+type PropsResolver = (
   Component: DefaultComponent,
   selectedProps: UseAuthenticator
 ) => UseAuthenticatorRoute;
@@ -70,7 +70,7 @@ describe('getRouteSelector', () => {
   });
 });
 
-describe('prop resolver functions', () => {
+describe('props resolver functions', () => {
   it.each([
     [
       'SetupTOTP',
@@ -93,12 +93,15 @@ describe('prop resolver functions', () => {
       props: { ...commonProps, ...componentSlots, ...routeProps },
     };
 
-    const output = (resolver as Resolver)(Component, useAuthenticatorOutput);
+    const output = (resolver as PropsResolver)(
+      Component,
+      useAuthenticatorOutput
+    );
     expect(output).toStrictEqual(expected);
   });
 
   describe('resolveDefault', () => {
-    it('returnx the expected values', () => {
+    it('returns the expected values', () => {
       const output = resolveDefault();
       const expected = { Component: RenderNothing, props: {} };
 
