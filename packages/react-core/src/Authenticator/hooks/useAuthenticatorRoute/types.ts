@@ -49,16 +49,31 @@ export type UseAuthenticatorRoute<
       props: Props[keyof Props];
     };
 
-// machine prop keys required for each sub-component route
-type CommonSelectorKey = 'error' | 'isPending';
-type ConfirmSignInSelectorKey = CommonSelectorKey | 'toSignIn' | 'user';
-type SetupTOTSelectorKey = CommonSelectorKey | 'user';
+// extract machine prop keys required for a sub-component route
+type ExtractMachineKey<RouteProps> = Extract<
+  AuthenticatorMachineContextKey,
+  keyof RouteProps
+>;
 
-export type RouteSelector<
-  Key extends AuthenticatorMachineContextKey = AuthenticatorMachineContextKey
-> = (
-  context: AuthenticatorMachineContext
-) => AuthenticatorMachineContext[Key][];
-
-export type ConfirmSignInSelector = RouteSelector<ConfirmSignInSelectorKey>;
-export type SetupTOTPSelector = RouteSelector<SetupTOTSelectorKey>;
+/**
+ * `route` sub-component machine selector key types
+ */
+export type ConfirmResetPasswordKey =
+  ExtractMachineKey<CommonConfirmResetPasswordProps>;
+export type ConfirmSignInMachineKey = ExtractMachineKey<
+  // ConfirmSignIn additonally requires `user` to extract value needed for `challengeName`
+  CommonConfirmSignInProps & Pick<AuthenticatorMachineContext, 'user'>
+>;
+export type ConfirmSignUpKey = ExtractMachineKey<CommonConfirmSignUpProps>;
+export type ConfirmVerifyUserKey =
+  ExtractMachineKey<CommonConfirmVerifyUserProps>;
+export type ForceNewPasswordKey =
+  ExtractMachineKey<CommonForceNewPasswordProps>;
+export type ResetPasswordKey = ExtractMachineKey<CommonResetPasswordProps>;
+export type SignInKey = ExtractMachineKey<CommonSignInProps>;
+export type SignUpKey = ExtractMachineKey<CommonSignUpProps>;
+export type SetupTOTPMachineKey = ExtractMachineKey<
+  // SetupTOTP additonally requires `user` to extract values needed for `totpIssuer` and 'totpUsername`
+  CommonSetupTOTPProps & Pick<AuthenticatorMachineContext, 'user'>
+>;
+export type VerifyUserKey = ExtractMachineKey<CommonVerifyUserProps>;

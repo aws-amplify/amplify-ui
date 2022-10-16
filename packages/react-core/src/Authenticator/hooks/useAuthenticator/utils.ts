@@ -11,7 +11,7 @@ import { areEmptyArrays, areEmptyObjects } from '../../../utils';
 import { AuthenticatorLegacyFields } from '../types';
 import { isComponentRouteKey } from '../utils';
 
-import { Comparator, Selector } from './types';
+import { Comparator, UseAuthenticatorSelector } from './types';
 
 export const defaultComparator = (): false => false;
 
@@ -41,7 +41,7 @@ export function areSelectorDepsEqual<T>(
 }
 
 export const getComparator =
-  (selector: Selector): Comparator =>
+  (selector: UseAuthenticatorSelector): Comparator =>
   (currentFacade, nextFacade) => {
     const currentSelectorDeps = selector(currentFacade);
     const nextSelectorDeps = selector(nextFacade);

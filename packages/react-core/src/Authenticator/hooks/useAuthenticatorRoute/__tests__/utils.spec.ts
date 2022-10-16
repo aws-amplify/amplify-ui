@@ -24,13 +24,17 @@ type PropsResolver = (
 ) => UseAuthenticatorRoute;
 
 const challengeName = 'CUSTOM_CHALLENGE';
+const codeDeliveryDetails = {};
 const error = 'error';
 const fields = [] as AuthenticatorLegacyFields;
 const getTotpSecretCode = jest.fn();
 const isPending = false;
+const resendCode = jest.fn();
 const toSignIn = jest.fn();
+const toSignUp = jest.fn();
 const totpIssuer = 'AWSCognito';
 const username = 'Charles';
+const validationErrors = {};
 
 const user = {
   challengeName,
@@ -38,11 +42,15 @@ const user = {
 } as AuthenticatorMachineContext['user'];
 
 const machineContext: AuthenticatorMachineContext = {
+  codeDeliveryDetails,
   error,
   fields,
   isPending,
+  resendCode,
   toSignIn,
+  toSignUp,
   user,
+  validationErrors,
 } as unknown as AuthenticatorMachineContext;
 
 const useAuthenticatorOutput: UseAuthenticator = {
@@ -52,17 +60,17 @@ const useAuthenticatorOutput: UseAuthenticator = {
 
 describe('getRouteSelector', () => {
   it.each([
-    ['confirmResetPassword', []],
+    ['confirmResetPassword', [error, isPending, validationErrors]],
     ['confirmSignIn', [error, isPending, toSignIn, user]],
-    ['confirmSignUp', []],
-    ['confirmVerifyUser', []],
-    ['forceNewPassword', []],
+    ['confirmSignUp', [codeDeliveryDetails, error, isPending, resendCode]],
+    ['confirmVerifyUser', [error, isPending]],
+    ['forceNewPassword', [error, isPending, toSignIn, validationErrors]],
     ['idle', []],
-    ['signIn', []],
-    ['signUp', []],
-    ['resetPassword', []],
+    ['resetPassword', [error, isPending]],
+    ['signIn', [error, isPending, toSignUp]],
+    ['signUp', [error, isPending, toSignIn, validationErrors]],
     ['setupTOTP', [error, isPending, user]],
-    ['verifyUser', []],
+    ['verifyUser', [error, isPending]],
   ])('returns the expected route selector for %s', (route, expected) => {
     const selector = getRouteSelector(route as AuthenticatorRoute);
     const output = selector(machineContext);

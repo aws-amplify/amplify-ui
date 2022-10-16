@@ -13,7 +13,7 @@ import {
  * Selector accepts current facade values and returns an array of
  * desired value(s) that should trigger re-render.
  */
-export type Selector = (
+export type UseAuthenticatorSelector = (
   context: AuthenticatorMachineContext
 ) => AuthenticatorMachineContext[AuthenticatorMachineContextKey][];
 

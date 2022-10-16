@@ -1,50 +1,30 @@
 import { AuthenticatorRoute } from '@aws-amplify/ui';
 
 import { RenderNothing } from '../../../components';
+import { AuthenticatorMachineContextKey } from '../types';
 
-import { AuthenticatorRouteComponentKey } from '../types';
-import { UseAuthenticator } from '../useAuthenticator';
-import { isComponentRouteKey } from '../utils';
 import {
-  ConfirmSignInSelector,
-  RouteSelector,
-  SetupTOTPSelector,
-  UseAuthenticatorRoute,
-} from './types';
+  UseAuthenticator,
+  UseAuthenticatorSelector,
+} from '../useAuthenticator';
+import { isComponentRouteKey } from '../utils';
+import { MACHINE_KEYS } from './constants';
+import { UseAuthenticatorRoute } from './types';
 
 // selects nothing
 const defaultSelector = () => [];
 
-const confirmSignInSelector: ConfirmSignInSelector = ({
-  error,
-  isPending,
-  toSignIn,
-  user,
-}) => [error, isPending, toSignIn, user];
+const createSelector =
+  (keys: AuthenticatorMachineContextKey[]): UseAuthenticatorSelector =>
+  (context) =>
+    keys.map((key) => context[key]);
 
-const setupTOTPSelector: SetupTOTPSelector = ({ error, isPending, user }) => [
-  error,
-  isPending,
-  user,
-];
-
-const routeSelectors: Record<AuthenticatorRouteComponentKey, RouteSelector> = {
-  confirmSignIn: confirmSignInSelector,
-  setupTOTP: setupTOTPSelector,
-
-  // TODO: replace with route specific selector
-  confirmResetPassword: defaultSelector,
-  signIn: defaultSelector,
-  signUp: defaultSelector,
-  forceNewPassword: defaultSelector,
-  confirmSignUp: defaultSelector,
-  confirmVerifyUser: defaultSelector,
-  resetPassword: defaultSelector,
-  verifyUser: defaultSelector,
-};
-
-export const getRouteSelector = (route: AuthenticatorRoute): RouteSelector =>
-  isComponentRouteKey(route) ? routeSelectors[route] : defaultSelector;
+export const getRouteSelector = (
+  route: AuthenticatorRoute
+): UseAuthenticatorSelector =>
+  isComponentRouteKey(route)
+    ? createSelector(MACHINE_KEYS[route])
+    : defaultSelector;
 
 export function resolveConfirmSignIn<PlatformProps = {}>(
   Component: UseAuthenticatorRoute<PlatformProps, 'ConfirmSignIn'>['Component'],

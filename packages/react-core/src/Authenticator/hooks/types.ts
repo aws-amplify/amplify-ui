@@ -61,6 +61,8 @@ type RouteComponent<
   OverrideProps = {}
 > = React.ComponentType<RouteProps & PlatformProps & OverrideProps>;
 
+type OnCancel = () => void;
+
 /**
  * Common component prop types used for both RWA and RNA implementations
  */
@@ -71,7 +73,7 @@ interface CommonRouteProps extends ComponentSlots {
 }
 
 export interface CommonConfirmResetPasswordProps extends CommonRouteProps {
-  onCancel: () => void;
+  onCancel: OnCancel;
   validationErrors: AuthenticatorMachineContext['validationErrors'];
 }
 
@@ -86,17 +88,17 @@ export interface CommonConfirmSignUpProps extends CommonRouteProps {
 }
 
 export interface CommonConfirmVerifyUserProps extends CommonRouteProps {
-  onCancel: () => void;
+  onCancel: OnCancel;
 }
 
 export interface CommonForceNewPasswordProps extends CommonRouteProps {
-  onCancel: () => void;
+  onCancel: OnCancel;
   toSignIn: AuthenticatorMachineContext['toSignIn'];
   validationErrors: AuthenticatorMachineContext['validationErrors'];
 }
 
 export interface CommonResetPasswordProps extends CommonRouteProps {
-  onCancel: () => void;
+  onCancel: OnCancel;
 }
 
 export interface CommonSetupTOTPProps extends CommonRouteProps {
@@ -104,22 +106,24 @@ export interface CommonSetupTOTPProps extends CommonRouteProps {
   totpIssuer: string;
   totpUsername: string;
 }
+
 export interface CommonSignInProps extends CommonRouteProps {
   hideSignUp: boolean;
   toSignUp: AuthenticatorMachineContext['toSignUp'];
 }
+
 export interface CommonSignUpProps extends CommonRouteProps {
   toSignIn: AuthenticatorMachineContext['toSignIn'];
   validationErrors: AuthenticatorMachineContext['validationErrors'];
 }
+
 export interface CommonVerifyUserProps extends CommonRouteProps {
-  onCancel: () => void;
+  onCancel: OnCancel;
 }
 
 /**
  * common types extended for default component types/implementations and override component types
  */
-
 export type CommonConfirmResetPasswordComponent<
   PlatformProps = {},
   OverrideProps = {}
@@ -228,6 +232,12 @@ export type Defaults<PlatformProps = {}> = {
 };
 
 /**
+ * Default Route Component union type
+ */
+export type DefaultComponent<PlatformProps = {}> =
+  Defaults<PlatformProps>[keyof Defaults];
+
+/**
  * Authenticator Route Component Override types
  */
 export type Overrides<PlatformProps = {}, OverrideProps = {}> = {
@@ -251,6 +261,3 @@ export type Overrides<PlatformProps = {}, OverrideProps = {}> = {
   SignUp?: CommonSignUpComponent<PlatformProps, OverrideProps>;
   VerifyUser?: CommonVerifyUserComponent<PlatformProps, OverrideProps>;
 };
-
-export type DefaultComponent<PlatformProps = {}> =
-  Defaults<PlatformProps>[keyof Defaults];
