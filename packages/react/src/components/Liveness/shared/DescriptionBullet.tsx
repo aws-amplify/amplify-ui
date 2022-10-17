@@ -4,7 +4,7 @@ import { Flex, Text } from '../../../primitives';
 
 export interface DescriptionBulletProps {
   index: number;
-  title: string;
+  title?: string;
   desc: string;
 }
 
@@ -30,7 +30,7 @@ export const DescriptionBullet = (
       </Flex>
 
       <Flex direction="column" gap="xxs">
-        <Text fontWeight="bold">{title}</Text>
+        {title && <Text fontWeight="bold">{title}</Text>}
         <Text color="font.tertiary">{desc}</Text>
       </Flex>
     </Flex>

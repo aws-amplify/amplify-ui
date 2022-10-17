@@ -14,19 +14,25 @@ import {
   Text,
   View,
   Card,
+  ComponentClassNames,
 } from '../../../primitives';
+import { LivenessAlertIcon } from '../shared/LivenessAlertIcon';
+import { useTheme } from '../../../hooks/useTheme';
 
 export const INSTRUCTIONS = [
   {
-    title: translate('Provide camera permissions'),
     desc: translate(
-      "Liveness needs permission to use your device's camera to verify your presence and identity."
+      'Make sure your face is not covered with sunglasses or mask.'
     ),
   },
   {
-    title: translate('Liveness check'),
     desc: translate(
-      'Follow instructions on the screen to record a short video of yourself and verify your identity and presence.'
+      'Move to a well-lit place that is not dark or in direct sunlight.'
+    ),
+  },
+  {
+    desc: translate(
+      'When check starts, fit face in oval, and hold for colored lights.'
     ),
   },
 ];
@@ -38,6 +44,7 @@ export interface StartLivenessProps {
 }
 
 export function StartLiveness(props: StartLivenessProps): JSX.Element {
+  const { tokens } = useTheme();
   const { beginLivenessCheck } = props;
   const { componentProps } = useFaceLivenessDetector();
 
@@ -67,12 +74,32 @@ export function StartLiveness(props: StartLivenessProps): JSX.Element {
       data-testid={START_CLASS_NAME}
     >
       <Flex direction="column">
+        <Flex
+          className={ComponentClassNames.Alert}
+          color={`${tokens.colors.orange[80]}`}
+          backgroundColor={`${tokens.colors.orange[20]}`}
+          alignItems="center"
+        >
+          <View flex="1">
+            <View className={ComponentClassNames.AlertHeading}>
+              {translate('Photosensitivity Warning')}
+            </View>
+            <View className={ComponentClassNames.AlertBody}>
+              {translate(
+                'This check displays colored lights. Use caution if you are photosensitive.'
+              )}
+            </View>
+          </View>
+          <LivenessAlertIcon variation="info" />
+        </Flex>
+        <Text color="font.tertiary">
+          {translate<string>('Follow the instructions to complete the check: ')}
+        </Text>
         <Collection type="list" items={INSTRUCTIONS}>
           {(item, index) => (
             <DescriptionBullet
-              key={item.title}
+              key={index + 1}
               index={index + 1}
-              title={item.title}
               desc={item.desc}
             />
           )}
@@ -86,17 +113,6 @@ export function StartLiveness(props: StartLivenessProps): JSX.Element {
             {translate('Begin check')}
           </Button>
         </Flex>
-
-        <View fontSize="xs">
-          <Text as="span" color="font.tertiary" fontWeight="bold">
-            {translate<string>('Legal desclaimer: ')}
-          </Text>
-          <Text as="span" color="font.tertiary">
-            {translate<string>(
-              'By using this service, you provide your express, informed, written release and consent for this app and Amazon Web Services to collect, use and store your biometric data.'
-            )}
-          </Text>
-        </View>
       </Flex>
     </Card>
   );
