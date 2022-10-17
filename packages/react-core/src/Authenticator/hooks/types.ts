@@ -61,8 +61,6 @@ type RouteComponent<
   OverrideProps = {}
 > = React.ComponentType<RouteProps & PlatformProps & OverrideProps>;
 
-type OnCancel = () => void;
-
 /**
  * Common component prop types used for both RWA and RNA implementations
  */
@@ -73,7 +71,7 @@ interface CommonRouteProps extends ComponentSlots {
 }
 
 export interface CommonConfirmResetPasswordProps extends CommonRouteProps {
-  onCancel: OnCancel;
+  resendCode: AuthenticatorMachineContext['resendCode'];
   validationErrors: AuthenticatorMachineContext['validationErrors'];
 }
 
@@ -88,17 +86,16 @@ export interface CommonConfirmSignUpProps extends CommonRouteProps {
 }
 
 export interface CommonConfirmVerifyUserProps extends CommonRouteProps {
-  onCancel: OnCancel;
+  skipVerification: AuthenticatorMachineContext['skipVerification'];
 }
 
 export interface CommonForceNewPasswordProps extends CommonRouteProps {
-  onCancel: OnCancel;
   toSignIn: AuthenticatorMachineContext['toSignIn'];
   validationErrors: AuthenticatorMachineContext['validationErrors'];
 }
 
 export interface CommonResetPasswordProps extends CommonRouteProps {
-  onCancel: OnCancel;
+  toSignIn: AuthenticatorMachineContext['toSignIn'];
 }
 
 export interface CommonSetupTOTPProps extends CommonRouteProps {
@@ -118,7 +115,7 @@ export interface CommonSignUpProps extends CommonRouteProps {
 }
 
 export interface CommonVerifyUserProps extends CommonRouteProps {
-  onCancel: OnCancel;
+  skipVerification: AuthenticatorMachineContext['skipVerification'];
 }
 
 /**

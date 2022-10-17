@@ -12,9 +12,17 @@ import { UseAuthenticatorRoute } from '../types';
 
 import {
   getRouteSelector,
-  resolveConfirmSignIn,
+  resolveConfirmResetPasswordRoute,
+  resolveConfirmSignInRoute,
+  resolveConfirmSignUpRoute,
   resolveDefault,
-  resolveSetupTOTP,
+  resolveConfirmVerifyUserRoute,
+  resolveForceNewPasswordRoute,
+  resolveResetPasswordRoute,
+  resolveSetupTOTPRoute,
+  resolveSignInRoute,
+  resolveSignUpRoute,
+  resolveVerifyUserRoute,
 } from '../utils';
 
 type PropsResolver = (
@@ -29,6 +37,7 @@ const {
   getTotpSecretCode,
   isPending,
   resendCode,
+  skipVerification,
   toSignIn,
   toSignUp,
   user,
@@ -44,13 +53,13 @@ const useAuthenticatorOutput = mockUseAuthenticatorOutput;
 
 describe('getRouteSelector', () => {
   it.each([
-    ['confirmResetPassword', [error, isPending, validationErrors]],
+    ['confirmResetPassword', [error, isPending, resendCode, validationErrors]],
     ['confirmSignIn', [error, isPending, toSignIn, user]],
     ['confirmSignUp', [codeDeliveryDetails, error, isPending, resendCode]],
-    ['confirmVerifyUser', [error, isPending]],
+    ['confirmVerifyUser', [error, isPending, skipVerification]],
     ['forceNewPassword', [error, isPending, toSignIn, validationErrors]],
     ['idle', []],
-    ['resetPassword', [error, isPending]],
+    ['resetPassword', [error, isPending, toSignIn]],
     ['signIn', [error, isPending, toSignUp]],
     ['signUp', [error, isPending, toSignIn, validationErrors]],
     ['setupTOTP', [error, isPending, user]],
@@ -65,32 +74,71 @@ describe('getRouteSelector', () => {
 describe('props resolver functions', () => {
   it.each([
     [
+      'ConfirmResetPassword',
+      resolveConfirmResetPasswordRoute,
+      { resendCode, validationErrors },
+    ],
+    ['ConfirmSignIn', resolveConfirmSignInRoute, { challengeName, toSignIn }],
+    [
+      'ConfirmSignUp',
+      resolveConfirmSignUpRoute,
+      { codeDeliveryDetails, resendCode },
+    ],
+    [
+      'ConfirmVerifyUser',
+      resolveConfirmVerifyUserRoute,
+      { error, isPending, skipVerification },
+    ],
+    [
+      'ForceNewPassword',
+      resolveForceNewPasswordRoute,
+      { error, isPending, toSignIn, validationErrors },
+    ],
+    [
+      'ResetPassword',
+      resolveResetPasswordRoute,
+      { error, isPending, toSignIn },
+    ],
+    [
       'SetupTOTP',
-      resolveSetupTOTP,
+      resolveSetupTOTPRoute,
       { getTotpSecretCode, totpUsername: username, totpIssuer },
     ],
-    ['ConfirmSignIn', resolveConfirmSignIn, { challengeName, toSignIn }],
-  ])('resolve%s returns the expected values', (key, resolver, routeProps) => {
-    const Component = DEFAULTS[key as AuthenticatorRouteComponentName];
+    [
+      'SignIn',
+      resolveSignInRoute,
+      { error, hideSignUp: false, isPending, toSignUp },
+    ],
+    [
+      'SignUp',
+      resolveSignUpRoute,
+      { error, isPending, toSignIn, validationErrors },
+    ],
+    ['VerifyUser', resolveVerifyUserRoute, { error, isPending }],
+  ])(
+    'resolve%s returns the expected values',
+    (key, resolver, routSpecificeProps) => {
+      const Component = DEFAULTS[key as AuthenticatorRouteComponentName];
 
-    const commonProps = { error, fields, isPending };
-    const componentSlots = {
-      Footer: Component.Footer,
-      FormFields: Component.FormFields,
-      Header: Component.Header,
-    };
+      const commonProps = { error, fields, isPending };
+      const componentSlots = {
+        Footer: Component.Footer,
+        FormFields: Component.FormFields,
+        Header: Component.Header,
+      };
 
-    const expected = {
-      Component,
-      props: { ...commonProps, ...componentSlots, ...routeProps },
-    };
+      const expected = {
+        Component,
+        props: { ...commonProps, ...componentSlots, ...routSpecificeProps },
+      };
 
-    const output = (resolver as PropsResolver)(
-      Component,
-      useAuthenticatorOutput
-    );
-    expect(output).toStrictEqual(expected);
-  });
+      const output = (resolver as PropsResolver)(
+        Component,
+        useAuthenticatorOutput
+      );
+      expect(output).toStrictEqual(expected);
+    }
+  );
 
   describe('resolveDefault', () => {
     it('returns the expected values', () => {

@@ -1,6 +1,7 @@
 import { renderHook } from '@testing-library/react-hooks';
 
 import { RenderNothing } from '../../../../components';
+import { COMPONENT_ROUTE_KEYS } from '../../constants';
 import { DEFAULTS } from '../../__mock__/components';
 import { mockUseAuthenticatorOutput } from '../../useAuthenticator/__mock__/useAuthenticator';
 import { useAuthenticator } from '../../useAuthenticator';
@@ -9,36 +10,10 @@ import { useAuthenticatorRoute } from '..';
 
 jest.mock('../../useAuthenticator');
 
-const { error, fields, getTotpSecretCode, isPending, toSignIn, user } =
-  mockUseAuthenticatorOutput;
-
-const { challengeName, username: totpUsername } = user;
-
-const totpIssuer = 'AWSCognito';
-
 describe('useAuthenticatorRoute', () => {
-  it.each([
-    // ['confirmResetPassword', DEFAULTS.ConfirmResetPassword],
-    [
-      'confirmSignIn',
-      DEFAULTS.ConfirmSignIn,
-      { challengeName, error, fields, isPending, toSignIn },
-    ],
-    // ['confirmSignUp', DEFAULTS.ConfirmSignUp],
-    // ['confirmVerifyUser', DEFAULTS.ConfirmVerifyUser],
-    // ['forceNewPassword', DEFAULTS.ForceNewPassword],
-    // ['resetPassword', DEFAULTS.ResetPassword],
-    [
-      'setupTOTP',
-      DEFAULTS.SetupTOTP,
-      { error, fields, isPending, getTotpSecretCode, totpIssuer, totpUsername },
-    ],
-    // ['signIn', DEFAULTS.SignIn],
-    // ['signUp', DEFAULTS.SignUp],
-    // ['verifyUser', DEFAULTS.VerifyUser],
-  ])(
+  it.each(COMPONENT_ROUTE_KEYS)(
     'returns the expected values for the %s route',
-    (route, Component, useAuthenticatorProps) => {
+    (route) => {
       (useAuthenticator as jest.Mock).mockReturnValue({
         ...mockUseAuthenticatorOutput,
         route,
@@ -46,10 +21,7 @@ describe('useAuthenticatorRoute', () => {
       const { result } = renderHook(() =>
         useAuthenticatorRoute({ components: DEFAULTS })
       );
-      expect(result.current).toStrictEqual({
-        Component,
-        props: { ...Component, ...useAuthenticatorProps },
-      });
+      expect(result.current).toMatchSnapshot();
     }
   );
 

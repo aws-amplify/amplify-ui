@@ -1,5 +1,4 @@
 import {
-  AuthenticatorMachineContext,
   AuthenticatorMachineContextKey,
   AuthenticatorRouteComponentName,
   CommonConfirmResetPasswordProps,
@@ -60,20 +59,27 @@ type ExtractMachineKey<RouteProps> = Extract<
  */
 export type ConfirmResetPasswordKey =
   ExtractMachineKey<CommonConfirmResetPasswordProps>;
-export type ConfirmSignInMachineKey = ExtractMachineKey<
+
+export type ConfirmSignInMachineKey =
   // ConfirmSignIn additonally requires `user` to extract value needed for `challengeName`
-  CommonConfirmSignInProps & Pick<AuthenticatorMachineContext, 'user'>
->;
+  ExtractMachineKey<CommonConfirmSignInProps> | 'user';
+
 export type ConfirmSignUpKey = ExtractMachineKey<CommonConfirmSignUpProps>;
+
 export type ConfirmVerifyUserKey =
   ExtractMachineKey<CommonConfirmVerifyUserProps>;
+
 export type ForceNewPasswordKey =
   ExtractMachineKey<CommonForceNewPasswordProps>;
+
 export type ResetPasswordKey = ExtractMachineKey<CommonResetPasswordProps>;
+
 export type SignInKey = ExtractMachineKey<CommonSignInProps>;
+
 export type SignUpKey = ExtractMachineKey<CommonSignUpProps>;
-export type SetupTOTPMachineKey = ExtractMachineKey<
+
+export type SetupTOTPMachineKey =
   // SetupTOTP additonally requires `user` to extract values needed for `totpIssuer` and 'totpUsername`
-  CommonSetupTOTPProps & Pick<AuthenticatorMachineContext, 'user'>
->;
+  ExtractMachineKey<CommonSetupTOTPProps> | 'user';
+
 export type VerifyUserKey = ExtractMachineKey<CommonVerifyUserProps>;
