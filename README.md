@@ -1,9 +1,9 @@
-<img src="https://s3.amazonaws.com/aws-mobile-hub-images/aws-amplify-logo.png" alt="AWS Amplify Logo" width="225">
+<img src="./docs/public/amplify-logo.svg" alt="AWS Amplify Logo" width="25"> AWS Amplify
 
 ---
 
 <p align="center">
-  <img src="docs/public/svg/amplify-ui-logo.svg" width="200" alt="Amplify UI logo" />
+  <img src="docs/public/svg/favicon.svg" width="150vw" alt="Amplify UI logo" />
   <h1 align="center">Amplify UI</h1>
 </p>
 
