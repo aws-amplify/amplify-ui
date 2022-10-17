@@ -12,10 +12,10 @@ export const styles: TabsStyles = StyleSheet.create({
   tab: {
     backgroundColor: '#fafafa',
     borderTopColor: '#dcdee0',
-    borderTopWidth: 3,
+    borderTopWidth: 2,
     flexBasis: 0,
     flexGrow: 1,
-    padding: 10,
+    padding: 12,
   },
   tabText: {
     color: '#304050',
