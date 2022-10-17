@@ -4,10 +4,15 @@ import {
   HeadingLevel,
   HeadingProps,
   SelectField,
+  SwitchField,
+  TextField,
 } from '@aws-amplify/ui-react';
 
 interface HeadingPropControlsProps extends HeadingProps {
   setLevel: (value: React.SetStateAction<HeadingProps['level']>) => void;
+  setIsTruncated: (value: React.SetStateAction<boolean>) => void;
+  value: string;
+  setValue: (value: React.SetStateAction<string>) => void;
 }
 
 interface HeadingPropControlsInterface {
@@ -17,9 +22,18 @@ interface HeadingPropControlsInterface {
 export const HeadingPropControls: HeadingPropControlsInterface = ({
   level,
   setLevel,
+  isTruncated,
+  setIsTruncated,
+  value,
+  setValue,
 }) => {
   return (
     <Flex direction="column">
+      <TextField
+        label="Displayed Text"
+        onChange={(event) => setValue(event.target.value)}
+        value={value}
+      ></TextField>
       <SelectField
         name="level"
         value={String(level)}
@@ -33,6 +47,12 @@ export const HeadingPropControls: HeadingPropControlsInterface = ({
         <option value="5">5</option>
         <option value="6">6</option>
       </SelectField>
+      <SwitchField
+        label="isTruncated"
+        isChecked={isTruncated}
+        labelPosition="end"
+        onChange={(event) => setIsTruncated(event.target.checked)}
+      />
     </Flex>
   );
 };
