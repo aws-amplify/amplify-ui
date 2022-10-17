@@ -2,13 +2,13 @@ import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import kebabCase from 'lodash/kebabCase';
+import { ComponentClassName } from '@aws-amplify/ui';
 
 import { Collection } from '../Collection';
 import { Flex } from '../../Flex';
 import { Text } from '../../Text';
 import { ComponentPropsToStylePropsMap } from '../../types';
 import { ComponentText } from '../../shared/constants';
-import { ComponentClassName } from '../../shared/types';
 
 const emojis = [
   {
