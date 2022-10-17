@@ -1,5 +1,15 @@
 # @aws-amplify/ui-react
 
+## 3.5.8
+
+### Patch Changes
+
+- [#2702](https://github.com/aws-amplify/amplify-ui/pull/2702) [`1b1567c0c`](https://github.com/aws-amplify/amplify-ui/commit/1b1567c0c7788120ca4e7c4533228d2672dda906) Thanks [@slaymance](https://github.com/slaymance)! - Make xstate core dependency of only framework libraries
+
+- Updated dependencies [[`1b1567c0c`](https://github.com/aws-amplify/amplify-ui/commit/1b1567c0c7788120ca4e7c4533228d2672dda906)]:
+  - @aws-amplify/ui@4.0.0
+  - @aws-amplify/ui-react-core@1.0.2
+
 ## 3.5.7
 
 ### Patch Changes

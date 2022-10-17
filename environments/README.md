@@ -31,37 +31,6 @@ For manual and end-to-end testing, example applications will use a particular ba
    - Answer `Amplify admin UI` to the prompt `Which site do you want to open?`. Your environment is now configured for local testing.
      _Note: Following the above steps may generate some changes in the environment's directory. You are safe to `git checkout` those changes._
 
-### Internal Contributors
-
-The internal Amplify team uses shared backend environments which are also used for our automated end-to-end testing. The following steps will walk you through pulling the environments locally:
-
-1. Ensure you have the Amplify CLI tool installed as well as the internal `isengardcli` tool installed.
-1. In a new terminal window, use `isengardcli` to assume the shared `aws-amplify-ui` account and manually set your region to `us-east-1`:
-
-   ```shell
-   isengardcli assume aws-amplify-ui --region us-east-1
-   ```
-
-   This will configure a local AWS profile which uses temporary access keys from our shared `aws-amplify-ui` account that can be used for accessing our shared environments.
-
-1. In the root directory of the project, pull all environments with the following yarn script:
-
-   ```shell
-   yarn environments pull
-   ```
-
-   **Note – you _must_ be running `@aws-amplify/cli@6.5.0-beta.0` or newer for zero-config support.**
-
-   If you want to pull a single environment, you can call `yarn pull` in that specific environment's directory:
-
-   ```shell
-   cd environments/auth-with-email && yarn pull
-   ```
-
-All of the environments should now be pulled down and each of their `aws-exports.js` files available for testing locally.
-
-_Note: Following the above steps may generate some changes in the environments' directories. You are safe to `git checkout` those changes._
-
 ## Creating a Backend Environment
 
 When an existing backend doesn't match your needs (or requires changes), you can create a new backend via the [Amplify Admin](https://console.aws.amazon.com/amplify/home?region=us-east-1#/) or the [Amplify CLI](https://docs.amplify.aws/cli).

@@ -107,6 +107,18 @@ For our e2e tests, we use a specific pattern for test user creation in our vario
 
 3. Enter their password as `.env.VALID_PASSWORD` and create the user
 
+#### Creating an FORCE_CHANGE_PASSWORD user
+
+1. In the Amplify Admin UI, navigate to "User management" and click `Create user`
+2. Fill out their credentials according to the alias you need:
+
+   - `username`: `.env.USERNAME`+FORCE_CHANGE_PASSWORD
+   - `email`: `.env.USERNAME`+FORCE_CHANGE_PASSWORD@`.env.DOMAIN`
+   - `phone`: +30`.env.PHONE_NUMBER`
+
+3. Fill out a temporary password of your choice and click `Create user`
+4. Find your new user in the users list, click them, select `edit`, and mark all aliases as `Verified`
+
 #### Creating an UNVERIFIED user
 
 1. In the Amplify Admin UI, navigate to "User management" and click `Create user`
