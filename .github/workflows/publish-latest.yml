@@ -62,8 +62,8 @@ jobs:
         if: steps.environments-cache.outputs.cache-hit != 'true'
         run: yarn pull
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_AUTH }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_AUTH }}
         working-directory: ./canary
       - name: Setup canary apps against @next
         run: yarn setup:next
@@ -104,40 +104,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-  log-failure-metric-prod:
-    # to be deprecated once log-failure-metric is up
-    # Send data point 1 to metric PublishLatestFailure in prod us-east-1, if it's a failure
-    runs-on: ubuntu-latest
-    environment: ci
-    needs: publish
-    if: ${{ failure() }}
-    steps:
-      - name: Log failure data point to metric PublishLatestFailure
-        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
-        with:
-          metric-name: PublishLatestFailure
-          value: 1
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: us-east-1
-
-  log-success-metric-prod:
-    # to be deprecated once log-success-metric is up
-    # Send data point 0 to metric PublishLatestFailure in prod us-east-1, if it's a success
-    runs-on: ubuntu-latest
-    environment: ci
-    needs: publish
-    if: ${{ success() }}
-    steps:
-      - name: Log success data point to metric PublishLatestFailure
-        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
-        with:
-          metric-name: PublishLatestFailure
-          value: 0
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: us-east-1
 
   log-failure-metric:
     # Send a failure data point to metric PublishLatestFailure in github-workflows@ us-east-2

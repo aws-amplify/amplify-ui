@@ -46,7 +46,7 @@ const randomPhone = Math.floor(Math.random() * 999999);
     <base-label
       :for="'amplify-field-' + random"
       class="amplify-label"
-      :class="{ 'sr-only': labelHidden }"
+      :class="{ 'amplify-visually-hidden': labelHidden }"
       v-bind="$attrs"
     >
       {{ label }}

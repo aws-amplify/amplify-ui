@@ -1,5 +1,16 @@
 # @aws-amplify/ui-vue
 
+## 2.4.24
+
+### Patch Changes
+
+- [#2702](https://github.com/aws-amplify/amplify-ui/pull/2702) [`1b1567c0c`](https://github.com/aws-amplify/amplify-ui/commit/1b1567c0c7788120ca4e7c4533228d2672dda906) Thanks [@slaymance](https://github.com/slaymance)! - Make xstate core dependency of only framework libraries
+
+- [#2712](https://github.com/aws-amplify/amplify-ui/pull/2712) [`ea3afab68`](https://github.com/aws-amplify/amplify-ui/commit/ea3afab6893ca6e60ff42eb048a5f4f7b4750829) Thanks [@wlee221](https://github.com/wlee221)! - fix(vue): replace legacy `sr-only` with `amplify-visually-hidden`
+
+- Updated dependencies [[`1b1567c0c`](https://github.com/aws-amplify/amplify-ui/commit/1b1567c0c7788120ca4e7c4533228d2672dda906)]:
+  - @aws-amplify/ui@4.0.0
+
 ## 2.4.23
 
 ### Patch Changes

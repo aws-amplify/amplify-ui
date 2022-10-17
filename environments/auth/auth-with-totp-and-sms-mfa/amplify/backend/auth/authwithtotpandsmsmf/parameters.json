@@ -18,8 +18,5 @@
   "autoVerifiedAttributes": [
     "email"
   ],
-  "mfaTypes": [
-    "SMS Text Message",
-    "TOTP"
-  ]
+  "mfaTypes": []
 }
