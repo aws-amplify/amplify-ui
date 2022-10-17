@@ -1,64 +1,51 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import { storiesOf } from '@storybook/react-native';
 import { Tab, Tabs } from '@aws-amplify/ui-react-native/dist/primitives';
 
-const ControlledTabs = () => {
-  const [index, setIndex] = useState(0);
-  const onChangeHandler = (nextIndex: number) => {
-    setIndex(nextIndex);
+const ControlledTabs = ({ ...props }: any) => {
+  const [selectedIndex, setSelectedIndex] = useState<number>(
+    props.selectedIndex
+  );
+  const handleOnChange = (nextValue: number) => {
+    setSelectedIndex(nextValue);
   };
 
   return (
     <Tabs
-      onChange={onChangeHandler}
-      selectedIndex={index}
+      {...props}
+      selectedIndex={selectedIndex}
+      onChange={handleOnChange}
       style={styles.container}
     >
-      <Tab title="Sign In">
-        <Text>Sign in content</Text>
-      </Tab>
-      <Tab title="Create Account">
-        <Text>Create account content</Text>
-      </Tab>
+      {props.children}
     </Tabs>
   );
 };
 
 storiesOf('Tabs', module)
   .add('default', () => (
-    <Tabs>
-      <Tab title="Tab 1">
-        <Text>Tab 1 content panel</Text>
+    <ControlledTabs>
+      <Tab title="Sign In">
+        <Text>Sign in content</Text>
       </Tab>
-      <Tab title="Tab 2">
-        <Text>Tab 2 content panel</Text>
+      <Tab title="Create Account">
+        <Text>Create account content</Text>
       </Tab>
-    </Tabs>
-  ))
-  .add('controlled Tabs', () => <ControlledTabs />)
-  .add('defaultIndex', () => (
-    <Tabs defaultIndex={1}>
-      <Tab title="Tab 1">
-        <Text>Tab 1 should not be selected by default</Text>
-      </Tab>
-      <Tab title="Tab 2">
-        <Text>Tab 2 should be selected by default</Text>
-      </Tab>
-    </Tabs>
+    </ControlledTabs>
   ))
   .add('disabled', () => (
-    <Tabs>
+    <ControlledTabs>
       <Tab title="Tab 1">
         <Text>Tab 2 should not be selectable</Text>
       </Tab>
       <Tab title="Tab 2" disabled>
         <Text>This content should not be viewable</Text>
       </Tab>
-    </Tabs>
+    </ControlledTabs>
   ))
   .add('multiple', () => (
-    <Tabs>
+    <ControlledTabs>
       <Tab title="Tab 1">
         <Text>Tab 1 content</Text>
       </Tab>
@@ -68,11 +55,11 @@ storiesOf('Tabs', module)
       <Tab title="Tab 3">
         <Text>Tab 3 content</Text>
       </Tab>
-    </Tabs>
+    </ControlledTabs>
   ))
   .add('styles', () => (
-    <Tabs
-      style={[styles.container, styles.styledContainer]}
+    <ControlledTabs
+      style={styles.styledContainer}
       tabStyle={styles.tabStyle}
       textStyle={styles.textStyle}
     >
@@ -82,7 +69,7 @@ storiesOf('Tabs', module)
       <Tab title="Tab 2">
         <Text>Tab 2 content panel</Text>
       </Tab>
-    </Tabs>
+    </ControlledTabs>
   ));
 
 const styles = StyleSheet.create({
