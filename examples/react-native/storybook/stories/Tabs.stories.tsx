@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { storiesOf } from '@storybook/react-native';
 import { Tab, Tabs } from '@aws-amplify/ui-react-native/dist/primitives';
-import { Text } from 'react-native';
 
 const ControlledTabs = () => {
   const [index, setIndex] = useState(0);
