@@ -27,11 +27,5 @@ amplify init -y
 External contributors can re-create this backend by running:
 
 ```shell
-amplify pull
-```
-
-Internal (Amplify UI team) contributors can use this backend directly by running:
-
-```shell
-amplify pull --appId d2zuq5rjkps8u4 --envName dev --yes
+amplify init
 ```

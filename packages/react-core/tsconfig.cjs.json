@@ -4,5 +4,11 @@
     "module": "CommonJS",
     "outDir": "dist"
   },
-  "exclude": ["node_modules", "src/**/*.test.ts", "src/**/*.test.tsx"]
+  "exclude": [
+    "node_modules",
+    "src/**/*.spec.ts",
+    "src/**/*.spec.tsx",
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx"
+  ]
 }
