@@ -7,15 +7,15 @@ import {
 } from '@aws-amplify/ui';
 
 export type AuthenticatorRouteComponentKey =
-  | 'signIn'
-  | 'signUp'
-  | 'forceNewPassword'
   | 'confirmResetPassword'
   | 'confirmSignIn'
   | 'confirmSignUp'
   | 'confirmVerifyUser'
+  | 'forceNewPassword'
   | 'resetPassword'
   | 'setupTOTP'
+  | 'signIn'
+  | 'signUp'
   | 'verifyUser';
 
 export type AuthenticatorLegacyFields = LegacyFormFieldOptions[];

@@ -11,7 +11,6 @@ import {
   CommonSignInProps,
   CommonSignUpProps,
   CommonVerifyUserProps,
-  DefaultComponent,
   Defaults,
 } from '../types';
 
@@ -38,15 +37,10 @@ interface Props {
 export type UseAuthenticatorRoute<
   PlatformProps,
   ComponentName extends AuthenticatorRouteComponentName
-> = ComponentName extends AuthenticatorRouteComponentName
-  ? {
-      Component: Defaults<PlatformProps>[ComponentName];
-      props: Props[ComponentName];
-    }
-  : {
-      Component: DefaultComponent<PlatformProps>;
-      props: Props[keyof Props];
-    };
+> = {
+  Component: Defaults<PlatformProps>[ComponentName];
+  props: Props[ComponentName];
+};
 
 // extract machine prop keys required for a sub-component route
 type ExtractMachineKey<RouteProps> = Extract<

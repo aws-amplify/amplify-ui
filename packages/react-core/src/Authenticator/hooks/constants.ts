@@ -4,14 +4,14 @@ import {
 } from './types';
 
 export const COMPONENT_ROUTE_KEYS: AuthenticatorRouteComponentKey[] = [
-  'signIn',
-  'signUp',
-  'forceNewPassword',
   'confirmResetPassword',
   'confirmSignIn',
   'confirmSignUp',
   'confirmVerifyUser',
+  'forceNewPassword',
   'resetPassword',
+  'signIn',
+  'signUp',
   'setupTOTP',
   'verifyUser',
 ];

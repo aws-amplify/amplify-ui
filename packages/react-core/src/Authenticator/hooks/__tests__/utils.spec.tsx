@@ -49,7 +49,7 @@ describe('resolveAuthenticatorComponents', () => {
     expect(output.SignIn).toBe(DEFAULTS.SignIn);
   });
 
-  it('returns the expected components the overrides params is invalid', () => {
+  it('returns the expected components when the overrides param is invalid', () => {
     const output = resolveAuthenticatorComponents(DEFAULTS, INVALID_OVERRIDES);
 
     expect(output).toStrictEqual(DEFAULTS);
