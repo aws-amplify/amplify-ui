@@ -3,6 +3,6 @@
   "name": "auth-with-email-and-custom-attributes-environment",
   "version": "0.0.1",
   "scripts": {
-    "pull": "amplify pull --appId di3yvcoio2o2w --envName staging"
+    "pull": "amplify pull --appId d7lytt3btn9bi --envName staging"
   }
 }

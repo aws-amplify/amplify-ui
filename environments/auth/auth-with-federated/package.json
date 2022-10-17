@@ -3,6 +3,6 @@
   "name": "auth-with-federated-environment",
   "version": "0.0.1",
   "scripts": {
-    "pull": "amplify pull --appId d1nsdyzry4zj8u --envName staging"
+    "pull": "amplify pull --appId d37a2ez9przpqq --envName dev"
   }
 }
