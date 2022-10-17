@@ -34,9 +34,6 @@ storiesOf('Tabs', module)
       <Tab title="Tab 2">
         <Text>Tab 2 content panel</Text>
       </Tab>
-      <View>
-        <Text>Bogus town</Text>
-      </View>
     </Tabs>
   ))
   .add('controlled Tabs', () => <ControlledTabs />)

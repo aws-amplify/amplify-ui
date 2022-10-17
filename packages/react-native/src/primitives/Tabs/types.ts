@@ -11,13 +11,6 @@ export interface TabsProps extends ViewProps {
 
   /**
    * @description
-   * Controls which Tab's content is initially displayed when using Tabs as an
-   * uncontrolled component. Defaults to index 0 (the first Tab).
-   */
-  defaultIndex?: number;
-
-  /**
-   * @description
    * The controlled index of the currently selected Tab. This should be
    * used in tandem with `onChange` to use Tabs as a controlled component.
    */
