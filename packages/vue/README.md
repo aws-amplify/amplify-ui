@@ -1,5 +1,4 @@
-![](https://img.shields.io/npm/dw/@aws-amplify/ui-vue?label=Download&logo=Amplify)  
-![](https://img.shields.io/npm/v/@aws-amplify/ui-vue/latest?style=flat)
+[![@aws-amplify/ui-vue Weekly Downloads stat badge](https://img.shields.io/npm/dw/@aws-amplify/ui-vue?label=Download&logo=Amplify)](https://www.npmjs.com/package/@aws-amplify/ui-vue) [![@aws-amplify/ui-vue version badge](https://img.shields.io/npm/v/@aws-amplify/ui-vue/latest?style=flat)](https://www.npmjs.com/package/@aws-amplify/ui-vue)
 
 # Amplify UI
 
