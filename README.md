@@ -1,9 +1,9 @@
-<img src="./docs/public/amplify-logo.svg" alt="AWS Amplify Logo" width="25"> AWS Amplify
+<img src="./docs/public/amplify-logo.svg" alt="AWS Amplify Logo" style="width:2vw"> AWS Amplify
 
 ---
 
 <p align="center">
-  <img src="docs/public/svg/favicon.svg" width="150vw" alt="Amplify UI logo" />
+  <img src="docs/public/svg/favicon.svg" style="width:12vw" alt="Amplify UI logo" />
   <h1 align="center">Amplify UI</h1>
 </p>
 
