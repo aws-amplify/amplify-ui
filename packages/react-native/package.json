@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "@aws-amplify/ui": "3.14.0",
-    "@aws-amplify/ui-react-core": "1.0.1"
+    "@aws-amplify/ui-react-core": "1.0.2"
   },
   "peerDependencies": {
     "aws-amplify": "3.x.x || 4.x.x",
