@@ -14,7 +14,6 @@ import {
   setRemoteError,
   setUsername,
 } from '../actions';
-import { forgotPassword, forgotPasswordSubmit } from '../defaultAuthServices';
 import { defaultServices } from '../defaultServices';
 
 export type ResetPasswordMachineOptions = {

@@ -33,7 +33,6 @@ import {
   setUser,
   setUsernameAuthAttributes,
 } from '../actions';
-import { confirmSignIn, signIn } from '../defaultAuthServices';
 
 import { defaultServices } from '../defaultServices';
 

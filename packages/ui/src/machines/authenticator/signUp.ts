@@ -20,7 +20,6 @@ import {
   setUser,
   handleSubmit,
 } from './actions';
-import { confirmSignUp, signUp } from './defaultAuthServices';
 import { defaultServices } from './defaultServices';
 
 export type SignUpMachineOptions = {
