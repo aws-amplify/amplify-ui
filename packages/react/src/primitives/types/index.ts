@@ -1,3 +1,4 @@
+export * from './autocomplete';
 export * from './alert';
 export * from './badge';
 export * from './base';

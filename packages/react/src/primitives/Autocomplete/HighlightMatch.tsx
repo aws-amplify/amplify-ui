@@ -21,3 +21,5 @@ export const HighlightMatch: Primitive<HighlightMatchProps, 'span'> = ({
   }
   return <View as="span">{children}</View>;
 };
+
+HighlightMatch.displayName = 'HighlightMatch';

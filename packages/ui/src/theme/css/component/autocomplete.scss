@@ -1,0 +1,82 @@
+%menu-space-shared {
+  padding-block-end: var(
+    --amplify-components-autocomplete-menu-space-shared-padding-block-end
+  );
+  padding-block-start: var(
+    --amplify-components-autocomplete-menu-space-shared-padding-block-start
+  );
+  padding-inline-end: var(
+    --amplify-components-autocomplete-menu-space-shared-padding-inline-end
+  );
+  padding-inline-start: var(
+    --amplify-components-autocomplete-menu-space-shared-padding-inline-start
+  );
+}
+
+.amplify-autocomplete {
+  position: relative;
+}
+
+.amplify-autocomplete__menu {
+  position: absolute;
+  z-index: 99;
+
+  width: var(--amplify-components-autocomplete-menu-width);
+  margin-top: var(--amplify-components-autocomplete-menu-margin-top);
+  background-color: var(
+    --amplify-components-autocomplete-menu-background-color
+  );
+  border-color: var(--amplify-components-autocomplete-menu-border-color);
+  border-width: var(--amplify-components-autocomplete-menu-border-width);
+  border-style: var(--amplify-components-autocomplete-menu-border-style);
+  border-radius: var(--amplify-components-autocomplete-menu-border-radius);
+
+  &__header,
+  &__footer,
+  &--empty {
+    @extend %menu-space-shared;
+  }
+
+  &--loading {
+    @extend %menu-space-shared;
+
+    align-items: var(
+      --amplify-components-autocomplete-menu-loading-align-items
+    );
+    gap: var(--amplify-components-autocomplete-menu-loading-gap);
+  }
+
+  &__options {
+    position: relative;
+    display: var(--amplify-components-autocomplete-menu-options-display);
+    flex-direction: var(
+      --amplify-components-autocomplete-menu-options-flex-direction
+    );
+    max-height: var(--amplify-components-autocomplete-menu-options-max-height);
+  }
+
+  &__option {
+    @extend %menu-space-shared;
+    background-color: var(
+      --amplify-components-autocomplete-menu-option-background-color
+    );
+    color: var(--amplify-components-autocomplete-menu-option-color);
+    cursor: var(--amplify-components-autocomplete-menu-option-cursor);
+    transition-duration: var(
+      --amplify-components-autocomplete-menu-option-transition-duration
+    );
+    transition-property: var(
+      --amplify-components-autocomplete-menu-option-transition-property
+    );
+    transition-timing-function: var(
+      --amplify-components-autocomplete-menu-option-transition-timing-function
+    );
+
+    &--active {
+      background-color: var(
+        --amplify-components-autocomplete-menu-option-active-background-color
+      );
+      color: var(--amplify-components-autocomplete-menu-option-active-color);
+    }
+  }
+}

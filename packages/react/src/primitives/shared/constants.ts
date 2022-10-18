@@ -34,6 +34,46 @@ export const ComponentClassObject: ComponentClassNameItems = {
     components: ['Alert'],
     description: 'Class applied to the close Button',
   },
+  Autocomplete: {
+    className: ComponentClassName.Autocomplete,
+    components: ['Autocomplete'],
+    description: 'Top level element that wraps the Autocomplete primitive',
+  },
+  AutocompleteMenu: {
+    className: ComponentClassName.AutocompleteMenu,
+    components: ['Autocomplete'],
+    description: 'Top level element that wraps the dropdown menu',
+  },
+  AutocompleteMenuEmpty: {
+    className: ComponentClassName.AutocompleteMenuEmpty,
+    components: ['Autocomplete'],
+    description: 'Class applied to the no options slot of menu',
+  },
+  AutocompleteMenuFooter: {
+    className: ComponentClassName.AutocompleteMenuFooter,
+    components: ['Autocomplete'],
+    description: 'Class applied to menu footer',
+  },
+  AutocompleteMenuHeader: {
+    className: ComponentClassName.AutocompleteMenuHeader,
+    components: ['Autocomplete'],
+    description: 'Class applied to menu header',
+  },
+  AutocompleteMenuLoading: {
+    className: ComponentClassName.AutocompleteMenuLoading,
+    components: ['Autocomplete'],
+    description: 'Class applied to the loading slot of menu',
+  },
+  AutocompleteMenuOption: {
+    className: ComponentClassName.AutocompleteMenuOption,
+    components: ['Autocomplete'],
+    description: 'Class applied to each li option',
+  },
+  AutocompleteMenuOptions: {
+    className: ComponentClassName.AutocompleteMenuOptions,
+    components: ['Autocomplete'],
+    description: 'Class applied to ul container element',
+  },
   Badge: {
     className: ComponentClassName.Badge,
     components: ['Badge'],
@@ -344,46 +384,6 @@ export const ComponentClassObject: ComponentClassNameItems = {
     components: ['SearchField'],
     description: 'Class applied to the search button',
   },
-  SearchFieldMenu: {
-    className: ComponentClassName.SearchFieldMenu,
-    components: ['SearchField'],
-    description: 'Top level element that wraps the dropdown menu',
-  },
-  SearchFieldMenuEmpty: {
-    className: ComponentClassName.SearchFieldMenuEmpty,
-    components: ['SearchField'],
-    description: 'Class applied to the menu slot of no result found',
-  },
-  SearchFieldMenuFooter: {
-    className: ComponentClassName.SearchFieldMenuFooter,
-    components: ['SearchField'],
-    description: 'Class applied to menu footer',
-  },
-  SearchFieldMenuHeader: {
-    className: ComponentClassName.SearchFieldMenuHeader,
-    components: ['SearchField'],
-    description: 'Class applied to menu header',
-  },
-  SearchFieldMenuLoading: {
-    className: ComponentClassName.SearchFieldMenuLoading,
-    components: ['SearchField'],
-    description: 'Class applied to the menu slot of loading',
-  },
-  SearchFieldMenuSuggestion: {
-    className: ComponentClassName.SearchFieldMenuSuggestion,
-    components: ['SearchField'],
-    description: 'Class applied to each search suggestion',
-  },
-  SearchFieldMenuSuggestions: {
-    className: ComponentClassName.SearchFieldMenuSuggestions,
-    components: ['SearchField'],
-    description: 'Class applied to the container of search suggestions',
-  },
-  SearchFieldWrapper: {
-    className: ComponentClassName.SearchFieldWrapper,
-    components: ['SearchField'],
-    description: 'Top level element that wraps the SearchField primitive',
-  },
   Select: {
     className: ComponentClassName.Select,
     components: ['Select', 'SelectField'],
@@ -581,6 +581,16 @@ export const ComponentClassNames: ComponentClassNamesType = {
   AlertHeading: ComponentClassObject.AlertHeading.className,
   AlertBody: ComponentClassObject.AlertBody.className,
   AlertDismiss: ComponentClassObject.AlertDismiss.className,
+  Autocomplete: ComponentClassObject.Autocomplete.className,
+  AutocompleteMenu: ComponentClassObject.AutocompleteMenu.className,
+  AutocompleteMenuEmpty: ComponentClassObject.AutocompleteMenuEmpty.className,
+  AutocompleteMenuFooter: ComponentClassObject.AutocompleteMenuFooter.className,
+  AutocompleteMenuHeader: ComponentClassObject.AutocompleteMenuHeader.className,
+  AutocompleteMenuLoading:
+    ComponentClassObject.AutocompleteMenuLoading.className,
+  AutocompleteMenuOption: ComponentClassObject.AutocompleteMenuOption.className,
+  AutocompleteMenuOptions:
+    ComponentClassObject.AutocompleteMenuOptions.className,
   Badge: ComponentClassObject.Badge.className,
   Button: ComponentClassObject.Button.className,
   ButtonGroup: ComponentClassObject.ButtonGroup.className,
@@ -655,16 +665,6 @@ export const ComponentClassNames: ComponentClassNamesType = {
   SearchField: ComponentClassObject.SearchField.className,
   SearchFieldClear: ComponentClassObject.SearchFieldClear.className,
   SearchFieldSearch: ComponentClassObject.SearchFieldSearch.className,
-  SearchFieldMenu: ComponentClassObject.SearchFieldMenu.className,
-  SearchFieldMenuEmpty: ComponentClassObject.SearchFieldMenuEmpty.className,
-  SearchFieldMenuFooter: ComponentClassObject.SearchFieldMenuFooter.className,
-  SearchFieldMenuHeader: ComponentClassObject.SearchFieldMenuHeader.className,
-  SearchFieldMenuLoading: ComponentClassObject.SearchFieldMenuLoading.className,
-  SearchFieldMenuSuggestion:
-    ComponentClassObject.SearchFieldMenuSuggestion.className,
-  SearchFieldMenuSuggestions:
-    ComponentClassObject.SearchFieldMenuSuggestions.className,
-  SearchFieldWrapper: ComponentClassObject.SearchFieldWrapper.className,
   Select: ComponentClassObject.Select.className,
   SelectField: ComponentClassObject.SelectField.className,
   SelectWrapper: ComponentClassObject.SelectWrapper.className,
@@ -789,3 +789,9 @@ export const stylePropsToThemeKeys: Record<ThemeStylePropKey, ThemeTokenKey> = {
   columnGap: 'space',
   rowGap: 'space',
 };
+
+// key name
+export const ESCAPE_KEY = 'Escape';
+export const ENTER_KEY = 'Enter';
+export const ARROW_UP = 'ArrowUp';
+export const ARROW_DOWN = 'ArrowDown';

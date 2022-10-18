@@ -1,4 +1,5 @@
 export { Alert } from './Alert';
+export { Autocomplete, HighlightMatch } from './Autocomplete';
 export { Badge } from './Badge';
 export { Button } from './Button';
 export { ButtonGroup } from './ButtonGroup';
@@ -24,7 +25,7 @@ export { Radio } from './Radio';
 export { RadioGroupField } from './RadioGroupField';
 export { Rating } from './Rating';
 export { ScrollView } from './ScrollView';
-export { HighlightMatch, SearchField } from './SearchField';
+export { SearchField } from './SearchField';
 export { SelectField } from './SelectField';
 export { SliderField } from './SliderField';
 export { StepperField } from './StepperField';

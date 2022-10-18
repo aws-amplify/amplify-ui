@@ -3,18 +3,19 @@ import * as React from 'react';
 
 import { View } from '../View';
 import { ComponentClassNames } from '../shared/constants';
-import type { Primitive, SearchFieldSuggestionProps } from '../types';
+import type { Primitive, AutocompleteOptionProps } from '../types';
 
-export const SearchFieldSuggestion: Primitive<
-  SearchFieldSuggestionProps,
-  'li'
-> = ({ children, className, ...rest }) => {
+export const AutocompleteOption: Primitive<AutocompleteOptionProps, 'li'> = ({
+  children,
+  className,
+  ...rest
+}) => {
   return (
     <View
       as="li"
       role="option"
       className={classNames(
-        ComponentClassNames.SearchFieldMenuSuggestion,
+        ComponentClassNames.AutocompleteMenuOption,
         className
       )}
       {...rest}
@@ -24,4 +25,4 @@ export const SearchFieldSuggestion: Primitive<
   );
 };
 
-SearchFieldSuggestion.displayName = 'SearchFieldSuggestion';
+AutocompleteOption.displayName = 'AutocompleteOption';

@@ -1,5 +1,5 @@
 module.exports = {
-  // collectCoverage: true,
+  collectCoverage: true,
   collectCoverageFrom: ['<rootDir>/src/**/*.(ts|tsx)'],
   // ignore coverage for top level "export", PrimitiveCatalog, and style files
   coveragePathIgnorePatterns: [

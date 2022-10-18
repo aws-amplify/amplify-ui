@@ -46,8 +46,8 @@ describe('SearchField component', () => {
 
     await screen.findByRole('button');
 
-    expect(ref.current.nodeName).toBe('INPUT');
-    expect(searchButtonRef.current.nodeName).toBe('BUTTON');
+    expect(ref?.current?.nodeName).toBe('INPUT');
+    expect(searchButtonRef?.current?.nodeName).toBe('BUTTON');
   });
 
   it('should forward callback ref to DOM element', async () => {

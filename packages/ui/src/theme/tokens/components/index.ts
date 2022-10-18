@@ -1,4 +1,5 @@
 import { AlertTokens, alert } from './alert';
+import { AutocompleteTokens, autocomplete } from './autocomplete';
 import { AuthenticatorTokens, authenticator } from './authenticator';
 import { badge, BadgeTokens } from './badge';
 import { button, ButtonTokens } from './button';
@@ -48,6 +49,7 @@ import {
 export interface ComponentTokens {
   alert: AlertTokens;
   authenticator: AuthenticatorTokens;
+  autocomplete: AutocompleteTokens;
   badge: BadgeTokens;
   button: ButtonTokens;
   card: CardTokens;
@@ -94,6 +96,7 @@ export interface ComponentTokens {
 export const components: ComponentTokens = {
   alert,
   authenticator,
+  autocomplete,
   badge,
   button,
   card,

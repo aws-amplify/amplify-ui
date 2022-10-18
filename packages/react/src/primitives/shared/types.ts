@@ -1,5 +1,6 @@
 type ComponentNameKey =
   | 'Alert'
+  | 'Autocomplete'
   | 'Badge'
   | 'Button'
   | 'Button'
@@ -47,6 +48,14 @@ type ComponentClassNameKey =
   | 'AlertHeading'
   | 'AlertBody'
   | 'AlertDismiss'
+  | 'Autocomplete'
+  | 'AutocompleteMenu'
+  | 'AutocompleteMenuEmpty'
+  | 'AutocompleteMenuFooter'
+  | 'AutocompleteMenuHeader'
+  | 'AutocompleteMenuLoading'
+  | 'AutocompleteMenuOption'
+  | 'AutocompleteMenuOptions'
   | 'Badge'
   | 'Button'
   | 'ButtonGroup'
@@ -120,14 +129,6 @@ type ComponentClassNameKey =
   | 'SearchField'
   | 'SearchFieldClear'
   | 'SearchFieldSearch'
-  | 'SearchFieldMenu'
-  | 'SearchFieldMenuEmpty'
-  | 'SearchFieldMenuFooter'
-  | 'SearchFieldMenuHeader'
-  | 'SearchFieldMenuLoading'
-  | 'SearchFieldMenuSuggestion'
-  | 'SearchFieldMenuSuggestions'
-  | 'SearchFieldWrapper'
   | 'Select'
   | 'SelectField'
   | 'SelectWrapper'
@@ -172,6 +173,14 @@ export enum ComponentClassName {
   AlertHeading = 'amplify-alert__heading',
   AlertBody = 'amplify-alert__body',
   AlertDismiss = 'amplify-alert__dismiss',
+  Autocomplete = 'amplify-autocomplete',
+  AutocompleteMenu = 'amplify-autocomplete__menu',
+  AutocompleteMenuEmpty = 'amplify-autocomplete__menu--empty',
+  AutocompleteMenuFooter = 'amplify-autocomplete__menu__footer',
+  AutocompleteMenuHeader = 'amplify-autocomplete__menu__header',
+  AutocompleteMenuLoading = 'amplify-autocomplete__menu--loading',
+  AutocompleteMenuOption = 'amplify-autocomplete__menu__option',
+  AutocompleteMenuOptions = 'amplify-autocomplete__menu__options',
   Badge = 'amplify-badge',
   Button = 'amplify-button',
   ButtonGroup = 'amplify-buttongroup',
@@ -245,14 +254,6 @@ export enum ComponentClassName {
   SearchField = 'amplify-searchfield',
   SearchFieldClear = 'amplify-searchfield__clear',
   SearchFieldSearch = 'amplify-searchfield__search',
-  SearchFieldMenu = 'amplify-searchfield-menu',
-  SearchFieldMenuEmpty = 'amplify-searchfield-menu__empty',
-  SearchFieldMenuFooter = 'amplify-searchfield-menu__footer',
-  SearchFieldMenuHeader = 'amplify-searchfield-menu__header',
-  SearchFieldMenuLoading = 'amplify-searchfield-menu__loading',
-  SearchFieldMenuSuggestion = 'amplify-searchfield-menu__suggestion',
-  SearchFieldMenuSuggestions = 'amplify-searchfield-menu__suggestions',
-  SearchFieldWrapper = 'amplify-searchfield-wrapper',
   Select = 'amplify-select',
   SelectField = 'amplify-selectfield',
   SelectWrapper = 'amplify-select__wrapper',
