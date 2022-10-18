@@ -14,19 +14,23 @@ describe('useAuthenticatorInitMachine', () => {
 
   it('calls initializeMachine only once, even after subsequent rerenders', () => {
     const route = 'setup';
-    let data = {};
+    const initialData = {};
+    const modifiedData = { mutated: 'dataObject' };
 
     (useAuthenticator as jest.Mock).mockReturnValue({
       initializeMachine,
       route,
     } as unknown as UseAuthenticator);
-    const { rerender } = renderHook(() => useAuthenticatorInitMachine(data));
+
+    const { rerender } = renderHook(
+      ({ data }) => useAuthenticatorInitMachine(data),
+      { initialProps: { data: initialData } }
+    );
 
     expect(initializeMachine).toHaveBeenCalledTimes(1);
 
     // change the input props of the hook to get the useEffect to run again
-    data = { mutated: 'dataObject' };
-    rerender();
+    rerender({ data: modifiedData });
 
     expect(initializeMachine).toHaveBeenCalledTimes(1);
   });
