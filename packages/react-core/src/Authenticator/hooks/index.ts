@@ -1,5 +1,6 @@
 export * from './useAuthenticator';
 export * from './useAuthenticatorRoute';
+export * from './useInitAuthenticatorMachine';
 export { resolveAuthenticatorComponents } from './utils';
 
 export {
