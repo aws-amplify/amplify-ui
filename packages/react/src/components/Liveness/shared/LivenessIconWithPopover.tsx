@@ -18,12 +18,31 @@ export const LivenessIconWithPopover: React.FC<LivenessIconWithPopoverProps> =
     const { tokens } = useTheme();
     const breakpoint = useThemeBreakpoint();
     const [shouldShowPopover, setShouldShowPopover] = React.useState(false);
+    const wrapperRef = React.useRef<HTMLDivElement | null>(null);
     const isMobileScreen = breakpoint === 'base';
+
+    React.useEffect(() => {
+      function handleClickOutside(event: MouseEvent) {
+        if (
+          shouldShowPopover &&
+          wrapperRef.current &&
+          !wrapperRef.current.contains(event.target as Node)
+        ) {
+          setShouldShowPopover(false);
+        }
+      }
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }, [wrapperRef, shouldShowPopover]);
 
     return (
       <Flex
         position="relative"
         onClick={() => setShouldShowPopover(!shouldShowPopover)}
+        ref={wrapperRef}
+        style={{ cursor: 'pointer' }}
       >
         <LivenessAlertIcon variation="info" />
         {shouldShowPopover && (
