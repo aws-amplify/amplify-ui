@@ -1,53 +1,10 @@
-import React, {
-  Children,
-  cloneElement,
-  isValidElement,
-  useCallback,
-} from 'react';
-import {
-  PressableStateCallbackType,
-  StyleProp,
-  View,
-  ViewStyle,
-} from 'react-native';
-
-import { Button } from '../Button';
+import React, { Children, cloneElement, isValidElement } from 'react';
+import { View } from 'react-native';
 
 import { styles } from './styles';
 import { TabProps, TabsProps } from './types';
 
-// put this component in its own file
-export function Tab({
-  children,
-  selected,
-  style,
-  textStyle,
-  ...rest
-}: TabProps): JSX.Element {
-  const selectedStyles = selected ? styles.selected : undefined;
-
-  const containerStyle = useCallback(
-    ({ pressed }: PressableStateCallbackType): StyleProp<ViewStyle> => {
-      const pressedStateStyle =
-        typeof style === 'function' ? style({ pressed }) : style;
-      return [styles.tab, pressedStateStyle, selectedStyles];
-    },
-    [selectedStyles, style]
-  );
-
-  return (
-    <Button
-      {...rest}
-      accessibilityRole="tab"
-      style={containerStyle}
-      textStyle={[styles.tabText, textStyle, selectedStyles]}
-    >
-      {children}
-    </Button>
-  );
-}
-
-export function Tabs({
+export default function Tabs({
   children,
   onChange,
   selectedIndex = 0,
