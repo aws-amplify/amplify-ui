@@ -2,10 +2,13 @@ module.exports = {
   collectCoverageFrom: [
     '<rootDir>/src/**/*.(ts|tsx)',
 
-    // do not collect coverage from constants files
+    // do not collect coverage from
+    // - constants files
     '!<rootDir>/src/**/*(c|C)onstants.ts',
-    // do not collect coverage from primary exports file
+    // - primary exports file
     '!<rootDir>/src/index.ts',
+    // - __mock__ directories
+    '!<rootDir>/src/**/__mock__/*',
   ],
   coverageThreshold: {
     global: {
