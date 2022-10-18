@@ -1,14 +1,47 @@
-import React, { Children, cloneElement, isValidElement } from 'react';
-import { View } from 'react-native';
+import React, {
+  Children,
+  cloneElement,
+  isValidElement,
+  useCallback,
+} from 'react';
+import {
+  PressableStateCallbackType,
+  StyleProp,
+  View,
+  ViewStyle,
+} from 'react-native';
 
 import { Button } from '../Button';
 
 import { styles } from './styles';
 import { TabProps, TabsProps } from './types';
 
-export function Tab({ children, ...rest }: TabProps): JSX.Element {
+// put this component in its own file
+export function Tab({
+  children,
+  selected,
+  style,
+  textStyle,
+  ...rest
+}: TabProps): JSX.Element {
+  const selectedStyles = selected ? styles.selected : undefined;
+
+  const containerStyle = useCallback(
+    ({ pressed }: PressableStateCallbackType): StyleProp<ViewStyle> => {
+      const pressedStateStyle =
+        typeof style === 'function' ? style({ pressed }) : style;
+      return [styles.tab, pressedStateStyle, selectedStyles];
+    },
+    [selectedStyles, style]
+  );
+
   return (
-    <Button {...rest} accessibilityRole="tab">
+    <Button
+      {...rest}
+      accessibilityRole="tab"
+      style={containerStyle}
+      textStyle={[styles.tabText, textStyle, selectedStyles]}
+    >
       {children}
     </Button>
   );
@@ -19,8 +52,6 @@ export function Tabs({
   onChange,
   selectedIndex = 0,
   style,
-  tabStyle,
-  textStyle,
   ...rest
 }: TabsProps): JSX.Element {
   const handleOnChange = (nextIndex: number) => {
@@ -31,16 +62,11 @@ export function Tabs({
     <View {...rest} accessibilityRole="tablist" style={[styles.tabList, style]}>
       {Children.map(children, (child, index) => {
         if (isValidElement<TabProps>(child)) {
-          const selectedStyles =
-            index === selectedIndex ? styles.selected : undefined;
-
           return cloneElement<TabProps>(child, {
-            key: index,
             onPress: () => {
               handleOnChange(index);
             },
-            style: [styles.tab, tabStyle, selectedStyles],
-            textStyle: [styles.tabText, textStyle, selectedStyles],
+            selected: index === selectedIndex,
           });
         }
       })}

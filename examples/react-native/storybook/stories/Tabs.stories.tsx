@@ -44,15 +44,13 @@ storiesOf('Tabs', module)
     </ControlledTabs>
   ))
   .add('styles', () => (
-    <ControlledTabs
-      style={styles.styledContainer}
-      tabStyle={styles.tabStyle}
-      textStyle={styles.textStyle}
-    >
-      <Tab>Tab 1</Tab>
-      <Tab>Tab 2</Tab>
-      {/* Show custom styling for Tab 3 */}
-      <Tab>Tab 3</Tab>
+    <ControlledTabs style={styles.styledContainer}>
+      <Tab style={styles.tabStyle1} textStyle={styles.tabTextStyle1}>
+        Tab 1
+      </Tab>
+      <Tab style={styles.tabStyle2} textStyle={styles.tabTextStyle2}>
+        Tab 2
+      </Tab>
     </ControlledTabs>
   ));
 
@@ -62,11 +60,19 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     borderWidth: StyleSheet.hairlineWidth,
   },
-  tabStyle: {
+  tabStyle1: {
+    backgroundColor: 'green',
+    borderTopColor: 'yellow',
+  },
+  tabStyle2: {
     backgroundColor: 'lavender',
     borderTopColor: 'rebeccapurple',
   },
-  textStyle: {
+  tabTextStyle1: {
+    color: 'yellow',
+    fontWeight: '900',
+  },
+  tabTextStyle2: {
     color: 'gray',
     fontWeight: '500',
   },
