@@ -4,5 +4,6 @@ export {
   useAuthenticatorRoute,
   UseAuthenticator,
   UseAuthenticatorRoute,
+  useAuthenticatorInitMachine,
   resolveAuthenticatorComponents,
 } from './Authenticator';
