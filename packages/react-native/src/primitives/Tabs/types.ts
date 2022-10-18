@@ -32,21 +32,15 @@ export interface TabsProps extends ViewProps {
 
   /**
    * @description
-   * Styling for each Tab's text (title)
+   * Styling for each Tab's text
    */
   textStyle?: StyleProp<TextStyle>;
 }
 
-export interface TabProps extends ButtonProps {
-  /**
-   * @description
-   * Sets the label corresponding with each Tab's content panel.
-   */
-  label: string;
-}
+export interface TabProps extends ButtonProps {}
 
 export interface TabsStyles {
-  container: ViewStyle;
+  // container: ViewStyle;
   tabList: ViewStyle;
   tab: ViewStyle;
   tabText: TextStyle;
