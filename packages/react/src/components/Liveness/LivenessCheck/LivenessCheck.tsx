@@ -47,11 +47,11 @@ export const LivenessCheck: React.FC = () => {
             fontSize={`${tokens.fontSizes.large}`}
             fontWeight={`${tokens.fontWeights.bold}`}
           >
-            {translate('No camera detected')}
+            {translate('Camera not accessible')}
           </Text>
           <Text color="inherit" maxWidth={300}>
             {translate(
-              "Camera access is needed in order to function. Check your browser settings to ensure that you've enabled camera access."
+              'Connect a camera and allow camera permission in browser settings'
             )}
           </Text>
           <View position="absolute" top="medium" right="medium">
