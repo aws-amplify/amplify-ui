@@ -16,8 +16,8 @@ import {
   Card,
   ComponentClassNames,
 } from '../../../primitives';
-import { LivenessAlertIcon } from '../shared/LivenessAlertIcon';
 import { useTheme } from '../../../hooks/useTheme';
+import { LivenessIconWithPopover } from '../shared/LivenessIconWithPopover';
 
 export const INSTRUCTIONS = [
   {
@@ -90,7 +90,7 @@ export function StartLiveness(props: StartLivenessProps): JSX.Element {
               )}
             </View>
           </View>
-          <LivenessAlertIcon variation="info" />
+          <LivenessIconWithPopover />
         </Flex>
         <Text color="font.tertiary">
           {translate<string>('Follow the instructions to complete the check: ')}

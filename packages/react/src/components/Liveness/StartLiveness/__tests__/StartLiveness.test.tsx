@@ -44,10 +44,9 @@ describe('StartLiveness', () => {
       <StartLiveness beginLivenessCheck={mockBeginCheck} />
     );
 
-    expect(screen.getByText(/Legal desclaimer/)).toBeInTheDocument();
+    expect(screen.getByText(/Photosensitivity Warning/)).toBeInTheDocument();
 
-    INSTRUCTIONS.forEach(({ title, desc }) => {
-      expect(screen.getByText(title)).toBeInTheDocument();
+    INSTRUCTIONS.forEach(({ desc }) => {
       expect(screen.getByText(desc)).toBeInTheDocument();
     });
 
