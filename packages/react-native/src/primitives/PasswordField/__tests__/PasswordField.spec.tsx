@@ -6,7 +6,7 @@ import { icons } from '../../../assets';
 const labelText = 'Label';
 const testID = 'passwordInput';
 const defaultProps = {
-  testID: testID,
+  testID,
   label: labelText,
 };
 
@@ -29,12 +29,27 @@ describe('PasswordField', () => {
   });
 
   it('toggles visibility', () => {
-    const { getByRole } = render(<PasswordField {...defaultProps} />);
+    const { getByRole, getByTestId } = render(
+      <PasswordField {...defaultProps} />
+    );
 
     const icon = getByRole('image');
+    const textInput = getByTestId(testID);
+
     expect(icon.props.source).toBe(icons.visibilityOff);
+    expect(textInput.props.secureTextEntry).toBe(true);
     fireEvent.press(icon);
-    expect(icon.props.source).toBe(icons.visibility);
+    expect(icon.props.source).toBe(icons.visibilityOn);
+    expect(textInput.props.secureTextEntry).toBe(false);
+  });
+
+  it('should be able to hide show password icon', () => {
+    const { toJSON, queryByRole } = render(
+      <PasswordField {...defaultProps} hideShowPassword />
+    );
+    expect(toJSON()).toMatchSnapshot();
+    const icon = queryByRole('button');
+    expect(icon).toBe(null);
   });
 
   it('renders as expected when disabled', () => {

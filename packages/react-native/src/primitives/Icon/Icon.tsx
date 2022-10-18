@@ -14,20 +14,14 @@ export default function Icon({
 }: IconProps): JSX.Element {
   const { icon } = useMemo(() => getStyles(color, size), [color, size]);
 
+  const imageProps: IconProps = {
+    ...rest,
+    accessibilityRole,
+    style: [icon, style],
+  };
+
   if (animated) {
-    return (
-      <Animated.Image
-        {...rest}
-        accessibilityRole={accessibilityRole}
-        style={[icon, style]}
-      />
-    );
+    return <Animated.Image {...imageProps} />;
   }
-  return (
-    <Image
-      {...rest}
-      accessibilityRole={accessibilityRole}
-      style={[icon, style]}
-    />
-  );
+  return <Image {...imageProps} />;
 }

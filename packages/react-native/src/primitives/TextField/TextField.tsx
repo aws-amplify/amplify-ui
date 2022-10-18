@@ -10,18 +10,18 @@ export default function TextField({
   accessibilityRole,
   accessibilityState,
   accessible = true,
-  containerStyle,
   disabled,
   error,
   errorMessage,
   errorMessageStyle,
-  inputStyle,
+  fieldStyle,
   label,
   labelStyle,
   outerEndComponent,
+  style,
   ...rest
 }: TextFieldProps): JSX.Element {
-  const inputContainerStyle: ViewStyle = useMemo(
+  const fieldContainerStyle: ViewStyle = useMemo(
     () => ({
       ...styles.container,
       ...(disabled && styles.disabled),
@@ -35,17 +35,17 @@ export default function TextField({
       accessibilityLabel={accessibilityLabel ?? label}
       accessibilityRole={accessibilityRole}
       accessibilityState={{ disabled, ...accessibilityState }}
-      style={[inputContainerStyle, containerStyle]}
+      style={[fieldContainerStyle, style]}
     >
       {label ? <Label style={labelStyle}>{label}</Label> : null}
       <View style={styles.inputContainer}>
         <TextInput
-          style={[styles.input, inputStyle]}
           {...rest}
+          style={[styles.input, fieldStyle]}
           accessible={accessible}
           editable={!disabled}
         />
-        {outerEndComponent && <View>{outerEndComponent}</View>}
+        {outerEndComponent ?? null}
       </View>
       {error && errorMessage ? (
         <Label style={errorMessageStyle}>{errorMessage}</Label>

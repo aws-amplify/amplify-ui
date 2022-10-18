@@ -14,9 +14,9 @@ export default function PasswordField({
 }: PasswordFieldProps): JSX.Element {
   const [secureTextEntry, setSecureTextEntry] = useState(true);
 
-  const handleSecureTextEntry = () => {
+  const handleOnPress = React.useCallback(() => {
     setSecureTextEntry(!secureTextEntry);
-  };
+  }, [secureTextEntry]);
 
   return (
     <TextField
@@ -29,8 +29,8 @@ export default function PasswordField({
             accessibilityLabel={iconAccessibilityLabel}
             disabled={disabled}
             iconStyle={iconStyle}
-            source={secureTextEntry ? icons.visibilityOff : icons.visibility}
-            onPress={handleSecureTextEntry}
+            source={secureTextEntry ? icons.visibilityOff : icons.visibilityOn}
+            onPress={handleOnPress}
           />
         )
       }

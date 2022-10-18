@@ -1,4 +1,5 @@
-import { ImageStyle, StyleProp } from 'react-native';
+import { ImageStyle } from 'react-native';
+import { IconButtonProps } from '../IconButton';
 import { TextFieldProps, TextFieldStyles } from '../TextField';
 
 export interface PasswordFieldProps
@@ -13,7 +14,7 @@ export interface PasswordFieldProps
    * @description
    * Styling for the icon
    */
-  iconStyle?: StyleProp<ImageStyle>;
+  iconStyle?: IconButtonProps['iconStyle'];
 
   /**
    * @description
