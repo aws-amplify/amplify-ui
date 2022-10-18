@@ -2,8 +2,12 @@
 set -e
 IFS='|'
 
+# Get args
+dir=$1
+region=$2
+
 # In development, AWS_PROFILE should be set. In CI, it's not.
-[ "$AWS_PROFILE" ] && useProfile="true" || useProfile="false";
+[ "$AWS_PROFILE" ] && useProfile="true" || useProfile="false"
 
 FRONTENDCONFIG="{\
 \"SourceDir\":\"src\",\
@@ -14,8 +18,7 @@ FRONTENDCONFIG="{\
 FRONTEND="{\
 \"frontend\":\"javascript\",\
 \"framework\":\"none\",\
-\"config\":$FRONTENDCONFIG\
-}"
+\"config\":$FRONTENDCONFIG}"
 AMPLIFY="{\
 \"defaultEditor\":\"code\",\
 }"
@@ -25,12 +28,11 @@ AWSCLOUDFORMATIONCONFIG="{\
 \"profileName\":\"$AWS_PROFILE\",\
 \"accessKeyId\":\"$AWS_ACCESS_KEY_ID\",\
 \"secretAccessKey\":\"$AWS_SECRET_ACCESS_KEY\",\
-\"region\":\"us-east-1\"\
+\"region\":\""$region\""\
 }"
 PROVIDERS="{\
-\"awscloudformation\":$AWSCLOUDFORMATIONCONFIG\
-}"
+\"awscloudformation\":$AWSCLOUDFORMATIONCONFIG}"
 
-cd $1
+cd $dir
 
 echo y | yarn pull --amplify $AMPLIFY --frontend $FRONTEND --providers $PROVIDERS
