@@ -1,13 +1,13 @@
 import { renderHook } from '@testing-library/react-hooks';
 
-import { useInitAuthenticatorMachine } from '..';
+import { useAuthenticatorInitMachine } from '..';
 import { useAuthenticator, UseAuthenticator } from '../../useAuthenticator';
 
 jest.mock('../../useAuthenticator');
 
 const initializeMachine = jest.fn();
 
-describe('useInitAuthenticatorMachine', () => {
+describe('useAuthenticatorInitMachine', () => {
   beforeEach(() => {
     initializeMachine.mockClear();
   });
@@ -20,7 +20,7 @@ describe('useInitAuthenticatorMachine', () => {
       initializeMachine,
       route,
     } as unknown as UseAuthenticator);
-    const { rerender } = renderHook(() => useInitAuthenticatorMachine(data));
+    const { rerender } = renderHook(() => useAuthenticatorInitMachine(data));
 
     expect(initializeMachine).toHaveBeenCalledTimes(1);
 
@@ -31,7 +31,7 @@ describe('useInitAuthenticatorMachine', () => {
     expect(initializeMachine).toHaveBeenCalledTimes(1);
   });
 
-  it('does not run when the route !== "setup"', () => {
+  it('does not call initializeMachine when the route !== "setup"', () => {
     const route = 'idle';
     const data = {};
 
@@ -40,7 +40,7 @@ describe('useInitAuthenticatorMachine', () => {
       route,
     } as unknown as UseAuthenticator);
 
-    renderHook(() => useInitAuthenticatorMachine(data));
+    renderHook(() => useAuthenticatorInitMachine(data));
 
     expect(initializeMachine).toHaveBeenCalledTimes(0);
   });

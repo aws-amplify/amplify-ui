@@ -4,7 +4,7 @@ import { AuthenticatorMachineOptions } from '@aws-amplify/ui';
 import { useAuthenticator } from '../useAuthenticator';
 
 // Utility hook that sends init event to the parent provider
-export default function useInitAuthenticatorMachine(
+export default function useAuthenticatorInitMachine(
   data: AuthenticatorMachineOptions
 ): void {
   const { route, initializeMachine } = useAuthenticator(({ route }) => [route]);

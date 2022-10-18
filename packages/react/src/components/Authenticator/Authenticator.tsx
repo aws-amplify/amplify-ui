@@ -5,7 +5,7 @@ import {
   AuthenticatorProvider as Provider,
   useAuthenticator,
   UseAuthenticator,
-  useInitAuthenticatorMachine,
+  useAuthenticatorInitMachine,
 } from '@aws-amplify/ui-react-core';
 import {
   CustomComponentsContext,
@@ -51,7 +51,7 @@ export function AuthenticatorInternal({
     ({ route, signOut, user }) => [route, signOut, user]
   );
 
-  useInitAuthenticatorMachine({
+  useAuthenticatorInitMachine({
     initialState,
     loginMechanisms,
     services,
