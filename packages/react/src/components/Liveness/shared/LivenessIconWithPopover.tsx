@@ -9,13 +9,16 @@ import { translate } from '@aws-amplify/ui';
 import { Flex } from '../../../primitives';
 import { LivenessAlertIcon } from './LivenessAlertIcon';
 import { useTheme } from '../../../hooks/useTheme';
+import { useThemeBreakpoint } from '../../../hooks/useThemeBreakpoint';
 
 export interface LivenessIconWithPopoverProps {}
 
 export const LivenessIconWithPopover: React.FC<LivenessIconWithPopoverProps> =
   () => {
     const { tokens } = useTheme();
+    const breakpoint = useThemeBreakpoint();
     const [shouldShowPopover, setShouldShowPopover] = React.useState(false);
+    const isMobileScreen = breakpoint === 'base';
 
     return (
       <Flex
@@ -56,7 +59,7 @@ export const LivenessIconWithPopover: React.FC<LivenessIconWithPopoverProps> =
               padding={tokens.space.small}
               top={33}
               minWidth={240}
-              left={-108}
+              left={isMobileScreen ? -190 : -108}
               border={`1px solid ${tokens.colors.border.secondary}`}
               borderRadius={2}
             >
