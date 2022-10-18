@@ -585,17 +585,25 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       ),
 
       // callbacks
-      callUserPermissionDeniedCallback: (context) => {
-        recordLivenessAnalyticsEvent(context.componentProps, {
-          event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
-          attributes: { action: 'PermissionDenied' },
-          metrics: { count: 1 },
-        });
+      callUserPermissionDeniedCallback: assign({
+        errorState: (context, event) => {
+          recordLivenessAnalyticsEvent(context.componentProps, {
+            event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
+            attributes: { action: 'PermissionDenied' },
+            metrics: { count: 1 },
+          });
 
-        context.componentProps.onUserPermissionDenied?.(
-          new Error('No available cameras found')
-        );
-      },
+          context.componentProps.onUserPermissionDenied?.(
+            new Error(event.data.message)
+          );
+
+          if ((event.data.message as string).includes('15 fps')) {
+            return LivenessErrorState.CAMERA_FRAMERATE_ERROR;
+          } else {
+            return LivenessErrorState.CAMERA_ACCESS_ERROR;
+          }
+        },
+      }),
       callUserCancelCallback: async (context) => {
         await context.livenessStreamProvider?.endStream();
 
@@ -699,10 +707,26 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           throw new Error('No real video devices found');
         }
 
+        // Ensure that at least one of the cameras is capable of at least 15 fps
+        const tracksWithMoreThan15Fps = initialStream
+          .getTracks()
+          .filter((track) => {
+            const settings = track.getSettings();
+            return settings.frameRate >= 15;
+          });
+
+        if (tracksWithMoreThan15Fps.length < 1) {
+          recordLivenessAnalyticsEvent(context.componentProps, {
+            event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
+            attributes: { action: 'NoDeviceWithSufficientFrameRate' },
+            metrics: { count: 1 },
+          });
+          throw new Error('No camera found with more than 15 fps');
+        }
+
         // If the initial stream is of real camera, use it otherwise use the first real camera
-        const initialStreamDeviceId = initialStream
-          .getTracks()[0]
-          .getSettings().deviceId;
+        const initialStreamDeviceId =
+          tracksWithMoreThan15Fps[0].getSettings().deviceId;
         const isInitialStreamFromRealDevice = realVideoDevices.some(
           (device) => device.deviceId === initialStreamDeviceId
         );

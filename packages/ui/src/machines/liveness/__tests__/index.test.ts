@@ -75,6 +75,7 @@ describe('Liveness Machine', () => {
           width: 640,
           height: 480,
           deviceId: mockCameraDevice.deviceId,
+          frameRate: 30,
         }),
       },
     ],
@@ -257,6 +258,7 @@ describe('Liveness Machine', () => {
               width: 640,
               height: 480,
               deviceId: 'virtual-device-id',
+              frameRate: 30,
             }),
           },
         ],
@@ -303,6 +305,25 @@ describe('Liveness Machine', () => {
       mockNavigatorMediaDevices.getUserMedia.mockRejectedValue(
         new Error('some-error')
       );
+      transitionToCameraCheck(service);
+
+      await flushPromises();
+      expect(service.state.value).toBe('permissionDenied');
+    });
+
+    it('should reach permissionDenied state on checkVirtualCameraAndGetStream failure due to no device with 15 fps', async () => {
+      mockNavigatorMediaDevices.getUserMedia.mockResolvedValueOnce({
+        getTracks: () => [
+          {
+            getSettings: () => ({
+              width: 640,
+              height: 480,
+              deviceId: mockCameraDevice.deviceId,
+              frameRate: 10,
+            }),
+          },
+        ],
+      } as MediaStream);
       transitionToCameraCheck(service);
 
       await flushPromises();

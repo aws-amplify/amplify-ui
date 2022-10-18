@@ -2,21 +2,31 @@ import * as React from 'react';
 import {
   translate,
   LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
+  LivenessErrorState,
 } from '@aws-amplify/ui';
 
 import { useTheme } from '../../../hooks';
 import { useThemeBreakpoint } from '../../../hooks/useThemeBreakpoint';
 import { LivenessCameraModule } from './LivenessCameraModule';
-import { useLivenessActor } from '../hooks';
+import {
+  createLivenessSelector,
+  useLivenessActor,
+  useLivenessSelector,
+} from '../hooks';
 import { Text, Flex, View } from '../../../primitives';
 import { CancelButton } from '../shared/CancelButton';
 
 const CHECK_CLASS_NAME = 'liveness-detector-check';
 
+export const selectErrorState = createLivenessSelector(
+  (state) => state.context.errorState
+);
+
 export const LivenessCheck: React.FC = () => {
   const { tokens } = useTheme();
   const breakpoint = useThemeBreakpoint();
   const [state] = useLivenessActor();
+  const errorState = useLivenessSelector(selectErrorState);
 
   const isMobileScreen = breakpoint === 'base';
   const isPermissionDenied = state.matches('permissionDenied');
@@ -47,12 +57,18 @@ export const LivenessCheck: React.FC = () => {
             fontSize={`${tokens.fontSizes.large}`}
             fontWeight={`${tokens.fontWeights.bold}`}
           >
-            {translate('No camera detected')}
+            {errorState === LivenessErrorState.CAMERA_FRAMERATE_ERROR
+              ? translate('No camera detected with 15 fps')
+              : translate('No camera detected')}
           </Text>
           <Text color="inherit" maxWidth={300}>
-            {translate(
-              "Camera access is needed in order to function. Check your browser settings to ensure that you've enabled camera access."
-            )}
+            {errorState === LivenessErrorState.CAMERA_FRAMERATE_ERROR
+              ? translate(
+                  'Camera with 15 fps or higher is required for an accurate check. Check your device to ensure it meets requirements.'
+                )
+              : translate(
+                  "Camera access is needed in order to function. Check your browser settings to ensure that you've enabled camera access."
+                )}
           </Text>
           <View position="absolute" top="medium" right="medium">
             <CancelButton sourceScreen={LIVENESS_EVENT_LIVENESS_CHECK_SCREEN} />

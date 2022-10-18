@@ -320,6 +320,8 @@ export const LivenessErrorStateStringMap: Record<LivenessErrorState, string> = {
   [LivenessErrorState.FRESHNESS_TIMEOUT]: translate<string>(
     'Keep face in oval while colors are flashing. Please try again.'
   ),
+  [LivenessErrorState.CAMERA_FRAMERATE_ERROR]: undefined,
+  [LivenessErrorState.CAMERA_ACCESS_ERROR]: undefined,
 };
 
 export const MOCK_COLOR_SEQUENCES: ColorSequence[] = [

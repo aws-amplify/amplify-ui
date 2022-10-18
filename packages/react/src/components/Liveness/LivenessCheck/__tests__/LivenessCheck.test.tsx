@@ -5,17 +5,19 @@ import {
   renderWithLivenessProvider,
   getMockedFunction,
 } from '../../utils/test-utils';
-import { useLivenessActor } from '../../hooks/useLivenessActor';
 import { useThemeBreakpoint } from '../../../../hooks/useThemeBreakpoint';
 import { LivenessCheck } from '../LivenessCheck';
+import { useLivenessSelector, useLivenessActor } from '../../hooks';
+import { LivenessErrorState } from '@aws-amplify/ui';
 
-jest.mock('../../hooks/useLivenessActor');
+jest.mock('../../hooks');
 jest.mock('../../../../hooks/useThemeBreakpoint');
 jest.mock('../../shared/CancelButton');
 jest.mock('../LivenessCameraModule');
 
 const mockUseLivenessActor = getMockedFunction(useLivenessActor);
 const mockUseThemeBreakpoint = getMockedFunction(useThemeBreakpoint);
+const mockUseLivenessSelector = getMockedFunction(useLivenessSelector);
 
 describe('LivenessCheck', () => {
   const mockActorState: any = {
@@ -41,6 +43,23 @@ describe('LivenessCheck', () => {
       screen.getByRole('button', { name: 'Cancel Liveness check' })
     ).toBeInTheDocument();
     expect(screen.getByText('No camera detected')).toBeInTheDocument();
+    expect(screen.queryByText('LivenessCameraModule')).not.toBeInTheDocument();
+  });
+
+  it('should render the component content on desktop when no 15 fps camera is found', () => {
+    mockActorState.matches.mockReturnValue(true);
+    mockUseLivenessSelector.mockReturnValue(
+      LivenessErrorState.CAMERA_FRAMERATE_ERROR
+    );
+
+    renderWithLivenessProvider(<LivenessCheck />);
+
+    expect(
+      screen.getByRole('button', { name: 'Cancel Liveness check' })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText('No camera detected with 15 fps')
+    ).toBeInTheDocument();
     expect(screen.queryByText('LivenessCameraModule')).not.toBeInTheDocument();
   });
 
