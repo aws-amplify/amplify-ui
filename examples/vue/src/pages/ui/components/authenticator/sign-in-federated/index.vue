@@ -15,3 +15,9 @@ Amplify.configure(aws_exports);
     </template>
   </authenticator>
 </template>
+
+<style>
+:not([data-amplify-authenticator-signin]) > .federated-sign-in-container {
+  display: none;
+}
+</style>
