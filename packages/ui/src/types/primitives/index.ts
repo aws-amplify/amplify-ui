@@ -1,1 +1,1 @@
-export { ComponentClassName } from './constants';
+export { ComponentClassName } from './componentClassName';
