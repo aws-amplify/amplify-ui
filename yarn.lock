@@ -629,15 +629,6 @@
     tslib "2.4.0"
     xstate "^4.33.6"
 
-"@aws-amplify/ui@3.7.0":
-  version "3.7.0"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/ui/-/ui-3.7.0.tgz#fa02a1d15d0aa54418e5e4221c16af1d909420c1"
-  integrity sha512-anBmAaUmEkv0m3rxhJGo/31TQCI3VUXxXrGOBIzY7jbGmV6b3ouXxzECzXmBVwaTvn874JOpQ+zSLQNj7ixh0w==
-  dependencies:
-    lodash "4.17.21"
-    style-dictionary "3.7.0"
-    xstate "^4.30.6"
-
 "@aws-amplify/xr@3.0.55":
   version "3.0.55"
   resolved "https://registry.yarnpkg.com/@aws-amplify/xr/-/xr-3.0.55.tgz#ecafcec6ccf429a3a4d27601282cbc345708ab38"
@@ -28984,11 +28975,6 @@ xmldoc@^1.1.2:
   integrity sha512-2eN8QhjBsMW2uVj7JHLHkMytpvGHLHxKXBy4J3fAT/HujsEtM6yU84iGjpESYGHg6XwK0Vu4l+KgqQ2dv2cCqg==
   dependencies:
     sax "^1.2.4"
-
-xstate@^4.30.6:
-  version "4.33.5"
-  resolved "https://registry.yarnpkg.com/xstate/-/xstate-4.33.5.tgz#eafd193827b173901fac0d99e61bb4e5add6c7c8"
-  integrity sha512-C8WGBeQC+dNMp4MmQX359BUkJCv2VPAH/CGRnhtgri5JZ7wVEX7fsbfcqznAgnKyD0m9Hd3cGhg/wuzIjnfT4A==
 
 xstate@^4.33.6:
   version "4.33.6"

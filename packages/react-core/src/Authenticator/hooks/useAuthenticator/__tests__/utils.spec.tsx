@@ -7,15 +7,12 @@ import {
 
 import * as UIModule from '@aws-amplify/ui';
 
-import { COMPONENT_ROUTE_KEYS } from '../constants';
-import { AuthenticatorRouteComponentKey } from '../types';
 import {
   areSelectorDepsEqual,
   defaultComparator,
   getComparator,
   getLegacyFields,
   getTotpSecretCodeCallback,
-  isComponentRouteKey,
 } from '../utils';
 
 const setupTOTPSpy = jest.spyOn(Auth, 'setupTOTP').mockImplementation();
@@ -83,21 +80,6 @@ describe('getComparator', () => {
 describe('defaultComparator', () => {
   it('returns false', () => {
     expect(defaultComparator()).toBe(false);
-  });
-});
-
-describe('isComponentRouteKey', () => {
-  it.each(COMPONENT_ROUTE_KEYS)('returns true for a %s value', (route) => {
-    const output = isComponentRouteKey(route);
-    expect(output).toBe(true);
-  });
-
-  it('returns false for a non-component route key value', () => {
-    const output = isComponentRouteKey(
-      'route' as AuthenticatorRouteComponentKey
-    );
-
-    expect(output).toBe(false);
   });
 });
 
