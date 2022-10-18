@@ -8,14 +8,10 @@ import {
 } from '@aws-amplify/ui';
 
 import { areEmptyArrays, areEmptyObjects } from '../../../utils';
+import { AuthenticatorLegacyFields } from '../types';
+import { isComponentRouteKey } from '../utils';
 
-import { COMPONENT_ROUTE_KEYS } from './constants';
-import {
-  AuthenticatorRouteComponentKey,
-  AuthenticatorLegacyFields,
-  Comparator,
-  Selector,
-} from './types';
+import { Comparator, UseAuthenticatorSelector } from './types';
 
 export const defaultComparator = (): false => false;
 
@@ -45,7 +41,7 @@ export function areSelectorDepsEqual<T>(
 }
 
 export const getComparator =
-  (selector: Selector): Comparator =>
+  (selector: UseAuthenticatorSelector): Comparator =>
   (currentFacade, nextFacade) => {
     const currentSelectorDeps = selector(currentFacade);
     const nextSelectorDeps = selector(nextFacade);
@@ -59,11 +55,6 @@ export const getTotpSecretCodeCallback = (user: AmplifyUser) =>
     return await Auth.setupTOTP(user);
   };
 
-export const isComponentRouteKey = (
-  route: AuthenticatorRoute
-): route is AuthenticatorRouteComponentKey =>
-  COMPONENT_ROUTE_KEYS.some((componentRoute) => componentRoute === route);
-
 const flattenFormFields = (
   fields: FormFieldsArray
 ): AuthenticatorLegacyFields =>
@@ -76,6 +67,7 @@ export const getLegacyFields = (
   route: AuthenticatorRoute,
   state: AuthMachineState
 ): AuthenticatorLegacyFields =>
-  isComponentRouteKey(route)
+  // verifyUser is a component route, but does not have form fields
+  isComponentRouteKey(route) && route !== 'verifyUser'
     ? flattenFormFields(getSortedFormFields(route, state))
     : [];

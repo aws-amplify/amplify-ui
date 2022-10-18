@@ -1,8 +1,17 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
+import { GREETING } from '@env';
 
-const App = () => {
-  return <Text>Nothing to see here!</Text>;
-};
+function App() {
+  return (
+    <View style={style.container}>
+      <Text>{GREETING}</Text>
+    </View>
+  );
+}
+
+const style = StyleSheet.create({
+  container: { flex: 1, alignItems: 'center', justifyContent: 'center' },
+});
 
 export default App;
