@@ -49,10 +49,12 @@ jobs:
         run: echo "::set-output name=version::$(amplify --version)"
       - name: Create or restore environments cache
         id: environments-cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: canary/environments/**/aws-exports.js
           key: ${{ runner.os }}-canary-environments-${{ steps.cli-version.outputs.version }}-${{ hashFiles('canary/environments/**/amplify/**') }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
       - name: Pull down AWS environments
         if: steps.environments-cache.outputs.cache-hit != 'true'
         run: yarn pull
@@ -66,11 +68,13 @@ jobs:
       # This steps attempts to restore cypress runner. It will not create any new
       # cache entries however, because cypress runner isn't available yet.
       - name: Restore cypress runner from Cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: restore-cypress-cache
         with:
           path: ~/.cache/Cypress
           key: ${{ runner.os }}-canary-cypress-${{ hashFiles('canary/e2e/yarn.lock') }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
       - name: Install e2e packages
         uses: ./.github/actions/install-with-retries
         with:
@@ -83,10 +87,12 @@ jobs:
       # step, so we go ahead and update the cache entry.
       - name: Cache cypress runner
         if: steps.restore-cypress-cache.outputs.cache-hit != 'true'
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.cache/Cypress
           key: ${{ runner.os }}-canary-cypress-${{ hashFiles('canary/e2e/yarn.lock') }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
       - name: Start ${{ matrix.example }} example
         run: yarn start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000
         working-directory: ./canary/apps/${{ matrix.path }}
