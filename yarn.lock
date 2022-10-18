@@ -599,14 +599,6 @@
     qrcode "^1.4.4"
     uuid "^8.2.0"
 
-"@aws-amplify/ui-react-core@1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/ui-react-core/-/ui-react-core-1.0.1.tgz#d3f7ff8de6ade6519ac95268aaad15b67dd420a7"
-  integrity sha512-Yv6uX58AAM5VnM6g3is2nrBWUQDZa2SgMfrvb2izgYULUuvHN/OUuorBxIjGt4H+GWRGpn2o1jzXI9jSR31QHw==
-  dependencies:
-    "@aws-amplify/ui" "3.14.0"
-    "@xstate/react" "3.0.0"
-
 "@aws-amplify/ui-react-v1@npm:@aws-amplify/ui-react@1.2.9":
   version "1.2.9"
   resolved "https://registry.yarnpkg.com/@aws-amplify/ui-react/-/ui-react-1.2.9.tgz#bcaa93f021afc801f9d8e6aa98558128b2cb173f"
@@ -628,15 +620,6 @@
     style-dictionary "3.7.0"
     tslib "2.4.0"
     xstate "^4.33.6"
-
-"@aws-amplify/ui@3.7.0":
-  version "3.7.0"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/ui/-/ui-3.7.0.tgz#fa02a1d15d0aa54418e5e4221c16af1d909420c1"
-  integrity sha512-anBmAaUmEkv0m3rxhJGo/31TQCI3VUXxXrGOBIzY7jbGmV6b3ouXxzECzXmBVwaTvn874JOpQ+zSLQNj7ixh0w==
-  dependencies:
-    lodash "4.17.21"
-    style-dictionary "3.7.0"
-    xstate "^4.30.6"
 
 "@aws-amplify/xr@3.0.55":
   version "3.0.55"
@@ -7905,6 +7888,11 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-native-dotenv@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@types/react-native-dotenv/-/react-native-dotenv-0.2.0.tgz#32c58422a422c1adf68acce363ed791314d5a8e7"
+  integrity sha512-ZxX+dU/yoQc0jTk+/NWttkiuXceJyN5FpOSqDl0WynN5GDzxwH7OMruQ47qcY8llo2RD3irjvzJ9BwC8gDiq0A==
+
 "@types/react-native@^0.63.45":
   version "0.63.61"
   resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.63.61.tgz#44fd2ec982bb15a0ee12dbfa70fb0f779e54465e"
@@ -8608,6 +8596,16 @@
     html-tags "^3.1.0"
     svg-tags "^1.0.0"
 
+"@vue/compiler-core@3.2.38":
+  version "3.2.38"
+  resolved "https://registry.yarnpkg.com/@vue/compiler-core/-/compiler-core-3.2.38.tgz#0a2a7bffd2280ac19a96baf5301838a2cf1964d7"
+  integrity sha512-/FsvnSu7Z+lkd/8KXMa4yYNUiqQrI22135gfsQYVGuh5tqEgOB0XqrUdb/KnCLa5+TmQLPwvyUnKMyCpu+SX3Q==
+  dependencies:
+    "@babel/parser" "^7.16.4"
+    "@vue/shared" "3.2.38"
+    estree-walker "^2.0.2"
+    source-map "^0.6.1"
+
 "@vue/compiler-core@3.2.39", "@vue/compiler-core@^3.2.38":
   version "3.2.39"
   resolved "https://registry.yarnpkg.com/@vue/compiler-core/-/compiler-core-3.2.39.tgz#0d77e635f4bdb918326669155a2dc977c053943e"
@@ -8628,6 +8626,14 @@
     estree-walker "^2.0.2"
     source-map "^0.6.1"
 
+"@vue/compiler-dom@3.2.38", "@vue/compiler-dom@^3.2.38":
+  version "3.2.38"
+  resolved "https://registry.yarnpkg.com/@vue/compiler-dom/-/compiler-dom-3.2.38.tgz#53d04ed0c0c62d1ef259bf82f9b28100a880b6fd"
+  integrity sha512-zqX4FgUbw56kzHlgYuEEJR8mefFiiyR3u96498+zWPsLeh1WKvgIReoNE+U7gG8bCUdvsrJ0JRmev0Ky6n2O0g==
+  dependencies:
+    "@vue/compiler-core" "3.2.38"
+    "@vue/shared" "3.2.38"
+
 "@vue/compiler-dom@3.2.39":
   version "3.2.39"
   resolved "https://registry.yarnpkg.com/@vue/compiler-dom/-/compiler-dom-3.2.39.tgz#bd69d35c1a48fe2cea4ab9e96d2a3a735d146fdf"
@@ -8643,14 +8649,6 @@
   dependencies:
     "@vue/compiler-core" "3.2.40"
     "@vue/shared" "3.2.40"
-
-"@vue/compiler-dom@^3.2.38":
-  version "3.2.38"
-  resolved "https://registry.yarnpkg.com/@vue/compiler-dom/-/compiler-dom-3.2.38.tgz#53d04ed0c0c62d1ef259bf82f9b28100a880b6fd"
-  integrity sha512-zqX4FgUbw56kzHlgYuEEJR8mefFiiyR3u96498+zWPsLeh1WKvgIReoNE+U7gG8bCUdvsrJ0JRmev0Ky6n2O0g==
-  dependencies:
-    "@vue/compiler-core" "3.2.38"
-    "@vue/shared" "3.2.38"
 
 "@vue/compiler-sfc@3.2.39":
   version "3.2.39"
@@ -8684,6 +8682,14 @@
     postcss "^8.1.10"
     source-map "^0.6.1"
 
+"@vue/compiler-ssr@3.2.38":
+  version "3.2.38"
+  resolved "https://registry.yarnpkg.com/@vue/compiler-ssr/-/compiler-ssr-3.2.38.tgz#933b23bf99e667e5078eefc6ba94cb95fd765dfe"
+  integrity sha512-bm9jOeyv1H3UskNm4S6IfueKjUNFmi2kRweFIGnqaGkkRePjwEcfCVqyS3roe7HvF4ugsEkhf4+kIvDhip6XzQ==
+  dependencies:
+    "@vue/compiler-dom" "3.2.38"
+    "@vue/shared" "3.2.38"
+
 "@vue/compiler-ssr@3.2.39":
   version "3.2.39"
   resolved "https://registry.yarnpkg.com/@vue/compiler-ssr/-/compiler-ssr-3.2.39.tgz#4f3bfb535cb98b764bee45e078700e03ccc60633"
@@ -8713,6 +8719,17 @@
     "@typescript-eslint/eslint-plugin" "^5.0.0"
     "@typescript-eslint/parser" "^5.0.0"
     vue-eslint-parser "^8.0.0"
+
+"@vue/reactivity-transform@3.2.38":
+  version "3.2.38"
+  resolved "https://registry.yarnpkg.com/@vue/reactivity-transform/-/reactivity-transform-3.2.38.tgz#a856c217b2ead99eefb6fddb1d61119b2cb67984"
+  integrity sha512-3SD3Jmi1yXrDwiNJqQ6fs1x61WsDLqVk4NyKVz78mkaIRh6d3IqtRnptgRfXn+Fzf+m6B1KxBYWq1APj6h4qeA==
+  dependencies:
+    "@babel/parser" "^7.16.4"
+    "@vue/compiler-core" "3.2.38"
+    "@vue/shared" "3.2.38"
+    estree-walker "^2.0.2"
+    magic-string "^0.25.7"
 
 "@vue/reactivity-transform@3.2.39":
   version "3.2.39"
@@ -23737,6 +23754,13 @@ react-native-codegen@^0.0.17:
     jscodeshift "^0.13.1"
     nullthrows "^1.1.1"
 
+react-native-dotenv@^3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-dotenv/-/react-native-dotenv-3.4.0.tgz#697a3d119ab929c5977081e3bb7f6306b2209249"
+  integrity sha512-Z/pvS0QGSDHcxnUmJ/uHLgC1/DZL/UpKSOHp3mCKyV3vQd385CBahrEBca8pD3eabrsDjg8xO0uRxnRG3s1lbw==
+  dependencies:
+    dotenv "^16.0.0"
+
 react-native-get-random-values@^1.4.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/react-native-get-random-values/-/react-native-get-random-values-1.8.0.tgz#1cb4bd4bd3966a356e59697b8f372999fe97cb16"
@@ -28943,11 +28967,6 @@ xmldoc@^1.1.2:
   integrity sha512-2eN8QhjBsMW2uVj7JHLHkMytpvGHLHxKXBy4J3fAT/HujsEtM6yU84iGjpESYGHg6XwK0Vu4l+KgqQ2dv2cCqg==
   dependencies:
     sax "^1.2.4"
-
-xstate@^4.30.6:
-  version "4.33.5"
-  resolved "https://registry.yarnpkg.com/xstate/-/xstate-4.33.5.tgz#eafd193827b173901fac0d99e61bb4e5add6c7c8"
-  integrity sha512-C8WGBeQC+dNMp4MmQX359BUkJCv2VPAH/CGRnhtgri5JZ7wVEX7fsbfcqznAgnKyD0m9Hd3cGhg/wuzIjnfT4A==
 
 xstate@^4.33.6:
   version "4.33.6"

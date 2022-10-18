@@ -5,7 +5,7 @@ import { AuthMachineState, getServiceFacade } from '@aws-amplify/ui';
 import { AuthenticatorContext } from '../../context';
 
 import { USE_AUTHENTICATOR_ERROR } from './constants';
-import { Selector, UseAuthenticator } from './types';
+import { UseAuthenticatorSelector, UseAuthenticator } from './types';
 import {
   defaultComparator,
   getComparator,
@@ -17,7 +17,7 @@ import {
  * [📖 Docs](https://ui.docs.amplify.aws/react/connected-components/authenticator/headless#useauthenticator-hook)
  */
 export default function useAuthenticator(
-  selector?: Selector
+  selector?: UseAuthenticatorSelector
 ): UseAuthenticator {
   const context = React.useContext(AuthenticatorContext);
 

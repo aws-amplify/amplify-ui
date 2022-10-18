@@ -1,29 +1,11 @@
+import { AuthMachineSend, AuthMachineState } from '@aws-amplify/ui';
+
 import {
-  AuthMachineSend,
-  AuthMachineState,
-  AuthenticatorServiceFacade,
-  LegacyFormFieldOptions,
-} from '@aws-amplify/ui';
-
-/**
- * These are the "facades" that we provide, which contains contexts respective
- * to current authenticator state.
- */
-type AuthenticatorMachineContext = AuthenticatorServiceFacade;
-type AuthenticatorMachineContextKey = keyof AuthenticatorMachineContext;
-
-export type AuthenticatorRouteComponentKey =
-  | 'signIn'
-  | 'signUp'
-  | 'forceNewPassword'
-  | 'confirmResetPassword'
-  | 'confirmSignIn'
-  | 'confirmSignUp'
-  | 'confirmVerifyUser'
-  | 'resetPassword'
-  | 'setupTOTP';
-
-export type AuthenticatorLegacyFields = LegacyFormFieldOptions[];
+  AuthenticatorLegacyFields,
+  AuthenticatorMachineContext,
+  AuthenticatorMachineContextKey,
+  GetTotpSecretCode,
+} from '../types';
 
 /**
  * Inspired from https://xstate.js.org/docs/packages/xstate-react/#useselector-actor-selector-compare-getsnapshot.
@@ -31,7 +13,7 @@ export type AuthenticatorLegacyFields = LegacyFormFieldOptions[];
  * Selector accepts current facade values and returns an array of
  * desired value(s) that should trigger re-render.
  */
-export type Selector = (
+export type UseAuthenticatorSelector = (
   context: AuthenticatorMachineContext
 ) => AuthenticatorMachineContext[AuthenticatorMachineContextKey][];
 
@@ -41,8 +23,8 @@ type InternalAuthenticatorContext = {
   _send: AuthMachineSend;
 };
 
-export interface UseAuthenticator extends AuthenticatorServiceFacade {
-  getTotpSecretCode: () => Promise<string>;
+export interface UseAuthenticator extends AuthenticatorMachineContext {
+  getTotpSecretCode: GetTotpSecretCode;
 
   /** @deprecated For internal use only */
   fields: AuthenticatorLegacyFields;
@@ -53,6 +35,6 @@ export interface UseAuthenticator extends AuthenticatorServiceFacade {
 }
 
 export type Comparator = (
-  currentFacade: AuthenticatorServiceFacade,
-  nextFacade: AuthenticatorServiceFacade
+  currentMachineContext: AuthenticatorMachineContext,
+  nextMachineContext: AuthenticatorMachineContext
 ) => boolean;
