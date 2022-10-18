@@ -18,6 +18,18 @@ on:
         required: true
       AWS_SECRET_ACCESS_KEY:
         required: true
+      AWS_ACCESS_KEY_ID_AUTH:
+        required: true
+      AWS_SECRET_ACCESS_KEY_AUTH:
+        required: true
+      AWS_ACCESS_KEY_ID_DATASTORE:
+        required: true
+      AWS_SECRET_ACCESS_KEY_DATASTORE:
+        required: true
+      AWS_ACCESS_KEY_ID_GEO:
+        required: true
+      AWS_SECRET_ACCESS_KEY_GEO:
+        required: true
       DOMAIN:
         required: true
       PHONE_NUMBER:
@@ -48,7 +60,7 @@ jobs:
           repository: ${{ inputs.repository }}
           persist-credentials: false
       - name: Setup Node.js LTS
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: lts/*
           cache: 'yarn'
@@ -98,6 +110,7 @@ jobs:
           - angular
           - vue
           - react
+          - react-core
 
     steps:
       - name: Checkout Amplify UI
@@ -108,7 +121,7 @@ jobs:
           persist-credentials: false
 
       - name: Setup Node.js LTS
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: lts/*
           cache: 'yarn'
@@ -136,6 +149,10 @@ jobs:
       - name: Build ui package
         if: ${{ steps.restore-ui-cache.outputs.cache-hit != 'true' && matrix.package != 'ui' }}
         run: yarn ui build
+
+      - name: Build react-core package
+        if: ${{ matrix.package == 'react' || matrix.package == 'react-native' }}
+        run: yarn react-core build
 
       - name: Build ${{ matrix.package }} package
         if: ${{ matrix.package != 'ui' }}
@@ -201,7 +218,7 @@ jobs:
           key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}
 
       - name: Setup Node.js LTS
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: lts/*
           cache: 'yarn'
@@ -244,6 +261,10 @@ jobs:
         if: steps.restore-ui-cache.outputs.cache-hit != 'true'
         run: yarn ui build
 
+      - name: Build react-core package
+        if: ${{ matrix.package == 'react' }}
+        run: yarn react-core build
+
       - name: Build ${{ matrix.package }} package
         if: steps.restore-package-cache.outputs.cache-hit != 'true'
         run: yarn ${{ matrix.package }} build
@@ -262,26 +283,34 @@ jobs:
           path: environments/**/aws-exports.js
           key: ${{ runner.os }}-environments-${{ steps.cli-version.outputs.version }}-${{ hashFiles('environments/**/amplify/**') }}
 
-      - name: Pull down Auth AWS environments, on cache miss
+      # Pulling phone environments from original account,
+      - name: Pull down Auth Phone AWS environments, on cache miss
         if: steps.environments-cache.outputs.cache-hit != 'true'
-        run: yarn environments auth pull
+        run: yarn environments auth pull:phone
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Pull down Auth non-phone AWS environments, on cache miss
+        if: steps.environments-cache.outputs.cache-hit != 'true'
+        run: yarn environments auth pull:non-phone
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_AUTH }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_AUTH }}
 
       - name: Pull down Geo AWS environments, on cache miss
         if: steps.environments-cache.outputs.cache-hit != 'true'
         run: yarn environments geo pull
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_GEO }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_GEO }}
 
       - name: Pull down Datastore AWS environments, on cache miss
         if: steps.environments-cache.outputs.cache-hit != 'true'
         run: yarn environments datastore pull
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_DATASTORE }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_DATASTORE }}
 
       - name: Build ${{ matrix.example }} example
         run: yarn workspace ${{ matrix.example }}-example build
@@ -317,7 +346,7 @@ jobs:
           persist-credentials: false
 
       - name: Setup Node.js LTS
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: lts/*
           cache: 'yarn'
@@ -334,6 +363,9 @@ jobs:
 
       - name: Build ui package
         run: yarn ui build
+
+      - name: Build react-core package
+        run: yarn react-core build
 
       - name: Build react package
         run: yarn react build

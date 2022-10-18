@@ -1,5 +1,39 @@
 # @aws-amplify/ui-vue
 
+## 2.4.24
+
+### Patch Changes
+
+- [#2702](https://github.com/aws-amplify/amplify-ui/pull/2702) [`1b1567c0c`](https://github.com/aws-amplify/amplify-ui/commit/1b1567c0c7788120ca4e7c4533228d2672dda906) Thanks [@slaymance](https://github.com/slaymance)! - Make xstate core dependency of only framework libraries
+
+- [#2712](https://github.com/aws-amplify/amplify-ui/pull/2712) [`ea3afab68`](https://github.com/aws-amplify/amplify-ui/commit/ea3afab6893ca6e60ff42eb048a5f4f7b4750829) Thanks [@wlee221](https://github.com/wlee221)! - fix(vue): replace legacy `sr-only` with `amplify-visually-hidden`
+
+- Updated dependencies [[`1b1567c0c`](https://github.com/aws-amplify/amplify-ui/commit/1b1567c0c7788120ca4e7c4533228d2672dda906)]:
+  - @aws-amplify/ui@4.0.0
+
+## 2.4.23
+
+### Patch Changes
+
+- Updated dependencies [[`42143228f`](https://github.com/aws-amplify/amplify-ui/commit/42143228fd8e99500e05fee34cee3f8067189c4e)]:
+  - @aws-amplify/ui@3.14.0
+
+## 2.4.22
+
+### Patch Changes
+
+- [#2616](https://github.com/aws-amplify/amplify-ui/pull/2616) [`83bcc0844`](https://github.com/aws-amplify/amplify-ui/commit/83bcc0844eb1049ab49ff4f79280605ef31230d6) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui-react, ui): expose Authenticator types, add AmplifyUser interface
+
+- Updated dependencies [[`83bcc0844`](https://github.com/aws-amplify/amplify-ui/commit/83bcc0844eb1049ab49ff4f79280605ef31230d6)]:
+  - @aws-amplify/ui@3.13.4
+
+## 2.4.21
+
+### Patch Changes
+
+- Updated dependencies [[`e2429807b`](https://github.com/aws-amplify/amplify-ui/commit/e2429807bcc13b7c2dfe2c2947be8e790eea4d9d)]:
+  - @aws-amplify/ui@3.13.3
+
 ## 2.4.20
 
 ### Patch Changes
