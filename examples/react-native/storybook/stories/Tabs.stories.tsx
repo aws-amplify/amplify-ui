@@ -26,33 +26,33 @@ const ControlledTabs = ({ ...props }: any) => {
 storiesOf('Tabs', module)
   .add('default', () => (
     <ControlledTabs>
-      <Tab title="Sign In">
+      <Tab label="Sign In">
         <Text>Sign in content</Text>
       </Tab>
-      <Tab title="Create Account">
+      <Tab label="Create Account">
         <Text>Create account content</Text>
       </Tab>
     </ControlledTabs>
   ))
   .add('disabled', () => (
     <ControlledTabs>
-      <Tab title="Tab 1">
+      <Tab label="Tab 1">
         <Text>Tab 2 should not be selectable</Text>
       </Tab>
-      <Tab title="Tab 2" disabled>
+      <Tab label="Tab 2" disabled>
         <Text>This content should not be viewable</Text>
       </Tab>
     </ControlledTabs>
   ))
   .add('multiple', () => (
     <ControlledTabs>
-      <Tab title="Tab 1">
+      <Tab label="Tab 1">
         <Text>Tab 1 content</Text>
       </Tab>
-      <Tab title="Tab 2">
+      <Tab label="Tab 2">
         <Text>Tab 2 content</Text>
       </Tab>
-      <Tab title="Tab 3">
+      <Tab label="Tab 3">
         <Text>Tab 3 content</Text>
       </Tab>
     </ControlledTabs>
@@ -63,10 +63,10 @@ storiesOf('Tabs', module)
       tabStyle={styles.tabStyle}
       textStyle={styles.textStyle}
     >
-      <Tab title="Tab 1">
+      <Tab label="Tab 1">
         <Text>Tab 1 content panel</Text>
       </Tab>
-      <Tab title="Tab 2">
+      <Tab label="Tab 2">
         <Text>Tab 2 content panel</Text>
       </Tab>
     </ControlledTabs>

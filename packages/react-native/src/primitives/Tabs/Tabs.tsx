@@ -6,10 +6,10 @@ import { Button } from '../Button';
 import { styles } from './styles';
 import { TabProps, TabsProps } from './types';
 
-export function Tab({ title, ...rest }: TabProps): JSX.Element {
+export function Tab({ label, ...rest }: TabProps): JSX.Element {
   return (
     <Button {...rest} accessibilityRole="tab">
-      {title}
+      {label}
     </Button>
   );
 }

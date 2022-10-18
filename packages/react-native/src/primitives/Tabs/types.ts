@@ -40,9 +40,9 @@ export interface TabsProps extends ViewProps {
 export interface TabProps extends ButtonProps {
   /**
    * @description
-   * Sets the title corresponding with each Tab's content panel.
+   * Sets the label corresponding with each Tab's content panel.
    */
-  title: string;
+  label: string;
 }
 
 export interface TabsStyles {
