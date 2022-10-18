@@ -21,7 +21,8 @@ export type AuthenticatorRouteComponentKey =
   | 'confirmSignUp'
   | 'confirmVerifyUser'
   | 'resetPassword'
-  | 'setupTOTP';
+  | 'setupTOTP'
+  | 'verifyUser';
 
 export type AuthenticatorLegacyFields = LegacyFormFieldOptions[];
 
