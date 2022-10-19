@@ -82,7 +82,7 @@ export interface CommonConfirmResetPasswordProps extends CommonRouteProps {
 }
 
 export interface CommonConfirmSignInProps extends CommonRouteProps {
-  challengeName?: AuthChallengeName;
+  challengeName: AuthChallengeName;
   toSignIn: AuthenticatorMachineContext['toSignIn'];
 }
 

@@ -71,7 +71,8 @@ export function resolveConfirmSignInRoute<PlatformProps = {}>(
     props: {
       ...Component,
       ...machineProps,
-      challengeName: user.challengeName,
+      // prior to the `confirmSignIn` route, `user.username` is populated 
+      challengeName: user.challengeName!,
       fields,
     },
   };
