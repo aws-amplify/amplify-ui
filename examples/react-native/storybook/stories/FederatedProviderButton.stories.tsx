@@ -11,10 +11,10 @@ import { icons } from '@aws-amplify/ui-react-native/dist/assets';
   /* <Icon color={color} size={size} source={source} style={iconStyle} />; */
 }
 
-const AmazonIcon = <Icon source={icons.close} size={20} />;
-const AppleIcon = <Icon source={icons.error} size={20} />;
-const FacebookIcon = <Icon source={icons.visibilityOn} size={20} />;
-const GoogleIcon = <Icon source={icons.checkboxFilled} size={20} />;
+const AmazonIcon = <Icon source={icons.amazonLogo} size={20} />;
+const AppleIcon = <Icon source={icons.appleLogo} size={20} />;
+const FacebookIcon = <Icon source={icons.facebookLogo} size={20} />;
+const GoogleIcon = <Icon source={icons.googleLogo} size={20} />;
 
 storiesOf('FederatedProviderButton', module)
   .add('default', () => (

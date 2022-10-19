@@ -31,7 +31,7 @@ export default function FederatedProviderButton({
   return (
     <Button {...rest} onPress={onPress} style={containerStyle}>
       <View style={styles.icon}>{Icon}</View>
-      <Label style={textStyle}>{children}</Label>
+      <Label style={[styles.label, textStyle]}>{children}</Label>
     </Button>
   );
 }

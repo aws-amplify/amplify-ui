@@ -4,16 +4,17 @@ import { FederatedProviderButtonStyles } from './types';
 
 export const styles: FederatedProviderButtonStyles = StyleSheet.create({
   container: {
-    backgroundColor: 'lavender',
+    alignItems: 'center',
+    borderRadius: 4,
+    borderWidth: StyleSheet.hairlineWidth,
     flexDirection: 'row',
+    justifyContent: 'center',
     paddingVertical: 8,
     width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: StyleSheet.hairlineWidth,
-    borderRadius: 4,
   },
-  label: {},
+  label: {
+    fontWeight: '400',
+  },
   icon: {
     paddingHorizontal: 8,
   },
