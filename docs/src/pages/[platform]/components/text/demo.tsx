@@ -10,7 +10,6 @@ import {
 import { Demo } from '@/components/Demo';
 import { TextPropControls } from './TextPropControls';
 import { useTextProps } from './useTextPropControlProps';
-import { demoState } from '@/utils/demoState';
 
 const propsToCode = (
   variation: TextVariation,
@@ -23,8 +22,8 @@ const propsToCode = (
     fontStyle,
     fontSize,
     textDecoration,
-    value,
-  }: TextProps
+  }: TextProps,
+  value: string
 ) => `
 <Text
     variation="${variation}"
@@ -62,17 +61,20 @@ export const TextDemo = ({ children }) => {
 
   return (
     <Demo
-      code={propsToCode(variation, {
-        as,
-        isTruncated,
-        color,
-        lineHeight,
-        fontWeight,
-        fontStyle,
-        fontSize,
-        textDecoration,
-        value,
-      })}
+      code={propsToCode(
+        variation,
+        {
+          as,
+          isTruncated,
+          color,
+          lineHeight,
+          fontWeight,
+          fontStyle,
+          fontSize,
+          textDecoration,
+        },
+        value
+      )}
       propControls={<TextPropControls {...props} />}
     >
       <Text

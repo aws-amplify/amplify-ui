@@ -1,5 +1,20 @@
 # @aws-amplify/ui-react-core
 
+## 1.0.3
+
+### Patch Changes
+
+- [#2746](https://github.com/aws-amplify/amplify-ui/pull/2746) [`2893da04b`](https://github.com/aws-amplify/amplify-ui/commit/2893da04b4616efc342f6973169d03fef0113c7b) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui-react-core): add missing value to AuthenticatorRouteComponentKey
+
+## 1.0.2
+
+### Patch Changes
+
+- [#2702](https://github.com/aws-amplify/amplify-ui/pull/2702) [`1b1567c0c`](https://github.com/aws-amplify/amplify-ui/commit/1b1567c0c7788120ca4e7c4533228d2672dda906) Thanks [@slaymance](https://github.com/slaymance)! - Make xstate core dependency of only framework libraries
+
+- Updated dependencies [[`1b1567c0c`](https://github.com/aws-amplify/amplify-ui/commit/1b1567c0c7788120ca4e7c4533228d2672dda906)]:
+  - @aws-amplify/ui@4.0.0
+
 ## 1.0.1
 
 ### Patch Changes

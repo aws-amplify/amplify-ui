@@ -3,6 +3,6 @@
   "name": "basic-map",
   "version": "0.0.1",
   "scripts": {
-    "pull": "amplify pull --appId dao8s4r01dxsy --envName staging"
+    "pull": "amplify pull --appId d1xll51xlvl8ri --envName staging"
   }
 }
