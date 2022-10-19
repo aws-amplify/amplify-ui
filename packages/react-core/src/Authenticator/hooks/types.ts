@@ -32,19 +32,25 @@ export type AuthenticatorRouteComponentName =
 
 export type GetTotpSecretCode = () => Promise<string>;
 
-export interface HeaderProps {
+interface HeaderProps {
+  children?: React.ReactNode;
+}
+
+interface FooterProps {
   children?: React.ReactNode;
 }
 
 interface FormFieldsProps {
   fields: AuthenticatorLegacyFields;
-  validationErrors: AuthenticatorMachineContext['validationErrors'];
+  validationErrors?: AuthenticatorMachineContext['validationErrors'];
 }
 
-type FooterComponent<Props = {}> = React.ComponentType<Props>;
+type FooterComponent<Props = {}> = React.ComponentType<FooterProps & Props>;
+
 type FormFieldsComponent<Props = {}> = React.ComponentType<
   FormFieldsProps & Props
 >;
+
 type HeaderComponent<Props = {}> = React.ComponentType<HeaderProps & Props>;
 
 export interface ComponentSlots {
