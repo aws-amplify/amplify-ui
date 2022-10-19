@@ -5,6 +5,7 @@ Array [
   "AuthenticatorProvider",
   "resolveAuthenticatorComponents",
   "useAuthenticator",
+  "useAuthenticatorInitMachine",
   "useAuthenticatorRoute",
 ]
 `;
