@@ -14,37 +14,29 @@ const styles = StyleSheet.create({
 });
 
 storiesOf('TextField', module)
-  .add('default', () => <TextField containerStyle={styles.container} />)
+  .add('default', () => <TextField style={styles.container} />)
 
   .add('placeholder', () => (
-    <TextField containerStyle={styles.container} placeholder="Test" />
+    <TextField style={styles.container} placeholder="Test" />
   ))
-  .add('with label', () => (
-    <TextField containerStyle={styles.container} label="Test" />
-  ))
+  .add('with label', () => <TextField style={styles.container} label="Test" />)
   .add('password', () => (
-    <TextField
-      containerStyle={styles.container}
-      label="Password"
-      secureTextEntry
-    />
+    <TextField style={styles.container} label="Password" secureTextEntry />
   ))
   .add('phone', () => (
     <TextField
-      containerStyle={styles.container}
+      style={styles.container}
       label="Phone"
       keyboardType="phone-pad"
     />
   ))
   .add('with error', () => (
     <TextField
-      containerStyle={styles.container}
+      style={styles.container}
       label="Test"
       error={true}
       errorMessage="Error Message"
       errorMessageStyle={styles.errorMessage}
     />
   ))
-  .add('disabled', () => (
-    <TextField containerStyle={styles.container} disabled />
-  ));
+  .add('disabled', () => <TextField style={styles.container} disabled />);

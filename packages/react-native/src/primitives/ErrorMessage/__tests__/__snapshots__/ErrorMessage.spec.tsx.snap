@@ -18,6 +18,7 @@ exports[`ErrorMessage renders default ErrorMessage as expected 1`] = `
   }
 >
   <Image
+    accessibilityRole="image"
     source={
       Object {
         "testUri": "../../../src/assets/icons/error.png",

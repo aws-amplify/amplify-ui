@@ -71,6 +71,7 @@ export function resolveConfirmSignInRoute<PlatformProps = {}>(
     props: {
       ...Component,
       ...machineProps,
+      // prior to the `confirmSignIn` route, `user.username` is populated 
       challengeName: user.challengeName!,
       fields,
     },
@@ -153,6 +154,8 @@ export function resolveSetupTOTPRoute<PlatformProps = {}>(
       ...machineProps,
       fields,
       getTotpSecretCode,
+      // prior to reaching the `setupTOTP` route, `user` will be
+      // authenticated ensuring `username` is provided
       totpUsername: user.username!,
       totpIssuer: DEFAULT_TOTP_ISSUER,
     },

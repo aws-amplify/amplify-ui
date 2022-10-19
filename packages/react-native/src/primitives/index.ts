@@ -6,6 +6,7 @@ export * from './Heading';
 export * from './Icon';
 export * from './IconButton';
 export * from './Label';
+export * from './PasswordField';
 export * from './Radio';
 export * from './RadioGroup';
 export * from './Tabs';

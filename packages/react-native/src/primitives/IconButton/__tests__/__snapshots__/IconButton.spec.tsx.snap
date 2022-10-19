@@ -2,6 +2,7 @@
 
 exports[`IconButton renders as expected 1`] = `
 <View
+  accessibilityRole="button"
   accessible={true}
   collapsable={false}
   focusable={true}
@@ -16,6 +17,7 @@ exports[`IconButton renders as expected 1`] = `
   onStartShouldSetResponder={[Function]}
 >
   <Image
+    accessibilityRole="image"
     source={
       Object {
         "uri": "icon.png",
@@ -38,6 +40,7 @@ exports[`IconButton renders as expected 1`] = `
 
 exports[`IconButton renders as expected with custom icon style 1`] = `
 <View
+  accessibilityRole="button"
   accessible={true}
   collapsable={false}
   focusable={true}
@@ -52,6 +55,7 @@ exports[`IconButton renders as expected with custom icon style 1`] = `
   onStartShouldSetResponder={[Function]}
 >
   <Image
+    accessibilityRole="image"
     source={
       Object {
         "uri": "icon.png",

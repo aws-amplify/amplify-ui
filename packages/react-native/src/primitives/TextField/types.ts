@@ -6,7 +6,7 @@ export interface TextFieldProps extends Omit<TextInputProps, 'editable'> {
    * @description
    * Styling for TextField container
    */
-  containerStyle?: StyleProp<ViewStyle>;
+  style?: StyleProp<ViewStyle>;
 
   /**
    * @description
@@ -46,13 +46,20 @@ export interface TextFieldProps extends Omit<TextInputProps, 'editable'> {
 
   /**
    * @description
-   * Styling for the input
+   * Styling for the input field
    */
-  inputStyle?: StyleProp<TextStyle>;
+  fieldStyle?: StyleProp<TextStyle>;
+
+  /**
+   * @description
+   * Component(s) to show after input
+   */
+  endAccessory?: React.ReactNode;
 }
 
 export interface TextFieldStyles {
   container: ViewStyle;
   input: TextStyle;
+  inputContainer: ViewStyle;
   disabled: ViewStyle;
 }

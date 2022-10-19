@@ -1,6 +1,6 @@
+import { ComponentClassName } from '@aws-amplify/ui';
 import { ThemeStylePropKey, ThemeTokenKey } from '../types/theme';
 import {
-  ComponentClassName,
   ComponentClassNames as ComponentClassNamesType,
   ComponentClassNameItems,
 } from './types';

@@ -30,16 +30,17 @@ describe('TextField', () => {
   });
 
   it('renders as expected when disabled', () => {
-    const { toJSON, getByPlaceholderText } = render(
+    const { toJSON, getByLabelText, getByTestId } = render(
       <TextField {...defaultProps} disabled />
     );
     expect(toJSON()).toMatchSnapshot();
-    const textInput = getByPlaceholderText(placeHolderText);
-    expect(textInput.props.editable).toBe(false);
-    expect(textInput.parent?.props.accessibilityState).toHaveProperty(
+    const textInputContainer = getByLabelText(labelText);
+    expect(textInputContainer.props.accessibilityState).toHaveProperty(
       'disabled',
       true
     );
+    const textInput = getByTestId(testID);
+    expect(textInput.props.editable).toBe(false);
   });
 
   it('renders as expected with error message', async () => {
