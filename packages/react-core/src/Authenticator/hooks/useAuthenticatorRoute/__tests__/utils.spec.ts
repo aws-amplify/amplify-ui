@@ -38,6 +38,8 @@ const {
   isPending,
   resendCode,
   skipVerification,
+  socialProviders,
+  toResetPassword,
   toSignIn,
   toSignUp,
   user,
@@ -60,7 +62,7 @@ describe('getRouteSelector', () => {
     ['forceNewPassword', [error, isPending, toSignIn, validationErrors]],
     ['idle', []],
     ['resetPassword', [error, isPending, toSignIn]],
-    ['signIn', [error, isPending, toSignUp]],
+    ['signIn', [error, isPending, socialProviders, toResetPassword, toSignUp]],
     ['signUp', [error, isPending, toSignIn, validationErrors]],
     ['setupTOTP', [error, isPending, user]],
     ['verifyUser', [error, isPending]],
@@ -107,7 +109,14 @@ describe('props resolver functions', () => {
     [
       'SignIn',
       resolveSignInRoute,
-      { error, hideSignUp: false, isPending, toSignUp },
+      {
+        error,
+        hideSignUp: false,
+        isPending,
+        socialProviders,
+        toResetPassword,
+        toSignUp,
+      },
     ],
     [
       'SignUp',

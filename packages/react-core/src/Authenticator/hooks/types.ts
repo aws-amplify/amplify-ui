@@ -106,6 +106,8 @@ export interface CommonSetupTOTPProps extends CommonRouteProps {
 
 export interface CommonSignInProps extends CommonRouteProps {
   hideSignUp?: boolean;
+  socialProviders?: AuthenticatorMachineContext['socialProviders'];
+  toResetPassword: AuthenticatorMachineContext['toResetPassword'];
   toSignUp: AuthenticatorMachineContext['toSignUp'];
 }
 
