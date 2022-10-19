@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { storiesOf } from '@storybook/react-native';
 import { Tab, Tabs } from '@aws-amplify/ui-react-native/dist/primitives';
 
