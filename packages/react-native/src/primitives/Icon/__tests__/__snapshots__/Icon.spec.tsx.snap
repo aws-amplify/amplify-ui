@@ -2,6 +2,7 @@
 
 exports[`Icon renders an animated icon 1`] = `
 <Image
+  accessibilityRole="image"
   collapsable={false}
   source={
     Object {
@@ -21,6 +22,7 @@ exports[`Icon renders an animated icon 1`] = `
 
 exports[`Icon renders as expected 1`] = `
 <Image
+  accessibilityRole="image"
   source={
     Object {
       "uri": "mock.png",
@@ -42,6 +44,7 @@ exports[`Icon renders as expected 1`] = `
 
 exports[`Icon renders as expected with custom styles 1`] = `
 <Image
+  accessibilityRole="image"
   source={
     Object {
       "uri": "mock.png",

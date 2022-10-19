@@ -5,6 +5,7 @@ function loadStories() {
   require('./stories/Heading.stories');
   require('./stories/Icon.stories');
   require('./stories/Label.stories');
+  require('./stories/PasswordField.stories');
   require('./stories/Radio.stories');
   require('./stories/RadioGroup.stories');
   require('./stories/TextField.stories');
@@ -17,6 +18,7 @@ const stories = [
   './stories/Heading.stories',
   './stories/Icon.stories',
   './stories/Label.stories',
+  './stories/PasswordField.stories',
   './stories/Radio.stories',
   './stories/RadioGroup.stories',
   './stories/TextField.stories',

@@ -5,6 +5,8 @@ const icons = {
   checkboxOutline: require('./checkboxOutline.png') as ImageSourcePropType,
   close: require('./close.png') as ImageSourcePropType,
   error: require('./error.png') as ImageSourcePropType,
+  visibilityOn: require('./visibilityOn.png') as ImageSourcePropType,
+  visibilityOff: require('./visibilityOff.png') as ImageSourcePropType,
 };
 
 export default icons;
