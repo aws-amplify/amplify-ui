@@ -59,9 +59,12 @@ If you are still importing the version 1.x of the Authenticator using the `/lega
 
 `AmplifyAuthenticator`, `AmplifySignIn`, `AmplifySignOut`, `withAuthenticator`
 
-#### 4. Update the handleSignUp function override call
 
-Update the override function call to include the `autSignIn` set to enabled. This must be included if you are overriding `Auth.signUp`.
+#### Automatic signin on signup logic moved to `aws-amplify`. 
+
+##### 1. Update the handleSignUp function override call
+
+If you are overriding `Auth.signUp`, update the override function call to include the `autoSignIn` option set to enabled. If this change is not made, users will not be automatically signed in on signup.
 
 ```diff
  async handleSignUp(formData) {
@@ -81,7 +84,7 @@ Update the override function call to include the `autSignIn` set to enabled. Thi
 
 ```
 
-#### 5. Update to the latest version of the `aws-amplify` library.
+##### 2. Update to the latest version of the `aws-amplify` library.
 
 Update to the latest version of the `aws-amplify` library. You will need at least version `^4.3.29`. 
 

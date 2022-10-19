@@ -27,9 +27,11 @@ yarn add aws-amplify @aws-amplify/ui-vue@3.x
 
 The following breaking changes were introduced in `@aws-amplify/ui-vue` major version `3.0`:
 
-#### 1. Update the handleSignUp function override call
+#### Automatic signin on signup logic moved to `aws-amplify`. 
 
-Update the override function call to include the `autSignIn` set to enabled. This must be included if you are overriding `Auth.signUp`.
+##### 1. Update custom handleSignUp function override calls
+
+If you are overriding `Auth.signUp`, update the override function call to include the `autoSignIn` option set to enabled. If this change is not made, users will not be automatically signed in on signup.
 
 ```diff
  async handleSignUp(formData) {
@@ -49,7 +51,7 @@ Update the override function call to include the `autSignIn` set to enabled. Thi
 
 ```
 
-#### 2. Update to the latest version of the `aws-amplify` library.
+##### 2. Update to the latest version of the `aws-amplify` library.
 
 Update to the latest version of the `aws-amplify` library. You will need at least version `^4.3.29`. 
 
