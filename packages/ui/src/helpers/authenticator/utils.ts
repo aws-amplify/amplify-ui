@@ -38,7 +38,14 @@ export const censorPhoneNumber = (val: string): string => {
 
 const waitForAutoSignInState = async (service: AuthInterpreter) => {
   // https://xstate.js.org/docs/guides/interpretation.html#waitfor
-  await waitFor(service, (state) => getActorState(state).matches('autoSignIn'));
+  try {
+    await waitFor(service, (state) =>
+      getActorState(state).matches('autoSignIn')
+    );
+  } catch (e) {
+    // do not throw and ignore the hub event if 'autoSignIn' event was called
+    // in unrelated state.
+  }
 };
 
 export const defaultAuthHubHandler: HubHandler = async (data, service) => {
