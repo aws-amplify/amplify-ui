@@ -1,0 +1,207 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tab can apply custom styling 1`] = `
+<View
+  accessibilityRole="tab"
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#fafafa",
+        "borderTopColor": "#dcdee0",
+        "borderTopWidth": 2,
+        "flexBasis": 0,
+        "flexGrow": 1,
+        "padding": 12,
+      },
+      Object {
+        "backgroundColor": "lavender",
+        "borderTopColor": "rebeccapurple",
+      },
+      undefined,
+    ]
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "alignSelf": "center",
+        },
+        Array [
+          Object {
+            "color": "#304050",
+            "fontSize": 18,
+            "fontWeight": "800",
+          },
+          undefined,
+          undefined,
+        ],
+      ]
+    }
+  >
+    Styled Tab
+  </Text>
+</View>
+`;
+
+exports[`Tab renders as expected when Tab is selected 1`] = `
+<View
+  accessibilityRole="tab"
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#fafafa",
+        "borderTopColor": "#dcdee0",
+        "borderTopWidth": 2,
+        "flexBasis": 0,
+        "flexGrow": 1,
+        "padding": 12,
+      },
+      undefined,
+      Object {
+        "backgroundColor": "#fff",
+        "borderTopColor": "#047d95",
+        "color": "#047d95",
+      },
+    ]
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "alignSelf": "center",
+        },
+        Array [
+          Object {
+            "color": "#304050",
+            "fontSize": 18,
+            "fontWeight": "800",
+          },
+          undefined,
+          Object {
+            "backgroundColor": "#fff",
+            "borderTopColor": "#047d95",
+            "color": "#047d95",
+          },
+        ],
+      ]
+    }
+  >
+    Selected Tab
+  </Text>
+</View>
+`;
+
+exports[`Tab renders as expected with a component passed as children 1`] = `
+<View
+  accessibilityRole="tab"
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#fafafa",
+        "borderTopColor": "#dcdee0",
+        "borderTopWidth": 2,
+        "flexBasis": 0,
+        "flexGrow": 1,
+        "padding": 12,
+      },
+      undefined,
+      undefined,
+    ]
+  }
+>
+  <Text>
+    Text component
+  </Text>
+</View>
+`;
+
+exports[`Tab renders default Tab as expected 1`] = `
+<View
+  accessibilityRole="tab"
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#fafafa",
+        "borderTopColor": "#dcdee0",
+        "borderTopWidth": 2,
+        "flexBasis": 0,
+        "flexGrow": 1,
+        "padding": 12,
+      },
+      undefined,
+      undefined,
+    ]
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "alignSelf": "center",
+        },
+        Array [
+          Object {
+            "color": "#304050",
+            "fontSize": 18,
+            "fontWeight": "800",
+          },
+          undefined,
+          undefined,
+        ],
+      ]
+    }
+  >
+    Default Tab
+  </Text>
+</View>
+`;

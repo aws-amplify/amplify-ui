@@ -9,4 +9,5 @@ export * from './Label';
 export * from './PasswordField';
 export * from './Radio';
 export * from './RadioGroup';
+export * from './Tabs';
 export * from './TextField';
