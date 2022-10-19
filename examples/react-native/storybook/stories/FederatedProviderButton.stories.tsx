@@ -1,41 +1,44 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { ImageSourcePropType, StyleSheet, View } from 'react-native';
+import { SocialProvider } from '@aws-amplify/ui';
 import { storiesOf } from '@storybook/react-native';
 import {
   FederatedProviderButton,
   Icon,
 } from '@aws-amplify/ui-react-native/dist/primitives';
 import { icons } from '@aws-amplify/ui-react-native/dist/assets';
+import { capitalize } from '@aws-amplify/ui-react-native/src/utils';
 
-{
-  /* <Icon color={color} size={size} source={source} style={iconStyle} />; */
-}
+const providers: SocialProvider[] = ['amazon', 'apple', 'facebook', 'google'];
 
-const AmazonIcon = <Icon source={icons.amazonLogo} size={20} />;
-const AppleIcon = <Icon source={icons.appleLogo} size={20} />;
-const FacebookIcon = <Icon source={icons.facebookLogo} size={20} />;
-const GoogleIcon = <Icon source={icons.googleLogo} size={20} />;
+type Logos = {
+  [key in SocialProvider]: ImageSourcePropType;
+};
+
+const logos: Logos = {
+  amazon: icons.amazonLogo,
+  apple: icons.appleLogo,
+  facebook: icons.facebookLogo,
+  google: icons.googleLogo,
+};
 
 storiesOf('FederatedProviderButton', module)
   .add('default', () => (
-    <FederatedProviderButton Icon={AmazonIcon}>
+    <FederatedProviderButton Icon={<Icon source={logos.amazon} size={20} />}>
       Sign In with Amazon
     </FederatedProviderButton>
   ))
   .add('mock', () => (
     <View style={styles.container}>
-      <FederatedProviderButton Icon={AmazonIcon} style={styles.button}>
-        Sign In with Amazon
-      </FederatedProviderButton>
-      <FederatedProviderButton Icon={AppleIcon} style={styles.button}>
-        Sign In with Apple
-      </FederatedProviderButton>
-      <FederatedProviderButton Icon={FacebookIcon} style={styles.button}>
-        Sign In with Facebook
-      </FederatedProviderButton>
-      <FederatedProviderButton Icon={GoogleIcon} style={styles.button}>
-        Sign In with Google
-      </FederatedProviderButton>
+      {providers.map((provider, index) => (
+        <FederatedProviderButton
+          key={`${provider}-${index}`}
+          Icon={<Icon source={logos[provider]} size={20} />}
+          style={styles.button}
+        >
+          Sign In with {capitalize(provider)}
+        </FederatedProviderButton>
+      ))}
     </View>
   ));
 
