@@ -319,6 +319,8 @@ export const LivenessErrorStateStringMap: Record<LivenessErrorState, string> = {
   [LivenessErrorState.TIMEOUT]: translate<string>(
     'Try again. Move face to fit in oval in 5 seconds'
   ),
+  [LivenessErrorState.CAMERA_FRAMERATE_ERROR]: undefined,
+  [LivenessErrorState.CAMERA_ACCESS_ERROR]: undefined,
   [LivenessErrorState.FRESHNESS_TIMEOUT]:
     translate<string>('Hold face in oval'),
 };

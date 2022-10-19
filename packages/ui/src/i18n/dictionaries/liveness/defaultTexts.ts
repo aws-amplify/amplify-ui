@@ -18,6 +18,9 @@ export const defaultTexts = {
   LIVENESS_NO_CAMERA_DETECTED_DESCRIPTION:
     'Connect a camera and allow camera permission in browser settings',
   LIVENESS_NO_CAMERA_DETECTED: 'Camera not accessible',
+  LIVENESS_NO_CAMERA_MIN_SPEC: 'Camera does not meet minimum specification',
+  LIVENESS_NO_CAMERA_MIN_SPEC_DESCRIPTION:
+    'Use a camera that can record at 15 frames per second or higher',
 
   // Liveness Flow
   LIVENESS_CHECK_CONNECTING: 'Connecting...',

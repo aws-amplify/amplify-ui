@@ -19,6 +19,10 @@ export const enDict = {
   'Connect a camera and allow camera permission in browser settings':
     'Connect a camera and allow camera permission in browser settings',
   'Camera not accessible': 'Camera not accessible',
+  'Camera does not meet minimum specification':
+    'Camera does not meet minimum specification',
+  'Use a camera that can record at 15 frames per second or higher':
+    'Use a camera that can record at 15 frames per second or higher',
 
   // Liveness Flow
   'Connecting...': 'Connecting...',

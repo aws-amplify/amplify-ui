@@ -15,6 +15,7 @@ describe('getVideoConstraints', () => {
         ideal: 480,
         max: 1080,
       },
+      frameRate: { min: 15, ideal: 30, max: 30 },
       facingMode: 'user',
     };
 
@@ -41,6 +42,7 @@ describe('getVideoConstraints', () => {
         ideal: window.innerHeight,
         max: window.innerWidth,
       },
+      frameRate: { min: 15, ideal: 30, max: 30 },
       facingMode: 'user',
     };
 
@@ -68,6 +70,7 @@ describe('getVideoConstraints', () => {
         ideal: 480,
         max: window.innerWidth,
       },
+      frameRate: { min: 15, ideal: 30, max: 30 },
       facingMode: 'user',
     };
 
