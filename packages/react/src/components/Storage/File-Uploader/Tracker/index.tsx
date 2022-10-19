@@ -1,18 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Loader, View } from 'src/primitives';
 
-export type SetPause = React.Dispatch<React.SetStateAction<boolean>>;
-export function FileTracker({
+export function Tracker({
   file,
   percentage,
-  pauseResumeUpload,
+  onPause,
+  onResume,
+  onCancel,
+  isPaused,
 }: {
   file: File;
   percentage: number;
-  pauseResumeUpload: (boolean, SetPause) => void;
+  onPause: () => void;
+  onResume: () => void;
+  onCancel: () => void;
+  isPaused: boolean;
 }): JSX.Element {
-  const [pause, setPause] = useState(false);
-
   return (
     <View style={{ display: 'flex', flexDirection: 'column' }}>
       <View
@@ -45,9 +48,9 @@ export function FileTracker({
           >
             {percentage !== 0 && percentage !== 100 && (
               <View style={{ display: 'flex', alignItems: 'center' }}>
-                {!pause ? (
+                {!isPaused ? (
                   <svg
-                    onClick={() => pauseResumeUpload(pause, setPause)}
+                    onClick={() => onPause()}
                     stroke="currentColor"
                     fill="currentColor"
                     strokeWidth="0"
@@ -62,7 +65,7 @@ export function FileTracker({
                   </svg>
                 ) : (
                   <svg
-                    onClick={() => pauseResumeUpload(pause, setPause)}
+                    onClick={() => onResume()}
                     stroke="currentColor"
                     fill="currentColor"
                     strokeWidth="0"
@@ -76,7 +79,7 @@ export function FileTracker({
                 )}
               </View>
             )}
-            {/* <View onClick={() => Storage.cancel(uploadTask)}>X</View> */}
+            <View onClick={() => onCancel()}>X</View>
           </View>
         </View>
         <View style={{ fontSize: '10px', color: 'gray' }}>

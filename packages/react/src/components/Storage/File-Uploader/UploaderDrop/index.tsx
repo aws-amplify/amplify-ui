@@ -1,15 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import React from 'react';
 import { Card } from 'src/primitives';
-import { FileUploaderTransferProps } from '../FileUploader/types';
+import { UploaderDropProps } from '../FileUploader/types';
 
-export function FileUploaderDrop({
+export function UploaderDrop({
   children,
   inDropZone,
   getDropEvents,
-}: FileUploaderTransferProps): JSX.Element {
-  // https://www.smashingmagazine.com/2020/02/html-drag-drop-api-react/
-
+}: UploaderDropProps): JSX.Element {
   return (
     <Card
       data-amplify-file-uploader

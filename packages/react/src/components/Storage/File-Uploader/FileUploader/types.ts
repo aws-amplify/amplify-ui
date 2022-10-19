@@ -1,23 +1,29 @@
+import React from 'react';
 import { DropZoneInterface } from '@aws-amplify/ui-react-core';
 import { FileName } from '@aws-amplify/ui';
+
 export type SetShowPreviewer = (show: boolean) => void;
 type LevelInfo = 'public' | 'protected' | 'private';
 export type SetFileType = File[];
 
-interface BaseFileProps {
-  accept?: Array<string>;
-  fileName?: FileName;
+export interface UploaderButtonProps {
+  acceptedFileTypes: Array<string>;
+  fileNames?: FileName;
   multiple?: boolean;
-}
-export interface FileUploaderTransferProps extends BaseFileProps {
-  setFiles?: (file: SetFileType) => void;
   setShowPreviewer?: SetShowPreviewer;
-  inDropZone?: boolean;
-  getDropEvents?: DropZoneInterface;
-  children?: React.ReactNode;
+  setFiles?: (file: SetFileType) => void;
 }
 
-export interface FileUploaderProps extends BaseFileProps {
+export interface UploaderDropProps {
+  children?: React.ReactNode;
+  inDropZone?: boolean;
+  getDropEvents?: DropZoneInterface;
+}
+
+export interface FileUploaderProps {
+  acceptedFileTypes: Array<string>;
+  fileNames?: FileName;
+  multiple?: boolean;
   components?: ComponentsProviderProps;
   level: LevelInfo;
   maxFiles?: number;
@@ -33,12 +39,15 @@ export interface FileUploaderProps extends BaseFileProps {
 }
 
 export interface FilePreviewerProps {
-  fileName: FileName;
+  fileNames: FileName;
   level: LevelInfo;
-  setShowPreviewer: SetShowPreviewer;
   files: File[];
+  onClose: () => void;
 }
 
+type UploaderDropComponent<Props = {}> = React.ComponentType<
+  Props & Partial<UploaderDropProps>
+>;
 export interface ComponentsProviderProps {
-  FileUploaderDrop?: React.ComponentType<FileUploaderTransferProps>;
+  UploaderDrop?: UploaderDropComponent;
 }

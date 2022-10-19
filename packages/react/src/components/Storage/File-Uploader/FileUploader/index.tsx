@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect } from 'react';
 import { FileUploaderProps } from './types';
-import { FileUploaderButton } from '../FileUploaderButton';
-import { FilePreviewer } from '../FilePreviewer';
+import { UploaderButton } from '../UploaderButton';
+import { Previewer } from '../Previewer';
 import { View } from 'src/primitives';
-import { FileUploaderDrop } from '../FileUploaderDrop';
+import { UploaderDrop } from '../UploaderDrop';
 import { useFileUploader } from '@aws-amplify/ui-react-core';
 
 /**
@@ -12,8 +12,8 @@ import { useFileUploader } from '@aws-amplify/ui-react-core';
  */
 
 export function FileUploader({
-  accept,
-  fileName,
+  acceptedFileTypes,
+  fileNames,
   isPreviewerVisible,
   level,
   components: customComponents = {},
@@ -29,8 +29,7 @@ export function FileUploader({
   variation = 'button',
 }: FileUploaderProps): JSX.Element {
   function Router(): JSX.Element {
-    const { FileUploaderDrop = FileUploader.FileUploaderDrop } =
-      customComponents;
+    const { UploaderDrop = FileUploader.UploaderDrop } = customComponents;
     const {
       files,
       getDropEvents,
@@ -40,8 +39,8 @@ export function FileUploader({
       showPreviewer,
     } = useFileUploader();
     const commonProps = {
-      accept,
-      fileName,
+      acceptedFileTypes,
+      fileNames,
       multiple,
       setFiles,
       setShowPreviewer,
@@ -51,23 +50,27 @@ export function FileUploader({
       setShowPreviewer(isPreviewerVisible);
     }, [setShowPreviewer]);
 
+    function onClose() {
+      setShowPreviewer(false);
+    }
+
     if (showPreviewer) {
       return (
-        <FilePreviewer
-          fileName={fileName}
+        <Previewer
+          fileNames={fileNames}
           files={files}
           level={level}
-          setShowPreviewer={setShowPreviewer}
+          onClose={() => onClose()}
         />
       );
     } else if (variation === 'button') {
-      return <FileUploaderButton {...commonProps} />;
+      return <UploaderButton {...commonProps} />;
     } else {
       return (
-        <FileUploaderDrop getDropEvents={getDropEvents} inDropZone={inDropZone}>
-          <FileUploaderButton {...commonProps} />
+        <UploaderDrop getDropEvents={getDropEvents} inDropZone={inDropZone}>
+          <UploaderButton {...commonProps} />
           <View as="span">or drag file{multiple ? 's' : ''} here</View>
-        </FileUploaderDrop>
+        </UploaderDrop>
       );
     }
   }
@@ -75,4 +78,4 @@ export function FileUploader({
   return <Router />;
 }
 
-FileUploader.FileUploaderDrop = FileUploaderDrop;
+FileUploader.UploaderDrop = UploaderDrop;

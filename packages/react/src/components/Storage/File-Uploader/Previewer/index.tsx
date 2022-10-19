@@ -4,24 +4,25 @@ import React, { useRef, useState } from 'react';
 import { Button, Flex } from 'src/primitives';
 import { Card } from 'src/primitives/Card';
 import { View } from 'src/primitives/View';
-import { FileTracker, SetPause } from '../FileTracker';
+import { Tracker } from '../Tracker';
 import { FilePreviewerProps } from '../FileUploader/types';
 import { getFileName, uploadFile } from '@aws-amplify/ui';
 import { UploadTask } from '@aws-amplify/storage';
 
-export function FilePreviewer({
-  fileName,
+export function Previewer({
+  fileNames,
   level,
-  setShowPreviewer,
   files,
+  onClose,
 }: FilePreviewerProps): JSX.Element {
   const [percentage, setPercentage] = useState<number[]>([]);
   const [uploadTasks, setUploadTasks] = useState<UploadTask[]>([]);
+  const [pauses, setPauses] = useState<boolean[]>([]);
   const filesRef = useRef([]);
   function upload() {
     const uploadTasksTemp = [];
     for (let i = 0; i < files?.length; i++) {
-      const uploadFileName = getFileName(files[i], fileName, i);
+      const uploadFileName = getFileName(files[i], fileNames, i);
       const uploadTask = uploadFile({
         file: files[i],
         fileName: uploadFileName,
@@ -37,18 +38,30 @@ export function FilePreviewer({
     setUploadTasks(uploadTasksTemp);
   }
 
-  function pauseResumeUpload(
-    uploadTask: UploadTask
-  ): (boolean, SetPause) => void {
-    // eslint-disable-next-line no-console
-    // console.log('pausing upload for', file.name);
-    return function (pause: boolean, setPause: SetPause) {
-      if (pause) {
-        uploadTask.resume();
-      } else {
-        uploadTask.pause();
-      }
-      setPause(!pause);
+  function onPause(uploadTask: UploadTask, index: number): () => void {
+    return function () {
+      uploadTask.pause();
+      const newPauses = [...pauses];
+      newPauses[index] = true;
+      setPauses(newPauses);
+    };
+  }
+
+  function onResume(uploadTask: UploadTask, index: number): () => void {
+    return function () {
+      uploadTask.resume();
+      const newPauses = [...pauses];
+      newPauses[index] = false;
+      setPauses(newPauses);
+    };
+  }
+
+  function onCancel(uploadTask: UploadTask, index: number): () => void {
+    return function () {
+      // Storage.cancel(uploadTask);
+      const newPauses = [...pauses];
+      newPauses[index] = true;
+      setPauses(pauses);
     };
   }
 
@@ -71,7 +84,7 @@ export function FilePreviewer({
             color: '#067398',
             cursor: 'pointer',
           }}
-          onClick={() => setShowPreviewer(false)}
+          onClick={() => onClose()}
         >
           Cancel
         </View>
@@ -88,13 +101,15 @@ export function FilePreviewer({
         }}
       >
         {files?.map((file, index) => (
-          <FileTracker
+          <Tracker
             percentage={percentage[index] ?? 0}
             key={index}
             file={file}
-            // uploadTask={uploadTasks[index]}
-            pauseResumeUpload={pauseResumeUpload(uploadTasks[index])}
-          ></FileTracker>
+            onPause={onPause(uploadTasks[index], index)}
+            onResume={onResume(uploadTasks[index], index)}
+            onCancel={onCancel(uploadTasks[index], index)}
+            isPaused={pauses[index]}
+          ></Tracker>
         ))}
       </View>
       <View

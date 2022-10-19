@@ -1,14 +1,14 @@
 import React from 'react';
 import { Button } from 'src/primitives/Button';
-import { FileUploaderTransferProps } from '../FileUploader/types';
+import { UploaderButtonProps } from '../FileUploader/types';
 
-export function FileUploaderButton({
+export function UploaderButton({
   multiple,
-  accept,
-  fileName,
+  acceptedFileTypes,
+  fileNames,
   setShowPreviewer,
   setFiles,
-}: FileUploaderTransferProps): JSX.Element {
+}: UploaderButtonProps): JSX.Element {
   const hiddenInput = React.useRef<HTMLInputElement>();
   function handleClick() {
     hiddenInput.current.click();
@@ -22,7 +22,7 @@ export function FileUploaderButton({
     setShowPreviewer(true);
 
     // eslint-disable-next-line no-console
-    console.log('uploading', files[0], fileName);
+    console.log('uploading', files[0], fileNames);
   }
 
   return (
@@ -40,7 +40,7 @@ export function FileUploaderButton({
         onChange={upload}
         style={{ display: 'none' }}
         multiple={multiple}
-        accept={accept?.join()}
+        accept={acceptedFileTypes?.join()}
       />
     </>
   );

@@ -1,6 +1,6 @@
 import { Amplify } from 'aws-amplify';
 
-import { Button, FileUploader, useFileUploader } from '@aws-amplify/ui-react';
+import { Button, FileUploader } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
 import awsExports from './aws-exports';
@@ -20,7 +20,6 @@ function CustomUploaderDrop({ getDropEvents, inDropZone }) {
 
 export default function FileUploaderEmail() {
   const [variation, setVariation] = useState(false);
-  // const { showPreviewer, setShowPreviewer } = useFileUploader();
   const [showPreviewer, setShowPreviewer] = useState(false);
 
   return (
@@ -39,7 +38,7 @@ export default function FileUploaderEmail() {
       <FileUploader
         isPreviewerVisible={showPreviewer}
         components={{
-          FileUploaderDrop: CustomUploaderDrop,
+          UploaderDrop: CustomUploaderDrop,
         }}
         level="public"
         multiple={true}
