@@ -12,8 +12,11 @@ import { Authenticator } from '..';
 
 jest.mock('@aws-amplify/ui-react-core');
 
+const CHILD_TEST_ID = 'child-test-id';
+const CHILD_CONTENT = 'Test Children';
+
 function TestChildren() {
-  return <Text>Test Children</Text>;
+  return <Text testID={CHILD_TEST_ID}>{CHILD_CONTENT}</Text>;
 }
 const TestComponent = () => {
   return null;
@@ -68,11 +71,16 @@ describe('Authenticator', () => {
         () => ({ route } as unknown as UseAuthenticator)
       );
 
-      const { toJSON } = render(
+      const { getByTestId, toJSON } = render(
         <Authenticator>
           <TestChildren />
         </Authenticator>
       );
+
+      const children = getByTestId(CHILD_TEST_ID);
+
+      expect(children.type).toBe('Text');
+      expect(children.props.children).toBe(CHILD_CONTENT);
 
       expect(toJSON()).toMatchSnapshot();
     }

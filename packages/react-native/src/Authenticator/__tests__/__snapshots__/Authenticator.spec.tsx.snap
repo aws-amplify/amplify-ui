@@ -3,13 +3,17 @@
 exports[`Authenticator behaves as expected in the happy path 1`] = `null`;
 
 exports[`Authenticator handles the authenticated route as expected with children 1`] = `
-<Text>
+<Text
+  testID="child-test-id"
+>
   Test Children
 </Text>
 `;
 
 exports[`Authenticator handles the signOut route as expected with children 1`] = `
-<Text>
+<Text
+  testID="child-test-id"
+>
   Test Children
 </Text>
 `;
