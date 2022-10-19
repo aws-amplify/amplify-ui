@@ -32,19 +32,25 @@ export type AuthenticatorRouteComponentName =
 
 export type GetTotpSecretCode = () => Promise<string>;
 
-export interface HeaderProps {
+interface HeaderProps {
+  children?: React.ReactNode;
+}
+
+interface FooterProps {
   children?: React.ReactNode;
 }
 
 interface FormFieldsProps {
   fields: AuthenticatorLegacyFields;
-  validationErrors: AuthenticatorMachineContext['validationErrors'];
+  validationErrors?: AuthenticatorMachineContext['validationErrors'];
 }
 
-type FooterComponent<Props = {}> = React.ComponentType<Props>;
+type FooterComponent<Props = {}> = React.ComponentType<FooterProps & Props>;
+
 type FormFieldsComponent<Props = {}> = React.ComponentType<
   FormFieldsProps & Props
 >;
+
 type HeaderComponent<Props = {}> = React.ComponentType<HeaderProps & Props>;
 
 export interface ComponentSlots {
@@ -65,14 +71,14 @@ type RouteComponent<
  * Common component prop types used for both RWA and RNA implementations
  */
 interface CommonRouteProps extends ComponentSlots {
-  error: AuthenticatorMachineContext['error'];
+  error?: AuthenticatorMachineContext['error'];
   fields: AuthenticatorLegacyFields;
   isPending: AuthenticatorMachineContext['isPending'];
 }
 
 export interface CommonConfirmResetPasswordProps extends CommonRouteProps {
   resendCode: AuthenticatorMachineContext['resendCode'];
-  validationErrors: AuthenticatorMachineContext['validationErrors'];
+  validationErrors?: AuthenticatorMachineContext['validationErrors'];
 }
 
 export interface CommonConfirmSignInProps extends CommonRouteProps {
@@ -91,7 +97,7 @@ export interface CommonConfirmVerifyUserProps extends CommonRouteProps {
 
 export interface CommonForceNewPasswordProps extends CommonRouteProps {
   toSignIn: AuthenticatorMachineContext['toSignIn'];
-  validationErrors: AuthenticatorMachineContext['validationErrors'];
+  validationErrors?: AuthenticatorMachineContext['validationErrors'];
 }
 
 export interface CommonResetPasswordProps extends CommonRouteProps {
@@ -105,7 +111,9 @@ export interface CommonSetupTOTPProps extends CommonRouteProps {
 }
 
 export interface CommonSignInProps extends CommonRouteProps {
-  hideSignUp: boolean;
+  hideSignUp?: boolean;
+  socialProviders?: AuthenticatorMachineContext['socialProviders'];
+  toResetPassword: AuthenticatorMachineContext['toResetPassword'];
   toSignUp: AuthenticatorMachineContext['toSignUp'];
 }
 

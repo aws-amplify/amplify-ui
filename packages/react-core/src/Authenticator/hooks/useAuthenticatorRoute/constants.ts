@@ -51,7 +51,13 @@ const RESET_PASSWORD_KEYS: ResetPasswordKey[] = [
   'isPending',
   'toSignIn',
 ];
-const SIGN_IN_KEYS: SignInKey[] = ['error', 'isPending', 'toSignUp'];
+const SIGN_IN_KEYS: SignInKey[] = [
+  'error',
+  'isPending',
+  'socialProviders',
+  'toResetPassword',
+  'toSignUp',
+];
 const SIGN_UP_KEYS: SignUpKey[] = [
   'error',
   'isPending',

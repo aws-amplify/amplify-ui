@@ -122,6 +122,8 @@ Object {
     "fields": Array [],
     "hideSignUp": false,
     "isPending": false,
+    "socialProviders": Array [],
+    "toResetPassword": [MockFunction],
     "toSignUp": [MockFunction],
   },
 }
