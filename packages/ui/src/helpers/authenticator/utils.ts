@@ -4,8 +4,11 @@
  */
 
 import { Hub } from 'aws-amplify';
+import { waitFor } from 'xstate/lib/waitFor';
+
 import { AuthInterpreter, HubHandler } from '../../types';
 import { ALLOWED_SPECIAL_CHARACTERS } from './constants';
+import { getActorState } from './actor';
 
 // replaces all characters in a string with '*', except for the first and last char
 export const censorAllButFirstAndLast = (value: string): string => {
@@ -33,7 +36,12 @@ export const censorPhoneNumber = (val: string): string => {
   return split.join('');
 };
 
-export const defaultAuthHubHandler: HubHandler = (data, service) => {
+const waitForAutoSignInState = async (service: AuthInterpreter) => {
+  // https://xstate.js.org/docs/guides/interpretation.html#waitfor
+  await waitFor(service, (state) => getActorState(state).matches('autoSignIn'));
+};
+
+export const defaultAuthHubHandler: HubHandler = async (data, service) => {
   const { send } = service;
   const state = service.getSnapshot(); // this is just a getter and is not expensive
 
@@ -47,10 +55,20 @@ export const defaultAuthHubHandler: HubHandler = (data, service) => {
       break;
     case 'autoSignIn':
       if (!state.matches('authenticated')) {
+        /**
+         * We wait for state machine to reach `autoSignIn` before sending
+         * this event.
+         *
+         * This will ensure that xstate is ready to handle autoSignIn by
+         * the time we send this event, and prevent race conditions between
+         * hub events and state machine transitions.
+         */
+        await waitForAutoSignInState(service);
         send({ type: 'AUTO_SIGN_IN', data: data.payload.data });
       }
       break;
     case 'autoSignIn_failure':
+      await waitForAutoSignInState(service);
       send({ type: 'AUTO_SIGN_IN_FAILURE', data: data.payload.data });
       break;
     case 'signOut':
