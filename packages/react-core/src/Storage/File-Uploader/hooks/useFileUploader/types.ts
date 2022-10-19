@@ -1,6 +1,6 @@
 export type SetFileType = File[];
 
-export interface DropZoneInterface {
+export interface DragActionHandlers {
   onDragStart: (e: React.DragEvent<HTMLDivElement>) => void;
   onDragEnter: (e: React.DragEvent<HTMLDivElement>) => void;
   onDragLeave: (e: React.DragEvent<HTMLDivElement>) => void;
@@ -15,5 +15,5 @@ export interface UseFileUploader {
   setFiles?: React.Dispatch<React.SetStateAction<SetFileType>>;
   inDropZone?: boolean;
   setInDropZone?: React.Dispatch<React.SetStateAction<boolean>>;
-  getDropEvents?: DropZoneInterface;
+  getDropEvents?: DragActionHandlers;
 }

@@ -5,24 +5,11 @@ import { UploaderButtonProps } from '../FileUploader/types';
 export function UploaderButton({
   multiple,
   acceptedFileTypes,
-  fileNames,
-  setShowPreviewer,
-  setFiles,
+  onUpload,
 }: UploaderButtonProps): JSX.Element {
   const hiddenInput = React.useRef<HTMLInputElement>();
   function handleClick() {
     hiddenInput.current.click();
-  }
-
-  function upload(event: React.ChangeEvent<HTMLInputElement>) {
-    if (!event.target.files || event.target.files.length === 0) return;
-
-    const { files } = event.target;
-    setFiles([...files]);
-    setShowPreviewer(true);
-
-    // eslint-disable-next-line no-console
-    console.log('uploading', files[0], fileNames);
   }
 
   return (
@@ -37,7 +24,7 @@ export function UploaderButton({
       <input
         type="file"
         ref={hiddenInput}
-        onChange={upload}
+        onChange={onUpload}
         style={{ display: 'none' }}
         multiple={multiple}
         accept={acceptedFileTypes?.join()}

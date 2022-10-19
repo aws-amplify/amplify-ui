@@ -38,13 +38,6 @@ export function FileUploader({
       setShowPreviewer,
       showPreviewer,
     } = useFileUploader();
-    const commonProps = {
-      acceptedFileTypes,
-      fileNames,
-      multiple,
-      setFiles,
-      setShowPreviewer,
-    };
 
     useEffect(() => {
       setShowPreviewer(isPreviewerVisible);
@@ -53,6 +46,22 @@ export function FileUploader({
     function onClose() {
       setShowPreviewer(false);
     }
+
+    function onUpload(event: React.ChangeEvent<HTMLInputElement>) {
+      if (!event.target.files || event.target.files.length === 0) return;
+
+      const { files } = event.target;
+      setFiles([...files]);
+      setShowPreviewer(true);
+
+      // eslint-disable-next-line no-console
+      console.log('uploading', files[0], fileNames);
+    }
+    const commonProps = {
+      acceptedFileTypes,
+      multiple,
+      onUpload,
+    };
 
     if (showPreviewer) {
       return (

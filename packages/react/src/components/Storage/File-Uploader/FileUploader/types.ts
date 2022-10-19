@@ -1,5 +1,5 @@
 import React from 'react';
-import { DropZoneInterface } from '@aws-amplify/ui-react-core';
+import { DragActionHandlers } from '@aws-amplify/ui-react-core';
 import { FileName } from '@aws-amplify/ui';
 
 export type SetShowPreviewer = (show: boolean) => void;
@@ -8,16 +8,14 @@ export type SetFileType = File[];
 
 export interface UploaderButtonProps {
   acceptedFileTypes: Array<string>;
-  fileNames?: FileName;
   multiple?: boolean;
-  setShowPreviewer?: SetShowPreviewer;
-  setFiles?: (file: SetFileType) => void;
+  onUpload: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export interface UploaderDropProps {
   children?: React.ReactNode;
   inDropZone?: boolean;
-  getDropEvents?: DropZoneInterface;
+  getDropEvents?: DragActionHandlers;
 }
 
 export interface FileUploaderProps {

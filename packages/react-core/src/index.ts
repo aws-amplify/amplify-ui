@@ -4,4 +4,8 @@ export {
   UseAuthenticator,
 } from './Authenticator';
 
-export { useFileUploader, UseFileUploader, DropZoneInterface } from './Storage';
+export {
+  useFileUploader,
+  UseFileUploader,
+  DragActionHandlers,
+} from './Storage';
