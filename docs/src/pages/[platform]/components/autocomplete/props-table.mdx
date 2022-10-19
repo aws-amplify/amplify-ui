@@ -5,7 +5,7 @@
 import { Expander, ExpanderItem, Link, TableBody, TableCell, TableHead, TableRow } from '@aws-amplify/ui-react';
 import { ResponsiveTable, ResponsiveTableCell } from '@/components/ResponsiveTable';
 
- #### &#60;SearchField&#62;
+ #### &#60;Autocomplete&#62;
 
 
 <ResponsiveTable className="docs-prop-table">
@@ -109,6 +109,16 @@ string
     </TableRow>
 
     <TableRow>
+      <ResponsiveTableCell label="Name">filteringOptions</ResponsiveTableCell>
+      <ResponsiveTableCell label="Type">
+```jsx
+(options: Option[], value: string) => Option[]
+```
+</ResponsiveTableCell>
+      <ResponsiveTableCell label="Description">Custom filtering that will be applied to options.  Note: Applying custom filtering to options will disable match highlighting.</ResponsiveTableCell>
+    </TableRow>
+
+    <TableRow>
       <ResponsiveTableCell label="Name">hasError</ResponsiveTableCell>
       <ResponsiveTableCell label="Type">
 ```jsx
@@ -189,6 +199,16 @@ boolean
     </TableRow>
 
     <TableRow>
+      <ResponsiveTableCell label="Name">isLoading</ResponsiveTableCell>
+      <ResponsiveTableCell label="Type">
+```jsx
+boolean
+```
+</ResponsiveTableCell>
+      <ResponsiveTableCell label="Description">Used to indicate if the autocomplete in loading state Default: false</ResponsiveTableCell>
+    </TableRow>
+
+    <TableRow>
       <ResponsiveTableCell label="Name">isReadOnly</ResponsiveTableCell>
       <ResponsiveTableCell label="Type">
 ```jsx
@@ -229,6 +249,16 @@ boolean
     </TableRow>
 
     <TableRow>
+      <ResponsiveTableCell label="Name">menu</ResponsiveTableCell>
+      <ResponsiveTableCell label="Type">
+```jsx
+Menu
+```
+</ResponsiveTableCell>
+      <ResponsiveTableCell label="Description">A colleciton of slots to customize the dropdown of options</ResponsiveTableCell>
+    </TableRow>
+
+    <TableRow>
       <ResponsiveTableCell label="Name">name</ResponsiveTableCell>
       <ResponsiveTableCell label="Type">
 ```jsx
@@ -249,6 +279,16 @@ string
     </TableRow>
 
     <TableRow>
+      <ResponsiveTableCell label="Name">onSelect</ResponsiveTableCell>
+      <ResponsiveTableCell label="Type">
+```jsx
+(option: Option) => void
+```
+</ResponsiveTableCell>
+      <ResponsiveTableCell label="Description">Triggered when an option is selected</ResponsiveTableCell>
+    </TableRow>
+
+    <TableRow>
       <ResponsiveTableCell label="Name">onSubmit</ResponsiveTableCell>
       <ResponsiveTableCell label="Type">
 ```jsx
@@ -256,6 +296,16 @@ string
 ```
 </ResponsiveTableCell>
       <ResponsiveTableCell label="Description">Handle submission of search field input</ResponsiveTableCell>
+    </TableRow>
+
+    <TableRow>
+      <ResponsiveTableCell label="Name">options<sup>*</sup></ResponsiveTableCell>
+      <ResponsiveTableCell label="Type">
+```jsx
+Option[]
+```
+</ResponsiveTableCell>
+      <ResponsiveTableCell label="Description">A list of options</ResponsiveTableCell>
     </TableRow>
 
     <TableRow>
@@ -286,6 +336,16 @@ string
 ```
 </ResponsiveTableCell>
       <ResponsiveTableCell label="Description">Placeholder text shown when field is empty Accessibility tip: avoid putting important instructions for filling out the TextField in the placeholder. Use descriptiveText for important instructions.</ResponsiveTableCell>
+    </TableRow>
+
+    <TableRow>
+      <ResponsiveTableCell label="Name">renderOption</ResponsiveTableCell>
+      <ResponsiveTableCell label="Type">
+```jsx
+(option: Option, value: string) => React.ReactNode
+```
+</ResponsiveTableCell>
+      <ResponsiveTableCell label="Description">Used to customize the rendering of an option inside the li element</ResponsiveTableCell>
     </TableRow>
 
     <TableRow>
@@ -609,4 +669,4 @@ ResponsiveStyle<Property.FlexWrap>
 
 See [Style Props](/react/theming/style-props) for all supported style and layout properties.
 
-SearchField will also accept any of the standard HTML attributes that a <code>\<input\></code> element accepts, which can be found in the <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/search" isExternal>MDN Documentation</Link>.
+Autocomplete will also accept any of the standard HTML attributes that a <code>\<input\></code> element accepts, which can be found in the <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input" isExternal>MDN Documentation</Link>.

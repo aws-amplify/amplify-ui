@@ -178,6 +178,13 @@ export const feedbackComponents: ComponentNavItem[] = [
 
 export const inputComponents: ComponentNavItem[] = [
   {
+    href: '/components/autocomplete',
+    label: 'Autocomplete',
+    body: `Autocomplete is a SearchField enhanced by a list of suggested options.`,
+    platforms: ['react'],
+    icon: MdSearch,
+  },
+  {
     href: '/components/textareafield',
     label: 'TextArea Field',
     body: `The TextAreaField form primitive can be used allow users to input multiline text content.`,

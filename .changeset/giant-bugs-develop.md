@@ -3,18 +3,16 @@
 "@aws-amplify/ui": minor
 ---
 
-feat: add autocomplete support for SearchField
-
+feat: add Autocomplete primitive
 
 **Example**
 
-
 ```jsx
-// Uncontrolled way
-import { SearchField } from '@aws-amplify/ui-react';
+// Uncontrolled component
+import { Autocomplete } from '@aws-amplify/ui-react';
 import * as React from 'react';
 
-const suggestions = [
+const options = [
   { id: 'apple', label: 'apple' },
   { id: 'banana', label: 'banana' },
   { id: 'cherry', label: 'cherry' },
@@ -26,24 +24,22 @@ const suggestions = [
   { id: 'strawberry', label: 'strawberry' },
 ];
 
-export const UncontrolledAutocompleteExample = () => {
+export const AutocompleteUncontrolledExample = () => {
   return (
-    <SearchField
+    <Autocomplete
       label="Uncontrolled autocomplete"
-      placeholder="Search..."
-      suggestions={suggestions}
+      options={options}
     />
   );
 };
-
 ```
 
 ```jsx
-// Controlled way
-import { SearchField } from '@aws-amplify/ui-react';
+// Controlled component
+import { Autocomplete } from '@aws-amplify/ui-react';
 import * as React from 'react';
 
-const suggestions = [
+const options = [
   { id: 'apple', label: 'apple' },
   { id: 'banana', label: 'banana' },
   { id: 'cherry', label: 'cherry' },
@@ -55,31 +51,32 @@ const suggestions = [
   { id: 'strawberry', label: 'strawberry' },
 ];
 
-export const ControlledAutocompleteExample = () => {
+export const AutocompleteControlledExample = () => {
   const [value, setValue] = React.useState('');
 
-  const handleOnChange = (event) => {
+  const onChange = (event) => {
     setValue(event.target.value);
   };
 
-  const handleOnSuggestionSelect = (suggestion) => {
-    const { label } = suggestion;
+  // Set up onSelect
+  const onSelect = (option) => {
+    const { label } = option;
     setValue(label);
   };
 
-  const handleOnClear = () => {
+  // Set up onClear
+  const onClear = () => {
     setValue('');
   };
 
   return (
-    <SearchField
-      label="Uncontrolled autocomplete"
-      placeholder="Search..."
-      suggestions={suggestions}
+    <Autocomplete
+      label="Controlled autocomplete"
+      options={options}
       value={value}
-      onChange={handleOnChange}
-      onClear={handleOnClear}
-      onSuggestionSelect={handleOnSuggestionSelect}
+      onChange={onChange}
+      onClear={onClear}
+      onSelect={onSelect}
     />
   );
 };
