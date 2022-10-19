@@ -58,7 +58,7 @@ describe('LivenessCheck', () => {
       screen.getByRole('button', { name: 'Cancel Liveness check' })
     ).toBeInTheDocument();
     expect(
-      screen.getByText('No camera detected with 15 fps')
+      screen.getByText('Camera does not meet minimum specification')
     ).toBeInTheDocument();
     expect(screen.queryByText('LivenessCameraModule')).not.toBeInTheDocument();
   });
