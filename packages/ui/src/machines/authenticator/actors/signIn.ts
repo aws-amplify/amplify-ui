@@ -168,9 +168,9 @@ export function signInActor({ services }: SignInMachineOptions) {
           },
         },
         autoSignIn: {
-          initial: 'edit',
+          initial: 'submit',
           states: {
-            edit: {
+            submit: {
               tags: ['pending'],
               entry: ['clearError', 'sendUpdate'],
               on: {
