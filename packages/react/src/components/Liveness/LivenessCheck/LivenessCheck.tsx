@@ -58,13 +58,13 @@ export const LivenessCheck: React.FC = () => {
             fontWeight={`${tokens.fontWeights.bold}`}
           >
             {errorState === LivenessErrorState.CAMERA_FRAMERATE_ERROR
-              ? translate('No camera detected with 15 fps')
+              ? translate('Camera does not meet minimum specification')
               : translate('Camera not accessible')}
           </Text>
           <Text color="inherit" maxWidth={300}>
             {errorState === LivenessErrorState.CAMERA_FRAMERATE_ERROR
               ? translate(
-                  'Camera with 15 fps or higher is required for an accurate check. Check your device to ensure it meets requirements.'
+                  'Use a camera that can record at 15 frames per second or higher'
                 )
               : translate(
                   'Connect a camera and allow camera permission in browser settings'
