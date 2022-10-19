@@ -1,0 +1,1 @@
+export { ComponentClassName } from './componentClassName';
