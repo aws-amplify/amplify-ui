@@ -36,7 +36,7 @@ export function getVideoConstraints(
         ideal: 480,
         max: 1080,
       },
-      frameRate: { min: 10, ideal: 10, max: 10 },
+      frameRate: { min: 15, ideal: 30, max: 30 },
       facingMode: 'user',
     };
   }
