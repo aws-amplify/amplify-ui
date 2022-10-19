@@ -168,9 +168,9 @@ export function signInActor({ services }: SignInMachineOptions) {
           },
         },
         autoSignIn: {
-          initial: 'submit',
+          initial: 'pending',
           states: {
-            submit: {
+            pending: {
               tags: ['pending'],
               entry: ['clearError', 'sendUpdate'],
               on: {
@@ -215,7 +215,7 @@ export function signInActor({ services }: SignInMachineOptions) {
                   },
                   {
                     actions: 'setRemoteError',
-                    target: 'edit',
+                    target: 'pending',
                   },
                 ],
               },
