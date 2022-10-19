@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 
 import { TextFieldStyles } from './types';
 
@@ -18,7 +18,8 @@ export const styles: TextFieldStyles = StyleSheet.create({
   input: {
     flexGrow: 1,
     fontSize: 16,
-    padding: 0,
+    // this is needed because of extra padding inside the input - in android only
+    ...(Platform.OS === 'android' && { padding: 0 }),
   },
   disabled: {
     opacity: 0.6,
