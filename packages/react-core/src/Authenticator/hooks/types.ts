@@ -65,18 +65,18 @@ type RouteComponent<
  * Common component prop types used for both RWA and RNA implementations
  */
 interface CommonRouteProps extends ComponentSlots {
-  error: AuthenticatorMachineContext['error'];
+  error?: AuthenticatorMachineContext['error'];
   fields: AuthenticatorLegacyFields;
   isPending: AuthenticatorMachineContext['isPending'];
 }
 
 export interface CommonConfirmResetPasswordProps extends CommonRouteProps {
   resendCode: AuthenticatorMachineContext['resendCode'];
-  validationErrors: AuthenticatorMachineContext['validationErrors'];
+  validationErrors?: AuthenticatorMachineContext['validationErrors'];
 }
 
 export interface CommonConfirmSignInProps extends CommonRouteProps {
-  challengeName: AuthChallengeName;
+  challengeName?: AuthChallengeName;
   toSignIn: AuthenticatorMachineContext['toSignIn'];
 }
 
@@ -91,7 +91,7 @@ export interface CommonConfirmVerifyUserProps extends CommonRouteProps {
 
 export interface CommonForceNewPasswordProps extends CommonRouteProps {
   toSignIn: AuthenticatorMachineContext['toSignIn'];
-  validationErrors: AuthenticatorMachineContext['validationErrors'];
+  validationErrors?: AuthenticatorMachineContext['validationErrors'];
 }
 
 export interface CommonResetPasswordProps extends CommonRouteProps {
@@ -105,7 +105,7 @@ export interface CommonSetupTOTPProps extends CommonRouteProps {
 }
 
 export interface CommonSignInProps extends CommonRouteProps {
-  hideSignUp: boolean;
+  hideSignUp?: boolean;
   toSignUp: AuthenticatorMachineContext['toSignUp'];
 }
 
