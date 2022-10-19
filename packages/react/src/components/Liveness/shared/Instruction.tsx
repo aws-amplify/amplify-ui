@@ -60,29 +60,25 @@ export const Instruction: React.FC<InstructionProps> = () => {
           <LivenessAlertIcon variation="error" />
           <View as="span">
             {errorState && LivenessErrorStateStringMap[errorState]}
-            {isCheckFailed && translate('Check failed! Please try again.')}
+            {isCheckFailed && translate('Check unsuccessful. Try again')}
           </View>
         </Flex>
       );
     }
 
     if (isCheckFaceDetectedBeforeStart) {
-      return translate(
-        'Please move face into camera view to begin your session.'
-      );
+      return translate('Move face in front of camera');
     }
 
     if (isNotRecording) {
-      return translate(
-        'When recording begins, move your face inside the frame that appears.'
-      );
+      return translate('After countdown, move face to fit in oval');
     }
 
     if (isWaitingForSessionInfo) {
       return (
         <Flex gap={`${tokens.space.xxs}`} alignItems="center">
           <Loader />
-          <View as="span">{translate('Waiting for connection...')}</View>
+          <View as="span">{translate('Connecting...')}</View>
         </Flex>
       );
     }
@@ -91,7 +87,7 @@ export const Instruction: React.FC<InstructionProps> = () => {
       return (
         <Flex gap={`${tokens.space.xxs}`} alignItems="center">
           <Loader />
-          <View as="span">{translate('Authenticating')}</View>
+          <View as="span">{translate('Verifying...')}</View>
         </Flex>
       );
     }
@@ -105,7 +101,7 @@ export const Instruction: React.FC<InstructionProps> = () => {
         >
           <LivenessAlertIcon variation="success" />
           <View as="span" style={{ whiteSpace: 'nowrap' }}>
-            {translate('Success!')}
+            {translate('Check successful')}
           </View>
         </Flex>
       );
@@ -116,22 +112,21 @@ export const Instruction: React.FC<InstructionProps> = () => {
     }
 
     if (isFlashingFreshness) {
-      return translate('Keep face in oval while colors appear.');
+      return translate('Hold face in oval');
     }
 
     return FaceMatchStateStringMap[faceMatchState];
   };
 
-  return (
+  const instructionContent = getInstructionContent();
+  return instructionContent ? (
     <Flex
       borderRadius={`${tokens.radii.medium}`}
       backgroundColor={`${tokens.colors.background.primary}`}
       padding={`${tokens.space.small}`}
       margin={`0 ${tokens.space.medium}`}
     >
-      <View color={`${tokens.colors.font.primary}`}>
-        {getInstructionContent()}
-      </View>
+      <View color={`${tokens.colors.font.primary}`}>{instructionContent}</View>
     </Flex>
-  );
+  ) : null;
 };

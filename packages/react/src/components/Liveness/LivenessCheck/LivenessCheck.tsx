@@ -59,7 +59,7 @@ export const LivenessCheck: React.FC = () => {
           >
             {errorState === LivenessErrorState.CAMERA_FRAMERATE_ERROR
               ? translate('No camera detected with 15 fps')
-              : translate('No camera detected')}
+              : translate('Camera not accessible')}
           </Text>
           <Text color="inherit" maxWidth={300}>
             {errorState === LivenessErrorState.CAMERA_FRAMERATE_ERROR
@@ -67,7 +67,7 @@ export const LivenessCheck: React.FC = () => {
                   'Camera with 15 fps or higher is required for an accurate check. Check your device to ensure it meets requirements.'
                 )
               : translate(
-                  "Camera access is needed in order to function. Check your browser settings to ensure that you've enabled camera access."
+                  'Connect a camera and allow camera permission in browser settings'
                 )}
           </Text>
           <View position="absolute" top="medium" right="medium">

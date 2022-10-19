@@ -293,35 +293,36 @@ export function isCameraDeviceVirtual(device: MediaDeviceInfo): boolean {
 }
 
 export const IlluminationStateStringMap: Record<IlluminationState, string> = {
-  [IlluminationState.BRIGHT]: translate('Environment too bright'),
-  [IlluminationState.DARK]: translate('Environment too dark'),
+  [IlluminationState.BRIGHT]: translate('Move to dimmer area'),
+  [IlluminationState.DARK]: translate('Move to brighter area'),
   [IlluminationState.NORMAL]: translate('Lighting conditions normal'),
 };
 
 export const FaceMatchStateStringMap: Record<FaceMatchState, string> = {
-  [FaceMatchState.CANT_IDENTIFY]: translate('No face detected'),
+  [FaceMatchState.CANT_IDENTIFY]: translate('Move face in front of camera'),
   [FaceMatchState.FACE_IDENTIFIED]: translate('Face detected'),
   [FaceMatchState.TOO_MANY]: translate('Multiple faces detected'),
-  [FaceMatchState.TOO_CLOSE]: translate('Move the face further away.'),
-  [FaceMatchState.TOO_FAR]: translate('Move the face closer.'),
-  [FaceMatchState.TOO_LEFT]: translate('Move the face to the right.'),
-  [FaceMatchState.TOO_RIGHT]: translate('Move the face to the left.'),
-  [FaceMatchState.MATCHED]: translate('Face matched!'),
+  [FaceMatchState.TOO_CLOSE]: translate('Move face further away'),
+  [FaceMatchState.TOO_FAR]: translate('Move face closer'),
+  [FaceMatchState.TOO_LEFT]: translate('Move face right'),
+  [FaceMatchState.TOO_RIGHT]: translate('Move face left'),
+  [FaceMatchState.MATCHED]: undefined,
 };
 
 export const LivenessErrorStateStringMap: Record<LivenessErrorState, string> = {
   [LivenessErrorState.RUNTIME_ERROR]: translate(
-    'Liveness encountered an error. Please try again.'
+    'Check encountered an error. Try again'
   ),
   [LivenessErrorState.SERVER_ERROR]: translate(
-    'Liveness encountered an error. Please try again.'
+    'Check encountered an error. Try again'
   ),
-  [LivenessErrorState.TIMEOUT]: translate<string>('Timeout'),
-  [LivenessErrorState.FRESHNESS_TIMEOUT]: translate<string>(
-    'Keep face in oval while colors are flashing. Please try again.'
+  [LivenessErrorState.TIMEOUT]: translate<string>(
+    'Try again. Move face to fit in oval in 5 seconds'
   ),
   [LivenessErrorState.CAMERA_FRAMERATE_ERROR]: undefined,
   [LivenessErrorState.CAMERA_ACCESS_ERROR]: undefined,
+  [LivenessErrorState.FRESHNESS_TIMEOUT]:
+    translate<string>('Hold face in oval'),
 };
 
 export const MOCK_COLOR_SEQUENCES: ColorSequence[] = [
