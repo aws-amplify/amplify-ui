@@ -68,5 +68,6 @@ describe('Tabs', () => {
     const tabs = queryAllByRole('tab');
     fireEvent.press(tabs[2]);
     expect(onChangeMock).not.toHaveBeenCalled();
+    expect(tabs[2].props.accessibilityState).toHaveProperty('disabled', true);
   });
 });
