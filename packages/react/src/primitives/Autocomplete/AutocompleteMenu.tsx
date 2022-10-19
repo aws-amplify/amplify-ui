@@ -7,27 +7,18 @@ import { AutocompleteOption } from './AutocompleteOption';
 import { ScrollView } from '../ScrollView';
 import { View } from '../View';
 import { ComponentClassNames } from '../shared/constants';
-import { useStableId } from '../utils/useStableId';
 import { classNameModifierByFlag, isFunction } from '../shared/utils';
 import type { Primitive, AutocompleteMenuProps, Option } from '../types';
-
-const defaultMenu = {
-  ariaLabel: undefined,
-  Header: null,
-  Footer: null,
-  Loading: null,
-  Empty: null,
-};
 
 export const AutocompleteMenu: Primitive<AutocompleteMenuProps, 'div'> = ({
   activeIdx,
   activeOptionId,
-  filteringType,
   isControlled,
+  isCustomFiltering = false,
   isLoading,
   isOpen,
   listboxId,
-  menu = defaultMenu,
+  menu = {},
   onSelect,
   optionBaseId,
   options = [],
@@ -38,10 +29,15 @@ export const AutocompleteMenu: Primitive<AutocompleteMenuProps, 'div'> = ({
   value,
   ...rest
 }) => {
-  const menuId = useStableId();
-  const { ariaLabel, Header, Footer, Loading, Empty } = menu;
+  const {
+    ariaLabel,
+    Header = null,
+    Footer = null,
+    Loading = null,
+    Empty = null,
+  } = menu;
 
-  const OptionMenuHeader = React.useCallback(() => {
+  const MenuHeader = React.useCallback(() => {
     return (
       Header && (
         <Flex className={ComponentClassNames.AutocompleteMenuHeader}>
@@ -51,7 +47,7 @@ export const AutocompleteMenu: Primitive<AutocompleteMenuProps, 'div'> = ({
     );
   }, [Header]);
 
-  const OptionMenuFooter = React.useCallback(() => {
+  const MenuFooter = React.useCallback(() => {
     return (
       Footer && (
         <Flex className={ComponentClassNames.AutocompleteMenuFooter}>
@@ -61,10 +57,12 @@ export const AutocompleteMenu: Primitive<AutocompleteMenuProps, 'div'> = ({
     );
   }, [Footer]);
 
-  const OptionMenuLoading = React.useCallback(
+  const MenuLoading = React.useCallback(
     () =>
       Loading ? (
-        <Flex>{Loading}</Flex>
+        <Flex className={ComponentClassNames.AutocompleteMenuLoading}>
+          {Loading}
+        </Flex>
       ) : (
         <Flex className={ComponentClassNames.AutocompleteMenuLoading}>
           <Loader />
@@ -74,7 +72,7 @@ export const AutocompleteMenu: Primitive<AutocompleteMenuProps, 'div'> = ({
     [Loading]
   );
 
-  const NoOptions = React.useCallback(
+  const MenuEmpty = React.useCallback(
     () =>
       Empty ? (
         <Flex className={ComponentClassNames.AutocompleteMenuEmpty}>
@@ -134,18 +132,18 @@ export const AutocompleteMenu: Primitive<AutocompleteMenuProps, 'div'> = ({
           >
             {isFunction(renderOption) ? (
               renderOption(option, value)
-            ) : filteringType !== 'manual' ? (
-              <HighlightMatch query={value}>{label}</HighlightMatch>
-            ) : (
+            ) : isCustomFiltering ? (
               label
+            ) : (
+              <HighlightMatch query={value}>{label}</HighlightMatch>
             )}
           </AutocompleteOption>
         );
       }),
     [
       activeIdx,
-      filteringType,
       isControlled,
+      isCustomFiltering,
       onSelect,
       optionBaseId,
       options,
@@ -157,62 +155,14 @@ export const AutocompleteMenu: Primitive<AutocompleteMenuProps, 'div'> = ({
     ]
   );
 
-  React.useEffect(() => {
-    const menuElement = document.getElementById(menuId);
-    if (menuElement) {
-      const { top, bottom } = menuElement.getBoundingClientRect();
-
-      if (top < 0 || bottom > document.documentElement.clientHeight) {
-        window.scrollTo({
-          top:
-            bottom -
-            document.documentElement.clientHeight +
-            window.scrollY +
-            20,
-          behavior: 'smooth',
-        });
-      }
-    }
-  }, [menuId]);
-
-  React.useEffect(() => {
-    const listboxElement = document.getElementById(listboxId);
-    const activeOptionElement = document.getElementById(activeOptionId);
-
-    if (activeOptionElement && listboxElement) {
-      const { scrollTop, clientHeight } = listboxElement;
-      const { offsetHeight, offsetTop } = activeOptionElement;
-      const { top, bottom } = activeOptionElement.getBoundingClientRect();
-
-      if (scrollTop > offsetTop) {
-        listboxElement.scrollTop = offsetTop;
-      }
-
-      if (scrollTop + clientHeight < offsetTop + offsetHeight) {
-        listboxElement.scrollTop = offsetTop + offsetHeight - clientHeight;
-      }
-
-      if (top < 0 || bottom > document.documentElement.clientHeight) {
-        activeOptionElement.scrollIntoView({
-          behavior: 'smooth',
-          block: 'nearest',
-        });
-      }
-    }
-  }, [activeOptionId, listboxId]);
-
   return (
-    <View
-      className={ComponentClassNames.AutocompleteMenu}
-      id={menuId}
-      {...rest}
-    >
+    <View className={ComponentClassNames.AutocompleteMenu} {...rest}>
       {isLoading ? (
-        <OptionMenuLoading />
+        <MenuLoading />
       ) : (
         <>
-          <OptionMenuHeader />
-          {options.length > 0 ? (
+          <MenuHeader />
+          {Options.length > 0 ? (
             <ScrollView
               as="ul"
               ariaLabel={ariaLabel}
@@ -223,9 +173,9 @@ export const AutocompleteMenu: Primitive<AutocompleteMenuProps, 'div'> = ({
               {Options}
             </ScrollView>
           ) : (
-            <NoOptions />
+            <MenuEmpty />
           )}
-          <OptionMenuFooter />
+          <MenuFooter />
         </>
       )}
     </View>

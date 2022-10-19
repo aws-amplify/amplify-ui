@@ -3,8 +3,6 @@ import * as React from 'react';
 import { SearchFieldProps } from './searchField';
 import { ViewProps } from './view';
 
-type FilteringType = 'auto' | 'manual' | 'none';
-
 export interface AutocompleteComboboxProps {
   role: React.AriaRole;
   'aria-activedescendant': React.AriaAttributes['aria-activedescendant'];
@@ -31,7 +29,7 @@ export interface Option {
   [key: string]: string;
 }
 
-interface OptionMenu {
+export interface Menu {
   /**
    * @description
    * Defines a string value that labels an interactive element for accessibility
@@ -100,12 +98,10 @@ export interface AutocompleteMenuProps extends ViewProps {
 
   /**
    * @description
-   * Determines how filtering is applied to the list of options.
-   *
-   * Note: Manual filtering will disable match highlighting.
-   * @default 'auto'
+   * Determines if custom filtering is provided.
+   * @default 'false'
    */
-  filteringType: FilteringType;
+  isCustomFiltering: boolean;
 
   /**
    * @description
@@ -180,7 +176,7 @@ export interface AutocompleteMenuProps extends ViewProps {
    * @description
    * A colleciton of slots to customize the dropdown of options
    */
-  menu: OptionMenu;
+  menu: Menu;
 
   /**
    * @description
@@ -200,7 +196,7 @@ export interface AutocompleteProps extends SearchFieldProps {
    * @description
    * A colleciton of slots to customize the dropdown of options
    */
-  menu?: OptionMenu;
+  menu?: Menu;
 
   /**
    * @description
@@ -211,18 +207,11 @@ export interface AutocompleteProps extends SearchFieldProps {
 
   /**
    * @description
-   * Determines how filtering is applied to the list of options.
+   * Custom filtering that will be applied to options.
    *
-   * 'auto' - The component will automatically filter options based on text input
-   *
-   * 'manual' - User customizes filtering logic by setting up `onInput` event listener and update provided options accordingly
-   *
-   * 'none' - Do not filter options
-   *
-   * Note: Manual filtering will disable match highlighting.
-   * @default 'auto'
+   * Note: Applying custom filtering to options will disable match highlighting.
    */
-  filteringType?: FilteringType;
+  filteringOptions?: (options: Array<Option>, value: string) => Array<Option>;
 
   /**
    * @description

@@ -7,6 +7,7 @@ import {
   ESCAPE_KEY,
 } from '../shared/constants';
 import { isFunction } from '../shared/utils';
+import { useStableId } from '../utils/useStableId';
 import type { Option, UseAutocompleteProps } from '../types';
 
 const DEFAULT_KEYS = new Set([ARROW_DOWN, ARROW_UP, ENTER_KEY, ESCAPE_KEY]);
@@ -14,8 +15,8 @@ const DEFAULT_KEYS = new Set([ARROW_DOWN, ARROW_UP, ENTER_KEY, ESCAPE_KEY]);
 export const useAutocomplete = ({
   defaultValue = '',
   value,
-  options,
-  filteringType,
+  options = [],
+  filteringOptions,
   onBlur,
   onChange,
   onClear,
@@ -31,18 +32,27 @@ export const useAutocomplete = ({
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [activeIdx, setActiveIdx] = React.useState(-1);
 
+  const isCustomFiltering = isFunction(filteringOptions);
   const filteredOptions = React.useMemo(() => {
-    const filter =
-      filteringType === 'auto'
-        ? (option: Option) => {
-            const { label } = option;
-            return label
-              ?.toLocaleLowerCase()
-              .includes(composedValue?.toLocaleLowerCase());
-          }
-        : () => true;
-    return options?.filter(filter) || [];
-  }, [composedValue, filteringType, options]);
+    const defaultFilter = (option: Option) => {
+      const { label } = option;
+      return label
+        ?.toLocaleLowerCase()
+        .includes(composedValue?.toLocaleLowerCase());
+    };
+    const filteredOptions = isCustomFiltering
+      ? filteringOptions(options, composedValue)
+      : options.filter(defaultFilter);
+    return filteredOptions;
+  }, [composedValue, filteringOptions, isCustomFiltering, options]);
+
+  const listboxId = useStableId();
+  const menuId = useStableId();
+  const optionBaseId = useStableId();
+  const activeOption = filteredOptions[activeIdx];
+  const activeOptionId =
+    activeOption?.id ||
+    (activeIdx !== -1 ? `${optionBaseId}-option-${activeIdx}` : undefined);
 
   const handleOnBlur: React.FocusEventHandler<HTMLInputElement> =
     React.useCallback(
@@ -124,9 +134,10 @@ export const useAutocomplete = ({
             }
             break;
           case ENTER_KEY:
-            const activeOption = filteredOptions[activeIdx];
             if (!activeOption) {
-              onSubmit(composedValue);
+              if (isFunction(onSubmit)) {
+                onSubmit(composedValue);
+              }
             } else {
               const { label } = activeOption;
               if (!isControlled) {
@@ -161,6 +172,7 @@ export const useAutocomplete = ({
       },
       [
         activeIdx,
+        activeOption,
         composedValue,
         filteredOptions,
         handleOnClear,
@@ -171,20 +183,69 @@ export const useAutocomplete = ({
       ]
     );
 
+  React.useEffect(() => {
+    const menuElement = document.getElementById(menuId);
+    if (menuElement && isMenuOpen) {
+      const { top, bottom } = menuElement.getBoundingClientRect();
+
+      if (top < 0 || bottom > document.documentElement.clientHeight) {
+        window.scrollTo({
+          top:
+            bottom -
+            document.documentElement.clientHeight +
+            window.scrollY +
+            20,
+          behavior: 'smooth',
+        });
+      }
+    }
+  }, [isMenuOpen, menuId]);
+
+  React.useEffect(() => {
+    const listboxElement = document.getElementById(listboxId);
+    const activeOptionElement = document.getElementById(activeOptionId);
+
+    if (activeOptionElement && listboxElement) {
+      const { scrollTop, clientHeight } = listboxElement;
+      const { offsetHeight, offsetTop } = activeOptionElement;
+      const { top, bottom } = activeOptionElement.getBoundingClientRect();
+
+      if (scrollTop > offsetTop) {
+        listboxElement.scrollTop = offsetTop;
+      }
+
+      if (scrollTop + clientHeight < offsetTop + offsetHeight) {
+        listboxElement.scrollTop = offsetTop + offsetHeight - clientHeight;
+      }
+
+      if (top < 0 || bottom > document.documentElement.clientHeight) {
+        activeOptionElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest',
+        });
+      }
+    }
+  }, [activeOptionId, listboxId]);
+
   return {
     activeIdx,
-    filteredOptions,
-    isControlled,
+    activeOptionId,
     composedValue,
-    isMenuOpen,
-    setActiveIdx,
-    setIsMenuOpen,
-    setInternalValue,
+    filteredOptions,
     handleOnBlur,
     handleOnClear,
     handleOnClick,
     handleOnFocus,
     handleOnChange,
     handleOnKeyDown,
+    isControlled,
+    isCustomFiltering,
+    isMenuOpen,
+    listboxId,
+    menuId,
+    optionBaseId,
+    setActiveIdx,
+    setIsMenuOpen,
+    setInternalValue,
   };
 };

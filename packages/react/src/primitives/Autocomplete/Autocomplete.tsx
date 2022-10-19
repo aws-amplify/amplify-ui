@@ -3,7 +3,6 @@ import * as React from 'react';
 
 import { AutocompleteMenu } from './AutocompleteMenu';
 import { useAutocomplete } from './useAutocomplete';
-import { TextField } from '../TextField';
 import { SearchField } from '../SearchField';
 import { View } from '../View';
 import type {
@@ -11,7 +10,6 @@ import type {
   AutocompleteProps,
   Primitive,
 } from '../types';
-import { useStableId } from '../utils/useStableId';
 import { ComponentClassName } from '../shared/types';
 
 export const AutocompletePrimitive: Primitive<AutocompleteProps, 'input'> = (
@@ -19,7 +17,7 @@ export const AutocompletePrimitive: Primitive<AutocompleteProps, 'input'> = (
     className,
     defaultValue,
     value,
-    filteringType = 'auto',
+    filteringOptions,
     isLoading = false,
     menu,
     options,
@@ -37,24 +35,29 @@ export const AutocompletePrimitive: Primitive<AutocompleteProps, 'input'> = (
 ) => {
   const {
     activeIdx,
-    filteredOptions,
-    isControlled,
+    activeOptionId,
     composedValue,
-    isMenuOpen,
-    setActiveIdx,
-    setIsMenuOpen,
-    setInternalValue,
+    filteredOptions,
     handleOnBlur,
     handleOnClear,
     handleOnClick,
     handleOnFocus,
     handleOnChange,
     handleOnKeyDown,
+    isControlled,
+    isCustomFiltering,
+    isMenuOpen,
+    listboxId,
+    menuId,
+    optionBaseId,
+    setActiveIdx,
+    setIsMenuOpen,
+    setInternalValue,
   } = useAutocomplete({
     defaultValue,
     value,
     options,
-    filteringType,
+    filteringOptions,
     onBlur,
     onChange,
     onClear,
@@ -63,15 +66,6 @@ export const AutocompletePrimitive: Primitive<AutocompleteProps, 'input'> = (
     onSelect,
     onSubmit,
   });
-
-  const listboxId = useStableId();
-
-  const optionBaseId = useStableId();
-
-  const activeOption = filteredOptions[activeIdx];
-  const activeOptionId =
-    activeOption?.id ||
-    (activeIdx !== -1 ? `${optionBaseId}-option-${activeIdx}` : undefined);
 
   const comboboxProps: AutocompleteComboboxProps = {
     role: 'combobox',
@@ -103,8 +97,9 @@ export const AutocompletePrimitive: Primitive<AutocompleteProps, 'input'> = (
         <AutocompleteMenu
           activeIdx={activeIdx}
           activeOptionId={activeOptionId}
-          filteringType={filteringType}
+          id={menuId}
           isControlled={isControlled}
+          isCustomFiltering={isCustomFiltering}
           isLoading={isLoading}
           isOpen={isMenuOpen}
           onSelect={onSelect}
