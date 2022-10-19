@@ -49,16 +49,18 @@ jobs:
         run: echo "::set-output name=version::$(amplify --version)"
       - name: Create or restore environments cache
         id: environments-cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: canary/environments/**/aws-exports.js
           key: ${{ runner.os }}-canary-environments-${{ steps.cli-version.outputs.version }}-${{ hashFiles('canary/environments/**/amplify/**') }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
       - name: Pull down AWS environments
         if: steps.environments-cache.outputs.cache-hit != 'true'
         run: yarn pull
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_AUTH }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_AUTH }}
         working-directory: ./canary
       - name: Build example app
         run: yarn build
@@ -66,11 +68,13 @@ jobs:
       # This steps attempts to restore cypress runner. It will not create any new
       # cache entries however, because cypress runner isn't available yet.
       - name: Restore cypress runner from Cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: restore-cypress-cache
         with:
           path: ~/.cache/Cypress
           key: ${{ runner.os }}-canary-cypress-${{ hashFiles('canary/e2e/yarn.lock') }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
       - name: Install e2e packages
         uses: ./.github/actions/install-with-retries
         with:
@@ -83,10 +87,12 @@ jobs:
       # step, so we go ahead and update the cache entry.
       - name: Cache cypress runner
         if: steps.restore-cypress-cache.outputs.cache-hit != 'true'
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.cache/Cypress
           key: ${{ runner.os }}-canary-cypress-${{ hashFiles('canary/e2e/yarn.lock') }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
       - name: Start ${{ matrix.example }} example
         run: yarn start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000
         working-directory: ./canary/apps/${{ matrix.path }}
@@ -100,40 +106,6 @@ jobs:
           USERNAME: ${{ secrets.USERNAME }}
           NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
           VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
-
-  log-failure-metric-prod:
-    # to be deprecated once log-failure-metric is up
-    # Send data point 1 to metric RunTimeTestsFailure in prod us-east-1, if it's a failure
-    runs-on: ubuntu-latest
-    environment: ci
-    needs: build
-    if: ${{ failure() }}
-    steps:
-      - name: Log failure data point to metric RunTimeTestsFailure
-        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
-        with:
-          metric-name: RunTimeTestsFailure
-          value: 1
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: us-east-1
-
-  log-success-metric-prod:
-    # to be deprecated once log-success-metric is up
-    # Send data point 0 to metric RunTimeTestsFailure in prod us-east-1, if it's a success
-    runs-on: ubuntu-latest
-    environment: ci
-    needs: build
-    if: ${{ success() }}
-    steps:
-      - name: Log success data point to metric RunTimeTestsFailure
-        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
-        with:
-          metric-name: RunTimeTestsFailure
-          value: 0
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: us-east-1
 
   log-failure-metric:
     # Send a failure data point to metric BuildAndRuntimeTestFailure in github-workflows@ us-east-2, if it's a failure
