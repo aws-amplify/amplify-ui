@@ -1,20 +1,9 @@
 import React, { useMemo, useState } from 'react';
-import { SetFileType } from '../../FileUploader/types';
-import { DropZoneInterface } from '../../FileUploader/types';
+import { SetFileType, UseFileUploader } from './types';
 
-interface FileHookInterface {
-  showPreviewer?: boolean;
-  setShowPreviewer?: React.Dispatch<React.SetStateAction<boolean>>;
-  files?: SetFileType;
-  setFiles?: React.Dispatch<React.SetStateAction<SetFileType>>;
-  inDropZone?: boolean;
-  setInDropZone?: React.Dispatch<React.SetStateAction<boolean>>;
-  getDropEvents?: DropZoneInterface;
-}
-
-export const useFileUploader = (): FileHookInterface => {
+export default function useFileUploader(): UseFileUploader {
   const [showPreviewer, setShowPreviewer] = useState(false);
-  const [files, setFiles] = useState<SetFileType>();
+  const [files, setFiles] = useState<SetFileType>([]);
 
   const [inDropZone, setInDropZone] = useState(false);
 
@@ -58,7 +47,7 @@ export const useFileUploader = (): FileHookInterface => {
   }, []);
 
   const value = React.useMemo(
-    (): FileHookInterface => ({
+    (): UseFileUploader => ({
       showPreviewer,
       setShowPreviewer,
       files,
@@ -71,4 +60,4 @@ export const useFileUploader = (): FileHookInterface => {
   );
 
   return value;
-};
+}

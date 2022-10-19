@@ -1,4 +1,5 @@
-export type FileName = string | Array<string>;
+import { DropZoneInterface } from '@aws-amplify/ui-react-core';
+import { FileName } from '@aws-amplify/ui';
 export type SetShowPreviewer = (show: boolean) => void;
 type LevelInfo = 'public' | 'protected' | 'private';
 export type SetFileType = File[];
@@ -36,14 +37,6 @@ export interface FilePreviewerProps {
   level: LevelInfo;
   setShowPreviewer: SetShowPreviewer;
   files: File[];
-}
-
-export interface DropZoneInterface {
-  onDragStart: (e: React.DragEvent<HTMLDivElement>) => void;
-  onDragEnter: (e: React.DragEvent<HTMLDivElement>) => void;
-  onDragLeave: (e: React.DragEvent<HTMLDivElement>) => void;
-  onDrop: (e: React.DragEvent<HTMLDivElement>) => void;
-  onDragOver: (e: React.DragEvent<HTMLDivElement>) => void;
 }
 
 export interface ComponentsProviderProps {

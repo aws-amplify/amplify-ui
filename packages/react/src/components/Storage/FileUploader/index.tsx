@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect } from 'react';
-import { FileUploaderProps, SetFileType } from './types';
+import { FileUploaderProps } from './types';
 import { FileUploaderButton } from '../FileUploaderButton';
 import { FilePreviewer } from '../FilePreviewer';
 import { View } from 'src/primitives';
 import { FileUploaderDrop } from '../FileUploaderDrop';
-import { useFileUploader } from '../hooks/useFileUploader';
+import { useFileUploader } from '@aws-amplify/ui-react-core';
 
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/connected-components/storage)

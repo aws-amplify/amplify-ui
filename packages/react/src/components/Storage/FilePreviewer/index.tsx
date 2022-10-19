@@ -6,7 +6,7 @@ import { Card } from 'src/primitives/Card';
 import { View } from 'src/primitives/View';
 import { FileTracker, SetPause } from '../FileTracker';
 import { FilePreviewerProps } from '../FileUploader/types';
-import { getFileName, uploadFile } from '../shared/utils';
+import { getFileName, uploadFile } from '@aws-amplify/ui';
 import { UploadTask } from '@aws-amplify/storage';
 
 export function FilePreviewer({

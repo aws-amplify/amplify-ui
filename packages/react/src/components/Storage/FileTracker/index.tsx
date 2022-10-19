@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { Loader, View } from 'src/primitives';
-// import { Storage } from 'aws-amplify';
-// import { UploadTask } from '@aws-amplify/storage';
 
 export type SetPause = React.Dispatch<React.SetStateAction<boolean>>;
 export function FileTracker({

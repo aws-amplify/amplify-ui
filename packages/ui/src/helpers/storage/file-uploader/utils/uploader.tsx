@@ -1,4 +1,4 @@
-import { FileName } from '../../FileUploader/types';
+import { FileName } from '../../../../types/storage';
 import { Storage } from 'aws-amplify';
 import { StorageAccessLevel, UploadTask } from '@aws-amplify/storage';
 
