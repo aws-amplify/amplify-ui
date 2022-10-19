@@ -21,17 +21,17 @@ export type UseAuthenticatorRouteParams<PlatformProps = {}> = {
 /**
  * Mapping of route component names to corresponding common prop type
  */
-interface Props {
-  ConfirmResetPassword: CommonConfirmResetPasswordProps;
-  ConfirmSignIn: CommonConfirmSignInProps;
-  ConfirmSignUp: CommonConfirmSignUpProps;
-  ConfirmVerifyUser: CommonConfirmVerifyUserProps;
-  ForceNewPassword: CommonForceNewPasswordProps;
-  ResetPassword: CommonResetPasswordProps;
-  SetupTOTP: CommonSetupTOTPProps;
-  SignIn: CommonSignInProps;
-  SignUp: CommonSignUpProps;
-  VerifyUser: CommonVerifyUserProps;
+interface Props<PlatformProps = {}> {
+  ConfirmResetPassword: CommonConfirmResetPasswordProps<PlatformProps>;
+  ConfirmSignIn: CommonConfirmSignInProps<PlatformProps>;
+  ConfirmSignUp: CommonConfirmSignUpProps<PlatformProps>;
+  ConfirmVerifyUser: CommonConfirmVerifyUserProps<PlatformProps>;
+  ForceNewPassword: CommonForceNewPasswordProps<PlatformProps>;
+  ResetPassword: CommonResetPasswordProps<PlatformProps>;
+  SetupTOTP: CommonSetupTOTPProps<PlatformProps>;
+  SignIn: CommonSignInProps<PlatformProps>;
+  SignUp: CommonSignUpProps<PlatformProps>;
+  VerifyUser: CommonVerifyUserProps<PlatformProps>;
 }
 
 export type UseAuthenticatorRoute<
@@ -39,7 +39,7 @@ export type UseAuthenticatorRoute<
   ComponentName extends AuthenticatorRouteComponentName
 > = {
   Component: Defaults<PlatformProps>[ComponentName];
-  props: Props[ComponentName];
+  props: Props<PlatformProps>[ComponentName];
 };
 
 // extract machine prop keys required for a sub-component route
