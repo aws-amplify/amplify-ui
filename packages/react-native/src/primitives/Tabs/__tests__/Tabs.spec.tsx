@@ -9,7 +9,7 @@ const onChangeMock = jest.fn();
 
 const ControlledTabs = ({
   onChangeCallback,
-  selectedIndex = 0,
+  selectedIndex,
 }: {
   onChangeCallback?: jest.Mock<any, any>;
   selectedIndex?: number;
