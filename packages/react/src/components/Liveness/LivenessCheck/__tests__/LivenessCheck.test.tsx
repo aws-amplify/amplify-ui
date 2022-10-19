@@ -40,7 +40,7 @@ describe('LivenessCheck', () => {
     expect(
       screen.getByRole('button', { name: 'Cancel Liveness check' })
     ).toBeInTheDocument();
-    expect(screen.getByText('No camera detected')).toBeInTheDocument();
+    expect(screen.getByText('Camera not accessible')).toBeInTheDocument();
     expect(screen.queryByText('LivenessCameraModule')).not.toBeInTheDocument();
   });
 
@@ -50,7 +50,7 @@ describe('LivenessCheck', () => {
 
     renderWithLivenessProvider(<LivenessCheck />);
 
-    expect(screen.queryByText('No camera detected')).not.toBeInTheDocument();
+    expect(screen.queryByText('Camera not accessible')).not.toBeInTheDocument();
     expect(screen.getByText('LivenessCameraModule')).toBeInTheDocument();
   });
 });

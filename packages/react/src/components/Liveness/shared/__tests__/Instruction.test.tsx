@@ -98,7 +98,7 @@ describe('Instruction', () => {
     renderWithLivenessProvider(<Instruction />);
 
     expect(
-      screen.getByText('Check failed! Please try again.')
+      screen.getByText('Check unsuccessful. Try again')
     ).toBeInTheDocument();
   });
 
@@ -109,9 +109,7 @@ describe('Instruction', () => {
     renderWithLivenessProvider(<Instruction />);
 
     expect(
-      screen.getByText(
-        'When recording begins, move your face inside the frame that appears.'
-      )
+      screen.getByText('After countdown, move face to fit in oval')
     ).toBeInTheDocument();
   });
 
@@ -121,7 +119,7 @@ describe('Instruction', () => {
 
     renderWithLivenessProvider(<Instruction />);
 
-    expect(screen.getByText('Authenticating')).toBeInTheDocument();
+    expect(screen.getByText('Verifying...')).toBeInTheDocument();
   });
 
   it('should render check succeeded state if present', () => {
@@ -130,7 +128,7 @@ describe('Instruction', () => {
 
     renderWithLivenessProvider(<Instruction />);
 
-    expect(screen.getByText('Success!')).toBeInTheDocument();
+    expect(screen.getByText('Check successful')).toBeInTheDocument();
   });
 
   it('should render illumination state if present', () => {
