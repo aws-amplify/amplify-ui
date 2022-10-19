@@ -7,32 +7,33 @@ import { PasswordFieldProps } from './types';
 
 export default function PasswordField({
   disabled,
-  hideShowPassword = false,
+  showPasswordButton = true,
   iconStyle,
   iconAccessibilityLabel,
+  secureTextEntry = true,
   ...rest
 }: PasswordFieldProps): JSX.Element {
-  const [secureTextEntry, setSecureTextEntry] = useState(true);
+  const [obscureText, setObscureText] = useState(secureTextEntry);
 
   const handleOnPress = React.useCallback(() => {
-    setSecureTextEntry(!secureTextEntry);
-  }, [secureTextEntry]);
+    setObscureText(!obscureText);
+  }, [obscureText]);
 
   return (
     <TextField
       {...rest}
       disabled={disabled}
-      secureTextEntry={secureTextEntry}
-      outerEndComponent={
-        hideShowPassword ? null : (
+      secureTextEntry={obscureText}
+      endAccessory={
+        showPasswordButton ? (
           <IconButton
             accessibilityLabel={iconAccessibilityLabel}
             disabled={disabled}
             iconStyle={iconStyle}
-            source={secureTextEntry ? icons.visibilityOff : icons.visibilityOn}
+            source={obscureText ? icons.visibilityOff : icons.visibilityOn}
             onPress={handleOnPress}
           />
-        )
+        ) : null
       }
     />
   );

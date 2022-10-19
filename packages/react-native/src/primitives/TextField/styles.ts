@@ -18,7 +18,6 @@ export const styles: TextFieldStyles = StyleSheet.create({
   input: {
     flexGrow: 1,
     fontSize: 16,
-    lineHeight: 16,
     padding: 0,
   },
   disabled: {

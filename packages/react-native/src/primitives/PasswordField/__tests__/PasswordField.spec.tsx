@@ -45,11 +45,21 @@ describe('PasswordField', () => {
 
   it('should be able to hide show password icon', () => {
     const { toJSON, queryByRole } = render(
-      <PasswordField {...defaultProps} hideShowPassword />
+      <PasswordField {...defaultProps} showPasswordButton={false} />
     );
     expect(toJSON()).toMatchSnapshot();
     const icon = queryByRole('button');
     expect(icon).toBe(null);
+  });
+
+  it('should be able to obscure text programmatically', () => {
+    const { toJSON, getByTestId } = render(
+      <PasswordField {...defaultProps} secureTextEntry={false} />
+    );
+    expect(toJSON()).toMatchSnapshot();
+
+    const textInput = getByTestId(testID);
+    expect(textInput.props.secureTextEntry).toBe(false);
   });
 
   it('renders as expected when disabled', () => {

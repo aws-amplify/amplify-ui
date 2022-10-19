@@ -2,13 +2,12 @@ import { ImageStyle } from 'react-native';
 import { IconButtonProps } from '../IconButton';
 import { TextFieldProps, TextFieldStyles } from '../TextField';
 
-export interface PasswordFieldProps
-  extends Omit<TextFieldProps, 'secureTextEntry'> {
+export interface PasswordFieldProps extends TextFieldProps {
   /**
    * @description
-   * For password fields, will hide the "show password" button
+   * For password fields, will toggle visibility of the "show password" button
    */
-  hideShowPassword?: boolean;
+  showPasswordButton?: boolean;
 
   /**
    * @description

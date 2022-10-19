@@ -54,7 +54,7 @@ export interface TextFieldProps extends Omit<TextInputProps, 'editable'> {
    * @description
    * Component(s) to show after input
    */
-  outerEndComponent?: React.ReactNode;
+  endAccessory?: React.ReactNode;
 }
 
 export interface TextFieldStyles {

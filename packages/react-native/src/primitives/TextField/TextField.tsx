@@ -17,7 +17,7 @@ export default function TextField({
   fieldStyle,
   label,
   labelStyle,
-  outerEndComponent,
+  endAccessory,
   style,
   ...rest
 }: TextFieldProps): JSX.Element {
@@ -45,7 +45,7 @@ export default function TextField({
           accessible={accessible}
           editable={!disabled}
         />
-        {outerEndComponent ?? null}
+        {endAccessory ?? null}
       </View>
       {error && errorMessage ? (
         <Label style={errorMessageStyle}>{errorMessage}</Label>

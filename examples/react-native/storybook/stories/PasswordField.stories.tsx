@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 storiesOf('PasswordField', module)
   .add('default', () => <PasswordField style={styles.container} />)
   .add('without password visibility icon', () => (
-    <PasswordField style={styles.container} hideShowPassword />
+    <PasswordField style={styles.container} showPasswordButton={false} />
   ))
   .add('disabled', () => <PasswordField style={styles.container} disabled />)
   .add('style', () => (
