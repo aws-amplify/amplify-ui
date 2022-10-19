@@ -339,11 +339,9 @@ When(
       throw new Error('Hub is not available on the window.');
     }
 
-    cy.wait(300)
-      .fixture(fixture)
-      .then((data) => {
-        Hub.dispatch('auth', { event: eventName, data });
-      });
+    cy.fixture(fixture).then((data) => {
+      Hub.dispatch('auth', { event: eventName, data });
+    });
   }
 );
 

@@ -25,4 +25,7 @@ export type AuthInterpreter = Interpreter<
  */
 export type AuthMachineSend = AuthInterpreter['send'];
 
-export type HubHandler = (data: HubCapsule, service: AuthInterpreter) => void;
+export type HubHandler = (
+  data: HubCapsule,
+  service: AuthInterpreter
+) => Promise<void>;
