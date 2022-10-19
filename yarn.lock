@@ -599,15 +599,6 @@
     qrcode "^1.4.4"
     uuid "^8.2.0"
 
-"@aws-amplify/ui-react-core@1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/ui-react-core/-/ui-react-core-1.0.2.tgz#64840b33fe1578af829c802bbde6d8a4b9195fbf"
-  integrity sha512-PQRGaqdjKBlkGDizefwNE+KNQd/71VbGb4Ev8gGjo2shALvTW+aTCOw9MYC2vDWGCZvCTpwm+SCF0KucJxSLIQ==
-  dependencies:
-    "@aws-amplify/ui" "4.0.0"
-    "@xstate/react" "3.0.1"
-    xstate "^4.33.6"
-
 "@aws-amplify/ui-react-v1@npm:@aws-amplify/ui-react@1.2.9":
   version "1.2.9"
   resolved "https://registry.yarnpkg.com/@aws-amplify/ui-react/-/ui-react-1.2.9.tgz#bcaa93f021afc801f9d8e6aa98558128b2cb173f"

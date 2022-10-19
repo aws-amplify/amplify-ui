@@ -1,1 +1,6 @@
-export const hello = 'world';
+export {
+  Authenticator,
+  AuthenticatorProps,
+  useAuthenticator,
+  UseAuthenticator,
+} from './Authenticator';
