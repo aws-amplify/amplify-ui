@@ -10,4 +10,5 @@ export {
   UseAuthenticator,
   useAuthenticatorInitMachine,
   UseAuthenticatorRoute,
+  FormFieldsComponent,
 } from './Authenticator';
