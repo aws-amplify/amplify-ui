@@ -1,12 +1,19 @@
-import { TextStyle, ViewStyle } from 'react-native';
-import { ButtonProps, IconProps } from '..';
+import {
+  ImageSourcePropType,
+  ImageStyle,
+  StyleProp,
+  TextStyle,
+  ViewStyle,
+} from 'react-native';
+
+import { ButtonProps } from '..';
 
 export interface FederatedProviderButtonProps extends ButtonProps {
-  Icon: React.ReactElement<IconProps>;
+  source: ImageSourcePropType;
 }
 
 export interface FederatedProviderButtonStyles {
   container: ViewStyle;
-  icon: ViewStyle;
+  icon: StyleProp<ImageStyle>;
   label: TextStyle;
 }

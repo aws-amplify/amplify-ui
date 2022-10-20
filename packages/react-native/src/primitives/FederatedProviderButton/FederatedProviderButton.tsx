@@ -1,20 +1,14 @@
 import React, { useCallback } from 'react';
-import {
-  PressableStateCallbackType,
-  StyleProp,
-  View,
-  ViewStyle,
-} from 'react-native';
+import { PressableStateCallbackType, StyleProp, ViewStyle } from 'react-native';
 
-import { Button, Label } from '..';
+import { Button, Icon, Label } from '..';
 
 import { styles } from './styles';
 import { FederatedProviderButtonProps } from './types';
 
 export default function FederatedProviderButton({
   children,
-  Icon,
-  onPress,
+  source,
   style,
   textStyle,
   ...rest
@@ -29,8 +23,8 @@ export default function FederatedProviderButton({
   );
 
   return (
-    <Button {...rest} onPress={onPress} style={containerStyle}>
-      <View style={styles.icon}>{Icon}</View>
+    <Button {...rest} style={containerStyle}>
+      <Icon source={source} style={styles.icon} size={20} />
       <Label style={[styles.label, textStyle]}>{children}</Label>
     </Button>
   );

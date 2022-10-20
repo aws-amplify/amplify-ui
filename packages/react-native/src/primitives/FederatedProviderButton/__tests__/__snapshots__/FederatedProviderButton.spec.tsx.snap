@@ -29,33 +29,27 @@ exports[`FederatedProviderButton renders default button as expected 1`] = `
     ]
   }
 >
-  <View
-    style={
+  <Image
+    accessibilityRole="image"
+    source={
       Object {
-        "paddingHorizontal": 8,
+        "testUri": "../../../src/assets/icons/amazonLogo.png",
       }
     }
-  >
-    <Image
-      accessibilityRole="image"
-      source={
+    style={
+      Array [
         Object {
-          "testUri": "../../../src/assets/icons/amazonLogo.png",
-        }
-      }
-      style={
-        Array [
-          Object {
-            "height": 20,
-            "resizeMode": "contain",
-            "tintColor": undefined,
-            "width": 20,
-          },
-          undefined,
-        ]
-      }
-    />
-  </View>
+          "height": 20,
+          "resizeMode": "contain",
+          "tintColor": undefined,
+          "width": 20,
+        },
+        Object {
+          "paddingHorizontal": 8,
+        },
+      ]
+    }
+  />
   <Text
     accessibilityRole="text"
     style={

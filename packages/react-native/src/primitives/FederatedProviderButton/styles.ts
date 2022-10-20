@@ -13,7 +13,7 @@ export const styles: FederatedProviderButtonStyles = StyleSheet.create({
     width: '100%',
   },
   icon: {
-    paddingHorizontal: 8,
+    paddingHorizontal: 16,
   },
   label: {
     fontWeight: '400',

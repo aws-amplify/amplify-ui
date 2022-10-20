@@ -2,10 +2,7 @@ import React from 'react';
 import { ImageSourcePropType, StyleSheet, View } from 'react-native';
 import { SocialProvider } from '@aws-amplify/ui';
 import { storiesOf } from '@storybook/react-native';
-import {
-  FederatedProviderButton,
-  Icon,
-} from '@aws-amplify/ui-react-native/dist/primitives';
+import { FederatedProviderButton } from '@aws-amplify/ui-react-native/dist/primitives';
 import { icons } from '@aws-amplify/ui-react-native/dist/assets';
 import { capitalize } from '@aws-amplify/ui-react-native/src/utils';
 
@@ -24,7 +21,7 @@ const logos: Logos = {
 
 storiesOf('FederatedProviderButton', module)
   .add('default', () => (
-    <FederatedProviderButton Icon={<Icon source={logos.amazon} size={20} />}>
+    <FederatedProviderButton source={logos.amazon}>
       Sign In with Amazon
     </FederatedProviderButton>
   ))
@@ -33,7 +30,7 @@ storiesOf('FederatedProviderButton', module)
       {providers.map((provider, index) => (
         <FederatedProviderButton
           key={`${provider}-${index}`}
-          Icon={<Icon source={logos[provider]} size={20} />}
+          source={logos[provider]}
           style={styles.button}
         >
           Sign In with {capitalize(provider)}

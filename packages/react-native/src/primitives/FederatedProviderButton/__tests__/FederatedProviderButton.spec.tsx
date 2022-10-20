@@ -2,16 +2,14 @@ import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
 
 import { icons } from '../../../assets';
-import { Icon } from '../../Icon';
 import FederatedProviderButton from '../FederatedProviderButton';
 
-const AmazonIcon = <Icon source={icons.amazonLogo} size={20} />;
 const signInText = 'Sign In with Amazon';
 
 describe('FederatedProviderButton', () => {
   it('renders default button as expected', () => {
     const { toJSON } = render(
-      <FederatedProviderButton Icon={AmazonIcon}>
+      <FederatedProviderButton source={icons.amazonLogo}>
         {signInText}
       </FederatedProviderButton>
     );
@@ -22,7 +20,7 @@ describe('FederatedProviderButton', () => {
     const toFederatedSignInMock = jest.fn();
     const { getByText } = render(
       <FederatedProviderButton
-        Icon={AmazonIcon}
+        source={icons.amazonLogo}
         onPress={toFederatedSignInMock}
       >
         {signInText}
