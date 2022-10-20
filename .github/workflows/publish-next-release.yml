@@ -45,7 +45,7 @@ jobs:
 
   build-test:
     runs-on: ubuntu-latest
-    needs: setup
+    needs: publish
     environment: ci
     steps:
       - name: Checkout repo
