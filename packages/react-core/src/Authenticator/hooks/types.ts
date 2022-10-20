@@ -58,7 +58,7 @@ export interface ComponentSlots<PlatformProps = {}> {
   Footer: FooterComponent;
   Header: HeaderComponent;
 
-  // `FormFieldsCompoennt` requires platform specific props
+  // `FormFieldsComponent` requires platform specific props
   FormFields: FormFieldsComponent<PlatformProps>;
 }
 
