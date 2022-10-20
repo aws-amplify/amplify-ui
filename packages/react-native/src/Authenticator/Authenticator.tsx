@@ -2,7 +2,6 @@ import React, { useMemo } from 'react';
 
 import {
   AuthenticatorProvider as Provider,
-  AuthenticatorComponentDefaults,
   AuthenticatorMachineContext,
   resolveAuthenticatorComponents,
   useAuthenticator,
@@ -11,11 +10,33 @@ import {
   UseAuthenticator,
 } from '@aws-amplify/ui-react-core';
 
-import { AuthenticatorProps, FormHandlers } from './types';
+import { AuthenticatorProps } from './types';
+
+import {
+  ConfirmResetPassword,
+  ConfirmSignIn,
+  ConfirmSignUp,
+  ConfirmVerifyUser,
+  ForceNewPassword,
+  ResetPassword,
+  SetupTOTP,
+  SignIn,
+  SignUp,
+  VerifyUser,
+} from './Defaults';
 
 const DEFAULTS = {
-  // TODO: remove cast after adding missing components
-} as unknown as AuthenticatorComponentDefaults<FormHandlers>;
+  ConfirmResetPassword,
+  ConfirmSignIn,
+  ConfirmSignUp,
+  ConfirmVerifyUser,
+  ForceNewPassword,
+  ResetPassword,
+  SetupTOTP,
+  SignIn,
+  SignUp,
+  VerifyUser,
+};
 
 const isAuthenticatedRoute = (route: UseAuthenticator['route']) =>
   route === 'authenticated' || route === 'signOut';
