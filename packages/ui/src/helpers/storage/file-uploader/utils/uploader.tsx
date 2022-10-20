@@ -30,8 +30,6 @@ export function uploadFile({
   index: number;
 }): UploadTask {
   // todo add content type
-  // eslint-disable-next-line no-console
-  console.log('running put', fileName, file);
   return Storage.put(fileName, file, {
     level,
     resumable: true,
@@ -40,15 +38,9 @@ export function uploadFile({
         (progress.loaded / progress.total) * 100
       );
       percentage[index] = singlePercentage;
-      // eslint-disable-next-line no-console
-      console.log('poercentage', percentage);
       const addPercentage = [...percentage, singlePercentage];
 
       setPercentage(addPercentage);
-      // eslint-disable-next-line no-console
-      console.log(
-        `Uploaded: ${progress.loaded}/${progress.total} ${singlePercentage} ${fileName}`
-      );
     },
   });
 }
