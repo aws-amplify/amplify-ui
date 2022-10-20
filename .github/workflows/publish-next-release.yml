@@ -2,7 +2,7 @@
 #
 # Triggered by: merge to `next-release/main` branch
 
-name: Publish / next-release
+name: POC / Publish / next-release
 
 on:
   pull_request:
