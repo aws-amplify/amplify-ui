@@ -7,8 +7,11 @@ import { AutocompleteOption } from './AutocompleteOption';
 import { ScrollView } from '../ScrollView';
 import { View } from '../View';
 import { ComponentClassNames } from '../shared/constants';
-import { classNameModifierByFlag, isFunction } from '../shared/utils';
+import { isFunction } from '../shared/utils';
 import type { Primitive, AutocompleteMenuProps, Option } from '../types';
+
+export const EMPTY_TEXT = 'No options found';
+export const LOADING_TEXT = 'Loading options...';
 
 export const AutocompleteMenu: Primitive<AutocompleteMenuProps, 'div'> = ({
   activeIdx,
@@ -66,7 +69,7 @@ export const AutocompleteMenu: Primitive<AutocompleteMenuProps, 'div'> = ({
       ) : (
         <Flex className={ComponentClassNames.AutocompleteMenuLoading}>
           <Loader />
-          Loading options...
+          {LOADING_TEXT}
         </Flex>
       ),
     [Loading]
@@ -80,7 +83,7 @@ export const AutocompleteMenu: Primitive<AutocompleteMenuProps, 'div'> = ({
         </Flex>
       ) : (
         <Flex className={ComponentClassNames.AutocompleteMenuEmpty}>
-          No options found
+          {EMPTY_TEXT}
         </Flex>
       ),
     [Empty]
@@ -89,7 +92,7 @@ export const AutocompleteMenu: Primitive<AutocompleteMenuProps, 'div'> = ({
   const Options = React.useMemo(
     () =>
       options.map((option: Option, idx) => {
-        const { id, label } = option;
+        const { id, label, ...rest } = option;
         const isActive = activeIdx === idx;
 
         const handleOnClick: React.MouseEventHandler<HTMLLIElement> = () => {
@@ -118,17 +121,13 @@ export const AutocompleteMenu: Primitive<AutocompleteMenuProps, 'div'> = ({
 
         return (
           <AutocompleteOption
-            aria-selected={isActive}
-            className={classNameModifierByFlag(
-              ComponentClassNames.AutocompleteMenuOption,
-              'active',
-              isActive
-            )}
+            isActive={isActive}
             id={id || optionId}
             key={id || optionId}
             onClick={handleOnClick}
             onMouseDown={handleOnMouseDown}
             onMouseMove={handleOnMouseMove}
+            {...rest}
           >
             {isFunction(renderOption) ? (
               renderOption(option, value)

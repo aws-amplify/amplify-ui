@@ -16,7 +16,7 @@ export const useAutocomplete = ({
   defaultValue = '',
   value,
   options = [],
-  filteringOptions,
+  filteringOption,
   onBlur,
   onChange,
   onClear,
@@ -32,7 +32,7 @@ export const useAutocomplete = ({
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [activeIdx, setActiveIdx] = React.useState(-1);
 
-  const isCustomFiltering = isFunction(filteringOptions);
+  const isCustomFiltering = isFunction(filteringOption);
   const filteredOptions = React.useMemo(() => {
     const defaultFilter = (option: Option) => {
       const { label } = option;
@@ -40,16 +40,18 @@ export const useAutocomplete = ({
         ?.toLocaleLowerCase()
         .includes(composedValue?.toLocaleLowerCase());
     };
-    const filteredOptions = isCustomFiltering
-      ? filteringOptions(options, composedValue)
-      : options.filter(defaultFilter);
-    return filteredOptions;
-  }, [composedValue, filteringOptions, isCustomFiltering, options]);
+    const filter = isCustomFiltering
+      ? (option: Option) => filteringOption(option, composedValue)
+      : defaultFilter;
+    return options.filter(filter);
+  }, [composedValue, filteringOption, isCustomFiltering, options]);
 
   const listboxId = useStableId();
   const menuId = useStableId();
   const optionBaseId = useStableId();
-  const activeOption = filteredOptions[activeIdx];
+  const activeOption = Array.isArray(filteredOptions)
+    ? filteredOptions[activeIdx]
+    : undefined;
   const activeOptionId =
     activeOption?.id ||
     (activeIdx !== -1 ? `${optionBaseId}-option-${activeIdx}` : undefined);

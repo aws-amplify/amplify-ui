@@ -29,7 +29,7 @@ export interface Option {
   [key: string]: string;
 }
 
-export interface Menu {
+export interface AutocompleteMenu {
   /**
    * @description
    * Defines a string value that labels an interactive element for accessibility
@@ -81,6 +81,11 @@ export interface AutocompleteOptionProps extends ViewProps {
    * React node that will be wrapped inside a li element
    */
   children: React.ReactNode;
+  /**
+   * @description
+   * Determine if it is an active option
+   */
+  isActive: boolean;
 }
 
 export interface AutocompleteMenuProps extends ViewProps {
@@ -176,7 +181,7 @@ export interface AutocompleteMenuProps extends ViewProps {
    * @description
    * A colleciton of slots to customize the dropdown of options
    */
-  menu: Menu;
+  menu: AutocompleteMenu;
 
   /**
    * @description
@@ -196,7 +201,7 @@ export interface AutocompleteProps extends SearchFieldProps {
    * @description
    * A colleciton of slots to customize the dropdown of options
    */
-  menu?: Menu;
+  menu?: AutocompleteMenu;
 
   /**
    * @description
@@ -211,7 +216,7 @@ export interface AutocompleteProps extends SearchFieldProps {
    *
    * Note: Applying custom filtering to options will disable match highlighting.
    */
-  filteringOptions?: (options: Array<Option>, value: string) => Array<Option>;
+  filteringOption?: (option: Option, value: string) => boolean;
 
   /**
    * @description

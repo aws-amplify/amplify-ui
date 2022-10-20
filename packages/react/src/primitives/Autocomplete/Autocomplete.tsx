@@ -5,19 +5,19 @@ import { AutocompleteMenu } from './AutocompleteMenu';
 import { useAutocomplete } from './useAutocomplete';
 import { SearchField } from '../SearchField';
 import { View } from '../View';
+import { ComponentClassNames } from '../shared/constants';
 import type {
   AutocompleteComboboxProps,
   AutocompleteProps,
   Primitive,
 } from '../types';
-import { ComponentClassName } from '../shared/types';
 
 export const AutocompletePrimitive: Primitive<AutocompleteProps, 'input'> = (
   {
     className,
     defaultValue,
     value,
-    filteringOptions,
+    filteringOption,
     isLoading = false,
     menu,
     options,
@@ -29,6 +29,7 @@ export const AutocompletePrimitive: Primitive<AutocompleteProps, 'input'> = (
     onSelect,
     onSubmit,
     renderOption,
+    testId,
     ...rest
   },
   ref
@@ -57,7 +58,7 @@ export const AutocompletePrimitive: Primitive<AutocompleteProps, 'input'> = (
     defaultValue,
     value,
     options,
-    filteringOptions,
+    filteringOption,
     onBlur,
     onChange,
     onClear,
@@ -71,14 +72,17 @@ export const AutocompletePrimitive: Primitive<AutocompleteProps, 'input'> = (
     role: 'combobox',
     'aria-activedescendant': activeOptionId,
     'aria-autocomplete': 'list',
-    'aria-controls': isMenuOpen ? listboxId : undefined,
+    'aria-controls': isMenuOpen ? menuId : undefined,
     'aria-expanded': isMenuOpen,
     'aria-haspopup': 'listbox',
-    'aria-owns': isMenuOpen ? listboxId : undefined,
+    'aria-owns': isMenuOpen ? menuId : undefined,
   };
 
   return (
-    <View className={classNames(ComponentClassName.Autocomplete, className)}>
+    <View
+      className={classNames(ComponentClassNames.Autocomplete, className)}
+      testId={testId}
+    >
       <SearchField
         hasSearchButton={false}
         hasSearchIcon={true}
