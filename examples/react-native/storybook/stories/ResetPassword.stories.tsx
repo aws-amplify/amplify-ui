@@ -8,4 +8,4 @@ storiesOf('ResetPassword', module)
   .add('default', () => <ResetPassword {...props} />)
   .add('header', () => <ResetPassword.Header />)
   .add('footer', () => <ResetPassword.Footer />)
-  .add('formFields', () => <ResetPassword.FormFields fields={[]} />);
+  .add('formFields', () => <ResetPassword.FormFields {...props} />);

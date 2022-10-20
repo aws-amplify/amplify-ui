@@ -8,4 +8,4 @@ storiesOf('ConfirmSignUp', module)
   .add('default', () => <ConfirmSignUp {...props} />)
   .add('header', () => <ConfirmSignUp.Header />)
   .add('footer', () => <ConfirmSignUp.Footer />)
-  .add('formFields', () => <ConfirmSignUp.FormFields fields={[]} />);
+  .add('formFields', () => <ConfirmSignUp.FormFields {...props} />);

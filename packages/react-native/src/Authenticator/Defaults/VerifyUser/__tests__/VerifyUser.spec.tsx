@@ -12,7 +12,7 @@ describe('VerifyUser', () => {
         <VerifyUser {...props} />
         <VerifyUser.Header />
         <VerifyUser.Footer />
-        <VerifyUser.FormFields fields={[]} />
+        <VerifyUser.FormFields {...props} />
       </>
     );
     expect(toJSON()).toMatchSnapshot();
