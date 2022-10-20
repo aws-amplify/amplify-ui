@@ -32,6 +32,7 @@ describe('LivenessStreamProvider', () => {
   const mockReadableStream = {
     getReader: () => {
       return {
+        cancel: jest.fn().mockResolvedValueOnce(undefined),
         read: () => {
           return {
             then: (success) => {
@@ -74,6 +75,7 @@ describe('LivenessStreamProvider', () => {
     getBlob: jest.fn(),
     destroy: jest.fn(),
     dispatch: jest.fn(),
+    getState: jest.fn().mockReturnValue('recording'),
     videoStream: mockReadableStream,
   };
   const mockCameraDevice: MediaDeviceInfo = {
@@ -182,6 +184,19 @@ describe('LivenessStreamProvider', () => {
       await provider.sendClientInfo(mockClientSessionInformationEvent);
 
       expect(mockVideoRecorder.dispatch).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('endStream', () => {
+    test('should stop video and end the stream and return a promise if cancelled successfully', async () => {
+      const provider = new LivenessStreamProvider(
+        'sessionId',
+        mockVideoMediaStream
+      );
+      const response = await provider.endStream();
+
+      expect(mockVideoRecorder.stop).toHaveBeenCalled();
+      expect(response).toBeUndefined();
     });
   });
 });
