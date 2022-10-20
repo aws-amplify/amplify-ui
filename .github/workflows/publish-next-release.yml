@@ -70,7 +70,7 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_AUTH }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_AUTH }}
         working-directory: ./canary
-      - name: Setup canary apps against @next
+      - name: Setup canary apps against @next-release
         run: yarn setup:next-release
         working-directory: ./canary
       - name: Run yarn install on each sample app
