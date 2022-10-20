@@ -59,18 +59,15 @@ const options = [
 
 export const AutocompleteCustomFilteringExample = () => {
   // Create your own filtering
-  const filteringOptions = (options, value) => {
+  const filteringOption = (option, value) => {
     // filter options against description
-    const filteredOptions = options.filter((option) =>
-      option?.description?.includes(value)
-    );
-    return filteredOptions;
+    return option?.description?.includes(value);
   };
 
   return (
     <Autocomplete
       label="Autocomplete with custom filtering"
-      filteringOptions={filteringOptions}
+      filteringOption={filteringOption}
       options={options}
     />
   );

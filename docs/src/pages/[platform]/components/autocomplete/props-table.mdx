@@ -109,10 +109,10 @@ string
     </TableRow>
 
     <TableRow>
-      <ResponsiveTableCell label="Name">filteringOptions</ResponsiveTableCell>
+      <ResponsiveTableCell label="Name">filteringOption</ResponsiveTableCell>
       <ResponsiveTableCell label="Type">
 ```jsx
-(options: Option[], value: string) => Option[]
+(option: Option, value: string) => boolean
 ```
 </ResponsiveTableCell>
       <ResponsiveTableCell label="Description">Custom filtering that will be applied to options.  Note: Applying custom filtering to options will disable match highlighting.</ResponsiveTableCell>
@@ -252,7 +252,7 @@ boolean
       <ResponsiveTableCell label="Name">menu</ResponsiveTableCell>
       <ResponsiveTableCell label="Type">
 ```jsx
-Menu
+AutocompleteMenu
 ```
 </ResponsiveTableCell>
       <ResponsiveTableCell label="Description">A colleciton of slots to customize the dropdown of options</ResponsiveTableCell>
