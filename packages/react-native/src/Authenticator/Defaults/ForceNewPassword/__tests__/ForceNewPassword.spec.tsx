@@ -12,7 +12,7 @@ describe('ForceNewPassword', () => {
         <ForceNewPassword {...props} />
         <ForceNewPassword.Header />
         <ForceNewPassword.Footer />
-        <ForceNewPassword.FormFields fields={[]} />
+        <ForceNewPassword.FormFields {...props} />
       </>
     );
     expect(toJSON()).toMatchSnapshot();

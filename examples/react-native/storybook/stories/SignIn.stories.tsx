@@ -8,4 +8,4 @@ storiesOf('SignIn', module)
   .add('default', () => <SignIn {...props} />)
   .add('header', () => <SignIn.Header />)
   .add('footer', () => <SignIn.Footer />)
-  .add('formFields', () => <SignIn.FormFields fields={[]} />);
+  .add('formFields', () => <SignIn.FormFields {...props} />);

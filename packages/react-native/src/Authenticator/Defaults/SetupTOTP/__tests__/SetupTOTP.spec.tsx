@@ -12,7 +12,7 @@ describe('SetupTOTP', () => {
         <SetupTOTP {...props} />
         <SetupTOTP.Header />
         <SetupTOTP.Footer />
-        <SetupTOTP.FormFields fields={[]} />
+        <SetupTOTP.FormFields {...props} />
       </>
     );
     expect(toJSON()).toMatchSnapshot();
