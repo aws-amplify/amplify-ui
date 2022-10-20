@@ -1,5 +1,5 @@
 import React from 'react';
-import { Loader, View } from 'src/primitives';
+import { Loader, View } from '../../../../primitives';
 
 export function Tracker({
   file,

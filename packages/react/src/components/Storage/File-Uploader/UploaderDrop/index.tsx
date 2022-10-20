@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import React from 'react';
-import { Card } from 'src/primitives';
+import { Card } from '../../../../primitives';
 import { UploaderDropProps } from '../FileUploader/types';
 
 export function UploaderDrop({

@@ -36,6 +36,7 @@ export default function FileUploaderEmail() {
       </View>
 
       <FileUploader
+        acceptedFileTypes={['.png']}
         isPreviewerVisible={showPreviewer}
         components={{
           UploaderDrop: CustomUploaderDrop,

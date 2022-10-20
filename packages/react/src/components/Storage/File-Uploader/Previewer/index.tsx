@@ -1,9 +1,7 @@
 /** File Previewer */
 
 import React, { useRef, useState } from 'react';
-import { Button, Flex } from 'src/primitives';
-import { Card } from 'src/primitives/Card';
-import { View } from 'src/primitives/View';
+import { Button, Flex, Card, View } from '../../../../primitives';
 import { Tracker } from '../Tracker';
 import { FilePreviewerProps } from '../FileUploader/types';
 import { getFileName, uploadFile } from '@aws-amplify/ui';
@@ -65,8 +63,6 @@ export function Previewer({
     };
   }
 
-  // eslint-disable-next-line no-console
-  console.log(files);
   return (
     <Card data-amplify-file-previewer>
       <Flex
