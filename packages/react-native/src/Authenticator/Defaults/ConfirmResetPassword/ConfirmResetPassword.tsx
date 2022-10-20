@@ -1,8 +1,10 @@
 import React from 'react';
+import { Text } from 'react-native';
+
 import { ConfirmResetPasswordComponent } from './types';
 
 const ConfirmResetPassword: ConfirmResetPasswordComponent = () => {
-  return <>ConfirmResetPassword</>;
+  return <Text>ConfirmResetPassword</Text>;
 };
 
 ConfirmResetPassword.Header = function Header() {
