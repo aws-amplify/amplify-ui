@@ -10,7 +10,7 @@
     "declaration": true,
     "declarationDir": "dist/types",
     "esModuleInterop": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "importHelpers": true,
     "moduleResolution": "node",
     "noImplicitAny": true,
