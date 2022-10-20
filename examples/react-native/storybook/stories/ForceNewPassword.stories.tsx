@@ -8,4 +8,4 @@ storiesOf('ForceNewPassword', module)
   .add('default', () => <ForceNewPassword {...props} />)
   .add('header', () => <ForceNewPassword.Header />)
   .add('footer', () => <ForceNewPassword.Footer />)
-  .add('formFields', () => <ForceNewPassword.FormFields fields={[]} />);
+  .add('formFields', () => <ForceNewPassword.FormFields {...props} />);

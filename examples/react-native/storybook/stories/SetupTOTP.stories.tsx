@@ -8,4 +8,4 @@ storiesOf('SetupTOTP', module)
   .add('default', () => <SetupTOTP {...props} />)
   .add('header', () => <SetupTOTP.Header />)
   .add('footer', () => <SetupTOTP.Footer />)
-  .add('formFields', () => <SetupTOTP.FormFields fields={[]} />);
+  .add('formFields', () => <SetupTOTP.FormFields {...props} />);

@@ -12,7 +12,7 @@ describe('ResetPassword', () => {
         <ResetPassword {...props} />
         <ResetPassword.Header />
         <ResetPassword.Footer />
-        <ResetPassword.FormFields fields={[]} />
+        <ResetPassword.FormFields {...props} />
       </>
     );
     expect(toJSON()).toMatchSnapshot();

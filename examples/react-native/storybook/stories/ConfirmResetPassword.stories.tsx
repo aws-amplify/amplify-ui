@@ -8,4 +8,4 @@ storiesOf('ConfirmResetPassword', module)
   .add('default', () => <ConfirmResetPassword {...props} />)
   .add('header', () => <ConfirmResetPassword.Header />)
   .add('footer', () => <ConfirmResetPassword.Footer />)
-  .add('formFields', () => <ConfirmResetPassword.FormFields fields={[]} />);
+  .add('formFields', () => <ConfirmResetPassword.FormFields {...props} />);
