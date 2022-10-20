@@ -17,4 +17,5 @@ export {
   DefaultSignInComponent,
   DefaultSignUpComponent,
   DefaultVerifyUserComponent,
+  FormFieldsComponent,
 } from './types';
