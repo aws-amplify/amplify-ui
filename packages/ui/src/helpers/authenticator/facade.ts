@@ -23,7 +23,6 @@ import { getActorContext, getActorState } from './actor';
 
 export type AuthenticatorRoute =
   | 'authenticated'
-  | 'autoSignIn'
   | 'confirmResetPassword'
   | 'confirmSignIn'
   | 'confirmSignUp'
@@ -36,6 +35,7 @@ export type AuthenticatorRoute =
   | 'setupTOTP'
   | 'signIn'
   | 'signUp'
+  | 'transition'
   | 'verifyUser';
 
 type AuthenticatorValidationErrors = ValidationError;
@@ -170,7 +170,7 @@ export const getServiceContextFacade = (
       case actorState?.matches('confirmVerifyUser'):
         return 'confirmVerifyUser';
       case state.matches('signIn.runActor'):
-        return 'autoSignIn';
+        return 'transition';
       default:
         console.debug(
           'Cannot infer `route` from Authenticator state:',
