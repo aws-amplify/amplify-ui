@@ -6,6 +6,10 @@ jest.mock('xstate/lib/waitFor', () => ({
   waitFor: jest.fn(),
 }));
 
+jest.mock('../actor', () => ({
+  getActorState: () => ({ matches: () => true }),
+}));
+
 const authenticatedStateMachine = {
   getSnapshot: () => ({
     // this is the state.matches function
