@@ -13,4 +13,5 @@ export const COMPONENT_ROUTE_KEYS: AuthenticatorRouteComponentKey[] = [
   'confirmVerifyUser',
   'resetPassword',
   'setupTOTP',
+  'verifyUser',
 ];

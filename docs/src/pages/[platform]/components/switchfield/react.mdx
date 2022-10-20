@@ -4,6 +4,7 @@ import {
   DefaultSwitchFieldExample,
   DisabledSwitchFieldExample,
   SwitchFieldDefaultCheckedExample,
+  SwitchFieldErrorExample,
   SwitchFieldIsCheckedExample,
   SwitchFieldLabelExample,
   SwitchFieldLabelHiddenExample,
@@ -12,11 +13,11 @@ import {
   SwitchFieldOnChangeExample,
   SwitchFieldSizeExample,
   SwitchFieldStylePropsExample,
+  SwitchFieldThemeExample,
   SwitchFieldThumbColorExample,
   SwitchFieldTrackCheckedColorExample,
   SwitchFieldTrackColorExample,
   SwitchFieldValueExample,
-  SwitchFieldThemeExample,
 } from './examples';
 import { SwitchDemo, SwitchExample, ChangeExample } from './demo';
 import { Example, ExampleCode } from '@/components/Example';
@@ -224,6 +225,18 @@ The `onChange` property is a callback `function` that will be called with a chan
   <SwitchFieldOnChangeExample />
   <ExampleCode>
     ```jsx file=./examples/SwitchFieldOnChangeExample.tsx
+
+    ```
+
+  </ExampleCode>
+</Example>
+
+### Error state
+
+<Example>
+  <SwitchFieldErrorExample />
+  <ExampleCode>
+    ```jsx file=./examples/SwitchFieldErrorExample.tsx
 
     ```
 

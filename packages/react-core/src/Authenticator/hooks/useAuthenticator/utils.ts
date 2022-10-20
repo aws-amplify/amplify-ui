@@ -76,6 +76,7 @@ export const getLegacyFields = (
   route: AuthenticatorRoute,
   state: AuthMachineState
 ): AuthenticatorLegacyFields =>
-  isComponentRouteKey(route)
+  // verifyUser is a component route, but does not have form fields
+  isComponentRouteKey(route) && route !== 'verifyUser'
     ? flattenFormFields(getSortedFormFields(route, state))
     : [];
