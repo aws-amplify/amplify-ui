@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect } from 'react';
 import { FileUploaderProps } from './types';
-import { UploaderButton } from '../UploaderButton';
-import { Previewer } from '../Previewer';
-import { View } from '../../../../primitives';
-import { UploaderDrop } from '../UploaderDrop';
+import { UploaderButton } from './UploaderButton';
+import { Previewer } from './Previewer';
+import { View } from '../../../primitives';
+import { UploaderDrop } from './UploaderDrop';
 import { useFileUploader } from '@aws-amplify/ui-react-core';
 
 /**

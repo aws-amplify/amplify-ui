@@ -3,7 +3,7 @@
 import React, { useRef, useState } from 'react';
 import { Button, Flex, Card, View } from '../../../../primitives';
 import { Tracker } from '../Tracker';
-import { FilePreviewerProps } from '../FileUploader/types';
+import { FilePreviewerProps } from '../types';
 import { getFileName, uploadFile } from '@aws-amplify/ui';
 import { UploadTask } from '@aws-amplify/storage';
 

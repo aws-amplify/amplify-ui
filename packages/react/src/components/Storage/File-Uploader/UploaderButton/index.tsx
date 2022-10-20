@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '../../../../primitives/Button';
-import { UploaderButtonProps } from '../FileUploader/types';
+import { UploaderButtonProps } from '../types';
 
 export function UploaderButton({
   multiple,
