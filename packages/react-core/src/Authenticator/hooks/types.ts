@@ -41,18 +41,21 @@ interface FooterProps {
 }
 
 interface FormFieldsProps {
-  fields: AuthenticatorLegacyFields;
   isPending: AuthenticatorMachineContext['isPending'];
   validationErrors?: AuthenticatorMachineContext['validationErrors'];
 }
 
-type FooterComponent<Props = {}> = React.ComponentType<FooterProps & Props>;
+export type FooterComponent<Props = {}> = React.ComponentType<
+  FooterProps & Props
+>;
 
 export type FormFieldsComponent<Props = {}> = React.ComponentType<
   FormFieldsProps & Props
 >;
 
-type HeaderComponent<Props = {}> = React.ComponentType<HeaderProps & Props>;
+export type HeaderComponent<Props = {}> = React.ComponentType<
+  HeaderProps & Props
+>;
 
 export interface ComponentSlots<PlatformProps = {}> {
   Footer: FooterComponent;
@@ -73,11 +76,13 @@ type RouteComponent<
  */
 
 // use `PlatformProps` generic for `FormFieldsCompoennt`
-interface CommonRouteProps<PlatformProps = {}>
+export interface CommonRouteProps<PlatformProps = {}>
   extends ComponentSlots<PlatformProps> {
   error?: AuthenticatorMachineContext['error'];
-  fields: AuthenticatorLegacyFields;
   isPending: AuthenticatorMachineContext['isPending'];
+  handleBlur: AuthenticatorMachineContext['updateBlur'];
+  handleChange: AuthenticatorMachineContext['updateForm'];
+  handleSubmit: AuthenticatorMachineContext['submitForm'];
 }
 
 export interface CommonConfirmResetPasswordProps<PlatformProps = {}>
