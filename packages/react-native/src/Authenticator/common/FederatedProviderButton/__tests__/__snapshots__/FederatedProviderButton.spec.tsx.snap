@@ -45,7 +45,7 @@ exports[`FederatedProviderButton renders default button as expected 1`] = `
           "width": 20,
         },
         Object {
-          "paddingHorizontal": 8,
+          "paddingHorizontal": 16,
         },
       ]
     }

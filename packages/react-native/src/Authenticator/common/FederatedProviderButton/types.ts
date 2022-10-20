@@ -6,7 +6,7 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import { ButtonProps } from '..';
+import { ButtonProps } from '../../../primitives';
 
 export interface FederatedProviderButtonProps extends ButtonProps {
   source: ImageSourcePropType;

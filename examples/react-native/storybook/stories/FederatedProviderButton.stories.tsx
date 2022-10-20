@@ -2,7 +2,7 @@ import React from 'react';
 import { ImageSourcePropType, StyleSheet, View } from 'react-native';
 import { SocialProvider } from '@aws-amplify/ui';
 import { storiesOf } from '@storybook/react-native';
-import { FederatedProviderButton } from '@aws-amplify/ui-react-native/dist/primitives';
+import { FederatedProviderButton } from '@aws-amplify/ui-react-native/dist/Authenticator/common';
 import { icons } from '@aws-amplify/ui-react-native/dist/assets';
 import { capitalize } from '@aws-amplify/ui-react-native/src/utils';
 

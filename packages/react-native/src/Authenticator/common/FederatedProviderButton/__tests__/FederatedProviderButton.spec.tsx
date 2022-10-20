@@ -1,7 +1,7 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
 
-import { icons } from '../../../assets';
+import { icons } from '../../../../assets';
 import FederatedProviderButton from '../FederatedProviderButton';
 
 const signInText = 'Sign In with Amazon';

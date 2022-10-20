@@ -11,6 +11,3 @@ export * from './Radio';
 export * from './RadioGroup';
 export * from './Tabs';
 export * from './TextField';
-
-// later, move this export to /src/Authenticator/Defaults
-export * from './FederatedProviderButton';

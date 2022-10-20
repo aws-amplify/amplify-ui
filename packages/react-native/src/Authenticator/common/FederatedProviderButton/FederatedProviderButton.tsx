@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { PressableStateCallbackType, StyleProp, ViewStyle } from 'react-native';
 
-import { Button, Icon, Label } from '..';
+import { Button, Icon, Label } from '../../../primitives';
 
 import { styles } from './styles';
 import { FederatedProviderButtonProps } from './types';
