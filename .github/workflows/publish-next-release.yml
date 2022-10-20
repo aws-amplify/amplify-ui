@@ -2,10 +2,10 @@
 #
 # Triggered by: merge to `next-release/main` branch
 
-name: Publish / next-release
+name: POC / Publish / next-release
 
 on:
-  push:
+  pull_request:
     branches: [next-release/main]
 
 jobs:
