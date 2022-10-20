@@ -10,10 +10,6 @@ Feature: Sign Up with Username
     Then I see "Username" as an input field
 
   @angular @react @vue 
-  Scenario: "Preferred Username" is included from `aws_cognito_signup_attributes`
-    Then I see "Preferred Username" as a "text" field
-
-  @angular @react @vue 
   Scenario: "Email" is included from `aws_cognito_verification_mechanisms`
     Then I see "Email" as an "email" field
   
@@ -28,7 +24,6 @@ Feature: Sign Up with Username
     And I type my password
     And I confirm my password
     And I type my "email" with status "UNCONFIRMED"
-    And I type a new "preferred username"
     And I click the "Create Account" button
     Then I see "Your code is on the way"
     And I see "Confirmation Code"

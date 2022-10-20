@@ -20,15 +20,9 @@ export const NavigateActions = () => {
   };
   return (
     <View>
-      <Button testId="locationChange" onClick={() => goToAmazon()}>
-        Go to amazon.com
-      </Button>
-      <Button testId="reload" onClick={() => reload()}>
-        Reload
-      </Button>
-      <Button testId="hash" onClick={() => handleHashClick()}>
-        Go to #notes
-      </Button>
+      <Button onClick={() => goToAmazon()}>Go to amazon.com</Button>
+      <Button onClick={() => reload()}>Reload</Button>
+      <Button onClick={() => handleHashClick()}>Go to #notes</Button>
       <View id="notes">notes</View>
     </View>
   );

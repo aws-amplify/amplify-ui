@@ -1,5 +1,5 @@
 import { translations } from '@aws-amplify/ui';
-import { And, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { And, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 import { escapeRegExp } from 'lodash';
 
 When(

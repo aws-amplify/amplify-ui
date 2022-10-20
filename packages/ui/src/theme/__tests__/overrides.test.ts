@@ -563,6 +563,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-rating-empty-color: var(--amplify-colors-background-tertiary);
         --amplify-components-searchfield-color: var(--amplify-components-fieldcontrol-color);
         --amplify-components-searchfield-button-color: var(--amplify-components-button-color);
+        --amplify-components-searchfield-button-background-color: var(--amplify-colors-background-primary);
         --amplify-components-searchfield-button-active-background-color: var(--amplify-components-button-active-background-color);
         --amplify-components-searchfield-button-active-border-color: var(--amplify-components-button-active-border-color);
         --amplify-components-searchfield-button-active-color: var(--amplify-components-button-active-color);
@@ -662,6 +663,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-switchfield-track-padding: var(--amplify-outline-widths-medium);
         --amplify-components-switchfield-track-transition-duration: var(--amplify-time-short);
         --amplify-components-switchfield-track-width: var(--amplify-space-relative-xl);
+        --amplify-components-switchfield-track-error-background-color: var(--amplify-colors-background-error);
         --amplify-components-table-border-collapse: collapse;
         --amplify-components-table-display: table;
         --amplify-components-table-width: 100%;

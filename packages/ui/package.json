@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui",
-  "version": "3.12.5",
+  "version": "4.0.0",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "exports": {
@@ -42,8 +42,16 @@
   "dependencies": {
     "lodash": "4.17.21",
     "style-dictionary": "3.7.0",
-    "xstate": "^4.30.6",
     "tslib": "2.4.0"
+  },
+  "peerDependencies": {
+    "aws-amplify": "3.x.x || 4.x.x",
+    "xstate": "^4.33.6"
+  },
+  "peerDependenciesMeta": {
+    "xstate": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "^8.3.1",
@@ -64,9 +72,6 @@
     "ts-jest": "^27.0.3",
     "ts-node": "^10.2.1",
     "type-fest": "^2.3.4"
-  },
-  "peerDependencies": {
-    "aws-amplify": "3.x.x || 4.x.x"
   },
   "sideEffects": [
     "dist/**/*.css"

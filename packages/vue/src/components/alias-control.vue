@@ -46,7 +46,7 @@ const randomPhone = Math.floor(Math.random() * 999999);
     <base-label
       :for="'amplify-field-' + random"
       class="amplify-label"
-      :class="{ 'sr-only': labelHidden }"
+      :class="{ 'amplify-visually-hidden': labelHidden }"
       v-bind="$attrs"
     >
       {{ label }}
@@ -55,7 +55,7 @@ const randomPhone = Math.floor(Math.random() * 999999);
       <base-wrapper class="amplify-field-group__outer-start">
         <!--select drop down-->
         <base-wrapper
-          class="amplify-flex amplify-field amplify-selectfield amplify-countrycodeselect amplify-authenticator__column"
+          class="amplify-flex amplify-field amplify-selectfield amplify-countrycodeselect amplify-dialcodeselect amplify-authenticator__column"
           v-if="type === 'tel'"
         >
           <base-label

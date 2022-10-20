@@ -4,7 +4,7 @@ import { FormFieldOptions, getErrors } from '@aws-amplify/ui';
 import { PasswordField } from '../../../primitives/PasswordField';
 import { PhoneNumberField } from '../../../primitives/PhoneNumberField';
 import { TextField } from '../../../primitives/TextField';
-import { useAuthenticator } from '../hooks/useAuthenticator';
+import { useAuthenticator } from '@aws-amplify/ui-react-core';
 import { ValidationErrors } from './ValidationErrors';
 import { useStableId } from '../../../primitives/utils/useStableId';
 
@@ -39,8 +39,8 @@ export function FormField({
         <PhoneNumberField
           {...props}
           name={name}
-          defaultCountryCode={dialCode}
-          countryCodeName="country_code"
+          defaultDialCode={dialCode}
+          dialCodeName="country_code"
           autoComplete={autoComplete}
           hasError={hasError}
           aria-describedby={ariaDescribedBy}

@@ -1,17 +1,12 @@
 import QRCode from 'qrcode';
 import * as React from 'react';
 
-import { Auth, Logger } from 'aws-amplify';
-import {
-  CognitoUserAmplify,
-  getActorState,
-  SignInState,
-  translate,
-} from '@aws-amplify/ui';
+import { Logger } from 'aws-amplify';
+import { getTotpCodeURL, translate } from '@aws-amplify/ui';
 
 import { Flex } from '../../../primitives/Flex';
 import { Heading } from '../../../primitives/Heading';
-import { useAuthenticator } from '../hooks/useAuthenticator';
+import { useAuthenticator } from '@aws-amplify/ui-react-core';
 import { useCustomComponents } from '../hooks/useCustomComponents';
 import { useFormHandlers } from '../hooks/useFormHandlers';
 import { ConfirmSignInFooter } from '../shared/ConfirmSignInFooter';
@@ -21,23 +16,16 @@ import { RouteContainer, RouteProps } from '../RouteContainer';
 
 const logger = new Logger('SetupTOTP-logger');
 
-export const getTotpCode = (
-  issuer: string,
-  username: string,
-  secret: string
-): string =>
-  encodeURI(
-    `otpauth://totp/${issuer}:${username}?secret=${secret}&issuer=${issuer}`
-  );
+type LegacyQRFields = { QR?: { totpIssuer?: string; totpUsername?: string } };
 
 export const SetupTOTP = ({
   className,
   variation,
 }: RouteProps): JSX.Element => {
-  // TODO: handle `formOverrides` outside `useAuthenticator`
-  const { _state, isPending } = useAuthenticator((context) => [
-    context.isPending,
-  ]);
+  const { fields, getTotpSecretCode, isPending, user } = useAuthenticator(
+    (context) => [context.isPending]
+  );
+
   const { handleChange, handleSubmit } = useFormHandlers();
 
   const {
@@ -51,36 +39,29 @@ export const SetupTOTP = ({
   const [copyTextLabel, setCopyTextLabel] = React.useState<string>('COPY');
   const [secretKey, setSecretKey] = React.useState<string>('');
 
-  // `user` hasn't been set on the top-level state yet, so it's only available from the signIn actor
-  const actorState = getActorState(_state) as SignInState;
+  const { totpIssuer = 'AWSCognito', totpUsername = user?.username } =
+    (fields as LegacyQRFields)?.QR ?? {};
 
-  const { formFields, user } = actorState.context;
-  const { totpIssuer = 'AWSCognito', totpUsername = user.username } =
-    formFields?.setupTOTP?.QR ?? {};
+  const generateQRCode = React.useCallback(async (): Promise<void> => {
+    try {
+      const newSecretKey = await getTotpSecretCode();
+      setSecretKey(newSecretKey);
+      const totpCode = getTotpCodeURL(totpIssuer, totpUsername, newSecretKey);
+      const qrCodeImageSource = await QRCode.toDataURL(totpCode);
 
-  const generateQRCode = React.useCallback(
-    async (currentUser: CognitoUserAmplify): Promise<void> => {
-      try {
-        const newSecretKey = await Auth.setupTOTP(currentUser);
-        setSecretKey(newSecretKey);
-        const totpCode = getTotpCode(totpIssuer, totpUsername, newSecretKey);
-        const qrCodeImageSource = await QRCode.toDataURL(totpCode);
-
-        setQrCode(qrCodeImageSource);
-      } catch (error) {
-        logger.error(error);
-      } finally {
-        setIsLoading(false);
-      }
-    },
-    [totpIssuer, totpUsername]
-  );
+      setQrCode(qrCodeImageSource);
+    } catch (error) {
+      logger.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [getTotpSecretCode, totpIssuer, totpUsername]);
 
   React.useEffect(() => {
-    if (!user) return;
-
-    generateQRCode(user);
-  }, [generateQRCode, user]);
+    if (!qrCode) {
+      generateQRCode();
+    }
+  }, [generateQRCode, qrCode]);
 
   const copyText = (): void => {
     navigator.clipboard.writeText(secretKey);

@@ -1,4 +1,4 @@
-import { Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { Then, When } from '@badeball/cypress-cucumber-preprocessor';
 
 Then('I see an error alert', () => {
   cy.findByRole('alert').should('exist');

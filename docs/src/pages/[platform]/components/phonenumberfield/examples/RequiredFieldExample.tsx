@@ -11,7 +11,7 @@ export const RequiredFieldExample = () => {
   return (
     <Flex as="form" direction="column" onSubmit={handleSubmit}>
       <PhoneNumberField
-        defaultCountryCode="+1"
+        defaultDialCode="+1"
         label="Phone Number"
         name="phone_number"
         isRequired={true}

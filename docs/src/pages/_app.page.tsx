@@ -1,13 +1,13 @@
 import * as React from 'react';
+import { useRouter } from 'next/router';
+import Script from 'next/script';
 
 import { ThemeProvider, ColorMode, defaultTheme } from '@aws-amplify/ui-react';
 
 import { configure, trackPageVisit } from '@/utils/track';
 import { IS_PROD_STAGE } from '@/utils/stage';
 import { Header } from '@/components/Layout/Header';
-import Script from 'next/script';
 import { baseTheme } from '../theme';
-import { useCustomRouter } from '@/components/useCustomRouter';
 
 import { Head } from './Head';
 
@@ -19,6 +19,12 @@ require('prismjs/components/prism-dart');
 
 import '../styles/index.scss';
 import classNames from 'classnames';
+import { GlobalNav, NavMenuItem } from '@/components/Layout/GlobalNav';
+import {
+  LEFT_NAV_LINKS,
+  RIGHT_NAV_LINKS,
+  SOCIAL_LINKS,
+} from '@/data/globalnav';
 
 if (typeof window === 'undefined') {
   // suppress useLayoutEffect warnings when running outside a browser
@@ -44,7 +50,7 @@ function MyApp({ Component, pageProps }) {
   const {
     pathname,
     query: { platform = 'react' },
-  } = useCustomRouter();
+  } = useRouter();
 
   const isHomepage = pathname === '/' || pathname === '/[platform]';
 
@@ -84,6 +90,14 @@ function MyApp({ Component, pageProps }) {
 
       <div className={isHomepage ? `docs-home` : ''}>
         <ThemeProvider theme={baseTheme} colorMode={colorMode}>
+          {
+            <GlobalNav
+              rightLinks={RIGHT_NAV_LINKS as NavMenuItem[]}
+              leftLinks={LEFT_NAV_LINKS as NavMenuItem[]}
+              socialLinks={SOCIAL_LINKS as NavMenuItem[]}
+              currentSite="UI Library"
+            />
+          }
           <Header
             expanded={expanded}
             setExpanded={setExpanded}

@@ -4,16 +4,15 @@ import {
   censorAllButFirstAndLast,
   censorPhoneNumber,
   ContactMethod,
-  getActorContext,
-  SignInContext,
   translate,
+  UnverifiedContactMethods,
 } from '@aws-amplify/ui';
 
 import { Flex } from '../../../primitives/Flex';
 import { Heading } from '../../../primitives/Heading';
 import { Radio } from '../../../primitives/Radio';
 import { RadioGroupField } from '../../../primitives/RadioGroupField';
-import { useAuthenticator } from '../hooks/useAuthenticator';
+import { useAuthenticator } from '@aws-amplify/ui-react-core';
 import { useCustomComponents } from '../hooks/useCustomComponents';
 import { useFormHandlers } from '../hooks/useFormHandlers';
 import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
@@ -40,24 +39,16 @@ const censorContactInformation = (
 };
 
 const generateRadioGroup = (
-  attributes: Record<string, string>
+  attributes: UnverifiedContactMethods
 ): JSX.Element[] => {
-  const radioButtons: JSX.Element[] = [];
-
-  for (const [key, value] of Object.entries(attributes)) {
-    const radio = (
-      <Radio name="unverifiedAttr" value={key} key={key}>
-        {censorContactInformation(
-          (defaultFormFieldOptions[key] as { label: ContactMethod }).label,
-          value
-        )}
-      </Radio>
-    );
-
-    radioButtons.push(radio);
-  }
-
-  return radioButtons;
+  return Object.entries(attributes).map(([key, value]: [string, string]) => (
+    <Radio name="unverifiedAttr" value={key} key={key}>
+      {censorContactInformation(
+        (defaultFormFieldOptions[key] as { label: ContactMethod }).label,
+        value
+      )}
+    </Radio>
+  ));
 };
 
 export const VerifyUser = ({
@@ -70,12 +61,13 @@ export const VerifyUser = ({
     },
   } = useCustomComponents();
 
-  // TODO: expose unverifiedAttributes from `useAuthenticator`
-  const { _state, isPending } = useAuthenticator((context) => [
-    context.isPending,
-  ]);
+  const { isPending, unverifiedContactMethods } = useAuthenticator(
+    ({ isPending, unverifiedContactMethods }) => [
+      isPending,
+      unverifiedContactMethods,
+    ]
+  );
   const { handleChange, handleSubmit } = useFormHandlers();
-  const context = getActorContext(_state) as SignInContext;
 
   const footerSubmitText = isPending ? (
     <>Verifying&hellip;</>
@@ -90,7 +82,7 @@ export const VerifyUser = ({
       name="verify_context"
       isDisabled={isPending}
     >
-      {generateRadioGroup(context.unverifiedAttributes)}
+      {generateRadioGroup(unverifiedContactMethods)}
     </RadioGroupField>
   );
 

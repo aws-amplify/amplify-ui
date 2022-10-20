@@ -1,5 +1,72 @@
 # @aws-amplify/ui-angular
 
+## 2.4.24
+
+### Patch Changes
+
+- Updated dependencies [[`1b1567c0c`](https://github.com/aws-amplify/amplify-ui/commit/1b1567c0c7788120ca4e7c4533228d2672dda906)]:
+  - @aws-amplify/ui@4.0.0
+
+## 2.4.23
+
+### Patch Changes
+
+- Updated dependencies [[`42143228f`](https://github.com/aws-amplify/amplify-ui/commit/42143228fd8e99500e05fee34cee3f8067189c4e)]:
+  - @aws-amplify/ui@3.14.0
+
+## 2.4.22
+
+### Patch Changes
+
+- Updated dependencies [[`83bcc0844`](https://github.com/aws-amplify/amplify-ui/commit/83bcc0844eb1049ab49ff4f79280605ef31230d6)]:
+  - @aws-amplify/ui@3.13.4
+
+## 2.4.21
+
+### Patch Changes
+
+- Updated dependencies [[`e2429807b`](https://github.com/aws-amplify/amplify-ui/commit/e2429807bcc13b7c2dfe2c2947be8e790eea4d9d)]:
+  - @aws-amplify/ui@3.13.3
+
+## 2.4.20
+
+### Patch Changes
+
+- [#2544](https://github.com/aws-amplify/amplify-ui/pull/2544) [`35dae2a3d`](https://github.com/aws-amplify/amplify-ui/commit/35dae2a3d7ec392c60a7302e3673e59a0e42b7aa) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(rwa): convert AuthChallengeNames enum to string union
+
+* [#2539](https://github.com/aws-amplify/amplify-ui/pull/2539) [`ba9818fb7`](https://github.com/aws-amplify/amplify-ui/commit/ba9818fb7acc727eaf7968aad8ff4dd1ab36327b) Thanks [@ErikCH](https://github.com/ErikCH)! - Fixed bug in Angular Authenticator that caused the Setup TOTP page to not show the correct totpIssuer and totpUsername in the QR code when overwritten by formFields. Refactored and added in Jest tests for Angular.
+
+* Updated dependencies [[`35dae2a3d`](https://github.com/aws-amplify/amplify-ui/commit/35dae2a3d7ec392c60a7302e3673e59a0e42b7aa), [`4a4b5c93d`](https://github.com/aws-amplify/amplify-ui/commit/4a4b5c93d37b66c845cbf20dac1e09e6e7931610), [`ba9818fb7`](https://github.com/aws-amplify/amplify-ui/commit/ba9818fb7acc727eaf7968aad8ff4dd1ab36327b)]:
+  - @aws-amplify/ui@3.13.2
+
+## 2.4.19
+
+### Patch Changes
+
+- [#2459](https://github.com/aws-amplify/amplify-ui/pull/2459) [`8350d36e2`](https://github.com/aws-amplify/amplify-ui/commit/8350d36e217587e06632ea5704d8c51e70559edc) Thanks [@jacoblogan](https://github.com/jacoblogan)! - Angular: Add `amplify-dialcodeselect` class which contains the previous countrycodeselect styles
+  Vue: Add `amplify-dialcodeselect` class which contains the previous countrycodeselect styles
+  React: Added 'dialCode' versions of all 'countryCode' props so that users can begin migrating away from the deprecated `countryCode`.
+
+  ```
+  countryCodeLabel => dialCodeLabel
+  countryCodeName => dialCodeName
+  onCountryCodeChange => onDialCodeChange
+  countryCodeRef => dialCodeRef
+  defaultCountryCode => defaultDialCode
+  ```
+
+- Updated dependencies [[`b60fec2c4`](https://github.com/aws-amplify/amplify-ui/commit/b60fec2c451b31946f893efbf23710c7631db122)]:
+  - @aws-amplify/ui@3.13.1
+
+## 2.4.18
+
+### Patch Changes
+
+- [#2419](https://github.com/aws-amplify/amplify-ui/pull/2419) [`8def8dc6a`](https://github.com/aws-amplify/amplify-ui/commit/8def8dc6ab8cf2448f110b0a9d4309b43a561541) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - Hide decorative alert icons from screen readers.
+
+- Updated dependencies [[`b3e6a97e8`](https://github.com/aws-amplify/amplify-ui/commit/b3e6a97e8e17f6b822af0387e3c543c50aea7c64), [`1cfa1a054`](https://github.com/aws-amplify/amplify-ui/commit/1cfa1a054451a75738f4011c4200c34208285b5b), [`eae79ae15`](https://github.com/aws-amplify/amplify-ui/commit/eae79ae1529b9a920d704cb12e92addb352d0c40), [`e25bc4269`](https://github.com/aws-amplify/amplify-ui/commit/e25bc42693cc4fa1cdcf7ad2fe7034ff44fbb18e), [`1f358d8fa`](https://github.com/aws-amplify/amplify-ui/commit/1f358d8fa18367020d0c41b74dcce1ba73974376)]:
+  - @aws-amplify/ui@3.13.0
+
 ## 2.4.17
 
 ### Patch Changes

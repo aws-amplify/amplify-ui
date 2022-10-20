@@ -20,8 +20,14 @@ jobs:
       commit: ${{ github.sha }}
       repository: ${{ github.repository }}
     secrets:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }} # TODO: Remove this
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }} #TODO: Remove this
+      AWS_ACCESS_KEY_ID_AUTH: ${{ secrets.AWS_ACCESS_KEY_ID_AUTH }}
+      AWS_SECRET_ACCESS_KEY_AUTH: ${{ secrets.AWS_SECRET_ACCESS_KEY_AUTH }}
+      AWS_ACCESS_KEY_ID_DATASTORE: ${{ secrets.AWS_ACCESS_KEY_ID_DATASTORE }}
+      AWS_SECRET_ACCESS_KEY_DATASTORE: ${{ secrets.AWS_SECRET_ACCESS_KEY_DATASTORE }}
+      AWS_ACCESS_KEY_ID_GEO: ${{ secrets.AWS_ACCESS_KEY_ID_GEO }}
+      AWS_SECRET_ACCESS_KEY_GEO: ${{ secrets.AWS_SECRET_ACCESS_KEY_GEO }}
       DOMAIN: ${{ secrets.DOMAIN }}
       PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
       USERNAME: ${{ secrets.USERNAME }}
@@ -42,7 +48,7 @@ jobs:
       matrix:
         include:
           - path: ./guides/react/protected-routes
-            tags: '@guides and not (@skip or @todo-guides)'
+            tags: '@guides and not @todo-guides'
 
     steps:
       - name: Checkout Amplify UI
@@ -51,17 +57,19 @@ jobs:
           persist-credentials: false
 
       - name: Setup Node.js LTS
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: lts/*
           cache: 'yarn'
 
       - name: Restore cypress runner Cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: restore-cypress-cache
         with:
           path: ~/.cache/Cypress
           key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
       - name: Install packages
         run: yarn install
@@ -72,10 +80,10 @@ jobs:
         run: echo "::set-output name=version::$(amplify --version)"
       - name: Pull down AWS environments
         if: steps.environments-cache.outputs.cache-hit != 'true'
-        run: yarn environments pull
+        run: yarn environments auth pull:email
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_AUTH }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_AUTH }}
 
       - name: Install guides
         run: yarn install
@@ -104,35 +112,11 @@ jobs:
 
   publish:
     needs: [test, guides]
-    runs-on: ubuntu-latest
-    environment: deployment
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-      - name: Setup Node.js LTS
-        uses: actions/setup-node@v2
-        with:
-          node-version: lts/*
-          cache: 'yarn'
-      - name: Install packages
-        uses: ./.github/actions/install-with-retries
-        with:
-          skip-cypress-binary: true # publishing doesn't need cypress
-      - name: Build packages
-        run: yarn build
-      - name: Add changeset that bumps all public packages
-        # There needs to be a changeset for @aws-amplify/ui[-framework] to publish.
-        run: cp .github/changeset-presets/bump-versions.md .changeset
-      - name: Run changeset version to next tag
-        run: yarn version:next
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Create .npmrc
-        run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Publish to next tag
-        run: yarn publish:next
+    uses: ./.github/workflows/reusable-tagged-publish.yml
+    with:
+      dist-tag: next
+    secrets:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   build-test:
     needs: publish
@@ -148,10 +132,12 @@ jobs:
         run: echo "::set-output name=version::$(amplify --version)"
       - name: Create or restore environments cache
         id: environments-cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: canary/environments/**/aws-exports.js
           key: ${{ runner.os }}-canary-environments-${{ steps.cli-version.outputs.version }}-${{ hashFiles('canary/environments/**/amplify/**') }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
       - name: Pull down AWS environments
         if: steps.environments-cache.outputs.cache-hit != 'true'
         run: yarn pull
@@ -170,25 +156,23 @@ jobs:
         working-directory: ./canary
 
   log-failure-metric:
-    # Send data point 1 to metric PublishNextFailure, if  it's a failure
+    # Send a failure data point to metric PublishNextFailure in github-workflows@ us-east-2, if it's a failure
     runs-on: ubuntu-latest
     environment: ci
     needs: build-test
     if: ${{ failure() }}
     steps:
       - name: Log failure data point to metric PublishNextFailure
-        # using absolute path here to avoid checking out the repo. Same as other absolute paths in this repo.
-        # Pattern: `{owner}/{repo}/.github/workflows/{filename}@{ref}`.
-        # more: https://docs.github.com/en/actions/using-workflows/reusing-workflows#calling-a-reusable-workflow
         uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
         with:
           metric-name: PublishNextFailure
           value: 1
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_METRIC_LOGGER }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_METRIC_LOGGER }}
+          AWS_REGION: us-east-2
 
   log-success-metric:
-    # Send data point 0 to metric PublishNextFailure, if  it's a success
+    # Send a success data point to metric PublishNextFailure in github-workflows@ us-east-2, if it's a success
     runs-on: ubuntu-latest
     environment: ci
     needs: build-test
@@ -199,5 +183,6 @@ jobs:
         with:
           metric-name: PublishNextFailure
           value: 0
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_METRIC_LOGGER }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_METRIC_LOGGER }}
+          AWS_REGION: us-east-2

@@ -1,7 +1,6 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { Logger } from 'aws-amplify';
 import {
-  AuthChallengeNames,
   FormFieldsArray,
   getActorContext,
   getFormDataFromEvent,
@@ -40,10 +39,10 @@ export class ConfirmSignInComponent implements OnInit {
     const actorContext = getActorContext(state) as SignInContext;
     const { challengeName } = actorContext;
     switch (challengeName) {
-      case AuthChallengeNames.SOFTWARE_TOKEN_MFA:
+      case 'SOFTWARE_TOKEN_MFA':
         this.headerText = translate('Confirm TOTP Code');
         break;
-      case AuthChallengeNames.SMS_MFA:
+      case 'SMS_MFA':
         this.headerText = translate('Confirm SMS Code');
         break;
       default:

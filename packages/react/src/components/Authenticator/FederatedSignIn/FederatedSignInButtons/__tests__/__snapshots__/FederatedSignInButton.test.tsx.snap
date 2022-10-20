@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FederatedSignInButton renders as expected with { provider: 'Facebook', text: 'Sign In with Facebook' } provider 1`] = `
+<div>
+  <button
+    class="amplify-button amplify-field-group__control federated-sign-in-button"
+    data-fullwidth="false"
+    style="font-weight: var(--amplify-font-weights-normal); gap: 1rem;"
+    type="button"
+  >
+    <span
+      class="amplify-text"
+    >
+      Sign In with Facebook
+    </span>
+  </button>
+</div>
+`;
+
+exports[`FederatedSignInButton renders as expected with { provider: 'Google', text: 'Sign In with Google' } provider 1`] = `
+<div>
+  <button
+    class="amplify-button amplify-field-group__control federated-sign-in-button"
+    data-fullwidth="false"
+    style="font-weight: var(--amplify-font-weights-normal); gap: 1rem;"
+    type="button"
+  >
+    <span
+      class="amplify-text"
+    >
+      Sign In with Google
+    </span>
+  </button>
+</div>
+`;
+
+exports[`FederatedSignInButton renders as expected with { provider: 'LoginWithAmazon', text: 'Sign In with Amazon' } provider 1`] = `
+<div>
+  <button
+    class="amplify-button amplify-field-group__control federated-sign-in-button"
+    data-fullwidth="false"
+    style="font-weight: var(--amplify-font-weights-normal); gap: 1rem;"
+    type="button"
+  >
+    <span
+      class="amplify-text"
+    >
+      Sign In with Amazon
+    </span>
+  </button>
+</div>
+`;
+
+exports[`FederatedSignInButton renders as expected with { provider: 'SignInWithApple', text: 'Sign In with Apple' } provider 1`] = `
+<div>
+  <button
+    class="amplify-button amplify-field-group__control federated-sign-in-button"
+    data-fullwidth="false"
+    style="font-weight: var(--amplify-font-weights-normal); gap: 1rem;"
+    type="button"
+  >
+    <span
+      class="amplify-text"
+    >
+      Sign In with Apple
+    </span>
+  </button>
+</div>
+`;
