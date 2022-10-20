@@ -3,86 +3,98 @@ import {
   AuthenticatorRouteComponentKey,
 } from '../types';
 import {
-  ConfirmResetPasswordKey,
+  CommonRouteMachineKey,
+  ConfirmResetPasswordMachineKey,
   ConfirmSignInMachineKey,
-  ConfirmSignUpKey,
-  ConfirmVerifyUserKey,
-  ForceNewPasswordKey,
-  ResetPasswordKey,
-  SignInKey,
-  SignUpKey,
+  ConfirmSignUpMachineKey,
+  ConfirmVerifyUserMachineKey,
+  ForceNewPasswordMachineKey,
+  FormEventHandlerMachineKey,
+  FormEventHandlerPropKey,
+  ResetPasswordMachineKey,
+  SignInMachineKey,
+  SignUpMachineKey,
   SetupTOTPMachineKey,
-  VerifyUserKey,
+  VerifyUserMachineKey,
 } from './types';
 
 export const DEFAULT_TOTP_ISSUER = 'AWSCognito';
 
-const CONFIRM_RESET_PASSWORD_KEYS: ConfirmResetPasswordKey[] = [
+export const EVENT_HANDLER_KEY_MAP: Record<
+  FormEventHandlerMachineKey,
+  FormEventHandlerPropKey
+> = {
+  updateBlur: 'handleBlur',
+  updateForm: 'handleChange',
+  submitForm: 'handleSubmit',
+};
+
+const COMMON_ROUTE_MACHINE_KEYS: CommonRouteMachineKey[] = [
   'error',
   'isPending',
+  'submitForm',
+  'updateBlur',
+  'updateForm',
+];
+
+const CONFIRM_RESET_PASSWORD_MACHINE_KEYS: ConfirmResetPasswordMachineKey[] = [
+  ...COMMON_ROUTE_MACHINE_KEYS,
   'resendCode',
   'validationErrors',
 ];
-const CONFIRM_SIGN_IN_MACHINE_PROP_KEYS: ConfirmSignInMachineKey[] = [
-  'error',
-  'isPending',
+const CONFIRM_SIGN_IN_MACHINE_KEYS: ConfirmSignInMachineKey[] = [
+  ...COMMON_ROUTE_MACHINE_KEYS,
   'toSignIn',
   'user',
 ];
-const CONFIRM_SIGN_UP_KEYS: ConfirmSignUpKey[] = [
+const CONFIRM_SIGN_UP_MACHINE_KEYS: ConfirmSignUpMachineKey[] = [
+  ...COMMON_ROUTE_MACHINE_KEYS,
   'codeDeliveryDetails',
-  'error',
-  'isPending',
   'resendCode',
 ];
-const CONFIRM_VERIFY_USER_KEYS: ConfirmVerifyUserKey[] = [
-  'error',
-  'isPending',
+const CONFIRM_VERIFY_USER_MACHINE_KEYS: ConfirmVerifyUserMachineKey[] = [
+  ...COMMON_ROUTE_MACHINE_KEYS,
   'skipVerification',
 ];
-const FORCE_NEW_PASSWORD_KEYS: ForceNewPasswordKey[] = [
-  'error',
-  'isPending',
+const FORCE_NEW_PASSWORD_MACHINE_KEYS: ForceNewPasswordMachineKey[] = [
+  ...COMMON_ROUTE_MACHINE_KEYS,
   'toSignIn',
   'validationErrors',
 ];
-const RESET_PASSWORD_KEYS: ResetPasswordKey[] = [
-  'error',
-  'isPending',
+const RESET_PASSWORD_MACHINE_KEYS: ResetPasswordMachineKey[] = [
+  ...COMMON_ROUTE_MACHINE_KEYS,
   'toSignIn',
 ];
-const SIGN_IN_KEYS: SignInKey[] = [
-  'error',
-  'isPending',
+const SIGN_IN_MACHINE_KEYS: SignInMachineKey[] = [
+  ...COMMON_ROUTE_MACHINE_KEYS,
   'socialProviders',
   'toResetPassword',
   'toSignUp',
 ];
-const SIGN_UP_KEYS: SignUpKey[] = [
-  'error',
-  'isPending',
+const SIGN_UP_MACHINE_KEYS: SignUpMachineKey[] = [
+  ...COMMON_ROUTE_MACHINE_KEYS,
   'toSignIn',
   'validationErrors',
 ];
-const SETUP_TOTP_MACHINE_KEY: SetupTOTPMachineKey[] = [
-  'error',
-  'isPending',
+const SETUP_TOTP_MACHINE_KEYS: SetupTOTPMachineKey[] = [
+  ...COMMON_ROUTE_MACHINE_KEYS,
   'user',
 ];
-const VERIFY_USER_KEYS: VerifyUserKey[] = ['error', 'isPending'];
+const VERIFY_USER_MACHINE_KEYS: VerifyUserMachineKey[] =
+  COMMON_ROUTE_MACHINE_KEYS;
 
 export const MACHINE_PROP_KEYS: Record<
   AuthenticatorRouteComponentKey,
   AuthenticatorMachineContextKey[]
 > = {
-  confirmSignIn: CONFIRM_SIGN_IN_MACHINE_PROP_KEYS,
-  confirmResetPassword: CONFIRM_RESET_PASSWORD_KEYS,
-  confirmSignUp: CONFIRM_SIGN_UP_KEYS,
-  confirmVerifyUser: CONFIRM_VERIFY_USER_KEYS,
-  forceNewPassword: FORCE_NEW_PASSWORD_KEYS,
-  signIn: SIGN_IN_KEYS,
-  signUp: SIGN_UP_KEYS,
-  resetPassword: RESET_PASSWORD_KEYS,
-  setupTOTP: SETUP_TOTP_MACHINE_KEY,
-  verifyUser: VERIFY_USER_KEYS,
+  confirmSignIn: CONFIRM_SIGN_IN_MACHINE_KEYS,
+  confirmResetPassword: CONFIRM_RESET_PASSWORD_MACHINE_KEYS,
+  confirmSignUp: CONFIRM_SIGN_UP_MACHINE_KEYS,
+  confirmVerifyUser: CONFIRM_VERIFY_USER_MACHINE_KEYS,
+  forceNewPassword: FORCE_NEW_PASSWORD_MACHINE_KEYS,
+  signIn: SIGN_IN_MACHINE_KEYS,
+  signUp: SIGN_UP_MACHINE_KEYS,
+  resetPassword: RESET_PASSWORD_MACHINE_KEYS,
+  setupTOTP: SETUP_TOTP_MACHINE_KEYS,
+  verifyUser: VERIFY_USER_MACHINE_KEYS,
 };
