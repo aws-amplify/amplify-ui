@@ -6,7 +6,7 @@ name: POC / Publish / next-release
 
 on:
   pull_request:
-    branches: [next-release/main]
+    branches: [next-release/build-tests]
 
 jobs:
   test:
