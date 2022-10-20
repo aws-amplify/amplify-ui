@@ -6,7 +6,7 @@ name: Publish / next-release
 
 on:
   push:
-    branches: [next-release/main]
+    branches: [next-release/build-tests]
 
 jobs:
   # test:
