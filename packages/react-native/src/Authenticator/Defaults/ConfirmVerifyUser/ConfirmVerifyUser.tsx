@@ -1,8 +1,10 @@
 import React from 'react';
+import { Text } from 'react-native';
+
 import { ConfirmVerifyUserComponent } from './types';
 
 const ConfirmVerifyUser: ConfirmVerifyUserComponent = () => {
-  return <>ConfirmVerifyUser</>;
+  return <Text>ConfirmVerifyUser</Text>;
 };
 
 ConfirmVerifyUser.Header = function Header() {

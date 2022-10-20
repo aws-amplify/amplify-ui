@@ -1,8 +1,10 @@
 import React from 'react';
+import { Text } from 'react-native';
+
 import { SetupTOTPComponent } from './types';
 
 const SetupTOTP: SetupTOTPComponent = () => {
-  return <>SetupTOTP</>;
+  return <Text>SetupTOTP</Text>;
 };
 
 SetupTOTP.Header = function Header() {

@@ -1,8 +1,10 @@
 import React from 'react';
+import { Text } from 'react-native';
+
 import { ResetPasswordComponent } from './types';
 
 const ResetPassword: ResetPasswordComponent = () => {
-  return <>ResetPassword</>;
+  return <Text>ResetPassword</Text>;
 };
 
 ResetPassword.Header = function Header() {

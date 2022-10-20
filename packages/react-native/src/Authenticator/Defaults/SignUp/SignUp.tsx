@@ -1,8 +1,10 @@
 import React from 'react';
+import { Text } from 'react-native';
+
 import { SignUpComponent } from './types';
 
 const SignUp: SignUpComponent = () => {
-  return <>SignUp</>;
+  return <Text>SignUp</Text>;
 };
 
 SignUp.Header = function Header() {

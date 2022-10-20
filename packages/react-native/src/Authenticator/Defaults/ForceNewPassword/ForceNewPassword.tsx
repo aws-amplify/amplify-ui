@@ -1,8 +1,10 @@
 import React from 'react';
+import { Text } from 'react-native';
+
 import { ForceNewPasswordComponent } from './types';
 
 const ForceNewPassword: ForceNewPasswordComponent = () => {
-  return <>ForceNewPassword</>;
+  return <Text>ForceNewPassword</Text>;
 };
 
 ForceNewPassword.Header = function Header() {

@@ -1,8 +1,10 @@
 import React from 'react';
+import { Text } from 'react-native';
+
 import { VerifyUserComponent } from './types';
 
 const VerifyUser: VerifyUserComponent = () => {
-  return <>VerifyUser</>;
+  return <Text>VerifyUser</Text>;
 };
 
 VerifyUser.Header = function Header() {

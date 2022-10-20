@@ -1,8 +1,10 @@
 import React from 'react';
+import { Text } from 'react-native';
+
 import { SignInComponent } from './types';
 
 const SignIn: SignInComponent = () => {
-  return <>SignIn</>;
+  return <Text>SignIn</Text>;
 };
 
 SignIn.Header = function Header() {

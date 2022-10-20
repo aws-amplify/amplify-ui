@@ -1,8 +1,10 @@
 import React from 'react';
+import { Text } from 'react-native';
+
 import { ConfirmSignUpComponent } from './types';
 
 const ConfirmSignUp: ConfirmSignUpComponent = () => {
-  return <>ConfirmSignUp</>;
+  return <Text>ConfirmSignUp</Text>;
 };
 
 ConfirmSignUp.Header = function Header() {
