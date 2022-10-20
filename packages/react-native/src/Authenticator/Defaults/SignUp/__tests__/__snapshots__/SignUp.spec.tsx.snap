@@ -1,3 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SignUp renders as expected 1`] = `"SignUp"`;
+exports[`SignUp renders as expected 1`] = `
+<Text>
+  SignUp
+</Text>
+`;
