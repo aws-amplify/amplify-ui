@@ -7,7 +7,7 @@ const props = {} as any;
 
 describe('ConfirmVerifyUser', () => {
   it('renders as expected', () => {
-    const { toJSON } = render(
+    const { toJSON, findByRole } = render(
       <>
         <ConfirmVerifyUser {...props} />
         <ConfirmVerifyUser.Header />
@@ -16,5 +16,7 @@ describe('ConfirmVerifyUser', () => {
       </>
     );
     expect(toJSON()).toMatchSnapshot();
+
+    expect(findByRole('header')).toBeDefined();
   });
 });

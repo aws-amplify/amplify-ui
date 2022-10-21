@@ -2,13 +2,14 @@ import React from 'react';
 import { Text } from 'react-native';
 
 import { ConfirmResetPasswordComponent } from './types';
+import { DefaultHeader } from '../../common/DefaultHeader';
 
 const ConfirmResetPassword: ConfirmResetPasswordComponent = () => {
   return <Text>ConfirmResetPassword</Text>;
 };
 
 ConfirmResetPassword.Header = function Header() {
-  return null;
+  return <DefaultHeader>Confirm Reset Password</DefaultHeader>;
 };
 ConfirmResetPassword.Footer = function Footer() {
   return null;

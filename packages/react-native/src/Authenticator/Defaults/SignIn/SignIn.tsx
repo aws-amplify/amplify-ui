@@ -2,13 +2,14 @@ import React from 'react';
 import { Text } from 'react-native';
 
 import { SignInComponent } from './types';
+import { DefaultHeader } from '../../common/DefaultHeader';
 
 const SignIn: SignInComponent = () => {
   return <Text>SignIn</Text>;
 };
 
 SignIn.Header = function Header() {
-  return null;
+  return <DefaultHeader>Sign In</DefaultHeader>;
 };
 SignIn.Footer = function Footer() {
   return null;

@@ -7,7 +7,7 @@ const props = {} as any;
 
 describe('SetupTOTP', () => {
   it('renders as expected', () => {
-    const { toJSON } = render(
+    const { toJSON, findByRole } = render(
       <>
         <SetupTOTP {...props} />
         <SetupTOTP.Header />
@@ -16,5 +16,7 @@ describe('SetupTOTP', () => {
       </>
     );
     expect(toJSON()).toMatchSnapshot();
+
+    expect(findByRole('header')).toBeDefined();
   });
 });

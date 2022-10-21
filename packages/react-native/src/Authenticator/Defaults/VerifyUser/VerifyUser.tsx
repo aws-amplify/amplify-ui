@@ -2,13 +2,14 @@ import React from 'react';
 import { Text } from 'react-native';
 
 import { VerifyUserComponent } from './types';
+import { DefaultHeader } from '../../common/DefaultHeader';
 
 const VerifyUser: VerifyUserComponent = () => {
   return <Text>VerifyUser</Text>;
 };
 
 VerifyUser.Header = function Header() {
-  return null;
+  return <DefaultHeader>Verify User</DefaultHeader>;
 };
 VerifyUser.Footer = function Footer() {
   return null;

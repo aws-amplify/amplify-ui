@@ -1,7 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ConfirmVerifyUser renders as expected 1`] = `
-<Text>
-  ConfirmVerifyUser
-</Text>
+Array [
+  <Text>
+    ConfirmVerifyUser
+  </Text>,
+  <Text
+    accessibilityRole="header"
+    style={
+      Array [
+        Object {
+          "color": "black",
+        },
+        Object {
+          "fontSize": 34,
+          "fontWeight": "300",
+          "lineHeight": 51,
+        },
+        undefined,
+      ]
+    }
+  >
+    Confirm Verify User
+  </Text>,
+]
 `;

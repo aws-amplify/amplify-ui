@@ -7,7 +7,7 @@ const props = {} as any;
 
 describe('ForceNewPassword', () => {
   it('renders as expected', () => {
-    const { toJSON } = render(
+    const { toJSON, findByRole } = render(
       <>
         <ForceNewPassword {...props} />
         <ForceNewPassword.Header />
@@ -16,5 +16,7 @@ describe('ForceNewPassword', () => {
       </>
     );
     expect(toJSON()).toMatchSnapshot();
+
+    expect(findByRole('header')).toBeDefined();
   });
 });
