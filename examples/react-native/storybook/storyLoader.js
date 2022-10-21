@@ -25,7 +25,7 @@ function loadStories() {
 }
 
 const stories = [
-  './stories/Buttons.stories',
+  './stories/Button.stories',
   './stories/Checkbox.stories',
   './stories/ConfirmResetPassword.stories',
   './stories/ConfirmSignIn.stories',

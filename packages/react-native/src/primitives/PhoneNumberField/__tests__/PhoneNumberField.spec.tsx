@@ -6,9 +6,7 @@ import { countryDialCodes } from '@aws-amplify/ui';
 
 const testID = 'phoneNumberInput';
 const pickerTestID = 'RNPicker';
-const defaultDialCode = '+1';
 const defaultProps = {
-  defaultDialCode,
   dialCodes: countryDialCodes,
   testID,
 };
@@ -17,8 +15,12 @@ const defaultProps = {
 
 describe('PhoneNumberField', () => {
   it('renders as expected', () => {
+    const index = 5;
     const { toJSON, getByTestId } = render(
-      <PhoneNumberField {...defaultProps} />
+      <PhoneNumberField
+        {...defaultProps}
+        defaultDialCode={countryDialCodes[index]}
+      />
     );
     expect(toJSON()).toMatchSnapshot();
 
@@ -32,6 +34,23 @@ describe('PhoneNumberField', () => {
     expect((picker.props.items as string[]).length).toBe(
       countryDialCodes.length
     );
+    expect(picker.props.selectedIndex).toBe(index);
+  });
+
+  it('renders as expected when default dial code is undefined', () => {
+    const { toJSON, getByTestId } = render(
+      <PhoneNumberField {...defaultProps} defaultDialCode={undefined} />
+    );
+    expect(toJSON()).toMatchSnapshot();
+
+    const textInput = getByTestId(testID);
+    expect(textInput.props.keyboardType).toBe('phone-pad');
+    expect(textInput.props.editable).toBe(true);
+    expect(textInput.props.accessible).toBe(true);
+
+    const picker = getByTestId(pickerTestID);
+    expect(picker).toBeDefined();
+    expect(picker.props.selectedIndex).toBe(0);
   });
 
   it('renders as expected when disabled', () => {

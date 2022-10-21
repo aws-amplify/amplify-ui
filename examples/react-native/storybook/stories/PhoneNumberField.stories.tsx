@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
 const codes = ['+1', '+7', '+20', '+27', '+30'];
 const props: PhoneNumberFieldProps = {
   style: styles.container,
-  defaultDialCode: '+1',
+  defaultDialCode: undefined,
   dialCodes: codes,
 };
 

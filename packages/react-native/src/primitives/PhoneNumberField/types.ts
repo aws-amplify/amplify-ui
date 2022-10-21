@@ -39,12 +39,6 @@ export interface PhoneNumberFieldProps
    * Styles for the picker item
    */
   pickerItemStyle?: StyleProp<TextStyle>;
-
-  /**
-   * @description
-   * Whether the picker renders
-   */
-  showDialCodes?: boolean;
 }
 
 export interface PhoneNumberFieldStyles extends Partial<TextFieldStyles> {
