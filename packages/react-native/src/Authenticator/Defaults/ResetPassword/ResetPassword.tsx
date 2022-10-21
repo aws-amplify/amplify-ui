@@ -12,9 +12,12 @@ const ENTER_YOUR_USERNAME = 'Enter your username';
 const SEND_CODE = 'Send code';
 const BACK_TO_SIGN_IN = 'Back to Sign In';
 
-// const mockFormFieldsProps = {} as any;
-
-const ResetPassword: ResetPasswordComponent = ({ error }) => {
+const ResetPassword: ResetPasswordComponent = ({
+  error,
+  Footer,
+  Header,
+  toSignIn,
+}) => {
   const buttonPrimaryStyle = useCallback(
     ({ pressed }) =>
       pressed
@@ -30,18 +33,23 @@ const ResetPassword: ResetPasswordComponent = ({ error }) => {
 
   return (
     <View style={styles.container}>
-      <ResetPassword.Header />
-      {/* <ResetPassword.FormFields {...mockFormFieldsProps} /> */}
+      <Header />
       <Heading level={4}>{RESET_YOUR_PASSWORD}</Heading>
       <TextField placeholder={ENTER_YOUR_USERNAME} style={styles.textField} />
-      {error ? <ErrorMessage>{error}</ErrorMessage> : null}
+      {error ? (
+        <ErrorMessage style={styles.errorMessage}>{error}</ErrorMessage>
+      ) : null}
       <Button style={buttonPrimaryStyle} textStyle={styles.buttonPrimaryText}>
         {SEND_CODE}
       </Button>
-      <Button style={buttonSecondaryStyle} textStyle={styles.buttonSecondary}>
+      <Button
+        onPress={toSignIn}
+        style={buttonSecondaryStyle}
+        textStyle={styles.buttonSecondary}
+      >
         {BACK_TO_SIGN_IN}
       </Button>
-      <ResetPassword.Footer />
+      <Footer />
     </View>
   );
 };

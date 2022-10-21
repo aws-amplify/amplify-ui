@@ -21,6 +21,9 @@ export const styles: ResetPasswordStyle = StyleSheet.create({
     paddingVertical: 20,
   },
   buttonPressed: { opacity: 0.6 },
+  errorMessage: {
+    marginBottom: 16,
+  },
   textField: {
     paddingVertical: 16,
   },

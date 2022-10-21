@@ -9,6 +9,7 @@ export interface ResetPasswordStyle {
   buttonPrimaryText: TextStyle;
   buttonSecondary: TextStyle;
   buttonPressed: ViewStyle;
+  errorMessage: ViewStyle;
   textField: ViewStyle;
 }
 
