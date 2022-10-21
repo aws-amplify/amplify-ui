@@ -43,6 +43,7 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
     variation,
     testId,
 
+    alignSelf, // @TODO: remove custom destructuring for 3.0 release
     bottom, // @TODO: remove custom destructuring for 3.0 release
     height, // @TODO: remove custom destructuring for 3.0 release
     left, // @TODO: remove custom destructuring for 3.0 release
@@ -87,6 +88,7 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
 
   return (
     <Flex
+      alignSelf={alignSelf}
       className={classNames(
         ComponentClassNames.Field,
         classNameModifier(ComponentClassNames.Field, size),

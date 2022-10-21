@@ -29,6 +29,7 @@ const TextAreaFieldPrimitive: Primitive<TextAreaFieldProps, 'textarea'> = (
     size,
     testId,
 
+    alignSelf, // @TODO: remove custom destructuring for 3.0 release
     bottom, // @TODO: remove custom destructuring for 3.0 release
     height, // @TODO: remove custom destructuring for 3.0 release
     left, // @TODO: remove custom destructuring for 3.0 release
@@ -50,6 +51,7 @@ const TextAreaFieldPrimitive: Primitive<TextAreaFieldProps, 'textarea'> = (
 
   return (
     <Flex
+      alignSelf={alignSelf}
       className={classNames(
         ComponentClassNames.Field,
         ComponentClassNames.TextAreaField,
