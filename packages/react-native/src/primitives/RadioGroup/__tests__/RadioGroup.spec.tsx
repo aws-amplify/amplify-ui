@@ -40,6 +40,7 @@ const ControlledRadioGroup = ({
       <Radio value="option-1" label="Option 1" />
       <Radio value="option-2" label="Option 2" />
       <Radio value="option-3" label="Option 3" />
+      <Radio value="option-4" label="Option 4" disabled />
     </RadioGroup>
   );
 };
@@ -53,7 +54,7 @@ describe('RadioGroup', () => {
     const { queryAllByRole, toJSON } = render(<ControlledRadioGroup />);
 
     const radios = queryAllByRole('radio');
-    expect(radios.length).toBe(3);
+    expect(radios.length).toBe(4);
 
     expect(toJSON()).toMatchSnapshot();
   });

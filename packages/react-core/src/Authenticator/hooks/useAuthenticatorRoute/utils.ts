@@ -13,8 +13,17 @@ import {
   UseAuthenticatorSelector,
 } from '../useAuthenticator';
 import { isComponentRouteKey } from '../utils';
-import { DEFAULT_TOTP_ISSUER, MACHINE_PROP_KEYS } from './constants';
-import { UseAuthenticatorRoute } from './types';
+import {
+  DEFAULT_TOTP_ISSUER,
+  MACHINE_PROP_KEYS,
+  EVENT_HANDLER_KEY_MAP,
+} from './constants';
+import {
+  ConvertedMachineProps,
+  FormEventHandlerMachineKey,
+  FormEventHandlerPropKey,
+  UseAuthenticatorRoute,
+} from './types';
 
 // selects nothing
 const defaultSelector = () => [];
@@ -31,13 +40,26 @@ export const getRouteSelector = (
     ? createSelector(MACHINE_PROP_KEYS[route])
     : defaultSelector;
 
-const getSelectedMachineProps = (
+const isFormEventHandlerKey = (
+  key: AuthenticatorMachineContextKey
+): key is FormEventHandlerMachineKey =>
+  ['updateBlur', 'updateForm', 'submitForm'].includes(key);
+
+const convertEventHandlerKey = (
+  key: FormEventHandlerMachineKey
+): FormEventHandlerPropKey => EVENT_HANDLER_KEY_MAP[key];
+
+const getConvertedMachineProps = (
   route: AuthenticatorRouteComponentKey,
   context: AuthenticatorMachineContext
-) =>
+): ConvertedMachineProps =>
   MACHINE_PROP_KEYS[route].reduce(
-    (acc, key) => ({ ...acc, [key]: context[key] }),
-    {} as AuthenticatorMachineContext
+    (acc, key) => ({
+      ...acc,
+      [isFormEventHandlerKey(key) ? convertEventHandlerKey(key) : key]:
+        context[key],
+    }),
+    {} as ConvertedMachineProps
   );
 
 export function resolveConfirmResetPasswordRoute<PlatformProps = {}>(
@@ -45,23 +67,22 @@ export function resolveConfirmResetPasswordRoute<PlatformProps = {}>(
     PlatformProps,
     'ConfirmResetPassword'
   >['Component'],
-  { fields, ...props }: UseAuthenticator
+  props: UseAuthenticator
 ): UseAuthenticatorRoute<PlatformProps, 'ConfirmResetPassword'> {
   return {
     Component,
     props: {
       ...Component,
-      ...getSelectedMachineProps('confirmResetPassword', props),
-      fields,
+      ...getConvertedMachineProps('confirmResetPassword', props),
     },
   };
 }
 
 export function resolveConfirmSignInRoute<PlatformProps = {}>(
   Component: UseAuthenticatorRoute<PlatformProps, 'ConfirmSignIn'>['Component'],
-  { fields, ...props }: UseAuthenticator
+  props: UseAuthenticator
 ): UseAuthenticatorRoute<PlatformProps, 'ConfirmSignIn'> {
-  const { user, ...machineProps } = getSelectedMachineProps(
+  const { user, ...machineProps } = getConvertedMachineProps(
     'confirmSignIn',
     props
   );
@@ -71,23 +92,21 @@ export function resolveConfirmSignInRoute<PlatformProps = {}>(
     props: {
       ...Component,
       ...machineProps,
-      // prior to the `confirmSignIn` route, `user.username` is populated 
+      // prior to the `confirmSignIn` route, `user.username` is populated
       challengeName: user.challengeName!,
-      fields,
     },
   };
 }
 
 export function resolveConfirmSignUpRoute<PlatformProps = {}>(
   Component: UseAuthenticatorRoute<PlatformProps, 'ConfirmSignUp'>['Component'],
-  { fields, ...props }: UseAuthenticator
+  props: UseAuthenticator
 ): UseAuthenticatorRoute<PlatformProps, 'ConfirmSignUp'> {
   return {
     Component,
     props: {
       ...Component,
-      ...getSelectedMachineProps('confirmSignUp', props),
-      fields,
+      ...getConvertedMachineProps('confirmSignUp', props),
     },
   };
 }
@@ -97,16 +116,16 @@ export function resolveConfirmVerifyUserRoute<PlatformProps = {}>(
     PlatformProps,
     'ConfirmVerifyUser'
   >['Component'],
-  { fields, ...props }: UseAuthenticator
+  props: UseAuthenticator
 ): UseAuthenticatorRoute<PlatformProps, 'ConfirmVerifyUser'> {
-  const { skipVerification, ...machineProps } = getSelectedMachineProps(
+  const { skipVerification, ...machineProps } = getConvertedMachineProps(
     'confirmVerifyUser',
     props
   );
 
   return {
     Component,
-    props: { ...Component, ...machineProps, fields, skipVerification },
+    props: { ...Component, ...machineProps, skipVerification },
   };
 }
 
@@ -115,44 +134,46 @@ export function resolveForceNewPasswordRoute<PlatformProps = {}>(
     PlatformProps,
     'ForceNewPassword'
   >['Component'],
-  { fields, ...props }: UseAuthenticator
+  props: UseAuthenticator
 ): UseAuthenticatorRoute<PlatformProps, 'ForceNewPassword'> {
-  const { validationErrors, ...machineProps } = getSelectedMachineProps(
+  const { validationErrors, ...machineProps } = getConvertedMachineProps(
     'forceNewPassword',
     props
   );
 
   return {
     Component,
-    props: { ...Component, ...machineProps, fields, validationErrors },
+    props: { ...Component, ...machineProps, validationErrors },
   };
 }
 
 export function resolveResetPasswordRoute<PlatformProps = {}>(
   Component: UseAuthenticatorRoute<PlatformProps, 'ResetPassword'>['Component'],
-  { fields, ...props }: UseAuthenticator
+  props: UseAuthenticator
 ): UseAuthenticatorRoute<PlatformProps, 'ResetPassword'> {
   return {
     Component,
     props: {
       ...Component,
-      ...getSelectedMachineProps('resetPassword', props),
-      fields,
+      ...getConvertedMachineProps('resetPassword', props),
     },
   };
 }
 
 export function resolveSetupTOTPRoute<PlatformProps = {}>(
   Component: UseAuthenticatorRoute<PlatformProps, 'SetupTOTP'>['Component'],
-  { fields, getTotpSecretCode, ...props }: UseAuthenticator
+  { getTotpSecretCode, ...props }: UseAuthenticator
 ): UseAuthenticatorRoute<PlatformProps, 'SetupTOTP'> {
-  const { user, ...machineProps } = getSelectedMachineProps('setupTOTP', props);
+  const { user, ...machineProps } = getConvertedMachineProps(
+    'setupTOTP',
+    props
+  );
   return {
     Component,
     props: {
       ...Component,
       ...machineProps,
-      fields,
+
       getTotpSecretCode,
       // prior to reaching the `setupTOTP` route, `user` will be
       // authenticated ensuring `username` is provided
@@ -164,7 +185,7 @@ export function resolveSetupTOTPRoute<PlatformProps = {}>(
 
 export function resolveSignInRoute<PlatformProps = {}>(
   Component: UseAuthenticatorRoute<PlatformProps, 'SignIn'>['Component'],
-  { fields, ...props }: UseAuthenticator
+  props: UseAuthenticator
 ): UseAuthenticatorRoute<PlatformProps, 'SignIn'> {
   // default `hideSignUp` to false
   const hideSignUp = false;
@@ -173,8 +194,8 @@ export function resolveSignInRoute<PlatformProps = {}>(
     Component,
     props: {
       ...Component,
-      ...getSelectedMachineProps('signIn', props),
-      fields,
+      ...getConvertedMachineProps('signIn', props),
+
       hideSignUp,
     },
   };
@@ -182,26 +203,25 @@ export function resolveSignInRoute<PlatformProps = {}>(
 
 export function resolveSignUpRoute<PlatformProps = {}>(
   Component: UseAuthenticatorRoute<PlatformProps, 'SignUp'>['Component'],
-  { fields, ...props }: UseAuthenticator
+  props: UseAuthenticator
 ): UseAuthenticatorRoute<PlatformProps, 'SignUp'> {
-  const machineProps = getSelectedMachineProps('signUp', props);
+  const machineProps = getConvertedMachineProps('signUp', props);
 
   return {
     Component,
-    props: { ...Component, ...machineProps, fields },
+    props: { ...Component, ...machineProps },
   };
 }
 
 export function resolveVerifyUserRoute<PlatformProps = {}>(
   Component: UseAuthenticatorRoute<PlatformProps, 'VerifyUser'>['Component'],
-  { fields, ...props }: UseAuthenticator
+  props: UseAuthenticator
 ): UseAuthenticatorRoute<PlatformProps, 'VerifyUser'> {
   return {
     Component,
     props: {
       ...Component,
-      ...getSelectedMachineProps('verifyUser', props),
-      fields,
+      ...getConvertedMachineProps('verifyUser', props),
     },
   };
 }

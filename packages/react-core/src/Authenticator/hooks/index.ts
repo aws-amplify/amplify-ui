@@ -6,6 +6,7 @@ export { resolveAuthenticatorComponents } from './utils';
 export {
   Overrides as AuthenticatorComponentOverrides,
   Defaults as AuthenticatorComponentDefaults,
+  AuthenticatorMachineContext,
   DefaultConfirmResetPasswordComponent,
   DefaultConfirmSignInComponent,
   DefaultConfirmSignUpComponent,
@@ -16,4 +17,5 @@ export {
   DefaultSignInComponent,
   DefaultSignUpComponent,
   DefaultVerifyUserComponent,
+  FormFieldsComponent,
 } from './types';

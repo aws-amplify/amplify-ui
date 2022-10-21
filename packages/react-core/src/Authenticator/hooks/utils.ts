@@ -32,7 +32,7 @@ export function resolveAuthenticatorComponents<PlatformProps = {}>(
     const { Footer, FormFields, Header } = Default;
 
     // cast to allow assigning of component slots
-    const Component = Override as DefaultComponent;
+    const Component = Override as DefaultComponent<PlatformProps>;
 
     Component.Footer = Footer;
     Component.FormFields = FormFields;

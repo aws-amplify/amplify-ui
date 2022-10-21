@@ -1,9 +1,14 @@
+// features
 export {
+  AuthenticatorComponentDefaults,
+  AuthenticatorComponentOverrides,
+  AuthenticatorMachineContext,
   AuthenticatorProvider,
+  resolveAuthenticatorComponents,
   useAuthenticator,
   useAuthenticatorRoute,
   UseAuthenticator,
-  UseAuthenticatorRoute,
   useAuthenticatorInitMachine,
-  resolveAuthenticatorComponents,
+  UseAuthenticatorRoute,
+  FormFieldsComponent,
 } from './Authenticator';

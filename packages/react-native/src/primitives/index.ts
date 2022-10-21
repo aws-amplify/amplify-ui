@@ -10,4 +10,5 @@ export * from './PasswordField';
 export * from './PhoneNumberField';
 export * from './Radio';
 export * from './RadioGroup';
+export * from './Tabs';
 export * from './TextField';

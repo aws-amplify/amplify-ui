@@ -33,15 +33,17 @@ type PropsResolver = (
 const {
   codeDeliveryDetails,
   error,
-  fields,
   getTotpSecretCode,
   isPending,
   resendCode,
   skipVerification,
   socialProviders,
+  submitForm,
   toResetPassword,
   toSignIn,
   toSignUp,
+  updateBlur,
+  updateForm,
   user,
   validationErrors,
 } = mockUseAuthenticatorOutput;
@@ -53,19 +55,36 @@ const machineContext = mockMachineContext;
 
 const useAuthenticatorOutput = mockUseAuthenticatorOutput;
 
+const commonSelectorProps = [
+  error,
+  isPending,
+  submitForm,
+  updateBlur,
+  updateForm,
+];
+
 describe('getRouteSelector', () => {
   it.each([
-    ['confirmResetPassword', [error, isPending, resendCode, validationErrors]],
-    ['confirmSignIn', [error, isPending, toSignIn, user]],
-    ['confirmSignUp', [codeDeliveryDetails, error, isPending, resendCode]],
-    ['confirmVerifyUser', [error, isPending, skipVerification]],
-    ['forceNewPassword', [error, isPending, toSignIn, validationErrors]],
+    [
+      'confirmResetPassword',
+      [...commonSelectorProps, resendCode, validationErrors],
+    ],
+    ['confirmSignIn', [...commonSelectorProps, toSignIn, user]],
+    [
+      'confirmSignUp',
+      [...commonSelectorProps, codeDeliveryDetails, resendCode],
+    ],
+    ['confirmVerifyUser', [...commonSelectorProps, skipVerification]],
+    ['forceNewPassword', [...commonSelectorProps, toSignIn, validationErrors]],
     ['idle', []],
-    ['resetPassword', [error, isPending, toSignIn]],
-    ['signIn', [error, isPending, socialProviders, toResetPassword, toSignUp]],
-    ['signUp', [error, isPending, toSignIn, validationErrors]],
-    ['setupTOTP', [error, isPending, user]],
-    ['verifyUser', [error, isPending]],
+    ['resetPassword', [...commonSelectorProps, toSignIn]],
+    [
+      'signIn',
+      [...commonSelectorProps, socialProviders, toResetPassword, toSignUp],
+    ],
+    ['signUp', [...commonSelectorProps, toSignIn, validationErrors]],
+    ['setupTOTP', [...commonSelectorProps, user]],
+    ['verifyUser', commonSelectorProps],
   ])('returns the expected route selector for %s', (route, expected) => {
     const selector = getRouteSelector(route as AuthenticatorRoute);
     const output = selector(machineContext);
@@ -126,19 +145,29 @@ describe('props resolver functions', () => {
     ['VerifyUser', resolveVerifyUserRoute, { error, isPending }],
   ])(
     'resolve%s returns the expected values',
-    (key, resolver, routSpecificeProps) => {
+    (key, resolver, routeSpecificProps) => {
       const Component = DEFAULTS[key as AuthenticatorRouteComponentName];
 
-      const commonProps = { error, fields, isPending };
+      const commonProps = { error, isPending };
       const componentSlots = {
         Footer: Component.Footer,
         FormFields: Component.FormFields,
         Header: Component.Header,
       };
+      const eventHandlerProps = {
+        handleBlur: updateBlur,
+        handleChange: updateForm,
+        handleSubmit: submitForm,
+      };
 
       const expected = {
         Component,
-        props: { ...commonProps, ...componentSlots, ...routSpecificeProps },
+        props: {
+          ...commonProps,
+          ...componentSlots,
+          ...eventHandlerProps,
+          ...routeSpecificProps,
+        },
       };
 
       const output = (resolver as PropsResolver)(
