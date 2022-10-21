@@ -5,7 +5,7 @@ import { UploaderButton } from './UploaderButton';
 import { Previewer } from './Previewer';
 import { View } from '../../../primitives';
 import { UploaderDrop } from './UploaderDrop';
-import { useFileUploader } from '@aws-amplify/ui-react-core';
+import { useFileUploader } from './hooks/useFileUploader';
 
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/connected-components/storage)

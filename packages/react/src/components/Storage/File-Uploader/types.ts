@@ -1,5 +1,5 @@
 import React from 'react';
-import { DragActionHandlers } from '@aws-amplify/ui-react-core';
+import { DragActionHandlers } from './hooks/useFileUploader/types';
 import { FileName } from '@aws-amplify/ui';
 
 export type SetShowPreviewer = (show: boolean) => void;
