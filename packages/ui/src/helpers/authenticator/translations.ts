@@ -40,9 +40,15 @@ const getDeliveryMessageText = (
     );
   }
 
-  return `${`Your code is on the way. To log in, enter the code we ${
-    isEmailMessage ? 'emailed' : 'texted'
-  } to`} ${Destination}. ${translate('It may take a minute to arrive.')}`;
+  const instructionMessage = translate(
+    `Your code is on the way. To log in, enter the code we ${
+      isEmailMessage ? 'emailed' : 'texted'
+    } to`
+  );
+
+  const arrivalMessage = translate('It may take a minute to arrive.');
+
+  return `${instructionMessage} ${Destination}. ${arrivalMessage}`;
 };
 
 const getDeliveryMethodText = (
