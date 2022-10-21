@@ -6,6 +6,7 @@ function loadStories() {
   require('./stories/ConfirmSignUp.stories');
   require('./stories/ConfirmVerifyUser.stories');
   require('./stories/ErrorMessage.stories');
+  require('./stories/FederatedProviderButton.stories');
   require('./stories/ForceNewPassword.stories');
   require('./stories/Heading.stories');
   require('./stories/Icon.stories');
@@ -30,6 +31,7 @@ const stories = [
   './stories/ConfirmSignUp.stories',
   './stories/ConfirmVerifyUser.stories',
   './stories/ErrorMessage.stories',
+  './stories/FederatedProviderButton.stories',
   './stories/ForceNewPassword.stories',
   './stories/Heading.stories',
   './stories/Icon.stories',
