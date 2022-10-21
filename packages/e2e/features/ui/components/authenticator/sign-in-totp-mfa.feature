@@ -28,7 +28,6 @@ Feature: Sign In with TOTP MFA
     And I click the "Sign In" button
     And I enter an invalid confirmation code
     And I click the "Confirm" button
-    And I mock "autoSignIn" event
     Then I see 'Code mismatch'
 
   @angular @react @vue
@@ -76,6 +75,5 @@ Feature: Sign In with TOTP MFA
     And I type a valid confirmation code
     And I mock 'Amplify.Auth.verifyTotpToken' with fixture "Auth.verifyTOTP"
     And I click the "Confirm" button
-    And I mock "autoSignIn" event with fixture "Auth.verifyTOTP"
     Then I see "AmplifyUsername"
 
