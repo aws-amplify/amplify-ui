@@ -3,6 +3,7 @@ import { computed, ComputedRef, useAttrs } from 'vue';
 import { createSharedComposable } from '@vueuse/core';
 
 import {
+  authenticatorTextUtil,
   getActorState,
   getFormDataFromEvent,
   SignInState,
@@ -25,12 +26,14 @@ const emit = defineEmits([
   'createAccountClicked',
 ]);
 
-const forgotYourPasswordLink = computed(() =>
-  translate('Forgot your password?')
-);
+// Text Util
+const { getForgotPasswordText, getSignInText, getSigningInText } =
+  authenticatorTextUtil;
 
-const signInButtonText = computed(() => translate('Sign in'));
-const signIngButtonText = computed(() => translate('Signing in'));
+// Computed Properties
+const forgotYourPasswordLink = computed(() => getForgotPasswordText());
+const signInButtonText = computed(() => getSignInText());
+const signIngButtonText = computed(() => getSigningInText());
 
 const { state, send } = useAuth();
 const actorState = computed(() =>
