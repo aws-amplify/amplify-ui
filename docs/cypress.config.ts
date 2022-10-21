@@ -34,6 +34,6 @@ export default defineConfig({
       });
     },
     baseUrl,
-    numTestsKeptInMemory: 1,
+    numTestsKeptInMemory: 0,
   },
 });
