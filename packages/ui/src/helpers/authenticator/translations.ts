@@ -45,7 +45,7 @@ const getDeliveryMessage = (
   } to`} ${Destination}. ${translate('It may take a minute to arrive.')}`;
 };
 
-const getDeliveryMethodText = (
+const getDeliveryMethod = (
   codeDeliveryDetails: CodeDeliveryDetails
 ): string => {
   const { DeliveryMedium } = codeDeliveryDetails ?? {};
@@ -77,17 +77,18 @@ const getSignInWithFederation = (
   );
 };
 
-export default {
+export const AuthenticatorTexts = {
   /** Shared */
   getBackToSignIn: () => translate('Back to Sign In'),
-  getConfirm: () => translate('Confirm'),
+  getChangePassword: () => translate('Change Password'),
   getChanging: () => translate('Changing'),
+  getConfirm: () => translate('Confirm'),
   getConfirming: () => translate('Confirming'),
   getCopy: () => translate('COPY'),
+  getForgotPassword: () => translate('Forgot your password?'),
   getResendCode: () => translate('Resend Code'),
   getSendCode: () => translate('Send code'),
   getSending: () => translate('Sending'),
-  getChangePassword: () => translate('Change Password'),
 
   /** SignIn */
   getSigningIn: () => translate('Signing In'),
@@ -99,7 +100,7 @@ export default {
 
   /** ConfirmSignUp */
   getDeliveryMessage,
-  getDeliveryMethodText,
+  getDeliveryMethod,
 
   /** ConfirmSignIn */
   getChallenge,
@@ -112,4 +113,4 @@ export default {
 
   /** FederatedSignIn */
   getSignInWithFederation,
-};
+} as const;
