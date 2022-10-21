@@ -8,4 +8,4 @@ storiesOf('ConfirmVerifyUser', module)
   .add('default', () => <ConfirmVerifyUser {...props} />)
   .add('header', () => <ConfirmVerifyUser.Header />)
   .add('footer', () => <ConfirmVerifyUser.Footer />)
-  .add('formFields', () => <ConfirmVerifyUser.FormFields fields={[]} />);
+  .add('formFields', () => <ConfirmVerifyUser.FormFields {...props} />);

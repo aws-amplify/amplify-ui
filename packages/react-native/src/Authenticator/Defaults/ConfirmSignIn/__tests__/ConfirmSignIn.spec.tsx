@@ -12,7 +12,7 @@ describe('ConfirmSignIn', () => {
         <ConfirmSignIn {...props} />
         <ConfirmSignIn.Header />
         <ConfirmSignIn.Footer />
-        <ConfirmSignIn.FormFields fields={[]} />
+        <ConfirmSignIn.FormFields {...props} />
       </>
     );
     expect(toJSON()).toMatchSnapshot();
