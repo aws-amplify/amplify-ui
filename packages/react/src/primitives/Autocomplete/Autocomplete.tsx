@@ -17,10 +17,10 @@ export const AutocompletePrimitive: Primitive<AutocompleteProps, 'input'> = (
     className,
     defaultValue,
     value,
-    filteringOption,
     isLoading = false,
-    menu,
+    menuSlots = {},
     options,
+    optionFilter,
     onBlur,
     onChange,
     onClear,
@@ -58,7 +58,7 @@ export const AutocompletePrimitive: Primitive<AutocompleteProps, 'input'> = (
     defaultValue,
     value,
     options,
-    filteringOption,
+    optionFilter,
     onBlur,
     onChange,
     onClear,
@@ -110,12 +110,12 @@ export const AutocompletePrimitive: Primitive<AutocompleteProps, 'input'> = (
           listboxId={listboxId}
           optionBaseId={optionBaseId}
           options={filteredOptions}
-          menu={menu}
           renderOption={renderOption}
           setActiveIdx={setActiveIdx}
           setIsOpen={setIsMenuOpen}
           setValue={setInternalValue}
           value={composedValue}
+          {...menuSlots}
         />
       ) : null}
     </View>

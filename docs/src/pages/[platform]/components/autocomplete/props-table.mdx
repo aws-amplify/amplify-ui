@@ -109,16 +109,6 @@ string
     </TableRow>
 
     <TableRow>
-      <ResponsiveTableCell label="Name">filteringOption</ResponsiveTableCell>
-      <ResponsiveTableCell label="Type">
-```jsx
-(option: Option, value: string) => boolean
-```
-</ResponsiveTableCell>
-      <ResponsiveTableCell label="Description">Custom filtering that will be applied to options.  Note: Applying custom filtering to options will disable match highlighting.</ResponsiveTableCell>
-    </TableRow>
-
-    <TableRow>
       <ResponsiveTableCell label="Name">hasError</ResponsiveTableCell>
       <ResponsiveTableCell label="Type">
 ```jsx
@@ -249,10 +239,10 @@ boolean
     </TableRow>
 
     <TableRow>
-      <ResponsiveTableCell label="Name">menu</ResponsiveTableCell>
+      <ResponsiveTableCell label="Name">menuSlots</ResponsiveTableCell>
       <ResponsiveTableCell label="Type">
 ```jsx
-AutocompleteMenu
+Pick<AutocompleteMenuProps, "ariaLabel" | "Header" | "Footer" | "Empty" | "Loading">
 ```
 </ResponsiveTableCell>
       <ResponsiveTableCell label="Description">A colleciton of slots to customize the dropdown of options</ResponsiveTableCell>
@@ -296,6 +286,16 @@ string
 ```
 </ResponsiveTableCell>
       <ResponsiveTableCell label="Description">Handle submission of search field input</ResponsiveTableCell>
+    </TableRow>
+
+    <TableRow>
+      <ResponsiveTableCell label="Name">optionFilter</ResponsiveTableCell>
+      <ResponsiveTableCell label="Type">
+```jsx
+(option: Option, value: string) => boolean
+```
+</ResponsiveTableCell>
+      <ResponsiveTableCell label="Description">Custom filter that will be applied to options.  Note: Applying custom filter to options will disable match highlighting.</ResponsiveTableCell>
     </TableRow>
 
     <TableRow>

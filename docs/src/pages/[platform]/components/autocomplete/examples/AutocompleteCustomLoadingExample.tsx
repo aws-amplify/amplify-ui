@@ -5,7 +5,7 @@ export const AutocompleteCustomLoadingExample = () => (
   <Autocomplete
     label="Autocomplete custom loading example"
     options={[]}
-    menu={{
+    menuSlots={{
       Loading: (
         <>
           <Loader />

@@ -17,7 +17,7 @@ export const AutocompleteCustomFooterExample = () => (
   <Autocomplete
     label="Autocomplete custom footer example"
     options={options}
-    menu={{
+    menuSlots={{
       Footer: (
         <Flex direction="column" width="100%">
           <Divider />

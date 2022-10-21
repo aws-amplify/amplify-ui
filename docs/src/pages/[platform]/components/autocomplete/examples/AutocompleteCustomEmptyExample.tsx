@@ -5,7 +5,7 @@ export const AutocompleteCustomEmptyExample = () => (
   <Autocomplete
     label="Autocomplete custom empty example"
     options={[]}
-    menu={{
+    menuSlots={{
       Empty: <View>No results found :(</View>,
     }}
   />

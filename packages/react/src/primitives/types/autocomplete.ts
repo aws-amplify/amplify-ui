@@ -29,7 +29,33 @@ export interface Option {
   [key: string]: string;
 }
 
-export interface AutocompleteMenu {
+export interface HighlightMatchProps extends ViewProps {
+  /**
+   * @description
+   * The label you would like to have match highlighting
+   */
+  children: string;
+
+  /**
+   * @description
+   * A query string used to match against the label
+   */
+  query: string;
+}
+
+export interface AutocompleteOptionProps extends ViewProps {
+  /**
+   * React node that will be wrapped inside a li element
+   */
+  children: React.ReactNode;
+  /**
+   * @description
+   * Determine if it is an active option
+   */
+  isActive: boolean;
+}
+
+export interface AutocompleteMenuProps extends ViewProps {
   /**
    * @description
    * Defines a string value that labels an interactive element for accessibility
@@ -60,35 +86,7 @@ export interface AutocompleteMenu {
    * This is a slot to indicate no matching options found
    */
   Empty?: React.ReactNode;
-}
 
-export interface HighlightMatchProps extends ViewProps {
-  /**
-   * @description
-   * The label you would like to have match highlighting
-   */
-  children: string;
-
-  /**
-   * @description
-   * A query string used to match against the label
-   */
-  query: string;
-}
-
-export interface AutocompleteOptionProps extends ViewProps {
-  /**
-   * React node that will be wrapped inside a li element
-   */
-  children: React.ReactNode;
-  /**
-   * @description
-   * Determine if it is an active option
-   */
-  isActive: boolean;
-}
-
-export interface AutocompleteMenuProps extends ViewProps {
   /**
    * @description
    * Active option index
@@ -179,12 +177,6 @@ export interface AutocompleteMenuProps extends ViewProps {
 
   /**
    * @description
-   * A colleciton of slots to customize the dropdown of options
-   */
-  menu: AutocompleteMenu;
-
-  /**
-   * @description
    * Current text input value
    */
   value: string;
@@ -201,7 +193,10 @@ export interface AutocompleteProps extends SearchFieldProps {
    * @description
    * A colleciton of slots to customize the dropdown of options
    */
-  menu?: AutocompleteMenu;
+  menuSlots?: Pick<
+    AutocompleteMenuProps,
+    'ariaLabel' | 'Header' | 'Footer' | 'Empty' | 'Loading'
+  >;
 
   /**
    * @description
@@ -212,11 +207,11 @@ export interface AutocompleteProps extends SearchFieldProps {
 
   /**
    * @description
-   * Custom filtering that will be applied to options.
+   * Custom filter that will be applied to options.
    *
-   * Note: Applying custom filtering to options will disable match highlighting.
+   * Note: Applying custom filter to options will disable match highlighting.
    */
-  filteringOption?: (option: Option, value: string) => boolean;
+  optionFilter?: (option: Option, value: string) => boolean;
 
   /**
    * @description

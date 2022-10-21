@@ -16,7 +16,7 @@ export const useAutocomplete = ({
   defaultValue = '',
   value,
   options = [],
-  filteringOption,
+  optionFilter,
   onBlur,
   onChange,
   onClear,
@@ -32,7 +32,7 @@ export const useAutocomplete = ({
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [activeIdx, setActiveIdx] = React.useState(-1);
 
-  const isCustomFiltering = isFunction(filteringOption);
+  const isCustomFiltering = isFunction(optionFilter);
   const filteredOptions = React.useMemo(() => {
     const defaultFilter = (option: Option) => {
       const { label } = option;
@@ -41,10 +41,10 @@ export const useAutocomplete = ({
         .includes(composedValue?.toLocaleLowerCase());
     };
     const filter = isCustomFiltering
-      ? (option: Option) => filteringOption(option, composedValue)
+      ? (option: Option) => optionFilter(option, composedValue)
       : defaultFilter;
     return options.filter(filter);
-  }, [composedValue, filteringOption, isCustomFiltering, options]);
+  }, [composedValue, optionFilter, isCustomFiltering, options]);
 
   const listboxId = useStableId();
   const menuId = useStableId();

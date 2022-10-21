@@ -322,18 +322,18 @@ describe('Autocomplete: ', () => {
   });
 
   it('should be able to apply custom filtering', async () => {
-    const filteringOptions = jest.fn();
+    const optionFilter = jest.fn();
     render(
       <Autocomplete
         label={label}
         options={options}
-        filteringOption={filteringOptions}
+        optionFilter={optionFilter}
       />
     );
 
     const textInput = await screen.findByRole('combobox');
     userEvent.type(textInput, 'test');
-    expect(filteringOptions).toHaveBeenCalled();
+    expect(optionFilter).toHaveBeenCalled();
   });
 
   it('should be able to customize option', async () => {
@@ -357,7 +357,7 @@ describe('Autocomplete: ', () => {
       <Autocomplete
         label={label}
         options={options}
-        menu={{ Loading }}
+        menuSlots={{ Loading }}
         isLoading
       />
     );
@@ -372,7 +372,7 @@ describe('Autocomplete: ', () => {
 
   it('should be able to customize empty menu', async () => {
     const Empty = 'This is a custom empty';
-    render(<Autocomplete label={label} options={[]} menu={{ Empty }} />);
+    render(<Autocomplete label={label} options={[]} menuSlots={{ Empty }} />);
 
     const textInput = await screen.findByRole('combobox');
     textInput.focus();
@@ -386,7 +386,11 @@ describe('Autocomplete: ', () => {
     const Header = 'This is a custom header';
     const Footer = 'This is a custom footer';
     render(
-      <Autocomplete label={label} options={options} menu={{ Footer, Header }} />
+      <Autocomplete
+        label={label}
+        options={options}
+        menuSlots={{ Footer, Header }}
+      />
     );
 
     const textInput = await screen.findByRole('combobox');

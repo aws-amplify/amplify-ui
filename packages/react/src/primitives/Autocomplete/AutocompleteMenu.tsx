@@ -16,12 +16,16 @@ export const LOADING_TEXT = 'Loading options...';
 export const AutocompleteMenu: Primitive<AutocompleteMenuProps, 'div'> = ({
   activeIdx,
   activeOptionId,
+  ariaLabel,
+  Header = null,
+  Footer = null,
+  Loading = null,
+  Empty = null,
   isControlled,
   isCustomFiltering = false,
   isLoading,
   isOpen,
   listboxId,
-  menu = {},
   onSelect,
   optionBaseId,
   options = [],
@@ -32,14 +36,6 @@ export const AutocompleteMenu: Primitive<AutocompleteMenuProps, 'div'> = ({
   value,
   ...rest
 }) => {
-  const {
-    ariaLabel,
-    Header = null,
-    Footer = null,
-    Loading = null,
-    Empty = null,
-  } = menu;
-
   const MenuHeader = React.useCallback(() => {
     return (
       Header && (

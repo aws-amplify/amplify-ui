@@ -17,7 +17,7 @@ export const AutocompleteCustomHeaderExample = () => (
   <Autocomplete
     label="Autocomplete custom header example"
     options={options}
-    menu={{
+    menuSlots={{
       Header: (
         <Flex direction="column" width="100%">
           Search results:
