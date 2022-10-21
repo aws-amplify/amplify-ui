@@ -484,7 +484,13 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         }),
       }),
       updateErrorStateForTimeout: assign({
-        errorState: (_) => LivenessErrorState.TIMEOUT,
+        errorState: (_, event) => {
+          if (event.data.errorState === LivenessErrorState.SERVER_ERROR) {
+            return LivenessErrorState.SERVER_ERROR;
+          } else {
+            return LivenessErrorState.TIMEOUT;
+          }
+        },
       }),
       updateErrorStateForRuntime: assign({
         errorState: (_) => LivenessErrorState.RUNTIME_ERROR,
@@ -574,7 +580,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       ),
       cancelOvalMatchTimeout: actions.cancel('ovalMatchTimeout'),
       sendTimeoutAfterWaitingForDisconnect: actions.send(
-        { type: 'TIMEOUT' },
+        {
+          type: 'TIMEOUT',
+          data: { errorState: LivenessErrorState.SERVER_ERROR },
+        },
         {
           delay: 20000,
           id: 'waitForDisconnectTimeout',
