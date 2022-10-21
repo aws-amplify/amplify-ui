@@ -8,7 +8,7 @@ import externals from 'rollup-plugin-node-externals';
 const config = defineConfig([
   // CJS config
   {
-    input: ['src/index.tsx', 'src/internal.tsx', 'src/legacy.tsx'],
+    input: ['src/index.tsx', 'src/internal.tsx'],
     output: {
       dir: 'dist',
       format: 'cjs',
@@ -22,7 +22,7 @@ const config = defineConfig([
   },
   // ESM config
   {
-    input: ['src/index.tsx', 'src/internal.tsx', 'src/legacy.tsx'],
+    input: ['src/index.tsx', 'src/internal.tsx'],
     output: {
       dir: 'dist/esm',
       format: 'es',
