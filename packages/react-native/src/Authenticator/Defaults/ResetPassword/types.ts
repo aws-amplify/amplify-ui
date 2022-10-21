@@ -1,10 +1,15 @@
-import { StyleProp, ViewStyle } from 'react-native';
+import { TextStyle, ViewStyle } from 'react-native';
 
 import { AuthenticatorComponentDefaults } from '@aws-amplify/ui-react-core';
 import { FormHandlers } from '../../types';
 
 export interface ResetPasswordStyle {
-  container: StyleProp<ViewStyle>;
+  container: ViewStyle;
+  buttonPrimary: ViewStyle;
+  buttonPrimaryText: TextStyle;
+  buttonSecondary: TextStyle;
+  buttonPressed: ViewStyle;
+  textField: ViewStyle;
 }
 
 export type ResetPasswordComponent = AuthenticatorComponentDefaults<
