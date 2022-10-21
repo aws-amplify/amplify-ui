@@ -18,7 +18,6 @@
     "aws-amplify": "next"
   },
   "dependencies": {
-    "@aws-amplify/ui-components": "^1.7.0",
     "@aws-amplify/ui": "4.0.0",
     "@stencil/core": "2.8.0",
     "nanoid": "3.1.31",
