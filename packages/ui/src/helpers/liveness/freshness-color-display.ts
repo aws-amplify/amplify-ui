@@ -66,7 +66,7 @@ export class FreshnessColorDisplay {
     } = this.context;
 
     const tickStartTime = Date.now();
-    const timeSinceLastColorChange =
+    let timeSinceLastColorChange =
       tickStartTime - this.timeLastFlatOrScrollChange;
 
     freshnessColorEl.hidden = false;
@@ -94,6 +94,7 @@ export class FreshnessColorDisplay {
         timeSinceLastColorChange >= this.currColorSequence.downscrollDuration)
     ) {
       this.incrementStageIndex(tickStartTime);
+      timeSinceLastColorChange = 0;
     }
 
     // Every 10 ms tick we will update the colors displayed
