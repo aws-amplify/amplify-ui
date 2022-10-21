@@ -31,7 +31,6 @@ applications:
       phases:
         preTest:
           commands:
-            - export NODE_OPTIONS="--max-old-space-size=8192" # Increase to 8 GB
             - npm install
             - npm install wait-on
             - npm install pm2
