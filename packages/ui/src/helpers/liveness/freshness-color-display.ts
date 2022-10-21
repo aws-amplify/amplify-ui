@@ -35,7 +35,7 @@ export class FreshnessColorDisplay {
   ) {
     this.context = context;
     this.freshnessColorsSequence = freshnessColorsSequence;
-    this.init();
+    this.isFirstTick = true;
   }
 
   private init(): void {
@@ -46,7 +46,6 @@ export class FreshnessColorDisplay {
     this.stage = COLOR_STAGE.FLAT;
     this.timeLastFlatOrScrollChange = Date.now();
     this.timeLastFaceMatchChecked = Date.now();
-    this.isFirstTick = true;
   }
 
   public async displayColorTick(): Promise<any> {
@@ -64,18 +63,11 @@ export class FreshnessColorDisplay {
       ovalAssociatedParams: { ovalDetails },
       videoAssociatedParams: { canvasEl },
     } = this.context;
-
     const tickStartTime = Date.now();
-    let timeSinceLastColorChange =
-      tickStartTime - this.timeLastFlatOrScrollChange;
-
-    freshnessColorEl.hidden = false;
-
-    // This helper function only runs every 100ms
-    // await this.matchFaceInOval(reject);
 
     // Send a colorStart time only for the first tick of the first color
     if (this.isFirstTick) {
+      this.init();
       this.isFirstTick = false;
       this.sendColorStartTime(
         tickStartTime,
@@ -84,6 +76,13 @@ export class FreshnessColorDisplay {
         this.stageIndex
       );
     }
+
+    let timeSinceLastColorChange =
+      tickStartTime - this.timeLastFlatOrScrollChange;
+    freshnessColorEl.hidden = false;
+
+    // This helper function only runs every 100ms
+    // await this.matchFaceInOval(reject);
 
     // Every 10 ms tick we will check if the threshold for flat or scrolling, if so we will try to go to the next stage
     if (

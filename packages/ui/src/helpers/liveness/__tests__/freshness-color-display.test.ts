@@ -77,6 +77,7 @@ describe('FreshnessColorDisplay', () => {
       getColorsSequencesFromSessionInformation(mockSessionInformation)
     );
 
+    (display as any).init();
     (display as any).timeLastFlatOrScrollChange = Date.now() - 110; // mock displaying the first flat color for 100ms
     (display as any).isFirstTick = false;
     const response = await display.displayColorTick();
@@ -105,6 +106,7 @@ describe('FreshnessColorDisplay', () => {
       getColorsSequencesFromSessionInformation(mockSessionInformation)
     );
 
+    (display as any).init();
     (display as any).timeLastFlatOrScrollChange = Date.now() - 310; // mock scrolling the second color for 300ms
     (display as any).stage = 'SCROLLING'; // mock set to scrolling
     (display as any).stageIndex = 0; // mock set to the second color
@@ -136,8 +138,10 @@ describe('FreshnessColorDisplay', () => {
       getColorsSequencesFromSessionInformation(mockSessionInformation)
     );
 
+    (display as any).init();
     (display as any).stageIndex = (MOCK_COLOR_SEQUENCES.length - 1) * 2; // mock going through all stages
     (display as any).currColorIndex = 9; // mock going through all stages
+    (display as any).isFirstTick = false;
     const response = await display.displayColorTick();
     expect(response).toBe(true);
 
@@ -156,6 +160,7 @@ describe('FreshnessColorDisplay', () => {
       )
     );
 
+    (display as any).init();
     (display as any).stageIndex = 1; // mock set to the second color
     (display as any).currColorIndex = 1; // mock skipping the first flat color
     (display as any).timeLastFlatOrScrollChange = Date.now() - 310; // mock scrolling the second color for 300ms
