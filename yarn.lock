@@ -6036,11 +6036,6 @@
   resolved "https://registry.yarnpkg.com/@socket.io/component-emitter/-/component-emitter-3.1.0.tgz#96116f2a912e0c02817345b3c10751069920d553"
   integrity sha512-+9jVqKhRSpsc591z5vX+X5Yyw+he/HCB4iQ/RYxw35CEPaY1gnsNE43nf9n9AaYjAQrTiI/mOwKUKdUs9vf7Xg==
 
-"@stencil/core@2.8.0":
-  version "2.8.0"
-  resolved "https://registry.yarnpkg.com/@stencil/core/-/core-2.8.0.tgz#87d950fbbf050dce1566f32ca48c98007239472b"
-  integrity sha512-WazFGUMnbumg8ePNvej8cIOEcxvuZ0ugKQkkE1xFbDYcl7DgJd62MiG+bIqCcQlIdLEfhjAdoixxlFdJgrgjyA==
-
 "@svgr/babel-plugin-add-jsx-attribute@^5.4.0":
   version "5.4.0"
   resolved "https://registry.yarnpkg.com/@svgr/babel-plugin-add-jsx-attribute/-/babel-plugin-add-jsx-attribute-5.4.0.tgz#81ef61947bb268eb9d50523446f9c638fb355906"
