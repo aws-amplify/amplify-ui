@@ -9,7 +9,7 @@ import { AuthenticatorRoute } from './facade';
 /**
  * ConfirmSignIn
  */
-const getChallenge = (challengeName: AuthChallengeName): string => {
+const getChallengeText = (challengeName: AuthChallengeName): string => {
   switch (challengeName) {
     case 'SMS_MFA':
       return translate('Confirm SMS Code');
@@ -27,7 +27,7 @@ const getChallenge = (challengeName: AuthChallengeName): string => {
 /**
  * ConfirmSignUp
  */
-const getDeliveryMessage = (
+const getDeliveryMessageText = (
   codeDeliveryDetails: CodeDeliveryDetails
 ): string => {
   const { DeliveryMedium, Destination } = codeDeliveryDetails ?? {};
@@ -45,7 +45,7 @@ const getDeliveryMessage = (
   } to`} ${Destination}. ${translate('It may take a minute to arrive.')}`;
 };
 
-const getDeliveryMethod = (
+const getDeliveryMethodText = (
   codeDeliveryDetails: CodeDeliveryDetails
 ): string => {
   const { DeliveryMedium } = codeDeliveryDetails ?? {};
@@ -61,56 +61,58 @@ const getDeliveryMethod = (
 /**
  * FederatedSignIn
  */
-const getSignInWithFederation = (
+const providerNameMap: Record<FederatedIdentityProviders, string> = {
+  LoginWithAmazon: 'Amazon',
+  SignInWithApple: 'Apple',
+  Facebook: 'Facebook',
+  Google: 'Google',
+};
+
+const getSignInWithFederationText = (
   route: AuthenticatorRoute,
   provider: FederatedIdentityProviders
 ) => {
   const isSignIn = route === 'signIn';
-  const providerNameMap: Record<FederatedIdentityProviders, string> = {
-    LoginWithAmazon: 'Amazon',
-    SignInWithApple: 'Apple',
-    Facebook: 'Facebook',
-    Google: 'Google',
-  };
+
   return translate(
     `Sign ${isSignIn ? 'In' : 'Up'} with ${providerNameMap[provider]}`
   );
 };
 
-export const AuthenticatorTexts = {
+export const authenticatorTextUtil = {
   /** Shared */
-  getBackToSignIn: () => translate('Back to Sign In'),
-  getChangePassword: () => translate('Change Password'),
-  getChanging: () => translate('Changing'),
-  getConfirm: () => translate('Confirm'),
-  getConfirming: () => translate('Confirming'),
-  getCopy: () => translate('COPY'),
-  getForgotPassword: () => translate('Forgot your password?'),
-  getResendCode: () => translate('Resend Code'),
-  getSendCode: () => translate('Send code'),
-  getSending: () => translate('Sending'),
+  getBackToSignInText: () => translate('Back to Sign In'),
+  getChangePasswordText: () => translate('Change Password'),
+  getChangingText: () => translate('Changing'),
+  getConfirmText: () => translate('Confirm'),
+  getConfirmingText: () => translate('Confirming'),
+  getCopyText: () => translate('COPY'),
+  getResendCodeText: () => translate('Resend Code'),
+  getSendCodeText: () => translate('Send code'),
+  getSendingText: () => translate('Sending'),
 
   /** SignIn */
-  getSigningIn: () => translate('Signing In'),
-  getSignIn: () => translate('Sign in'),
 
+  getForgotPasswordText: () => translate('Forgot your password?'),
+  getSigningInText: () => translate('Signing In'),
+  getSignInText: () => translate('Sign in'),
   /** SignUp */
-  getCreatingAccount: () => translate('Creating Account'),
-  getCreateAccount: () => translate('Create Account'),
+  getCreatingAccountText: () => translate('Creating Account'),
+  getCreateAccountText: () => translate('Create Account'),
 
   /** ConfirmSignUp */
-  getDeliveryMessage,
-  getDeliveryMethod,
+  getDeliveryMessageText,
+  getDeliveryMethodText,
 
   /** ConfirmSignIn */
-  getChallenge,
+  getChallengeText,
 
   /** ResetPassword */
-  getResetYourPassword: () => translate('Reset your password'),
+  getResetYourPasswordText: () => translate('Reset your password'),
 
   /** SetupTOTP */
-  getSetupTOTP: () => translate('Setup TOTP'),
+  getSetupTOTPText: () => translate('Setup TOTP'),
 
   /** FederatedSignIn */
-  getSignInWithFederation,
-} as const;
+  getSignInWithFederationText,
+} as const; // using `as const` so that keys are strongly typed
