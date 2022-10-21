@@ -273,13 +273,13 @@ const hasRouteComponent = computed(() => {
           <base-two-tab-item
             :active="actorState?.matches('signIn')"
             :id="44472"
-            :label="createAccountLabel"
+            :label="signInLabel"
             @click="send('SIGN_IN')"
           />
           <base-two-tab-item
             :active="actorState?.matches('signUp')"
             :id="44471"
-            :label="signInLabel"
+            :label="createAccountLabel"
             @click="send('SIGN_UP')"
           />
         </base-two-tabs>
