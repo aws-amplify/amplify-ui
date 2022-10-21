@@ -66,6 +66,19 @@ describe('authenticatorTextUtil', () => {
     }
   );
 
+  it.each(CODE_DELIVERY_DETAILS)(
+    'getDeliveryMessageText for %s returns the expected text',
+    (deliveryMethod) => {
+      const { getDeliveryMessageText } = authenticatorTextUtil;
+
+      const codeDeliveryDetail = {
+        DeliveryMedium: deliveryMethod,
+      } as unknown as CodeDeliveryDetails;
+
+      expect(getDeliveryMessageText(codeDeliveryDetail)).toMatchSnapshot();
+    }
+  );
+
   it.each(AUTH_CHALLENGE_NAMES)(
     'getChallengeText for %s returns the expected text',
     (authChallengeName) => {
