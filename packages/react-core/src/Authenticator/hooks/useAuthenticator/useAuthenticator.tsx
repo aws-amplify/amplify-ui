@@ -56,9 +56,5 @@ export default function useAuthenticator(
     user,
     /** @deprecated For internal use only */
     fields,
-    /** @deprecated For internal use only */
-    _state: serviceSnapshot,
-    /** @deprecated For internal use only */
-    _send: send,
   };
 }
