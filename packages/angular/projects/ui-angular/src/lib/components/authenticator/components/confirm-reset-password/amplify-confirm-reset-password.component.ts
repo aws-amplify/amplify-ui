@@ -3,8 +3,15 @@ import { AuthenticatorService } from '../../../../services/authenticator.service
 import {
   FormFieldsArray,
   getFormDataFromEvent,
-  translate,
+  authenticatorTextUtil,
 } from '@aws-amplify/ui';
+
+const {
+  getBackToSignInText,
+  getResendCodeText,
+  getSubmitText,
+  getResetYourPasswordText,
+} = authenticatorTextUtil;
 
 @Component({
   selector: 'amplify-confirm-reset-password',
@@ -12,14 +19,14 @@ import {
 })
 export class ConfirmResetPasswordComponent {
   @HostBinding('attr.data-amplify-authenticator-confirmsignin') dataAttr = '';
-  @Input() public headerText = translate('Reset your password');
+  @Input() public headerText = getResetYourPasswordText();
 
   public sortedFormFields: FormFieldsArray;
 
   // translated strings
-  public backToSignInText = translate('Back to Sign In');
-  public resendCodeText = translate('Resend Code');
-  public submitText = translate('Submit');
+  public backToSignInText = getBackToSignInText();
+  public resendCodeText = getResendCodeText();
+  public submitText = getSubmitText();
 
   constructor(public authenticator: AuthenticatorService) {}
 
