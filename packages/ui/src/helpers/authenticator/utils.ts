@@ -71,16 +71,12 @@ export const defaultAuthHubHandler: HubHandler = async (data, service) => {
          * hub events and state machine transitions.
          */
         await waitForAutoSignInState(service);
-        if (getActorState(state).matches('autoSignIn')) {
-          send({ type: 'AUTO_SIGN_IN', data: data.payload.data });
-        }
+        send({ type: 'AUTO_SIGN_IN', data: data.payload.data });
       }
       break;
     case 'autoSignIn_failure':
       await waitForAutoSignInState(service);
-      if (getActorState(state).matches('autoSignIn')) {
-        send({ type: 'AUTO_SIGN_IN_FAILURE', data: data.payload.data });
-      }
+      send({ type: 'AUTO_SIGN_IN_FAILURE', data: data.payload.data });
       break;
     case 'signOut':
     case 'tokenRefresh_failure':
