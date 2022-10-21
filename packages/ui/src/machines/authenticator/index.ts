@@ -379,7 +379,9 @@ export function createAuthenticatorMachine() {
         shouldAutoSignIn: (context, event) => {
           return (
             event.data?.intent === 'autoSignIn' ||
-            context.actorDoneData?.intent === 'autoSignIn'
+            context.actorDoneData?.intent === 'autoSignIn' ||
+            event.data?.intent === 'autoSignInSubmit' ||
+            context.actorDoneData?.intent === 'autoSignInSubmit'
           );
         },
         shouldSetup: (context) => context.hasSetup === false,

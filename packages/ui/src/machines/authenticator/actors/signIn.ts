@@ -65,6 +65,7 @@ export function signInActor({ services }: SignInMachineOptions) {
       states: {
         init: {
           always: [
+            { target: 'autoSignIn.submit', cond: 'shouldAutoSubmit' },
             { target: 'autoSignIn', cond: 'shouldAutoSignIn' },
             { target: 'signIn' },
           ],
@@ -216,6 +217,57 @@ export function signInActor({ services }: SignInMachineOptions) {
                   {
                     actions: 'setRemoteError',
                     target: 'pending',
+                  },
+                ],
+              },
+            },
+            submit: {
+              tags: ['pending'],
+              entry: ['clearError', 'sendUpdate'],
+              invoke: {
+                src: 'signIn',
+                onDone: [
+                  {
+                    cond: 'shouldSetupTOTP',
+                    actions: ['setUser', 'setChallengeName'],
+                    target: '#signInActor.setupTOTP',
+                  },
+                  {
+                    cond: 'shouldConfirmSignIn',
+                    actions: ['setUser', 'setChallengeName'],
+                    target: '#signInActor.confirmSignIn',
+                  },
+                  {
+                    cond: 'shouldForceChangePassword',
+                    actions: [
+                      'setUser',
+                      'setChallengeName',
+                      'setRequiredAttributes',
+                    ],
+                    target: '#signInActor.forceNewPassword',
+                  },
+                  {
+                    actions: 'setUser',
+                    target: '#signInActor.resolved',
+                  },
+                ],
+                onError: [
+                  {
+                    cond: 'shouldRedirectToConfirmSignUp',
+                    actions: ['setCredentials', 'setConfirmSignUpIntent'],
+                    target: '#signInActor.rejected',
+                  },
+                  {
+                    cond: 'shouldRedirectToConfirmResetPassword',
+                    actions: [
+                      'setUsernameAuthAttributes',
+                      'setConfirmResetPasswordIntent',
+                    ],
+                    target: '#signInActor.rejected',
+                  },
+                  {
+                    actions: 'setRemoteError',
+                    target: '#signInActor.signIn',
                   },
                 ],
               },
@@ -496,6 +548,9 @@ export function signInActor({ services }: SignInMachineOptions) {
         },
         shouldSetupTOTP: (_, event): boolean => {
           return isExpectedChallengeName(getChallengeName(event), 'MFA_SETUP');
+        },
+        shouldAutoSubmit: (context) => {
+          return context?.intent === 'autoSignInSubmit';
         },
         shouldForceChangePassword: (_, event): boolean => {
           return isExpectedChallengeName(
