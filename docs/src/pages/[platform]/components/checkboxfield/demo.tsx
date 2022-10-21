@@ -15,6 +15,8 @@ const propsToCode = ({
   return (
     `<CheckboxField` +
     (label ? `\n  label=${JSON.stringify(label)}` : '') +
+    `\n  name="subscribe"` +
+    `\n  value="yes"` +
     (isDisabled ? `\n  isDisabled={${isDisabled}}` : '') +
     (isIndeterminate ? `\n  isIndeterminate={${isIndeterminate}}` : '') +
     (labelPosition
