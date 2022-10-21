@@ -4,13 +4,17 @@
 
 @import 'dist/theme';
 
-// Keeping these selector low (001) so it can be easily overridden
-html {
+// Allows both users with and without ThemeProvider to use or override default font
+// html => customers w/o ThemeProvider still get default font
+// [data-amplify-theme] => customers with ThemeProvider can override default font
+html,
+[data-amplify-theme] {
   font-family: var(--amplify-fonts-default-static);
 }
 
 @supports (font-variation-settings: normal) {
-  html {
+  html,
+  [data-amplify-theme] {
     font-family: var(--amplify-fonts-default-variable);
   }
 }
