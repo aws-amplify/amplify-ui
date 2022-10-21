@@ -663,6 +663,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-switchfield-track-padding: var(--amplify-outline-widths-medium);
         --amplify-components-switchfield-track-transition-duration: var(--amplify-time-short);
         --amplify-components-switchfield-track-width: var(--amplify-space-relative-xl);
+        --amplify-components-switchfield-track-error-background-color: var(--amplify-colors-background-error);
         --amplify-components-table-border-collapse: collapse;
         --amplify-components-table-display: table;
         --amplify-components-table-width: 100%;
