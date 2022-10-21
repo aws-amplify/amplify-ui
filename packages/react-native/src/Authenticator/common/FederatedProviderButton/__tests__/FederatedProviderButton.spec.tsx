@@ -6,6 +6,7 @@ import FederatedProviderButton from '../FederatedProviderButton';
 
 const signInText = 'Sign In with Amazon';
 
+/* TODO: Add more tests */
 describe('FederatedProviderButton', () => {
   it('renders default button as expected', () => {
     const { toJSON } = render(

@@ -1,7 +1,6 @@
 import {
   ImageSourcePropType,
   ImageStyle,
-  StyleProp,
   TextStyle,
   ViewStyle,
 } from 'react-native';
@@ -14,6 +13,6 @@ export interface FederatedProviderButtonProps extends ButtonProps {
 
 export interface FederatedProviderButtonStyles {
   container: ViewStyle;
-  icon: StyleProp<ImageStyle>;
+  icon: ImageStyle;
   label: TextStyle;
 }
