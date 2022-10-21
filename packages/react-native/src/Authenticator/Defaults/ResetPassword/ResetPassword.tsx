@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { View } from 'react-native';
 
-import { Button, Heading, TextField } from '../../../primitives';
+import { Button, ErrorMessage, Heading, TextField } from '../../../primitives';
 
 import { styles } from './styles';
 import { ResetPasswordComponent } from './types';
@@ -12,7 +12,9 @@ const ENTER_YOUR_USERNAME = 'Enter your username';
 const SEND_CODE = 'Send code';
 const BACK_TO_SIGN_IN = 'Back to Sign In';
 
-const ResetPassword: ResetPasswordComponent = () => {
+// const mockFormFieldsProps = {} as any;
+
+const ResetPassword: ResetPasswordComponent = ({ error }) => {
   const buttonPrimaryStyle = useCallback(
     ({ pressed }) =>
       pressed
@@ -29,9 +31,10 @@ const ResetPassword: ResetPasswordComponent = () => {
   return (
     <View style={styles.container}>
       <ResetPassword.Header />
-      <ResetPassword.FormFields {...({} as any)} />
+      {/* <ResetPassword.FormFields {...mockFormFieldsProps} /> */}
       <Heading level={4}>{RESET_YOUR_PASSWORD}</Heading>
       <TextField placeholder={ENTER_YOUR_USERNAME} style={styles.textField} />
+      {error ? <ErrorMessage>{error}</ErrorMessage> : null}
       <Button style={buttonPrimaryStyle} textStyle={styles.buttonPrimaryText}>
         {SEND_CODE}
       </Button>
