@@ -7,7 +7,7 @@ describe('Links', () => {
     });
   });
 
-  it('should be 119 pages on Sitemap and all of them should return status 200', () => {
+  it('should be 119 links on Sitemap', () => {
     expect(allLinks.length).to.eq(119);
   });
 });
@@ -23,33 +23,36 @@ for (let i = 0; i < 3; i++) {
       });
     });
 
-    it(`🐟 all links on ${allLinks[i]} works`, () => {
-      cy.wrap(allLinks[i] || '/').each((link: string) => {
-        cy.task('log', `[TESTING...] page ${baseUrl}/${link}`);
-        cy.visit(link || '/');
-        cy.get('a').each(hrefWorks);
-        cy.get('button').each(hrefWorks);
+    it(`🐟 all links on ${allLinks[i] || '/'} works`, () => {
+      const link = allLinks[i];
+      cy.task('log', `[TESTING...] page ${baseUrl}/${link}`);
+      cy.visit(link || '/');
+      cy.get('a').each(hrefWorks);
+      cy.get('button').each(hrefWorks);
 
-        function hrefWorks(htmlTag: JQuery<HTMLElement>): void {
-          const tagHref = htmlTag.prop('href');
-          const tagText = htmlTag.prop('text');
-          const tagName = htmlTag.prop('tagName');
-          if (tagHref) {
-            cy.task(
-              'log',
-              `[REQUESTING...] ${tagHref} from ${tagName} "${tagText}" on ${baseUrl}/${link}`
-            );
-            cy.request(tagHref).then(({ status }) => {
-              expect(status).to.eq(200);
-            });
-          } else if (tagName === 'A') {
-            cy.task(
-              'log',
-              `⚠ ${tagName} "${tagText}" on ${baseUrl}/${link} doesn't have a href attribute`
-            );
-          }
+      function hrefWorks(htmlTag: JQuery<HTMLElement>): void {
+        const tagHref = htmlTag.prop('href');
+        const tagText = htmlTag.prop('text');
+        const tagName = htmlTag.prop('tagName');
+        if (tagHref) {
+          cy.task(
+            'log',
+            `[REQUESTING...] ${tagHref} from ${tagName} tag ${
+              tagText ? `"${tagText}"` : ''
+            } on ${baseUrl}/${link}`
+          );
+          cy.request(tagHref).then(({ status }) => {
+            expect(status).to.eq(200);
+          });
+        } else if (tagName === 'A') {
+          cy.task(
+            'log',
+            `⚠ ${tagName} tag ${
+              tagText ? `"${tagText}"` : ''
+            } on ${baseUrl}/${link} doesn't have a href attribute`
+          );
         }
-      });
+      }
     });
   });
 }
