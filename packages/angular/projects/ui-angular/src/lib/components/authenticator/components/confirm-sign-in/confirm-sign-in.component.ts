@@ -9,8 +9,6 @@ import {
 } from '@aws-amplify/ui';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 
-const logger = new Logger('ConfirmSignIn');
-
 const { getConfirmText, getBackToSignInText, getChallengeText } =
   authenticatorTextUtil;
 
