@@ -75,7 +75,7 @@ onMounted(async () => {
 
 // Computed Properties
 const backSignInText = computed(() => getBackToSignInText());
-const confirmText = computed(() => getConfirmText);
+const confirmText = computed(() => getConfirmText());
 
 // Methods
 const onInput = (e: Event): void => {
