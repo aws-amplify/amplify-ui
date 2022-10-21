@@ -1,10 +1,14 @@
 import { ImageSourcePropType } from 'react-native';
 
 const icons = {
+  amazonLogo: require('./amazonLogo.png') as ImageSourcePropType,
+  appleLogo: require('./appleLogo.png') as ImageSourcePropType,
   checkboxFilled: require('./checkboxFilled.png') as ImageSourcePropType,
   checkboxOutline: require('./checkboxOutline.png') as ImageSourcePropType,
   close: require('./close.png') as ImageSourcePropType,
   error: require('./error.png') as ImageSourcePropType,
+  facebookLogo: require('./facebookLogo.png') as ImageSourcePropType,
+  googleLogo: require('./googleLogo.png') as ImageSourcePropType,
   visibilityOn: require('./visibilityOn.png') as ImageSourcePropType,
   visibilityOff: require('./visibilityOff.png') as ImageSourcePropType,
 };
