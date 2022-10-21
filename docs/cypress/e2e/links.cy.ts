@@ -1,20 +1,43 @@
-describe('Links on Sitemap', () => {
-  it('should be 118 pages. Links on each page should all return 200', async () => {
+describe('Links', () => {
+  const baseUrl = 'http://localhost:5001';
+  let allLinks = [];
+
+  before(() => {
     cy.task('readSitemapLinks').then((links: string[]) => {
-      expect(links.length).to.eq(119);
-      links.forEach((link) => {
-        cy.visit(link ?? '/');
-        cy.get('a').each((anchor) => {
-          cy.request(anchor.prop('href')).then(({ status }) => {
-            expect(status).to.eq(200);
-          });
-        });
-        cy.get('button').each((button) => {
-          cy.request(button.prop('href')).then(({ status }) => {
-            expect(status).to.eq(200);
-          });
-        });
+      allLinks = allLinks.concat(links);
+    });
+  });
+
+  it('should be 119 pages on Sitemap and all of them should return status 200', () => {
+    expect(allLinks.length).to.eq(119);
+    cy.wrap(allLinks).each((link: string) => {
+      cy.task('log', `[TESTING...] page ${baseUrl}/${link}`);
+      cy.request(link ? link : '/').then(({ status }) => {
+        expect(status).to.eq(200);
       });
+      // cy.visit(link ?? '/');
+      // cy.get('a').each(hrefWorks);
+      // cy.get('button').each(hrefWorks);
+
+      // function hrefWorks(htmlTag: JQuery<HTMLElement>): void {
+      //   const tagHref = htmlTag.prop('href');
+      //   const tagText = htmlTag.prop('text');
+      //   const tagName = htmlTag.prop('tagName');
+      //   if (tagHref) {
+      //     cy.task(
+      //       'log',
+      //       `[REQUESTING...] ${tagHref} from ${tagName} "${tagText}" on ${baseUrl}/${link}`
+      //     );
+      //     cy.request(tagHref).then(({ status }) => {
+      //       expect(status).to.eq(200);
+      //     });
+      //   } else if (tagName === 'A') {
+      //     cy.task(
+      //       'log',
+      //       `⚠ ${tagName} "${tagText}" on ${baseUrl}/${link} doesn't have a href attribute`
+      //     );
+      //   }
+      // }
     });
   });
 });

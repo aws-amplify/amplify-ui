@@ -35,10 +35,11 @@ applications:
             - npm install wait-on
             - npm install pm2
             - npm install mocha@5.2.0 mochawesome mochawesome-merge mochawesome-report-generator
-            # - npx pm2 start npm -- start
-            - 'npm run dev & npx wait-on http://localhost:5001'
+            - npx pm2 start npm -- dev
+            - 'npx wait-on http://localhost:5001'
         test:
           commands:
+            - export NODE_OPTIONS="--max-old-space-size=8192" # Increase to 8 GB
             - 'npx cypress run --reporter mochawesome --reporter-options "reportDir=cypress/report/mochawesome-report,overwrite=false,html=false,json=true,timestamp=mmddyyyy_HHMMss"'
         postTest:
           commands:
