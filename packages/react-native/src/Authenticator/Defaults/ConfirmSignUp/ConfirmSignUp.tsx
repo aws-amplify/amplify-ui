@@ -8,9 +8,8 @@ const ConfirmSignUp: ConfirmSignUpComponent = () => {
   return <Text>ConfirmSignUp</Text>;
 };
 
-ConfirmSignUp.Header = function Header() {
-  return <DefaultHeader>Confirm Sign Up</DefaultHeader>;
-};
+ConfirmSignUp.Header = DefaultHeader;
+
 ConfirmSignUp.Footer = function Footer() {
   return null;
 };

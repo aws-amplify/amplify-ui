@@ -8,9 +8,8 @@ const ConfirmResetPassword: ConfirmResetPasswordComponent = () => {
   return <Text>ConfirmResetPassword</Text>;
 };
 
-ConfirmResetPassword.Header = function Header() {
-  return <DefaultHeader>Confirm Reset Password</DefaultHeader>;
-};
+ConfirmResetPassword.Header = DefaultHeader;
+
 ConfirmResetPassword.Footer = function Footer() {
   return null;
 };

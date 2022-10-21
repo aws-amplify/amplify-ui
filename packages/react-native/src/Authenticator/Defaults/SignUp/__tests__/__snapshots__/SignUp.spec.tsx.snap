@@ -20,8 +20,6 @@ Array [
         undefined,
       ]
     }
-  >
-    Sign Up
-  </Text>,
+  />,
 ]
 `;

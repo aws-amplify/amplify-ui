@@ -8,9 +8,8 @@ const SignUp: SignUpComponent = () => {
   return <Text>SignUp</Text>;
 };
 
-SignUp.Header = function Header() {
-  return <DefaultHeader>Sign Up</DefaultHeader>;
-};
+SignUp.Header = DefaultHeader;
+
 SignUp.Footer = function Footer() {
   return null;
 };

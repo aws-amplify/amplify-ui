@@ -8,9 +8,8 @@ const ForceNewPassword: ForceNewPasswordComponent = () => {
   return <Text>ForceNewPassword</Text>;
 };
 
-ForceNewPassword.Header = function Header() {
-  return <DefaultHeader>Force New Password</DefaultHeader>;
-};
+ForceNewPassword.Header = DefaultHeader;
+
 ForceNewPassword.Footer = function Footer() {
   return null;
 };

@@ -8,9 +8,8 @@ const ResetPassword: ResetPasswordComponent = () => {
   return <Text>ResetPassword</Text>;
 };
 
-ResetPassword.Header = function Header() {
-  return <DefaultHeader>Reset Password</DefaultHeader>;
-};
+ResetPassword.Header = DefaultHeader;
+
 ResetPassword.Footer = function Footer() {
   return null;
 };

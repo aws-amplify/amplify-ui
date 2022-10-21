@@ -20,8 +20,6 @@ Array [
         undefined,
       ]
     }
-  >
-    Confirm Sign In
-  </Text>,
+  />,
 ]
 `;

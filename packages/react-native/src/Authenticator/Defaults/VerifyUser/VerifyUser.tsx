@@ -8,9 +8,8 @@ const VerifyUser: VerifyUserComponent = () => {
   return <Text>VerifyUser</Text>;
 };
 
-VerifyUser.Header = function Header() {
-  return <DefaultHeader>Verify User</DefaultHeader>;
-};
+VerifyUser.Header = DefaultHeader;
+
 VerifyUser.Footer = function Footer() {
   return null;
 };

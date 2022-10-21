@@ -8,9 +8,8 @@ const ConfirmVerifyUser: ConfirmVerifyUserComponent = () => {
   return <Text>ConfirmVerifyUser</Text>;
 };
 
-ConfirmVerifyUser.Header = function Header() {
-  return <DefaultHeader>Confirm Verify User</DefaultHeader>;
-};
+ConfirmVerifyUser.Header = DefaultHeader;
+
 ConfirmVerifyUser.Footer = function Footer() {
   return null;
 };
