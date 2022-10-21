@@ -12,6 +12,18 @@ import {
 } from '@aws-amplify/ui-react-core';
 
 import { AuthenticatorProps, FormHandlers } from './types';
+import {
+  ConfirmResetPassword,
+  ConfirmSignIn,
+  ConfirmSignUp,
+  ConfirmVerifyUser,
+  ForceNewPassword,
+  ResetPassword,
+  SetupTOTP,
+  SignIn,
+  SignUp,
+  VerifyUser,
+} from './Defaults';
 
 const DEFAULTS = {
   // TODO: remove cast after adding missing components
@@ -58,5 +70,15 @@ function Authenticator({
 
 // assign slot components
 Authenticator.Provider = Provider;
+Authenticator.ConfirmResetPassword = ConfirmResetPassword;
+Authenticator.ConfirmSignIn = ConfirmSignIn;
+Authenticator.ConfirmSignUp = ConfirmSignUp;
+Authenticator.ConfirmVerifyUser = ConfirmVerifyUser;
+Authenticator.ForceNewPassword = ForceNewPassword;
+Authenticator.ResetPassword = ResetPassword;
+Authenticator.SetupTOTP = SetupTOTP;
+Authenticator.SignIn = SignIn;
+Authenticator.SignUp = SignUp;
+Authenticator.VerifyUser = VerifyUser;
 
 export default Authenticator;
