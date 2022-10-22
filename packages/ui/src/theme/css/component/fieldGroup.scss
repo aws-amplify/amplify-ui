@@ -23,6 +23,7 @@
 
 .amplify-field-group {
   gap: var(--amplify-components-fieldgroup-gap);
+  align-self: stretch; // ensures input field is always full width
 
   &--horizontal {
     flex-direction: row;
