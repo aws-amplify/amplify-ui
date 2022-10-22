@@ -51,6 +51,7 @@ interface SwitchFieldTrackTokens {
   padding: DesignToken<SpaceValue>;
   transition: SwitchFieldTrackTransitionTokens;
   width: DesignToken<SpaceValue>;
+  _error: SwitchFieldTrackCheckedTokens;
 }
 
 interface SwitchFieldTrackTransitionTokens {
@@ -128,5 +129,9 @@ export const switchfield: SwitchFieldTokens = {
       duration: { value: '{time.short.value}' },
     },
     width: { value: '{space.relative.xl.value}' },
+
+    _error: {
+      backgroundColor: { value: '{colors.background.error.value}' },
+    },
   },
 };
