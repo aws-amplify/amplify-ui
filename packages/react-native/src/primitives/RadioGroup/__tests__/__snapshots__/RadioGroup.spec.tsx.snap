@@ -75,6 +75,7 @@ exports[`RadioGroup renders as expected when direction is horizontal 1`] = `
               undefined,
             ]
           }
+          testID="amplify__radio-button__dot"
         />
       </View>
       <Text
@@ -347,6 +348,7 @@ exports[`RadioGroup renders as expected when direction is vertical 1`] = `
               undefined,
             ]
           }
+          testID="amplify__radio-button__dot"
         />
       </View>
       <Text
@@ -619,6 +621,7 @@ exports[`RadioGroup renders as expected when size is large 1`] = `
               undefined,
             ]
           }
+          testID="amplify__radio-button__dot"
         />
       </View>
       <Text
@@ -891,6 +894,7 @@ exports[`RadioGroup renders as expected when size is medium 1`] = `
               undefined,
             ]
           }
+          testID="amplify__radio-button__dot"
         />
       </View>
       <Text
@@ -1163,6 +1167,7 @@ exports[`RadioGroup renders as expected when size is small 1`] = `
               undefined,
             ]
           }
+          testID="amplify__radio-button__dot"
         />
       </View>
       <Text
@@ -1435,6 +1440,7 @@ exports[`RadioGroup renders default RadioGroup as expected 1`] = `
               undefined,
             ]
           }
+          testID="amplify__radio-button__dot"
         />
       </View>
       <Text
