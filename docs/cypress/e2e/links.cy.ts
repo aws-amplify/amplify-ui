@@ -12,7 +12,7 @@ describe('Links', () => {
   });
 });
 
-for (let i = 0; i < 2; i++) {
+for (let i = 0; i < 119; i++) {
   describe('check page', () => {
     const baseUrl = 'http://localhost:5001';
     let allLinks = [];
@@ -23,7 +23,7 @@ for (let i = 0; i < 2; i++) {
       });
     });
 
-    it(`🐟 all links on ${allLinks[i] || '/'} works`, () => {
+    it(`✔️ all links on ${i} link works`, () => {
       const link = allLinks[i];
       cy.task('log', `[TESTING...] page ${baseUrl}/${link}`);
       cy.visit(link || '/');
@@ -41,9 +41,14 @@ for (let i = 0; i < 2; i++) {
               tagText ? `"${tagText}"` : ''
             } on ${baseUrl}/${link}`
           );
-          cy.request(tagHref).then(({ status }) => {
-            expect(status).to.eq(200);
-          });
+
+          if (allLinks.includes(tagHref)) {
+            expect(allLinks).has(tagHref);
+          } else {
+            cy.request(tagHref).then(({ status }) => {
+              expect(status).to.eq(200);
+            });
+          }
         } else if (tagName === 'A') {
           cy.task(
             'log',
