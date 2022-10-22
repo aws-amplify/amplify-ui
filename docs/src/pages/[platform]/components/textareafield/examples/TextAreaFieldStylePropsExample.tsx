@@ -5,9 +5,6 @@ export const TextAreaFieldStylePropsExample = () => {
   return (
     <>
       <TextAreaField
-        direction="row"
-        alignItems="baseline"
-        fontSize={tokens.fontSizes.xl}
         label={
           <Text
             fontWeight={tokens.fontWeights.bold}
@@ -16,20 +13,15 @@ export const TextAreaFieldStylePropsExample = () => {
             Address:
           </Text>
         }
-        backgroundColor={tokens.colors.background.secondary}
-        color={tokens.colors.black}
-        width="400px"
+        padding="xl"
+        border={`1px solid ${tokens.colors.brand.primary[60]}`}
       />
       <TextAreaField
         label="Special Field"
         inputStyles={{
-          backgroundColor: tokens.colors.brand.primary[10],
-          border: `${tokens.borderWidths.medium} solid ${tokens.colors.brand.primary[80]}`,
+          backgroundColor: 'brand.primary.10',
+          border: `1px solid ${tokens.colors.brand.primary[60]}`,
         }}
-        fontSize={tokens.fontSizes.xl}
-        backgroundColor={tokens.colors.background.primary}
-        color={tokens.colors.black}
-        width="400px"
       />
     </>
   );

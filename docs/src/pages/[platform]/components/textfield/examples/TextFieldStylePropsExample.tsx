@@ -20,6 +20,7 @@ export const TextFieldStylePropsExample = () => {
         label="Special Field"
         inputStyles={{
           backgroundColor: 'brand.primary.10',
+          border: `1px solid ${tokens.colors.brand.primary[60]}`,
         }}
       />
     </>

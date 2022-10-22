@@ -10,10 +10,8 @@ export const StepperFieldStylePropsExample = () => {
         min={0}
         max={10}
         step={1}
-        fontSize="xl"
         padding="large"
-        border={`1px solid ${tokens.colors.teal[60]}`}
-        borderRadius="0.5rem"
+        border={`1px solid ${tokens.colors.brand.primary[60]}`}
       />
       <StepperField
         label="Stepper"
@@ -23,7 +21,6 @@ export const StepperFieldStylePropsExample = () => {
         step={1}
         inputStyles={{
           backgroundColor: 'brand.primary.10',
-          fontWeight: 'bold',
         }}
       />
     </>
