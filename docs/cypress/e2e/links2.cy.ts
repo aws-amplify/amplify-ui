@@ -1,19 +1,14 @@
 let allLinks = [];
-describe('Links', () => {
-  before(() => {
-    cy.task('readSitemapLinks').then((links: string[]) => {
-      allLinks = allLinks.concat(links);
-    });
-  });
 
-  it('should be 119 links on Sitemap', () => {
-    expect(allLinks.length).to.eq(119);
-  });
-});
-
-for (let i = 0; i < 50; i++) {
+for (let i = 50; i < 100; i++) {
   describe(`check page ${i}`, () => {
     const baseUrl = 'http://localhost:5001';
+
+    before(() => {
+      cy.task('readSitemapLinks').then((links: string[]) => {
+        allLinks = allLinks.concat(links);
+      });
+    });
 
     it(`all links on ${i} link should work`, () => {
       const link = allLinks[i];
