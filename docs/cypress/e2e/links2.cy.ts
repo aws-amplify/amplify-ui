@@ -1,6 +1,6 @@
 let allLinks = [];
 
-for (let i = 50; i < 100; i++) {
+for (let i = 30; i < 60; i++) {
   describe(`check page ${i}`, () => {
     const baseUrl = 'http://localhost:5001';
 
@@ -13,7 +13,7 @@ for (let i = 50; i < 100; i++) {
     it(`all links on ${i} link should work`, () => {
       const link = allLinks[i];
       cy.task('log', `[TESTING...] page ${baseUrl}/${link}`);
-      cy.request(link).then(({ status }) => {
+      cy.request(link || '/').then(({ status }) => {
         expect(status).to.eq(200);
       });
       // cy.get('a').each(hrefWorks);
