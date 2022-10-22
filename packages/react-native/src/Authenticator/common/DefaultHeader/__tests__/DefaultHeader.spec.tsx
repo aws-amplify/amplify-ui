@@ -7,19 +7,19 @@ const heading = 'test';
 
 describe('DefaultHeader', () => {
   it('renders as expected with children', () => {
-    const { toJSON, findByLabelText, findByRole } = render(
+    const { toJSON, getByRole, getByText } = render(
       <DefaultHeader>{heading}</DefaultHeader>
     );
     expect(toJSON()).toMatchSnapshot();
 
-    expect(findByLabelText(heading)).toBeDefined();
-    expect(findByRole('header')).toBeDefined();
+    expect(getByRole('header')).toBeDefined();
+    expect(getByText(heading)).toBeDefined();
   });
 
   it('renders as expected without children', () => {
-    const { toJSON, findByRole } = render(<DefaultHeader />);
+    const { toJSON, getByRole } = render(<DefaultHeader />);
     expect(toJSON()).toMatchSnapshot();
 
-    expect(findByRole('header')).toBeDefined();
+    expect(getByRole('header')).toBeDefined();
   });
 });
