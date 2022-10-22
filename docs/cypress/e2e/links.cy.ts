@@ -11,7 +11,7 @@ describe('Links', () => {
   });
 });
 
-for (let i = 0; i < 30; i++) {
+for (let i = 0; i < 20; i++) {
   describe(`check page ${i}`, () => {
     const baseUrl = 'http://localhost:5001';
 
