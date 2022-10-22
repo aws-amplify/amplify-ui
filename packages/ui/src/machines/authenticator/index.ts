@@ -378,9 +378,7 @@ export function createAuthenticatorMachine() {
           event.data?.intent === 'confirmPasswordReset',
         shouldAutoSignIn: (context, event) => {
           return (
-            event.data?.intent === 'autoSignIn' ||
             context.actorDoneData?.intent === 'autoSignIn' ||
-            event.data?.intent === 'autoSignInSubmit' ||
             context.actorDoneData?.intent === 'autoSignInSubmit'
           );
         },
