@@ -200,10 +200,25 @@ export function signInActor({ services }: SignInMachineOptions) {
                     target: '#signInActor.resolved',
                   },
                 ],
-                AUTO_SIGN_IN_FAILURE: {
-                  actions: 'setRemoteError',
-                  target: 'pending',
-                },
+                AUTO_SIGN_IN_FAILURE: [
+                  {
+                    cond: 'shouldRedirectToConfirmSignUp',
+                    actions: ['setCredentials', 'setConfirmSignUpIntent'],
+                    target: 'rejected',
+                  },
+                  {
+                    cond: 'shouldRedirectToConfirmResetPassword',
+                    actions: [
+                      'setUsernameAuthAttributes',
+                      'setConfirmResetPasswordIntent',
+                    ],
+                    target: 'rejected',
+                  },
+                  {
+                    actions: 'setRemoteError',
+                    target: 'pending',
+                  },
+                ],
               },
             },
             submit: {
@@ -236,10 +251,25 @@ export function signInActor({ services }: SignInMachineOptions) {
                     target: '#signInActor.resolved',
                   },
                 ],
-                onError: {
-                  actions: 'setRemoteError',
-                  target: '#signInActor.signIn',
-                },
+                onError: [
+                  {
+                    cond: 'shouldRedirectToConfirmSignUp',
+                    actions: ['setCredentials', 'setConfirmSignUpIntent'],
+                    target: '#signInActor.rejected',
+                  },
+                  {
+                    cond: 'shouldRedirectToConfirmResetPassword',
+                    actions: [
+                      'setUsernameAuthAttributes',
+                      'setConfirmResetPasswordIntent',
+                    ],
+                    target: '#signInActor.rejected',
+                  },
+                  {
+                    actions: 'setRemoteError',
+                    target: '#signInActor.signIn',
+                  },
+                ],
               },
             },
             resolved: { always: '#signInActor.resolved' },
