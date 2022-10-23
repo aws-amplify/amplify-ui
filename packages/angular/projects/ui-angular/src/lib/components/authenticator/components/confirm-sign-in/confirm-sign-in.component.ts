@@ -1,5 +1,4 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { Logger } from 'aws-amplify';
 import {
   FormFieldsArray,
   getActorContext,
