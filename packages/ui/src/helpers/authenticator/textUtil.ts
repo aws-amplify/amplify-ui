@@ -3,7 +3,7 @@ import {
   CodeDeliveryDetails,
   SocialProvider,
 } from '../../types';
-import { translate } from '../../i18n';
+import { translate, DefaultTexts } from '../../i18n';
 import { AuthenticatorRoute } from './facade';
 
 /**
@@ -12,9 +12,9 @@ import { AuthenticatorRoute } from './facade';
 const getChallengeText = (challengeName: AuthChallengeName): string => {
   switch (challengeName) {
     case 'SMS_MFA':
-      return translate('Confirm SMS Code');
+      return translate(DefaultTexts.CONFIRM_SMS);
     case 'SOFTWARE_TOKEN_MFA':
-      return translate('Confirm TOTP Code');
+      return translate(DefaultTexts.CONFIRM_TOTP);
     default:
       throw new Error(
         `${translate(
@@ -59,6 +59,7 @@ const getDeliveryMethodText = (
   const isTextMessage = DeliveryMedium === 'SMS';
 
   if (!isEmailMessage && isTextMessage) {
+    // TODO: add this to default texts
     return translate('We Sent A Code');
   }
   return translate(`We ${isEmailMessage ? 'Emailed' : 'Texted'} You`);
@@ -87,31 +88,32 @@ const getSignInWithFederationText = (
 
 export const authenticatorTextUtil = {
   /** Shared */
-  getBackToSignInText: () => translate('Back to Sign In'),
-  getChangePasswordText: () => translate('Change Password'),
-  getChangingText: () => translate('Changing'),
-  getConfirmText: () => translate('Confirm'),
-  getConfirmingText: () => translate('Confirming'),
+  getBackToSignInText: () => translate(DefaultTexts.BACK_SIGN_IN),
+  getChangePasswordText: () => translate(DefaultTexts.CHANGE_PASSWORD),
+  getChangingText: () => translate(DefaultTexts.CHANGING_PASSWORD),
+  getConfirmText: () => translate(DefaultTexts.CONFIRM),
+  getConfirmingText: () => translate(DefaultTexts.CONFIRMING),
+  // TODO: add 'COPY' to DefaultTexts
   getCopyText: () => translate('COPY'),
-  getResendCodeText: () => translate('Resend Code'),
-  getSendCodeText: () => translate('Send code'),
-  getSendingText: () => translate('Sending'),
-  getSubmitText: () => translate('Submit'),
-  getSubmittingText: () => translate('Submitting'),
-  getLoadingText: () => translate('Loading'),
+  getResendCodeText: () => translate(DefaultTexts.RESEND_CODE),
+  getSendCodeText: () => translate(DefaultTexts.SEND_CODE),
+  getSendingText: () => translate(DefaultTexts.SENDING),
+  getSubmitText: () => translate(DefaultTexts.SUBMIT),
+  getSubmittingText: () => translate(DefaultTexts.SUBMITTING),
+  getLoadingText: () => translate(DefaultTexts.LOADING),
 
   /** SignInSignUpTabs */
-  getSignInTabText: () => translate('Sign In'),
-  getSignUpTabText: () => translate('Create Account'),
+  getSignInTabText: () => DefaultTexts.SIGN_IN_TAB,
+  getSignUpTabText: () => DefaultTexts.CREATE_ACCOUNT,
 
   /** SignIn */
-  getForgotPasswordText: () => translate('Forgot your password?'),
-  getSigningInText: () => translate('Signing In'),
-  getSignInText: () => translate('Sign in'),
+  getForgotPasswordText: () => translate(DefaultTexts.FORGOT_YOUR_PASSWORD),
+  getSigningInText: () => translate(DefaultTexts.SIGNING_IN_BUTTON),
+  getSignInText: () => translate(DefaultTexts.SIGN_IN),
 
   /** SignUp */
-  getCreatingAccountText: () => translate('Creating Account'),
-  getCreateAccountText: () => translate('Create Account'),
+  getCreatingAccountText: () => translate(DefaultTexts.CREATING_ACCOUNT),
+  getCreateAccountText: () => translate(DefaultTexts.CREATE_ACCOUNT),
 
   /** ConfirmSignUp */
   getDeliveryMessageText,
@@ -121,19 +123,19 @@ export const authenticatorTextUtil = {
   getChallengeText,
 
   /** ResetPassword */
-  getResetYourPasswordText: () => translate('Reset your password'),
+  getResetYourPasswordText: () => translate(DefaultTexts.RESET_PASSWORD),
 
   /** SetupTOTP */
-  getSetupTOTPText: () => translate('Setup TOTP'),
+  getSetupTOTPText: () => translate(DefaultTexts.SETUP_TOTP),
+  // TODO: add defaultText for "COPIED"
   getCopiedText: () => translate('COPIED'),
 
   /** FederatedSignIn */
   getSignInWithFederationText,
 
   /** VerifyUser */
-  getSkipText: () => translate('Skip'),
-  getVerifyText: () => translate('Verify'),
-  getVerifyContactText: () => translate('Verify Contact'),
-  getAccountRecoveryInfoText: () =>
-    translate('Account recovery requires verified contact information'),
+  getSkipText: () => translate(DefaultTexts.SKIP),
+  getVerifyText: () => translate(DefaultTexts.VERIFY),
+  getVerifyContactText: () => translate(DefaultTexts.VERIFY_CONTACT),
+  getAccountRecoveryInfoText: () => translate(DefaultTexts.VERIFY_HEADING),
 } as const; // using `as const` so that keys are strongly typed

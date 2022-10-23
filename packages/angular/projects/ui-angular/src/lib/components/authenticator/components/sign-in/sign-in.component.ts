@@ -16,8 +16,6 @@ const { getForgotPasswordText, getSignInText } = authenticatorTextUtil;
 export class SignInComponent {
   @HostBinding('attr.data-amplify-authenticator-signin') dataAttr = '';
 
-  // translated phrases
-  // Support backwards compatibility for legacy key with trailing space
   public forgotPasswordText = getForgotPasswordText();
   public signInButtonText = getSignInText();
   public sortedFormFields: FormFieldsArray;

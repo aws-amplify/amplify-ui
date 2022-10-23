@@ -45,7 +45,7 @@ export class FederatedSignInComponent implements OnInit {
     const { route } = this.authenticator;
 
     this.signInAmazonText = getSignInWithFederationText(route, 'amazon');
-    this.signInAppleText = getSignInWithFederationText(route, 'amazon');
+    this.signInAppleText = getSignInWithFederationText(route, 'apple');
     this.signInFacebookText = getSignInWithFederationText(route, 'facebook');
     this.signInGoogleText = getSignInWithFederationText(route, 'google');
   }

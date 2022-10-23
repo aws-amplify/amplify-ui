@@ -41,8 +41,6 @@ export function ConfirmSignUp({
     },
   } = useCustomComponents();
 
-  const deliveryMessageText = getDeliveryMessageText(codeDeliveryDetails);
-
   return (
     // TODO Automatically add these namespaces again from `useAmplify`
     <RouteContainer className={className} variation={variation}>
@@ -58,7 +56,7 @@ export function ConfirmSignUp({
 
           <Flex direction="column">
             <Text className="amplify-authenticator__subtitle">
-              {deliveryMessageText}
+              {getDeliveryMessageText(codeDeliveryDetails)}
             </Text>
 
             <FormFields />
