@@ -244,7 +244,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
         sendUpdate: sendUpdate(), // sendUpdate is a HOC
         setAutoSignInIntent: assign({
           intent: (context) => {
-            if (context.intent && context.intent === 'confirmSignUp') {
+            if (context?.intent === 'confirmSignUp') {
               return 'autoSignInSubmit';
             } else {
               return 'autoSignIn';
