@@ -109,7 +109,7 @@ export const authenticatorTextUtil = {
   /** SignIn */
   getForgotPasswordText: () => translate(DefaultTexts.FORGOT_YOUR_PASSWORD),
   getSigningInText: () => translate(DefaultTexts.SIGNING_IN_BUTTON),
-  getSignInText: () => translate(DefaultTexts.SIGN_IN),
+  getSignInText: () => translate(DefaultTexts.SIGN_IN_BUTTON),
 
   /** SignUp */
   getCreatingAccountText: () => translate(DefaultTexts.CREATING_ACCOUNT),
