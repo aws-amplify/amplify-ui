@@ -103,8 +103,8 @@ export const authenticatorTextUtil = {
   getLoadingText: () => translate(DefaultTexts.LOADING),
 
   /** SignInSignUpTabs */
-  getSignInTabText: () => DefaultTexts.SIGN_IN_TAB,
-  getSignUpTabText: () => DefaultTexts.CREATE_ACCOUNT,
+  getSignInTabText: () => translate(DefaultTexts.SIGN_IN_TAB),
+  getSignUpTabText: () => translate(DefaultTexts.CREATE_ACCOUNT),
 
   /** SignIn */
   getForgotPasswordText: () => translate(DefaultTexts.FORGOT_YOUR_PASSWORD),
