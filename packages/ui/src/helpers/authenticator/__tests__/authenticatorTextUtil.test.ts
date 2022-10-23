@@ -4,7 +4,7 @@ import {
   CodeDeliveryDetails,
   SocialProvider,
 } from '../../../types';
-import { authenticatorTextUtil } from '../translations';
+import { authenticatorTextUtil } from '../textUtil';
 
 const AUTH_CHALLENGE_NAMES: AuthChallengeName[] = [
   'SMS_MFA',
