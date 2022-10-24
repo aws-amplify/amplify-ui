@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { computed, ComputedRef, useAttrs } from 'vue';
 import {
+  authenticatorTextUtil,
   getActorState,
   SignInState,
-  translate,
   getFormDataFromEvent,
+  translate,
 } from '@aws-amplify/ui';
 
 import { useAuth, useAuthenticator } from '../composables/useAuth';
@@ -23,10 +24,14 @@ const actorState = computed(() =>
   getActorState(state.value)
 ) as ComputedRef<SignInState>;
 
-// computed properties
-const changePasswordLabel = computed(() => translate('Change Password'));
-const changingPasswordLabel = computed(() => translate('Changing'));
-const backSignInText = computed(() => translate('Back to Sign In'));
+// Text Util
+const { getChangePasswordText, getChangingText, getBackToSignInText } =
+  authenticatorTextUtil;
+
+// Computed Properties
+const changePasswordLabel = computed(() => getChangePasswordText());
+const changingPasswordLabel = computed(() => getChangingText());
+const backSignInText = computed(() => getBackToSignInText());
 
 // Methods
 const onHaveAccountClicked = (): void => {
