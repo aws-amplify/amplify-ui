@@ -12,10 +12,6 @@
       "import": "./dist/esm/internal.js",
       "require": "./dist/internal.js"
     },
-    "./legacy": {
-      "import": "./dist/esm/legacy.js",
-      "require": "./dist/legacy.js"
-    },
     "./styles.css": "./dist/styles.css",
     "./primitives.json": "./dist/primitives.json"
   },
@@ -31,7 +27,6 @@
   },
   "files": [
     "dist",
-    "legacy",
     "internal",
     "LICENSE"
   ],
