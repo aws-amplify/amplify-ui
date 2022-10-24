@@ -1,6 +1,7 @@
 import { FieldGroupIconButtonProps } from './fieldGroupIcon';
 import { InputProps } from './input';
 import { TextProps } from './text';
+import { BaseStyleProps } from './style';
 
 /**
  * Shared type across all field types
@@ -32,6 +33,14 @@ export interface FieldProps {
    * false
    */
   labelHidden?: boolean;
+
+  /**
+   * @description
+   * Style props to be applied to the input element
+   */
+  // Note: this is using BaseStyleProps rather than AllStyleProps because
+  // not all style props are valid on all input elements like input, textarea, and select.
+  inputStyles?: BaseStyleProps;
 }
 
 export interface FieldClearButtonProps

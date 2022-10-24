@@ -11,6 +11,7 @@ import {
   useTransformStyleProps,
 } from '../styleUtils';
 import {
+  AllStyleProps,
   BaseStyleProps,
   ComponentPropsToStylePropsMap,
   FlexContainerStyleProps,
@@ -462,16 +463,14 @@ describe('useTransformStyleProps', () => {
 });
 
 describe('splitPrimitiveProps', () => {
-  it('should split props into base, flex and rest', () => {
-    const baseStyleProps: BaseStyleProps = {
+  it('should split props into style props and rest', () => {
+    const styleProps: AllStyleProps = {
       backgroundColor: 'yellow',
       alignSelf: 'baseline',
       area: 'auto',
       basis: 'content',
       border: '1px solid black',
       borderRadius: '2px',
-    };
-    const flexContainerStyleProps: FlexContainerStyleProps = {
       alignContent: 'space-around',
       alignItems: 'baseline',
       columnGap: '2rem',
@@ -489,18 +488,13 @@ describe('splitPrimitiveProps', () => {
       placeholder: 'Password',
     };
 
-    const {
-      baseStyleProps: resultBaseStyleProps,
-      flexContainerStyleProps: resultFlexContainerStyleProps,
-      rest: resultRest,
-    } = splitPrimitiveProps({
-      ...baseStyleProps,
-      ...flexContainerStyleProps,
-      ...restProps,
-    });
+    const { styleProps: resultStyleProps, rest: resultRest } =
+      splitPrimitiveProps({
+        ...styleProps,
+        ...restProps,
+      });
 
     expect(resultRest).toEqual(restProps);
-    expect(resultFlexContainerStyleProps).toEqual(flexContainerStyleProps);
-    expect(resultBaseStyleProps).toEqual(baseStyleProps);
+    expect(resultStyleProps).toEqual(styleProps);
   });
 });

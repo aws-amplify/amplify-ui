@@ -19,6 +19,7 @@ import {
   SelectFieldControlledExample,
   SelectFieldOptionsExample,
   SelectFieldThemeExample,
+  SelectFieldStylePropsExample,
 } from './examples';
 
 ## Demo
@@ -236,40 +237,26 @@ Use the `hasError` and `errorMessage` props to mark a SelectField as having a va
 
 To override styling on all SelectFields, you can set the Amplify CSS variables with the built-in `.amplify-selectfield` class.
 
-```css
-/* styles.css */
-.amplify-selectfield {
-  --amplify-components-field-control-border-color: rebeccapurple;
-}
-```
+<Example>
+  <SelectField
+    label="Globally styled field"
+    className="globally-styled-selectfield"
+  />
+  <ExampleCode>
+    ```css
+    /* styles.css */
+    .amplify-selectfield {
+      --amplify-components-fieldcontrol-border-color: rebeccapurple;
+    }
+    ```
+  </ExampleCode>
+</Example>
 
 ### Local styling
 
-To override styling on a specific SelectField, you can use (in order of increasing specificity): a class selector, data attributes, or style props.
+To override styling on a specific `SelectField`, you can use a class selector or style props.
 
 _Using a class selector:_
-
-```css
-/* styles.css */
-.my-custom-selectfield .amplify-select {
-  background-color: cyan;
-}
-```
-
-```jsx
-import './styles.css';
-
-<SelectField
-  label="Fruit"
-  labelHidden={true}
-  className="my-custom-selectfield"
-  placeholder="Please select a fruit"
->
-  <option value="apple">Apple</option>
-  <option value="banana">Banana</option>
-  <option value="orange">Orange</option>
-</SelectField>;
-```
 
 <Example>
   <SelectField
@@ -282,70 +269,28 @@ import './styles.css';
     <option value="banana">Banana</option>
     <option value="orange">Orange</option>
   </SelectField>
-</Example>
-
-_Using data attributes:_
+<ExampleCode>
 
 ```css
 /* styles.css */
-/* Override only large size styles */
-.amplify-select[data-size='large'] {
-  border: 1px solid black;
-}
-
-/* Override only quiet variation styles */
-.amplify-select[data-variation='quiet'] {
-  background-color: blue;
+.my-custom-selectfield .amplify-select {
+  border-radius: 0;
 }
 ```
+
+</ExampleCode>
+</Example>
 
 _Using style props:_
 
-```jsx
-<SelectField
-  label="Fruit"
-  labelHidden={true}
-  placeholder="Please select a fruit"
-  style={{backgroundColor: 'plum'}}
->
-  <option value="apple">Apple</option>
-  <option value="banana">Banana</option>
-  <option value="orange">Orange</option>
-</SelectField>
-/* OR */
-<SelectField
-  label="Fruit"
-  labelHidden={true}
-  placeholder="Please select a fruit"
-  backgroundColor="plum"
->
-  <option value="apple">Apple</option>
-  <option value="banana">Banana</option>
-  <option value="orange">Orange</option>
-</SelectField>
-```
-
 <Example>
-  <Flex direction="column">
-    <SelectField
-      label="Fruit"
-      labelHidden={true}
-      placeholder="Please select a fruit"
-      style={{ backgroundColor: 'plum' }}
-    >
-      <option value="apple">Apple</option>
-      <option value="banana">Banana</option>
-      <option value="orange">Orange</option>
-    </SelectField>
-    <SelectField
-      label="Fruit"
-      labelHidden={true}
-      placeholder="Please select a fruit"
-      backgroundColor="plum"
-    >
-      <option value="apple">Apple</option>
-      <option value="banana">Banana</option>
-      <option value="orange">Orange</option>
-    </SelectField>
-  </Flex>
+  <SelectFieldStylePropsExample />
+  
+  <ExampleCode>
+
+    ```jsx file=./examples/SelectFieldStylePropsExample.tsx
+    ```
+
+  </ExampleCode>
+
 </Example>

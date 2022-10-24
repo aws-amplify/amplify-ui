@@ -37,7 +37,7 @@ Replace any `TextField` components using the `isMultiline` prop with the `TextAr
 
 #### 2. Support for text directionality moved to ThemeProvider
 
-<Alert variation="Info" heading="Note">
+<Alert variation="info" heading="Note">
   If you are NOT using `dir="rtl"` in your application, feel free to skip this item.
 </Alert>
 
@@ -69,6 +69,15 @@ Remove any of the following deprecated components imported from `@aws-amplify/ui
 * withAuthenticator
 
 
+#### 4. Added `inputStyles` prop to Field primitives
+
+Before 4.0, Field components like `TextField` would try to intelligently apply certain style props onto the wrapper element and some on the input element. We felt this was a little too opaque to users, but we still want to allow you to style the input element directly. We added an `inputStyles` prop to Field components so you can apply style props directly on the input (or `textarea` or `select`) as well as on the wrapper element. 
+
+Hopefully this change won't affect your code but will allow for more customization and control. 
+
+<Alert variation="info" heading="Note">
+  The TextAreaField component does apply 1 style prop directly on the `textarea` element: `resize`. We felt this one makes sense to apply direclty on the the `textarea` element and not the wrapper element.
+</Alert>
 
 #### Automatic signin on signup logic moved to `aws-amplify`. 
 
