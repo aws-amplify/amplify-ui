@@ -2,7 +2,7 @@ import { defineConfig } from 'cypress';
 import sitemapUrls from 'sitemap-urls';
 
 const fs = require('fs');
-const baseUrl = 'http://localhost:5001';
+const baseUrl = 'http://localhost:3000';
 
 export default defineConfig({
   e2e: {
@@ -18,7 +18,12 @@ export default defineConfig({
             const sitemapLinks: string[] = await sitemapUrls.extractUrls(
               siteMapContent
             );
-            return sitemapLinks;
+            return sitemapLinks.map((link) =>
+              link
+                .replace(`${baseUrl}/`, '')
+                .replace('https://www.dev.ui.docs.amplify.aws/', '')
+                .replace('https://ui.docs.amplify.aws/', '')
+            );
           }
         },
         log: (message) => {

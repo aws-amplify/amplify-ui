@@ -1,59 +1,26 @@
-import sitemapUrls from 'sitemap-urls';
-
-let allSitemapLinksLocal: string[] = [];
-let allSitemapLinksDev: string[] = [];
+let allLinks: string[] = [];
+const numberOfLinks = 119;
 
 before(() => {
   cy.task('readSitemapLinks').then((links: string[]) => {
-    allSitemapLinksLocal = allSitemapLinksLocal.concat(links);
+    allLinks = allLinks.concat(links);
   });
-  cy.request('https://dev.ui.docs.amplify.aws/sitemap.xml').then(
-    async (siteMapContent) => {
-      allSitemapLinksDev = await sitemapUrls.extractUrls(siteMapContent.body);
-    }
-  );
 });
 
 describe('Local Sitemap', () => {
-  // before(() => {
-  //   cy.task('readSitemapLinks').then((links: string[]) => {
-  //     allSitemapLinksLocal = allSitemapLinksLocal.concat(links);
-  //   });
-  //   cy.request('https://dev.ui.docs.amplify.aws/sitemap.xml').then(
-  //     async (siteMapContent) => {
-  //       allSitemapLinksDev = await sitemapUrls.extractUrls(siteMapContent.body);
-  //     }
-  //   );
-  // });
-
   it('should have 119 links', () => {
-    expect(allSitemapLinksLocal.length).to.eq(119);
+    expect(allLinks.length).to.eq(numberOfLinks);
   });
 });
 
-for (let i = 0; i < 119; i++) {
+for (let i = 0; i < numberOfLinks; i++) {
   describe(`check page ${i}`, () => {
-    const baseUrlLocal = 'http://localhost:5001';
-    const baseUrlDev = 'https://dev.ui.docs.amplify.aws';
+    const baseUrl = 'http://localhost:3000';
 
-    it(`all links on page ${i} should work`, () => {
-      const linkLocal = allSitemapLinksLocal[i];
-      const linkDev = linkLocal.replace(baseUrlLocal, baseUrlDev);
-      if (allSitemapLinksDev.includes(linkDev)) {
-        cy.task('log', `[TESTING...] page ${linkDev}`);
-        // cy.request(linkDev || '/').then(({ status }) => {
-        //   expect(status).to.eq(200);
-        //   cy.clearLocalStorage();
-        // });
-        cy.visit(linkDev || '/');
-      } else {
-        cy.task('log', `[TESTING...] page ${linkLocal}`);
-        // cy.request(linkLocal || '/').then(({ status }) => {
-        //   expect(status).to.eq(200);
-        //   cy.clearLocalStorage();
-        // });
-        cy.visit(linkLocal || '/');
-      }
+    it(`all links on ${i} link should work`, () => {
+      const link = allLinks[i];
+      cy.task('log', `[TESTING...] page ${baseUrl}/${link}`);
+      cy.visit(link || '/');
       cy.get('a').each(hrefWorks);
       cy.get('button').each(hrefWorks);
 
@@ -66,11 +33,11 @@ for (let i = 0; i < 119; i++) {
             'log',
             `[REQUESTING...] ${tagHref} from ${tagName} tag ${
               tagText ? `"${tagText}"` : ''
-            } on ${baseUrlLocal}/${linkLocal}`
+            } on ${baseUrl}/${link}`
           );
 
-          if (allSitemapLinksLocal.includes(`${baseUrlLocal}${tagHref}`)) {
-            expect(allSitemapLinksLocal).has(`${baseUrlLocal}${tagHref}`);
+          if (allLinks.includes(`${baseUrl}${tagHref}`)) {
+            expect(allLinks).has(`${baseUrl}${tagHref}`);
           } else {
             cy.request(tagHref).then(({ status }) => {
               expect(status).to.eq(200);
@@ -81,7 +48,7 @@ for (let i = 0; i < 119; i++) {
             'log',
             `⚠ ${tagName} tag ${
               tagText ? `"${tagText}"` : ''
-            } on ${baseUrlLocal}/${linkLocal} doesn't have a href attribute`
+            } on ${baseUrl}/${link} doesn't have a href attribute`
           );
         }
       }
