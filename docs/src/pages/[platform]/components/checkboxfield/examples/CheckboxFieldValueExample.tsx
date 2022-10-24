@@ -1,7 +1,7 @@
 import { CheckboxField, Button } from '@aws-amplify/ui-react';
 import * as React from 'react';
 
-export const ValueExample = () => {
+export const CheckboxFieldValueExample = () => {
   const onSubmit = (event) => {
     event.preventDefault();
     alert(event.target.subscribe.value);

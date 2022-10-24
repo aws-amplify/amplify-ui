@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
 import { Flex } from '../Flex';
+import { FieldErrorMessage } from '../Field';
 import { Input } from '../Input';
 import { Label } from '../Label';
 import { Primitive, SwitchFieldProps } from '../types';
@@ -29,6 +30,8 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, typeof Flex> = (
     trackCheckedColor,
     trackColor,
     value,
+    hasError,
+    errorMessage,
     ...rest
   },
   ref
@@ -54,7 +57,8 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, typeof Flex> = (
       ComponentClassNames.SwitchTrack,
       'focused',
       isFocused
-    )
+    ),
+    classNameModifierByFlag(ComponentClassNames.SwitchTrack, 'error', hasError)
   );
   const componentClasses = classNames(
     ComponentClassNames.SwitchThumb,
@@ -124,6 +128,7 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, typeof Flex> = (
           ></View>
         </View>
       </Label>
+      <FieldErrorMessage hasError={hasError} errorMessage={errorMessage} />
     </Flex>
   );
 };
