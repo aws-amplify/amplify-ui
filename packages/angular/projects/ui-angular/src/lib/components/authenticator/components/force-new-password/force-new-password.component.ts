@@ -1,6 +1,8 @@
 import { Component, HostBinding, Input } from '@angular/core';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
-import { getFormDataFromEvent, translate } from '@aws-amplify/ui';
+import { getFormDataFromEvent, authenticatorTextUtil } from '@aws-amplify/ui';
+
+const { getChangePasswordText, getBackToSignInText } = authenticatorTextUtil;
 
 @Component({
   selector: 'amplify-force-new-password',
@@ -9,11 +11,11 @@ import { getFormDataFromEvent, translate } from '@aws-amplify/ui';
 export class ForceNewPasswordComponent {
   @HostBinding('attr.data-amplify-authenticator-forcenewpassword')
   dataAttr = '';
-  @Input() public headerText = translate('Change Password');
+  @Input() public headerText = getChangePasswordText();
 
   // translated texts
-  public changePasswordText = translate('Change Password');
-  public backToSignInText = translate('Back to Sign In');
+  public changePasswordText = getChangePasswordText();
+  public backToSignInText = getBackToSignInText();
 
   constructor(public authenticator: AuthenticatorService) {}
 
