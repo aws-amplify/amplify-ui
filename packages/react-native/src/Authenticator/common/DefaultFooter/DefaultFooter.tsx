@@ -5,6 +5,7 @@ import { DefaultFooterProps } from './types';
 
 export default function DefaultFooter({
   children,
+  ...rest
 }: DefaultFooterProps): JSX.Element | null {
-  return children ? <View>{children}</View> : null;
+  return children ? <View {...rest}>{children}</View> : null;
 }
