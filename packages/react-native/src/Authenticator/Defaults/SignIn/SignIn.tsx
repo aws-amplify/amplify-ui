@@ -2,6 +2,7 @@ import React from 'react';
 import { Text } from 'react-native';
 
 import { SignInComponent } from './types';
+import { DefaultFooter } from '../../common/DefaultFooter';
 import { DefaultHeader } from '../../common/DefaultHeader';
 
 const SignIn: SignInComponent = () => {
@@ -9,10 +10,7 @@ const SignIn: SignInComponent = () => {
 };
 
 SignIn.Header = DefaultHeader;
-
-SignIn.Footer = function Footer() {
-  return null;
-};
+SignIn.Footer = DefaultFooter;
 SignIn.FormFields = function FormFields() {
   return null;
 };

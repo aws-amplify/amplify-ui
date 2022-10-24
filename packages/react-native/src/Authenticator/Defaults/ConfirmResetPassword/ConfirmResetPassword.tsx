@@ -2,6 +2,7 @@ import React from 'react';
 import { Text } from 'react-native';
 
 import { ConfirmResetPasswordComponent } from './types';
+import { DefaultFooter } from '../../common/DefaultFooter';
 import { DefaultHeader } from '../../common/DefaultHeader';
 
 const ConfirmResetPassword: ConfirmResetPasswordComponent = () => {
@@ -9,10 +10,7 @@ const ConfirmResetPassword: ConfirmResetPasswordComponent = () => {
 };
 
 ConfirmResetPassword.Header = DefaultHeader;
-
-ConfirmResetPassword.Footer = function Footer() {
-  return null;
-};
+ConfirmResetPassword.Footer = DefaultFooter;
 ConfirmResetPassword.FormFields = function FormFields() {
   return null;
 };
