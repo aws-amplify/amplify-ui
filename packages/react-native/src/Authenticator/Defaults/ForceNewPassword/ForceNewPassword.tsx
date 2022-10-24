@@ -1,21 +1,19 @@
 import React from 'react';
 import { Text } from 'react-native';
 
-import { ForceNewPasswordComponent } from './types';
 import { DefaultHeader } from '../../common/DefaultHeader';
+import { DefaultFormFields } from '../FormFields';
+import { DefaultForceNewPasswordComponent } from '../types';
 
-const ForceNewPassword: ForceNewPasswordComponent = () => {
+const ForceNewPassword: DefaultForceNewPasswordComponent = () => {
   return <Text>ForceNewPassword</Text>;
 };
-
-ForceNewPassword.Header = DefaultHeader;
 
 ForceNewPassword.Footer = function Footer() {
   return null;
 };
-ForceNewPassword.FormFields = function FormFields() {
-  return null;
-};
+ForceNewPassword.FormFields = DefaultFormFields;
+ForceNewPassword.Header = DefaultHeader;
 
 ForceNewPassword.displayName = 'ForceNewPassword';
 export default ForceNewPassword;

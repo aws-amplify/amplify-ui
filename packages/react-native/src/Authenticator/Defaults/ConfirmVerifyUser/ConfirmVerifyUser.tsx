@@ -1,21 +1,19 @@
 import React from 'react';
 import { Text } from 'react-native';
 
-import { ConfirmVerifyUserComponent } from './types';
 import { DefaultHeader } from '../../common/DefaultHeader';
+import { DefaultFormFields } from '../FormFields';
+import { DefaultConfirmVerifyUserComponent } from '../types';
 
-const ConfirmVerifyUser: ConfirmVerifyUserComponent = () => {
+const ConfirmVerifyUser: DefaultConfirmVerifyUserComponent = () => {
   return <Text>ConfirmVerifyUser</Text>;
 };
-
-ConfirmVerifyUser.Header = DefaultHeader;
 
 ConfirmVerifyUser.Footer = function Footer() {
   return null;
 };
-ConfirmVerifyUser.FormFields = function FormFields() {
-  return null;
-};
+ConfirmVerifyUser.FormFields = DefaultFormFields;
+ConfirmVerifyUser.Header = DefaultHeader;
 
 ConfirmVerifyUser.displayName = 'ConfirmVerifyUser';
 export default ConfirmVerifyUser;

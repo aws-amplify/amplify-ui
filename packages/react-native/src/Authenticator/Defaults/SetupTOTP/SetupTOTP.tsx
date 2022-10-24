@@ -1,21 +1,20 @@
 import React from 'react';
 import { Text } from 'react-native';
 
-import { SetupTOTPComponent } from './types';
 import { DefaultHeader } from '../../common/DefaultHeader';
 
-const SetupTOTP: SetupTOTPComponent = () => {
+import { DefaultFormFields } from '../FormFields';
+import { DefaultSetupTOTPComponent } from '../types';
+
+const SetupTOTP: DefaultSetupTOTPComponent = () => {
   return <Text>SetupTOTP</Text>;
 };
-
-SetupTOTP.Header = DefaultHeader;
 
 SetupTOTP.Footer = function Footer() {
   return null;
 };
-SetupTOTP.FormFields = function FormFields() {
-  return null;
-};
+SetupTOTP.FormFields = DefaultFormFields;
+SetupTOTP.Header = DefaultHeader;
 
 SetupTOTP.displayName = 'SetupTOTP';
 export default SetupTOTP;

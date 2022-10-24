@@ -1,21 +1,19 @@
 import React from 'react';
 import { Text } from 'react-native';
 
-import { ConfirmSignUpComponent } from './types';
 import { DefaultHeader } from '../../common/DefaultHeader';
+import { DefaultFormFields } from '../FormFields';
+import { DefaultConfirmSignUpComponent } from '../types';
 
-const ConfirmSignUp: ConfirmSignUpComponent = () => {
+const ConfirmSignUp: DefaultConfirmSignUpComponent = () => {
   return <Text>ConfirmSignUp</Text>;
 };
-
-ConfirmSignUp.Header = DefaultHeader;
 
 ConfirmSignUp.Footer = function Footer() {
   return null;
 };
-ConfirmSignUp.FormFields = function FormFields() {
-  return null;
-};
+ConfirmSignUp.FormFields = DefaultFormFields;
+ConfirmSignUp.Header = DefaultHeader;
 
 ConfirmSignUp.displayName = 'ConfirmSignUp';
 export default ConfirmSignUp;

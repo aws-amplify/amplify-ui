@@ -1,7 +1,10 @@
 import { renderHook } from '@testing-library/react-hooks';
 
-import { useAuthenticatorInitMachine } from '..';
 import { useAuthenticator, UseAuthenticator } from '../../useAuthenticator';
+import { mockUseAuthenticatorOutput } from '../../useAuthenticator/__mock__/useAuthenticator';
+
+import { routeSelector } from '../useAuthenticatorInitMachine';
+import { useAuthenticatorInitMachine } from '..';
 
 jest.mock('../../useAuthenticator');
 
@@ -47,5 +50,15 @@ describe('useAuthenticatorInitMachine', () => {
     renderHook(() => useAuthenticatorInitMachine(data));
 
     expect(initializeMachine).toHaveBeenCalledTimes(0);
+  });
+});
+
+describe('routeSelector', () => {
+  it('only selects the value of route', () => {
+    const route = 'idle' as UseAuthenticator['route'];
+    const machineContext = { ...mockUseAuthenticatorOutput, route };
+
+    const output = routeSelector(machineContext);
+    expect(output).toStrictEqual([route]);
   });
 });

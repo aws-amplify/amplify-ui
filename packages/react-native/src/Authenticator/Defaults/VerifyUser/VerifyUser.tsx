@@ -1,21 +1,20 @@
 import React from 'react';
 import { Text } from 'react-native';
 
-import { VerifyUserComponent } from './types';
 import { DefaultHeader } from '../../common/DefaultHeader';
+import { DefaultVerifyUserComponent } from '../types';
 
-const VerifyUser: VerifyUserComponent = () => {
+const VerifyUser: DefaultVerifyUserComponent = () => {
   return <Text>VerifyUser</Text>;
 };
 
-VerifyUser.Header = DefaultHeader;
+const FormFields: DefaultVerifyUserComponent['FormFields'] = () => null;
 
 VerifyUser.Footer = function Footer() {
   return null;
 };
-VerifyUser.FormFields = function FormFields() {
-  return null;
-};
+VerifyUser.FormFields = FormFields;
+VerifyUser.Header = DefaultHeader;
 
 VerifyUser.displayName = 'VerifyUser';
 export default VerifyUser;

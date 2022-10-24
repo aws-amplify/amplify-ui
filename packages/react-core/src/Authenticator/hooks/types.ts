@@ -18,7 +18,8 @@ export type AuthenticatorRouteComponentKey =
   | 'signUp'
   | 'verifyUser';
 
-export type AuthenticatorLegacyFields = LegacyFormFieldOptions[];
+export type AuthenticatorLegacyField = LegacyFormFieldOptions;
+export type AuthenticatorLegacyFields = AuthenticatorLegacyField[];
 
 /**
  * These are the "facades" that we provide, which contains contexts respective
@@ -40,283 +41,163 @@ interface FooterProps {
   children?: React.ReactNode;
 }
 
-interface FormFieldsProps {
+type FormFieldsProps = {
   isPending: AuthenticatorMachineContext['isPending'];
   validationErrors?: AuthenticatorMachineContext['validationErrors'];
-}
+};
 
 export type FooterComponent<Props = {}> = React.ComponentType<
   FooterProps & Props
 >;
 
-export type FormFieldsComponent<Props = {}> = React.ComponentType<
-  FormFieldsProps & Props
+export type FormFieldsComponent<FieldType, Props = {}> = React.ComponentType<
+  FormFieldsProps & { fields: FieldType[] } & Props
 >;
 
 export type HeaderComponent<Props = {}> = React.ComponentType<
   HeaderProps & Props
 >;
 
-export interface ComponentSlots<PlatformProps = {}> {
+export interface ComponentSlots<FieldType = {}> {
   Footer: FooterComponent;
   Header: HeaderComponent;
 
-  // `FormFieldsComponent` requires platform specific props
-  FormFields: FormFieldsComponent<PlatformProps>;
+  // `FormFieldsComponent` requires `FieldType`
+  FormFields: FormFieldsComponent<FieldType>;
 }
-
-type RouteComponent<
-  RouteProps = {},
-  PlatformProps = {},
-  OverrideProps = {}
-> = React.ComponentType<RouteProps & PlatformProps & OverrideProps>;
 
 /**
  * Common component prop types used for both RWA and RNA implementations
  */
-
-// use `PlatformProps` generic for `FormFieldsCompoennt`
-export interface CommonRouteProps<PlatformProps = {}>
-  extends ComponentSlots<PlatformProps> {
+export type CommonRouteProps = {
   error?: AuthenticatorMachineContext['error'];
   isPending: AuthenticatorMachineContext['isPending'];
   handleBlur: AuthenticatorMachineContext['updateBlur'];
   handleChange: AuthenticatorMachineContext['updateForm'];
   handleSubmit: AuthenticatorMachineContext['submitForm'];
-}
+};
 
-export interface CommonConfirmResetPasswordProps<PlatformProps = {}>
-  extends CommonRouteProps<PlatformProps> {
+/**
+ * Base Route component props
+ */
+export type ConfirmResetPasswordBaseProps<FieldType = {}> = {
   resendCode: AuthenticatorMachineContext['resendCode'];
   validationErrors?: AuthenticatorMachineContext['validationErrors'];
-}
+} & CommonRouteProps &
+  ComponentSlots<FieldType>;
 
-export interface CommonConfirmSignInProps<PlatformProps = {}>
-  extends CommonRouteProps<PlatformProps> {
+export type ConfirmSignInBaseProps<FieldType = {}> = {
   challengeName: AuthChallengeName;
   toSignIn: AuthenticatorMachineContext['toSignIn'];
-}
+} & CommonRouteProps &
+  ComponentSlots<FieldType>;
 
-export interface CommonConfirmSignUpProps<PlatformProps = {}>
-  extends CommonRouteProps<PlatformProps> {
+export type ConfirmSignUpBaseProps<FieldType = {}> = {
   codeDeliveryDetails: AuthenticatorMachineContext['codeDeliveryDetails'];
   resendCode: AuthenticatorMachineContext['resendCode'];
-}
+} & CommonRouteProps &
+  ComponentSlots<FieldType>;
 
-export interface CommonConfirmVerifyUserProps<PlatformProps = {}>
-  extends CommonRouteProps<PlatformProps> {
+export type ConfirmVerifyUserProps<FieldType = {}> = {
   skipVerification: AuthenticatorMachineContext['skipVerification'];
-}
+} & CommonRouteProps &
+  ComponentSlots<FieldType>;
 
-export interface CommonForceNewPasswordProps<PlatformProps = {}>
-  extends CommonRouteProps<PlatformProps> {
+export type ForceResetPasswordBaseProps<FieldType = {}> = {
   toSignIn: AuthenticatorMachineContext['toSignIn'];
   validationErrors?: AuthenticatorMachineContext['validationErrors'];
-}
+} & CommonRouteProps &
+  ComponentSlots<FieldType>;
 
-export interface CommonResetPasswordProps<PlatformProps = {}>
-  extends CommonRouteProps<PlatformProps> {
+export type ResetPasswordBaseProps<FieldType = {}> = {
   toSignIn: AuthenticatorMachineContext['toSignIn'];
-}
+} & CommonRouteProps &
+  ComponentSlots<FieldType>;
 
-export interface CommonSetupTOTPProps<PlatformProps = {}>
-  extends CommonRouteProps<PlatformProps> {
+export type SetupTOTPBaseProps<FieldType = {}> = {
   getTotpSecretCode: GetTotpSecretCode;
   totpIssuer: string;
   totpUsername: string;
-}
+} & CommonRouteProps &
+  ComponentSlots<FieldType>;
 
-export interface CommonSignInProps<PlatformProps = {}>
-  extends CommonRouteProps<PlatformProps> {
+export type SignInBaseProps<FieldType = {}> = {
   hideSignUp?: boolean;
   socialProviders?: AuthenticatorMachineContext['socialProviders'];
+  toFederatedSignIn: AuthenticatorMachineContext['toFederatedSignIn'];
   toResetPassword: AuthenticatorMachineContext['toResetPassword'];
   toSignUp: AuthenticatorMachineContext['toSignUp'];
-}
+} & CommonRouteProps &
+  ComponentSlots<FieldType>;
 
-export interface CommonSignUpProps<PlatformProps = {}>
-  extends CommonRouteProps<PlatformProps> {
+export type SignUpBaseProps<FieldType = {}> = {
   toSignIn: AuthenticatorMachineContext['toSignIn'];
   validationErrors: AuthenticatorMachineContext['validationErrors'];
-}
+} & CommonRouteProps &
+  ComponentSlots<FieldType>;
 
-export interface CommonVerifyUserProps<PlatformProps = {}>
-  extends CommonRouteProps<PlatformProps> {
+export type VerifyUserProps<FieldType = {}> = {
   skipVerification: AuthenticatorMachineContext['skipVerification'];
+} & CommonRouteProps &
+  ComponentSlots<FieldType>;
+
+export interface DefaultProps<FieldType = {}> {
+  ConfirmSignIn: ConfirmSignInBaseProps<FieldType>;
+  ConfirmSignUp: ConfirmSignUpBaseProps<FieldType>;
+  ConfirmResetPassword: ConfirmResetPasswordBaseProps<FieldType>;
+  ConfirmVerifyUser: ConfirmVerifyUserProps<FieldType>;
+  ForceNewPassword: ForceResetPasswordBaseProps<FieldType>;
+  ResetPassword: ResetPasswordBaseProps<FieldType>;
+  SetupTOTP: SetupTOTPBaseProps<FieldType>;
+  SignIn: SignInBaseProps<FieldType>;
+  SignUp: SignUpBaseProps<FieldType>;
+  VerifyUser: VerifyUserProps<FieldType>;
 }
 
 /**
  * common types extended for default component types/implementations and override component types
  */
-export type CommonConfirmResetPasswordComponent<
-  PlatformProps = {},
-  OverrideProps = {}
-> = RouteComponent<
-  CommonConfirmResetPasswordProps<PlatformProps>,
-  PlatformProps,
-  OverrideProps
+type BaseComponent<
+  // Route specifc props
+  ComponentRouteProps = {},
+  // Route specific `FieldType`
+  FieldType = {},
+  // additional props assigned in the UI layer
+  Props = {}
+> = React.ComponentType<
+  ComponentSlots<FieldType> &
+    ComponentRouteProps & { fields: FieldType[] } & Props
 >;
-
-export type CommonConfirmSignInComponent<
-  PlatformProps = {},
-  OverrideProps = {}
-> = RouteComponent<
-  CommonConfirmSignInProps<PlatformProps>,
-  PlatformProps,
-  OverrideProps
->;
-
-export type CommonConfirmSignUpComponent<
-  PlatformProps = {},
-  OverrideProps = {}
-> = RouteComponent<
-  CommonConfirmSignUpProps<PlatformProps>,
-  PlatformProps,
-  OverrideProps
->;
-
-export type CommonConfirmVerifyUserComponent<
-  PlatformProps = {},
-  OverrideProps = {}
-> = RouteComponent<
-  CommonConfirmVerifyUserProps<PlatformProps>,
-  PlatformProps,
-  OverrideProps
->;
-
-export type CommonForceNewPasswordComponent<
-  PlatformProps = {},
-  OverrideProps = {}
-> = RouteComponent<
-  CommonForceNewPasswordProps<PlatformProps>,
-  PlatformProps,
-  OverrideProps
->;
-
-export type CommonResetPasswordComponent<
-  PlatformProps = {},
-  OverrideProps = {}
-> = RouteComponent<
-  CommonResetPasswordProps<PlatformProps>,
-  PlatformProps,
-  OverrideProps
->;
-
-export type CommonSetupTOTPComponent<
-  PlatformProps = {},
-  OverrideProps = {}
-> = RouteComponent<
-  CommonSetupTOTPProps<PlatformProps>,
-  PlatformProps,
-  OverrideProps
->;
-
-export type CommonSignInComponent<
-  PlatformProps = {},
-  OverrideProps = {}
-> = RouteComponent<
-  CommonSignInProps<PlatformProps>,
-  PlatformProps,
-  OverrideProps
->;
-
-export type CommonSignUpComponent<
-  PlatformProps = {},
-  OverrideProps = {}
-> = RouteComponent<
-  CommonSignUpProps<PlatformProps>,
-  PlatformProps,
-  OverrideProps
->;
-
-export type CommonVerifyUserComponent<
-  PlatformProps = {},
-  OverrideProps = {}
-> = RouteComponent<
-  CommonVerifyUserProps<PlatformProps>,
-  PlatformProps,
-  OverrideProps
->;
-
-/**
- * Default common types for RNA and RWA component implementations
- */
-export type DefaultConfirmResetPasswordComponent<PlatformProps = {}> =
-  CommonConfirmResetPasswordComponent<PlatformProps> &
-    ComponentSlots<PlatformProps>;
-
-export type DefaultConfirmSignInComponent<PlatformProps = {}> =
-  CommonConfirmSignInComponent<PlatformProps> & ComponentSlots<PlatformProps>;
-
-export type DefaultConfirmSignUpComponent<PlatformProps = {}> =
-  CommonConfirmSignUpComponent<PlatformProps> & ComponentSlots<PlatformProps>;
-
-export type DefaultConfirmVerifyUserComponent<PlatformProps = {}> =
-  CommonConfirmVerifyUserComponent<PlatformProps> &
-    ComponentSlots<PlatformProps>;
-
-export type DefaultForceNewPasswordComponent<PlatformProps = {}> =
-  CommonForceNewPasswordComponent<PlatformProps> &
-    ComponentSlots<PlatformProps>;
-
-export type DefaultResetPasswordComponent<PlatformProps = {}> =
-  CommonResetPasswordComponent<PlatformProps> & ComponentSlots<PlatformProps>;
-
-export type DefaultSetupTOTPComponent<PlatformProps = {}> =
-  CommonSetupTOTPComponent<PlatformProps> & ComponentSlots<PlatformProps>;
-
-export type DefaultSignInComponent<PlatformProps = {}> =
-  CommonSignInComponent<PlatformProps> & ComponentSlots<PlatformProps>;
-
-export type DefaultSignUpComponent<PlatformProps = {}> =
-  CommonSignUpComponent<PlatformProps> & ComponentSlots<PlatformProps>;
-
-export type DefaultVerifyUserComponent<PlatformProps = {}> =
-  CommonVerifyUserComponent<PlatformProps> & ComponentSlots<PlatformProps>;
 
 /**
  * Authenticator Route Component Default types
  */
-export type Defaults<PlatformProps = {}> = {
-  ConfirmResetPassword: DefaultConfirmResetPasswordComponent<PlatformProps>;
-  ConfirmSignIn: DefaultConfirmSignInComponent<PlatformProps>;
-  ConfirmSignUp: DefaultConfirmSignUpComponent<PlatformProps>;
-  ConfirmVerifyUser: DefaultConfirmVerifyUserComponent<PlatformProps>;
-  ForceNewPassword: DefaultForceNewPasswordComponent<PlatformProps>;
-  ResetPassword: DefaultResetPasswordComponent<PlatformProps>;
-  SetupTOTP: DefaultSetupTOTPComponent<PlatformProps>;
-  SignIn: DefaultSignInComponent<PlatformProps>;
-  SignUp: DefaultSignUpComponent<PlatformProps>;
-  VerifyUser: DefaultVerifyUserComponent<PlatformProps>;
+export type Defaults<FieldType = {}, PlatformProps = {}> = {
+  [Key in AuthenticatorRouteComponentName]: BaseComponent<
+    DefaultProps<FieldType>[Key],
+    FieldType,
+    PlatformProps
+  > &
+    // add component slots for Defaults
+    ComponentSlots<FieldType>;
+};
+
+export type Overrides<FieldType = {}, PlatformProps = {}> = {
+  [Key in AuthenticatorRouteComponentName]?: BaseComponent<
+    DefaultProps<FieldType>[Key],
+    FieldType,
+    PlatformProps
+  >;
 };
 
 /**
  * Default Route Component union type
  */
-export type DefaultComponent<PlatformProps = {}> =
-  Defaults<PlatformProps>[keyof Defaults];
+export type DefaultComponentType<FieldType = {}> =
+  Defaults<FieldType>[keyof Defaults<FieldType>];
 
 /**
- * Authenticator Route Component Override types
+ * Default Route Component union type
  */
-export type Overrides<PlatformProps = {}, OverrideProps = {}> = {
-  ConfirmResetPassword?: CommonConfirmResetPasswordComponent<
-    PlatformProps,
-    OverrideProps
-  >;
-  ConfirmSignIn?: CommonConfirmSignInComponent<PlatformProps, OverrideProps>;
-  ConfirmSignUp?: CommonConfirmSignUpComponent<PlatformProps, OverrideProps>;
-  ConfirmVerifyUser?: CommonConfirmVerifyUserComponent<
-    PlatformProps,
-    OverrideProps
-  >;
-  ForceNewPassword?: CommonForceNewPasswordComponent<
-    PlatformProps,
-    OverrideProps
-  >;
-  ResetPassword?: CommonResetPasswordComponent<PlatformProps, OverrideProps>;
-  SetupTOTP?: CommonSetupTOTPComponent<PlatformProps, OverrideProps>;
-  SignIn?: CommonSignInComponent<PlatformProps, OverrideProps>;
-  SignUp?: CommonSignUpComponent<PlatformProps, OverrideProps>;
-  VerifyUser?: CommonVerifyUserComponent<PlatformProps, OverrideProps>;
-};
+export type DefaultPropsType<FieldType = {}> =
+  DefaultProps<FieldType>[keyof DefaultProps<FieldType>];
