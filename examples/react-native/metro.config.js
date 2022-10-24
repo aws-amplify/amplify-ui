@@ -95,6 +95,10 @@ config.resolver.blockList = [
 
 // point to the example app react-native dep
 config.resolver.extraNodeModules = {
+  '@react-native-picker/picker': path.resolve(
+    __dirname,
+    'node_modules/@react-native-picker/picker'
+  ),
   '@xstate/react': path.resolve(__dirname, 'node_modules/@xstate/react'),
   react: path.resolve(__dirname, 'node_modules/react'),
   'react-native': path.resolve(__dirname, 'node_modules/react-native'),

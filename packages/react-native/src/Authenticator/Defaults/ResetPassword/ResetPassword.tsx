@@ -5,6 +5,7 @@ import { Button, ErrorMessage, Heading, TextField } from '../../../primitives';
 
 import { styles } from './styles';
 import { ResetPasswordComponent } from './types';
+import { DefaultHeader } from '../../common/DefaultHeader';
 
 // strings to import
 const RESET_YOUR_PASSWORD = 'Reset your password';
@@ -56,9 +57,8 @@ const ResetPassword: ResetPasswordComponent = ({
   );
 };
 
-ResetPassword.Header = function Header() {
-  return null;
-};
+ResetPassword.Header = DefaultHeader;
+
 ResetPassword.Footer = function Footer() {
   return null;
 };

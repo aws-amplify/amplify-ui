@@ -7,7 +7,7 @@ const props = {} as any;
 
 describe('SignUp', () => {
   it('renders as expected', () => {
-    const { toJSON } = render(
+    const { toJSON, getByRole } = render(
       <>
         <SignUp {...props} />
         <SignUp.Header />
@@ -16,5 +16,7 @@ describe('SignUp', () => {
       </>
     );
     expect(toJSON()).toMatchSnapshot();
+
+    expect(getByRole('header')).toBeDefined();
   });
 });

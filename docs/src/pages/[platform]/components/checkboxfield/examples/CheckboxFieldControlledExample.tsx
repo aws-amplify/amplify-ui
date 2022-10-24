@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { CheckboxField } from '@aws-amplify/ui-react';
 
-export const ControlledCheckbox = () => {
+export const CheckboxFieldControlledExample = () => {
   const [checked, setChecked] = React.useState(false);
   return (
     <CheckboxField

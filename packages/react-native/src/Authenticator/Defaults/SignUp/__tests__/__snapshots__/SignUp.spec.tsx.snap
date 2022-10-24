@@ -1,7 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SignUp renders as expected 1`] = `
-<Text>
-  SignUp
-</Text>
+Array [
+  <Text>
+    SignUp
+  </Text>,
+  <Text
+    accessibilityRole="header"
+    style={
+      Array [
+        Object {
+          "color": "black",
+        },
+        Object {
+          "fontSize": 34,
+          "fontWeight": "300",
+          "lineHeight": 51,
+        },
+        undefined,
+      ]
+    }
+  />,
+]
 `;
