@@ -485,7 +485,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       }),
       updateErrorStateForTimeout: assign({
         errorState: (_, event) => {
-          if (event.data.errorState === LivenessErrorState.SERVER_ERROR) {
+          if (event.data?.errorState === LivenessErrorState.SERVER_ERROR) {
             return LivenessErrorState.SERVER_ERROR;
           } else {
             return LivenessErrorState.TIMEOUT;

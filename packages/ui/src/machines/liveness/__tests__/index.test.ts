@@ -650,7 +650,9 @@ describe('Liveness Machine', () => {
       await flushPromises(); // stopVideo
       jest.advanceTimersToNextTimer(30000); // waitForDisconnect
       expect(service.state.value).toEqual('timeout');
-      expect(service.state.context.errorState).toBe(LivenessErrorState.TIMEOUT);
+      expect(service.state.context.errorState).toBe(
+        LivenessErrorState.SERVER_ERROR
+      );
       await flushPromises();
       expect(mockcomponentProps.onUserTimeout).toHaveBeenCalledTimes(1);
     });
