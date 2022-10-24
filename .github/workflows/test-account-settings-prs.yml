@@ -1,0 +1,36 @@
+# Description: This workflow runs unit + e2e tests on PRs
+#   targeting `account-settings/main`.
+#
+# Triggered by:
+#   (1) Internal PRs: maintainer pushes a commit to PRs targeting those branches.
+#   (2) Fork PRs: maintainer adds "run-test" label to PRs targeting those branches.
+
+name: Test / RNA / PRs
+
+concurrency:
+  group: e2e-${{ github.event.pull_request.id }}
+  cancel-in-progress: true
+
+on:
+  pull_request:
+    branches: [account-settings/main]
+    types: [opened, synchronize, labeled]
+
+jobs:
+  test:
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@account-settings/main
+    with:
+      commit: ${{ github.event.pull_request.head.sha }}
+      repository: ${{ github.event.pull_request.head.repo.full_name }}
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      DOMAIN: ${{ secrets.DOMAIN }}
+      PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+      USERNAME: ${{ secrets.USERNAME }}
+      NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
+      VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+      SITE_URL: ${{ secrets.SITE_URL }}
+      DOCSEARCH_DOCS_APP_ID: ${{ secrets.DOCSEARCH_DOCS_APP_ID }}
+      DOCSEARCH_DOCS_API_KEY: ${{ secrets.DOCSEARCH_DOCS_API_KEY }}
+      DOCSEARCH_DOCS_INDEX_NAME: ${{ secrets.DOCSEARCH_DOCS_INDEX_NAME }}
