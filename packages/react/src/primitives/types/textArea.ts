@@ -2,9 +2,10 @@ import { Property } from 'csstype';
 
 import { Sizes } from './base';
 import { FieldVariations } from './field';
+import { BaseStyleProps } from './style';
 import { ViewProps } from './view';
 
-export interface TextAreaStyleProps {
+export interface TextAreaStyleProps extends BaseStyleProps {
   /**
    * @description
    * Defines if (and how) an element is resizable by the user
