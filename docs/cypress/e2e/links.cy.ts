@@ -53,7 +53,7 @@ for (let i = 0; i < numberOfLinks; i++) {
             );
             cy.request({ url: tagHref, followRedirect: false }).then(
               ({ status }) => {
-                expect(status).to.eq(200);
+                expect(status).to.oneOf([200, 301]);
               }
             );
           }
