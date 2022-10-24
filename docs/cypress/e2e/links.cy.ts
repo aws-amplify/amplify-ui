@@ -1,26 +1,45 @@
-let allLinks = [];
+import sitemapUrls from 'sitemap-urls';
+
+let allSitemapLinksLocal: string[] = [];
+let allSitemapLinksDev: string[] = [];
 describe('Links', () => {
   before(() => {
     cy.task('readSitemapLinks').then((links: string[]) => {
-      allLinks = allLinks.concat(links);
+      allSitemapLinksLocal = allSitemapLinksLocal.concat(links);
     });
+    cy.request('https://dev.ui.docs.amplify.aws/sitemap.xml').then(
+      async (siteMapContent) => {
+        allSitemapLinksDev = await sitemapUrls.extractUrls(siteMapContent.body);
+      }
+    );
   });
 
   it('should be 119 links on Sitemap', () => {
-    expect(allLinks.length).to.eq(119);
+    expect(allSitemapLinksLocal.length).to.eq(119);
   });
 });
 
-for (let i = 0; i < 20; i++) {
+for (let i = 0; i < 119; i++) {
   describe(`check page ${i}`, () => {
-    const baseUrl = 'http://localhost:5001';
+    const baseUrlLocal = 'http://localhost:5001';
+    const baseUrlDev = 'https://dev.ui.docs.amplify.aws';
 
-    it(`all links on ${i} link should work`, () => {
-      const link = allLinks[i];
-      cy.task('log', `[TESTING...] page ${baseUrl}/${link}`);
-      cy.request(link || '/').then(({ status }) => {
-        expect(status).to.eq(200);
-      });
+    it(`all links on page ${allSitemapLinksLocal[i]} should work`, () => {
+      const linkLocal = allSitemapLinksLocal[i];
+      const linkDev = linkLocal.replace(baseUrlLocal, baseUrlDev);
+      if (allSitemapLinksDev.includes(linkDev)) {
+        cy.task('log', `[TESTING...] page ${linkDev}`);
+        cy.request(linkDev || '/').then(({ status }) => {
+          expect(status).to.eq(200);
+          cy.clearLocalStorage();
+        });
+      } else {
+        cy.task('log', `[TESTING...] page ${linkLocal}`);
+        cy.request(linkLocal || '/').then(({ status }) => {
+          expect(status).to.eq(200);
+          cy.clearLocalStorage();
+        });
+      }
       // cy.get('a').each(hrefWorks);
       // cy.get('button').each(hrefWorks);
 
@@ -33,11 +52,11 @@ for (let i = 0; i < 20; i++) {
             'log',
             `[REQUESTING...] ${tagHref} from ${tagName} tag ${
               tagText ? `"${tagText}"` : ''
-            } on ${baseUrl}/${link}`
+            } on ${baseUrlLocal}/${linkLocal}`
           );
 
-          if (allLinks.includes(tagHref)) {
-            expect(allLinks).has(tagHref);
+          if (allSitemapLinksLocal.includes(`${baseUrlLocal}${tagHref}`)) {
+            expect(allSitemapLinksLocal).has(`${baseUrlLocal}${tagHref}`);
           } else {
             cy.request(tagHref).then(({ status }) => {
               expect(status).to.eq(200);
@@ -48,7 +67,7 @@ for (let i = 0; i < 20; i++) {
             'log',
             `⚠ ${tagName} tag ${
               tagText ? `"${tagText}"` : ''
-            } on ${baseUrl}/${link} doesn't have a href attribute`
+            } on ${baseUrlLocal}/${linkLocal} doesn't have a href attribute`
           );
         }
       }

@@ -18,12 +18,7 @@ export default defineConfig({
             const sitemapLinks: string[] = await sitemapUrls.extractUrls(
               siteMapContent
             );
-            return sitemapLinks.map((link) =>
-              link
-                .replace(`${baseUrl}/`, '')
-                .replace('https://www.dev.ui.docs.amplify.aws/', '')
-                .replace('https://ui.docs.amplify.aws/', '')
-            );
+            return sitemapLinks;
           }
         },
         log: (message) => {
