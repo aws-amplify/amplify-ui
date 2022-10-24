@@ -40,22 +40,15 @@ export function FileUploader({
     } = useFileUploader();
 
     useEffect(() => {
-      setShowPreviewer(isPreviewerVisible);
+      // stubbed
     }, [setShowPreviewer]);
 
     function onClose() {
-      setShowPreviewer(false);
+      // stubbed
     }
 
     function onUpload(event: React.ChangeEvent<HTMLInputElement>) {
-      if (!event.target.files || event.target.files.length === 0) return;
-
-      const { files } = event.target;
-      setFiles([...files]);
-      setShowPreviewer(true);
-
-      // eslint-disable-next-line no-console
-      console.log('uploading', files[0], fileNames);
+      // stubbed
     }
     const commonProps = {
       acceptedFileTypes,
@@ -63,25 +56,14 @@ export function FileUploader({
       onUpload,
     };
 
-    if (showPreviewer) {
-      return (
-        <Previewer
-          fileNames={fileNames}
-          files={files}
-          level={level}
-          onClose={() => onClose()}
-        />
-      );
-    } else if (variation === 'button') {
-      return <UploaderButton {...commonProps} />;
-    } else {
-      return (
-        <UploaderDrop getDropEvents={getDropEvents} inDropZone={inDropZone}>
-          <UploaderButton {...commonProps} />
-          <View as="span">or drag file{multiple ? 's' : ''} here</View>
-        </UploaderDrop>
-      );
-    }
+    return (
+      <Previewer
+        fileNames={fileNames}
+        files={files}
+        level={level}
+        onClose={() => onClose()}
+      />
+    );
   }
 
   return <Router />;

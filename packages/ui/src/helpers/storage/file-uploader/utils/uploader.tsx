@@ -7,11 +7,8 @@ export function getFileName(
   fileName: FileName,
   index: number
 ): string {
-  if (!fileName) return file.name;
-  if (Array.isArray(fileName)) {
-    return fileName[index] ?? file.name;
-  }
-  return fileName;
+  // stub
+  return '';
 }
 
 export function uploadFile({
@@ -29,18 +26,6 @@ export function uploadFile({
   percentage: Array<number>;
   index: number;
 }): UploadTask {
-  // todo add content type
-  return Storage.put(fileName, file, {
-    level,
-    resumable: true,
-    progressCallback(progress: { loaded: number; total: number }) {
-      const singlePercentage = Math.floor(
-        (progress.loaded / progress.total) * 100
-      );
-      percentage[index] = singlePercentage;
-      const addPercentage = [...percentage, singlePercentage];
-
-      setPercentage(addPercentage);
-    },
-  });
+  // stub
+  return;
 }

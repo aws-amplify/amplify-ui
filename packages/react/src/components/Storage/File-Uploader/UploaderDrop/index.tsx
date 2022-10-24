@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import React from 'react';
 import { Card } from '../../../../primitives';
@@ -8,14 +9,5 @@ export function UploaderDrop({
   inDropZone,
   getDropEvents,
 }: UploaderDropProps): JSX.Element {
-  return (
-    <Card
-      data-amplify-file-uploader
-      className={inDropZone ? 'inside-drag-area' : ''}
-      border={'dashed rgb(7,115,152)'}
-      {...getDropEvents}
-    >
-      {children}
-    </Card>
-  );
+  return <Card>{children}</Card>;
 }

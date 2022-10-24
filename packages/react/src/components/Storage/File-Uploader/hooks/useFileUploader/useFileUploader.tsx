@@ -10,31 +10,23 @@ export default function useFileUploader(): UseFileUploader {
   const getDropEvents = useMemo(() => {
     const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
       e.dataTransfer.clearData();
+      // stubbed
     };
     const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
       e.preventDefault();
-      e.stopPropagation();
+      // stubbed
     };
     const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
       e.preventDefault();
-      e.stopPropagation();
-      setInDropZone(false);
+      // stubbed
     };
     const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
       e.preventDefault();
-      e.stopPropagation();
-      setInDropZone(true);
-      e.dataTransfer.dropEffect = 'copy';
+      // stubbed
     };
     const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
       e.preventDefault();
-      e.stopPropagation();
-      const files = [...e.dataTransfer.files];
-      if (files && files.length > 0) {
-        setFiles(files);
-        setShowPreviewer(true);
-      }
-      setInDropZone(false);
+      //stubbed
     };
 
     return {
