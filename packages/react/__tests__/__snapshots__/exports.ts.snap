@@ -119,19 +119,6 @@ Array [
 ]
 `;
 
-exports[`@aws-amplify/ui-react/legacy exports should match snapshot 1`] = `
-Array [
-  "AmplifyChatbot",
-  "AmplifyPhotoPicker",
-  "AmplifyPicker",
-  "AmplifyS3Album",
-  "AmplifyS3Image",
-  "AmplifyS3ImagePicker",
-  "AmplifyS3Text",
-  "AmplifyS3TextPicker",
-]
-`;
-
 exports[`primitive catalog should match primitives list snapshot 1`] = `
 Array [
   "Alert",

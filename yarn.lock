@@ -630,29 +630,6 @@
     events "^3.1.0"
     tslib "^2.0.0"
 
-"@aws-amplify/ui-components@1.7.2":
-  version "1.7.2"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/ui-components/-/ui-components-1.7.2.tgz#9523b05d7ca819fc941b296e36e21c2139bdfde4"
-  integrity sha512-PrDG5o/svbZm87XModXvzBQ+HflHSmxse4S0yKcFRPuUmLkspzdBcwFmjb1SCqmXKtTVKVkCHJ38rZiO/WFNfw==
-  dependencies:
-    qrcode "^1.4.4"
-    uuid "^8.2.0"
-
-"@aws-amplify/ui-components@^1.7.0":
-  version "1.9.6"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/ui-components/-/ui-components-1.9.6.tgz#42ec42a71396ccb6144f1d5dd8332393e0e62bf8"
-  integrity sha512-NfN6mlDrS41qCQ7BNe/bTDQXAG4kUhRnXIQCbi9oY/lnWImtKLrx37zVieuXi5PF/coVCMT+M1OfBbo8LM2wiw==
-  dependencies:
-    qrcode "^1.4.4"
-    uuid "^8.2.0"
-
-"@aws-amplify/ui-react-v1@npm:@aws-amplify/ui-react@1.2.9":
-  version "1.2.9"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/ui-react/-/ui-react-1.2.9.tgz#bcaa93f021afc801f9d8e6aa98558128b2cb173f"
-  integrity sha512-JvvIkzK0fjwnNZj5Oq9LfGgpkxgzXu0pzzUyIaDZjLmIWaJ5SzR9PazRAX1i5FS/b8DufxEvPq18EwrLbFh4FA==
-  dependencies:
-    "@aws-amplify/ui-components" "1.7.2"
-
 "@aws-amplify/xr@3.0.49-next.20+072846a9f":
   version "3.0.49-next.20"
   resolved "https://registry.yarnpkg.com/@aws-amplify/xr/-/xr-3.0.49-next.20.tgz#67844225f7707fc5e2db19357bc80d7dcb0bf23e"
@@ -6058,11 +6035,6 @@
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@socket.io/component-emitter/-/component-emitter-3.1.0.tgz#96116f2a912e0c02817345b3c10751069920d553"
   integrity sha512-+9jVqKhRSpsc591z5vX+X5Yyw+he/HCB4iQ/RYxw35CEPaY1gnsNE43nf9n9AaYjAQrTiI/mOwKUKdUs9vf7Xg==
-
-"@stencil/core@2.8.0":
-  version "2.8.0"
-  resolved "https://registry.yarnpkg.com/@stencil/core/-/core-2.8.0.tgz#87d950fbbf050dce1566f32ca48c98007239472b"
-  integrity sha512-WazFGUMnbumg8ePNvej8cIOEcxvuZ0ugKQkkE1xFbDYcl7DgJd62MiG+bIqCcQlIdLEfhjAdoixxlFdJgrgjyA==
 
 "@svgr/babel-plugin-add-jsx-attribute@^5.4.0":
   version "5.4.0"
@@ -19394,16 +19366,6 @@ qrcode@1.5.0:
     pngjs "^5.0.0"
     yargs "^15.3.1"
 
-qrcode@^1.4.4:
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/qrcode/-/qrcode-1.5.1.tgz#0103f97317409f7bc91772ef30793a54cd59f0cb"
-  integrity sha512-nS8NJ1Z3md8uTjKtP+SGGhfqmTCs5flU/xR623oI0JX+Wepz9R8UrRVCTBTJm3qGw3rH6jJ6MUHjkDx15cxSSg==
-  dependencies:
-    dijkstrajs "^1.0.1"
-    encode-utf8 "^1.0.3"
-    pngjs "^5.0.0"
-    yargs "^15.3.1"
-
 qs@6.10.3:
   version "6.10.3"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.10.3.tgz#d6cde1b2ffca87b5aa57889816c5f81535e22e8e"
@@ -22977,7 +22939,7 @@ uuid@3.3.2:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.2.tgz#1b4af4955eb3077c501c23872fc6513811587131"
   integrity sha512-yXJmeNaw3DnnKAOKJE51sL/ZaYfWJRl1pK9dr19YFCu0ObS231AB1/LbqTKRAQ5kw8A90rA6fr4riOUpTZvQZA==
 
-uuid@8.3.2, uuid@^8.2.0, uuid@^8.3.2:
+uuid@8.3.2, uuid@^8.3.2:
   version "8.3.2"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
   integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
