@@ -23,11 +23,6 @@ jobs:
     outputs:
       has-changesets: ${{ steps.has-changesets.outputs.has-changesets }}
     steps:
-      - name: Setup Node.js LTS
-        uses: actions/setup-node@v3
-        with:
-          node-version: lts/*
-          cache: 'yarn'
       - name: Checkout repo
         uses: actions/checkout@v3
         with:
@@ -50,11 +45,6 @@ jobs:
     environment: ci
     if: ${{ needs.setup.outputs.has-changesets != 'true' }}
     steps:
-      - name: Setup Node.js LTS
-        uses: actions/setup-node@v3
-        with:
-          node-version: lts/*
-          cache: 'yarn'
       - name: Checkout repo
         uses: actions/checkout@v3
       - name: Add Amplify CLI
