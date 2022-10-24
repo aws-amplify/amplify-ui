@@ -2,14 +2,14 @@ import React from 'react';
 import { Text } from 'react-native';
 
 import { ResetPasswordComponent } from './types';
+import { DefaultHeader } from '../../common/DefaultHeader';
 
 const ResetPassword: ResetPasswordComponent = () => {
   return <Text>ResetPassword</Text>;
 };
 
-ResetPassword.Header = function Header() {
-  return null;
-};
+ResetPassword.Header = DefaultHeader;
+
 ResetPassword.Footer = function Footer() {
   return null;
 };

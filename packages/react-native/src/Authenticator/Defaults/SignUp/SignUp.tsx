@@ -2,14 +2,14 @@ import React from 'react';
 import { Text } from 'react-native';
 
 import { SignUpComponent } from './types';
+import { DefaultHeader } from '../../common/DefaultHeader';
 
 const SignUp: SignUpComponent = () => {
   return <Text>SignUp</Text>;
 };
 
-SignUp.Header = function Header() {
-  return null;
-};
+SignUp.Header = DefaultHeader;
+
 SignUp.Footer = function Footer() {
   return null;
 };

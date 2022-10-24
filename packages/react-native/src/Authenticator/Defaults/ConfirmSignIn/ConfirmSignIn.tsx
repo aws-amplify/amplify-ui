@@ -2,14 +2,14 @@ import React from 'react';
 import { Text } from 'react-native';
 
 import { ConfirmSignInComponent } from './types';
+import { DefaultHeader } from '../../common/DefaultHeader';
 
 const ConfirmSignIn: ConfirmSignInComponent = () => {
   return <Text>ConfirmSignIn</Text>;
 };
 
-ConfirmSignIn.Header = function Header() {
-  return null;
-};
+ConfirmSignIn.Header = DefaultHeader;
+
 ConfirmSignIn.Footer = function Footer() {
   return null;
 };
