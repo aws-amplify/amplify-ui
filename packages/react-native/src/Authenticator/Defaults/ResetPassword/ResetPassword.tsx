@@ -17,8 +17,8 @@ const BACK_TO_SIGN_IN = 'Back to Sign In';
 
 const ResetPassword: ResetPasswordComponent = ({
   error,
-  Footer = ResetPassword.Footer,
-  Header = ResetPassword.Header,
+  Footer,
+  Header,
   isPending,
   toSignIn,
 }) => {

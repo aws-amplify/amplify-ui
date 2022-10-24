@@ -3,7 +3,20 @@ import { fireEvent, render } from '@testing-library/react-native';
 
 import { ResetPassword } from '..';
 
-const props = {} as any;
+const props = {
+  error: undefined,
+  Footer: ResetPassword.Footer,
+  FormFields: [] as any,
+  Header: ResetPassword.Header,
+  handleBlur: () => {},
+  handleChange: () => {},
+  handleSubmit: () => {},
+  isPending: false,
+  onBlur: undefined,
+  onChangeText: undefined,
+  onSubmit: undefined,
+  toSignIn: () => {},
+};
 
 describe('ResetPassword', () => {
   it('renders as expected', () => {
