@@ -54,16 +54,18 @@ jobs:
         run: echo "::set-output name=version::$(amplify --version)"
       - name: Create or restore environments cache
         id: environments-cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: canary/environments/**/aws-exports.js
           key: ${{ runner.os }}-canary-environments-${{ steps.cli-version.outputs.version }}-${{ hashFiles('canary/environments/**/amplify/**') }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
       - name: Pull down AWS environments
         if: steps.environments-cache.outputs.cache-hit != 'true'
         run: yarn pull
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_AUTH }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_AUTH }}
         working-directory: ./canary
       - name: Setup canary apps against @next
         run: yarn setup:next
@@ -87,7 +89,7 @@ jobs:
           # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
           fetch-depth: 0
       - name: Setup Node.js LTS
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: lts/*
           cache: 'yarn'
@@ -106,7 +108,7 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   log-failure-metric:
-    # Send data point 1 to metric PublishLatestFailure, if it's a failure
+    # Send a failure data point to metric PublishLatestFailure in github-workflows@ us-east-2
     runs-on: ubuntu-latest
     environment: ci
     needs: publish
@@ -117,11 +119,12 @@ jobs:
         with:
           metric-name: PublishLatestFailure
           value: 1
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_METRIC_LOGGER }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_METRIC_LOGGER }}
+          AWS_REGION: us-east-2
 
   log-success-metric:
-    # Send data point 0 to metric PublishLatestFailure, if  it's a success
+    # Send a success data point to metric PublishLatestFailure in github-workflows@ us-east-2
     runs-on: ubuntu-latest
     environment: ci
     needs: publish
@@ -132,5 +135,6 @@ jobs:
         with:
           metric-name: PublishLatestFailure
           value: 0
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_METRIC_LOGGER }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_METRIC_LOGGER }}
+          AWS_REGION: us-east-2

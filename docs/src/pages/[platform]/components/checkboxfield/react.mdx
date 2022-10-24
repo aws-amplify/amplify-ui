@@ -1,10 +1,15 @@
 import { CheckboxField } from '@aws-amplify/ui-react';
 
 import {
-  ControlledCheckbox,
-  ValueExample,
+  CheckboxFieldControlledExample,
+  CheckboxFieldDisabledExample,
+  CheckboxFieldIndeterminateExample,
+  CheckboxFieldLabelHiddenExample,
+  CheckboxFieldSizesExample,
   CheckboxFieldThemeExample,
-  CheckboxFieldIndeterminateExample
+  CheckboxFieldValueExample,
+  CheckboxFieldWithErrorExample,
+  DefaultCheckboxFieldExample,
 } from './examples';
 import { CheckboxDemo } from './demo';
 import { Example, ExampleCode } from '@/components/Example';
@@ -22,54 +27,64 @@ import ThemeExample from '@/components/ThemeExample.mdx';
 
 Import the CheckboxField primitive.
 
-```jsx
-import { CheckboxField } from '@aws-amplify/ui-react';
-
-<CheckboxField label="Subscribe" name="subscribe" value="yes" />;
-```
-
 <Example>
-  <CheckboxField label="Subscribe" name="subscribe" value="yes" />
+  <DefaultCheckboxFieldExample />
+  
+  <ExampleCode>
+
+  ```tsx file=./examples/DefaultCheckboxFieldExample.tsx
+
+  ```
+
+  </ExampleCode>
 </Example>
+
 
 ### Controlled component
 
-```tsx file=./examples/controlledExample.tsx
+<Example>
+  <CheckboxFieldControlledExample />
+  
+  <ExampleCode>
+    
+```tsx file=./examples/CheckboxFieldControlledExample.tsx
 
 ```
-
-<Example>
-  <ControlledCheckbox />
+    
+  </ExampleCode>
 </Example>
 
 ### Sizes
 
 Use the `size` prop to change the SelectField size. Available options are `small`, `large`, and none (default).
 
-```jsx
-import { CheckboxField } from '@aws-amplify/ui-react';
-
-<CheckboxField label="Subscribe" name="subscribe" value="yes" size="small" />
-<CheckboxField label="Subscribe" name="subscribe" value="yes" />
-<CheckboxField label="Subscribe" name="subscribe" value="yes" size="large" />
-```
-
 <Example>
-  <CheckboxField label="Subscribe" name="subscribe" value="yes" size="small" />
-  <CheckboxField label="Subscribe" name="subscribe" value="yes" />
-  <CheckboxField label="Subscribe" name="subscribe" value="yes" size="large" />
+  <CheckboxFieldSizesExample />
+  
+  <ExampleCode>
+    
+```tsx file=./examples/CheckboxFieldSizesExample.tsx
+
+```
+    
+  </ExampleCode>
 </Example>
+
 
 ### Value
 
 The value associated with the checkbox name in form data, used when submitting an HTML form. If a checkbox is unchecked when its form is submitted, its value will not be submitted. See [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#htmlattrdefvalue).
 
-```tsx file=./examples/valueExample.tsx
-
-```
 
 <Example>
-  <ValueExample />
+  <CheckboxFieldValueExample />
+  <ExampleCode>
+    
+```tsx file=./examples/CheckboxFieldValueExample.tsx
+
+```
+    
+  </ExampleCode>
 </Example>
 
 In this example, we've got a name of `subscribe`, and a value of `yes`. When the form is submitted, the data name/value pair will be `subscribe=yes`.
@@ -80,84 +95,66 @@ In this example, we've got a name of `subscribe`, and a value of `yes`. When the
 
 A disabled checkbox will be not be focusable not mutable. A checked checkbox could also be disabled but it will not be submitted with form data.
 
-```jsx
-import { CheckboxField } from '@aws-amplify/ui-react';
-
-<CheckboxField label="Subscribe" name="subscribe" value="yes" isDisabled={true} />
-<CheckboxField label="Subscribe" name="subscribe" value="yes" defaultChecked={true} isDisabled={true} />
-```
-
 <Example>
-  <CheckboxField label="Subscribe" name="subscribe" value="yes" isDisabled />
-  <CheckboxField
-    label="Subscribe"
-    name="subscribe"
-    value="yes"
-    defaultChecked
-    isDisabled
-  />
+  <CheckboxFieldDisabledExample />
+  
+  <ExampleCode>
+
+  ```tsx file=./examples/CheckboxFieldDisabledExample.tsx
+
+  ```
+
+  </ExampleCode>
 </Example>
 
 #### Indeterminate
 
 In addition to the checked and unchecked states, there is a third state a checkbox can be in: indeterminate. This is a state in which it's impossible to say whether the item is toggled on or off.
 
-  <Example>
-    <CheckboxFieldIndeterminateExample />
-    
-    <ExampleCode>
+<Example>
+  <CheckboxFieldIndeterminateExample />
+  
+  <ExampleCode>
 
-    ```tsx file=./examples/CheckboxFieldIndeterminateExample.tsx
+  ```tsx file=./examples/CheckboxFieldIndeterminateExample.tsx
 
-    ```
+  ```
 
-    </ExampleCode>
-  </Example>
+  </ExampleCode>
+</Example>
 
 ### Validation error
 
 Use the `hasError` and `errorMessage` props to mark a CheckboxField as having an validation error.
 
-```jsx
-import { CheckboxField } from '@aws-amplify/ui-react';
-
-<CheckboxField label="Subscribe" name="subscribe" value="yes" />;
-```
-
 <Example>
-  <CheckboxField
-    label="Subscribe"
-    name="subscribe"
-    value="yes"
-    hasError={true}
-    errorMessage="This is a required field"
-  />
+  <CheckboxFieldWithErrorExample />
+  
+  <ExampleCode>
+
+  ```tsx file=./examples/CheckboxFieldWithErrorExample.tsx
+
+  ```
+
+  </ExampleCode>
 </Example>
 
 ### Accessibility / Label behavior
 
 <Fragment>{() => import('./../shared/formFieldAccessibility.mdx')}</Fragment>
 
-```jsx
-import { CheckboxField } from '@aws-amplify/ui-react';
 
-<CheckboxField label="Subscribe" name="subscribe" value="yes" />;
-<CheckboxField
-  label="Subscribe"
-  name="subscribe"
-  value="yes"
-  labelHidden={true}
-/>;
-```
 
 <Example>
-  <CheckboxField label="Subscribe" name="subscribe" value="yes" />
-  <CheckboxField
-    label="Subscribe"
-    name="subscribe"
-    value="yes"
-    labelHidden={true}
-  />
+  <CheckboxFieldLabelHiddenExample />
+  
+  <ExampleCode>
+
+  ```tsx file=./examples/CheckboxFieldLabelHiddenExample.tsx
+
+  ```
+
+  </ExampleCode>
 </Example>
 
 <StandardHTMLAttributes component="CheckboxField" link="input" element="<input>">

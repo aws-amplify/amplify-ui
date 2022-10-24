@@ -3,19 +3,45 @@ import { Heading, HeadingLevel } from '@aws-amplify/ui-react';
 
 import { HeadingPropControls } from './HeadingPropControls';
 import { Demo } from '@/components/Demo';
+import { useHeadingProps } from './useHeadingProps';
+import { demoState } from '@/utils/demoState';
 
-const propsToCode = (level: HeadingLevel) => {
-  return `<Heading level={${level}}>Heading</Heading>`;
+const propsToCode = (
+  level: HeadingLevel,
+  isTruncated: boolean,
+  value: string
+) => {
+  return `<Heading
+  width='30vw'
+  level={${level}} ${isTruncated ? `\n  isTruncated={true}` : ''}
+>
+   ${value}
+</Heading>`;
 };
+
+const defaultHeadingProps = {};
+
 export const HeadingDemo = () => {
-  const [level, setLevel] = React.useState<HeadingLevel>(6);
+  const { level, setLevel, isTruncated, setIsTruncated, value, setValue } =
+    useHeadingProps(demoState.get(Heading.displayName) || defaultHeadingProps);
 
   return (
     <Demo
-      code={propsToCode(level)}
-      propControls={<HeadingPropControls level={level} setLevel={setLevel} />}
+      code={propsToCode(level, isTruncated, value)}
+      propControls={
+        <HeadingPropControls
+          level={level}
+          setLevel={setLevel}
+          isTruncated={isTruncated}
+          setIsTruncated={setIsTruncated}
+          value={value}
+          setValue={setValue}
+        />
+      }
     >
-      <Heading level={level}>Heading</Heading>
+      <Heading width="30vw" level={level} isTruncated={isTruncated}>
+        {value}
+      </Heading>
     </Demo>
   );
 };

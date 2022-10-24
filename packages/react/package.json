@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react",
-  "version": "3.5.2",
+  "version": "3.5.9",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "exports": {
@@ -11,10 +11,6 @@
     "./internal": {
       "import": "./dist/esm/internal.js",
       "require": "./dist/internal.js"
-    },
-    "./legacy": {
-      "import": "./dist/esm/legacy.js",
-      "require": "./dist/legacy.js"
     },
     "./styles.css": "./dist/styles.css",
     "./primitives.json": "./dist/primitives.json"
@@ -31,7 +27,6 @@
   },
   "files": [
     "dist",
-    "legacy",
     "internal",
     "LICENSE"
   ],
@@ -55,8 +50,8 @@
     "size": "yarn run size-limit"
   },
   "dependencies": {
-    "@aws-amplify/ui": "3.13.3",
-    "@aws-amplify/ui-react-v1": "npm:@aws-amplify/ui-react@1.2.9",
+    "@aws-amplify/ui": "4.0.0",
+    "@aws-amplify/ui-react-core": "1.0.3",
     "@radix-ui/react-accordion": "^1.0.0",
     "@radix-ui/react-direction": "^1.0.0",
     "@radix-ui/react-dropdown-menu": "^1.0.0",
@@ -75,7 +70,7 @@
     "tslib": "2.4.0"
   },
   "peerDependencies": {
-    "aws-amplify": "3.x.x || 4.x.x",
+    "aws-amplify": "next",
     "react": ">= 16.8.0",
     "react-dom": ">= 16.8.0"
   },

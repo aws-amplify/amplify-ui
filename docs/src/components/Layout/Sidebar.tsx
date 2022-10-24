@@ -19,7 +19,6 @@ import {
 import {
   ComponentNavItem,
   connectedComponents,
-  legacyComponents,
   guides,
   theming,
   gettingStarted,
@@ -27,7 +26,7 @@ import {
 } from '../../data/links';
 
 import Link from 'next/link';
-import { isReactNativeEnabled } from '@/utils/featureFlags';
+import { IS_REACT_NATIVE_ENABLED } from '@/utils/featureFlags';
 import { FrameworkChooser } from './FrameworkChooser';
 import { LogoLink } from './LogoLink';
 import { MenuButton } from './MenuButton';
@@ -140,6 +139,9 @@ const SecondaryNav = (props) => {
   let section = pathname.split('/')[2];
   const [value, setValue] = React.useState<string | string[]>([section]);
 
+  const isFlutter = platform === 'flutter';
+  const isReactNative = platform === 'react-native';
+
   return (
     <Expander type="multiple" value={value} onChange={setValue}>
       <ExpanderItem
@@ -183,15 +185,13 @@ const SecondaryNav = (props) => {
         ))}
       </ExpanderItem>
 
-      {/* Flutter doesn't have legacy components */}
-      {platform === 'flutter' ? null : (
+      {/* React Native does not yet support theming */}
+      {isReactNative ? null : (
         <ExpanderItem
-          title={
-            <ExpanderTitle Icon={MdWebAssetOff} text="Legacy components" />
-          }
-          value="legacy-components"
+          title={<ExpanderTitle Icon={MdOutlineAutoAwesome} text="Theming" />}
+          value="theming"
         >
-          {legacyComponents.map(({ label, ...rest }) => (
+          {theming.map(({ label, ...rest }) => (
             <NavLink key={label} {...rest} onClick={props.onClick}>
               {label}
             </NavLink>
@@ -199,26 +199,19 @@ const SecondaryNav = (props) => {
         </ExpanderItem>
       )}
 
-      <ExpanderItem
-        title={<ExpanderTitle Icon={MdOutlineAutoAwesome} text="Theming" />}
-        value="theming"
-      >
-        {theming.map(({ label, ...rest }) => (
-          <NavLink key={label} {...rest} onClick={props.onClick}>
-            {label}
-          </NavLink>
-        ))}
-      </ExpanderItem>
-      <ExpanderItem
-        title={<ExpanderTitle Icon={MdOutlineArticle} text="Guides" />}
-        value="guides"
-      >
-        {guides.map(({ label, ...rest }) => (
-          <NavLink {...rest} key={label} onClick={props.onClick}>
-            {label}
-          </NavLink>
-        ))}
-      </ExpanderItem>
+      {/* Flutter and React Native don't have guides at this time */}
+      {isFlutter || isReactNative ? null : (
+        <ExpanderItem
+          title={<ExpanderTitle Icon={MdOutlineArticle} text="Guides" />}
+          value="guides"
+        >
+          {guides.map(({ label, ...rest }) => (
+            <NavLink {...rest} key={label} onClick={props.onClick}>
+              {label}
+            </NavLink>
+          ))}
+        </ExpanderItem>
+      )}
     </Expander>
   );
 };
@@ -242,12 +235,8 @@ export const Sidebar = ({ expanded, setExpanded, platform }) => {
             <LogoLink platform={platform} onClick={onClick} />
             <MenuButton expanded={expanded} setExpanded={setExpanded} />
           </Flex>
-
           <FrameworkChooser onClick={onClick} />
-
-          {isReactNativeEnabled && platform === 'react-native' ? null : (
-            <SecondaryNav onClick={onClick} platform={platform} />
-          )}
+          <SecondaryNav onClick={onClick} platform={platform} />
         </Flex>
       </div>
     </nav>

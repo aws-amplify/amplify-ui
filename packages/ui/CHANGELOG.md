@@ -1,5 +1,23 @@
 # @aws-amplify/ui
 
+## 4.0.0
+
+### Major Changes
+
+- [#2702](https://github.com/aws-amplify/amplify-ui/pull/2702) [`1b1567c0c`](https://github.com/aws-amplify/amplify-ui/commit/1b1567c0c7788120ca4e7c4533228d2672dda906) Thanks [@slaymance](https://github.com/slaymance)! - Make xstate core dependency of only framework libraries
+
+## 3.14.0
+
+### Minor Changes
+
+- [#2690](https://github.com/aws-amplify/amplify-ui/pull/2690) [`42143228f`](https://github.com/aws-amplify/amplify-ui/commit/42143228fd8e99500e05fee34cee3f8067189c4e) Thanks [@calebpollman](https://github.com/calebpollman)! - Bump @aws-amplify/ui minor version
+
+## 3.13.4
+
+### Patch Changes
+
+- [#2616](https://github.com/aws-amplify/amplify-ui/pull/2616) [`83bcc0844`](https://github.com/aws-amplify/amplify-ui/commit/83bcc0844eb1049ab49ff4f79280605ef31230d6) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui-react, ui): expose Authenticator types, add AmplifyUser interface
+
 ## 3.13.3
 
 ### Patch Changes

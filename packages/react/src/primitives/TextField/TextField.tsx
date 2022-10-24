@@ -8,8 +8,8 @@ import { FieldGroup } from '../FieldGroup';
 import { Flex } from '../Flex';
 import { Input } from '../Input';
 import { Label } from '../Label';
-import { splitPrimitiveProps } from '../shared/styleUtils';
 import { Primitive, TextFieldProps } from '../types';
+import { splitPrimitiveProps } from '../shared/styleUtils';
 import { useStableId } from '../utils/useStableId';
 
 const TextFieldPrimitive: Primitive<TextFieldProps, 'input'> = (props, ref) => {
@@ -28,16 +28,7 @@ const TextFieldPrimitive: Primitive<TextFieldProps, 'input'> = (props, ref) => {
     size,
     testId,
     variation,
-
-    bottom, // @TODO: remove custom destructuring for 4.0 release
-    height, // @TODO: remove custom destructuring for 4.0 release
-    left, // @TODO: remove custom destructuring for 4.0 release
-    padding, // @TODO: remove custom destructuring for 4.0 release
-    position, // @TODO: remove custom destructuring for 4.0 release
-    right, // @TODO: remove custom destructuring for 4.0 release
-    top, // @TODO: remove custom destructuring for 4.0 release
-    width, // @TODO: remove custom destructuring for 4.0 release
-
+    inputStyles,
     ..._rest
   } = props;
 
@@ -45,8 +36,7 @@ const TextFieldPrimitive: Primitive<TextFieldProps, 'input'> = (props, ref) => {
   const descriptionId = useStableId();
   const ariaDescribedBy = descriptiveText ? descriptionId : undefined;
 
-  const { flexContainerStyleProps, baseStyleProps, rest } =
-    splitPrimitiveProps(_rest);
+  const { styleProps, rest } = splitPrimitiveProps(_rest);
 
   return (
     <Flex
@@ -56,17 +46,9 @@ const TextFieldPrimitive: Primitive<TextFieldProps, 'input'> = (props, ref) => {
         ComponentClassNames.TextField,
         className
       )}
-      bottom={bottom}
       data-size={size}
-      height={height}
-      left={left}
-      padding={padding}
-      position={position}
-      right={right}
       testId={testId}
-      top={top}
-      width={width}
-      {...flexContainerStyleProps}
+      {...styleProps}
     >
       <Label htmlFor={fieldId} visuallyHidden={labelHidden}>
         {label}
@@ -90,7 +72,7 @@ const TextFieldPrimitive: Primitive<TextFieldProps, 'input'> = (props, ref) => {
           ref={ref}
           size={size}
           variation={variation}
-          {...baseStyleProps}
+          {...inputStyles}
           {...rest}
         />
       </FieldGroup>
