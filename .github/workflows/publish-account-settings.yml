@@ -2,7 +2,7 @@
 #
 # Triggered by: merge to `next-release/main` branch
 
-name: Publish / Account Settings
+name: Test / Account Settings
 
 on:
   push:
@@ -34,6 +34,7 @@ jobs:
       DOCSEARCH_DOCS_APP_ID: ${{ secrets.DOCSEARCH_DOCS_APP_ID }}
       DOCSEARCH_DOCS_API_KEY: ${{ secrets.DOCSEARCH_DOCS_API_KEY }}
       DOCSEARCH_DOCS_INDEX_NAME: ${{ secrets.DOCSEARCH_DOCS_INDEX_NAME }}
+
   # Disabled until there's a component to publish
   # publish:
   #   needs: test
