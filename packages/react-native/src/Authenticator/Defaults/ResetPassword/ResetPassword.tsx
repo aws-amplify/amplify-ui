@@ -10,12 +10,14 @@ import { ResetPasswordComponent } from './types';
 const RESET_YOUR_PASSWORD = 'Reset your password';
 const ENTER_YOUR_USERNAME = 'Enter your username';
 const SEND_CODE = 'Send code';
+const SENDING = 'Sending';
 const BACK_TO_SIGN_IN = 'Back to Sign In';
 
 const ResetPassword: ResetPasswordComponent = ({
   error,
   Footer,
   Header,
+  isPending,
   toSignIn,
 }) => {
   const buttonPrimaryStyle = useCallback(
@@ -40,7 +42,7 @@ const ResetPassword: ResetPasswordComponent = ({
         <ErrorMessage style={styles.errorMessage}>{error}</ErrorMessage>
       ) : null}
       <Button style={buttonPrimaryStyle} textStyle={styles.buttonPrimaryText}>
-        {SEND_CODE}
+        {isPending ? SENDING : SEND_CODE}
       </Button>
       <Button
         onPress={toSignIn}

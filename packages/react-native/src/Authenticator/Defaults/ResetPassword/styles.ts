@@ -6,7 +6,7 @@ const TEAL = '#317d95';
 
 export const styles: ResetPasswordStyle = StyleSheet.create({
   container: {
-    width: '90%',
+    width: '100%',
   },
   buttonPrimary: {
     backgroundColor: TEAL,
