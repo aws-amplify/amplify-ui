@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { storiesOf } from '@storybook/react-native';
 import { ResetPassword } from '@aws-amplify/ui-react-native/dist/Authenticator/Defaults';
 
-const props = { Header: () => null, Footer: () => null } as any;
+const props = {} as any;
 
 storiesOf('ResetPassword', module)
   .add('default', () => (

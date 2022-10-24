@@ -3,7 +3,7 @@ import { fireEvent, render } from '@testing-library/react-native';
 
 import { ResetPassword } from '..';
 
-const props = { Header: () => null, Footer: () => null } as any;
+const props = {} as any;
 
 describe('ResetPassword', () => {
   it('renders as expected', () => {

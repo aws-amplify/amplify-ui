@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { View } from 'react-native';
 
-import { Button, ErrorMessage, Heading, TextField } from '../../../primitives';
+import { Button, ErrorMessage, TextField } from '../../../primitives';
 
 import { styles } from './styles';
 import { ResetPasswordComponent } from './types';
@@ -16,8 +16,8 @@ const BACK_TO_SIGN_IN = 'Back to Sign In';
 
 const ResetPassword: ResetPasswordComponent = ({
   error,
-  Footer,
-  Header,
+  Footer = ResetPassword.Footer,
+  Header = ResetPassword.Header,
   isPending,
   toSignIn,
 }) => {
@@ -36,8 +36,7 @@ const ResetPassword: ResetPasswordComponent = ({
 
   return (
     <View style={styles.container}>
-      <Header />
-      <Heading level={3}>{RESET_YOUR_PASSWORD}</Heading>
+      <Header>{RESET_YOUR_PASSWORD}</Header>
       <TextField placeholder={ENTER_YOUR_USERNAME} style={styles.textField} />
       {error ? (
         <ErrorMessage style={styles.errorMessage}>{error}</ErrorMessage>
