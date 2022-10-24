@@ -1,6 +1,6 @@
 # Description: This workflow runs unit + e2e tests on `account-settings/main`.
 #
-# Triggered by: merge to `next-release/main` branch
+# Triggered by: merge to `account-settings/main` branch
 
 name: Test / Account Settings
 
