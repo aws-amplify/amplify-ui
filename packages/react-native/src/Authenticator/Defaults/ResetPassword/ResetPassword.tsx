@@ -37,7 +37,7 @@ const ResetPassword: ResetPasswordComponent = ({
   return (
     <View style={styles.container}>
       <Header />
-      <Heading level={4}>{RESET_YOUR_PASSWORD}</Heading>
+      <Heading level={3}>{RESET_YOUR_PASSWORD}</Heading>
       <TextField placeholder={ENTER_YOUR_USERNAME} style={styles.textField} />
       {error ? (
         <ErrorMessage style={styles.errorMessage}>{error}</ErrorMessage>

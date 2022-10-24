@@ -7,7 +7,7 @@ const props = { Header: () => null, Footer: () => null } as any;
 
 describe('ResetPassword', () => {
   it('renders as expected', () => {
-    const { toJSON, getByRole } = render(
+    const { toJSON, getAllByRole, getByText } = render(
       <>
         <ResetPassword {...props} />
         <ResetPassword.Header />
@@ -17,7 +17,8 @@ describe('ResetPassword', () => {
     );
     expect(toJSON()).toMatchSnapshot();
 
-    expect(getByRole('header')).toBeDefined();
+    expect(getAllByRole('header')).toBeDefined();
+    expect(getByText('Send code')).toBeTruthy();
   });
 
   it('renders an error message', () => {
@@ -40,5 +41,12 @@ describe('ResetPassword', () => {
     const button = getByText('Back to Sign In');
     fireEvent.press(button);
     expect(toSignInMock).toBeCalledTimes(1);
+  });
+
+  it('renders correct text based on isPending', () => {
+    const { queryByText } = render(<ResetPassword {...props} isPending />);
+
+    expect(queryByText('Sending')).toBeTruthy();
+    expect(queryByText('Send code')).not.toBeTruthy();
   });
 });
