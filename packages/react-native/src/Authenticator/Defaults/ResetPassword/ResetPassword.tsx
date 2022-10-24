@@ -2,6 +2,7 @@ import React from 'react';
 import { Text } from 'react-native';
 
 import { ResetPasswordComponent } from './types';
+import { DefaultFooter } from '../../common/DefaultFooter';
 import { DefaultHeader } from '../../common/DefaultHeader';
 
 const ResetPassword: ResetPasswordComponent = () => {
@@ -9,10 +10,7 @@ const ResetPassword: ResetPasswordComponent = () => {
 };
 
 ResetPassword.Header = DefaultHeader;
-
-ResetPassword.Footer = function Footer() {
-  return null;
-};
+ResetPassword.Footer = DefaultFooter;
 ResetPassword.FormFields = function FormFields() {
   return null;
 };

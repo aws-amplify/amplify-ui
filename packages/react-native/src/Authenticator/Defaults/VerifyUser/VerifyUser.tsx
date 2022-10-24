@@ -2,6 +2,7 @@ import React from 'react';
 import { Text } from 'react-native';
 
 import { VerifyUserComponent } from './types';
+import { DefaultFooter } from '../../common/DefaultFooter';
 import { DefaultHeader } from '../../common/DefaultHeader';
 
 const VerifyUser: VerifyUserComponent = () => {
@@ -9,10 +10,7 @@ const VerifyUser: VerifyUserComponent = () => {
 };
 
 VerifyUser.Header = DefaultHeader;
-
-VerifyUser.Footer = function Footer() {
-  return null;
-};
+VerifyUser.Footer = DefaultFooter;
 VerifyUser.FormFields = function FormFields() {
   return null;
 };
