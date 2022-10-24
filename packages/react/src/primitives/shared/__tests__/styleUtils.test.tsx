@@ -463,7 +463,7 @@ describe('useTransformStyleProps', () => {
 });
 
 describe('splitPrimitiveProps', () => {
-  it('should split props into base, flex and rest', () => {
+  it('should split props into style props and rest', () => {
     const styleProps: AllStyleProps = {
       backgroundColor: 'yellow',
       alignSelf: 'baseline',
