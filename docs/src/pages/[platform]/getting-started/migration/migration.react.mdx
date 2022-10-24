@@ -52,11 +52,22 @@ For customers with applications using right to left directionality, the example 
 ```
 Also see: [Internationalization](react/getting-started/internationalization)
 
-#### 3. Legacy Authenticator exports removed
+#### 3. Legacy component exports removed
 
-If you are still importing the version 1.x of the Authenticator using the `/legacy/` path, please update to the current version. Exports removed include:
+Remove any of the following deprecated components imported from `@aws-amplify/ui-react/legacy` .
+* AmplifyAuthenticator
+* AmplifySignIn
+* AmplifySignOut
+* AmplifyChatbot
+* AmplifyPhotoPicker
+* AmplifyPicker
+* AmplifyS3Album
+* AmplifyS3Image
+* AmplifyS3ImagePicker
+* AmplifyS3Text
+* AmplifyS3TextPicker
+* withAuthenticator
 
-`AmplifyAuthenticator`, `AmplifySignIn`, `AmplifySignOut`, `withAuthenticator`
 
 
 ## 2.x to 3.x
