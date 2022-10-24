@@ -4,7 +4,7 @@
 # Triggered by:
 #   (1) maintainer pushes a commit to PRs targeting those branches.
 
-name: Test / RNA / PRs
+name: Test / Account Settings / PRs
 
 concurrency:
   group: e2e-${{ github.event.pull_request.id }}
