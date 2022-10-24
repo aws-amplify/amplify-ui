@@ -23,18 +23,21 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
     onStartShouldSetResponder={[Function]}
     style={
       Array [
-        Object {
-          "alignItems": "center",
-          "borderRadius": 4,
-          "borderWidth": 0.5,
-          "flexDirection": "row",
-          "justifyContent": "center",
-          "paddingVertical": 8,
-          "width": "100%",
-        },
-        Object {
-          "marginVertical": 8,
-        },
+        null,
+        Array [
+          Object {
+            "alignItems": "center",
+            "borderRadius": 4,
+            "borderWidth": 0.5,
+            "flexDirection": "row",
+            "justifyContent": "center",
+            "paddingVertical": 8,
+            "width": "100%",
+          },
+          Object {
+            "marginVertical": 8,
+          },
+        ],
       ]
     }
   >
@@ -80,15 +83,57 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
       Sign In with Amazon
     </Text>
   </View>
-  <Text
+  <View
     style={
-      Object {
-        "paddingVertical": 8,
-        "textAlign": "center",
-      }
+      Array [
+        Object {
+          "alignItems": "center",
+        },
+        undefined,
+      ]
     }
   >
-    Or
-  </Text>
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "black",
+            "flex": 1,
+            "height": 0.5,
+          },
+          undefined,
+        ]
+      }
+    />
+    <Text
+      style={
+        Array [
+          Object {
+            "fontSize": 16,
+            "margin": 8,
+            "textAlign": "center",
+          },
+          Object {
+            "paddingVertical": 8,
+            "textAlign": "center",
+          },
+        ]
+      }
+    >
+      Or
+    </Text>
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "black",
+            "flex": 1,
+            "height": 0.5,
+          },
+          undefined,
+        ]
+      }
+    />
+  </View>
 </View>
 `;
