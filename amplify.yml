@@ -37,7 +37,7 @@ applications:
             - npm install wait-on
             - npm install pm2
             - npm install mocha mochawesome mochawesome-merge mochawesome-report-generator
-            - cypress install
+            - npm install cypress
             - npm run build
             - npx pm2 start npm -- start
             - 'npx wait-on http://localhost:3000'
