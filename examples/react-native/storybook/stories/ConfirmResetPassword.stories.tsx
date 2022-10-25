@@ -1,43 +1,51 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
 import { storiesOf } from '@storybook/react-native';
-import { ConfirmResetPassword } from '@aws-amplify/ui-react-native/dist/Authenticator/Defaults';
+import { Authenticator } from '@aws-amplify/ui-react-native';
+import noop from 'lodash/noop';
+
+const code = {
+  name: 'code',
+  label: 'Code',
+  placeholder: 'Code',
+  type: 'default' as const,
+};
+
+const newPassword = {
+  name: 'newPassword',
+  label: 'New Password',
+  placeholder: 'New Password',
+  type: 'password' as const,
+};
+
+const confirmPassword = {
+  name: 'confirmPassword',
+  label: 'Confirm Password',
+  placeholder: 'Confirm Password',
+  type: 'password' as const,
+};
+
+const fields = [code, newPassword, confirmPassword];
 
 const props = {
-  error: undefined,
-  Footer: ConfirmResetPassword.Footer,
-  FormFields: [] as any,
-  Header: ConfirmResetPassword.Header,
-  handleBlur: () => {},
-  handleChange: () => {},
-  handleSubmit: () => {},
+  error: null as unknown as string,
+  fields,
+  Footer: Authenticator.ConfirmResetPassword.Footer,
+  FormFields: Authenticator.ConfirmResetPassword.FormFields,
+  Header: Authenticator.ConfirmResetPassword.Header,
+  handleBlur: noop,
+  handleChange: noop,
+  handleSubmit: (values: any) => {
+    console.log('Values', values);
+  },
   isPending: false,
-  onBlur: undefined,
-  onChangeText: undefined,
-  onSubmit: undefined,
   resendCode: () => {},
 };
 
-storiesOf('ConfirmResetPassword', module)
-  .add('default', () => (
-    <View style={styles.container}>
-      <ConfirmResetPassword {...props} />
-    </View>
-  ))
-  .add('error', () => (
-    <View style={styles.container}>
-      <ConfirmResetPassword {...props} error="There was an error." />
-    </View>
+storiesOf('Authenticator.ConfirmResetPassword', module)
+  .add('default', () => <Authenticator.ConfirmResetPassword {...props} />)
+  .add('with error', () => (
+    <Authenticator.ConfirmResetPassword {...props} error="Error!" />
   ))
   .add('isPending', () => (
-    <View style={styles.container}>
-      <ConfirmResetPassword {...props} isPending />
-    </View>
+    <Authenticator.ConfirmResetPassword {...props} isPending />
   ));
-
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    paddingHorizontal: 20,
-  },
-});

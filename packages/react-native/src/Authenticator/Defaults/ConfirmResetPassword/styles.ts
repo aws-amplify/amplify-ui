@@ -1,30 +1,33 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TextStyle, ViewStyle } from 'react-native';
 
-import { ConfirmResetPasswordStyle } from './types';
+export interface ConfirmResetPasswordStyle {
+  container: ViewStyle;
+  buttonPrimary: ViewStyle;
+  buttonPrimaryLabel: TextStyle;
+  buttonSecondaryLabel: ViewStyle;
+  errorMessage: ViewStyle;
+}
 
 const TEAL = '#317d95';
 
 export const styles: ConfirmResetPasswordStyle = StyleSheet.create({
   container: {
-    width: '100%',
+    flex: 1,
+    justifyContent: 'center',
   },
   buttonPrimary: {
     backgroundColor: TEAL,
     borderRadius: 4,
     paddingVertical: 10,
   },
-  buttonPrimaryText: {
+  buttonPrimaryLabel: {
     color: '#fff',
   },
-  buttonSecondary: {
+  buttonSecondaryLabel: {
     color: TEAL,
     paddingVertical: 20,
   },
-  buttonPressed: { opacity: 0.6 },
   errorMessage: {
     marginBottom: 16,
-  },
-  field: {
-    paddingBottom: 20,
   },
 });
