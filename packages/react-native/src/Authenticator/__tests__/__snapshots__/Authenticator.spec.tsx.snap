@@ -1,6 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Authenticator behaves as expected in the happy path 1`] = `null`;
+exports[`Authenticator behaves as expected in the happy path 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+/>
+`;
 
 exports[`Authenticator handles the authenticated route as expected with children 1`] = `
 <Text

@@ -23,18 +23,21 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
     onStartShouldSetResponder={[Function]}
     style={
       Array [
-        Object {
-          "alignItems": "center",
-          "borderRadius": 4,
-          "borderWidth": 0.5,
-          "flexDirection": "row",
-          "justifyContent": "center",
-          "paddingVertical": 8,
-          "width": "100%",
-        },
-        Object {
-          "marginVertical": 8,
-        },
+        null,
+        Array [
+          Object {
+            "alignItems": "center",
+            "borderRadius": 4,
+            "borderWidth": 0.5,
+            "flexDirection": "row",
+            "justifyContent": "center",
+            "paddingVertical": 8,
+            "width": "100%",
+          },
+          Object {
+            "marginVertical": 8,
+          },
+        ],
       ]
     }
   >
