@@ -28,26 +28,34 @@ describe('Tab', () => {
   });
 
   it('renders as expected when Tab is selected', () => {
-    const { queryAllByRole, toJSON } = render(<Tab selected>Selected Tab</Tab>);
+    const { getByRole, toJSON } = render(<Tab selected>Selected Tab</Tab>);
 
     expect(toJSON()).toMatchSnapshot();
 
-    const tab = queryAllByRole('tab');
-    expect((tab[0].props.style as ViewStyle[]).includes(styles.selected)).toBe(
-      true
-    );
+    const tab = getByRole('tab');
+    // select second index as `Button` applies its own style first
+    expect((tab.props.style as ViewStyle[])[1]).toStrictEqual([
+      styles.tab,
+      styles.readonly,
+      styles.selected,
+      null,
+    ]);
   });
 
   it('can apply custom styling', () => {
-    const { queryAllByRole, toJSON } = render(
+    const { getByRole, toJSON } = render(
       <Tab style={customStyles.tabStyle}>Styled Tab</Tab>
     );
 
     expect(toJSON()).toMatchSnapshot();
 
-    const tab = queryAllByRole('tab');
-    expect(
-      (tab[0].props.style as ViewStyle[]).includes(customStyles.tabStyle)
-    ).toBe(true);
+    const tab = getByRole('tab');
+    // select second index as `Button` applies its own style first
+    expect((tab.props.style as ViewStyle[])[1]).toStrictEqual([
+      styles.tab,
+      null,
+      null,
+      customStyles.tabStyle,
+    ]);
   });
 });

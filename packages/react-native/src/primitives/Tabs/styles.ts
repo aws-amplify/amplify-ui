@@ -5,6 +5,9 @@ import { TabsStyles } from './types';
 const SELECTED_COLOR = '#047d95';
 
 export const styles: TabsStyles = StyleSheet.create({
+  readonly: {
+    opacity: 1,
+  },
   tabList: {
     flexDirection: 'row',
     width: '100%',

@@ -14,6 +14,12 @@ exports[`Button renders as expected with a component passed as children 1`] = `
   onResponderTerminate={[Function]}
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
+  style={
+    Array [
+      null,
+      null,
+    ]
+  }
 >
   <Text>
     A preesable button
@@ -35,6 +41,12 @@ exports[`Button renders as expected with a string passed as children 1`] = `
   onResponderTerminate={[Function]}
   onResponderTerminationRequest={[Function]}
   onStartShouldSetResponder={[Function]}
+  style={
+    Array [
+      null,
+      null,
+    ]
+  }
 >
   <Text
     style={
