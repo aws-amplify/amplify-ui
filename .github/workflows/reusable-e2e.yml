@@ -117,7 +117,7 @@ jobs:
 
     steps:
       - name: Checkout Amplify UI
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           ref: ${{ inputs.commit }}
           repository: ${{ inputs.repository }}
@@ -209,7 +209,7 @@ jobs:
 
     steps:
       - name: Checkout Amplify UI
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           # For `pull_request_target`, we want ref to point to `pull_request.head.ref` because `github.ref`
           # always points to the target branch.
@@ -356,7 +356,7 @@ jobs:
       NODE_ENV: test
     steps:
       - name: Checkout Amplify UI
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           ref: ${{ inputs.commit }}
           repository: ${{ inputs.repository }}
