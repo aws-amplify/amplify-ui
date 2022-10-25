@@ -27,9 +27,7 @@ yarn add aws-amplify @aws-amplify/ui-vue@3.x
 
 The following breaking changes were introduced in `@aws-amplify/ui-vue` major version `3.0`:
 
-#### Automatic signin on signup logic moved to `aws-amplify`. 
-
-##### 1. Update custom handleSignUp function override calls
+#### 1. Update custom handleSignUp function override calls
 
 If you are overriding `Auth.signUp`, update the override function call to include the `autoSignIn` option set to enabled. If this change is not made, users will not be automatically signed in on signup.
 
@@ -51,7 +49,7 @@ If you are overriding `Auth.signUp`, update the override function call to includ
 
 ```
 
-##### 2. Update to the latest version of the `aws-amplify` library.
+#### 2. Update to the latest version of the `aws-amplify` library.
 
 Update to the latest version of the `aws-amplify` library. You will need at least version `^5`. 
 
@@ -70,6 +68,15 @@ yarn add aws-amplify@5.x
 
 </TabItem>
 </Tabs>
+
+#### 3. Legacy i18n translation keys removed
+
+We replaced following legacy Authenticator texts:
+
+- `Send Code` in reset password screen is replaced by `Send code`.
+- `Forgot your password? ` with the trailing space is replaced by `Forgot your password`.
+
+If you were using `I18n` to translate those keys, please update your translations accordingly to match the new strings.
 
 ## 1.x to 2.x
 ## Installation
