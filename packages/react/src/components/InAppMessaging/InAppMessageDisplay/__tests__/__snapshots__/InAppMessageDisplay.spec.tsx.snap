@@ -6,6 +6,7 @@ exports[`InAppMessageDisplay renders the expected component in the happy path 1`
     <div
       data-amplify-color-mode="light"
       data-amplify-theme="default-theme"
+      dir="ltr"
     >
       <div>
         <p
