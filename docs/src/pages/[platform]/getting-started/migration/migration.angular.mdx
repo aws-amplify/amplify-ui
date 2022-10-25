@@ -25,29 +25,8 @@ yarn add aws-amplify @aws-amplify/ui-angular@3.x
 
 The following breaking changes were introduced in `@aws-amplify/ui-angular` major version `3.0`:
 
-
-#### 1. Update the handleSignUp function override call
-
-If you are overriding `Auth.signUp`, update the override function call to include the `autoSignIn` option set to enabled. If this change is not made, users will not be automatically signed in on signup.
-
-```diff
- async handleSignUp(formData) {
-  let { username, password, attributes } = formData;
-  // custom username
-  username = username.toLowerCase();
-  attributes.email = attributes.email.toLowerCase();
-  return Auth.signUp({
-    username,
-    password,
-    attributes,
-+   autoSignIn: {
-+     enabled: true
-+   }
-  });
-}
-
 ```
-#### 2. Update to the latest version of the `aws-amplify` library.
+#### 1. Update to the latest version of the `aws-amplify` library.
 
 Update to the latest version of the `aws-amplify` library. You will need at least version `^5`. 
 
@@ -67,16 +46,55 @@ yarn add aws-amplify@5.x
 </TabItem>
 </Tabs>
 
-#### 3. Legacy i18n translation keys removed
+#### 2. Update to Angular 12 or later
+
+If your application is on Angular 11 or before, please migrate to Angular 12+ as per [official guide](https://update.angular.io).
+
+*Note*: Going forward, `@aws-amplify/ui-angular` will have the same version support as Angular's official LTS [support window](https://angular.io/guide/releases#actively-supported-versions). 
+
+#### 3. Migrate Angular compiler to IVY
+
+We dropped support for legacy View engine, and migrated to IVY compiler. lease migrate to Angular 12+, and make sure you did not disable ivy in your `tsconfig.json`:
+
+```json
+{
+  ...,
+  "angularCompilerOption": {
+    // REMOVE this line if you have it in your tsconfig.json
+    "enableIvy": false
+  }
+}
+```
+
+#### 4. Legacy i18n translation keys removed
 
 We replaced following legacy Authenticator texts:
-
 - `Confirmation Code` in confirm sign up screen is replaced by `Enter your Code`
 - `Send Code` in reset password screen is replaced by `Send code`.
 - `Send Code` in confirm reset password screen is replaced by `Submit`
 - `Forgot your password? ` with the trailing slash is replaced by `Forgot your password`.
 
 If you were using `I18n` to translate those keys, please update your translations accordingly to match the new strings.
+
+#### 5. Update the handleSignUp function override call
+
+If you are overriding `Auth.signUp`, update the override function call to include the `autoSignIn` option set to enabled. If this change is not made, users will not be automatically signed in on signup.
+
+```diff
+ async handleSignUp(formData) {
+  let { username, password, attributes } = formData;
+  // custom username
+  username = username.toLowerCase();
+  attributes.email = attributes.email.toLowerCase();
+  return Auth.signUp({
+    username,
+    password,
+    attributes,
++   autoSignIn: {
++     enabled: true
++   }
+  });
+}
 
 ## 1.x to 2.x
 ## Installation
