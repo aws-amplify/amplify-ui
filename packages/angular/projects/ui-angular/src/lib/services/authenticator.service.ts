@@ -166,10 +166,12 @@ export class AuthenticatorService implements OnDestroy {
     };
   }
 
-  /** @deprecated For internal use only */
   public subscribe(callback: AuthSubscriptionCallback) {
     if (this._authService) {
-      return this._authService.subscribe(callback);
+      const subscription = this._authService.subscribe(() => {
+        callback({ ...this._facade, ...this._sendEventAliases });
+      });
+      return subscription.unsubscribe;
     } else {
       logger.error(
         'Subscription attempted before machine was created. This is likely a bug on the library, please consider filing a bug.'
