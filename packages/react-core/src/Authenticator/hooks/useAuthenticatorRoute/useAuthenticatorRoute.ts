@@ -1,15 +1,19 @@
 import { useMemo } from 'react';
-import { AuthenticatorRouteComponentName } from '../types';
 import { useAuthenticator } from '../useAuthenticator';
 
-import { UseAuthenticatorRoute, UseAuthenticatorRouteParams } from './types';
 import {
-  getRouteSelector,
+  UseAuthenticatorRoute,
+  UseAuthenticatorRouteDefault,
+  UseAuthenticatorRouteParams,
+} from './types';
+import {
+  getRouteMachineSelector,
+  routeSelector,
   resolveConfirmResetPasswordRoute,
   resolveConfirmSignInRoute,
   resolveConfirmSignUpRoute,
-  resolveDefault,
   resolveConfirmVerifyUserRoute,
+  resolveDefault,
   resolveForceNewPasswordRoute,
   resolveResetPasswordRoute,
   resolveSetupTOTPRoute,
@@ -18,52 +22,52 @@ import {
   resolveVerifyUserRoute,
 } from './utils';
 
-export default function useAuthenticatorRoute<PlatformProps>(
-  params: UseAuthenticatorRouteParams<PlatformProps>
-): UseAuthenticatorRoute<PlatformProps, 'ConfirmResetPassword'>;
-export default function useAuthenticatorRoute<PlatformProps>(
-  params: UseAuthenticatorRouteParams<PlatformProps>
-): UseAuthenticatorRoute<PlatformProps, 'ConfirmSignIn'>;
-export default function useAuthenticatorRoute<PlatformProps>(
-  params: UseAuthenticatorRouteParams<PlatformProps>
-): UseAuthenticatorRoute<PlatformProps, 'ConfirmSignUp'>;
-export default function useAuthenticatorRoute<PlatformProps>(
-  params: UseAuthenticatorRouteParams<PlatformProps>
-): UseAuthenticatorRoute<PlatformProps, 'ConfirmVerifyUser'>;
-export default function useAuthenticatorRoute<PlatformProps>(
-  params: UseAuthenticatorRouteParams<PlatformProps>
-): UseAuthenticatorRoute<PlatformProps, 'ForceNewPassword'>;
-export default function useAuthenticatorRoute<PlatformProps>(
-  params: UseAuthenticatorRouteParams<PlatformProps>
-): UseAuthenticatorRoute<PlatformProps, 'ResetPassword'>;
-export default function useAuthenticatorRoute<PlatformProps>(
-  params: UseAuthenticatorRouteParams<PlatformProps>
-): UseAuthenticatorRoute<PlatformProps, 'SetupTOTP'>;
-export default function useAuthenticatorRoute<PlatformProps>(
-  params: UseAuthenticatorRouteParams<PlatformProps>
-): UseAuthenticatorRoute<PlatformProps, 'SignIn'>;
-export default function useAuthenticatorRoute<PlatformProps>(
-  params: UseAuthenticatorRouteParams<PlatformProps>
-): UseAuthenticatorRoute<PlatformProps, 'SignUp'>;
-export default function useAuthenticatorRoute<PlatformProps>(
-  params: UseAuthenticatorRouteParams<PlatformProps>
-): UseAuthenticatorRoute<PlatformProps, 'VerifyUser'>;
-export default function useAuthenticatorRoute<PlatformProps>({
+export default function useAuthenticatorRoute<FieldType>(
+  params: UseAuthenticatorRouteParams<FieldType>
+): UseAuthenticatorRoute<'ConfirmResetPassword'>;
+export default function useAuthenticatorRoute<FieldType>(
+  params: UseAuthenticatorRouteParams<FieldType>
+): UseAuthenticatorRoute<'ConfirmSignIn'>;
+export default function useAuthenticatorRoute<FieldType>(
+  params: UseAuthenticatorRouteParams<FieldType>
+): UseAuthenticatorRoute<'ConfirmSignUp'>;
+export default function useAuthenticatorRoute<FieldType>(
+  params: UseAuthenticatorRouteParams<FieldType>
+): UseAuthenticatorRoute<'ConfirmVerifyUser'>;
+export default function useAuthenticatorRoute<FieldType>(
+  params: UseAuthenticatorRouteParams<FieldType>
+): UseAuthenticatorRoute<'ForceNewPassword'>;
+export default function useAuthenticatorRoute<FieldType>(
+  params: UseAuthenticatorRouteParams<FieldType>
+): UseAuthenticatorRoute<'ResetPassword'>;
+export default function useAuthenticatorRoute<FieldType>(
+  params: UseAuthenticatorRouteParams<FieldType>
+): UseAuthenticatorRoute<'SetupTOTP'>;
+export default function useAuthenticatorRoute<FieldType>(
+  params: UseAuthenticatorRouteParams<FieldType>
+): UseAuthenticatorRoute<'SignIn'>;
+export default function useAuthenticatorRoute<FieldType>(
+  params: UseAuthenticatorRouteParams<FieldType>
+): UseAuthenticatorRoute<'SignUp'>;
+export default function useAuthenticatorRoute<FieldType>(
+  params: UseAuthenticatorRouteParams<FieldType>
+): UseAuthenticatorRoute<'VerifyUser'>;
+export default function useAuthenticatorRoute<FieldType>({
   components,
-}: UseAuthenticatorRouteParams<PlatformProps>): UseAuthenticatorRoute<
-  PlatformProps,
-  AuthenticatorRouteComponentName
-> {
-  const { route } = useAuthenticator(({ route }) => [route]);
+}: UseAuthenticatorRouteParams<FieldType>): UseAuthenticatorRouteDefault<FieldType> {
+  const { route } = useAuthenticator(routeSelector);
 
-  const routeSelector = useMemo(() => getRouteSelector(route), [route]);
+  const routeMachineSelector = useMemo(
+    () => getRouteMachineSelector(route),
+    [route]
+  );
 
   // `useAuthenticator` exposes both state machine (example: `toSignIn`) and non-state machine
   // props (example: `getTotpSecretCode`). `routeSelector` specifies which state machine props
   // should be returned for a specific route.
   // Only state machine props specified by the current `routeSelector` will have their current value
   // returned by `useAuthenticator`, non-machine props returned will always be the current value
-  const routeSelectorProps = useAuthenticator(routeSelector);
+  const routeSelectorProps = useAuthenticator(routeMachineSelector);
 
   const {
     ConfirmResetPassword,

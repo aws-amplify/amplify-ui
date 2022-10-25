@@ -1,19 +1,18 @@
 import React from 'react';
 import { Text } from 'react-native';
 
-import { SignInComponent } from './types';
 import { DefaultFooter } from '../../common/DefaultFooter';
 import { DefaultHeader } from '../../common/DefaultHeader';
+import { DefaultFormFields } from '../FormFields';
+import { DefaultSignInComponent } from '../types';
 
-const SignIn: SignInComponent = () => {
+const SignIn: DefaultSignInComponent = () => {
   return <Text>SignIn</Text>;
 };
 
-SignIn.Header = DefaultHeader;
 SignIn.Footer = DefaultFooter;
-SignIn.FormFields = function FormFields() {
-  return null;
-};
+SignIn.FormFields = DefaultFormFields;
+SignIn.Header = DefaultHeader;
 
 SignIn.displayName = 'SignIn';
 export default SignIn;

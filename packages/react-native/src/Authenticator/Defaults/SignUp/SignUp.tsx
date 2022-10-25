@@ -1,19 +1,18 @@
 import React from 'react';
 import { Text } from 'react-native';
 
-import { SignUpComponent } from './types';
 import { DefaultFooter } from '../../common/DefaultFooter';
 import { DefaultHeader } from '../../common/DefaultHeader';
+import { DefaultFormFields } from '../FormFields';
+import { DefaultSignUpComponent } from '../types';
 
-const SignUp: SignUpComponent = () => {
+const SignUp: DefaultSignUpComponent = () => {
   return <Text>SignUp</Text>;
 };
 
-SignUp.Header = DefaultHeader;
 SignUp.Footer = DefaultFooter;
-SignUp.FormFields = function FormFields() {
-  return null;
-};
+SignUp.FormFields = DefaultFormFields;
+SignUp.Header = DefaultHeader;
 
 SignUp.displayName = 'SignUp';
 export default SignUp;

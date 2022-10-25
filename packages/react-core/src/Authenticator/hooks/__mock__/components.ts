@@ -1,80 +1,83 @@
 import { Defaults, Overrides } from '../types';
 
+type DefaultComponents<P> = Defaults<P>;
+
 const Footer = () => null;
 const FormFields = () => null;
 const Header = () => null;
 
-const ConfirmResetPassword: Defaults['ConfirmResetPassword'] = () => {
-  return null;
-};
+const ConfirmResetPassword: DefaultComponents<{}>['ConfirmResetPassword'] =
+  () => {
+    return null;
+  };
 ConfirmResetPassword.Footer = Footer;
 ConfirmResetPassword.FormFields = FormFields;
 ConfirmResetPassword.Header = Header;
 
-const ConfirmSignIn: Defaults['ConfirmSignIn'] = () => {
+const ConfirmSignIn: DefaultComponents<{}>['ConfirmSignIn'] = () => {
   return null;
 };
 ConfirmSignIn.Footer = Footer;
 ConfirmSignIn.FormFields = FormFields;
 ConfirmSignIn.Header = Header;
 
-const ConfirmSignUp: Defaults['ConfirmSignUp'] = () => {
+const ConfirmSignUp: DefaultComponents<{}>['ConfirmSignUp'] = () => {
   return null;
 };
 ConfirmSignUp.Footer = Footer;
 ConfirmSignUp.FormFields = FormFields;
 ConfirmSignUp.Header = Header;
 
-const ConfirmVerifyUser: Defaults['ConfirmVerifyUser'] = () => {
+const ConfirmVerifyUser: DefaultComponents<{}>['ConfirmVerifyUser'] = () => {
   return null;
 };
 ConfirmVerifyUser.Footer = Footer;
 ConfirmVerifyUser.FormFields = FormFields;
 ConfirmVerifyUser.Header = Header;
 
-const ForceNewPassword: Defaults['ForceNewPassword'] = () => {
+const ForceNewPassword: DefaultComponents<{}>['ForceNewPassword'] = () => {
   return null;
 };
 ForceNewPassword.Footer = Footer;
 ForceNewPassword.FormFields = FormFields;
 ForceNewPassword.Header = Header;
 
-const ResetPassword: Defaults['ResetPassword'] = () => {
+const ResetPassword: DefaultComponents<{}>['ResetPassword'] = () => {
   return null;
 };
 ResetPassword.Footer = Footer;
 ResetPassword.FormFields = FormFields;
 ResetPassword.Header = Header;
 
-const SetupTOTP: Defaults['SetupTOTP'] = () => {
+const SetupTOTP: DefaultComponents<{}>['SetupTOTP'] = () => {
   return null;
 };
 SetupTOTP.Footer = Footer;
 SetupTOTP.FormFields = FormFields;
 SetupTOTP.Header = Header;
 
-const SignIn: Defaults['SignIn'] = () => {
+const SignIn: DefaultComponents<{}>['SignIn'] = () => {
   return null;
 };
 SignIn.Footer = Footer;
 SignIn.FormFields = FormFields;
 SignIn.Header = Header;
 
-const SignUp: Defaults['SignUp'] = () => {
+const SignUp: DefaultComponents<{}>['SignUp'] = () => {
   return null;
 };
 SignUp.Footer = Footer;
 SignUp.FormFields = FormFields;
 SignUp.Header = Header;
 
-const VerifyUser: Defaults['VerifyUser'] = () => {
+const VerifyUser: DefaultComponents<{}>['VerifyUser'] = () => {
   return null;
 };
 VerifyUser.Footer = Footer;
 VerifyUser.FormFields = FormFields;
 VerifyUser.Header = Header;
 
-export const DEFAULTS: Defaults = {
+export const DEFAULTS: DefaultComponents<{}> = {
   ConfirmResetPassword,
   ConfirmSignIn,
   ConfirmSignUp,
