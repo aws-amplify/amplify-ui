@@ -25,7 +25,7 @@ describe('FederatedProviderButtons', () => {
     expect(toJSON()).toMatchSnapshot();
   });
 
-  it('renders null when a socialProviders is empty', () => {
+  it('renders null when socialProviders is empty', () => {
     const { toJSON } = render(
       <FederatedProviderButtons
         socialProviders={[]}
