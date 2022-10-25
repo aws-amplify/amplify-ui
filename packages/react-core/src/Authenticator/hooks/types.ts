@@ -131,6 +131,7 @@ export type SignInBaseProps<FieldType = {}> = {
   ComponentSlots<FieldType>;
 
 export type SignUpBaseProps<FieldType = {}> = {
+  hideSignIn?: boolean;
   socialProviders?: AuthenticatorMachineContext['socialProviders'];
   toFederatedSignIn: AuthenticatorMachineContext['toFederatedSignIn'];
   toSignIn: AuthenticatorMachineContext['toSignIn'];

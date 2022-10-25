@@ -2,21 +2,16 @@ import { StyleSheet, TextStyle, ViewStyle } from 'react-native';
 
 // TODO: clean up with theming
 interface SignUpStyle {
-  container: ViewStyle;
   buttonPrimary: ViewStyle;
   buttonPrimaryLabel: TextStyle;
   buttonSecondary: TextStyle;
   buttonSecondaryLabel: TextStyle;
   errorMessage: ViewStyle;
   textField: ViewStyle;
+  tabs: ViewStyle;
 }
 
 export const styles: SignUpStyle = StyleSheet.create({
-  container: {
-    justifyContent: 'center',
-    flex: 1,
-    padding: 16,
-  },
   buttonPrimary: {
     backgroundColor: 'teal',
     marginVertical: 8,
@@ -34,4 +29,5 @@ export const styles: SignUpStyle = StyleSheet.create({
   textField: {
     paddingVertical: 16,
   },
+  tabs: { marginBottom: 8 },
 });

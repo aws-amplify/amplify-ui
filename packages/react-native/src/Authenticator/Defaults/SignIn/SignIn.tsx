@@ -60,7 +60,7 @@ const SignIn: DefaultSignInComponent = ({
   const {
     getSignInText,
     getSignInTabText,
-    getCreateAccountText,
+    getSignUpTabText,
     getForgotPasswordText,
   } = authenticatorTextUtil;
 
@@ -69,7 +69,7 @@ const SignIn: DefaultSignInComponent = ({
       {hideSignUp ? null : (
         <Tabs style={styles.tabs}>
           <Tab>{getSignInTabText()}</Tab>
-          <Tab onPress={toSignUp}>{getCreateAccountText()}</Tab>
+          <Tab onPress={toSignUp}>{getSignUpTabText()}</Tab>
         </Tabs>
       )}
       <Header />

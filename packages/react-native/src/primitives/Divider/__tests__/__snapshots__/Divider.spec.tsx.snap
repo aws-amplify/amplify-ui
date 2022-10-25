@@ -1,63 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Divider renders a Divider 1`] = `
-<View
-  style={
-    Array [
-      Object {
-        "alignItems": "center",
-      },
-      undefined,
-    ]
-  }
->
-  <View
-    style={
-      Array [
-        Object {
-          "backgroundColor": "black",
-          "flex": 1,
-          "height": 0.5,
-        },
-        undefined,
-      ]
-    }
-  />
-  <Text
-    style={
-      Array [
-        Object {
-          "fontSize": 16,
-          "margin": 8,
-          "textAlign": "center",
-        },
-        undefined,
-      ]
-    }
-  >
-    test
-  </Text>
-  <View
-    style={
-      Array [
-        Object {
-          "backgroundColor": "black",
-          "flex": 1,
-          "height": 0.5,
-        },
-        undefined,
-      ]
-    }
-  />
-</View>
-`;
-
 exports[`Divider renders as expected with label 1`] = `
 <View
   style={
     Array [
       Object {
         "alignItems": "center",
+        "flexDirection": "row",
       },
       undefined,
     ]
@@ -110,6 +59,7 @@ exports[`Divider renders as expected without label 1`] = `
     Array [
       Object {
         "alignItems": "center",
+        "flexDirection": "row",
       },
       undefined,
     ]

@@ -38,6 +38,7 @@ const props = {
   Footer: Authenticator.SignUp.Footer,
   FormFields: Authenticator.SignUp.FormFields,
   Header: Authenticator.SignUp.Header,
+  hideSignIn: false,
   isPending: false,
   handleBlur: noop,
   handleSubmit: (values: any) => {
@@ -51,13 +52,10 @@ const props = {
 
 storiesOf('SignUp', module)
   .add('default', () => <Authenticator.SignUp {...props} />)
-  .add('with error', () => (
-    <Authenticator.SignUp {...props} error={'Error!'} />
+  .add('with error', () => <Authenticator.SignUp {...props} error={'Error!'} />)
+  .add('with Social Providers', () => (
+    <Authenticator.SignUp
+      {...props}
+      socialProviders={['amazon', 'apple', 'facebook', 'google']}
+    />
   ));
-
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    paddingHorizontal: 20,
-  },
-});

@@ -2,6 +2,139 @@
 
 exports[`SignUp renders as expected 1`] = `
 Array [
+  <View
+    accessibilityRole="tablist"
+    style={
+      Array [
+        Object {
+          "flexDirection": "row",
+          "width": "100%",
+        },
+        Object {
+          "marginBottom": 8,
+        },
+      ]
+    }
+  >
+    <View
+      accessibilityRole="tab"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          null,
+          Array [
+            Object {
+              "backgroundColor": "#e1e1e1",
+              "borderTopColor": "#dcdee0",
+              "borderTopWidth": 2,
+              "flexBasis": 0,
+              "flexGrow": 1,
+              "padding": 12,
+            },
+            Object {
+              "opacity": 1,
+            },
+            Object {
+              "backgroundColor": "#fff",
+              "borderTopColor": "#047d95",
+              "color": "#047d95",
+            },
+            null,
+          ],
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "alignSelf": "center",
+            },
+            Array [
+              Object {
+                "color": "#304050",
+                "fontSize": 16,
+                "fontWeight": "700",
+              },
+              undefined,
+              Object {
+                "backgroundColor": "#fff",
+                "borderTopColor": "#047d95",
+                "color": "#047d95",
+              },
+            ],
+          ]
+        }
+      >
+        Sign In
+      </Text>
+    </View>
+    <View
+      accessibilityRole="tab"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          null,
+          Array [
+            Object {
+              "backgroundColor": "#e1e1e1",
+              "borderTopColor": "#dcdee0",
+              "borderTopWidth": 2,
+              "flexBasis": 0,
+              "flexGrow": 1,
+              "padding": 12,
+            },
+            null,
+            null,
+            null,
+          ],
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "alignSelf": "center",
+            },
+            Array [
+              Object {
+                "color": "#304050",
+                "fontSize": 16,
+                "fontWeight": "700",
+              },
+              undefined,
+              null,
+            ],
+          ]
+        }
+      >
+        Create Account
+      </Text>
+    </View>
+  </View>,
   <Text
     accessibilityRole="header"
     style={
@@ -56,7 +189,264 @@ Array [
         ]
       }
     >
-      Sign Up
+      Create Account
+    </Text>
+  </View>,
+]
+`;
+
+exports[`SignUp renders as expected when hideSignIn is true 1`] = `
+Array [
+  <Text
+    accessibilityRole="header"
+    style={
+      Array [
+        Object {
+          "color": "black",
+        },
+        Object {
+          "fontSize": 34,
+          "fontWeight": "300",
+          "lineHeight": 51,
+        },
+        undefined,
+      ]
+    }
+  />,
+  <View
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        null,
+        Object {
+          "backgroundColor": "teal",
+          "marginVertical": 8,
+          "paddingVertical": 12,
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "alignSelf": "center",
+          },
+          Object {
+            "color": "white",
+            "fontSize": 16,
+            "fontWeight": "bold",
+          },
+        ]
+      }
+    >
+      Create Account
+    </Text>
+  </View>,
+]
+`;
+
+exports[`SignUp renders as expected when isPending is true 1`] = `
+Array [
+  <View
+    accessibilityRole="tablist"
+    style={
+      Array [
+        Object {
+          "flexDirection": "row",
+          "width": "100%",
+        },
+        Object {
+          "marginBottom": 8,
+        },
+      ]
+    }
+  >
+    <View
+      accessibilityRole="tab"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          null,
+          Array [
+            Object {
+              "backgroundColor": "#e1e1e1",
+              "borderTopColor": "#dcdee0",
+              "borderTopWidth": 2,
+              "flexBasis": 0,
+              "flexGrow": 1,
+              "padding": 12,
+            },
+            Object {
+              "opacity": 1,
+            },
+            Object {
+              "backgroundColor": "#fff",
+              "borderTopColor": "#047d95",
+              "color": "#047d95",
+            },
+            null,
+          ],
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "alignSelf": "center",
+            },
+            Array [
+              Object {
+                "color": "#304050",
+                "fontSize": 16,
+                "fontWeight": "700",
+              },
+              undefined,
+              Object {
+                "backgroundColor": "#fff",
+                "borderTopColor": "#047d95",
+                "color": "#047d95",
+              },
+            ],
+          ]
+        }
+      >
+        Sign In
+      </Text>
+    </View>
+    <View
+      accessibilityRole="tab"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          null,
+          Array [
+            Object {
+              "backgroundColor": "#e1e1e1",
+              "borderTopColor": "#dcdee0",
+              "borderTopWidth": 2,
+              "flexBasis": 0,
+              "flexGrow": 1,
+              "padding": 12,
+            },
+            null,
+            null,
+            null,
+          ],
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "alignSelf": "center",
+            },
+            Array [
+              Object {
+                "color": "#304050",
+                "fontSize": 16,
+                "fontWeight": "700",
+              },
+              undefined,
+              null,
+            ],
+          ]
+        }
+      >
+        Create Account
+      </Text>
+    </View>
+  </View>,
+  <Text
+    accessibilityRole="header"
+    style={
+      Array [
+        Object {
+          "color": "black",
+        },
+        Object {
+          "fontSize": 34,
+          "fontWeight": "300",
+          "lineHeight": 51,
+        },
+        undefined,
+      ]
+    }
+  />,
+  <View
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        null,
+        Object {
+          "backgroundColor": "teal",
+          "marginVertical": 8,
+          "paddingVertical": 12,
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "alignSelf": "center",
+          },
+          Object {
+            "color": "white",
+            "fontSize": 16,
+            "fontWeight": "bold",
+          },
+        ]
+      }
+    >
+      Creating Account
     </Text>
   </View>,
 ]
@@ -64,6 +454,139 @@ Array [
 
 exports[`SignUp renders as expected with errors 1`] = `
 Array [
+  <View
+    accessibilityRole="tablist"
+    style={
+      Array [
+        Object {
+          "flexDirection": "row",
+          "width": "100%",
+        },
+        Object {
+          "marginBottom": 8,
+        },
+      ]
+    }
+  >
+    <View
+      accessibilityRole="tab"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          null,
+          Array [
+            Object {
+              "backgroundColor": "#e1e1e1",
+              "borderTopColor": "#dcdee0",
+              "borderTopWidth": 2,
+              "flexBasis": 0,
+              "flexGrow": 1,
+              "padding": 12,
+            },
+            Object {
+              "opacity": 1,
+            },
+            Object {
+              "backgroundColor": "#fff",
+              "borderTopColor": "#047d95",
+              "color": "#047d95",
+            },
+            null,
+          ],
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "alignSelf": "center",
+            },
+            Array [
+              Object {
+                "color": "#304050",
+                "fontSize": 16,
+                "fontWeight": "700",
+              },
+              undefined,
+              Object {
+                "backgroundColor": "#fff",
+                "borderTopColor": "#047d95",
+                "color": "#047d95",
+              },
+            ],
+          ]
+        }
+      >
+        Sign In
+      </Text>
+    </View>
+    <View
+      accessibilityRole="tab"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          null,
+          Array [
+            Object {
+              "backgroundColor": "#e1e1e1",
+              "borderTopColor": "#dcdee0",
+              "borderTopWidth": 2,
+              "flexBasis": 0,
+              "flexGrow": 1,
+              "padding": 12,
+            },
+            null,
+            null,
+            null,
+          ],
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "alignSelf": "center",
+            },
+            Array [
+              Object {
+                "color": "#304050",
+                "fontSize": 16,
+                "fontWeight": "700",
+              },
+              undefined,
+              null,
+            ],
+          ]
+        }
+      >
+        Create Account
+      </Text>
+    </View>
+  </View>,
   <Text
     accessibilityRole="header"
     style={
@@ -169,7 +692,7 @@ Array [
         ]
       }
     >
-      Sign Up
+      Create Account
     </Text>
   </View>,
 ]
@@ -177,6 +700,139 @@ Array [
 
 exports[`SignUp renders as expected with social providers 1`] = `
 Array [
+  <View
+    accessibilityRole="tablist"
+    style={
+      Array [
+        Object {
+          "flexDirection": "row",
+          "width": "100%",
+        },
+        Object {
+          "marginBottom": 8,
+        },
+      ]
+    }
+  >
+    <View
+      accessibilityRole="tab"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          null,
+          Array [
+            Object {
+              "backgroundColor": "#e1e1e1",
+              "borderTopColor": "#dcdee0",
+              "borderTopWidth": 2,
+              "flexBasis": 0,
+              "flexGrow": 1,
+              "padding": 12,
+            },
+            Object {
+              "opacity": 1,
+            },
+            Object {
+              "backgroundColor": "#fff",
+              "borderTopColor": "#047d95",
+              "color": "#047d95",
+            },
+            null,
+          ],
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "alignSelf": "center",
+            },
+            Array [
+              Object {
+                "color": "#304050",
+                "fontSize": 16,
+                "fontWeight": "700",
+              },
+              undefined,
+              Object {
+                "backgroundColor": "#fff",
+                "borderTopColor": "#047d95",
+                "color": "#047d95",
+              },
+            ],
+          ]
+        }
+      >
+        Sign In
+      </Text>
+    </View>
+    <View
+      accessibilityRole="tab"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          null,
+          Array [
+            Object {
+              "backgroundColor": "#e1e1e1",
+              "borderTopColor": "#dcdee0",
+              "borderTopWidth": 2,
+              "flexBasis": 0,
+              "flexGrow": 1,
+              "padding": 12,
+            },
+            null,
+            null,
+            null,
+          ],
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "alignSelf": "center",
+            },
+            Array [
+              Object {
+                "color": "#304050",
+                "fontSize": 16,
+                "fontWeight": "700",
+              },
+              undefined,
+              null,
+            ],
+          ]
+        }
+      >
+        Create Account
+      </Text>
+    </View>
+  </View>,
   <Text
     accessibilityRole="header"
     style={
@@ -312,6 +968,81 @@ Array [
         accessibilityRole="image"
         source={
           Object {
+            "testUri": "../../../src/assets/icons/appleLogo.png",
+          }
+        }
+        style={
+          Array [
+            Object {
+              "height": 20,
+              "resizeMode": "contain",
+              "tintColor": undefined,
+              "width": 20,
+            },
+            Object {
+              "paddingHorizontal": 16,
+            },
+          ]
+        }
+      />
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 16,
+              "marginHorizontal": 4,
+              "marginVertical": 2,
+            },
+            Array [
+              Object {
+                "fontWeight": "400",
+              },
+              undefined,
+            ],
+          ]
+        }
+      >
+        Sign In with Apple
+      </Text>
+    </View>
+    <View
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          null,
+          Array [
+            Object {
+              "alignItems": "center",
+              "borderRadius": 4,
+              "borderWidth": 0.5,
+              "flexDirection": "row",
+              "justifyContent": "center",
+              "paddingVertical": 8,
+              "width": "100%",
+            },
+            Object {
+              "marginVertical": 8,
+            },
+          ],
+        ]
+      }
+    >
+      <Image
+        accessibilityRole="image"
+        source={
+          Object {
             "testUri": "../../../src/assets/icons/facebookLogo.png",
           }
         }
@@ -351,10 +1082,86 @@ Array [
       </Text>
     </View>
     <View
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          null,
+          Array [
+            Object {
+              "alignItems": "center",
+              "borderRadius": 4,
+              "borderWidth": 0.5,
+              "flexDirection": "row",
+              "justifyContent": "center",
+              "paddingVertical": 8,
+              "width": "100%",
+            },
+            Object {
+              "marginVertical": 8,
+            },
+          ],
+        ]
+      }
+    >
+      <Image
+        accessibilityRole="image"
+        source={
+          Object {
+            "testUri": "../../../src/assets/icons/googleLogo.png",
+          }
+        }
+        style={
+          Array [
+            Object {
+              "height": 20,
+              "resizeMode": "contain",
+              "tintColor": undefined,
+              "width": 20,
+            },
+            Object {
+              "paddingHorizontal": 16,
+            },
+          ]
+        }
+      />
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 16,
+              "marginHorizontal": 4,
+              "marginVertical": 2,
+            },
+            Array [
+              Object {
+                "fontWeight": "400",
+              },
+              undefined,
+            ],
+          ]
+        }
+      >
+        Sign In with Google
+      </Text>
+    </View>
+    <View
       style={
         Array [
           Object {
             "alignItems": "center",
+            "flexDirection": "row",
           },
           undefined,
         ]
@@ -441,7 +1248,7 @@ Array [
         ]
       }
     >
-      Sign Up
+      Create Account
     </Text>
   </View>,
 ]

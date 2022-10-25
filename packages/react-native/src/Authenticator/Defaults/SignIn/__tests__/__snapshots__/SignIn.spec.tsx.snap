@@ -963,16 +963,59 @@ exports[`SignIn renders as expected with socialProviders 1`] = `
         Sign In with Facebook
       </Text>
     </View>
-    <Text
+    <View
       style={
-        Object {
-          "paddingVertical": 8,
-          "textAlign": "center",
-        }
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+          },
+          undefined,
+        ]
       }
     >
-      Or
-    </Text>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "black",
+              "flex": 1,
+              "height": 0.5,
+            },
+            undefined,
+          ]
+        }
+      />
+      <Text
+        style={
+          Array [
+            Object {
+              "fontSize": 16,
+              "margin": 8,
+              "textAlign": "center",
+            },
+            Object {
+              "paddingVertical": 8,
+              "textAlign": "center",
+            },
+          ]
+        }
+      >
+        Or
+      </Text>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "black",
+              "flex": 1,
+              "height": 0.5,
+            },
+            undefined,
+          ]
+        }
+      />
+    </View>
   </View>
   <View
     accessible={true}

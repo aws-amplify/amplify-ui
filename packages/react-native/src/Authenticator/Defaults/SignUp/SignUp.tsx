@@ -6,15 +6,10 @@ import { DefaultFormFields } from '../../common/DefaultFormFields';
 import { FederatedProviderButtons } from '../../common/FederatedProviderButtons';
 
 import { DefaultSignUpComponent } from '../types';
-import { Button, ErrorMessage } from '../../../primitives';
+import { Button, ErrorMessage, Tab, Tabs } from '../../../primitives';
+import { authenticatorTextUtil } from '@aws-amplify/ui';
 
 import { styles } from './style';
-
-// strings to import
-const BACK_TO_SIGN_IN = 'Already have an account? Sign In.';
-const CREATE_ACCOUNT = 'Create account';
-const CREATING_ACCOUNT = 'Creating account';
-const ENTER_YOUR_USERNAME = 'Enter your username';
 
 const SignUp: DefaultSignUpComponent = ({
   error,
@@ -22,12 +17,27 @@ const SignUp: DefaultSignUpComponent = ({
   Footer,
   FormFields,
   Header,
+  hideSignIn,
   isPending,
   socialProviders,
   toFederatedSignIn,
+  toSignIn,
 }) => {
+  const {
+    getCreateAccountText,
+    getCreatingAccountText,
+    getSignInTabText,
+    getSignUpTabText,
+  } = authenticatorTextUtil;
+
   return (
     <>
+      {hideSignIn ? null : (
+        <Tabs style={styles.tabs}>
+          <Tab onPress={toSignIn}>{getSignInTabText()}</Tab>
+          <Tab selected>{getSignUpTabText()}</Tab>
+        </Tabs>
+      )}
       <Header />
       {socialProviders ? (
         <FederatedProviderButtons
@@ -41,7 +51,7 @@ const SignUp: DefaultSignUpComponent = ({
         style={styles.buttonPrimary}
         textStyle={styles.buttonPrimaryLabel}
       >
-        Sign Up
+        {isPending ? getCreatingAccountText() : getCreateAccountText()}
       </Button>
       <Footer />
     </>

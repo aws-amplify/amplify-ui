@@ -88,6 +88,7 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
       Array [
         Object {
           "alignItems": "center",
+          "flexDirection": "row",
         },
         undefined,
       ]
