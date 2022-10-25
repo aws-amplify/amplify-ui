@@ -46,26 +46,35 @@ export const useAuth = (): UseAuthResult => {
         // success events
         case 'signIn':
         case 'signUp':
-        case 'autoSignIn':
+        case 'autoSignIn': {
           setResult({ user: payload.data as AmplifyUser, isLoading: false });
           break;
-        case 'signOut':
+        }
+        case 'signOut': {
           setResult({ user: undefined, isLoading: false });
           break;
+        }
 
         // failure events
         case 'tokenRefresh_failure':
-        case 'signIn_failure':
+        case 'signIn_failure': {
           setResult({ error: payload.data as Error, isLoading: false });
           break;
-        case 'autoSignIn_failure':
+        }
+        case 'autoSignIn_failure': {
           // autoSignIn just returns error message. Wrap it to an Error object
           setResult({ error: new Error(payload.message), isLoading: false });
           break;
+        }
 
         // events that need another fetch
-        case 'tokenRefresh':
+        case 'tokenRefresh': {
           fetchCurrentUser();
+          break;
+        }
+
+        default:
+          // we do not handle other hub events like `configured`.
           break;
       }
     },
