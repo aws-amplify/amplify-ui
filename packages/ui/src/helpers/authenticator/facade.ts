@@ -171,7 +171,7 @@ export const getServiceContextFacade = (
         return 'confirmVerifyUser';
       case state.matches('signIn.runActor'):
         /**
-         * This change is needed for autoSignIn to capture both the
+         * This route is needed for autoSignIn to capture both the
          * autoSignIn.pending and the resolved states when the
          * signIn actor is running.
          */
