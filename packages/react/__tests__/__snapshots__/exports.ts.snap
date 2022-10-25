@@ -26,6 +26,8 @@ Array [
   "Heading",
   "Icon",
   "Image",
+  "InAppMessageDisplay",
+  "InAppMessagingProvider",
   "Link",
   "Loader",
   "LocationSearch",
@@ -71,9 +73,11 @@ Array [
   "useAmplify",
   "useAuthenticator",
   "useBreakpointValue",
+  "useInAppMessaging",
   "usePagination",
   "useTheme",
   "withAuthenticator",
+  "withInAppMessaging",
 ]
 `;
 

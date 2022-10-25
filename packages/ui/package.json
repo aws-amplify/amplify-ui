@@ -8,6 +8,7 @@
       "import": "./dist/esm/index.js",
       "require": "./dist/index.js"
     },
+    "./package.json": "./package.json",
     "./styles.css": "./dist/styles.css",
     "./theme.css": "./dist/theme.css"
   },

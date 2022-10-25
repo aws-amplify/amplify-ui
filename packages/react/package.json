@@ -67,6 +67,7 @@
     "qrcode": "1.5.0",
     "react-generate-context": "1.0.1",
     "react-map-gl": "7.0.15",
+    "tinycolor2": "1.4.2",
     "tslib": "2.4.0"
   },
   "peerDependencies": {
@@ -80,6 +81,7 @@
     }
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^22.0.1",
     "@rollup/plugin-typescript": "^8.3.1",
     "@size-limit/preset-big-lib": "^7.0.8",
     "@svgr/core": "^5.5.0",
@@ -91,6 +93,7 @@
     "@types/qrcode": "^1.4.2",
     "@types/react": "^17.0.2",
     "@types/testing-library__jest-dom": "^5.14.1",
+    "@types/tinycolor2": "^1.4.3",
     "@typescript-eslint/eslint-plugin": "^5.20.0",
     "@typescript-eslint/parser": "^5.20.0",
     "degit": "^2.8.4",
