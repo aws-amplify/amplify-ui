@@ -2,7 +2,7 @@ import React from 'react';
 import { Text } from 'react-native';
 
 import { DefaultFooter } from '../../common/DefaultFooter';
-import { DefaultFormFields } from '../FormFields';
+import { DefaultFormFields } from '../../common/DefaultFormFields';
 import { DefaultHeader } from '../../common/DefaultHeader';
 import { DefaultConfirmVerifyUserComponent } from '../types';
 

@@ -13,7 +13,7 @@ export const styles: TabsStyles = StyleSheet.create({
     width: '100%',
   },
   tab: {
-    backgroundColor: '#fafafa',
+    backgroundColor: '#e1e1e1',
     borderTopColor: '#dcdee0',
     borderTopWidth: 2,
     flexBasis: 0,
@@ -22,8 +22,8 @@ export const styles: TabsStyles = StyleSheet.create({
   },
   tabText: {
     color: '#304050',
-    fontSize: 18,
-    fontWeight: '800',
+    fontSize: 16,
+    fontWeight: '700',
   },
   selected: {
     backgroundColor: '#fff',
