@@ -1,31 +1,12 @@
 import React, { useMemo } from 'react';
-import { Text, TextStyle, View, ViewStyle } from 'react-native';
-
-import { AuthenticatorMachineContext } from '@aws-amplify/ui-react-core';
-
-import { FederatedProviderButton } from '../FederatedProviderButton';
+import { Text, View } from 'react-native';
 
 import { icons } from '../../../assets';
 import { capitalize } from '../../../utils';
+import { FederatedProviderButton } from '../FederatedProviderButton';
 
-// TODO extend from ViewProps, add button style related style props
-interface FederatedProviderButtonsProps
-  extends Pick<
-    AuthenticatorMachineContext,
-    'socialProviders' | 'toFederatedSignIn'
-  > {}
-
-interface FederatedProviderButtonStyle {
-  button: ViewStyle;
-  container: ViewStyle;
-  text: TextStyle;
-}
-
-const styles: FederatedProviderButtonStyle = {
-  button: { marginVertical: 8 },
-  container: { paddingVertical: 4 },
-  text: { paddingVertical: 8, textAlign: 'center' },
-};
+import { styles } from './styles';
+import { FederatedProviderButtonsProps } from './types';
 
 export default function FederatedProviderButtons({
   socialProviders,
