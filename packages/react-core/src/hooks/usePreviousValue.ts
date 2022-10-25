@@ -5,11 +5,11 @@ export default function usePreviousValue<Value>(
 ): Value | undefined {
   const previous = useRef<Value>();
 
-  // update Previous value post render
+  // update ref post render
   useEffect(() => {
     previous.current = value;
   }, [value]);
 
-  // return Previous value
+  // return previous ref
   return previous.current;
 }
