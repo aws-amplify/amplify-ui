@@ -39,7 +39,7 @@ describe('useAuth', () => {
   });
 
   it('should invoke Auth.currentAuthenticatedUser function', async () => {
-    currentAuthenticatedUser.mockResolvedValue({});
+    currentAuthenticatedUser.mockResolvedValue(mockCognitoUser);
 
     const { waitForNextUpdate } = renderHook(() => useAuth());
 
