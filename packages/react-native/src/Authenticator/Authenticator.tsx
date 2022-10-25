@@ -26,6 +26,8 @@ import {
   VerifyUser,
 } from './Defaults';
 
+import { DefaultContainer } from './common';
+
 const DEFAULTS = {
   ConfirmResetPassword,
   ConfirmSignIn,
@@ -69,7 +71,11 @@ function Authenticator({
     return children ? <>{children}</> : null;
   }
 
-  return <Component {...props} fields={fields} />;
+  return (
+    <DefaultContainer>
+      <Component {...props} fields={fields} />
+    </DefaultContainer>
+  );
 }
 
 // assign slot components
