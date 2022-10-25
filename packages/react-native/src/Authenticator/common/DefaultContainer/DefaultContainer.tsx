@@ -8,9 +8,9 @@ export default function DefaultContainer({
   children,
   ...rest
 }: DefaultContainerProps): JSX.Element | null {
-  return children ? (
+  return (
     <View {...rest} style={styles.container}>
       {children}
     </View>
-  ) : null;
+  );
 }

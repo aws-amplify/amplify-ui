@@ -16,11 +16,4 @@ describe('DefaultContainer', () => {
 
     expect(getByTestId(testID)).toBeDefined();
   });
-
-  it('renders as expected without children', () => {
-    const { toJSON } = render(<DefaultContainer />);
-    expect(toJSON()).toMatchSnapshot();
-
-    expect(toJSON()).toBe(null);
-  });
 });
