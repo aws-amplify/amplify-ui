@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FederatedIdentityProviders } from '@aws-amplify/ui';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
-import { translate } from '@aws-amplify/ui';
+import { authenticatorTextUtil } from '@aws-amplify/ui';
+
+const { getSignInWithFederationText } = authenticatorTextUtil;
 
 @Component({
   selector: 'amplify-federated-sign-in',
@@ -41,18 +43,10 @@ export class FederatedSignInComponent implements OnInit {
 
   private setFederatedTexts() {
     const { route } = this.authenticator;
-    const federatedText = route === 'signUp' ? 'Up' : 'In';
-    this.signInAmazonText = translate<string>(
-      `Sign ${federatedText} with Amazon`
-    );
-    this.signInAppleText = translate<string>(
-      `Sign ${federatedText} with Apple`
-    );
-    this.signInFacebookText = translate<string>(
-      `Sign ${federatedText} with Facebook`
-    );
-    this.signInGoogleText = translate<string>(
-      `Sign ${federatedText} with Google`
-    );
+
+    this.signInAmazonText = getSignInWithFederationText(route, 'amazon');
+    this.signInAppleText = getSignInWithFederationText(route, 'apple');
+    this.signInFacebookText = getSignInWithFederationText(route, 'facebook');
+    this.signInGoogleText = getSignInWithFederationText(route, 'google');
   }
 }
