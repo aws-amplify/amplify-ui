@@ -15,11 +15,13 @@ import {
   defaultAuthHubHandler,
   listenToAuthHub,
   SocialProvider,
-  translate,
+  authenticatorTextUtil,
 } from '@aws-amplify/ui';
 import { AmplifySlotDirective } from '../../../../utilities/amplify-slot/amplify-slot.directive';
 import { CustomComponentsService } from '../../../../services/custom-components.service';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
+
+const { getSignInTabText, getSignUpTabText } = authenticatorTextUtil;
 
 @Component({
   selector: 'amplify-authenticator',
@@ -43,8 +45,8 @@ export class AuthenticatorComponent
   private customComponentQuery: QueryList<AmplifySlotDirective> = null;
 
   // translated texts
-  public signInTitle = translate('Sign In');
-  public signUpTitle = translate('Create Account');
+  public signInTitle = getSignInTabText();
+  public signUpTitle = getSignUpTabText();
 
   private hasInitialized = false;
   private isHandlingHubEvent = false;
@@ -127,8 +129,8 @@ export class AuthenticatorComponent
      * handling translations after content init, because authenticator and its
      * translations might be initialized before the main app's `ngOnInit` is run.
      */
-    this.signInTitle = translate('Sign In');
-    this.signUpTitle = translate('Create Account');
+    this.signInTitle = getSignInTabText();
+    this.signUpTitle = getSignUpTabText();
   }
 
   /**

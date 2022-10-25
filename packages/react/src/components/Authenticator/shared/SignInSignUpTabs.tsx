@@ -1,5 +1,5 @@
 import React from 'react';
-import { translate } from '@aws-amplify/ui';
+import { authenticatorTextUtil } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '@aws-amplify/ui-react-core';
 import { TabItem, Tabs } from '../../../primitives/Tabs';
@@ -7,6 +7,8 @@ import { View } from '../../../primitives/View';
 import { SignIn } from '../SignIn';
 import { SignUp } from '../SignUp';
 import { RouteContainer, RouteProps } from '../RouteContainer';
+
+const { getSignInTabText, getSignUpTabText } = authenticatorTextUtil;
 
 export const SignInSignUpTabs = ({
   className,
@@ -34,12 +36,12 @@ export const SignInSignUpTabs = ({
           justifyContent="center"
           onChange={() => (route === 'signIn' ? toSignUp() : toSignIn())}
         >
-          <TabItem title={translate('Sign In')}>
+          <TabItem title={getSignInTabText()}>
             <View data-amplify-router-content="">
               {route === 'signIn' && <SignIn />}
             </View>
           </TabItem>
-          <TabItem title={translate('Create Account')}>
+          <TabItem title={getSignUpTabText()}>
             <View data-amplify-router-content="">
               {route === 'signUp' && <SignUp />}
             </View>
