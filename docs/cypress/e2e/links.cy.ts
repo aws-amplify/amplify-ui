@@ -15,7 +15,7 @@ describe('Local Sitemap', () => {
   });
 });
 
-for (let i = 10; i < 15; i++) {
+for (let i = 15; i < 20; i++) {
   describe(`check page ${i}`, () => {
     const baseUrl = 'http://localhost:3000';
 
@@ -49,7 +49,7 @@ for (let i = 10; i < 15; i++) {
             logMessage('REQUESTING');
             cy.request({ url: tagHref, followRedirect: false }).then(
               ({ status }) => {
-                logMessage('REQUESTING');
+                logMessage('RETURNING', status);
                 expect(status).to.oneOf([200, 301]);
               }
             );
@@ -66,7 +66,7 @@ for (let i = 10; i < 15; i++) {
           | 'RETURNING'
           | 'NO_HREF';
 
-        function logMessage(evtName: EvtName) {
+        function logMessage(evtName: EvtName, status?: number) {
           switch (evtName) {
             case 'CHECKING':
               return cy.task(
