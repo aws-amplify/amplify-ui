@@ -1,9 +1,8 @@
 import React from 'react';
 import { View } from 'react-native';
 
-import { DefaultContainerProps } from './types';
-
 import { styles } from './styles';
+import { DefaultContainerProps } from './types';
 
 export default function DefaultContainer({
   children,
