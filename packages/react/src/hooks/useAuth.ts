@@ -31,6 +31,7 @@ export const useAuth = (): UseAuthResult => {
     setResult({ user: undefined, isLoading: true, error: undefined });
 
     try {
+     // casting the result because `Auth.currentAuthenticateduser` returns `any`
       const user = (await Auth.currentAuthenticatedUser()) as AmplifyUser;
       setResult({ user, isLoading: false });
     } catch (e) {
