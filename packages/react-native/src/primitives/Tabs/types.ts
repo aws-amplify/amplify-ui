@@ -34,8 +34,9 @@ export interface TabProps extends ButtonProps {
 }
 
 export interface TabsStyles {
+  readonly: ViewStyle;
+  selected: ViewStyle;
   tabList: ViewStyle;
   tab: ViewStyle;
   tabText: TextStyle;
-  selected: ViewStyle;
 }

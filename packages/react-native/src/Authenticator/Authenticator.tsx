@@ -22,8 +22,11 @@ import {
   SetupTOTP,
   SignIn,
   SignUp,
+  TypedField,
   VerifyUser,
 } from './Defaults';
+
+import { DefaultContainer } from './common';
 
 const DEFAULTS = {
   ConfirmResetPassword,
@@ -54,30 +57,38 @@ function Authenticator({
 }: AuthenticatorProps): JSX.Element | null {
   useAuthenticatorInitMachine(options);
 
-  const { route } = useAuthenticator(routePropSelector);
+  const { fields, route } = useAuthenticator(routePropSelector);
 
   const components = useMemo(
-    () => resolveAuthenticatorComponents(DEFAULTS, overrides),
+    // allow any to prevent TS from assuming that all fields are of type `TextFieldOptions`
+    () => resolveAuthenticatorComponents<TypedField | any>(DEFAULTS, overrides),
     [overrides]
   );
 
-  const { Component, props } = useAuthenticatorRoute({ components });
+  const { Component, props } = useAuthenticatorRoute<any>({ components });
 
   if (isAuthenticatedRoute(route)) {
     return children ? <>{children}</> : null;
   }
 
   return (
-    <Component
-      {...props}
-      onBlur={() => null}
-      onChangeText={() => null}
-      onSubmit={() => null}
-    />
+    <DefaultContainer>
+      <Component {...props} fields={fields} />
+    </DefaultContainer>
   );
 }
 
 // assign slot components
 Authenticator.Provider = Provider;
+Authenticator.ConfirmResetPassword = ConfirmResetPassword;
+Authenticator.ConfirmSignIn = ConfirmSignIn;
+Authenticator.ConfirmSignUp = ConfirmSignUp;
+Authenticator.ConfirmVerifyUser = ConfirmVerifyUser;
+Authenticator.ForceNewPassword = ForceNewPassword;
+Authenticator.ResetPassword = ResetPassword;
+Authenticator.SetupTOTP = SetupTOTP;
+Authenticator.SignIn = SignIn;
+Authenticator.SignUp = SignUp;
+Authenticator.VerifyUser = VerifyUser;
 
 export default Authenticator;

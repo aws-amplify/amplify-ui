@@ -1,19 +1,18 @@
 import React from 'react';
 import { Text } from 'react-native';
 
-import { ResetPasswordComponent } from './types';
 import { DefaultFooter } from '../../common/DefaultFooter';
 import { DefaultHeader } from '../../common/DefaultHeader';
+import { DefaultFormFields } from '../../common/DefaultFormFields';
+import { DefaultResetPasswordComponent } from '../types';
 
-const ResetPassword: ResetPasswordComponent = () => {
+const ResetPassword: DefaultResetPasswordComponent = () => {
   return <Text>ResetPassword</Text>;
 };
 
-ResetPassword.Header = DefaultHeader;
 ResetPassword.Footer = DefaultFooter;
-ResetPassword.FormFields = function FormFields() {
-  return null;
-};
+ResetPassword.FormFields = DefaultFormFields;
+ResetPassword.Header = DefaultHeader;
 
 ResetPassword.displayName = 'ResetPassword';
 export default ResetPassword;

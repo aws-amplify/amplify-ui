@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`authenticatorTextUtil getChallengeText for SMS_MFA returns the expected text 1`] = `"Confirm SMS Code"`;
+
+exports[`authenticatorTextUtil getChallengeText for SOFTWARE_TOKEN_MFA returns the expected text 1`] = `"Confirm TOTP Code"`;
+
+exports[`authenticatorTextUtil getDeliveryMessageText for EMAIL returns the expected text 1`] = `"Your code is on the way. To log in, enter the code we emailed to undefined. It may take a minute to arrive."`;
+
+exports[`authenticatorTextUtil getDeliveryMessageText for SMS returns the expected text 1`] = `"Your code is on the way. To log in, enter the code we texted to undefined. It may take a minute to arrive."`;
+
+exports[`authenticatorTextUtil getDeliveryMethodText for EMAIL returns the expected text 1`] = `"We Emailed You"`;
+
+exports[`authenticatorTextUtil getDeliveryMethodText for SMS returns the expected text 1`] = `"We Sent A Code"`;
+
+exports[`authenticatorTextUtil getSignInWithFederationText with amazon in sign in route renders text as expected 1`] = `"Sign In with Amazon"`;
+
+exports[`authenticatorTextUtil getSignInWithFederationText with amazon in sign up route returns the expected text 1`] = `"Sign Up with Amazon"`;
+
+exports[`authenticatorTextUtil getSignInWithFederationText with apple in sign in route renders text as expected 1`] = `"Sign In with Apple"`;
+
+exports[`authenticatorTextUtil getSignInWithFederationText with apple in sign up route returns the expected text 1`] = `"Sign Up with Apple"`;
+
+exports[`authenticatorTextUtil getSignInWithFederationText with facebook in sign in route renders text as expected 1`] = `"Sign In with Facebook"`;
+
+exports[`authenticatorTextUtil getSignInWithFederationText with facebook in sign up route returns the expected text 1`] = `"Sign Up with Facebook"`;
+
+exports[`authenticatorTextUtil getSignInWithFederationText with google in sign in route renders text as expected 1`] = `"Sign In with Google"`;
+
+exports[`authenticatorTextUtil getSignInWithFederationText with google in sign up route returns the expected text 1`] = `"Sign Up with Google"`;

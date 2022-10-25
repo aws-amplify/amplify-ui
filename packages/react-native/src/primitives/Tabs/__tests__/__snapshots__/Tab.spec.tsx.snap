@@ -17,19 +17,23 @@ exports[`Tab can apply custom styling 1`] = `
   onStartShouldSetResponder={[Function]}
   style={
     Array [
-      Object {
-        "backgroundColor": "#fafafa",
-        "borderTopColor": "#dcdee0",
-        "borderTopWidth": 2,
-        "flexBasis": 0,
-        "flexGrow": 1,
-        "padding": 12,
-      },
-      Object {
-        "backgroundColor": "lavender",
-        "borderTopColor": "rebeccapurple",
-      },
-      undefined,
+      null,
+      Array [
+        Object {
+          "backgroundColor": "#e1e1e1",
+          "borderTopColor": "#dcdee0",
+          "borderTopWidth": 2,
+          "flexBasis": 0,
+          "flexGrow": 1,
+          "padding": 12,
+        },
+        null,
+        null,
+        Object {
+          "backgroundColor": "lavender",
+          "borderTopColor": "rebeccapurple",
+        },
+      ],
     ]
   }
 >
@@ -42,11 +46,11 @@ exports[`Tab can apply custom styling 1`] = `
         Array [
           Object {
             "color": "#304050",
-            "fontSize": 18,
-            "fontWeight": "800",
+            "fontSize": 16,
+            "fontWeight": "700",
           },
           undefined,
-          undefined,
+          null,
         ],
       ]
     }
@@ -73,20 +77,26 @@ exports[`Tab renders as expected when Tab is selected 1`] = `
   onStartShouldSetResponder={[Function]}
   style={
     Array [
-      Object {
-        "backgroundColor": "#fafafa",
-        "borderTopColor": "#dcdee0",
-        "borderTopWidth": 2,
-        "flexBasis": 0,
-        "flexGrow": 1,
-        "padding": 12,
-      },
-      undefined,
-      Object {
-        "backgroundColor": "#fff",
-        "borderTopColor": "#047d95",
-        "color": "#047d95",
-      },
+      null,
+      Array [
+        Object {
+          "backgroundColor": "#e1e1e1",
+          "borderTopColor": "#dcdee0",
+          "borderTopWidth": 2,
+          "flexBasis": 0,
+          "flexGrow": 1,
+          "padding": 12,
+        },
+        Object {
+          "opacity": 1,
+        },
+        Object {
+          "backgroundColor": "#fff",
+          "borderTopColor": "#047d95",
+          "color": "#047d95",
+        },
+        null,
+      ],
     ]
   }
 >
@@ -99,8 +109,8 @@ exports[`Tab renders as expected when Tab is selected 1`] = `
         Array [
           Object {
             "color": "#304050",
-            "fontSize": 18,
-            "fontWeight": "800",
+            "fontSize": 16,
+            "fontWeight": "700",
           },
           undefined,
           Object {
@@ -134,16 +144,20 @@ exports[`Tab renders as expected with a component passed as children 1`] = `
   onStartShouldSetResponder={[Function]}
   style={
     Array [
-      Object {
-        "backgroundColor": "#fafafa",
-        "borderTopColor": "#dcdee0",
-        "borderTopWidth": 2,
-        "flexBasis": 0,
-        "flexGrow": 1,
-        "padding": 12,
-      },
-      undefined,
-      undefined,
+      null,
+      Array [
+        Object {
+          "backgroundColor": "#e1e1e1",
+          "borderTopColor": "#dcdee0",
+          "borderTopWidth": 2,
+          "flexBasis": 0,
+          "flexGrow": 1,
+          "padding": 12,
+        },
+        null,
+        null,
+        null,
+      ],
     ]
   }
 >
@@ -170,16 +184,20 @@ exports[`Tab renders default Tab as expected 1`] = `
   onStartShouldSetResponder={[Function]}
   style={
     Array [
-      Object {
-        "backgroundColor": "#fafafa",
-        "borderTopColor": "#dcdee0",
-        "borderTopWidth": 2,
-        "flexBasis": 0,
-        "flexGrow": 1,
-        "padding": 12,
-      },
-      undefined,
-      undefined,
+      null,
+      Array [
+        Object {
+          "backgroundColor": "#e1e1e1",
+          "borderTopColor": "#dcdee0",
+          "borderTopWidth": 2,
+          "flexBasis": 0,
+          "flexGrow": 1,
+          "padding": 12,
+        },
+        null,
+        null,
+        null,
+      ],
     ]
   }
 >
@@ -192,11 +210,11 @@ exports[`Tab renders default Tab as expected 1`] = `
         Array [
           Object {
             "color": "#304050",
-            "fontSize": 18,
-            "fontWeight": "800",
+            "fontSize": 16,
+            "fontWeight": "700",
           },
           undefined,
-          undefined,
+          null,
         ],
       ]
     }

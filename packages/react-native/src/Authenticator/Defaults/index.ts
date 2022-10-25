@@ -8,3 +8,4 @@ export { SetupTOTP } from './SetupTOTP';
 export { SignIn } from './SignIn';
 export { SignUp } from './SignUp';
 export { VerifyUser } from './VerifyUser';
+export { Components, TypedField } from './types';

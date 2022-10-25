@@ -2,46 +2,35 @@ import {
   AuthenticatorMachineContext,
   AuthenticatorMachineContextKey,
   AuthenticatorRouteComponentName,
-  CommonConfirmResetPasswordProps,
-  CommonConfirmSignInProps,
-  CommonConfirmSignUpProps,
-  CommonConfirmVerifyUserProps,
-  CommonForceNewPasswordProps,
-  CommonResetPasswordProps,
   CommonRouteProps,
-  CommonSetupTOTPProps,
-  CommonSignInProps,
-  CommonSignUpProps,
-  CommonVerifyUserProps,
+  ConfirmResetPasswordBaseProps,
+  ConfirmSignInBaseProps,
+  ConfirmSignUpBaseProps,
   Defaults,
+  DefaultProps,
+  ForceResetPasswordBaseProps,
+  ResetPasswordBaseProps,
+  SetupTOTPBaseProps,
+  SignInBaseProps,
+  SignUpBaseProps,
+  VerifyUserProps,
+  ConfirmVerifyUserProps,
 } from '../types';
 
-export type UseAuthenticatorRouteParams<PlatformProps = {}> = {
-  components: Defaults<PlatformProps>;
+export type UseAuthenticatorRouteParams<FieldType> = {
+  components: Defaults<FieldType>;
+};
+export type UseAuthenticatorRoute<
+  ComponentName extends AuthenticatorRouteComponentName,
+  FieldType = {}
+> = {
+  Component: Defaults<FieldType>[ComponentName];
+  props: DefaultProps<FieldType>[ComponentName];
 };
 
-/**
- * Mapping of route component names to corresponding common prop type
- */
-interface Props<PlatformProps = {}> {
-  ConfirmResetPassword: CommonConfirmResetPasswordProps<PlatformProps>;
-  ConfirmSignIn: CommonConfirmSignInProps<PlatformProps>;
-  ConfirmSignUp: CommonConfirmSignUpProps<PlatformProps>;
-  ConfirmVerifyUser: CommonConfirmVerifyUserProps<PlatformProps>;
-  ForceNewPassword: CommonForceNewPasswordProps<PlatformProps>;
-  ResetPassword: CommonResetPasswordProps<PlatformProps>;
-  SetupTOTP: CommonSetupTOTPProps<PlatformProps>;
-  SignIn: CommonSignInProps<PlatformProps>;
-  SignUp: CommonSignUpProps<PlatformProps>;
-  VerifyUser: CommonVerifyUserProps<PlatformProps>;
-}
-
-export type UseAuthenticatorRoute<
-  PlatformProps,
-  ComponentName extends AuthenticatorRouteComponentName
-> = {
-  Component: Defaults<PlatformProps>[ComponentName];
-  props: Props<PlatformProps>[ComponentName];
+export type UseAuthenticatorRouteDefault<FieldType> = {
+  Component: Defaults<FieldType>[AuthenticatorRouteComponentName];
+  props: DefaultProps<FieldType>[AuthenticatorRouteComponentName];
 };
 
 // extract machine prop keys required for a sub-component route
@@ -61,7 +50,7 @@ export type FormEventHandlerPropKey =
   | `handleChange`
   | `handleSubmit`;
 
-// common route keys shared by all route
+// common route keys shared by all routes
 export type CommonRouteMachineKey =
   | ExtractMachineKey<CommonRouteProps>
   | FormEventHandlerMachineKey;
@@ -70,46 +59,46 @@ export type CommonRouteMachineKey =
  * `route` sub-component machine selector key types
  */
 export type ConfirmResetPasswordMachineKey =
-  | ExtractMachineKey<CommonConfirmResetPasswordProps>
-  | FormEventHandlerMachineKey;
+  | ExtractMachineKey<ConfirmResetPasswordBaseProps>
+  | CommonRouteMachineKey;
 
 export type ConfirmSignInMachineKey =
-  // ConfirmSignIn additonally requires `user` to extract value needed for `challengeName`
-  | ExtractMachineKey<CommonConfirmSignInProps>
-  | FormEventHandlerMachineKey
+  | ExtractMachineKey<ConfirmSignInBaseProps>
+  | CommonRouteMachineKey
+  // ConfirmSignIn requires `user` to extract value needed for `challengeName`
   | 'user';
 
 export type ConfirmSignUpMachineKey =
-  | ExtractMachineKey<CommonConfirmSignUpProps>
-  | FormEventHandlerMachineKey;
+  | ExtractMachineKey<ConfirmSignUpBaseProps>
+  | CommonRouteMachineKey;
 
 export type ConfirmVerifyUserMachineKey =
-  | ExtractMachineKey<CommonConfirmVerifyUserProps>
-  | FormEventHandlerMachineKey;
+  | ExtractMachineKey<ConfirmVerifyUserProps>
+  | CommonRouteMachineKey;
 
 export type ForceNewPasswordMachineKey =
-  | ExtractMachineKey<CommonForceNewPasswordProps>
-  | FormEventHandlerMachineKey;
+  | ExtractMachineKey<ForceResetPasswordBaseProps>
+  | CommonRouteMachineKey;
 
 export type ResetPasswordMachineKey =
-  | ExtractMachineKey<CommonResetPasswordProps>
-  | FormEventHandlerMachineKey;
-
-export type SignInMachineKey =
-  | ExtractMachineKey<CommonSignInProps>
-  | FormEventHandlerMachineKey;
-
-export type SignUpMachineKey =
-  | ExtractMachineKey<CommonSignUpProps>
-  | FormEventHandlerMachineKey;
+  | ExtractMachineKey<ResetPasswordBaseProps>
+  | CommonRouteMachineKey;
 
 export type SetupTOTPMachineKey =
-  // SetupTOTP additonally requires `user` to extract values needed for `totpIssuer` and 'totpUsername`
-  ExtractMachineKey<CommonSetupTOTPProps> | FormEventHandlerMachineKey | 'user';
+  // SetupTOTP requires `user` to extract values needed for `totpIssuer` and 'totpUsername`
+  ExtractMachineKey<SetupTOTPBaseProps> | CommonRouteMachineKey | 'user';
+
+export type SignInMachineKey =
+  | ExtractMachineKey<SignInBaseProps>
+  | CommonRouteMachineKey;
+
+export type SignUpMachineKey =
+  | ExtractMachineKey<SignUpBaseProps>
+  | CommonRouteMachineKey;
 
 export type VerifyUserMachineKey =
-  | ExtractMachineKey<CommonVerifyUserProps>
-  | FormEventHandlerMachineKey;
+  | ExtractMachineKey<VerifyUserProps>
+  | CommonRouteMachineKey;
 
 /**
  * machine values with machine form event handlers keys mapped to UI form event handlers

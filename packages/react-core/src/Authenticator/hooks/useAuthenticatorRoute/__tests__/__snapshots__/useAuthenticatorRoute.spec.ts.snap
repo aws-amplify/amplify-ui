@@ -139,6 +139,7 @@ Object {
     "hideSignUp": false,
     "isPending": false,
     "socialProviders": Array [],
+    "toFederatedSignIn": [MockFunction],
     "toResetPassword": [MockFunction],
     "toSignUp": [MockFunction],
   },

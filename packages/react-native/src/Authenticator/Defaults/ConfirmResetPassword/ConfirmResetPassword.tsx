@@ -1,64 +1,37 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { View } from 'react-native';
 
-import {
-  Button,
-  ErrorMessage,
-  PasswordField,
-  TextField,
-} from '../../../primitives';
-import { DefaultFooter } from '../../common/DefaultFooter';
-import { DefaultHeader } from '../../common/DefaultHeader';
-
+import { Button, ErrorMessage } from '../../../primitives';
+import { DefaultHeader, DefaultFooter, DefaultFormFields } from '../../common';
+import { DefaultConfirmResetPasswordComponent } from '../types';
 import { styles } from './styles';
-import { ConfirmResetPasswordComponent } from './types';
 
 // strings to import
 const RESET_YOUR_PASSWORD = 'Reset your password';
-const CODE = 'Code';
+// const CODE = 'Code';
 const NEW_PASSWORD = 'New Password';
 const CONFIRM_PASSWORD = 'Confirm Password';
 const SUBMIT = 'Submit';
 const SUBMITTING = 'Submitting';
 const RESEND_CODE = 'Resend Code';
 
-const ConfirmResetPassword: ConfirmResetPasswordComponent = ({
+const ConfirmResetPassword: DefaultConfirmResetPasswordComponent = ({
   error,
   Footer = ConfirmResetPassword.Footer,
   Header = ConfirmResetPassword.Header,
   isPending,
   resendCode,
 }) => {
-  const buttonPrimaryStyle = useCallback(
-    ({ pressed }) =>
-      pressed
-        ? { ...styles.buttonPrimary, ...styles.buttonPressed }
-        : styles.buttonPrimary,
-    []
-  );
-
-  const buttonSecondaryStyle = useCallback(
-    ({ pressed }) => (pressed ? styles.buttonPressed : undefined),
-    []
-  );
-
   return (
     <View style={styles.container}>
       <Header>{RESET_YOUR_PASSWORD}</Header>
-      <TextField placeholder={CODE} style={styles.field} />
-      <PasswordField placeholder={NEW_PASSWORD} style={styles.field} />
-      <PasswordField placeholder={CONFIRM_PASSWORD} style={styles.field} />
       {error ? (
         <ErrorMessage style={styles.errorMessage}>{error}</ErrorMessage>
       ) : null}
-      <Button style={buttonPrimaryStyle} textStyle={styles.buttonPrimaryText}>
+      <Button style={styles.buttonPrimary} textStyle={styles.buttonPrimaryText}>
         {isPending ? SUBMITTING : SUBMIT}
       </Button>
-      <Button
-        onPress={resendCode}
-        style={buttonSecondaryStyle}
-        textStyle={styles.buttonSecondary}
-      >
+      <Button onPress={resendCode} textStyle={styles.buttonSecondary}>
         {RESEND_CODE}
       </Button>
       <Footer />
@@ -66,11 +39,9 @@ const ConfirmResetPassword: ConfirmResetPasswordComponent = ({
   );
 };
 
-ConfirmResetPassword.Header = DefaultHeader;
 ConfirmResetPassword.Footer = DefaultFooter;
-ConfirmResetPassword.FormFields = function FormFields() {
-  return null;
-};
+ConfirmResetPassword.FormFields = DefaultFormFields;
+ConfirmResetPassword.Header = DefaultHeader;
 
 ConfirmResetPassword.displayName = 'ConfirmResetPassword';
 export default ConfirmResetPassword;

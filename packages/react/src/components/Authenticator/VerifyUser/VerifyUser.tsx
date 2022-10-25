@@ -6,6 +6,7 @@ import {
   ContactMethod,
   translate,
   UnverifiedContactMethods,
+  authenticatorTextUtil,
 } from '@aws-amplify/ui';
 
 import { Flex } from '../../../primitives/Flex';
@@ -18,6 +19,13 @@ import { useFormHandlers } from '../hooks/useFormHandlers';
 import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { TwoButtonSubmitFooter } from '../shared/TwoButtonSubmitFooter';
 import { RouteContainer, RouteProps } from '../RouteContainer';
+
+const {
+  getSkipText,
+  getVerifyText,
+  getVerifyContactText,
+  getAccountRecoveryInfoText,
+} = authenticatorTextUtil;
 
 const censorContactInformation = (
   type: ContactMethod,
@@ -72,12 +80,12 @@ export const VerifyUser = ({
   const footerSubmitText = isPending ? (
     <>Verifying&hellip;</>
   ) : (
-    <>{translate('Verify')}</>
+    <>{getVerifyText()}</>
   );
 
   const verificationRadioGroup = (
     <RadioGroupField
-      label={translate('Verify Contact')}
+      label={getVerifyContactText()}
       labelHidden
       name="verify_context"
       isDisabled={isPending}
@@ -103,7 +111,7 @@ export const VerifyUser = ({
           <RemoteErrorMessage />
 
           <TwoButtonSubmitFooter
-            cancelButtonText={translate('Skip')}
+            cancelButtonText={getSkipText()}
             cancelButtonSendType="SKIP"
             submitButtonText={footerSubmitText}
           />
@@ -115,11 +123,7 @@ export const VerifyUser = ({
 };
 
 VerifyUser.Header = function Header(): JSX.Element {
-  return (
-    <Heading level={3}>
-      {translate('Account recovery requires verified contact information')}
-    </Heading>
-  );
+  return <Heading level={3}>{getAccountRecoveryInfoText()}</Heading>;
 };
 
 VerifyUser.Footer = function Footer(): JSX.Element {
