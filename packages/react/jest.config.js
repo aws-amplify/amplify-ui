@@ -3,7 +3,7 @@ module.exports = {
   collectCoverageFrom: ['<rootDir>/src/**/*.(ts|tsx)'],
   // ignore coverage for top level "export", PrimitiveCatalog, and style files
   coveragePathIgnorePatterns: [
-    '<rootDir>/src/(index|internal|legacy|PrimitiveCatalog|styles).(ts|tsx)',
+    '<rootDir>/src/(index|internal|PrimitiveCatalog|styles).(ts|tsx)',
   ],
   coverageThreshold: {
     global: {

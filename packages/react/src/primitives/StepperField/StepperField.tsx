@@ -42,15 +42,7 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
     size,
     variation,
     testId,
-
-    bottom, // @TODO: remove custom destructuring for 3.0 release
-    height, // @TODO: remove custom destructuring for 3.0 release
-    left, // @TODO: remove custom destructuring for 3.0 release
-    padding, // @TODO: remove custom destructuring for 3.0 release
-    position, // @TODO: remove custom destructuring for 3.0 release
-    right, // @TODO: remove custom destructuring for 3.0 release
-    top, // @TODO: remove custom destructuring for 3.0 release
-    width, // @TODO: remove custom destructuring for 3.0 release
+    inputStyles,
 
     // this is only required in useStepper hook but deconstruct here to remove its existence in rest
     value: controlledValue,
@@ -61,8 +53,7 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
   const descriptionId = useStableId();
   const ariaDescribedBy = descriptiveText ? descriptionId : undefined;
 
-  const { baseStyleProps, flexContainerStyleProps, rest } =
-    splitPrimitiveProps(_rest);
+  const { styleProps, rest } = splitPrimitiveProps(_rest);
 
   const {
     step,
@@ -96,15 +87,7 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
       data-size={size}
       data-variation={variation}
       testId={testId}
-      width={width}
-      height={height}
-      position={position}
-      padding={padding}
-      top={top}
-      right={right}
-      left={left}
-      bottom={bottom}
-      {...flexContainerStyleProps}
+      {...styleProps}
     >
       <Label htmlFor={fieldId} visuallyHidden={labelHidden}>
         {label}
@@ -180,7 +163,7 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
           variation={variation}
           type="number"
           value={inputValue}
-          {...baseStyleProps}
+          {...inputStyles}
           {...rest}
         />
       </FieldGroup>

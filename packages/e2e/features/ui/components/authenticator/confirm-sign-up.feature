@@ -53,6 +53,7 @@ Feature: Confirm Sign Up
     And I click the "Create Account" button
     Then I see "Confirmation Code"
     And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ResendConfirmationCode" } }' with error fixture "user-already-confirmed-error"
+    # Mocking these two calls is much easier than intercepting 6+ network calls with tokens that are validated & expire within the hour
     And I mock 'Amplify.Auth.signIn' with fixture "Auth.signIn-verified-email"
     And I mock 'Amplify.Auth.currentAuthenticatedUser' with fixture "Auth.currentAuthenticatedUser-verified-email"
     And I click the "Resend Code" button

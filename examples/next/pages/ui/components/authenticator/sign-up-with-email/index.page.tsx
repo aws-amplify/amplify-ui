@@ -30,10 +30,7 @@ I18n.putVocabulariesForLanguage('en', {
 });
 
 export default function AuthenticatorWithEmail() {
-  const { authStatus } = useAuthenticator((context) => [
-    context.authStatus,
-    context.route,
-  ]);
+  const { authStatus } = useAuthenticator((context) => [context.authStatus]);
   const services = {
     async handleSignUp(formData) {
       let { username, password, attributes } = formData;
