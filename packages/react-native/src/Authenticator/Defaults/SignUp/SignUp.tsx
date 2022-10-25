@@ -2,8 +2,9 @@ import React from 'react';
 
 import { DefaultFooter } from '../../common/DefaultFooter';
 import { DefaultHeader } from '../../common/DefaultHeader';
-import { DefaultFormFields } from '../FormFields';
+import { DefaultFormFields } from '../../common/DefaultFormFields';
 import { FederatedProviderButtons } from '../../common/FederatedProviderButtons';
+
 import { DefaultSignUpComponent } from '../types';
 import { Button, ErrorMessage } from '../../../primitives';
 
