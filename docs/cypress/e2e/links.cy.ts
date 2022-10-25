@@ -1,3 +1,5 @@
+import { VALIDATED_LINKS } from '../data/validLinks';
+
 let allLinks: string[] = [];
 const numberOfLinks = 119;
 
@@ -13,7 +15,7 @@ describe('Local Sitemap', () => {
   });
 });
 
-for (let i = 0; i < numberOfLinks; i++) {
+for (let i = 9; i < 10; i++) {
   describe(`check page ${i}`, () => {
     const baseUrl = 'http://localhost:3000';
 
@@ -29,41 +31,86 @@ for (let i = 0; i < numberOfLinks; i++) {
         const tagText = htmlTag.prop('text');
         const tagName = htmlTag.prop('tagName');
         if (tagHref) {
-          cy.task(
-            'log',
-            `🔍[CHECKING...] ${tagHref} from ${tagName} tag ${
-              tagText ? `"${tagText}"` : ''
-            } on ${baseUrl}/${link}`
-          );
+          logMessage('CHECKING');
 
-          if (allLinks.includes(`${baseUrl}${tagHref}`)) {
-            expect(allLinks).has(`${baseUrl}${tagHref}`);
-            cy.task(
-              'log',
-              `⏭[SKIPPING...] ${tagHref} from ${tagName} tag ${
-                tagText ? `"${tagText}"` : ''
-              } on ${baseUrl}/${link} because it's included in Sitemap and already tested.`
+          if (allLinks.includes(`${tagHref.replace(`${baseUrl}/`, '')}`)) {
+            expect(`${tagHref.replace(`${baseUrl}/`, '')}`).to.oneOf(allLinks);
+            logMessage('SKIPPING_SITEMAP');
+          } else if (
+            allLinks.includes(`${tagHref.replace(`${baseUrl}/`, 'react/')}`)
+          ) {
+            expect(`${tagHref.replace(`${baseUrl}/`, 'react/')}`).to.oneOf(
+              allLinks
             );
+            logMessage('SKIPPING_SITEMAP');
+          } else if (VALIDATED_LINKS.includes(tagHref)) {
+            logMessage('SKIPPING_VALIDATED');
           } else {
-            cy.task(
-              'log',
-              `📞[REQUESTING...] ${tagHref} from ${tagName} tag ${
-                tagText ? `"${tagText}"` : ''
-              } on ${baseUrl}/${link}`
-            );
+            logMessage('REQUESTING');
             cy.request({ url: tagHref, followRedirect: false }).then(
               ({ status }) => {
+                logMessage('REQUESTING');
                 expect(status).to.oneOf([200, 301]);
               }
             );
           }
         } else if (tagName === 'A') {
-          cy.task(
-            'log',
-            `⚠ ${tagName} tag ${
-              tagText ? `"${tagText}"` : ''
-            } on ${baseUrl}/${link} doesn't have a href attribute`
-          );
+          logMessage('NO_HREF');
+        }
+
+        type EvtName =
+          | 'CHECKING'
+          | 'SKIPPING_SITEMAP'
+          | 'SKIPPING_VALIDATED'
+          | 'REQUESTING'
+          | 'RETURNING'
+          | 'NO_HREF';
+
+        function logMessage(evtName: EvtName) {
+          switch (evtName) {
+            case 'CHECKING':
+              return cy.task(
+                'log',
+                `🔍[CHECKING...] ${tagHref} from ${tagName} tag ${
+                  tagText ? `"${tagText}"` : ''
+                } on ${baseUrl}/${link}`
+              );
+            case 'SKIPPING_SITEMAP':
+              return cy.task(
+                'log',
+                `⏭[SKIPPING...] ${tagHref} from ${tagName} tag ${
+                  tagText ? `"${tagText}"` : ''
+                } on ${baseUrl}/${link} because it's included in Sitemap and already tested.`
+              );
+            case 'SKIPPING_VALIDATED':
+              return cy.task(
+                'log',
+                `⏭[SKIPPING...] ${tagHref} from ${tagName} tag ${
+                  tagText ? `"${tagText}"` : ''
+                } on ${baseUrl}/${link} because it's already validated.`
+              );
+            case 'REQUESTING':
+              return cy.task(
+                'log',
+                `📞[REQUESTING...] ${tagHref} from ${tagName} tag ${
+                  tagText ? `"${tagText}"` : ''
+                } on ${baseUrl}/${link}`
+              );
+            case 'RETURNING':
+              return cy.task(
+                'log',
+                `[RETURNING STATUS...] ${status} for ${tagHref}`
+              );
+            case 'NO_HREF':
+              return cy.task(
+                'log',
+                `⚠ ${tagName} tag ${
+                  tagText ? `"${tagText}"` : ''
+                } on ${baseUrl}/${link} doesn't have a href attribute`
+              );
+            default:
+              break;
+          }
         }
       }
     });
