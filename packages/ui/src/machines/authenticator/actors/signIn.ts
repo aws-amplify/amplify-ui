@@ -504,23 +504,14 @@ export function signInActor({ services }: SignInMachineOptions) {
         sendUpdate: sendUpdate(), // sendUpdate is a HOC
       },
       guards: {
-        shouldConfirmSignIn: (_, event): boolean => {
-          return isMfaChallengeName(getChallengeName(event));
-        },
         shouldAutoSignIn: (context) => {
           return context?.intent === 'autoSignIn';
         },
-        shouldRedirectToConfirmSignUp: (_, event): boolean => {
-          return event.data.code === 'UserNotConfirmedException';
-        },
-        shouldRedirectToConfirmResetPassword: (_, event): boolean => {
-          return event.data.code === 'PasswordResetRequiredException';
-        },
-        shouldSetupTOTP: (_, event): boolean => {
-          return isExpectedChallengeName(getChallengeName(event), 'MFA_SETUP');
-        },
         shouldAutoSubmit: (context) => {
           return context?.intent === 'autoSignInSubmit';
+        },
+        shouldConfirmSignIn: (_, event): boolean => {
+          return isMfaChallengeName(getChallengeName(event));
         },
         shouldForceChangePassword: (_, event): boolean => {
           return isExpectedChallengeName(
@@ -528,10 +519,20 @@ export function signInActor({ services }: SignInMachineOptions) {
             'NEW_PASSWORD_REQUIRED'
           );
         },
+
+        shouldRedirectToConfirmResetPassword: (_, event): boolean => {
+          return event.data.code === 'PasswordResetRequiredException';
+        },
+        shouldRedirectToConfirmSignUp: (_, event): boolean => {
+          return event.data.code === 'UserNotConfirmedException';
+        },
         shouldRequestVerification: (_, event): boolean => {
           const { unverified, verified } = event.data;
 
           return isEmpty(verified) && !isEmpty(unverified);
+        },
+        shouldSetupTOTP: (_, event): boolean => {
+          return isExpectedChallengeName(getChallengeName(event), 'MFA_SETUP');
         },
       },
       services: {
