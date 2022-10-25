@@ -11,17 +11,17 @@ export const HighlightMatch: Primitive<HighlightMatchProps, 'span'> = ({
   testId,
 }) => {
   const matchTestId = getTestId(testId, 'match');
-  const startIdx = children?.indexOf(query) ?? -1;
+  const startIndex = children?.indexOf(query) ?? -1;
 
-  if (strHasLength(query) && startIdx !== -1) {
-    const match = children.substring(startIdx, startIdx + query.length);
+  if (strHasLength(query) && startIndex !== -1) {
+    const match = children.substring(startIndex, startIndex + query.length);
     return (
       <View as="span" testId={testId}>
-        {children.substring(0, startIdx)}
+        {children.substring(0, startIndex)}
         <View as="strong" testId={matchTestId}>
           {match}
         </View>
-        {children.substring(startIdx + query.length)}
+        {children.substring(startIndex + query.length)}
       </View>
     );
   }

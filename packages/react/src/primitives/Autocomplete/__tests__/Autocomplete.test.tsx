@@ -48,19 +48,7 @@ describe('Autocomplete: ', () => {
     );
   };
 
-  it('should render classname', async () => {
-    render(<Autocomplete label={label} options={options} testId={testId} />);
-
-    const autocomplete = await screen.findByTestId(testId);
-    expect(autocomplete).toHaveClass(ComponentClassNames.Autocomplete);
-  });
-
-  it('should work in uncontrolled way', async () => {
-    const onSubmit = jest.fn();
-    render(
-      <Autocomplete label={label} options={options} onSubmit={onSubmit} />
-    );
-
+  const testWorkflow = async (onSubmit: jest.Mock) => {
     const textInput = await screen.findByRole('combobox');
     userEvent.type(textInput, 'Hello world!');
     // No options found
@@ -96,6 +84,9 @@ describe('Autocomplete: ', () => {
     // menu closed
     expect(noOption).not.toBeInTheDocument();
 
+    /**
+     * Mouse testing section
+     */
     userEvent.clear(textInput);
     // Select via mouse and submit
     const listbox = await screen.findByRole('listbox');
@@ -112,6 +103,9 @@ describe('Autocomplete: ', () => {
     // menu closed
     expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
 
+    /**
+     * Keyboard testing section
+     */
     userEvent.clear(textInput);
     // menu open
     expect(screen.queryByRole('listbox')).toBeInTheDocument();
@@ -135,86 +129,27 @@ describe('Autocomplete: ', () => {
     expect(textInput).toHaveFocus();
     // menu closed
     expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+  };
+
+  it('should render classname', async () => {
+    render(<Autocomplete label={label} options={options} testId={testId} />);
+
+    const autocomplete = await screen.findByTestId(testId);
+    expect(autocomplete).toHaveClass(ComponentClassNames.Autocomplete);
+  });
+
+  it('should work in uncontrolled way', async () => {
+    const onSubmit = jest.fn();
+    render(
+      <Autocomplete label={label} options={options} onSubmit={onSubmit} />
+    );
+    await testWorkflow(onSubmit);
   });
 
   it('should work in controlled way', async () => {
     const onSubmit = jest.fn();
     render(<ControlledAutocomplete onSubmit={onSubmit} />);
-
-    const textInput = await screen.findByRole('combobox');
-    userEvent.type(textInput, 'Hello world!');
-    // No options found
-    const noOption = screen.queryByText(EMPTY_TEXT);
-    expect(noOption).toBeInTheDocument();
-    expect(textInput).toHaveValue('Hello world!');
-
-    // Close menu on ESC
-    userEvent.keyboard('{Esc}');
-    expect(textInput).toHaveValue('Hello world!');
-    expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
-
-    // Clear text on ESC if menu is closed
-    expect(textInput).toHaveFocus();
-    userEvent.keyboard('{Esc}');
-    expect(textInput).toHaveValue('');
-
-    // Click will open menu
-    expect(textInput).toHaveFocus();
-    userEvent.click(textInput);
-    expect(screen.queryByRole('listbox')).toBeInTheDocument();
-
-    // Close menu when lose focus
-    userEvent.click(document.body);
-    expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
-
-    // Type random text and submit
-    userEvent.type(textInput, 'Hello world!');
-    userEvent.keyboard('{Enter}');
-    expect(onSubmit).toHaveBeenCalledTimes(1);
-    expect(onSubmit).toHaveBeenCalledWith('Hello world!');
-    expect(textInput).toHaveFocus();
-    // menu closed
-    expect(noOption).not.toBeInTheDocument();
-
-    userEvent.clear(textInput);
-    // Select via mouse and submit
-    const listbox = await screen.findByRole('listbox');
-    const appleOption = screen.getByText('apple')
-      .parentElement as HTMLLIElement;
-    userEvent.selectOptions(listbox, appleOption);
-    expect(textInput).toHaveFocus();
-    expect(textInput).toHaveValue('apple');
-
-    userEvent.keyboard('{Enter}');
-    expect(onSubmit).toHaveBeenCalledTimes(2);
-    expect(onSubmit).toHaveBeenCalledWith('apple');
-    expect(textInput).toHaveFocus();
-    // menu closed
-    expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
-
-    userEvent.clear(textInput);
-    // menu open
-    expect(screen.queryByRole('listbox')).toBeInTheDocument();
-    // Select via keyboard and submit
-    userEvent.keyboard('{ArrowDown}');
-    expect(textInput).toHaveFocus();
-    userEvent.keyboard('{ArrowDown}');
-    expect(textInput).toHaveFocus();
-    userEvent.keyboard('{ArrowUp}');
-    expect(textInput).toHaveFocus();
-    userEvent.keyboard('{ArrowDown}');
-    expect(textInput).toHaveFocus();
-
-    userEvent.keyboard('{Enter}');
-    expect(textInput).toHaveFocus();
-    expect(textInput).toHaveValue('banana');
-
-    userEvent.keyboard('{Enter}');
-    expect(onSubmit).toHaveBeenCalledTimes(3);
-    expect(onSubmit).toHaveBeenCalledWith('banana');
-    expect(textInput).toHaveFocus();
-    // menu closed
-    expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+    await testWorkflow(onSubmit);
   });
 
   it('should forward refs to DOM elements', async () => {
@@ -261,7 +196,7 @@ describe('Autocomplete: ', () => {
     expect(loading).toHaveClass(ComponentClassNames.AutocompleteMenuLoading);
   });
 
-  it('shoulde render classname on active option correctly', async () => {
+  it('should render classname on active option correctly', async () => {
     render(<Autocomplete label={label} options={options} />);
 
     const textInput = await screen.findByRole('combobox');

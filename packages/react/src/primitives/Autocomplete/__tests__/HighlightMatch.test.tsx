@@ -27,6 +27,6 @@ describe('HighlightMatch: ', () => {
     );
 
     const match = screen.queryByTestId(getTestId(testId, 'match'));
-    expect(match).not.toBeInTheDocument();
+    expect(match).toBeNull();
   });
 });
