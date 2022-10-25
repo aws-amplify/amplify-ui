@@ -1,6 +1,14 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TextStyle, ViewStyle } from 'react-native';
 
-import { ResetPasswordStyle } from './types';
+export interface ResetPasswordStyle {
+  container: ViewStyle;
+  buttonPrimary: ViewStyle;
+  buttonPrimaryText: TextStyle;
+  buttonSecondary: TextStyle;
+  buttonPressed: ViewStyle;
+  errorMessage: ViewStyle;
+  textField: ViewStyle;
+}
 
 const TEAL = '#317d95';
 
