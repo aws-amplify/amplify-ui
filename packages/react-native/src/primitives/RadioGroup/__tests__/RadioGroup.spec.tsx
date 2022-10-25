@@ -148,6 +148,7 @@ describe('RadioGroup', () => {
     const { getByText } = render(
       <RadioGroup label={label}>
         <Radio value="option-1" label="Option 1" testID="option-1" />
+        <Radio value="option-2" label="Option 1" testID="option-2" />
       </RadioGroup>
     );
 
