@@ -38,6 +38,7 @@ applications:
             - npm install pm2
             - npm install mocha@5.2.0 mochawesome mochawesome-merge mochawesome-report-generator
             - npm run build
+            - cypress install
             - npx pm2 start npm -- start
             - 'npx wait-on http://localhost:3000'
         test:
