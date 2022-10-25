@@ -50,6 +50,11 @@ export interface FilePreviewerProps {
 type UploaderDropComponent<Props = {}> = React.ComponentType<
   Props & Partial<UploaderDropProps>
 >;
+
+type UploaderButtonComponent<Props = {}> = React.ComponentType<
+  Props & Partial<UploaderButtonProps>
+>;
 export interface ComponentsProviderProps {
   UploaderDrop?: UploaderDropComponent;
+  UploaderButton?: UploaderButtonComponent;
 }

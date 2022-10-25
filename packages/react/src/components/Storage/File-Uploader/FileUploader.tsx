@@ -29,9 +29,18 @@ export function FileUploader({
   showPreview = false,
   variation = 'button',
 }: FileUploaderProps): JSX.Element {
-  const { UploaderDrop = FileUploader.UploaderDrop } = customComponents;
-  const { setShowPreviewer, showPreviewer, files } = useFileUploader();
-  const { getDropEvents, inDropZone, setFiles } = useFileUploader();
+  const {
+    UploaderDrop = FileUploader.UploaderDrop,
+    UploaderButton = FileUploader.UploaderButton,
+  } = customComponents;
+  const {
+    setShowPreviewer,
+    showPreviewer,
+    files,
+    getDropEvents,
+    inDropZone,
+    setFiles,
+  } = useFileUploader();
 
   useEffect(() => {
     setShowPreviewer(isPreviewerVisible);
@@ -85,3 +94,4 @@ export function FileUploader({
 }
 
 FileUploader.UploaderDrop = UploaderDrop;
+FileUploader.UploaderButton = UploaderButton;
