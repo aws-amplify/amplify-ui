@@ -14,6 +14,9 @@ module.exports = {
     },
   },
   globals: { 'ts-jest': { tsconfig: 'tsconfig.json' } },
+  moduleNameMapper: {
+    '^react$': '<rootDir>/node_modules/react',
+  },
   modulePathIgnorePatterns: ['<rootDir>/dist/'],
   preset: 'ts-jest',
   setupFilesAfterEnv: ['./jest.setup.ts'],

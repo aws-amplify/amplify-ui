@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Label applies style props 1`] = `
+<Text
+  accessibilityRole="text"
+  style={
+    Array [
+      Object {
+        "fontSize": 16,
+        "marginHorizontal": 4,
+        "marginVertical": 2,
+      },
+      Object {
+        "color": "red",
+      },
+    ]
+  }
+>
+  Red Label
+</Text>
+`;
+
+exports[`Label renders a default Label 1`] = `
+<Text
+  accessibilityRole="text"
+  style={
+    Array [
+      Object {
+        "fontSize": 16,
+        "marginHorizontal": 4,
+        "marginVertical": 2,
+      },
+      undefined,
+    ]
+  }
+>
+  Default Label
+</Text>
+`;

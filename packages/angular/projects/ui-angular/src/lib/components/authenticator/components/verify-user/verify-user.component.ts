@@ -10,10 +10,14 @@ import {
   getFormDataFromEvent,
   SignInState,
   translate,
+  authenticatorTextUtil,
 } from '@aws-amplify/ui';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 import { getAttributeMap } from '../../../../common';
 import { nanoid } from 'nanoid';
+
+const { getSkipText, getVerifyText, getAccountRecoveryInfoText } =
+  authenticatorTextUtil;
 @Component({
   selector: 'amplify-verify-user',
   templateUrl: './verify-user.component.html',
@@ -21,16 +25,14 @@ import { nanoid } from 'nanoid';
 })
 export class VerifyUserComponent implements OnInit {
   @HostBinding('attr.data-amplify-authenticator-verifyuser') dataAttr = '';
-  @Input() public headerText = translate(
-    'Account recovery requires verified contact information'
-  );
+  @Input() public headerText = getAccountRecoveryInfoText();
 
   public unverifiedContactMethods = {};
   public labelId = nanoid(12);
 
   // translated texts
-  public skipText = translate('Skip');
-  public verifyText = translate('Verify');
+  public skipText = getSkipText();
+  public verifyText = getVerifyText();
 
   constructor(public authenticator: AuthenticatorService) {}
 
