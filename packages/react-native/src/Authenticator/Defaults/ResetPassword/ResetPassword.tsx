@@ -1,56 +1,44 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { View } from 'react-native';
 
-import { Button, ErrorMessage, TextField } from '../../../primitives';
-import { DefaultFooter } from '../../common/DefaultFooter';
-import { DefaultHeader } from '../../common/DefaultHeader';
-import { DefaultFormFields } from '../../common/DefaultFormFields';
+import { authenticatorTextUtil } from '@aws-amplify/ui';
+
+import { Button, ErrorMessage } from '../../../primitives';
+import { DefaultFooter, DefaultFormFields, DefaultHeader } from '../../common';
 import { DefaultResetPasswordComponent } from '../types';
 import { styles } from './styles';
 
-// strings to import
-const RESET_YOUR_PASSWORD = 'Reset your password';
-const ENTER_YOUR_USERNAME = 'Enter your username';
-const SEND_CODE = 'Send code';
-const SENDING = 'Sending';
-const BACK_TO_SIGN_IN = 'Back to Sign In';
-
 const ResetPassword: DefaultResetPasswordComponent = ({
   error,
+  fields,
   Footer,
+  FormFields,
   Header,
   isPending,
   toSignIn,
 }) => {
-  const buttonPrimaryStyle = useCallback(
-    ({ pressed }) =>
-      pressed
-        ? { ...styles.buttonPrimary, ...styles.buttonPressed }
-        : styles.buttonPrimary,
-    []
-  );
-
-  const buttonSecondaryStyle = useCallback(
-    ({ pressed }) => (pressed ? styles.buttonPressed : undefined),
-    []
-  );
+  const {
+    getResetYourPasswordText,
+    getSendCodeText,
+    getSendingText,
+    getBackToSignInText,
+  } = authenticatorTextUtil;
 
   return (
     <View style={styles.container}>
-      <Header>{RESET_YOUR_PASSWORD}</Header>
-      <TextField placeholder={ENTER_YOUR_USERNAME} style={styles.textField} />
+      <Header>{getResetYourPasswordText()}</Header>
+      <FormFields fields={fields} isPending={isPending} />
       {error ? (
         <ErrorMessage style={styles.errorMessage}>{error}</ErrorMessage>
       ) : null}
-      <Button style={buttonPrimaryStyle} textStyle={styles.buttonPrimaryText}>
-        {isPending ? SENDING : SEND_CODE}
-      </Button>
       <Button
-        onPress={toSignIn}
-        style={buttonSecondaryStyle}
-        textStyle={styles.buttonSecondary}
+        style={styles.buttonPrimary}
+        textStyle={styles.buttonPrimaryLabel}
       >
-        {BACK_TO_SIGN_IN}
+        {isPending ? getSendingText() : getSendCodeText()}
+      </Button>
+      <Button onPress={toSignIn} textStyle={styles.buttonSecondaryLabel}>
+        {getBackToSignInText()}
       </Button>
       <Footer />
     </View>

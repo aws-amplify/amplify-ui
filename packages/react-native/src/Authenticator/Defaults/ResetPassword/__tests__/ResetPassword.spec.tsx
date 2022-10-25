@@ -1,37 +1,39 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
 
+import { authenticatorTextUtil } from '@aws-amplify/ui';
+
 import { ResetPassword } from '..';
 
 const props = {
-  error: undefined,
+  fields: [],
   Footer: ResetPassword.Footer,
-  FormFields: [] as any,
+  FormFields: ResetPassword.FormFields,
+  handleBlur: jest.fn(),
+  handleChange: jest.fn(),
+  handleSubmit: jest.fn(),
   Header: ResetPassword.Header,
-  handleBlur: () => {},
-  handleChange: () => {},
-  handleSubmit: () => {},
   isPending: false,
-  onBlur: undefined,
-  onChangeText: undefined,
-  onSubmit: undefined,
-  toSignIn: () => {},
+  toSignIn: jest.fn(),
 };
+
+const {
+  getResetYourPasswordText,
+  getSendCodeText,
+  getSendingText,
+  getBackToSignInText,
+} = authenticatorTextUtil;
 
 describe('ResetPassword', () => {
   it('renders as expected', () => {
     const { toJSON, getAllByRole, getByText } = render(
-      <>
-        <ResetPassword {...props} />
-        <ResetPassword.Header />
-        <ResetPassword.Footer />
-        <ResetPassword.FormFields {...props} />
-      </>
+      <ResetPassword {...props} />
     );
     expect(toJSON()).toMatchSnapshot();
 
     expect(getAllByRole('header')).toBeDefined();
-    expect(getByText('Send code')).toBeTruthy();
+    expect(getByText(getResetYourPasswordText())).toBeTruthy();
+    expect(getByText(getSendCodeText())).toBeTruthy();
   });
 
   it('renders an error message', () => {
@@ -51,7 +53,7 @@ describe('ResetPassword', () => {
       <ResetPassword {...props} toSignIn={toSignInMock} />
     );
 
-    const button = getByText('Back to Sign In');
+    const button = getByText(getBackToSignInText());
     fireEvent.press(button);
     expect(toSignInMock).toBeCalledTimes(1);
   });
@@ -59,7 +61,7 @@ describe('ResetPassword', () => {
   it('renders correct text based on isPending', () => {
     const { queryByText } = render(<ResetPassword {...props} isPending />);
 
-    expect(queryByText('Sending')).toBeTruthy();
-    expect(queryByText('Send code')).not.toBeTruthy();
+    expect(queryByText(getSendingText())).toBeTruthy();
+    expect(queryByText(getSendCodeText())).not.toBeTruthy();
   });
 });
