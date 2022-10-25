@@ -48,7 +48,6 @@ describe('defaultAuthHubHandler', () => {
       { payload: { event: 'tokenRefresh' } } as unknown as HubCapsule,
       unauthenticatedStateMachine
     );
-
     expect(unauthSendSpy).not.toHaveBeenCalled();
   });
 
