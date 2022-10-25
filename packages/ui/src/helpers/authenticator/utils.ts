@@ -6,7 +6,7 @@
 import { Hub } from 'aws-amplify';
 import { waitFor } from 'xstate/lib/waitFor';
 
-import { AuthInterpreter, HubHandler } from '../../types';
+import { AuthInterpreter, AuthMachineHubHandler } from '../../types';
 import { ALLOWED_SPECIAL_CHARACTERS } from './constants';
 import { getActorState } from './actor';
 
@@ -52,7 +52,10 @@ const waitForAutoSignInState = async (service: AuthInterpreter) => {
   }
 };
 
-export const defaultAuthHubHandler: HubHandler = async (data, service) => {
+export const defaultAuthHubHandler: AuthMachineHubHandler = async (
+  data,
+  service
+) => {
   const { send } = service;
   const state = service.getSnapshot(); // this is just a getter and is not expensive
 
@@ -99,6 +102,13 @@ export const defaultAuthHubHandler: HubHandler = async (data, service) => {
   }
 };
 
+type HubHandler = Parameters<typeof Hub.listen>[1];
+const getHubEventHandler =
+  (service: AuthInterpreter, handler: AuthMachineHubHandler): HubHandler =>
+  (data) => {
+    handler(data, service);
+  };
+
 /**
  * Listens to external auth Hub events and sends corresponding event to
  * the `authService` of interest
@@ -109,13 +119,11 @@ export const defaultAuthHubHandler: HubHandler = async (data, service) => {
  */
 export const listenToAuthHub = (
   service: AuthInterpreter,
-  handler: HubHandler = defaultAuthHubHandler
+  handler: AuthMachineHubHandler = defaultAuthHubHandler
 ) => {
   return Hub.listen(
     'auth',
-    (data) => {
-      handler(data, service);
-    },
+    getHubEventHandler(service, handler),
     'authenticator-hub-handler'
   );
 };
