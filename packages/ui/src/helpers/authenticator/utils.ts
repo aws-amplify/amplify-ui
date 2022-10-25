@@ -43,8 +43,12 @@ const waitForAutoSignInState = async (service: AuthInterpreter) => {
       getActorState(state).matches('autoSignIn')
     );
   } catch (e) {
-    // do not throw and ignore the hub event if 'autoSignIn' event was called
-    // in unrelated state.
+    /**
+     * AutoSignIn can be called in unrelated state, or after user has already
+     * signed in, because Amplify JS can send duplicate hub events.
+     *
+     * In that case, we do no-op and ignore the second event.
+     */
   }
 };
 
