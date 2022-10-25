@@ -1,15 +1,15 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { Logger } from 'aws-amplify';
 import {
   FormFieldsArray,
   getActorContext,
   getFormDataFromEvent,
   SignInContext,
+  authenticatorTextUtil,
 } from '@aws-amplify/ui';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
-import { translate } from '@aws-amplify/ui';
 
-const logger = new Logger('ConfirmSignIn');
+const { getConfirmText, getBackToSignInText, getChallengeText } =
+  authenticatorTextUtil;
 
 @Component({
   selector: 'amplify-confirm-sign-in',
@@ -20,8 +20,8 @@ export class ConfirmSignInComponent implements OnInit {
 
   // translated texts
   public headerText: string;
-  public confirmText = translate('Confirm');
-  public backToSignInText = translate('Back to Sign In');
+  public confirmText = getConfirmText();
+  public backToSignInText = getBackToSignInText();
   public sortedFormFields: FormFieldsArray;
 
   constructor(public authenticator: AuthenticatorService) {}
@@ -38,16 +38,7 @@ export class ConfirmSignInComponent implements OnInit {
     const state = this.authenticator.authState;
     const actorContext = getActorContext(state) as SignInContext;
     const { challengeName } = actorContext;
-    switch (challengeName) {
-      case 'SOFTWARE_TOKEN_MFA':
-        this.headerText = translate('Confirm TOTP Code');
-        break;
-      case 'SMS_MFA':
-        this.headerText = translate('Confirm SMS Code');
-        break;
-      default:
-        logger.error('Unexpected challengeName', challengeName);
-    }
+    this.headerText = getChallengeText(challengeName);
   }
 
   onInput(event: Event): void {

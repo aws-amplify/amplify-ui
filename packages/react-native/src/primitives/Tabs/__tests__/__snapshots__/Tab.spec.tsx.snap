@@ -20,7 +20,7 @@ exports[`Tab can apply custom styling 1`] = `
       null,
       Array [
         Object {
-          "backgroundColor": "#fafafa",
+          "backgroundColor": "#e1e1e1",
           "borderTopColor": "#dcdee0",
           "borderTopWidth": 2,
           "flexBasis": 0,
@@ -46,8 +46,8 @@ exports[`Tab can apply custom styling 1`] = `
         Array [
           Object {
             "color": "#304050",
-            "fontSize": 18,
-            "fontWeight": "800",
+            "fontSize": 16,
+            "fontWeight": "700",
           },
           undefined,
           null,
@@ -80,7 +80,7 @@ exports[`Tab renders as expected when Tab is selected 1`] = `
       null,
       Array [
         Object {
-          "backgroundColor": "#fafafa",
+          "backgroundColor": "#e1e1e1",
           "borderTopColor": "#dcdee0",
           "borderTopWidth": 2,
           "flexBasis": 0,
@@ -109,8 +109,8 @@ exports[`Tab renders as expected when Tab is selected 1`] = `
         Array [
           Object {
             "color": "#304050",
-            "fontSize": 18,
-            "fontWeight": "800",
+            "fontSize": 16,
+            "fontWeight": "700",
           },
           undefined,
           Object {
@@ -147,7 +147,7 @@ exports[`Tab renders as expected with a component passed as children 1`] = `
       null,
       Array [
         Object {
-          "backgroundColor": "#fafafa",
+          "backgroundColor": "#e1e1e1",
           "borderTopColor": "#dcdee0",
           "borderTopWidth": 2,
           "flexBasis": 0,
@@ -187,7 +187,7 @@ exports[`Tab renders default Tab as expected 1`] = `
       null,
       Array [
         Object {
-          "backgroundColor": "#fafafa",
+          "backgroundColor": "#e1e1e1",
           "borderTopColor": "#dcdee0",
           "borderTopWidth": 2,
           "flexBasis": 0,
@@ -210,8 +210,8 @@ exports[`Tab renders default Tab as expected 1`] = `
         Array [
           Object {
             "color": "#304050",
-            "fontSize": 18,
-            "fontWeight": "800",
+            "fontSize": 16,
+            "fontWeight": "700",
           },
           undefined,
           null,

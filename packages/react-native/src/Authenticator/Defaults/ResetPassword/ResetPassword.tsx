@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import { Button, ErrorMessage, TextField } from '../../../primitives';
 import { DefaultFooter } from '../../common/DefaultFooter';
 import { DefaultHeader } from '../../common/DefaultHeader';
-import { DefaultFormFields } from '../FormFields';
+import { DefaultFormFields } from '../../common/DefaultFormFields';
 import { DefaultResetPasswordComponent } from '../types';
 import { styles } from './styles';
 

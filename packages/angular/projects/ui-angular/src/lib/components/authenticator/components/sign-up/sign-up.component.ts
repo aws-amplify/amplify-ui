@@ -1,6 +1,8 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { Component, HostBinding } from '@angular/core';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
-import { translate, getFormDataFromEvent } from '@aws-amplify/ui';
+import { getFormDataFromEvent, authenticatorTextUtil } from '@aws-amplify/ui';
+
+const { getCreateAccountText } = authenticatorTextUtil;
 
 @Component({
   selector: 'amplify-sign-up',
@@ -10,7 +12,7 @@ export class SignUpComponent {
   @HostBinding('attr.data-amplify-authenticator-signup') dataAttr = '';
 
   // translated texts
-  public createAccountText = translate('Create Account');
+  public createAccountText = getCreateAccountText();
 
   constructor(public authenticator: AuthenticatorService) {}
 
