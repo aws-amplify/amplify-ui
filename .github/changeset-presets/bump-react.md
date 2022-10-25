@@ -1,6 +1,6 @@
 ---
 '@aws-amplify/ui': patch
-'@aws-amplify/ui-react': patch
+'@aws-amplify/ui-react': minor
 '@aws-amplify/ui-react-core': patch
 '@aws-amplify/ui-react-native': major
 ---
