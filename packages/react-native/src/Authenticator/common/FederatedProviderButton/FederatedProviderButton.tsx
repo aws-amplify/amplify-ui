@@ -24,7 +24,7 @@ export default function FederatedProviderButton({
 
   return (
     <Button {...rest} style={containerStyle}>
-      <Icon source={source} style={styles.icon} size={20} />
+      {source ? <Icon source={source} style={styles.icon} size={20} /> : null}
       <Label style={[styles.label, textStyle]}>{children}</Label>
     </Button>
   );
