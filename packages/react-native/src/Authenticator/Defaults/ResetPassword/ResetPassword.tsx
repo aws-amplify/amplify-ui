@@ -2,11 +2,11 @@ import React, { useCallback } from 'react';
 import { View } from 'react-native';
 
 import { Button, ErrorMessage, TextField } from '../../../primitives';
-
-import { styles } from './styles';
-import { ResetPasswordComponent } from './types';
 import { DefaultFooter } from '../../common/DefaultFooter';
 import { DefaultHeader } from '../../common/DefaultHeader';
+import { DefaultFormFields } from '../FormFields';
+import { DefaultResetPasswordComponent } from '../types';
+import { styles } from './styles';
 
 // strings to import
 const RESET_YOUR_PASSWORD = 'Reset your password';
@@ -15,7 +15,7 @@ const SEND_CODE = 'Send code';
 const SENDING = 'Sending';
 const BACK_TO_SIGN_IN = 'Back to Sign In';
 
-const ResetPassword: ResetPasswordComponent = ({
+const ResetPassword: DefaultResetPasswordComponent = ({
   error,
   Footer,
   Header,
@@ -57,11 +57,9 @@ const ResetPassword: ResetPasswordComponent = ({
   );
 };
 
-ResetPassword.Header = DefaultHeader;
 ResetPassword.Footer = DefaultFooter;
-ResetPassword.FormFields = function FormFields() {
-  return null;
-};
+ResetPassword.FormFields = DefaultFormFields;
+ResetPassword.Header = DefaultHeader;
 
 ResetPassword.displayName = 'ResetPassword';
 export default ResetPassword;

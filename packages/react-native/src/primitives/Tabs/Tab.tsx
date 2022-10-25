@@ -13,15 +13,18 @@ export default function Tab({
   textStyle,
   ...rest
 }: TabProps): JSX.Element {
-  const selectedStyles = selected ? styles.selected : undefined;
+  const selectedStyles = selected ? styles.selected : null;
 
   const containerStyle = useCallback(
     ({ pressed }: PressableStateCallbackType): StyleProp<ViewStyle> => {
+      const readonlyStyle = selected ? styles.readonly : null;
       const pressedStateStyle =
-        typeof style === 'function' ? style({ pressed }) : style;
-      return [styles.tab, pressedStateStyle, selectedStyles];
+        (typeof style === 'function' ? style({ pressed }) : style) ?? null;
+
+      // include `pressedStateStyle` last to override other styles
+      return [styles.tab, readonlyStyle, selectedStyles, pressedStateStyle];
     },
-    [selectedStyles, style]
+    [selected, selectedStyles, style]
   );
 
   return (

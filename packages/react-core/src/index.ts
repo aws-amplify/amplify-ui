@@ -1,7 +1,9 @@
 // features
 export {
   AuthenticatorComponentDefaults,
+  AuthenticatorComponentDefaultProps,
   AuthenticatorComponentOverrides,
+  AuthenticatorLegacyField,
   AuthenticatorMachineContext,
   AuthenticatorProvider,
   resolveAuthenticatorComponents,

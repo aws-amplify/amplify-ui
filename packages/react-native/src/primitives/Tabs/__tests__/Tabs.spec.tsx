@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
 
 import { Tab, Tabs } from '..';
-import { styles } from '../styles';
-import { ViewStyle } from 'react-native';
 
 const onChangeMock = jest.fn();
 
@@ -44,20 +42,6 @@ describe('Tabs', () => {
     expect(onChangeMock).toBeCalledWith(1);
     fireEvent.press(tabs[0]);
     expect(onChangeMock).toBeCalledWith(0);
-  });
-
-  it('renders correctly based on selectedIndex', () => {
-    const { queryAllByRole } = render(
-      <ControlledTabs onChangeCallback={onChangeMock} selectedIndex={1} />
-    );
-
-    const tabs = queryAllByRole('tab');
-    expect((tabs[0].props.style as ViewStyle[]).includes(styles.selected)).toBe(
-      false
-    );
-    expect((tabs[1].props.style as ViewStyle[]).includes(styles.selected)).toBe(
-      true
-    );
   });
 
   it('does not allow disabled Tabs to be selected', () => {

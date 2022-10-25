@@ -1,6 +1,9 @@
 import { AuthenticatorRoute } from '@aws-amplify/ui';
 import { RenderNothing } from '../../../../components';
-import { AuthenticatorRouteComponentName, DefaultComponent } from '../../types';
+import {
+  AuthenticatorRouteComponentName,
+  DefaultComponentType,
+} from '../../types';
 import { UseAuthenticator } from '../../useAuthenticator/types';
 
 import { DEFAULTS } from '../../__mock__/components';
@@ -11,7 +14,8 @@ import {
 import { UseAuthenticatorRoute } from '../types';
 
 import {
-  getRouteSelector,
+  getRouteMachineSelector,
+  routeSelector,
   resolveConfirmResetPasswordRoute,
   resolveConfirmSignInRoute,
   resolveConfirmSignUpRoute,
@@ -26,9 +30,9 @@ import {
 } from '../utils';
 
 type PropsResolver = (
-  Component: DefaultComponent,
+  Component: DefaultComponentType,
   selectedProps: UseAuthenticator
-) => UseAuthenticatorRoute<{}, AuthenticatorRouteComponentName>;
+) => UseAuthenticatorRoute<AuthenticatorRouteComponentName, {}>;
 
 const {
   codeDeliveryDetails,
@@ -39,6 +43,7 @@ const {
   skipVerification,
   socialProviders,
   submitForm,
+  toFederatedSignIn,
   toResetPassword,
   toSignIn,
   toSignUp,
@@ -63,7 +68,7 @@ const commonSelectorProps = [
   updateForm,
 ];
 
-describe('getRouteSelector', () => {
+describe('getRouteMachineSelector', () => {
   it.each([
     [
       'confirmResetPassword',
@@ -80,13 +85,19 @@ describe('getRouteSelector', () => {
     ['resetPassword', [...commonSelectorProps, toSignIn]],
     [
       'signIn',
-      [...commonSelectorProps, socialProviders, toResetPassword, toSignUp],
+      [
+        ...commonSelectorProps,
+        socialProviders,
+        toFederatedSignIn,
+        toResetPassword,
+        toSignUp,
+      ],
     ],
     ['signUp', [...commonSelectorProps, toSignIn, validationErrors]],
     ['setupTOTP', [...commonSelectorProps, user]],
     ['verifyUser', commonSelectorProps],
   ])('returns the expected route selector for %s', (route, expected) => {
-    const selector = getRouteSelector(route as AuthenticatorRoute);
+    const selector = getRouteMachineSelector(route as AuthenticatorRoute);
     const output = selector(machineContext);
     expect(output).toStrictEqual(expected);
   });
@@ -133,6 +144,7 @@ describe('props resolver functions', () => {
         hideSignUp: false,
         isPending,
         socialProviders,
+        toFederatedSignIn,
         toResetPassword,
         toSignUp,
       },
@@ -185,5 +197,15 @@ describe('props resolver functions', () => {
 
       expect(output).toStrictEqual(expected);
     });
+  });
+});
+
+describe('routeSelector', () => {
+  it('only selects the value of route', () => {
+    const route = 'idle' as UseAuthenticator['route'];
+    const machineContext = { ...mockUseAuthenticatorOutput, route };
+
+    const output = routeSelector(machineContext);
+    expect(output).toStrictEqual([route]);
   });
 });

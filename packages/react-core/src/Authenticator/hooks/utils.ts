@@ -1,22 +1,17 @@
 import { AuthenticatorRoute } from '@aws-amplify/ui';
 
 import { COMPONENT_ROUTE_KEYS, COMPONENT_ROUTE_NAMES } from './constants';
-import {
-  AuthenticatorRouteComponentKey,
-  Defaults,
-  DefaultComponent,
-  Overrides,
-} from './types';
+import { AuthenticatorRouteComponentKey, Defaults, Overrides } from './types';
 
 export const isComponentRouteKey = (
   route: AuthenticatorRoute
 ): route is AuthenticatorRouteComponentKey =>
   COMPONENT_ROUTE_KEYS.some((componentRoute) => componentRoute === route);
 
-export function resolveAuthenticatorComponents<PlatformProps = {}>(
-  defaults: Defaults<PlatformProps>,
-  overrides?: Overrides<PlatformProps>
-): Defaults<PlatformProps> {
+export function resolveAuthenticatorComponents<FieldType>(
+  defaults: Defaults<FieldType>,
+  overrides?: Overrides<FieldType>
+): Defaults<FieldType> {
   if (!overrides) {
     return defaults;
   }
@@ -32,12 +27,12 @@ export function resolveAuthenticatorComponents<PlatformProps = {}>(
     const { Footer, FormFields, Header } = Default;
 
     // cast to allow assigning of component slots
-    const Component = Override as DefaultComponent<PlatformProps>;
+    const Component = Override as typeof Default;
 
     Component.Footer = Footer;
     Component.FormFields = FormFields;
     Component.Header = Header;
 
     return { ...components, [route]: Component };
-  }, {} as Defaults<PlatformProps>);
+  }, {} as Defaults<FieldType>);
 }

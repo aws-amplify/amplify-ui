@@ -11,7 +11,7 @@ import {
   areSelectorDepsEqual,
   defaultComparator,
   getComparator,
-  getLegacyFields,
+  getMachineFields,
   getTotpSecretCodeCallback,
 } from '../utils';
 
@@ -100,17 +100,49 @@ describe('getTotpSecretCodeCallback', () => {
   });
 });
 
-describe('getLegacyFields', () => {
+describe('getMachineFields', () => {
   const state = {} as unknown as AuthMachineState;
   it('calls getSortedFormFields when route is a valid component route', () => {
-    getLegacyFields('signIn', state);
+    getMachineFields('signIn', state, {});
 
     expect(getSortedFormFieldsSpy).toHaveBeenCalledWith('signIn', state);
   });
 
   it('returns an empty array for a non-component route', () => {
-    const output = getLegacyFields('idle', state);
+    const output = getMachineFields('idle', state, {});
 
     expect(output).toHaveLength(0);
+  });
+
+  it('returns expected values for verifyUser route', () => {
+    const output = getMachineFields('verifyUser', state, {
+      email: 'test@example.com',
+    });
+
+    expect(output).toHaveLength(1);
+    expect(output).toStrictEqual([
+      {
+        label: 'test@example.com',
+        name: 'email',
+        value: 'test@example.com',
+        type: 'radio',
+      },
+    ]);
+  });
+
+  it('returns expected values for verifyUser route when contact method is empty', () => {
+    const output = getMachineFields('verifyUser', state, {});
+
+    expect(output).toHaveLength(0);
+    expect(output).toStrictEqual([]);
+  });
+
+  it('returns expected values for verifyUser route when contact method value is invalid', () => {
+    const output = getMachineFields('verifyUser', state, {
+      phone_number: null as unknown as string,
+    });
+
+    expect(output).toHaveLength(1);
+    expect(output).toStrictEqual([{}]);
   });
 });

@@ -68,6 +68,7 @@ const RESET_PASSWORD_MACHINE_KEYS: ResetPasswordMachineKey[] = [
 const SIGN_IN_MACHINE_KEYS: SignInMachineKey[] = [
   ...COMMON_ROUTE_MACHINE_KEYS,
   'socialProviders',
+  'toFederatedSignIn',
   'toResetPassword',
   'toSignUp',
 ];
@@ -87,8 +88,8 @@ export const MACHINE_PROP_KEYS: Record<
   AuthenticatorRouteComponentKey,
   AuthenticatorMachineContextKey[]
 > = {
-  confirmSignIn: CONFIRM_SIGN_IN_MACHINE_KEYS,
   confirmResetPassword: CONFIRM_RESET_PASSWORD_MACHINE_KEYS,
+  confirmSignIn: CONFIRM_SIGN_IN_MACHINE_KEYS,
   confirmSignUp: CONFIRM_SIGN_UP_MACHINE_KEYS,
   confirmVerifyUser: CONFIRM_VERIFY_USER_MACHINE_KEYS,
   forceNewPassword: FORCE_NEW_PASSWORD_MACHINE_KEYS,
