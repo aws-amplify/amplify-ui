@@ -2,10 +2,12 @@ import { Component, HostBinding, Input } from '@angular/core';
 import {
   FormFieldsArray,
   getFormDataFromEvent,
-  translate,
+  authenticatorTextUtil,
 } from '@aws-amplify/ui';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 
+const { getAccountRecoveryInfoText, getSkipText, getSubmitText } =
+  authenticatorTextUtil;
 @Component({
   selector: 'amplify-confirm-verify-user',
   templateUrl: './amplify-confirm-verify-user.component.html',
@@ -13,13 +15,11 @@ import { AuthenticatorService } from '../../../../services/authenticator.service
 export class ConfirmVerifyUserComponent {
   @HostBinding('attr.data-amplify-authenticator-confirmverifyuser')
   dataAttr = '';
-  @Input() public headerText = translate(
-    'Account recovery requires verified contact information'
-  );
+  @Input() public headerText = getAccountRecoveryInfoText();
 
   // translated texts
-  public skipText = translate('Skip');
-  public submitText = translate('Submit');
+  public skipText = getSkipText();
+  public submitText = getSubmitText();
   public sortedFormFields: FormFieldsArray;
 
   constructor(public authenticator: AuthenticatorService) {}

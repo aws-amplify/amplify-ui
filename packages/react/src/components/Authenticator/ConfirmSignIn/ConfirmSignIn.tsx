@@ -1,5 +1,5 @@
 import React from 'react';
-import { translate } from '@aws-amplify/ui';
+import { authenticatorTextUtil } from '@aws-amplify/ui';
 
 import { Flex } from '../../../primitives/Flex';
 import { Heading } from '../../../primitives/Heading';
@@ -10,6 +10,8 @@ import { FormFields } from '../shared/FormFields';
 import { ConfirmSignInFooter } from '../shared/ConfirmSignInFooter';
 import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { RouteContainer, RouteProps } from '../RouteContainer';
+
+const { getChallengeText } = authenticatorTextUtil;
 
 export const ConfirmSignIn = ({
   className,
@@ -53,27 +55,11 @@ export const ConfirmSignIn = ({
 };
 
 function Header() {
-  const { user } = useAuthenticator();
+  const {
+    user: { challengeName },
+  } = useAuthenticator(({ user }) => [user]);
 
-  const { challengeName } = user;
-  let headerText: string;
-
-  switch (challengeName) {
-    case 'SMS_MFA':
-      headerText = translate('Confirm SMS Code');
-      break;
-    case 'SOFTWARE_TOKEN_MFA':
-      headerText = translate('Confirm TOTP Code');
-      break;
-    default:
-      throw new Error(
-        `${translate(
-          'Unexpected challengeName encountered in ConfirmSignIn:'
-        )} ${challengeName}`
-      );
-  }
-
-  return <Heading level={3}>{headerText}</Heading>;
+  return <Heading level={3}>{getChallengeText(challengeName)}</Heading>;
 }
 
 ConfirmSignIn.Header = Header;
