@@ -3,7 +3,7 @@ import { Text } from 'react-native';
 
 import { DefaultFooter } from '../../common/DefaultFooter';
 import { DefaultHeader } from '../../common/DefaultHeader';
-import { DefaultFormFields } from '../FormFields';
+import { DefaultFormFields } from '../../common/DefaultFormFields';
 import { DefaultResetPasswordComponent } from '../types';
 
 const ResetPassword: DefaultResetPasswordComponent = () => {

@@ -20,7 +20,8 @@ export default function Tabs({
       {Children.map(children, (child, index) => {
         if (isValidElement<TabProps>(child)) {
           return cloneElement<TabProps>(child, {
-            onPress: () => {
+            onPress: (event) => {
+              child.props.onPress?.(event);
               handleOnChange(index);
             },
             selected: index === selectedIndex,

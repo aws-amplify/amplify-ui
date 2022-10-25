@@ -611,16 +611,6 @@
   resolved "https://registry.yarnpkg.com/@aws-amplify/ui/-/ui-2.0.5.tgz#0800938a0bf36ff51922637628b0889017da19f1"
   integrity sha512-atoc/zIJRhgpoSDDKgRxbTSD7D9S4wbOzHUHMqRlcEPRKqRrQPGvd6zCUVSBS0jqdrrw6+UTJbWj7ttWCfE4pQ==
 
-"@aws-amplify/ui@3.14.0":
-  version "3.14.0"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/ui/-/ui-3.14.0.tgz#8b8e8583a418f4c6db32f86bc2c7a3c2ed2b8dd0"
-  integrity sha512-iD2sBrtY3QPaPnk8UFGOXRkZVaPCRYOEwxB7MzP5PGjChi9Mw1hAsKXbWJVsfMP74yAYMVglaPoVCaGrt3Ze2g==
-  dependencies:
-    lodash "4.17.21"
-    style-dictionary "3.7.0"
-    tslib "2.4.0"
-    xstate "^4.33.6"
-
 "@aws-amplify/xr@3.0.55":
   version "3.0.55"
   resolved "https://registry.yarnpkg.com/@aws-amplify/xr/-/xr-3.0.55.tgz#ecafcec6ccf429a3a4d27601282cbc345708ab38"
