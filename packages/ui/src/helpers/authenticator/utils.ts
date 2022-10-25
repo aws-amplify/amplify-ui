@@ -52,6 +52,10 @@ const waitForAutoSignInState = async (service: AuthInterpreter) => {
   }
 };
 
+/**
+ * Handles Amplify JS Auth hub events, by forwarding hub events as appropriate
+ * xstate events.
+ */
 export const defaultAuthHubHandler: AuthMachineHubHandler = async (
   data,
   service
