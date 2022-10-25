@@ -2,6 +2,7 @@ import React from 'react';
 import { Text } from 'react-native';
 
 import { ConfirmSignUpComponent } from './types';
+import { DefaultFooter } from '../../common/DefaultFooter';
 import { DefaultHeader } from '../../common/DefaultHeader';
 
 const ConfirmSignUp: ConfirmSignUpComponent = () => {
@@ -9,10 +10,7 @@ const ConfirmSignUp: ConfirmSignUpComponent = () => {
 };
 
 ConfirmSignUp.Header = DefaultHeader;
-
-ConfirmSignUp.Footer = function Footer() {
-  return null;
-};
+ConfirmSignUp.Footer = DefaultFooter;
 ConfirmSignUp.FormFields = function FormFields() {
   return null;
 };

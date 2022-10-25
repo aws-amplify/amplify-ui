@@ -2,6 +2,7 @@ import React from 'react';
 import { Text } from 'react-native';
 
 import { SetupTOTPComponent } from './types';
+import { DefaultFooter } from '../../common/DefaultFooter';
 import { DefaultHeader } from '../../common/DefaultHeader';
 
 const SetupTOTP: SetupTOTPComponent = () => {
@@ -9,10 +10,7 @@ const SetupTOTP: SetupTOTPComponent = () => {
 };
 
 SetupTOTP.Header = DefaultHeader;
-
-SetupTOTP.Footer = function Footer() {
-  return null;
-};
+SetupTOTP.Footer = DefaultFooter;
 SetupTOTP.FormFields = function FormFields() {
   return null;
 };
