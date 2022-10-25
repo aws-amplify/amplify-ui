@@ -1,1 +1,38 @@
-/** Stub **/
+.amplify-fileuploader {
+  border: 1px dashed var(--amplify-colors-border-primary);
+  text-align: center;
+}
+
+.amplify-fileuploader.active {
+  border-color: var(--amplify-colors-border-active);
+  border-width: 2px;
+  background-color: var(--amplify-colors-brand-primary-10);
+}
+
+.amplify-fileuploader__dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--amplify-space-small);
+}
+
+.amplify-fileuploader__dropzone--small {
+  flex-direction: row;
+  justify-content: center;
+}
+
+.amplify-fileuploader__dropzone__icon {
+  font-size: var(--amplify-font-sizes-xxl);
+  color: var(--amplify-colors-border-primary);
+}
+
+.amplify-fileuploader__dropzone__text {
+  color: var(--amplify-colors-font-tertiary);
+  font-weight: var(--amplify-font-weights-bold);
+}
+
+.amplify-fileuploader__dropzone__constraints {
+  color: var(--amplify-colors-font-tertiary);
+  font-size: var(--amplify-font-sizes-small);
+  margin-block-start: var(--amplify-space-small);
+}

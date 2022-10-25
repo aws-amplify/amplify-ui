@@ -10,12 +10,16 @@ export interface UploaderButtonProps {
   acceptedFileTypes: Array<string>;
   multiple?: boolean;
   onUpload: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  className?: string;
 }
 
 export interface UploaderDropProps {
   children?: React.ReactNode;
   inDropZone?: boolean;
   getDropEvents?: DragActionHandlers;
+}
+export interface UploadIconProps {
+  className?: string;
 }
 
 export interface FileUploaderProps {

@@ -16,6 +16,7 @@ export default function FileUploaderEmail() {
   return (
     <>
       <FileUploader
+        variation="button"
         acceptedFileTypes={['.png']}
         level="public"
         multiple={true}

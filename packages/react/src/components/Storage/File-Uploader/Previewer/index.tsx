@@ -36,9 +36,5 @@ export function Previewer({
     return;
   }
 
-  return (
-    <Card data-amplify-file-previewer>
-      <Button onClick={upload}>Upload Files</Button>
-    </Card>
-  );
+  return <Card data-amplify-file-previewer>Previewer</Card>;
 }

@@ -3,9 +3,10 @@ import React, { useEffect } from 'react';
 import { FileUploaderProps } from './types';
 import { UploaderButton } from './UploaderButton';
 import { Previewer } from './Previewer';
-import { View } from '../../../primitives';
+import { View, Text } from '../../../primitives';
 import { UploaderDrop } from './UploaderDrop';
 import { useFileUploader } from './hooks/useFileUploader';
+import { translate } from '@aws-amplify/ui';
 
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/connected-components/storage)
@@ -28,34 +29,32 @@ export function FileUploader({
   showPreview = false,
   variation = 'button',
 }: FileUploaderProps): JSX.Element {
-  function Router(): JSX.Element {
-    const { UploaderDrop = FileUploader.UploaderDrop } = customComponents;
-    const {
-      files,
-      getDropEvents,
-      inDropZone,
-      setFiles,
-      setShowPreviewer,
-      showPreviewer,
-    } = useFileUploader();
+  const { UploaderDrop = FileUploader.UploaderDrop } = customComponents;
+  const { setShowPreviewer, showPreviewer, files } = useFileUploader();
+  const { getDropEvents, inDropZone, setFiles } = useFileUploader();
 
-    useEffect(() => {
-      // stubbed
-    }, [setShowPreviewer]);
+  useEffect(() => {
+    setShowPreviewer(isPreviewerVisible);
+  }, [setShowPreviewer, isPreviewerVisible]);
 
-    function onClose() {
-      // stubbed
-    }
+  function onClose() {
+    setShowPreviewer(false);
+  }
 
-    function onUpload(event: React.ChangeEvent<HTMLInputElement>) {
-      // stubbed
-    }
-    const commonProps = {
-      acceptedFileTypes,
-      multiple,
-      onUpload,
-    };
+  function onUpload(event: React.ChangeEvent<HTMLInputElement>) {
+    if (!event.target.files || event.target.files.length === 0) return;
 
+    const { files } = event.target;
+    setFiles([...files]);
+    setShowPreviewer(true);
+  }
+  const commonProps = {
+    acceptedFileTypes,
+    multiple,
+    onUpload,
+  };
+
+  if (showPreviewer) {
     return (
       <Previewer
         fileNames={fileNames}
@@ -64,9 +63,25 @@ export function FileUploader({
         onClose={() => onClose()}
       />
     );
+  } else {
+    return (
+      <>
+        {variation === 'button' ? (
+          <UploaderButton {...commonProps} />
+        ) : (
+          <UploaderDrop getDropEvents={getDropEvents} inDropZone={inDropZone}>
+            <Text className="amplify-fileuploader__dropzone__text">
+              {translate('Drop files here or')}
+            </Text>
+            <UploaderButton
+              {...commonProps}
+              className={'amplify-fileuploader__dropzone__button'}
+            />
+          </UploaderDrop>
+        )}
+      </>
+    );
   }
-
-  return <Router />;
 }
 
 FileUploader.UploaderDrop = UploaderDrop;
