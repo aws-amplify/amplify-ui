@@ -1,13 +1,44 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { View } from 'react-native';
 
-import { DefaultFooter } from '../../common/DefaultFooter';
-import { DefaultHeader } from '../../common/DefaultHeader';
-import { DefaultFormFields } from '../../common/DefaultFormFields';
+import { authenticatorTextUtil } from '@aws-amplify/ui';
+
+import { Button, ErrorMessage } from '../../../primitives';
+import { DefaultFooter, DefaultFormFields, DefaultHeader } from '../../common';
 import { DefaultForceNewPasswordComponent } from '../types';
+import { styles } from './styles';
 
-const ForceNewPassword: DefaultForceNewPasswordComponent = () => {
-  return <Text>ForceNewPassword</Text>;
+const ForceNewPassword: DefaultForceNewPasswordComponent = ({
+  error,
+  fields,
+  Footer,
+  FormFields,
+  Header,
+  isPending,
+  toSignIn,
+}) => {
+  const { getChangePasswordText, getChangingText, getBackToSignInText } =
+    authenticatorTextUtil;
+
+  return (
+    <View style={styles.container}>
+      <Header>{getChangePasswordText()}</Header>
+      <FormFields fields={fields} isPending={isPending} />
+      {error ? (
+        <ErrorMessage style={styles.errorMessage}>{error}</ErrorMessage>
+      ) : null}
+      <Button
+        style={styles.buttonPrimary}
+        textStyle={styles.buttonPrimaryLabel}
+      >
+        {isPending ? getChangingText() : getChangePasswordText()}
+      </Button>
+      <Button onPress={toSignIn} textStyle={styles.buttonSecondaryLabel}>
+        {getBackToSignInText()}
+      </Button>
+      <Footer />
+    </View>
+  );
 };
 
 ForceNewPassword.Footer = DefaultFooter;
