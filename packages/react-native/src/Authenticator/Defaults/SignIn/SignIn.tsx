@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, TextStyle, View, ViewStyle } from 'react-native';
 
+import { authenticatorTextUtil } from '@aws-amplify/ui';
+
 import {
   DefaultFooter,
   DefaultFormFields,
@@ -55,12 +57,19 @@ const SignIn: DefaultSignInComponent = ({
   toFederatedSignIn,
   toSignUp,
 }) => {
+  const {
+    getSignInText,
+    getSignInTabText,
+    getCreateAccountText,
+    getForgotPasswordText,
+  } = authenticatorTextUtil;
+
   return (
     <View style={styles.container}>
       {hideSignUp ? null : (
         <Tabs style={styles.tabs}>
-          <Tab>Sign In</Tab>
-          <Tab onPress={toSignUp}>Create Account</Tab>
+          <Tab>{getSignInTabText()}</Tab>
+          <Tab onPress={toSignUp}>{getCreateAccountText()}</Tab>
         </Tabs>
       )}
       <Header />
@@ -72,12 +81,11 @@ const SignIn: DefaultSignInComponent = ({
       ) : null}
       <FormFields fields={fields} isPending={isPending} />
       {error ? <ErrorMessage>{error}</ErrorMessage> : null}
-
       <Button
         style={styles.buttonPrimary}
         textStyle={styles.buttonPrimaryLabel}
       >
-        Sign In
+        {getSignInText()}
       </Button>
       <Footer>
         <Button
@@ -85,7 +93,7 @@ const SignIn: DefaultSignInComponent = ({
           style={styles.buttonSecondary}
           textStyle={styles.buttonSecondaryLabel}
         >
-          Forgot your password?
+          {getForgotPasswordText()}
         </Button>
       </Footer>
     </View>

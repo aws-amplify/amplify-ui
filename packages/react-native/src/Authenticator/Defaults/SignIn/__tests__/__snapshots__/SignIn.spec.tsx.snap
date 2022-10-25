@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SignIn primary component renders as expected 1`] = `
+exports[`SignIn renders as expected 1`] = `
 <View
   style={
     Object {
@@ -197,7 +197,7 @@ exports[`SignIn primary component renders as expected 1`] = `
         ]
       }
     >
-      Sign In
+      Sign in
     </Text>
   </View>
   <View>
@@ -243,7 +243,7 @@ exports[`SignIn primary component renders as expected 1`] = `
 </View>
 `;
 
-exports[`SignIn primary component renders as expected when hideSignUp is true 1`] = `
+exports[`SignIn renders as expected when hideSignUp is true 1`] = `
 <View
   style={
     Object {
@@ -307,7 +307,7 @@ exports[`SignIn primary component renders as expected when hideSignUp is true 1`
         ]
       }
     >
-      Sign In
+      Sign in
     </Text>
   </View>
   <View>
@@ -353,250 +353,7 @@ exports[`SignIn primary component renders as expected when hideSignUp is true 1`
 </View>
 `;
 
-exports[`SignIn primary component renders as expected when socialProviders is undefined 1`] = `
-<View
-  style={
-    Object {
-      "flex": 1,
-      "justifyContent": "center",
-      "padding": 16,
-    }
-  }
->
-  <View
-    accessibilityRole="tablist"
-    style={
-      Array [
-        Object {
-          "flexDirection": "row",
-          "width": "100%",
-        },
-        Object {
-          "marginBottom": 8,
-        },
-      ]
-    }
-  >
-    <View
-      accessibilityRole="tab"
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Array [
-          null,
-          Array [
-            Object {
-              "backgroundColor": "#e1e1e1",
-              "borderTopColor": "#dcdee0",
-              "borderTopWidth": 2,
-              "flexBasis": 0,
-              "flexGrow": 1,
-              "padding": 12,
-            },
-            Object {
-              "opacity": 1,
-            },
-            Object {
-              "backgroundColor": "#fff",
-              "borderTopColor": "#047d95",
-              "color": "#047d95",
-            },
-            null,
-          ],
-        ]
-      }
-    >
-      <Text
-        style={
-          Array [
-            Object {
-              "alignSelf": "center",
-            },
-            Array [
-              Object {
-                "color": "#304050",
-                "fontSize": 16,
-                "fontWeight": "700",
-              },
-              undefined,
-              Object {
-                "backgroundColor": "#fff",
-                "borderTopColor": "#047d95",
-                "color": "#047d95",
-              },
-            ],
-          ]
-        }
-      >
-        Sign In
-      </Text>
-    </View>
-    <View
-      accessibilityRole="tab"
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Array [
-          null,
-          Array [
-            Object {
-              "backgroundColor": "#e1e1e1",
-              "borderTopColor": "#dcdee0",
-              "borderTopWidth": 2,
-              "flexBasis": 0,
-              "flexGrow": 1,
-              "padding": 12,
-            },
-            null,
-            null,
-            null,
-          ],
-        ]
-      }
-    >
-      <Text
-        style={
-          Array [
-            Object {
-              "alignSelf": "center",
-            },
-            Array [
-              Object {
-                "color": "#304050",
-                "fontSize": 16,
-                "fontWeight": "700",
-              },
-              undefined,
-              null,
-            ],
-          ]
-        }
-      >
-        Create Account
-      </Text>
-    </View>
-  </View>
-  <Text
-    accessibilityRole="header"
-    style={
-      Array [
-        Object {
-          "color": "black",
-        },
-        Object {
-          "fontSize": 34,
-          "fontWeight": "300",
-          "lineHeight": 51,
-        },
-        undefined,
-      ]
-    }
-  />
-  <View
-    accessible={true}
-    collapsable={false}
-    focusable={true}
-    onBlur={[Function]}
-    onClick={[Function]}
-    onFocus={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
-    style={
-      Array [
-        null,
-        Object {
-          "backgroundColor": "teal",
-          "marginVertical": 8,
-          "paddingVertical": 12,
-        },
-      ]
-    }
-  >
-    <Text
-      style={
-        Array [
-          Object {
-            "alignSelf": "center",
-          },
-          Object {
-            "color": "white",
-            "fontSize": 16,
-            "fontWeight": "bold",
-          },
-        ]
-      }
-    >
-      Sign In
-    </Text>
-  </View>
-  <View>
-    <View
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Array [
-          null,
-          Object {
-            "marginVertical": 8,
-            "paddingVertical": 12,
-          },
-        ]
-      }
-    >
-      <Text
-        style={
-          Array [
-            Object {
-              "alignSelf": "center",
-            },
-            Object {
-              "color": "teal",
-            },
-          ]
-        }
-      >
-        Forgot your password?
-      </Text>
-    </View>
-  </View>
-</View>
-`;
-
-exports[`SignIn primary component renders as expected with an error 1`] = `
+exports[`SignIn renders as expected with an error 1`] = `
 <View
   style={
     Object {
@@ -844,7 +601,7 @@ exports[`SignIn primary component renders as expected with an error 1`] = `
         ]
       }
     >
-      Sign In
+      Sign in
     </Text>
   </View>
   <View>
@@ -890,7 +647,7 @@ exports[`SignIn primary component renders as expected with an error 1`] = `
 </View>
 `;
 
-exports[`SignIn primary component renders as expected with socialProviders 1`] = `
+exports[`SignIn renders as expected with socialProviders 1`] = `
 <View
   style={
     Object {
@@ -1255,7 +1012,7 @@ exports[`SignIn primary component renders as expected with socialProviders 1`] =
         ]
       }
     >
-      Sign In
+      Sign in
     </Text>
   </View>
   <View>
