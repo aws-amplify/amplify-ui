@@ -1,0 +1,39 @@
+# Description: This workflow runs unit + e2e tests on PRs targeting `main` and
+#              other protected branches listed below.
+#
+# Triggered by:
+#   (1) Internal PRs: contirubutor pushes a commit to PRs targeting protected branches.
+#   (2) Fork PRs: maintainer adds "run-test" label to PRs targeting protected branches.
+
+name: POC-Test-Node16-Setup
+
+concurrency:
+  group: e2e-${{ github.event.pull_request.id }}
+  cancel-in-progress: true
+
+on:
+  pull_request_target:
+    branches: [main]
+    types: [opened, synchronize, labeled]
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    environment: deployment
+    needs: build-test
+    if: ${{ needs.setup.outputs.has-changesets != 'true' }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
+          fetch-depth: 0
+      - name: Setup Node.js LTS
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'yarn'
+      - name: Install packages
+        uses: ./.github/actions/install-with-retries
+        with:
+          skip-cypress-binary: true # publishing doesn't need cypress
