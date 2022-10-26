@@ -2,6 +2,7 @@ import { VALIDATED_LINKS } from '../data/validatedLinks';
 
 let allLinks: string[] = [];
 const numberOfLinks = 119;
+const requested: Set<string> = new Set();
 
 before(() => {
   cy.task('readSitemapLinks').then((links: string[]) => {
@@ -45,7 +46,8 @@ for (let i = 0; i < numberOfLinks; i++) {
             logMessage('SKIPPING_SITEMAP');
           } else if (
             VALIDATED_LINKS.includes(tagHref) ||
-            VALIDATED_LINKS.includes(`${tagHref.replace(baseUrl, '')}`)
+            VALIDATED_LINKS.includes(`${tagHref.replace(baseUrl, '')}`) ||
+            requested.has(tagHref)
           ) {
             logMessage('SKIPPING_VALIDATED');
           } else {
@@ -54,6 +56,8 @@ for (let i = 0; i < numberOfLinks; i++) {
               ({ status }) => {
                 logMessage('RETURNING', status);
                 expect(status).to.oneOf([200, 301, 303]);
+                requested.add(tagHref);
+                cy.clearLocalStorage();
               }
             );
           }
