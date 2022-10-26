@@ -37,6 +37,7 @@ export function FileUploader({
     onDragLeave,
     onDrop,
     onDragOver,
+    files,
   } = useFileUploader();
 
   // eslint-disable-next-line no-console
@@ -64,6 +65,11 @@ export function FileUploader({
     setFiles([...files]);
     setShowPreviewer(true);
   };
+
+  const onClose = () => {
+    setShowPreviewer(false);
+  };
+
   const CommonProps = {
     acceptedFileTypes,
     multiple,
@@ -71,7 +77,17 @@ export function FileUploader({
   };
 
   if (showPreviewer) {
-    return <Previewer />;
+    return (
+      <Previewer
+        fileNames={fileNames}
+        level={level}
+        files={files}
+        onClose={onClose}
+        acceptedFileTypes={acceptedFileTypes}
+        multiple={multiple}
+        onChangeUpload={onChangeUpload}
+      />
+    );
   } else if (variation === 'button') {
     return <UploaderButton {...CommonProps} />;
   } else {

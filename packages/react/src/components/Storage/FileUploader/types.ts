@@ -38,11 +38,14 @@ export interface UploadIconProps {
   className?: string;
 }
 
-export interface FilePreviewerProps {
+export interface PreviewerProps {
   fileNames: string[];
   level: LevelInfo;
   files: File[];
   onClose: () => void;
+  acceptedFileTypes: string[];
+  multiple?: boolean;
+  onChangeUpload: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 type UploaderButtonComponent<Props = {}> = React.ComponentType<
