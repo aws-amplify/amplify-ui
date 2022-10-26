@@ -1,4 +1,4 @@
-import { VALIDATED_LINKS } from '../data/validLinks';
+import { VALIDATED_LINKS } from '../data/validatedLinks';
 
 let allLinks: string[] = [];
 const numberOfLinks = 119;
@@ -15,7 +15,7 @@ describe('Local Sitemap', () => {
   });
 });
 
-for (let i = 80; i < 90; i++) {
+for (let i = 90; i < 100; i++) {
   describe(`check page ${i}`, () => {
     const baseUrl = 'http://localhost:3000';
 
@@ -27,9 +27,9 @@ for (let i = 80; i < 90; i++) {
       cy.get('button').each(hrefWorks);
 
       function hrefWorks(htmlTag: JQuery<HTMLElement>): void {
-        const tagHref = htmlTag.prop('href');
-        const tagText = htmlTag.prop('text');
-        const tagName = htmlTag.prop('tagName');
+        const tagHref: string = htmlTag.prop('href');
+        const tagText: string = htmlTag.prop('text');
+        const tagName: string = htmlTag.prop('tagName');
         if (tagHref) {
           logMessage('CHECKING');
 
@@ -43,7 +43,10 @@ for (let i = 80; i < 90; i++) {
               allLinks
             );
             logMessage('SKIPPING_SITEMAP');
-          } else if (VALIDATED_LINKS.includes(tagHref)) {
+          } else if (
+            VALIDATED_LINKS.includes(tagHref) ||
+            VALIDATED_LINKS.includes(`${tagHref.replace(baseUrl, '')}`)
+          ) {
             logMessage('SKIPPING_VALIDATED');
           } else {
             logMessage('REQUESTING');
