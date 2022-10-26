@@ -1,5 +1,9 @@
 import * as React from 'react';
-import { AuthenticatorMachineOptions, AmplifyUser } from '@aws-amplify/ui';
+import {
+  AuthenticatorMachineOptions,
+  AmplifyUser,
+  appendToCognitoUserAgent,
+} from '@aws-amplify/ui';
 
 import {
   AuthenticatorProvider as Provider,
@@ -17,6 +21,7 @@ import { SignUp } from './SignUp';
 import { ForceNewPassword } from './ForceNewPassword';
 import { ResetPassword } from './ResetPassword';
 import { defaultComponents } from './hooks/useCustomComponents/defaultComponents';
+import { VERSION } from 'src/version';
 
 export type SignOut = UseAuthenticator['signOut'];
 export type AuthenticatorProps = Partial<
@@ -73,6 +78,8 @@ export function AuthenticatorInternal({
     formFields,
   });
 
+  appendToCognitoUserAgent(`Authenticator`);
+
   const value = React.useMemo(
     () => ({ components: { ...defaultComponents, ...customComponents } }),
     [customComponents]
@@ -109,6 +116,7 @@ export function AuthenticatorInternal({
  * [📖 Docs](https://ui.docs.amplify.aws/react/connected-components/authenticator)
  */
 export function Authenticator(props: AuthenticatorProps): JSX.Element {
+  appendToCognitoUserAgent(`@aws-amplify/ui-react/${VERSION}`);
   return (
     <Provider>
       <AuthenticatorInternal {...props} />

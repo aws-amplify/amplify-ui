@@ -23,7 +23,8 @@
     "LICENSE"
   ],
   "scripts": {
-    "prebuild": "rimraf dist",
+    "generate:version": "node ../../scripts/generateVersion.js",
+    "prebuild": "rimraf dist && yarn generate:version",
     "build": "vue-tsc --noEmit && vite build",
     "dev": "vite build --watch",
     "clean": "rimraf dist node_modules",

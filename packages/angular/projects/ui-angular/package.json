@@ -2,6 +2,8 @@
   "name": "@aws-amplify/ui-angular",
   "version": "2.4.25",
   "scripts": {
+    "generate:version": "node ../../../../scripts/generateVersion.js",
+    "prebuild": "yarn generate:version",
     "build": "yarn --cwd ../../ build",
     "dev": "yarn --cwd ../../ dev",
     "lint": "yarn --cwd ../../ lint",

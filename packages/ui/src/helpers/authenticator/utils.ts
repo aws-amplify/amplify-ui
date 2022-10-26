@@ -4,8 +4,13 @@
  */
 
 import { Hub } from 'aws-amplify';
+import { appendToCognitoUserAgent } from '@aws-amplify/auth';
 import { AuthInterpreter, HubHandler } from '../../types';
 import { ALLOWED_SPECIAL_CHARACTERS } from './constants';
+
+// Re-exporting this helper method so the public packages
+// don't need to import anything from '@aws-amplify/auth'
+export { appendToCognitoUserAgent };
 
 // replaces all characters in a string with '*', except for the first and last char
 export const censorAllButFirstAndLast = (value: string): string => {
