@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { FileTypes } from '../../types';
+import { Files } from '../../types';
 import { UseFileUploader } from './types';
 
 export default function useFileUploader(): UseFileUploader {
   const [showPreviewer, setShowPreviewer] = useState(false);
-  const [files, setFiles] = useState<FileTypes>([]);
+  const [files, setFiles] = useState<Files>([]);
 
   const [inDropZone, setInDropZone] = useState(false);
 

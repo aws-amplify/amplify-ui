@@ -6,7 +6,7 @@ import { UploaderButtonProps } from '../types';
 export function UploaderButton({
   multiple,
   acceptedFileTypes,
-  onUpload,
+  onClick,
 }: UploaderButtonProps): JSX.Element {
   const hiddenInput = React.useRef<HTMLInputElement>();
   function handleClick() {

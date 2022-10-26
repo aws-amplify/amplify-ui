@@ -9,7 +9,7 @@ describe('Uploader Button', () => {
       <UploaderButton
         multiple={false}
         acceptedFileTypes={['.png']}
-        onUpload={() => ''}
+        onClick={() => ''}
       />
     );
 
