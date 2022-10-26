@@ -45,7 +45,7 @@ export const SOCIAL_LINKS = [
   {
     type: 'ICON',
     label: 'Twitter',
-    url: 'https://twitter.com/AWSAmplify/',
+    url: 'https://twitter.com/AWSAmplify',
     order: 9,
     icon: 'TWITTER',
   },
