@@ -13,8 +13,6 @@ jobs:
   install:
     runs-on: ubuntu-latest
     environment: deployment
-    needs: build-test
-    if: ${{ needs.setup.outputs.has-changesets != 'true' }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
