@@ -15,7 +15,7 @@ describe('Local Sitemap', () => {
   });
 });
 
-for (let i = 50; i < 60; i++) {
+for (let i = 60; i < 70; i++) {
   describe(`check page ${i}`, () => {
     const baseUrl = 'http://localhost:3000';
 
