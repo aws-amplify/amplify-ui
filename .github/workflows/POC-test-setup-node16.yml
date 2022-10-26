@@ -5,8 +5,8 @@ concurrency:
   cancel-in-progress: true
 
 on:
-  pull_request_target:
-    branches: [chenwz-node16-poc]
+  pull_request:
+    branches: [main]
     types: [opened, synchronize, labeled]
 
 jobs:
