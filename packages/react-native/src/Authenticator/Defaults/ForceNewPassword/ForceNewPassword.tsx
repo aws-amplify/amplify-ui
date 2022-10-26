@@ -24,16 +24,18 @@ const ForceNewPassword: DefaultForceNewPasswordComponent = ({
     <View style={styles.container}>
       <Header>{getChangePasswordText()}</Header>
       <FormFields fields={fields} isPending={isPending} />
-      {error ? (
-        <ErrorMessage style={styles.errorMessage}>{error}</ErrorMessage>
-      ) : null}
+      {error ? <ErrorMessage>{error}</ErrorMessage> : null}
       <Button
         style={styles.buttonPrimary}
         textStyle={styles.buttonPrimaryLabel}
       >
         {isPending ? getChangingText() : getChangePasswordText()}
       </Button>
-      <Button onPress={toSignIn} textStyle={styles.buttonSecondaryLabel}>
+      <Button
+        onPress={toSignIn}
+        style={styles.buttonSecondary}
+        textStyle={styles.buttonSecondaryLabel}
+      >
         {getBackToSignInText()}
       </Button>
       <Footer />
