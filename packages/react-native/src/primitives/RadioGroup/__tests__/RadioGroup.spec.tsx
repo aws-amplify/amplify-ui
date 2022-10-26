@@ -30,7 +30,7 @@ const ControlledRadioGroup = ({
   return (
     <RadioGroup
       {...rest}
-      value={value}
+      initialValue={value}
       onChange={(nextValue) => {
         if (typeof nextValue === 'string') {
           handleOnChange(nextValue);
@@ -93,5 +93,65 @@ describe('RadioGroup', () => {
   it.each(sizes)('renders as expected when size is %s', (value) => {
     const { toJSON } = render(<ControlledRadioGroup size={value} />);
     expect(toJSON()).toMatchSnapshot();
+  });
+
+  it('updates the selected option in uncontrolled mode', () => {
+    const { getByTestId, queryByTestId } = render(
+      <RadioGroup>
+        <Radio value="option-1" label="Option 1" testID="option-1" />
+        <Radio value="option-2" label="Option 2" testID="option-2" />
+      </RadioGroup>
+    );
+
+    const selectedOption = queryByTestId('amplify__radio-button__dot');
+
+    expect(selectedOption).toBeNull();
+
+    const optionOne = getByTestId('option-1');
+
+    fireEvent.press(optionOne);
+
+    expect(queryByTestId('amplify__radio-button__dot')).toBeDefined();
+  });
+
+  it('only calls onValueChange when value changes', () => {
+    const onValueChange = jest.fn();
+
+    const { getByTestId, rerender } = render(
+      <RadioGroup onValueChange={onValueChange}>
+        <Radio value="option-1" label="Option 1" testID="option-1" />
+        <Radio value="option-2" label="Option 2" testID="option-2" />
+      </RadioGroup>
+    );
+
+    const optionOne = getByTestId('option-1');
+
+    fireEvent.press(optionOne);
+
+    expect(onValueChange).toHaveBeenCalledTimes(1);
+    expect(onValueChange).toHaveBeenCalledWith('option-1');
+
+    const updatedOnValueChange = jest.fn();
+
+    rerender(
+      <RadioGroup onValueChange={updatedOnValueChange}>
+        <Radio value="option-1" label="Option 1" testID="option-1" />
+        <Radio value="option-2" label="Option 2" testID="option-2" />
+      </RadioGroup>
+    );
+
+    expect(updatedOnValueChange).not.toHaveBeenCalled();
+  });
+
+  it('renders the label prop', () => {
+    const label = 'label';
+    const { getByText } = render(
+      <RadioGroup label={label}>
+        <Radio value="option-1" label="Option 1" testID="option-1" />
+        <Radio value="option-2" label="Option 1" testID="option-2" />
+      </RadioGroup>
+    );
+
+    expect(getByText(label)).toBeDefined();
   });
 });

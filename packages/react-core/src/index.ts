@@ -14,3 +14,6 @@ export {
   UseAuthenticatorRoute,
   FormFieldsComponent,
 } from './Authenticator';
+
+// components/hooks/utils
+export { useHasValueUpdated, usePreviousValue } from './hooks';
