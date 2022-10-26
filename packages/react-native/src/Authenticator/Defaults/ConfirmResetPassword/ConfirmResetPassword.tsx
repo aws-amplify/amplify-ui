@@ -28,16 +28,18 @@ const ConfirmResetPassword: DefaultConfirmResetPasswordComponent = ({
     <View style={styles.container}>
       <Header>{getResetYourPasswordText()}</Header>
       <FormFields fields={fields} isPending={isPending} />
-      {error ? (
-        <ErrorMessage style={styles.errorMessage}>{error}</ErrorMessage>
-      ) : null}
+      {error ? <ErrorMessage>{error}</ErrorMessage> : null}
       <Button
         style={styles.buttonPrimary}
         textStyle={styles.buttonPrimaryLabel}
       >
         {isPending ? getSubmittingText() : getSubmitText()}
       </Button>
-      <Button onPress={resendCode} textStyle={styles.buttonSecondaryLabel}>
+      <Button
+        onPress={resendCode}
+        style={styles.buttonSecondary}
+        textStyle={styles.buttonSecondaryLabel}
+      >
         {getResendCodeText()}
       </Button>
       <Footer />

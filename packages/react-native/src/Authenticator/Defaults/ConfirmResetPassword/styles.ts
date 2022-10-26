@@ -1,33 +1,28 @@
 import { StyleSheet, TextStyle, ViewStyle } from 'react-native';
 
 export interface ConfirmResetPasswordStyle {
-  container: ViewStyle;
   buttonPrimary: ViewStyle;
   buttonPrimaryLabel: TextStyle;
-  buttonSecondaryLabel: ViewStyle;
-  errorMessage: ViewStyle;
+  buttonSecondary: ViewStyle;
+  buttonSecondaryLabel: TextStyle;
+  container: ViewStyle;
 }
-
-const TEAL = '#317d95';
 
 export const styles: ConfirmResetPasswordStyle = StyleSheet.create({
   container: {
-    flex: 1,
     justifyContent: 'center',
+    flex: 1,
+    padding: 16,
   },
   buttonPrimary: {
-    backgroundColor: TEAL,
-    borderRadius: 4,
-    paddingVertical: 10,
+    backgroundColor: 'teal',
+    marginVertical: 8,
+    paddingVertical: 12,
   },
-  buttonPrimaryLabel: {
-    color: '#fff',
+  buttonPrimaryLabel: { color: 'white', fontSize: 16, fontWeight: 'bold' },
+  buttonSecondary: {
+    marginVertical: 8,
+    paddingVertical: 12,
   },
-  buttonSecondaryLabel: {
-    color: TEAL,
-    paddingVertical: 20,
-  },
-  errorMessage: {
-    marginBottom: 16,
-  },
+  buttonSecondaryLabel: { color: 'teal' },
 });
