@@ -7,6 +7,13 @@ import { DefaultFooter, DefaultFormFields, DefaultHeader } from '../../common';
 import { DefaultResetPasswordComponent } from '../types';
 import { styles } from './styles';
 
+const {
+  getResetYourPasswordText,
+  getSendCodeText,
+  getSendingText,
+  getBackToSignInText,
+} = authenticatorTextUtil;
+
 const ResetPassword: DefaultResetPasswordComponent = ({
   error,
   fields,
@@ -16,13 +23,6 @@ const ResetPassword: DefaultResetPasswordComponent = ({
   isPending,
   toSignIn,
 }) => {
-  const {
-    getResetYourPasswordText,
-    getSendCodeText,
-    getSendingText,
-    getBackToSignInText,
-  } = authenticatorTextUtil;
-
   return (
     <>
       <Header>{getResetYourPasswordText()}</Header>
