@@ -7,6 +7,9 @@ import { DefaultFooter, DefaultFormFields, DefaultHeader } from '../../common';
 import { DefaultForceNewPasswordComponent } from '../types';
 import { styles } from './styles';
 
+const { getChangePasswordText, getChangingText, getBackToSignInText } =
+  authenticatorTextUtil;
+
 const ForceNewPassword: DefaultForceNewPasswordComponent = ({
   error,
   fields,
@@ -16,9 +19,6 @@ const ForceNewPassword: DefaultForceNewPasswordComponent = ({
   isPending,
   toSignIn,
 }) => {
-  const { getChangePasswordText, getChangingText, getBackToSignInText } =
-    authenticatorTextUtil;
-
   return (
     <>
       <Header>{getChangePasswordText()}</Header>
