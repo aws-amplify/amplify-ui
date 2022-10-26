@@ -13,11 +13,12 @@ export interface RadioGroupProps<T>
       | 'labelStyle'
       | 'onChange'
       | 'size'
-      | 'value'
     >,
     ViewProps {
   children: React.ReactElement<RadioProps<T>>[];
   direction?: Direction;
+  initialValue?: T;
+  onValueChange?: (value?: T) => void;
 }
 
 export interface RadioGroupStyles {
