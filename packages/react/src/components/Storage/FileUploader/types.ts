@@ -8,7 +8,7 @@ export type Files = File[];
 export interface UploaderButtonProps {
   acceptedFileTypes: string[];
   multiple?: boolean;
-  onChangeUpload: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   className?: string;
 }
 
