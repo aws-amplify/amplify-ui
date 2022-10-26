@@ -15,7 +15,7 @@ describe('Local Sitemap', () => {
   });
 });
 
-for (let i = 60; i < 70; i++) {
+for (let i = 70; i < 80; i++) {
   describe(`check page ${i}`, () => {
     const baseUrl = 'http://localhost:3000';
 
@@ -50,7 +50,7 @@ for (let i = 60; i < 70; i++) {
             cy.request({ url: tagHref, followRedirect: false }).then(
               ({ status }) => {
                 logMessage('RETURNING', status);
-                expect(status).to.oneOf([200, 301]);
+                expect(status).to.oneOf([200, 301, 303]);
               }
             );
           }
