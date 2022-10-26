@@ -6,7 +6,6 @@ interface SignUpStyle {
   buttonPrimaryLabel: TextStyle;
   buttonSecondary: TextStyle;
   buttonSecondaryLabel: TextStyle;
-  errorMessage: ViewStyle;
 }
 
 export const styles: SignUpStyle = StyleSheet.create({
@@ -21,7 +20,4 @@ export const styles: SignUpStyle = StyleSheet.create({
     paddingVertical: 12,
   },
   buttonSecondaryLabel: { color: 'teal' },
-  errorMessage: {
-    marginBottom: 16,
-  },
 });

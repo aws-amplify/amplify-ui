@@ -5,7 +5,11 @@ import { authenticatorTextUtil } from '@aws-amplify/ui';
 import { ConfirmSignUp } from '..';
 
 const props = {
-  codeDeliveryDetails: undefined,
+  codeDeliveryDetails: {
+    AttributeName: 'email',
+    DeliveryMedium: 'EMAIL',
+    Destination: 'a***@e***.com',
+  },
   fields: [],
   Footer: ConfirmSignUp.Footer,
   FormFields: ConfirmSignUp.FormFields,

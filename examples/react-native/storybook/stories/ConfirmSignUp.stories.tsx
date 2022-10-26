@@ -27,7 +27,7 @@ const props = {
   resendCode: noop,
 };
 
-storiesOf('ConfirmSignUp', module)
+storiesOf('Authenticator.ConfirmSignUp', module)
   .add('default', () => <Authenticator.ConfirmSignUp {...props} />)
   .add('with error', () => (
     <Authenticator.ConfirmSignUp {...props} error={'Error!'} />
