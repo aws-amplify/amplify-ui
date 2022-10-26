@@ -5,15 +5,9 @@ export interface ConfirmResetPasswordStyle {
   buttonPrimaryLabel: TextStyle;
   buttonSecondary: ViewStyle;
   buttonSecondaryLabel: TextStyle;
-  container: ViewStyle;
 }
 
 export const styles: ConfirmResetPasswordStyle = StyleSheet.create({
-  container: {
-    justifyContent: 'center',
-    flex: 1,
-    padding: 16,
-  },
   buttonPrimary: {
     backgroundColor: 'teal',
     marginVertical: 8,

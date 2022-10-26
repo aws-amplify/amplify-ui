@@ -1,5 +1,4 @@
 import React from 'react';
-import { View } from 'react-native';
 
 import { authenticatorTextUtil } from '@aws-amplify/ui';
 
@@ -25,7 +24,7 @@ const ConfirmResetPassword: DefaultConfirmResetPasswordComponent = ({
   } = authenticatorTextUtil;
 
   return (
-    <View style={styles.container}>
+    <>
       <Header>{getResetYourPasswordText()}</Header>
       <FormFields fields={fields} isPending={isPending} />
       {error ? <ErrorMessage>{error}</ErrorMessage> : null}
@@ -43,7 +42,7 @@ const ConfirmResetPassword: DefaultConfirmResetPasswordComponent = ({
         {getResendCodeText()}
       </Button>
       <Footer />
-    </View>
+    </>
   );
 };
 
