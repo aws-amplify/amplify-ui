@@ -119,6 +119,7 @@ exports[`Radio renders as expected when passing a number to the size prop 1`] = 
           undefined,
         ]
       }
+      testID="amplify__radio-button__dot"
     />
   </View>
   <Text
@@ -257,6 +258,7 @@ exports[`Radio renders as expected when selected is true 1`] = `
           undefined,
         ]
       }
+      testID="amplify__radio-button__dot"
     />
   </View>
   <Text
@@ -334,6 +336,7 @@ exports[`Radio renders as expected when size is large 1`] = `
           undefined,
         ]
       }
+      testID="amplify__radio-button__dot"
     />
   </View>
   <Text
@@ -411,6 +414,7 @@ exports[`Radio renders as expected when size is medium 1`] = `
           undefined,
         ]
       }
+      testID="amplify__radio-button__dot"
     />
   </View>
   <Text
@@ -488,6 +492,7 @@ exports[`Radio renders as expected when size is small 1`] = `
           undefined,
         ]
       }
+      testID="amplify__radio-button__dot"
     />
   </View>
   <Text
