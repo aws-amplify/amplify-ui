@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Divider renders as expected with label 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "flexDirection": "row",
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "backgroundColor": "black",
+          "flex": 1,
+          "height": 0.5,
+        },
+        undefined,
+      ]
+    }
+  />
+  <Text
+    accessibilityRole="text"
+    style={
+      Array [
+        Object {
+          "fontSize": 16,
+          "marginHorizontal": 4,
+          "marginVertical": 2,
+        },
+        Array [
+          Object {
+            "fontSize": 16,
+            "margin": 8,
+            "textAlign": "center",
+          },
+          undefined,
+        ],
+      ]
+    }
+  >
+    Divider label
+  </Text>
+  <View
+    style={
+      Array [
+        Object {
+          "backgroundColor": "black",
+          "flex": 1,
+          "height": 0.5,
+        },
+        undefined,
+      ]
+    }
+  />
+</View>
+`;
+
+exports[`Divider renders as expected without label 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "flexDirection": "row",
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "backgroundColor": "black",
+          "flex": 1,
+          "height": 0.5,
+        },
+        undefined,
+      ]
+    }
+  />
+</View>
+`;
