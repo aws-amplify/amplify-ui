@@ -59,10 +59,10 @@ jobs:
           ref: ${{ inputs.commit }}
           repository: ${{ inputs.repository }}
           persist-credentials: false
-      - name: Setup Node.js LTS
+      - name: Setup Node.js 16
         uses: actions/setup-node@v3
         with:
-          node-version: lts/*
+          node-version: 16
           cache: 'yarn'
       - name: Restore cypress runner from Cache
         uses: actions/cache@v3
@@ -123,10 +123,10 @@ jobs:
           repository: ${{ inputs.repository }}
           persist-credentials: false
 
-      - name: Setup Node.js LTS
+      - name: Setup Node.js 16
         uses: actions/setup-node@v3
         with:
-          node-version: lts/*
+          node-version: 16
           cache: 'yarn'
 
       - name: Restore node_modules cache
@@ -226,10 +226,10 @@ jobs:
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
-      - name: Setup Node.js LTS
+      - name: Setup Node.js 16
         uses: actions/setup-node@v3
         with:
-          node-version: lts/*
+          node-version: 16
           cache: 'yarn'
 
       - name: Restore cypress runner Cache
@@ -362,10 +362,10 @@ jobs:
           repository: ${{ inputs.repository }}
           persist-credentials: false
 
-      - name: Setup Node.js LTS
+      - name: Setup Node.js 16
         uses: actions/setup-node@v3
         with:
-          node-version: lts/*
+          node-version: 16
           cache: 'yarn'
 
       - name: Restore cypress runner Cache
