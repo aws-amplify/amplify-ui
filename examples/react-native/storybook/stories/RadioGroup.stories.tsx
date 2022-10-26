@@ -13,7 +13,23 @@ const ControlledRadioGroup = ({ ...props }: any) => {
   };
 
   return (
-    <RadioGroup {...props} value={value} onChange={onChange}>
+    <RadioGroup {...props} initialValue={value} onChange={onChange}>
+      <Radio value="option-1" label="Option 1" />
+      <Radio value="option-2" label="Option 2" />
+      <Radio value="option-3" label="Option 3" />
+    </RadioGroup>
+  );
+};
+
+const UncontrolledRadioGroup = ({ ...props }: any) => {
+  const [selectedValue, setSelectedValue] = useState('Empty :(');
+
+  return (
+    <RadioGroup
+      {...props}
+      label={selectedValue}
+      onValueChange={setSelectedValue}
+    >
       <Radio value="option-1" label="Option 1" />
       <Radio value="option-2" label="Option 2" />
       <Radio value="option-3" label="Option 3" />
@@ -28,7 +44,7 @@ const CustomRadioGroup = ({ ...props }: any) => {
   };
 
   return (
-    <RadioGroup {...props} value={value} onChange={onChange}>
+    <RadioGroup {...props} initialValue={value} onChange={onChange}>
       <Radio value="small" label="Should be small" size="small" />
       <Radio
         value="red"
@@ -48,8 +64,9 @@ const CustomRadioGroup = ({ ...props }: any) => {
 storiesOf('RadioGroup', module)
   .add('default', () => <ControlledRadioGroup label="Basic RadioGroup" />)
   .add('controlled', () => (
-    <ControlledRadioGroup label="Defaults to Option 2" value="option-2" />
+    <ControlledRadioGroup label="Defaults to Option 2" />
   ))
+  .add('uncontrolled', () => <UncontrolledRadioGroup initialValue="option-2" />)
   .add('direction', () => (
     <>
       <ControlledRadioGroup label="Horizontal" direction="horizontal" />
