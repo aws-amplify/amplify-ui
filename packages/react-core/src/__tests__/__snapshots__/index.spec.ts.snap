@@ -7,5 +7,7 @@ Array [
   "useAuthenticator",
   "useAuthenticatorInitMachine",
   "useAuthenticatorRoute",
+  "useHasValueUpdated",
+  "usePreviousValue",
 ]
 `;
