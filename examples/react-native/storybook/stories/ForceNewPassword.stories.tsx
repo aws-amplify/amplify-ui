@@ -1,11 +1,28 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react-native';
-import { ForceNewPassword } from '@aws-amplify/ui-react-native/dist/Authenticator/Defaults';
+import { Authenticator } from '@aws-amplify/ui-react-native';
+import noop from 'lodash/noop';
 
-const props = {} as any;
+const baseProps = {
+  error: null as unknown as string,
+  fields: [],
+  Footer: Authenticator.ForceNewPassword.Footer,
+  FormFields: Authenticator.ForceNewPassword.FormFields,
+  Header: Authenticator.ForceNewPassword.Header,
+  handleBlur: noop,
+  handleSubmit: (values: any) => {
+    console.log('Values', values);
+  },
+  handleChange: noop,
+  isPending: false,
+  toSignIn: noop,
+};
 
-storiesOf('ForceNewPassword', module)
-  .add('default', () => <ForceNewPassword {...props} />)
-  .add('header', () => <ForceNewPassword.Header />)
-  .add('footer', () => <ForceNewPassword.Footer />)
-  .add('formFields', () => <ForceNewPassword.FormFields {...props} />);
+storiesOf('Authenticator.ForceNewPassword', module)
+  .add('default', () => <Authenticator.ForceNewPassword {...baseProps} />)
+  .add('with error', () => (
+    <Authenticator.ForceNewPassword {...baseProps} error="Error!" />
+  ))
+  .add('isPending', () => (
+    <Authenticator.ForceNewPassword {...baseProps} isPending />
+  ));

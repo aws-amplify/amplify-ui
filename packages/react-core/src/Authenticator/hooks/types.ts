@@ -131,8 +131,11 @@ export type SignInBaseProps<FieldType = {}> = {
   ComponentSlots<FieldType>;
 
 export type SignUpBaseProps<FieldType = {}> = {
+  hideSignIn?: boolean;
+  socialProviders?: AuthenticatorMachineContext['socialProviders'];
+  toFederatedSignIn: AuthenticatorMachineContext['toFederatedSignIn'];
   toSignIn: AuthenticatorMachineContext['toSignIn'];
-  validationErrors: AuthenticatorMachineContext['validationErrors'];
+  validationErrors?: AuthenticatorMachineContext['validationErrors'];
 } & CommonRouteProps &
   ComponentSlots<FieldType>;
 

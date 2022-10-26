@@ -1,13 +1,49 @@
 import React from 'react';
-import { Text } from 'react-native';
 
-import { DefaultFooter } from '../../common/DefaultFooter';
-import { DefaultHeader } from '../../common/DefaultHeader';
-import { DefaultFormFields } from '../../common/DefaultFormFields';
+import { authenticatorTextUtil } from '@aws-amplify/ui';
+
+import { Button, ErrorMessage } from '../../../primitives';
+import { DefaultHeader, DefaultFooter, DefaultFormFields } from '../../common';
 import { DefaultConfirmResetPasswordComponent } from '../types';
+import { styles } from './styles';
 
-const ConfirmResetPassword: DefaultConfirmResetPasswordComponent = () => {
-  return <Text>ConfirmResetPassword</Text>;
+const {
+  getResetYourPasswordText,
+  getSubmitText,
+  getSubmittingText,
+  getResendCodeText,
+} = authenticatorTextUtil;
+
+const ConfirmResetPassword: DefaultConfirmResetPasswordComponent = ({
+  error,
+  fields,
+  Footer,
+  FormFields,
+  Header,
+  isPending,
+  resendCode,
+}) => {
+  return (
+    <>
+      <Header>{getResetYourPasswordText()}</Header>
+      <FormFields fields={fields} isPending={isPending} />
+      {error ? <ErrorMessage>{error}</ErrorMessage> : null}
+      <Button
+        style={styles.buttonPrimary}
+        textStyle={styles.buttonPrimaryLabel}
+      >
+        {isPending ? getSubmittingText() : getSubmitText()}
+      </Button>
+      <Button
+        onPress={resendCode}
+        style={styles.buttonSecondary}
+        textStyle={styles.buttonSecondaryLabel}
+      >
+        {getResendCodeText()}
+      </Button>
+      <Footer />
+    </>
+  );
 };
 
 ConfirmResetPassword.Footer = DefaultFooter;
