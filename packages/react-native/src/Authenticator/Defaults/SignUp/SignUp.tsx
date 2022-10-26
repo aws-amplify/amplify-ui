@@ -8,8 +8,14 @@ import { FederatedProviderButtons } from '../../common/FederatedProviderButtons'
 import { DefaultSignUpComponent } from '../types';
 import { Button, ErrorMessage, Tab, Tabs } from '../../../primitives';
 import { authenticatorTextUtil } from '@aws-amplify/ui';
-
 import { styles } from './style';
+
+const {
+  getCreateAccountText,
+  getCreatingAccountText,
+  getSignInTabText,
+  getSignUpTabText,
+} = authenticatorTextUtil;
 
 const SignUp: DefaultSignUpComponent = ({
   error,
@@ -24,13 +30,6 @@ const SignUp: DefaultSignUpComponent = ({
   toSignIn,
   validationErrors,
 }) => {
-  const {
-    getCreateAccountText,
-    getCreatingAccountText,
-    getSignInTabText,
-    getSignUpTabText,
-  } = authenticatorTextUtil;
-
   return (
     <>
       {hideSignIn ? null : (
