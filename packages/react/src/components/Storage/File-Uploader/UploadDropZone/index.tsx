@@ -2,12 +2,16 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import React from 'react';
 import { Card } from '../../../../primitives';
-import { UploaderDropProps } from '../types';
+import { UploadDropZoneProps } from '../types';
 
-export function UploaderDrop({
+export function UploadDropZone({
   children,
   inDropZone,
-  getDropEvents,
-}: UploaderDropProps): JSX.Element {
+  onDragStart,
+  onDragEnter,
+  onDragLeave,
+  onDrop,
+  onDragOver,
+}: UploadDropZoneProps): JSX.Element {
   return <Card>{children}</Card>;
 }

@@ -14,12 +14,6 @@ function CustomUploaderDrop({ getDropEvents, inDropZone }) {
 
 export default function FileUploaderEmail() {
   return (
-    <>
-      <FileUploader
-        acceptedFileTypes={['.png']}
-        level="public"
-        multiple={true}
-      />
-    </>
+    <FileUploader acceptedFileTypes={['.png']} level="public" multiple={true} />
   );
 }

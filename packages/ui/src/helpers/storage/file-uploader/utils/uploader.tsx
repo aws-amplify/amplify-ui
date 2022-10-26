@@ -15,15 +15,11 @@ export function uploadFile({
   file,
   fileName,
   level = 'private',
-  setPercentage,
-  percentage,
   index,
 }: {
   file: File;
   fileName: string;
   level: StorageAccessLevel;
-  setPercentage: (percentage: Array<number>) => void;
-  percentage: Array<number>;
   index: number;
 }): UploadTask {
   // stub

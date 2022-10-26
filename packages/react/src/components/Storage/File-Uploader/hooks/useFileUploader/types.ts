@@ -1,4 +1,4 @@
-export type SetFileType = File[];
+import { FileTypes } from '../../types';
 
 export interface DragActionHandlers {
   onDragStart: (e: React.DragEvent<HTMLDivElement>) => void;
@@ -8,12 +8,11 @@ export interface DragActionHandlers {
   onDragOver: (e: React.DragEvent<HTMLDivElement>) => void;
 }
 
-export interface UseFileUploader {
+export interface UseFileUploader extends DragActionHandlers {
   showPreviewer?: boolean;
   setShowPreviewer?: React.Dispatch<React.SetStateAction<boolean>>;
-  files?: SetFileType;
-  setFiles?: React.Dispatch<React.SetStateAction<SetFileType>>;
+  files?: FileTypes;
+  setFiles?: React.Dispatch<React.SetStateAction<FileTypes>>;
   inDropZone?: boolean;
   setInDropZone?: React.Dispatch<React.SetStateAction<boolean>>;
-  getDropEvents?: DragActionHandlers;
 }

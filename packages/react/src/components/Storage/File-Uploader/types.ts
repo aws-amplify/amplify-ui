@@ -4,7 +4,7 @@ import { FileName } from '@aws-amplify/ui';
 
 export type SetShowPreviewer = (show: boolean) => void;
 type LevelInfo = 'public' | 'protected' | 'private';
-export type SetFileType = File[];
+export type FileTypes = File[];
 
 export interface UploaderButtonProps {
   acceptedFileTypes: Array<string>;
@@ -12,17 +12,16 @@ export interface UploaderButtonProps {
   onUpload: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export interface UploaderDropProps {
+export interface UploadDropZoneProps extends DragActionHandlers {
   children?: React.ReactNode;
   inDropZone?: boolean;
-  getDropEvents?: DragActionHandlers;
 }
 
 export interface FileUploaderProps {
   acceptedFileTypes: Array<string>;
   fileNames?: FileName;
   multiple?: boolean;
-  components?: ComponentsProviderProps;
+  components?: ComponentsProps;
   level: LevelInfo;
   maxFiles?: number;
   maxMultipleSize?: number;
@@ -32,7 +31,6 @@ export interface FileUploaderProps {
   onError?: () => void;
   onSuccess?: () => void;
   path?: string;
-  showPreview?: boolean;
   variation?: 'drop' | 'button';
 }
 
@@ -43,9 +41,9 @@ export interface FilePreviewerProps {
   onClose: () => void;
 }
 
-type UploaderDropComponent<Props = {}> = React.ComponentType<
-  Props & Partial<UploaderDropProps>
+type UploadDropZoneComponent<Props = {}> = React.ComponentType<
+  Props & Partial<UploadDropZoneProps>
 >;
-export interface ComponentsProviderProps {
-  UploaderDrop?: UploaderDropComponent;
+export interface ComponentsProps {
+  UploadDropZone?: UploadDropZoneComponent;
 }
