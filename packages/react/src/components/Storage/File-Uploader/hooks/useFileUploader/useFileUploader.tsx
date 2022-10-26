@@ -8,29 +8,29 @@ export default function useFileUploader(): UseFileUploader {
   const [inDropZone, setInDropZone] = useState(false);
 
   const getDropEvents = useMemo(() => {
-    const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
-      e.dataTransfer.clearData();
+    const handleDragStart = (event: React.DragEvent<HTMLDivElement>) => {
+      event.dataTransfer.clearData();
     };
-    const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
-      e.preventDefault();
-      e.stopPropagation();
+    const handleDragEnter = (event: React.DragEvent<HTMLDivElement>) => {
+      event.preventDefault();
+      event.stopPropagation();
     };
-    const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
-      e.preventDefault();
-      e.stopPropagation();
+    const handleDragLeave = (event: React.DragEvent<HTMLDivElement>) => {
+      event.preventDefault();
+      event.stopPropagation();
       setInDropZone(false);
     };
-    const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-      e.preventDefault();
-      e.stopPropagation();
+    const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+      event.preventDefault();
+      event.stopPropagation();
       setInDropZone(true);
-      e.dataTransfer.dropEffect = 'copy';
+      event.dataTransfer.dropEffect = 'copy';
     };
-    const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
-      e.preventDefault();
-      e.stopPropagation();
-      const files = [...e.dataTransfer.files];
-      if (files && files.length > 0) {
+    const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+      event.preventDefault();
+      event.stopPropagation();
+      const files = [...event.dataTransfer.files];
+      if (files?.length > 0) {
         setFiles(files);
         setShowPreviewer(true);
       }

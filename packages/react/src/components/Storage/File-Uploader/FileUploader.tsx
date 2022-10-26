@@ -1,16 +1,11 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect } from 'react';
+import { translate } from '@aws-amplify/ui';
 import { FileUploaderProps } from './types';
+import { useFileUploader } from './hooks/useFileUploader';
+import { Text } from '../../../primitives';
 import { UploaderButton } from './UploaderButton';
 import { Previewer } from './Previewer';
-import { View, Text } from '../../../primitives';
 import { UploaderDrop } from './UploaderDrop';
-import { useFileUploader } from './hooks/useFileUploader';
-import { translate } from '@aws-amplify/ui';
-
-/**
- * [📖 Docs](https://ui.docs.amplify.aws/react/connected-components/storage)
- */
 
 export function FileUploader({
   acceptedFileTypes,
@@ -36,59 +31,58 @@ export function FileUploader({
   const {
     setShowPreviewer,
     showPreviewer,
-    files,
     getDropEvents,
     inDropZone,
     setFiles,
   } = useFileUploader();
 
+  // eslint-disable-next-line no-console
+  console.log(
+    'todo:',
+    maxMultipleSize,
+    maxSize,
+    maxFiles,
+    onChange,
+    onError,
+    onSuccess,
+    path,
+    showPreview,
+    level,
+    fileNames
+  );
+
   useEffect(() => {
     setShowPreviewer(isPreviewerVisible);
   }, [setShowPreviewer, isPreviewerVisible]);
 
-  function onClose() {
-    setShowPreviewer(false);
-  }
-
-  function onUpload(event: React.ChangeEvent<HTMLInputElement>) {
+  const onUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files || event.target.files.length === 0) return;
 
     const { files } = event.target;
     setFiles([...files]);
     setShowPreviewer(true);
-  }
-  const commonProps = {
+  };
+  const CommonProps = {
     acceptedFileTypes,
     multiple,
     onUpload,
   };
 
   if (showPreviewer) {
-    return (
-      <Previewer
-        fileNames={fileNames}
-        files={files}
-        level={level}
-        onClose={() => onClose()}
-      />
-    );
+    return <Previewer />;
+  } else if (variation === 'button') {
+    return <UploaderButton {...CommonProps} />;
   } else {
     return (
-      <>
-        {variation === 'button' ? (
-          <UploaderButton {...commonProps} />
-        ) : (
-          <UploaderDrop getDropEvents={getDropEvents} inDropZone={inDropZone}>
-            <Text className="amplify-fileuploader__dropzone__text">
-              {translate('Drop files here or')}
-            </Text>
-            <UploaderButton
-              {...commonProps}
-              className={'amplify-fileuploader__dropzone__button'}
-            />
-          </UploaderDrop>
-        )}
-      </>
+      <UploaderDrop getDropEvents={getDropEvents} inDropZone={inDropZone}>
+        <Text className="amplify-fileuploader__dropzone__text">
+          {translate('Drop files here or')}
+        </Text>
+        <UploaderButton
+          {...CommonProps}
+          className={'amplify-fileuploader__dropzone__button'}
+        />
+      </UploaderDrop>
     );
   }
 }

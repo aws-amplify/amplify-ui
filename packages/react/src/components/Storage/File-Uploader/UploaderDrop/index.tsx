@@ -1,8 +1,8 @@
 import React from 'react';
-import { Card, Flex } from '../../../../primitives';
-import { UploaderDropProps } from '../types';
-import { UploadIcon } from './UploadIcon';
 import classNames from 'classnames';
+import { UploaderDropProps } from '../types';
+import { Card, Flex } from '../../../../primitives';
+import { UploadIcon } from './UploadIcon';
 
 export function UploaderDrop({
   children,

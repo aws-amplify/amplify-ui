@@ -1,11 +1,11 @@
 export type SetFileType = File[];
 
 export interface DragActionHandlers {
-  onDragStart: (e: React.DragEvent<HTMLDivElement>) => void;
-  onDragEnter: (e: React.DragEvent<HTMLDivElement>) => void;
-  onDragLeave: (e: React.DragEvent<HTMLDivElement>) => void;
-  onDrop: (e: React.DragEvent<HTMLDivElement>) => void;
-  onDragOver: (e: React.DragEvent<HTMLDivElement>) => void;
+  onDragStart: (event: React.DragEvent<HTMLDivElement>) => void;
+  onDragEnter: (event: React.DragEvent<HTMLDivElement>) => void;
+  onDragLeave: (event: React.DragEvent<HTMLDivElement>) => void;
+  onDrop: (event: React.DragEvent<HTMLDivElement>) => void;
+  onDragOver: (event: React.DragEvent<HTMLDivElement>) => void;
 }
 
 export interface UseFileUploader {

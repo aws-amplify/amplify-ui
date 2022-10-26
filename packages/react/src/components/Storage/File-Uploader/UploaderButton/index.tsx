@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
-import { Button, VisuallyHidden } from '../../../../primitives';
-import { UploaderButtonProps } from '../types';
 import { translate } from '@aws-amplify/ui';
+import { UploaderButtonProps } from '../types';
+import { Button, VisuallyHidden } from '../../../../primitives';
 
 export function UploaderButton({
   multiple,
@@ -11,9 +10,9 @@ export function UploaderButton({
   className,
 }: UploaderButtonProps): JSX.Element {
   const hiddenInput = React.useRef<HTMLInputElement>();
-  function onClick() {
+  const onClick = () => {
     hiddenInput.current.click();
-  }
+  };
 
   return (
     <>

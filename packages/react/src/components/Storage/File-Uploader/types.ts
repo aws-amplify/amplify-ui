@@ -7,7 +7,7 @@ type LevelInfo = 'public' | 'protected' | 'private';
 export type SetFileType = File[];
 
 export interface UploaderButtonProps {
-  acceptedFileTypes: Array<string>;
+  acceptedFileTypes: string[];
   multiple?: boolean;
   onUpload: (event: React.ChangeEvent<HTMLInputElement>) => void;
   className?: string;
@@ -23,7 +23,7 @@ export interface UploadIconProps {
 }
 
 export interface FileUploaderProps {
-  acceptedFileTypes: Array<string>;
+  acceptedFileTypes: string[];
   fileNames?: FileName;
   multiple?: boolean;
   components?: ComponentsProviderProps;
