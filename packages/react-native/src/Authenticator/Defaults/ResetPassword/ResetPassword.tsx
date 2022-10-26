@@ -28,16 +28,18 @@ const ResetPassword: DefaultResetPasswordComponent = ({
     <View style={styles.container}>
       <Header>{getResetYourPasswordText()}</Header>
       <FormFields fields={fields} isPending={isPending} />
-      {error ? (
-        <ErrorMessage style={styles.errorMessage}>{error}</ErrorMessage>
-      ) : null}
+      {error ? <ErrorMessage>{error}</ErrorMessage> : null}
       <Button
         style={styles.buttonPrimary}
         textStyle={styles.buttonPrimaryLabel}
       >
         {isPending ? getSendingText() : getSendCodeText()}
       </Button>
-      <Button onPress={toSignIn} textStyle={styles.buttonSecondaryLabel}>
+      <Button
+        onPress={toSignIn}
+        style={styles.buttonSecondary}
+        textStyle={styles.buttonSecondaryLabel}
+      >
         {getBackToSignInText()}
       </Button>
       <Footer />
