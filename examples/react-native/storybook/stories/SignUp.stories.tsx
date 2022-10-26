@@ -1,10 +1,8 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
 import { storiesOf } from '@storybook/react-native';
 import noop from 'lodash/noop';
 
 import { Authenticator } from '@aws-amplify/ui-react-native';
-import { SignUpBaseProps } from '@aws-amplify/ui-react-core/dist/types/Authenticator/hooks';
 
 const username = {
   name: 'username',

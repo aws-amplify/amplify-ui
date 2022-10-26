@@ -25,14 +25,22 @@ exports[`Divider renders as expected with label 1`] = `
     }
   />
   <Text
+    accessibilityRole="text"
     style={
       Array [
         Object {
           "fontSize": 16,
-          "margin": 8,
-          "textAlign": "center",
+          "marginHorizontal": 4,
+          "marginVertical": 2,
         },
-        undefined,
+        Array [
+          Object {
+            "fontSize": 16,
+            "margin": 8,
+            "textAlign": "center",
+          },
+          undefined,
+        ],
       ]
     }
   >

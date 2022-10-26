@@ -22,6 +22,7 @@ const SignUp: DefaultSignUpComponent = ({
   socialProviders,
   toFederatedSignIn,
   toSignIn,
+  validationErrors,
 }) => {
   const {
     getCreateAccountText,
@@ -45,7 +46,11 @@ const SignUp: DefaultSignUpComponent = ({
           toFederatedSignIn={toFederatedSignIn}
         />
       ) : null}
-      <FormFields isPending={isPending} fields={fields} />
+      <FormFields
+        isPending={isPending}
+        fields={fields}
+        validationErrors={validationErrors}
+      />
       {error ? <ErrorMessage>{error}</ErrorMessage> : null}
       <Button
         style={styles.buttonPrimary}

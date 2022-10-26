@@ -1,8 +1,9 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 
 import { DividerProps } from './types';
 import { styles } from './styles';
+import { Label } from '../Label';
 
 export default function Divider({
   children,
@@ -15,7 +16,7 @@ export default function Divider({
       <View style={[styles.line, lineStyle]} />
       {children ? (
         <>
-          <Text style={[styles.label, labelStyle]}>{children}</Text>
+          <Label style={[styles.label, labelStyle]}>{children}</Label>
           <View style={[styles.line, lineStyle]} />
         </>
       ) : null}

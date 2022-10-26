@@ -107,17 +107,25 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
       }
     />
     <Text
+      accessibilityRole="text"
       style={
         Array [
           Object {
             "fontSize": 16,
-            "margin": 8,
-            "textAlign": "center",
+            "marginHorizontal": 4,
+            "marginVertical": 2,
           },
-          Object {
-            "paddingVertical": 8,
-            "textAlign": "center",
-          },
+          Array [
+            Object {
+              "fontSize": 16,
+              "margin": 8,
+              "textAlign": "center",
+            },
+            Object {
+              "paddingVertical": 8,
+              "textAlign": "center",
+            },
+          ],
         ]
       }
     >
