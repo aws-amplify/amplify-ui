@@ -1,5 +1,4 @@
 import React from 'react';
-import { View } from 'react-native';
 
 import { authenticatorTextUtil } from '@aws-amplify/ui';
 
@@ -21,7 +20,7 @@ const ForceNewPassword: DefaultForceNewPasswordComponent = ({
     authenticatorTextUtil;
 
   return (
-    <View style={styles.container}>
+    <>
       <Header>{getChangePasswordText()}</Header>
       <FormFields fields={fields} isPending={isPending} />
       {error ? <ErrorMessage>{error}</ErrorMessage> : null}
@@ -39,7 +38,7 @@ const ForceNewPassword: DefaultForceNewPasswordComponent = ({
         {getBackToSignInText()}
       </Button>
       <Footer />
-    </View>
+    </>
   );
 };
 
