@@ -2674,6 +2674,104 @@ exports[`PhoneNumberField renders as expected when default dial code is undefine
 </View>
 `;
 
+exports[`PhoneNumberField renders as expected when default dial codes are undefined 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "display": "flex",
+        "flexDirection": "row",
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "flex": 1,
+          "height": 44,
+          "minWidth": 0,
+        },
+        undefined,
+      ]
+    }
+  >
+    <RNCPicker
+      items={Array []}
+      numberOfLines={1}
+      onChange={[Function]}
+      selectedIndex={0}
+      style={
+        Array [
+          Object {
+            "height": 216,
+          },
+          Array [
+            Object {
+              "height": 44,
+            },
+            undefined,
+          ],
+        ]
+      }
+      testID="RNPicker"
+    />
+  </View>
+  <View
+    accessibilityState={
+      Object {
+        "disabled": undefined,
+      }
+    }
+    accessible={true}
+    style={
+      Array [
+        Object {
+          "alignItems": "flex-start",
+        },
+        Array [
+          undefined,
+          undefined,
+        ],
+      ]
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "borderColor": "black",
+          "borderRadius": 4,
+          "borderWidth": 1,
+          "flexDirection": "row",
+          "padding": 8,
+          "width": "100%",
+        }
+      }
+    >
+      <TextInput
+        accessible={true}
+        editable={true}
+        keyboardType="phone-pad"
+        style={
+          Array [
+            Object {
+              "flexGrow": 1,
+              "fontSize": 16,
+            },
+            undefined,
+          ]
+        }
+        testID="phoneNumberInput"
+      />
+    </View>
+  </View>
+</View>
+`;
+
 exports[`PhoneNumberField renders as expected when disabled 1`] = `
 <View
   style={

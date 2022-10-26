@@ -1,22 +1,43 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
 
+import { authenticatorTextUtil } from '@aws-amplify/ui';
 import { ConfirmVerifyUser } from '..';
 
-const props = {} as any;
+const { getAccountRecoveryInfoText, getSkipText } = authenticatorTextUtil;
+
+const props = {
+  fields: [],
+  FormFields: ConfirmVerifyUser.FormFields,
+  Footer: ConfirmVerifyUser.Footer,
+  handleBlur: jest.fn(),
+  handleChange: jest.fn(),
+  handleSubmit: jest.fn(),
+  Header: ConfirmVerifyUser.Header,
+  isPending: false,
+  skipVerification: jest.fn(),
+};
 
 describe('ConfirmVerifyUser', () => {
   it('renders as expected', () => {
-    const { toJSON, getByRole } = render(
-      <>
-        <ConfirmVerifyUser {...props} />
-        <ConfirmVerifyUser.Header />
-        <ConfirmVerifyUser.Footer />
-        <ConfirmVerifyUser.FormFields {...props} />
-      </>
+    const { toJSON, getByRole, getByText } = render(
+      <ConfirmVerifyUser {...props} />
     );
     expect(toJSON()).toMatchSnapshot();
 
     expect(getByRole('header')).toBeDefined();
+    expect(getByText(getAccountRecoveryInfoText())).toBeDefined();
+    expect(getByText(getSkipText())).toBeDefined();
+  });
+
+  it('renders as expected with errors', () => {
+    const error = 'Something went wrong';
+    const { toJSON, getByRole, getByText } = render(
+      <ConfirmVerifyUser {...props} error={error} />
+    );
+    expect(toJSON()).toMatchSnapshot();
+
+    expect(getByRole('alert')).toBeDefined();
+    expect(getByText(error)).toBeDefined();
   });
 });

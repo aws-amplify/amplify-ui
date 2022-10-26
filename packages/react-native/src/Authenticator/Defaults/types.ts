@@ -6,6 +6,7 @@ import {
 import {
   TextFieldProps,
   PasswordFieldProps,
+  PhoneNumberFieldProps,
   RadioProps,
 } from '../../primitives';
 
@@ -29,7 +30,7 @@ export type AuthenticatorFieldTypeKey =
   | 'radio';
 
 export type PasswordFieldOptions = FieldOptions<PasswordFieldProps, 'password'>;
-export type PhoneFieldOptions = FieldOptions<PasswordFieldProps, 'phone'>;
+export type PhoneFieldOptions = FieldOptions<PhoneNumberFieldProps, 'phone'>;
 export type DefaultFieldOptions = FieldOptions<TextFieldProps, 'default'>;
 export type TextFieldOptionsType =
   | PasswordFieldOptions

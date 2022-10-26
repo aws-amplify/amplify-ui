@@ -3,7 +3,7 @@ import { render } from '@testing-library/react-native';
 
 import { SetupTOTP } from '..';
 
-const props = {} as any;
+const props = { fields: [] } as any;
 
 describe('SetupTOTP', () => {
   it('renders as expected', () => {

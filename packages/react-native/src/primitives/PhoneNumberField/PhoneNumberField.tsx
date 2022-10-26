@@ -28,7 +28,7 @@ export default function PhoneNumberField({
   );
 
   const pickerItems = useMemo(() => {
-    return dialCodes.map((dialCode) => {
+    return dialCodes?.map((dialCode) => {
       return <Picker.Item label={dialCode} value={dialCode} key={dialCode} />;
     });
   }, [dialCodes]);

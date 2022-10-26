@@ -3,7 +3,7 @@ import { render } from '@testing-library/react-native';
 
 import { ConfirmSignUp } from '..';
 
-const props = {} as any;
+const props = { fields: [] } as any;
 
 describe('ConfirmSignUp', () => {
   it('renders as expected', () => {

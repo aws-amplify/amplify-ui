@@ -24,8 +24,8 @@ const confirmPassword = {
 };
 const phone = {
   name: 'phone',
-  label: 'Confirm Password',
-  placeholder: 'Confirm Password',
+  label: 'Phone',
+  placeholder: 'Phone',
   type: 'phone' as const,
 };
 

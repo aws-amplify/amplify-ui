@@ -2,23 +2,49 @@ import React from 'react';
 import { render } from '@testing-library/react-native';
 
 import { SignUp } from '..';
-import { DefaultFormFields } from '../../../common/DefaultFormFields';
-import { DefaultFooter, DefaultHeader } from '../../../common';
 import { authenticatorTextUtil } from '@aws-amplify/ui';
 
+const username = {
+  name: 'username',
+  label: 'Username',
+  placeholder: 'Username',
+  type: 'default' as const,
+};
+const password = {
+  name: 'password',
+  label: 'Password',
+  placeholder: 'Password',
+  type: 'password' as const,
+};
+const confirmPassword = {
+  name: 'confirmPassword',
+  label: 'Confirm Password',
+  placeholder: 'Confirm Password',
+  type: 'password' as const,
+};
+const phone = {
+  name: 'phone',
+  label: 'Phone',
+  placeholder: 'Phone',
+  type: 'phone' as const,
+};
+
+const fields = [username, password, confirmPassword, phone];
+
 const props = {
-  fields: [],
-  FormFields: DefaultFormFields,
-  Footer: DefaultFooter,
+  fields,
+  FormFields: SignUp.FormFields,
+  Footer: SignUp.Footer,
   handleBlur: jest.fn(),
   handleChange: jest.fn(),
   handleSubmit: jest.fn(),
-  Header: DefaultHeader,
+  Header: SignUp.Header,
   isPending: false,
   socialProviders: [],
   toResetPassword: jest.fn(),
   toFederatedSignIn: jest.fn(),
   toSignIn: jest.fn(),
+  validationErrors: undefined,
 };
 
 const { getCreatingAccountText } = authenticatorTextUtil;
@@ -33,6 +59,7 @@ describe('SignUp', () => {
     expect(getByRole('header')).toBeDefined();
     expect(getAllByRole('tab')).toHaveLength(2);
     expect(queryByText(getCreatingAccountText())).toBe(null);
+    expect(getAllByRole('text')).toHaveLength(fields.length);
   });
 
   it('renders as expected with errors', () => {
