@@ -1,5 +1,15 @@
-import React, { Children, cloneElement, isValidElement, useMemo } from 'react';
+import React, {
+  Children,
+  cloneElement,
+  isValidElement,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { View, ViewStyle } from 'react-native';
+
+import { useHasValueUpdated } from '@aws-amplify/ui-react-core';
 
 import { Label } from '../Label';
 import { getFlexDirectionFromLabelPosition } from '../Label/utils';
@@ -13,15 +23,29 @@ export default function RadioGroup<T>({
   children,
   direction = 'vertical',
   disabled,
+  initialValue,
   label,
   labelPosition = 'top',
   labelStyle,
   onChange,
+  onValueChange,
   size,
   style,
-  value,
   ...rest
 }: RadioGroupProps<T>): JSX.Element {
+  const [value, setValue] = useState<T | undefined>(initialValue);
+
+  // track `hasValueUpdated` and `hasOnValueChangeUpdated`,
+  // only call `onValueChange` on `value` update
+  const hasValueUpdated = useHasValueUpdated(value);
+  const hasOnValueChangeUpdated = useHasValueUpdated(onValueChange);
+
+  useEffect(() => {
+    if (hasValueUpdated) {
+      onValueChange?.(value);
+    }
+  }, [hasOnValueChangeUpdated, hasValueUpdated, onValueChange, value]);
+
   const containerStyle: ViewStyle = useMemo(
     () => ({
       flexDirection: getFlexDirectionFromLabelPosition(labelPosition),
@@ -32,6 +56,15 @@ export default function RadioGroup<T>({
   const childContainerStyle: ViewStyle = useMemo(
     () => ({ flexDirection: direction === 'horizontal' ? 'row' : 'column' }),
     [direction]
+  );
+
+  const handleChange = useCallback(
+    (nextValue: T | undefined) => {
+      setValue(nextValue);
+
+      onChange?.(nextValue);
+    },
+    [onChange]
   );
 
   return (
@@ -50,7 +83,7 @@ export default function RadioGroup<T>({
 
             return cloneElement<RadioProps<T>>(child, {
               disabled: isChildDisabled,
-              onChange,
+              onChange: handleChange,
               selected: isChildSelected,
               size: childSize ?? size,
             });

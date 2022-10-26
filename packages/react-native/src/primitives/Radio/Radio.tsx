@@ -66,7 +66,10 @@ export default function Radio<T>({
         style={[styles.radioContainer, radioContainerSize, radioContainerStyle]}
       >
         {selected ? (
-          <View style={[styles.radioDot, radioDotSize, radioDotStyle]} />
+          <View
+            style={[styles.radioDot, radioDotSize, radioDotStyle]}
+            testID="amplify__radio-button__dot"
+          />
         ) : null}
       </View>
       {label ? <Label style={labelStyle}>{label}</Label> : null}
