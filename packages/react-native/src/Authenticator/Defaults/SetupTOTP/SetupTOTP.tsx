@@ -3,6 +3,7 @@ import { Text, View } from 'react-native';
 
 import { Logger } from 'aws-amplify';
 import { authenticatorTextUtil } from '@aws-amplify/ui';
+// import Clipboard from '@react-native-clipboard/clipboard';
 
 import { Button, ErrorMessage, IconButton } from '../../../primitives';
 import { DefaultFooter, DefaultFormFields, DefaultHeader } from '../../common';
@@ -16,25 +17,24 @@ const {
   getBackToSignInText,
   getConfirmingText,
   getConfirmText,
-  // getCopiedText,
-  // getCopyText,
   getSetupTOTPText,
 } = authenticatorTextUtil;
 
 const SetupTOTP: DefaultSetupTOTPComponent = ({
-  // totpIssuer,
-  // totpUsername,
-  getTotpSecretCode,
-  //
   error,
   fields,
   Footer,
   FormFields,
+  getTotpSecretCode,
   Header,
   isPending,
+  // TODO: add toSignIn prop to SetupTOTP component
+  // toSignIn
+  // TODO: remove `totpIssuer` and `totpUsername` from types
+  // totpIssuer,
+  // totpUsername,
 }) => {
-  // const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [textCopied, setTextCopied] = useState<boolean>(false); // getCopyText()
+  const [textCopied, setTextCopied] = useState<boolean>(false);
   const [secretKey, setSecretKey] = useState<string>('testing 123');
 
   const getSecretKey = useCallback(async (): Promise<void> => {
@@ -43,8 +43,6 @@ const SetupTOTP: DefaultSetupTOTPComponent = ({
       setSecretKey(newSecretKey);
     } catch (error) {
       logger.error(error);
-    } finally {
-      // setIsLoading(false);
     }
   }, [getTotpSecretCode]);
 
@@ -55,9 +53,10 @@ const SetupTOTP: DefaultSetupTOTPComponent = ({
   }, [getSecretKey, secretKey]);
 
   const copyText = (): void => {
-    // how to do this in React Native?
+    // TODO: implement copy-to-clipboard functionality
+    // use @react-native-clipboard/clipboard
+    // Clipboard.setString(secretKey);
 
-    // navigator.clipboard.writeText(secretKey);
     if (!textCopied) {
       setTextCopied(!textCopied);
     }
@@ -68,14 +67,6 @@ const SetupTOTP: DefaultSetupTOTPComponent = ({
       <Header>{getSetupTOTPText()}</Header>
       <View style={styles.secretKeyContainer}>
         <Text>{secretKey}</Text>
-        {/* <Button
-          onPress={copyText}
-          style={styles.copyButton}
-          textStyle={styles.copyButtonLabel}
-        >
-          {textCopied ? getCopiedText() : getCopyText()}
-          color="teal"
-        </Button> */}
         <IconButton
           color="teal"
           iconStyle={styles.copyIcon}

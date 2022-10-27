@@ -14,7 +14,8 @@ const code = {
 const fields = [code];
 
 const props = {
-  totpIssuer: 'AWS_COGNITO???',
+  // TODO: remove `totpIssuer` and `totpUsername` from types
+  totpIssuer: 'AWS_COGNITO',
   totpUsername: 'hello',
   getTotpSecretCode: noop as GetTotpSecretCode,
   error: null as unknown as string,
