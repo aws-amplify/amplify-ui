@@ -1321,6 +1321,7 @@ exports[`PhoneNumberField renders as expected 1`] = `
     >
       <TextInput
         accessible={true}
+        autoCapitalize="none"
         editable={true}
         keyboardType="phone-pad"
         style={
@@ -2658,6 +2659,7 @@ exports[`PhoneNumberField renders as expected when default dial code is undefine
     >
       <TextInput
         accessible={true}
+        autoCapitalize="none"
         editable={true}
         keyboardType="phone-pad"
         style={
@@ -3996,6 +3998,7 @@ exports[`PhoneNumberField renders as expected when disabled 1`] = `
     >
       <TextInput
         accessible={true}
+        autoCapitalize="none"
         editable={false}
         keyboardType="phone-pad"
         style={

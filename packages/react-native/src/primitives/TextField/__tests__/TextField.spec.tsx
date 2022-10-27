@@ -25,6 +25,7 @@ describe('TextField', () => {
     expect(textInput.props.editable).toBe(true);
     expect(textInput.props.secureTextEntry).toBeUndefined();
     expect(textInput.props.accessible).toBe(true);
+    expect(textInput.props.autoCapitalize).toBe('none');
     const label = getByText(labelText);
     expect(label).not.toBeNull();
   });

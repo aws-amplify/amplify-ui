@@ -33,7 +33,6 @@ const DefaultFormFields: DefaultComponents<TextFieldOptionsType>[keyof DefaultCo
         <Fragment key={name}>
           <Field
             {...field}
-            autoCapitalize="none"
             disabled={isPending}
             error={hasError}
             key={name}
