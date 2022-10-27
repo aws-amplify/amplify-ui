@@ -33,21 +33,21 @@ export default function PhoneNumberField({
     });
   }, [dialCodes]);
 
-  if (!dialCodes) return null;
-
   return (
     <View style={[styles.container, style]}>
-      <Picker
-        enabled={!disabled}
-        itemStyle={[styles.pickerItem, pickerItemStyle]}
-        mode="dropdown"
-        onValueChange={handleOnValueChange}
-        selectedValue={selectedDialCode}
-        testID="RNPicker"
-        style={[styles.picker, pickerStyle]}
-      >
-        {pickerItems}
-      </Picker>
+      {dialCodes ? (
+        <Picker
+          enabled={!disabled}
+          itemStyle={[styles.pickerItem, pickerItemStyle]}
+          mode="dropdown"
+          onValueChange={handleOnValueChange}
+          selectedValue={selectedDialCode}
+          testID="RNPicker"
+          style={[styles.picker, pickerStyle]}
+        >
+          {pickerItems}
+        </Picker>
+      ) : null}
       <TextField
         {...rest}
         disabled={disabled}
