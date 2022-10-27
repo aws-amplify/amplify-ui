@@ -25,7 +25,6 @@ export function Previewer({
   const onClick = () => {
     // start upload
   };
-
   return (
     <Card variation="outlined" className="amplify-fileuploader__previewer">
       <Flex className="amplify-fileuploader__previewer__body">
