@@ -17,9 +17,24 @@ export function Previewer({
   onDrop,
   ...rest
 }: PreviewerProps): JSX.Element {
+  // const [fileStatuses, setFileStatuses] = useState<FileStatuses>;
+
   const onClick = () => {
     // start upload
   };
+
+  const getURL = (file: File): string => {
+    return URL.createObjectURL(file);
+  };
+
+  const onFileCancel = () => {};
+
+  const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    // handle on Name Change
+    // eslint-disable-next-line no-console
+    console.log('got', event.target.value);
+  };
+
   return (
     <Card variation="outlined" className="amplify-fileuploader__previewer">
       <Flex className="amplify-fileuploader__previewer__body">
@@ -41,7 +56,14 @@ export function Previewer({
         </UploadDropZone>
         <Text fontWeight="bold">{files.length} files selected</Text>
         {files?.map((file, index) => (
-          <Tracker key={index}>{file.name}</Tracker>
+          <Tracker
+            file={file}
+            hasImage={file?.type.startsWith('image/')}
+            url={getURL(file)}
+            key={index}
+            onChange={onNameChange}
+            onCancel={onFileCancel}
+          />
         ))}
         <View className="amplify-fileuploader__footer">
           <View>

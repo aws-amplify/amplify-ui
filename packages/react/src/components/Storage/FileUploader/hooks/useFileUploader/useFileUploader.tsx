@@ -8,7 +8,7 @@ export default function useFileUploader(): UseFileUploader {
 
   const [inDropZone, setInDropZone] = useState(false);
 
-  const setTargetFiles = (targetFiles: FileList) => {
+  const addTargetFiles = (targetFiles: FileList) => {
     if (files.length > 0) {
       setFiles([...targetFiles].concat(files));
     } else {
@@ -38,7 +38,7 @@ export default function useFileUploader(): UseFileUploader {
     event.preventDefault();
     event.stopPropagation();
     const { files } = event.dataTransfer;
-    setTargetFiles(files);
+    addTargetFiles(files);
     setShowPreviewer(true);
     setInDropZone(false);
   };
@@ -54,7 +54,7 @@ export default function useFileUploader(): UseFileUploader {
     setFiles,
     setInDropZone,
     setShowPreviewer,
-    setTargetFiles,
+    addTargetFiles,
     showPreviewer,
   };
 }

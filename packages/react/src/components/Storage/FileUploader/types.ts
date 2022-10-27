@@ -1,4 +1,5 @@
 import React from 'react';
+import { UploadTask } from '@aws-amplify/storage';
 import { DragActionHandlers } from './hooks/useFileUploader/types';
 
 export type SetShowPreviewer = (show: boolean) => void;
@@ -34,7 +35,7 @@ export interface FileUploaderProps {
   variation?: 'drop' | 'button';
 }
 
-export interface UploadIconProps {
+export interface IconProps {
   className?: string;
 }
 
@@ -48,6 +49,14 @@ export interface PreviewerProps extends DragActionHandlers {
   onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   inDropZone?: boolean;
 }
+
+interface FileStatus {
+  percentage: number;
+  uploadTask: UploadTask;
+  pause: boolean;
+}
+
+export type FileStatuses = FileStatus[];
 
 type UploadButtonComponent<Props = {}> = React.ComponentType<
   Props & Partial<UploadButtonProps>

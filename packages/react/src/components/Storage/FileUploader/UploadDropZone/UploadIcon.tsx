@@ -1,8 +1,8 @@
 import React from 'react';
 import { Icon } from '../../../../primitives';
-import { UploadIconProps } from '../types';
+import { IconProps } from '../types';
 
-export function UploadIcon({ className }: UploadIconProps): JSX.Element {
+export function UploadIcon({ className }: IconProps): JSX.Element {
   return (
     <Icon
       viewBox={{

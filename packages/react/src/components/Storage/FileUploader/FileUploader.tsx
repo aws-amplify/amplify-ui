@@ -29,7 +29,7 @@ export function FileUploader({
     onDragStart,
     onDrop,
     setShowPreviewer,
-    setTargetFiles,
+    addTargetFiles,
     showPreviewer,
   } = useFileUploader();
 
@@ -41,7 +41,7 @@ export function FileUploader({
     if (!event.target.files || event.target.files.length === 0) return;
 
     const { files } = event.target;
-    setTargetFiles(files);
+    addTargetFiles(files);
 
     setShowPreviewer(true);
   };
@@ -74,7 +74,9 @@ export function FileUploader({
         onFileChange={onFileChange}
       />
     );
-  } else if (variation === 'button') {
+  }
+
+  if (variation === 'button') {
     return <UploadButton {...CommonProps} />;
   } else {
     return (
