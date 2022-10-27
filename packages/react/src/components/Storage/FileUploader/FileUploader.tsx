@@ -58,7 +58,7 @@ export function FileUploader({
     setShowPreviewer(isPreviewerVisible);
   }, [setShowPreviewer, isPreviewerVisible]);
 
-  const onChangeUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files || event.target.files.length === 0) return;
 
     const { files } = event.target;
@@ -73,7 +73,7 @@ export function FileUploader({
   const CommonProps = {
     acceptedFileTypes,
     multiple,
-    onChangeUpload,
+    onFileChange,
   };
 
   if (showPreviewer) {
@@ -85,7 +85,7 @@ export function FileUploader({
         onClose={onClose}
         acceptedFileTypes={acceptedFileTypes}
         multiple={multiple}
-        onChangeUpload={onChangeUpload}
+        onFileChange={onFileChange}
       />
     );
   } else if (variation === 'button') {

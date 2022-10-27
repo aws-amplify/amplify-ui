@@ -9,7 +9,7 @@ describe('Uploader Button', () => {
       <UploaderButton
         multiple={false}
         acceptedFileTypes={['.png']}
-        onChangeUpload={() => ''}
+        onFileChange={() => ''}
       />
     );
 
@@ -21,7 +21,7 @@ describe('Uploader Button', () => {
       <UploaderButton
         multiple={false}
         acceptedFileTypes={['.png']}
-        onChangeUpload={() => ''}
+        onFileChange={() => ''}
       />
     );
     const fakeFile = new File(['hello'], 'hello.png', { type: 'image/png' });

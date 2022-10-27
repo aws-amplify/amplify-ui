@@ -6,7 +6,7 @@ import { Button, VisuallyHidden } from '../../../../primitives';
 export function UploaderButton({
   multiple,
   acceptedFileTypes,
-  onChangeUpload,
+  onFileChange,
   className,
 }: UploaderButtonProps): JSX.Element {
   const hiddenInput = React.useRef<HTMLInputElement>();
@@ -28,7 +28,7 @@ export function UploaderButton({
         <input
           type="file"
           ref={hiddenInput}
-          onChange={onChangeUpload}
+          onChange={onFileChange}
           multiple={multiple}
           accept={acceptedFileTypes?.join()}
         />

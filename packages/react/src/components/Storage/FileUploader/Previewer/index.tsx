@@ -14,7 +14,7 @@ export function Previewer({
   onClose,
   acceptedFileTypes,
   multiple,
-  onChangeUpload,
+  onFileChange,
 }: PreviewerProps): JSX.Element {
   const {
     inDropZone,
@@ -27,7 +27,7 @@ export function Previewer({
   const CommonProps = {
     acceptedFileTypes,
     multiple,
-    onChangeUpload,
+    onFileChange,
   };
   // eslint-disable-next-line no-console
   console.log('todo', fileNames, level);
