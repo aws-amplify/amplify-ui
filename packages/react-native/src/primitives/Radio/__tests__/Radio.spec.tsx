@@ -6,6 +6,7 @@ import { Size } from '../types';
 const sizes: Size[] = ['small', 'medium', 'large'];
 
 const onChange = jest.fn();
+const onPress = jest.fn();
 
 describe('Radio', () => {
   beforeEach(() => {
@@ -24,11 +25,17 @@ describe('Radio', () => {
     expect(toJSON()).toMatchSnapshot();
   });
 
-  it('calls the expected handler when selected', () => {
-    const { getByRole } = render(<Radio value="" onChange={onChange} />);
+  it('calls the expected handler when pressed', () => {
+    const { getByRole } = render(
+      <Radio value="value" onPress={onPress} onChange={onChange} />
+    );
     const radio = getByRole('radio');
     fireEvent.press(radio);
     expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onChange).toHaveBeenCalledWith('value');
+
+    expect(onPress).toHaveBeenCalledTimes(1);
+    expect(onChange).toHaveBeenCalledWith('value');
   });
 
   it.each(sizes)('renders as expected when size is %s', (value) => {

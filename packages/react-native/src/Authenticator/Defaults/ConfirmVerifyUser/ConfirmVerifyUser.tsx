@@ -1,29 +1,54 @@
 import React from 'react';
-
-import { DefaultFooter } from '../../common/DefaultFooter';
-import { DefaultHeader } from '../../common/DefaultHeader';
-import { DefaultFormFields } from '../../common/DefaultFormFields';
-import { Button, ErrorMessage } from '../../../primitives';
-import { DefaultConfirmVerifyUserComponent } from '../types';
 import { authenticatorTextUtil } from '@aws-amplify/ui';
+
+import { Button, ErrorMessage } from '../../../primitives';
+import { DefaultFooter, DefaultFormFields, DefaultHeader } from '../../common';
+import { useFieldValues } from '../../hooks';
+
+import { DefaultConfirmVerifyUserComponent } from '../types';
 import { styles } from './styles';
 
-const { getAccountRecoveryInfoText, getSkipText } = authenticatorTextUtil;
+const COMPONENT_NAME = 'ConfirmVerifyUser';
+
+const {
+  getAccountRecoveryInfoText,
+  getSkipText,
+  getSubmitText,
+  getSubmittingText,
+} = authenticatorTextUtil;
 
 const ConfirmVerifyUser: DefaultConfirmVerifyUserComponent = ({
   error,
   fields,
   FormFields,
   Footer,
+  handleBlur,
+  handleChange,
+  handleSubmit,
   Header,
   isPending,
   skipVerification,
 }) => {
+  const { fields: fieldsWithHandlers, handleFormSubmit } = useFieldValues({
+    componentName: COMPONENT_NAME,
+    fields,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+  });
+
   return (
     <>
       <Header>{getAccountRecoveryInfoText()}</Header>
-      <FormFields isPending={isPending} fields={fields} />
+      <FormFields isPending={isPending} fields={fieldsWithHandlers} />
       {error ? <ErrorMessage>{error}</ErrorMessage> : null}
+      <Button
+        onPress={handleFormSubmit}
+        style={styles.buttonPrimary}
+        textStyle={styles.buttonPrimaryLabel}
+      >
+        {isPending ? getSubmitText() : getSubmittingText()}
+      </Button>
       <Button
         onPress={skipVerification}
         style={styles.buttonSecondary}
@@ -40,5 +65,5 @@ ConfirmVerifyUser.Footer = DefaultFooter;
 ConfirmVerifyUser.FormFields = DefaultFormFields;
 ConfirmVerifyUser.Header = DefaultHeader;
 
-ConfirmVerifyUser.displayName = 'ConfirmVerifyUser';
+ConfirmVerifyUser.displayName = COMPONENT_NAME;
 export default ConfirmVerifyUser;

@@ -5,7 +5,7 @@ import {
   TypedField,
   AuthenticatorFieldTypeKey,
   MachineFieldTypeKey,
-} from './types';
+} from '../types';
 
 const isKeyAllowed = (key: string) =>
   KEY_ALLOW_LIST.some((allowedKey) => allowedKey === key);

@@ -3,7 +3,14 @@ import {
   PasswordFieldProps,
   PhoneNumberFieldProps,
   RadioProps,
-} from '../../../primitives';
+} from '../../primitives';
+
+export type MachineFieldTypeKey = 'password' | 'tel';
+export type AuthenticatorFieldTypeKey =
+  | 'password'
+  | 'phone'
+  | 'default'
+  | 'radio';
 
 type RadioFieldOnBlur = RadioProps<string>['onBlur'];
 export type TextFieldOnBlur = TextFieldProps['onBlur'];
@@ -16,9 +23,9 @@ type FieldOptions<FieldProps, Type extends AuthenticatorFieldTypeKey> = {
   onBlur?: Type extends 'radio' ? RadioFieldOnBlur : TextFieldOnBlur;
 } & Omit<FieldProps, 'disabled' | 'onBlur'>;
 
-export type PasswordFieldOptions = FieldOptions<PasswordFieldProps, 'password'>;
-export type PhoneFieldOptions = FieldOptions<PhoneNumberFieldProps, 'phone'>;
-export type DefaultFieldOptions = FieldOptions<TextFieldProps, 'default'>;
+type PasswordFieldOptions = FieldOptions<PasswordFieldProps, 'password'>;
+type PhoneFieldOptions = FieldOptions<PhoneNumberFieldProps, 'phone'>;
+type DefaultFieldOptions = FieldOptions<TextFieldProps, 'default'>;
 export type TextFieldOptionsType =
   | PasswordFieldOptions
   | PhoneFieldOptions
@@ -30,10 +37,3 @@ export type RadioFieldOptions = FieldOptions<RadioProps<string>, 'radio'>;
  * `field` options union
  */
 export type TypedField = RadioFieldOptions | TextFieldOptionsType;
-
-export type MachineFieldTypeKey = 'password' | 'tel';
-export type AuthenticatorFieldTypeKey =
-  | 'password'
-  | 'phone'
-  | 'default'
-  | 'radio';

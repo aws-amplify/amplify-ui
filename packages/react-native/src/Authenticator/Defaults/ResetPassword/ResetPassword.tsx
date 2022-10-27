@@ -1,12 +1,14 @@
 import React from 'react';
-
 import { authenticatorTextUtil } from '@aws-amplify/ui';
 
 import { Button, ErrorMessage } from '../../../primitives';
 import { DefaultFooter, DefaultFormFields, DefaultHeader } from '../../common';
+import { useFieldValues } from '../../hooks';
+
 import { DefaultResetPasswordComponent } from '../types';
 import { styles } from './styles';
 
+const COMPONENT_NAME = 'ResetPassword';
 const {
   getResetYourPasswordText,
   getSendCodeText,
@@ -19,16 +21,28 @@ const ResetPassword: DefaultResetPasswordComponent = ({
   fields,
   Footer,
   FormFields,
+  handleBlur,
+  handleChange,
+  handleSubmit,
   Header,
   isPending,
   toSignIn,
 }) => {
+  const { fields: fieldsWithHandlers, handleFormSubmit } = useFieldValues({
+    componentName: COMPONENT_NAME,
+    fields,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+  });
+
   return (
     <>
       <Header>{getResetYourPasswordText()}</Header>
-      <FormFields fields={fields} isPending={isPending} />
+      <FormFields fields={fieldsWithHandlers} isPending={isPending} />
       {error ? <ErrorMessage>{error}</ErrorMessage> : null}
       <Button
+        onPress={handleFormSubmit}
         style={styles.buttonPrimary}
         textStyle={styles.buttonPrimaryLabel}
       >
@@ -50,5 +64,5 @@ ResetPassword.Footer = DefaultFooter;
 ResetPassword.FormFields = DefaultFormFields;
 ResetPassword.Header = DefaultHeader;
 
-ResetPassword.displayName = 'ResetPassword';
+ResetPassword.displayName = COMPONENT_NAME;
 export default ResetPassword;

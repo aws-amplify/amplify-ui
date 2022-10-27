@@ -62,7 +62,7 @@ export default function RadioGroup<T>({
     (nextValue: T | undefined) => {
       setValue(nextValue);
 
-      onChange?.(nextValue);
+      onChange?.(nextValue!);
     },
     [onChange]
   );
@@ -74,16 +74,22 @@ export default function RadioGroup<T>({
           if (isValidElement<RadioProps<T>>(child)) {
             const {
               disabled: childDisabled,
+              onChange: childOnChange,
               value: childValue,
               size: childSize,
             } = child.props;
+
             const isChildDisabled =
               typeof childDisabled === 'boolean' ? childDisabled : disabled;
             const isChildSelected = childValue === value;
 
             return cloneElement<RadioProps<T>>(child, {
+              ...child.props,
               disabled: isChildDisabled,
-              onChange: handleChange,
+              onChange: (nextValue) => {
+                childOnChange?.(nextValue);
+                handleChange(nextValue);
+              },
               selected: isChildSelected,
               size: childSize ?? size,
             });

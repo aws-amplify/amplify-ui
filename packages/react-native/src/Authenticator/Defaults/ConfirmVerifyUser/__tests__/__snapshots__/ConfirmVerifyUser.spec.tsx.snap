@@ -38,6 +38,47 @@ Array [
       Array [
         null,
         Object {
+          "backgroundColor": "teal",
+          "marginVertical": 8,
+          "paddingVertical": 12,
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "alignSelf": "center",
+          },
+          Object {
+            "color": "white",
+            "fontSize": 16,
+            "fontWeight": "bold",
+          },
+        ]
+      }
+    >
+      Submitting
+    </Text>
+  </View>,
+  <View
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        null,
+        Object {
           "marginVertical": 8,
           "paddingVertical": 12,
         },
@@ -132,6 +173,47 @@ Array [
       }
     >
       Something went wrong
+    </Text>
+  </View>,
+  <View
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        null,
+        Object {
+          "backgroundColor": "teal",
+          "marginVertical": 8,
+          "paddingVertical": 12,
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "alignSelf": "center",
+          },
+          Object {
+            "color": "white",
+            "fontSize": 16,
+            "fontWeight": "bold",
+          },
+        ]
+      }
+    >
+      Submitting
     </Text>
   </View>,
   <View

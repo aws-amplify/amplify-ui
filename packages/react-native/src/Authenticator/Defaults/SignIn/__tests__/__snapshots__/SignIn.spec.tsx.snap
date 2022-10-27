@@ -1,15 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SignIn renders as expected 1`] = `
-<View
-  style={
-    Object {
-      "flex": 1,
-      "justifyContent": "center",
-      "padding": 16,
-    }
-  }
->
+Array [
   <View
     accessibilityRole="tablist"
     style={
@@ -142,7 +134,7 @@ exports[`SignIn renders as expected 1`] = `
         Create Account
       </Text>
     </View>
-  </View>
+  </View>,
   <Text
     accessibilityRole="header"
     style={
@@ -158,7 +150,7 @@ exports[`SignIn renders as expected 1`] = `
         undefined,
       ]
     }
-  />
+  />,
   <View>
     <View
       accessibilityLabel="Username"
@@ -212,6 +204,8 @@ exports[`SignIn renders as expected 1`] = `
           accessible={true}
           autoCapitalize="none"
           editable={true}
+          onBlur={[Function]}
+          onChangeText={[Function]}
           placeholder="Username"
           style={
             Array [
@@ -277,6 +271,8 @@ exports[`SignIn renders as expected 1`] = `
           accessible={true}
           autoCapitalize="none"
           editable={true}
+          onBlur={[Function]}
+          onChangeText={[Function]}
           placeholder="Password"
           secureTextEntry={true}
           style={
@@ -331,7 +327,7 @@ exports[`SignIn renders as expected 1`] = `
         </View>
       </View>
     </View>
-  </View>
+  </View>,
   <View
     accessible={true}
     collapsable={false}
@@ -372,7 +368,7 @@ exports[`SignIn renders as expected 1`] = `
     >
       Sign in
     </Text>
-  </View>
+  </View>,
   <View>
     <View
       accessible={true}
@@ -412,20 +408,12 @@ exports[`SignIn renders as expected 1`] = `
         Forgot your password?
       </Text>
     </View>
-  </View>
-</View>
+  </View>,
+]
 `;
 
 exports[`SignIn renders as expected when hideSignUp is true 1`] = `
-<View
-  style={
-    Object {
-      "flex": 1,
-      "justifyContent": "center",
-      "padding": 16,
-    }
-  }
->
+Array [
   <Text
     accessibilityRole="header"
     style={
@@ -441,7 +429,7 @@ exports[`SignIn renders as expected when hideSignUp is true 1`] = `
         undefined,
       ]
     }
-  />
+  />,
   <View>
     <View
       accessibilityLabel="Username"
@@ -495,6 +483,8 @@ exports[`SignIn renders as expected when hideSignUp is true 1`] = `
           accessible={true}
           autoCapitalize="none"
           editable={true}
+          onBlur={[Function]}
+          onChangeText={[Function]}
           placeholder="Username"
           style={
             Array [
@@ -560,6 +550,8 @@ exports[`SignIn renders as expected when hideSignUp is true 1`] = `
           accessible={true}
           autoCapitalize="none"
           editable={true}
+          onBlur={[Function]}
+          onChangeText={[Function]}
           placeholder="Password"
           secureTextEntry={true}
           style={
@@ -614,7 +606,7 @@ exports[`SignIn renders as expected when hideSignUp is true 1`] = `
         </View>
       </View>
     </View>
-  </View>
+  </View>,
   <View
     accessible={true}
     collapsable={false}
@@ -655,7 +647,7 @@ exports[`SignIn renders as expected when hideSignUp is true 1`] = `
     >
       Sign in
     </Text>
-  </View>
+  </View>,
   <View>
     <View
       accessible={true}
@@ -695,20 +687,12 @@ exports[`SignIn renders as expected when hideSignUp is true 1`] = `
         Forgot your password?
       </Text>
     </View>
-  </View>
-</View>
+  </View>,
+]
 `;
 
 exports[`SignIn renders as expected with an error 1`] = `
-<View
-  style={
-    Object {
-      "flex": 1,
-      "justifyContent": "center",
-      "padding": 16,
-    }
-  }
->
+Array [
   <View
     accessibilityRole="tablist"
     style={
@@ -841,7 +825,7 @@ exports[`SignIn renders as expected with an error 1`] = `
         Create Account
       </Text>
     </View>
-  </View>
+  </View>,
   <Text
     accessibilityRole="header"
     style={
@@ -857,7 +841,7 @@ exports[`SignIn renders as expected with an error 1`] = `
         undefined,
       ]
     }
-  />
+  />,
   <View>
     <View
       accessibilityLabel="Username"
@@ -911,6 +895,8 @@ exports[`SignIn renders as expected with an error 1`] = `
           accessible={true}
           autoCapitalize="none"
           editable={true}
+          onBlur={[Function]}
+          onChangeText={[Function]}
           placeholder="Username"
           style={
             Array [
@@ -976,6 +962,8 @@ exports[`SignIn renders as expected with an error 1`] = `
           accessible={true}
           autoCapitalize="none"
           editable={true}
+          onBlur={[Function]}
+          onChangeText={[Function]}
           placeholder="Password"
           secureTextEntry={true}
           style={
@@ -1030,7 +1018,7 @@ exports[`SignIn renders as expected with an error 1`] = `
         </View>
       </View>
     </View>
-  </View>
+  </View>,
   <View
     accessibilityRole="alert"
     style={
@@ -1081,7 +1069,7 @@ exports[`SignIn renders as expected with an error 1`] = `
     >
       An error!
     </Text>
-  </View>
+  </View>,
   <View
     accessible={true}
     collapsable={false}
@@ -1122,7 +1110,7 @@ exports[`SignIn renders as expected with an error 1`] = `
     >
       Sign in
     </Text>
-  </View>
+  </View>,
   <View>
     <View
       accessible={true}
@@ -1162,20 +1150,12 @@ exports[`SignIn renders as expected with an error 1`] = `
         Forgot your password?
       </Text>
     </View>
-  </View>
-</View>
+  </View>,
+]
 `;
 
 exports[`SignIn renders as expected with socialProviders 1`] = `
-<View
-  style={
-    Object {
-      "flex": 1,
-      "justifyContent": "center",
-      "padding": 16,
-    }
-  }
->
+Array [
   <View
     accessibilityRole="tablist"
     style={
@@ -1308,7 +1288,7 @@ exports[`SignIn renders as expected with socialProviders 1`] = `
         Create Account
       </Text>
     </View>
-  </View>
+  </View>,
   <Text
     accessibilityRole="header"
     style={
@@ -1324,7 +1304,7 @@ exports[`SignIn renders as expected with socialProviders 1`] = `
         undefined,
       ]
     }
-  />
+  />,
   <View
     style={
       Object {
@@ -1543,7 +1523,7 @@ exports[`SignIn renders as expected with socialProviders 1`] = `
         }
       />
     </View>
-  </View>
+  </View>,
   <View>
     <View
       accessibilityLabel="Username"
@@ -1597,6 +1577,8 @@ exports[`SignIn renders as expected with socialProviders 1`] = `
           accessible={true}
           autoCapitalize="none"
           editable={true}
+          onBlur={[Function]}
+          onChangeText={[Function]}
           placeholder="Username"
           style={
             Array [
@@ -1662,6 +1644,8 @@ exports[`SignIn renders as expected with socialProviders 1`] = `
           accessible={true}
           autoCapitalize="none"
           editable={true}
+          onBlur={[Function]}
+          onChangeText={[Function]}
           placeholder="Password"
           secureTextEntry={true}
           style={
@@ -1716,7 +1700,7 @@ exports[`SignIn renders as expected with socialProviders 1`] = `
         </View>
       </View>
     </View>
-  </View>
+  </View>,
   <View
     accessible={true}
     collapsable={false}
@@ -1757,7 +1741,7 @@ exports[`SignIn renders as expected with socialProviders 1`] = `
     >
       Sign in
     </Text>
-  </View>
+  </View>,
   <View>
     <View
       accessible={true}
@@ -1797,6 +1781,6 @@ exports[`SignIn renders as expected with socialProviders 1`] = `
         Forgot your password?
       </Text>
     </View>
-  </View>
-</View>
+  </View>,
+]
 `;
