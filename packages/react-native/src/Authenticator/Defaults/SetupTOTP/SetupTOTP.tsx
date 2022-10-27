@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { Text, View } from 'react-native';
 
 import { Logger } from 'aws-amplify';
 import { authenticatorTextUtil } from '@aws-amplify/ui';
@@ -7,6 +8,7 @@ import { Button, ErrorMessage } from '../../../primitives';
 import { DefaultFooter, DefaultFormFields, DefaultHeader } from '../../common';
 import { DefaultSetupTOTPComponent } from '../types';
 import { styles } from './styles';
+// import { icons } from '../../../assets';
 
 const logger = new Logger('SetupTOTP-logger');
 
@@ -14,9 +16,8 @@ const {
   getBackToSignInText,
   getConfirmingText,
   getConfirmText,
-  // getCopiedText,
-  // getCopyText,
-  // getLoadingText,
+  getCopiedText,
+  getCopyText,
   getSetupTOTPText,
 } = authenticatorTextUtil;
 
@@ -33,8 +34,8 @@ const SetupTOTP: DefaultSetupTOTPComponent = ({
   isPending,
 }) => {
   // const [isLoading, setIsLoading] = useState<boolean>(true);
-  // const [copyTextLabel, setCopyTextLabel] = useState<string>('COPY'); // getCopyText()
-  const [secretKey, setSecretKey] = useState<string>('');
+  const [textCopied, setTextCopied] = useState<boolean>(false); // getCopyText()
+  const [secretKey, setSecretKey] = useState<string>('testing 123');
 
   const getSecretKey = useCallback(async (): Promise<void> => {
     try {
@@ -53,15 +54,35 @@ const SetupTOTP: DefaultSetupTOTPComponent = ({
     }
   }, [getSecretKey, secretKey]);
 
-  // const copyText = (): void => {
-  // how to do this in React Native?
-  // navigator.clipboard.writeText(secretKey);
-  // setCopyTextLabel(getCopiedText());
-  // };
+  const copyText = (): void => {
+    // how to do this in React Native?
+
+    // navigator.clipboard.writeText(secretKey);
+    if (!textCopied) {
+      setTextCopied(!textCopied);
+    }
+  };
 
   return (
     <>
       <Header>{getSetupTOTPText()}</Header>
+      <View style={styles.secretKeyContainer}>
+        <Text>{secretKey}</Text>
+        <Button
+          onPress={copyText}
+          style={styles.copyButton}
+          textStyle={styles.copyButtonLabel}
+        >
+          {textCopied ? getCopiedText() : getCopyText()}
+        </Button>
+        {/* <IconButton
+          onPress={copyText}
+          source={icons.copy}
+          size={20}
+          color="teal"
+          iconStyle={styles.copyIcon}
+        /> */}
+      </View>
       <FormFields fields={fields} isPending={isPending} />
       {error ? <ErrorMessage>{error}</ErrorMessage> : null}
       <Button

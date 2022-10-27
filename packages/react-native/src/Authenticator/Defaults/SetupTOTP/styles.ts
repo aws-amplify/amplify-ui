@@ -5,6 +5,10 @@ export interface SetupTOTPStyle {
   buttonPrimaryLabel: TextStyle;
   buttonSecondary: ViewStyle;
   buttonSecondaryLabel: TextStyle;
+  secretKeyContainer: ViewStyle;
+  copyButton: ViewStyle;
+  copyButtonLabel: TextStyle;
+  // copyIcon: StyleProp<ImageStyle>;
 }
 
 export const styles: SetupTOTPStyle = StyleSheet.create({
@@ -19,4 +23,20 @@ export const styles: SetupTOTPStyle = StyleSheet.create({
     paddingVertical: 12,
   },
   buttonSecondaryLabel: { color: 'teal' },
+  secretKeyContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  copyButton: {
+    borderColor: 'teal',
+    borderWidth: 2,
+    padding: 4,
+    marginLeft: 12,
+  },
+  copyButtonLabel: {
+    color: 'teal',
+  },
+  // copyIcon: {
+  //   marginLeft: 12,
+  // },
 });
