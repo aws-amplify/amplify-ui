@@ -22,7 +22,6 @@ const ConfirmVerifyUser: DefaultConfirmVerifyUserComponent = ({
       <Header>{getAccountRecoveryInfoText()}</Header>
       <FormFields isPending={isPending} fields={fields} />
       {error ? <ErrorMessage>{error}</ErrorMessage> : null}
-
       <Button
         style={styles.buttonSecondary}
         textStyle={styles.buttonSecondaryLabel}

@@ -457,7 +457,22 @@ Array [
         }
       >
         <RNCPicker
-          items={Array []}
+          items={
+            Array [
+              Object {
+                "label": "+1",
+                "testID": undefined,
+                "textColor": undefined,
+                "value": "+1",
+              },
+              Object {
+                "label": "+7",
+                "testID": undefined,
+                "textColor": undefined,
+                "value": "+7",
+              },
+            ]
+          }
           numberOfLines={1}
           onChange={[Function]}
           selectedIndex={0}
@@ -913,7 +928,22 @@ Array [
         }
       >
         <RNCPicker
-          items={Array []}
+          items={
+            Array [
+              Object {
+                "label": "+1",
+                "testID": undefined,
+                "textColor": undefined,
+                "value": "+1",
+              },
+              Object {
+                "label": "+7",
+                "testID": undefined,
+                "textColor": undefined,
+                "value": "+7",
+              },
+            ]
+          }
           numberOfLines={1}
           onChange={[Function]}
           selectedIndex={0}
@@ -1505,7 +1535,22 @@ Array [
         }
       >
         <RNCPicker
-          items={Array []}
+          items={
+            Array [
+              Object {
+                "label": "+1",
+                "testID": undefined,
+                "textColor": undefined,
+                "value": "+1",
+              },
+              Object {
+                "label": "+7",
+                "testID": undefined,
+                "textColor": undefined,
+                "value": "+7",
+              },
+            ]
+          }
           numberOfLines={1}
           onChange={[Function]}
           selectedIndex={0}
@@ -2095,7 +2140,22 @@ Array [
         }
       >
         <RNCPicker
-          items={Array []}
+          items={
+            Array [
+              Object {
+                "label": "+1",
+                "testID": undefined,
+                "textColor": undefined,
+                "value": "+1",
+              },
+              Object {
+                "label": "+7",
+                "testID": undefined,
+                "textColor": undefined,
+                "value": "+7",
+              },
+            ]
+          }
           numberOfLines={1}
           onChange={[Function]}
           selectedIndex={0}
@@ -3104,7 +3164,22 @@ Array [
         }
       >
         <RNCPicker
-          items={Array []}
+          items={
+            Array [
+              Object {
+                "label": "+1",
+                "testID": undefined,
+                "textColor": undefined,
+                "value": "+1",
+              },
+              Object {
+                "label": "+7",
+                "testID": undefined,
+                "textColor": undefined,
+                "value": "+7",
+              },
+            ]
+          }
           numberOfLines={1}
           onChange={[Function]}
           selectedIndex={0}

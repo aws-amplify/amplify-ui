@@ -19,7 +19,7 @@ const props = {
   skipVerification: noop,
 };
 
-storiesOf('VerifyUser', module)
+storiesOf('Authenticator.VerifyUser', module)
   .add('Default', () => <Authenticator.VerifyUser {...props} />)
   .add('With error', () => (
     <Authenticator.VerifyUser {...props} error={'Error!'} />

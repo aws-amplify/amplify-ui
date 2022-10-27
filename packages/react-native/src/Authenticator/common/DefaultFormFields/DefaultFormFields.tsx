@@ -13,7 +13,7 @@ import {
 } from '../../../primitives';
 
 const DefaultFormFields: DefaultComponents<TextFieldOptionsType>[keyof DefaultComponents]['FormFields'] =
-  ({ fields, isPending, validationErrors }) => {
+  ({ fields = [], isPending, validationErrors }) => {
     const fieldStyle = styles.field;
     const formFields = fields.map(({ name, type, ...field }) => {
       const errors = validationErrors
@@ -34,7 +34,6 @@ const DefaultFormFields: DefaultComponents<TextFieldOptionsType>[keyof DefaultCo
           <Field
             {...field}
             autoCapitalize="none"
-            // disabled style is applying to Label
             disabled={isPending}
             error={hasError}
             key={name}

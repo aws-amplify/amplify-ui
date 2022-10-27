@@ -48,7 +48,7 @@ const props = {
   error: null as unknown as string,
 };
 
-storiesOf('SignUp', module)
+storiesOf('Authenticator.SignUp', module)
   .add('default', () => <Authenticator.SignUp {...props} />)
   .add('with error', () => <Authenticator.SignUp {...props} error={'Error!'} />)
   .add('with Social Providers', () => (

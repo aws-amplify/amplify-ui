@@ -16,7 +16,7 @@ export default function PhoneNumberField({
   pickerStyle,
   style,
   ...rest
-}: PhoneNumberFieldProps): JSX.Element {
+}: PhoneNumberFieldProps): JSX.Element | null {
   const [selectedDialCode, setSelectedDialCode] = useState(defaultDialCode);
 
   const handleOnValueChange = useCallback(
@@ -32,6 +32,8 @@ export default function PhoneNumberField({
       return <Picker.Item label={dialCode} value={dialCode} key={dialCode} />;
     });
   }, [dialCodes]);
+
+  if (!dialCodes) return null;
 
   return (
     <View style={[styles.container, style]}>
