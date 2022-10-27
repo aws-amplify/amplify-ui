@@ -2,7 +2,7 @@ import * as React from 'react';
 import {
   AuthenticatorMachineOptions,
   AmplifyUser,
-  appendToCognitoUserAgent,
+  configureComponent,
 } from '@aws-amplify/ui';
 
 import {
@@ -78,8 +78,6 @@ export function AuthenticatorInternal({
     formFields,
   });
 
-  appendToCognitoUserAgent(`Authenticator`);
-
   const value = React.useMemo(
     () => ({ components: { ...defaultComponents, ...customComponents } }),
     [customComponents]
@@ -116,7 +114,13 @@ export function AuthenticatorInternal({
  * [📖 Docs](https://ui.docs.amplify.aws/react/connected-components/authenticator)
  */
 export function Authenticator(props: AuthenticatorProps): JSX.Element {
-  appendToCognitoUserAgent(`@aws-amplify/ui-react/${VERSION}`);
+  React.useEffect(() => {
+    configureComponent({
+      packageName: '@aws-amplify/ui-react',
+      version: VERSION,
+    });
+  }, []);
+
   return (
     <Provider>
       <AuthenticatorInternal {...props} />
