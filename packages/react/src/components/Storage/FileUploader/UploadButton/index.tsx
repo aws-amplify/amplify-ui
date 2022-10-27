@@ -1,14 +1,14 @@
 import React from 'react';
 import { translate } from '@aws-amplify/ui';
-import { UploaderButtonProps } from '../types';
+import { UploadButtonProps } from '../types';
 import { Button, VisuallyHidden } from '../../../../primitives';
 
-export function UploaderButton({
+export function UploadButton({
   multiple,
   acceptedFileTypes,
   onFileChange,
   className,
-}: UploaderButtonProps): JSX.Element {
+}: UploadButtonProps): JSX.Element {
   const hiddenInput = React.useRef<HTMLInputElement>();
   const onClick = () => {
     hiddenInput.current.click();

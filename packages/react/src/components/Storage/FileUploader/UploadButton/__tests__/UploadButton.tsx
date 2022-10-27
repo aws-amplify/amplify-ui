@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
-import { UploaderButton } from '..';
+import { UploadButton } from '..';
 
 describe('Uploader Button', () => {
   it('exists', () => {
     const { container } = render(
-      <UploaderButton
+      <UploadButton
         multiple={false}
         acceptedFileTypes={['.png']}
         onFileChange={() => ''}
@@ -18,7 +18,7 @@ describe('Uploader Button', () => {
 
   it('accepts a file for upload', async () => {
     render(
-      <UploaderButton
+      <UploadButton
         multiple={false}
         acceptedFileTypes={['.png']}
         onFileChange={() => ''}

@@ -1,6 +1,7 @@
 .amplify-fileuploader {
   border: 1px dashed var(--amplify-colors-border-primary);
   text-align: center;
+  max-width: 25rem;
 }
 
 .amplify-fileuploader.active {
@@ -35,4 +36,49 @@
   color: var(--amplify-colors-font-tertiary);
   font-size: var(--amplify-font-sizes-small);
   margin-block-start: var(--amplify-space-small);
+}
+
+.amplify-fileuploader__previewer {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  max-height: 40rem;
+  max-width: 25rem;
+  overflow: hidden;
+}
+
+.amplify-fileuploader__previewer__body {
+  display: flex;
+  flex: 1;
+  overflow: auto;
+  flex-direction: column;
+  gap: var(--amplify-space-small);
+  padding: var(--amplify-space-medium);
+}
+
+.amplify-fileuploader__footer {
+  position: relative;
+  padding: var(--amplify-space-medium);
+  display: flex;
+  flex-direction: row;
+  border-top: var(--amplify-border-widths-small) solid
+    var(--amplify-colors-border-secondary);
+}
+
+.amplify-fileuploader__footer > .amplify-fileuploader-loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.amplify-fileuploader__footer > *:first-child {
+  flex: 1;
+}
+
+.amplify-fileuploader-file {
+  .amplify-image {
+    object-fit: cover;
+    border-radius: var(--amplify-radii-small);
+  }
 }

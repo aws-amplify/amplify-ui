@@ -5,7 +5,7 @@ export type SetShowPreviewer = (show: boolean) => void;
 type LevelInfo = 'public' | 'protected' | 'private';
 export type Files = File[];
 
-export interface UploaderButtonProps {
+export interface UploadButtonProps {
   acceptedFileTypes: string[];
   multiple?: boolean;
   onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -38,15 +38,19 @@ export interface UploadIconProps {
   className?: string;
 }
 
-export interface FilePreviewerProps {
+export interface PreviewerProps extends DragActionHandlers {
   fileNames: string[];
   level: LevelInfo;
   files: File[];
   onClose: () => void;
+  acceptedFileTypes: string[];
+  multiple?: boolean;
+  onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  inDropZone?: boolean;
 }
 
-type UploaderButtonComponent<Props = {}> = React.ComponentType<
-  Props & Partial<UploaderButtonProps>
+type UploadButtonComponent<Props = {}> = React.ComponentType<
+  Props & Partial<UploadButtonProps>
 >;
 
 type UploadDropZoneComponent<Props = {}> = React.ComponentType<
@@ -54,5 +58,5 @@ type UploadDropZoneComponent<Props = {}> = React.ComponentType<
 >;
 export interface Components {
   UploadDropZone?: UploadDropZoneComponent;
-  UploaderButton?: UploaderButtonComponent;
+  UploadButton?: UploadButtonComponent;
 }
