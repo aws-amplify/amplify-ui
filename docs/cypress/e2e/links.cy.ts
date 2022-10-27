@@ -1,4 +1,5 @@
 import { VALIDATED_LINKS } from '../data/validatedLinks';
+import { REQUEST_GET_LINKS } from '../data/requestGetLinks';
 
 let allLinks: string[] = [];
 const numberOfLinks = 119;
@@ -54,15 +55,20 @@ for (let i = 0; i < numberOfLinks; i++) {
           ) {
             logMessage('SKIPPING_VALIDATED');
           } else {
+            const requestMethod = REQUEST_GET_LINKS.includes(pureHref)
+              ? 'GET'
+              : 'HEAD';
             logMessage('REQUESTING');
             requestedLinks.add(pureHref);
-            cy.request({ url: pureHref, followRedirect: false }).then(
-              ({ status }) => {
-                logMessage('RETURNING', status);
-                expect(status).to.oneOf([200, 301, 303]);
-                cy.clearLocalStorage();
-              }
-            );
+            cy.request({
+              url: pureHref,
+              followRedirect: false,
+              method: requestMethod,
+            }).then(({ status }) => {
+              logMessage('RETURNING', status);
+              expect(status).to.oneOf([200, 301, 303]);
+              cy.clearLocalStorage();
+            });
           }
         } else if (tagName === 'A') {
           logMessage('NO_HREF');
