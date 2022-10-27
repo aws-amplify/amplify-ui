@@ -15,9 +15,9 @@ const fields = [username];
 
 const props = {
   fields,
-  Footer: Authenticator.SignIn.Footer,
-  FormFields: Authenticator.SignIn.FormFields,
-  Header: Authenticator.SignIn.Header,
+  Footer: Authenticator.ConfirmVerifyUser.Footer,
+  FormFields: Authenticator.ConfirmVerifyUser.FormFields,
+  Header: Authenticator.ConfirmVerifyUser.Header,
   isPending: false,
   handleBlur: noop,
   handleSubmit: (values: any) => {
