@@ -21,16 +21,16 @@ export function FileUploader({
     UploadButton = FileUploader.UploadButton,
   } = components;
   const {
-    setShowPreviewer,
-    showPreviewer,
+    files,
     inDropZone,
-    setFiles,
-    onDragStart,
     onDragEnter,
     onDragLeave,
-    onDrop,
     onDragOver,
-    files,
+    onDragStart,
+    onDrop,
+    setShowPreviewer,
+    setTargetFiles,
+    showPreviewer,
   } = useFileUploader();
 
   useEffect(() => {
@@ -41,7 +41,8 @@ export function FileUploader({
     if (!event.target.files || event.target.files.length === 0) return;
 
     const { files } = event.target;
-    setFiles([...files]);
+    setTargetFiles(files);
+
     setShowPreviewer(true);
   };
 
@@ -58,12 +59,18 @@ export function FileUploader({
   if (showPreviewer) {
     return (
       <Previewer
-        fileNames={fileNames}
-        level={level}
-        files={files}
-        onClose={onClose}
         acceptedFileTypes={acceptedFileTypes}
+        fileNames={fileNames}
+        files={files}
+        inDropZone={inDropZone}
+        level={level}
         multiple={multiple}
+        onClose={onClose}
+        onDragEnter={onDragEnter}
+        onDragLeave={onDragLeave}
+        onDragOver={onDragOver}
+        onDragStart={onDragStart}
+        onDrop={onDrop}
         onFileChange={onFileChange}
       />
     );
@@ -72,12 +79,12 @@ export function FileUploader({
   } else {
     return (
       <UploadDropZone
-        onDragStart={onDragStart}
+        inDropZone={inDropZone}
         onDragEnter={onDragEnter}
         onDragLeave={onDragLeave}
-        onDrop={onDrop}
         onDragOver={onDragOver}
-        inDropZone={inDropZone}
+        onDragStart={onDragStart}
+        onDrop={onDrop}
       >
         <Text className="amplify-fileuploader__dropzone__text">
           {translate('Drop files here or')}

@@ -8,6 +8,14 @@ export default function useFileUploader(): UseFileUploader {
 
   const [inDropZone, setInDropZone] = useState(false);
 
+  const setTargetFiles = (targetFiles: FileList) => {
+    if (files.length > 0) {
+      setFiles([...targetFiles].concat(files));
+    } else {
+      setFiles([...targetFiles]);
+    }
+  };
+
   const onDragStart = (event: React.DragEvent<HTMLDivElement>) => {
     event.dataTransfer.clearData();
   };
@@ -29,11 +37,9 @@ export default function useFileUploader(): UseFileUploader {
   const onDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     event.stopPropagation();
-    const files = [...event.dataTransfer.files];
-    if (files?.length > 0) {
-      setFiles(files);
-      setShowPreviewer(true);
-    }
+    const { files } = event.dataTransfer;
+    setTargetFiles(files);
+    setShowPreviewer(true);
     setInDropZone(false);
   };
 
@@ -48,6 +54,7 @@ export default function useFileUploader(): UseFileUploader {
     setFiles,
     setInDropZone,
     setShowPreviewer,
+    setTargetFiles,
     showPreviewer,
   };
 }

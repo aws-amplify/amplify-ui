@@ -38,7 +38,7 @@ export interface UploadIconProps {
   className?: string;
 }
 
-export interface PreviewerProps {
+export interface PreviewerProps extends DragActionHandlers {
   fileNames: string[];
   level: LevelInfo;
   files: File[];
@@ -46,6 +46,7 @@ export interface PreviewerProps {
   acceptedFileTypes: string[];
   multiple?: boolean;
   onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  inDropZone?: boolean;
 }
 
 type UploadButtonComponent<Props = {}> = React.ComponentType<
