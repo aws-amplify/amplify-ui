@@ -1,6 +1,5 @@
 import React from 'react';
 import { DragActionHandlers } from './hooks/useFileUploader/types';
-import { FileName } from '@aws-amplify/ui';
 
 export type SetShowPreviewer = (show: boolean) => void;
 type LevelInfo = 'public' | 'protected' | 'private';
@@ -9,7 +8,8 @@ export type Files = File[];
 export interface UploaderButtonProps {
   acceptedFileTypes: string[];
   multiple?: boolean;
-  onClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  className?: string;
 }
 
 export interface UploadDropZoneProps extends DragActionHandlers {
@@ -19,7 +19,7 @@ export interface UploadDropZoneProps extends DragActionHandlers {
 
 export interface FileUploaderProps {
   acceptedFileTypes: string[];
-  fileNames?: FileName;
+  fileNames?: string[];
   multiple?: boolean;
   components?: Components;
   level: LevelInfo;
@@ -34,16 +34,25 @@ export interface FileUploaderProps {
   variation?: 'drop' | 'button';
 }
 
+export interface UploadIconProps {
+  className?: string;
+}
+
 export interface FilePreviewerProps {
-  fileNames: FileName;
+  fileNames: string[];
   level: LevelInfo;
   files: File[];
   onClose: () => void;
 }
+
+type UploaderButtonComponent<Props = {}> = React.ComponentType<
+  Props & Partial<UploaderButtonProps>
+>;
 
 type UploadDropZoneComponent<Props = {}> = React.ComponentType<
   Props & Partial<UploadDropZoneProps>
 >;
 export interface Components {
   UploadDropZone?: UploadDropZoneComponent;
+  UploaderButton?: UploaderButtonComponent;
 }

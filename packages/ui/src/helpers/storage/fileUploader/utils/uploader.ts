@@ -1,10 +1,9 @@
-import { FileName } from '../../../../types/storage';
 import { Storage } from 'aws-amplify';
 import { StorageAccessLevel, UploadTask } from '@aws-amplify/storage';
 
 export function getFileName(
   file: File,
-  fileName: FileName,
+  fileName: string[],
   index: number
 ): string {
   // stub

@@ -1,22 +1,38 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
-import { Button } from '../../../../primitives/Button';
+import { translate } from '@aws-amplify/ui';
 import { UploaderButtonProps } from '../types';
+import { Button, VisuallyHidden } from '../../../../primitives';
 
 export function UploaderButton({
   multiple,
   acceptedFileTypes,
-  onClick,
+  onFileChange,
+  className,
 }: UploaderButtonProps): JSX.Element {
   const hiddenInput = React.useRef<HTMLInputElement>();
-  function handleClick() {
-    // stubbed
-  }
+  const onClick = () => {
+    hiddenInput.current.click();
+  };
 
   return (
     <>
-      <Button>Upload file</Button>
-      <input />
+      <Button
+        className={className}
+        size="small"
+        onClick={onClick}
+        variation="primary"
+      >
+        {translate('Browse files')}
+      </Button>
+      <VisuallyHidden>
+        <input
+          type="file"
+          ref={hiddenInput}
+          onChange={onFileChange}
+          multiple={multiple}
+          accept={acceptedFileTypes?.join()}
+        />
+      </VisuallyHidden>
     </>
   );
 }

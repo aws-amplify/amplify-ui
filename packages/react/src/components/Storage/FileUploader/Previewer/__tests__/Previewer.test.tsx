@@ -5,9 +5,7 @@ import { Previewer } from '..';
 
 describe('Previewer', () => {
   it('exists', async () => {
-    const { container } = render(
-      <Previewer fileNames={[]} level="public" files={[]} onClose={() => ''} />
-    );
+    const { container } = render(<Previewer />);
 
     expect(container).toBeTruthy();
   });
