@@ -2,9 +2,6 @@
 
 exports[`ConfirmSignUp renders as expected 1`] = `
 Array [
-  <Text>
-    ConfirmSignUp
-  </Text>,
   <Text
     accessibilityRole="header"
     style={
@@ -20,6 +17,357 @@ Array [
         undefined,
       ]
     }
-  />,
+  >
+    We Emailed You
+  </Text>,
+  <Text>
+    Your code is on the way. To log in, enter the code we emailed to a***@e***.com. It may take a minute to arrive.
+  </Text>,
+  <View
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        null,
+        Object {
+          "backgroundColor": "teal",
+          "marginVertical": 8,
+          "paddingVertical": 12,
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "alignSelf": "center",
+          },
+          Object {
+            "color": "white",
+            "fontSize": 16,
+            "fontWeight": "bold",
+          },
+        ]
+      }
+    >
+      Confirm
+    </Text>
+  </View>,
+  <View>
+    <View
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          null,
+          Object {
+            "marginVertical": 8,
+            "paddingVertical": 12,
+          },
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "alignSelf": "center",
+            },
+            Object {
+              "color": "teal",
+            },
+          ]
+        }
+      >
+        Resend Code
+      </Text>
+    </View>
+  </View>,
+]
+`;
+
+exports[`ConfirmSignUp renders as expected when isPending is true 1`] = `
+Array [
+  <Text
+    accessibilityRole="header"
+    style={
+      Array [
+        Object {
+          "color": "black",
+        },
+        Object {
+          "fontSize": 34,
+          "fontWeight": "300",
+          "lineHeight": 51,
+        },
+        undefined,
+      ]
+    }
+  >
+    We Emailed You
+  </Text>,
+  <Text>
+    Your code is on the way. To log in, enter the code we emailed to a***@e***.com. It may take a minute to arrive.
+  </Text>,
+  <View
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        null,
+        Object {
+          "backgroundColor": "teal",
+          "marginVertical": 8,
+          "paddingVertical": 12,
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "alignSelf": "center",
+          },
+          Object {
+            "color": "white",
+            "fontSize": 16,
+            "fontWeight": "bold",
+          },
+        ]
+      }
+    >
+      Confirming
+    </Text>
+  </View>,
+  <View>
+    <View
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          null,
+          Object {
+            "marginVertical": 8,
+            "paddingVertical": 12,
+          },
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "alignSelf": "center",
+            },
+            Object {
+              "color": "teal",
+            },
+          ]
+        }
+      >
+        Resend Code
+      </Text>
+    </View>
+  </View>,
+]
+`;
+
+exports[`ConfirmSignUp renders as expected with an error 1`] = `
+Array [
+  <Text
+    accessibilityRole="header"
+    style={
+      Array [
+        Object {
+          "color": "black",
+        },
+        Object {
+          "fontSize": 34,
+          "fontWeight": "300",
+          "lineHeight": 51,
+        },
+        undefined,
+      ]
+    }
+  >
+    We Emailed You
+  </Text>,
+  <Text>
+    Your code is on the way. To log in, enter the code we emailed to a***@e***.com. It may take a minute to arrive.
+  </Text>,
+  <View
+    accessibilityRole="alert"
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#f5bcbc",
+          "flexDirection": "row",
+          "paddingHorizontal": 4,
+          "paddingVertical": 16,
+          "width": "100%",
+        },
+        undefined,
+      ]
+    }
+  >
+    <Image
+      accessibilityRole="image"
+      source={
+        Object {
+          "testUri": "../../../src/assets/icons/error.png",
+        }
+      }
+      style={
+        Array [
+          Object {
+            "height": 20,
+            "resizeMode": "contain",
+            "tintColor": undefined,
+            "width": 20,
+          },
+          Object {
+            "margin": 4,
+          },
+        ]
+      }
+    />
+    <Text
+      style={
+        Array [
+          Object {
+            "flex": 1,
+            "paddingHorizontal": 4,
+          },
+          undefined,
+        ]
+      }
+    >
+      An error!
+    </Text>
+  </View>,
+  <View
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        null,
+        Object {
+          "backgroundColor": "teal",
+          "marginVertical": 8,
+          "paddingVertical": 12,
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "alignSelf": "center",
+          },
+          Object {
+            "color": "white",
+            "fontSize": 16,
+            "fontWeight": "bold",
+          },
+        ]
+      }
+    >
+      Confirm
+    </Text>
+  </View>,
+  <View>
+    <View
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          null,
+          Object {
+            "marginVertical": 8,
+            "paddingVertical": 12,
+          },
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "alignSelf": "center",
+            },
+            Object {
+              "color": "teal",
+            },
+          ]
+        }
+      >
+        Resend Code
+      </Text>
+    </View>
+  </View>,
 ]
 `;
