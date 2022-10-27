@@ -2,7 +2,8 @@ import React, { Fragment } from 'react';
 import { View } from 'react-native';
 
 import { getErrors } from '@aws-amplify/ui';
-import { DefaultComponents, TextFieldOptionsType } from '../../Defaults/types';
+import { DefaultComponents } from '../../Defaults';
+import { TextFieldOptionsType } from '../../hooks';
 import { FieldErrors } from './FieldErrors';
 import { styles } from './styles';
 import {

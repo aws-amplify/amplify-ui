@@ -3,48 +3,7 @@ import {
   AuthenticatorComponentDefaults,
 } from '@aws-amplify/ui-react-core';
 
-import {
-  TextFieldProps,
-  PasswordFieldProps,
-  PhoneNumberFieldProps,
-  RadioProps,
-} from '../../primitives';
-
-// --- Begin temporary types ---
-
-export type OnBlur = TextFieldProps['onBlur'];
-export type OnChangeText = TextFieldProps['onChangeText'];
-
-type FieldOptions<FieldProps, Type extends AuthenticatorFieldTypeKey> = {
-  type: Type;
-  name: string;
-  required?: boolean;
-  onBlur?: Type extends 'radio' ? RadioProps<string>['onBlur'] : OnBlur;
-} & Omit<FieldProps, 'disabled' | 'onBlur'>;
-
-export type MachineFieldTypeKey = 'password' | 'tel';
-export type AuthenticatorFieldTypeKey =
-  | 'password'
-  | 'phone'
-  | 'default'
-  | 'radio';
-
-export type PasswordFieldOptions = FieldOptions<PasswordFieldProps, 'password'>;
-export type PhoneFieldOptions = FieldOptions<PhoneNumberFieldProps, 'phone'>;
-export type DefaultFieldOptions = FieldOptions<TextFieldProps, 'default'>;
-export type TextFieldOptionsType =
-  | PasswordFieldOptions
-  | PhoneFieldOptions
-  | DefaultFieldOptions;
-
-export type RadioFieldOptions = FieldOptions<RadioProps<string>, 'radio'>;
-
-/**
- * `field` options union
- */
-export type TypedField = RadioFieldOptions | TextFieldOptionsType;
-
-// --- End temporary types ---
+import { RadioFieldOptions, TextFieldOptionsType } from '../hooks';
 
 // TODO fill these interfaces with custom style override types
 export interface ConfirmResetPasswordStyle {}
