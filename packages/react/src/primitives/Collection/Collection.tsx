@@ -13,30 +13,34 @@ import {
   CollectionProps,
   GridCollectionProps,
   ListCollectionProps,
+  Primitive,
 } from '../types';
 import { getItemsAtPage, itemHasText, getPageCount } from './utils';
 
 const DEFAULT_PAGE_SIZE = 10;
 const TYPEAHEAD_DELAY_MS = 300;
 
-const ListCollection = <Item,>({
-  children,
-  direction = 'column',
-  items,
-  ...rest
-}: ListCollectionProps<Item>) => (
-  <Flex direction={direction} {...rest}>
+const ListCollection: Primitive<ListCollectionProps<unknown>, 'div'> = (
+  { children, direction = 'column', items, ...rest },
+  ref
+) => (
+  <Flex ref={ref} direction={direction} {...rest}>
     {Array.isArray(items) ? items.map(children) : null}
   </Flex>
 );
 
-const GridCollection = <Item,>({
-  children,
-  items,
-  ...rest
-}: GridCollectionProps<Item>) => (
-  <Grid {...rest}>{Array.isArray(items) ? items.map(children) : null}</Grid>
+const ListCollectionWithRef = React.forwardRef(ListCollection);
+
+const GridCollection: Primitive<GridCollectionProps<unknown>, 'div'> = (
+  { children, items, ...rest },
+  ref
+) => (
+  <Grid ref={ref} {...rest}>
+    {Array.isArray(items) ? items.map(children) : null}
+  </Grid>
 );
+
+const GridCollectionWithRef = React.forwardRef(GridCollection);
 
 const renderCollectionOrNoResultsFound = <Item,>(
   collection: JSX.Element,
@@ -56,23 +60,23 @@ const renderCollectionOrNoResultsFound = <Item,>(
   );
 };
 
-/**
- * [📖 Docs](https://ui.docs.amplify.aws/react/components/collection)
- */
-export const Collection = <Item,>({
-  className,
-  isSearchable,
-  isPaginated,
-  items,
-  itemsPerPage = DEFAULT_PAGE_SIZE,
-  searchFilter = itemHasText,
-  searchLabel = ComponentText.Collection.searchButtonLabel,
-  searchNoResultsFound,
-  searchPlaceholder,
-  type = 'list',
-  testId,
-  ...rest
-}: CollectionProps<Item>): JSX.Element => {
+const CollectionPrimitive: Primitive<CollectionProps<any>, 'div'> = (
+  {
+    className,
+    isSearchable,
+    isPaginated,
+    items,
+    itemsPerPage = DEFAULT_PAGE_SIZE,
+    searchFilter = itemHasText,
+    searchLabel = ComponentText.Collection.searchButtonLabel,
+    searchNoResultsFound,
+    searchPlaceholder,
+    type = 'list',
+    testId,
+    ...rest
+  },
+  ref
+) => {
   const [searchText, setSearchText] = React.useState<string>();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -100,15 +104,17 @@ export const Collection = <Item,>({
 
   const collection =
     type === 'list' ? (
-      <ListCollection
+      <ListCollectionWithRef
         className={ComponentClassNames.CollectionItems}
         items={items}
+        ref={ref}
         {...rest}
       />
     ) : type === 'grid' ? (
-      <GridCollection
+      <GridCollectionWithRef
         className={ComponentClassNames.CollectionItems}
         items={items}
+        ref={ref}
         {...rest}
       />
     ) : null;
@@ -144,4 +150,8 @@ export const Collection = <Item,>({
   );
 };
 
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/collection)
+ */
+export const Collection = React.forwardRef(CollectionPrimitive);
 Collection.displayName = 'Collection';
