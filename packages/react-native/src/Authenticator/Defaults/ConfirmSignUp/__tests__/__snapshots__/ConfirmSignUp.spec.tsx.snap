@@ -23,6 +23,7 @@ Array [
   <Text>
     Your code is on the way. To log in, enter the code we emailed to a***@e***.com. It may take a minute to arrive.
   </Text>,
+  <View />,
   <View
     accessible={true}
     collapsable={false}
@@ -130,6 +131,7 @@ Array [
   <Text>
     Your code is on the way. To log in, enter the code we emailed to a***@e***.com. It may take a minute to arrive.
   </Text>,
+  <View />,
   <View
     accessible={true}
     collapsable={false}
@@ -237,6 +239,7 @@ Array [
   <Text>
     Your code is on the way. To log in, enter the code we emailed to a***@e***.com. It may take a minute to arrive.
   </Text>,
+  <View />,
   <View
     accessibilityRole="alert"
     style={

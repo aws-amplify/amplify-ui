@@ -16,7 +16,7 @@ export default function PhoneNumberField({
   pickerStyle,
   style,
   ...rest
-}: PhoneNumberFieldProps): JSX.Element {
+}: PhoneNumberFieldProps): JSX.Element | null {
   const [selectedDialCode, setSelectedDialCode] = useState(defaultDialCode);
 
   const handleOnValueChange = useCallback(
@@ -28,24 +28,26 @@ export default function PhoneNumberField({
   );
 
   const pickerItems = useMemo(() => {
-    return dialCodes.map((dialCode) => {
+    return dialCodes?.map((dialCode) => {
       return <Picker.Item label={dialCode} value={dialCode} key={dialCode} />;
     });
   }, [dialCodes]);
 
   return (
     <View style={[styles.container, style]}>
-      <Picker
-        enabled={!disabled}
-        itemStyle={[styles.pickerItem, pickerItemStyle]}
-        mode="dropdown"
-        onValueChange={handleOnValueChange}
-        selectedValue={selectedDialCode}
-        testID="RNPicker"
-        style={[styles.picker, pickerStyle]}
-      >
-        {pickerItems}
-      </Picker>
+      {dialCodes ? (
+        <Picker
+          enabled={!disabled}
+          itemStyle={[styles.pickerItem, pickerItemStyle]}
+          mode="dropdown"
+          onValueChange={handleOnValueChange}
+          selectedValue={selectedDialCode}
+          testID="RNPicker"
+          style={[styles.picker, pickerStyle]}
+        >
+          {pickerItems}
+        </Picker>
+      ) : null}
       <TextField
         {...rest}
         disabled={disabled}

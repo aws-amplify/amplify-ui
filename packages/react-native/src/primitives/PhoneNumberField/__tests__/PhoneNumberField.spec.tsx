@@ -53,6 +53,16 @@ describe('PhoneNumberField', () => {
     expect(picker.props.selectedIndex).toBe(0);
   });
 
+  it('does not render picker when dial codes are undefined', () => {
+    const { toJSON, queryByTestId } = render(
+      <PhoneNumberField {...defaultProps} dialCodes={undefined} />
+    );
+    expect(toJSON()).toMatchSnapshot();
+
+    const picker = queryByTestId(pickerTestID);
+    expect(picker).toBe(null);
+  });
+
   it('renders as expected when disabled', () => {
     const { toJSON, getByTestId } = render(
       <PhoneNumberField {...defaultProps} disabled />

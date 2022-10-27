@@ -4,9 +4,18 @@ import { AuthChallengeName, authenticatorTextUtil } from '@aws-amplify/ui';
 
 import { ConfirmSignIn } from '..';
 
+const code = {
+  name: 'code',
+  label: 'Code',
+  placeholder: 'Code',
+  type: 'default' as const,
+};
+
+const fields = [code];
+
 const props = {
   challengeName: 'SMS_MFA' as AuthChallengeName,
-  fields: [],
+  fields,
   Footer: ConfirmSignIn.Footer,
   FormFields: ConfirmSignIn.FormFields,
   handleBlur: jest.fn(),
@@ -32,8 +41,9 @@ describe('ConfirmSignIn', () => {
     expect(toJSON()).toMatchSnapshot();
 
     expect(getAllByRole('header')).toBeDefined();
-    expect(getByText(getChallengeText('SMS_MFA'))).toBeTruthy();
-    expect(getByText(getConfirmText())).toBeTruthy();
+    expect(getByText(getChallengeText('SMS_MFA'))).toBeDefined();
+    expect(getByText(getConfirmText())).toBeDefined();
+    expect(getAllByRole('text')).toHaveLength(fields.length);
   });
 
   it('renders an error message', () => {
@@ -43,7 +53,7 @@ describe('ConfirmSignIn', () => {
     );
 
     expect(toJSON()).toMatchSnapshot();
-    expect(getByText(errorMessage)).toBeTruthy();
+    expect(getByText(errorMessage)).toBeDefined();
   });
 
   it('handles Back to Sign In button', () => {
@@ -61,7 +71,7 @@ describe('ConfirmSignIn', () => {
   it('renders correct text based on isPending', () => {
     const { queryByText } = render(<ConfirmSignIn {...props} isPending />);
 
-    expect(queryByText(getConfirmingText())).toBeTruthy();
-    expect(queryByText(getConfirmText())).not.toBeTruthy();
+    expect(queryByText(getConfirmingText())).toBeDefined();
+    expect(queryByText(getConfirmText())).toBe(null);
   });
 });
