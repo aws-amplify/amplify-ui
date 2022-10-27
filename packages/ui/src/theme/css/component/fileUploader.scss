@@ -75,3 +75,10 @@
 .amplify-fileuploader--footer > *:first-child {
   flex: 1;
 }
+
+.amplify-fileuploader-file {
+  .amplify-image {
+    object-fit: cover;
+    border-radius: var(--amplify-radii-small);
+  }
+}

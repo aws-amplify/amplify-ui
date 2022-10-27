@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from '../../../../primitives';
+import { Card, View } from '../../../../primitives';
 
 export function Tracker({
   children,
@@ -7,8 +7,12 @@ export function Tracker({
   children?: React.ReactNode;
 }): JSX.Element {
   return (
-    <View>
+    <Card
+      variation="outlined"
+      padding="0"
+      className="amplify-fileuploader-file"
+    >
       <View>{children}</View>
-    </View>
+    </Card>
   );
 }
