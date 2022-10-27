@@ -2,36 +2,32 @@ import * as React from 'react';
 import { render } from '@testing-library/react';
 
 import { Previewer } from '..';
+let fakeFile = new File(['hello'], 'hello.png', { type: 'image/png' });
+let fakeFile2 = new File(['goodbye'], 'goodbye.png', {
+  type: 'image/png',
+});
 
 describe('Previewer', () => {
-  let fakeFile;
-  let fakeFile2;
-  beforeEach(() => {
-    fakeFile = new File(['hello'], 'hello.png', { type: 'image/png' });
-    fakeFile2 = new File(['goodbye'], 'goodbye.png', {
-      type: 'image/png',
-    });
-  });
-  it('exists', async () => {
+  it('renders as expected', async () => {
     const { container } = render(
       <Previewer
         acceptedFileTypes={['.png']}
         files={[fakeFile]}
         inDropZone={false}
         multiple={true}
-        onClose={() => ''}
-        onDragEnter={() => ''}
-        onDragLeave={() => ''}
-        onDragOver={() => ''}
-        onDragStart={() => ''}
-        onDrop={() => ''}
-        onFileChange={() => ''}
+        onClose={() => {}}
+        onDragEnter={() => {}}
+        onDragLeave={() => {}}
+        onDragOver={() => {}}
+        onDragStart={() => {}}
+        onDrop={() => {}}
+        onFileChange={() => {}}
         fileNames={[]}
         level="public"
       />
     );
 
-    expect(container).toBeTruthy();
+    expect(container).toMatchSnapshot();
   });
   it('has two files passed in and displays them', async () => {
     const { container, findByText } = render(
@@ -40,13 +36,13 @@ describe('Previewer', () => {
         files={[fakeFile, fakeFile2]}
         inDropZone={false}
         multiple={true}
-        onClose={() => ''}
-        onDragEnter={() => ''}
-        onDragLeave={() => ''}
-        onDragOver={() => ''}
-        onDragStart={() => ''}
-        onDrop={() => ''}
-        onFileChange={() => ''}
+        onClose={() => {}}
+        onDragEnter={() => {}}
+        onDragLeave={() => {}}
+        onDragOver={() => {}}
+        onDragStart={() => {}}
+        onDrop={() => {}}
+        onFileChange={() => {}}
         fileNames={[]}
         level="public"
       />
@@ -67,13 +63,13 @@ describe('Previewer', () => {
         files={[fakeFile]}
         inDropZone={false}
         multiple={true}
-        onClose={() => ''}
-        onDragEnter={() => ''}
-        onDragLeave={() => ''}
-        onDragOver={() => ''}
-        onDragStart={() => ''}
-        onDrop={() => ''}
-        onFileChange={() => ''}
+        onClose={() => {}}
+        onDragEnter={() => {}}
+        onDragLeave={() => {}}
+        onDragOver={() => {}}
+        onDragStart={() => {}}
+        onDrop={() => {}}
+        onFileChange={() => {}}
         fileNames={[]}
         level="public"
       />

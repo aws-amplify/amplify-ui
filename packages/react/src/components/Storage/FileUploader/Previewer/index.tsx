@@ -7,24 +7,16 @@ import { UploadButton } from '../UploadButton';
 import { Tracker } from '../Tracker';
 
 export function Previewer({
-  acceptedFileTypes,
   files,
   inDropZone,
-  multiple,
   onClose,
   onDragEnter,
   onDragLeave,
   onDragOver,
   onDragStart,
   onDrop,
-  onFileChange,
+  ...rest
 }: PreviewerProps): JSX.Element {
-  const CommonProps = {
-    acceptedFileTypes,
-    multiple,
-    onFileChange,
-  };
-
   const onClick = () => {
     // start upload
   };
@@ -43,7 +35,7 @@ export function Previewer({
             {translate('Drop files here or')}
           </Text>
           <UploadButton
-            {...CommonProps}
+            {...rest}
             className={'amplify-fileuploader__dropzone__button'}
           />
         </UploadDropZone>
@@ -51,7 +43,7 @@ export function Previewer({
         {files?.map((file, index) => (
           <Tracker key={index}>{file.name}</Tracker>
         ))}
-        <View className="amplify-fileuploader--footer">
+        <View className="amplify-fileuploader__footer">
           <View>
             <Button size="small" variation="primary" onClick={onClick}>
               Upload {files.length} files

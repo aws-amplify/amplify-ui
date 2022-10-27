@@ -56,7 +56,7 @@
   padding: var(--amplify-space-medium);
 }
 
-.amplify-fileuploader--footer {
+.amplify-fileuploader__footer {
   position: relative;
   padding: var(--amplify-space-medium);
   display: flex;
@@ -65,14 +65,14 @@
     var(--amplify-colors-border-secondary);
 }
 
-.amplify-fileuploader--footer > .amplify-fileuploader-loader {
+.amplify-fileuploader__footer > .amplify-fileuploader-loader {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
 }
 
-.amplify-fileuploader--footer > *:first-child {
+.amplify-fileuploader__footer > *:first-child {
   flex: 1;
 }
 
