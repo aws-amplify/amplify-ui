@@ -14,7 +14,7 @@ export interface PhoneNumberFieldProps
    * @description
    * Accepts an array of dial codes (strings) used as options in the dial code selector
    */
-  dialCodes: Array<string>;
+  dialCodes?: Array<string>;
 
   /**
    * @description

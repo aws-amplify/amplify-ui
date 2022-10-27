@@ -1,11 +1,35 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react-native';
-import { ConfirmVerifyUser } from '@aws-amplify/ui-react-native/dist/Authenticator/Defaults';
+import noop from 'lodash/noop';
 
-const props = {} as any;
+import { Authenticator } from '@aws-amplify/ui-react-native';
 
-storiesOf('ConfirmVerifyUser', module)
-  .add('default', () => <ConfirmVerifyUser {...props} />)
-  .add('header', () => <ConfirmVerifyUser.Header />)
-  .add('footer', () => <ConfirmVerifyUser.Footer />)
-  .add('formFields', () => <ConfirmVerifyUser.FormFields {...props} />);
+const username = {
+  name: 'username',
+  label: 'Username',
+  placeholder: 'Username',
+  type: 'default' as const,
+};
+
+const fields = [username];
+
+const props = {
+  fields,
+  Footer: Authenticator.ConfirmVerifyUser.Footer,
+  FormFields: Authenticator.ConfirmVerifyUser.FormFields,
+  Header: Authenticator.ConfirmVerifyUser.Header,
+  isPending: false,
+  handleBlur: noop,
+  handleSubmit: (values: any) => {
+    console.log('Values', values);
+  },
+  handleChange: noop,
+  error: null as unknown as string,
+  skipVerification: noop,
+};
+
+storiesOf('Authenticator.ConfirmVerifyUser', module)
+  .add('Default', () => <Authenticator.ConfirmVerifyUser {...props} />)
+  .add('With error', () => (
+    <Authenticator.ConfirmVerifyUser {...props} error={'Error!'} />
+  ));

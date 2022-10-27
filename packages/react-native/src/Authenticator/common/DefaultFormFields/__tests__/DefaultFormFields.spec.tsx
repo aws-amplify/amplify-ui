@@ -10,6 +10,6 @@ describe('DefaultFormFields', () => {
     );
     expect(toJSON()).toMatchSnapshot();
 
-    expect(toJSON()).toBe(null);
+    expect(toJSON()).toBeDefined();
   });
 });

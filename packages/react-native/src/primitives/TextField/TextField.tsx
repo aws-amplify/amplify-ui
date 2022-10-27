@@ -10,6 +10,7 @@ export default function TextField({
   accessibilityRole,
   accessibilityState,
   accessible = true,
+  autoCapitalize = 'none',
   disabled,
   error,
   errorMessage,
@@ -41,9 +42,10 @@ export default function TextField({
       <View style={styles.inputContainer}>
         <TextInput
           {...rest}
-          style={[styles.input, fieldStyle]}
           accessible={accessible}
+          autoCapitalize={autoCapitalize}
           editable={!disabled}
+          style={[styles.input, fieldStyle]}
         />
         {endAccessory ?? null}
       </View>

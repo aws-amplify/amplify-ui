@@ -2,9 +2,6 @@
 
 exports[`ConfirmVerifyUser renders as expected 1`] = `
 Array [
-  <Text>
-    ConfirmVerifyUser
-  </Text>,
   <Text
     accessibilityRole="header"
     style={
@@ -20,6 +17,160 @@ Array [
         undefined,
       ]
     }
-  />,
+  >
+    Account recovery requires verified contact information
+  </Text>,
+  <View />,
+  <View
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        null,
+        Object {
+          "marginVertical": 8,
+          "paddingVertical": 12,
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "alignSelf": "center",
+          },
+          Object {
+            "color": "teal",
+          },
+        ]
+      }
+    >
+      Skip
+    </Text>
+  </View>,
+]
+`;
+
+exports[`ConfirmVerifyUser renders as expected with errors 1`] = `
+Array [
+  <Text
+    accessibilityRole="header"
+    style={
+      Array [
+        Object {
+          "color": "black",
+        },
+        Object {
+          "fontSize": 34,
+          "fontWeight": "300",
+          "lineHeight": 51,
+        },
+        undefined,
+      ]
+    }
+  >
+    Account recovery requires verified contact information
+  </Text>,
+  <View />,
+  <View
+    accessibilityRole="alert"
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#f5bcbc",
+          "flexDirection": "row",
+          "paddingHorizontal": 4,
+          "paddingVertical": 16,
+          "width": "100%",
+        },
+        undefined,
+      ]
+    }
+  >
+    <Image
+      accessibilityRole="image"
+      source={
+        Object {
+          "testUri": "../../../src/assets/icons/error.png",
+        }
+      }
+      style={
+        Array [
+          Object {
+            "height": 20,
+            "resizeMode": "contain",
+            "tintColor": undefined,
+            "width": 20,
+          },
+          Object {
+            "margin": 4,
+          },
+        ]
+      }
+    />
+    <Text
+      style={
+        Array [
+          Object {
+            "flex": 1,
+            "paddingHorizontal": 4,
+          },
+          undefined,
+        ]
+      }
+    >
+      Something went wrong
+    </Text>
+  </View>,
+  <View
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        null,
+        Object {
+          "marginVertical": 8,
+          "paddingVertical": 12,
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "alignSelf": "center",
+          },
+          Object {
+            "color": "teal",
+          },
+        ]
+      }
+    >
+      Skip
+    </Text>
+  </View>,
 ]
 `;
