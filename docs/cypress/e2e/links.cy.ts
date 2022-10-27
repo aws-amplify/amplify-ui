@@ -2,7 +2,7 @@ import { VALIDATED_LINKS } from '../data/validatedLinks';
 
 let allLinks: string[] = [];
 const numberOfLinks = 119;
-const requested: Set<string> = new Set();
+const requestedLinks: Set<string> = new Set();
 
 before(() => {
   cy.task('readSitemapLinks').then((links: string[]) => {
@@ -50,16 +50,16 @@ for (let i = 0; i < numberOfLinks; i++) {
           } else if (
             VALIDATED_LINKS.includes(pureHref) ||
             VALIDATED_LINKS.includes(`${pureHref.replace(baseUrl, '')}`) ||
-            requested.has(pureHref)
+            requestedLinks.has(pureHref)
           ) {
             logMessage('SKIPPING_VALIDATED');
           } else {
             logMessage('REQUESTING');
+            requestedLinks.add(pureHref);
             cy.request({ url: pureHref, followRedirect: false }).then(
               ({ status }) => {
                 logMessage('RETURNING', status);
                 expect(status).to.oneOf([200, 301, 303]);
-                requested.add(pureHref);
                 cy.clearLocalStorage();
               }
             );
