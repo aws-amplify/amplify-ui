@@ -34,7 +34,7 @@ for (let i = 0; i < numberOfLinks; i++) {
         const tagName: string = htmlTag.prop('tagName');
         let pureHref: string;
         if (tagHref) {
-          pureHref = tagHref.replace(tagHash, '');
+          pureHref = tagHref.replace(tagHash, ''); // TODO: add test to validate links with a hash tag.
           logMessage('CHECKING');
 
           if (allLinks.includes(`${pureHref.replace(`${baseUrl}/`, '')}`)) {
@@ -109,7 +109,7 @@ for (let i = 0; i < numberOfLinks; i++) {
             case 'RETURNING':
               return cy.task(
                 'log',
-                `[RETURNING STATUS...] ${status} for ${pureHref}`
+                `↩️ [RETURNING STATUS...] ${status} for ${pureHref}`
               );
             case 'NO_HREF':
               return cy.task(
