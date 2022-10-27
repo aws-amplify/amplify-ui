@@ -1,14 +1,14 @@
 import { StyleSheet, TextStyle, ViewStyle } from 'react-native';
 
 // TODO: clean up with theming
-interface VerifyUserStyle {
+interface ConfirmVerifyUserStyle {
   buttonPrimary: ViewStyle;
   buttonPrimaryLabel: TextStyle;
   buttonSecondary: ViewStyle;
   buttonSecondaryLabel: TextStyle;
 }
 
-export const styles: VerifyUserStyle = StyleSheet.create({
+export const styles: ConfirmVerifyUserStyle = StyleSheet.create({
   buttonPrimary: {
     backgroundColor: 'teal',
     marginVertical: 8,

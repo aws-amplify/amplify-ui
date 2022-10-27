@@ -20,6 +20,7 @@ Array [
   >
     Account recovery requires verified contact information
   </Text>,
+  <View />,
   <View
     accessible={true}
     collapsable={false}
@@ -81,6 +82,7 @@ Array [
   >
     Account recovery requires verified contact information
   </Text>,
+  <View />,
   <View
     accessibilityRole="alert"
     style={

@@ -2,6 +2,7 @@ import React from 'react';
 
 import { DefaultFooter } from '../../common/DefaultFooter';
 import { DefaultHeader } from '../../common/DefaultHeader';
+import { DefaultFormFields } from '../../common/DefaultFormFields';
 import { Button, ErrorMessage } from '../../../primitives';
 import { DefaultConfirmVerifyUserComponent } from '../types';
 import { authenticatorTextUtil } from '@aws-amplify/ui';
@@ -35,10 +36,8 @@ const ConfirmVerifyUser: DefaultConfirmVerifyUserComponent = ({
   );
 };
 
-const FormFields: DefaultConfirmVerifyUserComponent['FormFields'] = () => null;
-
 ConfirmVerifyUser.Footer = DefaultFooter;
-ConfirmVerifyUser.FormFields = FormFields;
+ConfirmVerifyUser.FormFields = DefaultFormFields;
 ConfirmVerifyUser.Header = DefaultHeader;
 
 ConfirmVerifyUser.displayName = 'ConfirmVerifyUser';
