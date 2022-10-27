@@ -29,34 +29,37 @@ for (let i = 0; i < numberOfLinks; i++) {
 
       function hrefWorks(htmlTag: JQuery<HTMLElement>): void {
         const tagHref: string = htmlTag.prop('href');
+        const tagHash: string = htmlTag.prop('hash');
         const tagText: string = htmlTag.prop('text');
         const tagName: string = htmlTag.prop('tagName');
+        let pureHref: string;
         if (tagHref) {
+          pureHref = tagHref.replace(tagHash, '');
           logMessage('CHECKING');
 
-          if (allLinks.includes(`${tagHref.replace(`${baseUrl}/`, '')}`)) {
-            expect(`${tagHref.replace(`${baseUrl}/`, '')}`).to.oneOf(allLinks);
+          if (allLinks.includes(`${pureHref.replace(`${baseUrl}/`, '')}`)) {
+            expect(`${pureHref.replace(`${baseUrl}/`, '')}`).to.oneOf(allLinks);
             logMessage('SKIPPING_SITEMAP');
           } else if (
-            allLinks.includes(`${tagHref.replace(`${baseUrl}/`, 'react/')}`)
+            allLinks.includes(`${pureHref.replace(`${baseUrl}/`, 'react/')}`)
           ) {
-            expect(`${tagHref.replace(`${baseUrl}/`, 'react/')}`).to.oneOf(
+            expect(`${pureHref.replace(`${baseUrl}/`, 'react/')}`).to.oneOf(
               allLinks
             );
             logMessage('SKIPPING_SITEMAP');
           } else if (
-            VALIDATED_LINKS.includes(tagHref) ||
-            VALIDATED_LINKS.includes(`${tagHref.replace(baseUrl, '')}`) ||
-            requested.has(tagHref)
+            VALIDATED_LINKS.includes(pureHref) ||
+            VALIDATED_LINKS.includes(`${pureHref.replace(baseUrl, '')}`) ||
+            requested.has(pureHref)
           ) {
             logMessage('SKIPPING_VALIDATED');
           } else {
             logMessage('REQUESTING');
-            cy.request({ url: tagHref, followRedirect: false }).then(
+            cy.request({ url: pureHref, followRedirect: false }).then(
               ({ status }) => {
                 logMessage('RETURNING', status);
                 expect(status).to.oneOf([200, 301, 303]);
-                requested.add(tagHref);
+                requested.add(pureHref);
                 cy.clearLocalStorage();
               }
             );
@@ -78,35 +81,35 @@ for (let i = 0; i < numberOfLinks; i++) {
             case 'CHECKING':
               return cy.task(
                 'log',
-                `🔍[CHECKING...] ${tagHref} from ${tagName} tag ${
+                `🔍[CHECKING...] ${pureHref} from ${tagName} tag ${
                   tagText ? `"${tagText}"` : ''
                 } on ${baseUrl}/${link}`
               );
             case 'SKIPPING_SITEMAP':
               return cy.task(
                 'log',
-                `⏭[SKIPPING...] ${tagHref} from ${tagName} tag ${
+                `⏭[SKIPPING...] ${pureHref} from ${tagName} tag ${
                   tagText ? `"${tagText}"` : ''
                 } on ${baseUrl}/${link} because it's included in Sitemap and already tested.`
               );
             case 'SKIPPING_VALIDATED':
               return cy.task(
                 'log',
-                `⏭[SKIPPING...] ${tagHref} from ${tagName} tag ${
+                `⏭[SKIPPING...] ${pureHref} from ${tagName} tag ${
                   tagText ? `"${tagText}"` : ''
                 } on ${baseUrl}/${link} because it's already validated.`
               );
             case 'REQUESTING':
               return cy.task(
                 'log',
-                `📞[REQUESTING...] ${tagHref} from ${tagName} tag ${
+                `📞[REQUESTING...] ${pureHref} from ${tagName} tag ${
                   tagText ? `"${tagText}"` : ''
                 } on ${baseUrl}/${link}`
               );
             case 'RETURNING':
               return cy.task(
                 'log',
-                `[RETURNING STATUS...] ${status} for ${tagHref}`
+                `[RETURNING STATUS...] ${status} for ${pureHref}`
               );
             case 'NO_HREF':
               return cy.task(
