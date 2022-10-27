@@ -3,7 +3,7 @@ import { translate } from '@aws-amplify/ui';
 import { FileUploaderProps } from './types';
 import { useFileUploader } from './hooks/useFileUploader';
 import { Text } from '../../../primitives';
-import { UploaderButton } from './UploaderButton';
+import { UploadButton } from './UploadButton';
 import { Previewer } from './Previewer';
 import { UploadDropZone } from './UploadDropZone';
 
@@ -12,21 +12,14 @@ export function FileUploader({
   fileNames,
   isPreviewerVisible,
   level,
-  components: customComponents = {},
-  maxFiles,
-  maxMultipleSize,
-  maxSize,
+  components = {},
   multiple = true,
-  onChange,
-  onError,
-  onSuccess,
-  path,
   variation = 'button',
 }: FileUploaderProps): JSX.Element {
   const {
     UploadDropZone = FileUploader.UploadDropZone,
-    UploaderButton = FileUploader.UploaderButton,
-  } = customComponents;
+    UploadButton = FileUploader.UploadButton,
+  } = components;
   const {
     setShowPreviewer,
     showPreviewer,
@@ -39,20 +32,6 @@ export function FileUploader({
     onDragOver,
     files,
   } = useFileUploader();
-
-  // eslint-disable-next-line no-console
-  console.log(
-    'todo:',
-    maxMultipleSize,
-    maxSize,
-    maxFiles,
-    onChange,
-    onError,
-    onSuccess,
-    path,
-    level,
-    fileNames
-  );
 
   useEffect(() => {
     setShowPreviewer(isPreviewerVisible);
@@ -89,7 +68,7 @@ export function FileUploader({
       />
     );
   } else if (variation === 'button') {
-    return <UploaderButton {...CommonProps} />;
+    return <UploadButton {...CommonProps} />;
   } else {
     return (
       <UploadDropZone
@@ -103,7 +82,7 @@ export function FileUploader({
         <Text className="amplify-fileuploader__dropzone__text">
           {translate('Drop files here or')}
         </Text>
-        <UploaderButton
+        <UploadButton
           {...CommonProps}
           className={'amplify-fileuploader__dropzone__button'}
         />
@@ -113,4 +92,4 @@ export function FileUploader({
 }
 
 FileUploader.UploadDropZone = UploadDropZone;
-FileUploader.UploaderButton = UploaderButton;
+FileUploader.UploadButton = UploadButton;

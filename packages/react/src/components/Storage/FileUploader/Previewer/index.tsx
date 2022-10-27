@@ -4,7 +4,7 @@ import { useFileUploader } from '../hooks/useFileUploader';
 import { PreviewerProps } from '../types';
 import { Button, Card, Flex, Text, View } from '../../../../primitives';
 import { UploadDropZone } from '../UploadDropZone';
-import { UploaderButton } from '../UploaderButton';
+import { UploadButton } from '../UploadButton';
 import { Tracker } from '../Tracker';
 
 export function Previewer({
@@ -49,7 +49,7 @@ export function Previewer({
           <Text className="amplify-fileuploader__dropzone__text">
             {translate('Drop files here or')}
           </Text>
-          <UploaderButton
+          <UploadButton
             {...CommonProps}
             className={'amplify-fileuploader__dropzone__button'}
           />
