@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react-native';
+import { fireEvent, render } from '@testing-library/react-native';
 
 import { authenticatorTextUtil } from '@aws-amplify/ui';
 import { ConfirmVerifyUser } from '..';
@@ -39,5 +39,17 @@ describe('ConfirmVerifyUser', () => {
 
     expect(getByRole('alert')).toBeDefined();
     expect(getByText(error)).toBeDefined();
+  });
+
+  it('handles skip verification button', () => {
+    const skipVerificationMock = jest.fn();
+
+    const { getByText } = render(
+      <ConfirmVerifyUser {...props} skipVerification={skipVerificationMock} />
+    );
+
+    const button = getByText(getSkipText());
+    fireEvent.press(button);
+    expect(skipVerificationMock).toBeCalledTimes(1);
   });
 });

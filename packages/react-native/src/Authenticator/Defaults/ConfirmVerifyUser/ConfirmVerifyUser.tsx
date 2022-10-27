@@ -16,6 +16,7 @@ const ConfirmVerifyUser: DefaultConfirmVerifyUserComponent = ({
   Footer,
   Header,
   isPending,
+  skipVerification,
 }) => {
   return (
     <>
@@ -23,6 +24,7 @@ const ConfirmVerifyUser: DefaultConfirmVerifyUserComponent = ({
       <FormFields isPending={isPending} fields={fields} />
       {error ? <ErrorMessage>{error}</ErrorMessage> : null}
       <Button
+        onPress={skipVerification}
         style={styles.buttonSecondary}
         textStyle={styles.buttonSecondaryLabel}
       >
