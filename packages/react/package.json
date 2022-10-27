@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react",
-  "version": "3.5.9",
+  "version": "3.5.10",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "exports": {
@@ -50,13 +50,13 @@
     "size": "yarn run size-limit"
   },
   "dependencies": {
-    "@aws-amplify/ui": "4.0.0",
-    "@aws-amplify/ui-react-core": "1.0.3",
-    "@radix-ui/react-accordion": "^1.0.0",
-    "@radix-ui/react-direction": "^1.0.0",
-    "@radix-ui/react-dropdown-menu": "^1.0.0",
-    "@radix-ui/react-slider": "^1.0.0",
-    "@radix-ui/react-tabs": "^1.0.0",
+    "@aws-amplify/ui": "4.0.1",
+    "@aws-amplify/ui-react-core": "1.0.4",
+    "@radix-ui/react-accordion": "1.0.0",
+    "@radix-ui/react-direction": "1.0.0",
+    "@radix-ui/react-dropdown-menu": "1.0.0",
+    "@radix-ui/react-slider": "1.0.0",
+    "@radix-ui/react-tabs": "1.0.0",
     "@xstate/react": "3.0.0",
     "classnames": "2.3.1",
     "deepmerge": "4.2.2",
