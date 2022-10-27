@@ -4,11 +4,11 @@ import { Text, View } from 'react-native';
 import { Logger } from 'aws-amplify';
 import { authenticatorTextUtil } from '@aws-amplify/ui';
 
-import { Button, ErrorMessage } from '../../../primitives';
+import { Button, ErrorMessage, IconButton } from '../../../primitives';
 import { DefaultFooter, DefaultFormFields, DefaultHeader } from '../../common';
 import { DefaultSetupTOTPComponent } from '../types';
 import { styles } from './styles';
-// import { icons } from '../../../assets';
+import { icons } from '../../../assets';
 
 const logger = new Logger('SetupTOTP-logger');
 
@@ -16,8 +16,8 @@ const {
   getBackToSignInText,
   getConfirmingText,
   getConfirmText,
-  getCopiedText,
-  getCopyText,
+  // getCopiedText,
+  // getCopyText,
   getSetupTOTPText,
 } = authenticatorTextUtil;
 
@@ -68,20 +68,21 @@ const SetupTOTP: DefaultSetupTOTPComponent = ({
       <Header>{getSetupTOTPText()}</Header>
       <View style={styles.secretKeyContainer}>
         <Text>{secretKey}</Text>
-        <Button
+        {/* <Button
           onPress={copyText}
           style={styles.copyButton}
           textStyle={styles.copyButtonLabel}
         >
           {textCopied ? getCopiedText() : getCopyText()}
-        </Button>
-        {/* <IconButton
-          onPress={copyText}
-          source={icons.copy}
-          size={20}
+          color="teal"
+        </Button> */}
+        <IconButton
           color="teal"
           iconStyle={styles.copyIcon}
-        /> */}
+          onPress={copyText}
+          size={20}
+          source={icons.copy}
+        />
       </View>
       <FormFields fields={fields} isPending={isPending} />
       {error ? <ErrorMessage>{error}</ErrorMessage> : null}

@@ -1,4 +1,10 @@
-import { StyleSheet, TextStyle, ViewStyle } from 'react-native';
+import {
+  ImageStyle,
+  StyleProp,
+  StyleSheet,
+  TextStyle,
+  ViewStyle,
+} from 'react-native';
 
 export interface SetupTOTPStyle {
   buttonPrimary: ViewStyle;
@@ -6,9 +12,7 @@ export interface SetupTOTPStyle {
   buttonSecondary: ViewStyle;
   buttonSecondaryLabel: TextStyle;
   secretKeyContainer: ViewStyle;
-  copyButton: ViewStyle;
-  copyButtonLabel: TextStyle;
-  // copyIcon: StyleProp<ImageStyle>;
+  copyIcon: StyleProp<ImageStyle>;
 }
 
 export const styles: SetupTOTPStyle = StyleSheet.create({
@@ -27,16 +31,7 @@ export const styles: SetupTOTPStyle = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  copyButton: {
-    borderColor: 'teal',
-    borderWidth: 2,
-    padding: 4,
+  copyIcon: {
     marginLeft: 12,
   },
-  copyButtonLabel: {
-    color: 'teal',
-  },
-  // copyIcon: {
-  //   marginLeft: 12,
-  // },
 });
