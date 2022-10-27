@@ -1,5 +1,6 @@
 import React from 'react';
 import { humanFileSize } from '@aws-amplify/ui';
+import { TrackerProps } from '../types';
 import {
   Card,
   Flex,
@@ -17,17 +18,12 @@ export function Tracker({
   url,
   onChange,
   onCancel,
-}: {
-  file: File;
-  hasImage: boolean;
-  url: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onCancel: () => void;
-}): JSX.Element {
+  name,
+}: TrackerProps): JSX.Element {
   const [isEditing, setIsEditing] = React.useState(false);
   if (!file) return null;
 
-  const { name, size } = file;
+  const { size } = file;
 
   let icon = (
     <View className="amplify-fileuploder--img-placeholder">{fileIcon}</View>
@@ -104,7 +100,7 @@ export function Tracker({
                   {humanFileSize(size, true)}
                 </Text>
               </Flex>
-              {/**Future file state */}
+              {/**TODO: file state */}
             </Flex>
             <Button size="small" onClick={onCancel}>
               <Text>

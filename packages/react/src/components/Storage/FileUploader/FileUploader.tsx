@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { translate } from '@aws-amplify/ui';
 import { FileUploaderProps } from './types';
 import { useFileUploader } from './hooks/useFileUploader';
@@ -31,14 +31,24 @@ export function FileUploader({
     setShowPreviewer,
     addTargetFiles,
     showPreviewer,
+    setFiles,
   } = useFileUploader();
+  const [allFileNames, setAllFileNames] = useState<string[]>([]);
 
   useEffect(() => {
     setShowPreviewer(isPreviewerVisible);
   }, [setShowPreviewer, isPreviewerVisible]);
 
+  useEffect(() => {
+    setAllFileNames(files.map((file) => file.name));
+  }, [files]);
+
+  // Previewer Methods
+
   const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (!event.target.files || event.target.files.length === 0) return;
+    if (!event.target.files || event.target.files.length === 0) {
+      return;
+    }
 
     const { files } = event.target;
     addTargetFiles(files);
@@ -46,8 +56,23 @@ export function FileUploader({
     setShowPreviewer(true);
   };
 
-  const onClose = () => {
+  const onClear = () => {
     setShowPreviewer(false);
+    setFiles([]);
+  };
+
+  const onFileCancel = (index: number) => {
+    setFiles(files.filter((_, i) => i !== index));
+  };
+
+  const onNameChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    const names = [...allFileNames];
+    const name = event.target.value;
+    names[index] = name;
+    setAllFileNames(names);
   };
 
   const CommonProps = {
@@ -65,13 +90,16 @@ export function FileUploader({
         inDropZone={inDropZone}
         level={level}
         multiple={multiple}
-        onClose={onClose}
+        onClear={onClear}
         onDragEnter={onDragEnter}
         onDragLeave={onDragLeave}
         onDragOver={onDragOver}
         onDragStart={onDragStart}
         onDrop={onDrop}
         onFileChange={onFileChange}
+        onFileCancel={onFileCancel}
+        onNameChange={onNameChange}
+        allFileNames={allFileNames}
       />
     );
   }

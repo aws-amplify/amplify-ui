@@ -43,11 +43,26 @@ export interface PreviewerProps extends DragActionHandlers {
   fileNames: string[];
   level: LevelInfo;
   files: File[];
-  onClose: () => void;
+  onClear: () => void;
   acceptedFileTypes: string[];
   multiple?: boolean;
   onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   inDropZone?: boolean;
+  onFileCancel: (index: number) => void;
+  onNameChange: (
+    event: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => void;
+  allFileNames: string[];
+}
+
+export interface TrackerProps {
+  file: File;
+  hasImage: boolean;
+  url: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onCancel: () => void;
+  name: string;
 }
 
 interface FileStatus {
