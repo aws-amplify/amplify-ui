@@ -6,13 +6,14 @@ export {
   AuthenticatorLegacyField,
   AuthenticatorMachineContext,
   AuthenticatorProvider,
+  FormFieldsComponent,
+  isAuthenticatorComponentRouteKey,
   resolveAuthenticatorComponents,
   useAuthenticator,
   useAuthenticatorRoute,
   UseAuthenticator,
   useAuthenticatorInitMachine,
   UseAuthenticatorRoute,
-  FormFieldsComponent,
 } from './Authenticator';
 
 // components/hooks/utils

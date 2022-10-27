@@ -1,4 +1,5 @@
-import { DefaultComponents, TextFieldOptionsType } from '../../Defaults/types';
+import { DefaultComponents } from '../../Defaults';
+import { TextFieldOptionsType } from '../../hooks';
 
 const DefaultFormFields: DefaultComponents<TextFieldOptionsType>[keyof DefaultComponents]['FormFields'] =
   () => null;
