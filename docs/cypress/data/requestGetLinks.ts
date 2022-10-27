@@ -1,6 +1,6 @@
 /**
  * REQUEST_GET_LINKS is a manually maintained list.
- * It contains the links which doesn't allow HEAD request,
+ * It contains the links which do not allow HEAD request,
  * so we have to make a GET request when testing.
  */
 

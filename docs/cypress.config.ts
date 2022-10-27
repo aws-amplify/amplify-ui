@@ -1,8 +1,8 @@
 import { defineConfig } from 'cypress';
 import sitemapUrls from 'sitemap-urls';
+import { BASE_URL } from './cypress/data/constants';
 
 const fs = require('fs');
-const baseUrl = 'http://localhost:3000';
 
 export default defineConfig({
   e2e: {
@@ -20,7 +20,7 @@ export default defineConfig({
             );
             return sitemapLinks.map((link) =>
               link
-                .replace(`${baseUrl}/`, '')
+                .replace(`${BASE_URL}/`, '')
                 .replace('https://www.dev.ui.docs.amplify.aws/', '')
                 .replace('https://ui.docs.amplify.aws/', '')
             );
@@ -28,12 +28,11 @@ export default defineConfig({
         },
         log: (message) => {
           console.log(message);
-
           return null;
         },
       });
     },
-    baseUrl,
+    baseUrl: BASE_URL,
     numTestsKeptInMemory: 0,
   },
 });

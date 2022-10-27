@@ -1,5 +1,6 @@
 import { VALIDATED_LINKS } from '../data/validatedLinks';
 import { REQUEST_GET_LINKS } from '../data/requestGetLinks';
+import { BASE_URL } from '../data/constants';
 
 let allLinks: string[] = [];
 const numberOfLinks = 119;
@@ -19,11 +20,9 @@ describe('Local Sitemap', () => {
 
 for (let i = 0; i < numberOfLinks; i++) {
   describe(`check page ${i}`, () => {
-    const baseUrl = 'http://localhost:3000';
-
     it(`all links on page ${i} should work`, () => {
       const link = allLinks[i];
-      cy.task('log', `🧪[TESTING...] page ${baseUrl}/${link}`);
+      cy.task('log', `🧪[TESTING...] page ${BASE_URL}/${link}`);
       cy.visit(link || '/');
       cy.get('a').each(hrefWorks);
       cy.get('button').each(hrefWorks);
@@ -38,19 +37,21 @@ for (let i = 0; i < numberOfLinks; i++) {
           pureHref = tagHref.replace(tagHash, ''); // TODO: add test to validate links with a hash tag.
           logMessage('CHECKING');
 
-          if (allLinks.includes(`${pureHref.replace(`${baseUrl}/`, '')}`)) {
-            expect(`${pureHref.replace(`${baseUrl}/`, '')}`).to.oneOf(allLinks);
+          if (allLinks.includes(`${pureHref.replace(`${BASE_URL}/`, '')}`)) {
+            expect(`${pureHref.replace(`${BASE_URL}/`, '')}`).to.oneOf(
+              allLinks
+            );
             logMessage('SKIPPING_SITEMAP');
           } else if (
-            allLinks.includes(`${pureHref.replace(`${baseUrl}/`, 'react/')}`)
+            allLinks.includes(`${pureHref.replace(`${BASE_URL}/`, 'react/')}`)
           ) {
-            expect(`${pureHref.replace(`${baseUrl}/`, 'react/')}`).to.oneOf(
+            expect(`${pureHref.replace(`${BASE_URL}/`, 'react/')}`).to.oneOf(
               allLinks
             );
             logMessage('SKIPPING_SITEMAP');
           } else if (
             VALIDATED_LINKS.includes(pureHref) ||
-            VALIDATED_LINKS.includes(`${pureHref.replace(baseUrl, '')}`) ||
+            VALIDATED_LINKS.includes(`${pureHref.replace(BASE_URL, '')}`) ||
             requestedLinks.has(pureHref)
           ) {
             logMessage('SKIPPING_VALIDATED');
@@ -89,28 +90,28 @@ for (let i = 0; i < numberOfLinks; i++) {
                 'log',
                 `🔍[CHECKING...] ${pureHref} from ${tagName} tag ${
                   tagText ? `"${tagText}"` : ''
-                } on ${baseUrl}/${link}`
+                } on ${BASE_URL}/${link}`
               );
             case 'SKIPPING_SITEMAP':
               return cy.task(
                 'log',
                 `⏭[SKIPPING...] ${pureHref} from ${tagName} tag ${
                   tagText ? `"${tagText}"` : ''
-                } on ${baseUrl}/${link} because it's included in Sitemap and already tested.`
+                } on ${BASE_URL}/${link} because it's included in Sitemap and already tested.`
               );
             case 'SKIPPING_VALIDATED':
               return cy.task(
                 'log',
                 `⏭[SKIPPING...] ${pureHref} from ${tagName} tag ${
                   tagText ? `"${tagText}"` : ''
-                } on ${baseUrl}/${link} because it's already validated.`
+                } on ${BASE_URL}/${link} because it's already validated.`
               );
             case 'REQUESTING':
               return cy.task(
                 'log',
                 `📞[REQUESTING...] ${pureHref} from ${tagName} tag ${
                   tagText ? `"${tagText}"` : ''
-                } on ${baseUrl}/${link}`
+                } on ${BASE_URL}/${link}`
               );
             case 'RETURNING':
               return cy.task(
@@ -122,7 +123,7 @@ for (let i = 0; i < numberOfLinks; i++) {
                 'log',
                 `⚠ ${tagName} tag ${
                   tagText ? `"${tagText}"` : ''
-                } on ${baseUrl}/${link} doesn't have a href attribute`
+                } on ${BASE_URL}/${link} doesn't have a href attribute`
               );
             default:
               break;
