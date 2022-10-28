@@ -26,15 +26,6 @@ export function uploadFile({
     level,
     resumable: true,
     progressCallback,
-    // progressCallback(progress: { loaded: number; total: number }) {
-    //   const singlePercentage = Math.floor(
-    //     (progress.loaded / progress.total) * 100
-    //   );
-    //   percentage[index] = singlePercentage;
-    //   const addPercentage = [...percentage, singlePercentage];
-
-    //   setPercentage(addPercentage);
-    // },
   });
 }
 

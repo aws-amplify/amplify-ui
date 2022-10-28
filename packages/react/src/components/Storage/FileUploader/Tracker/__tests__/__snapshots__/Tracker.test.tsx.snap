@@ -81,6 +81,7 @@ exports[`Tracker exists 1`] = `
         </p>
       </button>
     </div>
+<<<<<<< HEAD
     <div
       class="amplify-flex"
       style="flex-direction: column; gap: 0; align-items: flex-end;"
@@ -118,6 +119,8 @@ exports[`Tracker exists 1`] = `
         </g>
       </svg>
     </div>
+=======
+>>>>>>> fileuploader/main
   </div>
 </div>
 `;

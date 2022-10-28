@@ -94,6 +94,15 @@ export interface FileStateProps {
   paused: boolean;
 }
 
+export interface TrackerProps {
+  file: File;
+  hasImage: boolean;
+  url: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onCancel: () => void;
+  name: string;
+}
+
 type UploadButtonComponent<Props = {}> = React.ComponentType<
   Props & Partial<UploadButtonProps>
 >;
