@@ -25,7 +25,6 @@ describe(`All pages on Sitemap`, () => {
       cy.task('log', `🧪[TESTING...] page ${BASE_URL}/${link}`);
       cy.visit(link || '/');
       cy.get('a').each(hrefWorks);
-      cy.get('button').each(hrefWorks);
 
       function hrefWorks(htmlTag: JQuery<HTMLElement>): void {
         const tagHref: string = htmlTag.prop('href');
