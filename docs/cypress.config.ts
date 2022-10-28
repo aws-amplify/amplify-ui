@@ -1,8 +1,7 @@
 import { defineConfig } from 'cypress';
 import sitemapUrls from 'sitemap-urls';
 import { BASE_URL } from './cypress/data/constants';
-
-const fs = require('fs');
+import fs from 'fs';
 
 export default defineConfig({
   e2e: {
@@ -34,5 +33,6 @@ export default defineConfig({
     },
     baseUrl: BASE_URL,
     numTestsKeptInMemory: 0,
+    supportFile: false,
   },
 });

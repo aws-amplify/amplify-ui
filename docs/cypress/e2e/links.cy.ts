@@ -18,8 +18,8 @@ describe('Local Sitemap', () => {
   });
 });
 
-for (let i = 0; i < numberOfLinks; i++) {
-  describe(`check page ${i}`, () => {
+describe(`All pages on Sitemap`, () => {
+  for (let i = 0; i < numberOfLinks; i++) {
     it(`all links on page ${i} should work`, () => {
       const link = allLinks[i];
       cy.task('log', `🧪[TESTING...] page ${BASE_URL}/${link}`);
@@ -131,7 +131,7 @@ for (let i = 0; i < numberOfLinks; i++) {
         }
       }
     });
-  });
-}
+  }
+});
 
 export {};
