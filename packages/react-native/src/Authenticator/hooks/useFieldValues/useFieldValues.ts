@@ -80,7 +80,7 @@ export default function useFieldValues<FieldType extends TypedField>({
           return false;
         }
 
-        if (required && value) {
+        if (value) {
           return false;
         }
         return true;
