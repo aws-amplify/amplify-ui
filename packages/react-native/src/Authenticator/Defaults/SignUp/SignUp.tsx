@@ -33,9 +33,9 @@ const SignUp: DefaultSignUpComponent = ({
   return (
     <>
       {hideSignIn ? null : (
-        <Tabs style={styles.tabs}>
+        <Tabs style={styles.tabs} selectedIndex={1}>
           <Tab onPress={toSignIn}>{getSignInTabText()}</Tab>
-          <Tab selected>{getSignUpTabText()}</Tab>
+          <Tab>{getSignUpTabText()}</Tab>
         </Tabs>
       )}
       <Header />
