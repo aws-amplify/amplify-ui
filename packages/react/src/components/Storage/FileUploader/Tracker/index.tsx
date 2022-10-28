@@ -1,4 +1,5 @@
 import React from 'react';
+import { translate } from '@aws-amplify/ui';
 import { humanFileSize } from '@aws-amplify/ui';
 import { TrackerProps } from '../types';
 import {
@@ -18,7 +19,10 @@ export function Tracker({
   hasImage,
   url,
   onChange,
+  onPause,
+  onResume,
   onCancel,
+  onDelete,
   isLoading,
   isPaused,
   isSuccess,
@@ -111,11 +115,31 @@ export function Tracker({
                 loading={isLoading}
               />
             </Flex>
-            <Button size="small" onClick={onCancel}>
-              <Text>
-                <CloseIcon />
-              </Text>
-            </Button>
+            {isLoading && (
+              <>
+                {isPaused ? (
+                  <Button onClick={onResume} size="small" variation="link">
+                    {translate('Resume')}
+                  </Button>
+                ) : (
+                  <Button onClick={onPause} size="small" variation="link">
+                    {translate('pause')}
+                  </Button>
+                )}
+              </>
+            )}
+            {isSuccess && !isError && (
+              <Button size="small" onClick={onDelete}>
+                Delete
+              </Button>
+            )}
+            {!isSuccess && !isLoading && (
+              <Button size="small" onClick={onCancel}>
+                <Text>
+                  <CloseIcon />
+                </Text>
+              </Button>
+            )}
           </>
         )}
       </Flex>

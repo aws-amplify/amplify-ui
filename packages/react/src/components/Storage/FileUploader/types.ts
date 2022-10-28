@@ -63,6 +63,9 @@ export interface TrackerProps {
   url: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onCancel: () => void;
+  onPause: () => void;
+  onResume: () => void;
+  onDelete: () => void;
   name: string;
   percentage: number;
   isLoading: boolean;
@@ -74,7 +77,6 @@ export interface TrackerProps {
 interface FileStatus extends Partial<FileStateProps> {
   percentage?: number;
   uploadTask?: UploadTask;
-  pause?: boolean;
 }
 
 export type FileStatuses = FileStatus[];
