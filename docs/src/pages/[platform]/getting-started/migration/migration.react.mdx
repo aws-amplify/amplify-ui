@@ -79,9 +79,7 @@ Hopefully this change won't affect your code but will allow for more customizati
   The TextAreaField component does apply 1 style prop directly on the `textarea` element: `resize`. We felt this one makes sense to apply direclty on the the `textarea` element and not the wrapper element.
 </Alert>
 
-#### Automatic signin on signup logic moved to `aws-amplify`. 
-
-##### 1. Update the handleSignUp function override call
+#### 5. Automatic signin on signup logic moved to `aws-amplify`. 
 
 If you are overriding `Auth.signUp`, update the override function call to include the `autoSignIn` option set to enabled. If this change is not made, users will not be automatically signed in on signup.
 
@@ -102,29 +100,6 @@ If you are overriding `Auth.signUp`, update the override function call to includ
 }
 
 ```
-
-##### 2. Update to the latest version of the `aws-amplify` library.
-
-Update to the latest version of the `aws-amplify` library. You will need at least version `^5`. 
-
-<Tabs>
-<TabItem title="npm">
-
-```shell
-npm install aws-amplify@latest
-```
-
-</TabItem>
-<TabItem title="yarn">
-```shell
-yarn add aws-amplify@latest
-```
-
-</TabItem>
-</Tabs>
-
-
-
 
 ## 2.x to 3.x
 

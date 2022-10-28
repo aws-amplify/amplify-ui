@@ -9,13 +9,13 @@ Install the 3.x version of the `@aws-amplify/ui-angular` library.
 <TabItem title="npm">
 
 ```shell
-npm install aws-amplify @aws-amplify/ui-angular@3.x
+npm install aws-amplify@5.x @aws-amplify/ui-angular@3.x
 ```
 
 </TabItem>
 <TabItem title="yarn">
 ```shell
-yarn add aws-amplify @aws-amplify/ui-angular@3.x
+yarn add aws-amplify@5.x @aws-amplify/ui-angular@3.x
 ```
 
 </TabItem>
@@ -25,9 +25,7 @@ yarn add aws-amplify @aws-amplify/ui-angular@3.x
 
 The following breaking changes were introduced in `@aws-amplify/ui-angular` major version `3.0`:
 
-#### Automatic signin on signup logic moved to `aws-amplify`. 
-
-##### 1. Update the handleSignUp function override call
+#### 1. Automatic signin on signup logic moved to `aws-amplify`. 
 
 If you are overriding `Auth.signUp`, update the override function call to include the `autoSignIn` option set to enabled. If this change is not made, users will not be automatically signed in on signup.
 
@@ -48,25 +46,6 @@ If you are overriding `Auth.signUp`, update the override function call to includ
 }
 
 ```
-##### 2. Update to the latest version of the `aws-amplify` library.
-
-Update to the latest version of the `aws-amplify` library. You will need at least version `^5`. 
-
-<Tabs>
-<TabItem title="npm">
-
-```shell
-npm install aws-amplify@5.x
-```
-
-</TabItem>
-<TabItem title="yarn">
-```shell
-yarn add aws-amplify@5.x
-```
-
-</TabItem>
-</Tabs>
 
 ## 1.x to 2.x
 ## Installation
