@@ -42,14 +42,8 @@ Array [
               "flexGrow": 1,
               "padding": 12,
             },
-            Object {
-              "opacity": 1,
-            },
-            Object {
-              "backgroundColor": "#fff",
-              "borderTopColor": "#047d95",
-              "color": "#047d95",
-            },
+            null,
+            null,
             null,
           ],
         ]
@@ -68,11 +62,7 @@ Array [
                 "fontWeight": "700",
               },
               undefined,
-              Object {
-                "backgroundColor": "#fff",
-                "borderTopColor": "#047d95",
-                "color": "#047d95",
-              },
+              null,
             ],
           ]
         }
@@ -106,8 +96,14 @@ Array [
               "flexGrow": 1,
               "padding": 12,
             },
-            null,
-            null,
+            Object {
+              "opacity": 1,
+            },
+            Object {
+              "backgroundColor": "#fff",
+              "borderTopColor": "#047d95",
+              "color": "#047d95",
+            },
             null,
           ],
         ]
@@ -126,7 +122,11 @@ Array [
                 "fontWeight": "700",
               },
               undefined,
-              null,
+              Object {
+                "backgroundColor": "#fff",
+                "borderTopColor": "#047d95",
+                "color": "#047d95",
+              },
             ],
           ]
         }
@@ -204,6 +204,8 @@ Array [
           accessible={true}
           autoCapitalize="none"
           editable={true}
+          onBlur={[Function]}
+          onChangeText={[Function]}
           placeholder="Username"
           style={
             Array [
@@ -269,6 +271,8 @@ Array [
           accessible={true}
           autoCapitalize="none"
           editable={true}
+          onBlur={[Function]}
+          onChangeText={[Function]}
           placeholder="Password"
           secureTextEntry={true}
           style={
@@ -375,6 +379,8 @@ Array [
           accessible={true}
           autoCapitalize="none"
           editable={true}
+          onBlur={[Function]}
+          onChangeText={[Function]}
           placeholder="Confirm Password"
           secureTextEntry={true}
           style={
@@ -545,6 +551,8 @@ Array [
             autoCapitalize="none"
             editable={true}
             keyboardType="phone-pad"
+            onBlur={[Function]}
+            onChangeText={[Function]}
             placeholder="Phone"
             style={
               Array [
@@ -675,6 +683,8 @@ Array [
           accessible={true}
           autoCapitalize="none"
           editable={true}
+          onBlur={[Function]}
+          onChangeText={[Function]}
           placeholder="Username"
           style={
             Array [
@@ -740,6 +750,8 @@ Array [
           accessible={true}
           autoCapitalize="none"
           editable={true}
+          onBlur={[Function]}
+          onChangeText={[Function]}
           placeholder="Password"
           secureTextEntry={true}
           style={
@@ -846,6 +858,8 @@ Array [
           accessible={true}
           autoCapitalize="none"
           editable={true}
+          onBlur={[Function]}
+          onChangeText={[Function]}
           placeholder="Confirm Password"
           secureTextEntry={true}
           style={
@@ -1016,6 +1030,8 @@ Array [
             autoCapitalize="none"
             editable={true}
             keyboardType="phone-pad"
+            onBlur={[Function]}
+            onChangeText={[Function]}
             placeholder="Phone"
             style={
               Array [
@@ -1117,14 +1133,8 @@ Array [
               "flexGrow": 1,
               "padding": 12,
             },
-            Object {
-              "opacity": 1,
-            },
-            Object {
-              "backgroundColor": "#fff",
-              "borderTopColor": "#047d95",
-              "color": "#047d95",
-            },
+            null,
+            null,
             null,
           ],
         ]
@@ -1143,11 +1153,7 @@ Array [
                 "fontWeight": "700",
               },
               undefined,
-              Object {
-                "backgroundColor": "#fff",
-                "borderTopColor": "#047d95",
-                "color": "#047d95",
-              },
+              null,
             ],
           ]
         }
@@ -1181,8 +1187,14 @@ Array [
               "flexGrow": 1,
               "padding": 12,
             },
-            null,
-            null,
+            Object {
+              "opacity": 1,
+            },
+            Object {
+              "backgroundColor": "#fff",
+              "borderTopColor": "#047d95",
+              "color": "#047d95",
+            },
             null,
           ],
         ]
@@ -1201,7 +1213,11 @@ Array [
                 "fontWeight": "700",
               },
               undefined,
-              null,
+              Object {
+                "backgroundColor": "#fff",
+                "borderTopColor": "#047d95",
+                "color": "#047d95",
+              },
             ],
           ]
         }
@@ -1280,6 +1296,8 @@ Array [
           accessible={true}
           autoCapitalize="none"
           editable={false}
+          onBlur={[Function]}
+          onChangeText={[Function]}
           placeholder="Username"
           style={
             Array [
@@ -1346,6 +1364,8 @@ Array [
           accessible={true}
           autoCapitalize="none"
           editable={false}
+          onBlur={[Function]}
+          onChangeText={[Function]}
           placeholder="Password"
           secureTextEntry={true}
           style={
@@ -1453,6 +1473,8 @@ Array [
           accessible={true}
           autoCapitalize="none"
           editable={false}
+          onBlur={[Function]}
+          onChangeText={[Function]}
           placeholder="Confirm Password"
           secureTextEntry={true}
           style={
@@ -1624,6 +1646,8 @@ Array [
             autoCapitalize="none"
             editable={false}
             keyboardType="phone-pad"
+            onBlur={[Function]}
+            onChangeText={[Function]}
             placeholder="Phone"
             style={
               Array [
@@ -1725,14 +1749,8 @@ Array [
               "flexGrow": 1,
               "padding": 12,
             },
-            Object {
-              "opacity": 1,
-            },
-            Object {
-              "backgroundColor": "#fff",
-              "borderTopColor": "#047d95",
-              "color": "#047d95",
-            },
+            null,
+            null,
             null,
           ],
         ]
@@ -1751,11 +1769,7 @@ Array [
                 "fontWeight": "700",
               },
               undefined,
-              Object {
-                "backgroundColor": "#fff",
-                "borderTopColor": "#047d95",
-                "color": "#047d95",
-              },
+              null,
             ],
           ]
         }
@@ -1789,8 +1803,14 @@ Array [
               "flexGrow": 1,
               "padding": 12,
             },
-            null,
-            null,
+            Object {
+              "opacity": 1,
+            },
+            Object {
+              "backgroundColor": "#fff",
+              "borderTopColor": "#047d95",
+              "color": "#047d95",
+            },
             null,
           ],
         ]
@@ -1809,7 +1829,11 @@ Array [
                 "fontWeight": "700",
               },
               undefined,
-              null,
+              Object {
+                "backgroundColor": "#fff",
+                "borderTopColor": "#047d95",
+                "color": "#047d95",
+              },
             ],
           ]
         }
@@ -1887,6 +1911,8 @@ Array [
           accessible={true}
           autoCapitalize="none"
           editable={true}
+          onBlur={[Function]}
+          onChangeText={[Function]}
           placeholder="Username"
           style={
             Array [
@@ -1952,6 +1978,8 @@ Array [
           accessible={true}
           autoCapitalize="none"
           editable={true}
+          onBlur={[Function]}
+          onChangeText={[Function]}
           placeholder="Password"
           secureTextEntry={true}
           style={
@@ -2058,6 +2086,8 @@ Array [
           accessible={true}
           autoCapitalize="none"
           editable={true}
+          onBlur={[Function]}
+          onChangeText={[Function]}
           placeholder="Confirm Password"
           secureTextEntry={true}
           style={
@@ -2228,6 +2258,8 @@ Array [
             autoCapitalize="none"
             editable={true}
             keyboardType="phone-pad"
+            onBlur={[Function]}
+            onChangeText={[Function]}
             placeholder="Phone"
             style={
               Array [
@@ -2380,14 +2412,8 @@ Array [
               "flexGrow": 1,
               "padding": 12,
             },
-            Object {
-              "opacity": 1,
-            },
-            Object {
-              "backgroundColor": "#fff",
-              "borderTopColor": "#047d95",
-              "color": "#047d95",
-            },
+            null,
+            null,
             null,
           ],
         ]
@@ -2406,11 +2432,7 @@ Array [
                 "fontWeight": "700",
               },
               undefined,
-              Object {
-                "backgroundColor": "#fff",
-                "borderTopColor": "#047d95",
-                "color": "#047d95",
-              },
+              null,
             ],
           ]
         }
@@ -2444,8 +2466,14 @@ Array [
               "flexGrow": 1,
               "padding": 12,
             },
-            null,
-            null,
+            Object {
+              "opacity": 1,
+            },
+            Object {
+              "backgroundColor": "#fff",
+              "borderTopColor": "#047d95",
+              "color": "#047d95",
+            },
             null,
           ],
         ]
@@ -2464,7 +2492,11 @@ Array [
                 "fontWeight": "700",
               },
               undefined,
-              null,
+              Object {
+                "backgroundColor": "#fff",
+                "borderTopColor": "#047d95",
+                "color": "#047d95",
+              },
             ],
           ]
         }
@@ -2911,6 +2943,8 @@ Array [
           accessible={true}
           autoCapitalize="none"
           editable={true}
+          onBlur={[Function]}
+          onChangeText={[Function]}
           placeholder="Username"
           style={
             Array [
@@ -2976,6 +3010,8 @@ Array [
           accessible={true}
           autoCapitalize="none"
           editable={true}
+          onBlur={[Function]}
+          onChangeText={[Function]}
           placeholder="Password"
           secureTextEntry={true}
           style={
@@ -3082,6 +3118,8 @@ Array [
           accessible={true}
           autoCapitalize="none"
           editable={true}
+          onBlur={[Function]}
+          onChangeText={[Function]}
           placeholder="Confirm Password"
           secureTextEntry={true}
           style={
@@ -3252,6 +3290,8 @@ Array [
             autoCapitalize="none"
             editable={true}
             keyboardType="phone-pad"
+            onBlur={[Function]}
+            onChangeText={[Function]}
             placeholder="Phone"
             style={
               Array [

@@ -1,11 +1,15 @@
 import React from 'react';
+import { authenticatorTextUtil } from '@aws-amplify/ui';
 
+import { Button, ErrorMessage, Radio, RadioGroup } from '../../../primitives';
 import { DefaultFooter } from '../../common/DefaultFooter';
 import { DefaultHeader } from '../../common/DefaultHeader';
-import { Button, ErrorMessage, Radio, RadioGroup } from '../../../primitives';
+import { useFieldValues } from '../../hooks';
 import { DefaultVerifyUserComponent } from '../types';
-import { authenticatorTextUtil } from '@aws-amplify/ui';
+
 import { styles } from './styles';
+
+const COMPONENT_NAME = 'VerifyUser';
 
 //TODO: add getVerifyingText util
 const { getSkipText, getVerifyText, getAccountRecoveryInfoText } =
@@ -16,16 +20,28 @@ const VerifyUser: DefaultVerifyUserComponent = ({
   fields,
   FormFields,
   Footer,
+  handleBlur,
+  handleChange,
+  handleSubmit,
   Header,
   isPending,
   skipVerification,
 }) => {
+  const { fields: fieldsWithHandlers, handleFormSubmit } = useFieldValues({
+    componentName: COMPONENT_NAME,
+    fields,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+  });
+
   return (
     <>
       <Header>{getAccountRecoveryInfoText()}</Header>
-      <FormFields isPending={isPending} fields={fields} />
+      <FormFields isPending={isPending} fields={fieldsWithHandlers} />
       {error ? <ErrorMessage>{error}</ErrorMessage> : null}
       <Button
+        onPress={handleFormSubmit}
         style={styles.buttonPrimary}
         textStyle={styles.buttonPrimaryLabel}
       >
@@ -49,15 +65,16 @@ const FormFields: DefaultVerifyUserComponent['FormFields'] = ({
 }) => {
   return (
     <RadioGroup disabled={isPending}>
-      {fields.map(({ name, ...props }) => (
-        <Radio {...props} key={name} />
+      {fields.map(({ value, ...props }) => (
+        <Radio {...props} key={value} value={value} />
       ))}
     </RadioGroup>
   );
 };
+
 VerifyUser.Footer = DefaultFooter;
 VerifyUser.FormFields = FormFields;
 VerifyUser.Header = DefaultHeader;
 
-VerifyUser.displayName = 'VerifyUser';
+VerifyUser.displayName = COMPONENT_NAME;
 export default VerifyUser;

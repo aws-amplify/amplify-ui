@@ -5,7 +5,7 @@ import {
   useHasValueUpdated,
 } from '@aws-amplify/ui-react-core';
 
-import { TypedField } from './types';
+import { TypedField } from '../types';
 import { getTypedFields } from './utils';
 
 export default function useRouteTypedFields({

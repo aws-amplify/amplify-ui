@@ -8,6 +8,7 @@ import { Button } from '../../../ui';
 
 // replace with actual amplify config from environments
 const config = {};
+
 Amplify.configure(config);
 
 function SignOutButton() {

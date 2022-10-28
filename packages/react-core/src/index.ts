@@ -6,7 +6,7 @@ export {
   AuthenticatorLegacyField,
   AuthenticatorMachineContext,
   AuthenticatorProvider,
-  FormFieldsComponent,
+  AuthenticatorRouteComponentName,
   isAuthenticatorComponentRouteKey,
   resolveAuthenticatorComponents,
   useAuthenticator,

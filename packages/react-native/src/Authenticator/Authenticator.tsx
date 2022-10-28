@@ -64,7 +64,7 @@ function Authenticator({
     [overrides]
   );
 
-  const { Component, props } = useAuthenticatorRoute<any>({ components });
+  const { Component, props } = useAuthenticatorRoute({ components });
 
   const typedFields = useRouteTypedFields({ fields, route });
 
