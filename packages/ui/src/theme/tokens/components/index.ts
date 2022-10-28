@@ -14,6 +14,7 @@ import { field, FieldTokens } from './field';
 import { fieldcontrol, FieldControlTokens } from './fieldControl';
 import { fieldgroup, FieldGroupTokens } from './fieldGroup';
 import { fieldmessages, FieldMessagesTokens } from './fieldMessages';
+import { fileuploader, FileUploaderTokens } from './fileUploader';
 import { flex, FlexTokens } from './flex';
 import { heading, HeadingTokens } from './heading';
 import { icon, IconTokens } from './icon';
@@ -62,6 +63,7 @@ export interface ComponentTokens {
   fieldcontrol: FieldControlTokens;
   fieldgroup: FieldGroupTokens;
   fieldmessages: FieldMessagesTokens;
+  fileuploader: FileUploaderTokens;
   flex: FlexTokens;
   heading: HeadingTokens;
   icon: IconTokens;
@@ -108,6 +110,7 @@ export const components: ComponentTokens = {
   fieldcontrol,
   fieldgroup,
   fieldmessages,
+  fileuploader,
   flex,
   heading,
   icon,
