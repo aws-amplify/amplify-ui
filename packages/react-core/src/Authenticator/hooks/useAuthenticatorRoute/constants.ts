@@ -79,6 +79,7 @@ const SIGN_UP_MACHINE_KEYS: SignUpMachineKey[] = [
 ];
 const SETUP_TOTP_MACHINE_KEYS: SetupTOTPMachineKey[] = [
   ...COMMON_ROUTE_MACHINE_KEYS,
+  'toSignIn',
   'user',
 ];
 const VERIFY_USER_MACHINE_KEYS: VerifyUserMachineKey[] =

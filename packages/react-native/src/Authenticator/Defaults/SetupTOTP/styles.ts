@@ -12,6 +12,7 @@ export interface SetupTOTPStyle {
   buttonSecondary: ViewStyle;
   buttonSecondaryLabel: TextStyle;
   secretKeyContainer: ViewStyle;
+  secretKeyText: TextStyle;
   copyIcon: StyleProp<ImageStyle>;
 }
 
@@ -28,9 +29,11 @@ export const styles: SetupTOTPStyle = StyleSheet.create({
   },
   buttonSecondaryLabel: { color: 'teal' },
   secretKeyContainer: {
-    flexDirection: 'row',
     alignItems: 'center',
+    flexDirection: 'row',
+    paddingVertical: 8,
   },
+  secretKeyText: { flex: 1, flexWrap: 'wrap' },
   copyIcon: {
     marginLeft: 12,
   },

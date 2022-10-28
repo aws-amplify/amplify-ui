@@ -10,7 +10,7 @@ import {
   UseAuthenticator,
 } from '@aws-amplify/ui-react-core';
 
-import { DefaultContainer } from './common';
+import { DefaultContainer, InnerContainer } from './common';
 import { TypedField, useRouteTypedFields } from './hooks';
 import { AuthenticatorProps } from './types';
 
@@ -74,7 +74,9 @@ function Authenticator({
 
   return (
     <DefaultContainer>
-      <Component {...props} fields={typedFields} />
+      <InnerContainer>
+        <Component {...props} fields={typedFields} />
+      </InnerContainer>
     </DefaultContainer>
   );
 }

@@ -1,17 +1,22 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
+import Clipboard from '@react-native-clipboard/clipboard';
 
 import { Logger } from 'aws-amplify';
 import { authenticatorTextUtil } from '@aws-amplify/ui';
-// import Clipboard from '@react-native-clipboard/clipboard';
 
+import { icons } from '../../../assets';
 import { Button, ErrorMessage, IconButton } from '../../../primitives';
+
 import { DefaultFooter, DefaultFormFields, DefaultHeader } from '../../common';
+import { useFieldValues } from '../../hooks';
+
 import { DefaultSetupTOTPComponent } from '../types';
 import { styles } from './styles';
-import { icons } from '../../../assets';
 
-const logger = new Logger('SetupTOTP-logger');
+const COMPONENT_NAME = 'SetupTOTP';
+
+const logger = new Logger('Authenticator');
 
 const {
   getBackToSignInText,
@@ -26,25 +31,34 @@ const SetupTOTP: DefaultSetupTOTPComponent = ({
   Footer,
   FormFields,
   getTotpSecretCode,
+  handleBlur,
+  handleChange,
+  handleSubmit,
   Header,
   isPending,
-  // TODO: add toSignIn prop to SetupTOTP component
-  // toSignIn
-  // TODO: remove `totpIssuer` and `totpUsername` from types
-  // totpIssuer,
-  // totpUsername,
+  toSignIn,
 }) => {
-  const [textCopied, setTextCopied] = useState<boolean>(false);
-  const [secretKey, setSecretKey] = useState<string>('testing 123');
+  const { fields: fieldsWithHandlers, handleFormSubmit } = useFieldValues({
+    componentName: COMPONENT_NAME,
+    fields,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+  });
 
-  const getSecretKey = useCallback(async (): Promise<void> => {
+  const [secretKey, setSecretKey] = useState<string | null>(null);
+
+  const getSecretKey = useCallback(async () => {
+    if (secretKey) {
+      return;
+    }
     try {
       const newSecretKey = await getTotpSecretCode();
       setSecretKey(newSecretKey);
     } catch (error) {
       logger.error(error);
     }
-  }, [getTotpSecretCode]);
+  }, [getTotpSecretCode, secretKey]);
 
   useEffect(() => {
     if (!secretKey) {
@@ -52,39 +66,38 @@ const SetupTOTP: DefaultSetupTOTPComponent = ({
     }
   }, [getSecretKey, secretKey]);
 
-  const copyText = (): void => {
-    // TODO: implement copy-to-clipboard functionality
-    // use @react-native-clipboard/clipboard
-    // Clipboard.setString(secretKey);
-
-    if (!textCopied) {
-      setTextCopied(!textCopied);
+  const copyText = () => {
+    if (secretKey) {
+      Clipboard.setString(secretKey);
     }
   };
 
   return (
     <>
       <Header>{getSetupTOTPText()}</Header>
-      <View style={styles.secretKeyContainer}>
-        <Text>{secretKey}</Text>
-        <IconButton
-          color="teal"
-          iconStyle={styles.copyIcon}
-          onPress={copyText}
-          size={20}
-          source={icons.copy}
-        />
-      </View>
-      <FormFields fields={fields} isPending={isPending} />
+      {secretKey ? (
+        <View style={styles.secretKeyContainer}>
+          <Text style={styles.secretKeyText}>{secretKey}</Text>
+          <IconButton
+            color="teal"
+            iconStyle={styles.copyIcon}
+            onPress={copyText}
+            size={24}
+            source={icons.copy}
+          />
+        </View>
+      ) : null}
+      <FormFields fields={fieldsWithHandlers} isPending={isPending} />
       {error ? <ErrorMessage>{error}</ErrorMessage> : null}
       <Button
+        onPress={handleFormSubmit}
         style={styles.buttonPrimary}
         textStyle={styles.buttonPrimaryLabel}
       >
         {isPending ? getConfirmingText() : getConfirmText()}
       </Button>
       <Button
-        // onPress={toSignIn}
+        onPress={toSignIn}
         style={styles.buttonSecondary}
         textStyle={styles.buttonSecondaryLabel}
       >
@@ -99,5 +112,5 @@ SetupTOTP.Footer = DefaultFooter;
 SetupTOTP.FormFields = DefaultFormFields;
 SetupTOTP.Header = DefaultHeader;
 
-SetupTOTP.displayName = 'SetupTOTP';
+SetupTOTP.displayName = COMPONENT_NAME;
 export default SetupTOTP;

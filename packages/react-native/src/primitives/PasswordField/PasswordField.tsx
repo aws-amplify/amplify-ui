@@ -30,6 +30,7 @@ export default function PasswordField({
             accessibilityLabel={iconAccessibilityLabel}
             disabled={disabled}
             iconStyle={iconStyle}
+            size={16}
             source={obscureText ? icons.visibilityOff : icons.visibilityOn}
             onPress={handleOnPress}
           />

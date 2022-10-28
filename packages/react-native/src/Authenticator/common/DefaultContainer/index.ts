@@ -1,2 +1,2 @@
 export { default as DefaultContainer } from './DefaultContainer';
-export { DefaultContainerProps } from './types';
+export { default as InnerContainer } from './InnerContainer';

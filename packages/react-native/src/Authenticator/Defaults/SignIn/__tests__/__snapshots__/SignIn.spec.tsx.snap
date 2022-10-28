@@ -304,6 +304,12 @@ Array [
           onResponderTerminate={[Function]}
           onResponderTerminationRequest={[Function]}
           onStartShouldSetResponder={[Function]}
+          style={
+            Array [
+              null,
+              null,
+            ]
+          }
         >
           <Image
             accessibilityRole="image"
@@ -583,6 +589,12 @@ Array [
           onResponderTerminate={[Function]}
           onResponderTerminationRequest={[Function]}
           onStartShouldSetResponder={[Function]}
+          style={
+            Array [
+              null,
+              null,
+            ]
+          }
         >
           <Image
             accessibilityRole="image"
@@ -995,6 +1007,12 @@ Array [
           onResponderTerminate={[Function]}
           onResponderTerminationRequest={[Function]}
           onStartShouldSetResponder={[Function]}
+          style={
+            Array [
+              null,
+              null,
+            ]
+          }
         >
           <Image
             accessibilityRole="image"
@@ -1677,6 +1695,12 @@ Array [
           onResponderTerminate={[Function]}
           onResponderTerminationRequest={[Function]}
           onStartShouldSetResponder={[Function]}
+          style={
+            Array [
+              null,
+              null,
+            ]
+          }
         >
           <Image
             accessibilityRole="image"
