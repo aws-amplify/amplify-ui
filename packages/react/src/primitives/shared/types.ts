@@ -93,7 +93,6 @@ type ComponentClassNameKey =
   | 'FileUploaderDropZone'
   | 'FileUploaderDropZoneIcon'
   | 'FileUploaderDropZoneText'
-  | 'FileUploaderDropZoneConstraints'
   | 'Flex'
   | 'Grid'
   | 'Heading'

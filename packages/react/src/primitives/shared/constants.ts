@@ -192,9 +192,6 @@ export const ComponentClassObject: ComponentClassNameItems = {
   FileUploaderDropZone: {
     className: ComponentClassName.FileUploaderDropZone,
   },
-  FileUploaderDropZoneConstraints: {
-    className: ComponentClassName.FileUploaderDropZoneConstraints,
-  },
   FileUploaderDropZoneIcon: {
     className: ComponentClassName.FileUploaderDropZoneIcon,
   },
@@ -596,8 +593,6 @@ export const ComponentClassNames: ComponentClassNamesType = {
   FieldShowPassword: ComponentClassObject.FieldShowPassword.className,
   FieldGroupFieldWrapper: ComponentClassObject.FieldGroupFieldWrapper.className,
   FileUploaderDropZone: ComponentClassObject.FileUploaderDropZone.className,
-  FileUploaderDropZoneConstraints:
-    ComponentClassObject.FileUploaderDropZoneConstraints.className,
   FileUploaderDropZoneIcon:
     ComponentClassObject.FileUploaderDropZoneIcon.className,
   FileUploaderDropZoneText:

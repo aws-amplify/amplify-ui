@@ -2,8 +2,8 @@ import React from 'react';
 import classNames from 'classnames';
 import { UploadDropZoneProps } from '../types';
 import { View, ComponentClassNames } from '../../../../primitives';
-import { classNameModifier } from 'src/primitives/shared/utils';
-import { IconUpload } from 'src/internal';
+import { classNameModifier } from '../../../../primitives/shared/utils';
+import { IconUpload } from '../../../../primitives/Icon/internal';
 
 export function UploadDropZone({
   children,
