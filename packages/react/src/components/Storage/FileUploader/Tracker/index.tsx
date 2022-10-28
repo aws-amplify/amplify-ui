@@ -25,13 +25,11 @@ export function Tracker({
 
   const { size } = file;
 
-  let icon = (
-    <View className="amplify-fileuploder--img-placeholder">{fileIcon}</View>
+  const icon = hasImage ? (
+    <Image alt="" maxHeight="100%" height="100%" src={url} />
+  ) : (
+    <View className="amplify-fileuploder__img-placeholder">{fileIcon}</View>
   );
-
-  if (hasImage) {
-    icon = <Image alt="" maxHeight="100%" height="100%" src={url} />;
-  }
 
   return (
     <Card
@@ -40,7 +38,7 @@ export function Tracker({
       className="amplify-fileuploader-file"
     >
       <Flex direction="row" padding="xs medium" gap="small" alignItems="center">
-        <View className="amplify-fileuploader-img">{icon}</View>
+        <View className="amplify-fileuploader__img">{icon}</View>
         {isEditing ? (
           <Flex direction="row" flex="1" gap="small" alignItems="center">
             <View flex="1">

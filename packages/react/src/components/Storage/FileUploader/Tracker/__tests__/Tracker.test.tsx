@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import { Tracker } from '..';
 const fakeFile = new File(['hello'], 'hello.png', { type: 'image/png' });
@@ -11,8 +11,8 @@ describe('Tracker', () => {
         file={fakeFile}
         hasImage={true}
         url={''}
-        onChange={() => ''}
-        onCancel={() => ''}
+        onChange={() => {}}
+        onCancel={() => {}}
         name={'hello.png'}
       />
     );
@@ -26,8 +26,8 @@ describe('Tracker', () => {
         file={fakeFile}
         hasImage={true}
         url={''}
-        onChange={() => ''}
-        onCancel={() => ''}
+        onChange={() => {}}
+        onCancel={() => {}}
         name={fileName}
       />
     );
@@ -43,8 +43,8 @@ describe('Tracker', () => {
         file={fakeFile}
         hasImage={true}
         url={''}
-        onChange={() => ''}
-        onCancel={() => ''}
+        onChange={() => {}}
+        onCancel={() => {}}
         name={fileName}
       />
     );

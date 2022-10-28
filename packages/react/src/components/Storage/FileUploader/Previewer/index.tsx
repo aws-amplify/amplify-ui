@@ -63,7 +63,9 @@ export function Previewer({
         <View className="amplify-fileuploader__footer">
           <View>
             <Button size="small" variation="primary" onClick={onClick}>
-              {translate(`Upload ${files.length} files`)}
+              {translate('Upload')}
+              {` ${files.length} `}
+              {translate('files')}
             </Button>
           </View>
           <Button size="small" variation="link" onClick={onClear}>
