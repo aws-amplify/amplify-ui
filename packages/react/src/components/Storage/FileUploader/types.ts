@@ -37,6 +37,7 @@ export interface FileUploaderProps {
 
 export interface IconProps {
   className?: string;
+  fontSize?: string;
 }
 
 export interface PreviewerProps extends DragActionHandlers {
@@ -63,15 +64,27 @@ export interface TrackerProps {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onCancel: () => void;
   name: string;
+  percentage: number;
+  isLoading: boolean;
+  isPaused: boolean;
+  isError: boolean;
+  isSuccess: boolean;
 }
 
-interface FileStatus {
-  percentage: number;
-  uploadTask: UploadTask;
-  pause: boolean;
+interface FileStatus extends Partial<FileStateProps> {
+  percentage?: number;
+  uploadTask?: UploadTask;
+  pause?: boolean;
 }
 
 export type FileStatuses = FileStatus[];
+
+export interface FileStateProps {
+  loading: boolean;
+  success: boolean;
+  error: boolean;
+  paused: boolean;
+}
 
 type UploadButtonComponent<Props = {}> = React.ComponentType<
   Props & Partial<UploadButtonProps>

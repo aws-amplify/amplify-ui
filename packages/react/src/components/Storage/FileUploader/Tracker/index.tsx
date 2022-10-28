@@ -9,16 +9,22 @@ import {
   Text,
   Button,
   TextField,
+  Loader,
 } from '../../../../primitives';
 import { CloseIcon, EditIcon, fileIcon } from '../Previewer/PreviewerIcons';
-
+import { FileState } from './FileState';
 export function Tracker({
   file,
   hasImage,
   url,
   onChange,
   onCancel,
+  isLoading,
+  isPaused,
+  isSuccess,
+  isError,
   name,
+  percentage,
 }: TrackerProps): JSX.Element {
   const [isEditing, setIsEditing] = React.useState(false);
   if (!file) return null;
@@ -98,7 +104,12 @@ export function Tracker({
                   {humanFileSize(size, true)}
                 </Text>
               </Flex>
-              {/**TODO: file state */}
+              <FileState
+                error={isError}
+                success={isSuccess && !isError}
+                paused={isPaused}
+                loading={isLoading}
+              />
             </Flex>
             <Button size="small" onClick={onCancel}>
               <Text>
@@ -107,6 +118,14 @@ export function Tracker({
             </Button>
           </>
         )}
+      </Flex>
+      <Flex direction="column" gap="0" alignItems="flex-end">
+        <Loader
+          className="amplify-fileuploader-loader"
+          variation="linear"
+          percentage={percentage}
+          isDeterminate
+        />
       </Flex>
     </Card>
   );

@@ -1,28 +1,41 @@
 import { Storage } from 'aws-amplify';
 import { StorageAccessLevel, UploadTask } from '@aws-amplify/storage';
 
-export function getFileName(
-  file: File,
-  fileName: string[],
-  index: number
-): string {
-  // stub
-  return '';
+export function getFileName(fileName: string, name: string): string {
+  if (!fileName) {
+    // If user did not send over fileName prop
+    // default to the file name, or the name they changed
+    return name;
+  } else {
+    return fileName;
+  }
 }
 
 export function uploadFile({
   file,
   fileName,
   level = 'private',
-  index,
+  progressCallback,
 }: {
   file: File;
   fileName: string;
   level: StorageAccessLevel;
-  index: number;
+  progressCallback: (progress: { loaded: number; total: number }) => void;
 }): UploadTask {
-  // stub
-  return;
+  return Storage.put(fileName, file, {
+    level,
+    resumable: true,
+    progressCallback,
+    // progressCallback(progress: { loaded: number; total: number }) {
+    //   const singlePercentage = Math.floor(
+    //     (progress.loaded / progress.total) * 100
+    //   );
+    //   percentage[index] = singlePercentage;
+    //   const addPercentage = [...percentage, singlePercentage];
+
+    //   setPercentage(addPercentage);
+    // },
+  });
 }
 
 /**
