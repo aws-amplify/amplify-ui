@@ -1,17 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { getFileName, translate } from '@aws-amplify/ui';
-import { FileStatuses, PreviewerProps } from '../types';
+import React from 'react';
+import { translate } from '@aws-amplify/ui';
+import { PreviewerProps } from '../types';
 import { Button, Card, Flex, Loader, Text, View } from '../../../../primitives';
 import { UploadDropZone } from '../UploadDropZone';
 import { UploadButton } from '../UploadButton';
 import { Tracker } from '../Tracker';
-import { uploadFile } from '@aws-amplify/ui';
-import { UploadTask } from '@aws-amplify/storage';
 
 export function Previewer({
   files,
-  level,
-  fileNames,
   inDropZone,
   onClear,
   onDragEnter,
@@ -25,86 +21,15 @@ export function Previewer({
   acceptedFileTypes,
   multiple,
   onFileChange,
+  fileStatuses,
+  onPause,
+  onResume,
+  onDelete,
+  isLoading,
+  isSuccess,
+  percentage,
+  onFileClick,
 }: PreviewerProps): JSX.Element {
-  const [fileStatuses, setFileStatuses] = useState<FileStatuses>([]);
-  const fileStatusesRef = useRef<FileStatuses>([]);
-  const [isLoading, setLoading] = useState(false);
-  const [isSuccess, setSuccess] = useState(false);
-  const [percentage, setPercentage] = useState(0);
-
-  useEffect(() => {
-    if (fileStatuses.length === 0) return;
-    const success = fileStatuses.every((status) => status?.percentage === 100);
-    setSuccess(success);
-    setLoading(!success);
-
-    const percentage =
-      fileStatuses.reduce((prev, curr) => prev + (curr?.percentage ?? 0), 0) /
-      fileStatuses.length;
-    setPercentage(Math.floor(percentage));
-  }, [fileStatuses]);
-
-  const progressCallback = (index: number) => {
-    return (progress: { loaded: number; total: number }) => {
-      const percentage = Math.floor((progress.loaded / progress.total) * 100);
-      const status = fileStatusesRef.current[index];
-      fileStatusesRef.current[index] =
-        percentage !== 100
-          ? { ...status, percentage, loading: true }
-          : { ...status, percentage, loading: false, success: true };
-      const addPercentage = [...fileStatusesRef.current];
-      setFileStatuses(addPercentage);
-    };
-  };
-
-  const onDelete = () => {
-    //todo delete
-  };
-
-  const onPause = (index: number): (() => void) => {
-    return function () {
-      fileStatuses[index].uploadTask.pause();
-      const statuses = [...fileStatuses];
-      const status = fileStatuses[index];
-
-      statuses[index] = { ...status, paused: true };
-      setFileStatuses(statuses);
-    };
-  };
-
-  const onResume = (index: number): (() => void) => {
-    return function () {
-      fileStatuses[index].uploadTask.resume();
-      const statuses = [...fileStatuses];
-      const status = fileStatuses[index];
-
-      statuses[index] = { ...status, paused: false };
-      setFileStatuses(statuses);
-    };
-  };
-  const onClick = () => {
-    // start upload
-    setLoading(true);
-    const uploadTasksTemp: UploadTask[] = [];
-    for (let i = 0; i < files?.length; i++) {
-      const uploadFileName = getFileName(fileNames?.[i], allFileNames[i]);
-
-      const uploadTask: UploadTask = uploadFile({
-        file: files[i],
-        fileName: uploadFileName,
-        level,
-        progressCallback: progressCallback(i),
-      });
-      uploadTasksTemp.push(uploadTask);
-    }
-    fileStatusesRef.current = uploadTasksTemp.map((status, index) => ({
-      ...status,
-      uploadTask: uploadTasksTemp[index],
-    }));
-
-    const uploadTasks = [...fileStatusesRef.current];
-    setFileStatuses(uploadTasks);
-  };
   return (
     <Card variation="outlined" className="amplify-fileuploader__previewer">
       <Flex className="amplify-fileuploader__previewer__body">
@@ -164,7 +89,7 @@ export function Previewer({
           {!isLoading && !isSuccess && (
             <>
               <View>
-                <Button size="small" variation="primary" onClick={onClick}>
+                <Button size="small" variation="primary" onClick={onFileClick}>
                   {translate('Upload')}
                   {` ${files.length} `}
                   {translate('files')}

@@ -12,7 +12,7 @@ exports[`Tracker exists 1`] = `
       style="flex-direction: row; gap: var(--amplify-space-small); align-items: center;"
     >
       <div
-        class="amplify-fileuploader-img"
+        class="amplify-fileuploader__img"
       >
         <img
           alt=""
@@ -80,6 +80,43 @@ exports[`Tracker exists 1`] = `
           </svg>
         </p>
       </button>
+    </div>
+    <div
+      class="amplify-flex"
+      style="flex-direction: column; gap: 0; align-items: flex-end;"
+    >
+      <svg
+        class="amplify-loader amplify-loader--linear amplify-loader--determinate amplify-fileuploader-loader"
+        data-variation="linear"
+        role="img"
+      >
+        <g>
+          <line
+            data-testid="linear-empty"
+            style="stroke: undefined;"
+            x1="0"
+            x2="100%"
+            y1="50%"
+            y2="50%"
+          />
+          <line
+            data-testid="linear-filled"
+            style="stroke: none;"
+            x1="0"
+            x2="0%"
+            y1="50%"
+            y2="50%"
+          />
+          <text
+            aria-live="polite"
+            class="amplify-loader__percentage-text"
+            x="-1%"
+            y="200%"
+          >
+            0%
+          </text>
+        </g>
+      </svg>
     </div>
   </div>
 </div>

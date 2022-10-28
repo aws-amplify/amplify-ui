@@ -41,8 +41,6 @@ export interface IconProps {
 }
 
 export interface PreviewerProps extends DragActionHandlers {
-  fileNames: string[];
-  level: LevelInfo;
   files: File[];
   onClear: () => void;
   acceptedFileTypes: string[];
@@ -50,11 +48,19 @@ export interface PreviewerProps extends DragActionHandlers {
   onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   inDropZone?: boolean;
   onFileCancel: (index: number) => void;
+  onFileClick: () => void;
   onNameChange: (
     event: React.ChangeEvent<HTMLInputElement>,
     index: number
   ) => void;
   allFileNames: string[];
+  fileStatuses: FileStatuses;
+  onPause: (index: number) => () => void;
+  onResume: (index: number) => () => void;
+  onDelete: () => void;
+  isLoading: boolean;
+  isSuccess: boolean;
+  percentage: number;
 }
 
 export interface TrackerProps {
