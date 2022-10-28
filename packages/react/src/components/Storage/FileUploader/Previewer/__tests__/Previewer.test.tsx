@@ -2,8 +2,8 @@ import * as React from 'react';
 import { render } from '@testing-library/react';
 
 import { Previewer } from '..';
-let fakeFile = new File(['hello'], 'hello.png', { type: 'image/png' });
-let fakeFile2 = new File(['goodbye'], 'goodbye.png', {
+const fakeFile = new File(['hello'], 'hello.png', { type: 'image/png' });
+const fakeFile2 = new File(['goodbye'], 'goodbye.png', {
   type: 'image/png',
 });
 
@@ -15,7 +15,7 @@ describe('Previewer', () => {
         files={[fakeFile]}
         inDropZone={false}
         multiple={true}
-        onClose={() => {}}
+        onClear={() => {}}
         onDragEnter={() => {}}
         onDragLeave={() => {}}
         onDragOver={() => {}}
@@ -23,6 +23,9 @@ describe('Previewer', () => {
         onDrop={() => {}}
         onFileChange={() => {}}
         fileNames={[]}
+        allFileNames={[]}
+        onFileCancel={() => {}}
+        onNameChange={() => {}}
         level="public"
       />
     );
@@ -36,7 +39,7 @@ describe('Previewer', () => {
         files={[fakeFile, fakeFile2]}
         inDropZone={false}
         multiple={true}
-        onClose={() => {}}
+        onClear={() => {}}
         onDragEnter={() => {}}
         onDragLeave={() => {}}
         onDragOver={() => {}}
@@ -44,6 +47,9 @@ describe('Previewer', () => {
         onDrop={() => {}}
         onFileChange={() => {}}
         fileNames={[]}
+        allFileNames={[]}
+        onFileCancel={() => {}}
+        onNameChange={() => {}}
         level="public"
       />
     );
@@ -63,13 +69,16 @@ describe('Previewer', () => {
         files={[fakeFile]}
         inDropZone={false}
         multiple={true}
-        onClose={() => {}}
+        onClear={() => {}}
         onDragEnter={() => {}}
         onDragLeave={() => {}}
         onDragOver={() => {}}
         onDragStart={() => {}}
         onDrop={() => {}}
         onFileChange={() => {}}
+        allFileNames={[]}
+        onFileCancel={() => {}}
+        onNameChange={() => {}}
         fileNames={[]}
         level="public"
       />

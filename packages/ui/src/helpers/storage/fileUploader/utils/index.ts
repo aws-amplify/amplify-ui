@@ -1,1 +1,1 @@
-export { getFileName, uploadFile } from './uploader';
+export { getFileName, uploadFile, humanFileSize } from './uploader';

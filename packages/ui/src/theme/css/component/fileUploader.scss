@@ -1,7 +1,7 @@
 .amplify-fileuploader {
   border: 1px dashed var(--amplify-colors-border-primary);
   text-align: center;
-  max-width: 25rem;
+  max-width: 30rem;
 }
 
 .amplify-fileuploader.active {
@@ -43,7 +43,7 @@
   display: flex;
   flex-direction: column;
   max-height: 40rem;
-  max-width: 25rem;
+  max-width: 30rem;
   overflow: hidden;
 }
 
@@ -72,6 +72,27 @@
   width: 100%;
 }
 
+.amplify-fileuploader__img {
+  aspect-ratio: 1 / 1;
+  position: relative;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.amplify-fileuploder__img-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--amplify-colors-background-secondary);
+  border-radius: var(--amplify-radii-small);
+  color: var(--amplify-colors-font-tertiary);
+  width: 100%;
+  height: 100%;
+}
+
 .amplify-fileuploader__footer > *:first-child {
   flex: 1;
 }
@@ -81,4 +102,14 @@
     object-fit: cover;
     border-radius: var(--amplify-radii-small);
   }
+}
+.amplify-fileuploader__filename {
+  min-width: 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.amplify-fileuploader__file-content {
+  white-space: nowrap;
+  overflow: hidden;
 }
