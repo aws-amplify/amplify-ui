@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react-native';
+import { fireEvent, render } from '@testing-library/react-native';
 import { authenticatorTextUtil } from '@aws-amplify/ui';
 
 import { SetupTOTP } from '..';
@@ -11,27 +11,29 @@ const code = {
   placeholder: 'Code',
   type: 'default' as const,
 };
-
 const fields = [code];
+const toSignIn = jest.fn();
 
 const props = {
-  // TODO: remove `totpIssuer` and `totpUsername` from types
-  totpIssuer: 'AWS_COGNITO',
-  totpUsername: 'hello',
-  getTotpSecretCode: jest.fn as unknown as GetTotpSecretCode,
   error: null as unknown as string,
   fields,
   Footer: SetupTOTP.Footer,
   FormFields: SetupTOTP.FormFields,
   Header: SetupTOTP.Header,
-  handleBlur: jest.fn,
-  handleChange: jest.fn,
-  handleSubmit: jest.fn,
+  getTotpSecretCode: jest.fn() as unknown as GetTotpSecretCode,
+  handleBlur: jest.fn(),
+  handleChange: jest.fn(),
+  handleSubmit: jest.fn(),
   isPending: false,
+  toSignIn,
 };
 
-const { getConfirmingText, getConfirmText, getSetupTOTPText } =
-  authenticatorTextUtil;
+const {
+  getBackToSignInText,
+  getConfirmingText,
+  getConfirmText,
+  getSetupTOTPText,
+} = authenticatorTextUtil;
 
 describe('SetupTOTP', () => {
   it('renders as expected', () => {
@@ -56,7 +58,18 @@ describe('SetupTOTP', () => {
     expect(getByText(errorMessage)).toBeDefined();
   });
 
-  // TODO: add test for handling `toSignIn`
+  it('calls toSignIn an secondary button press', () => {
+    const errorMessage = 'Test error message';
+    const { getByText } = render(<SetupTOTP {...props} error={errorMessage} />);
+
+    const secondaryButton = getByText(getBackToSignInText());
+
+    expect(secondaryButton).toBeDefined();
+
+    fireEvent(secondaryButton, 'press');
+
+    expect(toSignIn).toHaveBeenCalledTimes(1);
+  });
 
   it('renders correct text based on isPending', () => {
     const { queryByText } = render(<SetupTOTP {...props} isPending />);

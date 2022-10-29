@@ -1,15 +1,15 @@
 import React from 'react';
 import { View } from 'react-native';
 
-import { defaultContainerstyles } from './styles';
+import { innerContainerstyles } from './styles';
 import { ContainerProps } from './types';
 
-export default function DefaultContainer({
+export default function InnerContainer({
   children,
   ...rest
 }: ContainerProps): JSX.Element | null {
   return (
-    <View {...rest} style={defaultContainerstyles.container}>
+    <View {...rest} style={innerContainerstyles.container}>
       {children}
     </View>
   );

@@ -1,7 +1,18 @@
 import { StyleSheet } from 'react-native';
 
-import { DefaultContainerStyles } from './types';
+import { ContainerStyles } from './types';
 
-export const styles: DefaultContainerStyles = StyleSheet.create({
-  container: { flex: 1, alignItems: 'center', justifyContent: 'center' },
+export const defaultContainerstyles: ContainerStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
+
+export const innerContainerstyles: ContainerStyles = StyleSheet.create({
+  container: {
+    paddingHorizontal: 12,
+    width: '100%',
+  },
 });
