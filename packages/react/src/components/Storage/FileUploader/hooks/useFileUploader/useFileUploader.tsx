@@ -6,7 +6,7 @@ import { UseFileUploader } from './types';
 export default function useFileUploader(
   maxSize: number,
   acceptedFileTypes: string[],
-  multiple: number
+  multiple: boolean
 ): UseFileUploader {
   const [fileStatuses, setFileStatuses] = useState<FileStatuses>([]);
   const [showPreviewer, setShowPreviewer] = useState(false);
@@ -14,10 +14,10 @@ export default function useFileUploader(
 
   const [inDropZone, setInDropZone] = useState(false);
 
-  const setFileSizeErrors = (files: Files, maxSize: number) => {
+  const setFileSizeErrors = (files: Files, fileStatuses: FileStatuses) => {
+    const statuses = [...fileStatuses];
     [...files].forEach((file, index) => {
       const errorFile = checkMaxSize(maxSize, file);
-      const statuses = [...fileStatuses];
       const status = fileStatuses[index];
 
       statuses[index] = {
@@ -26,12 +26,12 @@ export default function useFileUploader(
         fileErrors: errorFile,
         loading: false,
       };
-      setFileStatuses(statuses);
     });
+    setFileStatuses(statuses);
   };
 
   const checkAndSetFiles = (targets: Files) => {
-    setFileSizeErrors(targets, maxSize);
+    setFileSizeErrors(targets, fileStatuses);
     setFiles(targets);
   };
 

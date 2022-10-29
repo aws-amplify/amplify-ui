@@ -18,5 +18,5 @@ export interface UseFileUploader extends DragActionHandlers {
   inDropZone?: boolean;
   setInDropZone?: React.Dispatch<React.SetStateAction<boolean>>;
   addTargetFiles?: (targetFiles: FileList) => number;
-  setFileSizeErrors?: (files: Files, maxSize: number) => void;
+  setFileSizeErrors?: (files: Files, fileStatuses: FileStatuses) => void;
 }

@@ -11,7 +11,7 @@ export default function FileUploaderEmail() {
         variation="drop"
         acceptedFileTypes={['.png', '.jpg', '.pdf']}
         level="public"
-        multiple={false}
+        multiple={true}
         maxSize={100000}
       />
     </>

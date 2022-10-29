@@ -36,7 +36,9 @@ export function FileUploader({
     setFiles,
     fileStatuses,
     setFileStatuses,
+    setFileSizeErrors,
   } = useFileUploader(maxSize, acceptedFileTypes, multiple);
+
   const [allFileNames, setAllFileNames] = useState<string[]>([]);
   const fileStatusesRef = useRef<FileStatuses>([]);
   // File Previewer global states
@@ -151,7 +153,10 @@ export function FileUploader({
   };
 
   const onFileCancel = (index: number) => {
-    setFiles(files.filter((_, i) => i !== index));
+    const updatedFiles = files.filter((_, i) => i !== index);
+    const updatedFileStatuses = fileStatuses.filter((_, i) => i !== index);
+    setFileSizeErrors(updatedFiles, updatedFileStatuses);
+    setFiles(updatedFiles);
   };
 
   const onNameChange = (
