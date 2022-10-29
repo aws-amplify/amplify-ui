@@ -9,9 +9,10 @@ export default function FileUploaderEmail() {
     <>
       <FileUploader
         variation="drop"
-        acceptedFileTypes={['.png']}
+        acceptedFileTypes={['.png', '.jpg', '.pdf']}
         level="public"
-        multiple={true}
+        multiple={false}
+        maxSize={100000}
       />
     </>
   );

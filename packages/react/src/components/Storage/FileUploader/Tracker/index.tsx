@@ -27,6 +27,7 @@ export function Tracker({
   isPaused,
   isSuccess,
   isError,
+  errorMessage,
   name,
   percentage,
 }: TrackerProps): JSX.Element {
@@ -110,6 +111,7 @@ export function Tracker({
               </Flex>
               <FileState
                 error={isError}
+                errorMessage={errorMessage}
                 success={isSuccess && !isError}
                 paused={isPaused}
                 loading={isLoading}

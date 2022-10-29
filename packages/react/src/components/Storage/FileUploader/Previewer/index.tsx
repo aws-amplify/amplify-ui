@@ -52,7 +52,15 @@ export function Previewer({
           />
         </UploadDropZone>
         <Text fontWeight="bold">
-          {files.length} {translate('files selected')}
+          {isLoading || isSuccess ? (
+            <>
+              {files.length} {translate('files uploaded')}
+            </>
+          ) : (
+            <>
+              {files.length} {translate('files selected')}
+            </>
+          )}
         </Text>
         {files?.map((file, index) => (
           <Tracker
@@ -69,6 +77,7 @@ export function Previewer({
             name={allFileNames[index]}
             isLoading={fileStatuses[index]?.loading}
             isError={fileStatuses[index]?.error}
+            errorMessage={fileStatuses[index]?.fileErrors}
             isSuccess={fileStatuses[index]?.success}
             isPaused={fileStatuses[index]?.paused}
           />
@@ -89,7 +98,12 @@ export function Previewer({
           {!isLoading && !isSuccess && (
             <>
               <View>
-                <Button size="small" variation="primary" onClick={onFileClick}>
+                <Button
+                  disabled={fileStatuses.some((status) => status?.error)}
+                  size="small"
+                  variation="primary"
+                  onClick={onFileClick}
+                >
                   {translate('Upload')}
                   {` ${files.length} `}
                   {translate('files')}

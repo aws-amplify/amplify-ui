@@ -1,1 +1,7 @@
-export { getFileName, uploadFile, humanFileSize } from './uploader';
+export {
+  getFileName,
+  uploadFile,
+  humanFileSize,
+  checkMaxSize,
+  setAcceptedFiles,
+} from './uploader';

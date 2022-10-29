@@ -1,5 +1,6 @@
 import { Storage } from 'aws-amplify';
 import { StorageAccessLevel, UploadTask } from '@aws-amplify/storage';
+import { translate } from '@/i18n';
 
 export function getFileName(fileName: string, name: string): string {
   if (!fileName) {
@@ -62,3 +63,22 @@ export function humanFileSize(bytes, si = false, dp = 1) {
 
   return bytes.toFixed(dp) + ' ' + units[unit];
 }
+
+export const checkMaxSize = (maxSize: number, file: File) => {
+  if (!maxSize) return null;
+  if (maxSize && file.size > maxSize) {
+    return translate('Size above max ') + humanFileSize(maxSize, true);
+  }
+  return null;
+};
+
+export const setAcceptedFiles = (
+  files: File[],
+  acceptedFileTypes: string[]
+): File[] => {
+  // Remove any files that are not in the accepted file list
+  return [...files].filter((file) => {
+    const [extension, ..._] = file.name.split('.').reverse();
+    return acceptedFileTypes.includes('.' + extension);
+  });
+};

@@ -78,11 +78,13 @@ export interface TrackerProps {
   isPaused: boolean;
   isError: boolean;
   isSuccess: boolean;
+  errorMessage: string;
 }
 
 interface FileStatus extends Partial<FileStateProps> {
   percentage?: number;
   uploadTask?: UploadTask;
+  fileErrors?: string;
 }
 
 export type FileStatuses = FileStatus[];
@@ -92,6 +94,7 @@ export interface FileStateProps {
   success: boolean;
   error: boolean;
   paused: boolean;
+  errorMessage: string;
 }
 
 export interface TrackerProps {

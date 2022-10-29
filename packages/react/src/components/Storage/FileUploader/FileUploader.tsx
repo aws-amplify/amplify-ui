@@ -16,6 +16,7 @@ export function FileUploader({
   components = {},
   multiple = true,
   variation = 'button',
+  maxSize,
 }: FileUploaderProps): JSX.Element {
   const {
     UploadDropZone = FileUploader.UploadDropZone,
@@ -33,9 +34,10 @@ export function FileUploader({
     addTargetFiles,
     showPreviewer,
     setFiles,
-  } = useFileUploader();
+    fileStatuses,
+    setFileStatuses,
+  } = useFileUploader(maxSize, acceptedFileTypes, multiple);
   const [allFileNames, setAllFileNames] = useState<string[]>([]);
-  const [fileStatuses, setFileStatuses] = useState<FileStatuses>([]);
   const fileStatusesRef = useRef<FileStatuses>([]);
   // File Previewer global states
   const [isLoading, setLoading] = useState(false);
@@ -44,14 +46,20 @@ export function FileUploader({
 
   useEffect(() => {
     if (fileStatuses.length === 0) return;
-    const success = fileStatuses.every((status) => status?.percentage === 100);
-    setSuccess(success);
-    setLoading(!success);
+    // Sets variable when all downlaods are complete
+    const complete = fileStatuses.every((status) => status?.percentage === 100);
+    setSuccess(complete);
 
+    // Creates aggregate percentage to show during downloads
     const percentage =
       fileStatuses.reduce((prev, curr) => prev + (curr?.percentage ?? 0), 0) /
       fileStatuses.length;
     setPercentage(Math.floor(percentage));
+
+    // Loading ends when all files are at 100%
+    if (Math.floor(percentage) === 100) {
+      setLoading(false);
+    }
   }, [fileStatuses]);
 
   useEffect(() => {
@@ -132,14 +140,14 @@ export function FileUploader({
     }
 
     const { files } = event.target;
-    addTargetFiles(files);
-
-    setShowPreviewer(true);
+    const addedFilesLength = addTargetFiles(files);
+    if (addedFilesLength > 0) setShowPreviewer(true);
   };
 
   const onClear = () => {
     setShowPreviewer(false);
     setFiles([]);
+    setFileStatuses([]);
   };
 
   const onFileCancel = (index: number) => {
