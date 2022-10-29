@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
+import { useDeepLinkingDebug } from '../../../hooks';
+
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react-native';
 import { Amplify } from 'aws-amplify';
 
@@ -17,6 +19,8 @@ function SignOutButton() {
 }
 
 function App() {
+  useDeepLinkingDebug();
+
   return (
     <Authenticator.Provider>
       <Authenticator>
