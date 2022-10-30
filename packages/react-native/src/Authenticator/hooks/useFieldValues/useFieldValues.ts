@@ -25,7 +25,7 @@ export default function useFieldValues<FieldType extends TypedField>({
   const sanitizedFields = useMemo(() => {
     if (!Array.isArray(fields)) {
       logger.warn(
-        `Invalid fields type of ${typeof fields} passed to ${componentName}. Fields must be of type array.`
+        `Invalid fields type of ${typeof fields} passed to ${componentName}. \`fields\` must be of type array.`
       );
       return [];
     }
