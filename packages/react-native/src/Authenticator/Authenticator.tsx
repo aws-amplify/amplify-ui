@@ -10,6 +10,8 @@ import {
   UseAuthenticator,
 } from '@aws-amplify/ui-react-core';
 
+import { DefaultContainer, InnerContainer } from './common';
+import { TypedField, useRouteTypedFields } from './hooks';
 import { AuthenticatorProps } from './types';
 
 import {
@@ -22,11 +24,8 @@ import {
   SetupTOTP,
   SignIn,
   SignUp,
-  TypedField,
   VerifyUser,
 } from './Defaults';
-
-import { DefaultContainer } from './common';
 
 const DEFAULTS = {
   ConfirmResetPassword,
@@ -65,7 +64,9 @@ function Authenticator({
     [overrides]
   );
 
-  const { Component, props } = useAuthenticatorRoute<any>({ components });
+  const { Component, props } = useAuthenticatorRoute({ components });
+
+  const typedFields = useRouteTypedFields({ fields, route });
 
   if (isAuthenticatedRoute(route)) {
     return children ? <>{children}</> : null;
@@ -73,7 +74,9 @@ function Authenticator({
 
   return (
     <DefaultContainer>
-      <Component {...props} fields={fields} />
+      <InnerContainer>
+        <Component {...props} fields={typedFields} />
+      </InnerContainer>
     </DefaultContainer>
   );
 }

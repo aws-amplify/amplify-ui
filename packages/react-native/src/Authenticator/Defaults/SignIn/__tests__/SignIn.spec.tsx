@@ -1,10 +1,29 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
 
+import { authenticatorTextUtil } from '@aws-amplify/ui';
 import SignIn from '../SignIn';
 
+const { getSignInText, getForgotPasswordText } = authenticatorTextUtil;
+
+const username = {
+  name: 'username',
+  label: 'Username',
+  placeholder: 'Username',
+  type: 'default' as const,
+};
+
+const password = {
+  name: 'password',
+  label: 'Password',
+  placeholder: 'Password',
+  type: 'password' as const,
+};
+
+const fields = [username, password];
+
 const props = {
-  fields: [],
+  fields,
   Footer: SignIn.Footer,
   FormFields: SignIn.FormFields,
   handleBlur: jest.fn(),
@@ -20,11 +39,16 @@ const props = {
 
 describe('SignIn', () => {
   it('renders as expected', () => {
-    const { toJSON, getByRole, getAllByRole } = render(<SignIn {...props} />);
+    const { toJSON, getByRole, getAllByRole, getByText } = render(
+      <SignIn {...props} />
+    );
     expect(toJSON()).toMatchSnapshot();
 
     expect(getAllByRole('tab')).toHaveLength(2);
     expect(getByRole('header')).toBeDefined();
+    expect(getAllByRole('text')).toHaveLength(fields.length);
+    expect(getByText(getSignInText())).toBeDefined();
+    expect(getByText(getForgotPasswordText())).toBeDefined();
   });
 
   it('renders as expected with an error', () => {
@@ -41,17 +65,6 @@ describe('SignIn', () => {
 
   it('renders as expected when hideSignUp is true', () => {
     const { toJSON } = render(<SignIn {...props} hideSignUp />);
-    expect(toJSON()).toMatchSnapshot();
-  });
-
-  it('renders as expected with socialProviders', () => {
-    const { toJSON, getByText } = render(
-      <SignIn {...props} socialProviders={['amazon', 'facebook']} />
-    );
-
-    expect(getByText('Sign In with Amazon')).toBeDefined();
-    expect(getByText('Sign In with Facebook')).toBeDefined();
-
     expect(toJSON()).toMatchSnapshot();
   });
 });

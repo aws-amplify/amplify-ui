@@ -94,7 +94,7 @@ describe('getRouteMachineSelector', () => {
       ],
     ],
     ['signUp', [...commonSelectorProps, toSignIn, validationErrors]],
-    ['setupTOTP', [...commonSelectorProps, user]],
+    ['setupTOTP', [...commonSelectorProps, toSignIn, user]],
     ['verifyUser', commonSelectorProps],
   ])('returns the expected route selector for %s', (route, expected) => {
     const selector = getRouteMachineSelector(route as AuthenticatorRoute);
@@ -134,7 +134,7 @@ describe('props resolver functions', () => {
     [
       'SetupTOTP',
       resolveSetupTOTPRoute,
-      { getTotpSecretCode, totpUsername: username, totpIssuer },
+      { getTotpSecretCode, toSignIn, totpUsername: username, totpIssuer },
     ],
     [
       'SignIn',

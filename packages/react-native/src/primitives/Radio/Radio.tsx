@@ -1,5 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 import {
+  GestureResponderEvent,
   Pressable,
   PressableStateCallbackType,
   StyleProp,
@@ -21,6 +22,7 @@ export default function Radio<T>({
   labelPosition = 'end',
   labelStyle,
   onChange,
+  onPress,
   radioContainerStyle,
   radioDotStyle,
   selected,
@@ -29,11 +31,15 @@ export default function Radio<T>({
   value,
   ...rest
 }: RadioProps<T>): JSX.Element {
-  const handleOnChange = useCallback(() => {
-    if (!disabled) {
-      onChange?.(value);
-    }
-  }, [onChange, value, disabled]);
+  const handleOnChange = useCallback(
+    (event: GestureResponderEvent) => {
+      if (!disabled) {
+        onChange?.(value);
+        onPress?.(event);
+      }
+    },
+    [disabled, onChange, onPress, value]
+  );
 
   const containerStyle = useCallback(
     ({ pressed }: PressableStateCallbackType): StyleProp<ViewStyle> => {

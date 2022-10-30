@@ -6,6 +6,7 @@ const icons = {
   checkboxFilled: require('./checkboxFilled.png') as ImageSourcePropType,
   checkboxOutline: require('./checkboxOutline.png') as ImageSourcePropType,
   close: require('./close.png') as ImageSourcePropType,
+  copy: require('./copy.png') as ImageSourcePropType,
   error: require('./error.png') as ImageSourcePropType,
   facebookLogo: require('./facebookLogo.png') as ImageSourcePropType,
   googleLogo: require('./googleLogo.png') as ImageSourcePropType,

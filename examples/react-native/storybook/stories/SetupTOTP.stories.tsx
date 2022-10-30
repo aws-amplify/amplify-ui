@@ -1,11 +1,39 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react-native';
-import { SetupTOTP } from '@aws-amplify/ui-react-native/dist/Authenticator/Defaults';
+import { Authenticator } from '@aws-amplify/ui-react-native';
+import { GetTotpSecretCode } from '@aws-amplify/ui-react-core/dist/types/Authenticator/hooks';
+import noop from 'lodash/noop';
 
-const props = {} as any;
+const code = {
+  name: 'code',
+  label: 'Code',
+  placeholder: 'Code',
+  type: 'default' as const,
+};
 
-storiesOf('SetupTOTP', module)
-  .add('default', () => <SetupTOTP {...props} />)
-  .add('header', () => <SetupTOTP.Header />)
-  .add('footer', () => <SetupTOTP.Footer />)
-  .add('formFields', () => <SetupTOTP.FormFields {...props} />);
+const fields = [code];
+
+const props = {
+  // TODO: remove `totpIssuer` and `totpUsername` from types
+  totpIssuer: 'AWS_COGNITO',
+  totpUsername: 'hello',
+  getTotpSecretCode: noop as GetTotpSecretCode,
+  error: null as unknown as string,
+  fields,
+  Footer: Authenticator.SetupTOTP.Footer,
+  FormFields: Authenticator.SetupTOTP.FormFields,
+  Header: Authenticator.SetupTOTP.Header,
+  handleBlur: noop,
+  handleChange: noop,
+  handleSubmit: (values: any) => {
+    console.log('Values', values);
+  },
+  isPending: false,
+};
+
+storiesOf('Authenticator.SetupTOTP', module)
+  .add('default', () => <Authenticator.SetupTOTP {...props} />)
+  .add('with error', () => (
+    <Authenticator.SetupTOTP {...props} error="Error!" />
+  ))
+  .add('isPending', () => <Authenticator.SetupTOTP {...props} isPending />);

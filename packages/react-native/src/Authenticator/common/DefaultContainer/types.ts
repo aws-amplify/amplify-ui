@@ -1,7 +1,7 @@
 import { ViewProps, ViewStyle } from 'react-native';
 
-export interface DefaultContainerProps extends ViewProps {}
+export interface ContainerProps extends ViewProps {}
 
-export interface DefaultContainerStyles {
+export interface ContainerStyles {
   container: ViewStyle;
 }

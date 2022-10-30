@@ -5,8 +5,17 @@ import { authenticatorTextUtil } from '@aws-amplify/ui';
 
 import { ResetPassword } from '..';
 
+const username = {
+  name: 'username',
+  label: 'Username',
+  placeholder: 'Username',
+  type: 'default' as const,
+};
+
+const fields = [username];
+
 const props = {
-  fields: [],
+  fields,
   Footer: ResetPassword.Footer,
   FormFields: ResetPassword.FormFields,
   handleBlur: jest.fn(),
@@ -32,8 +41,9 @@ describe('ResetPassword', () => {
     expect(toJSON()).toMatchSnapshot();
 
     expect(getAllByRole('header')).toBeDefined();
-    expect(getByText(getResetYourPasswordText())).toBeTruthy();
-    expect(getByText(getSendCodeText())).toBeTruthy();
+    expect(getByText(getResetYourPasswordText())).toBeDefined();
+    expect(getByText(getSendCodeText())).toBeDefined();
+    expect(getAllByRole('text')).toHaveLength(fields.length);
   });
 
   it('renders an error message', () => {
@@ -61,7 +71,7 @@ describe('ResetPassword', () => {
   it('renders correct text based on isPending', () => {
     const { queryByText } = render(<ResetPassword {...props} isPending />);
 
-    expect(queryByText(getSendingText())).toBeTruthy();
-    expect(queryByText(getSendCodeText())).not.toBeTruthy();
+    expect(queryByText(getSendingText())).toBeDefined();
+    expect(queryByText(getSendCodeText())).toBe(null);
   });
 });

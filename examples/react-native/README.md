@@ -129,6 +129,16 @@ To include an Amplify UI package as a dependency add it to the `dependencies` fi
 
 > Only internal packages within the _packages_ directory are resolved in _metro.config.js_
 
+## Adding Dependencies with Native Modules or direct React usage required by `@aws-amplify/ui-react-native`
+
+Metro needs to be informed of the location of dependencies with native modules and dependencies that use React directly. Any new dependency added to `@aws-amplify/ui-react-native` with native modules or a dependency on React will need to be added to the `config.resolver.extraNodeModules` field of the _metro.config.js_ with the path to resolve, example:
+
+```
+config.resolver.extraNodeModules = {
+  'react-native': path.resolve(__dirname, 'node_modules/react-native'),
+}
+```
+
 ## Using env variables
 
 Add a local _.env_ file, then copy/paste the contents of _.env.sample_ inside, updating the values as needed:

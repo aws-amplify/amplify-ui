@@ -1,14 +1,16 @@
 import React from 'react';
+import { authenticatorTextUtil } from '@aws-amplify/ui';
 
-import { DefaultFooter } from '../../common/DefaultFooter';
-import { DefaultHeader } from '../../common/DefaultHeader';
-import { DefaultFormFields } from '../../common/DefaultFormFields';
-import { FederatedProviderButtons } from '../../common/FederatedProviderButtons';
+import { Button, ErrorMessage, Tab, Tabs } from '../../../primitives';
+
+import { DefaultFooter, DefaultFormFields, DefaultHeader } from '../../common';
+import { useFieldValues } from '../../hooks';
 
 import { DefaultSignUpComponent } from '../types';
-import { Button, ErrorMessage, Tab, Tabs } from '../../../primitives';
-import { authenticatorTextUtil } from '@aws-amplify/ui';
+
 import { styles } from './style';
+
+const COMPONENT_NAME = 'SignUp';
 
 const {
   getCreateAccountText,
@@ -23,35 +25,39 @@ const SignUp: DefaultSignUpComponent = ({
   Footer,
   FormFields,
   Header,
+  handleBlur,
+  handleChange,
+  handleSubmit,
   hideSignIn,
   isPending,
-  socialProviders,
-  toFederatedSignIn,
   toSignIn,
   validationErrors,
 }) => {
+  const { fields: fieldsWithHandlers, handleFormSubmit } = useFieldValues({
+    componentName: COMPONENT_NAME,
+    fields,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+  });
+
   return (
     <>
       {hideSignIn ? null : (
-        <Tabs style={styles.tabs}>
+        <Tabs selectedIndex={1} style={styles.tabs}>
           <Tab onPress={toSignIn}>{getSignInTabText()}</Tab>
-          <Tab selected>{getSignUpTabText()}</Tab>
+          <Tab>{getSignUpTabText()}</Tab>
         </Tabs>
       )}
       <Header />
-      {socialProviders ? (
-        <FederatedProviderButtons
-          socialProviders={socialProviders}
-          toFederatedSignIn={toFederatedSignIn}
-        />
-      ) : null}
       <FormFields
         isPending={isPending}
-        fields={fields}
+        fields={fieldsWithHandlers}
         validationErrors={validationErrors}
       />
       {error ? <ErrorMessage>{error}</ErrorMessage> : null}
       <Button
+        onPress={handleFormSubmit}
         style={styles.buttonPrimary}
         textStyle={styles.buttonPrimaryLabel}
       >
@@ -66,5 +72,5 @@ SignUp.Footer = DefaultFooter;
 SignUp.FormFields = DefaultFormFields;
 SignUp.Header = DefaultHeader;
 
-SignUp.displayName = 'SignUp';
+SignUp.displayName = COMPONENT_NAME;
 export default SignUp;

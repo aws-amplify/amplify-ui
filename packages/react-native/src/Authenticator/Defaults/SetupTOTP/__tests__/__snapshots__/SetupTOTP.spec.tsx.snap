@@ -1,10 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SetupTOTP renders as expected 1`] = `
+exports[`SetupTOTP renders an error message 1`] = `
 Array [
-  <Text>
-    SetupTOTP
-  </Text>,
   <Text
     accessibilityRole="header"
     style={
@@ -20,6 +17,378 @@ Array [
         undefined,
       ]
     }
-  />,
+  >
+    Setup TOTP
+  </Text>,
+  <View>
+    <View
+      accessibilityLabel="Code"
+      accessibilityState={
+        Object {
+          "disabled": false,
+        }
+      }
+      accessible={true}
+      style={
+        Array [
+          Object {
+            "alignItems": "flex-start",
+          },
+          Object {
+            "fontSize": 16,
+            "marginVertical": 4,
+          },
+        ]
+      }
+    >
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 16,
+              "marginHorizontal": 4,
+              "marginVertical": 2,
+            },
+            undefined,
+          ]
+        }
+      >
+        Code
+      </Text>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "borderColor": "black",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "padding": 8,
+            "width": "100%",
+          }
+        }
+      >
+        <TextInput
+          accessible={true}
+          autoCapitalize="none"
+          editable={true}
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          placeholder="Code"
+          style={
+            Array [
+              Object {
+                "flexGrow": 1,
+                "fontSize": 16,
+              },
+              undefined,
+            ]
+          }
+        />
+      </View>
+    </View>
+  </View>,
+  <View
+    accessibilityRole="alert"
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#f5bcbc",
+          "flexDirection": "row",
+          "paddingHorizontal": 4,
+          "paddingVertical": 16,
+          "width": "100%",
+        },
+        undefined,
+      ]
+    }
+  >
+    <Image
+      accessibilityRole="image"
+      source={
+        Object {
+          "testUri": "../../../src/assets/icons/error.png",
+        }
+      }
+      style={
+        Array [
+          Object {
+            "height": 20,
+            "resizeMode": "contain",
+            "tintColor": undefined,
+            "width": 20,
+          },
+          Object {
+            "margin": 4,
+          },
+        ]
+      }
+    />
+    <Text
+      style={
+        Array [
+          Object {
+            "flex": 1,
+            "paddingHorizontal": 4,
+          },
+          undefined,
+        ]
+      }
+    >
+      Test error message
+    </Text>
+  </View>,
+  <View
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        null,
+        Object {
+          "backgroundColor": "teal",
+          "marginVertical": 8,
+          "paddingVertical": 12,
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "alignSelf": "center",
+          },
+          Object {
+            "color": "white",
+            "fontSize": 16,
+            "fontWeight": "bold",
+          },
+        ]
+      }
+    >
+      Confirm
+    </Text>
+  </View>,
+  <View
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        null,
+        Object {
+          "marginVertical": 8,
+          "paddingVertical": 12,
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "alignSelf": "center",
+          },
+          Object {
+            "color": "teal",
+          },
+        ]
+      }
+    >
+      Back to Sign In
+    </Text>
+  </View>,
+]
+`;
+
+exports[`SetupTOTP renders as expected 1`] = `
+Array [
+  <Text
+    accessibilityRole="header"
+    style={
+      Array [
+        Object {
+          "color": "black",
+        },
+        Object {
+          "fontSize": 34,
+          "fontWeight": "300",
+          "lineHeight": 51,
+        },
+        undefined,
+      ]
+    }
+  >
+    Setup TOTP
+  </Text>,
+  <View>
+    <View
+      accessibilityLabel="Code"
+      accessibilityState={
+        Object {
+          "disabled": false,
+        }
+      }
+      accessible={true}
+      style={
+        Array [
+          Object {
+            "alignItems": "flex-start",
+          },
+          Object {
+            "fontSize": 16,
+            "marginVertical": 4,
+          },
+        ]
+      }
+    >
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 16,
+              "marginHorizontal": 4,
+              "marginVertical": 2,
+            },
+            undefined,
+          ]
+        }
+      >
+        Code
+      </Text>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "borderColor": "black",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "padding": 8,
+            "width": "100%",
+          }
+        }
+      >
+        <TextInput
+          accessible={true}
+          autoCapitalize="none"
+          editable={true}
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          placeholder="Code"
+          style={
+            Array [
+              Object {
+                "flexGrow": 1,
+                "fontSize": 16,
+              },
+              undefined,
+            ]
+          }
+        />
+      </View>
+    </View>
+  </View>,
+  <View
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        null,
+        Object {
+          "backgroundColor": "teal",
+          "marginVertical": 8,
+          "paddingVertical": 12,
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "alignSelf": "center",
+          },
+          Object {
+            "color": "white",
+            "fontSize": 16,
+            "fontWeight": "bold",
+          },
+        ]
+      }
+    >
+      Confirm
+    </Text>
+  </View>,
+  <View
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        null,
+        Object {
+          "marginVertical": 8,
+          "paddingVertical": 12,
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "alignSelf": "center",
+          },
+          Object {
+            "color": "teal",
+          },
+        ]
+      }
+    >
+      Back to Sign In
+    </Text>
+  </View>,
 ]
 `;

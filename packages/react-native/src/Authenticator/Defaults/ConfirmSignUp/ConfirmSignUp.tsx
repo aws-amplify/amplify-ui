@@ -1,18 +1,74 @@
 import React from 'react';
 import { Text } from 'react-native';
+import { authenticatorTextUtil } from '@aws-amplify/ui';
 
-import { DefaultFooter } from '../../common/DefaultFooter';
-import { DefaultHeader } from '../../common/DefaultHeader';
-import { DefaultFormFields } from '../../common/DefaultFormFields';
+import { Button, ErrorMessage } from '../../../primitives';
+import { DefaultFooter, DefaultFormFields, DefaultHeader } from '../../common';
+import { useFieldValues } from '../../hooks';
+
 import { DefaultConfirmSignUpComponent } from '../types';
+import { styles } from './style';
 
-const ConfirmSignUp: DefaultConfirmSignUpComponent = () => {
-  return <Text>ConfirmSignUp</Text>;
+const COMPONENT_NAME = 'ConfirmSignUp';
+
+const {
+  getDeliveryMethodText,
+  getDeliveryMessageText,
+  getConfirmingText,
+  getConfirmText,
+  getResendCodeText,
+} = authenticatorTextUtil;
+
+const ConfirmSignUp: DefaultConfirmSignUpComponent = ({
+  codeDeliveryDetails,
+  error,
+  fields,
+  Footer,
+  FormFields,
+  Header,
+  handleBlur,
+  handleChange,
+  handleSubmit,
+  isPending,
+  resendCode,
+}) => {
+  const { fields: fieldsWithHandlers, handleFormSubmit } = useFieldValues({
+    componentName: COMPONENT_NAME,
+    fields,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+  });
+
+  return (
+    <>
+      <Header>{getDeliveryMethodText(codeDeliveryDetails)}</Header>
+      <Text>{getDeliveryMessageText(codeDeliveryDetails)}</Text>
+      <FormFields fields={fieldsWithHandlers} isPending={isPending} />
+      {error ? <ErrorMessage>{error}</ErrorMessage> : null}
+      <Button
+        onPress={handleFormSubmit}
+        style={styles.buttonPrimary}
+        textStyle={styles.buttonPrimaryLabel}
+      >
+        {isPending ? getConfirmingText() : getConfirmText()}
+      </Button>
+      <Footer>
+        <Button
+          onPress={resendCode}
+          style={styles.buttonSecondary}
+          textStyle={styles.buttonSecondaryLabel}
+        >
+          {getResendCodeText()}
+        </Button>
+      </Footer>
+    </>
+  );
 };
 
 ConfirmSignUp.FormFields = DefaultFormFields;
 ConfirmSignUp.Footer = DefaultFooter;
 ConfirmSignUp.Header = DefaultHeader;
 
-ConfirmSignUp.displayName = 'ConfirmSignUp';
+ConfirmSignUp.displayName = COMPONENT_NAME;
 export default ConfirmSignUp;

@@ -11,6 +11,8 @@ export {
   Overrides as AuthenticatorComponentOverrides,
   Defaults as AuthenticatorComponentDefaults,
   DefaultProps as AuthenticatorComponentDefaultProps,
+  isComponentRouteKey as isAuthenticatorComponentRouteKey,
+  AuthenticatorRouteComponentName,
   AuthenticatorLegacyField,
   AuthenticatorMachineContext,
   FormFieldsComponent,

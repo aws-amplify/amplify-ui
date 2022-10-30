@@ -1,18 +1,16 @@
 import React from 'react';
-import { StyleSheet, TextStyle, View, ViewStyle } from 'react-native';
+import { StyleSheet, TextStyle, ViewStyle } from 'react-native';
 
 import { authenticatorTextUtil } from '@aws-amplify/ui';
 
-import {
-  DefaultFooter,
-  DefaultFormFields,
-  DefaultHeader,
-  FederatedProviderButtons,
-} from '../../common';
+import { DefaultFooter, DefaultFormFields, DefaultHeader } from '../../common';
+import { useFieldValues } from '../../hooks';
 
 import { Button, ErrorMessage, Tab, Tabs } from '../../../primitives';
 
 import { DefaultSignInComponent } from '../types';
+
+const COMPONENT_NAME = 'SignIn';
 
 // TODO: clean these up once primitive theming is in place
 interface DefaultSignInStyle {
@@ -49,12 +47,13 @@ const SignIn: DefaultSignInComponent = ({
   fields,
   Footer,
   FormFields,
+  handleBlur,
+  handleChange,
+  handleSubmit,
   Header,
   hideSignUp,
   isPending,
-  socialProviders,
   toResetPassword,
-  toFederatedSignIn,
   toSignUp,
 }) => {
   const {
@@ -64,8 +63,16 @@ const SignIn: DefaultSignInComponent = ({
     getForgotPasswordText,
   } = authenticatorTextUtil;
 
+  const { fields: fieldsWithHandlers, handleFormSubmit } = useFieldValues({
+    componentName: COMPONENT_NAME,
+    fields,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+  });
+
   return (
-    <View style={styles.container}>
+    <>
       {hideSignUp ? null : (
         <Tabs style={styles.tabs}>
           <Tab>{getSignInTabText()}</Tab>
@@ -73,15 +80,10 @@ const SignIn: DefaultSignInComponent = ({
         </Tabs>
       )}
       <Header />
-      {socialProviders ? (
-        <FederatedProviderButtons
-          socialProviders={socialProviders}
-          toFederatedSignIn={toFederatedSignIn}
-        />
-      ) : null}
-      <FormFields fields={fields} isPending={isPending} />
+      <FormFields fields={fieldsWithHandlers} isPending={isPending} />
       {error ? <ErrorMessage>{error}</ErrorMessage> : null}
       <Button
+        onPress={handleFormSubmit}
         style={styles.buttonPrimary}
         textStyle={styles.buttonPrimaryLabel}
       >
@@ -96,7 +98,7 @@ const SignIn: DefaultSignInComponent = ({
           {getForgotPasswordText()}
         </Button>
       </Footer>
-    </View>
+    </>
   );
 };
 
@@ -104,5 +106,5 @@ SignIn.Footer = DefaultFooter;
 SignIn.FormFields = DefaultFormFields;
 SignIn.Header = DefaultHeader;
 
-SignIn.displayName = 'SignIn';
+SignIn.displayName = COMPONENT_NAME;
 export default SignIn;

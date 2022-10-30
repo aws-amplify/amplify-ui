@@ -42,6 +42,60 @@ Array [
               "flexGrow": 1,
               "padding": 12,
             },
+            null,
+            null,
+            null,
+          ],
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "alignSelf": "center",
+            },
+            Array [
+              Object {
+                "color": "#304050",
+                "fontSize": 16,
+                "fontWeight": "700",
+              },
+              undefined,
+              null,
+            ],
+          ]
+        }
+      >
+        Sign In
+      </Text>
+    </View>
+    <View
+      accessibilityRole="tab"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          null,
+          Array [
+            Object {
+              "backgroundColor": "#e1e1e1",
+              "borderTopColor": "#dcdee0",
+              "borderTopWidth": 2,
+              "flexBasis": 0,
+              "flexGrow": 1,
+              "padding": 12,
+            },
             Object {
               "opacity": 1,
             },
@@ -77,60 +131,6 @@ Array [
           ]
         }
       >
-        Sign In
-      </Text>
-    </View>
-    <View
-      accessibilityRole="tab"
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Array [
-          null,
-          Array [
-            Object {
-              "backgroundColor": "#e1e1e1",
-              "borderTopColor": "#dcdee0",
-              "borderTopWidth": 2,
-              "flexBasis": 0,
-              "flexGrow": 1,
-              "padding": 12,
-            },
-            null,
-            null,
-            null,
-          ],
-        ]
-      }
-    >
-      <Text
-        style={
-          Array [
-            Object {
-              "alignSelf": "center",
-            },
-            Array [
-              Object {
-                "color": "#304050",
-                "fontSize": 16,
-                "fontWeight": "700",
-              },
-              undefined,
-              null,
-            ],
-          ]
-        }
-      >
         Create Account
       </Text>
     </View>
@@ -151,6 +151,435 @@ Array [
       ]
     }
   />,
+  <View>
+    <View
+      accessibilityLabel="Username"
+      accessibilityState={
+        Object {
+          "disabled": false,
+        }
+      }
+      accessible={true}
+      style={
+        Array [
+          Object {
+            "alignItems": "flex-start",
+          },
+          Object {
+            "fontSize": 16,
+            "marginVertical": 4,
+          },
+        ]
+      }
+    >
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 16,
+              "marginHorizontal": 4,
+              "marginVertical": 2,
+            },
+            undefined,
+          ]
+        }
+      >
+        Username
+      </Text>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "borderColor": "black",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "padding": 8,
+            "width": "100%",
+          }
+        }
+      >
+        <TextInput
+          accessible={true}
+          autoCapitalize="none"
+          editable={true}
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          placeholder="Username"
+          style={
+            Array [
+              Object {
+                "flexGrow": 1,
+                "fontSize": 16,
+              },
+              undefined,
+            ]
+          }
+        />
+      </View>
+    </View>
+    <View
+      accessibilityLabel="Password"
+      accessibilityState={
+        Object {
+          "disabled": false,
+        }
+      }
+      accessible={true}
+      style={
+        Array [
+          Object {
+            "alignItems": "flex-start",
+          },
+          Object {
+            "fontSize": 16,
+            "marginVertical": 4,
+          },
+        ]
+      }
+    >
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 16,
+              "marginHorizontal": 4,
+              "marginVertical": 2,
+            },
+            undefined,
+          ]
+        }
+      >
+        Password
+      </Text>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "borderColor": "black",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "padding": 8,
+            "width": "100%",
+          }
+        }
+      >
+        <TextInput
+          accessible={true}
+          autoCapitalize="none"
+          editable={true}
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          placeholder="Password"
+          secureTextEntry={true}
+          style={
+            Array [
+              Object {
+                "flexGrow": 1,
+                "fontSize": 16,
+              },
+              undefined,
+            ]
+          }
+        />
+        <View
+          accessibilityRole="button"
+          accessibilityState={
+            Object {
+              "disabled": false,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Array [
+              null,
+              null,
+            ]
+          }
+        >
+          <Image
+            accessibilityRole="image"
+            source={
+              Object {
+                "testUri": "../../../src/assets/icons/visibilityOff.png",
+              }
+            }
+            style={
+              Array [
+                Object {
+                  "height": 16,
+                  "resizeMode": "contain",
+                  "tintColor": undefined,
+                  "width": 16,
+                },
+                undefined,
+              ]
+            }
+          />
+        </View>
+      </View>
+    </View>
+    <View
+      accessibilityLabel="Confirm Password"
+      accessibilityState={
+        Object {
+          "disabled": false,
+        }
+      }
+      accessible={true}
+      style={
+        Array [
+          Object {
+            "alignItems": "flex-start",
+          },
+          Object {
+            "fontSize": 16,
+            "marginVertical": 4,
+          },
+        ]
+      }
+    >
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 16,
+              "marginHorizontal": 4,
+              "marginVertical": 2,
+            },
+            undefined,
+          ]
+        }
+      >
+        Confirm Password
+      </Text>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "borderColor": "black",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "padding": 8,
+            "width": "100%",
+          }
+        }
+      >
+        <TextInput
+          accessible={true}
+          autoCapitalize="none"
+          editable={true}
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          placeholder="Confirm Password"
+          secureTextEntry={true}
+          style={
+            Array [
+              Object {
+                "flexGrow": 1,
+                "fontSize": 16,
+              },
+              undefined,
+            ]
+          }
+        />
+        <View
+          accessibilityRole="button"
+          accessibilityState={
+            Object {
+              "disabled": false,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Array [
+              null,
+              null,
+            ]
+          }
+        >
+          <Image
+            accessibilityRole="image"
+            source={
+              Object {
+                "testUri": "../../../src/assets/icons/visibilityOff.png",
+              }
+            }
+            style={
+              Array [
+                Object {
+                  "height": 16,
+                  "resizeMode": "contain",
+                  "tintColor": undefined,
+                  "width": 16,
+                },
+                undefined,
+              ]
+            }
+          />
+        </View>
+      </View>
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+          },
+          Object {
+            "fontSize": 16,
+            "marginVertical": 4,
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "flex": 1,
+              "height": 44,
+              "minWidth": 0,
+            },
+            undefined,
+          ]
+        }
+      >
+        <RNCPicker
+          items={
+            Array [
+              Object {
+                "label": "+1",
+                "testID": undefined,
+                "textColor": undefined,
+                "value": "+1",
+              },
+              Object {
+                "label": "+7",
+                "testID": undefined,
+                "textColor": undefined,
+                "value": "+7",
+              },
+            ]
+          }
+          numberOfLines={1}
+          onChange={[Function]}
+          selectedIndex={0}
+          style={
+            Array [
+              Object {
+                "height": 216,
+              },
+              Array [
+                Object {
+                  "height": 44,
+                },
+                undefined,
+              ],
+            ]
+          }
+          testID="RNPicker"
+        />
+      </View>
+      <View
+        accessibilityLabel="Phone"
+        accessibilityState={
+          Object {
+            "disabled": false,
+          }
+        }
+        accessible={true}
+        style={
+          Array [
+            Object {
+              "alignItems": "flex-start",
+            },
+            Array [
+              undefined,
+              undefined,
+            ],
+          ]
+        }
+      >
+        <Text
+          accessibilityRole="text"
+          style={
+            Array [
+              Object {
+                "fontSize": 16,
+                "marginHorizontal": 4,
+                "marginVertical": 2,
+              },
+              undefined,
+            ]
+          }
+        >
+          Phone
+        </Text>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "borderColor": "black",
+              "borderRadius": 4,
+              "borderWidth": 1,
+              "flexDirection": "row",
+              "padding": 8,
+              "width": "100%",
+            }
+          }
+        >
+          <TextInput
+            accessible={true}
+            autoCapitalize="none"
+            editable={true}
+            keyboardType="phone-pad"
+            onBlur={[Function]}
+            onChangeText={[Function]}
+            placeholder="Phone"
+            style={
+              Array [
+                Object {
+                  "flexGrow": 1,
+                  "fontSize": 16,
+                },
+                undefined,
+              ]
+            }
+          />
+        </View>
+      </View>
+    </View>
+  </View>,
   <View
     accessible={true}
     collapsable={false}
@@ -213,6 +642,435 @@ Array [
       ]
     }
   />,
+  <View>
+    <View
+      accessibilityLabel="Username"
+      accessibilityState={
+        Object {
+          "disabled": false,
+        }
+      }
+      accessible={true}
+      style={
+        Array [
+          Object {
+            "alignItems": "flex-start",
+          },
+          Object {
+            "fontSize": 16,
+            "marginVertical": 4,
+          },
+        ]
+      }
+    >
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 16,
+              "marginHorizontal": 4,
+              "marginVertical": 2,
+            },
+            undefined,
+          ]
+        }
+      >
+        Username
+      </Text>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "borderColor": "black",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "padding": 8,
+            "width": "100%",
+          }
+        }
+      >
+        <TextInput
+          accessible={true}
+          autoCapitalize="none"
+          editable={true}
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          placeholder="Username"
+          style={
+            Array [
+              Object {
+                "flexGrow": 1,
+                "fontSize": 16,
+              },
+              undefined,
+            ]
+          }
+        />
+      </View>
+    </View>
+    <View
+      accessibilityLabel="Password"
+      accessibilityState={
+        Object {
+          "disabled": false,
+        }
+      }
+      accessible={true}
+      style={
+        Array [
+          Object {
+            "alignItems": "flex-start",
+          },
+          Object {
+            "fontSize": 16,
+            "marginVertical": 4,
+          },
+        ]
+      }
+    >
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 16,
+              "marginHorizontal": 4,
+              "marginVertical": 2,
+            },
+            undefined,
+          ]
+        }
+      >
+        Password
+      </Text>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "borderColor": "black",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "padding": 8,
+            "width": "100%",
+          }
+        }
+      >
+        <TextInput
+          accessible={true}
+          autoCapitalize="none"
+          editable={true}
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          placeholder="Password"
+          secureTextEntry={true}
+          style={
+            Array [
+              Object {
+                "flexGrow": 1,
+                "fontSize": 16,
+              },
+              undefined,
+            ]
+          }
+        />
+        <View
+          accessibilityRole="button"
+          accessibilityState={
+            Object {
+              "disabled": false,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Array [
+              null,
+              null,
+            ]
+          }
+        >
+          <Image
+            accessibilityRole="image"
+            source={
+              Object {
+                "testUri": "../../../src/assets/icons/visibilityOff.png",
+              }
+            }
+            style={
+              Array [
+                Object {
+                  "height": 16,
+                  "resizeMode": "contain",
+                  "tintColor": undefined,
+                  "width": 16,
+                },
+                undefined,
+              ]
+            }
+          />
+        </View>
+      </View>
+    </View>
+    <View
+      accessibilityLabel="Confirm Password"
+      accessibilityState={
+        Object {
+          "disabled": false,
+        }
+      }
+      accessible={true}
+      style={
+        Array [
+          Object {
+            "alignItems": "flex-start",
+          },
+          Object {
+            "fontSize": 16,
+            "marginVertical": 4,
+          },
+        ]
+      }
+    >
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 16,
+              "marginHorizontal": 4,
+              "marginVertical": 2,
+            },
+            undefined,
+          ]
+        }
+      >
+        Confirm Password
+      </Text>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "borderColor": "black",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "padding": 8,
+            "width": "100%",
+          }
+        }
+      >
+        <TextInput
+          accessible={true}
+          autoCapitalize="none"
+          editable={true}
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          placeholder="Confirm Password"
+          secureTextEntry={true}
+          style={
+            Array [
+              Object {
+                "flexGrow": 1,
+                "fontSize": 16,
+              },
+              undefined,
+            ]
+          }
+        />
+        <View
+          accessibilityRole="button"
+          accessibilityState={
+            Object {
+              "disabled": false,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Array [
+              null,
+              null,
+            ]
+          }
+        >
+          <Image
+            accessibilityRole="image"
+            source={
+              Object {
+                "testUri": "../../../src/assets/icons/visibilityOff.png",
+              }
+            }
+            style={
+              Array [
+                Object {
+                  "height": 16,
+                  "resizeMode": "contain",
+                  "tintColor": undefined,
+                  "width": 16,
+                },
+                undefined,
+              ]
+            }
+          />
+        </View>
+      </View>
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+          },
+          Object {
+            "fontSize": 16,
+            "marginVertical": 4,
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "flex": 1,
+              "height": 44,
+              "minWidth": 0,
+            },
+            undefined,
+          ]
+        }
+      >
+        <RNCPicker
+          items={
+            Array [
+              Object {
+                "label": "+1",
+                "testID": undefined,
+                "textColor": undefined,
+                "value": "+1",
+              },
+              Object {
+                "label": "+7",
+                "testID": undefined,
+                "textColor": undefined,
+                "value": "+7",
+              },
+            ]
+          }
+          numberOfLines={1}
+          onChange={[Function]}
+          selectedIndex={0}
+          style={
+            Array [
+              Object {
+                "height": 216,
+              },
+              Array [
+                Object {
+                  "height": 44,
+                },
+                undefined,
+              ],
+            ]
+          }
+          testID="RNPicker"
+        />
+      </View>
+      <View
+        accessibilityLabel="Phone"
+        accessibilityState={
+          Object {
+            "disabled": false,
+          }
+        }
+        accessible={true}
+        style={
+          Array [
+            Object {
+              "alignItems": "flex-start",
+            },
+            Array [
+              undefined,
+              undefined,
+            ],
+          ]
+        }
+      >
+        <Text
+          accessibilityRole="text"
+          style={
+            Array [
+              Object {
+                "fontSize": 16,
+                "marginHorizontal": 4,
+                "marginVertical": 2,
+              },
+              undefined,
+            ]
+          }
+        >
+          Phone
+        </Text>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "borderColor": "black",
+              "borderRadius": 4,
+              "borderWidth": 1,
+              "flexDirection": "row",
+              "padding": 8,
+              "width": "100%",
+            }
+          }
+        >
+          <TextInput
+            accessible={true}
+            autoCapitalize="none"
+            editable={true}
+            keyboardType="phone-pad"
+            onBlur={[Function]}
+            onChangeText={[Function]}
+            placeholder="Phone"
+            style={
+              Array [
+                Object {
+                  "flexGrow": 1,
+                  "fontSize": 16,
+                },
+                undefined,
+              ]
+            }
+          />
+        </View>
+      </View>
+    </View>
+  </View>,
   <View
     accessible={true}
     collapsable={false}
@@ -299,6 +1157,60 @@ Array [
               "flexGrow": 1,
               "padding": 12,
             },
+            null,
+            null,
+            null,
+          ],
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "alignSelf": "center",
+            },
+            Array [
+              Object {
+                "color": "#304050",
+                "fontSize": 16,
+                "fontWeight": "700",
+              },
+              undefined,
+              null,
+            ],
+          ]
+        }
+      >
+        Sign In
+      </Text>
+    </View>
+    <View
+      accessibilityRole="tab"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          null,
+          Array [
+            Object {
+              "backgroundColor": "#e1e1e1",
+              "borderTopColor": "#dcdee0",
+              "borderTopWidth": 2,
+              "flexBasis": 0,
+              "flexGrow": 1,
+              "padding": 12,
+            },
             Object {
               "opacity": 1,
             },
@@ -334,60 +1246,6 @@ Array [
           ]
         }
       >
-        Sign In
-      </Text>
-    </View>
-    <View
-      accessibilityRole="tab"
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Array [
-          null,
-          Array [
-            Object {
-              "backgroundColor": "#e1e1e1",
-              "borderTopColor": "#dcdee0",
-              "borderTopWidth": 2,
-              "flexBasis": 0,
-              "flexGrow": 1,
-              "padding": 12,
-            },
-            null,
-            null,
-            null,
-          ],
-        ]
-      }
-    >
-      <Text
-        style={
-          Array [
-            Object {
-              "alignSelf": "center",
-            },
-            Array [
-              Object {
-                "color": "#304050",
-                "fontSize": 16,
-                "fontWeight": "700",
-              },
-              undefined,
-              null,
-            ],
-          ]
-        }
-      >
         Create Account
       </Text>
     </View>
@@ -408,6 +1266,439 @@ Array [
       ]
     }
   />,
+  <View>
+    <View
+      accessibilityLabel="Username"
+      accessibilityState={
+        Object {
+          "disabled": true,
+        }
+      }
+      accessible={true}
+      style={
+        Array [
+          Object {
+            "alignItems": "flex-start",
+            "opacity": 0.6,
+          },
+          Object {
+            "fontSize": 16,
+            "marginVertical": 4,
+          },
+        ]
+      }
+    >
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 16,
+              "marginHorizontal": 4,
+              "marginVertical": 2,
+            },
+            undefined,
+          ]
+        }
+      >
+        Username
+      </Text>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "borderColor": "black",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "padding": 8,
+            "width": "100%",
+          }
+        }
+      >
+        <TextInput
+          accessible={true}
+          autoCapitalize="none"
+          editable={false}
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          placeholder="Username"
+          style={
+            Array [
+              Object {
+                "flexGrow": 1,
+                "fontSize": 16,
+              },
+              undefined,
+            ]
+          }
+        />
+      </View>
+    </View>
+    <View
+      accessibilityLabel="Password"
+      accessibilityState={
+        Object {
+          "disabled": true,
+        }
+      }
+      accessible={true}
+      style={
+        Array [
+          Object {
+            "alignItems": "flex-start",
+            "opacity": 0.6,
+          },
+          Object {
+            "fontSize": 16,
+            "marginVertical": 4,
+          },
+        ]
+      }
+    >
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 16,
+              "marginHorizontal": 4,
+              "marginVertical": 2,
+            },
+            undefined,
+          ]
+        }
+      >
+        Password
+      </Text>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "borderColor": "black",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "padding": 8,
+            "width": "100%",
+          }
+        }
+      >
+        <TextInput
+          accessible={true}
+          autoCapitalize="none"
+          editable={false}
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          placeholder="Password"
+          secureTextEntry={true}
+          style={
+            Array [
+              Object {
+                "flexGrow": 1,
+                "fontSize": 16,
+              },
+              undefined,
+            ]
+          }
+        />
+        <View
+          accessibilityRole="button"
+          accessibilityState={
+            Object {
+              "disabled": true,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Array [
+              null,
+              null,
+            ]
+          }
+        >
+          <Image
+            accessibilityRole="image"
+            source={
+              Object {
+                "testUri": "../../../src/assets/icons/visibilityOff.png",
+              }
+            }
+            style={
+              Array [
+                Object {
+                  "height": 16,
+                  "resizeMode": "contain",
+                  "tintColor": undefined,
+                  "width": 16,
+                },
+                undefined,
+              ]
+            }
+          />
+        </View>
+      </View>
+    </View>
+    <View
+      accessibilityLabel="Confirm Password"
+      accessibilityState={
+        Object {
+          "disabled": true,
+        }
+      }
+      accessible={true}
+      style={
+        Array [
+          Object {
+            "alignItems": "flex-start",
+            "opacity": 0.6,
+          },
+          Object {
+            "fontSize": 16,
+            "marginVertical": 4,
+          },
+        ]
+      }
+    >
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 16,
+              "marginHorizontal": 4,
+              "marginVertical": 2,
+            },
+            undefined,
+          ]
+        }
+      >
+        Confirm Password
+      </Text>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "borderColor": "black",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "padding": 8,
+            "width": "100%",
+          }
+        }
+      >
+        <TextInput
+          accessible={true}
+          autoCapitalize="none"
+          editable={false}
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          placeholder="Confirm Password"
+          secureTextEntry={true}
+          style={
+            Array [
+              Object {
+                "flexGrow": 1,
+                "fontSize": 16,
+              },
+              undefined,
+            ]
+          }
+        />
+        <View
+          accessibilityRole="button"
+          accessibilityState={
+            Object {
+              "disabled": true,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Array [
+              null,
+              null,
+            ]
+          }
+        >
+          <Image
+            accessibilityRole="image"
+            source={
+              Object {
+                "testUri": "../../../src/assets/icons/visibilityOff.png",
+              }
+            }
+            style={
+              Array [
+                Object {
+                  "height": 16,
+                  "resizeMode": "contain",
+                  "tintColor": undefined,
+                  "width": 16,
+                },
+                undefined,
+              ]
+            }
+          />
+        </View>
+      </View>
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+          },
+          Object {
+            "fontSize": 16,
+            "marginVertical": 4,
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "flex": 1,
+              "height": 44,
+              "minWidth": 0,
+            },
+            undefined,
+          ]
+        }
+      >
+        <RNCPicker
+          items={
+            Array [
+              Object {
+                "label": "+1",
+                "testID": undefined,
+                "textColor": undefined,
+                "value": "+1",
+              },
+              Object {
+                "label": "+7",
+                "testID": undefined,
+                "textColor": undefined,
+                "value": "+7",
+              },
+            ]
+          }
+          numberOfLines={1}
+          onChange={[Function]}
+          selectedIndex={0}
+          style={
+            Array [
+              Object {
+                "height": 216,
+              },
+              Array [
+                Object {
+                  "height": 44,
+                },
+                undefined,
+              ],
+            ]
+          }
+          testID="RNPicker"
+        />
+      </View>
+      <View
+        accessibilityLabel="Phone"
+        accessibilityState={
+          Object {
+            "disabled": true,
+          }
+        }
+        accessible={true}
+        style={
+          Array [
+            Object {
+              "alignItems": "flex-start",
+              "opacity": 0.6,
+            },
+            Array [
+              undefined,
+              undefined,
+            ],
+          ]
+        }
+      >
+        <Text
+          accessibilityRole="text"
+          style={
+            Array [
+              Object {
+                "fontSize": 16,
+                "marginHorizontal": 4,
+                "marginVertical": 2,
+              },
+              undefined,
+            ]
+          }
+        >
+          Phone
+        </Text>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "borderColor": "black",
+              "borderRadius": 4,
+              "borderWidth": 1,
+              "flexDirection": "row",
+              "padding": 8,
+              "width": "100%",
+            }
+          }
+        >
+          <TextInput
+            accessible={true}
+            autoCapitalize="none"
+            editable={false}
+            keyboardType="phone-pad"
+            onBlur={[Function]}
+            onChangeText={[Function]}
+            placeholder="Phone"
+            style={
+              Array [
+                Object {
+                  "flexGrow": 1,
+                  "fontSize": 16,
+                },
+                undefined,
+              ]
+            }
+          />
+        </View>
+      </View>
+    </View>
+  </View>,
   <View
     accessible={true}
     collapsable={false}
@@ -494,6 +1785,60 @@ Array [
               "flexGrow": 1,
               "padding": 12,
             },
+            null,
+            null,
+            null,
+          ],
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "alignSelf": "center",
+            },
+            Array [
+              Object {
+                "color": "#304050",
+                "fontSize": 16,
+                "fontWeight": "700",
+              },
+              undefined,
+              null,
+            ],
+          ]
+        }
+      >
+        Sign In
+      </Text>
+    </View>
+    <View
+      accessibilityRole="tab"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          null,
+          Array [
+            Object {
+              "backgroundColor": "#e1e1e1",
+              "borderTopColor": "#dcdee0",
+              "borderTopWidth": 2,
+              "flexBasis": 0,
+              "flexGrow": 1,
+              "padding": 12,
+            },
             Object {
               "opacity": 1,
             },
@@ -529,60 +1874,6 @@ Array [
           ]
         }
       >
-        Sign In
-      </Text>
-    </View>
-    <View
-      accessibilityRole="tab"
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Array [
-          null,
-          Array [
-            Object {
-              "backgroundColor": "#e1e1e1",
-              "borderTopColor": "#dcdee0",
-              "borderTopWidth": 2,
-              "flexBasis": 0,
-              "flexGrow": 1,
-              "padding": 12,
-            },
-            null,
-            null,
-            null,
-          ],
-        ]
-      }
-    >
-      <Text
-        style={
-          Array [
-            Object {
-              "alignSelf": "center",
-            },
-            Array [
-              Object {
-                "color": "#304050",
-                "fontSize": 16,
-                "fontWeight": "700",
-              },
-              undefined,
-              null,
-            ],
-          ]
-        }
-      >
         Create Account
       </Text>
     </View>
@@ -603,6 +1894,435 @@ Array [
       ]
     }
   />,
+  <View>
+    <View
+      accessibilityLabel="Username"
+      accessibilityState={
+        Object {
+          "disabled": false,
+        }
+      }
+      accessible={true}
+      style={
+        Array [
+          Object {
+            "alignItems": "flex-start",
+          },
+          Object {
+            "fontSize": 16,
+            "marginVertical": 4,
+          },
+        ]
+      }
+    >
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 16,
+              "marginHorizontal": 4,
+              "marginVertical": 2,
+            },
+            undefined,
+          ]
+        }
+      >
+        Username
+      </Text>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "borderColor": "black",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "padding": 8,
+            "width": "100%",
+          }
+        }
+      >
+        <TextInput
+          accessible={true}
+          autoCapitalize="none"
+          editable={true}
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          placeholder="Username"
+          style={
+            Array [
+              Object {
+                "flexGrow": 1,
+                "fontSize": 16,
+              },
+              undefined,
+            ]
+          }
+        />
+      </View>
+    </View>
+    <View
+      accessibilityLabel="Password"
+      accessibilityState={
+        Object {
+          "disabled": false,
+        }
+      }
+      accessible={true}
+      style={
+        Array [
+          Object {
+            "alignItems": "flex-start",
+          },
+          Object {
+            "fontSize": 16,
+            "marginVertical": 4,
+          },
+        ]
+      }
+    >
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 16,
+              "marginHorizontal": 4,
+              "marginVertical": 2,
+            },
+            undefined,
+          ]
+        }
+      >
+        Password
+      </Text>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "borderColor": "black",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "padding": 8,
+            "width": "100%",
+          }
+        }
+      >
+        <TextInput
+          accessible={true}
+          autoCapitalize="none"
+          editable={true}
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          placeholder="Password"
+          secureTextEntry={true}
+          style={
+            Array [
+              Object {
+                "flexGrow": 1,
+                "fontSize": 16,
+              },
+              undefined,
+            ]
+          }
+        />
+        <View
+          accessibilityRole="button"
+          accessibilityState={
+            Object {
+              "disabled": false,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Array [
+              null,
+              null,
+            ]
+          }
+        >
+          <Image
+            accessibilityRole="image"
+            source={
+              Object {
+                "testUri": "../../../src/assets/icons/visibilityOff.png",
+              }
+            }
+            style={
+              Array [
+                Object {
+                  "height": 16,
+                  "resizeMode": "contain",
+                  "tintColor": undefined,
+                  "width": 16,
+                },
+                undefined,
+              ]
+            }
+          />
+        </View>
+      </View>
+    </View>
+    <View
+      accessibilityLabel="Confirm Password"
+      accessibilityState={
+        Object {
+          "disabled": false,
+        }
+      }
+      accessible={true}
+      style={
+        Array [
+          Object {
+            "alignItems": "flex-start",
+          },
+          Object {
+            "fontSize": 16,
+            "marginVertical": 4,
+          },
+        ]
+      }
+    >
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 16,
+              "marginHorizontal": 4,
+              "marginVertical": 2,
+            },
+            undefined,
+          ]
+        }
+      >
+        Confirm Password
+      </Text>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "borderColor": "black",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "padding": 8,
+            "width": "100%",
+          }
+        }
+      >
+        <TextInput
+          accessible={true}
+          autoCapitalize="none"
+          editable={true}
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          placeholder="Confirm Password"
+          secureTextEntry={true}
+          style={
+            Array [
+              Object {
+                "flexGrow": 1,
+                "fontSize": 16,
+              },
+              undefined,
+            ]
+          }
+        />
+        <View
+          accessibilityRole="button"
+          accessibilityState={
+            Object {
+              "disabled": false,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Array [
+              null,
+              null,
+            ]
+          }
+        >
+          <Image
+            accessibilityRole="image"
+            source={
+              Object {
+                "testUri": "../../../src/assets/icons/visibilityOff.png",
+              }
+            }
+            style={
+              Array [
+                Object {
+                  "height": 16,
+                  "resizeMode": "contain",
+                  "tintColor": undefined,
+                  "width": 16,
+                },
+                undefined,
+              ]
+            }
+          />
+        </View>
+      </View>
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+          },
+          Object {
+            "fontSize": 16,
+            "marginVertical": 4,
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "flex": 1,
+              "height": 44,
+              "minWidth": 0,
+            },
+            undefined,
+          ]
+        }
+      >
+        <RNCPicker
+          items={
+            Array [
+              Object {
+                "label": "+1",
+                "testID": undefined,
+                "textColor": undefined,
+                "value": "+1",
+              },
+              Object {
+                "label": "+7",
+                "testID": undefined,
+                "textColor": undefined,
+                "value": "+7",
+              },
+            ]
+          }
+          numberOfLines={1}
+          onChange={[Function]}
+          selectedIndex={0}
+          style={
+            Array [
+              Object {
+                "height": 216,
+              },
+              Array [
+                Object {
+                  "height": 44,
+                },
+                undefined,
+              ],
+            ]
+          }
+          testID="RNPicker"
+        />
+      </View>
+      <View
+        accessibilityLabel="Phone"
+        accessibilityState={
+          Object {
+            "disabled": false,
+          }
+        }
+        accessible={true}
+        style={
+          Array [
+            Object {
+              "alignItems": "flex-start",
+            },
+            Array [
+              undefined,
+              undefined,
+            ],
+          ]
+        }
+      >
+        <Text
+          accessibilityRole="text"
+          style={
+            Array [
+              Object {
+                "fontSize": 16,
+                "marginHorizontal": 4,
+                "marginVertical": 2,
+              },
+              undefined,
+            ]
+          }
+        >
+          Phone
+        </Text>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "borderColor": "black",
+              "borderRadius": 4,
+              "borderWidth": 1,
+              "flexDirection": "row",
+              "padding": 8,
+              "width": "100%",
+            }
+          }
+        >
+          <TextInput
+            accessible={true}
+            autoCapitalize="none"
+            editable={true}
+            keyboardType="phone-pad"
+            onBlur={[Function]}
+            onChangeText={[Function]}
+            placeholder="Phone"
+            style={
+              Array [
+                Object {
+                  "flexGrow": 1,
+                  "fontSize": 16,
+                },
+                undefined,
+              ]
+            }
+          />
+        </View>
+      </View>
+    </View>
+  </View>,
   <View
     accessibilityRole="alert"
     style={
@@ -740,6 +2460,60 @@ Array [
               "flexGrow": 1,
               "padding": 12,
             },
+            null,
+            null,
+            null,
+          ],
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "alignSelf": "center",
+            },
+            Array [
+              Object {
+                "color": "#304050",
+                "fontSize": 16,
+                "fontWeight": "700",
+              },
+              undefined,
+              null,
+            ],
+          ]
+        }
+      >
+        Sign In
+      </Text>
+    </View>
+    <View
+      accessibilityRole="tab"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          null,
+          Array [
+            Object {
+              "backgroundColor": "#e1e1e1",
+              "borderTopColor": "#dcdee0",
+              "borderTopWidth": 2,
+              "flexBasis": 0,
+              "flexGrow": 1,
+              "padding": 12,
+            },
             Object {
               "opacity": 1,
             },
@@ -775,60 +2549,6 @@ Array [
           ]
         }
       >
-        Sign In
-      </Text>
-    </View>
-    <View
-      accessibilityRole="tab"
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Array [
-          null,
-          Array [
-            Object {
-              "backgroundColor": "#e1e1e1",
-              "borderTopColor": "#dcdee0",
-              "borderTopWidth": 2,
-              "flexBasis": 0,
-              "flexGrow": 1,
-              "padding": 12,
-            },
-            null,
-            null,
-            null,
-          ],
-        ]
-      }
-    >
-      <Text
-        style={
-          Array [
-            Object {
-              "alignSelf": "center",
-            },
-            Array [
-              Object {
-                "color": "#304050",
-                "fontSize": 16,
-                "fontWeight": "700",
-              },
-              undefined,
-              null,
-            ],
-          ]
-        }
-      >
         Create Account
       </Text>
     </View>
@@ -849,67 +2569,27 @@ Array [
       ]
     }
   />,
-  <View
-    style={
-      Object {
-        "paddingVertical": 4,
-      }
-    }
-  >
+  <View>
     <View
+      accessibilityLabel="Username"
+      accessibilityState={
+        Object {
+          "disabled": false,
+        }
+      }
       accessible={true}
-      collapsable={false}
-      focusable={true}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
       style={
         Array [
-          null,
-          Array [
-            Object {
-              "alignItems": "center",
-              "borderRadius": 4,
-              "borderWidth": 0.5,
-              "flexDirection": "row",
-              "justifyContent": "center",
-              "paddingVertical": 8,
-              "width": "100%",
-            },
-            Object {
-              "marginVertical": 8,
-            },
-          ],
+          Object {
+            "alignItems": "flex-start",
+          },
+          Object {
+            "fontSize": 16,
+            "marginVertical": 4,
+          },
         ]
       }
     >
-      <Image
-        accessibilityRole="image"
-        source={
-          Object {
-            "testUri": "../../../src/assets/icons/amazonLogo.png",
-          }
-        }
-        style={
-          Array [
-            Object {
-              "height": 20,
-              "resizeMode": "contain",
-              "tintColor": undefined,
-              "width": 20,
-            },
-            Object {
-              "paddingHorizontal": 16,
-            },
-          ]
-        }
-      />
       <Text
         accessibilityRole="text"
         style={
@@ -919,72 +2599,64 @@ Array [
               "marginHorizontal": 4,
               "marginVertical": 2,
             },
-            Array [
-              Object {
-                "fontWeight": "400",
-              },
-              undefined,
-            ],
+            undefined,
           ]
         }
       >
-        Sign In with Amazon
+        Username
       </Text>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "borderColor": "black",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "padding": 8,
+            "width": "100%",
+          }
+        }
+      >
+        <TextInput
+          accessible={true}
+          autoCapitalize="none"
+          editable={true}
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          placeholder="Username"
+          style={
+            Array [
+              Object {
+                "flexGrow": 1,
+                "fontSize": 16,
+              },
+              undefined,
+            ]
+          }
+        />
+      </View>
     </View>
     <View
+      accessibilityLabel="Password"
+      accessibilityState={
+        Object {
+          "disabled": false,
+        }
+      }
       accessible={true}
-      collapsable={false}
-      focusable={true}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
       style={
         Array [
-          null,
-          Array [
-            Object {
-              "alignItems": "center",
-              "borderRadius": 4,
-              "borderWidth": 0.5,
-              "flexDirection": "row",
-              "justifyContent": "center",
-              "paddingVertical": 8,
-              "width": "100%",
-            },
-            Object {
-              "marginVertical": 8,
-            },
-          ],
+          Object {
+            "alignItems": "flex-start",
+          },
+          Object {
+            "fontSize": 16,
+            "marginVertical": 4,
+          },
         ]
       }
     >
-      <Image
-        accessibilityRole="image"
-        source={
-          Object {
-            "testUri": "../../../src/assets/icons/appleLogo.png",
-          }
-        }
-        style={
-          Array [
-            Object {
-              "height": 20,
-              "resizeMode": "contain",
-              "tintColor": undefined,
-              "width": 20,
-            },
-            Object {
-              "paddingHorizontal": 16,
-            },
-          ]
-        }
-      />
       <Text
         accessibilityRole="text"
         style={
@@ -994,72 +2666,111 @@ Array [
               "marginHorizontal": 4,
               "marginVertical": 2,
             },
-            Array [
-              Object {
-                "fontWeight": "400",
-              },
-              undefined,
-            ],
+            undefined,
           ]
         }
       >
-        Sign In with Apple
+        Password
       </Text>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "borderColor": "black",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "padding": 8,
+            "width": "100%",
+          }
+        }
+      >
+        <TextInput
+          accessible={true}
+          autoCapitalize="none"
+          editable={true}
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          placeholder="Password"
+          secureTextEntry={true}
+          style={
+            Array [
+              Object {
+                "flexGrow": 1,
+                "fontSize": 16,
+              },
+              undefined,
+            ]
+          }
+        />
+        <View
+          accessibilityRole="button"
+          accessibilityState={
+            Object {
+              "disabled": false,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Array [
+              null,
+              null,
+            ]
+          }
+        >
+          <Image
+            accessibilityRole="image"
+            source={
+              Object {
+                "testUri": "../../../src/assets/icons/visibilityOff.png",
+              }
+            }
+            style={
+              Array [
+                Object {
+                  "height": 16,
+                  "resizeMode": "contain",
+                  "tintColor": undefined,
+                  "width": 16,
+                },
+                undefined,
+              ]
+            }
+          />
+        </View>
+      </View>
     </View>
     <View
+      accessibilityLabel="Confirm Password"
+      accessibilityState={
+        Object {
+          "disabled": false,
+        }
+      }
       accessible={true}
-      collapsable={false}
-      focusable={true}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
       style={
         Array [
-          null,
-          Array [
-            Object {
-              "alignItems": "center",
-              "borderRadius": 4,
-              "borderWidth": 0.5,
-              "flexDirection": "row",
-              "justifyContent": "center",
-              "paddingVertical": 8,
-              "width": "100%",
-            },
-            Object {
-              "marginVertical": 8,
-            },
-          ],
+          Object {
+            "alignItems": "flex-start",
+          },
+          Object {
+            "fontSize": 16,
+            "marginVertical": 4,
+          },
         ]
       }
     >
-      <Image
-        accessibilityRole="image"
-        source={
-          Object {
-            "testUri": "../../../src/assets/icons/facebookLogo.png",
-          }
-        }
-        style={
-          Array [
-            Object {
-              "height": 20,
-              "resizeMode": "contain",
-              "tintColor": undefined,
-              "width": 20,
-            },
-            Object {
-              "paddingHorizontal": 16,
-            },
-          ]
-        }
-      />
       <Text
         accessibilityRole="text"
         style={
@@ -1069,101 +2780,103 @@ Array [
               "marginHorizontal": 4,
               "marginVertical": 2,
             },
-            Array [
-              Object {
-                "fontWeight": "400",
-              },
-              undefined,
-            ],
+            undefined,
           ]
         }
       >
-        Sign In with Facebook
+        Confirm Password
       </Text>
-    </View>
-    <View
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Array [
-          null,
-          Array [
-            Object {
-              "alignItems": "center",
-              "borderRadius": 4,
-              "borderWidth": 0.5,
-              "flexDirection": "row",
-              "justifyContent": "center",
-              "paddingVertical": 8,
-              "width": "100%",
-            },
-            Object {
-              "marginVertical": 8,
-            },
-          ],
-        ]
-      }
-    >
-      <Image
-        accessibilityRole="image"
-        source={
+      <View
+        style={
           Object {
-            "testUri": "../../../src/assets/icons/googleLogo.png",
+            "alignItems": "center",
+            "borderColor": "black",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "padding": 8,
+            "width": "100%",
           }
         }
-        style={
-          Array [
-            Object {
-              "height": 20,
-              "resizeMode": "contain",
-              "tintColor": undefined,
-              "width": 20,
-            },
-            Object {
-              "paddingHorizontal": 16,
-            },
-          ]
-        }
-      />
-      <Text
-        accessibilityRole="text"
-        style={
-          Array [
-            Object {
-              "fontSize": 16,
-              "marginHorizontal": 4,
-              "marginVertical": 2,
-            },
+      >
+        <TextInput
+          accessible={true}
+          autoCapitalize="none"
+          editable={true}
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          placeholder="Confirm Password"
+          secureTextEntry={true}
+          style={
             Array [
               Object {
-                "fontWeight": "400",
+                "flexGrow": 1,
+                "fontSize": 16,
               },
               undefined,
-            ],
-          ]
-        }
-      >
-        Sign In with Google
-      </Text>
+            ]
+          }
+        />
+        <View
+          accessibilityRole="button"
+          accessibilityState={
+            Object {
+              "disabled": false,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Array [
+              null,
+              null,
+            ]
+          }
+        >
+          <Image
+            accessibilityRole="image"
+            source={
+              Object {
+                "testUri": "../../../src/assets/icons/visibilityOff.png",
+              }
+            }
+            style={
+              Array [
+                Object {
+                  "height": 16,
+                  "resizeMode": "contain",
+                  "tintColor": undefined,
+                  "width": 16,
+                },
+                undefined,
+              ]
+            }
+          />
+        </View>
+      </View>
     </View>
     <View
       style={
         Array [
           Object {
             "alignItems": "center",
+            "display": "flex",
             "flexDirection": "row",
           },
-          undefined,
+          Object {
+            "fontSize": 16,
+            "marginVertical": 4,
+          },
         ]
       }
     >
@@ -1171,51 +2884,118 @@ Array [
         style={
           Array [
             Object {
-              "backgroundColor": "black",
               "flex": 1,
-              "height": 0.5,
+              "height": 44,
+              "minWidth": 0,
             },
             undefined,
           ]
         }
-      />
-      <Text
-        accessibilityRole="text"
+      >
+        <RNCPicker
+          items={
+            Array [
+              Object {
+                "label": "+1",
+                "testID": undefined,
+                "textColor": undefined,
+                "value": "+1",
+              },
+              Object {
+                "label": "+7",
+                "testID": undefined,
+                "textColor": undefined,
+                "value": "+7",
+              },
+            ]
+          }
+          numberOfLines={1}
+          onChange={[Function]}
+          selectedIndex={0}
+          style={
+            Array [
+              Object {
+                "height": 216,
+              },
+              Array [
+                Object {
+                  "height": 44,
+                },
+                undefined,
+              ],
+            ]
+          }
+          testID="RNPicker"
+        />
+      </View>
+      <View
+        accessibilityLabel="Phone"
+        accessibilityState={
+          Object {
+            "disabled": false,
+          }
+        }
+        accessible={true}
         style={
           Array [
             Object {
-              "fontSize": 16,
-              "marginHorizontal": 4,
-              "marginVertical": 2,
+              "alignItems": "flex-start",
             },
             Array [
-              Object {
-                "fontSize": 16,
-                "margin": 8,
-                "textAlign": "center",
-              },
-              Object {
-                "paddingVertical": 8,
-                "textAlign": "center",
-              },
+              undefined,
+              undefined,
             ],
           ]
         }
       >
-        Or
-      </Text>
-      <View
-        style={
-          Array [
+        <Text
+          accessibilityRole="text"
+          style={
+            Array [
+              Object {
+                "fontSize": 16,
+                "marginHorizontal": 4,
+                "marginVertical": 2,
+              },
+              undefined,
+            ]
+          }
+        >
+          Phone
+        </Text>
+        <View
+          style={
             Object {
-              "backgroundColor": "black",
-              "flex": 1,
-              "height": 0.5,
-            },
-            undefined,
-          ]
-        }
-      />
+              "alignItems": "center",
+              "borderColor": "black",
+              "borderRadius": 4,
+              "borderWidth": 1,
+              "flexDirection": "row",
+              "padding": 8,
+              "width": "100%",
+            }
+          }
+        >
+          <TextInput
+            accessible={true}
+            autoCapitalize="none"
+            editable={true}
+            keyboardType="phone-pad"
+            onBlur={[Function]}
+            onChangeText={[Function]}
+            placeholder="Phone"
+            style={
+              Array [
+                Object {
+                  "flexGrow": 1,
+                  "fontSize": 16,
+                },
+                undefined,
+              ]
+            }
+          />
+        </View>
+      </View>
     </View>
   </View>,
   <View

@@ -1,14 +1,17 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
+import { useDeepLinkingDebug } from '../../../hooks';
+
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react-native';
 import { Amplify } from 'aws-amplify';
 
 import { Button } from '../../../ui';
 
 // replace with actual amplify config from environments
-const config = {};
-Amplify.configure(config);
+import config from '../../../aws-exports';
+
+Amplify.configure(config ?? {});
 
 function SignOutButton() {
   const { signOut } = useAuthenticator();
@@ -16,6 +19,8 @@ function SignOutButton() {
 }
 
 function App() {
+  useDeepLinkingDebug();
+
   return (
     <Authenticator.Provider>
       <Authenticator>
