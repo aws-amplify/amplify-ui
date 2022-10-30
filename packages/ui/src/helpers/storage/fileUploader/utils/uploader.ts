@@ -1,6 +1,6 @@
 import { Storage } from 'aws-amplify';
 import { StorageAccessLevel, UploadTask } from '@aws-amplify/storage';
-import { translate } from '@/i18n';
+import { translate } from '../../../../i18n';
 
 export function getFileName(fileName: string, name: string): string {
   if (!fileName) {
