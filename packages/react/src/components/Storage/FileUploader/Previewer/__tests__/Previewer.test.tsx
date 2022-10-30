@@ -33,13 +33,17 @@ describe('Previewer', () => {
         onPause={(index) => () => {}}
         onResume={(index) => () => {}}
         percentage={0}
+        onCancelEdit={() => {}}
+        isEditingName={[]}
+        onSaveEdit={() => {}}
+        onStartEdit={() => {}}
       />
     );
 
     expect(container).toMatchSnapshot();
   });
   it('has two files passed in and displays them', async () => {
-    const { container, findByText } = render(
+    const { container } = render(
       <Previewer
         acceptedFileTypes={['.png']}
         files={[fakeFile, fakeFile2]}
@@ -63,15 +67,16 @@ describe('Previewer', () => {
         onPause={(index) => () => {}}
         onResume={(index) => () => {}}
         percentage={0}
+        onCancelEdit={() => {}}
+        isEditingName={[]}
+        onSaveEdit={() => {}}
+        onStartEdit={() => {}}
       />
     );
 
     expect(
       container.querySelectorAll('.amplify-fileuploader-file').length
     ).toEqual(2);
-
-    expect(await findByText('hello.png')).toBeVisible();
-    expect(await findByText('goodbye.png')).toBeVisible();
   });
 
   it('has one file passed in and shows one selected ', async () => {
@@ -99,6 +104,10 @@ describe('Previewer', () => {
         onPause={(index) => () => {}}
         onResume={(index) => () => {}}
         percentage={0}
+        onCancelEdit={() => {}}
+        isEditingName={[]}
+        onSaveEdit={() => {}}
+        onStartEdit={() => {}}
       />
     );
 

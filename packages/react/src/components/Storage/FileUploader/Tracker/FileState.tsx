@@ -9,6 +9,7 @@ export const FileState = ({
   success,
   error,
   paused,
+  errorMessage,
 }: FileStateProps): JSX.Element => {
   if (loading) return <Text className="">{translate('Loading')}</Text>;
   if (paused) return <Text className="">{translate('Paused')}</Text>;
@@ -22,7 +23,7 @@ export const FileState = ({
     return (
       <Flex direction="row" gap="xxs" color="font.error">
         <ErrorIcon fontSize="xl" />
-        {translate('Error')}
+        <Text>{errorMessage}</Text>
       </Flex>
     );
 

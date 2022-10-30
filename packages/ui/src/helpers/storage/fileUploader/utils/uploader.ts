@@ -1,5 +1,6 @@
 import { Storage } from 'aws-amplify';
 import { StorageAccessLevel, UploadTask } from '@aws-amplify/storage';
+import { translate } from '@/i18n';
 
 export function getFileName(fileName: string, name: string): string {
   if (!fileName) {
@@ -16,19 +17,24 @@ export function uploadFile({
   fileName,
   level = 'private',
   progressCallback,
+  errorCallback,
+  completeCallback,
 }: {
   file: File;
   fileName: string;
   level: StorageAccessLevel;
   progressCallback: (progress: { loaded: number; total: number }) => void;
+  errorCallback: (err: string) => void;
+  completeCallback: (event) => void;
 }): UploadTask {
   return Storage.put(fileName, file, {
     level,
     resumable: true,
     progressCallback,
+    errorCallback,
+    completeCallback,
   });
 }
-
 /**
  * Format bytes as human-readable text.
  *
@@ -62,3 +68,22 @@ export function humanFileSize(bytes, si = false, dp = 1) {
 
   return bytes.toFixed(dp) + ' ' + units[unit];
 }
+
+export const checkMaxSize = (maxSize: number, file: File): string | null => {
+  if (!maxSize) return null;
+  if (file.size > maxSize) {
+    return translate('Size above max ') + humanFileSize(maxSize, true);
+  }
+  return null;
+};
+
+export const returnAcceptedFiles = (
+  files: File[],
+  acceptedFileTypes: string[]
+): File[] => {
+  // Remove any files that are not in the accepted file list
+  return [...files].filter((file) => {
+    const [extension, ..._] = file.name.split('.').reverse();
+    return acceptedFileTypes.includes('.' + extension);
+  });
+};

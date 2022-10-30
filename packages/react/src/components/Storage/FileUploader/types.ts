@@ -29,8 +29,8 @@ export interface FileUploaderProps {
   isPreviewerVisible?: boolean;
   maxSize?: number;
   onChange?: () => void;
-  onError?: () => void;
-  onSuccess?: () => void;
+  onError?: (error: string) => void;
+  onSuccess?: (event: { key: string }) => void;
   path?: string;
   variation?: 'drop' | 'button';
 }
@@ -61,6 +61,19 @@ export interface PreviewerProps extends DragActionHandlers {
   isLoading: boolean;
   isSuccess: boolean;
   percentage: number;
+  isEditingName: boolean[];
+  onSaveEdit: (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    index: number
+  ) => void;
+  onCancelEdit: (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    index: number
+  ) => void;
+  onStartEdit: (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    index: number
+  ) => void;
 }
 
 export interface TrackerProps {
@@ -71,18 +84,26 @@ export interface TrackerProps {
   onCancel: () => void;
   onPause: () => void;
   onResume: () => void;
-  onDelete: () => void;
+  onDelete?: () => void;
   name: string;
   percentage: number;
   isLoading: boolean;
   isPaused: boolean;
   isError: boolean;
   isSuccess: boolean;
+  errorMessage: string;
+  isEditing: boolean;
+  onSaveEdit: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  onCancelEdit?: (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => void;
+  onStartEdit: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
 interface FileStatus extends Partial<FileStateProps> {
   percentage?: number;
   uploadTask?: UploadTask;
+  fileErrors?: string;
 }
 
 export type FileStatuses = FileStatus[];
@@ -92,15 +113,7 @@ export interface FileStateProps {
   success: boolean;
   error: boolean;
   paused: boolean;
-}
-
-export interface TrackerProps {
-  file: File;
-  hasImage: boolean;
-  url: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onCancel: () => void;
-  name: string;
+  errorMessage: string;
 }
 
 type UploadButtonComponent<Props = {}> = React.ComponentType<

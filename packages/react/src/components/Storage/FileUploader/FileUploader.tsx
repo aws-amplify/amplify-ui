@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { UploadTask } from '@aws-amplify/storage';
+import { UploadTask, Storage } from '@aws-amplify/storage';
 import { getFileName, translate, uploadFile } from '@aws-amplify/ui';
 import { FileStatuses, FileUploaderProps } from './types';
 import { useFileUploader } from './hooks/useFileUploader';
@@ -16,6 +16,9 @@ export function FileUploader({
   components = {},
   multiple = true,
   variation = 'button',
+  maxSize,
+  onError,
+  onSuccess,
 }: FileUploaderProps): JSX.Element {
   const {
     UploadDropZone = FileUploader.UploadDropZone,
@@ -33,25 +36,36 @@ export function FileUploader({
     addTargetFiles,
     showPreviewer,
     setFiles,
-  } = useFileUploader();
+    fileStatuses,
+    setFileStatuses,
+    setFileSizeErrors,
+  } = useFileUploader(maxSize, acceptedFileTypes, multiple);
+
   const [allFileNames, setAllFileNames] = useState<string[]>([]);
-  const [fileStatuses, setFileStatuses] = useState<FileStatuses>([]);
   const fileStatusesRef = useRef<FileStatuses>([]);
   // File Previewer global states
   const [isLoading, setLoading] = useState(false);
   const [isSuccess, setSuccess] = useState(false);
   const [percentage, setPercentage] = useState(0);
+  // Tracker states
+  const [isEditingName, setisEditingName] = React.useState<boolean[]>([]);
 
   useEffect(() => {
     if (fileStatuses.length === 0) return;
-    const success = fileStatuses.every((status) => status?.percentage === 100);
-    setSuccess(success);
-    setLoading(!success);
+    // Sets variable when all downlaods are complete
+    const complete = fileStatuses.every((status) => status?.percentage === 100);
+    setSuccess(complete);
 
+    // Creates aggregate percentage to show during downloads
     const percentage =
       fileStatuses.reduce((prev, curr) => prev + (curr?.percentage ?? 0), 0) /
       fileStatuses.length;
     setPercentage(Math.floor(percentage));
+
+    // Loading ends when all files are at 100%
+    if (Math.floor(percentage) === 100) {
+      setLoading(false);
+    }
   }, [fileStatuses]);
 
   useEffect(() => {
@@ -59,7 +73,22 @@ export function FileUploader({
   }, [setShowPreviewer, isPreviewerVisible]);
 
   useEffect(() => {
-    setAllFileNames(files.map((file) => file.name));
+    setAllFileNames((allFileNames) => {
+      if (allFileNames.length !== 0) {
+        // only add the new files to allFileNames
+        const diff = files.length - allFileNames.length;
+        const arrayOfNames: string[] = [];
+
+        for (let i = 0; i < diff; i++) {
+          arrayOfNames[i] = files[i].name;
+        }
+
+        return [...arrayOfNames].concat(allFileNames);
+      }
+      return files.map((file) => {
+        return file.name;
+      });
+    });
   }, [files]);
 
   // Previewer Methods
@@ -74,6 +103,30 @@ export function FileUploader({
           : { ...status, percentage, loading: false, success: true };
       const addPercentage = [...fileStatusesRef.current];
       setFileStatuses(addPercentage);
+    };
+  };
+
+  const errorCallback = (index: number) => {
+    return (err: string) => {
+      const status = fileStatusesRef.current[index];
+      fileStatusesRef.current[index] = {
+        ...status,
+        error: true,
+        loading: false,
+        success: false,
+        fileErrors: translate(err.toString()),
+      };
+
+      const addErrors = [...fileStatusesRef.current];
+      setFileStatuses(addErrors);
+      setLoading(false);
+      if (typeof onError === 'function') onError(err);
+    };
+  };
+
+  const completeCallback = () => {
+    return (event: { key: string }) => {
+      if (typeof onSuccess === 'function') onSuccess(event);
     };
   };
 
@@ -107,6 +160,7 @@ export function FileUploader({
     setLoading(true);
     const uploadTasksTemp: UploadTask[] = [];
     for (let i = 0; i < files?.length; i++) {
+      if (fileStatuses[i]?.success) continue;
       const uploadFileName = getFileName(fileNames?.[i], allFileNames[i]);
 
       const uploadTask: UploadTask = uploadFile({
@@ -114,13 +168,16 @@ export function FileUploader({
         fileName: uploadFileName,
         level,
         progressCallback: progressCallback(i),
+        errorCallback: errorCallback(i),
+        completeCallback: completeCallback(),
       });
       uploadTasksTemp.push(uploadTask);
     }
-    fileStatusesRef.current = uploadTasksTemp.map((status, index) => ({
-      ...status,
-      uploadTask: uploadTasksTemp[index],
-    }));
+    let statuses: FileStatuses = [];
+    statuses = [...fileStatuses];
+    fileStatusesRef.current = statuses.map((status, index) => {
+      return { ...status, uploadTask: uploadTasksTemp?.[index] };
+    });
 
     const uploadTasks = [...fileStatusesRef.current];
     setFileStatuses(uploadTasks);
@@ -132,18 +189,29 @@ export function FileUploader({
     }
 
     const { files } = event.target;
-    addTargetFiles(files);
-
-    setShowPreviewer(true);
+    const addedFilesLength = addTargetFiles(files);
+    if (addedFilesLength > 0) setShowPreviewer(true);
   };
 
   const onClear = () => {
     setShowPreviewer(false);
     setFiles([]);
+    setFileStatuses([]);
+    setAllFileNames([]);
   };
 
   const onFileCancel = (index: number) => {
-    setFiles(files.filter((_, i) => i !== index));
+    if (isLoading) {
+      // if downloading use uploadTask and stop download
+      Storage.cancel(fileStatuses[index]?.uploadTask);
+      setLoading(false);
+    }
+    const updatedFiles = files.filter((_, i) => i !== index);
+    const updatedFileStatuses = fileStatuses.filter((_, i) => i !== index);
+    const updateAllFileNames = allFileNames.filter((_, i) => i !== index);
+    setFileSizeErrors(updatedFiles, updatedFileStatuses);
+    setFiles(updatedFiles);
+    setAllFileNames(updateAllFileNames);
   };
 
   const onNameChange = (
@@ -154,6 +222,51 @@ export function FileUploader({
     const name = event.target.value;
     names[index] = name;
     setAllFileNames(names);
+  };
+
+  // Tracker methods
+
+  const onSaveEdit = (
+    _: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    index: number
+  ) => {
+    const fileName = allFileNames[index];
+    // no empty file names
+    if (fileName.trim().length === 0) return;
+    const [extension] = fileName.split('.').reverse();
+    const validExtension = acceptedFileTypes.includes('.' + extension);
+    const statuses = [...fileStatuses];
+    const status = fileStatuses[index];
+    statuses[index] = {
+      ...status,
+      error: !validExtension,
+      fileErrors: validExtension ? null : translate('Extension not allowed'),
+    };
+
+    setFileStatuses(statuses);
+    const names = [...isEditingName];
+    names[index] = false;
+    setisEditingName(names);
+  };
+
+  const onCancelEdit = (
+    _: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    index: number
+  ) => {
+    const fileName = allFileNames[index];
+    if (fileName.trim().length === 0) return;
+    const names = [...isEditingName];
+    names[index] = false;
+    setisEditingName(names);
+  };
+
+  const onStartEdit = (
+    _: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    index: number
+  ) => {
+    const names = [...isEditingName];
+    names[index] = true;
+    setisEditingName(names);
   };
 
   const CommonProps = {
@@ -187,6 +300,10 @@ export function FileUploader({
         isSuccess={isSuccess}
         percentage={percentage}
         onFileClick={onFileClick}
+        isEditingName={isEditingName}
+        onSaveEdit={onSaveEdit}
+        onCancelEdit={onCancelEdit}
+        onStartEdit={onStartEdit}
       />
     );
   }

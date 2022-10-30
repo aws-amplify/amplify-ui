@@ -22,15 +22,17 @@ export function Tracker({
   onPause,
   onResume,
   onCancel,
-  onDelete,
   isLoading,
   isPaused,
   isSuccess,
   isError,
+  errorMessage,
   name,
   percentage,
+  isEditing,
+  onSaveEdit,
+  onStartEdit,
 }: TrackerProps): JSX.Element {
-  const [isEditing, setIsEditing] = React.useState(false);
   if (!file) return null;
 
   const { size } = file;
@@ -40,6 +42,16 @@ export function Tracker({
   ) : (
     <View className="amplify-fileuploder__img-placeholder">{fileIcon}</View>
   );
+
+  const showonStartEdit = (): boolean => {
+    // if complete or loading can't edit file name
+    if (isSuccess || isLoading) return false;
+    // only allow editing on error if its a problem with extension
+    if (isError) {
+      return errorMessage === translate('Extension not allowed');
+    }
+    return true;
+  };
 
   return (
     <Card
@@ -62,19 +74,8 @@ export function Tracker({
                 value={name}
               />
             </View>
-            <Button
-              size="small"
-              variation="primary"
-              onClick={() => setIsEditing(false)}
-            >
+            <Button size="small" variation="primary" onClick={onSaveEdit}>
               Save
-            </Button>
-            <Button
-              size="small"
-              variation="link"
-              onClick={() => setIsEditing(false)}
-            >
-              Cancel
             </Button>
           </Flex>
         ) : (
@@ -97,19 +98,19 @@ export function Tracker({
                 >
                   {name}
                 </Text>
-                <Button
-                  onClick={() => setIsEditing(true)}
-                  size="small"
-                  variation="link"
-                >
-                  <EditIcon fontSize="medium" />
-                </Button>
+
+                {showonStartEdit() && (
+                  <Button onClick={onStartEdit} size="small" variation="link">
+                    <EditIcon fontSize="medium" />
+                  </Button>
+                )}
                 <Text as="span" color="font.tertiary" marginInlineStart="small">
                   {humanFileSize(size, true)}
                 </Text>
               </Flex>
               <FileState
                 error={isError}
+                errorMessage={errorMessage}
                 success={isSuccess && !isError}
                 paused={isPaused}
                 loading={isLoading}
@@ -128,12 +129,13 @@ export function Tracker({
                 )}
               </>
             )}
-            {isSuccess && !isError && (
+            {/* {isSuccess && !isError && (
               <Button size="small" onClick={onDelete}>
                 Delete
               </Button>
-            )}
-            {!isSuccess && !isLoading && (
+            )} */}
+            {/* {!isSuccess && !isLoading && ( */}
+            {!isLoading && (
               <Button size="small" onClick={onCancel}>
                 <Text>
                   <CloseIcon />
