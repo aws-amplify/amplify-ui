@@ -17,6 +17,8 @@ export function FileUploader({
   multiple = true,
   variation = 'button',
   maxSize,
+  onError,
+  onSuccess,
 }: FileUploaderProps): JSX.Element {
   const {
     UploadDropZone = FileUploader.UploadDropZone,
@@ -118,6 +120,13 @@ export function FileUploader({
       const addErrors = [...fileStatusesRef.current];
       setFileStatuses(addErrors);
       setLoading(false);
+      if (typeof onError === 'function') onError(err);
+    };
+  };
+
+  const completeCallback = () => {
+    return (event: { key: string }) => {
+      if (typeof onSuccess === 'function') onSuccess(event);
     };
   };
 
@@ -160,6 +169,7 @@ export function FileUploader({
         level,
         progressCallback: progressCallback(i),
         errorCallback: errorCallback(i),
+        completeCallback: completeCallback(),
       });
       uploadTasksTemp.push(uploadTask);
     }

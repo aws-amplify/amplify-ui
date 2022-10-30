@@ -29,8 +29,8 @@ export interface FileUploaderProps {
   isPreviewerVisible?: boolean;
   maxSize?: number;
   onChange?: () => void;
-  onError?: () => void;
-  onSuccess?: () => void;
+  onError?: (error: string) => void;
+  onSuccess?: (event: { key: string }) => void;
   path?: string;
   variation?: 'drop' | 'button';
 }
