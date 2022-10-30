@@ -1,5 +1,9 @@
 import React from 'react';
-import { authenticatorTextUtil } from '@aws-amplify/ui';
+import {
+  authenticatorTextUtil,
+  censorAllButFirstAndLast,
+  censorPhoneNumber,
+} from '@aws-amplify/ui';
 
 import { Button, ErrorMessage, Radio, RadioGroup } from '../../../primitives';
 import { DefaultFooter } from '../../common/DefaultFooter';
@@ -14,6 +18,19 @@ const COMPONENT_NAME = 'VerifyUser';
 //TODO: add getVerifyingText util
 const { getSkipText, getVerifyText, getAccountRecoveryInfoText } =
   authenticatorTextUtil;
+
+const censorContactInformation = (name: string, value: string): string => {
+  let censoredVal = value;
+  if (name === 'email') {
+    const splitEmail = value.split('@');
+    const censoredName = censorAllButFirstAndLast(splitEmail[0]);
+
+    censoredVal = `${censoredName}@${splitEmail[1]}`;
+  } else if (name === 'phone') {
+    censoredVal = censorPhoneNumber(value);
+  }
+  return censoredVal;
+};
 
 const VerifyUser: DefaultVerifyUserComponent = ({
   error,
@@ -65,8 +82,13 @@ const FormFields: DefaultVerifyUserComponent['FormFields'] = ({
 }) => {
   return (
     <RadioGroup disabled={isPending}>
-      {fields.map(({ value, ...props }) => (
-        <Radio {...props} key={value} value={value} />
+      {fields.map(({ name, value, ...props }) => (
+        <Radio
+          {...props}
+          key={value}
+          value={value}
+          label={censorContactInformation(name, value)}
+        />
       ))}
     </RadioGroup>
   );

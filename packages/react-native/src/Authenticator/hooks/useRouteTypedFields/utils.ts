@@ -54,7 +54,7 @@ export const getTypedField = ({
       }
 
       if (isPhoneFieldType && key === 'dialCodeList') {
-        return { ...acc, dialCodes: value as string[] };
+        return { ...acc, dialCodes: undefined };
       }
 
       return { ...acc, [key]: value };

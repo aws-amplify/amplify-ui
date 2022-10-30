@@ -63,7 +63,7 @@ describe('useRouteTypedFields', () => {
       passwordField,
       {
         defaultDialCode: phoneField.dialCode,
-        dialCodes: phoneField.dialCodeList,
+        dialCodes: undefined,
         name: phoneField.name,
         type: 'phone',
       },
