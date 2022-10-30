@@ -67,15 +67,4 @@ describe('SignIn', () => {
     const { toJSON } = render(<SignIn {...props} hideSignUp />);
     expect(toJSON()).toMatchSnapshot();
   });
-
-  it('renders as expected with socialProviders', () => {
-    const { toJSON, getByText } = render(
-      <SignIn {...props} socialProviders={['amazon', 'facebook']} />
-    );
-
-    expect(getByText('Sign In with Amazon')).toBeDefined();
-    expect(getByText('Sign In with Facebook')).toBeDefined();
-
-    expect(toJSON()).toMatchSnapshot();
-  });
 });
