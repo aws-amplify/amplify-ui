@@ -1,41 +1,60 @@
 .amplify-fileuploader {
   border: 1px dashed var(--amplify-colors-border-primary);
   text-align: center;
-  max-width: 30rem;
-}
 
-.amplify-fileuploader.active {
-  border-color: var(--amplify-colors-border-active);
-  border-width: 2px;
-  background-color: var(--amplify-colors-brand-primary-10);
-}
+  &__dropzone {
+    max-width: 30rem;
+    background-color: var(
+      --amplify-components-fileuploader-dropzone-background-color
+    );
+    border-color: var(--amplify-components-fileuploader-dropzone-border-color);
+    border-radius: var(
+      --amplify-components-fileuploader-dropzone-border-radius
+    );
+    border-style: var(--amplify-components-fileuploader-dropzone-border-style);
+    border-width: var(--amplify-components-fileuploader-dropzone-border-width);
+    text-align: var(--amplify-components-fileuploader-dropzone-text-align);
+    padding-block: var(
+      --amplify-components-fileuploader-dropzone-padding-block
+    );
+    padding-inline: var(
+      --amplify-components-fileuploader-dropzone-padding-inline
+    );
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--amplify-components-fileuploader-dropzone-gap);
 
-.amplify-fileuploader__dropzone {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--amplify-space-small);
-}
+    &--small {
+      flex-direction: row;
+      justify-content: center;
+    }
 
-.amplify-fileuploader__dropzone--small {
-  flex-direction: row;
-  justify-content: center;
-}
+    &--active {
+      border-color: var(
+        --amplify-components-fileuploader-dropzone-active-border-color
+      );
+      border-width: var(
+        --amplify-components-fileuploader-dropzone-active-border-width
+      );
+      background-color: var(
+        --amplify-components-fileuploader-dropzone-active-background-color
+      );
+    }
 
-.amplify-fileuploader__dropzone__icon {
-  font-size: var(--amplify-font-sizes-xxl);
-  color: var(--amplify-colors-border-primary);
-}
+    &__icon {
+      font-size: var(--amplify-components-fileuploader-dropzone-icon-font-size);
+      color: var(--amplify-components-fileuploader-dropzone-icon-color);
+    }
 
-.amplify-fileuploader__dropzone__text {
-  color: var(--amplify-colors-font-tertiary);
-  font-weight: var(--amplify-font-weights-bold);
-}
-
-.amplify-fileuploader__dropzone__constraints {
-  color: var(--amplify-colors-font-tertiary);
-  font-size: var(--amplify-font-sizes-small);
-  margin-block-start: var(--amplify-space-small);
+    &__text {
+      color: var(--amplify-components-fileuploader-dropzone-text-color);
+      font-size: var(--amplify-components-fileuploader-dropzone-text-font-size);
+      font-weight: var(
+        --amplify-components-fileuploader-dropzone-text-font-weight
+      );
+    }
+  }
 }
 
 .amplify-fileuploader__previewer {

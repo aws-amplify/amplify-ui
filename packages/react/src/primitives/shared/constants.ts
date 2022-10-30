@@ -189,6 +189,15 @@ export const ComponentClassObject: ComponentClassNameItems = {
   FieldGroupFieldWrapper: {
     className: ComponentClassName.FieldGroupFieldWrapper,
   },
+  FileUploaderDropZone: {
+    className: ComponentClassName.FileUploaderDropZone,
+  },
+  FileUploaderDropZoneIcon: {
+    className: ComponentClassName.FileUploaderDropZoneIcon,
+  },
+  FileUploaderDropZoneText: {
+    className: ComponentClassName.FileUploaderDropZoneText,
+  },
   Flex: {
     className: ComponentClassName.Flex,
     components: ['Flex'],
@@ -583,6 +592,11 @@ export const ComponentClassNames: ComponentClassNamesType = {
     ComponentClassObject.FieldGroupHasInnerStart.className,
   FieldShowPassword: ComponentClassObject.FieldShowPassword.className,
   FieldGroupFieldWrapper: ComponentClassObject.FieldGroupFieldWrapper.className,
+  FileUploaderDropZone: ComponentClassObject.FileUploaderDropZone.className,
+  FileUploaderDropZoneIcon:
+    ComponentClassObject.FileUploaderDropZoneIcon.className,
+  FileUploaderDropZoneText:
+    ComponentClassObject.FileUploaderDropZoneText.className,
   Flex: ComponentClassObject.Flex.className,
   Grid: ComponentClassObject.Grid.className,
   Heading: ComponentClassObject.Heading.className,
