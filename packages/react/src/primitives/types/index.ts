@@ -15,6 +15,7 @@ export * from './fieldGroup';
 export * from './fieldGroupIcon';
 export * from './flex';
 export * from './heading';
+export * from './highlightMatch';
 export * from './icon';
 export * from './input';
 export * from './image';

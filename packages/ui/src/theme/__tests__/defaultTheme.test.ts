@@ -56,7 +56,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-authenticator-or-container-color: var(--amplify-colors-neutral-80);
         --amplify-components-authenticator-or-container-or-line-background-color: var(--amplify-colors-background-primary);
         --amplify-components-autocomplete-menu-width: 100%;
-        --amplify-components-autocomplete-menu-margin-top: var(--amplify-space-xxxs);
+        --amplify-components-autocomplete-menu-margin-block-start: var(--amplify-space-xxxs);
         --amplify-components-autocomplete-menu-background-color: var(--amplify-colors-background-primary);
         --amplify-components-autocomplete-menu-border-color: var(--amplify-colors-border-primary);
         --amplify-components-autocomplete-menu-border-width: var(--amplify-border-widths-small);
@@ -73,12 +73,12 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-autocomplete-menu-option-transition-timing-function: ease;
         --amplify-components-autocomplete-menu-option-active-background-color: var(--amplify-colors-brand-primary-80);
         --amplify-components-autocomplete-menu-option-active-color: var(--amplify-colors-white);
+        --amplify-components-autocomplete-menu-empty-display: flex;
         --amplify-components-autocomplete-menu-loading-align-items: center;
+        --amplify-components-autocomplete-menu-loading-display: flex;
         --amplify-components-autocomplete-menu-loading-gap: var(--amplify-space-xxxs);
-        --amplify-components-autocomplete-menu-space-shared-padding-block-end: var(--amplify-space-xs);
-        --amplify-components-autocomplete-menu-space-shared-padding-block-start: var(--amplify-space-xs);
-        --amplify-components-autocomplete-menu-space-shared-padding-inline-start: var(--amplify-space-small);
-        --amplify-components-autocomplete-menu-space-shared-padding-inline-end: var(--amplify-space-small);
+        --amplify-components-autocomplete-menu-space-shared-padding-block: var(--amplify-space-xs);
+        --amplify-components-autocomplete-menu-space-shared-padding-inline: var(--amplify-space-small);
         --amplify-components-badge-color: var(--amplify-colors-font-primary);
         --amplify-components-badge-line-height: 1;
         --amplify-components-badge-font-weight: var(--amplify-font-weights-semibold);

@@ -19,7 +19,7 @@ import {
 export interface AutocompleteTokens {
   menu: {
     width: DesignToken<SpaceValue>;
-    marginTop: DesignToken<SpaceValue>;
+    marginBlockStart: DesignToken<SpaceValue>;
     backgroundColor: DesignToken<BackgroundColorValue>;
     borderColor: DesignToken<BorderColorValue>;
     borderWidth: DesignToken<BorderWidthValue>;
@@ -42,15 +42,17 @@ export interface AutocompleteTokens {
         color: DesignToken<ColorValue>;
       };
     };
+    _empty: {
+      display: DesignToken<DisplayValue>;
+    };
     _loading: {
       alignItems: DesignToken<AlignItemsValue>;
+      display: DesignToken<DisplayValue>;
       gap: DesignToken<SpaceValue>;
     };
     spaceShared: {
-      paddingBlockEnd: DesignToken<SpaceValue>;
-      paddingBlockStart: DesignToken<SpaceValue>;
-      paddingInlineEnd: DesignToken<SpaceValue>;
-      paddingInlineStart: DesignToken<SpaceValue>;
+      paddingBlock: DesignToken<SpaceValue>;
+      paddingInline: DesignToken<SpaceValue>;
     };
   };
 }
@@ -58,7 +60,7 @@ export interface AutocompleteTokens {
 export const autocomplete: AutocompleteTokens = {
   menu: {
     width: { value: '100%' },
-    marginTop: { value: '{space.xxxs}' },
+    marginBlockStart: { value: '{space.xxxs}' },
     backgroundColor: { value: '{colors.background.primary}' },
     borderColor: { value: '{colors.border.primary}' },
     borderWidth: { value: '{borderWidths.small}' },
@@ -81,15 +83,17 @@ export const autocomplete: AutocompleteTokens = {
         color: { value: '{colors.white}' },
       },
     },
+    _empty: {
+      display: { value: 'flex' },
+    },
     _loading: {
       alignItems: { value: 'center' },
+      display: { value: 'flex' },
       gap: { value: '{space.xxxs}' },
     },
     spaceShared: {
-      paddingBlockEnd: { value: '{space.xs}' },
-      paddingBlockStart: { value: '{space.xs}' },
-      paddingInlineStart: { value: '{space.small}' },
-      paddingInlineEnd: { value: '{space.small}' },
+      paddingBlock: { value: '{space.xs}' },
+      paddingInline: { value: '{space.small}' },
     },
   },
 };

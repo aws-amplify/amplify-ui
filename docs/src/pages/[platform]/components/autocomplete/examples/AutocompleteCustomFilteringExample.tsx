@@ -1,4 +1,4 @@
-import { Autocomplete } from '@aws-amplify/ui-react';
+import { Autocomplete, HighlightMatch } from '@aws-amplify/ui-react';
 import * as React from 'react';
 
 const options = [
@@ -57,6 +57,10 @@ const options = [
   },
 ];
 
+const renderOptions = (option, value) => {
+  return <HighlightMatch query={value}>{option?.description}</HighlightMatch>;
+};
+
 export const AutocompleteCustomFilteringExample = () => {
   // Create your own filtering
   const optionFilter = (option, value) => {
@@ -69,6 +73,7 @@ export const AutocompleteCustomFilteringExample = () => {
       label="Autocomplete with custom filtering"
       optionFilter={optionFilter}
       options={options}
+      renderOption={renderOptions}
     />
   );
 };

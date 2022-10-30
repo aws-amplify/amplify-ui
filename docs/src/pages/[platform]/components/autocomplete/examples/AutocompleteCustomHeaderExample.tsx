@@ -1,4 +1,4 @@
-import { Autocomplete, Divider, Flex } from '@aws-amplify/ui-react';
+import { Autocomplete, Divider, View } from '@aws-amplify/ui-react';
 import * as React from 'react';
 
 const options = [
@@ -19,10 +19,10 @@ export const AutocompleteCustomHeaderExample = () => (
     options={options}
     menuSlots={{
       Header: (
-        <Flex direction="column" width="100%">
-          Search results:
+        <View padding="0.25rem">
+          <View>Search results:</View>
           <Divider />
-        </Flex>
+        </View>
       ),
     }}
   />

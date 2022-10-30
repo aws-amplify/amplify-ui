@@ -1,4 +1,4 @@
-import { Autocomplete, Divider, Flex, Link } from '@aws-amplify/ui-react';
+import { Autocomplete, Divider, Link, View } from '@aws-amplify/ui-react';
 import * as React from 'react';
 
 const options = [
@@ -19,10 +19,12 @@ export const AutocompleteCustomFooterExample = () => (
     options={options}
     menuSlots={{
       Footer: (
-        <Flex direction="column" width="100%">
+        <View padding="0.25rem">
           <Divider />
-          <Link>See more results...</Link>
-        </Flex>
+          <View>
+            <Link>See more results...</Link>
+          </View>
+        </View>
       ),
     }}
   />

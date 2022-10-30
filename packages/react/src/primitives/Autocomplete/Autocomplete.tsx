@@ -37,6 +37,7 @@ export const AutocompletePrimitive: Primitive<AutocompleteProps, 'input'> = (
   const {
     activeIdx,
     activeOptionId,
+    autocompleteId,
     composedValue,
     filteredOptions,
     handleOnBlur,
@@ -81,6 +82,7 @@ export const AutocompletePrimitive: Primitive<AutocompleteProps, 'input'> = (
   return (
     <View
       className={classNames(ComponentClassNames.Autocomplete, className)}
+      id={autocompleteId}
       testId={testId}
     >
       <SearchField

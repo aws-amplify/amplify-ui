@@ -244,6 +244,11 @@ export const ComponentClassObject: ComponentClassNameItems = {
     components: ['Heading'],
     description: 'Top level element that wraps the Heading primitive',
   },
+  HighlightMatch: {
+    className: ComponentClassName.HighlightMatch,
+    components: ['HighlightMatch'],
+    description: 'Top level element that wraps the HighlightMatch primitive',
+  },
   Icon: {
     className: ComponentClassName.Icon,
     components: ['Icon'],
@@ -636,6 +641,7 @@ export const ComponentClassNames: ComponentClassNamesType = {
   Flex: ComponentClassObject.Flex.className,
   Grid: ComponentClassObject.Grid.className,
   Heading: ComponentClassObject.Heading.className,
+  HighlightMatch: ComponentClassObject.HighlightMatch.className,
   Icon: ComponentClassObject.Icon.className,
   Image: ComponentClassObject.Image.className,
   Input: ComponentClassObject.Input.className,
@@ -710,6 +716,10 @@ export const ComponentClassNames: ComponentClassNamesType = {
 export const ComponentText = {
   Alert: {
     dismissButtonLabel: 'Dismiss alert',
+  },
+  Autocomplete: {
+    emptyText: 'No options found',
+    loadingText: 'Loading options...',
   },
   Collection: {
     searchButtonLabel: 'Search',

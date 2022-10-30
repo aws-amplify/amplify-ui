@@ -1,15 +1,9 @@
 %menu-space-shared {
-  padding-block-end: var(
-    --amplify-components-autocomplete-menu-space-shared-padding-block-end
+  padding-block: var(
+    --amplify-components-autocomplete-menu-space-shared-padding-block
   );
-  padding-block-start: var(
-    --amplify-components-autocomplete-menu-space-shared-padding-block-start
-  );
-  padding-inline-end: var(
-    --amplify-components-autocomplete-menu-space-shared-padding-inline-end
-  );
-  padding-inline-start: var(
-    --amplify-components-autocomplete-menu-space-shared-padding-inline-start
+  padding-inline: var(
+    --amplify-components-autocomplete-menu-space-shared-padding-inline
   );
 }
 
@@ -22,7 +16,9 @@
   z-index: 99;
 
   width: var(--amplify-components-autocomplete-menu-width);
-  margin-top: var(--amplify-components-autocomplete-menu-margin-top);
+  margin-block-start: var(
+    --amplify-components-autocomplete-menu-margin-block-start
+  );
   background-color: var(
     --amplify-components-autocomplete-menu-background-color
   );
@@ -31,15 +27,16 @@
   border-style: var(--amplify-components-autocomplete-menu-border-style);
   border-radius: var(--amplify-components-autocomplete-menu-border-radius);
 
-  &__header,
-  &__footer,
   &--empty {
     @extend %menu-space-shared;
+
+    display: var(--amplify-components-autocomplete-menu-empty-display);
   }
 
   &--loading {
     @extend %menu-space-shared;
 
+    display: var(--amplify-components-autocomplete-menu-loading-display);
     align-items: var(
       --amplify-components-autocomplete-menu-loading-align-items
     );

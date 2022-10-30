@@ -36,9 +36,7 @@ export const useAutocomplete = ({
   const filteredOptions = React.useMemo(() => {
     const defaultFilter = (option: Option) => {
       const { label } = option;
-      return label
-        ?.toLocaleLowerCase()
-        .includes(composedValue?.toLocaleLowerCase());
+      return label?.includes(composedValue);
     };
     const filter = isCustomFiltering
       ? (option: Option) => optionFilter(option, composedValue)
@@ -46,6 +44,7 @@ export const useAutocomplete = ({
     return options.filter(filter);
   }, [composedValue, optionFilter, isCustomFiltering, options]);
 
+  const autocompleteId = useStableId();
   const listboxId = useStableId();
   const menuId = useStableId();
   const optionBaseId = useStableId();
@@ -186,22 +185,29 @@ export const useAutocomplete = ({
     );
 
   React.useEffect(() => {
+    const autocompleteElement = document.getElementById(autocompleteId);
     const menuElement = document.getElementById(menuId);
     if (menuElement && isMenuOpen) {
-      const { top, bottom } = menuElement.getBoundingClientRect();
+      const { bottom } = menuElement.getBoundingClientRect();
+      const { offsetParent, offsetTop } = autocompleteElement;
 
-      if (top < 0 || bottom > document.documentElement.clientHeight) {
+      if (
+        offsetParent === document.body &&
+        bottom > document.documentElement.clientHeight
+      ) {
         window.scrollTo({
-          top:
+          top: Math.min(
             bottom -
-            document.documentElement.clientHeight +
-            window.scrollY +
-            20,
+              document.documentElement.clientHeight +
+              window.scrollY +
+              20,
+            offsetTop
+          ),
           behavior: 'smooth',
         });
       }
     }
-  }, [isMenuOpen, menuId]);
+  }, [autocompleteId, isMenuOpen, menuId]);
 
   React.useEffect(() => {
     const listboxElement = document.getElementById(listboxId);
@@ -232,6 +238,7 @@ export const useAutocomplete = ({
   return {
     activeIdx,
     activeOptionId,
+    autocompleteId,
     composedValue,
     filteredOptions,
     handleOnBlur,

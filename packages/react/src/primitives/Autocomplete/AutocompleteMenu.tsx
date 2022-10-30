@@ -1,17 +1,15 @@
 import * as React from 'react';
 
 import { Flex } from '../Flex';
-import { HighlightMatch } from './HighlightMatch';
+import { HighlightMatch } from '../HighlightMatch/HighlightMatch';
 import { Loader } from '../Loader';
 import { AutocompleteOption } from './AutocompleteOption';
 import { ScrollView } from '../ScrollView';
 import { View } from '../View';
 import { ComponentClassNames } from '../shared/constants';
+import { ComponentText } from '../shared/constants';
 import { isFunction } from '../shared/utils';
 import type { Primitive, AutocompleteMenuProps, Option } from '../types';
-
-export const EMPTY_TEXT = 'No options found';
-export const LOADING_TEXT = 'Loading options...';
 
 export const AutocompleteMenu: Primitive<AutocompleteMenuProps, 'div'> = ({
   activeIdx,
@@ -39,9 +37,9 @@ export const AutocompleteMenu: Primitive<AutocompleteMenuProps, 'div'> = ({
   const MenuHeader = React.useCallback(() => {
     return (
       Header && (
-        <Flex className={ComponentClassNames.AutocompleteMenuHeader}>
+        <View className={ComponentClassNames.AutocompleteMenuHeader}>
           {Header}
-        </Flex>
+        </View>
       )
     );
   }, [Header]);
@@ -49,9 +47,9 @@ export const AutocompleteMenu: Primitive<AutocompleteMenuProps, 'div'> = ({
   const MenuFooter = React.useCallback(() => {
     return (
       Footer && (
-        <Flex className={ComponentClassNames.AutocompleteMenuFooter}>
+        <View className={ComponentClassNames.AutocompleteMenuFooter}>
           {Footer}
-        </Flex>
+        </View>
       )
     );
   }, [Footer]);
@@ -59,14 +57,14 @@ export const AutocompleteMenu: Primitive<AutocompleteMenuProps, 'div'> = ({
   const MenuLoading = React.useCallback(
     () =>
       Loading ? (
-        <Flex className={ComponentClassNames.AutocompleteMenuLoading}>
+        <View className={ComponentClassNames.AutocompleteMenuLoading}>
           {Loading}
-        </Flex>
+        </View>
       ) : (
-        <Flex className={ComponentClassNames.AutocompleteMenuLoading}>
+        <View className={ComponentClassNames.AutocompleteMenuLoading}>
           <Loader />
-          {LOADING_TEXT}
-        </Flex>
+          {ComponentText.Autocomplete.loadingText}
+        </View>
       ),
     [Loading]
   );
@@ -74,13 +72,13 @@ export const AutocompleteMenu: Primitive<AutocompleteMenuProps, 'div'> = ({
   const MenuEmpty = React.useCallback(
     () =>
       Empty ? (
-        <Flex className={ComponentClassNames.AutocompleteMenuEmpty}>
+        <View className={ComponentClassNames.AutocompleteMenuEmpty}>
           {Empty}
-        </Flex>
+        </View>
       ) : (
-        <Flex className={ComponentClassNames.AutocompleteMenuEmpty}>
-          {EMPTY_TEXT}
-        </Flex>
+        <View className={ComponentClassNames.AutocompleteMenuEmpty}>
+          {ComponentText.Autocomplete.emptyText}
+        </View>
       ),
     [Empty]
   );
@@ -151,7 +149,7 @@ export const AutocompleteMenu: Primitive<AutocompleteMenuProps, 'div'> = ({
   );
 
   return (
-    <View className={ComponentClassNames.AutocompleteMenu} {...rest}>
+    <ScrollView className={ComponentClassNames.AutocompleteMenu} {...rest}>
       {isLoading ? (
         <MenuLoading />
       ) : (
@@ -173,7 +171,7 @@ export const AutocompleteMenu: Primitive<AutocompleteMenuProps, 'div'> = ({
           <MenuFooter />
         </>
       )}
-    </View>
+    </ScrollView>
   );
 };
 

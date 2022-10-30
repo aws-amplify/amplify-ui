@@ -3,8 +3,7 @@ import userEvent from '@testing-library/user-event';
 import * as React from 'react';
 
 import { Autocomplete } from '../Autocomplete';
-import { EMPTY_TEXT, LOADING_TEXT } from '../AutocompleteMenu';
-import { ComponentClassNames } from '../../shared/constants';
+import { ComponentClassNames, ComponentText } from '../../shared/constants';
 import { classNameModifier } from '../../shared/utils';
 import type { AutocompleteProps } from '../../types/autocomplete';
 
@@ -52,7 +51,7 @@ describe('Autocomplete: ', () => {
     const textInput = await screen.findByRole('combobox');
     userEvent.type(textInput, 'Hello world!');
     // No options found
-    const noOption = screen.queryByText(EMPTY_TEXT);
+    const noOption = screen.queryByText(ComponentText.Autocomplete.emptyText);
     expect(noOption).toBeInTheDocument();
     expect(textInput).toHaveValue('Hello world!');
 
@@ -192,7 +191,7 @@ describe('Autocomplete: ', () => {
     textInput.focus();
     const listbox = screen.queryByRole('listbox');
     expect(listbox).not.toBeInTheDocument();
-    const loading = screen.getByText(LOADING_TEXT);
+    const loading = screen.getByText(ComponentText.Autocomplete.loadingText);
     expect(loading).toHaveClass(ComponentClassNames.AutocompleteMenuLoading);
   });
 
