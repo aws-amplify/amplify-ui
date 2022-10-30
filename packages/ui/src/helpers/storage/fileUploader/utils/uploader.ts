@@ -69,7 +69,7 @@ export function humanFileSize(bytes, si = false, dp = 1) {
   return bytes.toFixed(dp) + ' ' + units[unit];
 }
 
-export const checkMaxSize = (maxSize: number, file: File) => {
+export const checkMaxSize = (maxSize: number, file: File): string | null => {
   if (!maxSize) return null;
   if (file.size > maxSize) {
     return translate('Size above max ') + humanFileSize(maxSize, true);
@@ -77,7 +77,7 @@ export const checkMaxSize = (maxSize: number, file: File) => {
   return null;
 };
 
-export const setAcceptedFiles = (
+export const returnAcceptedFiles = (
   files: File[],
   acceptedFileTypes: string[]
 ): File[] => {

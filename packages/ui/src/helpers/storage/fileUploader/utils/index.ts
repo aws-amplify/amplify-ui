@@ -3,5 +3,5 @@ export {
   uploadFile,
   humanFileSize,
   checkMaxSize,
-  setAcceptedFiles,
+  returnAcceptedFiles,
 } from './uploader';

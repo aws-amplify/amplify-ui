@@ -61,16 +61,16 @@ export interface PreviewerProps extends DragActionHandlers {
   isLoading: boolean;
   isSuccess: boolean;
   percentage: number;
-  isEditingNames: boolean[];
-  saveEdit: (
+  isEditingName: boolean[];
+  onSaveEdit: (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     index: number
   ) => void;
-  cancelEdit: (
+  onCancelEdit: (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     index: number
   ) => void;
-  startEdit: (
+  onStartEdit: (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     index: number
   ) => void;
@@ -93,9 +93,11 @@ export interface TrackerProps {
   isSuccess: boolean;
   errorMessage: string;
   isEditing: boolean;
-  saveEdit: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-  cancelEdit?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-  startEdit: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  onSaveEdit: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  onCancelEdit?: (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => void;
+  onStartEdit: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
 interface FileStatus extends Partial<FileStateProps> {

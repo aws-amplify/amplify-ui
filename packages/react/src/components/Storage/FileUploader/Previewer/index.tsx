@@ -29,15 +29,15 @@ export function Previewer({
   isSuccess,
   percentage,
   onFileClick,
-  isEditingNames,
-  saveEdit,
-  cancelEdit,
-  startEdit,
+  isEditingName,
+  onSaveEdit,
+  onCancelEdit,
+  onStartEdit,
 }: PreviewerProps): JSX.Element {
-  const uploadedFiles = () => files.filter((_, i) => fileStatuses[i]?.success);
+  const uploadedFilesLength = () =>
+    files.filter((_, i) => fileStatuses[i]?.success).length;
 
-  const remainingFiles = () =>
-    files.filter((_, i) => !fileStatuses[i]?.success);
+  const remainingFilesLength = files.length - uploadedFilesLength();
   return (
     <Card variation="outlined" className="amplify-fileuploader__previewer">
       <Flex className="amplify-fileuploader__previewer__body">
@@ -62,11 +62,11 @@ export function Previewer({
         <Text fontWeight="bold">
           {isSuccess ? (
             <>
-              {uploadedFiles().length} {translate('files uploaded')}
+              {uploadedFilesLength()} {translate('files uploaded')}
             </>
           ) : (
             <>
-              {remainingFiles().length} {translate('files selected')}
+              {remainingFilesLength} {translate('files selected')}
             </>
           )}
         </Text>
@@ -88,10 +88,10 @@ export function Previewer({
             errorMessage={fileStatuses[index]?.fileErrors}
             isSuccess={fileStatuses[index]?.success}
             isPaused={fileStatuses[index]?.paused}
-            isEditing={isEditingNames[index]}
-            saveEdit={(e): void => saveEdit(e, index)}
-            cancelEdit={(e): void => cancelEdit(e, index)}
-            startEdit={(e): void => startEdit(e, index)}
+            isEditing={isEditingName[index]}
+            onSaveEdit={(e): void => onSaveEdit(e, index)}
+            onCancelEdit={(e): void => onCancelEdit(e, index)}
+            onStartEdit={(e): void => onStartEdit(e, index)}
           />
         ))}
         <View className="amplify-fileuploader__footer">
@@ -112,15 +112,15 @@ export function Previewer({
                 <Button
                   disabled={
                     fileStatuses.some((status) => status?.error) ||
-                    isEditingNames.some((edit) => edit) ||
-                    remainingFiles().length === 0
+                    isEditingName.some((edit) => edit) ||
+                    remainingFilesLength === 0
                   }
                   size="small"
                   variation="primary"
                   onClick={onFileClick}
                 >
                   {translate('Upload')}
-                  {` ${remainingFiles().length} `}
+                  {` ${remainingFilesLength} `}
                   {translate('files')}
                 </Button>
               </View>

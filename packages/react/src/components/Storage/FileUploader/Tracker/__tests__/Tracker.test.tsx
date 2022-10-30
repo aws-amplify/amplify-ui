@@ -24,9 +24,9 @@ describe('Tracker', () => {
         percentage={0}
         errorMessage={''}
         isEditing={false}
-        saveEdit={() => null}
-        startEdit={() => null}
-        cancelEdit={() => null}
+        onSaveEdit={() => null}
+        onStartEdit={() => null}
+        onCancelEdit={() => null}
       />
     );
 
@@ -52,9 +52,9 @@ describe('Tracker', () => {
         percentage={0}
         errorMessage={''}
         isEditing={false}
-        saveEdit={() => null}
-        startEdit={() => null}
-        cancelEdit={() => null}
+        onSaveEdit={() => null}
+        onStartEdit={() => null}
+        onCancelEdit={() => null}
       />
     );
 
@@ -82,9 +82,9 @@ describe('Tracker', () => {
         percentage={0}
         errorMessage={''}
         isEditing={false}
-        saveEdit={() => null}
-        startEdit={() => null}
-        cancelEdit={() => null}
+        onSaveEdit={() => null}
+        onStartEdit={() => null}
+        onCancelEdit={() => null}
       />
     );
 

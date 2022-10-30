@@ -48,7 +48,7 @@ export function FileUploader({
   const [isSuccess, setSuccess] = useState(false);
   const [percentage, setPercentage] = useState(0);
   // Tracker states
-  const [isEditingNames, setIsEditingNames] = React.useState<boolean[]>([]);
+  const [isEditingName, setisEditingName] = React.useState<boolean[]>([]);
 
   useEffect(() => {
     if (fileStatuses.length === 0) return;
@@ -226,7 +226,7 @@ export function FileUploader({
 
   // Tracker methods
 
-  const saveEdit = (
+  const onSaveEdit = (
     _: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     index: number
   ) => {
@@ -244,29 +244,29 @@ export function FileUploader({
     };
 
     setFileStatuses(statuses);
-    const names = [...isEditingNames];
+    const names = [...isEditingName];
     names[index] = false;
-    setIsEditingNames(names);
+    setisEditingName(names);
   };
 
-  const cancelEdit = (
+  const onCancelEdit = (
     _: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     index: number
   ) => {
     const fileName = allFileNames[index];
     if (fileName.trim().length === 0) return;
-    const names = [...isEditingNames];
+    const names = [...isEditingName];
     names[index] = false;
-    setIsEditingNames(names);
+    setisEditingName(names);
   };
 
-  const startEdit = (
+  const onStartEdit = (
     _: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     index: number
   ) => {
-    const names = [...isEditingNames];
+    const names = [...isEditingName];
     names[index] = true;
-    setIsEditingNames(names);
+    setisEditingName(names);
   };
 
   const CommonProps = {
@@ -300,10 +300,10 @@ export function FileUploader({
         isSuccess={isSuccess}
         percentage={percentage}
         onFileClick={onFileClick}
-        isEditingNames={isEditingNames}
-        saveEdit={saveEdit}
-        cancelEdit={cancelEdit}
-        startEdit={startEdit}
+        isEditingName={isEditingName}
+        onSaveEdit={onSaveEdit}
+        onCancelEdit={onCancelEdit}
+        onStartEdit={onStartEdit}
       />
     );
   }

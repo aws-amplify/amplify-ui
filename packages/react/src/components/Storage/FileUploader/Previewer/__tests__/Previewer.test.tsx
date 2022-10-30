@@ -33,10 +33,10 @@ describe('Previewer', () => {
         onPause={(index) => () => {}}
         onResume={(index) => () => {}}
         percentage={0}
-        cancelEdit={() => {}}
-        isEditingNames={[]}
-        saveEdit={() => {}}
-        startEdit={() => {}}
+        onCancelEdit={() => {}}
+        isEditingName={[]}
+        onSaveEdit={() => {}}
+        onStartEdit={() => {}}
       />
     );
 
@@ -67,10 +67,10 @@ describe('Previewer', () => {
         onPause={(index) => () => {}}
         onResume={(index) => () => {}}
         percentage={0}
-        cancelEdit={() => {}}
-        isEditingNames={[]}
-        saveEdit={() => {}}
-        startEdit={() => {}}
+        onCancelEdit={() => {}}
+        isEditingName={[]}
+        onSaveEdit={() => {}}
+        onStartEdit={() => {}}
       />
     );
 
@@ -104,10 +104,10 @@ describe('Previewer', () => {
         onPause={(index) => () => {}}
         onResume={(index) => () => {}}
         percentage={0}
-        cancelEdit={() => {}}
-        isEditingNames={[]}
-        saveEdit={() => {}}
-        startEdit={() => {}}
+        onCancelEdit={() => {}}
+        isEditingName={[]}
+        onSaveEdit={() => {}}
+        onStartEdit={() => {}}
       />
     );
 

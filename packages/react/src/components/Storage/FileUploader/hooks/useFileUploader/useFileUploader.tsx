@@ -1,4 +1,4 @@
-import { checkMaxSize, setAcceptedFiles } from '@aws-amplify/ui';
+import { checkMaxSize, returnAcceptedFiles } from '@aws-amplify/ui';
 import React, { useState } from 'react';
 import { Files, FileStatuses } from '../../types';
 import { UseFileUploader } from './types';
@@ -15,19 +15,18 @@ export default function useFileUploader(
   const [inDropZone, setInDropZone] = useState(false);
 
   const setFileSizeErrors = (files: Files, fileStatuses: FileStatuses) => {
-    const statuses = [...fileStatuses];
     [...files].forEach((file, index) => {
       const errorFile = checkMaxSize(maxSize, file);
       const status = fileStatuses[index];
 
-      statuses[index] = {
+      fileStatuses[index] = {
         ...status,
         error: status?.error || !!errorFile,
         fileErrors: status?.fileErrors ?? errorFile,
         loading: false,
       };
     });
-    setFileStatuses(statuses);
+    setFileStatuses(fileStatuses);
   };
 
   const checkAndSetFiles = (targets: Files, statuses: FileStatuses) => {
@@ -37,7 +36,7 @@ export default function useFileUploader(
 
   const addTargetFiles = (targetFiles: FileList): number => {
     // Only accept accepted files
-    const targets = setAcceptedFiles([...targetFiles], acceptedFileTypes);
+    const targets = returnAcceptedFiles([...targetFiles], acceptedFileTypes);
 
     // If not multiple and files already selected return
     if (!multiple && files.length > 0) return files.length;
@@ -56,14 +55,12 @@ export default function useFileUploader(
 
     if (files.length > 0) {
       // create file statuses
-      let statuses: FileStatuses = [];
-      statuses = [...fileStatuses];
       targets.forEach(() => {
-        statuses.unshift({
+        fileStatuses.unshift({
           loading: false,
         });
       });
-      checkAndSetFiles([...targets].concat(files), statuses);
+      checkAndSetFiles([...targets].concat(files), fileStatuses);
     } else {
       checkAndSetFiles([...targets], fileStatuses);
     }

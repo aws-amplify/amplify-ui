@@ -30,8 +30,8 @@ export function Tracker({
   name,
   percentage,
   isEditing,
-  saveEdit,
-  startEdit,
+  onSaveEdit,
+  onStartEdit,
 }: TrackerProps): JSX.Element {
   if (!file) return null;
 
@@ -43,7 +43,7 @@ export function Tracker({
     <View className="amplify-fileuploder__img-placeholder">{fileIcon}</View>
   );
 
-  const showStartEdit = (): boolean => {
+  const showonStartEdit = (): boolean => {
     // if complete or loading can't edit file name
     if (isSuccess || isLoading) return false;
     // only allow editing on error if its a problem with extension
@@ -74,12 +74,9 @@ export function Tracker({
                 value={name}
               />
             </View>
-            <Button size="small" variation="primary" onClick={saveEdit}>
+            <Button size="small" variation="primary" onClick={onSaveEdit}>
               Save
             </Button>
-            {/* <Button size="small" variation="link" onClick={cancelEdit}>
-              {translate('Cancel')}
-            </Button> */}
           </Flex>
         ) : (
           <>
@@ -102,8 +99,8 @@ export function Tracker({
                   {name}
                 </Text>
 
-                {showStartEdit() && (
-                  <Button onClick={startEdit} size="small" variation="link">
+                {showonStartEdit() && (
+                  <Button onClick={onStartEdit} size="small" variation="link">
                     <EditIcon fontSize="medium" />
                   </Button>
                 )}
