@@ -22,11 +22,17 @@ describe('Previewer', () => {
         onDragStart={() => {}}
         onDrop={() => {}}
         onFileChange={() => {}}
-        fileNames={[]}
         allFileNames={[]}
         onFileCancel={() => {}}
         onNameChange={() => {}}
-        level="public"
+        fileStatuses={[]}
+        isLoading={false}
+        isSuccess={false}
+        onDelete={() => {}}
+        onFileClick={() => {}}
+        onPause={(index) => () => {}}
+        onResume={(index) => () => {}}
+        percentage={0}
       />
     );
 
@@ -46,11 +52,17 @@ describe('Previewer', () => {
         onDragStart={() => {}}
         onDrop={() => {}}
         onFileChange={() => {}}
-        fileNames={[]}
         allFileNames={[]}
         onFileCancel={() => {}}
         onNameChange={() => {}}
-        level="public"
+        fileStatuses={[]}
+        isLoading={false}
+        isSuccess={false}
+        onDelete={() => {}}
+        onFileClick={() => {}}
+        onPause={(index) => () => {}}
+        onResume={(index) => () => {}}
+        percentage={0}
       />
     );
 
@@ -79,8 +91,14 @@ describe('Previewer', () => {
         allFileNames={[]}
         onFileCancel={() => {}}
         onNameChange={() => {}}
-        fileNames={[]}
-        level="public"
+        fileStatuses={[]}
+        isLoading={false}
+        isSuccess={false}
+        onDelete={() => {}}
+        onFileClick={() => {}}
+        onPause={(index) => () => {}}
+        onResume={(index) => () => {}}
+        percentage={0}
       />
     );
 

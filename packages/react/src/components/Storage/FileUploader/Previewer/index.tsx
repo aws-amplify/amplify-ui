@@ -1,7 +1,7 @@
 import React from 'react';
 import { translate } from '@aws-amplify/ui';
 import { PreviewerProps } from '../types';
-import { Button, Card, Flex, Text, View } from '../../../../primitives';
+import { Button, Card, Flex, Loader, Text, View } from '../../../../primitives';
 import { UploadDropZone } from '../UploadDropZone';
 import { UploadButton } from '../UploadButton';
 import { Tracker } from '../Tracker';
@@ -21,10 +21,15 @@ export function Previewer({
   acceptedFileTypes,
   multiple,
   onFileChange,
+  fileStatuses,
+  onPause,
+  onResume,
+  onDelete,
+  isLoading,
+  isSuccess,
+  percentage,
+  onFileClick,
 }: PreviewerProps): JSX.Element {
-  const onClick = () => {
-    // start upload
-  };
   return (
     <Card variation="outlined" className="amplify-fileuploader__previewer">
       <Flex className="amplify-fileuploader__previewer__body">
@@ -51,26 +56,58 @@ export function Previewer({
         </Text>
         {files?.map((file, index) => (
           <Tracker
+            percentage={fileStatuses[index]?.percentage}
             file={file}
             hasImage={file?.type.startsWith('image/')}
             url={URL.createObjectURL(file)}
             key={index}
             onChange={(e): void => onNameChange(e, index)}
             onCancel={() => onFileCancel(index)}
+            onPause={onPause(index)}
+            onResume={onResume(index)}
+            onDelete={onDelete}
             name={allFileNames[index]}
+            isLoading={fileStatuses[index]?.loading}
+            isError={fileStatuses[index]?.error}
+            isSuccess={fileStatuses[index]?.success}
+            isPaused={fileStatuses[index]?.paused}
           />
         ))}
         <View className="amplify-fileuploader__footer">
-          <View>
-            <Button size="small" variation="primary" onClick={onClick}>
-              {translate('Upload')}
-              {` ${files.length} `}
-              {translate('files')}
-            </Button>
-          </View>
-          <Button size="small" variation="link" onClick={onClear}>
-            {translate('Clear all')}
-          </Button>
+          {isLoading && (
+            <>
+              <Text>Uploading: {percentage}%</Text>
+              <Button>Cancel all</Button>
+              <Loader
+                className="amplify-fileuploader-loader"
+                variation="linear"
+                percentage={percentage}
+                isDeterminate
+              />
+            </>
+          )}
+          {!isLoading && !isSuccess && (
+            <>
+              <View>
+                <Button size="small" variation="primary" onClick={onFileClick}>
+                  {translate('Upload')}
+                  {` ${files.length} `}
+                  {translate('files')}
+                </Button>
+              </View>
+              <Button size="small" variation="link" onClick={onClear}>
+                {translate('Clear all')}
+              </Button>
+            </>
+          )}
+          {isSuccess && (
+            <>
+              <Text />
+              <Button size="small" onClick={onClear}>
+                {translate('Done')}
+              </Button>
+            </>
+          )}
         </View>
       </Flex>
     </Card>

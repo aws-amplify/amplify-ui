@@ -113,3 +113,17 @@
   white-space: nowrap;
   overflow: hidden;
 }
+
+.amplify-fileuploader-loader {
+  --amplify-components-loader-linear-stroke-linecap: butt;
+  --amplify-components-loader-linear-stroke-empty: var(
+    --amplify-colors-neutral-40
+  );
+  --amplify-components-loader-height: var(--amplify-border-widths-large);
+  border-radius: 0;
+  overflow: hidden;
+}
+
+.amplify-loader__percentage-text {
+  display: none;
+}

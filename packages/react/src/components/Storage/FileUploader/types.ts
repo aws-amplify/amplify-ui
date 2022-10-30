@@ -37,11 +37,10 @@ export interface FileUploaderProps {
 
 export interface IconProps {
   className?: string;
+  fontSize?: string;
 }
 
 export interface PreviewerProps extends DragActionHandlers {
-  fileNames: string[];
-  level: LevelInfo;
   files: File[];
   onClear: () => void;
   acceptedFileTypes: string[];
@@ -49,11 +48,50 @@ export interface PreviewerProps extends DragActionHandlers {
   onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   inDropZone?: boolean;
   onFileCancel: (index: number) => void;
+  onFileClick: () => void;
   onNameChange: (
     event: React.ChangeEvent<HTMLInputElement>,
     index: number
   ) => void;
   allFileNames: string[];
+  fileStatuses: FileStatuses;
+  onPause: (index: number) => () => void;
+  onResume: (index: number) => () => void;
+  onDelete: () => void;
+  isLoading: boolean;
+  isSuccess: boolean;
+  percentage: number;
+}
+
+export interface TrackerProps {
+  file: File;
+  hasImage: boolean;
+  url: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onCancel: () => void;
+  onPause: () => void;
+  onResume: () => void;
+  onDelete: () => void;
+  name: string;
+  percentage: number;
+  isLoading: boolean;
+  isPaused: boolean;
+  isError: boolean;
+  isSuccess: boolean;
+}
+
+interface FileStatus extends Partial<FileStateProps> {
+  percentage?: number;
+  uploadTask?: UploadTask;
+}
+
+export type FileStatuses = FileStatus[];
+
+export interface FileStateProps {
+  loading: boolean;
+  success: boolean;
+  error: boolean;
+  paused: boolean;
 }
 
 export interface TrackerProps {
@@ -64,14 +102,6 @@ export interface TrackerProps {
   onCancel: () => void;
   name: string;
 }
-
-interface FileStatus {
-  percentage: number;
-  uploadTask: UploadTask;
-  pause: boolean;
-}
-
-export type FileStatuses = FileStatus[];
 
 type UploadButtonComponent<Props = {}> = React.ComponentType<
   Props & Partial<UploadButtonProps>
