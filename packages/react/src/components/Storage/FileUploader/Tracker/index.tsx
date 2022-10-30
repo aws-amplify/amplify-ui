@@ -22,7 +22,6 @@ export function Tracker({
   onPause,
   onResume,
   onCancel,
-  onDelete,
   isLoading,
   isPaused,
   isSuccess,
@@ -133,12 +132,13 @@ export function Tracker({
                 )}
               </>
             )}
-            {isSuccess && !isError && (
+            {/* {isSuccess && !isError && (
               <Button size="small" onClick={onDelete}>
                 Delete
               </Button>
-            )}
-            {!isSuccess && !isLoading && (
+            )} */}
+            {/* {!isSuccess && !isLoading && ( */}
+            {!isLoading && (
               <Button size="small" onClick={onCancel}>
                 <Text>
                   <CloseIcon />

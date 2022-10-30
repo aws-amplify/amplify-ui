@@ -84,7 +84,7 @@ export interface TrackerProps {
   onCancel: () => void;
   onPause: () => void;
   onResume: () => void;
-  onDelete: () => void;
+  onDelete?: () => void;
   name: string;
   percentage: number;
   isLoading: boolean;

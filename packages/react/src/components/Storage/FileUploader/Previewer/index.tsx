@@ -98,7 +98,6 @@ export function Previewer({
           {isLoading && (
             <>
               <Text>Uploading: {percentage}%</Text>
-              <Button>Cancel all</Button>
               <Loader
                 className="amplify-fileuploader-loader"
                 variation="linear"
@@ -113,7 +112,8 @@ export function Previewer({
                 <Button
                   disabled={
                     fileStatuses.some((status) => status?.error) ||
-                    isEditingNames.some((edit) => edit)
+                    isEditingNames.some((edit) => edit) ||
+                    remainingFiles().length === 0
                   }
                   size="small"
                   variation="primary"
