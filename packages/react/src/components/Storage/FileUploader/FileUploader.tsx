@@ -104,6 +104,23 @@ export function FileUploader({
     };
   };
 
+  const errorCallback = (index: number) => {
+    return (err: string) => {
+      const status = fileStatusesRef.current[index];
+      fileStatusesRef.current[index] = {
+        ...status,
+        error: true,
+        loading: false,
+        success: false,
+        fileErrors: translate(err.toString()),
+      };
+
+      const addErrors = [...fileStatusesRef.current];
+      setFileStatuses(addErrors);
+      setLoading(false);
+    };
+  };
+
   const onDelete = () => {
     //todo delete
   };
@@ -142,6 +159,7 @@ export function FileUploader({
         fileName: uploadFileName,
         level,
         progressCallback: progressCallback(i),
+        errorCallback: errorCallback(i),
       });
       uploadTasksTemp.push(uploadTask);
     }
@@ -169,6 +187,7 @@ export function FileUploader({
     setShowPreviewer(false);
     setFiles([]);
     setFileStatuses([]);
+    setAllFileNames([]);
   };
 
   const onFileCancel = (index: number) => {
@@ -179,8 +198,10 @@ export function FileUploader({
     }
     const updatedFiles = files.filter((_, i) => i !== index);
     const updatedFileStatuses = fileStatuses.filter((_, i) => i !== index);
+    const updateAllFileNames = allFileNames.filter((_, i) => i !== index);
     setFileSizeErrors(updatedFiles, updatedFileStatuses);
     setFiles(updatedFiles);
+    setAllFileNames(updateAllFileNames);
   };
 
   const onNameChange = (

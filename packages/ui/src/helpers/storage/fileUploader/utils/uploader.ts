@@ -17,19 +17,21 @@ export function uploadFile({
   fileName,
   level = 'private',
   progressCallback,
+  errorCallback,
 }: {
   file: File;
   fileName: string;
   level: StorageAccessLevel;
   progressCallback: (progress: { loaded: number; total: number }) => void;
+  errorCallback: (err: string) => void;
 }): UploadTask {
   return Storage.put(fileName, file, {
     level,
     resumable: true,
     progressCallback,
+    errorCallback,
   });
 }
-
 /**
  * Format bytes as human-readable text.
  *

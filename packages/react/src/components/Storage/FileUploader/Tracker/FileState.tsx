@@ -23,7 +23,7 @@ export const FileState = ({
     return (
       <Flex direction="row" gap="xxs" color="font.error">
         <ErrorIcon fontSize="xl" />
-        {errorMessage}
+        <Text>{errorMessage}</Text>
       </Flex>
     );
 
