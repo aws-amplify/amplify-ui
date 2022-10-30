@@ -43,7 +43,7 @@ describe('Previewer', () => {
     expect(container).toMatchSnapshot();
   });
   it('has two files passed in and displays them', async () => {
-    const { container, findByText } = render(
+    const { container } = render(
       <Previewer
         acceptedFileTypes={['.png']}
         files={[fakeFile, fakeFile2]}
