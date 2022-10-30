@@ -1,4 +1,5 @@
 import React from 'react';
+import { UploadTask } from '@aws-amplify/storage';
 import { DragActionHandlers } from './hooks/useFileUploader/types';
 
 export type SetShowPreviewer = (show: boolean) => void;
@@ -34,19 +35,72 @@ export interface FileUploaderProps {
   variation?: 'drop' | 'button';
 }
 
-export interface UploadIconProps {
+export interface IconProps {
   className?: string;
+  fontSize?: string;
 }
 
 export interface PreviewerProps extends DragActionHandlers {
-  fileNames: string[];
-  level: LevelInfo;
   files: File[];
-  onClose: () => void;
+  onClear: () => void;
   acceptedFileTypes: string[];
   multiple?: boolean;
   onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   inDropZone?: boolean;
+  onFileCancel: (index: number) => void;
+  onFileClick: () => void;
+  onNameChange: (
+    event: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => void;
+  allFileNames: string[];
+  fileStatuses: FileStatuses;
+  onPause: (index: number) => () => void;
+  onResume: (index: number) => () => void;
+  onDelete: () => void;
+  isLoading: boolean;
+  isSuccess: boolean;
+  percentage: number;
+}
+
+export interface TrackerProps {
+  file: File;
+  hasImage: boolean;
+  url: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onCancel: () => void;
+  onPause: () => void;
+  onResume: () => void;
+  onDelete: () => void;
+  name: string;
+  percentage: number;
+  isLoading: boolean;
+  isPaused: boolean;
+  isError: boolean;
+  isSuccess: boolean;
+}
+
+interface FileStatus extends Partial<FileStateProps> {
+  percentage?: number;
+  uploadTask?: UploadTask;
+}
+
+export type FileStatuses = FileStatus[];
+
+export interface FileStateProps {
+  loading: boolean;
+  success: boolean;
+  error: boolean;
+  paused: boolean;
+}
+
+export interface TrackerProps {
+  file: File;
+  hasImage: boolean;
+  url: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onCancel: () => void;
+  name: string;
 }
 
 type UploadButtonComponent<Props = {}> = React.ComponentType<
