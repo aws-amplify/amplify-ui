@@ -198,6 +198,7 @@ export function FileUploader({
     setFiles([]);
     setFileStatuses([]);
     setAllFileNames([]);
+    setSuccess(false);
   };
 
   const onFileCancel = (index: number) => {
