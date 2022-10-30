@@ -3,12 +3,7 @@ import { StyleSheet, TextStyle, ViewStyle } from 'react-native';
 
 import { authenticatorTextUtil } from '@aws-amplify/ui';
 
-import {
-  DefaultFooter,
-  DefaultFormFields,
-  DefaultHeader,
-  FederatedProviderButtons,
-} from '../../common';
+import { DefaultFooter, DefaultFormFields, DefaultHeader } from '../../common';
 import { useFieldValues } from '../../hooks';
 
 import { Button, ErrorMessage, Tab, Tabs } from '../../../primitives';
@@ -58,9 +53,7 @@ const SignIn: DefaultSignInComponent = ({
   Header,
   hideSignUp,
   isPending,
-  socialProviders,
   toResetPassword,
-  toFederatedSignIn,
   toSignUp,
 }) => {
   const {
@@ -87,12 +80,6 @@ const SignIn: DefaultSignInComponent = ({
         </Tabs>
       )}
       <Header />
-      {socialProviders ? (
-        <FederatedProviderButtons
-          socialProviders={socialProviders}
-          toFederatedSignIn={toFederatedSignIn}
-        />
-      ) : null}
       <FormFields fields={fieldsWithHandlers} isPending={isPending} />
       {error ? <ErrorMessage>{error}</ErrorMessage> : null}
       <Button

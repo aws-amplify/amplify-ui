@@ -4,7 +4,15 @@ import { AuthenticatorMachineOptions } from '@aws-amplify/ui';
 
 import { Components } from './Defaults';
 
-export interface AuthenticatorProps extends AuthenticatorMachineOptions {
+type SupportedAuthenticatorMachineOptions = Omit<
+  AuthenticatorMachineOptions,
+  // `socialProviders` not supported as a prop,
+  // feature is not enabled in React Native `Authenticator`
+  'socialProviders'
+>;
+
+export interface AuthenticatorProps
+  extends SupportedAuthenticatorMachineOptions {
   children?: React.ReactNode;
   components?: Components;
 }

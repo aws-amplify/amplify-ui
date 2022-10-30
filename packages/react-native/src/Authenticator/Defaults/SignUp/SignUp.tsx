@@ -3,12 +3,7 @@ import { authenticatorTextUtil } from '@aws-amplify/ui';
 
 import { Button, ErrorMessage, Tab, Tabs } from '../../../primitives';
 
-import {
-  DefaultFooter,
-  DefaultFormFields,
-  DefaultHeader,
-  FederatedProviderButtons,
-} from '../../common';
+import { DefaultFooter, DefaultFormFields, DefaultHeader } from '../../common';
 import { useFieldValues } from '../../hooks';
 
 import { DefaultSignUpComponent } from '../types';
@@ -35,8 +30,6 @@ const SignUp: DefaultSignUpComponent = ({
   handleSubmit,
   hideSignIn,
   isPending,
-  socialProviders,
-  toFederatedSignIn,
   toSignIn,
   validationErrors,
 }) => {
@@ -57,12 +50,6 @@ const SignUp: DefaultSignUpComponent = ({
         </Tabs>
       )}
       <Header />
-      {socialProviders ? (
-        <FederatedProviderButtons
-          socialProviders={socialProviders}
-          toFederatedSignIn={toFederatedSignIn}
-        />
-      ) : null}
       <FormFields
         isPending={isPending}
         fields={fieldsWithHandlers}
