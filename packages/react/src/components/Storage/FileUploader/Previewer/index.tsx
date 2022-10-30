@@ -1,7 +1,15 @@
 import React from 'react';
 import { translate } from '@aws-amplify/ui';
 import { PreviewerProps } from '../types';
-import { Button, Card, Flex, Loader, Text, View } from '../../../../primitives';
+import {
+  Alert,
+  Button,
+  Card,
+  Flex,
+  Loader,
+  Text,
+  View,
+} from '../../../../primitives';
 import { UploadDropZone } from '../UploadDropZone';
 import { UploadButton } from '../UploadButton';
 import { Tracker } from '../Tracker';
@@ -33,7 +41,9 @@ export function Previewer({
   onSaveEdit,
   onCancelEdit,
   onStartEdit,
+  maxFilesError,
 }: PreviewerProps): JSX.Element {
+  const headingMaxFiles = translate('Over Max files!');
   const uploadedFilesLength = () =>
     files.filter((_, i) => fileStatuses[i]?.success).length;
 
@@ -113,7 +123,8 @@ export function Previewer({
                   disabled={
                     fileStatuses.some((status) => status?.error) ||
                     isEditingName.some((edit) => edit) ||
-                    remainingFilesLength === 0
+                    remainingFilesLength === 0 ||
+                    maxFilesError
                   }
                   size="small"
                   variation="primary"
@@ -139,6 +150,7 @@ export function Previewer({
           )}
         </View>
       </Flex>
+      {maxFilesError && <Alert variation="error" heading={headingMaxFiles} />}
     </Card>
   );
 }

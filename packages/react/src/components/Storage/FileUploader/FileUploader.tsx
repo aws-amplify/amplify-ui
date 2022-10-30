@@ -17,6 +17,7 @@ export function FileUploader({
   multiple = true,
   variation = 'button',
   maxSize,
+  maxFiles,
   onError,
   onSuccess,
 }: FileUploaderProps): JSX.Element {
@@ -47,6 +48,7 @@ export function FileUploader({
   const [isLoading, setLoading] = useState(false);
   const [isSuccess, setSuccess] = useState(false);
   const [percentage, setPercentage] = useState(0);
+  const [maxFilesError, setMaxFilesError] = useState(false);
   // Tracker states
   const [isEditingName, setisEditingName] = React.useState<boolean[]>([]);
 
@@ -89,7 +91,11 @@ export function FileUploader({
         return file.name;
       });
     });
-  }, [files]);
+    // Check max files size limit if truthy
+    if (maxFiles) {
+      setMaxFilesError(files.length > maxFiles);
+    }
+  }, [files, maxFiles]);
 
   // Previewer Methods
 
@@ -305,6 +311,7 @@ export function FileUploader({
         onSaveEdit={onSaveEdit}
         onCancelEdit={onCancelEdit}
         onStartEdit={onStartEdit}
+        maxFilesError={maxFilesError}
       />
     );
   }

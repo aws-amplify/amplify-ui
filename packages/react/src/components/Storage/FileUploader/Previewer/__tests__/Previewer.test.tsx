@@ -37,6 +37,7 @@ describe('Previewer', () => {
         isEditingName={[]}
         onSaveEdit={() => {}}
         onStartEdit={() => {}}
+        maxFilesError={false}
       />
     );
 
@@ -71,6 +72,7 @@ describe('Previewer', () => {
         isEditingName={[]}
         onSaveEdit={() => {}}
         onStartEdit={() => {}}
+        maxFilesError={false}
       />
     );
 
@@ -108,6 +110,7 @@ describe('Previewer', () => {
         isEditingName={[]}
         onSaveEdit={() => {}}
         onStartEdit={() => {}}
+        maxFilesError={false}
       />
     );
 

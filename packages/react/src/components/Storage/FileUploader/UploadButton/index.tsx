@@ -12,6 +12,7 @@ export function UploadButton({
   const hiddenInput = React.useRef<HTMLInputElement>();
   const onClick = () => {
     hiddenInput.current.click();
+    hiddenInput.current.value = null;
   };
 
   return (

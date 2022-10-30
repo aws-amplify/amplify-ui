@@ -74,6 +74,7 @@ export interface PreviewerProps extends DragActionHandlers {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     index: number
   ) => void;
+  maxFilesError: boolean;
 }
 
 export interface TrackerProps {
