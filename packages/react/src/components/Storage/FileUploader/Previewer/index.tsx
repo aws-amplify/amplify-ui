@@ -29,7 +29,15 @@ export function Previewer({
   isSuccess,
   percentage,
   onFileClick,
+  isEditingNames,
+  saveEdit,
+  cancelEdit,
+  startEdit,
 }: PreviewerProps): JSX.Element {
+  const uploadedFiles = () => files.filter((_, i) => fileStatuses[i]?.success);
+
+  const remainingFiles = () =>
+    files.filter((_, i) => !fileStatuses[i]?.success);
   return (
     <Card variation="outlined" className="amplify-fileuploader__previewer">
       <Flex className="amplify-fileuploader__previewer__body">
@@ -52,13 +60,13 @@ export function Previewer({
           />
         </UploadDropZone>
         <Text fontWeight="bold">
-          {isLoading || isSuccess ? (
+          {isSuccess ? (
             <>
-              {files.length} {translate('files uploaded')}
+              {uploadedFiles().length} {translate('files uploaded')}
             </>
           ) : (
             <>
-              {files.length} {translate('files selected')}
+              {remainingFiles().length} {translate('files selected')}
             </>
           )}
         </Text>
@@ -80,6 +88,10 @@ export function Previewer({
             errorMessage={fileStatuses[index]?.fileErrors}
             isSuccess={fileStatuses[index]?.success}
             isPaused={fileStatuses[index]?.paused}
+            isEditing={isEditingNames[index]}
+            saveEdit={(e): void => saveEdit(e, index)}
+            cancelEdit={(e): void => cancelEdit(e, index)}
+            startEdit={(e): void => startEdit(e, index)}
           />
         ))}
         <View className="amplify-fileuploader__footer">
@@ -99,13 +111,16 @@ export function Previewer({
             <>
               <View>
                 <Button
-                  disabled={fileStatuses.some((status) => status?.error)}
+                  disabled={
+                    fileStatuses.some((status) => status?.error) ||
+                    isEditingNames.some((edit) => edit)
+                  }
                   size="small"
                   variation="primary"
                   onClick={onFileClick}
                 >
                   {translate('Upload')}
-                  {` ${files.length} `}
+                  {` ${remainingFiles().length} `}
                   {translate('files')}
                 </Button>
               </View>

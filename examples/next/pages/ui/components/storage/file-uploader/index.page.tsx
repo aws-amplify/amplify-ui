@@ -12,7 +12,7 @@ export default function FileUploaderEmail() {
         acceptedFileTypes={['.png', '.jpg', '.pdf']}
         level="public"
         multiple={true}
-        maxSize={100000}
+        maxSize={100000000}
       />
     </>
   );

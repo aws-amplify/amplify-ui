@@ -61,6 +61,19 @@ export interface PreviewerProps extends DragActionHandlers {
   isLoading: boolean;
   isSuccess: boolean;
   percentage: number;
+  isEditingNames: boolean[];
+  saveEdit: (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    index: number
+  ) => void;
+  cancelEdit: (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    index: number
+  ) => void;
+  startEdit: (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    index: number
+  ) => void;
 }
 
 export interface TrackerProps {
@@ -79,6 +92,10 @@ export interface TrackerProps {
   isError: boolean;
   isSuccess: boolean;
   errorMessage: string;
+  isEditing: boolean;
+  saveEdit: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  cancelEdit?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  startEdit: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
 interface FileStatus extends Partial<FileStateProps> {
@@ -95,15 +112,6 @@ export interface FileStateProps {
   error: boolean;
   paused: boolean;
   errorMessage: string;
-}
-
-export interface TrackerProps {
-  file: File;
-  hasImage: boolean;
-  url: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onCancel: () => void;
-  name: string;
 }
 
 type UploadButtonComponent<Props = {}> = React.ComponentType<

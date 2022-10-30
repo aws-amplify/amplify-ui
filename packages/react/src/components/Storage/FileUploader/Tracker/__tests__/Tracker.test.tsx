@@ -22,6 +22,11 @@ describe('Tracker', () => {
         onPause={() => {}}
         onResume={() => {}}
         percentage={0}
+        errorMessage={''}
+        isEditing={false}
+        saveEdit={() => null}
+        startEdit={() => null}
+        cancelEdit={() => null}
       />
     );
 
@@ -45,6 +50,11 @@ describe('Tracker', () => {
         onPause={() => {}}
         onResume={() => {}}
         percentage={0}
+        errorMessage={''}
+        isEditing={false}
+        saveEdit={() => null}
+        startEdit={() => null}
+        cancelEdit={() => null}
       />
     );
 
@@ -70,6 +80,11 @@ describe('Tracker', () => {
         onPause={() => {}}
         onResume={() => {}}
         percentage={0}
+        errorMessage={''}
+        isEditing={false}
+        saveEdit={() => null}
+        startEdit={() => null}
+        cancelEdit={() => null}
       />
     );
 

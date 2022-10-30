@@ -22,16 +22,16 @@ export default function useFileUploader(
 
       statuses[index] = {
         ...status,
-        error: !!errorFile,
-        fileErrors: errorFile,
+        error: status?.error || !!errorFile,
+        fileErrors: status?.fileErrors ?? errorFile,
         loading: false,
       };
     });
     setFileStatuses(statuses);
   };
 
-  const checkAndSetFiles = (targets: Files) => {
-    setFileSizeErrors(targets, fileStatuses);
+  const checkAndSetFiles = (targets: Files, statuses: FileStatuses) => {
+    setFileSizeErrors(targets, statuses);
     setFiles(targets);
   };
 
@@ -44,20 +44,28 @@ export default function useFileUploader(
 
     // if not multiple and only 1 file selected save
     if (!multiple && targets.length == 1) {
-      checkAndSetFiles([...targets]);
+      checkAndSetFiles([...targets], fileStatuses);
       return targets.length;
     }
 
     // if not multiple save just the first target into the array
     if (!multiple && targets.length > 1) {
-      checkAndSetFiles([targets[0]]);
+      checkAndSetFiles([targets[0]], fileStatuses);
       return 1;
     }
 
     if (files.length > 0) {
-      checkAndSetFiles([...targets].concat(files));
+      // create file statuses
+      let statuses: FileStatuses = [];
+      statuses = [...fileStatuses];
+      targets.forEach(() => {
+        statuses.unshift({
+          loading: false,
+        });
+      });
+      checkAndSetFiles([...targets].concat(files), statuses);
     } else {
-      checkAndSetFiles([...targets]);
+      checkAndSetFiles([...targets], fileStatuses);
     }
     return targets.length + files.length;
   };

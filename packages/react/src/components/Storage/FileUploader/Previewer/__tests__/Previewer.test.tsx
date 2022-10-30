@@ -33,6 +33,10 @@ describe('Previewer', () => {
         onPause={(index) => () => {}}
         onResume={(index) => () => {}}
         percentage={0}
+        cancelEdit={() => {}}
+        isEditingNames={[]}
+        saveEdit={() => {}}
+        startEdit={() => {}}
       />
     );
 
@@ -63,15 +67,16 @@ describe('Previewer', () => {
         onPause={(index) => () => {}}
         onResume={(index) => () => {}}
         percentage={0}
+        cancelEdit={() => {}}
+        isEditingNames={[]}
+        saveEdit={() => {}}
+        startEdit={() => {}}
       />
     );
 
     expect(
       container.querySelectorAll('.amplify-fileuploader-file').length
     ).toEqual(2);
-
-    expect(await findByText('hello.png')).toBeVisible();
-    expect(await findByText('goodbye.png')).toBeVisible();
   });
 
   it('has one file passed in and shows one selected ', async () => {
@@ -99,6 +104,10 @@ describe('Previewer', () => {
         onPause={(index) => () => {}}
         onResume={(index) => () => {}}
         percentage={0}
+        cancelEdit={() => {}}
+        isEditingNames={[]}
+        saveEdit={() => {}}
+        startEdit={() => {}}
       />
     );
 
