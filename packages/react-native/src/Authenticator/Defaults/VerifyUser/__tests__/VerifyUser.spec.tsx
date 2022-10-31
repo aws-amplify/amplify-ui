@@ -3,12 +3,31 @@ import { render } from '@testing-library/react-native';
 
 import { authenticatorTextUtil } from '@aws-amplify/ui';
 import { VerifyUser } from '..';
+import { RadioFieldOptions } from '../../../hooks/types';
 
 const { getSkipText, getVerifyText, getAccountRecoveryInfoText } =
   authenticatorTextUtil;
 
+const radioEmailField = {
+  type: 'radio',
+  name: 'email',
+  value: 'hello@world.com',
+} as RadioFieldOptions;
+
+const radioPhoneField = {
+  type: 'radio',
+  name: 'phone',
+  value: '+1 000-000-0000',
+} as RadioFieldOptions;
+
+const radioField = {
+  type: 'radio',
+  name: 'test',
+  value: 'testValue',
+} as RadioFieldOptions;
+
 const props = {
-  fields: [],
+  fields: [radioEmailField, radioPhoneField, radioField],
   FormFields: VerifyUser.FormFields,
   Footer: VerifyUser.Footer,
   handleBlur: jest.fn(),
@@ -29,6 +48,9 @@ describe('VerifyUser', () => {
     expect(getByText(getAccountRecoveryInfoText())).toBeDefined();
     expect(getByText(getSkipText())).toBeDefined();
     expect(getByText(getVerifyText())).toBeDefined();
+    expect(getByText('h***o@world.com')).toBeDefined();
+    expect(getByText('***********0000')).toBeDefined();
+    expect(getByText('testValue')).toBeDefined();
   });
 
   it('renders as expected with errors', () => {
