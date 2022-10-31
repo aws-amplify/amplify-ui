@@ -64,6 +64,7 @@
     "autoprefixer": "^10.2.4",
     "canvas": "^2.9.1",
     "cypress": "^10.10.0",
+    "cypress-each": "^1.11.0",
     "dotenv-safe": "^8.2.0",
     "esbuild-register": "^3.3.2",
     "eslint": "^7.32.0",
