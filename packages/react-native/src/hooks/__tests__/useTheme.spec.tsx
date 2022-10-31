@@ -2,11 +2,8 @@ import * as React from 'react';
 import { renderHook } from '@testing-library/react-native';
 import { ThemeProvider } from '../../ThemeProvider';
 
-import { createReactNativeTheme, ReactNativeTheme } from '../../theme';
+import { createTheme } from '../../theme';
 import { useTheme } from '../useTheme';
-
-const serializeTheme = (theme: ReactNativeTheme) =>
-  JSON.stringify(theme, null, 2);
 
 describe('useTheme', () => {
   it('should return a theme object when provided through theme', () => {
@@ -29,9 +26,7 @@ describe('useTheme', () => {
       ),
     });
 
-    expect(serializeTheme(result.current)).toBe(
-      serializeTheme(createReactNativeTheme(customTheme))
-    );
+    expect(result.current).toStrictEqual(createTheme(customTheme));
   });
 
   it('should return a default theme if not provided through context', () => {
@@ -39,16 +34,12 @@ describe('useTheme', () => {
       wrapper: ({ children }) => <ThemeProvider>{children}</ThemeProvider>,
     });
 
-    expect(serializeTheme(result.current)).toBe(
-      serializeTheme(createReactNativeTheme())
-    );
+    expect(result.current).toStrictEqual(createTheme());
   });
 
   it('should return a default theme when there is no context', () => {
     const { result } = renderHook(() => useTheme());
 
-    expect(serializeTheme(result.current)).toBe(
-      serializeTheme(createReactNativeTheme())
-    );
+    expect(result.current).toStrictEqual(createTheme());
   });
 });

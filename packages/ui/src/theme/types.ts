@@ -1,4 +1,3 @@
-import { PartialDeep } from 'type-fest';
 import { Tokens, WebTokens } from './tokens';
 import { Breakpoints } from './breakpoints';
 
@@ -24,7 +23,7 @@ export type Override =
   | ColorModeOverride;
 
 interface BaseOverride {
-  tokens?: PartialDeep<Tokens>;
+  tokens?: Tokens;
 }
 
 /**

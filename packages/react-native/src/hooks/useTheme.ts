@@ -1,9 +1,9 @@
 import * as React from 'react';
 
 import { ThemeContext } from '../ThemeProvider/ThemeContext';
-import { ReactNativeTheme } from '../theme';
+import { Theme } from '../theme';
 
-export const useTheme = (): ReactNativeTheme => {
+export const useTheme = (): Theme => {
   const context = React.useContext(ThemeContext);
   return context.theme;
 };

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ColorMode, createReactNativeTheme, Theme } from '../theme';
+import { ColorMode, createTheme, Theme } from '../theme';
 import { ThemeContext } from './ThemeContext';
 
 interface ThemeProviderProps {
@@ -14,7 +14,7 @@ export const ThemeProvider = ({
   theme,
 }: ThemeProviderProps): JSX.Element => {
   const value = React.useMemo(
-    () => ({ theme: createReactNativeTheme(theme, colorMode) }),
+    () => ({ theme: createTheme(theme, colorMode) }),
     [theme, colorMode]
   );
 

@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { createReactNativeTheme, ReactNativeTheme } from '../theme';
+import { createTheme, Theme } from '../theme';
 
 export interface ThemeContextType {
-  theme: ReactNativeTheme;
+  theme: Theme;
 }
 
 export const ThemeContext = React.createContext<ThemeContextType>({
-  theme: createReactNativeTheme(),
+  theme: createTheme(),
 });
