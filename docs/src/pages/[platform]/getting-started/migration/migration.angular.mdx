@@ -27,7 +27,7 @@ The following breaking changes were introduced in `@aws-amplify/ui-angular` majo
 
 #### 1. Automatic signin on signup logic moved to `aws-amplify`. 
 
-If you are overriding `Auth.signUp`, update the override function call to include the `autoSignIn` option set to enabled. If this change is not made, users will not be automatically signed in on signup.
+If you are overriding `Auth.signUp`, update the override function call to include the `autoSignIn` option set to `enabled`. If this change is not made, users will not be automatically signed in on signup.
 
 ```diff
  async handleSignUp(formData) {
@@ -143,8 +143,8 @@ sense of the changes please check out the [Headers and Footers](../connected-com
 
 ### Form Fields
 
-The 2.x version of the `Authenticator` has a different format for the `formFields` prop. It also no long accepts
-`inputProps` nor `hint`. Instead it's recommended that you use the [Headers and Footers Slots](../connected-components/authenticator/customization#headers--footers) or use the
+The 2.x version of the `Authenticator` has a different format for the `formFields` prop. It also no longer accepts
+`inputProps` nor `hint`. Instead, it's recommended that you use the [Headers and Footers Slots](../connected-components/authenticator/customization#headers--footers) or use the
 [Sign Up Fields custimization](../connected-components/authenticator/customization#sign-up-fields). For more information on form field customizations
 please see the [Form Field Customization](../connected-components/authenticator/customization#form-field-customization) section.
 
