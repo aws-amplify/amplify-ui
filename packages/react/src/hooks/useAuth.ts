@@ -73,9 +73,10 @@ export const useAuth = (): UseAuthResult => {
           break;
         }
 
-        default:
+        default: {
           // we do not handle other hub events like `configured`.
           break;
+        }
       }
     },
     [fetchCurrentUser]
