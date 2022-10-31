@@ -32,7 +32,7 @@ export default defineConfig({
       });
     },
     baseUrl: BASE_URL,
-    numTestsKeptInMemory: 0,
+    numTestsKeptInMemory: 1,
     supportFile: false,
   },
 });
