@@ -42,6 +42,10 @@ export const useDataStoreCreateAction = <Model extends PersistentModel>({
         AMPLIFY_SYMBOL
       );
 
+      /** TODO: Argument of type 'ModelInit<Model, {}>' is
+       * not assignable to parameter of type
+       * 'ModelInit<Model, PersistentModelMetaData<Model>>'.
+       */
       const item = await DataStore.save(new model(fields));
 
       Hub.dispatch(
