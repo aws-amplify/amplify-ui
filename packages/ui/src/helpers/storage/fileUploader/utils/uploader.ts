@@ -83,7 +83,7 @@ export const returnAcceptedFiles = (
 ): File[] => {
   // Remove any files that are not in the accepted file list
   return [...files].filter((file) => {
-    const [extension, ..._] = file.name.split('.').reverse();
+    const [extension] = file.name.split('.').reverse();
     return acceptedFileTypes.includes('.' + extension);
   });
 };

@@ -167,6 +167,11 @@ export function FileUploader({
     const uploadTasksTemp: UploadTask[] = [];
     for (let i = 0; i < files?.length; i++) {
       if (fileStatuses[i]?.success) continue;
+      // remove any filenames that are not accepted
+      fileNames = fileNames?.filter((file: string) => {
+        const [extension] = file.split('.').reverse();
+        return acceptedFileTypes.includes('.' + extension);
+      });
       const uploadFileName = getFileName(fileNames?.[i], allFileNames[i]);
 
       const uploadTask: UploadTask = uploadFile({

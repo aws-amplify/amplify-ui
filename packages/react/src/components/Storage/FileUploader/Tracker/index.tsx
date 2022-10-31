@@ -65,6 +65,7 @@ export function Tracker({
           <Flex direction="row" flex="1" gap="small" alignItems="center">
             <View flex="1">
               <TextField
+                maxLength={1024}
                 width="100%"
                 label="file name"
                 size="small"
