@@ -47,6 +47,9 @@ export class SignUpWithEmailComponent implements OnInit {
         username,
         password,
         attributes,
+        autoSignIn: {
+          enabled: true,
+        },
       });
     },
   };
