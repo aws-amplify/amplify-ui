@@ -7,10 +7,10 @@ Feature: Map with LocationSearch
     And my default search results is 5
 
   @react
-  Scenario: Map marker for search results
+  Scenario: Map markers for search results
     When I search for "Amazon Go"
     And I press the enter key
-    Then I see one marker
+    Then I see markers equal to my default search results
 
   @react
   Scenario: Single map marker
