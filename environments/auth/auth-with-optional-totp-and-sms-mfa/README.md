@@ -10,7 +10,7 @@ This backend is configured with Amplify Studio:
 
   - `Email` and `Phone number` sign up attribute
 
-    ![Screenshot of phone number sign up attribute](screenshot-signup.png)
+    ![Screenshot of email and phone number sign up attribute](screenshot-signup.png)
 
 ## Using this Backend
 
