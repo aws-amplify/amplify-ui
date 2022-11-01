@@ -61,8 +61,7 @@ export default {
         ComponentClassName.Flex,
         ComponentClassName.Field,
         ComponentClassName.TextField,
-        ComponentClassName.PasswordField,
-        'amplify-authenticator__column'
+        ComponentClassName.PasswordField
       )
     "
   >
