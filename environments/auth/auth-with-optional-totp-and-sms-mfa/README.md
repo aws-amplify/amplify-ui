@@ -1,6 +1,6 @@
-# Auth with Phone Number and SMS MFA
+# Auth with Optional TOTP and SMS MFA
 
-This backend is configured with Amplify Admin UI:
+This backend is configured with Amplify Studio:
 
 - Authentication
 
