@@ -1,4 +1,5 @@
 import BaseAlert from './src/components/primitives/base-alert.vue';
+import BaseSelect from './src/components/primitives/base-select.vue';
 import BaseFieldSet from './src/components/primitives/base-field-set.vue';
 import BaseFooter from './src/components/primitives/base-footer.vue';
 import BaseForm from './src/components/primitives/base-form.vue';
@@ -19,6 +20,7 @@ export const components = {
   BaseHeading,
   BaseInput,
   BaseLabel,
+  BaseSelect,
   BaseTwoTabItem,
   BaseTwoTabs,
   BaseWrapper,
