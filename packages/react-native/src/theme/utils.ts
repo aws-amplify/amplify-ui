@@ -13,16 +13,22 @@ const mapValuesDeep = <T>(obj: T, callback: Function): T =>
     : (callback(obj) as T);
 
 /**
- * Function that will walk down the token object
- * and perform the mapValuesDeep function on each token.
  * The callback assumes that the reference tokens are surrounded by curly braces
  * TODO: refactor for increased robustness
  */
+const parseTokenValue = (tokens: Tokens, value: string) => {
+  return typeof value === 'string' &&
+    value.startsWith('{') &&
+    value.endsWith('}')
+    ? (get(tokens, value.substring(1, value.length - 2)) as string) // cast back to string to appease TS, as lodash get returns any
+    : value;
+};
+
+/**
+ * Function that will walk down the token object
+ * and perform the mapValuesDeep function on each token.
+ */
 export const setupTokens = (tokens: Tokens): Tokens =>
-  mapValuesDeep<Tokens>(tokens, (value: string) => {
-    return typeof value === 'string' &&
-      value.startsWith('{') &&
-      value.endsWith('}')
-      ? (get(tokens, value.substring(1, value.length - 2)) as string) // cast back to string to appease TS, as lodash get returns any
-      : value;
-  });
+  mapValuesDeep<Tokens>(tokens, (value: string) =>
+    parseTokenValue(tokens, value)
+  );

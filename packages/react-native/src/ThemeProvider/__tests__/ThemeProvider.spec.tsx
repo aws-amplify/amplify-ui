@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
 
-import { ThemeProvider } from '../index';
+import { ThemeProvider } from '../ThemeProvider';
 import { Label } from '../../primitives';
 
 const labelText = 'The answer is 42';

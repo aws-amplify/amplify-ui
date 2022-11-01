@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { renderHook } from '@testing-library/react-native';
-import { ThemeProvider } from '../../ThemeProvider';
+import { ThemeProvider } from '../../../ThemeProvider';
 
-import { createTheme } from '../../theme';
+import { createTheme } from '../..';
 import { useTheme } from '../useTheme';
 
 describe('useTheme', () => {
