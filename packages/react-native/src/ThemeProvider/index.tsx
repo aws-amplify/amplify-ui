@@ -1,22 +1,17 @@
 import * as React from 'react';
-import { ColorMode, createTheme, Theme } from '../theme';
+import { createTheme, Theme } from '../theme';
 import { ThemeContext } from './ThemeContext';
 
 interface ThemeProviderProps {
   children: React.ReactNode;
-  colorMode?: ColorMode;
   theme?: Theme;
 }
 
 export const ThemeProvider = ({
   children,
-  colorMode,
   theme,
 }: ThemeProviderProps): JSX.Element => {
-  const value = React.useMemo(
-    () => ({ theme: createTheme(theme, colorMode) }),
-    [theme, colorMode]
-  );
+  const value = React.useMemo(() => ({ theme: createTheme(theme) }), [theme]);
 
   return (
     <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
