@@ -59,17 +59,19 @@ jobs:
           ref: ${{ inputs.commit }}
           repository: ${{ inputs.repository }}
           persist-credentials: false
-      - name: Setup Node.js LTS
+      - name: Setup Node.js 16
         uses: actions/setup-node@v3
         with:
-          node-version: lts/*
+          node-version: 16
           cache: 'yarn'
       - name: Restore cypress runner from Cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: restore-cypress-cache
         with:
           path: ~/.cache/Cypress
           key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
       - name: Install packages
         uses: ./.github/actions/install-with-retries
         with:
@@ -80,17 +82,17 @@ jobs:
       - name: Cache cypress runner
         # create new cypress cache entry only if cypress cache missed and we installed a new one.
         if: steps.restore-cypress-cache.outputs.cache-hit != 'true'
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.cache/Cypress
           key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
       - name: Cache packages/ui/dist
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ./packages/ui/dist
           key: ${{ runner.os }}-ui-${{ inputs.commit }}
       - name: Cache node_modules
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             ./node_modules
@@ -114,33 +116,37 @@ jobs:
 
     steps:
       - name: Checkout Amplify UI
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           ref: ${{ inputs.commit }}
           repository: ${{ inputs.repository }}
           persist-credentials: false
 
-      - name: Setup Node.js LTS
+      - name: Setup Node.js 16
         uses: actions/setup-node@v3
         with:
-          node-version: lts/*
+          node-version: 16
           cache: 'yarn'
 
       - name: Restore node_modules cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: restore-cache
         with:
           path: |
             ./node_modules
             **/node_modules
           key: ${{ runner.os }}-nodemodules-${{ inputs.commit }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
 
       - name: Restore ui/dist cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: restore-ui-cache
         with:
           path: ./packages/ui/dist
           key: ${{ runner.os }}-ui-${{ inputs.commit }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
       - name: Install packages
         if: steps.restore-cache.outputs.cache-hit != 'true'
@@ -163,7 +169,7 @@ jobs:
         run: yarn react size
 
       - name: Cache ${{ matrix.package }}/dist
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ./packages/${{ matrix.package }}/dist
           key: ${{ runner.os }}-${{ matrix.package }}-${{ inputs.commit }}
@@ -202,7 +208,7 @@ jobs:
 
     steps:
       - name: Checkout Amplify UI
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           # For `pull_request_target`, we want ref to point to `pull_request.head.ref` because `github.ref`
           # always points to the target branch.
@@ -212,35 +218,41 @@ jobs:
           persist-credentials: false
 
       - name: Next.js Cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ${{ github.workspace }}/.next/cache
           key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
-      - name: Setup Node.js LTS
+      - name: Setup Node.js 16
         uses: actions/setup-node@v3
         with:
-          node-version: lts/*
+          node-version: 16
           cache: 'yarn'
 
       - name: Restore cypress runner Cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: restore-cypress-cache
         with:
           path: ~/.cache/Cypress
           key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
       - name: Restore node_modules cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: restore-cache
         with:
           path: |
             ./node_modules
             **/node_modules
           key: ${{ runner.os }}-nodemodules-${{ inputs.commit }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
 
       - name: Restore ui/dist cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: restore-ui-cache
         with:
           path: ./packages/ui/dist
@@ -248,10 +260,12 @@ jobs:
 
       - name: Restore ${{ matrix.package }}/dist cache
         id: restore-package-cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ./packages/${{ matrix.package }}/dist
           key: ${{ runner.os }}-${{ matrix.package }}-${{ inputs.commit }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
       - name: Install packages
         if: steps.restore-cache.outputs.cache-hit != 'true' || steps.restore-cypress-cache.outputs.cache-hit != 'true'
@@ -278,10 +292,12 @@ jobs:
 
       - name: Create or restore environments cache
         id: environments-cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: environments/**/aws-exports.js
           key: ${{ runner.os }}-environments-${{ steps.cli-version.outputs.version }}-${{ hashFiles('environments/**/amplify/**') }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
       # Pulling phone environments from original account,
       - name: Pull down Auth Phone AWS environments, on cache miss
@@ -339,24 +355,26 @@ jobs:
       NODE_ENV: test
     steps:
       - name: Checkout Amplify UI
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           ref: ${{ inputs.commit }}
           repository: ${{ inputs.repository }}
           persist-credentials: false
 
-      - name: Setup Node.js LTS
+      - name: Setup Node.js 16
         uses: actions/setup-node@v3
         with:
-          node-version: lts/*
+          node-version: 16
           cache: 'yarn'
 
       - name: Restore cypress runner Cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: restore-cypress-cache
         with:
           path: ~/.cache/Cypress
           key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
       - name: Install packages
         run: yarn install
