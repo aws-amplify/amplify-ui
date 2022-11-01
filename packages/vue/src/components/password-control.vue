@@ -21,7 +21,6 @@ interface PropsInterface {
 }
 
 const props = withDefaults(defineProps<PropsInterface>(), {
-  labelHidden: true,
   required: true,
 });
 
