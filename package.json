@@ -64,6 +64,8 @@
     "prism-react-renderer": "1.2.1",
     "shell-quote": "1.7.3",
     "**/@angular-devkit/build-angular/terser": "5.14.2",
+    "**/@angular-devkit/build-angular/minimatch": "3.0.5",
+    "**/serve/serve-handler/minimatch": "3.0.5",
     "trim": "^0.0.3",
     "vscode-vue-languageservice": "0.27.26",
     "ws": "^7.4.6"

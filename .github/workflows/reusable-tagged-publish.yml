@@ -23,10 +23,10 @@ jobs:
         run: exit 1
       - name: Checkout repo
         uses: actions/checkout@v3
-      - name: Setup Node.js LTS
+      - name: Setup Node.js 16
         uses: actions/setup-node@v3
         with:
-          node-version: lts/*
+          node-version: 16
           cache: 'yarn'
       - name: Install packages
         uses: ./.github/actions/install-with-retries
