@@ -9,12 +9,14 @@ import { Tokens } from './types';
  */
 const mapValuesDeep = <T>(obj: T, callback: Function): T =>
   typeof obj === 'object'
-    ? (mapValues(obj, (obj) => mapValuesDeep(obj, callback)) as T) // cast back to T to appease TS
+    ? (mapValues(obj, (x) => mapValuesDeep(x, callback)) as T) // cast back to T to appease TS
     : (callback(obj) as T);
 
 /**
  * Function that will walk down the token object
  * and perform the mapValuesDeep function on each token.
+ * The callback assumes that the reference tokens are surrounded by curly braces
+ * TODO: refactor for increased robustness
  */
 export const setupTokens = (tokens: Tokens): Tokens =>
   mapValuesDeep<Tokens>(tokens, (value: string) => {

@@ -44,6 +44,7 @@ export interface ComponentStyles {
  * to be used in Javascript/Typescript.
  */
 export interface StrictTheme extends Theme {
+  colorMode: ColorMode;
   tokens: Tokens;
 }
 

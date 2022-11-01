@@ -30,7 +30,7 @@ export const createTheme = (
   const tokens = setupTokens(mergedTheme.tokens);
 
   return {
-    colorMode,
+    colorMode: colorMode ?? 'system',
     name,
     tokens,
     // keep overrides separate from base theme
