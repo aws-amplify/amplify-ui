@@ -27,7 +27,7 @@ describe('Local Sitemap', () => {
 });
 
 describe(`All pages on Sitemap`, () => {
-  it.each(numberOfLinks)('all links on page %k should work', (_, i) => {
+  it.each(numberOfLinks)('all links on page %k should work', (i: string) => {
     const link = allLinks[i];
     cy.task('log', `🧪[TESTING...] page ${BASE_URL}/${link}`);
     cy.visit(link || '/');
