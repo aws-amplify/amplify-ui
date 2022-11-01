@@ -40,6 +40,9 @@ export default function AuthenticatorWithEmail() {
         username,
         password,
         attributes,
+        autoSignIn: {
+          enabled: true,
+        },
       });
     },
   };
@@ -49,8 +52,8 @@ export default function AuthenticatorWithEmail() {
       <View>{authStatus}</View>
       <Authenticator
         formFields={formFields}
-        services={services}
         initialState="signUp"
+        services={services}
       >
         {({ signOut }) => <button onClick={signOut}>Sign out</button>}
       </Authenticator>
