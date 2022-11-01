@@ -6,7 +6,7 @@ This backend is configured with Amplify Studio:
 
   - `Email` login mechanism
 
-    ![Screenshot of phone number configuration w/ SMS MFA required](screenshot-login.png)
+    ![Screenshot of phone number configuration w/ optional MFAs](screenshot-login.png)
 
   - `Email` and `Phone number` sign up attribute
 
