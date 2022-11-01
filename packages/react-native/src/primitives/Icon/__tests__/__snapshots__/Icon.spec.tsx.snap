@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Icon renders an animated icon 1`] = `
+<Image
+  collapsable={false}
+  source={
+    Object {
+      "uri": "mock.png",
+    }
+  }
+  style={
+    Object {
+      "height": undefined,
+      "resizeMode": "contain",
+      "tintColor": undefined,
+      "width": undefined,
+    }
+  }
+/>
+`;
+
+exports[`Icon renders as expected 1`] = `
+<Image
+  source={
+    Object {
+      "uri": "mock.png",
+    }
+  }
+  style={
+    Array [
+      Object {
+        "height": undefined,
+        "resizeMode": "contain",
+        "tintColor": undefined,
+        "width": undefined,
+      },
+      undefined,
+    ]
+  }
+/>
+`;
+
+exports[`Icon renders as expected with custom styles 1`] = `
+<Image
+  source={
+    Object {
+      "uri": "mock.png",
+    }
+  }
+  style={
+    Array [
+      Object {
+        "height": undefined,
+        "resizeMode": "contain",
+        "tintColor": undefined,
+        "width": undefined,
+      },
+      Object {
+        "tintColor": "red",
+      },
+    ]
+  }
+/>
+`;

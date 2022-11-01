@@ -3,7 +3,7 @@ import { Alert } from '@aws-amplify/ui-react';
 
 ## 3.x to 4.x
 ### Installation
-Install the 4.x version of the `@aws-amplify/ui-react` library.
+Install the 4.x version of the `@aws-amplify/ui-react` library and the 5.x version of the `aws-amplify` library.
 
 <Tabs>
 <TabItem title="npm">
@@ -79,9 +79,9 @@ Hopefully this change won't affect your code but will allow for more customizati
   The TextAreaField component does apply 1 style prop directly on the `textarea` element: `resize`. We felt this one makes sense to apply direclty on the the `textarea` element and not the wrapper element.
 </Alert>
 
-#### 5. Update the handleSignUp function override call
+#### 5. Automatic signin on signup logic moved to `aws-amplify`. 
 
-If you are overriding `Auth.signUp`, update the override function call to include the `autoSignIn` option set to enabled. If this change is not made, users will not be automatically signed in on signup.
+If you are overriding `Auth.signUp`, update the override function call to include the `autoSignIn` option set to `enabled`. If this change is not made, users will not be automatically signed in on signup.
 
 ```diff
  async handleSignUp(formData) {
@@ -101,27 +101,7 @@ If you are overriding `Auth.signUp`, update the override function call to includ
 
 ```
 
-#### 6. Update to the latest version of the `aws-amplify` library.
-
-Update to the latest version of the `aws-amplify` library. You will need at least version `^5`. 
-
-<Tabs>
-<TabItem title="npm">
-
-```shell
-npm install aws-amplify@latest
-```
-
-</TabItem>
-<TabItem title="yarn">
-```shell
-yarn add aws-amplify@latest
-```
-
-</TabItem>
-</Tabs>
-
-#### 7. Legacy i18n translation keys removed
+#### 6. Legacy i18n translation keys removed
 
 We replaced following legacy Authenticator texts:
 
@@ -236,8 +216,8 @@ sense of the changes please check out the [Headers and Footers](../connected-com
 
 #### Form Fields
 
-The latest version of the `Authenticator` has a different format for the `formFields` prop. It also no long accepts
-`inputProps` nor `hint`. Instead it's recommended that you use the [Headers and Footers Slots](../connected-components/authenticator/customization#headers--footers) or use the
+The latest version of the `Authenticator` has a different format for the `formFields` prop. It also no longer accepts
+`inputProps` nor `hint`. Instead, it's recommended that you use the [Headers and Footers Slots](../connected-components/authenticator/customization#headers--footers) or use the
 [Sign Up Fields customization](../connected-components/authenticator/customization#sign-up-fields). For more information on form field customizations
 please see the [Form Field Customization](../connected-components/authenticator/customization#form-field-customization) section.
 

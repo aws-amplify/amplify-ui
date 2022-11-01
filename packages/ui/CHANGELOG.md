@@ -1,5 +1,30 @@
 # @aws-amplify/ui
 
+## 4.0.1
+
+### Patch Changes
+
+- [#2751](https://github.com/aws-amplify/amplify-ui/pull/2751) [`05bb8c792`](https://github.com/aws-amplify/amplify-ui/commit/05bb8c79264e37c9d0592405f4a33e9a309de732) Thanks [@wlee221](https://github.com/wlee221)! - (Internal patch): Move `ComponentClassName` to `@aws-amplify/ui`
+
+- [#2637](https://github.com/aws-amplify/amplify-ui/pull/2637) [`5bd5e695a`](https://github.com/aws-amplify/amplify-ui/commit/5bd5e695a71e0cbef85a17f4ee1c851c84b4d51d) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Add error state for SwitchField.
+
+  ```jsx
+  <SwitchField
+    label="I agree to the terms and conditions"
+    labelPosition="end"
+    isChecked={isChecked}
+    hasError={hasError}
+    errorMessage="Please agree to the terms and conditions"
+    onChange={(e) => {
+      setIsChecked(e.target.checked);
+    }}
+  />
+  ```
+
+- [#2781](https://github.com/aws-amplify/amplify-ui/pull/2781) [`6aa1132e7`](https://github.com/aws-amplify/amplify-ui/commit/6aa1132e760eef892021dbadafa63456c1c3a39d) Thanks [@reesscot](https://github.com/reesscot)! - fix: ensure TextField, TextAreaField, StepperField show full width
+
+- [#2767](https://github.com/aws-amplify/amplify-ui/pull/2767) [`ea1ea36a6`](https://github.com/aws-amplify/amplify-ui/commit/ea1ea36a650bd6677c97556b8c1e85705cd37a35) Thanks [@reesscot](https://github.com/reesscot)! - fix: issue where custom theme via ThemeProvider cannot override default font
+
 ## 4.0.0
 
 ### Major Changes

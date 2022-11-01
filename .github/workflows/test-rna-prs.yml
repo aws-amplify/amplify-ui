@@ -47,8 +47,16 @@ jobs:
       commit: ${{ github.event.pull_request.head.sha }}
       repository: ${{ github.event.pull_request.head.repo.full_name }}
     secrets:
+      # TODO: migrate away from this account once tfn is migrated
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      # TODO: migrate away from this account once tfn is migrated
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_ACCESS_KEY_ID_AUTH: ${{ secrets.AWS_ACCESS_KEY_ID_AUTH }}
+      AWS_SECRET_ACCESS_KEY_AUTH: ${{ secrets.AWS_SECRET_ACCESS_KEY_AUTH }}
+      AWS_ACCESS_KEY_ID_DATASTORE: ${{ secrets.AWS_ACCESS_KEY_ID_DATASTORE }}
+      AWS_SECRET_ACCESS_KEY_DATASTORE: ${{ secrets.AWS_SECRET_ACCESS_KEY_DATASTORE }}
+      AWS_ACCESS_KEY_ID_GEO: ${{ secrets.AWS_ACCESS_KEY_ID_GEO }}
+      AWS_SECRET_ACCESS_KEY_GEO: ${{ secrets.AWS_SECRET_ACCESS_KEY_GEO }}
       DOMAIN: ${{ secrets.DOMAIN }}
       PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
       USERNAME: ${{ secrets.USERNAME }}
