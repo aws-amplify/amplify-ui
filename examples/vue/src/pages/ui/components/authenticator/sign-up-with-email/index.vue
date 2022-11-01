@@ -40,6 +40,9 @@ const services = {
       username,
       password,
       attributes,
+      autoSignIn: {
+        enabled: true,
+      },
     });
   },
 };

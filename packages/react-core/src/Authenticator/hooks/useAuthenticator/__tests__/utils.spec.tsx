@@ -66,7 +66,7 @@ describe('getComparator', () => {
 
     expect(
       comparator(
-        { route: 'autoSignIn' } as AuthenticatorServiceFacade,
+        { route: 'transition' } as AuthenticatorServiceFacade,
         { route: 'confirmSignIn' } as AuthenticatorServiceFacade
       )
     ).toBe(false);
