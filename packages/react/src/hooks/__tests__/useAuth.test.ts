@@ -3,11 +3,10 @@ import { Hub } from '@aws-amplify/core';
 import { act, renderHook } from '@testing-library/react-hooks';
 import { useAuth } from '../useAuth';
 
-const currentAuthenticatedUser = jest.fn();
-
-jest
-  .spyOn(Auth, 'currentAuthenticatedUser')
-  .mockImplementation(currentAuthenticatedUser);
+const currentAuthenticatedUserSpy = jest.spyOn(
+  Auth,
+  'currentAuthenticatedUser'
+);
 
 // hub events that return valid user object
 const SUCCESS_EVENTS_WITH_USER = ['signIn', 'signUp', 'autoSignIn'];
@@ -27,7 +26,7 @@ describe('useAuth', () => {
   afterEach(() => jest.clearAllMocks());
 
   it('should return default values when initialized', async () => {
-    currentAuthenticatedUser.mockResolvedValue(undefined);
+    currentAuthenticatedUserSpy.mockResolvedValue(undefined);
 
     const { result, waitForNextUpdate } = renderHook(() => useAuth());
 
@@ -39,17 +38,17 @@ describe('useAuth', () => {
   });
 
   it('should invoke Auth.currentAuthenticatedUser function', async () => {
-    currentAuthenticatedUser.mockResolvedValue(mockCognitoUser);
+    currentAuthenticatedUserSpy.mockResolvedValue(mockCognitoUser);
 
     const { waitForNextUpdate } = renderHook(() => useAuth());
 
     await waitForNextUpdate();
 
-    expect(currentAuthenticatedUser).toHaveBeenCalled();
+    expect(currentAuthenticatedUserSpy).toHaveBeenCalled();
   });
 
   it('should set an error when something unexpected happen', async () => {
-    currentAuthenticatedUser.mockRejectedValue(new Error('Unknown error'));
+    currentAuthenticatedUserSpy.mockRejectedValue(new Error('Unknown error'));
 
     const { result, waitForNextUpdate } = renderHook(() => useAuth());
 
@@ -59,7 +58,7 @@ describe('useAuth', () => {
   });
 
   it('should retrieve a Cognito user', async () => {
-    currentAuthenticatedUser.mockResolvedValue(mockCognitoUser);
+    currentAuthenticatedUserSpy.mockResolvedValue(mockCognitoUser);
 
     const { result, waitForNextUpdate } = renderHook(() => useAuth());
 
@@ -72,7 +71,7 @@ describe('useAuth', () => {
   it.each(SUCCESS_EVENTS_WITH_USER)(
     'should receive a Cognito user on %s Hub event',
     async () => {
-      currentAuthenticatedUser.mockResolvedValue(undefined);
+      currentAuthenticatedUserSpy.mockResolvedValue(undefined);
 
       const { result, waitForNextUpdate } = renderHook(() => useAuth());
 
@@ -90,7 +89,7 @@ describe('useAuth', () => {
   );
 
   it('should should unset user on Auth.signOut Hub event', async () => {
-    currentAuthenticatedUser.mockResolvedValue(mockCognitoUser);
+    currentAuthenticatedUserSpy.mockResolvedValue(mockCognitoUser);
 
     const { result, waitForNextUpdate } = renderHook(() => useAuth());
 
@@ -107,7 +106,7 @@ describe('useAuth', () => {
   });
 
   it('invokes Auth.currentAuthenticatedUser on tokenRefresh event', async () => {
-    currentAuthenticatedUser.mockResolvedValue(mockCognitoUser);
+    currentAuthenticatedUserSpy.mockResolvedValue(mockCognitoUser);
 
     const { waitForNextUpdate } = renderHook(() => useAuth());
     await waitForNextUpdate();
@@ -117,13 +116,13 @@ describe('useAuth', () => {
       Hub.dispatch('auth', { event: 'tokenRefresh' });
     });
 
-    expect(currentAuthenticatedUser).toHaveBeenCalled();
+    expect(currentAuthenticatedUserSpy).toHaveBeenCalled();
   });
 
   it.each(FAILURE_EVENTS_WITH_ERROR)(
     'returns error on %s event',
     async (event) => {
-      currentAuthenticatedUser.mockResolvedValue(mockCognitoUser);
+      currentAuthenticatedUserSpy.mockResolvedValue(mockCognitoUser);
 
       const { result, waitForNextUpdate } = renderHook(() => useAuth());
       await waitForNextUpdate();
@@ -141,7 +140,7 @@ describe('useAuth', () => {
   );
 
   it('returns error on autoSignIn_failure event', async () => {
-    currentAuthenticatedUser.mockResolvedValue(mockCognitoUser);
+    currentAuthenticatedUserSpy.mockResolvedValue(mockCognitoUser);
 
     const { result, waitForNextUpdate } = renderHook(() => useAuth());
     await waitForNextUpdate();
