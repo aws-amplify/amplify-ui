@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref, toRefs } from 'vue';
-import { translate } from '@aws-amplify/ui';
+import classNames from 'classnames';
+
+import { translate, ComponentClassName } from '@aws-amplify/ui';
 
 const showPassword = translate('Show password');
 const hidePassword = translate('Hide password');
@@ -54,34 +56,63 @@ export default {
 
 <template>
   <base-wrapper
-    class="amplify-flex amplify-field amplify-textfield amplify-passwordfield amplify-authenticator__column"
+    :class="
+      classNames(
+        ComponentClassName.Flex,
+        ComponentClassName.Field,
+        ComponentClassName.TextField,
+        ComponentClassName.PasswordField,
+        'amplify-authenticator__column'
+      )
+    "
   >
     <base-label
       class="amplify-label"
-      :class="{ 'amplify-visually-hidden': labelHidden ?? true }"
+      :class="classNames({ 'amplify-visually-hidden': labelHidden })"
       :for="'amplify-field-' + random"
     >
       {{ labelValue }}
     </base-label>
-    <base-wrapper class="amplify-flex amplify-field-group">
-      <base-input
-        v-bind="$attrs"
-        v-model="password"
-        class="amplify-input amplify-field-group__control"
-        :id="'amplify-field-' + random"
-        data-amplify-password="true"
-        :name="name"
-        :autocomplete="autocomplete"
-        :required="required ?? true"
-        :placeholder="placeholderValue"
-        :type="showHideType"
-        :aria-invalid="hasError"
-        :aria-describedBy="describedBy"
-      />
-      <base-wrapper class="amplify-field-group__outer-end">
+    <base-wrapper
+      :class="
+        classNames(ComponentClassName.Flex, ComponentClassName.FieldGroup)
+      "
+    >
+      <!-- FieldGroupFieldWrapper -->
+      <base-wrapper
+        :class="classNames(ComponentClassName.FieldGroupFieldWrapper)"
+      >
+        <base-input
+          v-bind="$attrs"
+          v-model="password"
+          :class="
+            classNames(
+              ComponentClassName.Input,
+              ComponentClassName.FieldGroupControl
+            )
+          "
+          :id="'amplify-field-' + random"
+          data-amplify-password="true"
+          :name="name"
+          :autocomplete="autocomplete"
+          :required="required ?? true"
+          :placeholder="placeholderValue"
+          :type="showHideType"
+          :aria-invalid="hasError"
+          :aria-describedBy="describedBy"
+        />
+      </base-wrapper>
+      <base-wrapper :class="ComponentClassName.FieldGroupOuterEnd">
+        <!-- class="amplify-button amplify-field-group__control amplify-field__show-password amplify-button--fullwidth" -->
         <button
           :aria-label="showHideLabel"
-          class="amplify-button amplify-field-group__control amplify-field__show-password amplify-button--fullwidth"
+          :class="
+            classNames(
+              ComponentClassName.Button,
+              ComponentClassName.FieldGroupControl,
+              ComponentClassName.FieldShowPassword
+            )
+          "
           data-fullwidth="false"
           type="button"
           @click="togglePasswordText"
