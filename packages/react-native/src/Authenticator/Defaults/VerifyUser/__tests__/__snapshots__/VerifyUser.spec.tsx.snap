@@ -37,7 +37,185 @@ Array [
           "flexDirection": "column",
         }
       }
-    />
+    >
+      <View
+        accessibilityRole="radio"
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+            },
+            undefined,
+          ]
+        }
+        type="radio"
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "borderColor": "#317d95",
+                "borderRadius": 999,
+                "borderWidth": 2,
+                "justifyContent": "center",
+              },
+              Object {
+                "height": 20,
+                "width": 20,
+              },
+              undefined,
+            ]
+          }
+        />
+        <Text
+          accessibilityRole="text"
+          style={
+            Array [
+              Object {
+                "fontSize": 16,
+                "marginHorizontal": 4,
+                "marginVertical": 2,
+              },
+              undefined,
+            ]
+          }
+        >
+          h***o@world.com
+        </Text>
+      </View>
+      <View
+        accessibilityRole="radio"
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+            },
+            undefined,
+          ]
+        }
+        type="radio"
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "borderColor": "#317d95",
+                "borderRadius": 999,
+                "borderWidth": 2,
+                "justifyContent": "center",
+              },
+              Object {
+                "height": 20,
+                "width": 20,
+              },
+              undefined,
+            ]
+          }
+        />
+        <Text
+          accessibilityRole="text"
+          style={
+            Array [
+              Object {
+                "fontSize": 16,
+                "marginHorizontal": 4,
+                "marginVertical": 2,
+              },
+              undefined,
+            ]
+          }
+        >
+          ***********0000
+        </Text>
+      </View>
+      <View
+        accessibilityRole="radio"
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+            },
+            undefined,
+          ]
+        }
+        type="radio"
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "borderColor": "#317d95",
+                "borderRadius": 999,
+                "borderWidth": 2,
+                "justifyContent": "center",
+              },
+              Object {
+                "height": 20,
+                "width": 20,
+              },
+              undefined,
+            ]
+          }
+        />
+        <Text
+          accessibilityRole="text"
+          style={
+            Array [
+              Object {
+                "fontSize": 16,
+                "marginHorizontal": 4,
+                "marginVertical": 2,
+              },
+              undefined,
+            ]
+          }
+        >
+          testValue
+        </Text>
+      </View>
+    </View>
   </View>,
   <View
     accessible={true}
@@ -158,7 +336,188 @@ Array [
           "flexDirection": "column",
         }
       }
-    />
+    >
+      <View
+        accessibilityRole="radio"
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "opacity": 0.6,
+            },
+            undefined,
+          ]
+        }
+        type="radio"
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "borderColor": "#317d95",
+                "borderRadius": 999,
+                "borderWidth": 2,
+                "justifyContent": "center",
+              },
+              Object {
+                "height": 20,
+                "width": 20,
+              },
+              undefined,
+            ]
+          }
+        />
+        <Text
+          accessibilityRole="text"
+          style={
+            Array [
+              Object {
+                "fontSize": 16,
+                "marginHorizontal": 4,
+                "marginVertical": 2,
+              },
+              undefined,
+            ]
+          }
+        >
+          h***o@world.com
+        </Text>
+      </View>
+      <View
+        accessibilityRole="radio"
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "opacity": 0.6,
+            },
+            undefined,
+          ]
+        }
+        type="radio"
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "borderColor": "#317d95",
+                "borderRadius": 999,
+                "borderWidth": 2,
+                "justifyContent": "center",
+              },
+              Object {
+                "height": 20,
+                "width": 20,
+              },
+              undefined,
+            ]
+          }
+        />
+        <Text
+          accessibilityRole="text"
+          style={
+            Array [
+              Object {
+                "fontSize": 16,
+                "marginHorizontal": 4,
+                "marginVertical": 2,
+              },
+              undefined,
+            ]
+          }
+        >
+          ***********0000
+        </Text>
+      </View>
+      <View
+        accessibilityRole="radio"
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "opacity": 0.6,
+            },
+            undefined,
+          ]
+        }
+        type="radio"
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "borderColor": "#317d95",
+                "borderRadius": 999,
+                "borderWidth": 2,
+                "justifyContent": "center",
+              },
+              Object {
+                "height": 20,
+                "width": 20,
+              },
+              undefined,
+            ]
+          }
+        />
+        <Text
+          accessibilityRole="text"
+          style={
+            Array [
+              Object {
+                "fontSize": 16,
+                "marginHorizontal": 4,
+                "marginVertical": 2,
+              },
+              undefined,
+            ]
+          }
+        >
+          testValue
+        </Text>
+      </View>
+    </View>
   </View>,
   <View
     accessible={true}
@@ -279,7 +638,185 @@ Array [
           "flexDirection": "column",
         }
       }
-    />
+    >
+      <View
+        accessibilityRole="radio"
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+            },
+            undefined,
+          ]
+        }
+        type="radio"
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "borderColor": "#317d95",
+                "borderRadius": 999,
+                "borderWidth": 2,
+                "justifyContent": "center",
+              },
+              Object {
+                "height": 20,
+                "width": 20,
+              },
+              undefined,
+            ]
+          }
+        />
+        <Text
+          accessibilityRole="text"
+          style={
+            Array [
+              Object {
+                "fontSize": 16,
+                "marginHorizontal": 4,
+                "marginVertical": 2,
+              },
+              undefined,
+            ]
+          }
+        >
+          h***o@world.com
+        </Text>
+      </View>
+      <View
+        accessibilityRole="radio"
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+            },
+            undefined,
+          ]
+        }
+        type="radio"
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "borderColor": "#317d95",
+                "borderRadius": 999,
+                "borderWidth": 2,
+                "justifyContent": "center",
+              },
+              Object {
+                "height": 20,
+                "width": 20,
+              },
+              undefined,
+            ]
+          }
+        />
+        <Text
+          accessibilityRole="text"
+          style={
+            Array [
+              Object {
+                "fontSize": 16,
+                "marginHorizontal": 4,
+                "marginVertical": 2,
+              },
+              undefined,
+            ]
+          }
+        >
+          ***********0000
+        </Text>
+      </View>
+      <View
+        accessibilityRole="radio"
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+            },
+            undefined,
+          ]
+        }
+        type="radio"
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "borderColor": "#317d95",
+                "borderRadius": 999,
+                "borderWidth": 2,
+                "justifyContent": "center",
+              },
+              Object {
+                "height": 20,
+                "width": 20,
+              },
+              undefined,
+            ]
+          }
+        />
+        <Text
+          accessibilityRole="text"
+          style={
+            Array [
+              Object {
+                "fontSize": 16,
+                "marginHorizontal": 4,
+                "marginVertical": 2,
+              },
+              undefined,
+            ]
+          }
+        >
+          testValue
+        </Text>
+      </View>
+    </View>
   </View>,
   <View
     accessibilityRole="alert"
