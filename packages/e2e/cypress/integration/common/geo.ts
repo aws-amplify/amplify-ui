@@ -16,6 +16,8 @@ When('I clear the search results', () => {
   cy.findByRole('textbox', {
     name: /search/i,
   }).trigger('mouseenter');
+  // Adding 'force' as the clear button is hidden until we hover on textbox,
+  // and the click action seems to happen before the hover thus failing the check for the clear button element.
   cy.findByRole('button', { name: 'Clear' }).click({ force: true });
 });
 
