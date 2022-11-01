@@ -15,7 +15,6 @@ This backend is configured with Amplify Admin UI:
 ## Using this Backend
 
 External contributors can re-create this backend by running:
-s
 
 ```shell
 amplify init
