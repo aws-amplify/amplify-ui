@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { createTheme, Theme } from '../theme';
+import { createTheme, StrictTheme } from '../theme';
 
 export interface ThemeContextType {
-  theme: Theme;
+  theme: StrictTheme;
 }
 
 export const ThemeContext = React.createContext<ThemeContextType>({
