@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-import { Flex } from '../Flex';
 import { HighlightMatch } from '../HighlightMatch/HighlightMatch';
 import { Loader } from '../Loader';
 import { AutocompleteOption } from './AutocompleteOption';
