@@ -52,14 +52,14 @@ jobs:
 
     steps:
       - name: Checkout Amplify UI
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           persist-credentials: false
 
-      - name: Setup Node.js LTS
+      - name: Setup Node.js 16
         uses: actions/setup-node@v3
         with:
-          node-version: lts/*
+          node-version: 16
           cache: 'yarn'
 
       - name: Restore cypress runner Cache
