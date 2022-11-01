@@ -25,11 +25,4 @@ export type AuthInterpreter = Interpreter<
  */
 export type AuthMachineSend = AuthInterpreter['send'];
 
-/**
- * Handles Amplify JS Auth hub events, by forwarding hub events as appropriate
- * xstate events.
- */
-export type AuthMachineHubHandler = (
-  data: HubCapsule,
-  service: AuthInterpreter
-) => Promise<void>;
+export type HubHandler = (data: HubCapsule, service: AuthInterpreter) => void;
