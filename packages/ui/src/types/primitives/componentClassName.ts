@@ -57,6 +57,7 @@ export enum ComponentClassName {
   Grid = 'amplify-grid',
   Heading = 'amplify-heading',
   HighlightMatch = 'amplify-highlightmatch',
+  HighlightMatchHighlighted = 'amplify-highlightmatch__highlighted',
   Icon = 'amplify-icon',
   Image = 'amplify-image',
   Input = 'amplify-input',

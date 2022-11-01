@@ -249,6 +249,12 @@ export const ComponentClassObject: ComponentClassNameItems = {
     components: ['HighlightMatch'],
     description: 'Top level element that wraps the HighlightMatch primitive',
   },
+  HighlightMatchHighlighted: {
+    className: ComponentClassName.HighlightMatchHighlighted,
+    components: ['HighlightMatch'],
+    description:
+      'Class applied to the highlighted text of the HighlightMatch primitive',
+  },
   Icon: {
     className: ComponentClassName.Icon,
     components: ['Icon'],
@@ -642,6 +648,8 @@ export const ComponentClassNames: ComponentClassNamesType = {
   Grid: ComponentClassObject.Grid.className,
   Heading: ComponentClassObject.Heading.className,
   HighlightMatch: ComponentClassObject.HighlightMatch.className,
+  HighlightMatchHighlighted:
+    ComponentClassObject.HighlightMatchHighlighted.className,
   Icon: ComponentClassObject.Icon.className,
   Image: ComponentClassObject.Image.className,
   Input: ComponentClassObject.Input.className,

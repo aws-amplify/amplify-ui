@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { ViewProps } from './view';
 
 export interface HighlightMatchProps extends ViewProps {
@@ -13,10 +12,4 @@ export interface HighlightMatchProps extends ViewProps {
    * A query string used to match against the label
    */
   query: string;
-
-  /**
-   * @description
-   * Used to define the styles for the highlighted part
-   */
-  highlightStyles?: React.CSSProperties;
 }

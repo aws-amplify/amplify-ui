@@ -104,6 +104,7 @@ type ComponentClassNameKey =
   | 'Grid'
   | 'Heading'
   | 'HighlightMatch'
+  | 'HighlightMatchHighlighted'
   | 'Icon'
   | 'Image'
   | 'Input'

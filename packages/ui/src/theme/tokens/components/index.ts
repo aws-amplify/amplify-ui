@@ -17,6 +17,7 @@ import { fieldgroup, FieldGroupTokens } from './fieldGroup';
 import { fieldmessages, FieldMessagesTokens } from './fieldMessages';
 import { flex, FlexTokens } from './flex';
 import { heading, HeadingTokens } from './heading';
+import { highlightmatch, HighlightMatchTokens } from './highlightMatch';
 import { icon, IconTokens } from './icon';
 import { image, ImageTokens } from './image';
 import { link, LinkTokens } from './link';
@@ -67,6 +68,7 @@ export interface ComponentTokens {
   flex: FlexTokens;
   heading: HeadingTokens;
   icon: IconTokens;
+  highlightmatch: HighlightMatchTokens;
   image: ImageTokens;
   link: LinkTokens;
   loader: LoaderTokens;
@@ -114,6 +116,7 @@ export const components: ComponentTokens = {
   flex,
   heading,
   icon,
+  highlightmatch,
   image,
   link,
   loader,

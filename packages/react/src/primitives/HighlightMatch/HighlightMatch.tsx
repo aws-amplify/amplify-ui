@@ -8,7 +8,7 @@ import { ComponentClassNames } from '../shared/constants';
 import type { HighlightMatchProps, Primitive } from '../types';
 
 export const HighlightMatchPrimitive: Primitive<HighlightMatchProps, 'span'> = (
-  { children, className, highlightStyles, query, testId, ...rest },
+  { children, className, query, testId, ...rest },
   ref
 ) => {
   const matchTestId = getTestId(testId, 'match');
@@ -26,7 +26,11 @@ export const HighlightMatchPrimitive: Primitive<HighlightMatchProps, 'span'> = (
         {...rest}
       >
         {children.substring(0, startIndex)}
-        <View as="strong" testId={matchTestId} style={highlightStyles}>
+        <View
+          as="strong"
+          className={ComponentClassNames.HighlightMatchHighlighted}
+          testId={matchTestId}
+        >
           {match}
         </View>
         {children.substring(startIndex + query.length)}

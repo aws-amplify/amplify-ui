@@ -8,6 +8,24 @@ import { getTestId } from '../../utils/testUtils';
 describe('HighlightMatch: ', () => {
   const testId = 'highlight-match-test-id';
   const query = 'query';
+
+  it('should render classname correctly', async () => {
+    const className = 'custom-classname';
+    render(
+      <HighlightMatch className={className} testId={testId} query={query}>
+        There is a query.
+      </HighlightMatch>
+    );
+
+    const highlightMatch = screen.queryByTestId(testId);
+    expect(highlightMatch).toHaveClass(
+      ComponentClassNames.HighlightMatch,
+      className
+    );
+    const match = screen.queryByTestId(getTestId(testId, 'match'));
+    expect(match).toHaveClass(ComponentClassNames.HighlightMatchHighlighted);
+  });
+
   it('should highlight matched substring in children', async () => {
     render(
       <HighlightMatch testId={testId} query={query}>
@@ -41,21 +59,6 @@ describe('HighlightMatch: ', () => {
 
     const match = screen.queryByTestId(getTestId(testId, 'match'));
     expect(match).toBeNull();
-  });
-
-  it('should be able set hightlight styles', async () => {
-    render(
-      <HighlightMatch
-        testId={testId}
-        query={query}
-        highlightStyles={{ backgroundColor: 'orange' }}
-      >
-        There is a query.
-      </HighlightMatch>
-    );
-
-    const match = screen.queryByTestId(getTestId(testId, 'match'));
-    expect(match).toHaveStyle('background-color: orange');
   });
 
   it('should forward ref to span DOM element', async () => {

@@ -439,6 +439,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-heading-line-height: var(--amplify-line-heights-small);
         --amplify-components-icon-line-height: 1;
         --amplify-components-icon-height: 1em;
+        --amplify-components-highlightmatch-highlighted-font-weight: var(--amplify-font-weights-bold);
         --amplify-components-image-max-width: 100%;
         --amplify-components-image-height: auto;
         --amplify-components-image-object-fit: initial;

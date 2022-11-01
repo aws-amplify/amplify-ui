@@ -19,7 +19,7 @@ export const AutocompleteCustomHeaderExample = () => (
     options={options}
     menuSlots={{
       Header: (
-        <View padding="0.25rem">
+        <View padding="xxxs">
           <View>Search results:</View>
           <Divider />
         </View>

@@ -19,7 +19,7 @@ export const AutocompleteCustomFooterExample = () => (
     options={options}
     menuSlots={{
       Footer: (
-        <View padding="0.25rem">
+        <View padding="xxxs">
           <Divider />
           <View>
             <Link>See more results...</Link>
