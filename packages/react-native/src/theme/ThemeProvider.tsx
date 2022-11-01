@@ -1,5 +1,7 @@
 import * as React from 'react';
-import { createTheme, Theme } from '../theme';
+
+import { createTheme } from './createTheme';
+import { Theme } from './types';
 import { ThemeContext } from './ThemeContext';
 
 interface ThemeProviderProps {

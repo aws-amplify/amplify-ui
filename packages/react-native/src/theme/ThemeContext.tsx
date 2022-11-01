@@ -1,5 +1,7 @@
 import * as React from 'react';
-import { createTheme, StrictTheme } from '../theme';
+
+import { createTheme } from './createTheme';
+import { StrictTheme } from './types';
 
 export interface ThemeContextType {
   theme: StrictTheme;

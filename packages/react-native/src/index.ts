@@ -4,5 +4,4 @@ export {
   useAuthenticator,
   UseAuthenticator,
 } from './Authenticator';
-export { ThemeProvider } from './ThemeProvider';
-export { Theme } from './theme';
+export { Theme, ThemeProvider } from './theme';
