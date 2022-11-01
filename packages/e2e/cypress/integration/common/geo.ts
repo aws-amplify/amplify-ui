@@ -16,7 +16,7 @@ When('I clear the search results', () => {
   cy.findByRole('textbox', {
     name: /search/i,
   }).trigger('mouseenter');
-  cy.findByRole('button', { name: 'Clear' }).click();
+  cy.findByRole('button', { name: 'Clear' }).click({ force: true });
 });
 
 When('I click on a map marker', () => {
