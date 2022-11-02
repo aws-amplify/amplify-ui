@@ -4,6 +4,17 @@ import { AuthChallengeName, CodeDeliveryDetails } from '@aws-amplify/ui';
 import { GetTotpSecretCode } from '@aws-amplify/ui-react-core/dist/types/Authenticator/hooks';
 import { Authenticator } from '@aws-amplify/ui-react-native';
 import noop from 'lodash/noop';
+import { getComponentSlots } from '../utils';
+
+const sharedProps = {
+  error: null as unknown as string,
+  handleBlur: noop,
+  handleChange: noop,
+  handleSubmit: (values: any) => {
+    console.log('Values', values);
+  },
+  isPending: false,
+};
 
 const code = {
   name: 'code',
@@ -26,66 +37,102 @@ const confirmPassword = {
   type: 'password' as const,
 };
 
-const fields = [code, newPassword, confirmPassword];
-
-const codeDeliveryDetails: CodeDeliveryDetails = {
-  AttributeName: 'email',
-  DeliveryMedium: 'EMAIL',
-  Destination: 'a***@e***.com',
+const confirmResetPasswordProps = {
+  ...sharedProps,
+  ...getComponentSlots(Authenticator.ConfirmResetPassword),
+  fields: [code, newPassword, confirmPassword],
+  resendCode: noop,
 };
 
-const props = {
-  error: null as unknown as string,
-
-  // the fields need to change for each screen
-  fields,
-
-  // these components need to change for each screen as well
-  Footer: Authenticator.ConfirmResetPassword.Footer,
-  FormFields: Authenticator.ConfirmResetPassword.FormFields,
-  Header: Authenticator.ConfirmResetPassword.Header,
-
-  handleBlur: noop,
-  handleChange: noop,
-  handleSubmit: (values: any) => {
-    console.log('Values', values);
-  },
-  isPending: false,
-
-  // ConfirmResetPassword
-  resendCode: noop,
-
-  // ConfirmSignIn
+const confirmSignInProps = {
+  ...sharedProps,
+  ...getComponentSlots(Authenticator.ConfirmSignIn),
+  fields: [code, newPassword, confirmPassword],
   challengeName: 'SMS_MFA' as AuthChallengeName,
   toSignIn: noop,
+};
 
-  // ConfirmSignUp
-  codeDeliveryDetails,
+const confirmSignUpProps = {
+  ...sharedProps,
+  ...getComponentSlots(Authenticator.ConfirmSignUp),
+  fields: [code],
+  codeDeliveryDetails: {
+    AttributeName: 'email',
+    DeliveryMedium: 'EMAIL',
+    Destination: 'a***@e***.com',
+  } as CodeDeliveryDetails,
+  resendCode: noop,
+};
 
-  // ConfirmVerifyUser
+const confirmVerifyUserProps = {
+  ...sharedProps,
+  ...getComponentSlots(Authenticator.ConfirmResetPassword),
+  fields: [code, newPassword, confirmPassword],
   skipVerification: noop,
+};
 
-  // SetupTOTP
+const forceNewPasswordProps = {
+  ...sharedProps,
+  ...getComponentSlots(Authenticator.ForceNewPassword),
+  fields: [code, newPassword, confirmPassword],
+  toSignIn: noop,
+};
+
+const resetPasswordProps = {
+  ...sharedProps,
+  ...getComponentSlots(Authenticator.ResetPassword),
+  fields: [code, newPassword, confirmPassword],
+  toSignIn: noop,
+};
+
+const setupTOTPProps = {
+  ...sharedProps,
+  ...getComponentSlots(Authenticator.SetupTOTP),
+  fields: [code, newPassword, confirmPassword],
   getTotpSecretCode: noop as GetTotpSecretCode,
+  toSignIn: noop,
+};
 
-  // SignIn
+const signInProps = {
+  ...sharedProps,
+  ...getComponentSlots(Authenticator.SignIn),
+  fields: [code, newPassword, confirmPassword],
   toFederatedSignIn: noop,
   toResetPassword: noop,
   toSignUp: noop,
 };
 
+const signUpProps = {
+  ...sharedProps,
+  ...getComponentSlots(Authenticator.SignUp),
+  fields: [code, newPassword, confirmPassword],
+  toFederatedSignIn: noop,
+  toSignIn: noop,
+};
+
+// maybe use the .addons feature to add different props?
+// e.g., to change the input field from text to phone number
+
 storiesOf('Authenticator', module)
   .add('ConfirmResetPassword', () => (
-    <Authenticator.ConfirmResetPassword {...props} />
+    <Authenticator.ConfirmResetPassword {...confirmResetPasswordProps} />
   ))
-  .add('ConfirmSignIn', () => <Authenticator.ConfirmSignIn {...props} />)
-  .add('ConfirmSignUp', () => <Authenticator.ConfirmSignUp {...props} />)
+  .add('ConfirmSignIn', () => (
+    <Authenticator.ConfirmSignIn {...confirmSignInProps} />
+  ))
+  .add('ConfirmSignUp', () => (
+    <Authenticator.ConfirmSignUp {...confirmSignUpProps} />
+  ))
   .add('ConfirmVerifyUser', () => (
-    <Authenticator.ConfirmVerifyUser {...props} />
+    <Authenticator.ConfirmVerifyUser {...confirmVerifyUserProps} />
   ))
-  .add('ForceNewPassword', () => <Authenticator.ForceNewPassword {...props} />)
-  .add('ResetPassword', () => <Authenticator.ResetPassword {...props} />)
-  .add('SetupTOTP', () => <Authenticator.SetupTOTP {...props} />)
-  .add('SignIn', () => <Authenticator.SignIn {...props} />)
-  .add('SignUp', () => <Authenticator.SignUp {...props} />);
+  .add('ForceNewPassword', () => (
+    <Authenticator.ForceNewPassword {...forceNewPasswordProps} />
+  ))
+  .add('ResetPassword', () => (
+    <Authenticator.ResetPassword {...resetPasswordProps} />
+  ))
+  .add('SetupTOTP', () => <Authenticator.SetupTOTP {...setupTOTPProps} />)
+  .add('SignIn', () => <Authenticator.SignIn {...signInProps} />)
+  .add('SignUp', () => <Authenticator.SignUp {...signUpProps} />);
 // .add('VerifyUser', () => <Authenticator.VerifyUser {...props} />);
