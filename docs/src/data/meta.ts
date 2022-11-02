@@ -1,18 +1,20 @@
-export interface MetaInfo {
-  [pathname: string]: {
-    frontmatter: {
-      title?: string;
-      description?: string;
-      metaTitle?: string;
-      metaDescription?: string;
-      mdnUrl?: string;
-      htmlElement?: string;
-      supportedFrameworks?: string;
-      slug?: string;
-    };
+export interface PathMeta {
+  frontmatter: {
+    title?: string;
+    description?: string;
+    metaTitle?: string;
+    metaDescription?: string;
+    mdnUrl?: string;
+    htmlElement?: string;
+    supportedFrameworks?: string;
     slug?: string;
-    href?: string;
   };
+  slug?: string;
+  href?: string;
+}
+
+export interface MetaInfo {
+  [pathname: string]: PathMeta;
 }
 
 export const META_INFO: MetaInfo = {
@@ -27,6 +29,16 @@ export const META_INFO: MetaInfo = {
     slug: '',
   },
   '/[platform]': {
+    frontmatter: {
+      metaTitle: 'Amplify UI - Build UI fast with Amplify',
+      metaDescription:
+        'Amplify UI simplifies building accessible, performant, and beautiful applications with cloud-connected capabilities, building blocks, theming, and utilities.',
+      supportedFrameworks: 'all',
+      slug: '[platform]',
+    },
+    slug: '[platform]',
+  },
+  '/[platform]/studio/create-form': {
     frontmatter: {
       metaTitle: 'Amplify UI - Build UI fast with Amplify',
       metaDescription:

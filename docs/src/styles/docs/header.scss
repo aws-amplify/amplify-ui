@@ -23,17 +23,10 @@
   gap: var(--amplify-space-small);
   background-color: var(--amplify-colors-background-primary);
 
-  @media (max-width: $breakpoint-large) {
-    border-bottom: var(--amplify-borders-secondary);
-    box-shadow: var(--amplify-shadows-small);
-  }
-
   transition: all var(--amplify-time-medium) ease;
 
-  .scrolled .docs-home & {
-    border-bottom: var(--amplify-borders-secondary);
-    box-shadow: var(--amplify-shadows-small);
-  }
+  border-bottom: var(--amplify-borders-secondary);
+  box-shadow: var(--amplify-shadows-small);
 }
 
 .docs-header > .docs-logo-link,

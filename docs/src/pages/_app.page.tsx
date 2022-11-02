@@ -25,6 +25,7 @@ import {
   RIGHT_NAV_LINKS,
   SOCIAL_LINKS,
 } from '@/data/globalnav';
+import { NavigationContext } from 'src/hooks/useNavigationContext';
 
 if (typeof window === 'undefined') {
   // suppress useLayoutEffect warnings when running outside a browser
@@ -46,6 +47,7 @@ if (typeof window === 'undefined') {
 
 function MyApp({ Component, pageProps }) {
   const [expanded, setExpanded] = React.useState(false);
+  const [alwaysCollapsible, setAlwaysCollapsible] = React.useState(false);
 
   const {
     pathname,
@@ -85,10 +87,12 @@ function MyApp({ Component, pageProps }) {
   }, [pathname]); // only track page visit if path has changed
 
   return (
-    <>
+    <NavigationContext.Provider
+      value={{ expanded, setExpanded, alwaysCollapsible, setAlwaysCollapsible }}
+    >
       <Head />
 
-      <div className={isHomepage ? `docs-home` : ''}>
+      <div className={isHomepage || alwaysCollapsible ? `docs-home` : ''}>
         <ThemeProvider theme={baseTheme} colorMode={colorMode}>
           {
             <GlobalNav
@@ -127,7 +131,7 @@ function MyApp({ Component, pageProps }) {
           <Script src="/scripts/shortbreadv2.js" />
         </>
       )}
-    </>
+    </NavigationContext.Provider>
   );
 }
 
