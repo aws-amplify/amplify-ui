@@ -1,8 +1,8 @@
 {
   "private": true,
-  "name": "environments-storage",
+  "name": "file-uploader",
   "version": "0.0.1",
   "scripts": {
-    "pull": "../pull-environments.sh -r us-east-2"
+    "pull": "amplify pull --appId d3ui6q2qgxk9xs --envName dev"
   }
 }
