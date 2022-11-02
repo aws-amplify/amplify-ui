@@ -131,11 +131,12 @@ const signUpProps = {
   toSignIn: noop,
 };
 
-// const verifyUserProps = {
-//   ...sharedProps,
-//   ...getComponentSlots(Authenticator.SignUp),
-//   fields: [username, password, confirmPassword, phone],
-// };
+const verifyUserProps = {
+  ...sharedProps,
+  ...getComponentSlots(Authenticator.VerifyUser),
+  fields: [],
+  skipVerification: noop,
+};
 
 // maybe use the .addons feature to add different props?
 // e.g., to change the input field from text to phone number
@@ -161,5 +162,5 @@ storiesOf('Authenticator', module)
   ))
   .add('SetupTOTP', () => <Authenticator.SetupTOTP {...setupTOTPProps} />)
   .add('SignIn', () => <Authenticator.SignIn {...signInProps} />)
-  .add('SignUp', () => <Authenticator.SignUp {...signUpProps} />);
-// .add('VerifyUser', () => <Authenticator.VerifyUser {...props} />);
+  .add('SignUp', () => <Authenticator.SignUp {...signUpProps} />)
+  .add('VerifyUser', () => <Authenticator.VerifyUser {...verifyUserProps} />);
