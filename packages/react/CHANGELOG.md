@@ -1,5 +1,49 @@
 # @aws-amplify/ui-react
 
+## 3.5.11
+
+### Patch Changes
+
+- [#2871](https://github.com/aws-amplify/amplify-ui/pull/2871) [`6f999c10f`](https://github.com/aws-amplify/amplify-ui/commit/6f999c10fc89ae7cce5d63b38bf4393aa6fd5670) Thanks [@sreeramsama](https://github.com/sreeramsama)! - chore: upgrade maplibre-gl-js-amplify to v2.1.0 to support getSuggestions and getPlace
+
+- [#2868](https://github.com/aws-amplify/amplify-ui/pull/2868) [`d8d24f107`](https://github.com/aws-amplify/amplify-ui/commit/d8d24f107229942afa0bb3065ee302b6c885caa3) Thanks [@david-mcafee](https://github.com/david-mcafee)! - fix(data): update usage of internal DataStore types
+
+## 3.5.10
+
+### Patch Changes
+
+- [#2751](https://github.com/aws-amplify/amplify-ui/pull/2751) [`05bb8c792`](https://github.com/aws-amplify/amplify-ui/commit/05bb8c79264e37c9d0592405f4a33e9a309de732) Thanks [@wlee221](https://github.com/wlee221)! - (Internal patch): Move `ComponentClassName` to `@aws-amplify/ui`
+
+- [#2637](https://github.com/aws-amplify/amplify-ui/pull/2637) [`5bd5e695a`](https://github.com/aws-amplify/amplify-ui/commit/5bd5e695a71e0cbef85a17f4ee1c851c84b4d51d) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Add error state for SwitchField.
+
+  ```jsx
+  <SwitchField
+    label="I agree to the terms and conditions"
+    labelPosition="end"
+    isChecked={isChecked}
+    hasError={hasError}
+    errorMessage="Please agree to the terms and conditions"
+    onChange={(e) => {
+      setIsChecked(e.target.checked);
+    }}
+  />
+  ```
+
+- [#2781](https://github.com/aws-amplify/amplify-ui/pull/2781) [`6aa1132e7`](https://github.com/aws-amplify/amplify-ui/commit/6aa1132e760eef892021dbadafa63456c1c3a39d) Thanks [@reesscot](https://github.com/reesscot)! - fix: ensure TextField, TextAreaField, StepperField show full width
+
+- Updated dependencies [[`05bb8c792`](https://github.com/aws-amplify/amplify-ui/commit/05bb8c79264e37c9d0592405f4a33e9a309de732), [`5bd5e695a`](https://github.com/aws-amplify/amplify-ui/commit/5bd5e695a71e0cbef85a17f4ee1c851c84b4d51d), [`6aa1132e7`](https://github.com/aws-amplify/amplify-ui/commit/6aa1132e760eef892021dbadafa63456c1c3a39d), [`ea1ea36a6`](https://github.com/aws-amplify/amplify-ui/commit/ea1ea36a650bd6677c97556b8c1e85705cd37a35)]:
+  - @aws-amplify/ui@4.0.1
+  - @aws-amplify/ui-react-core@1.0.4
+
+## 3.5.9
+
+### Patch Changes
+
+- [#2746](https://github.com/aws-amplify/amplify-ui/pull/2746) [`2893da04b`](https://github.com/aws-amplify/amplify-ui/commit/2893da04b4616efc342f6973169d03fef0113c7b) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui-react-core): add missing value to AuthenticatorRouteComponentKey
+
+- Updated dependencies [[`2893da04b`](https://github.com/aws-amplify/amplify-ui/commit/2893da04b4616efc342f6973169d03fef0113c7b)]:
+  - @aws-amplify/ui-react-core@1.0.3
+
 ## 3.5.8
 
 ### Patch Changes

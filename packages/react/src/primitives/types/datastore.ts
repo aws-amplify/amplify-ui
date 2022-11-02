@@ -1,13 +1,15 @@
 import {
+  IdentifierFieldOrIdentifierObject,
   PersistentModel,
   PersistentModelConstructor,
+  PersistentModelMetaData,
   ProducerModelPredicate,
   ProducerPaginationInput,
 } from '@aws-amplify/datastore';
 
 export type DataStoreItemProps<Model extends PersistentModel> = {
   model: PersistentModelConstructor<Model>;
-  id: string;
+  id: IdentifierFieldOrIdentifierObject<Model, PersistentModelMetaData<Model>>;
 };
 
 export type DataStoreCollectionProps<Model extends PersistentModel> = {
