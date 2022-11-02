@@ -1,4 +1,5 @@
 function loadStories() {
+  require('./stories/Authenticator.stories');
   require('./stories/Button.stories');
   require('./stories/Checkbox.stories');
   require('./stories/ConfirmResetPassword.stories');
@@ -26,6 +27,7 @@ function loadStories() {
 }
 
 const stories = [
+  './stories/Authenticator.stories',
   './stories/Button.stories',
   './stories/Checkbox.stories',
   './stories/ConfirmResetPassword.stories',
