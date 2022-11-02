@@ -4,7 +4,7 @@ import { AuthChallengeName, CodeDeliveryDetails } from '@aws-amplify/ui';
 import { GetTotpSecretCode } from '@aws-amplify/ui-react-core/dist/types/Authenticator/hooks';
 import { Authenticator } from '@aws-amplify/ui-react-native';
 import noop from 'lodash/noop';
-import { getComponentSlots } from '../utils';
+import { getComponentFields, getComponentSlots } from '../utils';
 
 const sharedProps = {
   error: null as unknown as string,
@@ -16,67 +16,25 @@ const sharedProps = {
   isPending: false,
 };
 
-const code = {
-  name: 'code',
-  label: 'Code',
-  placeholder: 'Code',
-  type: 'default' as const,
-};
-
-const password = {
-  name: 'password',
-  label: 'Password',
-  placeholder: 'Password',
-  type: 'password' as const,
-};
-
-const newPassword = {
-  name: 'newPassword',
-  label: 'New Password',
-  placeholder: 'New Password',
-  type: 'password' as const,
-};
-
-const confirmPassword = {
-  name: 'confirmPassword',
-  label: 'Confirm Password',
-  placeholder: 'Confirm Password',
-  type: 'password' as const,
-};
-
-const username = {
-  name: 'username',
-  label: 'Username',
-  placeholder: 'Username',
-  type: 'default' as const,
-};
-
-const phone = {
-  name: 'phone',
-  label: 'Phone',
-  placeholder: 'Phone',
-  type: 'phone' as const,
-};
-
 const confirmResetPasswordProps = {
   ...sharedProps,
+  ...getComponentFields(['code', 'newPassword', 'confirmPassword']),
   ...getComponentSlots(Authenticator.ConfirmResetPassword),
-  fields: [code, newPassword, confirmPassword],
   resendCode: noop,
 };
 
 const confirmSignInProps = {
   ...sharedProps,
+  ...getComponentFields(['code']),
   ...getComponentSlots(Authenticator.ConfirmSignIn),
-  fields: [code],
   challengeName: 'SMS_MFA' as AuthChallengeName,
   toSignIn: noop,
 };
 
 const confirmSignUpProps = {
   ...sharedProps,
+  ...getComponentFields(['code']),
   ...getComponentSlots(Authenticator.ConfirmSignUp),
-  fields: [code],
   codeDeliveryDetails: {
     AttributeName: 'email',
     DeliveryMedium: 'EMAIL',
@@ -87,37 +45,37 @@ const confirmSignUpProps = {
 
 const confirmVerifyUserProps = {
   ...sharedProps,
+  ...getComponentFields(['username']),
   ...getComponentSlots(Authenticator.ConfirmResetPassword),
-  fields: [username],
   skipVerification: noop,
 };
 
 const forceNewPasswordProps = {
   ...sharedProps,
+  ...getComponentFields(['newPassword', 'confirmPassword']),
   ...getComponentSlots(Authenticator.ForceNewPassword),
-  fields: [newPassword, confirmPassword],
   toSignIn: noop,
 };
 
 const resetPasswordProps = {
   ...sharedProps,
+  ...getComponentFields(['username']),
   ...getComponentSlots(Authenticator.ResetPassword),
-  fields: [username],
   toSignIn: noop,
 };
 
 const setupTOTPProps = {
   ...sharedProps,
+  ...getComponentFields(['code']),
   ...getComponentSlots(Authenticator.SetupTOTP),
-  fields: [code],
   getTotpSecretCode: noop as GetTotpSecretCode,
   toSignIn: noop,
 };
 
 const signInProps = {
   ...sharedProps,
+  ...getComponentFields(['username', 'password']),
   ...getComponentSlots(Authenticator.SignIn),
-  fields: [username, password],
   toFederatedSignIn: noop,
   toResetPassword: noop,
   toSignUp: noop,
@@ -125,8 +83,8 @@ const signInProps = {
 
 const signUpProps = {
   ...sharedProps,
+  ...getComponentFields(['username', 'password', 'confirmPassword', 'phone']),
   ...getComponentSlots(Authenticator.SignUp),
-  fields: [username, password, confirmPassword, phone],
   toFederatedSignIn: noop,
   toSignIn: noop,
 };
