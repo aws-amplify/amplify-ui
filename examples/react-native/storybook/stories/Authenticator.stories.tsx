@@ -4,6 +4,7 @@ import { AuthChallengeName, CodeDeliveryDetails } from '@aws-amplify/ui';
 import { GetTotpSecretCode } from '@aws-amplify/ui-react-core/dist/types/Authenticator/hooks';
 import { Authenticator } from '@aws-amplify/ui-react-native';
 import noop from 'lodash/noop';
+import { InnerContainer } from '../ui';
 import { getComponentFields, getComponentSlots } from '../utils';
 
 const sharedProps = {
@@ -96,10 +97,12 @@ const verifyUserProps = {
   skipVerification: noop,
 };
 
-// maybe use the .addons feature to add different props?
-// e.g., to change the input field from text to phone number
-
 storiesOf('Authenticator', module)
+  .addDecorator((Story: any) => (
+    <InnerContainer>
+      <Story />
+    </InnerContainer>
+  ))
   .add('ConfirmResetPassword', () => (
     <Authenticator.ConfirmResetPassword {...confirmResetPasswordProps} />
   ))
