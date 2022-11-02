@@ -23,6 +23,13 @@ const code = {
   type: 'default' as const,
 };
 
+const password = {
+  name: 'password',
+  label: 'Password',
+  placeholder: 'Password',
+  type: 'password' as const,
+};
+
 const newPassword = {
   name: 'newPassword',
   label: 'New Password',
@@ -37,6 +44,20 @@ const confirmPassword = {
   type: 'password' as const,
 };
 
+const username = {
+  name: 'username',
+  label: 'Username',
+  placeholder: 'Username',
+  type: 'default' as const,
+};
+
+const phone = {
+  name: 'phone',
+  label: 'Phone',
+  placeholder: 'Phone',
+  type: 'phone' as const,
+};
+
 const confirmResetPasswordProps = {
   ...sharedProps,
   ...getComponentSlots(Authenticator.ConfirmResetPassword),
@@ -47,7 +68,7 @@ const confirmResetPasswordProps = {
 const confirmSignInProps = {
   ...sharedProps,
   ...getComponentSlots(Authenticator.ConfirmSignIn),
-  fields: [code, newPassword, confirmPassword],
+  fields: [code],
   challengeName: 'SMS_MFA' as AuthChallengeName,
   toSignIn: noop,
 };
@@ -67,28 +88,28 @@ const confirmSignUpProps = {
 const confirmVerifyUserProps = {
   ...sharedProps,
   ...getComponentSlots(Authenticator.ConfirmResetPassword),
-  fields: [code, newPassword, confirmPassword],
+  fields: [username],
   skipVerification: noop,
 };
 
 const forceNewPasswordProps = {
   ...sharedProps,
   ...getComponentSlots(Authenticator.ForceNewPassword),
-  fields: [code, newPassword, confirmPassword],
+  fields: [newPassword, confirmPassword],
   toSignIn: noop,
 };
 
 const resetPasswordProps = {
   ...sharedProps,
   ...getComponentSlots(Authenticator.ResetPassword),
-  fields: [code, newPassword, confirmPassword],
+  fields: [username],
   toSignIn: noop,
 };
 
 const setupTOTPProps = {
   ...sharedProps,
   ...getComponentSlots(Authenticator.SetupTOTP),
-  fields: [code, newPassword, confirmPassword],
+  fields: [code],
   getTotpSecretCode: noop as GetTotpSecretCode,
   toSignIn: noop,
 };
@@ -96,7 +117,7 @@ const setupTOTPProps = {
 const signInProps = {
   ...sharedProps,
   ...getComponentSlots(Authenticator.SignIn),
-  fields: [code, newPassword, confirmPassword],
+  fields: [username, password],
   toFederatedSignIn: noop,
   toResetPassword: noop,
   toSignUp: noop,
@@ -105,10 +126,16 @@ const signInProps = {
 const signUpProps = {
   ...sharedProps,
   ...getComponentSlots(Authenticator.SignUp),
-  fields: [code, newPassword, confirmPassword],
+  fields: [username, password, confirmPassword, phone],
   toFederatedSignIn: noop,
   toSignIn: noop,
 };
+
+// const verifyUserProps = {
+//   ...sharedProps,
+//   ...getComponentSlots(Authenticator.SignUp),
+//   fields: [username, password, confirmPassword, phone],
+// };
 
 // maybe use the .addons feature to add different props?
 // e.g., to change the input field from text to phone number
