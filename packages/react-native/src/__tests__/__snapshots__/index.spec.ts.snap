@@ -4,6 +4,8 @@ exports[`@aws-amplify/ui-react-native exports should match snapshot 1`] = `
 Array [
   "Authenticator",
   "AuthenticatorProps",
+  "Theme",
+  "ThemeProvider",
   "UseAuthenticator",
   "useAuthenticator",
 ]
