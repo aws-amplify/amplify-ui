@@ -17,7 +17,7 @@ export const itDict: AuthenticatorDictionary = {
   'Create a new account': 'Crea un nuovo account',
   'Create Account': 'Crea Account',
   'Creating Account': 'Creazione account in corso',
-  'Dismiss alert': `Licenziare l'allerta`,
+  'Dismiss alert': `Ignora l'avviso`,
   Email: 'Email',
   'Enter your code': 'Inserisci il tuo codice',
   'Enter your email': 'Inserisci la tua e-mail',
@@ -29,7 +29,7 @@ export const itDict: AuthenticatorDictionary = {
   'New password': 'Nuova password',
   Password: 'Password',
   'Phone Number': 'Numero di telefono',
-  'Resend Code': 'Rispedisci codice',
+  'Resend Code': 'Invia nuovamente il codice',
   'Reset your Password': 'Reimposta la tua Password',
   'Reset your password': 'Reimposta la tua password',
   'Send code': 'Invia codice',
@@ -42,8 +42,8 @@ export const itDict: AuthenticatorDictionary = {
   'Sign In with Apple': 'Accedi con Apple',
   'Sign In with Facebook': 'Accedi con Facebook',
   'Sign In with Google': 'Accedi con Google',
-  'Sign in': 'Accesso',
-  'Sign In': 'Accesso',
+  'Sign in': 'Accedi',
+  'Sign In': 'Accedi',
   'Signing in': 'Accesso in corso',
   Skip: 'Salta',
   Submit: 'Invia',
@@ -54,7 +54,7 @@ export const itDict: AuthenticatorDictionary = {
 
   // Additional translations provided by customers
   'An account with the given email already exists.':
-    "Questa email è già utilizzata da un'altro account.",
+    "Questa email è già utilizzata da un altro account.",
   'Confirm a Code': 'Conferma un codice',
   'Confirm Sign In': "Conferma l'accesso",
   'Create account': 'Crea account',

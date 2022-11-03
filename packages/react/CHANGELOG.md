@@ -1,5 +1,13 @@
 # @aws-amplify/ui-react
 
+## 3.5.11
+
+### Patch Changes
+
+- [#2871](https://github.com/aws-amplify/amplify-ui/pull/2871) [`6f999c10f`](https://github.com/aws-amplify/amplify-ui/commit/6f999c10fc89ae7cce5d63b38bf4393aa6fd5670) Thanks [@sreeramsama](https://github.com/sreeramsama)! - chore: upgrade maplibre-gl-js-amplify to v2.1.0 to support getSuggestions and getPlace
+
+- [#2868](https://github.com/aws-amplify/amplify-ui/pull/2868) [`d8d24f107`](https://github.com/aws-amplify/amplify-ui/commit/d8d24f107229942afa0bb3065ee302b6c885caa3) Thanks [@david-mcafee](https://github.com/david-mcafee)! - fix(data): update usage of internal DataStore types
+
 ## 3.5.10
 
 ### Patch Changes
