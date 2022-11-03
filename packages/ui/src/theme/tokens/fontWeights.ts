@@ -20,6 +20,10 @@ export type WebFontWeights = {
   [Property in keyof FontWeights]: WebDesignToken<FontWeightValue>;
 };
 
+export type ReactNativeFontWeights = {
+  [Property in keyof FontWeights]: string;
+};
+
 export const fontWeights: FontWeights = {
   hairline: { value: 100 },
   thin: { value: 200 },

@@ -19,6 +19,10 @@ export type WebOpacities = {
   [Property in keyof Opacities]: WebDesignToken<OpacityValue>;
 };
 
+export type ReactNativeOpacities = {
+  [Property in keyof Opacities]: number;
+};
+
 export const opacities: Opacities = {
   0: {
     value: '0',

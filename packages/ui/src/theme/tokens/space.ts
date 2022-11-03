@@ -27,6 +27,10 @@ export type WebSpace = {
   };
 };
 
+export type ReactNativeSpace = {
+  [Property in keyof Omit<Space, 'zero' | 'xxxs' | 'relative'>]: number;
+};
+
 export const space: Space = {
   zero: { value: '0' },
   xxxs: { value: '0.25rem' },
