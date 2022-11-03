@@ -9,6 +9,7 @@ Array [
   "Button",
   "ButtonGroup",
   "Card",
+  "ChangePassword",
   "CheckboxField",
   "Collection",
   "ComponentClassNames",
