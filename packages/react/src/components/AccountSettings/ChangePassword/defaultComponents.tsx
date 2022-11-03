@@ -16,18 +16,17 @@ export const DefaultNewPassword: AccountSettingsPasswordField = (props) => {
   return <PasswordField {...props} />;
 };
 
-export const DefaultSubmitButton: AccountSettingsSubmitButton = (props) => {
-  const { children, ...rest } = props;
+export const DefaultSubmitButton: AccountSettingsSubmitButton = ({
+  children,
+  ...rest
+}) => {
   return <Button {...rest}>{children}</Button>;
 };
 
-export const DefaultError: AccountSettingsError = (props) => {
-  const { errorMessage, ...rest } = props;
-
-  if (!errorMessage) return null;
+export const DefaultError: AccountSettingsError = ({ children, ...rest }) => {
   return (
     <Alert variation="error" {...rest}>
-      {errorMessage}
+      {children}
     </Alert>
   );
 };

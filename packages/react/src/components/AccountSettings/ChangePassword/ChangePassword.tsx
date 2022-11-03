@@ -87,7 +87,7 @@ function ChangePassword({
         <DefaultSubmitButton type="submit">
           {updatePasswordText}
         </DefaultSubmitButton>
-        <DefaultError errorMessage={errorMessage} />
+        {errorMessage ? <DefaultError>{errorMessage}</DefaultError> : null}
       </Flex>
     </View>
   );

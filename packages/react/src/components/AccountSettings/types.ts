@@ -27,12 +27,8 @@ export type AccountSettingsSubmitButton<Props = {}> = React.ComponentType<
   Props & CommonButtonProps
 >;
 
-/**
- * Error component displays error from Cognito. Gets `errorMessage` as props
- * so that any overrides can parse / modify the error message.
- */
 export type AccountSettingsError<Props = {}> = React.ComponentType<
-  Props & CommonAlertProps & { errorMessage: string }
+  Props & CommonAlertProps
 >;
 
 /** Form specific types */
