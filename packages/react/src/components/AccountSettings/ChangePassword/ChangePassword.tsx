@@ -4,7 +4,7 @@ import { Logger } from 'aws-amplify';
 import { changePassword } from '@aws-amplify/ui';
 
 import { useAuth } from '../../../internal';
-import { Flex } from '../../../primitives';
+import { View, Flex } from '../../../primitives';
 import {
   DefaultCurrentPassword,
   DefaultError,
@@ -21,7 +21,7 @@ const ChangePassword: React.ComponentType<ChangePasswordProps> = (props) => {
   const [error, setError] = React.useState<string>(null);
   const [formValues, setFormValues] = React.useState<FormValues>({});
 
-  const { user } = useAuth();
+  const { user, isLoading: isAuthUserLoading } = useAuth();
 
   /** Auth API Handler */
   const handleChangePassword = React.useCallback(async () => {
@@ -29,12 +29,16 @@ const ChangePassword: React.ComponentType<ChangePasswordProps> = (props) => {
     try {
       await changePassword({ user, currentPassword, newPassword });
 
-      onSuccess(); // notify success to the parent
+      if (onSuccess) {
+        onSuccess(); // notify success to the parent
+      }
     } catch (e) {
       const error = e as Error;
       setError(error.message);
 
-      onError(error); // notify error to the parent
+      if (onError) {
+        onError(error); // notify error to the parent
+      }
     }
   }, [formValues, user, onSuccess, onError]);
 
@@ -50,12 +54,17 @@ const ChangePassword: React.ComponentType<ChangePasswordProps> = (props) => {
   );
 
   const handleSubmit = React.useCallback(
-    (event: React.FormEvent<HTMLButtonElement>) => {
+    (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       handleChangePassword();
     },
     [handleChangePassword]
   );
+
+  // return null if Auth.getCurrentAuthenticatedUser is still in progress
+  if (isAuthUserLoading) {
+    return null;
+  }
 
   if (!user) {
     logger.warn('<ChangePassword /> requires user to be authenticated.');
@@ -63,12 +72,14 @@ const ChangePassword: React.ComponentType<ChangePasswordProps> = (props) => {
   }
 
   return (
-    <Flex as="form" className="amplify-changepassword" direction="column">
-      <DefaultCurrentPassword onChange={handleChange} />
-      <DefaultNewPassword onChange={handleChange} />
-      <DefaultSubmitButton onSubmit={handleSubmit} />
-      <DefaultError errorMessage={error} />
-    </Flex>
+    <View as="form" className="amplify-changepassword" onSubmit={handleSubmit}>
+      <Flex direction="column">
+        <DefaultCurrentPassword onChange={handleChange} />
+        <DefaultNewPassword onChange={handleChange} />
+        <DefaultSubmitButton />
+        <DefaultError errorMessage={error} />
+      </Flex>
+    </View>
   );
 };
 

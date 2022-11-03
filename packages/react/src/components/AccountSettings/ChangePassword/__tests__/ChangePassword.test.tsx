@@ -9,6 +9,7 @@ const user = {} as unknown as UIModule.AmplifyUser;
 jest.mock('../../../../internal', () => ({
   useAuth: () => ({
     user,
+    isLoading: false,
   }),
 }));
 
