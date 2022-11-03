@@ -214,72 +214,70 @@ export function FileUploader({
   };
 
   const onFileCancel = (index: number) => {
-    if (isLoading) {
-      // if downloading use uploadTask and stop download
-      Storage.cancel(fileStatuses[index]?.uploadTask);
-      setLoading(false);
-    }
-    const updatedFiles = files.filter((_, i) => i !== index);
-    const updatedFileStatuses = fileStatuses.filter((_, i) => i !== index);
-    const updateAllFileNames = allFileNames.filter((_, i) => i !== index);
-    setFileSizeErrors(updatedFiles, updatedFileStatuses);
-    setFiles(updatedFiles);
-    setAllFileNames(updateAllFileNames);
+    return () => {
+      if (isLoading) {
+        // if downloading use uploadTask and stop download
+        Storage.cancel(fileStatuses[index]?.uploadTask);
+        setLoading(false);
+      }
+      const updatedFiles = files.filter((_, i) => i !== index);
+      const updatedFileStatuses = fileStatuses.filter((_, i) => i !== index);
+      const updateAllFileNames = allFileNames.filter((_, i) => i !== index);
+      setFileSizeErrors(updatedFiles, updatedFileStatuses);
+      setFiles(updatedFiles);
+      setAllFileNames(updateAllFileNames);
+    };
   };
 
-  const onNameChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    index: number
-  ) => {
-    const names = [...allFileNames];
-    const name = event.target.value;
-    names[index] = name;
-    setAllFileNames(names);
+  const onNameChange = (index: number) => {
+    return (event: React.ChangeEvent<HTMLInputElement>) => {
+      const names = [...allFileNames];
+      const name = event.target.value;
+      names[index] = name;
+      setAllFileNames(names);
+    };
   };
 
   // Tracker methods
 
-  const onSaveEdit = (
-    _: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    index: number
-  ) => {
-    const fileName = allFileNames[index];
-    // no empty file names
-    if (fileName.trim().length === 0) return;
-    const [extension] = fileName.split('.').reverse();
-    const validExtension = acceptedFileTypes.includes('.' + extension);
-    const statuses = [...fileStatuses];
-    const status = fileStatuses[index];
-    statuses[index] = {
-      ...status,
-      error: !validExtension,
-      fileErrors: validExtension ? null : translate('Extension not allowed'),
+  const onSaveEdit = (index: number) => {
+    return (_: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      const fileName = allFileNames[index];
+      // no empty file names
+      if (fileName.trim().length === 0) return;
+      const [extension] = fileName.split('.').reverse();
+      const validExtension = acceptedFileTypes.includes('.' + extension);
+      const statuses = [...fileStatuses];
+      const status = fileStatuses[index];
+      statuses[index] = {
+        ...status,
+        error: !validExtension,
+        fileErrors: validExtension ? null : translate('Extension not allowed'),
+      };
+
+      setFileStatuses(statuses);
+      const names = [...isEditingName];
+      names[index] = false;
+      setisEditingName(names);
     };
-
-    setFileStatuses(statuses);
-    const names = [...isEditingName];
-    names[index] = false;
-    setisEditingName(names);
   };
 
-  const onCancelEdit = (
-    _: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    index: number
-  ) => {
-    const fileName = allFileNames[index];
-    if (fileName.trim().length === 0) return;
-    const names = [...isEditingName];
-    names[index] = false;
-    setisEditingName(names);
+  const onCancelEdit = (index: number) => {
+    return (_: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      const fileName = allFileNames[index];
+      if (fileName.trim().length === 0) return;
+      const names = [...isEditingName];
+      names[index] = false;
+      setisEditingName(names);
+    };
   };
 
-  const onStartEdit = (
-    _: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    index: number
-  ) => {
-    const names = [...isEditingName];
-    names[index] = true;
-    setisEditingName(names);
+  const onStartEdit = (index: number) => {
+    return (_: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      const names = [...isEditingName];
+      names[index] = true;
+      setisEditingName(names);
+    };
   };
 
   const CommonProps = {
@@ -317,8 +315,8 @@ export function FileUploader({
             hasImage={file?.type.startsWith('image/')}
             url={URL.createObjectURL(file)}
             key={index}
-            onChange={(e): void => onNameChange(e, index)}
-            onCancel={() => onFileCancel(index)}
+            onChange={onNameChange(index)}
+            onCancel={onFileCancel(index)}
             onPause={onPause(index)}
             onResume={onResume(index)}
             onDelete={onDelete}
@@ -329,9 +327,9 @@ export function FileUploader({
             isSuccess={fileStatuses[index]?.success}
             isPaused={fileStatuses[index]?.paused}
             isEditing={isEditingName[index]}
-            onSaveEdit={(e): void => onSaveEdit(e, index)}
-            onCancelEdit={(e): void => onCancelEdit(e, index)}
-            onStartEdit={(e): void => onStartEdit(e, index)}
+            onSaveEdit={onSaveEdit(index)}
+            onCancelEdit={onCancelEdit(index)}
+            onStartEdit={onStartEdit(index)}
           />
         ))}
       </Previewer>
