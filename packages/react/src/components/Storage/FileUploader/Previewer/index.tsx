@@ -35,7 +35,7 @@ export function Previewer({
 }: PreviewerProps): JSX.Element {
   const headingMaxFiles = translate('Over Max files!');
   const uploadedFilesLength = () =>
-    fileStatuses.filter((file) => file?.success).length;
+    fileStatuses.filter((file) => file?.fileState === 'success').length;
 
   const remainingFilesLength = fileStatuses.length - uploadedFilesLength();
   return (
@@ -89,7 +89,9 @@ export function Previewer({
               <View>
                 <Button
                   disabled={
-                    fileStatuses.some((status) => status?.error) ||
+                    fileStatuses.some(
+                      (status) => status?.fileState === 'error'
+                    ) ||
                     isEditingName.some((edit) => edit) ||
                     remainingFilesLength === 0 ||
                     maxFilesError

@@ -83,8 +83,8 @@ export function FileUploader({
       const status = fileStatusesRef.current[index];
       fileStatusesRef.current[index] =
         percentage !== 100
-          ? { ...status, percentage, loading: true }
-          : { ...status, percentage, loading: false, success: true };
+          ? { ...status, percentage, fileState: null, isLoading: true }
+          : { ...status, percentage, fileState: 'success' };
       const addPercentage = [...fileStatusesRef.current];
       setFileStatuses(addPercentage);
     };
@@ -95,9 +95,7 @@ export function FileUploader({
       const status = fileStatusesRef.current[index];
       fileStatusesRef.current[index] = {
         ...status,
-        error: true,
-        loading: false,
-        success: false,
+        fileState: 'error',
         fileErrors: translate(err.toString()),
       };
 
@@ -124,7 +122,7 @@ export function FileUploader({
       const statuses = [...fileStatuses];
       const status = fileStatuses[index];
 
-      statuses[index] = { ...status, paused: true };
+      statuses[index] = { ...status, fileState: 'paused' };
       setFileStatuses(statuses);
     };
   };
@@ -135,7 +133,7 @@ export function FileUploader({
       const statuses = [...fileStatuses];
       const status = fileStatuses[index];
 
-      statuses[index] = { ...status, paused: false };
+      statuses[index] = { ...status, fileState: null, isLoading: true };
       setFileStatuses(statuses);
     };
   };
@@ -145,7 +143,7 @@ export function FileUploader({
     setLoading(true);
     const uploadTasksTemp: UploadTask[] = [];
     fileStatuses.forEach((status, i) => {
-      if (status?.success) return;
+      if (status?.fileState === 'success') return;
 
       // remove any filenames that are not accepted from user prop
       fileNames = fileNames?.filter((file: string) => {
@@ -224,7 +222,7 @@ export function FileUploader({
       const status = fileStatuses[index];
       statuses[index] = {
         ...status,
-        error: !validExtension,
+        fileState: !validExtension ? 'error' : null,
         fileErrors: validExtension ? null : translate('Extension not allowed'),
       };
 
@@ -293,11 +291,9 @@ export function FileUploader({
             onResume={onResume(index)}
             onDelete={onDelete}
             name={status.name}
-            isLoading={status?.loading}
-            isError={status?.error}
+            fileState={status?.fileState}
+            isLoading={status?.isLoading}
             errorMessage={status?.fileErrors}
-            isSuccess={status?.success}
-            isPaused={status?.paused}
             isEditing={isEditingName[index]}
             onSaveEdit={onSaveEdit(index)}
             onCancelEdit={onCancelEdit(index)}

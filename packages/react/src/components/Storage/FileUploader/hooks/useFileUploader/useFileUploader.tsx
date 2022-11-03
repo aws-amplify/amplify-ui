@@ -19,9 +19,8 @@ export default function useFileUploader(
       const errorFile = checkMaxSize(maxSize, file);
 
       statuses.unshift({
-        error: !!errorFile,
+        fileState: errorFile ? 'error' : null,
         fileErrors: errorFile,
-        loading: false,
         file,
         name: file.name,
       });

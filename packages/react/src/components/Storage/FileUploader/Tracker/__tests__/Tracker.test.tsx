@@ -10,14 +10,12 @@ describe('Tracker', () => {
       <Tracker
         file={fakeFile}
         hasImage={true}
+        fileState={null}
         url={''}
         onChange={() => {}}
         onCancel={() => {}}
         name={'hello.png'}
-        isError={false}
         isLoading={false}
-        isPaused={false}
-        isSuccess={false}
         onDelete={() => {}}
         onPause={() => {}}
         onResume={() => {}}
@@ -37,15 +35,13 @@ describe('Tracker', () => {
     render(
       <Tracker
         file={fakeFile}
+        fileState={null}
         hasImage={true}
         url={''}
         onChange={() => {}}
         onCancel={() => {}}
         name={fileName}
-        isError={false}
         isLoading={false}
-        isPaused={false}
-        isSuccess={false}
         onDelete={() => {}}
         onPause={() => {}}
         onResume={() => {}}
@@ -67,15 +63,13 @@ describe('Tracker', () => {
     render(
       <Tracker
         file={fakeFile}
+        fileState={null}
         hasImage={true}
         url={''}
         onChange={() => {}}
         onCancel={() => {}}
         name={fileName}
-        isError={false}
         isLoading={false}
-        isPaused={false}
-        isSuccess={false}
         onDelete={() => {}}
         onPause={() => {}}
         onResume={() => {}}

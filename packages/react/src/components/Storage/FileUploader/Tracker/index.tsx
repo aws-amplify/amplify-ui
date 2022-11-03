@@ -16,16 +16,14 @@ import { CloseIcon, EditIcon, fileIcon } from '../Previewer/PreviewerIcons';
 import { FileState } from './FileState';
 export function Tracker({
   file,
+  fileState,
   hasImage,
+  isLoading,
   url,
   onChange,
   onPause,
   onResume,
   onCancel,
-  isLoading,
-  isPaused,
-  isSuccess,
-  isError,
   errorMessage,
   name,
   percentage,
@@ -45,9 +43,9 @@ export function Tracker({
 
   const showonStartEdit = (): boolean => {
     // if complete or loading can't edit file name
-    if (isSuccess || isLoading) return false;
+    if (fileState === 'success' || isLoading) return false;
     // only allow editing on error if its a problem with extension
-    if (isError) {
+    if (fileState === 'error') {
       return errorMessage === translate('Extension not allowed');
     }
     return true;
@@ -110,16 +108,14 @@ export function Tracker({
                 </Text>
               </Flex>
               <FileState
-                error={isError}
                 errorMessage={errorMessage}
-                success={isSuccess && !isError}
-                paused={isPaused}
-                loading={isLoading}
+                fileState={fileState}
+                isLoading={isLoading}
               />
             </Flex>
             {isLoading && (
               <>
-                {isPaused ? (
+                {fileState === 'paused' ? (
                   <Button onClick={onResume} size="small" variation="link">
                     {translate('Resume')}
                   </Button>
@@ -130,12 +126,6 @@ export function Tracker({
                 )}
               </>
             )}
-            {/* {isSuccess && !isError && (
-              <Button size="small" onClick={onDelete}>
-                Delete
-              </Button>
-            )} */}
-            {/* {!isSuccess && !isLoading && ( */}
             {!isLoading && (
               <Button size="small" onClick={onCancel}>
                 <Text>
