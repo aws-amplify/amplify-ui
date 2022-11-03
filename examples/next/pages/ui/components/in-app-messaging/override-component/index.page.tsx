@@ -16,8 +16,6 @@ const { InAppMessaging } = Notifications;
 Amplify.configure(config);
 
 const CustomBannerMessage = (props) => {
-  const theme = useTheme();
-
   return (
     <Flex
       alignItems="center"
