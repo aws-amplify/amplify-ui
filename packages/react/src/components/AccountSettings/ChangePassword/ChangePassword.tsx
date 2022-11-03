@@ -3,13 +3,13 @@ import React from 'react';
 import { Logger } from 'aws-amplify';
 import { changePassword, translate } from '@aws-amplify/ui';
 
+import { useAuth } from '../../../internal';
 import { Flex, Button, Alert } from '../../../primitives';
 import {
   DefaultCurrentPassword,
   DefaultNewPassword,
 } from './defaultComponents';
 import { ChangePasswordProps } from './types';
-import { useAuth } from '../../../internal';
 import { FormValues } from '../types';
 
 const logger = new Logger('ChangePassword');
