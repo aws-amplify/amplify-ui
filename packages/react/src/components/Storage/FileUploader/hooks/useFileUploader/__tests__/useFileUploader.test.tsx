@@ -8,7 +8,7 @@ describe('useFileUploader', () => {
   beforeEach(() => {});
 
   it('exists', () => {
-    const { result } = renderHook(useFileUploader);
+    const { result } = renderHook(() => useFileUploader(200, [], true));
 
     expect(result).toBeTruthy();
   });
