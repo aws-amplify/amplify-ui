@@ -7,6 +7,7 @@ import { Text } from '../../../primitives';
 import { UploadButton } from './UploadButton';
 import { Previewer } from './Previewer';
 import { UploadDropZone } from './UploadDropZone';
+import { Tracker } from './Tracker';
 
 export function FileUploader({
   acceptedFileTypes,
@@ -291,8 +292,13 @@ export function FileUploader({
     return (
       <Previewer
         acceptedFileTypes={acceptedFileTypes}
+        fileStatuses={fileStatuses}
         files={files}
         inDropZone={inDropZone}
+        isEditingName={isEditingName}
+        isLoading={isLoading}
+        isSuccess={isSuccess}
+        maxFilesError={maxFilesError}
         multiple={multiple}
         onClear={onClear}
         onDragEnter={onDragEnter}
@@ -301,23 +307,34 @@ export function FileUploader({
         onDragStart={onDragStart}
         onDrop={onDrop}
         onFileChange={onFileChange}
-        onFileCancel={onFileCancel}
-        onNameChange={onNameChange}
-        allFileNames={allFileNames}
-        fileStatuses={fileStatuses}
-        onPause={onPause}
-        onResume={onResume}
-        onDelete={onDelete}
-        isLoading={isLoading}
-        isSuccess={isSuccess}
-        percentage={percentage}
         onFileClick={onFileClick}
-        isEditingName={isEditingName}
-        onSaveEdit={onSaveEdit}
-        onCancelEdit={onCancelEdit}
-        onStartEdit={onStartEdit}
-        maxFilesError={maxFilesError}
-      />
+        percentage={percentage}
+      >
+        {files?.map((file, index) => (
+          <Tracker
+            percentage={fileStatuses[index]?.percentage}
+            file={file}
+            hasImage={file?.type.startsWith('image/')}
+            url={URL.createObjectURL(file)}
+            key={index}
+            onChange={(e): void => onNameChange(e, index)}
+            onCancel={() => onFileCancel(index)}
+            onPause={onPause(index)}
+            onResume={onResume(index)}
+            onDelete={onDelete}
+            name={allFileNames[index]}
+            isLoading={fileStatuses[index]?.loading}
+            isError={fileStatuses[index]?.error}
+            errorMessage={fileStatuses[index]?.fileErrors}
+            isSuccess={fileStatuses[index]?.success}
+            isPaused={fileStatuses[index]?.paused}
+            isEditing={isEditingName[index]}
+            onSaveEdit={(e): void => onSaveEdit(e, index)}
+            onCancelEdit={(e): void => onCancelEdit(e, index)}
+            onStartEdit={(e): void => onStartEdit(e, index)}
+          />
+        ))}
+      </Previewer>
     );
   }
 

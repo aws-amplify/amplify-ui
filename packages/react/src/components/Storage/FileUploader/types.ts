@@ -41,40 +41,20 @@ export interface IconProps {
 }
 
 export interface PreviewerProps extends DragActionHandlers {
-  files: File[];
-  onClear: () => void;
   acceptedFileTypes: string[];
-  multiple?: boolean;
-  onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  inDropZone?: boolean;
-  onFileCancel: (index: number) => void;
-  onFileClick: () => void;
-  onNameChange: (
-    event: React.ChangeEvent<HTMLInputElement>,
-    index: number
-  ) => void;
-  allFileNames: string[];
+  children?: React.ReactNode;
   fileStatuses: FileStatuses;
-  onPause: (index: number) => () => void;
-  onResume: (index: number) => () => void;
-  onDelete: () => void;
+  files: File[];
+  inDropZone?: boolean;
+  isEditingName: boolean[];
   isLoading: boolean;
   isSuccess: boolean;
-  percentage: number;
-  isEditingName: boolean[];
-  onSaveEdit: (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    index: number
-  ) => void;
-  onCancelEdit: (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    index: number
-  ) => void;
-  onStartEdit: (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    index: number
-  ) => void;
   maxFilesError: boolean;
+  multiple?: boolean;
+  onClear: () => void;
+  onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onFileClick: () => void;
+  percentage: number;
 }
 
 export interface TrackerProps {

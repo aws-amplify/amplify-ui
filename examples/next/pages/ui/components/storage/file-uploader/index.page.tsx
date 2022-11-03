@@ -17,7 +17,6 @@ export default function FileUploaderEmail() {
         level="public"
         multiple={true}
         maxSize={100000000}
-        maxFiles={3}
       />
     </>
   );

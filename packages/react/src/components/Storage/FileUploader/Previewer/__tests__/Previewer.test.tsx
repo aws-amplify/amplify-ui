@@ -12,8 +12,13 @@ describe('Previewer', () => {
     const { container } = render(
       <Previewer
         acceptedFileTypes={['.png']}
+        fileStatuses={[]}
         files={[fakeFile]}
         inDropZone={false}
+        isEditingName={[]}
+        isLoading={false}
+        isSuccess={false}
+        maxFilesError={false}
         multiple={true}
         onClear={() => {}}
         onDragEnter={() => {}}
@@ -22,33 +27,24 @@ describe('Previewer', () => {
         onDragStart={() => {}}
         onDrop={() => {}}
         onFileChange={() => {}}
-        allFileNames={[]}
-        onFileCancel={() => {}}
-        onNameChange={() => {}}
-        fileStatuses={[]}
-        isLoading={false}
-        isSuccess={false}
-        onDelete={() => {}}
         onFileClick={() => {}}
-        onPause={(index) => () => {}}
-        onResume={(index) => () => {}}
         percentage={0}
-        onCancelEdit={() => {}}
-        isEditingName={[]}
-        onSaveEdit={() => {}}
-        onStartEdit={() => {}}
-        maxFilesError={false}
       />
     );
 
     expect(container).toMatchSnapshot();
   });
-  it('has two files passed in and displays them', async () => {
-    const { container } = render(
+  it('has two files passed in shows 2 files selected', async () => {
+    const { findByText } = render(
       <Previewer
         acceptedFileTypes={['.png']}
+        fileStatuses={[]}
         files={[fakeFile, fakeFile2]}
         inDropZone={false}
+        isEditingName={[]}
+        isLoading={false}
+        isSuccess={false}
+        maxFilesError={false}
         multiple={true}
         onClear={() => {}}
         onDragEnter={() => {}}
@@ -57,36 +53,25 @@ describe('Previewer', () => {
         onDragStart={() => {}}
         onDrop={() => {}}
         onFileChange={() => {}}
-        allFileNames={[]}
-        onFileCancel={() => {}}
-        onNameChange={() => {}}
-        fileStatuses={[]}
-        isLoading={false}
-        isSuccess={false}
-        onDelete={() => {}}
         onFileClick={() => {}}
-        onPause={(index) => () => {}}
-        onResume={(index) => () => {}}
         percentage={0}
-        onCancelEdit={() => {}}
-        isEditingName={[]}
-        onSaveEdit={() => {}}
-        onStartEdit={() => {}}
-        maxFilesError={false}
       />
     );
 
-    expect(
-      container.querySelectorAll('.amplify-fileuploader-file').length
-    ).toEqual(2);
+    expect(await findByText('2 files selected')).toBeVisible();
   });
 
   it('has one file passed in and shows one selected ', async () => {
     const { findByText } = render(
       <Previewer
         acceptedFileTypes={['.png']}
+        fileStatuses={[]}
         files={[fakeFile]}
         inDropZone={false}
+        isEditingName={[]}
+        isLoading={false}
+        isSuccess={false}
+        maxFilesError={false}
         multiple={true}
         onClear={() => {}}
         onDragEnter={() => {}}
@@ -95,22 +80,8 @@ describe('Previewer', () => {
         onDragStart={() => {}}
         onDrop={() => {}}
         onFileChange={() => {}}
-        allFileNames={[]}
-        onFileCancel={() => {}}
-        onNameChange={() => {}}
-        fileStatuses={[]}
-        isLoading={false}
-        isSuccess={false}
-        onDelete={() => {}}
         onFileClick={() => {}}
-        onPause={(index) => () => {}}
-        onResume={(index) => () => {}}
         percentage={0}
-        onCancelEdit={() => {}}
-        isEditingName={[]}
-        onSaveEdit={() => {}}
-        onStartEdit={() => {}}
-        maxFilesError={false}
       />
     );
 
