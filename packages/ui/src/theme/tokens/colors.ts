@@ -98,27 +98,27 @@ export type WebColors = {
 };
 
 export type ReactNativeColors = {
-  red: Record<string, string>;
-  orange: Record<string, string>;
-  yellow: Record<string, string>;
-  green: Record<string, string>;
-  teal: Record<string, string>;
-  blue: Record<string, string>;
-  purple: Record<string, string>;
-  pink: Record<string, string>;
-  neutral: Record<string, string>;
+  red: ColorScale<string>;
+  orange: ColorScale<string>;
+  yellow: ColorScale<string>;
+  green: ColorScale<string>;
+  teal: ColorScale<string>;
+  blue: ColorScale<string>;
+  purple: ColorScale<string>;
+  pink: ColorScale<string>;
+  neutral: ColorScale<string>;
   white: string;
   black: string;
 
-  font: Record<string, string>;
-  background: Record<string, string>;
-  border: Record<string, string>;
+  font: FontColors<string>;
+  background: BackgroundColors<string>;
+  border: BorderColors<string>;
   brand: {
-    primary: Record<string, string>;
-    secondary: Record<string, string>;
+    primary: ColorScale<string>;
+    secondary: ColorScale<string>;
   };
 
-  overlay: Record<string, string>;
+  overlay: OverlayColors<string>;
 };
 
 export const colors: Colors = {

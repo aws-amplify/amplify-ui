@@ -34,7 +34,6 @@ const buildRNTokens = (obj: object) => {
 const ReactNativeFormat = ({ dictionary, file }): string => {
   const { fileHeader } = formatHelpers;
 
-  //${JSON.stringify(buildRNTokens(dictionary.tokens), null, 2)}
   return (
     fileHeader({ file }) +
     `const baseTokens = ${JSON.stringify(

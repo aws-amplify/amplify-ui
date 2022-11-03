@@ -10,9 +10,11 @@ const tokens: Tokens = {
     ...baseTokens.colors,
     brand: {
       primary: {
+        ...baseTokens.colors.brand.primary,
         10: '#bada55',
       },
       secondary: {
+        ...baseTokens.colors.brand.secondary,
         10: '{colors.brand.primary[10]}',
       },
     },
