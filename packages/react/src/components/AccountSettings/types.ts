@@ -18,15 +18,15 @@ type CommonAlertProps = PrimitiveProps<AlertProps, 'div'>;
 /**
  * These are component override types (e.g. submit button).
  */
-export type PasswordFieldOverride<Props = {}> = React.ComponentType<
+export type AccountSettingsPasswordField<Props = {}> = React.ComponentType<
   Props & Partial<CommonPasswordFieldProps>
 >;
 
-export type SubmitButtonOverride<Props = {}> = React.ComponentType<
+export type AccountSettingsSubmitButton<Props = {}> = React.ComponentType<
   Props & Partial<CommonButtonProps>
 >;
 
-export type ErrorOverride<Props = {}> = React.ComponentType<
+export type AccountSettingsError<Props = {}> = React.ComponentType<
   Props & Partial<CommonAlertProps> & { errorMessage: string }
 >;
 

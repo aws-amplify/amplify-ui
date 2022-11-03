@@ -2,12 +2,12 @@ import React from 'react';
 import { translate } from '@aws-amplify/ui';
 import { Alert, Button, PasswordField } from '../../../primitives';
 import {
-  ErrorOverride,
-  PasswordFieldOverride,
-  SubmitButtonOverride,
+  AccountSettingsError,
+  AccountSettingsPasswordField,
+  AccountSettingsSubmitButton,
 } from '../types';
 
-export const DefaultCurrentPassword: PasswordFieldOverride = (props) => {
+export const DefaultCurrentPassword: AccountSettingsPasswordField = (props) => {
   // TODO: add AccountSettingsTextUtil to collect these strings
   const label = translate('Current Password');
 
@@ -22,7 +22,7 @@ export const DefaultCurrentPassword: PasswordFieldOverride = (props) => {
   );
 };
 
-export const DefaultNewPassword: PasswordFieldOverride = (props) => {
+export const DefaultNewPassword: AccountSettingsPasswordField = (props) => {
   const label = translate('New Password');
 
   return (
@@ -36,7 +36,7 @@ export const DefaultNewPassword: PasswordFieldOverride = (props) => {
   );
 };
 
-export const DefaultSubmitButton: SubmitButtonOverride = (props) => {
+export const DefaultSubmitButton: AccountSettingsSubmitButton = (props) => {
   const updatePasswordText = translate('Update password');
 
   return (
@@ -46,7 +46,7 @@ export const DefaultSubmitButton: SubmitButtonOverride = (props) => {
   );
 };
 
-export const DefaultError: ErrorOverride = (props) => {
+export const DefaultError: AccountSettingsError = (props) => {
   const { errorMessage, ...rest } = props;
 
   if (!errorMessage) return null;

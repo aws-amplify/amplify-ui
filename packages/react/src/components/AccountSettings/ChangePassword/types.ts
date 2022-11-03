@@ -1,10 +1,13 @@
-import { PasswordFieldOverride, SubmitButtonOverride } from '../types';
+import {
+  AccountSettingsPasswordField,
+  AccountSettingsSubmitButton,
+} from '../types';
 
 export interface ChangePasswordOverrides {
-  CurrentPassword?: PasswordFieldOverride;
-  NewPassword?: PasswordFieldOverride;
-  ConfirmPassword?: PasswordFieldOverride;
-  Button?: SubmitButtonOverride;
+  CurrentPassword?: AccountSettingsPasswordField;
+  NewPassword?: AccountSettingsPasswordField;
+  ConfirmPassword?: AccountSettingsPasswordField;
+  Button?: AccountSettingsSubmitButton;
 }
 
 export type PasswordValidator = (password: string) => string;
