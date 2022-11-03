@@ -33,7 +33,7 @@ describe('ChangePassword', () => {
     const currentPassword = await screen.findByLabelText('Current Password');
     const newPassword = await screen.findByLabelText('New Password');
     const submitButton = await screen.findByRole('button', {
-      name: 'Submit',
+      name: 'Update password',
     });
 
     fireEvent.input(currentPassword, {
@@ -60,7 +60,7 @@ describe('ChangePassword', () => {
     render(<ChangePassword onSuccess={onSuccess} />);
 
     const submitButton = await screen.findByRole('button', {
-      name: 'Submit',
+      name: 'Update password',
     });
     fireEvent.submit(submitButton);
 
@@ -75,12 +75,28 @@ describe('ChangePassword', () => {
     render(<ChangePassword onError={onError} />);
 
     const submitButton = await screen.findByRole('button', {
-      name: 'Submit',
+      name: 'Update password',
     });
 
     fireEvent.submit(submitButton);
 
     // submit handling is async, wait for onError to be called
     await waitFor(() => expect(onError).toBeCalledTimes(1));
+  });
+
+  it('error message is displayed after unsuccessful submit', async () => {
+    changePasswordSpy.mockRejectedValue(new Error('Mock Error'));
+
+    const onError = jest.fn();
+    render(<ChangePassword onError={onError} />);
+
+    const submitButton = await screen.findByRole('button', {
+      name: 'Update password',
+    });
+
+    fireEvent.submit(submitButton);
+
+    // submit handling is async, wait for error to be displayed
+    await waitFor(() => expect(screen.findByText('Mock Error')).toBeDefined());
   });
 });
