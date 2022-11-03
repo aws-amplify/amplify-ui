@@ -34,6 +34,7 @@ const ChangePassword: React.ComponentType<ChangePasswordProps> = (props) => {
     const { currentPassword, newPassword } = formValues;
     try {
       await changePassword({ user, currentPassword, newPassword });
+      setError(null);
 
       if (onSuccess) {
         onSuccess(); // notify success to the parent
