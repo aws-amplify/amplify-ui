@@ -1,5 +1,3 @@
-import isString from 'lodash/isString';
-
 export const isDevelopment = (): boolean =>
   process.env.NODE_ENV !== 'production';
 
@@ -38,16 +36,7 @@ export const getErrorMessage = (error: unknown): string => {
 
 export const getFormDataFromEvent = (
   event: React.FormEvent<HTMLFormElement>
-): { [k: string]: string } => {
+): { [k: string]: FormDataEntryValue } => {
   const formData = new FormData(event.target as HTMLFormElement);
-  const formValues: Record<string, string> = {};
-
-  for (const [name, value] of formData.entries()) {
-    if (isString(value)) {
-      formValues[name] = value;
-    } else {
-      throw new Error('getFormDataFromEvent cannot be used with `File` input.');
-    }
-  }
-  return formValues;
+  return Object.fromEntries(formData);
 };
