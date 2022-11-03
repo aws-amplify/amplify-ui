@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Logger } from 'aws-amplify';
-import { changePassword } from '@aws-amplify/ui';
+import { changePassword, translate } from '@aws-amplify/ui';
 
 import { useAuth } from '../../../internal';
 import { View, Flex } from '../../../primitives';
@@ -22,6 +22,12 @@ const ChangePassword: React.ComponentType<ChangePasswordProps> = (props) => {
   const [formValues, setFormValues] = React.useState<FormValues>({});
 
   const { user, isLoading: isAuthUserLoading } = useAuth();
+
+  /** Translations */
+  // TODO: add AccountSettingsTextUtil to collect these strings
+  const currentPasswordLabel = translate('Current Password');
+  const newPasswordLabel = translate('New Password');
+  const updatePasswordText = translate('Update password');
 
   /** Auth API Handler */
   const handleChangePassword = React.useCallback(async () => {
@@ -74,9 +80,23 @@ const ChangePassword: React.ComponentType<ChangePasswordProps> = (props) => {
   return (
     <View as="form" className="amplify-changepassword" onSubmit={handleSubmit}>
       <Flex direction="column">
-        <DefaultCurrentPassword onChange={handleChange} />
-        <DefaultNewPassword onChange={handleChange} />
-        <DefaultSubmitButton />
+        <DefaultCurrentPassword
+          autoComplete="current-password"
+          isRequired
+          label={currentPasswordLabel}
+          name="currentPassword"
+          onChange={handleChange}
+        />
+        <DefaultNewPassword
+          autoComplete="new-password"
+          isRequired
+          label={newPasswordLabel}
+          name="newPassword"
+          onChange={handleChange}
+        />
+        <DefaultSubmitButton type="submit">
+          {updatePasswordText}
+        </DefaultSubmitButton>
         <DefaultError errorMessage={error} />
       </Flex>
     </View>

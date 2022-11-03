@@ -19,15 +19,19 @@ type CommonAlertProps = PrimitiveProps<AlertProps, 'div'>;
  * These are component override types (e.g. submit button).
  */
 export type AccountSettingsPasswordField<Props = {}> = React.ComponentType<
-  Props & Partial<CommonPasswordFieldProps>
+  Props & CommonPasswordFieldProps
 >;
 
 export type AccountSettingsSubmitButton<Props = {}> = React.ComponentType<
-  Props & Partial<CommonButtonProps>
+  Props & CommonButtonProps
 >;
 
+/**
+ * Error component displays error from Cognito. Gets `errorMessage` as props
+ * so that any overrides can parse / modify the error message.
+ */
 export type AccountSettingsError<Props = {}> = React.ComponentType<
-  Props & Partial<CommonAlertProps> & { errorMessage: string }
+  Props & CommonAlertProps & { errorMessage: string }
 >;
 
 /** Form specific types */
