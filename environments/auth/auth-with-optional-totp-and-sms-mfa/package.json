@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "name": "auth-with-optional-totp-and-sms-mfa-environment",
+  "version": "0.0.1",
+  "scripts": {
+    "pull": "amplify pull --appId d2vk0gw2nmhjow --envName staging"
+  }
+}
