@@ -58,6 +58,26 @@ We replaced following legacy Authenticator texts:
 
 If you were using `I18n` to translate those keys, please update your translations accordingly to match the new strings.
 
+#### 3. Bumped minimum Angular version to 12
+
+If your application is on Angular 11 or older, please migrate to Angular 12+ as per [official guide](https://update.angular.io).
+
+*Note*: Going forward, `@aws-amplify/ui-angular` will have the same version support as Angular's official LTS [support window](https://angular.io/guide/releases#actively-supported-versions). 
+
+#### 4. Migrated Angular compiler to IVY
+
+We dropped support for legacy View engine, and migrated to IVY compiler. Please migrate to Angular 12+, and make sure you did not disable ivy in your `tsconfig.json`:
+
+```json
+{
+  ...,
+  "angularCompilerOption": {
+    // REMOVE this line if you have it in your tsconfig.json
+    "enableIvy": false
+  }
+}
+```
+
 ## 1.x to 2.x
 ## Installation
 
