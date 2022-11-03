@@ -5,7 +5,6 @@ import {
   Flex,
   Text,
   useInAppMessaging,
-  useTheme,
   withInAppMessaging,
 } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
