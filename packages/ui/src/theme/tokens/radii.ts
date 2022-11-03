@@ -14,6 +14,10 @@ export type WebRadii = {
   [Property in keyof Radii]: WebDesignToken<RadiusValue>;
 };
 
+export type ReactNativeRadii = {
+  [Property in keyof Radii]: number;
+};
+
 export const radii: Radii = {
   xs: { value: '0.125rem' },
   small: { value: '0.25rem' },
