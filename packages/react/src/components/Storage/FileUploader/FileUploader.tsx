@@ -11,72 +11,69 @@ import { Tracker } from './Tracker';
 
 export function FileUploader({
   acceptedFileTypes,
+  components = {},
   fileNames,
   isPreviewerVisible,
   level,
-  components = {},
-  multiple = true,
-  variation = 'button',
-  maxSize,
   maxFiles,
+  maxSize,
+  multiple = true,
   onError,
   onSuccess,
+  variation = 'button',
 }: FileUploaderProps): JSX.Element {
   const {
     UploadDropZone = FileUploader.UploadDropZone,
     UploadButton = FileUploader.UploadButton,
   } = components;
   const {
+    addTargetFiles,
+    fileStatuses,
     inDropZone,
     onDragEnter,
     onDragLeave,
     onDragOver,
     onDragStart,
     onDrop,
-    setShowPreviewer,
-    addTargetFiles,
-    showPreviewer,
-    fileStatuses,
     setFileStatuses,
+    setShowPreviewer,
+    showPreviewer,
   } = useFileUploader(maxSize, acceptedFileTypes, multiple);
 
   const fileStatusesRef = useRef<FileStatuses>([]);
-  // File Previewer global states
+
+  // File Previewer loading state
   const [isLoading, setLoading] = useState(false);
-  const [isSuccess, setSuccess] = useState(false);
-  const [percentage, setPercentage] = useState(0);
-  const [maxFilesError, setMaxFilesError] = useState(false);
-  // Tracker states
+
+  // Tracker state
   const [isEditingName, setisEditingName] = React.useState<boolean[]>([]);
 
-  useEffect(() => {
+  // Creates aggregate percentage to show during downloads
+  const percentage = Math.floor(
+    fileStatuses.reduce((prev, curr) => prev + (curr?.percentage ?? 0), 0) /
+      fileStatuses.length
+  );
+
+  // checks if all downloads completed to 100%
+  const isSuccess = () => {
     if (fileStatuses.length === 0) return;
-    // Sets variable when all downlaods are complete
-    const complete = fileStatuses.every((status) => status?.percentage === 100);
-    setSuccess(complete);
 
-    // Creates aggregate percentage to show during downloads
-    const percentage =
-      fileStatuses.reduce((prev, curr) => prev + (curr?.percentage ?? 0), 0) /
-      fileStatuses.length;
-    setPercentage(Math.floor(percentage));
+    return fileStatuses.every((status) => status?.percentage === 100);
+  };
 
+  // Displays if over max files
+  const maxFilesError = fileStatuses.length > maxFiles;
+
+  useEffect(() => {
     // Loading ends when all files are at 100%
     if (Math.floor(percentage) === 100) {
       setLoading(false);
     }
-  }, [fileStatuses]);
+  }, [fileStatuses, percentage]);
 
   useEffect(() => {
     setShowPreviewer(isPreviewerVisible);
   }, [setShowPreviewer, isPreviewerVisible]);
-
-  useEffect(() => {
-    // Check max files size limit if truthy
-    if (maxFiles) {
-      setMaxFilesError(fileStatuses.length > maxFiles);
-    }
-  }, [fileStatuses, maxFiles]);
 
   // Previewer Methods
 
@@ -142,13 +139,15 @@ export function FileUploader({
       setFileStatuses(statuses);
     };
   };
+
   const onFileClick = () => {
     // start upload
     setLoading(true);
     const uploadTasksTemp: UploadTask[] = [];
     fileStatuses.forEach((status, i) => {
       if (status?.success) return;
-      // remove any filenames that are not accepted
+
+      // remove any filenames that are not accepted from user prop
       fileNames = fileNames?.filter((file: string) => {
         const [extension] = file.split('.').reverse();
         return acceptedFileTypes.includes('.' + extension);
@@ -189,7 +188,6 @@ export function FileUploader({
   const onClear = () => {
     setShowPreviewer(false);
     setFileStatuses([]);
-    setSuccess(false);
   };
 
   const onFileCancel = (index: number) => {
@@ -269,7 +267,7 @@ export function FileUploader({
         inDropZone={inDropZone}
         isEditingName={isEditingName}
         isLoading={isLoading}
-        isSuccess={isSuccess}
+        isSuccess={isSuccess()}
         maxFilesError={maxFilesError}
         multiple={multiple}
         onClear={onClear}
