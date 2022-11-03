@@ -1,13 +1,15 @@
 import React from 'react';
 
 import { Logger } from 'aws-amplify';
-import { changePassword, translate } from '@aws-amplify/ui';
+import { changePassword } from '@aws-amplify/ui';
 
 import { useAuth } from '../../../internal';
-import { Flex, Button, Alert } from '../../../primitives';
+import { Flex } from '../../../primitives';
 import {
   DefaultCurrentPassword,
+  DefaultError,
   DefaultNewPassword,
+  DefaultSubmitButton,
 } from './defaultComponents';
 import { ChangePasswordProps } from './types';
 import { FormValues } from '../types';
@@ -20,9 +22,6 @@ const ChangePassword: React.ComponentType<ChangePasswordProps> = (props) => {
   const [formValues, setFormValues] = React.useState<FormValues>({});
 
   const { user } = useAuth();
-
-  /** Translations */
-  const submitText = translate('Submit');
 
   /** Auth API Handler */
   const handleChangePassword = React.useCallback(async () => {
@@ -64,13 +63,11 @@ const ChangePassword: React.ComponentType<ChangePasswordProps> = (props) => {
   }
 
   return (
-    <Flex className="amplify-changepassword" as="form" direction="column">
+    <Flex as="form" className="amplify-changepassword" direction="column">
       <DefaultCurrentPassword onChange={handleChange} />
       <DefaultNewPassword onChange={handleChange} />
-      <Button type="submit" onSubmit={handleSubmit}>
-        {submitText}
-      </Button>
-      <Alert variation="error">{error}</Alert>
+      <DefaultSubmitButton onSubmit={handleSubmit} />
+      <DefaultError errorMessage={error} />
     </Flex>
   );
 };

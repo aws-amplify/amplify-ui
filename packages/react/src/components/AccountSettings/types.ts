@@ -1,7 +1,8 @@
 import React from 'react';
 import {
-  PasswordFieldProps,
+  AlertProps,
   ButtonProps,
+  PasswordFieldProps,
   PrimitiveProps,
 } from '../../primitives/types';
 
@@ -12,6 +13,7 @@ import {
  */
 type CommonPasswordFieldProps = PrimitiveProps<PasswordFieldProps, 'input'>;
 type CommonButtonProps = PrimitiveProps<ButtonProps, 'button'>;
+type CommonAlertProps = PrimitiveProps<AlertProps, 'div'>;
 
 /**
  * These are component override types (e.g. submit button).
@@ -22,7 +24,11 @@ export type PasswordFieldOverride<Props = {}> = React.ComponentType<
 
 export type SubmitButtonOverride<Props = {}> = React.ComponentType<
   Props & Partial<CommonButtonProps>
-> & { type: 'submit'; isDisabled: boolean };
+>;
+
+export type ErrorOverride<Props = {}> = React.ComponentType<
+  Props & Partial<CommonAlertProps> & { errorMessage: string }
+>;
 
 /** Form specific types */
 export type FormValues = Record<string, string>;
