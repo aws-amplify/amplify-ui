@@ -50,5 +50,9 @@ export const DefaultError: AccountSettingsError = (props) => {
   const { errorMessage, ...rest } = props;
 
   if (!errorMessage) return null;
-  return <Alert {...rest}>{errorMessage}</Alert>;
+  return (
+    <Alert variation="error" {...rest}>
+      {errorMessage}
+    </Alert>
+  );
 };
