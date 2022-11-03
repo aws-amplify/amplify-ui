@@ -1,4 +1,8 @@
-import { PersistentModel } from '@aws-amplify/datastore';
+import {
+  IdentifierFieldOrIdentifierObject,
+  PersistentModel,
+  PersistentModelMetaData,
+} from '@aws-amplify/datastore';
 import { DataStore, Hub } from 'aws-amplify';
 
 import {
@@ -15,7 +19,7 @@ import { UseDataStoreActionOptions } from './shared/types';
 
 export interface UseDataStoreUpdateActionOptions<Model extends PersistentModel>
   extends UseDataStoreActionOptions<Model> {
-  id: string;
+  id: IdentifierFieldOrIdentifierObject<Model, PersistentModelMetaData<Model>>;
 }
 
 /**
