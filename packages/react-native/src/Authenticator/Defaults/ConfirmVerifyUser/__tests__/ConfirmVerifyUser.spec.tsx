@@ -4,7 +4,12 @@ import { fireEvent, render } from '@testing-library/react-native';
 import { authenticatorTextUtil } from '@aws-amplify/ui';
 import { ConfirmVerifyUser } from '..';
 
-const { getAccountRecoveryInfoText, getSkipText } = authenticatorTextUtil;
+const {
+  getAccountRecoveryInfoText,
+  getSkipText,
+  getSubmitText,
+  getSubmittingText,
+} = authenticatorTextUtil;
 
 const props = {
   fields: [],
@@ -27,6 +32,7 @@ describe('ConfirmVerifyUser', () => {
 
     expect(getByRole('header')).toBeDefined();
     expect(getByText(getAccountRecoveryInfoText())).toBeDefined();
+    expect(getByText(getSubmitText())).toBeDefined();
     expect(getByText(getSkipText())).toBeDefined();
   });
 
@@ -51,5 +57,14 @@ describe('ConfirmVerifyUser', () => {
     const button = getByText(getSkipText());
     fireEvent.press(button);
     expect(skipVerificationMock).toBeCalledTimes(1);
+  });
+
+  it('renders as expected when isPending is true', () => {
+    const { toJSON, getByText } = render(
+      <ConfirmVerifyUser {...props} isPending />
+    );
+    expect(toJSON()).toMatchSnapshot();
+
+    expect(getByText(getSubmittingText())).toBeDefined();
   });
 });
