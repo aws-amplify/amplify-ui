@@ -16,61 +16,17 @@ import { FormValues } from '../types';
 
 const logger = new Logger('ChangePassword');
 
-const ChangePassword: React.ComponentType<ChangePasswordProps> = (props) => {
-  const { onSuccess, onError } = props;
-  const [error, setError] = React.useState<string>(null);
+function ChangePassword({
+  onSuccess,
+  onError,
+}: ChangePasswordProps): JSX.Element | null {
+  const [errorMessage, setErrorMessage] = React.useState<string>(null);
   const [formValues, setFormValues] = React.useState<FormValues>({});
 
-  const { user, isLoading: isAuthUserLoading } = useAuth();
-
-  /** Translations */
-  // TODO: add AccountSettingsTextUtil to collect these strings
-  const currentPasswordLabel = translate('Current Password');
-  const newPasswordLabel = translate('New Password');
-  const updatePasswordText = translate('Update password');
-
-  /** Auth API Handler */
-  const handleChangePassword = React.useCallback(async () => {
-    const { currentPassword, newPassword } = formValues;
-    setError(null);
-
-    try {
-      await changePassword({ user, currentPassword, newPassword });
-
-      if (onSuccess) {
-        onSuccess(); // notify success to the parent
-      }
-    } catch (e) {
-      const error = e as Error;
-      setError(error.message);
-
-      if (onError) {
-        onError(error); // notify error to the parent
-      }
-    }
-  }, [formValues, user, onSuccess, onError]);
-
-  /** Event Handlers */
-  const handleChange = React.useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      event.preventDefault();
-
-      const { name, value } = event.target;
-      setFormValues({ ...formValues, [name]: value });
-    },
-    [formValues]
-  );
-
-  const handleSubmit = React.useCallback(
-    (event: React.FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
-      handleChangePassword();
-    },
-    [handleChangePassword]
-  );
+  const { user, isLoading } = useAuth();
 
   /** Return null if Auth.getCurrentAuthenticatedUser is still in progress  */
-  if (isAuthUserLoading) {
+  if (isLoading) {
     return null;
   }
 
@@ -79,6 +35,37 @@ const ChangePassword: React.ComponentType<ChangePasswordProps> = (props) => {
     logger.warn('<ChangePassword /> requires user to be authenticated.');
     return null;
   }
+
+  /** Translations */
+  // TODO: add AccountSettingsTextUtil to collect these strings
+  const currentPasswordLabel = translate('Current Password');
+  const newPasswordLabel = translate('New Password');
+  const updatePasswordText = translate('Update password');
+
+  /** Event Handlers */
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+
+    const { name, value } = event.target;
+    setFormValues({ ...formValues, [name]: value });
+  };
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const { currentPassword, newPassword } = formValues;
+    setErrorMessage(null);
+
+    try {
+      await changePassword({ user, currentPassword, newPassword });
+
+      onSuccess?.(); // notify success to the parent
+    } catch (e) {
+      const error = e as Error;
+      if (error.message) setErrorMessage(error.message);
+
+      onError?.(error); // notify error to the parent
+    }
+  };
 
   return (
     <View as="form" className="amplify-changepassword" onSubmit={handleSubmit}>
@@ -100,10 +87,10 @@ const ChangePassword: React.ComponentType<ChangePasswordProps> = (props) => {
         <DefaultSubmitButton type="submit">
           {updatePasswordText}
         </DefaultSubmitButton>
-        <DefaultError errorMessage={error} />
+        <DefaultError errorMessage={errorMessage} />
       </Flex>
     </View>
   );
-};
+}
 
 export default ChangePassword;
