@@ -1,60 +1,77 @@
 import React from 'react';
 
 import { Logger } from 'aws-amplify';
-import { changePassword } from '@aws-amplify/ui';
+import { changePassword, translate } from '@aws-amplify/ui';
 
-import { getFormDataFromEvent } from '../../../helpers';
-import { Flex, Button, View, Alert } from '../../../primitives';
+import { Flex, Button, Alert } from '../../../primitives';
 import {
-  DefaultConfirmPassword,
   DefaultCurrentPassword,
   DefaultNewPassword,
 } from './defaultComponents';
 import { ChangePasswordProps } from './types';
 import { useAuth } from '../../../internal';
+import { FormValues } from '../types';
 
 const logger = new Logger('ChangePassword');
 
 const ChangePassword: React.ComponentType<ChangePasswordProps> = (props) => {
   const { onSuccess, onError } = props;
   const [error, setError] = React.useState<string>(null);
+  const [formValues, setFormValues] = React.useState<FormValues>({});
 
   const { user } = useAuth();
 
-  const handleSubmit = React.useCallback(
-    async (event: React.FormEvent<HTMLFormElement>) => {
+  /** Translations */
+  const submitText = translate('Submit');
+
+  /** Auth API Handler */
+  const handleChangePassword = React.useCallback(async () => {
+    const { currentPassword, newPassword } = formValues;
+    try {
+      await changePassword({ user, currentPassword, newPassword });
+
+      onSuccess(); // notify success to the parent
+    } catch (e) {
+      const error = e as Error;
+      setError(error.message);
+
+      onError(error); // notify error to the parent
+    }
+  }, [formValues, user, onSuccess, onError]);
+
+  /** Event Handlers */
+  const handleChange = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
       event.preventDefault();
 
-      const formValues = getFormDataFromEvent(event);
-      const { currentPassword, newPassword } = formValues;
-
-      try {
-        await changePassword({ user, currentPassword, newPassword });
-        onSuccess();
-      } catch (e) {
-        const error = e as Error;
-        setError(error.message);
-        onError(error);
-      }
+      const { name, value } = event.target;
+      setFormValues({ ...formValues, [name]: value });
     },
-    [onError, onSuccess, user]
+    [formValues]
+  );
+
+  const handleSubmit = React.useCallback(
+    (event: React.FormEvent<HTMLButtonElement>) => {
+      event.preventDefault();
+      handleChangePassword();
+    },
+    [handleChangePassword]
   );
 
   if (!user) {
-    logger.warn('ChangePassword requires user to be authenticated.');
+    logger.warn('<ChangePassword /> requires user to be authenticated.');
     return null;
   }
 
   return (
-    <View as="form" onSubmit={handleSubmit}>
-      <Flex direction="column">
-        <DefaultCurrentPassword />
-        <DefaultNewPassword />
-        <DefaultConfirmPassword />
-        <Button type="submit">Update password</Button>
-        <Alert variation="error">{error}</Alert>
-      </Flex>
-    </View>
+    <Flex className="amplify-changepassword" as="form" direction="column">
+      <DefaultCurrentPassword onChange={handleChange} />
+      <DefaultNewPassword onChange={handleChange} />
+      <Button type="submit" onSubmit={handleSubmit}>
+        {submitText}
+      </Button>
+      <Alert variation="error">{error}</Alert>
+    </Flex>
   );
 };
 

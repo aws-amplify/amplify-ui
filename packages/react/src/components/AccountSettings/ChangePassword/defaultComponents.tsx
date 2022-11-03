@@ -6,17 +6,11 @@ import { PasswordFieldOverride } from '../types';
 export const DefaultCurrentPassword: PasswordFieldOverride = () => {
   const label = translate('Current Password');
 
-  return <PasswordField label={label} />;
+  return <PasswordField label={label} name="currentPassword" />;
 };
 
 export const DefaultNewPassword: PasswordFieldOverride = () => {
   const label = translate('New Password');
 
-  return <PasswordField label={label} />;
-};
-
-export const DefaultConfirmPassword: PasswordFieldOverride = () => {
-  const label = translate('Confirm Password');
-
-  return <PasswordField label={label} />;
+  return <PasswordField label={label} name="newPassword" />;
 };
