@@ -1,11 +1,65 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react-native';
 import { AuthChallengeName, CodeDeliveryDetails } from '@aws-amplify/ui';
-import { GetTotpSecretCode } from '@aws-amplify/ui-react-core/dist/types/Authenticator/hooks';
+import { GetTotpSecretCode } from '@aws-amplify/ui-react-core/src/Authenticator/hooks';
+import { InnerContainer } from '@aws-amplify/ui-react-native/src/Authenticator/common';
 import { Authenticator } from '@aws-amplify/ui-react-native';
 import noop from 'lodash/noop';
-import { InnerContainer } from '../ui';
-import { getComponentFields, getComponentSlots } from '../utils';
+
+const componentFields = {
+  code: {
+    name: 'code',
+    label: 'Code',
+    placeholder: 'Code',
+    type: 'default' as const,
+  },
+  confirmPassword: {
+    name: 'confirmPassword',
+    label: 'Confirm Password',
+    placeholder: 'Confirm Password',
+    type: 'password' as const,
+  },
+  newPassword: {
+    name: 'newPassword',
+    label: 'New Password',
+    placeholder: 'New Password',
+    type: 'password' as const,
+  },
+  password: {
+    name: 'password',
+    label: 'Password',
+    placeholder: 'Password',
+    type: 'password' as const,
+  },
+  phone: {
+    name: 'phone',
+    label: 'Phone',
+    placeholder: 'Phone',
+    type: 'phone' as const,
+  },
+  username: {
+    name: 'username',
+    label: 'Username',
+    placeholder: 'Username',
+    type: 'default' as const,
+  },
+};
+
+type Fields = keyof typeof componentFields;
+
+const getComponentFields = (fields: Fields[]) => {
+  return {
+    fields: fields.map((field) => componentFields[field]),
+  };
+};
+
+const getComponentSlots = (subcomponent: any) => {
+  return {
+    Footer: subcomponent.Footer,
+    FormFields: subcomponent.FormFields,
+    Header: subcomponent.Header,
+  };
+};
 
 const sharedProps = {
   error: null as unknown as string,
