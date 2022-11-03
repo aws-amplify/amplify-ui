@@ -22,11 +22,11 @@ const CustomBannerMessage = (props) => {
   return (
     <Flex
       alignItems="center"
-      borderRadius=".5rem"
+      borderRadius="xs"
       position="absolute"
-      padding="2rem"
-      backgroundColor={theme.tokens.colors.teal[20]}
-      right="2rem"
+      padding="xl"
+      backgroundColor="teal.20"
+      right="xl"
     >
       <Text fontWeight="bold">{props.header.content}</Text>
       <Button onClick={props.onClose}>Close!</Button>
