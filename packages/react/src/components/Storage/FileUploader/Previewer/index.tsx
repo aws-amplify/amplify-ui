@@ -17,7 +17,6 @@ export function Previewer({
   acceptedFileTypes,
   children,
   fileStatuses,
-  files,
   inDropZone,
   isEditingName,
   isLoading,
@@ -36,9 +35,9 @@ export function Previewer({
 }: PreviewerProps): JSX.Element {
   const headingMaxFiles = translate('Over Max files!');
   const uploadedFilesLength = () =>
-    files.filter((_, i) => fileStatuses[i]?.success).length;
+    fileStatuses.filter((file) => file?.success).length;
 
-  const remainingFilesLength = files.length - uploadedFilesLength();
+  const remainingFilesLength = fileStatuses.length - uploadedFilesLength();
   return (
     <Card variation="outlined" className="amplify-fileuploader__previewer">
       <Flex className="amplify-fileuploader__previewer__body">

@@ -44,7 +44,6 @@ export interface PreviewerProps extends DragActionHandlers {
   acceptedFileTypes: string[];
   children?: React.ReactNode;
   fileStatuses: FileStatuses;
-  files: File[];
   inDropZone?: boolean;
   isEditingName: boolean[];
   isLoading: boolean;
@@ -85,6 +84,8 @@ interface FileStatus extends Partial<FileStateProps> {
   percentage?: number;
   uploadTask?: UploadTask;
   fileErrors?: string;
+  name?: string;
+  file?: File;
 }
 
 export type FileStatuses = FileStatus[];

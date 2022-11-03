@@ -27,7 +27,6 @@ export function FileUploader({
     UploadButton = FileUploader.UploadButton,
   } = components;
   const {
-    files,
     inDropZone,
     onDragEnter,
     onDragLeave,
@@ -37,13 +36,10 @@ export function FileUploader({
     setShowPreviewer,
     addTargetFiles,
     showPreviewer,
-    setFiles,
     fileStatuses,
     setFileStatuses,
-    setFileSizeErrors,
   } = useFileUploader(maxSize, acceptedFileTypes, multiple);
 
-  const [allFileNames, setAllFileNames] = useState<string[]>([]);
   const fileStatusesRef = useRef<FileStatuses>([]);
   // File Previewer global states
   const [isLoading, setLoading] = useState(false);
@@ -76,27 +72,11 @@ export function FileUploader({
   }, [setShowPreviewer, isPreviewerVisible]);
 
   useEffect(() => {
-    setAllFileNames((allFileNames) => {
-      if (allFileNames.length !== 0) {
-        // only add the new files to allFileNames
-        const diff = files.length - allFileNames.length;
-        const arrayOfNames: string[] = [];
-
-        for (let i = 0; i < diff; i++) {
-          arrayOfNames[i] = files[i].name;
-        }
-
-        return [...arrayOfNames].concat(allFileNames);
-      }
-      return files.map((file) => {
-        return file.name;
-      });
-    });
     // Check max files size limit if truthy
     if (maxFiles) {
-      setMaxFilesError(files.length > maxFiles);
+      setMaxFilesError(fileStatuses.length > maxFiles);
     }
-  }, [files, maxFiles]);
+  }, [fileStatuses, maxFiles]);
 
   // Previewer Methods
 
@@ -166,17 +146,17 @@ export function FileUploader({
     // start upload
     setLoading(true);
     const uploadTasksTemp: UploadTask[] = [];
-    for (let i = 0; i < files?.length; i++) {
-      if (fileStatuses[i]?.success) continue;
+    fileStatuses.forEach((status, i) => {
+      if (status?.success) return;
       // remove any filenames that are not accepted
       fileNames = fileNames?.filter((file: string) => {
         const [extension] = file.split('.').reverse();
         return acceptedFileTypes.includes('.' + extension);
       });
-      const uploadFileName = getFileName(fileNames?.[i], allFileNames[i]);
+      const uploadFileName = getFileName(fileNames?.[i], status.name);
 
       const uploadTask: UploadTask = uploadFile({
-        file: files[i],
+        file: status.file,
         fileName: uploadFileName,
         level,
         progressCallback: progressCallback(i),
@@ -184,7 +164,7 @@ export function FileUploader({
         completeCallback: completeCallback(),
       });
       uploadTasksTemp.push(uploadTask);
-    }
+    });
     let statuses: FileStatuses = [];
     statuses = [...fileStatuses];
     fileStatusesRef.current = statuses.map((status, index) => {
@@ -202,14 +182,13 @@ export function FileUploader({
 
     const { files } = event.target;
     const addedFilesLength = addTargetFiles(files);
+    // only show previewer if the added files are great then 0
     if (addedFilesLength > 0) setShowPreviewer(true);
   };
 
   const onClear = () => {
     setShowPreviewer(false);
-    setFiles([]);
     setFileStatuses([]);
-    setAllFileNames([]);
     setSuccess(false);
   };
 
@@ -220,21 +199,17 @@ export function FileUploader({
         Storage.cancel(fileStatuses[index]?.uploadTask);
         setLoading(false);
       }
-      const updatedFiles = files.filter((_, i) => i !== index);
-      const updatedFileStatuses = fileStatuses.filter((_, i) => i !== index);
-      const updateAllFileNames = allFileNames.filter((_, i) => i !== index);
-      setFileSizeErrors(updatedFiles, updatedFileStatuses);
-      setFiles(updatedFiles);
-      setAllFileNames(updateAllFileNames);
+      const updatedFiles = fileStatuses.filter((_, i) => i !== index);
+      setFileStatuses(updatedFiles);
     };
   };
 
   const onNameChange = (index: number) => {
     return (event: React.ChangeEvent<HTMLInputElement>) => {
-      const names = [...allFileNames];
+      const names = [...fileStatuses];
       const name = event.target.value;
-      names[index] = name;
-      setAllFileNames(names);
+      names[index].name = name;
+      setFileStatuses(names);
     };
   };
 
@@ -242,7 +217,7 @@ export function FileUploader({
 
   const onSaveEdit = (index: number) => {
     return (_: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-      const fileName = allFileNames[index];
+      const fileName = fileStatuses[index].name;
       // no empty file names
       if (fileName.trim().length === 0) return;
       const [extension] = fileName.split('.').reverse();
@@ -264,7 +239,7 @@ export function FileUploader({
 
   const onCancelEdit = (index: number) => {
     return (_: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-      const fileName = allFileNames[index];
+      const fileName = fileStatuses[index].name;
       if (fileName.trim().length === 0) return;
       const names = [...isEditingName];
       names[index] = false;
@@ -291,7 +266,6 @@ export function FileUploader({
       <Previewer
         acceptedFileTypes={acceptedFileTypes}
         fileStatuses={fileStatuses}
-        files={files}
         inDropZone={inDropZone}
         isEditingName={isEditingName}
         isLoading={isLoading}
@@ -308,24 +282,24 @@ export function FileUploader({
         onFileClick={onFileClick}
         percentage={percentage}
       >
-        {files?.map((file, index) => (
+        {fileStatuses?.map((status, index) => (
           <Tracker
-            percentage={fileStatuses[index]?.percentage}
-            file={file}
-            hasImage={file?.type.startsWith('image/')}
-            url={URL.createObjectURL(file)}
+            percentage={status.percentage}
+            file={status.file}
+            hasImage={status.file?.type.startsWith('image/')}
+            url={URL.createObjectURL(status.file)}
             key={index}
             onChange={onNameChange(index)}
             onCancel={onFileCancel(index)}
             onPause={onPause(index)}
             onResume={onResume(index)}
             onDelete={onDelete}
-            name={allFileNames[index]}
-            isLoading={fileStatuses[index]?.loading}
-            isError={fileStatuses[index]?.error}
-            errorMessage={fileStatuses[index]?.fileErrors}
-            isSuccess={fileStatuses[index]?.success}
-            isPaused={fileStatuses[index]?.paused}
+            name={status.name}
+            isLoading={status?.loading}
+            isError={status?.error}
+            errorMessage={status?.fileErrors}
+            isSuccess={status?.success}
+            isPaused={status?.paused}
             isEditing={isEditingName[index]}
             onSaveEdit={onSaveEdit(index)}
             onCancelEdit={onCancelEdit(index)}

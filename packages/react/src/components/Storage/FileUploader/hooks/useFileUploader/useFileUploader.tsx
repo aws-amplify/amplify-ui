@@ -10,61 +10,52 @@ export default function useFileUploader(
 ): UseFileUploader {
   const [fileStatuses, setFileStatuses] = useState<FileStatuses>([]);
   const [showPreviewer, setShowPreviewer] = useState(false);
-  const [files, setFiles] = useState<Files>([]);
 
   const [inDropZone, setInDropZone] = useState(false);
 
-  const setFileSizeErrors = (files: Files, fileStatuses: FileStatuses) => {
-    [...files].forEach((file, index) => {
+  const updateFileStatusArray = (files: Files, fileStatuses: FileStatuses) => {
+    const statuses = [...fileStatuses];
+    [...files].forEach((file) => {
       const errorFile = checkMaxSize(maxSize, file);
-      const status = fileStatuses[index];
 
-      fileStatuses[index] = {
-        ...status,
-        error: status?.error || !!errorFile,
-        fileErrors: status?.fileErrors ?? errorFile,
+      statuses.unshift({
+        error: !!errorFile,
+        fileErrors: errorFile,
         loading: false,
-      };
+        file,
+        name: file.name,
+      });
     });
-    setFileStatuses(fileStatuses);
-  };
-
-  const checkAndSetFiles = (targets: Files, statuses: FileStatuses) => {
-    setFileSizeErrors(targets, statuses);
-    setFiles(targets);
+    setFileStatuses(statuses);
   };
 
   const addTargetFiles = (targetFiles: FileList): number => {
     // Only accept accepted files
     const targets = returnAcceptedFiles([...targetFiles], acceptedFileTypes);
+    // return if no accepted files
+    if (!targets) return 0;
 
     // If not multiple and files already selected return
-    if (!multiple && files.length > 0) return files.length;
+    if (!multiple && fileStatuses.length > 0) return fileStatuses.length;
 
     // if not multiple and only 1 file selected save
     if (!multiple && targets.length == 1) {
-      checkAndSetFiles([...targets], fileStatuses);
+      updateFileStatusArray([...targets], fileStatuses);
       return targets.length;
     }
 
     // if not multiple save just the first target into the array
     if (!multiple && targets.length > 1) {
-      checkAndSetFiles([targets[0]], fileStatuses);
+      updateFileStatusArray([targets[0]], fileStatuses);
       return 1;
     }
 
-    if (files.length > 0) {
-      // create file statuses
-      targets.forEach(() => {
-        fileStatuses.unshift({
-          loading: false,
-        });
-      });
-      checkAndSetFiles([...targets].concat(files), fileStatuses);
+    if (targets.length > 0) {
+      updateFileStatusArray([...targets], fileStatuses);
     } else {
-      checkAndSetFiles([...targets], fileStatuses);
+      return 0;
     }
-    return targets.length + files.length;
+    return targets.length + fileStatuses.length;
   };
 
   const onDragStart = (event: React.DragEvent<HTMLDivElement>) => {
@@ -95,20 +86,17 @@ export default function useFileUploader(
   };
 
   return {
-    files,
     inDropZone,
     onDragEnter,
     onDragLeave,
     onDragOver,
     onDragStart,
     onDrop,
-    setFiles,
     setInDropZone,
     setShowPreviewer,
     addTargetFiles,
     showPreviewer,
     fileStatuses,
     setFileStatuses,
-    setFileSizeErrors,
   };
 }
