@@ -32,9 +32,10 @@ const ChangePassword: React.ComponentType<ChangePasswordProps> = (props) => {
   /** Auth API Handler */
   const handleChangePassword = React.useCallback(async () => {
     const { currentPassword, newPassword } = formValues;
+    setError(null);
+
     try {
       await changePassword({ user, currentPassword, newPassword });
-      setError(null);
 
       if (onSuccess) {
         onSuccess(); // notify success to the parent
@@ -68,11 +69,12 @@ const ChangePassword: React.ComponentType<ChangePasswordProps> = (props) => {
     [handleChangePassword]
   );
 
-  // return null if Auth.getCurrentAuthenticatedUser is still in progress
+  /** Return null if Auth.getCurrentAuthenticatedUser is still in progress  */
   if (isAuthUserLoading) {
     return null;
   }
 
+  /** Return null if user isn't authenticated in the first place */
   if (!user) {
     logger.warn('<ChangePassword /> requires user to be authenticated.');
     return null;

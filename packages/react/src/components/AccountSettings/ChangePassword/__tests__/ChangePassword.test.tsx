@@ -26,7 +26,7 @@ describe('ChangePassword', () => {
   });
 
   it('calls changePassword with expected arguments', async () => {
-    changePasswordSpy.mockResolvedValue('SUCCESS');
+    changePasswordSpy.mockResolvedValue();
 
     const onSuccess = jest.fn();
     render(<ChangePassword onSuccess={onSuccess} />);
@@ -55,7 +55,7 @@ describe('ChangePassword', () => {
   });
 
   it('onSuccess is called after successful sign up', async () => {
-    changePasswordSpy.mockResolvedValue('SUCCESS');
+    changePasswordSpy.mockResolvedValue();
 
     const onSuccess = jest.fn();
     render(<ChangePassword onSuccess={onSuccess} />);

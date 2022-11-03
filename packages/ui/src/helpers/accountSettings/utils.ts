@@ -11,6 +11,15 @@ export const changePassword = async ({
   user,
   currentPassword,
   newPassword,
-}: ChangePasswordInput) => {
-  return Auth.changePassword(user, currentPassword, newPassword);
+}: ChangePasswordInput): Promise<void> => {
+  try {
+    /**
+     * Auth.changePassword returns `Promise<"SUCCESS">`. We're not interested
+     * in its resolved string value, so we just return Promise.resolve() on success.
+     */
+    await Auth.changePassword(user, currentPassword, newPassword);
+    return Promise.resolve();
+  } catch (e) {
+    return Promise.reject(e);
+  }
 };
