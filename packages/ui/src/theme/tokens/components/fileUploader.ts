@@ -77,7 +77,7 @@ interface FileUploaderPreviewerTokens {
   maxWidth: DesignToken<SpaceValue>;
   backgroundColor: DesignToken<ColorValue>;
   borderWidth: DesignToken<BorderWidthValue>;
-  borderColor: DesignToken<ColorValue>;
+  borderColor: DesignToken<BorderColorValue>;
   borderStyle: DesignToken<BorderStyleValue>;
   borderRadius: DesignToken<BorderRadiusValue>;
   paddingInline: DesignToken<SpaceValue>;
