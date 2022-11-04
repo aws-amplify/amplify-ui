@@ -48,6 +48,16 @@ export const META_INFO: MetaInfo = {
     },
     slug: '[platform]',
   },
+  '/[platform]/studio/figma': {
+    frontmatter: {
+      metaTitle: 'Amplify UI - Build UI fast with Amplify',
+      metaDescription:
+        'Amplify UI simplifies building accessible, performant, and beautiful applications with cloud-connected capabilities, building blocks, theming, and utilities.',
+      supportedFrameworks: 'all',
+      slug: '[platform]',
+    },
+    slug: '[platform]',
+  },
   '/404': {
     frontmatter: {
       metaTitle: '404',

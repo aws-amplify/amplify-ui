@@ -1,0 +1,82 @@
+.figma-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0px;
+  gap: 60px;
+  background-image: url('/studio/getting-started-bg.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  /* Hard to figure out the remaining height after global header and docs header (docs header height = 57.5px) */
+  height: calc(100vh - var(--docs-dev-center-nav-height) - 57.5px);
+}
+
+.figma-landing-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px;
+  gap: 12px;
+  width: 50%;
+
+  &__title {
+    font-weight: 300;
+    font-size: 40px;
+    line-height: 40px;
+    text-align: center;
+    /* Override dark theme font color */
+    color: #232f3e; /* Amazon squid ink */
+  }
+
+  &__text {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+    /* Override dark theme font color */
+    color: #545b64; /* grey 600 */
+  }
+}
+
+.figma-file-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0px 0px;
+  gap: 4px;
+  width: 437px;
+
+  &__text {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 22px;
+    text-align: center;
+    /* Override dark theme font color */
+    color: #232f3e; /* Amazon squid ink */
+  }
+}
+
+.ui-kit {
+  background-color: #ec7211; /* orange 500 */
+  border-color: #ec7211;
+
+  &:hover,
+  &:active {
+    background-color: #eb5f07;
+    border-color: #eb5f07;
+  }
+
+  &:focus {
+    background-color: #ec7211; /* orange 500 */
+    border-color: #ec7211;
+    outline: none;
+    box-shadow: none;
+  }
+
+  &__text {
+    font-weight: 700;
+    font-size: 14px;
+    color: #fff;
+  }
+}
