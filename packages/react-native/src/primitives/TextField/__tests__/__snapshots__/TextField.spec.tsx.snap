@@ -23,6 +23,7 @@ exports[`TextField doesn't render the errorMessage if error prop is false 1`] = 
     style={
       Array [
         Object {
+          "color": "hsl(210, 50%, 10%)",
           "fontSize": 16,
           "marginHorizontal": 4,
           "marginVertical": 2,
@@ -89,6 +90,7 @@ exports[`TextField doesn't render the errorMessage if errorMessage prop is undef
     style={
       Array [
         Object {
+          "color": "hsl(210, 50%, 10%)",
           "fontSize": 16,
           "marginHorizontal": 4,
           "marginVertical": 2,
@@ -155,6 +157,7 @@ exports[`TextField renders as expected 1`] = `
     style={
       Array [
         Object {
+          "color": "hsl(210, 50%, 10%)",
           "fontSize": 16,
           "marginHorizontal": 4,
           "marginVertical": 2,
@@ -221,6 +224,7 @@ exports[`TextField renders as expected as password field 1`] = `
     style={
       Array [
         Object {
+          "color": "hsl(210, 50%, 10%)",
           "fontSize": 16,
           "marginHorizontal": 4,
           "marginVertical": 2,
@@ -289,6 +293,7 @@ exports[`TextField renders as expected when disabled 1`] = `
     style={
       Array [
         Object {
+          "color": "hsl(210, 50%, 10%)",
           "fontSize": 16,
           "marginHorizontal": 4,
           "marginVertical": 2,
@@ -355,6 +360,7 @@ exports[`TextField renders as expected with error message 1`] = `
     style={
       Array [
         Object {
+          "color": "hsl(210, 50%, 10%)",
           "fontSize": 16,
           "marginHorizontal": 4,
           "marginVertical": 2,
@@ -400,6 +406,7 @@ exports[`TextField renders as expected with error message 1`] = `
     style={
       Array [
         Object {
+          "color": "hsl(210, 50%, 10%)",
           "fontSize": 16,
           "marginHorizontal": 4,
           "marginVertical": 2,

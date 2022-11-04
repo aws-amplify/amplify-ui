@@ -67,6 +67,7 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
       style={
         Array [
           Object {
+            "color": "hsl(210, 50%, 10%)",
             "fontSize": 16,
             "marginHorizontal": 4,
             "marginVertical": 2,
@@ -111,6 +112,7 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
       style={
         Array [
           Object {
+            "color": "hsl(210, 50%, 10%)",
             "fontSize": 16,
             "marginHorizontal": 4,
             "marginVertical": 2,

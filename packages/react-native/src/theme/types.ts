@@ -2,6 +2,8 @@ import { PartialDeep } from 'type-fest';
 import { ReactNativeTokens } from '@aws-amplify/ui/src/theme/tokens';
 import baseTokens from '@aws-amplify/ui/dist/react-native/tokens';
 
+import { styles as labelStyles } from '../primitives/Label/styles';
+import { TextStyle } from 'react-native';
 export interface Tokens extends ReactNativeTokens {
   components: ComponentStyles;
 }
@@ -33,6 +35,7 @@ export interface Theme {
 
 export interface ComponentStyles {
   // TODO: add components
+  label: TextStyle;
 }
 
 /**
@@ -47,6 +50,7 @@ export interface StrictTheme extends Theme {
 
 export const components: ComponentStyles = {
   //TODO: add component styles
+  ...labelStyles,
 };
 
 export const tokens: Tokens = {

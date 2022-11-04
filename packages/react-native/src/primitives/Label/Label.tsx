@@ -1,7 +1,8 @@
 import React from 'react';
 import { Text } from 'react-native';
+
+import { useTheme } from '../../theme';
 import { LabelProps } from './types';
-import { styles } from './styles';
 
 export default function Label({
   accessibilityRole = 'text',
@@ -9,11 +10,12 @@ export default function Label({
   style,
   ...rest
 }: LabelProps): JSX.Element {
+  const { tokens } = useTheme();
   return (
     <Text
       {...rest}
       accessibilityRole={accessibilityRole}
-      style={[styles.label, style]}
+      style={[tokens.components.label, style]}
     >
       {children}
     </Text>

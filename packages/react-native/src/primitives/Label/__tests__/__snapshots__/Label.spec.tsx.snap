@@ -6,6 +6,7 @@ exports[`Label applies style props 1`] = `
   style={
     Array [
       Object {
+        "color": "hsl(210, 50%, 10%)",
         "fontSize": 16,
         "marginHorizontal": 4,
         "marginVertical": 2,
@@ -15,6 +16,7 @@ exports[`Label applies style props 1`] = `
       },
     ]
   }
+  testID="labelID"
 >
   Red Label
 </Text>
@@ -26,6 +28,7 @@ exports[`Label renders a default Label 1`] = `
   style={
     Array [
       Object {
+        "color": "hsl(210, 50%, 10%)",
         "fontSize": 16,
         "marginHorizontal": 4,
         "marginVertical": 2,

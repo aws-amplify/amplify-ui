@@ -86,6 +86,7 @@ Array [
           style={
             Array [
               Object {
+                "color": "hsl(210, 50%, 10%)",
                 "fontSize": 16,
                 "marginHorizontal": 4,
                 "marginVertical": 2,
@@ -145,6 +146,7 @@ Array [
           style={
             Array [
               Object {
+                "color": "hsl(210, 50%, 10%)",
                 "fontSize": 16,
                 "marginHorizontal": 4,
                 "marginVertical": 2,
@@ -204,6 +206,7 @@ Array [
           style={
             Array [
               Object {
+                "color": "hsl(210, 50%, 10%)",
                 "fontSize": 16,
                 "marginHorizontal": 4,
                 "marginVertical": 2,
@@ -386,6 +389,7 @@ Array [
           style={
             Array [
               Object {
+                "color": "hsl(210, 50%, 10%)",
                 "fontSize": 16,
                 "marginHorizontal": 4,
                 "marginVertical": 2,
@@ -446,6 +450,7 @@ Array [
           style={
             Array [
               Object {
+                "color": "hsl(210, 50%, 10%)",
                 "fontSize": 16,
                 "marginHorizontal": 4,
                 "marginVertical": 2,
@@ -506,6 +511,7 @@ Array [
           style={
             Array [
               Object {
+                "color": "hsl(210, 50%, 10%)",
                 "fontSize": 16,
                 "marginHorizontal": 4,
                 "marginVertical": 2,
@@ -687,6 +693,7 @@ Array [
           style={
             Array [
               Object {
+                "color": "hsl(210, 50%, 10%)",
                 "fontSize": 16,
                 "marginHorizontal": 4,
                 "marginVertical": 2,
@@ -746,6 +753,7 @@ Array [
           style={
             Array [
               Object {
+                "color": "hsl(210, 50%, 10%)",
                 "fontSize": 16,
                 "marginHorizontal": 4,
                 "marginVertical": 2,
@@ -805,6 +813,7 @@ Array [
           style={
             Array [
               Object {
+                "color": "hsl(210, 50%, 10%)",
                 "fontSize": 16,
                 "marginHorizontal": 4,
                 "marginVertical": 2,

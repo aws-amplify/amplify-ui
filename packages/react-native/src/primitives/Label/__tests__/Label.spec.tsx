@@ -1,22 +1,46 @@
 import React from 'react';
-import TestRenderer from 'react-test-renderer';
+import { render, renderHook } from '@testing-library/react-native';
+
 import Label from '../Label';
+import { useTheme } from '../../../theme';
 
 describe('Label', () => {
   it('renders a default Label', () => {
-    const defaultLabel = TestRenderer.create(<Label>Default Label</Label>);
+    const text = 'Default Label';
+    const { toJSON, getByText } = render(<Label>{text}</Label>);
+    expect(toJSON()).toMatchSnapshot();
 
-    expect(defaultLabel.toJSON()).toMatchSnapshot();
+    expect(getByText(text)).toBeDefined();
+  });
+
+  it('has default style props', () => {
+    const { getByTestId } = render(
+      <Label testID="labelID">Themed Label</Label>
+    );
+
+    const { result } = renderHook(() => useTheme());
+
+    expect(getByTestId('labelID').props.style).toStrictEqual([
+      result.current.tokens.components.label,
+      undefined,
+    ]);
   });
 
   it('applies style props', () => {
     const customStyle = { color: 'red' };
 
-    const styledLabel = TestRenderer.create(
-      <Label style={customStyle}>Red Label</Label>
+    const { toJSON, getByTestId } = render(
+      <Label testID="labelID" style={customStyle}>
+        Red Label
+      </Label>
     );
 
-    expect(styledLabel.toJSON()).toMatchSnapshot();
-    expect(styledLabel.root.props.style).toBe(customStyle);
+    const { result } = renderHook(() => useTheme());
+
+    expect(toJSON()).toMatchSnapshot();
+    expect(getByTestId('labelID').props.style).toStrictEqual([
+      result.current.tokens.components.label,
+      customStyle,
+    ]);
   });
 });

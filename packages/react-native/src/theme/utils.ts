@@ -20,7 +20,7 @@ const parseTokenValue = (tokens: Tokens, value: string) => {
   return typeof value === 'string' &&
     value.startsWith('{') &&
     value.endsWith('}')
-    ? (get(tokens, value.substring(1, value.length - 2)) as string) // cast back to string to appease TS, as lodash get returns any
+    ? (get(tokens, value.substring(1, value.length - 1)) as string) // cast back to string to appease TS, as lodash get returns any
     : value;
 };
 
