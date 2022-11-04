@@ -84,6 +84,7 @@ const SetupTOTP: DefaultSetupTOTPComponent = ({
             onPress={copyText}
             size={24}
             source={icons.copy}
+            testID="amplify__copy-text-button"
           />
         </View>
       ) : null}
