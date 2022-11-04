@@ -17,7 +17,7 @@ interface BaseDropZoneTokens {
   backgroundColor: DesignToken<ColorValue>;
   borderWidth: DesignToken<BorderWidthValue>;
   borderStyle: DesignToken<BorderStyleValue>;
-  borderColor: DesignToken<ColorValue>;
+  borderColor: DesignToken<BorderColorValue>;
   borderRadius: DesignToken<BorderRadiusValue>;
 }
 
