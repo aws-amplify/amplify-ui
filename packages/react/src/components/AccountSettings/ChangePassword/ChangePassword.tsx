@@ -53,8 +53,9 @@ function ChangePassword({
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const { currentPassword, newPassword } = formValues;
-    setErrorMessage(null);
-
+    if (errorMessage) {
+      setErrorMessage(null);
+    }
     try {
       await changePassword({ user, currentPassword, newPassword });
 
