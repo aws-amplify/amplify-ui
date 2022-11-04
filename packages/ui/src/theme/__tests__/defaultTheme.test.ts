@@ -893,7 +893,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-colors-neutral-10: hsl(210, 5%, 98%);
         --amplify-colors-neutral-20: hsl(210, 5%, 94%);
         --amplify-colors-neutral-40: hsl(210, 5%, 87%);
-        --amplify-colors-neutral-60: hsl(210, 6%, 70%);
+        --amplify-colors-neutral-60: hsl(210, 10%, 58%);
         --amplify-colors-neutral-80: hsl(210, 10%, 40%);
         --amplify-colors-neutral-90: hsl(210, 25%, 25%);
         --amplify-colors-neutral-100: hsl(210, 50%, 10%);
