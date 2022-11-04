@@ -1,8 +1,6 @@
 import React from 'react';
 import Authenticator from './Authenticator';
-import { AuthenticatorProps } from './types';
-
-export type WithAuthenticatorOptions = Omit<AuthenticatorProps, 'children'>;
+import { WithAuthenticatorOptions } from './types';
 
 export default function withAuthenticator<Props = {}>(
   Component: React.ComponentType<Props>,
