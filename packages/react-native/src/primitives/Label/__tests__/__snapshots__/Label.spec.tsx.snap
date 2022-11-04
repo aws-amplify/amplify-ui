@@ -1,6 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Label applies style props 1`] = `
+exports[`Label applies accessibility role 1`] = `
+<Text
+  accessibilityRole="none"
+  style={
+    Array [
+      Object {
+        "color": "hsl(210, 50%, 10%)",
+        "fontSize": 16,
+        "fontWeight": "400",
+        "marginHorizontal": 4,
+        "marginVertical": 2,
+      },
+      Object {
+        "color": "hsl(210, 50%, 10%)",
+      },
+      undefined,
+    ]
+  }
+  testID="labelID"
+>
+  Default Label
+</Text>
+`;
+
+exports[`Label renders a default Label 1`] = `
 <Text
   accessibilityRole="text"
   style={
@@ -8,8 +32,36 @@ exports[`Label applies style props 1`] = `
       Object {
         "color": "hsl(210, 50%, 10%)",
         "fontSize": 16,
+        "fontWeight": "400",
         "marginHorizontal": 4,
         "marginVertical": 2,
+      },
+      Object {
+        "color": "hsl(210, 50%, 10%)",
+      },
+      undefined,
+    ]
+  }
+  testID="labelID"
+>
+  Default Label
+</Text>
+`;
+
+exports[`Label should apply theme and style props 1`] = `
+<Text
+  accessibilityRole="text"
+  style={
+    Array [
+      Object {
+        "color": "hsl(210, 50%, 10%)",
+        "fontSize": 16,
+        "fontWeight": "400",
+        "marginHorizontal": 4,
+        "marginVertical": 2,
+      },
+      Object {
+        "color": "hsl(210, 50%, 10%)",
       },
       Object {
         "color": "red",
@@ -22,7 +74,7 @@ exports[`Label applies style props 1`] = `
 </Text>
 `;
 
-exports[`Label renders a default Label 1`] = `
+exports[`Label should apply variation styles 1`] = `
 <Text
   accessibilityRole="text"
   style={
@@ -30,13 +82,18 @@ exports[`Label renders a default Label 1`] = `
       Object {
         "color": "hsl(210, 50%, 10%)",
         "fontSize": 16,
+        "fontWeight": "400",
         "marginHorizontal": 4,
         "marginVertical": 2,
+      },
+      Object {
+        "color": "hsl(130, 27%, 29%)",
       },
       undefined,
     ]
   }
+  testID="labelID"
 >
-  Default Label
+  Label
 </Text>
 `;

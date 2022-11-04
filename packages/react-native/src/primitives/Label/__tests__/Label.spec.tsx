@@ -1,46 +1,75 @@
 import React from 'react';
 import { render, renderHook } from '@testing-library/react-native';
 
-import Label from '../Label';
 import { useTheme } from '../../../theme';
+import { getThemedStyles } from '../styles';
+import Label from '../Label';
+
+const text = 'Default Label';
+const testID = 'labelID';
+const props = {
+  testID,
+};
 
 describe('Label', () => {
   it('renders a default Label', () => {
-    const text = 'Default Label';
-    const { toJSON, getByText } = render(<Label>{text}</Label>);
+    const { toJSON, getByText, getByRole } = render(
+      <Label {...props}>{text}</Label>
+    );
     expect(toJSON()).toMatchSnapshot();
 
     expect(getByText(text)).toBeDefined();
+    expect(getByRole('text')).toBeDefined();
   });
 
-  it('has default style props', () => {
-    const { getByTestId } = render(
-      <Label testID="labelID">Themed Label</Label>
+  it('applies accessibility role', () => {
+    const { toJSON, queryByRole, getByRole } = render(
+      <Label {...props} accessibilityRole="none">
+        {text}
+      </Label>
     );
+    expect(toJSON()).toMatchSnapshot();
 
-    const { result } = renderHook(() => useTheme());
-
-    expect(getByTestId('labelID').props.style).toStrictEqual([
-      result.current.tokens.components.label,
-      undefined,
-    ]);
+    expect(queryByRole('text')).toBe(null);
+    expect(getByRole('none')).toBeDefined();
   });
 
-  it('applies style props', () => {
+  it('should apply theme and style props', () => {
     const customStyle = { color: 'red' };
 
     const { toJSON, getByTestId } = render(
-      <Label testID="labelID" style={customStyle}>
+      <Label {...props} style={customStyle}>
         Red Label
       </Label>
     );
 
     const { result } = renderHook(() => useTheme());
+    const themedStyle = getThemedStyles(result.current);
 
     expect(toJSON()).toMatchSnapshot();
-    expect(getByTestId('labelID').props.style).toStrictEqual([
-      result.current.tokens.components.label,
+    expect(getByTestId(testID).props.style).toStrictEqual([
+      themedStyle.text,
+      themedStyle['primary'],
       customStyle,
+    ]);
+  });
+
+  it('should apply variation styles', () => {
+    const variation = 'success';
+
+    const { toJSON, getByTestId } = render(
+      <Label {...props} variation={variation}>
+        Label
+      </Label>
+    );
+    const { result } = renderHook(() => useTheme());
+    const themedStyle = getThemedStyles(result.current);
+
+    expect(toJSON()).toMatchSnapshot();
+    expect(getByTestId(testID).props.style).toStrictEqual([
+      themedStyle.text,
+      themedStyle[variation],
+      undefined, // no custom styles
     ]);
   });
 });

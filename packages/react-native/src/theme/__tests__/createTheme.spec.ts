@@ -7,8 +7,6 @@ describe('createTheme', () => {
 
     it('should have tokens', () => {
       expect(tokens).toBeDefined();
-      expect(tokens.components).toBeDefined();
-      expect(tokens.components.label).toBeDefined();
 
       expect(tokens.colors).toStrictEqual(baseTokens.colors);
       expect(tokens.fontSizes).toStrictEqual(baseTokens.fontSizes);

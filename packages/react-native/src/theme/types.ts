@@ -2,10 +2,10 @@ import { PartialDeep } from 'type-fest';
 import { ReactNativeTokens } from '@aws-amplify/ui/src/theme/tokens';
 import baseTokens from '@aws-amplify/ui/dist/react-native/tokens';
 
-import { styles as labelStyles } from '../primitives/Label/styles';
-import { TextStyle } from 'react-native';
+import { LabelStyles } from '../primitives/Label/types';
+
 export interface Tokens extends ReactNativeTokens {
-  components: ComponentStyles;
+  components?: ComponentStyles;
 }
 
 type Override = Omit<StrictTheme, 'overrides'>;
@@ -35,7 +35,7 @@ export interface Theme {
 
 export interface ComponentStyles {
   // TODO: add components
-  label: TextStyle;
+  label: LabelStyles;
 }
 
 /**
@@ -48,12 +48,6 @@ export interface StrictTheme extends Theme {
   tokens: Tokens;
 }
 
-export const components: ComponentStyles = {
-  //TODO: add component styles
-  ...labelStyles,
-};
-
-export const tokens: Tokens = {
+export const tokens: ReactNativeTokens = {
   ...baseTokens,
-  components,
 };

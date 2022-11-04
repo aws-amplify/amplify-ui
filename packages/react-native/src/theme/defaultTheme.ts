@@ -1,6 +1,6 @@
-import { tokens, StrictTheme } from './types';
+import { tokens, Theme } from './types';
 
-export const defaultTheme: StrictTheme = {
+export const defaultTheme: Theme = {
   tokens,
   name: 'default-theme',
   colorMode: 'system',
