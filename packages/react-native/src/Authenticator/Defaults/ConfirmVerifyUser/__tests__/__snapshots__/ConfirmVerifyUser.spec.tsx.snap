@@ -59,6 +59,109 @@ Array [
         ]
       }
     >
+      Submit
+    </Text>
+  </View>,
+  <View
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        null,
+        Object {
+          "marginVertical": 8,
+          "paddingVertical": 12,
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "alignSelf": "center",
+          },
+          Object {
+            "color": "teal",
+          },
+        ]
+      }
+    >
+      Skip
+    </Text>
+  </View>,
+]
+`;
+
+exports[`ConfirmVerifyUser renders as expected when isPending is true 1`] = `
+Array [
+  <Text
+    accessibilityRole="header"
+    style={
+      Array [
+        Object {
+          "color": "black",
+        },
+        Object {
+          "fontSize": 34,
+          "fontWeight": "300",
+          "lineHeight": 51,
+        },
+        undefined,
+      ]
+    }
+  >
+    Account recovery requires verified contact information
+  </Text>,
+  <View />,
+  <View
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        null,
+        Object {
+          "backgroundColor": "teal",
+          "marginVertical": 8,
+          "paddingVertical": 12,
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "alignSelf": "center",
+          },
+          Object {
+            "color": "white",
+            "fontSize": 16,
+            "fontWeight": "bold",
+          },
+        ]
+      }
+    >
       Submitting
     </Text>
   </View>,
@@ -213,7 +316,7 @@ Array [
         ]
       }
     >
-      Submitting
+      Submit
     </Text>
   </View>,
   <View

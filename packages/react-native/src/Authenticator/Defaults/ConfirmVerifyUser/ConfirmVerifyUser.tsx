@@ -47,7 +47,7 @@ const ConfirmVerifyUser: DefaultConfirmVerifyUserComponent = ({
         style={styles.buttonPrimary}
         textStyle={styles.buttonPrimaryLabel}
       >
-        {isPending ? getSubmitText() : getSubmittingText()}
+        {isPending ? getSubmittingText() : getSubmitText()}
       </Button>
       <Button
         onPress={skipVerification}

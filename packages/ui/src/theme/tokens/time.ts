@@ -10,6 +10,10 @@ export type WebTime = {
   [Property in keyof Time]: WebDesignToken<TimeValue>;
 };
 
+export type ReactNativeTime = {
+  [Property in keyof Time]: number;
+};
+
 export const time: Time = {
   short: { value: '100ms' },
   medium: { value: '250ms' },
