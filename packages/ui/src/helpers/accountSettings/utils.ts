@@ -1,9 +1,9 @@
 import { AmplifyUser } from '../../types';
 import { Auth } from 'aws-amplify';
 
-import { getCategoryLogger } from '../utils';
+import { getLogger } from '../utils';
 
-const logger = getCategoryLogger('Auth');
+const logger = getLogger('Auth');
 
 type ChangePasswordInput = {
   user: AmplifyUser;
