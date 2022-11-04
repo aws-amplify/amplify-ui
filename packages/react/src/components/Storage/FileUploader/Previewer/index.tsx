@@ -4,7 +4,7 @@ import { PreviewerProps } from '../types';
 import {
   Alert,
   Button,
-  Card,
+  ComponentClassNames,
   Flex,
   Loader,
   Text,
@@ -49,8 +49,8 @@ export function Previewer({
 
   const remainingFilesLength = files.length - uploadedFilesLength();
   return (
-    <Card variation="outlined" className="amplify-fileuploader__previewer">
-      <Flex className="amplify-fileuploader__previewer__body">
+    <View className={ComponentClassNames.FileUploaderPreviewer}>
+      <View className={ComponentClassNames.FileUploaderPreviewerBody}>
         <UploadDropZone
           inDropZone={inDropZone}
           onDragEnter={onDragEnter}
@@ -59,17 +59,17 @@ export function Previewer({
           onDragStart={onDragStart}
           onDrop={onDrop}
         >
-          <Text className="amplify-fileuploader__dropzone__text">
+          <Text className={ComponentClassNames.FileUploaderDropZoneText}>
             {translate('Drop files here or')}
           </Text>
           <UploadButton
             acceptedFileTypes={acceptedFileTypes}
             multiple={multiple}
             onFileChange={onFileChange}
-            className={'amplify-fileuploader__dropzone__button'}
+            className={ComponentClassNames.FileUploaderDropZoneButton}
           />
         </UploadDropZone>
-        <Text fontWeight="bold">
+        <Text className={ComponentClassNames.FileUploaderPreviewerText}>
           {isSuccess ? (
             <>
               {uploadedFilesLength()} {translate('files uploaded')}
@@ -104,53 +104,52 @@ export function Previewer({
             onStartEdit={(e): void => onStartEdit(e, index)}
           />
         ))}
-        <View className="amplify-fileuploader__footer">
+      </View>
+      <View className={ComponentClassNames.FileUploaderPreviewerFooter}>
+        <View>
           {isLoading && (
             <>
               <Text>Uploading: {percentage}%</Text>
               <Loader
-                className="amplify-fileuploader-loader"
+                className={ComponentClassNames.FileUploaderLoader}
                 variation="linear"
                 percentage={percentage}
+                isPercentageTextHidden
                 isDeterminate
               />
             </>
           )}
-          {!isLoading && !isSuccess && (
-            <>
-              <View>
-                <Button
-                  disabled={
-                    fileStatuses.some((status) => status?.error) ||
-                    isEditingName.some((edit) => edit) ||
-                    remainingFilesLength === 0 ||
-                    maxFilesError
-                  }
-                  size="small"
-                  variation="primary"
-                  onClick={onFileClick}
-                >
-                  {translate('Upload')}
-                  {` ${remainingFilesLength} `}
-                  {translate('files')}
-                </Button>
-              </View>
-              <Button size="small" variation="link" onClick={onClear}>
-                {translate('Clear all')}
-              </Button>
-            </>
-          )}
-          {isSuccess && (
-            <>
-              <Text />
-              <Button size="small" onClick={onClear}>
-                {translate('Done')}
-              </Button>
-            </>
-          )}
         </View>
-      </Flex>
+        {!isLoading && !isSuccess && (
+          <Flex direction="row">
+            <Button
+              disabled={
+                fileStatuses.some((status) => status?.error) ||
+                isEditingName.some((edit) => edit) ||
+                remainingFilesLength === 0 ||
+                maxFilesError
+              }
+              size="small"
+              variation="primary"
+              onClick={onFileClick}
+            >
+              {translate('Upload')}
+              {` ${remainingFilesLength} `}
+              {translate('files')}
+            </Button>
+
+            <Button size="small" variation="link" onClick={onClear}>
+              {translate('Clear all')}
+            </Button>
+          </Flex>
+        )}
+        {isSuccess && (
+          <Button size="small" onClick={onClear}>
+            {translate('Done')}
+          </Button>
+        )}
+      </View>
       {maxFilesError && <Alert variation="error" heading={headingMaxFiles} />}
-    </Card>
+    </View>
   );
 }

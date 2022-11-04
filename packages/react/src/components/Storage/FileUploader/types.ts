@@ -11,6 +11,7 @@ export interface UploadButtonProps {
   multiple?: boolean;
   onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   className?: string;
+  provider?: string;
 }
 
 export interface UploadDropZoneProps extends DragActionHandlers {
@@ -33,6 +34,7 @@ export interface FileUploaderProps {
   onSuccess?: (event: { key: string }) => void;
   path?: string;
   variation?: 'drop' | 'button';
+  provider?: string;
 }
 
 export interface IconProps {
@@ -115,6 +117,7 @@ export interface FileStateProps {
   error: boolean;
   paused: boolean;
   errorMessage: string;
+  percentage?: number;
 }
 
 type UploadButtonComponent<Props = {}> = React.ComponentType<

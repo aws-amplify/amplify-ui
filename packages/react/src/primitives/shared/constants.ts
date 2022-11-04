@@ -198,6 +198,45 @@ export const ComponentClassObject: ComponentClassNameItems = {
   FileUploaderDropZoneText: {
     className: ComponentClassName.FileUploaderDropZoneText,
   },
+  FileUploaderDropZoneButton: {
+    className: ComponentClassName.FileUploaderDropZoneButton,
+  },
+  FileUploaderFile: {
+    className: ComponentClassName.FileUploaderFile,
+  },
+  FileUploaderFileName: {
+    className: ComponentClassName.FileUploaderFileName,
+  },
+  FileUploaderLoader: {
+    className: ComponentClassName.FileUploaderLoader,
+  },
+  FileUploaderFileSize: {
+    className: ComponentClassName.FileUploaderFileSize,
+  },
+  FileUploaderFileInfo: {
+    className: ComponentClassName.FileUploaderFileInfo,
+  },
+  FileUploaderFileImage: {
+    className: ComponentClassName.FileUploaderFileImage,
+  },
+  FileUploaderFileMain: {
+    className: ComponentClassName.FileUploaderFileMain,
+  },
+  FileUploaderFileStatus: {
+    className: ComponentClassName.FileUploaderFileStatus,
+  },
+  FileUploaderPreviewer: {
+    className: ComponentClassName.FileUploaderPreviewer,
+  },
+  FileUploaderPreviewerText: {
+    className: ComponentClassName.FileUploaderPreviewerText,
+  },
+  FileUploaderPreviewerBody: {
+    className: ComponentClassName.FileUploaderPreviewerBody,
+  },
+  FileUploaderPreviewerFooter: {
+    className: ComponentClassName.FileUploaderPreviewerFooter,
+  },
   Flex: {
     className: ComponentClassName.Flex,
     components: ['Flex'],
@@ -597,6 +636,23 @@ export const ComponentClassNames: ComponentClassNamesType = {
     ComponentClassObject.FileUploaderDropZoneIcon.className,
   FileUploaderDropZoneText:
     ComponentClassObject.FileUploaderDropZoneText.className,
+  FileUploaderDropZoneButton:
+    ComponentClassObject.FileUploaderDropZoneButton.className,
+  FileUploaderFile: ComponentClassObject.FileUploaderFile.className,
+  FileUploaderFileName: ComponentClassObject.FileUploaderFileName.className,
+  FileUploaderLoader: ComponentClassObject.FileUploaderLoader.className,
+  FileUploaderFileSize: ComponentClassObject.FileUploaderFileSize.className,
+  FileUploaderFileInfo: ComponentClassObject.FileUploaderFileInfo.className,
+  FileUploaderFileImage: ComponentClassObject.FileUploaderFileImage.className,
+  FileUploaderFileMain: ComponentClassObject.FileUploaderFileMain.className,
+  FileUploaderFileStatus: ComponentClassObject.FileUploaderFileStatus.className,
+  FileUploaderPreviewer: ComponentClassObject.FileUploaderPreviewer.className,
+  FileUploaderPreviewerText:
+    ComponentClassObject.FileUploaderPreviewerText.className,
+  FileUploaderPreviewerBody:
+    ComponentClassObject.FileUploaderPreviewerBody.className,
+  FileUploaderPreviewerFooter:
+    ComponentClassObject.FileUploaderPreviewerFooter.className,
   Flex: ComponentClassObject.Flex.className,
   Grid: ComponentClassObject.Grid.className,
   Heading: ComponentClassObject.Heading.className,

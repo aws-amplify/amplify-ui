@@ -17,12 +17,7 @@ export function UploadButton({
 
   return (
     <>
-      <Button
-        className={className}
-        size="small"
-        onClick={onClick}
-        variation="primary"
-      >
+      <Button className={className} size="small" onClick={onClick}>
         {translate('Browse files')}
       </Button>
       <VisuallyHidden>

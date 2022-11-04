@@ -1,1 +1,1 @@
-export { FileUploader } from './FileUploader';
+export { FileUploader, Tracker } from './FileUploader';

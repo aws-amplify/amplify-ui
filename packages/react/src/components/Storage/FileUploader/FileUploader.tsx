@@ -3,7 +3,7 @@ import { UploadTask, Storage } from '@aws-amplify/storage';
 import { getFileName, translate, uploadFile } from '@aws-amplify/ui';
 import { FileStatuses, FileUploaderProps } from './types';
 import { useFileUploader } from './hooks/useFileUploader';
-import { Text } from '../../../primitives';
+import { ComponentClassNames, Text } from '../../../primitives';
 import { UploadButton } from './UploadButton';
 import { Previewer } from './Previewer';
 import { UploadDropZone } from './UploadDropZone';
@@ -20,6 +20,7 @@ export function FileUploader({
   maxFiles,
   onError,
   onSuccess,
+  ...rest
 }: FileUploaderProps): JSX.Element {
   const {
     UploadDropZone = FileUploader.UploadDropZone,
@@ -173,7 +174,6 @@ export function FileUploader({
         return acceptedFileTypes.includes('.' + extension);
       });
       const uploadFileName = getFileName(fileNames?.[i], allFileNames[i]);
-
       const uploadTask: UploadTask = uploadFile({
         file: files[i],
         fileName: uploadFileName,
@@ -181,6 +181,7 @@ export function FileUploader({
         progressCallback: progressCallback(i),
         errorCallback: errorCallback(i),
         completeCallback: completeCallback(),
+        ...rest,
       });
       uploadTasksTemp.push(uploadTask);
     }
@@ -333,12 +334,12 @@ export function FileUploader({
         onDragStart={onDragStart}
         onDrop={onDrop}
       >
-        <Text className="amplify-fileuploader__dropzone__text">
+        <Text className={ComponentClassNames.FileUploaderDropZoneText}>
           {translate('Drop files here or')}
         </Text>
         <UploadButton
           {...CommonProps}
-          className={'amplify-fileuploader__dropzone__button'}
+          className={ComponentClassNames.FileUploaderDropZoneButton}
         />
       </UploadDropZone>
     );
