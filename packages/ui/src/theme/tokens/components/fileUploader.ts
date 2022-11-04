@@ -96,7 +96,7 @@ interface FileUploaderPreviewerTokens {
     paddingBlock: DesignToken<SpaceValue>;
     justifyContent: DesignToken<JustifyContentValue>;
     borderWidth: DesignToken<BorderWidthValue>;
-    borderColor: DesignToken<ColorValue>;
+    borderColor: DesignToken<BorderColorValue>;
     borderStyle: DesignToken<BorderStyleValue>;
   };
 }
