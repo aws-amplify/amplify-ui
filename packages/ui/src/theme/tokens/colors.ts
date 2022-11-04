@@ -97,6 +97,30 @@ export type WebColors = {
   [key: string]: WebColorTypes | Record<string, WebColorTypes>;
 };
 
+export type ReactNativeColors = {
+  red: ColorScale<string>;
+  orange: ColorScale<string>;
+  yellow: ColorScale<string>;
+  green: ColorScale<string>;
+  teal: ColorScale<string>;
+  blue: ColorScale<string>;
+  purple: ColorScale<string>;
+  pink: ColorScale<string>;
+  neutral: ColorScale<string>;
+  white: string;
+  black: string;
+
+  font: FontColors<string>;
+  background: BackgroundColors<string>;
+  border: BorderColors<string>;
+  brand: {
+    primary: ColorScale<string>;
+    secondary: ColorScale<string>;
+  };
+
+  overlay: OverlayColors<string>;
+};
+
 export const colors: Colors = {
   red: {
     10: { value: 'hsl(0, 75%, 95%)' },

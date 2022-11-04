@@ -7,7 +7,7 @@
  */
 export function isDesignToken(arg: unknown): arg is WebDesignToken {
   if (typeof arg === 'object') {
-    return arg.hasOwnProperty('value');
+    return Object.prototype.hasOwnProperty.call(arg, 'value');
   } else {
     return false;
   }

@@ -21,6 +21,10 @@ export type WebFontSizes = {
   [Property in keyof FontSizes]: WebDesignToken<FontSizeValue>;
 };
 
+export type ReactNativeFontSizes = {
+  [Property in keyof Omit<FontSizes, 'xxxs' | 'xxxxl'>]: number;
+};
+
 export const fontSizes: FontSizes = {
   xxxs: { value: '0.375rem' },
   xxs: { value: '0.5rem' },
