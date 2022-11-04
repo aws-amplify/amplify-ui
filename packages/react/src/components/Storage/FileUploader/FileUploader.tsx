@@ -178,7 +178,7 @@ export function FileUploader({
     }
 
     const { files } = event.target;
-    const addedFilesLength = addTargetFiles(files);
+    const addedFilesLength = addTargetFiles([...files]);
     // only show previewer if the added files are great then 0
     if (addedFilesLength > 0) setShowPreviewer(true);
   };

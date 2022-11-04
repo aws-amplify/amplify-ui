@@ -28,7 +28,7 @@ export default function useFileUploader(
     setFileStatuses(statuses);
   };
 
-  const addTargetFiles = (targetFiles: FileList): number => {
+  const addTargetFiles = (targetFiles: File[]): number => {
     // Only accept accepted files
     const targets = returnAcceptedFiles([...targetFiles], acceptedFileTypes);
     // return if no accepted files
@@ -79,7 +79,7 @@ export default function useFileUploader(
     event.preventDefault();
     event.stopPropagation();
     const { files } = event.dataTransfer;
-    const addedFilesLength = addTargetFiles(files);
+    const addedFilesLength = addTargetFiles([...files]);
     if (addedFilesLength > 0) setShowPreviewer(true);
     setInDropZone(false);
   };
