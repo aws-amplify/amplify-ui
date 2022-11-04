@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { ButtonProps } from './button';
-import { TextInputFieldProps } from './textField';
+import { TextFieldProps } from './textField';
 
-export interface PasswordFieldProps extends TextInputFieldProps {
+export interface PasswordFieldProps extends TextFieldProps {
   /**
    * @description
    * For password fields, will hide the "show password" button

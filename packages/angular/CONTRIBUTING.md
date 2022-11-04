@@ -10,9 +10,6 @@ This directory (`packages/angular`) contains base dependencies for developing an
 packages/angular/
 ├── projects/ui-angular/ # where the actual `@aws-amplify/ui-angular` library lives
 │   ├── src/ # contains src files for UI library code.
-│   ├── legacy/ # contains re-expors of legacy web components
-│   │   └── src/
-│   │   └── package.json # required by ng-packagr to setup secondary entry points
 │   └── package.json # name: `@aws-amplify/ui-angular`, private: false
 │                    # contains dependencies that library needs (e.g. xstate)
 │

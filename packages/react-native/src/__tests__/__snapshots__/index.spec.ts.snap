@@ -8,5 +8,14 @@ Array [
   "ThemeProvider",
   "UseAuthenticator",
   "useAuthenticator",
+  "BannerMessageProps",
+  "CarouselMessageProps",
+  "FullScreenMessageProps",
+  "InAppMessageDisplay",
+  "InAppMessagingProvider",
+  "MessageComponents",
+  "ModalMessageProps",
+  "useInAppMessaging",
+  "withInAppMessaging",
 ]
 `;

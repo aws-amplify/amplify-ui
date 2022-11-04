@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import Auth, { CognitoUser } from '@aws-amplify/auth';
+import { Auth, CognitoUser } from '@aws-amplify/auth';
 import { Hub, HubCallback } from '@aws-amplify/core';
 
 // Exposes relevant CognitoUser properties

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Amplify, { I18n } from 'aws-amplify';
+import { Amplify, I18n } from 'aws-amplify';
 import '@aws-amplify/ui-vue/styles.css';
 import { Authenticator } from '@aws-amplify/ui-vue';
 import { translations } from '@aws-amplify/ui';
