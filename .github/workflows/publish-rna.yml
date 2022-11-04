@@ -1,0 +1,17 @@
+# Description: This workflow runs unit + e2e tests
+#
+# Triggered by: merge to `rna/release` branch
+
+name: Publish / RNA
+
+on:
+  push:
+    branches: [rna/release]
+
+jobs:
+  publish:
+    uses: ./.github/workflows/reusable-tagged-publish.yml
+    with:
+      dist-tag: rna
+    secrets:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

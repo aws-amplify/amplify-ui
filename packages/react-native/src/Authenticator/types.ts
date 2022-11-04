@@ -16,3 +16,5 @@ export interface AuthenticatorProps
   children?: React.ReactNode;
   components?: Components;
 }
+
+export type WithAuthenticatorOptions = Omit<AuthenticatorProps, 'children'>;

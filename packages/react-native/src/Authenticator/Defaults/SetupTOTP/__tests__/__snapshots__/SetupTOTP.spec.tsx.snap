@@ -402,3 +402,409 @@ Array [
   </View>,
 ]
 `;
+
+exports[`SetupTOTP renders as expected with secret code 1`] = `
+Array [
+  <Text
+    accessibilityRole="header"
+    style={
+      Array [
+        Object {
+          "color": "black",
+        },
+        Object {
+          "fontSize": 34,
+          "fontWeight": "300",
+          "lineHeight": 51,
+        },
+        undefined,
+      ]
+    }
+  >
+    Setup TOTP
+  </Text>,
+  <View>
+    <View
+      accessibilityLabel="Code"
+      accessibilityState={
+        Object {
+          "disabled": false,
+        }
+      }
+      accessible={true}
+      style={
+        Array [
+          Object {
+            "alignItems": "flex-start",
+          },
+          Object {
+            "fontSize": 16,
+            "marginVertical": 4,
+          },
+        ]
+      }
+    >
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 16,
+              "marginHorizontal": 4,
+              "marginVertical": 2,
+            },
+            undefined,
+          ]
+        }
+      >
+        Code
+      </Text>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "borderColor": "black",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "padding": 8,
+            "width": "100%",
+          }
+        }
+      >
+        <TextInput
+          accessible={true}
+          autoCapitalize="none"
+          editable={true}
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          placeholder="Code"
+          style={
+            Array [
+              Object {
+                "flexGrow": 1,
+                "fontSize": 16,
+              },
+              undefined,
+            ]
+          }
+        />
+      </View>
+    </View>
+  </View>,
+  <View
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        null,
+        Object {
+          "backgroundColor": "teal",
+          "marginVertical": 8,
+          "paddingVertical": 12,
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "alignSelf": "center",
+          },
+          Object {
+            "color": "white",
+            "fontSize": 16,
+            "fontWeight": "bold",
+          },
+        ]
+      }
+    >
+      Confirm
+    </Text>
+  </View>,
+  <View
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        null,
+        Object {
+          "marginVertical": 8,
+          "paddingVertical": 12,
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "alignSelf": "center",
+          },
+          Object {
+            "color": "teal",
+          },
+        ]
+      }
+    >
+      Back to Sign In
+    </Text>
+  </View>,
+]
+`;
+
+exports[`SetupTOTP renders as expected with secret code 2`] = `
+Array [
+  <Text
+    accessibilityRole="header"
+    style={
+      Array [
+        Object {
+          "color": "black",
+        },
+        Object {
+          "fontSize": 34,
+          "fontWeight": "300",
+          "lineHeight": 51,
+        },
+        undefined,
+      ]
+    }
+  >
+    Setup TOTP
+  </Text>,
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "paddingVertical": 8,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "flex": 1,
+          "flexWrap": "wrap",
+        }
+      }
+    >
+      secretKey
+    </Text>
+    <View
+      accessibilityRole="button"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          null,
+          null,
+        ]
+      }
+      testID="amplify__copy-text-button"
+    >
+      <Image
+        accessibilityRole="image"
+        source={
+          Object {
+            "testUri": "../../../src/assets/icons/copy.png",
+          }
+        }
+        style={
+          Array [
+            Object {
+              "height": 24,
+              "resizeMode": "contain",
+              "tintColor": "teal",
+              "width": 24,
+            },
+            Object {
+              "marginLeft": 12,
+            },
+          ]
+        }
+      />
+    </View>
+  </View>,
+  <View>
+    <View
+      accessibilityLabel="Code"
+      accessibilityState={
+        Object {
+          "disabled": false,
+        }
+      }
+      accessible={true}
+      style={
+        Array [
+          Object {
+            "alignItems": "flex-start",
+          },
+          Object {
+            "fontSize": 16,
+            "marginVertical": 4,
+          },
+        ]
+      }
+    >
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 16,
+              "marginHorizontal": 4,
+              "marginVertical": 2,
+            },
+            undefined,
+          ]
+        }
+      >
+        Code
+      </Text>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "borderColor": "black",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "padding": 8,
+            "width": "100%",
+          }
+        }
+      >
+        <TextInput
+          accessible={true}
+          autoCapitalize="none"
+          editable={true}
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          placeholder="Code"
+          style={
+            Array [
+              Object {
+                "flexGrow": 1,
+                "fontSize": 16,
+              },
+              undefined,
+            ]
+          }
+        />
+      </View>
+    </View>
+  </View>,
+  <View
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        null,
+        Object {
+          "backgroundColor": "teal",
+          "marginVertical": 8,
+          "paddingVertical": 12,
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "alignSelf": "center",
+          },
+          Object {
+            "color": "white",
+            "fontSize": 16,
+            "fontWeight": "bold",
+          },
+        ]
+      }
+    >
+      Confirm
+    </Text>
+  </View>,
+  <View
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        null,
+        Object {
+          "marginVertical": 8,
+          "paddingVertical": 12,
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "alignSelf": "center",
+          },
+          Object {
+            "color": "teal",
+          },
+        ]
+      }
+    >
+      Back to Sign In
+    </Text>
+  </View>,
+]
+`;
