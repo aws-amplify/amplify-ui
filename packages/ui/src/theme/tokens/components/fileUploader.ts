@@ -1,15 +1,16 @@
 import {
+  AlignItemsValue,
+  BorderColorValue,
+  BorderRadiusValue,
+  BorderStyleValue,
+  BorderWidthValue,
   ColorValue,
   DesignToken,
   FontSizeValue,
-  SpaceValue,
-  BorderWidthValue,
-  TextAlignValue,
-  BorderRadiusValue,
-  BorderStyleValue,
-  AlignItemsValue,
-  StrokeLinecapValue,
   JustifyContentValue,
+  SpaceValue,
+  StrokeLinecapValue,
+  TextAlignValue,
 } from '../types/designToken';
 import { TypographyTokens } from '../types/typography';
 
