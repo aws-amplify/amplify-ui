@@ -78,7 +78,7 @@ describe('Previewer', () => {
     );
 
     expect(
-      container.querySelectorAll(ComponentClassNames.FileUploaderFile).length
+      container.querySelectorAll(`.${ComponentClassNames.FileUploaderFile}`).length
     ).toEqual(2);
   });
 
