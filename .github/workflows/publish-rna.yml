@@ -12,6 +12,6 @@ jobs:
   publish:
     uses: ./.github/workflows/reusable-tagged-publish.yml
     with:
-      dist-tag: rn-authenticator
+      dist-tag: rna
     secrets:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
