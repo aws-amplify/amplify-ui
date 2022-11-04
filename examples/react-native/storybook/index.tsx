@@ -8,7 +8,7 @@ import {
 import { withKnobs } from '@storybook/addon-knobs';
 import noop from 'lodash/noop';
 import { loadStories } from './storyLoader';
-import { Screen } from './ui/Screen';
+import { DefaultContainer } from '@aws-amplify/ui-react-native/src/Authenticator/common';
 
 const STORYBOOK_REQUIRE_CYCLE_PREFIX =
   'Require cycle: node_modules/core-js/internals/microtask.js';
@@ -26,9 +26,9 @@ export function setupStorybook(initStorybook: boolean) {
     // add decorators
     addDecorator(withKnobs);
     addDecorator((Story: any) => (
-      <Screen>
+      <DefaultContainer>
         <Story />
-      </Screen>
+      </DefaultContainer>
     ));
   }
 
