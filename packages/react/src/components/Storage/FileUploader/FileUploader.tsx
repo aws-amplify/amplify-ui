@@ -20,7 +20,6 @@ export function FileUploader({
   maxFiles,
   onError,
   onSuccess,
-  ...rest
 }: FileUploaderProps): JSX.Element {
   const {
     UploadDropZone = FileUploader.UploadDropZone,
@@ -181,7 +180,6 @@ export function FileUploader({
         progressCallback: progressCallback(i),
         errorCallback: errorCallback(i),
         completeCallback: completeCallback(),
-        ...rest,
       });
       uploadTasksTemp.push(uploadTask);
     }

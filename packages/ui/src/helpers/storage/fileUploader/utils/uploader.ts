@@ -19,7 +19,6 @@ export function uploadFile({
   progressCallback,
   errorCallback,
   completeCallback,
-  ...rest
 }: {
   file: File;
   fileName: string;
@@ -34,7 +33,6 @@ export function uploadFile({
     progressCallback,
     errorCallback,
     completeCallback,
-    ...rest,
   });
 }
 /**

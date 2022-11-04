@@ -2,6 +2,7 @@ import * as React from 'react';
 import { render } from '@testing-library/react';
 
 import { Previewer } from '..';
+import { ComponentClassNames } from '../../../../../primitives';
 const fakeFile = new File(['hello'], 'hello.png', { type: 'image/png' });
 const fakeFile2 = new File(['goodbye'], 'goodbye.png', {
   type: 'image/png',
@@ -77,7 +78,7 @@ describe('Previewer', () => {
     );
 
     expect(
-      container.querySelectorAll('.amplify-fileuploader-file').length
+      container.querySelectorAll(ComponentClassNames.FileUploaderFile).length
     ).toEqual(2);
   });
 

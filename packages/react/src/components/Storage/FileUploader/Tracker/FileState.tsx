@@ -4,7 +4,7 @@ import { Text, ComponentClassNames } from '../../../../primitives';
 import { IconCheck, IconError } from '../../../../primitives/Icon/internal';
 import { FileStateProps } from '../types';
 import classNames from 'classnames';
-import { classNameModifier } from 'src/primitives/shared/utils';
+import { classNameModifier } from '../../../../primitives/shared/utils';
 
 export const FileState = ({
   loading,
