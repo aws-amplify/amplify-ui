@@ -66,6 +66,7 @@ describe('ChangePassword', () => {
     fireEvent.submit(submitButton);
 
     // submit handling is async, wait for onSuccess to be called
+    // https://testing-library.com/docs/dom-testing-library/api-async/#waitfor
     await waitFor(() => expect(onSuccess).toBeCalledTimes(1));
   });
 
@@ -82,7 +83,6 @@ describe('ChangePassword', () => {
     fireEvent.submit(submitButton);
 
     // submit handling is async, wait for onError to be called
-    // https://testing-library.com/docs/dom-testing-library/api-async/#waitfor
     await waitFor(() => expect(onError).toBeCalledTimes(1));
   });
 
