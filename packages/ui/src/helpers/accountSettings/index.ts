@@ -1,0 +1,1 @@
+export { changePassword } from './utils';
