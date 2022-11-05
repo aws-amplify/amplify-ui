@@ -21,7 +21,6 @@
     "clean": "rimraf dist node_modules",
     "prebuild": "rimraf dist",
     "build": "rollup --config",
-    "build:cjs": "tsc --project tsconfig.cjs.json",
     "build:esm": "tsc --project tsconfig.esm.json",
     "dev": "yarn build:esm --watch",
     "lint": "tsc --noEmit && eslint src",
@@ -35,7 +34,7 @@
     "xstate": "^4.33.6"
   },
   "peerDependencies": {
-    "aws-amplify": "3.x.x || 4.x.x",
+    "aws-amplify": "next",
     "react": ">= 16.8.0",
     "react-dom": ">= 16.8.0"
   },
