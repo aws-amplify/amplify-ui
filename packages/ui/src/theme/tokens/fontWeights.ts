@@ -21,20 +21,7 @@ export type FontWeights<
 
 export type WebFontWeights = FontWeights<WebDesignToken<FontWeightValue>>;
 
-type ReactNativeFontWeight =
-  | 'normal'
-  | 'bold'
-  | '100'
-  | '200'
-  | '300'
-  | '400'
-  | '500'
-  | '600'
-  | '700'
-  | '800'
-  | '900'
-  | undefined;
-export type ReactNativeFontWeights = FontWeights<ReactNativeFontWeight>;
+export type ReactNativeFontWeights = FontWeights<string>;
 
 export const fontWeights: FontWeights = {
   hairline: { value: 100 },

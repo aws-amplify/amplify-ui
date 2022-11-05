@@ -24,7 +24,7 @@ export type Space<DesignTokenType = DesignToken<SpaceValue> | SpaceValue> =
 export type WebSpace = Space<WebDesignToken<SpaceValue>>;
 
 export type ReactNativeSpace = Omit<
-  Space<SpaceValue>,
+  Space<number>,
   'xxxs' | 'relative' | 'zero'
 >;
 

@@ -1,10 +1,10 @@
 import baseTokens from '@aws-amplify/ui/dist/react-native/tokens';
 
-import { Tokens } from '../types';
+import { BaseTokens } from '../types';
 import { setupTokens } from '../utils';
 
 // setupTokens will receive a fully defined theme so all props are required
-const tokens: Tokens = {
+const tokens: BaseTokens = {
   ...baseTokens,
   colors: {
     ...baseTokens.colors,
@@ -19,7 +19,6 @@ const tokens: Tokens = {
       },
     },
   },
-  components: {},
 };
 
 describe('utils', () => {
