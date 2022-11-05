@@ -90,11 +90,6 @@ export type Colors<DesignTokenType = DesignToken<ColorValue> | string> =
 
 export type WebColors = Colors<WebDesignToken<ColorValue>>;
 
-export const colorsTest: Partial<Colors['red']> = { 10: 'haha' };
-export const colorsTestTwo: Partial<Colors['red']> = {
-  10: { value: 'red' },
-};
-
 export type ReactNativeColors = Colors<ColorValue>;
 
 export const colors: Colors = {

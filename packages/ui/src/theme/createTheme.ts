@@ -5,7 +5,6 @@ import flattenProperties from 'style-dictionary/lib/utils/flattenProperties';
 import { defaultTheme } from './defaultTheme';
 import { Theme, BaseTheme, WebTheme, Override } from './types';
 import { cssValue, cssNameTransform } from './utils';
-import { WebTokens } from './tokens';
 import { DesignToken, WebDesignToken } from './tokens/types/designToken';
 
 /**
@@ -63,7 +62,7 @@ function setupTokens(obj: any, path = []) {
  */
 export function createTheme(
   theme?: Theme,
-  baseTheme: BaseTheme | WebTheme = defaultTheme
+  baseTheme: BaseTheme = defaultTheme
 ): WebTheme {
   // merge theme and baseTheme to get a complete theme
   // deepExtend is an internal Style Dictionary method
@@ -75,7 +74,7 @@ export function createTheme(
   // does. At the end of this, each token should have:
   // - CSS variable name of itself
   // - its value (reference to another CSS variable or raw value)
-  const tokens = setupTokens(mergedTheme.tokens) as WebTokens; // Setting the type here because setupTokens is recursive
+  const tokens = setupTokens(mergedTheme.tokens) as WebTheme['tokens']; // Setting the type here because setupTokens is recursive
 
   const { breakpoints, name } = mergedTheme;
 

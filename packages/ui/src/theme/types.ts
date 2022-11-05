@@ -114,7 +114,7 @@ export interface Theme {
 /**
  * A BaseTheme has all tokens and breakpoints required
  */
-export interface BaseTheme {
+export interface BaseTheme extends Theme {
   name: string;
   tokens: Tokens;
   breakpoints: Breakpoints;
@@ -126,7 +126,9 @@ export interface BaseTheme {
  * on the design tokens and all design tokens have added fields
  * to be used in Javascript/Typescript.
  */
-export interface WebTheme extends Omit<BaseTheme, 'tokens'> {
-  tokens: WebTokens;
+export interface WebTheme extends BaseTheme {
   cssText: string;
+  // properties `components` and `transforms` are not specified on `WebTokens`,
+  // but are required token properties for `WebTheme`
+  tokens: WebTokens & Pick<Tokens, 'components' | 'transforms'>;
 }
