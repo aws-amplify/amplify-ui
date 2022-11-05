@@ -22,7 +22,7 @@ const getRouteComponent = (route: string): RouteComponent => {
     case 'authenticated':
     case 'idle':
     case 'setup':
-    case 'transition':
+    case 'autoSignIn':
       return RenderNothing;
     case 'confirmSignUp':
       return ConfirmSignUp;

@@ -63,6 +63,7 @@ const PhoneNumberFieldPrimitive: Primitive<PhoneNumberFieldProps, 'input'> = (
       hasError={hasError}
       isDisabled={isDisabled}
       isReadOnly={isReadOnly}
+      isMultiline={false}
       onInput={onInput}
       ref={ref}
       size={size}

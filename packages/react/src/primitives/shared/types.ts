@@ -102,7 +102,6 @@ type ComponentClassNameKey =
   | 'LoaderDeterminate'
   | 'LoaderPercentageText'
   | 'MenuContent'
-  | 'MenuContentWrapper'
   | 'MenuItem'
   | 'MenuTrigger'
   | 'Pagination'

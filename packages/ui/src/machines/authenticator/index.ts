@@ -207,7 +207,6 @@ export function createAuthenticatorMachine() {
         BLUR: { actions: 'forwardToActor' },
         SUBMIT: { actions: 'forwardToActor' },
         FEDERATED_SIGN_IN: { actions: 'forwardToActor' },
-        AUTO_SIGN_IN: { actions: 'forwardToActor' },
         RESEND: { actions: 'forwardToActor' },
         SIGN_IN: { actions: 'forwardToActor' },
         SKIP: { actions: 'forwardToActor' },
@@ -376,12 +375,7 @@ export function createAuthenticatorMachine() {
           event.data?.intent === 'confirmSignUp',
         shouldRedirectToResetPassword: (_, event) =>
           event.data?.intent === 'confirmPasswordReset',
-        shouldAutoSignIn: (context, event) => {
-          return (
-            event.data?.intent === 'autoSignIn' ||
-            event.data?.intent === 'autoSignInSubmit'
-          );
-        },
+        shouldAutoSignIn: (_, event) => event.data?.intent === 'autoSignIn',
         shouldSetup: (context) => context.hasSetup === false,
         // other context guards
         hasActor: (context) => !!context.actorRef,

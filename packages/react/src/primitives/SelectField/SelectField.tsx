@@ -51,7 +51,6 @@ const SelectFieldPrimitive: Primitive<SelectFieldProps, 'select'> = (
     options,
     size,
     testId,
-    inputStyles,
     ..._rest
   } = props;
 
@@ -59,7 +58,8 @@ const SelectFieldPrimitive: Primitive<SelectFieldProps, 'select'> = (
   const descriptionId = useStableId();
   const ariaDescribedBy = descriptiveText ? descriptionId : undefined;
 
-  const { styleProps, rest } = splitPrimitiveProps(_rest);
+  const { flexContainerStyleProps, baseStyleProps, rest } =
+    splitPrimitiveProps(_rest);
 
   return (
     <Flex
@@ -70,7 +70,8 @@ const SelectFieldPrimitive: Primitive<SelectFieldProps, 'select'> = (
       )}
       data-size={size}
       testId={testId}
-      {...styleProps}
+      {...baseStyleProps}
+      {...flexContainerStyleProps}
     >
       <Label htmlFor={fieldId} visuallyHidden={labelHidden}>
         {label}
@@ -87,7 +88,6 @@ const SelectFieldPrimitive: Primitive<SelectFieldProps, 'select'> = (
         ref={ref}
         size={size}
         {...rest}
-        {...inputStyles}
       >
         {selectFieldChildren({ children, options })}
       </Select>

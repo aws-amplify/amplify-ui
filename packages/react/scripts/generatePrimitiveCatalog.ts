@@ -66,7 +66,6 @@ const priorityProps = {
   ],
   Text: ['children', 'fontWeight', 'fontSize', 'color'],
   TextField: [...fieldProps, 'variation'],
-  TextAreaField: [...fieldProps, 'resize', 'rows', 'maxLength', 'variation'],
 };
 
 /**

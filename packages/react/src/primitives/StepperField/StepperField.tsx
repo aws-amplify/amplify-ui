@@ -42,7 +42,16 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
     size,
     variation,
     testId,
-    inputStyles,
+
+    alignSelf, // @TODO: remove custom destructuring for 3.0 release
+    bottom, // @TODO: remove custom destructuring for 3.0 release
+    height, // @TODO: remove custom destructuring for 3.0 release
+    left, // @TODO: remove custom destructuring for 3.0 release
+    padding, // @TODO: remove custom destructuring for 3.0 release
+    position, // @TODO: remove custom destructuring for 3.0 release
+    right, // @TODO: remove custom destructuring for 3.0 release
+    top, // @TODO: remove custom destructuring for 3.0 release
+    width, // @TODO: remove custom destructuring for 3.0 release
 
     // this is only required in useStepper hook but deconstruct here to remove its existence in rest
     value: controlledValue,
@@ -53,7 +62,8 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
   const descriptionId = useStableId();
   const ariaDescribedBy = descriptiveText ? descriptionId : undefined;
 
-  const { styleProps, rest } = splitPrimitiveProps(_rest);
+  const { baseStyleProps, flexContainerStyleProps, rest } =
+    splitPrimitiveProps(_rest);
 
   const {
     step,
@@ -78,6 +88,7 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
 
   return (
     <Flex
+      alignSelf={alignSelf}
       className={classNames(
         ComponentClassNames.Field,
         classNameModifier(ComponentClassNames.Field, size),
@@ -87,7 +98,15 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
       data-size={size}
       data-variation={variation}
       testId={testId}
-      {...styleProps}
+      width={width}
+      height={height}
+      position={position}
+      padding={padding}
+      top={top}
+      right={right}
+      left={left}
+      bottom={bottom}
+      {...flexContainerStyleProps}
     >
       <Label htmlFor={fieldId} visuallyHidden={labelHidden}>
         {label}
@@ -163,7 +182,7 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
           variation={variation}
           type="number"
           value={inputValue}
-          {...inputStyles}
+          {...baseStyleProps}
           {...rest}
         />
       </FieldGroup>

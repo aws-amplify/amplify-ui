@@ -16,8 +16,6 @@ export type AuthEventTypes =
   | 'FEDERATED_SIGN_IN'
   | 'RESEND'
   | 'RESET_PASSWORD'
-  | 'AUTO_SIGN_IN'
-  | 'AUTO_SIGN_IN_FAILURE'
   | 'SIGN_IN'
   | 'SIGN_OUT'
   | 'SIGN_UP'

@@ -257,14 +257,6 @@ The following is a contrived example demonstrating use of the `ref` and `dialCod
 To override styling on all `PhoneNumberField` primitives, you can set the Amplify CSS variables with the built-in `.amplify-phonenumberfield`
 and `.amplify-dialcodeselect` class.
 
-<Example>
-  <PhoneNumberField
-    defaultDialCode="+1"
-    label="Globally styled field"
-    className="globally-styled-textfield"
-  />
-  
-  <ExampleCode>
 ```css
 /* styles.css */
 .amplify-phonenumberfield,
@@ -273,7 +265,12 @@ and `.amplify-dialcodeselect` class.
 }
 ```
 
-  </ExampleCode>
+<Example>
+  <PhoneNumberField
+    defaultDialCode="+1"
+    label="Globally styled field"
+    className="globally-styled-textfield"
+  />
 </Example>
 
 ### Local styling
@@ -282,15 +279,19 @@ To override styling on a specific `PhoneNumberField`, you can use a class select
 
 _Using a class selector:_
 
+```css
+/* styles.css */
+.custom-phonenumberfield-class .amplify-input,
+.amplify-select {
+  border-radius: 0;
+}
+```
+
 <Example>
   <ClassNameExample />
   <ExampleCode>
-```css
-/* styles.css */
-.custom-phonenumberfield-class .amplify-phonenumberfield,
-.custom-phonenumberfield-class .amplify-dialcodeselect {
-  border-radius: 0;
-}
+```jsx file=./examples/ClassNameExample.tsx
+
 ```
 
   </ExampleCode>
@@ -298,7 +299,8 @@ _Using a class selector:_
 
 _Using style props:_
 
-All style props will be applied to the [`Flex`](flex) wrapper of the `PhoneNumberField`. To style the `input` of the `PhoneNumberField`, you can pass a `inputStyles` prop with the style props you want to apply to the input.
+Flex styling props will be applied to the `PhoneNumberField` wrapping `Flex` component, whereas other style props will be applied to the field.
+This allows us to change the layout of the label and field, while also styling the input field.
 
 <Example>
   <StylePropsExample />
