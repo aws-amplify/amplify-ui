@@ -1,22 +1,13 @@
 import { DesignToken, WebDesignToken, RadiusValue } from './types/designToken';
 
-export type Radii = {
-  xs: DesignToken<RadiusValue>;
-  small: DesignToken<RadiusValue>;
-  medium: DesignToken<RadiusValue>;
-  large: DesignToken<RadiusValue>;
-  xl: DesignToken<RadiusValue>;
-  xxl: DesignToken<RadiusValue>;
-  xxxl: DesignToken<RadiusValue>;
-};
+type RadiusSize = 'xs' | 'small' | 'medium' | 'large' | 'xl' | 'xxl' | 'xxxl';
+export type Radii<DesignTokenType = DesignToken<RadiusValue>> = Record<
+  RadiusSize,
+  DesignTokenType
+>;
 
-export type WebRadii = {
-  [Property in keyof Radii]: WebDesignToken<RadiusValue>;
-};
-
-export type ReactNativeRadii = {
-  [Property in keyof Radii]: number;
-};
+export type WebRadii = Radii<WebDesignToken<RadiusValue>>;
+export type ReactNativeRadii = Radii<number>;
 
 export const radii: Radii = {
   xs: { value: '0.125rem' },

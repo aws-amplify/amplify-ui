@@ -4,25 +4,36 @@ import {
   FontWeightValue,
 } from './types/designToken';
 
-export type FontWeights = {
-  hairline: DesignToken<FontWeightValue>;
-  thin: DesignToken<FontWeightValue>;
-  light: DesignToken<FontWeightValue>;
-  normal: DesignToken<FontWeightValue>;
-  medium: DesignToken<FontWeightValue>;
-  semibold: DesignToken<FontWeightValue>;
-  bold: DesignToken<FontWeightValue>;
-  extrabold: DesignToken<FontWeightValue>;
-  black: DesignToken<FontWeightValue>;
-};
+type FontWeight =
+  | 'hairline'
+  | 'thin'
+  | 'light'
+  | 'normal'
+  | 'medium'
+  | 'semibold'
+  | 'bold'
+  | 'extrabold'
+  | 'black';
 
-export type WebFontWeights = {
-  [Property in keyof FontWeights]: WebDesignToken<FontWeightValue>;
-};
+export type FontWeights<DesignTokenType = DesignToken<FontWeightValue>> =
+  Record<FontWeight, DesignTokenType>;
 
-export type ReactNativeFontWeights = {
-  [Property in keyof FontWeights]: string;
-};
+export type WebFontWeights = FontWeights<WebDesignToken<FontWeightValue>>;
+
+type ReactNativeFontWeight =
+  | 'normal'
+  | 'bold'
+  | '100'
+  | '200'
+  | '300'
+  | '400'
+  | '500'
+  | '600'
+  | '700'
+  | '800'
+  | '900'
+  | undefined;
+export type ReactNativeFontWeights = FontWeights<ReactNativeFontWeight>;
 
 export const fontWeights: FontWeights = {
   hairline: { value: 100 },

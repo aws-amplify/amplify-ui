@@ -4,26 +4,26 @@ import {
   FontSizeValue,
 } from './types/designToken';
 
-export type FontSizes = {
-  xxxs: DesignToken<FontSizeValue>;
-  xxs: DesignToken<FontSizeValue>;
-  xs: DesignToken<FontSizeValue>;
-  small: DesignToken<FontSizeValue>;
-  medium: DesignToken<FontSizeValue>;
-  large: DesignToken<FontSizeValue>;
-  xl: DesignToken<FontSizeValue>;
-  xxl: DesignToken<FontSizeValue>;
-  xxxl: DesignToken<FontSizeValue>;
-  xxxxl: DesignToken<FontSizeValue>;
-};
+type FontSize =
+  | 'xxxs'
+  | 'xxs'
+  | 'xs'
+  | 'small'
+  | 'medium'
+  | 'large'
+  | 'xl'
+  | 'xxl'
+  | 'xxxl'
+  | 'xxxxl';
 
-export type WebFontSizes = {
-  [Property in keyof FontSizes]: WebDesignToken<FontSizeValue>;
-};
+export type FontSizes<DesignTokenType = DesignToken<FontSizeValue>> = Record<
+  FontSize,
+  DesignTokenType
+>;
 
-export type ReactNativeFontSizes = {
-  [Property in keyof Omit<FontSizes, 'xxxs' | 'xxxxl'>]: number;
-};
+export type WebFontSizes = FontSizes<WebDesignToken<FontSizeValue>>;
+
+export type ReactNativeFontSizes = Omit<FontSizes<number>, 'xxxs' | 'xxxxl'>;
 
 export const fontSizes: FontSizes = {
   xxxs: { value: '0.375rem' },

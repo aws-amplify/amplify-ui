@@ -60,6 +60,7 @@
     "@types/jest": "^26.0.23",
     "@types/lodash": "^4.14.170",
     "@types/webpack-env": "^1.16.2",
+    "@typescript-eslint/parser": "^5.20.0",
     "autoprefixer": "^10.3.1",
     "fs-extra": "^10.0.0",
     "glob": "^7.1.7",

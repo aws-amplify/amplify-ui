@@ -1,20 +1,5 @@
 /**
- * Helper function to test if something is a design token or not.
- * Used in the React component style props.
- *
- * @param arg - thing to test if it is a design token or not
- * @returns boolean
- */
-export function isDesignToken(arg: unknown): arg is WebDesignToken {
-  if (typeof arg === 'object') {
-    return Object.prototype.hasOwnProperty.call(arg, 'value');
-  } else {
-    return false;
-  }
-}
-
-/**
- *
+ * Base Design Token
  */
 export type DesignToken<ValueType = any> = {
   value: ValueType;

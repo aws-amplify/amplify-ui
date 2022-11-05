@@ -4,15 +4,12 @@ import {
   OutlineWidthValue,
 } from './types/designToken';
 
-export type OutlineWidths = {
-  small: DesignToken<OutlineWidthValue>;
-  medium: DesignToken<OutlineWidthValue>;
-  large: DesignToken<OutlineWidthValue>;
-};
+type OutlineWidthSize = 'small' | 'medium' | 'large';
 
-export type WebOutlineWidths = {
-  [Property in keyof OutlineWidths]: WebDesignToken<OutlineWidthValue>;
-};
+export type OutlineWidths<DesignTokenType = DesignToken<OutlineWidthValue>> =
+  Record<OutlineWidthSize, DesignTokenType>;
+
+export type WebOutlineWidths = OutlineWidths<WebDesignToken<OutlineWidthValue>>;
 
 export const outlineWidths: OutlineWidths = {
   small: { value: '1px' },

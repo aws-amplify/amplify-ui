@@ -4,15 +4,12 @@ import {
   LineHeightValue,
 } from './types/designToken';
 
-export type LineHeights = {
-  small: DesignToken<LineHeightValue>;
-  medium: DesignToken<LineHeightValue>;
-  large: DesignToken<LineHeightValue>;
-};
+type LineHeightSize = 'small' | 'medium' | 'large';
 
-export type WebLineHeights = {
-  [Property in keyof LineHeights]: WebDesignToken<LineHeightValue>;
-};
+export type LineHeights<DesignTokenType = DesignToken<LineHeightValue>> =
+  Record<LineHeightSize, DesignTokenType>;
+
+export type WebLineHeights = LineHeights<WebDesignToken<LineHeightValue>>;
 
 export const lineHeights: LineHeights = {
   small: { value: '1.25' },

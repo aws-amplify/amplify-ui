@@ -2,7 +2,7 @@ import kebabCase from 'lodash/kebabCase';
 // internal style dictionary function
 import usesReference from 'style-dictionary/lib/utils/references/usesReference';
 
-import { DesignToken } from './tokens/types/designToken';
+import { DesignToken, WebDesignToken } from './tokens/types/designToken';
 
 export const CSS_VARIABLE_PREFIX = 'amplify';
 
@@ -47,4 +47,19 @@ interface NameTransformProps {
 
 export function cssNameTransform({ path = [] }: NameTransformProps): string {
   return `${kebabCase([CSS_VARIABLE_PREFIX, ...path].join(' '))}`;
+}
+
+/**
+ * Helper function to test if something is a design token or not.
+ * Used in the React component style props.
+ *
+ * @param value - thing to test if it is a design token or not
+ * @returns boolean
+ */
+export function isDesignToken(value: unknown): value is WebDesignToken {
+  if (typeof value === 'object') {
+    return Object.prototype.hasOwnProperty.call(value, 'value');
+  } else {
+    return false;
+  }
 }

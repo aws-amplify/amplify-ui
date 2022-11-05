@@ -1,17 +1,12 @@
 import { DesignToken, WebDesignToken, FontValue } from './types/designToken';
 
-export type Fonts = {
-  default: {
-    variable: DesignToken<FontValue>;
-    static: DesignToken<FontValue>;
-  };
+type FontVariant = 'variable' | 'static';
+
+export type Fonts<DesignTokenType = DesignToken<FontValue>> = {
+  default: Record<FontVariant, DesignTokenType>;
 };
 
-export interface WebFonts {
-  default: {
-    [Property in keyof Fonts['default']]: WebDesignToken<FontValue>;
-  };
-}
+export type WebFonts = Fonts<WebDesignToken<FontValue>>;
 
 // TODO: update the design tokens to use an array
 // export interface FontDesignToken {
@@ -21,13 +16,12 @@ export interface WebFonts {
 export const fonts: Fonts = {
   default: {
     variable: {
-      value: `'InterVariable', 'Inter var', 'Inter', -apple-system, BlinkMacSystemFont,
-        'Helvetica Neue', 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans',
-        sans-serif`,
+      value:
+        "'InterVariable', 'Inter var', 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif",
     },
     static: {
-      value: `'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue',
-        'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif`,
+      value:
+        "'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif",
     },
   },
 };

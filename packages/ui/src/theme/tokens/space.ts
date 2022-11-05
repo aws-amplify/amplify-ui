@@ -1,35 +1,31 @@
 import { DesignToken, WebDesignToken, SpaceValue } from './types/designToken';
 
-export type SpaceSizes = {
-  xxxs: DesignToken<SpaceValue>;
-  xxs: DesignToken<SpaceValue>;
-  xs: DesignToken<SpaceValue>;
-  small: DesignToken<SpaceValue>;
-  medium: DesignToken<SpaceValue>;
-  large: DesignToken<SpaceValue>;
-  xl: DesignToken<SpaceValue>;
-  xxl: DesignToken<SpaceValue>;
-  xxxl: DesignToken<SpaceValue>;
-};
+type SpaceSize =
+  | 'xxxs'
+  | 'xxs'
+  | 'xs'
+  | 'small'
+  | 'medium'
+  | 'large'
+  | 'xl'
+  | 'xxl'
+  | 'xxxl';
+
+export type SpaceSizes = Record<SpaceSize, DesignToken<SpaceValue>>;
 
 export type Space = SpaceSizes & {
   zero: DesignToken<SpaceValue>;
-  relative: SpaceSizes & {
-    full: DesignToken<SpaceValue>;
-  };
+  relative: SpaceSizes & { full: DesignToken<SpaceValue> };
 };
 
-export type WebSpace = {
-  [Property in keyof Omit<Space, 'relative'>]: WebDesignToken<SpaceValue>;
-} & {
-  relative: {
-    [Property in keyof Space['relative']]: WebDesignToken<SpaceValue>;
-  };
+export type WebSpace = Record<
+  SpaceSize | 'zero',
+  WebDesignToken<SpaceValue>
+> & {
+  relative: Record<SpaceSize | 'full', WebDesignToken<SpaceValue>>;
 };
 
-export type ReactNativeSpace = {
-  [Property in keyof Omit<Space, 'zero' | 'xxxs' | 'relative'>]: number;
-};
+export type ReactNativeSpace = Record<Exclude<SpaceSize, 'xxxs'>, number>;
 
 export const space: Space = {
   zero: { value: '0' },

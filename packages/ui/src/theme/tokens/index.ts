@@ -37,6 +37,9 @@ import { space, Space, WebSpace, ReactNativeSpace } from './space';
 import { time, Time, WebTime, ReactNativeTime } from './time';
 import { transforms, Transforms, WebTransforms } from './transforms';
 
+/**
+ * Used for custom themes
+ */
 export interface Tokens {
   components: ComponentTokens;
   borderWidths: BorderWidths;
@@ -59,7 +62,7 @@ export interface Tokens {
  * The fully setup theme tokens. It has the same shape as Tokens
  * but each token has added fields.
  */
-export interface WebTokens extends Tokens {
+export interface WebTokens {
   borderWidths: WebBorderWidths;
   colors: WebColors;
   fonts: WebFonts;

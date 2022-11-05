@@ -1,125 +1,101 @@
 import { DesignToken, WebDesignToken, ColorValue } from './types/designToken';
-import { OrdinalScale, OrdinalVariation } from './types/scales';
 
-type ScaleKeys = 10 | 20 | 40 | 60 | 80 | 90 | 100;
-type OverlayKeys = 10 | 20 | 30 | 40 | 50 | 60 | 70 | 80 | 90;
+interface OrdinalScale<DesignTokenType> {
+  primary: DesignTokenType;
+  secondary: DesignTokenType;
+  tertiary: DesignTokenType;
+  quaternary?: DesignTokenType;
+}
 
-type ColorScale<DesignTokenType = DesignToken<ColorValue>> = {
-  [key in ScaleKeys]: DesignTokenType;
-};
+interface OrdinalVariation<DesignTokenType> {
+  info: DesignTokenType;
+  warning: DesignTokenType;
+  error: DesignTokenType;
+  success: DesignTokenType;
+}
 
-type OverlayColors<DesignTokenType = DesignToken<ColorValue>> = {
-  [key in OverlayKeys]: DesignTokenType;
-};
+type ScaleKey = 10 | 20 | 40 | 60 | 80 | 90 | 100;
+type ColorScale<DesignTokenType> = Record<ScaleKey, DesignTokenType>;
 
-type FontColors<DesignTokenType = DesignToken<ColorValue>> = {
-  inverse: DesignTokenType;
-  interactive: DesignTokenType;
-  hover: DesignTokenType;
-  focus: DesignTokenType;
-  active: DesignTokenType;
+type OverlayKey = 10 | 20 | 30 | 40 | 50 | 60 | 70 | 80 | 90;
+type OverlayColors<DesignTokenType> = Record<OverlayKey, DesignTokenType>;
+
+type FontVariant =
+  | 'inverse'
+  | 'interactive'
+  | 'hover'
+  | 'focus'
+  | 'active'
+  | 'disabled';
+
+type FontColors<DesignTokenType> = Record<FontVariant, DesignTokenType> &
+  OrdinalScale<DesignTokenType> &
+  OrdinalVariation<DesignTokenType>;
+
+type BackgroundColors<DesignTokenType> = {
   disabled: DesignTokenType;
 } & OrdinalScale<DesignTokenType> &
   OrdinalVariation<DesignTokenType>;
 
-type BackgroundColors<DesignTokenType = DesignToken<ColorValue>> = {
-  disabled: DesignTokenType;
-} & OrdinalScale<DesignTokenType> &
-  OrdinalVariation<DesignTokenType>;
-
-type BorderColors<DesignTokenType = DesignToken<ColorValue>> = {
+type BorderColors<DesignTokenType> = {
   disabled: DesignTokenType;
   pressed: DesignTokenType;
   focus: DesignTokenType;
   error: DesignTokenType;
 } & OrdinalScale<DesignTokenType>;
 
-type ColorTypes<DesignTokenType = DesignToken<ColorValue>> =
-  | { [key in ScaleKeys]: DesignTokenType }
-  | FontColors
-  | BackgroundColors
-  | DesignTokenType
-  | BorderColors;
+type ColorTypes<DesignTokenType> =
+  | Record<ScaleKey, DesignTokenType>
+  | FontColors<DesignTokenType>
+  | BackgroundColors<DesignTokenType>
+  | BorderColors<DesignTokenType>
+  | DesignTokenType;
 
-type WebColorTypes = ColorTypes<WebDesignToken<ColorValue>>;
+type PaletteColor =
+  | 'red'
+  | 'orange'
+  | 'yellow'
+  | 'green'
+  | 'teal'
+  | 'blue'
+  | 'purple'
+  | 'pink'
+  | 'neutral';
 
-export type Colors = {
-  // base color palette
-  red: ColorScale;
-  orange: ColorScale;
-  yellow: ColorScale;
-  green: ColorScale;
-  teal: ColorScale;
-  blue: ColorScale;
-  purple: ColorScale;
-  pink: ColorScale;
-  neutral: ColorScale;
-  white: DesignToken<ColorValue>;
-  black: DesignToken<ColorValue>;
+// base color palette
+type BasePalette<DesignTokenType> = Record<
+  PaletteColor,
+  ColorScale<DesignTokenType>
+>;
 
-  // Semantic colors
-  font: FontColors;
-  background: BackgroundColors;
-  border: BorderColors;
-  brand: {
-    primary: ColorScale;
-    secondary: ColorScale;
-  };
+export type Colors<DesignTokenType = DesignToken<ColorValue> | string> =
+  BasePalette<DesignTokenType> & {
+    white: DesignTokenType;
+    black: DesignTokenType;
 
-  overlay: OverlayColors;
+    // Semantic colors
+    font: FontColors<DesignTokenType>;
+    background: BackgroundColors<DesignTokenType>;
+    border: BorderColors<DesignTokenType>;
+    brand: {
+      primary: ColorScale<DesignTokenType>;
+      secondary: ColorScale<DesignTokenType>;
+    };
 
-  [key: string]: ColorTypes | Record<string, ColorTypes>;
+    overlay: OverlayColors<DesignTokenType>;
+  } & Record<
+      string,
+      ColorTypes<DesignTokenType> | Record<string, ColorTypes<DesignTokenType>>
+    >;
+
+export type WebColors = Colors<WebDesignToken<ColorValue>>;
+
+export const colorsTest: Partial<Colors['red']> = { 10: 'haha' };
+export const colorsTestTwo: Partial<Colors['red']> = {
+  10: { value: 'red' },
 };
 
-export type WebColors = {
-  red: ColorScale<WebDesignToken<ColorValue>>;
-  orange: ColorScale<WebDesignToken<ColorValue>>;
-  yellow: ColorScale<WebDesignToken<ColorValue>>;
-  green: ColorScale<WebDesignToken<ColorValue>>;
-  teal: ColorScale<WebDesignToken<ColorValue>>;
-  blue: ColorScale<WebDesignToken<ColorValue>>;
-  purple: ColorScale<WebDesignToken<ColorValue>>;
-  pink: ColorScale<WebDesignToken<ColorValue>>;
-  neutral: ColorScale<WebDesignToken<ColorValue>>;
-  white: WebDesignToken<ColorValue>;
-  black: WebDesignToken<ColorValue>;
-
-  font: FontColors<WebDesignToken<ColorValue>>;
-  background: BackgroundColors<WebDesignToken<ColorValue>>;
-  border: BorderColors<WebDesignToken<ColorValue>>;
-  brand: {
-    primary: ColorScale<WebDesignToken<ColorValue>>;
-    secondary: ColorScale<WebDesignToken<ColorValue>>;
-  };
-
-  overlay: OverlayColors<WebDesignToken<ColorValue>>;
-
-  [key: string]: WebColorTypes | Record<string, WebColorTypes>;
-};
-
-export type ReactNativeColors = {
-  red: ColorScale<string>;
-  orange: ColorScale<string>;
-  yellow: ColorScale<string>;
-  green: ColorScale<string>;
-  teal: ColorScale<string>;
-  blue: ColorScale<string>;
-  purple: ColorScale<string>;
-  pink: ColorScale<string>;
-  neutral: ColorScale<string>;
-  white: string;
-  black: string;
-
-  font: FontColors<string>;
-  background: BackgroundColors<string>;
-  border: BorderColors<string>;
-  brand: {
-    primary: ColorScale<string>;
-    secondary: ColorScale<string>;
-  };
-
-  overlay: OverlayColors<string>;
-};
+export type ReactNativeColors = Colors<ColorValue>;
 
 export const colors: Colors = {
   red: {

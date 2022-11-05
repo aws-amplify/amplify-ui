@@ -43,16 +43,7 @@ function setupTokens(obj: any, path = []) {
     for (const name in obj) {
       if (obj.hasOwnProperty(name)) {
         if (typeof obj[name] !== 'object') {
-          // If we get to this point that means there is a 'dangling' part of the theme object
-          // basically some part of the theme object that is not a design token, which is
-          // anything that is not an object with a value attribute
-          console.warn(
-            `Non-design token found when creating the theme at path: ${path.join(
-              '.'
-            )}.${name}\nDid you forget to add '{value:"${obj[name]}"}'?`
-          );
-          // Keep the users data there just in case
-          tokens[name] = obj[name];
+          tokens[name] = setupTokens({ value: obj[name] }, path.concat(name));
         } else {
           tokens[name] = setupTokens(obj[name], path.concat(name));
         }
@@ -72,7 +63,7 @@ function setupTokens(obj: any, path = []) {
  */
 export function createTheme(
   theme?: Theme,
-  baseTheme: BaseTheme = defaultTheme
+  baseTheme: BaseTheme | WebTheme = defaultTheme
 ): WebTheme {
   // merge theme and baseTheme to get a complete theme
   // deepExtend is an internal Style Dictionary method

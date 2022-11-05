@@ -33,7 +33,7 @@ describe('@aws-amplify/ui', () => {
       });
     });
 
-    describe('with a theme and without a base theme', () => {
+    describe('with a custom theme using token objects and without a base theme', () => {
       const theme = createTheme({
         name: 'test-theme',
         tokens: {
@@ -73,25 +73,43 @@ describe('@aws-amplify/ui', () => {
       });
     });
 
-    describe('error handling', () => {
-      it('should warn the user and not do a max-call stack if given an invalid theme object', () => {
-        consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation();
-        const theme = createTheme({
-          name: 'my-theme',
-          tokens: {
-            colors: {
-              background: {
-                //@ts-expect-error
-                primary: '#f90',
+    describe('with a custom theme not using token objects and without a base theme', () => {
+      const theme = createTheme({
+        name: 'test-theme',
+        tokens: {
+          colors: {
+            background: {
+              primary: '#bada55',
+            },
+            font: {
+              primary: '{colors.white.value}',
+            },
+          },
+        },
+      });
+
+      it('should override the base theme', () => {
+        const { tokens } = theme;
+        expect(tokens.colors.background.primary.value).toEqual('#bada55');
+      });
+
+      it('should handle being extended again', () => {
+        const newTheme = createTheme(
+          {
+            name: 'test-theme',
+            tokens: {
+              colors: {
+                background: {
+                  secondary: '#ff9900',
+                },
               },
             },
           },
-        });
-        expect(theme.tokens.colors.background.primary).toEqual('#f90');
-        expect(console.warn).toHaveBeenCalledTimes(1);
-        expect(console.warn)
-          .toHaveBeenCalledWith(`Non-design token found when creating the theme at path: colors.background.primary
-Did you forget to add '{value:"#f90"}'?`);
+          theme
+        );
+        const { tokens } = newTheme;
+        expect(tokens.colors.background.secondary.value).toEqual('#ff9900');
+        expect(tokens.colors.background.primary.value).toEqual('#bada55');
       });
     });
   });

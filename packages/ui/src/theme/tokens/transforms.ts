@@ -4,18 +4,14 @@ import {
   TransformValue,
 } from './types/designToken';
 
+type TransformSize = 'small' | 'medium' | 'large';
+
 export type Transforms = {
-  slideX: {
-    small: DesignToken<TransformValue>;
-    medium: DesignToken<TransformValue>;
-    large: DesignToken<TransformValue>;
-  };
+  slideX: Record<TransformSize, DesignToken<TransformValue>>;
 };
 
 export type WebTransforms = {
-  slideX: {
-    [Property in keyof Transforms['slideX']]: WebDesignToken<TransformValue>;
-  };
+  slideX: Record<TransformSize, WebDesignToken<TransformValue>>;
 };
 
 export const transforms: Transforms = {
