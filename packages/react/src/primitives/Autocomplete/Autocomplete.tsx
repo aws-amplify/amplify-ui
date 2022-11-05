@@ -1,14 +1,18 @@
 import classNames from 'classnames';
 import * as React from 'react';
 
+import { AutocompleteOption } from './AutocompleteOption';
 import { AutocompleteMenu } from './AutocompleteMenu';
 import { useAutocomplete } from './useAutocomplete';
+import { HighlightMatch } from '../HighlightMatch/HighlightMatch';
 import { SearchField } from '../SearchField';
 import { View } from '../View';
+import { isFunction } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
 import type {
   AutocompleteComboboxProps,
   AutocompleteProps,
+  ComboBoxOption,
   Primitive,
 } from '../types';
 
@@ -35,7 +39,6 @@ export const AutocompletePrimitive: Primitive<AutocompleteProps, 'input'> = (
   ref
 ) => {
   const {
-    activeIdx,
     activeOptionId,
     autocompleteId,
     composedValue,
@@ -52,7 +55,7 @@ export const AutocompletePrimitive: Primitive<AutocompleteProps, 'input'> = (
     listboxId,
     menuId,
     optionBaseId,
-    setActiveIdx,
+    setActiveOption,
     setIsMenuOpen,
     setInternalValue,
   } = useAutocomplete({
@@ -79,6 +82,56 @@ export const AutocompletePrimitive: Primitive<AutocompleteProps, 'input'> = (
     'aria-owns': isMenuOpen ? menuId : undefined,
   };
 
+  const Options = filteredOptions.map((option: ComboBoxOption, idx) => {
+    const { id, label, ...rest } = option;
+
+    const handleOnClick: React.MouseEventHandler<HTMLLIElement> = () => {
+      setIsMenuOpen(false);
+      setActiveOption(null);
+      if (!isControlled) {
+        setInternalValue(label);
+      }
+      if (isFunction(onSelect)) {
+        onSelect(option);
+      }
+    };
+
+    // This is required. Mousedown event will fire a blur event by default
+    // and so the menu will close before the click event on an option gets a chance to fire
+    const handleOnMouseDown: React.MouseEventHandler<HTMLLIElement> = (
+      event
+    ) => {
+      event.preventDefault();
+    };
+
+    const handleOnMouseMove: React.MouseEventHandler<HTMLLIElement> = () => {
+      setActiveOption(option);
+    };
+
+    const optionId = id ?? `${optionBaseId}-option-${idx}`;
+    const isActive = optionId === activeOptionId;
+
+    return (
+      <AutocompleteOption
+        isActive={isActive}
+        id={optionId}
+        key={optionId}
+        onClick={handleOnClick}
+        onMouseDown={handleOnMouseDown}
+        onMouseMove={handleOnMouseMove}
+        {...rest}
+      >
+        {isFunction(renderOption) ? (
+          renderOption(option, composedValue)
+        ) : isCustomFiltering ? (
+          label
+        ) : (
+          <HighlightMatch query={composedValue}>{label}</HighlightMatch>
+        )}
+      </AutocompleteOption>
+    );
+  });
+
   return (
     <View
       className={classNames(ComponentClassNames.Autocomplete, className)}
@@ -87,7 +140,7 @@ export const AutocompletePrimitive: Primitive<AutocompleteProps, 'input'> = (
     >
       <SearchField
         hasSearchButton={false}
-        hasSearchIcon={true}
+        hasSearchIcon
         onBlur={handleOnBlur}
         onChange={handleOnChange}
         onClear={handleOnClear}
@@ -101,24 +154,13 @@ export const AutocompletePrimitive: Primitive<AutocompleteProps, 'input'> = (
       />
       {isMenuOpen ? (
         <AutocompleteMenu
-          activeIdx={activeIdx}
-          activeOptionId={activeOptionId}
           id={menuId}
-          isControlled={isControlled}
-          isCustomFiltering={isCustomFiltering}
           isLoading={isLoading}
-          isOpen={isMenuOpen}
-          onSelect={onSelect}
           listboxId={listboxId}
-          optionBaseId={optionBaseId}
-          options={filteredOptions}
-          renderOption={renderOption}
-          setActiveIdx={setActiveIdx}
-          setIsOpen={setIsMenuOpen}
-          setValue={setInternalValue}
-          value={composedValue}
           {...menuSlots}
-        />
+        >
+          {Options}
+        </AutocompleteMenu>
       ) : null}
     </View>
   );

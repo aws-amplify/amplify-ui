@@ -286,12 +286,12 @@ describe('Autocomplete: ', () => {
   });
 
   it('should be able to customize loading', async () => {
-    const Loading = 'This is a custom loading';
+    const LoadingIndicator = 'This is a custom loading';
     render(
       <Autocomplete
         label={label}
         options={options}
-        menuSlots={{ Loading }}
+        menuSlots={{ LoadingIndicator }}
         isLoading
       />
     );
@@ -299,7 +299,7 @@ describe('Autocomplete: ', () => {
     const textInput = await screen.findByRole('combobox');
     textInput.focus();
 
-    const loading = screen.getByText(Loading);
+    const loading = screen.getByText(LoadingIndicator);
     expect(loading).toBeInTheDocument();
     expect(loading).toHaveClass(ComponentClassNames.AutocompleteMenuLoading);
   });

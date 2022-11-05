@@ -8,14 +8,14 @@ import {
 } from '../shared/constants';
 import { isFunction } from '../shared/utils';
 import { useStableId } from '../utils/useStableId';
-import type { Option, UseAutocompleteProps } from '../types';
+import type { ComboBoxOption, UseAutocompleteProps } from '../types';
 
 const DEFAULT_KEYS = new Set([ARROW_DOWN, ARROW_UP, ENTER_KEY, ESCAPE_KEY]);
 
 export const useAutocomplete = ({
   defaultValue = '',
   value,
-  options = [],
+  options,
   optionFilter,
   onBlur,
   onChange,
@@ -30,36 +30,36 @@ export const useAutocomplete = ({
   const composedValue = isControlled ? value : internalValue;
 
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const [activeIdx, setActiveIdx] = React.useState(-1);
+  const [activeOption, setActiveOption] = React.useState<ComboBoxOption>(null);
 
   const isCustomFiltering = isFunction(optionFilter);
   const filteredOptions = React.useMemo(() => {
-    const defaultFilter = (option: Option) => {
+    const defaultFilter = (option: ComboBoxOption) => {
       const { label } = option;
       return label?.includes(composedValue);
     };
     const filter = isCustomFiltering
-      ? (option: Option) => optionFilter(option, composedValue)
+      ? (option: ComboBoxOption) => optionFilter(option, composedValue)
       : defaultFilter;
-    return options.filter(filter);
+    return options?.filter(filter) || [];
   }, [composedValue, optionFilter, isCustomFiltering, options]);
 
   const autocompleteId = useStableId();
   const listboxId = useStableId();
   const menuId = useStableId();
   const optionBaseId = useStableId();
-  const activeOption = Array.isArray(filteredOptions)
-    ? filteredOptions[activeIdx]
-    : undefined;
+  const activeIndex = filteredOptions.findIndex(
+    (option) => option === activeOption
+  );
   const activeOptionId =
     activeOption?.id ||
-    (activeIdx !== -1 ? `${optionBaseId}-option-${activeIdx}` : undefined);
+    (activeIndex !== -1 ? `${optionBaseId}-option-${activeIndex}` : undefined);
 
   const handleOnBlur: React.FocusEventHandler<HTMLInputElement> =
     React.useCallback(
       (event) => {
         setIsMenuOpen(false);
-        setActiveIdx(-1);
+        setActiveOption(null);
         if (isFunction(onBlur)) {
           onBlur(event);
         }
@@ -70,7 +70,7 @@ export const useAutocomplete = ({
   const handleOnChange: React.ChangeEventHandler<HTMLInputElement> =
     React.useCallback(
       (event) => {
-        setActiveIdx(-1);
+        setActiveOption(null);
         setIsMenuOpen(true);
         if (!isControlled) {
           setInternalValue(event.target.value);
@@ -114,76 +114,70 @@ export const useAutocomplete = ({
       [onFocus]
     );
 
-  const handleOnKeyDown: React.KeyboardEventHandler<HTMLInputElement> =
-    React.useCallback(
-      (event) => {
-        const { key } = event;
+  const handleOnKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (
+    event
+  ) => {
+    const { key } = event;
 
-        if (!DEFAULT_KEYS.has(key)) {
+    if (!DEFAULT_KEYS.has(key)) {
+      return;
+    }
+
+    event.preventDefault();
+
+    switch (key) {
+      case ESCAPE_KEY: {
+        if (isMenuOpen) {
+          setIsMenuOpen(false);
+          setActiveOption(null);
+        } else {
+          handleOnClear();
+        }
+        break;
+      }
+      case ENTER_KEY: {
+        if (!activeOption) {
+          if (isFunction(onSubmit)) {
+            onSubmit(composedValue);
+          }
+        } else {
+          const { label } = activeOption;
+          if (!isControlled) {
+            setInternalValue(label);
+          }
+
+          if (isFunction(onSelect)) {
+            onSelect(activeOption);
+          }
+        }
+        setIsMenuOpen(false);
+        setActiveOption(null);
+        break;
+      }
+      case ARROW_DOWN: {
+        if (filteredOptions.length <= 0) {
           return;
         }
-
-        event.preventDefault();
-
-        switch (key) {
-          case ESCAPE_KEY:
-            if (isMenuOpen) {
-              setIsMenuOpen(false);
-              setActiveIdx(-1);
-            } else {
-              handleOnClear();
-            }
-            break;
-          case ENTER_KEY:
-            if (!activeOption) {
-              if (isFunction(onSubmit)) {
-                onSubmit(composedValue);
-              }
-            } else {
-              const { label } = activeOption;
-              if (!isControlled) {
-                setInternalValue(label);
-              }
-
-              if (isFunction(onSelect)) {
-                onSelect(activeOption);
-              }
-            }
-            setIsMenuOpen(false);
-            setActiveIdx(-1);
-            break;
-          case ARROW_DOWN:
-            if (filteredOptions.length <= 0) {
-              return;
-            }
-            setIsMenuOpen(true);
-            setActiveIdx(
-              activeIdx >= filteredOptions.length - 1 ? 0 : activeIdx + 1
-            );
-            break;
-          case ARROW_UP:
-            if (filteredOptions.length <= 0) {
-              return;
-            }
-            setIsMenuOpen(true);
-            setActiveIdx(
-              activeIdx <= 0 ? filteredOptions.length - 1 : activeIdx - 1
-            );
+        setIsMenuOpen(true);
+        const newActiveIndex =
+          activeIndex >= filteredOptions.length - 1 ? 0 : activeIndex + 1;
+        setActiveOption(filteredOptions[newActiveIndex]);
+        break;
+      }
+      case ARROW_UP: {
+        if (filteredOptions.length <= 0) {
+          return;
         }
-      },
-      [
-        activeIdx,
-        activeOption,
-        composedValue,
-        filteredOptions,
-        handleOnClear,
-        isControlled,
-        isMenuOpen,
-        onSelect,
-        onSubmit,
-      ]
-    );
+        setIsMenuOpen(true);
+        const newActiveIndex =
+          activeIndex <= 0 ? filteredOptions.length - 1 : activeIndex - 1;
+        setActiveOption(filteredOptions[newActiveIndex]);
+      }
+    }
+  };
 
+  // The window will scroll down to the right place to show the whole menu
+  // if space is not enough in current viewport
   React.useEffect(() => {
     const autocompleteElement = document.getElementById(autocompleteId);
     const menuElement = document.getElementById(menuId);
@@ -200,7 +194,7 @@ export const useAutocomplete = ({
             bottom -
               document.documentElement.clientHeight +
               window.scrollY +
-              20,
+              20, // Add 20 gap between menu bottom and window viewport bottom
             offsetTop
           ),
           behavior: 'smooth',
@@ -209,6 +203,8 @@ export const useAutocomplete = ({
     }
   }, [autocompleteId, isMenuOpen, menuId]);
 
+  // This will make the menu able to scroll with keyboard,
+  // and scroll each option into window viewport if necessary
   React.useEffect(() => {
     const listboxElement = document.getElementById(listboxId);
     const activeOptionElement = document.getElementById(activeOptionId);
@@ -236,7 +232,6 @@ export const useAutocomplete = ({
   }, [activeOptionId, listboxId]);
 
   return {
-    activeIdx,
     activeOptionId,
     autocompleteId,
     composedValue,
@@ -253,7 +248,7 @@ export const useAutocomplete = ({
     listboxId,
     menuId,
     optionBaseId,
-    setActiveIdx,
+    setActiveOption,
     setIsMenuOpen,
     setInternalValue,
   };

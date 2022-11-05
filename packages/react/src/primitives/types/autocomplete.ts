@@ -13,7 +13,7 @@ export interface AutocompleteComboboxProps {
   'aria-owns': React.AriaAttributes['aria-owns'];
 }
 
-export interface Option {
+export interface ComboBoxOption {
   /**
    * @description
    * Unique id for an option
@@ -50,6 +50,12 @@ export interface AutocompleteMenuProps extends ViewProps {
 
   /**
    * @description
+   * A list of Option JSX elements
+   */
+  children: JSX.Element[];
+
+  /**
+   * @description
    * This is a slot to label a list of options
    */
   Header?: React.ReactNode;
@@ -65,39 +71,13 @@ export interface AutocompleteMenuProps extends ViewProps {
    * @description
    * This is a slot to indicate the loading state when async request has been made to fetch options
    */
-  Loading?: React.ReactNode;
+  LoadingIndicator?: React.ReactNode;
 
   /**
    * @description
    * This is a slot to indicate no matching options found
    */
   Empty?: React.ReactNode;
-
-  /**
-   * @description
-   * Active option index
-   */
-  activeIdx: number;
-
-  /**
-   * @description
-   * Active option id
-   */
-  activeOptionId: string;
-
-  /**
-   * @description
-   * Determines if custom filtering is provided.
-   * @default 'false'
-   */
-  isCustomFiltering: boolean;
-
-  /**
-   * @description
-   * Used to indicate if it is controlled component
-   * @default false
-   */
-  isControlled: boolean;
 
   /**
    * @description
@@ -108,64 +88,9 @@ export interface AutocompleteMenuProps extends ViewProps {
 
   /**
    * @description
-   * Used to indicate if the menu is open
-   * @default false
-   */
-  isOpen: boolean;
-
-  /**
-   * @description
    * Listbox id
    */
   listboxId: string;
-
-  /**
-   * @description
-   * Triggered when an option is selected
-   */
-  onSelect: (option: Option) => void;
-
-  /**
-   * @description
-   * Used to customize the rendering of an option inside the li element
-   */
-  renderOption: (option: Option, value: string) => React.ReactNode;
-
-  /**
-   * @description
-   * Set current active option index
-   */
-  setActiveIdx: React.Dispatch<React.SetStateAction<number>>;
-
-  /**
-   * @description
-   * Set the menu open state
-   */
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-
-  /**
-   * @description
-   * Set text input value when it is uncontrolled
-   */
-  setValue: React.Dispatch<React.SetStateAction<string>>;
-
-  /**
-   * @description
-   * Base id use to construct id for each option
-   */
-  optionBaseId: string;
-
-  /**
-   * @description
-   * A list of options
-   */
-  options: Array<Option>;
-
-  /**
-   * @description
-   * Current text input value
-   */
-  value: string;
 }
 
 export interface AutocompleteProps extends SearchFieldProps {
@@ -173,7 +98,7 @@ export interface AutocompleteProps extends SearchFieldProps {
    * @description
    * A list of options
    */
-  options: Array<Option>;
+  options: Array<ComboBoxOption>;
 
   /**
    * @description
@@ -181,7 +106,7 @@ export interface AutocompleteProps extends SearchFieldProps {
    */
   menuSlots?: Pick<
     AutocompleteMenuProps,
-    'ariaLabel' | 'Header' | 'Footer' | 'Empty' | 'Loading'
+    'ariaLabel' | 'Header' | 'Footer' | 'Empty' | 'LoadingIndicator'
   >;
 
   /**
@@ -197,19 +122,19 @@ export interface AutocompleteProps extends SearchFieldProps {
    *
    * Note: Applying custom filter to options will disable match highlighting.
    */
-  optionFilter?: (option: Option, value: string) => boolean;
+  optionFilter?: (option: ComboBoxOption, value: string) => boolean;
 
   /**
    * @description
    * Used to customize the rendering of an option inside the li element
    */
-  renderOption?: (option: Option, value: string) => React.ReactNode;
+  renderOption?: (option: ComboBoxOption, value: string) => React.ReactNode;
 
   /**
    * @description
    * Triggered when an option is selected
    */
-  onSelect?: (option: Option) => void;
+  onSelect?: (option: ComboBoxOption) => void;
 }
 
 export interface UseAutocompleteProps extends Partial<AutocompleteProps> {

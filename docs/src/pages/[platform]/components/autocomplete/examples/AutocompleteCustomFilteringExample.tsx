@@ -62,6 +62,8 @@ const renderOptions = (option, value) => {
 };
 
 export const AutocompleteCustomFilteringExample = () => {
+  const [value, setValue] = React.useState('');
+
   // Create your own filtering
   const optionFilter = (option, value) => {
     // filter options against description
@@ -73,6 +75,12 @@ export const AutocompleteCustomFilteringExample = () => {
       label="Autocomplete with custom filtering"
       optionFilter={optionFilter}
       options={options}
+      value={value}
+      onChange={(event) => setValue(event.target.value)}
+      onClear={() => setValue('')}
+      onSelect={(option) => {
+        setValue(option?.description);
+      }}
       renderOption={renderOptions}
     />
   );

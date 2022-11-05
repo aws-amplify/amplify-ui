@@ -48,28 +48,20 @@ const SearchFieldPrimitive: Primitive<SearchFieldProps, 'input'> = (
     externalRef: ref,
   });
 
-  const SearchButton = React.useMemo(
-    () =>
-      hasSearchButton ? (
-        <SearchFieldButton
-          isDisabled={isDisabled}
-          onClick={onClick}
-          ref={searchButtonRef}
-          size={size}
-        />
-      ) : undefined,
-    [hasSearchButton, isDisabled, onClick, searchButtonRef, size]
-  );
+  const SearchButton = hasSearchButton ? (
+    <SearchFieldButton
+      isDisabled={isDisabled}
+      onClick={onClick}
+      ref={searchButtonRef}
+      size={size}
+    />
+  ) : undefined;
 
-  const SearchIcon = React.useMemo(
-    () =>
-      hasSearchIcon ? (
-        <FieldGroupIcon>
-          <IconSearch />
-        </FieldGroupIcon>
-      ) : undefined,
-    [hasSearchIcon]
-  );
+  const SearchIcon = hasSearchIcon ? (
+    <FieldGroupIcon>
+      <IconSearch />
+    </FieldGroupIcon>
+  ) : undefined;
 
   return (
     <TextField

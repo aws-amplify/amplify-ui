@@ -6,7 +6,7 @@ export const AutocompleteCustomLoadingExample = () => (
     label="Autocomplete custom loading example"
     options={[]}
     menuSlots={{
-      Loading: (
+      LoadingIndicator: (
         <Flex alignItems="center" gap="0.25rem">
           <Loader />
           Loading more cats...

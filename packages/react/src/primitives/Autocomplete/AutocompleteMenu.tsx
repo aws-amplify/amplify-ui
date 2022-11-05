@@ -1,39 +1,25 @@
 import * as React from 'react';
 
-import { HighlightMatch } from '../HighlightMatch/HighlightMatch';
 import { Loader } from '../Loader';
-import { AutocompleteOption } from './AutocompleteOption';
+
 import { ScrollView } from '../ScrollView';
 import { View } from '../View';
 import { ComponentClassNames } from '../shared/constants';
 import { ComponentText } from '../shared/constants';
-import { isFunction } from '../shared/utils';
-import type { Primitive, AutocompleteMenuProps, Option } from '../types';
+import type { Primitive, AutocompleteMenuProps } from '../types';
 
 export const AutocompleteMenu: Primitive<AutocompleteMenuProps, 'div'> = ({
-  activeIdx,
-  activeOptionId,
   ariaLabel,
+  children,
   Header = null,
   Footer = null,
-  Loading = null,
+  LoadingIndicator = null,
   Empty = null,
-  isControlled,
-  isCustomFiltering = false,
   isLoading,
-  isOpen,
   listboxId,
-  onSelect,
-  optionBaseId,
-  options = [],
-  renderOption,
-  setActiveIdx,
-  setIsOpen,
-  setValue,
-  value,
   ...rest
 }) => {
-  const MenuHeader = React.useCallback(() => {
+  const MenuHeader = () => {
     return (
       Header && (
         <View className={ComponentClassNames.AutocompleteMenuHeader}>
@@ -41,9 +27,9 @@ export const AutocompleteMenu: Primitive<AutocompleteMenuProps, 'div'> = ({
         </View>
       )
     );
-  }, [Header]);
+  };
 
-  const MenuFooter = React.useCallback(() => {
+  const MenuFooter = () => {
     return (
       Footer && (
         <View className={ComponentClassNames.AutocompleteMenuFooter}>
@@ -51,101 +37,31 @@ export const AutocompleteMenu: Primitive<AutocompleteMenuProps, 'div'> = ({
         </View>
       )
     );
-  }, [Footer]);
+  };
 
-  const MenuLoading = React.useCallback(
-    () =>
-      Loading ? (
-        <View className={ComponentClassNames.AutocompleteMenuLoading}>
-          {Loading}
-        </View>
-      ) : (
-        <View className={ComponentClassNames.AutocompleteMenuLoading}>
-          <Loader />
-          {ComponentText.Autocomplete.loadingText}
-        </View>
-      ),
-    [Loading]
-  );
+  const MenuLoading = () => {
+    const MenuLoadingBody = LoadingIndicator ?? (
+      <>
+        <Loader />
+        {ComponentText.Autocomplete.loadingText}
+      </>
+    );
 
-  const MenuEmpty = React.useCallback(
-    () =>
-      Empty ? (
-        <View className={ComponentClassNames.AutocompleteMenuEmpty}>
-          {Empty}
-        </View>
-      ) : (
-        <View className={ComponentClassNames.AutocompleteMenuEmpty}>
-          {ComponentText.Autocomplete.emptyText}
-        </View>
-      ),
-    [Empty]
-  );
+    return (
+      <View className={ComponentClassNames.AutocompleteMenuLoading}>
+        {MenuLoadingBody}
+      </View>
+    );
+  };
 
-  const Options = React.useMemo(
-    () =>
-      options.map((option: Option, idx) => {
-        const { id, label, ...rest } = option;
-        const isActive = activeIdx === idx;
-
-        const handleOnClick: React.MouseEventHandler<HTMLLIElement> = () => {
-          setIsOpen(false);
-          setActiveIdx(-1);
-          if (!isControlled) {
-            setValue(label);
-          }
-          if (isFunction(onSelect)) {
-            onSelect(option);
-          }
-        };
-
-        const handleOnMouseDown: React.MouseEventHandler<HTMLLIElement> = (
-          event
-        ) => {
-          event.preventDefault();
-        };
-
-        const handleOnMouseMove: React.MouseEventHandler<HTMLLIElement> =
-          () => {
-            setActiveIdx(idx);
-          };
-
-        const optionId = `${optionBaseId}-option-${idx}`;
-
-        return (
-          <AutocompleteOption
-            isActive={isActive}
-            id={id || optionId}
-            key={id || optionId}
-            onClick={handleOnClick}
-            onMouseDown={handleOnMouseDown}
-            onMouseMove={handleOnMouseMove}
-            {...rest}
-          >
-            {isFunction(renderOption) ? (
-              renderOption(option, value)
-            ) : isCustomFiltering ? (
-              label
-            ) : (
-              <HighlightMatch query={value}>{label}</HighlightMatch>
-            )}
-          </AutocompleteOption>
-        );
-      }),
-    [
-      activeIdx,
-      isControlled,
-      isCustomFiltering,
-      onSelect,
-      optionBaseId,
-      options,
-      renderOption,
-      setActiveIdx,
-      setValue,
-      setIsOpen,
-      value,
-    ]
-  );
+  const MenuEmpty = () =>
+    Empty ? (
+      <View className={ComponentClassNames.AutocompleteMenuEmpty}>{Empty}</View>
+    ) : (
+      <View className={ComponentClassNames.AutocompleteMenuEmpty}>
+        {ComponentText.Autocomplete.emptyText}
+      </View>
+    );
 
   return (
     <ScrollView className={ComponentClassNames.AutocompleteMenu} {...rest}>
@@ -154,7 +70,7 @@ export const AutocompleteMenu: Primitive<AutocompleteMenuProps, 'div'> = ({
       ) : (
         <>
           <MenuHeader />
-          {Options.length > 0 ? (
+          {children.length > 0 ? (
             <ScrollView
               as="ul"
               ariaLabel={ariaLabel}
@@ -162,7 +78,7 @@ export const AutocompleteMenu: Primitive<AutocompleteMenuProps, 'div'> = ({
               id={listboxId}
               role="listbox"
             >
-              {Options}
+              {children}
             </ScrollView>
           ) : (
             <MenuEmpty />
