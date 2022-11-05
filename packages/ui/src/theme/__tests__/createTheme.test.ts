@@ -77,43 +77,36 @@ describe('@aws-amplify/ui', () => {
       const theme = createTheme({
         name: 'test-theme',
         tokens: {
+          borderWidths: { small: 2 },
           colors: {
-            background: {
-              primary: '#bada55',
-            },
-            font: {
-              primary: '{colors.white.value}',
-            },
+            background: { primary: '#bada55' },
+            font: { primary: '{colors.white.value}' },
           },
+          fonts: { default: { variable: 'Comic Sans' } },
+          fontSizes: { xxxxl: '256rem' },
         },
       });
 
       it('should override the base theme', () => {
         const { tokens } = theme;
+
+        expect(tokens.borderWidths.small.value).toEqual(2);
         expect(tokens.colors.background.primary.value).toEqual('#bada55');
+        expect(tokens.fonts.default.variable.value).toEqual('Comic Sans');
+        expect(tokens.fontSizes.xxxxl.value).toEqual('256rem');
       });
 
       it('should handle being extended again', () => {
         const newTheme = createTheme(
           {
             name: 'test-theme',
-            tokens: {
-              colors: {
-                background: {
-                  secondary: '#ff9900',
-                },
-              },
-              borderWidths: {
-                small: 2,
-              },
-            },
+            tokens: { colors: { background: { secondary: '#ff9900' } } },
           },
           theme
         );
         const { tokens } = newTheme;
         expect(tokens.colors.background.secondary.value).toEqual('#ff9900');
         expect(tokens.colors.background.primary.value).toEqual('#bada55');
-        expect(tokens.borderWidths.small.value).toEqual(2);
       });
 
       it('merges in custom color tokens', () => {
@@ -121,12 +114,7 @@ describe('@aws-amplify/ui', () => {
           {
             name: 'test-theme',
             tokens: {
-              colors: {
-                fuschia: {
-                  10: 'fuschia',
-                  20: { value: 'fuschia' },
-                },
-              },
+              colors: { fuschia: { 10: 'fuschia', 20: { value: 'fuschia' } } },
             },
           },
           theme
@@ -140,13 +128,7 @@ describe('@aws-amplify/ui', () => {
         const newTheme = createTheme(
           {
             name: 'test-theme',
-            tokens: {
-              colors: {
-                background: {
-                  secondary: undefined,
-                },
-              },
-            },
+            tokens: { colors: { background: { secondary: undefined } } },
           },
           theme
         );
