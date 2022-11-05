@@ -116,6 +116,26 @@ describe('@aws-amplify/ui', () => {
         expect(tokens.borderWidths.small.value).toEqual(2);
       });
 
+      it('merges in custom color tokens', () => {
+        const newTheme = createTheme(
+          {
+            name: 'test-theme',
+            tokens: {
+              colors: {
+                fuschia: {
+                  10: 'fuschia',
+                  20: { value: 'fuschia' },
+                },
+              },
+            },
+          },
+          theme
+        );
+        const { tokens } = newTheme;
+        expect(tokens.colors.fuschia[10].value).toEqual('fuschia');
+        expect(tokens.colors.fuschia[20].value).toEqual('fuschia');
+      });
+
       it('correctly handles a custom theme key with an undefined value', () => {
         const newTheme = createTheme(
           {
