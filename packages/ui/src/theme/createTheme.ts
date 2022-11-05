@@ -19,13 +19,13 @@ import isObject from 'lodash/isObject';
  */
 function setupToken(token: DesignToken, path: Array<string>): WebDesignToken {
   const name = `--${cssNameTransform({ path })}`;
-  const { value } = token;
+  const { value: original } = token;
 
   return {
     name,
     path,
     value: cssValue(token),
-    original: value,
+    original,
     toString: () => `var(${name})`,
   };
 }

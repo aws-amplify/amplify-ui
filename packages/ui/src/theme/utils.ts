@@ -8,6 +8,10 @@ import {
   WebDesignToken,
 } from './tokens/types/designToken';
 
+import has from 'lodash/has';
+import isObject from 'lodash/isObject';
+import isString from 'lodash/isString';
+
 type ShadowPropertyKey = keyof Exclude<ShadowValue, string>;
 
 export const CSS_VARIABLE_PREFIX = 'amplify';
@@ -30,21 +34,17 @@ function referenceValue(value: string) {
   return value;
 }
 
-const getShadowProperty = (
-  token: DesignToken,
-  value: DesignToken,
-  property: ShadowPropertyKey
-) => token[property] ?? value[property] ?? '';
-
 export function cssValue(token: DesignToken) {
   const { value } = token;
-  if (typeof value === 'string') {
+  if (isString(value)) {
     return referenceValue(value);
   }
-  if (typeof value === 'object') {
+  if (isObject(value)) {
     if ('offsetX' in value) {
       return SHADOW_PROPERTIES.map((property) =>
-        getShadowProperty(token, value, property)
+        // lookup property against `token` first for custom value, then lookup
+        // property against `value` for design token value, default to empty string
+        referenceValue(token[property] ?? value[property] ?? '')
       ).join(' ');
     }
   }
@@ -68,8 +68,8 @@ export function cssNameTransform({ path = [] }: NameTransformProps): string {
  * @returns boolean
  */
 export function isDesignToken(value: unknown): value is WebDesignToken {
-  if (typeof value === 'object') {
-    return Object.prototype.hasOwnProperty.call(value, 'value');
+  if (isObject(value)) {
+    return has(value, 'value');
   } else {
     return false;
   }
