@@ -6,9 +6,8 @@ import {
 
 type OutlineWidthSize = 'small' | 'medium' | 'large';
 
-export type OutlineWidths<
-  DesignTokenType = DesignToken<OutlineWidthValue> | OutlineWidthValue
-> = Record<OutlineWidthSize, DesignTokenType>;
+export type OutlineWidths<DesignTokenType = DesignToken<OutlineWidthValue>> =
+  Record<OutlineWidthSize, DesignTokenType>;
 
 export type WebOutlineWidths = OutlineWidths<WebDesignToken<OutlineWidthValue>>;
 

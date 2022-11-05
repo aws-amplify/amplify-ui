@@ -34,15 +34,16 @@ function referenceValue(value: string) {
   return value;
 }
 
-export function cssValue(token: DesignToken) {
+export function cssValue(token: DesignToken<{ value: any }>) {
   const { value } = token;
   if (isString(value)) {
     return referenceValue(value);
   }
+
   if (isObject(value)) {
     if ('offsetX' in value) {
       return SHADOW_PROPERTIES.map((property) =>
-        // lookup property against `token` first for custom value, then lookup
+        // lookup property against `token` first for custom non-nested value, then lookup
         // property against `value` for design token value, default to empty string
         referenceValue(token[property] ?? value[property] ?? '')
       ).join(' ');

@@ -2,9 +2,10 @@ import { DesignToken, WebDesignToken, OpacityValue } from './types/designToken';
 
 type OpacityScale = 0 | 10 | 20 | 30 | 40 | 50 | 60 | 70 | 80 | 90 | 100;
 
-export type Opacities<
-  DesignTokenType = DesignToken<OpacityValue> | OpacityValue
-> = Record<OpacityScale, DesignTokenType>;
+export type Opacities<DesignTokenType = DesignToken<OpacityValue>> = Record<
+  OpacityScale,
+  DesignTokenType
+>;
 
 export type WebOpacities = Opacities<WebDesignToken<OpacityValue>>;
 

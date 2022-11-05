@@ -16,9 +16,10 @@ type FontSize =
   | 'xxxl'
   | 'xxxxl';
 
-export type FontSizes<
-  DesignTokenType = DesignToken<FontSizeValue> | FontSizeValue
-> = Record<FontSize, DesignTokenType>;
+export type FontSizes<DesignTokenType = DesignToken<FontSizeValue>> = Record<
+  FontSize,
+  DesignTokenType
+>;
 
 export type WebFontSizes = FontSizes<WebDesignToken<FontSizeValue>>;
 

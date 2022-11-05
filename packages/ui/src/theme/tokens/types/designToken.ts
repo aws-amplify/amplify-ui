@@ -1,14 +1,12 @@
 /**
- * Base Design Token
+ * a DesignToken can be either an object with a `value` key of `ValueType` or the `ValueType` itself
  */
-export type DesignToken<ValueType = any> = {
-  value: ValueType;
-};
+export type DesignToken<ValueType = unknown> = { value: ValueType } | ValueType;
 
 /**
  * A fully setup design token ready to be used in web platform.
  */
-export type WebDesignToken<ValueType = any> = {
+export type WebDesignToken<ValueType = unknown> = {
   /**
    * Name of the design token
    */
@@ -26,7 +24,9 @@ export type WebDesignToken<ValueType = any> = {
    * `var(--amplify-colors-font-primary)`
    */
   toString(): string;
-} & DesignToken<ValueType>;
+
+  value: ValueType;
+};
 
 export type AnimationDurationValue = string;
 export type AnimationTimingFunctionValue = string;

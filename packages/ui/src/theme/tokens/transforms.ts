@@ -6,13 +6,11 @@ import {
 
 type TransformSize = 'small' | 'medium' | 'large';
 
-export type Transforms = {
-  slideX: Record<TransformSize, DesignToken<TransformValue> | TransformSize>;
+export type Transforms<DesignTokenType = DesignToken<TransformValue>> = {
+  slideX: Record<TransformSize, DesignTokenType>;
 };
 
-export type WebTransforms = {
-  slideX: Record<TransformSize, WebDesignToken<TransformValue>>;
-};
+export type WebTransforms = Transforms<WebDesignToken<TransformValue>>;
 
 export const transforms: Transforms = {
   // TODO: make this more generic and cross-platform

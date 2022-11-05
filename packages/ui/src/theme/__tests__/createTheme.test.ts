@@ -1,4 +1,5 @@
 import { createTheme } from '../createTheme';
+import { WebDesignToken } from '../types';
 
 let consoleWarnSpy: jest.SpyInstance;
 afterEach(() => {
@@ -53,6 +54,7 @@ describe('@aws-amplify/ui', () => {
             background: { primary: { value: '#bada55' } },
             font: { primary: { value: '{colors.white.value}' } },
           },
+          components: { alert: { alignItems: { value: 'right' } } },
           shadows,
         },
       });
@@ -60,10 +62,16 @@ describe('@aws-amplify/ui', () => {
       it('should override the base theme', () => {
         const { tokens } = theme;
         expect(tokens.colors.background.primary.value).toEqual('#bada55');
+
         expect(tokens.shadows.large.value).toEqual(
           'offsetX offsetY blurRadius spreadRadius color'
         );
         expect(tokens.shadows.small.value).toEqual(shadows.small.value);
+
+        expect(
+          // TODO: link gthub issue
+          (tokens.components.alert.alignItems as WebDesignToken).value
+        ).toEqual('right');
       });
 
       it('should handle being extended again', () => {
@@ -71,11 +79,7 @@ describe('@aws-amplify/ui', () => {
           {
             name: 'test-theme',
             tokens: {
-              colors: {
-                background: {
-                  secondary: { value: '#ff9900' },
-                },
-              },
+              colors: { background: { secondary: { value: '#ff9900' } } },
             },
           },
           theme
@@ -105,6 +109,7 @@ describe('@aws-amplify/ui', () => {
             background: { primary: '#bada55' },
             font: { primary: '{colors.white.value}' },
           },
+          components: { alert: { alignItems: 'right' } },
           fonts: { default: { variable: 'Comic Sans' } },
           fontSizes: { xxxxl: '256rem' },
           fontWeights: { bold: 'REAL_BOLD', hairline: 0.001 },
@@ -125,6 +130,10 @@ describe('@aws-amplify/ui', () => {
 
         expect(tokens.borderWidths.small.value).toEqual('2px');
         expect(tokens.colors.background.primary.value).toEqual('#bada55');
+        expect(
+          // TODO: link gthub issue
+          (tokens.components.alert.alignItems as WebDesignToken).value
+        ).toEqual('right');
         expect(tokens.fonts.default.variable.value).toEqual('Comic Sans');
         expect(tokens.fontSizes.xxxxl.value).toEqual('256rem');
         expect(tokens.fontWeights.bold.value).toEqual('REAL_BOLD');

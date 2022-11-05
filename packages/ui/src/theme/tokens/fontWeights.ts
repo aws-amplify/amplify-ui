@@ -15,9 +15,8 @@ type FontWeight =
   | 'extrabold'
   | 'black';
 
-export type FontWeights<
-  DesignTokenType = DesignToken<FontWeightValue> | string | number
-> = Record<FontWeight, DesignTokenType>;
+export type FontWeights<DesignTokenType = DesignToken<FontWeightValue>> =
+  Record<FontWeight, DesignTokenType>;
 
 export type WebFontWeights = FontWeights<WebDesignToken<FontWeightValue>>;
 

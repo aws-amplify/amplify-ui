@@ -1,4 +1,4 @@
-import { DesignToken, WebDesignToken, ShadowValue } from './types/designToken';
+import { DesignToken, ShadowValue, WebDesignToken } from './types/designToken';
 
 type ShadowSize = 'small' | 'medium' | 'large';
 

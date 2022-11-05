@@ -18,12 +18,13 @@ const baseTheme: BaseTheme = {
  * const myOtherTheme = createTheme({}, myTheme);
  */
 export const createTheme = (theme?: Theme): StrictTheme => {
-  // merge custom theme param and baseTheme to get the merged theme.
-  // `deepExtend` is an Style Dictionary method that performs a deep merge on n objects.
-  const { tokens: mergedTokens, ...mergedTheme }: BaseTheme = deepExtend([
+  // merge custom `theme` param and `baseTheme` to get the merged theme.
+  // `deepExtend` is a Style Dictionary method that performs a deep merge on n objects.
+  const { tokens: mergedTokens, ...mergedTheme } = deepExtend([
     {},
     baseTheme,
     theme,
+    // cast to `BaseTheme` as `deepExtend` returns a generic object
   ]) as BaseTheme;
 
   // Setup the tokens:

@@ -2,7 +2,7 @@ import { DesignToken, WebDesignToken, FontValue } from './types/designToken';
 
 type FontVariant = 'variable' | 'static';
 
-export type Fonts<DesignTokenType = DesignToken<FontValue> | FontValue> = {
+export type Fonts<DesignTokenType = DesignToken<FontValue>> = {
   default: Record<FontVariant, DesignTokenType>;
 };
 

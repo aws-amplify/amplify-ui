@@ -6,9 +6,8 @@ import {
 
 type OffsetSize = 'small' | 'medium' | 'large';
 
-export type OutlineOffsets<
-  DesignTokenType = DesignToken<OutlineOffsetValue> | OutlineOffsetValue
-> = Record<OffsetSize, DesignTokenType>;
+export type OutlineOffsets<DesignTokenType = DesignToken<OutlineOffsetValue>> =
+  Record<OffsetSize, DesignTokenType>;
 
 export type WebOutlineOffsets = OutlineOffsets<
   WebDesignToken<OutlineOffsetValue>

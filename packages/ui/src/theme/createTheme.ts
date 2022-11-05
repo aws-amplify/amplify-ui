@@ -17,17 +17,15 @@ import isObject from 'lodash/isObject';
  *
  * We should see if there is a way to share this logic with style dictionary...
  */
-function setupToken(token: DesignToken, path: Array<string>): WebDesignToken {
+function setupToken(
+  token: DesignToken<{ value: any }>,
+  path: Array<string>
+): WebDesignToken {
   const name = `--${cssNameTransform({ path })}`;
   const { value: original } = token;
+  const value = cssValue(token);
 
-  return {
-    name,
-    path,
-    value: cssValue(token),
-    original,
-    toString: () => `var(${name})`,
-  };
+  return { name, original, path, value, toString: () => `var(${name})` };
 }
 
 /**

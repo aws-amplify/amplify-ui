@@ -16,10 +16,12 @@ export type SpaceSizes<DesignTokenType = DesignToken<SpaceValue>> = Record<
   DesignTokenType
 >;
 
-export type Space<DesignTokenType = DesignToken<SpaceValue> | SpaceValue> =
-  Record<SpaceSize | 'zero', DesignTokenType> & {
-    relative: Record<SpaceSize | 'full', DesignTokenType>;
-  };
+export type Space<DesignTokenType = DesignToken<SpaceValue>> = Record<
+  SpaceSize | 'zero',
+  DesignTokenType
+> & {
+  relative: Record<SpaceSize | 'full', DesignTokenType>;
+};
 
 export type WebSpace = Space<WebDesignToken<SpaceValue>>;
 
