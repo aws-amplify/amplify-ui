@@ -111,6 +111,27 @@ describe('@aws-amplify/ui', () => {
         expect(tokens.colors.background.secondary.value).toEqual('#ff9900');
         expect(tokens.colors.background.primary.value).toEqual('#bada55');
       });
+
+      it('correctly handles a custom theme key with an undefined value', () => {
+        const newTheme = createTheme(
+          {
+            name: 'test-theme',
+            tokens: {
+              colors: {
+                background: {
+                  secondary: undefined,
+                },
+              },
+            },
+          },
+          theme
+        );
+        const { tokens } = newTheme;
+        expect(tokens.colors.background.secondary.value).toEqual(
+          'var(--amplify-colors-neutral-10)'
+        );
+        expect(tokens.colors.background.primary.value).toEqual('#bada55');
+      });
     });
   });
 });

@@ -16,12 +16,13 @@ export type WebFonts = Fonts<WebDesignToken<FontValue>>;
 export const fonts: Fonts = {
   default: {
     variable: {
-      value:
-        "'InterVariable', 'Inter var', 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif",
+      value: `'InterVariable', 'Inter var', 'Inter', -apple-system, BlinkMacSystemFont,
+        'Helvetica Neue', 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans',
+        sans-serif`,
     },
     static: {
-      value:
-        "'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif",
+      value: `'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue',
+        'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif`,
     },
   },
 };
