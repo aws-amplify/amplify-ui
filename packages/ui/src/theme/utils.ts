@@ -34,7 +34,7 @@ function referenceValue(value: string) {
   return value;
 }
 
-export function cssValue(token: DesignToken<{ value: any }>) {
+export function cssValue(token: DesignToken<{ value: unknown }>) {
   const { value } = token;
   if (isString(value)) {
     return referenceValue(value);

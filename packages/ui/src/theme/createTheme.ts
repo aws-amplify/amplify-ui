@@ -18,7 +18,7 @@ import isObject from 'lodash/isObject';
  * We should see if there is a way to share this logic with style dictionary...
  */
 function setupToken(
-  token: DesignToken<{ value: any }>,
+  token: DesignToken<{ value: unknown }>,
   path: Array<string>
 ): WebDesignToken {
   const name = `--${cssNameTransform({ path })}`;
