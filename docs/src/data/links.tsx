@@ -400,21 +400,6 @@ export const primitiveComponents: {
   },
 ];
 
-export const legacyComponents: ComponentNavItem[] = [
-  {
-    href: '/legacy-components/chatbot',
-    label: 'Chatbot',
-    body: 'Chatbot automatically renders a complete chat messaging interface that can be used out-of-the-box, or it can be customized using theming support.',
-    platforms: ['react', 'vue', 'angular'],
-  },
-  {
-    href: '/legacy-components/storage',
-    label: 'Storage',
-    body: 'A set of components to help interact with S3 storage.',
-    platforms: ['react', 'vue', 'angular'],
-  },
-];
-
 export const guides: ComponentNavItem[] = [
   {
     href: '/guides',
@@ -476,6 +461,11 @@ export const gettingStarted: ComponentNavItem[] = [
     href: '/getting-started/accessibility',
     label: 'Accessibility',
     platforms: ['react', 'vue', 'angular'],
+  },
+  {
+    href: '/getting-started/internationalization',
+    label: 'Internationalization (i18n)',
+    platforms: ['react'],
   },
   {
     href: '/getting-started/migration',

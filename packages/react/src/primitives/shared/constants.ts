@@ -241,6 +241,11 @@ export const ComponentClassObject: ComponentClassNameItems = {
     components: ['Menu'],
     description: 'Menu content container (Flex)',
   },
+  MenuContentWrapper: {
+    className: ComponentClassName.MenuContentWrapper,
+    components: ['Menu'],
+    description: 'Menu content wrapper',
+  },
   MenuItem: {
     className: ComponentClassName.MenuItem,
     components: ['Menu'],
@@ -595,6 +600,7 @@ export const ComponentClassNames: ComponentClassNamesType = {
   LoaderDeterminate: ComponentClassObject.LoaderDeterminate.className,
   LoaderPercentageText: ComponentClassObject.LoaderPercentageText.className,
   MenuContent: ComponentClassObject.MenuContent.className,
+  MenuContentWrapper: ComponentClassObject.MenuContentWrapper.className,
   MenuItem: ComponentClassObject.MenuItem.className,
   MenuTrigger: ComponentClassObject.MenuTrigger.className,
   Pagination: ComponentClassObject.Pagination.className,
