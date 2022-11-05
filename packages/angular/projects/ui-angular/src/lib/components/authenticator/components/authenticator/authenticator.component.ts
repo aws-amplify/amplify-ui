@@ -71,27 +71,30 @@ export class AuthenticatorComponent
 
     const { authService, initializeMachine } = this.authenticator;
 
-    this.unsubscribeHub = listenToAuthHub(authService, (data, service) => {
-      defaultAuthHubHandler(data, service);
-      /**
-       * Hub events aren't properly caught by Angular, because they are
-       * synchronous events. Angular tracks async network events and
-       * html events, but not synchronous events like hub.
-       *
-       * On any notable hub events, we run change detection manually.
-       */
-      this.changeDetector.detectChanges();
+    this.unsubscribeHub = listenToAuthHub(
+      authService,
+      async (data, service) => {
+        await defaultAuthHubHandler(data, service);
+        /**
+         * Hub events aren't properly caught by Angular, because they are
+         * synchronous events. Angular tracks async network events and
+         * html events, but not synchronous events like hub.
+         *
+         * On any notable hub events, we run change detection manually.
+         */
+        this.changeDetector.detectChanges();
 
-      /**
-       * Hub events that we handle can lead to multiple state changes:
-       * e.g. `authenticated` -> `signOut` -> initialState.
-       *
-       * We want to ensure change detection runs all the way, until
-       * we reach back to the initial state. Setting the below flag
-       * to true to until we reach initial state.
-       */
-      this.isHandlingHubEvent = true;
-    });
+        /**
+         * Hub events that we handle can lead to multiple state changes:
+         * e.g. `authenticated` -> `signOut` -> initialState.
+         *
+         * We want to ensure change detection runs all the way, until
+         * we reach back to the initial state. Setting the below flag
+         * to true to until we reach initial state.
+         */
+        this.isHandlingHubEvent = true;
+      }
+    );
 
     /**
      * Subscribes to state machine changes and sends INIT event
@@ -182,7 +185,7 @@ export class AuthenticatorComponent
       case 'idle':
       case 'setup':
       case 'signOut':
-      case 'autoSignIn':
+      case 'transition':
         return false;
       default:
         return true;

@@ -6,4 +6,5 @@ export {
   withAuthenticator,
   WithAuthenticatorOptions,
 } from './Authenticator';
+export * from './InAppMessaging';
 export { Theme, ThemeProvider } from './theme';

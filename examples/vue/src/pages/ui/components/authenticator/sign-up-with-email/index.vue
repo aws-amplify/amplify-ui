@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Amplify, { Auth, I18n } from 'aws-amplify';
+import { Amplify, Auth, I18n } from 'aws-amplify';
 import {
   Authenticator,
   translations,
@@ -40,6 +40,9 @@ const services = {
       username,
       password,
       attributes,
+      autoSignIn: {
+        enabled: true,
+      },
     });
   },
 };

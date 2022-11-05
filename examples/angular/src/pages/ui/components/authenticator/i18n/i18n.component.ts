@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { translations } from '@aws-amplify/ui-angular';
 import awsExports from './aws-exports';
-import Amplify, { I18n } from 'aws-amplify';
+import { Amplify, I18n } from 'aws-amplify';
 @Component({
   selector: 'i18n',
   templateUrl: 'i18n.component.html',
