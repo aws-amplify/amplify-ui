@@ -11,21 +11,22 @@ type SpaceSize =
   | 'xxl'
   | 'xxxl';
 
-export type SpaceSizes = Record<SpaceSize, DesignToken<SpaceValue>>;
+export type SpaceSizes<DesignTokenType = DesignToken<SpaceValue>> = Record<
+  SpaceSize,
+  DesignTokenType
+>;
 
-export type Space = SpaceSizes & {
-  zero: DesignToken<SpaceValue>;
-  relative: SpaceSizes & { full: DesignToken<SpaceValue> };
-};
+export type Space<DesignTokenType = DesignToken<SpaceValue> | SpaceValue> =
+  Record<SpaceSize | 'zero', DesignTokenType> & {
+    relative: Record<SpaceSize | 'full', DesignTokenType>;
+  };
 
-export type WebSpace = Record<
-  SpaceSize | 'zero',
-  WebDesignToken<SpaceValue>
-> & {
-  relative: Record<SpaceSize | 'full', WebDesignToken<SpaceValue>>;
-};
+export type WebSpace = Space<WebDesignToken<SpaceValue>>;
 
-export type ReactNativeSpace = Record<Exclude<SpaceSize, 'xxxs'>, number>;
+export type ReactNativeSpace = Omit<
+  Space<SpaceValue>,
+  'xxxs' | 'relative' | 'zero'
+>;
 
 export const space: Space = {
   zero: { value: '0' },

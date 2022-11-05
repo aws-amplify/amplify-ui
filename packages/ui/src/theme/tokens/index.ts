@@ -76,7 +76,7 @@ export interface WebTokens {
   shadows: WebShadows;
   space: WebSpace;
   time: WebTime;
-  transform: WebTransforms;
+  transforms: WebTransforms;
 }
 
 export interface ReactNativeTokens {

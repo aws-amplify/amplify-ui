@@ -6,6 +6,8 @@ import { defaultTheme } from './defaultTheme';
 import { Theme, BaseTheme, WebTheme, Override } from './types';
 import { cssValue, cssNameTransform } from './utils';
 import { DesignToken, WebDesignToken } from './tokens/types/designToken';
+import has from 'lodash/has';
+import isObject from 'lodash/isObject';
 
 /**
  * This will take a design token and add some data to it for it
@@ -33,24 +35,23 @@ function setupToken(token: DesignToken, path: Array<string>): WebDesignToken {
  * and perform the setupToken function on each token.
  * Similar to what Style Dictionary does.
  */
-function setupTokens(obj: any, path = []) {
-  let tokens = {};
+function setupTokens(tokens: any, path = []) {
+  if (has(tokens, 'value')) {
+    return setupToken(tokens, path);
+  }
 
-  if (obj.hasOwnProperty('value')) {
-    return setupToken(obj, path);
-  } else if (typeof obj === 'object') {
-    for (const name in obj) {
-      if (obj.hasOwnProperty(name)) {
-        if (typeof obj[name] !== 'object') {
-          tokens[name] = setupTokens({ value: obj[name] }, path.concat(name));
-        } else {
-          tokens[name] = setupTokens(obj[name], path.concat(name));
-        }
-      }
+  const output = {};
+
+  for (const name in tokens) {
+    if (has(tokens, name)) {
+      const value = tokens[name];
+      const nextTokens = isObject(value) ? value : { value };
+
+      output[name] = setupTokens(nextTokens, path.concat(name));
     }
   }
 
-  return tokens;
+  return output;
 }
 
 /**

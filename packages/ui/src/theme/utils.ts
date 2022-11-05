@@ -2,9 +2,25 @@ import kebabCase from 'lodash/kebabCase';
 // internal style dictionary function
 import usesReference from 'style-dictionary/lib/utils/references/usesReference';
 
-import { DesignToken, WebDesignToken } from './tokens/types/designToken';
+import {
+  DesignToken,
+  ShadowValue,
+  WebDesignToken,
+} from './tokens/types/designToken';
+
+type ShadowPropertyKey = keyof Exclude<ShadowValue, string>;
 
 export const CSS_VARIABLE_PREFIX = 'amplify';
+
+// Important: these properties should not be altered in
+// order to maintain the expected order of the CSS `box-shadow` property
+const SHADOW_PROPERTIES: ShadowPropertyKey[] = [
+  'offsetX',
+  'offsetY',
+  'blurRadius',
+  'spreadRadius',
+  'color',
+];
 
 function referenceValue(value: string) {
   if (usesReference(value)) {
@@ -14,6 +30,12 @@ function referenceValue(value: string) {
   return value;
 }
 
+const getShadowProperty = (
+  token: DesignToken,
+  value: DesignToken,
+  property: ShadowPropertyKey
+) => token[property] ?? value[property] ?? '';
+
 export function cssValue(token: DesignToken) {
   const { value } = token;
   if (typeof value === 'string') {
@@ -21,20 +43,9 @@ export function cssValue(token: DesignToken) {
   }
   if (typeof value === 'object') {
     if ('offsetX' in value) {
-      const {
-        offsetX = '',
-        offsetY = '',
-        blurRadius = '',
-        spreadRadius = '',
-        color = '',
-      } = value;
-      return [
-        referenceValue(offsetX),
-        referenceValue(offsetY),
-        referenceValue(blurRadius),
-        referenceValue(spreadRadius),
-        referenceValue(color),
-      ].join(' ');
+      return SHADOW_PROPERTIES.map((property) =>
+        getShadowProperty(token, value, property)
+      ).join(' ');
     }
   }
 

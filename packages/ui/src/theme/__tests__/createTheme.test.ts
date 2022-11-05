@@ -34,23 +34,36 @@ describe('@aws-amplify/ui', () => {
     });
 
     describe('with a custom theme using token objects and without a base theme', () => {
+      const shadows = {
+        small: { value: '12px' },
+        large: {
+          value: {
+            offsetX: 'offsetX',
+            offsetY: 'offsetY',
+            blurRadius: 'blurRadius',
+            spreadRadius: 'spreadRadius',
+            color: 'color',
+          },
+        },
+      };
       const theme = createTheme({
         name: 'test-theme',
         tokens: {
           colors: {
-            background: {
-              primary: { value: '#bada55' },
-            },
-            font: {
-              primary: { value: '{colors.white.value}' },
-            },
+            background: { primary: { value: '#bada55' } },
+            font: { primary: { value: '{colors.white.value}' } },
           },
+          shadows,
         },
       });
 
       it('should override the base theme', () => {
         const { tokens } = theme;
         expect(tokens.colors.background.primary.value).toEqual('#bada55');
+        expect(tokens.shadows.large.value).toEqual(
+          'offsetX offsetY blurRadius spreadRadius color'
+        );
+        expect(tokens.shadows.small.value).toEqual(shadows.small.value);
       });
 
       it('should handle being extended again', () => {
@@ -74,7 +87,16 @@ describe('@aws-amplify/ui', () => {
     });
 
     describe('with a custom theme not using token objects and without a base theme', () => {
-      const shadows = { small: '12px', large: { offsetX: '12px' } };
+      const shadows = {
+        small: '12px',
+        large: {
+          offsetX: 'offsetX',
+          offsetY: 'offsetY',
+          blurRadius: 'blurRadius',
+          spreadRadius: 'spreadRadius',
+          color: 'color',
+        },
+      };
       const theme = createTheme({
         name: 'test-theme',
         tokens: {
@@ -94,6 +116,7 @@ describe('@aws-amplify/ui', () => {
           shadows,
           space: { small: '2px', relative: { small: '1px' } },
           time: { short: '10ms' },
+          transforms: { slideX: { small: { value: 'translateX(300%)' } } },
         },
       });
 
@@ -111,11 +134,16 @@ describe('@aws-amplify/ui', () => {
         expect(tokens.outlineOffsets.large.value).toEqual('24px');
         expect(tokens.outlineWidths.small.value).toEqual('.25px');
         expect(tokens.radii.medium.value).toEqual('medium');
-        expect(tokens.shadows.large.value).toStrictEqual(shadows.large);
+        expect(tokens.shadows.large.value).toEqual(
+          'offsetX offsetY blurRadius spreadRadius color'
+        );
         expect(tokens.shadows.small.value).toEqual(shadows.small);
         expect(tokens.space.small.value).toEqual('2px');
         expect(tokens.space.relative.small.value).toEqual('1px');
         expect(tokens.time.short.value).toEqual('10ms');
+        expect(tokens.transforms.slideX.small.value).toEqual(
+          'translateX(300%)'
+        );
       });
 
       it('should handle being extended again', () => {
