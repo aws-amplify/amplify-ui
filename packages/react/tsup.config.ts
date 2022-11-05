@@ -4,6 +4,7 @@ export default defineConfig({
   dts: true,
   entryPoints: [
     'src/index.tsx',
+    'src/legacy.tsx',
     'src/icons.tsx',
     'src/internal.tsx',
     'src/styles.ts',

@@ -1,5 +1,14 @@
-import { SwitchField } from '@aws-amplify/ui-react';
+import { SwitchField, useTheme } from '@aws-amplify/ui-react';
 
 export const SwitchFieldStylePropsExample = () => {
-  return <SwitchField label="This is a switch" fontSize="xs" />;
+  const { tokens } = useTheme();
+  return (
+    <>
+      <SwitchField
+        label="This is a switch"
+        style={{ fontSize: `${tokens.fontSizes.xs}` }}
+      />
+      <SwitchField label="This is a switch" fontSize={tokens.fontSizes.xs} />
+    </>
+  );
 };

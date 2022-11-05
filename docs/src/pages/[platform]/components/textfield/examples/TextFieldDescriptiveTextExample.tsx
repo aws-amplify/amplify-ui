@@ -9,7 +9,7 @@ export const TextFieldDescriptiveTextExample = () => {
         descriptiveText={
           <Text
             as="span"
-            color="purple.60"
+            color="rebeccapurple"
             fontStyle="italic"
             fontSize="0.8rem"
           >

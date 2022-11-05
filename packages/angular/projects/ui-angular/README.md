@@ -19,6 +19,9 @@ projects/ui-angular/
 |   |   └── directives/
 |   |   └── primitives/
 |   |   └── services/
+├── legacy/ # contains re-expors of legacy web components
+│   └── src/
+│   └── package.json # required by ng-packagr to setup secondary entry points
 └── package.json # name: `@aws-amplify/ui-angular`, private: false
                  # contains dependencies that library needs (e.g. xstate)
 

@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "name": "@aws-amplify/ui-react-legacy",
+  "main": "../dist/legacy.js",
+  "module": "../dist/esm/legacy.js",
+  "types": "../dist/types/legacy.d.ts"
+}

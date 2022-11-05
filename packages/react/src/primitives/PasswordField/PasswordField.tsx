@@ -34,6 +34,7 @@ const PasswordFieldPrimitive: Primitive<PasswordFieldProps, 'input'> = (
   return (
     <TextField
       autoComplete={autoComplete}
+      isMultiline={false}
       outerEndComponent={
         hideShowPassword ? null : (
           <ShowPasswordButton

@@ -4,11 +4,8 @@
  */
 
 import { Hub } from 'aws-amplify';
-import { waitFor } from 'xstate/lib/waitFor';
-
-import { AuthInterpreter, AuthMachineHubHandler } from '../../types';
+import { AuthInterpreter, HubHandler } from '../../types';
 import { ALLOWED_SPECIAL_CHARACTERS } from './constants';
-import { getActorState } from './actor';
 
 // replaces all characters in a string with '*', except for the first and last char
 export const censorAllButFirstAndLast = (value: string): string => {
@@ -36,30 +33,7 @@ export const censorPhoneNumber = (val: string): string => {
   return split.join('');
 };
 
-const waitForAutoSignInState = async (service: AuthInterpreter) => {
-  // https://xstate.js.org/docs/guides/interpretation.html#waitfor
-  try {
-    await waitFor(service, (state) =>
-      getActorState(state).matches('autoSignIn')
-    );
-  } catch (e) {
-    /**
-     * AutoSignIn can be called in unrelated state, or after user has already
-     * signed in, because Amplify JS can send duplicate hub events.
-     *
-     * In that case, we do no-op and ignore the second event.
-     */
-  }
-};
-
-/**
- * Handles Amplify JS Auth hub events, by forwarding hub events as appropriate
- * xstate events.
- */
-export const defaultAuthHubHandler: AuthMachineHubHandler = async (
-  data,
-  service
-) => {
+export const defaultAuthHubHandler: HubHandler = (data, service) => {
   const { send } = service;
   const state = service.getSnapshot(); // this is just a getter and is not expensive
 
@@ -69,30 +43,6 @@ export const defaultAuthHubHandler: AuthMachineHubHandler = async (
     case 'tokenRefresh':
       if (state.matches('authenticated.idle')) {
         send('TOKEN_REFRESH');
-      }
-      break;
-    case 'autoSignIn':
-      if (!state.matches('authenticated')) {
-        /**
-         * We wait for state machine to reach `autoSignIn` before sending
-         * this event.
-         *
-         * This will ensure that xstate is ready to handle autoSignIn by
-         * the time we send this event, and prevent race conditions between
-         * hub events and state machine transitions.
-         */
-        await waitForAutoSignInState(service);
-        const currentActorState = getActorState(service.getSnapshot());
-        if (currentActorState?.matches('autoSignIn')) {
-          send({ type: 'AUTO_SIGN_IN', data: data.payload.data });
-        }
-      }
-      break;
-    case 'autoSignIn_failure':
-      await waitForAutoSignInState(service);
-      const currentActorState = getActorState(service.getSnapshot());
-      if (currentActorState?.matches('autoSignIn')) {
-        send({ type: 'AUTO_SIGN_IN_FAILURE', data: data.payload.data });
       }
       break;
     case 'signOut':
@@ -106,13 +56,6 @@ export const defaultAuthHubHandler: AuthMachineHubHandler = async (
   }
 };
 
-type HubHandler = Parameters<typeof Hub.listen>[1];
-const getHubEventHandler =
-  (service: AuthInterpreter, handler: AuthMachineHubHandler): HubHandler =>
-  (data) => {
-    handler(data, service);
-  };
-
 /**
  * Listens to external auth Hub events and sends corresponding event to
  * the `authService` of interest
@@ -123,11 +66,13 @@ const getHubEventHandler =
  */
 export const listenToAuthHub = (
   service: AuthInterpreter,
-  handler: AuthMachineHubHandler = defaultAuthHubHandler
+  handler: HubHandler = defaultAuthHubHandler
 ) => {
   return Hub.listen(
     'auth',
-    getHubEventHandler(service, handler),
+    (data) => {
+      handler(data, service);
+    },
     'authenticator-hub-handler'
   );
 };

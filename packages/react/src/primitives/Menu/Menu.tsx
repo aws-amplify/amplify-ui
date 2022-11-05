@@ -46,10 +46,7 @@ const MenuPrimitive: Primitive<MenuProps, 'div'> = (
         </MenuButton>
       )}
     </DropdownMenuTrigger>
-    <DropdownMenuContent
-      align={menuAlign}
-      className={ComponentClassNames.MenuContentWrapper}
-    >
+    <DropdownMenuContent align={menuAlign} portalled={false}>
       <ButtonGroup
         className={classNames(ComponentClassNames.MenuContent, className)}
         ref={ref}
