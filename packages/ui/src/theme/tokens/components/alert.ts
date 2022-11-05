@@ -7,7 +7,6 @@ import {
   FontWeightValue,
   JustifyContentValue,
   SpaceValue,
-  WebDesignToken,
 } from '../types/designToken';
 
 interface AlertVariationTokens {
