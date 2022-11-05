@@ -103,6 +103,9 @@ describe('@aws-amplify/ui', () => {
                   secondary: '#ff9900',
                 },
               },
+              borderWidths: {
+                small: 2,
+              },
             },
           },
           theme
@@ -110,6 +113,7 @@ describe('@aws-amplify/ui', () => {
         const { tokens } = newTheme;
         expect(tokens.colors.background.secondary.value).toEqual('#ff9900');
         expect(tokens.colors.background.primary.value).toEqual('#bada55');
+        expect(tokens.borderWidths.small.value).toEqual(2);
       });
 
       it('correctly handles a custom theme key with an undefined value', () => {
