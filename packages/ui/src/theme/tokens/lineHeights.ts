@@ -6,8 +6,9 @@ import {
 
 type LineHeightSize = 'small' | 'medium' | 'large';
 
-export type LineHeights<DesignTokenType = DesignToken<LineHeightValue>> =
-  Record<LineHeightSize, DesignTokenType>;
+export type LineHeights<
+  DesignTokenType = DesignToken<LineHeightValue> | LineHeightValue
+> = Record<LineHeightSize, DesignTokenType>;
 
 export type WebLineHeights = LineHeights<WebDesignToken<LineHeightValue>>;
 

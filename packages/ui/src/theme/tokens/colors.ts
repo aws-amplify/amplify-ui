@@ -68,7 +68,7 @@ type BasePalette<DesignTokenType> = Record<
   ColorScale<DesignTokenType>
 >;
 
-export type Colors<DesignTokenType = DesignToken<ColorValue> | string> =
+export type Colors<DesignTokenType = DesignToken<ColorValue> | ColorValue> =
   BasePalette<DesignTokenType> & {
     white: DesignTokenType;
     black: DesignTokenType;

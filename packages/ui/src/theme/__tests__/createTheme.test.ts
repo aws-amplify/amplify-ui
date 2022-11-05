@@ -77,23 +77,28 @@ describe('@aws-amplify/ui', () => {
       const theme = createTheme({
         name: 'test-theme',
         tokens: {
-          borderWidths: { small: 2 },
+          borderWidths: { small: '2px' },
           colors: {
             background: { primary: '#bada55' },
             font: { primary: '{colors.white.value}' },
           },
           fonts: { default: { variable: 'Comic Sans' } },
           fontSizes: { xxxxl: '256rem' },
+          fontWeights: { bold: 'REAL_BOLD', hairline: 0.001 },
+          lineHeights: { small: '1px', medium: 2 },
         },
       });
 
       it('should override the base theme', () => {
         const { tokens } = theme;
 
-        expect(tokens.borderWidths.small.value).toEqual(2);
+        expect(tokens.borderWidths.small.value).toEqual('2px');
         expect(tokens.colors.background.primary.value).toEqual('#bada55');
         expect(tokens.fonts.default.variable.value).toEqual('Comic Sans');
         expect(tokens.fontSizes.xxxxl.value).toEqual('256rem');
+        expect(tokens.fontWeights.bold.value).toEqual('REAL_BOLD');
+        expect(tokens.lineHeights.small.value).toEqual('1px');
+        expect(tokens.lineHeights.medium.value).toEqual(2);
       });
 
       it('should handle being extended again', () => {

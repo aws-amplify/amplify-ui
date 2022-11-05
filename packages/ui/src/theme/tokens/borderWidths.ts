@@ -7,7 +7,7 @@ import {
 type BorderWidthSize = 'small' | 'medium' | 'large';
 
 export type BorderWidths<
-  DesignTokenType = DesignToken<BorderWidthValue> | string | number
+  DesignTokenType = DesignToken<BorderWidthValue> | BorderWidthValue
 > = Record<BorderWidthSize, DesignTokenType>;
 
 export type WebBorderWidths = BorderWidths<WebDesignToken<BorderWidthValue>>;
