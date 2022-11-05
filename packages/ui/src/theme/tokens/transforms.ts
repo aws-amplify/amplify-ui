@@ -7,7 +7,7 @@ import {
 type TransformSize = 'small' | 'medium' | 'large';
 
 export type Transforms = {
-  slideX: Record<TransformSize, DesignToken<TransformValue>>;
+  slideX: Record<TransformSize, DesignToken<TransformValue> | TransformSize>;
 };
 
 export type WebTransforms = {

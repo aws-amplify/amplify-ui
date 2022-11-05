@@ -74,6 +74,7 @@ describe('@aws-amplify/ui', () => {
     });
 
     describe('with a custom theme not using token objects and without a base theme', () => {
+      const shadows = { small: '12px', large: { offsetX: '12px' } };
       const theme = createTheme({
         name: 'test-theme',
         tokens: {
@@ -86,6 +87,13 @@ describe('@aws-amplify/ui', () => {
           fontSizes: { xxxxl: '256rem' },
           fontWeights: { bold: 'REAL_BOLD', hairline: 0.001 },
           lineHeights: { small: '1px', medium: 2 },
+          opacities: { 10: '2' },
+          outlineOffsets: { large: '24px' },
+          outlineWidths: { small: '.25px' },
+          radii: { medium: 'medium' },
+          shadows,
+          space: { small: '2px', relative: { small: '1px' } },
+          time: { short: '10ms' },
         },
       });
 
@@ -99,6 +107,15 @@ describe('@aws-amplify/ui', () => {
         expect(tokens.fontWeights.bold.value).toEqual('REAL_BOLD');
         expect(tokens.lineHeights.small.value).toEqual('1px');
         expect(tokens.lineHeights.medium.value).toEqual(2);
+        expect(tokens.opacities[10].value).toEqual('2');
+        expect(tokens.outlineOffsets.large.value).toEqual('24px');
+        expect(tokens.outlineWidths.small.value).toEqual('.25px');
+        expect(tokens.radii.medium.value).toEqual('medium');
+        expect(tokens.shadows.large.value).toStrictEqual(shadows.large);
+        expect(tokens.shadows.small.value).toEqual(shadows.small);
+        expect(tokens.space.small.value).toEqual('2px');
+        expect(tokens.space.relative.small.value).toEqual('1px');
+        expect(tokens.time.short.value).toEqual('10ms');
       });
 
       it('should handle being extended again', () => {

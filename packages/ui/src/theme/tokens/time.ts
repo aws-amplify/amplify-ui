@@ -2,7 +2,7 @@ import { DesignToken, WebDesignToken, TimeValue } from './types/designToken';
 
 type Duration = 'short' | 'medium' | 'long';
 
-export type Time = Record<Duration, DesignToken<TimeValue>>;
+export type Time = Record<Duration, DesignToken<TimeValue> | TimeValue>;
 
 export type WebTime = Record<Duration, WebDesignToken<TimeValue>>;
 
