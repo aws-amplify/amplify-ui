@@ -115,10 +115,8 @@ export interface Theme {
  * A BaseTheme has all tokens and breakpoints required
  */
 export interface BaseTheme extends Theme {
-  name: string;
   tokens: Tokens;
   breakpoints: Breakpoints;
-  overrides?: Array<Override>;
 }
 
 /**

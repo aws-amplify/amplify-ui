@@ -3,13 +3,16 @@ import { createTheme } from '../createTheme';
 
 describe('createTheme', () => {
   describe('without a base theme', () => {
-    const { tokens, components } = createTheme({ name: 'test-theme' });
+    const { tokens, components } = createTheme({
+      name: 'test-theme',
+      components: { bottomSheet: { container: { backgroundColor: 'red' } } },
+    });
 
     it('should have tokens', () => {
       expect(tokens).toBeDefined();
 
-      // base theme does not have components
-      expect(components).not.toBeDefined();
+      expect(components).toBeDefined();
+      expect(components?.bottomSheet.container.backgroundColor).toBe('red');
 
       expect(tokens.colors).toStrictEqual(baseTokens.colors);
       expect(tokens.fontSizes).toStrictEqual(baseTokens.fontSizes);

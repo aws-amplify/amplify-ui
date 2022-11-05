@@ -1,11 +1,10 @@
 import deepExtend from 'style-dictionary/lib/utils/deepExtend';
 import tokens from '@aws-amplify/ui/dist/react-native/tokens';
 
-import { BaseTheme, Theme, StrictTheme } from './types';
+import { Theme, StrictTheme } from './types';
 import { setupTokens } from './utils';
 
-// base theme with shared tokens, excludes components
-const baseTheme: BaseTheme = {
+const defaultTheme: StrictTheme = {
   tokens,
   name: 'default-theme',
   colorMode: 'system',
@@ -18,14 +17,14 @@ const baseTheme: BaseTheme = {
  * const myOtherTheme = createTheme({}, myTheme);
  */
 export const createTheme = (theme?: Theme): StrictTheme => {
-  // merge custom `theme` param and `baseTheme` to get the merged theme.
+  // merge custom `theme` param and `StrictTheme` to get the merged theme.
   // `deepExtend` is a Style Dictionary method that performs a deep merge on n objects.
   const { tokens: mergedTokens, ...mergedTheme } = deepExtend([
     {},
-    baseTheme,
+    defaultTheme,
     theme,
-    // cast to `BaseTheme` as `deepExtend` returns a generic object
-  ]) as BaseTheme;
+    // cast to `StrictTheme` as `deepExtend` returns a generic object
+  ]) as StrictTheme;
 
   // Setup the tokens:
   // - each token will have a raw value

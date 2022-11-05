@@ -1,4 +1,8 @@
+import has from 'lodash/has';
+import isObject from 'lodash/isObject';
+import isString from 'lodash/isString';
 import kebabCase from 'lodash/kebabCase';
+
 // internal style dictionary function
 import usesReference from 'style-dictionary/lib/utils/references/usesReference';
 
@@ -7,10 +11,6 @@ import {
   ShadowValue,
   WebDesignToken,
 } from './tokens/types/designToken';
-
-import has from 'lodash/has';
-import isObject from 'lodash/isObject';
-import isString from 'lodash/isString';
 
 type ShadowPropertyKey = keyof Exclude<ShadowValue, string>;
 
@@ -69,9 +69,5 @@ export function cssNameTransform({ path = [] }: NameTransformProps): string {
  * @returns boolean
  */
 export function isDesignToken(value: unknown): value is WebDesignToken {
-  if (isObject(value)) {
-    return has(value, 'value');
-  } else {
-    return false;
-  }
+  return isObject(value) && has(value, 'value');
 }
