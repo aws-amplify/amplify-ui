@@ -41,13 +41,11 @@ export function Tracker({
   );
 
   const showonStartEdit = (): boolean => {
-    // if complete or loading can't edit file name
-    if (fileState === 'success' || fileState === 'loading') return false;
-    // only allow editing on error if its a problem with extension
-    if (fileState === 'error') {
-      return errorMessage === translate('Extension not allowed');
+    // only allow editing of file name if it's error or null
+    if (fileState === null || fileState === 'error') {
+      return true;
     }
-    return true;
+    return false;
   };
 
   return (

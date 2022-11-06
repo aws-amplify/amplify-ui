@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { UploadTask, Storage } from '@aws-amplify/storage';
 import { getFileName, translate, uploadFile } from '@aws-amplify/ui';
 import { FileStatuses, FileUploaderProps } from './types';
@@ -26,8 +26,14 @@ export function FileUploader({
     UploadDropZone = FileUploader.UploadDropZone,
     UploadButton = FileUploader.UploadButton,
   } = components;
+
   // File Previewer loading state
   const [isLoading, setLoading] = useState(false);
+
+  const fileStatusesRef = useRef<FileStatuses>([]);
+
+  // Tracker state
+  const [isEditingName, setisEditingName] = React.useState<boolean[]>([]);
 
   const {
     addTargetFiles,
@@ -42,11 +48,6 @@ export function FileUploader({
     setShowPreviewer,
     showPreviewer,
   } = useFileUploader({ maxSize, acceptedFileTypes, multiple, isLoading });
-
-  const fileStatusesRef = useRef<FileStatuses>([]);
-
-  // Tracker state
-  const [isEditingName, setisEditingName] = React.useState<boolean[]>([]);
 
   // Creates aggregate percentage to show during downloads
   const percentage = Math.floor(
@@ -77,68 +78,80 @@ export function FileUploader({
 
   // Previewer Methods
 
-  const progressCallback = (index: number) => {
-    return (progress: { loaded: number; total: number }) => {
-      const percentage = Math.floor((progress.loaded / progress.total) * 100);
-      const status = fileStatusesRef.current[index];
-      fileStatusesRef.current[index] =
-        percentage !== 100
-          ? { ...status, percentage, fileState: 'resume' }
-          : { ...status, percentage, fileState: 'success' };
-      const addPercentage = [...fileStatusesRef.current];
-      setFileStatuses(addPercentage);
-    };
-  };
-
-  const errorCallback = (index: number) => {
-    return (err: string) => {
-      const status = fileStatusesRef.current[index];
-      fileStatusesRef.current[index] = {
-        ...status,
-        fileState: 'error',
-        fileErrors: translate(err.toString()),
+  const progressCallback = useCallback(
+    (index: number) => {
+      return (progress: { loaded: number; total: number }) => {
+        const percentage = Math.floor((progress.loaded / progress.total) * 100);
+        const status = fileStatusesRef.current[index];
+        fileStatusesRef.current[index] =
+          percentage !== 100
+            ? { ...status, percentage, fileState: 'resume' }
+            : { ...status, percentage, fileState: 'success' };
+        const addPercentage = [...fileStatusesRef.current];
+        setFileStatuses(addPercentage);
       };
+    },
+    [setFileStatuses]
+  );
 
-      const addErrors = [...fileStatusesRef.current];
-      setFileStatuses(addErrors);
-      setLoading(false);
-      if (typeof onError === 'function') onError(err);
-    };
-  };
+  const errorCallback = useCallback(
+    (index: number) => {
+      return (err: string) => {
+        const status = fileStatusesRef.current[index];
+        fileStatusesRef.current[index] = {
+          ...status,
+          fileState: 'error',
+          fileErrors: translate(err.toString()),
+        };
 
-  const completeCallback = () => {
+        const addErrors = [...fileStatusesRef.current];
+        setFileStatuses(addErrors);
+        setLoading(false);
+        if (typeof onError === 'function') onError(err);
+      };
+    },
+    [onError, setFileStatuses]
+  );
+
+  const completeCallback = useCallback(() => {
     return (event: { key: string }) => {
       if (typeof onSuccess === 'function') onSuccess(event);
     };
-  };
+  }, [onSuccess]);
 
   const onDelete = () => {
     //todo delete
   };
 
-  const onPause = (index: number): (() => void) => {
-    return function () {
-      fileStatuses[index].uploadTask.pause();
-      const statuses = [...fileStatuses];
-      const status = fileStatuses[index];
+  const onPause = useCallback(
+    (index: number): (() => void) => {
+      return function () {
+        fileStatuses[index].uploadTask.pause();
+        const statuses = [...fileStatuses];
+        const status = fileStatuses[index];
 
-      statuses[index] = { ...status, fileState: 'paused' };
-      setFileStatuses(statuses);
-    };
-  };
+        statuses[index] = { ...status, fileState: 'paused' };
+        setFileStatuses(statuses);
+      };
+    },
+    [fileStatuses, setFileStatuses]
+  );
 
-  const onResume = (index: number): (() => void) => {
-    return function () {
-      fileStatuses[index].uploadTask.resume();
-      const statuses = [...fileStatuses];
-      const status = fileStatuses[index];
+  const onResume = useCallback(
+    (index: number): (() => void) => {
+      return function () {
+        fileStatuses[index].uploadTask.resume();
+        const statuses = [...fileStatuses];
+        const status = fileStatuses[index];
 
-      statuses[index] = { ...status, fileState: 'resume' };
-      setFileStatuses(statuses);
-    };
-  };
+        statuses[index] = { ...status, fileState: 'resume' };
+        setFileStatuses(statuses);
+      };
+    },
+    [fileStatuses, setFileStatuses]
+  );
 
-  const onFileClick = () => {
+  const onFileClick = useCallback(() => {
     // start upload
     setLoading(true);
     const uploadTasksTemp: UploadTask[] = [];
@@ -146,11 +159,11 @@ export function FileUploader({
       if (status?.fileState === 'success') return;
 
       // remove any filenames that are not accepted from user prop
-      fileNames = fileNames?.filter((file: string) => {
+      const fileNamesFiltered = fileNames?.filter((file: string) => {
         const [extension] = file.split('.').reverse();
         return acceptedFileTypes.includes('.' + extension);
       });
-      const uploadFileName = getFileName(fileNames?.[i], status.name);
+      const uploadFileName = getFileName(fileNamesFiltered?.[i], status.name);
 
       const uploadTask: UploadTask = uploadFile({
         file: status.file,
@@ -174,86 +187,115 @@ export function FileUploader({
 
     const uploadTasks = [...fileStatusesRef.current];
     setFileStatuses(uploadTasks);
-  };
+  }, [
+    acceptedFileTypes,
+    completeCallback,
+    errorCallback,
+    fileNames,
+    fileStatuses,
+    level,
+    progressCallback,
+    setFileStatuses,
+  ]);
 
-  const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (!event.target.files || event.target.files.length === 0) {
-      return;
-    }
+  const onFileChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      if (!event.target.files || event.target.files.length === 0) {
+        return;
+      }
 
-    const { files } = event.target;
-    const addedFilesLength = addTargetFiles([...files]);
-    // only show previewer if the added files are great then 0
-    if (addedFilesLength > 0) setShowPreviewer(true);
-  };
+      const { files } = event.target;
+      const addedFilesLength = addTargetFiles([...files]);
+      // only show previewer if the added files are great then 0
+      if (addedFilesLength > 0) setShowPreviewer(true);
+    },
+    [addTargetFiles, setShowPreviewer]
+  );
 
-  const onClear = () => {
+  const onClear = useCallback(() => {
     setShowPreviewer(false);
     setFileStatuses([]);
-  };
+  }, [setFileStatuses, setShowPreviewer]);
 
-  const onFileCancel = (index: number) => {
-    return () => {
-      if (fileStatuses[index].fileState === 'loading') {
-        // if downloading use uploadTask and stop download
-        Storage.cancel(fileStatuses[index]?.uploadTask);
-        setLoading(false);
-      }
-      const updatedFiles = fileStatuses.filter((_, i) => i !== index);
-      setFileStatuses(updatedFiles);
-    };
-  };
+  const onFileCancel = useCallback(
+    (index: number) => {
+      return () => {
+        if (fileStatuses[index].fileState === 'loading') {
+          // if downloading use uploadTask and stop download
+          Storage.cancel(fileStatuses[index]?.uploadTask);
+          setLoading(false);
+        }
+        const updatedFiles = fileStatuses.filter((_, i) => i !== index);
+        setFileStatuses(updatedFiles);
+      };
+    },
+    [fileStatuses, setFileStatuses]
+  );
 
-  const onNameChange = (index: number) => {
-    return (event: React.ChangeEvent<HTMLInputElement>) => {
-      const names = [...fileStatuses];
-      const name = event.target.value;
-      names[index].name = name;
-      setFileStatuses(names);
-    };
-  };
+  const onNameChange = useCallback(
+    (index: number) => {
+      return (event: React.ChangeEvent<HTMLInputElement>) => {
+        const names = [...fileStatuses];
+        const name = event.target.value;
+        names[index].name = name;
+        setFileStatuses(names);
+      };
+    },
+    [fileStatuses, setFileStatuses]
+  );
 
   // Tracker methods
 
-  const onSaveEdit = (index: number) => {
-    return (_: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-      const fileName = fileStatuses[index].name;
-      // no empty file names
-      if (fileName.trim().length === 0) return;
-      const [extension] = fileName.split('.').reverse();
-      const validExtension = acceptedFileTypes.includes('.' + extension);
-      const statuses = [...fileStatuses];
-      const status = fileStatuses[index];
-      statuses[index] = {
-        ...status,
-        fileState: !validExtension ? 'error' : null,
-        fileErrors: validExtension ? null : translate('Extension not allowed'),
+  const onSaveEdit = useCallback(
+    (index: number) => {
+      return (_: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        const fileName = fileStatuses[index].name;
+        // no empty file names
+        if (fileName.trim().length === 0) return;
+        const [extension] = fileName.split('.').reverse();
+        const validExtension = acceptedFileTypes.includes('.' + extension);
+        const statuses = [...fileStatuses];
+        const status = fileStatuses[index];
+        statuses[index] = {
+          ...status,
+          fileState: !validExtension ? 'error' : null,
+          fileErrors: validExtension
+            ? null
+            : translate('Extension not allowed'),
+        };
+
+        setFileStatuses(statuses);
+        const names = [...isEditingName];
+        names[index] = false;
+        setisEditingName(names);
       };
+    },
+    [acceptedFileTypes, fileStatuses, isEditingName, setFileStatuses]
+  );
 
-      setFileStatuses(statuses);
-      const names = [...isEditingName];
-      names[index] = false;
-      setisEditingName(names);
-    };
-  };
+  const onCancelEdit = useCallback(
+    (index: number) => {
+      return (_: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        const fileName = fileStatuses[index].name;
+        if (fileName.trim().length === 0) return;
+        const names = [...isEditingName];
+        names[index] = false;
+        setisEditingName(names);
+      };
+    },
+    [fileStatuses, isEditingName]
+  );
 
-  const onCancelEdit = (index: number) => {
-    return (_: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-      const fileName = fileStatuses[index].name;
-      if (fileName.trim().length === 0) return;
-      const names = [...isEditingName];
-      names[index] = false;
-      setisEditingName(names);
-    };
-  };
-
-  const onStartEdit = (index: number) => {
-    return (_: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-      const names = [...isEditingName];
-      names[index] = true;
-      setisEditingName(names);
-    };
-  };
+  const onStartEdit = useCallback(
+    (index: number) => {
+      return (_: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        const names = [...isEditingName];
+        names[index] = true;
+        setisEditingName(names);
+      };
+    },
+    [isEditingName]
+  );
 
   const CommonProps = {
     acceptedFileTypes,
