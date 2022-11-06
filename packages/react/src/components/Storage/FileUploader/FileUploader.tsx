@@ -26,6 +26,9 @@ export function FileUploader({
     UploadDropZone = FileUploader.UploadDropZone,
     UploadButton = FileUploader.UploadButton,
   } = components;
+  // File Previewer loading state
+  const [isLoading, setLoading] = useState(false);
+
   const {
     addTargetFiles,
     fileStatuses,
@@ -38,12 +41,9 @@ export function FileUploader({
     setFileStatuses,
     setShowPreviewer,
     showPreviewer,
-  } = useFileUploader(maxSize, acceptedFileTypes, multiple);
+  } = useFileUploader({ maxSize, acceptedFileTypes, multiple, isLoading });
 
   const fileStatusesRef = useRef<FileStatuses>([]);
-
-  // File Previewer loading state
-  const [isLoading, setLoading] = useState(false);
 
   // Tracker state
   const [isEditingName, setisEditingName] = React.useState<boolean[]>([]);
@@ -83,8 +83,8 @@ export function FileUploader({
       const status = fileStatusesRef.current[index];
       fileStatusesRef.current[index] =
         percentage !== 100
-          ? { ...status, percentage, fileState: null, isLoading: true }
-          : { ...status, percentage, fileState: 'success', isLoading: false };
+          ? { ...status, percentage, fileState: 'resume' }
+          : { ...status, percentage, fileState: 'success' };
       const addPercentage = [...fileStatusesRef.current];
       setFileStatuses(addPercentage);
     };
@@ -133,7 +133,7 @@ export function FileUploader({
       const statuses = [...fileStatuses];
       const status = fileStatuses[index];
 
-      statuses[index] = { ...status, fileState: null, isLoading: true };
+      statuses[index] = { ...status, fileState: 'resume' };
       setFileStatuses(statuses);
     };
   };
@@ -168,7 +168,7 @@ export function FileUploader({
       return {
         ...status,
         uploadTask: uploadTasksTemp?.[index],
-        isLoading: true,
+        fileState: status.fileState ?? 'loading',
       };
     });
 
@@ -194,7 +194,7 @@ export function FileUploader({
 
   const onFileCancel = (index: number) => {
     return () => {
-      if (isLoading) {
+      if (fileStatuses[index].fileState === 'loading') {
         // if downloading use uploadTask and stop download
         Storage.cancel(fileStatuses[index]?.uploadTask);
         setLoading(false);
@@ -296,7 +296,6 @@ export function FileUploader({
             onDelete={onDelete}
             name={status.name}
             fileState={status?.fileState}
-            isLoading={status?.isLoading}
             errorMessage={status?.fileErrors}
             isEditing={isEditingName[index]}
             onSaveEdit={onSaveEdit(index)}

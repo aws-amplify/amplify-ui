@@ -3,11 +3,17 @@ import React, { useState } from 'react';
 import { Files, FileStatuses } from '../../types';
 import { UseFileUploader } from './types';
 
-export default function useFileUploader(
-  maxSize: number,
-  acceptedFileTypes: string[],
-  multiple: boolean
-): UseFileUploader {
+export default function useFileUploader({
+  maxSize,
+  acceptedFileTypes,
+  multiple,
+  isLoading,
+}: {
+  maxSize: number;
+  acceptedFileTypes: string[];
+  multiple: boolean;
+  isLoading: boolean;
+}): UseFileUploader {
   const [fileStatuses, setFileStatuses] = useState<FileStatuses>([]);
   const [showPreviewer, setShowPreviewer] = useState(false);
 
@@ -67,17 +73,20 @@ export default function useFileUploader(
   const onDragLeave = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     event.stopPropagation();
+    if (isLoading) return false;
     setInDropZone(false);
   };
   const onDragOver = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     event.stopPropagation();
+    if (isLoading) return false;
     setInDropZone(true);
     event.dataTransfer.dropEffect = 'copy';
   };
   const onDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     event.stopPropagation();
+    if (isLoading) return false;
     const { files } = event.dataTransfer;
     const addedFilesLength = addTargetFiles([...files]);
     if (addedFilesLength > 0) setShowPreviewer(true);

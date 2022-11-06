@@ -54,6 +54,7 @@ export function Previewer({
           </Text>
           <UploadButton
             acceptedFileTypes={acceptedFileTypes}
+            isLoading={isLoading}
             multiple={multiple}
             onFileChange={onFileChange}
             className={'amplify-fileuploader__dropzone__button'}

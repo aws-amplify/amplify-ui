@@ -11,6 +11,7 @@ export interface UploadButtonProps {
   multiple?: boolean;
   onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   className?: string;
+  isLoading?: boolean;
 }
 
 export interface UploadDropZoneProps extends DragActionHandlers {
@@ -59,7 +60,6 @@ export interface PreviewerProps extends DragActionHandlers {
 export interface TrackerProps {
   file: File;
   fileState: StatesOfFiles;
-  isLoading: boolean;
   hasImage: boolean;
   url: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -88,11 +88,16 @@ export interface FileStatus extends Partial<FileStateProps> {
 
 export type FileStatuses = FileStatus[];
 
-type StatesOfFiles = 'paused' | 'success' | 'error' | null;
+type StatesOfFiles =
+  | 'paused'
+  | 'success'
+  | 'error'
+  | 'loading'
+  | 'resume'
+  | null;
 export interface FileStateProps {
   fileState: StatesOfFiles;
   errorMessage: string;
-  isLoading: boolean;
 }
 
 type UploadButtonComponent<Props = {}> = React.ComponentType<

@@ -6,12 +6,11 @@ import { FileStateProps } from '../types';
 
 export const FileState = ({
   fileState,
-  isLoading,
   errorMessage,
 }: FileStateProps): JSX.Element => {
-  if (isLoading && !fileState)
-    return <Text className="">{translate('Loading')}</Text>;
   switch (fileState) {
+    case 'loading':
+      return <Text className="">{translate('Loading')}</Text>;
     case 'paused':
       return <Text className="">{translate('Paused')}</Text>;
     case 'success':

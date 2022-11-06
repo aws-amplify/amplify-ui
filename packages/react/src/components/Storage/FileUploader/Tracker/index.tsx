@@ -18,7 +18,6 @@ export function Tracker({
   file,
   fileState,
   hasImage,
-  isLoading,
   url,
   onChange,
   onPause,
@@ -43,7 +42,7 @@ export function Tracker({
 
   const showonStartEdit = (): boolean => {
     // if complete or loading can't edit file name
-    if (fileState === 'success' || isLoading) return false;
+    if (fileState === 'success' || fileState === 'loading') return false;
     // only allow editing on error if its a problem with extension
     if (fileState === 'error') {
       return errorMessage === translate('Extension not allowed');
@@ -107,26 +106,19 @@ export function Tracker({
                   {humanFileSize(size, true)}
                 </Text>
               </Flex>
-              <FileState
-                errorMessage={errorMessage}
-                fileState={fileState}
-                isLoading={isLoading}
-              />
+              <FileState errorMessage={errorMessage} fileState={fileState} />
             </Flex>
-            {isLoading && (
-              <>
-                {fileState === 'paused' ? (
-                  <Button onClick={onResume} size="small" variation="link">
-                    {translate('Resume')}
-                  </Button>
-                ) : (
-                  <Button onClick={onPause} size="small" variation="link">
-                    {translate('pause')}
-                  </Button>
-                )}
-              </>
+            {fileState === 'paused' && (
+              <Button onClick={onResume} size="small" variation="link">
+                {translate('Resume')}
+              </Button>
             )}
-            {!isLoading && (
+            {fileState === 'resume' && (
+              <Button onClick={onPause} size="small" variation="link">
+                {translate('pause')}
+              </Button>
+            )}
+            {(fileState === null || fileState === 'success') && (
               <Button size="small" onClick={onCancel}>
                 <Text>
                   <CloseIcon />
