@@ -84,7 +84,7 @@ export function FileUploader({
       fileStatusesRef.current[index] =
         percentage !== 100
           ? { ...status, percentage, fileState: null, isLoading: true }
-          : { ...status, percentage, fileState: 'success' };
+          : { ...status, percentage, fileState: 'success', isLoading: false };
       const addPercentage = [...fileStatusesRef.current];
       setFileStatuses(addPercentage);
     };
@@ -165,7 +165,11 @@ export function FileUploader({
     let statuses: FileStatuses = [];
     statuses = [...fileStatuses];
     fileStatusesRef.current = statuses.map((status, index) => {
-      return { ...status, uploadTask: uploadTasksTemp?.[index] };
+      return {
+        ...status,
+        uploadTask: uploadTasksTemp?.[index],
+        isLoading: true,
+      };
     });
 
     const uploadTasks = [...fileStatusesRef.current];
