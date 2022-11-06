@@ -1,5 +1,5 @@
 import { borderWidths, BorderWidths, WebBorderWidths } from './borderWidths';
-import { colors, Colors, WebColors, ReactNativeColors } from './colors';
+import { colors, Colors, ReactNativeColors } from './colors';
 import { ComponentTokens, components } from './components';
 import { fonts, Fonts, WebFonts } from './fonts';
 import {
@@ -64,8 +64,8 @@ export interface Tokens {
  */
 export interface WebTokens {
   borderWidths: WebBorderWidths;
-  components: ComponentTokens<'required'>;
-  colors: WebColors;
+  components: ComponentTokens<'strict'>;
+  colors: Required<Colors<'strict'>>;
   fonts: WebFonts;
   fontSizes: WebFontSizes;
   fontWeights: WebFontWeights;

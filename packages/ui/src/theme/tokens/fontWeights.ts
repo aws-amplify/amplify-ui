@@ -15,10 +15,27 @@ type FontWeight =
   | 'extrabold'
   | 'black';
 
-export type FontWeights<DesignTokenType = DesignToken<FontWeightValue>> =
-  Record<FontWeight, DesignTokenType>;
+type DesignTokenValues<
+  PropertyValueKey extends string | number,
+  PropertyValue,
+  OutputType = unknown
+> = OutputType extends 'strict'
+  ? Record<PropertyValueKey, WebDesignToken<PropertyValue>>
+  : Partial<Record<PropertyValueKey, DesignToken<PropertyValue>>>;
 
-export type WebFontWeights = FontWeights<WebDesignToken<FontWeightValue>>;
+export type FontWeights<OutputType = unknown> = DesignTokenValues<
+  FontWeight,
+  FontWeightValue,
+  OutputType
+>;
+// export type FontWeights<OutputType = unknown> = OutputType extends 'required'
+//   ? Record<FontWeight, WebDesignToken<FontWeightValue>>
+//   : Partial<Record<FontWeight, DesignToken<FontWeightValue>>>;
+
+// export type FontWeights<DesignTokenType = DesignToken<FontWeightValue>> =
+//   Record<FontWeight, DesignTokenType>;
+
+export type WebFontWeights = FontWeights<'strict'>;
 
 export type ReactNativeFontWeights = FontWeights<string>;
 

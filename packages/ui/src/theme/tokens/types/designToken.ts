@@ -162,17 +162,60 @@ interface Properties {
 
 type PropertyKey = keyof Properties;
 
+/**
+ * Return interface with all types optional for custom theme input
+ */
 export type OptionalDesignTokenProperties<Keys extends PropertyKey> = Partial<{
   [Key in Keys]?: DesignToken<Properties[Key]>;
 }>;
 
+/**
+ * Return interface with all types required for strict theme output
+ */
 export type RequiredDesignTokenProperties<Keys extends PropertyKey> = {
   [Key in Keys]: WebDesignToken<Properties[Key]>;
 };
 
+/**
+ * Utility for creating interfaces for components from supported CSS property keys
+ */
 export type DesignTokenProperties<
   Keys extends PropertyKey,
   OutputType = unknown
-> = OutputType extends 'required'
+> = OutputType extends 'strict'
   ? RequiredDesignTokenProperties<Keys>
   : OptionalDesignTokenProperties<Keys>;
+
+type PlatformKey = 'web' | 'mobile' | unknown;
+
+type RequiredTokenValues<
+  PropertyValueKey extends string | number,
+  PropertyValue,
+  Platform extends PlatformKey = unknown
+> = Record<
+  PropertyValueKey,
+  Platform extends 'mobile' ? PropertyValue : WebDesignToken<PropertyValue>
+>;
+
+type OptionalTokenValues<
+  PropertyValueKey extends string | number,
+  PropertyValue,
+  Platform extends PlatformKey = unknown
+> = Partial<
+  Record<
+    PropertyValueKey,
+    Platform extends 'mobile' ? PropertyValue : DesignToken<PropertyValue>
+  >
+>;
+
+/**
+ * Utility for creating token interfaces in `Theme`
+ */
+export type DesignTokenValues<
+  PropertyValueKey extends string | number,
+  PropertyValue,
+  OutputType extends 'strict' | unknown = unknown,
+  Platform extends PlatformKey = unknown
+> = OutputType extends 'strict'
+  ? RequiredTokenValues<PropertyValueKey, PropertyValue, Platform>
+  : OptionalTokenValues<PropertyValueKey, PropertyValue, Platform>;

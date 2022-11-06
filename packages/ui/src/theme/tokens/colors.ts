@@ -1,57 +1,24 @@
-import { DesignToken, WebDesignToken, ColorValue } from './types/designToken';
+import { ColorValue, DesignTokenValues } from './types/designToken';
 
-interface OrdinalScale<DesignTokenType> {
-  primary: DesignTokenType;
-  secondary: DesignTokenType;
-  tertiary: DesignTokenType;
-  quaternary?: DesignTokenType;
-}
+/**
+ * Util type for creating color interfaces from string and number unions
+ */
+type ColorValues<
+  VariantKey extends string | number,
+  OutputType = unknown,
+  Platform = unknown
+> = DesignTokenValues<VariantKey, ColorValue, OutputType, Platform>;
 
-interface OrdinalVariation<DesignTokenType> {
-  info: DesignTokenType;
-  warning: DesignTokenType;
-  error: DesignTokenType;
-  success: DesignTokenType;
-}
+/**
+ * Util type for creating nested color scale interfaces from variant keys
+ */
+type ColorValueScale<
+  VariantKey extends string | number,
+  OutputType,
+  Platform = unknown
+> = Partial<Record<VariantKey, ColorValues<ScaleKey, OutputType, Platform>>>;
 
-type ScaleKey = 10 | 20 | 40 | 60 | 80 | 90 | 100;
-type ColorScale<DesignTokenType> = Record<ScaleKey, DesignTokenType>;
-
-type OverlayKey = 10 | 20 | 30 | 40 | 50 | 60 | 70 | 80 | 90;
-type OverlayColors<DesignTokenType> = Record<OverlayKey, DesignTokenType>;
-
-type FontVariant =
-  | 'inverse'
-  | 'interactive'
-  | 'hover'
-  | 'focus'
-  | 'active'
-  | 'disabled';
-
-type FontColors<DesignTokenType> = Record<FontVariant, DesignTokenType> &
-  OrdinalScale<DesignTokenType> &
-  OrdinalVariation<DesignTokenType>;
-
-type BackgroundColors<DesignTokenType> = {
-  disabled: DesignTokenType;
-} & OrdinalScale<DesignTokenType> &
-  OrdinalVariation<DesignTokenType>;
-
-type BorderColors<DesignTokenType> = {
-  disabled: DesignTokenType;
-  pressed: DesignTokenType;
-  focus: DesignTokenType;
-  error: DesignTokenType;
-} & OrdinalScale<DesignTokenType>;
-
-type ColorTypes<DesignTokenType> =
-  | Record<ScaleKey, DesignTokenType>
-  | FontColors<DesignTokenType>
-  | BackgroundColors<DesignTokenType>
-  | BorderColors<DesignTokenType>
-  | DesignTokenType;
-
-type PaletteColor =
+type ColorPaletteKey =
   | 'red'
   | 'orange'
   | 'yellow'
@@ -62,35 +29,69 @@ type PaletteColor =
   | 'pink'
   | 'neutral';
 
-// base color palette
-type BasePalette<DesignTokenType> = Record<
-  PaletteColor,
-  ColorScale<DesignTokenType>
+type GreyscalePaletteKey = 'white' | 'black' | 'transparent';
+
+type VariantKey = 'primary' | 'secondary' | 'tertiary' | 'quaternary';
+type InformationVariantKey = 'info' | 'warning' | 'error' | 'success';
+type StateVariantKey =
+  | 'active'
+  | 'disabled'
+  | 'error'
+  | 'hover'
+  | 'focus'
+  | 'pressed';
+
+type BrandVariantKey = Extract<VariantKey, 'primary' | 'secondary'>;
+type ShadowVariantKey = Exclude<VariantKey, 'quaternary'>;
+
+type ScaleKey = 10 | 20 | 40 | 60 | 80 | 90 | 100;
+type OverlayKey = 10 | 20 | 30 | 40 | 50 | 60 | 70 | 80 | 90;
+
+type FontVariant =
+  | 'inverse'
+  | 'interactive'
+  | Extract<StateVariantKey, 'active' | 'disabled' | 'hover' | 'focus'>
+  | VariantKey
+  | InformationVariantKey;
+
+type BackgroundColorKey =
+  | Extract<StateVariantKey, 'disabled'>
+  | VariantKey
+  | InformationVariantKey;
+
+type BorderColorKey =
+  | StateVariantKey
+  | VariantKey
+  | Extract<StateVariantKey, 'disabled' | 'error'>;
+
+type PaletteValues<OutputType, Platform> = ColorValueScale<
+  ColorPaletteKey,
+  OutputType,
+  Platform
 >;
 
-export type Colors<DesignTokenType = DesignToken<ColorValue>> =
-  BasePalette<DesignTokenType> & {
-    white: DesignTokenType;
-    black: DesignTokenType;
+type NeutralColors<OutputType, Platform> = ColorValues<
+  GreyscalePaletteKey,
+  OutputType,
+  Platform
+>;
 
+export type Colors<OutputType = unknown, Platform = unknown> = PaletteValues<
+  OutputType,
+  Platform
+> &
+  NeutralColors<OutputType, Platform> & {
     // Semantic colors
-    font: FontColors<DesignTokenType>;
-    background: BackgroundColors<DesignTokenType>;
-    border: BorderColors<DesignTokenType>;
-    brand: {
-      primary: ColorScale<DesignTokenType>;
-      secondary: ColorScale<DesignTokenType>;
-    };
+    font?: ColorValues<FontVariant, OutputType, Platform>;
+    background?: ColorValues<BackgroundColorKey, OutputType, Platform>;
+    border?: ColorValues<BorderColorKey, OutputType, Platform>;
+    // brand properties have scaled values
+    brand?: ColorValueScale<BrandVariantKey, OutputType, Platform>;
+    overlay?: ColorValues<OverlayKey, OutputType, Platform>;
+    shadow?: ColorValues<ShadowVariantKey, OutputType, Platform>;
+  } & Record<string, any>; // TODO: remove 'any' and created structured custom color generic
 
-    overlay: OverlayColors<DesignTokenType>;
-  } & Record<
-      string,
-      ColorTypes<DesignTokenType> | Record<string, ColorTypes<DesignTokenType>>
-    >;
-
-export type WebColors = Colors<WebDesignToken<ColorValue>>;
-
-export type ReactNativeColors = Colors<ColorValue>;
+export type ReactNativeColors = Colors<unknown, 'mobile'>;
 
 export const colors: Colors = {
   red: {
@@ -270,9 +271,7 @@ export const colors: Colors = {
     90: { value: 'hsla(0, 0%, 0%, 0.9)' },
   },
 
-  black: {
-    value: 'hsl(0, 0%, 0%)',
-  },
+  black: { value: 'hsl(0, 0%, 0%)' },
   white: { value: 'hsl(0, 0%, 100%)' },
   transparent: { value: 'transparent' },
 };
