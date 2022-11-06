@@ -12,7 +12,6 @@ const fileStatus: FileStatus = {
   file: fakeFile,
   fileErrors: '',
   fileState: null,
-  isLoading: false,
   name: 'hello.png',
   percentage: 0,
   uploadTask: undefined,
