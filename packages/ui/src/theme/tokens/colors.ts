@@ -1,7 +1,7 @@
 import { ColorValue, DesignTokenValues } from './types/designToken';
 
 /**
- * Util type for creating color interfaces from string and number unions
+ * Util type for creating color interfaces using `ColorValue` from string and number unions
  */
 type ColorValues<
   VariantKey extends string | number,
@@ -18,6 +18,11 @@ type ColorValueScale<
   Platform = unknown
 > = Partial<Record<VariantKey, ColorValues<ScaleKey, OutputType, Platform>>>;
 
+// scale keys
+type ScaleKey = 10 | 20 | 40 | 60 | 80 | 90 | 100;
+type OverlayKey = 10 | 20 | 30 | 40 | 50 | 60 | 70 | 80 | 90;
+
+// color palettes
 type ColorPaletteKey =
   | 'red'
   | 'orange'
@@ -28,10 +33,10 @@ type ColorPaletteKey =
   | 'purple'
   | 'pink'
   | 'neutral';
-
 type GreyscalePaletteKey = 'white' | 'black' | 'transparent';
 
-type VariantKey = 'primary' | 'secondary' | 'tertiary' | 'quaternary';
+// variant keys
+type OrderVariantKey = 'primary' | 'secondary' | 'tertiary' | 'quaternary';
 type InformationVariantKey = 'info' | 'warning' | 'error' | 'success';
 type StateVariantKey =
   | 'active'
@@ -41,27 +46,23 @@ type StateVariantKey =
   | 'focus'
   | 'pressed';
 
-type BrandVariantKey = Extract<VariantKey, 'primary' | 'secondary'>;
-type ShadowVariantKey = Exclude<VariantKey, 'quaternary'>;
-
-type ScaleKey = 10 | 20 | 40 | 60 | 80 | 90 | 100;
-type OverlayKey = 10 | 20 | 30 | 40 | 50 | 60 | 70 | 80 | 90;
-
-type FontVariant =
+type BrandVariantKey = Extract<OrderVariantKey, 'primary' | 'secondary'>;
+type ShadowVariantKey = Exclude<OrderVariantKey, 'quaternary'>;
+type FontVariantKey =
   | 'inverse'
   | 'interactive'
   | Extract<StateVariantKey, 'active' | 'disabled' | 'hover' | 'focus'>
-  | VariantKey
+  | OrderVariantKey
   | InformationVariantKey;
 
 type BackgroundColorKey =
   | Extract<StateVariantKey, 'disabled'>
-  | VariantKey
+  | OrderVariantKey
   | InformationVariantKey;
 
 type BorderColorKey =
   | StateVariantKey
-  | VariantKey
+  | OrderVariantKey
   | Extract<StateVariantKey, 'disabled' | 'error'>;
 
 type PaletteValues<OutputType, Platform> = ColorValueScale<
@@ -70,7 +71,7 @@ type PaletteValues<OutputType, Platform> = ColorValueScale<
   Platform
 >;
 
-type NeutralColors<OutputType, Platform> = ColorValues<
+type GreyscaleColors<OutputType, Platform> = ColorValues<
   GreyscalePaletteKey,
   OutputType,
   Platform
@@ -80,13 +81,13 @@ export type Colors<OutputType = unknown, Platform = unknown> = PaletteValues<
   OutputType,
   Platform
 > &
-  NeutralColors<OutputType, Platform> & {
-    // Semantic colors
-    font?: ColorValues<FontVariant, OutputType, Platform>;
-    background?: ColorValues<BackgroundColorKey, OutputType, Platform>;
-    border?: ColorValues<BorderColorKey, OutputType, Platform>;
+  GreyscaleColors<OutputType, Platform> & {
     // brand properties have scaled values
     brand?: ColorValueScale<BrandVariantKey, OutputType, Platform>;
+
+    background?: ColorValues<BackgroundColorKey, OutputType, Platform>;
+    border?: ColorValues<BorderColorKey, OutputType, Platform>;
+    font?: ColorValues<FontVariantKey, OutputType, Platform>;
     overlay?: ColorValues<OverlayKey, OutputType, Platform>;
     shadow?: ColorValues<ShadowVariantKey, OutputType, Platform>;
   } & Record<string, any>; // TODO: remove 'any' and created structured custom color generic

@@ -24,7 +24,9 @@ export type WebDesignToken<ValueType = unknown> = {
    * `var(--amplify-colors-font-primary)`
    */
   toString(): string;
-
+  /**
+   * Token `ValueType`
+   */
   value: ValueType;
 };
 
@@ -161,18 +163,19 @@ interface Properties {
 }
 
 type PropertyKey = keyof Properties;
+type OutputKey = 'strict' | unknown;
 
 /**
  * Return interface with all types optional for custom theme input
  */
-export type OptionalDesignTokenProperties<Keys extends PropertyKey> = Partial<{
+type OptionalDesignTokenProperties<Keys extends PropertyKey> = Partial<{
   [Key in Keys]?: DesignToken<Properties[Key]>;
 }>;
 
 /**
  * Return interface with all types required for strict theme output
  */
-export type RequiredDesignTokenProperties<Keys extends PropertyKey> = {
+type RequiredDesignTokenProperties<Keys extends PropertyKey> = {
   [Key in Keys]: WebDesignToken<Properties[Key]>;
 };
 
@@ -181,15 +184,16 @@ export type RequiredDesignTokenProperties<Keys extends PropertyKey> = {
  */
 export type DesignTokenProperties<
   Keys extends PropertyKey,
-  OutputType = unknown
-> = OutputType extends 'strict'
+  Output extends OutputKey = unknown
+> = Output extends 'strict'
   ? RequiredDesignTokenProperties<Keys>
   : OptionalDesignTokenProperties<Keys>;
 
 type PlatformKey = 'web' | 'mobile' | unknown;
+type PropKey = string | number;
 
 type RequiredTokenValues<
-  PropertyValueKey extends string | number,
+  PropertyValueKey extends PropKey,
   PropertyValue,
   Platform extends PlatformKey = unknown
 > = Record<
@@ -198,7 +202,7 @@ type RequiredTokenValues<
 >;
 
 type OptionalTokenValues<
-  PropertyValueKey extends string | number,
+  PropertyValueKey extends PropKey,
   PropertyValue,
   Platform extends PlatformKey = unknown
 > = Partial<
@@ -212,10 +216,10 @@ type OptionalTokenValues<
  * Utility for creating token interfaces in `Theme`
  */
 export type DesignTokenValues<
-  PropertyValueKey extends string | number,
+  PropertyValueKey extends PropKey,
   PropertyValue,
-  OutputType extends 'strict' | unknown = unknown,
+  Output extends OutputKey = unknown,
   Platform extends PlatformKey = unknown
-> = OutputType extends 'strict'
+> = Output extends 'strict'
   ? RequiredTokenValues<PropertyValueKey, PropertyValue, Platform>
   : OptionalTokenValues<PropertyValueKey, PropertyValue, Platform>;
