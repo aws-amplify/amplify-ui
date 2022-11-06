@@ -1,42 +1,38 @@
-import {
-  AlignItemsValue,
-  BackgroundColorValue,
-  ColorValue,
-  DesignToken,
-  FontSizeValue,
-  FontWeightValue,
-  JustifyContentValue,
-  SpaceValue,
-} from '../types/designToken';
+import { DesignTokenProperties } from '../types/designToken';
 
-interface AlertVariationTokens {
-  color: DesignToken<ColorValue>;
-  backgroundColor: DesignToken<BackgroundColorValue>;
-}
+type AlertVariationTokens<OutputType> = DesignTokenProperties<
+  'backgroundColor' | 'color',
+  OutputType
+>;
 
-interface AlertIconTokens {
-  size: DesignToken<FontSizeValue>;
-}
+type AlertIconTokens<OutputType> = DesignTokenProperties<'size', OutputType>;
 
-interface AlertHeadingTokens {
-  fontSize: DesignToken<FontSizeValue>;
-  fontWeight: DesignToken<FontWeightValue>;
-}
+type AlertHeadingTokens<OutputType> = DesignTokenProperties<
+  'fontSize' | 'fontWeight',
+  OutputType
+>;
 
-export interface AlertTokens {
-  alignItems: DesignToken<AlignItemsValue>;
-  justifyContent: DesignToken<JustifyContentValue>;
-  color: DesignToken<ColorValue>;
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  paddingBlock: DesignToken<SpaceValue>;
-  paddingInline: DesignToken<SpaceValue>;
-  icon: AlertIconTokens;
-  heading: AlertHeadingTokens;
-  info: AlertVariationTokens;
-  error: AlertVariationTokens;
-  warning: AlertVariationTokens;
-  success: AlertVariationTokens;
-}
+type AlertTokenKey =
+  | 'alignItems'
+  | 'justifyContent'
+  | 'color'
+  | 'backgroundColor'
+  | 'paddingBlock'
+  | 'paddingInline';
+
+export type AlertTokens<OutputType = unknown> = DesignTokenProperties<
+  AlertTokenKey,
+  OutputType
+> & {
+  icon: AlertIconTokens<OutputType>;
+  heading: AlertHeadingTokens<OutputType>;
+  info: AlertVariationTokens<OutputType>;
+  error: AlertVariationTokens<OutputType>;
+  warning: AlertVariationTokens<OutputType>;
+  success: AlertVariationTokens<OutputType>;
+};
+
+export type WebAlertTokens = AlertTokens<'web'>;
 
 export const alert: AlertTokens = {
   // Default styles

@@ -46,12 +46,12 @@ import {
   ToggleButtonGroupTokens,
 } from './toggleButtonGroup';
 
-export interface ComponentTokens {
-  alert: AlertTokens;
-  authenticator: AuthenticatorTokens;
-  badge: BadgeTokens;
+export interface ComponentTokens<OutputType = unknown> {
+  alert: AlertTokens<OutputType>;
+  authenticator: AuthenticatorTokens<OutputType>;
+  badge: BadgeTokens<OutputType>;
   button: ButtonTokens;
-  card: CardTokens;
+  card: CardTokens<OutputType>;
   checkbox: CheckboxTokens;
   checkboxfield: CheckboxFieldTokens;
   collection: CollectionTokens;

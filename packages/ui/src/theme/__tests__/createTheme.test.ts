@@ -1,5 +1,4 @@
 import { createTheme } from '../createTheme';
-import { WebDesignToken } from '../types';
 
 let consoleWarnSpy: jest.SpyInstance;
 afterEach(() => {
@@ -54,7 +53,7 @@ describe('@aws-amplify/ui', () => {
             background: { primary: { value: '#bada55' } },
             font: { primary: { value: '{colors.white.value}' } },
           },
-          components: { alert: { alignItems: { value: 'right' } } },
+          components: { card: { padding: { value: '16px' } } },
           shadows,
         },
       });
@@ -66,12 +65,8 @@ describe('@aws-amplify/ui', () => {
         expect(tokens.shadows.large.value).toEqual(
           'offsetX offsetY blurRadius spreadRadius color'
         );
+        expect(tokens.components.card.padding.value).toEqual('16px');
         expect(tokens.shadows.small.value).toEqual(shadows.small.value);
-
-        expect(
-          // TODO: link gthub issue
-          (tokens.components.alert.alignItems as WebDesignToken).value
-        ).toEqual('right');
       });
 
       it('should handle being extended again', () => {
@@ -128,12 +123,9 @@ describe('@aws-amplify/ui', () => {
       it('should override the base theme', () => {
         const { tokens } = theme;
 
+        expect(tokens.components.alert.alignItems.value).toEqual('right');
         expect(tokens.borderWidths.small.value).toEqual('2px');
         expect(tokens.colors.background.primary.value).toEqual('#bada55');
-        expect(
-          // TODO: link gthub issue
-          (tokens.components.alert.alignItems as WebDesignToken).value
-        ).toEqual('right');
         expect(tokens.fonts.default.variable.value).toEqual('Comic Sans');
         expect(tokens.fontSizes.xxxxl.value).toEqual('256rem');
         expect(tokens.fontWeights.bold.value).toEqual('REAL_BOLD');

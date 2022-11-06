@@ -128,5 +128,5 @@ export interface WebTheme extends BaseTheme {
   cssText: string;
   // property `components` is not specified on `WebTokens`,
   // but is a required token property of `WebTheme`
-  tokens: WebTokens & Pick<Tokens, 'components'>;
+  tokens: WebTokens;
 }

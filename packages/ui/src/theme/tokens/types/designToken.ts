@@ -86,3 +86,93 @@ export type TransitionTimingFunctionValue = string;
 export type VerticalAlignValue = string;
 export type WhiteSpaceValue = string;
 export type WordBreakValue = string;
+
+/**
+ * Mapping of design token value types to style property keys
+ */
+interface Properties {
+  animationDuration: AnimationDurationValue;
+  animationTimingFunction: AnimationTimingFunctionValue;
+  alignItems: AlignItemsValue;
+  alignContent: AlignContentValue;
+  backgroundColor: BackgroundColorValue;
+  borderColor: BorderColorValue;
+  borderCollapse: BorderCollapseValue;
+  borderRadius: BorderRadiusValue;
+  borderStyle: BorderStyleValue;
+  borderWidth: BorderWidthValue;
+  border: BorderValue;
+  bottom: SpaceValue;
+  boxSizing: BoxSizingValue;
+  boxShadow: BoxShadowValue;
+  captionSide: CaptionSideValue;
+  color: ColorValue;
+  cursor: CursorValue;
+  display: DisplayValue;
+  flexDirection: FlexDirectionValue;
+  flex: FlexValue;
+  flexWrap: FlexWrapValue;
+  fontStyle: FontStyleValue;
+  font: FontValue;
+  fontSize: FontSizeValue;
+  fontWeight: FontWeightValue;
+  gap: GapValue;
+  height: SpaceValue;
+  justifyContent: JustifyContentValue;
+  left: SpaceValue;
+  lineHeight: LineHeightValue;
+  margin: SpaceValue;
+  maxWidth: SpaceValue;
+  objectFit: ObjectFitValue;
+  opacity: OpacityValue;
+  outlineOffset: OutlineOffsetValue;
+  outlineWidth: OutlineWidthValue;
+  outlineColor: OutlineColorValue;
+  outlineStyle: OutlineStyleValue;
+  padding: SpaceValue;
+  paddingBlock: SpaceValue;
+  paddingBottom: SpaceValue;
+  paddingHorizontal: SpaceValue;
+  paddingInline: SpaceValue;
+  paddingLeft: SpaceValue;
+  paddingRight: SpaceValue;
+  paddingTop: SpaceValue;
+  paddingVertical: SpaceValue;
+  pointerEvents: PointerEventsValue;
+  position: PositionValue;
+  radius: RadiusValue;
+  right: SpaceValue;
+  shadow: ShadowValue;
+  size: SpaceValue;
+  strokeEmpty: StrokeEmptyValue;
+  strokeFilled: StrokeFilledValue;
+  strokeLinecap: StrokeLinecapValue;
+  textAlign: TextAlignValue;
+  time: TimeValue;
+  top: SpaceValue;
+  transform: TransformValue;
+  transitionDuration: TransitionDurationValue;
+  transitionProperty: TransitionPropertyValue;
+  transitionTimingFunction: TransitionTimingFunctionValue;
+  verticalAlign: VerticalAlignValue;
+  whiteSpace: WhiteSpaceValue;
+  width: SpaceValue;
+  wordBreak: WordBreakValue;
+}
+
+type PropertyKey = keyof Properties;
+
+export type OptionalDesignTokenProperties<Keys extends PropertyKey> = Partial<{
+  [Key in Keys]?: DesignToken<Properties[Key]>;
+}>;
+
+export type RequiredDesignTokenProperties<Keys extends PropertyKey> = {
+  [Key in Keys]: WebDesignToken<Properties[Key]>;
+};
+
+export type DesignTokenProperties<
+  Keys extends PropertyKey,
+  OutputType = unknown
+> = OutputType extends 'required'
+  ? RequiredDesignTokenProperties<Keys>
+  : OptionalDesignTokenProperties<Keys>;

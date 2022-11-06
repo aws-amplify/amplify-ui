@@ -64,8 +64,8 @@ export interface Tokens {
  */
 export interface WebTokens {
   borderWidths: WebBorderWidths;
+  components: ComponentTokens<'required'>;
   colors: WebColors;
-  components: ComponentTokens;
   fonts: WebFonts;
   fontSizes: WebFontSizes;
   fontWeights: WebFontWeights;
