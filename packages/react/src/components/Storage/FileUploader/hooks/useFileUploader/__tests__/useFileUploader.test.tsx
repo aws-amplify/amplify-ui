@@ -10,13 +10,27 @@ describe('useFileUploader', () => {
   beforeEach(() => {});
 
   it('exists', () => {
-    const { result } = renderHook(() => useFileUploader(200, [], true));
+    const { result } = renderHook(() =>
+      useFileUploader({
+        maxSize: 200,
+        acceptedFileTypes: [],
+        multiple: true,
+        isLoading: false,
+      })
+    );
 
     expect(result).toBeTruthy();
   });
 
   it('returns 1 files from target files that match accepted files', () => {
-    const { result } = renderHook(() => useFileUploader(200, ['.png'], true));
+    const { result } = renderHook(() =>
+      useFileUploader({
+        maxSize: 200,
+        acceptedFileTypes: ['.png'],
+        multiple: true,
+        isLoading: false,
+      })
+    );
 
     const {
       current: { addTargetFiles },
@@ -27,7 +41,14 @@ describe('useFileUploader', () => {
   });
 
   it('returns 0 files from target files do not match accepted files', () => {
-    const { result } = renderHook(() => useFileUploader(200, ['.jpg'], true));
+    const { result } = renderHook(() =>
+      useFileUploader({
+        maxSize: 200,
+        acceptedFileTypes: ['.jpg'],
+        multiple: true,
+        isLoading: false,
+      })
+    );
 
     const {
       current: { addTargetFiles },
@@ -38,7 +59,14 @@ describe('useFileUploader', () => {
   });
 
   it('file statuses array gets updated when file is added', () => {
-    const { result } = renderHook(() => useFileUploader(200, ['.png'], true));
+    const { result } = renderHook(() =>
+      useFileUploader({
+        maxSize: 200,
+        acceptedFileTypes: ['.png'],
+        multiple: true,
+        isLoading: false,
+      })
+    );
 
     const {
       current: { addTargetFiles },
