@@ -26,6 +26,10 @@ on:
         required: true
       AWS_SECRET_ACCESS_KEY_DATASTORE:
         required: true
+      AWS_ACCESS_KEY_ID_STORAGE:
+        required: true
+      AWS_SECRET_ACCESS_KEY_STORAGE:
+        required: true
       AWS_ACCESS_KEY_ID_GEO:
         required: true
       AWS_SECRET_ACCESS_KEY_GEO:
