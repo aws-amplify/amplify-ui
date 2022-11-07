@@ -1,6 +1,6 @@
 import React from 'react';
 import { Alert, Button, PasswordField } from '../../../primitives';
-import { ValidationErrors } from '../shared/ValidationErrors';
+import { ValidationErrors } from '../../shared/ValidationErrors';
 import {
   AccountSettingsError,
   AccountSettingsPasswordField,
