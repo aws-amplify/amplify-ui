@@ -7,7 +7,7 @@ import { hasAllowedSpecialChars } from '../authenticator';
 import { getPasswordSettings } from './utils';
 
 // TODO: consolidate these with Authenticator validators
-const minLength: MinLengthValidator = (minLength: number) => {
+export const minLength: MinLengthValidator = (minLength: number) => {
   return (field: string) => {
     if (field?.length < minLength) {
       return `Password must have at least ${minLength} characters`;
@@ -15,31 +15,31 @@ const minLength: MinLengthValidator = (minLength: number) => {
   };
 };
 
-const hasLowerCase: FieldValidator = (field: string) => {
+export const hasLowerCase: FieldValidator = (field: string) => {
   if (!/[a-z]/.test(field)) {
     return 'Password must have lower case letters';
   }
 };
 
-const hasUpperCase: FieldValidator = (field: string) => {
+export const hasUpperCase: FieldValidator = (field: string) => {
   if (!/[a-z]/.test(field)) {
     return 'Password must have lower case letters';
   }
 };
 
-const hasNumbers: FieldValidator = (field: string) => {
+export const hasNumbers: FieldValidator = (field: string) => {
   if (!/[0-9]/.test(field)) {
     return 'Password must have numbers';
   }
 };
 
-const hasSpecialCharacters = (field: string) => {
+export const hasSpecialChars = (field: string) => {
   if (!hasAllowedSpecialChars(field)) {
     return 'Password must have special characters';
   }
 };
 
-const confirmPasswordMatch: ConfirmPasswordValidator = (
+export const confirmPasswordMatch: ConfirmPasswordValidator = (
   newPassword,
   confirmPassword
 ) => {
@@ -74,7 +74,7 @@ export const getDefaultPasswordValidator = (): FieldValidator[] => {
           break;
         }
         case 'REQUIRES_SYMBOLS': {
-          validators.push(hasSpecialCharacters);
+          validators.push(hasSpecialChars);
           break;
         }
         default: {
