@@ -6,6 +6,7 @@ import {
   confirmPasswordValidator,
   defaultPasswordValidator,
   getPasswordSettings,
+  PasswordSettings,
   translate,
 } from '@aws-amplify/ui';
 
@@ -59,6 +60,11 @@ function ChangePassword({
 
   const isDisabled = getIsDisabled(formValues, validationError);
 
+  const passwordSetting: PasswordSettings = React.useMemo(
+    () => getPasswordSettings(),
+    []
+  );
+
   const validateNewPassword = (
     formValues: FormValues,
     blurredFields: BlurredFields
@@ -69,7 +75,7 @@ function ChangePassword({
 
     return validate
       ? validate(newPassword)
-      : defaultPasswordValidator(newPassword, getPasswordSettings());
+      : defaultPasswordValidator(newPassword, passwordSetting);
   };
 
   const validateConfirmPassword = (formValues: FormValues): string[] => {
