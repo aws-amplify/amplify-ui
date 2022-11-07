@@ -12,6 +12,7 @@ import {
 import { useAuth } from '../../../internal';
 import { View, Flex } from '../../../primitives';
 import {
+  DefaultConfirmPassword,
   DefaultCurrentPassword,
   DefaultError,
   DefaultNewPassword,
@@ -170,7 +171,7 @@ function ChangePassword({
           onChange={handleChange}
           validationErrors={validationError?.newPassword}
         />
-        <DefaultNewPassword
+        <DefaultConfirmPassword
           autoComplete="new-password"
           isRequired
           label={confirmPasswordLabel}
