@@ -68,18 +68,19 @@ Array [
             Array [
               Object {
                 "alignItems": "center",
-                "borderColor": "#317d95",
+                "borderColor": "hsl(190, 95%, 30%)",
                 "borderRadius": 999,
                 "borderWidth": 2,
                 "justifyContent": "center",
               },
               Object {
-                "height": 20,
-                "width": 20,
+                "height": 24,
+                "width": 24,
               },
               undefined,
             ]
           }
+          testID="amplify__radio-button__container"
         />
         <Text
           accessibilityRole="text"
@@ -127,18 +128,19 @@ Array [
             Array [
               Object {
                 "alignItems": "center",
-                "borderColor": "#317d95",
+                "borderColor": "hsl(190, 95%, 30%)",
                 "borderRadius": 999,
                 "borderWidth": 2,
                 "justifyContent": "center",
               },
               Object {
-                "height": 20,
-                "width": 20,
+                "height": 24,
+                "width": 24,
               },
               undefined,
             ]
           }
+          testID="amplify__radio-button__container"
         />
         <Text
           accessibilityRole="text"
@@ -186,18 +188,19 @@ Array [
             Array [
               Object {
                 "alignItems": "center",
-                "borderColor": "#317d95",
+                "borderColor": "hsl(190, 95%, 30%)",
                 "borderRadius": 999,
                 "borderWidth": 2,
                 "justifyContent": "center",
               },
               Object {
-                "height": 20,
-                "width": 20,
+                "height": 24,
+                "width": 24,
               },
               undefined,
             ]
           }
+          testID="amplify__radio-button__container"
         />
         <Text
           accessibilityRole="text"
@@ -368,18 +371,19 @@ Array [
             Array [
               Object {
                 "alignItems": "center",
-                "borderColor": "#317d95",
+                "borderColor": "hsl(190, 95%, 30%)",
                 "borderRadius": 999,
                 "borderWidth": 2,
                 "justifyContent": "center",
               },
               Object {
-                "height": 20,
-                "width": 20,
+                "height": 24,
+                "width": 24,
               },
               undefined,
             ]
           }
+          testID="amplify__radio-button__container"
         />
         <Text
           accessibilityRole="text"
@@ -428,18 +432,19 @@ Array [
             Array [
               Object {
                 "alignItems": "center",
-                "borderColor": "#317d95",
+                "borderColor": "hsl(190, 95%, 30%)",
                 "borderRadius": 999,
                 "borderWidth": 2,
                 "justifyContent": "center",
               },
               Object {
-                "height": 20,
-                "width": 20,
+                "height": 24,
+                "width": 24,
               },
               undefined,
             ]
           }
+          testID="amplify__radio-button__container"
         />
         <Text
           accessibilityRole="text"
@@ -488,18 +493,19 @@ Array [
             Array [
               Object {
                 "alignItems": "center",
-                "borderColor": "#317d95",
+                "borderColor": "hsl(190, 95%, 30%)",
                 "borderRadius": 999,
                 "borderWidth": 2,
                 "justifyContent": "center",
               },
               Object {
-                "height": 20,
-                "width": 20,
+                "height": 24,
+                "width": 24,
               },
               undefined,
             ]
           }
+          testID="amplify__radio-button__container"
         />
         <Text
           accessibilityRole="text"
@@ -669,18 +675,19 @@ Array [
             Array [
               Object {
                 "alignItems": "center",
-                "borderColor": "#317d95",
+                "borderColor": "hsl(190, 95%, 30%)",
                 "borderRadius": 999,
                 "borderWidth": 2,
                 "justifyContent": "center",
               },
               Object {
-                "height": 20,
-                "width": 20,
+                "height": 24,
+                "width": 24,
               },
               undefined,
             ]
           }
+          testID="amplify__radio-button__container"
         />
         <Text
           accessibilityRole="text"
@@ -728,18 +735,19 @@ Array [
             Array [
               Object {
                 "alignItems": "center",
-                "borderColor": "#317d95",
+                "borderColor": "hsl(190, 95%, 30%)",
                 "borderRadius": 999,
                 "borderWidth": 2,
                 "justifyContent": "center",
               },
               Object {
-                "height": 20,
-                "width": 20,
+                "height": 24,
+                "width": 24,
               },
               undefined,
             ]
           }
+          testID="amplify__radio-button__container"
         />
         <Text
           accessibilityRole="text"
@@ -787,18 +795,19 @@ Array [
             Array [
               Object {
                 "alignItems": "center",
-                "borderColor": "#317d95",
+                "borderColor": "hsl(190, 95%, 30%)",
                 "borderRadius": 999,
                 "borderWidth": 2,
                 "justifyContent": "center",
               },
               Object {
-                "height": 20,
-                "width": 20,
+                "height": 24,
+                "width": 24,
               },
               undefined,
             ]
           }
+          testID="amplify__radio-button__container"
         />
         <Text
           accessibilityRole="text"

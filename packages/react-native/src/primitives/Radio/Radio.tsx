@@ -16,6 +16,9 @@ import { getThemedStyles } from './styles';
 import { RadioProps } from './types';
 import { getRadioDimensions } from './getRadioDimensions';
 
+export const CONTAINER_TEST_ID = 'amplify__radio-button__container';
+export const DOT_TEST_ID = 'amplify__radio-button__dot';
+
 export default function Radio<T>({
   accessibilityRole = 'radio',
   disabled,
@@ -78,11 +81,12 @@ export default function Radio<T>({
           radioContainerSize,
           radioContainerStyle,
         ]}
+        testID={CONTAINER_TEST_ID}
       >
         {selected ? (
           <View
             style={[themedStyle.radioDot, radioDotSize, radioDotStyle]}
-            testID="amplify__radio-button__dot"
+            testID={DOT_TEST_ID}
           />
         ) : null}
       </View>
