@@ -1,5 +1,5 @@
 import { PasswordSettings } from '../../types';
-import { hasAllowedSpecialChars } from '../authenticator/utils';
+import { hasSpecialChars } from '../authenticator/utils';
 
 type PasswordValidator = (password: string) => string[];
 
@@ -33,7 +33,7 @@ export const getDefaultPasswordValidator = (
           break;
         case 'REQUIRES_SYMBOLS':
           // https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-policies.html
-          if (!hasAllowedSpecialChars(password))
+          if (!hasSpecialChars(password))
             errors.push('Password must have special characters');
           break;
         default:
