@@ -30,8 +30,9 @@ function ChangePassword({
   const [errorMessage, setErrorMessage] = React.useState<string>(null);
   const [formValues, setFormValues] = React.useState<FormValues>({});
   const [blurredFields, setBlurredFields] = React.useState<BlurredFields>({});
-  const [_validationError, setValidationError] =
-    React.useState<ValidationError>({});
+  const [validationError, setValidationError] = React.useState<ValidationError>(
+    {}
+  );
 
   const { user, isLoading } = useAuth();
 
@@ -164,6 +165,7 @@ function ChangePassword({
           name="newPassword"
           onBlur={handleBlur}
           onChange={handleChange}
+          validationErrors={validationError?.newPassword}
         />
         <DefaultSubmitButton type="submit">
           {updatePasswordText}
