@@ -1,10 +1,6 @@
 import { Amplify, Auth } from 'aws-amplify';
 
-import {
-  AmplifyUser,
-  ConfirmPasswordValidator,
-  PasswordSettings,
-} from '../../types';
+import { AmplifyUser, PasswordSettings } from '../../types';
 import { getLogger } from '../utils';
 
 const logger = getLogger('Auth');
@@ -41,10 +37,10 @@ export const getPasswordSettings = () => {
   return config?.aws_cognito_password_protection_settings as PasswordSettings;
 };
 
-export const confirmPasswordMatch: ConfirmPasswordValidator = (
-  newPassword,
-  confirmPassword
-) => {
+export const confirmPasswordMatch = (
+  newPassword: string,
+  confirmPassword: string
+): string => {
   if (newPassword !== confirmPassword) {
     return 'Your passwords must match';
   }
