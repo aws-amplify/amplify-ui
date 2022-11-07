@@ -76,7 +76,7 @@ function ChangePassword({
     return errors;
   };
 
-  const validateField = (
+  const runValidation = (
     formValues: FormValues,
     blurredFields: BlurredFields
   ) => {
@@ -103,7 +103,7 @@ function ChangePassword({
     const { name, value } = event.target;
 
     const newFormValues = { ...formValues, [name]: value };
-    validateField(newFormValues, blurredFields);
+    runValidation(newFormValues, blurredFields);
 
     setFormValues(newFormValues);
   };
@@ -113,7 +113,7 @@ function ChangePassword({
 
     const { name } = event.target;
     const newBlurredFields = { ...blurredFields, [name]: true };
-    validateField(formValues, newBlurredFields);
+    runValidation(formValues, newBlurredFields);
     setBlurredFields({ ...blurredFields, [name]: true });
   };
 
