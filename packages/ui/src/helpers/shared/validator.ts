@@ -5,7 +5,7 @@ import { hasSpecialChars } from '../authenticator/utils';
 export const defaultPasswordValidator = (
   password: string,
   passwordSettings: PasswordSettings
-): string[] => {
+): string[] | null => {
   const errors = [];
 
   const policyMinLength = passwordSettings?.passwordPolicyMinLength;
@@ -38,5 +38,5 @@ export const defaultPasswordValidator = (
     }
   });
 
-  return errors;
+  return errors.length > 0 ? errors : null;
 };

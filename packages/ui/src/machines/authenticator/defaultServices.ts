@@ -87,7 +87,7 @@ export const defaultServices = {
     if (!touched_password || !passwordSettings) return null;
 
     const errors = defaultPasswordValidator(password, passwordSettings);
-    return errors.length !== 0 ? { password: errors } : null;
+    return errors ? { password: errors } : null;
   },
   async validateConfirmPassword(formData, touchData): Promise<ValidatorResult> {
     const { password, confirm_password } = formData;

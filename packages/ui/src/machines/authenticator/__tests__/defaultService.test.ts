@@ -17,7 +17,7 @@ const strictPasswordPolicy: PasswordSettings = {
 };
 
 describe('validateFormPassword', () => {
-  it('validates as expected with valid password and strict password policy', async () => {
+  it('validates as expected with valid password', async () => {
     const password = 'UnitTest_Password1';
     const result = await validateFormPassword(
       { password },
@@ -25,6 +25,23 @@ describe('validateFormPassword', () => {
       strictPasswordPolicy
     );
     expect(result).toBeNull();
+  });
+
+  it('validates as expected with invalid password', async () => {
+    const password = 'badpw';
+    const result = await validateFormPassword(
+      { password },
+      touched,
+      strictPasswordPolicy
+    );
+    expect(result).toStrictEqual({
+      password: [
+        'Password must have at least 8 characters',
+        'Password must have numbers',
+        'Password must have upper case letters',
+        'Password must have special characters',
+      ],
+    });
   });
 
   it('skips validation if inputs are not touched', async () => {
