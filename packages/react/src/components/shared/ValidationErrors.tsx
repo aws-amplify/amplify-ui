@@ -16,7 +16,7 @@ export const ValidationErrors = ({
 }: ValidationErrorsProps): JSX.Element => {
   if (!(errors?.length > 0)) return null;
 
-  const dataAttrProp = dataAttr ? { [dataAttr]: '' } : {};
+  const dataAttrProp = dataAttr ? { [dataAttr]: true } : {};
 
   return (
     <View {...dataAttrProp} id={id}>
