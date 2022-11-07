@@ -83,7 +83,7 @@ function ChangePassword({
   const validateConfirmPassword = (formValues: FormValues): string[] => {
     const { newPassword, confirmPassword } = formValues;
 
-    // return unless both passwords are present
+    // return if two passwords aren't filled out yet
     if (!newPassword || !confirmPassword) return;
 
     return confirmPasswordValidator(newPassword, confirmPassword);
