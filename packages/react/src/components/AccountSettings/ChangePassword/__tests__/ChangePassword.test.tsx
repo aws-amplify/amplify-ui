@@ -14,6 +14,10 @@ jest.mock('../../../../internal', () => ({
 }));
 
 const changePasswordSpy = jest.spyOn(UIModule, 'changePassword');
+jest.spyOn(UIModule, 'getPasswordSettings').mockReturnValue({
+  passwordPolicyMinLength: 4,
+  passwordPolicyCharacters: ['REQUIRES_LOWERCASE', 'REQUIRES_UPPERCASE'],
+});
 
 describe('ChangePassword', () => {
   beforeEach(() => {
@@ -86,7 +90,7 @@ describe('ChangePassword', () => {
     await waitFor(() => expect(onError).toBeCalledTimes(1));
   });
 
-  it('error message is displayed after unsuccessful submit', async () => {
+  it('displays error message after unsuccessful submit', async () => {
     changePasswordSpy.mockRejectedValue(new Error('Mock Error'));
 
     const onError = jest.fn();
@@ -101,5 +105,90 @@ describe('ChangePassword', () => {
     // findBy is already async, so we do not need to use `waitFor`
     // https://testing-library.com/docs/queries/about#types-of-queries
     expect(await screen.findByText('Mock Error')).toBeDefined();
+  });
+
+  it('disables submit button on init', async () => {
+    render(<ChangePassword />);
+
+    const submitButton = await screen.findByRole('button', {
+      name: 'Update password',
+    });
+
+    expect(submitButton).toHaveAttribute('disabled');
+  });
+
+  it('enables submit button once formValues are valid', async () => {
+    render(<ChangePassword />);
+
+    const currentPassword = await screen.findByLabelText('Current Password');
+    const newPassword = await screen.findByLabelText('New Password');
+    const confirmPassword = await screen.findByLabelText('Confirm Password');
+    const submitButton = await screen.findByRole('button', {
+      name: 'Update password',
+    });
+
+    fireEvent.input(currentPassword, {
+      target: { name: 'currentPassword', value: 'oldpassword' },
+    });
+
+    fireEvent.input(newPassword, {
+      target: { name: 'newPassword', value: 'Newpassword' },
+    });
+
+    fireEvent.input(confirmPassword, {
+      target: { name: 'newPassword', value: 'Newpassword' },
+    });
+
+    // validation handling is async, wait for button to be re-enabled.
+    waitFor(() => expect(submitButton).not.toHaveAttribute('disabled'));
+  });
+
+  it('displays new password validation error message', async () => {
+    render(<ChangePassword />);
+
+    const newPassword = await screen.findByLabelText('New Password');
+    const submitButton = await screen.findByRole('button', {
+      name: 'Update password',
+    });
+
+    fireEvent.input(newPassword, {
+      target: { name: 'newPassword', value: 'badpassword' },
+    });
+
+    fireEvent.blur(newPassword, {
+      target: { name: 'newPassword', value: 'badpassword' },
+    });
+
+    const validationError = await screen.findByText(
+      'Password must have upper case letters'
+    );
+
+    expect(validationError).toBeDefined();
+    expect(submitButton).toHaveAttribute('disabled');
+  });
+
+  it('displays confirm password validation error message', async () => {
+    render(<ChangePassword />);
+
+    const newPassword = await screen.findByLabelText('New Password');
+    const confirmPassword = await screen.findByLabelText('Confirm Password');
+    const submitButton = await screen.findByRole('button', {
+      name: 'Update password',
+    });
+
+    fireEvent.input(newPassword, {
+      target: { name: 'newPassword', value: 'newpassword' },
+    });
+
+    fireEvent.input(confirmPassword, {
+      target: { name: 'confirmPassword', value: 'differentpassword' },
+    });
+
+    const validationError = await screen.findByText(
+      'Your passwords must match'
+    );
+
+    expect(validationError).toBeDefined();
+    expect(submitButton).toHaveAttribute('disabled');
   });
 });
