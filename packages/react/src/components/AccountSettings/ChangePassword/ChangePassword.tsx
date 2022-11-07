@@ -1,7 +1,13 @@
 import React from 'react';
 
 import { Logger } from 'aws-amplify';
-import { changePassword, translate } from '@aws-amplify/ui';
+import {
+  changePassword,
+  confirmPasswordMatch,
+  FieldValidator,
+  getDefaultPasswordValidator,
+  translate,
+} from '@aws-amplify/ui';
 
 import { useAuth } from '../../../internal';
 import { View, Flex } from '../../../primitives';
@@ -19,11 +25,76 @@ const logger = new Logger('ChangePassword');
 function ChangePassword({
   onSuccess,
   onError,
+  validate,
 }: ChangePasswordProps): JSX.Element | null {
   const [errorMessage, setErrorMessage] = React.useState<string>(null);
   const [formValues, setFormValues] = React.useState<FormValues>({});
+  const [blurredFields, setBlurredFields] = React.useState<
+    Record<string, boolean>
+  >({});
+  const [_validationError, setValidationError] = React.useState<
+    Record<string, string[]>
+  >({});
 
   const { user, isLoading } = useAuth();
+
+  /** Validator */
+  const defaultValidators = React.useMemo(
+    () => getDefaultPasswordValidator(),
+    []
+  );
+
+  const passwordValidators: FieldValidator[] = React.useMemo(
+    () => validate ?? defaultValidators,
+    [validate, defaultValidators]
+  );
+
+  const validateNewPassword = (newPassword: string): string[] => {
+    // return if field isn't filled out or hasn't been blurred yet
+    if (!newPassword || !blurredFields[newPassword]) return;
+
+    const errors: string[] = [];
+    passwordValidators.forEach((validator) => {
+      const error = validator(newPassword);
+      if (error) {
+        errors.push(error);
+      }
+    });
+    return errors;
+  };
+
+  const validateConfirmPassword = (
+    newPassword: string,
+    confirmPassword: string
+  ): string[] => {
+    // return if newPassword isn't filled out or hasn't been blurred yet
+    if (!newPassword || !blurredFields[newPassword]) return;
+    // return if confirmPassword isn't filled out or hasn't been blurred yet
+    if (!confirmPassword || !blurredFields[confirmPassword]) return;
+
+    const error = confirmPasswordMatch(newPassword, confirmPassword);
+    return error ? [error] : null;
+  };
+
+  const validateFields = (formValues: FormValues): void => {
+    const { newPassword, confirmPassword } = formValues;
+
+    // new password validation
+    const newPasswordErrors = validateNewPassword(newPassword);
+
+    // confirm password validation
+    const confirmPasswordErrors = validateConfirmPassword(
+      newPassword,
+      confirmPassword
+    );
+
+    if (newPasswordErrors?.length >= 0 && confirmPasswordErrors?.length >= 0) {
+      setValidationError({
+        newPassword: newPasswordErrors,
+        confirmPassword: confirmPasswordErrors,
+      });
+    }
+  };
 
   /** Return null if Auth.getCurrentAuthenticatedUser is still in progress  */
   if (isLoading) {
@@ -47,7 +118,17 @@ function ChangePassword({
     event.preventDefault();
 
     const { name, value } = event.target;
-    setFormValues({ ...formValues, [name]: value });
+
+    const newFormValues = { ...formValues, [name]: value };
+    validateFields(newFormValues);
+    setFormValues(newFormValues);
+  };
+
+  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+    event.preventDefault();
+
+    const { name } = event.target;
+    setBlurredFields({ ...blurredFields, [name]: true });
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -76,6 +157,7 @@ function ChangePassword({
           isRequired
           label={currentPasswordLabel}
           name="currentPassword"
+          onBlur={handleBlur}
           onChange={handleChange}
         />
         <DefaultNewPassword
@@ -83,6 +165,7 @@ function ChangePassword({
           isRequired
           label={newPasswordLabel}
           name="newPassword"
+          onBlur={handleBlur}
           onChange={handleChange}
         />
         <DefaultSubmitButton type="submit">

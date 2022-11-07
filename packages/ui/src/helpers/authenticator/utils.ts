@@ -77,7 +77,7 @@ export const listenToAuthHub = (
   );
 };
 
-export const hasSpecialChars = (password: string) =>
+export const hasAllowedSpecialChars = (password: string) =>
   ALLOWED_SPECIAL_CHARACTERS.some((char) => password.includes(char));
 
 export const getTotpCodeURL = (

@@ -1,5 +1,5 @@
 import { Amplify, Auth } from 'aws-amplify';
-import { hasSpecialChars } from '../../helpers';
+import { hasAllowedSpecialChars } from '../../helpers';
 
 import {
   AuthChallengeName,
@@ -113,7 +113,7 @@ export const defaultServices = {
           break;
         case 'REQUIRES_SYMBOLS':
           // https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-policies.html
-          if (!hasSpecialChars(password))
+          if (!hasAllowedSpecialChars(password))
             password_complexity.push('Password must have special characters');
           break;
         default:
