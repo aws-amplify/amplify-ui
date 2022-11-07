@@ -1,8 +1,5 @@
 import { Amplify, Auth } from 'aws-amplify';
-import {
-  defaultPasswordValidator,
-  hasAllowedSpecialChars,
-} from '../../helpers';
+import { getDefaultPasswordValidator } from '../../helpers';
 
 import {
   AuthChallengeName,
@@ -89,7 +86,9 @@ export const defaultServices = {
      */
     if (!touched_password || !passwordSettings) return null;
 
-    const errors = defaultPasswordValidator(password, passwordSettings);
+    const validator = getDefaultPasswordValidator(passwordSettings);
+
+    const errors = validator(password);
     return errors.length !== 0 ? { password: errors } : null;
   },
   async validateConfirmPassword(formData, touchData): Promise<ValidatorResult> {

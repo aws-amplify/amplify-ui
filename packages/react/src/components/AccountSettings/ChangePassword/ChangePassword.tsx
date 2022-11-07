@@ -4,8 +4,8 @@ import { Logger } from 'aws-amplify';
 import {
   changePassword,
   confirmPasswordMatch,
-  PasswordValidator,
   getDefaultPasswordValidator,
+  getPasswordSettings,
   translate,
 } from '@aws-amplify/ui';
 
@@ -39,10 +39,15 @@ function ChangePassword({
 
   const isDisabled = getIsDisabled(formValues, validationError);
 
+  const defaultValidator = React.useMemo(() => {
+    const passwordSettings = getPasswordSettings();
+    return getDefaultPasswordValidator(passwordSettings);
+  }, []);
+
   /** Validator */
-  const passwordValidators: PasswordValidator[] = React.useMemo(
-    () => validate ?? getDefaultPasswordValidator(),
-    [validate]
+  const passwordValidator = React.useMemo(
+    () => validate ?? defaultValidator,
+    [validate, defaultValidator]
   );
 
   const validateNewPassword = (
@@ -53,15 +58,7 @@ function ChangePassword({
     // return if field isn't filled out or hasn't been blurred yet
     if (!newPassword || !blurredFields.newPassword) return;
 
-    const errors: string[] = [];
-    passwordValidators.forEach((validator) => {
-      const error = validator(newPassword);
-      if (error) {
-        errors.push(error);
-      }
-    });
-
-    return errors;
+    return passwordValidator(newPassword);
   };
 
   const validateConfirmPassword = (formValues: FormValues): string[] => {

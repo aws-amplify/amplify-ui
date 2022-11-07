@@ -1,6 +1,10 @@
-import { AmplifyUser } from '../../types';
 import { Amplify, Auth } from 'aws-amplify';
 
+import {
+  AmplifyUser,
+  ConfirmPasswordValidator,
+  PasswordSettings,
+} from '../../types';
 import { getLogger } from '../utils';
 
 const logger = getLogger('Auth');
@@ -38,5 +42,14 @@ export const getAmplifyConfig = () => {
 export const getPasswordSettings = () => {
   // need to cast to any because `Amplify.configure()` isn't typed properly
   const config = getAmplifyConfig() as any;
-  return config?.aws_cognito_password_protection_settings;
+  return config?.aws_cognito_password_protection_settings as PasswordSettings;
+};
+
+export const confirmPasswordMatch: ConfirmPasswordValidator = (
+  newPassword,
+  confirmPassword
+) => {
+  if (newPassword !== confirmPassword) {
+    return 'Your passwords must match';
+  }
 };
