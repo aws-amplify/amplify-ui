@@ -1,6 +1,6 @@
 import {
   ConfirmPasswordValidator,
-  FieldValidator,
+  PasswordValidator,
   MinLengthValidator,
 } from '../../types/accountSettings/validator';
 import { hasAllowedSpecialChars } from '../authenticator';
@@ -15,19 +15,19 @@ export const minLength: MinLengthValidator = (minLength: number) => {
   };
 };
 
-export const hasLowerCase: FieldValidator = (field: string) => {
+export const hasLowerCase: PasswordValidator = (field: string) => {
   if (!/[a-z]/.test(field)) {
     return 'Password must have lower case letters';
   }
 };
 
-export const hasUpperCase: FieldValidator = (field: string) => {
+export const hasUpperCase: PasswordValidator = (field: string) => {
   if (!/[a-z]/.test(field)) {
     return 'Password must have lower case letters';
   }
 };
 
-export const hasNumbers: FieldValidator = (field: string) => {
+export const hasNumbers: PasswordValidator = (field: string) => {
   if (!/[0-9]/.test(field)) {
     return 'Password must have numbers';
   }
@@ -48,8 +48,8 @@ export const confirmPasswordMatch: ConfirmPasswordValidator = (
   }
 };
 
-export const getDefaultPasswordValidator = (): FieldValidator[] => {
-  const validators: FieldValidator[] = [];
+export const getDefaultPasswordValidator = (): PasswordValidator[] => {
+  const validators: PasswordValidator[] = [];
   const passwordSettings = getPasswordSettings();
 
   const minLengthPoilicy = passwordSettings?.passwordPolicyMinLength as number;

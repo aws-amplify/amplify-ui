@@ -4,7 +4,7 @@ import { Logger } from 'aws-amplify';
 import {
   changePassword,
   confirmPasswordMatch,
-  FieldValidator,
+  PasswordValidator,
   getDefaultPasswordValidator,
   translate,
 } from '@aws-amplify/ui';
@@ -54,7 +54,7 @@ function ChangePassword({
   };
 
   /** Validator */
-  const passwordValidators: FieldValidator[] = React.useMemo(
+  const passwordValidators: PasswordValidator[] = React.useMemo(
     () => validate ?? getDefaultPasswordValidator(),
     [validate]
   );
