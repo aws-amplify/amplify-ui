@@ -3,7 +3,7 @@ import React from 'react';
 import { Logger } from 'aws-amplify';
 import {
   changePassword,
-  confirmPasswordMatch,
+  confirmPasswordValidator,
   getDefaultPasswordValidator,
   getPasswordSettings,
   translate,
@@ -64,13 +64,10 @@ function ChangePassword({
   const validateConfirmPassword = (formValues: FormValues): string[] => {
     const { newPassword, confirmPassword } = formValues;
 
-    // return if newPassword isn't filled out or hasn't been blurred yet
+    // return unless both passwords are present
     if (!newPassword || !confirmPassword) return;
 
-    const error = confirmPasswordMatch(newPassword, confirmPassword);
-    const errors = error ? [error] : null;
-
-    return errors;
+    return confirmPasswordValidator(newPassword, confirmPassword);
   };
 
   const runValidation = (

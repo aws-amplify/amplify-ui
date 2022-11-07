@@ -37,11 +37,11 @@ export const getPasswordSettings = () => {
   return config?.aws_cognito_password_protection_settings as PasswordSettings;
 };
 
-export const confirmPasswordMatch = (
+export const confirmPasswordValidator = (
   newPassword: string,
   confirmPassword: string
-): string => {
+): string[] => {
   if (newPassword !== confirmPassword) {
-    return 'Your passwords must match';
+    return ['Your passwords must match'];
   }
 };
