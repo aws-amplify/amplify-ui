@@ -46,7 +46,6 @@ Array [
         style={
           Array [
             Object {
-              "color": "hsl(210, 50%, 10%)",
               "fontSize": 16,
               "fontWeight": "400",
               "marginHorizontal": 4,
@@ -273,7 +272,6 @@ Array [
         style={
           Array [
             Object {
-              "color": "hsl(210, 50%, 10%)",
               "fontSize": 16,
               "fontWeight": "400",
               "marginHorizontal": 4,
@@ -449,7 +447,6 @@ Array [
         style={
           Array [
             Object {
-              "color": "hsl(210, 50%, 10%)",
               "fontSize": 16,
               "fontWeight": "400",
               "marginHorizontal": 4,
@@ -689,7 +686,6 @@ Array [
         style={
           Array [
             Object {
-              "color": "hsl(210, 50%, 10%)",
               "fontSize": 16,
               "fontWeight": "400",
               "marginHorizontal": 4,

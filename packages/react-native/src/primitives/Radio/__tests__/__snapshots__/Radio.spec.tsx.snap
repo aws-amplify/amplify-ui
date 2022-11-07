@@ -49,7 +49,6 @@ exports[`Radio renders as expected when disabled 1`] = `
     style={
       Array [
         Object {
-          "color": "hsl(210, 50%, 10%)",
           "fontSize": 16,
           "fontWeight": "400",
           "marginHorizontal": 4,
@@ -132,7 +131,6 @@ exports[`Radio renders as expected when passing a number to the size prop 1`] = 
     style={
       Array [
         Object {
-          "color": "hsl(210, 50%, 10%)",
           "fontSize": 16,
           "fontWeight": "400",
           "marginHorizontal": 4,
@@ -198,7 +196,6 @@ exports[`Radio renders as expected when selected is false 1`] = `
     style={
       Array [
         Object {
-          "color": "hsl(210, 50%, 10%)",
           "fontSize": 16,
           "fontWeight": "400",
           "marginHorizontal": 4,
@@ -281,7 +278,6 @@ exports[`Radio renders as expected when selected is true 1`] = `
     style={
       Array [
         Object {
-          "color": "hsl(210, 50%, 10%)",
           "fontSize": 16,
           "fontWeight": "400",
           "marginHorizontal": 4,
@@ -364,7 +360,6 @@ exports[`Radio renders as expected when size is large 1`] = `
     style={
       Array [
         Object {
-          "color": "hsl(210, 50%, 10%)",
           "fontSize": 16,
           "fontWeight": "400",
           "marginHorizontal": 4,
@@ -447,7 +442,6 @@ exports[`Radio renders as expected when size is medium 1`] = `
     style={
       Array [
         Object {
-          "color": "hsl(210, 50%, 10%)",
           "fontSize": 16,
           "fontWeight": "400",
           "marginHorizontal": 4,
@@ -530,7 +524,6 @@ exports[`Radio renders as expected when size is small 1`] = `
     style={
       Array [
         Object {
-          "color": "hsl(210, 50%, 10%)",
           "fontSize": 16,
           "fontWeight": "400",
           "marginHorizontal": 4,

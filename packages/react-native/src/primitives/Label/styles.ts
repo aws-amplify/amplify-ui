@@ -1,16 +1,15 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TextStyle } from 'react-native';
 
 import { StrictTheme } from '../../theme';
-import { LabelStyles, FontWeightType } from './types';
+import { LabelStyles } from './types';
 
 export const getThemedStyles = (theme: StrictTheme): LabelStyles => {
   const { colors, fontSizes, fontWeights, space, components } = theme.tokens;
 
   return StyleSheet.create({
     text: {
-      color: colors.font.primary,
       fontSize: fontSizes.medium,
-      fontWeight: fontWeights.normal as FontWeightType,
+      fontWeight: fontWeights.normal as TextStyle['fontWeight'],
       marginVertical: space.xxs,
       marginHorizontal: space.xs,
       ...components?.label.text,
