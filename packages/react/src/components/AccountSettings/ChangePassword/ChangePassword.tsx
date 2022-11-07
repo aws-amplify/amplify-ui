@@ -36,16 +36,22 @@ function ChangePassword({
 
   const { user, isLoading } = useAuth();
 
-  const isDisabled = React.useMemo(() => {
-    if (Object.keys(formValues).length === 0) return true;
+  const getIsDisabled = () => {
+    const { newPassword, confirmPassword } = formValues;
 
-    const errorKeys = Object.keys(validationError);
-    // return false if there are no valdiation error
-    if (Object.keys(errorKeys).length == 0) return false;
+    if (!newPassword || !confirmPassword) {
+      // if passwords aren't entered yet, disable submit
+      return true;
+    } else if (
+      // if there are some password validation error, disable submit
+      validationError.newPassword?.length > 0 ||
+      validationError.confirmPassword?.length > 0
+    ) {
+      return true;
+    }
 
-    // check if any of validation errors are nonempty
-    return errorKeys.some((key) => validationError[key]?.length > 0);
-  }, [formValues, validationError]);
+    return false;
+  };
 
   /** Validator */
   const defaultValidators = React.useMemo(
@@ -74,7 +80,7 @@ function ChangePassword({
       }
     });
 
-    setValidationError({ ...validationError, newPassword: errors });
+    return errors;
   };
 
   const validateConfirmPassword = (formValues: FormValues): string[] => {
@@ -86,25 +92,27 @@ function ChangePassword({
     const error = confirmPasswordMatch(newPassword, confirmPassword);
     const errors = error ? [error] : null;
 
-    setValidationError({ ...validationError, confirmPassword: errors });
+    return errors;
   };
 
   const validateField = (
-    name: string,
     formValues: FormValues,
     blurredFields: BlurredFields
   ) => {
-    if (name === 'newPassword') {
-      validateNewPassword(formValues, blurredFields);
-    } else if (name === 'confirmPassword') {
-      validateConfirmPassword(formValues);
-    }
+    const newPasswordErrors = validateNewPassword(formValues, blurredFields);
+    const confirmPasswordErrors = validateConfirmPassword(formValues);
+
+    setValidationError({
+      newPassword: newPasswordErrors,
+      confirmPassword: confirmPasswordErrors,
+    });
   };
 
   /** Translations */
   // TODO: add AccountSettingsTextUtil to collect these strings
   const currentPasswordLabel = translate('Current Password');
   const newPasswordLabel = translate('New Password');
+  const confirmPasswordLabel = translate('Confirm Password');
   const updatePasswordText = translate('Update password');
 
   /** Event Handlers */
@@ -114,7 +122,7 @@ function ChangePassword({
     const { name, value } = event.target;
 
     const newFormValues = { ...formValues, [name]: value };
-    validateField(name, newFormValues, blurredFields);
+    validateField(newFormValues, blurredFields);
 
     setFormValues(newFormValues);
   };
@@ -124,7 +132,7 @@ function ChangePassword({
 
     const { name } = event.target;
     const newBlurredFields = { ...blurredFields, [name]: true };
-    validateField(name, formValues, newBlurredFields);
+    validateField(formValues, newBlurredFields);
     setBlurredFields({ ...blurredFields, [name]: true });
   };
 
@@ -177,7 +185,16 @@ function ChangePassword({
           onChange={handleChange}
           validationErrors={validationError?.newPassword}
         />
-        <DefaultSubmitButton isDisabled={isDisabled} type="submit">
+        <DefaultNewPassword
+          autoComplete="new-password"
+          isRequired
+          label={confirmPasswordLabel}
+          name="confirmPassword"
+          onBlur={handleBlur}
+          onChange={handleChange}
+          validationErrors={validationError?.confirmPassword}
+        />
+        <DefaultSubmitButton isDisabled={getIsDisabled()} type="submit">
           {updatePasswordText}
         </DefaultSubmitButton>
         {errorMessage ? <DefaultError>{errorMessage}</DefaultError> : null}
