@@ -1,5 +1,6 @@
 import React from 'react';
 import { Alert, Button, PasswordField } from '../../../primitives';
+import { ValidationErrors } from '../shared/ValidationErrors';
 import {
   AccountSettingsError,
   AccountSettingsPasswordField,
@@ -12,8 +13,28 @@ export const DefaultCurrentPassword: AccountSettingsPasswordField = (props) => {
   return <PasswordField {...props} />;
 };
 
-export const DefaultNewPassword: AccountSettingsPasswordField = (props) => {
-  return <PasswordField {...props} />;
+export const DefaultNewPassword: AccountSettingsPasswordField = ({
+  validationErrors,
+  ...props
+}) => {
+  return (
+    <>
+      <PasswordField {...props} />
+      <ValidationErrors errors={validationErrors} />
+    </>
+  );
+};
+
+export const DefaultConfirmPassword: AccountSettingsPasswordField = ({
+  validationErrors,
+  ...props
+}) => {
+  return (
+    <>
+      <PasswordField {...props} />
+      <ValidationErrors errors={validationErrors} />
+    </>
+  );
 };
 
 export const DefaultSubmitButton: AccountSettingsSubmitButton = ({
