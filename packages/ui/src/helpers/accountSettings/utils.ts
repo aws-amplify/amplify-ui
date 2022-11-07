@@ -35,13 +35,9 @@ export const changePassword = async ({
   }
 };
 
-export const getAmplifyConfig = () => {
-  return Amplify.configure();
-};
-
 export const getPasswordSettings = () => {
   // need to cast to any because `Amplify.configure()` isn't typed properly
-  const config = getAmplifyConfig() as any;
+  const config = Amplify.configure() as any;
   return config?.aws_cognito_password_protection_settings as PasswordSettings;
 };
 
