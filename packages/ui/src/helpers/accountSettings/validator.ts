@@ -63,12 +63,15 @@ export const getDefaultPasswordValidator = (): FieldValidator[] => {
       switch (policyName) {
         case 'REQUIRES_LOWERCASE': {
           validators.push(hasLowerCase);
+          break;
         }
         case 'REQUIRES_UPPERCASE': {
           validators.push(hasUpperCase);
+          break;
         }
         case 'REQUIRES_NUMBERS': {
           validators.push(hasNumbers);
+          break;
         }
         case 'REQUIRES_SYMBOLS': {
           validators.push(hasSpecialChars);

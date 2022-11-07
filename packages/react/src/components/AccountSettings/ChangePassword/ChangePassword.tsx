@@ -36,6 +36,17 @@ function ChangePassword({
 
   const { user, isLoading } = useAuth();
 
+  const isDisabled = React.useMemo(() => {
+    if (Object.keys(formValues).length === 0) return true;
+
+    const errorKeys = Object.keys(validationError);
+    // return false if there are no valdiation error
+    if (Object.keys(errorKeys).length == 0) return false;
+
+    // check if any of validation errors are nonempty
+    return errorKeys.some((key) => validationError[key]?.length > 0);
+  }, [formValues, validationError]);
+
   /** Validator */
   const defaultValidators = React.useMemo(
     () => getDefaultPasswordValidator(),
@@ -47,9 +58,13 @@ function ChangePassword({
     [validate, defaultValidators]
   );
 
-  const validateNewPassword = (newPassword: string): string[] => {
+  const validateNewPassword = (
+    formValues: FormValues,
+    blurredFields: BlurredFields
+  ): string[] => {
+    const { newPassword } = formValues;
     // return if field isn't filled out or hasn't been blurred yet
-    if (!newPassword || !blurredFields[newPassword]) return;
+    if (!newPassword || !blurredFields.newPassword) return;
 
     const errors: string[] = [];
     passwordValidators.forEach((validator) => {
@@ -58,52 +73,33 @@ function ChangePassword({
         errors.push(error);
       }
     });
-    return errors;
+
+    setValidationError({ ...validationError, newPassword: errors });
   };
 
-  const validateConfirmPassword = (
-    newPassword: string,
-    confirmPassword: string
-  ): string[] => {
-    // return if newPassword isn't filled out or hasn't been blurred yet
-    if (!newPassword || !blurredFields[newPassword]) return;
-    // return if confirmPassword isn't filled out or hasn't been blurred yet
-    if (!confirmPassword || !blurredFields[confirmPassword]) return;
-
-    const error = confirmPasswordMatch(newPassword, confirmPassword);
-    return error ? [error] : null;
-  };
-
-  const validateFields = (formValues: FormValues): void => {
+  const validateConfirmPassword = (formValues: FormValues): string[] => {
     const { newPassword, confirmPassword } = formValues;
 
-    // new password validation
-    const newPasswordErrors = validateNewPassword(newPassword);
+    // return if newPassword isn't filled out or hasn't been blurred yet
+    if (!newPassword || !confirmPassword) return;
 
-    // confirm password validation
-    const confirmPasswordErrors = validateConfirmPassword(
-      newPassword,
-      confirmPassword
-    );
+    const error = confirmPasswordMatch(newPassword, confirmPassword);
+    const errors = error ? [error] : null;
 
-    if (newPasswordErrors?.length >= 0 && confirmPasswordErrors?.length >= 0) {
-      setValidationError({
-        newPassword: newPasswordErrors,
-        confirmPassword: confirmPasswordErrors,
-      });
-    }
+    setValidationError({ ...validationError, confirmPassword: errors });
   };
 
-  /** Return null if Auth.getCurrentAuthenticatedUser is still in progress  */
-  if (isLoading) {
-    return null;
-  }
-
-  /** Return null if user isn't authenticated in the first place */
-  if (!user) {
-    logger.warn('<ChangePassword /> requires user to be authenticated.');
-    return null;
-  }
+  const validateField = (
+    name: string,
+    formValues: FormValues,
+    blurredFields: BlurredFields
+  ) => {
+    if (name === 'newPassword') {
+      validateNewPassword(formValues, blurredFields);
+    } else if (name === 'confirmPassword') {
+      validateConfirmPassword(formValues);
+    }
+  };
 
   /** Translations */
   // TODO: add AccountSettingsTextUtil to collect these strings
@@ -118,7 +114,8 @@ function ChangePassword({
     const { name, value } = event.target;
 
     const newFormValues = { ...formValues, [name]: value };
-    validateFields(newFormValues);
+    validateField(name, newFormValues, blurredFields);
+
     setFormValues(newFormValues);
   };
 
@@ -126,6 +123,8 @@ function ChangePassword({
     event.preventDefault();
 
     const { name } = event.target;
+    const newBlurredFields = { ...blurredFields, [name]: true };
+    validateField(name, formValues, newBlurredFields);
     setBlurredFields({ ...blurredFields, [name]: true });
   };
 
@@ -147,6 +146,17 @@ function ChangePassword({
     }
   };
 
+  /** Return null if Auth.getCurrentAuthenticatedUser is still in progress  */
+  if (isLoading) {
+    return null;
+  }
+
+  /** Return null if user isn't authenticated in the first place */
+  if (!user) {
+    logger.warn('<ChangePassword /> requires user to be authenticated.');
+    return null;
+  }
+
   return (
     <View as="form" className="amplify-changepassword" onSubmit={handleSubmit}>
       <Flex direction="column">
@@ -167,7 +177,7 @@ function ChangePassword({
           onChange={handleChange}
           validationErrors={validationError?.newPassword}
         />
-        <DefaultSubmitButton type="submit">
+        <DefaultSubmitButton isDisabled={isDisabled} type="submit">
           {updatePasswordText}
         </DefaultSubmitButton>
         {errorMessage ? <DefaultError>{errorMessage}</DefaultError> : null}
