@@ -19,6 +19,7 @@ import {
 } from './defaultComponents';
 import { ChangePasswordProps } from './types';
 import { FormValues, BlurredFields, ValidationError } from '../types';
+import { getIsDisabled } from './utils';
 
 const logger = new Logger('ChangePassword');
 
@@ -36,22 +37,7 @@ function ChangePassword({
 
   const { user, isLoading } = useAuth();
 
-  const getIsDisabled = () => {
-    const { newPassword, confirmPassword } = formValues;
-
-    if (!newPassword || !confirmPassword) {
-      // if passwords aren't entered yet, disable submit
-      return true;
-    } else if (
-      // if there are some password validation error, disable submit
-      validationError.newPassword?.length > 0 ||
-      validationError.confirmPassword?.length > 0
-    ) {
-      return true;
-    }
-
-    return false;
-  };
+  const isDisabled = getIsDisabled(formValues, validationError);
 
   /** Validator */
   const passwordValidators: PasswordValidator[] = React.useMemo(
@@ -189,7 +175,7 @@ function ChangePassword({
           onChange={handleChange}
           validationErrors={validationError?.confirmPassword}
         />
-        <DefaultSubmitButton isDisabled={getIsDisabled()} type="submit">
+        <DefaultSubmitButton isDisabled={isDisabled} type="submit">
           {updatePasswordText}
         </DefaultSubmitButton>
         {errorMessage ? <DefaultError>{errorMessage}</DefaultError> : null}
