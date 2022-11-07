@@ -104,8 +104,8 @@ export function FileUploader({
           fileErrors: translate(err.toString()),
         };
 
-        const addErrors = [...fileStatusesRef.current];
-        setFileStatuses(addErrors);
+        const newFileStatuses = [...fileStatusesRef.current];
+        setFileStatuses(newFileStatuses);
         setLoading(false);
         if (typeof onError === 'function') onError(err);
       };
@@ -127,11 +127,11 @@ export function FileUploader({
     (index: number): (() => void) => {
       return function () {
         fileStatuses[index].uploadTask.pause();
-        const statuses = [...fileStatuses];
+        const newFileStatuses = [...fileStatuses];
         const status = fileStatuses[index];
 
-        statuses[index] = { ...status, fileState: 'paused' };
-        setFileStatuses(statuses);
+        newFileStatuses[index] = { ...status, fileState: 'paused' };
+        setFileStatuses(newFileStatuses);
       };
     },
     [fileStatuses, setFileStatuses]
@@ -141,11 +141,11 @@ export function FileUploader({
     (index: number): (() => void) => {
       return function () {
         fileStatuses[index].uploadTask.resume();
-        const statuses = [...fileStatuses];
+        const newFileStatuses = [...fileStatuses];
         const status = fileStatuses[index];
 
-        statuses[index] = { ...status, fileState: 'resume' };
-        setFileStatuses(statuses);
+        newFileStatuses[index] = { ...status, fileState: 'resume' };
+        setFileStatuses(newFileStatuses);
       };
     },
     [fileStatuses, setFileStatuses]
@@ -175,9 +175,8 @@ export function FileUploader({
       });
       uploadTasksTemp.push(uploadTask);
     });
-    let statuses: FileStatuses = [];
-    statuses = [...fileStatuses];
-    fileStatusesRef.current = statuses.map((status, index) => {
+    const newFileStatuses = [...fileStatuses];
+    fileStatusesRef.current = newFileStatuses.map((status, index) => {
       return {
         ...status,
         uploadTask: uploadTasksTemp?.[index],
@@ -235,10 +234,10 @@ export function FileUploader({
   const onNameChange = useCallback(
     (index: number) => {
       return (event: React.ChangeEvent<HTMLInputElement>) => {
-        const names = [...fileStatuses];
+        const newFileStatuses = [...fileStatuses];
         const name = event.target.value;
-        names[index].name = name;
-        setFileStatuses(names);
+        newFileStatuses[index].name = name;
+        setFileStatuses(newFileStatuses);
       };
     },
     [fileStatuses, setFileStatuses]
@@ -254,9 +253,9 @@ export function FileUploader({
         if (fileName.trim().length === 0) return;
         const [extension] = fileName.split('.').reverse();
         const validExtension = acceptedFileTypes.includes('.' + extension);
-        const statuses = [...fileStatuses];
+        const newFileStatuses = [...fileStatuses];
         const status = fileStatuses[index];
-        statuses[index] = {
+        newFileStatuses[index] = {
           ...status,
           fileState: !validExtension ? 'error' : null,
           fileErrors: validExtension
@@ -264,7 +263,7 @@ export function FileUploader({
             : translate('Extension not allowed'),
         };
 
-        setFileStatuses(statuses);
+        setFileStatuses(newFileStatuses);
         const names = [...isEditingName];
         names[index] = false;
         setisEditingName(names);
