@@ -21,7 +21,7 @@ describe('validateFormPassword', () => {
   it('validates as expected with valid password and strict password policy', async () => {
     const password = 'UnitTest_Password1';
     const result = defaultPasswordValidator(password, strictPasswordPolicy);
-    expect(result).toStrictEqual([]);
+    expect(result).toBeNull();
   });
 
   it('validates as expected with invalid password (has unknown special character) and strict password policy', async () => {
@@ -53,7 +53,7 @@ describe('validateFormPassword', () => {
   it('validates as expected with valid password and lenient password policy', async () => {
     const password = 'legitpassword123';
     const result = defaultPasswordValidator(password, lenientPasswordPolicy);
-    expect(result).toStrictEqual([]);
+    expect(result).toBeNull();
   });
 
   it('validates as expected with invalid password and lenient password policy', async () => {
@@ -70,7 +70,7 @@ describe('validateFormPassword', () => {
         passwordPolicyMinLength: 4,
         passwordPolicyCharacters: ['REQUIRES_SYMBOLS'],
       });
-      expect(result).toStrictEqual([]);
+      expect(result).toBeNull();
     }
   );
 });
