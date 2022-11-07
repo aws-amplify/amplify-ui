@@ -191,4 +191,44 @@ describe('ChangePassword', () => {
     expect(validationError).toBeDefined();
     expect(submitButton).toHaveAttribute('disabled');
   });
+
+  it.only('displays custom password validation error messages', async () => {
+    const minLengthErrorMsg = 'Password must have length of 7 or more';
+    const minLength = (password: string) => {
+      if (password.length <= 6) {
+        return minLengthErrorMsg;
+      }
+      return null;
+    };
+
+    const speicalCharErrorMsg = 'Password must have a star';
+    const hasSpecialChar = (password: string) => {
+      if (!password.includes('*')) {
+        return speicalCharErrorMsg;
+      }
+      return null;
+    };
+    render(<ChangePassword validate={[minLength, hasSpecialChar]} />);
+
+    const newPassword = await screen.findByLabelText('New Password');
+    const submitButton = await screen.findByRole('button', {
+      name: 'Update password',
+    });
+
+    fireEvent.input(newPassword, {
+      target: { name: 'newPassword', value: 'badpw' },
+    });
+
+    fireEvent.blur(newPassword, {
+      target: { name: 'newPassword' },
+    });
+
+    const minLengthError = await screen.findByText(minLengthErrorMsg);
+
+    const specialCharError = await screen.findByText(speicalCharErrorMsg);
+
+    expect(minLengthError).toBeDefined();
+    expect(specialCharError).toBeDefined();
+    expect(submitButton).toHaveAttribute('disabled');
+  });
 });

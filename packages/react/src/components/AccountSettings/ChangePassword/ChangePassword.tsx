@@ -10,6 +10,7 @@ import {
   translate,
 } from '@aws-amplify/ui';
 
+import { runCustomValidators } from '../utils';
 import { useAuth } from '../../../internal';
 import { View, Flex } from '../../../primitives';
 import {
@@ -74,7 +75,7 @@ function ChangePassword({
     if (!newPassword || !blurredFields.newPassword) return;
 
     return validate
-      ? validate(newPassword)
+      ? runCustomValidators(validate, newPassword)
       : defaultPasswordValidator(newPassword, passwordSetting);
   };
 
