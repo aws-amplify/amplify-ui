@@ -33,6 +33,7 @@ applications:
           commands:
             - nvm install 16.13 # NodeJS 16.13+ is the latest version that Amplify Hosting supports
             - nvm use 16
+            - npm install npm@7 # TODO: remove this line once update @angular-devkit packages.
             - export NODE_OPTIONS="--max-old-space-size=8192"
             - npm install
             - npm install wait-on
