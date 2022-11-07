@@ -40,7 +40,7 @@ export function Tracker({
     <View className="amplify-fileuploder__img-placeholder">{fileIcon}</View>
   );
 
-  const showonStartEdit = (): boolean => {
+  const showEditButton = (): boolean => {
     // only allow editing of file name if it's error or null
     if (fileState === null || fileState === 'error') {
       return true;
@@ -95,7 +95,7 @@ export function Tracker({
                   {name}
                 </Text>
 
-                {showonStartEdit() && (
+                {showEditButton() && (
                   <Button onClick={onStartEdit} size="small" variation="link">
                     <EditIcon fontSize="medium" />
                   </Button>

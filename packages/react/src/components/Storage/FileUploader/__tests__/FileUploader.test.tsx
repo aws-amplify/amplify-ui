@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import * as UseHooks from '../hooks/useFileUploader';
 import { FileUploader } from '..';
@@ -58,10 +58,8 @@ describe('File Uploader', () => {
     );
 
     const input = container.getElementsByTagName('input')[0];
-    await waitFor(() => {
-      fireEvent.change(input, {
-        target: { files: [] },
-      });
+    fireEvent.change(input, {
+      target: { files: [] },
     });
     const text = await queryByText(/files selected/);
 
@@ -79,10 +77,8 @@ describe('File Uploader', () => {
     );
 
     const input = container.getElementsByTagName('input')[0];
-    await waitFor(() => {
-      fireEvent.change(input, {
-        target: { files: [fakeFile] },
-      });
+    fireEvent.change(input, {
+      target: { files: [fakeFile] },
     });
 
     const clickButton = await screen.findByRole('button', {
@@ -143,10 +139,8 @@ describe('File Uploader', () => {
     );
 
     const input = container.getElementsByTagName('input')[0];
-    await waitFor(() => {
-      fireEvent.change(input, {
-        target: { files: [fakeFile] },
-      });
+    fireEvent.change(input, {
+      target: { files: [fakeFile] },
     });
 
     const clickButton = await screen.findByRole('button', {

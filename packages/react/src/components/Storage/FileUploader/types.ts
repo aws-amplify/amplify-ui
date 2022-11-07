@@ -59,7 +59,7 @@ export interface PreviewerProps extends DragActionHandlers {
 
 export interface TrackerProps {
   file: File;
-  fileState: StatesOfFiles;
+  fileState: FileState;
   hasImage: boolean;
   url: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -88,15 +88,9 @@ export interface FileStatus extends Partial<FileStateProps> {
 
 export type FileStatuses = FileStatus[];
 
-type StatesOfFiles =
-  | 'paused'
-  | 'success'
-  | 'error'
-  | 'loading'
-  | 'resume'
-  | null;
+type FileState = 'paused' | 'success' | 'error' | 'loading' | 'resume' | null;
 export interface FileStateProps {
-  fileState: StatesOfFiles;
+  fileState: FileState;
   errorMessage: string;
 }
 

@@ -87,8 +87,8 @@ export function FileUploader({
           percentage !== 100
             ? { ...status, percentage, fileState: 'resume' }
             : { ...status, percentage, fileState: 'success' };
-        const addPercentage = [...fileStatusesRef.current];
-        setFileStatuses(addPercentage);
+        const newFileStatuses = [...fileStatusesRef.current];
+        setFileStatuses(newFileStatuses);
       };
     },
     [setFileStatuses]
