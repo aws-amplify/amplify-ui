@@ -4,9 +4,9 @@ export const getIsDisabled = (
   formValues: FormValues,
   validationError: ValidationError
 ): boolean => {
-  const { newPassword, confirmPassword } = formValues;
+  const { currentPassword, newPassword, confirmPassword } = formValues;
 
-  if (!newPassword || !confirmPassword) {
+  if (!currentPassword || !newPassword || !confirmPassword) {
     // if passwords aren't entered yet, disable submit
     return true;
   } else if (
