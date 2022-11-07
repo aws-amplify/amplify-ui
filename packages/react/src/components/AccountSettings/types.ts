@@ -33,3 +33,7 @@ export type AccountSettingsError<Props = {}> = React.ComponentType<
 
 /** Form specific types */
 export type FormValues = Record<string, string>;
+
+export type BlurredFields = Record<string, boolean>;
+
+export type ValidationError = Record<string, string[]>;

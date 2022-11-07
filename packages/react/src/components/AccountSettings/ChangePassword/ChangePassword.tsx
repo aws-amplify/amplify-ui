@@ -18,7 +18,7 @@ import {
   DefaultSubmitButton,
 } from './defaultComponents';
 import { ChangePasswordProps } from './types';
-import { FormValues } from '../types';
+import { FormValues, BlurredFields, ValidationError } from '../types';
 
 const logger = new Logger('ChangePassword');
 
@@ -29,12 +29,9 @@ function ChangePassword({
 }: ChangePasswordProps): JSX.Element | null {
   const [errorMessage, setErrorMessage] = React.useState<string>(null);
   const [formValues, setFormValues] = React.useState<FormValues>({});
-  const [blurredFields, setBlurredFields] = React.useState<
-    Record<string, boolean>
-  >({});
-  const [_validationError, setValidationError] = React.useState<
-    Record<string, string[]>
-  >({});
+  const [blurredFields, setBlurredFields] = React.useState<BlurredFields>({});
+  const [_validationError, setValidationError] =
+    React.useState<ValidationError>({});
 
   const { user, isLoading } = useAuth();
 
