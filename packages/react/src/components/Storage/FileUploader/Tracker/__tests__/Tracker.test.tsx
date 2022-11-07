@@ -15,7 +15,6 @@ describe('Tracker', () => {
         onChange={() => {}}
         onCancel={() => {}}
         name={'hello.png'}
-        isLoading={false}
         onDelete={() => {}}
         onPause={() => {}}
         onResume={() => {}}
@@ -41,7 +40,6 @@ describe('Tracker', () => {
         onChange={() => {}}
         onCancel={() => {}}
         name={fileName}
-        isLoading={false}
         onDelete={() => {}}
         onPause={() => {}}
         onResume={() => {}}
@@ -69,7 +67,6 @@ describe('Tracker', () => {
         onChange={() => {}}
         onCancel={() => {}}
         name={fileName}
-        isLoading={false}
         onDelete={() => {}}
         onPause={() => {}}
         onResume={() => {}}

@@ -4,7 +4,6 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import * as UseHooks from '../hooks/useFileUploader';
 import { FileUploader } from '..';
 import * as UIModule from '@aws-amplify/ui';
-import { update, values } from 'lodash';
 const uploadFileSpy = jest.spyOn(UIModule, 'uploadFile');
 const useFileUploaderSpy = jest.spyOn(UseHooks, 'useFileUploader');
 const fakeFile = new File(['hello'], 'hello.png', { type: 'image/png' });
