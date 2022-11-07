@@ -1,5 +1,11 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import {
+  act,
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+} from '@testing-library/react';
 
 import * as UIModule from '@aws-amplify/ui';
 
@@ -98,7 +104,8 @@ describe('ChangePassword', () => {
 
     fireEvent.submit(submitButton);
 
-    // submit handling is async, wait for error to be displayed
-    await waitFor(() => expect(screen.findByText('Mock Error')).toBeDefined());
+    // findBy is already async, so we do not need to use `waitFor`
+    // https://testing-library.com/docs/queries/about#types-of-queries
+    expect(await screen.findByText('Mock Error')).toBeDefined();
   });
 });
