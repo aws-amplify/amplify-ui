@@ -2,8 +2,10 @@ import { PartialDeep } from 'type-fest';
 import { ReactNativeTokens } from '@aws-amplify/ui/src/theme/tokens';
 import baseTokens from '@aws-amplify/ui/dist/react-native/tokens';
 
+import { RadioStyles } from '../primitives/Radio/types';
+
 export interface Tokens extends ReactNativeTokens {
-  components: ComponentStyles;
+  components?: ComponentStyles;
 }
 
 type Override = Omit<StrictTheme, 'overrides'>;
@@ -33,6 +35,7 @@ export interface Theme {
 
 export interface ComponentStyles {
   // TODO: add components
+  radio: RadioStyles;
 }
 
 /**
@@ -45,11 +48,6 @@ export interface StrictTheme extends Theme {
   tokens: Tokens;
 }
 
-export const components: ComponentStyles = {
-  //TODO: add component styles
-};
-
-export const tokens: Tokens = {
+export const tokens: ReactNativeTokens = {
   ...baseTokens,
-  components,
 };
