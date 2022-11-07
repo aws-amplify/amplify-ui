@@ -54,14 +54,9 @@ function ChangePassword({
   };
 
   /** Validator */
-  const defaultValidators = React.useMemo(
-    () => getDefaultPasswordValidator(),
-    []
-  );
-
   const passwordValidators: FieldValidator[] = React.useMemo(
-    () => validate ?? defaultValidators,
-    [validate, defaultValidators]
+    () => validate ?? getDefaultPasswordValidator(),
+    [validate]
   );
 
   const validateNewPassword = (
