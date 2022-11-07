@@ -6,7 +6,7 @@ import { RadioStyles } from './types';
 const ROUNDED_BORDER_RADIUS = 999;
 
 export const getThemedStyles = (theme: StrictTheme): RadioStyles => {
-  const { colors, opacities } = theme.tokens; // destructure more theme tokens later
+  const { colors, opacities, space } = theme.tokens;
 
   return StyleSheet.create({
     container: {
@@ -23,32 +23,32 @@ export const getThemedStyles = (theme: StrictTheme): RadioStyles => {
       justifyContent: 'center',
     },
     radioDot: {
-      backgroundColor: colors.teal[80], // change to teal
+      backgroundColor: colors.teal[80],
       borderRadius: ROUNDED_BORDER_RADIUS,
     },
     radioContainerLarge: {
-      height: 24,
-      width: 24,
+      height: space.xxxl,
+      width: space.xxxl,
     },
     radioContainerMedium: {
-      height: 20,
-      width: 20,
+      height: space.xxl,
+      width: space.xxl,
     },
     radioContainerSmall: {
-      height: 16,
-      width: 16,
+      height: space.xl,
+      width: space.xl,
     },
     radioDotLarge: {
-      height: 12,
-      width: 12,
+      height: space.xl,
+      width: space.xl,
     },
     radioDotMedium: {
-      height: 10,
-      width: 10,
+      height: space.large,
+      width: space.large,
     },
     radioDotSmall: {
-      height: 8,
-      width: 8,
+      height: space.medium,
+      width: space.medium,
     },
   });
 };
