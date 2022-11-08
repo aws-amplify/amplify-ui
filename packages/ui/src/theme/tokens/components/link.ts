@@ -1,33 +1,18 @@
-import { ColorValue, DesignToken, FontSizeValue } from '../types/designToken';
+import { DesignTokenProperties } from '../types/designToken';
 
-interface LinkStateTokens {
-  color: DesignToken<ColorValue>;
-}
+interface LinkStateTokens extends DesignTokenProperties<'color'> {}
 
-interface LinkSizeTokens {
-  fontSize: DesignToken<FontSizeValue>;
-}
-
-export interface LinkTokens {
-  active: LinkStateTokens;
-  color: DesignToken<ColorValue>;
-  focus: LinkStateTokens;
-  hover: LinkStateTokens;
-  visited: LinkStateTokens;
+export interface LinkTokens extends DesignTokenProperties<'color'> {
+  active?: LinkStateTokens;
+  focus?: LinkStateTokens;
+  hover?: LinkStateTokens;
+  visited?: LinkStateTokens;
 }
 
 export const link: LinkTokens = {
-  active: {
-    color: { value: '{colors.font.active.value}' },
-  },
+  active: { color: { value: '{colors.font.active.value}' } },
   color: { value: '{colors.font.interactive.value}' },
-  focus: {
-    color: { value: '{colors.font.focus.value}' },
-  },
-  hover: {
-    color: { value: '{colors.font.hover.value}' },
-  },
-  visited: {
-    color: { value: '{colors.font.interactive.value}' },
-  },
+  focus: { color: { value: '{colors.font.focus.value}' } },
+  hover: { color: { value: '{colors.font.hover.value}' } },
+  visited: { color: { value: '{colors.font.interactive.value}' } },
 };

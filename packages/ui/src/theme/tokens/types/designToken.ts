@@ -1,3 +1,5 @@
+import { Properties } from 'csstype';
+
 /**
  * a DesignToken can be either an object with a `value` key of `ValueType` or the `ValueType` itself
  */
@@ -96,7 +98,7 @@ export type WordBreakValue = string;
 /**
  * Mapping of design token value types to style property keys
  */
-interface Properties {
+interface TokenStandardProperties {
   animationDuration: AnimationDurationValue;
   animationTimingFunction: AnimationTimingFunctionValue;
   alignItems: AlignItemsValue;
@@ -129,7 +131,10 @@ interface Properties {
   lineHeight: LineHeightValue;
   margin: SpaceValue;
   maxWidth: SpaceValue;
+  minHeight: DesignToken<SpaceValue>;
+  minWidth: DesignToken<SpaceValue>;
   objectFit: ObjectFitValue;
+  objectPosition: DesignToken<PositionValue>;
   opacity: OpacityValue;
   outlineOffset: OutlineOffsetValue;
   outlineWidth: OutlineWidthValue;
@@ -137,24 +142,25 @@ interface Properties {
   outlineStyle: OutlineStyleValue;
   padding: SpaceValue;
   paddingBlock: SpaceValue;
+  paddingBlockEnd: SpaceValue;
+  paddingBlockStart: SpaceValue;
   paddingBottom: SpaceValue;
-  paddingHorizontal: SpaceValue;
+
   paddingInline: SpaceValue;
+  paddingInlineEnd: SpaceValue;
+  paddingInlineStart: SpaceValue;
   paddingLeft: SpaceValue;
   paddingRight: SpaceValue;
   paddingTop: SpaceValue;
-  paddingVertical: SpaceValue;
+
   pointerEvents: PointerEventsValue;
   position: PositionValue;
-  radius: RadiusValue;
+
   right: SpaceValue;
-  shadow: ShadowValue;
-  size: SpaceValue;
-  strokeEmpty: StrokeEmptyValue;
-  strokeFilled: StrokeFilledValue;
   strokeLinecap: StrokeLinecapValue;
+
   textAlign: TextAlignValue;
-  time: TimeValue;
+
   top: SpaceValue;
   transform: TransformValue;
   transitionDuration: TransitionDurationValue;
@@ -166,28 +172,50 @@ interface Properties {
   wordBreak: WordBreakValue;
 }
 
-type PropertyKey = keyof Properties;
+/**
+ * Custom style tokens with non-css property names
+ */
+interface TokenCustomProperties {
+  paddingHorizontal: SpaceValue;
+  paddingVertical: SpaceValue;
+  size: SpaceValue;
+  shadow: ShadowValue;
+  strokeEmpty: StrokeEmptyValue;
+  strokeFilled: StrokeFilledValue;
+  time: TimeValue;
+}
+
+interface TokenProperties
+  extends TokenStandardProperties,
+    TokenCustomProperties {}
+
+type TokenProperty = keyof TokenProperties;
+
+type Property =
+  | Extract<keyof Properties, TokenProperty>
+  | keyof TokenCustomProperties;
+
 type OutputKey = 'strict' | unknown;
 
 /**
  * Return interface with all types optional for custom theme input
  */
-type OptionalDesignTokenProperties<Keys extends PropertyKey> = Partial<{
-  [Key in Keys]?: DesignToken<Properties[Key]>;
+type OptionalDesignTokenProperties<Keys extends Property> = Partial<{
+  [Key in Keys]?: DesignToken<TokenProperties[Key]>;
 }>;
 
 /**
  * Return interface with all types required for strict theme output
  */
-type RequiredDesignTokenProperties<Keys extends PropertyKey> = {
-  [Key in Keys]: WebDesignToken<Properties[Key]>;
+type RequiredDesignTokenProperties<Keys extends TokenProperty> = {
+  [Key in Keys]: WebDesignToken<TokenProperties[Key]>;
 };
 
 /**
  * Utility for creating interfaces for components from supported CSS property keys
  */
 export type DesignTokenProperties<
-  Keys extends PropertyKey,
+  Keys extends TokenProperty,
   Output extends OutputKey = unknown
 > = Output extends 'strict'
   ? RequiredDesignTokenProperties<Keys>

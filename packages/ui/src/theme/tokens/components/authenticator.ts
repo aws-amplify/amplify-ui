@@ -48,13 +48,13 @@ export type AuthenticatorTokens<OutputType = unknown> = DesignTokenProperties<
   'maxWidth',
   OutputType
 > & {
-  modal: AuthenticatorModalTokens<OutputType>;
-  container: AuthenticatorContainerToken<OutputType>;
-  router: AuthenticatorRouterTokens<OutputType>;
-  footer: AuthenticatorFooterTokens<OutputType>;
-  form: AuthenticatorFormTokens<OutputType>;
-  state: AuthenticatorStateTokens<OutputType>;
-  orContainer: AuthenticatorOrContainerTokens<OutputType>;
+  modal?: AuthenticatorModalTokens<OutputType>;
+  container?: AuthenticatorContainerToken<OutputType>;
+  router?: AuthenticatorRouterTokens<OutputType>;
+  footer?: AuthenticatorFooterTokens<OutputType>;
+  form?: AuthenticatorFormTokens<OutputType>;
+  state?: AuthenticatorStateTokens<OutputType>;
+  orContainer?: AuthenticatorOrContainerTokens<OutputType>;
 };
 
 export const authenticator: AuthenticatorTokens = {

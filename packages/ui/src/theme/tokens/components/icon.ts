@@ -1,9 +1,7 @@
-import { DesignToken, LineHeightValue, SpaceValue } from '../types/designToken';
+import { DesignTokenProperties } from '../types/designToken';
 
-export interface IconTokens {
-  lineHeight: DesignToken<LineHeightValue>;
-  height: DesignToken<SpaceValue>;
-}
+export interface IconTokens
+  extends DesignTokenProperties<'height' | 'lineHeight'> {}
 
 export const icon: IconTokens = {
   lineHeight: { value: 1 },

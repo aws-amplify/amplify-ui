@@ -24,12 +24,12 @@ export type AlertTokens<OutputType = unknown> = DesignTokenProperties<
   AlertTokenKey,
   OutputType
 > & {
-  icon: AlertIconTokens<OutputType>;
-  heading: AlertHeadingTokens<OutputType>;
-  info: AlertVariationTokens<OutputType>;
-  error: AlertVariationTokens<OutputType>;
-  warning: AlertVariationTokens<OutputType>;
-  success: AlertVariationTokens<OutputType>;
+  icon?: AlertIconTokens<OutputType>;
+  heading?: AlertHeadingTokens<OutputType>;
+  info?: AlertVariationTokens<OutputType>;
+  error?: AlertVariationTokens<OutputType>;
+  warning?: AlertVariationTokens<OutputType>;
+  success?: AlertVariationTokens<OutputType>;
 };
 
 export type WebAlertTokens = AlertTokens<'web'>;

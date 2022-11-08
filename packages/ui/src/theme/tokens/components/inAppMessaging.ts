@@ -1,39 +1,23 @@
-import {
-  BorderRadiusValue,
-  ColorValue,
-  DesignToken,
-  FontSizeValue,
-  FontWeightValue,
-  SpaceValue,
-} from '../types/designToken';
+import { DesignTokenProperties } from '../types/designToken';
 
-interface BannerTokens {
-  height: DesignToken<SpaceValue>;
-  width: DesignToken<SpaceValue>;
-}
-interface ButtonTokens {
-  backgroundColor: DesignToken<ColorValue>;
-  borderRadius: DesignToken<BorderRadiusValue>;
-  color: DesignToken<ColorValue>;
-}
+interface BannerTokens extends DesignTokenProperties<'height' | 'width'> {}
 
-interface DialogTokens {
-  height: DesignToken<SpaceValue>;
-  minHeight: DesignToken<SpaceValue>;
-  minWidth: DesignToken<SpaceValue>;
-  width: DesignToken<SpaceValue>;
-}
+interface ButtonTokens
+  extends DesignTokenProperties<'backgroundColor' | 'borderRadius' | 'color'> {}
 
-interface HeaderTokens {
-  fontSize: DesignToken<FontSizeValue>;
-  fontWeight: DesignToken<FontWeightValue>;
-}
+interface DialogTokens
+  extends DesignTokenProperties<
+    'height' | 'minHeight' | 'minWidth' | 'width'
+  > {}
+
+interface HeaderTokens
+  extends DesignTokenProperties<'fontSize' | 'fontWeight'> {}
 
 export interface InAppMessagingTokens {
-  banner: BannerTokens;
-  button: ButtonTokens;
-  dialog: DialogTokens;
-  header: HeaderTokens;
+  banner?: BannerTokens;
+  button?: ButtonTokens;
+  dialog?: DialogTokens;
+  header?: HeaderTokens;
 }
 
 export const inappmessaging: InAppMessagingTokens = {
