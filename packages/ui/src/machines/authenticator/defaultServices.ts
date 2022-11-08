@@ -1,5 +1,5 @@
 import { Amplify, Auth } from 'aws-amplify';
-import { defaultPasswordValidator } from '../../helpers';
+import { hasSpecialChars } from '../../helpers';
 
 import {
   AuthChallengeName,
@@ -71,7 +71,7 @@ export const defaultServices = {
 
   // Validation hooks for overriding
   async validateCustomSignUp(formData, touchData): Promise<ValidatorResult> {},
-  async validateFormPassword(
+  async validateFormPassword<Validator>(
     formData,
     touchData,
     passwordSettings: PasswordSettings
@@ -86,10 +86,52 @@ export const defaultServices = {
      */
     if (!touched_password || !passwordSettings) return null;
 
-    const errors = defaultPasswordValidator(password, passwordSettings);
-    return errors ? { password: errors } : null;
+    const password_complexity = [];
+
+    const policyMinLength = +passwordSettings?.passwordPolicyMinLength;
+    if (password.length < policyMinLength) {
+      password_complexity.push(
+        `Password must have at least ${policyMinLength} characters`
+      );
+    }
+
+    const passwordPolicyCharacters = passwordSettings?.passwordPolicyCharacters;
+
+    passwordPolicyCharacters?.forEach((errorCheck) => {
+      switch (errorCheck) {
+        case 'REQUIRES_LOWERCASE':
+          if (!/[a-z]/.test(password))
+            password_complexity.push('Password must have lower case letters');
+          break;
+        case 'REQUIRES_UPPERCASE':
+          if (!/[A-Z]/.test(password))
+            password_complexity.push('Password must have upper case letters');
+          break;
+        case 'REQUIRES_NUMBERS':
+          if (!/[0-9]/.test(password))
+            password_complexity.push('Password must have numbers');
+          break;
+        case 'REQUIRES_SYMBOLS':
+          // https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-policies.html
+          if (!hasSpecialChars(password))
+            password_complexity.push('Password must have special characters');
+          break;
+        default:
+          break;
+      }
+    });
+
+    /**
+     * Only return an error if there is at least one error.
+     */
+    return password_complexity.length !== 0
+      ? { password: password_complexity }
+      : null;
   },
-  async validateConfirmPassword(formData, touchData): Promise<ValidatorResult> {
+  async validateConfirmPassword<Validator>(
+    formData,
+    touchData
+  ): Promise<ValidatorResult> {
     const { password, confirm_password } = formData;
 
     const {
