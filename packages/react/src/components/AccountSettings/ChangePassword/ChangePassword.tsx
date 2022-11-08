@@ -5,7 +5,7 @@ import { Logger } from 'aws-amplify';
 import {
   changePassword,
   FieldValidator,
-  FormEventType,
+  InputEventType,
   getConfirmPasswordValidator,
   getDefaultPasswordValidators,
   runFieldValidators,
@@ -68,7 +68,7 @@ function ChangePassword({
     (
       formValues: FormValues,
       blurredFields: BlurredFields,
-      eventType: FormEventType
+      eventType: InputEventType
     ): string[] => {
       const { newPassword } = formValues;
 
@@ -86,7 +86,7 @@ function ChangePassword({
     (
       formValues: FormValues,
       blurredFields: BlurredFields,
-      eventType: FormEventType
+      eventType: InputEventType
     ): string[] => {
       const { newPassword, confirmPassword } = formValues;
 
@@ -106,7 +106,7 @@ function ChangePassword({
     (
       formValues: FormValues,
       blurredFields: BlurredFields,
-      eventType: FormEventType
+      eventType: InputEventType
     ) => {
       const newPasswordErrors = validateNewPassword(
         formValues,

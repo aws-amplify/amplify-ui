@@ -1,4 +1,4 @@
-export type FormEventType = 'blur' | 'change';
+export type InputEventType = 'blur' | 'change';
 
 export type ValidationMode = 'onBlur' | 'onChange' | 'onTouched';
 
