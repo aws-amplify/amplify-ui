@@ -11,11 +11,12 @@ import { View, ViewStyle } from 'react-native';
 
 import { useHasValueUpdated } from '@aws-amplify/ui-react-core';
 
+import { useTheme } from '../../theme';
 import { Label } from '../Label';
 import { getFlexDirectionFromLabelPosition } from '../Label/utils';
 import { RadioProps } from '../Radio';
 
-import { styles } from './styles';
+import { getThemedStyles } from './styles';
 import { RadioGroupProps } from './types';
 
 export default function RadioGroup<T>({
@@ -33,6 +34,9 @@ export default function RadioGroup<T>({
   style,
   ...rest
 }: RadioGroupProps<T>): JSX.Element {
+  const theme = useTheme();
+  const themedStyle = getThemedStyles(theme);
+
   const [value, setValue] = useState<T | undefined>(initialValue);
 
   // track `hasValueUpdated` and `hasOnValueChangeUpdated`,
@@ -96,7 +100,9 @@ export default function RadioGroup<T>({
           }
         })}
       </View>
-      {label ? <Label style={[styles.label, labelStyle]}>{label}</Label> : null}
+      {label ? (
+        <Label style={[themedStyle.label, labelStyle]}>{label}</Label>
+      ) : null}
     </View>
   );
 }
