@@ -1,4 +1,4 @@
-import { FieldValidator, ValidationMode } from '../../../types';
+import { FieldValidator, FormEventType, ValidationMode } from '../../../types';
 
 /**
  * `shouldValidate` determines whether validator should be run, based on validation mode,
@@ -6,7 +6,7 @@ import { FieldValidator, ValidationMode } from '../../../types';
  */
 export const shouldValidate = (
   validationMode: ValidationMode,
-  eventType: 'change' | 'blur',
+  eventType: FormEventType,
   hasBlurred: boolean
 ) => {
   switch (validationMode) {
@@ -34,7 +34,7 @@ export const shouldValidate = (
 export const runFieldValidators = (
   field: string,
   validators: FieldValidator[],
-  eventType: 'change' | 'blur',
+  eventType: FormEventType,
   hasBlurred: boolean
 ): string[] => {
   if (!field) return [];
