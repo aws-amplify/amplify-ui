@@ -1,5 +1,6 @@
 import { PasswordSettings } from '../../../types';
 import { defaultServices } from '../defaultServices';
+import { ALLOWED_SPECIAL_CHARACTERS } from '../../../helpers/authenticator/constants';
 
 const { validateFormPassword } = defaultServices;
 
@@ -16,8 +17,13 @@ const strictPasswordPolicy: PasswordSettings = {
   passwordPolicyMinLength: 8,
 };
 
+const lenientPasswordPolicy: PasswordSettings = {
+  passwordPolicyCharacters: [],
+  passwordPolicyMinLength: 4,
+};
+
 describe('validateFormPassword', () => {
-  it('validates as expected with valid password', async () => {
+  it('validates as expected with valid password and strict password policy', async () => {
     const password = 'UnitTest_Password1';
     const result = await validateFormPassword(
       { password },
@@ -27,8 +33,35 @@ describe('validateFormPassword', () => {
     expect(result).toBeNull();
   });
 
-  it('validates as expected with invalid password', async () => {
-    const password = 'badpw';
+  it('validates as expected with invalid password (has unknown special character) and strict password policy', async () => {
+    // has special character not recognized by Cognito
+    const password = 'UnitTestㄱPassword1';
+    const result = await validateFormPassword(
+      { password: password },
+      touched,
+      strictPasswordPolicy
+    );
+    expect(result).toStrictEqual({
+      password: ['Password must have special characters'],
+    });
+  });
+
+  it('validates as expected with invalid password (no special characters) and strict password policy', async () => {
+    // does not have special character
+    const password = 'UnitTestPassword1';
+    const result = await validateFormPassword(
+      { password },
+      touched,
+      strictPasswordPolicy
+    );
+    expect(result).toStrictEqual({
+      password: ['Password must have special characters'],
+    });
+  });
+
+  it('validates as expected with invalid password (fails all requirements) and strict password policy', async () => {
+    // is too short, and does not meet any of character requirements
+    const password = 'short';
     const result = await validateFormPassword(
       { password },
       touched,
@@ -43,6 +76,40 @@ describe('validateFormPassword', () => {
       ],
     });
   });
+
+  it('validates as expected with valid password and lenient password policy', async () => {
+    const password = 'legitpassword123';
+    const result = await validateFormPassword(
+      { password },
+      touched,
+      lenientPasswordPolicy
+    );
+    expect(result).toBeNull();
+  });
+
+  it('validates as expected with invalid password and lenient password policy', async () => {
+    const password = '123';
+    const result = await validateFormPassword(
+      { password },
+      touched,
+      lenientPasswordPolicy
+    );
+    expect(result).toStrictEqual({
+      password: ['Password must have at least 4 characters'],
+    });
+  });
+
+  it.each(ALLOWED_SPECIAL_CHARACTERS)(
+    'validates usage of a %s character as expected',
+    async (character) => {
+      const password = `password${character}`;
+      const result = await validateFormPassword({ password }, touched, {
+        passwordPolicyMinLength: 4,
+        passwordPolicyCharacters: ['REQUIRES_SYMBOLS'],
+      });
+      expect(result).toBeNull();
+    }
+  );
 
   it('skips validation if inputs are not touched', async () => {
     const password = '';
