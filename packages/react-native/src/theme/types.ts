@@ -3,6 +3,7 @@ import { ReactNativeTokens } from '@aws-amplify/ui/src/theme/tokens';
 import baseTokens from '@aws-amplify/ui/dist/react-native/tokens';
 
 import { RadioStyles } from '../primitives/Radio/types';
+import { LabelStyles } from '../primitives/Label/types';
 
 export interface Tokens extends ReactNativeTokens {
   components?: ComponentStyles;
@@ -35,6 +36,7 @@ export interface Theme {
 
 export interface ComponentStyles {
   // TODO: add components
+  label: LabelStyles;
   radio: RadioStyles;
 }
 
