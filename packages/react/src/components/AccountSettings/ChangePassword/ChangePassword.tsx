@@ -1,4 +1,5 @@
 import React from 'react';
+import { isEqual } from 'lodash';
 
 import { Logger } from 'aws-amplify';
 import {
@@ -8,10 +9,12 @@ import {
   FieldValidator,
   getDefaultPasswordValidators,
   getConfirmPasswordValidator,
+  FormEventType,
 } from '@aws-amplify/ui';
 
 import { useAuth } from '../../../internal';
 import { View, Flex } from '../../../primitives';
+import { FormValues, BlurredFields, ValidationError } from '../types';
 import {
   DefaultConfirmPassword,
   DefaultCurrentPassword,
@@ -20,8 +23,6 @@ import {
   DefaultSubmitButton,
 } from './defaultComponents';
 import { ChangePasswordProps } from './types';
-import { FormValues, BlurredFields, ValidationError } from '../types';
-import { FormEventType } from '@aws-amplify/ui';
 
 const logger = new Logger('ChangePassword');
 
@@ -56,7 +57,6 @@ function ChangePassword({
   const [validationError, setValidationError] = React.useState<ValidationError>(
     {}
   );
-
   const { user, isLoading } = useAuth();
 
   const isDisabled = getIsDisabled(formValues, validationError);
@@ -65,37 +65,43 @@ function ChangePassword({
     return validators ?? getDefaultPasswordValidators();
   }, [validators]);
 
-  const validateNewPassword = (
-    formValues: FormValues,
-    blurredFields: BlurredFields,
-    eventType: FormEventType
-  ): string[] => {
-    const { newPassword } = formValues;
+  const validateNewPassword = React.useCallback(
+    (
+      formValues: FormValues,
+      blurredFields: BlurredFields,
+      eventType: FormEventType
+    ): string[] => {
+      const { newPassword } = formValues;
 
-    return runFieldValidators(
-      newPassword,
-      passwordValidators,
-      eventType,
-      blurredFields.newPassword
-    );
-  };
+      return runFieldValidators(
+        newPassword,
+        passwordValidators,
+        eventType,
+        blurredFields.newPassword
+      );
+    },
+    [passwordValidators]
+  );
 
-  const validateConfirmPassword = (
-    formValues: FormValues,
-    blurredFields: BlurredFields,
-    eventType: FormEventType
-  ): string[] => {
-    const { newPassword, confirmPassword } = formValues;
+  const validateConfirmPassword = React.useCallback(
+    (
+      formValues: FormValues,
+      blurredFields: BlurredFields,
+      eventType: FormEventType
+    ): string[] => {
+      const { newPassword, confirmPassword } = formValues;
 
-    const confirmPasswordValidator = getConfirmPasswordValidator(newPassword);
+      const confirmPasswordValidator = getConfirmPasswordValidator(newPassword);
 
-    return runFieldValidators(
-      confirmPassword,
-      [confirmPasswordValidator],
-      eventType,
-      blurredFields.confirmPassword
-    );
-  };
+      return runFieldValidators(
+        confirmPassword,
+        [confirmPasswordValidator],
+        eventType,
+        blurredFields.confirmPassword
+      );
+    },
+    []
+  );
 
   const runValidation = (
     formValues: FormValues,
@@ -113,10 +119,18 @@ function ChangePassword({
       eventType
     );
 
-    setValidationError({
+    const newValidationError = {
       newPassword: newPasswordErrors,
       confirmPassword: confirmPasswordErrors,
-    });
+    };
+
+    // only re-render if errors have changed
+    if (!isEqual(validationError, newValidationError)) {
+      setValidationError({
+        newPassword: newPasswordErrors,
+        confirmPassword: confirmPasswordErrors,
+      });
+    }
   };
 
   /** Translations */
