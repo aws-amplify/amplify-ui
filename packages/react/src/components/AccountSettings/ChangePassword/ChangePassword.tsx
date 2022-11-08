@@ -65,6 +65,10 @@ function ChangePassword({
     return validators ?? getDefaultPasswordValidators();
   }, [validators]);
 
+  /**
+   * Note that formValues and other states are passed in as props so that
+   * it does not depend on whether or not those states have been updated yet
+   */
   const validateNewPassword = React.useCallback(
     (
       formValues: FormValues,
@@ -103,32 +107,35 @@ function ChangePassword({
     []
   );
 
-  const runValidation = (
-    formValues: FormValues,
-    blurredFields: BlurredFields,
-    eventType: FormEventType
-  ) => {
-    const newPasswordErrors = validateNewPassword(
-      formValues,
-      blurredFields,
-      eventType
-    );
-    const confirmPasswordErrors = validateConfirmPassword(
-      formValues,
-      blurredFields,
-      eventType
-    );
+  const runValidation = React.useCallback(
+    (
+      formValues: FormValues,
+      blurredFields: BlurredFields,
+      eventType: FormEventType
+    ) => {
+      const newPasswordErrors = validateNewPassword(
+        formValues,
+        blurredFields,
+        eventType
+      );
+      const confirmPasswordErrors = validateConfirmPassword(
+        formValues,
+        blurredFields,
+        eventType
+      );
 
-    const newValidationError = {
-      newPassword: newPasswordErrors,
-      confirmPassword: confirmPasswordErrors,
-    };
+      const newValidationError = {
+        newPassword: newPasswordErrors,
+        confirmPassword: confirmPasswordErrors,
+      };
 
-    // only re-render if errors have changed
-    if (!isEqual(validationError, newValidationError)) {
-      setValidationError(newValidationError);
-    }
-  };
+      // only re-render if errors have changed
+      if (!isEqual(validationError, newValidationError)) {
+        setValidationError(newValidationError);
+      }
+    },
+    [validateConfirmPassword, validateNewPassword, validationError]
+  );
 
   /** Translations */
   // TODO: add AccountSettingsTextUtil to collect these strings
