@@ -1,15 +1,15 @@
-import { DesignToken, WebDesignToken, OpacityValue } from './types/designToken';
+import { DesignTokenValues, OpacityValue } from './types/designToken';
 
 type OpacityScale = 0 | 10 | 20 | 30 | 40 | 50 | 60 | 70 | 80 | 90 | 100;
 
-export type Opacities<DesignTokenType = DesignToken<OpacityValue>> = Record<
+export type Opacities<Output = unknown, Platform = unknown> = DesignTokenValues<
   OpacityScale,
-  DesignTokenType
+  OpacityValue,
+  Output,
+  Platform
 >;
 
-export type WebOpacities = Opacities<WebDesignToken<OpacityValue>>;
-
-export type ReactNativeOpacities = Opacities<number>;
+export type ReactNativeOpacities = Opacities;
 
 export const opacities: Opacities = {
   0: { value: '0' },

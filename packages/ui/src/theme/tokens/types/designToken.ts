@@ -65,7 +65,9 @@ export type OutlineColorValue = string;
 export type OutlineStyleValue = string;
 export type PositionValue = string;
 export type PointerEventsValue = string;
-export type RadiusValue = string;
+// radius values are `string` for web and `number` for mobile
+export type RadiusValue<Platform extends PlatformKey = unknown> =
+  Platform extends 'mobile' ? number : string;
 export type ShadowValue =
   | {
       offsetX: string;
@@ -80,7 +82,9 @@ export type StrokeEmptyValue = string;
 export type StrokeLinecapValue = string;
 export type SpaceValue = string;
 export type TextAlignValue = string;
-export type TimeValue = string;
+// radius values are `string` for web and `number` for mobile
+export type TimeValue<Platform extends PlatformKey = unknown> =
+  Platform extends 'mobile' ? number : string;
 export type TransformValue = string;
 export type TransitionDurationValue = string;
 export type TransitionPropertyValue = string;
@@ -189,7 +193,7 @@ export type DesignTokenProperties<
   ? RequiredDesignTokenProperties<Keys>
   : OptionalDesignTokenProperties<Keys>;
 
-type PlatformKey = 'web' | 'mobile' | unknown;
+export type PlatformKey = 'web' | 'mobile' | unknown;
 type PropKey = string | number;
 
 type RequiredTokenValues<

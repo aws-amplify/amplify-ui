@@ -1,12 +1,15 @@
-import { DesignToken, WebDesignToken, TimeValue } from './types/designToken';
+import { DesignTokenValues, TimeValue } from './types/designToken';
 
 type Duration = 'short' | 'medium' | 'long';
 
-export type Time = Record<Duration, DesignToken<TimeValue>>;
+export type Time<Output = unknown, Platform = unknown> = DesignTokenValues<
+  Duration,
+  TimeValue<Platform>,
+  Output,
+  Platform
+>;
 
-export type WebTime = Record<Duration, WebDesignToken<TimeValue>>;
-
-export type ReactNativeTime = Record<Duration, number>;
+export type ReactNativeTime = Time<unknown, 'mobile'>;
 
 export const time: Time = {
   short: { value: '100ms' },

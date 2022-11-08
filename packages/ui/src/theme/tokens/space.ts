@@ -1,4 +1,4 @@
-import { DesignToken, WebDesignToken, SpaceValue } from './types/designToken';
+import { DesignTokenValues, SpaceValue } from './types/designToken';
 
 type SpaceSize =
   | 'xxxs'
@@ -11,19 +11,22 @@ type SpaceSize =
   | 'xxl'
   | 'xxxl';
 
-export type SpaceSizes<DesignTokenType = DesignToken<SpaceValue>> = Record<
-  SpaceSize,
-  DesignTokenType
->;
+export type SpaceSizes<
+  Output = unknown,
+  Platform = unknown
+> = DesignTokenValues<SpaceSize | 'zero', SpaceValue, Output, Platform>;
 
-export type Space<DesignTokenType = DesignToken<SpaceValue>> = Record<
-  SpaceSize | 'zero',
-  DesignTokenType
+export type Space<Output = unknown, Platform = unknown> = SpaceSizes<
+  Output,
+  Platform
 > & {
-  relative: Record<SpaceSize | 'full', DesignTokenType>;
+  relative?: DesignTokenValues<
+    SpaceSize | 'full',
+    SpaceValue,
+    Output,
+    Platform
+  >;
 };
-
-export type WebSpace = Space<WebDesignToken<SpaceValue>>;
 
 export type ReactNativeSpace = Omit<
   Space<number>,

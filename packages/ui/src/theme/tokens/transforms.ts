@@ -1,16 +1,10 @@
-import {
-  DesignToken,
-  WebDesignToken,
-  TransformValue,
-} from './types/designToken';
+import { DesignTokenValues, TransformValue } from './types/designToken';
 
 type TransformSize = 'small' | 'medium' | 'large';
 
-export type Transforms<DesignTokenType = DesignToken<TransformValue>> = {
-  slideX: Record<TransformSize, DesignTokenType>;
+export type Transforms<Output = unknown, Platform = unknown> = {
+  slideX: DesignTokenValues<TransformSize, TransformValue, Output, Platform>;
 };
-
-export type WebTransforms = Transforms<WebDesignToken<TransformValue>>;
 
 export const transforms: Transforms = {
   // TODO: make this more generic and cross-platform

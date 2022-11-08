@@ -5,18 +5,18 @@ import { ColorValue, DesignTokenValues } from './types/designToken';
  */
 type ColorValues<
   VariantKey extends string | number,
-  OutputType = unknown,
+  Output = unknown,
   Platform = unknown
-> = DesignTokenValues<VariantKey, ColorValue, OutputType, Platform>;
+> = DesignTokenValues<VariantKey, ColorValue, Output, Platform>;
 
 /**
  * Util type for creating nested color scale interfaces from variant keys
  */
 type ColorValueScale<
   VariantKey extends string | number,
-  OutputType,
+  Output,
   Platform = unknown
-> = Partial<Record<VariantKey, ColorValues<ScaleKey, OutputType, Platform>>>;
+> = Partial<Record<VariantKey, ColorValues<ScaleKey, Output, Platform>>>;
 
 // scale keys
 type ScaleKey = 10 | 20 | 40 | 60 | 80 | 90 | 100;
@@ -65,31 +65,31 @@ type BorderColorKey =
   | OrderVariantKey
   | Extract<StateVariantKey, 'disabled' | 'error'>;
 
-type PaletteValues<OutputType, Platform> = ColorValueScale<
+type PaletteValues<Output, Platform> = ColorValueScale<
   ColorPaletteKey,
-  OutputType,
+  Output,
   Platform
 >;
 
-type GreyscaleColors<OutputType, Platform> = ColorValues<
+type GreyscaleColors<Output, Platform> = ColorValues<
   GreyscalePaletteKey,
-  OutputType,
+  Output,
   Platform
 >;
 
-export type Colors<OutputType = unknown, Platform = unknown> = PaletteValues<
-  OutputType,
+export type Colors<Output = unknown, Platform = unknown> = PaletteValues<
+  Output,
   Platform
 > &
-  GreyscaleColors<OutputType, Platform> & {
+  GreyscaleColors<Output, Platform> & {
     // brand properties have scaled values
-    brand?: ColorValueScale<BrandVariantKey, OutputType, Platform>;
+    brand?: ColorValueScale<BrandVariantKey, Output, Platform>;
 
-    background?: ColorValues<BackgroundColorKey, OutputType, Platform>;
-    border?: ColorValues<BorderColorKey, OutputType, Platform>;
-    font?: ColorValues<FontVariantKey, OutputType, Platform>;
-    overlay?: ColorValues<OverlayKey, OutputType, Platform>;
-    shadow?: ColorValues<ShadowVariantKey, OutputType, Platform>;
+    background?: ColorValues<BackgroundColorKey, Output, Platform>;
+    border?: ColorValues<BorderColorKey, Output, Platform>;
+    font?: ColorValues<FontVariantKey, Output, Platform>;
+    overlay?: ColorValues<OverlayKey, Output, Platform>;
+    shadow?: ColorValues<ShadowVariantKey, Output, Platform>;
   } & Record<string, any>; // TODO: remove 'any' and created structured custom color generic
 
 export type ReactNativeColors = Colors<unknown, 'mobile'>;

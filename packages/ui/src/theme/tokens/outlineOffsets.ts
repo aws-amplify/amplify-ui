@@ -1,17 +1,11 @@
-import {
-  DesignToken,
-  WebDesignToken,
-  OutlineOffsetValue,
-} from './types/designToken';
+import { OutlineOffsetValue, DesignTokenValues } from './types/designToken';
 
-type OffsetSize = 'small' | 'medium' | 'large';
+type OutlineOffsetSize = 'small' | 'medium' | 'large';
 
-export type OutlineOffsets<DesignTokenType = DesignToken<OutlineOffsetValue>> =
-  Record<OffsetSize, DesignTokenType>;
-
-export type WebOutlineOffsets = OutlineOffsets<
-  WebDesignToken<OutlineOffsetValue>
->;
+export type OutlineOffsets<
+  Output = unknown,
+  Platform = unknown
+> = DesignTokenValues<OutlineOffsetSize, OutlineOffsetValue, Output, Platform>;
 
 export const outlineOffsets: OutlineOffsets = {
   small: { value: '1px' },

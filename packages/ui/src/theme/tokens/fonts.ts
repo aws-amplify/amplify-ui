@@ -1,12 +1,10 @@
-import { DesignToken, WebDesignToken, FontValue } from './types/designToken';
+import { DesignTokenValues, FontValue } from './types/designToken';
 
 type FontVariant = 'variable' | 'static';
 
-export type Fonts<DesignTokenType = DesignToken<FontValue>> = {
-  default: Record<FontVariant, DesignTokenType>;
+export type Fonts<Output = unknown, Platform = unknown> = {
+  default?: DesignTokenValues<FontVariant, FontValue, Output, Platform>;
 };
-
-export type WebFonts = Fonts<WebDesignToken<FontValue>>;
 
 // TODO: update the design tokens to use an array
 // export interface FontDesignToken {

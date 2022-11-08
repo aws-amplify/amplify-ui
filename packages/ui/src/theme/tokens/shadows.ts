@@ -1,13 +1,13 @@
-import { DesignToken, ShadowValue, WebDesignToken } from './types/designToken';
+import { DesignTokenValues, ShadowValue } from './types/designToken';
 
 type ShadowSize = 'small' | 'medium' | 'large';
 
-export type Shadows = Record<
+export type Shadows<Output = unknown, Platform = unknown> = DesignTokenValues<
   ShadowSize,
-  DesignToken<ShadowValue> | ShadowValue
+  ShadowValue,
+  Output,
+  Platform
 >;
-
-export type WebShadows = Record<ShadowSize, WebDesignToken<ShadowValue>>;
 
 export const shadows: Shadows = {
   small: {

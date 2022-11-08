@@ -1,8 +1,4 @@
-import {
-  DesignToken,
-  WebDesignToken,
-  FontSizeValue,
-} from './types/designToken';
+import { DesignTokenValues, FontSizeValue } from './types/designToken';
 
 type FontSize =
   | 'xxxs'
@@ -16,14 +12,17 @@ type FontSize =
   | 'xxxl'
   | 'xxxxl';
 
-export type FontSizes<DesignTokenType = DesignToken<FontSizeValue>> = Record<
+export type FontSizes<Output = unknown, Platform = unknown> = DesignTokenValues<
   FontSize,
-  DesignTokenType
+  FontSizeValue,
+  Output,
+  Platform
 >;
 
-export type WebFontSizes = FontSizes<WebDesignToken<FontSizeValue>>;
-
-export type ReactNativeFontSizes = Omit<FontSizes<number>, 'xxxs' | 'xxxxl'>;
+export type ReactNativeFontSizes = Omit<
+  FontSizes<unknown, 'mobile'>,
+  'xxxs' | 'xxxxl'
+>;
 
 export const fontSizes: FontSizes = {
   xxxs: { value: '0.375rem' },
