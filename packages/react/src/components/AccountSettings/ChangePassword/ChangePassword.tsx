@@ -72,12 +72,12 @@ function ChangePassword({
     ): string[] => {
       const { newPassword } = formValues;
 
-      return runFieldValidators(
-        newPassword,
-        passwordValidators,
+      return runFieldValidators({
+        value: newPassword,
+        validators: passwordValidators,
         eventType,
-        blurredFields.newPassword
-      );
+        hasBlurred: blurredFields.newPassword,
+      });
     },
     [passwordValidators]
   );
@@ -92,12 +92,12 @@ function ChangePassword({
 
       const confirmPasswordValidator = getConfirmPasswordValidator(newPassword);
 
-      return runFieldValidators(
-        confirmPassword,
-        [confirmPasswordValidator],
+      return runFieldValidators({
+        value: confirmPassword,
+        validators: [confirmPasswordValidator],
         eventType,
-        blurredFields.confirmPassword
-      );
+        hasBlurred: blurredFields.confirmPassword,
+      });
     },
     []
   );

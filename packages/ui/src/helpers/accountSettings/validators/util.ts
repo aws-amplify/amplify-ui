@@ -1,14 +1,18 @@
 import { FieldValidator, InputEventType, ValidationMode } from '../../../types';
 
-/**
+/*
  * `shouldValidate` determines whether validator should be run, based on validation mode,
  * input event type, and whether it has been blurred yet.
  */
-export const shouldValidate = (
-  validationMode: ValidationMode,
-  eventType: InputEventType,
-  hasBlurred: boolean
-) => {
+export const shouldValidate = ({
+  validationMode,
+  eventType,
+  hasBlurred,
+}: {
+  validationMode: ValidationMode;
+  eventType: InputEventType;
+  hasBlurred: boolean;
+}) => {
   switch (validationMode) {
     case 'onBlur': {
       // only run validator on blur event
@@ -28,24 +32,27 @@ export const shouldValidate = (
   }
 };
 
-/**
- * `runFieldValidator` runs all validators, and returns error messages.
- */
-export const runFieldValidators = (
-  field: string,
-  validators: FieldValidator[],
-  eventType: InputEventType,
-  hasBlurred: boolean
-): string[] => {
-  if (!field) return [];
+// `runFieldValidator` runs all validators, and returns error messages.
+export const runFieldValidators = ({
+  value,
+  validators,
+  eventType,
+  hasBlurred,
+}: {
+  value: string;
+  validators: FieldValidator[];
+  eventType: InputEventType;
+  hasBlurred: boolean;
+}): string[] => {
+  if (!value) return [];
 
   const errors = [];
 
   validators?.forEach((validator) => {
     const { validate, validationMode } = validator;
 
-    if (shouldValidate(validationMode, eventType, hasBlurred)) {
-      const hasError = !validate(field);
+    if (shouldValidate({ validationMode, eventType, hasBlurred })) {
+      const hasError = !validate(value);
       if (hasError) {
         errors.push(validator.message);
       }
