@@ -15,7 +15,7 @@ export const shouldValidate = (
       return eventType === 'blur';
     }
     case 'onChange': {
-      // only run validtor on change event
+      // only run validator on change event
       return eventType === 'change';
     }
     case 'onTouched': {
