@@ -14,17 +14,17 @@ describe('FileState', () => {
   });
   it('displays loading message if fileState is loading', async () => {
     const { findByText } = render(
-      <FileState fileState={'loading'} errorMessage={''} />
+      <FileState fileState={'loading'} percentage={10} errorMessage={''} />
     );
 
-    expect(await findByText('Loading')).toBeVisible();
+    expect(await findByText('Loading: 10%')).toBeVisible();
   });
   it('displays paused message if fileState is paused', async () => {
     const { findByText } = render(
-      <FileState fileState={'paused'} errorMessage={''} />
+      <FileState fileState={'paused'} percentage={10} errorMessage={''} />
     );
 
-    expect(await findByText('Paused')).toBeVisible();
+    expect(await findByText('Paused: 10%')).toBeVisible();
   });
   it('displays upload success message if fileState is in success', async () => {
     const { findByText } = render(

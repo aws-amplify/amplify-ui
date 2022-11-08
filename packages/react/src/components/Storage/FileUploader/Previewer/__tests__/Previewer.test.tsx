@@ -77,9 +77,6 @@ describe('Previewer', () => {
       />
     );
 
-    expect(
-      container.querySelectorAll(`.${ComponentClassNames.FileUploaderFile}`).length
-    ).toEqual(2);
     expect(await findByText('2 files selected')).toBeVisible();
   });
 
