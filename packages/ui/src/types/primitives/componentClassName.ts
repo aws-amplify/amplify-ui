@@ -61,6 +61,7 @@ export enum ComponentClassName {
   FileUploaderPreviewerText = 'amplify-fileuploader__previewer__text',
   FileUploaderPreviewerBody = 'amplify-fileuploader__previewer__body',
   FileUploaderPreviewerFooter = 'amplify-fileuploader__previewer__footer',
+  FileUploaderPreviewerFooterActions = 'amplify-fileuploader__previewer__footer__actions',
   Flex = 'amplify-flex',
   Grid = 'amplify-grid',
   Heading = 'amplify-heading',

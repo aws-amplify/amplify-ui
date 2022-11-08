@@ -163,6 +163,12 @@
       display: flex;
       flex-direction: row;
       justify-content: var(--amplify-components-fileuploader-previewer-footer-justify-content);
+      
+      &__actions {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+      }
     }
   }
 }

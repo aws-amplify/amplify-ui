@@ -237,6 +237,9 @@ export const ComponentClassObject: ComponentClassNameItems = {
   FileUploaderPreviewerFooter: {
     className: ComponentClassName.FileUploaderPreviewerFooter,
   },
+  FileUploaderPreviewerFooterActions: {
+    className: ComponentClassName.FileUploaderPreviewerFooterActions,
+  },
   Flex: {
     className: ComponentClassName.Flex,
     components: ['Flex'],
@@ -653,6 +656,8 @@ export const ComponentClassNames: ComponentClassNamesType = {
     ComponentClassObject.FileUploaderPreviewerBody.className,
   FileUploaderPreviewerFooter:
     ComponentClassObject.FileUploaderPreviewerFooter.className,
+  FileUploaderPreviewerFooterActions:
+    ComponentClassObject.FileUploaderPreviewerFooterActions.className,
   Flex: ComponentClassObject.Flex.className,
   Grid: ComponentClassObject.Grid.className,
   Heading: ComponentClassObject.Heading.className,

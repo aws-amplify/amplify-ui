@@ -1,5 +1,6 @@
 import {
   AlignItemsValue,
+  BackgroundColorValue,
   BorderColorValue,
   BorderRadiusValue,
   BorderStyleValue,
@@ -15,7 +16,7 @@ import {
 import { TypographyTokens } from '../types/typography';
 
 interface BaseDropZoneTokens {
-  backgroundColor: DesignToken<ColorValue>;
+  backgroundColor: DesignToken<BackgroundColorValue>;
   borderWidth: DesignToken<BorderWidthValue>;
   borderStyle: DesignToken<BorderStyleValue>;
   borderColor: DesignToken<BorderColorValue>;
@@ -43,7 +44,7 @@ interface FileNameTokens extends TypographyTokens {}
 interface FileSizeTokens extends TypographyTokens {}
 
 interface FileImageTokens {
-  backgroundColor: DesignToken<ColorValue>;
+  backgroundColor: DesignToken<BackgroundColorValue>;
   borderRadius: DesignToken<BorderRadiusValue>;
   color: DesignToken<ColorValue>;
   height: DesignToken<SpaceValue>;
@@ -51,7 +52,7 @@ interface FileImageTokens {
 }
 
 interface FileUploaderFileTokens {
-  backgroundColor: DesignToken<ColorValue>;
+  backgroundColor: DesignToken<BackgroundColorValue>;
   borderWidth: DesignToken<BorderWidthValue>;
   borderColor: DesignToken<BorderColorValue>;
   borderStyle: DesignToken<BorderStyleValue>;
@@ -76,7 +77,7 @@ interface FileUploaderLoaderTokens {
 interface FileUploaderPreviewerTokens {
   maxHeight: DesignToken<SpaceValue>;
   maxWidth: DesignToken<SpaceValue>;
-  backgroundColor: DesignToken<ColorValue>;
+  backgroundColor: DesignToken<BackgroundColorValue>;
   borderWidth: DesignToken<BorderWidthValue>;
   borderColor: DesignToken<BorderColorValue>;
   borderStyle: DesignToken<BorderStyleValue>;

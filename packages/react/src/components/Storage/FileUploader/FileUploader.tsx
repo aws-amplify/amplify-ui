@@ -290,10 +290,17 @@ export function FileUploader({
       return (_: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         const names = [...isEditingName];
         names[index] = true;
+        const newFileStatuses = [...fileStatuses];
+        const status = fileStatuses[index];
+        newFileStatuses[index] = {
+          ...status,
+          fileState: 'editing',
+        };
+        setFileStatuses(newFileStatuses);
         setisEditingName(names);
       };
     },
-    [isEditingName]
+    [isEditingName, fileStatuses, setFileStatuses]
   );
 
   const CommonProps = {

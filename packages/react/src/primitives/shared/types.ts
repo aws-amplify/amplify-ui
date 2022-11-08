@@ -106,6 +106,7 @@ type ComponentClassNameKey =
   | 'FileUploaderPreviewerText'
   | 'FileUploaderPreviewerBody'
   | 'FileUploaderPreviewerFooter'
+  | 'FileUploaderPreviewerFooterActions'
   | 'Flex'
   | 'Grid'
   | 'Heading'

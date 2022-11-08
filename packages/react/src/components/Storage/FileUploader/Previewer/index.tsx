@@ -1,11 +1,10 @@
 import React from 'react';
-import { translate } from '@aws-amplify/ui';
+import { ComponentClassName, translate } from '@aws-amplify/ui';
 import { PreviewerProps } from '../types';
 import {
   Alert,
   Button,
   ComponentClassNames,
-  Flex,
   Loader,
   Text,
   View,
@@ -72,8 +71,10 @@ export function Previewer({
           )}
         </Text>
         {children}
+      </View>
 
-        <View className={ComponentClassNames.FileUploaderPreviewerFooter}>
+      <View className={ComponentClassNames.FileUploaderPreviewerFooter}>
+        <View>
           {isLoading && (
             <>
               <Text>Uploading: {percentage}%</Text>
@@ -86,70 +87,42 @@ export function Previewer({
               />
             </>
           )}
+        </View>
+
+        <View className={ComponentClassName.FileUploaderPreviewerFooterActions}>
           {!isLoading && !isSuccess && (
             <>
-              <View>
-                <Button
-                  disabled={
-                    fileStatuses.some(
-                      (status) => status?.fileState === 'error'
-                    ) ||
-                    isEditingName.some((edit) => edit) ||
-                    remainingFilesLength === 0 ||
-                    maxFilesError
-                  }
-                  size="small"
-                  variation="primary"
-                  onClick={onFileClick}
-                >
-                  {translate('Upload')}
-                  {` ${remainingFilesLength} `}
-                  {translate('files')}
-                </Button>
-              </View>
+              <Button
+                disabled={
+                  fileStatuses.some(
+                    (status) => status?.fileState === 'error'
+                  ) ||
+                  isEditingName.some((edit) => edit) ||
+                  remainingFilesLength === 0 ||
+                  maxFilesError
+                }
+                size="small"
+                variation="primary"
+                onClick={onFileClick}
+              >
+                {translate('Upload')}
+                {` ${remainingFilesLength} `}
+                {translate('files')}
+              </Button>
+
               <Button size="small" variation="link" onClick={onClear}>
                 {translate('Clear all')}
               </Button>
             </>
           )}
           {isSuccess && (
-            <>
-              <Text />
-              <Button size="small" onClick={onClear}>
-                {translate('Done')}
-              </Button>
-            </>
+            <Button size="small" onClick={onClear}>
+              {translate('Done')}
+            </Button>
           )}
         </View>
-        {!isLoading && !isSuccess && (
-          <Flex direction="row">
-            <Button
-              disabled={
-                fileStatuses.some((status) => status?.error) ||
-                isEditingName.some((edit) => edit) ||
-                remainingFilesLength === 0 ||
-                maxFilesError
-              }
-              size="small"
-              variation="primary"
-              onClick={onFileClick}
-            >
-              {translate('Upload')}
-              {` ${remainingFilesLength} `}
-              {translate('files')}
-            </Button>
-
-            <Button size="small" variation="link" onClick={onClear}>
-              {translate('Clear all')}
-            </Button>
-          </Flex>
-        )}
-        {isSuccess && (
-          <Button size="small" onClick={onClear}>
-            {translate('Done')}
-          </Button>
-        )}
       </View>
+
       {maxFilesError && <Alert variation="error" heading={headingMaxFiles} />}
     </View>
   );
