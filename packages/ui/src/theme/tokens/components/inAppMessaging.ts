@@ -1,24 +1,28 @@
 import { DesignTokenProperties } from '../types/designToken';
 
-interface BannerTokens extends DesignTokenProperties<'height' | 'width'> {}
+type BannerTokens<Output> = DesignTokenProperties<'height' | 'width', Output>;
 
-interface ButtonTokens
-  extends DesignTokenProperties<'backgroundColor' | 'borderRadius' | 'color'> {}
+type ButtonTokens<Output> = DesignTokenProperties<
+  'backgroundColor' | 'borderRadius' | 'color',
+  Output
+>;
 
-interface DialogTokens
-  extends DesignTokenProperties<
-    'height' | 'minHeight' | 'minWidth' | 'width'
-  > {}
+type DialogTokens<Output> = DesignTokenProperties<
+  'height' | 'minHeight' | 'minWidth' | 'width',
+  Output
+>;
 
-interface HeaderTokens
-  extends DesignTokenProperties<'fontSize' | 'fontWeight'> {}
+type HeaderTokens<Output> = DesignTokenProperties<
+  'fontSize' | 'fontWeight',
+  Output
+>;
 
-export interface InAppMessagingTokens {
-  banner?: BannerTokens;
-  button?: ButtonTokens;
-  dialog?: DialogTokens;
-  header?: HeaderTokens;
-}
+export type InAppMessagingTokens<Output = unknown> = {
+  banner?: BannerTokens<Output>;
+  button?: ButtonTokens<Output>;
+  dialog?: DialogTokens<Output>;
+  header?: HeaderTokens<Output>;
+};
 
 export const inappmessaging: InAppMessagingTokens = {
   banner: {

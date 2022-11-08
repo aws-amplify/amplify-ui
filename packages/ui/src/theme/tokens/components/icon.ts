@@ -1,7 +1,9 @@
 import { DesignTokenProperties } from '../types/designToken';
 
-export interface IconTokens
-  extends DesignTokenProperties<'height' | 'lineHeight'> {}
+export type IconTokens<Output = unknown> = DesignTokenProperties<
+  'height' | 'lineHeight',
+  Output
+>;
 
 export const icon: IconTokens = {
   lineHeight: { value: 1 },

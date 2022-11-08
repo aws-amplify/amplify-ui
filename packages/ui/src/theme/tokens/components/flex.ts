@@ -1,19 +1,9 @@
-import {
-  AlignContentValue,
-  AlignItemsValue,
-  DesignToken,
-  FlexWrapValue,
-  GapValue,
-  JustifyContentValue,
-} from '../types/designToken';
+import { DesignTokenProperties } from '../types/designToken';
 
-export interface FlexTokens {
-  gap: DesignToken<GapValue>;
-  justifyContent: DesignToken<JustifyContentValue>;
-  alignItems: DesignToken<AlignItemsValue>;
-  alignContent: DesignToken<AlignContentValue>;
-  flexWrap: DesignToken<FlexWrapValue>;
-}
+export type FlexTokens<Output = unknown> = DesignTokenProperties<
+  'gap' | 'justifyContent' | 'alignItems' | 'alignContent' | 'flexWrap',
+  Output
+>;
 
 export const flex: FlexTokens = {
   gap: { value: '{space.medium.value}' },

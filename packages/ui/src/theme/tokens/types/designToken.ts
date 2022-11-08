@@ -104,8 +104,13 @@ interface TokenStandardProperties {
   alignItems: AlignItemsValue;
   alignContent: AlignContentValue;
   backgroundColor: BackgroundColorValue;
-  borderColor: BorderColorValue;
+  borderBlockEnd: BorderValue;
+  borderBlockEndColor: ColorValue;
+  borderBlockStart: BorderValue;
   borderCollapse: BorderCollapseValue;
+  borderColor: BorderColorValue;
+  borderInlineEnd: BorderValue;
+  borderInlineStart: BorderValue;
   borderRadius: BorderRadiusValue;
   borderStyle: BorderStyleValue;
   borderWidth: BorderWidthValue;

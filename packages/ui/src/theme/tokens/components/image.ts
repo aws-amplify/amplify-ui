@@ -1,9 +1,9 @@
 import { DesignTokenProperties } from '../types/designToken';
 
-export interface ImageTokens
-  extends DesignTokenProperties<
-    'maxWidth' | 'height' | 'objectFit' | 'objectPosition'
-  > {}
+export type ImageTokens<Output = unknown> = DesignTokenProperties<
+  'maxWidth' | 'height' | 'objectFit' | 'objectPosition',
+  Output
+>;
 
 export const image: ImageTokens = {
   maxWidth: { value: '100%' },

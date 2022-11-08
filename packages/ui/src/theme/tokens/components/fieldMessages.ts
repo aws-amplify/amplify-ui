@@ -1,25 +1,12 @@
-import {
-  DesignToken,
-  ColorValue,
-  FontStyleValue,
-  FontSizeValue,
-} from '../types/designToken';
+import { DesignTokenProperties } from '../types/designToken';
 
-interface FieldMessagesErrorTokens {
-  color: DesignToken<ColorValue>;
-  fontSize: DesignToken<FontSizeValue>;
-}
-
-interface FieldMessagesDescriptionTokens {
-  color: DesignToken<ColorValue>;
-  fontStyle: DesignToken<FontStyleValue>;
-  fontSize: DesignToken<FontSizeValue>;
-}
-
-export interface FieldMessagesTokens {
-  error: FieldMessagesErrorTokens;
-  description: FieldMessagesDescriptionTokens;
-}
+export type FieldMessagesTokens<Output = unknown> = {
+  error?: DesignTokenProperties<'color' | 'fontSize', Output>;
+  description?: DesignTokenProperties<
+    'color' | 'fontSize' | 'fontStyle',
+    Output
+  >;
+};
 
 export const fieldmessages: FieldMessagesTokens = {
   error: {

@@ -1,13 +1,9 @@
 import { DesignTokenProperties } from '../types/designToken';
 
-interface LinkStateTokens extends DesignTokenProperties<'color'> {}
+type LinkState = 'active' | 'focus' | 'hover' | 'visited';
 
-export interface LinkTokens extends DesignTokenProperties<'color'> {
-  active?: LinkStateTokens;
-  focus?: LinkStateTokens;
-  hover?: LinkStateTokens;
-  visited?: LinkStateTokens;
-}
+export type LinkTokens<Output = unknown> = DesignTokenProperties<'color'> &
+  Record<LinkState, DesignTokenProperties<'color', Output>>;
 
 export const link: LinkTokens = {
   active: { color: { value: '{colors.font.active.value}' } },
