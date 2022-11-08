@@ -1,6 +1,6 @@
 import { FieldValidator, ValidationMode } from '../../../types';
 
-const shouldValidate = (
+export const shouldValidate = (
   validationMode: ValidationMode,
   eventType: 'change' | 'blur',
   hasBlurred: boolean

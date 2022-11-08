@@ -3,37 +3,37 @@ import { hasSpecialChars } from '../../../helpers/authenticator';
 import { FieldValidator, PasswordSettings } from '../../../types';
 
 /** Gets password setting from Amplify configuration */
-const getPasswordSettings = () => {
+export const getPasswordSettings = () => {
   // need to cast to any because `Amplify.configure()` isn't typed properly
   const config = Amplify.configure() as any;
   return config?.aws_cognito_password_protection_settings as PasswordSettings;
 };
 
-const getMinLengthValidator = (minLength: number): FieldValidator => ({
+export const getMinLengthValidator = (minLength: number): FieldValidator => ({
   validationMode: 'onTouched',
-  handler: (field) => field.length > 0,
+  handler: (field) => field.length >= minLength,
   message: `Password must have at least ${minLength} characters`,
 });
 
-const hasLowerCase: FieldValidator = {
+export const hasLowerCase: FieldValidator = {
   validationMode: 'onTouched',
   handler: (field) => /[a-z]/.test(field),
   message: 'Password must have lower case letters',
 };
 
-const hasUpperCase: FieldValidator = {
+export const hasUpperCase: FieldValidator = {
   validationMode: 'onTouched',
   handler: (field) => /[A-Z]/.test(field),
   message: 'Password must have upper case letters',
 };
 
-const hasNumber: FieldValidator = {
+export const hasNumber: FieldValidator = {
   validationMode: 'onTouched',
   handler: (field) => /[0-9]/.test(field),
-  message: 'Password must have lower case letters',
+  message: 'Password must have numbers',
 };
 
-const hasSpecialChar: FieldValidator = {
+export const hasSpecialChar: FieldValidator = {
   validationMode: 'onTouched',
   handler: (field) => hasSpecialChars(field),
   message: 'Password must have special characters',
