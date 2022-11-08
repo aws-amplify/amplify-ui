@@ -1,10 +1,10 @@
 import React from 'react';
 import { fireEvent, render, renderHook } from '@testing-library/react-native';
-import Radio, { CONTAINER_TEST_ID, DOT_TEST_ID } from '../Radio';
-import { Size } from '../types';
 import { useTheme } from '../../../theme';
-import { getThemedStyles } from '../styles';
 import { capitalize } from '../../../utils';
+import Radio, { CONTAINER_TEST_ID, DOT_TEST_ID } from '../Radio';
+import { getThemedStyles } from '../styles';
+import { Size } from '../types';
 
 const sizes: Size[] = ['small', 'medium', 'large'];
 
@@ -113,7 +113,6 @@ describe('Radio', () => {
   });
 
   it('applies theme and custom styles', () => {
-    const customLabelStyle = { color: 'red' };
     const customStyle = { margin: 10 };
     const customContainerStyle = {
       borderColor: 'blue',
@@ -122,22 +121,24 @@ describe('Radio', () => {
     const customDotStyle = {
       backgroundColor: 'green',
     };
-    const labelText = 'Styled label';
 
-    const { toJSON, getByTestId, getByText, getByRole } = render(
+    const { toJSON, getByTestId, getByRole } = render(
       <Radio
-        labelStyle={customLabelStyle}
         style={customStyle}
         radioContainerStyle={customContainerStyle}
         radioDotStyle={customDotStyle}
         value="value"
-        label={labelText}
         selected
       />
     );
 
     const { result } = renderHook(() => useTheme());
     const themedStyle = getThemedStyles(result.current);
+
+    expect(getByRole('radio').props.style).toStrictEqual([
+      { ...themedStyle.container, flexDirection: 'row' },
+      customStyle,
+    ]);
 
     expect(getByTestId(CONTAINER_TEST_ID).props.style).toStrictEqual([
       themedStyle.radioContainer,
@@ -149,23 +150,6 @@ describe('Radio', () => {
       themedStyle.radioDot,
       themedStyle.radioDotMedium,
       customDotStyle,
-    ]);
-
-    // TODO: when Label theming PR is merged, change this to themedStyle.label
-    const temporaryLabelStyle = {
-      fontSize: 16,
-      marginHorizontal: 4,
-      marginVertical: 2,
-    };
-
-    expect(getByText(labelText).props.style).toStrictEqual([
-      temporaryLabelStyle,
-      customLabelStyle,
-    ]);
-
-    expect(getByRole('radio').props.style).toStrictEqual([
-      { ...themedStyle.container, flexDirection: 'row' },
-      customStyle,
     ]);
 
     expect(toJSON()).toMatchSnapshot();

@@ -68,23 +68,6 @@ exports[`Radio applies theme and custom styles 1`] = `
       testID="amplify__radio-button__dot"
     />
   </View>
-  <Text
-    accessibilityRole="text"
-    style={
-      Array [
-        Object {
-          "fontSize": 16,
-          "marginHorizontal": 4,
-          "marginVertical": 2,
-        },
-        Object {
-          "color": "red",
-        },
-      ]
-    }
-  >
-    Styled label
-  </Text>
 </View>
 `;
 

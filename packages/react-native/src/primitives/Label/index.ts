@@ -1,2 +1,2 @@
 export { default as Label } from './Label';
-export { LabelProps } from './types';
+export { LabelProps, LabelStyles } from './types';
