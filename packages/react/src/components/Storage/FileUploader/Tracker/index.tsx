@@ -20,16 +20,13 @@ import {
 import { FileState } from './FileState';
 export function Tracker({
   file,
+  fileState,
   hasImage,
   url,
   onChange,
   onPause,
   onResume,
   onCancel,
-  isLoading,
-  isPaused,
-  isSuccess,
-  isError,
   errorMessage,
   name,
   percentage,
@@ -43,14 +40,12 @@ export function Tracker({
 
   const icon = hasImage ? <Image alt={file.name} src={url} /> : <IconFile />;
 
-  const showonStartEdit = (): boolean => {
-    // if complete or loading can't edit file name
-    if (isSuccess || isLoading) return false;
-    // only allow editing on error if its a problem with extension
-    if (isError) {
-      return errorMessage === translate('Extension not allowed');
+  const showEditButton = (): boolean => {
+    // only allow editing of file name if it's error or null
+    if (fileState === null || fileState === 'error') {
+      return true;
     }
-    return true;
+    return false;
   };
 
   return (
@@ -90,42 +85,38 @@ export function Tracker({
             />
           </View>
 
-          {showonStartEdit() && (
-            <Button onClick={onStartEdit} size="small" variation="link">
-              <IconEdit fontSize="medium" />
-            </Button>
-          )}
-
-          <Text as="span" className={ComponentClassNames.FileUploaderFileSize}>
-            {humanFileSize(size, true)}
-          </Text>
-          {isLoading && (
-            <>
-              {isPaused ? (
-                <Button onClick={onResume} size="small" variation="link">
-                  {translate('Resume')}
-                </Button>
-              ) : (
-                <Button onClick={onPause} size="small" variation="link">
-                  {translate('pause')}
-                </Button>
-              )}
-            </>
-          )}
-          {/* {isSuccess && !isError && (
-              <Button size="small" onClick={onDelete}>
-                Delete
+                {showEditButton() && (
+                  <Button onClick={onStartEdit} size="small" variation="link">
+                    <EditIcon fontSize="medium" />
+                  </Button>
+                )}
+                <Text as="span" color="font.tertiary" marginInlineStart="small">
+                  {humanFileSize(size, true)}
+                </Text>
+              </Flex>
+              <FileState errorMessage={errorMessage} fileState={fileState} />
+            </Flex>
+            {fileState === 'paused' && (
+              <Button onClick={onResume} size="small" variation="link">
+                {translate('Resume')}
               </Button>
-            )} */}
-          {/* {!isSuccess && !isLoading && ( */}
-          {!isLoading && (
-            <Button size="small" onClick={onCancel}>
-              <IconClose />
-            </Button>
-          )}
-        </>
-      )}
-      {isLoading ? (
+            )}
+            {fileState === 'resume' && (
+              <Button onClick={onPause} size="small" variation="link">
+                {translate('pause')}
+              </Button>
+            )}
+            {(fileState === null || fileState === 'success') && (
+              <Button size="small" onClick={onCancel}>
+                <Text>
+                  <CloseIcon />
+                </Text>
+              </Button>
+            )}
+          </>
+        )}
+      </Flex>
+      <Flex direction="column" gap="0" alignItems="flex-end">
         <Loader
           className={ComponentClassNames.FileUploaderLoader}
           variation="linear"

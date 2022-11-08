@@ -9,7 +9,7 @@ Testing upload image feature
   @react
   Scenario: I select a file and  upload it
     When I select a file with file name "test.jpg"
-    Then I see the file "test.jpg" listed
+    Then I see "test.jpg" 
     Given I intercept '{ "method": "POST", "url": "**/test.jpg?uploads="  }' with fixture "FileUploader-uploads.xml"
     Given I intercept '{ "method": "PUT", "url": "**/test.jpg?partNumber**"  }' with fixture "FileUploader-uploads.xml"
     Given I intercept '{ "method": "POST", "url": "**/test.jpg?uploadId**"  }' with fixture "FileUploader-uploads-complete.xml"

@@ -12,42 +12,32 @@ import {
 } from '../../../../primitives';
 import { UploadDropZone } from '../UploadDropZone';
 import { UploadButton } from '../UploadButton';
-import { Tracker } from '../Tracker';
 
 export function Previewer({
-  files,
+  acceptedFileTypes,
+  children,
+  fileStatuses,
   inDropZone,
+  isEditingName,
+  isLoading,
+  isSuccess,
+  maxFilesError,
+  multiple,
   onClear,
   onDragEnter,
   onDragLeave,
   onDragOver,
   onDragStart,
   onDrop,
-  onFileCancel,
-  onNameChange,
-  allFileNames,
-  acceptedFileTypes,
-  multiple,
   onFileChange,
-  fileStatuses,
-  onPause,
-  onResume,
-  onDelete,
-  isLoading,
-  isSuccess,
-  percentage,
   onFileClick,
-  isEditingName,
-  onSaveEdit,
-  onCancelEdit,
-  onStartEdit,
-  maxFilesError,
+  percentage,
 }: PreviewerProps): JSX.Element {
   const headingMaxFiles = translate('Over Max files!');
   const uploadedFilesLength = () =>
-    files.filter((_, i) => fileStatuses[i]?.success).length;
+    fileStatuses.filter((file) => file?.fileState === 'success').length;
 
-  const remainingFilesLength = files.length - uploadedFilesLength();
+  const remainingFilesLength = fileStatuses.length - uploadedFilesLength();
   return (
     <View className={ComponentClassNames.FileUploaderPreviewer}>
       <View className={ComponentClassNames.FileUploaderPreviewerBody}>
@@ -64,6 +54,7 @@ export function Previewer({
           </Text>
           <UploadButton
             acceptedFileTypes={acceptedFileTypes}
+            isLoading={isLoading}
             multiple={multiple}
             onFileChange={onFileChange}
             className={ComponentClassNames.FileUploaderDropZoneButton}
@@ -80,33 +71,9 @@ export function Previewer({
             </>
           )}
         </Text>
-        {files?.map((file, index) => (
-          <Tracker
-            percentage={fileStatuses[index]?.percentage}
-            file={file}
-            hasImage={file?.type.startsWith('image/')}
-            url={URL.createObjectURL(file)}
-            key={index}
-            onChange={(e): void => onNameChange(e, index)}
-            onCancel={() => onFileCancel(index)}
-            onPause={onPause(index)}
-            onResume={onResume(index)}
-            onDelete={onDelete}
-            name={allFileNames[index]}
-            isLoading={fileStatuses[index]?.loading}
-            isError={fileStatuses[index]?.error}
-            errorMessage={fileStatuses[index]?.fileErrors}
-            isSuccess={fileStatuses[index]?.success}
-            isPaused={fileStatuses[index]?.paused}
-            isEditing={isEditingName[index]}
-            onSaveEdit={(e): void => onSaveEdit(e, index)}
-            onCancelEdit={(e): void => onCancelEdit(e, index)}
-            onStartEdit={(e): void => onStartEdit(e, index)}
-          />
-        ))}
-      </View>
-      <View className={ComponentClassNames.FileUploaderPreviewerFooter}>
-        <View>
+        {children}
+
+        <View className={ComponentClassNames.FileUploaderPreviewerFooter}>
           {isLoading && (
             <>
               <Text>Uploading: {percentage}%</Text>
@@ -117,6 +84,40 @@ export function Previewer({
                 isPercentageTextHidden
                 isDeterminate
               />
+            </>
+          )}
+          {!isLoading && !isSuccess && (
+            <>
+              <View>
+                <Button
+                  disabled={
+                    fileStatuses.some(
+                      (status) => status?.fileState === 'error'
+                    ) ||
+                    isEditingName.some((edit) => edit) ||
+                    remainingFilesLength === 0 ||
+                    maxFilesError
+                  }
+                  size="small"
+                  variation="primary"
+                  onClick={onFileClick}
+                >
+                  {translate('Upload')}
+                  {` ${remainingFilesLength} `}
+                  {translate('files')}
+                </Button>
+              </View>
+              <Button size="small" variation="link" onClick={onClear}>
+                {translate('Clear all')}
+              </Button>
+            </>
+          )}
+          {isSuccess && (
+            <>
+              <Text />
+              <Button size="small" onClick={onClear}>
+                {translate('Done')}
+              </Button>
             </>
           )}
         </View>

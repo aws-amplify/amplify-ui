@@ -7,50 +7,49 @@ import classNames from 'classnames';
 import { classNameModifier } from '../../../../primitives/shared/utils';
 
 export const FileState = ({
-  loading,
-  success,
-  error,
-  paused,
+  fileState,
   errorMessage,
   percentage,
 }: FileStateProps): JSX.Element => {
-  if (loading)
-    return (
-      <Text className={ComponentClassNames.FileUploaderFileStatus}>
-        {translate('Loading')}: {percentage}%
-      </Text>
-    );
-  if (paused)
-    return (
-      <Text className={ComponentClassNames.FileUploaderFileStatus}>
-        {translate('Paused')}: {percentage}%
-      </Text>
-    );
-  if (success)
-    return (
-      <Text
-        className={classNames(
-          ComponentClassNames.FileUploaderFileStatus,
-          classNameModifier(
+  switch (fileState) {
+    case 'loading':
+      return (
+        <Text className={ComponentClassNames.FileUploaderFileStatus}>
+          {translate('Loading')}: {percentage}%
+        </Text>
+      );
+    case 'paused':
+      return (
+        <Text className={ComponentClassNames.FileUploaderFileStatus}>
+          {translate('Paused')}: {percentage}%
+        </Text>
+      );
+    case 'success':
+      return (
+        <Text
+          className={classNames(
             ComponentClassNames.FileUploaderFileStatus,
-            'success'
-          )
-        )}
-      >
-        <IconCheck fontSize="xl" /> {translate('Uploaded successfully')}
-      </Text>
-    );
-  if (error)
-    return (
-      <Text
-        className={classNames(
-          ComponentClassNames.FileUploaderFileStatus,
-          classNameModifier(ComponentClassNames.FileUploaderFileStatus, 'error')
-        )}
-      >
-        <IconError fontSize="xl" /> {errorMessage}
-      </Text>
-    );
-
-  return null;
+            classNameModifier(
+              ComponentClassNames.FileUploaderFileStatus,
+              'success'
+            )
+          )}
+        >
+          <IconCheck fontSize="xl" /> {translate('Uploaded successfully')}
+        </Text>
+      );
+    case 'error':
+      return (
+        <Text
+          className={classNames(
+            ComponentClassNames.FileUploaderFileStatus,
+            classNameModifier(ComponentClassNames.FileUploaderFileStatus, 'error')
+          )}
+        >
+          <IconError fontSize="xl" /> {errorMessage}
+        </Text>
+      );
+    default:
+      return null;
+  }
 };
