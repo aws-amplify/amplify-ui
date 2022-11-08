@@ -110,8 +110,6 @@ describe('ChangePassword', () => {
 
     fireEvent.submit(submitButton);
 
-    // findBy is already async, so we do not need to use `waitFor`
-    // https://testing-library.com/docs/queries/about#types-of-queries
     expect(await screen.findByText('Mock Error')).toBeDefined();
   });
 
