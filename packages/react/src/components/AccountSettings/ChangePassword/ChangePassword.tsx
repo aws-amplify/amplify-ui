@@ -126,10 +126,7 @@ function ChangePassword({
 
     // only re-render if errors have changed
     if (!isEqual(validationError, newValidationError)) {
-      setValidationError({
-        newPassword: newPasswordErrors,
-        confirmPassword: confirmPasswordErrors,
-      });
+      setValidationError(newValidationError);
     }
   };
 

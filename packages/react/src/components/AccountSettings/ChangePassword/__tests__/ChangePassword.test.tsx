@@ -14,10 +14,18 @@ jest.mock('../../../../internal', () => ({
 }));
 
 const changePasswordSpy = jest.spyOn(UIModule, 'changePassword');
-jest.spyOn(UIModule, 'getPasswordSettings').mockReturnValue({
-  passwordPolicyMinLength: 4,
-  passwordPolicyCharacters: ['REQUIRES_LOWERCASE', 'REQUIRES_UPPERCASE'],
-});
+jest.spyOn(UIModule, 'getDefaultPasswordValidators').mockReturnValue([
+  {
+    event: 'onTouched',
+    handler: (field) => /[a-z]/.test(field),
+    message: 'Password must have lower case letters',
+  },
+  {
+    event: 'onTouched',
+    handler: (field) => /[A-Z]/.test(field),
+    message: 'Password must have upper case letters',
+  },
+]);
 
 describe('ChangePassword', () => {
   beforeEach(() => {
@@ -156,7 +164,7 @@ describe('ChangePassword', () => {
     });
 
     fireEvent.blur(newPassword, {
-      target: { name: 'newPassword', value: 'badpassword' },
+      target: { name: 'newPassword' },
     });
 
     const validationError = await screen.findByText(
@@ -184,6 +192,10 @@ describe('ChangePassword', () => {
       target: { name: 'confirmPassword', value: 'differentpassword' },
     });
 
+    fireEvent.blur(confirmPassword, {
+      target: { name: 'confirmPassword' },
+    });
+
     const validationError = await screen.findByText(
       'Your passwords must match'
     );
@@ -192,23 +204,19 @@ describe('ChangePassword', () => {
     expect(submitButton).toHaveAttribute('disabled');
   });
 
-  it.only('displays custom password validation error messages', async () => {
-    const minLengthErrorMsg = 'Password must have length of 7 or more';
-    const minLength = (password: string) => {
-      if (password.length <= 6) {
-        return minLengthErrorMsg;
-      }
-      return null;
+  it('displays custom password validation error messages', async () => {
+    const minLength: UIModule.FieldValidator = {
+      event: 'onChange',
+      handler: (password) => password.length >= 8,
+      message: 'Password must have length 4 or greater',
     };
 
-    const speicalCharErrorMsg = 'Password must have a star';
-    const hasSpecialChar = (password: string) => {
-      if (!password.includes('*')) {
-        return speicalCharErrorMsg;
-      }
-      return null;
+    const hasSpecialChar: UIModule.FieldValidator = {
+      event: 'onChange',
+      handler: (password) => password.includes('*'),
+      message: 'Password must have a star',
     };
-    render(<ChangePassword validate={[minLength, hasSpecialChar]} />);
+    render(<ChangePassword validators={[minLength, hasSpecialChar]} />);
 
     const newPassword = await screen.findByLabelText('New Password');
     const submitButton = await screen.findByRole('button', {
@@ -219,13 +227,9 @@ describe('ChangePassword', () => {
       target: { name: 'newPassword', value: 'badpw' },
     });
 
-    fireEvent.blur(newPassword, {
-      target: { name: 'newPassword' },
-    });
+    const minLengthError = await screen.findByText(minLength.message);
 
-    const minLengthError = await screen.findByText(minLengthErrorMsg);
-
-    const specialCharError = await screen.findByText(speicalCharErrorMsg);
+    const specialCharError = await screen.findByText(hasSpecialChar.message);
 
     expect(minLengthError).toBeDefined();
     expect(specialCharError).toBeDefined();
