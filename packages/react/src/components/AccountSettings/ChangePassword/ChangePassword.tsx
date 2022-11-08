@@ -32,18 +32,13 @@ const getIsDisabled = (
 ): boolean => {
   const { currentPassword, newPassword, confirmPassword } = formValues;
 
-  if (!currentPassword || !newPassword || !confirmPassword) {
-    // if passwords aren't entered yet, disable submit
-    return true;
-  } else if (
-    // if there are some password validation error, disable submit
-    validationError.newPassword?.length > 0 ||
-    validationError.confirmPassword?.length > 0
-  ) {
-    return true;
-  }
+  const hasEmptyField = !currentPassword || !newPassword || !confirmPassword;
 
-  return false;
+  const arePasswordsInvalid =
+    validationError.newPassword?.length > 0 ||
+    validationError.confirmPassword?.length > 0;
+
+  return hasEmptyField || arePasswordsInvalid;
 };
 
 function ChangePassword({
