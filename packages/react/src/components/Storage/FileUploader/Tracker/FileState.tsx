@@ -5,27 +5,28 @@ import { CheckIcon, ErrorIcon } from '../Previewer/PreviewerIcons';
 import { FileStateProps } from '../types';
 
 export const FileState = ({
-  loading,
-  success,
-  error,
-  paused,
+  fileState,
   errorMessage,
 }: FileStateProps): JSX.Element => {
-  if (loading) return <Text className="">{translate('Loading')}</Text>;
-  if (paused) return <Text className="">{translate('Paused')}</Text>;
-  if (success)
-    return (
-      <Flex direction="row" gap="xxs" color="font.success">
-        <CheckIcon fontSize="xl" /> {translate('Uploaded successfully')}
-      </Flex>
-    );
-  if (error)
-    return (
-      <Flex direction="row" gap="xxs" color="font.error">
-        <ErrorIcon fontSize="xl" />
-        <Text>{errorMessage}</Text>
-      </Flex>
-    );
-
-  return null;
+  switch (fileState) {
+    case 'loading':
+      return <Text className="">{translate('Loading')}</Text>;
+    case 'paused':
+      return <Text className="">{translate('Paused')}</Text>;
+    case 'success':
+      return (
+        <Flex direction="row" gap="xxs" color="font.success">
+          <CheckIcon fontSize="xl" /> {translate('Uploaded successfully')}
+        </Flex>
+      );
+    case 'error':
+      return (
+        <Flex direction="row" gap="xxs" color="font.error">
+          <ErrorIcon fontSize="xl" />
+          <Text>{errorMessage}</Text>
+        </Flex>
+      );
+    default:
+      return null;
+  }
 };

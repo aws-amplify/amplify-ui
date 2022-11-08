@@ -16,16 +16,13 @@ import { CloseIcon, EditIcon, fileIcon } from '../Previewer/PreviewerIcons';
 import { FileState } from './FileState';
 export function Tracker({
   file,
+  fileState,
   hasImage,
   url,
   onChange,
   onPause,
   onResume,
   onCancel,
-  isLoading,
-  isPaused,
-  isSuccess,
-  isError,
   errorMessage,
   name,
   percentage,
@@ -43,14 +40,12 @@ export function Tracker({
     <View className="amplify-fileuploder__img-placeholder">{fileIcon}</View>
   );
 
-  const showonStartEdit = (): boolean => {
-    // if complete or loading can't edit file name
-    if (isSuccess || isLoading) return false;
-    // only allow editing on error if its a problem with extension
-    if (isError) {
-      return errorMessage === translate('Extension not allowed');
+  const showEditButton = (): boolean => {
+    // only allow editing of file name if it's error or null
+    if (fileState === null || fileState === 'error') {
+      return true;
     }
-    return true;
+    return false;
   };
 
   return (
@@ -100,7 +95,7 @@ export function Tracker({
                   {name}
                 </Text>
 
-                {showonStartEdit() && (
+                {showEditButton() && (
                   <Button onClick={onStartEdit} size="small" variation="link">
                     <EditIcon fontSize="medium" />
                   </Button>
@@ -109,34 +104,19 @@ export function Tracker({
                   {humanFileSize(size, true)}
                 </Text>
               </Flex>
-              <FileState
-                error={isError}
-                errorMessage={errorMessage}
-                success={isSuccess && !isError}
-                paused={isPaused}
-                loading={isLoading}
-              />
+              <FileState errorMessage={errorMessage} fileState={fileState} />
             </Flex>
-            {isLoading && (
-              <>
-                {isPaused ? (
-                  <Button onClick={onResume} size="small" variation="link">
-                    {translate('Resume')}
-                  </Button>
-                ) : (
-                  <Button onClick={onPause} size="small" variation="link">
-                    {translate('pause')}
-                  </Button>
-                )}
-              </>
-            )}
-            {/* {isSuccess && !isError && (
-              <Button size="small" onClick={onDelete}>
-                Delete
+            {fileState === 'paused' && (
+              <Button onClick={onResume} size="small" variation="link">
+                {translate('Resume')}
               </Button>
-            )} */}
-            {/* {!isSuccess && !isLoading && ( */}
-            {!isLoading && (
+            )}
+            {fileState === 'resume' && (
+              <Button onClick={onPause} size="small" variation="link">
+                {translate('pause')}
+              </Button>
+            )}
+            {(fileState === null || fileState === 'success') && (
               <Button size="small" onClick={onCancel}>
                 <Text>
                   <CloseIcon />

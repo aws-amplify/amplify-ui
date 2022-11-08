@@ -12,42 +12,32 @@ import {
 } from '../../../../primitives';
 import { UploadDropZone } from '../UploadDropZone';
 import { UploadButton } from '../UploadButton';
-import { Tracker } from '../Tracker';
 
 export function Previewer({
-  files,
+  acceptedFileTypes,
+  children,
+  fileStatuses,
   inDropZone,
+  isEditingName,
+  isLoading,
+  isSuccess,
+  maxFilesError,
+  multiple,
   onClear,
   onDragEnter,
   onDragLeave,
   onDragOver,
   onDragStart,
   onDrop,
-  onFileCancel,
-  onNameChange,
-  allFileNames,
-  acceptedFileTypes,
-  multiple,
   onFileChange,
-  fileStatuses,
-  onPause,
-  onResume,
-  onDelete,
-  isLoading,
-  isSuccess,
-  percentage,
   onFileClick,
-  isEditingName,
-  onSaveEdit,
-  onCancelEdit,
-  onStartEdit,
-  maxFilesError,
+  percentage,
 }: PreviewerProps): JSX.Element {
   const headingMaxFiles = translate('Over Max files!');
   const uploadedFilesLength = () =>
-    files.filter((_, i) => fileStatuses[i]?.success).length;
+    fileStatuses.filter((file) => file?.fileState === 'success').length;
 
-  const remainingFilesLength = files.length - uploadedFilesLength();
+  const remainingFilesLength = fileStatuses.length - uploadedFilesLength();
   return (
     <Card variation="outlined" className="amplify-fileuploader__previewer">
       <Flex className="amplify-fileuploader__previewer__body">
@@ -64,6 +54,7 @@ export function Previewer({
           </Text>
           <UploadButton
             acceptedFileTypes={acceptedFileTypes}
+            isLoading={isLoading}
             multiple={multiple}
             onFileChange={onFileChange}
             className={'amplify-fileuploader__dropzone__button'}
@@ -80,30 +71,8 @@ export function Previewer({
             </>
           )}
         </Text>
-        {files?.map((file, index) => (
-          <Tracker
-            percentage={fileStatuses[index]?.percentage}
-            file={file}
-            hasImage={file?.type.startsWith('image/')}
-            url={URL.createObjectURL(file)}
-            key={index}
-            onChange={(e): void => onNameChange(e, index)}
-            onCancel={() => onFileCancel(index)}
-            onPause={onPause(index)}
-            onResume={onResume(index)}
-            onDelete={onDelete}
-            name={allFileNames[index]}
-            isLoading={fileStatuses[index]?.loading}
-            isError={fileStatuses[index]?.error}
-            errorMessage={fileStatuses[index]?.fileErrors}
-            isSuccess={fileStatuses[index]?.success}
-            isPaused={fileStatuses[index]?.paused}
-            isEditing={isEditingName[index]}
-            onSaveEdit={(e): void => onSaveEdit(e, index)}
-            onCancelEdit={(e): void => onCancelEdit(e, index)}
-            onStartEdit={(e): void => onStartEdit(e, index)}
-          />
-        ))}
+        {children}
+
         <View className="amplify-fileuploader__footer">
           {isLoading && (
             <>
@@ -121,7 +90,9 @@ export function Previewer({
               <View>
                 <Button
                   disabled={
-                    fileStatuses.some((status) => status?.error) ||
+                    fileStatuses.some(
+                      (status) => status?.fileState === 'error'
+                    ) ||
                     isEditingName.some((edit) => edit) ||
                     remainingFilesLength === 0 ||
                     maxFilesError
