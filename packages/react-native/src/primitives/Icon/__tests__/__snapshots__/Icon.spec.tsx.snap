@@ -17,6 +17,7 @@ exports[`Icon renders an animated icon 1`] = `
       "width": undefined,
     }
   }
+  testID="iconTestID"
 />
 `;
 
@@ -39,6 +40,7 @@ exports[`Icon renders as expected 1`] = `
       undefined,
     ]
   }
+  testID="iconTestID"
 />
 `;
 
@@ -63,5 +65,6 @@ exports[`Icon renders as expected with custom styles 1`] = `
       },
     ]
   }
+  testID="iconTestID"
 />
 `;

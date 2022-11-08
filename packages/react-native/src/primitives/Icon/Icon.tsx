@@ -1,7 +1,8 @@
 import React, { useMemo } from 'react';
 import { Animated, Image } from 'react-native';
 
-import { getStyles } from './styles';
+import { useTheme } from '../../theme';
+import { getThemedStyles } from './styles';
 import { IconProps } from './types';
 
 export default function Icon({
@@ -12,7 +13,11 @@ export default function Icon({
   style,
   ...rest
 }: IconProps): JSX.Element {
-  const { icon } = useMemo(() => getStyles(color, size), [color, size]);
+  const theme = useTheme();
+  const { icon } = useMemo(
+    () => getThemedStyles(theme, color, size),
+    [theme, color, size]
+  );
 
   const imageProps: IconProps = {
     ...rest,
