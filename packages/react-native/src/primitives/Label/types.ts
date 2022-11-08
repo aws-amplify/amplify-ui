@@ -3,14 +3,14 @@ import { TextProps, TextStyle } from 'react-native';
 export interface LabelProps extends TextProps {
   /**
    * @description
-   * The variation property will affect the color of the Label.
+   * The variant property will affect the color of the Label.
    */
-  variation?: LabelVariation;
+  variant?: LabelVariant;
 }
 
 export type LabelPosition = 'start' | 'end' | 'top' | 'bottom';
 
-export type LabelVariation =
+export type LabelVariant =
   | 'primary'
   | 'secondary'
   | 'tertiary'

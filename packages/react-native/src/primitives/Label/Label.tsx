@@ -9,12 +9,12 @@ export default function Label({
   accessibilityRole = 'text',
   children,
   style,
-  variation = 'primary',
+  variant = 'primary',
   ...rest
 }: LabelProps): JSX.Element {
   const theme = useTheme();
   const themedStyle = getThemedStyles(theme);
-  const textStyle = [themedStyle.text, themedStyle[variation], style];
+  const textStyle = [themedStyle.text, themedStyle[variant], style];
 
   return (
     <Text {...rest} accessibilityRole={accessibilityRole} style={textStyle}>

@@ -71,7 +71,7 @@ exports[`Label should apply theme and style props 1`] = `
 </Text>
 `;
 
-exports[`Label should apply variation styles 1`] = `
+exports[`Label should apply variant styles 1`] = `
 <Text
   accessibilityRole="text"
   style={

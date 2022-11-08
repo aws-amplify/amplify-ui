@@ -54,11 +54,11 @@ describe('Label', () => {
     ]);
   });
 
-  it('should apply variation styles', () => {
-    const variation = 'success';
+  it('should apply variant styles', () => {
+    const variant = 'success';
 
     const { toJSON, getByTestId } = render(
-      <Label {...props} variation={variation}>
+      <Label {...props} variant={variant}>
         Label
       </Label>
     );
@@ -68,7 +68,7 @@ describe('Label', () => {
     expect(toJSON()).toMatchSnapshot();
     expect(getByTestId(testID).props.style).toStrictEqual([
       themedStyle.text,
-      themedStyle[variation],
+      themedStyle[variant],
       undefined, // no custom styles
     ]);
   });
