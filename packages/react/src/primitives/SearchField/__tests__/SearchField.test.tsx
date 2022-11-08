@@ -13,6 +13,25 @@ const testId = 'SearchFieldTestId';
 const searchQuery = 'Amplify UI components';
 
 describe('SearchField component', () => {
+  const ControlledSearchField = () => {
+    const [value, setValue] = React.useState('');
+    const onChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+      setValue(event.target.value);
+    };
+    const onClear = () => {
+      setValue('');
+    };
+    return (
+      <SearchField
+        label={label}
+        name="q"
+        onChange={onChange}
+        onClear={onClear}
+        value={value}
+      />
+    );
+  };
+
   it('should render classname for SearchField', async () => {
     render(
       <SearchField
@@ -46,8 +65,8 @@ describe('SearchField component', () => {
 
     await screen.findByRole('button');
 
-    expect(ref.current.nodeName).toBe('INPUT');
-    expect(searchButtonRef.current.nodeName).toBe('BUTTON');
+    expect(ref?.current?.nodeName).toBe('INPUT');
+    expect(searchButtonRef?.current?.nodeName).toBe('BUTTON');
   });
 
   it('should forward callback ref to DOM element', async () => {
@@ -113,8 +132,22 @@ describe('SearchField component', () => {
     expect(onSubmit).toHaveBeenCalledWith(searchQuery);
   });
 
-  it('should clear text when user types Esc', async () => {
+  it('should clear text for uncontrolled component when user types Esc', async () => {
     render(<SearchField label={label} name="q" />);
+
+    const searchField = (await screen.findByLabelText(
+      label
+    )) as HTMLInputElement;
+
+    userEvent.type(searchField, searchQuery);
+    expect(searchField).toHaveValue(searchQuery);
+
+    fireEvent.keyDown(searchField, { key: 'Esc', code: 'Esc' });
+    expect(searchField).toHaveValue('');
+  });
+
+  it('should clear text for controlled component when user types Esc', async () => {
+    render(<ControlledSearchField />);
 
     const searchField = (await screen.findByLabelText(
       label
@@ -157,8 +190,24 @@ describe('SearchField component', () => {
       expect(clearButton).toBeDefined();
     });
 
-    it('should clear text and refocus input when clicked', async () => {
+    it('should clear text and refocus uncontrolled input when clicked', async () => {
       render(<SearchField label={label} name="q" />);
+
+      const searchField = (await screen.findByLabelText(
+        label
+      )) as HTMLInputElement;
+      userEvent.type(searchField, searchQuery);
+
+      const clearButton = await screen.findByLabelText(clearButtonLabel);
+
+      expect(searchField).toHaveValue(searchQuery);
+      userEvent.click(clearButton);
+      expect(searchField).toHaveValue('');
+      expect(searchField).toHaveFocus();
+    });
+
+    it('should clear text and refocus controlled input when clicked', async () => {
+      render(<ControlledSearchField />);
 
       const searchField = (await screen.findByLabelText(
         label

@@ -5,6 +5,7 @@ Array [
   "Alert",
   "AmplifyProvider",
   "Authenticator",
+  "Autocomplete",
   "Badge",
   "Button",
   "ButtonGroup",
@@ -24,6 +25,7 @@ Array [
   "Geocoder",
   "Grid",
   "Heading",
+  "HighlightMatch",
   "Icon",
   "Image",
   "Link",
@@ -139,6 +141,7 @@ Array [
 exports[`primitive catalog should match primitives list snapshot 1`] = `
 Array [
   "Alert",
+  "Autocomplete",
   "Badge",
   "Button",
   "ButtonGroup",
@@ -153,6 +156,7 @@ Array [
   "Flex",
   "Grid",
   "Heading",
+  "HighlightMatch",
   "Icon",
   "Image",
   "Link",

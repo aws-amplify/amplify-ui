@@ -6,6 +6,32 @@ import { TextInputFieldProps } from './textField';
 export interface SearchFieldProps extends TextInputFieldProps {
   /**
    * @description
+   * Set the initial value for an uncontrolled search field
+   */
+  defaultValue?: string;
+
+  /**
+   * @description
+   * Set the value for a controlled search field
+   */
+  value?: string;
+
+  /**
+   * @description
+   * Used to determine whether to render a search button on the right
+   * @default true
+   */
+  hasSearchButton?: boolean;
+
+  /**
+   * @description
+   * Used to determine whether to render a search icon on the left when there is no search button
+   * @default false
+   */
+  hasSearchIcon?: boolean;
+
+  /**
+   * @description
    * Handle submission of search field input
    */
   onSubmit?: (value: string) => void;
@@ -42,6 +68,8 @@ export interface SearchFieldProps extends TextInputFieldProps {
 export interface SearchFieldButtonProps
   extends Partial<FieldGroupIconButtonProps> {}
 
-export type UseSearchFieldProps = Partial<SearchFieldProps> & {
+export interface UseSearchFieldProps extends Partial<SearchFieldProps> {
   externalRef?: React.ForwardedRef<HTMLInputElement>;
-};
+
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
+}
