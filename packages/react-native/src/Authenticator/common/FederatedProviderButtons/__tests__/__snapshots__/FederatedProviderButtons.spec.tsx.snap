@@ -68,8 +68,12 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
         Array [
           Object {
             "fontSize": 16,
+            "fontWeight": "400",
             "marginHorizontal": 4,
             "marginVertical": 2,
+          },
+          Object {
+            "color": "hsl(210, 50%, 10%)",
           },
           Array [
             Object {
@@ -112,8 +116,12 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
         Array [
           Object {
             "fontSize": 16,
+            "fontWeight": "400",
             "marginHorizontal": 4,
             "marginVertical": 2,
+          },
+          Object {
+            "color": "hsl(210, 50%, 10%)",
           },
           Array [
             Object {
