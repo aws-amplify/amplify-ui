@@ -2,6 +2,7 @@ import React from 'react';
 import { fireEvent, render, renderHook } from '@testing-library/react-native';
 import { useTheme } from '../../../theme';
 import { capitalize } from '../../../utils';
+import { RADIO_DOT_PROPORTION } from '../getRadioDimensions';
 import Radio, { CONTAINER_TEST_ID, DOT_TEST_ID } from '../Radio';
 import { getThemedStyles } from '../styles';
 import { Size } from '../types';
@@ -78,13 +79,20 @@ describe('Radio', () => {
 
     expect(getByTestId(CONTAINER_TEST_ID).props.style).toStrictEqual([
       themedStyle.radioContainer,
-      { height: customSize, width: customSize },
+      {
+        borderWidth: Math.floor(customSize / 10) - 1,
+        height: customSize,
+        width: customSize,
+      },
       undefined,
     ]);
 
     expect(getByTestId(DOT_TEST_ID).props.style).toStrictEqual([
       themedStyle.radioDot,
-      { height: customSize * 0.5, width: customSize * 0.5 },
+      {
+        height: customSize * RADIO_DOT_PROPORTION,
+        width: customSize * RADIO_DOT_PROPORTION,
+      },
       undefined,
     ]);
     expect(toJSON()).toMatchSnapshot();

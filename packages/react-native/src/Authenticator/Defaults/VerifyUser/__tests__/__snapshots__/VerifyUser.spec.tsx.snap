@@ -68,12 +68,12 @@ Array [
             Array [
               Object {
                 "alignItems": "center",
-                "borderColor": "hsl(190, 95%, 30%)",
+                "borderColor": "hsl(210, 8%, 55%)",
                 "borderRadius": 999,
-                "borderWidth": 2,
                 "justifyContent": "center",
               },
               Object {
+                "borderWidth": 2,
                 "height": 24,
                 "width": 24,
               },
@@ -132,12 +132,12 @@ Array [
             Array [
               Object {
                 "alignItems": "center",
-                "borderColor": "hsl(190, 95%, 30%)",
+                "borderColor": "hsl(210, 8%, 55%)",
                 "borderRadius": 999,
-                "borderWidth": 2,
                 "justifyContent": "center",
               },
               Object {
+                "borderWidth": 2,
                 "height": 24,
                 "width": 24,
               },
@@ -196,12 +196,12 @@ Array [
             Array [
               Object {
                 "alignItems": "center",
-                "borderColor": "hsl(190, 95%, 30%)",
+                "borderColor": "hsl(210, 8%, 55%)",
                 "borderRadius": 999,
-                "borderWidth": 2,
                 "justifyContent": "center",
               },
               Object {
+                "borderWidth": 2,
                 "height": 24,
                 "width": 24,
               },
@@ -383,12 +383,12 @@ Array [
             Array [
               Object {
                 "alignItems": "center",
-                "borderColor": "hsl(190, 95%, 30%)",
+                "borderColor": "hsl(210, 8%, 55%)",
                 "borderRadius": 999,
-                "borderWidth": 2,
                 "justifyContent": "center",
               },
               Object {
+                "borderWidth": 2,
                 "height": 24,
                 "width": 24,
               },
@@ -448,12 +448,12 @@ Array [
             Array [
               Object {
                 "alignItems": "center",
-                "borderColor": "hsl(190, 95%, 30%)",
+                "borderColor": "hsl(210, 8%, 55%)",
                 "borderRadius": 999,
-                "borderWidth": 2,
                 "justifyContent": "center",
               },
               Object {
+                "borderWidth": 2,
                 "height": 24,
                 "width": 24,
               },
@@ -513,12 +513,12 @@ Array [
             Array [
               Object {
                 "alignItems": "center",
-                "borderColor": "hsl(190, 95%, 30%)",
+                "borderColor": "hsl(210, 8%, 55%)",
                 "borderRadius": 999,
-                "borderWidth": 2,
                 "justifyContent": "center",
               },
               Object {
+                "borderWidth": 2,
                 "height": 24,
                 "width": 24,
               },
@@ -699,12 +699,12 @@ Array [
             Array [
               Object {
                 "alignItems": "center",
-                "borderColor": "hsl(190, 95%, 30%)",
+                "borderColor": "hsl(210, 8%, 55%)",
                 "borderRadius": 999,
-                "borderWidth": 2,
                 "justifyContent": "center",
               },
               Object {
+                "borderWidth": 2,
                 "height": 24,
                 "width": 24,
               },
@@ -763,12 +763,12 @@ Array [
             Array [
               Object {
                 "alignItems": "center",
-                "borderColor": "hsl(190, 95%, 30%)",
+                "borderColor": "hsl(210, 8%, 55%)",
                 "borderRadius": 999,
-                "borderWidth": 2,
                 "justifyContent": "center",
               },
               Object {
+                "borderWidth": 2,
                 "height": 24,
                 "width": 24,
               },
@@ -827,12 +827,12 @@ Array [
             Array [
               Object {
                 "alignItems": "center",
-                "borderColor": "hsl(190, 95%, 30%)",
+                "borderColor": "hsl(210, 8%, 55%)",
                 "borderRadius": 999,
-                "borderWidth": 2,
                 "justifyContent": "center",
               },
               Object {
+                "borderWidth": 2,
                 "height": 24,
                 "width": 24,
               },

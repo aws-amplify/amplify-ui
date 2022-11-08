@@ -1,6 +1,11 @@
 import { capitalize } from '../../utils';
 
-import { RadioDimensions, RadioStyles, Size } from './types';
+import {
+  RadioContainerDimensions,
+  RadioDotDimensions,
+  RadioStyles,
+  Size,
+} from './types';
 
 /**
  * These utility functions are used to apply styles to
@@ -16,23 +21,32 @@ import { RadioDimensions, RadioStyles, Size } from './types';
  * (e.g., 'small' => { radioContainerSmall, radioDotSmall } )
  */
 
+export const RADIO_DOT_PROPORTION = 0.6;
+
 export const getRadioDimensions = (
   size: Size,
   styles: RadioStyles
 ): {
-  radioContainerSize: RadioDimensions;
-  radioDotSize: RadioDimensions;
+  radioContainerDimensions: RadioContainerDimensions;
+  radioDotDimensions: RadioDotDimensions;
 } => {
   if (typeof size === 'number') {
     return {
-      radioContainerSize: { height: size, width: size },
-      radioDotSize: { height: size * 0.5, width: size * 0.5 },
+      radioContainerDimensions: {
+        borderWidth: Math.floor(size / 10) - 1,
+        height: size,
+        width: size,
+      },
+      radioDotDimensions: {
+        height: size * RADIO_DOT_PROPORTION,
+        width: size * RADIO_DOT_PROPORTION,
+      },
     };
   }
 
   const sizeKey = capitalize(size);
   return {
-    radioContainerSize: styles[`radioContainer${sizeKey}`],
-    radioDotSize: styles[`radioDot${sizeKey}`],
+    radioContainerDimensions: styles[`radioContainer${sizeKey}`],
+    radioDotDimensions: styles[`radioDot${sizeKey}`],
   };
 };

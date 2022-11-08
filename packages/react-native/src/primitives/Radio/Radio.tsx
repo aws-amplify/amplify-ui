@@ -63,7 +63,7 @@ export default function Radio<T>({
     [disabled, labelPosition, style, themedStyle]
   );
 
-  const { radioContainerSize, radioDotSize } = useMemo(
+  const { radioContainerDimensions, radioDotDimensions } = useMemo(
     () => getRadioDimensions(size, themedStyle),
     [size, themedStyle]
   );
@@ -78,14 +78,14 @@ export default function Radio<T>({
       <View
         style={[
           themedStyle.radioContainer,
-          radioContainerSize,
+          radioContainerDimensions,
           radioContainerStyle,
         ]}
         testID={CONTAINER_TEST_ID}
       >
         {selected ? (
           <View
-            style={[themedStyle.radioDot, radioDotSize, radioDotStyle]}
+            style={[themedStyle.radioDot, radioDotDimensions, radioDotStyle]}
             testID={DOT_TEST_ID}
           />
         ) : null}
