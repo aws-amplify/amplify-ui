@@ -6,6 +6,6 @@ export type ValidationMode = 'onBlur' | 'onChange' | 'onTouched';
 
 export interface FieldValidator {
   validationMode: ValidationMode;
-  handler: (field: string) => boolean;
+  validate: (field: string) => boolean;
   message: string;
 }

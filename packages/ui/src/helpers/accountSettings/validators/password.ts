@@ -11,31 +11,31 @@ export const getPasswordSettings = () => {
 
 export const getMinLengthValidator = (minLength: number): FieldValidator => ({
   validationMode: 'onTouched',
-  handler: (field) => field.length >= minLength,
+  validate: (field) => field.length >= minLength,
   message: `Password must have at least ${minLength} characters`,
 });
 
 export const hasLowerCase: FieldValidator = {
   validationMode: 'onTouched',
-  handler: (field) => /[a-z]/.test(field),
+  validate: (field) => /[a-z]/.test(field),
   message: 'Password must have lower case letters',
 };
 
 export const hasUpperCase: FieldValidator = {
   validationMode: 'onTouched',
-  handler: (field) => /[A-Z]/.test(field),
+  validate: (field) => /[A-Z]/.test(field),
   message: 'Password must have upper case letters',
 };
 
 export const hasNumber: FieldValidator = {
   validationMode: 'onTouched',
-  handler: (field) => /[0-9]/.test(field),
+  validate: (field) => /[0-9]/.test(field),
   message: 'Password must have numbers',
 };
 
 export const hasSpecialChar: FieldValidator = {
   validationMode: 'onTouched',
-  handler: (field) => hasSpecialChars(field),
+  validate: (field) => hasSpecialChars(field),
   message: 'Password must have special characters',
 };
 

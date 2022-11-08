@@ -17,12 +17,12 @@ const changePasswordSpy = jest.spyOn(UIModule, 'changePassword');
 jest.spyOn(UIModule, 'getDefaultPasswordValidators').mockReturnValue([
   {
     validationMode: 'onTouched',
-    handler: (field) => /[a-z]/.test(field),
+    validate: (field) => /[a-z]/.test(field),
     message: 'Password must have lower case letters',
   },
   {
     validationMode: 'onTouched',
-    handler: (field) => /[A-Z]/.test(field),
+    validate: (field) => /[A-Z]/.test(field),
     message: 'Password must have upper case letters',
   },
 ]);
@@ -207,13 +207,13 @@ describe('ChangePassword', () => {
   it('displays custom password validation error messages', async () => {
     const minLength: UIModule.FieldValidator = {
       validationMode: 'onChange',
-      handler: (password) => password.length >= 8,
+      validate: (password) => password.length >= 8,
       message: 'Password must have length 4 or greater',
     };
 
     const hasSpecialChar: UIModule.FieldValidator = {
       validationMode: 'onChange',
-      handler: (password) => password.includes('*'),
+      validate: (password) => password.includes('*'),
       message: 'Password must have a star',
     };
     render(<ChangePassword validators={[minLength, hasSpecialChar]} />);

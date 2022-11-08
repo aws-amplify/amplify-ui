@@ -31,77 +31,77 @@ describe('getMinLengthValidator', () => {
   it('returns minLength validator as expected', () => {
     const validator = getMinLengthValidator(4);
     expect(validator).toMatchObject({
-      handler: expect.any(Function),
+      validate: expect.any(Function),
       message: 'Password must have at least 4 characters',
       validationMode: 'onTouched',
     });
   });
 
   it('validates to true when password is long enough', () => {
-    const { handler } = getMinLengthValidator(4);
-    const isValid = handler('longpassword');
+    const { validate } = getMinLengthValidator(4);
+    const isValid = validate('longpassword');
     expect(isValid).toBe(true);
   });
 
   it('validates to false when password is too short', () => {
-    const { handler } = getMinLengthValidator(4);
-    const isValid = handler('hi');
+    const { validate } = getMinLengthValidator(4);
+    const isValid = validate('hi');
     expect(isValid).toBe(false);
   });
 });
 
 describe('hasLowerCase', () => {
   it('validates to true when password has lower case', () => {
-    const { handler } = hasLowerCase;
-    const isValid = handler('password');
+    const { validate } = hasLowerCase;
+    const isValid = validate('password');
     expect(isValid).toBe(true);
   });
 
   it('validates to false when password has no lower case', () => {
-    const { handler } = hasLowerCase;
-    const isValid = handler('PASSWORD');
+    const { validate } = hasLowerCase;
+    const isValid = validate('PASSWORD');
     expect(isValid).toBe(false);
   });
 });
 
 describe('hasUpperCase', () => {
   it('validates to true when password has upper case', () => {
-    const { handler } = hasUpperCase;
-    const isValid = handler('PASSWORD');
+    const { validate } = hasUpperCase;
+    const isValid = validate('PASSWORD');
     expect(isValid).toBe(true);
   });
 
   it('validates to false when password has no upper case', () => {
-    const { handler } = hasUpperCase;
-    const isValid = handler('password');
+    const { validate } = hasUpperCase;
+    const isValid = validate('password');
     expect(isValid).toBe(false);
   });
 });
 
 describe('hasNumber', () => {
   it('validates to true when password has number', () => {
-    const { handler } = hasNumber;
-    const isValid = handler('password123');
+    const { validate } = hasNumber;
+    const isValid = validate('password123');
     expect(isValid).toBe(true);
   });
 
   it('validates to false when password has no number', () => {
-    const { handler } = hasNumber;
-    const isValid = handler('password');
+    const { validate } = hasNumber;
+    const isValid = validate('password');
     expect(isValid).toBe(false);
   });
 });
 
 describe('hasSpecialChar', () => {
   it('validates to true when password has special character', () => {
-    const { handler } = hasSpecialChar;
-    const isValid = handler('password!');
+    const { validate } = hasSpecialChar;
+    const isValid = validate('password!');
     expect(isValid).toBe(true);
   });
 
   it('validates to false when password has no special character', () => {
-    const { handler } = hasSpecialChar;
-    const isValid = handler('password');
+    const { validate } = hasSpecialChar;
+    const isValid = validate('password');
     expect(isValid).toBe(false);
   });
 });

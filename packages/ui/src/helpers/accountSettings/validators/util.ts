@@ -29,9 +29,7 @@ export const runFieldValidators = (
   const errors = [];
 
   validators?.forEach((validator) => {
-    const validate = validator.handler;
-
-    const { validationMode } = validator;
+    const { validate, validationMode } = validator;
 
     if (shouldValidate(validationMode, eventType, hasBlurred)) {
       const hasError = !validate(field);
