@@ -32,8 +32,6 @@ export type AlertTokens<OutputType = unknown> = DesignTokenProperties<
   success?: AlertVariationTokens<OutputType>;
 };
 
-export type WebAlertTokens = AlertTokens<'web'>;
-
 export const alert: AlertTokens = {
   // Default styles
   alignItems: { value: 'center' },

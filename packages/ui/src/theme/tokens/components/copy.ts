@@ -1,30 +1,12 @@
-import {
-  ColorValue,
-  DesignToken,
-  FontSizeValue,
-  SpaceValue,
-} from '../types/designToken';
+import { DesignTokenProperties } from '../types/designToken';
 
-interface CopySVGFillTokens {
-  fill: DesignToken<ColorValue>;
-}
-
-interface CopySVGTokens {
-  path: CopySVGFillTokens;
-}
-
-interface CopyToolTipTokens {
-  bottom: DesignToken<SpaceValue>;
-  color: DesignToken<ColorValue>;
-  fontSize: DesignToken<FontSizeValue>;
-}
-
-export interface CopyTokens {
-  fontSize: DesignToken<FontSizeValue>;
-  gap: DesignToken<SpaceValue>;
-  svg: CopySVGTokens;
-  toolTip: CopyToolTipTokens;
-}
+export type CopyTokens<Output = unknown> = DesignTokenProperties<
+  'fontSize' | 'gap',
+  Output
+> & {
+  svg?: { path?: DesignTokenProperties<'fill', Output> };
+  toolTip?: DesignTokenProperties<'bottom' | 'color' | 'fontSize', Output>;
+};
 
 export const copy: CopyTokens = {
   fontSize: { value: '{fontSizes.xs}' },

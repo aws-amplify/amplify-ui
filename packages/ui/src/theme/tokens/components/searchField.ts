@@ -8,17 +8,17 @@ type StateTokens<Output> = DesignTokenProperties<
 type SearchTokens<Output> = DesignTokenProperties<
   'backgroundColor' | 'color'
 > & {
-  _active: StateTokens<Output>;
-  _disabled: StateTokens<Output>;
-  _focus: StateTokens<Output>;
-  _hover: StateTokens<Output>;
+  _active?: StateTokens<Output>;
+  _disabled?: StateTokens<Output>;
+  _focus?: StateTokens<Output>;
+  _hover?: StateTokens<Output>;
 };
 
 export type SearchFieldTokens<Output = unknown> = DesignTokenProperties<
   'color',
   Output
 > & {
-  button: SearchTokens<Output>;
+  button?: SearchTokens<Output>;
 };
 
 export const searchfield: SearchFieldTokens = {

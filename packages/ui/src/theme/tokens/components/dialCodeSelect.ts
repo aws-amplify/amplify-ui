@@ -1,7 +1,10 @@
-import { DesignToken, SpaceValue } from '../types/designToken';
-export interface DialCodeSelectTokens {
-  height: DesignToken<SpaceValue>;
-}
+import { DesignTokenProperties } from '../types/designToken';
+
+export type DialCodeSelectTokens<Output = unknown> = DesignTokenProperties<
+  'height',
+  Output
+>;
+
 export const dialcodeselect: DialCodeSelectTokens = {
   height: {
     value: '{space.relative.full.value}',

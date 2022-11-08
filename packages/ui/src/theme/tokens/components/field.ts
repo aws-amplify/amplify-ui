@@ -1,26 +1,15 @@
-import {
-  ColorValue,
-  DesignToken,
-  FontSizeValue,
-  GapValue,
-} from '../types/designToken';
+import { DesignTokenProperties } from '../types/designToken';
 
-interface FieldSizeTokens {
-  gap: DesignToken<GapValue>;
-  fontSize: DesignToken<FontSizeValue>;
-}
+type FieldSizeTokens<Output> = DesignTokenProperties<
+  'fontSize' | 'gap',
+  Output
+>;
 
-interface FieldLabelTokens {
-  color: DesignToken<ColorValue>;
-}
-
-export interface FieldTokens {
-  gap: DesignToken<GapValue>;
-  fontSize: DesignToken<FontSizeValue>;
-  small: FieldSizeTokens;
-  large: FieldSizeTokens;
-  label: FieldLabelTokens;
-}
+export type FieldTokens<Output = unknown> = FieldSizeTokens<Output> & {
+  small?: FieldSizeTokens<Output>;
+  large?: FieldSizeTokens<Output>;
+  label?: DesignTokenProperties<'color', Output>;
+};
 
 export const field: FieldTokens = {
   // default styles

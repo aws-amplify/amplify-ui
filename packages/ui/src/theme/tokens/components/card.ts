@@ -19,8 +19,6 @@ export type CardTokens<OutputType = unknown> = CardVariationTokens<OutputType> &
     outlined?: CardVariationTokens<OutputType>;
   };
 
-export type WebCardTokens = CardTokens<'web'>;
-
 export const card: CardTokens = {
   backgroundColor: { value: '{colors.background.primary.value}' },
   borderRadius: { value: '{radii.xs.value}' },

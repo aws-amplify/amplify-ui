@@ -1,35 +1,18 @@
-import {
-  BackgroundColorValue,
-  BorderColorValue,
-  BorderStyleValue,
-  BorderWidthValue,
-  ColorValue,
-  DesignToken,
-  FontSizeValue,
-  OpacityValue,
-  SpaceValue,
-} from '../types/designToken';
+import { DesignTokenProperties } from '../types/designToken';
 
-interface DividerSizeTokens {
-  borderWidth: DesignToken<BorderWidthValue>;
-}
+type DividerSizeTokens<Output> = DesignTokenProperties<'borderWidth', Output>;
 
-interface DividerLabelTokens {
-  color: DesignToken<ColorValue>;
-  paddingInline: DesignToken<SpaceValue>;
-  fontSize: DesignToken<FontSizeValue>;
-  backgroundColor: DesignToken<BackgroundColorValue>;
-}
-
-export interface DividerTokens {
-  borderStyle: DesignToken<BorderStyleValue>;
-  borderColor: DesignToken<BorderColorValue>;
-  borderWidth: DesignToken<BorderWidthValue>;
-  label: DividerLabelTokens;
-  small: DividerSizeTokens;
-  large: DividerSizeTokens;
-  opacity: DesignToken<OpacityValue>;
-}
+export type DividerTokens<Output = unknown> = DesignTokenProperties<
+  'borderStyle' | 'borderColor' | 'borderWidth' | 'opacity',
+  Output
+> & {
+  label?: DesignTokenProperties<
+    'color' | 'paddingInline' | 'fontSize' | 'backgroundColor',
+    Output
+  >;
+  small?: DividerSizeTokens<Output>;
+  large?: DividerSizeTokens<Output>;
+};
 
 export const divider: DividerTokens = {
   borderStyle: { value: 'solid' },

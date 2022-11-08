@@ -1,17 +1,9 @@
-import {
-  AlignContentValue,
-  AlignItemsValue,
-  DesignToken,
-  FlexDirectionValue,
-  JustifyContentValue,
-} from '../types/designToken';
+import { DesignTokenProperties } from '../types/designToken';
 
-export interface CheckboxFieldTokens {
-  alignItems: DesignToken<AlignItemsValue>;
-  alignContent: DesignToken<AlignContentValue>;
-  flexDirection: DesignToken<FlexDirectionValue>;
-  justifyContent: DesignToken<JustifyContentValue>;
-}
+export type CheckboxFieldTokens<Output = unknown> = DesignTokenProperties<
+  'alignItems' | 'alignContent' | 'flexDirection' | 'justifyContent',
+  Output
+>;
 
 export const checkboxfield: CheckboxFieldTokens = {
   alignItems: { value: 'flex-start' },

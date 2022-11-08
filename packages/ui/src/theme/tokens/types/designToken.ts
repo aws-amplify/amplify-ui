@@ -117,6 +117,7 @@ interface TokenStandardProperties {
   color: ColorValue;
   cursor: CursorValue;
   display: DisplayValue;
+  fill: DesignToken<ColorValue>;
   flexDirection: FlexDirectionValue;
   flex: FlexValue;
   flexWrap: FlexWrapValue;
@@ -131,10 +132,10 @@ interface TokenStandardProperties {
   lineHeight: LineHeightValue;
   margin: SpaceValue;
   maxWidth: SpaceValue;
-  minHeight: DesignToken<SpaceValue>;
-  minWidth: DesignToken<SpaceValue>;
+  minHeight: SpaceValue;
+  minWidth: SpaceValue;
   objectFit: ObjectFitValue;
-  objectPosition: DesignToken<PositionValue>;
+  objectPosition: PositionValue;
   opacity: OpacityValue;
   outlineOffset: OutlineOffsetValue;
   outlineWidth: OutlineWidthValue;
@@ -145,22 +146,17 @@ interface TokenStandardProperties {
   paddingBlockEnd: SpaceValue;
   paddingBlockStart: SpaceValue;
   paddingBottom: SpaceValue;
-
   paddingInline: SpaceValue;
   paddingInlineEnd: SpaceValue;
   paddingInlineStart: SpaceValue;
   paddingLeft: SpaceValue;
   paddingRight: SpaceValue;
   paddingTop: SpaceValue;
-
   pointerEvents: PointerEventsValue;
   position: PositionValue;
-
   right: SpaceValue;
   strokeLinecap: StrokeLinecapValue;
-
   textAlign: TextAlignValue;
-
   top: SpaceValue;
   transform: TransformValue;
   transitionDuration: TransitionDurationValue;
@@ -176,6 +172,15 @@ interface TokenStandardProperties {
  * Custom style tokens with non-css property names
  */
 interface TokenCustomProperties {
+  borderBottomLeftRadius: RadiusValue;
+  borderBottomRightRadius: RadiusValue;
+  borderTopLeftRadius: RadiusValue;
+  borderTopRightRadius: RadiusValue;
+  borderStartStartRadius: RadiusValue;
+  borderStartEndRadius: RadiusValue;
+  borderEndStartRadius: RadiusValue;
+  borderEndEndRadius: RadiusValue;
+  marginTop: SpaceValue;
   paddingHorizontal: SpaceValue;
   paddingVertical: SpaceValue;
   size: SpaceValue;
