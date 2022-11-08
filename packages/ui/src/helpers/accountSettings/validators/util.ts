@@ -1,7 +1,7 @@
-import { FieldValidator } from '../../../types';
+import { FieldValidator, ValidationMode } from '../../../types';
 
 const shouldValidate = (
-  validationMode: FieldValidator['event'],
+  validationMode: ValidationMode,
   eventType: 'change' | 'blur',
   hasBlurred: boolean
 ) => {
@@ -31,7 +31,7 @@ export const runFieldValidators = (
   validators?.forEach((validator) => {
     const validate = validator.handler;
 
-    const validationMode = validator.event;
+    const { validationMode } = validator;
 
     if (shouldValidate(validationMode, eventType, hasBlurred)) {
       const hasError = !validate(field);

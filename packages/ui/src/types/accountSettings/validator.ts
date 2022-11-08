@@ -2,8 +2,10 @@ export type FieldValidatorHandler = (field: string) => boolean;
 
 export type FormEventType = 'blur' | 'change';
 
+export type ValidationMode = 'onBlur' | 'onChange' | 'onTouched';
+
 export interface FieldValidator {
-  event: 'onBlur' | 'onChange' | 'onTouched';
+  validationMode: ValidationMode;
   handler: (field: string) => boolean;
   message: string;
 }

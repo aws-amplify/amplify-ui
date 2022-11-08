@@ -4,7 +4,7 @@ export const getConfirmPasswordValidator = (
   password: string
 ): FieldValidator => {
   return {
-    event: 'onTouched',
+    validationMode: 'onTouched',
     handler: (confirmPassword) => password === confirmPassword,
     message: 'Your passwords must match',
   };
