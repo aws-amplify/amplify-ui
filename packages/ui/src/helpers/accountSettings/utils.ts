@@ -1,6 +1,6 @@
-import { Amplify, Auth } from 'aws-amplify';
+import { Auth } from 'aws-amplify';
 
-import { AmplifyUser, PasswordSettings } from '../../types';
+import { AmplifyUser } from '../../types';
 import { getLogger } from '../utils';
 
 const logger = getLogger('Auth');
@@ -28,20 +28,5 @@ export const changePassword = async ({
   } catch (e) {
     logger.debug('Auth.changePassword failed with error', e);
     return Promise.reject(e);
-  }
-};
-
-export const getPasswordSettings = () => {
-  // need to cast to any because `Amplify.configure()` isn't typed properly
-  const config = Amplify.configure() as any;
-  return config?.aws_cognito_password_protection_settings as PasswordSettings;
-};
-
-export const confirmPasswordValidator = (
-  newPassword: string,
-  confirmPassword: string
-): string[] => {
-  if (newPassword !== confirmPassword) {
-    return ['Your passwords must match'];
   }
 };

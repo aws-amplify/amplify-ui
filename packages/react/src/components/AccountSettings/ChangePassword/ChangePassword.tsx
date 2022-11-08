@@ -3,14 +3,13 @@ import React from 'react';
 import { Logger } from 'aws-amplify';
 import {
   changePassword,
-  confirmPasswordValidator,
-  defaultPasswordValidator,
-  getPasswordSettings,
-  PasswordSettings,
+  runFieldValidators,
   translate,
+  FieldValidator,
+  getDefaultPasswordValidators,
+  getConfirmPasswordValidator,
 } from '@aws-amplify/ui';
 
-import { runCustomValidators } from '../utils';
 import { useAuth } from '../../../internal';
 import { View, Flex } from '../../../primitives';
 import {
@@ -22,6 +21,7 @@ import {
 } from './defaultComponents';
 import { ChangePasswordProps } from './types';
 import { FormValues, BlurredFields, ValidationError } from '../types';
+import { FormEventType } from '@aws-amplify/ui';
 
 const logger = new Logger('ChangePassword');
 
@@ -48,7 +48,7 @@ const getIsDisabled = (
 function ChangePassword({
   onSuccess,
   onError,
-  validate,
+  validators,
 }: ChangePasswordProps): JSX.Element | null {
   const [errorMessage, setErrorMessage] = React.useState<string>(null);
   const [formValues, setFormValues] = React.useState<FormValues>({});
@@ -61,39 +61,57 @@ function ChangePassword({
 
   const isDisabled = getIsDisabled(formValues, validationError);
 
-  const passwordSetting: PasswordSettings = React.useMemo(
-    () => getPasswordSettings(),
-    []
-  );
+  const passwordValidators: FieldValidator[] = React.useMemo(() => {
+    return validators ?? getDefaultPasswordValidators();
+  }, [validators]);
 
   const validateNewPassword = (
     formValues: FormValues,
-    blurredFields: BlurredFields
+    blurredFields: BlurredFields,
+    eventType: FormEventType
   ): string[] => {
     const { newPassword } = formValues;
-    // return if field isn't filled out or hasn't been blurred yet
-    if (!newPassword || !blurredFields.newPassword) return;
 
-    return validate
-      ? runCustomValidators(validate, newPassword)
-      : defaultPasswordValidator(newPassword, passwordSetting);
+    return runFieldValidators(
+      newPassword,
+      passwordValidators,
+      eventType,
+      blurredFields.newPassword
+    );
   };
 
-  const validateConfirmPassword = (formValues: FormValues): string[] => {
+  const validateConfirmPassword = (
+    formValues: FormValues,
+    blurredFields: BlurredFields,
+    eventType: FormEventType
+  ): string[] => {
     const { newPassword, confirmPassword } = formValues;
 
-    // return if two passwords aren't filled out yet
-    if (!newPassword || !confirmPassword) return;
+    const confirmPasswordValidator = getConfirmPasswordValidator(newPassword);
 
-    return confirmPasswordValidator(newPassword, confirmPassword);
+    return runFieldValidators(
+      confirmPassword,
+      [confirmPasswordValidator],
+      eventType,
+      blurredFields.confirmPassword
+    );
   };
 
   const runValidation = (
     formValues: FormValues,
-    blurredFields: BlurredFields
+    blurredFields: BlurredFields,
+    eventType: FormEventType
   ) => {
-    const newPasswordErrors = validateNewPassword(formValues, blurredFields);
-    const confirmPasswordErrors = validateConfirmPassword(formValues);
+    const newPasswordErrors = validateNewPassword(
+      formValues,
+      blurredFields,
+      eventType
+    );
+    const confirmPasswordErrors = validateConfirmPassword(
+      formValues,
+      blurredFields,
+      eventType
+    );
 
     setValidationError({
       newPassword: newPasswordErrors,
@@ -115,7 +133,7 @@ function ChangePassword({
     const { name, value } = event.target;
 
     const newFormValues = { ...formValues, [name]: value };
-    runValidation(newFormValues, blurredFields);
+    runValidation(newFormValues, blurredFields, 'change');
 
     setFormValues(newFormValues);
   };
@@ -125,7 +143,7 @@ function ChangePassword({
 
     const { name } = event.target;
     const newBlurredFields = { ...blurredFields, [name]: true };
-    runValidation(formValues, newBlurredFields);
+    runValidation(formValues, newBlurredFields, 'blur');
     setBlurredFields({ ...blurredFields, [name]: true });
   };
 
