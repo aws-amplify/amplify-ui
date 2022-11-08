@@ -4,12 +4,12 @@ import { isEqual } from 'lodash';
 import { Logger } from 'aws-amplify';
 import {
   changePassword,
+  FieldValidator,
+  FormEventType,
+  getConfirmPasswordValidator,
+  getDefaultPasswordValidators,
   runFieldValidators,
   translate,
-  FieldValidator,
-  getDefaultPasswordValidators,
-  getConfirmPasswordValidator,
-  FormEventType,
 } from '@aws-amplify/ui';
 
 import { useAuth } from '../../../internal';
