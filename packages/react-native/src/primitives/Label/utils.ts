@@ -8,7 +8,7 @@ const FLEX_DIRECTIONS: Record<LabelPosition, ViewStyle['flexDirection']> = {
   bottom: 'column',
 };
 
- /**
+/**
  * The `flexDirection` value returned from `getFlexDirectionFromLabelPosition`
  * assumes a `Label` component follows the `Primary` component it labels inside
  * the `Container` that the `flexDirection` is applied to.

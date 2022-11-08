@@ -10,5 +10,14 @@ Array [
   "WithAuthenticatorOptions",
   "useAuthenticator",
   "withAuthenticator",
+  "BannerMessageProps",
+  "CarouselMessageProps",
+  "FullScreenMessageProps",
+  "InAppMessageDisplay",
+  "InAppMessagingProvider",
+  "MessageComponents",
+  "ModalMessageProps",
+  "useInAppMessaging",
+  "withInAppMessaging",
 ]
 `;

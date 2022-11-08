@@ -47,7 +47,7 @@
     "tslib": "2.4.0"
   },
   "peerDependencies": {
-    "aws-amplify": "3.x.x || 4.x.x",
+    "aws-amplify": "next",
     "xstate": "^4.33.6"
   },
   "peerDependenciesMeta": {

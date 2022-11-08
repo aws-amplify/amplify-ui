@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@aws-amplify/ui-react": "latest",
-    "aws-amplify": "latest",
+    "aws-amplify": "next",
     "next": "12.0.10",
     "react": "latest",
     "react-dom": "latest"
