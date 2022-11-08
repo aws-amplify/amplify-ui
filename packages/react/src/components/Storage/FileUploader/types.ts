@@ -88,10 +88,18 @@ export interface FileStatus extends Partial<FileStateProps> {
 
 export type FileStatuses = FileStatus[];
 
-type FileState = 'paused' | 'success' | 'error' | 'loading' | 'resume' | null;
+type FileState =
+  | 'paused'
+  | 'success'
+  | 'error'
+  | 'loading'
+  | 'resume'
+  | 'editing'
+  | null;
 export interface FileStateProps {
   fileState: FileState;
   errorMessage: string;
+  percentage?: number;
 }
 
 type UploadButtonComponent<Props = {}> = React.ComponentType<

@@ -3,139 +3,96 @@
 exports[`Tracker exists 1`] = `
 <div>
   <div
-    class="amplify-card amplify-card--outlined amplify-fileuploader-file"
-    data-variation="outlined"
-    style="padding: 0px;"
+    class="amplify-fileuploader__file"
   >
     <div
-      class="amplify-flex"
-      style="flex-direction: row; gap: var(--amplify-space-small); align-items: center;"
+      class="amplify-fileuploader__file__image"
     >
-      <div
-        class="amplify-fileuploader__img"
-      >
-        <img
-          alt=""
-          class="amplify-image"
-          src=""
-          style="max-height: 100%; height: 100%;"
-        />
-      </div>
-      <div
-        class="amplify-flex amplify-fileuploader__file-content"
-        style="flex-direction: column; flex: 1; gap: 0;"
-      >
-        <div
-          class="amplify-flex amplify-fileuploader__file-content"
-          style="flex-direction: row; gap: var(--amplify-space-xxs);"
-        >
-          <span
-            class="amplify-text amplify-fileuploader__filename"
-            style="font-weight: var(--amplify-font-weights-bold);"
-          >
-            hello.png
-          </span>
-          <button
-            class="amplify-button amplify-field-group__control amplify-button--link amplify-button--small"
-            data-fullwidth="false"
-            data-size="small"
-            data-variation="link"
-            type="button"
-          >
-            <svg
-              class="amplify-icon"
-              viewBox="0 0 24 24"
-            >
-              <path
-                d="M3 21h3.75L17.81 9.94l-3.75-3.75L3 17.25V21zm2-2.92l9.06-9.06.92.92L5.92 19H5v-.92zM18.37 3.29a.996.996 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83a.996.996 0 000-1.41l-2.34-2.34z"
-                fill="currentColor"
-              />
-            </svg>
-          </button>
-          <span
-            class="amplify-text"
-            style="margin-inline-start: var(--amplify-space-small);"
-          >
-            5 B
-          </span>
-        </div>
-      </div>
-      <button
-        class="amplify-button amplify-field-group__control amplify-button--small"
-        data-fullwidth="false"
-        data-size="small"
-        type="button"
-      >
-        <p
-          class="amplify-text"
-        >
-          <svg
-            class="amplify-icon"
-            viewBox="0 0 24 24"
-          >
-            <path
-              d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
-              fill="currentColor"
-            />
-          </svg>
-        </p>
-      </button>
+      <img
+        alt="hello.png"
+        class="amplify-image"
+        src=""
+      />
     </div>
     <div
-      class="amplify-flex"
-      style="flex-direction: column; gap: 0; align-items: flex-end;"
+      class="amplify-fileuploader__file__main"
     >
-      <svg
-        class="amplify-loader amplify-loader--linear amplify-loader--determinate amplify-fileuploader-loader"
-        data-variation="linear"
-        role="img"
+      <p
+        class="amplify-text amplify-fileuploader__file__name"
       >
-        <g>
-          <line
-            data-testid="linear-empty"
-            style="stroke: undefined;"
-            x1="0"
-            x2="100%"
-            y1="50%"
-            y2="50%"
-          />
-          <line
-            data-testid="linear-filled"
-            style="stroke: none;"
-            x1="0"
-            x2="0%"
-            y1="50%"
-            y2="50%"
-          />
-          <text
-            aria-live="polite"
-            class="amplify-loader__percentage-text"
-            x="-1%"
-            y="200%"
-          >
-            0%
-          </text>
-        </g>
-      </svg>
+        hello.png
+      </p>
     </div>
+    <span
+      class="amplify-text amplify-fileuploader__file__size"
+    >
+      5 B
+    </span>
+    <button
+      class="amplify-button amplify-field-group__control amplify-button--link amplify-button--small"
+      data-fullwidth="false"
+      data-size="small"
+      data-variation="link"
+      type="button"
+    >
+      <span
+        class="amplify-icon"
+        style="width: 1em; height: 1em;"
+      >
+        <svg
+          fill="none"
+          height="24"
+          viewBox="0 0 24 24"
+          width="24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M3 21h3.75L17.81 9.94l-3.75-3.75L3 17.25V21zm2-2.92l9.06-9.06.92.92L5.92 19H5v-.92zM18.37 3.29a.996.996 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83a.996.996 0 000-1.41l-2.34-2.34z"
+            fill="currentColor"
+          />
+        </svg>
+      </span>
+    </button>
+    <button
+      class="amplify-button amplify-field-group__control amplify-button--small"
+      data-fullwidth="false"
+      data-size="small"
+      type="button"
+    >
+      <span
+        class="amplify-icon"
+        style="width: 1em; height: 1em;"
+      >
+        <svg
+          fill="none"
+          height="24"
+          viewBox="0 0 24 24"
+          width="24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z"
+            fill="currentColor"
+          />
+        </svg>
+      </span>
+    </button>
   </div>
 </div>
 `;
 
 exports[`Tracker shows the file size 1`] = `
 <span
-  class="amplify-text"
-  style="margin-inline-start: var(--amplify-space-small);"
+  class="amplify-text amplify-fileuploader__file__size"
 >
   5 B
 </span>
 `;
 
 exports[`Tracker shows the name of the file 1`] = `
-<span
-  class="amplify-text amplify-fileuploader__filename"
-  style="font-weight: var(--amplify-font-weights-bold);"
+<p
+  class="amplify-text amplify-fileuploader__file__name"
 >
   hello2.png
-</span>
+</p>
 `;

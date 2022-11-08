@@ -3,17 +3,21 @@ import { translate } from '@aws-amplify/ui';
 import { humanFileSize } from '@aws-amplify/ui';
 import { TrackerProps } from '../types';
 import {
-  Card,
-  Flex,
   View,
   Image,
   Text,
   Button,
   TextField,
   Loader,
+  ComponentClassNames,
 } from '../../../../primitives';
-import { CloseIcon, EditIcon, fileIcon } from '../Previewer/PreviewerIcons';
+import {
+  IconClose,
+  IconEdit,
+  IconFile,
+} from '../../../../primitives/Icon/internal';
 import { FileState } from './FileState';
+
 export function Tracker({
   file,
   fileState,
@@ -34,106 +38,96 @@ export function Tracker({
 
   const { size } = file;
 
-  const icon = hasImage ? (
-    <Image alt="" maxHeight="100%" height="100%" src={url} />
-  ) : (
-    <View className="amplify-fileuploder__img-placeholder">{fileIcon}</View>
+  const icon = hasImage ? <Image alt={file.name} src={url} /> : <IconFile />;
+
+  const showEditButton = fileState === null || fileState === 'error';
+
+  const DisplayView = () => (
+    <>
+      <View className={ComponentClassNames.FileUploaderFileMain}>
+        <Text className={ComponentClassNames.FileUploaderFileName}>{name}</Text>
+        <FileState
+          fileState={fileState}
+          errorMessage={errorMessage}
+          percentage={percentage}
+        />
+      </View>
+      <Text as="span" className={ComponentClassNames.FileUploaderFileSize}>
+        {humanFileSize(size, true)}
+      </Text>
+    </>
   );
 
-  const showEditButton = (): boolean => {
-    // only allow editing of file name if it's error or null
-    if (fileState === null || fileState === 'error') {
-      return true;
+  const Actions = () => {
+    switch (fileState) {
+      case 'editing':
+        return (
+          <Button size="small" variation="primary" onClick={onSaveEdit}>
+            Save
+          </Button>
+        );
+      case 'loading':
+        return (
+          <Button onClick={onPause} size="small" variation="link">
+            {translate('pause')}
+          </Button>
+        );
+      case 'paused':
+        return (
+          <Button onClick={onResume} size="small" variation="link">
+            {translate('Resume')}
+          </Button>
+        );
+      case 'success':
+        return null;
+      default:
+        return (
+          <>
+            {showEditButton ? (
+              <Button onClick={onStartEdit} size="small" variation="link">
+                <IconEdit fontSize="medium" />
+              </Button>
+            ) : null}
+            <Button size="small" onClick={onCancel}>
+              <IconClose />
+            </Button>
+          </>
+        );
     }
-    return false;
   };
 
   return (
-    <Card
-      variation="outlined"
-      padding="0"
-      className="amplify-fileuploader-file"
-    >
-      <Flex direction="row" padding="xs medium" gap="small" alignItems="center">
-        <View className="amplify-fileuploader__img">{icon}</View>
-        {isEditing ? (
-          <Flex direction="row" flex="1" gap="small" alignItems="center">
-            <View flex="1">
-              <TextField
-                maxLength={1024}
-                width="100%"
-                label="file name"
-                size="small"
-                variation="quiet"
-                labelHidden
-                onChange={onChange}
-                value={name}
-              />
-            </View>
-            <Button size="small" variation="primary" onClick={onSaveEdit}>
-              Save
-            </Button>
-          </Flex>
-        ) : (
-          <>
-            <Flex
-              direction="column"
-              className="amplify-fileuploader__file-content"
-              flex="1"
-              gap="0"
-            >
-              <Flex
-                direction="row"
-                className="amplify-fileuploader__file-content"
-                gap="xxs"
-              >
-                <Text
-                  as="span"
-                  fontWeight="bold"
-                  className="amplify-fileuploader__filename"
-                >
-                  {name}
-                </Text>
+    <View className={ComponentClassNames.FileUploaderFile}>
+      <View className={ComponentClassNames.FileUploaderFileImage}>{icon}</View>
 
-                {showEditButton() && (
-                  <Button onClick={onStartEdit} size="small" variation="link">
-                    <EditIcon fontSize="medium" />
-                  </Button>
-                )}
-                <Text as="span" color="font.tertiary" marginInlineStart="small">
-                  {humanFileSize(size, true)}
-                </Text>
-              </Flex>
-              <FileState errorMessage={errorMessage} fileState={fileState} />
-            </Flex>
-            {fileState === 'paused' && (
-              <Button onClick={onResume} size="small" variation="link">
-                {translate('Resume')}
-              </Button>
-            )}
-            {fileState === 'resume' && (
-              <Button onClick={onPause} size="small" variation="link">
-                {translate('pause')}
-              </Button>
-            )}
-            {(fileState === null || fileState === 'success') && (
-              <Button size="small" onClick={onCancel}>
-                <Text>
-                  <CloseIcon />
-                </Text>
-              </Button>
-            )}
-          </>
-        )}
-      </Flex>
-      <Flex direction="column" gap="0" alignItems="flex-end">
+      {/* Main View */}
+      {isEditing ? (
+        <TextField
+          maxLength={1024}
+          width="100%"
+          label="file name"
+          size="small"
+          variation="quiet"
+          labelHidden
+          onChange={onChange}
+          value={name}
+        />
+      ) : (
+        <DisplayView />
+      )}
+
+      {/* Actions */}
+      <Actions />
+
+      {fileState === 'loading' ? (
         <Loader
-          className="amplify-fileuploader-loader"
+          className={ComponentClassNames.FileUploaderLoader}
           variation="linear"
           percentage={percentage}
           isDeterminate
+          isPercentageTextHidden
         />
-      </Flex>
-    </Card>
+      ) : null}
+    </View>
   );
 }

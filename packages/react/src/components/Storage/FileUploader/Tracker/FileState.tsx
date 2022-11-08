@@ -1,30 +1,53 @@
 import React from 'react';
 import { translate } from '@aws-amplify/ui';
-import { Text, Flex } from '../../../../primitives';
-import { CheckIcon, ErrorIcon } from '../Previewer/PreviewerIcons';
+import { Text, ComponentClassNames } from '../../../../primitives';
+import { IconCheck, IconError } from '../../../../primitives/Icon/internal';
 import { FileStateProps } from '../types';
+import classNames from 'classnames';
+import { classNameModifier } from '../../../../primitives/shared/utils';
 
 export const FileState = ({
   fileState,
   errorMessage,
+  percentage,
 }: FileStateProps): JSX.Element => {
   switch (fileState) {
     case 'loading':
-      return <Text className="">{translate('Loading')}</Text>;
+      return (
+        <Text className={ComponentClassNames.FileUploaderFileStatus}>
+          {translate('Loading')}: {percentage}%
+        </Text>
+      );
     case 'paused':
-      return <Text className="">{translate('Paused')}</Text>;
+      return (
+        <Text className={ComponentClassNames.FileUploaderFileStatus}>
+          {translate('Paused')}: {percentage}%
+        </Text>
+      );
     case 'success':
       return (
-        <Flex direction="row" gap="xxs" color="font.success">
-          <CheckIcon fontSize="xl" /> {translate('Uploaded successfully')}
-        </Flex>
+        <Text
+          className={classNames(
+            ComponentClassNames.FileUploaderFileStatus,
+            classNameModifier(
+              ComponentClassNames.FileUploaderFileStatus,
+              'success'
+            )
+          )}
+        >
+          <IconCheck fontSize="xl" /> {translate('Uploaded successfully')}
+        </Text>
       );
     case 'error':
       return (
-        <Flex direction="row" gap="xxs" color="font.error">
-          <ErrorIcon fontSize="xl" />
-          <Text>{errorMessage}</Text>
-        </Flex>
+        <Text
+          className={classNames(
+            ComponentClassNames.FileUploaderFileStatus,
+            classNameModifier(ComponentClassNames.FileUploaderFileStatus, 'error')
+          )}
+        >
+          <IconError fontSize="xl" /> {errorMessage}
+        </Text>
       );
     default:
       return null;

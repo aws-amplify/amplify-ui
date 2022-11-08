@@ -3,7 +3,7 @@ import { UploadTask, Storage } from '@aws-amplify/storage';
 import { getFileName, translate, uploadFile } from '@aws-amplify/ui';
 import { FileStatuses, FileUploaderProps } from './types';
 import { useFileUploader } from './hooks/useFileUploader';
-import { Text } from '../../../primitives';
+import { ComponentClassNames, Text } from '../../../primitives';
 import { UploadButton } from './UploadButton';
 import { Previewer } from './Previewer';
 import { UploadDropZone } from './UploadDropZone';
@@ -290,10 +290,17 @@ export function FileUploader({
       return (_: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         const names = [...isEditingName];
         names[index] = true;
+        const newFileStatuses = [...fileStatuses];
+        const status = fileStatuses[index];
+        newFileStatuses[index] = {
+          ...status,
+          fileState: 'editing',
+        };
+        setFileStatuses(newFileStatuses);
         setisEditingName(names);
       };
     },
-    [isEditingName]
+    [isEditingName, fileStatuses, setFileStatuses]
   );
 
   const CommonProps = {
@@ -360,12 +367,12 @@ export function FileUploader({
         onDragStart={onDragStart}
         onDrop={onDrop}
       >
-        <Text className="amplify-fileuploader__dropzone__text">
+        <Text className={ComponentClassNames.FileUploaderDropZoneText}>
           {translate('Drop files here or')}
         </Text>
         <UploadButton
           {...CommonProps}
-          className={'amplify-fileuploader__dropzone__button'}
+          className={ComponentClassNames.FileUploaderDropZoneButton}
         />
       </UploadDropZone>
     );

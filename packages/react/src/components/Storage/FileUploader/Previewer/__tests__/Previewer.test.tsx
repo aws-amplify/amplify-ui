@@ -2,7 +2,10 @@ import * as React from 'react';
 import { render } from '@testing-library/react';
 
 import { Previewer } from '..';
+
+import { ComponentClassNames } from '../../../../../primitives';
 import { FileStatus, FileStatuses } from '../../types';
+
 const fakeFile = new File(['hello'], 'hello.png', { type: 'image/png' });
 const fakeFile2 = new File(['goodbye'], 'goodbye.png', {
   type: 'image/png',
