@@ -98,7 +98,7 @@ export function Tracker({
     }
   };
 
-  const isDeterminate = !resumable || (resumable && percentage === 0);
+  const isDeterminate = !resumable || (resumable && percentage > 0);
 
   return (
     <View className={ComponentClassNames.FileUploaderFile}>
