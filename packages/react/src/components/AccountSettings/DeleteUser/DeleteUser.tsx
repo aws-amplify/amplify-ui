@@ -1,11 +1,15 @@
 import React from 'react';
 
 import { Logger } from 'aws-amplify';
-import { deleteUser } from '@aws-amplify/ui';
+import { deleteUser, translate } from '@aws-amplify/ui';
 
 import { useAuth } from '../../../internal';
-import { Button, Flex } from '../../../primitives';
-import { DefaultConfirmation, DefaultError } from './defaultComponents';
+import { Flex } from '../../../primitives';
+import {
+  DefaultWarning,
+  DefaultError,
+  DefaultSubmitButton,
+} from './defaultComponents';
 import { DeleteUserProps, DeleteUserState } from './types';
 
 const logger = new Logger('DeleteUser');
@@ -15,9 +19,11 @@ function DeleteUser({
   onError,
   handleDelete,
 }: DeleteUserProps): JSX.Element | null {
-  // whether user has opened confirmation prompt
   const [state, setState] = React.useState<DeleteUserState>('IDLE');
   const [errorMessage, setErrorMessage] = React.useState<string>(null);
+
+  // translations
+  const deleteAccountText = translate('Delete Account');
 
   const { user, isLoading } = useAuth();
 
@@ -71,14 +77,14 @@ function DeleteUser({
 
   return (
     <Flex direction="column">
-      <Button
+      <DefaultSubmitButton
         isDisabled={state === 'IS_CONFIRMING'}
         onClick={startConfirmation}
       >
-        Delete Account
-      </Button>
+        {deleteAccountText}
+      </DefaultSubmitButton>
       {state === 'IS_CONFIRMING' || state === 'IN_PROGRESS' ? (
-        <DefaultConfirmation
+        <DefaultWarning
           onCancel={handleCancel}
           isInProgress={state === 'IN_PROGRESS'}
           onConfirmDelete={handleConfirmDelete}
