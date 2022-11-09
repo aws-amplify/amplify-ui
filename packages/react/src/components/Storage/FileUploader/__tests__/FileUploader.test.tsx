@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
-import { UploadTask } from '@aws-amplify/storage';
 import * as UseHooks from '../hooks/useFileUploader';
 import { FileUploader } from '..';
 import * as UIModule from '@aws-amplify/ui';
@@ -48,7 +47,7 @@ describe('File Uploader', () => {
     expect(svg).toBeInTheDocument();
   });
 
-  it('Previewer is not shown on empty file target', async () => {
+  it('will not show Previewer on empty file target', async () => {
     const { container, queryByText } = render(
       <FileUploader {...commonProps} variation="button" />
     );
