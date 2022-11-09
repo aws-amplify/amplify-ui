@@ -1,6 +1,7 @@
 import { Schema } from '@aws-amplify/datastore';
 
 export const schema: Schema = {
+  codegenVersion: '1.0',
   models: {
     Home: {
       name: 'Home',
