@@ -5,7 +5,7 @@ import { deleteUser } from '@aws-amplify/ui';
 
 import { useAuth } from '../../../internal';
 import { Button, Flex } from '../../../primitives';
-import { DefaultConfirmation } from './defaultComponents';
+import { DefaultConfirmation, DefaultError } from './defaultComponents';
 import { DeleteUserProps, DeleteUserState } from './types';
 
 const logger = new Logger('DeleteUser');
@@ -17,6 +17,7 @@ function DeleteUser({
 }: DeleteUserProps): JSX.Element | null {
   // whether user has opened confirmation prompt
   const [state, setState] = React.useState<DeleteUserState>('IDLE');
+  const [errorMessage, setErrorMessage] = React.useState<string>(null);
 
   const { user, isLoading } = useAuth();
 
@@ -38,6 +39,7 @@ function DeleteUser({
     } catch (e) {
       const error = e as Error;
       setState('IDLE');
+      setErrorMessage(error.message);
       onError?.(error);
     }
   }, [handleDelete, onError, onSuccess, user]);
@@ -82,6 +84,7 @@ function DeleteUser({
           onConfirmDelete={handleConfirmDelete}
         />
       ) : null}
+      {errorMessage ? <DefaultError>{errorMessage}</DefaultError> : null}
     </Flex>
   );
 }

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Card, Flex, Text, Button } from '../../../primitives';
+import { Card, Flex, Text, Button, Alert } from '../../../primitives';
+import { AccountSettingsError } from '../types';
 
 import { DeleteUserWarningProps } from './types';
 
@@ -19,15 +20,23 @@ export const DefaultConfirmation = ({
           <Button variation="link" onClick={onCancel} isDisabled={isInProgress}>
             Cancel
           </Button>
+          <Button
+            variation="primary"
+            onClick={onConfirmDelete}
+            isDisabled={isInProgress}
+          >
+            Delete my account
+          </Button>
         </Flex>
-        <Button
-          variation="primary"
-          onClick={onConfirmDelete}
-          isDisabled={isInProgress}
-        >
-          Delete my account
-        </Button>
       </Flex>
     </Card>
+  );
+};
+
+export const DefaultError: AccountSettingsError = ({ children, ...rest }) => {
+  return (
+    <Alert variation="error" {...rest}>
+      {children}
+    </Alert>
   );
 };
