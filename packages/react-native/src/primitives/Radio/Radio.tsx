@@ -8,12 +8,16 @@ import {
   ViewStyle,
 } from 'react-native';
 
+import { useTheme } from '../../theme';
 import { Label } from '../Label';
 import { getFlexDirectionFromLabelPosition } from '../Label/utils';
 
-import { styles } from './styles';
+import { getThemedStyles } from './styles';
 import { RadioProps } from './types';
 import { getRadioDimensions } from './getRadioDimensions';
+
+export const CONTAINER_TEST_ID = 'amplify__radio-button__container';
+export const DOT_TEST_ID = 'amplify__radio-button__dot';
 
 export default function Radio<T>({
   accessibilityRole = 'radio',
@@ -31,6 +35,9 @@ export default function Radio<T>({
   value,
   ...rest
 }: RadioProps<T>): JSX.Element {
+  const theme = useTheme();
+  const themedStyle = getThemedStyles(theme);
+
   const handleOnChange = useCallback(
     (event: GestureResponderEvent) => {
       if (!disabled) {
@@ -44,21 +51,21 @@ export default function Radio<T>({
   const containerStyle = useCallback(
     ({ pressed }: PressableStateCallbackType): StyleProp<ViewStyle> => {
       const containerStyle: ViewStyle = {
-        ...styles.container,
+        ...themedStyle.container,
         flexDirection: getFlexDirectionFromLabelPosition(labelPosition),
-        ...(disabled && styles.disabled),
+        ...(disabled && themedStyle.disabled),
       };
 
       const pressedStateStyle =
         typeof style === 'function' ? style({ pressed }) : style;
       return [containerStyle, pressedStateStyle];
     },
-    [disabled, labelPosition, style]
+    [disabled, labelPosition, style, themedStyle]
   );
 
-  const { radioContainerSize, radioDotSize } = useMemo(
-    () => getRadioDimensions(size, styles),
-    [size]
+  const { radioContainerDimensions, radioDotDimensions } = useMemo(
+    () => getRadioDimensions(size, themedStyle),
+    [size, themedStyle]
   );
 
   return (
@@ -69,12 +76,17 @@ export default function Radio<T>({
       style={containerStyle}
     >
       <View
-        style={[styles.radioContainer, radioContainerSize, radioContainerStyle]}
+        style={[
+          themedStyle.radioContainer,
+          radioContainerDimensions,
+          radioContainerStyle,
+        ]}
+        testID={CONTAINER_TEST_ID}
       >
         {selected ? (
           <View
-            style={[styles.radioDot, radioDotSize, radioDotStyle]}
-            testID="amplify__radio-button__dot"
+            style={[themedStyle.radioDot, radioDotDimensions, radioDotStyle]}
+            testID={DOT_TEST_ID}
           />
         ) : null}
       </View>
