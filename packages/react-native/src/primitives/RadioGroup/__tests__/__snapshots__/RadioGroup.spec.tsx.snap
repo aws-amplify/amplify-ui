@@ -50,12 +50,12 @@ exports[`RadioGroup renders as expected when direction is horizontal 1`] = `
               "alignItems": "center",
               "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
+              "borderWidth": 2,
               "justifyContent": "center",
             },
             Object {
-              "borderWidth": 2,
-              "height": 24,
-              "width": 24,
+              "height": 16,
+              "width": 16,
             },
             undefined,
           ]
@@ -70,8 +70,8 @@ exports[`RadioGroup renders as expected when direction is horizontal 1`] = `
                 "borderRadius": 999,
               },
               Object {
-                "height": 14.399999999999999,
-                "width": 14.399999999999999,
+                "height": 9.6,
+                "width": 9.6,
               },
               undefined,
             ]
@@ -130,12 +130,12 @@ exports[`RadioGroup renders as expected when direction is horizontal 1`] = `
               "alignItems": "center",
               "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
+              "borderWidth": 2,
               "justifyContent": "center",
             },
             Object {
-              "borderWidth": 2,
-              "height": 24,
-              "width": 24,
+              "height": 16,
+              "width": 16,
             },
             undefined,
           ]
@@ -193,12 +193,12 @@ exports[`RadioGroup renders as expected when direction is horizontal 1`] = `
               "alignItems": "center",
               "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
+              "borderWidth": 2,
               "justifyContent": "center",
             },
             Object {
-              "borderWidth": 2,
-              "height": 24,
-              "width": 24,
+              "height": 16,
+              "width": 16,
             },
             undefined,
           ]
@@ -257,12 +257,12 @@ exports[`RadioGroup renders as expected when direction is horizontal 1`] = `
               "alignItems": "center",
               "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
+              "borderWidth": 2,
               "justifyContent": "center",
             },
             Object {
-              "borderWidth": 2,
-              "height": 24,
-              "width": 24,
+              "height": 16,
+              "width": 16,
             },
             undefined,
           ]
@@ -343,12 +343,12 @@ exports[`RadioGroup renders as expected when direction is vertical 1`] = `
               "alignItems": "center",
               "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
+              "borderWidth": 2,
               "justifyContent": "center",
             },
             Object {
-              "borderWidth": 2,
-              "height": 24,
-              "width": 24,
+              "height": 16,
+              "width": 16,
             },
             undefined,
           ]
@@ -363,8 +363,8 @@ exports[`RadioGroup renders as expected when direction is vertical 1`] = `
                 "borderRadius": 999,
               },
               Object {
-                "height": 14.399999999999999,
-                "width": 14.399999999999999,
+                "height": 9.6,
+                "width": 9.6,
               },
               undefined,
             ]
@@ -423,12 +423,12 @@ exports[`RadioGroup renders as expected when direction is vertical 1`] = `
               "alignItems": "center",
               "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
+              "borderWidth": 2,
               "justifyContent": "center",
             },
             Object {
-              "borderWidth": 2,
-              "height": 24,
-              "width": 24,
+              "height": 16,
+              "width": 16,
             },
             undefined,
           ]
@@ -486,12 +486,12 @@ exports[`RadioGroup renders as expected when direction is vertical 1`] = `
               "alignItems": "center",
               "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
+              "borderWidth": 2,
               "justifyContent": "center",
             },
             Object {
-              "borderWidth": 2,
-              "height": 24,
-              "width": 24,
+              "height": 16,
+              "width": 16,
             },
             undefined,
           ]
@@ -550,12 +550,12 @@ exports[`RadioGroup renders as expected when direction is vertical 1`] = `
               "alignItems": "center",
               "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
+              "borderWidth": 2,
               "justifyContent": "center",
             },
             Object {
-              "borderWidth": 2,
-              "height": 24,
-              "width": 24,
+              "height": 16,
+              "width": 16,
             },
             undefined,
           ]
@@ -636,12 +636,12 @@ exports[`RadioGroup renders as expected when size is large 1`] = `
               "alignItems": "center",
               "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
+              "borderWidth": 2,
               "justifyContent": "center",
             },
             Object {
-              "borderWidth": 3,
-              "height": 36,
-              "width": 36,
+              "height": 24,
+              "width": 24,
             },
             undefined,
           ]
@@ -656,8 +656,8 @@ exports[`RadioGroup renders as expected when size is large 1`] = `
                 "borderRadius": 999,
               },
               Object {
-                "height": 21.599999999999998,
-                "width": 21.599999999999998,
+                "height": 14.399999999999999,
+                "width": 14.399999999999999,
               },
               undefined,
             ]
@@ -716,12 +716,12 @@ exports[`RadioGroup renders as expected when size is large 1`] = `
               "alignItems": "center",
               "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
+              "borderWidth": 2,
               "justifyContent": "center",
             },
             Object {
-              "borderWidth": 3,
-              "height": 36,
-              "width": 36,
+              "height": 24,
+              "width": 24,
             },
             undefined,
           ]
@@ -779,12 +779,12 @@ exports[`RadioGroup renders as expected when size is large 1`] = `
               "alignItems": "center",
               "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
+              "borderWidth": 2,
               "justifyContent": "center",
             },
             Object {
-              "borderWidth": 3,
-              "height": 36,
-              "width": 36,
+              "height": 24,
+              "width": 24,
             },
             undefined,
           ]
@@ -843,12 +843,12 @@ exports[`RadioGroup renders as expected when size is large 1`] = `
               "alignItems": "center",
               "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
+              "borderWidth": 2,
               "justifyContent": "center",
             },
             Object {
-              "borderWidth": 3,
-              "height": 36,
-              "width": 36,
+              "height": 24,
+              "width": 24,
             },
             undefined,
           ]
@@ -929,12 +929,12 @@ exports[`RadioGroup renders as expected when size is medium 1`] = `
               "alignItems": "center",
               "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
+              "borderWidth": 2,
               "justifyContent": "center",
             },
             Object {
-              "borderWidth": 2,
-              "height": 24,
-              "width": 24,
+              "height": 16,
+              "width": 16,
             },
             undefined,
           ]
@@ -949,8 +949,8 @@ exports[`RadioGroup renders as expected when size is medium 1`] = `
                 "borderRadius": 999,
               },
               Object {
-                "height": 14.399999999999999,
-                "width": 14.399999999999999,
+                "height": 9.6,
+                "width": 9.6,
               },
               undefined,
             ]
@@ -1009,12 +1009,12 @@ exports[`RadioGroup renders as expected when size is medium 1`] = `
               "alignItems": "center",
               "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
+              "borderWidth": 2,
               "justifyContent": "center",
             },
             Object {
-              "borderWidth": 2,
-              "height": 24,
-              "width": 24,
+              "height": 16,
+              "width": 16,
             },
             undefined,
           ]
@@ -1072,12 +1072,12 @@ exports[`RadioGroup renders as expected when size is medium 1`] = `
               "alignItems": "center",
               "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
+              "borderWidth": 2,
               "justifyContent": "center",
             },
             Object {
-              "borderWidth": 2,
-              "height": 24,
-              "width": 24,
+              "height": 16,
+              "width": 16,
             },
             undefined,
           ]
@@ -1136,12 +1136,12 @@ exports[`RadioGroup renders as expected when size is medium 1`] = `
               "alignItems": "center",
               "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
+              "borderWidth": 2,
               "justifyContent": "center",
             },
             Object {
-              "borderWidth": 2,
-              "height": 24,
-              "width": 24,
+              "height": 16,
+              "width": 16,
             },
             undefined,
           ]
@@ -1222,12 +1222,12 @@ exports[`RadioGroup renders as expected when size is small 1`] = `
               "alignItems": "center",
               "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
+              "borderWidth": 2,
               "justifyContent": "center",
             },
             Object {
-              "borderWidth": 1,
-              "height": 16,
-              "width": 16,
+              "height": 12,
+              "width": 12,
             },
             undefined,
           ]
@@ -1242,8 +1242,8 @@ exports[`RadioGroup renders as expected when size is small 1`] = `
                 "borderRadius": 999,
               },
               Object {
-                "height": 9.6,
-                "width": 9.6,
+                "height": 7.199999999999999,
+                "width": 7.199999999999999,
               },
               undefined,
             ]
@@ -1302,12 +1302,12 @@ exports[`RadioGroup renders as expected when size is small 1`] = `
               "alignItems": "center",
               "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
+              "borderWidth": 2,
               "justifyContent": "center",
             },
             Object {
-              "borderWidth": 1,
-              "height": 16,
-              "width": 16,
+              "height": 12,
+              "width": 12,
             },
             undefined,
           ]
@@ -1365,12 +1365,12 @@ exports[`RadioGroup renders as expected when size is small 1`] = `
               "alignItems": "center",
               "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
+              "borderWidth": 2,
               "justifyContent": "center",
             },
             Object {
-              "borderWidth": 1,
-              "height": 16,
-              "width": 16,
+              "height": 12,
+              "width": 12,
             },
             undefined,
           ]
@@ -1429,12 +1429,12 @@ exports[`RadioGroup renders as expected when size is small 1`] = `
               "alignItems": "center",
               "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
+              "borderWidth": 2,
               "justifyContent": "center",
             },
             Object {
-              "borderWidth": 1,
-              "height": 16,
-              "width": 16,
+              "height": 12,
+              "width": 12,
             },
             undefined,
           ]
@@ -1515,12 +1515,12 @@ exports[`RadioGroup renders default RadioGroup as expected 1`] = `
               "alignItems": "center",
               "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
+              "borderWidth": 2,
               "justifyContent": "center",
             },
             Object {
-              "borderWidth": 2,
-              "height": 24,
-              "width": 24,
+              "height": 16,
+              "width": 16,
             },
             undefined,
           ]
@@ -1535,8 +1535,8 @@ exports[`RadioGroup renders default RadioGroup as expected 1`] = `
                 "borderRadius": 999,
               },
               Object {
-                "height": 14.399999999999999,
-                "width": 14.399999999999999,
+                "height": 9.6,
+                "width": 9.6,
               },
               undefined,
             ]
@@ -1595,12 +1595,12 @@ exports[`RadioGroup renders default RadioGroup as expected 1`] = `
               "alignItems": "center",
               "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
+              "borderWidth": 2,
               "justifyContent": "center",
             },
             Object {
-              "borderWidth": 2,
-              "height": 24,
-              "width": 24,
+              "height": 16,
+              "width": 16,
             },
             undefined,
           ]
@@ -1658,12 +1658,12 @@ exports[`RadioGroup renders default RadioGroup as expected 1`] = `
               "alignItems": "center",
               "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
+              "borderWidth": 2,
               "justifyContent": "center",
             },
             Object {
-              "borderWidth": 2,
-              "height": 24,
-              "width": 24,
+              "height": 16,
+              "width": 16,
             },
             undefined,
           ]
@@ -1722,12 +1722,12 @@ exports[`RadioGroup renders default RadioGroup as expected 1`] = `
               "alignItems": "center",
               "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
+              "borderWidth": 2,
               "justifyContent": "center",
             },
             Object {
-              "borderWidth": 2,
-              "height": 24,
-              "width": 24,
+              "height": 16,
+              "width": 16,
             },
             undefined,
           ]

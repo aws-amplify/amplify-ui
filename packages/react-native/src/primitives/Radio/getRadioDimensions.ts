@@ -1,11 +1,6 @@
 import { capitalize } from '../../utils';
 
-import {
-  RadioContainerDimensions,
-  RadioDotDimensions,
-  RadioStyles,
-  Size,
-} from './types';
+import { RadioDimensions, RadioStyles, Size } from './types';
 
 /**
  * These utility functions are used to apply styles to
@@ -27,13 +22,12 @@ export const getRadioDimensions = (
   size: Size,
   styles: RadioStyles
 ): {
-  radioContainerDimensions: RadioContainerDimensions;
-  radioDotDimensions: RadioDotDimensions;
+  radioContainerDimensions: RadioDimensions;
+  radioDotDimensions: RadioDimensions;
 } => {
   if (typeof size === 'number') {
     return {
       radioContainerDimensions: {
-        borderWidth: Math.floor(size / 10) - 1,
         height: size,
         width: size,
       },

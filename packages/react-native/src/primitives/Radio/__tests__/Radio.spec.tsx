@@ -80,7 +80,6 @@ describe('Radio', () => {
     expect(getByTestId(CONTAINER_TEST_ID).props.style).toStrictEqual([
       themedStyle.radioContainer,
       {
-        borderWidth: Math.floor(customSize / 10) - 1,
         height: customSize,
         width: customSize,
       },

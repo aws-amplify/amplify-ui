@@ -34,12 +34,12 @@ exports[`Radio applies theme and custom styles 1`] = `
           "alignItems": "center",
           "borderColor": "hsl(210, 8%, 55%)",
           "borderRadius": 999,
+          "borderWidth": 2,
           "justifyContent": "center",
         },
         Object {
-          "borderWidth": 2,
-          "height": 24,
-          "width": 24,
+          "height": 16,
+          "width": 16,
         },
         Object {
           "borderColor": "blue",
@@ -57,8 +57,8 @@ exports[`Radio applies theme and custom styles 1`] = `
             "borderRadius": 999,
           },
           Object {
-            "height": 14.399999999999999,
-            "width": 14.399999999999999,
+            "height": 9.6,
+            "width": 9.6,
           },
           Object {
             "backgroundColor": "green",
@@ -104,12 +104,12 @@ exports[`Radio renders as expected when disabled 1`] = `
           "alignItems": "center",
           "borderColor": "hsl(210, 8%, 55%)",
           "borderRadius": 999,
+          "borderWidth": 2,
           "justifyContent": "center",
         },
         Object {
-          "borderWidth": 2,
-          "height": 24,
-          "width": 24,
+          "height": 16,
+          "width": 16,
         },
         undefined,
       ]
@@ -170,10 +170,10 @@ exports[`Radio renders as expected when passing a number to the size prop 1`] = 
           "alignItems": "center",
           "borderColor": "hsl(210, 8%, 55%)",
           "borderRadius": 999,
+          "borderWidth": 2,
           "justifyContent": "center",
         },
         Object {
-          "borderWidth": 3,
           "height": 40,
           "width": 40,
         },
@@ -253,12 +253,12 @@ exports[`Radio renders as expected when selected is false 1`] = `
           "alignItems": "center",
           "borderColor": "hsl(210, 8%, 55%)",
           "borderRadius": 999,
+          "borderWidth": 2,
           "justifyContent": "center",
         },
         Object {
-          "borderWidth": 2,
-          "height": 24,
-          "width": 24,
+          "height": 16,
+          "width": 16,
         },
         undefined,
       ]
@@ -319,12 +319,12 @@ exports[`Radio renders as expected when selected is true 1`] = `
           "alignItems": "center",
           "borderColor": "hsl(210, 8%, 55%)",
           "borderRadius": 999,
+          "borderWidth": 2,
           "justifyContent": "center",
         },
         Object {
-          "borderWidth": 2,
-          "height": 24,
-          "width": 24,
+          "height": 16,
+          "width": 16,
         },
         undefined,
       ]
@@ -339,8 +339,8 @@ exports[`Radio renders as expected when selected is true 1`] = `
             "borderRadius": 999,
           },
           Object {
-            "height": 14.399999999999999,
-            "width": 14.399999999999999,
+            "height": 9.6,
+            "width": 9.6,
           },
           undefined,
         ]
@@ -402,12 +402,12 @@ exports[`Radio renders as expected when size is large 1`] = `
           "alignItems": "center",
           "borderColor": "hsl(210, 8%, 55%)",
           "borderRadius": 999,
+          "borderWidth": 2,
           "justifyContent": "center",
         },
         Object {
-          "borderWidth": 3,
-          "height": 36,
-          "width": 36,
+          "height": 24,
+          "width": 24,
         },
         undefined,
       ]
@@ -422,8 +422,8 @@ exports[`Radio renders as expected when size is large 1`] = `
             "borderRadius": 999,
           },
           Object {
-            "height": 21.599999999999998,
-            "width": 21.599999999999998,
+            "height": 14.399999999999999,
+            "width": 14.399999999999999,
           },
           undefined,
         ]
@@ -485,12 +485,12 @@ exports[`Radio renders as expected when size is medium 1`] = `
           "alignItems": "center",
           "borderColor": "hsl(210, 8%, 55%)",
           "borderRadius": 999,
+          "borderWidth": 2,
           "justifyContent": "center",
         },
         Object {
-          "borderWidth": 2,
-          "height": 24,
-          "width": 24,
+          "height": 16,
+          "width": 16,
         },
         undefined,
       ]
@@ -505,8 +505,8 @@ exports[`Radio renders as expected when size is medium 1`] = `
             "borderRadius": 999,
           },
           Object {
-            "height": 14.399999999999999,
-            "width": 14.399999999999999,
+            "height": 9.6,
+            "width": 9.6,
           },
           undefined,
         ]
@@ -568,12 +568,12 @@ exports[`Radio renders as expected when size is small 1`] = `
           "alignItems": "center",
           "borderColor": "hsl(210, 8%, 55%)",
           "borderRadius": 999,
+          "borderWidth": 2,
           "justifyContent": "center",
         },
         Object {
-          "borderWidth": 1,
-          "height": 16,
-          "width": 16,
+          "height": 12,
+          "width": 12,
         },
         undefined,
       ]
@@ -588,8 +588,8 @@ exports[`Radio renders as expected when size is small 1`] = `
             "borderRadius": 999,
           },
           Object {
-            "height": 9.6,
-            "width": 9.6,
+            "height": 7.199999999999999,
+            "width": 7.199999999999999,
           },
           undefined,
         ]
@@ -651,12 +651,12 @@ exports[`Radio renders as expected with accessibilityRole 1`] = `
           "alignItems": "center",
           "borderColor": "hsl(210, 8%, 55%)",
           "borderRadius": 999,
+          "borderWidth": 2,
           "justifyContent": "center",
         },
         Object {
-          "borderWidth": 2,
-          "height": 24,
-          "width": 24,
+          "height": 16,
+          "width": 16,
         },
         undefined,
       ]
