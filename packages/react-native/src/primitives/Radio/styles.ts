@@ -7,7 +7,7 @@ import { RadioStyles } from './types';
 const ROUNDED_BORDER_RADIUS = 999;
 
 export const getThemedStyles = (theme: StrictTheme): RadioStyles => {
-  const { colors, components, opacities, space } = theme.tokens;
+  const { colors, components, fontSizes, opacities, space } = theme.tokens;
 
   return StyleSheet.create({
     container: {
@@ -32,33 +32,33 @@ export const getThemedStyles = (theme: StrictTheme): RadioStyles => {
       ...components?.radio.radioDot,
     },
     radioContainerLarge: {
-      height: space.xxl,
-      width: space.xxl,
+      height: fontSizes.xl,
+      width: fontSizes.xl,
       ...components?.radio.radioContainerLarge,
     },
     radioContainerMedium: {
-      height: space.xl,
-      width: space.xl,
+      height: fontSizes.large,
+      width: fontSizes.large,
       ...components?.radio.radioContainerMedium,
     },
     radioContainerSmall: {
-      height: space.large,
-      width: space.large,
+      height: fontSizes.medium,
+      width: fontSizes.medium,
       ...components?.radio.radioContainerSmall,
     },
     radioDotLarge: {
-      height: space.xxl * RADIO_DOT_PROPORTION,
-      width: space.xxl * RADIO_DOT_PROPORTION,
+      height: fontSizes.xl * RADIO_DOT_PROPORTION,
+      width: fontSizes.xl * RADIO_DOT_PROPORTION,
       ...components?.radio.radioDotLarge,
     },
     radioDotMedium: {
-      height: space.xl * RADIO_DOT_PROPORTION,
-      width: space.xl * RADIO_DOT_PROPORTION,
+      height: fontSizes.large * RADIO_DOT_PROPORTION,
+      width: fontSizes.large * RADIO_DOT_PROPORTION,
       ...components?.radio.radioDotMedium,
     },
     radioDotSmall: {
-      height: space.large * RADIO_DOT_PROPORTION,
-      width: space.large * RADIO_DOT_PROPORTION,
+      height: fontSizes.medium * RADIO_DOT_PROPORTION,
+      width: fontSizes.medium * RADIO_DOT_PROPORTION,
       ...components?.radio.radioDotSmall,
     },
   });
