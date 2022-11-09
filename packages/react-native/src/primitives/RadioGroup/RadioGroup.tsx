@@ -52,10 +52,9 @@ export default function RadioGroup<T>({
 
   const containerStyle: ViewStyle = useMemo(
     () => ({
-      ...themedStyle.container,
       flexDirection: getFlexDirectionFromLabelPosition(labelPosition),
     }),
-    [labelPosition, themedStyle]
+    [labelPosition]
   );
 
   const childContainerStyle: ViewStyle = useMemo(
@@ -73,7 +72,7 @@ export default function RadioGroup<T>({
   );
 
   return (
-    <View {...rest} style={[containerStyle, style]}>
+    <View {...rest} style={[themedStyle.container, containerStyle, style]}>
       <View accessibilityRole={accessibilityRole} style={childContainerStyle}>
         {Children.map(children, (child) => {
           if (isValidElement<RadioProps<T>>(child)) {
