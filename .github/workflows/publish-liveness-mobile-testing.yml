@@ -1,11 +1,8 @@
 name: Publish to @liveness-mobile-testing
 
 on:
-  workflow_dispatch:
-  workflow_run:
-    workflows: ['Liveness Tests']
-    types:
-      - completed
+  push:
+    branches: [liveness-mobile-testing]
 
 jobs:
   publish:
