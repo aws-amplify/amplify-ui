@@ -39,7 +39,7 @@ jobs:
           domain: amplify-ui-liveness
           repository: amplify-ui
 
-      - name: Setup Node.js LTS
+      - name: Setup Node.js 16
         uses: actions/setup-node@v2
         with:
           node-version: lts/*
