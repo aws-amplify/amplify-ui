@@ -63,7 +63,15 @@ export const hasSpecialChar: ValidatorSpec = {
   message: 'Password must have special characters',
 };
 
-export const getPasswordDefaultValidators = (): ValidatorSpec[] => {
+export const getMatchesConfirmPassword = (password: string): ValidatorSpec => {
+  return {
+    validationMode: 'onTouched',
+    validator: (confirmPassword) => password === confirmPassword,
+    message: 'Your passwords must match',
+  };
+};
+
+export const getDefaultPasswordValidators = (): ValidatorSpec[] => {
   const requirement = getPasswordRequirement();
   if (!requirement) return [];
 
@@ -97,14 +105,10 @@ export const getPasswordDefaultValidators = (): ValidatorSpec[] => {
   return validators;
 };
 
-export const getPasswordConfirmationValidator = (
+export const getDefaultConfirmPasswordValidators = (
   password: string
-): ValidatorSpec => {
-  return {
-    validationMode: 'onTouched',
-    validator: (confirmPassword) => password === confirmPassword,
-    message: 'Your passwords must match',
-  };
+): ValidatorSpec[] => {
+  return [getMatchesConfirmPassword(password)];
 };
 
 /*

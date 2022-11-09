@@ -6,8 +6,8 @@ import {
   changePassword,
   ValidatorSpec,
   InputEventType,
-  getPasswordConfirmationValidator,
-  getPasswordDefaultValidators,
+  getDefaultConfirmPasswordValidators,
+  getDefaultPasswordValidators,
   runFieldValidators,
   translate,
 } from '@aws-amplify/ui';
@@ -57,7 +57,7 @@ function ChangePassword({
   const isDisabled = getIsDisabled(formValues, validationError);
 
   const passwordValidators: ValidatorSpec[] = React.useMemo(() => {
-    return validators ?? getPasswordDefaultValidators();
+    return validators ?? getDefaultPasswordValidators();
   }, [validators]);
 
   /**
@@ -90,12 +90,12 @@ function ChangePassword({
     ): string[] => {
       const { newPassword, confirmPassword } = formValues;
 
-      const confirmPasswordValidator =
-        getPasswordConfirmationValidator(newPassword);
+      const confirmPasswordValidators =
+        getDefaultConfirmPasswordValidators(newPassword);
 
       return runFieldValidators({
         value: confirmPassword,
-        validators: [confirmPasswordValidator],
+        validators: confirmPasswordValidators,
         eventType,
         hasBlurred: blurredFields.confirmPassword,
       });

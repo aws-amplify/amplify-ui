@@ -1,6 +1,6 @@
 export * from './utils';
 export {
-  getPasswordConfirmationValidator,
-  getPasswordDefaultValidators,
+  getDefaultConfirmPasswordValidators,
+  getDefaultPasswordValidators,
   runFieldValidators,
 } from './validator';

@@ -1,14 +1,14 @@
 import { Amplify } from 'aws-amplify';
 
 import {
-  getPasswordDefaultValidators,
+  getDefaultPasswordValidators,
   getHasMinLength,
   getPasswordRequirement,
   hasLowerCase,
   hasNumber,
   hasSpecialChar,
   hasUpperCase,
-  getPasswordConfirmationValidator,
+  getMatchesConfirmPassword,
 } from '../validator';
 
 const partialAmplifyPasswordConfig = {
@@ -149,33 +149,33 @@ describe('getPasswordRequirement', () => {
   });
 });
 
-describe('getPasswordDefaultValidators', () => {
+describe('getDefaultPasswordValidators', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
   it('returns validators as expected for partial Amplify config ', () => {
     configureSpy.mockReturnValue(partialAmplifyPasswordConfig);
-    const validators = getPasswordDefaultValidators();
+    const validators = getDefaultPasswordValidators();
     expect(validators).toMatchSnapshot();
   });
 
   it('returns validators as expected for full Amplify config ', () => {
     configureSpy.mockReturnValue(fullAmplifyPasswordConfig);
-    const validators = getPasswordDefaultValidators();
+    const validators = getDefaultPasswordValidators();
     expect(validators).toMatchSnapshot();
   });
 
   it('returns empty array for empty amplify config', () => {
     configureSpy.mockReturnValue({});
-    const validators = getPasswordDefaultValidators();
+    const validators = getDefaultPasswordValidators();
     expect(validators).toStrictEqual([]);
   });
 });
 
 describe('getConfirmPassword', () => {
   it('returns confirm password valiator as expected', () => {
-    const validator = getPasswordConfirmationValidator('pw');
+    const validator = getMatchesConfirmPassword('pw');
     expect(validator).toMatchObject({
       validator: expect.any(Function),
       message: 'Your passwords must match',
@@ -184,13 +184,13 @@ describe('getConfirmPassword', () => {
   });
 
   it('validates to true when passwords match', () => {
-    const { validator } = getPasswordConfirmationValidator('myPassword');
+    const { validator } = getMatchesConfirmPassword('myPassword');
     const isValid = validator('myPassword');
     expect(isValid).toBe(true);
   });
 
   it('validates to false when passwords do not match', () => {
-    const { validator } = getPasswordConfirmationValidator('myPassword');
+    const { validator } = getMatchesConfirmPassword('myPassword');
     const isValid = validator('mismatchingPassword');
     expect(isValid).toBe(false);
   });
