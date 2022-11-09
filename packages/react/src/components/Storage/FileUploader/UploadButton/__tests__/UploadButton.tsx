@@ -1,7 +1,12 @@
 import * as React from 'react';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 
 import { UploadButton } from '..';
+const ref = {
+  current: {
+    info: jest.fn(),
+  },
+} as unknown as React.MutableRefObject<HTMLInputElement>;
 
 describe('Uploader Button', () => {
   it('exists', () => {
@@ -9,7 +14,9 @@ describe('Uploader Button', () => {
       <UploadButton
         multiple={false}
         acceptedFileTypes={['.png']}
-        onFileChange={() => ''}
+        onFileChange={() => null}
+        onClick={() => null}
+        hiddenInput={ref}
       />
     );
 
@@ -21,7 +28,9 @@ describe('Uploader Button', () => {
       <UploadButton
         multiple={false}
         acceptedFileTypes={['.png']}
-        onFileChange={() => ''}
+        onFileChange={() => null}
+        onClick={() => null}
+        hiddenInput={ref}
       />
     );
     const fakeFile = new File(['hello'], 'hello.png', { type: 'image/png' });
