@@ -1,6 +1,8 @@
 import {
   PersistentModel,
   PersistentModelConstructor,
+  PersistentModelMetaData,
+  IdentifierFieldOrIdentifierObject,
 } from '@aws-amplify/datastore';
 import { DataStore, Hub } from 'aws-amplify';
 
@@ -17,7 +19,7 @@ export interface UseDataStoreDeleteActionOptions<
   Model extends PersistentModel
 > {
   model: PersistentModelConstructor<Model>;
-  id: string;
+  id: IdentifierFieldOrIdentifierObject<Model, PersistentModelMetaData<Model>>;
 }
 
 /**
