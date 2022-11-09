@@ -47,10 +47,10 @@ jobs:
           ref: ${{ inputs.commit }}
           repository: ${{ inputs.repository }}
           persist-credentials: false
-      - name: Setup Node.js LTS
+      - name: Setup Node.js 16
         uses: actions/setup-node@v3
         with:
-          node-version: lts/*
+          node-version: 16
           cache: 'yarn'
       - name: Restore cypress runner from Cache
         uses: actions/cache@v2
@@ -108,10 +108,10 @@ jobs:
           repository: ${{ inputs.repository }}
           persist-credentials: false
 
-      - name: Setup Node.js LTS
+      - name: Setup Node.js 16
         uses: actions/setup-node@v3
         with:
-          node-version: lts/*
+          node-version: 16
           cache: 'yarn'
 
       - name: Restore node_modules cache
@@ -205,10 +205,10 @@ jobs:
           path: ${{ github.workspace }}/.next/cache
           key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}
 
-      - name: Setup Node.js LTS
+      - name: Setup Node.js 16
         uses: actions/setup-node@v3
         with:
-          node-version: lts/*
+          node-version: 16
           cache: 'yarn'
 
       - name: Restore cypress runner Cache
@@ -325,10 +325,10 @@ jobs:
           repository: ${{ inputs.repository }}
           persist-credentials: false
 
-      - name: Setup Node.js LTS
+      - name: Setup Node.js 16
         uses: actions/setup-node@v3
         with:
-          node-version: lts/*
+          node-version: 16
           cache: 'yarn'
 
       - name: Restore cypress runner Cache
