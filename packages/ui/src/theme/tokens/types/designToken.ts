@@ -193,6 +193,7 @@ interface TokenCustomProperties {
   strokeEmpty: StrokeEmptyValue;
   strokeFilled: StrokeFilledValue;
   time: TimeValue;
+  duration: TimeValue;
 }
 
 interface TokenProperties

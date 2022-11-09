@@ -1,18 +1,10 @@
-import {
-  ColorValue,
-  DesignToken,
-  BorderColorValue,
-} from '../types/designToken';
+import { DesignTokenProperties } from '../types/designToken';
 
-interface TextAreaFieldStateToken {
-  borderColor: DesignToken<BorderColorValue>;
-}
-
-export interface TextAreaFieldTokens {
-  color: DesignToken<ColorValue>;
-  borderColor: DesignToken<BorderColorValue>;
-  _focus: TextAreaFieldStateToken;
-}
+export type TextAreaFieldTokens<Output = unknown> = DesignTokenProperties<
+  'color' | 'borderColor' | 'fontSize'
+> & {
+  _focus?: DesignTokenProperties<'borderColor', Output>;
+};
 
 export const textareafield: TextAreaFieldTokens = {
   color: { value: '{components.fieldcontrol.color.value}' },
