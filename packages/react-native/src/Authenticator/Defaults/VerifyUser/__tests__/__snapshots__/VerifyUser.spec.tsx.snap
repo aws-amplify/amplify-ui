@@ -7,12 +7,12 @@ Array [
     style={
       Array [
         Object {
-          "color": "black",
+          "color": "hsl(210, 50%, 10%)",
         },
         Object {
-          "fontSize": 34,
+          "fontSize": 24,
           "fontWeight": "300",
-          "lineHeight": 51,
+          "lineHeight": 36,
         },
         undefined,
       ]
@@ -322,12 +322,12 @@ Array [
     style={
       Array [
         Object {
-          "color": "black",
+          "color": "hsl(210, 50%, 10%)",
         },
         Object {
-          "fontSize": 34,
+          "fontSize": 24,
           "fontWeight": "300",
-          "lineHeight": 51,
+          "lineHeight": 36,
         },
         undefined,
       ]
@@ -640,12 +640,12 @@ Array [
     style={
       Array [
         Object {
-          "color": "black",
+          "color": "hsl(210, 50%, 10%)",
         },
         Object {
-          "fontSize": 34,
+          "fontSize": 24,
           "fontWeight": "300",
-          "lineHeight": 51,
+          "lineHeight": 36,
         },
         undefined,
       ]
