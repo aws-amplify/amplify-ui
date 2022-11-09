@@ -16,10 +16,8 @@ import { useAuth } from '../../../internal';
 import { View, Flex } from '../../../primitives';
 import { FormValues, BlurredFields, ValidationError } from '../types';
 import {
-  DefaultConfirmPassword,
-  DefaultCurrentPassword,
+  DefaultPasswordField,
   DefaultError,
-  DefaultNewPassword,
   DefaultSubmitButton,
 } from './defaultComponents';
 import { ChangePasswordProps } from './types';
@@ -196,7 +194,7 @@ function ChangePassword({
   return (
     <View as="form" className="amplify-changepassword" onSubmit={handleSubmit}>
       <Flex direction="column">
-        <DefaultCurrentPassword
+        <DefaultPasswordField
           autoComplete="current-password"
           isRequired
           label={currentPasswordLabel}
@@ -204,7 +202,7 @@ function ChangePassword({
           onBlur={handleBlur}
           onChange={handleChange}
         />
-        <DefaultNewPassword
+        <DefaultPasswordField
           autoComplete="new-password"
           isRequired
           label={newPasswordLabel}
@@ -213,7 +211,7 @@ function ChangePassword({
           onChange={handleChange}
           validationErrors={validationError?.newPassword}
         />
-        <DefaultConfirmPassword
+        <DefaultPasswordField
           autoComplete="new-password"
           isRequired
           label={confirmPasswordLabel}

@@ -9,29 +9,13 @@ import {
 
 /** ChangePassword subcomponents */
 // TODO: enable component override
-export const DefaultCurrentPassword: AccountSettingsPasswordField = (props) => {
-  return <PasswordField {...props} />;
-};
-
-export const DefaultNewPassword: AccountSettingsPasswordField = ({
+export const DefaultPasswordField: AccountSettingsPasswordField = ({
   validationErrors,
-  ...props
+  ...rest
 }) => {
   return (
     <>
-      <PasswordField {...props} />
-      <ValidationErrors errors={validationErrors} />
-    </>
-  );
-};
-
-export const DefaultConfirmPassword: AccountSettingsPasswordField = ({
-  validationErrors,
-  ...props
-}) => {
-  return (
-    <>
-      <PasswordField {...props} />
+      <PasswordField {...rest} />
       <ValidationErrors errors={validationErrors} />
     </>
   );
