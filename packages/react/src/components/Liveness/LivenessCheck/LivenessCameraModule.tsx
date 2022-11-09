@@ -10,6 +10,7 @@ import {
   useMediaStreamInVideo,
 } from '../hooks';
 import { CancelButton, Instruction, RecordingIcon } from '../shared';
+import { isFirefox, isAndroid } from '../utils/device';
 import { Flex, Loader, Text, View } from '../../../primitives';
 
 export const selectVideoConstraints = createLivenessSelector(
@@ -45,6 +46,12 @@ export const LivenessCameraModule = (
   const isCheckingCamera = state.matches('cameraCheck');
   const isNotRecording = state.matches('notRecording');
   const isRecording = state.matches('recording');
+
+  /**
+   * Temp fix: Firefox on Android returns opposite values you'd expect
+   * from getUserMedia().
+   */
+  const shouldFlipValues = isAndroid() && isFirefox();
 
   React.useLayoutEffect(() => {
     if (isCameraReady) {
@@ -108,8 +115,8 @@ export const LivenessCameraModule = (
         <View
           as="canvas"
           ref={freshnessColorRef}
-          height={'100vh'}
-          width={'100vw'}
+          height="100%"
+          width="100%"
           position="fixed"
           top={0}
           left={0}
@@ -122,8 +129,8 @@ export const LivenessCameraModule = (
           muted
           autoPlay
           playsInline
-          height={videoHeight}
-          width={videoWidth}
+          height={shouldFlipValues ? videoWidth : videoHeight}
+          width={shouldFlipValues ? videoHeight : videoWidth}
           style={{ transform: 'scaleX(-1)' }}
           onCanPlay={handleMediaPlay}
           data-testid="video"
@@ -131,8 +138,8 @@ export const LivenessCameraModule = (
         <View
           as="canvas"
           ref={canvasRef}
-          height={videoHeight}
-          width={videoWidth}
+          height={shouldFlipValues ? videoWidth : videoHeight}
+          width={shouldFlipValues ? videoHeight : videoWidth}
           position="absolute"
           top={0}
         />

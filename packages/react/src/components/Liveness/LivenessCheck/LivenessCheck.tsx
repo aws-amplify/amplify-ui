@@ -6,13 +6,13 @@ import {
 } from '@aws-amplify/ui';
 
 import { useTheme } from '../../../hooks';
-import { useThemeBreakpoint } from '../../../hooks/useThemeBreakpoint';
 import { LivenessCameraModule } from './LivenessCameraModule';
 import {
   createLivenessSelector,
   useLivenessActor,
   useLivenessSelector,
 } from '../hooks';
+import { isMobileScreen } from '../utils/device';
 import { Text, Flex, View } from '../../../primitives';
 import { CancelButton } from '../shared/CancelButton';
 
@@ -24,12 +24,11 @@ export const selectErrorState = createLivenessSelector(
 
 export const LivenessCheck: React.FC = () => {
   const { tokens } = useTheme();
-  const breakpoint = useThemeBreakpoint();
   const [state] = useLivenessActor();
   const errorState = useLivenessSelector(selectErrorState);
 
-  const isMobileScreen = breakpoint === 'base';
   const isPermissionDenied = state.matches('permissionDenied');
+  const isMobile = isMobileScreen();
 
   return (
     <Flex
@@ -40,7 +39,7 @@ export const LivenessCheck: React.FC = () => {
       className={CHECK_CLASS_NAME}
     >
       {!isPermissionDenied ? (
-        <LivenessCameraModule isMobileScreen={isMobileScreen} />
+        <LivenessCameraModule isMobileScreen={isMobile} />
       ) : (
         <Flex
           backgroundColor={`${tokens.colors.background.primary}`}

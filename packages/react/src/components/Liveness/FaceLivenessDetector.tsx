@@ -12,7 +12,7 @@ import { StartLiveness } from './StartLiveness';
 import { LivenessCheck } from './LivenessCheck';
 import { View, Flex } from '../../primitives';
 import { getVideoConstraints } from './StartLiveness/helpers';
-import { useThemeBreakpoint } from '../../hooks/useThemeBreakpoint';
+import { isMobileScreen } from './utils/device';
 
 const DETECTOR_CLASS_NAME = 'liveness-detector';
 
@@ -25,7 +25,6 @@ export const FaceLivenessDetector: React.FC<FaceLivenessDetectorProps> = (
   const { onUserCancel: onUserCancelFromProps, disableStartScreen = false } =
     props;
   const currElementRef = React.useRef<HTMLDivElement>(null);
-  const breakpoint = useThemeBreakpoint();
 
   const onUserCancel = () => {
     const event = new CustomEvent('userCancel', { cancelable: true });
@@ -52,9 +51,10 @@ export const FaceLivenessDetector: React.FC<FaceLivenessDetectorProps> = (
       metrics: { count: 1 },
     });
 
-    const isMobileScreen = breakpoint === 'base';
+    const isMobile = isMobileScreen();
+
     const videoConstraints = getVideoConstraints(
-      isMobileScreen,
+      isMobile,
       currElementRef.current.clientWidth
     );
 
@@ -62,7 +62,7 @@ export const FaceLivenessDetector: React.FC<FaceLivenessDetectorProps> = (
       type: 'BEGIN',
       data: { videoConstraints },
     });
-  }, [send, breakpoint, props]);
+  }, [send, props]);
 
   React.useLayoutEffect(() => {
     if (disableStartScreen) {
