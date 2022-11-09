@@ -7,7 +7,8 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import { styles } from './styles';
+import { useTheme } from '../../theme';
+import { getThemedStyles } from './styles';
 import { ButtonProps } from './types';
 
 export default function Button({
@@ -16,19 +17,22 @@ export default function Button({
   textStyle,
   ...props
 }: ButtonProps): JSX.Element {
+  const theme = useTheme();
+  const themedStyle = getThemedStyles(theme);
+
   const pressableStyle = useCallback(
     ({ pressed }: PressableStateCallbackType): StyleProp<ViewStyle> => {
       const pressedStateStyle =
         (typeof style === 'function' ? style({ pressed }) : style) ?? null;
-      return [pressed ? styles.pressed : null, pressedStateStyle];
+      return [pressed ? themedStyle.pressed : null, pressedStateStyle];
     },
-    [style]
+    [style, themedStyle]
   );
 
   return (
     <Pressable {...props} style={pressableStyle}>
       {typeof children === 'string' ? (
-        <Text style={[styles.text, textStyle]}>{children}</Text>
+        <Text style={[themedStyle.text, textStyle]}>{children}</Text>
       ) : (
         children
       )}

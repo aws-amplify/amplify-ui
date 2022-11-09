@@ -3,6 +3,7 @@ import { ReactNativeTokens } from '@aws-amplify/ui/src/theme/tokens';
 import baseTokens from '@aws-amplify/ui/dist/react-native/tokens';
 
 import { LabelStyles } from '../primitives/Label/types';
+import { ButtonStyles } from '../primitives/Button/types';
 
 export interface Tokens extends ReactNativeTokens {
   components?: ComponentStyles;
@@ -36,6 +37,7 @@ export interface Theme {
 export interface ComponentStyles {
   // TODO: add components
   label: LabelStyles;
+  button: ButtonStyles;
 }
 
 /**
