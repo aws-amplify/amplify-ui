@@ -52,9 +52,10 @@ export default function RadioGroup<T>({
 
   const containerStyle: ViewStyle = useMemo(
     () => ({
+      ...themedStyle.container,
       flexDirection: getFlexDirectionFromLabelPosition(labelPosition),
     }),
-    [labelPosition]
+    [labelPosition, themedStyle]
   );
 
   const childContainerStyle: ViewStyle = useMemo(
