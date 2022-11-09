@@ -109,7 +109,7 @@ function ChangePassword({
       blurredFields: BlurredFields,
       eventType: InputEventType
     ) => {
-      const newPasswordErrors = validateNewPassword(
+      const passwordErrors = validateNewPassword(
         formValues,
         blurredFields,
         eventType
@@ -121,7 +121,7 @@ function ChangePassword({
       );
 
       const newValidationError = {
-        newPassword: newPasswordErrors,
+        newPassword: passwordErrors,
         confirmPassword: confirmPasswordErrors,
       };
 
@@ -179,12 +179,12 @@ function ChangePassword({
     }
   };
 
-  /** Return null if Auth.getCurrentAuthenticatedUser is still in progress  */
+  // Return null if Auth.getCurrentAuthenticatedUser is still in progress
   if (isLoading) {
     return null;
   }
 
-  /** Return null if user isn't authenticated in the first place */
+  // Return null if user isn't authenticated in the first place
   if (!user) {
     logger.warn('<ChangePassword /> requires user to be authenticated.');
     return null;
