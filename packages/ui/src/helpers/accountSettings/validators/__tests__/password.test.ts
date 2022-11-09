@@ -3,13 +3,20 @@ import { Amplify } from 'aws-amplify';
 import {
   getDefaultPasswordValidators,
   getMinLengthValidator,
+  getPasswordRequirement,
   hasLowerCase,
   hasNumber,
   hasSpecialChar,
   hasUpperCase,
 } from '../password';
 
-const amplifyPasswordConfig = {
+const partialAmplifyPasswordConfig = {
+  aws_cognito_password_protection_settings: {
+    passwordPolicyCharacters: ['REQUIRES_LOWERCASE', 'REQUIRES_UPPERCASE'],
+  },
+};
+
+const fullAmplifyPasswordConfig = {
   aws_cognito_password_protection_settings: {
     passwordPolicyMinLength: 8,
     passwordPolicyCharacters: [
@@ -106,16 +113,61 @@ describe('hasSpecialChar', () => {
   });
 });
 
+describe('getPasswordRequirement', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('returns null if Amplify.configure() is empty', () => {
+    configureSpy.mockReturnValue({});
+    const requirements = getPasswordRequirement();
+    expect(requirements).toBeNull();
+  });
+
+  it('returns expected password requirements if full amplify config', () => {
+    configureSpy.mockReturnValue(fullAmplifyPasswordConfig);
+    const requirements = getPasswordRequirement();
+    expect(requirements).toMatchObject({
+      minLength: 8,
+      needsLowerCase: true,
+      needsNumber: true,
+      needsSpecialChar: true,
+      needsUpperCase: true,
+    });
+  });
+
+  it('returns expected password requirements if partial amplify config', () => {
+    configureSpy.mockReturnValue(partialAmplifyPasswordConfig);
+    const requirements = getPasswordRequirement();
+    expect(requirements).toMatchObject({
+      needsLowerCase: true,
+      needsNumber: false,
+      needsSpecialChar: false,
+      needsUpperCase: true,
+    });
+  });
+});
+
 describe('getDefaultPasswordValidators', () => {
-  it('returns empty array if passwordSettings is empty', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('returns validators as expected for partial Amplify config ', () => {
+    configureSpy.mockReturnValue(partialAmplifyPasswordConfig);
+    const validators = getDefaultPasswordValidators();
+    expect(validators).toMatchSnapshot();
+  });
+
+  it('returns validators as expected for full Amplify config ', () => {
+    configureSpy.mockReturnValue(fullAmplifyPasswordConfig);
+    const validators = getDefaultPasswordValidators();
+    expect(validators).toMatchSnapshot();
+  });
+
+  it('returns empty array for empty amplify config', () => {
     configureSpy.mockReturnValue({});
     const validators = getDefaultPasswordValidators();
     expect(validators).toStrictEqual([]);
-  });
-
-  it.only('returns validators as expected for nonempty passwordSetting', () => {
-    configureSpy.mockReturnValue(amplifyPasswordConfig);
-    const validators = getDefaultPasswordValidators();
-    expect(validators).toMatchSnapshot();
   });
 });

@@ -1,12 +1,34 @@
 import { Amplify } from 'aws-amplify';
 import { hasSpecialChars } from '../../../helpers/authenticator';
-import { FieldValidator, PasswordSettings } from '../../../types';
+import {
+  FieldValidator,
+  PasswordSettings,
+  PasswordRequirement,
+} from '../../../types';
 
 /** Gets password setting from Amplify configuration */
-export const getPasswordSettings = () => {
+export const getPasswordRequirement = (): PasswordRequirement => {
   // need to cast to any because `Amplify.configure()` isn't typed properly
   const config = Amplify.configure() as any;
-  return config?.aws_cognito_password_protection_settings as PasswordSettings;
+  const passwordSettings =
+    config?.aws_cognito_password_protection_settings as PasswordSettings;
+
+  if (!passwordSettings) {
+    return null;
+  }
+
+  const {
+    passwordPolicyCharacters: characterPolicy = [],
+    passwordPolicyMinLength: minLength,
+  } = passwordSettings;
+
+  return {
+    minLength: minLength ? minLength : undefined,
+    needsLowerCase: characterPolicy.includes('REQUIRES_LOWERCASE'),
+    needsUpperCase: characterPolicy.includes('REQUIRES_UPPERCASE'),
+    needsNumber: characterPolicy.includes('REQUIRES_NUMBERS'),
+    needsSpecialChar: characterPolicy.includes('REQUIRES_SYMBOLS'),
+  };
 };
 
 export const getMinLengthValidator = (minLength: number): FieldValidator => ({
@@ -40,45 +62,35 @@ export const hasSpecialChar: FieldValidator = {
 };
 
 export const getDefaultPasswordValidators = (): FieldValidator[] => {
+  const requirement = getPasswordRequirement();
+  if (!requirement) return [];
+
   const validators: FieldValidator[] = [];
 
-  const passwordSettings = getPasswordSettings();
+  const {
+    minLength,
+    needsLowerCase,
+    needsUpperCase,
+    needsNumber,
+    needsSpecialChar,
+  } = requirement;
 
-  if (!passwordSettings) {
-    // return early if password setting is not set
-    return [];
-  }
-
-  const minLength = passwordSettings.passwordPolicyMinLength;
   if (minLength) {
     validators.push(getMinLengthValidator(minLength));
   }
 
-  // policy such as "requires uppercase", "requires special characters", etc
-  const characterPolicies = passwordSettings?.passwordPolicyCharacters;
+  if (needsLowerCase) {
+    validators.push(hasLowerCase);
+  }
+  if (needsUpperCase) {
+    validators.push(hasUpperCase);
+  }
+  if (needsNumber) {
+    validators.push(hasNumber);
+  }
+  if (needsSpecialChar) {
+    validators.push(hasSpecialChar);
+  }
 
-  characterPolicies.forEach((policy) => {
-    switch (policy) {
-      case 'REQUIRES_LOWERCASE': {
-        validators.push(hasLowerCase);
-        break;
-      }
-      case 'REQUIRES_UPPERCASE': {
-        validators.push(hasUpperCase);
-        break;
-      }
-      case 'REQUIRES_NUMBERS': {
-        validators.push(hasNumber);
-        break;
-      }
-      case 'REQUIRES_SYMBOLS': {
-        validators.push(hasSpecialChar);
-        break;
-      }
-      default: {
-        break;
-      }
-    }
-  });
   return validators;
 };

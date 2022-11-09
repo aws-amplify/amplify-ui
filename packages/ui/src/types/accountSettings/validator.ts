@@ -7,3 +7,11 @@ export interface FieldValidator {
   validate: (field: string) => boolean;
   message: string;
 }
+
+export interface PasswordRequirement {
+  minLength?: number;
+  needsLowerCase?: boolean;
+  needsUpperCase?: boolean;
+  needsSpecialChar?: boolean;
+  needsNumber?: boolean;
+}
