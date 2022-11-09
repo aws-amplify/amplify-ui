@@ -35,9 +35,9 @@ export interface Theme {
 
 export interface ComponentStyles {
   // TODO: add components
+  button: ButtonStyles;
   label: LabelStyles;
   radio: RadioStyles;
-  button: ButtonStyles;
 }
 
 /**
