@@ -27,7 +27,7 @@ export const getThemedStyles = (theme: StrictTheme): RadioStyles => {
       ...components?.radio.radioContainer,
     },
     radioDot: {
-      backgroundColor: colors.teal[80],
+      backgroundColor: colors.brand.primary[80],
       borderRadius: ROUNDED_BORDER_RADIUS,
       ...components?.radio.radioDot,
     },

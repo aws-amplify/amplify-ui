@@ -16,6 +16,11 @@ import { RadioDimensions, RadioStyles, Size } from './types';
  * (e.g., 'small' => { radioContainerSmall, radioDotSmall } )
  */
 
+/**
+ * We landed on this value for the ratio of the Radio dot to the Radio container
+ * because it looks aesthetically proportional. Incidentally, this value is also
+ * an approximation of the golden ratio conjugate.
+ */
 export const RADIO_DOT_PROPORTION = 0.6;
 
 export const getRadioDimensions = (
