@@ -8,7 +8,7 @@ import { Button, Flex } from '../../../primitives';
 import { DefaultConfirmation } from './defaultComponents';
 import { DeleteUserProps, DeleteUserState } from './types';
 
-const logger = new Logger('ChangePassword');
+const logger = new Logger('DeleteUser');
 
 function DeleteUser({
   onSuccess,
