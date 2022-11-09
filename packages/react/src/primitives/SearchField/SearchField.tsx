@@ -1,13 +1,15 @@
 import classNames from 'classnames';
 import * as React from 'react';
 
-import { ComponentClassNames } from '../shared/constants';
 import { FieldClearButton } from '../Field';
-import { strHasLength } from '../shared/utils';
+import { FieldGroupIcon } from '../FieldGroupIcon';
+import { IconSearch } from '../Icon/internal';
 import { SearchFieldButton } from './SearchFieldButton';
-import { SearchFieldProps, Primitive } from '../types';
 import { TextField } from '../TextField';
 import { useSearchField } from './useSearchField';
+import { ComponentClassNames } from '../shared/constants';
+import { strHasLength } from '../shared/utils';
+import type { SearchFieldProps, Primitive } from '../types';
 
 const SearchFieldPrimitive: Primitive<SearchFieldProps, 'input'> = (
   {
@@ -17,27 +19,61 @@ const SearchFieldPrimitive: Primitive<SearchFieldProps, 'input'> = (
     clearButtonLabel,
     labelHidden = true,
     name = 'q',
-    onSubmit,
+    hasSearchButton = true,
+    hasSearchIcon = false,
+    onChange,
     onClear,
+    onSubmit,
     searchButtonRef,
     size,
+    defaultValue,
+    value,
     ...rest
   },
   ref
 ) => {
-  const { value, onClearHandler, onInput, onKeyDown, onClick, composedRefs } =
-    useSearchField({ onSubmit, onClear, externalRef: ref });
+  const {
+    composedValue,
+    onClearHandler,
+    onKeyDown,
+    onClick,
+    handleOnChange,
+    composedRefs,
+  } = useSearchField({
+    defaultValue,
+    value,
+    onChange,
+    onClear,
+    onSubmit,
+    externalRef: ref,
+  });
+
+  const SearchButton = hasSearchButton ? (
+    <SearchFieldButton
+      isDisabled={isDisabled}
+      onClick={onClick}
+      ref={searchButtonRef}
+      size={size}
+    />
+  ) : undefined;
+
+  const SearchIcon = hasSearchIcon ? (
+    <FieldGroupIcon>
+      <IconSearch />
+    </FieldGroupIcon>
+  ) : undefined;
 
   return (
     <TextField
       autoComplete={autoComplete}
       className={classNames(ComponentClassNames.SearchField, className)}
       labelHidden={labelHidden}
+      innerStartComponent={SearchIcon}
       innerEndComponent={
         <FieldClearButton
           ariaLabel={clearButtonLabel}
           excludeFromTabOrder={true}
-          isVisible={strHasLength(value)}
+          isVisible={strHasLength(composedValue)}
           onClick={onClearHandler}
           size={size}
           variation="link"
@@ -46,19 +82,12 @@ const SearchFieldPrimitive: Primitive<SearchFieldProps, 'input'> = (
       isDisabled={isDisabled}
       isMultiline={false}
       name={name}
-      onInput={onInput}
+      onChange={handleOnChange}
       onKeyDown={onKeyDown}
-      outerEndComponent={
-        <SearchFieldButton
-          isDisabled={isDisabled}
-          onClick={onClick}
-          ref={searchButtonRef}
-          size={size}
-        />
-      }
+      outerEndComponent={SearchButton}
       ref={composedRefs}
       size={size}
-      value={value}
+      value={composedValue}
       {...rest}
     />
   );

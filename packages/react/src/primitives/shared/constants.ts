@@ -34,6 +34,46 @@ export const ComponentClassObject: ComponentClassNameItems = {
     components: ['Alert'],
     description: 'Class applied to the close Button',
   },
+  Autocomplete: {
+    className: ComponentClassName.Autocomplete,
+    components: ['Autocomplete'],
+    description: 'Top level element that wraps the Autocomplete primitive',
+  },
+  AutocompleteMenu: {
+    className: ComponentClassName.AutocompleteMenu,
+    components: ['Autocomplete'],
+    description: 'Top level element that wraps the dropdown menu',
+  },
+  AutocompleteMenuEmpty: {
+    className: ComponentClassName.AutocompleteMenuEmpty,
+    components: ['Autocomplete'],
+    description: 'Class applied to the no options slot of menu',
+  },
+  AutocompleteMenuFooter: {
+    className: ComponentClassName.AutocompleteMenuFooter,
+    components: ['Autocomplete'],
+    description: 'Class applied to menu footer',
+  },
+  AutocompleteMenuHeader: {
+    className: ComponentClassName.AutocompleteMenuHeader,
+    components: ['Autocomplete'],
+    description: 'Class applied to menu header',
+  },
+  AutocompleteMenuLoading: {
+    className: ComponentClassName.AutocompleteMenuLoading,
+    components: ['Autocomplete'],
+    description: 'Class applied to the loading slot of menu',
+  },
+  AutocompleteMenuOption: {
+    className: ComponentClassName.AutocompleteMenuOption,
+    components: ['Autocomplete'],
+    description: 'Class applied to each li option',
+  },
+  AutocompleteMenuOptions: {
+    className: ComponentClassName.AutocompleteMenuOptions,
+    components: ['Autocomplete'],
+    description: 'Class applied to ul container element',
+  },
   Badge: {
     className: ComponentClassName.Badge,
     components: ['Badge'],
@@ -203,6 +243,17 @@ export const ComponentClassObject: ComponentClassNameItems = {
     className: ComponentClassName.Heading,
     components: ['Heading'],
     description: 'Top level element that wraps the Heading primitive',
+  },
+  HighlightMatch: {
+    className: ComponentClassName.HighlightMatch,
+    components: ['HighlightMatch'],
+    description: 'Top level element that wraps the HighlightMatch primitive',
+  },
+  HighlightMatchHighlighted: {
+    className: ComponentClassName.HighlightMatchHighlighted,
+    components: ['HighlightMatch'],
+    description:
+      'Class applied to the highlighted text of the HighlightMatch primitive',
   },
   Icon: {
     className: ComponentClassName.Icon,
@@ -541,6 +592,16 @@ export const ComponentClassNames: ComponentClassNamesType = {
   AlertHeading: ComponentClassObject.AlertHeading.className,
   AlertBody: ComponentClassObject.AlertBody.className,
   AlertDismiss: ComponentClassObject.AlertDismiss.className,
+  Autocomplete: ComponentClassObject.Autocomplete.className,
+  AutocompleteMenu: ComponentClassObject.AutocompleteMenu.className,
+  AutocompleteMenuEmpty: ComponentClassObject.AutocompleteMenuEmpty.className,
+  AutocompleteMenuFooter: ComponentClassObject.AutocompleteMenuFooter.className,
+  AutocompleteMenuHeader: ComponentClassObject.AutocompleteMenuHeader.className,
+  AutocompleteMenuLoading:
+    ComponentClassObject.AutocompleteMenuLoading.className,
+  AutocompleteMenuOption: ComponentClassObject.AutocompleteMenuOption.className,
+  AutocompleteMenuOptions:
+    ComponentClassObject.AutocompleteMenuOptions.className,
   Badge: ComponentClassObject.Badge.className,
   Button: ComponentClassObject.Button.className,
   ButtonGroup: ComponentClassObject.ButtonGroup.className,
@@ -586,6 +647,9 @@ export const ComponentClassNames: ComponentClassNamesType = {
   Flex: ComponentClassObject.Flex.className,
   Grid: ComponentClassObject.Grid.className,
   Heading: ComponentClassObject.Heading.className,
+  HighlightMatch: ComponentClassObject.HighlightMatch.className,
+  HighlightMatchHighlighted:
+    ComponentClassObject.HighlightMatchHighlighted.className,
   Icon: ComponentClassObject.Icon.className,
   Image: ComponentClassObject.Image.className,
   Input: ComponentClassObject.Input.className,
@@ -660,6 +724,10 @@ export const ComponentClassNames: ComponentClassNamesType = {
 export const ComponentText = {
   Alert: {
     dismissButtonLabel: 'Dismiss alert',
+  },
+  Autocomplete: {
+    emptyText: 'No options found',
+    loadingText: 'Loading options...',
   },
   Collection: {
     searchButtonLabel: 'Search',
@@ -739,3 +807,9 @@ export const stylePropsToThemeKeys: Record<ThemeStylePropKey, ThemeTokenKey> = {
   columnGap: 'space',
   rowGap: 'space',
 };
+
+// key name
+export const ESCAPE_KEY = 'Escape';
+export const ENTER_KEY = 'Enter';
+export const ARROW_UP = 'ArrowUp';
+export const ARROW_DOWN = 'ArrowDown';
