@@ -1,11 +1,15 @@
 import { AmplifyUser } from '@aws-amplify/ui';
 
-export interface DeleteUserConfirmationProps {
-  // called when end user cancels account deletion
+export interface DeleteUserWarningProps {
+  /** called when end user cancels account deletion */
   onCancel: () => void;
-  // called when user acknowledges account deletion
-  onAcknowledge: () => void;
+  /** called when user acknowledges account deletion */
+  onConfirmDelete: () => void;
+  /**whether account deletion is in progress */
+  isInProgress?: boolean;
 }
+
+export type DeleteUserState = 'IDLE' | 'IS_CONFIRMING' | 'IN_PROGRESS' | 'DONE';
 
 export interface DeleteUserProps {
   // custom delete user service override, if customer wants to add
@@ -16,7 +20,7 @@ export interface DeleteUserProps {
   onSuccess?: () => void;
 
   // callback for unsuccessful user deletion
-  onError?: () => void;
+  onError?: (error: Error) => void;
 
   // whether to skip delete user warning
   skipWarning?: boolean;

@@ -1,1 +1,1 @@
-export { changePassword } from './utils';
+export { changePassword, deleteUser } from './utils';
