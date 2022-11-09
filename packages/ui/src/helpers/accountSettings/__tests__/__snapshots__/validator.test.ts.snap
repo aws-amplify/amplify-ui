@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`getPasswordDefaultValidators returns validators as expected for full Amplify config  1`] = `
+exports[`getDefaultPasswordValidators returns validators as expected for full Amplify config  1`] = `
 Array [
   Object {
     "message": "Password must have at least 8 characters",
@@ -30,7 +30,7 @@ Array [
 ]
 `;
 
-exports[`getPasswordDefaultValidators returns validators as expected for partial Amplify config  1`] = `
+exports[`getDefaultPasswordValidators returns validators as expected for partial Amplify config  1`] = `
 Array [
   Object {
     "message": "Password must have lower case letters",
