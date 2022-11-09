@@ -46,18 +46,12 @@ export const runFieldValidators = ({
 }): string[] => {
   if (!value) return [];
 
-  const errors = [];
-
-  validators?.forEach((validator) => {
-    const { validate, validationMode } = validator;
+  return validators.reduce((prevErrors, validator) => {
+    const { validate, validationMode, message } = validator;
 
     if (shouldValidate({ validationMode, eventType, hasBlurred })) {
       const hasError = !validate(value);
-      if (hasError) {
-        errors.push(validator.message);
-      }
+      return hasError ? [...prevErrors, message] : prevErrors;
     }
-  });
-
-  return errors;
+  }, []);
 };
