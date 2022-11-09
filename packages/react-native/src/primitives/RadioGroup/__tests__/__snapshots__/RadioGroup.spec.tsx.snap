@@ -48,7 +48,7 @@ exports[`RadioGroup renders as expected when direction is horizontal 1`] = `
           Array [
             Object {
               "alignItems": "center",
-              "borderColor": "#317d95",
+              "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
               "borderWidth": 2,
               "justifyContent": "center",
@@ -60,17 +60,18 @@ exports[`RadioGroup renders as expected when direction is horizontal 1`] = `
             undefined,
           ]
         }
+        testID="amplify__radio-button__container"
       >
         <View
           style={
             Array [
               Object {
-                "backgroundColor": "#317d95",
+                "backgroundColor": "hsl(190, 95%, 30%)",
                 "borderRadius": 999,
               },
               Object {
-                "height": 10,
-                "width": 10,
+                "height": 12,
+                "width": 12,
               },
               undefined,
             ]
@@ -127,7 +128,7 @@ exports[`RadioGroup renders as expected when direction is horizontal 1`] = `
           Array [
             Object {
               "alignItems": "center",
-              "borderColor": "#317d95",
+              "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
               "borderWidth": 2,
               "justifyContent": "center",
@@ -139,6 +140,7 @@ exports[`RadioGroup renders as expected when direction is horizontal 1`] = `
             undefined,
           ]
         }
+        testID="amplify__radio-button__container"
       />
       <Text
         accessibilityRole="text"
@@ -189,7 +191,7 @@ exports[`RadioGroup renders as expected when direction is horizontal 1`] = `
           Array [
             Object {
               "alignItems": "center",
-              "borderColor": "#317d95",
+              "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
               "borderWidth": 2,
               "justifyContent": "center",
@@ -201,6 +203,7 @@ exports[`RadioGroup renders as expected when direction is horizontal 1`] = `
             undefined,
           ]
         }
+        testID="amplify__radio-button__container"
       />
       <Text
         accessibilityRole="text"
@@ -252,7 +255,7 @@ exports[`RadioGroup renders as expected when direction is horizontal 1`] = `
           Array [
             Object {
               "alignItems": "center",
-              "borderColor": "#317d95",
+              "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
               "borderWidth": 2,
               "justifyContent": "center",
@@ -264,6 +267,7 @@ exports[`RadioGroup renders as expected when direction is horizontal 1`] = `
             undefined,
           ]
         }
+        testID="amplify__radio-button__container"
       />
       <Text
         accessibilityRole="text"
@@ -337,7 +341,7 @@ exports[`RadioGroup renders as expected when direction is vertical 1`] = `
           Array [
             Object {
               "alignItems": "center",
-              "borderColor": "#317d95",
+              "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
               "borderWidth": 2,
               "justifyContent": "center",
@@ -349,17 +353,18 @@ exports[`RadioGroup renders as expected when direction is vertical 1`] = `
             undefined,
           ]
         }
+        testID="amplify__radio-button__container"
       >
         <View
           style={
             Array [
               Object {
-                "backgroundColor": "#317d95",
+                "backgroundColor": "hsl(190, 95%, 30%)",
                 "borderRadius": 999,
               },
               Object {
-                "height": 10,
-                "width": 10,
+                "height": 12,
+                "width": 12,
               },
               undefined,
             ]
@@ -416,7 +421,7 @@ exports[`RadioGroup renders as expected when direction is vertical 1`] = `
           Array [
             Object {
               "alignItems": "center",
-              "borderColor": "#317d95",
+              "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
               "borderWidth": 2,
               "justifyContent": "center",
@@ -428,6 +433,7 @@ exports[`RadioGroup renders as expected when direction is vertical 1`] = `
             undefined,
           ]
         }
+        testID="amplify__radio-button__container"
       />
       <Text
         accessibilityRole="text"
@@ -478,7 +484,7 @@ exports[`RadioGroup renders as expected when direction is vertical 1`] = `
           Array [
             Object {
               "alignItems": "center",
-              "borderColor": "#317d95",
+              "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
               "borderWidth": 2,
               "justifyContent": "center",
@@ -490,6 +496,7 @@ exports[`RadioGroup renders as expected when direction is vertical 1`] = `
             undefined,
           ]
         }
+        testID="amplify__radio-button__container"
       />
       <Text
         accessibilityRole="text"
@@ -541,7 +548,7 @@ exports[`RadioGroup renders as expected when direction is vertical 1`] = `
           Array [
             Object {
               "alignItems": "center",
-              "borderColor": "#317d95",
+              "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
               "borderWidth": 2,
               "justifyContent": "center",
@@ -553,6 +560,7 @@ exports[`RadioGroup renders as expected when direction is vertical 1`] = `
             undefined,
           ]
         }
+        testID="amplify__radio-button__container"
       />
       <Text
         accessibilityRole="text"
@@ -626,7 +634,7 @@ exports[`RadioGroup renders as expected when size is large 1`] = `
           Array [
             Object {
               "alignItems": "center",
-              "borderColor": "#317d95",
+              "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
               "borderWidth": 2,
               "justifyContent": "center",
@@ -638,17 +646,18 @@ exports[`RadioGroup renders as expected when size is large 1`] = `
             undefined,
           ]
         }
+        testID="amplify__radio-button__container"
       >
         <View
           style={
             Array [
               Object {
-                "backgroundColor": "#317d95",
+                "backgroundColor": "hsl(190, 95%, 30%)",
                 "borderRadius": 999,
               },
               Object {
-                "height": 12,
-                "width": 12,
+                "height": 14.399999999999999,
+                "width": 14.399999999999999,
               },
               undefined,
             ]
@@ -705,7 +714,7 @@ exports[`RadioGroup renders as expected when size is large 1`] = `
           Array [
             Object {
               "alignItems": "center",
-              "borderColor": "#317d95",
+              "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
               "borderWidth": 2,
               "justifyContent": "center",
@@ -717,6 +726,7 @@ exports[`RadioGroup renders as expected when size is large 1`] = `
             undefined,
           ]
         }
+        testID="amplify__radio-button__container"
       />
       <Text
         accessibilityRole="text"
@@ -767,7 +777,7 @@ exports[`RadioGroup renders as expected when size is large 1`] = `
           Array [
             Object {
               "alignItems": "center",
-              "borderColor": "#317d95",
+              "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
               "borderWidth": 2,
               "justifyContent": "center",
@@ -779,6 +789,7 @@ exports[`RadioGroup renders as expected when size is large 1`] = `
             undefined,
           ]
         }
+        testID="amplify__radio-button__container"
       />
       <Text
         accessibilityRole="text"
@@ -830,7 +841,7 @@ exports[`RadioGroup renders as expected when size is large 1`] = `
           Array [
             Object {
               "alignItems": "center",
-              "borderColor": "#317d95",
+              "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
               "borderWidth": 2,
               "justifyContent": "center",
@@ -842,6 +853,7 @@ exports[`RadioGroup renders as expected when size is large 1`] = `
             undefined,
           ]
         }
+        testID="amplify__radio-button__container"
       />
       <Text
         accessibilityRole="text"
@@ -915,7 +927,7 @@ exports[`RadioGroup renders as expected when size is medium 1`] = `
           Array [
             Object {
               "alignItems": "center",
-              "borderColor": "#317d95",
+              "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
               "borderWidth": 2,
               "justifyContent": "center",
@@ -927,17 +939,18 @@ exports[`RadioGroup renders as expected when size is medium 1`] = `
             undefined,
           ]
         }
+        testID="amplify__radio-button__container"
       >
         <View
           style={
             Array [
               Object {
-                "backgroundColor": "#317d95",
+                "backgroundColor": "hsl(190, 95%, 30%)",
                 "borderRadius": 999,
               },
               Object {
-                "height": 10,
-                "width": 10,
+                "height": 12,
+                "width": 12,
               },
               undefined,
             ]
@@ -994,7 +1007,7 @@ exports[`RadioGroup renders as expected when size is medium 1`] = `
           Array [
             Object {
               "alignItems": "center",
-              "borderColor": "#317d95",
+              "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
               "borderWidth": 2,
               "justifyContent": "center",
@@ -1006,6 +1019,7 @@ exports[`RadioGroup renders as expected when size is medium 1`] = `
             undefined,
           ]
         }
+        testID="amplify__radio-button__container"
       />
       <Text
         accessibilityRole="text"
@@ -1056,7 +1070,7 @@ exports[`RadioGroup renders as expected when size is medium 1`] = `
           Array [
             Object {
               "alignItems": "center",
-              "borderColor": "#317d95",
+              "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
               "borderWidth": 2,
               "justifyContent": "center",
@@ -1068,6 +1082,7 @@ exports[`RadioGroup renders as expected when size is medium 1`] = `
             undefined,
           ]
         }
+        testID="amplify__radio-button__container"
       />
       <Text
         accessibilityRole="text"
@@ -1119,7 +1134,7 @@ exports[`RadioGroup renders as expected when size is medium 1`] = `
           Array [
             Object {
               "alignItems": "center",
-              "borderColor": "#317d95",
+              "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
               "borderWidth": 2,
               "justifyContent": "center",
@@ -1131,6 +1146,7 @@ exports[`RadioGroup renders as expected when size is medium 1`] = `
             undefined,
           ]
         }
+        testID="amplify__radio-button__container"
       />
       <Text
         accessibilityRole="text"
@@ -1204,7 +1220,7 @@ exports[`RadioGroup renders as expected when size is small 1`] = `
           Array [
             Object {
               "alignItems": "center",
-              "borderColor": "#317d95",
+              "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
               "borderWidth": 2,
               "justifyContent": "center",
@@ -1216,17 +1232,18 @@ exports[`RadioGroup renders as expected when size is small 1`] = `
             undefined,
           ]
         }
+        testID="amplify__radio-button__container"
       >
         <View
           style={
             Array [
               Object {
-                "backgroundColor": "#317d95",
+                "backgroundColor": "hsl(190, 95%, 30%)",
                 "borderRadius": 999,
               },
               Object {
-                "height": 8,
-                "width": 8,
+                "height": 9.6,
+                "width": 9.6,
               },
               undefined,
             ]
@@ -1283,7 +1300,7 @@ exports[`RadioGroup renders as expected when size is small 1`] = `
           Array [
             Object {
               "alignItems": "center",
-              "borderColor": "#317d95",
+              "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
               "borderWidth": 2,
               "justifyContent": "center",
@@ -1295,6 +1312,7 @@ exports[`RadioGroup renders as expected when size is small 1`] = `
             undefined,
           ]
         }
+        testID="amplify__radio-button__container"
       />
       <Text
         accessibilityRole="text"
@@ -1345,7 +1363,7 @@ exports[`RadioGroup renders as expected when size is small 1`] = `
           Array [
             Object {
               "alignItems": "center",
-              "borderColor": "#317d95",
+              "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
               "borderWidth": 2,
               "justifyContent": "center",
@@ -1357,6 +1375,7 @@ exports[`RadioGroup renders as expected when size is small 1`] = `
             undefined,
           ]
         }
+        testID="amplify__radio-button__container"
       />
       <Text
         accessibilityRole="text"
@@ -1408,7 +1427,7 @@ exports[`RadioGroup renders as expected when size is small 1`] = `
           Array [
             Object {
               "alignItems": "center",
-              "borderColor": "#317d95",
+              "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
               "borderWidth": 2,
               "justifyContent": "center",
@@ -1420,6 +1439,7 @@ exports[`RadioGroup renders as expected when size is small 1`] = `
             undefined,
           ]
         }
+        testID="amplify__radio-button__container"
       />
       <Text
         accessibilityRole="text"
@@ -1493,7 +1513,7 @@ exports[`RadioGroup renders default RadioGroup as expected 1`] = `
           Array [
             Object {
               "alignItems": "center",
-              "borderColor": "#317d95",
+              "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
               "borderWidth": 2,
               "justifyContent": "center",
@@ -1505,17 +1525,18 @@ exports[`RadioGroup renders default RadioGroup as expected 1`] = `
             undefined,
           ]
         }
+        testID="amplify__radio-button__container"
       >
         <View
           style={
             Array [
               Object {
-                "backgroundColor": "#317d95",
+                "backgroundColor": "hsl(190, 95%, 30%)",
                 "borderRadius": 999,
               },
               Object {
-                "height": 10,
-                "width": 10,
+                "height": 12,
+                "width": 12,
               },
               undefined,
             ]
@@ -1572,7 +1593,7 @@ exports[`RadioGroup renders default RadioGroup as expected 1`] = `
           Array [
             Object {
               "alignItems": "center",
-              "borderColor": "#317d95",
+              "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
               "borderWidth": 2,
               "justifyContent": "center",
@@ -1584,6 +1605,7 @@ exports[`RadioGroup renders default RadioGroup as expected 1`] = `
             undefined,
           ]
         }
+        testID="amplify__radio-button__container"
       />
       <Text
         accessibilityRole="text"
@@ -1634,7 +1656,7 @@ exports[`RadioGroup renders default RadioGroup as expected 1`] = `
           Array [
             Object {
               "alignItems": "center",
-              "borderColor": "#317d95",
+              "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
               "borderWidth": 2,
               "justifyContent": "center",
@@ -1646,6 +1668,7 @@ exports[`RadioGroup renders default RadioGroup as expected 1`] = `
             undefined,
           ]
         }
+        testID="amplify__radio-button__container"
       />
       <Text
         accessibilityRole="text"
@@ -1697,7 +1720,7 @@ exports[`RadioGroup renders default RadioGroup as expected 1`] = `
           Array [
             Object {
               "alignItems": "center",
-              "borderColor": "#317d95",
+              "borderColor": "hsl(210, 8%, 55%)",
               "borderRadius": 999,
               "borderWidth": 2,
               "justifyContent": "center",
@@ -1709,6 +1732,7 @@ exports[`RadioGroup renders default RadioGroup as expected 1`] = `
             undefined,
           ]
         }
+        testID="amplify__radio-button__container"
       />
       <Text
         accessibilityRole="text"

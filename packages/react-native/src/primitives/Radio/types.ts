@@ -18,6 +18,7 @@ export interface RadioProps<T> extends PressableProps {
 }
 
 export type RadioDimensions = Pick<ViewStyle, 'height' | 'width'>;
+
 export interface RadioStyles {
   container: ViewStyle;
   disabled: ViewStyle;
