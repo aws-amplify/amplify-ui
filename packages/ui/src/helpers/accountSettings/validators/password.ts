@@ -1,7 +1,7 @@
 import { Amplify } from 'aws-amplify';
 import { hasSpecialChars } from '../../../helpers/authenticator';
 import {
-  FieldValidator,
+  ValidatorSpec,
   PasswordSettings,
   PasswordRequirement,
 } from '../../../types';
@@ -31,41 +31,41 @@ export const getPasswordRequirement = (): PasswordRequirement => {
   };
 };
 
-export const getMinLengthValidator = (minLength: number): FieldValidator => ({
+export const getMinLengthValidator = (minLength: number): ValidatorSpec => ({
   validationMode: 'onTouched',
-  validate: (field) => field.length >= minLength,
+  validator: (field) => field.length >= minLength,
   message: `Password must have at least ${minLength} characters`,
 });
 
-export const hasLowerCase: FieldValidator = {
+export const hasLowerCase: ValidatorSpec = {
   validationMode: 'onTouched',
-  validate: (field) => /[a-z]/.test(field),
+  validator: (field) => /[a-z]/.test(field),
   message: 'Password must have lower case letters',
 };
 
-export const hasUpperCase: FieldValidator = {
+export const hasUpperCase: ValidatorSpec = {
   validationMode: 'onTouched',
-  validate: (field) => /[A-Z]/.test(field),
+  validator: (field) => /[A-Z]/.test(field),
   message: 'Password must have upper case letters',
 };
 
-export const hasNumber: FieldValidator = {
+export const hasNumber: ValidatorSpec = {
   validationMode: 'onTouched',
-  validate: (field) => /[0-9]/.test(field),
+  validator: (field) => /[0-9]/.test(field),
   message: 'Password must have numbers',
 };
 
-export const hasSpecialChar: FieldValidator = {
+export const hasSpecialChar: ValidatorSpec = {
   validationMode: 'onTouched',
-  validate: (field) => hasSpecialChars(field),
+  validator: (field) => hasSpecialChars(field),
   message: 'Password must have special characters',
 };
 
-export const getDefaultPasswordValidators = (): FieldValidator[] => {
+export const getDefaultPasswordValidators = (): ValidatorSpec[] => {
   const requirement = getPasswordRequirement();
   if (!requirement) return [];
 
-  const validators: FieldValidator[] = [];
+  const validators: ValidatorSpec[] = [];
 
   const {
     minLength,

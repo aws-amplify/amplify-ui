@@ -1,4 +1,4 @@
-import { FieldValidator, InputEventType, ValidationMode } from '../../../types';
+import { ValidatorSpec, InputEventType, ValidationMode } from '../../../types';
 
 /*
  * `shouldValidate` determines whether validator should be run, based on validation mode,
@@ -40,17 +40,17 @@ export const runFieldValidators = ({
   hasBlurred,
 }: {
   value: string;
-  validators: FieldValidator[];
+  validators: ValidatorSpec[];
   eventType: InputEventType;
   hasBlurred: boolean;
 }): string[] => {
   if (!value) return [];
 
-  return validators.reduce((prevErrors, validator) => {
-    const { validate, validationMode, message } = validator;
+  return validators.reduce((prevErrors, validatorSpec) => {
+    const { validator, validationMode, message } = validatorSpec;
 
     if (shouldValidate({ validationMode, eventType, hasBlurred })) {
-      const hasError = !validate(value);
+      const hasError = !validator(value);
       return hasError ? [...prevErrors, message] : prevErrors;
     }
   }, []);

@@ -1,4 +1,4 @@
-import { FieldValidator } from '@aws-amplify/ui';
+import { ValidatorSpec } from '@aws-amplify/ui';
 
 export interface ChangePasswordProps {
   // callback once password is successfully updated
@@ -6,5 +6,5 @@ export interface ChangePasswordProps {
   // callback when there's an error
   onError?: (error: Error) => void;
   // custom password validations
-  validators?: FieldValidator[];
+  validators?: ValidatorSpec[];
 }

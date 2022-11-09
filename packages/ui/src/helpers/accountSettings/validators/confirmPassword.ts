@@ -1,11 +1,11 @@
-import { FieldValidator } from '../../../types';
+import { ValidatorSpec } from '../../../types';
 
 export const getConfirmPasswordValidator = (
   password: string
-): FieldValidator => {
+): ValidatorSpec => {
   return {
     validationMode: 'onTouched',
-    validate: (confirmPassword) => password === confirmPassword,
+    validator: (confirmPassword) => password === confirmPassword,
     message: 'Your passwords must match',
   };
 };

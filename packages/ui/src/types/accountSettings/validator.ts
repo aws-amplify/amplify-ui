@@ -2,9 +2,9 @@ export type InputEventType = 'blur' | 'change';
 
 export type ValidationMode = 'onBlur' | 'onChange' | 'onTouched';
 
-export interface FieldValidator {
+export interface ValidatorSpec {
   validationMode: ValidationMode;
-  validate: (field: string) => boolean;
+  validator: (value: string) => boolean;
   message: string;
 }
 
