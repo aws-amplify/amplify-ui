@@ -252,9 +252,7 @@ describe('File Uploader', () => {
       fileStatuses,
       setFileStatuses: setFileStatusMock,
     });
-    const { container } = render(
-      <FileUploader {...commonProps} isPreviewerVisible={true} />
-    );
+    render(<FileUploader {...commonProps} isPreviewerVisible={true} />);
 
     const clickButton = await screen.findByRole('button', {
       name: 'Upload 1 files',
@@ -281,5 +279,104 @@ describe('File Uploader', () => {
         fileState: 'error',
       },
     ]);
+  });
+  it('calls the progressCallback during upload', async () => {
+    const mockProgress = { loaded: 10, total: 100 };
+    const percentage = Math.floor(
+      (mockProgress.loaded / mockProgress.total) * 100
+    );
+    uploadFileSpy.mockResolvedValue({} as never);
+
+    const fileStatuses = [
+      {
+        percentage: 0,
+        uploadTask: undefined,
+        fileErrors: undefined,
+        name: 'hello.png',
+        file: fakeFile,
+        fileState: null,
+      },
+    ];
+
+    const setFileStatusMock = jest.fn();
+    useFileUploaderSpy.mockReturnValue({
+      ...mockReturnUseFileUploader,
+      fileStatuses,
+      setFileStatuses: setFileStatusMock,
+    });
+    render(<FileUploader {...commonProps} isPreviewerVisible={true} />);
+
+    const clickButton = await screen.findByRole('button', {
+      name: 'Upload 1 files',
+    });
+
+    uploadFileSpy.mockImplementation(
+      ({
+        completeCallback,
+        errorCallback,
+        file,
+        fileName,
+        level,
+        progressCallback,
+      }: any): any => {
+        // simulate progress callback
+        progressCallback(mockProgress);
+      }
+    );
+    await fireEvent.click(clickButton);
+
+    expect(setFileStatusMock).toHaveBeenNthCalledWith(1, [
+      { fileState: 'loading', percentage },
+    ]);
+  });
+  it('calls the completeCallback after done uploading', async () => {
+    const mockComplete = { key: 'mock-key' };
+    uploadFileSpy.mockResolvedValue({} as never);
+
+    const fileStatuses = [
+      {
+        percentage: 0,
+        uploadTask: undefined,
+        fileErrors: undefined,
+        name: 'hello.png',
+        file: fakeFile,
+        fileState: null,
+      },
+    ];
+
+    const onSuccessMock = jest.fn();
+
+    useFileUploaderSpy.mockReturnValue({
+      ...mockReturnUseFileUploader,
+      fileStatuses,
+    });
+    render(
+      <FileUploader
+        {...commonProps}
+        isPreviewerVisible={true}
+        onSuccess={onSuccessMock}
+      />
+    );
+
+    const clickButton = await screen.findByRole('button', {
+      name: 'Upload 1 files',
+    });
+
+    uploadFileSpy.mockImplementation(
+      ({
+        completeCallback,
+        errorCallback,
+        file,
+        fileName,
+        level,
+        progressCallback,
+      }: any): any => {
+        // simulate complete callback
+        completeCallback(mockComplete);
+      }
+    );
+    await fireEvent.click(clickButton);
+
+    expect(onSuccessMock).toHaveBeenCalledWith(mockComplete);
   });
 });
