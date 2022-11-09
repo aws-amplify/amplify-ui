@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
-import { UploadTask, Storage } from '@aws-amplify/storage';
+import { UploadTask } from '@aws-amplify/storage';
 import { getFileName, translate, uploadFile } from '@aws-amplify/ui';
 import { FileStatuses, FileUploaderProps } from './types';
 import { useFileUploader } from './hooks/useFileUploader';
@@ -219,11 +219,6 @@ export function FileUploader({
   const onFileCancel = useCallback(
     (index: number) => {
       return () => {
-        if (fileStatuses[index].fileState === 'loading') {
-          // if downloading use uploadTask and stop download
-          Storage.cancel(fileStatuses[index]?.uploadTask);
-          setLoading(false);
-        }
         const updatedFiles = fileStatuses.filter((_, i) => i !== index);
         setFileStatuses(updatedFiles);
       };

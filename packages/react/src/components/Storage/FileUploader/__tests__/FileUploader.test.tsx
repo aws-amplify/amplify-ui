@@ -3,6 +3,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import * as UseHooks from '../hooks/useFileUploader';
 import { FileUploader } from '..';
 import * as UIModule from '@aws-amplify/ui';
+import { act } from 'react-dom/test-utils';
 const uploadFileSpy = jest.spyOn(UIModule, 'uploadFile');
 const useFileUploaderSpy = jest.spyOn(UseHooks, 'useFileUploader');
 const fakeFile = new File(['hello'], 'hello.png', { type: 'image/png' });
@@ -24,6 +25,17 @@ const commonProps = {
   acceptedFileTypes: ['.png'],
   variation: 'drop' as any,
 };
+
+const fileStatus = {
+  percentage: 0,
+  uploadTask: undefined,
+  fileErrors: undefined,
+  name: 'hello.png',
+  file: fakeFile,
+  fileState: null,
+};
+
+const uploadOneFile = 'Upload 1 files';
 
 describe('File Uploader', () => {
   beforeEach(() => {
@@ -71,7 +83,7 @@ describe('File Uploader', () => {
     });
 
     const clickButton = await screen.findByRole('button', {
-      name: 'Upload 1 files',
+      name: uploadOneFile,
     });
 
     fireEvent.click(clickButton);
@@ -90,19 +102,13 @@ describe('File Uploader', () => {
     const fileName2 = 'hello2.png';
     const fileStatuses = [
       {
+        ...fileStatus,
         percentage: 100,
-        uploadTask: undefined,
-        fileErrors: undefined,
-        name: 'hello.png',
-        file: fakeFile,
         fileState: 'success' as any,
       },
       {
-        percentage: 0,
-        uploadTask: undefined,
-        fileErrors: undefined,
+        ...fileStatus,
         name: fileName2,
-        file: fakeFile,
         fileState: null,
       },
     ];
@@ -119,7 +125,7 @@ describe('File Uploader', () => {
     });
 
     const clickButton = await screen.findByRole('button', {
-      name: 'Upload 1 files',
+      name: uploadOneFile,
     });
 
     fireEvent.click(clickButton);
@@ -138,11 +144,9 @@ describe('File Uploader', () => {
     const uploadTaskSpy = jest.spyOn(uploadTask, 'pause');
     const fileStatuses = [
       {
+        ...fileStatus,
         percentage: 50,
         uploadTask,
-        fileErrors: undefined,
-        name: 'hello.png',
-        file: fakeFile,
         fileState: 'loading' as any,
       },
     ];
@@ -165,11 +169,9 @@ describe('File Uploader', () => {
     const uploadTaskSpy = jest.spyOn(uploadTask, 'resume');
     const fileStatuses = [
       {
+        ...fileStatus,
         percentage: 50,
         uploadTask,
-        fileErrors: undefined,
-        name: 'hello.png',
-        file: fakeFile,
         fileState: 'paused' as any,
       },
     ];
@@ -193,12 +195,8 @@ describe('File Uploader', () => {
     const updatedFileName = 'update.png';
     const fileStatuses = [
       {
-        percentage: 0,
-        uploadTask: undefined,
-        fileErrors: undefined,
+        ...fileStatus,
         name: oldFileName,
-        file: fakeFile,
-        fileState: null,
       },
     ];
 
@@ -216,7 +214,7 @@ describe('File Uploader', () => {
     });
 
     const clickButton = await screen.findByRole('button', {
-      name: 'Upload 1 files',
+      name: uploadOneFile,
     });
 
     fireEvent.click(clickButton);
@@ -234,16 +232,7 @@ describe('File Uploader', () => {
     const ERROR_MESSAGE = 'error!';
     uploadFileSpy.mockResolvedValue({} as never);
 
-    const fileStatuses = [
-      {
-        percentage: 0,
-        uploadTask: undefined,
-        fileErrors: undefined,
-        name: 'hello.png',
-        file: fakeFile,
-        fileState: null,
-      },
-    ];
+    const fileStatuses = [fileStatus];
 
     const setFileStatusMock = jest.fn();
     useFileUploaderSpy.mockReturnValue({
@@ -254,7 +243,7 @@ describe('File Uploader', () => {
     render(<FileUploader {...commonProps} isPreviewerVisible={true} />);
 
     const clickButton = await screen.findByRole('button', {
-      name: 'Upload 1 files',
+      name: uploadOneFile,
     });
 
     uploadFileSpy.mockImplementation(
@@ -286,16 +275,7 @@ describe('File Uploader', () => {
     );
     uploadFileSpy.mockResolvedValue({} as never);
 
-    const fileStatuses = [
-      {
-        percentage: 0,
-        uploadTask: undefined,
-        fileErrors: undefined,
-        name: 'hello.png',
-        file: fakeFile,
-        fileState: null,
-      },
-    ];
+    const fileStatuses = [fileStatus];
 
     const setFileStatusMock = jest.fn();
     useFileUploaderSpy.mockReturnValue({
@@ -306,7 +286,7 @@ describe('File Uploader', () => {
     render(<FileUploader {...commonProps} isPreviewerVisible={true} />);
 
     const clickButton = await screen.findByRole('button', {
-      name: 'Upload 1 files',
+      name: uploadOneFile,
     });
 
     uploadFileSpy.mockImplementation(
@@ -332,16 +312,7 @@ describe('File Uploader', () => {
     const mockComplete = { key: 'mock-key' };
     uploadFileSpy.mockResolvedValue({} as never);
 
-    const fileStatuses = [
-      {
-        percentage: 0,
-        uploadTask: undefined,
-        fileErrors: undefined,
-        name: 'hello.png',
-        file: fakeFile,
-        fileState: null,
-      },
-    ];
+    const fileStatuses = [fileStatus];
 
     const onSuccessMock = jest.fn();
 
@@ -358,7 +329,7 @@ describe('File Uploader', () => {
     );
 
     const clickButton = await screen.findByRole('button', {
-      name: 'Upload 1 files',
+      name: uploadOneFile,
     });
 
     uploadFileSpy.mockImplementation(
@@ -377,5 +348,122 @@ describe('File Uploader', () => {
     await fireEvent.click(clickButton);
 
     expect(onSuccessMock).toHaveBeenCalledWith(mockComplete);
+  });
+  it('clears all the files when clear all is clicked', async () => {
+    uploadFileSpy.mockResolvedValue({} as never);
+
+    const fileStatuses = [fileStatus];
+
+    const setFileStatusMock = jest.fn();
+    useFileUploaderSpy.mockReturnValue({
+      ...mockReturnUseFileUploader,
+      fileStatuses,
+      setFileStatuses: setFileStatusMock,
+    });
+    render(<FileUploader {...commonProps} isPreviewerVisible={true} />);
+
+    const clickButton = await screen.findByRole('button', {
+      name: 'Clear all',
+    });
+
+    await fireEvent.click(clickButton);
+
+    expect(setFileStatusMock).toHaveBeenCalledWith([]);
+  });
+  it('removes the file when cancel file is clicked', async () => {
+    const fileStatuses = [fileStatus];
+    const setFileStatusMock = jest.fn();
+    useFileUploaderSpy.mockReturnValue({
+      ...mockReturnUseFileUploader,
+      fileStatuses,
+      setFileStatuses: setFileStatusMock,
+    });
+
+    const { container } = render(
+      <FileUploader {...commonProps} isPreviewerVisible={true} />
+    );
+
+    // click the cancel button for the file
+    const button = await container.querySelectorAll('button')[2];
+    await fireEvent.click(button);
+
+    expect(setFileStatusMock).toHaveBeenCalledWith([]);
+  });
+  it('updates file name after clicking the pencil and editing name', async () => {
+    const newFileName = 'newFile.png';
+    const fileStatuses = [fileStatus];
+    const setFileStatusMock = jest.fn();
+    useFileUploaderSpy.mockReturnValue({
+      ...mockReturnUseFileUploader,
+      fileStatuses,
+      setFileStatuses: setFileStatusMock,
+    });
+
+    const { container } = render(
+      <FileUploader {...commonProps} isPreviewerVisible={true} />
+    );
+
+    // click pencel icon
+    const button = await container.querySelectorAll('button')[1];
+    await fireEvent.click(button);
+    // input file name box
+    const input = (await container.querySelectorAll(
+      'input'
+    )[1]) as HTMLInputElement;
+
+    fireEvent.change(input, {
+      target: { value: newFileName },
+    });
+
+    expect(setFileStatusMock).toHaveBeenCalledWith([
+      { ...fileStatus, name: newFileName },
+    ]);
+  });
+  it('updates file name and checks extension shows error', async () => {
+    const badFileName = 'newFile.xls';
+    const fileStatuses = [fileStatus];
+    const setFileStatusMock = jest.fn();
+    const commonUploadSpy = {
+      ...mockReturnUseFileUploader,
+      setFileStatuses: setFileStatusMock,
+    };
+    useFileUploaderSpy
+      .mockReturnValueOnce({
+        ...commonUploadSpy,
+        fileStatuses,
+      })
+      .mockReturnValueOnce({
+        ...commonUploadSpy,
+        fileStatuses: [{ ...fileStatus, fileState: 'editing' }],
+      });
+
+    await act(async () => {
+      render(<FileUploader {...commonProps} isPreviewerVisible={true} />);
+    });
+
+    // click pencel icon
+    const button = await screen.getAllByRole('button')[1];
+    await fireEvent.click(button);
+    // input file name box
+    const input = (await screen.getByLabelText(
+      'file name'
+    )) as HTMLInputElement;
+
+    await fireEvent.change(input, {
+      target: { value: badFileName },
+    });
+
+    // click save button
+    const saveButton = await screen.getByRole('button', { name: 'Save' });
+    await fireEvent.click(saveButton);
+
+    expect(setFileStatusMock).toHaveBeenCalledWith([
+      {
+        ...fileStatus,
+        name: badFileName,
+        fileErrors: 'Extension not allowed',
+        fileState: 'error',
+      },
+    ]);
   });
 });
