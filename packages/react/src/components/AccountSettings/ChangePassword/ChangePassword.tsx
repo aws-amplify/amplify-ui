@@ -60,7 +60,7 @@ function ChangePassword({
     return validators ?? getDefaultPasswordValidators();
   }, [validators]);
 
-  /**
+  /*
    * Note that formValues and other states are passed in as props so that
    * it does not depend on whether or not those states have been updated yet
    */
@@ -133,14 +133,14 @@ function ChangePassword({
     [validateConfirmPassword, validateNewPassword, validationError]
   );
 
-  /** Translations */
+  /* Translations */
   // TODO: add AccountSettingsTextUtil to collect these strings
   const currentPasswordLabel = translate('Current Password');
   const newPasswordLabel = translate('New Password');
   const confirmPasswordLabel = translate('Confirm Password');
   const updatePasswordText = translate('Update password');
 
-  /** Event Handlers */
+  /* Event Handlers */
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
 
@@ -156,9 +156,12 @@ function ChangePassword({
     event.preventDefault();
 
     const { name } = event.target;
-    const newBlurredFields = { ...blurredFields, [name]: true };
-    runValidation(formValues, newBlurredFields, 'blur');
-    setBlurredFields({ ...blurredFields, [name]: true });
+    // only update state and run validation if this is the first time blurring the field
+    if (!blurredFields[name]) {
+      const newBlurredFields = { ...blurredFields, [name]: true };
+      runValidation(formValues, newBlurredFields, 'blur');
+      setBlurredFields(newBlurredFields);
+    }
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
