@@ -69,12 +69,16 @@ function DeleteUser({
 
   return (
     <Flex direction="column">
-      <Button disabled={state === 'IS_CONFIRMING'} onClick={startConfirmation}>
+      <Button
+        isDisabled={state === 'IS_CONFIRMING'}
+        onClick={startConfirmation}
+      >
         Delete Account
       </Button>
-      {state === 'IS_CONFIRMING' ? (
+      {state === 'IS_CONFIRMING' || state === 'IN_PROGRESS' ? (
         <DefaultConfirmation
           onCancel={handleCancel}
+          isInProgress={state === 'IN_PROGRESS'}
           onConfirmDelete={handleConfirmDelete}
         />
       ) : null}

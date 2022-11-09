@@ -6,6 +6,7 @@ import { DeleteUserWarningProps } from './types';
 export const DefaultConfirmation = ({
   onCancel,
   onConfirmDelete,
+  isInProgress,
 }: DeleteUserWarningProps): JSX.Element => {
   return (
     <Card>
@@ -15,11 +16,15 @@ export const DefaultConfirmation = ({
           account and all data associated with it.
         </Text>
         <Flex direction="row">
-          <Button variation="link" onClick={onCancel}>
+          <Button variation="link" onClick={onCancel} isDisabled={isInProgress}>
             Cancel
           </Button>
         </Flex>
-        <Button variation="primary" onClick={onConfirmDelete}>
+        <Button
+          variation="primary"
+          onClick={onConfirmDelete}
+          isDisabled={isInProgress}
+        >
           Delete my account
         </Button>
       </Flex>
