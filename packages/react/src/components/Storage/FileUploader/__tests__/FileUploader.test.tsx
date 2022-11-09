@@ -93,6 +93,7 @@ describe('File Uploader', () => {
       file: fakeFile,
       fileName: fakeFile.name,
       level: 'public',
+      resumable: false,
       progressCallback: expect.any(Function),
     });
   });
@@ -155,6 +156,7 @@ describe('File Uploader', () => {
       file: fakeFile,
       fileName: fileName2,
       level: 'public',
+      resumable: false,
       progressCallback: expect.any(Function),
     });
   });

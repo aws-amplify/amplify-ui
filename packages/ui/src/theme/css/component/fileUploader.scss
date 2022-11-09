@@ -125,12 +125,14 @@
   
   // Previewer
   &__previewer {
-    max-height: var(--amplify-components-fileuploader-previewer-max-height);
+    display: block;
+    
     max-width: var(--amplify-components-fileuploader-previewer-max-width);
     background-color: var(--amplify-components-fileuploader-previewer-background-color);
     border-width: var(--amplify-components-fileuploader-previewer-border-width);
     border-style: var(--amplify-components-fileuploader-previewer-border-style);
     border-color: var(--amplify-components-fileuploader-previewer-border-color);
+    border-radius: var(--amplify-components-fileuploader-previewer-border-radius);
     
     padding-inline: var(--amplify-components-fileuploader-previewer-padding-inline);
     padding-block: var(--amplify-components-fileuploader-previewer-padding-block);
@@ -144,6 +146,7 @@
     &__body {
       display: flex;
       flex-direction: column;
+      max-height: var(--amplify-components-fileuploader-previewer-max-height);
 
       overflow: auto;
       gap: var(--amplify-components-fileuploader-previewer-body-gap);
