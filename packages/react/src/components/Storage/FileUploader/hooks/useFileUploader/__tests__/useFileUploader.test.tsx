@@ -37,7 +37,6 @@ describe('useFileUploader', () => {
       current: { addTargetFiles },
     } = result;
     const numOfFiles = addTargetFiles?.([fakeFile]);
-
     expect(numOfFiles).toEqual(1);
   });
 
