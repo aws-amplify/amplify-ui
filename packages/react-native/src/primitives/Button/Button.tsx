@@ -12,10 +12,11 @@ import { getThemedStyles } from './styles';
 import { ButtonProps } from './types';
 
 export default function Button({
+  accessibilityRole = 'button',
   children,
   style,
   textStyle,
-  ...props
+  ...rest
 }: ButtonProps): JSX.Element {
   const theme = useTheme();
   const themedStyle = getThemedStyles(theme);
@@ -30,7 +31,11 @@ export default function Button({
   );
 
   return (
-    <Pressable {...props} style={pressableStyle}>
+    <Pressable
+      {...rest}
+      accessibilityRole={accessibilityRole}
+      style={pressableStyle}
+    >
       {typeof children === 'string' ? (
         <Text style={[themedStyle.text, textStyle]}>{children}</Text>
       ) : (
