@@ -1,14 +1,15 @@
 import { Amplify } from 'aws-amplify';
 
 import {
-  getDefaultPasswordValidators,
-  getMinLengthValidator,
+  getPasswordDefaultValidators,
+  getHasMinLength,
   getPasswordRequirement,
   hasLowerCase,
   hasNumber,
   hasSpecialChar,
   hasUpperCase,
-} from '../password';
+  getPasswordConfirmationValidator,
+} from '../validator';
 
 const partialAmplifyPasswordConfig = {
   aws_cognito_password_protection_settings: {
@@ -30,13 +31,13 @@ const fullAmplifyPasswordConfig = {
 
 const configureSpy = jest.spyOn(Amplify, 'configure');
 
-describe('getMinLengthValidator', () => {
+describe('getHasMinLength', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
   it('returns minLength validator as expected', () => {
-    const validator = getMinLengthValidator(4);
+    const validator = getHasMinLength(4);
     expect(validator).toMatchObject({
       validator: expect.any(Function),
       message: 'Password must have at least 4 characters',
@@ -45,13 +46,13 @@ describe('getMinLengthValidator', () => {
   });
 
   it('validates to true when password is long enough', () => {
-    const { validator } = getMinLengthValidator(4);
+    const { validator } = getHasMinLength(4);
     const isValid = validator('longpassword');
     expect(isValid).toBe(true);
   });
 
   it('validates to false when password is too short', () => {
-    const { validator } = getMinLengthValidator(4);
+    const { validator } = getHasMinLength(4);
     const isValid = validator('hi');
     expect(isValid).toBe(false);
   });
@@ -148,26 +149,49 @@ describe('getPasswordRequirement', () => {
   });
 });
 
-describe('getDefaultPasswordValidators', () => {
+describe('getPasswordDefaultValidators', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
   it('returns validators as expected for partial Amplify config ', () => {
     configureSpy.mockReturnValue(partialAmplifyPasswordConfig);
-    const validators = getDefaultPasswordValidators();
+    const validators = getPasswordDefaultValidators();
     expect(validators).toMatchSnapshot();
   });
 
   it('returns validators as expected for full Amplify config ', () => {
     configureSpy.mockReturnValue(fullAmplifyPasswordConfig);
-    const validators = getDefaultPasswordValidators();
+    const validators = getPasswordDefaultValidators();
     expect(validators).toMatchSnapshot();
   });
 
   it('returns empty array for empty amplify config', () => {
     configureSpy.mockReturnValue({});
-    const validators = getDefaultPasswordValidators();
+    const validators = getPasswordDefaultValidators();
     expect(validators).toStrictEqual([]);
+  });
+});
+
+describe('getConfirmPassword', () => {
+  it('returns confirm password valiator as expected', () => {
+    const validator = getPasswordConfirmationValidator('pw');
+    expect(validator).toMatchObject({
+      validator: expect.any(Function),
+      message: 'Your passwords must match',
+      validationMode: 'onTouched',
+    });
+  });
+
+  it('validates to true when passwords match', () => {
+    const { validator } = getPasswordConfirmationValidator('myPassword');
+    const isValid = validator('myPassword');
+    expect(isValid).toBe(true);
+  });
+
+  it('validates to false when passwords do not match', () => {
+    const { validator } = getPasswordConfirmationValidator('myPassword');
+    const isValid = validator('mismatchingPassword');
+    expect(isValid).toBe(false);
   });
 });

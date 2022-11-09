@@ -14,7 +14,7 @@ jest.mock('../../../../internal', () => ({
 }));
 
 const changePasswordSpy = jest.spyOn(UIModule, 'changePassword');
-jest.spyOn(UIModule, 'getDefaultPasswordValidators').mockReturnValue([
+jest.spyOn(UIModule, 'getPasswordDefaultValidators').mockReturnValue([
   {
     validationMode: 'onTouched',
     validator: (field) => /[a-z]/.test(field),

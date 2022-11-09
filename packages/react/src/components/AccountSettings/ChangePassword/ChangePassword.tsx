@@ -1,3 +1,4 @@
+import React from 'react';
 import isEqual from 'lodash/isEqual';
 
 import { Logger } from 'aws-amplify';
@@ -5,8 +6,8 @@ import {
   changePassword,
   ValidatorSpec,
   InputEventType,
-  getConfirmPasswordValidator,
-  getDefaultPasswordValidators,
+  getPasswordConfirmationValidator,
+  getPasswordDefaultValidators,
   runFieldValidators,
   translate,
 } from '@aws-amplify/ui';
@@ -56,7 +57,7 @@ function ChangePassword({
   const isDisabled = getIsDisabled(formValues, validationError);
 
   const passwordValidators: ValidatorSpec[] = React.useMemo(() => {
-    return validators ?? getDefaultPasswordValidators();
+    return validators ?? getPasswordDefaultValidators();
   }, [validators]);
 
   /**
@@ -89,7 +90,8 @@ function ChangePassword({
     ): string[] => {
       const { newPassword, confirmPassword } = formValues;
 
-      const confirmPasswordValidator = getConfirmPasswordValidator(newPassword);
+      const confirmPasswordValidator =
+        getPasswordConfirmationValidator(newPassword);
 
       return runFieldValidators({
         value: confirmPassword,
