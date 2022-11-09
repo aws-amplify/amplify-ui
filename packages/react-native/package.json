@@ -43,10 +43,10 @@
   },
   "dependencies": {
     "@aws-amplify/ui": "4.0.1",
-    "@aws-amplify/ui-react-core": "1.0.4"
+    "@aws-amplify/ui-react-core": "1.0.5"
   },
   "peerDependencies": {
-    "aws-amplify": "next",
+    "aws-amplify": "5.x.x",
     "react": ">= 16.8.0",
     "react-native": ">= 0.63.4",
     "react-native-safe-area-context": ">= 4.2.5"

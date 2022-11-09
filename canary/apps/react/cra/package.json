@@ -7,7 +7,7 @@
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
-    "aws-amplify": "next",
+    "aws-amplify": "^5.0.0",
     "react": "latest",
     "react-dom": "latest",
     "react-scripts": "5.0.0",
