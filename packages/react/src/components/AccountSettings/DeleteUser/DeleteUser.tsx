@@ -51,7 +51,7 @@ function DeleteUser({
     runDeleteUser();
   }, [runDeleteUser]);
 
-  /** Return null if Auth.getCurrentAuthenticatedUser is still in progress  */
+  // Return null if Auth.getCurrentAuthenticatedUser is still in progress
   if (isLoading) {
     return null;
   }
@@ -62,7 +62,7 @@ function DeleteUser({
     return null;
   }
 
-  // return null if delete user was successful
+  // Return null if delete user was successful
   if (state === 'DONE') {
     return null;
   }

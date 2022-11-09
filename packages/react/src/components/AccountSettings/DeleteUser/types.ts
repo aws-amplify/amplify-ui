@@ -5,23 +5,19 @@ export interface DeleteUserWarningProps {
   onCancel: () => void;
   /** called when user acknowledges account deletion */
   onConfirmDelete: () => void;
-  /**whether account deletion is in progress */
+  /** whether account deletion is in progress */
   isInProgress?: boolean;
 }
 
 export type DeleteUserState = 'IDLE' | 'IS_CONFIRMING' | 'IN_PROGRESS' | 'DONE';
 
 export interface DeleteUserProps {
-  // custom delete user service override, if customer wants to add
-  // their own logic before or after `Auth.deleteUser`.
+  /** custom delete user service override */
   handleDelete?: (user: AmplifyUser) => Promise<void> | void;
 
-  // callback for successful user deletion
+  /** callback for successful user deletion */
   onSuccess?: () => void;
 
-  // callback for unsuccessful user deletion
+  /** callback for unsuccessful user deletion  */
   onError?: (error: Error) => void;
-
-  // whether to skip delete user warning
-  skipWarning?: boolean;
 }
