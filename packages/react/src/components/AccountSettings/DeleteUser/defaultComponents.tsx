@@ -14,7 +14,7 @@ export const DefaultSubmitButton: AccountSettingsSubmitButton = ({
 
 export const DefaultWarning = ({
   onCancel,
-  onConfirmDelete,
+  onConfirm,
   isDisabled,
 }: DeleteUserWarningProps): JSX.Element => {
   // translations
@@ -35,7 +35,7 @@ export const DefaultWarning = ({
           </Button>
           <Button
             variation="primary"
-            onClick={onConfirmDelete}
+            onClick={onConfirm}
             isDisabled={isDisabled}
           >
             {deleteMyAccountText}

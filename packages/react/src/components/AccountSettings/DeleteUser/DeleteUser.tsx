@@ -91,7 +91,7 @@ function DeleteUser({
         <DefaultWarning
           onCancel={handleCancel}
           isDisabled={state === 'DELETING'}
-          onConfirmDelete={handleConfirmDelete}
+          onConfirm={handleConfirmDelete}
         />
       ) : null}
       {errorMessage ? <DefaultError>{errorMessage}</DefaultError> : null}

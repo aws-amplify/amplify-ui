@@ -4,7 +4,7 @@ export interface DeleteUserWarningProps {
   /** called when end user cancels account deletion */
   onCancel: () => void;
   /** called when user acknowledges account deletion */
-  onConfirmDelete: () => void;
+  onConfirm: () => void;
   /** whether account deletion is in progress */
   isDisabled?: boolean;
 }
