@@ -5,7 +5,6 @@ import { Logger } from 'aws-amplify';
 import {
   changePassword,
   ValidatorOptions,
-  InputEventType,
   getDefaultConfirmPasswordValidators,
   getDefaultPasswordValidators,
   runFieldValidators,
@@ -20,7 +19,7 @@ import {
   DefaultError,
   DefaultSubmitButton,
 } from './defaultComponents';
-import { ChangePasswordProps } from './types';
+import { ChangePasswordProps, ValidateParams } from './types';
 
 const logger = new Logger('ChangePassword');
 
@@ -63,11 +62,7 @@ function ChangePassword({
    * it does not depend on whether or not those states have been updated yet
    */
   const validateNewPassword = React.useCallback(
-    (
-      formValues: FormValues,
-      blurredFields: BlurredFields,
-      eventType: InputEventType
-    ): string[] => {
+    ({ formValues, eventType, blurredFields }: ValidateParams): string[] => {
       const { newPassword } = formValues;
 
       return runFieldValidators({
@@ -81,11 +76,7 @@ function ChangePassword({
   );
 
   const validateConfirmPassword = React.useCallback(
-    (
-      formValues: FormValues,
-      blurredFields: BlurredFields,
-      eventType: InputEventType
-    ): string[] => {
+    ({ formValues, eventType, blurredFields }: ValidateParams): string[] => {
       const { newPassword, confirmPassword } = formValues;
 
       const confirmPasswordValidators =
@@ -102,21 +93,9 @@ function ChangePassword({
   );
 
   const runValidation = React.useCallback(
-    (
-      formValues: FormValues,
-      blurredFields: BlurredFields,
-      eventType: InputEventType
-    ) => {
-      const passwordErrors = validateNewPassword(
-        formValues,
-        blurredFields,
-        eventType
-      );
-      const confirmPasswordErrors = validateConfirmPassword(
-        formValues,
-        blurredFields,
-        eventType
-      );
+    (param: ValidateParams) => {
+      const passwordErrors = validateNewPassword(param);
+      const confirmPasswordErrors = validateConfirmPassword(param);
 
       const newValidationError = {
         newPassword: passwordErrors,
@@ -145,7 +124,11 @@ function ChangePassword({
     const { name, value } = event.target;
 
     const newFormValues = { ...formValues, [name]: value };
-    runValidation(newFormValues, blurredFields, 'change');
+    runValidation({
+      formValues: newFormValues,
+      blurredFields,
+      eventType: 'change',
+    });
 
     setFormValues(newFormValues);
   };
@@ -157,7 +140,11 @@ function ChangePassword({
     // only update state and run validation if this is the first time blurring the field
     if (!blurredFields.includes(name)) {
       const newBlurredFields = [...blurredFields, name];
-      runValidation(formValues, newBlurredFields, 'blur');
+      runValidation({
+        formValues,
+        blurredFields: newBlurredFields,
+        eventType: 'blur',
+      });
       setBlurredFields(newBlurredFields);
     }
   };
