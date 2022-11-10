@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { Logger } from 'aws-amplify';
-import { deleteUser, translate } from '@aws-amplify/ui';
+import { deleteUser, translate, getLogger } from '@aws-amplify/ui';
 
 import { useAuth } from '../../../internal';
 import { Flex } from '../../../primitives';
@@ -12,7 +11,7 @@ import {
 } from './defaultComponents';
 import { DeleteUserProps, DeleteUserState } from './types';
 
-const logger = new Logger('DeleteUser');
+const logger = getLogger('Auth');
 
 function DeleteUser({
   onSuccess,
