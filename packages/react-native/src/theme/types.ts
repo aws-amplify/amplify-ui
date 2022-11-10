@@ -2,7 +2,12 @@ import { PartialDeep } from 'type-fest';
 import { ReactNativeTokens } from '@aws-amplify/ui/src/theme/tokens';
 import baseTokens from '@aws-amplify/ui/dist/react-native/tokens';
 
-import { HeadingStyles, LabelStyles, RadioStyles } from '../primitives';
+import {
+  HeadingStyles,
+  LabelStyles,
+  RadioStyles,
+  TextFieldStyles,
+} from '../primitives';
 
 export interface Tokens extends ReactNativeTokens {
   components?: ComponentStyles;
@@ -38,6 +43,7 @@ export interface ComponentStyles {
   heading: HeadingStyles;
   label: LabelStyles;
   radio: RadioStyles;
+  textField: TextFieldStyles;
 }
 
 /**

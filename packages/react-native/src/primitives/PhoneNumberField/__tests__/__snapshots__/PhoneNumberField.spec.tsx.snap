@@ -36,7 +36,7 @@ exports[`PhoneNumberField does not render picker when dial codes are undefined 1
       style={
         Object {
           "alignItems": "center",
-          "borderColor": "black",
+          "borderColor": "hsl(0, 0%, 0%)",
           "borderRadius": 4,
           "borderWidth": 1,
           "flexDirection": "row",
@@ -44,6 +44,7 @@ exports[`PhoneNumberField does not render picker when dial codes are undefined 1
           "width": "100%",
         }
       }
+      testID="amplify__text-field__input-container"
     >
       <TextInput
         accessible={true}
@@ -1374,7 +1375,7 @@ exports[`PhoneNumberField renders as expected 1`] = `
       style={
         Object {
           "alignItems": "center",
-          "borderColor": "black",
+          "borderColor": "hsl(0, 0%, 0%)",
           "borderRadius": 4,
           "borderWidth": 1,
           "flexDirection": "row",
@@ -1382,6 +1383,7 @@ exports[`PhoneNumberField renders as expected 1`] = `
           "width": "100%",
         }
       }
+      testID="amplify__text-field__input-container"
     >
       <TextInput
         accessible={true}
@@ -2712,7 +2714,7 @@ exports[`PhoneNumberField renders as expected when default dial code is undefine
       style={
         Object {
           "alignItems": "center",
-          "borderColor": "black",
+          "borderColor": "hsl(0, 0%, 0%)",
           "borderRadius": 4,
           "borderWidth": 1,
           "flexDirection": "row",
@@ -2720,6 +2722,7 @@ exports[`PhoneNumberField renders as expected when default dial code is undefine
           "width": "100%",
         }
       }
+      testID="amplify__text-field__input-container"
     >
       <TextInput
         accessible={true}
@@ -4051,7 +4054,7 @@ exports[`PhoneNumberField renders as expected when disabled 1`] = `
       style={
         Object {
           "alignItems": "center",
-          "borderColor": "black",
+          "borderColor": "hsl(0, 0%, 0%)",
           "borderRadius": 4,
           "borderWidth": 1,
           "flexDirection": "row",
@@ -4059,6 +4062,7 @@ exports[`PhoneNumberField renders as expected when disabled 1`] = `
           "width": "100%",
         }
       }
+      testID="amplify__text-field__input-container"
     >
       <TextInput
         accessible={true}

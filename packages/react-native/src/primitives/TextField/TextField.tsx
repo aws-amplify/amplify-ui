@@ -2,8 +2,11 @@ import React, { useMemo } from 'react';
 import { TextInput, View, ViewStyle } from 'react-native';
 import { Label } from '../Label';
 
-import { styles } from './styles';
+import { useTheme } from '../../theme';
+import { getThemedStyles } from './styles';
 import { TextFieldProps } from './types';
+
+export const INPUT_CONTAINER_TEST_ID = 'amplify__text-field__input-container';
 
 export default function TextField({
   accessibilityLabel,
@@ -12,22 +15,25 @@ export default function TextField({
   accessible = true,
   autoCapitalize = 'none',
   disabled,
+  endAccessory,
   error,
   errorMessage,
   errorMessageStyle,
   fieldStyle,
   label,
   labelStyle,
-  endAccessory,
   style,
   ...rest
 }: TextFieldProps): JSX.Element {
+  const theme = useTheme();
+  const themedStyle = getThemedStyles(theme);
+
   const fieldContainerStyle: ViewStyle = useMemo(
     () => ({
-      ...styles.container,
-      ...(disabled && styles.disabled),
+      ...themedStyle.container,
+      ...(disabled && themedStyle.disabled),
     }),
-    [disabled]
+    [disabled, themedStyle]
   );
 
   return (
@@ -39,13 +45,13 @@ export default function TextField({
       style={[fieldContainerStyle, style]}
     >
       {label ? <Label style={labelStyle}>{label}</Label> : null}
-      <View style={styles.inputContainer}>
+      <View style={themedStyle.inputContainer} testID={INPUT_CONTAINER_TEST_ID}>
         <TextInput
           {...rest}
           accessible={accessible}
           autoCapitalize={autoCapitalize}
           editable={!disabled}
-          style={[styles.input, fieldStyle]}
+          style={[themedStyle.input, fieldStyle]}
         />
         {endAccessory ?? null}
       </View>
