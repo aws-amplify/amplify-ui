@@ -1,16 +1,52 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TextStyle } from 'react-native';
+import { StrictTheme } from '../../theme';
+
 import { getLineHeight } from '../../utils';
 import { HeadingStyles } from './types';
 
-export const styles: HeadingStyles = StyleSheet.create({
-  text: {
-    color: 'black',
-  },
-  // these values are completely arbitrary for now
-  1: { fontSize: 56, fontWeight: '100', lineHeight: getLineHeight(56) },
-  2: { fontSize: 44, fontWeight: '200', lineHeight: getLineHeight(44) },
-  3: { fontSize: 34, fontWeight: '300', lineHeight: getLineHeight(34) },
-  4: { fontSize: 26, fontWeight: '500', lineHeight: getLineHeight(26) },
-  5: { fontSize: 20, fontWeight: '700', lineHeight: getLineHeight(20) },
-  6: { fontSize: 16, fontWeight: '900', lineHeight: getLineHeight(16) },
-});
+export const getThemedStyles = (theme: StrictTheme): HeadingStyles => {
+  const { colors, components, fontSizes, fontWeights } = theme.tokens;
+
+  return StyleSheet.create({
+    text: {
+      color: colors.font.primary,
+      ...components?.heading.text,
+    },
+    1: {
+      fontSize: fontSizes.xxxl,
+      fontWeight: fontWeights.hairline as TextStyle['fontWeight'],
+      lineHeight: getLineHeight(fontSizes.xxxl),
+      ...components?.heading[1],
+    },
+    2: {
+      fontSize: fontSizes.xxl,
+      fontWeight: fontWeights.thin as TextStyle['fontWeight'],
+      lineHeight: getLineHeight(fontSizes.xxl),
+      ...components?.heading[2],
+    },
+    3: {
+      fontSize: fontSizes.xl,
+      fontWeight: fontWeights.light as TextStyle['fontWeight'],
+      lineHeight: getLineHeight(fontSizes.xl),
+      ...components?.heading[3],
+    },
+    4: {
+      fontSize: fontSizes.large,
+      fontWeight: fontWeights.medium as TextStyle['fontWeight'],
+      lineHeight: getLineHeight(fontSizes.large),
+      ...components?.heading[4],
+    },
+    5: {
+      fontSize: fontSizes.medium,
+      fontWeight: fontWeights.bold as TextStyle['fontWeight'],
+      lineHeight: getLineHeight(fontSizes.medium),
+      ...components?.heading[5],
+    },
+    6: {
+      fontSize: fontSizes.small,
+      fontWeight: fontWeights.black as TextStyle['fontWeight'],
+      lineHeight: getLineHeight(fontSizes.small),
+      ...components?.heading[6],
+    },
+  });
+};

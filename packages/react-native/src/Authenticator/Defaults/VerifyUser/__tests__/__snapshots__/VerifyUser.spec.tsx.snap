@@ -7,12 +7,12 @@ Array [
     style={
       Array [
         Object {
-          "color": "black",
+          "color": "hsl(210, 50%, 10%)",
         },
         Object {
-          "fontSize": 34,
+          "fontSize": 24,
           "fontWeight": "300",
-          "lineHeight": 51,
+          "lineHeight": 36,
         },
         undefined,
       ]
@@ -68,7 +68,7 @@ Array [
             Array [
               Object {
                 "alignItems": "center",
-                "borderColor": "#317d95",
+                "borderColor": "hsl(210, 8%, 55%)",
                 "borderRadius": 999,
                 "borderWidth": 2,
                 "justifyContent": "center",
@@ -80,6 +80,7 @@ Array [
               undefined,
             ]
           }
+          testID="amplify__radio-button__container"
         />
         <Text
           accessibilityRole="text"
@@ -131,7 +132,7 @@ Array [
             Array [
               Object {
                 "alignItems": "center",
-                "borderColor": "#317d95",
+                "borderColor": "hsl(210, 8%, 55%)",
                 "borderRadius": 999,
                 "borderWidth": 2,
                 "justifyContent": "center",
@@ -143,6 +144,7 @@ Array [
               undefined,
             ]
           }
+          testID="amplify__radio-button__container"
         />
         <Text
           accessibilityRole="text"
@@ -194,7 +196,7 @@ Array [
             Array [
               Object {
                 "alignItems": "center",
-                "borderColor": "#317d95",
+                "borderColor": "hsl(210, 8%, 55%)",
                 "borderRadius": 999,
                 "borderWidth": 2,
                 "justifyContent": "center",
@@ -206,6 +208,7 @@ Array [
               undefined,
             ]
           }
+          testID="amplify__radio-button__container"
         />
         <Text
           accessibilityRole="text"
@@ -318,12 +321,12 @@ Array [
     style={
       Array [
         Object {
-          "color": "black",
+          "color": "hsl(210, 50%, 10%)",
         },
         Object {
-          "fontSize": 34,
+          "fontSize": 24,
           "fontWeight": "300",
-          "lineHeight": 51,
+          "lineHeight": 36,
         },
         undefined,
       ]
@@ -380,7 +383,7 @@ Array [
             Array [
               Object {
                 "alignItems": "center",
-                "borderColor": "#317d95",
+                "borderColor": "hsl(210, 8%, 55%)",
                 "borderRadius": 999,
                 "borderWidth": 2,
                 "justifyContent": "center",
@@ -392,6 +395,7 @@ Array [
               undefined,
             ]
           }
+          testID="amplify__radio-button__container"
         />
         <Text
           accessibilityRole="text"
@@ -444,7 +448,7 @@ Array [
             Array [
               Object {
                 "alignItems": "center",
-                "borderColor": "#317d95",
+                "borderColor": "hsl(210, 8%, 55%)",
                 "borderRadius": 999,
                 "borderWidth": 2,
                 "justifyContent": "center",
@@ -456,6 +460,7 @@ Array [
               undefined,
             ]
           }
+          testID="amplify__radio-button__container"
         />
         <Text
           accessibilityRole="text"
@@ -508,7 +513,7 @@ Array [
             Array [
               Object {
                 "alignItems": "center",
-                "borderColor": "#317d95",
+                "borderColor": "hsl(210, 8%, 55%)",
                 "borderRadius": 999,
                 "borderWidth": 2,
                 "justifyContent": "center",
@@ -520,6 +525,7 @@ Array [
               undefined,
             ]
           }
+          testID="amplify__radio-button__container"
         />
         <Text
           accessibilityRole="text"
@@ -632,12 +638,12 @@ Array [
     style={
       Array [
         Object {
-          "color": "black",
+          "color": "hsl(210, 50%, 10%)",
         },
         Object {
-          "fontSize": 34,
+          "fontSize": 24,
           "fontWeight": "300",
-          "lineHeight": 51,
+          "lineHeight": 36,
         },
         undefined,
       ]
@@ -693,7 +699,7 @@ Array [
             Array [
               Object {
                 "alignItems": "center",
-                "borderColor": "#317d95",
+                "borderColor": "hsl(210, 8%, 55%)",
                 "borderRadius": 999,
                 "borderWidth": 2,
                 "justifyContent": "center",
@@ -705,6 +711,7 @@ Array [
               undefined,
             ]
           }
+          testID="amplify__radio-button__container"
         />
         <Text
           accessibilityRole="text"
@@ -756,7 +763,7 @@ Array [
             Array [
               Object {
                 "alignItems": "center",
-                "borderColor": "#317d95",
+                "borderColor": "hsl(210, 8%, 55%)",
                 "borderRadius": 999,
                 "borderWidth": 2,
                 "justifyContent": "center",
@@ -768,6 +775,7 @@ Array [
               undefined,
             ]
           }
+          testID="amplify__radio-button__container"
         />
         <Text
           accessibilityRole="text"
@@ -819,7 +827,7 @@ Array [
             Array [
               Object {
                 "alignItems": "center",
-                "borderColor": "#317d95",
+                "borderColor": "hsl(210, 8%, 55%)",
                 "borderRadius": 999,
                 "borderWidth": 2,
                 "justifyContent": "center",
@@ -831,6 +839,7 @@ Array [
               undefined,
             ]
           }
+          testID="amplify__radio-button__container"
         />
         <Text
           accessibilityRole="text"
