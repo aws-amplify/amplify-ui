@@ -2,9 +2,9 @@ import { AmplifyUser } from '@aws-amplify/ui';
 
 export interface DeleteUserWarningProps {
   /** called when end user cancels account deletion */
-  onCancel: () => void;
+  onCancel?: () => void;
   /** called when user acknowledges account deletion */
-  onConfirm: () => void;
+  onConfirm?: () => void;
   /** whether account deletion is in progress */
   isDisabled?: boolean;
 }
