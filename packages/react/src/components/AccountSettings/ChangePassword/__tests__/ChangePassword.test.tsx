@@ -203,13 +203,13 @@ describe('ChangePassword', () => {
   });
 
   it('displays custom password validation error messages', async () => {
-    const minLength: UIModule.ValidatorSpec = {
+    const minLength: UIModule.ValidatorOptions = {
       validationMode: 'onChange',
       validator: (password) => password.length >= 8,
       message: 'Password must have length 4 or greater',
     };
 
-    const hasSpecialChar: UIModule.ValidatorSpec = {
+    const hasSpecialChar: UIModule.ValidatorOptions = {
       validationMode: 'onChange',
       validator: (password) => password.includes('*'),
       message: 'Password must have a star',

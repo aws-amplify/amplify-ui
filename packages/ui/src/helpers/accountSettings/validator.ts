@@ -1,7 +1,7 @@
 import { Amplify } from 'aws-amplify';
 import { hasSpecialChars } from '../authenticator';
 import {
-  ValidatorSpec,
+  ValidatorOptions,
   PasswordSettings,
   PasswordRequirement,
   ValidationMode,
@@ -33,37 +33,39 @@ export const getPasswordRequirement = (): PasswordRequirement => {
   };
 };
 
-export const getHasMinLength = (minLength: number): ValidatorSpec => ({
+export const getHasMinLength = (minLength: number): ValidatorOptions => ({
   validationMode: 'onTouched',
   validator: (field) => field.length >= minLength,
   message: `Password must have at least ${minLength} characters`,
 });
 
-export const hasLowerCase: ValidatorSpec = {
+export const hasLowerCase: ValidatorOptions = {
   validationMode: 'onTouched',
   validator: (field) => /[a-z]/.test(field),
   message: 'Password must have lower case letters',
 };
 
-export const hasUpperCase: ValidatorSpec = {
+export const hasUpperCase: ValidatorOptions = {
   validationMode: 'onTouched',
   validator: (field) => /[A-Z]/.test(field),
   message: 'Password must have upper case letters',
 };
 
-export const hasNumber: ValidatorSpec = {
+export const hasNumber: ValidatorOptions = {
   validationMode: 'onTouched',
   validator: (field) => /[0-9]/.test(field),
   message: 'Password must have numbers',
 };
 
-export const hasSpecialChar: ValidatorSpec = {
+export const hasSpecialChar: ValidatorOptions = {
   validationMode: 'onTouched',
   validator: (field) => hasSpecialChars(field),
   message: 'Password must have special characters',
 };
 
-export const getMatchesConfirmPassword = (password: string): ValidatorSpec => {
+export const getMatchesConfirmPassword = (
+  password: string
+): ValidatorOptions => {
   return {
     validationMode: 'onTouched',
     validator: (confirmPassword) => password === confirmPassword,
@@ -71,11 +73,11 @@ export const getMatchesConfirmPassword = (password: string): ValidatorSpec => {
   };
 };
 
-export const getDefaultPasswordValidators = (): ValidatorSpec[] => {
+export const getDefaultPasswordValidators = (): ValidatorOptions[] => {
   const requirement = getPasswordRequirement();
   if (!requirement) return [];
 
-  const validators: ValidatorSpec[] = [];
+  const validators: ValidatorOptions[] = [];
 
   const {
     minLength,
@@ -107,7 +109,7 @@ export const getDefaultPasswordValidators = (): ValidatorSpec[] => {
 
 export const getDefaultConfirmPasswordValidators = (
   password: string
-): ValidatorSpec[] => {
+): ValidatorOptions[] => {
   return [getMatchesConfirmPassword(password)];
 };
 
@@ -151,7 +153,7 @@ export const runFieldValidators = ({
   hasBlurred,
 }: {
   value: string;
-  validators: ValidatorSpec[];
+  validators: ValidatorOptions[];
   eventType: InputEventType;
   hasBlurred: boolean;
 }): string[] => {

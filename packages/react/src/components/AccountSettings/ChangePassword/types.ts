@@ -1,4 +1,4 @@
-import { ValidatorSpec } from '@aws-amplify/ui';
+import { ValidatorOptions } from '@aws-amplify/ui';
 
 export interface ChangePasswordProps {
   /** callback once password is successfully updated */
@@ -6,5 +6,5 @@ export interface ChangePasswordProps {
   /** callback when there's an error */
   onError?: (error: Error) => void;
   /** custom password validations */
-  validators?: ValidatorSpec[];
+  validators?: ValidatorOptions[];
 }
