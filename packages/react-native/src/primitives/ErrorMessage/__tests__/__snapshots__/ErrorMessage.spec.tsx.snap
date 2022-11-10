@@ -1,5 +1,63 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`ErrorMessage applies theme and style props 1`] = `
+<View
+  accessibilityRole="alert"
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "hsl(0, 75%, 85%)",
+        "flexDirection": "row",
+        "paddingHorizontal": 4,
+        "paddingVertical": 16,
+        "width": "100%",
+      },
+      Object {
+        "backgroundColor": "blue",
+      },
+    ]
+  }
+>
+  <Image
+    accessibilityRole="image"
+    source={
+      Object {
+        "testUri": "../../../src/assets/icons/error.png",
+      }
+    }
+    style={
+      Array [
+        Object {
+          "height": 20,
+          "resizeMode": "contain",
+          "tintColor": undefined,
+          "width": 20,
+        },
+        Object {
+          "margin": 4,
+        },
+      ]
+    }
+  />
+  <Text
+    style={
+      Array [
+        Object {
+          "flex": 1,
+          "paddingHorizontal": 4,
+        },
+        Object {
+          "color": "white",
+        },
+      ]
+    }
+  >
+    Themed ErrorMessage
+  </Text>
+</View>
+`;
+
 exports[`ErrorMessage renders default ErrorMessage as expected 1`] = `
 <View
   accessibilityRole="alert"
@@ -7,7 +65,7 @@ exports[`ErrorMessage renders default ErrorMessage as expected 1`] = `
     Array [
       Object {
         "alignItems": "center",
-        "backgroundColor": "#f5bcbc",
+        "backgroundColor": "hsl(0, 75%, 85%)",
         "flexDirection": "row",
         "paddingHorizontal": 4,
         "paddingVertical": 16,
