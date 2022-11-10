@@ -30,12 +30,15 @@ const getIsDisabled = (
   const { currentPassword, newPassword, confirmPassword } = formValues;
 
   const hasEmptyField = !currentPassword || !newPassword || !confirmPassword;
+  if (hasEmptyField) {
+    return true;
+  }
 
   const arePasswordsInvalid =
     validationError.newPassword?.length > 0 ||
     validationError.confirmPassword?.length > 0;
 
-  return hasEmptyField || arePasswordsInvalid;
+  return arePasswordsInvalid;
 };
 
 function ChangePassword({
