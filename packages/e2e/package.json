@@ -6,12 +6,14 @@
   "scripts": {
     "clean": "rimraf node_modules",
     "dev": "cypress open",
-    "test:examples": "cypress run --spec 'features/ui/hooks/*.feature','features/ui/components/**/*.feature'",
     "test:authenticator": "cypress run --spec 'features/ui/components/authenticator/*.feature'",
-    "test:hooks": "cypress run --spec 'features/ui/hooks/*.feature'",
+    "test:docs": "cypress run --spec 'features/ui/navigation/*.feature','features/ui/theme/*.feature'",
+    "test:examples": "cypress run --spec 'features/ui/hooks/*.feature','features/ui/components/**/*.feature'",
     "test:geo": "cypress run --spec 'features/ui/components/geo/*.feature'",
-    "test:theme": "cypress run --spec 'features/ui/theme/*.feature'",
-    "test:guides": "cypress run --spec 'features/ui/guides/*.feature'"
+    "test:guides": "cypress run --spec 'features/ui/guides/*.feature'",
+    "test:hooks": "cypress run --spec 'features/ui/hooks/*.feature'",
+    "test:navigation": "cypress run --spec 'features/ui/navigation/*.feature'",
+    "test:theme": "cypress run --spec 'features/ui/theme/*.feature'"
   },
   "cypress-cucumber-preprocessor": {
     "filterSpecs": true,
@@ -28,6 +30,7 @@
     "aws-crt": "^1.10.6",
     "cypress": "^10.7.0",
     "dotenv": "^16.0.2",
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "sitemap-urls": "^3.0.0"
   }
 }

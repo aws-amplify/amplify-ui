@@ -400,7 +400,7 @@ jobs:
         run: yarn docs start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000
 
       - name: Run E2E tests against docs
-        run: yarn workspace e2e test:theme
+        run: yarn workspace e2e test:docs
         env:
           # Env values for testing flows
           DOMAIN: ${{ secrets.DOMAIN }}

@@ -11,7 +11,7 @@ type EvtName =
   | 'RETURNING'
   | 'NO_HREF';
 let allLinks: string[] = [];
-const numberOfLinks = 121;
+const numberOfPages = 121;
 const requestedLinks: Set<string> = new Set();
 
 before(() => {
@@ -22,12 +22,12 @@ before(() => {
 
 describe('Local Sitemap', () => {
   it('should have 119 links', () => {
-    expect(allLinks.length).to.eq(numberOfLinks);
+    expect(allLinks.length).to.eq(numberOfPages);
   });
 });
 
 describe(`All pages on Sitemap`, () => {
-  it.each(numberOfLinks)('all links on page %k should work', (i: string) => {
+  it.each(numberOfPages)('all links on page %k should work', (i: string) => {
     const link = allLinks[i];
     cy.task('log', `🧪[TESTING...] page ${BASE_URL}/${link}`);
     cy.visit(link || '/');
