@@ -9,6 +9,9 @@ import { Previewer } from './Previewer';
 import { UploadDropZone } from './UploadDropZone';
 import { Tracker } from './Tracker';
 
+const isUploadTask = (value: unknown): value is UploadTask =>
+  typeof (value as UploadTask)?.resume === 'function';
+
 export function FileUploader({
   acceptedFileTypes,
   components = {},
@@ -21,6 +24,8 @@ export function FileUploader({
   onError,
   onSuccess,
   variation = 'button',
+  resumable = false,
+  ...rest
 }: FileUploaderProps): JSX.Element {
   const {
     UploadDropZone = FileUploader.UploadDropZone,
@@ -85,7 +90,7 @@ export function FileUploader({
         const status = fileStatusesRef.current[index];
         fileStatusesRef.current[index] =
           percentage !== 100
-            ? { ...status, percentage, fileState: 'resume' }
+            ? { ...status, percentage, fileState: 'loading' }
             : { ...status, percentage, fileState: 'success' };
         const newFileStatuses = [...fileStatusesRef.current];
         setFileStatuses(newFileStatuses);
@@ -126,9 +131,11 @@ export function FileUploader({
   const onPause = useCallback(
     (index: number): (() => void) => {
       return function () {
-        fileStatuses[index].uploadTask.pause();
-        const newFileStatuses = [...fileStatuses];
         const status = fileStatuses[index];
+        if (isUploadTask(status.uploadTask)) {
+          status.uploadTask.pause();
+        }
+        const newFileStatuses = [...fileStatuses];
 
         newFileStatuses[index] = { ...status, fileState: 'paused' };
         setFileStatuses(newFileStatuses);
@@ -140,9 +147,12 @@ export function FileUploader({
   const onResume = useCallback(
     (index: number): (() => void) => {
       return function () {
-        fileStatuses[index].uploadTask.resume();
-        const newFileStatuses = [...fileStatuses];
         const status = fileStatuses[index];
+
+        if (isUploadTask(status.uploadTask)) {
+          status.uploadTask.resume();
+        }
+        const newFileStatuses = [...fileStatuses];
 
         newFileStatuses[index] = { ...status, fileState: 'resume' };
         setFileStatuses(newFileStatuses);
@@ -165,16 +175,22 @@ export function FileUploader({
       });
       const uploadFileName = getFileName(fileNamesFiltered?.[i], status.name);
 
-      const uploadTask: UploadTask = uploadFile({
+      const uploadTask = uploadFile({
         file: status.file,
         fileName: uploadFileName,
         level,
+        resumable,
         progressCallback: progressCallback(i),
         errorCallback: errorCallback(i),
         completeCallback: completeCallback(),
+        ...rest,
       });
-      uploadTasksTemp.push(uploadTask);
+
+      if (isUploadTask(uploadTask) && resumable) {
+        uploadTasksTemp.push(uploadTask);
+      }
     });
+
     const newFileStatuses = [...fileStatuses];
     fileStatusesRef.current = newFileStatuses.map((status, index) => {
       return {
@@ -195,6 +211,8 @@ export function FileUploader({
     level,
     progressCallback,
     setFileStatuses,
+    resumable,
+    rest,
   ]);
 
   const onFileChange = useCallback(
@@ -219,9 +237,11 @@ export function FileUploader({
   const onFileCancel = useCallback(
     (index: number) => {
       return () => {
-        if (fileStatuses[index].fileState === 'loading') {
+        const { fileState, uploadTask } = fileStatuses[index];
+
+        if (fileState === 'loading' && isUploadTask(uploadTask)) {
           // if downloading use uploadTask and stop download
-          Storage.cancel(fileStatuses[index]?.uploadTask);
+          Storage.cancel(uploadTask);
           setLoading(false);
         }
         const updatedFiles = fileStatuses.filter((_, i) => i !== index);
@@ -349,6 +369,7 @@ export function FileUploader({
             onSaveEdit={onSaveEdit(index)}
             onCancelEdit={onCancelEdit(index)}
             onStartEdit={onStartEdit(index)}
+            resumable={resumable}
           />
         ))}
       </Previewer>

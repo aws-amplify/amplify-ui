@@ -33,6 +33,7 @@ export function Tracker({
   isEditing,
   onSaveEdit,
   onStartEdit,
+  resumable,
 }: TrackerProps): JSX.Element {
   if (!file) return null;
 
@@ -67,6 +68,7 @@ export function Tracker({
           </Button>
         );
       case 'loading':
+        if (!resumable) return null;
         return (
           <Button onClick={onPause} size="small" variation="link">
             {translate('pause')}
@@ -96,6 +98,8 @@ export function Tracker({
     }
   };
 
+  const isDeterminate = !resumable || (resumable && percentage > 0);
+
   return (
     <View className={ComponentClassNames.FileUploaderFile}>
       <View className={ComponentClassNames.FileUploaderFileImage}>{icon}</View>
@@ -124,7 +128,7 @@ export function Tracker({
           className={ComponentClassNames.FileUploaderLoader}
           variation="linear"
           percentage={percentage}
-          isDeterminate
+          isDeterminate={isDeterminate}
           isPercentageTextHidden
         />
       ) : null}

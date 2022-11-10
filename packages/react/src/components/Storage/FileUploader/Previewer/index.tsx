@@ -77,7 +77,10 @@ export function Previewer({
         <View>
           {isLoading && (
             <>
-              <Text>Uploading: {percentage}%</Text>
+              <Text>
+                {translate('Uploading')}
+                {percentage > 0 ? `: ${percentage}%` : ''}
+              </Text>
               <Loader
                 className={ComponentClassNames.FileUploaderLoader}
                 variation="linear"

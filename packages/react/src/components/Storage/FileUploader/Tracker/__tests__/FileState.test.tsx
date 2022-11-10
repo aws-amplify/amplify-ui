@@ -17,7 +17,7 @@ describe('FileState', () => {
       <FileState fileState={'loading'} percentage={10} errorMessage={''} />
     );
 
-    expect(await findByText('Loading: 10%')).toBeVisible();
+    expect(await findByText('Uploading: 10%')).toBeVisible();
   });
   it('displays paused message if fileState is paused', async () => {
     const { findByText } = render(
