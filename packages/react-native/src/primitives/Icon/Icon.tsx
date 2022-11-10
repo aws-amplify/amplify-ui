@@ -14,7 +14,7 @@ export default function Icon({
   ...rest
 }: IconProps): JSX.Element {
   const theme = useTheme();
-  const { icon } = useMemo(
+  const themedStyle = useMemo(
     () => getThemedStyles(theme, color, size),
     [theme, color, size]
   );
@@ -22,7 +22,7 @@ export default function Icon({
   const imageProps: IconProps = {
     ...rest,
     accessibilityRole,
-    style: [icon, style],
+    style: [themedStyle.icon, style],
   };
 
   if (animated) {

@@ -1,5 +1,7 @@
 import baseTokens from '@aws-amplify/ui/dist/react-native/tokens';
+
 import { createTheme } from '../createTheme';
+import { iconSizes } from '../types';
 
 describe('createTheme', () => {
   describe('without a custom theme', () => {
@@ -15,6 +17,7 @@ describe('createTheme', () => {
       expect(tokens.radii).toStrictEqual(baseTokens.radii);
       expect(tokens.space).toStrictEqual(baseTokens.space);
       expect(tokens.time).toStrictEqual(baseTokens.time);
+      expect(tokens.iconSizes).toStrictEqual(iconSizes);
     });
 
     it('should not have component tokens', () => {
@@ -32,6 +35,9 @@ describe('createTheme', () => {
             secondary: 'purple',
           },
         },
+        iconSizes: {
+          medium: 26,
+        },
         components: {
           label: {
             text: { color: 'blue' },
@@ -44,6 +50,7 @@ describe('createTheme', () => {
       const { tokens } = theme;
       expect(tokens.colors.font.primary).toEqual('hsl(0, 0%, 100%)');
       expect(tokens.colors.font.secondary).toEqual('purple');
+      expect(tokens.iconSizes.medium).toEqual(26);
       expect(tokens.components?.label.text.color).toEqual('blue');
     });
   });

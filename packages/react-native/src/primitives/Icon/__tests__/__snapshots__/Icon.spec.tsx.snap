@@ -11,10 +11,10 @@ exports[`Icon renders an animated icon 1`] = `
   }
   style={
     Object {
-      "height": undefined,
+      "height": 24,
       "resizeMode": "contain",
       "tintColor": undefined,
-      "width": undefined,
+      "width": 24,
     }
   }
   testID="iconTestID"
@@ -32,10 +32,10 @@ exports[`Icon renders as expected 1`] = `
   style={
     Array [
       Object {
-        "height": undefined,
+        "height": 24,
         "resizeMode": "contain",
         "tintColor": undefined,
-        "width": undefined,
+        "width": 24,
       },
       undefined,
     ]
@@ -55,10 +55,10 @@ exports[`Icon renders as expected with custom styles 1`] = `
   style={
     Array [
       Object {
-        "height": undefined,
+        "height": 24,
         "resizeMode": "contain",
         "tintColor": undefined,
-        "width": undefined,
+        "width": 24,
       },
       Object {
         "tintColor": "red",

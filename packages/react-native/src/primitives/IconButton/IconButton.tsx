@@ -14,7 +14,7 @@ export default function IconButton({
   accessibilityRole = 'button',
   color,
   iconStyle,
-  size = 20,
+  size,
   source,
   style,
   ...rest

@@ -8,14 +8,14 @@ export const getThemedStyles = (
   color?: IconProps['color'],
   size?: IconProps['size']
 ): IconStyles => {
-  const { components } = theme.tokens;
+  const { iconSizes, components } = theme.tokens;
 
   return StyleSheet.create({
     icon: {
-      height: size,
+      height: size ?? iconSizes.medium,
       resizeMode: 'contain',
       tintColor: color,
-      width: size,
+      width: size ?? iconSizes.medium,
       ...components?.icon,
     },
   });
