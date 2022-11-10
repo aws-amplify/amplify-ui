@@ -33,7 +33,7 @@
     "xstate": "^4.33.6"
   },
   "peerDependencies": {
-    "aws-amplify": "5.x.x",
+    "aws-amplify": "unstable",
     "react": ">= 16.8.0",
     "react-dom": ">= 16.8.0"
   },
