@@ -16,6 +16,7 @@ Array [
   "ComponentClassObject",
   "ComponentPropsToStylePropsMap",
   "ComponentPropsToStylePropsMapKeys",
+  "DeleteUser",
   "Divider",
   "Expander",
   "ExpanderItem",

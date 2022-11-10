@@ -30,3 +30,15 @@ export const changePassword = async ({
     return Promise.reject(e);
   }
 };
+
+export const deleteUser = async () => {
+  try {
+    logger.debug('calling Auth.deleteUser');
+    await Auth.deleteUser();
+    logger.debug('Auth.deleteUser was successful');
+    return Promise.resolve();
+  } catch (e) {
+    logger.debug('Auth.deleteUser failed with error', e);
+    return Promise.reject(e);
+  }
+};
