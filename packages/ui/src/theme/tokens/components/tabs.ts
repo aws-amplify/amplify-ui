@@ -1,64 +1,34 @@
-import {
-  BackgroundColorValue,
-  BorderColorValue,
-  BorderStyleValue,
-  BorderWidthValue,
-  ColorValue,
-  DesignToken,
-  FontSizeValue,
-  FontWeightValue,
-  GapValue,
-  SpaceValue,
-  TextAlignValue,
-  TransitionDurationValue,
-} from '../types/designToken';
+import { DesignTokenProperties } from '../types/designToken';
 
-interface TabsItemTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  borderColor: DesignToken<BorderColorValue>;
-  borderStyle: DesignToken<BorderStyleValue>;
-  borderWidth: DesignToken<BorderWidthValue>;
-  color: DesignToken<ColorValue>;
-  fontSize: DesignToken<FontSizeValue>;
-  fontWeight: DesignToken<FontWeightValue>;
-  paddingVertical: DesignToken<SpaceValue>;
-  paddingHorizontal: DesignToken<SpaceValue>;
-  textAlign: DesignToken<TextAlignValue>;
-  transitionDuration: DesignToken<TransitionDurationValue>;
-  _hover: TabsItemHoverTokens;
-  _focus: TabsItemFocusTokens;
-  _active: TabsItemActiveTokens;
-  _disabled: TabsItemDisabledTokens;
-}
+type TabItemStateTokens<OutputType> = DesignTokenProperties<
+  'backgroundColor' | 'borderColor' | 'color',
+  OutputType
+>;
 
-interface TabsItemHoverTokens {
-  color: DesignToken<ColorValue>;
-}
+type TabItemTokens<OutputType = unknown> = DesignTokenProperties<
+  | 'backgroundColor'
+  | 'borderColor'
+  | 'borderStyle'
+  | 'borderWidth'
+  | 'color'
+  | 'fontSize'
+  | 'fontWeight'
+  | 'paddingVertical'
+  | 'paddingHorizontal'
+  | 'textAlign'
+  | 'transitionDuration'
+> & {
+  _hover?: DesignTokenProperties<'color', OutputType>;
+  _focus?: DesignTokenProperties<'color', OutputType>;
+  _active?: TabItemStateTokens<OutputType>;
+  _disabled?: TabItemStateTokens<OutputType>;
+};
 
-interface TabsItemFocusTokens {
-  color: DesignToken<ColorValue>;
-}
-
-interface TabsItemActiveTokens {
-  color: DesignToken<ColorValue>;
-  borderColor: DesignToken<BorderColorValue>;
-  backgroundColor: DesignToken<BackgroundColorValue>;
-}
-
-interface TabsItemDisabledTokens {
-  color: DesignToken<ColorValue>;
-  borderColor: DesignToken<BorderColorValue>;
-  backgroundColor: DesignToken<BackgroundColorValue>;
-}
-
-export interface TabsTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  borderColor: DesignToken<BorderColorValue>;
-  borderStyle: DesignToken<BorderStyleValue>;
-  borderWidth: DesignToken<BorderWidthValue>;
-  gap: DesignToken<GapValue>;
-  item: TabsItemTokens;
-}
+export type TabsTokens<OuptutType = unknown> = DesignTokenProperties<
+  'backgroundColor' | 'borderColor' | 'borderStyle' | 'borderWidth' | 'gap'
+> & {
+  item?: TabItemTokens<OuptutType>;
+};
 
 export const tabs: TabsTokens = {
   backgroundColor: { value: 'transparent' },
