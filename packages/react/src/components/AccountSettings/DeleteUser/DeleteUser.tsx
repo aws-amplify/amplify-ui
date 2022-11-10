@@ -36,8 +36,13 @@ function DeleteUser({
     setState('IN_PROGRESS');
     try {
       if (handleDelete) {
+        /*
+         * run custom delete handler, if provided. We pass `user` so that
+         * developer can do whichever cleanup with the user object they wish.
+         */
         await handleDelete(user);
       } else {
+        // else, run default deleteUser function.
         await deleteUser();
       }
       setState('DONE');
