@@ -68,3 +68,72 @@ exports[`Icon renders as expected with custom styles 1`] = `
   testID="iconTestID"
 />
 `;
+
+exports[`Icon should override size as number 1`] = `
+<Image
+  accessibilityRole="image"
+  source={
+    Object {
+      "uri": "mock.png",
+    }
+  }
+  style={
+    Array [
+      Object {
+        "height": 22,
+        "resizeMode": "contain",
+        "tintColor": undefined,
+        "width": 22,
+      },
+      undefined,
+    ]
+  }
+  testID="iconTestID"
+/>
+`;
+
+exports[`Icon should override size as string 1`] = `
+<Image
+  accessibilityRole="image"
+  source={
+    Object {
+      "uri": "mock.png",
+    }
+  }
+  style={
+    Array [
+      Object {
+        "height": 32,
+        "resizeMode": "contain",
+        "tintColor": undefined,
+        "width": 32,
+      },
+      undefined,
+    ]
+  }
+  testID="iconTestID"
+/>
+`;
+
+exports[`Icon throws an error for invalid size type 1`] = `
+<Image
+  accessibilityRole="image"
+  source={
+    Object {
+      "uri": "mock.png",
+    }
+  }
+  style={
+    Array [
+      Object {
+        "height": 24,
+        "resizeMode": "contain",
+        "tintColor": undefined,
+        "width": 24,
+      },
+      undefined,
+    ]
+  }
+  testID="iconTestID"
+/>
+`;

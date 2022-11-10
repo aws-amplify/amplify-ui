@@ -29,5 +29,5 @@ export interface IconProps extends ImageProps {
   /**
    * Icon size
    */
-  size?: number;
+  size?: Size | number;
 }
