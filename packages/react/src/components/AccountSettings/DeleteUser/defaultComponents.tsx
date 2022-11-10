@@ -29,7 +29,7 @@ export const DefaultWarning = ({
     <Card>
       <Flex direction="column">
         <Text color="font.error">{warningText}</Text>
-        <Flex direction="row">
+        <Flex>
           <Button variation="link" onClick={onCancel} isDisabled={isInProgress}>
             {cancelText}
           </Button>
