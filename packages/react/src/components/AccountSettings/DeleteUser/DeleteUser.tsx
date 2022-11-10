@@ -28,7 +28,7 @@ function DeleteUser({
 
   const startConfirmation = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    setState('CONFIRMING');
+    setState('CONFIRMATION');
   };
 
   const runDeleteUser = React.useCallback(async () => {
@@ -82,12 +82,12 @@ function DeleteUser({
   return (
     <Flex direction="column">
       <DefaultSubmitButton
-        isDisabled={state === 'CONFIRMING'}
+        isDisabled={state === 'CONFIRMATION'}
         onClick={startConfirmation}
       >
         {deleteAccountText}
       </DefaultSubmitButton>
-      {state === 'CONFIRMING' || state === 'DELETING' ? (
+      {state === 'CONFIRMATION' || state === 'DELETING' ? (
         <DefaultWarning
           onCancel={handleCancel}
           isDisabled={state === 'DELETING'}

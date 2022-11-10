@@ -11,7 +11,7 @@ export const defaultTexts = {
   CONFIRM_TOTP: 'Confirm TOTP Code',
   CONFIRM: 'Confirm',
   CONFIRMATION_CODE: 'Confirmation Code',
-  CONFIRMING: 'Confirming',
+  CONFIRMATION: 'Confirming',
   CREATE_ACCOUNT: 'Create Account',
   CREATING_ACCOUNT: 'Creating Account',
   EMAIL_ADDRESS: 'Email',
