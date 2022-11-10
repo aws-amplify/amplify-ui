@@ -67,11 +67,6 @@ function DeleteUser({
     runDeleteUser();
   }, [runDeleteUser]);
 
-  // Return null if Auth.getCurrentAuthenticatedUser is still in progress
-  if (isLoading) {
-    return null;
-  }
-
   /** Return null if user isn't authenticated in the first place */
   if (!user) {
     logger.warn('<DeleteUser /> requires user to be authenticated.');
@@ -80,6 +75,11 @@ function DeleteUser({
 
   // Return null if delete user was successful
   if (state === 'DONE') {
+    return null;
+  }
+
+  // Return null if Auth.getCurrentAuthenticatedUser is still in progress
+  if (isLoading) {
     return null;
   }
 
