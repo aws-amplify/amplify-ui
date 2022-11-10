@@ -9,7 +9,7 @@ export const getThemedStyles = (theme: StrictTheme): ErrorMessageStyles => {
   return StyleSheet.create({
     container: {
       alignItems: 'center',
-      backgroundColor: colors.red[20],
+      backgroundColor: colors.background.error,
       flexDirection: 'row',
       paddingHorizontal: space.xs,
       paddingVertical: space.xl,
@@ -21,6 +21,7 @@ export const getThemedStyles = (theme: StrictTheme): ErrorMessageStyles => {
       ...components?.errorMessage.icon,
     },
     label: {
+      color: colors.font.error,
       flex: 1,
       paddingHorizontal: space.xs,
       ...components?.errorMessage.label,

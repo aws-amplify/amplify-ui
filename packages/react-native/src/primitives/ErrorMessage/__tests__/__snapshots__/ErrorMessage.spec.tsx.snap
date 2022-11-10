@@ -44,6 +44,7 @@ exports[`ErrorMessage applies theme and style props 1`] = `
     style={
       Array [
         Object {
+          "color": "hsl(0, 100%, 20%)",
           "flex": 1,
           "paddingHorizontal": 4,
         },
@@ -100,6 +101,7 @@ exports[`ErrorMessage renders default ErrorMessage as expected 1`] = `
     style={
       Array [
         Object {
+          "color": "hsl(0, 100%, 20%)",
           "flex": 1,
           "paddingHorizontal": 4,
         },
