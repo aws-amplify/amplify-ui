@@ -23,6 +23,7 @@ Array [
   <View
     style={
       Array [
+        Object {},
         Object {
           "flexDirection": "column-reverse",
         },
@@ -339,6 +340,7 @@ Array [
   <View
     style={
       Array [
+        Object {},
         Object {
           "flexDirection": "column-reverse",
         },
@@ -658,6 +660,7 @@ Array [
   <View
     style={
       Array [
+        Object {},
         Object {
           "flexDirection": "column-reverse",
         },
