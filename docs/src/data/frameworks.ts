@@ -31,9 +31,9 @@ export const REACT_NATIVE_DEPENDENCIES =
   '@react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill react-native-safe-area-context';
 
 export const FRAMEWORK_INSTALL_SCRIPTS = {
-  react: 'npm i @aws-amplify/ui-react aws-amplify',
-  vue: 'npm i @aws-amplify/ui-vue aws-amplify',
-  angular: 'npm i @aws-amplify/ui-angular aws-amplify',
+  react: 'npm i @aws-amplify/ui-react aws-amplify@4.x.x',
+  vue: 'npm i @aws-amplify/ui-vue aws-amplify@4.x.x',
+  angular: 'npm i @aws-amplify/ui-angular aws-amplify@4.x.x',
   flutter: 'flutter pub add amplify_authenticator',
   'react-native': `npm i -E @aws-amplify/ui-react-native aws-amplify ${REACT_NATIVE_DEPENDENCIES}`,
 };

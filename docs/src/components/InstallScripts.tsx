@@ -28,7 +28,7 @@ const frameworkInstallScript = (
     isReactNative ? ` ${REACT_NATIVE_DEPENDENCIES}` : ''
   }`;
 
-  return `${packageManagerPrefix} @aws-amplify/ui-${framework} aws-amplify${extraDependencies}`;
+  return `${packageManagerPrefix} @aws-amplify/ui-${framework} aws-amplify@4.x.x${extraDependencies}`;
 };
 
 export const TerminalCommand = ({
