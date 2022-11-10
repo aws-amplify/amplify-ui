@@ -3,6 +3,14 @@ import { ColorValue, ImageProps, ImageStyle } from 'react-native';
 export type Size = 'xs' | 'small' | 'medium' | 'large' | 'xl';
 export type IconSizes = Record<Size, number>;
 
+export const iconSizes: IconSizes = {
+  xs: 16,
+  small: 20,
+  medium: 24,
+  large: 32,
+  xl: 48,
+};
+
 export interface IconStyles {
   icon: ImageStyle;
 }

@@ -1,14 +1,14 @@
 import { StyleSheet } from 'react-native';
 
 import { StrictTheme } from '../../theme';
-import { IconProps, IconStyles } from './types';
+import { IconProps, iconSizes, IconStyles } from './types';
 
 export const getThemedStyles = (
   theme: StrictTheme,
   color?: IconProps['color'],
   size?: IconProps['size']
 ): IconStyles => {
-  const { iconSizes, components } = theme.tokens;
+  const { components } = theme.tokens;
 
   return StyleSheet.create({
     icon: {

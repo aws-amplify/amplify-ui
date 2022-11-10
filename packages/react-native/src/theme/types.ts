@@ -2,9 +2,14 @@ import { PartialDeep } from 'type-fest';
 import { ReactNativeTokens } from '@aws-amplify/ui/src/theme/tokens';
 import baseTokens from '@aws-amplify/ui/dist/react-native/tokens';
 
-import { HeadingStyles, IconStyles, IconSizes, LabelStyles, RadioStyles } from '../primitives';
+import {
+  HeadingStyles,
+  IconStyles,
+  LabelStyles,
+  RadioStyles,
+} from '../primitives';
 
-export interface Tokens extends StrictTokens {
+export interface Tokens extends ReactNativeTokens {
   components?: ComponentStyles;
 }
 
@@ -51,19 +56,6 @@ export interface StrictTheme extends Theme {
   tokens: Tokens;
 }
 
-export interface StrictTokens extends ReactNativeTokens {
-  iconSizes: IconSizes;
-}
-
-export const iconSizes: IconSizes = {
-  xs: 16,
-  small: 20,
-  medium: 24,
-  large: 32,
-  xl: 48,
-};
-
-export const tokens: StrictTokens = {
+export const tokens: ReactNativeTokens = {
   ...baseTokens,
-  iconSizes,
 };

@@ -1,11 +1,9 @@
 import baseTokens from '@aws-amplify/ui/dist/react-native/tokens';
 
 import { setupTokens } from '../utils';
-import { iconSizes } from '../types';
 
 const customTokens = {
   ...baseTokens,
-  iconSizes,
   colors: {
     ...baseTokens.colors,
     brand: {
