@@ -1,4 +1,4 @@
-import { StyleProp, TextStyle } from 'react-native';
+import { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
 import { TextFieldProps, TextFieldStyles } from '../TextField';
 
@@ -42,6 +42,7 @@ export interface PhoneNumberFieldProps
 }
 
 export interface PhoneNumberFieldStyles extends Partial<TextFieldStyles> {
+  fieldStyle: ViewStyle;
   picker: TextStyle;
   pickerItem: TextStyle;
 }
