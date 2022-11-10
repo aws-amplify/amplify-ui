@@ -185,6 +185,7 @@ interface TokenCustomProperties {
   borderStartEndRadius: RadiusValue;
   borderEndStartRadius: RadiusValue;
   borderEndEndRadius: RadiusValue;
+  duration: TimeValue;
   marginTop: SpaceValue;
   paddingHorizontal: SpaceValue;
   paddingVertical: SpaceValue;
@@ -193,7 +194,6 @@ interface TokenCustomProperties {
   strokeEmpty: StrokeEmptyValue;
   strokeFilled: StrokeFilledValue;
   time: TimeValue;
-  duration: TimeValue;
 }
 
 interface TokenProperties

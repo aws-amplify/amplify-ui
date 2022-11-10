@@ -6,7 +6,7 @@ type ToggleButtonGroupTokenKey =
   | 'justifyContent';
 
 export type ToggleButtonGroupTokens<OutputType = unknown> =
-  DesignTokenProperties<ToggleButtonGroupTokenKey, OutputType> & {};
+  DesignTokenProperties<ToggleButtonGroupTokenKey, OutputType>;
 
 export const togglebuttongroup: ToggleButtonGroupTokens = {
   alignItems: { value: 'center' },

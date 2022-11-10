@@ -1,67 +1,8 @@
-import {
-  BackgroundColorValue,
-  BorderColorValue,
-  BorderRadiusValue,
-  DesignToken,
-  DesignTokenProperties,
-  FontSizeValue,
-  OpacityValue,
-  ShadowValue,
-  SpaceValue,
-  TransformValue,
-  TransitionDurationValue,
-} from '../types/designToken';
-
-type SwitchFieldDisabledTokens<OutputType> = DesignTokenProperties<
-  'opacity',
-  OutputType
->;
-
-type SwitchFieldFocusedTokens<OutputType> = DesignTokenProperties<
-  'shadow',
-  OutputType
->;
+import { DesignTokenProperties } from '../types/designToken';
 
 type SwitchFieldSizeTokens<OutputType> = DesignTokenProperties<
   'fontSize',
   OutputType
->;
-
-type SwitchFieldLabelTokens<OutputType> = DesignTokenProperties<
-  'padding',
-  OutputType
->;
-
-type SwitchFieldThumbTokens<OutputType> = DesignTokenProperties<
-  'backgroundColor' | 'borderColor' | 'borderRadius' | 'width',
-  OutputType
-> & {
-  checked: SwitchFieldThumbCheckedTokens<OutputType>;
-  transition: SwitchFieldThumbTransitionTokens<OutputType>;
-};
-
-type SwitchFieldThumbTransitionTokens<OutputType> = DesignTokenProperties<
-  'duration',
-  OutputType
->;
-
-type SwitchFieldThumbCheckedTokens<OutputType> = DesignTokenProperties<
-  'transform',
-  OutputType
->;
-
-type SwitchFieldTrackTokens<OutputType> = DesignTokenProperties<
-  'backgroundColor' | 'borderRadius' | 'height' | 'width' | 'padding',
-  OutputType
-> & {
-  checked: SwitchFieldTrackCheckedTokens<OutputType>;
-  transition: SwitchFieldTrackTransitionTokens<OutputType>;
-  _error: SwitchFieldTrackCheckedTokens<OutputType>;
-};
-
-type SwitchFieldTrackTransitionTokens<OuptutType> = DesignTokenProperties<
-  'duration',
-  OuptutType
 >;
 
 type SwitchFieldTrackCheckedTokens<OutputType> = DesignTokenProperties<
@@ -71,13 +12,26 @@ type SwitchFieldTrackCheckedTokens<OutputType> = DesignTokenProperties<
 
 export type SwitchFieldTokens<OutputType = unknown> =
   DesignTokenProperties<'fontSize'> & {
-    _disabled?: SwitchFieldDisabledTokens<OutputType>;
-    _focused?: SwitchFieldFocusedTokens<OutputType>;
+    _disabled?: DesignTokenProperties<'opacity', OutputType>;
+    _focused?: DesignTokenProperties<'shadow', OutputType>;
     large?: SwitchFieldSizeTokens<OutputType>;
     small?: SwitchFieldSizeTokens<OutputType>;
-    label?: SwitchFieldLabelTokens<OutputType>;
-    thumb?: SwitchFieldThumbTokens<OutputType>;
-    track?: SwitchFieldTrackTokens<OutputType>;
+    label?: DesignTokenProperties<'padding', OutputType>;
+    thumb?: DesignTokenProperties<
+      'backgroundColor' | 'borderColor' | 'borderRadius' | 'width',
+      OutputType
+    > & {
+      checked: DesignTokenProperties<'transform', OutputType>;
+      transition: DesignTokenProperties<'duration', OutputType>;
+    };
+    track?: DesignTokenProperties<
+      'backgroundColor' | 'borderRadius' | 'height' | 'width' | 'padding',
+      OutputType
+    > & {
+      checked: SwitchFieldTrackCheckedTokens<OutputType>;
+      transition: DesignTokenProperties<'duration', OutputType>;
+      _error: SwitchFieldTrackCheckedTokens<OutputType>;
+    };
   };
 
 export const switchfield: SwitchFieldTokens = {
