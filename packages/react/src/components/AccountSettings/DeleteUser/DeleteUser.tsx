@@ -33,6 +33,10 @@ function DeleteUser({
 
   const runDeleteUser = React.useCallback(async () => {
     setState('DELETING');
+    if (errorMessage) {
+      setErrorMessage(null);
+    }
+
     try {
       if (handleDelete) {
         /*
@@ -48,11 +52,11 @@ function DeleteUser({
       onSuccess?.();
     } catch (e) {
       const error = e as Error;
-      setState('IDLE');
+      setState('ERROR');
       setErrorMessage(error.message);
       onError?.(error);
     }
-  }, [handleDelete, onError, onSuccess, user]);
+  }, [errorMessage, handleDelete, onError, onSuccess, user]);
 
   // called when end user cancels account deletion confirmation
   const handleCancel = React.useCallback(() => {
