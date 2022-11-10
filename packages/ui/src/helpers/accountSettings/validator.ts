@@ -25,7 +25,7 @@ export const getPasswordRequirement = (): PasswordRequirement => {
   } = passwordSettings;
 
   return {
-    minLength: minLength ? minLength : undefined,
+    minLength,
     needsLowerCase: characterPolicy.includes('REQUIRES_LOWERCASE'),
     needsUpperCase: characterPolicy.includes('REQUIRES_UPPERCASE'),
     needsNumber: characterPolicy.includes('REQUIRES_NUMBERS'),
