@@ -45,10 +45,10 @@ function ChangePassword({
 }: ChangePasswordProps): JSX.Element | null {
   const [errorMessage, setErrorMessage] = React.useState<string>(null);
   const [formValues, setFormValues] = React.useState<FormValues>({});
-  const [blurredFields, setBlurredFields] = React.useState<BlurredFields>([]);
   const [validationError, setValidationError] = React.useState<ValidationError>(
     {}
   );
+  const blurredFields = React.useRef<BlurredFields>([]);
   const { user, isLoading } = useAuth();
 
   const isDisabled = getIsDisabled(formValues, validationError);
@@ -62,22 +62,24 @@ function ChangePassword({
    * it does not depend on whether or not those states have been updated yet
    */
   const validateNewPassword = React.useCallback(
-    ({ formValues, eventType, blurredFields }: ValidateParams): string[] => {
+    ({ formValues, eventType }: ValidateParams): string[] => {
       const { newPassword } = formValues;
+      const hasBlurred = blurredFields.current.includes('newPassword');
 
       return runFieldValidators({
         value: newPassword,
         validators: passwordValidators,
         eventType,
-        hasBlurred: blurredFields.includes('newPassword'),
+        hasBlurred,
       });
     },
     [passwordValidators]
   );
 
   const validateConfirmPassword = React.useCallback(
-    ({ formValues, eventType, blurredFields }: ValidateParams): string[] => {
+    ({ formValues, eventType }: ValidateParams): string[] => {
       const { newPassword, confirmPassword } = formValues;
+      const hasBlurred = blurredFields.current.includes('confirmPassword');
 
       const confirmPasswordValidators =
         getDefaultConfirmPasswordValidators(newPassword);
@@ -86,7 +88,7 @@ function ChangePassword({
         value: confirmPassword,
         validators: confirmPasswordValidators,
         eventType,
-        hasBlurred: blurredFields.includes('confirmPassword'),
+        hasBlurred,
       });
     },
     []
@@ -124,11 +126,7 @@ function ChangePassword({
     const { name, value } = event.target;
 
     const newFormValues = { ...formValues, [name]: value };
-    runValidation({
-      formValues: newFormValues,
-      blurredFields,
-      eventType: 'change',
-    });
+    runValidation({ formValues: newFormValues, eventType: 'change' });
 
     setFormValues(newFormValues);
   };
@@ -138,14 +136,10 @@ function ChangePassword({
 
     const { name } = event.target;
     // only update state and run validation if this is the first time blurring the field
-    if (!blurredFields.includes(name)) {
-      const newBlurredFields = [...blurredFields, name];
-      runValidation({
-        formValues,
-        blurredFields: newBlurredFields,
-        eventType: 'blur',
-      });
-      setBlurredFields(newBlurredFields);
+    if (!blurredFields.current.includes(name)) {
+      const newBlurredFields = [...blurredFields.current, name];
+      blurredFields.current = newBlurredFields;
+      runValidation({ formValues, eventType: 'blur' });
     }
   };
 

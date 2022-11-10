@@ -1,9 +1,8 @@
 import { InputEventType, ValidatorOptions } from '@aws-amplify/ui';
-import { BlurredFields, FormValues } from '../types';
+import { FormValues } from '../types';
 
 export type ValidateParams = {
   formValues: FormValues;
-  blurredFields: BlurredFields;
   eventType: InputEventType;
 };
 export interface ChangePasswordProps {
