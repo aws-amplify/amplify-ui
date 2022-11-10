@@ -9,6 +9,9 @@ import { Previewer } from './Previewer';
 import { UploadDropZone } from './UploadDropZone';
 import { Tracker } from './Tracker';
 
+const isUploadTask = (value: unknown): value is UploadTask =>
+  typeof (value as UploadTask)?.resume === 'function';
+
 export function FileUploader({
   acceptedFileTypes,
   components = {},
@@ -128,9 +131,11 @@ export function FileUploader({
   const onPause = useCallback(
     (index: number): (() => void) => {
       return function () {
-        fileStatuses[index].uploadTask.pause();
-        const newFileStatuses = [...fileStatuses];
         const status = fileStatuses[index];
+        if (isUploadTask(status.uploadTask)) {
+          status.uploadTask.pause();
+        }
+        const newFileStatuses = [...fileStatuses];
 
         newFileStatuses[index] = { ...status, fileState: 'paused' };
         setFileStatuses(newFileStatuses);
@@ -142,9 +147,12 @@ export function FileUploader({
   const onResume = useCallback(
     (index: number): (() => void) => {
       return function () {
-        fileStatuses[index].uploadTask.resume();
-        const newFileStatuses = [...fileStatuses];
         const status = fileStatuses[index];
+
+        if (isUploadTask(status.uploadTask)) {
+          status.uploadTask.resume();
+        }
+        const newFileStatuses = [...fileStatuses];
 
         newFileStatuses[index] = { ...status, fileState: 'resume' };
         setFileStatuses(newFileStatuses);
@@ -167,31 +175,22 @@ export function FileUploader({
       });
       const uploadFileName = getFileName(fileNamesFiltered?.[i], status.name);
 
-      if (resumable) {
-        const uploadTask = uploadFile({
-          file: status.file,
-          fileName: uploadFileName,
-          level,
-          resumable,
-          progressCallback: progressCallback(i),
-          errorCallback: errorCallback(i),
-          completeCallback: completeCallback(),
-          ...rest,
-        });
-        uploadTasksTemp.push(uploadTask as UploadTask);
-      } else {
-        uploadFile({
-          file: status.file,
-          fileName: uploadFileName,
-          level,
-          resumable,
-          progressCallback: progressCallback(i),
-          errorCallback: errorCallback(i),
-          completeCallback: completeCallback(),
-          ...rest,
-        });
+      const uploadTask = uploadFile({
+        file: status.file,
+        fileName: uploadFileName,
+        level,
+        resumable,
+        progressCallback: progressCallback(i),
+        errorCallback: errorCallback(i),
+        completeCallback: completeCallback(),
+        ...rest,
+      });
+
+      if (isUploadTask(uploadTask) && resumable) {
+        uploadTasksTemp.push(uploadTask);
       }
     });
+
     const newFileStatuses = [...fileStatuses];
     fileStatusesRef.current = newFileStatuses.map((status, index) => {
       return {
@@ -238,9 +237,11 @@ export function FileUploader({
   const onFileCancel = useCallback(
     (index: number) => {
       return () => {
-        if (fileStatuses[index].fileState === 'loading') {
+        const { fileState, uploadTask } = fileStatuses[index];
+
+        if (fileState === 'loading' && isUploadTask(uploadTask)) {
           // if downloading use uploadTask and stop download
-          Storage.cancel(fileStatuses[index]?.uploadTask);
+          Storage.cancel(uploadTask);
           setLoading(false);
         }
         const updatedFiles = fileStatuses.filter((_, i) => i !== index);
