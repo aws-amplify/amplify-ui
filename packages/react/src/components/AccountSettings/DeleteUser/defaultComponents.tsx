@@ -15,7 +15,7 @@ export const DefaultSubmitButton: AccountSettingsSubmitButton = ({
 export const DefaultWarning = ({
   onCancel,
   onConfirmDelete,
-  isInProgress,
+  isDisabled,
 }: DeleteUserWarningProps): JSX.Element => {
   // translations
   // TODO: consolodiate translations to accountSettingsTextUtil
@@ -30,13 +30,13 @@ export const DefaultWarning = ({
       <Flex direction="column">
         <Text color="font.error">{warningText}</Text>
         <Flex direction="row">
-          <Button variation="link" onClick={onCancel} isDisabled={isInProgress}>
+          <Button variation="link" onClick={onCancel} isDisabled={isDisabled}>
             {cancelText}
           </Button>
           <Button
             variation="primary"
             onClick={onConfirmDelete}
-            isDisabled={isInProgress}
+            isDisabled={isDisabled}
           >
             {deleteMyAccountText}
           </Button>

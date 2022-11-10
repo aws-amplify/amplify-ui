@@ -90,7 +90,7 @@ function DeleteUser({
       {state === 'IS_CONFIRMING' || state === 'IN_PROGRESS' ? (
         <DefaultWarning
           onCancel={handleCancel}
-          isInProgress={state === 'IN_PROGRESS'}
+          isDisabled={state === 'IN_PROGRESS'}
           onConfirmDelete={handleConfirmDelete}
         />
       ) : null}

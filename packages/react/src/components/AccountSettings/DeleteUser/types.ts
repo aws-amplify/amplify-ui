@@ -6,7 +6,7 @@ export interface DeleteUserWarningProps {
   /** called when user acknowledges account deletion */
   onConfirmDelete: () => void;
   /** whether account deletion is in progress */
-  isInProgress?: boolean;
+  isDisabled?: boolean;
 }
 
 export type DeleteUserState = 'IDLE' | 'IS_CONFIRMING' | 'IN_PROGRESS' | 'DONE';
