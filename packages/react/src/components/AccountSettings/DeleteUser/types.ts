@@ -9,7 +9,7 @@ export interface DeleteUserWarningProps {
   isDisabled?: boolean;
 }
 
-export type DeleteUserState = 'IDLE' | 'IS_CONFIRMING' | 'IN_PROGRESS' | 'DONE';
+export type DeleteUserState = 'IDLE' | 'CONFIRMING' | 'DELETING' | 'DONE';
 
 export interface DeleteUserProps {
   /** custom delete user service override */

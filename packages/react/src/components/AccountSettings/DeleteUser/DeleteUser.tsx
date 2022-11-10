@@ -28,11 +28,11 @@ function DeleteUser({
 
   const startConfirmation = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    setState('IS_CONFIRMING');
+    setState('CONFIRMING');
   };
 
   const runDeleteUser = React.useCallback(async () => {
-    setState('IN_PROGRESS');
+    setState('DELETING');
     try {
       if (handleDelete) {
         /*
@@ -82,15 +82,15 @@ function DeleteUser({
   return (
     <Flex direction="column">
       <DefaultSubmitButton
-        isDisabled={state === 'IS_CONFIRMING'}
+        isDisabled={state === 'CONFIRMING'}
         onClick={startConfirmation}
       >
         {deleteAccountText}
       </DefaultSubmitButton>
-      {state === 'IS_CONFIRMING' || state === 'IN_PROGRESS' ? (
+      {state === 'CONFIRMING' || state === 'DELETING' ? (
         <DefaultWarning
           onCancel={handleCancel}
-          isDisabled={state === 'IN_PROGRESS'}
+          isDisabled={state === 'DELETING'}
           onConfirmDelete={handleConfirmDelete}
         />
       ) : null}
