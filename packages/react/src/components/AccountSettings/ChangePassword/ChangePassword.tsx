@@ -46,7 +46,7 @@ function ChangePassword({
 }: ChangePasswordProps): JSX.Element | null {
   const [errorMessage, setErrorMessage] = React.useState<string>(null);
   const [formValues, setFormValues] = React.useState<FormValues>({});
-  const [blurredFields, setBlurredFields] = React.useState<BlurredFields>({});
+  const [blurredFields, setBlurredFields] = React.useState<BlurredFields>([]);
   const [validationError, setValidationError] = React.useState<ValidationError>(
     {}
   );
@@ -74,7 +74,7 @@ function ChangePassword({
         value: newPassword,
         validators: passwordValidators,
         eventType,
-        hasBlurred: blurredFields.newPassword,
+        hasBlurred: blurredFields.includes('newPassword'),
       });
     },
     [passwordValidators]
@@ -95,7 +95,7 @@ function ChangePassword({
         value: confirmPassword,
         validators: confirmPasswordValidators,
         eventType,
-        hasBlurred: blurredFields.confirmPassword,
+        hasBlurred: blurredFields.includes('confirmPassword'),
       });
     },
     []
@@ -155,8 +155,8 @@ function ChangePassword({
 
     const { name } = event.target;
     // only update state and run validation if this is the first time blurring the field
-    if (!blurredFields[name]) {
-      const newBlurredFields = { ...blurredFields, [name]: true };
+    if (!blurredFields.includes(name)) {
+      const newBlurredFields = [...blurredFields, name];
       runValidation(formValues, newBlurredFields, 'blur');
       setBlurredFields(newBlurredFields);
     }
