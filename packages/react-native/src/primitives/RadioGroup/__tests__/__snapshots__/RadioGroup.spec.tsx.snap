@@ -4,6 +4,7 @@ exports[`RadioGroup renders as expected when direction is horizontal 1`] = `
 <View
   style={
     Array [
+      Object {},
       Object {
         "flexDirection": "column-reverse",
       },
@@ -297,6 +298,7 @@ exports[`RadioGroup renders as expected when direction is vertical 1`] = `
 <View
   style={
     Array [
+      Object {},
       Object {
         "flexDirection": "column-reverse",
       },
@@ -590,6 +592,7 @@ exports[`RadioGroup renders as expected when size is large 1`] = `
 <View
   style={
     Array [
+      Object {},
       Object {
         "flexDirection": "column-reverse",
       },
@@ -883,6 +886,7 @@ exports[`RadioGroup renders as expected when size is medium 1`] = `
 <View
   style={
     Array [
+      Object {},
       Object {
         "flexDirection": "column-reverse",
       },
@@ -1176,6 +1180,7 @@ exports[`RadioGroup renders as expected when size is small 1`] = `
 <View
   style={
     Array [
+      Object {},
       Object {
         "flexDirection": "column-reverse",
       },
@@ -1469,6 +1474,7 @@ exports[`RadioGroup renders default RadioGroup as expected 1`] = `
 <View
   style={
     Array [
+      Object {},
       Object {
         "flexDirection": "column-reverse",
       },
