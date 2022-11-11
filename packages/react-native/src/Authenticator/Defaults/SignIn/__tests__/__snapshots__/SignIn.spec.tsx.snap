@@ -236,10 +236,13 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          Array [
+            Object {},
+            Object {
+              "fontSize": 16,
+              "marginVertical": 4,
+            },
+          ],
         ]
       }
     >
@@ -334,7 +337,10 @@ Array [
                   "tintColor": undefined,
                   "width": 16,
                 },
-                undefined,
+                Array [
+                  Object {},
+                  undefined,
+                ],
               ]
             }
           />
@@ -529,10 +535,13 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          Array [
+            Object {},
+            Object {
+              "fontSize": 16,
+              "marginVertical": 4,
+            },
+          ],
         ]
       }
     >
@@ -627,7 +636,10 @@ Array [
                   "tintColor": undefined,
                   "width": 16,
                 },
-                undefined,
+                Array [
+                  Object {},
+                  undefined,
+                ],
               ]
             }
           />
@@ -955,10 +967,13 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          Array [
+            Object {},
+            Object {
+              "fontSize": 16,
+              "marginVertical": 4,
+            },
+          ],
         ]
       }
     >
@@ -1053,7 +1068,10 @@ Array [
                   "tintColor": undefined,
                   "width": 16,
                 },
-                undefined,
+                Array [
+                  Object {},
+                  undefined,
+                ],
               ]
             }
           />

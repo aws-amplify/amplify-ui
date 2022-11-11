@@ -5,6 +5,7 @@ import baseTokens from '@aws-amplify/ui/dist/react-native/tokens';
 import {
   HeadingStyles,
   LabelStyles,
+  PasswordFieldStyles,
   RadioGroupStyles,
   RadioStyles,
 } from '../primitives';
@@ -42,6 +43,7 @@ export interface ComponentStyles {
   // TODO: add components
   heading: HeadingStyles;
   label: LabelStyles;
+  passwordfield: PasswordFieldStyles;
   radio: RadioStyles;
   radiogroup: RadioGroupStyles;
 }
