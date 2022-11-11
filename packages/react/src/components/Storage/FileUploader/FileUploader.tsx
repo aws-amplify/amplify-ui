@@ -197,9 +197,9 @@ export function FileUploader({
         ...status,
         uploadTask: uploadTasksTemp?.[index],
         fileState: status.fileState ?? 'loading',
+        percentage: 0,
       };
     });
-
     const uploadTasks = [...fileStatusesRef.current];
     setFileStatuses(uploadTasks);
   }, [
@@ -323,10 +323,19 @@ export function FileUploader({
     [isEditingName, fileStatuses, setFileStatuses]
   );
 
+  // UploadButton
+  const hiddenInput = React.useRef<HTMLInputElement>();
+  const onUploadButtonClick = () => {
+    hiddenInput.current.click();
+    hiddenInput.current.value = null;
+  };
+
   const CommonProps = {
     acceptedFileTypes,
     multiple,
     onFileChange,
+    onClick: onUploadButtonClick,
+    hiddenInput,
   };
 
   if (showPreviewer) {
@@ -334,6 +343,7 @@ export function FileUploader({
       <Previewer
         acceptedFileTypes={acceptedFileTypes}
         fileStatuses={fileStatuses}
+        hiddenInput={hiddenInput}
         inDropZone={inDropZone}
         isEditingName={isEditingName}
         isLoading={isLoading}
@@ -348,6 +358,7 @@ export function FileUploader({
         onDrop={onDrop}
         onFileChange={onFileChange}
         onFileClick={onFileClick}
+        onUploadButtonClick={onUploadButtonClick}
         percentage={percentage}
       >
         {fileStatuses?.map((status, index) => (

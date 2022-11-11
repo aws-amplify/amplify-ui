@@ -120,7 +120,6 @@ export function Tracker({
         <DisplayView />
       )}
 
-      {/* Actions */}
       <Actions />
 
       {fileState === 'loading' ? (

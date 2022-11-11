@@ -12,6 +12,8 @@ export interface UploadButtonProps {
   onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   className?: string;
   isLoading?: boolean;
+  hiddenInput: React.MutableRefObject<HTMLInputElement>;
+  onClick: () => void;
 }
 
 export interface UploadDropZoneProps extends DragActionHandlers {
@@ -46,6 +48,7 @@ export interface PreviewerProps extends DragActionHandlers {
   acceptedFileTypes: string[];
   children?: React.ReactNode;
   fileStatuses: FileStatuses;
+  hiddenInput: React.MutableRefObject<HTMLInputElement>;
   inDropZone?: boolean;
   isEditingName: boolean[];
   isLoading: boolean;
@@ -55,6 +58,7 @@ export interface PreviewerProps extends DragActionHandlers {
   onClear: () => void;
   onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onFileClick: () => void;
+  onUploadButtonClick: () => void;
   percentage: number;
 }
 
