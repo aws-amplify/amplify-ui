@@ -41,7 +41,7 @@ export interface Theme {
 
 export interface ComponentStyles {
   // TODO: add components
-  errorMessage: ErrorMessageStyles;
+  errormessage: ErrorMessageStyles;
   heading: HeadingStyles;
   label: LabelStyles;
   radio: RadioStyles;
