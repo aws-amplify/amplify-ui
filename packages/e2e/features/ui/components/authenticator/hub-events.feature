@@ -27,6 +27,7 @@ Feature: Hub Events
   @angular @react @vue
   Scenario: autoSignIn signs in the user after sign up
     When I click the "Create Account" tab 
+    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"
     And I type a new "email"
     And I type my password
     And I confirm my password
