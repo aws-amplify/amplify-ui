@@ -1,6 +1,7 @@
 version: 1
 applications:
-  - frontend:
+  - appRoot: docs
+    frontend:
       phases:
         preBuild:
           commands:
@@ -13,7 +14,7 @@ applications:
             - export PATH="$PATH:${FLUTTER_HOME}/bin"
             # Skip cypress binary installation, as it's unneeded for docs and often fails transiently
             # https://docs.cypress.io/guides/references/advanced-installation#Skipping-installation
-            - export CYPRESS_INSTALL_BINARY=0 
+            - export CYPRESS_INSTALL_BINARY=0
             - (cd .. && yarn install && yarn build)
         build:
           commands:
@@ -26,4 +27,32 @@ applications:
         baseDirectory: .next
         files:
           - '**/*'
-    appRoot: docs
+    test:
+      phases:
+        preTest:
+          commands:
+            - nvm install 16.13 # NodeJS 16.13+ is the latest version that Amplify Hosting supports
+            - nvm use 16
+            - npm install -g npm@7 # TODO: remove this line once update @angular-devkit packages.
+            - export NODE_OPTIONS="--max-old-space-size=8192"
+            - npm install
+            - npm install wait-on
+            - npm install pm2
+            - npm install mocha mochawesome mochawesome-merge mochawesome-report-generator
+            - npm install cypress
+            - npm run build
+            - npx pm2 start npm -- start
+            - 'npx wait-on http://localhost:3000'
+        test:
+          commands:
+            - 'npx cypress run --reporter mochawesome --reporter-options "reportDir=cypress/report/mochawesome-report,overwrite=false,html=false,json=true,timestamp=mmddyyyy_HHMMss"'
+        postTest:
+          commands:
+            - npx mochawesome-merge cypress/report/mochawesome-report/mochawesome*.json > cypress/report/mochawesome.json
+            - npx pm2 kill
+      artifacts:
+        baseDirectory: cypress
+        configFilePath: '**/mochawesome.json'
+        files:
+          - '**/*.png'
+          - '**/*.mp4'

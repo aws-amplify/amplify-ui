@@ -7,7 +7,7 @@
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.0.1",
     "@testing-library/user-event": "^13.5.0",
-    "aws-amplify": "latest",
+    "aws-amplify": "unstable",
     "react": "latest",
     "react-dom": "latest",
     "react-router-dom": "^6.3.0",
