@@ -23,9 +23,29 @@ yarn add aws-amplify@5.x @aws-amplify/ui-angular@3.x
 
 ### Update and usage
 
-The following breaking changes were introduced in `@aws-amplify/ui-angular` major version `3.0`:
+`@aws-amplify/ui-angular@3.x` introduces the following breaking changes:
 
-#### 1. Automatic signin on signup logic moved to `aws-amplify`. 
+#### 1. `@aws-amplify/ui-angular@3.x` bumps minimum Angular version to 12
+
+If your application is on Angular 11 or older, please migrate to Angular 12+ as per [official guide](https://update.angular.io).
+
+*Note*: Going forward, `@aws-amplify/ui-angular` will have the same version support as Angular's official LTS [support window](https://angular.io/guide/releases#actively-supported-versions). 
+
+#### 2. `@aws-amplify/ui-angular@3.x` migrates Angular compiler to IVY
+
+`@aws-amplify/ui-angular@3.x` drops support for legacy View engine, and migrated to IVY compiler. Please migrate to Angular 12+, and make sure you did not disable ivy in your `tsconfig.json`:
+
+```json
+{
+  ...,
+  "angularCompilerOption": {
+    // REMOVE this line if you have it in your tsconfig.json
+    "enableIvy": false
+  }
+}
+```
+
+#### 3. `@aws-amplify/ui-angular@3.x` removes moves Automatic signin on signup logic to `aws-amplify`. 
 
 If you are overriding `Auth.signUp`, update the override function call to include the `autoSignIn` option set to `enabled`. If this change is not made, users will not be automatically signed in on signup.
 
@@ -47,7 +67,7 @@ If you are overriding `Auth.signUp`, update the override function call to includ
 
 ```
 
-#### 2. Legacy i18n translation keys removed
+#### 4. `@aws-amplify/ui-angular@3.x` removes legacy i18n translation keys
 
 We replaced following legacy Authenticator texts:
 
@@ -57,26 +77,6 @@ We replaced following legacy Authenticator texts:
 - `Forgot your password? ` with the trailing space is replaced by `Forgot your password`.
 
 If you were using `I18n` to translate those keys, please update your translations accordingly to match the new strings.
-
-#### 3. Bumped minimum Angular version to 12
-
-If your application is on Angular 11 or older, please migrate to Angular 12+ as per [official guide](https://update.angular.io).
-
-*Note*: Going forward, `@aws-amplify/ui-angular` will have the same version support as Angular's official LTS [support window](https://angular.io/guide/releases#actively-supported-versions). 
-
-#### 4. Migrated Angular compiler to IVY
-
-We dropped support for legacy View engine, and migrated to IVY compiler. Please migrate to Angular 12+, and make sure you did not disable ivy in your `tsconfig.json`:
-
-```json
-{
-  ...,
-  "angularCompilerOption": {
-    // REMOVE this line if you have it in your tsconfig.json
-    "enableIvy": false
-  }
-}
-```
 
 ## 1.x to 2.x
 ## Installation
