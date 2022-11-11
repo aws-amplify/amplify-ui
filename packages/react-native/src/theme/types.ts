@@ -6,6 +6,7 @@ import {
   HeadingStyles,
   IconStyles,
   LabelStyles,
+  RadioGroupStyles,
   RadioStyles,
 } from '../primitives';
 
@@ -44,6 +45,7 @@ export interface ComponentStyles {
   icon: IconStyles;
   label: LabelStyles;
   radio: RadioStyles;
+  radiogroup: RadioGroupStyles;
 }
 
 /**
