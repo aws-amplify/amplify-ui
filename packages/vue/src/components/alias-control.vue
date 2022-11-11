@@ -19,7 +19,6 @@ const props = withDefaults(defineProps<PropsInterface>(), {
   name: 'username',
   placeholder: '',
   autocomplete: '',
-  labelHidden: false,
   required: true,
   type: 'text',
 });

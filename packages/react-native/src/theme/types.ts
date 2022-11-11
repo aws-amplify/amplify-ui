@@ -6,6 +6,7 @@ import {
   HeadingStyles,
   LabelStyles,
   PhoneNumberFieldStyles,
+  RadioGroupStyles,
   RadioStyles,
 } from '../primitives';
 
@@ -44,6 +45,7 @@ export interface ComponentStyles {
   label: LabelStyles;
   phoneNumberField: PhoneNumberFieldStyles;
   radio: RadioStyles;
+  radiogroup: RadioGroupStyles;
 }
 
 /**

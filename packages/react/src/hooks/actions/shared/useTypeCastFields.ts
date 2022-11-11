@@ -1,5 +1,9 @@
 import * as React from 'react';
-import { ModelInit, Schema } from '@aws-amplify/datastore';
+import {
+  ModelInit,
+  PersistentModelMetaData,
+  Schema,
+} from '@aws-amplify/datastore';
 
 import { DataStoreActionFields, isAlreadyTyped } from './types';
 
@@ -9,7 +13,9 @@ interface UseTypeCastFieldsProps<Model> {
   schema: Schema;
 }
 
-type UseTypeCastFieldsReturn<Model> = ModelInit<Model> | undefined;
+type UseTypeCastFieldsReturn<Model> =
+  | ModelInit<Model, PersistentModelMetaData<Model>>
+  | undefined;
 
 /**
  * Optimistically casts field string values to types required by
