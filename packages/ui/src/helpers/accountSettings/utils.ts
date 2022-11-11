@@ -56,3 +56,17 @@ export const getCurrentMFA = async (user: AmplifyUser) => {
     return Promise.reject(e);
   }
 };
+
+export const disableMFA = async (user: AmplifyUser) => {
+  try {
+    logger.debug('calling Auth.setPreferredMFA');
+
+    const preferredMFA = Auth.setPreferredMFA(user, 'NOMFA');
+    logger.debug('Auth.setPreferredMFA was successful');
+
+    return preferredMFA;
+  } catch (e) {
+    logger.error('Auth.setPreferredMFA failed with error', e);
+    return Promise.reject(e);
+  }
+};

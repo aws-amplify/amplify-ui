@@ -1,13 +1,26 @@
 import React from 'react';
 
-import { getLogger, getCurrentMFA, translate } from '@aws-amplify/ui';
+import {
+  getLogger,
+  getCurrentMFA,
+  disableMFA,
+  translate,
+} from '@aws-amplify/ui';
 
 import { useAuth } from '../../../internal';
-import { View, Radio, Link, Text } from '../../../primitives';
-import { DefaultEnableMFAButton, DefaultSelectMFA } from './defaults';
+import { View, Radio, Text } from '../../../primitives';
+import {
+  ConfigureSMS,
+  ConfigureTOTP,
+  DisplayCurrentMFA,
+  EnableMFAButton,
+  SelectMFA,
+  VerifySMS,
+} from './defaults';
 import {
   ConfigureMFAProps,
   ConfigureMFAState,
+  MFAType,
   SelectMFAOptionProps,
 } from './types';
 
@@ -31,41 +44,25 @@ function SelectMFAOption({
     'Receive an SMS on your phone with a code'
   );
   const useTOTPDescriptionText = translate(
-    'Use an application on your phone. Applications include cloud-based TOTP (temporary one time password) apps such as'
+    'Use an application on your phone. Applications include cloud-based TOTP (temporary one time password) apps such as Authy, Google Authenticator, and 1password.'
   );
-  const authyText = translate('authy');
-  const googleAuthenticatorText = translate('Google Authenticator');
-  const onePasswordText = translate('1password');
 
   return (
     <Radio value={mfaType}>
-      {mfaType === 'SMS' ? (
-        <>
-          <Text fontWeight="bold">{useSMSText}</Text>
-          <Text>{smsDescriptionText}</Text>
-        </>
-      ) : (
-        <>
-          <Text fontWeight="bold">{useTOTPText}</Text>
-          <Text>{useTOTPDescriptionText}</Text>
-          <Link isExternal href="">
-            {authyText}
-          </Link>
-          {`, `}
-          <Link isExternal href="">
-            {googleAuthenticatorText}
-          </Link>
-          {`, `}
-          <Link isExternal href="">
-            {onePasswordText}
-          </Link>
-        </>
-      )}
+      <Text fontWeight="bold">
+        {mfaType === 'SMS' ? useSMSText : useTOTPText}
+      </Text>
+      <Text>
+        {mfaType === 'SMS' ? smsDescriptionText : useTOTPDescriptionText}
+      </Text>
     </Radio>
   );
 }
 
-function SetupMFA({ children }: ConfigureMFAProps): JSX.Element | null {
+function SetupMFA({
+  children,
+  onError,
+}: ConfigureMFAProps): JSX.Element | null {
   const [state, setState] = React.useState<ConfigureMFAState>('IDLE');
   const [currentMFA, setCurrentMFA] = React.useState<string>(null);
   const [_errorMessage, setErrorMessage] = React.useState<string>(null);
@@ -97,11 +94,33 @@ function SetupMFA({ children }: ConfigureMFAProps): JSX.Element | null {
     [currentMFA]
   );
 
+  // API calls
+  const runDisableMFA = React.useCallback(async () => {
+    try {
+      setState('DISABLING_MFA');
+      await disableMFA(user);
+    } catch (e) {
+      const error = e as Error;
+      onError(error);
+    } finally {
+      setState('IDLE');
+    }
+  }, [onError, user]);
+
   // event handlers
   const handleEnableMFA = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     setState('SELECT_MFA');
   };
+
+  const handleDisableMFA = React.useCallback(() => {
+    // using a separate async function because disableMFA needs to be async
+    runDisableMFA();
+  }, [runDisableMFA]);
+
+  const handleUpdateMFA = React.useCallback(() => {
+    setState('SELECT_MFA');
+  }, []);
 
   // Return null if user isn't authenticated in the first place
   if (!user) {
@@ -116,18 +135,25 @@ function SetupMFA({ children }: ConfigureMFAProps): JSX.Element | null {
 
   return (
     <View className="amplify-configuremfa">
-      {state === 'IDLE' ? (
+      {state === 'IDLE' || state === 'DONE' ? (
         <>
           {isMFADisabled ? (
-            <DefaultEnableMFAButton onClick={handleEnableMFA}>
+            <EnableMFAButton onClick={handleEnableMFA}>
               {enableMFAText}
-            </DefaultEnableMFAButton>
-          ) : null}
+            </EnableMFAButton>
+          ) : (
+            <DisplayCurrentMFA
+              currentMFA={currentMFA as MFAType}
+              onDisableMFA={handleDisableMFA}
+              onUpdateMFA={handleUpdateMFA}
+            />
+          )}
         </>
       ) : null}
-      {state === 'SELECT_MFA' ? (
-        <DefaultSelectMFA>{children}</DefaultSelectMFA>
-      ) : null}
+      {state === 'SELECT_MFA' ? <SelectMFA>{children}</SelectMFA> : null}
+      {state === 'CONFIGURE_TOTP' ? <ConfigureTOTP /> : null}
+      {state === 'CONFIGURE_SMS' ? <ConfigureSMS /> : null}
+      {state === 'VERIFY_SMS' ? <VerifySMS /> : null}
     </View>
   );
 }
