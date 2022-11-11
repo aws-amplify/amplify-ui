@@ -22,21 +22,21 @@ import { transforms, Transforms } from './transforms';
  * Used for custom themes
  */
 export interface Tokens<Output = unknown> {
-  components: ComponentTokens;
+  components: ComponentTokens<Output>;
   borderWidths: BorderWidths<Output>;
   colors: Colors<Output>;
   fonts: Fonts<Output>;
   fontSizes: FontSizes<Output>;
   fontWeights: FontWeights<Output>;
   lineHeights: LineHeights<Output>;
-  opacities: Opacities;
-  outlineOffsets: OutlineOffsets;
-  outlineWidths: OutlineWidths;
-  radii: Radii;
-  shadows: Shadows;
-  space: Space;
-  time: Time;
-  transforms: Transforms;
+  opacities: Opacities<Output>;
+  outlineOffsets: OutlineOffsets<Output>;
+  outlineWidths: OutlineWidths<Output>;
+  radii: Radii<Output>;
+  shadows: Shadows<Output>;
+  space: Space<Output>;
+  time: Time<Output>;
+  transforms: Transforms<Output>;
 }
 
 /**
