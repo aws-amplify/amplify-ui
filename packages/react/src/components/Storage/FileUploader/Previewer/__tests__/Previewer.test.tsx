@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { act, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import { Previewer } from '..';
 
@@ -61,27 +61,21 @@ describe('Previewer', () => {
 
     expect(container).toMatchSnapshot();
   });
-  it('has two files passed in shows 2 files selected', async () => {
-    const { findByText } = render(
-      <Previewer {...commonProps} fileStatuses={fileStatuses2} />
-    );
+  it('shows 2 files selected when two files are passed in', async () => {
+    render(<Previewer {...commonProps} fileStatuses={fileStatuses2} />);
 
-    expect(await findByText('2 files selected')).toBeVisible();
+    expect(await screen.findByText('2 files selected')).toBeVisible();
   });
 
   it('has one file passed in and shows one selected ', async () => {
-    const { findByText } = render(
-      <Previewer {...commonProps} fileStatuses={fileStatuses} />
-    );
+    render(<Previewer {...commonProps} fileStatuses={fileStatuses} />);
 
-    expect(await findByText('1 files selected')).toBeVisible();
+    expect(await screen.findByText('1 files selected')).toBeVisible();
   });
   it('shows a disabled button when any file is in an edit state', async () => {
-    const { findByText } = render(
-      <Previewer {...commonProps} isEditingName={[true]} />
-    );
+    render(<Previewer {...commonProps} isEditingName={[true]} />);
 
-    expect(await findByText(/Upload 1 files/)).toBeDisabled();
+    expect(await screen.findByText(/Upload 1 files/)).toBeDisabled();
   });
   it('shows max files error alert when maxFilesError is true', async () => {
     const { container } = render(
@@ -104,7 +98,7 @@ describe('Previewer', () => {
       percentage: 0,
       uploadTask: undefined,
     };
-    const { findByText } = render(
+    render(
       <Previewer
         {...commonProps}
         fileStatuses={[fileStatus]}
@@ -112,14 +106,12 @@ describe('Previewer', () => {
       />
     );
 
-    expect(await findByText(/1 files uploaded/)).toBeVisible();
+    expect(await screen.findByText(/1 files uploaded/)).toBeVisible();
   });
   it('shows when loading an uploading with percentage', async () => {
-    const { findByText } = render(
-      <Previewer {...commonProps} isLoading={true} percentage={23} />
-    );
+    render(<Previewer {...commonProps} isLoading={true} percentage={23} />);
 
-    expect(await findByText(/Uploading: 23%/)).toBeVisible();
+    expect(await screen.findByText(/Uploading: 23%/)).toBeVisible();
   });
   it('shows disabled upload button when file status is in error', async () => {
     const fileStatus: FileStatus = {
@@ -131,11 +123,9 @@ describe('Previewer', () => {
       percentage: 0,
       uploadTask: undefined,
     };
-    const { findByText } = render(
-      <Previewer {...commonProps} fileStatuses={[fileStatus]} />
-    );
+    render(<Previewer {...commonProps} fileStatuses={[fileStatus]} />);
 
-    expect(await findByText(/Upload 1 files/)).toBeDisabled();
+    expect(await screen.findByText(/Upload 1 files/)).toBeDisabled();
   });
   it('shows disabled upload button when remaining files uploaded is zero', async () => {
     const fileStatus: FileStatus = {
@@ -147,24 +137,18 @@ describe('Previewer', () => {
       percentage: 0,
       uploadTask: undefined,
     };
-    const { findByText } = render(
-      <Previewer {...commonProps} fileStatuses={[fileStatus]} />
-    );
+    render(<Previewer {...commonProps} fileStatuses={[fileStatus]} />);
 
-    expect(await findByText(/Upload 0 files/)).toBeDisabled();
+    expect(await screen.findByText(/Upload 0 files/)).toBeDisabled();
   });
   it('shows disabled upload button when max files is showing an error', async () => {
-    const { findByText } = render(
-      <Previewer {...commonProps} maxFilesError={true} />
-    );
+    render(<Previewer {...commonProps} maxFilesError={true} />);
 
-    expect(await findByText(/Upload 1 files/)).toBeDisabled();
+    expect(await screen.findByText(/Upload 1 files/)).toBeDisabled();
   });
   it('shows done when upload is completed', async () => {
-    const { findByText } = render(
-      <Previewer {...commonProps} isSuccess={true} />
-    );
+    render(<Previewer {...commonProps} isSuccess={true} />);
 
-    expect(await findByText(/Done/)).toBeVisible();
+    expect(await screen.findByText(/Done/)).toBeVisible();
   });
 });

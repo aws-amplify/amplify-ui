@@ -24,6 +24,7 @@ const commonProps = {
   level: 'public' as any,
   acceptedFileTypes: ['.png'],
   variation: 'drop' as any,
+  resumable: true,
 };
 
 const fileStatus = {
@@ -42,9 +43,9 @@ describe('File Uploader', () => {
     jest.clearAllMocks();
   });
   it('exists', async () => {
-    const comp = render(<FileUploader {...commonProps} />);
+    const { container } = render(<FileUploader {...commonProps} />);
 
-    expect(comp.container).toMatchSnapshot();
+    expect(container).toMatchSnapshot();
   });
   it('shows a button when variation is set to button', async () => {
     render(<FileUploader {...commonProps} variation="button" />);
@@ -60,7 +61,7 @@ describe('File Uploader', () => {
   });
 
   it('will not show Previewer on empty file target', async () => {
-    const { container, queryByText } = render(
+    const { container } = render(
       <FileUploader {...commonProps} variation="button" />
     );
 
@@ -68,7 +69,7 @@ describe('File Uploader', () => {
     fireEvent.change(input, {
       target: { files: [] },
     });
-    const text = await queryByText(/files selected/);
+    const text = await screen.queryByText(/files selected/);
 
     expect(text).not.toBeInTheDocument();
   });
@@ -94,7 +95,7 @@ describe('File Uploader', () => {
       file: fakeFile,
       fileName: fakeFile.name,
       level: 'public',
-      resumable: false,
+      resumable: true,
       progressCallback: expect.any(Function),
     });
   });
@@ -137,12 +138,12 @@ describe('File Uploader', () => {
       file: fakeFile,
       fileName: fileName2,
       level: 'public',
-      resumable: false,
+      resumable: true,
       progressCallback: expect.any(Function),
     });
   });
   it('calls upload to pause when paused is clicked', async () => {
-    const uploadTask = { pause: () => null } as any;
+    const uploadTask = { pause: () => null, resume: () => null } as any;
     const uploadTaskSpy = jest.spyOn(uploadTask, 'pause');
     const fileStatuses = [
       {
@@ -157,11 +158,9 @@ describe('File Uploader', () => {
       ...mockReturnUseFileUploader,
     });
 
-    const { findByText } = render(
-      <FileUploader {...commonProps} isPreviewerVisible={true} />
-    );
+    render(<FileUploader {...commonProps} isPreviewerVisible={true} />);
 
-    const button = await findByText('pause');
+    const button = await screen.findByText('pause');
     await fireEvent.click(button);
 
     expect(uploadTaskSpy).toBeCalled();
@@ -182,11 +181,9 @@ describe('File Uploader', () => {
       ...mockReturnUseFileUploader,
     });
 
-    const { findByText } = render(
-      <FileUploader {...commonProps} isPreviewerVisible={true} />
-    );
+    render(<FileUploader {...commonProps} isPreviewerVisible={true} />);
 
-    const button = await findByText('Resume');
+    const button = await screen.findByText('Resume');
     await fireEvent.click(button);
 
     expect(uploadTaskSpy).toBeCalled();
@@ -228,6 +225,7 @@ describe('File Uploader', () => {
       fileName: updatedFileName,
       level: 'public',
       progressCallback: expect.any(Function),
+      resumable: true,
     });
   });
   it('calls the errorCallback when there is an eror', async () => {
