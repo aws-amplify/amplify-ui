@@ -1,0 +1,137 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tabs applies theme and custom styling 1`] = `
+<View
+  accessibilityRole="tablist"
+  style={
+    Array [
+      Object {
+        "flexDirection": "row",
+        "width": "100%",
+      },
+      Object {
+        "backgroundColor": "blue",
+      },
+    ]
+  }
+>
+  <View
+    accessibilityRole="tab"
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        null,
+        Array [
+          Object {
+            "backgroundColor": "hsl(210, 5%, 94%)",
+            "borderTopColor": "hsl(210, 5%, 87%)",
+            "borderTopWidth": 2,
+            "flexBasis": 0,
+            "flexGrow": 1,
+            "padding": 12,
+          },
+          Object {
+            "opacity": 1,
+          },
+          Object {
+            "backgroundColor": "hsl(0, 0%, 100%)",
+            "borderTopColor": "hsl(190, 95%, 30%)",
+            "color": "hsl(190, 95%, 30%)",
+          },
+          null,
+        ],
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "alignSelf": "center",
+          },
+          Array [
+            Object {
+              "color": "hsl(210, 25%, 25%)",
+              "fontSize": 16,
+              "fontWeight": "700",
+            },
+            undefined,
+            Object {
+              "backgroundColor": "hsl(0, 0%, 100%)",
+              "borderTopColor": "hsl(190, 95%, 30%)",
+              "color": "hsl(190, 95%, 30%)",
+            },
+          ],
+        ]
+      }
+    >
+      Sign In
+    </Text>
+  </View>
+  <View
+    accessibilityRole="tab"
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        null,
+        Array [
+          Object {
+            "backgroundColor": "hsl(210, 5%, 94%)",
+            "borderTopColor": "hsl(210, 5%, 87%)",
+            "borderTopWidth": 2,
+            "flexBasis": 0,
+            "flexGrow": 1,
+            "padding": 12,
+          },
+          null,
+          null,
+          null,
+        ],
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "alignSelf": "center",
+          },
+          Array [
+            Object {
+              "color": "hsl(210, 25%, 25%)",
+              "fontSize": 16,
+              "fontWeight": "700",
+            },
+            undefined,
+            null,
+          ],
+        ]
+      }
+    >
+      Create Account
+    </Text>
+  </View>
+</View>
+`;
