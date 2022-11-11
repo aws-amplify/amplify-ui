@@ -82,6 +82,7 @@ export type ShadowValue =
 export type StrokeFilledValue = string;
 export type StrokeEmptyValue = string;
 export type StrokeLinecapValue = string;
+export type StrokeWidthValue = string;
 export type SpaceValue = string;
 export type TextAlignValue = string;
 // radius values are `string` for web and `number` for mobile
@@ -136,6 +137,8 @@ interface TokenStandardProperties {
   left: SpaceValue;
   lineHeight: LineHeightValue;
   margin: SpaceValue;
+  marginLeft: SpaceValue;
+  marginRight: SpaceValue;
   maxWidth: SpaceValue;
   minHeight: SpaceValue;
   minWidth: SpaceValue;
@@ -161,6 +164,7 @@ interface TokenStandardProperties {
   position: PositionValue;
   right: SpaceValue;
   strokeLinecap: StrokeLinecapValue;
+  strokeWidth: StrokeWidthValue;
   textAlign: TextAlignValue;
   top: SpaceValue;
   transform: TransformValue;
@@ -179,18 +183,20 @@ interface TokenStandardProperties {
 interface TokenCustomProperties {
   borderBottomLeftRadius: RadiusValue;
   borderBottomRightRadius: RadiusValue;
+  borderEndEndRadius: RadiusValue;
+  borderEndStartRadius: RadiusValue;
+  borderStartEndRadius: RadiusValue;
+  borderStartStartRadius: RadiusValue;
   borderTopLeftRadius: RadiusValue;
   borderTopRightRadius: RadiusValue;
-  borderStartStartRadius: RadiusValue;
-  borderStartEndRadius: RadiusValue;
-  borderEndStartRadius: RadiusValue;
-  borderEndEndRadius: RadiusValue;
   duration: TimeValue;
+  endColor: ColorValue;
   marginTop: SpaceValue;
   paddingHorizontal: SpaceValue;
   paddingVertical: SpaceValue;
-  size: SpaceValue;
   shadow: ShadowValue;
+  size: SpaceValue;
+  startColor: ColorValue;
   strokeEmpty: StrokeEmptyValue;
   strokeFilled: StrokeFilledValue;
   time: TimeValue;

@@ -16,7 +16,8 @@ type TabItemTokens<OutputType = unknown> = DesignTokenProperties<
   | 'paddingVertical'
   | 'paddingHorizontal'
   | 'textAlign'
-  | 'transitionDuration'
+  | 'transitionDuration',
+  OutputType
 > & {
   _hover?: DesignTokenProperties<'color', OutputType>;
   _focus?: DesignTokenProperties<'color', OutputType>;
@@ -24,10 +25,11 @@ type TabItemTokens<OutputType = unknown> = DesignTokenProperties<
   _disabled?: TabItemStateTokens<OutputType>;
 };
 
-export type TabsTokens<OuptutType = unknown> = DesignTokenProperties<
-  'backgroundColor' | 'borderColor' | 'borderStyle' | 'borderWidth' | 'gap'
+export type TabsTokens<OutputType = unknown> = DesignTokenProperties<
+  'backgroundColor' | 'borderColor' | 'borderStyle' | 'borderWidth' | 'gap',
+  OutputType
 > & {
-  item?: TabItemTokens<OuptutType>;
+  item?: TabItemTokens<OutputType>;
 };
 
 export const tabs: TabsTokens = {

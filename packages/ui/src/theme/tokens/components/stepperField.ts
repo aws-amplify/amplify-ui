@@ -1,36 +1,21 @@
-import {
-  ColorValue,
-  DesignToken,
-  FontSizeValue,
-  FlexDirectionValue,
-  TextAlignValue,
-  BorderColorValue,
-} from '../types/designToken';
+import { DesignTokenProperties } from '../types/designToken';
 
-interface StepperFieldInputTokens {
-  textAlign: DesignToken<TextAlignValue>;
-  color: DesignToken<ColorValue>;
-  fontSize: DesignToken<FontSizeValue>;
-}
+type ButtonStateColorTokens<Output> = DesignTokenProperties<
+  'backgroundColor' | 'color',
+  Output
+>;
 
-interface ButtonStateColorTokens {
-  color: DesignToken<ColorValue>;
-  backgroundColor: DesignToken<ColorValue>;
-}
-
-export interface StepperFieldTokens {
-  borderColor: DesignToken<BorderColorValue>;
-  flexDirection: DesignToken<FlexDirectionValue>;
-  input: StepperFieldInputTokens;
-  button: {
-    color: DesignToken<ColorValue>;
-    backgroundColor: DesignToken<ColorValue>;
-    _active: ButtonStateColorTokens;
-    _focus: ButtonStateColorTokens;
-    _disabled: ButtonStateColorTokens;
-    _hover: ButtonStateColorTokens;
+export type StepperFieldTokens<Output = unknown> = DesignTokenProperties<
+  'borderColor' | 'flexDirection'
+> & {
+  input?: DesignTokenProperties<'textAlign' | 'color' | 'fontSize', Output>;
+  button?: DesignTokenProperties<'backgroundColor' | 'color', Output> & {
+    _active?: ButtonStateColorTokens<Output>;
+    _focus?: ButtonStateColorTokens<Output>;
+    _disabled?: ButtonStateColorTokens<Output>;
+    _hover?: ButtonStateColorTokens<Output>;
   };
-}
+};
 
 export const stepperfield: StepperFieldTokens = {
   borderColor: { value: '{components.fieldcontrol.borderColor}' },
