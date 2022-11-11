@@ -18,7 +18,9 @@ exports[`Button applies theme and style props 1`] = `
   style={
     Array [
       null,
-      null,
+      Object {
+        "backgroundColor": "blue",
+      },
     ]
   }
 >

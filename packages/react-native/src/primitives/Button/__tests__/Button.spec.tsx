@@ -6,21 +6,29 @@ import { useTheme } from '../../../theme';
 import { getThemedStyles } from '../styles';
 import Button from '../Button';
 
-const title = 'A pressable button';
-const Title = () => <Text>{title}</Text>;
+const labelText = 'A pressable button';
+const Title = () => <Text>{labelText}</Text>;
 
 describe('Button', () => {
   it('renders as expected with a string passed as children', () => {
-    const { toJSON } = render(<Button>{title}</Button>);
+    const { toJSON, getByRole, getByText } = render(
+      <Button>{labelText}</Button>
+    );
+
+    expect(getByRole('button')).toBeDefined();
+    expect(getByText(labelText)).toBeDefined();
     expect(toJSON()).toMatchSnapshot();
   });
 
   it('renders as expected with a component passed as children', () => {
-    const { toJSON } = render(
+    const { toJSON, getByRole, getByText } = render(
       <Button>
         <Title />
       </Button>
     );
+
+    expect(getByRole('button')).toBeDefined();
+    expect(getByText(labelText)).toBeDefined();
     expect(toJSON()).toMatchSnapshot();
   });
 
@@ -28,7 +36,7 @@ describe('Button', () => {
     const onPressMock = jest.fn();
 
     const { getByRole } = render(
-      <Button onPress={onPressMock}>{title}</Button>
+      <Button onPress={onPressMock}>{labelText}</Button>
     );
 
     const button = getByRole('button');
@@ -41,7 +49,7 @@ describe('Button', () => {
 
     const { getByRole } = render(
       <Button disabled onPress={onPressMock}>
-        {title}
+        {labelText}
       </Button>
     );
 
@@ -50,20 +58,33 @@ describe('Button', () => {
     expect(onPressMock).not.toHaveBeenCalled();
   });
 
-  it('applies theme and style props', () => {
-    const customStyle = { color: 'red' };
+  it('applies accessibility role', () => {
+    const { queryByRole, getByRole } = render(
+      <Button accessibilityRole="none">{labelText}</Button>
+    );
 
-    const { toJSON, getByText } = render(
-      <Button textStyle={customStyle}>{title}</Button>
+    expect(queryByRole('button')).toBe(null);
+    expect(getByRole('none')).toBeDefined();
+  });
+
+  it('applies theme and style props', () => {
+    const customStyle = { backgroundColor: 'blue' };
+    const customTextStyle = { color: 'red' };
+
+    const { toJSON, getByRole, getByText } = render(
+      <Button style={customStyle} textStyle={customTextStyle}>
+        {labelText}
+      </Button>
     );
 
     const { result } = renderHook(() => useTheme());
     const themedStyle = getThemedStyles(result.current);
 
-    expect(toJSON()).toMatchSnapshot();
-    expect(getByText(title).props.style).toStrictEqual([
+    expect(getByRole('button').props.style).toContain(customStyle);
+    expect(getByText(labelText).props.style).toStrictEqual([
       themedStyle.text,
-      customStyle,
+      customTextStyle,
     ]);
+    expect(toJSON()).toMatchSnapshot();
   });
 });
