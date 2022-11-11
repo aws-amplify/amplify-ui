@@ -44,7 +44,7 @@ If your application is on Angular 11 or older, please migrate to Angular 12+ as 
 }
 ```
 
-#### 3. `@aws-amplify/ui-angular@3.x` removes moves Automatic signin on signup logic to `aws-amplify`. 
+#### 3. `@aws-amplify/ui-angular@3.x` moves automatic signin on signup logic to `aws-amplify`. 
 
 If you are overriding `Auth.signUp`, update the override function call to include the `autoSignIn` option set to `enabled`. If this change is not made, users will not be automatically signed in on signup.
 
