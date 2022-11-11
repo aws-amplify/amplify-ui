@@ -66,6 +66,7 @@ class MyDocument extends Document {
           />
 
           <link rel="icon" type="image/svg+xml" href={favicon} />
+          <link rel="apple-touch-icon" href={favicon}></link>
 
           <link
             rel="preload"

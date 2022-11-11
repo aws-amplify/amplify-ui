@@ -1,0 +1,35 @@
+
+import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
+import { Example, ExampleCode } from '@/components/Example';
+import { Fragment } from '@/components/Fragment'; 
+
+import { HighlightMatchDemo } from './demo';
+import { HighlightMatchDefaultExample } from './examples';
+
+## Demo
+
+<HighlightMatchDemo />
+
+## Usage
+
+Import the `HighlightMatch` primitive. Render the text as children of the `HighlightMatch`, then pass the word you want to highlight to the `query` prop. 
+
+<Example>
+  <HighlightMatchDefaultExample />
+  
+  <ExampleCode>
+
+```tsx file=./examples/HighlightMatchDefaultExample.tsx
+
+```
+
+  </ExampleCode>
+</Example>
+
+Note: The query for the text is case insensitive. 
+
+## Styling
+
+### Target classes
+
+<ComponentStyleDisplay componentName="HighlightMatch" />

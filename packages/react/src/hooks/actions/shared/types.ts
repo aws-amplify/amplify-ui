@@ -2,6 +2,7 @@ import {
   PersistentModel,
   PersistentModelConstructor,
   ModelInit,
+  PersistentModelMetaData,
   Schema,
 } from '@aws-amplify/datastore';
 
@@ -20,8 +21,8 @@ type ModelFields<Type> = {
 };
 
 export type DataStoreActionFields<Model> =
-  | ModelInit<Model>
-  | ModelFields<ModelInit<Model>>;
+  | ModelInit<Model, PersistentModelMetaData<Model>>
+  | ModelFields<ModelInit<Model, PersistentModelMetaData<Model>>>;
 
 export interface UseDataStoreActionOptions<Model extends PersistentModel> {
   model: PersistentModelConstructor<Model>;
@@ -41,6 +42,6 @@ export interface UseDataStoreActionOptions<Model extends PersistentModel> {
 export function isAlreadyTyped<Model>(
   fields: DataStoreActionFields<Model>,
   schema: Schema
-): fields is ModelInit<Model> {
+): fields is ModelInit<Model, PersistentModelMetaData<Model>> {
   return !schema;
 }
