@@ -26,6 +26,7 @@ export function UploadButton({
       <VisuallyHidden>
         <input
           type="file"
+          tabIndex={-1}
           ref={hiddenInput}
           onChange={onFileChange}
           multiple={multiple}

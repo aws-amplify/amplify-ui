@@ -50,7 +50,6 @@ export interface PreviewerProps extends DragActionHandlers {
   fileStatuses: FileStatuses;
   hiddenInput: React.MutableRefObject<HTMLInputElement>;
   inDropZone?: boolean;
-  isEditingName: boolean[];
   isLoading: boolean;
   isSuccess: boolean;
   maxFilesError: boolean;
@@ -76,11 +75,8 @@ export interface TrackerProps {
   name: string;
   percentage: number;
   errorMessage: string;
-  isEditing: boolean;
-  onSaveEdit: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-  onCancelEdit?: (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => void;
+  onSaveEdit: (value: string) => void;
+  onCancelEdit?: () => void;
   onStartEdit: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
