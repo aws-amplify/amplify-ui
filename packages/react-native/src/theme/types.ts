@@ -45,7 +45,7 @@ export interface ComponentStyles {
   label: LabelStyles;
   radio: RadioStyles;
   radiogroup: RadioGroupStyles;
-  textField: TextFieldStyles;
+  textfield: TextFieldStyles;
 }
 
 /**
