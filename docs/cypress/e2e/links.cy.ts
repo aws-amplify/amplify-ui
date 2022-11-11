@@ -10,34 +10,43 @@ type EvtName =
   | 'REQUESTING'
   | 'RETURNING'
   | 'NO_HREF';
-let allLinks: string[] = [];
-const numberOfLinks = 121;
-const requestedLinks: Set<string> = new Set();
-
-before(() => {
-  cy.task('readSitemapLinks').then((links: string[]) => {
-    allLinks = allLinks.concat(links);
-  });
-});
-
-describe('Local Sitemap', () => {
-  it('should have 119 links', () => {
-    expect(allLinks.length).to.eq(numberOfLinks);
-  });
-});
 
 describe(`All pages on Sitemap`, () => {
-  it.each(numberOfLinks)('all links on page %k should work', (i: string) => {
-    const link = allLinks[i];
-    cy.task('log', `🧪[TESTING...] page ${BASE_URL}/${link}`);
-    cy.visit(link || '/');
-    cy.get('a').each((el) => hrefWorks(el, link));
+  let allLinks = [];
+  const requestedLinks: Set<string> = new Set();
+
+  before(() => {
+    cy.request('sitemap.xml').then((response) => {
+      allLinks = Cypress.$(response.body)
+        .find('loc')
+        .toArray()
+        .map((el) => el.innerText)
+        .map((link) =>
+          link
+            .replace(`${BASE_URL}/`, '')
+            .replace('https://www.dev.ui.docs.amplify.aws/', '')
+            .replace('https://ui.docs.amplify.aws/', '')
+        );
+    });
+  });
+
+  it('should succesfully load each url in the sitemap', () => {
+    allLinks.forEach((link, idx) => {
+      cy.task('log', `🧪[TESTING...] page #${idx} ${BASE_URL}/${link}`);
+      cy.visit(link || '/');
+      cy.get('a').each((el) => hrefWorks(el, link, allLinks, requestedLinks));
+    });
   });
 });
 
 export {};
 
-function hrefWorks(htmlTag: JQuery<HTMLElement>, link: string): void {
+function hrefWorks(
+  htmlTag: JQuery<HTMLElement>,
+  link: string,
+  allLinks: string[],
+  requestedLinks: Set<string>
+): void {
   const tagHref: string = htmlTag.prop('href');
   const tagHash: string = htmlTag.prop('hash');
   const tagText: string = htmlTag.prop('text');
