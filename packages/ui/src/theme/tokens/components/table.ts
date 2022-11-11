@@ -21,10 +21,6 @@ type TableCellTokens<Output> = DesignTokenProperties<
   small?: TableCellSizeTokens<Output>;
 };
 
-// type TableHeaderTokens<Output> extends TableCellTokens {}
-
-// interface TableDataTokens extends TableCellTokens {}
-
 type TableCellSizeTokens<Output> = DesignTokenProperties<
   'fontSize' | 'padding',
   Output
