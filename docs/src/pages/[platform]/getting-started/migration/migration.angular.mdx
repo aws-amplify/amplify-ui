@@ -33,14 +33,13 @@ If your application is on Angular 11 or older, please migrate to Angular 12+ as 
 
 #### 2. `@aws-amplify/ui-angular@3.x` migrates Angular compiler to IVY
 
-`@aws-amplify/ui-angular@3.x` drops support for legacy View engine, and migrated to IVY compiler. Please migrate to Angular 12+, and make sure you did not disable ivy in your `tsconfig.json`:
+`@aws-amplify/ui-angular@3.x` drops support for legacy View engine, and migrated to IVY compiler. Please migrate to Angular 12+, and make sure you did not disable ivy in your `tsconfig.json`. In particular, please remove `"enableIvy": false` in your `tsconfig.json`:
 
-```json
+```diff
 {
   ...,
   "angularCompilerOption": {
-    // REMOVE this line if you have it in your tsconfig.json
-    "enableIvy": false
+-    "enableIvy": false
   }
 }
 ```
