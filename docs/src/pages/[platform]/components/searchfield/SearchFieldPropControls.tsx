@@ -4,7 +4,7 @@ import {
   SelectField,
   TextField,
   Flex,
-  CheckboxField,
+  SwitchField,
 } from '@aws-amplify/ui-react';
 
 export interface SearchFieldPropControlsProps extends SearchFieldProps {
@@ -15,6 +15,12 @@ export interface SearchFieldPropControlsProps extends SearchFieldProps {
   setSize: (value: React.SetStateAction<SearchFieldProps['size']>) => void;
   setVariation: (
     value: React.SetStateAction<SearchFieldProps['variation']>
+  ) => void;
+  setHasSearchButton: (
+    value: React.SetStateAction<SearchFieldProps['hasSearchButton']>
+  ) => void;
+  setHasSearchIcon: (
+    value: React.SetStateAction<SearchFieldProps['hasSearchIcon']>
   ) => void;
   setLabelHidden: (
     value: React.SetStateAction<SearchFieldProps['labelHidden']>
@@ -37,6 +43,10 @@ export const SearchFieldPropControls: SearchFieldPropControlsInterface = ({
   setSize,
   variation,
   setVariation,
+  hasSearchButton,
+  setHasSearchButton,
+  hasSearchIcon,
+  setHasSearchIcon,
   labelHidden,
   setLabelHidden,
   isDisabled,
@@ -88,11 +98,32 @@ export const SearchFieldPropControls: SearchFieldPropControlsInterface = ({
         <option value="quiet">quiet</option>
       </SelectField>
 
-      <CheckboxField
+      <SwitchField
+        label="hasSearchButton"
+        name="hasSearchButton"
+        isChecked={hasSearchButton}
+        onChange={(event) => {
+          setHasSearchButton(
+            Boolean(event.target.checked) as SearchFieldProps['hasSearchButton']
+          );
+        }}
+      />
+
+      <SwitchField
+        label="hasSearchIcon"
+        name="hasSearchIcon"
+        isChecked={hasSearchIcon}
+        onChange={(event) => {
+          setHasSearchIcon(
+            Boolean(event.target.checked) as SearchFieldProps['hasSearchIcon']
+          );
+        }}
+      />
+
+      <SwitchField
         label="labelHidden"
         name="labelHidden"
-        value="labelHidden"
-        checked={labelHidden}
+        isChecked={labelHidden}
         onChange={(event) => {
           setLabelHidden(
             Boolean(event.target.checked) as SearchFieldProps['labelHidden']
@@ -100,11 +131,10 @@ export const SearchFieldPropControls: SearchFieldPropControlsInterface = ({
         }}
       />
 
-      <CheckboxField
+      <SwitchField
         label="isDisabled"
         name="isDisabled"
-        value="isDisabled"
-        checked={isDisabled}
+        isChecked={isDisabled}
         onChange={(event) => {
           setIsDisabled(
             Boolean(event.target.checked) as SearchFieldProps['isDisabled']
