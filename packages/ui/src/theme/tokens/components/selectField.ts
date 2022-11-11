@@ -1,23 +1,12 @@
-import {
-  DesignToken,
-  FlexDirectionValue,
-  ColorValue,
-  BorderColorValue,
-  FontSizeValue,
-} from '../types/designToken';
+import { DesignTokenProperties } from '../types/designToken';
 
-export interface SelectFieldTokens {
-  flexDirection: DesignToken<FlexDirectionValue>;
-  color: DesignToken<ColorValue>;
-  borderColor: DesignToken<BorderColorValue>;
-  fontSize: DesignToken<FontSizeValue>;
-  _focus: {
-    borderColor: DesignToken<BorderColorValue>;
-  };
-  label: {
-    color: DesignToken<ColorValue>;
-  };
-}
+export type SelectFieldTokens<Output = unknown> = DesignTokenProperties<
+  'borderColor' | 'color' | 'flexDirection' | 'fontSize',
+  Output
+> & {
+  _focus?: DesignTokenProperties<'borderColor', Output>;
+  label?: DesignTokenProperties<'color', Output>;
+};
 
 export const selectfield: SelectFieldTokens = {
   borderColor: { value: '{components.fieldcontrol.borderColor}' },

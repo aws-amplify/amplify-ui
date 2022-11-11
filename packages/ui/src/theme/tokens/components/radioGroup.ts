@@ -1,27 +1,15 @@
-import {
-  BackgroundColorValue,
-  BorderColorValue,
-  BorderWidthValue,
-  ColorValue,
-  DesignToken,
-} from '../types/designToken';
+import { DesignTokenProperties } from '../types/designToken';
 
-export interface RadioGroupTokens {
-  radio: {
-    borderWidth: DesignToken<BorderWidthValue>;
-    borderColor: DesignToken<BorderColorValue>;
-    backgroundColor: DesignToken<BackgroundColorValue>;
-    _checked: {
-      color: DesignToken<ColorValue>;
-    };
-    label: {
-      color: DesignToken<ColorValue>;
-    };
+export type RadioGroupTokens<Output = unknown> = {
+  radio?: DesignTokenProperties<
+    'borderWidth' | 'borderColor' | 'backgroundColor',
+    Output
+  > & {
+    _checked?: DesignTokenProperties<'color', Output>;
+    label?: DesignTokenProperties<'color', Output>;
   };
-  label: {
-    color: DesignToken<ColorValue>;
-  };
-}
+  label?: DesignTokenProperties<'color', Output>;
+};
 
 export const radiogroup: RadioGroupTokens = {
   radio: {
