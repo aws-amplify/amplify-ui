@@ -36,6 +36,7 @@ import {
   MdTune,
   MdSystemUpdateAlt,
   MdCheckCircle,
+  MdHighlight,
 } from 'react-icons/md';
 import { IS_REACT_NATIVE_ENABLED } from '@/utils/featureFlags';
 
@@ -178,6 +179,13 @@ export const feedbackComponents: ComponentNavItem[] = [
 ].sort(sortByLabel);
 
 export const inputComponents: ComponentNavItem[] = [
+  {
+    href: '/components/autocomplete',
+    label: 'Autocomplete',
+    body: `Autocomplete is a SearchField enhanced by a list of suggested options.`,
+    platforms: ['react'],
+    icon: MdSearch,
+  },
   {
     href: '/components/textareafield',
     label: 'TextArea Field',
@@ -330,6 +338,13 @@ export const utilityComponents: ComponentNavItem[] = [
     body: `The Visually Hidden component is used to visually hide content while leaving it available to screen readers.`,
     platforms: ['react'],
     icon: MdDisabledVisible,
+  },
+  {
+    href: '/components/highlightmatch',
+    label: 'Highlight Match',
+    body: `HighlightMatch is used to highlight a substring of a text.`,
+    platforms: ['react'],
+    icon: MdHighlight,
   },
 ].sort(sortByLabel);
 
