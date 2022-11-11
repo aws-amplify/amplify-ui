@@ -34,6 +34,8 @@ const {
   required,
 } = toRefs(props);
 
+console.log(labelHidden);
+
 let password = ref('');
 
 function togglePasswordText(): void {
@@ -57,7 +59,7 @@ export default {
   >
     <base-label
       class="amplify-label"
-      :class="{ 'amplify-visually-hidden': labelHidden ?? true }"
+      :class="{ 'amplify-visually-hidden': labelHidden }"
       :for="'amplify-field-' + random"
     >
       {{ labelValue }}
