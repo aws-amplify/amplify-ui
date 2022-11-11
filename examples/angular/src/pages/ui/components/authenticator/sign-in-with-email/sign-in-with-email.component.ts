@@ -14,7 +14,6 @@ export class SignInWithEmailComponent {
   public formFields = {
     confirmVerifyUser: {
       confirmation_code: {
-        labelHidden: false,
         label: 'New Label',
         placeholder: 'Enter your Confirmation Code:',
         isRequired: false,
