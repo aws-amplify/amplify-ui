@@ -1,5 +1,5 @@
 import React from 'react';
-import TestRenderer from 'react-test-renderer';
+import { render } from '@testing-library/react-native';
 
 import IconButton from '../IconButton';
 
@@ -7,17 +7,21 @@ const source = { uri: 'icon.png' };
 
 describe('IconButton', () => {
   it('renders as expected', () => {
-    const iconButton = TestRenderer.create(<IconButton source={source} />);
-    expect(iconButton.toJSON()).toMatchSnapshot();
+    const { toJSON, getByRole } = render(<IconButton source={source} />);
+
+    expect(getByRole('button')).toBeDefined();
+    expect(getByRole('image')).toBeDefined();
+    expect(toJSON()).toMatchSnapshot();
   });
 
   it('renders as expected with custom icon style', () => {
-    const iconButton = TestRenderer.create(
-      <IconButton
-        iconStyle={{ backgroundColor: 'antiquewhite' }}
-        source={source}
-      />
+    const customIconStyle = { backgroundColor: 'antiquewhite' };
+    const { toJSON, getByRole } = render(
+      <IconButton iconStyle={customIconStyle} source={source} />
     );
-    expect(iconButton.toJSON()).toMatchSnapshot();
+
+    const icon = getByRole('image');
+    expect(icon.props.style).toContain(customIconStyle);
+    expect(toJSON()).toMatchSnapshot();
   });
 });

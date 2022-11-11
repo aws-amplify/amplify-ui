@@ -5,9 +5,10 @@ import {
   StyleProp,
   ViewStyle,
 } from 'react-native';
-import { Icon } from '../Icon';
 
-import { styles } from './styles';
+import { useTheme } from '../../theme';
+import { Icon } from '../Icon';
+import { getThemedStyles } from './styles';
 import { IconButtonProps } from './types';
 
 export default function IconButton({
@@ -19,13 +20,16 @@ export default function IconButton({
   style,
   ...rest
 }: IconButtonProps): JSX.Element {
+  const theme = useTheme();
+  const themedStyle = getThemedStyles(theme);
+
   const pressableStyle = useCallback(
     ({ pressed }: PressableStateCallbackType): StyleProp<ViewStyle> => {
       const pressedStateStyle =
         (typeof style === 'function' ? style({ pressed }) : style) ?? null;
-      return [pressed ? styles.pressed : null, pressedStateStyle];
+      return [pressed ? themedStyle.pressed : null, pressedStateStyle];
     },
-    [style]
+    [style, themedStyle]
   );
 
   return (
