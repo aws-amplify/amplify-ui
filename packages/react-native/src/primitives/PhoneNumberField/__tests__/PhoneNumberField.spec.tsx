@@ -1,8 +1,11 @@
 import React from 'react';
-import { render } from '@testing-library/react-native';
-
-import PhoneNumberField from '../PhoneNumberField';
+import { render, renderHook } from '@testing-library/react-native';
 import { countryDialCodes } from '@aws-amplify/ui';
+
+import { useTheme } from '../../../theme';
+import PhoneNumberField from '../PhoneNumberField';
+import { getThemedStyles } from '../styles';
+import { styles as textFieldStyles } from '../../TextField/styles';
 
 const testID = 'phoneNumberInput';
 const pickerTestID = 'RNPicker';
@@ -70,5 +73,26 @@ describe('PhoneNumberField', () => {
     expect(toJSON()).toMatchSnapshot();
     const textInput = getByTestId(testID);
     expect(textInput.props.editable).toBe(false);
+  });
+
+  it('applies theming', () => {
+    const { toJSON, getByTestId } = render(
+      <PhoneNumberField {...defaultProps} />
+    );
+
+    const { result } = renderHook(() => useTheme());
+    const themedStyle = getThemedStyles(result.current);
+
+    expect(getByTestId('RNPicker').props.style).toContainEqual([
+      themedStyle.pickerItem,
+      undefined,
+    ]);
+
+    expect(getByTestId(testID).props.style).toStrictEqual([
+      textFieldStyles.input,
+      undefined,
+    ]);
+
+    expect(toJSON()).toMatchSnapshot();
   });
 });
