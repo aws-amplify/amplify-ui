@@ -19,21 +19,38 @@ export function uploadFile({
   progressCallback,
   errorCallback,
   completeCallback,
+  resumable = false,
+  ...rest
 }: {
   file: File;
   fileName: string;
   level: StorageAccessLevel;
+  resumable?: boolean;
   progressCallback: (progress: { loaded: number; total: number }) => void;
   errorCallback: (err: string) => void;
   completeCallback: (event) => void;
-}): UploadTask {
-  return Storage.put(fileName, file, {
-    level,
-    resumable: true,
-    progressCallback,
-    errorCallback,
-    completeCallback,
-  });
+}) {
+  if (resumable === true) {
+    return Storage.put(fileName, file, {
+      level,
+      resumable,
+      progressCallback,
+      errorCallback,
+      // TODO: Remove this override once we depend on aws-amplify@5
+      // this behavior is fixed in version 5
+      completeCallback: (event) => {
+        completeCallback({ key: event.key.split('/').slice(1).join('/') });
+      },
+      ...rest,
+    });
+  } else {
+    return Storage.put(fileName, file, {
+      level,
+      resumable: false,
+      progressCallback,
+      ...rest,
+    }).then(completeCallback, errorCallback);
+  }
 }
 /**
  * Format bytes as human-readable text.

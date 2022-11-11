@@ -12,12 +12,15 @@ export const FileState = ({
   percentage,
 }: FileStateProps): JSX.Element => {
   switch (fileState) {
-    case 'loading':
+    case 'loading': {
+      let text = translate('Uploading');
+      if (percentage > 0) text = text + `: ${percentage}%`;
       return (
         <Text className={ComponentClassNames.FileUploaderFileStatus}>
-          {translate('Loading')}: {percentage}%
+          {text}
         </Text>
       );
+    }
     case 'paused':
       return (
         <Text className={ComponentClassNames.FileUploaderFileStatus}>
@@ -43,7 +46,10 @@ export const FileState = ({
         <Text
           className={classNames(
             ComponentClassNames.FileUploaderFileStatus,
-            classNameModifier(ComponentClassNames.FileUploaderFileStatus, 'error')
+            classNameModifier(
+              ComponentClassNames.FileUploaderFileStatus,
+              'error'
+            )
           )}
         >
           <IconError fontSize="xl" /> {errorMessage}

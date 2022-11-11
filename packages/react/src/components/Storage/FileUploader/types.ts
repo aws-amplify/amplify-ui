@@ -36,6 +36,7 @@ export interface FileUploaderProps {
   onSuccess?: (event: { key: string }) => void;
   path?: string;
   variation?: 'drop' | 'button';
+  resumable?: boolean;
 }
 
 export interface IconProps {
@@ -66,6 +67,7 @@ export interface TrackerProps {
   fileState: FileState;
   hasImage: boolean;
   url: string;
+  resumable?: boolean;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onCancel: () => void;
   onPause: () => void;
