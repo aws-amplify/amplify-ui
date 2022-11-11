@@ -42,3 +42,17 @@ export const deleteUser = async () => {
     return Promise.reject(e);
   }
 };
+
+export const getCurrentMFA = async (user: AmplifyUser) => {
+  try {
+    logger.debug('calling Auth.getPreferredMFA');
+
+    const preferredMFA = Auth.getPreferredMFA(user, { bypassCache: true });
+    logger.debug('Auth.getPreferredMFA was successful');
+
+    return preferredMFA;
+  } catch (e) {
+    logger.error('Auth.getPreferredMFA failed with error', e);
+    return Promise.reject(e);
+  }
+};

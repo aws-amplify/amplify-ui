@@ -1,1 +1,1 @@
-export { changePassword, deleteUser } from './utils';
+export { changePassword, deleteUser, getCurrentMFA } from './utils';
