@@ -54,7 +54,7 @@ export const itDict: AuthenticatorDictionary = {
 
   // Additional translations provided by customers
   'An account with the given email already exists.':
-    "Questa email è già utilizzata da un altro account.",
+    'Questa email è già utilizzata da un altro account.',
   'Confirm a Code': 'Conferma un codice',
   'Confirm Sign In': "Conferma l'accesso",
   'Create account': 'Crea account',
