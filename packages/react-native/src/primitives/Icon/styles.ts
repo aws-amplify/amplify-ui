@@ -2,7 +2,8 @@ import { StyleSheet } from 'react-native';
 import { ConsoleLogger as Logger } from '@aws-amplify/core';
 
 import { StrictTheme } from '../../theme';
-import { IconProps, iconSizes, IconStyles } from './types';
+import { IconProps, IconStyles } from './types';
+import { iconSizes } from './constants';
 
 const logger = new Logger('Icon-logger');
 
@@ -22,9 +23,8 @@ const getIconSize = (size: IconProps['size']): number => {
       )}`
     );
     return iconSizes.medium;
-  } else {
-    return iconSizes[size];
   }
+  return iconSizes[size];
 };
 
 export const getThemedStyles = (

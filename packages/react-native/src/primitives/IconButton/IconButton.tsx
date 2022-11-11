@@ -6,8 +6,7 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import { Icon } from '../Icon';
-import { iconSizes } from '../Icon/types';
+import { Icon, iconSizes } from '../Icon';
 import { styles } from './styles';
 import { IconButtonProps } from './types';
 
