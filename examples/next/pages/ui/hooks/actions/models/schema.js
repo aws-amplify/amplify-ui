@@ -1,5 +1,4 @@
 export const schema = {
-  codegenVersion: '3.2',
   models: {
     Todo: {
       name: 'Todo',
