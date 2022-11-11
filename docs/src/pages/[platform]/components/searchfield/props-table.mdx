@@ -72,10 +72,10 @@ boolean
       <ResponsiveTableCell label="Name">defaultValue</ResponsiveTableCell>
       <ResponsiveTableCell label="Type">
 ```jsx
-string | number | readonly string[]
+string
 ```
 </ResponsiveTableCell>
-      <ResponsiveTableCell label="Description">Use this to provide a default value for an uncontrolled field.</ResponsiveTableCell>
+      <ResponsiveTableCell label="Description">Set the initial value for an uncontrolled search field</ResponsiveTableCell>
     </TableRow>
 
     <TableRow>
@@ -116,6 +116,26 @@ boolean
 ```
 </ResponsiveTableCell>
       <ResponsiveTableCell label="Description">Indicates that Field is in error state.</ResponsiveTableCell>
+    </TableRow>
+
+    <TableRow>
+      <ResponsiveTableCell label="Name">hasSearchButton</ResponsiveTableCell>
+      <ResponsiveTableCell label="Type">
+```jsx
+boolean
+```
+</ResponsiveTableCell>
+      <ResponsiveTableCell label="Description">Used to determine whether to render a search button on the right Default: true</ResponsiveTableCell>
+    </TableRow>
+
+    <TableRow>
+      <ResponsiveTableCell label="Name">hasSearchIcon</ResponsiveTableCell>
+      <ResponsiveTableCell label="Type">
+```jsx
+boolean
+```
+</ResponsiveTableCell>
+      <ResponsiveTableCell label="Description">Used to determine whether to render a search icon on the left when there is no search button Default: false</ResponsiveTableCell>
     </TableRow>
 
     <TableRow>
@@ -322,10 +342,10 @@ React.HTMLInputTypeAttribute
       <ResponsiveTableCell label="Name">value</ResponsiveTableCell>
       <ResponsiveTableCell label="Type">
 ```jsx
-string | number | readonly string[]
+string
 ```
 </ResponsiveTableCell>
-      <ResponsiveTableCell label="Description">If value is provided, this will be a controlled field.</ResponsiveTableCell>
+      <ResponsiveTableCell label="Description">Set the value for a controlled search field</ResponsiveTableCell>
     </TableRow>
 
     <TableRow>
