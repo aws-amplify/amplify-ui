@@ -627,15 +627,6 @@
     events "^3.1.0"
     tslib "^1.8.0"
 
-"@aws-amplify/ui@4.0.1":
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/ui/-/ui-4.0.1.tgz#0bfa94a64a2b5da5dc4df9f3ba9d31a7948b8dc2"
-  integrity sha512-J8zWlnItedwDD7DjwUMBZBKUo8jpOdrqbWwqJGrHfZsjI5swrwCzU/LCFVpsUgYrJh5tpSUyr48eX0gEgkAXoA==
-  dependencies:
-    lodash "4.17.21"
-    style-dictionary "3.7.0"
-    tslib "2.4.0"
-
 "@aws-amplify/xr@4.0.1":
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/@aws-amplify/xr/-/xr-4.0.1.tgz#4a7964790f478afe7b655216a013507d41466d69"
