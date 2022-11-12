@@ -11,7 +11,7 @@
     "@types/node": "^16.11.22",
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
-    "aws-amplify": "unstable",
+    "aws-amplify": "^4",
     "react": "latest",
     "react-dom": "latest",
     "react-scripts": "5.0.0",
