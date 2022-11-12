@@ -7,6 +7,7 @@ import {
   translate,
   setupTOTP,
   verifyTOTPToken,
+  AmplifyUser,
 } from '@aws-amplify/ui';
 
 import { useAuth } from '../../../internal';
@@ -127,7 +128,7 @@ function SetupMFA({
 
         // move to an intermediary state so that `SetupTOTP` doesn't remount
         // and call `Auth.setupTOTP` in parallel
-        setState('LOADING');
+        setState('SET_PREFERRED_MFA');
         await setPreferredMFA({ user, mfaType: 'TOTP' });
 
         // mfa has been succesfully changed!
@@ -142,22 +143,22 @@ function SetupMFA({
     [onError, user]
   );
 
-  const runSetPreferredMFA = React.useCallback(
-    async (newMFA: MFAType) => {
-      try {
-        await setPreferredMFA({ user, mfaType: newMFA });
-        setState('DONE');
-      } catch (e) {
-        const error = e as Error;
-        onError?.(error);
-      }
-    },
-    [user, onError]
-  );
+  const runDisableMFA = React.useCallback(async () => {
+    try {
+      await setPreferredMFA({ user, mfaType: 'NOMFA' });
+      setCurrentMFA('NOMFA');
+      setState('DONE');
+    } catch (e) {
+      const error = e as Error;
+      onError?.(error);
+    }
+  }, [user, onError]);
 
-  const getTotpSecretCode = React.useCallback(async () => {
-    return setupTOTP(user);
-  }, [user]);
+  const getTotpSecretCode = React.useCallback((user: AmplifyUser) => {
+    return () => {
+      return setupTOTP(user);
+    };
+  }, []);
 
   // event handlers
   const handleEnableMFA = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -166,8 +167,8 @@ function SetupMFA({
   };
 
   const handleDisableMFA = React.useCallback(() => {
-    runSetPreferredMFA('NOMFA');
-  }, [runSetPreferredMFA]);
+    runDisableMFA();
+  }, [runDisableMFA]);
 
   const handleSelectMFAChange = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -266,7 +267,7 @@ function SetupMFA({
       {state === 'CONFIGURE_TOTP' ? (
         <ConfigureTOTP
           onCancel={toSelectMFA}
-          getTotpSecretCode={getTotpSecretCode}
+          getTotpSecretCode={getTotpSecretCode(user)}
           onChange={handleCodeChange}
           onSubmit={handleConfigureTOTPSubmit}
           totpIssuer="AWSCognito"
@@ -274,7 +275,10 @@ function SetupMFA({
         />
       ) : null}
       {state === 'CONFIGURE_SMS' ? (
-        <ConfigureSMS onCancel={toSelectMFA} />
+        <ConfigureSMS
+          phoneNumber={user.attributes?.phone_number}
+          onCancel={toSelectMFA}
+        />
       ) : null}
       {state === 'VERIFY_SMS' ? <VerifySMS /> : null}
     </View>

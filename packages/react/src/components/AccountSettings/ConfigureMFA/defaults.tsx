@@ -1,7 +1,12 @@
 import React from 'react';
 import QRCode from 'qrcode';
 
-import { getLogger, getTotpCodeURL, translate } from '@aws-amplify/ui';
+import {
+  censorPhoneNumber,
+  getLogger,
+  getTotpCodeURL,
+  translate,
+} from '@aws-amplify/ui';
 
 import {
   Alert,
@@ -217,27 +222,36 @@ export const ConfigureSMS = ({
 };
 
 export const VerifySMS = ({
+  phoneNumber,
   onCancel,
   onSubmit,
 }: VerifySMSProps): JSX.Element => {
+  // censored phone number
+  const destination = React.useMemo(
+    () => censorPhoneNumber(phoneNumber),
+    [phoneNumber]
+  );
+
   // translations
   const verificationCodeText = translate('Verification Code');
-  const descriptiveText = translate(
+  const descriptiveText = `${translate(
     'Please enter the verification code we sent to'
-  );
-  const backText = translate('back');
+  )} ${destination}`;
+  const backText = translate('Back');
 
   return (
     <View as="form" onSubmit={onSubmit}>
-      <TextField
-        label={verificationCodeText}
-        descriptiveText={descriptiveText}
-      />
-      <Flex direction="row" justifyContent="space-between">
-        <Button variation="link" onClick={onCancel}>
-          {backText}
-        </Button>
-        <Button variation="primary">Confirm</Button>
+      <Flex direction="column">
+        <TextField
+          label={verificationCodeText}
+          descriptiveText={descriptiveText}
+        />
+        <Flex direction="row" justifyContent="space-between">
+          <Button variation="link" onClick={onCancel}>
+            {backText}
+          </Button>
+          <Button variation="primary">Confirm</Button>
+        </Flex>
       </Flex>
     </View>
   );

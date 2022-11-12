@@ -28,9 +28,9 @@ export type ConfigureMFAState =
   | 'DISABLING_MFA'
   | 'SELECT_MFA'
   | 'CONFIGURE_TOTP'
-  | 'LOADING'
   | 'CONFIGURE_SMS'
   | 'VERIFY_SMS'
+  | 'SET_PREFERRED_MFA'
   | 'DONE';
 
 // subcomponent types
@@ -64,6 +64,7 @@ export interface ConfigureTOTPProps {
 }
 
 export interface ConfigureSMSProps {
+  phoneNumber?: string; // pre-existing phone number, if any
   onCancel?: () => void;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   onSubmit?: React.FormEventHandler<HTMLFormElement>;
@@ -76,6 +77,7 @@ export interface DisplayCurrentMFAProps {
 }
 
 export interface VerifySMSProps {
+  phoneNumber?: string; // pre-existing phone number, if any
   onCancel?: () => void;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   onSubmit?: React.FormEventHandler<HTMLFormElement>;
