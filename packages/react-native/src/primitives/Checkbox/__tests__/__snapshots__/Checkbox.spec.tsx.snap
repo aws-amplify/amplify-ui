@@ -42,10 +42,10 @@ exports[`Checkbox renders as expected when disabled 1`] = `
     style={
       Array [
         Object {
-          "height": undefined,
+          "height": 24,
           "resizeMode": "contain",
           "tintColor": undefined,
-          "width": undefined,
+          "width": 24,
         },
         undefined,
       ]
@@ -91,10 +91,10 @@ exports[`Checkbox renders as expected when selected is false 1`] = `
     style={
       Array [
         Object {
-          "height": undefined,
+          "height": 24,
           "resizeMode": "contain",
           "tintColor": undefined,
-          "width": undefined,
+          "width": 24,
         },
         undefined,
       ]
@@ -140,10 +140,10 @@ exports[`Checkbox renders as expected when selected is true 1`] = `
     style={
       Array [
         Object {
-          "height": undefined,
+          "height": 24,
           "resizeMode": "contain",
           "tintColor": undefined,
-          "width": undefined,
+          "width": 24,
         },
         undefined,
       ]
@@ -189,10 +189,10 @@ exports[`Checkbox renders as expected with accessibilityRole 1`] = `
     style={
       Array [
         Object {
-          "height": undefined,
+          "height": 24,
           "resizeMode": "contain",
           "tintColor": undefined,
-          "width": undefined,
+          "width": 24,
         },
         undefined,
       ]

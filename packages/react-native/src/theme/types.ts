@@ -4,6 +4,7 @@ import baseTokens from '@aws-amplify/ui/dist/react-native/tokens';
 
 import {
   HeadingStyles,
+  IconStyles,
   LabelStyles,
   RadioGroupStyles,
   RadioStyles,
@@ -41,6 +42,7 @@ export interface Theme {
 export interface ComponentStyles {
   // TODO: add components
   heading: HeadingStyles;
+  icon: IconStyles;
   label: LabelStyles;
   radio: RadioStyles;
   radiogroup: RadioGroupStyles;
