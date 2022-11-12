@@ -52,11 +52,18 @@ function hrefWorks(
   const tagText: string = htmlTag.prop('text');
   const tagName: string = htmlTag.prop('tagName');
   let pureHref: string;
+
   if (tagHref) {
     pureHref = tagHref.replace(tagHash, ''); // TODO: add test to validate links with a hash tag.
     logMessage({ evtName: 'CHECKING', link, pureHref, tagName, tagText });
 
-    if (allLinks.includes(`${pureHref.replace(`${BASE_URL}/`, '')}`)) {
+    /**
+     * The following logic is to make the list cy.request() to save memory when build in Amplify Hosting.
+     */
+    if (
+      /** pureHref is included in Sitemap, which is already tested by cy.visit(). */
+      allLinks.includes(`${pureHref.replace(`${BASE_URL}/`, '')}`)
+    ) {
       expect(`${pureHref.replace(`${BASE_URL}/`, '')}`).to.oneOf(allLinks);
       logMessage({
         evtName: 'SKIPPING_SITEMAP',
@@ -66,6 +73,10 @@ function hrefWorks(
         tagText,
       });
     } else if (
+      /**
+       * pureHref is platform neutral, which would be redirected to react by default and return a 308.
+       * To prevent the 308, we manually redirect it to react
+       */
       allLinks.includes(`${pureHref.replace(`${BASE_URL}/`, 'react/')}`)
     ) {
       expect(`${pureHref.replace(`${BASE_URL}/`, 'react/')}`).to.oneOf(
@@ -79,6 +90,7 @@ function hrefWorks(
         tagText,
       });
     } else if (
+      /** pureHref is listed in the VALIDATED_LINKS list or already requested in the test. */
       VALIDATED_LINKS.includes(pureHref) ||
       VALIDATED_LINKS.includes(`${pureHref.replace(BASE_URL, '')}`) ||
       requestedLinks.has(pureHref)
