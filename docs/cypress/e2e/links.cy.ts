@@ -34,9 +34,7 @@ describe(`All pages on Sitemap`, () => {
     allLinks.forEach((link, idx) => {
       cy.task('log', `🧪[TESTING...] page #${idx} ${BASE_URL}/${link}`);
       cy.visit(link || '/');
-      cy.get(`a:not([href^='/']), a[href*='#']`).each((el) =>
-        hrefWorks(el, link, requestedLinks)
-      );
+      cy.get('a').each((el) => hrefWorks(el, link, allLinks, requestedLinks));
     });
   });
 });
@@ -46,6 +44,7 @@ export {};
 function hrefWorks(
   htmlTag: JQuery<HTMLElement>,
   link: string,
+  allLinks: string[],
   requestedLinks: Set<string>
 ): void {
   const tagHref: string = htmlTag.prop('href');
@@ -57,9 +56,29 @@ function hrefWorks(
     pureHref = tagHref.replace(tagHash, ''); // TODO: add test to validate links with a hash tag.
     logMessage({ evtName: 'CHECKING', link, pureHref, tagName, tagText });
 
-    if (pureHref === `${BASE_URL}/`) return;
-
-    if (
+    if (allLinks.includes(`${pureHref.replace(`${BASE_URL}/`, '')}`)) {
+      expect(`${pureHref.replace(`${BASE_URL}/`, '')}`).to.oneOf(allLinks);
+      logMessage({
+        evtName: 'SKIPPING_SITEMAP',
+        link,
+        pureHref,
+        tagName,
+        tagText,
+      });
+    } else if (
+      allLinks.includes(`${pureHref.replace(`${BASE_URL}/`, 'react/')}`)
+    ) {
+      expect(`${pureHref.replace(`${BASE_URL}/`, 'react/')}`).to.oneOf(
+        allLinks
+      );
+      logMessage({
+        evtName: 'SKIPPING_SITEMAP',
+        link,
+        pureHref,
+        tagName,
+        tagText,
+      });
+    } else if (
       VALIDATED_LINKS.includes(pureHref) ||
       VALIDATED_LINKS.includes(`${pureHref.replace(BASE_URL, '')}`) ||
       requestedLinks.has(pureHref)
