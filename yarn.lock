@@ -426,92 +426,97 @@
   dependencies:
     "@types/throttle-debounce" "^2.1.0"
 
-"@aws-amplify/analytics@5.2.27":
-  version "5.2.27"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/analytics/-/analytics-5.2.27.tgz#cbcea7e90b93559bcc1c6d17e9f2b4d5b754e053"
-  integrity sha512-l956KXzm0ldL76AuL/sbr8OvFblSSwPk3/gtIpK0mfhUdKJOKSueQTjycqIIuJcJNa4dIKraFTfhPVzK9XSX0g==
+"@aws-amplify/analytics@6.0.1-unstable.6+d98bf4c9a":
+  version "6.0.1-unstable.6"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/analytics/-/analytics-6.0.1-unstable.6.tgz#71a026f6a1c1b25423181ef92015ad8396b88a77"
+  integrity sha512-4sqxrUSWClXuveSdsPalAg+G1Dk01NG4c2LtqFjg+xumTvgTIYyt/2i8JOTQRpFYMpfkE9RlD3qKGGDNATJIWw==
   dependencies:
-    "@aws-amplify/cache" "4.0.62"
-    "@aws-amplify/core" "4.7.11"
+    "@aws-amplify/cache" "5.0.1-unstable.6+d98bf4c9a"
+    "@aws-amplify/core" "5.0.1-unstable.6+d98bf4c9a"
     "@aws-sdk/client-firehose" "3.6.1"
     "@aws-sdk/client-kinesis" "3.6.1"
     "@aws-sdk/client-personalize-events" "3.6.1"
     "@aws-sdk/client-pinpoint" "3.6.1"
     "@aws-sdk/util-utf8-browser" "3.6.1"
     lodash "^4.17.20"
+    tslib "^1.8.0"
     uuid "^3.2.1"
 
-"@aws-amplify/api-graphql@2.3.24":
-  version "2.3.24"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/api-graphql/-/api-graphql-2.3.24.tgz#ba1949432125a60fe51dbea2ce37c85706cb9a73"
-  integrity sha512-BGZEx3/4dg6dJjMpn7pYENmnVK34IaCkjeApZvf/yzj56/iH0aNK7T1KOlvfvs7r9IArBXGF0odQGMyN7cnW1A==
+"@aws-amplify/api-graphql@3.0.1-unstable.6+d98bf4c9a":
+  version "3.0.1-unstable.6"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/api-graphql/-/api-graphql-3.0.1-unstable.6.tgz#a07bdd3befdbd3d3710e94825c6ed65028f55e08"
+  integrity sha512-3zaXQDJTLI6hSRh3GaPYhOz54K2TyIDTVtO1dK7dVVbEajt9/WOxMICPaYXwZsR7agoHJ/cVPzNP0yCwIO7rSQ==
   dependencies:
-    "@aws-amplify/api-rest" "2.0.60"
-    "@aws-amplify/auth" "4.6.13"
-    "@aws-amplify/cache" "4.0.62"
-    "@aws-amplify/core" "4.7.11"
-    "@aws-amplify/pubsub" "4.5.10"
+    "@aws-amplify/api-rest" "3.0.1-unstable.6+d98bf4c9a"
+    "@aws-amplify/auth" "5.0.1-unstable.6+d98bf4c9a"
+    "@aws-amplify/cache" "5.0.1-unstable.6+d98bf4c9a"
+    "@aws-amplify/core" "5.0.1-unstable.6+d98bf4c9a"
+    "@aws-amplify/pubsub" "5.0.1-unstable.6+d98bf4c9a"
     graphql "15.8.0"
+    tslib "^1.8.0"
     uuid "^3.2.1"
     zen-observable-ts "0.8.19"
 
-"@aws-amplify/api-rest@2.0.60":
-  version "2.0.60"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/api-rest/-/api-rest-2.0.60.tgz#1259f8818fcb9e9ab0ff757e6eec94bc094e5343"
-  integrity sha512-MQFDWDfNB1EsWBW4VG92Xc36zryHMJGgFsBxVpf0C/GBy9AAJou/CkyXTWJGRvzKBSVDBL/n8YqWOvyYEbL/gg==
+"@aws-amplify/api-rest@3.0.1-unstable.6+d98bf4c9a":
+  version "3.0.1-unstable.6"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/api-rest/-/api-rest-3.0.1-unstable.6.tgz#befc8cee84cf6808d9224b0724bf5f31fa02ee53"
+  integrity sha512-vXunoU1MqThPgfuSudmzq7VSBpNhkiFpKR+M3FBDYAq7pqyV/G7RyM7vDOuWTiF+LZfFssZTSkUVPh2EevsTkw==
   dependencies:
-    "@aws-amplify/core" "4.7.11"
+    "@aws-amplify/core" "5.0.1-unstable.6+d98bf4c9a"
     axios "0.26.0"
+    tslib "^1.8.0"
 
-"@aws-amplify/api@4.0.60":
-  version "4.0.60"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/api/-/api-4.0.60.tgz#aa20c368d8700100cc5f5161a5ee768c54fcc454"
-  integrity sha512-nZfvnAq6ri0gjJMMDS+fk4eArKuz7+69rXl3AIimRTNkh/KhiQshRLh43or47KFaxAcW9sruf9DpZQI9VrRp5A==
+"@aws-amplify/api@5.0.1-unstable.6+d98bf4c9a":
+  version "5.0.1-unstable.6"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/api/-/api-5.0.1-unstable.6.tgz#0cffa74de89c62303edf8dbc8a07d29001b97a94"
+  integrity sha512-KXsuF5oaADh/jqxsO3Hgdrjqc9LMlZGUjx6ZuPi9+9RE6fqGLrfrQDjXhUi4LyWsDrKg3aCKTNb6IQe1TtCjag==
   dependencies:
-    "@aws-amplify/api-graphql" "2.3.24"
-    "@aws-amplify/api-rest" "2.0.60"
+    "@aws-amplify/api-graphql" "3.0.1-unstable.6+d98bf4c9a"
+    "@aws-amplify/api-rest" "3.0.1-unstable.6+d98bf4c9a"
+    tslib "^1.8.0"
 
-"@aws-amplify/auth@4.6.13":
-  version "4.6.13"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/auth/-/auth-4.6.13.tgz#bd7323e05d8b3df16ecde4d1c3b190dcdeb9ee3b"
-  integrity sha512-n556ULkS/dPg08zpcLS2/uaH6Em2fx+zDxZkFfPD57vUgugug5LLdRRZxtAvJuPXHcwcmCLdKV/LC5E1qTQVAw==
+"@aws-amplify/auth@5.0.1-unstable.6+d98bf4c9a":
+  version "5.0.1-unstable.6"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/auth/-/auth-5.0.1-unstable.6.tgz#bf2222ce1a80f4d4a35fa1effcbd615d56ad79b6"
+  integrity sha512-IE4XFHYQ7CcuRRM6eb3Cv63FFbaWB4xvYLcqee9NYE1TKUIMNssyDohI7fRKvhLu0Kexa2CwICKzAHaN59g2qg==
   dependencies:
-    "@aws-amplify/cache" "4.0.62"
-    "@aws-amplify/core" "4.7.11"
-    amazon-cognito-identity-js "5.2.12"
-    crypto-js "^4.1.1"
+    "@aws-amplify/core" "5.0.1-unstable.6+d98bf4c9a"
+    amazon-cognito-identity-js "6.0.1-unstable.6+d98bf4c9a"
+    tslib "^1.8.0"
 
-"@aws-amplify/cache@4.0.62":
-  version "4.0.62"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/cache/-/cache-4.0.62.tgz#765d754d3eb31cff32ed3dd6441cd56b04367e90"
-  integrity sha512-gyqA/Ve0AOwtsQP52mIlWZzoq3wBhrOLsPHHSBm7pgOP4EeU47ml2od3N7E16viC/1sRfJI3a3vFjYAi/uzYCA==
+"@aws-amplify/cache@5.0.1-unstable.6+d98bf4c9a":
+  version "5.0.1-unstable.6"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/cache/-/cache-5.0.1-unstable.6.tgz#f871a072d4b520943084d600aa6a4f72360a2282"
+  integrity sha512-Z0XW5/hKZ71slUSz1l8Z6Mrvg8Mldj3UKjZk/pGQdWzqwbUaHsqpeaMkiwuLzW3WOc3qwRYpA6L3ewBu++k0Xw==
   dependencies:
-    "@aws-amplify/core" "4.7.11"
+    "@aws-amplify/core" "5.0.1-unstable.6+d98bf4c9a"
+    tslib "^1.8.0"
 
-"@aws-amplify/core@4.7.11":
-  version "4.7.11"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/core/-/core-4.7.11.tgz#5da0396e70a98e2c1440261cad555a879f75e6e5"
-  integrity sha512-Gfn9V66wgnyWi/dUzYfjmqbYxRdpeY1MH6jqCWXMWPHIBA7yPtac4xHpNK886TOuvekUK7HRI91Lvl//XKueOw==
+"@aws-amplify/core@5.0.1-unstable.6+d98bf4c9a":
+  version "5.0.1-unstable.6"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/core/-/core-5.0.1-unstable.6.tgz#9bb426940de363a95381bb6e3fcc74113eab420b"
+  integrity sha512-1YGhqGFMCyLB2UHHSaEWSUClHzyy8xAHmdsyRGzWMip0pHSkV1uSgvrzaCfym8Fr1pxMzgxHgs+1PkGBxj6K5g==
   dependencies:
-    "@aws-crypto/sha256-js" "1.0.0-alpha.0"
+    "@aws-crypto/sha256-js" "1.2.2"
     "@aws-sdk/client-cloudwatch-logs" "3.6.1"
     "@aws-sdk/client-cognito-identity" "3.6.1"
     "@aws-sdk/credential-provider-cognito-identity" "3.6.1"
     "@aws-sdk/types" "3.6.1"
     "@aws-sdk/util-hex-encoding" "3.6.1"
+    tslib "^1.8.0"
     universal-cookie "^4.0.4"
     zen-observable-ts "0.8.19"
 
-"@aws-amplify/datastore@3.14.3":
-  version "3.14.3"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/datastore/-/datastore-3.14.3.tgz#8da947d05509d7bc7d73999a91def6974d673fc4"
-  integrity sha512-SDD+4t8h436zZUhx2y1Xz3rTgGNOBI45MeD+l9jkbXukDNcyntXIFQI1g8e+CD51TZJv0j8K/5OVEgw0CtVhiw==
+"@aws-amplify/datastore@4.0.1-unstable.6+d98bf4c9a":
+  version "4.0.1-unstable.6"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/datastore/-/datastore-4.0.1-unstable.6.tgz#28cc7303cd50772df324e64cf075075486e0e84c"
+  integrity sha512-hvOJHl7+C15QIVQnsO6oZV1OwlWfxfugeDEe52joFx65JKUF28XOBMJnw6HR441+FyRFcLGuF1PtzD/v1FyuXw==
   dependencies:
-    "@aws-amplify/api" "4.0.60"
-    "@aws-amplify/auth" "4.6.13"
-    "@aws-amplify/core" "4.7.11"
-    "@aws-amplify/pubsub" "4.5.10"
-    amazon-cognito-identity-js "5.2.12"
+    "@aws-amplify/api" "5.0.1-unstable.6+d98bf4c9a"
+    "@aws-amplify/auth" "5.0.1-unstable.6+d98bf4c9a"
+    "@aws-amplify/core" "5.0.1-unstable.6+d98bf4c9a"
+    "@aws-amplify/pubsub" "5.0.1-unstable.6+d98bf4c9a"
+    amazon-cognito-identity-js "6.0.1-unstable.6+d98bf4c9a"
     idb "5.0.6"
     immer "9.0.6"
     ulid "2.3.0"
@@ -519,35 +524,48 @@
     zen-observable-ts "0.8.19"
     zen-push "0.2.1"
 
-"@aws-amplify/geo@1.3.23":
-  version "1.3.23"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/geo/-/geo-1.3.23.tgz#5c831490882c797c1dd4ec71cd1b535fc7b87d4c"
-  integrity sha512-YJVa3mO60XsepNqYZ/Xz8/0+i9GqFmFPg9vfMkF4zmrf1jxBnNbw39hyLMaj6cVfWcJKFO6Z/Ln9MTI946bFsg==
+"@aws-amplify/geo@2.0.1-unstable.6+d98bf4c9a":
+  version "2.0.1-unstable.6"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/geo/-/geo-2.0.1-unstable.6.tgz#0f0c86af26203899d964d62c85df845121e9433e"
+  integrity sha512-Wg0AJeZ96bWA4zdBJFRVpn27/LhHMtCexNE6ZIzHQDeaHkgjGJvpuvsZGEQ+mcqBZLMnxtFMn5HTSSSYp1DvbQ==
   dependencies:
-    "@aws-amplify/core" "4.7.11"
+    "@aws-amplify/core" "5.0.1-unstable.6+d98bf4c9a"
     "@aws-sdk/client-location" "3.186.0"
     "@turf/boolean-clockwise" "6.5.0"
     camelcase-keys "6.2.2"
+    tslib "^1.8.0"
 
-"@aws-amplify/interactions@4.1.8":
-  version "4.1.8"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/interactions/-/interactions-4.1.8.tgz#f2f240fd2034df884594268f73a6ee34cfe9c555"
-  integrity sha512-Ka3nPU1RJzaldj0Ji2rU/QUD2X76jycnu8HtETqnJpY6JP/9GhRfSoMKqS6aJOyVedOoFa46CQ2w4qgDijM1xg==
+"@aws-amplify/interactions@5.0.1-unstable.6+d98bf4c9a":
+  version "5.0.1-unstable.6"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/interactions/-/interactions-5.0.1-unstable.6.tgz#a546ffaedbc160e629ddb08838f7c08947470fff"
+  integrity sha512-uLz4/v6KgP0qf4/VcXB838SD5OOJnsRSQ9hJoVvRon/YiYay5lgX4tvPJzkmK2GERTYFbrrURr6gsvZhaEFZXw==
   dependencies:
-    "@aws-amplify/core" "4.7.11"
+    "@aws-amplify/core" "5.0.1-unstable.6+d98bf4c9a"
     "@aws-sdk/client-lex-runtime-service" "3.186.0"
     "@aws-sdk/client-lex-runtime-v2" "3.186.0"
     base-64 "1.0.0"
     fflate "0.7.3"
     pako "2.0.4"
+    tslib "^1.8.0"
 
-"@aws-amplify/predictions@4.0.60":
-  version "4.0.60"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/predictions/-/predictions-4.0.60.tgz#847cf03deef9fb52e63ff57387eef8391cb20334"
-  integrity sha512-aFha+9lt3g8Y4ccSrknbed3+wOGcDPLOP3YmBSNaXbJ9QwHoxpu7kPPJr6hBs3JG8UvcQpsocvCZaKXWQ2BFEg==
+"@aws-amplify/notifications@1.0.1-unstable.6+d98bf4c9a":
+  version "1.0.1-unstable.6"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/notifications/-/notifications-1.0.1-unstable.6.tgz#3ab7cd51a960c31d5bc93b3f220629a4d1a22f23"
+  integrity sha512-sGiAA92bmFDP9aXmitpemWSzsbx8QyCpeE+/YZBgluOEaFRKpvHa8VWSMSF7sJ3JVkgQINMRzVqPe6BbTUR6HA==
   dependencies:
-    "@aws-amplify/core" "4.7.11"
-    "@aws-amplify/storage" "4.5.13"
+    "@aws-amplify/cache" "5.0.1-unstable.6+d98bf4c9a"
+    "@aws-amplify/core" "5.0.1-unstable.6+d98bf4c9a"
+    "@aws-sdk/client-pinpoint" "3.186.0"
+    lodash "^4.17.21"
+    uuid "^3.2.1"
+
+"@aws-amplify/predictions@5.0.1-unstable.6+d98bf4c9a":
+  version "5.0.1-unstable.6"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/predictions/-/predictions-5.0.1-unstable.6.tgz#d341d6e7d32f763bc6fe3660fca313de7b334c89"
+  integrity sha512-pxHD/sFuq6zCGJO91Haoz0trWCeJOa0q+ZOaD+ByjO3DxYNh6mWQqE7Zs7U1gwGQ/o3X3w5/pYrBqa5+MI75lA==
+  dependencies:
+    "@aws-amplify/core" "5.0.1-unstable.6+d98bf4c9a"
+    "@aws-amplify/storage" "5.0.1-unstable.6+d98bf4c9a"
     "@aws-sdk/client-comprehend" "3.6.1"
     "@aws-sdk/client-polly" "3.6.1"
     "@aws-sdk/client-rekognition" "3.6.1"
@@ -555,33 +573,36 @@
     "@aws-sdk/client-translate" "3.6.1"
     "@aws-sdk/eventstream-marshaller" "3.6.1"
     "@aws-sdk/util-utf8-node" "3.6.1"
+    tslib "^1.8.0"
     uuid "^3.2.1"
 
-"@aws-amplify/pubsub@4.5.10":
-  version "4.5.10"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/pubsub/-/pubsub-4.5.10.tgz#471dc8ffe0b31465919618aa665afd3eaddd6ee6"
-  integrity sha512-ln63BkT8XkKh8l8IJ4vPyCIFcNNXxXqh5ZkpD12cBjpyn6smImCPbcO3gzvZJlcNLcq8X+mMIFY8h0wNvkAjTg==
+"@aws-amplify/pubsub@5.0.1-unstable.6+d98bf4c9a":
+  version "5.0.1-unstable.6"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/pubsub/-/pubsub-5.0.1-unstable.6.tgz#2aa627c31feeb8f8d17dea355cd0fba0f32b7e7f"
+  integrity sha512-0uL1duQz4ZetUq1yvjTkXA9m8u7lZ1w8BqgCaVTtxcFRRpGKsSF0ZxfwCczZ0NS6bSLtIgPWeAKu5rv00y6OLA==
   dependencies:
-    "@aws-amplify/auth" "4.6.13"
-    "@aws-amplify/cache" "4.0.62"
-    "@aws-amplify/core" "4.7.11"
+    "@aws-amplify/auth" "5.0.1-unstable.6+d98bf4c9a"
+    "@aws-amplify/cache" "5.0.1-unstable.6+d98bf4c9a"
+    "@aws-amplify/core" "5.0.1-unstable.6+d98bf4c9a"
     graphql "15.8.0"
     paho-mqtt "^1.1.0"
+    tslib "^1.8.0"
     uuid "^3.2.1"
     zen-observable-ts "0.8.19"
 
-"@aws-amplify/storage@4.5.13":
-  version "4.5.13"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/storage/-/storage-4.5.13.tgz#d9bc2f0f39dedf324ea31067ab58fed3439e9c29"
-  integrity sha512-77bFBORH7/isrMkH0CjCSrx77OiNbw+f2QKvC9mEJhgy2zV5GIUmgcS5jRdz09Ee4ZUxP3CoQXuZNH4XVy+OmA==
+"@aws-amplify/storage@5.0.1-unstable.6+d98bf4c9a":
+  version "5.0.1-unstable.6"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/storage/-/storage-5.0.1-unstable.6.tgz#953feecee8165a688a3509341514c718a30f883e"
+  integrity sha512-J4CP5aDGkHhor8Wb9pj6Id5XTHNVJNd7uOWF4/fkWTqiJdeVXyB4aXHBZvdpWvOIoJM61WGZOGg8gaYPdkGFrQ==
   dependencies:
-    "@aws-amplify/core" "4.7.11"
+    "@aws-amplify/core" "5.0.1-unstable.6+d98bf4c9a"
     "@aws-sdk/client-s3" "3.6.1"
     "@aws-sdk/s3-request-presigner" "3.6.1"
     "@aws-sdk/util-create-request" "3.6.1"
     "@aws-sdk/util-format-url" "3.6.1"
     axios "0.26.0"
     events "^3.1.0"
+    tslib "^1.8.0"
 
 "@aws-amplify/ui-components@1.7.2":
   version "1.7.2"
@@ -606,17 +627,13 @@
   dependencies:
     "@aws-amplify/ui-components" "1.7.2"
 
-"@aws-amplify/ui@2.0.7":
-  version "2.0.7"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/ui/-/ui-2.0.7.tgz#1d0b230306ca4fcd9c9ab5475f37d33c3eb83b37"
-  integrity sha512-tT7onRv+OCznFhUE2mKPpbGHHV+oODZk4VDX3lYNIfJ7LXv1hVtllQbPNJF5beNBRw9r6uotlXpeJrkph6v07A==
-
-"@aws-amplify/xr@3.0.60":
-  version "3.0.60"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/xr/-/xr-3.0.60.tgz#c6e7dedcb72958778d0064beae183b7c79f1b056"
-  integrity sha512-+UmAry9darQ1lbOROY2Xhvbnoce6/BpJjV0dOycOYj5TTGe2tlmYyGnsEre6cCj/RWm0nJHE8t3QH5Bd8GeaeA==
+"@aws-amplify/xr@4.0.1-unstable.6+d98bf4c9a":
+  version "4.0.1-unstable.6"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/xr/-/xr-4.0.1-unstable.6.tgz#51bd54e70ddcc257abbedb503aa3b0485ca1441c"
+  integrity sha512-5Uq5rhq7u0cpsud0PQAMoPyMO9Q6qO2G2s+PL5zcD1fdEikivHa6TcrSstDYN1blmYdDbGZtAynTs9zHpmZZFQ==
   dependencies:
-    "@aws-amplify/core" "4.7.11"
+    "@aws-amplify/core" "5.0.1-unstable.6+d98bf4c9a"
+    tslib "^1.8.0"
 
 "@aws-crypto/crc32@2.0.0":
   version "2.0.0"
@@ -677,14 +694,14 @@
     "@aws-sdk/util-locate-window" "^3.0.0"
     tslib "^1.11.1"
 
-"@aws-crypto/sha256-js@1.0.0-alpha.0":
-  version "1.0.0-alpha.0"
-  resolved "https://registry.yarnpkg.com/@aws-crypto/sha256-js/-/sha256-js-1.0.0-alpha.0.tgz#1146f6fa823001a9065ce60db5bf1afcc7c1cc3a"
-  integrity sha512-GidX2lccEtHZw8mXDKJQj6tea7qh3pAnsNSp1eZNxsN4MMu2OvSraPSqiB1EihsQkZBMg0IiZPpZHoACUX/QMQ==
+"@aws-crypto/sha256-js@1.2.2", "@aws-crypto/sha256-js@^1.0.0", "@aws-crypto/sha256-js@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@aws-crypto/sha256-js/-/sha256-js-1.2.2.tgz#02acd1a1fda92896fc5a28ec7c6e164644ea32fc"
+  integrity sha512-Nr1QJIbW/afYYGzYvrF70LtaHrIRtd4TNAglX8BvlfxJLZ45SAmueIKYl5tWoNBPzp65ymXGFK0Bb1vZUpuc9g==
   dependencies:
-    "@aws-sdk/types" "^1.0.0-alpha.0"
-    "@aws-sdk/util-utf8-browser" "^1.0.0-alpha.0"
-    tslib "^1.9.3"
+    "@aws-crypto/util" "^1.2.2"
+    "@aws-sdk/types" "^3.1.0"
+    tslib "^1.11.1"
 
 "@aws-crypto/sha256-js@2.0.0":
   version "2.0.0"
@@ -692,15 +709,6 @@
   integrity sha512-VZY+mCY4Nmrs5WGfitmNqXzaE873fcIZDu54cbaDaaamsaTOP1DBImV9F4pICc3EHjQXujyE8jig+PFCaew9ig==
   dependencies:
     "@aws-crypto/util" "^2.0.0"
-    "@aws-sdk/types" "^3.1.0"
-    tslib "^1.11.1"
-
-"@aws-crypto/sha256-js@^1.0.0", "@aws-crypto/sha256-js@^1.2.2":
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/@aws-crypto/sha256-js/-/sha256-js-1.2.2.tgz#02acd1a1fda92896fc5a28ec7c6e164644ea32fc"
-  integrity sha512-Nr1QJIbW/afYYGzYvrF70LtaHrIRtd4TNAglX8BvlfxJLZ45SAmueIKYl5tWoNBPzp65ymXGFK0Bb1vZUpuc9g==
-  dependencies:
-    "@aws-crypto/util" "^1.2.2"
     "@aws-sdk/types" "^3.1.0"
     tslib "^1.11.1"
 
@@ -1127,6 +1135,46 @@
     "@aws-sdk/util-utf8-browser" "3.6.1"
     "@aws-sdk/util-utf8-node" "3.6.1"
     tslib "^2.0.0"
+
+"@aws-sdk/client-pinpoint@3.186.0":
+  version "3.186.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-pinpoint/-/client-pinpoint-3.186.0.tgz#d0e63ee9883024e89bc56cf0e01baf01eda00f55"
+  integrity sha512-gTVIU+c4WSgvNDTIXTfVFqrHbMtxcjviqZMop+N62OtJO+xQ8tg9nKmfIlhTuErV7BrI4u3djk7bYE+atfP9dQ==
+  dependencies:
+    "@aws-crypto/sha256-browser" "2.0.0"
+    "@aws-crypto/sha256-js" "2.0.0"
+    "@aws-sdk/client-sts" "3.186.0"
+    "@aws-sdk/config-resolver" "3.186.0"
+    "@aws-sdk/credential-provider-node" "3.186.0"
+    "@aws-sdk/fetch-http-handler" "3.186.0"
+    "@aws-sdk/hash-node" "3.186.0"
+    "@aws-sdk/invalid-dependency" "3.186.0"
+    "@aws-sdk/middleware-content-length" "3.186.0"
+    "@aws-sdk/middleware-host-header" "3.186.0"
+    "@aws-sdk/middleware-logger" "3.186.0"
+    "@aws-sdk/middleware-recursion-detection" "3.186.0"
+    "@aws-sdk/middleware-retry" "3.186.0"
+    "@aws-sdk/middleware-serde" "3.186.0"
+    "@aws-sdk/middleware-signing" "3.186.0"
+    "@aws-sdk/middleware-stack" "3.186.0"
+    "@aws-sdk/middleware-user-agent" "3.186.0"
+    "@aws-sdk/node-config-provider" "3.186.0"
+    "@aws-sdk/node-http-handler" "3.186.0"
+    "@aws-sdk/protocol-http" "3.186.0"
+    "@aws-sdk/smithy-client" "3.186.0"
+    "@aws-sdk/types" "3.186.0"
+    "@aws-sdk/url-parser" "3.186.0"
+    "@aws-sdk/util-base64-browser" "3.186.0"
+    "@aws-sdk/util-base64-node" "3.186.0"
+    "@aws-sdk/util-body-length-browser" "3.186.0"
+    "@aws-sdk/util-body-length-node" "3.186.0"
+    "@aws-sdk/util-defaults-mode-browser" "3.186.0"
+    "@aws-sdk/util-defaults-mode-node" "3.186.0"
+    "@aws-sdk/util-user-agent-browser" "3.186.0"
+    "@aws-sdk/util-user-agent-node" "3.186.0"
+    "@aws-sdk/util-utf8-browser" "3.186.0"
+    "@aws-sdk/util-utf8-node" "3.186.0"
+    tslib "^2.3.1"
 
 "@aws-sdk/client-pinpoint@3.6.1":
   version "3.6.1"
@@ -2245,11 +2293,6 @@
   resolved "https://registry.yarnpkg.com/@aws-sdk/types/-/types-3.6.1.tgz#00686db69e998b521fcd4a5f81ef0960980f80c4"
   integrity sha512-4Dx3eRTrUHLxhFdLJL8zdNGzVsJfAxtxPYYGmIddUkO2Gj3WA1TGjdfG4XN/ClI6e1XonCHafQX3UYO/mgnH3g==
 
-"@aws-sdk/types@^1.0.0-alpha.0":
-  version "1.0.0-rc.10"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/types/-/types-1.0.0-rc.10.tgz#729127fbfac5da1a3368ffe6ec2e90acc9ad69c3"
-  integrity sha512-9gwhYnkTNuYZ+etCtM4T8gjpZ0SWSXbzQxY34UjSS+dt3C/UnbX0J22tMahp/9Z1yCa9pihtXrkD+nO2xn7nVQ==
-
 "@aws-sdk/types@^3.1.0", "@aws-sdk/types@^3.110.0":
   version "3.201.0"
   resolved "https://registry.yarnpkg.com/@aws-sdk/types/-/types-3.201.0.tgz#c248106b7a780360d6bca876036e65ca2a4e240d"
@@ -2501,13 +2544,6 @@
   version "3.6.1"
   resolved "https://registry.yarnpkg.com/@aws-sdk/util-utf8-browser/-/util-utf8-browser-3.6.1.tgz#97a8770cae9d29218adc0f32c7798350261377c7"
   integrity sha512-gZPySY6JU5gswnw3nGOEHl3tYE7vPKvtXGYoS2NRabfDKRejFvu+4/nNW6SSpoOxk6LSXsrWB39NO51k+G4PVA==
-  dependencies:
-    tslib "^1.8.0"
-
-"@aws-sdk/util-utf8-browser@^1.0.0-alpha.0":
-  version "1.0.0-rc.8"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/util-utf8-browser/-/util-utf8-browser-1.0.0-rc.8.tgz#bf1f1cfed8c024f43a7c43b643fdf2b4523b5973"
-  integrity sha512-clncPMJ23rxCIkZ9LoUC8SowwZGxWyN2TwRb0XvW/Cv9EavkRgRCOrCpneGyC326lqtMKx36onnpaSRHxErUYw==
   dependencies:
     tslib "^1.8.0"
 
@@ -7196,13 +7232,13 @@ alphanum-sort@^1.0.0:
   resolved "https://registry.yarnpkg.com/alphanum-sort/-/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"
   integrity sha512-0FcBfdcmaumGPQ0qPn7Q5qTgz/ooXgIyp1rf8ik5bGX8mpE2YHjC0P/eyQvxu1GURYQgq9ozf2mteQ5ZD9YiyQ==
 
-amazon-cognito-identity-js@5.2.12:
-  version "5.2.12"
-  resolved "https://registry.yarnpkg.com/amazon-cognito-identity-js/-/amazon-cognito-identity-js-5.2.12.tgz#fd93fd1fc2a2a4f7ed27fbdc84222eb9ed33e729"
-  integrity sha512-YfoH2xNgBOb9fC9wen3u4inMpb2YK+58s0uiTn+C9gdZ1GxdW83Fk+YSWUyp/duaStOU1cGFXXgTHt+5lOAXUg==
+amazon-cognito-identity-js@6.0.1-unstable.6+d98bf4c9a:
+  version "6.0.1-unstable.6"
+  resolved "https://registry.yarnpkg.com/amazon-cognito-identity-js/-/amazon-cognito-identity-js-6.0.1-unstable.6.tgz#5993a00cf8f55ef1217373cbce8e29af49216350"
+  integrity sha512-+itLjjzFTo4jmkr29AevrvMBzv1XxXfczGGg4WRBsW6QWhBUXwMkOXdn9jz0lHss6FAyIx6J3GlMtEC5d3+K0A==
   dependencies:
+    "@aws-crypto/sha256-js" "1.2.2"
     buffer "4.9.2"
-    crypto-js "^4.1.1"
     fast-base64-decode "^1.0.0"
     isomorphic-unfetch "^3.0.0"
     js-cookie "^2.2.1"
@@ -7640,24 +7676,25 @@ available-typed-arrays@^1.0.5:
   resolved "https://registry.yarnpkg.com/available-typed-arrays/-/available-typed-arrays-1.0.5.tgz#92f95616501069d07d10edb2fc37d3e1c65123b7"
   integrity sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==
 
-aws-amplify@latest:
-  version "4.3.42"
-  resolved "https://registry.yarnpkg.com/aws-amplify/-/aws-amplify-4.3.42.tgz#417a079f31d2dd8b1be8d6b5745ec2d8abac8ba4"
-  integrity sha512-yxSq053+CkoI2fLqgcZPvOalvemOxpRAbyb/w3M8ctZzKGRC6EvJHXAWC+gTnJarOfl4BJwDU2+G2Xv9mLHtZw==
+aws-amplify@unstable:
+  version "5.0.1-unstable.6"
+  resolved "https://registry.yarnpkg.com/aws-amplify/-/aws-amplify-5.0.1-unstable.6.tgz#c7f2308325c8a02b6b113d09662d8b30df692402"
+  integrity sha512-zXwIoBl1Tf66O+768sBQNgn8oChl4/+B7iAyeV8CO8lXmzRjTh/8AbyPusOcDidOphoo92zoGaKh/kqCAOIIgw==
   dependencies:
-    "@aws-amplify/analytics" "5.2.27"
-    "@aws-amplify/api" "4.0.60"
-    "@aws-amplify/auth" "4.6.13"
-    "@aws-amplify/cache" "4.0.62"
-    "@aws-amplify/core" "4.7.11"
-    "@aws-amplify/datastore" "3.14.3"
-    "@aws-amplify/geo" "1.3.23"
-    "@aws-amplify/interactions" "4.1.8"
-    "@aws-amplify/predictions" "4.0.60"
-    "@aws-amplify/pubsub" "4.5.10"
-    "@aws-amplify/storage" "4.5.13"
-    "@aws-amplify/ui" "2.0.7"
-    "@aws-amplify/xr" "3.0.60"
+    "@aws-amplify/analytics" "6.0.1-unstable.6+d98bf4c9a"
+    "@aws-amplify/api" "5.0.1-unstable.6+d98bf4c9a"
+    "@aws-amplify/auth" "5.0.1-unstable.6+d98bf4c9a"
+    "@aws-amplify/cache" "5.0.1-unstable.6+d98bf4c9a"
+    "@aws-amplify/core" "5.0.1-unstable.6+d98bf4c9a"
+    "@aws-amplify/datastore" "4.0.1-unstable.6+d98bf4c9a"
+    "@aws-amplify/geo" "2.0.1-unstable.6+d98bf4c9a"
+    "@aws-amplify/interactions" "5.0.1-unstable.6+d98bf4c9a"
+    "@aws-amplify/notifications" "1.0.1-unstable.6+d98bf4c9a"
+    "@aws-amplify/predictions" "5.0.1-unstable.6+d98bf4c9a"
+    "@aws-amplify/pubsub" "5.0.1-unstable.6+d98bf4c9a"
+    "@aws-amplify/storage" "5.0.1-unstable.6+d98bf4c9a"
+    "@aws-amplify/xr" "4.0.1-unstable.6+d98bf4c9a"
+    tslib "^2.0.0"
 
 aws-crt@^1.10.6:
   version "1.14.5"
@@ -9585,7 +9622,7 @@ crypto-browserify@3.12.0, crypto-browserify@^3.11.0:
     randombytes "^2.0.0"
     randomfill "^1.0.3"
 
-crypto-js@^4.0.0, crypto-js@^4.1.1:
+crypto-js@^4.0.0:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/crypto-js/-/crypto-js-4.1.1.tgz#9e485bcf03521041bd85844786b83fb7619736cf"
   integrity sha512-o2JlM7ydqd3Qk9CA0L4NL6mTzU2sdx96a+oOfPu8Mkl/PK51vSyoi8/rQ8NknZtk44vq15lmhAj9CIAGwgeWKw==

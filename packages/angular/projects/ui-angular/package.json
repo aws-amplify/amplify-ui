@@ -15,7 +15,7 @@
     "directory": "packages/angular/projects/ui-angular"
   },
   "peerDependencies": {
-    "aws-amplify": "3.x.x || 4.x.x"
+    "aws-amplify": "3.x.x || 4.x.x || 5.x.x"
   },
   "dependencies": {
     "@aws-amplify/ui-components": "^1.7.0",
