@@ -45,7 +45,7 @@
     "type-fest": "^2.3.4"
   },
   "dependencies": {
-    "@aws-amplify/ui": "4.0.1",
+    "@aws-amplify/ui": "4.1.0",
     "@aws-amplify/ui-react-core": "1.0.5"
   },
   "peerDependencies": {
